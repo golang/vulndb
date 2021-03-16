@@ -1,0 +1,29 @@
+package = "k8s.io/client-go/transport"
+
+description = """
+Authorization tokens may be inappropriately logged if the verbosity
+level is set to a debug level.
+"""
+
+cve = "CVE-2020-8565"
+
+credit = "@sfowl"
+
+symbols = ["requestInfo.toCurl"]
+
+[[versions]]
+fixed = "v0.20.0-alpha.2"
+
+[[additional_packages]]
+package = "k8s.io/kubernetes/staging/src/k8s.io/client-go/transport"
+symbols = ["requestInfo.toCurl"]
+[[additional_packages.versions]]
+fixed = "v1.20.0-alpha.2"
+
+[links]
+commit = "https://github.com/kubernetes/kubernetes/commit/e99df0e5a75eb6e86123b56d53e9b7ca0fd00419"
+pr = "https://github.com/kubernetes/kubernetes/pull/95316"
+context = ["https://github.com/kubernetes/kubernetes/issues/95623"]
+
+# This is a really confusing one to classify becuase of how kubernetes
+# does their vendoring stuff.

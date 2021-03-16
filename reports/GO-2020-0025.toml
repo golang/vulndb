@@ -1,0 +1,22 @@
+package = "github.com/cloudfoundry/archiver"
+
+description = """
+Malicious Zip and Tar archives can be crafted that contain relative
+file paths, such that arbitary files outside of the target directory
+may be overwritten.
+"""
+
+symbols = ["tgzExtractor.Extract", "zipExtractor.Extract"]
+
+[[versions]]
+fixed = "v0.0.0-20180523222229-09b5706aa936"
+
+[[additional_packages]]
+package = "code.cloudfoundry.org/archiver"
+symbols = ["tgzExtractor.Extract", "zipExtractor.Extract"]
+[[versions]]
+fixed = "v0.0.0-20180523222229-09b5706aa936"
+
+[links]
+commit = "https://github.com/cloudfoundry/archiver/commit/09b5706aa9367972c09144a450bb4523049ee840"
+context = ["https://snyk.io/research/zip-slip-vulnerability"]

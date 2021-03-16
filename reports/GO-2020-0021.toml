@@ -1,0 +1,20 @@
+package = "github.com/gogits/gogs"
+
+description = """
+Multiple methods are vulnerable to SQL injection attacks as unsanitized
+user input is used to construct SQL statements.
+"""
+
+cve = "CVE-2014-8681"
+
+credit = "Pascal Turbing and Jiahua (Joe) Chen"
+
+symbols = ["GetIssues", "SearchRepositoryByName", "SearchUserByName"]
+
+[[versions]]
+introduced = "v0.3.1-9-g49dc57e"
+fixed = "v0.5.8"
+
+[links]
+commit = "https://github.com/gogs/gogs/commit/83283bca4cb4e0f4ec48a28af680f0d88db3d2c8"
+context = ["https://seclists.org/fulldisclosure/2014/Nov/31"]

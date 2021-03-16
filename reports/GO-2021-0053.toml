@@ -1,0 +1,14 @@
+package = "github.com/gogo/protobuf"
+
+description = """
+Generated Unmarshal methods do not include proper index bounds validation,
+allowing a maliciously crafted message to cause an out-of-bounds panic.
+"""
+
+cve = "CVE-2021-3121"
+
+[[versions]]
+fixed = "v1.3.2"
+
+[links]
+commit = "https://github.com/gogo/protobuf/commit/b03c65ea87cdc3521ede29f62fe3ce239267c1bc"

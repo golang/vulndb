@@ -1,0 +1,24 @@
+package = "github.com/russellhaering/goxmldsig"
+
+description = """
+An attacker can craft a malformed XML Digital Signature which when
+validated causes a panic due to nil pointer deference.
+"""
+
+cve = "CVE-2020-7711"
+
+credit = "@stevenjohnstone"
+
+symbols = ["ValidationContext.validateSignature"]
+
+[[versions]]
+fixed = "v1.1.0"
+
+[[additional_packages]]
+package = "github.com/russellhaering/gosaml2"
+symbols = ["SAMLServiceProvider.validateAssertionSignatures"]
+[[additional_packages.versions]]
+fixed = "v0.6.0"
+
+[links]
+context = ["https://github.com/russellhaering/goxmldsig/issues/48", "https://github.com/russellhaering/gosaml2/issues/59"]

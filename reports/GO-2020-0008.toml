@@ -1,0 +1,22 @@
+package = "github.com/miekg/dns"
+
+description = """
+DNS message transaction IDs are generated using [`math/rand`] which
+makes them relatively predictable. This reduces the complexity
+of response spoofing attacks against DNS clients.
+"""
+
+cve = "CVE-2019-19794"
+
+symbols = ["id"]
+
+[[versions]]
+fixed = "v1.1.25-0.20191211073109-8ebf2e419df7"
+
+[links]
+pr = "https://github.com/miekg/dns/pull/1044"
+commit = "https://github.com/miekg/dns/commit/8ebf2e419df7857ac8919baa05248789a8ffbf33"
+context = [
+    "https://github.com/miekg/dns/issues/1037",
+    "https://github.com/miekg/dns/issues/1043"
+]

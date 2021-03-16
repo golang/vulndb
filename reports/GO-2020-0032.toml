@@ -1,0 +1,37 @@
+package = "github.com/goadesign/goa"
+
+description = """
+[`Controller.FileHandler`] allows for directory traversal attacks due
+to usage of unsanitized user input.
+"""
+
+credit = "@christi3k"
+
+symbols = ["Controller.FileHandler"]
+
+[[versions]]
+fixed = "v1.4.3"
+
+[[additional_packages]]
+package = "github.com/goadesign/goa/v2"
+symbols = ["Controller.FileHandler"]
+[[additional_packages.versions]]
+fixed = "v2.0.10"
+
+[[additional_packages]]
+package = "github.com/goadesign/goa/v3"
+symbols = ["Controller.FileHandler"]
+[[additional_packages.versions]]
+fixed = "v3.0.9"
+
+[links]
+commit = "https://github.com/goadesign/goa/commit/70b5a199d0f813d74423993832c424e1fc73fb39"
+pr = "https://github.com/goadesign/goa/pull/2388"
+
+[cve_metadata]
+id = "CVE-XXXX-0012"
+description = """
+Improper path santiziation in github.com/goadesign/goa before v3.0.9, v2.0.10, or
+v1.4.3 allow remote attackers to read files outside of the intended directory.
+"""
+cwe = "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"

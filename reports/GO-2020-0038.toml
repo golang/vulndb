@@ -1,0 +1,19 @@
+package = "github.com/pion/dtls"
+
+description = """
+An attacker can craft records that allow the processing of arbitrary
+unencrypted application data at any point after the initial handshake
+is completed.
+"""
+
+cve = "CVE-2019-20786"
+
+symbols = ["Conn.handleIncomingPacket"]
+
+[[versions]]
+fixed = "v1.5.2"
+
+[links]
+commit = "https://github.com/pion/dtls/commit/fd73a5df2ff0e1fb6ae6a51e2777d7a16cc4f4e0"
+pr = "https://github.com/pion/dtls/pull/128"
+context = ["https://www.usenix.org/system/files/sec20fall_fiterau-brostean_prepub.pdf"]

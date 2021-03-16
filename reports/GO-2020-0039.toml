@@ -1,0 +1,26 @@
+package = "github.com/go-macaron/macaron"
+
+description = """
+An attacker can craft a malicious URL which will cause the server
+to redirect a user to a secondary URL.
+"""
+
+cve = "CVE-2020-12666"
+
+credit = "@ev0A"
+
+symbols = ["staticHandler"]
+
+[[versions]]
+fixed = "v1.3.7"
+
+[[additional_packages]]
+package = "gopkg.in/macaron.v1"
+symbols = ["staticHandler"]
+[[additional_packages.versions]]
+fixed = "v1.3.7"
+
+[links]
+commit = "https://github.com/go-macaron/macaron/commit/addc7461c3a90a040e79aa75bfd245107a210245"
+pr = "https://github.com/go-macaron/macaron/pull/199"
+context = ["https://github.com/go-macaron/macaron/issues/198"]

@@ -1,0 +1,30 @@
+package = "k8s.io/apiextensions-apiserver/pkg/apiserver"
+
+description = """
+A maliciously crafted YAML or JSON message can cause resource
+exhaustion.
+"""
+
+cve = "CVE-2019-11253"
+
+symbols = ["NewCustomResourceDefinitionHandler"]
+
+[[versions]]
+fixed = "v0.17.0"
+
+[[additional_packages]]
+package = "k8s.io/kubernetes/staging/src/k8s.io/apiextensions-apiserver/pkg/apiserver"
+symbols = ["NewCustomResourceDefinitionHandler"]
+[[additional_packages.versions]]
+fixed = "v1.17.0-alpha.2"
+
+[links]
+commit = "https://github.com/kubernetes/apiextensions-apiserver/commit/9cfd100448d12f999fbf913ae5d4fef2fcd66871"
+pr = "https://github.com/kubernetes/kubernetes/pull/83261"
+context = [
+    "https://github.com/kubernetes/kubernetes/issues/83253",
+    "https://gist.github.com/bgeesaman/0e0349e94cd22c48bf14d8a9b7d6b8f2"
+]
+
+# This is a really confusing one to classify becuase of how kubernetes
+# does their vendoring stuff.

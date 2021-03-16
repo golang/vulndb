@@ -1,0 +1,17 @@
+package = "github.com/tendermint/tendermint/rpc/client"
+
+description = """
+A malicious server can exploit support for gzip compression to force
+the client to consume significant system resources, leading to crashes. 
+"""
+
+credit = "@guagualvcha"
+
+symbols = ["makeHTTPClient"]
+
+[[versions]]
+fixed = "v0.31.1"
+
+[links]
+commit = "https://github.com/tendermint/tendermint/commit/03085c2da23b179c4a51f59a03cb40aa4e85a613"
+pr = "https://github.com/tendermint/tendermint/pull/3430"

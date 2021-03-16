@@ -1,0 +1,18 @@
+package = "github.com/gorilla/handlers"
+
+description = """
+Usage of the [`CORS`] handler may apply improper CORS headers, allowing
+the requester to explicitly control the value of the Access-Control-Allow-Origin
+header, which bypasses the expected behavior of the Same Origin Policy.
+"""
+
+credit = "Evan J Johnson"
+
+symbols = ["cors.ServeHTTP"]
+
+[[versions]]
+fixed = "v1.3.0"
+
+[links]
+pr = "https://github.com/gorilla/handlers/pull/116"
+commit = "https://github.com/gorilla/handlers/commit/90663712d74cb411cbef281bc1e08c19d1a76145"

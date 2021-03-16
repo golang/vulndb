@@ -1,0 +1,19 @@
+package = "github.com/russellhaering/goxmldsig"
+
+description = """
+An attacker can craft an XML file which will cause signature verification
+to be entirely bypassed.
+"""
+
+cve = "CVE-2020-15216"
+
+credit = "@jupenur"
+
+symbols = ["ValidationContext.findSignature"]
+
+[[versions]]
+fixed = "v1.1.0"
+
+[links]
+commit = "https://github.com/russellhaering/goxmldsig/commit/f6188febf0c29d7ffe26a0436212b19cb9615e64"
+context = ["https://github.com/russellhaering/goxmldsig/security/advisories/GHSA-q547-gmf8-8jr7"]

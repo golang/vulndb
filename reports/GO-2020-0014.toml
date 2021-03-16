@@ -1,0 +1,19 @@
+package = "golang.org/x/net/html"
+
+description = """
+[`html.Parse`] does not properly handle "select" tags, which can lead
+to an infinite loop.
+"""
+cve = "CVE-2018-17846"
+
+credit = "@tr3ee"
+
+symbols = ["inSelectIM", "inSelectInTableIM"]
+
+[[versions]]
+fixed = "v0.0.0-20190125091013-d26f9f9a57f3"
+
+[links]
+pr = "https://go-review.googlesource.com/c/137275"
+commit = "https://github.com/golang/net/commit/d26f9f9a57f3fab6a695bec0d84433c2c50f8bbf"
+context = ["https://github.com/golang/go/issues/27842"]

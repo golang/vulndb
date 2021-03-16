@@ -1,0 +1,23 @@
+package = "gopkg.in/yaml.v2"
+
+description = """
+A maliciously crafted input can cause resource exhaustion due to
+alias chasing.
+"""
+
+credit = "@simonferquel"
+
+symbols = ["decoder.unmarshal"]
+
+[[versions]]
+fixed = "v2.2.3"
+
+[[additional_packages]]
+package = "github.com/go-yaml/yaml"
+symbols = ["decoder.unmarshal"]
+[[additional_packages.versions]]
+fixed = "v2.2.3"
+
+[links]
+commit = "https://github.com/go-yaml/yaml/commit/bb4e33bf68bf89cad44d386192cbed201f35b241"
+pr = "https://github.com/go-yaml/yaml/pull/375"

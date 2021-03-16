@@ -1,0 +1,18 @@
+package = "github.com/proglottis/gpgme"
+
+cve = "CVE-2020-8945"
+
+description = """
+The [`Data`][], [`Context`][], or [`Key`][] finalizers might run during or
+before GPGME operations, releasing the C structures as they are still in use,
+leading to crashes and potentially code execution through a use-after-free.
+"""
+
+credit = "Ulrich Obergfell <uobergfe@redhat.com>"
+
+[[versions]]
+fixed = "v0.1.1"
+
+[links]
+pr = "https://github.com/proglottis/gpgme/pull/23"
+commit = "https://github.com/proglottis/gpgme/commit/92153bcb59bd2f511e502262c46c7bd660e21733"

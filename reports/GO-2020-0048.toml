@@ -1,0 +1,20 @@
+package = "github.com/antchfx/xmlquery"
+
+description = """
+[`LoadURL`] does not check the Content-Type of loaded resources,
+which can cause a panic due to nil pointer deference if the loaded
+resource is not XML.
+"""
+
+cve = "CVE-2020-25614"
+
+credit = "@dwisiswant0"
+
+symbols = ["LoadURL"]
+
+[[versions]]
+fixed = "v1.3.1"
+
+[links]
+commit = "https://github.com/antchfx/xmlquery/commit/5648b2f39e8d5d3fc903c45a4f1274829df71821"
+context = ["https://github.com/antchfx/xmlquery/issues/39"]

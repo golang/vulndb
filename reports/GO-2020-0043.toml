@@ -1,0 +1,26 @@
+package = "github.com/mholt/caddy/caddyhttp/httpserver"
+
+description = """
+Where the server is listening for multiple SNI names an attacker can
+complete a TLS handshake for a host name that does not require TLS
+client authentication and then send HTTP requests for a host name that
+does require TLS client authentication, thereby bypassing those checks.
+"""
+
+cve = "CVE-2018-21246"
+
+symbols = ["httpContext.MakeServers", "Server.serveHTTP", "assertConfigsCompatible"]
+
+[[versions]]
+fixed = "v0.10.13"
+
+[[additional_packages]]
+package = "github.com/mholt/caddy/caddyhttp/httpserver"
+symbols = ["httpContext.MakeServers", "Server.serveHTTP", "assertConfigsCompatible"]
+[[additional_packages.versions]]
+fixed = "v0.10.13"
+
+[links]
+commit = "https://github.com/caddyserver/caddy/commit/4d9ee000c8d2cbcdd8284007c1e0f2da7bc3c7c3"
+pr = "https://github.com/caddyserver/caddy/pull/2099"
+context = ["https://bugs.gentoo.org/715214"]

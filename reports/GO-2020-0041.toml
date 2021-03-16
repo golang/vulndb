@@ -1,0 +1,24 @@
+package = "github.com/unknwon/cae/tz"
+
+description = """
+Malicious Zip and Tar archives can be crafted that contain relative
+file paths, such that arbitary files outside of the target directory
+may be overwritten.
+"""
+
+cve = "CVE-2020-7668"
+
+symbols = ["TzArchive.syncFiles", "TzArchive.ExtractToFunc"]
+
+[[versions]]
+fixed = "v1.0.1"
+
+[[additional_packages]]
+package = "github.com/unknwon/cae/zip"
+symbols = ["ZipArchive.Open", "ZipArchive.ExtractToFunc"]
+[[additional_packages.versions]]
+fixed = "v1.0.1"
+
+[links]
+commit = "https://github.com/unknwon/cae/commit/07971c00a1bfd9dc171c3ad0bfab5b67c2287e11"
+context = ["https://snyk.io/research/zip-slip-vulnerability"]

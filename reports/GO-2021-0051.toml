@@ -1,0 +1,19 @@
+package = "github.com/labstack/echo/v4"
+
+description = """
+On Windows the static route handler does not properly santize the
+request path, allowing for directory traversal.
+"""
+
+credit = "@little-cui (Apache ServiceComb)"
+
+symbols = ["common.static"]
+
+os = ["windows"]
+
+[[versions]]
+fixed = "v4.1.18-0.20201215153152-4422e3b66b9f"
+
+[links]
+commit = "https://github.com/labstack/echo/commit/4422e3b66b9fd498ed1ae1d0242d660d0ed3faaa"
+pr = "https://github.com/labstack/echo/pull/1718"

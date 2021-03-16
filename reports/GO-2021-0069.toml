@@ -1,0 +1,25 @@
+package = "math/big"
+
+stdlib = true
+
+description = """
+A number of math/big.Int methods can panic when provided large inputs due
+to a flawed division method.
+"""
+
+cve = "CVE-2020-28362"
+
+symbols = ["nat.divRecursiveStep"]
+
+[[versions]]
+introduced = "go1.14"
+fixed = "go1.14.12"
+
+[[versions]]
+introduced = "go1.15"
+fixed = "go1.15.5"
+
+[links]
+commit = "https://github.com/golang/go/commit/1e1fa5903b760c6714ba17e50bf850b01f49135c"
+pr = "https://go-review.googlesource.com/c/go/+/269657"
+context = ["https://github.com/golang/go/issues/42552"]

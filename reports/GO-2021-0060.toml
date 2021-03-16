@@ -1,0 +1,19 @@
+package = "github.com/russellhaering/gosaml2"
+
+description = """
+An XML message can be maliciously crafted such that signature
+verification is bypassed.
+"""
+
+cve = "CVE-2020-29509"
+
+credit = "Juho Nurminen"
+
+symbols = ["parseResponse"]
+
+[[versions]]
+fixed = "v0.6.0"
+
+[links]
+commit = "https://github.com/russellhaering/gosaml2/commit/42606dafba60c58c458f14f75c4c230459672ab9"
+context = ["https://github.com/russellhaering/gosaml2/security/advisories/GHSA-xhqq-x44f-9fgg"]

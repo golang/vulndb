@@ -1,0 +1,21 @@
+package = "golang.org/x/crypto/ssh"
+
+description = """
+An attacker can craft an ssh-ed25519 or sk-ssh-ed25519@openssh.com public
+key, such that the library will panic when trying to verify a signature
+with it.
+"""
+
+cve = "CVE-2020-9283"
+
+credit = "Alex Gaynor, Fish in a Barrel"
+
+symbols = ["parseED25519", "ed25519PublicKey.Verify", "parseSKEd25519", "skEd25519PublicKey.Verify", "NewPublicKey"]
+
+[[versions]]
+fixed = "v0.0.0-20200220183623-bac4c82f6975"
+
+[links]
+pr = "https://go-review.googlesource.com/c/crypto/+/220357"
+commit = "https://github.com/golang/crypto/commit/bac4c82f69751a6dd76e702d54b3ceb88adab236"
+context = ["https://groups.google.com/g/golang-announce/c/3L45YRc91SY"]
