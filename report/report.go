@@ -105,7 +105,7 @@ func (vuln *Report) Lint() error {
 		return fmt.Errorf("unknown severity %q", vuln.Severity)
 	}
 
-	if vuln.CVE != "" && vuln.CVEMetadata.ID != "" {
+	if vuln.CVE != "" && vuln.CVEMetadata != nil && vuln.CVEMetadata.ID != "" {
 		// TODO: may just want to use one of these? :shrug:
 		return errors.New("only one of cve and cve_metadata.id should be present")
 	}
