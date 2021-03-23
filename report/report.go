@@ -1,20 +1,12 @@
 package report
 
-import (
-	"errors"
-	"fmt"
-	"regexp"
-
-	"golang.org/x/mod/module"
-	"golang.org/x/mod/semver"
-)
-
 type VersionRange struct {
 	Introduced string
 	Fixed      string
 }
 
 type Report struct {
+	Module  string
 	Package string
 	// TODO: could also be GoToolchain, but we might want
 	// this for other things?
@@ -29,6 +21,7 @@ type Report struct {
 	// additional packages for some cases, but it's too heavy
 	// for most
 	AdditionalPackages []struct {
+		Module   string
 		Package  string
 		Symbols  []string
 		Versions []VersionRange
@@ -51,68 +44,4 @@ type Report struct {
 		CWE         string
 		Description string
 	} `toml:"cve_metadata"`
-}
-
-var cveRegex = regexp.MustCompile(`^CVE-\d{4}-\d{4,}$`)
-
-func (vuln *Report) Lint() error {
-	if vuln.Package == "" {
-		return errors.New("missing package")
-	}
-	if err := module.CheckImportPath(vuln.Package); err != nil {
-		return err
-	}
-
-	for _, additionalPackage := range vuln.AdditionalPackages {
-		if err := module.CheckImportPath(additionalPackage.Package); err != nil {
-			return err
-		}
-	}
-
-	for _, version := range vuln.Versions {
-		if version.Introduced != "" {
-			if !semver.IsValid(version.Introduced) {
-				return fmt.Errorf("bad version.introduced")
-			}
-			if err := module.Check(vuln.Package, version.Introduced); err != nil {
-				return err
-			}
-		}
-		if version.Fixed != "" {
-			if !semver.IsValid(version.Fixed) {
-				return fmt.Errorf("bad version.fixed")
-			}
-			if err := module.Check(vuln.Package, version.Fixed); err != nil {
-				return err
-			}
-		}
-	}
-
-	if vuln.Description == "" {
-		return errors.New("missing description")
-	}
-
-	sevs := map[string]bool{
-		"low":      true,
-		"medium":   true,
-		"high":     true,
-		"critical": true,
-	}
-	// Could also just default to medium if not provided?
-	// Need to document what the default case is and what factors lower
-	// or raise the sev
-	if vuln.Severity != "" && !sevs[vuln.Severity] {
-		return fmt.Errorf("unknown severity %q", vuln.Severity)
-	}
-
-	if vuln.CVE != "" && vuln.CVEMetadata != nil && vuln.CVEMetadata.ID != "" {
-		// TODO: may just want to use one of these? :shrug:
-		return errors.New("only one of cve and cve_metadata.id should be present")
-	}
-
-	if vuln.CVE != "" && !cveRegex.MatchString(vuln.CVE) {
-		return fmt.Errorf("malformed CVE number: %s", vuln.CVE)
-	}
-
-	return nil
 }

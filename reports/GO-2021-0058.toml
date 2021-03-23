@@ -1,4 +1,4 @@
-package = "github.com/crewjam/saml"
+module = "github.com/crewjam/saml"
 
 description = """
 An XML message can be maliciously crafted such that signature
@@ -20,12 +20,14 @@ symbols = [
 fixed = "v0.4.3"
 
 [[additional_packages]]
+module = "github.com/crewjam/saml"
 package = "github.com/crewjam/saml/samlidp"
 smybols = ["getSPMetadata"]
 [[additional_packages.versions]]
 fixed = "v0.4.3"
 
 [[additional_packages]]
+module = "github.com/crewjam/saml"
 package = "github.com/crewjam/saml/samlsp"
 smybols = ["ParseMetadata"]
 [[additional_packages.versions]]

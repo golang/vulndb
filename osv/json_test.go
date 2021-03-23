@@ -10,14 +10,16 @@ import (
 
 func TestGenerate(t *testing.T) {
 	r := report.Report{
-		Package: "example.com/vulnerable/v2",
+		Module: "example.com/vulnerable/v2",
 		AdditionalPackages: []struct {
+			Module   string
 			Package  string
 			Symbols  []string
 			Versions []report.VersionRange
 		}{
 			{
-				Package: "example.com/vulnerable",
+				Module:  "vanity.host/vulnerable",
+				Package: "vanity.host/vulnerable/package",
 				Symbols: []string{"b", "A.b"},
 				Versions: []report.VersionRange{
 					{Fixed: "v2.1.1"},
@@ -93,7 +95,7 @@ func TestGenerate(t *testing.T) {
 
 			ID: "GO-1991-0001",
 			Package: Package{
-				Name:      "example.com/vulnerable",
+				Name:      "vanity.host/vulnerable/package",
 				Ecosystem: "go",
 			},
 			Details:  "It's a real bad one, I'll tell you that",

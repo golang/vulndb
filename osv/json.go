@@ -118,10 +118,14 @@ type Entry struct {
 }
 
 func Generate(id string, url string, r report.Report) []Entry {
+	importPath := r.Module
+	if r.Package != "" {
+		importPath = r.Package
+	}
 	entry := Entry{
 		ID: id,
 		Package: Package{
-			Name:      r.Package,
+			Name:      importPath,
 			Ecosystem: GoEcosystem,
 		},
 		Summary:      "", // TODO: think if we want to populate this in reports
