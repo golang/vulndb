@@ -43,8 +43,14 @@ type Cache interface {
 
 type fsCache struct{}
 
+// NewFsCache returns a fresh filesystem cache.
+// TODO: remove once the cache implementation reaches the go tooling repo.
+func NewFsCache() Cache {
+	return &fsCache{}
+}
+
 // should be cfg.GOMODCACHE when doing this inside the cmd/go/internal
-var cacheRoot = filepath.Join(build.Default.GOPATH, "/pkg/mod/cache/downlaod/vulndb")
+var cacheRoot = filepath.Join(build.Default.GOPATH, "/pkg/mod/cache/download/vulndb")
 
 type cachedIndex struct {
 	Retrieved time.Time
