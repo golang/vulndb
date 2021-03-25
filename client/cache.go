@@ -25,7 +25,7 @@ import (
 // $GOPATH/pkg/mod/cache/download/vulndb/{db hostname}/indexes/index.json
 //   {
 //       Retrieved time.Time
-//       Index map[string]time.Time
+//       Index osv.DBIndex
 //   }
 //
 // Each package also has a JSON file which contains the array of vulnerability
@@ -35,8 +35,8 @@ import (
 //   []*osv.Entry
 
 type Cache interface {
-	ReadIndex(string) (map[string]time.Time, time.Time, error)
-	WriteIndex(string, map[string]time.Time, time.Time) error
+	ReadIndex(string) (osv.DBIndex, time.Time, error)
+	WriteIndex(string, osv.DBIndex, time.Time) error
 	ReadEntries(string, string) ([]*osv.Entry, error)
 	WriteEntries(string, string, []*osv.Entry) error
 }
@@ -54,10 +54,10 @@ var cacheRoot = filepath.Join(build.Default.GOPATH, "/pkg/mod/cache/download/vul
 
 type cachedIndex struct {
 	Retrieved time.Time
-	Index     map[string]time.Time
+	Index     osv.DBIndex
 }
 
-func (c *fsCache) ReadIndex(dbName string) (map[string]time.Time, time.Time, error) {
+func (c *fsCache) ReadIndex(dbName string) (osv.DBIndex, time.Time, error) {
 	b, err := os.ReadFile(filepath.Join(cacheRoot, dbName, "index.json"))
 	if err != nil {
 		if os.IsNotExist(err) {
@@ -72,7 +72,7 @@ func (c *fsCache) ReadIndex(dbName string) (map[string]time.Time, time.Time, err
 	return index.Index, index.Retrieved, nil
 }
 
-func (c *fsCache) WriteIndex(dbName string, index map[string]time.Time, retrieved time.Time) error {
+func (c *fsCache) WriteIndex(dbName string, index osv.DBIndex, retrieved time.Time) error {
 	path := filepath.Join(cacheRoot, dbName)
 	if err := os.MkdirAll(path, 0777); err != nil {
 		return err

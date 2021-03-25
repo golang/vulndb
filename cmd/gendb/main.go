@@ -9,17 +9,11 @@ import (
 	"path/filepath"
 	"reflect"
 	"strings"
-	"time"
 
 	"github.com/BurntSushi/toml"
 	"golang.org/x/vulndb/osv"
 	"golang.org/x/vulndb/report"
 )
-
-type IndexEntry struct {
-	LastModified   time.Time
-	LastNewFinding time.Time
-}
 
 func fail(why string) {
 	fmt.Fprintln(os.Stderr, why)
@@ -77,46 +71,26 @@ func main() {
 		}
 	}
 
-	index := map[string]*IndexEntry{}
-	if content, err := ioutil.ReadFile(filepath.Join(*jsonDir, "index.json")); err == nil {
-		err = json.Unmarshal(content, &index)
-		if err != nil {
-			fail(fmt.Sprintf("failed to parse index: %s", err))
-		}
-	} else if err != nil && !os.IsNotExist(err) {
-		fail(fmt.Sprintf("failed to read index %q: %s", filepath.Join(*jsonDir, "index.json"), err))
-	}
-
-	// TODO(bracewell): I'm pretty sure the freshness stuff is basically
-	// completely broken at the moment.
-	now := time.Now()
-	for path, v := range jsonVulns {
+	index := make(osv.DBIndex, len(jsonVulns))
+	for path, vulns := range jsonVulns {
 		outPath := filepath.Join(*jsonDir, path)
-		content, err := json.Marshal(v)
+		content, err := json.Marshal(vulns)
 		if err != nil {
 			fail(fmt.Sprintf("failed to marshal json: %s", err))
 		}
-		// fmt.Println("making", filepath.Dir(outPath))
 		err = os.MkdirAll(filepath.Dir(outPath), 0700)
 		if err != nil {
 			fail(fmt.Sprintf("failed to create directory %q: %s", filepath.Dir(outPath), err))
 		}
-		// if there is already an index entry, only update the file
-		// if the set of vulns differ from what is already on disk
-		if _, ok := index[path]; ok && matchesCurrent(outPath, v) {
-			// fmt.Println("skipping", outPath)
-			continue
-		}
-		// fmt.Println("writing", outPath, string(content))
 		err = ioutil.WriteFile(outPath+".json", content, 0644)
 		if err != nil {
 			fail(fmt.Sprintf("failed to write %q: %s", outPath+".json", err))
 		}
-		if index[path] == nil {
-			index[path] = &IndexEntry{}
+		for _, v := range vulns {
+			if v.LastModified.After(index[path]) {
+				index[path] = v.LastModified
+			}
 		}
-		index[path].LastModified = now
-		// also need to set the LastNewFinding, somewhat more complicated...
 	}
 
 	indexJSON, err := json.Marshal(index)

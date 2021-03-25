@@ -1,5 +1,7 @@
 package report
 
+import "time"
+
 type VersionRange struct {
 	Introduced string
 	Fixed      string
@@ -26,15 +28,17 @@ type Report struct {
 		Symbols  []string
 		Versions []VersionRange
 	} `toml:"additional_packages"`
-	Versions    []VersionRange
-	Description string
-	Severity    string
-	CVE         string
-	Credit      string
-	Symbols     []string
-	OS          []string
-	Arch        []string
-	Links       struct {
+	Versions     []VersionRange
+	Description  string
+	Published    time.Time
+	LastModified time.Time `toml:"last_modified"`
+	Severity     string
+	CVE          string
+	Credit       string
+	Symbols      []string
+	OS           []string
+	Arch         []string
+	Links        struct {
 		PR      string
 		Commit  string
 		Context []string

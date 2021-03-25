@@ -19,7 +19,7 @@ type dbIndex struct{}
 
 type source interface {
 	Get([]string) ([]*osv.Entry, error)
-	Index() (map[string]time.Time, error)
+	Index() (osv.DBIndex, error)
 }
 
 type localSource struct {
@@ -44,8 +44,8 @@ func (ls *localSource) Get(packages []string) ([]*osv.Entry, error) {
 	return entries, nil
 }
 
-func (ls *localSource) Index() (map[string]time.Time, error) {
-	var index map[string]time.Time
+func (ls *localSource) Index() (osv.DBIndex, error) {
+	var index osv.DBIndex
 	b, err := os.ReadFile(filepath.Join(ls.dir, "index.json"))
 	if err != nil {
 		return nil, err
@@ -63,8 +63,8 @@ type httpSource struct {
 	dbName string
 }
 
-func (hs *httpSource) Index() (map[string]time.Time, error) {
-	var cachedIndex map[string]time.Time
+func (hs *httpSource) Index() (osv.DBIndex, error) {
+	var cachedIndex osv.DBIndex
 	var cachedIndexRetrieved *time.Time
 
 	if hs.cache != nil {
@@ -104,7 +104,7 @@ func (hs *httpSource) Index() (map[string]time.Time, error) {
 	if err != nil {
 		return nil, err
 	}
-	var index map[string]time.Time
+	var index osv.DBIndex
 	if err = json.Unmarshal(b, &index); err != nil {
 		return nil, err
 	}

@@ -7,6 +7,13 @@ import (
 	"golang.org/x/vulndb/report"
 )
 
+// DBIndex contains a mapping of vulnerable packages to the
+// last time a new vulnerability was added to the database.
+// TODO: this is probably not the correct place to put this
+// type, since it's not really an OSV/CVF thing, but rather
+// vulndb implementatiion detail.
+type DBIndex map[string]time.Time
+
 type Severity int
 
 const (
@@ -166,7 +173,11 @@ func Generate(id string, url string, r report.Report) []Entry {
 	// It would be better if this was just a recursive thing probably
 	for _, additional := range r.AdditionalPackages {
 		entryCopy := entry
-		entryCopy.Package.Name = additional.Package
+		additionalImportPath := additional.Module
+		if additional.Package != "" {
+			additionalImportPath = additional.Package
+		}
+		entryCopy.Package.Name = additionalImportPath
 		entryCopy.EcosystemSpecific.Symbols = additional.Symbols
 		entryCopy.Affects = generateAffects(additional.Versions)
 

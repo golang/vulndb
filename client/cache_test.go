@@ -38,7 +38,7 @@ func TestCache(t *testing.T) {
 	}
 
 	now := time.Now()
-	expectedIdx := map[string]time.Time{
+	expectedIdx := osv.DBIndex{
 		"a.vuln.example.com": time.Time{}.Add(time.Hour),
 		"b.vuln.example.com": time.Time{}.Add(time.Hour * 2),
 		"c.vuln.example.com": time.Time{}.Add(time.Hour * 3),
