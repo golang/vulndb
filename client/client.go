@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"path"
 	"path/filepath"
 	"strings"
 	"time"
@@ -57,7 +56,7 @@ func (ls *localSource) Index() (osv.DBIndex, error) {
 }
 
 type httpSource struct {
-	url    string
+	url    string // the base URI of the source (without trailing "/"). e.g. https://vuln.golang.org
 	c      *http.Client
 	cache  Cache
 	dbName string
@@ -82,7 +81,7 @@ func (hs *httpSource) Index() (osv.DBIndex, error) {
 		}
 	}
 
-	req, err := http.NewRequest("GET", path.Join(hs.url, "index.json"), nil)
+	req, err := http.NewRequest("GET", fmt.Sprintf("%s/index.json", hs.url), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -135,10 +134,10 @@ func (hs *httpSource) Get(packages []string) ([]*osv.Entry, error) {
 			}
 			if cached, err := hs.cache.ReadEntries(hs.dbName, p); err != nil {
 				return nil, err
-			} else if cached != nil {
+			} else if len(cached) != 0 {
 				var stale bool
-				for _, e := range entries {
-					if e.LastModified.Before(lastModified) {
+				for _, c := range cached {
+					if c.LastModified.Before(lastModified) {
 						stale = true
 						break
 					}
@@ -155,7 +154,7 @@ func (hs *httpSource) Get(packages []string) ([]*osv.Entry, error) {
 	}
 
 	for _, p := range stillNeed {
-		resp, err := hs.c.Get(path.Join(hs.url, p+".json"))
+		resp, err := hs.c.Get(fmt.Sprintf("%s/%s.json", hs.url, p))
 		if err != nil {
 			return nil, err
 		}
@@ -182,7 +181,7 @@ func (hs *httpSource) Get(packages []string) ([]*osv.Entry, error) {
 			}
 		}
 	}
-	return nil, nil
+	return entries, nil
 }
 
 type Client struct {
@@ -197,9 +196,10 @@ type Options struct {
 func NewClient(sources []string, opts Options) (*Client, error) {
 	c := &Client{}
 	for _, uri := range sources {
+		uri = strings.TrimRight(uri, "/")
 		// should parse the URI out here instead of in there
 		switch {
-		case strings.HasPrefix("http://", uri) || strings.HasPrefix("https://", uri):
+		case strings.HasPrefix(uri, "http://") || strings.HasPrefix(uri, "https://"):
 			hs := &httpSource{url: uri}
 			url, err := url.Parse(uri)
 			if err != nil {
@@ -215,7 +215,7 @@ func NewClient(sources []string, opts Options) (*Client, error) {
 				hs.c = new(http.Client)
 			}
 			c.sources = append(c.sources, hs)
-		case strings.HasPrefix("file://", uri):
+		case strings.HasPrefix(uri, "file://"):
 			url, err := url.Parse(uri)
 			if err != nil {
 				return nil, err

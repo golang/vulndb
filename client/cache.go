@@ -16,7 +16,7 @@ import (
 // it does not implement file locking. When ported to the stdlib it
 // should use cmd/go/internal/lockedfile.
 
-// The cahce uses a single JSON index file for each vulnerability database
+// The cache uses a single JSON index file for each vulnerability database
 // which contains the map from packages to the time the last
 // vulnerability for that package was added/modified and the time that
 // the index was retrieved from the vulnerability database. The JSON
