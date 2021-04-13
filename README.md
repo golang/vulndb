@@ -25,12 +25,7 @@ on in a more segmented fashion.
 * `cmd/linter` provides a tool for linting individual reports
 * `cmd/report2cve` provides a tool for converting TOML reports into JSON CVEs
 
-## Contributing
-
-To report a new *public* vulnerability, [open an
-issue](https://github.com/golang/vulndb/issues/new) or send a PR. Please read
-the [Contribution Guidelines](https://golang.org/doc/contribute.html) before
-sending patches.
+## License
 
 Unless otherwise noted, the Go source files are distributed under
 the BSD-style license found in the LICENSE file.

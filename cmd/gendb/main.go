@@ -1,3 +1,7 @@
+// Copyright 2021 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
 package main
 
 import (
@@ -21,7 +25,7 @@ func fail(why string) {
 }
 
 // TODO: obviously not for the real world
-const dbURL = "https://team.git.corp.google.com/golang/vulndb/+/refs/heads/main/reports/"
+const dbURL = "https://go.googlesource.com/vulndb/+/refs/heads/main/reports/"
 
 func matchesCurrent(path string, new []osv.Entry) bool {
 	var current []osv.Entry
