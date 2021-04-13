@@ -1,0 +1,19 @@
+module = "github.com/facebook/fbthrift"
+package = "github.com/facebook/fbthrift/thrift/lib/go/thrift"
+
+description = """
+Thirft Servers preallocate memory for the declared size of messages before
+checking the actual size of the message. This allows a malicious user to
+send messages that declare that they are significantly larger than they
+actually are, allowing them to force the server to allocate significant
+amounts of memory. This can be used as a denial of service vector.
+"""
+
+cve = "CVE-2019-11939"
+
+[[versions]]
+fixed = "v0.31.1-0.20200311080807-483ed864d69f"
+
+[links]
+commit = "https://github.com/facebook/fbthrift/commit/483ed864d69f307e9e3b9dadec048216100c0757"
+context = ["https://www.facebook.com/security/advisories/cve-2019-11939"]

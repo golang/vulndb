@@ -1,4 +1,5 @@
-module = "github.com/russellhaering/goxmldsig"
+module = "github.com/dexidp/dex"
+package = "github.com/dexidp/dex/connector/saml"
 
 description = """
 An XML message can be maliciously crafted such that signature
@@ -9,11 +10,11 @@ cve = "CVE-2020-15216"
 
 credit = "Juho Nurminen (Mattermost)"
 
-symbols = ["ValidationContext.findSignature"]
+symbols = ["provider.HandlePOST"]
 
 [[versions]]
-fixed = "v1.1.0"
+fixed = "v0.0.0-20201214082111-324b1c886b40"
 
 [links]
 commit = "https://github.com/dexidp/dex/commit/324b1c886b407594196113a3dbddebe38eecd4e8"
-context = ["https://github.com/russellhaering/goxmldsig/security/advisories/GHSA-q547-gmf8-8jr7"]
+context = ["https://github.com/dexidp/dex/security/advisories/GHSA-m9hp-7r99-94h5"]

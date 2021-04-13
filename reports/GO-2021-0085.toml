@@ -1,0 +1,25 @@
+module = "github.com/opencontainers/runc"
+package = "github.com/opencontainers/runc/libcontainer"
+
+description = """
+AppArmor restrictions may be bypassed due to improper validation of mount
+targets, allowing a malicious image to mount volumes over e.g. /proc.
+"""
+
+cve = "CVE-2019-16884"
+
+credit = "Leopold Schabel"
+
+[[versions]]
+fixed = "v1.0.0-rc8.0.20190930145003-cad42f6e0932"
+
+[[additional_packages]]
+module = "github.com/opencontainers/selinux"
+package = "github.com/opencontainers/selinux/go-selinux"
+[[additional_packages.versions]]
+fixed = "v1.3.1-0.20190929122143-5215b1806f52"
+
+[links]
+commit = "https://github.com/opencontainers/runc/commit/cad42f6e0932db0ce08c3a3d9e89e6063ec283e4"
+pr = "https://github.com/opencontainers/runc/pull/2130"
+context = ["https://github.com/opencontainers/runc/issues/2128"]
