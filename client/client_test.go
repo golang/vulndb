@@ -54,9 +54,9 @@ func cachedTestVuln2(dbName string) func() Cache {
 	return func() Cache {
 		c := &fsCache{}
 		e := &osv.Entry{
-			ID:           "ID2",
-			Summary:      "cached",
-			LastModified: time.Now(),
+			ID:       "ID2",
+			Details:  "cached",
+			Modified: time.Now(),
 		}
 		c.WriteEntries(dbName, "golang.org/example/two", []*osv.Entry{e})
 		return c
@@ -138,8 +138,8 @@ func TestClient(t *testing.T) {
 		}
 
 		for _, v := range vulns {
-			if s, ok := test.summaries[v.ID]; !ok || v.Summary != s {
-				t.Errorf("want '%s' summary for vuln with id %v in %s; got '%s'", s, v.ID, test.name, v.Summary)
+			if s, ok := test.summaries[v.ID]; !ok || v.Details != s {
+				t.Errorf("want '%s' summary for vuln with id %v in %s; got '%s'", s, v.ID, test.name, v.Details)
 			}
 		}
 	}

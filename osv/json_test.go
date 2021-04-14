@@ -38,7 +38,6 @@ func TestGenerate(t *testing.T) {
 			{Introduced: "v2.5.0"},
 		},
 		Description: "It's a real bad one, I'll tell you that",
-		Severity:    "medium",
 		CVE:         "CVE-0000-0000",
 		Credit:      "ignored",
 		Symbols:     []string{"A", "B.b"},
@@ -62,8 +61,7 @@ func TestGenerate(t *testing.T) {
 				Name:      "example.com/vulnerable/v2",
 				Ecosystem: "go",
 			},
-			Details:  "It's a real bad one, I'll tell you that",
-			Severity: 2,
+			Details: "It's a real bad one, I'll tell you that",
 			Affects: Affects{
 				Ranges: []AffectsRange{
 					{
@@ -81,18 +79,20 @@ func TestGenerate(t *testing.T) {
 					},
 				},
 			},
-			ReferenceURLs: []string{
-				"pr",
-				"commit",
-				"issue-a",
-				"issue-b",
+			References: []Reference{
+				Reference{Type: "code review", URL: "pr"},
+				Reference{Type: "fix", URL: "commit"},
+				Reference{Type: "misc", URL: "issue-a"},
+				Reference{Type: "misc", URL: "issue-b"},
 			},
 			Aliases: []string{"CVE-0000-0000"},
-			EcosystemSpecific: GoSpecific{
-				Symbols: []string{"A", "B.b"},
-				GOOS:    []string{"windows"},
-				GOARCH:  []string{"arm64"},
-				URL:     "https://vulns.golang.org/GO-1991-0001.html",
+			Extra: struct{ Go GoSpecific }{
+				Go: GoSpecific{
+					Symbols: []string{"A", "B.b"},
+					GOOS:    []string{"windows"},
+					GOARCH:  []string{"arm64"},
+					URL:     "https://vulns.golang.org/GO-1991-0001.html",
+				},
 			},
 		},
 		{
@@ -102,8 +102,7 @@ func TestGenerate(t *testing.T) {
 				Name:      "vanity.host/vulnerable/package",
 				Ecosystem: "go",
 			},
-			Details:  "It's a real bad one, I'll tell you that",
-			Severity: 2,
+			Details: "It's a real bad one, I'll tell you that",
 			Affects: Affects{
 				Ranges: []AffectsRange{
 					{
@@ -121,18 +120,20 @@ func TestGenerate(t *testing.T) {
 					},
 				},
 			},
-			ReferenceURLs: []string{
-				"pr",
-				"commit",
-				"issue-a",
-				"issue-b",
+			References: []Reference{
+				Reference{Type: "code review", URL: "pr"},
+				Reference{Type: "fix", URL: "commit"},
+				Reference{Type: "misc", URL: "issue-a"},
+				Reference{Type: "misc", URL: "issue-b"},
 			},
 			Aliases: []string{"CVE-0000-0000"},
-			EcosystemSpecific: GoSpecific{
-				Symbols: []string{"b", "A.b"},
-				GOOS:    []string{"windows"},
-				GOARCH:  []string{"arm64"},
-				URL:     "https://vulns.golang.org/GO-1991-0001.html",
+			Extra: struct{ Go GoSpecific }{
+				Go: GoSpecific{
+					Symbols: []string{"b", "A.b"},
+					GOOS:    []string{"windows"},
+					GOARCH:  []string{"arm64"},
+					URL:     "https://vulns.golang.org/GO-1991-0001.html",
+				},
 			},
 		},
 	}

@@ -35,8 +35,8 @@ type Report struct {
 	Versions     []VersionRange
 	Description  string
 	Published    time.Time
-	LastModified time.Time `toml:"last_modified"`
-	Severity     string
+	LastModified *time.Time `toml:"last_modified"`
+	Withdrawn    *time.Time
 	CVE          string
 	Credit       string
 	Symbols      []string

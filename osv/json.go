@@ -18,28 +18,10 @@ import (
 // vulndb implementatiion detail.
 type DBIndex map[string]time.Time
 
-type Severity int
+type AffectsRangeType int
 
 const (
-	SevNone Severity = iota
-	SevLow
-	SevMedium
-	SevHigh
-	SevCritical
-)
-
-var strToSev = map[string]Severity{
-	// "": SevNone,
-	"low":      SevLow,
-	"medium":   SevMedium,
-	"high":     SevHigh,
-	"critical": SevCritical,
-}
-
-type Type int
-
-const (
-	TypeUnspecified Type = iota
+	TypeUnspecified AffectsRangeType = iota
 	TypeGit
 	TypeSemver
 )
@@ -54,7 +36,7 @@ type Package struct {
 }
 
 type AffectsRange struct {
-	Type       Type
+	Type       AffectsRangeType
 	Introduced string
 	Fixed      string
 }
@@ -113,19 +95,26 @@ type GoSpecific struct {
 	URL     string
 }
 
+type Reference struct {
+	Type string
+	URL  string
+}
+
 // Entry represents a OSV style JSON vulnerability database
 // entry
 type Entry struct {
-	ID                string
-	Package           Package
-	Summary           string
-	Details           string
-	Severity          Severity
-	Affects           Affects
-	ReferenceURLs     []string   `json:"reference_urls,omitempty"`
-	Aliases           []string   `json:",omitempty"`
-	EcosystemSpecific GoSpecific `json:"ecosystem_specific,omitempty"`
-	LastModified      time.Time  `json:"last_modified"`
+	ID         string
+	Published  time.Time
+	Modified   time.Time
+	Withdrawn  *time.Time
+	Aliases    []string `json:",omitempty"`
+	Package    Package
+	Details    string
+	Affects    Affects
+	References []Reference `json:",omitempty"`
+	Extra      struct {
+		Go GoSpecific
+	}
 }
 
 func Generate(id string, url string, r report.Report) []Entry {
@@ -133,39 +122,39 @@ func Generate(id string, url string, r report.Report) []Entry {
 	if r.Package != "" {
 		importPath = r.Package
 	}
+	lastModified := r.Published
+	if r.LastModified != nil {
+		lastModified = *r.LastModified
+	}
 	entry := Entry{
-		ID: id,
+		ID:        id,
+		Published: r.Published,
+		Modified:  lastModified,
+		Withdrawn: r.Withdrawn,
 		Package: Package{
 			Name:      importPath,
 			Ecosystem: GoEcosystem,
 		},
-		Summary:      "", // TODO: think if we want to populate this in reports
-		Details:      r.Description,
-		Affects:      generateAffects(r.Versions),
-		LastModified: time.Now(),
-		EcosystemSpecific: GoSpecific{
-			Symbols: r.Symbols,
-			GOOS:    r.OS,
-			GOARCH:  r.Arch,
-			URL:     url,
+		Details: r.Description,
+		Affects: generateAffects(r.Versions),
+		Extra: struct{ Go GoSpecific }{
+			Go: GoSpecific{
+				Symbols: r.Symbols,
+				GOOS:    r.OS,
+				GOARCH:  r.Arch,
+				URL:     url,
+			},
 		},
 	}
 
-	if r.Severity != "" {
-		entry.Severity = strToSev[r.Severity]
-	} else {
-		// Default to medium or none?
-		entry.Severity = SevMedium
-	}
-
 	if r.Links.PR != "" {
-		entry.ReferenceURLs = append(entry.ReferenceURLs, r.Links.PR)
+		entry.References = append(entry.References, Reference{Type: "code review", URL: r.Links.PR})
 	}
 	if r.Links.Commit != "" {
-		entry.ReferenceURLs = append(entry.ReferenceURLs, r.Links.Commit)
+		entry.References = append(entry.References, Reference{Type: "fix", URL: r.Links.Commit})
 	}
-	if r.Links.Context != nil {
-		entry.ReferenceURLs = append(entry.ReferenceURLs, r.Links.Context...)
+	for _, link := range r.Links.Context {
+		entry.References = append(entry.References, Reference{Type: "misc", URL: link})
 	}
 
 	if r.CVE != "" {
@@ -174,7 +163,7 @@ func Generate(id string, url string, r report.Report) []Entry {
 
 	entries := []Entry{entry}
 
-	// It would be better if this was just a recursive thing probably
+	// It would be better if this was just a recursive thing maybe?
 	for _, additional := range r.AdditionalPackages {
 		entryCopy := entry
 		additionalImportPath := additional.Module
@@ -182,7 +171,7 @@ func Generate(id string, url string, r report.Report) []Entry {
 			additionalImportPath = additional.Package
 		}
 		entryCopy.Package.Name = additionalImportPath
-		entryCopy.EcosystemSpecific.Symbols = additional.Symbols
+		entryCopy.Extra.Go.Symbols = additional.Symbols
 		entryCopy.Affects = generateAffects(additional.Versions)
 
 		entries = append(entries, entryCopy)

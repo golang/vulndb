@@ -141,7 +141,7 @@ func (hs *httpSource) Get(packages []string) ([]*osv.Entry, error) {
 			} else if len(cached) != 0 {
 				var stale bool
 				for _, c := range cached {
-					if c.LastModified.Before(lastModified) {
+					if c.Modified.Before(lastModified) {
 						stale = true
 						break
 					}

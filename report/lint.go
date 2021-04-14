@@ -126,6 +126,11 @@ func checkModVersions(path string, vr []VersionRange) error {
 
 var cveRegex = regexp.MustCompile(`^CVE-\d{4}-\d{4,}$`)
 
+// Lint checks the content of a Report.
+// TODO: instead of returning a single error we may want to return a slice, so that
+// we aren't fixing one thing at a time. Similarly it might make sense to include
+// warnings or informational things alongside errors, especially during for use
+// during the triage process.
 func (vuln *Report) Lint() error {
 	var importPath string
 	if !vuln.Stdlib {
@@ -184,17 +189,12 @@ func (vuln *Report) Lint() error {
 		return errors.New("missing description")
 	}
 
-	sevs := map[string]bool{
-		"low":      true,
-		"medium":   true,
-		"high":     true,
-		"critical": true,
+	if vuln.Published.IsZero() {
+		return errors.New("missing published")
 	}
-	// Could also just default to medium if not provided?
-	// Need to document what the default case is and what factors lower
-	// or raise the sev
-	if vuln.Severity != "" && !sevs[vuln.Severity] {
-		return fmt.Errorf("unknown severity %q", vuln.Severity)
+
+	if vuln.LastModified != nil && vuln.LastModified.Before(vuln.Published) {
+		return errors.New("last_modified is before published")
 	}
 
 	if vuln.CVE != "" && vuln.CVEMetadata != nil && vuln.CVEMetadata.ID != "" {
@@ -203,7 +203,16 @@ func (vuln *Report) Lint() error {
 	}
 
 	if vuln.CVE != "" && !cveRegex.MatchString(vuln.CVE) {
-		return fmt.Errorf("malformed CVE number: %s", vuln.CVE)
+		return fmt.Errorf("malformed cve: %s", vuln.CVE)
+	}
+
+	if vuln.CVEMetadata != nil {
+		if vuln.CVEMetadata.ID == "" {
+			return errors.New("cve_metadata.id is required")
+		}
+		if !cveRegex.MatchString(vuln.CVEMetadata.ID) {
+			return fmt.Errorf("malformed cve_metadata.id: %s", vuln.CVEMetadata.ID)
+		}
 	}
 
 	return nil

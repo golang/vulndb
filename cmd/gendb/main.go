@@ -91,8 +91,8 @@ func main() {
 			fail(fmt.Sprintf("failed to write %q: %s", outPath+".json", err))
 		}
 		for _, v := range vulns {
-			if v.LastModified.After(index[path]) {
-				index[path] = v.LastModified
+			if v.Modified.After(index[path]) {
+				index[path] = v.Modified
 			}
 		}
 	}
