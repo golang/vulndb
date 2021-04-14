@@ -1,0 +1,19 @@
+module: github.com/tendermint/tendermint
+package: github.com/tendermint/tendermint/types
+versions:
+- introduced: v0.33.0
+  fixed: v0.34.0-dev1.0.20200702134149-480b995a3172
+description: |
+  Proposed commits may contain signatures for blocks not contained within the commit. Instead of skipping
+  these signatures, they cause failure during verification. A malicious proposer can use this to force
+  consensus failures.
+published: 2021-04-14T12:00:00Z
+cve: CVE-2020-15091
+credit: Neeraj Murarka
+symbols:
+- VoteSet.MakeCommit
+links:
+  pr: https://github.com/tendermint/tendermint/pull/5426
+  commit: https://github.com/tendermint/tendermint/commit/480b995a31727593f58b361af979054d17d84340
+  context:
+  - https://github.com/tendermint/tendermint/issues/4926

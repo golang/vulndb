@@ -10,8 +10,7 @@ import (
 	"os"
 
 	"golang.org/x/vulndb/report"
-
-	"github.com/BurntSushi/toml"
+	"gopkg.in/yaml.v2"
 )
 
 func main() {
@@ -27,7 +26,7 @@ func main() {
 	}
 
 	var vuln report.Report
-	err = toml.Unmarshal(content, &vuln)
+	err = yaml.Unmarshal(content, &vuln)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "unable to parse %q: %s\n", os.Args[1], err)
 		os.Exit(1)

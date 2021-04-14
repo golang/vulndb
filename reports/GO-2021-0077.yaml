@@ -1,0 +1,16 @@
+module: go.etcd.io/etcd
+package: go.etcd.io/etcd/auth
+versions:
+- fixed: v0.5.0-alpha.5.0.20190108173120-83c051b701d3
+description: |
+  A user can use a valid client certificate that contains a CommonName that matches a
+  valid RBAC username to authenticate themselves as that user, despite lacking the
+  required credentials. This may allow authentication bypass, but requires a certificate
+  that is issued by a CA trusted by the server.
+published: 2021-04-14T12:00:00Z
+cve: CVE-2018-16886
+symbols:
+- authStore.AuthInfoFromTLS
+links:
+  pr: https://github.com/etcd-io/etcd/pull/10366
+  commit: https://github.com/etcd-io/etcd/commit/bf9d0d8291dc71ecbfb2690612954e1a298154b2

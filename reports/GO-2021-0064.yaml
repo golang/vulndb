@@ -1,0 +1,24 @@
+module: k8s.io/client-go
+package: k8s.io/client-go/transport
+additional_packages:
+- module: k8s.io/kubernetes
+  package: k8s.io/kubernetes/staging/src/k8s.io/client-go/transport
+  symbols:
+  - requestInfo.toCurl
+  versions:
+  - fixed: v1.20.0-alpha.2
+versions:
+- fixed: v0.20.0-alpha.2
+description: |
+  Authorization tokens may be inappropriately logged if the verbosity
+  level is set to a debug level.
+published: 2021-04-14T12:00:00Z
+cve: CVE-2020-8565
+credit: '@sfowl'
+symbols:
+- requestInfo.toCurl
+links:
+  pr: https://github.com/kubernetes/kubernetes/pull/95316
+  commit: https://github.com/kubernetes/kubernetes/commit/e99df0e5a75eb6e86123b56d53e9b7ca0fd00419
+  context:
+  - https://github.com/kubernetes/kubernetes/issues/95623

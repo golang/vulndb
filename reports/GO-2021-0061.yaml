@@ -1,0 +1,17 @@
+module: gopkg.in/yaml.v2
+additional_packages:
+# all of the incompatible versions of github.com/go-yaml/yaml
+# are affected
+- module: github.com/go-yaml/yaml
+versions:
+- fixed: v2.2.3
+description: |
+  A maliciously crafted input can cause resource exhaustion due to
+  alias chasing.
+published: 2021-04-14T12:00:00Z
+credit: '@simonferquel'
+symbols:
+- decoder.unmarshal
+links:
+  pr: https://github.com/go-yaml/yaml/pull/375
+  commit: https://github.com/go-yaml/yaml/commit/bb4e33bf68bf89cad44d386192cbed201f35b241

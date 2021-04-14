@@ -1,0 +1,27 @@
+module: github.com/nanobox-io/golang-nanoauth
+versions:
+- introduced: v0.0.0-20160722212129-ac0cc4484ad4
+  fixed: v0.0.0-20200131131040-063a3fb69896
+description: |
+  If any of the `ListenAndServe` functions are called with an empty token,
+  token authentication is disabled globally for all listeners.
+
+  Also, a minor timing side channel was present allowing attackers with
+  very low latency and able to make a lot of requests to potentially
+  recover the token.
+published: 2021-04-14T12:00:00Z
+credit: '@bouk'
+symbols:
+- Auth.ServerHTTP
+- Auth.ListenAndServeTLS
+- Auth.ListenAndServe
+links:
+  pr: https://github.com/nanobox-io/golang-nanoauth/pull/5
+  commit: https://github.com/nanobox-io/golang-nanoauth/commit/063a3fb69896acf985759f0fe3851f15973993f3
+cve_metadata:
+  id: CVE-9999-0003
+  cwe: 'CWE-305: Authentication Bypass by Primary Weakness'
+  description: |
+    Authentication is globally bypassed in github.com/nanobox-io/golang-nanoauth between
+    v0.0.0-20160722212129-ac0cc4484ad4 and v0.0.0-20200131131040-063a3fb69896 if ListenAndServe
+    is called with an empty token.

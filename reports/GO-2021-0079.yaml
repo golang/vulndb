@@ -1,0 +1,17 @@
+module: github.com/bytom/bytom
+package: github.com/bytom/bytom/p2p/discover
+versions:
+- fixed: v1.0.4-0.20180831054840-1ac3c8ac4f2b
+description: |
+  A malformed query can cause an out-of-bounds panic due to improper
+  validation of arguments. If processing queries from untrusted
+  parties, this may be used as a vector for denial of service
+  attacks.
+published: 2021-04-14T12:00:00Z
+cve: CVE-2018-18206
+credit: '@yahtoo'
+symbols:
+- Network.checkTopicRegister
+links:
+  pr: https://github.com/Bytom/bytom/pull/1307
+  commit: https://github.com/Bytom/bytom/commit/1ac3c8ac4f2b1e1df9675228290bda6b9586ba42

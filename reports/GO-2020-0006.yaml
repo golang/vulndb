@@ -1,0 +1,15 @@
+module: github.com/miekg/dns
+versions:
+- fixed: v1.0.4-0.20180125103619-43913f2f4fbd
+description: |
+  An attacker may prevent TCP connections to a [`Server`][] by opening
+  a connection and leaving it idle, until the connection is closed by
+  the server no other connections will be accepted.
+published: 2021-04-14T12:00:00Z
+cve: CVE-2017-15133
+credit: Pedro Sampaio
+symbols:
+- Server.serveTCP
+links:
+  pr: https://github.com/miekg/dns/pull/631
+  commit: https://github.com/miekg/dns/commit/43913f2f4fbd7dcff930b8a809e709591e4dd79e

@@ -14,9 +14,9 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/BurntSushi/toml"
 	"golang.org/x/vulndb/osv"
 	"golang.org/x/vulndb/report"
+	"gopkg.in/yaml.v2"
 )
 
 func fail(why string) {
@@ -52,7 +52,7 @@ func main() {
 
 	jsonVulns := map[string][]osv.Entry{}
 	for _, f := range tomlFiles {
-		if !strings.HasSuffix(f.Name(), ".toml") {
+		if !strings.HasSuffix(f.Name(), ".yaml") {
 			continue
 		}
 		content, err := ioutil.ReadFile(filepath.Join(*tomlDir, f.Name()))
@@ -60,7 +60,7 @@ func main() {
 			fail(fmt.Sprintf("can't read %q: %s", f.Name(), err))
 		}
 		var vuln report.Report
-		err = toml.Unmarshal(content, &vuln)
+		err = yaml.Unmarshal(content, &vuln)
 		if err != nil {
 			fail(fmt.Sprintf("unable to unmarshal %q: %s", f.Name(), err))
 		}

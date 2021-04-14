@@ -1,0 +1,21 @@
+module: github.com/dhowden/tag
+versions:
+- fixed: v0.0.0-20201120070457-d52dcb253c63
+description: |
+  Due to improper bounds checking a number of methods can trigger a panic due to attempted
+  out-of-bounds reads. If the package is used to parse user supplied input this may be
+  used as a vector for a denial of service attack.
+published: 2021-04-14T12:00:00Z
+cve: CVE-2020-29242
+credit: '@Jayl1n'
+symbols:
+- readPICFrame
+- readAPICFrame
+- readTextWithDescrFrame
+- readAtomData
+links:
+  commit: https://github.com/dhowden/tag/commit/d52dcb253c63a153632bfee5f269dd411dcd8e96
+  context:
+  - https://github.com/dhowden/tag/commit/a92213460e4838490ce3066ef11dc823cdc1740e
+  - https://github.com/dhowden/tag/commit/4b595ed4fac79f467594aa92f8953f90f817116e
+  - https://github.com/dhowden/tag/commit/6b18201aa5c5535511802ddfb4e4117686b4866d

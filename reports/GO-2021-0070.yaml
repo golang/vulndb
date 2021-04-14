@@ -1,0 +1,21 @@
+module: github.com/opencontainers/runc
+package: github.com/opencontainers/runc/libcontainer/user
+versions:
+- fixed: v0.1.0
+description: |
+  GetExecUser in the github.com/opencontainers/runc/libcontainer/user package will
+  improperly interpred numeric UIDs as usernames. If the method is used without
+  verify usernames are formatted as expected, it may allow a user to gain unexpected
+  privileges.
+published: 2021-04-14T12:00:00Z
+cve: CVE-2016-3697
+symbols:
+- GetExecUser
+links:
+  pr: https://github.com/opencontainers/runc/pull/708
+  commit: https://github.com/opencontainers/runc/commit/69af385de62ea68e2e608335cffbb0f4aa3db091
+  context:
+  - https://github.com/docker/docker/issues/21436
+  - http://rhn.redhat.com/errata/RHSA-2016-1034.html
+  - http://rhn.redhat.com/errata/RHSA-2016-2634.html
+  - https://security.gentoo.org/glsa/201612-28

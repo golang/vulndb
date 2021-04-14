@@ -11,8 +11,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/BurntSushi/toml"
 	"golang.org/x/vulndb/report"
+	"gopkg.in/yaml.v2"
 )
 
 // Affects
@@ -224,7 +224,7 @@ func main() {
 	}
 
 	var r report.Report
-	if err = toml.Unmarshal(b, &r); err != nil {
+	if err = yaml.Unmarshal(b, &r); err != nil {
 		fmt.Fprintf(os.Stderr, "failed to parse %q: %s\n", reportPath, err)
 		os.Exit(1)
 	}

@@ -1,0 +1,25 @@
+module: github.com/unknwon/cae
+package: github.com/unknwon/cae/tz
+additional_packages:
+- module: github.com/unknwon/cae
+  package: github.com/unknwon/cae/zip
+  symbols:
+  - ZipArchive.Open
+  - ZipArchive.ExtractToFunc
+  versions:
+  - fixed: v1.0.1
+versions:
+- fixed: v1.0.1
+description: |
+  Malicious Zip and Tar archives can be crafted that contain relative
+  file paths, such that arbitary files outside of the target directory
+  may be overwritten.
+published: 2021-04-14T12:00:00Z
+cve: CVE-2020-7668
+symbols:
+- TzArchive.syncFiles
+- TzArchive.ExtractToFunc
+links:
+  commit: https://github.com/unknwon/cae/commit/07971c00a1bfd9dc171c3ad0bfab5b67c2287e11
+  context:
+  - https://snyk.io/research/zip-slip-vulnerability

@@ -1,0 +1,20 @@
+module: github.com/gin-gonic/gin
+versions:
+- fixed: v1.6.0
+description: |
+  The default [`Formatter`][LoggerConfig.Formatter] for the [`Logger`][] middleware
+  (included in the [`Default`][] engine) allows attackers to inject arbitrary log
+  entries by manipulating the request path.
+published: 2021-04-14T12:00:00Z
+credit: '@thinkerou <thinkerou@gmail.com>'
+symbols:
+- defaultLogFormatter
+links:
+  pr: https://github.com/gin-gonic/gin/pull/2237
+  commit: https://github.com/gin-gonic/gin/commit/a71af9c144f9579f6dbe945341c1df37aaf09c0d
+cve_metadata:
+  id: CVE-9999-0001
+  cwe: 'CWE-20: Improper Input Validation'
+  description: |
+    Unsanitized input in the default logger in github.com/gin-gonic/gin before v1.6.0
+    allows remote attackers to inject arbitary log lines.

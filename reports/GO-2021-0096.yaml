@@ -1,0 +1,12 @@
+module: github.com/proglottis/gpgme
+versions:
+- fixed: v0.1.1
+description: |
+  Due to improper setting of finalizers, memory passed to C may be freed before it is used,
+  leading to crashes due to memory corruption or possible code execution.
+published: 2021-04-14T12:00:00Z
+cve: CVE-2020-8945
+credit: Ulrich Obergfell
+links:
+  pr: https://github.com/proglottis/gpgme/pull/23
+  commit: https://github.com/proglottis/gpgme/commit/92153bcb59bd2f511e502262c46c7bd660e21733

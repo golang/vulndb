@@ -1,0 +1,19 @@
+module: gopkg.in/yaml.v2
+additional_packages:
+# all of the incompatible versions of github.com/go-yaml/yaml
+# are affected
+- module: github.com/go-yaml/yaml
+versions:
+- fixed: v2.2.8
+description: |
+  An attacker can craft malicious YAML which will consume significant
+  system resources when Unmarshalled.
+published: 2021-04-14T12:00:00Z
+cve: CVE-2019-11254
+symbols:
+- yaml_parser_fetch_more_tokens
+links:
+  pr: https://github.com/go-yaml/yaml/pull/555
+  commit: https://github.com/go-yaml/yaml/commit/53403b58ad1b561927d19068c655246f2db79d48
+  context:
+  - https://bugs.chromium.org/p/oss-fuzz/issues/detail?id=18496

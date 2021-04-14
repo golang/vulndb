@@ -1,0 +1,18 @@
+module: github.com/lxc/lxd
+package: github.com/lxc/lxd/shared
+versions:
+- fixed: v0.0.0-20151004155856-19c6961cc101
+description: |
+  A race between chown and chmod operations during a container filesystem shift
+  may allow a user who can modify the filesystem to chmod an arbitary path of
+  their choice, rather than the expected path.
+published: 2021-04-14T12:00:00Z
+cve: CVE-2015-1340
+credit: Seth Arnold
+symbols:
+- IdmapSet.doUidshiftIntoContainer
+links:
+  pr: https://github.com/lxc/lxd/pull/1189
+  commit: https://github.com/lxc/lxd/commit/19c6961cc1012c8a529f20807328a9357f5034f4
+  context:
+  - https://bugs.launchpad.net/ubuntu/+source/lxd/+bug/1502270

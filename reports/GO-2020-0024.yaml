@@ -1,0 +1,21 @@
+module: github.com/btcsuite/go-socks
+package: github.com/btcsuite/go-socks/socks
+additional_packages:
+- module: github.com/btcsuitereleases/go-socks
+  package: github.com/btcsuitereleases/go-socks/socks
+  symbols:
+  - proxiedConn.LocalAddr
+  - proxiedConn.RemoteAddr
+  versions:
+  - fixed: v0.0.0-20130808000456-233bccbb1abe
+versions:
+- fixed: v0.0.0-20130808000456-233bccbb1abe
+description: |
+  The RemoteAddr and LocalAddr methods on the returned net.Conn may
+  call themselves, leading to an infinite loop.
+published: 2021-04-14T12:00:00Z
+symbols:
+- proxiedConn.LocalAddr
+- proxiedConn.RemoteAddr
+links:
+  commit: https://github.com/btcsuite/go-socks/commit/233bccbb1abe02f05750f7ace66f5bffdb13defc

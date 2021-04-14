@@ -1,0 +1,25 @@
+module: github.com/docker/distribution
+package: github.com/docker/distribution/registry/handlers
+additional_packages:
+- module: github.com/docker/distribution
+  package: github.com/docker/distribution/registry/storage
+  symbols:
+  - blobStore.Get
+  versions:
+  - fixed: v2.7.0-rc.0+incompatible
+versions:
+- fixed: v2.7.0-rc.0+incompatible
+description: |
+  Various storage methods do not impose limits on how much content is accepted
+  from user requests, allowing a malicious user to force the caller to allocate
+  an arbitary amount of memory.
+published: 2021-04-14T12:00:00Z
+cve: CVE-2017-11468
+symbols:
+- copyFullPayload
+links:
+  pr: https://github.com/distribution/distribution/pull/2340
+  commit: https://github.com/distribution/distribution/commit/91c507a39abfce14b5c8541cf284330e22208c0f
+  context:
+  - https://access.redhat.com/errata/RHSA-2017:2603
+  - http://lists.opensuse.org/opensuse-security-announce/2020-09/msg00047.html

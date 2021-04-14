@@ -1,0 +1,16 @@
+module: github.com/dexidp/dex
+package: github.com/dexidp/dex/connector/saml
+versions:
+- fixed: v0.0.0-20201214082111-324b1c886b40
+description: |
+  An XML message can be maliciously crafted such that signature
+  verification is bypassed.
+published: 2021-04-14T12:00:00Z
+cve: CVE-2020-15216
+credit: Juho Nurminen (Mattermost)
+symbols:
+- provider.HandlePOST
+links:
+  commit: https://github.com/dexidp/dex/commit/324b1c886b407594196113a3dbddebe38eecd4e8
+  context:
+  - https://github.com/dexidp/dex/security/advisories/GHSA-m9hp-7r99-94h5

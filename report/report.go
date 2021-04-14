@@ -7,49 +7,49 @@ package report
 import "time"
 
 type VersionRange struct {
-	Introduced string
-	Fixed      string
+	Introduced string `yaml:",omitempty"`
+	Fixed      string `yaml:",omitempty"`
 }
 
 type Report struct {
-	Module  string
-	Package string
+	Module  string `yaml:",omitempty"`
+	Package string `yaml:",omitempty"`
 	// TODO: could also be GoToolchain, but we might want
 	// this for other things?
 	//
 	// could we also automate this by just looking for
 	// things prefixed with cmd/go?
-	DoNotExport bool `json:"do_not_export"`
+	DoNotExport bool `yaml:"do_not_export,omitempty"`
 	// TODO: how does this interact with Versions etc?
-	Stdlib bool `json:"stdlib"`
+	Stdlib bool `yaml:",omitempty"`
 	// TODO: the most common usage of additional package should
 	// really be replaced with 'aliases', we'll still need
 	// additional packages for some cases, but it's too heavy
 	// for most
 	AdditionalPackages []struct {
-		Module   string
-		Package  string
-		Symbols  []string
-		Versions []VersionRange
-	} `toml:"additional_packages"`
-	Versions     []VersionRange
-	Description  string
-	Published    time.Time
-	LastModified *time.Time `toml:"last_modified"`
-	Withdrawn    *time.Time
-	CVE          string
-	Credit       string
-	Symbols      []string
-	OS           []string
-	Arch         []string
+		Module   string         `yaml:",omitempty"`
+		Package  string         `yaml:",omitempty"`
+		Symbols  []string       `yaml:",omitempty"`
+		Versions []VersionRange `yaml:",omitempty"`
+	} `yaml:"additional_packages,omitempty"`
+	Versions     []VersionRange `yaml:",omitempty"`
+	Description  string         `yaml:",omitempty"`
+	Published    time.Time      `yaml:",omitempty"`
+	LastModified *time.Time     `yaml:"last_modified,omitempty"`
+	Withdrawn    *time.Time     `yaml:",omitempty"`
+	CVE          string         `yaml:",omitempty"`
+	Credit       string         `yaml:",omitempty"`
+	Symbols      []string       `yaml:",omitempty"`
+	OS           []string       `yaml:",omitempty"`
+	Arch         []string       `yaml:",omitempty"`
 	Links        struct {
-		PR      string
-		Commit  string
-		Context []string
-	}
+		PR      string   `yaml:",omitempty"`
+		Commit  string   `yaml:",omitempty"`
+		Context []string `yaml:",omitempty"`
+	} `yaml:",omitempty"`
 	CVEMetadata *struct {
-		ID          string
-		CWE         string
-		Description string
-	} `toml:"cve_metadata"`
+		ID          string `yaml:",omitempty"`
+		CWE         string `yaml:",omitempty"`
+		Description string `yaml:",omitempty"`
+	} `yaml:"cve_metadata,omitempty"`
 }

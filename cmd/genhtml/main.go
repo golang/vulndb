@@ -14,8 +14,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/BurntSushi/toml"
 	"golang.org/x/vulndb/report"
+	"gopkg.in/yaml.v2"
 )
 
 var indexTemplate = template.Must(template.New("index").Parse(`<html>
@@ -194,7 +194,7 @@ func main() {
 			fail(fmt.Sprintf("can't read %q: %s", f.Name(), err))
 		}
 		var vuln report.Report
-		err = toml.Unmarshal(content, &vuln)
+		err = yaml.Unmarshal(content, &vuln)
 		if err != nil {
 			fail(fmt.Sprintf("unable to unmarshal %q: %s", f.Name(), err))
 		}

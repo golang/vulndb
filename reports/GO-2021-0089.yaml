@@ -1,0 +1,17 @@
+module: github.com/buger/jsonparser
+versions:
+- fixed: v0.0.0-20200321185410-91ac96899e49
+description: |
+  Parsing malformed JSON which contain opening brackets, but not closing brackes,
+  leads to an infinite loop. If operating on untrusted user input this can be
+  used as a denial of service vector.
+published: 2021-04-14T12:00:00Z
+cve: CVE-2020-10675
+credit: Cong Wang
+symbols:
+- findKeyStart
+links:
+  pr: https://github.com/buger/jsonparser/pull/192
+  commit: https://github.com/buger/jsonparser/commit/91ac96899e492584984ded0c8f9a08f10b473717
+  context:
+  - https://github.com/buger/jsonparser/issues/188

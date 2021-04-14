@@ -1,0 +1,19 @@
+module: github.com/opencontainers/runc
+package: github.com/opencontainers/runc/libcontainer
+versions:
+- fixed: v1.0.0-rc9.0.20200122160610-2fc03cc11c77
+description: |+
+  A race while mounting volumes allows a possible symlink-exchange
+  attack, allowing a user whom can start multiple containers with
+  custom volume mount configurations to escape the container.
+
+published: 2021-04-14T12:00:00Z
+cve: CVE-2019-19921
+credit: Leopold Schabel
+symbols:
+- mountToRootfs
+links:
+  pr: https://github.com/opencontainers/runc/pull/2207
+  commit: https://github.com/opencontainers/runc/commit/2fc03cc11c775b7a8b2e48d7ee447cb9bef32ad0
+  context:
+  - https://github.com/opencontainers/runc/issues/2197

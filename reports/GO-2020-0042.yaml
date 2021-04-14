@@ -1,0 +1,16 @@
+module: github.com/sassoftware/go-rpmutils
+package: github.com/sassoftware/go-rpmutils/cpio
+versions:
+- fixed: v0.1.0
+description: |
+  Malicious RPM archives can be crafted that contain relative
+  file paths, such that arbitary files outside of the target directory
+  may be overwritten.
+published: 2021-04-14T12:00:00Z
+cve: CVE-2020-7667
+symbols:
+- Extract
+links:
+  commit: https://github.com/sassoftware/go-rpmutils/commit/a64058cf21b8aada501bba923c9aab66fb6febf0
+  context:
+  - https://snyk.io/research/zip-slip-vulnerability

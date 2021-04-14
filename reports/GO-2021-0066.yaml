@@ -1,0 +1,18 @@
+module: k8s.io/kubernetes
+package: k8s.io/kubernetes/pkg/credentialprovider
+versions:
+- fixed: v1.20.0-alpha.1
+description: |
+  Attempting to read a malformed .dockercfg may cause secrets to be
+  inappropriately logged.
+published: 2021-04-14T12:00:00Z
+cve: CVE-2020-8564
+credit: '@sfowl'
+symbols:
+- readDockerConfigFileFromBytes
+- readDockerConfigJSONFileFromBytes
+links:
+  pr: https://github.com/kubernetes/kubernetes/pull/94712
+  commit: https://github.com/kubernetes/kubernetes/commit/11793434dac97a49bfed0150b56ac63e5dc34634
+  context:
+  - https://github.com/kubernetes/kubernetes/issues/95622

@@ -1,0 +1,15 @@
+module: github.com/ethereum/go-ethereum
+package: github.com/ethereum/go-ethereum/les
+versions:
+- fixed: v1.9.25
+description: |
+  A maliciously crafted RPC message can cause a panic due
+  to a nil pointer dereference.
+published: 2021-04-14T12:00:00Z
+cve: CVE-2020-26264
+credit: '@zsfelfoldi'
+symbols:
+- serverHandler.handleMsg
+links:
+  pr: https://github.com/ethereum/go-ethereum/pull/21896
+  commit: https://github.com/ethereum/go-ethereum/commit/bddd103a9f0af27ef533f04e06ea429cf76b6d46
