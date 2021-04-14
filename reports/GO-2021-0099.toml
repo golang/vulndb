@@ -1,0 +1,21 @@
+module = "github.com/deislabs/oras"
+package = "github.com/deislabs/oras/pkg/content"
+
+description = """
+Due to improper path validation, using the github.com/deislabs/oras/pkg/content.FileStore
+content store may result in directory traversal during archive extraction, allowing a
+malicious archive to write paths to arbitary paths that the process can write to.
+"""
+
+cve = "CVE-2021-21272"
+
+credit = "Chris Smowton"
+
+symbols = ["extractTarDirectory"]
+
+[[versions]]
+fixed = "v0.9.0"
+
+[links]
+commit = "https://github.com/deislabs/oras/commit/96cd90423303f1bb42bd043cb4c36085e6e91e8e"
+context = ["https://github.com/deislabs/oras/security/advisories/GHSA-g5v4-5x39-vwhx"]
