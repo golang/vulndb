@@ -6,9 +6,21 @@ Read [the Draft Design](https://golang.org/design/draft-vulndb).
 Neither the code, nor the data, nor the existence of this repository is to be
 considered stable until an approved proposal.
 
-**Important**: vulnerability entries in this repository are represented in an
-internal, unstable format that can and will change without notice. The database
-will also be available in an interoperable, stable JSON format soon.
+**Important: vulnerability entries in this repository are represented in an
+internal, unstable format that can and will change without notice.**
+
+## Consuming database entries
+
+Database clients must not rely on the contents of this repository. Instead, they
+can access the tree of JSON entries rooted at
+
+https://storage.googleapis.com/go-vulndb/
+
+An `index.json` file maps package names to last modified timestamps. For each
+package name, a `NAME.json` file contains a list of vulnerability entries.
+
+Note that this path and format are provisional and likely to change until an
+approved proposal.
 
 ## Packages
 
@@ -30,5 +42,6 @@ on in a more segmented fashion.
 Unless otherwise noted, the Go source files are distributed under
 the BSD-style license found in the LICENSE file.
 
-The database contents in `reports/` are distributed under the terms of the
+Database entries available at https://storage.googleapis.com/go-vulndb/ are
+distributed under the terms of the
 [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
