@@ -1,14 +1,15 @@
 module: github.com/artdarek/go-unzip
 versions:
-- fixed: v1.0.0
+  - fixed: v1.0.0
 description: |
-  Malicious Zip archives can be crafted that contain relative file paths,
-  such that arbitary files outside of the target directory may be overwritten.
+  Due to improper path santization, archives containing relative file
+  paths can cause files to be written (or overwritten) outside of the
+  target directory.
 published: 2021-04-14T12:00:00Z
 symbols:
-- Unzip.Extract
+  - Unzip.Extract
 links:
   pr: https://github.com/artdarek/go-unzip/pull/2
   commit: https://github.com/artdarek/go-unzip/commit/4975cbe0a719dc50b12da8585f1f207c82f7dfe0
   context:
-  - https://snyk.io/research/zip-slip-vulnerability
+    - https://snyk.io/research/zip-slip-vulnerability

@@ -1,15 +1,16 @@
 module: github.com/russellhaering/gosaml2
 versions:
-- fixed: v0.6.0
+  - fixed: v0.6.0
 description: |
-  An XML message can be maliciously crafted such that signature
-  verification is bypassed.
+  Due to the behavior of encoding/xml, a crafted XML document may cause
+  XML Digital Signature validation to be entirely bypassed, causing an
+  unsigned document to appear signed.
 published: 2021-04-14T12:00:00Z
 cve: CVE-2020-29509
 credit: Juho Nurminen
 symbols:
-- parseResponse
+  - parseResponse
 links:
   commit: https://github.com/russellhaering/gosaml2/commit/42606dafba60c58c458f14f75c4c230459672ab9
   context:
-  - https://github.com/russellhaering/gosaml2/security/advisories/GHSA-xhqq-x44f-9fgg
+    - https://github.com/russellhaering/gosaml2/security/advisories/GHSA-xhqq-x44f-9fgg

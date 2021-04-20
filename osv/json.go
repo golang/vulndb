@@ -51,7 +51,7 @@ func (ar AffectsRange) containsSemver(v string) bool {
 }
 
 type Affects struct {
-	Ranges []AffectsRange
+	Ranges []AffectsRange `json:",omitempty"`
 }
 
 func generateAffects(versions []report.VersionRange) Affects {
@@ -106,8 +106,8 @@ type Entry struct {
 	ID         string
 	Published  time.Time
 	Modified   time.Time
-	Withdrawn  *time.Time
-	Aliases    []string `json:",omitempty"`
+	Withdrawn  *time.Time `json:",omitempty"`
+	Aliases    []string   `json:",omitempty"`
 	Package    Package
 	Details    string
 	Affects    Affects

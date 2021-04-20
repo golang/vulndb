@@ -1,31 +1,33 @@
 module: github.com/goadesign/goa
 additional_packages:
-- module: goa.design/goa
-  symbols:
-  - Controller.FileHandler
-  versions:
-  - fixed: v1.4.3
-- module: goa.design/goa/v3
-  symbols:
-  - Controller.FileHandler
-  versions:
-  - fixed: v3.0.9
+  - module: goa.design/goa
+    symbols:
+      - Controller.FileHandler
+    versions:
+      - fixed: v1.4.3
+  - module: goa.design/goa/v3
+    symbols:
+      - Controller.FileHandler
+    versions:
+      - fixed: v3.0.9
 versions:
-- fixed: v1.4.3
+  - fixed: v1.4.3
 description: |
-  [`Controller.FileHandler`] allows for directory traversal attacks due
-  to usage of unsanitized user input.
+  Due to improper santization of user input, Controller.FileHandler allows
+  for directory traversal, allowing an attacker to read files outside of
+  the target directory that the server has permission to read.
 published: 2021-04-14T12:00:00Z
-credit: '@christi3k'
+credit: "@christi3k"
 symbols:
-- Controller.FileHandler
+  - Controller.FileHandler
 links:
   pr: https://github.com/goadesign/goa/pull/2388
   commit: https://github.com/goadesign/goa/commit/70b5a199d0f813d74423993832c424e1fc73fb39
 cve_metadata:
   id: CVE-9999-0012
-  cwe: 'CWE-22: Improper Limitation of a Pathname to a Restricted Directory (''Path
-    Traversal'')'
+  cwe:
+    "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
+    Traversal')"
   description: |
     Improper path santiziation in github.com/goadesign/goa before v3.0.9, v2.0.10, or
     v1.4.3 allow remote attackers to read files outside of the intended directory.

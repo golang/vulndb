@@ -1,18 +1,19 @@
 module: golang.org/x/net
 package: golang.org/x/net/html
 versions:
-- fixed: v0.0.0-20190125091013-d26f9f9a57f3
+  - fixed: v0.0.0-20190125091013-d26f9f9a57f3
 description: |
   [`html.Parse`] does not properly handle "select" tags, which can lead
-  to an infinite loop.
+  to an infinite loop. If parsing user supplied input, this may be used
+  as a denial of service vector.
 published: 2021-04-14T12:00:00Z
 cve: CVE-2018-17846
-credit: '@tr3ee'
+credit: "@tr3ee"
 symbols:
-- inSelectIM
-- inSelectInTableIM
+  - inSelectIM
+  - inSelectInTableIM
 links:
   pr: https://go-review.googlesource.com/c/137275
   commit: https://github.com/golang/net/commit/d26f9f9a57f3fab6a695bec0d84433c2c50f8bbf
   context:
-  - https://github.com/golang/go/issues/27842
+    - https://github.com/golang/go/issues/27842

@@ -1,13 +1,15 @@
 module: github.com/justinas/nosurf
 versions:
-- fixed: v1.1.1
+  - fixed: v1.1.1
 description: |
-  [`VerifyToken`] can be bypassed if the expected token contains malformed Base64.
+  Due to improper validation of caller input, validation is silently disabled
+  if the provided expected token is malformed, causing any user supplied token
+  to be considered valid.
 published: 2021-04-14T12:00:00Z
-credit: '@aeneasr'
+credit: "@aeneasr"
 symbols:
-- VerifyToken
-- verifyToken
+  - VerifyToken
+  - verifyToken
 links:
   pr: https://github.com/justinas/nosurf/pull/60
   commit: https://github.com/justinas/nosurf/commit/4d86df7a4affa1fa50ab39fb09aac56c3ce9c314

@@ -1,23 +1,23 @@
 module: github.com/dgrijalva/jwt-go
 additional_packages:
-- module: github.com/dgrijalva/jwt-go/v4
-  symbols:
-  - MapClaims.VerifyAudience
-  versions:
-  - fixed: v4.0.0-preview1
+  - module: github.com/dgrijalva/jwt-go/v4
+    symbols:
+      - MapClaims.VerifyAudience
+    versions:
+      - fixed: v4.0.0-preview1
 versions:
-- introduced: v0.0.0-20150717181359-44718f8a89b0
+  - introduced: v0.0.0-20150717181359-44718f8a89b0
 description: |
   If a JWT contains an audience claim with an array of strings, rather
   than a single string, and `MapClaims.VerifyAudience` is called with
-  `req` set to `false` then audience verification will be bypassed,
+  `req` set to `false`, then audience verification will be bypassed,
   allowing an invalid set of audiences to be provided.
 published: 2021-04-14T12:00:00Z
 cve: CVE-2020-26160
-credit: '@christopher-wong'
+credit: "@christopher-wong"
 symbols:
-- MapClaims.VerifyAudience
+  - MapClaims.VerifyAudience
 links:
   commit: https://github.com/dgrijalva/jwt-go/commit/ec0a89a131e3e8567adcb21254a5cd20a70ea4ab
   context:
-  - https://github.com/dgrijalva/jwt-go/issues/422
+    - https://github.com/dgrijalva/jwt-go/issues/422

@@ -1,18 +1,18 @@
 module: github.com/satori/go.uuid
 versions:
-- fixed: v1.2.1-0.20181016170032-d91630c85102
+  - fixed: v1.2.1-0.20181016170032-d91630c85102
 description: |
   UUIDs generated using [`NewV1`] and [`NewV4`] may not read the expected
   number of random bytes. These UUIDs may contain a significantly smaller
   amount of entropy than expected, possibly leading to collisions.
 published: 2021-04-14T12:00:00Z
-credit: '@josselin-c'
+credit: "@josselin-c"
 symbols:
-- NewV4
-- rfc4122Generator.getClockSequence
-- rfc4122Generator.getHardwareAddr
+  - NewV4
+  - rfc4122Generator.getClockSequence
+  - rfc4122Generator.getHardwareAddr
 links:
   pr: https://github.com/satori/go.uuid/pull/75
   commit: https://github.com/satori/go.uuid/commit/d91630c8510268e75203009fe7daf2b8e1d60c45
   context:
-  - https://github.com/satori/go.uuid/issues/73
+    - https://github.com/satori/go.uuid/issues/73

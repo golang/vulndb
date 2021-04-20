@@ -1,16 +1,16 @@
 module: github.com/ethereum/go-ethereum
 package: github.com/ethereum/go-ethereum/les
 versions:
-- fixed: v1.8.11
+  - fixed: v1.8.11
 description: |
   Due to improper argument validation in RPC messages, a maliciously crafted
   message can cause a panic, leading to denial of service.
 published: 2021-04-14T12:00:00Z
 cve: CVE-2018-12018
 symbols:
-- protocolManager.handleMsg
+  - protocolManager.handleMsg
 links:
   pr: https://github.com/ethereum/go-ethereum/pull/16891
   commit: https://github.com/ethereum/go-ethereum/commit/a5237a27eaf81946a3edb4fafe13ed6359d119e4
   context:
-  - https://peckshield.com/2018/06/27/EPoD/
+    - https://peckshield.com/2018/06/27/EPoD/

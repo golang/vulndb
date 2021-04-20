@@ -1,16 +1,17 @@
 module: github.com/pion/dtls
 versions:
-- fixed: v1.5.2
+  - fixed: v1.5.2
 description: |
-  An attacker can craft records that allow the processing of arbitrary
-  unencrypted application data at any point after the initial handshake
-  is completed.
+  Due to improper verification of packets, unencrypted packets containing
+  application data are accepted after the initial handshake. This allows
+  an attacker to inject arbitary data which the client/server believes
+  was encrypted, despite not knowing the session key.
 published: 2021-04-14T12:00:00Z
 cve: CVE-2019-20786
 symbols:
-- Conn.handleIncomingPacket
+  - Conn.handleIncomingPacket
 links:
   pr: https://github.com/pion/dtls/pull/128
   commit: https://github.com/pion/dtls/commit/fd73a5df2ff0e1fb6ae6a51e2777d7a16cc4f4e0
   context:
-  - https://www.usenix.org/system/files/sec20fall_fiterau-brostean_prepub.pdf
+    - https://www.usenix.org/system/files/sec20fall_fiterau-brostean_prepub.pdf

@@ -1,15 +1,16 @@
 module: github.com/miekg/dns
 versions:
-- fixed: v1.0.10
+  - fixed: v1.0.10
 description: |
-  An attacker can craft a malicious DNS zone file which will cause
-  [`ParseZone`] to panic due to a nil pointer dereference.
+  Due to a nil pointer dereference, parsing a malformed zone file
+  containing TA records may cause a panic. If parsing user supplied
+  input, this may be used as a denial of service vector.
 published: 2021-04-14T12:00:00Z
 cve: CVE-2018-17419
-credit: '@tr3ee'
+credit: "@tr3ee"
 symbols:
-- setTA
+  - setTA
 links:
   commit: https://github.com/miekg/dns/commit/501e858f679edecd4a38a86317ce50271014a80d
   context:
-  - https://github.com/miekg/dns/issues/742
+    - https://github.com/miekg/dns/issues/742

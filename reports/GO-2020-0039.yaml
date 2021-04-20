@@ -1,16 +1,17 @@
 module: gopkg.in/macaron.v1
 versions:
-- fixed: v1.3.7
+  - fixed: v1.3.7
 description: |
-  An attacker can craft a malicious URL which will cause the server
-  to redirect a user to a secondary URL.
+  Due to improper request santization, a specifically crafted URL
+  can cause the static file handler to redirect to an attacker chosen
+  URL, allowing for open redirect attacks.
 published: 2021-04-14T12:00:00Z
 cve: CVE-2020-12666
-credit: '@ev0A'
+credit: "@ev0A"
 symbols:
-- staticHandler
+  - staticHandler
 links:
   pr: https://github.com/go-macaron/macaron/pull/199
   commit: https://github.com/go-macaron/macaron/commit/addc7461c3a90a040e79aa75bfd245107a210245
   context:
-  - https://github.com/go-macaron/macaron/issues/198
+    - https://github.com/go-macaron/macaron/issues/198

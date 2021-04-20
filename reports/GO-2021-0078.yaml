@@ -1,7 +1,7 @@
 module: golang.org/x/net
 package: golang.org/x/net/html
 versions:
-- fixed: v0.0.0-20180816102801-aaf60122140d
+  - fixed: v0.0.0-20180816102801-aaf60122140d
 description: |
   The HTML parser does not properly handle "in frameset" insertion mode, and can be made
   to panic when operating on malformed HTML that contains <template> tags. If operating
@@ -10,12 +10,12 @@ published: 2021-04-14T12:00:00Z
 cve: CVE-2018-17075
 credit: Kunpei Sakai
 symbols:
-- inBodyIM
-- inFramesetIM
+  - inBodyIM
+  - inFramesetIM
 links:
   pr: https://go-review.googlesource.com/123776
   commit: https://github.com/golang/net/commit/aaf60122140d3fcf75376d319f0554393160eb50
   context:
-  - https://github.com/golang/go/issues/27016
-  - https://bugs.chromium.org/p/chromium/issues/detail?id=829668
-  - https://go-review.googlesource.com/c/net/+/94838/9/html/parse.go#1906
+    - https://github.com/golang/go/issues/27016
+    - https://bugs.chromium.org/p/chromium/issues/detail?id=829668
+    - https://go-review.googlesource.com/c/net/+/94838/9/html/parse.go#1906

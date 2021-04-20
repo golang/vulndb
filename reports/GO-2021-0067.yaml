@@ -1,17 +1,19 @@
 package: archive/zip
 stdlib: true
 versions:
-- introduced: go1.16
-  fixed: go1.16.1
+  - introduced: go1.16
+    fixed: go1.16.1
 description: |
   Using Reader.Open on an archive containing a file with a path
   prefixed by "../" will cause a panic due to a stack overflow.
+  If parsing user supplied archives, this may be used as a
+  denial of service vector.
 published: 2021-04-14T12:00:00Z
 cve: CVE-2021-27919
 symbols:
-- toValidName
+  - toValidName
 links:
   pr: https://go-review.googlesource.com/c/go/+/300489
   commit: https://github.com/golang/go/commit/cd3b4ca9f20fd14187ed4cdfdee1a02ea87e5cd8
   context:
-  - https://github.com/golang/go/issues/44916
+    - https://github.com/golang/go/issues/44916

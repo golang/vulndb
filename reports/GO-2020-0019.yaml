@@ -1,17 +1,17 @@
 module: github.com/gorilla/websocket
 versions:
-- fixed: v1.4.1
+  - fixed: v1.4.1
 description: |
   An attacker can craft malicious WebSocket frames that cause an integer
   overflow in a variable which tracks the number of bytes remaining. This
-  can cause the server or client to get stuck attempting to read frames
-  in a loop.
+  may cause the server or client to get stuck attempting to read frames
+  in a loop, which can be used as a denial of service vector.
 published: 2021-04-14T12:00:00Z
 cve: CVE-2020-27813
 credit: Max Justicz
 symbols:
-- Conn.advanceFrame
-- messageReader.Read
+  - Conn.advanceFrame
+  - messageReader.Read
 links:
   pr: https://github.com/gorilla/websocket/pull/537
   commit: https://github.com/gorilla/websocket/commit/5b740c29263eb386f33f265561c8262522f19d37

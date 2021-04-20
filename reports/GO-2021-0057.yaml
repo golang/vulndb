@@ -1,15 +1,17 @@
 module: github.com/buger/jsonparser
 versions:
-- fixed: v1.1.1
+  - fixed: v1.1.1
 description: |
-  Malicious input can cause an out-of-bounds panic.
+  Due to improper bounds checking, maliciously crafted JSON objects
+  can cause an out-of-bounds panic. If parsing user input, this may
+  be used as a denial of service vector.
 published: 2021-04-14T12:00:00Z
 cve: CVE-2020-35381
-credit: '@toptotu'
+credit: "@toptotu"
 symbols:
-- searchKeys
+  - searchKeys
 links:
   pr: https://github.com/buger/jsonparser/pull/221
   commit: https://github.com/buger/jsonparser/commit/df3ea76ece10095374fd1c9a22a4fb85a44efc42
   context:
-  - https://github.com/buger/jsonparser/issues/219
+    - https://github.com/buger/jsonparser/issues/219

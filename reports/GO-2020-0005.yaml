@@ -1,7 +1,7 @@
 module: go.etcd.io/etcd
 package: go.etcd.io/etcd/wal
 versions:
-- fixed: v0.5.0-alpha.5.0.20200423152442-f4b650b51dc4
+  - fixed: v0.5.0-alpha.5.0.20200423152442-f4b650b51dc4
 description: |
   Malformed WALs can be constructed such that [`WAL.ReadAll`][] can cause attempted
   out of bounds reads, or creation of arbitarily sized slices, which may be used as
@@ -10,10 +10,10 @@ published: 2021-04-14T12:00:00Z
 cve: CVE-2020-15106
 credit: Trail of Bits
 symbols:
-- WAL.ReadAll
-- decoder.decodeRecord
+  - WAL.ReadAll
+  - decoder.decodeRecord
 links:
   pr: https://github.com/etcd-io/etcd/pull/11793
   commit: https://github.com/etcd-io/etcd/commit/f4b650b51dc4a53a8700700dc12e1242ac56ba07
   context:
-  - https://github.com/etcd-io/etcd/blob/master/security/SECURITY_AUDIT.pdf
+    - https://github.com/etcd-io/etcd/blob/master/security/SECURITY_AUDIT.pdf

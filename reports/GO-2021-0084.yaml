@@ -1,18 +1,18 @@
 module: github.com/astaxie/beego
 package: github.com/astaxie/beego/session
 versions:
-- fixed: v1.12.2-0.20200613154013-bac2b31afecc
+  - fixed: v1.12.2-0.20200613154013-bac2b31afecc
 description: |
   Session data is stored using permissive permissions, allowing local users
   with filesystem access to read arbitary data.
 published: 2021-04-14T12:00:00Z
 cve: CVE-2019-16354
-credit: '@nicowaisman'
+credit: "@nicowaisman"
 symbols:
-- FileProvider.SessionRead
-- FileProvider.SessionRegenerate
+  - FileProvider.SessionRead
+  - FileProvider.SessionRegenerate
 links:
   pr: https://github.com/beego/beego/pull/3975
   commit: https://github.com/beego/beego/commit/bac2b31afecc65d9a89f9e473b8006c5edc0c8d1
   context:
-  - https://github.com/beego/beego/issues/3763
+    - https://github.com/beego/beego/issues/3763

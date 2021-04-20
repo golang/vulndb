@@ -1,7 +1,7 @@
 module: github.com/deislabs/oras
 package: github.com/deislabs/oras/pkg/content
 versions:
-- fixed: v0.9.0
+  - fixed: v0.9.0
 description: |
   Due to improper path validation, using the github.com/deislabs/oras/pkg/content.FileStore
   content store may result in directory traversal during archive extraction, allowing a
@@ -10,8 +10,8 @@ published: 2021-04-14T12:00:00Z
 cve: CVE-2021-21272
 credit: Chris Smowton
 symbols:
-- extractTarDirectory
+  - extractTarDirectory
 links:
   commit: https://github.com/deislabs/oras/commit/96cd90423303f1bb42bd043cb4c36085e6e91e8e
   context:
-  - https://github.com/deislabs/oras/security/advisories/GHSA-g5v4-5x39-vwhx
+    - https://github.com/deislabs/oras/security/advisories/GHSA-g5v4-5x39-vwhx

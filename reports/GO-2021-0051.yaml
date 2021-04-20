@@ -1,15 +1,16 @@
 module: github.com/labstack/echo/v4
 versions:
-- fixed: v4.1.18-0.20201215153152-4422e3b66b9f
+  - fixed: v4.1.18-0.20201215153152-4422e3b66b9f
 description: |
-  On Windows the static route handler does not properly santize the
-  request path, allowing for directory traversal.
+  Due to improper santization of user input on Windows, the static file handler
+  allows for directory traversal, allowing an attacker to read files outside of
+  the target directory that the server has permission to read.
 published: 2021-04-14T12:00:00Z
-credit: '@little-cui (Apache ServiceComb)'
+credit: "@little-cui (Apache ServiceComb)"
 symbols:
-- common.static
+  - common.static
 os:
-- windows
+  - windows
 links:
   pr: https://github.com/labstack/echo/pull/1718
   commit: https://github.com/labstack/echo/commit/4422e3b66b9fd498ed1ae1d0242d660d0ed3faaa

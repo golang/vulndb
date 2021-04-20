@@ -1,13 +1,13 @@
 module: github.com/RobotsAndPencils/go-saml
 description: |
   XML Digital Signatures generated and validated using this package use
-  SHA-1, as such an attacker may be able to craft input which cause
-  hash collisions.
+  SHA-1, which may allow an attacker to craft inputs which cause hash
+  collisions depending on their control over the input.
 published: 2021-04-14T12:00:00Z
 symbols:
-- AuthnRequest.Validate
-- NewAuthnRequest
-- NewSignedResponse
+  - AuthnRequest.Validate
+  - NewAuthnRequest
+  - NewSignedResponse
 links:
   context:
-  - https://github.com/RobotsAndPencils/go-saml/pull/38
+    - https://github.com/RobotsAndPencils/go-saml/pull/38

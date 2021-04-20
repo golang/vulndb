@@ -1,12 +1,12 @@
 module: github.com/proglottis/gpgme
 versions:
-- fixed: v0.1.1
+  - fixed: v0.1.1
 description: |
-  The C bindings for the GPGME contain a number of use-after-free issues
-  which may lead to memory corruption and possible code execution.
+  Due to improper setting of finalizers, memory passed to C may be freed before it is used,
+  leading to crashes due to memory corruption or possible code execution.
 published: 2021-04-14T12:00:00Z
 cve: CVE-2020-8945
 links:
   commit: https://github.com/proglottis/gpgme/commit/92153bcb59bd2f511e502262c46c7bd660e21733
   context:
-  - https://bugzilla.redhat.com/show_bug.cgi?id=1795838
+    - https://bugzilla.redhat.com/show_bug.cgi?id=1795838

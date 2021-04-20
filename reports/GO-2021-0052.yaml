@@ -1,13 +1,17 @@
 module: github.com/gin-gonic/gin
 description: |
-  When used without an internet facing proxy, an adversary can spoof
-  their IP address by setting the X-Forwarded-For header.
+  Due to improper HTTP header santization, a malicious user can spoof their
+  source IP address by setting the X-Forwarded-For header. This may allow
+  a user to bypass IP based restrictions, or obfuscate their true source.
 published: 2021-04-14T12:00:00Z
 cve: CVE-2020-28483
-credit: '@sorenh'
+credit: "@sorenh"
 symbols:
-- Context.ClientIP
+  - Context.ClientIP
+verions:
+  - fixed: v1.6.3-0.20210406033725-bfc8ca285eb4
 links:
+  commit: https://github.com/gin-gonic/gin/commit/bfc8ca285eb46dad60e037d57c545cd260636711
   pr: https://github.com/gin-gonic/gin/pull/2632
   context:
-  - https://github.com/gin-gonic/gin/pull/2474
+    - https://github.com/gin-gonic/gin/pull/2474
