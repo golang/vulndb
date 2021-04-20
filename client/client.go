@@ -2,6 +2,34 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+// Package client provides an interface for accessing vulnerability
+// databases, via either HTTP or local filesystem access.
+//
+// The expected database layout is the same for both HTTP and local
+// databases. The database  index is located at the root of the
+// database, and contains a list of all of the vulnerable packages
+// documented in the databse and the time the most recent vulnerability
+// was added. The index file is called indx.json, and has the
+// following format:
+//
+//   map[string]time.Time (osv.DBIndex)
+//
+// Each vulnerable package is represented by an individual JSON file
+// which contains all of the vulnerabilities in that package. The path
+// for each package file is simply the import path of the package,
+// i.e. vulnerabilities in golang.org/x/crypto/ssh are contained in the
+// golang.org/x/crypto/ssh.json file. The per-package JSON files have
+// the following format:
+//
+//   []osv.Entry
+//
+// A single client.Client can be used to access multiple vulnerability
+// databases. When looking up vulnerable packages each database is
+// consulted, and results are merged together.
+//
+// TODO: allow filtering private packages, possibly at a database level?
+// (e.g. I may want to use multiple databases, but only lookup a specific
+// package in a subset of them)
 package client
 
 import (
