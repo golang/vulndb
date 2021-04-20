@@ -2,6 +2,22 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+// Package osv implements the <name-pending> shared vulnerability
+// format, with the Go specific extensions.
+//
+// As this package is intended for use with the Go vulnerability
+// database, only the subset of features which are used by that
+// database are implemented (for instance, only the SEMVER affected
+// range type is implemented).
+//
+// The format of the Go specific "extra" JSON object is as follows:
+//
+//   {
+//     "symbols": [ string ],
+//     "goos": [ string ],
+//     "goarch": [ string ],
+//     "url": string
+//   }
 package osv
 
 import (
