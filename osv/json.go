@@ -120,6 +120,7 @@ type Reference struct {
 // entry
 type Entry struct {
 	ID         string
+	Module     string
 	Published  time.Time
 	Modified   time.Time
 	Withdrawn  *time.Time `json:",omitempty"`
@@ -144,6 +145,7 @@ func Generate(id string, url string, r report.Report) []Entry {
 	}
 	entry := Entry{
 		ID:        id,
+		Module:    r.Module,
 		Published: r.Published,
 		Modified:  lastModified,
 		Withdrawn: r.Withdrawn,

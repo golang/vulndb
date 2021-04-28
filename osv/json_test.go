@@ -56,7 +56,8 @@ func TestGenerate(t *testing.T) {
 
 	want := []Entry{
 		{
-			ID: "GO-1991-0001",
+			ID:     "GO-1991-0001",
+			Module: "example.com/vulnerable/v2",
 			Package: Package{
 				Name:      "example.com/vulnerable/v2",
 				Ecosystem: "go",
@@ -96,8 +97,8 @@ func TestGenerate(t *testing.T) {
 			},
 		},
 		{
-
-			ID: "GO-1991-0001",
+			ID:     "GO-1991-0001",
+			Module: "vanity.host/vulnerable",
 			Package: Package{
 				Name:      "vanity.host/vulnerable/package",
 				Ecosystem: "go",
