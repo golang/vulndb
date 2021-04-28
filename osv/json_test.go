@@ -16,10 +16,10 @@ func TestGenerate(t *testing.T) {
 	r := report.Report{
 		Module: "example.com/vulnerable/v2",
 		AdditionalPackages: []struct {
-			Module   string
-			Package  string
-			Symbols  []string
-			Versions []report.VersionRange
+			Module   string                `yaml:",omitempty"`
+			Package  string                `yaml:",omitempty"`
+			Symbols  []string              `yaml:",omitempty"`
+			Versions []report.VersionRange `yaml:",omitempty"`
 		}{
 			{
 				Module:  "vanity.host/vulnerable",
@@ -44,9 +44,9 @@ func TestGenerate(t *testing.T) {
 		OS:          []string{"windows"},
 		Arch:        []string{"arm64"},
 		Links: struct {
-			PR      string
-			Commit  string
-			Context []string
+			PR      string   `yaml:",omitempty"`
+			Commit  string   `yaml:",omitempty"`
+			Context []string `yaml:",omitempty"`
 		}{
 			PR:      "pr",
 			Commit:  "commit",
