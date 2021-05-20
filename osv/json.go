@@ -34,27 +34,27 @@ import (
 // vulndb implementatiion detail.
 type DBIndex map[string]time.Time
 
-type AffectsRangeType int
+type AffectsRangeType string
 
 const (
-	TypeUnspecified AffectsRangeType = iota
-	TypeGit
-	TypeSemver
+	TypeUnspecified AffectsRangeType = "UNSPECIFIED"
+	TypeGit         AffectsRangeType = "GIT"
+	TypeSemver      AffectsRangeType = "SEMVER"
 )
 
 type Ecosystem string
 
-const GoEcosystem Ecosystem = "go"
+const GoEcosystem Ecosystem = "Go"
 
 type Package struct {
-	Name      string
-	Ecosystem Ecosystem
+	Name      string    `json:"name"`
+	Ecosystem Ecosystem `json:"ecosystem"`
 }
 
 type AffectsRange struct {
-	Type       AffectsRangeType
-	Introduced string
-	Fixed      string
+	Type       AffectsRangeType `json:"type"`
+	Introduced string           `json:"introduced"`
+	Fixed      string           `json:"fixed"`
 }
 
 func (ar AffectsRange) containsSemver(v string) bool {
@@ -108,29 +108,27 @@ type GoSpecific struct {
 	Symbols []string `json:",omitempty"`
 	GOOS    []string `json:",omitempty"`
 	GOARCH  []string `json:",omitempty"`
-	URL     string
+	URL     string   `json:"url"`
 }
 
 type Reference struct {
-	Type string
-	URL  string
+	Type string `json:"type"`
+	URL  string `json:"url"`
 }
 
 // Entry represents a OSV style JSON vulnerability database
 // entry
 type Entry struct {
-	ID         string
-	Published  time.Time
-	Modified   time.Time
-	Withdrawn  *time.Time `json:",omitempty"`
-	Aliases    []string   `json:",omitempty"`
-	Package    Package
-	Details    string
-	Affects    Affects
-	References []Reference `json:",omitempty"`
-	Extra      struct {
-		Go GoSpecific
-	}
+	ID                string      `json:"id"`
+	Published         time.Time   `json:"published"`
+	Modified          time.Time   `json:"modified"`
+	Withdrawn         *time.Time  `json:"withdrawn,omitempty"`
+	Aliases           []string    `json:"aliases,omitempty"`
+	Package           Package     `json:"package"`
+	Details           string      `json:"details"`
+	Affects           Affects     `json:"affects"`
+	References        []Reference `json:"references,omitempty"`
+	EcosystemSpecific GoSpecific  `json:"ecosystem_specific"`
 }
 
 func Generate(id string, url string, r report.Report) []Entry {
@@ -153,24 +151,22 @@ func Generate(id string, url string, r report.Report) []Entry {
 		},
 		Details: r.Description,
 		Affects: generateAffects(r.Versions),
-		Extra: struct{ Go GoSpecific }{
-			Go: GoSpecific{
-				Symbols: r.Symbols,
-				GOOS:    r.OS,
-				GOARCH:  r.Arch,
-				URL:     url,
-			},
+		EcosystemSpecific: GoSpecific{
+			Symbols: r.Symbols,
+			GOOS:    r.OS,
+			GOARCH:  r.Arch,
+			URL:     url,
 		},
 	}
 
 	if r.Links.PR != "" {
-		entry.References = append(entry.References, Reference{Type: "code review", URL: r.Links.PR})
+		entry.References = append(entry.References, Reference{Type: "FIX", URL: r.Links.PR})
 	}
 	if r.Links.Commit != "" {
-		entry.References = append(entry.References, Reference{Type: "fix", URL: r.Links.Commit})
+		entry.References = append(entry.References, Reference{Type: "FIX", URL: r.Links.Commit})
 	}
 	for _, link := range r.Links.Context {
-		entry.References = append(entry.References, Reference{Type: "misc", URL: link})
+		entry.References = append(entry.References, Reference{Type: "WEB", URL: link})
 	}
 
 	if r.CVE != "" {
@@ -187,7 +183,7 @@ func Generate(id string, url string, r report.Report) []Entry {
 			additionalImportPath = additional.Package
 		}
 		entryCopy.Package.Name = additionalImportPath
-		entryCopy.Extra.Go.Symbols = additional.Symbols
+		entryCopy.EcosystemSpecific.Symbols = additional.Symbols
 		entryCopy.Affects = generateAffects(additional.Versions)
 
 		entries = append(entries, entryCopy)
