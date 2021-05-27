@@ -18,22 +18,18 @@ func TestCache(t *testing.T) {
 	originalRoot := cacheRoot
 	defer func() { cacheRoot = originalRoot }()
 
-	tmp, err := os.MkdirTemp("", "vulndb-cache")
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer os.RemoveAll(tmp)
-	cacheRoot = tmp
+	tmpDir := t.TempDir()
+	cacheRoot = tmpDir
 
 	cache := &fsCache{}
 	dbName := "vulndb.golang.org"
 
-	_, _, err = cache.ReadIndex(dbName)
+	_, _, err := cache.ReadIndex(dbName)
 	if err != nil {
 		t.Fatalf("ReadIndex failed for non-existent database: %v", err)
 	}
 
-	if err = os.Mkdir(filepath.Join(tmp, dbName), 0777); err != nil {
+	if err = os.Mkdir(filepath.Join(tmpDir, dbName), 0777); err != nil {
 		t.Fatalf("os.Mkdir failed: %v", err)
 	}
 	_, _, err = cache.ReadIndex(dbName)

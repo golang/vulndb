@@ -35,7 +35,7 @@ package client
 import (
 	"encoding/json"
 	"fmt"
-	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"os"
@@ -60,7 +60,7 @@ type localSource struct {
 func (ls *localSource) Get(packages []string) ([]*osv.Entry, error) {
 	var entries []*osv.Entry
 	for _, p := range packages {
-		content, err := os.ReadFile(filepath.Join(ls.dir, p+".json"))
+		content, err := ioutil.ReadFile(filepath.Join(ls.dir, p+".json"))
 		if os.IsNotExist(err) {
 			continue
 		} else if err != nil {
@@ -77,7 +77,7 @@ func (ls *localSource) Get(packages []string) ([]*osv.Entry, error) {
 
 func (ls *localSource) Index() (osv.DBIndex, error) {
 	var index osv.DBIndex
-	b, err := os.ReadFile(filepath.Join(ls.dir, "index.json"))
+	b, err := ioutil.ReadFile(filepath.Join(ls.dir, "index.json"))
 	if err != nil {
 		return nil, err
 	}
@@ -131,7 +131,7 @@ func (hs *httpSource) Index() (osv.DBIndex, error) {
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
-	b, err := io.ReadAll(resp.Body)
+	b, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -195,7 +195,7 @@ func (hs *httpSource) Get(packages []string) ([]*osv.Entry, error) {
 			continue
 		}
 		// might want this to be a LimitedReader
-		content, err := io.ReadAll(resp.Body)
+		content, err := ioutil.ReadAll(resp.Body)
 		if err != nil {
 			return nil, err
 		}
@@ -248,11 +248,7 @@ func NewClient(sources []string, opts Options) (*Client, error) {
 			}
 			c.sources = append(c.sources, hs)
 		case strings.HasPrefix(uri, "file://"):
-			url, err := url.Parse(uri)
-			if err != nil {
-				return nil, err
-			}
-			c.sources = append(c.sources, &localSource{dir: url.Path})
+			c.sources = append(c.sources, &localSource{dir: strings.TrimPrefix(uri, "file://")})
 		default:
 			return nil, fmt.Errorf("source %q has unsupported scheme", uri)
 		}

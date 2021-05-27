@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"strings"
 
@@ -217,7 +218,7 @@ func main() {
 	}
 
 	reportPath := os.Args[1]
-	b, err := os.ReadFile(reportPath)
+	b, err := ioutil.ReadFile(reportPath)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "failed to read %q: %s\n", reportPath, err)
 		os.Exit(1)

@@ -7,6 +7,7 @@ package client
 import (
 	"encoding/json"
 	"go/build"
+	"io/ioutil"
 	"os"
 	"path/filepath"
 	"time"
@@ -62,7 +63,7 @@ type cachedIndex struct {
 }
 
 func (c *fsCache) ReadIndex(dbName string) (osv.DBIndex, time.Time, error) {
-	b, err := os.ReadFile(filepath.Join(cacheRoot, dbName, "index.json"))
+	b, err := ioutil.ReadFile(filepath.Join(cacheRoot, dbName, "index.json"))
 	if err != nil {
 		if os.IsNotExist(err) {
 			return nil, time.Time{}, nil
@@ -88,14 +89,14 @@ func (c *fsCache) WriteIndex(dbName string, index osv.DBIndex, retrieved time.Ti
 	if err != nil {
 		return err
 	}
-	if err := os.WriteFile(filepath.Join(path, "index.json"), j, 0666); err != nil {
+	if err := ioutil.WriteFile(filepath.Join(path, "index.json"), j, 0666); err != nil {
 		return err
 	}
 	return nil
 }
 
 func (c *fsCache) ReadEntries(dbName string, p string) ([]*osv.Entry, error) {
-	b, err := os.ReadFile(filepath.Join(cacheRoot, dbName, p, "vulns.json"))
+	b, err := ioutil.ReadFile(filepath.Join(cacheRoot, dbName, p, "vulns.json"))
 	if err != nil {
 		if os.IsNotExist(err) {
 			return nil, nil
@@ -118,7 +119,7 @@ func (c *fsCache) WriteEntries(dbName string, p string, entries []*osv.Entry) er
 	if err != nil {
 		return err
 	}
-	if err := os.WriteFile(filepath.Join(path, "vulns.json"), j, 0666); err != nil {
+	if err := ioutil.WriteFile(filepath.Join(path, "vulns.json"), j, 0666); err != nil {
 		return err
 	}
 	return nil

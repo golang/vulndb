@@ -7,7 +7,7 @@ package report
 import (
 	"errors"
 	"fmt"
-	"io"
+	"io/ioutil"
 	"net/http"
 	"regexp"
 	"strings"
@@ -28,7 +28,7 @@ func getModVersions(module string) (map[string]bool, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	b, err := io.ReadAll(resp.Body)
+	b, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +45,7 @@ func getCanonicalModName(module string, version string) (string, error) {
 		return "", err
 	}
 	defer resp.Body.Close()
-	b, err := io.ReadAll(resp.Body)
+	b, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return "", err
 	}

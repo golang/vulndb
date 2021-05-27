@@ -7,6 +7,7 @@ package client
 import (
 	"fmt"
 	"io/ioutil"
+	"net"
 	"net/http"
 	"os"
 	"path"
@@ -93,7 +94,13 @@ func TestClient(t *testing.T) {
 	http.HandleFunc("/golang.org/example/one.json", serveTestVuln1)
 	http.HandleFunc("/golang.org/example/two.json", serveTestVuln2)
 	http.HandleFunc("/index.json", serveIndex)
-	go func() { http.ListenAndServe(":8080", nil) }()
+
+	l, err := net.Listen("tcp", "127.0.0.1:")
+	if err != nil {
+		t.Fatalf("failed to listen on 127.0.0.1: %s", err)
+	}
+	_, port, _ := net.SplitHostPort(l.Addr().String())
+	go func() { http.Serve(l, nil) }()
 
 	// Create a local file database.
 	localDBName, err := localDB(t)
@@ -110,11 +117,11 @@ func TestClient(t *testing.T) {
 		summaries   map[string]string
 	}{
 		// Test the http client without any cache.
-		{name: "http-no-cache", source: "http://localhost:8080", createCache: func() Cache { return nil }, noVulns: 2, summaries: map[string]string{"ID1": "", "ID2": ""}},
+		{name: "http-no-cache", source: "http://localhost:" + port, createCache: func() Cache { return nil }, noVulns: 2, summaries: map[string]string{"ID1": "", "ID2": ""}},
 		// Test the http client with empty cache.
-		{name: "http-empty-cache", source: "http://localhost:8080", createCache: func() Cache { return &fsCache{} }, noVulns: 2, summaries: map[string]string{"ID1": "", "ID2": ""}},
+		{name: "http-empty-cache", source: "http://localhost:" + port, createCache: func() Cache { return &fsCache{} }, noVulns: 2, summaries: map[string]string{"ID1": "", "ID2": ""}},
 		// Test the client with non-stale cache containing a version of testVuln2 where Summary="cached".
-		{name: "http-cache", source: "http://localhost:8080", createCache: cachedTestVuln2("localhost"), noVulns: 2, summaries: map[string]string{"ID1": "", "ID2": "cached"}},
+		{name: "http-cache", source: "http://localhost:" + port, createCache: cachedTestVuln2("localhost"), noVulns: 2, summaries: map[string]string{"ID1": "", "ID2": "cached"}},
 		// Repeat the same for local file client.
 		{name: "file-no-cache", source: "file://" + localDBName, createCache: func() Cache { return nil }, noVulns: 2, summaries: map[string]string{"ID1": "", "ID2": ""}},
 		{name: "file-empty-cache", source: "file://" + localDBName, createCache: func() Cache { return &fsCache{} }, noVulns: 2, summaries: map[string]string{"ID1": "", "ID2": ""}},
