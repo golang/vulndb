@@ -41,8 +41,8 @@ func matchesCurrent(path string, new []osv.Entry) bool {
 }
 
 func main() {
-	tomlDir := flag.String("reports", "Directory containing toml reports", "")
-	jsonDir := flag.String("out", "Directory to write JSON database to", "")
+	tomlDir := flag.String("reports", "reports", "Directory containing toml reports")
+	jsonDir := flag.String("out", "out", "Directory to write JSON database to")
 	flag.Parse()
 
 	tomlFiles, err := ioutil.ReadDir(*tomlDir)
