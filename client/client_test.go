@@ -18,13 +18,13 @@ import (
 
 var testVuln1 string = `[
 	{"ID":"ID1","Package":{"Name":"golang.org/example/one","Ecosystem":"go"}, "Summary":"",
-	 "Severity":2,"Affects":{"Ranges":[{"Type":2,"Introduced":"","Fixed":"v2.2.0"}]},
+	 "Severity":2,"Affects":{"Ranges":[{"Type":"SEMVER","Introduced":"","Fixed":"v2.2.0"}]},
 	 "ecosystem_specific":{"Symbols":["some_symbol_1"]
 	}}]`
 
 var testVuln2 string = `[
 	{"ID":"ID2","Package":{"Name":"golang.org/example/two","Ecosystem":"go"}, "Summary":"",
-	 "Severity":2,"Affects":{"Ranges":[{"Type":2,"Introduced":"","Fixed":"v2.1.0"}]},
+	 "Severity":2,"Affects":{"Ranges":[{"Type":"SEMVER","Introduced":"","Fixed":"v2.1.0"}]},
 	 "ecosystem_specific":{"Symbols":["some_symbol_2"]
 	}}]`
 

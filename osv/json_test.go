@@ -15,12 +15,7 @@ import (
 func TestGenerate(t *testing.T) {
 	r := report.Report{
 		Module: "example.com/vulnerable/v2",
-		AdditionalPackages: []struct {
-			Module   string
-			Package  string
-			Symbols  []string
-			Versions []report.VersionRange
-		}{
+		AdditionalPackages: []report.Additional{
 			{
 				Module:  "vanity.host/vulnerable",
 				Package: "vanity.host/vulnerable/package",
@@ -43,11 +38,7 @@ func TestGenerate(t *testing.T) {
 		Symbols:     []string{"A", "B.b"},
 		OS:          []string{"windows"},
 		Arch:        []string{"arm64"},
-		Links: struct {
-			PR      string
-			Commit  string
-			Context []string
-		}{
+		Links: report.Links{
 			PR:      "pr",
 			Commit:  "commit",
 			Context: []string{"issue-a", "issue-b"},
@@ -60,7 +51,7 @@ func TestGenerate(t *testing.T) {
 			Module: "example.com/vulnerable/v2",
 			Package: Package{
 				Name:      "example.com/vulnerable/v2",
-				Ecosystem: "go",
+				Ecosystem: "Go",
 			},
 			Details: "It's a real bad one, I'll tell you that",
 			Affects: Affects{
@@ -81,19 +72,17 @@ func TestGenerate(t *testing.T) {
 				},
 			},
 			References: []Reference{
-				Reference{Type: "code review", URL: "pr"},
-				Reference{Type: "fix", URL: "commit"},
-				Reference{Type: "misc", URL: "issue-a"},
-				Reference{Type: "misc", URL: "issue-b"},
+				Reference{Type: "FIX", URL: "pr"},
+				Reference{Type: "FIX", URL: "commit"},
+				Reference{Type: "WEB", URL: "issue-a"},
+				Reference{Type: "WEB", URL: "issue-b"},
 			},
 			Aliases: []string{"CVE-0000-0000"},
-			Extra: struct{ Go GoSpecific }{
-				Go: GoSpecific{
-					Symbols: []string{"A", "B.b"},
-					GOOS:    []string{"windows"},
-					GOARCH:  []string{"arm64"},
-					URL:     "https://vulns.golang.org/GO-1991-0001.html",
-				},
+			EcosystemSpecific: GoSpecific{
+				Symbols: []string{"A", "B.b"},
+				GOOS:    []string{"windows"},
+				GOARCH:  []string{"arm64"},
+				URL:     "https://vulns.golang.org/GO-1991-0001.html",
 			},
 		},
 		{
@@ -101,7 +90,7 @@ func TestGenerate(t *testing.T) {
 			Module: "vanity.host/vulnerable",
 			Package: Package{
 				Name:      "vanity.host/vulnerable/package",
-				Ecosystem: "go",
+				Ecosystem: "Go",
 			},
 			Details: "It's a real bad one, I'll tell you that",
 			Affects: Affects{
@@ -122,19 +111,17 @@ func TestGenerate(t *testing.T) {
 				},
 			},
 			References: []Reference{
-				Reference{Type: "code review", URL: "pr"},
-				Reference{Type: "fix", URL: "commit"},
-				Reference{Type: "misc", URL: "issue-a"},
-				Reference{Type: "misc", URL: "issue-b"},
+				Reference{Type: "FIX", URL: "pr"},
+				Reference{Type: "FIX", URL: "commit"},
+				Reference{Type: "WEB", URL: "issue-a"},
+				Reference{Type: "WEB", URL: "issue-b"},
 			},
 			Aliases: []string{"CVE-0000-0000"},
-			Extra: struct{ Go GoSpecific }{
-				Go: GoSpecific{
-					Symbols: []string{"b", "A.b"},
-					GOOS:    []string{"windows"},
-					GOARCH:  []string{"arm64"},
-					URL:     "https://vulns.golang.org/GO-1991-0001.html",
-				},
+			EcosystemSpecific: GoSpecific{
+				Symbols: []string{"b", "A.b"},
+				GOOS:    []string{"windows"},
+				GOARCH:  []string{"arm64"},
+				URL:     "https://vulns.golang.org/GO-1991-0001.html",
 			},
 		},
 	}
