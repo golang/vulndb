@@ -184,6 +184,7 @@ func Generate(id string, url string, r report.Report) []Entry {
 		if additional.Package != "" {
 			additionalImportPath = additional.Package
 		}
+		entryCopy.Module = additional.Module
 		entryCopy.Package.Name = additionalImportPath
 		entryCopy.EcosystemSpecific.Symbols = additional.Symbols
 		entryCopy.Affects = generateAffects(additional.Versions)
