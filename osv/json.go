@@ -3,7 +3,8 @@
 // license that can be found in the LICENSE file.
 
 // Package osv implements the <name-pending> shared vulnerability
-// format, with the Go specific extensions.
+// format, with the Go specific extensions, as defined by
+// https://tinyurl.com/vuln-json.
 //
 // As this package is intended for use with the Go vulnerability
 // database, only the subset of features which are used by that
@@ -67,7 +68,7 @@ func (ar AffectsRange) containsSemver(v string) bool {
 }
 
 type Affects struct {
-	Ranges []AffectsRange `json:",omitempty"`
+	Ranges []AffectsRange `json:"ranges,omitempty"`
 }
 
 func generateAffects(versions []report.VersionRange) Affects {
@@ -105,9 +106,9 @@ func (a Affects) AffectsSemver(v string) bool {
 }
 
 type GoSpecific struct {
-	Symbols []string `json:",omitempty"`
-	GOOS    []string `json:",omitempty"`
-	GOARCH  []string `json:",omitempty"`
+	Symbols []string `json:"symbols,omitempty"`
+	GOOS    []string `json:"goos,omitempty"`
+	GOARCH  []string `json:"goarch,omitempty"`
 	URL     string   `json:"url"`
 }
 

@@ -24,14 +24,14 @@ func fail(why string) {
 	os.Exit(1)
 }
 
-// TODO: obviously not for the real world
-const dbURL = "https://go.googlesource.com/vulndb/+/refs/heads/main/reports/"
+// TODO(rolandshoemaker): once we have the HTML representation ready this should
+// be the prefix for that.
+const dbURL = "https://go.googlesource.com/vulndb/+/refs/heads/master/reports/"
 
 func matchesCurrent(path string, new []osv.Entry) bool {
 	var current []osv.Entry
 	content, err := ioutil.ReadFile(path + ".json")
 	if err != nil {
-		fmt.Println("bad", err)
 		return false
 	}
 	if err = json.Unmarshal(content, &current); err != nil {
@@ -70,7 +70,10 @@ func main() {
 
 		name := strings.TrimSuffix(filepath.Base(f.Name()), filepath.Ext(f.Name()))
 
-		for _, e := range osv.Generate(name, fmt.Sprintf("%s%s.toml", dbURL, name), vuln) {
+		// TODO(rolandshoemaker): once the HTML representation is ready this should be
+		// the link to the HTML page.
+		linkName := fmt.Sprintf("%s%s.yaml", dbURL, name)
+		for _, e := range osv.Generate(name, linkName, vuln) {
 			jsonVulns[e.Package.Name] = append(jsonVulns[e.Package.Name], e)
 		}
 	}
