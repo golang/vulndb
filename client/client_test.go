@@ -11,6 +11,7 @@ import (
 	"net/http"
 	"os"
 	"path"
+	"runtime"
 	"testing"
 	"time"
 
@@ -90,6 +91,10 @@ func localDB(t *testing.T) (string, error) {
 }
 
 func TestClient(t *testing.T) {
+	if runtime.GOOS == "js" {
+		t.Skip("skipping test: no network on js")
+	}
+
 	// Create a local http database.
 	http.HandleFunc("/golang.org/example/one.json", serveTestVuln1)
 	http.HandleFunc("/golang.org/example/two.json", serveTestVuln2)
