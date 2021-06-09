@@ -22,6 +22,7 @@
 package osv
 
 import (
+	"strings"
 	"time"
 
 	"golang.org/x/mod/semver"
@@ -58,17 +59,39 @@ type AffectsRange struct {
 	Fixed      string           `json:"fixed"`
 }
 
+// addSemverPrefix adds a 'v' prefix to s if it isn't already prefixed
+// with 'v' or 'go'. This allows us to easily test go-style SEMVER
+// strings against normal SEMVER strings.
+func addSemverPrefix(s string) string {
+	if !strings.HasPrefix(s, "v") && !strings.HasPrefix(s, "go") {
+		return "v" + s
+	}
+	return s
+}
+
 func (ar AffectsRange) containsSemver(v string) bool {
 	if ar.Type != TypeSemver {
 		return false
 	}
 
-	return (ar.Introduced == "" || semver.Compare(v, ar.Introduced) >= 0) &&
-		(ar.Fixed == "" || semver.Compare(v, ar.Fixed) < 0)
+	// Strip and then add the semver prefix so we can support bare versions,
+	// versions prefixed with 'v', and versions prefixed with 'go'.
+	v = addSemverPrefix(removeSemverPrefix(v))
+
+	return (ar.Introduced == "" || semver.Compare(v, addSemverPrefix(ar.Introduced)) >= 0) &&
+		(ar.Fixed == "" || semver.Compare(v, addSemverPrefix(ar.Fixed)) < 0)
 }
 
 type Affects struct {
 	Ranges []AffectsRange `json:"ranges,omitempty"`
+}
+
+// removeSemverPrefix removes the 'v' or 'go' prefixes from go-style
+// SEMVER strings, for usage in the public vulnerability format.
+func removeSemverPrefix(s string) string {
+	s = strings.TrimPrefix(s, "v")
+	s = strings.TrimPrefix(s, "go")
+	return s
 }
 
 func generateAffects(versions []report.VersionRange) Affects {
@@ -76,8 +99,8 @@ func generateAffects(versions []report.VersionRange) Affects {
 	for _, v := range versions {
 		a.Ranges = append(a.Ranges, AffectsRange{
 			Type:       TypeSemver,
-			Introduced: v.Introduced,
-			Fixed:      v.Fixed,
+			Introduced: removeSemverPrefix(v.Introduced),
+			Fixed:      removeSemverPrefix(v.Fixed),
 		})
 	}
 	return a

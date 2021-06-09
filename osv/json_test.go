@@ -57,16 +57,16 @@ func TestGenerate(t *testing.T) {
 				Ranges: []AffectsRange{
 					{
 						Type:  TypeSemver,
-						Fixed: "v2.1.1",
+						Fixed: "2.1.1",
 					},
 					{
 						Type:       TypeSemver,
-						Introduced: "v2.3.4",
-						Fixed:      "v2.3.5",
+						Introduced: "2.3.4",
+						Fixed:      "2.3.5",
 					},
 					{
 						Type:       TypeSemver,
-						Introduced: "v2.5.0",
+						Introduced: "2.5.0",
 					},
 				},
 			},
@@ -96,16 +96,16 @@ func TestGenerate(t *testing.T) {
 				Ranges: []AffectsRange{
 					{
 						Type:  TypeSemver,
-						Fixed: "v2.1.1",
+						Fixed: "2.1.1",
 					},
 					{
 						Type:       TypeSemver,
-						Introduced: "v2.3.4",
-						Fixed:      "v2.3.5",
+						Introduced: "2.3.4",
+						Fixed:      "2.3.5",
 					},
 					{
 						Type:       TypeSemver,
-						Introduced: "v2.5.0",
+						Introduced: "2.5.0",
 					},
 				},
 			},
@@ -146,7 +146,7 @@ func TestAffectsSemver(t *testing.T) {
 			// v1.0.0 < v2.0.0
 			affects: Affects{
 				Ranges: []AffectsRange{
-					{Type: TypeSemver, Fixed: "v2.0.0"},
+					{Type: TypeSemver, Fixed: "2.0.0"},
 				},
 			},
 			version: "v1.0.0",
@@ -156,7 +156,7 @@ func TestAffectsSemver(t *testing.T) {
 			// v0.0.1 <= v1.0.0
 			affects: Affects{
 				Ranges: []AffectsRange{
-					{Type: TypeSemver, Introduced: "v0.0.1"},
+					{Type: TypeSemver, Introduced: "0.0.1"},
 				},
 			},
 			version: "v1.0.0",
@@ -166,7 +166,7 @@ func TestAffectsSemver(t *testing.T) {
 			// v1.0.0 <= v1.0.0
 			affects: Affects{
 				Ranges: []AffectsRange{
-					{Type: TypeSemver, Introduced: "v1.0.0"},
+					{Type: TypeSemver, Introduced: "1.0.0"},
 				},
 			},
 			version: "v1.0.0",
@@ -176,7 +176,7 @@ func TestAffectsSemver(t *testing.T) {
 			// v1.0.0 <= v1.0.0 < v2.0.0
 			affects: Affects{
 				Ranges: []AffectsRange{
-					{Type: TypeSemver, Introduced: "v1.0.0", Fixed: "v2.0.0"},
+					{Type: TypeSemver, Introduced: "1.0.0", Fixed: "2.0.0"},
 				},
 			},
 			version: "v1.0.0",
@@ -186,7 +186,7 @@ func TestAffectsSemver(t *testing.T) {
 			// v0.0.1 <= v1.0.0 < v2.0.0
 			affects: Affects{
 				Ranges: []AffectsRange{
-					{Type: TypeSemver, Introduced: "v0.0.1", Fixed: "v2.0.0"},
+					{Type: TypeSemver, Introduced: "0.0.1", Fixed: "2.0.0"},
 				},
 			},
 			version: "v1.0.0",
@@ -196,7 +196,7 @@ func TestAffectsSemver(t *testing.T) {
 			// v2.0.0 < v3.0.0
 			affects: Affects{
 				Ranges: []AffectsRange{
-					{Type: TypeSemver, Introduced: "v1.0.0", Fixed: "v2.0.0"},
+					{Type: TypeSemver, Introduced: "1.0.0", Fixed: "2.0.0"},
 				},
 			},
 			version: "v3.0.0",
@@ -206,8 +206,8 @@ func TestAffectsSemver(t *testing.T) {
 			// Multiple ranges
 			affects: Affects{
 				Ranges: []AffectsRange{
-					{Type: TypeSemver, Introduced: "v1.0.0", Fixed: "v2.0.0"},
-					{Type: TypeSemver, Introduced: "v3.0.0"},
+					{Type: TypeSemver, Introduced: "1.0.0", Fixed: "2.0.0"},
+					{Type: TypeSemver, Introduced: "3.0.0"},
 				},
 			},
 			version: "v3.0.0",
@@ -217,7 +217,7 @@ func TestAffectsSemver(t *testing.T) {
 			// Wrong type range
 			affects: Affects{
 				Ranges: []AffectsRange{
-					{Type: TypeUnspecified, Introduced: "v3.0.0"},
+					{Type: TypeUnspecified, Introduced: "3.0.0"},
 				},
 			},
 			version: "v3.0.0",
@@ -227,8 +227,8 @@ func TestAffectsSemver(t *testing.T) {
 			// Semver ranges don't match
 			affects: Affects{
 				Ranges: []AffectsRange{
-					{Type: TypeUnspecified, Introduced: "v3.0.0"},
-					{Type: TypeSemver, Introduced: "v4.0.0"},
+					{Type: TypeUnspecified, Introduced: "3.0.0"},
+					{Type: TypeSemver, Introduced: "4.0.0"},
 				},
 			},
 			version: "v3.0.0",
@@ -238,11 +238,21 @@ func TestAffectsSemver(t *testing.T) {
 			// Semver ranges do match
 			affects: Affects{
 				Ranges: []AffectsRange{
-					{Type: TypeUnspecified, Introduced: "v3.0.0"},
-					{Type: TypeSemver, Introduced: "v3.0.0"},
+					{Type: TypeUnspecified, Introduced: "3.0.0"},
+					{Type: TypeSemver, Introduced: "3.0.0"},
 				},
 			},
 			version: "v3.0.0",
+			want:    true,
+		},
+		{
+			// Semver ranges match (go prefix)
+			affects: Affects{
+				Ranges: []AffectsRange{
+					{Type: TypeSemver, Introduced: "3.0.0"},
+				},
+			},
+			version: "go3.0.1",
 			want:    true,
 		},
 	}
