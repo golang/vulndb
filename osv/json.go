@@ -122,6 +122,7 @@ type Entry struct {
 	ID                string      `json:"id"`
 	Published         time.Time   `json:"published"`
 	Modified          time.Time   `json:"modified"`
+	Severity          string      `json:"severity,omitempty"`
 	Withdrawn         *time.Time  `json:"withdrawn,omitempty"`
 	Aliases           []string    `json:"aliases,omitempty"`
 	Package           Package     `json:"package"`
@@ -144,6 +145,7 @@ func Generate(id string, url string, r report.Report) []Entry {
 		ID:        id,
 		Published: r.Published,
 		Modified:  lastModified,
+		Severity:  report.CvssScoreToSeverity(r.CVEMetadata.CVSSMeta),
 		Withdrawn: r.Withdrawn,
 		Package: Package{
 			Name:      importPath,
