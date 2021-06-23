@@ -27,8 +27,8 @@ type Links struct {
 type CVEMeta struct {
 	ID          string `yaml:",omitempty"`
 	CWE         string `yaml:",omitempty"`
- 	Description string `yaml:",omitempty"`
-	CVSSMeta    *CVSS   `yaml:",omitempty"`
+	Description string `yaml:",omitempty"`
+	CVSSMeta    *CVSS  `yaml:",omitempty"`
 }
 type CVSS struct {
 	Version string  `yaml:",omitempty"`
@@ -65,4 +65,3 @@ type Report struct {
 	Links              Links          `yaml:",omitempty"`
 	CVEMetadata        *CVEMeta       `yaml:"cve_metadata,omitempty"`
 }
-

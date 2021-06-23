@@ -42,6 +42,6 @@ func cvssV2SeverityByScore(score float32) string {
 	case score >= 7.0 && score <= 10.0:
 		return "High"
 	default:
-		return "None"
+		return ""
 	}
 }
