@@ -31,9 +31,9 @@ type CVEMeta struct {
 	CVSSMeta    *CVSS   `yaml:",omitempty"`
 }
 type CVSS struct {
-	Version   string  `yaml:",omitempty"`
-	BaseScore float32 `yaml:",omitempty"`
-	Vector    string  `yaml:",omitempty"`
+	Version string  `yaml:",omitempty"`
+	Score   float32 `yaml:",omitempty"`
+	Vector  string  `yaml:",omitempty"`
 }
 
 type Report struct {

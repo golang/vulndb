@@ -8,9 +8,9 @@ func CvssScoreToSeverity(cvss *CVSS) string {
 	}
 	switch cvss.Version {
 	case "v2":
-		return cvssV2SeverityByScore(cvss.BaseScore)
+		return cvssV2SeverityByScore(cvss.Score)
 	case "v3":
-		return cvssV3SeverityByScore(cvss.BaseScore)
+		return cvssV3SeverityByScore(cvss.Score)
 	default:
 		return ""
 	}

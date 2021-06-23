@@ -23,7 +23,7 @@ func TestReverseString1(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := CvssScoreToSeverity(&CVSS{Version: tt.version, BaseScore: tt.baseScore}); got != tt.want {
+			if got := CvssScoreToSeverity(&CVSS{Version: tt.version, Score: tt.baseScore}); got != tt.want {
 				t.Errorf("CvssScoreToSeverity() = %v, want %v", got, tt.want)
 			}
 		})
