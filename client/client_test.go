@@ -5,12 +5,15 @@
 package client
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net"
 	"net/http"
+	"net/http/httptest"
 	"os"
 	"path"
+	"reflect"
 	"runtime"
 	"testing"
 	"time"
@@ -154,5 +157,32 @@ func TestClient(t *testing.T) {
 				t.Errorf("want '%s' summary for vuln with id %v in %s; got '%s'", s, v.ID, test.name, v.Details)
 			}
 		}
+	}
+}
+
+func TestCorrectFetchesNoCache(t *testing.T) {
+	fetches := map[string]int{}
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fetches[r.URL.Path]++
+		if r.URL.Path == "/index.json" {
+			j, _ := json.Marshal(osv.DBIndex{
+				"a": time.Now(),
+				"b": time.Now(),
+			})
+			w.Write(j)
+		} else {
+			w.Write([]byte("[]"))
+		}
+	}))
+	defer ts.Close()
+
+	hs := &httpSource{url: ts.URL, c: new(http.Client)}
+	_, err := hs.Get([]string{"a", "b", "c"})
+	if err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+	expectedFetches := map[string]int{"/index.json": 1, "/a.json": 1, "/b.json": 1}
+	if !reflect.DeepEqual(fetches, expectedFetches) {
+		t.Errorf("unexpected fetches, got %v, want %v", fetches, expectedFetches)
 	}
 }

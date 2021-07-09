@@ -158,12 +158,12 @@ func (hs *httpSource) Get(packages []string) ([]*osv.Entry, error) {
 	}
 
 	var stillNeed []string
-	if hs.cache != nil {
-		for _, p := range packages {
-			lastModified, present := index[p]
-			if !present {
-				continue
-			}
+	for _, p := range packages {
+		lastModified, present := index[p]
+		if !present {
+			continue
+		}
+		if hs.cache != nil {
 			if cached, err := hs.cache.ReadEntries(hs.dbName, p); err != nil {
 				return nil, err
 			} else if len(cached) != 0 {
@@ -179,10 +179,8 @@ func (hs *httpSource) Get(packages []string) ([]*osv.Entry, error) {
 					continue
 				}
 			}
-			stillNeed = append(stillNeed, p)
 		}
-	} else {
-		stillNeed = packages
+		stillNeed = append(stillNeed, p)
 	}
 
 	for _, p := range stillNeed {
