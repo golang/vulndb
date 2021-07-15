@@ -1,0 +1,19 @@
+module: go.mongodb.org/mongo-driver # there is also a non-canonical import since <v2
+package: go.mongodb.org/mongo-driver/x/bsonx/bsoncore
+versions:
+  - fixed: v1.5.1
+description: |
+  Due to improper input sanitization when marshalling Go objects into BSON, a maliciously constructed
+  Go structure could allow an attacker to inject additional fields into a MongoDB document. Users are
+  affected if they use this package to handle untrusted user input.
+cve: CVE-2021-20329
+symbols:
+  - AppendHeader
+  - AppendRegex
+published: 2021-07-28T12:00:00Z
+links:
+  commit: https://github.com/mongodb/mongo-go-driver/commit/2aca31d5986a9e1c65a92264736de9fdc3b9b4ca
+  pr: https://github.com/mongodb/mongo-go-driver/pull/622
+  context:
+    - https://github.com/advisories/GHSA-f6mq-5m25-4r72
+    - https://jira.mongodb.org/browse/GODRIVER-1923

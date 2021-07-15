@@ -1,0 +1,17 @@
+module: github.com/apache/thrift
+package: github.com/apache/thrift/lib/go/thrift
+versions:
+  - introduced: v0.0.0-20151001171628-53dd39833a08
+  - fixed: v0.13.0
+description: |
+  Due to an improper bounds check, parsing maliciously crafted messages can cause panics. If
+  this package is used to parse untrusted input, this may be used as a vector for a denial of
+  service attack.
+cve: CVE-2019-0210
+symbols:
+  - TSimpleJSONProtocol.safePeekContains
+published: 2021-07-28T12:00:00Z
+links:
+  commit: https://github.com/apache/thrift/commit/264a3f318ed3e9e51573f67f963c8509786bcec2
+  context:
+    - https://github.com/advisories/GHSA-jq7p-26h5-w78r

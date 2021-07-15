@@ -1,0 +1,14 @@
+module: github.com/whyrusleeping/tar-utils
+versions:
+  - fixed: v0.0.0-20201201191210-20a61371de5b
+description: |
+  Due to improper path santization, archives containing relative file
+  paths can cause files to be written (or overwritten) outside of the
+  target directory.
+symbols:
+  - Extractor.outputPath
+published: 2021-07-28T12:00:00Z
+links:
+  commit: https://github.com/whyrusleeping/tar-utils/commit/20a61371de5b51380bbdb0c7935b30b0625ac227
+  context:
+    - https://snyk.io/research/zip-slip-vulnerability

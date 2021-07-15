@@ -1,0 +1,20 @@
+module: github.com/containers/storage
+package: github.com/containers/storage/pkg/archive
+versions:
+  - fixed: v1.28.1
+description: |
+  Due to a goroutine deadlock, using github.com/containers/storage/pkg/archive.DecompressStream
+  on a xz archive returns a reader which will hang indefinitely when Close is called. An attacker
+  can use this to cause denial of service if they are able to cause the caller to attempt to
+  decompress an archive they control.
+published: 2021-07-28T12:00:00Z
+cve: CVE-2021-20291
+credit: Aviv Sasson (Palo Alto Networks)
+symbols:
+  - cmdStream
+links:
+  commit: https://github.com/containers/storage/commit/306fcabc964470e4b3b87a43a8f6b7d698209ee1
+  pr: https://github.com/containers/storage/pull/860
+  context:
+    - https://github.com/advisories/GHSA-7qw8-847f-pggm
+    - https://bugzilla.redhat.com/show_bug.cgi?id=1939485

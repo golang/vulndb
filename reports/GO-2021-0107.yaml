@@ -1,0 +1,14 @@
+module: github.com/ecnepsnai/web
+versions:
+  - fixed: v1.5.2
+description: |
+  Web Sockets do not execute any AuthenticateMethod methods which may be set, leading to a
+  nil pointer dereference if the returned UserData pointer is assumed to be non-nil, or
+  authentication bypass.
+symbols:
+  - Server.socketHandler
+published: 2021-07-28T12:00:00Z
+links:
+  commit: https://github.com/ecnepsnai/web/commit/5a78f8d5c41ce60dcf9f61aaf47a7a8dc3e0002f
+  context:
+    - https://github.com/advisories/GHSA-5gjg-jgh4-gppm

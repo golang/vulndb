@@ -1,0 +1,19 @@
+module: github.com/pion/webrtc/v3
+versions:
+  - fixed: v3.0.15
+description: |
+  Due to improper error handling, DTLS connections were not killed when certificate verification
+  failed, causing users who did not check the connection state to continue to use the connection.
+  This could allow allow an attacker which holds the ICE password, but not a valid certificate,
+  to bypass this restriction.
+cve: CVE-2021-28681
+credit: Gaukas Wang (@Gaukas)
+symbols:
+  - DTLSTransport.Start
+published: 2021-07-28T12:00:00Z
+links:
+  commit: https://github.com/pion/webrtc/commit/545613dcdeb5dedb01cce94175f40bcbe045df2e
+  pr: https://github.com/pion/webrtc/pull/1709
+  context:
+    - https://github.com/pion/webrtc/issues/1708
+    - https://github.com/advisories/GHSA-74xm-qj29-cq8p

@@ -1,0 +1,24 @@
+module: code.cloudfoundry.org/gorouter
+package: code.cloudfoundry.org/gorouter/common/secure
+additional_packages:
+  - module: github.com/cloudfoundry/gorouter
+    package: github.com/cloudfoundry/gorouter/common/secure
+    symbols:
+      - AesGCM.Decrypt
+    versions:
+      - fixed: v0.0.0-20191101214924-b1b5c44e050f
+versions:
+  - fixed: v0.0.0-20191101214924-b1b5c44e050f
+description: |
+  Due to improper input validation, a maliciously crafted input can cause a panic, due to incorrect
+  nonce size. If this package is used to decrypt user supplied messages without checking the size of
+  supplied nonces, this may be used as a vector for a denial of service attack.
+cve: CVE-2019-11289
+symbols:
+  - AesGCM.Decrypt
+published: 2021-07-28T12:00:00Z
+links:
+  commit: https://github.com/cloudfoundry/gorouter/commit/b1b5c44e050f73b399b379ca63a42a2c5780a83f
+  context:
+    - https://github.com/advisories/GHSA-5796-p3m6-9qj4
+    - https://www.cloudfoundry.org/blog/cve-2019-11289/
