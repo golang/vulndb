@@ -225,7 +225,7 @@ func main() {
 	}
 
 	var r report.Report
-	if err = yaml.Unmarshal(b, &r); err != nil {
+	if err = yaml.UnmarshalStrict(b, &r); err != nil {
 		fmt.Fprintf(os.Stderr, "failed to parse %q: %s\n", reportPath, err)
 		os.Exit(1)
 	}

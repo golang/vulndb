@@ -26,7 +26,7 @@ func main() {
 	}
 
 	var vuln report.Report
-	err = yaml.Unmarshal(content, &vuln)
+	err = yaml.UnmarshalStrict(content, &vuln)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "unable to parse %q: %s\n", os.Args[1], err)
 		os.Exit(1)

@@ -194,7 +194,7 @@ func main() {
 			fail(fmt.Sprintf("can't read %q: %s", f.Name(), err))
 		}
 		var vuln report.Report
-		err = yaml.Unmarshal(content, &vuln)
+		err = yaml.UnmarshalStrict(content, &vuln)
 		if err != nil {
 			fail(fmt.Sprintf("unable to unmarshal %q: %s", f.Name(), err))
 		}
