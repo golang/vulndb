@@ -55,8 +55,8 @@ type Package struct {
 
 type AffectsRange struct {
 	Type       AffectsRangeType `json:"type"`
-	Introduced string           `json:"introduced"`
-	Fixed      string           `json:"fixed"`
+	Introduced string           `json:"introduced,omitempty"`
+	Fixed      string           `json:"fixed,omitempty"`
 }
 
 // addSemverPrefix adds a 'v' prefix to s if it isn't already prefixed
@@ -102,6 +102,12 @@ func generateAffects(versions []report.VersionRange) Affects {
 			Introduced: removeSemverPrefix(v.Introduced),
 			Fixed:      removeSemverPrefix(v.Fixed),
 		})
+	}
+	if len(a.Ranges) == 0 {
+		// If all versions are affected, as indicated by an empty versions slice,
+		// we need to include an empty TypeSemver AffectsRange in the JSON
+		// output.
+		a.Ranges = append(a.Ranges, AffectsRange{Type: TypeSemver})
 	}
 	return a
 }

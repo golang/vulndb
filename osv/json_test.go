@@ -143,6 +143,13 @@ func TestAffectsSemver(t *testing.T) {
 			want:    true,
 		},
 		{
+			// Affects containing an empty SEMVER range also indicates
+			// everything is affected
+			affects: Affects{Ranges: []AffectsRange{{Type: TypeSemver}}},
+			version: "v0.0.0",
+			want:    true,
+		},
+		{
 			// v1.0.0 < v2.0.0
 			affects: Affects{
 				Ranges: []AffectsRange{
