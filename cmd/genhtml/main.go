@@ -198,8 +198,12 @@ func main() {
 		if err != nil {
 			fail(fmt.Sprintf("unable to unmarshal %q: %s", f.Name(), err))
 		}
-		if err = vuln.Lint(); err != nil {
-			fail(fmt.Sprintf("invalid vulnerability %q: %s", f.Name(), err))
+		if lints := vuln.Lint(); len(lints) > 0 {
+			fmt.Fprintf(os.Stderr, "invalid vulnerability file %q:\n", os.Args[1])
+			for _, lint := range lints {
+				fmt.Fprintf(os.Stderr, "\t%s\n", lint)
+			}
+			os.Exit(1)
 		}
 		name := strings.TrimSuffix(filepath.Base(f.Name()), filepath.Ext(f.Name()))
 		htmlVulns[name] = vuln

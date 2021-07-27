@@ -32,8 +32,11 @@ func main() {
 		os.Exit(1)
 	}
 
-	if err = vuln.Lint(); err != nil {
-		fmt.Fprintf(os.Stderr, "invalid vulnerability file %q: %s\n", os.Args[1], err)
+	if lints := vuln.Lint(); len(lints) > 0 {
+		fmt.Fprintf(os.Stderr, "invalid vulnerability file %q:\n", os.Args[1])
+		for _, lint := range lints {
+			fmt.Fprintf(os.Stderr, "\t%s\n", lint)
+		}
 		os.Exit(1)
 	}
 }
