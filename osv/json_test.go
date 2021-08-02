@@ -45,82 +45,86 @@ func TestGenerate(t *testing.T) {
 		},
 	}
 
-	want := []Entry{
-		{
-			ID: "GO-1991-0001",
-			Package: Package{
-				Name:      "example.com/vulnerable/v2",
-				Ecosystem: "Go",
-			},
-			Details: "It's a real bad one, I'll tell you that",
-			Affects: Affects{
-				Ranges: []AffectsRange{
-					{
-						Type:  TypeSemver,
-						Fixed: "2.1.1",
-					},
-					{
-						Type:       TypeSemver,
-						Introduced: "2.3.4",
-						Fixed:      "2.3.5",
-					},
-					{
-						Type:       TypeSemver,
-						Introduced: "2.5.0",
+	want := map[string][]Entry{
+		"example.com/vulnerable/v2": []Entry{
+			{
+				ID: "GO-1991-0001",
+				Package: Package{
+					Name:      "example.com/vulnerable/v2",
+					Ecosystem: "Go",
+				},
+				Details: "It's a real bad one, I'll tell you that",
+				Affects: Affects{
+					Ranges: []AffectsRange{
+						{
+							Type:  TypeSemver,
+							Fixed: "2.1.1",
+						},
+						{
+							Type:       TypeSemver,
+							Introduced: "2.3.4",
+							Fixed:      "2.3.5",
+						},
+						{
+							Type:       TypeSemver,
+							Introduced: "2.5.0",
+						},
 					},
 				},
-			},
-			References: []Reference{
-				Reference{Type: "FIX", URL: "pr"},
-				Reference{Type: "FIX", URL: "commit"},
-				Reference{Type: "WEB", URL: "issue-a"},
-				Reference{Type: "WEB", URL: "issue-b"},
-			},
-			Aliases: []string{"CVE-0000-0000"},
-			EcosystemSpecific: GoSpecific{
-				Symbols: []string{"A", "B.b"},
-				GOOS:    []string{"windows"},
-				GOARCH:  []string{"arm64"},
-				URL:     "https://vulns.golang.org/GO-1991-0001.html",
+				References: []Reference{
+					Reference{Type: "FIX", URL: "pr"},
+					Reference{Type: "FIX", URL: "commit"},
+					Reference{Type: "WEB", URL: "issue-a"},
+					Reference{Type: "WEB", URL: "issue-b"},
+				},
+				Aliases: []string{"CVE-0000-0000"},
+				EcosystemSpecific: GoSpecific{
+					Symbols: []string{"A", "B.b"},
+					GOOS:    []string{"windows"},
+					GOARCH:  []string{"arm64"},
+					URL:     "https://vulns.golang.org/GO-1991-0001.html",
+				},
 			},
 		},
-		{
+		"vanity.host/vulnerable": []Entry{
+			{
 
-			ID: "GO-1991-0001",
-			Package: Package{
-				Name:      "vanity.host/vulnerable/package",
-				Ecosystem: "Go",
-			},
-			Details: "It's a real bad one, I'll tell you that",
-			Affects: Affects{
-				Ranges: []AffectsRange{
-					{
-						Type:  TypeSemver,
-						Fixed: "2.1.1",
-					},
-					{
-						Type:       TypeSemver,
-						Introduced: "2.3.4",
-						Fixed:      "2.3.5",
-					},
-					{
-						Type:       TypeSemver,
-						Introduced: "2.5.0",
+				ID: "GO-1991-0001",
+				Package: Package{
+					Name:      "vanity.host/vulnerable/package",
+					Ecosystem: "Go",
+				},
+				Details: "It's a real bad one, I'll tell you that",
+				Affects: Affects{
+					Ranges: []AffectsRange{
+						{
+							Type:  TypeSemver,
+							Fixed: "2.1.1",
+						},
+						{
+							Type:       TypeSemver,
+							Introduced: "2.3.4",
+							Fixed:      "2.3.5",
+						},
+						{
+							Type:       TypeSemver,
+							Introduced: "2.5.0",
+						},
 					},
 				},
-			},
-			References: []Reference{
-				Reference{Type: "FIX", URL: "pr"},
-				Reference{Type: "FIX", URL: "commit"},
-				Reference{Type: "WEB", URL: "issue-a"},
-				Reference{Type: "WEB", URL: "issue-b"},
-			},
-			Aliases: []string{"CVE-0000-0000"},
-			EcosystemSpecific: GoSpecific{
-				Symbols: []string{"b", "A.b"},
-				GOOS:    []string{"windows"},
-				GOARCH:  []string{"arm64"},
-				URL:     "https://vulns.golang.org/GO-1991-0001.html",
+				References: []Reference{
+					Reference{Type: "FIX", URL: "pr"},
+					Reference{Type: "FIX", URL: "commit"},
+					Reference{Type: "WEB", URL: "issue-a"},
+					Reference{Type: "WEB", URL: "issue-b"},
+				},
+				Aliases: []string{"CVE-0000-0000"},
+				EcosystemSpecific: GoSpecific{
+					Symbols: []string{"b", "A.b"},
+					GOOS:    []string{"windows"},
+					GOARCH:  []string{"arm64"},
+					URL:     "https://vulns.golang.org/GO-1991-0001.html",
+				},
 			},
 		},
 	}

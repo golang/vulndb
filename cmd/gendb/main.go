@@ -41,21 +41,21 @@ func matchesCurrent(path string, new []osv.Entry) bool {
 }
 
 func main() {
-	tomlDir := flag.String("reports", "reports", "Directory containing toml reports")
+	yamlDir := flag.String("reports", "reports", "Directory containing yaml reports")
 	jsonDir := flag.String("out", "out", "Directory to write JSON database to")
 	flag.Parse()
 
-	tomlFiles, err := ioutil.ReadDir(*tomlDir)
+	yamlFiles, err := ioutil.ReadDir(*yamlDir)
 	if err != nil {
-		fail(fmt.Sprintf("can't read %q: %s", *tomlDir, err))
+		fail(fmt.Sprintf("can't read %q: %s", *yamlDir, err))
 	}
 
 	jsonVulns := map[string][]osv.Entry{}
-	for _, f := range tomlFiles {
+	for _, f := range yamlFiles {
 		if !strings.HasSuffix(f.Name(), ".yaml") {
 			continue
 		}
-		content, err := ioutil.ReadFile(filepath.Join(*tomlDir, f.Name()))
+		content, err := ioutil.ReadFile(filepath.Join(*yamlDir, f.Name()))
 		if err != nil {
 			fail(fmt.Sprintf("can't read %q: %s", f.Name(), err))
 		}
@@ -77,8 +77,8 @@ func main() {
 		// TODO(rolandshoemaker): once the HTML representation is ready this should be
 		// the link to the HTML page.
 		linkName := fmt.Sprintf("%s%s.yaml", dbURL, name)
-		for _, e := range osv.Generate(name, linkName, vuln) {
-			jsonVulns[e.Package.Name] = append(jsonVulns[e.Package.Name], e)
+		for path, e := range osv.Generate(name, linkName, vuln) {
+			jsonVulns[path] = append(jsonVulns[path], e...)
 		}
 	}
 
@@ -98,7 +98,7 @@ func main() {
 			fail(fmt.Sprintf("failed to write %q: %s", outPath+".json", err))
 		}
 		for _, v := range vulns {
-			if v.Modified.After(index[path]) {
+			if v.Modified.After(index[path]) || v.Published.After(index[path]) {
 				index[path] = v.Modified
 			}
 		}

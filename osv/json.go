@@ -161,7 +161,7 @@ type Entry struct {
 	EcosystemSpecific GoSpecific  `json:"ecosystem_specific"`
 }
 
-func Generate(id string, url string, r report.Report) []Entry {
+func Generate(id string, url string, r report.Report) map[string][]Entry {
 	importPath := r.Module
 	if r.Package != "" {
 		importPath = r.Package
@@ -203,7 +203,12 @@ func Generate(id string, url string, r report.Report) []Entry {
 		entry.Aliases = []string{r.CVE}
 	}
 
-	entries := []Entry{entry}
+	entries := map[string][]Entry{}
+	modulePath := r.Module
+	if r.Stdlib {
+		modulePath = "stdlib"
+	}
+	entries[modulePath] = []Entry{entry}
 
 	// It would be better if this was just a recursive thing maybe?
 	for _, additional := range r.AdditionalPackages {
@@ -216,7 +221,11 @@ func Generate(id string, url string, r report.Report) []Entry {
 		entryCopy.EcosystemSpecific.Symbols = additional.Symbols
 		entryCopy.Affects = generateAffects(additional.Versions)
 
-		entries = append(entries, entryCopy)
+		modulePath := additional.Module
+		if r.Stdlib {
+			modulePath = "stdlib"
+		}
+		entries[modulePath] = append(entries[modulePath], entryCopy)
 	}
 
 	return entries

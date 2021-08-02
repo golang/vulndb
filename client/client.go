@@ -7,29 +7,29 @@
 //
 // The expected database layout is the same for both HTTP and local
 // databases. The database  index is located at the root of the
-// database, and contains a list of all of the vulnerable packages
+// database, and contains a list of all of the vulnerable modules
 // documented in the databse and the time the most recent vulnerability
 // was added. The index file is called indx.json, and has the
 // following format:
 //
 //   map[string]time.Time (osv.DBIndex)
 //
-// Each vulnerable package is represented by an individual JSON file
-// which contains all of the vulnerabilities in that package. The path
-// for each package file is simply the import path of the package,
-// i.e. vulnerabilities in golang.org/x/crypto/ssh are contained in the
-// golang.org/x/crypto/ssh.json file. The per-package JSON files have
+// Each vulnerable module is represented by an individual JSON file
+// which contains all of the vulnerabilities in that module. The path
+// for each module file is simply the import path of the module,
+// i.e. vulnerabilities in golang.org/x/crypto are contained in the
+// golang.org/x/crypto.json file. The per-module JSON files have
 // the following format:
 //
 //   []osv.Entry
 //
 // A single client.Client can be used to access multiple vulnerability
-// databases. When looking up vulnerable packages each database is
+// databases. When looking up vulnerable module each database is
 // consulted, and results are merged together.
 //
-// TODO: allow filtering private packages, possibly at a database level?
+// TODO: allow filtering private module, possibly at a database level?
 // (e.g. I may want to use multiple databases, but only lookup a specific
-// package in a subset of them)
+// module in a subset of them)
 package client
 
 import (
@@ -46,8 +46,6 @@ import (
 	"golang.org/x/vulndb/osv"
 )
 
-type dbIndex struct{}
-
 type source interface {
 	Get([]string) ([]*osv.Entry, error)
 	Index() (osv.DBIndex, error)
@@ -57,9 +55,9 @@ type localSource struct {
 	dir string
 }
 
-func (ls *localSource) Get(packages []string) ([]*osv.Entry, error) {
+func (ls *localSource) Get(modules []string) ([]*osv.Entry, error) {
 	var entries []*osv.Entry
-	for _, p := range packages {
+	for _, p := range modules {
 		content, err := ioutil.ReadFile(filepath.Join(ls.dir, p+".json"))
 		if os.IsNotExist(err) {
 			continue
@@ -149,7 +147,7 @@ func (hs *httpSource) Index() (osv.DBIndex, error) {
 	return index, nil
 }
 
-func (hs *httpSource) Get(packages []string) ([]*osv.Entry, error) {
+func (hs *httpSource) Get(modules []string) ([]*osv.Entry, error) {
 	var entries []*osv.Entry
 
 	index, err := hs.Index()
@@ -158,7 +156,7 @@ func (hs *httpSource) Get(packages []string) ([]*osv.Entry, error) {
 	}
 
 	var stillNeed []string
-	for _, p := range packages {
+	for _, p := range modules {
 		lastModified, present := index[p]
 		if !present {
 			continue
@@ -202,7 +200,7 @@ func (hs *httpSource) Get(packages []string) ([]*osv.Entry, error) {
 			return nil, err
 		}
 		// TODO: we may want to check that the returned entries actually match
-		// the package we asked about, so that the cache cannot be poisoned
+		// the module we asked about, so that the cache cannot be poisoned
 		entries = append(entries, e...)
 
 		if hs.cache != nil {
@@ -254,11 +252,11 @@ func NewClient(sources []string, opts Options) (*Client, error) {
 	return c, nil
 }
 
-func (c *Client) Get(packages []string) ([]*osv.Entry, error) {
+func (c *Client) Get(modules []string) ([]*osv.Entry, error) {
 	var entries []*osv.Entry
 	// probably should be parallelized
 	for _, s := range c.sources {
-		e, err := s.Get(packages)
+		e, err := s.Get(modules)
 		if err != nil {
 			return nil, err // be failure tolerant?
 		}
