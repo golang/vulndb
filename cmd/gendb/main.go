@@ -77,8 +77,9 @@ func main() {
 		// TODO(rolandshoemaker): once the HTML representation is ready this should be
 		// the link to the HTML page.
 		linkName := fmt.Sprintf("%s%s.yaml", dbURL, name)
-		for path, e := range osv.Generate(name, linkName, vuln) {
-			jsonVulns[path] = append(jsonVulns[path], e...)
+		entry, paths := osv.Generate(name, linkName, vuln)
+		for _, path := range paths {
+			jsonVulns[path] = append(jsonVulns[path], entry)
 		}
 	}
 

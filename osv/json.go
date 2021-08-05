@@ -2,23 +2,13 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package osv implements the <name-pending> shared vulnerability
-// format, with the Go specific extensions, as defined by
-// https://tinyurl.com/vuln-json.
+// Package osv implements the OSV shared vulnerability
+// format, as defined by https://github.com/ossf/osv-schema.
 //
 // As this package is intended for use with the Go vulnerability
 // database, only the subset of features which are used by that
 // database are implemented (for instance, only the SEMVER affected
 // range type is implemented).
-//
-// The format of the Go specific "extra" JSON object is as follows:
-//
-//   {
-//     "symbols": [ string ],
-//     "goos": [ string ],
-//     "goarch": [ string ],
-//     "url": string
-//   }
 package osv
 
 import (
@@ -53,10 +43,14 @@ type Package struct {
 	Ecosystem Ecosystem `json:"ecosystem"`
 }
 
+type RangeEvent struct {
+	Introduced string `json:"introduced,omitempty"`
+	Fixed      string `json:"fixed,omitempty"`
+}
+
 type AffectsRange struct {
-	Type       AffectsRangeType `json:"type"`
-	Introduced string           `json:"introduced,omitempty"`
-	Fixed      string           `json:"fixed,omitempty"`
+	Type   AffectsRangeType `json:"type"`
+	Events []RangeEvent     `json:"events"`
 }
 
 // addSemverPrefix adds a 'v' prefix to s if it isn't already prefixed
@@ -73,18 +67,27 @@ func (ar AffectsRange) containsSemver(v string) bool {
 	if ar.Type != TypeSemver {
 		return false
 	}
+	if len(ar.Events) == 0 {
+		return true
+	}
 
 	// Strip and then add the semver prefix so we can support bare versions,
 	// versions prefixed with 'v', and versions prefixed with 'go'.
 	v = addSemverPrefix(removeSemverPrefix(v))
 
-	return (ar.Introduced == "" || semver.Compare(v, addSemverPrefix(ar.Introduced)) >= 0) &&
-		(ar.Fixed == "" || semver.Compare(v, addSemverPrefix(ar.Fixed)) < 0)
+	var affected bool
+	for _, e := range ar.Events {
+		if !affected && e.Introduced != "" {
+			affected = e.Introduced == "0" || semver.Compare(v, addSemverPrefix(e.Introduced)) >= 0
+		} else if e.Fixed != "" {
+			affected = semver.Compare(v, addSemverPrefix(e.Fixed)) < 0
+		}
+	}
+
+	return affected
 }
 
-type Affects struct {
-	Ranges []AffectsRange `json:"ranges,omitempty"`
-}
+type Affects []AffectsRange
 
 // removeSemverPrefix removes the 'v' or 'go' prefixes from go-style
 // SEMVER strings, for usage in the public vulnerability format.
@@ -94,31 +97,29 @@ func removeSemverPrefix(s string) string {
 	return s
 }
 
-func generateAffects(versions []report.VersionRange) Affects {
-	a := Affects{}
+func generateAffectedRanges(versions []report.VersionRange) Affects {
+	a := AffectsRange{Type: TypeSemver}
+	if len(versions) == 0 || versions[0].Introduced == "" {
+		a.Events = append(a.Events, RangeEvent{Introduced: "0"})
+	}
 	for _, v := range versions {
-		a.Ranges = append(a.Ranges, AffectsRange{
-			Type:       TypeSemver,
-			Introduced: removeSemverPrefix(v.Introduced),
-			Fixed:      removeSemverPrefix(v.Fixed),
-		})
+		if v.Introduced != "" {
+			a.Events = append(a.Events, RangeEvent{Introduced: removeSemverPrefix(v.Introduced)})
+		}
+		if v.Fixed != "" {
+			a.Events = append(a.Events, RangeEvent{Fixed: removeSemverPrefix(v.Fixed)})
+		}
 	}
-	if len(a.Ranges) == 0 {
-		// If all versions are affected, as indicated by an empty versions slice,
-		// we need to include an empty TypeSemver AffectsRange in the JSON
-		// output.
-		a.Ranges = append(a.Ranges, AffectsRange{Type: TypeSemver})
-	}
-	return a
+	return Affects{a}
 }
 
 func (a Affects) AffectsSemver(v string) bool {
-	if len(a.Ranges) == 0 {
+	if len(a) == 0 {
 		// No ranges implies all versions are affected
 		return true
 	}
 	var semverRangePresent bool
-	for _, r := range a.Ranges {
+	for _, r := range a {
 		if r.Type != TypeSemver {
 			continue
 		}
@@ -134,37 +135,67 @@ func (a Affects) AffectsSemver(v string) bool {
 	return !semverRangePresent
 }
 
-type GoSpecific struct {
-	Symbols []string `json:"symbols,omitempty"`
-	GOOS    []string `json:"goos,omitempty"`
-	GOARCH  []string `json:"goarch,omitempty"`
-	URL     string   `json:"url"`
-}
-
 type Reference struct {
 	Type string `json:"type"`
 	URL  string `json:"url"`
 }
 
+type Affected struct {
+	Package           Package           `json:"package"`
+	Ranges            Affects           `json:"ranges,omitempty"`
+	DatabaseSpecific  DatabaseSpecific  `json:"database_specific"`
+	EcosystemSpecific EcosystemSpecific `json:"ecosystem_specific"`
+}
+
+type DatabaseSpecific struct {
+	URL string `json:"url"`
+}
+
+type EcosystemSpecific struct {
+	Symbols []string `json:"symbols,omitempty"`
+	GOOS    []string `json:"goos,omitempty"`
+	GOARCH  []string `json:"goarch,omitempty"`
+}
+
 // Entry represents a OSV style JSON vulnerability database
 // entry
 type Entry struct {
-	ID                string      `json:"id"`
-	Published         time.Time   `json:"published"`
-	Modified          time.Time   `json:"modified"`
-	Withdrawn         *time.Time  `json:"withdrawn,omitempty"`
-	Aliases           []string    `json:"aliases,omitempty"`
-	Package           Package     `json:"package"`
-	Details           string      `json:"details"`
-	Affects           Affects     `json:"affects"`
-	References        []Reference `json:"references,omitempty"`
-	EcosystemSpecific GoSpecific  `json:"ecosystem_specific"`
+	ID         string      `json:"id"`
+	Published  time.Time   `json:"published"`
+	Modified   time.Time   `json:"modified"`
+	Withdrawn  *time.Time  `json:"withdrawn,omitempty"`
+	Aliases    []string    `json:"aliases,omitempty"`
+	Details    string      `json:"details"`
+	Affected   []Affected  `json:"affected"`
+	References []Reference `json:"references,omitempty"`
 }
 
-func Generate(id string, url string, r report.Report) map[string][]Entry {
+func generateAffected(importPath string, versions []report.VersionRange, goos, goarch, symbols []string, url string) Affected {
+	return Affected{
+		Package: Package{
+			Name:      importPath,
+			Ecosystem: GoEcosystem,
+		},
+		Ranges:           generateAffectedRanges(versions),
+		DatabaseSpecific: DatabaseSpecific{URL: url},
+		EcosystemSpecific: EcosystemSpecific{
+			GOOS:    goos,
+			GOARCH:  goarch,
+			Symbols: symbols,
+		},
+	}
+}
+
+func Generate(id string, url string, r report.Report) (Entry, []string) {
 	importPath := r.Module
 	if r.Package != "" {
 		importPath = r.Package
+	}
+	moduleMap := make(map[string]bool)
+	if r.Stdlib {
+		moduleMap["stdlib"] = true
+	} else {
+		moduleMap[r.Module] = true
 	}
 	lastModified := r.Published
 	if r.LastModified != nil {
@@ -175,18 +206,19 @@ func Generate(id string, url string, r report.Report) map[string][]Entry {
 		Published: r.Published,
 		Modified:  lastModified,
 		Withdrawn: r.Withdrawn,
-		Package: Package{
-			Name:      importPath,
-			Ecosystem: GoEcosystem,
-		},
-		Details: r.Description,
-		Affects: generateAffects(r.Versions),
-		EcosystemSpecific: GoSpecific{
-			Symbols: r.Symbols,
-			GOOS:    r.OS,
-			GOARCH:  r.Arch,
-			URL:     url,
-		},
+		Details:   r.Description,
+		Affected:  []Affected{generateAffected(importPath, r.Versions, r.OS, r.Arch, r.Symbols, url)},
+	}
+
+	for _, additional := range r.AdditionalPackages {
+		additionalPath := additional.Module
+		if additional.Package != "" {
+			additionalPath = additional.Package
+		}
+		if !r.Stdlib {
+			moduleMap[additional.Module] = true
+		}
+		entry.Affected = append(entry.Affected, generateAffected(additionalPath, additional.Versions, r.OS, r.Arch, additional.Symbols, url))
 	}
 
 	if r.Links.PR != "" {
@@ -203,30 +235,10 @@ func Generate(id string, url string, r report.Report) map[string][]Entry {
 		entry.Aliases = []string{r.CVE}
 	}
 
-	entries := map[string][]Entry{}
-	modulePath := r.Module
-	if r.Stdlib {
-		modulePath = "stdlib"
-	}
-	entries[modulePath] = []Entry{entry}
-
-	// It would be better if this was just a recursive thing maybe?
-	for _, additional := range r.AdditionalPackages {
-		entryCopy := entry
-		additionalImportPath := additional.Module
-		if additional.Package != "" {
-			additionalImportPath = additional.Package
-		}
-		entryCopy.Package.Name = additionalImportPath
-		entryCopy.EcosystemSpecific.Symbols = additional.Symbols
-		entryCopy.Affects = generateAffects(additional.Versions)
-
-		modulePath := additional.Module
-		if r.Stdlib {
-			modulePath = "stdlib"
-		}
-		entries[modulePath] = append(entries[modulePath], entryCopy)
+	var modules []string
+	for module := range moduleMap {
+		modules = append(modules, module)
 	}
 
-	return entries
+	return entry, modules
 }
