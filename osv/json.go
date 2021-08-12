@@ -150,6 +150,7 @@ type Reference struct {
 // entry
 type Entry struct {
 	ID                string      `json:"id"`
+	Module            string      `json:"module"`
 	Published         time.Time   `json:"published"`
 	Modified          time.Time   `json:"modified"`
 	Withdrawn         *time.Time  `json:"withdrawn,omitempty"`
@@ -172,6 +173,7 @@ func Generate(id string, url string, r report.Report) []Entry {
 	}
 	entry := Entry{
 		ID:        id,
+		Module:    r.Module,
 		Published: r.Published,
 		Modified:  lastModified,
 		Withdrawn: r.Withdrawn,
@@ -212,6 +214,7 @@ func Generate(id string, url string, r report.Report) []Entry {
 		if additional.Package != "" {
 			additionalImportPath = additional.Package
 		}
+		entryCopy.Module = additional.Module
 		entryCopy.Package.Name = additionalImportPath
 		entryCopy.EcosystemSpecific.Symbols = additional.Symbols
 		entryCopy.Affects = generateAffects(additional.Versions)
