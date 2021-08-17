@@ -16,8 +16,11 @@ can access the tree of JSON entries rooted at
 
 https://storage.googleapis.com/go-vulndb/
 
-An `index.json` file maps module paths to last modified timestamps. For each
-module, a `NAME.json` file contains a list of vulnerability entries.
+An `index.json` file maps module paths to last modified timestamps
+([link](https://storage.googleapis.com/go-vulndb/index.json)).
+
+For each module, a `NAME.json` file contains a list of vulnerability entries
+([example](https://storage.googleapis.com/go-vulndb/golang.org/x/crypto.json)).
 
 Note that this path and format are provisional and likely to change until an
 approved proposal.
