@@ -47,7 +47,7 @@ import (
 )
 
 type source interface {
-	Get([]string) ([]*osv.Entry, error)
+	Get(string) ([]*osv.Entry, error)
 	Index() (osv.DBIndex, error)
 }
 
@@ -55,22 +55,18 @@ type localSource struct {
 	dir string
 }
 
-func (ls *localSource) Get(modules []string) ([]*osv.Entry, error) {
-	var entries []*osv.Entry
-	for _, p := range modules {
-		content, err := ioutil.ReadFile(filepath.Join(ls.dir, p+".json"))
-		if os.IsNotExist(err) {
-			continue
-		} else if err != nil {
-			return nil, err
-		}
-		var e []*osv.Entry
-		if err = json.Unmarshal(content, &e); err != nil {
-			return nil, err
-		}
-		entries = append(entries, e...)
+func (ls *localSource) Get(module string) ([]*osv.Entry, error) {
+	content, err := ioutil.ReadFile(filepath.Join(ls.dir, module+".json"))
+	if os.IsNotExist(err) {
+		return nil, nil
+	} else if err != nil {
+		return nil, err
 	}
-	return entries, nil
+	var e []*osv.Entry
+	if err = json.Unmarshal(content, &e); err != nil {
+		return nil, err
+	}
+	return e, nil
 }
 
 func (ls *localSource) Index() (osv.DBIndex, error) {
@@ -147,69 +143,60 @@ func (hs *httpSource) Index() (osv.DBIndex, error) {
 	return index, nil
 }
 
-func (hs *httpSource) Get(modules []string) ([]*osv.Entry, error) {
-	var entries []*osv.Entry
-
+func (hs *httpSource) Get(module string) ([]*osv.Entry, error) {
 	index, err := hs.Index()
 	if err != nil {
 		return nil, err
 	}
 
-	var stillNeed []string
-	for _, p := range modules {
-		lastModified, present := index[p]
-		if !present {
-			continue
-		}
-		if hs.cache != nil {
-			if cached, err := hs.cache.ReadEntries(hs.dbName, p); err != nil {
-				return nil, err
-			} else if len(cached) != 0 {
-				var stale bool
-				for _, c := range cached {
-					if c.Modified.Before(lastModified) {
-						stale = true
-						break
-					}
-				}
-				if !stale {
-					entries = append(entries, cached...)
-					continue
-				}
-			}
-		}
-		stillNeed = append(stillNeed, p)
+	lastModified, present := index[module]
+	if !present {
+		return nil, nil
 	}
 
-	for _, p := range stillNeed {
-		resp, err := hs.c.Get(fmt.Sprintf("%s/%s.json", hs.url, p))
-		if err != nil {
+	if hs.cache != nil {
+		if cached, err := hs.cache.ReadEntries(hs.dbName, module); err != nil {
 			return nil, err
-		}
-		defer resp.Body.Close()
-		if resp.StatusCode == http.StatusNotFound {
-			continue
-		}
-		// might want this to be a LimitedReader
-		content, err := ioutil.ReadAll(resp.Body)
-		if err != nil {
-			return nil, err
-		}
-		var e []*osv.Entry
-		if err = json.Unmarshal(content, &e); err != nil {
-			return nil, err
-		}
-		// TODO: we may want to check that the returned entries actually match
-		// the module we asked about, so that the cache cannot be poisoned
-		entries = append(entries, e...)
-
-		if hs.cache != nil {
-			if err := hs.cache.WriteEntries(hs.dbName, p, e); err != nil {
-				return nil, err
+		} else if len(cached) != 0 {
+			var stale bool
+			for _, c := range cached {
+				if c.Modified.Before(lastModified) {
+					stale = true
+					break
+				}
+			}
+			if !stale {
+				return cached, nil
 			}
 		}
 	}
-	return entries, nil
+
+	resp, err := hs.c.Get(fmt.Sprintf("%s/%s.json", hs.url, module))
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode == http.StatusNotFound {
+		return nil, nil
+	}
+	// might want this to be a LimitedReader
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+	var e []*osv.Entry
+	// TODO: we may want to check that the returned entries actually match
+	// the module we asked about, so that the cache cannot be poisoned
+	if err = json.Unmarshal(content, &e); err != nil {
+		return nil, err
+	}
+
+	if hs.cache != nil {
+		if err := hs.cache.WriteEntries(hs.dbName, module, e); err != nil {
+			return nil, err
+		}
+	}
+	return e, nil
 }
 
 type Client struct {
@@ -252,11 +239,11 @@ func NewClient(sources []string, opts Options) (*Client, error) {
 	return c, nil
 }
 
-func (c *Client) Get(modules []string) ([]*osv.Entry, error) {
+func (c *Client) Get(module string) ([]*osv.Entry, error) {
 	var entries []*osv.Entry
 	// probably should be parallelized
 	for _, s := range c.sources {
-		e, err := s.Get(modules)
+		e, err := s.Get(module)
 		if err != nil {
 			return nil, err // be failure tolerant?
 		}
