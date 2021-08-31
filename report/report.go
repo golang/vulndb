@@ -28,6 +28,12 @@ type CVEMeta struct {
 	ID          string `yaml:",omitempty"`
 	CWE         string `yaml:",omitempty"`
 	Description string `yaml:",omitempty"`
+	CVSSMeta    *CVSS  `yaml:",omitempty"`
+}
+type CVSS struct {
+	Version string  `yaml:",omitempty"`
+	Score   float32 `yaml:",omitempty"`
+	Vector  string  `yaml:",omitempty"`
 }
 
 type Report struct {

@@ -43,6 +43,7 @@ func TestGenerate(t *testing.T) {
 			Commit:  "commit",
 			Context: []string{"issue-a", "issue-b"},
 		},
+		CVEMetadata: &report.CVEMeta{ID: "CVE-2020-1234"},
 	}
 
 	want := map[string][]Entry{
