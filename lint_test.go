@@ -7,6 +7,7 @@ package main
 import (
 	"io/ioutil"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"testing"
 
@@ -15,6 +16,13 @@ import (
 )
 
 func TestLintReports(t *testing.T) {
+	if runtime.GOOS == "js" {
+		t.Skipf("wasm builder does not have network access")
+	}
+	if runtime.GOOS == "android" {
+		t.Skipf("android builder does not have access to reports/")
+	}
+
 	reports, err := ioutil.ReadDir("reports")
 	if err != nil {
 		t.Fatalf("unable to read reports/: %s", err)
