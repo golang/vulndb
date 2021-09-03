@@ -46,6 +46,11 @@ import (
 	"golang.org/x/vulndb/osv"
 )
 
+// Client interface for fetching vulnerabilities based on module path
+type Client interface {
+	Get(string) ([]*osv.Entry, error)
+}
+
 type source interface {
 	Get(string) ([]*osv.Entry, error)
 	Index() (osv.DBIndex, error)
@@ -199,7 +204,7 @@ func (hs *httpSource) Get(module string) ([]*osv.Entry, error) {
 	return e, nil
 }
 
-type Client struct {
+type client struct {
 	sources []source
 }
 
@@ -208,8 +213,8 @@ type Options struct {
 	HTTPCache  Cache
 }
 
-func NewClient(sources []string, opts Options) (*Client, error) {
-	c := &Client{}
+func NewClient(sources []string, opts Options) (Client, error) {
+	c := &client{}
 	for _, uri := range sources {
 		uri = strings.TrimRight(uri, "/")
 		// should parse the URI out here instead of in there
@@ -239,7 +244,7 @@ func NewClient(sources []string, opts Options) (*Client, error) {
 	return c, nil
 }
 
-func (c *Client) Get(module string) ([]*osv.Entry, error) {
+func (c *client) Get(module string) ([]*osv.Entry, error) {
 	var entries []*osv.Entry
 	// probably should be parallelized
 	for _, s := range c.sources {

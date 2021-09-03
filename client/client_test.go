@@ -40,21 +40,70 @@ func serveIndex(w http.ResponseWriter, req *http.Request) {
 	fmt.Fprintf(w, index)
 }
 
+// testCache for testing purposes
+type testCache struct {
+	indexMap   map[string]osv.DBIndex
+	indexStamp map[string]time.Time
+	vulnMap    map[string]map[string][]*osv.Entry
+}
+
+func freshTestCache() *testCache {
+	return &testCache{
+		indexMap:   make(map[string]osv.DBIndex),
+		indexStamp: make(map[string]time.Time),
+		vulnMap:    make(map[string]map[string][]*osv.Entry),
+	}
+}
+
+func (tc *testCache) ReadIndex(db string) (osv.DBIndex, time.Time, error) {
+	index, ok := tc.indexMap[db]
+	if !ok {
+		return nil, time.Time{}, nil
+	}
+	stamp, ok := tc.indexStamp[db]
+	if !ok {
+		return nil, time.Time{}, nil
+	}
+	return index, stamp, nil
+}
+
+func (tc *testCache) WriteIndex(db string, index osv.DBIndex, stamp time.Time) error {
+	tc.indexMap[db] = index
+	tc.indexStamp[db] = stamp
+	return nil
+}
+
+func (tc *testCache) ReadEntries(db, module string) ([]*osv.Entry, error) {
+	mMap, ok := tc.vulnMap[db]
+	if !ok {
+		return nil, nil
+	}
+	return mMap[module], nil
+}
+
+func (tc *testCache) WriteEntries(db, module string, entries []*osv.Entry) error {
+	mMap, ok := tc.vulnMap[db]
+	if !ok {
+		mMap = make(map[string][]*osv.Entry)
+		tc.vulnMap[db] = mMap
+	}
+	mMap[module] = append(mMap[module], entries...)
+	return nil
+}
+
 // cachedTestVuln returns a function creating a local cache
 // for db with `dbName` with a version of testVuln where
 // Summary="cached" and LastModified happened after entry
 // in the `index` for the same pkg.
-func cachedTestVuln(dbName string) func() Cache {
-	return func() Cache {
-		c := &fsCache{}
-		e := &osv.Entry{
-			ID:       "ID1",
-			Details:  "cached",
-			Modified: time.Now(),
-		}
-		c.WriteEntries(dbName, "golang.org/example/one", []*osv.Entry{e})
-		return c
+func cachedTestVuln(dbName string) Cache {
+	c := freshTestCache()
+	e := &osv.Entry{
+		ID:       "ID1",
+		Details:  "cached",
+		Modified: time.Now(),
 	}
+	c.WriteEntries(dbName, "golang.org/example/one", []*osv.Entry{e})
+	return c
 }
 
 // createDirAndFile creates a directory `dir` if such directory does
@@ -103,28 +152,25 @@ func TestClient(t *testing.T) {
 	defer os.RemoveAll(localDBName)
 
 	for _, test := range []struct {
-		name        string
-		source      string
-		createCache func() Cache
+		name   string
+		source string
+		cache  Cache
 		// cache summary for testVuln
 		summary string
 	}{
 		// Test the http client without any cache.
-		{name: "http-no-cache", source: "http://localhost:" + port, createCache: func() Cache { return nil }, summary: ""},
+		{name: "http-no-cache", source: "http://localhost:" + port, cache: nil, summary: ""},
 		// Test the http client with empty cache.
-		{name: "http-empty-cache", source: "http://localhost:" + port, createCache: func() Cache { return &fsCache{} }, summary: ""},
+		{name: "http-empty-cache", source: "http://localhost:" + port, cache: freshTestCache(), summary: ""},
 		// Test the client with non-stale cache containing a version of testVuln2 where Summary="cached".
-		{name: "http-cache", source: "http://localhost:" + port, createCache: cachedTestVuln("localhost"), summary: "cached"},
+		{name: "http-cache", source: "http://localhost:" + port, cache: cachedTestVuln("localhost"), summary: "cached"},
 		// Repeat the same for local file client.
-		{name: "file-no-cache", source: "file://" + localDBName, createCache: func() Cache { return nil }, summary: ""},
-		{name: "file-empty-cache", source: "file://" + localDBName, createCache: func() Cache { return &fsCache{} }, summary: ""},
+		{name: "file-no-cache", source: "file://" + localDBName, cache: nil, summary: ""},
+		{name: "file-empty-cache", source: "file://" + localDBName, cache: freshTestCache(), summary: ""},
 		// Cache does not play a role in local file databases.
-		{name: "file-cache", source: "file://" + localDBName, createCache: cachedTestVuln(localDBName), summary: ""},
+		{name: "file-cache", source: "file://" + localDBName, cache: cachedTestVuln(localDBName), summary: ""},
 	} {
-		// Create fresh cache location each time.
-		cacheRoot = t.TempDir()
-
-		client, err := NewClient([]string{test.source}, Options{HTTPCache: test.createCache()})
+		client, err := NewClient([]string{test.source}, Options{HTTPCache: test.cache})
 		if err != nil {
 			t.Fatal(err)
 		}
