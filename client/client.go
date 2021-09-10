@@ -98,11 +98,12 @@ func (hs *httpSource) Index() (osv.DBIndex, error) {
 	var cachedIndexRetrieved *time.Time
 
 	if hs.cache != nil {
-		cachedIndex, retrieved, err := hs.cache.ReadIndex(hs.dbName)
+		index, retrieved, err := hs.cache.ReadIndex(hs.dbName)
 		if err != nil {
 			return nil, err
 		}
 
+		cachedIndex = index
 		if cachedIndex != nil {
 			if time.Since(retrieved) < time.Hour*2 {
 				return cachedIndex, nil

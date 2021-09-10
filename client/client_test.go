@@ -11,6 +11,7 @@ import (
 	"net"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"os"
 	"path"
 	"reflect"
@@ -215,5 +216,42 @@ func TestCorrectFetchesNoCache(t *testing.T) {
 	expectedFetches := map[string]int{"/index.json": 3, "/a.json": 1, "/b.json": 1}
 	if !reflect.DeepEqual(fetches, expectedFetches) {
 		t.Errorf("unexpected fetches, got %v, want %v", fetches, expectedFetches)
+	}
+}
+
+// Make sure that a cached index is used in the case it is stale
+// but there were no changes to it at the server side.
+func TestCorrectFetchesNoChangeIndex(t *testing.T) {
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path == "/index.json" {
+			w.WriteHeader(http.StatusNotModified)
+		}
+	}))
+	defer ts.Close()
+	url, _ := url.Parse(ts.URL)
+
+	// set timestamp so that cached index is stale,
+	// i.e., more than two hours old.
+	timeStamp := time.Now().Add(time.Hour * (-3))
+	index := osv.DBIndex{"a": timeStamp}
+	cache := freshTestCache()
+	cache.WriteIndex(url.Hostname(), index, timeStamp)
+
+	e := &osv.Entry{
+		ID:       "ID1",
+		Modified: timeStamp,
+	}
+	cache.WriteEntries(url.Hostname(), "a", []*osv.Entry{e})
+
+	client, err := NewClient([]string{ts.URL}, Options{HTTPCache: cache})
+	if err != nil {
+		t.Fatal(err)
+	}
+	vulns, err := client.Get("a")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !reflect.DeepEqual(vulns, []*osv.Entry{e}) {
+		t.Errorf("want %v vuln; got %v", e, vulns)
 	}
 }
