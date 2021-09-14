@@ -73,7 +73,7 @@ func (ar AffectsRange) containsSemver(v string) bool {
 
 	// Strip and then add the semver prefix so we can support bare versions,
 	// versions prefixed with 'v', and versions prefixed with 'go'.
-	v = addSemverPrefix(removeSemverPrefix(v))
+	v = canonicalizeSemverPrefix(v)
 
 	var affected bool
 	for _, e := range ar.Events {
@@ -97,6 +97,14 @@ func removeSemverPrefix(s string) string {
 	return s
 }
 
+// canonicalizeSemverPrefix turns a SEMVER string into the canonical
+// representation using the 'v' prefix, as used by the OSV format.
+// Input may be a bare SEMVER ("1.2.3"), Go prefixed SEMVER ("go1.2.3"),
+// or already canonical SEMVER ("v1.2.3").
+func canonicalizeSemverPrefix(s string) string {
+	return addSemverPrefix(removeSemverPrefix(s))
+}
+
 func generateAffectedRanges(versions []report.VersionRange) Affects {
 	a := AffectsRange{Type: TypeSemver}
 	if len(versions) == 0 || versions[0].Introduced == "" {
@@ -104,10 +112,12 @@ func generateAffectedRanges(versions []report.VersionRange) Affects {
 	}
 	for _, v := range versions {
 		if v.Introduced != "" {
-			a.Events = append(a.Events, RangeEvent{Introduced: removeSemverPrefix(v.Introduced)})
+			v.Introduced = canonicalizeSemverPrefix(v.Introduced)
+			a.Events = append(a.Events, RangeEvent{Introduced: removeSemverPrefix(semver.Canonical(v.Introduced))})
 		}
 		if v.Fixed != "" {
-			a.Events = append(a.Events, RangeEvent{Fixed: removeSemverPrefix(v.Fixed)})
+			v.Fixed = canonicalizeSemverPrefix(v.Fixed)
+			a.Events = append(a.Events, RangeEvent{Fixed: removeSemverPrefix(semver.Canonical(v.Fixed))})
 		}
 	}
 	return Affects{a}

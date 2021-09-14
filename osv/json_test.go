@@ -284,3 +284,30 @@ func TestAffectsSemver(t *testing.T) {
 		}
 	}
 }
+
+func TestSemverCanonicalize(t *testing.T) {
+	in := []report.VersionRange{
+		{
+			Introduced: "go1.16",
+			Fixed:      "go1.17",
+		},
+	}
+	expected := Affects{
+		{
+			Type: TypeSemver,
+			Events: []RangeEvent{
+				{
+					Introduced: "1.16.0",
+				},
+				{
+					Fixed: "1.17.0",
+				},
+			},
+		},
+	}
+
+	out := generateAffectedRanges(in)
+	if !reflect.DeepEqual(out, expected) {
+		t.Fatalf("unexpected output: got %#v, want %#v", out, expected)
+	}
+}
