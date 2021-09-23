@@ -126,6 +126,12 @@ func (hs *httpSource) Index() (osv.DBIndex, error) {
 	}
 	defer resp.Body.Close()
 	if cachedIndexRetrieved != nil && resp.StatusCode == http.StatusNotModified {
+		// If status has not been modified, this is equivalent to returning the
+		// same index. We update the timestamp so the next cache index read does
+		// not require a roundtrip to the server.
+		if err = hs.cache.WriteIndex(hs.dbName, cachedIndex, time.Now()); err != nil {
+			return nil, err
+		}
 		return cachedIndex, nil
 	}
 	if resp.StatusCode != http.StatusOK {
