@@ -51,6 +51,7 @@ func main() {
 	}
 
 	jsonVulns := map[string][]osv.Entry{}
+	var entries []osv.Entry
 	for _, f := range yamlFiles {
 		if !strings.HasSuffix(f.Name(), ".yaml") {
 			continue
@@ -80,6 +81,7 @@ func main() {
 		for _, path := range paths {
 			jsonVulns[path] = append(jsonVulns[path], entry)
 		}
+		entries = append(entries, entry)
 	}
 
 	index := make(osv.DBIndex, len(jsonVulns))
@@ -108,5 +110,21 @@ func main() {
 	}
 	if err := os.WriteFile(filepath.Join(*jsonDir, "index.json"), indexJSON, 0644); err != nil {
 		failf("failed to write index: %s", err)
+	}
+
+	// Write a directory containing entries by ID.
+	idDir := filepath.Join(*jsonDir, "byID")
+	if err := os.MkdirAll(idDir, 0700); err != nil {
+		failf("failed to create directory %q: %v", idDir, err)
+	}
+	for _, e := range entries {
+		outPath := filepath.Join(idDir, e.ID+".json")
+		content, err := json.Marshal(e)
+		if err != nil {
+			failf("failed to marshal json: %v", err)
+		}
+		if err := os.WriteFile(outPath, content, 0644); err != nil {
+			failf("failed to write %q: %v", outPath, err)
+		}
 	}
 }
