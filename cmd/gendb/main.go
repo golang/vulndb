@@ -19,7 +19,8 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-func fail(why string) {
+func failf(format string, args ...interface{}) {
+	why := fmt.Sprintf(format, args...)
 	fmt.Fprintln(os.Stderr, why)
 	os.Exit(1)
 }
@@ -47,7 +48,7 @@ func main() {
 
 	yamlFiles, err := ioutil.ReadDir(*yamlDir)
 	if err != nil {
-		fail(fmt.Sprintf("can't read %q: %s", *yamlDir, err))
+		failf("can't read %q: %s", *yamlDir, err)
 	}
 
 	jsonVulns := map[string][]osv.Entry{}
@@ -57,12 +58,12 @@ func main() {
 		}
 		content, err := ioutil.ReadFile(filepath.Join(*yamlDir, f.Name()))
 		if err != nil {
-			fail(fmt.Sprintf("can't read %q: %s", f.Name(), err))
+			failf("can't read %q: %s", f.Name(), err)
 		}
 		var vuln report.Report
 		err = yaml.UnmarshalStrict(content, &vuln)
 		if err != nil {
-			fail(fmt.Sprintf("unable to unmarshal %q: %s", f.Name(), err))
+			failf("unable to unmarshal %q: %s", f.Name(), err)
 		}
 		if lints := vuln.Lint(); len(lints) > 0 {
 			fmt.Fprintf(os.Stderr, "invalid vulnerability file %q:\n", os.Args[1])
@@ -88,15 +89,15 @@ func main() {
 		outPath := filepath.Join(*jsonDir, path)
 		content, err := json.Marshal(vulns)
 		if err != nil {
-			fail(fmt.Sprintf("failed to marshal json: %s", err))
+			failf("failed to marshal json: %s", err)
 		}
 		err = os.MkdirAll(filepath.Dir(outPath), 0700)
 		if err != nil {
-			fail(fmt.Sprintf("failed to create directory %q: %s", filepath.Dir(outPath), err))
+			failf("failed to create directory %q: %s", filepath.Dir(outPath), err)
 		}
 		err = ioutil.WriteFile(outPath+".json", content, 0644)
 		if err != nil {
-			fail(fmt.Sprintf("failed to write %q: %s", outPath+".json", err))
+			failf("failed to write %q: %s", outPath+".json", err)
 		}
 		for _, v := range vulns {
 			if v.Modified.After(index[path]) || v.Published.After(index[path]) {
@@ -107,10 +108,10 @@ func main() {
 
 	indexJSON, err := json.Marshal(index)
 	if err != nil {
-		fail(fmt.Sprintf("failed to marshal index json: %s", err))
+		failf("failed to marshal index json: %s", err)
 	}
 	err = ioutil.WriteFile(filepath.Join(*jsonDir, "index.json"), indexJSON, 0644)
 	if err != nil {
-		fail(fmt.Sprintf("failed to write index: %s", err))
+		failf("failed to write index: %s", err)
 	}
 }
