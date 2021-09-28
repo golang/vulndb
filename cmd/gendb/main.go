@@ -8,7 +8,6 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -31,11 +30,11 @@ const dbURL = "https://go.googlesource.com/vulndb/+/refs/heads/master/reports/"
 
 func matchesCurrent(path string, new []osv.Entry) bool {
 	var current []osv.Entry
-	content, err := ioutil.ReadFile(path + ".json")
+	content, err := os.ReadFile(path + ".json")
 	if err != nil {
 		return false
 	}
-	if err = json.Unmarshal(content, &current); err != nil {
+	if err := json.Unmarshal(content, &current); err != nil {
 		return false
 	}
 	return reflect.DeepEqual(current, new)
@@ -46,7 +45,7 @@ func main() {
 	jsonDir := flag.String("out", "out", "Directory to write JSON database to")
 	flag.Parse()
 
-	yamlFiles, err := ioutil.ReadDir(*yamlDir)
+	yamlFiles, err := os.ReadDir(*yamlDir)
 	if err != nil {
 		failf("can't read %q: %s", *yamlDir, err)
 	}
@@ -56,13 +55,12 @@ func main() {
 		if !strings.HasSuffix(f.Name(), ".yaml") {
 			continue
 		}
-		content, err := ioutil.ReadFile(filepath.Join(*yamlDir, f.Name()))
+		content, err := os.ReadFile(filepath.Join(*yamlDir, f.Name()))
 		if err != nil {
 			failf("can't read %q: %s", f.Name(), err)
 		}
 		var vuln report.Report
-		err = yaml.UnmarshalStrict(content, &vuln)
-		if err != nil {
+		if err := yaml.UnmarshalStrict(content, &vuln); err != nil {
 			failf("unable to unmarshal %q: %s", f.Name(), err)
 		}
 		if lints := vuln.Lint(); len(lints) > 0 {
@@ -91,12 +89,10 @@ func main() {
 		if err != nil {
 			failf("failed to marshal json: %s", err)
 		}
-		err = os.MkdirAll(filepath.Dir(outPath), 0700)
-		if err != nil {
+		if err := os.MkdirAll(filepath.Dir(outPath), 0700); err != nil {
 			failf("failed to create directory %q: %s", filepath.Dir(outPath), err)
 		}
-		err = ioutil.WriteFile(outPath+".json", content, 0644)
-		if err != nil {
+		if err := os.WriteFile(outPath+".json", content, 0644); err != nil {
 			failf("failed to write %q: %s", outPath+".json", err)
 		}
 		for _, v := range vulns {
@@ -110,8 +106,7 @@ func main() {
 	if err != nil {
 		failf("failed to marshal index json: %s", err)
 	}
-	err = ioutil.WriteFile(filepath.Join(*jsonDir, "index.json"), indexJSON, 0644)
-	if err != nil {
+	if err := os.WriteFile(filepath.Join(*jsonDir, "index.json"), indexJSON, 0644); err != nil {
 		failf("failed to write index: %s", err)
 	}
 }
