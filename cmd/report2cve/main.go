@@ -103,7 +103,7 @@ type CVE struct {
 	References  References  `json:"references"`
 }
 
-func FromReport(report *report.Report) (*CVE, error) {
+func fromReport(report *report.Report) (*CVE, error) {
 	if report.CVE != "" {
 		return nil, errors.New("report has CVE ID is wrong section (should be in cve_metadata for self-issued CVEs)")
 	}
@@ -230,7 +230,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	cve, err := FromReport(&r)
+	cve, err := fromReport(&r)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "failed to generate CVE: %s\n", err)
 		os.Exit(1)
