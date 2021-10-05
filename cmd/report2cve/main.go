@@ -7,6 +7,7 @@ package main
 import (
 	"encoding/json"
 	"errors"
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -212,8 +213,14 @@ func versionToVersion(versions []report.VersionRange) VersionData {
 }
 
 func main() {
-	if len(os.Args) != 2 {
-		fmt.Fprint(os.Stderr, "usage: report2cve report.yaml")
+	flag.Usage = func() {
+		fmt.Fprintf(flag.CommandLine.Output(), "usage: report2cve GO-YYYY-NNNN.yaml\n")
+		fmt.Fprintf(flag.CommandLine.Output(), "  Create a CVE report from a file with the name structure GO-YYYY-NNNN.yaml in the reports/ directory.\n")
+		flag.PrintDefaults()
+	}
+	flag.Parse()
+	if flag.NArg() != 2 {
+		flag.Usage()
 		os.Exit(1)
 	}
 
