@@ -29,7 +29,9 @@ func loadDB(dbPath string) (osv.DBIndex, map[string][]osv.Entry, error) {
 		for _, f := range dir {
 			fpath := filepath.Join(path, f.Name())
 			if f.IsDir() {
-				loadDir(fpath)
+				if err := loadDir(fpath); err != nil {
+					return err
+				}
 				continue
 			}
 			content, err := ioutil.ReadFile(fpath)
@@ -40,12 +42,19 @@ func loadDB(dbPath string) (osv.DBIndex, map[string][]osv.Entry, error) {
 				if err := json.Unmarshal(content, &index); err != nil {
 					return fmt.Errorf("unable to parse %q: %s", fpath, err)
 				}
+			} else if path == filepath.Join(dbPath, "byID") {
+				var entry osv.Entry
+				if err := json.Unmarshal(content, &entry); err != nil {
+					return fmt.Errorf("unable to parse %q: %s", fpath, err)
+				}
+				fname := strings.TrimPrefix(fpath, dbPath)
+				dbMap[fname] = []osv.Entry{entry}
 			} else {
 				var entries []osv.Entry
 				if err := json.Unmarshal(content, &entries); err != nil {
 					return fmt.Errorf("unable to parse %q: %s", fpath, err)
 				}
-				module := strings.TrimSuffix(strings.TrimPrefix(fpath, dbPath), filepath.Ext(fpath))
+				module := strings.TrimPrefix(fpath, dbPath)
 				dbMap[module] = entries
 			}
 		}
