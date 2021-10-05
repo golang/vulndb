@@ -30,16 +30,17 @@ approved proposal.
 Some of these packages can probably be coalesced, but for now are easier to work
 on in a more segmented fashion.
 
-* `report` provides a package for parsing and linting TOML reports
+* `report` provides a package for parsing and linting YAML reports
 * `osv` provides a package for generating OSV-style JSON vulnerability entries
   from a `report.Report`
 * `client` contains a client for accessing HTTP/fs based vulnerability
   databases, as well as a minimal caching implementation
-* `cmd/dbdiff` provides a tool for comparing two different versions of the vulnerability database
-* `cmd/gendb` provides a tool for converting TOML reports into JSON database
-* `cmd/genhtml` provides a tool for converting TOML reports into a HTML website
+* `cmd/dbdiff` provides a tool for comparing two different versions of the
+  vulnerability database
+* `cmd/gendb` provides a tool for converting YAML reports into JSON database
+* `cmd/genhtml` provides a tool for converting YAML reports into a HTML website
 * `cmd/linter` provides a tool for linting individual reports
-* `cmd/report2cve` provides a tool for converting TOML reports into JSON CVEs
+* `cmd/report2cve` provides a tool for converting YAML reports into JSON CVEs
 
 ## License
 

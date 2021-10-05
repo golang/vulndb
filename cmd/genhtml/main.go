@@ -176,17 +176,17 @@ func fail(why string) {
 }
 
 func main() {
-	tomlDir := flag.String("reports", "Directory containing toml reports", "")
+	yamlDir := flag.String("reports", "Directory containing yaml reports", "")
 	htmlDir := flag.String("out", "Directory to write website to", "")
 	flag.Parse()
 
 	htmlVulns := map[string]report.Report{}
-	tomlFiles, err := ioutil.ReadDir(*tomlDir)
+	yamlFiles, err := ioutil.ReadDir(*yamlDir)
 	if err != nil {
-		fail(fmt.Sprintf("can't read %q: %s", *tomlDir, err))
+		fail(fmt.Sprintf("can't read %q: %s", *yamlDir, err))
 	}
-	for _, f := range tomlFiles {
-		if !strings.HasSuffix(f.Name(), ".toml") {
+	for _, f := range yamlFiles {
+		if !strings.HasSuffix(f.Name(), ".yaml") {
 			continue
 		}
 		content, err := ioutil.ReadFile(f.Name())

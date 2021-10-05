@@ -213,7 +213,7 @@ func versionToVersion(versions []report.VersionRange) VersionData {
 
 func main() {
 	if len(os.Args) != 2 {
-		fmt.Fprint(os.Stderr, "usage: report2cve report.toml")
+		fmt.Fprint(os.Stderr, "usage: report2cve report.yaml")
 		os.Exit(1)
 	}
 

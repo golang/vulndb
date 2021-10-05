@@ -1,5 +1,6 @@
-The main section of the TOML contains high level information about the vulnerability
+The main section of the YAML contains high level information about the vulnerability
 
+TODO(golang/vulndb#9): update to YAML format.
 ```
 package = "github.com/example/module"
 ```
@@ -31,7 +32,7 @@ symbols = ["Parser.Parse"]
 ```
 [[versions]]
 ```
-The `versions` sections of the TOML contain information about when the vulnerability was introduced, and when it was fixed. If the vulnerability is fixed in multiple major versions, then the TOML should contain multiple `versions` sections. If omitted it is assumed that _every_ version of the module is vulnerable.
+The `versions` sections of the YAML contain information about when the vulnerability was introduced, and when it was fixed. If the vulnerability is fixed in multiple major versions, then the YAML should contain multiple `versions` sections. If omitted it is assumed that _every_ version of the module is vulnerable.
 
 ```
 introduced = "v0.0.1"
@@ -46,7 +47,7 @@ fixed = "v4.0.0-20190408214815-ec0a89a131e3"
 ```
 [[additional_packages]]
 ```
-The `additional_packages` sections of the TOML contain information about additional packages impacted by the vulnerability. These may be other submodules which independently implement the same vulnerability, or alternate module names for the same module.
+The `additional_packages` sections of the YAML contain information about additional packages impacted by the vulnerability. These may be other submodules which independently implement the same vulnerability, or alternate module names for the same module.
 
 ```
 package = "gopkg.in/vuln-mod"
@@ -66,7 +67,7 @@ The `additional_packages.versions` sections contain version ranges for each addi
 ```
 [links]
 ```
-The `links` section of the TOML contains further information about the vulnerability.
+The `links` section of the YAML contains further information about the vulnerability.
 
 ```
 commit = "https://github.com/example/module/commit/abcd"
