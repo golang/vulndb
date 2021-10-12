@@ -37,7 +37,6 @@ on in a more segmented fashion.
 * `cmd/dbdiff` provides a tool for comparing two different versions of the
   vulnerability database
 * `cmd/gendb` provides a tool for converting YAML reports into JSON database
-* `cmd/genhtml` provides a tool for converting YAML reports into a HTML website
 * `cmd/linter` provides a tool for linting individual reports
 * `cmd/report2cve` provides a tool for converting YAML reports into JSON CVEs
 
