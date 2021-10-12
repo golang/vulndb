@@ -16,7 +16,7 @@ import (
 	"time"
 
 	"golang.org/x/mod/semver"
-	"golang.org/x/vulndb/report"
+	"golang.org/x/vulndb/internal/report"
 )
 
 // DBIndex contains a mapping of vulnerable packages to the

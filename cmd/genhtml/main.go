@@ -14,7 +14,7 @@ import (
 	"sort"
 	"strings"
 
-	"golang.org/x/vulndb/report"
+	"golang.org/x/vulndb/internal/report"
 	"gopkg.in/yaml.v2"
 )
 

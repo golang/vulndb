@@ -7,13 +7,12 @@ package main
 import (
 	"encoding/json"
 	"errors"
-	"flag"
 	"fmt"
 	"io/ioutil"
 	"os"
 	"strings"
 
-	"golang.org/x/vulndb/report"
+	"golang.org/x/vulndb/internal/report"
 	"gopkg.in/yaml.v2"
 )
 
@@ -213,14 +212,8 @@ func versionToVersion(versions []report.VersionRange) VersionData {
 }
 
 func main() {
-	flag.Usage = func() {
-		fmt.Fprintf(flag.CommandLine.Output(), "usage: report2cve GO-YYYY-NNNN.yaml\n")
-		fmt.Fprintf(flag.CommandLine.Output(), "  Create a CVE report from a file with the name structure GO-YYYY-NNNN.yaml in the reports/ directory.\n")
-		flag.PrintDefaults()
-	}
-	flag.Parse()
-	if flag.NArg() != 2 {
-		flag.Usage()
+	if len(os.Args) != 2 {
+		fmt.Fprint(os.Stderr, "usage: report2cve report.yaml")
 		os.Exit(1)
 	}
 

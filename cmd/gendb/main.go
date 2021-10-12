@@ -14,8 +14,8 @@ import (
 	"reflect"
 	"strings"
 
+	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/osv"
-	"golang.org/x/vulndb/report"
 	"gopkg.in/yaml.v2"
 )
 

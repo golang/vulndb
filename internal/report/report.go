@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+// Package report contains functionality for parsing and linting YAML reports
+// in reports/.
 package report
 
 import "time"

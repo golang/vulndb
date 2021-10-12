@@ -30,7 +30,6 @@ approved proposal.
 Some of these packages can probably be coalesced, but for now are easier to work
 on in a more segmented fashion.
 
-* `report` provides a package for parsing and linting YAML reports
 * `osv` provides a package for generating OSV-style JSON vulnerability entries
   from a `report.Report`
 * `client` contains a client for accessing HTTP/fs based vulnerability
