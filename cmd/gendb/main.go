@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -30,7 +31,7 @@ const dbURL = "https://go.googlesource.com/vulndb/+/refs/heads/master/reports/"
 
 func matchesCurrent(path string, new []osv.Entry) bool {
 	var current []osv.Entry
-	content, err := os.ReadFile(path + ".json")
+	content, err := ioutil.ReadFile(path + ".json")
 	if err != nil {
 		return false
 	}
@@ -45,7 +46,7 @@ func main() {
 	jsonDir := flag.String("out", "out", "Directory to write JSON database to")
 	flag.Parse()
 
-	yamlFiles, err := os.ReadDir(*yamlDir)
+	yamlFiles, err := ioutil.ReadDir(*yamlDir)
 	if err != nil {
 		failf("can't read %q: %s", *yamlDir, err)
 	}
@@ -56,7 +57,7 @@ func main() {
 		if !strings.HasSuffix(f.Name(), ".yaml") {
 			continue
 		}
-		content, err := os.ReadFile(filepath.Join(*yamlDir, f.Name()))
+		content, err := ioutil.ReadFile(filepath.Join(*yamlDir, f.Name()))
 		if err != nil {
 			failf("can't read %q: %s", f.Name(), err)
 		}
@@ -94,7 +95,7 @@ func main() {
 		if err := os.MkdirAll(filepath.Dir(outPath), 0700); err != nil {
 			failf("failed to create directory %q: %s", filepath.Dir(outPath), err)
 		}
-		if err := os.WriteFile(outPath+".json", content, 0644); err != nil {
+		if err := ioutil.WriteFile(outPath+".json", content, 0644); err != nil {
 			failf("failed to write %q: %s", outPath+".json", err)
 		}
 		for _, v := range vulns {
@@ -108,7 +109,7 @@ func main() {
 	if err != nil {
 		failf("failed to marshal index json: %s", err)
 	}
-	if err := os.WriteFile(filepath.Join(*jsonDir, "index.json"), indexJSON, 0644); err != nil {
+	if err := ioutil.WriteFile(filepath.Join(*jsonDir, "index.json"), indexJSON, 0644); err != nil {
 		failf("failed to write index: %s", err)
 	}
 
@@ -123,7 +124,7 @@ func main() {
 		if err != nil {
 			failf("failed to marshal json: %v", err)
 		}
-		if err := os.WriteFile(outPath, content, 0644); err != nil {
+		if err := ioutil.WriteFile(outPath, content, 0644); err != nil {
 			failf("failed to write %q: %v", outPath, err)
 		}
 	}
