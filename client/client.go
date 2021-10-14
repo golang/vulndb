@@ -46,13 +46,17 @@ import (
 	"golang.org/x/vulndb/osv"
 )
 
-// Client interface for fetching vulnerabilities based on module path
+// Client interface for fetching vulnerabilities based on module path or ID.
 type Client interface {
+	// TODO(jba): rename to GetByModule
 	Get(string) ([]*osv.Entry, error)
+	GetByID(string) (*osv.Entry, error)
 }
 
+const idDir = "byID"
+
 type source interface {
-	Get(string) ([]*osv.Entry, error)
+	Client
 	Index() (osv.DBIndex, error)
 }
 
@@ -72,6 +76,20 @@ func (ls *localSource) Get(module string) ([]*osv.Entry, error) {
 		return nil, err
 	}
 	return e, nil
+}
+
+func (ls *localSource) GetByID(id string) (*osv.Entry, error) {
+	content, err := ioutil.ReadFile(filepath.Join(ls.dir, idDir, id+".json"))
+	if os.IsNotExist(err) {
+		return nil, nil
+	} else if err != nil {
+		return nil, err
+	}
+	var e osv.Entry
+	if err = json.Unmarshal(content, &e); err != nil {
+		return nil, err
+	}
+	return &e, nil
 }
 
 func (ls *localSource) Index() (osv.DBIndex, error) {
@@ -183,17 +201,8 @@ func (hs *httpSource) Get(module string) ([]*osv.Entry, error) {
 		}
 	}
 
-	resp, err := hs.c.Get(fmt.Sprintf("%s/%s.json", hs.url, module))
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode == http.StatusNotFound {
-		return nil, nil
-	}
-	// might want this to be a LimitedReader
-	content, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
+	content, err := hs.readBody(fmt.Sprintf("%s/%s.json", hs.url, module))
+	if err != nil || content == nil {
 		return nil, err
 	}
 	var e []*osv.Entry
@@ -209,6 +218,32 @@ func (hs *httpSource) Get(module string) ([]*osv.Entry, error) {
 		}
 	}
 	return e, nil
+}
+
+func (hs *httpSource) GetByID(id string) (*osv.Entry, error) {
+	// TODO(jba): cache?
+	content, err := hs.readBody(fmt.Sprintf("%s/%s/%s.json", hs.url, idDir, id))
+	if err != nil || content == nil {
+		return nil, err
+	}
+	var e osv.Entry
+	if err := json.Unmarshal(content, &e); err != nil {
+		return nil, err
+	}
+	return &e, nil
+}
+
+func (hs *httpSource) readBody(url string) ([]byte, error) {
+	resp, err := hs.c.Get(url)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode == http.StatusNotFound {
+		return nil, nil
+	}
+	// might want this to be a LimitedReader
+	return ioutil.ReadAll(resp.Body)
 }
 
 type client struct {
@@ -262,4 +297,17 @@ func (c *client) Get(module string) ([]*osv.Entry, error) {
 		entries = append(entries, e...)
 	}
 	return entries, nil
+}
+
+func (c *client) GetByID(id string) (*osv.Entry, error) {
+	for _, s := range c.sources {
+		entry, err := s.GetByID(id)
+		if err != nil {
+			return nil, err // be failure tolerant?
+		}
+		if entry != nil {
+			return entry, nil
+		}
+	}
+	return nil, nil
 }

@@ -19,26 +19,29 @@ import (
 	"testing"
 	"time"
 
+	"github.com/google/go-cmp/cmp"
 	"golang.org/x/vulndb/osv"
 )
 
-var testVuln string = `[
+var (
+	testVuln = `
 	{"ID":"ID","Package":{"Name":"golang.org/example/one","Ecosystem":"go"}, "Summary":"",
 	 "Severity":2,"Affects":{"Ranges":[{"Type":"SEMVER","Introduced":"","Fixed":"v2.2.0"}]},
 	 "ecosystem_specific":{"Symbols":["some_symbol_1"]
-	}}]`
+	}}`
+
+	testVulns = "[" + testVuln + "]"
+)
 
 // index containing timestamps for package in testVuln.
 var index string = `{
 	"golang.org/example/one": "2020-03-09T10:00:00.81362141-07:00"
 	}`
 
-func serveTestVuln(w http.ResponseWriter, req *http.Request) {
-	fmt.Fprint(w, testVuln)
-}
-
-func serveIndex(w http.ResponseWriter, req *http.Request) {
-	fmt.Fprint(w, index)
+func dataHandler(data string) http.HandlerFunc {
+	return func(w http.ResponseWriter, _ *http.Request) {
+		fmt.Fprint(w, data)
+	}
 }
 
 // testCache for testing purposes
@@ -116,14 +119,17 @@ func createDirAndFile(dir, file, content string) error {
 	return ioutil.WriteFile(path.Join(dir, file), []byte(content), 0644)
 }
 
-// localDB creates a local db with testVuln1, testVuln2, and index as contents.
+// localDB creates a local db with testVulns and index as contents.
 func localDB(t *testing.T) (string, error) {
 	dbName := t.TempDir()
 
-	if err := createDirAndFile(path.Join(dbName, "/golang.org/example/"), "one.json", testVuln); err != nil {
+	if err := createDirAndFile(path.Join(dbName, "/golang.org/example/"), "one.json", testVulns); err != nil {
 		return "", err
 	}
 	if err := createDirAndFile(path.Join(dbName, ""), "index.json", index); err != nil {
+		return "", err
+	}
+	if err := createDirAndFile(path.Join(dbName, idDir), "ID.json", testVuln); err != nil {
 		return "", err
 	}
 	return dbName, nil
@@ -135,8 +141,8 @@ func TestClient(t *testing.T) {
 	}
 
 	// Create a local http database.
-	http.HandleFunc("/golang.org/example/one.json", serveTestVuln)
-	http.HandleFunc("/index.json", serveIndex)
+	http.HandleFunc("/golang.org/example/one.json", dataHandler(testVulns))
+	http.HandleFunc("/index.json", dataHandler(index))
 
 	l, err := net.Listen("tcp", "127.0.0.1:")
 	if err != nil {
@@ -253,5 +259,51 @@ func TestCorrectFetchesNoChangeIndex(t *testing.T) {
 	}
 	if !reflect.DeepEqual(vulns, []*osv.Entry{e}) {
 		t.Errorf("want %v vuln; got %v", e, vulns)
+	}
+}
+
+func TestClientByID(t *testing.T) {
+	if runtime.GOOS == "js" {
+		t.Skip("skipping test: no network on js")
+	}
+
+	http.HandleFunc("/byID/ID.json", dataHandler(testVuln))
+	l, err := net.Listen("tcp", "127.0.0.1:")
+	if err != nil {
+		t.Fatalf("failed to listen on 127.0.0.1: %s", err)
+	}
+	_, port, _ := net.SplitHostPort(l.Addr().String())
+	go func() { http.Serve(l, nil) }()
+
+	// Create a local file database.
+	localDBName, err := localDB(t)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer os.RemoveAll(localDBName)
+
+	var want osv.Entry
+	if err := json.Unmarshal([]byte(testVuln), &want); err != nil {
+		t.Fatal(err)
+	}
+	for _, test := range []struct {
+		name   string
+		source string
+	}{
+		{name: "http", source: "http://localhost:" + port},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			client, err := NewClient([]string{test.source}, Options{})
+			if err != nil {
+				t.Fatal(err)
+			}
+			got, err := client.GetByID("ID")
+			if err != nil {
+				t.Fatal(err)
+			}
+			if !cmp.Equal(got, &want) {
+				t.Errorf("got\n%+v\nwant\n%+v", got, &want)
+			}
+		})
 	}
 }
