@@ -34,11 +34,11 @@ var index string = `{
 	}`
 
 func serveTestVuln(w http.ResponseWriter, req *http.Request) {
-	fmt.Fprintf(w, testVuln)
+	fmt.Fprint(w, testVuln)
 }
 
 func serveIndex(w http.ResponseWriter, req *http.Request) {
-	fmt.Fprintf(w, index)
+	fmt.Fprint(w, index)
 }
 
 // testCache for testing purposes
