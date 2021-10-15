@@ -48,8 +48,12 @@ import (
 
 // Client interface for fetching vulnerabilities based on module path or ID.
 type Client interface {
-	// TODO(jba): rename to GetByModule
-	Get(string) ([]*osv.Entry, error)
+	// GetByModule returns the entries that affect the given module path.
+	// It returns (nil, nil) if there are none.
+	GetByModule(string) ([]*osv.Entry, error)
+
+	// GetByID returns the entry with the given ID, or (nil, nil) if there isn't
+	// one.
 	GetByID(string) (*osv.Entry, error)
 }
 
@@ -64,7 +68,7 @@ type localSource struct {
 	dir string
 }
 
-func (ls *localSource) Get(module string) ([]*osv.Entry, error) {
+func (ls *localSource) GetByModule(module string) ([]*osv.Entry, error) {
 	content, err := ioutil.ReadFile(filepath.Join(ls.dir, module+".json"))
 	if os.IsNotExist(err) {
 		return nil, nil
@@ -173,7 +177,7 @@ func (hs *httpSource) Index() (osv.DBIndex, error) {
 	return index, nil
 }
 
-func (hs *httpSource) Get(module string) ([]*osv.Entry, error) {
+func (hs *httpSource) GetByModule(module string) ([]*osv.Entry, error) {
 	index, err := hs.Index()
 	if err != nil {
 		return nil, err
@@ -286,11 +290,11 @@ func NewClient(sources []string, opts Options) (Client, error) {
 	return c, nil
 }
 
-func (c *client) Get(module string) ([]*osv.Entry, error) {
+func (c *client) GetByModule(module string) ([]*osv.Entry, error) {
 	var entries []*osv.Entry
 	// probably should be parallelized
 	for _, s := range c.sources {
-		e, err := s.Get(module)
+		e, err := s.GetByModule(module)
 		if err != nil {
 			return nil, err // be failure tolerant?
 		}

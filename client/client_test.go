@@ -182,7 +182,7 @@ func TestClient(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		vulns, err := client.Get("golang.org/example/one")
+		vulns, err := client.GetByModule("golang.org/example/one")
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -215,7 +215,7 @@ func TestCorrectFetchesNoCache(t *testing.T) {
 
 	hs := &httpSource{url: ts.URL, c: new(http.Client)}
 	for _, module := range []string{"a", "b", "c"} {
-		if _, err := hs.Get(module); err != nil {
+		if _, err := hs.GetByModule(module); err != nil {
 			t.Fatalf("unexpected error: %s", err)
 		}
 	}
@@ -253,7 +253,7 @@ func TestCorrectFetchesNoChangeIndex(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	vulns, err := client.Get("a")
+	vulns, err := client.GetByModule("a")
 	if err != nil {
 		t.Fatal(err)
 	}
