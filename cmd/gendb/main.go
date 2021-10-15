@@ -114,7 +114,7 @@ func main() {
 	}
 
 	// Write a directory containing entries by ID.
-	idDir := filepath.Join(*jsonDir, "byID")
+	idDir := filepath.Join(*jsonDir, "ID")
 	if err := os.MkdirAll(idDir, 0700); err != nil {
 		failf("failed to create directory %q: %v", idDir, err)
 	}
