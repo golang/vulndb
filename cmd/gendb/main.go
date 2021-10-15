@@ -11,7 +11,6 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
-	"reflect"
 	"strings"
 
 	"golang.org/x/vulndb/internal/report"
@@ -28,18 +27,6 @@ func failf(format string, args ...interface{}) {
 // TODO(rolandshoemaker): once we have the HTML representation ready this should
 // be the prefix for that.
 const dbURL = "https://go.googlesource.com/vulndb/+/refs/heads/master/reports/"
-
-func matchesCurrent(path string, new []osv.Entry) bool {
-	var current []osv.Entry
-	content, err := ioutil.ReadFile(path + ".json")
-	if err != nil {
-		return false
-	}
-	if err := json.Unmarshal(content, &current); err != nil {
-		return false
-	}
-	return reflect.DeepEqual(current, new)
-}
 
 func main() {
 	yamlDir := flag.String("reports", "reports", "Directory containing yaml reports")
