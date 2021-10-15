@@ -22,6 +22,7 @@ import (
 	"strings"
 
 	"golang.org/x/vulndb/internal"
+	"golang.org/x/vulndb/internal/cvelist"
 )
 
 func main() {
@@ -35,11 +36,7 @@ func run() error {
 	if err != nil {
 		return err
 	}
-	// TODO: implement CVE list triage logic and replace this print.
-	for k := range triaged {
-		fmt.Println(k)
-	}
-	return nil
+	return cvelist.Run(triaged)
 }
 
 const (
