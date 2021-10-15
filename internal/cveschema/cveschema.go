@@ -2,8 +2,9 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package internal contains functionality for interacting with x/vulndb.
-package internal
+// Package cveschema contains the schema for a CVE, as derived from
+// https://github.com/CVEProject/automation-working-group/tree/master/cve_json_schema.
+package cveschema
 
 // CVE represents a "Common Vulnerabilities and Exposures" record, which is
 // associated with a CVE ID and provided by a CNA.
@@ -12,9 +13,6 @@ package internal
 // component resulting from a weakness that can be exploited, causing a negative
 // impact to the confidentiality, integrity, or availability of an impacted
 // component or components.
-//
-// This schema is derived from
-// https://github.com/CVEProject/automation-working-group/tree/master/cve_json_schema.
 type CVE struct {
 	// DataType identifies what kind of data is held in this JSON file. This is
 	// mandatory and designed to prevent problems with attempting to detect

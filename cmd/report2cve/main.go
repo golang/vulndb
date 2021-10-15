@@ -12,12 +12,12 @@ import (
 	"os"
 	"strings"
 
-	"golang.org/x/vulndb/internal"
+	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/report"
 	"gopkg.in/yaml.v2"
 )
 
-func fromReport(r *report.Report) (*internal.CVE, error) {
+func fromReport(r *report.Report) (*cveschema.CVE, error) {
 	if r.CVE != "" {
 		return nil, errors.New("report has CVE ID is wrong section (should be in cve_metadata for self-issued CVEs)")
 	}
@@ -28,18 +28,18 @@ func fromReport(r *report.Report) (*internal.CVE, error) {
 		return nil, errors.New("report missing CVE ID")
 	}
 
-	c := &internal.CVE{
+	c := &cveschema.CVE{
 		DataType:    "CVE",
 		DataFormat:  "MITRE",
 		DataVersion: "4.0",
-		CVEDataMeta: internal.CVEDataMeta{
+		CVEDataMeta: cveschema.CVEDataMeta{
 			ID:       r.CVEMetadata.ID,
 			ASSIGNER: "security@golang.org",
 			STATE:    "PUBLIC",
 		},
 
-		Description: internal.Description{
-			DescriptionData: []internal.LangString{
+		Description: cveschema.Description{
+			DescriptionData: []cveschema.LangString{
 				{
 					Lang:  "eng",
 					Value: strings.TrimSuffix(r.CVEMetadata.Description, "\n"),
@@ -47,10 +47,10 @@ func fromReport(r *report.Report) (*internal.CVE, error) {
 			},
 		},
 
-		Problemtype: internal.Problemtype{
-			ProblemtypeData: []internal.ProblemtypeDataItems{
+		Problemtype: cveschema.Problemtype{
+			ProblemtypeData: []cveschema.ProblemtypeDataItems{
 				{
-					Description: []internal.LangString{
+					Description: []cveschema.LangString{
 						{
 							Lang:  "eng",
 							Value: r.CVEMetadata.CWE,
@@ -60,13 +60,13 @@ func fromReport(r *report.Report) (*internal.CVE, error) {
 			},
 		},
 
-		Affects: internal.Affects{
-			Vendor: internal.Vendor{
-				VendorData: []internal.VendorDataItems{
+		Affects: cveschema.Affects{
+			Vendor: cveschema.Vendor{
+				VendorData: []cveschema.VendorDataItems{
 					{
 						VendorName: "n/a", // ???
-						Product: internal.Product{
-							ProductData: []internal.ProductDataItem{
+						Product: cveschema.Product{
+							ProductData: []cveschema.ProductDataItem{
 								{
 									ProductName: r.Package,
 									Version:     versionToVersion(r.Versions),
@@ -80,10 +80,10 @@ func fromReport(r *report.Report) (*internal.CVE, error) {
 	}
 
 	for _, additional := range r.AdditionalPackages {
-		c.Affects.Vendor.VendorData = append(c.Affects.Vendor.VendorData, internal.VendorDataItems{
+		c.Affects.Vendor.VendorData = append(c.Affects.Vendor.VendorData, cveschema.VendorDataItems{
 			VendorName: "n/a",
-			Product: internal.Product{
-				ProductData: []internal.ProductDataItem{
+			Product: cveschema.Product{
+				ProductData: []cveschema.ProductDataItem{
 					{
 						ProductName: additional.Package,
 						Version:     versionToVersion(additional.Versions),
@@ -94,29 +94,29 @@ func fromReport(r *report.Report) (*internal.CVE, error) {
 	}
 
 	if r.Links.PR != "" {
-		c.References.ReferenceData = append(c.References.ReferenceData, internal.Reference{URL: r.Links.PR})
+		c.References.ReferenceData = append(c.References.ReferenceData, cveschema.Reference{URL: r.Links.PR})
 	}
 	if r.Links.Commit != "" {
-		c.References.ReferenceData = append(c.References.ReferenceData, internal.Reference{URL: r.Links.Commit})
+		c.References.ReferenceData = append(c.References.ReferenceData, cveschema.Reference{URL: r.Links.Commit})
 	}
 	for _, url := range r.Links.Context {
-		c.References.ReferenceData = append(c.References.ReferenceData, internal.Reference{URL: url})
+		c.References.ReferenceData = append(c.References.ReferenceData, cveschema.Reference{URL: url})
 	}
 
 	return c, nil
 }
 
-func versionToVersion(versions []report.VersionRange) internal.VersionData {
-	vd := internal.VersionData{}
+func versionToVersion(versions []report.VersionRange) cveschema.VersionData {
+	vd := cveschema.VersionData{}
 	for _, vr := range versions {
 		if vr.Introduced != "" {
-			vd.VersionData = append(vd.VersionData, internal.VersionDataItems{
+			vd.VersionData = append(vd.VersionData, cveschema.VersionDataItems{
 				VersionValue:    vr.Introduced,
 				VersionAffected: ">=",
 			})
 		}
 		if vr.Fixed != "" {
-			vd.VersionData = append(vd.VersionData, internal.VersionDataItems{
+			vd.VersionData = append(vd.VersionData, cveschema.VersionDataItems{
 				VersionValue:    vr.Fixed,
 				VersionAffected: "<",
 			})
