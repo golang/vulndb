@@ -14,10 +14,12 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"golang.org/x/vulndb/internal"
+	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/osv"
 )
 
-func loadDB(dbPath string) (osv.DBIndex, map[string][]osv.Entry, error) {
+func loadDB(dbPath string) (_ osv.DBIndex, _ map[string][]osv.Entry, err error) {
+	defer derrors.Wrap(&err, "loadDB(%q)", dbPath)
 	index := osv.DBIndex{}
 	dbMap := map[string][]osv.Entry{}
 

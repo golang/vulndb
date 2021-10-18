@@ -13,11 +13,13 @@ import (
 	"strings"
 
 	"golang.org/x/vulndb/internal/cveschema"
+	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/report"
 	"gopkg.in/yaml.v2"
 )
 
-func fromReport(r *report.Report) (*cveschema.CVE, error) {
+func fromReport(r *report.Report) (_ *cveschema.CVE, err error) {
+	defer derrors.Wrap(&err, "fromReport(r)")
 	if r.CVE != "" {
 		return nil, errors.New("report has CVE ID is wrong section (should be in cve_metadata for self-issued CVEs)")
 	}

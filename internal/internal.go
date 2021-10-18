@@ -9,6 +9,8 @@ import (
 	"bufio"
 	"os"
 	"strings"
+
+	"golang.org/x/vulndb/internal/derrors"
 )
 
 // IDDirectory is the name of the directory that contains entries
@@ -19,6 +21,7 @@ const IDDirectory = "ID"
 // Whitespace on each line is trimmed.
 // Blank lines and lines beginning with '#' are ignored.
 func ReadFileLines(filename string) (lines []string, err error) {
+	defer derrors.Wrap(&err, "ReadFileLines(%q)", filename)
 	f, err := os.Open(filename)
 	if err != nil {
 		return nil, err

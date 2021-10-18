@@ -23,6 +23,7 @@ import (
 
 	"golang.org/x/vulndb/internal"
 	"golang.org/x/vulndb/internal/cvelist"
+	"golang.org/x/vulndb/internal/derrors"
 )
 
 func main() {
@@ -31,7 +32,7 @@ func main() {
 	}
 }
 
-func run() error {
+func run() (err error) {
 	triaged, err := readTriagedCVEList()
 	if err != nil {
 		return err
@@ -45,7 +46,8 @@ const (
 	statusTriaged       = "triaged"
 )
 
-func readTriagedCVEList() (map[string]bool, error) {
+func readTriagedCVEList() (_ map[string]bool, err error) {
+	defer derrors.Wrap(&err, "readTriagedCVEList()")
 	triaged := map[string]bool{}
 	lines, err := internal.ReadFileLines(triagedCVEList)
 	if err != nil {
