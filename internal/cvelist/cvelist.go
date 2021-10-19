@@ -9,7 +9,7 @@ package cvelist
 import (
 	"encoding/json"
 	"fmt"
-	"io"
+	"log"
 	"path"
 	"strings"
 
@@ -24,7 +24,7 @@ import (
 // Run clones the CVEProject/cvelist repository and compares the files to the
 // existing triaged-cve-list.
 func Run(triaged map[string]bool) error {
-	// 1. Clone the repo.
+	log.Printf("cloning %q", cvelistRepoURL)
 	repo, root, err := cloneRepo(cvelistRepoURL)
 	if err != nil {
 		return err
@@ -66,21 +66,18 @@ func cloneRepo(repoURL string) (repo *git.Repository, root *object.Tree, err err
 // walkRepo looks at the files in t, recursively, and check if it is a CVE that
 // needs to be manually triaged.
 func walkRepo(r *git.Repository, t *object.Tree, dirpath string, triaged map[string]bool) (err error) {
-	var recent []object.TreeEntry
 	for _, e := range t.Entries {
-		if e.Mode == filemode.Dir && strings.HasPrefix(e.Name, "202") {
-			recent = append(recent, e)
+		fp := path.Join(dirpath, e.Name)
+		if !strings.HasPrefix(fp, "202") {
+			continue
 		}
-	}
-	for _, e := range recent {
 		switch e.Mode {
 		case filemode.Dir:
-			dp := path.Join(dirpath, e.Name)
 			t2, err := r.TreeObject(e.Hash)
 			if err != nil {
 				return err
 			}
-			if err := walkRepo(r, t2, dp, triaged); err != nil {
+			if err := walkRepo(r, t2, fp, triaged); err != nil {
 				return err
 			}
 		default:
@@ -91,25 +88,11 @@ func walkRepo(r *git.Repository, t *object.Tree, dirpath string, triaged map[str
 			if triaged[cveID] {
 				continue
 			}
-			blob, err := r.BlobObject(e.Hash)
+			_, err = parseCVE(r, e)
 			if err != nil {
-				return fmt.Errorf("r.BlobObject: %v", err)
-			}
-			src, err := blob.Reader()
-			if err != nil {
-				_ = src.Close()
-				return fmt.Errorf("blob.Reader: %v", err)
-			}
-			_, err = parseCVE(src)
-			if err != nil {
-				_ = src.Close()
-				filename := path.Join(dirpath, e.Name)
-				return fmt.Errorf("parseCVE(%q, src): %v", filename, err)
+				return err
 			}
 			// TODO: implement triage CVE logic
-			if err := src.Close(); err != nil {
-				return fmt.Errorf("src.Close: %v", err)
-			}
 		}
 	}
 	return nil
@@ -117,11 +100,28 @@ func walkRepo(r *git.Repository, t *object.Tree, dirpath string, triaged map[str
 
 // parseCVEJSON parses a CVE file following the CVE JSON format:
 // https://github.com/CVEProject/automation-working-group/blob/master/cve_json_schema/DRAFT-JSON-file-format-v4.md
-func parseCVE(src io.Reader) (_ *cveschema.CVE, err error) {
+func parseCVE(r *git.Repository, e object.TreeEntry) (_ *cveschema.CVE, err error) {
+	blob, err := r.BlobObject(e.Hash)
+	if err != nil {
+		return nil, fmt.Errorf("r.BlobObject: %v", err)
+	}
+	src, err := blob.Reader()
+	if err != nil {
+		return nil, fmt.Errorf("blob.Reader: %v", err)
+	}
+	defer func() {
+		cerr := src.Close()
+		if err == nil {
+			err = cerr
+		}
+	}()
 	var c cveschema.CVE
 	d := json.NewDecoder(src)
 	if err := d.Decode(&c); err != nil {
 		return nil, fmt.Errorf("d.Decode: %v", err)
+	}
+	if err != nil {
+		return nil, err
 	}
 	return &c, nil
 }
