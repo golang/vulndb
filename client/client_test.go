@@ -20,6 +20,7 @@ import (
 	"time"
 
 	"github.com/google/go-cmp/cmp"
+	"golang.org/x/vulndb/internal"
 	"golang.org/x/vulndb/osv"
 )
 
@@ -129,7 +130,7 @@ func localDB(t *testing.T) (string, error) {
 	if err := createDirAndFile(path.Join(dbName, ""), "index.json", index); err != nil {
 		return "", err
 	}
-	if err := createDirAndFile(path.Join(dbName, idDir), "ID.json", testVuln); err != nil {
+	if err := createDirAndFile(path.Join(dbName, internal.IDDirectory), "ID.json", testVuln); err != nil {
 		return "", err
 	}
 	return dbName, nil
@@ -267,7 +268,7 @@ func TestClientByID(t *testing.T) {
 		t.Skip("skipping test: no network on js")
 	}
 
-	http.HandleFunc("/byID/ID.json", dataHandler(testVuln))
+	http.HandleFunc(fmt.Sprintf("/%s/ID.json", internal.IDDirectory), dataHandler(testVuln))
 	l, err := net.Listen("tcp", "127.0.0.1:")
 	if err != nil {
 		t.Fatalf("failed to listen on 127.0.0.1: %s", err)

@@ -43,6 +43,7 @@ import (
 	"strings"
 	"time"
 
+	"golang.org/x/vulndb/internal"
 	"golang.org/x/vulndb/osv"
 )
 
@@ -56,8 +57,6 @@ type Client interface {
 	// one.
 	GetByID(string) (*osv.Entry, error)
 }
-
-const idDir = "byID"
 
 type source interface {
 	Client
@@ -83,7 +82,7 @@ func (ls *localSource) GetByModule(module string) ([]*osv.Entry, error) {
 }
 
 func (ls *localSource) GetByID(id string) (*osv.Entry, error) {
-	content, err := ioutil.ReadFile(filepath.Join(ls.dir, idDir, id+".json"))
+	content, err := ioutil.ReadFile(filepath.Join(ls.dir, internal.IDDirectory, id+".json"))
 	if os.IsNotExist(err) {
 		return nil, nil
 	} else if err != nil {
@@ -226,7 +225,7 @@ func (hs *httpSource) GetByModule(module string) ([]*osv.Entry, error) {
 
 func (hs *httpSource) GetByID(id string) (*osv.Entry, error) {
 	// TODO(jba): cache?
-	content, err := hs.readBody(fmt.Sprintf("%s/%s/%s.json", hs.url, idDir, id))
+	content, err := hs.readBody(fmt.Sprintf("%s/%s/%s.json", hs.url, internal.IDDirectory, id))
 	if err != nil || content == nil {
 		return nil, err
 	}

@@ -13,6 +13,7 @@ import (
 	"strings"
 
 	"github.com/google/go-cmp/cmp"
+	"golang.org/x/vulndb/internal"
 	"golang.org/x/vulndb/osv"
 )
 
@@ -42,7 +43,7 @@ func loadDB(dbPath string) (osv.DBIndex, map[string][]osv.Entry, error) {
 				if err := json.Unmarshal(content, &index); err != nil {
 					return fmt.Errorf("unable to parse %q: %s", fpath, err)
 				}
-			} else if path == filepath.Join(dbPath, "ID") {
+			} else if path == filepath.Join(dbPath, internal.IDDirectory) {
 				var entry osv.Entry
 				if err := json.Unmarshal(content, &entry); err != nil {
 					return fmt.Errorf("unable to parse %q: %s", fpath, err)
