@@ -27,7 +27,7 @@ import (
 // Run clones the CVEProject/cvelist repository and compares the files to the
 // existing triaged-cve-list.
 func Run(triaged map[string]bool) error {
-	log.Printf("cloning %q...", cvelistRepoURL)
+	log.Printf("Cloning %q...", cvelistRepoURL)
 	repo, root, err := cloneRepo(cvelistRepoURL)
 	if err != nil {
 		return err
@@ -74,19 +74,29 @@ func cloneRepo(repoURL string) (repo *git.Repository, root *object.Tree, err err
 // TODO: Create GitHub issues. At the moment, this just prints the number of
 // issues to be created.
 func createIssuesToTriage(r *git.Repository, t *object.Tree, triaged map[string]bool) (err error) {
-	log.Printf("creating issues to triage...")
-	issues, err := walkRepo(r, t, "", triaged)
+	log.Printf("Finding new Go vulnerabilities from CVE list...")
+	cves, issues, err := walkRepo(r, t, "", triaged)
 	if err != nil {
 		return err
 	}
+	// TODO: log CVE states in a CVE record.
 	// TODO: create GitHub issues.
-	log.Printf("found %d new issues", len(issues))
+
+	var numRefs int
+	for _, issue := range issues {
+		if issue.AdditionalInfo.Reason == reasonReferenceData {
+			numRefs += 1
+		}
+	}
+	log.Printf("Found %d new issues from %d CVEs (%d based on reference data)",
+		len(issues), len(cves), numRefs)
 	return nil
 }
 
 // walkRepo looks at the files in t, recursively, and check if it is a CVE that
 // needs to be manually triaged.
-func walkRepo(r *git.Repository, t *object.Tree, dirpath string, triaged map[string]bool) (issues []*GoVulnIssue, err error) {
+func walkRepo(r *git.Repository, t *object.Tree, dirpath string, triaged map[string]bool) (newCVEs map[string]bool, newIssues []*GoVulnIssue, err error) {
+	newCVEs = map[string]bool{}
 	for _, e := range t.Entries {
 		fp := path.Join(dirpath, e.Name)
 		if !strings.HasPrefix(fp, "202") {
@@ -96,13 +106,16 @@ func walkRepo(r *git.Repository, t *object.Tree, dirpath string, triaged map[str
 		case filemode.Dir:
 			t2, err := r.TreeObject(e.Hash)
 			if err != nil {
-				return nil, err
+				return nil, nil, err
 			}
-			currIssues, err := walkRepo(r, t2, fp, triaged)
+			cves, issues, err := walkRepo(r, t2, fp, triaged)
 			if err != nil {
-				return nil, err
+				return nil, nil, err
 			}
-			issues = append(issues, currIssues...)
+			for c := range cves {
+				newCVEs[c] = true
+			}
+			newIssues = append(newIssues, issues...)
 		default:
 			if !strings.HasPrefix(e.Name, "CVE-") {
 				continue
@@ -111,20 +124,22 @@ func walkRepo(r *git.Repository, t *object.Tree, dirpath string, triaged map[str
 			if triaged[cveID] {
 				continue
 			}
+			newCVEs[cveID] = true
 			c, err := parseCVE(r, e)
 			if err != nil {
-				return nil, err
+				return nil, nil, err
 			}
 			issue, err := cveToIssue(c)
 			if err != nil {
-				return nil, err
+				return nil, nil, err
 			}
 			if issue != nil {
-				issues = append(issues, issue)
+				log.Printf("New CVE to triage: %q (%q)\n", cveID, issue.Report.Module)
+				newIssues = append(newIssues, issue)
 			}
 		}
 	}
-	return issues, nil
+	return newCVEs, newIssues, nil
 }
 
 // parseCVEJSON parses a CVE file following the CVE JSON format:
@@ -166,6 +181,7 @@ func cveToIssue(c *cveschema.CVE) (*GoVulnIssue, error) {
 	if err != nil {
 		return nil, fmt.Errorf("modulePathFromCVE: %v", err)
 	}
+
 	if mp == "" {
 		return nil, nil
 	}
@@ -202,6 +218,7 @@ func cveToIssue(c *cveschema.CVE) (*GoVulnIssue, error) {
 	info := AdditionalInfo{
 		Products: products(c),
 		CWE:      cwe,
+		Reason:   reasonReferenceData,
 	}
 	return &GoVulnIssue{Report: r, AdditionalInfo: info}, nil
 }
@@ -254,6 +271,8 @@ func modulePathFromCVE(c *cveschema.CVE) (string, error) {
 	return "", nil
 }
 
+const reasonReferenceData = "This CVE was identified as a go vuln because a Go module path was found in reference data."
+
 // GoVulnIssue represents a GitHub issue to be created about a Go
 // vulnerability.
 type GoVulnIssue struct {
@@ -266,6 +285,7 @@ type GoVulnIssue struct {
 type AdditionalInfo struct {
 	CWE      string
 	Products []*cveschema.ProductDataItem
+	Reason   string
 }
 
 func description(c *cveschema.CVE) string {
