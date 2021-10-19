@@ -49,15 +49,25 @@ type Report struct {
 	// for most
 	AdditionalPackages []Additional   `yaml:"additional_packages,omitempty"`
 	Versions           []VersionRange `yaml:",omitempty"`
-	Description        string         `yaml:",omitempty"`
-	Published          time.Time      `yaml:",omitempty"`
-	LastModified       *time.Time     `yaml:"last_modified,omitempty"`
-	Withdrawn          *time.Time     `yaml:",omitempty"`
-	CVE                string         `yaml:",omitempty"`
-	Credit             string         `yaml:",omitempty"`
-	Symbols            []string       `yaml:",omitempty"`
-	OS                 []string       `yaml:",omitempty"`
-	Arch               []string       `yaml:",omitempty"`
-	Links              Links          `yaml:",omitempty"`
-	CVEMetadata        *CVEMeta       `yaml:"cve_metadata,omitempty"`
+
+	// Description is the CVE description from an existing CVE. If we are
+	// assigning a CVE ID ourselves, use CVEMetadata.Description instead.
+	Description  string     `yaml:",omitempty"`
+	Published    time.Time  `yaml:",omitempty"`
+	LastModified *time.Time `yaml:"last_modified,omitempty"`
+	Withdrawn    *time.Time `yaml:",omitempty"`
+
+	// CVE is the CVE ID for an existing CVE. If we are assigning a CVE ID
+	// ourselves, use CVEMetdata.ID instead.
+	CVE     string   `yaml:",omitempty"`
+	Credit  string   `yaml:",omitempty"`
+	Symbols []string `yaml:",omitempty"`
+	OS      []string `yaml:",omitempty"`
+	Arch    []string `yaml:",omitempty"`
+	Links   Links    `yaml:",omitempty"`
+
+	// CVEMetdata is used to capture CVE information when we want to assign a
+	// CVE ourselves. If a CVE already exists for an issue, use the CVE field
+	// to fill in the ID string.
+	CVEMetadata *CVEMeta `yaml:"cve_metadata,omitempty"`
 }
