@@ -224,7 +224,6 @@ func (hs *httpSource) GetByModule(module string) ([]*osv.Entry, error) {
 }
 
 func (hs *httpSource) GetByID(id string) (*osv.Entry, error) {
-	// TODO(jba): cache?
 	content, err := hs.readBody(fmt.Sprintf("%s/%s/%s.json", hs.url, internal.IDDirectory, id))
 	if err != nil || content == nil {
 		return nil, err
