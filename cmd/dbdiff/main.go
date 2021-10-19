@@ -42,7 +42,7 @@ func loadDB(dbPath string) (osv.DBIndex, map[string][]osv.Entry, error) {
 				if err := json.Unmarshal(content, &index); err != nil {
 					return fmt.Errorf("unable to parse %q: %s", fpath, err)
 				}
-			} else if path == filepath.Join(dbPath, "byID") {
+			} else if path == filepath.Join(dbPath, "ID") {
 				var entry osv.Entry
 				if err := json.Unmarshal(content, &entry); err != nil {
 					return fmt.Errorf("unable to parse %q: %s", fpath, err)
