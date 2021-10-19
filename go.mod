@@ -5,7 +5,6 @@ go 1.17
 require (
 	github.com/go-git/go-git/v5 v5.4.2
 	github.com/google/go-cmp v0.5.6
-	github.com/google/go-github/v39 v39.1.0
 	golang.org/x/mod v0.4.1
 	gopkg.in/yaml.v2 v2.4.0
 )
@@ -17,7 +16,6 @@ require (
 	github.com/emirpasic/gods v1.12.0 // indirect
 	github.com/go-git/gcfg v1.5.0 // indirect
 	github.com/go-git/go-billy/v5 v5.3.1 // indirect
-	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/imdario/mergo v0.3.12 // indirect
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
 	github.com/kevinburke/ssh_config v0.0.0-20201106050909-4977a11b4351 // indirect
