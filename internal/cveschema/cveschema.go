@@ -6,6 +6,24 @@
 // https://github.com/CVEProject/automation-working-group/tree/master/cve_json_schema.
 package cveschema
 
+const (
+	// StateReserved is the initial state for a CVE Record; when the associated
+	// CVE ID is Reserved by a CNA.
+	StateReserved = "RESERVED"
+
+	// StatePublished is when a CNA populates the data associated with a CVE ID
+	// as a CVE Record, the state of the CVE Record is Published. The
+	// associated data must contain an identification number (CVE ID), a prose
+	// description, and at least one public reference.
+	StatePublished = "PUBLISHED"
+
+	// StateRejected is when the CVE ID and associated CVE Record should no
+	// longer be used, the CVE Record is placed in the Rejected state. A Rejected
+	// CVE Record remains on the CVE List so that users can know when it is
+	// invalid.
+	StateRejected = "REJECTED"
+)
+
 // CVE represents a "Common Vulnerabilities and Exposures" record, which is
 // associated with a CVE ID and provided by a CNA.
 //
