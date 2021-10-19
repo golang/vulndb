@@ -62,6 +62,10 @@ go_linters() {
   check_unparam
 }
 
+go_modtidy() {
+  runcmd go mod tidy
+}
+
 go_test() {
   runcmd go test ./...
 }
@@ -88,6 +92,7 @@ main() {
       ;;
     "")
       go_linters
+      go_modtidy
       go_test
       ;;
     *)
