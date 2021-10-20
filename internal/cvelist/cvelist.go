@@ -155,6 +155,8 @@ func parseCVE(r *git.Repository, e object.TreeEntry) (_ *cveschema.CVE, err erro
 	return &c, nil
 }
 
+const goGitHubRepo = "github.com/golang/go"
+
 // cveToIssue creates a GoVulnIssue from a c *cveschema.CVE.
 func cveToIssue(c *cveschema.CVE) (*GoVulnIssue, error) {
 	if isPendingCVE(c) {
@@ -193,6 +195,9 @@ func cveToIssue(c *cveschema.CVE) (*GoVulnIssue, error) {
 		Links:       links,
 		CVE:         c.CVEDataMeta.ID,
 		Description: description(c),
+	}
+	if mp == goGitHubRepo {
+		r.Stdlib = true
 	}
 	info := AdditionalInfo{
 		Products: products(c),
