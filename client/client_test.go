@@ -9,7 +9,6 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
-	"net"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -35,16 +34,14 @@ var (
 	testVulns = "[" + testVuln + "]"
 )
 
-// index containing timestamps for package in testVuln.
-var index string = `{
+var (
+	// index containing timestamps for package in testVuln.
+	index string = `{
 	"golang.org/example/one": "2020-03-09T10:00:00.81362141-07:00"
 	}`
-
-func dataHandler(data string) http.HandlerFunc {
-	return func(w http.ResponseWriter, _ *http.Request) {
-		fmt.Fprint(w, data)
-	}
-}
+	// index of IDs
+	idIndex string = `["ID"]`
+)
 
 // testCache for testing purposes
 type testCache struct {
@@ -124,17 +121,36 @@ func createDirAndFile(dir, file, content string) error {
 // localDB creates a local db with testVulns and index as contents.
 func localDB(t *testing.T) (string, error) {
 	dbName := t.TempDir()
-
-	if err := createDirAndFile(path.Join(dbName, "/golang.org/example/"), "one.json", testVulns); err != nil {
-		return "", err
-	}
-	if err := createDirAndFile(path.Join(dbName, ""), "index.json", index); err != nil {
-		return "", err
-	}
-	if err := createDirAndFile(path.Join(dbName, internal.IDDirectory), "ID.json", testVuln); err != nil {
-		return "", err
+	for _, f := range []struct {
+		dir, filename, content string
+	}{
+		{"golang.org/example", "one.json", testVulns},
+		{"", "index.json", index},
+		{internal.IDDirectory, "ID.json", testVuln},
+		{internal.IDDirectory, "index.json", idIndex},
+	} {
+		if err := createDirAndFile(path.Join(dbName, f.dir), f.filename, f.content); err != nil {
+			return "", err
+		}
 	}
 	return dbName, nil
+}
+
+func newTestServer() *httptest.Server {
+	dataHandler := func(data string) http.HandlerFunc {
+		return func(w http.ResponseWriter, _ *http.Request) {
+			io.WriteString(w, data)
+		}
+	}
+
+	mux := http.NewServeMux()
+	mux.HandleFunc("/golang.org/example/one.json", dataHandler(testVulns))
+	mux.HandleFunc("/index.json", dataHandler(index))
+	mux.HandleFunc(fmt.Sprintf("/%s/ID.json", internal.IDDirectory), dataHandler(testVuln))
+	mux.HandleFunc("/ID/index.json", func(w http.ResponseWriter, r *http.Request) {
+		io.WriteString(w, idIndex)
+	})
+	return httptest.NewServer(mux)
 }
 
 func TestClient(t *testing.T) {
@@ -143,15 +159,13 @@ func TestClient(t *testing.T) {
 	}
 
 	// Create a local http database.
-	http.HandleFunc("/golang.org/example/one.json", dataHandler(testVulns))
-	http.HandleFunc("/index.json", dataHandler(index))
-
-	l, err := net.Listen("tcp", "127.0.0.1:")
+	srv := newTestServer()
+	defer srv.Close()
+	u, err := url.Parse(srv.URL)
 	if err != nil {
-		t.Fatalf("failed to listen on 127.0.0.1: %s", err)
+		t.Fatal(err)
 	}
-	_, port, _ := net.SplitHostPort(l.Addr().String())
-	go func() { http.Serve(l, nil) }()
+	dbName := u.Hostname()
 
 	// Create a local file database.
 	localDBName, err := localDB(t)
@@ -168,11 +182,11 @@ func TestClient(t *testing.T) {
 		summary string
 	}{
 		// Test the http client without any cache.
-		{name: "http-no-cache", source: "http://localhost:" + port, cache: nil, summary: ""},
+		{name: "http-no-cache", source: srv.URL, cache: nil, summary: ""},
 		// Test the http client with empty cache.
-		{name: "http-empty-cache", source: "http://localhost:" + port, cache: freshTestCache(), summary: ""},
+		{name: "http-empty-cache", source: srv.URL, cache: freshTestCache(), summary: ""},
 		// Test the client with non-stale cache containing a version of testVuln2 where Summary="cached".
-		{name: "http-cache", source: "http://localhost:" + port, cache: cachedTestVuln("localhost"), summary: "cached"},
+		{name: "http-cache", source: srv.URL, cache: cachedTestVuln(dbName), summary: "cached"},
 		// Repeat the same for local file client.
 		{name: "file-no-cache", source: "file://" + localDBName, cache: nil, summary: ""},
 		{name: "file-empty-cache", source: "file://" + localDBName, cache: freshTestCache(), summary: ""},
@@ -269,13 +283,8 @@ func TestClientByID(t *testing.T) {
 		t.Skip("skipping test: no network on js")
 	}
 
-	http.HandleFunc(fmt.Sprintf("/%s/ID.json", internal.IDDirectory), dataHandler(testVuln))
-	l, err := net.Listen("tcp", "127.0.0.1:")
-	if err != nil {
-		t.Fatalf("failed to listen on 127.0.0.1: %s", err)
-	}
-	_, port, _ := net.SplitHostPort(l.Addr().String())
-	go func() { http.Serve(l, nil) }()
+	srv := newTestServer()
+	defer srv.Close()
 
 	// Create a local file database.
 	localDBName, err := localDB(t)
@@ -292,7 +301,8 @@ func TestClientByID(t *testing.T) {
 		name   string
 		source string
 	}{
-		{name: "http", source: "http://localhost:" + port},
+		{name: "http", source: srv.URL},
+		{name: "file", source: "file://" + localDBName},
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			client, err := NewClient([]string{test.source}, Options{})
@@ -315,16 +325,8 @@ func TestListIDs(t *testing.T) {
 		t.Skip("skipping test: no network on js")
 	}
 
-	http.HandleFunc("/ID/index.json", func(w http.ResponseWriter, r *http.Request) {
-		io.WriteString(w, `["ID"]`)
-	})
-
-	l, err := net.Listen("tcp", "127.0.0.1:")
-	if err != nil {
-		t.Fatalf("failed to listen on 127.0.0.1: %s", err)
-	}
-	_, port, _ := net.SplitHostPort(l.Addr().String())
-	go func() { http.Serve(l, nil) }()
+	srv := newTestServer()
+	defer srv.Close()
 
 	// Create a local file database.
 	localDBName, err := localDB(t)
@@ -338,7 +340,8 @@ func TestListIDs(t *testing.T) {
 		name   string
 		source string
 	}{
-		{name: "http", source: "http://localhost:" + port},
+		{name: "http", source: srv.URL},
+		{name: "file", source: "file://" + localDBName},
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			client, err := NewClient([]string{test.source}, Options{})
