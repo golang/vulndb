@@ -40,6 +40,7 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 	"time"
 
@@ -56,6 +57,9 @@ type Client interface {
 	// GetByID returns the entry with the given ID, or (nil, nil) if there isn't
 	// one.
 	GetByID(string) (*osv.Entry, error)
+
+	// ListIDs returns the IDs of all entries in the database.
+	ListIDs() ([]string, error)
 }
 
 type source interface {
@@ -93,6 +97,18 @@ func (ls *localSource) GetByID(id string) (*osv.Entry, error) {
 		return nil, err
 	}
 	return &e, nil
+}
+
+func (ls *localSource) ListIDs() ([]string, error) {
+	content, err := ioutil.ReadFile(filepath.Join(ls.dir, internal.IDDirectory, "index.json"))
+	if err != nil {
+		return nil, err
+	}
+	var ids []string
+	if err := json.Unmarshal(content, &ids); err != nil {
+		return nil, err
+	}
+	return ids, nil
 }
 
 func (ls *localSource) Index() (osv.DBIndex, error) {
@@ -235,6 +251,18 @@ func (hs *httpSource) GetByID(id string) (*osv.Entry, error) {
 	return &e, nil
 }
 
+func (hs *httpSource) ListIDs() ([]string, error) {
+	content, err := hs.readBody(fmt.Sprintf("%s/%s/index.json", hs.url, internal.IDDirectory))
+	if err != nil {
+		return nil, err
+	}
+	var ids []string
+	if err := json.Unmarshal(content, &ids); err != nil {
+		return nil, err
+	}
+	return ids, nil
+}
+
 func (hs *httpSource) readBody(url string) ([]byte, error) {
 	resp, err := hs.c.Get(url)
 	if err != nil {
@@ -312,4 +340,25 @@ func (c *client) GetByID(id string) (*osv.Entry, error) {
 		}
 	}
 	return nil, nil
+}
+
+// ListIDs returns the union of the IDs from all sources,
+// sorted lexically.
+func (c *client) ListIDs() ([]string, error) {
+	idSet := map[string]bool{}
+	for _, s := range c.sources {
+		ids, err := s.ListIDs()
+		if err != nil {
+			return nil, err
+		}
+		for _, id := range ids {
+			idSet[id] = true
+		}
+	}
+	var ids []string
+	for id := range idSet {
+		ids = append(ids, id)
+	}
+	sort.Strings(ids)
+	return ids, nil
 }

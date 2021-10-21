@@ -7,6 +7,7 @@ package client
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net"
 	"net/http"
@@ -304,6 +305,52 @@ func TestClientByID(t *testing.T) {
 			}
 			if !cmp.Equal(got, &want) {
 				t.Errorf("got\n%+v\nwant\n%+v", got, &want)
+			}
+		})
+	}
+}
+
+func TestListIDs(t *testing.T) {
+	if runtime.GOOS == "js" {
+		t.Skip("skipping test: no network on js")
+	}
+
+	http.HandleFunc("/ID/index.json", func(w http.ResponseWriter, r *http.Request) {
+		io.WriteString(w, `["ID"]`)
+	})
+
+	l, err := net.Listen("tcp", "127.0.0.1:")
+	if err != nil {
+		t.Fatalf("failed to listen on 127.0.0.1: %s", err)
+	}
+	_, port, _ := net.SplitHostPort(l.Addr().String())
+	go func() { http.Serve(l, nil) }()
+
+	// Create a local file database.
+	localDBName, err := localDB(t)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer os.RemoveAll(localDBName)
+
+	want := []string{"ID"}
+	for _, test := range []struct {
+		name   string
+		source string
+	}{
+		{name: "http", source: "http://localhost:" + port},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			client, err := NewClient([]string{test.source}, Options{})
+			if err != nil {
+				t.Fatal(err)
+			}
+			got, err := client.ListIDs()
+			if err != nil {
+				t.Fatal(err)
+			}
+			if !cmp.Equal(got, want) {
+				t.Errorf("got\n%+v\nwant\n%+v", got, want)
 			}
 		})
 	}
