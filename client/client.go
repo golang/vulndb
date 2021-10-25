@@ -60,6 +60,8 @@ type Client interface {
 
 	// ListIDs returns the IDs of all entries in the database.
 	ListIDs() ([]string, error)
+
+	unexported() // ensures that adding a method won't break users
 }
 
 type source interface {
@@ -70,6 +72,8 @@ type source interface {
 type localSource struct {
 	dir string
 }
+
+func (*localSource) unexported() {}
 
 func (ls *localSource) GetByModule(module string) ([]*osv.Entry, error) {
 	content, err := ioutil.ReadFile(filepath.Join(ls.dir, module+".json"))
@@ -191,6 +195,8 @@ func (hs *httpSource) Index() (osv.DBIndex, error) {
 
 	return index, nil
 }
+
+func (*httpSource) unexported() {}
 
 func (hs *httpSource) GetByModule(module string) ([]*osv.Entry, error) {
 	index, err := hs.Index()
@@ -315,6 +321,8 @@ func NewClient(sources []string, opts Options) (Client, error) {
 	}
 	return c, nil
 }
+
+func (*client) unexported() {}
 
 func (c *client) GetByModule(module string) ([]*osv.Entry, error) {
 	var entries []*osv.Entry
