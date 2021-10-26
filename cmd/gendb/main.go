@@ -13,6 +13,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"golang.org/x/vulndb/internal"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/osv"
 	"gopkg.in/yaml.v2"
@@ -101,10 +102,11 @@ func main() {
 	}
 
 	// Write a directory containing entries by ID.
-	idDir := filepath.Join(*jsonDir, "ID")
+	idDir := filepath.Join(*jsonDir, internal.IDDirectory)
 	if err := os.MkdirAll(idDir, 0700); err != nil {
 		failf("failed to create directory %q: %v", idDir, err)
 	}
+	var idIndex []string
 	for _, e := range entries {
 		outPath := filepath.Join(idDir, e.ID+".json")
 		content, err := json.Marshal(e)
@@ -114,5 +116,15 @@ func main() {
 		if err := ioutil.WriteFile(outPath, content, 0644); err != nil {
 			failf("failed to write %q: %v", outPath, err)
 		}
+		idIndex = append(idIndex, e.ID)
+	}
+
+	// Write an index.json in the ID directory with a list of all the IDs.
+	idIndexJSON, err := json.Marshal(idIndex)
+	if err != nil {
+		failf("failed to marshal index json: %s", err)
+	}
+	if err := ioutil.WriteFile(filepath.Join(idDir, "index.json"), idIndexJSON, 0644); err != nil {
+		failf("failed to write index: %s", err)
 	}
 }

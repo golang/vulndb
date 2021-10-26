@@ -44,6 +44,11 @@ func loadDB(dbPath string) (osv.DBIndex, map[string][]osv.Entry, error) {
 					return fmt.Errorf("unable to parse %q: %s", fpath, err)
 				}
 			} else if path == filepath.Join(dbPath, internal.IDDirectory) {
+				if f.Name() == "index.json" {
+					// The ID index is just a list of the entries' IDs; we'll
+					// catch any diffs in the entries themselves.
+					continue
+				}
 				var entry osv.Entry
 				if err := json.Unmarshal(content, &entry); err != nil {
 					return fmt.Errorf("unable to parse %q: %s", fpath, err)
