@@ -45,6 +45,7 @@ import (
 	"time"
 
 	"golang.org/x/vulndb/internal"
+	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/osv"
 )
 
@@ -75,7 +76,8 @@ type localSource struct {
 
 func (*localSource) unexported() {}
 
-func (ls *localSource) GetByModule(module string) ([]*osv.Entry, error) {
+func (ls *localSource) GetByModule(module string) (_ []*osv.Entry, err error) {
+	defer derrors.Wrap(&err, "GetByModule(%q)", module)
 	content, err := ioutil.ReadFile(filepath.Join(ls.dir, module+".json"))
 	if os.IsNotExist(err) {
 		return nil, nil
@@ -89,7 +91,8 @@ func (ls *localSource) GetByModule(module string) ([]*osv.Entry, error) {
 	return e, nil
 }
 
-func (ls *localSource) GetByID(id string) (*osv.Entry, error) {
+func (ls *localSource) GetByID(id string) (_ *osv.Entry, err error) {
+	defer derrors.Wrap(&err, "GetByID(%q)", id)
 	content, err := ioutil.ReadFile(filepath.Join(ls.dir, internal.IDDirectory, id+".json"))
 	if os.IsNotExist(err) {
 		return nil, nil
@@ -103,7 +106,8 @@ func (ls *localSource) GetByID(id string) (*osv.Entry, error) {
 	return &e, nil
 }
 
-func (ls *localSource) ListIDs() ([]string, error) {
+func (ls *localSource) ListIDs() (_ []string, err error) {
+	defer derrors.Wrap(&err, "ListIDs()")
 	content, err := ioutil.ReadFile(filepath.Join(ls.dir, internal.IDDirectory, "index.json"))
 	if err != nil {
 		return nil, err
@@ -115,7 +119,8 @@ func (ls *localSource) ListIDs() ([]string, error) {
 	return ids, nil
 }
 
-func (ls *localSource) Index() (osv.DBIndex, error) {
+func (ls *localSource) Index() (_ osv.DBIndex, err error) {
+	defer derrors.Wrap(&err, "Index()")
 	var index osv.DBIndex
 	b, err := ioutil.ReadFile(filepath.Join(ls.dir, "index.json"))
 	if err != nil {
@@ -134,7 +139,9 @@ type httpSource struct {
 	dbName string
 }
 
-func (hs *httpSource) Index() (osv.DBIndex, error) {
+func (hs *httpSource) Index() (_ osv.DBIndex, err error) {
+	defer derrors.Wrap(&err, "Index()")
+
 	var cachedIndex osv.DBIndex
 	var cachedIndexRetrieved *time.Time
 
@@ -198,7 +205,9 @@ func (hs *httpSource) Index() (osv.DBIndex, error) {
 
 func (*httpSource) unexported() {}
 
-func (hs *httpSource) GetByModule(module string) ([]*osv.Entry, error) {
+func (hs *httpSource) GetByModule(module string) (_ []*osv.Entry, err error) {
+	defer derrors.Wrap(&err, "GetByModule(%q)", module)
+
 	index, err := hs.Index()
 	if err != nil {
 		return nil, err
@@ -245,7 +254,9 @@ func (hs *httpSource) GetByModule(module string) ([]*osv.Entry, error) {
 	return e, nil
 }
 
-func (hs *httpSource) GetByID(id string) (*osv.Entry, error) {
+func (hs *httpSource) GetByID(id string) (_ *osv.Entry, err error) {
+	defer derrors.Wrap(&err, "GetByID(%q)", id)
+
 	content, err := hs.readBody(fmt.Sprintf("%s/%s/%s.json", hs.url, internal.IDDirectory, id))
 	if err != nil || content == nil {
 		return nil, err
@@ -257,7 +268,9 @@ func (hs *httpSource) GetByID(id string) (*osv.Entry, error) {
 	return &e, nil
 }
 
-func (hs *httpSource) ListIDs() ([]string, error) {
+func (hs *httpSource) ListIDs() (_ []string, err error) {
+	defer derrors.Wrap(&err, "ListIDs()")
+
 	content, err := hs.readBody(fmt.Sprintf("%s/%s/index.json", hs.url, internal.IDDirectory))
 	if err != nil {
 		return nil, err
@@ -291,7 +304,8 @@ type Options struct {
 	HTTPCache  Cache
 }
 
-func NewClient(sources []string, opts Options) (Client, error) {
+func NewClient(sources []string, opts Options) (_ Client, err error) {
+	defer derrors.Wrap(&err, "NewClient(%v, opts)", sources)
 	c := &client{}
 	for _, uri := range sources {
 		uri = strings.TrimRight(uri, "/")
@@ -324,7 +338,8 @@ func NewClient(sources []string, opts Options) (Client, error) {
 
 func (*client) unexported() {}
 
-func (c *client) GetByModule(module string) ([]*osv.Entry, error) {
+func (c *client) GetByModule(module string) (_ []*osv.Entry, err error) {
+	defer derrors.Wrap(&err, "GetByModule(%q)", module)
 	var entries []*osv.Entry
 	// probably should be parallelized
 	for _, s := range c.sources {
@@ -337,7 +352,8 @@ func (c *client) GetByModule(module string) ([]*osv.Entry, error) {
 	return entries, nil
 }
 
-func (c *client) GetByID(id string) (*osv.Entry, error) {
+func (c *client) GetByID(id string) (_ *osv.Entry, err error) {
+	defer derrors.Wrap(&err, "GetByID(%q)", id)
 	for _, s := range c.sources {
 		entry, err := s.GetByID(id)
 		if err != nil {
@@ -352,7 +368,8 @@ func (c *client) GetByID(id string) (*osv.Entry, error) {
 
 // ListIDs returns the union of the IDs from all sources,
 // sorted lexically.
-func (c *client) ListIDs() ([]string, error) {
+func (c *client) ListIDs() (_ []string, err error) {
+	defer derrors.Wrap(&err, "ListIDs()")
 	idSet := map[string]bool{}
 	for _, s := range c.sources {
 		ids, err := s.ListIDs()
