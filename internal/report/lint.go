@@ -16,6 +16,7 @@ import (
 	"golang.org/x/mod/modfile"
 	"golang.org/x/mod/module"
 	"golang.org/x/mod/semver"
+	"golang.org/x/vulndb/internal/derrors"
 )
 
 // TODO: getting things from the proxy should all be cached so we
@@ -29,7 +30,8 @@ func init() {
 	}
 }
 
-func getModVersions(module string) (map[string]bool, error) {
+func getModVersions(module string) (_ map[string]bool, err error) {
+	defer derrors.Wrap(&err, "getModVersions(%q)", module)
 	resp, err := http.Get(fmt.Sprintf("%s/%s/@v/list", proxyURL, module))
 	if err != nil {
 		return nil, err
@@ -46,7 +48,8 @@ func getModVersions(module string) (map[string]bool, error) {
 	return versions, nil
 }
 
-func getCanonicalModName(module string, version string) (string, error) {
+func getCanonicalModName(module string, version string) (_ string, err error) {
+	defer derrors.Wrap(&err, "getCanonicalModName(%q, %q)", module, version)
 	resp, err := http.Get(fmt.Sprintf("%s/%s/@v/%s.mod", proxyURL, module, version))
 	if err != nil {
 		return "", err
@@ -75,7 +78,8 @@ func isPseudoVersion(v string) bool {
 	return strings.Count(v, "-") >= 2 && semver.IsValid(v) && pseudoVersionRE.MatchString(v)
 }
 
-func versionExists(version string, versions map[string]bool) error {
+func versionExists(version string, versions map[string]bool) (err error) {
+	defer derrors.Wrap(&err, "versionExists(%q, %v)", version, versions)
 	// TODO: for now, just skip pseudo-versions. at some point we should verify that
 	// it is a likely pseudo-version, i.e. one that could feasibly exist given the
 	// actual versions that we know about.
@@ -92,7 +96,8 @@ func versionExists(version string, versions map[string]bool) error {
 	return nil
 }
 
-func checkModVersions(path string, vr []VersionRange) error {
+func checkModVersions(path string, vr []VersionRange) (err error) {
+	defer derrors.Wrap(&err, "checkModVersions(%q, vr)", path)
 	realVersions, err := getModVersions(path)
 	if err != nil {
 		return fmt.Errorf("unable to retrieve module versions from proxy: %s", err)
