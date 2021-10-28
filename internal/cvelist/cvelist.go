@@ -21,12 +21,14 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/object"
 	"github.com/go-git/go-git/v5/storage/memory"
 	"golang.org/x/vulndb/internal/cveschema"
+	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/report"
 )
 
 // Run clones the CVEProject/cvelist repository and compares the files to the
 // existing triaged-cve-list.
-func Run(triaged map[string]bool) error {
+func Run(triaged map[string]bool) (err error) {
+	defer derrors.Wrap(&err, "Run(triaged)")
 	log.Printf("Cloning %q...", cvelistRepoURL)
 	repo, root, err := cloneRepo(cvelistRepoURL)
 	if err != nil {
@@ -43,6 +45,7 @@ const cvelistRepoURL = "https://github.com/CVEProject/cvelist"
 // cloneRepo returns a repo and tree object for the repo at HEAD by
 // cloning the repo at repoURL.
 func cloneRepo(repoURL string) (repo *git.Repository, root *object.Tree, err error) {
+	defer derrors.Wrap(&err, "cloneRepo(%q)", repoURL)
 	repo, err = git.Clone(memory.NewStorage(), nil, &git.CloneOptions{
 		URL:           repoURL,
 		ReferenceName: plumbing.HEAD,
@@ -74,6 +77,7 @@ func cloneRepo(repoURL string) (repo *git.Repository, root *object.Tree, err err
 // TODO: Create GitHub issues. At the moment, this just prints the number of
 // issues to be created.
 func createIssuesToTriage(r *git.Repository, t *object.Tree, triaged map[string]bool) (err error) {
+	defer derrors.Wrap(&err, "createIssuesToTriage(r, t, triaged)")
 	log.Printf("Finding new Go vulnerabilities from CVE list...")
 	cves, issues, err := walkRepo(r, t, "", triaged)
 	if err != nil {
@@ -96,6 +100,7 @@ func createIssuesToTriage(r *git.Repository, t *object.Tree, triaged map[string]
 // walkRepo looks at the files in t, recursively, and check if it is a CVE that
 // needs to be manually triaged.
 func walkRepo(r *git.Repository, t *object.Tree, dirpath string, triaged map[string]bool) (newCVEs map[string]bool, newIssues []*GoVulnIssue, err error) {
+	defer derrors.Wrap(&err, "walkRepo(r, t, %q, triaged)", dirpath)
 	newCVEs = map[string]bool{}
 	for _, e := range t.Entries {
 		fp := path.Join(dirpath, e.Name)
@@ -145,6 +150,7 @@ func walkRepo(r *git.Repository, t *object.Tree, dirpath string, triaged map[str
 // parseCVEJSON parses a CVE file following the CVE JSON format:
 // https://github.com/CVEProject/automation-working-group/blob/master/cve_json_schema/DRAFT-JSON-file-format-v4.md
 func parseCVE(r *git.Repository, e object.TreeEntry) (_ *cveschema.CVE, err error) {
+	defer derrors.Wrap(&err, "parseCVE(r, e)")
 	blob, err := r.BlobObject(e.Hash)
 	if err != nil {
 		return nil, fmt.Errorf("r.BlobObject: %v", err)
@@ -173,7 +179,8 @@ func parseCVE(r *git.Repository, e object.TreeEntry) (_ *cveschema.CVE, err erro
 const goGitHubRepo = "github.com/golang/go"
 
 // cveToIssue creates a GoVulnIssue from a c *cveschema.CVE.
-func cveToIssue(c *cveschema.CVE) (*GoVulnIssue, error) {
+func cveToIssue(c *cveschema.CVE) (_ *GoVulnIssue, err error) {
+	defer derrors.Wrap(&err, "cveToIssue(c)")
 	if isPendingCVE(c) {
 		return nil, nil
 	}
@@ -240,7 +247,8 @@ var vcsHostsWithThreeElementRepoName = map[string]bool{
 
 // modulePathFromCVE returns a Go module path for a CVE, if we can determine
 // what it is.
-func modulePathFromCVE(c *cveschema.CVE) (string, error) {
+func modulePathFromCVE(c *cveschema.CVE) (_ string, err error) {
+	defer derrors.Wrap(&err, "modulePathFromCVE(c)")
 	for _, r := range c.References.ReferenceData {
 		if r.URL == "" {
 			continue
