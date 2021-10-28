@@ -3,7 +3,24 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
+RED=; GREEN=; YELLOW=; BLUE=; BOLD=; RESET=;
+
+case $TERM in
+  '' | xterm) ;;
+  # If xterm is not xterm-16color, xterm-88color, or xterm-256color, tput will
+  # return the error:
+  #   tput: No value for $TERM and no -T specified
+  *)
+      RED=`tput setaf 1`
+      GREEN=`tput setaf 2`
+      YELLOW=`tput setaf 3`
+      NORMAL=`tput sgr0`
+esac
+
 EXIT_CODE=0
+
+info() { echo -e "${GREEN}$@${NORMAL}" 1>&2; }
+err() { echo -e "${RED}$@${NORMAL}" 1>&2; EXIT_CODE=1; }
 
 # runcud prints an info log describing the command that is about to be run, and
 # then runs it. It sets EXIT_CODE to non-zero if the command fails, but does not exit
@@ -29,6 +46,45 @@ ensure_go_binary() {
     # Run in a subshell for convenience, so that we don't have to worry about
     # our PWD.
     (set -x; cd && env GO111MODULE=on go get -u $1)
+  fi
+}
+
+# verify_header checks that all given files contain the standard header for Go
+# projects.
+verify_header() {
+  if [[ "$@" != "" ]]; then
+    for FILE in $@
+    do
+        line="$(head -1 $FILE)"
+        if [[ ! $line == *"The Go Authors. All rights reserved."* ]] &&
+         [[ ! $line == "// DO NOT EDIT. This file was copied from" ]]; then
+              err "missing license header: $FILE"
+        fi
+    done
+  fi
+}
+
+# Support ** in globs for findcode.
+shopt -s globstar
+
+# findcode finds source files in the repo.
+findcode() {
+  find **/*.go
+}
+
+# check_headers checks that all source files that have been staged in this
+# commit, and all other non-third-party files in the repo, have a license
+# header.
+check_headers() {
+  if [[ $# -gt 0 ]]; then
+    info "Checking listed files for license header"
+    verify_header $*
+  else
+    info "Checking staged files for license header"
+    # Check code files that have been modified or added.
+    verify_header $(git diff --cached --name-status | grep -vE "^D" | cut -f 2- | grep -E ".go$|.sh$")
+    info "Checking go files for license header"
+    verify_header $(findcode)
   fi
 }
 
@@ -70,6 +126,13 @@ go_test() {
   runcmd go test ./...
 }
 
+runchecks() {
+  check_headers
+  go_linters
+  go_modtidy
+  go_test
+}
+
 usage() {
   cat <<EOUSAGE
 Usage: $0 [subcommand]
@@ -91,18 +154,12 @@ main() {
       exit 0
       ;;
     "")
-      go_linters
-      go_modtidy
-      go_test
+      runchecks
       ;;
     *)
       usage
       exit 1
   esac
-  if [[ $EXIT_CODE != 0 ]]; then
-    err "FAILED; see errors above"
-  fi
-  exit $EXIT_CODE
 }
 
 main $@
