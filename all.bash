@@ -139,10 +139,12 @@ Usage: $0 [subcommand]
 Available subcommands:
   (empty)        - run all standard checks and tests:
      * headers: check source files for the license disclaimer
-     * misspell: run misspell on source files
-     * staticcheck: run staticcheck on source files
-     * unparam: run unparam on source files
      * vet: run go vet on source files
+     * staticcheck: run staticcheck on source files
+     * misspell: run misspell on source files
+     * unparam: run unparam on source files
+     * tidy: run go mod tidy
+     * tests: run all Go tests
   help           - display this help message
 EOUSAGE
 }
