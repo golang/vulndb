@@ -11,9 +11,10 @@ import (
 	"strings"
 	"testing"
 
-	"golang.org/x/vulndb/internal/report"
-	"gopkg.in/yaml.v2"
+	"golang.org/x/vuln/vlint"
 )
+
+const reportsDir = "reports"
 
 func TestLintReports(t *testing.T) {
 	if runtime.GOOS == "js" {
@@ -22,28 +23,21 @@ func TestLintReports(t *testing.T) {
 	if runtime.GOOS == "android" {
 		t.Skipf("android builder does not have access to reports/")
 	}
-
-	reports, err := ioutil.ReadDir("reports")
+	reports, err := ioutil.ReadDir(reportsDir)
 	if err != nil {
 		t.Fatalf("unable to read reports/: %s", err)
 	}
-
 	for _, rf := range reports {
 		if rf.IsDir() {
 			continue
 		}
 		t.Run(rf.Name(), func(t *testing.T) {
-			b, err := ioutil.ReadFile(filepath.Join("reports", rf.Name()))
+			fn := filepath.Join(reportsDir, rf.Name())
+			lints, err := vlint.LintReport(fn)
 			if err != nil {
-				t.Fatalf("unable to read %q: %s", rf.Name(), err)
+				t.Fatalf("vulnlint.LintReport(%q): %s", fn, err)
 			}
-
-			var r report.Report
-			if err := yaml.UnmarshalStrict(b, &r); err != nil {
-				t.Fatalf("unable to parse report %q: %s", rf.Name(), err)
-			}
-
-			if lints := r.Lint(); len(lints) > 0 {
+			if len(lints) > 0 {
 				t.Errorf(strings.Join(lints, "\n"))
 			}
 		})
