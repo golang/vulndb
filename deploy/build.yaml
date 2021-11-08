@@ -1,7 +1,8 @@
 steps:
   - name: golang
     entrypoint: bash
-    args: ["-c", "go run golang.org/x/vulndb/cmd/gendb -reports reports -out /workspace/db"]
+    args: ["-c", "go install golang.org/x/vuln/cmd/gendb@latest
+                  && gendb -reports reports -out /workspace/db"]
   - name: gcr.io/cloud-builders/gsutil
     entrypoint: bash
     args: ["./deploy/gcp-deploy.sh"]
