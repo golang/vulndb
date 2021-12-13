@@ -63,6 +63,17 @@ var gopkgHosts = map[string]bool{
 
 const snykIdentifier = "snyk.io/vuln/SNYK-GOLANG"
 
+// nonGoModules are paths that return a 200 on pkg.go.dev, but do not contain
+// Go code. However, these libraries often have CVEs that are false positive for
+// a Go vuln.
+var notGoModules = map[string]bool{
+	"github.com/channelcat/sanic":            true, // python library
+	"github.com/rapid7/metasploit-framework": true, // ruby library
+	"github.com/tensorflow/tensorflow":       true, // python library
+	"gitweb.gentoo.org/repo/gentoo.git":      true, // ebuild
+	"qpid.apache.org":                        true, // C, python, & Java library
+}
+
 // triageV4CVE triages a CVE following schema v4.0 and returns the result.
 func triageV4CVE(ctx context.Context, c *cveschema.CVE, pkgsiteURL string) (_ *triageResult, err error) {
 	defer derrors.Wrap(&err, "triageV4CVE(ctx, %q, %q)", c.ID, pkgsiteURL)
@@ -98,6 +109,9 @@ func triageV4CVE(ctx context.Context, c *cveschema.CVE, pkgsiteURL string) (_ *t
 		}
 		modpaths := candidateModulePaths(refURL.Host + refURL.Path)
 		for _, mp := range modpaths {
+			if notGoModules[mp] {
+				continue
+			}
 			known, err := knownToPkgsite(ctx, pkgsiteURL, mp)
 			if err != nil {
 				return nil, err
