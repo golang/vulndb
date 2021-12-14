@@ -20,6 +20,12 @@ cve = "CVE-000-000"
 **optional** `cve` contains a CVE number for the vulnerability, if one has been assigned.
 
 ```
+cves = ["CVE-0-1", "CVE-3-4"]
+```
+**optional** `cves` contains all CVEs that this report pertains to. Use this if
+there are more than one.
+
+```
 credit = "A. Reporter"
 ```
 **optional** `credit` contains credit for the person/organization that discovered/reported the vulnerability.
