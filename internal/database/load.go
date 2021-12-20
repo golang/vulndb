@@ -14,7 +14,6 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"golang.org/x/vuln/client"
 	"golang.org/x/vuln/osv"
-	"golang.org/x/vulndb/internal"
 	"golang.org/x/vulndb/internal/derrors"
 )
 
@@ -67,7 +66,7 @@ func loadDB(dbPath string) (_ client.DBIndex, _ map[string][]osv.Entry, err erro
 				if err := json.Unmarshal(content, &index); err != nil {
 					return fmt.Errorf("unable to parse %q: %s", fpath, err)
 				}
-			} else if path == filepath.Join(dbPath, internal.IDDirectory) {
+			} else if path == filepath.Join(dbPath, idDirectory) {
 				if f.Name() == "index.json" {
 					// The ID index is just a list of the entries' IDs; we'll
 					// catch any diffs in the entries themselves.

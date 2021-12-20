@@ -16,13 +16,18 @@ import (
 	"golang.org/x/mod/semver"
 	"golang.org/x/vuln/client"
 	"golang.org/x/vuln/osv"
-	"golang.org/x/vulndb/internal"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/report"
 	"gopkg.in/yaml.v2"
 )
 
-const dbURL = "https://go.googlesource.com/vuln/+/refs/heads/master/reports/"
+const (
+	dbURL = "https://go.googlesource.com/vuln/+/refs/heads/master/reports/"
+
+	// idDirectory is the name of the directory that contains entries
+	// listed by their IDs.
+	idDirectory = "ID"
+)
 
 func Generate(yamlDir, jsonDir string) (err error) {
 	defer derrors.Wrap(&err, "Generate(%q)", yamlDir)
@@ -90,7 +95,7 @@ func Generate(yamlDir, jsonDir string) (err error) {
 	}
 
 	// Write a directory containing entries by ID.
-	idDir := filepath.Join(jsonDir, internal.IDDirectory)
+	idDir := filepath.Join(jsonDir, idDirectory)
 	if err := os.MkdirAll(idDir, 0700); err != nil {
 		return fmt.Errorf("failed to create directory %q: %v", idDir, err)
 	}

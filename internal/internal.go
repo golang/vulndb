@@ -13,10 +13,6 @@ import (
 	"golang.org/x/vulndb/internal/derrors"
 )
 
-// IDDirectory is the name of the directory that contains entries
-// listed by their IDs.
-const IDDirectory = "ID"
-
 // Readfilelines reads and returns the lines from a file.
 // Whitespace on each line is trimmed.
 // Blank lines and lines beginning with '#' are ignored.
