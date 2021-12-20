@@ -1,0 +1,74 @@
+<!--
+  Copyright 2021 The Go Authors. All rights reserved.
+  Use of this source code is governed by a BSD-style
+  license that can be found in the LICENSE file.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<link href="/static/worker.css" rel="stylesheet">
+<title>{{.Namespace}} Vuln Worker</title>
+
+<body>
+  <h1>{{.Namespace}} Vuln Worker</h1>
+  <p>All times in America/New_York.</p>
+
+
+  <h2>Recent Updates</h2>
+  {{with .Updates}}
+    <table>
+      <tr>
+        <th>Started</th><th>Ended</th><th>Commit</th><th>Processed</th><th>Added</th><th>Modified</th><th>Error</th>
+      </tr>
+      {{range .}}
+        <tr>
+          <td>{{.StartedAt | timefmt}}</td>
+          <td>{{.EndedAt | timefmt}}</td>
+          <td><a href="{{$.CVEListRepoURL}}/tree/{{.CommitHash}}">{{.CommitHash}}</a></td>
+          <td>{{.NumProcessed}}/{{.NumTotal}}</td>
+          <td>{{.NumAdded}}</td>
+          <td>{{.NumModified}}</td>
+          <td>{{.Error}}</td>
+        </tr>
+      {{end}}
+    </table>
+  {{else}}
+    No updates.
+  {{end}}
+
+  <h2>CVEs Needing Issue</h2>
+  <p>{{len .CVEsNeedingIssue}} records.</p>
+  <table>
+    <tr>
+      <th>ID</th><th>Reason</th>
+    </tr>
+    {{range .CVEsNeedingIssue}}
+      <tr>
+        <td><a href="{{$.CVEListRepoURL}}/tree/{{.CommitHash}}/{{.Path}}">{{.ID}}</a></td>
+        <td>{{.TriageState}}</td>
+        <td>{{.TriageStateReason}}</td>
+      </tr>
+    {{end}}
+  </table>
+
+  <h2>CVEs Updated Since Issue Created</h2>
+  <p>{{len .CVEsUpdatedSince}} records.</p>
+  <table>
+    <tr>
+      <th>ID</th><th>Reason</th><th>Issue</th><th>Issue Created</th>
+    </tr>
+    {{range .CVEsUpdatedSince}}
+      <tr>
+        <td><a href="{{$.CVEListRepoURL}}/tree/{{.CommitHash}}/{{.Path}}">{{.ID}}</a></td>
+        <td>{{.TriageState}}</td>
+        <td>{{.TriageStateReason}}</td>
+        <td>{{.IssueReference}}</td>
+        <td>{{.IssueCreatedAt | timefmt}}</td>
+      </tr>
+    {{end}}
+  </table>
+
+</body>
+</html>
+
