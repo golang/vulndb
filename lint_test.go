@@ -11,7 +11,7 @@ import (
 	"strings"
 	"testing"
 
-	"golang.org/x/vuln/vlint"
+	"golang.org/x/vulndb/internal/report"
 )
 
 const reportsDir = "reports"
@@ -33,7 +33,7 @@ func TestLintReports(t *testing.T) {
 		}
 		t.Run(rf.Name(), func(t *testing.T) {
 			fn := filepath.Join(reportsDir, rf.Name())
-			lints, err := vlint.LintReport(fn)
+			lints, err := report.LintFile(fn)
 			if err != nil {
 				t.Fatalf("vulnlint.LintReport(%q): %s", fn, err)
 			}

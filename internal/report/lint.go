@@ -17,6 +17,7 @@ import (
 	"golang.org/x/mod/module"
 	"golang.org/x/mod/semver"
 	"golang.org/x/vulndb/internal/derrors"
+	"gopkg.in/yaml.v2"
 )
 
 // TODO: getting things from the proxy should all be cached so we
@@ -134,6 +135,22 @@ func checkModVersions(path string, vr []VersionRange) (err error) {
 		}
 	}
 	return nil
+}
+
+// LintFile is used to lint the reports/ directory. It is run by
+// TestLintReports (in the vulndb repo) to ensure that there are no errors in
+// the YAML reports.
+func LintFile(filename string) (_ []string, err error) {
+	defer derrors.Wrap(&err, "LintFile(%q)", filename)
+	b, err := ioutil.ReadFile(filename)
+	if err != nil {
+		return nil, fmt.Errorf("ioutil.ReadDir(%q): %v", filename, err)
+	}
+	var r Report
+	if err := yaml.UnmarshalStrict(b, &r); err != nil {
+		return nil, fmt.Errorf("yaml.UnmarshalStrict(b, &r): %v (%q)", err, filename)
+	}
+	return r.Lint(), nil
 }
 
 var cveRegex = regexp.MustCompile(`^CVE-\d{4}-\d{4,}$`)
