@@ -7,7 +7,7 @@ package report
 import (
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
 	"regexp"
@@ -38,7 +38,7 @@ func getModVersions(module string) (_ map[string]bool, err error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	b, err := ioutil.ReadAll(resp.Body)
+	b, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -56,7 +56,7 @@ func getCanonicalModName(module, version string) (_ string, err error) {
 		return "", err
 	}
 	defer resp.Body.Close()
-	b, err := ioutil.ReadAll(resp.Body)
+	b, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return "", err
 	}
@@ -142,9 +142,9 @@ func checkModVersions(path string, vr []VersionRange) (err error) {
 // the YAML reports.
 func LintFile(filename string) (_ []string, err error) {
 	defer derrors.Wrap(&err, "LintFile(%q)", filename)
-	b, err := ioutil.ReadFile(filename)
+	b, err := os.ReadFile(filename)
 	if err != nil {
-		return nil, fmt.Errorf("ioutil.ReadDir(%q): %v", filename, err)
+		return nil, err
 	}
 	var r Report
 	if err := yaml.UnmarshalStrict(b, &r); err != nil {
