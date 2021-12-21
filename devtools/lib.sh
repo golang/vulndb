@@ -46,3 +46,9 @@ runcmd() {
   echo -e "$@\n" 1>&2;
   $@ || err "command failed"
 }
+
+# tfvar NAME returns the value of NAME in the terraform.tfvars file.
+tfvar() {
+  local name=$1
+  awk '$1 == "'$name'" { print substr($3, 2, length($3)-2) }' terraform/terraform.tfvars
+}
