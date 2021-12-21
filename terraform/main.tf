@@ -33,35 +33,58 @@ provider "google" {
 # by you, and pass them to terraform.
 # See https://www.terraform.io/docs/language/values/variables.html#variable-definitions-tfvars-files.
 
-variable "prod_client_secret" {
-  description = "OAuth 2 client secret for prod"
+
+variable "prod_project" {
+  description = "GCP project where resources live"
   type        = string
-  sensitive   = true
 }
 
+variable "prod_issue_repo" {
+  description = "repo where issues are filed"
+  type        = string
+}
 
+variable "prod_client_id" {
+  description = "OAuth2 client ID"
+  type        = string
+}
+
+variable "dev_project" {
+  description = "GCP project where resources live"
+  type        = string
+}
+
+variable "dev_issue_repo" {
+  description = "repo where issues are filed"
+  type        = string
+}
+
+variable "dev_client_id" {
+  description = "OAuth2 client ID"
+  type        = string
+}
 
 # Deployment environments
 
 module "dev" {
   source                 = "./environment"
   env                    = "dev"
-  project                = "go-discovery-exp"
+  project                = var.dev_project
   region                 = local.region
   use_profiler           = false
   min_frontend_instances = 0
-  oauth_client_id              = "55665122702-tk2rogkaalgru7pqibvbltqs7geev8j5.apps.googleusercontent.com"
-  oauth_client_secret          = ""  # go-discovery-exp does not allow external load balancers
+  oauth_client_id        = var.dev_client_id
+  issue_repo             = var.dev_issue_repo
 }
 
-# module "prod" {
-#   source                 = "./environment"
-#   env                    = "prod"
-#   project                = "golang-org"
-#   region                 = local.region
-#   use_profiler           = true
-#   min_frontend_instances = 1
-#   client_id              = "unknown"
-#   client_secret          = var.prod_client_secret
-# }
+module "prod" {
+  source                 = "./environment"
+  env                    = "prod"
+  project                = var.prod_project
+  region                 = local.region
+  use_profiler           = true
+  min_frontend_instances = 1
+  oauth_client_id        = var.prod_client_id
+  issue_repo             = var.prod_issue_repo
+}
 

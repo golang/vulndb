@@ -37,8 +37,8 @@ variable "oauth_client_id" {
   type = string
 }
 
-variable "oauth_client_secret" {
-  description = "OAuth 2 client ID (visit APIs & Services > Credentials, click on client)"
+variable "issue_repo" {
+  description = "name of GitHub repo to post issues on"
   type = string
 }
 
@@ -47,6 +47,7 @@ variable "oauth_client_secret" {
 # Cloud Run service.
 
 resource "google_cloud_run_service" "worker" {
+  provider = google-beta
 
   lifecycle {
     ignore_changes = [
@@ -64,8 +65,9 @@ resource "google_cloud_run_service" "worker" {
   template {
     spec {
       containers {
-	# Don't hardcode the image here; get it from GCP. See the "data" block
-	# below for more.
+	# Get the image from GCP (see the "data" block below).
+	# Exception: when first creating the service, replace this with a hardcoded
+	# image tag.
 	image = data.google_cloud_run_service.worker.template[0].spec[0].containers[0].image
         env {
           name  = "GOOGLE_CLOUD_PROJECT"
@@ -81,7 +83,16 @@ resource "google_cloud_run_service" "worker" {
 	}
 	env {
 	  name = "VULN_WORKER_ISSUE_REPO"
-	  value = var.env == "dev"? "": "golang/vulndb"
+	  value = var.issue_repo
+	}
+	env {
+	  name = "VULN_GITHUB_ACCESS_TOKEN"
+	  value_from {
+	    secret_key_ref {
+	      name = google_secret_manager_secret.vuln_github_access_token.secret_id
+	      key = "latest"
+	    }
+	  }
 	}
 	env{
           name  = "VULN_WORKER_USE_PROFILER"
@@ -95,7 +106,7 @@ resource "google_cloud_run_service" "worker" {
         }
       }
 
-      service_account_name = "frontend@${var.project}.iam.gserviceaccount.com"
+      service_account_name = data.google_compute_default_service_account.default.email
       # 60 minutes is the maximum Cloud Run request time.
       timeout_seconds = 60 * 60
     }
@@ -104,7 +115,7 @@ resource "google_cloud_run_service" "worker" {
       annotations = {
         "autoscaling.knative.dev/minScale"  = var.min_frontend_instances
         "autoscaling.knative.dev/maxScale"  = "1"
-	"client.knative.dev/user-image"     = data.google_cloud_run_service.worker.template[0].spec[0].containers[0].image
+	#"client.knative.dev/user-image"     = data.google_cloud_run_service.worker.template[0].spec[0].containers[0].image
       }
     }
   }
@@ -129,83 +140,31 @@ data "google_cloud_run_service" "worker" {
 }
 
 ################################################################
-# Load balancer for Cloud Run service.
-
-resource "google_compute_region_network_endpoint_group" "worker" {
-  count = var.oauth_client_secret == ""? 0: 1
-  name         = "${var.env}-vuln-worker-neg"
-  network_endpoint_type = "SERVERLESS"
-  project = var.project
-  region = var.region
-  cloud_run {
-    service = google_cloud_run_service.worker.name
-  }
-}
-
-module "worker_lb" {
-  count = var.oauth_client_secret == ""? 0: 1
-  source  = "GoogleCloudPlatform/lb-http/google//modules/serverless_negs"
-  version = "~> 6.1.1"
-
-  name = "${var.env}-vuln-worker-lb"
-  project = var.project
-
-  ssl                             = true
-  managed_ssl_certificate_domains = ["${var.env}-vuln-worker.go.dev"]
-  https_redirect                  = true
-
-  backends = {
-    default = {
-      description = null
-      groups = [
-        {
-	  group = google_compute_region_network_endpoint_group.worker[0].id
-        }
-      ]
-      enable_cdn              = false
-      security_policy         = null
-      custom_request_headers  = null
-      custom_response_headers = null
-
-      iap_config = {
-        enable               = true
-        oauth2_client_id     = var.oauth_client_id
-        oauth2_client_secret = var.oauth_client_secret
-      }
-      log_config = {
-        enable      = false
-        sample_rate = null
-      }
-    }
-  }
-}
-
-output "worker_url" {
-  value = data.google_cloud_run_service.worker.status[0].url
-}
-
-output "load_balancer_ip" {
-  value = var.oauth_client_secret == ""? "": module.worker_lb[0].external_ip
-}
-
-################################################################
 # Other components.
 
 locals {
   tz = "America/New_York"
 }
 
+resource google_secret_manager_secret "vuln_github_access_token" {
+  secret_id = "vuln-${var.env}-github-access-token"
+  project = var.project
+  replication {
+    automatic = true
+  }
+}
+
 data "google_compute_default_service_account" "default" {
   project = var.project
 }
 
-resource "google_cloud_scheduler_job" "issue_triage" {
-  name             = "${var.env}-issue-triage"
+resource "google_cloud_scheduler_job" "vuln_issue_triage" {
+  name             = "vuln-${var.env}-issue-triage"
   description      = "Updates the DB and files issues."
   schedule         = "0 * * * *" # every hour
   time_zone        = local.tz
   project          = var.project
-  attempt_deadline = format("%ds", 60 * 60)
+  attempt_deadline = format("%ds", 30 * 60)
 
   http_target {
     http_method = "POST"
