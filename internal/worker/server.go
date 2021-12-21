@@ -18,7 +18,6 @@ import (
 
 	"cloud.google.com/go/errorreporting"
 	"github.com/google/safehtml/template"
-	"golang.org/x/exp/event"
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/gitrepo"
@@ -60,9 +59,9 @@ func NewServer(ctx context.Context, cfg Config) (_ *Server, err error) {
 			return nil, err
 		}
 		s.issueClient = NewGithubIssueClient(owner, repoName, cfg.GitHubAccessToken)
-		log.Info(ctx, "issue creation enabled", event.String("repo", cfg.IssueRepo))
+		log.Infof(ctx, "issue creation enabled for repo %s", cfg.IssueRepo)
 	} else {
-		log.Info(ctx, "issue creation disabled")
+		log.Infof(ctx, "issue creation disabled")
 	}
 
 	s.indexTemplate, err = parseTemplate(staticPath, template.TrustedSourceFromConstant("index.tmpl"))
@@ -92,17 +91,17 @@ func (s *Server) handle(_ context.Context, pattern string, handler func(w http.R
 		ctx := log.WithGCPJSONLogger(r.Context(), traceID)
 		r = r.WithContext(ctx)
 
-		log.Info(ctx, "request start",
-			event.Value("httpRequest", r))
+		log.With("httpRequest", r).Infof(ctx, "starting %s", r.URL.Path)
 
 		w2 := &responseWriter{ResponseWriter: w}
 		if err := handler(w2, r); err != nil {
 			s.serveError(ctx, w2, r, err)
 		}
 
-		log.Info(ctx, "request end",
-			event.Duration("latency", time.Since(start)),
-			event.Int64("status", translateStatus(w2.status)))
+		log.With(
+			"latency", time.Since(start),
+			"status", translateStatus(w2.status)).
+			Infof(ctx, "request end")
 	})
 }
 
@@ -121,7 +120,7 @@ func (s *Server) serveError(ctx context.Context, w http.ResponseWriter, _ *http.
 		serr = &serverError{status: http.StatusInternalServerError, err: err}
 	}
 	if serr.status == http.StatusInternalServerError {
-		log.Error(ctx, serr.err.Error())
+		log.Errorf(ctx, serr.err.Error())
 	} else {
 		log.Infof(ctx, "returning %d (%s) for error %v", serr.status, http.StatusText(serr.status), err)
 	}
@@ -182,7 +181,7 @@ func renderPage(ctx context.Context, w http.ResponseWriter, page interface{}, tm
 		return err
 	}
 	if _, err := io.Copy(w, &buf); err != nil {
-		log.Error(ctx, "copying buffer to ResponseWriter", event.Value("error", err))
+		log.Errorf(ctx, "copying buffer to ResponseWriter: %v", err)
 		return err
 	}
 	return nil
@@ -284,7 +283,7 @@ func (s *Server) handleIssues(w http.ResponseWriter, r *http.Request) error {
 			}
 		}
 	}
-	log.Info(r.Context(), "creating issues", event.Int64("limit", int64(limit)))
+	log.With("limit", limit).Infof(r.Context(), "creating issues")
 	return CreateIssues(r.Context(), s.cfg.Store, s.issueClient, limit)
 }
 

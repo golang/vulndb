@@ -10,8 +10,10 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"reflect"
 	"strings"
 	"sync"
+	"time"
 
 	"golang.org/x/exp/event"
 	"golang.org/x/exp/event/severity"
@@ -59,42 +61,75 @@ func (h *lineHandler) Event(ctx context.Context, ev *event.Event) context.Contex
 	return ctx
 }
 
-// Debug emits one log event at the Debug severity.
-func Debug(ctx context.Context, message string, labels ...event.Label) {
-	event.Log(ctx, message, append(labels, severity.Debug.Label())...)
+type Labels []event.Label
+
+func With(kvs ...interface{}) Labels {
+	return Labels(nil).With(kvs...)
 }
 
-// Info emits one log event at the Info severity.
-func Info(ctx context.Context, message string, labels ...event.Label) {
-	event.Log(ctx, message, append(labels, severity.Info.Label())...)
+func (ls Labels) With(kvs ...interface{}) Labels {
+	if len(kvs)%2 != 0 {
+		panic("args must be key-value pairs")
+	}
+	for i := 0; i < len(kvs); i += 2 {
+		ls = append(ls, pairToLabel(kvs[i].(string), kvs[i+1]))
+	}
+	return ls
 }
 
-// Warning emits one log event at the Warning severity.
-func Warning(ctx context.Context, message string, labels ...event.Label) {
-	event.Log(ctx, message, append(labels, severity.Warning.Label())...)
+func pairToLabel(name string, value interface{}) event.Label {
+	if d, ok := value.(time.Duration); ok {
+		return event.Duration(name, d)
+	}
+	v := reflect.ValueOf(value)
+	switch v.Kind() {
+	case reflect.String:
+		return event.String(name, v.String())
+	case reflect.Bool:
+		return event.Bool(name, v.Bool())
+	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+		return event.Int64(name, v.Int())
+	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr:
+		return event.Uint64(name, v.Uint())
+	case reflect.Float32, reflect.Float64:
+		return event.Float64(name, v.Float())
+	default:
+		return event.Value(name, value)
+	}
 }
 
-// Error emits one log event at the Error severity.
-func Error(ctx context.Context, message string, labels ...event.Label) {
-	event.Log(ctx, message, append(labels, severity.Error.Label())...)
+func (l Labels) logf(ctx context.Context, s severity.Level, format string, args ...interface{}) {
+	event.Log(ctx, fmt.Sprintf(format, args...), append(l, s.Label())...)
 }
 
-// Debugf logs a formatted message with no labels at the Debug severity.
+func (l Labels) Debugf(ctx context.Context, format string, args ...interface{}) {
+	l.logf(ctx, severity.Debug, format, args...)
+}
+
+func (l Labels) Infof(ctx context.Context, format string, args ...interface{}) {
+	l.logf(ctx, severity.Info, format, args...)
+}
+
+func (l Labels) Warningf(ctx context.Context, format string, args ...interface{}) {
+	l.logf(ctx, severity.Warning, format, args...)
+}
+
+func (l Labels) Errorf(ctx context.Context, format string, args ...interface{}) {
+	l.logf(ctx, severity.Error, format, args...)
+}
+
 func Debugf(ctx context.Context, format string, args ...interface{}) {
-	Debug(ctx, fmt.Sprintf(format, args...))
+	Labels(nil).logf(ctx, severity.Debug, format, args...)
 }
 
-// Infof logs a formatted message with no labels at the Info severity.
 func Infof(ctx context.Context, format string, args ...interface{}) {
-	Info(ctx, fmt.Sprintf(format, args...))
+	Labels(nil).logf(ctx, severity.Info, format, args...)
 }
 
-// Warningf logs a formatted message with no labels at the Warning severity.
 func Warningf(ctx context.Context, format string, args ...interface{}) {
-	Warning(ctx, fmt.Sprintf(format, args...))
+	Labels(nil).logf(ctx, severity.Warning, format, args...)
 }
 
-// Errorf logs a formatted message with no labels at the Error severity.
 func Errorf(ctx context.Context, format string, args ...interface{}) {
-	Error(ctx, fmt.Sprintf(format, args...))
+	Labels(nil).logf(ctx, severity.Error, format, args...)
 }

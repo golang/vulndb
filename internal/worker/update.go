@@ -19,7 +19,6 @@ import (
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/filemode"
 	"github.com/go-git/go-git/v5/plumbing/object"
-	"golang.org/x/exp/event"
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/worker/log"
@@ -74,23 +73,19 @@ func (u *updater) update(ctx context.Context) (ur *store.CommitUpdateRecord, err
 
 	defer func() {
 		if err != nil {
-			log.Error(ctx, "update failed", event.Value("error", err))
+			log.Errorf(ctx, "update failed: %v", err)
 		} else {
-			var nProcessed, nAdded, nModified int64
+			var nAdded, nModified int64
 			if ur != nil {
-				nProcessed = int64(ur.NumProcessed)
 				nAdded = int64(ur.NumAdded)
 				nModified = int64(ur.NumModified)
 			}
-			log.Info(ctx, "update succeeded",
-				event.String("commit", u.commitHash.String()),
-				event.Int64("processed", nProcessed),
-				event.Int64("added", nAdded),
-				event.Int64("modified", nModified))
+			log.Infof(ctx, "update succeeded on %s: added %d, modified %d",
+				u.commitHash, nAdded, nModified)
 		}
 	}()
 
-	log.Info(ctx, "update starting", event.String("commit", u.commitHash.String()))
+	log.Infof(ctx, "update starting on %s", u.commitHash)
 
 	commit, err := u.repo.CommitObject(u.commitHash)
 	if err != nil {
@@ -238,11 +233,7 @@ func (u *updater) updateBatch(ctx context.Context, batch []repoFile) (numAdds, n
 	if err != nil {
 		return 0, 0, err
 	}
-	log.Debug(ctx, "update transaction",
-		event.String("startID", startID),
-		event.String("endID", endID),
-		event.Int64("adds", int64(numAdds)),
-		event.Int64("mods", int64(numMods)))
+	log.Debugf(ctx, "update transaction %s=%s: added %d, modified %d", startID, endID, numAdds, numMods)
 	return numAdds, numMods, nil
 }
 

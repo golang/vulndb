@@ -18,7 +18,6 @@ import (
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
-	"golang.org/x/exp/event"
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/time/rate"
 	vulnc "golang.org/x/vuln/client"
@@ -39,7 +38,7 @@ func UpdateCommit(ctx context.Context, repoPath, commitHash string, st store.Sto
 		return err
 	}
 	if !b {
-		log.Info(ctx, "inserting false positives")
+		log.Infof(ctx, "inserting false positives")
 		if err := InsertFalsePositives(ctx, st); err != nil {
 			return err
 		}
@@ -188,19 +187,19 @@ func CreateIssues(ctx context.Context, st store.Store, ic IssueClient, limit int
 	if err != nil {
 		return err
 	}
-	log.Info(ctx, "CreateIssues starting",
-		event.String("destination", ic.Destination()),
-		event.Int64("needsIssue", int64(len(needsIssue))))
+	log.Infof(ctx, "CreateIssues starting; destination: %s, total needing issue: %d",
+		ic.Destination(), len(needsIssue))
 	numCreated := int64(0)
 	for _, r := range needsIssue {
 		if limit > 0 && int(numCreated) >= limit {
 			break
 		}
 		if r.IssueReference != "" || !r.IssueCreatedAt.IsZero() {
-			log.Error(ctx, "triage state is NeedsIssue but issue field(s) non-zero; skipping",
-				event.String("ID", r.ID),
-				event.String("IssueReference", r.IssueReference),
-				event.Value("IssueCreatedAt", r.IssueCreatedAt))
+			log.With(
+				"CVE", r.ID,
+				"IssueReference", r.IssueReference,
+				"IssueCreatedAt", r.IssueCreatedAt,
+			).Errorf(ctx, "%s: triage state is NeedsIssue but issue field(s) non-zero; skipping", r.ID)
 			continue
 		}
 		body, err := newBody(r)
@@ -226,7 +225,7 @@ func CreateIssues(ctx context.Context, st store.Store, ic IssueClient, limit int
 		// worse (we won't miss a CVE).
 		// TODO(golang/go#49733): look for the issue title to avoid duplications.
 		ref := ic.Reference(num)
-		log.Info(ctx, "created issue", event.String("CVE", r.ID), event.String("reference", ref))
+		log.With("CVE", r.ID).Infof(ctx, "created issue %s for %s", ref, r.ID)
 
 		// Update the CVERecord in the DB with issue information.
 		err = st.RunTransaction(ctx, func(ctx context.Context, tx store.Transaction) error {
@@ -245,7 +244,7 @@ func CreateIssues(ctx context.Context, st store.Store, ic IssueClient, limit int
 		}
 		numCreated++
 	}
-	log.Info(ctx, "CreateIssues done", event.Int64("limit", int64(limit)), event.Int64("numCreated", numCreated))
+	log.With("limit", limit).Infof(ctx, "CreateIssues done: %d created", numCreated)
 	return nil
 }
 

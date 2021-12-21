@@ -21,7 +21,6 @@ import (
 	"text/tabwriter"
 	"time"
 
-	"golang.org/x/exp/event"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/worker"
 	"golang.org/x/vulndb/internal/worker/log"
@@ -85,10 +84,7 @@ func main() {
 	}
 
 	ctx := log.WithLineLogger(context.Background())
-	log.Info(ctx, "config",
-		event.String("Project", cfg.Project),
-		event.String("Namespace", cfg.Namespace),
-		event.String("IssueRepo", cfg.IssueRepo))
+	log.Infof(ctx, "config: project=%s, namespace=%s, issueRepo=%s", cfg.Project, cfg.Namespace, cfg.IssueRepo)
 
 	var err error
 	cfg.Store, err = store.NewFireStore(ctx, cfg.Project, cfg.Namespace)

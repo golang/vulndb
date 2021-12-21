@@ -14,7 +14,6 @@ import (
 	"strings"
 	"time"
 
-	"golang.org/x/exp/event"
 	"golang.org/x/time/rate"
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/derrors"
@@ -182,10 +181,11 @@ func knownToPkgsite(ctx context.Context, baseURL, modulePath string) (bool, erro
 	if err == nil {
 		status = strconv.Quote(res.Status)
 	}
-	log.Info(ctx, "HEAD "+url,
-		event.Value("latency", time.Since(start)),
-		event.String("status", status),
-		event.Value("error", err))
+	log.With(
+		"latency", time.Since(start),
+		"status", status,
+		"error", err,
+	).Infof(ctx, "HEAD "+url)
 	if err != nil {
 		return false, err
 	}
