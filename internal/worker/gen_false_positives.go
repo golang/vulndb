@@ -19,6 +19,7 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"go/format"
 	"io/ioutil"
@@ -233,6 +234,17 @@ var falsePositiveIDs = []struct {
 			"CVE-2021-41225", "CVE-2021-41226", "CVE-2021-41227", "CVE-2021-41228",
 		},
 	},
+	{
+		source: "additional metasploit-framework issues",
+		commit: "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		ids: []string{
+			"CVE-2013-2028", "CVE-2013-4450", "CVE-2014-4877", "CVE-2014-5445", "CVE-2014-6037",
+			"CVE-2014-6287", "CVE-2014-7189", "CVE-2014-9566", "CVE-2015-0779", "CVE-2016-7552",
+			"CVE-2017-14705", "CVE-2017-14706", "CVE-2017-14730", "CVE-2017-15041", "CVE-2017-15042",
+			"CVE-2017-15701", "CVE-2017-15702", "CVE-2017-16762", "CVE-2017-17411", "CVE-2017-17560",
+			"CVE-2017-18044", "CVE-2017-5677", "CVE-2017-7269",
+		},
+	},
 }
 
 // IDs that are covered by a Go vuln report, and the report ID.
@@ -260,7 +272,7 @@ func run(repoPath string) error {
 	if err != nil {
 		return err
 	}
-	repo, err := gitrepo.Open(repoPath)
+	repo, err := gitrepo.Open(context.Background(), repoPath)
 	if err != nil {
 		return err
 	}
