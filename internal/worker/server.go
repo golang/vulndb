@@ -85,23 +85,22 @@ func NewServer(ctx context.Context, cfg Config) (_ *Server, err error) {
 	return s, nil
 }
 
-func (s *Server) handle(ctx context.Context, pattern string, handler func(w http.ResponseWriter, r *http.Request) error) {
+func (s *Server) handle(_ context.Context, pattern string, handler func(w http.ResponseWriter, r *http.Request) error) {
 	http.HandleFunc(pattern, func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now()
 		traceID := r.Header.Get("X-Cloud-Trace-Context")
+		ctx := log.WithGCPJSONLogger(r.Context(), traceID)
+		r = r.WithContext(ctx)
 
 		log.Info(ctx, "request start",
-			event.Value("url", r.URL),
-			event.String("traceID", traceID))
+			event.Value("httpRequest", r))
 
-		r = r.WithContext(log.WithLineLogger(r.Context()))
 		w2 := &responseWriter{ResponseWriter: w}
 		if err := handler(w2, r); err != nil {
 			s.serveError(ctx, w2, r, err)
 		}
 
 		log.Info(ctx, "request end",
-			event.Value("traceID", traceID),
 			event.Duration("latency", time.Since(start)),
 			event.Int64("status", translateStatus(w2.status)))
 	})
