@@ -8,6 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"sort"
 	"strings"
 
 	"golang.org/x/vulndb/internal/cveschema"
@@ -15,6 +16,7 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+// ToCVE creates a CVE from a reports/GO-YYYY-NNNN.yaml file.
 func ToCVE(reportPath string) (_ *cveschema.CVE, err error) {
 	defer derrors.Wrap(&err, "report.ToCVE(%q)", reportPath)
 
@@ -133,4 +135,55 @@ func versionToVersion(versions []VersionRange) cveschema.VersionData {
 		}
 	}
 	return vd
+}
+
+// CVEToReport creates a Report struct from a given CVE and modulePath.
+func CVEToReport(c *cveschema.CVE, modulePath string) *Report {
+	var description string
+	for _, d := range c.Description.Data {
+		description += d.Value + "\n"
+	}
+	var (
+		pr, commit string
+		context    []string
+	)
+	for _, r := range c.References.Data {
+		if strings.Contains(r.URL, "go-review.googlesource.com") {
+			pr = r.URL
+		} else if strings.Contains(r.URL, "commit") {
+			commit = r.URL
+		} else if strings.Contains(r.URL, "pull") {
+			pr = r.URL
+		} else {
+			context = append(context, r.URL)
+		}
+	}
+	sort.Strings(context)
+	var credits []string
+	for _, v := range c.Credit {
+		credits = append(credits, v.Value)
+	}
+	credit := strings.Join(credits, "\t")
+	r := &Report{
+		Module:      modulePath,
+		Stdlib:      false,
+		Package:     c.Affects.Vendor.Data[0].Product.Data[0].ProductName,
+		Description: description,
+		CVE:         c.Metadata.ID,
+		Credit:      credit,
+		Links: Links{
+			Commit:  commit,
+			PR:      pr,
+			Context: context,
+		},
+	}
+	if !strings.Contains(modulePath, ".") {
+		r.Module = ""
+		r.Package = modulePath
+		r.Stdlib = true
+	}
+	if r.Package == "" {
+		r.Package = modulePath
+	}
+	return r
 }
