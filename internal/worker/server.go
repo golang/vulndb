@@ -122,7 +122,7 @@ func (s *Server) serveError(ctx context.Context, w http.ResponseWriter, _ *http.
 	if serr.status == http.StatusInternalServerError {
 		log.Errorf(ctx, serr.err.Error())
 	} else {
-		log.Infof(ctx, "returning %d (%s) for error %v", serr.status, http.StatusText(serr.status), err)
+		log.Warningf(ctx, "returning %d (%s) for error %v", serr.status, http.StatusText(serr.status), err)
 	}
 	http.Error(w, serr.err.Error(), serr.status)
 }
@@ -253,7 +253,10 @@ func (s *Server) doUpdate(r *http.Request) error {
 	}
 	err := UpdateCommit(r.Context(), gitrepo.CVEListRepoURL, "HEAD", s.cfg.Store, pkgsiteURL, force)
 	if cerr := new(CheckUpdateError); errors.As(err, &cerr) {
-		return fmt.Errorf("%w; use /update?force=true to override", cerr)
+		return &serverError{
+			status: http.StatusPreconditionFailed,
+			err:    fmt.Errorf("%w; use /update?force=true to override", cerr),
+		}
 	}
 	return err
 }
