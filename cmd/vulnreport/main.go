@@ -104,11 +104,47 @@ func create(ctx context.Context, issueNumber int, ghToken, issueRepo, repoPath s
 		return err
 	}
 	r := report.CVEToReport(cve, modulePath)
-	out, err := yaml.Marshal(r)
+	out, err := marshalReport(r)
 	if err != nil {
 		return err
 	}
 	return os.WriteFile(fmt.Sprintf("reports/GO-2021-%04d.yaml", issueNumber), out, 0644)
+}
+
+const todo = "TODO: fill this out"
+
+func marshalReport(r *report.Report) ([]byte, error) {
+	if r.Module == "" && !r.Stdlib {
+		r.Module = todo
+	}
+	if r.Package == "" {
+		r.Package = todo
+	}
+	if r.Description == "" {
+		r.Description = todo
+	}
+	if r.Credit == "" {
+		r.Credit = todo
+	}
+	if r.CVE == "" {
+		r.CVE = todo
+	}
+	if r.Links.PR == "" {
+		r.Links.PR = todo
+	}
+	if r.Links.Commit == "" {
+		r.Links.Commit = todo
+	}
+	if len(r.Versions) == 0 {
+		r.Versions = []report.VersionRange{{
+			Introduced: todo,
+			Fixed:      todo,
+		}}
+	}
+	if len(r.Symbols) == 0 {
+		r.Symbols = []string{todo}
+	}
+	return yaml.Marshal(r)
 }
 
 func lint(filename string) (err error) {

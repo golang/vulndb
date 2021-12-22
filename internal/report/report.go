@@ -9,8 +9,8 @@ package report
 import "time"
 
 type VersionRange struct {
-	Introduced string `yaml:",omitempty"`
-	Fixed      string `yaml:",omitempty"`
+	Introduced string `yaml:"introduced,omitempty"`
+	Fixed      string `yaml:"fixed,omitempty"`
 }
 
 type Additional struct {
@@ -48,7 +48,7 @@ type Report struct {
 	// additional packages for some cases, but it's too heavy
 	// for most
 	AdditionalPackages []Additional   `yaml:"additional_packages,omitempty"`
-	Versions           []VersionRange `yaml:",omitempty"`
+	Versions           []VersionRange `yaml:"versions,omitempty"`
 
 	// Description is the CVE description from an existing CVE. If we are
 	// assigning a CVE ID ourselves, use CVEMetadata.Description instead.
