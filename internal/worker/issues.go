@@ -32,6 +32,9 @@ type IssueClient interface {
 
 	// CreateIssue creates a new issue.
 	CreateIssue(ctx context.Context, iss *Issue) (number int, err error)
+
+	// GetIssue returns an issue with the given issue number.
+	GetIssue(ctx context.Context, number int) (iss *Issue, err error)
 }
 
 // ParseGithubRepo parses a string of the form owner/repo.
@@ -86,6 +89,22 @@ func (c *githubIssueClient) IssueExists(ctx context.Context, number int) (_ bool
 		return true, nil
 	}
 	return false, nil
+}
+
+func (c *githubIssueClient) GetIssue(ctx context.Context, number int) (_ *Issue, err error) {
+	defer derrors.Wrap(&err, "GetIssue(%d)", number)
+	iss, _, err := c.client.Issues.Get(ctx, c.owner, c.repo, number)
+	if err != nil {
+		return nil, err
+	}
+	r := &Issue{}
+	if iss.Title != nil {
+		r.Title = *iss.Title
+	}
+	if iss.Body != nil {
+		r.Body = *iss.Body
+	}
+	return r, nil
 }
 
 // CreateIssue implements IssueClient.CreateIssue.

@@ -85,6 +85,10 @@ func (c *fakeIssueClient) Reference(num int) string {
 	return fmt.Sprintf("inMemory#%d", num)
 }
 
+func (c *fakeIssueClient) GetIssue(_ context.Context, number int) (*Issue, error) {
+	return &Issue{Title: "Hello"}, nil
+}
+
 func (c *fakeIssueClient) IssueExists(_ context.Context, number int) (bool, error) {
 	_, ok := c.issues[number]
 	return ok, nil
