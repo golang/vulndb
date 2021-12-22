@@ -7,10 +7,10 @@ package worker
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/google/go-github/github"
 	"golang.org/x/oauth2"
-	"golang.org/x/vulndb/internal"
 	"golang.org/x/vulndb/internal/derrors"
 )
 
@@ -37,14 +37,21 @@ type IssueClient interface {
 	GetIssue(ctx context.Context, number int) (iss *Issue, err error)
 }
 
-// ParseGithubRepo parses a string of the form owner/repo.
+// ParseGithubRepo parses a string of the form owner/repo or
+// github.com/owner/repo.
 func ParseGithubRepo(s string) (owner, repoName string, err error) {
-	var found bool
-	owner, repoName, found = internal.Cut(s, "/")
-	if !found {
-		return "", "", fmt.Errorf("%q is not in the form owner/repo", s)
+	parts := strings.Split(s, "/")
+	switch len(parts) {
+	case 2:
+		return parts[0], parts[1], nil
+	case 3:
+		if parts[0] != "github.com" {
+			return "", "", fmt.Errorf("%q is not in the form {github.com/}owner/repo", s)
+		}
+		return parts[1], parts[2], nil
+	default:
+		return "", "", fmt.Errorf("%q is not in the form {github.com/}owner/repo", s)
 	}
-	return owner, repoName, nil
 }
 
 type githubIssueClient struct {
