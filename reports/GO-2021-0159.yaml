@@ -1,0 +1,35 @@
+package: net/http
+module: std
+versions:
+- fixed: go1.4.3
+description: |
+  HTTP headers were not properly parsed, which allows remote attackers to
+  conduct HTTP request smuggling attacks via a request that contains
+  Content-Length and Transfer-Encoding header fields.
+cves:
+  - CVE-2015-5739
+  - CVE-2015-5740
+  - CVE-2015-5741
+credit: Jed Denlea and Régis Leroy
+symbols:
+- CanonicalMIMEHeaderKey
+- body.readLocked
+- canonicalMIMEHeaderKey
+- chunkWriter.writeHeader
+- fixLength
+- fixTransferEncoding
+- readTransfer
+- transferWriter.shouldSendContentLength
+- validHeaderFieldByte
+links:
+  pr: https://go.dev/cl/13148
+  commit: https://go.googlesource.com/go/+/26049f6f9171d1190f3bbe05ec304845cfe6399f
+  context:
+  - https://go.dev/cl/11772
+  - https://go.dev/cl/11810
+  - https://go.dev/cl/12865
+  - https://go.googlesource.com/go/+/117ddcb83d7f42d6aa72241240af99ded81118e9
+  - https://go.googlesource.com/go/+/300d9a21583e7cf0149a778a0611e76ff7c6680f
+  - https://go.googlesource.com/go/+/c2db5f4ccc61ba7df96a747e268a277b802cbb87
+  - https://groups.google.com/g/golang-announce/c/iSIyW4lM4hY/m/ADuQR4DiDwAJ
+published: 2021-12-31T12:31:00Z
