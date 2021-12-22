@@ -14,6 +14,7 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
+	"sync/atomic"
 	"time"
 
 	"cloud.google.com/go/errorreporting"
@@ -290,7 +291,22 @@ func (s *Server) handleIssues(w http.ResponseWriter, r *http.Request) error {
 	return CreateIssues(r.Context(), s.cfg.Store, s.issueClient, limit)
 }
 
+var updateAndIssuesInProgress atomic.Value
+
+func init() {
+	updateAndIssuesInProgress.Store(false)
+}
+
 func (s *Server) handleUpdateAndIssues(w http.ResponseWriter, r *http.Request) error {
+	if updateAndIssuesInProgress.Load().(bool) {
+		return &serverError{
+			status: http.StatusPreconditionFailed,
+			err:    errors.New("update-and-issues already in progress"),
+		}
+	}
+	updateAndIssuesInProgress.Store(true)
+	defer func() { updateAndIssuesInProgress.Store(false) }()
+
 	if err := s.doUpdate(r); err != nil {
 		return err
 	}
