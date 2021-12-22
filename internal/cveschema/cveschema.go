@@ -73,6 +73,11 @@ type CVE struct {
 	// decided, e.g. we may require a compressed format so the objects require
 	// unpacking before they are "dangerous").
 	References References `json:"references"`
+
+	// Credit it the credit information (different than CVE_timeline in that
+	// these are specific things being credited to specific
+	// people/organizations/etc.), format to be decided.
+	Credit []LangString `json:"credit"`
 }
 
 // Metadata is meta data about the CVE ID such as the CVE ID, who requested
