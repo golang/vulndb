@@ -21,6 +21,7 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/object"
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"
 )
@@ -242,15 +243,8 @@ func (u *updater) updateBatch(ctx context.Context, batch []repoFile) (numAdds, n
 // already in the DB.
 func (u *updater) handleCVE(f repoFile, old *store.CVERecord, tx store.Transaction) (added bool, err error) {
 	defer derrors.Wrap(&err, "handleCVE(%s)", f.filename)
-
-	// Read CVE from repo.
-	r, err := blobReader(u.repo, f.blobHash)
+	cve, err := parseCVE(u.repo, f)
 	if err != nil {
-		return false, err
-	}
-	pathname := path.Join(f.dirPath, f.filename)
-	cve := &cveschema.CVE{}
-	if err := json.NewDecoder(r).Decode(cve); err != nil {
 		return false, err
 	}
 	var result *triageResult
@@ -269,6 +263,7 @@ func (u *updater) handleCVE(f repoFile, old *store.CVERecord, tx store.Transacti
 		}
 	}
 
+	pathname := path.Join(f.dirPath, f.filename)
 	// If the CVE is not in the database, add it.
 	if old == nil {
 		cr := store.NewCVERecord(cve, pathname, f.blobHash.String())
@@ -337,6 +332,52 @@ func (u *updater) handleCVE(f repoFile, old *store.CVERecord, tx store.Transacti
 		return false, err
 	}
 	return false, nil
+}
+
+// FetchCVE fetches the CVE file for cveID from the CVElist repo and returns
+// the parsed info.
+func FetchCVE(ctx context.Context, repoPath, cveID string) (_ *cveschema.CVE, err error) {
+	defer derrors.Wrap(&err, "FindCVE(repo, commit, %s)", cveID)
+	repo, err := gitrepo.CloneOrOpen(ctx, repoPath)
+	if err != nil {
+		return nil, err
+	}
+	ref, err := repo.Reference(plumbing.HEAD, true)
+	if err != nil {
+		return nil, err
+	}
+	ch := ref.Hash()
+	commit, err := repo.CommitObject(ch)
+	if err != nil {
+		return nil, err
+	}
+	files, err := repoCVEFiles(repo, commit)
+	if err != nil {
+		return nil, err
+	}
+	for _, f := range files {
+		if strings.Contains(f.filename, cveID) {
+			cve, err := parseCVE(repo, f)
+			if err != nil {
+				return nil, err
+			}
+			return cve, nil
+		}
+	}
+	return nil, fmt.Errorf("not found")
+}
+
+func parseCVE(repo *git.Repository, f repoFile) (*cveschema.CVE, error) {
+	// Read CVE from repo.
+	r, err := blobReader(repo, f.blobHash)
+	if err != nil {
+		return nil, err
+	}
+	cve := &cveschema.CVE{}
+	if err := json.NewDecoder(r).Decode(cve); err != nil {
+		return nil, err
+	}
+	return cve, nil
 }
 
 // copyRemoving returns a copy of cve with any reference that has a given URL removed.

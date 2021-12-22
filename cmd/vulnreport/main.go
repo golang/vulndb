@@ -7,24 +7,33 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"flag"
 	"fmt"
 	"io/ioutil"
 	"log"
+	"strconv"
 	"strings"
 
 	"os"
 
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/report"
+	"golang.org/x/vulndb/internal/worker"
 	"gopkg.in/yaml.v2"
+)
+
+var (
+	localRepoPath = flag.String("local-cve-repo", "", "path to local repo, instead of cloning remote")
+	issueRepo     = flag.String("issue-repo", "github.com/golang/vulndb", "repo to create issues in")
+	githubToken   = flag.String("ghtoken", os.Getenv("VULN_GITHUB_ACCESS_TOKEN"), "GitHub access token")
 )
 
 func main() {
 	flag.Usage = func() {
 		fmt.Fprintf(flag.CommandLine.Output(), "usage: vulnreport [cmd] [filename.yaml]\n")
-		fmt.Fprintf(flag.CommandLine.Output(), "  create [filename.yaml]: creates a new vulnerability YAML report\n")
+		fmt.Fprintf(flag.CommandLine.Output(), "  create [githubIssueNumber]: creates a new vulnerability YAML report\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  lint [filename.yaml]: lints a vulnerability YAML report\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  newcve [filename.yaml]: creates a CVE report from the provided YAML report\n")
 		flag.PrintDefaults()
@@ -37,18 +46,26 @@ func main() {
 	}
 
 	cmd := flag.Arg(0)
-	filename := flag.Arg(1)
+	name := flag.Arg(1)
 	switch cmd {
 	case "create":
-		if err := create(filename); err != nil {
+		if *githubToken == "" {
+			flag.Usage()
+			log.Fatalf("githubToken must be provided")
+		}
+		githubID, err := strconv.Atoi(name)
+		if err != nil {
+			log.Fatal(err)
+		}
+		if err := create(context.Background(), githubID, *githubToken, *issueRepo, *localRepoPath); err != nil {
 			log.Fatal(err)
 		}
 	case "lint":
-		if err := lint(filename); err != nil {
+		if err := lint(name); err != nil {
 			log.Fatal(err)
 		}
 	case "newcve":
-		if err := newCVE(filename); err != nil {
+		if err := newCVE(name); err != nil {
 			log.Fatal(err)
 		}
 	default:
@@ -57,27 +74,41 @@ func main() {
 	}
 }
 
-func create(filename string) (err error) {
-	defer derrors.Wrap(&err, "create(%q)", filename)
-	return os.WriteFile(filename,
-		[]byte(`module:
-package:
-versions:
-  - introduced:
-  - fixed:
-description: |
-
-cve:
-credit:
-symbols:
-  -
-published:
-links:
-  commit:
-  pr:
-  context:
-    -
-`), 0644)
+func create(ctx context.Context, issueNumber int, ghToken, issueRepo, repoPath string) (err error) {
+	defer derrors.Wrap(&err, "create(%d)", issueNumber)
+	owner, repoName, err := worker.ParseGithubRepo(issueRepo)
+	if err != nil {
+		return err
+	}
+	c := worker.NewGithubIssueClient(owner, repoName, ghToken)
+	// Get GitHub issue.
+	iss, err := c.GetIssue(ctx, issueNumber)
+	if err != nil {
+		return err
+	}
+	// Parse CVE ID from GitHub issue.
+	parts := strings.Fields(iss.Title)
+	var modulePath string
+	for _, p := range parts {
+		if strings.HasSuffix(p, ":") && p != "x/vulndb:" {
+			modulePath = strings.TrimSuffix(p, ":")
+			break
+		}
+	}
+	cveID := parts[len(parts)-1]
+	if !strings.HasPrefix(cveID, "CVE") {
+		return fmt.Errorf("expected last element of title to be the CVE ID; got %q", iss.Title)
+	}
+	cve, err := worker.FetchCVE(ctx, repoPath, cveID)
+	if err != nil {
+		return err
+	}
+	r := report.CVEToReport(cve, modulePath)
+	out, err := yaml.Marshal(r)
+	if err != nil {
+		return err
+	}
+	return os.WriteFile(fmt.Sprintf("reports/GO-2021-%04d.yaml", issueNumber), out, 0644)
 }
 
 func lint(filename string) (err error) {
