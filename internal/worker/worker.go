@@ -209,9 +209,8 @@ func CreateIssues(ctx context.Context, st store.Store, ic IssueClient, limit int
 
 		// Create the issue.
 		iss := &Issue{
-			Title:  fmt.Sprintf("x/vulndb: potential Go vulnerability found from CVE List: %s", r.ID),
-			Body:   body,
-			Labels: []string{"Needs Triage"},
+			Title: fmt.Sprintf("x/vulndb: potential Go vuln in %q: %s", r.Module, r.ID),
+			Body:  body,
 		}
 		if err := issueRateLimiter.Wait(ctx); err != nil {
 			return err
