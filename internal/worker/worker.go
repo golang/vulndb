@@ -190,26 +190,26 @@ func CreateIssues(ctx context.Context, st store.Store, ic IssueClient, limit int
 	log.Infof(ctx, "CreateIssues starting; destination: %s, total needing issue: %d",
 		ic.Destination(), len(needsIssue))
 	numCreated := int64(0)
-	for _, r := range needsIssue {
+	for _, cr := range needsIssue {
 		if limit > 0 && int(numCreated) >= limit {
 			break
 		}
-		if r.IssueReference != "" || !r.IssueCreatedAt.IsZero() {
+		if cr.IssueReference != "" || !cr.IssueCreatedAt.IsZero() {
 			log.With(
-				"CVE", r.ID,
-				"IssueReference", r.IssueReference,
-				"IssueCreatedAt", r.IssueCreatedAt,
-			).Errorf(ctx, "%s: triage state is NeedsIssue but issue field(s) non-zero; skipping", r.ID)
+				"CVE", cr.ID,
+				"IssueReference", cr.IssueReference,
+				"IssueCreatedAt", cr.IssueCreatedAt,
+			).Errorf(ctx, "%s: triage state is NeedsIssue but issue field(s) non-zero; skipping", cr.ID)
 			continue
 		}
-		body, err := newBody(r)
+		body, err := newBody(cr)
 		if err != nil {
 			return err
 		}
 
 		// Create the issue.
 		iss := &Issue{
-			Title: fmt.Sprintf("x/vulndb: potential Go vuln in %q: %s", r.Module, r.ID),
+			Title: fmt.Sprintf("x/vulndb: potential Go vuln in %q: %s", cr.Module, cr.ID),
 			Body:  body,
 		}
 		if err := issueRateLimiter.Wait(ctx); err != nil {
@@ -217,26 +217,26 @@ func CreateIssues(ctx context.Context, st store.Store, ic IssueClient, limit int
 		}
 		num, err := ic.CreateIssue(ctx, iss)
 		if err != nil {
-			return fmt.Errorf("creating issue for %s: %w", r.ID, err)
+			return fmt.Errorf("creating issue for %s: %w", cr.ID, err)
 		}
 		// If we crashed here, we would have filed an issue without recording
 		// that fact in the DB. That can lead to duplicate issues, but nothing
 		// worse (we won't miss a CVE).
 		// TODO(golang/go#49733): look for the issue title to avoid duplications.
 		ref := ic.Reference(num)
-		log.With("CVE", r.ID).Infof(ctx, "created issue %s for %s", ref, r.ID)
+		log.With("CVE", cr.ID).Infof(ctx, "created issue %s for %s", ref, cr.ID)
 
 		// Update the CVERecord in the DB with issue information.
 		err = st.RunTransaction(ctx, func(ctx context.Context, tx store.Transaction) error {
-			rs, err := tx.GetCVERecords(r.ID, r.ID)
+			rs, err := tx.GetCVERecords(cr.ID, cr.ID)
 			if err != nil {
 				return err
 			}
-			r := rs[0]
-			r.TriageState = store.TriageStateIssueCreated
-			r.IssueReference = ref
-			r.IssueCreatedAt = time.Now()
-			return tx.SetCVERecord(r)
+			cr := rs[0]
+			cr.TriageState = store.TriageStateIssueCreated
+			cr.IssueReference = ref
+			cr.IssueCreatedAt = time.Now()
+			return tx.SetCVERecord(cr)
 		})
 		if err != nil {
 			return err
@@ -249,11 +249,11 @@ func CreateIssues(ctx context.Context, st store.Store, ic IssueClient, limit int
 
 const englishLang = "eng"
 
-func newBody(r *store.CVERecord) (string, error) {
+func newBody(cr *store.CVERecord) (string, error) {
 	var b strings.Builder
 	var desc string
-	if r.CVE != nil {
-		for _, d := range r.CVE.Description.Data {
+	if cr.CVE != nil {
+		for _, d := range cr.CVE.Description.Data {
 			if d.Lang == englishLang {
 				desc = d.Value
 			}
@@ -262,9 +262,9 @@ func newBody(r *store.CVERecord) (string, error) {
 	err := issueTemplate.Execute(&b, issueTemplateData{
 		Heading: fmt.Sprintf(
 			"In [%s](%s/tree/%s/%s), the reference URL [%s](%s) (and possibly others) refers to something in Go.",
-			r.ID, gitrepo.CVEListRepoURL, r.CommitHash, r.Path, r.Module, r.Module),
+			cr.ID, gitrepo.CVEListRepoURL, cr.CommitHash, cr.Path, cr.Module, cr.Module),
 		Description: desc,
-		CVERecord:   r,
+		CVERecord:   cr,
 		Pre:         "```",
 	})
 	if err != nil {
