@@ -151,7 +151,7 @@ func TestCreateIssues(t *testing.T) {
 func TestNewBody(t *testing.T) {
 	r := &store.CVERecord{
 		ID:     "ID1",
-		Module: "aModule",
+		Module: "a.Module",
 		CVE: &cveschema.CVE{
 			Description: cveschema.Description{
 				Data: []cveschema.LangString{{
@@ -165,29 +165,19 @@ func TestNewBody(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	want := `In [ID1](https://github.com/CVEProject/cvelist/tree//), the reference URL [aModule](aModule) (and possibly others) refers to something in Go.
+	want := `In [ID1](https://github.com/CVEProject/cvelist/tree//), the reference URL [a.Module](a.Module) (and possibly others) refers to something in Go.
 
 ` + "```" + `
-module: aModule
-package:
-stdlib:
-versions:
-  - introduced:
-  - fixed:
+module: a.Module
 description: |
   a description
-
 cve: ID1
-credit:
-symbols:
-  -
-published:
-links:
-  commit:
-  pr:
-  context:
-    -
-` + "```\n"
+
+` + "```" + `
+
+See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md)
+for instructions on how to triage this report.
+`
 	if diff := cmp.Diff(unindent(want), got); diff != "" {
 		t.Errorf("mismatch (-want, +got):\n%s", diff)
 	}

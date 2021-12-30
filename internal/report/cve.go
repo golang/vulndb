@@ -164,10 +164,17 @@ func CVEToReport(c *cveschema.CVE, modulePath string) *Report {
 		credits = append(credits, v.Value)
 	}
 	credit := strings.Join(credits, "\t")
+
+	var pkgPath string
+	if data := c.Affects.Vendor.Data; len(data) > 0 {
+		if data2 := data[0].Product.Data; len(data2) > 0 {
+			pkgPath = data2[0].ProductName
+		}
+	}
 	r := &Report{
 		Module:      modulePath,
 		Stdlib:      false,
-		Package:     c.Affects.Vendor.Data[0].Product.Data[0].ProductName,
+		Package:     pkgPath,
 		Description: description,
 		CVEs:        []string{c.Metadata.ID},
 		Credit:      credit,
@@ -182,7 +189,7 @@ func CVEToReport(c *cveschema.CVE, modulePath string) *Report {
 		r.Package = modulePath
 		r.Stdlib = true
 	}
-	if r.Package == "" {
+	if r.Stdlib && r.Package == "" {
 		r.Package = modulePath
 	}
 	return r

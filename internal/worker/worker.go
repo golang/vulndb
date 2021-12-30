@@ -24,8 +24,10 @@ import (
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/gitrepo"
+	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"
+	"gopkg.in/yaml.v2"
 )
 
 // UpdateCommit performs an update on the store using the given commit.
@@ -252,36 +254,35 @@ func CreateIssues(ctx context.Context, st store.Store, ic IssueClient, limit int
 	return nil
 }
 
-const englishLang = "eng"
-
 func newBody(cr *store.CVERecord) (string, error) {
 	var b strings.Builder
-	var desc string
-	if cr.CVE != nil {
-		for _, d := range cr.CVE.Description.Data {
-			if d.Lang == englishLang {
-				desc = d.Value
-			}
-		}
+	if cr.CVE == nil {
+		return "", fmt.Errorf("cannot create body for CVERecord with nil CVE")
 	}
-	err := issueTemplate.Execute(&b, issueTemplateData{
+	r := report.CVEToReport(cr.CVE, cr.Module)
+	if r.CVE == "" {
+		r.CVE = cr.ID
+	}
+	out, err := yaml.Marshal(r)
+	if err != nil {
+		return "", err
+	}
+	if err := issueTemplate.Execute(&b, issueTemplateData{
 		Heading: fmt.Sprintf(
 			"In [%s](%s/tree/%s/%s), the reference URL [%s](%s) (and possibly others) refers to something in Go.",
 			cr.ID, gitrepo.CVEListRepoURL, cr.CommitHash, cr.Path, cr.Module, cr.Module),
-		Description: desc,
-		CVERecord:   cr,
-		Pre:         "```",
-	})
-	if err != nil {
+		Report: string(out),
+		Pre:    "```",
+	}); err != nil {
 		return "", err
 	}
 	return b.String(), nil
 }
 
 type issueTemplateData struct {
-	Heading     string
-	Description string
-	Pre         string // markdown string for a <pre> block
+	Heading string
+	Report  string
+	Pre     string // markdown string for a <pre> block
 	*store.CVERecord
 }
 
@@ -289,24 +290,9 @@ var issueTemplate = template.Must(template.New("issue").Parse(`
 {{- .Heading}}
 
 {{.Pre}}
-module: {{.Module}}
-package:
-stdlib:
-versions:
-  - introduced:
-  - fixed:
-description: |
-  {{.Description}}
-
-cve: {{.ID}}
-credit:
-symbols:
-  -
-published:
-links:
-  commit:
-  pr:
-  context:
-    -
+{{.Report}}
 {{.Pre}}
+
+See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md)
+for instructions on how to triage this report.
 `))
