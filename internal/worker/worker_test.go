@@ -96,10 +96,15 @@ func TestCreateIssues(t *testing.T) {
 
 	crs := []*store.CVERecord{
 		{
-			ID:          "ID1",
-			BlobHash:    "bh1",
-			CommitHash:  "ch",
-			Path:        "path1",
+			ID:         "ID1",
+			BlobHash:   "bh1",
+			CommitHash: "ch",
+			Path:       "path1",
+			CVE: &cveschema.CVE{
+				Metadata: cveschema.Metadata{
+					ID: "ID1",
+				},
+			},
 			TriageState: store.TriageStateNeedsIssue,
 		},
 		{

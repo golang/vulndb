@@ -204,7 +204,12 @@ func CreateIssues(ctx context.Context, st store.Store, ic IssueClient, limit int
 		}
 		body, err := newBody(cr)
 		if err != nil {
-			return err
+			log.With(
+				"CVE", cr.ID,
+				"IssueReference", cr.IssueReference,
+				"IssueCreatedAt", cr.IssueCreatedAt,
+			).Errorf(ctx, "%s: triage state is NeedsIssue but could not generate body; skipping: %v", cr.ID, err)
+			continue
 		}
 
 		// Create the issue.
