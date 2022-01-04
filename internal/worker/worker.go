@@ -261,10 +261,10 @@ func newBody(cr *store.CVERecord) (string, error) {
 	if cr.CVE == nil {
 		return "", fmt.Errorf("cannot create body for CVERecord with nil CVE")
 	}
-	r := report.CVEToReport(cr.CVE, cr.Module)
-	if r.CVE == "" {
-		r.CVE = cr.ID
+	if cr.CVE.Metadata.ID == "" {
+		cr.CVE.Metadata.ID = cr.ID
 	}
+	r := report.CVEToReport(cr.CVE, cr.Module)
 	out, err := yaml.Marshal(r)
 	if err != nil {
 		return "", err

@@ -172,7 +172,8 @@ func TestNewBody(t *testing.T) {
 module: a.Module
 description: |
   a description
-cve: ID1
+cves:
+- ID1
 
 ` + "```" + `
 
