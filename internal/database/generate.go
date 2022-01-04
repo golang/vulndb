@@ -23,7 +23,7 @@ import (
 )
 
 const (
-	dbURL = "https://go.googlesource.com/vuln/+/refs/heads/master/reports/"
+	dbURL = "https://pkg.go.dev/vuln/"
 
 	// idDirectory is the name of the directory that contains entries
 	// listed by their IDs.
@@ -56,10 +56,7 @@ func Generate(yamlDir, jsonDir string) (err error) {
 		}
 
 		name := strings.TrimSuffix(filepath.Base(f.Name()), filepath.Ext(f.Name()))
-
-		// TODO(rolandshoemaker): once the HTML representation is ready this should be
-		// the link to the HTML page.
-		linkName := fmt.Sprintf("%s%s.yaml", dbURL, name)
+		linkName := fmt.Sprintf("%s%s", dbURL, name)
 		entry, paths := generateOSVEntry(name, linkName, r)
 		for _, path := range paths {
 			jsonVulns[path] = append(jsonVulns[path], entry)
