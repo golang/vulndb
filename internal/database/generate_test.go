@@ -44,7 +44,7 @@ func TestGenerate(t *testing.T) {
 			{Introduced: "v2.5.0"},
 		},
 		Description: "It's a real bad one, I'll tell you that",
-		CVE:         "CVE-0000-0000",
+		CVEs:        []string{"CVE-0000-0000"},
 		Credit:      "ignored",
 		Symbols:     []string{"A", "B.b"},
 		OS:          []string{"windows"},

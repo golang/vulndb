@@ -167,12 +167,7 @@ func generateOSVEntry(id string, url string, r report.Report) (osv.Entry, []stri
 	for _, link := range r.Links.Context {
 		entry.References = append(entry.References, osv.Reference{Type: "WEB", URL: link})
 	}
-
-	if r.CVE != "" {
-		entry.Aliases = []string{r.CVE}
-	} else {
-		entry.Aliases = r.CVEs
-	}
+	entry.Aliases = r.CVEs
 
 	var modules []string
 	for module := range moduleMap {

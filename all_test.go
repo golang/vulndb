@@ -54,7 +54,7 @@ func TestLintReports(t *testing.T) {
 			fn := filepath.Join(reportsDir, rf.Name())
 			lints, err := report.LintFile(fn)
 			if err != nil {
-				t.Fatalf("vulnlint.LintReport(%q): %s", fn, err)
+				t.Fatal(err)
 			}
 			if len(lints) > 0 {
 				t.Errorf(strings.Join(lints, "\n"))

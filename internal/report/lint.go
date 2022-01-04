@@ -232,18 +232,11 @@ func (vuln *Report) Lint() []string {
 		addIssue("last_modified is before published")
 	}
 
-	if vuln.CVE != "" && len(vuln.CVEs) > 0 {
-		addIssue("use only one of CVE and CVEs")
-	}
-
-	if vuln.CVE != "" && vuln.CVEMetadata != nil && vuln.CVEMetadata.ID != "" {
+	if len(vuln.CVEs) > 0 && vuln.CVEMetadata != nil && vuln.CVEMetadata.ID != "" {
 		// TODO: may just want to use one of these? :shrug:
 		addIssue("only one of cve and cve_metadata.id should be present")
 	}
 
-	if vuln.CVE != "" && !cveRegex.MatchString(vuln.CVE) {
-		issues = append(issues, "malformed cve identifier")
-	}
 	for _, cve := range vuln.CVEs {
 		if !cveRegex.MatchString(cve) {
 			addIssue("malformed cve identifier")

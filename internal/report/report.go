@@ -57,9 +57,7 @@ type Report struct {
 	LastModified *time.Time `yaml:"last_modified,omitempty"`
 	Withdrawn    *time.Time `yaml:",omitempty"`
 
-	// CVE is the CVE ID for an existing CVE. If we are assigning a CVE ID
-	// ourselves, use CVEMetdata.ID instead.
-	CVE string `yaml:",omitempty"`
+	// If we are assigning a CVE ID ourselves, use CVEMetdata.ID instead.
 	// CVE are CVE IDs for existing CVEs, if there is more than one.
 	// Use either CVE or CVEs, but not both.
 	CVEs    []string `yaml:",omitempty"`

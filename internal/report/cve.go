@@ -30,7 +30,7 @@ func ToCVE(reportPath string) (_ *cveschema.CVE, err error) {
 		return nil, fmt.Errorf("yaml.Unmarshal:: %v", err)
 	}
 
-	if r.CVE != "" || len(r.CVEs) > 0 {
+	if len(r.CVEs) > 0 {
 		return nil, errors.New("report has CVE ID is wrong section (should be in cve_metadata for self-issued CVEs)")
 	}
 	if r.CVEMetadata == nil {
@@ -169,7 +169,7 @@ func CVEToReport(c *cveschema.CVE, modulePath string) *Report {
 		Stdlib:      false,
 		Package:     c.Affects.Vendor.Data[0].Product.Data[0].ProductName,
 		Description: description,
-		CVE:         c.Metadata.ID,
+		CVEs:        []string{c.Metadata.ID},
 		Credit:      credit,
 		Links: Links{
 			Commit:  commit,

@@ -126,8 +126,8 @@ func marshalReport(r *report.Report) ([]byte, error) {
 	if r.Credit == "" {
 		r.Credit = todo
 	}
-	if r.CVE == "" {
-		r.CVE = todo
+	if len(r.CVEs) == 0 {
+		r.CVEs = []string{todo}
 	}
 	if r.Links.PR == "" {
 		r.Links.PR = todo
