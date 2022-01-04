@@ -155,14 +155,14 @@ func lint(filename string) (err error) {
 		return fmt.Errorf("ioutil.ReadFile: %v", err)
 	}
 
-	var vuln report.Report
-	err = yaml.UnmarshalStrict(content, &vuln)
+	var r report.Report
+	err = yaml.UnmarshalStrict(content, &r)
 	if err != nil {
 		return fmt.Errorf("yaml.UnmarshalStrict: %v", err)
 	}
 
-	if lints := vuln.Lint(); len(lints) > 0 {
-		return fmt.Errorf("vuln.Lint returned errors:\n\t %s", strings.Join(lints, "\n\t"))
+	if lints := r.Lint(); len(lints) > 0 {
+		return fmt.Errorf("lint returned errors:\n\t %s", strings.Join(lints, "\n\t"))
 	}
 	return nil
 }

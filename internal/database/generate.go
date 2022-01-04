@@ -47,11 +47,11 @@ func Generate(yamlDir, jsonDir string) (err error) {
 		if err != nil {
 			return fmt.Errorf("can't read %q: %s", f.Name(), err)
 		}
-		var vuln report.Report
-		if err := yaml.UnmarshalStrict(content, &vuln); err != nil {
+		var r report.Report
+		if err := yaml.UnmarshalStrict(content, &r); err != nil {
 			return fmt.Errorf("unable to unmarshal %q: %s", f.Name(), err)
 		}
-		if lints := vuln.Lint(); len(lints) > 0 {
+		if lints := r.Lint(); len(lints) > 0 {
 			return fmt.Errorf("vuln.Lint: %v", lints)
 		}
 
@@ -60,7 +60,7 @@ func Generate(yamlDir, jsonDir string) (err error) {
 		// TODO(rolandshoemaker): once the HTML representation is ready this should be
 		// the link to the HTML page.
 		linkName := fmt.Sprintf("%s%s.yaml", dbURL, name)
-		entry, paths := generateOSVEntry(name, linkName, vuln)
+		entry, paths := generateOSVEntry(name, linkName, r)
 		for _, path := range paths {
 			jsonVulns[path] = append(jsonVulns[path], entry)
 		}

@@ -159,7 +159,7 @@ var cveRegex = regexp.MustCompile(`^CVE-\d{4}-\d{4,}$`)
 // Lint checks the content of a Report.
 // TODO: It might make sense to include warnings or informational things
 // alongside errors, especially during for use during the triage process.
-func (vuln *Report) Lint() []string {
+func (r *Report) Lint() []string {
 	var issues []string
 
 	addIssue := func(iss string) {
@@ -167,23 +167,23 @@ func (vuln *Report) Lint() []string {
 	}
 
 	var importPath string
-	if !stdlib.Contains(vuln.Module) {
-		if vuln.Module == "" {
+	if !stdlib.Contains(r.Module) {
+		if r.Module == "" {
 			addIssue("missing module")
 		}
-		if vuln.Module != "" && vuln.Package == vuln.Module {
+		if r.Module != "" && r.Package == r.Module {
 			addIssue("package is redundant and can be removed")
 		}
-		if vuln.Package != "" && !strings.HasPrefix(vuln.Package, vuln.Module) {
+		if r.Package != "" && !strings.HasPrefix(r.Package, r.Module) {
 			addIssue("module must be a prefix of package")
 		}
-		if vuln.Package == "" {
-			importPath = vuln.Module
+		if r.Package == "" {
+			importPath = r.Module
 		} else {
-			importPath = vuln.Package
+			importPath = r.Package
 		}
-		if vuln.Module != "" && importPath != "" {
-			if err := checkModVersions(vuln.Module, vuln.Versions); err != nil {
+		if r.Module != "" && importPath != "" {
+			if err := checkModVersions(r.Module, r.Versions); err != nil {
 				addIssue(err.Error())
 			}
 
@@ -191,11 +191,11 @@ func (vuln *Report) Lint() []string {
 				addIssue(err.Error())
 			}
 		}
-	} else if vuln.Package == "" {
+	} else if r.Package == "" {
 		addIssue("missing package")
 	}
 
-	for _, additionalPackage := range vuln.AdditionalPackages {
+	for _, additionalPackage := range r.AdditionalPackages {
 		var additionalImportPath string
 		if additionalPackage.Module == "" {
 			addIssue("missing additional_package.module")
@@ -214,41 +214,41 @@ func (vuln *Report) Lint() []string {
 		if err := module.CheckImportPath(additionalImportPath); err != nil {
 			addIssue(err.Error())
 		}
-		if !stdlib.Contains(vuln.Module) {
+		if !stdlib.Contains(r.Module) {
 			if err := checkModVersions(additionalPackage.Module, additionalPackage.Versions); err != nil {
 				addIssue(err.Error())
 			}
 		}
 	}
 
-	if vuln.Description == "" {
+	if r.Description == "" {
 		addIssue("missing description")
 	}
 
-	if vuln.Published.IsZero() {
+	if r.Published.IsZero() {
 		addIssue("missing published")
 	}
 
-	if vuln.LastModified != nil && vuln.LastModified.Before(vuln.Published) {
+	if r.LastModified != nil && r.LastModified.Before(r.Published) {
 		addIssue("last_modified is before published")
 	}
 
-	if len(vuln.CVEs) > 0 && vuln.CVEMetadata != nil && vuln.CVEMetadata.ID != "" {
+	if len(r.CVEs) > 0 && r.CVEMetadata != nil && r.CVEMetadata.ID != "" {
 		// TODO: may just want to use one of these? :shrug:
 		addIssue("only one of cve and cve_metadata.id should be present")
 	}
 
-	for _, cve := range vuln.CVEs {
+	for _, cve := range r.CVEs {
 		if !cveRegex.MatchString(cve) {
 			addIssue("malformed cve identifier")
 		}
 	}
 
-	if vuln.CVEMetadata != nil {
-		if vuln.CVEMetadata.ID == "" {
+	if r.CVEMetadata != nil {
+		if r.CVEMetadata.ID == "" {
 			addIssue("cve_metadata.id is required")
 		}
-		if !cveRegex.MatchString(vuln.CVEMetadata.ID) {
+		if !cveRegex.MatchString(r.CVEMetadata.ID) {
 			addIssue("malformed cve_metadata.id identifier")
 		}
 	}
