@@ -96,8 +96,10 @@ func checkUpdate(ctx context.Context, repo *git.Repository, commitHash plumbing.
 		// No updates, we're good.
 		return nil
 	}
+	// If the most recent update started recently but didn't finish, don't proceed to avoid
+	// concurrent updates.
 	lu := urs[0]
-	if lu.EndedAt.IsZero() {
+	if lu.EndedAt.IsZero() && time.Since(lu.StartedAt) < 2*time.Hour {
 		return &CheckUpdateError{
 			msg: fmt.Sprintf("latest update started %s ago and has not finished", time.Since(lu.StartedAt)),
 		}

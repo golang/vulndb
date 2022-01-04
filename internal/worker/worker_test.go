@@ -43,9 +43,10 @@ func TestCheckUpdate(t *testing.T) {
 			},
 			"",
 		},
-		// latest update didn't finish
+		// latest update was recent and didn't finish
 		{
 			&store.CommitUpdateRecord{
+				StartedAt:  time.Now().Add(-90 * time.Minute),
 				CommitHash: "abc",
 				CommitTime: tm.Add(-time.Hour),
 			},
