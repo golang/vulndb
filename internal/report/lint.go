@@ -17,6 +17,7 @@ import (
 	"golang.org/x/mod/module"
 	"golang.org/x/mod/semver"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/stdlib"
 	"gopkg.in/yaml.v2"
 )
 
@@ -166,7 +167,7 @@ func (vuln *Report) Lint() []string {
 	}
 
 	var importPath string
-	if !vuln.Stdlib {
+	if !stdlib.Contains(vuln.Module) {
 		if vuln.Module == "" {
 			addIssue("missing module")
 		}
@@ -213,7 +214,7 @@ func (vuln *Report) Lint() []string {
 		if err := module.CheckImportPath(additionalImportPath); err != nil {
 			addIssue(err.Error())
 		}
-		if !vuln.Stdlib {
+		if !stdlib.Contains(vuln.Module) {
 			if err := checkModVersions(additionalPackage.Module, additionalPackage.Versions); err != nil {
 				addIssue(err.Error())
 			}

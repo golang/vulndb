@@ -13,6 +13,7 @@ import (
 
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/stdlib"
 	"gopkg.in/yaml.v2"
 )
 
@@ -173,7 +174,6 @@ func CVEToReport(c *cveschema.CVE, modulePath string) *Report {
 	}
 	r := &Report{
 		Module:      modulePath,
-		Stdlib:      false,
 		Package:     pkgPath,
 		Description: description,
 		CVEs:        []string{c.Metadata.ID},
@@ -185,11 +185,10 @@ func CVEToReport(c *cveschema.CVE, modulePath string) *Report {
 		},
 	}
 	if !strings.Contains(modulePath, ".") {
-		r.Module = ""
+		r.Module = stdlib.ModulePath
 		r.Package = modulePath
-		r.Stdlib = true
 	}
-	if r.Stdlib && r.Package == "" {
+	if stdlib.Contains(r.Module) && r.Package == "" {
 		r.Package = modulePath
 	}
 	return r

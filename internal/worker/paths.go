@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"golang.org/x/mod/module"
+	"golang.org/x/vulndb/internal/stdlib"
 )
 
 // vcsHostWithThreeElementRepoName returns true when the hostname
@@ -212,7 +213,7 @@ func candidateModulePaths(fullPath string) []string {
 	if matchesNegativeRegexp(fullPath) {
 		return nil
 	}
-	if stdlibContains(fullPath) {
+	if stdlib.Contains(fullPath) {
 		if err := module.CheckImportPath(fullPath); err != nil {
 			return nil
 		}
@@ -235,13 +236,4 @@ func candidateModulePaths(fullPath string) []string {
 		return nil
 	}
 	return r[:len(r)-2]
-}
-
-// stdlibContains reports whether the given import path could be part of the Go standard library,
-// by reporting whether the first component lacks a '.'.
-func stdlibContains(path string) bool {
-	if i := strings.IndexByte(path, '/'); i != -1 {
-		path = path[:i]
-	}
-	return !strings.Contains(path, ".")
 }

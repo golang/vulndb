@@ -41,8 +41,6 @@ type Report struct {
 	// could we also automate this by just looking for
 	// things prefixed with cmd/go?
 	DoNotExport bool `yaml:"do_not_export,omitempty"`
-	// TODO: how does this interact with Versions etc?
-	Stdlib bool `yaml:",omitempty"`
 	// TODO: the most common usage of additional package should
 	// really be replaced with 'aliases', we'll still need
 	// additional packages for some cases, but it's too heavy

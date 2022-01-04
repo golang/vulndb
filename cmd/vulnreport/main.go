@@ -20,6 +20,7 @@ import (
 
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/report"
+	"golang.org/x/vulndb/internal/stdlib"
 	"golang.org/x/vulndb/internal/worker"
 	"gopkg.in/yaml.v2"
 )
@@ -114,7 +115,7 @@ func create(ctx context.Context, issueNumber int, ghToken, issueRepo, repoPath s
 const todo = "TODO: fill this out"
 
 func marshalReport(r *report.Report) ([]byte, error) {
-	if r.Module == "" && !r.Stdlib {
+	if r.Module == "" && !stdlib.Contains(r.Module) {
 		r.Module = todo
 	}
 	if r.Package == "" {

@@ -18,6 +18,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"golang.org/x/vulndb/internal/cveschema"
+	"golang.org/x/vulndb/internal/stdlib"
 )
 
 var usePkgsite = flag.Bool("pkgsite", false, "use pkg.go.dev for tests")
@@ -41,8 +42,7 @@ func TestTriageV4CVE(t *testing.T) {
 				},
 			},
 			&triageResult{
-				modulePath: stdlibPath,
-				stdlib:     true,
+				modulePath: stdlib.ModulePath,
 			},
 		},
 		{
@@ -55,8 +55,8 @@ func TestTriageV4CVE(t *testing.T) {
 				},
 			},
 			&triageResult{
-				modulePath: "net/http",
-				stdlib:     true,
+				modulePath:  stdlib.ModulePath,
+				packagePath: "net/http",
 			},
 		},
 		{
@@ -96,8 +96,8 @@ func TestTriageV4CVE(t *testing.T) {
 				},
 			},
 			&triageResult{
-				modulePath: "net/http",
-				stdlib:     true,
+				modulePath:  stdlib.ModulePath,
+				packagePath: "net/http",
 			},
 		},
 		{

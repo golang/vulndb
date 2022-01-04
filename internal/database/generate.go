@@ -18,6 +18,7 @@ import (
 	"golang.org/x/vuln/osv"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/report"
+	"golang.org/x/vulndb/internal/stdlib"
 	"gopkg.in/yaml.v2"
 )
 
@@ -129,7 +130,7 @@ func generateOSVEntry(id string, url string, r report.Report) (osv.Entry, []stri
 		importPath = r.Package
 	}
 	moduleMap := make(map[string]bool)
-	if r.Stdlib {
+	if stdlib.Contains(r.Module) {
 		moduleMap["stdlib"] = true
 	} else {
 		moduleMap[r.Module] = true
@@ -152,7 +153,7 @@ func generateOSVEntry(id string, url string, r report.Report) (osv.Entry, []stri
 		if additional.Package != "" {
 			additionalPath = additional.Package
 		}
-		if !r.Stdlib {
+		if !stdlib.Contains(r.Module) {
 			moduleMap[additional.Module] = true
 		}
 		entry.Affected = append(entry.Affected, generateAffected(additionalPath, additional.Versions, r.OS, r.Arch, additional.Symbols, url))

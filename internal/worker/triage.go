@@ -17,6 +17,7 @@ import (
 	"golang.org/x/time/rate"
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/stdlib"
 	"golang.org/x/vulndb/internal/worker/log"
 )
 
@@ -34,10 +35,7 @@ var stdlibReferenceDataKeywords = []string{
 	"golang-nuts",
 }
 
-const (
-	stdlibPath  = "Go Standard Library (package not identified)"
-	unknownPath = "Path is unknown"
-)
+const unknownPath = "Path is unknown"
 
 // TriageCVE reports whether the CVE refers to a Go module.
 func TriageCVE(ctx context.Context, c *cveschema.CVE, pkgsiteURL string) (_ *triageResult, err error) {
@@ -52,9 +50,9 @@ func TriageCVE(ctx context.Context, c *cveschema.CVE, pkgsiteURL string) (_ *tri
 }
 
 type triageResult struct {
-	modulePath string
-	stdlib     bool
-	reason     string
+	modulePath  string
+	packagePath string
+	reason      string
 }
 
 // gopkgHosts are hostnames for popular Go package websites.
@@ -79,16 +77,22 @@ func triageV4CVE(ctx context.Context, c *cveschema.CVE, pkgsiteURL string) (_ *t
 		if strings.Contains(r.URL, "golang.org/pkg") {
 			mp := strings.TrimPrefix(refURL.Path, "/pkg/")
 			return &triageResult{
-				modulePath: mp,
-				stdlib:     true,
-				reason:     fmt.Sprintf("Reference data URL %q contains path %q", r.URL, mp),
+				packagePath: mp,
+				modulePath:  stdlib.ModulePath,
+				reason:      fmt.Sprintf("Reference data URL %q contains path %q", r.URL, mp),
 			}, nil
 		}
 		if gopkgHosts[refURL.Host] {
 			mp := strings.TrimPrefix(refURL.Path, "/")
+			if stdlib.Contains(mp) {
+				return &triageResult{
+					packagePath: mp,
+					modulePath:  stdlib.ModulePath,
+					reason:      fmt.Sprintf("Reference data URL %q contains path %q", r.URL, mp),
+				}, nil
+			}
 			return &triageResult{
 				modulePath: mp,
-				stdlib:     stdlibContains(mp),
 				reason:     fmt.Sprintf("Reference data URL %q contains path %q", r.URL, mp),
 			}, nil
 		}
@@ -125,8 +129,7 @@ func triageV4CVE(ctx context.Context, c *cveschema.CVE, pkgsiteURL string) (_ *t
 		for _, k := range stdlibReferenceDataKeywords {
 			if strings.Contains(r.URL, k) {
 				return &triageResult{
-					modulePath: stdlibPath,
-					stdlib:     true,
+					modulePath: stdlib.ModulePath,
 					reason:     fmt.Sprintf("Reference data URL %q contains %q", r.URL, k),
 				}, nil
 			}
