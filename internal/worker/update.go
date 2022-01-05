@@ -337,7 +337,7 @@ func (u *updater) handleCVE(f repoFile, old *store.CVERecord, tx store.Transacti
 // FetchCVE fetches the CVE file for cveID from the CVElist repo and returns
 // the parsed info.
 func FetchCVE(ctx context.Context, repoPath, cveID string) (_ *cveschema.CVE, err error) {
-	defer derrors.Wrap(&err, "FindCVE(repo, commit, %s)", cveID)
+	defer derrors.Wrap(&err, "FetchCVE(repo, commit, %s)", cveID)
 	repo, err := gitrepo.CloneOrOpen(ctx, repoPath)
 	if err != nil {
 		return nil, err

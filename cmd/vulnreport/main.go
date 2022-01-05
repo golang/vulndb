@@ -19,6 +19,7 @@ import (
 	"os"
 
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/stdlib"
 	"golang.org/x/vulndb/internal/worker"
@@ -58,7 +59,11 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		if err := create(context.Background(), githubID, *githubToken, *issueRepo, *localRepoPath); err != nil {
+		repoPath := gitrepo.CVEListRepoURL
+		if *localRepoPath != "" {
+			repoPath = *localRepoPath
+		}
+		if err := create(context.Background(), githubID, *githubToken, *issueRepo, repoPath); err != nil {
 			log.Fatal(err)
 		}
 	case "lint":
