@@ -161,7 +161,7 @@ func CVEToReport(c *cveschema.CVE, modulePath string) *Report {
 	}
 	sort.Strings(context)
 	var credits []string
-	for _, v := range c.Credit {
+	for _, v := range c.Credit.Data.Description.Data {
 		credits = append(credits, v.Value)
 	}
 	credit := strings.Join(credits, "\t")

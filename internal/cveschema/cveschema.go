@@ -74,10 +74,20 @@ type CVE struct {
 	// unpacking before they are "dangerous").
 	References References `json:"references"`
 
-	// Credit it the credit information (different than CVE_timeline in that
+	// Credit is the credit information (different than CVE_timeline in that
 	// these are specific things being credited to specific
-	// people/organizations/etc.), format to be decided.
-	Credit []LangString `json:"credit"`
+	// people/organizations/etc.).
+	Credit Credit `json:"credit"`
+}
+
+// Credit is the credit information (different than CVE_timeline in that these
+// are specific things being credited to specific people/organizations/etc.).
+type Credit struct {
+	Data CreditData `json:"credit_data"`
+}
+
+type CreditData struct {
+	Description Description `json:"description"`
 }
 
 // Metadata is meta data about the CVE ID such as the CVE ID, who requested
