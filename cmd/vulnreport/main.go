@@ -76,6 +76,10 @@ func main() {
 		if err := newCVE(name); err != nil {
 			log.Fatal(err)
 		}
+	case "fix":
+		if err := fix(name); err != nil {
+			log.Fatal(err)
+		}
 	default:
 		flag.Usage()
 		log.Fatalf("unsupported command: %q", cmd)
@@ -170,6 +174,30 @@ func lint(filename string) (err error) {
 
 	if lints := r.Lint(); len(lints) > 0 {
 		return fmt.Errorf("lint returned errors:\n\t %s", strings.Join(lints, "\n\t"))
+	}
+	return nil
+}
+
+func fix(filename string) (err error) {
+	defer derrors.Wrap(&err, "fix(%q)", filename)
+	content, err := ioutil.ReadFile(filename)
+	if err != nil {
+		return fmt.Errorf("ioutil.ReadFile: %v", err)
+	}
+
+	var r report.Report
+	err = yaml.UnmarshalStrict(content, &r)
+	if err != nil {
+		return fmt.Errorf("yaml.UnmarshalStrict: %v", err)
+	}
+
+	if lints := r.Lint(); len(lints) > 0 {
+		r.Fix()
+		out, err := marshalReport(&r)
+		if err != nil {
+			return err
+		}
+		return os.WriteFile(filename, out, 0644)
 	}
 	return nil
 }

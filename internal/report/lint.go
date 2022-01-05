@@ -261,6 +261,16 @@ func (r *Report) Lint() []string {
 	return issues
 }
 
+func (r *Report) Fix() {
+	r.Links.Commit = fixURL(r.Links.Commit)
+	r.Links.PR = fixURL(r.Links.PR)
+	var fixed []string
+	for _, l := range r.Links.Context {
+		fixed = append(fixed, fixURL(l))
+	}
+	r.Links.Context = fixed
+}
+
 var urlTermToReplacement = map[string]string{
 	"golang.org": "go.dev",
 	"groups.google.com/forum/#!topic/golang-announce": "groups.google.com/g/golang-announce/c",
