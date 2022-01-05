@@ -20,8 +20,10 @@ import (
 	"cloud.google.com/go/errorreporting"
 	"github.com/google/safehtml/template"
 	"golang.org/x/sync/errgroup"
+	"golang.org/x/vulndb/internal"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/gitrepo"
+	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"
 )
@@ -33,7 +35,7 @@ var staticPath = template.TrustedSourceFromConstant("internal/worker/static")
 type Server struct {
 	cfg           Config
 	indexTemplate *template.Template
-	issueClient   IssueClient
+	issueClient   issues.Client
 }
 
 func NewServer(ctx context.Context, cfg Config) (_ *Server, err error) {
@@ -55,11 +57,11 @@ func NewServer(ctx context.Context, cfg Config) (_ *Server, err error) {
 	}
 
 	if cfg.IssueRepo != "" {
-		owner, repoName, err := ParseGithubRepo(cfg.IssueRepo)
+		owner, repoName, err := internal.ParseGitHubRepo(cfg.IssueRepo)
 		if err != nil {
 			return nil, err
 		}
-		s.issueClient = NewGithubIssueClient(owner, repoName, cfg.GitHubAccessToken)
+		s.issueClient = issues.NewGitHubClient(owner, repoName, cfg.GitHubAccessToken)
 		log.Infof(ctx, "issue creation enabled for repo %s", cfg.IssueRepo)
 	} else {
 		log.Infof(ctx, "issue creation disabled")

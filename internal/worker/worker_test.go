@@ -17,6 +17,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"golang.org/x/vulndb/internal/cveschema"
+	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"
 )
@@ -93,7 +94,7 @@ func TestCheckUpdate(t *testing.T) {
 func TestCreateIssues(t *testing.T) {
 	ctx := log.WithLineLogger(context.Background())
 	mstore := store.NewMemStore()
-	ic := newFakeIssueClient()
+	ic := issues.NewFakeClient()
 
 	crs := []*store.CVERecord{
 		{

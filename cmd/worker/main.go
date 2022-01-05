@@ -21,7 +21,9 @@ import (
 	"text/tabwriter"
 	"time"
 
+	"golang.org/x/vulndb/internal"
 	"golang.org/x/vulndb/internal/gitrepo"
+	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/worker"
 	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"
@@ -229,11 +231,11 @@ func createIssuesCommand(ctx context.Context) error {
 	if cfg.GitHubAccessToken == "" {
 		return errors.New("need -ghtokenfile")
 	}
-	owner, repoName, err := worker.ParseGithubRepo(cfg.IssueRepo)
+	owner, repoName, err := internal.ParseGitHubRepo(cfg.IssueRepo)
 	if err != nil {
 		return err
 	}
-	client := worker.NewGithubIssueClient(owner, repoName, cfg.GitHubAccessToken)
+	client := issues.NewGitHubClient(owner, repoName, cfg.GitHubAccessToken)
 	return worker.CreateIssues(ctx, cfg.Store, client, *limit)
 }
 

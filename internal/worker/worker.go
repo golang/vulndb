@@ -24,6 +24,7 @@ import (
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/gitrepo"
+	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"
@@ -184,7 +185,7 @@ const issueQPS = 1
 // basically lets you exceed the rate briefly.
 var issueRateLimiter = rate.NewLimiter(rate.Every(time.Duration(1000/float64(issueQPS))*time.Millisecond), 1)
 
-func CreateIssues(ctx context.Context, st store.Store, ic IssueClient, limit int) (err error) {
+func CreateIssues(ctx context.Context, st store.Store, ic issues.Client, limit int) (err error) {
 	derrors.Wrap(&err, "CreateIssues(destination: %s)", ic.Destination())
 
 	needsIssue, err := st.ListCVERecordsWithTriageState(ctx, store.TriageStateNeedsIssue)
@@ -217,7 +218,7 @@ func CreateIssues(ctx context.Context, st store.Store, ic IssueClient, limit int
 		}
 
 		// Create the issue.
-		iss := &Issue{
+		iss := &issues.Issue{
 			Title: fmt.Sprintf("x/vulndb: potential Go vuln in %q: %s", cr.Module, cr.ID),
 			Body:  body,
 		}

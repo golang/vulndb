@@ -18,8 +18,10 @@ import (
 
 	"os"
 
+	"golang.org/x/vulndb/internal"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/gitrepo"
+	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/stdlib"
 	"golang.org/x/vulndb/internal/worker"
@@ -82,11 +84,11 @@ func main() {
 
 func create(ctx context.Context, issueNumber int, ghToken, issueRepo, repoPath string) (err error) {
 	defer derrors.Wrap(&err, "create(%d)", issueNumber)
-	owner, repoName, err := worker.ParseGithubRepo(issueRepo)
+	owner, repoName, err := internal.ParseGitHubRepo(issueRepo)
 	if err != nil {
 		return err
 	}
-	c := worker.NewGithubIssueClient(owner, repoName, ghToken)
+	c := issues.NewGitHubClient(owner, repoName, ghToken)
 	// Get GitHub issue.
 	iss, err := c.GetIssue(ctx, issueNumber)
 	if err != nil {

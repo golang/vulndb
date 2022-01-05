@@ -1,26 +1,29 @@
-// Copyright 2021 The Go Authors. All rights reserved.
+// Copyright 2022 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package worker
+// Package issues provides a general way to interact with issues,
+// and a client for interacting with the GitHub  issues API.
+package issues
 
 import (
 	"context"
 	"fmt"
-	"strings"
 
 	"github.com/google/go-github/github"
 	"golang.org/x/oauth2"
 	"golang.org/x/vulndb/internal/derrors"
 )
 
+// An Issue represents a GitHub issue or similar.
 type Issue struct {
 	Title  string
 	Body   string
 	Labels []string
 }
 
-type IssueClient interface {
+// Client is a client that can create and retrieve issues.
+type Client interface {
 	// Destination describes where issues will be created.
 	Destination() string
 
@@ -37,54 +40,37 @@ type IssueClient interface {
 	GetIssue(ctx context.Context, number int) (iss *Issue, err error)
 }
 
-// ParseGithubRepo parses a string of the form owner/repo or
-// github.com/owner/repo.
-func ParseGithubRepo(s string) (owner, repoName string, err error) {
-	parts := strings.Split(s, "/")
-	switch len(parts) {
-	case 2:
-		return parts[0], parts[1], nil
-	case 3:
-		if parts[0] != "github.com" {
-			return "", "", fmt.Errorf("%q is not in the form {github.com/}owner/repo", s)
-		}
-		return parts[1], parts[2], nil
-	default:
-		return "", "", fmt.Errorf("%q is not in the form {github.com/}owner/repo", s)
-	}
-}
-
-type githubIssueClient struct {
+type githubClient struct {
 	client *github.Client
 	owner  string
 	repo   string
 }
 
-// NewGithubIssueClient creates an IssueClient that will create issues in
+// NewGitHubClient creates a Client that will create issues in
 // the a GitHub repo.
 // A GitHub access token is required to create issues.
-func NewGithubIssueClient(owner, repo, accessToken string) *githubIssueClient {
+func NewGitHubClient(owner, repo, accessToken string) *githubClient {
 	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: accessToken})
 	tc := oauth2.NewClient(context.Background(), ts)
-	return &githubIssueClient{
+	return &githubClient{
 		client: github.NewClient(tc),
 		owner:  owner,
 		repo:   repo,
 	}
 }
 
-// Destination implements IssueClient.Destination.
-func (c *githubIssueClient) Destination() string {
+// Destination implements Client.Destination.
+func (c *githubClient) Destination() string {
 	return fmt.Sprintf("https://github.com/%s/%s", c.owner, c.repo)
 }
 
-// Reference implements IssueClient.Reference.
-func (c *githubIssueClient) Reference(num int) string {
+// Reference implements Client.Reference.
+func (c *githubClient) Reference(num int) string {
 	return fmt.Sprintf("%s/issues/%d", c.Destination(), num)
 }
 
-// IssueExists implements IssueClient.IssueExists.
-func (c *githubIssueClient) IssueExists(ctx context.Context, number int) (_ bool, err error) {
+// IssueExists implements Client.IssueExists.
+func (c *githubClient) IssueExists(ctx context.Context, number int) (_ bool, err error) {
 	defer derrors.Wrap(&err, "IssueExists(%d)", number)
 
 	iss, _, err := c.client.Issues.Get(ctx, c.owner, c.repo, number)
@@ -98,7 +84,8 @@ func (c *githubIssueClient) IssueExists(ctx context.Context, number int) (_ bool
 	return false, nil
 }
 
-func (c *githubIssueClient) GetIssue(ctx context.Context, number int) (_ *Issue, err error) {
+// GetIssue implements Client.GetIssue.
+func (c *githubClient) GetIssue(ctx context.Context, number int) (_ *Issue, err error) {
 	defer derrors.Wrap(&err, "GetIssue(%d)", number)
 	iss, _, err := c.client.Issues.Get(ctx, c.owner, c.repo, number)
 	if err != nil {
@@ -114,8 +101,8 @@ func (c *githubIssueClient) GetIssue(ctx context.Context, number int) (_ *Issue,
 	return r, nil
 }
 
-// CreateIssue implements IssueClient.CreateIssue.
-func (c *githubIssueClient) CreateIssue(ctx context.Context, iss *Issue) (number int, err error) {
+// CreateIssue implements Client.CreateIssue.
+func (c *githubClient) CreateIssue(ctx context.Context, iss *Issue) (number int, err error) {
 	defer derrors.Wrap(&err, "CreateIssue(%s)", iss.Title)
 
 	req := &github.IssueRequest{

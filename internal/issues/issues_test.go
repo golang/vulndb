@@ -1,19 +1,20 @@
-// Copyright 2021 The Go Authors. All rights reserved.
+// Copyright 2022 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
 //go:build go1.17
 // +build go1.17
 
-package worker
+package issues
 
 import (
 	"context"
 	"flag"
-	"fmt"
 	"io/ioutil"
 	"strings"
 	"testing"
+
+	"golang.org/x/vulndb/internal"
 )
 
 var (
@@ -21,15 +22,15 @@ var (
 	githubTokenFile = flag.String("ghtokenfile", "", "path to file containing GitHub access token")
 )
 
-func TestIssueClient(t *testing.T) {
+func TestClient(t *testing.T) {
 	t.Run("fake", func(t *testing.T) {
-		testIssueClient(t, newFakeIssueClient())
+		testClient(t, NewFakeClient())
 	})
 	t.Run("github", func(t *testing.T) {
 		if *githubRepo == "" {
 			t.Skip("skipping: no -repo flag")
 		}
-		owner, repo, err := ParseGithubRepo(*githubRepo)
+		owner, repo, err := internal.ParseGitHubRepo(*githubRepo)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -41,11 +42,11 @@ func TestIssueClient(t *testing.T) {
 			t.Fatal(err)
 		}
 		token := strings.TrimSpace(string(data))
-		testIssueClient(t, NewGithubIssueClient(owner, repo, token))
+		testClient(t, NewGitHubClient(owner, repo, token))
 	})
 }
 
-func testIssueClient(t *testing.T, c IssueClient) {
+func testClient(t *testing.T, c Client) {
 	ctx := context.Background()
 	iss := &Issue{
 		Title:  "vuln worker test",
@@ -63,41 +64,4 @@ func testIssueClient(t *testing.T, c IssueClient) {
 	if !gotExists {
 		t.Error("created issue doesn't exist")
 	}
-}
-
-type fakeIssueClient struct {
-	nextID int
-	issues map[int]*Issue
-}
-
-func newFakeIssueClient() *fakeIssueClient {
-	return &fakeIssueClient{
-		nextID: 1,
-		issues: map[int]*Issue{},
-	}
-}
-
-func (c *fakeIssueClient) Destination() string {
-	return "in memory"
-}
-
-func (c *fakeIssueClient) Reference(num int) string {
-	return fmt.Sprintf("inMemory#%d", num)
-}
-
-func (c *fakeIssueClient) GetIssue(_ context.Context, number int) (*Issue, error) {
-	return &Issue{Title: "Hello"}, nil
-}
-
-func (c *fakeIssueClient) IssueExists(_ context.Context, number int) (bool, error) {
-	_, ok := c.issues[number]
-	return ok, nil
-}
-
-func (c *fakeIssueClient) CreateIssue(_ context.Context, iss *Issue) (number int, err error) {
-	number = c.nextID
-	c.nextID++
-	copy := *iss
-	c.issues[number] = &copy
-	return number, nil
 }
