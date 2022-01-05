@@ -20,9 +20,9 @@ import (
 	"cloud.google.com/go/errorreporting"
 	"github.com/google/safehtml/template"
 	"golang.org/x/sync/errgroup"
-	"golang.org/x/vulndb/internal"
 	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"
@@ -57,7 +57,7 @@ func NewServer(ctx context.Context, cfg Config) (_ *Server, err error) {
 	}
 
 	if cfg.IssueRepo != "" {
-		owner, repoName, err := internal.ParseGitHubRepo(cfg.IssueRepo)
+		owner, repoName, err := gitrepo.ParseGitHubRepo(cfg.IssueRepo)
 		if err != nil {
 			return nil, err
 		}

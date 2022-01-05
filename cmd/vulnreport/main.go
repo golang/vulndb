@@ -18,9 +18,9 @@ import (
 
 	"os"
 
-	"golang.org/x/vulndb/internal"
 	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/stdlib"
@@ -87,7 +87,7 @@ func main() {
 
 func create(ctx context.Context, issueNumber int, ghToken, issueRepo, repoPath string) (err error) {
 	defer derrors.Wrap(&err, "create(%d)", issueNumber)
-	owner, repoName, err := internal.ParseGitHubRepo(issueRepo)
+	owner, repoName, err := gitrepo.ParseGitHubRepo(issueRepo)
 	if err != nil {
 		return err
 	}

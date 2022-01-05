@@ -7,6 +7,7 @@ package gitrepo
 
 import (
 	"context"
+	"fmt"
 	"strings"
 	"time"
 
@@ -121,4 +122,21 @@ func HeadHash(repo *git.Repository) (plumbing.Hash, error) {
 		return plumbing.ZeroHash, err
 	}
 	return ref.Hash(), nil
+}
+
+// ParseGitHubRepo parses a string of the form owner/repo or
+// github.com/owner/repo.
+func ParseGitHubRepo(s string) (owner, repoName string, err error) {
+	parts := strings.Split(s, "/")
+	switch len(parts) {
+	case 2:
+		return parts[0], parts[1], nil
+	case 3:
+		if parts[0] != "github.com" {
+			return "", "", fmt.Errorf("%q is not in the form {github.com/}owner/repo", s)
+		}
+		return parts[1], parts[2], nil
+	default:
+		return "", "", fmt.Errorf("%q is not in the form {github.com/}owner/repo", s)
+	}
 }

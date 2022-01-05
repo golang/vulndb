@@ -14,7 +14,7 @@ import (
 	"strings"
 	"testing"
 
-	"golang.org/x/vulndb/internal"
+	"golang.org/x/vulndb/internal/gitrepo"
 )
 
 var (
@@ -30,7 +30,7 @@ func TestClient(t *testing.T) {
 		if *githubRepo == "" {
 			t.Skip("skipping: no -repo flag")
 		}
-		owner, repo, err := internal.ParseGitHubRepo(*githubRepo)
+		owner, repo, err := gitrepo.ParseGitHubRepo(*githubRepo)
 		if err != nil {
 			t.Fatal(err)
 		}
