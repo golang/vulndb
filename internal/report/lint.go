@@ -252,6 +252,39 @@ func (r *Report) Lint() []string {
 			addIssue("malformed cve_metadata.id identifier")
 		}
 	}
-
+	links := append(r.Links.Context, r.Links.Commit, r.Links.PR)
+	for _, l := range links {
+		if !isValidURL(l) {
+			addIssue(fmt.Sprintf("%q should be %q", l, fixURL(l)))
+		}
+	}
 	return issues
+}
+
+var urlTermToReplacement = map[string]string{
+	"golang.org": "go.dev",
+	"groups.google.com/forum/#!topic/golang-announce": "groups.google.com/g/golang-announce/c",
+}
+
+func isValidURL(u string) bool {
+	return fixURL(u) == u
+}
+
+func fixURL(u string) string {
+	for term, repl := range urlTermToReplacement {
+		if strings.Contains(u, term) {
+			return strings.Replace(u, term, repl, 1)
+		}
+	}
+	if strings.Contains(u, "github.com/golang") {
+		if strings.Contains(u, "commit") {
+			u = strings.Replace(u, "github.com/golang", "go.googlesource.com", 1)
+			u = strings.Replace(u, "commit", "+", 1)
+			return u
+		}
+		if strings.Contains(u, "issues") {
+			return strings.Replace(u, "github.com/golang/go/issues", "go.dev/issue", 1)
+		}
+	}
+	return u
 }
