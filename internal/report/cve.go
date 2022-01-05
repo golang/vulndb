@@ -191,5 +191,6 @@ func CVEToReport(c *cveschema.CVE, modulePath string) *Report {
 	if stdlib.Contains(r.Module) && r.Package == "" {
 		r.Package = modulePath
 	}
+	r.Fix()
 	return r
 }
