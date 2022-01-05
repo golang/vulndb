@@ -1,8 +1,8 @@
 module: std
 package: math/big
 versions:
-- introduced: go1.5
-  fixed: go1.5.3
+  - introduced: go1.5
+    fixed: go1.5.3
 description: |
   Int.Exp Montgomery mishandled carry propagation and produced an incorrect
   output, which makes it easier for attackers to obtain private RSA keys via
@@ -33,8 +33,8 @@ links:
   pr: https://go.dev/cl/18491
   commit: https://go.googlesource.com/go/+/1e066cad1ba23f4064545355b8737e4762dd6838
   context:
-  - https://go.googlesource.com/go/+/4306352182bf94f86f0cfc6a8b0ed461cbf1d82c
-  - https://go.dev/cl/17672
-  - https://go.dev/issue/13515
-  - https://groups.google.com/g/golang-announce/c/MEATuOi_ei4
+    - https://go.googlesource.com/go/+/4306352182bf94f86f0cfc6a8b0ed461cbf1d82c
+    - https://go.dev/cl/17672
+    - https://go.dev/issue/13515
+    - https://groups.google.com/g/golang-announce/c/MEATuOi_ei4
 published: 2022-01-04T12:31:00Z
