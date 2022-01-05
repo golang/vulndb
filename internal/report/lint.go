@@ -191,8 +191,26 @@ func (r *Report) Lint() []string {
 				addIssue(err.Error())
 			}
 		}
-	} else if r.Package == "" {
-		addIssue("missing package")
+		for _, v := range r.Versions {
+			if v.Introduced != "" && !strings.HasPrefix(v.Introduced, "v") {
+				addIssue(fmt.Sprintf("invalid semantic version: %q", v.Introduced))
+			}
+			if v.Fixed != "" && !strings.HasPrefix(v.Fixed, "v") {
+				addIssue(fmt.Sprintf("invalid semantic version: %q", v.Fixed))
+			}
+		}
+	} else {
+		if r.Package == "" {
+			addIssue("missing package")
+		}
+		for _, v := range r.Versions {
+			if v.Introduced != "" && !strings.HasPrefix(v.Introduced, "go") {
+				addIssue(fmt.Sprintf("invalid Go version: %q", v.Introduced))
+			}
+			if v.Fixed != "" && !strings.HasPrefix(v.Fixed, "go") {
+				addIssue(fmt.Sprintf("invalid Go version: %q", v.Fixed))
+			}
+		}
 	}
 
 	for _, additionalPackage := range r.AdditionalPackages {
