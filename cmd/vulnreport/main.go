@@ -19,12 +19,11 @@ import (
 	"os"
 
 	"golang.org/x/vulndb/internal"
+	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/derrors"
-	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/stdlib"
-	"golang.org/x/vulndb/internal/worker"
 	"gopkg.in/yaml.v2"
 )
 
@@ -61,7 +60,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		repoPath := gitrepo.CVEListRepoURL
+		repoPath := cvelistrepo.URL
 		if *localRepoPath != "" {
 			repoPath = *localRepoPath
 		}
@@ -111,7 +110,7 @@ func create(ctx context.Context, issueNumber int, ghToken, issueRepo, repoPath s
 	if !strings.HasPrefix(cveID, "CVE") {
 		return fmt.Errorf("expected last element of title to be the CVE ID; got %q", iss.Title)
 	}
-	cve, err := worker.FetchCVE(ctx, repoPath, cveID)
+	cve, err := cvelistrepo.FetchCVE(ctx, repoPath, cveID)
 	if err != nil {
 		return err
 	}

@@ -14,39 +14,13 @@ import (
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
+	"github.com/go-git/go-git/v5/plumbing/object"
 	"github.com/google/go-cmp/cmp"
-	"github.com/google/go-cmp/cmp/cmpopts"
+	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/cveschema"
+	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/worker/store"
 )
-
-func TestRepoCVEFiles(t *testing.T) {
-	repo, err := readTxtarRepo("testdata/basic.txtar", time.Now())
-	if err != nil {
-		t.Fatal(err)
-	}
-	commit := headCommit(t, repo)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	got, err := repoCVEFiles(repo, commit)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	want := []repoFile{
-		{dirPath: "2020/9xxx", filename: "CVE-2020-9283.json", year: 2020, number: 9283},
-		{dirPath: "2021/0xxx", filename: "CVE-2021-0001.json", year: 2021, number: 1},
-		{dirPath: "2021/0xxx", filename: "CVE-2021-0010.json", year: 2021, number: 10},
-		{dirPath: "2021/1xxx", filename: "CVE-2021-1384.json", year: 2021, number: 1384},
-	}
-
-	opt := cmpopts.IgnoreFields(repoFile{}, "treeHash", "blobHash")
-	if diff := cmp.Diff(want, got, cmp.AllowUnexported(repoFile{}), opt); diff != "" {
-		t.Errorf("mismatch (-want, +got):\n%s", diff)
-	}
-}
 
 const clearString = "**CLEAR**"
 
@@ -94,11 +68,11 @@ func modify(r, m *store.CVERecord) *store.CVERecord {
 
 func TestDoUpdate(t *testing.T) {
 	ctx := context.Background()
-	repo, err := readTxtarRepo("testdata/basic.txtar", time.Now())
+	repo, err := gitrepo.ReadTxtarRepo("../cvelistrepo/testdata/basic.txtar", time.Now())
 	if err != nil {
 		t.Fatal(err)
 	}
-	h, err := headHash(repo)
+	h, err := gitrepo.HeadHash(repo)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -309,43 +283,43 @@ func TestDoUpdate(t *testing.T) {
 
 func TestGroupFilesByDirectory(t *testing.T) {
 	for _, test := range []struct {
-		in   []repoFile
-		want [][]repoFile
+		in   []cvelistrepo.File
+		want [][]cvelistrepo.File
 	}{
 		{in: nil, want: nil},
 		{
-			in:   []repoFile{{dirPath: "a"}},
-			want: [][]repoFile{{{dirPath: "a"}}},
+			in:   []cvelistrepo.File{{DirPath: "a"}},
+			want: [][]cvelistrepo.File{{{DirPath: "a"}}},
 		},
 		{
-			in: []repoFile{
-				{dirPath: "a", filename: "f1"},
-				{dirPath: "a", filename: "f2"},
+			in: []cvelistrepo.File{
+				{DirPath: "a", Filename: "f1"},
+				{DirPath: "a", Filename: "f2"},
 			},
-			want: [][]repoFile{{
-				{dirPath: "a", filename: "f1"},
-				{dirPath: "a", filename: "f2"},
+			want: [][]cvelistrepo.File{{
+				{DirPath: "a", Filename: "f1"},
+				{DirPath: "a", Filename: "f2"},
 			}},
 		},
 		{
-			in: []repoFile{
-				{dirPath: "a", filename: "f1"},
-				{dirPath: "a", filename: "f2"},
-				{dirPath: "b", filename: "f1"},
-				{dirPath: "c", filename: "f1"},
-				{dirPath: "c", filename: "f2"},
+			in: []cvelistrepo.File{
+				{DirPath: "a", Filename: "f1"},
+				{DirPath: "a", Filename: "f2"},
+				{DirPath: "b", Filename: "f1"},
+				{DirPath: "c", Filename: "f1"},
+				{DirPath: "c", Filename: "f2"},
 			},
-			want: [][]repoFile{
+			want: [][]cvelistrepo.File{
 				{
-					{dirPath: "a", filename: "f1"},
-					{dirPath: "a", filename: "f2"},
+					{DirPath: "a", Filename: "f1"},
+					{DirPath: "a", Filename: "f2"},
 				},
 				{
-					{dirPath: "b", filename: "f1"},
+					{DirPath: "b", Filename: "f1"},
 				},
 				{
-					{dirPath: "c", filename: "f1"},
-					{dirPath: "c", filename: "f2"},
+					{DirPath: "c", Filename: "f1"},
+					{DirPath: "c", Filename: "f2"},
 				},
 			},
 		},
@@ -354,12 +328,12 @@ func TestGroupFilesByDirectory(t *testing.T) {
 		if err != nil {
 			t.Fatalf("%v: %v", test.in, err)
 		}
-		if diff := cmp.Diff(got, test.want, cmp.AllowUnexported(repoFile{})); diff != "" {
+		if diff := cmp.Diff(got, test.want, cmp.AllowUnexported(cvelistrepo.File{})); diff != "" {
 			t.Errorf("%v: (-want, +got)\n%s", test.in, diff)
 		}
 	}
 
-	_, err := groupFilesByDirectory([]repoFile{{dirPath: "a"}, {dirPath: "b"}, {dirPath: "a"}})
+	_, err := groupFilesByDirectory([]cvelistrepo.File{{DirPath: "a"}, {DirPath: "b"}, {DirPath: "a"}})
 	if err == nil {
 		t.Error("got nil, want error")
 	}
@@ -386,4 +360,17 @@ func createCVERecords(t *testing.T, s store.Store, crs []*store.CVERecord) {
 	if err != nil {
 		t.Fatal(err)
 	}
+}
+
+// headCommit returns the commit at the repo HEAD.
+func headCommit(t *testing.T, repo *git.Repository) *object.Commit {
+	h, err := gitrepo.HeadHash(repo)
+	if err != nil {
+		t.Fatal(err)
+	}
+	commit, err := repo.CommitObject(h)
+	if err != nil {
+		t.Fatal(err)
+	}
+	return commit
 }

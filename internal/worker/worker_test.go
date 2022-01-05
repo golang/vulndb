@@ -17,6 +17,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"golang.org/x/vulndb/internal/cveschema"
+	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"
@@ -25,7 +26,7 @@ import (
 func TestCheckUpdate(t *testing.T) {
 	ctx := context.Background()
 	tm := time.Date(2021, 1, 26, 0, 0, 0, 0, time.Local)
-	repo, err := readTxtarRepo("testdata/basic.txtar", tm)
+	repo, err := gitrepo.ReadTxtarRepo("../cvelistrepo/testdata/basic.txtar", tm)
 	if err != nil {
 		t.Fatal(err)
 	}

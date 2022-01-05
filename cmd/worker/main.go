@@ -22,7 +22,7 @@ import (
 	"time"
 
 	"golang.org/x/vulndb/internal"
-	"golang.org/x/vulndb/internal/gitrepo"
+	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/worker"
 	"golang.org/x/vulndb/internal/worker/log"
@@ -184,7 +184,7 @@ func listCVEsCommand(ctx context.Context, triageState string) error {
 }
 
 func updateCommand(ctx context.Context, commitHash string) error {
-	repoPath := gitrepo.CVEListRepoURL
+	repoPath := cvelistrepo.URL
 	if *localRepoPath != "" {
 		repoPath = *localRepoPath
 	}

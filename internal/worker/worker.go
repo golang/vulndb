@@ -21,6 +21,7 @@ import (
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/time/rate"
 	vulnc "golang.org/x/vuln/client"
+	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/gitrepo"
@@ -273,7 +274,7 @@ func newBody(cr *store.CVERecord) (string, error) {
 	if err := issueTemplate.Execute(&b, issueTemplateData{
 		Heading: fmt.Sprintf(
 			"In [%s](%s/tree/%s/%s), the reference URL [%s](%s) (and possibly others) refers to something in Go.",
-			cr.ID, gitrepo.CVEListRepoURL, cr.CommitHash, cr.Path, cr.Module, cr.Module),
+			cr.ID, cvelistrepo.URL, cr.CommitHash, cr.Path, cr.Module, cr.Module),
 		Report: string(out),
 		Pre:    "```",
 	}); err != nil {

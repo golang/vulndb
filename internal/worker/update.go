@@ -6,22 +6,16 @@ package worker
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
-	"io"
 	"path"
-	"sort"
-	"strconv"
 	"strings"
 	"time"
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
-	"github.com/go-git/go-git/v5/plumbing/filemode"
-	"github.com/go-git/go-git/v5/plumbing/object"
+	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/derrors"
-	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"
 )
@@ -97,7 +91,7 @@ func (u *updater) update(ctx context.Context) (ur *store.CommitUpdateRecord, err
 	// It is cheaper to read all the files from the repo and compare
 	// them to the DB in bulk, than to walk the repo and process
 	// each file individually.
-	files, err := repoCVEFiles(u.repo, commit)
+	files, err := cvelistrepo.Files(u.repo, commit)
 	if err != nil {
 		return nil, err
 	}
@@ -143,9 +137,9 @@ func (u *updater) update(ctx context.Context) (ur *store.CommitUpdateRecord, err
 // See https://cloud.google.com/firestore/quotas.
 const maxTransactionWrites = 500
 
-func (u *updater) updateDirectory(ctx context.Context, dirFiles []repoFile) (_ updateStats, err error) {
-	dirPath := dirFiles[0].dirPath
-	dirHash := dirFiles[0].treeHash.String()
+func (u *updater) updateDirectory(ctx context.Context, dirFiles []cvelistrepo.File) (_ updateStats, err error) {
+	dirPath := dirFiles[0].DirPath
+	dirHash := dirFiles[0].TreeHash.String()
 
 	// A non-empty directory hash means that we have fully processed the directory
 	// with that hash. If the stored hash matches the current one, we can skip
@@ -191,9 +185,9 @@ func (u *updater) updateDirectory(ctx context.Context, dirFiles []repoFile) (_ u
 	return stats, nil
 }
 
-func (u *updater) updateBatch(ctx context.Context, batch []repoFile) (numAdds, numMods int, err error) {
-	startID := idFromFilename(batch[0].filename)
-	endID := idFromFilename(batch[len(batch)-1].filename)
+func (u *updater) updateBatch(ctx context.Context, batch []cvelistrepo.File) (numAdds, numMods int, err error) {
+	startID := idFromFilename(batch[0].Filename)
+	endID := idFromFilename(batch[len(batch)-1].Filename)
 	defer derrors.Wrap(&err, "updateBatch(%s-%s)", startID, endID)
 
 	err = u.st.RunTransaction(ctx, func(ctx context.Context, tx store.Transaction) error {
@@ -213,9 +207,9 @@ func (u *updater) updateBatch(ctx context.Context, batch []repoFile) (numAdds, n
 		}
 		// Determine what needs to be added and modified.
 		for _, f := range batch {
-			id := idFromFilename(f.filename)
+			id := idFromFilename(f.Filename)
 			old := idToRecord[id]
-			if old != nil && old.BlobHash == f.blobHash.String() {
+			if old != nil && old.BlobHash == f.BlobHash.String() {
 				// No change; do nothing.
 				continue
 			}
@@ -241,9 +235,9 @@ func (u *updater) updateBatch(ctx context.Context, batch []repoFile) (numAdds, n
 // handleCVE determines how to change the store for a single CVE.
 // The CVE will definitely be either added, if it's new, or modified, if it's
 // already in the DB.
-func (u *updater) handleCVE(f repoFile, old *store.CVERecord, tx store.Transaction) (added bool, err error) {
-	defer derrors.Wrap(&err, "handleCVE(%s)", f.filename)
-	cve, err := parseCVE(u.repo, f)
+func (u *updater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx store.Transaction) (added bool, err error) {
+	defer derrors.Wrap(&err, "handleCVE(%s)", f.Filename)
+	cve, err := cvelistrepo.ParseCVE(u.repo, f)
 	if err != nil {
 		return false, err
 	}
@@ -263,10 +257,10 @@ func (u *updater) handleCVE(f repoFile, old *store.CVERecord, tx store.Transacti
 		}
 	}
 
-	pathname := path.Join(f.dirPath, f.filename)
+	pathname := path.Join(f.DirPath, f.Filename)
 	// If the CVE is not in the database, add it.
 	if old == nil {
-		cr := store.NewCVERecord(cve, pathname, f.blobHash.String())
+		cr := store.NewCVERecord(cve, pathname, f.BlobHash.String())
 		cr.CommitHash = u.commitHash.String()
 		switch {
 		case result != nil:
@@ -286,7 +280,7 @@ func (u *updater) handleCVE(f repoFile, old *store.CVERecord, tx store.Transacti
 	// Change to an existing record.
 	mod := *old // copy the old one
 	mod.Path = pathname
-	mod.BlobHash = f.blobHash.String()
+	mod.BlobHash = f.BlobHash.String()
 	mod.CVEState = cve.State
 	mod.CommitHash = u.commitHash.String()
 	switch old.TriageState {
@@ -334,52 +328,6 @@ func (u *updater) handleCVE(f repoFile, old *store.CVERecord, tx store.Transacti
 	return false, nil
 }
 
-// FetchCVE fetches the CVE file for cveID from the CVElist repo and returns
-// the parsed info.
-func FetchCVE(ctx context.Context, repoPath, cveID string) (_ *cveschema.CVE, err error) {
-	defer derrors.Wrap(&err, "FetchCVE(repo, commit, %s)", cveID)
-	repo, err := gitrepo.CloneOrOpen(ctx, repoPath)
-	if err != nil {
-		return nil, err
-	}
-	ref, err := repo.Reference(plumbing.HEAD, true)
-	if err != nil {
-		return nil, err
-	}
-	ch := ref.Hash()
-	commit, err := repo.CommitObject(ch)
-	if err != nil {
-		return nil, err
-	}
-	files, err := repoCVEFiles(repo, commit)
-	if err != nil {
-		return nil, err
-	}
-	for _, f := range files {
-		if strings.Contains(f.filename, cveID) {
-			cve, err := parseCVE(repo, f)
-			if err != nil {
-				return nil, err
-			}
-			return cve, nil
-		}
-	}
-	return nil, fmt.Errorf("not found")
-}
-
-func parseCVE(repo *git.Repository, f repoFile) (*cveschema.CVE, error) {
-	// Read CVE from repo.
-	r, err := blobReader(repo, f.blobHash)
-	if err != nil {
-		return nil, err
-	}
-	cve := &cveschema.CVE{}
-	if err := json.NewDecoder(r).Decode(cve); err != nil {
-		return nil, err
-	}
-	return cve, nil
-}
-
 // copyRemoving returns a copy of cve with any reference that has a given URL removed.
 func copyRemoving(cve *cveschema.CVE, refURLs []string) *cveschema.CVE {
 	remove := map[string]bool{}
@@ -397,86 +345,18 @@ func copyRemoving(cve *cveschema.CVE, refURLs []string) *cveschema.CVE {
 	return &c
 }
 
-type repoFile struct {
-	dirPath  string
-	filename string
-	treeHash plumbing.Hash
-	blobHash plumbing.Hash
-	year     int
-	number   int
-}
-
-// repoCVEFiles returns all the CVE files in the given repo commit, sorted by
-// name.
-func repoCVEFiles(repo *git.Repository, commit *object.Commit) (_ []repoFile, err error) {
-	defer derrors.Wrap(&err, "repoCVEFiles(%s)", commit.Hash)
-
-	root, err := repo.TreeObject(commit.TreeHash)
-	if err != nil {
-		return nil, fmt.Errorf("TreeObject: %v", err)
-	}
-	files, err := walkFiles(repo, root, "", nil)
-	if err != nil {
-		return nil, err
-	}
-	sort.Slice(files, func(i, j int) bool {
-		// Compare the year and the number, as ints. Using the ID directly
-		// would put CVE-2014-100009 before CVE-2014-10001.
-		if files[i].year != files[j].year {
-			return files[i].year < files[j].year
-		}
-		return files[i].number < files[j].number
-	})
-	return files, nil
-}
-
-// walkFiles collects CVE files from a repo tree.
-func walkFiles(repo *git.Repository, tree *object.Tree, dirpath string, files []repoFile) ([]repoFile, error) {
-	for _, e := range tree.Entries {
-		if e.Mode == filemode.Dir {
-			dir, err := repo.TreeObject(e.Hash)
-			if err != nil {
-				return nil, err
-			}
-			files, err = walkFiles(repo, dir, path.Join(dirpath, e.Name), files)
-			if err != nil {
-				return nil, err
-			}
-		} else if isCVEFilename(e.Name) {
-			// e.Name is CVE-YEAR-NUMBER.json
-			year, err := strconv.Atoi(e.Name[4:8])
-			if err != nil {
-				return nil, err
-			}
-			number, err := strconv.Atoi(e.Name[9 : len(e.Name)-5])
-			if err != nil {
-				return nil, err
-			}
-			files = append(files, repoFile{
-				dirPath:  dirpath,
-				filename: e.Name,
-				treeHash: tree.Hash,
-				blobHash: e.Hash,
-				year:     year,
-				number:   number,
-			})
-		}
-	}
-	return files, nil
-}
-
 // Collect files by directory, verifying that directories are contiguous in
 // the list of files. Our directory hash optimization depends on that.
-func groupFilesByDirectory(files []repoFile) ([][]repoFile, error) {
+func groupFilesByDirectory(files []cvelistrepo.File) ([][]cvelistrepo.File, error) {
 	if len(files) == 0 {
 		return nil, nil
 	}
 	var (
-		result [][]repoFile
-		curDir []repoFile
+		result [][]cvelistrepo.File
+		curDir []cvelistrepo.File
 	)
 	for _, f := range files {
-		if len(curDir) > 0 && f.dirPath != curDir[0].dirPath {
+		if len(curDir) > 0 && f.DirPath != curDir[0].DirPath {
 			result = append(result, curDir)
 			curDir = nil
 		}
@@ -487,29 +367,15 @@ func groupFilesByDirectory(files []repoFile) ([][]repoFile, error) {
 	}
 	seen := map[string]bool{}
 	for _, dir := range result {
-		if seen[dir[0].dirPath] {
-			return nil, fmt.Errorf("directory %s is not contiguous in the sorted list of files", dir[0].dirPath)
+		if seen[dir[0].DirPath] {
+			return nil, fmt.Errorf("directory %s is not contiguous in the sorted list of files", dir[0].DirPath)
 		}
-		seen[dir[0].dirPath] = true
+		seen[dir[0].DirPath] = true
 	}
 	return result, nil
 }
 
-// blobReader returns a reader to the blob with the given hash.
-func blobReader(repo *git.Repository, hash plumbing.Hash) (io.Reader, error) {
-	blob, err := repo.BlobObject(hash)
-	if err != nil {
-		return nil, err
-	}
-	return blob.Reader()
-}
-
-// idFromFilename extracts the CVE ID from its filename.
+// idFromFilename extracts the CVE ID from  a filename.
 func idFromFilename(name string) string {
 	return strings.TrimSuffix(path.Base(name), path.Ext(name))
-}
-
-// isCVEFilename reports whether name is the basename of a CVE file.
-func isCVEFilename(name string) bool {
-	return strings.HasPrefix(name, "CVE-") && path.Ext(name) == ".json"
 }

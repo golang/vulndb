@@ -21,8 +21,8 @@ import (
 	"github.com/google/safehtml/template"
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/vulndb/internal"
+	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/derrors"
-	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"
@@ -226,7 +226,7 @@ func (s *Server) indexPage(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	page := indexPage{
-		CVEListRepoURL:   gitrepo.CVEListRepoURL,
+		CVEListRepoURL:   cvelistrepo.URL,
 		Namespace:        s.cfg.Namespace,
 		Updates:          updates,
 		CVEsNeedingIssue: needingIssue,
@@ -254,7 +254,7 @@ func (s *Server) doUpdate(r *http.Request) error {
 	if f := r.FormValue("force"); f == "true" {
 		force = true
 	}
-	err := UpdateCommit(r.Context(), gitrepo.CVEListRepoURL, "HEAD", s.cfg.Store, pkgsiteURL, force)
+	err := UpdateCommit(r.Context(), cvelistrepo.URL, "HEAD", s.cfg.Store, pkgsiteURL, force)
 	if cerr := new(CheckUpdateError); errors.As(err, &cerr) {
 		return &serverError{
 			status: http.StatusPreconditionFailed,
