@@ -348,7 +348,6 @@ func readCVE(t *testing.T, repo *git.Repository, commit *object.Commit, path str
 }
 
 func createCVERecords(t *testing.T, s store.Store, crs []*store.CVERecord) {
-	t.Helper()
 	err := s.RunTransaction(context.Background(), func(_ context.Context, tx store.Transaction) error {
 		for _, cr := range crs {
 			if err := tx.CreateCVERecord(cr); err != nil {

@@ -11,17 +11,33 @@ import (
 	"golang.org/x/vulndb/internal/worker/store"
 )
 
-func InsertFalsePositives(ctx context.Context, st store.Store) (err error) {
-	defer derrors.Wrap(&err, "InsertFalsePositives")
+// updateFalsePositives makes sure the store reflects the list of false positives.
+func updateFalsePositives(ctx context.Context, st store.Store) (err error) {
+	defer derrors.Wrap(&err, "updateFalsePositives")
 
 	for i := 0; i < len(falsePositives); i += maxTransactionWrites {
 		j := i + maxTransactionWrites
 		if j >= len(falsePositives) {
 			j = len(falsePositives)
 		}
+		batch := falsePositives[i:j]
 		err := st.RunTransaction(ctx, func(ctx context.Context, tx store.Transaction) error {
-			for _, cr := range falsePositives[i:j] {
-				if err := tx.CreateCVERecord(cr); err != nil {
+			oldRecords, err := readCVERecords(tx, batch)
+			if err != nil {
+				return err
+			}
+			for i, cr := range batch {
+				old := oldRecords[i]
+				var err error
+				if old == nil {
+					err = tx.CreateCVERecord(cr)
+				} else if old.CommitHash != cr.CommitHash && !old.CommitTime.IsZero() && old.CommitTime.Before(cr.CommitTime) {
+					// If the false positive data is more recent than what is in
+					// the store, then update the DB. But ignore records whose
+					// commit time hasn't been populated.
+					err = tx.SetCVERecord(cr)
+				}
+				if err != nil {
 					return err
 				}
 			}
@@ -34,19 +50,18 @@ func InsertFalsePositives(ctx context.Context, st store.Store) (err error) {
 	return nil
 }
 
-// falsePositivesInserted reports whether the list of false positives has been
-// added to the store.
-func falsePositivesInserted(ctx context.Context, st store.Store) (bool, error) {
-	// Check the first and last IDs. See gen_false_positives.go for the list.
-	ids := []string{"CVE-2013-2124", "CVE-2021-3391"}
-	for _, id := range ids {
-		cr, err := st.GetCVERecord(ctx, id)
+func readCVERecords(tx store.Transaction, crs []*store.CVERecord) ([]*store.CVERecord, error) {
+	var olds []*store.CVERecord
+	for _, cr := range crs {
+		dbcrs, err := tx.GetCVERecords(cr.ID, cr.ID)
 		if err != nil {
-			return false, err
+			return nil, err
 		}
-		if cr == nil {
-			return false, nil
+		var old *store.CVERecord
+		if len(dbcrs) > 0 {
+			old = dbcrs[0]
 		}
+		olds = append(olds, old)
 	}
-	return true, nil
+	return olds, nil
 }

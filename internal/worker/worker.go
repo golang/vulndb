@@ -33,35 +33,29 @@ import (
 
 // UpdateCommit performs an update on the store using the given commit.
 // Unless force is true, it checks that the update makes sense before doing it.
-func UpdateCommit(ctx context.Context, repoPath, commitHash string, st store.Store, pkgsiteURL string, force bool) (err error) {
-	defer derrors.Wrap(&err, "RunCommitUpdate(%q, %q, force=%t)", repoPath, commitHash, force)
+func UpdateCommit(ctx context.Context, repoPath, commitHashString string, st store.Store, pkgsiteURL string, force bool) (err error) {
+	defer derrors.Wrap(&err, "RunCommitUpdate(%q, %q, force=%t)", repoPath, commitHashString, force)
 
-	b, err := falsePositivesInserted(ctx, st)
-	if err != nil {
+	log.Infof(ctx, "updating false positives")
+	if err := updateFalsePositives(ctx, st); err != nil {
 		return err
-	}
-	if !b {
-		log.Infof(ctx, "inserting false positives")
-		if err := InsertFalsePositives(ctx, st); err != nil {
-			return err
-		}
 	}
 
 	repo, err := gitrepo.CloneOrOpen(ctx, repoPath)
 	if err != nil {
 		return err
 	}
-	var ch plumbing.Hash
-	if commitHash == "HEAD" {
+	var commitHash plumbing.Hash
+	if commitHashString == "HEAD" {
 		ref, err := repo.Reference(plumbing.HEAD, true)
 		if err != nil {
 			return err
 		}
-		ch = ref.Hash()
+		commitHash = ref.Hash()
 	} else {
-		ch = plumbing.NewHash(commitHash)
+		commitHash = plumbing.NewHash(commitHashString)
 	}
-	commit, err := repo.CommitObject(ch)
+	commit, err := repo.CommitObject(commitHash)
 	if err != nil {
 		return err
 	}
