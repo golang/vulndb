@@ -6,6 +6,14 @@
 // https://github.com/CVEProject/automation-working-group/tree/master/cve_json_schema.
 package cveschema
 
+import (
+	"bytes"
+	"encoding/json"
+	"errors"
+
+	"golang.org/x/vulndb/internal/derrors"
+)
+
 const (
 	// StateReserved is the initial state for a CVE Record; when the associated
 	// CVE ID is Reserved by a CNA.
@@ -77,7 +85,10 @@ type CVE struct {
 	// Credit is the credit information (different than CVE_timeline in that
 	// these are specific things being credited to specific
 	// people/organizations/etc.).
-	Credit Credit `json:"credit"`
+	Credit Credit
+
+	// RawCredit is for unmarshaling only. Do not use.
+	RawCredit json.RawMessage `json:"credit"`
 }
 
 // Credit is the credit information (different than CVE_timeline in that these
@@ -229,4 +240,54 @@ type VersionData struct {
 type VersionDataItem struct {
 	VersionValue    string `json:"version_value"`
 	VersionAffected string `json:"version_affected"`
+}
+
+var nullBytes = []byte("null")
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (c *CVE) UnmarshalJSON(data []byte) (err error) {
+	defer derrors.Wrap(&err, "cveschema.CVE.UnmarshalJSON")
+	if bytes.Equal(data, nullBytes) {
+		return nil
+	}
+	// To avoid infinite recursion, disable the UnmarshalJSON method on CVE
+	// by defining a new type.
+	type nomethod CVE
+	if err := json.Unmarshal(data, (*nomethod)(c)); err != nil {
+		return err
+	}
+	c.Credit, err = decodeCredit(c.RawCredit)
+	if err != nil {
+		return err
+	}
+	c.RawCredit = nil
+	return nil
+}
+
+// The Credit field can have one of several formats.
+func decodeCredit(raw []byte) (Credit, error) {
+	if len(raw) == 0 {
+		return Credit{}, nil
+	}
+
+	var c Credit
+	if err := json.Unmarshal(raw, &c); err == nil {
+		return c, nil
+	}
+
+	var lstrings []LangString
+	if err := json.Unmarshal(raw, &lstrings); err == nil {
+		return Credit{Data: CreditData{Description: Description{Data: lstrings}}}, nil
+	}
+
+	var strings []string
+	if err := json.Unmarshal(raw, &strings); err == nil {
+		var ls []LangString
+		for _, s := range strings {
+			ls = append(ls, LangString{Lang: "eng", Value: s})
+		}
+		return Credit{Data: CreditData{Description: Description{Data: ls}}}, nil
+	}
+
+	return Credit{}, errors.New("could not parse credit field")
 }
