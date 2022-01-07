@@ -6,6 +6,7 @@
 package database
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -13,10 +14,12 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/go-git/go-git/v5/plumbing/object"
 	"golang.org/x/mod/semver"
 	"golang.org/x/vuln/client"
 	"golang.org/x/vuln/osv"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/stdlib"
 	"gopkg.in/yaml.v2"
@@ -28,13 +31,22 @@ const (
 	// idDirectory is the name of the directory that contains entries
 	// listed by their IDs.
 	idDirectory = "ID"
+
+	// yamlDir is the name of the directory in the vulndb repo that
+	// contains reports.
+	yamlDir = "reports"
 )
 
-func Generate(yamlDir, jsonDir string) (err error) {
-	defer derrors.Wrap(&err, "Generate(%q)", yamlDir)
-	yamlFiles, err := ioutil.ReadDir(yamlDir)
+func Generate(ctx context.Context, repoDir, jsonDir string) (err error) {
+	defer derrors.Wrap(&err, "Generate(%q)", repoDir)
+	yamlFiles, err := ioutil.ReadDir(filepath.Join(repoDir, yamlDir))
 	if err != nil {
 		return fmt.Errorf("can't read %q: %s", yamlDir, err)
+	}
+
+	repo, err := gitrepo.Open(ctx, repoDir)
+	if err != nil {
+		return err
 	}
 
 	jsonVulns := map[string][]osv.Entry{}
@@ -43,13 +55,25 @@ func Generate(yamlDir, jsonDir string) (err error) {
 		if !strings.HasSuffix(f.Name(), ".yaml") {
 			continue
 		}
-		content, err := ioutil.ReadFile(filepath.Join(yamlDir, f.Name()))
+		content, err := ioutil.ReadFile(filepath.Join(repoDir, yamlDir, f.Name()))
 		if err != nil {
 			return fmt.Errorf("can't read %q: %s", f.Name(), err)
 		}
 		var r report.Report
 		if err := yaml.UnmarshalStrict(content, &r); err != nil {
 			return fmt.Errorf("unable to unmarshal %q: %s", f.Name(), err)
+		}
+		if r.Published.IsZero() {
+			yamlPath := filepath.Join(yamlDir, f.Name())
+			if err := gitrepo.FileHistory(repo, yamlPath, func(commit *object.Commit) error {
+				when := commit.Committer.When.UTC()
+				if r.Published.IsZero() || when.Before(r.Published) {
+					r.Published = when
+				}
+				return nil
+			}); err != nil {
+				return fmt.Errorf("can't find git history for %q: %v", yamlPath, err)
+			}
 		}
 		if lints := r.Lint(); len(lints) > 0 {
 			return fmt.Errorf("vuln.Lint: %v", lints)

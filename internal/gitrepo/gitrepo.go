@@ -140,3 +140,21 @@ func ParseGitHubRepo(s string) (owner, repoName string, err error) {
 		return "", "", fmt.Errorf("%q is not in the form {github.com/}owner/repo", s)
 	}
 }
+
+// FileHistory calls f for every commit in filepath's history, starting from HEAD.
+func FileHistory(repo *git.Repository, filepath string, f func(*object.Commit) error) error {
+	refName := plumbing.HEAD
+	ref, err := repo.Reference(refName, true)
+	if err != nil {
+		return err
+	}
+	commit, err := repo.CommitObject(ref.Hash())
+	if err != nil {
+		return err
+	}
+	return object.NewCommitFileIterFromIter(
+		filepath,
+		object.NewCommitPreorderIter(commit, nil, nil),
+		false,
+	).ForEach(f)
+}

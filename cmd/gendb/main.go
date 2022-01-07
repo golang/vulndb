@@ -7,6 +7,7 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"log"
 
@@ -14,13 +15,14 @@ import (
 )
 
 var (
-	yamlDir = flag.String("reports", "reports", "Directory containing yaml reports")
+	repoDir = flag.String("repo", ".", "Directory containing vulndb repo")
 	jsonDir = flag.String("out", "out", "Directory to write JSON database to")
 )
 
 func main() {
 	flag.Parse()
-	if err := database.Generate(*yamlDir, *jsonDir); err != nil {
+	ctx := context.Background()
+	if err := database.Generate(ctx, *repoDir, *jsonDir); err != nil {
 		log.Fatal(err)
 	}
 }
