@@ -15,6 +15,7 @@ import (
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/object"
 	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
 	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/gitrepo"
@@ -274,7 +275,9 @@ func TestDoUpdate(t *testing.T) {
 			for _, cr := range test.want {
 				want[cr.ID] = cr
 			}
-			if diff := cmp.Diff(want, got); diff != "" {
+			if diff := cmp.Diff(want, got,
+				cmpopts.IgnoreFields(store.CVERecord{}, "TriageStateReason"),
+				cmpopts.IgnoreFields(store.CVERecordSnapshot{}, "TriageStateReason")); diff != "" {
 				t.Errorf("mismatch (-want, +got):\n%s", diff)
 			}
 		})

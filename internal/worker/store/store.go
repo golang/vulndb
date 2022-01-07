@@ -38,6 +38,9 @@ type CVERecord struct {
 	// Module is the Go module path that might be affected.
 	Module string
 
+	// Module is the Go package path that might be affected.
+	Package string
+
 	// CVE is a copy of the CVE, for the NeedsIssue triage state.
 	CVE *cveschema.CVE
 

@@ -260,6 +260,8 @@ func (u *updater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx store.T
 		case result != nil:
 			cr.TriageState = store.TriageStateNeedsIssue
 			cr.Module = result.modulePath
+			cr.Package = result.packagePath
+			cr.TriageStateReason = result.reason
 			cr.CVE = cve
 		case u.knownIDs[cve.ID]:
 			cr.TriageState = store.TriageStateHasVuln
@@ -284,6 +286,8 @@ func (u *updater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx store.T
 			// Didn't need an issue before, does now.
 			mod.TriageState = store.TriageStateNeedsIssue
 			mod.Module = result.modulePath
+			mod.Package = result.packagePath
+			mod.TriageStateReason = result.reason
 		}
 		// Else don't change the triage state, but we still want
 		// to update the other changed fields.
