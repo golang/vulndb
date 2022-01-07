@@ -75,8 +75,19 @@ var notGoModules = map[string]bool{
 }
 
 // triageV4CVE triages a CVE following schema v4.0 and returns the result.
-func triageV4CVE(ctx context.Context, c *cveschema.CVE, pkgsiteURL string) (_ *triageResult, err error) {
+func triageV4CVE(ctx context.Context, c *cveschema.CVE, pkgsiteURL string) (result *triageResult, err error) {
 	defer derrors.Wrap(&err, "triageV4CVE(ctx, %q, %q)", c.ID, pkgsiteURL)
+	defer func() {
+		if err != nil {
+			return
+		}
+		msg := fmt.Sprintf("Triage result for %s", c.ID)
+		if result == nil {
+			log.Debugf(ctx, "%s: not Go vuln", msg)
+			return
+		}
+		log.Debugf(ctx, "%s: is Go vuln (%s)", msg, result.reason)
+	}()
 	for _, r := range c.References.Data {
 		if r.URL == "" {
 			continue
@@ -202,7 +213,7 @@ func knownToPkgsite(ctx context.Context, baseURL, modulePath string) (bool, erro
 		"latency", time.Since(start),
 		"status", status,
 		"error", err,
-	).Infof(ctx, "HEAD "+url)
+	).Debugf(ctx, "HEAD "+url)
 	if err != nil {
 		return false, err
 	}
