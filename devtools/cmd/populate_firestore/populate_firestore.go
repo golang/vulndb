@@ -43,7 +43,7 @@ func main() {
 		log.Fatal("need -namespace")
 	}
 	if *localRepoPath == "" {
-		log.Fatal("need local-cve-repo")
+		log.Fatal("need -local-cve-repo")
 	}
 	if err := run(context.Background()); err != nil {
 		log.Fatal(err)
@@ -70,10 +70,10 @@ func run(ctx context.Context) error {
 		}
 		commit, err := repo.CommitObject(plumbing.NewHash(hash))
 		if err != nil {
-			return time.Time{}, err
+			return time.Time{}, fmt.Errorf("CommitObject(%s): %w", hash, err)
 		}
 		ct := commit.Committer.When.In(time.UTC)
-		fmt.Printf("commit %s at %s\n", hash, ct)
+		fmt.Printf("repo commit %s at %s\n", hash, ct)
 		commitTimeCache[hash] = ct
 		return ct, nil
 	}
@@ -87,17 +87,12 @@ func run(ctx context.Context) error {
 	}
 	iter := q.Documents(ctx)
 	defer iter.Stop()
-	n := 0
 	lastID, err := updateDB(ctx, client, iter, func(ds *firestore.DocumentSnapshot, wb *firestore.WriteBatch) (bool, error) {
-		n++
-		if n%100 == 0 {
-			fmt.Println("record #", n)
-		}
 		_, err := ds.DataAt("CommitTime")
 		if err != nil && strings.Contains(err.Error(), "no field") {
 			ch, err := ds.DataAt("CommitHash")
 			if err != nil {
-				return false, err
+				return false, fmt.Errorf(`%s.DataAt("CommitHash"): %w`, ds.Ref.ID, err)
 			}
 			ct, err := getCommitTime(ch.(string))
 			if err != nil {
@@ -120,9 +115,9 @@ const maxBatchSize = 500
 
 func updateDB(ctx context.Context, client *firestore.Client, iter *firestore.DocumentIterator, update func(*firestore.DocumentSnapshot, *firestore.WriteBatch) (bool, error)) (string, error) {
 	done := false
+	total := 0
 	var lastID string
 	for !done {
-		fmt.Println("start batch")
 		wb := client.Batch()
 		size := 0
 		for {
@@ -135,6 +130,10 @@ func updateDB(ctx context.Context, client *firestore.Client, iter *firestore.Doc
 				return "", err
 			}
 			lastID = ds.Ref.ID
+			total++
+			if total%1000 == 0 {
+				fmt.Printf("%d records, last ID %s\n", total, lastID)
+			}
 			if b, err := update(ds, wb); err != nil {
 				return "", err
 			} else if b {
@@ -145,10 +144,9 @@ func updateDB(ctx context.Context, client *firestore.Client, iter *firestore.Doc
 			}
 		}
 		if size > 0 {
-			fmt.Printf("committing %d writes\n", size)
 			_, err := wb.Commit(ctx)
 			if err != nil {
-				return "", err
+				return "", fmt.Errorf("wb.Commit: %w", err)
 			}
 		}
 	}
