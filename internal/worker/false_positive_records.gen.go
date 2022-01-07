@@ -6,7 +6,11 @@
 
 package worker
 
-import "golang.org/x/vulndb/internal/worker/store"
+import (
+	"time"
+
+	"golang.org/x/vulndb/internal/worker/store"
+)
 
 var falsePositives = []*store.CVERecord{
 	{
@@ -14,6 +18,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2013/2xxx/CVE-2013-2124.json",
 		BlobHash:    "b1ff88f81a229ecf77fe19b4abcaea1188732b10",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -31,6 +36,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2013/2xxx/CVE-2013-2233.json",
 		BlobHash:    "fff4e81581d35ca5feb18f441687a4e8ac2ef346",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -46,6 +52,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2014/0xxx/CVE-2014-0177.json",
 		BlobHash:    "2b106b8cbe92d17dbe0f40ef2bf8131a19a79dcc",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -58,6 +65,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2014/3xxx/CVE-2014-3498.json",
 		BlobHash:    "82cec2c1ae4a884effa2c621469c9018ad07b09e",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -70,6 +78,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2014/3xxx/CVE-2014-3971.json",
 		BlobHash:    "cef39ff58a76f2b3b266e9fe49e3e1af75aa4199",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -82,6 +91,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2014/4xxx/CVE-2014-4657.json",
 		BlobHash:    "973d958f719b33379fa47ac5330f68c79ad9b0f4",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -94,6 +104,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2014/4xxx/CVE-2014-4658.json",
 		BlobHash:    "831c7a476ec7ddeebe0311821efd8ec207878b06",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -106,6 +117,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2014/4xxx/CVE-2014-4659.json",
 		BlobHash:    "1fcaa970aab33beb1c8f5e94544a976060829bd5",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -118,6 +130,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2014/4xxx/CVE-2014-4660.json",
 		BlobHash:    "1aff32c0d305a69e039cf6f5a909b9e3adb88965",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -133,6 +146,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2014/4xxx/CVE-2014-4678.json",
 		BlobHash:    "453d55a513a567b647daee742272a73d06d2bbb3",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -150,6 +164,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2014/4xxx/CVE-2014-4966.json",
 		BlobHash:    "e3378a01598473a0e0ec5b3576a3893236d1951e",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -162,6 +177,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2014/4xxx/CVE-2014-4967.json",
 		BlobHash:    "3db0b89320c00238e9ac985a46145a8735160af3",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -174,6 +190,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2014/8xxx/CVE-2014-8178.json",
 		BlobHash:    "c402c99f5ad15d2bb92c0cc2a1d200c61e8b3f5c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -189,6 +206,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2014/8xxx/CVE-2014-8179.json",
 		BlobHash:    "e4d44d6ea12f93279a9dd5ff4f305b87d7ede7cb",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -205,6 +223,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2014/8xxx/CVE-2014-8682.json",
 		BlobHash:    "0f015f20fd4dd01c859293025b0380a7d64c38e1",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -223,6 +242,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2014/9xxx/CVE-2014-9938.json",
 		BlobHash:    "9f74ca256c99ca814200cb62f3d5db211af77219",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -236,6 +256,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2015/5xxx/CVE-2015-5237.json",
 		BlobHash:    "12f3e517111a864cdaf06708bca08b1beefd91a9",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -266,6 +287,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2015/5xxx/CVE-2015-5250.json",
 		BlobHash:    "a35f3719a75df2faff6d9702be23fd2a0f9c727f",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -279,6 +301,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2015/6xxx/CVE-2015-6240.json",
 		BlobHash:    "6e0f9763e63ce17393bedf56ba538cde7e73d35f",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -294,6 +317,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2015/7xxx/CVE-2015-7082.json",
 		BlobHash:    "60475bed239cbaef4156695da083708a53b39c3c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -308,6 +332,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2015/7xxx/CVE-2015-7528.json",
 		BlobHash:    "41b1d383e7e18cf2d4c312efccb9f3ebd99dd891",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -323,6 +348,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2015/7xxx/CVE-2015-7545.json",
 		BlobHash:    "f3e7d53c4da88c237f053e914c122c4b392d6450",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -354,6 +380,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2015/7xxx/CVE-2015-7561.json",
 		BlobHash:    "43b0e2034d6c4eb6d2701ef83d8fd26625e9f7fc",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -366,6 +393,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2015/8xxx/CVE-2015-8222.json",
 		BlobHash:    "ae2fc7029a0c22b3dca5c4e94ee99991c5a561b6",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -379,6 +407,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2015/8xxx/CVE-2015-8945.json",
 		BlobHash:    "cfbcfd20b67906928751c09053531cd9f79a6000",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -393,6 +422,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2015/9xxx/CVE-2015-9258.json",
 		BlobHash:    "3cb299ef650530e5b4fa3b8015b92ab1e97acc49",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -405,6 +435,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2015/9xxx/CVE-2015-9259.json",
 		BlobHash:    "107d41dfd5a02a2db4210d326eef52762e6614eb",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -417,6 +448,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2015/9xxx/CVE-2015-9282.json",
 		BlobHash:    "583dfbf04222a32d8a542ff502b858a73e00c199",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -431,6 +463,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2016/0xxx/CVE-2016-0216.json",
 		BlobHash:    "ac9f59c6700576b5936dc014ce265ee0c9a41097",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -443,6 +476,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2016/1xxx/CVE-2016-1133.json",
 		BlobHash:    "e8c8db08c23519674cff28190d7799f409074600",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -458,6 +492,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2016/1xxx/CVE-2016-1544.json",
 		BlobHash:    "d441f5bd9f88bee233d06b76ebd092ac8ccccc7b",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -474,6 +509,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2016/1xxx/CVE-2016-1587.json",
 		BlobHash:    "d9e8ff0aad59fd3f73ea4387b62d42ba264e9f81",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -485,6 +521,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2016/1xxx/CVE-2016-1905.json",
 		BlobHash:    "75a910c29b4ebf972c647ddc13c6f49d849be835",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -497,6 +534,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2016/1xxx/CVE-2016-1906.json",
 		BlobHash:    "9241866e7adb1f68453b4c01c53f5f723d86365d",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -511,6 +549,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2016/2xxx/CVE-2016-2160.json",
 		BlobHash:    "0c47ebe1754218401ccca83d9fc098ab2888c24a",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -524,6 +563,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2016/2xxx/CVE-2016-2183.json",
 		BlobHash:    "a0a8a4df4906c4afe4e07f9cca42696252858f12",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -612,6 +652,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2016/2xxx/CVE-2016-2315.json",
 		BlobHash:    "baa983753eeb8f4f588796fc6bb2a6da00b24638",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -647,6 +688,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2016/2xxx/CVE-2016-2324.json",
 		BlobHash:    "9e5d38706848fe52155db5714fce80caef9ce6f2",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -681,6 +723,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2016/3xxx/CVE-2016-3096.json",
 		BlobHash:    "281e6714266b6074e0d92811e7af8d9c3d959282",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -704,6 +747,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2016/3xxx/CVE-2016-3711.json",
 		BlobHash:    "8115e08eb0b2daa8c0fc3a4f25d7ec056218bb0e",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -716,6 +760,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2016/4xxx/CVE-2016-4817.json",
 		BlobHash:    "43ee499860a7df5230da7220fdc287ed0a73ee96",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -730,6 +775,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2016/4xxx/CVE-2016-4864.json",
 		BlobHash:    "db81b848bc530e5a932de1f97ee588da3ceed6e3",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -742,6 +788,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2016/6xxx/CVE-2016-6349.json",
 		BlobHash:    "026a929cc732d3e16f3707b0e77927431839df10",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -757,6 +804,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2016/6xxx/CVE-2016-6494.json",
 		BlobHash:    "58fb6d3b0cfbca0fc47b3d74bee4093d056e06bc",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -775,6 +823,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2016/7xxx/CVE-2016-7063.json",
 		BlobHash:    "0e23338923c32c85922d4e928bb484a8d85dd32d",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -788,6 +837,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2016/7xxx/CVE-2016-7064.json",
 		BlobHash:    "3d76d334ba98d7f5a2217446c7fc9ea78a9fed49",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -800,6 +850,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2016/7xxx/CVE-2016-7075.json",
 		BlobHash:    "f6822fb04347ec41f06e43ae10cc6c9e14752055",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -813,6 +864,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2016/7xxx/CVE-2016-7569.json",
 		BlobHash:    "a8f50811c4301d4f693d341f998650d54a710e4c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -828,6 +880,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2016/7xxx/CVE-2016-7835.json",
 		BlobHash:    "7bd0c8f8398f8e219cfc5875e710825f9847ae0a",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -841,6 +894,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2016/8xxx/CVE-2016-8579.json",
 		BlobHash:    "5a1e6220d014e3f9377352389fa43c63accb6625",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -853,6 +907,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2016/9xxx/CVE-2016-9274.json",
 		BlobHash:    "96470ffc56da89ea8fc11f458e71ef111ec5df1b",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -866,6 +921,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2016/9xxx/CVE-2016-9962.json",
 		BlobHash:    "c0f980f342321bb14cac1d5de7c6cf207e5c64b9",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -892,6 +948,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/1000xxx/CVE-2017-1000056.json",
 		BlobHash:    "186cdca5f767cbd623a39f1b68889db80497e830",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -903,6 +960,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/1000xxx/CVE-2017-1000069.json",
 		BlobHash:    "942314c0d69828503afd2d44f4db106c1d9a30b3",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -914,6 +972,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/1000xxx/CVE-2017-1000070.json",
 		BlobHash:    "0e401cf5656d411d45e09c34c597b0f081a97387",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -926,6 +985,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/1000xxx/CVE-2017-1000420.json",
 		BlobHash:    "ec203dd2d562b299c55bc03e6b0faac0017424d1",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -937,6 +997,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/1000xxx/CVE-2017-1000459.json",
 		BlobHash:    "e95287afe54b0c5f194f27d41bae9cd4c76cd6b3",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -948,6 +1009,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/1000xxx/CVE-2017-1000492.json",
 		BlobHash:    "2d9e9e6b632c0519380b320d1fb3329d948014a7",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -960,6 +1022,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/1002xxx/CVE-2017-1002100.json",
 		BlobHash:    "fca5a4aa6327f1653b40a0a3c9b6ced4e696afac",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -972,6 +1035,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/1002xxx/CVE-2017-1002101.json",
 		BlobHash:    "a8c2bdc2f9c60764e9f1881ec7b2d23aec704e94",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -986,6 +1050,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/1002xxx/CVE-2017-1002102.json",
 		BlobHash:    "0cc34b8d285c1bcca9e23488088138fa92dd35d7",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -998,6 +1063,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/10xxx/CVE-2017-10868.json",
 		BlobHash:    "40c59280c218983748803e23264c99c42dad0bcf",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1010,6 +1076,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/10xxx/CVE-2017-10869.json",
 		BlobHash:    "0009cbdc8d02be0391670e6bb017f95f533f59b6",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1022,6 +1089,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/10xxx/CVE-2017-10872.json",
 		BlobHash:    "6d844466776fc894414a92d578ce5c84790e2b8b",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1034,6 +1102,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/10xxx/CVE-2017-10908.json",
 		BlobHash:    "21924f0076822602a678bcbf7cd22669d4fd1a9e",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1046,6 +1115,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/14xxx/CVE-2017-14178.json",
 		BlobHash:    "9b2bf5cbcc763d491a503ac41067282c665e9abc",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1059,6 +1129,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/14xxx/CVE-2017-14623.json",
 		BlobHash:    "f524aeead96962abc23351d740022553e73757ad",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1071,6 +1142,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/14xxx/CVE-2017-14992.json",
 		BlobHash:    "366ff53d9a34d20004a471ca091b29cec6683a1c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1083,6 +1155,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/15xxx/CVE-2017-15104.json",
 		BlobHash:    "a7df93ede38ff481692b22f5712a90ee83b711cf",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1097,6 +1170,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/16xxx/CVE-2017-16539.json",
 		BlobHash:    "342b31363374a3a6d961be5d73aaeeb7744dbdd4",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1112,6 +1186,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/17xxx/CVE-2017-17697.json",
 		BlobHash:    "274e9aad2132a7c49c11a1d9265628c3f447edc7",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1123,6 +1198,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/2xxx/CVE-2017-2428.json",
 		BlobHash:    "2d3da11d967f8a98955fa00d3b879bf3bf93d9ff",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1140,6 +1216,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/7xxx/CVE-2017-7297.json",
 		BlobHash:    "80de817b1932c2418c6fc3627767d44227b54e48",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1152,6 +1229,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/7xxx/CVE-2017-7481.json",
 		BlobHash:    "e2b8ae7ce6b93ece51f2ed17bb5113b55e8bbb6e",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1173,6 +1251,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/7xxx/CVE-2017-7550.json",
 		BlobHash:    "ad7744ea58016c1de5573869da0544f1d8e0b16c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1186,6 +1265,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/7xxx/CVE-2017-7860.json",
 		BlobHash:    "13a2228e63f0f46795b242bd8cb4ad797cb9cbe2",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1199,6 +1279,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/7xxx/CVE-2017-7861.json",
 		BlobHash:    "453130af5b5b8010111e42cc388fbc5f43aa889e",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1212,6 +1293,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/8xxx/CVE-2017-8359.json",
 		BlobHash:    "5e8f0f8ef3da14ba375263bc03884a3410ac6fcb",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1225,6 +1307,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/9xxx/CVE-2017-9431.json",
 		BlobHash:    "2d6834e7c3d19ddb7baffd0160fd61e30779fdf5",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1237,6 +1320,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/0xxx/CVE-2018-0608.json",
 		BlobHash:    "045fec41d17861f86b541869d397c5e280854bb6",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1249,6 +1333,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/1000xxx/CVE-2018-1000400.json",
 		BlobHash:    "055327cc1b43bc98c8260ca9ca9e7f89c7ae1b78",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1261,6 +1346,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/1000xxx/CVE-2018-1000538.json",
 		BlobHash:    "4693085bc7714393c2fd0e1980970276c9b71687",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1273,6 +1359,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/1000xxx/CVE-2018-1000803.json",
 		BlobHash:    "bbc1d2ebc7f13f350461116c8aecfb6a0c37f33b",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1285,6 +1372,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/1000xxx/CVE-2018-1000816.json",
 		BlobHash:    "196777c6a21062d6742ad28759a97637e00fae1b",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1296,6 +1384,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/1002xxx/CVE-2018-1002100.json",
 		BlobHash:    "273200b8208ce84c1b7d42550668a98582c7b8ef",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1309,6 +1398,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/1002xxx/CVE-2018-1002101.json",
 		BlobHash:    "c2cd4cfd92f5f066c2bf9308363a395b2a8449fd",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1322,6 +1412,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/1002xxx/CVE-2018-1002102.json",
 		BlobHash:    "96adf20e2429475ae67e72233f65159e2aad09a7",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1334,6 +1425,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/1002xxx/CVE-2018-1002103.json",
 		BlobHash:    "d1edbbcfd99863eb063b5d1f04ade5374143ac11",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1345,6 +1437,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/1002xxx/CVE-2018-1002104.json",
 		BlobHash:    "1c10a1a861a08030cabafb1f0972a657871acf6c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1356,6 +1449,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/1002xxx/CVE-2018-1002105.json",
 		BlobHash:    "153ef110d19435a06c78b5f7499c1b6c9a991723",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1386,6 +1480,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/1002xxx/CVE-2018-1002207.json",
 		BlobHash:    "7a69b2918e654203b3d9cee5e6e57d3eda432b42",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1401,6 +1496,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/10xxx/CVE-2018-10055.json",
 		BlobHash:    "bfd0b709d180b3fac635c4311cf647adedf2e831",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1412,6 +1508,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/10xxx/CVE-2018-10856.json",
 		BlobHash:    "fe414baee5a3a73b4ecc1a07731b0a58ef32e40f",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1425,6 +1522,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/10xxx/CVE-2018-10892.json",
 		BlobHash:    "9a297de39e022e08c46b9f04c88f3327867b27aa",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1441,6 +1539,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/10xxx/CVE-2018-10937.json",
 		BlobHash:    "261e46299b2721df16561fae93500096b92c25a6",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1455,6 +1554,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/1xxx/CVE-2018-1098.json",
 		BlobHash:    "01249fce90e1e575fce9c7ab134de1591496b169",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1469,6 +1569,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/1xxx/CVE-2018-1099.json",
 		BlobHash:    "1a69ba6fc3592810102632fdd4a8e7aed9f6b1cb",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1483,6 +1584,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/12xxx/CVE-2018-12099.json",
 		BlobHash:    "6b867dd20b28bc782c927bdcb6c8164529d1e0bf",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1496,6 +1598,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/12xxx/CVE-2018-12608.json",
 		BlobHash:    "04e2d2cfa0ade3aa12257cb6f58974336446df17",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1507,6 +1610,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/12xxx/CVE-2018-12678.json",
 		BlobHash:    "fdc164ad2138c176976779e1ffaaf333eed7a191",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1519,6 +1623,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/12xxx/CVE-2018-12976.json",
 		BlobHash:    "6a92a4c19239879e39ebc5154d61f738960426c9",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1531,6 +1636,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/14xxx/CVE-2018-14474.json",
 		BlobHash:    "d1a361cbe7eb0eb35921ab6cd10e2a51faffd079",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1542,6 +1648,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/15xxx/CVE-2018-15178.json",
 		BlobHash:    "a57c17640dc4de6fa83a45e5ef93f9431abf4c92",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1554,6 +1661,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/15xxx/CVE-2018-15192.json",
 		BlobHash:    "e94118c0b7ae432eba835137ddaca3f65be53a52",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1566,6 +1674,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/15xxx/CVE-2018-15193.json",
 		BlobHash:    "0da82c7f418abe22cf2aee3964211d3d3966cfd5",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1577,6 +1686,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/15xxx/CVE-2018-15598.json",
 		BlobHash:    "edb153e30e0b8b71c8fc3857fcd7ab3b989802da",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1591,6 +1701,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/15xxx/CVE-2018-15664.json",
 		BlobHash:    "cd288bf64f1c706476bbdda4277d751f029d2e06",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1611,6 +1722,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/15xxx/CVE-2018-15747.json",
 		BlobHash:    "abb866308a8fdcfcf8d915e56024d8bdb9bf9521",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1622,6 +1734,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/15xxx/CVE-2018-15869.json",
 		BlobHash:    "bddc4e3d6a904e86f183f314f744743ea14ad283",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1634,6 +1747,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/16xxx/CVE-2018-16316.json",
 		BlobHash:    "53d8827f84704705acf59957d84f0979be815f38",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1645,6 +1759,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/16xxx/CVE-2018-16359.json",
 		BlobHash:    "c42eb49fc474c15d577dbc3ccc64de8164e152bd",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1657,6 +1772,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/16xxx/CVE-2018-16398.json",
 		BlobHash:    "232319722bf894c43c9d7d8affffff8161b0dd2a",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1669,6 +1785,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/16xxx/CVE-2018-16409.json",
 		BlobHash:    "39f379ecda7f8971a7ca7e02925776cd65515f98",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1680,6 +1797,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/16xxx/CVE-2018-16733.json",
 		BlobHash:    "2c31ccc6fc823bcdc7ad873e55ab4cfa8bfc226a",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1691,6 +1809,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/16xxx/CVE-2018-16859.json",
 		BlobHash:    "678f6a27e55ee773abf1427413a47e878fbe8ae8",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1711,6 +1830,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/16xxx/CVE-2018-16876.json",
 		BlobHash:    "5380288314b1345acd95ec6a54e23d564badb9ac",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1735,6 +1855,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/17xxx/CVE-2018-17031.json",
 		BlobHash:    "7bab8a1dc52969e53cac17f0637c761926dc26a8",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1746,6 +1867,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/17xxx/CVE-2018-17456.json",
 		BlobHash:    "5335a4699d4dcd8179960df573f4745a593613d4",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1774,6 +1896,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/17xxx/CVE-2018-17572.json",
 		BlobHash:    "e91cbd3483163459057b92a35e691421d94c1118",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1786,6 +1909,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/18xxx/CVE-2018-18264.json",
 		BlobHash:    "9d1fca97635951f2ed39a0f726787f404f1a339b",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1802,6 +1926,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/18xxx/CVE-2018-18553.json",
 		BlobHash:    "f0cced225e5b727eee78018a67090affecf7c7ae",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1813,6 +1938,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/18xxx/CVE-2018-18623.json",
 		BlobHash:    "59f314eb5b689b83359e92d05d8df451707f8eca",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1825,6 +1951,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/18xxx/CVE-2018-18624.json",
 		BlobHash:    "774fe9ebe536fc3fc5e5f20b188595ac44c80084",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1837,6 +1964,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/18xxx/CVE-2018-18625.json",
 		BlobHash:    "e427129bbe49ac34bfec64e93c5235be9cb906b3",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1849,6 +1977,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/18xxx/CVE-2018-18925.json",
 		BlobHash:    "094fea40676b8ff3b0f8f28ce482c38bfa9c0dc8",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1860,6 +1989,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/18xxx/CVE-2018-18926.json",
 		BlobHash:    "9f8984abcd9be9d1192ec0eb53771cedeb0ccb7e",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1871,6 +2001,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/19xxx/CVE-2018-19114.json",
 		BlobHash:    "76e9d3b69b0961db9efaf478f1666d2518cdce18",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1882,6 +2013,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/19xxx/CVE-2018-19148.json",
 		BlobHash:    "5230ee0573997298a29e85e471f230e9ee5ee320",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1895,6 +2027,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/19xxx/CVE-2018-19184.json",
 		BlobHash:    "ae25d83c06c8683e86c63fbed23c14fad844bca6",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1906,6 +2039,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/19xxx/CVE-2018-19295.json",
 		BlobHash:    "17864661bfc1bde9f3b20836ec844f88c0c00d2a",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1917,6 +2051,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/19xxx/CVE-2018-19333.json",
 		BlobHash:    "c234aa4daf9af3a2c9119b1da9ea3f33b467067d",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1929,6 +2064,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/19xxx/CVE-2018-19367.json",
 		BlobHash:    "a3340712dbc79533ebb2e6332efd6314c6325cc8",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1941,6 +2077,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/19xxx/CVE-2018-19466.json",
 		BlobHash:    "06c52909067b881c6cef8398f6f7eb99d81a99e0",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1954,6 +2091,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/19xxx/CVE-2018-19653.json",
 		BlobHash:    "7c7de73314eb58e4e50ff65a3f93c8e97e0001e6",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1966,6 +2104,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/19xxx/CVE-2018-19786.json",
 		BlobHash:    "44fc7dda05c3e2fddb648168a0287f4345aeeadb",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1977,6 +2116,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/19xxx/CVE-2018-19793.json",
 		BlobHash:    "52f5a3da668af5c966cdaba22f3c98998a424994",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -1988,6 +2128,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/20xxx/CVE-2018-20303.json",
 		BlobHash:    "2779443b720a0c9de37b3f3f9e3e11d9a551758d",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2001,6 +2142,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/20xxx/CVE-2018-20421.json",
 		BlobHash:    "44708b3178d64441e737723c276c09be2a68458c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2012,6 +2154,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/20xxx/CVE-2018-20699.json",
 		BlobHash:    "dacf7cf3d7d29ae5e23e75ba7131ec150742a6aa",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2025,6 +2168,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/20xxx/CVE-2018-20744.json",
 		BlobHash:    "1cefda4afbed2d638e20c35d2c933d0b5f040517",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2038,6 +2182,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/21xxx/CVE-2018-21034.json",
 		BlobHash:    "56d67bbf8f84d7891fe18cb9e5e4ccf57d2c950f",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2052,6 +2197,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/21xxx/CVE-2018-21233.json",
 		BlobHash:    "9937c0c3e6b76e59e2ca443213aff777788924a4",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2064,6 +2210,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/7xxx/CVE-2018-7575.json",
 		BlobHash:    "9343295dfee30eb28e116826e8850d64aabf441a",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2075,6 +2222,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/7xxx/CVE-2018-7576.json",
 		BlobHash:    "2453c5b8afea3b098674f54d18903bead7dd5f7a",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2086,6 +2234,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/7xxx/CVE-2018-7577.json",
 		BlobHash:    "8157d1ce7a37342f460099bf7dbf3a5a99b1f91b",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2097,6 +2246,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/8xxx/CVE-2018-8825.json",
 		BlobHash:    "17abad64af8aa7178a1f18c852d2ead398d566ca",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2108,6 +2258,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2018/9xxx/CVE-2018-9057.json",
 		BlobHash:    "b752bd349b89c035a8dfe9beb1e00500b3eabe64",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2119,6 +2270,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/1000xxx/CVE-2019-1000002.json",
 		BlobHash:    "025ede9d25a3d3f4675742a15bf6613c65329185",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2130,6 +2282,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/1002xxx/CVE-2019-1002100.json",
 		BlobHash:    "e0b89cbfecc6bda0ddc9328c14c464d0f530d569",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2146,6 +2299,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/1002xxx/CVE-2019-1002101.json",
 		BlobHash:    "fc334f7e1f3d69f0a0aa7f96aeb508e914eb608e",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2166,6 +2320,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/1010xxx/CVE-2019-1010003.json",
 		BlobHash:    "42d5629bcde21ead9f2a00a657cac5e87d417353",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2177,6 +2332,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/1010xxx/CVE-2019-1010261.json",
 		BlobHash:    "f3831638d12b38f33ea883beef62a45010809b5c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2188,6 +2344,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/1010xxx/CVE-2019-1010275.json",
 		BlobHash:    "fe4e49a7a24105b11d76a66df4c7b4d0b29326bf",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2201,6 +2358,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/1010xxx/CVE-2019-1010314.json",
 		BlobHash:    "ee33fb655d9cdb556729967d0e5795044a74797e",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2212,6 +2370,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/10xxx/CVE-2019-10152.json",
 		BlobHash:    "8caa697ce18f612e3f89e82105107920bc18512b",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2227,6 +2386,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/10xxx/CVE-2019-10156.json",
 		BlobHash:    "9bca6bd659046577d701e51ccbb3e127e06ff77d",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2243,6 +2403,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/10xxx/CVE-2019-10165.json",
 		BlobHash:    "ebeba6c38254ff460ab6b1a5da153d9c47c9407a",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2256,6 +2417,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/10xxx/CVE-2019-10200.json",
 		BlobHash:    "dbc0d981d4cc09a63bde8bfd9c87f6a6b23f287d",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2268,6 +2430,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/1020xxx/CVE-2019-1020009.json",
 		BlobHash:    "1ae26a4c91f2bc53ee44fadd4374e20e2c72832a",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2279,6 +2442,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/1020xxx/CVE-2019-1020014.json",
 		BlobHash:    "8ea048b124de215f7cae83a713d807802ad5ce13",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2294,6 +2458,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/1020xxx/CVE-2019-1020015.json",
 		BlobHash:    "83816b3b659ad58e520ed2e8a6927f856602c108",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2305,6 +2470,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/10xxx/CVE-2019-10217.json",
 		BlobHash:    "7fbf95dcee87cd58c34f9947cc3d51ebbc4c1e64",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2320,6 +2486,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/10xxx/CVE-2019-10223.json",
 		BlobHash:    "f06bcfd6195f7257a34b188fd665a3b9cdfe61c6",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2334,6 +2501,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/10xxx/CVE-2019-10743.json",
 		BlobHash:    "78dfc1f5c94cf1480c02ac5ef1f8c3bcaaedfa0b",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2347,6 +2515,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/11xxx/CVE-2019-11043.json",
 		BlobHash:    "efbcf584e1363faeb3eb773648d2ce43da0e9335",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2383,6 +2552,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/11xxx/CVE-2019-11228.json",
 		BlobHash:    "91ad8aad6f9734cd90b3f06f6e2613b7154004e9",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2395,6 +2565,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/11xxx/CVE-2019-11229.json",
 		BlobHash:    "7dc2899d18260f82d6cfa35ae699107ac55affc6",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2408,6 +2579,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/11xxx/CVE-2019-11243.json",
 		BlobHash:    "240224e18d72e19314d8e206100446f0a275b49e",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2421,6 +2593,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/11xxx/CVE-2019-11244.json",
 		BlobHash:    "ee426f62fc258992ee5c5add5afa24866183049f",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2437,6 +2610,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/11xxx/CVE-2019-11245.json",
 		BlobHash:    "ada2d8773e54a20b336e667f6090b889da32e60e",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2449,6 +2623,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/11xxx/CVE-2019-11246.json",
 		BlobHash:    "d77d041f1845f282f19721f1b2c7eb293aa8f7c3",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2462,6 +2637,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/11xxx/CVE-2019-11247.json",
 		BlobHash:    "026587a117d05ad182dd6e2d9e96f2d0865cb2b9",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2479,6 +2655,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/11xxx/CVE-2019-11248.json",
 		BlobHash:    "00d4505f9edf499002ad21d1106879358cd7299a",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2492,6 +2669,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/11xxx/CVE-2019-11249.json",
 		BlobHash:    "47f2be6cfd55d6f91c805f77435fea5eda2c972c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2510,6 +2688,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/11xxx/CVE-2019-11251.json",
 		BlobHash:    "4c8f81bc45c5b6ae61871ed463956147eb35057b",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2522,6 +2701,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/11xxx/CVE-2019-11252.json",
 		BlobHash:    "92b566eb58a6bfab63e2bc67c35d85e6342ab81d",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2533,6 +2713,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/11xxx/CVE-2019-11255.json",
 		BlobHash:    "a1bac48c650c8fc51190ab12dca53f9dad7dc2fb",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2550,6 +2731,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/11xxx/CVE-2019-11328.json",
 		BlobHash:    "e84895b0fa29fcacb03922f45e8a8917dba0d2a9",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2568,6 +2750,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/11xxx/CVE-2019-11405.json",
 		BlobHash:    "b428a95b1dec6aeb4a742a930834a5af2ae4e696",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2581,6 +2764,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/11xxx/CVE-2019-11471.json",
 		BlobHash:    "2efee46b4fef111a80fbca929f440c6d1e99d951",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2593,6 +2777,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/11xxx/CVE-2019-11502.json",
 		BlobHash:    "f2a4e1adde7ef761a7ce10889105fb109b82b80c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2606,6 +2791,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/11xxx/CVE-2019-11503.json",
 		BlobHash:    "59e3c0411f4ccd201662e0650f62acd0f328bdd6",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2621,6 +2807,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/11xxx/CVE-2019-11576.json",
 		BlobHash:    "3b90488fb237206082010ff8265beab7ec0dcb8a",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2633,6 +2820,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/11xxx/CVE-2019-11641.json",
 		BlobHash:    "d91faee964c8eee67eb31bbdfb95e258ecba0dbe",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2644,6 +2832,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/11xxx/CVE-2019-11881.json",
 		BlobHash:    "ec2bf57ca5fd5f3c95d06c8fe5f052a9b2b5958a",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2656,6 +2845,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/11xxx/CVE-2019-11938.json",
 		BlobHash:    "0398da0e1431d14677d55020500d17943ef4fb93",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2669,6 +2859,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/12xxx/CVE-2019-12291.json",
 		BlobHash:    "ff4c4bccd23c52a9d1034ef7218d31bafba28423",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2680,6 +2871,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/12xxx/CVE-2019-12452.json",
 		BlobHash:    "3bfedf7f9b1c3dd830d1ab48ef930747ece63146",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2693,6 +2885,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/12xxx/CVE-2019-12494.json",
 		BlobHash:    "258fadf0b886fa7a254e061157499782629f282f",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2706,6 +2899,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/12xxx/CVE-2019-12618.json",
 		BlobHash:    "383b97a16200129465fb17e8585798806cdbe0ad",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2719,6 +2913,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/12xxx/CVE-2019-12995.json",
 		BlobHash:    "c026aab113dc55ebe03006aef81b4cc16296ebc7",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2732,6 +2927,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/12xxx/CVE-2019-12999.json",
 		BlobHash:    "e76cd1687069c4af03dba8a65ba9c448776f8467",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2745,6 +2941,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/13xxx/CVE-2019-13068.json",
 		BlobHash:    "0a67265314aad32b9195fc1ecc63ecdbefff63a0",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2758,6 +2955,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/13xxx/CVE-2019-13126.json",
 		BlobHash:    "55b267640f33a4f3a1b70bfebd68b670a156af55",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2770,6 +2968,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/13xxx/CVE-2019-13139.json",
 		BlobHash:    "affbd0b23c6d4cf05cf0493a761621959e397d5d",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2787,6 +2986,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/13xxx/CVE-2019-13915.json",
 		BlobHash:    "c28c5b8ac1b46a51ff649b09511457f9a062f05d",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2798,6 +2998,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/14xxx/CVE-2019-14243.json",
 		BlobHash:    "3d6ca6baefdec4c629814fd8742cb6c70c524b05",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2814,6 +3015,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/14xxx/CVE-2019-14255.json",
 		BlobHash:    "080feaf39dde048b5eb8714ce9ceffe57771af2c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2825,6 +3027,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/14xxx/CVE-2019-14271.json",
 		BlobHash:    "525144ea9bf237401b83dde566e97ee338088a56",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2841,6 +3044,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/14xxx/CVE-2019-14544.json",
 		BlobHash:    "d44e03d3e369947b16ff48b95f754d0097b04422",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2852,6 +3056,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/14xxx/CVE-2019-14846.json",
 		BlobHash:    "e4504fea8a94bc8abf1a26c600394ecb42552d4f",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2873,6 +3078,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/14xxx/CVE-2019-14864.json",
 		BlobHash:    "05c5029f208e31be80468e1b08210407c44a0b76",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2888,6 +3094,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/14xxx/CVE-2019-14904.json",
 		BlobHash:    "79f65d4b41ccb1e253ab9a62354e27963949b935",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2901,6 +3108,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/14xxx/CVE-2019-14940.json",
 		BlobHash:    "795b8ab72afb7caeb2b9fcc94851e0881bfb2e7d",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2912,6 +3120,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/14xxx/CVE-2019-14993.json",
 		BlobHash:    "dcb624b1dd02901374a40c981cbf752d066361d0",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2926,6 +3135,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/15xxx/CVE-2019-15043.json",
 		BlobHash:    "5d64b3160b773e51ecf38ba83cfffa33b3a0988c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2946,6 +3156,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/15xxx/CVE-2019-15119.json",
 		BlobHash:    "0afdb67cace7095df25df975e881acd7b2512bb3",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2958,6 +3169,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/15xxx/CVE-2019-15225.json",
 		BlobHash:    "e4acf6d62c653e50bebe75585582a4c5ee8ab2a4",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2969,6 +3181,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/15xxx/CVE-2019-15226.json",
 		BlobHash:    "d728ca5f8ba329e8d0d40bb6af1f115dfd186e04",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2982,6 +3195,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/15xxx/CVE-2019-15562.json",
 		BlobHash:    "163789d5a1fd4f7430975ced3ca5b6ce4519089c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -2996,6 +3210,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/15xxx/CVE-2019-15716.json",
 		BlobHash:    "7469952f2a930ae410f6a261b4551adc302a1b76",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3009,6 +3224,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/16xxx/CVE-2019-16060.json",
 		BlobHash:    "9c378b379f482d7725baafb194a1acade28a4bbd",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3020,6 +3236,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/16xxx/CVE-2019-16097.json",
 		BlobHash:    "4facc31796c17f1bb3e241cab3accb974b68c73f",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3036,6 +3253,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/16xxx/CVE-2019-16146.json",
 		BlobHash:    "f7415bce429210272f7f522d58dc0a5aa197a9d2",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3047,6 +3265,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/16xxx/CVE-2019-16214.json",
 		BlobHash:    "3c00f5013f369e52474a4b47c61c47dad3433c57",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3060,6 +3279,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/16xxx/CVE-2019-16355.json",
 		BlobHash:    "6c3717f918447251a41e2bf059f6aed70ef9e5bf",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3071,6 +3291,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/16xxx/CVE-2019-16778.json",
 		BlobHash:    "79c8ece60183840c81f4be3dd5b3f0c34073cdd6",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3084,6 +3305,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/16xxx/CVE-2019-16919.json",
 		BlobHash:    "c83a62ca2397e93022bc1737ae1bb03add793d6f",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3097,6 +3319,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/18xxx/CVE-2019-18466.json",
 		BlobHash:    "e153cc928f291572de44893ea69a82169e3fd99a",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3113,6 +3336,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/18xxx/CVE-2019-18657.json",
 		BlobHash:    "9dd98b50e92943e0863c8d1703dad082c14de3bc",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3126,6 +3350,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/18xxx/CVE-2019-18801.json",
 		BlobHash:    "f32ec181fdf01f62dafabf2952f91bdde06b559c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3141,6 +3366,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/18xxx/CVE-2019-18802.json",
 		BlobHash:    "69c5764c6435584d082e1ebe62c8d77dafe9e038",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3156,6 +3382,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/18xxx/CVE-2019-18817.json",
 		BlobHash:    "7e1cfb65da95dc7c8a0915cb6f3791112fe33299",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3168,6 +3395,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/18xxx/CVE-2019-18836.json",
 		BlobHash:    "7b94362aea5c82e2d167c886763553dabb569120",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3182,6 +3410,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/18xxx/CVE-2019-18838.json",
 		BlobHash:    "45f3cb1518e31e5c0311ff0c8a07edea3650fba7",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3196,6 +3425,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/18xxx/CVE-2019-18923.json",
 		BlobHash:    "5ab89fec75b1e5e9fc68200be2ecf3d081ad3b3c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3208,6 +3438,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/19xxx/CVE-2019-19023.json",
 		BlobHash:    "c65ec8265c7c221b10038390e54f83fb8fb57380",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3220,6 +3451,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/19xxx/CVE-2019-19025.json",
 		BlobHash:    "319b42d2220549d97aa1b196a71bf1af6443dedb",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3233,6 +3465,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/19xxx/CVE-2019-19026.json",
 		BlobHash:    "2e2be398442b195e408aa00ef0c50504e1aafb4d",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3246,6 +3479,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/19xxx/CVE-2019-19029.json",
 		BlobHash:    "9388b463ac82baa9b6b4c6248f707695b541ce02",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3259,6 +3493,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/19xxx/CVE-2019-19316.json",
 		BlobHash:    "99e80ea26c6c3f1a43ef4c11e5f52939348b3c5f",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3270,6 +3505,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/19xxx/CVE-2019-19335.json",
 		BlobHash:    "e24b07367bb61f813bd8ad8e608a13068089b290",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3281,6 +3517,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/19xxx/CVE-2019-19349.json",
 		BlobHash:    "81759decb9c3b14e63d99ec2c01550a77f193dd3",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3293,6 +3530,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/19xxx/CVE-2019-19350.json",
 		BlobHash:    "be7fda55b07cb415a2c5f586189a00586cca7082",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3305,6 +3543,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/19xxx/CVE-2019-19724.json",
 		BlobHash:    "159f7d803636dd2ef6313aa2471fa8dff9eb7f9d",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3318,6 +3557,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/19xxx/CVE-2019-19922.json",
 		BlobHash:    "6daf82d954d5ad555580ded4e6b34216e5ab1fb2",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3336,6 +3576,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/20xxx/CVE-2019-20329.json",
 		BlobHash:    "ad4ce06fbbd574a6742e8d43184caf2e721de2de",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3349,6 +3590,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/20xxx/CVE-2019-20372.json",
 		BlobHash:    "cb8234e84e0802f06ee40be40c766b10d17b0974",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3368,6 +3610,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/20xxx/CVE-2019-20377.json",
 		BlobHash:    "5ce3ea7ffb45e199b7fb3a9c26fa416c35433fa9",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3379,6 +3622,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/20xxx/CVE-2019-20894.json",
 		BlobHash:    "e2b7f6503920679af3592d2acaa6c3ef5b83baf7",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3390,6 +3634,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/20xxx/CVE-2019-20933.json",
 		BlobHash:    "53d3419759649147083c4e39c29cb795407d6823",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3405,6 +3650,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/25xxx/CVE-2019-25014.json",
 		BlobHash:    "d4cc6a06989f1abc359b4c47bf3c807cc898a458",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3417,6 +3663,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/3xxx/CVE-2019-3552.json",
 		BlobHash:    "c40a70560ec0e411812acff3a1bada2ecb3ce47c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3430,6 +3677,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/3xxx/CVE-2019-3553.json",
 		BlobHash:    "0d36004a8d58b25beb7a744d44fbcfb4c293deaf",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3443,6 +3691,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/3xxx/CVE-2019-3558.json",
 		BlobHash:    "0a56ef93e603a8315c031e2e2ae979339406e18c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3457,6 +3706,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/3xxx/CVE-2019-3559.json",
 		BlobHash:    "044998de6792e20e43bdc95fe51c581edef9fdc5",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3470,6 +3720,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/3xxx/CVE-2019-3565.json",
 		BlobHash:    "52d4975f9164deaf7c50b81b00f369d7def6e55f",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3484,6 +3735,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/3xxx/CVE-2019-3826.json",
 		BlobHash:    "7c4bf71bc274679b9929c35618ac44685eeb066d",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3502,6 +3754,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/3xxx/CVE-2019-3828.json",
 		BlobHash:    "ecf1efff5e523cf410bd7dad7d181a88090d7377",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3520,6 +3773,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/3xxx/CVE-2019-3841.json",
 		BlobHash:    "fb2cd94717b5e0267890e50fa3f05139cadba555",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3532,6 +3786,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/3xxx/CVE-2019-3990.json",
 		BlobHash:    "b28380c71c2d5e8c495a466ffd1693fd702ff1a9",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3544,6 +3799,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/5xxx/CVE-2019-5736.json",
 		BlobHash:    "a70763471650d8005dfa3efbc0d8ccbe6540d2f7",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3616,6 +3872,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/6xxx/CVE-2019-6035.json",
 		BlobHash:    "3c8c32ae22bd6815d0449ad9712f7f9174466a99",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3629,6 +3886,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/8xxx/CVE-2019-8336.json",
 		BlobHash:    "abe831f5016cc79fd871b617a7af877ee0b0a4a0",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3640,6 +3898,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/8xxx/CVE-2019-8400.json",
 		BlobHash:    "4b34b7a6ba89e99f7d3c8e07983001c666379f0d",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3655,6 +3914,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/9xxx/CVE-2019-9547.json",
 		BlobHash:    "a944bea3ea8cd2b38f441dd27151e01f83403424",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3667,6 +3927,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/9xxx/CVE-2019-9635.json",
 		BlobHash:    "9d58ae865204551751290c66abbff27e40f4ecd4",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3678,6 +3939,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/9xxx/CVE-2019-9764.json",
 		BlobHash:    "d7793034dbd0ce5a1900da4dee3aea04c8082989",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3689,6 +3951,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/9xxx/CVE-2019-9900.json",
 		BlobHash:    "236cb5b5fc6add61e91d73d6cb274f965889b736",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3704,6 +3967,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/9xxx/CVE-2019-9901.json",
 		BlobHash:    "df957110c5812905fe08c8808751fddc18b66f32",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3718,6 +3982,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2019/9xxx/CVE-2019-9946.json",
 		BlobHash:    "0fdd06a121187709d8e863358fbc539a51bfcbba",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3733,6 +3998,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/10xxx/CVE-2020-10660.json",
 		BlobHash:    "afe60fafe6b51c1e333bc6bf414cf05ab10d0d48",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3745,6 +4011,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/10xxx/CVE-2020-10661.json",
 		BlobHash:    "18b1302eca7464a23928bd9215e655cb1dc02056",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3757,6 +4024,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/10xxx/CVE-2020-10685.json",
 		BlobHash:    "bed787e624fb760bf7e3974a111b0aa030a5f20d",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3770,6 +4038,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/10xxx/CVE-2020-10691.json",
 		BlobHash:    "6c5d50dd00f6d10db0ec80c974927572cbb61de6",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3782,6 +4051,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/10xxx/CVE-2020-10696.json",
 		BlobHash:    "461bbeb746dd1ff55af64811a3893be09affe1df",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3795,6 +4065,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/10xxx/CVE-2020-10706.json",
 		BlobHash:    "997d4d69ee84e69e79ed69d294d6948ec6400695",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3806,6 +4077,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/10xxx/CVE-2020-10712.json",
 		BlobHash:    "8ac05635085e0b20cddadaa67975ff3963764488",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3817,6 +4089,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/10xxx/CVE-2020-10715.json",
 		BlobHash:    "b63d43881d1fba101f9b921b1f02e82baae4e90f",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3829,6 +4102,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/10xxx/CVE-2020-10749.json",
 		BlobHash:    "8822dd27a56bcc2137fcdecb52aa167910a3fe59",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3844,6 +4118,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/10xxx/CVE-2020-10750.json",
 		BlobHash:    "dfa783a0f815bd8b222cd3dcd2ecbafdd018dbfc",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3856,6 +4131,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/10xxx/CVE-2020-10752.json",
 		BlobHash:    "19ebc5ac73d637204c098c0830ec8b4e4a5157bc",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3868,6 +4144,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/10xxx/CVE-2020-10763.json",
 		BlobHash:    "f11aba3a3166d14eb4f5d0aa25f1e14c6dc1a4f5",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3880,6 +4157,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/10xxx/CVE-2020-10944.json",
 		BlobHash:    "0fcfa628243c48bdb9c07e0ed2c83806793a2b47",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3891,6 +4169,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/11xxx/CVE-2020-11008.json",
 		BlobHash:    "49b7673095fcc8b089bff21bac55476915375266",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3913,6 +4192,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/11xxx/CVE-2020-11012.json",
 		BlobHash:    "eda555e8b97f25306c94cfcb961ee6c97bc7005c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3927,6 +4207,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/11xxx/CVE-2020-11013.json",
 		BlobHash:    "094ee70f2f433077aaee4062ac5c12fb19dc8df2",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3939,6 +4220,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/11xxx/CVE-2020-11053.json",
 		BlobHash:    "35faf332602e9f8a188e8842e36b59318312184f",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3950,6 +4232,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/11xxx/CVE-2020-11080.json",
 		BlobHash:    "4fa5eac63a53a7eb9f7f4eea563e03111bac58e7",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3970,6 +4253,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/11xxx/CVE-2020-11091.json",
 		BlobHash:    "e4d76ded9cbc0f4dfae213028ecfe4ff8003e0fb",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3982,6 +4266,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/11xxx/CVE-2020-11110.json",
 		BlobHash:    "3a67b7a18ba3de7f72afe992db666d0e7235ef6c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -3994,6 +4279,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/11xxx/CVE-2020-11498.json",
 		BlobHash:    "2bfc8ec0f4298b3d984e25c885470da69e1e0314",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4006,6 +4292,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/11xxx/CVE-2020-11576.json",
 		BlobHash:    "f003dec53d4d2ef8de2dc76461a02cb5b3268a3d",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4019,6 +4306,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/11xxx/CVE-2020-11710.json",
 		BlobHash:    "06704241be0913c4e32085f5fe9d42d3d02589f6",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4033,6 +4321,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/11xxx/CVE-2020-11767.json",
 		BlobHash:    "2da1921971291d993c9d73746cef16d55339bc2f",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4047,6 +4336,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/12xxx/CVE-2020-12118.json",
 		BlobHash:    "625c805c88e57aafe0bfca5d2f8e5be9d5114990",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4059,6 +4349,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/12xxx/CVE-2020-12245.json",
 		BlobHash:    "616c91ca3b57b2b744bd08a30ad12b9704199d15",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4077,6 +4368,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/12xxx/CVE-2020-12278.json",
 		BlobHash:    "861d14b4598cc4348972ddad1a39a4b976945a7f",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4092,6 +4384,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/12xxx/CVE-2020-12279.json",
 		BlobHash:    "a9ca1a376635da8365a74526596e71051eaf85bc",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4106,6 +4399,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/12xxx/CVE-2020-12283.json",
 		BlobHash:    "c3d171533a26a23b619ad725f8fc12aec7637849",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4121,6 +4415,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/12xxx/CVE-2020-12458.json",
 		BlobHash:    "cdec1bb3fb314b5c27d7374bad63975a26fa55e6",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4137,6 +4432,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/12xxx/CVE-2020-12459.json",
 		BlobHash:    "03485979cc6e5e9b2c6d6cfa0360fb3f3b6477f8",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4154,6 +4450,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/12xxx/CVE-2020-12603.json",
 		BlobHash:    "7921cd1fe37271cd23d6fbd97dd6bf8648a570d2",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4166,6 +4463,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/12xxx/CVE-2020-12604.json",
 		BlobHash:    "306d21154935ffdff9526f480445a678a3466151",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4178,6 +4476,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/12xxx/CVE-2020-12605.json",
 		BlobHash:    "dc93e6a6f6445f141dd06a0440940375304156f1",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4190,6 +4489,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/12xxx/CVE-2020-12757.json",
 		BlobHash:    "ac21b00cd3522a4933f9bf719e1c8260b985c974",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4202,6 +4502,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/12xxx/CVE-2020-12758.json",
 		BlobHash:    "b3e8bdddb005a15366c5a85809f500b72a463df2",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4215,6 +4516,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/12xxx/CVE-2020-12797.json",
 		BlobHash:    "db1a0c6081be54b27a441939d9628fa00abd7d79",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4228,6 +4530,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/13xxx/CVE-2020-13170.json",
 		BlobHash:    "c5cfc8d95bd3b388fb13f5286707ec01ee3de264",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4241,6 +4544,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/13xxx/CVE-2020-13223.json",
 		BlobHash:    "7b3e591fb1f19e2da0e1c47fd65218f1c28997b9",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4253,6 +4557,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/13xxx/CVE-2020-13246.json",
 		BlobHash:    "9a649cb20e560e89d2bedf10e48c8d90282e74be",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4266,6 +4571,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/13xxx/CVE-2020-13250.json",
 		BlobHash:    "90cd61a54bd8ca27ad801f95bab9250095ec68d0",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4279,6 +4585,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/13xxx/CVE-2020-13401.json",
 		BlobHash:    "5db4a90b1a48460ea29578043949b311359777e8",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4298,6 +4605,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/13xxx/CVE-2020-13430.json",
 		BlobHash:    "0196be588481d0cc2288cef28f8cb57f5417af3c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4311,6 +4619,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/13xxx/CVE-2020-13449.json",
 		BlobHash:    "17a03c8be88615c863ac5cf82112d1e31a30d323",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4323,6 +4632,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/13xxx/CVE-2020-13450.json",
 		BlobHash:    "96a4e9c87a8714691a5eab17acec86406aafeac6",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4335,6 +4645,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/13xxx/CVE-2020-13451.json",
 		BlobHash:    "1c80691154fe0a5f68df5e33af3919a910bfa597",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4347,6 +4658,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/13xxx/CVE-2020-13452.json",
 		BlobHash:    "9ccd02a6b2b6b8f7156f996b71b11bdf8be4bdf5",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4359,6 +4671,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/13xxx/CVE-2020-13597.json",
 		BlobHash:    "9344e780825e6ee6ee9f002ff3bfca76bc8a298b",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4372,6 +4685,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/13xxx/CVE-2020-13788.json",
 		BlobHash:    "94dae312a3e1a91ed7bd20ef9ca4a81f3ae95583",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4385,6 +4699,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/13xxx/CVE-2020-13794.json",
 		BlobHash:    "cb3c9de369ff824af51b6b18346b3f1d21242fb0",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4398,6 +4713,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/14xxx/CVE-2020-14144.json",
 		BlobHash:    "45e745dadce235e2420c3eeead0b337d1df1ebed",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4414,6 +4730,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/14xxx/CVE-2020-14306.json",
 		BlobHash:    "7bd070a5ed90353454650d9b7c884d02a8b6d18f",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4426,6 +4743,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/14xxx/CVE-2020-14330.json",
 		BlobHash:    "03c537b1619b4365a94d10cf314fd180e9c06e7d",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4438,6 +4756,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/14xxx/CVE-2020-14332.json",
 		BlobHash:    "afb8d34597ddf56c910f3539ba26d6a12f0603b1",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4450,6 +4769,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/14xxx/CVE-2020-14958.json",
 		BlobHash:    "cf7ec412d6f491b8a2fdf30518ad5fbf8135e8ce",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4462,6 +4782,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15104.json",
 		BlobHash:    "1edfac609c0401df144b93f68b5985348b82b10e",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4473,6 +4794,7 @@ var falsePositives = []*store.CVERecord{
 		Path:              "2020/15xxx/CVE-2020-15112.json",
 		BlobHash:          "3d87891317ff107037bc0145194ab72df1890411",
 		CommitHash:        "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:        time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:          "PUBLIC",
 		TriageState:       "HasVuln",
 		TriageStateReason: "GO-2020-0005",
@@ -4482,6 +4804,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15113.json",
 		BlobHash:    "9133c3be68ef84771bad74ec8770e1efff7bf0de",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4494,6 +4817,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15114.json",
 		BlobHash:    "e5fc68a458642e7cf17a7026f3c2f7c5abf88434",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4506,6 +4830,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15115.json",
 		BlobHash:    "f7eace29c0f83893a3d865628dd5733cdd72fd3d",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4518,6 +4843,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15127.json",
 		BlobHash:    "56ec1fae6e4706da0e7d88f246be25d5e955d966",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4530,6 +4856,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15129.json",
 		BlobHash:    "ce972aecfeb350c6d3a365b51401a16761b2e455",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4546,6 +4873,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15136.json",
 		BlobHash:    "8f347e8c68494ec8f12395fdb9a73e5b5fe8919c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4559,6 +4887,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15157.json",
 		BlobHash:    "97c472abe48bdb0b5bcfc9476e9e986ddece309d",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4574,6 +4903,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15184.json",
 		BlobHash:    "75627eb4432e1e8e595ad18c122450db22d13d29",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4586,6 +4916,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15185.json",
 		BlobHash:    "83e7748e619b25d85b7c23fe17b62b93fe5111bf",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4598,6 +4929,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15186.json",
 		BlobHash:    "bc01ca56a8da6601e8566740fbe6f53a4d9d8215",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4610,6 +4942,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15187.json",
 		BlobHash:    "ce64bf787d290e1867052ee17f87cd6ba392f3b0",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4622,6 +4955,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15190.json",
 		BlobHash:    "69b59e5bf80856e0359142de61ca85efc130db3a",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4636,6 +4970,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15191.json",
 		BlobHash:    "bdceab9a0ef2b19dfa872378bb9d67b57fe72da1",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4650,6 +4985,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15192.json",
 		BlobHash:    "e84ea5377e0da66e43b115a03cceba37dc5222a7",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4664,6 +5000,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15193.json",
 		BlobHash:    "2943e7e3b913448345f8107a34b3e69e4fbf7763",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4678,6 +5015,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15194.json",
 		BlobHash:    "c27861ebb39abe40817ae4993e4bd96d8f92c997",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4692,6 +5030,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15195.json",
 		BlobHash:    "09764b50866a76569b24649dee251a3e5e79adfa",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4706,6 +5045,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15196.json",
 		BlobHash:    "b7f3b2b6fb43fa1c289fa5b2046b571c3d35ac69",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4719,6 +5059,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15197.json",
 		BlobHash:    "eb8804b7987a100032e5f939859ca8a8ce6c4296",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4732,6 +5073,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15198.json",
 		BlobHash:    "67f4566285f0919fbd89e2ea900c8282c60e63b1",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4745,6 +5087,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15199.json",
 		BlobHash:    "2a6df28b3f1f02fab1823e37601a97fdf58a22c3",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4758,6 +5101,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15200.json",
 		BlobHash:    "6a686cb7695ff2798e93514481122251bb966816",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4771,6 +5115,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15201.json",
 		BlobHash:    "a184d90bf2119a79767efc4adeadc88978aa81db",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4784,6 +5129,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15202.json",
 		BlobHash:    "8db71c4621f5a8621f59194d98202222e8f4f73e",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4799,6 +5145,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15203.json",
 		BlobHash:    "be6e48983405407b7a1a0c0449ab4bf524a4caf6",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4813,6 +5160,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15204.json",
 		BlobHash:    "342980aa6ae1f5c0b07fb3b3d513414e09994127",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4827,6 +5175,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15205.json",
 		BlobHash:    "d11a5519a3651939a3798ff873794184a5f691ae",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4841,6 +5190,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15206.json",
 		BlobHash:    "fe7b833644ef82b0add4530b2ab94ec513442fd2",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4855,6 +5205,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15207.json",
 		BlobHash:    "21067fd9482a3b523ceba1fb574224cb5e5dc478",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4869,6 +5220,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15208.json",
 		BlobHash:    "fbfd53b8d4a5bea542c8e11dbad4cd0b029ab8c2",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4883,6 +5235,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15209.json",
 		BlobHash:    "736967f1a08f3de2611a6c5211af41d59163ef52",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4897,6 +5250,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15210.json",
 		BlobHash:    "e825062e26147ca204059d7d5770f588b0686443",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4911,6 +5265,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15211.json",
 		BlobHash:    "4526d71491a9bcf7f797020f1bebf47843074522",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4930,6 +5285,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15212.json",
 		BlobHash:    "72d1531ceaaf0863c6d6903a9d1f79da94ce8f76",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4943,6 +5299,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15213.json",
 		BlobHash:    "922ec7d4d730ace15c0fe9983ee4e86692416c02",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4956,6 +5313,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15214.json",
 		BlobHash:    "ce9b6b29509589dc98577cf830707d730300fbe3",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4969,6 +5327,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15223.json",
 		BlobHash:    "83c8b4250af787675df5a0f49fc85d4346bd4a02",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4982,6 +5341,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15233.json",
 		BlobHash:    "3e3a32a7abdd4d693415cab662f8f3a804d3016f",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -4994,6 +5354,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15234.json",
 		BlobHash:    "1e41a8769ee0a2dc219ea475a4496fa7f45b6a90",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5006,6 +5367,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15254.json",
 		BlobHash:    "8ee99b9d3ed4210fe22e38d0176770eb1539ad14",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5020,6 +5382,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15257.json",
 		BlobHash:    "d3307806e58681229f67d2d1858ffce149a97ca4",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5035,6 +5398,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15265.json",
 		BlobHash:    "eb0b70648f0fd52e57b8619ffee97256e5f8b7ae",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5048,6 +5412,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15266.json",
 		BlobHash:    "d4288afc8306d8d0da027ed34be7977ba9366b79",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5061,6 +5426,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15391.json",
 		BlobHash:    "86980a5a1174555d80467f60769a8329a7bbb7d9",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5073,6 +5439,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/16xxx/CVE-2020-16248.json",
 		BlobHash:    "444ddc83f5309e202900762cb040330d169e7178",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5088,6 +5455,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/16xxx/CVE-2020-16250.json",
 		BlobHash:    "67ef5666d43aed3715f5944b1e7c544340c016da",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5101,6 +5469,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/16xxx/CVE-2020-16251.json",
 		BlobHash:    "86ec5dea5110b7393008bf3db623a1d0e3982144",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5114,6 +5483,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/16xxx/CVE-2020-16844.json",
 		BlobHash:    "11eeb4570be6985ee8f44d76e1c8aaf4ead9ef4a",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5126,6 +5496,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/1xxx/CVE-2020-1733.json",
 		BlobHash:    "7199fd13ae2ac658fb5a8ce1c28c710d568d2bf0",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5143,6 +5514,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/1xxx/CVE-2020-1734.json",
 		BlobHash:    "8ed8e1886e0b26a4a6122a1caf005d3c203133af",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5155,6 +5527,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/1xxx/CVE-2020-1735.json",
 		BlobHash:    "372bedb4c5a9e911ad090add905c8034a7463b2d",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5171,6 +5544,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/1xxx/CVE-2020-1736.json",
 		BlobHash:    "e64fe330f308fd24826ea5cd68cd82e3a6c91335",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5186,6 +5560,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/1xxx/CVE-2020-1737.json",
 		BlobHash:    "5de1c3fd61a11dce7e1bdc450f3ec4adb319de9b",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5202,6 +5577,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/1xxx/CVE-2020-1738.json",
 		BlobHash:    "313a7e1e6ef581235ee7ab691dac6bf899e9cd58",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5215,6 +5591,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/1xxx/CVE-2020-1739.json",
 		BlobHash:    "a8b8d6e63980a2416f6b982e5c2d1a9e32664ff1",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5231,6 +5608,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/1xxx/CVE-2020-1740.json",
 		BlobHash:    "f73ad4f77c6fa38f410216fc3edb4d294329d165",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5248,6 +5626,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/1xxx/CVE-2020-1746.json",
 		BlobHash:    "00b42e86162ea2dba91bd9be84113a850c6ec111",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5260,6 +5639,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/2xxx/CVE-2020-2023.json",
 		BlobHash:    "0a1db5ead568b7d0a196dce929750df98d16c45b",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5277,6 +5657,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/2xxx/CVE-2020-2024.json",
 		BlobHash:    "fabf6af796f277e2955effc7d02a09fb275163b0",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5289,6 +5670,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/2xxx/CVE-2020-2025.json",
 		BlobHash:    "6f5a2fc978fbe50ed06ba771582f5c2ad128d624",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5300,6 +5682,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/2xxx/CVE-2020-2026.json",
 		BlobHash:    "94164a6a0933d7d8d37c91606e6348ab38531df4",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5320,6 +5703,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/24xxx/CVE-2020-24263.json",
 		BlobHash:    "4b9a720a4cf4500fc11fae2e4c17449e6bc7df51",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5331,6 +5715,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/24xxx/CVE-2020-24264.json",
 		BlobHash:    "61bfb8376f06cc89f44f5460415debdb2bd47fd2",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5342,6 +5727,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/24xxx/CVE-2020-24303.json",
 		BlobHash:    "90f9c4a3f31035200ebc6c2f594dd761a91009d8",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5355,6 +5741,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/24xxx/CVE-2020-24356.json",
 		BlobHash:    "e1f9f8f284db6f27fd4b52ec54b25b2a49052e22",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5366,6 +5753,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/24xxx/CVE-2020-24359.json",
 		BlobHash:    "575a9c5a5878039671c9baceb3d8de46de7f0e0c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5378,6 +5766,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/24xxx/CVE-2020-24707.json",
 		BlobHash:    "cafc372f5eae3e28aa11e148374e4823749ac6f0",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5391,6 +5780,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/24xxx/CVE-2020-24708.json",
 		BlobHash:    "f6cb45553b062072c6cf0243995699343c789e7b",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5403,6 +5793,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/24xxx/CVE-2020-24710.json",
 		BlobHash:    "37cb54072a9dae2cfee50554f5716d3a588a2e28",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5416,6 +5807,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/24xxx/CVE-2020-24711.json",
 		BlobHash:    "4013ba940157a966d1c21672ab6e4d7818764a44",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5429,6 +5821,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/24xxx/CVE-2020-24712.json",
 		BlobHash:    "2ba575c2bbebc92e9807e033c1e30b76161c5a06",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5442,6 +5835,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/25xxx/CVE-2020-25017.json",
 		BlobHash:    "157895fb235bb1aef7aa2f399d9ec89b92a6fe87",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5454,6 +5848,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/25xxx/CVE-2020-25018.json",
 		BlobHash:    "3b6b864db078f49506cb0aa00c5ad652c5bd07ff",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5466,6 +5861,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/25xxx/CVE-2020-25201.json",
 		BlobHash:    "5cfc056da2d28378447d8e1b0f528249b754a894",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5478,6 +5874,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/25xxx/CVE-2020-25816.json",
 		BlobHash:    "b9f2c10124187ed400868b40e08f8371f32ccd09",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5490,6 +5887,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/25xxx/CVE-2020-25989.json",
 		BlobHash:    "1f9bfea839566f63aa9aaef6a175693c6cdd8818",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5502,6 +5900,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/26xxx/CVE-2020-26222.json",
 		BlobHash:    "4e6dedb7c01b71049ec21c0001069ab5b077d3cc",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5515,6 +5914,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/26xxx/CVE-2020-26240.json",
 		BlobHash:    "dd264dc92c67f3e2a52b2b0a337dd8de2415f6c5",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5529,6 +5929,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/26xxx/CVE-2020-26241.json",
 		BlobHash:    "70211d0b60bab3fba1120796f7f8051b3ee177a8",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5541,6 +5942,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/26xxx/CVE-2020-26242.json",
 		BlobHash:    "8413421d6e4d08facc9ccf302d2b33fe405b8f14",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5553,6 +5955,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/26xxx/CVE-2020-26265.json",
 		BlobHash:    "fb9e971c245f7ea0d776d8f1584a25eebdcba04e",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5565,6 +5968,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/26xxx/CVE-2020-26266.json",
 		BlobHash:    "71c06d936541d40401d37bc626cb652ceec868a4",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5577,6 +5981,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/26xxx/CVE-2020-26267.json",
 		BlobHash:    "6034efe677705536fb2d23af45620f5af263ad64",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5589,6 +5994,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/26xxx/CVE-2020-26268.json",
 		BlobHash:    "758ba79802b734983f8a10eb3df449502f0ba4e2",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5601,6 +6007,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/26xxx/CVE-2020-26269.json",
 		BlobHash:    "85f41f33b7ab4ecc01bcbb33556101f9eec0ab6c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5613,6 +6020,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/26xxx/CVE-2020-26270.json",
 		BlobHash:    "fbef802aec5e97c28eeb07e9aee1f9110ae1e6ea",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5625,6 +6033,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/26xxx/CVE-2020-26271.json",
 		BlobHash:    "3dcf78c8cb6f40cb585155336b39b21df483ce6e",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5637,6 +6046,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/26xxx/CVE-2020-26276.json",
 		BlobHash:    "dc65453786272e4661ecf8295279ce7d01ad36e2",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5652,6 +6062,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/26xxx/CVE-2020-26277.json",
 		BlobHash:    "b16123a76d209bc0d2832d178c9e86c7d1cf801c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5664,6 +6075,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/26xxx/CVE-2020-26278.json",
 		BlobHash:    "9026560ef73c0d8c6eadb51b0aa99e880ab6114d",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5678,6 +6090,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/26xxx/CVE-2020-26279.json",
 		BlobHash:    "512ba0677a38b40714593813bb912e6d9567522b",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5691,6 +6104,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/26xxx/CVE-2020-26283.json",
 		BlobHash:    "9ea7890fad7ea4c6209896233e5a968cd908b1f1",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5704,6 +6118,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/26xxx/CVE-2020-26284.json",
 		BlobHash:    "98bae0cf7fdeb463685d52b5cc46eeb855d46356",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5716,6 +6131,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/26xxx/CVE-2020-26290.json",
 		BlobHash:    "2ab920db8c88363ff231559d62b621b3fabaff46",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5734,6 +6150,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/26xxx/CVE-2020-26294.json",
 		BlobHash:    "ef140bc7feed35de17a6846477303b646d766e03",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5747,6 +6164,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/26xxx/CVE-2020-26521.json",
 		BlobHash:    "14607d51110f2f457003dd9f48388df6a06ff587",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5760,6 +6178,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/26xxx/CVE-2020-26892.json",
 		BlobHash:    "e7911516f50d1fe0a6074a2b936a2f262e5cf1b9",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5773,6 +6192,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/27xxx/CVE-2020-27151.json",
 		BlobHash:    "b877ce39ae927cd03544372226921ac65b9593fd",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5787,6 +6207,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/27xxx/CVE-2020-27195.json",
 		BlobHash:    "5662c3da9f2f20260a9e35d8123ea808136a6f9d",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5799,6 +6220,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/27xxx/CVE-2020-27534.json",
 		BlobHash:    "060af0f2ca30afb26effcb2914e8e2b04ee2ede1",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5814,6 +6236,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/27xxx/CVE-2020-27955.json",
 		BlobHash:    "12f3e2562af256a69a256d8150824fcf5fbb8aed",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5830,6 +6253,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/28xxx/CVE-2020-28053.json",
 		BlobHash:    "7db62ac6a3d54fd3f309bf11d3e50585d7824743",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5842,6 +6266,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/28xxx/CVE-2020-28348.json",
 		BlobHash:    "56ff2fdda5c3c9577be61f5c5800787e61502dde",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5854,6 +6279,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/28xxx/CVE-2020-28349.json",
 		BlobHash:    "38ce17799f38d82bc9c424a3c6c7bcecdcd42de3",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5867,6 +6293,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/28xxx/CVE-2020-28466.json",
 		BlobHash:    "c0a55f088ed15dc696fd1418cdb1975ef53cd29b",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5881,6 +6308,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/28xxx/CVE-2020-28914.json",
 		BlobHash:    "48df1ceeff9786ddd4ab6046203782c765c0a05e",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5896,6 +6324,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/28xxx/CVE-2020-28924.json",
 		BlobHash:    "a62a46f6a8be3a0b924d00a575eb72eef15dddeb",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5909,6 +6338,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/28xxx/CVE-2020-28991.json",
 		BlobHash:    "7e0fb248094364cd58c023bb7a43e7c0de3ba5df",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5921,6 +6351,7 @@ var falsePositives = []*store.CVERecord{
 		Path:              "2020/29xxx/CVE-2020-29243.json",
 		BlobHash:          "9d858baedef0166d0f7a6a9ce17e7d74968f103d",
 		CommitHash:        "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:        time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:          "PUBLIC",
 		TriageState:       "HasVuln",
 		TriageStateReason: "GO-2021-0097",
@@ -5930,6 +6361,7 @@ var falsePositives = []*store.CVERecord{
 		Path:              "2020/29xxx/CVE-2020-29244.json",
 		BlobHash:          "a026e8fb7d2e485604f3ce6668e8cb6b30073df1",
 		CommitHash:        "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:        time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:          "PUBLIC",
 		TriageState:       "HasVuln",
 		TriageStateReason: "GO-2021-0097",
@@ -5939,6 +6371,7 @@ var falsePositives = []*store.CVERecord{
 		Path:              "2020/29xxx/CVE-2020-29245.json",
 		BlobHash:          "b3681813bc67a3ccab7454290f5c2cd4083868c8",
 		CommitHash:        "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:        time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:          "PUBLIC",
 		TriageState:       "HasVuln",
 		TriageStateReason: "GO-2021-0097",
@@ -5948,6 +6381,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/29xxx/CVE-2020-29510.json",
 		BlobHash:    "2ce59f158faad4fbc86a583cf1131ef7d3e094ab",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5960,6 +6394,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/29xxx/CVE-2020-29511.json",
 		BlobHash:    "eca8fc190c7d851bb56638a547f8804f48cc8c5f",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5972,6 +6407,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/29xxx/CVE-2020-29662.json",
 		BlobHash:    "6d64ebca8fe685276dba327d73690016907bc8e3",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5983,6 +6419,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/35xxx/CVE-2020-35137.json",
 		BlobHash:    "cb400a4dfb8408ca20df47336d3dbdb7cbc259fd",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -5996,6 +6433,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/35xxx/CVE-2020-35138.json",
 		BlobHash:    "f26259101699d38848e61ed9cc9b956ae6788e92",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6009,6 +6447,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/35xxx/CVE-2020-35177.json",
 		BlobHash:    "bbc0f5f57cd18b395d27eec0fcb4b3caf1d094ac",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6021,6 +6460,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/35xxx/CVE-2020-35453.json",
 		BlobHash:    "54e12d4f10d80f858cc9495d0bcffd14dc988006",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6033,6 +6473,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/35xxx/CVE-2020-35470.json",
 		BlobHash:    "b7f8e4eec6825f7f152847aeeaed65b6cd43896c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6046,6 +6487,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/35xxx/CVE-2020-35471.json",
 		BlobHash:    "ead021f3bfe67c6bbedba9a99f4616a7b580a41c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6059,6 +6501,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/36xxx/CVE-2020-36066.json",
 		BlobHash:    "0fb58953eb66d8730856107ab395e845f2a59d15",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6070,6 +6513,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/3xxx/CVE-2020-3996.json",
 		BlobHash:    "08041a31a48cd05b1378c05bd3348b71c0714010",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6081,6 +6525,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/4xxx/CVE-2020-4037.json",
 		BlobHash:    "5ea639ff7409d1b593eabbea5920d5c293596239",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6093,6 +6538,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/4xxx/CVE-2020-4053.json",
 		BlobHash:    "5f92c559cc9d64ddbb923d7b83c99e6a9082cf96",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6106,6 +6552,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/5xxx/CVE-2020-5215.json",
 		BlobHash:    "21bd7f3fc3bc78cc6af900157836ba3aec7327e8",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6120,6 +6567,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/5xxx/CVE-2020-5233.json",
 		BlobHash:    "c9c511656cdfb0d8e1d4c4698c639e0d0e428c94",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6133,6 +6581,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/5xxx/CVE-2020-5260.json",
 		BlobHash:    "fa891ab947bd850d7f63ffa253cc7d2c2d16a348",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6162,6 +6611,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/5xxx/CVE-2020-5300.json",
 		BlobHash:    "2804f2fbaa0be107dfd335b3149b46d324f82a3a",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6175,6 +6625,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/5xxx/CVE-2020-5303.json",
 		BlobHash:    "b7c94fac03cbe007acc270ed36c755c6edbf329d",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6188,6 +6639,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/5xxx/CVE-2020-5415.json",
 		BlobHash:    "95efec6f658a6b0ba8538d897802ddb37d6fc77e",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6200,6 +6652,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/6xxx/CVE-2020-6016.json",
 		BlobHash:    "5c4c115c626c0fceebb52092447bb1b133f3b0dc",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6212,6 +6665,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/6xxx/CVE-2020-6017.json",
 		BlobHash:    "b0f37ea09fbfcb3024b2f02889f3145ffb16198b",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6224,6 +6678,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/6xxx/CVE-2020-6018.json",
 		BlobHash:    "580bdc2d931b6585f36933c58a8abf5f42c491fa",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6236,6 +6691,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/6xxx/CVE-2020-6019.json",
 		BlobHash:    "ab652b1e325affd6b88afcdea2ed653154102cff",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6248,6 +6704,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/7xxx/CVE-2020-7218.json",
 		BlobHash:    "bd2d1e359653c01e1ab818d1cb726631146636fb",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6260,6 +6717,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/7xxx/CVE-2020-7219.json",
 		BlobHash:    "8d5c10c0ed8d5c77da30e575f78c42c8bd95877d",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6272,6 +6730,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/7xxx/CVE-2020-7220.json",
 		BlobHash:    "f66a4007b9c793f2bd539d184417a729ff9ba48d",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6284,6 +6743,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/7xxx/CVE-2020-7665.json",
 		BlobHash:    "30a2a295432bb889b6d5c8e0a24dc350679c7ffc",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6296,6 +6756,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/7xxx/CVE-2020-7666.json",
 		BlobHash:    "2a020b03156e3b81a07beb40cdbfd2f6a9ad3da7",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6308,6 +6769,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/7xxx/CVE-2020-7669.json",
 		BlobHash:    "31d1031eb41e7a4b1d10ad12ab96dd32e07f2b51",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6320,6 +6782,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/7xxx/CVE-2020-7955.json",
 		BlobHash:    "e13d278b5274372bf45362bb2c501689443de7ac",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6332,6 +6795,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/7xxx/CVE-2020-7956.json",
 		BlobHash:    "5bd4768bbc32b3cf56ebd583d10e05fb2dd502a4",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6344,6 +6808,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/8xxx/CVE-2020-8551.json",
 		BlobHash:    "09ec4b0e62e1459c63bec75d9ec11f827f1a0156",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6358,6 +6823,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/8xxx/CVE-2020-8552.json",
 		BlobHash:    "0982590ec0d255381877b1e5b9bb7c068303cd08",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6372,6 +6838,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/8xxx/CVE-2020-8553.json",
 		BlobHash:    "7a2e4a618c0752663f3226bd1fc449e1ff7b7466",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6383,6 +6850,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/8xxx/CVE-2020-8554.json",
 		BlobHash:    "e58456be0269d61b3b3993e128541e03877e05b4",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6399,6 +6867,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/8xxx/CVE-2020-8555.json",
 		BlobHash:    "ffdef13b994f7ecc3e5ae844e868c5eade0ec3e7",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6414,6 +6883,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/8xxx/CVE-2020-8557.json",
 		BlobHash:    "3c46c71bf16eb4e152d2b39490d1954c65d0159e",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6427,6 +6897,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/8xxx/CVE-2020-8558.json",
 		BlobHash:    "4c416416b21504042574609fff1d379779d4600d",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6440,6 +6911,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/8xxx/CVE-2020-8559.json",
 		BlobHash:    "603bddd77f4f116b070972262cbf19faf6c893f7",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6453,6 +6925,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/8xxx/CVE-2020-8563.json",
 		BlobHash:    "1ba7a7715ba9b749e94cc5b2eb0048b52e7d1011",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6466,6 +6939,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/8xxx/CVE-2020-8566.json",
 		BlobHash:    "c5e81c9e5a057e9840a14221d3df018be34e3b32",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6479,6 +6953,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/8xxx/CVE-2020-8569.json",
 		BlobHash:    "5f0759887fb13de6d35b124c55bc2eabacbf00c8",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6491,6 +6966,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/8xxx/CVE-2020-8595.json",
 		BlobHash:    "6071d2ddeaf2d2d89ed12edc7a5de18009f7fc17",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6507,6 +6983,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/8xxx/CVE-2020-8659.json",
 		BlobHash:    "b0dc65fdeb534c984ec215f2f4327eab9c2ae3db",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6520,6 +6997,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/8xxx/CVE-2020-8660.json",
 		BlobHash:    "acddebf5b2fc96e6a2f4a3e0fad2421f0657275b",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6533,6 +7011,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/8xxx/CVE-2020-8661.json",
 		BlobHash:    "14e31e81f1b7bf25da58aaf52bc420301fa3bda9",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6546,6 +7025,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/8xxx/CVE-2020-8663.json",
 		BlobHash:    "1aa92bbeb6c1f17c2c5475fb42bc4a3bbcdbb6f0",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6558,6 +7038,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/8xxx/CVE-2020-8664.json",
 		BlobHash:    "85aeb8e32d460e381a7464d2daadd6bb84a64875",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6571,6 +7052,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/8xxx/CVE-2020-8826.json",
 		BlobHash:    "62b21aea4341b73f8faf0ad7961ceb31958fb441",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6584,6 +7066,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/8xxx/CVE-2020-8827.json",
 		BlobHash:    "b0c1ff33bfdd649b6987e035775afcf826972a36",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6598,6 +7081,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/8xxx/CVE-2020-8828.json",
 		BlobHash:    "21fe5b894a68ece2ed54cc4c6497129f02c0b5b0",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6611,6 +7095,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/8xxx/CVE-2020-8843.json",
 		BlobHash:    "7266cfa62b86bdb3fa3967b3b1383aed8f77f204",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6624,6 +7109,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/8xxx/CVE-2020-8927.json",
 		BlobHash:    "a74b79d653c28d5411481b759920e926d3f116fb",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6645,6 +7131,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/8xxx/CVE-2020-8929.json",
 		BlobHash:    "6687103ed33ba44db734d45dc9bf83a6755bdbfd",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6657,6 +7144,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/9xxx/CVE-2020-9321.json",
 		BlobHash:    "7dd986987adca8f06cae07dbb79ffad46e10f31c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6669,6 +7157,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/9xxx/CVE-2020-9329.json",
 		BlobHash:    "77443824e256f2f79f659817791d65215d19cc72",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6680,6 +7169,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/20xxx/CVE-2021-20198.json",
 		BlobHash:    "36f39b7dec6ed1972bb53296ee4ead1810c35b04",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6691,6 +7181,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/20xxx/CVE-2021-20199.json",
 		BlobHash:    "036706579ffcc0f5251f5fe77e2b1497e13fa85b",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6705,6 +7196,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/20xxx/CVE-2021-20218.json",
 		BlobHash:    "41e4faa44f343eac8722b74e31baee7f9a3b6f87",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6717,6 +7209,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/20xxx/CVE-2021-20291.json",
 		BlobHash:    "50e725a2db767f452cefbf2eb01028a24fa5603f",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6728,6 +7221,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/21xxx/CVE-2021-21271.json",
 		BlobHash:    "978caf2547d11f0b49d2089bb10582324287eb96",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6741,6 +7235,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/21xxx/CVE-2021-21284.json",
 		BlobHash:    "30c62672c6ef54c5784409a23208fc40197b4f49",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6758,6 +7253,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/21xxx/CVE-2021-21285.json",
 		BlobHash:    "86f5c8e875762d39fc91eadd1f304afcf3d5dcf3",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6775,6 +7271,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/21xxx/CVE-2021-21287.json",
 		BlobHash:    "15436dba58b58830e5fbe2e705ec4288af28b3dc",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6789,6 +7286,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/21xxx/CVE-2021-21291.json",
 		BlobHash:    "f881d6472d7fa68fb4553fddccc75150413a0097",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6803,6 +7301,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/21xxx/CVE-2021-21296.json",
 		BlobHash:    "c89066f834f7df81387343c61b002a63cb6e2224",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6816,6 +7315,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/21xxx/CVE-2021-21300.json",
 		BlobHash:    "f2dafbd39d2eadea6c56513663a4d296f475a47c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6835,6 +7335,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/21xxx/CVE-2021-21303.json",
 		BlobHash:    "d11843a853e5e85164821385ed91a62834180092",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6848,6 +7349,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/21xxx/CVE-2021-21334.json",
 		BlobHash:    "be2655d8200ac614b22315b90181f6c5cbc7c756",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6865,6 +7367,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/21xxx/CVE-2021-21362.json",
 		BlobHash:    "303ed59cb9f1685d2e51e0fb37de0b61f43a9315",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6879,6 +7382,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/21xxx/CVE-2021-21363.json",
 		BlobHash:    "b0697dcfd6d2cb36677757a058c46f5a4e40a15e",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6891,6 +7395,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/21xxx/CVE-2021-21364.json",
 		BlobHash:    "2b47524049b50602bc70e72913bc6c20ac7387a3",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6903,6 +7408,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/21xxx/CVE-2021-21378.json",
 		BlobHash:    "f0d766bee258a38351382e41af42da47c96492fe",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6916,6 +7422,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/21xxx/CVE-2021-21390.json",
 		BlobHash:    "1f0ffef9cc992a8bbc3e15668c9380b016ea9df1",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6929,6 +7436,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/21xxx/CVE-2021-21404.json",
 		BlobHash:    "f52a011c5031b91375d3cbe7e8f0c5d640502144",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6943,6 +7451,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/21xxx/CVE-2021-21411.json",
 		BlobHash:    "c0e226682ede3fdfde49ddb7b94e3bf0bbb2e61e",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6958,6 +7467,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/21xxx/CVE-2021-21432.json",
 		BlobHash:    "328bc5221f5d982efa361723e742526ab53427f3",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6973,6 +7483,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/22xxx/CVE-2021-22538.json",
 		BlobHash:    "c99e02a596b7de10c88315315d804d33285e634a",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6987,6 +7498,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/23xxx/CVE-2021-23345.json",
 		BlobHash:    "f7fdaec22b9dac4f5cc50dd383427ec611a1004c",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -6999,6 +7511,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/23xxx/CVE-2021-23347.json",
 		BlobHash:    "346f5ec02402d7dadbb69d56467fd57fca40f8b3",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7011,6 +7524,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/23xxx/CVE-2021-23351.json",
 		BlobHash:    "568be6cfe865f943f6f8a45058ef7a74f01148f8",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7027,6 +7541,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/23xxx/CVE-2021-23357.json",
 		BlobHash:    "a9678541d5fe167a1c9825bb4883b056590461e2",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7039,6 +7554,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/23xxx/CVE-2021-23827.json",
 		BlobHash:    "a2578d805be173c453968081730d81ccbe16bad6",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7052,6 +7568,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/25xxx/CVE-2021-25313.json",
 		BlobHash:    "760454b213f7a9c1ca5721635a73f847ec06099d",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7065,6 +7582,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/25xxx/CVE-2021-25834.json",
 		BlobHash:    "4a088aef94c3ce4b3667a8296db56f974a47331b",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7076,6 +7594,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/25xxx/CVE-2021-25835.json",
 		BlobHash:    "bd2490d03a0accbf294384a5d0c4b7f46f442ac6",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7088,6 +7607,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/25xxx/CVE-2021-25836.json",
 		BlobHash:    "784031dd9a871068b40d967d146de12606c8f1e0",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7099,6 +7619,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/25xxx/CVE-2021-25837.json",
 		BlobHash:    "6a11801aae616e08a19eb9f38a88f5e4da0277bb",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7110,6 +7631,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/26xxx/CVE-2021-26921.json",
 		BlobHash:    "d4787d5df538c35322c74936a787102399c24a75",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7123,6 +7645,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/26xxx/CVE-2021-26923.json",
 		BlobHash:    "f0bd85a75f16cca777a0476a3094fe70784cdf9b",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7135,6 +7658,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/26xxx/CVE-2021-26924.json",
 		BlobHash:    "d29ca782e39d26dc2c068caf8012236a5b847f89",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7147,6 +7671,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/27xxx/CVE-2021-27098.json",
 		BlobHash:    "539f3f2377b46e2dad9e378e4db48c3aa819cba0",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7158,6 +7683,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/27xxx/CVE-2021-27099.json",
 		BlobHash:    "c005ee5a8bac6d91625b5111c4516391cb7e0796",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7169,6 +7695,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/27xxx/CVE-2021-27358.json",
 		BlobHash:    "aba8205fd68a792685ad77217a278384c8b9e8b4",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7182,6 +7709,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/27xxx/CVE-2021-27375.json",
 		BlobHash:    "a9b8cf26eb914e7056badec571dfbb318272579e",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7194,6 +7722,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/27xxx/CVE-2021-27935.json",
 		BlobHash:    "f1fbf363fc76f87dfc5d3205c1e371aef24f938d",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7205,6 +7734,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/27xxx/CVE-2021-27940.json",
 		BlobHash:    "35ea4e985c93d6d8449ba1e50766b39aa0857c96",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7218,6 +7748,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/28xxx/CVE-2021-28361.json",
 		BlobHash:    "0de97584b55224ffd84e0c77080e3cd75432f3b9",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7229,6 +7760,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/28xxx/CVE-2021-28378.json",
 		BlobHash:    "c5c41d55d5713b680020faad631c31040d381508",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7241,6 +7773,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/28xxx/CVE-2021-28681.json",
 		BlobHash:    "ffd61ae772a9228c6b39b632a1a1efb42b539f55",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7253,6 +7786,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/28xxx/CVE-2021-28954.json",
 		BlobHash:    "c96faf1a3c298a8d302bde4a33e53922056325b4",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7265,6 +7799,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/28xxx/CVE-2021-28955.json",
 		BlobHash:    "7c3869ed9845a4062e9529893144b191b8842cb2",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7277,6 +7812,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29136.json",
 		BlobHash:    "942c7f190f4df5dbbe3e0e0f766c8c177b3f4eb3",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7290,6 +7826,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29271.json",
 		BlobHash:    "0296f139e8bb821d7e853cd0196bda02c3eac2d3",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7302,6 +7839,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29272.json",
 		BlobHash:    "49dbdd5ac9bf867a0115a5892116495ab83509a3",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7314,6 +7852,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29417.json",
 		BlobHash:    "899a3cfaae898f0f4490c3eae0dbd9ffee040d3a",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7327,6 +7866,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29651.json",
 		BlobHash:    "072c610f315a16d8ff3e37bbaa92b0f9bd65d8a6",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7338,6 +7878,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29652.json",
 		BlobHash:    "9d55b7d4d0a1750890880ca5070f0aaaa74bf3f4",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7349,6 +7890,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/3xxx/CVE-2021-3344.json",
 		BlobHash:    "05e0c6e64ea180e7ff2b4bc93696d1d430e4dcb2",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7360,6 +7902,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/3xxx/CVE-2021-3382.json",
 		BlobHash:    "6dbdcf6d4e58c1264b1b9066295ed35e61e9ffb0",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7371,6 +7914,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/3xxx/CVE-2021-3391.json",
 		BlobHash:    "047ec1a6d8af1ac4b251c1c4dbbdaf209178a92e",
 		CommitHash:  "17294f1a2af61a2a2df52ac89cbd7c516f0c4e6a",
+		CommitTime:  time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7384,6 +7928,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/27xxx/CVE-2020-27847.json",
 		BlobHash:    "7a69948e5eed4bfed39f606583914f2983ea3007",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7397,6 +7942,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/7xxx/CVE-2020-7731.json",
 		BlobHash:    "84d3ee645657f3058b9e470f634c775105214c73",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7409,6 +7955,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/28xxx/CVE-2020-28851.json",
 		BlobHash:    "236c70a1561d1bb784e225ed716d42127133b482",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7421,6 +7968,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/28xxx/CVE-2020-28852.json",
 		BlobHash:    "1c5f2daee464e715687e3423febc10cd4c76d1f5",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7433,6 +7981,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/10xxx/CVE-2020-10729.json",
 		BlobHash:    "8b8bbd0c954d31aa029e8cd777837545d31a2bcd",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7446,6 +7995,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/10xxx/CVE-2020-10808.json",
 		BlobHash:    "1554aedd6d7c7fc2d8d957e056697277433c61d1",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7461,6 +8011,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/18xxx/CVE-2020-18032.json",
 		BlobHash:    "dfa390b301a1064a8d54bbf703d5c4fc2333ac08",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7477,6 +8028,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/19xxx/CVE-2020-19498.json",
 		BlobHash:    "86e6073863789e332b09d507a6a0b7e093ff5ba7",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7489,6 +8041,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/19xxx/CVE-2020-19499.json",
 		BlobHash:    "61b2beb78d46027d5d8d0d1ecca33b3f47839e83",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7501,6 +8054,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/23xxx/CVE-2020-23109.json",
 		BlobHash:    "16426b7912aff0b364acd86087ed330d21124483",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7512,6 +8066,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/27xxx/CVE-2020-27386.json",
 		BlobHash:    "715de3dfd05b255dd650df3bc91759ce4f7c2f39",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7526,6 +8081,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/27xxx/CVE-2020-27387.json",
 		BlobHash:    "0ede9f0de5e4debb19ecab0331853c154b4ad049",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7540,6 +8096,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/28xxx/CVE-2020-28347.json",
 		BlobHash:    "7f354a67a4870f4d85a347abf84ab56da3fd58f0",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7555,6 +8112,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/36xxx/CVE-2020-36404.json",
 		BlobHash:    "f20fd0cf59912c175ecd89557c8c1a20c376a333",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7568,6 +8126,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/36xxx/CVE-2020-36405.json",
 		BlobHash:    "28b6333bb289776801f79406e4c5bd9433e880e0",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7581,6 +8140,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/7xxx/CVE-2020-7350.json",
 		BlobHash:    "072675947597475cae1d47440cc4ad3245282780",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7592,6 +8152,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/7xxx/CVE-2020-7351.json",
 		BlobHash:    "8b20736854df0eac414d609e20a23f91bdae0e62",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7604,6 +8165,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/7xxx/CVE-2020-7352.json",
 		BlobHash:    "e7019c4b50cc9a18967414c1695f0b37352b3bf2",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7616,6 +8178,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/7xxx/CVE-2020-7356.json",
 		BlobHash:    "89e3ebe9096a8b3ac10e60ab873580fd1f659f41",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7628,6 +8191,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/7xxx/CVE-2020-7357.json",
 		BlobHash:    "827862988ec5b4edb609c43508dcb99e60f440c7",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7641,6 +8205,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/7xxx/CVE-2020-7361.json",
 		BlobHash:    "b553d9e6918e5e35ea7c2260bb8492cb7a5ee0d5",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7652,6 +8217,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/7xxx/CVE-2020-7373.json",
 		BlobHash:    "9daec6d1ef7d7a68d907ad25009d745995d0fb8b",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7666,6 +8232,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/7xxx/CVE-2020-7374.json",
 		BlobHash:    "50f8d93bd534eca7a19b71f5382b45bd9edf2184",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7677,6 +8244,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/7xxx/CVE-2020-7376.json",
 		BlobHash:    "b02deb95087b967deecf7d38798c5911b83fac9b",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7688,6 +8256,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/7xxx/CVE-2020-7377.json",
 		BlobHash:    "c0445d606b0d11cd189e76b89becf639d8759b33",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7699,6 +8268,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/7xxx/CVE-2020-7384.json",
 		BlobHash:    "4298e0db8998a490bb824c59441bc7717a386d1d",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7712,6 +8282,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/7xxx/CVE-2020-7385.json",
 		BlobHash:    "80d92ca5cd5254a78026a9a0d88cc472ce0c380a",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7725,6 +8296,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/20xxx/CVE-2021-20178.json",
 		BlobHash:    "50b35aeab3824833e3271f70c8065c7c7c68bc4a",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7740,6 +8312,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/20xxx/CVE-2021-20228.json",
 		BlobHash:    "cd16c86e6dd40578a8eb273de4b4a2b752c446b6",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7753,6 +8326,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/20xxx/CVE-2021-20286.json",
 		BlobHash:    "f1c6ebcd7aeb537284708fed9791c0f7d20700d0",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7765,6 +8339,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/21xxx/CVE-2021-21414.json",
 		BlobHash:    "80520aea5534460effceda3272091a7a1ce37066",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7778,6 +8353,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/21xxx/CVE-2021-21428.json",
 		BlobHash:    "1fe1a051cdba682862d01218f90bd6ae83911fc4",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7790,6 +8366,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/21xxx/CVE-2021-21429.json",
 		BlobHash:    "92e421921a0eee55d318ba39498d378b847b9380",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7802,6 +8379,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/21xxx/CVE-2021-21430.json",
 		BlobHash:    "3e236e275cd4665795513a982cd0e610a2ab9ba7",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7815,6 +8393,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/24xxx/CVE-2021-24028.json",
 		BlobHash:    "f818ce5d6b9e8059a0e1e29f95a73d3181a3e9c7",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7827,6 +8406,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/28xxx/CVE-2021-28682.json",
 		BlobHash:    "5da720ae6746d42843b2017842fc160a900ee904",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7840,6 +8420,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/28xxx/CVE-2021-28683.json",
 		BlobHash:    "ad0312f4c9586388b57cf8913e479143479c4245",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7853,6 +8434,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29133.json",
 		BlobHash:    "62bf66f86b66abb05496ed7c8b1aaf7790c86302",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7867,6 +8449,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29258.json",
 		BlobHash:    "8bcb6f82b7662b63fd0a7a483b3782a9ebede6ce",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7881,6 +8464,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29492.json",
 		BlobHash:    "d79a2d53d94c9cafa72549ee521b32f8752aa38f",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7892,6 +8476,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/32xxx/CVE-2021-32777.json",
 		BlobHash:    "e4dfaf518c221d984e013e1b1d0ea947d3a8af5a",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7904,6 +8489,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/32xxx/CVE-2021-32778.json",
 		BlobHash:    "2c24f3a23493dd734db2db4404ef653bbe493e21",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7916,6 +8502,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/32xxx/CVE-2021-32779.json",
 		BlobHash:    "e485a50765f62cfec6883c9373b0d95fae72b6a5",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7928,6 +8515,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/32xxx/CVE-2021-32780.json",
 		BlobHash:    "85bbb6610a44fe89836be60f9b870847bf6c5414",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7940,6 +8528,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/32xxx/CVE-2021-32781.json",
 		BlobHash:    "73d368a39f8ffb2ef9a9bd18b558a6b17a3836f3",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7952,6 +8541,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/32xxx/CVE-2021-32810.json",
 		BlobHash:    "fa6df001b0ffc0ee223cff322ae170e7e4a83c85",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7977,6 +8567,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/36xxx/CVE-2021-36753.json",
 		BlobHash:    "803ea8792bf35d2561f847100bc95e2a4b1a201f",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -7991,6 +8582,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/36xxx/CVE-2021-36979.json",
 		BlobHash:    "0109f84612789077ebc45dadecb42733a511436a",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8005,6 +8597,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/39xxx/CVE-2021-39204.json",
 		BlobHash:    "c31bab15245849dd6d7a376d51ca2ae738088740",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8018,6 +8611,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/39xxx/CVE-2021-39206.json",
 		BlobHash:    "c24982e6d4d40e56c77c8ccba12ff2e8ff56a2e3",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8032,6 +8626,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/40xxx/CVE-2021-40330.json",
 		BlobHash:    "714eaaec31d0b5e6a49bb8eed8aeebdbc926411e",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8044,6 +8639,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/42xxx/CVE-2021-42840.json",
 		BlobHash:    "3199db8c5c41f5f9cf7af06983c63480219de0ad",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8058,6 +8654,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29923.json",
 		BlobHash:    "dab85989329b57c06e385579c44efb6cfc300e43",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8074,6 +8671,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/13xxx/CVE-2020-13310.json",
 		BlobHash:    "7cd357bf2c1460f3b80fe135424f6a8411ef2f13",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8087,6 +8685,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/13xxx/CVE-2020-13327.json",
 		BlobHash:    "3fc59d299603ae42a7165cc5a3debc87b2b7002f",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8099,6 +8698,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/13xxx/CVE-2020-13347.json",
 		BlobHash:    "2e453e6a559269ae47d324b14d9aaae11b3f351b",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8112,6 +8712,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/13xxx/CVE-2020-13353.json",
 		BlobHash:    "911fa5d5929386aee980fa3187448a9053a786df",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8124,6 +8725,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/13xxx/CVE-2020-13845.json",
 		BlobHash:    "313900e146d8d42def520ab271a1b3d78d62301c",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8139,6 +8741,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/13xxx/CVE-2020-13846.json",
 		BlobHash:    "9caeed25e378f0e8d425f90bb19fe518f3b3a899",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8154,6 +8757,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/13xxx/CVE-2020-13847.json",
 		BlobHash:    "82d6c63dc2d47ae8754b463988aa605284accd1c",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8169,6 +8773,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/14xxx/CVE-2020-14160.json",
 		BlobHash:    "51eb7d117e7bd980078a7f2a088d95f9105964e7",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8182,6 +8787,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/14xxx/CVE-2020-14161.json",
 		BlobHash:    "8f72b91defab16b58752054a16ae449ebc1e02a7",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8195,6 +8801,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15167.json",
 		BlobHash:    "159a98e2ec15033ac2dff0974f08c3c99e21cb60",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8206,6 +8813,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/15xxx/CVE-2020-15229.json",
 		BlobHash:    "e7356211754fca1064f13e28d59f1c001a02a81e",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8223,6 +8831,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/24xxx/CVE-2020-24130.json",
 		BlobHash:    "8f737e195225cf0bb2de6bf71dc3bf9feb11b760",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8234,6 +8843,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/25xxx/CVE-2020-25039.json",
 		BlobHash:    "e965e78bee0c636576ba83f71a25fcb3a0181d3b",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8248,6 +8858,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/25xxx/CVE-2020-25040.json",
 		BlobHash:    "50f05f51bb6868732e263eff7b722f00da7bbd73",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8262,6 +8873,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/26xxx/CVE-2020-26213.json",
 		BlobHash:    "20029afa2dd5b4fbf4c5490e84f286a2659db36a",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8274,6 +8886,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/27xxx/CVE-2020-27519.json",
 		BlobHash:    "f0c95b5e1dd505ed2db06446781ed10393e20685",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8287,6 +8900,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/28xxx/CVE-2020-28366.json",
 		BlobHash:    "6991618a3e0e5c49ef2ef9f453da30bb0779e265",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8303,6 +8917,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/28xxx/CVE-2020-28367.json",
 		BlobHash:    "cd73325803765fa1c55de87365a65f199a74c866",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8320,6 +8935,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/8xxx/CVE-2020-8561.json",
 		BlobHash:    "ca573e983eedfed22be7e1a98a59adf2cf9cd50c",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8333,6 +8949,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/21xxx/CVE-2021-21405.json",
 		BlobHash:    "e50c2ee4ba2140aa0bfaa9e546009e4ac8ff8de2",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8346,6 +8963,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/22xxx/CVE-2021-22171.json",
 		BlobHash:    "ee360b2a23c43ae3ebb32b598a41b50effec89c1",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8359,6 +8977,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/23xxx/CVE-2021-23135.json",
 		BlobHash:    "cee4ec6914399f20ea06d886b121240ef93f8540",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8370,6 +8989,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/23xxx/CVE-2021-23365.json",
 		BlobHash:    "45c75417820cd9b136d5b6bf1edf878195f74e94",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8385,6 +9005,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/25xxx/CVE-2021-25735.json",
 		BlobHash:    "3f5c4b437b8a9310c213dffe734c9337ba9a7576",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8397,6 +9018,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/25xxx/CVE-2021-25737.json",
 		BlobHash:    "a6b8bfd7fca6a044b0c10610f92893f8f69379c8",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8410,6 +9032,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/25xxx/CVE-2021-25740.json",
 		BlobHash:    "e874709f3750d1c9268d336c394782938c48c4bf",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8423,6 +9046,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/25xxx/CVE-2021-25741.json",
 		BlobHash:    "cac9e5adfb3e98a5c5c54a252162bc8b3ada6766",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8436,6 +9060,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/25xxx/CVE-2021-25742.json",
 		BlobHash:    "699711e000a62d13a49883b05ef2b44e28cc4f29",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8448,6 +9073,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/25xxx/CVE-2021-25938.json",
 		BlobHash:    "d5637fccdb0180cd9374f04cdbb946dd234cfa96",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8460,6 +9086,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/28xxx/CVE-2021-28484.json",
 		BlobHash:    "8fcc74408f9fff2820874075922283099d7f4410",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8473,6 +9100,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29453.json",
 		BlobHash:    "8044d8edbac082ac621b8508d44f6c7247b72832",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8486,6 +9114,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29456.json",
 		BlobHash:    "2485e06666aae92f966d08281365f8416a6c4246",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8497,6 +9126,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29499.json",
 		BlobHash:    "e683e6ade287e30bec69fe6c4573b4f84f310445",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8508,6 +9138,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29622.json",
 		BlobHash:    "22e401d7a48e58d80e5e93f518bdf3a302bd2260",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8521,6 +9152,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/30xxx/CVE-2021-30465.json",
 		BlobHash:    "b2b45802777545ebcb2fef020e36c662610d597e",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8541,6 +9173,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/30xxx/CVE-2021-30476.json",
 		BlobHash:    "63d79129b97316fe9215582418c27fa025dd8b85",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8553,6 +9186,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/31xxx/CVE-2021-31232.json",
 		BlobHash:    "0570a0ea0701c0633dda797b1621f39253bc8d9a",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8567,6 +9201,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/31xxx/CVE-2021-31856.json",
 		BlobHash:    "5acbf03a44123d8658d593d0eeb77a2c55ffca66",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8579,6 +9214,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/32xxx/CVE-2021-32574.json",
 		BlobHash:    "605868ceccc4470e014b25dbae4699e72a4d1981",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8592,6 +9228,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/32xxx/CVE-2021-32635.json",
 		BlobHash:    "56b7204981e734a6855cfbc04c297fbac7fe3044",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8605,6 +9242,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/32xxx/CVE-2021-32637.json",
 		BlobHash:    "fe6638d9fa572c51137cd56d822d9ce0485d302b",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8617,6 +9255,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/32xxx/CVE-2021-32690.json",
 		BlobHash:    "883bf8bc3e58c594c5985f5ae4b3072ddcae73cc",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8629,6 +9268,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/32xxx/CVE-2021-32699.json",
 		BlobHash:    "944ca62f5ac741204313067ab60820f0d472fa6e",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8641,6 +9281,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/32xxx/CVE-2021-32701.json",
 		BlobHash:    "15008d02418867070e9fc905f95ae1fb42cba49e",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8654,6 +9295,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/32xxx/CVE-2021-32753.json",
 		BlobHash:    "7b93f19ea0987ced2c4b529037587002ccdb0343",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8666,6 +9308,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/32xxx/CVE-2021-32760.json",
 		BlobHash:    "279418d78ca95f250eeba875782939e42c7768e4",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8680,6 +9323,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/32xxx/CVE-2021-32783.json",
 		BlobHash:    "a553d154d3e283d95c36ba1b7f30ba81986f3e66",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8693,6 +9337,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/32xxx/CVE-2021-32787.json",
 		BlobHash:    "111c9aac564a691e9f0f3566014d9c42772bdfda",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8705,6 +9350,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/32xxx/CVE-2021-32813.json",
 		BlobHash:    "87595735b655c68d591273e6c074c1c9849f5c82",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8718,6 +9364,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/32xxx/CVE-2021-32825.json",
 		BlobHash:    "10172d66709a990388265b554b15055cc5805c84",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8731,6 +9378,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/33xxx/CVE-2021-33359.json",
 		BlobHash:    "cbaa0c546331dd81b5ad92df3916c4fba0196538",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8743,6 +9391,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/33xxx/CVE-2021-33496.json",
 		BlobHash:    "55e30234009babb3188900f48b274637bc73f933",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8758,6 +9407,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/33xxx/CVE-2021-33497.json",
 		BlobHash:    "3949236218b74996c901e31fe55ab91baf3630e1",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8772,6 +9422,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/33xxx/CVE-2021-33708.json",
 		BlobHash:    "57c373130cbb668146555d7756e86f8b076314b6",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8783,6 +9434,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/34xxx/CVE-2021-34824.json",
 		BlobHash:    "8f2ff5b0bd5379d457c80ccc26c7b808c27690f7",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8795,6 +9447,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/35xxx/CVE-2021-35206.json",
 		BlobHash:    "7ef18a1f48caf3f6166b1695aa95c45d96952937",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8813,6 +9466,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/36xxx/CVE-2021-36156.json",
 		BlobHash:    "9d0d0ef84b543b266a69e02aa00ff7ba29809c7f",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8825,6 +9479,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/36xxx/CVE-2021-36157.json",
 		BlobHash:    "ec95fdaef628a0297c479358998c88ea12f2c603",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8837,6 +9492,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/3xxx/CVE-2021-3619.json",
 		BlobHash:    "c859a1ac13dbac52ee0092a7d5d64fae2395fe21",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8849,6 +9505,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/36xxx/CVE-2021-36213.json",
 		BlobHash:    "18ed08f2a33af3a0f6b947e379938ddb12921a61",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8862,6 +9519,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/36xxx/CVE-2021-36371.json",
 		BlobHash:    "066ff55a14fccd1ecc0e8474d6af1f87d92a42e2",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8874,6 +9532,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37794.json",
 		BlobHash:    "179935f10dc1958e8dd81d2e266e80ca0977bc5a",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8887,6 +9546,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37914.json",
 		BlobHash:    "67d450b953010ee669b4fd40a861228bd139043e",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8899,6 +9559,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/38xxx/CVE-2021-38197.json",
 		BlobHash:    "2f4735c4baaa366f46e2b8c2779900aff4c8039e",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8910,6 +9571,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/38xxx/CVE-2021-38599.json",
 		BlobHash:    "ea12d5bb450569cc84f0582b1199fa9c08ef2933",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8922,6 +9584,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/39xxx/CVE-2021-39155.json",
 		BlobHash:    "778d2ac7f21017002c54664bf333cd33da164475",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8934,6 +9597,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/39xxx/CVE-2021-39156.json",
 		BlobHash:    "e310b27a1b9721d7b7fbe895a58dd5cf4a8b21be",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8946,6 +9610,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/39xxx/CVE-2021-39162.json",
 		BlobHash:    "b9cdd71f685a644e41ea3daf957e183f291ec42b",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8959,6 +9624,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/39xxx/CVE-2021-39226.json",
 		BlobHash:    "fb2769bb898a587471b696a0834dd8804ca67ec8",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8977,6 +9643,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/39xxx/CVE-2021-39391.json",
 		BlobHash:    "8402a2f31728ba6755cceff3699544d9f08d01bf",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -8989,6 +9656,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41087.json",
 		BlobHash:    "8ab85481712fba4381a88a864b705486f0e7b914",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9001,6 +9669,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41088.json",
 		BlobHash:    "6f2897cf788d501820cc75ce512ffa5ebd4c9400",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9013,6 +9682,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41089.json",
 		BlobHash:    "8e3dd2218832af1569b7578dc4e23e1fd56f1784",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9027,6 +9697,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41091.json",
 		BlobHash:    "23cf8221c5b8adfa5057d8bcdd8cc757a907200a",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9041,6 +9712,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41092.json",
 		BlobHash:    "3528357553b0533d45be6aa0c13fd83715e0bb15",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9055,6 +9727,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41103.json",
 		BlobHash:    "24f2712dc073ec3fee0753bc409cbaeea0fe2fa6",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9069,6 +9742,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41137.json",
 		BlobHash:    "1433feb43b40beaffc27093e708bcb272437ddbf",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9083,6 +9757,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41174.json",
 		BlobHash:    "a84c9346b2b0e88a6f206b9fa612a7f506da8ea3",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9097,6 +9772,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41232.json",
 		BlobHash:    "03cbc34ec7c53dff3e4573006562c694508825de",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9110,6 +9786,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41323.json",
 		BlobHash:    "76168e1c24904e7374c083aa32f9e8c8a475e16b",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9123,6 +9800,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41324.json",
 		BlobHash:    "b2ba9608b619b4ce47e5bf2239d1482a1b680265",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9136,6 +9814,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41325.json",
 		BlobHash:    "c7c2ac019e227d233f5733f17e4f6abc99cc17ef",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9149,6 +9828,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41393.json",
 		BlobHash:    "9865ab8e9aac1d03024f5a1305c9d80c79735543",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9163,6 +9843,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41394.json",
 		BlobHash:    "5dc255b26a37d4389ea61aec66232093a9ea20a9",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9177,6 +9858,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41395.json",
 		BlobHash:    "e58a6e110d9acd93706bab3e7a5e9fc665bd656c",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9189,6 +9871,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41593.json",
 		BlobHash:    "0108f99fc4ed25f3acd954bf4830add92437717d",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9205,6 +9888,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/42xxx/CVE-2021-42650.json",
 		BlobHash:    "de895b4af7f1f60675ebaff00f41d347ccd85dbf",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9217,6 +9901,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/22xxx/CVE-2020-22741.json",
 		BlobHash:    "17a8a16d638c7fecf8cf2b1ae0f561c7dd582a8c",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9228,6 +9913,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2020/26xxx/CVE-2020-26772.json",
 		BlobHash:    "e0f30b99bb5f1c8434c9d77e29de8a7af01d3a70",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9240,6 +9926,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/36xxx/CVE-2021-36605.json",
 		BlobHash:    "3a4475f7ccdeb8c589d017cf0af793f99242fb73",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9251,6 +9938,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29512.json",
 		BlobHash:    "d6e37e85c6fc99c4ca1b8783754af95861152e47",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9263,6 +9951,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29513.json",
 		BlobHash:    "b40c2f218ef427a889e4d69a4f5d31d4485f23ff",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9275,6 +9964,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29514.json",
 		BlobHash:    "907b3b927cc76e65000fc552f45161519daba0e7",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9287,6 +9977,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29515.json",
 		BlobHash:    "feeffaad27b478e59e542d1c25929a8f7daabba0",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9299,6 +9990,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29516.json",
 		BlobHash:    "c7a5d39f721434da563c41e71e82dd12a97d002d",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9311,6 +10003,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29517.json",
 		BlobHash:    "9044b124a3c891b1c2727fa4c5ae64369b6641de",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9323,6 +10016,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29518.json",
 		BlobHash:    "edf330bec1460bd7b97a1448601ecc61e72ca3d5",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9335,6 +10029,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29519.json",
 		BlobHash:    "d8ce4f463a1928d3856b5c21ac33f2967b931ccf",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9347,6 +10042,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29520.json",
 		BlobHash:    "8e8eeeafa130eae4cc4fa854fe9869d9b330de51",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9359,6 +10055,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29521.json",
 		BlobHash:    "b4d1224e91843e21cee7034ae037f6eb0ed89ae0",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9371,6 +10068,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29522.json",
 		BlobHash:    "613cf3544ea55dea68762ff606a0a0fe2be713d6",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9383,6 +10081,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29523.json",
 		BlobHash:    "0a9365651a2953dcb31e256e98421c46698da88c",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9395,6 +10094,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29524.json",
 		BlobHash:    "09e4340b482cf99aa88475160f8808385e1f7b6e",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9407,6 +10107,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29525.json",
 		BlobHash:    "4c007083fd949bc16a7d956cd5b4ebd59805b0f8",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9419,6 +10120,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29526.json",
 		BlobHash:    "e4214aa6a6d3f55a6699455f2a793115ddda0252",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9431,6 +10133,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29527.json",
 		BlobHash:    "d83ee6a1f382bf2d88f00f72adc569fc6519b47f",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9443,6 +10146,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29528.json",
 		BlobHash:    "ebd673c1fdd2c123136a295e63837d19e7626787",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9455,6 +10159,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29529.json",
 		BlobHash:    "8f8a8074e92fd2c1c388377f0591c9ddd9b28329",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9467,6 +10172,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29530.json",
 		BlobHash:    "6a8b488f15bf381aa64cdf94466b11110772c938",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9479,6 +10185,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29531.json",
 		BlobHash:    "bbec5ff60ac68f7b13039cba3d6d870f96b93576",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9491,6 +10198,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29532.json",
 		BlobHash:    "6fcaa0ed779ac36651d046e32d29fee644d02496",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9503,6 +10211,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29533.json",
 		BlobHash:    "244c43c12320c7de97bfa4b4ed52ee2d5794e600",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9515,6 +10224,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29534.json",
 		BlobHash:    "52fdf7f05575153c665f453423222806e3e7e970",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9527,6 +10237,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29535.json",
 		BlobHash:    "91d6fb959bd7a5c037c2b169ffcd1420eb20ea3a",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9539,6 +10250,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29536.json",
 		BlobHash:    "430c9c3c5477fff74322d8e8c5a574f68652c540",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9551,6 +10263,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29537.json",
 		BlobHash:    "f754c501a6fcad326b673e5de9289bd7b654da60",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9563,6 +10276,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29538.json",
 		BlobHash:    "a848d84ad1d8c48ebdda72e0c811b8cdffddb641",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9575,6 +10289,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29539.json",
 		BlobHash:    "feaa24124f2a327837220f7b2ac4c98dd3f4fb7d",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9587,6 +10302,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29540.json",
 		BlobHash:    "9fe58121bca85e1dbbebc3e10919e4865b6909b8",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9599,6 +10315,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29541.json",
 		BlobHash:    "83fbdac4e2e69ae2d67e2e937adc61321d91bb65",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9611,6 +10328,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29542.json",
 		BlobHash:    "54718986fb88454c9b59e6f9fa30dd951c5bff84",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9623,6 +10341,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29543.json",
 		BlobHash:    "cc3d1929ae017ce0551d7f840d27d864b0f0dafe",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9635,6 +10354,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29544.json",
 		BlobHash:    "ca70a941303006c4db20d3333c140bd3e11cfceb",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9647,6 +10367,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29545.json",
 		BlobHash:    "a558f828e7960dfd95b529fdbab51a30696cfbfe",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9659,6 +10380,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29546.json",
 		BlobHash:    "812fe128e8c730dcea94bfc1fb8424ba1de13bf6",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9671,6 +10393,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29547.json",
 		BlobHash:    "cef8f6591c8c4767aa6869c9ea549d1df8a9f2da",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9683,6 +10406,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29548.json",
 		BlobHash:    "e184a6051dd7981e993b9f78599dc7f4359fbb83",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9695,6 +10419,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29549.json",
 		BlobHash:    "61b2d062b7507d90fd96de42b405648f7853e5b2",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9707,6 +10432,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29550.json",
 		BlobHash:    "8b975b4bbd8e96a0dab6939db81b4a7aacc50667",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9719,6 +10445,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29551.json",
 		BlobHash:    "d9fb2bab29f75dc872f0132190d91c048abf0c85",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9731,6 +10458,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29552.json",
 		BlobHash:    "b07a085222a4ec2cd3852741690b45f422957f9f",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9743,6 +10471,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29553.json",
 		BlobHash:    "cc358ef3ab08e9c89277bf8aaf6c4bf9ff6a5dd1",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9755,6 +10484,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29554.json",
 		BlobHash:    "1bf60b933dc236f19a6f262c9008cdf35537b7ae",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9767,6 +10497,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29555.json",
 		BlobHash:    "89e484b63783545640e868517a5d1ef0e34a581a",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9779,6 +10510,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29556.json",
 		BlobHash:    "db95a56db0e2845b31c922f8aa9b56e81803e469",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9791,6 +10523,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29557.json",
 		BlobHash:    "00a26a931147ce6115a22bc9324f9124df72d3f2",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9803,6 +10536,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29558.json",
 		BlobHash:    "d7bed6991573c8f0227a4dd25761fee10dfce0f4",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9815,6 +10549,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29559.json",
 		BlobHash:    "6bb39bbf2760f41364710d3d97d3f1828b2626c7",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9827,6 +10562,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29560.json",
 		BlobHash:    "ea466060122200e9cc43087a99a9ed55e6872c3f",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9839,6 +10575,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29561.json",
 		BlobHash:    "bb649b997a0674820579f6682e2b3aa5905c2aaf",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9851,6 +10588,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29562.json",
 		BlobHash:    "c1b815a1debff0b736205f1f88b2e1049ec8bf3c",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9863,6 +10601,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29563.json",
 		BlobHash:    "daf9d9cbd19c00c23b40e472e8614e4c7f3b236f",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9875,6 +10614,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29564.json",
 		BlobHash:    "23b658554754ad3b117456656f07dde3e578c77b",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9887,6 +10627,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29565.json",
 		BlobHash:    "605b7080ef5b3992d4045708aca4fc5198d2c2bc",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9899,6 +10640,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29566.json",
 		BlobHash:    "018777dc337a63d7c07b36c6a535768fd141b6f0",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9911,6 +10653,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29567.json",
 		BlobHash:    "20fc4b1dd8fd7adbe8710f1cb47ed32eebd7987a",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9923,6 +10666,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29568.json",
 		BlobHash:    "17e1e6fe5eb841b33b1278aae17befc915f7defb",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9935,6 +10679,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29569.json",
 		BlobHash:    "7d5078b73f60cef8d56ae260f352f6e9504cfb49",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9947,6 +10692,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29570.json",
 		BlobHash:    "6710b283c7706f3ab9f31db4a5d9b93deff374c7",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9959,6 +10705,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29571.json",
 		BlobHash:    "8334da93ae1e275e2278aee6e4c936bec2058d83",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9971,6 +10718,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29572.json",
 		BlobHash:    "576c27d216f71b9fb9f5977519fad1e217d41c51",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9983,6 +10731,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29573.json",
 		BlobHash:    "9ca2bbf85750438ed5af84390eb8e622cd3638ec",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -9995,6 +10744,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29574.json",
 		BlobHash:    "676e075619c1d86bd2720c1cf6f5ae10f34b0af1",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10007,6 +10757,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29575.json",
 		BlobHash:    "03929785f3eae3eba20c727b0ff37d1475ccb4b2",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10019,6 +10770,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29576.json",
 		BlobHash:    "e8501aad3d36177b585041115f20b7410dd827c2",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10031,6 +10783,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29577.json",
 		BlobHash:    "790874e4d36ec5ebab8d2cbd7318001aa4ad2852",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10043,6 +10796,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29578.json",
 		BlobHash:    "07e565e419a645ac0bb8c972f3e04d30260827dc",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10055,6 +10809,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29579.json",
 		BlobHash:    "7da3aa035fb9463c2891c3fa4d588caef4e7dedf",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10067,6 +10822,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29580.json",
 		BlobHash:    "42174dc544c40ce3900880f92e4f22a002d5a93a",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10079,6 +10835,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29581.json",
 		BlobHash:    "896bb2bbff62b72522073498333c51ce5b23217b",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10091,6 +10848,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29582.json",
 		BlobHash:    "30eb7f7d1b7ae8f7853c07894fb7d07161b77e63",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10103,6 +10861,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29583.json",
 		BlobHash:    "cada79f1166ff259518f2ce0b0bd9d10f08a24d8",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10115,6 +10874,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29584.json",
 		BlobHash:    "411f168303620b72dc2e96c398c9c005c3e55e60",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10127,6 +10887,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29585.json",
 		BlobHash:    "092ad17aa4c388a0cf0ccfc42122c41f7e1037d1",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10139,6 +10900,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29586.json",
 		BlobHash:    "86208a653e96c775fc4551103644b8322ce3c8b2",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10151,6 +10913,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29587.json",
 		BlobHash:    "32c075877856de15928be18c5f725d5e73b39aa0",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10163,6 +10926,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29588.json",
 		BlobHash:    "73f9aab3668378186ad5a0a4c561f6e744d08408",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10175,6 +10939,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29589.json",
 		BlobHash:    "a409873b2509b56e14c76eb8b84d365fd097b8a3",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10187,6 +10952,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29590.json",
 		BlobHash:    "c9d29feab97ef2bcc5149244107e1868151bc8c9",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10199,6 +10965,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29591.json",
 		BlobHash:    "ea918f39028b1559391fb481cc1b0a7ee8dbb68c",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10212,6 +10979,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29592.json",
 		BlobHash:    "9a9027d9d3296aa9e5876b72b6416e31ec03847b",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10224,6 +10992,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29593.json",
 		BlobHash:    "23d9dfd1e9a9a69465c09ad45346c3e851089159",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10236,6 +11005,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29594.json",
 		BlobHash:    "927ce5d1aa3354f1880a4bf85180a345ec412819",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10248,6 +11018,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29595.json",
 		BlobHash:    "8bc6dadc43651587cd2d848ebbede2d22042c716",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10260,6 +11031,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29596.json",
 		BlobHash:    "252008bf8dfeca66e21912aeb30254a7630d6759",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10272,6 +11044,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29597.json",
 		BlobHash:    "044c8f8d3c64a0e16b27c433aa1560bde992c33f",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10284,6 +11057,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29598.json",
 		BlobHash:    "8703f6776bf85dbcdf56dc10b3da4ac2803d9531",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10296,6 +11070,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29599.json",
 		BlobHash:    "a7ce0f45810e5806239f2bb7357876df3b868d94",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10308,6 +11083,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29600.json",
 		BlobHash:    "7a69da1d5f48547e46485d1d89f46039ac78b052",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10320,6 +11096,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29601.json",
 		BlobHash:    "9955f1e6d5462d38683b3645c5bc26db02f1c81c",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10332,6 +11109,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29602.json",
 		BlobHash:    "88714048b3c1aaf959706978c10b42c559d098b4",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10344,6 +11122,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29603.json",
 		BlobHash:    "63a4c7de6a98c91263eec5f432bb0cc5bd908ca6",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10356,6 +11135,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29604.json",
 		BlobHash:    "656211ab32662fa19a060b02f7ac050dd0649428",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10368,6 +11148,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29605.json",
 		BlobHash:    "959de6436d664e7aff72d6a4e010fe81d1d2305b",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10380,6 +11161,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29606.json",
 		BlobHash:    "d8af5922c85bff86069b1454a1060edfb0fe63a9",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10392,6 +11174,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29607.json",
 		BlobHash:    "615e3e396f6d850a833a5e8e6e00b36a082a2e8c",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10405,6 +11188,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29608.json",
 		BlobHash:    "997dd422884a2cbf7c1889388bc2766e2f9004a7",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10419,6 +11203,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29609.json",
 		BlobHash:    "70f717e91875c62d884503429208fb857ab8c30d",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10432,6 +11217,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29610.json",
 		BlobHash:    "ef31fbfaa08f1be4fb5100e6f73254a31beccae2",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10444,6 +11230,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29611.json",
 		BlobHash:    "29c72b3c6512b55a2650f36ee8addfc880cb1d40",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10456,6 +11243,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29612.json",
 		BlobHash:    "520b9cdb93048d8d34a48eae19331546a7ce83a1",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10469,6 +11257,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29613.json",
 		BlobHash:    "79023aac17a09c17f749296fc0687939d3d81e91",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10482,6 +11271,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29614.json",
 		BlobHash:    "df13f08859f7c29646973ad4ca747e4ab667f76b",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10494,6 +11284,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29615.json",
 		BlobHash:    "0963835c888a38e7773d332457a7968962080c7b",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10506,6 +11297,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29616.json",
 		BlobHash:    "97eeefaff3d7fee7feb382eb513ccd5c072bf955",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10518,6 +11310,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29617.json",
 		BlobHash:    "cf369cb48b679bf74801bf95e2deecce20e9648b",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10532,6 +11325,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29618.json",
 		BlobHash:    "f099ec467b6196f7301c8ccfff0a0c58ba891b98",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10546,6 +11340,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/29xxx/CVE-2021-29619.json",
 		BlobHash:    "8e4413cb2d59e0cf8deccdc6af62c5072f25614b",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10558,6 +11353,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/35xxx/CVE-2021-35958.json",
 		BlobHash:    "781fe32b0a3bbe547577f053cc71f5e463b5a5df",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10573,6 +11369,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37635.json",
 		BlobHash:    "642c89c869189f919f43c736f25e3f05959212d2",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10585,6 +11382,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37636.json",
 		BlobHash:    "de0aa160d1b38af958f3c3bfd214a00d834a347d",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10597,6 +11395,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37637.json",
 		BlobHash:    "bed8385118bd1bb0c50f85adf8f096ed4c1dc8da",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10609,6 +11408,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37638.json",
 		BlobHash:    "9e0c47ded28ee3c2f274c439a6822e3eb455b394",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10621,6 +11421,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37639.json",
 		BlobHash:    "f959718f4e03dafefc0a7ab56dc20257f1528d6b",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10633,6 +11434,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37640.json",
 		BlobHash:    "deeb75c61f29cac413427342d130b9e716eab9b8",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10645,6 +11447,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37641.json",
 		BlobHash:    "da8307da4d5e92de3a30314680cda76894ea1dc8",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10657,6 +11460,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37642.json",
 		BlobHash:    "1b47df79e705a83c8c8907285af89f96b1c92fc2",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10669,6 +11473,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37643.json",
 		BlobHash:    "349f28ad92eca81909c6e02dab860df6ee4f1a19",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10681,6 +11486,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37644.json",
 		BlobHash:    "a2a4d98164afe8b1713ad0962b34149ad5477aa3",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10693,6 +11499,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37645.json",
 		BlobHash:    "8b3ac954d72e386d875b471611072e0461a4a3e8",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10705,6 +11512,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37646.json",
 		BlobHash:    "4744e500007686a1653aec62c747f3fc6f91a02b",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10717,6 +11525,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37647.json",
 		BlobHash:    "4996c5c7827304203d7cd963bfa11c30db4b4286",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10729,6 +11538,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37648.json",
 		BlobHash:    "2d9bf48b1f668d2a91c8ae1637772a231b6c3f61",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10741,6 +11551,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37649.json",
 		BlobHash:    "6302db09d66e8e9f0eb8b8119f0e32e089170307",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10753,6 +11564,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37650.json",
 		BlobHash:    "a071c2a3edbf5e10d1379ce15fd666534d7ef9e3",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10765,6 +11577,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37651.json",
 		BlobHash:    "24d164737bd72c4b4b23b36d0243d88d007068f7",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10777,6 +11590,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37652.json",
 		BlobHash:    "edd7e795fa78b7b4e87f25a90c499b785b855c88",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10789,6 +11603,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37653.json",
 		BlobHash:    "45a0708102c02f0475e71e2d559877f439751bdb",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10801,6 +11616,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37654.json",
 		BlobHash:    "be1c6edd99673cd4cb58d63e49e073b2a737d6f7",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10813,6 +11629,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37655.json",
 		BlobHash:    "eb38f095e0bbc39e0de6919d9fbf78a9202b00d7",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10825,6 +11642,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37656.json",
 		BlobHash:    "4edd74f0dc0535de474e9e3a49da8513347cc9ef",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10837,6 +11655,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37657.json",
 		BlobHash:    "c41a47d9966732c98e90a7cd187d8c1252ec7206",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10849,6 +11668,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37658.json",
 		BlobHash:    "a153ce709c052950f7fccbfb3c4fc134cb7b4933",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10861,6 +11681,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37659.json",
 		BlobHash:    "c3dce61c71ea715d4d6352eaec5de9a093416553",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10873,6 +11694,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37660.json",
 		BlobHash:    "5cf3141539b063216ea99b91253e037f9136d6ae",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10885,6 +11707,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37661.json",
 		BlobHash:    "75bf5f046f02d9e67cabfa626e79be0f6a60cf3b",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10897,6 +11720,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37662.json",
 		BlobHash:    "c014bc54e2b0a3a67db648db2962b67b9becbcd4",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10910,6 +11734,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37663.json",
 		BlobHash:    "7b34ff40488cc06dd61a2e15f26b4665f8647124",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10922,6 +11747,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37664.json",
 		BlobHash:    "d90c85af0faa5884b8d548f366cd91a6c06d71a4",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10934,6 +11760,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37665.json",
 		BlobHash:    "d00cde4daf50fb2a31058baf2759d7d3cefcd550",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10947,6 +11774,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37666.json",
 		BlobHash:    "0642a21b40f51d16ea8eb33fe24c7f9902f1719e",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10959,6 +11787,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37667.json",
 		BlobHash:    "5befd6bfdae686bace9f983a82add5104c5959cc",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10971,6 +11800,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37668.json",
 		BlobHash:    "ad453d9228771dd404b0ed316cd6346961f69e8a",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10983,6 +11813,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37669.json",
 		BlobHash:    "ced9b164192b78bfbd1e5ec3bbe23a12c2f46d23",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -10996,6 +11827,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37670.json",
 		BlobHash:    "00f1a3bce81be2901c86359ae9d96f4fd43a89fd",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11008,6 +11840,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37671.json",
 		BlobHash:    "3dbe46f6de616076fe72b0e09207f20f8fa51625",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11020,6 +11853,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37672.json",
 		BlobHash:    "cf98b0683ecfbe85966628ed47dbdde7a82df1a9",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11032,6 +11866,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37673.json",
 		BlobHash:    "3f8c0d7bb418069e4c6cf4c602d4954d068ca49e",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11044,6 +11879,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37674.json",
 		BlobHash:    "18fd81f627c00355c8500acdca215038b15eeb0d",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11057,6 +11893,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37675.json",
 		BlobHash:    "da173290531fd5520d10dcccdb97e64f96042cba",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11069,6 +11906,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37676.json",
 		BlobHash:    "77dff7969871db4fc359119e9c6c39edd52a6a18",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11081,6 +11919,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37677.json",
 		BlobHash:    "3dc38e667d94f0d9cc448fb89a7d279f36a2036e",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11093,6 +11932,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37678.json",
 		BlobHash:    "330dd1e8e59321e4f77199d35901951139850e4e",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11105,6 +11945,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37679.json",
 		BlobHash:    "1e85bf10695dab7ea5a4278e2b32dfeebf353b0c",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11117,6 +11958,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37680.json",
 		BlobHash:    "3fd7bbd6bf43ed7e17c92c767bb9c107b8d236aa",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11129,6 +11971,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37681.json",
 		BlobHash:    "9c0ddf576f9b3df3d43f2d61c5639c984a09ed06",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11141,6 +11984,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37682.json",
 		BlobHash:    "109cde8be690d3c506d1f46ad023fe82284befed",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11155,6 +11999,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37683.json",
 		BlobHash:    "045db36608dd334a6c877390e2f5df022e534857",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11167,6 +12012,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37684.json",
 		BlobHash:    "86cdcabb766cf7ea1ab0e0c0498c5e14778d7ccf",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11178,6 +12024,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37685.json",
 		BlobHash:    "4a07f76988235fb0ada03ced9dc039efd3dfb12b",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11190,6 +12037,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37686.json",
 		BlobHash:    "0b6c6ab7b37e76b62a039fa4385c42136364d89c",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11202,6 +12050,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37687.json",
 		BlobHash:    "ebe88f94f13b110e4ab62bc121435bca02fe3236",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11215,6 +12064,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37688.json",
 		BlobHash:    "04ceb89bdcca04ada2e1bd8e8610485b5914405c",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11227,6 +12077,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37689.json",
 		BlobHash:    "e6b5df4b16b1dd1379c4932526a7780daad60b2b",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11239,6 +12090,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37690.json",
 		BlobHash:    "c946682d7f40b599bfebf87b2f295fcd26626411",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11251,6 +12103,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37691.json",
 		BlobHash:    "8e78b8b987c6d1a20cde572e800e403d409addc1",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11263,6 +12116,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/37xxx/CVE-2021-37692.json",
 		BlobHash:    "08838dcccbbbfc26b59b2e3d28aa3c8cd5769903",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11276,6 +12130,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41195.json",
 		BlobHash:    "e92f78f1ee3c559fa82ee81b7d9acc207a0158d8",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11290,6 +12145,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41196.json",
 		BlobHash:    "1a95356814aa34a21ce55b972e41ec956742478c",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11303,6 +12159,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41197.json",
 		BlobHash:    "d7e5aa3ce04c6fe031e85a42fa0606938a97c8d6",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11319,6 +12176,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41198.json",
 		BlobHash:    "fa197f8d57cb70c762060020bcc0f74f7a66c24a",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11332,6 +12190,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41199.json",
 		BlobHash:    "e86f15f0f69b8ad5bc9646bbe0d5edf3a7ea6732",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11345,6 +12204,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41200.json",
 		BlobHash:    "2b92f54aac84403691c7b68587e025b3e22a1ec4",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11358,6 +12218,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41201.json",
 		BlobHash:    "1303d512b7b88291b717cbba085d077ed9984dad",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11370,6 +12231,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41202.json",
 		BlobHash:    "67260d92c87a3ae53101a4d68e14ce109fbebb2d",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11385,6 +12247,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41203.json",
 		BlobHash:    "102d48cc1ee147c3c3cf3d60d43f3a4983e6d0f7",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11400,6 +12263,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41204.json",
 		BlobHash:    "571c0e1bc2d31dbbc05feeae0648b33d16d96054",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11412,6 +12276,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41205.json",
 		BlobHash:    "c0f10ab88eee56e0aea968f4e07fe450b48cf798",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11424,6 +12289,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41206.json",
 		BlobHash:    "3d54d810d0e5b37210acd68aad4810d935f19107",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11441,6 +12307,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41207.json",
 		BlobHash:    "fa1051c54a52ca44a08d33cd4d82f947aa09c925",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11453,6 +12320,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41208.json",
 		BlobHash:    "4f252abee49ce00acb427fb4e55c7b5a10e598e5",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11465,6 +12333,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41209.json",
 		BlobHash:    "b43d692231c102fe2f05c2eb8079595464d4e7e1",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11477,6 +12346,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41210.json",
 		BlobHash:    "c0298e2202c14bcead40ae8050af3249443c2e75",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11489,6 +12359,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41211.json",
 		BlobHash:    "3570ae9b84c641ee011c8d0427761a70b6a81df3",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11501,6 +12372,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41212.json",
 		BlobHash:    "860bf94c111913f6e7ff52bb1e804d1d39df1f77",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11513,6 +12385,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41213.json",
 		BlobHash:    "f34bf7f8d4203c8d61f1a3dc20fad6be6de5d751",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11525,6 +12398,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41214.json",
 		BlobHash:    "d1709a96071c4bce502bec2d04327829b215fa86",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11537,6 +12411,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41215.json",
 		BlobHash:    "0057873c0f537daa0f9c853ed4d11bf4ac8fe0d9",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11549,6 +12424,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41216.json",
 		BlobHash:    "9371bcec59f2f4f8c1c361f3169b4508d417a6cb",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11561,6 +12437,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41217.json",
 		BlobHash:    "56b688e85d30362d699d530309d4f5ddc0ab3179",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11573,6 +12450,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41218.json",
 		BlobHash:    "aa9d42c74cb8ceae6a2bfaa8be6f0338e14ce559",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11585,6 +12463,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41219.json",
 		BlobHash:    "7d7729c55b029cc4d77ca0b5af7cc5c925ed53f2",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11597,6 +12476,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41220.json",
 		BlobHash:    "173b397e148ab86cbf839b7bff3a4b3c1b6edb11",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11609,6 +12489,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41221.json",
 		BlobHash:    "f187e9cd068385fbdfe324f18d05064c3bf3cfa1",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11621,6 +12502,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41222.json",
 		BlobHash:    "e955ef931fe19e2615b821cf97becd8396918750",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11633,6 +12515,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41223.json",
 		BlobHash:    "5c5e6aaf5a8acbdddfec06ba9c7f4912e2b5951a",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11645,6 +12528,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41224.json",
 		BlobHash:    "cae7338931654c4d45e62e8fed8a72a6f1655828",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11657,6 +12541,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41225.json",
 		BlobHash:    "0c755722793d71a42d45d70a8dcd12ae39fe06af",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11669,6 +12554,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41226.json",
 		BlobHash:    "3a08efb5369f6eeb43b311bfa8cb7d8163c84b9e",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11681,6 +12567,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41227.json",
 		BlobHash:    "3566a9b05b4cbaa8555d8e813deac09c6fae74d2",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11694,6 +12581,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2021/41xxx/CVE-2021-41228.json",
 		BlobHash:    "8a7dfd9a7d0c57f66ced89ffa083b4411129a933",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11706,6 +12594,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2013/2xxx/CVE-2013-2028.json",
 		BlobHash:    "5ff1542bf8bd7715b85de24c31e60451b6323f1d",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11726,6 +12615,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2013/4xxx/CVE-2013-4450.json",
 		BlobHash:    "b4f345385e30a6f8208913094489a231793e964f",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11746,6 +12636,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2014/4xxx/CVE-2014-4877.json",
 		BlobHash:    "aa0091f82ae50cb0fcb83afcec3e218da04e32ad",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11778,6 +12669,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2014/5xxx/CVE-2014-5445.json",
 		BlobHash:    "b83893dddc2a85b4f4a0ea96274f3e2a0fc2234e",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11797,6 +12689,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2014/6xxx/CVE-2014-6037.json",
 		BlobHash:    "48ba5b40c19fd59d2564f1541c00baa46b9141ed",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11817,6 +12710,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2014/6xxx/CVE-2014-6287.json",
 		BlobHash:    "705a769ab54698278e49378f386511ad93c4ce2c",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11834,6 +12728,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2014/7xxx/CVE-2014-7189.json",
 		BlobHash:    "3a843400fb76a8c7ed8ca42c8da5411f78801c60",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11848,6 +12743,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2014/9xxx/CVE-2014-9566.json",
 		BlobHash:    "011691878d857e0b1868d2adf84220dfa65b8eea",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11865,6 +12761,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2015/0xxx/CVE-2015-0779.json",
 		BlobHash:    "7592cb7df77bbe474330e1dfebc5a72af30142ee",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11880,6 +12777,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2016/7xxx/CVE-2016-7552.json",
 		BlobHash:    "98b3cd371f4984f4c5682822ee6fcb1e771655ad",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11892,6 +12790,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/14xxx/CVE-2017-14705.json",
 		BlobHash:    "9911609601a0d0bac79018c629d8e5dc869ead77",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11905,6 +12804,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/14xxx/CVE-2017-14706.json",
 		BlobHash:    "3849b390f5738a8a407bd97f3825c464a947bdb7",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11918,6 +12818,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/14xxx/CVE-2017-14730.json",
 		BlobHash:    "fe8aeea16c9536387346d46733d7efeefc437d7f",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11932,6 +12833,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/15xxx/CVE-2017-15041.json",
 		BlobHash:    "07f68c1b5ea4cc7d560e0e211c12babc1a5f43ab",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11952,6 +12854,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/15xxx/CVE-2017-15042.json",
 		BlobHash:    "82b8824f1b6ac1d77e2fab153c1eb694572cda7d",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11970,6 +12873,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/15xxx/CVE-2017-15701.json",
 		BlobHash:    "48c02bacd4c6a4518fc0b0c04543e98f5b4b5c4c",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11984,6 +12888,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/15xxx/CVE-2017-15702.json",
 		BlobHash:    "bfdca2d9fd21d63b2d7f41d7b945e7e442861873",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -11998,6 +12903,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/16xxx/CVE-2017-16762.json",
 		BlobHash:    "443f2bc2686367441b7bb26ca168984d02ff8f27",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -12010,6 +12916,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/17xxx/CVE-2017-17411.json",
 		BlobHash:    "ac56ec23de2cd4b44e511d292b385d6b3e77db87",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -12025,6 +12932,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/17xxx/CVE-2017-17560.json",
 		BlobHash:    "7f83f052dfb83730416b4fa323fcff915918a47e",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -12038,6 +12946,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/18xxx/CVE-2017-18044.json",
 		BlobHash:    "fc72b49fa7b14d527bf6573d3520ca7929177282",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -12051,6 +12960,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/5xxx/CVE-2017-5677.json",
 		BlobHash:    "a3e5463147aaba2dee3cd34d1ccf275ffba07a1a",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{
@@ -12067,6 +12977,7 @@ var falsePositives = []*store.CVERecord{
 		Path:        "2017/7xxx/CVE-2017-7269.json",
 		BlobHash:    "f008f84a1e5e93464acd3c60deaa97afce4c1594",
 		CommitHash:  "f2e420732374f84baa2c4a5b7a84be9ff7e46f88",
+		CommitTime:  time.Date(2021, time.November, 7, 1, 1, 1, 0, time.UTC),
 		CVEState:    "PUBLIC",
 		TriageState: "FalsePositive",
 		ReferenceURLs: []string{

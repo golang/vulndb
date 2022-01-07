@@ -9,15 +9,14 @@ package worker
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"strings"
 	"sync"
 	"text/template"
 	"time"
 
-	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
+	"github.com/go-git/go-git/v5/plumbing/object"
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/time/rate"
 	vulnc "golang.org/x/vuln/client"
@@ -62,8 +61,12 @@ func UpdateCommit(ctx context.Context, repoPath, commitHash string, st store.Sto
 	} else {
 		ch = plumbing.NewHash(commitHash)
 	}
+	commit, err := repo.CommitObject(ch)
+	if err != nil {
+		return err
+	}
 	if !force {
-		if err := checkUpdate(ctx, repo, ch, st); err != nil {
+		if err := checkUpdate(ctx, commit, st); err != nil {
 			return err
 		}
 	}
@@ -71,7 +74,7 @@ func UpdateCommit(ctx context.Context, repoPath, commitHash string, st store.Sto
 	if err != nil {
 		return err
 	}
-	u := newUpdater(repo, ch, st, knownVulnIDs, func(cve *cveschema.CVE) (*triageResult, error) {
+	u := newUpdater(repo, commit, st, knownVulnIDs, func(cve *cveschema.CVE) (*triageResult, error) {
 		return TriageCVE(ctx, cve, pkgsiteURL)
 	})
 	_, err = u.update(ctx)
@@ -81,15 +84,7 @@ func UpdateCommit(ctx context.Context, repoPath, commitHash string, st store.Sto
 // checkUpdate performs sanity checks on a potential update.
 // It verifies that there is not an update currently in progress,
 // and it makes sure that the update is to a more recent commit.
-func checkUpdate(ctx context.Context, repo *git.Repository, commitHash plumbing.Hash, st store.Store) error {
-	b, err := falsePositivesInserted(ctx, st)
-	if err != nil {
-		return err
-	}
-	if !b {
-		return errors.New("false positives not inserted")
-	}
-
+func checkUpdate(ctx context.Context, commit *object.Commit, st store.Store) error {
 	urs, err := st.ListCommitUpdateRecords(ctx, 1)
 	if err != nil {
 		return err
@@ -111,14 +106,10 @@ func checkUpdate(ctx context.Context, repo *git.Repository, commitHash plumbing.
 			msg: fmt.Sprintf("latest update finished with error %q", lu.Error),
 		}
 	}
-	commit, err := repo.CommitObject(commitHash)
-	if err != nil {
-		return err
-	}
 	if commit.Committer.When.Before(lu.CommitTime) {
 		return &CheckUpdateError{
 			msg: fmt.Sprintf("commit %s time %s is before latest update commit %s time %s",
-				commitHash, commit.Committer.When.Format(time.RFC3339),
+				commit.Hash, commit.Committer.When.Format(time.RFC3339),
 				lu.CommitHash, lu.CommitTime.Format(time.RFC3339)),
 		}
 	}

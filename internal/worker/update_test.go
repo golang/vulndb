@@ -13,7 +13,6 @@ import (
 	"time"
 
 	"github.com/go-git/go-git/v5"
-	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"
 	"github.com/google/go-cmp/cmp"
 	"golang.org/x/vulndb/internal/cvelistrepo"
@@ -66,28 +65,35 @@ func modify(r, m *store.CVERecord) *store.CVERecord {
 	return &c
 }
 
+func TestNewCVERecord(t *testing.T) {
+	// Check that NewCVERecord with a TriageState gives a valid CVERecord.
+	repo, err := gitrepo.ReadTxtarRepo(testRepoPath, time.Now())
+	if err != nil {
+		t.Fatal(err)
+	}
+	commit := headCommit(t, repo)
+	pathname := "2021/0xxx/CVE-2021-0001.json"
+	cve, bh := readCVE(t, repo, commit, pathname)
+	cr := store.NewCVERecord(cve, pathname, bh, commit)
+	cr.TriageState = store.TriageStateNeedsIssue
+	if err := cr.Validate(); err != nil {
+		t.Fatal(err)
+	}
+}
+
 func TestDoUpdate(t *testing.T) {
 	ctx := context.Background()
-	repo, err := gitrepo.ReadTxtarRepo("../cvelistrepo/testdata/basic.txtar", time.Now())
+	repo, err := gitrepo.ReadTxtarRepo(testRepoPath, time.Now())
 	if err != nil {
 		t.Fatal(err)
 	}
-	h, err := gitrepo.HeadHash(repo)
-	if err != nil {
-		t.Fatal(err)
-	}
-
+	commit := headCommit(t, repo)
 	purl := getPkgsiteURL(t)
 	needsIssue := func(cve *cveschema.CVE) (*triageResult, error) {
 		return TriageCVE(ctx, cve, purl)
 	}
 
-	ref, err := repo.Reference(plumbing.HEAD, true)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	commitHash := ref.Hash().String()
+	commitHash := commit.Hash.String()
 	knownVulns := []string{"CVE-2020-9283"}
 
 	paths := []string{
@@ -102,20 +108,14 @@ func TestDoUpdate(t *testing.T) {
 		blobHashes []string
 	)
 	for _, p := range paths {
-		cve, bh := readCVE(t, repo, p)
+		cve, bh := readCVE(t, repo, commit, p)
 		cves = append(cves, cve)
 		blobHashes = append(blobHashes, bh)
 	}
 	// CVERecords after the above CVEs are added to an empty DB.
 	var rs []*store.CVERecord
 	for i := 0; i < len(cves); i++ {
-		r := &store.CVERecord{
-			ID:         cves[i].ID,
-			CVEState:   cves[i].State,
-			Path:       paths[i],
-			BlobHash:   blobHashes[i],
-			CommitHash: commitHash,
-		}
+		r := store.NewCVERecord(cves[i], paths[i], blobHashes[i], commit)
 		rs = append(rs, r)
 	}
 	rs[0].TriageState = store.TriageStateNeedsIssue // a public CVE, has a golang.org path
@@ -266,7 +266,7 @@ func TestDoUpdate(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			mstore := store.NewMemStore()
 			createCVERecords(t, mstore, test.cur)
-			if _, err := newUpdater(repo, h, mstore, knownVulns, needsIssue).update(ctx); err != nil {
+			if _, err := newUpdater(repo, commit, mstore, knownVulns, needsIssue).update(ctx); err != nil {
 				t.Fatal(err)
 			}
 			got := mstore.CVERecords()
@@ -339,9 +339,8 @@ func TestGroupFilesByDirectory(t *testing.T) {
 	}
 }
 
-func readCVE(t *testing.T, repo *git.Repository, path string) (*cveschema.CVE, string) {
-	c := headCommit(t, repo)
-	cve, blobHash, err := ReadCVEAtPath(c, path)
+func readCVE(t *testing.T, repo *git.Repository, commit *object.Commit, path string) (*cveschema.CVE, string) {
+	cve, blobHash, err := ReadCVEAtPath(commit, path)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -349,6 +348,7 @@ func readCVE(t *testing.T, repo *git.Repository, path string) (*cveschema.CVE, s
 }
 
 func createCVERecords(t *testing.T, s store.Store, crs []*store.CVERecord) {
+	t.Helper()
 	err := s.RunTransaction(context.Background(), func(_ context.Context, tx store.Transaction) error {
 		for _, cr := range crs {
 			if err := tx.CreateCVERecord(cr); err != nil {

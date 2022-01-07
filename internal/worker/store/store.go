@@ -11,6 +11,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/go-git/go-git/v5/plumbing/object"
 	"golang.org/x/vulndb/internal/cveschema"
 )
 
@@ -24,6 +25,9 @@ type CVERecord struct {
 	BlobHash string
 	// CommitHash is the commit of the cvelist repo from which this information came.
 	CommitHash string
+	// CommitTime is the time of the above commit.
+	// If zero, it has not been populated.
+	CommitTime time.Time
 	// CVEState is the value of the metadata.STATE field.
 	CVEState string
 	// TriageState is the state of our triage processing on the CVE.
@@ -69,6 +73,9 @@ func (r *CVERecord) Validate() error {
 	if r.CommitHash == "" {
 		return errors.New("need CommitHash")
 	}
+	if r.CommitTime.IsZero() {
+		return errors.New("need CommitTime")
+	}
 	return r.TriageState.Validate()
 }
 
@@ -104,12 +111,14 @@ func (s TriageState) Validate() error {
 }
 
 // NewCVERecord creates a CVERecord from a CVE, its path and its blob hash.
-func NewCVERecord(cve *cveschema.CVE, path, blobHash string) *CVERecord {
+func NewCVERecord(cve *cveschema.CVE, path, blobHash string, commit *object.Commit) *CVERecord {
 	return &CVERecord{
-		ID:       cve.ID,
-		CVEState: cve.State,
-		Path:     path,
-		BlobHash: blobHash,
+		ID:         cve.ID,
+		CVEState:   cve.State,
+		Path:       path,
+		BlobHash:   blobHash,
+		CommitHash: commit.Hash.String(),
+		CommitTime: commit.Committer.When.In(time.UTC),
 	}
 }
 

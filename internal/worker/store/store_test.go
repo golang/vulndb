@@ -79,12 +79,18 @@ func testCVEs(t *testing.T, s Store) {
 		id2 = "CVE-1905-0002"
 		id3 = "CVE-1905-0003"
 	)
+
+	date := func(year, month, day int) time.Time {
+		return time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.UTC)
+	}
+
 	crs := []*CVERecord{
 		{
 			ID:          id1,
 			Path:        "1905/" + id1 + ".json",
 			BlobHash:    "123",
 			CommitHash:  "456",
+			CommitTime:  date(2000, 1, 2),
 			CVEState:    "PUBLIC",
 			TriageState: TriageStateNeedsIssue,
 		},
@@ -93,6 +99,7 @@ func testCVEs(t *testing.T, s Store) {
 			Path:        "1906/" + id2 + ".json",
 			BlobHash:    "abc",
 			CommitHash:  "def",
+			CommitTime:  date(2001, 3, 4),
 			CVEState:    "RESERVED",
 			TriageState: TriageStateNoActionNeeded,
 		},
@@ -101,6 +108,7 @@ func testCVEs(t *testing.T, s Store) {
 			Path:        "1907/" + id3 + ".json",
 			BlobHash:    "xyz",
 			CommitHash:  "456",
+			CommitTime:  date(2010, 1, 2),
 			CVEState:    "REJECT",
 			TriageState: TriageStateNoActionNeeded,
 		},

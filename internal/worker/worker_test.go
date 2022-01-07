@@ -23,10 +23,12 @@ import (
 	"golang.org/x/vulndb/internal/worker/store"
 )
 
+const testRepoPath = "../cvelistrepo/testdata/basic.txtar"
+
 func TestCheckUpdate(t *testing.T) {
 	ctx := context.Background()
 	tm := time.Date(2021, 1, 26, 0, 0, 0, 0, time.Local)
-	repo, err := gitrepo.ReadTxtarRepo("../cvelistrepo/testdata/basic.txtar", tm)
+	repo, err := gitrepo.ReadTxtarRepo(testRepoPath, tm)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -83,7 +85,7 @@ func TestCheckUpdate(t *testing.T) {
 				t.Fatal(err)
 			}
 		}
-		got := checkUpdate(ctx, repo, headCommit(t, repo).Hash, mstore)
+		got := checkUpdate(ctx, headCommit(t, repo), mstore)
 		if got == nil && test.want != "" {
 			t.Errorf("%+v:\ngot no error, wanted %q", test.latestUpdate, test.want)
 		} else if got != nil && !strings.Contains(got.Error(), test.want) {
@@ -96,12 +98,14 @@ func TestCreateIssues(t *testing.T) {
 	ctx := log.WithLineLogger(context.Background())
 	mstore := store.NewMemStore()
 	ic := issues.NewFakeClient()
+	ctime := time.Date(2020, 1, 2, 0, 0, 0, 0, time.UTC)
 
 	crs := []*store.CVERecord{
 		{
 			ID:         "ID1",
 			BlobHash:   "bh1",
 			CommitHash: "ch",
+			CommitTime: ctime,
 			Path:       "path1",
 			CVE: &cveschema.CVE{
 				Metadata: cveschema.Metadata{
@@ -114,6 +118,7 @@ func TestCreateIssues(t *testing.T) {
 			ID:          "ID2",
 			BlobHash:    "bh2",
 			CommitHash:  "ch",
+			CommitTime:  ctime,
 			Path:        "path2",
 			TriageState: store.TriageStateNoActionNeeded,
 		},
@@ -121,6 +126,7 @@ func TestCreateIssues(t *testing.T) {
 			ID:          "ID3",
 			BlobHash:    "bh3",
 			CommitHash:  "ch",
+			CommitTime:  ctime,
 			Path:        "path3",
 			TriageState: store.TriageStateIssueCreated,
 		},

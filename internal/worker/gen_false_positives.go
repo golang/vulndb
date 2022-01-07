@@ -296,18 +296,18 @@ func buildCVERecords(repo *git.Repository) ([]*store.CVERecord, error) {
 	for _, spec := range falsePositiveIDs {
 		commit, err := repo.CommitObject(plumbing.NewHash(spec.commit))
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("commit %s: %w", spec.commit, err)
 		}
 		for _, id := range spec.ids {
 			path := idToPath(id)
 			cve, blobHash, err := worker.ReadCVEAtPath(commit, path)
 			if err != nil {
-				return nil, err
+				return nil, fmt.Errorf("%s at %s: %w", path, spec.commit, err)
 			}
 			if cve.ID != id {
 				return nil, fmt.Errorf("ID at path %s is %s", path, cve.ID)
 			}
-			cr := store.NewCVERecord(cve, path, blobHash)
+			cr := store.NewCVERecord(cve, path, blobHash, commit)
 			cr.CommitHash = spec.commit
 			if reportID := coveredIDs[id]; reportID != "" {
 				cr.TriageState = store.TriageStateHasVuln
@@ -349,7 +349,11 @@ var fileTemplate = `
 
 package worker
 
-import "golang.org/x/vulndb/internal/worker/store"
+import (
+    "time"
+
+    "golang.org/x/vulndb/internal/worker/store"
+)
 
 var falsePositives = {{. | src}}
 `

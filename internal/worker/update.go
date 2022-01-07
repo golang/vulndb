@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/go-git/go-git/v5"
-	"github.com/go-git/go-git/v5/plumbing"
+	"github.com/go-git/go-git/v5/plumbing/object"
 	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/derrors"
@@ -28,7 +28,7 @@ type triageFunc func(*cveschema.CVE) (*triageResult, error)
 // An updater performs an update operation on the DB.
 type updater struct {
 	repo           *git.Repository
-	commitHash     plumbing.Hash
+	commit         *object.Commit
 	st             store.Store
 	knownIDs       map[string]bool
 	affectedModule triageFunc
@@ -41,10 +41,10 @@ type updateStats struct {
 // newUpdater creates an updater for updating the store with information from
 // the repo commit.
 // needsIssue determines whether a CVE needs an issue to be filed for it.
-func newUpdater(repo *git.Repository, commitHash plumbing.Hash, st store.Store, knownVulnIDs []string, needsIssue triageFunc) *updater {
+func newUpdater(repo *git.Repository, commit *object.Commit, st store.Store, knownVulnIDs []string, needsIssue triageFunc) *updater {
 	u := &updater{
 		repo:           repo,
-		commitHash:     commitHash,
+		commit:         commit,
 		st:             st,
 		knownIDs:       map[string]bool{},
 		affectedModule: needsIssue,
@@ -64,7 +64,7 @@ func (u *updater) update(ctx context.Context) (ur *store.CommitUpdateRecord, err
 	// transaction, but Firestore has a limit on how many writes one
 	// transaction can do, so the CVE files in the repo are processed in
 	// batches, one transaction per batch.
-	defer derrors.Wrap(&err, "updater.update(%s)", u.commitHash)
+	defer derrors.Wrap(&err, "updater.update(%s)", u.commit.Hash)
 
 	defer func() {
 		if err != nil {
@@ -76,22 +76,17 @@ func (u *updater) update(ctx context.Context) (ur *store.CommitUpdateRecord, err
 				nModified = int64(ur.NumModified)
 			}
 			log.Infof(ctx, "update succeeded on %s: added %d, modified %d",
-				u.commitHash, nAdded, nModified)
+				u.commit.Hash, nAdded, nModified)
 		}
 	}()
 
-	log.Infof(ctx, "update starting on %s", u.commitHash)
-
-	commit, err := u.repo.CommitObject(u.commitHash)
-	if err != nil {
-		return nil, err
-	}
+	log.Infof(ctx, "update starting on %s", u.commit.Hash)
 
 	// Get all the CVE files.
 	// It is cheaper to read all the files from the repo and compare
 	// them to the DB in bulk, than to walk the repo and process
 	// each file individually.
-	files, err := cvelistrepo.Files(u.repo, commit)
+	files, err := cvelistrepo.Files(u.repo, u.commit)
 	if err != nil {
 		return nil, err
 	}
@@ -105,8 +100,8 @@ func (u *updater) update(ctx context.Context) (ur *store.CommitUpdateRecord, err
 	// Create a new CommitUpdateRecord to describe this run of doUpdate.
 	ur = &store.CommitUpdateRecord{
 		StartedAt:  time.Now(),
-		CommitHash: u.commitHash.String(),
-		CommitTime: commit.Committer.When,
+		CommitHash: u.commit.Hash.String(),
+		CommitTime: u.commit.Committer.When,
 		NumTotal:   len(files),
 	}
 	if err := u.st.CreateCommitUpdateRecord(ctx, ur); err != nil {
@@ -260,8 +255,7 @@ func (u *updater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx store.T
 	pathname := path.Join(f.DirPath, f.Filename)
 	// If the CVE is not in the database, add it.
 	if old == nil {
-		cr := store.NewCVERecord(cve, pathname, f.BlobHash.String())
-		cr.CommitHash = u.commitHash.String()
+		cr := store.NewCVERecord(cve, pathname, f.BlobHash.String(), u.commit)
 		switch {
 		case result != nil:
 			cr.TriageState = store.TriageStateNeedsIssue
@@ -282,7 +276,8 @@ func (u *updater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx store.T
 	mod.Path = pathname
 	mod.BlobHash = f.BlobHash.String()
 	mod.CVEState = cve.State
-	mod.CommitHash = u.commitHash.String()
+	mod.CommitHash = u.commit.Hash.String()
+	mod.CommitTime = u.commit.Committer.When.In(time.UTC)
 	switch old.TriageState {
 	case store.TriageStateNoActionNeeded, store.TriageStateFalsePositive:
 		if result != nil {
