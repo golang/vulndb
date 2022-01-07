@@ -10,7 +10,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/google/go-github/github"
+	"github.com/google/go-github/v41/github"
 	"golang.org/x/oauth2"
 	"golang.org/x/vulndb/internal/derrors"
 )

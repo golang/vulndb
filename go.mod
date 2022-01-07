@@ -15,7 +15,7 @@ require (
 	github.com/go-git/go-billy/v5 v5.3.1
 	github.com/go-git/go-git/v5 v5.4.2
 	github.com/google/go-cmp v0.5.6
-	github.com/google/go-github v17.0.0+incompatible
+	github.com/google/go-github/v41 v41.0.0
 	github.com/google/safehtml v0.0.2
 	github.com/jba/templatecheck v0.6.0
 	golang.org/x/exp v0.0.0-20211123021643-48cbe7f80d7c
