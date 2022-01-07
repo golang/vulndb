@@ -243,10 +243,6 @@ func (r *Report) Lint() []string {
 		addIssue("missing description")
 	}
 
-	if r.Published.IsZero() {
-		addIssue("missing published")
-	}
-
 	if r.LastModified != nil && r.LastModified.Before(r.Published) {
 		addIssue("last_modified is before published")
 	}
