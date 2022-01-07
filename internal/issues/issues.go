@@ -106,9 +106,11 @@ func (c *githubClient) CreateIssue(ctx context.Context, iss *Issue) (number int,
 	defer derrors.Wrap(&err, "CreateIssue(%s)", iss.Title)
 
 	req := &github.IssueRequest{
-		Title:  &iss.Title,
-		Body:   &iss.Body,
-		Labels: &iss.Labels,
+		Title: &iss.Title,
+		Body:  &iss.Body,
+	}
+	if len(iss.Labels) > 0 {
+		req.Labels = &iss.Labels
 	}
 	giss, _, err := c.client.Issues.Create(ctx, c.owner, c.repo, req)
 	if err != nil {
