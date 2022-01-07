@@ -19,7 +19,7 @@ case $env in
     url=https://dev-vuln-worker-ku6ias4ydq-uc.a.run.app
     ;;
   prod)
-    svc_acct=impersonate-for-iap@go-discovery.iam.gserviceaccount.com
+    svc_acct=impersonate@go-vuln.iam.gserviceaccount.com
     url=https://prod-vuln-worker-cf7lo3kiaq-uc.a.run.app
     ;;
   *) die "usage: $0 (dev | prod)"
