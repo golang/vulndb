@@ -1,0 +1,20 @@
+module: std
+package: net/http/httputil
+versions:
+- fixed: go1.15.15
+- fixed: go1.16.7
+- fixed: go1.17.0
+description: |
+  ReverseProxy can panic after encountering a problem copying
+  a proxied response body.
+cves:
+- CVE-2021-36221
+credit: Andrew Crump
+symbols:
+- ReverseProxy.ServeHTTP
+links:
+  pr: https://go.dev/cl/333191
+  commit: https://go.googlesource.com/go/+/b7a85e0003cedb1b48a1fd3ae5b746ec6330102e
+  context:
+  - https://groups.google.com/g/golang-announce/c/uHACNfXAZqk
+  - https://go.dev/issue/46866
