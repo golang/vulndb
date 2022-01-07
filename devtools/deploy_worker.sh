@@ -43,7 +43,7 @@ main() {
   local project=$(tfvar ${env}_project)
   local image=gcr.io/$project/vuln-worker:$(docker_image_tag)
 
-  $prefix docker build -t $image -f cmd/worker/Dockerfile .
+  $prefix docker build -t $image --build-arg DOCKER_IMAGE=$image -f cmd/worker/Dockerfile .
   $prefix docker push $image
   $prefix gcloud run deploy --quiet --project $project $env-vuln-worker --image $image
   # If there was a rollback, `gcloud run deploy` will create a revision but

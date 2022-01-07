@@ -86,6 +86,9 @@ func main() {
 	}
 
 	ctx := log.WithLineLogger(context.Background())
+	if img := os.Getenv("DOCKER_IMAGE"); img != "" {
+		log.Infof(ctx, "running in docker image %s", img)
+	}
 	log.Infof(ctx, "config: project=%s, namespace=%s, issueRepo=%s", cfg.Project, cfg.Namespace, cfg.IssueRepo)
 
 	var err error

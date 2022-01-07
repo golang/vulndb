@@ -40,4 +40,7 @@ WORKDIR app
 COPY --from=builder src/worker      worker
 COPY internal/worker/static         internal/worker/static
 
+ARG DOCKER_IMAGE
+ENV DOCKER_IMAGE=$DOCKER_IMAGE
+
 CMD ["./worker"]
