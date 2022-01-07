@@ -211,7 +211,7 @@ func CreateIssues(ctx context.Context, st store.Store, ic issues.Client, limit i
 
 		// Create the issue.
 		iss := &issues.Issue{
-			Title: fmt.Sprintf("x/vulndb: potential Go vuln in %q: %s", cr.Module, cr.ID),
+			Title: fmt.Sprintf("x/vulndb: potential Go vuln in %s: %s", cr.Module, cr.ID),
 			Body:  body,
 		}
 		if err := issueRateLimiter.Wait(ctx); err != nil {
@@ -224,7 +224,7 @@ func CreateIssues(ctx context.Context, st store.Store, ic issues.Client, limit i
 		// If we crashed here, we would have filed an issue without recording
 		// that fact in the DB. That can lead to duplicate issues, but nothing
 		// worse (we won't miss a CVE).
-		// TODO(golang/go#49733): look for the issue title to avoid duplications.
+		// TODO(https://go.dev/issue/49733): look for the issue title to avoid duplications.
 		ref := ic.Reference(num)
 		log.With("CVE", cr.ID).Infof(ctx, "created issue %s for %s", ref, cr.ID)
 
@@ -262,10 +262,18 @@ func newBody(cr *store.CVERecord) (string, error) {
 	if err != nil {
 		return "", err
 	}
+
+	intro := fmt.Sprintf(
+		"In [%s](%s/tree/%s/%s), the reference URL [%s](%s) (and possibly others) refers to something in Go.",
+		cr.ID, cvelistrepo.URL, cr.CommitHash, cr.Path, cr.Module, cr.Module)
+	if r.Links.Commit != "" {
+		intro += fmt.Sprintf("\n- Commit: %s", r.Links.Commit)
+	}
+	if r.Links.PR != "" {
+		intro += fmt.Sprintf("\n- PR: %s", r.Links.PR)
+	}
 	if err := issueTemplate.Execute(&b, issueTemplateData{
-		Heading: fmt.Sprintf(
-			"In [%s](%s/tree/%s/%s), the reference URL [%s](%s) (and possibly others) refers to something in Go.",
-			cr.ID, cvelistrepo.URL, cr.CommitHash, cr.Path, cr.Module, cr.Module),
+		Intro:  intro,
 		Report: string(out),
 		Pre:    "```",
 	}); err != nil {
@@ -275,19 +283,18 @@ func newBody(cr *store.CVERecord) (string, error) {
 }
 
 type issueTemplateData struct {
-	Heading string
-	Report  string
-	Pre     string // markdown string for a <pre> block
+	Intro  string
+	Report string
+	Pre    string // markdown string for a <pre> block
 	*store.CVERecord
 }
 
 var issueTemplate = template.Must(template.New("issue").Parse(`
-{{- .Heading}}
+{{- .Intro}}
 
 {{.Pre}}
 {{.Report}}
 {{.Pre}}
 
-See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md)
-for instructions on how to triage this report.
+See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) for instructions on how to triage this report.
 `))

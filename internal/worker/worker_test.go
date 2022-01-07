@@ -185,8 +185,7 @@ cves:
 
 ` + "```" + `
 
-See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md)
-for instructions on how to triage this report.
+See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) for instructions on how to triage this report.
 `
 	if diff := cmp.Diff(unindent(want), got); diff != "" {
 		t.Errorf("mismatch (-want, +got):\n%s", diff)
