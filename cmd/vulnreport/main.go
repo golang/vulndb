@@ -160,15 +160,9 @@ func marshalReport(r *report.Report) ([]byte, error) {
 
 func lint(filename string) (err error) {
 	defer derrors.Wrap(&err, "lint(%q)", filename)
-	content, err := ioutil.ReadFile(filename)
+	r, err := readReport(filename)
 	if err != nil {
-		return fmt.Errorf("ioutil.ReadFile: %v", err)
-	}
-
-	var r report.Report
-	err = yaml.UnmarshalStrict(content, &r)
-	if err != nil {
-		return fmt.Errorf("yaml.UnmarshalStrict: %v", err)
+		return err
 	}
 
 	if lints := r.Lint(); len(lints) > 0 {
@@ -179,26 +173,34 @@ func lint(filename string) (err error) {
 
 func fix(filename string) (err error) {
 	defer derrors.Wrap(&err, "fix(%q)", filename)
-	content, err := ioutil.ReadFile(filename)
+	r, err := readReport(filename)
 	if err != nil {
-		return fmt.Errorf("ioutil.ReadFile: %v", err)
-	}
-
-	var r report.Report
-	err = yaml.UnmarshalStrict(content, &r)
-	if err != nil {
-		return fmt.Errorf("yaml.UnmarshalStrict: %v", err)
+		return err
 	}
 
 	if lints := r.Lint(); len(lints) > 0 {
 		r.Fix()
-		out, err := marshalReport(&r)
+		out, err := marshalReport(r)
 		if err != nil {
 			return err
 		}
 		return os.WriteFile(filename, out, 0644)
 	}
 	return nil
+}
+
+func readReport(filename string) (_ *report.Report, err error) {
+	defer derrors.Wrap(&err, "readReport(%q)", filename)
+	content, err := ioutil.ReadFile(filename)
+	if err != nil {
+		return nil, fmt.Errorf("ioutil.ReadFile: %v", err)
+	}
+
+	var r report.Report
+	if err := yaml.UnmarshalStrict(content, &r); err != nil {
+		return nil, fmt.Errorf("yaml.UnmarshalStrict: %v", err)
+	}
+	return &r, nil
 }
 
 func newCVE(filename string) (err error) {
