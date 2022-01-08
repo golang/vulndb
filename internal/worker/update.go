@@ -13,6 +13,7 @@ import (
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/object"
+	"golang.org/x/exp/event"
 	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/derrors"
@@ -66,6 +67,8 @@ func (u *updater) update(ctx context.Context) (ur *store.CommitUpdateRecord, err
 	// transaction can do, so the CVE files in the repo are processed in
 	// batches, one transaction per batch.
 	defer derrors.Wrap(&err, "updater.update(%s)", u.commit.Hash)
+	ctx = event.Start(ctx, "updater.update")
+	defer event.End(ctx)
 
 	defer func() {
 		if err != nil {
@@ -122,7 +125,7 @@ func (u *updater) update(ctx context.Context) (ur *store.CommitUpdateRecord, err
 		}
 		if stats.skipped {
 			skippedDirs = append(skippedDirs, dirFiles[0].DirPath)
-			if len(skippedDirs) > logSkippedEvery {
+			if len(skippedDirs) >= logSkippedEvery {
 				log.Infof(ctx, "skipping directory %s and %d others because the hashes match",
 					skippedDirs[0], len(skippedDirs)-1)
 				skippedDirs = nil

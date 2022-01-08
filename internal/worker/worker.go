@@ -17,6 +17,7 @@ import (
 
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"
+	"golang.org/x/exp/event"
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/time/rate"
 	vulnc "golang.org/x/vuln/client"
@@ -78,6 +79,9 @@ func UpdateCommit(ctx context.Context, repoPath, commitHashString string, st sto
 // It verifies that there is not an update currently in progress,
 // and it makes sure that the update is to a more recent commit.
 func checkUpdate(ctx context.Context, commit *object.Commit, st store.Store) error {
+	ctx = event.Start(ctx, "checkUpdate")
+	defer event.End(ctx)
+
 	urs, err := st.ListCommitUpdateRecords(ctx, 1)
 	if err != nil {
 		return err
@@ -171,7 +175,9 @@ const issueQPS = 1
 var issueRateLimiter = rate.NewLimiter(rate.Every(time.Duration(1000/float64(issueQPS))*time.Millisecond), 1)
 
 func CreateIssues(ctx context.Context, st store.Store, ic issues.Client, limit int) (err error) {
-	derrors.Wrap(&err, "CreateIssues(destination: %s)", ic.Destination())
+	defer derrors.Wrap(&err, "CreateIssues(destination: %s)", ic.Destination())
+	ctx = event.Start(ctx, "CreateIssues")
+	defer event.End(ctx)
 
 	needsIssue, err := st.ListCVERecordsWithTriageState(ctx, store.TriageStateNeedsIssue)
 	if err != nil {

@@ -10,12 +10,14 @@ package worker
 import (
 	"context"
 	"math"
+	"os"
 	"strings"
 	"testing"
 	"time"
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
+	"golang.org/x/exp/event"
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
@@ -95,7 +97,8 @@ func TestCheckUpdate(t *testing.T) {
 }
 
 func TestCreateIssues(t *testing.T) {
-	ctx := log.WithLineLogger(context.Background())
+	ctx := event.WithExporter(context.Background(),
+		event.NewExporter(log.NewLineHandler(os.Stderr), nil))
 	mstore := store.NewMemStore()
 	ic := issues.NewFakeClient()
 	ctime := time.Date(2020, 1, 2, 0, 0, 0, 0, time.UTC)

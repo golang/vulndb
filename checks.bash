@@ -61,10 +61,8 @@ check_headers() {
 
 # check_unparam runs unparam on source files.
 check_unparam() {
-  if [[ $(go version) = *go1.17* ]]; then
-    ensure_go_binary mvdan.cc/unparam
-    runcmd unparam ./...
-  fi
+  ensure_go_binary mvdan.cc/unparam
+  runcmd unparam ./...
 }
 
 # check_vet runs go vet on source files.

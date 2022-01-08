@@ -16,6 +16,7 @@ import (
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"
 	"github.com/go-git/go-git/v5/storage/memory"
+	"golang.org/x/exp/event"
 	"golang.org/x/tools/txtar"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/worker/log"
@@ -24,6 +25,9 @@ import (
 // Clone returns a repo by cloning the repo at repoURL.
 func Clone(ctx context.Context, repoURL string) (repo *git.Repository, err error) {
 	defer derrors.Wrap(&err, "gitrepo.Clone(%q)", repoURL)
+	ctx = event.Start(ctx, "gitrepo.Clone")
+	defer event.End(ctx)
+
 	log.Infof(ctx, "Cloning repo %q at HEAD", repoURL)
 	return git.Clone(memory.NewStorage(), nil, &git.CloneOptions{
 		URL:           repoURL,
@@ -37,6 +41,9 @@ func Clone(ctx context.Context, repoURL string) (repo *git.Repository, err error
 // Open returns a repo by opening the repo at the local path dirpath.
 func Open(ctx context.Context, dirpath string) (repo *git.Repository, err error) {
 	defer derrors.Wrap(&err, "gitrepo.Open(%q)", dirpath)
+	ctx = event.Start(ctx, "gitrepo.Open")
+	defer event.End(ctx)
+
 	log.Infof(ctx, "Opening repo at %q", dirpath)
 	repo, err = git.PlainOpen(dirpath)
 	if err != nil {

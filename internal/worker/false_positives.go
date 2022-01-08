@@ -7,6 +7,7 @@ package worker
 import (
 	"context"
 
+	"golang.org/x/exp/event"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/worker/store"
 )
@@ -14,6 +15,8 @@ import (
 // updateFalsePositives makes sure the store reflects the list of false positives.
 func updateFalsePositives(ctx context.Context, st store.Store) (err error) {
 	defer derrors.Wrap(&err, "updateFalsePositives")
+	ctx = event.Start(ctx, "updateFalsePositives")
+	defer event.End(ctx)
 
 	for i := 0; i < len(falsePositives); i += maxTransactionWrites {
 		j := i + maxTransactionWrites

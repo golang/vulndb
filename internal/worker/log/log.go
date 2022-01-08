@@ -9,7 +9,6 @@ import (
 	"context"
 	"fmt"
 	"io"
-	"os"
 	"reflect"
 	"strings"
 	"sync"
@@ -19,12 +18,13 @@ import (
 	"golang.org/x/exp/event/severity"
 )
 
-func WithLineLogger(ctx context.Context) context.Context {
-	return event.WithExporter(ctx, event.NewExporter(&lineHandler{w: os.Stderr}, nil))
+// NewLineHandler returns an event Handler that writes log events one per line
+// in an easy-to-read format:
+//   time level message label1=value1 label2=value2 ...
+func NewLineHandler(w io.Writer) event.Handler {
+	return &lineHandler{w: w}
 }
 
-// lineHandler writes log events one per line in an easy-to-read format:
-// time level message label1=value1 label2=value2 ...
 type lineHandler struct {
 	mu sync.Mutex // ensure a log line is not interrupted
 	w  io.Writer

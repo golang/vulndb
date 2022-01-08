@@ -19,6 +19,7 @@ import (
 
 	"cloud.google.com/go/errorreporting"
 	"github.com/google/safehtml/template"
+	"golang.org/x/exp/event"
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/derrors"
@@ -26,6 +27,13 @@ import (
 	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"
+
+	texporter "github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/trace"
+	gcppropagator "github.com/GoogleCloudPlatform/opentelemetry-operations-go/propagator"
+	"go.opentelemetry.io/otel/propagation"
+	sdktrace "go.opentelemetry.io/otel/sdk/trace"
+	otrace "go.opentelemetry.io/otel/trace"
+	eotel "golang.org/x/exp/event/otel"
 )
 
 const pkgsiteURL = "https://pkg.go.dev"
@@ -36,12 +44,29 @@ type Server struct {
 	cfg           Config
 	indexTemplate *template.Template
 	issueClient   issues.Client
+	traceHandler  event.Handler
+	propagator    propagation.TextMapPropagator
+	afterRequest  func()
 }
 
 func NewServer(ctx context.Context, cfg Config) (_ *Server, err error) {
 	defer derrors.Wrap(&err, "NewServer(%q)", cfg.Namespace)
 
 	s := &Server{cfg: cfg}
+
+	tracerProvider, err := initOpenTelemetry(cfg.Project)
+	if err != nil {
+		return nil, err
+	}
+	s.traceHandler = eotel.NewTraceHandler(tracerProvider.Tracer("vulndb-worker"))
+	s.afterRequest = func() { tracerProvider.ForceFlush(ctx) }
+	// The propagator extracts incoming trace IDs so that we can connect our trace spans
+	// to the incoming ones constructed by Cloud Run.
+	s.propagator = propagation.NewCompositeTextMapPropagator(
+		propagation.TraceContext{},
+		propagation.Baggage{},
+		gcppropagator.New(),
+	)
 
 	if cfg.UseErrorReporting {
 		reportingClient, err := errorreporting.NewClient(ctx, cfg.Project, errorreporting.Config{
@@ -89,9 +114,16 @@ func NewServer(ctx context.Context, cfg Config) (_ *Server, err error) {
 
 func (s *Server) handle(_ context.Context, pattern string, handler func(w http.ResponseWriter, r *http.Request) error) {
 	http.HandleFunc(pattern, func(w http.ResponseWriter, r *http.Request) {
+		log.Debugf(r.Context(), "#### SpanContext: %+v\n", otrace.SpanContextFromContext(r.Context()))
 		start := time.Now()
+		defer s.afterRequest()
 		traceID := r.Header.Get("X-Cloud-Trace-Context")
-		ctx := log.WithGCPJSONLogger(r.Context(), traceID)
+		exporter := event.NewExporter(eventHandlers{
+			log.NewGCPJSONHandler(os.Stderr, traceID),
+			s.traceHandler,
+		}, nil)
+		ctx := event.WithExporter(r.Context(), exporter)
+		ctx = s.propagator.Extract(ctx, propagation.HeaderCarrier(r.Header))
 		r = r.WithContext(ctx)
 
 		log.With("httpRequest", r).Infof(ctx, "starting %s", r.URL.Path)
@@ -313,4 +345,28 @@ func (s *Server) handleUpdateAndIssues(w http.ResponseWriter, r *http.Request) e
 		return err
 	}
 	return s.handleIssues(w, r)
+}
+
+func initOpenTelemetry(projectID string) (tp *sdktrace.TracerProvider, err error) {
+	defer derrors.Wrap(&err, "initOpenTelemetry(%q)", projectID)
+
+	exporter, err := texporter.New(texporter.WithProjectID(projectID))
+	if err != nil {
+		return nil, err
+	}
+	tp = sdktrace.NewTracerProvider(
+		// Enable tracing if there is no incoming request, or if the incoming
+		// request is sampled.
+		sdktrace.WithSampler(sdktrace.ParentBased(sdktrace.AlwaysSample())),
+		sdktrace.WithBatcher(exporter))
+	return tp, nil
+}
+
+type eventHandlers []event.Handler
+
+func (eh eventHandlers) Event(ctx context.Context, ev *event.Event) context.Context {
+	for _, h := range eh {
+		ctx = h.Event(ctx, ev)
+	}
+	return ctx
 }

@@ -8,18 +8,16 @@ import (
 	"context"
 	"fmt"
 	"io"
-	"os"
 	"sync"
 	"time"
 
 	"golang.org/x/exp/event"
 )
 
-// WithGCPJSONLogger returns a context which will log events in a format that is
+// NewGCPJSONLogger returns a handler which logs events in a format that is
 // understood by Google Cloud Platform logging.
-func WithGCPJSONLogger(ctx context.Context, traceID string) context.Context {
-	return event.WithExporter(ctx,
-		event.NewExporter(&gcpJSONHandler{w: os.Stderr, traceID: traceID}, nil))
+func NewGCPJSONHandler(w io.Writer, traceID string) event.Handler {
+	return &gcpJSONHandler{w: w, traceID: traceID}
 }
 
 type gcpJSONHandler struct {
