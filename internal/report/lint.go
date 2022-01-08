@@ -297,30 +297,31 @@ func (r *Report) Fix() {
 	r.Links.Context = fixed
 }
 
-var urlTermToReplacement = map[string]string{
-	"golang.org": "go.dev",
-	"groups.google.com/forum/#!topic/golang-announce": "groups.google.com/g/golang-announce/c",
-}
+var urlReplacements = []struct {
+	re   *regexp.Regexp
+	repl string
+}{{
+	regexp.MustCompile(`golang.org`),
+	`go.dev`,
+}, {
+	regexp.MustCompile(`https?://groups.google.com/forum/\#\![^/]*/([^/]+)/([^/]+)/(.*)`),
+
+	`https://groups.google.com/g/$1/c/$2/m/$3`,
+}, {
+	regexp.MustCompile(`.*github.com/golang/go/issues`),
+	`https://go.dev/issue`,
+}, {
+	regexp.MustCompile(`.*github.com/golang/go/commit`),
+	`https://go.googlesource.com/+`,
+}}
 
 func isValidURL(u string) bool {
 	return fixURL(u) == u
 }
 
 func fixURL(u string) string {
-	for term, repl := range urlTermToReplacement {
-		if strings.Contains(u, term) {
-			return strings.Replace(u, term, repl, 1)
-		}
-	}
-	if strings.Contains(u, "github.com/golang") {
-		if strings.Contains(u, "commit") {
-			u = strings.Replace(u, "github.com/golang", "go.googlesource.com", 1)
-			u = strings.Replace(u, "commit", "+", 1)
-			return u
-		}
-		if strings.Contains(u, "issues") {
-			return strings.Replace(u, "github.com/golang/go/issues", "go.dev/issue", 1)
-		}
+	for _, repl := range urlReplacements {
+		u = repl.re.ReplaceAllString(u, repl.repl)
 	}
 	return u
 }
