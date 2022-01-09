@@ -35,6 +35,7 @@ type updater struct {
 }
 
 type updateStats struct {
+	skipped                             bool // directory skipped because hashes match
 	numProcessed, numAdded, numModified int
 }
 
@@ -108,6 +109,8 @@ func (u *updater) update(ctx context.Context) (ur *store.CommitUpdateRecord, err
 		return ur, err
 	}
 
+	var skippedDirs []string
+	const logSkippedEvery = 20 // Log a message every this many skipped directories.
 	for _, dirFiles := range filesByDir {
 		stats, err := u.updateDirectory(ctx, dirFiles)
 		// Change the CommitUpdateRecord in the Store to reflect the results of the directory update.
@@ -115,6 +118,14 @@ func (u *updater) update(ctx context.Context) (ur *store.CommitUpdateRecord, err
 			ur.Error = err.Error()
 			if err2 := u.st.SetCommitUpdateRecord(ctx, ur); err2 != nil {
 				return ur, fmt.Errorf("update failed with %w, could not set update record: %v", err, err2)
+			}
+		}
+		if stats.skipped {
+			skippedDirs = append(skippedDirs, dirFiles[0].DirPath)
+			if len(skippedDirs) > logSkippedEvery {
+				log.Infof(ctx, "skipping directory %s and %d others because the hashes match",
+					skippedDirs[0], len(skippedDirs)-1)
+				skippedDirs = nil
 			}
 		}
 		ur.NumProcessed += stats.numProcessed
@@ -144,8 +155,7 @@ func (u *updater) updateDirectory(ctx context.Context, dirFiles []cvelistrepo.Fi
 		return updateStats{}, err
 	}
 	if dirHash == dbHash {
-		log.Infof(ctx, "skipping directory %s because the hashes match", dirPath)
-		return updateStats{}, nil
+		return updateStats{skipped: true}, nil
 	}
 	// Set the hash to something that can't match, until we fully process this directory.
 	if err := u.st.SetDirectoryHash(ctx, dirPath, "in progress"); err != nil {
