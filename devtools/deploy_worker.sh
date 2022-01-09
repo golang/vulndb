@@ -49,7 +49,11 @@ main() {
   # If there was a rollback, `gcloud run deploy` will create a revision but
   # not point traffic to it. The following command ensures that the new revision
   # will get traffic.
-  $prefix gcloud run services --project $project update-traffic $env-vuln-worker --to-latest
+  latestTraffic=$(gcloud run services --project $project describe $env-vuln-worker \
+                  --format='value(status.traffic.latestRevision)')
+  if [[ $latestTraffic != True ]]; then
+    $prefix gcloud run services --project $project update-traffic $env-vuln-worker --to-latest
+  fi
 }
 
 main $@
