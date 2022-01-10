@@ -1,0 +1,23 @@
+module: std
+package: math/big
+versions:
+- fixed: go1.15.13
+- fixed: go1.16.5
+- fixed: go1.17.0
+description: |
+  Rat.SetString and Rat.UnmarshalText may cause a panic or an
+  unrecoverable fatal error if passed inputs with very large
+  exponents.
+cves:
+- CVE-2021-33198
+credit: |
+  the OSS-Fuzz project for discovering this issue and to Emmanuel
+  Odeke for reporting it
+symbols:
+- Rat.SetString
+links:
+  pr: https://go.dev/cl/316149
+  commit: https://go.googlesource.com/go/+/6c591f79b0b5327549bd4e94970f7a279efb4ab0
+  context:
+  - https://groups.google.com/g/golang-announce/c/RgCMkAEQjSI
+  - https://go.dev/issue/45910
