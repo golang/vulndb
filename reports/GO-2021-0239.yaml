@@ -1,0 +1,30 @@
+module: std
+package: net
+versions:
+- fixed: go1.15.13
+- fixed: go1.16.5
+- fixed: go1.17
+description: |
+  The LookupCNAME, LookupSRV, LookupMX, LookupNS, and LookupAddr
+  functions and their respective methods on the Resolver type may
+  return arbitrary values retrieved from DNS which do not follow
+  the established RFC 1035 rules for domain names. If these names
+  are used without further sanitization, for instance unsafely
+  included in HTML, they may allow for injection of unexpected
+  content. Note that LookupTXT may still return arbitrary values
+  that could require sanitization before further use.
+cves:
+- CVE-2021-33195
+credit: Philipp Jeitner and Haya Shulman from Fraunhofer SIT
+symbols:
+- Resolver.LookupAddr
+- Resolver.LookupCNAME
+- Resolver.LookupMX
+- Resolver.LookupNS
+- Resolver.LookupSRV
+links:
+  pr: https://go.dev/cl/320949
+  commit: https://go.googlesource.com/go/+/c89f1224a544cde464fcb86e78ebb0cc97eedba2
+  context:
+  - https://groups.google.com/g/golang-announce/c/RgCMkAEQjSI
+  - https://go.dev/issue/46241
