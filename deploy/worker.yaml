@@ -1,0 +1,67 @@
+# Copyright 2022 The Go Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
+# This is a Cloud Build config file for the vuln worker.
+# Invoke locally from the command line using devtools/deploy_worker.sh.
+# It can also be configured to run from a trigger, by supplying the _ENV
+# substitution.
+
+substitutions:
+  _ENV: ''
+
+steps:
+  - id: Test
+    name: golang:1.17.3
+    entrypoint: bash
+    args:
+      - -ec
+      - go test ./...
+
+  - id: Prepare
+    name: bash
+    args:
+      - -ec
+      - |
+        if [[ "$SHORT_SHA" = '' ]]; then
+          echo >&2 "missing SHORT_SHA; use --substitutions on command line"
+          exit 1
+        fi
+        if [[ "$_ENV" = '' ]]; then
+          echo >&2 "missing _ENV; use --substitutions on command line"
+          exit 1
+        fi
+        tag=$(date +%Y%m%dt%H%M%S)-$SHORT_SHA
+        image=gcr.io/$PROJECT_ID/vuln-worker:$tag
+        echo "image is $image"
+        # Save image tag for later steps.
+        echo $image > /workspace/image.txt
+
+  - id: Build
+    name: gcr.io/cloud-builders/docker
+    entrypoint: bash
+    args:
+      - -ec
+      - |
+        image=$(cat /workspace/image.txt)
+        docker build -t $image --build-arg DOCKER_IMAGE=$image -f cmd/worker/Dockerfile .
+        docker push $image
+
+  - id: Deploy
+    name: gcr.io/cloud-builders/gcloud
+    entrypoint: bash
+    args:
+      - -ec
+      - |
+        image=$(cat /workspace/image.txt)
+        service=${_ENV}-vuln-worker
+        args="--project $PROJECT_ID --region us-central1"
+        gcloud run deploy $args  $service --image $image
+        # If there was a rollback, `gcloud run deploy` will create a revision but
+        # not point traffic to it. The following command ensures that the new revision
+        # will get traffic.
+        latestTraffic=$(gcloud run services $args describe $service \
+                        --format='value(status.traffic.latestRevision)')
+        if [[ $latestTraffic != True ]]; then
+          gcloud run services $args update-traffic $service --to-latest
+        fi
