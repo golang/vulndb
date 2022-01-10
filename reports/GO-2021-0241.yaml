@@ -1,0 +1,22 @@
+module: std
+package: net/http/httputil
+versions:
+- fixed: go1.15.13
+- fixed: go1.16.5
+- fixed: go1.17.0
+description: |
+  ReverseProxy can be made to forward certain hop-by-hop headers,
+  including Connection. If the target of the ReverseProxy is
+  itself a reverse proxy, this lets an attacker drop arbitrary
+  headers, including those set by the ReverseProxy.Director.
+cves:
+- CVE-2021-33197
+credit: Mattias Grenfeldt (https://grenfeldt.dev) and Asta Olofsson
+symbols:
+- ReverseProxy.ServeHTTP
+links:
+  pr: https://go.dev/cl/321929
+  commit: https://go.googlesource.com/go/+/950fa11c4cb01a145bb07eeb167d90a1846061b3
+  context:
+  - https://groups.google.com/g/golang-announce/c/RgCMkAEQjSI
+  - https://go.dev/issue/46313
