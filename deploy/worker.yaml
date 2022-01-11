@@ -11,6 +11,19 @@ substitutions:
   _ENV: ''
 
 steps:
+  - id: Lock
+    name: golang:1.17.3
+    entrypoint: bash
+    args:
+      - -ec
+      - |
+        if [[ "$COMMIT_SHA" = '' ]]; then
+          echo "no COMMIT_SHA, not locking"
+          exit 0
+        fi
+        go run golang.org/x/website/cmd/locktrigger@latest \
+          -project $PROJECT_ID -build $BUILD_ID -repo https://go.googlesource.com/vulndb
+
   - id: Test
     name: golang:1.17.3
     entrypoint: bash
