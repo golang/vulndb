@@ -1,0 +1,33 @@
+module: std
+package: archive/zip
+versions:
+  - fixed: go1.16.10
+  - fixed: go1.17.3
+description: |
+  Previously, opening a zip with (*Reader).Open could result in a panic if the
+  zip contained a file whose name was exclusively made up of slash characters or
+  ".." path elements.
+
+  Open could also panic if passed the empty string directly as an argument.
+
+  Now, any files in the zip whose name could not be made valid for fs.FS.Open
+  will be skipped, and no longer added to the fs.FS file list, although they
+  are still accessible through (*Reader).File.
+
+  Note that it was already the case that a file could be accessible from
+  (*Reader).Open with a name different from the one in (*Reader).File, as the
+  former is the cleaned name, while the latter is the original one.
+
+  Finally, the actual panic site was made robust as a defense-in-depth measure.
+cves:
+  - CVE-2021-41772
+credit: Colin Arnott, SiteHost and Noah Santschi-Cooney, Sourcegraph Code Intelligence Team
+symbols:
+  - split
+  - Reader.Open
+links:
+  pr: https://go.dev/cl/349770
+  commit: https://go.googlesource.com/go/+/b24687394b55a93449e2be4e6892ead58ea9a10f
+  context:
+    - https://groups.google.com/g/golang-announce/c/0fM21h43arc
+    - https://go.dev/issue/48085
