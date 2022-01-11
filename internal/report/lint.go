@@ -233,7 +233,7 @@ func (r *Report) Lint() []string {
 		if additionalPackage.Package == additionalPackage.Module {
 			addIssue("package is redundant and can be removed")
 		}
-		if additionalPackage.Package != "" && !strings.HasPrefix(additionalPackage.Package, additionalPackage.Module) {
+		if !stdlib.Contains(additionalPackage.Module) && additionalPackage.Package != "" && !strings.HasPrefix(additionalPackage.Package, additionalPackage.Module) {
 			addIssue("additional_package.module must be a prefix of additional_package.package")
 		}
 		if additionalPackage.Package == "" {
