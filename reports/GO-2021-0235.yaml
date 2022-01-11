@@ -1,0 +1,23 @@
+module: std
+package: crypto/elliptic
+versions:
+- fixed: go1.14.14
+- fixed: go1.15.7
+- fixed: go1.16.0
+description: |
+  The P224() Curve implementation can in rare circumstances generate
+  incorrect outputs, including returning invalid points from
+  ScalarMult.
+cves:
+- CVE-2021-3114
+credit: |
+  the elliptic-curve-differential-fuzzer project running on OSS-Fuzz
+  and reported by Philippe Antoine (Catena cyber)
+symbols:
+- p224Contract
+links:
+  pr: https://go.dev/cl/284779
+  commit: https://go.googlesource.com/go/+/d95ca9138026cbe40e0857d76a81a16d03230871
+  context:
+  - https://go.dev/issue/43786
+  - https://groups.google.com/g/golang-announce/c/mperVMGa98w
