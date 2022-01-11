@@ -32,9 +32,13 @@ func init() {
 	}
 }
 
-func getModVersions(module string) (_ map[string]bool, err error) {
-	defer derrors.Wrap(&err, "getModVersions(%q)", module)
-	resp, err := http.Get(fmt.Sprintf("%s/%s/@v/list", proxyURL, module))
+func getModVersions(path string) (_ map[string]bool, err error) {
+	defer derrors.Wrap(&err, "getModVersions(%q)", path)
+	escaped, err := module.EscapePath(path)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := http.Get(fmt.Sprintf("%s/%s/@v/list", proxyURL, escaped))
 	if err != nil {
 		return nil, err
 	}
@@ -50,9 +54,17 @@ func getModVersions(module string) (_ map[string]bool, err error) {
 	return versions, nil
 }
 
-func getCanonicalModName(module, version string) (_ string, err error) {
-	defer derrors.Wrap(&err, "getCanonicalModName(%q, %q)", module, version)
-	resp, err := http.Get(fmt.Sprintf("%s/%s/@v/%s.mod", proxyURL, module, version))
+func getCanonicalModName(path, version string) (_ string, err error) {
+	defer derrors.Wrap(&err, "getCanonicalModName(%q, %q)", path, version)
+	escapedPath, err := module.EscapePath(path)
+	if err != nil {
+		return "", err
+	}
+	escapedVersion, err := module.EscapeVersion(version)
+	if err != nil {
+		return "", err
+	}
+	resp, err := http.Get(fmt.Sprintf("%s/%s/@v/%s.mod", proxyURL, escapedPath, escapedVersion))
 	if err != nil {
 		return "", err
 	}
@@ -66,7 +78,7 @@ func getCanonicalModName(module, version string) (_ string, err error) {
 		return "", err
 	}
 	if m.Module == nil {
-		return "", fmt.Errorf("unable to retrieve module information for %s", module)
+		return "", fmt.Errorf("unable to retrieve module information for %s", path)
 	}
 	return m.Module.Mod.Path, nil
 }
