@@ -2,7 +2,7 @@ module: github.com/antchfx/xmlquery
 versions:
   - fixed: v1.3.1
 description: |
-  [`LoadURL`] does not check the Content-Type of loaded resources,
+  LoadURL does not check the Content-Type of loaded resources,
   which can cause a panic due to nil pointer deference if the loaded
   resource is not XML. If user supplied URLs are loaded, this may be
   used as a denial of service vector.
