@@ -9,14 +9,18 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
+	"go/build"
 	"log"
+	"os"
+	"reflect"
+	"sort"
 	"strconv"
 	"strings"
 
-	"os"
-
+	"golang.org/x/tools/go/packages"
 	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/gitrepo"
@@ -172,12 +176,111 @@ func fix(filename string) (err error) {
 	if err != nil {
 		return err
 	}
-
+	fixed := false
 	if lints := r.Lint(); len(lints) > 0 {
 		r.Fix()
+		fixed = true
+	}
+	added, err := addExportedReportSymbols(r)
+	if err != nil {
+		return err
+	}
+	if fixed || added {
 		return r.Write(filename)
 	}
 	return nil
+}
+
+func addExportedReportSymbols(r *report.Report) (bool, error) {
+	if r.Module == "" || len(r.Symbols) == 0 {
+		return false, nil
+	}
+	if len(r.OS) > 0 || len(r.Arch) > 0 {
+		return false, errors.New("specific GOOS/GOARCH not yet implemented")
+	}
+	rc := newReportClient(r)
+	added, err := addExportedSymbols(r.Module, r.Package, &r.Symbols, rc)
+	if err != nil {
+		return false, err
+	}
+	for i, ap := range r.AdditionalPackages {
+		// Need to take pointer from r because r.AdditionalPackages is a slice of values.
+		a, err := addExportedSymbols(ap.Module, ap.Package, &r.AdditionalPackages[i].Symbols, rc)
+		if err != nil {
+			return false, err
+		}
+		if a {
+			added = true
+		}
+	}
+	return added, nil
+}
+
+func addExportedSymbols(module, pkgPath string, symbols *[]string, c *reportClient) (added bool, err error) {
+	defer derrors.Wrap(&err, "addExportedSymbols(%q, %q)", module, pkgPath)
+
+	if pkgPath == "" {
+		pkgPath = module
+	}
+	pkgs, err := loadPackage(&packages.Config{}, pkgPath)
+	if err != nil {
+		return false, err
+	}
+	if len(pkgs) == 0 {
+		return false, errors.New("no packages found")
+	}
+	// First package should match package path and module.
+	if pkgs[0].PkgPath != pkgPath {
+		return false, fmt.Errorf("first package had import path %s, wanted %s", pkgs[0].PkgPath, pkgPath)
+	}
+	if pm := pkgs[0].Module; pm == nil || pm.Path != module {
+		return false, fmt.Errorf("got module %v, expected %s", pm, module)
+	}
+	newsyms, err := exportedFunctions(pkgs, c)
+	if err != nil {
+		return false, err
+	}
+	oldsyms := map[string]bool{}
+	for _, s := range *symbols {
+		oldsyms[s] = true
+	}
+	if reflect.DeepEqual(newsyms, oldsyms) {
+		return false, nil
+	}
+	for _, s := range *symbols {
+		newsyms[s] = true
+	}
+	var newslice []string
+	for s := range newsyms {
+		newslice = append(newslice, s)
+	}
+	sort.Strings(newslice)
+	*symbols = newslice
+	return true, nil
+}
+
+// loadPackage loads the package at the given import path, with enough
+// information for constructing a call graph.
+func loadPackage(cfg *packages.Config, importPath string) ([]*packages.Package, error) {
+	cfg.Mode |= packages.NeedName | packages.NeedFiles | packages.NeedCompiledGoFiles |
+		packages.NeedImports | packages.NeedTypes | packages.NeedTypesSizes |
+		packages.NeedSyntax | packages.NeedTypesInfo | packages.NeedDeps |
+		packages.NeedModule
+	cfg.BuildFlags = []string{fmt.Sprintf("-tags=%s", strings.Join(build.Default.BuildTags, ","))}
+	pkgs, err := packages.Load(cfg, importPath)
+	if err != nil {
+		return nil, err
+	}
+	var msgs []string
+	packages.Visit(pkgs, nil, func(pkg *packages.Package) {
+		for _, err := range pkg.Errors {
+			msgs = append(msgs, err.Msg)
+		}
+	})
+	if len(msgs) > 0 {
+		return nil, fmt.Errorf("packages.Load:\n%s", strings.Join(msgs, "\n"))
+	}
+	return pkgs, nil
 }
 
 func newCVE(filename string) (err error) {
