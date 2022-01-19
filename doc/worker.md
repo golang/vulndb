@@ -9,6 +9,14 @@ debugging), so this document describes only the CLI.
 The CLI can display Firestore database of CVE records, update the database from
 commits of the CVE repo github.com/CVEProject/cvelist, and file issues.
 
+## Setup
+
+You will need a Google Cloud account and a project to run the worker. If you
+don't already have default credentials on your machine, set them up with
+```
+gcloud auth application-default login
+```
+
 To run most CLI commands you'll need a `-project` flag, to specify the GCP
 project where the Firestore DB resides. Since there is only one Firestore DB per
 project and we want multiple, independent DBs, we also require a string called the
