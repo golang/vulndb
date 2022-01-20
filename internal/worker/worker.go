@@ -28,7 +28,6 @@ import (
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"
-	"gopkg.in/yaml.v2"
 )
 
 // UpdateCommit performs an update on the store using the given commit.
@@ -252,7 +251,7 @@ func newBody(cr *store.CVERecord) (string, error) {
 		cr.CVE.Metadata.ID = cr.ID
 	}
 	r := report.CVEToReport(cr.CVE, cr.Module)
-	out, err := yaml.Marshal(r)
+	out, err := r.ToString()
 	if err != nil {
 		return "", err
 	}
@@ -268,7 +267,7 @@ func newBody(cr *store.CVERecord) (string, error) {
 	}
 	if err := issueTemplate.Execute(&b, issueTemplateData{
 		Intro:  intro,
-		Report: string(out),
+		Report: out,
 		Pre:    "```",
 	}); err != nil {
 		return "", err

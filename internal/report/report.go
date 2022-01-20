@@ -8,11 +8,13 @@ package report
 
 import (
 	"fmt"
+	"io"
 	"os"
+	"strings"
 	"time"
 
 	"golang.org/x/vulndb/internal/derrors"
-	"gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v3"
 )
 
 type VersionRange struct {
@@ -78,17 +80,51 @@ type Report struct {
 	CVEMetadata *CVEMeta `yaml:"cve_metadata,omitempty"`
 }
 
-// Read reads a Report from filename.
+// Read reads a Report in YAML format from filename.
 func Read(filename string) (_ *Report, err error) {
 	defer derrors.Wrap(&err, "report.Read(%q)", filename)
 
-	b, err := os.ReadFile(filename)
+	f, err := os.Open(filename)
 	if err != nil {
 		return nil, err
 	}
+	defer f.Close()
+	d := yaml.NewDecoder(f)
+	// Require that all fields in the file are in the struct.
+	// This corresponds to v2's UnmarshalStrict.
+	d.KnownFields(true)
 	var r Report
-	if err := yaml.UnmarshalStrict(b, &r); err != nil {
-		return nil, fmt.Errorf("yaml.UnmarshalStrict(b, &r): %v (%q)", err, filename)
+	if err := d.Decode(&r); err != nil {
+		return nil, fmt.Errorf("yaml.Decode: %v", err)
 	}
 	return &r, nil
+}
+
+// Write writes r to filename in YAML format.
+func (r *Report) Write(filename string) (err error) {
+	f, err := os.Create(filename)
+	if err != nil {
+		return err
+	}
+	err = r.encode(f)
+	err2 := f.Close()
+	if err == nil {
+		err = err2
+	}
+	return err
+}
+
+// ToString encodes r to a YAML string.
+func (r *Report) ToString() (string, error) {
+	var b strings.Builder
+	if err := r.encode(&b); err != nil {
+		return "", err
+	}
+	return b.String(), nil
+}
+
+func (r *Report) encode(w io.Writer) error {
+	e := yaml.NewEncoder(w)
+	e.SetIndent(4)
+	return e.Encode(r)
 }

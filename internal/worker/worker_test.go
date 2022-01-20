@@ -179,9 +179,9 @@ func TestNewBody(t *testing.T) {
 ` + "```" + `
 module: a.Module
 description: |
-  a description
+    a description
 cves:
-- ID1
+  - ID1
 
 ` + "```" + `
 

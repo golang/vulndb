@@ -23,7 +23,6 @@ import (
 	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/stdlib"
-	"gopkg.in/yaml.v2"
 )
 
 var (
@@ -114,16 +113,14 @@ func create(ctx context.Context, issueNumber int, ghToken, issueRepo, repoPath s
 		return err
 	}
 	r := report.CVEToReport(cve, modulePath)
-	out, err := marshalReport(r)
-	if err != nil {
-		return err
-	}
-	return os.WriteFile(fmt.Sprintf("reports/GO-2021-%04d.yaml", issueNumber), out, 0644)
+	addTODOs(r)
+	return r.Write(fmt.Sprintf("reports/GO-2021-%04d.yaml", issueNumber))
 }
 
 const todo = "TODO: fill this out"
 
-func marshalReport(r *report.Report) ([]byte, error) {
+// addTODOs adds "TODO" comments to unfilled fields of r.
+func addTODOs(r *report.Report) {
 	if r.Module == "" && !stdlib.Contains(r.Module) {
 		r.Module = todo
 	}
@@ -154,7 +151,6 @@ func marshalReport(r *report.Report) ([]byte, error) {
 	if len(r.Symbols) == 0 {
 		r.Symbols = []string{todo}
 	}
-	return yaml.Marshal(r)
 }
 
 func lint(filename string) (err error) {
@@ -179,11 +175,7 @@ func fix(filename string) (err error) {
 
 	if lints := r.Lint(); len(lints) > 0 {
 		r.Fix()
-		out, err := marshalReport(r)
-		if err != nil {
-			return err
-		}
-		return os.WriteFile(filename, out, 0644)
+		return r.Write(filename)
 	}
 	return nil
 }
