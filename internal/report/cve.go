@@ -6,31 +6,22 @@ package report
 
 import (
 	"errors"
-	"fmt"
-	"io/ioutil"
 	"sort"
 	"strings"
 
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/stdlib"
-	"gopkg.in/yaml.v2"
 )
 
 // ToCVE creates a CVE from a reports/GO-YYYY-NNNN.yaml file.
 func ToCVE(reportPath string) (_ *cveschema.CVE, err error) {
 	defer derrors.Wrap(&err, "report.ToCVE(%q)", reportPath)
 
-	b, err := ioutil.ReadFile(reportPath)
+	r, err := Read(reportPath)
 	if err != nil {
-		return nil, fmt.Errorf("ioutil.ReadFile(%q): %v", reportPath, err)
+		return nil, err
 	}
-
-	var r Report
-	if err = yaml.UnmarshalStrict(b, &r); err != nil {
-		return nil, fmt.Errorf("yaml.Unmarshal:: %v", err)
-	}
-
 	if len(r.CVEs) > 0 {
 		return nil, errors.New("report has CVE ID is wrong section (should be in cve_metadata for self-issued CVEs)")
 	}

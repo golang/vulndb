@@ -18,7 +18,6 @@ import (
 	"golang.org/x/mod/semver"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/stdlib"
-	"gopkg.in/yaml.v2"
 )
 
 // TODO: getting things from the proxy should all be cached so we
@@ -155,13 +154,9 @@ func checkModVersions(path string, vr []VersionRange) (err error) {
 // the YAML reports.
 func LintFile(filename string) (_ []string, err error) {
 	defer derrors.Wrap(&err, "LintFile(%q)", filename)
-	b, err := os.ReadFile(filename)
+	r, err := Read(filename)
 	if err != nil {
 		return nil, err
-	}
-	var r Report
-	if err := yaml.UnmarshalStrict(b, &r); err != nil {
-		return nil, fmt.Errorf("yaml.UnmarshalStrict(b, &r): %v (%q)", err, filename)
 	}
 	return r.Lint(), nil
 }

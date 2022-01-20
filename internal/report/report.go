@@ -6,7 +6,14 @@
 // in reports/.
 package report
 
-import "time"
+import (
+	"fmt"
+	"os"
+	"time"
+
+	"golang.org/x/vulndb/internal/derrors"
+	"gopkg.in/yaml.v2"
+)
 
 type VersionRange struct {
 	Introduced string `yaml:"introduced,omitempty"`
@@ -69,4 +76,19 @@ type Report struct {
 	// CVE ourselves. If a CVE already exists for an issue, use the CVE field
 	// to fill in the ID string.
 	CVEMetadata *CVEMeta `yaml:"cve_metadata,omitempty"`
+}
+
+// Read reads a Report from filename.
+func Read(filename string) (_ *Report, err error) {
+	defer derrors.Wrap(&err, "report.Read(%q)", filename)
+
+	b, err := os.ReadFile(filename)
+	if err != nil {
+		return nil, err
+	}
+	var r Report
+	if err := yaml.UnmarshalStrict(b, &r); err != nil {
+		return nil, fmt.Errorf("yaml.UnmarshalStrict(b, &r): %v (%q)", err, filename)
+	}
+	return &r, nil
 }

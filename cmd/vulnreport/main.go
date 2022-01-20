@@ -11,7 +11,6 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"strconv"
 	"strings"
@@ -160,7 +159,7 @@ func marshalReport(r *report.Report) ([]byte, error) {
 
 func lint(filename string) (err error) {
 	defer derrors.Wrap(&err, "lint(%q)", filename)
-	r, err := readReport(filename)
+	r, err := report.Read(filename)
 	if err != nil {
 		return err
 	}
@@ -173,7 +172,7 @@ func lint(filename string) (err error) {
 
 func fix(filename string) (err error) {
 	defer derrors.Wrap(&err, "fix(%q)", filename)
-	r, err := readReport(filename)
+	r, err := report.Read(filename)
 	if err != nil {
 		return err
 	}
@@ -187,20 +186,6 @@ func fix(filename string) (err error) {
 		return os.WriteFile(filename, out, 0644)
 	}
 	return nil
-}
-
-func readReport(filename string) (_ *report.Report, err error) {
-	defer derrors.Wrap(&err, "readReport(%q)", filename)
-	content, err := ioutil.ReadFile(filename)
-	if err != nil {
-		return nil, fmt.Errorf("ioutil.ReadFile: %v", err)
-	}
-
-	var r report.Report
-	if err := yaml.UnmarshalStrict(content, &r); err != nil {
-		return nil, fmt.Errorf("yaml.UnmarshalStrict: %v", err)
-	}
-	return &r, nil
 }
 
 func newCVE(filename string) (err error) {

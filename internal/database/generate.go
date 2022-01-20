@@ -22,7 +22,6 @@ import (
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/stdlib"
-	"gopkg.in/yaml.v2"
 )
 
 const (
@@ -55,13 +54,9 @@ func Generate(ctx context.Context, repoDir, jsonDir string) (err error) {
 		if !strings.HasSuffix(f.Name(), ".yaml") {
 			continue
 		}
-		content, err := ioutil.ReadFile(filepath.Join(repoDir, yamlDir, f.Name()))
+		r, err := report.Read(filepath.Join(repoDir, yamlDir, f.Name()))
 		if err != nil {
-			return fmt.Errorf("can't read %q: %s", f.Name(), err)
-		}
-		var r report.Report
-		if err := yaml.UnmarshalStrict(content, &r); err != nil {
-			return fmt.Errorf("unable to unmarshal %q: %s", f.Name(), err)
+			return err
 		}
 		if r.Published.IsZero() {
 			yamlPath := filepath.Join(yamlDir, f.Name())
@@ -81,7 +76,7 @@ func Generate(ctx context.Context, repoDir, jsonDir string) (err error) {
 
 		name := strings.TrimSuffix(filepath.Base(f.Name()), filepath.Ext(f.Name()))
 		linkName := fmt.Sprintf("%s%s", dbURL, name)
-		entry, paths := generateOSVEntry(name, linkName, r)
+		entry, paths := generateOSVEntry(name, linkName, *r)
 		for _, path := range paths {
 			jsonVulns[path] = append(jsonVulns[path], entry)
 		}
