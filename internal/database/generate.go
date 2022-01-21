@@ -76,7 +76,7 @@ func Generate(ctx context.Context, repoDir, jsonDir string) (err error) {
 
 		name := strings.TrimSuffix(filepath.Base(f.Name()), filepath.Ext(f.Name()))
 		linkName := fmt.Sprintf("%s%s", dbURL, name)
-		entry, paths := generateOSVEntry(name, linkName, *r)
+		entry, paths := GenerateOSVEntry(name, linkName, *r)
 		for _, path := range paths {
 			jsonVulns[path] = append(jsonVulns[path], entry)
 		}
@@ -140,7 +140,10 @@ func Generate(ctx context.Context, repoDir, jsonDir string) (err error) {
 	return nil
 }
 
-func generateOSVEntry(id string, url string, r report.Report) (osv.Entry, []string) {
+// GenerateOSVEntry create an osv.Entry for a report. In addition to the report, it
+// takes the ID for the vuln and a URL that will point to the entry in the vuln DB.
+// It returns the osv.Entry and a list of module paths that the vuln affects.
+func GenerateOSVEntry(id, url string, r report.Report) (osv.Entry, []string) {
 	importPath := r.Module
 	if r.Package != "" {
 		importPath = r.Package
