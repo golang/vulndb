@@ -12,10 +12,17 @@ steps:
         go run golang.org/x/website/cmd/locktrigger@latest \
           -project $PROJECT_ID -build $BUILD_ID -repo https://go.googlesource.com/vulndb
 
-  - name: golang
+  - id: Unshallow
+    name: gcr.io/cloud-builders/git
+    args: ["fetch", "--unshallow"]
+
+  - id: Generate
+    name: golang
     entrypoint: bash
     args: ["-c", "go install golang.org/x/vulndb/cmd/gendb@latest
                   && gendb -out /workspace/db"]
-  - name: gcr.io/cloud-builders/gsutil
+
+  - id: Deploy
+    name: gcr.io/cloud-builders/gsutil
     entrypoint: bash
     args: ["./deploy/gcp-deploy.sh"]
