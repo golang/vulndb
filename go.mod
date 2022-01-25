@@ -17,7 +17,7 @@ require (
 	github.com/google/go-github/v41 v41.0.0
 	github.com/google/safehtml v0.0.2
 	github.com/jba/templatecheck v0.6.0
-	golang.org/x/exp v0.0.0-20211123021643-48cbe7f80d7c
+	golang.org/x/exp v0.0.0-20220124173137-7a6bfc487013
 	golang.org/x/mod v0.6.0-dev.0.20211013180041-c96bc1413d57
 	golang.org/x/oauth2 v0.0.0-20211005180243-6b3c2da341f1
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
