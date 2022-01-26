@@ -118,7 +118,7 @@ func (s *Server) handle(_ context.Context, pattern string, handler func(w http.R
 		start := time.Now()
 		defer s.afterRequest()
 		traceID := r.Header.Get("X-Cloud-Trace-Context")
-		exporter := event.NewExporter(eventHandlers{
+		exporter := event.NewExporter(multiEventHandler{
 			log.NewGCPJSONHandler(os.Stderr, traceID),
 			s.traceHandler,
 		}, nil)
@@ -362,9 +362,12 @@ func initOpenTelemetry(projectID string) (tp *sdktrace.TracerProvider, err error
 	return tp, nil
 }
 
-type eventHandlers []event.Handler
+// multiEventHandler is an event.Handler that calls all of its contained handlers
+// on each event.
+type multiEventHandler []event.Handler
 
-func (eh eventHandlers) Event(ctx context.Context, ev *event.Event) context.Context {
+// Event implements event.Handler.Event.
+func (eh multiEventHandler) Event(ctx context.Context, ev *event.Event) context.Context {
 	for _, h := range eh {
 		ctx = h.Event(ctx, ev)
 	}
