@@ -1,5 +1,15 @@
 module: std
 package: net/http/cgi
+additional_packages:
+  - module: std
+    package: net/http/fcgi
+    symbols:
+      - response.Write
+      - response.WriteHeader
+      - response.writeCGIHeader
+    versions:
+      - fixed: go1.14.8
+      - fixed: go1.15.1
 versions:
   - fixed: go1.14.8
   - fixed: go1.15.1
