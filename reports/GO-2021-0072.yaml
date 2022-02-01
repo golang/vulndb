@@ -5,6 +5,17 @@ additional_packages:
     package: github.com/docker/distribution/registry/storage
     symbols:
       - blobStore.Get
+    derived_symbols:
+      - PurgeUploads
+      - Walk
+      - blobStore.Enumerate
+      - blobStore.Get
+      - linkedBlobStore.Enumerate
+      - linkedBlobStore.Get
+      - manifestStore.Enumerate
+      - manifestStore.Get
+      - registry.Enumerate
+      - registry.Repositories
     versions:
       - fixed: v2.7.0-rc.0+incompatible
 versions:
@@ -17,6 +28,11 @@ cves:
   - CVE-2017-11468
 symbols:
   - copyFullPayload
+derived_symbols:
+  - blobUploadHandler.PatchBlobData
+  - blobUploadHandler.PutBlobUploadComplete
+  - imageManifestHandler.GetImageManifest
+  - imageManifestHandler.PutImageManifest
 links:
     pr: https://github.com/distribution/distribution/pull/2340
     commit: https://github.com/distribution/distribution/commit/91c507a39abfce14b5c8541cf284330e22208c0f
