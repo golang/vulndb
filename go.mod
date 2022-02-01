@@ -23,7 +23,7 @@ require (
 	go.opentelemetry.io/otel/sdk v1.3.0
 	go.opentelemetry.io/otel/trace v1.3.0
 	golang.org/x/exp v0.0.0-20220124173137-7a6bfc487013
-	golang.org/x/exp/vulncheck v0.0.0-20220114162006-9d54fb35363c
+	golang.org/x/exp/vulncheck v0.0.0-20220128181451-c853b6ddb95e
 	golang.org/x/mod v0.6.0-dev.0.20211013180041-c96bc1413d57
 	golang.org/x/oauth2 v0.0.0-20211005180243-6b3c2da341f1
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c

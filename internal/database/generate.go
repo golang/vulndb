@@ -164,7 +164,7 @@ func GenerateOSVEntry(id, url string, r report.Report) (osv.Entry, []string) {
 		Modified:  lastModified,
 		Withdrawn: r.Withdrawn,
 		Details:   r.Description,
-		Affected:  []osv.Affected{generateAffected(importPath, r.Versions, r.OS, r.Arch, r.Symbols, url)},
+		Affected:  []osv.Affected{generateAffected(importPath, r.Versions, r.OS, r.Arch, r.AllSymbols(), url)},
 	}
 
 	for _, additional := range r.AdditionalPackages {
@@ -175,7 +175,7 @@ func GenerateOSVEntry(id, url string, r report.Report) (osv.Entry, []string) {
 		if !stdlib.Contains(r.Module) {
 			moduleMap[additional.Module] = true
 		}
-		entry.Affected = append(entry.Affected, generateAffected(additionalPath, additional.Versions, r.OS, r.Arch, additional.Symbols, url))
+		entry.Affected = append(entry.Affected, generateAffected(additionalPath, additional.Versions, r.OS, r.Arch, additional.AllSymbols(), url))
 	}
 
 	if r.Links.PR != "" {

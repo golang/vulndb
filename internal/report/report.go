@@ -23,10 +23,14 @@ type VersionRange struct {
 }
 
 type Additional struct {
-	Module   string         `yaml:",omitempty"`
-	Package  string         `yaml:",omitempty"`
-	Symbols  []string       `yaml:",omitempty"`
-	Versions []VersionRange `yaml:",omitempty"`
+	Module  string `yaml:",omitempty"`
+	Package string `yaml:",omitempty"`
+	// Symbols originally identified as vulnerable.
+	Symbols []string `yaml:",omitempty"`
+	// Additional vulnerable symbols, computed from Symbols via static analysis
+	// or other technique.
+	DerivedSymbols []string       `yaml:"derived_symbols,omitempty"`
+	Versions       []VersionRange `yaml:",omitempty"`
 }
 
 type Links struct {
@@ -67,17 +71,31 @@ type Report struct {
 	// If we are assigning a CVE ID ourselves, use CVEMetdata.ID instead.
 	// CVE are CVE IDs for existing CVEs, if there is more than one.
 	// Use either CVE or CVEs, but not both.
-	CVEs    []string `yaml:",omitempty"`
-	Credit  string   `yaml:",omitempty"`
+	CVEs   []string `yaml:",omitempty"`
+	Credit string   `yaml:",omitempty"`
+	// Symbols originally identified as vulnerable.
 	Symbols []string `yaml:",omitempty"`
-	OS      []string `yaml:",omitempty"`
-	Arch    []string `yaml:",omitempty"`
-	Links   Links    `yaml:",omitempty"`
+	// Additional vulnerable symbols, computed from Symbols via static analysis
+	// or other technique.
+	DerivedSymbols []string `yaml:"derived_symbols,omitempty"`
+	OS             []string `yaml:",omitempty"`
+	Arch           []string `yaml:",omitempty"`
+	Links          Links    `yaml:",omitempty"`
 
 	// CVEMetdata is used to capture CVE information when we want to assign a
 	// CVE ourselves. If a CVE already exists for an issue, use the CVE field
 	// to fill in the ID string.
 	CVEMetadata *CVEMeta `yaml:"cve_metadata,omitempty"`
+}
+
+// AllSymbols returns both original and derived symbols.
+func (r *Report) AllSymbols() []string {
+	return append(append([]string(nil), r.Symbols...), r.DerivedSymbols...)
+}
+
+// AllSymbols returns both original and derived symbols.
+func (a *Additional) AllSymbols() []string {
+	return append(append([]string(nil), a.Symbols...), a.DerivedSymbols...)
 }
 
 // Read reads a Report in YAML format from filename.

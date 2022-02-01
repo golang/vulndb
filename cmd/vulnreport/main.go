@@ -15,7 +15,6 @@ import (
 	"go/build"
 	"log"
 	"os"
-	"reflect"
 	"sort"
 	"strconv"
 	"strings"
@@ -199,24 +198,30 @@ func addExportedReportSymbols(r *report.Report) (bool, error) {
 		return false, errors.New("specific GOOS/GOARCH not yet implemented")
 	}
 	rc := newReportClient(r)
-	added, err := addExportedSymbols(r.Module, r.Package, &r.Symbols, rc)
+	added := false
+	syms, err := findExportedSymbols(r.Module, r.Package, rc)
 	if err != nil {
 		return false, err
 	}
+	if len(syms) > 0 {
+		added = true
+		r.DerivedSymbols = syms
+	}
 	for i, ap := range r.AdditionalPackages {
-		// Need to take pointer from r because r.AdditionalPackages is a slice of values.
-		a, err := addExportedSymbols(ap.Module, ap.Package, &r.AdditionalPackages[i].Symbols, rc)
+		syms, err := findExportedSymbols(ap.Module, ap.Package, rc)
 		if err != nil {
 			return false, err
 		}
-		if a {
+		if len(syms) > 0 {
 			added = true
+			// Need to start from r because r.AdditionalPackages is a slice of values.
+			r.AdditionalPackages[i].DerivedSymbols = syms
 		}
 	}
 	return added, nil
 }
 
-func addExportedSymbols(module, pkgPath string, symbols *[]string, c *reportClient) (added bool, err error) {
+func findExportedSymbols(module, pkgPath string, c *reportClient) (_ []string, err error) {
 	defer derrors.Wrap(&err, "addExportedSymbols(%q, %q)", module, pkgPath)
 
 	if pkgPath == "" {
@@ -224,39 +229,28 @@ func addExportedSymbols(module, pkgPath string, symbols *[]string, c *reportClie
 	}
 	pkgs, err := loadPackage(&packages.Config{}, pkgPath)
 	if err != nil {
-		return false, err
+		return nil, err
 	}
 	if len(pkgs) == 0 {
-		return false, errors.New("no packages found")
+		return nil, errors.New("no packages found")
 	}
 	// First package should match package path and module.
 	if pkgs[0].PkgPath != pkgPath {
-		return false, fmt.Errorf("first package had import path %s, wanted %s", pkgs[0].PkgPath, pkgPath)
+		return nil, fmt.Errorf("first package had import path %s, wanted %s", pkgs[0].PkgPath, pkgPath)
 	}
 	if pm := pkgs[0].Module; pm == nil || pm.Path != module {
-		return false, fmt.Errorf("got module %v, expected %s", pm, module)
+		return nil, fmt.Errorf("got module %v, expected %s", pm, module)
 	}
 	newsyms, err := exportedFunctions(pkgs, c)
 	if err != nil {
-		return false, err
-	}
-	oldsyms := map[string]bool{}
-	for _, s := range *symbols {
-		oldsyms[s] = true
-	}
-	if reflect.DeepEqual(newsyms, oldsyms) {
-		return false, nil
-	}
-	for _, s := range *symbols {
-		newsyms[s] = true
+		return nil, err
 	}
 	var newslice []string
 	for s := range newsyms {
 		newslice = append(newslice, s)
 	}
 	sort.Strings(newslice)
-	*symbols = newslice
-	return true, nil
+	return newslice, nil
 }
 
 // loadPackage loads the package at the given import path, with enough

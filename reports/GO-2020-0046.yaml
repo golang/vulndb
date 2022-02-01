@@ -3,20 +3,23 @@ additional_packages:
   - module: github.com/russellhaering/gosaml2
     symbols:
       - SAMLServiceProvider.validateAssertionSignatures
+    derived_symbols:
+      - SAMLServiceProvider.RetrieveAssertionInfo
+      - SAMLServiceProvider.ValidateEncodedResponse
     versions:
       - fixed: v0.6.0
 versions:
   - fixed: v1.1.0
 description: |
-  Due to a nil pointer dereference, a malformed XML Digital Signature
-  can cause a panic during validation. If user supplied signatures are
-  being validated, this may be used as a denial of service vector.
+    Due to a nil pointer dereference, a malformed XML Digital Signature
+    can cause a panic during validation. If user supplied signatures are
+    being validated, this may be used as a denial of service vector.
 cves:
   - CVE-2020-7711
-credit: "@stevenjohnstone"
+credit: '@stevenjohnstone'
 symbols:
   - ValidationContext.validateSignature
 links:
-  context:
-    - https://github.com/russellhaering/goxmldsig/issues/48
-    - https://github.com/russellhaering/gosaml2/issues/59
+    context:
+      - https://github.com/russellhaering/goxmldsig/issues/48
+      - https://github.com/russellhaering/gosaml2/issues/59
