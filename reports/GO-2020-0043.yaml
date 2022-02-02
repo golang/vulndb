@@ -3,10 +3,10 @@ package: github.com/mholt/caddy/caddyhttp/httpserver
 versions:
   - fixed: v0.10.13
 description: |
-  Due to improper TLS verification when serving traffic for multiple
-  SNIs, an attacker may bypass TLS client authentication by indicating
-  an SNI during the TLS handshake that is different from the name in
-  the HTTP Host header.
+    Due to improper TLS verification when serving traffic for multiple
+    SNIs, an attacker may bypass TLS client authentication by indicating
+    an SNI during the TLS handshake that is different from the name in
+    the HTTP Host header.
 cves:
   - CVE-2018-21246
 symbols:
@@ -14,7 +14,7 @@ symbols:
   - Server.serveHTTP
   - assertConfigsCompatible
 links:
-  pr: https://github.com/caddyserver/caddy/pull/2099
-  commit: https://github.com/caddyserver/caddy/commit/4d9ee000c8d2cbcdd8284007c1e0f2da7bc3c7c3
-  context:
-    - https://bugs.gentoo.org/715214
+    pr: https://github.com/caddyserver/caddy/pull/2099
+    commit: https://github.com/caddyserver/caddy/commit/4d9ee000c8d2cbcdd8284007c1e0f2da7bc3c7c3
+    context:
+      - https://bugs.gentoo.org/715214

@@ -1,20 +1,20 @@
 module: github.com/unknwon/cae
 package: github.com/unknwon/cae/zip
 versions:
-- fixed: v1.0.1
+  - fixed: v1.0.1
 description: |
-  The ExtractTo function doesn't securely escape file paths in zip archives
-  which include leading or non-leading "..". This allows an attacker to add or
-  replace files system-wide.
+    The ExtractTo function doesn't securely escape file paths in zip archives
+    which include leading or non-leading "..". This allows an attacker to add or
+    replace files system-wide.
 cves:
-- CVE-2020-7664
+  - CVE-2020-7664
 credit: Georgios Gkitsas of Snyk Security Team
 symbols:
-- TzArchive.syncFiles
-- TzArchive.ExtractToFunc
-- ZipArchive.Open
-- ZipArchive.ExtractToFunc
+  - TzArchive.syncFiles
+  - TzArchive.ExtractToFunc
+  - ZipArchive.Open
+  - ZipArchive.ExtractToFunc
 links:
-  commit: https://github.com/unknwon/cae/commit/07971c00a1bfd9dc171c3ad0bfab5b67c2287e11
-  context:
-  - https://snyk.io/vuln/SNYK-GOLANG-GITHUBCOMUNKNWONCAEZIP-570383
+    commit: https://github.com/unknwon/cae/commit/07971c00a1bfd9dc171c3ad0bfab5b67c2287e11
+    context:
+      - https://snyk.io/vuln/SNYK-GOLANG-GITHUBCOMUNKNWONCAEZIP-570383

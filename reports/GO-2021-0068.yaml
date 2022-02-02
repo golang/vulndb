@@ -5,18 +5,18 @@ versions:
   - fixed: go1.14.14
   - fixed: go1.15.7
 description: |
-  The go command may execute arbitrary code at build time when using cgo on Windows.
-  This can be triggered by running go get on a malicious module, or any other time
-  the code is built.
+    The go command may execute arbitrary code at build time when using cgo on Windows.
+    This can be triggered by running go get on a malicious module, or any other time
+    the code is built.
 cves:
   - CVE-2021-3115
 credit: RyotaK
 os:
   - windows
 links:
-  pr: https://go.dev/cl/284783
-  commit: https://go.googlesource.com/go/+/953d1feca9b21af075ad5fc8a3dad096d3ccc3a0
-  context:
-    - https://go.dev/issue/43783
-    - https://go.dev/cl/284780
-    - https://go.googlesource.com/go/+/46e2e2e9d99925bbf724b12693c6d3e27a95d6a0
+    pr: https://go.dev/cl/284783
+    commit: https://go.googlesource.com/go/+/953d1feca9b21af075ad5fc8a3dad096d3ccc3a0
+    context:
+      - https://go.dev/issue/43783
+      - https://go.dev/cl/284780
+      - https://go.googlesource.com/go/+/46e2e2e9d99925bbf724b12693c6d3e27a95d6a0

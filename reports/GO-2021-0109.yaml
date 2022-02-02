@@ -2,14 +2,14 @@ module: github.com/ory/fosite
 versions:
   - fixed: v0.34.0
 description: |
-  Due to improper error handling, an error with the underlying token storage may cause a user
-  to believe a token has been successfully revoked when it is in fact still valid. An attackers
-  ability to exploit this relies on an ability to trigger errors in the underlying storage.
+    Due to improper error handling, an error with the underlying token storage may cause a user
+    to believe a token has been successfully revoked when it is in fact still valid. An attackers
+    ability to exploit this relies on an ability to trigger errors in the underlying storage.
 cves:
   - CVE-2020-15223
 symbols:
   - TokenRevocationHandler.RevokeToken
 links:
-  commit: https://github.com/ory/fosite/commit/03dd55813f5521985f7dd64277b7ba0cf1441319
-  context:
-    - https://github.com/advisories/GHSA-7mqr-2v3q-v2wm
+    commit: https://github.com/ory/fosite/commit/03dd55813f5521985f7dd64277b7ba0cf1441319
+    context:
+      - https://github.com/advisories/GHSA-7mqr-2v3q-v2wm

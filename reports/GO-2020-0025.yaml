@@ -9,13 +9,13 @@ additional_packages:
 versions:
   - fixed: v0.0.0-20180523222229-09b5706aa936
 description: |
-  Due to improper path santization, archives containing relative file
-  paths can cause files to be written (or overwritten) outside of the
-  target directory.
+    Due to improper path santization, archives containing relative file
+    paths can cause files to be written (or overwritten) outside of the
+    target directory.
 symbols:
   - tgzExtractor.Extract
   - zipExtractor.Extract
 links:
-  commit: https://github.com/cloudfoundry/archiver/commit/09b5706aa9367972c09144a450bb4523049ee840
-  context:
-    - https://snyk.io/research/zip-slip-vulnerability
+    commit: https://github.com/cloudfoundry/archiver/commit/09b5706aa9367972c09144a450bb4523049ee840
+    context:
+      - https://snyk.io/research/zip-slip-vulnerability

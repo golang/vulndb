@@ -4,25 +4,25 @@ versions:
   - introduced: go1.5
     fixed: go1.5.3
 description: |
-  Int.Exp Montgomery mishandled carry propagation and produced an incorrect
-  output, which makes it easier for attackers to obtain private RSA keys via
-  unspecified vectors.
+    Int.Exp Montgomery mishandled carry propagation and produced an incorrect
+    output, which makes it easier for attackers to obtain private RSA keys via
+    unspecified vectors.
 
-  This issue can affect RSA computations in crypto/rsa, which is used by
-  crypto/tls. TLS servers on 32-bit systems could plausibly leak their RSA
-  private key due to this issue. Other protocol implementations that create
-  many RSA signatures could also be impacted in the same way.
+    This issue can affect RSA computations in crypto/rsa, which is used by
+    crypto/tls. TLS servers on 32-bit systems could plausibly leak their RSA
+    private key due to this issue. Other protocol implementations that create
+    many RSA signatures could also be impacted in the same way.
 
-  Specifically, incorrect results in one part of the RSA Chinese Remainder
-  computation can cause the result to be incorrect in such a way that it leaks
-  one of the primes. While RSA blinding should prevent an attacker from crafting
-  specific inputs that trigger the bug, on 32-bit systems the bug can be expected
-  to occur at random around one in 2^26 times. Thus collecting around 64 million
-  signatures (of known data) from an affected server should be enough to extract
-  the private key used.
+    Specifically, incorrect results in one part of the RSA Chinese Remainder
+    computation can cause the result to be incorrect in such a way that it leaks
+    one of the primes. While RSA blinding should prevent an attacker from crafting
+    specific inputs that trigger the bug, on 32-bit systems the bug can be expected
+    to occur at random around one in 2^26 times. Thus collecting around 64 million
+    signatures (of known data) from an affected server should be enough to extract
+    the private key used.
 
-  Note that on 64-bit systems, the frequency of the bug is so low
-  (less than one in 2^50) that it would be very difficult to exploit.
+    Note that on 64-bit systems, the frequency of the bug is so low
+    (less than one in 2^50) that it would be very difficult to exploit.
 cves:
   - CVE-2015-8618
 credit: Nick Craig-Wood
@@ -30,10 +30,10 @@ symbols:
   - nat.expNNMontgomery
   - nat.montgomery
 links:
-  pr: https://go.dev/cl/18491
-  commit: https://go.googlesource.com/go/+/1e066cad1ba23f4064545355b8737e4762dd6838
-  context:
-    - https://go.googlesource.com/go/+/4306352182bf94f86f0cfc6a8b0ed461cbf1d82c
-    - https://go.dev/cl/17672
-    - https://go.dev/issue/13515
-    - https://groups.google.com/g/golang-announce/c/MEATuOi_ei4
+    pr: https://go.dev/cl/18491
+    commit: https://go.googlesource.com/go/+/1e066cad1ba23f4064545355b8737e4762dd6838
+    context:
+      - https://go.googlesource.com/go/+/4306352182bf94f86f0cfc6a8b0ed461cbf1d82c
+      - https://go.dev/cl/17672
+      - https://go.dev/issue/13515
+      - https://groups.google.com/g/golang-announce/c/MEATuOi_ei4

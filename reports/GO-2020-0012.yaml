@@ -3,10 +3,10 @@ package: golang.org/x/crypto/ssh
 versions:
   - fixed: v0.0.0-20200220183623-bac4c82f6975
 description: |
-  An attacker can craft an ssh-ed25519 or sk-ssh-ed25519@openssh.com public
-  key, such that the library will panic when trying to verify a signature
-  with it. If verifying signatures using user supplied public keys, this
-  may be used as a denial of service vector.
+    An attacker can craft an ssh-ed25519 or sk-ssh-ed25519@openssh.com public
+    key, such that the library will panic when trying to verify a signature
+    with it. If verifying signatures using user supplied public keys, this
+    may be used as a denial of service vector.
 cves:
   - CVE-2020-9283
 credit: Alex Gaynor, Fish in a Barrel
@@ -17,7 +17,7 @@ symbols:
   - skEd25519PublicKey.Verify
   - NewPublicKey
 links:
-  pr: https://go-review.googlesource.com/c/crypto/+/220357
-  commit: https://go.googlesource.com/crypto/+/bac4c82f69751a6dd76e702d54b3ceb88adab236
-  context:
-    - https://groups.google.com/g/golang-announce/c/3L45YRc91SY
+    pr: https://go-review.googlesource.com/c/crypto/+/220357
+    commit: https://go.googlesource.com/crypto/+/bac4c82f69751a6dd76e702d54b3ceb88adab236
+    context:
+      - https://groups.google.com/g/golang-announce/c/3L45YRc91SY

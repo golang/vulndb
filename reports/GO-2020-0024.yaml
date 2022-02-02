@@ -11,11 +11,11 @@ additional_packages:
 versions:
   - fixed: v0.0.0-20130808000456-233bccbb1abe
 description: |
-  The RemoteAddr and LocalAddr methods on the returned net.Conn may
-  call themselves, leading to an infinite loop which will crash the
-  program due to a stack overflow.
+    The RemoteAddr and LocalAddr methods on the returned net.Conn may
+    call themselves, leading to an infinite loop which will crash the
+    program due to a stack overflow.
 symbols:
   - proxiedConn.LocalAddr
   - proxiedConn.RemoteAddr
 links:
-  commit: https://github.com/btcsuite/go-socks/commit/233bccbb1abe02f05750f7ace66f5bffdb13defc
+    commit: https://github.com/btcsuite/go-socks/commit/233bccbb1abe02f05750f7ace66f5bffdb13defc

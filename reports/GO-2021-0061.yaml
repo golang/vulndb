@@ -1,19 +1,17 @@
 module: gopkg.in/yaml.v2
 additional_packages:
-  # all of the incompatible versions of github.com/go-yaml/yaml
-  # are affected
   - module: github.com/go-yaml/yaml
     symbols:
       - decoder.unmarshal
 versions:
   - fixed: v2.2.3
 description: |
-  Due to unbounded alias chasing, a maliciously crafted YAML file
-  can cause the system to consume significant system resources. If
-  parsing user input, this may be used as a denial of service vector.
-credit: "@simonferquel"
+    Due to unbounded alias chasing, a maliciously crafted YAML file
+    can cause the system to consume significant system resources. If
+    parsing user input, this may be used as a denial of service vector.
+credit: '@simonferquel'
 symbols:
   - decoder.unmarshal
 links:
-  pr: https://github.com/go-yaml/yaml/pull/375
-  commit: https://github.com/go-yaml/yaml/commit/bb4e33bf68bf89cad44d386192cbed201f35b241
+    pr: https://github.com/go-yaml/yaml/pull/375
+    commit: https://github.com/go-yaml/yaml/commit/bb4e33bf68bf89cad44d386192cbed201f35b241

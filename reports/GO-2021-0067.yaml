@@ -4,16 +4,16 @@ versions:
   - introduced: go1.16
     fixed: go1.16.1
 description: |
-  Using Reader.Open on an archive containing a file with a path
-  prefixed by "../" will cause a panic due to a stack overflow.
-  If parsing user supplied archives, this may be used as a
-  denial of service vector.
+    Using Reader.Open on an archive containing a file with a path
+    prefixed by "../" will cause a panic due to a stack overflow.
+    If parsing user supplied archives, this may be used as a
+    denial of service vector.
 cves:
   - CVE-2021-27919
 symbols:
   - toValidName
 links:
-  pr: https://go-review.googlesource.com/c/go/+/300489
-  commit: https://go.googlesource.com/go/+/cd3b4ca9f20fd14187ed4cdfdee1a02ea87e5cd8
-  context:
-    - https://go.dev/issue/44916
+    pr: https://go-review.googlesource.com/c/go/+/300489
+    commit: https://go.googlesource.com/go/+/cd3b4ca9f20fd14187ed4cdfdee1a02ea87e5cd8
+    context:
+      - https://go.dev/issue/44916

@@ -1,31 +1,31 @@
 module: std
 package: net/http/fcgi
 versions:
-- fixed: go1.14.8
-- fixed: go1.15.1
+  - fixed: go1.14.8
+  - fixed: go1.15.1
 description: |
-  When a Handler does not explicitly set the Content-Type header, the the
-  package would default to “text/html”, which could cause a Cross-Site Scripting
-  vulnerability if an attacker can control any part of the contents of a
-  response.
+    When a Handler does not explicitly set the Content-Type header, the the
+    package would default to “text/html”, which could cause a Cross-Site Scripting
+    vulnerability if an attacker can control any part of the contents of a
+    response.
 
-  The Content-Type header is now set based on the contents of the first Write
-  using http.DetectContentType, which is consistent with the behavior of the
-  net/http package.
+    The Content-Type header is now set based on the contents of the first Write
+    using http.DetectContentType, which is consistent with the behavior of the
+    net/http package.
 
-  Although this protects some applications that validate the contents of
-  uploaded files, not setting the Content-Type header explicitly on any
-  attacker-controlled file is unsafe and should be avoided.
+    Although this protects some applications that validate the contents of
+    uploaded files, not setting the Content-Type header explicitly on any
+    attacker-controlled file is unsafe and should be avoided.
 cves:
-- CVE-2020-24553
+  - CVE-2020-24553
 credit: RedTeam Pentesting GmbH
 symbols:
-- response.Write
-- response.WriteHeader
-- response.writeCGIHeader
+  - response.Write
+  - response.WriteHeader
+  - response.writeCGIHeader
 links:
-  pr: https://go.dev/cl/252179
-  commit: https://go.googlesource.com/go/+/4f5cd0c0331943c7ec72df3b827d972584f77833
-  context:
-  - https://groups.google.com/g/golang-announce/c/8wqlSbkLdPs
-  - https://go.dev/issue/40928
+    pr: https://go.dev/cl/252179
+    commit: https://go.googlesource.com/go/+/4f5cd0c0331943c7ec72df3b827d972584f77833
+    context:
+      - https://groups.google.com/g/golang-announce/c/8wqlSbkLdPs
+      - https://go.dev/issue/40928

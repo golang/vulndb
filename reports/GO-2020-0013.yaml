@@ -3,17 +3,17 @@ package: golang.org/x/crypto/ssh
 versions:
   - fixed: v0.0.0-20170330155735-e4e2799dd7aa
 description: |
-  By default host key verification is disabled which allows for
-  man-in-the-middle attacks against SSH clients if
-  ClientConfig.HostKeyCallback is not set.
+    By default host key verification is disabled which allows for
+    man-in-the-middle attacks against SSH clients if
+    ClientConfig.HostKeyCallback is not set.
 cves:
   - CVE-2017-3204
 credit: Phil Pennock
 symbols:
   - NewClientConn
 links:
-  pr: https://go-review.googlesource.com/38701
-  commit: https://go.googlesource.com/crypto/+/e4e2799dd7aab89f583e1d898300d96367750991
-  context:
-    - https://go.dev/issue/19767
-    - https://bridge.grumpy-troll.org/2017/04/golang-ssh-security/
+    pr: https://go-review.googlesource.com/38701
+    commit: https://go.googlesource.com/crypto/+/e4e2799dd7aab89f583e1d898300d96367750991
+    context:
+      - https://go.dev/issue/19767
+      - https://bridge.grumpy-troll.org/2017/04/golang-ssh-security/

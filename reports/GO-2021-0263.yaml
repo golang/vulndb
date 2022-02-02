@@ -1,21 +1,21 @@
 module: std
 package: debug/macho
 versions:
-- fixed: go1.17.3
-- fixed: go1.16.10
+  - fixed: go1.17.3
+  - fixed: go1.16.10
 description: |
-  Calling File.ImportedSymbols on a loaded file which contains an invalid
-  dynamic symbol table command can cause a panic, in particular if the encoded
-  number of undefined symbols is larger than the number of symbols in the symbol
-  table.
+    Calling File.ImportedSymbols on a loaded file which contains an invalid
+    dynamic symbol table command can cause a panic, in particular if the encoded
+    number of undefined symbols is larger than the number of symbols in the symbol
+    table.
 cves:
-- CVE-2021-41771
+  - CVE-2021-41771
 credit: Burak Çarıkçı - Yunus Yıldırım (CT-Zer0 Crypttech)
 symbols:
-- NewFile
+  - NewFile
 links:
-  pr: https://go.dev/cl/367075
-  commit: https://go.googlesource.com/go/+/61536ec03063b4951163bd09609c86d82631fa27
-  context:
-  - https://groups.google.com/g/golang-announce/c/0fM21h43arc
-  - https://go.dev/issue/48990
+    pr: https://go.dev/cl/367075
+    commit: https://go.googlesource.com/go/+/61536ec03063b4951163bd09609c86d82631fa27
+    context:
+      - https://groups.google.com/g/golang-announce/c/0fM21h43arc
+      - https://go.dev/issue/48990

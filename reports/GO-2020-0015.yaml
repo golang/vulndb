@@ -10,11 +10,11 @@ additional_packages:
 versions:
   - fixed: v0.3.3
 description: |
-  An attacker could provide a single byte to a UTF16 decoder instantiated with
-  UseBOM or ExpectBOM to trigger an infinite loop if the String function on
-  the Decoder is called, or the Decoder is passed to transform.String.
-  If used to parse user supplied input, this may be used as a denial of service
-  vector.
+    An attacker could provide a single byte to a UTF16 decoder instantiated with
+    UseBOM or ExpectBOM to trigger an infinite loop if the String function on
+    the Decoder is called, or the Decoder is passed to transform.String.
+    If used to parse user supplied input, this may be used as a denial of service
+    vector.
 last_modified: 2021-06-07T12:00:00Z
 cves:
   - CVE-2020-14040
@@ -22,8 +22,8 @@ credit: '@abacabadabacaba and Anton Gyllenberg'
 symbols:
   - utf16Decoder.Transform
 links:
-  pr: https://go-review.googlesource.com/c/text/+/238238
-  commit: https://go.googlesource.com/text/+/23ae387dee1f90d29a23c0e87ee0b46038fbed0e
-  context:
-    - https://go.dev/issue/39491
-    - https://groups.google.com/g/golang-announce/c/bXVeAmGOqz0
+    pr: https://go-review.googlesource.com/c/text/+/238238
+    commit: https://go.googlesource.com/text/+/23ae387dee1f90d29a23c0e87ee0b46038fbed0e
+    context:
+      - https://go.dev/issue/39491
+      - https://groups.google.com/g/golang-announce/c/bXVeAmGOqz0

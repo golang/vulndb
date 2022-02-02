@@ -4,15 +4,15 @@ versions:
   - introduced: v1.9.4
   - fixed: v1.9.20
 description: |
-  Due to an incorrect state calculation, a specific set of transactions could cause a consensus disagreement,
-  causing users of this package to reject a canonical chain.
+    Due to an incorrect state calculation, a specific set of transactions could cause a consensus disagreement,
+    causing users of this package to reject a canonical chain.
 cves:
   - CVE-2020-26265
 credit: John Youngseok Yang (Software Platform Lab)
 symbols:
   - StateDB.createObject
 links:
-  commit: https://github.com/ethereum/go-ethereum/commit/87c0ba92136a75db0ab2aba1046d4a9860375d6a
-  pr: https://github.com/ethereum/go-ethereum/pull/21080
-  context:
-    - https://github.com/advisories/GHSA-xw37-57qp-9mm4
+    pr: https://github.com/ethereum/go-ethereum/pull/21080
+    commit: https://github.com/ethereum/go-ethereum/commit/87c0ba92136a75db0ab2aba1046d4a9860375d6a
+    context:
+      - https://github.com/advisories/GHSA-xw37-57qp-9mm4
