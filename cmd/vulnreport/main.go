@@ -40,6 +40,8 @@ func main() {
 		fmt.Fprintf(flag.CommandLine.Output(), "  create [githubIssueNumber]: creates a new vulnerability YAML report\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  lint [filename.yaml]: lints a vulnerability YAML report\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  newcve [filename.yaml]: creates a CVE report from the provided YAML report\n")
+		fmt.Fprintf(flag.CommandLine.Output(), "  fix [filename.yaml]: fixes a YAML report\n")
+		fmt.Fprintf(flag.CommandLine.Output(), "  formats [filename.yaml]: reformats a YAML report\n")
 		flag.PrintDefaults()
 	}
 
@@ -78,6 +80,10 @@ func main() {
 		}
 	case "fix":
 		if err := fix(name); err != nil {
+			log.Fatal(err)
+		}
+	case "format":
+		if err := format(name); err != nil {
 			log.Fatal(err)
 		}
 	default:
@@ -167,6 +173,15 @@ func lint(filename string) (err error) {
 		return fmt.Errorf("lint returned errors:\n\t %s", strings.Join(lints, "\n\t"))
 	}
 	return nil
+}
+
+func format(filename string) (err error) {
+	derrors.Wrap(&err, "format(%q)", filename)
+	r, err := report.Read(filename)
+	if err != nil {
+		return err
+	}
+	return r.Write(filename)
 }
 
 func fix(filename string) (err error) {
