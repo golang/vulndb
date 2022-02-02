@@ -289,5 +289,16 @@ func decodeCredit(raw []byte) (Credit, error) {
 		return Credit{Data: CreditData{Description: Description{Data: ls}}}, nil
 	}
 
+	var str string
+	if err := json.Unmarshal(raw, &str); err == nil {
+		return Credit{
+			Data: CreditData{
+				Description: Description{
+					Data: []LangString{{Lang: "eng", Value: str}},
+				},
+			},
+		}, nil
+	}
+
 	return Credit{}, errors.New("could not parse credit field")
 }
