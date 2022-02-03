@@ -6,6 +6,7 @@ package worker
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"path"
 	"strings"
@@ -337,6 +338,9 @@ func (u *updater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx store.T
 	// If we're here, then mod is a modification to the DB.
 	if err := tx.SetCVERecord(&mod); err != nil {
 		return false, err
+	}
+	if mod.TriageState == store.TriageStateNeedsIssue && mod.CVE == nil {
+		return false, errors.New("needs issue but CVE is nil")
 	}
 	return false, nil
 }
