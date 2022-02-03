@@ -38,27 +38,30 @@ func main() {
 	flag.Usage = func() {
 		fmt.Fprintf(flag.CommandLine.Output(), "usage: vulnreport [cmd] [filename.yaml]\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  create [githubIssueNumber]: creates a new vulnerability YAML report\n")
-		fmt.Fprintf(flag.CommandLine.Output(), "  lint [filename.yaml]: lints a vulnerability YAML report\n")
-		fmt.Fprintf(flag.CommandLine.Output(), "  newcve [filename.yaml]: creates a CVE report from the provided YAML report\n")
-		fmt.Fprintf(flag.CommandLine.Output(), "  fix [filename.yaml]: fixes and reformats a YAML report\n")
+		fmt.Fprintf(flag.CommandLine.Output(), "  lint filename.yaml ...: lints vulnerability YAML reports\n")
+		fmt.Fprintf(flag.CommandLine.Output(), "  newcve filename.yaml ...: creates CVEs report from the provided YAML reports\n")
+		fmt.Fprintf(flag.CommandLine.Output(), "  fix filename.yaml ...: fixes and reformats YAML reports\n")
 		flag.PrintDefaults()
 	}
 
 	flag.Parse()
-	if flag.NArg() != 2 {
+	if flag.NArg() < 2 {
 		flag.Usage()
 		os.Exit(1)
 	}
 
 	cmd := flag.Arg(0)
-	name := flag.Arg(1)
+	names := flag.Args()[1:]
 	switch cmd {
 	case "create":
 		if *githubToken == "" {
 			flag.Usage()
 			log.Fatalf("githubToken must be provided")
 		}
-		githubID, err := strconv.Atoi(name)
+		if len(names) != 1 {
+			log.Fatal("need one ID")
+		}
+		githubID, err := strconv.Atoi(names[0])
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -70,15 +73,15 @@ func main() {
 			log.Fatal(err)
 		}
 	case "lint":
-		if err := lint(name); err != nil {
+		if err := multi(lint, names); err != nil {
 			log.Fatal(err)
 		}
 	case "newcve":
-		if err := newCVE(name); err != nil {
+		if err := multi(newCVE, names); err != nil {
 			log.Fatal(err)
 		}
 	case "fix":
-		if err := fix(name); err != nil {
+		if err := multi(fix, names); err != nil {
 			log.Fatal(err)
 		}
 	default:
@@ -87,6 +90,14 @@ func main() {
 	}
 }
 
+func multi(f func(string) error, args []string) error {
+	for _, arg := range args {
+		if err := f(arg); err != nil {
+			return err
+		}
+	}
+	return nil
+}
 func create(ctx context.Context, issueNumber int, ghToken, issueRepo, repoPath string) (err error) {
 	defer derrors.Wrap(&err, "create(%d)", issueNumber)
 	owner, repoName, err := gitrepo.ParseGitHubRepo(issueRepo)
