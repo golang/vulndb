@@ -94,7 +94,7 @@ func main() {
 	log.Infof(ctx, "config: project=%s, namespace=%s, issueRepo=%s", cfg.Project, cfg.Namespace, cfg.IssueRepo)
 
 	var err error
-	cfg.Store, err = store.NewFireStore(ctx, cfg.Project, cfg.Namespace)
+	cfg.Store, err = store.NewFireStore(ctx, cfg.Project, cfg.Namespace, "")
 	if err != nil {
 		die("firestore: %v", err)
 	}

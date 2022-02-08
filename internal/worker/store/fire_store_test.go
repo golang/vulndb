@@ -17,7 +17,10 @@ import (
 	"time"
 )
 
-var project = flag.String("project", "", "GCP project for Firestore")
+var (
+	project     = flag.String("project", "", "GCP project for Firestore")
+	impersonate = flag.String("impersonate", "", "service account for Firestore")
+)
 
 func TestFireStore(t *testing.T) {
 	if *project == "" {
@@ -34,7 +37,7 @@ func TestFireStore(t *testing.T) {
 	namespace := fmt.Sprintf("testing-%s-%d", username, r)
 	t.Logf("testing in namespace %s", namespace)
 
-	fs, err := NewFireStore(ctx, *project, namespace)
+	fs, err := NewFireStore(ctx, *project, namespace, *impersonate)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -13,6 +13,7 @@ import (
 	"cloud.google.com/go/firestore"
 	"golang.org/x/vulndb/internal/derrors"
 	"google.golang.org/api/iterator"
+	"google.golang.org/api/option"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -47,13 +48,23 @@ const (
 // each project can have only one Firestore database, callers must provide a
 // non-empty namespace to distinguish different virtual databases (e.g. prod and
 // testing).
-func NewFireStore(ctx context.Context, projectID, namespace string) (_ *FireStore, err error) {
+// If non-empty, the impersonate argument should be the name of a service
+// account to impersonate.
+func NewFireStore(ctx context.Context, projectID, namespace, impersonate string) (_ *FireStore, err error) {
 	defer derrors.Wrap(&err, "NewFireStore(%q, %q)", projectID, namespace)
 
 	if namespace == "" {
 		return nil, errors.New("empty namespace")
 	}
-	client, err := firestore.NewClient(ctx, projectID)
+	var opts []option.ClientOption
+	if impersonate != "" {
+		opts = []option.ClientOption{
+			option.ImpersonateCredentials(impersonate),
+			option.WithScopes("https://www.googleapis.com/auth/cloud-platform",
+				"https://www.googleapis.com/auth/datastore"),
+		}
+	}
+	client, err := firestore.NewClient(ctx, projectID, opts...)
 	if err != nil {
 		return nil, err
 	}
