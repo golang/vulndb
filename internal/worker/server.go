@@ -23,6 +23,7 @@ import (
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/worker/log"
@@ -80,7 +81,6 @@ func NewServer(ctx context.Context, cfg Config) (_ *Server, err error) {
 		}
 		derrors.SetReportingClient(reportingClient)
 	}
-
 	if cfg.IssueRepo != "" {
 		owner, repoName, err := gitrepo.ParseGitHubRepo(cfg.IssueRepo)
 		if err != nil {
@@ -286,14 +286,22 @@ func (s *Server) doUpdate(r *http.Request) error {
 	if f := r.FormValue("force"); f == "true" {
 		force = true
 	}
-	err := UpdateCommit(r.Context(), cvelistrepo.URL, "HEAD", s.cfg.Store, pkgsiteURL, force)
+	err := UpdateCVEsAtCommit(r.Context(), cvelistrepo.URL, "HEAD", s.cfg.Store, pkgsiteURL, force)
 	if cerr := new(CheckUpdateError); errors.As(err, &cerr) {
 		return &serverError{
 			status: http.StatusPreconditionFailed,
 			err:    fmt.Errorf("%w; use /update?force=true to override", cerr),
 		}
 	}
+	if err != nil {
+		return err
+	}
+	listSAs := func(ctx context.Context, since time.Time) ([]*ghsa.SecurityAdvisory, error) {
+		return ghsa.List(ctx, s.cfg.GitHubAccessToken, since)
+	}
+	_, err = UpdateGHSAs(r.Context(), listSAs, s.cfg.Store)
 	return err
+
 }
 
 func (s *Server) handleIssues(w http.ResponseWriter, r *http.Request) error {

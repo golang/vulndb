@@ -11,6 +11,7 @@ import (
 	"context"
 	"math"
 	"os"
+	"sort"
 	"strings"
 	"testing"
 	"time"
@@ -19,6 +20,7 @@ import (
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"golang.org/x/exp/event"
 	"golang.org/x/vulndb/internal/cveschema"
+	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/worker/log"
@@ -87,7 +89,7 @@ func TestCheckUpdate(t *testing.T) {
 				t.Fatal(err)
 			}
 		}
-		got := checkUpdate(ctx, headCommit(t, repo), mstore)
+		got := checkCVEUpdate(ctx, headCommit(t, repo), mstore)
 		if got == nil && test.want != "" {
 			t.Errorf("%+v:\ngot no error, wanted %q", test.latestUpdate, test.want)
 		} else if got != nil && !strings.Contains(got.Error(), test.want) {
@@ -222,4 +224,91 @@ func unindent(s string) string {
 		}
 	}
 	return strings.Join(lines, "\n")
+}
+
+func day(year, month, day int) time.Time {
+	return time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.UTC)
+}
+
+func TestUpdateGHSAs(t *testing.T) {
+	ctx := context.Background()
+	sas := []*ghsa.SecurityAdvisory{
+		{
+			ID:        "g1",
+			UpdatedAt: day(2021, 10, 1),
+		},
+		{
+			ID:        "g2",
+			UpdatedAt: day(2021, 11, 1),
+		},
+		{
+			ID:        "g3",
+			UpdatedAt: day(2021, 12, 1),
+		},
+	}
+
+	mstore := store.NewMemStore()
+	listSAs := fakeListFunc(sas)
+	updateAndCheck := func(wantStats UpdateGHSAStats, wantRecords []*store.GHSARecord) {
+		t.Helper()
+		gotStats, err := UpdateGHSAs(ctx, listSAs, mstore)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if gotStats != wantStats {
+			t.Errorf("\ngot  %+v\nwant %+v", gotStats, wantStats)
+		}
+		gotRecords, err := getGHSARecords(ctx, mstore)
+		if err != nil {
+			t.Fatal(err)
+		}
+		sort.Slice(gotRecords, func(i, j int) bool {
+			return gotRecords[i].GHSA.ID < gotRecords[j].GHSA.ID
+		})
+		if diff := cmp.Diff(wantRecords, gotRecords); diff != "" {
+			t.Errorf("mismatch (-want, +got):\n%s", diff)
+		}
+	}
+
+	// First run, from an empty store: all SAs entered with NeedsIssue.
+	var want []*store.GHSARecord
+	for _, sa := range sas {
+		want = append(want, &store.GHSARecord{
+			GHSA:        sa,
+			TriageState: store.TriageStateNeedsIssue,
+		})
+	}
+	updateAndCheck(UpdateGHSAStats{3, 3, 0}, want)
+
+	// New SA added, old one updated.
+	sas[0] = &ghsa.SecurityAdvisory{
+		ID:        sas[0].ID,
+		UpdatedAt: day(2021, 12, 2),
+	}
+	want[0].GHSA = sas[0]
+	sas = append(sas, &ghsa.SecurityAdvisory{
+		ID:        "g4",
+		UpdatedAt: day(2021, 12, 2),
+	})
+	listSAs = fakeListFunc(sas)
+	want = append(want, &store.GHSARecord{
+		GHSA:        sas[len(sas)-1],
+		TriageState: store.TriageStateNeedsIssue,
+	})
+
+	// Next update processes two SAs, modifies one and adds one.
+	updateAndCheck(UpdateGHSAStats{2, 1, 1}, want)
+
+}
+
+func fakeListFunc(sas []*ghsa.SecurityAdvisory) GHSAListFunc {
+	return func(_ context.Context, since time.Time) ([]*ghsa.SecurityAdvisory, error) {
+		var rs []*ghsa.SecurityAdvisory
+		for _, sa := range sas {
+			if !sa.UpdatedAt.Before(since) {
+				rs = append(rs, sa)
+			}
+		}
+		return rs, nil
+	}
 }

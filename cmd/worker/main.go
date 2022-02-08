@@ -23,6 +23,7 @@ import (
 
 	"golang.org/x/exp/event"
 	"golang.org/x/vulndb/internal/cvelistrepo"
+	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/worker"
@@ -198,10 +199,21 @@ func updateCommand(ctx context.Context, commitHash string) error {
 			return err
 		}
 	}
-	err := worker.UpdateCommit(ctx, repoPath, commitHash, cfg.Store, pkgsiteURL, *force)
+	err := worker.UpdateCVEsAtCommit(ctx, repoPath, commitHash, cfg.Store, pkgsiteURL, *force)
 	if cerr := new(worker.CheckUpdateError); errors.As(err, &cerr) {
 		return fmt.Errorf("%w; use -force to override", cerr)
 	}
+	if err != nil {
+		return err
+	}
+	if cfg.GitHubAccessToken == "" {
+		fmt.Printf("Missing GitHub access token; not updating GH security advisories.\n")
+		return nil
+	}
+	listSAs := func(ctx context.Context, since time.Time) ([]*ghsa.SecurityAdvisory, error) {
+		return ghsa.List(ctx, cfg.GitHubAccessToken, since)
+	}
+	_, err = worker.UpdateGHSAs(ctx, listSAs, cfg.Store)
 	return err
 }
 

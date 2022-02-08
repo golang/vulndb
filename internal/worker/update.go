@@ -27,8 +27,8 @@ import (
 // affected module.
 type triageFunc func(*cveschema.CVE) (*triageResult, error)
 
-// An updater performs an update operation on the DB.
-type updater struct {
+// A cveUpdater performs an update operation on the DB.
+type cveUpdater struct {
 	repo           *git.Repository
 	commit         *object.Commit
 	st             store.Store
@@ -41,11 +41,11 @@ type updateStats struct {
 	numProcessed, numAdded, numModified int
 }
 
-// newUpdater creates an updater for updating the store with information from
+// newCVEUpdater creates an updater for updating the store with information from
 // the repo commit.
 // needsIssue determines whether a CVE needs an issue to be filed for it.
-func newUpdater(repo *git.Repository, commit *object.Commit, st store.Store, knownVulnIDs []string, needsIssue triageFunc) *updater {
-	u := &updater{
+func newCVEUpdater(repo *git.Repository, commit *object.Commit, st store.Store, knownVulnIDs []string, needsIssue triageFunc) *cveUpdater {
+	u := &cveUpdater{
 		repo:           repo,
 		commit:         commit,
 		st:             st,
@@ -60,15 +60,15 @@ func newUpdater(repo *git.Repository, commit *object.Commit, st store.Store, kno
 
 // update updates the DB to match the repo at the given commit.
 // It also triages new or changed issues.
-func (u *updater) update(ctx context.Context) (ur *store.CommitUpdateRecord, err error) {
+func (u *cveUpdater) update(ctx context.Context) (ur *store.CommitUpdateRecord, err error) {
 	// We want the action of reading the old DB record, updating it and
 	// writing it back to be atomic. It would be too expensive to do that one
 	// record at a time. Ideally we'd process the whole repo commit in one
 	// transaction, but Firestore has a limit on how many writes one
 	// transaction can do, so the CVE files in the repo are processed in
 	// batches, one transaction per batch.
-	defer derrors.Wrap(&err, "updater.update(%s)", u.commit.Hash)
-	ctx = event.Start(ctx, "updater.update")
+	defer derrors.Wrap(&err, "cveUpdater.update(%s)", u.commit.Hash)
+	ctx = event.Start(ctx, "cveUpdater.update")
 	defer event.End(ctx)
 
 	defer func() {
@@ -85,7 +85,7 @@ func (u *updater) update(ctx context.Context) (ur *store.CommitUpdateRecord, err
 		}
 	}()
 
-	log.Infof(ctx, "update starting on %s", u.commit.Hash)
+	log.Infof(ctx, "CVE update starting on %s", u.commit.Hash)
 
 	// Get all the CVE files.
 	// It is cheaper to read all the files from the repo and compare
@@ -147,7 +147,7 @@ func (u *updater) update(ctx context.Context) (ur *store.CommitUpdateRecord, err
 // See https://cloud.google.com/firestore/quotas.
 const maxTransactionWrites = 500
 
-func (u *updater) updateDirectory(ctx context.Context, dirFiles []cvelistrepo.File) (_ updateStats, err error) {
+func (u *cveUpdater) updateDirectory(ctx context.Context, dirFiles []cvelistrepo.File) (_ updateStats, err error) {
 	dirPath := dirFiles[0].DirPath
 	dirHash := dirFiles[0].TreeHash.String()
 
@@ -194,7 +194,7 @@ func (u *updater) updateDirectory(ctx context.Context, dirFiles []cvelistrepo.Fi
 	return stats, nil
 }
 
-func (u *updater) updateBatch(ctx context.Context, batch []cvelistrepo.File) (numAdds, numMods int, err error) {
+func (u *cveUpdater) updateBatch(ctx context.Context, batch []cvelistrepo.File) (numAdds, numMods int, err error) {
 	startID := idFromFilename(batch[0].Filename)
 	endID := idFromFilename(batch[len(batch)-1].Filename)
 	defer derrors.Wrap(&err, "updateBatch(%s-%s)", startID, endID)
@@ -244,7 +244,7 @@ func (u *updater) updateBatch(ctx context.Context, batch []cvelistrepo.File) (nu
 // handleCVE determines how to change the store for a single CVE.
 // The CVE will definitely be either added, if it's new, or modified, if it's
 // already in the DB.
-func (u *updater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx store.Transaction) (added bool, err error) {
+func (u *cveUpdater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx store.Transaction) (added bool, err error) {
 	defer derrors.Wrap(&err, "handleCVE(%s)", f.Filename)
 	cve, err := cvelistrepo.ParseCVE(u.repo, f)
 	if err != nil {
@@ -395,4 +395,93 @@ func groupFilesByDirectory(files []cvelistrepo.File) ([][]cvelistrepo.File, erro
 // idFromFilename extracts the CVE ID from  a filename.
 func idFromFilename(name string) string {
 	return strings.TrimSuffix(path.Base(name), path.Ext(name))
+}
+
+type UpdateGHSAStats struct {
+	// Number of GitHub security advisories seen.
+	NumProcessed int
+	// Number of GHSARecords added to the store.
+	NumAdded int
+	// Number of GHSARecords already in the store that were modified.
+	NumModified int
+}
+
+func updateGHSAs(ctx context.Context, listSAs GHSAListFunc, since time.Time, st store.Store) (stats UpdateGHSAStats, err error) {
+	defer derrors.Wrap(&err, "updateGHSAs(%s)", since)
+	ctx = event.Start(ctx, "updateGHSAs")
+	defer event.End(ctx)
+
+	defer func() {
+		if err != nil {
+			log.Errorf(ctx, "GHSA update failed: %v", err)
+		} else {
+			log.Infof(ctx, "GHSA update succeeded with since=%s: %+v", since, stats)
+		}
+	}()
+
+	log.Infof(ctx, "GHSA update starting with since=%s", since)
+
+	// Get all of the GHSAs since the given time from GitHub.
+	sas, err := listSAs(ctx, since)
+	if err != nil {
+		return stats, err
+	}
+	stats.NumProcessed = len(sas)
+	if len(sas) > maxTransactionWrites {
+		return stats, errors.New("number of advisories exceeds maxTransactionWrites")
+	}
+	numAdded := 0
+	numModified := 0
+	err = st.RunTransaction(ctx, func(ctx context.Context, tx store.Transaction) error {
+		numAdded = 0
+		numModified = 0
+		// Read the existing records from the store.
+		sars, err := tx.GetGHSARecords()
+		if err != nil {
+			return err
+		}
+		idToRecord := map[string]*store.GHSARecord{}
+		for _, r := range sars {
+			idToRecord[r.GHSA.ID] = r
+		}
+
+		// Determine what needs to be added and modified.
+		for _, sa := range sas {
+			old := idToRecord[sa.ID]
+			if old == nil {
+				// Add record.
+				r := &store.GHSARecord{
+					GHSA: sa,
+					// All new records need an issue, since ghsa.List already
+					// filters for vulns in the Go ecosystem.
+					TriageState: store.TriageStateNeedsIssue,
+				}
+				if err := tx.CreateGHSARecord(r); err != nil {
+					return err
+				}
+				numAdded++
+			} else if !old.GHSA.UpdatedAt.Equal(sa.UpdatedAt) {
+				// Modify record.
+				mod := *old
+				mod.GHSA = sa
+				switch old.TriageState {
+				case store.TriageStateNoActionNeeded:
+					mod.TriageState = store.TriageStateNeedsIssue
+					mod.TriageStateReason = "advisory was updated"
+				case store.TriageStateIssueCreated:
+					mod.TriageState = store.TriageStateUpdatedSinceIssueCreation
+				default:
+					// Don't change the TriageState.
+				}
+				if err := tx.SetGHSARecord(&mod); err != nil {
+					return err
+				}
+				numModified++
+			}
+		}
+		return nil
+	})
+	stats.NumAdded = numAdded
+	stats.NumModified = numModified
+	return stats, nil
 }

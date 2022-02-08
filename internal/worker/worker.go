@@ -24,6 +24,7 @@ import (
 	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/report"
@@ -31,9 +32,9 @@ import (
 	"golang.org/x/vulndb/internal/worker/store"
 )
 
-// UpdateCommit performs an update on the store using the given commit.
+// UpdateCVEsAtCommit performs an update on the store using the given commit.
 // Unless force is true, it checks that the update makes sense before doing it.
-func UpdateCommit(ctx context.Context, repoPath, commitHashString string, st store.Store, pkgsiteURL string, force bool) (err error) {
+func UpdateCVEsAtCommit(ctx context.Context, repoPath, commitHashString string, st store.Store, pkgsiteURL string, force bool) (err error) {
 	defer derrors.Wrap(&err, "RunCommitUpdate(%q, %q, force=%t)", repoPath, commitHashString, force)
 
 	log.Infof(ctx, "updating false positives")
@@ -60,7 +61,7 @@ func UpdateCommit(ctx context.Context, repoPath, commitHashString string, st sto
 		return err
 	}
 	if !force {
-		if err := checkUpdate(ctx, commit, st); err != nil {
+		if err := checkCVEUpdate(ctx, commit, st); err != nil {
 			return err
 		}
 	}
@@ -68,17 +69,17 @@ func UpdateCommit(ctx context.Context, repoPath, commitHashString string, st sto
 	if err != nil {
 		return err
 	}
-	u := newUpdater(repo, commit, st, knownVulnIDs, func(cve *cveschema.CVE) (*triageResult, error) {
+	u := newCVEUpdater(repo, commit, st, knownVulnIDs, func(cve *cveschema.CVE) (*triageResult, error) {
 		return TriageCVE(ctx, cve, pkgsiteURL)
 	})
 	_, err = u.update(ctx)
 	return err
 }
 
-// checkUpdate performs sanity checks on a potential update.
+// checkCVEUpdate performs sanity checks on a potential update.
 // It verifies that there is not an update currently in progress,
 // and it makes sure that the update is to a more recent commit.
-func checkUpdate(ctx context.Context, commit *object.Commit, st store.Store) error {
+func checkCVEUpdate(ctx context.Context, commit *object.Commit, st store.Store) error {
 	ctx = event.Start(ctx, "checkUpdate")
 	defer event.End(ctx)
 
@@ -164,6 +165,41 @@ func readVulnDB(ctx context.Context) ([]string, error) {
 		return nil, err
 	}
 	return cveIDs, nil
+}
+
+// GHSAListFunc is the type of a function that lists GitHub security advisories.
+type GHSAListFunc func(_ context.Context, since time.Time) ([]*ghsa.SecurityAdvisory, error)
+
+// UpdateGHSAs updates the store with the current state of GitHub's security advisories.
+func UpdateGHSAs(ctx context.Context, list GHSAListFunc, st store.Store) (_ UpdateGHSAStats, err error) {
+	defer derrors.Wrap(&err, "UpdateGHSAs")
+
+	// Find the most recent update time of the records we have in the store.
+	grs, err := getGHSARecords(ctx, st)
+	var since time.Time
+	for _, gr := range grs {
+		if gr.GHSA.UpdatedAt.After(since) {
+			since = gr.GHSA.UpdatedAt
+		}
+	}
+	// We want to start just after that time.
+	since = since.Add(time.Nanosecond)
+
+	// Do the update.
+	return updateGHSAs(ctx, list, since, st)
+}
+
+func getGHSARecords(ctx context.Context, st store.Store) ([]*store.GHSARecord, error) {
+	var rs []*store.GHSARecord
+	err := st.RunTransaction(ctx, func(ctx context.Context, tx store.Transaction) error {
+		var err error
+		rs, err = tx.GetGHSARecords()
+		return err
+	})
+	if err != nil {
+		return nil, err
+	}
+	return rs, nil
 }
 
 // Limit GitHub issue creation requests to this many per second.
