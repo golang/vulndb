@@ -248,6 +248,20 @@ func testGHSAs(t *testing.T, s Store) {
 	if diff := cmp.Diff(gs, got); diff != "" {
 		t.Errorf("mismatch (-want, +got):\n%s", diff)
 	}
+
+	// Retrieve one record by ID.
+	var got0 *GHSARecord
+	err = s.RunTransaction(ctx, func(ctx context.Context, tx Transaction) error {
+		var err error
+		got0, err = tx.GetGHSARecord(gs[0].GetID())
+		return err
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got, want := got0, gs[0]; !cmp.Equal(got, want) {
+		t.Errorf("got %+v, want %+v", got, want)
+	}
 }
 
 func createCVERecords(t *testing.T, ctx context.Context, s Store, crs []*CVERecord) {

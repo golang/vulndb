@@ -9,6 +9,7 @@ package worker
 
 import (
 	"context"
+	"fmt"
 	"math"
 	"os"
 	"sort"
@@ -137,32 +138,71 @@ func TestCreateIssues(t *testing.T) {
 		},
 	}
 	createCVERecords(t, mstore, crs)
+	grs := []*store.GHSARecord{
+		{
+			GHSA: &ghsa.SecurityAdvisory{
+				ID:    "g1",
+				Vulns: []*ghsa.Vuln{{Package: "p1"}},
+			},
+			TriageState: store.TriageStateNeedsIssue,
+		},
+		{
+			GHSA: &ghsa.SecurityAdvisory{
+				ID:    "g2",
+				Vulns: []*ghsa.Vuln{{Package: "p2"}},
+			},
+			TriageState: store.TriageStateNoActionNeeded,
+		},
+		{
+			GHSA: &ghsa.SecurityAdvisory{
+				ID:    "g3",
+				Vulns: []*ghsa.Vuln{{Package: "p3"}},
+			},
+			TriageState: store.TriageStateIssueCreated,
+		},
+	}
+	createGHSARecords(t, mstore, grs)
 
 	if err := CreateIssues(ctx, mstore, ic, 0); err != nil {
 		t.Fatal(err)
 	}
 
-	var wants []*store.CVERecord
+	var wantCVERecords []*store.CVERecord
 	for _, r := range crs {
 		copy := *r
-		wants = append(wants, &copy)
+		wantCVERecords = append(wantCVERecords, &copy)
 	}
-	wants[0].TriageState = store.TriageStateIssueCreated
-	wants[0].IssueReference = "inMemory#1"
+	wantCVERecords[0].TriageState = store.TriageStateIssueCreated
+	wantCVERecords[0].IssueReference = "inMemory#1"
 
-	gotRecs := mstore.CVERecords()
-	if len(gotRecs) != len(wants) {
-		t.Fatalf("wrong number of records: got %d, want %d", len(gotRecs), len(wants))
+	gotCVERecs := mstore.CVERecords()
+	if len(gotCVERecs) != len(wantCVERecords) {
+		t.Fatalf("wrong number of records: got %d, want %d", len(gotCVERecs), len(wantCVERecords))
 	}
-	for _, want := range wants {
-		got := gotRecs[want.ID]
+	for _, want := range wantCVERecords {
+		got := gotCVERecs[want.ID]
 		if !cmp.Equal(got, want, cmpopts.IgnoreFields(store.CVERecord{}, "IssueCreatedAt")) {
-			t.Errorf("got  %+v\nwant %+v", got, want)
+			t.Errorf("\ngot  %+v\nwant %+v", got, want)
 		}
+	}
+
+	var wantGHSARecs []*store.GHSARecord
+	for _, r := range grs {
+		copy := *r
+		wantGHSARecs = append(wantGHSARecs, &copy)
+	}
+	wantGHSARecs[0].TriageState = store.TriageStateIssueCreated
+	wantGHSARecs[0].IssueReference = "inMemory#2"
+
+	gotGHSARecs := getGHSARecordsSorted(t, mstore)
+	fmt.Printf("%+v\n", gotGHSARecs[0])
+	if diff := cmp.Diff(wantGHSARecs, gotGHSARecs,
+		cmpopts.IgnoreFields(store.GHSARecord{}, "IssueCreatedAt")); diff != "" {
+		t.Errorf("mismatch (-want, +got):\n%s", diff)
 	}
 }
 
-func TestNewBody(t *testing.T) {
+func TestNewCVEBody(t *testing.T) {
 	r := &store.CVERecord{
 		ID:     "ID1",
 		Module: "a.Module",
@@ -175,7 +215,7 @@ func TestNewBody(t *testing.T) {
 			},
 		},
 	}
-	got, err := newBody(r)
+	got, err := newCVEBody(r)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -189,6 +229,31 @@ cves:
   - ID1
 
 ` + "```" + `
+
+See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) for instructions on how to triage this report.
+`
+	if diff := cmp.Diff(unindent(want), got); diff != "" {
+		t.Errorf("mismatch (-want, +got):\n%s", diff)
+	}
+}
+
+func TestNewGHSABody(t *testing.T) {
+	r := &store.GHSARecord{
+		GHSA: &ghsa.SecurityAdvisory{
+			ID:          "G1_blah",
+			Identifiers: []ghsa.Identifier{{Type: "GHSA", Value: "G1"}},
+			Permalink:   "https://github.com/permalink/to/G1",
+			Description: "a description",
+			Vulns:       []*ghsa.Vuln{{Package: "aPackage"}},
+		},
+	}
+	got, err := newGHSABody(r)
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := `In GitHub Security Advisory [G1](https://github.com/permalink/to/G1), there is a vulnerability in the Go package or module aPackage.
+
+
 
 See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) for instructions on how to triage this report.
 `
@@ -258,13 +323,7 @@ func TestUpdateGHSAs(t *testing.T) {
 		if gotStats != wantStats {
 			t.Errorf("\ngot  %+v\nwant %+v", gotStats, wantStats)
 		}
-		gotRecords, err := getGHSARecords(ctx, mstore)
-		if err != nil {
-			t.Fatal(err)
-		}
-		sort.Slice(gotRecords, func(i, j int) bool {
-			return gotRecords[i].GHSA.ID < gotRecords[j].GHSA.ID
-		})
+		gotRecords := getGHSARecordsSorted(t, mstore)
 		if diff := cmp.Diff(wantRecords, gotRecords); diff != "" {
 			t.Errorf("mismatch (-want, +got):\n%s", diff)
 		}
@@ -299,6 +358,16 @@ func TestUpdateGHSAs(t *testing.T) {
 	// Next update processes two SAs, modifies one and adds one.
 	updateAndCheck(UpdateGHSAStats{2, 1, 1}, want)
 
+}
+
+func getGHSARecordsSorted(t *testing.T, st store.Store) []*store.GHSARecord {
+	t.Helper()
+	rs, err := getGHSARecords(context.Background(), st)
+	if err != nil {
+		t.Fatal(err)
+	}
+	sort.Slice(rs, func(i, j int) bool { return rs[i].GHSA.ID < rs[j].GHSA.ID })
+	return rs
 }
 
 func fakeListFunc(sas []*ghsa.SecurityAdvisory) GHSAListFunc {

@@ -170,7 +170,7 @@ func (tx *memTransaction) CreateGHSARecord(r *GHSARecord) error {
 	return nil
 }
 
-// SetGHSARecord implements Transaction.SetGHSARecord.n
+// SetGHSARecord implements Transaction.SetGHSARecord.
 func (tx *memTransaction) SetGHSARecord(r *GHSARecord) error {
 	if _, ok := tx.ms.ghsaRecords[r.GHSA.ID]; !ok {
 		return fmt.Errorf("GHSARecord %s does not exist", r.GHSA.ID)
@@ -179,7 +179,15 @@ func (tx *memTransaction) SetGHSARecord(r *GHSARecord) error {
 	return nil
 }
 
-// GetGHSARecords returns all the GHSARecords in the database.
+// GetGHSARecord implements Transaction.GetGHSARecord.
+func (tx *memTransaction) GetGHSARecord(id string) (*GHSARecord, error) {
+	if r, ok := tx.ms.ghsaRecords[id]; ok {
+		return r, nil
+	}
+	return nil, fmt.Errorf("GHSARecord %s does not exist", id)
+}
+
+// GetGHSARecords implements Transaction.GetGHSARecords.
 func (tx *memTransaction) GetGHSARecords() ([]*GHSARecord, error) {
 	var recs []*GHSARecord
 	for _, r := range tx.ms.ghsaRecords {

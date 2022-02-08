@@ -215,53 +215,30 @@ func CreateIssues(ctx context.Context, st store.Store, ic issues.Client, limit i
 	ctx = event.Start(ctx, "CreateIssues")
 	defer event.End(ctx)
 
+	if err := createCVEIssues(ctx, st, ic, limit); err != nil {
+		return err
+	}
+	return createGHSAIssues(ctx, st, ic, limit)
+}
+
+func createCVEIssues(ctx context.Context, st store.Store, ic issues.Client, limit int) (err error) {
+	defer derrors.Wrap(&err, "createCVEIssues(destination: %s)", ic.Destination())
+
 	needsIssue, err := st.ListCVERecordsWithTriageState(ctx, store.TriageStateNeedsIssue)
 	if err != nil {
 		return err
 	}
-	log.Infof(ctx, "CreateIssues starting; destination: %s, total needing issue: %d",
+	log.Infof(ctx, "createCVEIssues starting; destination: %s, total needing issue: %d",
 		ic.Destination(), len(needsIssue))
-	numCreated := int64(0)
+	numCreated := 0
 	for _, cr := range needsIssue {
-		if limit > 0 && int(numCreated) >= limit {
+		if limit > 0 && numCreated >= limit {
 			break
 		}
-		if cr.IssueReference != "" || !cr.IssueCreatedAt.IsZero() {
-			log.With(
-				"CVE", cr.ID,
-				"IssueReference", cr.IssueReference,
-				"IssueCreatedAt", cr.IssueCreatedAt,
-			).Errorf(ctx, "%s: triage state is NeedsIssue but issue field(s) non-zero; skipping", cr.ID)
-			continue
-		}
-		body, err := newBody(cr)
+		ref, err := createIssue(ctx, cr, ic, newCVEBody)
 		if err != nil {
-			log.With(
-				"CVE", cr.ID,
-				"IssueReference", cr.IssueReference,
-				"IssueCreatedAt", cr.IssueCreatedAt,
-			).Errorf(ctx, "%s: triage state is NeedsIssue but could not generate body; skipping: %v", cr.ID, err)
-			continue
-		}
-
-		// Create the issue.
-		iss := &issues.Issue{
-			Title: fmt.Sprintf("x/vulndb: potential Go vuln in %s: %s", cr.Module, cr.ID),
-			Body:  body,
-		}
-		if err := issueRateLimiter.Wait(ctx); err != nil {
 			return err
 		}
-		num, err := ic.CreateIssue(ctx, iss)
-		if err != nil {
-			return fmt.Errorf("creating issue for %s: %w", cr.ID, err)
-		}
-		// If we crashed here, we would have filed an issue without recording
-		// that fact in the DB. That can lead to duplicate issues, but nothing
-		// worse (we won't miss a CVE).
-		// TODO(https://go.dev/issue/49733): look for the issue title to avoid duplications.
-		ref := ic.Reference(num)
-		log.With("CVE", cr.ID).Infof(ctx, "created issue %s for %s", ref, cr.ID)
 
 		// Update the CVERecord in the DB with issue information.
 		err = st.RunTransaction(ctx, func(ctx context.Context, tx store.Transaction) error {
@@ -280,11 +257,12 @@ func CreateIssues(ctx context.Context, st store.Store, ic issues.Client, limit i
 		}
 		numCreated++
 	}
-	log.With("limit", limit).Infof(ctx, "CreateIssues done: %d created", numCreated)
+	log.With("limit", limit).Infof(ctx, "createCVEIssues done: %d created", numCreated)
 	return nil
 }
 
-func newBody(cr *store.CVERecord) (string, error) {
+func newCVEBody(sr storeRecord) (string, error) {
+	cr := sr.(*store.CVERecord)
 	var b strings.Builder
 	if cr.CVE == nil {
 		return "", fmt.Errorf("cannot create body for CVERecord with nil CVE")
@@ -317,6 +295,112 @@ func newBody(cr *store.CVERecord) (string, error) {
 	return b.String(), nil
 }
 
+func createGHSAIssues(ctx context.Context, st store.Store, ic issues.Client, limit int) (err error) {
+	defer derrors.Wrap(&err, "createGHSAIssues(destination: %s)", ic.Destination())
+
+	sas, err := getGHSARecords(ctx, st)
+	if err != nil {
+		return err
+	}
+	var needsIssue []*store.GHSARecord
+	for _, sa := range sas {
+		if sa.TriageState == store.TriageStateNeedsIssue {
+			needsIssue = append(needsIssue, sa)
+		}
+	}
+
+	log.Infof(ctx, "createGHSAIssues starting; destination: %s, total needing issue: %d",
+		ic.Destination(), len(needsIssue))
+	numCreated := 0
+	for _, gr := range needsIssue {
+		if limit > 0 && numCreated >= limit {
+			break
+		}
+		ref, err := createIssue(ctx, gr, ic, newGHSABody)
+		if err != nil {
+			return err
+		}
+		// Update the GHSARecord in the DB with issue information.
+		err = st.RunTransaction(ctx, func(ctx context.Context, tx store.Transaction) error {
+			r, err := tx.GetGHSARecord(gr.GetID())
+			if err != nil {
+				return err
+			}
+			r.TriageState = store.TriageStateIssueCreated
+			r.IssueReference = ref
+			r.IssueCreatedAt = time.Now()
+			return tx.SetGHSARecord(r)
+		})
+		if err != nil {
+			return err
+		}
+		numCreated++
+	}
+	log.With("limit", limit).Infof(ctx, "createGHSAIssues done: %d created", numCreated)
+	return nil
+}
+
+func newGHSABody(sr storeRecord) (string, error) {
+	sa := sr.(*store.GHSARecord).GHSA
+
+	var b strings.Builder
+	intro := fmt.Sprintf(
+		"In GitHub Security Advisory [%s](%s), there is a vulnerability in the Go package or module %s.",
+		sr.GetPrettyID(), sa.Permalink, sa.Vulns[0].Package)
+	if err := issueTemplate.Execute(&b, issueTemplateData{
+		Intro: intro,
+	}); err != nil {
+		return "", err
+	}
+	return b.String(), nil
+}
+
+type storeRecord interface {
+	GetID() string
+	GetPrettyID() string
+	GetUnit() string
+	GetIssueReference() string
+	GetIssueCreatedAt() time.Time
+}
+
+func createIssue(ctx context.Context, r storeRecord, ic issues.Client, newBody func(storeRecord) (string, error)) (ref string, err error) {
+	id := r.GetID()
+	defer derrors.Wrap(&err, "createIssue(%s)", id)
+
+	if r.GetIssueReference() != "" || !r.GetIssueCreatedAt().IsZero() {
+		log.With(
+			"ID", id,
+			"IssueReference", r.GetIssueReference(),
+			"IssueCreatedAt", r.GetIssueCreatedAt(),
+		).Errorf(ctx, "%s: triage state is NeedsIssue but issue field(s) non-zero; skipping", id)
+		return "", nil
+	}
+	body, err := newBody(r)
+	if err != nil {
+		log.With("ID", id).Errorf(ctx, "%s: triage state is NeedsIssue but could not generate body; skipping: %v", id, err)
+		return "", nil
+	}
+	// Create the issue.
+	iss := &issues.Issue{
+		Title: fmt.Sprintf("x/vulndb: potential Go vuln in %s: %s", r.GetUnit(), r.GetPrettyID()),
+		Body:  body,
+	}
+	if err := issueRateLimiter.Wait(ctx); err != nil {
+		return "", err
+	}
+	num, err := ic.CreateIssue(ctx, iss)
+	if err != nil {
+		return "", fmt.Errorf("creating issue for %s: %w", id, err)
+	}
+	// If we crashed here, we would have filed an issue without recording
+	// that fact in the DB. That can lead to duplicate issues, but nothing
+	// worse (we won't miss a CVE).
+	// TODO(https://go.dev/issue/49733): look for the issue title to avoid duplications.
+	ref = ic.Reference(num)
+	log.With("ID", id).Infof(ctx, "created issue %s for %s", ref, id)
+	return ref, nil
+}
+
 type issueTemplateData struct {
 	Intro  string
 	Report string
@@ -327,9 +411,11 @@ type issueTemplateData struct {
 var issueTemplate = template.Must(template.New("issue").Parse(`
 {{- .Intro}}
 
+{{if (and .Pre .Report) -}}
 {{.Pre}}
 {{.Report}}
 {{.Pre}}
+{{- end}}
 
 See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) for instructions on how to triage this report.
 `))

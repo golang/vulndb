@@ -280,6 +280,21 @@ func (tx *fsTransaction) SetGHSARecord(r *GHSARecord) (err error) {
 	return tx.t.Set(tx.s.ghsaRecordRef(r.GHSA.ID), r)
 }
 
+// GetGHSARecord implements Transaction.GetGHSARecord.
+func (tx *fsTransaction) GetGHSARecord(id string) (_ *GHSARecord, err error) {
+	defer derrors.Wrap(&err, "GetGHSARecord(%s)", id)
+
+	docsnap, err := tx.t.Get(tx.s.ghsaRecordRef(id))
+	if status.Code(err) == codes.NotFound {
+		return nil, nil
+	}
+	var gr GHSARecord
+	if err := docsnap.DataTo(&gr); err != nil {
+		return nil, err
+	}
+	return &gr, nil
+}
+
 // GetGHSARecords implements Transaction.GetGHSARecords.
 func (tx *fsTransaction) GetGHSARecords() (_ []*GHSARecord, err error) {
 	defer derrors.Wrap(&err, "GetGHSARecords()")

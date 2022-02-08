@@ -63,6 +63,12 @@ type CVERecord struct {
 	History []*CVERecordSnapshot
 }
 
+func (r *CVERecord) GetID() string                { return r.ID }
+func (r *CVERecord) GetPrettyID() string          { return r.ID }
+func (r *CVERecord) GetUnit() string              { return r.Module }
+func (r *CVERecord) GetIssueReference() string    { return r.IssueReference }
+func (r *CVERecord) GetIssueCreatedAt() time.Time { return r.IssueCreatedAt }
+
 // Validate returns an error if the CVERecord is not valid.
 func (r *CVERecord) Validate() error {
 	if r.ID == "" {
@@ -179,6 +185,26 @@ type GHSARecord struct {
 	TriageState TriageState
 	// TriageStateReason is an explanation of TriageState.
 	TriageStateReason string
+	// IssueReference is a reference to the GitHub issue that was filed.
+	// E.g. golang/vulndb#12345.
+	// Set only after a GitHub issue has been successfully created.
+	IssueReference string
+	// IssueCreatedAt is the time when the issue was created.
+	// Set only after a GitHub issue has been successfully created.
+	IssueCreatedAt time.Time
+}
+
+func (r *GHSARecord) GetID() string                { return r.GHSA.ID }
+func (r *GHSARecord) GetUnit() string              { return r.GHSA.Vulns[0].Package }
+func (r *GHSARecord) GetIssueReference() string    { return r.IssueReference }
+func (r *GHSARecord) GetIssueCreatedAt() time.Time { return r.IssueCreatedAt }
+
+func (r *GHSARecord) GetPrettyID() string {
+	// The GHSA ID in the Identifiers list is more human-readable.
+	if len(r.GHSA.Identifiers) > 0 {
+		return r.GHSA.Identifiers[0].Value
+	}
+	return r.GHSA.ID
 }
 
 // A Store is a storage system for the CVE database.
@@ -235,6 +261,10 @@ type Transaction interface {
 	// SetGHSARecord sets the GHSA record in the database. It is
 	// an error if no such record exists.
 	SetGHSARecord(*GHSARecord) error
+
+	// GetGHSARecord returns a single GHSARecord by ID.
+	// If not found, it returns (nil, nil).
+	GetGHSARecord(id string) (*GHSARecord, error)
 
 	// GetGHSARecords returns all the GHSARecords in the database.
 	GetGHSARecords() ([]*GHSARecord, error)
