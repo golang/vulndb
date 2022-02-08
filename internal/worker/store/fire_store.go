@@ -31,6 +31,7 @@ import (
 // - CVEs for CVERecords
 // - CommitUpdates for CommitUpdateRecords
 // - DirHashes for directory hashes
+// - GHSAs for GHSARecords.
 type FireStore struct {
 	namespace string
 	client    *firestore.Client
@@ -42,6 +43,7 @@ const (
 	updateCollection    = "Updates"
 	cveCollection       = "CVEs"
 	dirHashCollection   = "DirHashes"
+	ghsaCollection      = "GHSAs"
 )
 
 // NewFireStore creates a new FireStore, backed by a client to Firestore. Since
@@ -205,6 +207,11 @@ func (fs *FireStore) cveRecordRef(id string) *firestore.DocumentRef {
 	return fs.nsDoc.Collection(cveCollection).Doc(id)
 }
 
+// ghsaRecordRef returns a DocumentRef to the GHSARecord with id.
+func (fs *FireStore) ghsaRecordRef(id string) *firestore.DocumentRef {
+	return fs.nsDoc.Collection(ghsaCollection).Doc(id)
+}
+
 // fsTransaction implements Transaction
 type fsTransaction struct {
 	s *FireStore
@@ -257,6 +264,46 @@ func docsnapsToCVERecords(docsnaps []*firestore.DocumentSnapshot) ([]*CVERecord,
 		crs = append(crs, &cr)
 	}
 	return crs, nil
+}
+
+// CreateGHSARecord implements Transaction.CreateGHSARecord.
+func (tx *fsTransaction) CreateGHSARecord(r *GHSARecord) (err error) {
+	defer derrors.Wrap(&err, "FireStore.CreateGHSARecord(%s)", r.GHSA.ID)
+
+	return tx.t.Create(tx.s.ghsaRecordRef(r.GHSA.ID), r)
+}
+
+// SetGHSARecord implements Transaction.SetGHSARecord.
+func (tx *fsTransaction) SetGHSARecord(r *GHSARecord) (err error) {
+	defer derrors.Wrap(&err, "SetGHSARecord(%s)", r.GHSA.ID)
+
+	return tx.t.Set(tx.s.ghsaRecordRef(r.GHSA.ID), r)
+}
+
+// GetGHSARecords implements Transaction.GetGHSARecords.
+func (tx *fsTransaction) GetGHSARecords() (_ []*GHSARecord, err error) {
+	defer derrors.Wrap(&err, "GetGHSARecords()")
+
+	q := tx.s.nsDoc.Collection(ghsaCollection).
+		OrderBy(firestore.DocumentID, firestore.Asc)
+	iter := tx.t.Documents(q)
+	docsnaps, err := iter.GetAll()
+	if err != nil {
+		return nil, err
+	}
+	return docsnapsToGHSARecords(docsnaps)
+}
+
+func docsnapsToGHSARecords(docsnaps []*firestore.DocumentSnapshot) ([]*GHSARecord, error) {
+	var grs []*GHSARecord
+	for _, ds := range docsnaps {
+		var gr GHSARecord
+		if err := ds.DataTo(&gr); err != nil {
+			return nil, err
+		}
+		grs = append(grs, &gr)
+	}
+	return grs, nil
 }
 
 // Clear removes all documents in the namespace.

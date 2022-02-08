@@ -13,6 +13,7 @@ import (
 
 	"github.com/go-git/go-git/v5/plumbing/object"
 	"golang.org/x/vulndb/internal/cveschema"
+	"golang.org/x/vulndb/internal/ghsa"
 )
 
 // A CVERecord contains information about a CVE.
@@ -170,6 +171,16 @@ type CommitUpdateRecord struct {
 	UpdatedAt time.Time `firestore:",serverTimestamp"`
 }
 
+// A GHSARecord holds information about a GitHub security advisory.
+type GHSARecord struct {
+	// GHSA is the advisory.
+	GHSA *ghsa.SecurityAdvisory
+	// TriageState is the state of our triage processing on the CVE.
+	TriageState TriageState
+	// TriageStateReason is an explanation of TriageState.
+	TriageStateReason string
+}
+
 // A Store is a storage system for the CVE database.
 type Store interface {
 	// CreateCommitUpdateRecord creates a new CommitUpdateRecord. It should be called at the start
@@ -216,4 +227,15 @@ type Transaction interface {
 	// GetCVERecords retrieves CVERecords for all CVE IDs between startID and
 	// endID, inclusive.
 	GetCVERecords(startID, endID string) ([]*CVERecord, error)
+
+	// CreateGHSARecord creates a new GHSARecord. It is an error if one with the same ID
+	// already exists.
+	CreateGHSARecord(*GHSARecord) error
+
+	// SetGHSARecord sets the GHSA record in the database. It is
+	// an error if no such record exists.
+	SetGHSARecord(*GHSARecord) error
+
+	// GetGHSARecords returns all the GHSARecords in the database.
+	GetGHSARecords() ([]*GHSARecord, error)
 }

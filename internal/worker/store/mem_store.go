@@ -20,6 +20,7 @@ type MemStore struct {
 	cveRecords    map[string]*CVERecord
 	updateRecords map[string]*CommitUpdateRecord
 	dirHashes     map[string]string
+	ghsaRecords   map[string]*GHSARecord
 }
 
 // NewMemStore creates a new, empty MemStore.
@@ -34,6 +35,7 @@ func (ms *MemStore) Clear(context.Context) error {
 	ms.cveRecords = map[string]*CVERecord{}
 	ms.updateRecords = map[string]*CommitUpdateRecord{}
 	ms.dirHashes = map[string]string{}
+	ms.ghsaRecords = map[string]*GHSARecord{}
 	return nil
 }
 
@@ -157,4 +159,31 @@ func (tx *memTransaction) GetCVERecords(startID, endID string) ([]*CVERecord, er
 		return crs[i].ID < crs[j].ID
 	})
 	return crs, nil
+}
+
+// CreateGHSARecord implements Transaction.CreateGHSARecord.
+func (tx *memTransaction) CreateGHSARecord(r *GHSARecord) error {
+	if _, ok := tx.ms.ghsaRecords[r.GHSA.ID]; ok {
+		return fmt.Errorf("GHSARecord %s already exists", r.GHSA.ID)
+	}
+	tx.ms.ghsaRecords[r.GHSA.ID] = r
+	return nil
+}
+
+// SetGHSARecord implements Transaction.SetGHSARecord.n
+func (tx *memTransaction) SetGHSARecord(r *GHSARecord) error {
+	if _, ok := tx.ms.ghsaRecords[r.GHSA.ID]; !ok {
+		return fmt.Errorf("GHSARecord %s does not exist", r.GHSA.ID)
+	}
+	tx.ms.ghsaRecords[r.GHSA.ID] = r
+	return nil
+}
+
+// GetGHSARecords returns all the GHSARecords in the database.
+func (tx *memTransaction) GetGHSARecords() ([]*GHSARecord, error) {
+	var recs []*GHSARecord
+	for _, r := range tx.ms.ghsaRecords {
+		recs = append(recs, r)
+	}
+	return recs, nil
 }

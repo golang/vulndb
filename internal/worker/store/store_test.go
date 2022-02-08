@@ -9,12 +9,14 @@ package store
 
 import (
 	"context"
+	"sort"
 	"testing"
 	"time"
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"golang.org/x/vulndb/internal/cveschema"
+	"golang.org/x/vulndb/internal/ghsa"
 )
 
 func must(t *testing.T, err error) {
@@ -33,6 +35,9 @@ func testStore(t *testing.T, s Store) {
 	})
 	t.Run("DirHashes", func(t *testing.T) {
 		testDirHashes(t, s)
+	})
+	t.Run("GHSAs", func(t *testing.T) {
+		testGHSAs(t, s)
 	})
 }
 
@@ -191,6 +196,57 @@ func testDirHashes(t *testing.T, s Store) {
 	}
 	if got != want {
 		t.Fatalf("got %q, want %q", got, want)
+	}
+}
+
+func testGHSAs(t *testing.T, s Store) {
+	ctx := context.Background()
+	// Create two records.
+	gs := []*GHSARecord{
+		{
+			GHSA:        &ghsa.SecurityAdvisory{ID: "g1", Summary: "one"},
+			TriageState: TriageStateNeedsIssue,
+		},
+		{
+			GHSA:        &ghsa.SecurityAdvisory{ID: "g2", Summary: "two"},
+			TriageState: TriageStateNeedsIssue,
+		},
+	}
+	err := s.RunTransaction(ctx, func(ctx context.Context, tx Transaction) error {
+		for _, g := range gs {
+			if err := tx.CreateGHSARecord(g); err != nil {
+				return err
+			}
+		}
+		return nil
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	// Modify one of them.
+	gs[1].TriageState = TriageStateIssueCreated
+	err = s.RunTransaction(ctx, func(ctx context.Context, tx Transaction) error {
+		return tx.SetGHSARecord(gs[1])
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	// Retrieve and compare.
+	var got []*GHSARecord
+	err = s.RunTransaction(ctx, func(ctx context.Context, tx Transaction) error {
+		var err error
+		got, err = tx.GetGHSARecords()
+		return err
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(got) != len(gs) {
+		t.Fatalf("got %d records, want %d", len(got), len(gs))
+	}
+	sort.Slice(got, func(i, j int) bool { return got[i].GHSA.ID < got[j].GHSA.ID })
+	if diff := cmp.Diff(gs, got); diff != "" {
+		t.Errorf("mismatch (-want, +got):\n%s", diff)
 	}
 }
 
