@@ -83,7 +83,17 @@ can add a new report to the database by following these steps:
 2. Clone the x/vulndb repository: `git clone https://go.googlesource.com/vulndb`
 3. Run `go run ./cmd/vulnreport create <GitHub issue number>`. (Note: You will need a
    [GitHub access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)).
-4. Edit the template accordingly, and mail a CL with this commit message format:
+4. Run `go run ./cmd/vulnreport fix <report file>` to add derived symbols to the
+   report. You should first create an empty module and `go get` the vulnerable
+   module at an unfixed version:
+   ```
+   mkdir /tmp/mymod
+   cd /tmp/mymod
+   go mod init
+   go get github.com/my/mod@<version-before-fixed>
+   go run <path to /cmd/vulnreport> fix
+   ```
+5. Edit the template accordingly, and mail a CL with this commit message format:
 
 ```
 x/vulndb: add <GO Vuln ID> for <CVE ID>

@@ -38,6 +38,19 @@ discovered/reported the vulnerability.
 which use these symbols will be marked as vulnerable. If omitted, any program
 which imports this module will be marked vulnerable.
 
+These should be the symbols initially detected or identified in the CVE or
+other source.
+
+## Derived Symbols
+
+`derived_symbols` are additional symbols that are calculated from `symbols`,
+such as by static analysis tools like `govulncheck`.
+
+Potentially, the set of derived symbols can differ with the module version. We
+don't attempt to capture that level of detail. Most of the values of
+`derived_symbols` as of this writing were obtained from a module version
+that was just prior to the version that the report listed as fixed.
+
 ## Versions
 
 The `versions` sections of the YAML contain information about when
