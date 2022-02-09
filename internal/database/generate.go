@@ -90,7 +90,7 @@ func Generate(ctx context.Context, repoDir, jsonDir string) (err error) {
 		if err != nil {
 			return fmt.Errorf("failed to marshal json: %s", err)
 		}
-		if err := os.MkdirAll(filepath.Dir(outPath), 0700); err != nil {
+		if err := os.MkdirAll(filepath.Dir(outPath), 0755); err != nil {
 			return fmt.Errorf("failed to create directory %q: %s", filepath.Dir(outPath), err)
 		}
 		if err := ioutil.WriteFile(outPath+".json", content, 0644); err != nil {
@@ -113,7 +113,7 @@ func Generate(ctx context.Context, repoDir, jsonDir string) (err error) {
 
 	// Write a directory containing entries by ID.
 	idDir := filepath.Join(jsonDir, idDirectory)
-	if err := os.MkdirAll(idDir, 0700); err != nil {
+	if err := os.MkdirAll(idDir, 0755); err != nil {
 		return fmt.Errorf("failed to create directory %q: %v", idDir, err)
 	}
 	var idIndex []string

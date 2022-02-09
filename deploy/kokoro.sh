@@ -8,10 +8,9 @@ set -e
 mkdir old-db
 gsutil -m cp -r gs://go-vulndb/* old-db
 
-go install golang.org/x/vulndb/cmd/gendb@latest
-go install golang.org/x/vulndb/cmd/dbdiff@latest
-
-export PATH=$PATH:$GOPATH/bin
-
-gendb -reports reports -out new-db
-dbdiff old-db new-db
+docker run --rm \
+  -v $PWD:/vulndb \
+  -w /vulndb \
+  golang:1.17.3 \
+  /bin/bash -c 'go run ./cmd/gendb -repo /vulndb -out new-db &&
+                go run ./cmd/dbdiff old-db new-db'
