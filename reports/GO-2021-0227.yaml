@@ -1,19 +1,20 @@
 module: golang.org/x/crypto
 package: golang.org/x/crypto/ssh
 versions:
-- fixed: v0.0.0-20201216223049-8b5274cf687f
+  - fixed: v0.0.0-20201216223049-8b5274cf687f
 description: |
-  Clients can cause a panic in SSH servers. An attacker can craft
-  an authentication request message for the “gssapi-with-mic” method
-  which will cause NewServerConn to panic via a nil pointer dereference
-  if ServerConfig.GSSAPIWithMICConfig is nil.
+    Clients can cause a panic in SSH servers. An attacker can craft
+    an authentication request message for the “gssapi-with-mic” method
+    which will cause NewServerConn to panic via a nil pointer dereference
+    if ServerConfig.GSSAPIWithMICConfig is nil.
+published: 2022-02-17T17:35:32Z
 cves:
-- CVE-2020-29652
-credit: 'Joern Schneewesiz, GitLab Security Research Team'
+  - CVE-2020-29652
+credit: Joern Schneewesiz, GitLab Security Research Team
 symbols:
-- connection.serverAuthenticate
+  - connection.serverAuthenticate
 links:
-  pr: https://go-review.googlesource.com/c/crypto/+/278852
-  commit: https://go.googlesource.com/crypto/+/8b5274cf687fd9316b4108863654cc57385531e8
-  context:
-  - https://groups.google.com/g/golang-announce/c/ouZIlBimOsE?pli=1
+    pr: https://go-review.googlesource.com/c/crypto/+/278852
+    commit: https://go.googlesource.com/crypto/+/8b5274cf687fd9316b4108863654cc57385531e8
+    context:
+      - https://groups.google.com/g/golang-announce/c/ouZIlBimOsE?pli=1

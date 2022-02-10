@@ -1,23 +1,24 @@
 module: std
 package: archive/zip
 versions:
-- fixed: go1.15.13
-- fixed: go1.16.5
-- fixed: go1.17.0
+  - fixed: go1.15.13
+  - fixed: go1.16.5
+  - fixed: go1.17.0
 description: |
-  NewReader and OpenReader can cause a panic or an unrecoverable
-  fatal error when reading an archive that claims to contain a large
-  number of files, regardless of its actual size.
+    NewReader and OpenReader can cause a panic or an unrecoverable
+    fatal error when reading an archive that claims to contain a large
+    number of files, regardless of its actual size.
+published: 2022-02-17T17:33:25Z
 cves:
-- CVE-2021-33196
+  - CVE-2021-33196
 credit: |
-  the OSS-Fuzz project for discovering this issue and
-  Emmanuel Odeke for reporting it
+    the OSS-Fuzz project for discovering this issue and
+    Emmanuel Odeke for reporting it
 symbols:
-- Reader.init
+  - Reader.init
 links:
-  pr: https://go.dev/cl/318909
-  commit: https://go.googlesource.com/go/+/74242baa4136c7a9132a8ccd9881354442788c8c
-  context:
-  - https://groups.google.com/g/golang-announce/c/RgCMkAEQjSI
-  - https://go.dev/issue/46242
+    pr: https://go.dev/cl/318909
+    commit: https://go.googlesource.com/go/+/74242baa4136c7a9132a8ccd9881354442788c8c
+    context:
+      - https://groups.google.com/g/golang-announce/c/RgCMkAEQjSI
+      - https://go.dev/issue/46242

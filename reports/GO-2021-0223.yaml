@@ -1,23 +1,24 @@
 module: std
 package: crypto/x509
 versions:
-- fixed: go1.13.13
-- fixed: go1.14.5
-- fixed: go1.15.0
+  - fixed: go1.13.13
+  - fixed: go1.14.5
+  - fixed: go1.15.0
 description: |
-  On Windows, if VerifyOptions.Roots is nil, Certificate.Verify
-  does not check the EKU requirements specified in VerifyOptions.KeyUsages.
-  This may allow a certificate to be used for an unintended purpose.
+    On Windows, if VerifyOptions.Roots is nil, Certificate.Verify
+    does not check the EKU requirements specified in VerifyOptions.KeyUsages.
+    This may allow a certificate to be used for an unintended purpose.
+published: 2022-02-17T17:46:03Z
 cves:
-- CVE-2020-14039
+  - CVE-2020-14039
 credit: Niall Newman
 symbols:
-- Certificate.systemVerify
+  - Certificate.systemVerify
 os:
-- windows
+  - windows
 links:
-  pr: https://go.dev/cl/242597
-  commit: https://go.googlesource.com/go/+/82175e699a2e2cd83d3aa34949e9b922d66d52f5
-  context:
-  - https://go.dev/issue/39360
-  - https://groups.google.com/g/golang-announce/c/XZNfaiwgt2w
+    pr: https://go.dev/cl/242597
+    commit: https://go.googlesource.com/go/+/82175e699a2e2cd83d3aa34949e9b922d66d52f5
+    context:
+      - https://go.dev/issue/39360
+      - https://groups.google.com/g/golang-announce/c/XZNfaiwgt2w

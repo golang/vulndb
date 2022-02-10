@@ -1,22 +1,23 @@
 module: std
 package: encoding/xml
 versions:
-- fixed: go1.15.9
-- fixed: go1.16.1
-- fixed: go1.17.0
+  - fixed: go1.15.9
+  - fixed: go1.16.1
+  - fixed: go1.17.0
 description: |
-  The Decode, DecodeElement, and Skip methods of an xml.Decoder
-  provided by xml.NewTokenDecoder may enter an infinite loop when
-  operating on a custom xml.TokenReader which returns an EOF in the
-  middle of an open XML element.
+    The Decode, DecodeElement, and Skip methods of an xml.Decoder
+    provided by xml.NewTokenDecoder may enter an infinite loop when
+    operating on a custom xml.TokenReader which returns an EOF in the
+    middle of an open XML element.
+published: 2022-02-17T17:34:24Z
 cves:
-- CVE-2021-27918
+  - CVE-2021-27918
 credit: Sam Whited
 symbols:
-- Decoder.Token
+  - Decoder.Token
 links:
-  pr: https://go.dev/cl/300391
-  commit: https://go.googlesource.com/go/+/d0b79e3513a29628f3599dc8860666b6eed75372
-  context:
-  - https://go.dev/issue/44913
-  - https://groups.google.com/g/golang-announce/c/MfiLYjG-RAw
+    pr: https://go.dev/cl/300391
+    commit: https://go.googlesource.com/go/+/d0b79e3513a29628f3599dc8860666b6eed75372
+    context:
+      - https://go.dev/issue/44913
+      - https://groups.google.com/g/golang-announce/c/MfiLYjG-RAw
