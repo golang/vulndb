@@ -12,6 +12,7 @@ import (
 	"github.com/go-git/go-billy/v5"
 	"github.com/go-git/go-billy/v5/memfs"
 	"github.com/go-git/go-git/v5"
+	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"
 	"github.com/go-git/go-git/v5/storage/memory"
 	"golang.org/x/vulndb/internal/gitrepo"
@@ -31,7 +32,7 @@ func TestFileHistory(t *testing.T) {
 		})
 	}
 	var got []string
-	gitrepo.FileHistory(test.Repo, "file", func(commit *object.Commit) error {
+	gitrepo.FileHistory(test.Repo, plumbing.HEAD, "file", func(commit *object.Commit) error {
 		got = append([]string{strings.TrimSpace(commit.Message)}, got...)
 		return nil
 	})

@@ -148,9 +148,8 @@ func ParseGitHubRepo(s string) (owner, repoName string, err error) {
 	}
 }
 
-// FileHistory calls f for every commit in filepath's history, starting from HEAD.
-func FileHistory(repo *git.Repository, filepath string, f func(*object.Commit) error) error {
-	refName := plumbing.HEAD
+// FileHistory calls f for every commit in filepath's history, starting from refName.
+func FileHistory(repo *git.Repository, refName plumbing.ReferenceName, filepath string, f func(*object.Commit) error) error {
 	ref, err := repo.Reference(refName, true)
 	if err != nil {
 		return err
@@ -164,4 +163,25 @@ func FileHistory(repo *git.Repository, filepath string, f func(*object.Commit) e
 		object.NewCommitPreorderIter(commit, nil, nil),
 		false,
 	).ForEach(f)
+}
+
+// CommitDates returns the oldest and newest commit date for filepath in origin/master.
+func CommitDates(repo *git.Repository, filepath string) (oldest, newest time.Time, err error) {
+	defer derrors.Wrap(&err, "CommitDates(%q)", filepath)
+
+	refName := plumbing.NewRemoteReferenceName("origin", "master")
+	err = FileHistory(repo, refName, filepath, func(commit *object.Commit) error {
+		when := commit.Committer.When.UTC()
+		if oldest.IsZero() || when.Before(oldest) {
+			oldest = when
+		}
+		if when.After(newest) {
+			newest = when
+		}
+		return nil
+	})
+	if err != nil {
+		return time.Time{}, time.Time{}, err
+	}
+	return oldest, newest, nil
 }

@@ -19,6 +19,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/go-git/go-git/v5"
 	"golang.org/x/tools/go/packages"
 	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/derrors"
@@ -29,9 +30,10 @@ import (
 )
 
 var (
-	localRepoPath = flag.String("local-cve-repo", "", "path to local repo, instead of cloning remote")
-	issueRepo     = flag.String("issue-repo", "github.com/golang/vulndb", "repo to create issues in")
-	githubToken   = flag.String("ghtoken", os.Getenv("VULN_GITHUB_ACCESS_TOKEN"), "GitHub access token")
+	localRepoPath       = flag.String("local-cve-repo", "", "path to local repo, instead of cloning remote")
+	issueRepo           = flag.String("issue-repo", "github.com/golang/vulndb", "repo to create issues in")
+	githubToken         = flag.String("ghtoken", os.Getenv("VULN_GITHUB_ACCESS_TOKEN"), "GitHub access token")
+	skipExportedSymbols = flag.Bool("skip-exported", false, "for fix, don't look for exported symbols")
 )
 
 func main() {
@@ -41,6 +43,7 @@ func main() {
 		fmt.Fprintf(flag.CommandLine.Output(), "  lint filename.yaml ...: lints vulnerability YAML reports\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  newcve filename.yaml ...: creates CVEs report from the provided YAML reports\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  fix filename.yaml ...: fixes and reformats YAML reports\n")
+		fmt.Fprintf(flag.CommandLine.Output(), "  set-dates filename.yaml ...: sets PublishDate of YAML reports\n")
 		flag.PrintDefaults()
 	}
 
@@ -84,6 +87,16 @@ func main() {
 		if err := multi(fix, names); err != nil {
 			log.Fatal(err)
 		}
+	case "set-dates":
+		repo, err := gitrepo.Open(context.Background(), ".")
+		if err != nil {
+			log.Fatal(err)
+		}
+		f := func(name string) error { return setDates(repo, name) }
+		if err := multi(f, names); err != nil {
+			log.Fatal(err)
+		}
+
 	default:
 		flag.Usage()
 		log.Fatalf("unsupported command: %q", cmd)
@@ -190,9 +203,12 @@ func fix(filename string) (err error) {
 	if lints := r.Lint(); len(lints) > 0 {
 		r.Fix()
 	}
-	if _, err := addExportedReportSymbols(r); err != nil {
-		return err
+	if !*skipExportedSymbols {
+		if _, err := addExportedReportSymbols(r); err != nil {
+			return err
+		}
 	}
+
 	// Write unconditionally in order to format.
 	return r.Write(filename)
 }
@@ -282,6 +298,35 @@ func loadPackage(cfg *packages.Config, importPath string) ([]*packages.Package, 
 		return nil, fmt.Errorf("packages.Load:\n%s", strings.Join(msgs, "\n"))
 	}
 	return pkgs, nil
+}
+
+// setDates sets the PublishedDate of the report at filename to the oldest
+// commit date in the repo that contains that file. (It may someday also set a
+// last-modified date, hence the plural.) Since it looks at the commits from
+// origin/master, it will only work for reports that are already submitted. Thus
+// it isn't useful to run when you're working on a report, only at a later time.
+//
+// It isn't crucial to run this for every report, because the same logic exists
+// in gendb, ensuring that every report has a PublishedDate before being
+// transformed into a DB entry. The advantages of using this command are that it
+// speeds up gendb, and the dates become permanent (if you create and submit a
+// CL after running it).
+func setDates(repo *git.Repository, filename string) (err error) {
+	defer derrors.Wrap(&err, "setDates(%q)", filename)
+
+	r, err := report.Read(filename)
+	if err != nil {
+		return err
+	}
+	if !r.Published.IsZero() {
+		return nil
+	}
+	oldest, _, err := gitrepo.CommitDates(repo, filename)
+	if err != nil {
+		return err
+	}
+	r.Published = oldest
+	return r.Write(filename)
 }
 
 func newCVE(filename string) (err error) {

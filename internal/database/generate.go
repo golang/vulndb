@@ -14,7 +14,6 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/go-git/go-git/v5/plumbing/object"
 	"golang.org/x/mod/semver"
 	"golang.org/x/vuln/client"
 	"golang.org/x/vuln/osv"
@@ -60,15 +59,11 @@ func Generate(ctx context.Context, repoDir, jsonDir string) (err error) {
 		}
 		if r.Published.IsZero() {
 			yamlPath := filepath.Join(yamlDir, f.Name())
-			if err := gitrepo.FileHistory(repo, yamlPath, func(commit *object.Commit) error {
-				when := commit.Committer.When.UTC()
-				if r.Published.IsZero() || when.Before(r.Published) {
-					r.Published = when
-				}
-				return nil
-			}); err != nil {
-				return fmt.Errorf("can't find git history for %q: %v", yamlPath, err)
+			oldest, _, err := gitrepo.CommitDates(repo, yamlPath)
+			if err != nil {
+				return fmt.Errorf("can't find git repo commit dates for %q: %v", yamlPath, err)
 			}
+			r.Published = oldest
 		}
 		if lints := r.Lint(); len(lints) > 0 {
 			return fmt.Errorf("vuln.Lint: %v", lints)
