@@ -15,15 +15,14 @@ require (
 	github.com/client9/misspell v0.3.4
 	github.com/go-git/go-billy/v5 v5.3.1
 	github.com/go-git/go-git/v5 v5.4.2
-	github.com/google/go-cmp v0.5.6
+	github.com/google/go-cmp v0.5.7
 	github.com/google/go-github/v41 v41.0.0
 	github.com/google/safehtml v0.0.2
 	github.com/jba/templatecheck v0.6.0
 	github.com/shurcooL/githubv4 v0.0.0-20220115235240-a14260e6f8a2
-	go.opentelemetry.io/otel v1.3.0
-	go.opentelemetry.io/otel/sdk v1.3.0
-	go.opentelemetry.io/otel/trace v1.3.0
-	golang.org/x/exp v0.0.0-20220124173137-7a6bfc487013
+	go.opentelemetry.io/otel v1.4.0
+	go.opentelemetry.io/otel/sdk v1.4.0
+	golang.org/x/exp/event v0.0.0-20220218155646-ea2fe41b636b
 	golang.org/x/exp/vulncheck v0.0.0-20220128181451-c853b6ddb95e
 	golang.org/x/mod v0.6.0-dev.0.20211013180041-c96bc1413d57
 	golang.org/x/oauth2 v0.0.0-20211005180243-6b3c2da341f1
@@ -53,7 +52,7 @@ require (
 	github.com/envoyproxy/protoc-gen-validate v0.1.0 // indirect
 	github.com/go-git/gcfg v1.5.0 // indirect
 	github.com/go-logr/logr v1.2.2 // indirect
-	github.com/go-logr/stdr v1.2.0 // indirect
+	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
@@ -66,6 +65,8 @@ require (
 	github.com/shurcooL/graphql v0.0.0-20200928012149-18c5c3165e3a // indirect
 	github.com/xanzy/ssh-agent v0.3.0 // indirect
 	go.opencensus.io v0.23.0 // indirect
+	go.opentelemetry.io/otel/metric v0.27.0 // indirect
+	go.opentelemetry.io/otel/trace v1.4.0 // indirect
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519 // indirect
 	golang.org/x/net v0.0.0-20211015210444-4f30a5c0130f // indirect
 	golang.org/x/sys v0.0.0-20220114195835-da31bd327af9 // indirect

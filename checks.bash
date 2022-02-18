@@ -94,7 +94,7 @@ go_linters() {
 }
 
 go_modtidy() {
-  runcmd go mod tidy
+  runcmd go mod tidy -compat=1.17
 }
 
 runchecks() {
