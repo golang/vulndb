@@ -29,8 +29,10 @@ import (
 	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"
 
+	mexporter "github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/metric"
 	texporter "github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/trace"
 	gcppropagator "github.com/GoogleCloudPlatform/opentelemetry-operations-go/propagator"
+	"go.opentelemetry.io/otel/metric"
 	"go.opentelemetry.io/otel/propagation"
 	sdktrace "go.opentelemetry.io/otel/sdk/trace"
 	eotel "golang.org/x/exp/event/otel"
@@ -45,6 +47,7 @@ type Server struct {
 	indexTemplate *template.Template
 	issueClient   issues.Client
 	traceHandler  event.Handler
+	metricHandler event.Handler
 	propagator    propagation.TextMapPropagator
 	afterRequest  func()
 }
@@ -54,11 +57,13 @@ func NewServer(ctx context.Context, cfg Config) (_ *Server, err error) {
 
 	s := &Server{cfg: cfg}
 
-	tracerProvider, err := initOpenTelemetry(cfg.Project)
+	tracerProvider, meterProvider, err := initOpenTelemetry(cfg.Project)
 	if err != nil {
 		return nil, err
 	}
 	s.traceHandler = eotel.NewTraceHandler(tracerProvider.Tracer("vulndb-worker"))
+	s.metricHandler = eotel.NewMetricHandler(meterProvider.Meter("vulndb-worker"))
+
 	s.afterRequest = func() { tracerProvider.ForceFlush(ctx) }
 	// The propagator extracts incoming trace IDs so that we can connect our trace spans
 	// to the incoming ones constructed by Cloud Run.
@@ -135,6 +140,7 @@ func (s *Server) beforeRequest(r *http.Request) *http.Request {
 	exporter := event.NewExporter(multiEventHandler{
 		log.NewGCPJSONHandler(os.Stderr, traceID),
 		s.traceHandler,
+		s.metricHandler,
 	}, nil)
 	ctx := event.WithExporter(r.Context(), exporter)
 	ctx = s.propagator.Extract(ctx, propagation.HeaderCarrier(r.Header))
@@ -268,6 +274,10 @@ func (s *Server) indexPage(w http.ResponseWriter, r *http.Request) error {
 	return renderPage(r.Context(), w, page, s.indexTemplate)
 }
 
+const metricNamespace = "vulndb/worker"
+
+var updateCounter = event.NewCounter("updates", &event.MetricOptions{Namespace: metricNamespace})
+
 func (s *Server) handleUpdate(w http.ResponseWriter, r *http.Request) error {
 	err := s.doUpdate(r)
 	if err == nil {
@@ -276,7 +286,12 @@ func (s *Server) handleUpdate(w http.ResponseWriter, r *http.Request) error {
 	return err
 }
 
-func (s *Server) doUpdate(r *http.Request) error {
+func (s *Server) doUpdate(r *http.Request) (err error) {
+	defer func() {
+		updateCounter.Record(r.Context(), 1, event.Bool("success", err == nil))
+		log.Debugf(r.Context(), "recorded one update")
+	}()
+
 	if r.Method != http.MethodPost {
 		return &serverError{
 			status: http.StatusMethodNotAllowed,
@@ -287,7 +302,7 @@ func (s *Server) doUpdate(r *http.Request) error {
 	if f := r.FormValue("force"); f == "true" {
 		force = true
 	}
-	err := UpdateCVEsAtCommit(r.Context(), cvelistrepo.URL, "HEAD", s.cfg.Store, pkgsiteURL, force)
+	err = UpdateCVEsAtCommit(r.Context(), cvelistrepo.URL, "HEAD", s.cfg.Store, pkgsiteURL, force)
 	if cerr := new(CheckUpdateError); errors.As(err, &cerr) {
 		return &serverError{
 			status: http.StatusPreconditionFailed,
@@ -356,19 +371,25 @@ func (s *Server) handleUpdateAndIssues(w http.ResponseWriter, r *http.Request) e
 	return s.handleIssues(w, r)
 }
 
-func initOpenTelemetry(projectID string) (tp *sdktrace.TracerProvider, err error) {
+func initOpenTelemetry(projectID string) (tp *sdktrace.TracerProvider, mp metric.MeterProvider, err error) {
 	defer derrors.Wrap(&err, "initOpenTelemetry(%q)", projectID)
 
 	exporter, err := texporter.New(texporter.WithProjectID(projectID))
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	tp = sdktrace.NewTracerProvider(
 		// Enable tracing if there is no incoming request, or if the incoming
 		// request is sampled.
 		sdktrace.WithSampler(sdktrace.ParentBased(sdktrace.AlwaysSample())),
 		sdktrace.WithBatcher(exporter))
-	return tp, nil
+
+	// Create exporter (collector embedded with the exporter).
+	controller, err := mexporter.NewExportPipeline([]mexporter.Option{mexporter.WithProjectID(projectID)})
+	if err != nil {
+		return nil, nil, err
+	}
+	return tp, controller, nil
 }
 
 // multiEventHandler is an event.Handler that calls all of its contained handlers
