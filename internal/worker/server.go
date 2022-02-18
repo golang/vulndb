@@ -33,7 +33,6 @@ import (
 	gcppropagator "github.com/GoogleCloudPlatform/opentelemetry-operations-go/propagator"
 	"go.opentelemetry.io/otel/propagation"
 	sdktrace "go.opentelemetry.io/otel/sdk/trace"
-	otrace "go.opentelemetry.io/otel/trace"
 	eotel "golang.org/x/exp/event/otel"
 )
 
@@ -114,30 +113,32 @@ func NewServer(ctx context.Context, cfg Config) (_ *Server, err error) {
 
 func (s *Server) handle(_ context.Context, pattern string, handler func(w http.ResponseWriter, r *http.Request) error) {
 	http.HandleFunc(pattern, func(w http.ResponseWriter, r *http.Request) {
-		log.Debugf(r.Context(), "#### SpanContext: %+v\n", otrace.SpanContextFromContext(r.Context()))
 		start := time.Now()
+		r = s.beforeRequest(r)
 		defer s.afterRequest()
-		traceID := r.Header.Get("X-Cloud-Trace-Context")
-		exporter := event.NewExporter(multiEventHandler{
-			log.NewGCPJSONHandler(os.Stderr, traceID),
-			s.traceHandler,
-		}, nil)
-		ctx := event.WithExporter(r.Context(), exporter)
-		ctx = s.propagator.Extract(ctx, propagation.HeaderCarrier(r.Header))
-		r = r.WithContext(ctx)
-
+		ctx := r.Context()
 		log.With("httpRequest", r).Infof(ctx, "starting %s", r.URL.Path)
 
 		w2 := &responseWriter{ResponseWriter: w}
 		if err := handler(w2, r); err != nil {
 			s.serveError(ctx, w2, r, err)
 		}
-
 		log.With(
 			"latency", time.Since(start),
 			"status", translateStatus(w2.status)).
 			Infof(ctx, "request end")
 	})
+}
+
+func (s *Server) beforeRequest(r *http.Request) *http.Request {
+	traceID := r.Header.Get("X-Cloud-Trace-Context")
+	exporter := event.NewExporter(multiEventHandler{
+		log.NewGCPJSONHandler(os.Stderr, traceID),
+		s.traceHandler,
+	}, nil)
+	ctx := event.WithExporter(r.Context(), exporter)
+	ctx = s.propagator.Extract(ctx, propagation.HeaderCarrier(r.Header))
+	return r.WithContext(ctx)
 }
 
 type serverError struct {
