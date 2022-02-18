@@ -12,9 +12,9 @@ set -ex
 # deepen the clone with `git fetch --unshallow` failed,
 # apparently because Kokoro uses the `rpc:` scheme to
 # clone the repo.
-cd ..
-git clone https://go.googlesource.com/vulndb vulndb2
-cd vulndb2
+
+git clone https://go.googlesource.com/vulndb
+cd vulndb
 
 # Copy the existing vuln DB into a local directory so we can diff it.
 mkdir old-db
@@ -24,8 +24,8 @@ gsutil -q -m cp -r gs://go-vulndb/* old-db
 # and diff it with the old one. Do all this in a docker container
 # so we can select the version of Go that we want.
 docker run --rm \
-  -v $PWD:/vulndb2 \
-  -w /vulndb2 \
+  -v $PWD:/vulndb \
+  -w /vulndb \
   golang:1.17.3 \
-  /bin/bash -c 'go run ./cmd/gendb -repo /vulndb2 -out new-db &&
+  /bin/bash -c 'go run ./cmd/gendb -repo /vulndb -out new-db &&
                 go run ./cmd/dbdiff old-db new-db'
