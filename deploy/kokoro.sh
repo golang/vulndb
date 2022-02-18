@@ -3,14 +3,29 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-set -e
+set -ex
 
+# Make a full clone of the repo so that gendb can find missing PublishDates in
+# reports by reading the commit history.
+#
+# Kokoro creates a shallow clone. Attempts to
+# deepen the clone with `git fetch --unshallow` failed,
+# apparently because Kokoro uses the `rpc:` scheme to
+# clone the repo.
+cd ..
+git clone https://go.googlesource.com/vulndb vulndb2
+cd vulndb2
+
+# Copy the existing vuln DB into a local directory so we can diff it.
 mkdir old-db
-gsutil -m cp -r gs://go-vulndb/* old-db
+gsutil -q -m cp -r gs://go-vulndb/* old-db
 
+# Generate a copy of the DB using the current state of the repo
+# and diff it with the old one. Do all this in a docker container
+# so we can select the version of Go that we want.
 docker run --rm \
-  -v $PWD:/vulndb \
-  -w /vulndb \
+  -v $PWD:/vulndb2 \
+  -w /vulndb2 \
   golang:1.17.3 \
-  /bin/bash -c 'go run ./cmd/gendb -repo /vulndb -out new-db &&
+  /bin/bash -c 'go run ./cmd/gendb -repo /vulndb2 -out new-db &&
                 go run ./cmd/dbdiff old-db new-db'
