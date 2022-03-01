@@ -344,9 +344,10 @@ func newGHSABody(sr storeRecord) (string, error) {
 	sa := sr.(*store.GHSARecord).GHSA
 
 	var b strings.Builder
+	pkg := sa.Vulns[0].Package
 	intro := fmt.Sprintf(
-		"In GitHub Security Advisory [%s](%s), there is a vulnerability in the Go package or module %s.",
-		sr.GetPrettyID(), sa.Permalink, sa.Vulns[0].Package)
+		"In GitHub Security Advisory [%s](%s), there is a vulnerability in the Go package or module [%s](https://pkg.go.dev/%s).",
+		sr.GetPrettyID(), sa.Permalink, pkg, pkg)
 	if err := issueTemplate.Execute(&b, issueTemplateData{
 		Intro: intro,
 	}); err != nil {

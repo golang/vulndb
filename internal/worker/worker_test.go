@@ -251,7 +251,7 @@ func TestNewGHSABody(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	want := `In GitHub Security Advisory [G1](https://github.com/permalink/to/G1), there is a vulnerability in the Go package or module aPackage.
+	want := `In GitHub Security Advisory [G1](https://github.com/permalink/to/G1), there is a vulnerability in the Go package or module [aPackage](https://pkg.go.dev/aPackage).
 
 
 
