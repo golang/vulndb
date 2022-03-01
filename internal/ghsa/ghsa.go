@@ -58,11 +58,20 @@ type Vuln struct {
 	UpdatedAt time.Time
 }
 
+// PrettyID returns the most human-readable GHSA identifier available.
+func (s *SecurityAdvisory) PrettyID() string {
+	for _, id := range s.Identifiers {
+		if id.Type == "GHSA" {
+			return id.Value
+		}
+	}
+	return s.ID
+}
+
 // List returns all SecurityAdvisories that affect Go,
 // published or updated since the given time.
 // The withCVE argument controls whether to select advisories that are
 // connected to CVEs.
-
 func List(ctx context.Context, accessToken string, since time.Time, withCVE bool) ([]*SecurityAdvisory, error) {
 	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: accessToken})
 	tc := oauth2.NewClient(context.Background(), ts)

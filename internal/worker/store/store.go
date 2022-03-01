@@ -199,13 +199,7 @@ func (r *GHSARecord) GetUnit() string              { return r.GHSA.Vulns[0].Pack
 func (r *GHSARecord) GetIssueReference() string    { return r.IssueReference }
 func (r *GHSARecord) GetIssueCreatedAt() time.Time { return r.IssueCreatedAt }
 
-func (r *GHSARecord) GetPrettyID() string {
-	// The GHSA ID in the Identifiers list is more human-readable.
-	if len(r.GHSA.Identifiers) > 0 {
-		return r.GHSA.Identifiers[0].Value
-	}
-	return r.GHSA.ID
-}
+func (r *GHSARecord) GetPrettyID() string { return r.GHSA.PrettyID() }
 
 // A Store is a storage system for the CVE database.
 type Store interface {
