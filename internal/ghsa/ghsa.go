@@ -37,7 +37,7 @@ type SecurityAdvisory struct {
 }
 
 // An Identifier identifies an advisory according to some scheme or
-// organization, given by the Type field. Examples are GitHub and CVE.
+// organization, given by the Type field. Example types are GHSA and CVE.
 type Identifier struct {
 	Type  string
 	Value string

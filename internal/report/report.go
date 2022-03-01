@@ -68,11 +68,14 @@ type Report struct {
 	LastModified *time.Time `yaml:"last_modified,omitempty"`
 	Withdrawn    *time.Time `yaml:",omitempty"`
 
+	// CVE are CVE IDs for existing CVEs.
 	// If we are assigning a CVE ID ourselves, use CVEMetdata.ID instead.
-	// CVE are CVE IDs for existing CVEs, if there is more than one.
-	// Use either CVE or CVEs, but not both.
-	CVEs   []string `yaml:",omitempty"`
-	Credit string   `yaml:",omitempty"`
+	CVEs []string `yaml:",omitempty"`
+	// GHSAs are the IDs of GitHub Security Advisories that match
+	// the above CVEs.
+	GHSAs []string `yaml:",omitempty"`
+
+	Credit string `yaml:",omitempty"`
 	// Symbols originally identified as vulnerable.
 	Symbols []string `yaml:",omitempty"`
 	// Additional vulnerable symbols, computed from Symbols via static analysis

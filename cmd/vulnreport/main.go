@@ -18,11 +18,13 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/go-git/go-git/v5"
 	"golang.org/x/tools/go/packages"
 	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/report"
@@ -37,6 +39,7 @@ var (
 )
 
 func main() {
+	ctx := context.Background()
 	flag.Usage = func() {
 		fmt.Fprintf(flag.CommandLine.Output(), "usage: vulnreport [cmd] [filename.yaml]\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  create [githubIssueNumber]: creates a new vulnerability YAML report\n")
@@ -72,7 +75,7 @@ func main() {
 		if *localRepoPath != "" {
 			repoPath = *localRepoPath
 		}
-		if err := create(context.Background(), githubID, *githubToken, *issueRepo, repoPath); err != nil {
+		if err := create(ctx, githubID, *githubToken, *issueRepo, repoPath); err != nil {
 			log.Fatal(err)
 		}
 	case "lint":
@@ -84,11 +87,24 @@ func main() {
 			log.Fatal(err)
 		}
 	case "fix":
-		if err := multi(fix, names); err != nil {
+		var GHSAsByCVE map[string][]string
+		if *githubToken == "" {
+			fmt.Println("flag -ghtoken not provided, so not fixing GHSAs")
+		} else {
+			fmt.Println("querying GitHub for GHSAs...")
+			var err error
+			GHSAsByCVE, err = loadGHSAsByCVE(ctx, *githubToken)
+			if err != nil {
+				log.Fatal(err)
+			}
+			fmt.Println("fixing...")
+		}
+		f := func(name string) error { return fix(name, GHSAsByCVE) }
+		if err := multi(f, names); err != nil {
 			log.Fatal(err)
 		}
 	case "set-dates":
-		repo, err := gitrepo.Open(context.Background(), ".")
+		repo, err := gitrepo.Open(ctx, ".")
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -194,7 +210,7 @@ func lint(filename string) (err error) {
 	return nil
 }
 
-func fix(filename string) (err error) {
+func fix(filename string, GHSAsByCVE map[string][]string) (err error) {
 	defer derrors.Wrap(&err, "fix(%q)", filename)
 	r, err := report.Read(filename)
 	if err != nil {
@@ -207,6 +223,9 @@ func fix(filename string) (err error) {
 		if _, err := addExportedReportSymbols(r); err != nil {
 			return err
 		}
+	}
+	if GHSAsByCVE != nil {
+		fixGHSAs(r, GHSAsByCVE)
 	}
 
 	// Write unconditionally in order to format.
@@ -342,4 +361,37 @@ func newCVE(filename string) (err error) {
 	e.SetEscapeHTML(false)
 	e.SetIndent("", "\t")
 	return e.Encode(cve)
+}
+
+// loadGHSAsByCVE returns a map from CVE ID to GHSA IDs.
+// It does this by using the GitHub API to list all Go security
+// advisories with CVEs.
+func loadGHSAsByCVE(ctx context.Context, accessToken string) (_ map[string][]string, err error) {
+	defer derrors.Wrap(&err, "loadGHSAsByCVE")
+
+	const withCVE = true
+	sas, err := ghsa.List(ctx, accessToken, time.Time{}, withCVE)
+	if err != nil {
+		return nil, err
+	}
+	m := map[string][]string{}
+	for _, sa := range sas {
+		for _, id := range sa.Identifiers {
+			if id.Type == "CVE" {
+				m[id.Value] = append(m[id.Value], sa.PrettyID())
+			}
+		}
+	}
+	return m, nil
+}
+
+// fixGHSAs replaces r.GHSAs with a sorted list of GitHub Security
+// Advisory IDs that correspond to the CVEs.
+func fixGHSAs(r *report.Report, GHSAsByCVE map[string][]string) {
+	var gids []string
+	for _, cid := range r.CVEs {
+		gids = append(gids, GHSAsByCVE[cid]...)
+	}
+	sort.Strings(gids)
+	r.GHSAs = gids
 }
