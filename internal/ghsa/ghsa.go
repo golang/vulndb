@@ -58,9 +58,12 @@ type Vuln struct {
 	UpdatedAt time.Time
 }
 
-// List returns all SecurityAdvisories that are not CVEs and that affect Go,
+// List returns all SecurityAdvisories that affect Go,
 // published or updated since the given time.
-func List(ctx context.Context, accessToken string, since time.Time) ([]*SecurityAdvisory, error) {
+// The withCVE argument controls whether to select advisories that are
+// connected to CVEs.
+
+func List(ctx context.Context, accessToken string, since time.Time, withCVE bool) ([]*SecurityAdvisory, error) {
 	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: accessToken})
 	tc := oauth2.NewClient(context.Background(), ts)
 	client := githubv4.NewClient(tc)
@@ -115,7 +118,7 @@ func List(ctx context.Context, accessToken string, since time.Time) ([]*Security
 			if sa.PublishedAt.After(sa.UpdatedAt) {
 				return nil, fmt.Errorf("%s: published at %s, after updated at %s", sa.ID, sa.PublishedAt, sa.UpdatedAt)
 			}
-			if isCVE(sa.Identifiers) {
+			if withCVE != isCVE(sa.Identifiers) {
 				continue
 			}
 			if len(sa.Vulnerabilities.Nodes) == 0 {

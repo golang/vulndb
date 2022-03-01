@@ -25,13 +25,20 @@ func TestList(t *testing.T) {
 		t.Fatal(err)
 	}
 	accessToken := strings.TrimSpace(string(bytes))
-	// There were three relevant SAs From Jan 1 to Feb 7 2022.
-	got, err := List(context.Background(), accessToken, time.Date(2022, 1, 1, 0, 0, 0, 0, time.UTC))
+	// There were at least three relevant SAs since this date.
+	since := time.Date(2022, 1, 1, 0, 0, 0, 0, time.UTC)
+	const withoutCVEs = false
+	got, err := List(context.Background(), accessToken, since, withoutCVEs)
 	if err != nil {
 		t.Fatal(err)
 	}
 	want := 3
 	if len(got) < want {
 		t.Errorf("got %d, want at least %d", len(got), want)
+	}
+	for _, g := range got {
+		if isCVE(g.Identifiers) {
+			t.Errorf("isCVE true, want false for %+v", g)
+		}
 	}
 }

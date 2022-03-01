@@ -313,7 +313,8 @@ func (s *Server) doUpdate(r *http.Request) (err error) {
 		return err
 	}
 	listSAs := func(ctx context.Context, since time.Time) ([]*ghsa.SecurityAdvisory, error) {
-		return ghsa.List(ctx, s.cfg.GitHubAccessToken, since)
+		const withoutCVES = false
+		return ghsa.List(ctx, s.cfg.GitHubAccessToken, since, withoutCVES)
 	}
 	_, err = UpdateGHSAs(r.Context(), listSAs, s.cfg.Store)
 	return err
