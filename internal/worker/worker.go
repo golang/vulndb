@@ -22,6 +22,7 @@ import (
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/time/rate"
 	vulnc "golang.org/x/vuln/client"
+	"golang.org/x/vulndb/internal"
 	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/derrors"
@@ -359,17 +360,108 @@ func createGHSAIssues(ctx context.Context, st store.Store, ic issues.Client, lim
 func newGHSABody(sr storeRecord) (string, error) {
 	sa := sr.(*store.GHSARecord).GHSA
 
+	r := ghsaToReport(sa)
+	rs, err := r.ToString()
+	if err != nil {
+		return "", err
+	}
+
 	var b strings.Builder
 	intro := fmt.Sprintf(
 		"In GitHub Security Advisory [%s](%s), there is a vulnerability in the following Go packages or modules:",
 		sr.GetPrettyID(), sa.Permalink)
 	intro += "\n\n" + vulnTable(sa.Vulns)
 	if err := issueTemplate.Execute(&b, issueTemplateData{
-		Intro: intro,
+		Intro:  intro,
+		Report: rs,
+		Pre:    "```",
 	}); err != nil {
 		return "", err
 	}
 	return b.String(), nil
+}
+
+func ghsaToReport(sa *ghsa.SecurityAdvisory) *report.Report {
+	u := sa.UpdatedAt
+	r := &report.Report{
+		GHSAs:        []string{sa.PrettyID()},
+		Description:  sa.Description,
+		Published:    sa.PublishedAt,
+		LastModified: &u,
+	}
+	if len(sa.Vulns) == 0 {
+		return r
+	}
+	r.Package = sa.Vulns[0].Package
+	r.Versions = versions(sa.Vulns[0].EarliestFixedVersion, sa.Vulns[0].VulnerableVersionRange)
+	for _, v := range sa.Vulns[1:] {
+		var a report.Additional
+		a.Package = v.Package
+		a.Versions = versions(v.EarliestFixedVersion, v.VulnerableVersionRange)
+		r.AdditionalPackages = append(r.AdditionalPackages, a)
+	}
+	return r
+}
+
+func versions(earliestFixed, vulnRange string) []report.VersionRange {
+	// Don't try to be fully general here. Handle the common cases (which, as of
+	// March 2022, are the only cases), and let a person handle the others.
+	items, err := parseVulnRange(vulnRange)
+	if err != nil {
+		return []report.VersionRange{{
+			Introduced: fmt.Sprintf("TODO (got error %q)", err),
+		}}
+	}
+
+	var intro, fixed string
+
+	// Most common case: a single "<" item with a version that matches earliestFixed.
+	if len(items) == 1 && items[0].op == "<" && items[0].version == earliestFixed {
+		intro = "v0.0.0"
+		fixed = "v" + earliestFixed
+	}
+
+	// Two items, one >= and one <, with the latter matching earliestFixed.
+	if len(items) == 2 && items[0].op == ">=" && items[1].op == "<" && items[1].version == earliestFixed {
+		intro = "v" + items[0].version
+		fixed = "v" + earliestFixed
+	}
+
+	// A single "<=" item with no fixed version.
+	if len(items) == 1 && items[0].op == "<=" && earliestFixed == "" {
+		intro = "v0.0.0"
+	}
+
+	if intro == "" {
+		intro = fmt.Sprintf("TODO (earliest fixed %q, vuln range %q)", earliestFixed, vulnRange)
+	}
+	return []report.VersionRange{{Introduced: intro, Fixed: fixed}}
+}
+
+type vulnRangeItem struct {
+	op, version string
+}
+
+// parseVulnRange splits the contents of a GitHub Security Advisory's
+// VulnerableVersionRange field into separate items.
+func parseVulnRange(s string) ([]vulnRangeItem, error) {
+	// A GHSA vuln range is a comma-separated list of items of the form "OP VERSION"
+	// where OP is one of "<", ">", "<=" or ">=" and VERSION is a semantic
+	// version.
+	var items []vulnRangeItem
+	parts := strings.Split(s, ",")
+	for _, p := range parts {
+		p = strings.TrimSpace(p)
+		if p == "" {
+			continue
+		}
+		before, after, found := internal.Cut(p, " ")
+		if !found {
+			return nil, fmt.Errorf("invalid vuln range item %q", p)
+		}
+		items = append(items, vulnRangeItem{strings.TrimSpace(before), strings.TrimSpace(after)})
+	}
+	return items, nil
 }
 
 func vulnTable(vs []*ghsa.Vuln) string {
