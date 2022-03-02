@@ -345,16 +345,27 @@ func newGHSABody(sr storeRecord) (string, error) {
 	sa := sr.(*store.GHSARecord).GHSA
 
 	var b strings.Builder
-	pkg := sa.Vulns[0].Package
 	intro := fmt.Sprintf(
-		"In GitHub Security Advisory [%s](%s), there is a vulnerability in the Go package or module [%s](https://pkg.go.dev/%s).",
-		sr.GetPrettyID(), sa.Permalink, pkg, pkg)
+		"In GitHub Security Advisory [%s](%s), there is a vulnerability in the following Go packages or modules:",
+		sr.GetPrettyID(), sa.Permalink)
+	intro += "\n\n" + vulnTable(sa.Vulns)
 	if err := issueTemplate.Execute(&b, issueTemplateData{
 		Intro: intro,
 	}); err != nil {
 		return "", err
 	}
 	return b.String(), nil
+}
+
+func vulnTable(vs []*ghsa.Vuln) string {
+	var b strings.Builder
+	fmt.Fprintf(&b, "| Unit | Fixed | Vulnerable Ranges |\n")
+	fmt.Fprintf(&b, "| - | - | - |\n")
+	for _, v := range vs {
+		fmt.Fprintf(&b, "| [%s](https://pkg.go.dev/%[1]s) | %s | %s |",
+			v.Package, v.EarliestFixedVersion, v.VulnerableVersionRange)
+	}
+	return b.String()
 }
 
 type storeRecord interface {

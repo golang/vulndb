@@ -244,14 +244,22 @@ func TestNewGHSABody(t *testing.T) {
 			Identifiers: []ghsa.Identifier{{Type: "GHSA", Value: "G1"}},
 			Permalink:   "https://github.com/permalink/to/G1",
 			Description: "a description",
-			Vulns:       []*ghsa.Vuln{{Package: "aPackage"}},
+			Vulns: []*ghsa.Vuln{{
+				Package:                "aPackage",
+				EarliestFixedVersion:   "1.2.3",
+				VulnerableVersionRange: "< 1.2.3",
+			}},
 		},
 	}
 	got, err := newGHSABody(r)
 	if err != nil {
 		t.Fatal(err)
 	}
-	want := `In GitHub Security Advisory [G1](https://github.com/permalink/to/G1), there is a vulnerability in the Go package or module [aPackage](https://pkg.go.dev/aPackage).
+	want := `In GitHub Security Advisory [G1](https://github.com/permalink/to/G1), there is a vulnerability in the following Go packages or modules:
+
+| Unit | Fixed | Vulnerable Ranges |
+| - | - | - |
+| [aPackage](https://pkg.go.dev/aPackage) | 1.2.3 | < 1.2.3 |
 
 
 
