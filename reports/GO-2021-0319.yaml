@@ -1,0 +1,25 @@
+packages:
+  - module: std
+    package: crypto/elliptic
+    symbols:
+      - CurveParams.IsOnCurve
+      - p384PointFromAffine
+      - p521PointFromAffine
+    versions:
+      - fixed: 1.16.14
+      - introduced: 1.17.0
+        fixed: 1.17.7
+description: |
+  Some big.Int values that are not valid field elements (negative or overflowing)
+  might cause Curve.IsOnCurve to incorrectly return true. Operating on those values
+  may cause a panic or an invalid curve operation. Note that Unmarshal will never
+  return such values.
+cves:
+  - CVE-2022-23806
+credit: Guido Vranken
+links:
+  pr: https://go.dev/cl/382455
+  commit: https://go.googlesource.com/go/+/7f9494c277a471f6f47f4af3036285c0b1419816
+  context:
+    - https://groups.google.com/g/golang-announce/c/SUsQn0aSgPQ
+    - https://go.dev/issue/50974
