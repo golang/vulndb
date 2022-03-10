@@ -5,41 +5,53 @@
 package gitrepo_test
 
 import (
-	"reflect"
-	"strings"
+	"fmt"
 	"testing"
+	"time"
 
 	"github.com/go-git/go-billy/v5"
 	"github.com/go-git/go-billy/v5/memfs"
 	"github.com/go-git/go-git/v5"
-	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"
 	"github.com/go-git/go-git/v5/storage/memory"
+	"github.com/google/go-cmp/cmp"
 	"golang.org/x/vulndb/internal/gitrepo"
 )
 
-func TestFileHistory(t *testing.T) {
+func TestAllCommitDates(t *testing.T) {
 	test := newTest(t)
-	message := []string{"one", "two", "three"}
-	for _, message := range message {
-		test.Commit(message, map[string]string{
-			"file": message,
-		})
-
-		// These commits touch other files, and should not be iterated over.
-		test.Commit("other commit", map[string]string{
-			"some_other_file": message,
-		})
+	want := map[string]gitrepo.Dates{
+		"files/1": gitrepo.Dates{
+			Oldest: time.Date(2020, 1, 1, 1, 0, 0, 0, time.UTC),
+			Newest: time.Date(2020, 1, 1, 1, 2, 0, 0, time.UTC),
+		},
+		"files/2": gitrepo.Dates{
+			Oldest: time.Date(2020, 1, 1, 1, 1, 0, 0, time.UTC),
+			Newest: time.Date(2020, 1, 1, 1, 3, 0, 0, time.UTC),
+		},
 	}
-	var got []string
-	gitrepo.FileHistory(test.Repo, plumbing.HEAD, "file", func(commit *object.Commit) error {
-		got = append([]string{strings.TrimSpace(commit.Message)}, got...)
-		return nil
-	})
-	if !reflect.DeepEqual(got, message) {
-		t.Errorf("got %v\nwant %v", got, message)
+	for name, dates := range want {
+		now := dates.Oldest
+		for {
+			if now.After(dates.Newest) {
+				now = dates.Newest
+			}
+			test.Commit("message", now, map[string]string{
+				name: fmt.Sprintf("commit at %v", now),
+			})
+			if now == dates.Newest {
+				break
+			}
+			now = now.Add(1 * time.Hour)
+		}
 	}
-
+	got, err := gitrepo.AllCommitDates(test.Repo, gitrepo.HeadReference, "files/")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("AllCommitDates returned unexpected result (-want,+got):\n%v", diff)
+	}
 }
 
 type gitTest struct {
@@ -62,7 +74,7 @@ func newTest(t *testing.T) *gitTest {
 	}
 }
 
-func (test *gitTest) Commit(message string, files map[string]string) {
+func (test *gitTest) Commit(message string, when time.Time, files map[string]string) {
 	test.t.Helper()
 	wt, err := test.Repo.Worktree()
 	if err != nil {
@@ -86,6 +98,7 @@ func (test *gitTest) Commit(message string, files map[string]string) {
 	if _, err := wt.Commit(message, &git.CommitOptions{All: true, Author: &object.Signature{
 		Name:  "Author",
 		Email: "author@example.com",
+		When:  when,
 	}}); err != nil {
 		test.t.Fatal(err)
 	}

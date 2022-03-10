@@ -47,6 +47,11 @@ func Generate(ctx context.Context, repoDir, jsonDir string) (err error) {
 		return err
 	}
 
+	commitDates, err := gitrepo.AllCommitDates(repo, gitrepo.MainReference, "reports/")
+	if err != nil {
+		return err
+	}
+
 	jsonVulns := map[string][]osv.Entry{}
 	var entries []osv.Entry
 	for _, f := range yamlFiles {
@@ -59,11 +64,11 @@ func Generate(ctx context.Context, repoDir, jsonDir string) (err error) {
 		}
 		if r.Published.IsZero() {
 			yamlPath := filepath.Join(yamlDir, f.Name())
-			oldest, _, err := gitrepo.CommitDates(repo, yamlPath)
-			if err != nil {
-				return fmt.Errorf("can't find git repo commit dates for %q: %v", yamlPath, err)
+			dates, ok := commitDates[yamlPath]
+			if !ok {
+				return fmt.Errorf("can't find git repo commit dates for %q", yamlPath)
 			}
-			r.Published = oldest
+			r.Published = dates.Oldest
 		}
 		if lints := r.Lint(); len(lints) > 0 {
 			return fmt.Errorf("vuln.Lint: %v", lints)

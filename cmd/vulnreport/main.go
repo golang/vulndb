@@ -20,7 +20,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/go-git/go-git/v5"
 	"golang.org/x/tools/go/packages"
 	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/derrors"
@@ -108,7 +107,11 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		f := func(name string) error { return setDates(repo, name) }
+		commitDates, err := gitrepo.AllCommitDates(repo, gitrepo.MainReference, "reports/")
+		if err != nil {
+			log.Fatal(err)
+		}
+		f := func(name string) error { return setDates(name, commitDates) }
 		if err := multi(f, names); err != nil {
 			log.Fatal(err)
 		}
@@ -330,7 +333,7 @@ func loadPackage(cfg *packages.Config, importPath string) ([]*packages.Package, 
 // transformed into a DB entry. The advantages of using this command are that it
 // speeds up gendb, and the dates become permanent (if you create and submit a
 // CL after running it).
-func setDates(repo *git.Repository, filename string) (err error) {
+func setDates(filename string, dates map[string]gitrepo.Dates) (err error) {
 	defer derrors.Wrap(&err, "setDates(%q)", filename)
 
 	r, err := report.Read(filename)
@@ -340,11 +343,11 @@ func setDates(repo *git.Repository, filename string) (err error) {
 	if !r.Published.IsZero() {
 		return nil
 	}
-	oldest, _, err := gitrepo.CommitDates(repo, filename)
-	if err != nil {
-		return err
+	d, ok := dates[filename]
+	if !ok {
+		return fmt.Errorf("can't find git repo commit dates for %q", filename)
 	}
-	r.Published = oldest
+	r.Published = d.Oldest
 	return r.Write(filename)
 }
 

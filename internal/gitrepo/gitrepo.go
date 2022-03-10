@@ -8,6 +8,7 @@ package gitrepo
 import (
 	"context"
 	"fmt"
+	"io"
 	"strings"
 	"time"
 
@@ -148,40 +149,89 @@ func ParseGitHubRepo(s string) (owner, repoName string, err error) {
 	}
 }
 
-// FileHistory calls f for every commit in filepath's history, starting from refName.
-func FileHistory(repo *git.Repository, refName plumbing.ReferenceName, filepath string, f func(*object.Commit) error) error {
-	ref, err := repo.Reference(refName, true)
+// ReferenceName is a git reference.
+type ReferenceName struct{ plumbing.ReferenceName }
+
+var (
+	HeadReference = ReferenceName{plumbing.HEAD}                                       // HEAD
+	MainReference = ReferenceName{plumbing.NewRemoteReferenceName("origin", "master")} // origin/master
+)
+
+// Dates is the oldest and newest commit timestamps for a file.
+type Dates struct {
+	Oldest, Newest time.Time
+}
+
+// AllCommitDates returns the oldest and newest commit timestamps for every
+// file in the repo at the given reference, where the filename begins with
+// prefix. The supplied prefix should include the trailing /.
+func AllCommitDates(repo *git.Repository, refName ReferenceName, prefix string) (dates map[string]Dates, err error) {
+	defer derrors.Wrap(&err, "AllCommitDates(%q)", prefix)
+
+	ref, err := repo.Reference(refName.ReferenceName, true)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	commit, err := repo.CommitObject(ref.Hash())
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return object.NewCommitFileIterFromIter(
-		filepath,
-		object.NewCommitPreorderIter(commit, nil, nil),
-		false,
-	).ForEach(f)
-}
-
-// CommitDates returns the oldest and newest commit date for filepath in origin/master.
-func CommitDates(repo *git.Repository, filepath string) (oldest, newest time.Time, err error) {
-	defer derrors.Wrap(&err, "CommitDates(%q)", filepath)
-
-	refName := plumbing.NewRemoteReferenceName("origin", "master")
-	err = FileHistory(repo, refName, filepath, func(commit *object.Commit) error {
-		when := commit.Committer.When.UTC()
-		if oldest.IsZero() || when.Before(oldest) {
-			oldest = when
-		}
-		if when.After(newest) {
-			newest = when
-		}
-		return nil
-	})
+	dates = make(map[string]Dates)
+	iter := object.NewCommitPreorderIter(commit, nil, nil)
+	commit, err = iter.Next()
 	if err != nil {
-		return time.Time{}, time.Time{}, err
+		return nil, err
 	}
-	return oldest, newest, nil
+	for commit != nil {
+		parentCommit, err := iter.Next()
+		if err != nil {
+			if err != io.EOF {
+				return nil, err
+			}
+			parentCommit = nil
+		}
+
+		currentTree, err := commit.Tree()
+		if err != nil {
+			return nil, err
+		}
+
+		var parentTree *object.Tree
+		if parentCommit != nil {
+			parentTree, err = parentCommit.Tree()
+			if err != nil {
+				return nil, err
+			}
+		}
+
+		changes, err := object.DiffTree(currentTree, parentTree)
+		if err != nil {
+			return nil, err
+		}
+
+		for _, change := range changes {
+			name := change.To.Name
+			if change.From.Name != "" {
+				name = change.From.Name
+			}
+			when := commit.Committer.When.UTC()
+			if !strings.HasPrefix(name, prefix) {
+				continue
+			}
+			d := dates[name]
+			if d.Oldest.IsZero() || when.Before(d.Oldest) {
+				if d.Oldest.After(d.Newest) {
+					d.Newest = d.Oldest
+				}
+				d.Oldest = when
+			}
+			if when.After(d.Newest) {
+				d.Newest = when
+			}
+			dates[name] = d
+		}
+
+		commit = parentCommit
+	}
+	return dates, nil
 }
