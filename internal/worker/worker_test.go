@@ -219,10 +219,14 @@ func TestNewCVEBody(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	want := `In [ID1](https://github.com/CVEProject/cvelist/tree//) [NIST](https://nvd.nist.gov/vuln/detail/ID1), the reference URL [a.Module](https://a.Module) (and possibly others) refers to something in Go.
+	want := `ID1 references [a.Module](https://a.Module), which may be a Go module.
 
 Description:
 a description
+
+Links:
+- NIST: https://nvd.nist.gov/vuln/detail/ID1
+- JSON: https://github.com/CVEProject/cvelist/tree//
 
 See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) for instructions on how to triage this report.
 
@@ -262,8 +266,6 @@ func TestNewGHSABody(t *testing.T) {
 | Unit | Fixed | Vulnerable Ranges |
 | - | - | - |
 | [aPackage](https://pkg.go.dev/aPackage) | 1.2.3 | < 1.2.3 |
-
-
 
 See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) for instructions on how to triage this report.
 

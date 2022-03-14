@@ -279,8 +279,19 @@ func newCVEBody(sr storeRecord) (string, error) {
 
 	var intro strings.Builder
 	fmt.Fprintf(&intro,
-		"In [%s](%s/tree/%s/%s) [NIST](https://nvd.nist.gov/vuln/detail/%s), the reference URL [%s](%s) (and possibly others) refers to something in Go.",
-		cr.ID, cvelistrepo.URL, cr.CommitHash, cr.Path, cr.ID, cr.Module, "https://"+cr.Module)
+		"%s references [%s](https://%s), which may be a Go module.\n\n",
+		cr.ID, cr.Module, cr.Module)
+
+	description := "N/A"
+	if len(cr.CVE.Description.Data) > 0 {
+		description = cr.CVE.Description.Data[0].Value
+	}
+	fmt.Fprintf(&intro, "Description:\n%s\n\n", description)
+
+	fmt.Fprintf(&intro, `Links:
+- NIST: https://nvd.nist.gov/vuln/detail/%s
+- JSON: %s/tree/%s/%s`, cr.ID, cvelistrepo.URL, cr.CommitHash, cr.Path)
+
 	if r.Links.Commit != "" {
 		fmt.Fprintf(&intro, "\n- Commit: %s", r.Links.Commit)
 	}
@@ -290,16 +301,10 @@ func newCVEBody(sr storeRecord) (string, error) {
 	for _, l := range r.Links.Context {
 		fmt.Fprintf(&intro, "\n- %s", l)
 	}
-
-	var description string
-	if len(cr.CVE.Description.Data) > 0 {
-		description = "Description:\n" + cr.CVE.Description.Data[0].Value
-	}
 	if err := issueTemplate.Execute(&b, issueTemplateData{
-		Intro:       intro.String(),
-		Report:      out,
-		Description: description,
-		Pre:         "```",
+		Intro:  intro.String(),
+		Report: out,
+		Pre:    "```",
 	}); err != nil {
 		return "", err
 	}
@@ -449,17 +454,14 @@ func yearLabel(cve string) string {
 }
 
 type issueTemplateData struct {
-	Intro       string
-	Report      string
-	Description string
-	Pre         string // markdown string for a <pre> block
+	Intro  string
+	Report string
+	Pre    string // markdown string for a <pre> block
 	*store.CVERecord
 }
 
 var issueTemplate = template.Must(template.New("issue").Parse(`
 {{- .Intro}}
-
-{{.Description}}
 
 See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) for instructions on how to triage this report.
 
