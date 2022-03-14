@@ -72,6 +72,12 @@ var notGoModules = map[string]bool{
 	"github.com/tensorflow/tensorflow":       true, // python library
 	"gitweb.gentoo.org/repo/gentoo.git":      true, // ebuild
 	"qpid.apache.org":                        true, // C, python, & Java library
+
+	// vulnerability in tool, not importable package
+	"github.com/grafana/grafana":          true,
+	"github.com/sourcegraph/sourcegraph":  true,
+	"gitlab.com/gitlab-org/gitlab-runner": true,
+	"github.com/gravitational/teleport":   true,
 }
 
 // triageV4CVE triages a CVE following schema v4.0 and returns the result.
