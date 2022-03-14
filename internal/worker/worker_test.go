@@ -221,6 +221,11 @@ func TestNewCVEBody(t *testing.T) {
 	}
 	want := `In [ID1](https://github.com/CVEProject/cvelist/tree//) [NIST](https://nvd.nist.gov/vuln/detail/ID1), the reference URL [a.Module](https://a.Module) (and possibly others) refers to something in Go.
 
+Description:
+a description
+
+See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) for instructions on how to triage this report.
+
 ` + "```" + `
 module: a.Module
 description: |
@@ -228,10 +233,7 @@ description: |
 cves:
   - ID1
 
-` + "```" + `
-
-See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) for instructions on how to triage this report.
-`
+` + "```"
 	if diff := cmp.Diff(unindent(want), got); diff != "" {
 		t.Errorf("mismatch (-want, +got):\n%s", diff)
 	}
@@ -264,6 +266,7 @@ func TestNewGHSABody(t *testing.T) {
 
 
 See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) for instructions on how to triage this report.
+
 `
 	if diff := cmp.Diff(unindent(want), got); diff != "" {
 		t.Errorf("mismatch (-want, +got):\n%s", diff)

@@ -277,20 +277,29 @@ func newCVEBody(sr storeRecord) (string, error) {
 		return "", err
 	}
 
-	nistURL := "https://nvd.nist.gov/vuln/detail/" + cr.ID
-	intro := fmt.Sprintf(
-		"In [%s](%s/tree/%s/%s) [NIST](%s), the reference URL [%s](%s) (and possibly others) refers to something in Go.",
-		cr.ID, cvelistrepo.URL, cr.CommitHash, cr.Path, nistURL, cr.Module, "https://"+cr.Module)
+	var intro strings.Builder
+	fmt.Fprintf(&intro,
+		"In [%s](%s/tree/%s/%s) [NIST](https://nvd.nist.gov/vuln/detail/%s), the reference URL [%s](%s) (and possibly others) refers to something in Go.",
+		cr.ID, cvelistrepo.URL, cr.CommitHash, cr.Path, cr.ID, cr.Module, "https://"+cr.Module)
 	if r.Links.Commit != "" {
-		intro += fmt.Sprintf("\n- Commit: %s", r.Links.Commit)
+		fmt.Fprintf(&intro, "\n- Commit: %s", r.Links.Commit)
 	}
 	if r.Links.PR != "" {
-		intro += fmt.Sprintf("\n- PR: %s", r.Links.PR)
+		fmt.Fprintf(&intro, "\n- PR: %s", r.Links.PR)
+	}
+	for _, l := range r.Links.Context {
+		fmt.Fprintf(&intro, "\n- %s", l)
+	}
+
+	var description string
+	if len(cr.CVE.Description.Data) > 0 {
+		description = "Description:\n" + cr.CVE.Description.Data[0].Value
 	}
 	if err := issueTemplate.Execute(&b, issueTemplateData{
-		Intro:  intro,
-		Report: out,
-		Pre:    "```",
+		Intro:       intro.String(),
+		Report:      out,
+		Description: description,
+		Pre:         "```",
 	}); err != nil {
 		return "", err
 	}
@@ -440,20 +449,22 @@ func yearLabel(cve string) string {
 }
 
 type issueTemplateData struct {
-	Intro  string
-	Report string
-	Pre    string // markdown string for a <pre> block
+	Intro       string
+	Report      string
+	Description string
+	Pre         string // markdown string for a <pre> block
 	*store.CVERecord
 }
 
 var issueTemplate = template.Must(template.New("issue").Parse(`
 {{- .Intro}}
 
+{{.Description}}
+
+See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) for instructions on how to triage this report.
+
 {{if (and .Pre .Report) -}}
 {{.Pre}}
 {{.Report}}
 {{.Pre}}
-{{- end}}
-
-See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) for instructions on how to triage this report.
-`))
+{{- end}}`))
