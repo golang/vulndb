@@ -10,6 +10,7 @@ package worker
 import (
 	"context"
 	"fmt"
+	"strconv"
 	"strings"
 	"sync"
 	"text/template"
@@ -381,10 +382,16 @@ func createIssue(ctx context.Context, r storeRecord, ic issues.Client, newBody f
 		log.With("ID", id).Errorf(ctx, "%s: triage state is NeedsIssue but could not generate body; skipping: %v", id, err)
 		return "", nil
 	}
+	var labels []string
+	label := yearLabel(r.GetPrettyID())
+	if label != "" {
+		labels = append(labels, label)
+	}
 	// Create the issue.
 	iss := &issues.Issue{
-		Title: fmt.Sprintf("x/vulndb: potential Go vuln in %s: %s", r.GetUnit(), r.GetPrettyID()),
-		Body:  body,
+		Title:  fmt.Sprintf("x/vulndb: potential Go vuln in %s: %s", r.GetUnit(), r.GetPrettyID()),
+		Body:   body,
+		Labels: labels,
 	}
 	if err := issueRateLimiter.Wait(ctx); err != nil {
 		return "", err
@@ -400,6 +407,24 @@ func createIssue(ctx context.Context, r storeRecord, ic issues.Client, newBody f
 	ref = ic.Reference(num)
 	log.With("ID", id).Infof(ctx, "created issue %s for %s", ref, id)
 	return ref, nil
+}
+
+func yearLabel(cve string) string {
+	if !strings.HasPrefix(cve, "CVE-") {
+		return ""
+	}
+	parts := strings.Split(cve, "-")
+	if len(parts) != 3 {
+		return ""
+	}
+	year, err := strconv.Atoi(parts[1])
+	if err != nil {
+		return ""
+	}
+	if year > 2019 {
+		return fmt.Sprintf("cve-year-%s", parts[1])
+	}
+	return "cve-year-2019-and-earlier"
 }
 
 type issueTemplateData struct {

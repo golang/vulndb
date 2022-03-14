@@ -381,3 +381,19 @@ func fakeListFunc(sas []*ghsa.SecurityAdvisory) GHSAListFunc {
 		return rs, nil
 	}
 }
+
+func TestYearLabel(t *testing.T) {
+	for _, test := range []struct {
+		input, want string
+	}{
+		{"CVE-2022-24726", "cve-year-2022"},
+		{"CVE-2021-24726", "cve-year-2021"},
+		{"CVE-2020-24726", "cve-year-2020"},
+		{"CVE-2019-9741", "cve-year-2019-and-earlier"},
+		{"GHSA-p93v-m2r2-4387", ""},
+	} {
+		if got := yearLabel(test.input); got != test.want {
+			t.Errorf("yearLabel(%q): %q; want = %q", test.input, got, test.want)
+		}
+	}
+}
