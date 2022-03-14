@@ -1,0 +1,20 @@
+module: mellium.im/xmpp
+package: mellium.im/xmpp/websocket
+versions:
+  - introduced: v0.18.0
+    fixed: v0.21.1
+description: |
+    An attacker capable of spoofing DNS TXT records can redirect a
+    WebSocket connection request to a server under their control without
+    causing TLS certificate verification to fail. This occurs because
+    the wrong host name is selected during this verification.
+cves:
+  - CVE-2022-24968
+credit: Travis Burtrum
+symbols:
+  - Dialer.config
+links:
+    pr: https://github.com/mellium/xmpp/pull/260
+    commit: https://github.com/mellium/xmpp/commit/0d92aa486da69b71f2f4a30e62aa722c711b98ac
+    context:
+      - https://mellium.im/cve/cve-2022-24968/
