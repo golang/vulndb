@@ -279,7 +279,7 @@ func newCVEBody(sr storeRecord) (string, error) {
 
 	intro := fmt.Sprintf(
 		"In [%s](%s/tree/%s/%s), the reference URL [%s](%s) (and possibly others) refers to something in Go.",
-		cr.ID, cvelistrepo.URL, cr.CommitHash, cr.Path, cr.Module, cr.Module)
+		cr.ID, cvelistrepo.URL, cr.CommitHash, cr.Path, cr.Module, "https://"+cr.Module)
 	if r.Links.Commit != "" {
 		intro += fmt.Sprintf("\n- Commit: %s", r.Links.Commit)
 	}

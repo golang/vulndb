@@ -219,7 +219,7 @@ func TestNewCVEBody(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	want := `In [ID1](https://github.com/CVEProject/cvelist/tree//), the reference URL [a.Module](a.Module) (and possibly others) refers to something in Go.
+	want := `In [ID1](https://github.com/CVEProject/cvelist/tree//), the reference URL [a.Module](https://a.Module) (and possibly others) refers to something in Go.
 
 ` + "```" + `
 module: a.Module
