@@ -330,9 +330,14 @@ func loadPackage(cfg *packages.Config, importPath string) ([]*packages.Package, 
 //
 // It isn't crucial to run this for every report, because the same logic exists
 // in gendb, ensuring that every report has a PublishedDate before being
-// transformed into a DB entry. The advantages of using this command are that it
-// speeds up gendb, and the dates become permanent (if you create and submit a
-// CL after running it).
+// transformed into a DB entry. The advantage of using this command is that
+// the dates become permanent (if you create and submit a CL after running it).
+//
+// This intentionally does not set the LastModified of the report: While the
+// publication date of a report may be expected not to change, the modification
+// date can. Always using the git history as the source of truth for the
+// last-modified date avoids confusion if the report YAML and the git history
+// disagree.
 func setDates(filename string, dates map[string]gitrepo.Dates) (err error) {
 	defer derrors.Wrap(&err, "setDates(%q)", filename)
 

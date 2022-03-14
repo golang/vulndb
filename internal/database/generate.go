@@ -62,14 +62,25 @@ func Generate(ctx context.Context, repoDir, jsonDir string) (err error) {
 		if err != nil {
 			return err
 		}
+
+		yamlPath := filepath.Join(yamlDir, f.Name())
+		dates, ok := commitDates[yamlPath]
+		if !ok {
+			return fmt.Errorf("can't find git repo commit dates for %q", yamlPath)
+		}
+		// If a report contains a published field, consider it
+		// the authoritative source of truth. Otherwise, set
+		// the published field from the git history.
 		if r.Published.IsZero() {
-			yamlPath := filepath.Join(yamlDir, f.Name())
-			dates, ok := commitDates[yamlPath]
-			if !ok {
-				return fmt.Errorf("can't find git repo commit dates for %q", yamlPath)
-			}
 			r.Published = dates.Oldest
 		}
+		// Always set the last_modified field based on git history.
+		// The alternative is to possibly miss modifications to any
+		// report with a checked-in last_modified field.
+		if newest := dates.Newest; !dates.Oldest.Equal(newest) {
+			r.LastModified = &newest
+		}
+
 		if lints := r.Lint(); len(lints) > 0 {
 			return fmt.Errorf("vuln.Lint: %v", lints)
 		}
