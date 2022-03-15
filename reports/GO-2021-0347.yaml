@@ -1,0 +1,20 @@
+packages:
+  - module: std
+    package: regexp
+    versions:
+      - fixed: 1.16.15
+      - introduced: 1.17.0
+        fixed: 1.17.8
+    symbols:
+      - regexp.Compile
+description: |
+  On 64-bit platforms, an extremely deeply nested expression can cause regexp.Compile to cause goroutine stack exhaustion, forcing the program to exit. Note this applies to very large expressions, on the order of 2MB.
+cves:
+  - CVE-2022-24921
+credit: Juho Nurminen
+links:
+  pr: https://go.dev/cl/384616
+  commit: https://go.googlesource.com/go/+/452f24ae94f38afa3704d4361d91d51218405c0a
+  context:
+    - https://go.dev/issue/51112
+    - https://groups.google.com/g/golang-announce/c/RP1hfrBYVuk
