@@ -82,8 +82,9 @@ can add a new report to the database by following these steps:
 1. Assign the issue to yourself.
 2. Clone the x/vulndb repository: `git clone https://go.googlesource.com/vulndb`
 3. Run `go run ./cmd/vulnreport create <GitHub issue number>`. (Note: You will need a
-   [GitHub access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)).
-4. Run `go run ./cmd/vulnreport fix <report file>` to add derived symbols to the
+   [GitHub access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) with scope `repo: public_repo`. 
+4. Run `export VULN_GITHUB_ACCESS_TOKEN=<Github access token>`   
+5. Run `go run ./cmd/vulnreport fix <report file>` to add derived symbols to the
    report. You should first create an empty module and `go get` the vulnerable
    module at an unfixed version:
    ```
@@ -93,7 +94,7 @@ can add a new report to the database by following these steps:
    go get github.com/my/mod@<version-before-fixed>
    go run <path to /cmd/vulnreport> fix
    ```
-5. Edit the template accordingly, and mail a CL with this commit message format:
+6. Edit the template accordingly, and mail a CL with this commit message format:
 
 ```
 x/vulndb: add <GO Vuln ID> for <CVE ID>
@@ -105,6 +106,31 @@ Fixes golang/vulndb#<GitHub Issue #>
 
 vulnreport will download the github.com/CVEProject/cvelist repository and
 create a YAML report template for the CVE at the specified GitHub issue number.
+
+### Standard Library Reports
+
+When adding a vulnerability report about the standard library, ensure that the  links  section
+follows this format:
+
+  ```
+  - links:
+  - pr:
+    - https://go.dev/cl/<#>
+  - commit:
+    - https://go.googlesource.com/<repo>/+/<commit>
+  - context:
+    - https://go.dev/issue/<#>
+    - golang-announce@ email
+  ```
+
+You can find these links in the golang-announce@ email for the security release fixing this vulnerability.
+
+**PR:** The PR will be a go.dev/cl/<#> link, found as a gopherbot comment on the issue for the vulnerability.
+
+**Commit:** The commit is a go.googlesource.com link, which can be found on the CL page (see
+[screenshot](https://user-images.githubusercontent.com/51683211/156475820-f671bcf5-d21e-4a25-ad3c-ee047ac91b91.png)).
+
+**Issue:** The issue will be listed in the golang-announce@ email.
 
 ## Updating a report
 
