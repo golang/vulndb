@@ -28,7 +28,7 @@ COPY . /src
 RUN go build -mod=readonly ./cmd/worker
 
 ################################################################
-FROM debian:stable-slim
+FROM golang:1.17.3
 
 LABEL maintainer="Go VulnDB Team <go-vulndb-team@google.com>"
 
