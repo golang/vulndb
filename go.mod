@@ -1,6 +1,6 @@
 module golang.org/x/vulndb
 
-go 1.17
+go 1.18
 
 require (
 	golang.org/x/vuln v0.0.0-20211221130724-9d39a965865f
