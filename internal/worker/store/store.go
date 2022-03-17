@@ -201,6 +201,33 @@ func (r *GHSARecord) GetIssueCreatedAt() time.Time { return r.IssueCreatedAt }
 
 func (r *GHSARecord) GetPrettyID() string { return r.GHSA.PrettyID() }
 
+// A ModuleScanRecord holds information about a vulnerability scan of a module.
+type ModuleScanRecord struct {
+	Path       string
+	Version    string
+	DBTime     time.Time // last-modified time of the vuln DB
+	Error      string    // if non-empty, error while scanning
+	VulnIDs    []string
+	FinishedAt time.Time // when the scan completed (successfully or not)
+}
+
+// Validate returns an error if the ModuleScanRecord is not valid.
+func (r *ModuleScanRecord) Validate() error {
+	if r.Path == "" {
+		return errors.New("need Path")
+	}
+	if r.Version == "" {
+		return errors.New("need Version")
+	}
+	if r.DBTime.IsZero() {
+		return errors.New("need DBTime")
+	}
+	if r.FinishedAt.IsZero() {
+		return errors.New("need FinishedAt")
+	}
+	return nil
+}
+
 // A Store is a storage system for the CVE database.
 type Store interface {
 	// CreateCommitUpdateRecord creates a new CommitUpdateRecord. It should be called at the start
@@ -212,7 +239,7 @@ type Store interface {
 	// CreateCommitUpdateRecord, because it will have the correct ID.
 	SetCommitUpdateRecord(context.Context, *CommitUpdateRecord) error
 
-	// ListCommitUpdateRecords returns some the CommitUpdateRecords in the store, from most to
+	// ListCommitUpdateRecords returns some of the CommitUpdateRecords in the store, from most to
 	// least recent.
 	ListCommitUpdateRecords(ctx context.Context, limit int) ([]*CommitUpdateRecord, error)
 
@@ -229,6 +256,18 @@ type Store interface {
 
 	// SetDirectoryHash sets the hash for the given directory.
 	SetDirectoryHash(ctx context.Context, dir, hash string) error
+
+	// CreateModuleScanRecord adds a ModuleScanRecord to the DB.
+	CreateModuleScanRecord(context.Context, *ModuleScanRecord) error
+
+	// GetModuleScanRecord returns the most recent ModuleScanRecord matching the
+	// given module path, version and DB time. If not found, it returns (nil,
+	// nil).
+	GetModuleScanRecord(ctx context.Context, path, version string, dbTime time.Time) (*ModuleScanRecord, error)
+
+	// ListModuleScanRecords returns some of the ModuleScanRecords in the store
+	// from most to least recent. If limit is zero, all records are returned.
+	ListModuleScanRecords(ctx context.Context, limit int) ([]*ModuleScanRecord, error)
 
 	// RunTransaction runs the function in a transaction.
 	RunTransaction(context.Context, func(context.Context, Transaction) error) error

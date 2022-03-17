@@ -9,6 +9,7 @@ import (
 	"errors"
 	"fmt"
 	"strings"
+	"time"
 
 	"cloud.google.com/go/firestore"
 	"golang.org/x/vulndb/internal/derrors"
@@ -32,6 +33,7 @@ import (
 // - CommitUpdates for CommitUpdateRecords
 // - DirHashes for directory hashes
 // - GHSAs for GHSARecords.
+// - ModuleScans for ModuleScanRecords.
 type FireStore struct {
 	namespace string
 	client    *firestore.Client
@@ -44,6 +46,7 @@ const (
 	cveCollection       = "CVEs"
 	dirHashCollection   = "DirHashes"
 	ghsaCollection      = "GHSAs"
+	modScanCollection   = "ModuleScans"
 )
 
 // NewFireStore creates a new FireStore, backed by a client to Firestore. Since
@@ -124,20 +127,18 @@ func (fs *FireStore) ListCommitUpdateRecords(ctx context.Context, limit int) ([]
 		q = q.Limit(limit)
 	}
 	iter := q.Documents(ctx)
-	for {
-		docsnap, err := iter.Next()
-		if err == iterator.Done {
-			break
-		}
-		if err != nil {
-			return nil, err
-		}
+	defer iter.Stop()
+	err := apply(iter, func(ds *firestore.DocumentSnapshot) error {
 		var ur CommitUpdateRecord
-		if err := docsnap.DataTo(&ur); err != nil {
-			return nil, err
+		if err := ds.DataTo(&ur); err != nil {
+			return err
 		}
-		ur.ID = docsnap.Ref.ID
+		ur.ID = ds.Ref.ID
 		urs = append(urs, &ur)
+		return nil
+	})
+	if err != nil {
+		return nil, err
 	}
 	return urs, nil
 }
@@ -156,6 +157,62 @@ func (fs *FireStore) ListCVERecordsWithTriageState(ctx context.Context, ts Triag
 		return nil, err
 	}
 	return docsnapsToCVERecords(docsnaps)
+}
+
+// CreateModuleScanRecord implements Store.CreateModuleScanRecord.
+func (fs *FireStore) CreateModuleScanRecord(ctx context.Context, r *ModuleScanRecord) error {
+	if err := r.Validate(); err != nil {
+		return err
+	}
+	docref := fs.nsDoc.Collection(modScanCollection).NewDoc()
+	_, err := docref.Create(ctx, r)
+	return err
+}
+
+// GetModuleScanRecord implements store.GetModuleScanRecord.
+func (fs *FireStore) GetModuleScanRecord(ctx context.Context, path, version string, dbTime time.Time) (*ModuleScanRecord, error) {
+	// There may be several, but we only need one; take the most recent.
+	q := fs.nsDoc.Collection(modScanCollection).
+		Where("Path", "==", path).
+		Where("Version", "==", version).
+		Where("DBTime", "==", dbTime).
+		OrderBy("FinishedAt", firestore.Desc)
+	docsnaps, err := q.Documents(ctx).GetAll()
+	if err != nil {
+		return nil, err
+	}
+	if len(docsnaps) == 0 {
+		return nil, nil
+	}
+
+	var r ModuleScanRecord
+	if err := docsnaps[0].DataTo(&r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+// ListModuleScanRecords implements Store.ListModuleScanRecords.
+func (fs *FireStore) ListModuleScanRecords(ctx context.Context, limit int) ([]*ModuleScanRecord, error) {
+	q := fs.nsDoc.Collection(modScanCollection).OrderBy("FinishedAt", firestore.Desc)
+	if limit > 0 {
+		q = q.Limit(limit)
+	}
+	var rs []*ModuleScanRecord
+	iter := q.Documents(ctx)
+	defer iter.Stop()
+	err := apply(iter, func(ds *firestore.DocumentSnapshot) error {
+		var r ModuleScanRecord
+		if err := ds.DataTo(&r); err != nil {
+			return err
+		}
+		rs = append(rs, &r)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return rs, nil
 }
 
 // dirHashRef returns a DocumentRef for the directory dir.
@@ -365,6 +422,23 @@ func deleteCollection(ctx context.Context, client *firestore.Client, ref *firest
 		}
 
 		if _, err := batch.Commit(ctx); err != nil {
+			return err
+		}
+	}
+}
+
+// apply calls f for each element of iter. If f returns an error, apply stops
+// immediately and returns the same error.
+func apply(iter *firestore.DocumentIterator, f func(*firestore.DocumentSnapshot) error) error {
+	for {
+		docsnap, err := iter.Next()
+		if err == iterator.Done {
+			return nil
+		}
+		if err != nil {
+			return err
+		}
+		if err := f(docsnap); err != nil {
 			return err
 		}
 	}
