@@ -13,6 +13,7 @@ import (
 	"golang.org/x/exp/event"
 	vulnc "golang.org/x/vuln/client"
 	"golang.org/x/vulndb/internal/worker/log"
+	"golang.org/x/vulndb/internal/worker/store"
 )
 
 // TestScanModules is slow, so put it behind a flag.
@@ -22,10 +23,10 @@ func TestScanModules(t *testing.T) {
 	if !*runScanModulesTest {
 		t.Skip("-scan flag missing")
 	}
-	// Verify only that scanRepos works (doesn't return an error).
+	// Verify only that scanModules works (doesn't return an error).
 	ctx := event.WithExporter(context.Background(),
 		event.NewExporter(log.NewLineHandler(os.Stderr), nil))
-	if err := scanModules(ctx); err != nil {
+	if err := ScanModules(ctx, store.NewMemStore()); err != nil {
 		t.Fatal(err)
 	}
 }

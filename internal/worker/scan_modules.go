@@ -11,14 +11,17 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 	"time"
 
+	"cloud.google.com/go/storage"
 	"golang.org/x/exp/vulncheck"
 	"golang.org/x/tools/go/packages"
 	vulnc "golang.org/x/vuln/client"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/worker/log"
+	"golang.org/x/vulndb/internal/worker/store"
 )
 
 // Selected repos under golang.org/x.
@@ -33,9 +36,9 @@ var modulesToScan = []string{
 	"golang.org/x/vuln", "golang.org/x/vulndb", "golang.org/x/website",
 }
 
-// scanModules scans a list of Go modules for vulnerabilities.
+// ScanModules scans a list of Go modules for vulnerabilities.
 // It assumes the root of each repo is a module, and there are no nested modules.
-func scanModules(ctx context.Context) error {
+func ScanModules(ctx context.Context, st store.Store) error {
 	dbClient, err := vulnc.NewClient([]string{vulnDBURL}, vulnc.Options{})
 	if err != nil {
 		return err
@@ -46,7 +49,7 @@ func scanModules(ctx context.Context) error {
 		if err != nil {
 			return err
 		}
-		if err := processModule(ctx, modulePath, latest, dbClient); err != nil {
+		if err := processModule(ctx, modulePath, latest, dbClient, st); err != nil {
 			return err
 		}
 		latestTagged, err := latestTaggedVersion(ctx, modulePath)
@@ -54,7 +57,7 @@ func scanModules(ctx context.Context) error {
 			return err
 		}
 		if latestTagged != "" && latestTagged != latest {
-			if err := processModule(ctx, modulePath, latestTagged, dbClient); err != nil {
+			if err := processModule(ctx, modulePath, latestTagged, dbClient, st); err != nil {
 				return err
 			}
 		}
@@ -62,8 +65,27 @@ func scanModules(ctx context.Context) error {
 	return nil
 }
 
-func processModule(ctx context.Context, modulePath, version string, dbClient vulnc.Client) error {
+func processModule(ctx context.Context, modulePath, version string, dbClient vulnc.Client, st store.Store) (err error) {
+	defer derrors.Wrap(&err, "processModule(%q, %q)", modulePath, version)
+
+	dbTime, err := vulnDBTime(ctx)
+	if err != nil {
+		return err
+	}
+	r, err := st.GetModuleScanRecord(ctx, modulePath, version, dbTime)
+	if err != nil {
+		return err
+	}
+	if r != nil {
+		// Already done.
+		log.Debugf(ctx, "already scanned %s@%s at DB time %s", modulePath, version, dbTime)
+		return nil
+	}
+
 	res, err := scanModule(ctx, modulePath, version, dbClient)
+	if err2 := createModuleScanRecord(ctx, st, modulePath, version, dbTime, res, err); err2 != nil {
+		return err2
+	}
 	if err != nil {
 		return err
 	}
@@ -73,6 +95,32 @@ func processModule(ctx context.Context, modulePath, version string, dbClient vul
 			modulePath, version, v.OSV.ID, v.PkgPath, v.Symbol)
 	}
 	return nil
+}
+
+func createModuleScanRecord(ctx context.Context, st store.Store, path, version string, dbTime time.Time, res *vulncheck.Result, err error) error {
+	var errstr string
+	var vulnIDs []string
+	if err != nil {
+		errstr = err.Error()
+	} else {
+		m := map[string]bool{}
+		for _, v := range res.Vulns {
+			m[v.OSV.ID] = true
+		}
+		for id := range m {
+			vulnIDs = append(vulnIDs, id)
+		}
+		sort.Strings(vulnIDs)
+	}
+
+	return st.CreateModuleScanRecord(ctx, &store.ModuleScanRecord{
+		Path:       path,
+		Version:    version,
+		DBTime:     dbTime,
+		Error:      errstr,
+		VulnIDs:    vulnIDs,
+		FinishedAt: time.Now(),
+	})
 }
 
 // scanRepo clones the given repo and analyzes it for vulnerabilities. If commit
@@ -164,4 +212,20 @@ func writeZip(r *zip.Reader, destination, stripPrefix string) error {
 		}
 	}
 	return nil
+}
+
+// vulnDBTime returns the time that the vuln DB was last updated.
+func vulnDBTime(ctx context.Context) (_ time.Time, err error) {
+	// Until the vuln DB client supports this, use the update time
+	// of the index file.
+	defer derrors.Wrap(&err, "vulnDBTime")
+	c, err := storage.NewClient(ctx)
+	if err != nil {
+		return time.Time{}, err
+	}
+	attrs, err := c.Bucket(vulnDBBucket).Object("index.json").Attrs(ctx)
+	if err != nil {
+		return time.Time{}, err
+	}
+	return attrs.Updated, nil
 }

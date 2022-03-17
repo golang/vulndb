@@ -69,6 +69,7 @@ func main() {
 		fmt.Fprintln(out, "    list-cves TRIAGE_STATE: display info about CVE records")
 		fmt.Fprintln(out, "    create-issues: create issues for CVEs that need them")
 		fmt.Fprintln(out, "    show ID1 ID2 ...: display CVE records")
+		fmt.Fprintln(out, "    scan-modules: scan modules for vulnerabilities")
 		fmt.Fprintln(out, "flags:")
 		flag.PrintDefaults()
 	}
@@ -138,6 +139,8 @@ func runCommandLine(ctx context.Context) error {
 		return createIssuesCommand(ctx)
 	case "show":
 		return showCommand(ctx, flag.Args()[1:])
+	case "scan-modules":
+		return scanModulesCommand(ctx)
 	default:
 		return fmt.Errorf("unknown command: %q", flag.Arg(1))
 	}
@@ -275,6 +278,10 @@ func showCommand(ctx context.Context, ids []string) error {
 		}
 	}
 	return nil
+}
+
+func scanModulesCommand(ctx context.Context) error {
+	return worker.ScanModules(ctx, cfg.Store)
 }
 
 func die(format string, args ...interface{}) {

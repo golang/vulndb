@@ -126,7 +126,10 @@ func (c *CheckUpdateError) Error() string {
 	return c.msg
 }
 
-const vulnDBURL = "https://storage.googleapis.com/go-vulndb"
+const (
+	vulnDBBucket = "go-vulndb"
+	vulnDBURL    = "https://storage.googleapis.com/" + vulnDBBucket
+)
 
 // readVulnDB returns a list of all CVE IDs in the Go vuln DB.
 func readVulnDB(ctx context.Context) ([]string, error) {

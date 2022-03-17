@@ -375,7 +375,7 @@ func (s *Server) handleUpdateAndIssues(w http.ResponseWriter, r *http.Request) e
 }
 
 func (s *Server) handleScanModules(w http.ResponseWriter, r *http.Request) error {
-	return scanModules(r.Context())
+	return ScanModules(r.Context(), s.cfg.Store)
 }
 
 func initOpenTelemetry(projectID string) (tp *sdktrace.TracerProvider, mp metric.MeterProvider, err error) {
