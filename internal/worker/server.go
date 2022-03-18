@@ -14,6 +14,7 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
+	"strings"
 	"sync/atomic"
 	"time"
 
@@ -195,7 +196,8 @@ func parseTemplate(staticPath, filename template.TrustedSource) (*template.Templ
 	}
 	templatePath := template.TrustedSourceJoin(staticPath, filename)
 	return template.New(filename.String()).Funcs(template.FuncMap{
-		"timefmt": FormatTime,
+		"timefmt":  FormatTime,
+		"commasep": func(s []string) string { return strings.Join(s, ", ") },
 	}).ParseFilesFromTrustedSources(templatePath)
 }
 
@@ -237,41 +239,39 @@ type indexPage struct {
 	Updates          []*store.CommitUpdateRecord
 	CVEsNeedingIssue []*store.CVERecord
 	CVEsUpdatedSince []*store.CVERecord
+	ModuleScans      []*store.ModuleScanRecord
 }
 
 func (s *Server) indexPage(w http.ResponseWriter, r *http.Request) error {
 
-	var (
-		updates                    []*store.CommitUpdateRecord
-		needingIssue, updatedSince []*store.CVERecord
-	)
+	var page = indexPage{
+		CVEListRepoURL: cvelistrepo.URL,
+		Namespace:      s.cfg.Namespace,
+	}
 
 	g, ctx := errgroup.WithContext(r.Context())
 	g.Go(func() error {
 		var err error
-		updates, err = s.cfg.Store.ListCommitUpdateRecords(ctx, 10)
+		page.Updates, err = s.cfg.Store.ListCommitUpdateRecords(ctx, 10)
 		return err
 	})
 	g.Go(func() error {
 		var err error
-		needingIssue, err = s.cfg.Store.ListCVERecordsWithTriageState(ctx, store.TriageStateNeedsIssue)
+		page.CVEsNeedingIssue, err = s.cfg.Store.ListCVERecordsWithTriageState(ctx, store.TriageStateNeedsIssue)
 		return err
 	})
 	g.Go(func() error {
 		var err error
-		updatedSince, err = s.cfg.Store.ListCVERecordsWithTriageState(ctx, store.TriageStateUpdatedSinceIssueCreation)
+		page.CVEsUpdatedSince, err = s.cfg.Store.ListCVERecordsWithTriageState(ctx, store.TriageStateUpdatedSinceIssueCreation)
+		return err
+	})
+	g.Go(func() error {
+		var err error
+		page.ModuleScans, err = s.cfg.Store.ListModuleScanRecords(ctx, 300)
 		return err
 	})
 	if err := g.Wait(); err != nil {
 		return err
-	}
-
-	page := indexPage{
-		CVEListRepoURL:   cvelistrepo.URL,
-		Namespace:        s.cfg.Namespace,
-		Updates:          updates,
-		CVEsNeedingIssue: needingIssue,
-		CVEsUpdatedSince: updatedSince,
 	}
 	return renderPage(r.Context(), w, page, s.indexTemplate)
 }

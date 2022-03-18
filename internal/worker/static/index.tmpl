@@ -69,6 +69,23 @@
     {{end}}
   </table>
 
+  <h2>Recent Module Scans</h2>
+  <table>
+    <tr>
+      <th>Module</th><th>Version</th><th>DB Time</th><th>Vulns</th><th>Finished</th><th>Error</th>
+    </tr>
+    {{range .ModuleScans}}
+      <tr>
+        <td>{{.Path}}</td>
+        <td>{{.Version}}</td>
+        <td>{{.DBTime | timefmt}}</td>
+        <td>{{.VulnIDs | commasep}}</td>
+        <td>{{.FinishedAt | timefmt}}</td>
+        <td>{{.Error}}</td>
+      </tr>
+    {{end}}
+  </table>
+
 </body>
 </html>
 
