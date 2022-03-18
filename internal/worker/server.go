@@ -13,6 +13,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"runtime/debug"
 	"strconv"
 	"strings"
 	"sync/atomic"
@@ -234,6 +235,7 @@ func renderPage(ctx context.Context, w http.ResponseWriter, page interface{}, tm
 }
 
 type indexPage struct {
+	BuildInfo        string
 	CVEListRepoURL   string
 	Namespace        string
 	Updates          []*store.CommitUpdateRecord
@@ -249,6 +251,25 @@ func (s *Server) indexPage(w http.ResponseWriter, r *http.Request) error {
 		Namespace:      s.cfg.Namespace,
 	}
 
+	buildInfo, ok := debug.ReadBuildInfo()
+	if !ok {
+		page.BuildInfo = "(no build information)"
+	} else {
+		commit := "unknown"
+		modified := false
+		for _, bs := range buildInfo.Settings {
+			switch bs.Key {
+			case "vcs.revision":
+				commit = bs.Value
+			case "vcs.modified":
+				modified = (bs.Value == "true")
+			}
+		}
+		page.BuildInfo = fmt.Sprintf("Commit %s", commit)
+		if modified {
+			page.BuildInfo += " (dirty)"
+		}
+	}
 	g, ctx := errgroup.WithContext(r.Context())
 	g.Go(func() error {
 		var err error
