@@ -34,12 +34,12 @@ variable "min_frontend_instances" {
 
 variable "oauth_client_id" {
   description = "OAuth 2 client ID (visit APIs & Services > Credentials)"
-  type = string
+  type        = string
 }
 
 variable "issue_repo" {
   description = "name of GitHub repo to post issues on"
-  type = string
+  type        = string
 }
 
 
@@ -65,43 +65,43 @@ resource "google_cloud_run_service" "worker" {
   template {
     spec {
       containers {
-	# Get the image from GCP (see the "data" block below).
-	# Exception: when first creating the service, replace this with a hardcoded
-	# image tag.
-	image = data.google_cloud_run_service.worker.template[0].spec[0].containers[0].image
+        # Get the image from GCP (see the "data" block below).
+        # Exception: when first creating the service, replace this with a hardcoded
+        # image tag.
+        image = data.google_cloud_run_service.worker.template[0].spec[0].containers[0].image
         env {
           name  = "GOOGLE_CLOUD_PROJECT"
           value = var.project
-	}
-	env {
-	  name = "VULN_WORKER_NAMESPACE"
-	  value = var.env
-	}
-	env {
-	  name = "VULN_WORKER_REPORT_ERRORS"
-	  value = true
-	}
-	env {
-	  name = "VULN_WORKER_ISSUE_REPO"
-	  value = var.issue_repo
-	}
-	env {
-	  name = "VULN_GITHUB_ACCESS_TOKEN"
-	  value_from {
-	    secret_key_ref {
-	      name = google_secret_manager_secret.vuln_github_access_token.secret_id
-	      key = "latest"
-	    }
-	  }
-	}
-	env{
+        }
+        env {
+          name  = "VULN_WORKER_NAMESPACE"
+          value = var.env
+        }
+        env {
+          name  = "VULN_WORKER_REPORT_ERRORS"
+          value = true
+        }
+        env {
+          name  = "VULN_WORKER_ISSUE_REPO"
+          value = var.issue_repo
+        }
+        env {
+          name = "VULN_GITHUB_ACCESS_TOKEN"
+          value_from {
+            secret_key_ref {
+              name = google_secret_manager_secret.vuln_github_access_token.secret_id
+              key  = "latest"
+            }
+          }
+        }
+        env {
           name  = "VULN_WORKER_USE_PROFILER"
           value = var.use_profiler
         }
         resources {
           limits = {
-            "cpu"    = "1000m"
-            "memory" = "2Gi"
+            "cpu"    = "2000m"
+            "memory" = "8Gi"
           }
         }
       }
@@ -113,9 +113,9 @@ resource "google_cloud_run_service" "worker" {
 
     metadata {
       annotations = {
-        "autoscaling.knative.dev/minScale"  = var.min_frontend_instances
-        "autoscaling.knative.dev/maxScale"  = "1"
-	#"client.knative.dev/user-image"     = data.google_cloud_run_service.worker.template[0].spec[0].containers[0].image
+        "autoscaling.knative.dev/minScale" = var.min_frontend_instances
+        "autoscaling.knative.dev/maxScale" = "1"
+        #"client.knative.dev/user-image"     = data.google_cloud_run_service.worker.template[0].spec[0].containers[0].image
       }
     }
   }
@@ -146,9 +146,9 @@ locals {
   tz = "America/New_York"
 }
 
-resource google_secret_manager_secret "vuln_github_access_token" {
+resource "google_secret_manager_secret" "vuln_github_access_token" {
   secret_id = "vuln-${var.env}-github-access-token"
-  project = var.project
+  project   = var.project
   replication {
     automatic = true
   }
@@ -174,4 +174,13 @@ resource "google_cloud_scheduler_job" "vuln_issue_triage" {
       audience              = var.oauth_client_id
     }
   }
+
+  retry_config {
+    max_backoff_duration = "3600s"
+    max_doublings        = 5
+    max_retry_duration   = "0s"
+    min_backoff_duration = "5s"
+    retry_count          = 0
+  }
 }
+

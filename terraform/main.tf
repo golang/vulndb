@@ -88,3 +88,15 @@ module "prod" {
   issue_repo             = var.prod_issue_repo
 }
 
+
+resource "google_cloudbuild_trigger" "vulndb-redeploy" {
+  project     = var.prod_project
+  description = "Rebuild vulndb database and push to GCS bucket"
+  filename    = "deploy/build.yaml"
+  name        = "vulndb-redeploy"
+  trigger_template {
+    branch_name = "^master$"
+    project_id  = "go-vuln"
+    repo_name   = "vulndb"
+  }
+}
