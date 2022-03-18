@@ -95,7 +95,7 @@ func processModule(ctx context.Context, modulePath, version string, dbClient vul
 		}
 		if r != nil {
 			// Already done.
-			log.Debugf(ctx, "already scanned %s@%s at DB time %s", modulePath, version, dbTime)
+			log.Infof(ctx, "already scanned %s@%s at DB time %s", modulePath, version, dbTime)
 			return nil
 		}
 	}
@@ -106,7 +106,6 @@ func processModule(ctx context.Context, modulePath, version string, dbClient vul
 	if err != nil {
 		return scanError{err}
 	}
-	log.Infof(ctx, "%s@%s has %d vulns", modulePath, version, len(res.Vulns))
 	for _, v := range res.Vulns {
 		log.Warningf(ctx, "module %s@%s is vulnerable to %s: package %s, symbol %s",
 			modulePath, version, v.OSV.ID, v.PkgPath, v.Symbol)
@@ -147,7 +146,6 @@ func scanModule(ctx context.Context, modulePath, version string, dbClient vulnc.
 	defer derrors.Wrap(&err, "scanModule(%q, %q)", modulePath, version)
 
 	start := time.Now()
-	log.Infof(ctx, "scanning %s@%s", modulePath, version)
 	defer func() { log.Infof(ctx, "scanned %s@%s in %.1fs", modulePath, version, time.Since(start).Seconds()) }()
 
 	dir, err := os.MkdirTemp("", "scanModule")
@@ -169,7 +167,6 @@ func scanModule(ctx context.Context, modulePath, version string, dbClient vulnc.
 	if err := writeZip(zipr, dir, modulePath+"@"+version+"/"); err != nil {
 		return nil, err
 	}
-	log.Debugf(ctx, "fetched zip from proxy and unzipped")
 
 	cfg := &packages.Config{
 		Mode:  packages.NeedName | packages.NeedFiles | packages.NeedCompiledGoFiles | packages.NeedImports | packages.NeedTypes | packages.NeedTypesSizes | packages.NeedSyntax | packages.NeedTypesInfo | packages.NeedDeps | packages.NeedModule,
@@ -180,7 +177,6 @@ func scanModule(ctx context.Context, modulePath, version string, dbClient vulnc.
 	if err != nil {
 		return nil, err
 	}
-	log.Debugf(ctx, "loaded packages")
 	vcfg := &vulncheck.Config{Client: dbClient}
 	return vulncheck.Source(ctx, vulncheck.Convert(pkgs), vcfg)
 }
