@@ -7,6 +7,7 @@ package worker
 import (
 	"archive/zip"
 	"context"
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -36,6 +37,18 @@ var modulesToScan = []string{
 	"golang.org/x/vuln", "golang.org/x/vulndb", "golang.org/x/website",
 }
 
+type scanError struct {
+	err error
+}
+
+func (s scanError) Error() string {
+	return s.err.Error()
+}
+
+func (s scanError) Unwrap() error {
+	return s.err
+}
+
 // ScanModules scans a list of Go modules for vulnerabilities.
 // It assumes the root of each repo is a module, and there are no nested modules.
 func ScanModules(ctx context.Context, st store.Store, force bool) error {
@@ -50,7 +63,10 @@ func ScanModules(ctx context.Context, st store.Store, force bool) error {
 			return err
 		}
 		if err := processModule(ctx, modulePath, latest, dbClient, st, force); err != nil {
-			return err
+			if errors.As(err, new(scanError)) {
+				return err
+			}
+			// Otherwise, if the error was in the scanning itself, keep going.
 		}
 		latestTagged, err := latestTaggedVersion(ctx, modulePath)
 		if err != nil {
@@ -88,7 +104,7 @@ func processModule(ctx context.Context, modulePath, version string, dbClient vul
 		return err2
 	}
 	if err != nil {
-		return err
+		return scanError{err}
 	}
 	log.Infof(ctx, "%s@%s has %d vulns", modulePath, version, len(res.Vulns))
 	for _, v := range res.Vulns {

@@ -6,7 +6,9 @@ package worker
 
 import (
 	"context"
+	"errors"
 	"flag"
+	"io"
 	"os"
 	"testing"
 
@@ -29,6 +31,16 @@ func TestScanModules(t *testing.T) {
 	if err := ScanModules(ctx, store.NewMemStore(), true); err != nil {
 		t.Fatal(err)
 	}
+}
+
+func TestAsScanError(t *testing.T) {
+	check := func(err error, want bool) {
+		if got := errors.As(err, new(scanError)); got != want {
+			t.Errorf("%T: got %t, want %t", err, got, want)
+		}
+	}
+	check(io.EOF, false)
+	check(scanError{io.EOF}, true)
 }
 
 func TestScanModule(t *testing.T) {
