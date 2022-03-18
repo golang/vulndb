@@ -300,10 +300,7 @@ func (s *Server) doUpdate(r *http.Request) (err error) {
 			err:    fmt.Errorf("%s required", http.MethodPost),
 		}
 	}
-	force := false
-	if f := r.FormValue("force"); f == "true" {
-		force = true
-	}
+	force := (r.FormValue("force") == "true")
 	err = UpdateCVEsAtCommit(r.Context(), cvelistrepo.URL, "HEAD", s.cfg.Store, pkgsiteURL, force)
 	if cerr := new(CheckUpdateError); errors.As(err, &cerr) {
 		return &serverError{
@@ -375,7 +372,7 @@ func (s *Server) handleUpdateAndIssues(w http.ResponseWriter, r *http.Request) e
 }
 
 func (s *Server) handleScanModules(w http.ResponseWriter, r *http.Request) error {
-	return ScanModules(r.Context(), s.cfg.Store)
+	return ScanModules(r.Context(), s.cfg.Store, r.FormValue("force") == "true")
 }
 
 func initOpenTelemetry(projectID string) (tp *sdktrace.TracerProvider, mp metric.MeterProvider, err error) {

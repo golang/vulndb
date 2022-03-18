@@ -34,7 +34,7 @@ import (
 var (
 	// Flags only for the command-line tool.
 	localRepoPath = flag.String("local-cve-repo", "", "path to local repo, instead of cloning remote")
-	force         = flag.Bool("force", false, "force an update to happen")
+	force         = flag.Bool("force", false, "force an update or scan to happen")
 	limit         = flag.Int("limit", 0,
 		"limit on number of things to list or issues to create (0 means unlimited)")
 	githubTokenFile = flag.String("ghtokenfile", "",
@@ -281,7 +281,7 @@ func showCommand(ctx context.Context, ids []string) error {
 }
 
 func scanModulesCommand(ctx context.Context) error {
-	return worker.ScanModules(ctx, cfg.Store)
+	return worker.ScanModules(ctx, cfg.Store, *force)
 }
 
 func die(format string, args ...interface{}) {

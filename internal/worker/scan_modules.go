@@ -38,7 +38,7 @@ var modulesToScan = []string{
 
 // ScanModules scans a list of Go modules for vulnerabilities.
 // It assumes the root of each repo is a module, and there are no nested modules.
-func ScanModules(ctx context.Context, st store.Store) error {
+func ScanModules(ctx context.Context, st store.Store, force bool) error {
 	dbClient, err := vulnc.NewClient([]string{vulnDBURL}, vulnc.Options{})
 	if err != nil {
 		return err
@@ -49,7 +49,7 @@ func ScanModules(ctx context.Context, st store.Store) error {
 		if err != nil {
 			return err
 		}
-		if err := processModule(ctx, modulePath, latest, dbClient, st); err != nil {
+		if err := processModule(ctx, modulePath, latest, dbClient, st, force); err != nil {
 			return err
 		}
 		latestTagged, err := latestTaggedVersion(ctx, modulePath)
@@ -57,7 +57,7 @@ func ScanModules(ctx context.Context, st store.Store) error {
 			return err
 		}
 		if latestTagged != "" && latestTagged != latest {
-			if err := processModule(ctx, modulePath, latestTagged, dbClient, st); err != nil {
+			if err := processModule(ctx, modulePath, latestTagged, dbClient, st, force); err != nil {
 				return err
 			}
 		}
@@ -65,23 +65,24 @@ func ScanModules(ctx context.Context, st store.Store) error {
 	return nil
 }
 
-func processModule(ctx context.Context, modulePath, version string, dbClient vulnc.Client, st store.Store) (err error) {
+func processModule(ctx context.Context, modulePath, version string, dbClient vulnc.Client, st store.Store, force bool) (err error) {
 	defer derrors.Wrap(&err, "processModule(%q, %q)", modulePath, version)
 
 	dbTime, err := vulnDBTime(ctx)
 	if err != nil {
 		return err
 	}
-	r, err := st.GetModuleScanRecord(ctx, modulePath, version, dbTime)
-	if err != nil {
-		return err
+	if !force {
+		r, err := st.GetModuleScanRecord(ctx, modulePath, version, dbTime)
+		if err != nil {
+			return err
+		}
+		if r != nil {
+			// Already done.
+			log.Debugf(ctx, "already scanned %s@%s at DB time %s", modulePath, version, dbTime)
+			return nil
+		}
 	}
-	if r != nil {
-		// Already done.
-		log.Debugf(ctx, "already scanned %s@%s at DB time %s", modulePath, version, dbTime)
-		return nil
-	}
-
 	res, err := scanModule(ctx, modulePath, version, dbClient)
 	if err2 := createModuleScanRecord(ctx, st, modulePath, version, dbTime, res, err); err2 != nil {
 		return err2

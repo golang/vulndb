@@ -26,7 +26,7 @@ func TestScanModules(t *testing.T) {
 	// Verify only that scanModules works (doesn't return an error).
 	ctx := event.WithExporter(context.Background(),
 		event.NewExporter(log.NewLineHandler(os.Stderr), nil))
-	if err := ScanModules(ctx, store.NewMemStore()); err != nil {
+	if err := ScanModules(ctx, store.NewMemStore(), true); err != nil {
 		t.Fatal(err)
 	}
 }
