@@ -13,24 +13,8 @@ source devtools/lib.sh || { echo "Are you at repo root?"; exit 1; }
 env=$1
 path=$2
 
-case $env in
-  dev)
-    svc_acct=impersonate-for-iap@go-discovery-exp.iam.gserviceaccount.com
-    url=https://dev-vuln-worker-ku6ias4ydq-uc.a.run.app
-    ;;
-  prod)
-    svc_acct=impersonate@go-vuln.iam.gserviceaccount.com
-    url=https://prod-vuln-worker-cf7lo3kiaq-uc.a.run.app
-    ;;
-  *) die "usage: $0 (dev | prod)"
-esac
-oauth_client_id=$(tfvar ${env}_client_id)
-
-if [[ $oauth_client_id = '' ]]; then
-  die "${env}_client_id is missing from your terraform.tfvars file"
-fi
-
-tok=$(gcloud --impersonate-service-account $svc_acct auth print-identity-token --audiences $oauth_client_id --include-email)
+url=$(worker_url $env)
+tok=$(impersonation_token $env)
 
 if [[ $path = update* || $path = issue* ]]; then
   args="-X POST"

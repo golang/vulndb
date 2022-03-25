@@ -52,3 +52,34 @@ tfvar() {
   local name=$1
   awk '$1 == "'$name'" { print substr($3, 2, length($3)-2) }' terraform/terraform.tfvars
 }
+
+worker_url() {
+  local env=$1
+  case $env in
+    dev) echo https://dev-vuln-worker-ku6ias4ydq-uc.a.run.app;;
+    prod) echo https://prod-vuln-worker-cf7lo3kiaq-uc.a.run.app;;
+    *) die "usage: $0 (dev | prod)";;
+  esac
+}
+
+impersonation_service_account() {
+  local env=$1
+  case $env in
+    dev) echo impersonate-for-iap@go-discovery-exp.iam.gserviceaccount.com;;
+    prod) echo impersonate@go-vuln.iam.gserviceaccount.com;;
+    *) die "usage: $0 (dev | prod)";;
+  esac
+}
+
+impersonation_token() {
+  local env=$1
+  local oauth_client_id=$(tfvar ${env}_client_id)
+
+  if [[ $oauth_client_id = '' ]]; then
+    die "${env}_client_id is missing from your terraform.tfvars file"
+  fi
+  gcloud --impersonate-service-account $(impersonation_service_account $env) \
+    auth print-identity-token \
+    --audiences $oauth_client_id \
+    --include-email
+}
