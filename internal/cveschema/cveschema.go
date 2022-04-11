@@ -132,7 +132,7 @@ type Affects struct {
 //
 // Descriptions often follow this template:
 //
-//      [PROBLEM TYPE] in [PRODUCT/VERSION] causes [IMPACT] when [ATTACK]
+//	[PROBLEM TYPE] in [PRODUCT/VERSION] causes [IMPACT] when [ATTACK]
 //
 // where impact and attack are arbitrary terms that should be relevant to the
 // nature of the vulnerability.

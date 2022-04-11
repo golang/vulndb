@@ -34,9 +34,9 @@ func vcsHostWithThreeElementRepoName(hostname string) bool {
 }
 
 // negativePrefixPatterns is a list of glob patterns that describe prefixes of
-//  potential module paths that are known not to be modules. These are turned
-//  into regexps below and checked against each module path before calling
-//  pkgsite. This can speed up triage because pkgsite requests are throttled.
+// potential module paths that are known not to be modules. These are turned
+// into regexps below and checked against each module path before calling
+// pkgsite. This can speed up triage because pkgsite requests are throttled.
 var negativePrefixPatterns = []string{
 	"*.blogspot.com",
 	"*.blogspot.dk",

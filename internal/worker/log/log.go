@@ -20,7 +20,8 @@ import (
 
 // NewLineHandler returns an event Handler that writes log events one per line
 // in an easy-to-read format:
-//   time level message label1=value1 label2=value2 ...
+//
+//	time level message label1=value1 label2=value2 ...
 func NewLineHandler(w io.Writer) event.Handler {
 	return &lineHandler{w: w}
 }
