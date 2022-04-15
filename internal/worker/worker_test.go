@@ -24,7 +24,6 @@ import (
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
-	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"
 )
@@ -273,11 +272,13 @@ See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) 
 ` + "```" + `
 package: aPackage
 versions:
-  - introduced: v0.0.0
-    fixed: v1.2.3
+  - fixed: v1.2.3
 description: a description
 ghsas:
   - G1
+links:
+    context:
+      - https://github.com/permalink/to/G1
 
 ` + "```"
 
@@ -418,54 +419,6 @@ func TestYearLabel(t *testing.T) {
 	} {
 		if got := yearLabel(test.input); got != test.want {
 			t.Errorf("yearLabel(%q): %q; want = %q", test.input, got, test.want)
-		}
-	}
-}
-
-func TestParseVulnRange(t *testing.T) {
-	for _, test := range []struct {
-		in   string
-		want []vulnRangeItem
-	}{
-		{"", nil},
-		{"< 1.2.3", []vulnRangeItem{{"<", "1.2.3"}}},
-		{"< 4.3.2, >= 1.2.3", []vulnRangeItem{
-			{"<", "4.3.2"},
-			{">=", "1.2.3"},
-		}},
-	} {
-		got, err := parseVulnRange(test.in)
-		if err != nil {
-			t.Fatal(err)
-		}
-		if !cmp.Equal(got, test.want, cmp.AllowUnexported(vulnRangeItem{})) {
-			t.Errorf("%q:\ngot  %+v\nwant %+v", test.in, got, test.want)
-		}
-	}
-}
-
-func TestVersions(t *testing.T) {
-	for _, test := range []struct {
-		earliestFixed string
-		vulnRange     string
-		intro, fixed  string
-	}{
-		{"1.0.0", "< 1.0.0", "v0.0.0", "v1.0.0"},
-		{"", "<= 1.4.2", "v0.0.0", ""},
-		{"1.1.3", ">= 1.1.0, < 1.1.3", "v1.1.0", "v1.1.3"},
-		{
-			"1.2.3", "<= 2.3.4",
-			`TODO (earliest fixed "1.2.3", vuln range "<= 2.3.4")`, "",
-		},
-	} {
-		got := versions(test.earliestFixed, test.vulnRange)
-		want := []report.VersionRange{{
-			Introduced: test.intro,
-			Fixed:      test.fixed,
-		}}
-		if !cmp.Equal(got, want) {
-			t.Errorf("%q, %q:\ngot  %+v\nwant %+v",
-				test.earliestFixed, test.vulnRange, got, want)
 		}
 	}
 }

@@ -16,7 +16,7 @@ import (
 var githubTokenFile = flag.String("ghtokenfile", "",
 	"path to file containing GitHub access token")
 
-func TestList(t *testing.T) {
+func mustGetAccessToken(t *testing.T) string {
 	if *githubTokenFile == "" {
 		t.Skip("-ghtokenfile not provided")
 	}
@@ -24,7 +24,11 @@ func TestList(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	accessToken := strings.TrimSpace(string(bytes))
+	return strings.TrimSpace(string(bytes))
+}
+
+func TestList(t *testing.T) {
+	accessToken := mustGetAccessToken(t)
 	// There were at least three relevant SAs since this date.
 	since := time.Date(2022, 1, 1, 0, 0, 0, 0, time.UTC)
 	const withoutCVEs = false
@@ -40,5 +44,26 @@ func TestList(t *testing.T) {
 		if isCVE(g.Identifiers) {
 			t.Errorf("isCVE true, want false for %+v", g)
 		}
+	}
+}
+
+func TestFetchGHSA(t *testing.T) {
+	accessToken := mustGetAccessToken(t)
+	// Real GHSA that should be found.
+	const ghsaID string = "GHSA-g9mp-8g3h-3c5c"
+	got, err := FetchGHSA(context.Background(), accessToken, ghsaID)
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := ghsaID
+	var gotID string
+	for _, id := range got.Identifiers {
+		if id.Type == "GHSA" {
+			gotID = id.Value
+			break
+		}
+	}
+	if gotID != want {
+		t.Errorf("got GHSA with id %q, want %q", got.ID, want)
 	}
 }

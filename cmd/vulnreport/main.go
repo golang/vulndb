@@ -142,7 +142,7 @@ func create(ctx context.Context, issueNumber int, ghToken, issueRepo, repoPath s
 	if err != nil {
 		return err
 	}
-	// Parse CVE ID from GitHub issue.
+	// Parse CVE or GHSA ID from GitHub issue.
 	parts := strings.Fields(iss.Title)
 	var modulePath string
 	for _, p := range parts {
@@ -151,15 +151,24 @@ func create(ctx context.Context, issueNumber int, ghToken, issueRepo, repoPath s
 			break
 		}
 	}
-	cveID := parts[len(parts)-1]
-	if !strings.HasPrefix(cveID, "CVE") {
-		return fmt.Errorf("expected last element of title to be the CVE ID; got %q", iss.Title)
+	id := parts[len(parts)-1]
+	var r *report.Report
+	switch {
+	case strings.HasPrefix(id, "CVE"):
+		cve, err := cvelistrepo.FetchCVE(ctx, repoPath, id)
+		if err != nil {
+			return err
+		}
+		r = report.CVEToReport(cve, modulePath)
+	case strings.HasPrefix(id, "GHSA"):
+		ghsa, err := ghsa.FetchGHSA(ctx, ghToken, id)
+		if err != nil {
+			return err
+		}
+		r = report.GHSAToReport(ghsa, modulePath)
+	default:
+		return fmt.Errorf("expected last element of title to be the CVE ID or GHSA ID; got %q", iss.Title)
 	}
-	cve, err := cvelistrepo.FetchCVE(ctx, repoPath, cveID)
-	if err != nil {
-		return err
-	}
-	r := report.CVEToReport(cve, modulePath)
 	addTODOs(r)
 	return r.Write(fmt.Sprintf("reports/GO-2021-%04d.yaml", issueNumber))
 }
@@ -188,6 +197,9 @@ func addTODOs(r *report.Report) {
 	}
 	if r.Links.Commit == "" {
 		r.Links.Commit = todo
+	}
+	if len(r.Links.Context) == 0 {
+		r.Links.Context = []string{todo}
 	}
 	if len(r.Versions) == 0 {
 		r.Versions = []report.VersionRange{{

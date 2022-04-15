@@ -68,52 +68,96 @@ func (s *SecurityAdvisory) PrettyID() string {
 	return s.ID
 }
 
+// A gqlSecurityAdvisory represents a GitHub security advisory structured for
+// GitHub's GraphQL schema. The fields must be exported to be populated by
+// Github's Client.Query function.
+type gqlSecurityAdvisory struct {
+	ID              string
+	Identifiers     []Identifier
+	Summary         string
+	Description     string
+	Origin          string
+	Permalink       githubv4.URI
+	PublishedAt     time.Time
+	UpdatedAt       time.Time
+	Vulnerabilities struct {
+		Nodes []struct {
+			Package struct {
+				Name      string
+				Ecosystem string
+			}
+			FirstPatchedVersion struct{ Identifier string }
+			// TODO(https://go.dev/issue/52550): uncomment when
+			// https://support.github.com/ticket/personal/0/1599280
+			// is fixed.
+			//Severity               githubv4.SecurityAdvisorySeverity
+			UpdatedAt              time.Time
+			VulnerableVersionRange string
+		}
+		PageInfo struct {
+			HasNextPage bool
+		}
+	} `graphql:"vulnerabilities(first: 100, ecosystem: $go)"` // include only Go vulns
+}
+
+// securityAdvisory converts a gqlSecurityAdvisory into a SecurityAdvisory.
+// Errors if the security advisory was updated before it was published, or if
+// there are more than 100 vulnerabilities associated with the advisory.
+func (sa *gqlSecurityAdvisory) securityAdvisory() (*SecurityAdvisory, error) {
+	if sa.PublishedAt.After(sa.UpdatedAt) {
+		return nil, fmt.Errorf("%s: published at %s, after updated at %s", sa.ID, sa.PublishedAt, sa.UpdatedAt)
+	}
+	if sa.Vulnerabilities.PageInfo.HasNextPage {
+		return nil, fmt.Errorf("%s has more than 100 vulns", sa.ID)
+	}
+	s := &SecurityAdvisory{
+		ID:          sa.ID,
+		Identifiers: sa.Identifiers,
+		Summary:     sa.Summary,
+		Description: sa.Description,
+		Origin:      sa.Origin,
+		Permalink:   sa.Permalink.URL.String(),
+		PublishedAt: sa.PublishedAt,
+		UpdatedAt:   sa.UpdatedAt,
+	}
+	for _, v := range sa.Vulnerabilities.Nodes {
+		s.Vulns = append(s.Vulns, &Vuln{
+			Package: v.Package.Name,
+			// TODO(https://go.dev/issue/52550): uncomment when
+			// https://support.github.com/ticket/personal/0/1599280
+			// is fixed.
+			//Severity:               v.Severity,
+			EarliestFixedVersion:   v.FirstPatchedVersion.Identifier,
+			VulnerableVersionRange: v.VulnerableVersionRange,
+			UpdatedAt:              v.UpdatedAt,
+		})
+	}
+	return s, nil
+}
+
+func newGitHubClient(ctx context.Context, accessToken string) *githubv4.Client {
+	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: accessToken})
+	tc := oauth2.NewClient(ctx, ts)
+	return githubv4.NewClient(tc)
+}
+
 // List returns all SecurityAdvisories that affect Go,
 // published or updated since the given time.
-// The withCVE argument controls whether to select advisories that are
-// connected to CVEs.
+// If withCVE is true, selects only advisories that are
+// connected to CVEs, otherwise selects only advisories without CVEs.
 func List(ctx context.Context, accessToken string, since time.Time, withCVE bool) ([]*SecurityAdvisory, error) {
-	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: accessToken})
-	tc := oauth2.NewClient(context.Background(), ts)
-	client := githubv4.NewClient(tc)
+	client := newGitHubClient(ctx, accessToken)
 
 	var query struct { // the GraphQL query
 		SAs struct {
-			Nodes []struct {
-				ID              string
-				Identifiers     []Identifier
-				Summary         string
-				Description     string
-				Origin          string
-				Permalink       githubv4.URI
-				PublishedAt     time.Time
-				UpdatedAt       time.Time
-				Vulnerabilities struct {
-					Nodes []struct {
-						Package struct {
-							Name      string
-							Ecosystem string
-						}
-						FirstPatchedVersion struct{ Identifier string }
-						// TODO(https://go.dev/issue/52550): uncomment when
-						// https://support.github.com/ticket/personal/0/1599280
-						// is fixed.
-						//Severity               githubv4.SecurityAdvisorySeverity
-						UpdatedAt              time.Time
-						VulnerableVersionRange string
-					}
-					PageInfo struct {
-						HasNextPage bool
-					}
-				} `graphql:"vulnerabilities(first: 100, ecosystem: $go)"` // include only Go vulns
-			}
+			Nodes    []gqlSecurityAdvisory
 			PageInfo struct {
 				EndCursor   githubv4.String
 				HasNextPage bool
 			}
 		} `graphql:"securityAdvisories(updatedSince: $since, first: 100, after: $cursor)"`
 	}
-	vars := map[string]interface{}{
+	vars := map[string]any{
 		"cursor": (*githubv4.String)(nil),
 		"go":     githubv4.SecurityAdvisoryEcosystemGo,
 		"since":  githubv4.DateTime{Time: since},
@@ -127,39 +171,15 @@ func List(ctx context.Context, accessToken string, since time.Time, withCVE bool
 			return nil, err
 		}
 		for _, sa := range query.SAs.Nodes {
-			if sa.PublishedAt.After(sa.UpdatedAt) {
-				return nil, fmt.Errorf("%s: published at %s, after updated at %s", sa.ID, sa.PublishedAt, sa.UpdatedAt)
-			}
 			if withCVE != isCVE(sa.Identifiers) {
 				continue
 			}
 			if len(sa.Vulnerabilities.Nodes) == 0 {
 				continue
 			}
-			if sa.Vulnerabilities.PageInfo.HasNextPage {
-				return nil, fmt.Errorf("%s has more than 100 vulns", sa.ID)
-			}
-			s := &SecurityAdvisory{
-				ID:          sa.ID,
-				Identifiers: sa.Identifiers,
-				Summary:     sa.Summary,
-				Description: sa.Description,
-				Origin:      sa.Origin,
-				Permalink:   sa.Permalink.URL.String(),
-				PublishedAt: sa.PublishedAt,
-				UpdatedAt:   sa.UpdatedAt,
-			}
-			for _, v := range sa.Vulnerabilities.Nodes {
-				s.Vulns = append(s.Vulns, &Vuln{
-					Package: v.Package.Name,
-					// TODO(https://go.dev/issue/52550): uncomment when
-					// https://support.github.com/ticket/personal/0/1599280
-					// is fixed.
-					//Severity:               v.Severity,
-					EarliestFixedVersion:   v.FirstPatchedVersion.Identifier,
-					VulnerableVersionRange: v.VulnerableVersionRange,
-					UpdatedAt:              v.UpdatedAt,
-				})
+			s, err := sa.securityAdvisory()
+			if err != nil {
+				return nil, err
 			}
 			sas = append(sas, s)
 		}
@@ -169,6 +189,26 @@ func List(ctx context.Context, accessToken string, since time.Time, withCVE bool
 		vars["cursor"] = githubv4.NewString(query.SAs.PageInfo.EndCursor)
 	}
 	return sas, nil
+}
+
+// FetchGHSA returns the SecurityAdvisory for the given Github Security
+// Advisory ID.
+func FetchGHSA(ctx context.Context, accessToken, ghsaID string) (_ *SecurityAdvisory, err error) {
+	client := newGitHubClient(ctx, accessToken)
+
+	var query struct {
+		SA gqlSecurityAdvisory `graphql:"securityAdvisory(ghsaId: $id)"`
+	}
+	vars := map[string]any{
+		"id": githubv4.String(ghsaID),
+		"go": githubv4.SecurityAdvisoryEcosystemGo,
+	}
+
+	if err := client.Query(ctx, &query, vars); err != nil {
+		return nil, err
+	}
+
+	return query.SA.securityAdvisory()
 }
 
 func isCVE(ids []Identifier) bool {
