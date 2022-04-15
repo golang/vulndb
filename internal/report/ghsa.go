@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"strings"
 
-	"golang.org/x/vulndb/internal"
 	"golang.org/x/vulndb/internal/ghsa"
 )
 
@@ -112,7 +111,7 @@ func parseVulnRange(s string) ([]vulnRangeItem, error) {
 		if p == "" {
 			continue
 		}
-		before, after, found := internal.Cut(p, " ")
+		before, after, found := strings.Cut(p, " ")
 		if !found {
 			return nil, fmt.Errorf("invalid vuln range item %q", p)
 		}
