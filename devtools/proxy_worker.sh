@@ -15,4 +15,9 @@ source devtools/lib.sh || { echo "Are you at repo root?"; exit 1; }
 
 env=$1
 
+case $env in
+  dev|prod);;
+  *) die "usage: $0 (dev | prod)"
+esac
+
 cloud-run-proxy -host $(worker_url $env) -token $(impersonation_token $env)
