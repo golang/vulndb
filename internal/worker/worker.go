@@ -301,6 +301,7 @@ func newCVEBody(sr storeRecord) (string, error) {
 	if r.Links.PR != "" {
 		fmt.Fprintf(&intro, "\n- PR: %s", r.Links.PR)
 	}
+	fmt.Fprintf(&intro, "\n- Imported by: https://pkg.go.dev/%s?tab=importedby", cr.Module)
 	for _, l := range r.Links.Context {
 		fmt.Fprintf(&intro, "\n- %s", l)
 	}
