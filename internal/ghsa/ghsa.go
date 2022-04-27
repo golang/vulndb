@@ -86,11 +86,8 @@ type gqlSecurityAdvisory struct {
 				Name      string
 				Ecosystem string
 			}
-			FirstPatchedVersion struct{ Identifier string }
-			// TODO(https://go.dev/issue/52550): uncomment when
-			// https://support.github.com/ticket/personal/0/1599280
-			// is fixed.
-			//Severity               githubv4.SecurityAdvisorySeverity
+			FirstPatchedVersion    struct{ Identifier string }
+			Severity               githubv4.SecurityAdvisorySeverity
 			UpdatedAt              time.Time
 			VulnerableVersionRange string
 		}
@@ -122,11 +119,8 @@ func (sa *gqlSecurityAdvisory) securityAdvisory() (*SecurityAdvisory, error) {
 	}
 	for _, v := range sa.Vulnerabilities.Nodes {
 		s.Vulns = append(s.Vulns, &Vuln{
-			Package: v.Package.Name,
-			// TODO(https://go.dev/issue/52550): uncomment when
-			// https://support.github.com/ticket/personal/0/1599280
-			// is fixed.
-			//Severity:               v.Severity,
+			Package:                v.Package.Name,
+			Severity:               v.Severity,
 			EarliestFixedVersion:   v.FirstPatchedVersion.Identifier,
 			VulnerableVersionRange: v.VulnerableVersionRange,
 			UpdatedAt:              v.UpdatedAt,
