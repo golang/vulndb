@@ -67,3 +67,29 @@ func TestFetchGHSA(t *testing.T) {
 		t.Errorf("got GHSA with id %q, want %q", got.ID, want)
 	}
 }
+
+func TestListForCVE(t *testing.T) {
+	accessToken := mustGetAccessToken(t)
+	// Real CVE and GHSA.
+	const (
+		cveID  string = "CVE-2022-27191"
+		ghsaID string = "GHSA-8c26-wmh5-6g9v"
+	)
+	got, err := ListForCVE(context.Background(), accessToken, cveID)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var ids []string
+	for _, sa := range got {
+		for _, id := range sa.Identifiers {
+			if id.Type != "GHSA" {
+				continue
+			}
+			ids = append(ids, id.Value)
+			if id.Value == ghsaID {
+				return
+			}
+		}
+	}
+	t.Errorf("got %v GHSAs %v, want %v", len(got), ids, ghsaID)
+}

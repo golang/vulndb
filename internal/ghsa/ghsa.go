@@ -191,6 +191,46 @@ func List(ctx context.Context, accessToken string, since time.Time, withCVE bool
 	return sas, nil
 }
 
+func ListForCVE(ctx context.Context, accessToken string, cve string) ([]*SecurityAdvisory, error) {
+	client := newGitHubClient(ctx, accessToken)
+
+	var query struct { // The GraphQL query
+		SAs struct {
+			Nodes    []gqlSecurityAdvisory
+			PageInfo struct {
+				EndCursor   githubv4.String
+				HasNextPage bool
+			}
+		} `graphql:"securityAdvisories(identifier: $id, first: 100)"`
+	}
+	vars := map[string]any{
+		"id": githubv4.SecurityAdvisoryIdentifierFilter{
+			Type:  githubv4.SecurityAdvisoryIdentifierTypeCve,
+			Value: githubv4.String(cve),
+		},
+		"go": githubv4.SecurityAdvisoryEcosystemGo,
+	}
+
+	if err := client.Query(ctx, &query, vars); err != nil {
+		return nil, err
+	}
+	if query.SAs.PageInfo.HasNextPage {
+		return nil, fmt.Errorf("CVE %s has more than 100 GHSAs", cve)
+	}
+	var sas []*SecurityAdvisory
+	for _, sa := range query.SAs.Nodes {
+		if len(sa.Vulnerabilities.Nodes) == 0 {
+			continue
+		}
+		s, err := sa.securityAdvisory()
+		if err != nil {
+			return nil, err
+		}
+		sas = append(sas, s)
+	}
+	return sas, nil
+}
+
 // FetchGHSA returns the SecurityAdvisory for the given Github Security
 // Advisory ID.
 func FetchGHSA(ctx context.Context, accessToken, ghsaID string) (_ *SecurityAdvisory, err error) {

@@ -35,6 +35,7 @@ var (
 	issueRepo           = flag.String("issue-repo", "github.com/golang/vulndb", "repo to create issues in")
 	githubToken         = flag.String("ghtoken", os.Getenv("VULN_GITHUB_ACCESS_TOKEN"), "GitHub access token")
 	skipExportedSymbols = flag.Bool("skip-exported", false, "for fix, don't look for exported symbols")
+	alwaysFixGHSA       = flag.Bool("always-fix-ghsa", false, "for fix, always update GHSAs")
 )
 
 func main() {
@@ -86,19 +87,7 @@ func main() {
 			log.Fatal(err)
 		}
 	case "fix":
-		var GHSAsByCVE map[string][]string
-		if *githubToken == "" {
-			fmt.Println("flag -ghtoken not provided, so not fixing GHSAs")
-		} else {
-			fmt.Println("querying GitHub for GHSAs...")
-			var err error
-			GHSAsByCVE, err = loadGHSAsByCVE(ctx, *githubToken)
-			if err != nil {
-				log.Fatal(err)
-			}
-			fmt.Println("fixing...")
-		}
-		f := func(name string) error { return fix(name, GHSAsByCVE) }
+		f := func(name string) error { return fix(ctx, name, *githubToken) }
 		if err := multi(f, names); err != nil {
 			log.Fatal(err)
 		}
@@ -225,7 +214,7 @@ func lint(filename string) (err error) {
 	return nil
 }
 
-func fix(filename string, GHSAsByCVE map[string][]string) (err error) {
+func fix(ctx context.Context, filename string, accessToken string) (err error) {
 	defer derrors.Wrap(&err, "fix(%q)", filename)
 	r, err := report.Read(filename)
 	if err != nil {
@@ -239,8 +228,8 @@ func fix(filename string, GHSAsByCVE map[string][]string) (err error) {
 			return err
 		}
 	}
-	if GHSAsByCVE != nil {
-		fixGHSAs(r, GHSAsByCVE)
+	if err := fixGHSAs(ctx, r, accessToken); err != nil {
+		return err
 	}
 
 	// Write unconditionally in order to format.
@@ -407,11 +396,28 @@ func loadGHSAsByCVE(ctx context.Context, accessToken string) (_ map[string][]str
 
 // fixGHSAs replaces r.GHSAs with a sorted list of GitHub Security
 // Advisory IDs that correspond to the CVEs.
-func fixGHSAs(r *report.Report, GHSAsByCVE map[string][]string) {
-	var gids []string
+func fixGHSAs(ctx context.Context, r *report.Report, accessToken string) error {
+	if accessToken == "" {
+		return nil
+	}
+	if len(r.GHSAs) > 0 && !*alwaysFixGHSA {
+		return nil
+	}
+	m := map[string]struct{}{}
 	for _, cid := range r.CVEs {
-		gids = append(gids, GHSAsByCVE[cid]...)
+		sas, err := ghsa.ListForCVE(ctx, accessToken, cid)
+		if err != nil {
+			return err
+		}
+		for _, sa := range sas {
+			m[sa.PrettyID()] = struct{}{}
+		}
+	}
+	var gids []string
+	for gid := range m {
+		gids = append(gids, gid)
 	}
 	sort.Strings(gids)
 	r.GHSAs = gids
+	return nil
 }
