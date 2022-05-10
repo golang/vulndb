@@ -56,6 +56,13 @@ type Package struct {
 	// or other technique.
 	DerivedSymbols []string       `yaml:"derived_symbols,omitempty"`
 	Versions       []VersionRange `yaml:",omitempty"`
+	// Known-vulnerable version, to use when performing static analysis or
+	// other techniques on a vulnerable version of the package.
+	//
+	// In general, we want to use the most recent vulnerable version of
+	// the package. Determining this programmatically is difficult, especially
+	// for packages without tagged versions, so we specify it manually here.
+	VulnerableAt Version `yaml:"vulnerable_at,omitempty"`
 }
 
 type Links struct {

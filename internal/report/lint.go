@@ -189,6 +189,9 @@ func (p *Package) lintThirdPartyPkg(addPkgIssue func(string)) {
 }
 
 func (p *Package) lintVersions(addPkgIssue func(string)) {
+	if p.VulnerableAt != "" && !p.VulnerableAt.IsValid() {
+		addPkgIssue(fmt.Sprintf("invalid vulnerable_at semantic version: %q", p.VulnerableAt))
+	}
 	for i, vr := range p.Versions {
 		for _, v := range []Version{vr.Introduced, vr.Fixed} {
 			if v != "" && !v.IsValid() {

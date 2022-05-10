@@ -15,7 +15,9 @@ import (
 	"go/build"
 	"log"
 	"os"
+	"os/exec"
 	"regexp"
+	"runtime"
 	"sort"
 	"strconv"
 	"strings"
@@ -33,11 +35,11 @@ import (
 )
 
 var (
-	localRepoPath       = flag.String("local-cve-repo", "", "path to local repo, instead of cloning remote")
-	issueRepo           = flag.String("issue-repo", "github.com/golang/vulndb", "repo to create issues in")
-	githubToken         = flag.String("ghtoken", os.Getenv("VULN_GITHUB_ACCESS_TOKEN"), "GitHub access token")
-	skipExportedSymbols = flag.Bool("skip-exported", false, "for fix, don't look for exported symbols")
-	alwaysFixGHSA       = flag.Bool("always-fix-ghsa", false, "for fix, always update GHSAs")
+	localRepoPath = flag.String("local-cve-repo", "", "path to local repo, instead of cloning remote")
+	issueRepo     = flag.String("issue-repo", "github.com/golang/vulndb", "repo to create issues in")
+	githubToken   = flag.String("ghtoken", os.Getenv("VULN_GITHUB_ACCESS_TOKEN"), "GitHub access token")
+	skipSymbols   = flag.Bool("skip-symbols", false, "for lint and fix, don't load package for symbols checks")
+	alwaysFixGHSA = flag.Bool("always-fix-ghsa", false, "for fix, always update GHSAs")
 )
 
 func main() {
@@ -249,8 +251,8 @@ func fix(ctx context.Context, filename string, accessToken string) (err error) {
 	if lints := r.Lint(); len(lints) > 0 {
 		r.Fix()
 	}
-	if !*skipExportedSymbols {
-		if _, err := addExportedReportSymbols(r); err != nil {
+	if !*skipSymbols {
+		if _, err := checkReportSymbols(r); err != nil {
 			return err
 		}
 	}
@@ -262,7 +264,7 @@ func fix(ctx context.Context, filename string, accessToken string) (err error) {
 	return r.Write(filename)
 }
 
-func addExportedReportSymbols(r *report.Report) (bool, error) {
+func checkReportSymbols(r *report.Report) (bool, error) {
 	if len(r.OS) > 0 || len(r.Arch) > 0 {
 		return false, errors.New("specific GOOS/GOARCH not yet implemented")
 	}
@@ -272,7 +274,7 @@ func addExportedReportSymbols(r *report.Report) (bool, error) {
 		if len(p.Symbols) == 0 {
 			continue
 		}
-		syms, err := findExportedSymbols(p.Module, p.Package, rc)
+		syms, err := findExportedSymbols(p, rc)
 		if err != nil {
 			return false, err
 		}
@@ -285,12 +287,47 @@ func addExportedReportSymbols(r *report.Report) (bool, error) {
 	return added, nil
 }
 
-func findExportedSymbols(module, pkgPath string, c *reportClient) (_ []string, err error) {
-	defer derrors.Wrap(&err, "addExportedSymbols(%q, %q)", module, pkgPath)
+func findExportedSymbols(p report.Package, c *reportClient) (_ []string, err error) {
+	defer derrors.Wrap(&err, "addExportedSymbols(%q, %q)", p.Module, p.Package)
 
+	if p.VulnerableAt == "" {
+		fmt.Fprintf(os.Stderr, "%v: no vulnerable_at version, skipping symbol checks.\n", p.Package)
+		return nil, nil
+	}
+
+	module := p.Module
+	pkgPath := p.Package
 	if pkgPath == "" {
 		pkgPath = module
 	}
+
+	cleanup, err := changeToTempDir()
+	if err != nil {
+		return nil, err
+	}
+	defer cleanup()
+	if err := run("go", "mod", "init", "go.dev/_"); err != nil {
+		return nil, err
+	}
+	std := false
+	if !stdlib.Contains(p.Module) {
+		pkgPathAndVersion := pkgPath + "@" + p.VulnerableAt.V()
+		if err := run("go", "get", pkgPathAndVersion); err != nil {
+			return nil, err
+		}
+	} else {
+		std = true
+		gover := runtime.Version()
+		ver := semverForGoVersion(gover)
+		if ver == "" || !affected(c.entry, ver.V()) {
+			fmt.Fprintf(os.Stderr, "%v: Go version %q is not in a vulnerable range, skipping symbol checks.\n", pkgPath, gover)
+			return nil, nil
+		}
+		if ver != p.VulnerableAt {
+			fmt.Fprintf(os.Stderr, "%v: WARNING: Go version %q does not match vulnerable_at version %q.\n", pkgPath, ver, p.VulnerableAt)
+		}
+	}
+
 	pkgs, err := loadPackage(&packages.Config{}, pkgPath)
 	if err != nil {
 		return nil, err
@@ -302,8 +339,14 @@ func findExportedSymbols(module, pkgPath string, c *reportClient) (_ []string, e
 	if pkgs[0].PkgPath != pkgPath {
 		return nil, fmt.Errorf("first package had import path %s, wanted %s", pkgs[0].PkgPath, pkgPath)
 	}
-	if pm := pkgs[0].Module; pm == nil || pm.Path != module {
-		return nil, fmt.Errorf("got module %v, expected %s", pm, module)
+	if std {
+		if pm := pkgs[0].Module; std && pm != nil {
+			return nil, fmt.Errorf("got module %v, expected nil", pm)
+		}
+	} else {
+		if pm := pkgs[0].Module; pm == nil || pm.Path != module {
+			return nil, fmt.Errorf("got module %v, expected %s", pm, module)
+		}
 	}
 	newsyms, err := exportedFunctions(pkgs, c)
 	if err != nil {
@@ -416,6 +459,35 @@ func loadPackage(cfg *packages.Config, importPath string) ([]*packages.Package, 
 		return nil, fmt.Errorf("packages.Load:\n%s", strings.Join(msgs, "\n"))
 	}
 	return pkgs, nil
+}
+
+func changeToTempDir() (cleanup func(), _ error) {
+	cwd, err := os.Getwd()
+	if err != nil {
+		return nil, err
+	}
+	dir, err := os.MkdirTemp("", "vulnreport")
+	if err != nil {
+		return nil, err
+	}
+	cleanup = func() {
+		os.Chdir(cwd)
+		os.RemoveAll(dir)
+	}
+	if err := os.Chdir(dir); err != nil {
+		cleanup()
+		return nil, err
+	}
+	return cleanup, err
+}
+
+func run(name string, arg ...string) error {
+	cmd := exec.Command(name, arg...)
+	out, err := cmd.CombinedOutput()
+	if err != nil {
+		os.Stderr.Write(out)
+	}
+	return err
 }
 
 // setDates sets the PublishedDate of the report at filename to the oldest

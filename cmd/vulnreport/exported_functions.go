@@ -6,7 +6,6 @@ package main
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"os"
 	"strings"
@@ -47,10 +46,7 @@ func (e *reportClient) GetByModule(ctx context.Context, m string) ([]*osv.Entry,
 func exportedFunctions(pkgs []*packages.Package, rc *reportClient) (_ map[string]bool, err error) {
 	defer derrors.Wrap(&err, "exportedFunctions(%q)", pkgs[0].PkgPath)
 
-	if pkgs[0].Module == nil {
-		return nil, errors.New("pkgs[0] is missing Module")
-	}
-	if !affected(rc.entry, pkgs[0].Module.Version) {
+	if pkgs[0].Module != nil && !affected(rc.entry, pkgs[0].Module.Version) {
 		fmt.Fprintf(os.Stderr, "version %s of module %s is not affected by this vuln\n",
 			pkgs[0].Module.Version, pkgs[0].Module.Path)
 		return map[string]bool{}, nil
