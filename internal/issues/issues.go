@@ -9,6 +9,7 @@ package issues
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/google/go-github/v41/github"
 	"golang.org/x/oauth2"
@@ -17,9 +18,10 @@ import (
 
 // An Issue represents a GitHub issue or similar.
 type Issue struct {
-	Title  string
-	Body   string
-	Labels []string
+	Title     string
+	Body      string
+	Labels    []string
+	CreatedAt time.Time
 }
 
 // Client is a client that can create and retrieve issues.
@@ -97,6 +99,9 @@ func (c *githubClient) GetIssue(ctx context.Context, number int) (_ *Issue, err 
 	}
 	if iss.Body != nil {
 		r.Body = *iss.Body
+	}
+	if iss.CreatedAt != nil {
+		r.CreatedAt = *iss.CreatedAt
 	}
 	return r, nil
 }

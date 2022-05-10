@@ -159,7 +159,11 @@ func create(ctx context.Context, issueNumber int, ghToken, issueRepo, repoPath s
 		return fmt.Errorf("expected last element of title to be the CVE ID or GHSA ID; got %q", iss.Title)
 	}
 	addTODOs(r)
-	return r.Write(fmt.Sprintf("reports/GO-2021-%04d.yaml", issueNumber))
+	var year int
+	if !iss.CreatedAt.IsZero() {
+		year = iss.CreatedAt.Year()
+	}
+	return r.Write(fmt.Sprintf("reports/GO-%04d-%04d.yaml", year, issueNumber))
 }
 
 const todo = "TODO: fill this out"
