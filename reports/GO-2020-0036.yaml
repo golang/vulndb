@@ -1,5 +1,13 @@
-module: gopkg.in/yaml.v2
-additional_packages:
+packages:
+  - module: gopkg.in/yaml.v2
+    symbols:
+      - yaml_parser_fetch_more_tokens
+    derived_symbols:
+      - Decoder.Decode
+      - Unmarshal
+      - UnmarshalStrict
+    versions:
+      - fixed: v2.2.8
   - module: github.com/go-yaml/yaml
     symbols:
       - yaml_parser_fetch_more_tokens
@@ -7,8 +15,6 @@ additional_packages:
       - Decoder.Decode
       - Unmarshal
       - UnmarshalStrict
-versions:
-  - fixed: v2.2.8
 description: |
     Due to unbounded aliasing, a crafted YAML file can cause consumption
     of significant system resources. If parsing user supplied input, this
@@ -18,12 +24,6 @@ cves:
   - CVE-2019-11254
 ghsas:
   - GHSA-wxc4-f4m6-wwqv
-symbols:
-  - yaml_parser_fetch_more_tokens
-derived_symbols:
-  - Decoder.Decode
-  - Unmarshal
-  - UnmarshalStrict
 links:
     pr: https://github.com/go-yaml/yaml/pull/555
     commit: https://github.com/go-yaml/yaml/commit/53403b58ad1b561927d19068c655246f2db79d48

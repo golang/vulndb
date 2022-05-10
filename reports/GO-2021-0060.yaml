@@ -1,6 +1,14 @@
-module: github.com/russellhaering/gosaml2
-versions:
-  - fixed: v0.6.0
+packages:
+  - module: github.com/russellhaering/gosaml2
+    symbols:
+      - parseResponse
+    derived_symbols:
+      - SAMLServiceProvider.RetrieveAssertionInfo
+      - SAMLServiceProvider.ValidateEncodedLogoutRequestPOST
+      - SAMLServiceProvider.ValidateEncodedLogoutResponsePOST
+      - SAMLServiceProvider.ValidateEncodedResponse
+    versions:
+      - fixed: v0.6.0
 description: |
     Due to the behavior of encoding/xml, a crafted XML document may cause
     XML Digital Signature validation to be entirely bypassed, causing an
@@ -11,13 +19,6 @@ cves:
 ghsas:
   - GHSA-xhqq-x44f-9fgg
 credit: Juho Nurminen
-symbols:
-  - parseResponse
-derived_symbols:
-  - SAMLServiceProvider.RetrieveAssertionInfo
-  - SAMLServiceProvider.ValidateEncodedLogoutRequestPOST
-  - SAMLServiceProvider.ValidateEncodedLogoutResponsePOST
-  - SAMLServiceProvider.ValidateEncodedResponse
 links:
     commit: https://github.com/russellhaering/gosaml2/commit/42606dafba60c58c458f14f75c4c230459672ab9
     context:

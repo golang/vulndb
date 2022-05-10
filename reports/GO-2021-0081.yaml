@@ -1,7 +1,10 @@
-module: github.com/containers/image
-package: github.com/containers/image/docker
-versions:
-  - fixed: v2.0.2-0.20190802080134-634605d06e73+incompatible
+packages:
+  - module: github.com/containers/image
+    package: github.com/containers/image/docker
+    symbols:
+      - dockerClient.getBearerToken
+    versions:
+      - fixed: v2.0.2-0.20190802080134-634605d06e73+incompatible
 description: |
     The HTTP client used to connect to the container registry authorization
     service explicitly disables TLS verification, allowing an attacker that
@@ -9,8 +12,8 @@ description: |
 published: 2021-04-14T20:04:52Z
 cves:
   - CVE-2019-10214
-symbols:
-  - dockerClient.getBearerToken
+ghsas:
+  - GHSA-85p9-j7c9-v4gr
 links:
     pr: https://github.com/containers/image/pull/669
     commit: https://github.com/containers/image/commit/634605d06e738aec8332bcfd69162e7509ac7aaf

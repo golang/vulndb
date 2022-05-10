@@ -1,7 +1,10 @@
-module: golang.org/x/crypto
-package: golang.org/x/crypto/ssh
-versions:
-  - fixed: v0.0.0-20170330155735-e4e2799dd7aa
+packages:
+  - module: golang.org/x/crypto
+    package: golang.org/x/crypto/ssh
+    symbols:
+      - NewClientConn
+    versions:
+      - fixed: v0.0.0-20170330155735-e4e2799dd7aa
 description: |
     By default host key verification is disabled which allows for
     man-in-the-middle attacks against SSH clients if
@@ -10,8 +13,6 @@ published: 2021-04-14T20:04:52Z
 cves:
   - CVE-2017-3204
 credit: Phil Pennock
-symbols:
-  - NewClientConn
 links:
     pr: https://go-review.googlesource.com/38701
     commit: https://go.googlesource.com/crypto/+/e4e2799dd7aab89f583e1d898300d96367750991

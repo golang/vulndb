@@ -166,11 +166,22 @@ const todo = "TODO: fill this out"
 
 // addTODOs adds "TODO" comments to unfilled fields of r.
 func addTODOs(r *report.Report) {
-	if r.Module == "" && !stdlib.Contains(r.Module) {
-		r.Module = todo
-	}
-	if r.Package == "" {
-		r.Package = todo
+	for _, p := range r.Packages {
+		if p.Module == "" && !stdlib.Contains(p.Module) {
+			p.Module = todo
+		}
+		if p.Package == "" {
+			p.Package = todo
+		}
+		if len(p.Versions) == 0 {
+			p.Versions = []report.VersionRange{{
+				Introduced: todo,
+				Fixed:      todo,
+			}}
+		}
+		if len(p.Symbols) == 0 {
+			p.Symbols = []string{todo}
+		}
 	}
 	if r.Description == "" {
 		r.Description = todo
@@ -189,15 +200,6 @@ func addTODOs(r *report.Report) {
 	}
 	if len(r.Links.Context) == 0 {
 		r.Links.Context = []string{todo}
-	}
-	if len(r.Versions) == 0 {
-		r.Versions = []report.VersionRange{{
-			Introduced: todo,
-			Fixed:      todo,
-		}}
-	}
-	if len(r.Symbols) == 0 {
-		r.Symbols = []string{todo}
 	}
 }
 
@@ -237,31 +239,23 @@ func fix(ctx context.Context, filename string, accessToken string) (err error) {
 }
 
 func addExportedReportSymbols(r *report.Report) (bool, error) {
-	if r.Module == "" || len(r.Symbols) == 0 {
-		return false, nil
-	}
 	if len(r.OS) > 0 || len(r.Arch) > 0 {
 		return false, errors.New("specific GOOS/GOARCH not yet implemented")
 	}
 	rc := newReportClient(r)
 	added := false
-	syms, err := findExportedSymbols(r.Module, r.Package, rc)
-	if err != nil {
-		return false, err
-	}
-	if len(syms) > 0 {
-		added = true
-		r.DerivedSymbols = syms
-	}
-	for i, ap := range r.AdditionalPackages {
-		syms, err := findExportedSymbols(ap.Module, ap.Package, rc)
+	for i, p := range r.Packages {
+		if len(p.Symbols) == 0 {
+			continue
+		}
+		syms, err := findExportedSymbols(p.Module, p.Package, rc)
 		if err != nil {
 			return false, err
 		}
 		if len(syms) > 0 {
 			added = true
-			// Need to start from r because r.AdditionalPackages is a slice of values.
-			r.AdditionalPackages[i].DerivedSymbols = syms
+			// Need to start from r because r.Packages is a slice of values.
+			r.Packages[i].DerivedSymbols = syms
 		}
 	}
 	return added, nil

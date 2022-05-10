@@ -1,6 +1,15 @@
-module: github.com/pion/dtls
-versions:
-  - fixed: v1.5.2
+packages:
+  - module: github.com/pion/dtls
+    symbols:
+      - Conn.handleIncomingPacket
+    derived_symbols:
+      - Client
+      - Dial
+      - Listener.Accept
+      - Resume
+      - Server
+    versions:
+      - fixed: v1.5.2
 description: |
     Due to improper verification of packets, unencrypted packets containing
     application data are accepted after the initial handshake. This allows
@@ -11,14 +20,6 @@ cves:
   - CVE-2019-20786
 ghsas:
   - GHSA-7gfg-6934-mqq2
-symbols:
-  - Conn.handleIncomingPacket
-derived_symbols:
-  - Client
-  - Dial
-  - Listener.Accept
-  - Resume
-  - Server
 links:
     pr: https://github.com/pion/dtls/pull/128
     commit: https://github.com/pion/dtls/commit/fd73a5df2ff0e1fb6ae6a51e2777d7a16cc4f4e0

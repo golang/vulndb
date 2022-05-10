@@ -1,6 +1,9 @@
-module: github.com/AndrewBurian/powermux
-versions:
-  - fixed: v1.1.1
+packages:
+  - module: github.com/AndrewBurian/powermux
+    symbols:
+      - Route.execute
+    versions:
+      - fixed: v1.1.1
 description: |
     Attackers may be able to craft phishing links and other open
     redirects by exploiting PowerMux's trailing slash redirection
@@ -11,8 +14,6 @@ cves:
   - CVE-2021-32721
 ghsas:
   - GHSA-mj9r-wwm8-7q52
-symbols:
-  - Route.execute
 links:
     pr: https://github.com/AndrewBurian/powermux/pull/42
     commit: https://github.com/AndrewBurian/powermux/commit/5e60a8a0372b35a898796c2697c40e8daabed8e9

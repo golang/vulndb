@@ -1,8 +1,11 @@
-module: github.com/ethereum/go-ethereum
-package: github.com/ethereum/go-ethereum/core
-versions:
-  - introduced: v1.9.4
-  - fixed: v1.9.20
+packages:
+  - module: github.com/ethereum/go-ethereum
+    package: github.com/ethereum/go-ethereum/core
+    symbols:
+      - StateDB.createObject
+    versions:
+      - introduced: v1.9.4
+      - fixed: v1.9.20
 description: |
     Due to an incorrect state calculation, a specific set of transactions could cause a consensus disagreement,
     causing users of this package to reject a canonical chain.
@@ -12,8 +15,6 @@ cves:
 ghsas:
   - GHSA-xw37-57qp-9mm4
 credit: John Youngseok Yang (Software Platform Lab)
-symbols:
-  - StateDB.createObject
 links:
     pr: https://github.com/ethereum/go-ethereum/pull/21080
     commit: https://github.com/ethereum/go-ethereum/commit/87c0ba92136a75db0ab2aba1046d4a9860375d6a

@@ -1,6 +1,7 @@
-module: github.com/gogo/protobuf
-versions:
-  - fixed: v1.3.2
+packages:
+  - module: github.com/gogo/protobuf
+    versions:
+      - fixed: v1.3.2
 description: |
     Due to improper bounds checking, maliciously crafted input to generated
     Unmarshal methods can cause an out-of-bounds panic. If parsing messages
@@ -8,5 +9,7 @@ description: |
 published: 2021-04-14T20:04:52Z
 cves:
   - CVE-2021-3121
+ghsas:
+  - GHSA-c3h9-896r-86jm
 links:
     commit: https://github.com/gogo/protobuf/commit/b03c65ea87cdc3521ede29f62fe3ce239267c1bc

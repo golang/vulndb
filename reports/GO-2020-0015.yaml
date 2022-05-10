@@ -1,14 +1,18 @@
-module: golang.org/x/text
-package: golang.org/x/text/encoding/unicode
-additional_packages:
+packages:
+  - module: golang.org/x/text
+    package: golang.org/x/text/encoding/unicode
+    symbols:
+      - utf16Decoder.Transform
+    derived_symbols:
+      - bomOverride.Transform
+    versions:
+      - fixed: v0.3.3
   - module: golang.org/x/text
     package: golang.org/x/text/transform
     symbols:
       - Transform
     versions:
       - fixed: v0.3.3
-versions:
-  - fixed: v0.3.3
 description: |
     An attacker could provide a single byte to a UTF16 decoder instantiated with
     UseBOM or ExpectBOM to trigger an infinite loop if the String function on
@@ -22,10 +26,6 @@ cves:
 ghsas:
   - GHSA-5rcv-m4m3-hfh7
 credit: '@abacabadabacaba and Anton Gyllenberg'
-symbols:
-  - utf16Decoder.Transform
-derived_symbols:
-  - bomOverride.Transform
 links:
     pr: https://go-review.googlesource.com/c/text/+/238238
     commit: https://go.googlesource.com/text/+/23ae387dee1f90d29a23c0e87ee0b46038fbed0e

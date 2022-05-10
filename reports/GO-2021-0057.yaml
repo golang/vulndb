@@ -1,6 +1,30 @@
-module: github.com/buger/jsonparser
-versions:
-  - fixed: v1.1.1
+packages:
+  - module: github.com/buger/jsonparser
+    symbols:
+      - searchKeys
+    derived_symbols:
+      - ArrayEach
+      - Delete
+      - EachKey
+      - FuzzDelete
+      - FuzzEachKey
+      - FuzzGetBoolean
+      - FuzzGetFloat
+      - FuzzGetInt
+      - FuzzGetString
+      - FuzzGetUnsafeString
+      - FuzzObjectEach
+      - FuzzSet
+      - Get
+      - GetBoolean
+      - GetFloat
+      - GetInt
+      - GetString
+      - GetUnsafeString
+      - ObjectEach
+      - Set
+    versions:
+      - fixed: v1.1.1
 description: |
     Due to improper bounds checking, maliciously crafted JSON objects
     can cause an out-of-bounds panic. If parsing user input, this may
@@ -9,29 +33,6 @@ published: 2021-04-14T20:04:52Z
 cves:
   - CVE-2020-35381
 credit: '@toptotu'
-symbols:
-  - searchKeys
-derived_symbols:
-  - ArrayEach
-  - Delete
-  - EachKey
-  - FuzzDelete
-  - FuzzEachKey
-  - FuzzGetBoolean
-  - FuzzGetFloat
-  - FuzzGetInt
-  - FuzzGetString
-  - FuzzGetUnsafeString
-  - FuzzObjectEach
-  - FuzzSet
-  - Get
-  - GetBoolean
-  - GetFloat
-  - GetInt
-  - GetString
-  - GetUnsafeString
-  - ObjectEach
-  - Set
 links:
     pr: https://github.com/buger/jsonparser/pull/221
     commit: https://github.com/buger/jsonparser/commit/df3ea76ece10095374fd1c9a22a4fb85a44efc42

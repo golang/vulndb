@@ -1,6 +1,13 @@
-module: std
-package: net/http/cgi
-additional_packages:
+packages:
+  - module: std
+    package: net/http/cgi
+    symbols:
+      - response.Write
+      - response.WriteHeader
+      - response.writeCGIHeader
+    versions:
+      - fixed: go1.14.8
+      - fixed: go1.15.1
   - module: std
     package: net/http/fcgi
     symbols:
@@ -10,9 +17,6 @@ additional_packages:
     versions:
       - fixed: go1.14.8
       - fixed: go1.15.1
-versions:
-  - fixed: go1.14.8
-  - fixed: go1.15.1
 description: |
     When a Handler does not explicitly set the Content-Type header, the the
     package would default to “text/html”, which could cause a Cross-Site Scripting
@@ -30,10 +34,6 @@ published: 2022-01-13T03:44:58Z
 cves:
   - CVE-2020-24553
 credit: RedTeam Pentesting GmbH
-symbols:
-  - response.Write
-  - response.WriteHeader
-  - response.writeCGIHeader
 links:
     pr: https://go.dev/cl/252179
     commit: https://go.googlesource.com/go/+/4f5cd0c0331943c7ec72df3b827d972584f77833

@@ -1,14 +1,15 @@
-module: github.com/labstack/echo/v4
-versions:
-  - fixed: v4.1.18-0.20201215153152-4422e3b66b9f
+packages:
+  - module: github.com/labstack/echo/v4
+    symbols:
+      - common.static
+    versions:
+      - fixed: v4.1.18-0.20201215153152-4422e3b66b9f
 description: |
     Due to improper sanitization of user input on Windows, the static file handler
     allows for directory traversal, allowing an attacker to read files outside of
     the target directory that the server has permission to read.
 published: 2021-04-14T20:04:52Z
 credit: '@little-cui (Apache ServiceComb)'
-symbols:
-  - common.static
 os:
   - windows
 links:

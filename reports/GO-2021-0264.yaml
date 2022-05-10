@@ -1,8 +1,12 @@
-module: std
-package: archive/zip
-versions:
-  - fixed: go1.16.10
-  - fixed: go1.17.3
+packages:
+  - module: std
+    package: archive/zip
+    symbols:
+      - split
+      - Reader.Open
+    versions:
+      - fixed: go1.16.10
+      - fixed: go1.17.3
 description: |
     Previously, opening a zip with (*Reader).Open could result in a panic if the
     zip contained a file whose name was exclusively made up of slash characters or
@@ -24,9 +28,6 @@ cves:
   - CVE-2021-41772
 credit: Colin Arnott, SiteHost and Noah Santschi-Cooney, Sourcegraph Code Intelligence
     Team
-symbols:
-  - split
-  - Reader.Open
 links:
     pr: https://go.dev/cl/349770
     commit: https://go.googlesource.com/go/+/b24687394b55a93449e2be4e6892ead58ea9a10f

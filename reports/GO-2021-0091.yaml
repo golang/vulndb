@@ -1,6 +1,9 @@
-module: github.com/gofiber/fiber
-versions:
-  - fixed: v1.12.6-0.20200710202935-a8ad5454363f
+packages:
+  - module: github.com/gofiber/fiber
+    symbols:
+      - Ctx.Attachment
+    versions:
+      - fixed: v1.12.6-0.20200710202935-a8ad5454363f
 description: |
     Due to improper input validation when uploading a file, a malicious user may
     force the server to return arbitrary HTTP headers when the uploaded
@@ -11,8 +14,6 @@ cves:
 ghsas:
   - GHSA-9cx9-x2gp-9qvh
 credit: Hasibul Hasan and Abdullah Shaleh
-symbols:
-  - Ctx.Attachment
 links:
     pr: github.com/gofiber/fiber/pull/579
     commit: https://github.com/gofiber/fiber/commit/a8ad5454363f627c3f9469c56c5faaf1b943f06a

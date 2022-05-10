@@ -1,7 +1,11 @@
-module: std
-package: net/textproto
-versions:
-  - fixed: go1.4.3
+packages:
+  - module: std
+    package: net/textproto
+    symbols:
+      - CanonicalMIMEHeaderKey
+      - canonicalMIMEHeaderKey
+    versions:
+      - fixed: go1.4.3
 description: |
     The MIME header parser treated spaces and hyphens
     as equivalent, which can permit HTTP request smuggling.
@@ -9,9 +13,6 @@ published: 2022-01-05T20:00:00Z
 cves:
   - CVE-2015-5739
 credit: Régis Leroy
-symbols:
-  - CanonicalMIMEHeaderKey
-  - canonicalMIMEHeaderKey
 links:
     pr: https://go.dev/cl/11772
     commit: https://go.googlesource.com/go/+/117ddcb83d7f42d6aa72241240af99ded81118e9

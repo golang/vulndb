@@ -1,6 +1,10 @@
-module: github.com/git-lfs/git-lfs
-package: github.com/git-lfs/git-lfs/commands
-additional_packages:
+packages:
+  - module: github.com/git-lfs/git-lfs
+    package: github.com/git-lfs/git-lfs/commands
+    symbols:
+      - PipeCommand
+    versions:
+      - fixed: v1.5.1-0.20210113180018-fc664697ed2c
   - module: github.com/git-lfs/git-lfs
     package: github.com/git-lfs/git-lfs/creds
     symbols:
@@ -20,8 +24,6 @@ additional_packages:
       - sshAuthClient.Resolve
     versions:
       - fixed: v1.5.1-0.20210113180018-fc664697ed2c
-versions:
-  - fixed: v1.5.1-0.20210113180018-fc664697ed2c
 description: |
     Due to the standard library behavior of exec.LookPath on Windows a number of methods may
     result in arbitrary code execution when cloning or operating on untrusted Git repositories.
@@ -31,8 +33,6 @@ cves:
 ghsas:
   - GHSA-cx3w-xqmc-84g5
 credit: '@Ry0taK'
-symbols:
-  - PipeCommand
 os:
   - windows
 links:

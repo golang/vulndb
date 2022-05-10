@@ -1,7 +1,86 @@
-module: go.mongodb.org/mongo-driver
-package: go.mongodb.org/mongo-driver/x/bsonx/bsoncore
-versions:
-  - fixed: v1.5.1
+packages:
+  - module: go.mongodb.org/mongo-driver
+    package: go.mongodb.org/mongo-driver/x/bsonx/bsoncore
+    symbols:
+      - AppendHeader
+      - AppendRegex
+    derived_symbols:
+      - AppendArrayElement
+      - AppendArrayElementStart
+      - AppendBinaryElement
+      - AppendBooleanElement
+      - AppendCodeWithScopeElement
+      - AppendDBPointerElement
+      - AppendDateTimeElement
+      - AppendDecimal128Element
+      - AppendDocumentElement
+      - AppendDocumentElementStart
+      - AppendDoubleElement
+      - AppendInt32Element
+      - AppendInt64Element
+      - AppendJavaScriptElement
+      - AppendMaxKeyElement
+      - AppendMinKeyElement
+      - AppendNullElement
+      - AppendObjectIDElement
+      - AppendRegexElement
+      - AppendStringElement
+      - AppendSymbolElement
+      - AppendTimeElement
+      - AppendTimestampElement
+      - AppendUndefinedElement
+      - AppendValueElement
+      - ArrayBuilder.AppendArray
+      - ArrayBuilder.AppendBinary
+      - ArrayBuilder.AppendBoolean
+      - ArrayBuilder.AppendCodeWithScope
+      - ArrayBuilder.AppendDBPointer
+      - ArrayBuilder.AppendDateTime
+      - ArrayBuilder.AppendDecimal128
+      - ArrayBuilder.AppendDocument
+      - ArrayBuilder.AppendDouble
+      - ArrayBuilder.AppendInt32
+      - ArrayBuilder.AppendInt64
+      - ArrayBuilder.AppendJavaScript
+      - ArrayBuilder.AppendMaxKey
+      - ArrayBuilder.AppendMinKey
+      - ArrayBuilder.AppendNull
+      - ArrayBuilder.AppendObjectID
+      - ArrayBuilder.AppendRegex
+      - ArrayBuilder.AppendString
+      - ArrayBuilder.AppendSymbol
+      - ArrayBuilder.AppendTimestamp
+      - ArrayBuilder.AppendUndefined
+      - ArrayBuilder.AppendValue
+      - ArrayBuilder.StartArray
+      - BuildArray
+      - BuildArrayElement
+      - BuildDocumentElement
+      - DocumentBuilder.AppendArray
+      - DocumentBuilder.AppendBinary
+      - DocumentBuilder.AppendBoolean
+      - DocumentBuilder.AppendCodeWithScope
+      - DocumentBuilder.AppendDBPointer
+      - DocumentBuilder.AppendDateTime
+      - DocumentBuilder.AppendDecimal128
+      - DocumentBuilder.AppendDocument
+      - DocumentBuilder.AppendDouble
+      - DocumentBuilder.AppendInt32
+      - DocumentBuilder.AppendInt64
+      - DocumentBuilder.AppendJavaScript
+      - DocumentBuilder.AppendMaxKey
+      - DocumentBuilder.AppendMinKey
+      - DocumentBuilder.AppendNull
+      - DocumentBuilder.AppendObjectID
+      - DocumentBuilder.AppendRegex
+      - DocumentBuilder.AppendString
+      - DocumentBuilder.AppendSymbol
+      - DocumentBuilder.AppendTimestamp
+      - DocumentBuilder.AppendUndefined
+      - DocumentBuilder.AppendValue
+      - DocumentBuilder.StartDocument
+    versions:
+      - fixed: v1.5.1
 description: |
     Due to improper input sanitization when marshalling Go objects into BSON, a maliciously constructed
     Go structure could allow an attacker to inject additional fields into a MongoDB document. Users are
@@ -11,84 +90,6 @@ cves:
   - CVE-2021-20329
 ghsas:
   - GHSA-f6mq-5m25-4r72
-symbols:
-  - AppendHeader
-  - AppendRegex
-derived_symbols:
-  - AppendArrayElement
-  - AppendArrayElementStart
-  - AppendBinaryElement
-  - AppendBooleanElement
-  - AppendCodeWithScopeElement
-  - AppendDBPointerElement
-  - AppendDateTimeElement
-  - AppendDecimal128Element
-  - AppendDocumentElement
-  - AppendDocumentElementStart
-  - AppendDoubleElement
-  - AppendInt32Element
-  - AppendInt64Element
-  - AppendJavaScriptElement
-  - AppendMaxKeyElement
-  - AppendMinKeyElement
-  - AppendNullElement
-  - AppendObjectIDElement
-  - AppendRegexElement
-  - AppendStringElement
-  - AppendSymbolElement
-  - AppendTimeElement
-  - AppendTimestampElement
-  - AppendUndefinedElement
-  - AppendValueElement
-  - ArrayBuilder.AppendArray
-  - ArrayBuilder.AppendBinary
-  - ArrayBuilder.AppendBoolean
-  - ArrayBuilder.AppendCodeWithScope
-  - ArrayBuilder.AppendDBPointer
-  - ArrayBuilder.AppendDateTime
-  - ArrayBuilder.AppendDecimal128
-  - ArrayBuilder.AppendDocument
-  - ArrayBuilder.AppendDouble
-  - ArrayBuilder.AppendInt32
-  - ArrayBuilder.AppendInt64
-  - ArrayBuilder.AppendJavaScript
-  - ArrayBuilder.AppendMaxKey
-  - ArrayBuilder.AppendMinKey
-  - ArrayBuilder.AppendNull
-  - ArrayBuilder.AppendObjectID
-  - ArrayBuilder.AppendRegex
-  - ArrayBuilder.AppendString
-  - ArrayBuilder.AppendSymbol
-  - ArrayBuilder.AppendTimestamp
-  - ArrayBuilder.AppendUndefined
-  - ArrayBuilder.AppendValue
-  - ArrayBuilder.StartArray
-  - BuildArray
-  - BuildArrayElement
-  - BuildDocumentElement
-  - DocumentBuilder.AppendArray
-  - DocumentBuilder.AppendBinary
-  - DocumentBuilder.AppendBoolean
-  - DocumentBuilder.AppendCodeWithScope
-  - DocumentBuilder.AppendDBPointer
-  - DocumentBuilder.AppendDateTime
-  - DocumentBuilder.AppendDecimal128
-  - DocumentBuilder.AppendDocument
-  - DocumentBuilder.AppendDouble
-  - DocumentBuilder.AppendInt32
-  - DocumentBuilder.AppendInt64
-  - DocumentBuilder.AppendJavaScript
-  - DocumentBuilder.AppendMaxKey
-  - DocumentBuilder.AppendMinKey
-  - DocumentBuilder.AppendNull
-  - DocumentBuilder.AppendObjectID
-  - DocumentBuilder.AppendRegex
-  - DocumentBuilder.AppendString
-  - DocumentBuilder.AppendSymbol
-  - DocumentBuilder.AppendTimestamp
-  - DocumentBuilder.AppendUndefined
-  - DocumentBuilder.AppendValue
-  - DocumentBuilder.StartDocument
 links:
     pr: https://github.com/mongodb/mongo-go-driver/pull/622
     commit: https://github.com/mongodb/mongo-go-driver/commit/2aca31d5986a9e1c65a92264736de9fdc3b9b4ca

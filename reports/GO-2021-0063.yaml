@@ -1,7 +1,12 @@
-module: github.com/ethereum/go-ethereum
-package: github.com/ethereum/go-ethereum/les
-versions:
-  - fixed: v1.9.25
+packages:
+  - module: github.com/ethereum/go-ethereum
+    package: github.com/ethereum/go-ethereum/les
+    symbols:
+      - serverHandler.handleMsg
+    derived_symbols:
+      - PrivateLightServerAPI.Benchmark
+    versions:
+      - fixed: v1.9.25
 description: |
     Due to a nil pointer dereference, a malicously crafted RPC message
     can cause a panic. If handling RPC messages from untrusted clients,
@@ -12,10 +17,6 @@ cves:
 ghsas:
   - GHSA-r33q-22hv-j29q
 credit: '@zsfelfoldi'
-symbols:
-  - serverHandler.handleMsg
-derived_symbols:
-  - PrivateLightServerAPI.Benchmark
 links:
     pr: https://github.com/ethereum/go-ethereum/pull/21896
     commit: https://github.com/ethereum/go-ethereum/commit/bddd103a9f0af27ef533f04e06ea429cf76b6d46

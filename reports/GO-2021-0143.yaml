@@ -1,6 +1,12 @@
-module: std
-package: net/http/cgi
-additional_packages:
+packages:
+  - module: std
+    package: net/http/cgi
+    symbols:
+      - response.Write
+    versions:
+      - fixed: go1.14.8
+      - fixed: go1.15.1
+      - fixed: go1.16.0
   - module: std
     package: net/http/fcgi
     symbols:
@@ -9,10 +15,6 @@ additional_packages:
       - fixed: go1.14.8
       - fixed: go1.15.1
       - fixed: go1.16.0
-versions:
-  - fixed: go1.14.8
-  - fixed: go1.15.1
-  - fixed: go1.16.0
 description: |
     When a Handler does not explicitly set the Content-Type header,
     the net/http/cgi and net/http/fcgi packages default to "text/html",
@@ -22,8 +24,6 @@ published: 2022-02-17T18:15:47Z
 cves:
   - CVE-2020-24553
 credit: RedTeam Pentesting GmbH
-symbols:
-  - response.Write
 links:
     pr: https://go.dev/cl/252179
     commit: https://go.googlesource.com/go/+/4f5cd0c0331943c7ec72df3b827d972584f77833

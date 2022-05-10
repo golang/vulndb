@@ -1,7 +1,10 @@
-module: github.com/git-lfs/git-lfs
-package: github.com/git-lfs/git-lfs/lfsapi
-versions:
-  - fixed: v2.1.1-0.20170519163204-f913f5f9c7c6+incompatible
+packages:
+  - module: github.com/git-lfs/git-lfs
+    package: github.com/git-lfs/git-lfs/lfsapi
+    symbols:
+      - sshGetLFSExeAndArgs
+    versions:
+      - fixed: v2.1.1-0.20170519163204-f913f5f9c7c6+incompatible
 description: |
     Arbitrary command execution can be triggered by improperly
     sanitized SSH URLs in LFS configuration files. This can be
@@ -9,8 +12,6 @@ description: |
 published: 2021-04-14T20:04:52Z
 cves:
   - CVE-2017-17831
-symbols:
-  - sshGetLFSExeAndArgs
 links:
     pr: https://github.com/git-lfs/git-lfs/pull/2241
     commit: https://github.com/git-lfs/git-lfs/commit/f913f5f9c7c6d1301785fdf9884a2942d59cdf19

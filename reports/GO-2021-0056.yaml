@@ -1,7 +1,10 @@
-module: github.com/dexidp/dex
-package: github.com/dexidp/dex/connector/saml
-versions:
-  - fixed: v0.0.0-20201214082111-324b1c886b40
+packages:
+  - module: github.com/dexidp/dex
+    package: github.com/dexidp/dex/connector/saml
+    symbols:
+      - provider.HandlePOST
+    versions:
+      - fixed: v0.0.0-20201214082111-324b1c886b40
 description: |
     Due to the behavior of encoding/xml, a crafted XML document may cause
     XML Digital Signature validation to be entirely bypassed, causing an
@@ -12,8 +15,6 @@ cves:
 ghsas:
   - GHSA-q547-gmf8-8jr7
 credit: Juho Nurminen (Mattermost)
-symbols:
-  - provider.HandlePOST
 links:
     commit: https://github.com/dexidp/dex/commit/324b1c886b407594196113a3dbddebe38eecd4e8
     context:

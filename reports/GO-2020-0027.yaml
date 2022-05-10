@@ -1,12 +1,16 @@
-module: github.com/google/fscrypt
-package: github.com/google/fscrypt/pam
-additional_packages:
+packages:
+  - module: github.com/google/fscrypt
+    package: github.com/google/fscrypt/pam
+    symbols:
+      - NewHandle
+      - SetProcessPrivileges
+      - Handle.StopAsPamUser
+    versions:
+      - fixed: v0.2.4
   - module: github.com/google/fscrypt
     package: github.com/google/fscrypt/security
     symbols:
       - UserKeyringID
-versions:
-  - fixed: v0.2.4
 description: |
     After dropping and then elevating process privileges euid, guid, and groups
     are not properly restored to their original values, allowing an unprivileged
@@ -16,10 +20,6 @@ cves:
   - CVE-2018-6558
 ghsas:
   - GHSA-qj26-7grj-whg3
-symbols:
-  - NewHandle
-  - SetProcessPrivileges
-  - Handle.StopAsPamUser
 links:
     commit: https://github.com/google/fscrypt/commit/3022c1603d968c22f147b4a2c49c4637dd1be91b
     context:

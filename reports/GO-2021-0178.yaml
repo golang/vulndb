@@ -1,10 +1,13 @@
-module: std
-package: net/smtp
-versions:
-  - introduced: go1.1
-    fixed: go1.8.4
-  - introduced: go1.1
-    fixed: go1.9.1
+packages:
+  - module: std
+    package: net/smtp
+    symbols:
+      - plainAuth.Start
+    versions:
+      - introduced: go1.1
+        fixed: go1.8.4
+      - introduced: go1.1
+        fixed: go1.9.1
 description: |
     SMTP clients using net/smtp can use the PLAIN authentication scheme on
     network connections not secured with TLS, exposing passwords to
@@ -13,8 +16,6 @@ published: 2022-01-07T20:35:00Z
 cves:
   - CVE-2017-15042
 credit: Stevie Johnstone
-symbols:
-  - plainAuth.Start
 links:
     pr: https://go.dev/cl/68170
     commit: https://go.googlesource.com/go/+/ec3b6131de8f9c9c25283260c95c616c74f6d790

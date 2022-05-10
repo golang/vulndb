@@ -1,6 +1,12 @@
-module: github.com/dhowden/tag
-versions:
-  - fixed: v0.0.0-20201120070457-d52dcb253c63
+packages:
+  - module: github.com/dhowden/tag
+    symbols:
+      - readPICFrame
+      - readAPICFrame
+      - readTextWithDescrFrame
+      - readAtomData
+    versions:
+      - fixed: v0.0.0-20201120070457-d52dcb253c63
 description: |
     Due to improper bounds checking, a number of methods can trigger a panic due to attempted
     out-of-bounds reads. If the package is used to parse user supplied input, this may be
@@ -12,11 +18,6 @@ cves:
   - CVE-2020-29244
   - CVE-2020-29245
 credit: '@Jayl1n'
-symbols:
-  - readPICFrame
-  - readAPICFrame
-  - readTextWithDescrFrame
-  - readAtomData
 links:
     commit: https://github.com/dhowden/tag/commit/d52dcb253c63a153632bfee5f269dd411dcd8e96
     context:

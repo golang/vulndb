@@ -1,9 +1,16 @@
-module: std
-package: net
-versions:
-  - fixed: go1.15.13
-  - fixed: go1.16.5
-  - fixed: go1.17
+packages:
+  - module: std
+    package: net
+    symbols:
+      - Resolver.LookupAddr
+      - Resolver.LookupCNAME
+      - Resolver.LookupMX
+      - Resolver.LookupNS
+      - Resolver.LookupSRV
+    versions:
+      - fixed: go1.15.13
+      - fixed: go1.16.5
+      - fixed: go1.17
 description: |
     The LookupCNAME, LookupSRV, LookupMX, LookupNS, and LookupAddr
     functions and their respective methods on the Resolver type may
@@ -17,12 +24,6 @@ published: 2022-02-17T17:33:35Z
 cves:
   - CVE-2021-33195
 credit: Philipp Jeitner and Haya Shulman from Fraunhofer SIT
-symbols:
-  - Resolver.LookupAddr
-  - Resolver.LookupCNAME
-  - Resolver.LookupMX
-  - Resolver.LookupNS
-  - Resolver.LookupSRV
 links:
     pr: https://go.dev/cl/320949
     commit: https://go.googlesource.com/go/+/c89f1224a544cde464fcb86e78ebb0cc97eedba2

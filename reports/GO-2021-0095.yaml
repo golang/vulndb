@@ -1,7 +1,10 @@
-module: github.com/google/go-tpm
-package: github.com/google/go-tpm/tpm
-versions:
-  - fixed: v0.3.0
+packages:
+  - module: github.com/google/go-tpm
+    package: github.com/google/go-tpm/tpm
+    symbols:
+      - CreateWrapKey
+    versions:
+      - fixed: v0.3.0
 description: |
     Due to repeated usage of a XOR key an attacker that can eavesdrop on the TPM 1.2 transport
     is able to calculate usageAuth for keys created using CreateWrapKey, despite it being encrypted,
@@ -12,8 +15,6 @@ cves:
 ghsas:
   - GHSA-5x29-3hr9-6wpw
 credit: Chris Fenner
-symbols:
-  - CreateWrapKey
 links:
     pr: https://github.com/google/go-tpm/pull/195
     commit: https://github.com/google/go-tpm/commit/d7806cce857a1a020190c03348e5361725d8f141

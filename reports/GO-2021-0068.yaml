@@ -1,9 +1,10 @@
-module: std
-package: cmd/go
 do_not_export: true
-versions:
-  - fixed: go1.14.14
-  - fixed: go1.15.7
+packages:
+  - module: std
+    package: cmd/go
+    versions:
+      - fixed: go1.14.14
+      - fixed: go1.15.7
 description: |
     The go command may execute arbitrary code at build time when using cgo on Windows.
     This can be triggered by running go get on a malicious module, or any other time

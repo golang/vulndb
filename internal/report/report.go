@@ -22,7 +22,7 @@ type VersionRange struct {
 	Fixed      string `yaml:"fixed,omitempty"`
 }
 
-type Additional struct {
+type Package struct {
 	Module  string `yaml:",omitempty"`
 	Package string `yaml:",omitempty"`
 	// Symbols originally identified as vulnerable.
@@ -46,20 +46,14 @@ type CVEMeta struct {
 }
 
 type Report struct {
-	Module  string `yaml:",omitempty"`
-	Package string `yaml:",omitempty"`
 	// TODO: could also be GoToolchain, but we might want
 	// this for other things?
 	//
 	// could we also automate this by just looking for
 	// things prefixed with cmd/go?
 	DoNotExport bool `yaml:"do_not_export,omitempty"`
-	// TODO: the most common usage of additional package should
-	// really be replaced with 'aliases', we'll still need
-	// additional packages for some cases, but it's too heavy
-	// for most
-	AdditionalPackages []Additional   `yaml:"additional_packages,omitempty"`
-	Versions           []VersionRange `yaml:"versions,omitempty"`
+
+	Packages []Package `yaml:"packages,omitempty"`
 
 	// Description is the CVE description from an existing CVE. If we are
 	// assigning a CVE ID ourselves, use CVEMetadata.Description instead.
@@ -75,15 +69,10 @@ type Report struct {
 	// the above CVEs.
 	GHSAs []string `yaml:",omitempty"`
 
-	Credit string `yaml:",omitempty"`
-	// Symbols originally identified as vulnerable.
-	Symbols []string `yaml:",omitempty"`
-	// Additional vulnerable symbols, computed from Symbols via static analysis
-	// or other technique.
-	DerivedSymbols []string `yaml:"derived_symbols,omitempty"`
-	OS             []string `yaml:",omitempty"`
-	Arch           []string `yaml:",omitempty"`
-	Links          Links    `yaml:",omitempty"`
+	Credit string   `yaml:",omitempty"`
+	OS     []string `yaml:",omitempty"`
+	Arch   []string `yaml:",omitempty"`
+	Links  Links    `yaml:",omitempty"`
 
 	// CVEMetdata is used to capture CVE information when we want to assign a
 	// CVE ourselves. If a CVE already exists for an issue, use the CVE field
@@ -92,12 +81,7 @@ type Report struct {
 }
 
 // AllSymbols returns both original and derived symbols.
-func (r *Report) AllSymbols() []string {
-	return append(append([]string(nil), r.Symbols...), r.DerivedSymbols...)
-}
-
-// AllSymbols returns both original and derived symbols.
-func (a *Additional) AllSymbols() []string {
+func (a *Package) AllSymbols() []string {
 	return append(append([]string(nil), a.Symbols...), a.DerivedSymbols...)
 }
 

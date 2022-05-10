@@ -1,9 +1,12 @@
-module: std
-package: crypto/elliptic
-versions:
-  - fixed: go1.14.14
-  - fixed: go1.15.7
-  - fixed: go1.16.0
+packages:
+  - module: std
+    package: crypto/elliptic
+    symbols:
+      - p224Contract
+    versions:
+      - fixed: go1.14.14
+      - fixed: go1.15.7
+      - fixed: go1.16.0
 description: |
     The P224() Curve implementation can in rare circumstances generate
     incorrect outputs, including returning invalid points from
@@ -14,8 +17,6 @@ cves:
 credit: |
     the elliptic-curve-differential-fuzzer project running on OSS-Fuzz
     and reported by Philippe Antoine (Catena cyber)
-symbols:
-  - p224Contract
 links:
     pr: https://go.dev/cl/284779
     commit: https://go.googlesource.com/go/+/d95ca9138026cbe40e0857d76a81a16d03230871

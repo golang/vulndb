@@ -1,7 +1,12 @@
-module: github.com/mholt/caddy
-package: github.com/mholt/caddy/caddyhttp/httpserver
-versions:
-  - fixed: v0.10.13
+packages:
+  - module: github.com/mholt/caddy
+    package: github.com/mholt/caddy/caddyhttp/httpserver
+    symbols:
+      - httpContext.MakeServers
+      - Server.serveHTTP
+      - assertConfigsCompatible
+    versions:
+      - fixed: v0.10.13
 description: |
     Due to improper TLS verification when serving traffic for multiple
     SNIs, an attacker may bypass TLS client authentication by indicating
@@ -10,10 +15,6 @@ description: |
 published: 2021-04-14T20:04:52Z
 cves:
   - CVE-2018-21246
-symbols:
-  - httpContext.MakeServers
-  - Server.serveHTTP
-  - assertConfigsCompatible
 links:
     pr: https://github.com/caddyserver/caddy/pull/2099
     commit: https://github.com/caddyserver/caddy/commit/4d9ee000c8d2cbcdd8284007c1e0f2da7bc3c7c3

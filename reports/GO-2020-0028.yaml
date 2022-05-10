@@ -1,6 +1,12 @@
-module: github.com/miekg/dns
-versions:
-  - fixed: v1.0.10
+packages:
+  - module: github.com/miekg/dns
+    symbols:
+      - setTA
+    derived_symbols:
+      - ParseZone
+      - ReadRR
+    versions:
+      - fixed: v1.0.10
 description: |
     Due to a nil pointer dereference, parsing a malformed zone file
     containing TA records may cause a panic. If parsing user supplied
@@ -11,11 +17,6 @@ cves:
 ghsas:
   - GHSA-9jcx-pr2f-qvq5
 credit: '@tr3ee'
-symbols:
-  - setTA
-derived_symbols:
-  - ParseZone
-  - ReadRR
 links:
     commit: https://github.com/miekg/dns/commit/501e858f679edecd4a38a86317ce50271014a80d
     context:

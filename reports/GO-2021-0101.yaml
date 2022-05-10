@@ -1,8 +1,58 @@
-module: github.com/apache/thrift
-package: github.com/apache/thrift/lib/go/thrift
-versions:
-  - introduced: v0.0.0-20151001171628-53dd39833a08
-  - fixed: v0.13.0
+packages:
+  - module: github.com/apache/thrift
+    package: github.com/apache/thrift/lib/go/thrift
+    symbols:
+      - TSimpleJSONProtocol.safePeekContains
+    derived_symbols:
+      - Skip
+      - SkipDefaultDepth
+      - TJSONProtocol.ParseElemListBegin
+      - TJSONProtocol.ReadBool
+      - TJSONProtocol.ReadByte
+      - TJSONProtocol.ReadDouble
+      - TJSONProtocol.ReadFieldBegin
+      - TJSONProtocol.ReadFieldEnd
+      - TJSONProtocol.ReadI16
+      - TJSONProtocol.ReadI32
+      - TJSONProtocol.ReadI64
+      - TJSONProtocol.ReadListBegin
+      - TJSONProtocol.ReadListEnd
+      - TJSONProtocol.ReadMapBegin
+      - TJSONProtocol.ReadMapEnd
+      - TJSONProtocol.ReadMessageBegin
+      - TJSONProtocol.ReadMessageEnd
+      - TJSONProtocol.ReadSetBegin
+      - TJSONProtocol.ReadSetEnd
+      - TJSONProtocol.ReadStructBegin
+      - TJSONProtocol.ReadStructEnd
+      - TSimpleJSONProtocol.ParseElemListBegin
+      - TSimpleJSONProtocol.ParseF64
+      - TSimpleJSONProtocol.ParseI64
+      - TSimpleJSONProtocol.ParseListBegin
+      - TSimpleJSONProtocol.ParseListEnd
+      - TSimpleJSONProtocol.ParseObjectEnd
+      - TSimpleJSONProtocol.ParseObjectStart
+      - TSimpleJSONProtocol.ReadByte
+      - TSimpleJSONProtocol.ReadDouble
+      - TSimpleJSONProtocol.ReadI16
+      - TSimpleJSONProtocol.ReadI32
+      - TSimpleJSONProtocol.ReadI64
+      - TSimpleJSONProtocol.ReadListBegin
+      - TSimpleJSONProtocol.ReadListEnd
+      - TSimpleJSONProtocol.ReadMapBegin
+      - TSimpleJSONProtocol.ReadMapEnd
+      - TSimpleJSONProtocol.ReadMessageBegin
+      - TSimpleJSONProtocol.ReadMessageEnd
+      - TSimpleJSONProtocol.ReadSetBegin
+      - TSimpleJSONProtocol.ReadSetEnd
+      - TSimpleJSONProtocol.ReadStructBegin
+      - TSimpleJSONProtocol.ReadStructEnd
+      - TStandardClient.Call
+      - TStandardClient.Recv
+      - tApplicationException.Read
+    versions:
+      - introduced: v0.0.0-20151001171628-53dd39833a08
+      - fixed: v0.13.0
 description: |
     Due to an improper bounds check, parsing maliciously crafted messages can cause panics. If
     this package is used to parse untrusted input, this may be used as a vector for a denial of
@@ -12,55 +62,6 @@ cves:
   - CVE-2019-0210
 ghsas:
   - GHSA-jq7p-26h5-w78r
-symbols:
-  - TSimpleJSONProtocol.safePeekContains
-derived_symbols:
-  - Skip
-  - SkipDefaultDepth
-  - TJSONProtocol.ParseElemListBegin
-  - TJSONProtocol.ReadBool
-  - TJSONProtocol.ReadByte
-  - TJSONProtocol.ReadDouble
-  - TJSONProtocol.ReadFieldBegin
-  - TJSONProtocol.ReadFieldEnd
-  - TJSONProtocol.ReadI16
-  - TJSONProtocol.ReadI32
-  - TJSONProtocol.ReadI64
-  - TJSONProtocol.ReadListBegin
-  - TJSONProtocol.ReadListEnd
-  - TJSONProtocol.ReadMapBegin
-  - TJSONProtocol.ReadMapEnd
-  - TJSONProtocol.ReadMessageBegin
-  - TJSONProtocol.ReadMessageEnd
-  - TJSONProtocol.ReadSetBegin
-  - TJSONProtocol.ReadSetEnd
-  - TJSONProtocol.ReadStructBegin
-  - TJSONProtocol.ReadStructEnd
-  - TSimpleJSONProtocol.ParseElemListBegin
-  - TSimpleJSONProtocol.ParseF64
-  - TSimpleJSONProtocol.ParseI64
-  - TSimpleJSONProtocol.ParseListBegin
-  - TSimpleJSONProtocol.ParseListEnd
-  - TSimpleJSONProtocol.ParseObjectEnd
-  - TSimpleJSONProtocol.ParseObjectStart
-  - TSimpleJSONProtocol.ReadByte
-  - TSimpleJSONProtocol.ReadDouble
-  - TSimpleJSONProtocol.ReadI16
-  - TSimpleJSONProtocol.ReadI32
-  - TSimpleJSONProtocol.ReadI64
-  - TSimpleJSONProtocol.ReadListBegin
-  - TSimpleJSONProtocol.ReadListEnd
-  - TSimpleJSONProtocol.ReadMapBegin
-  - TSimpleJSONProtocol.ReadMapEnd
-  - TSimpleJSONProtocol.ReadMessageBegin
-  - TSimpleJSONProtocol.ReadMessageEnd
-  - TSimpleJSONProtocol.ReadSetBegin
-  - TSimpleJSONProtocol.ReadSetEnd
-  - TSimpleJSONProtocol.ReadStructBegin
-  - TSimpleJSONProtocol.ReadStructEnd
-  - TStandardClient.Call
-  - TStandardClient.Recv
-  - tApplicationException.Read
 links:
     commit: https://github.com/apache/thrift/commit/264a3f318ed3e9e51573f67f963c8509786bcec2
     context:

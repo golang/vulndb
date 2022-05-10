@@ -1,8 +1,12 @@
-module: std
-package: math/big
-versions:
-  - introduced: go1.5
-    fixed: go1.5.3
+packages:
+  - module: std
+    package: math/big
+    symbols:
+      - nat.expNNMontgomery
+      - nat.montgomery
+    versions:
+      - introduced: go1.5
+        fixed: go1.5.3
 description: |
     Int.Exp Montgomery mishandled carry propagation and produced an incorrect
     output, which makes it easier for attackers to obtain private RSA keys via
@@ -27,9 +31,6 @@ published: 2022-01-05T15:31:16Z
 cves:
   - CVE-2015-8618
 credit: Nick Craig-Wood
-symbols:
-  - nat.expNNMontgomery
-  - nat.montgomery
 links:
     pr: https://go.dev/cl/18491
     commit: https://go.googlesource.com/go/+/1e066cad1ba23f4064545355b8737e4762dd6838

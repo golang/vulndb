@@ -1,24 +1,25 @@
-module: golang.org/x/crypto
-package: golang.org/x/crypto/ssh
-versions:
-  - fixed: v0.0.0-20220314234659-1baeb1ce4c0b
+packages:
+  - module: golang.org/x/crypto
+    package: golang.org/x/crypto/ssh
+    symbols:
+      - ServerConfig.AddHostKey
+    derived_symbols:
+      - ServerConfig.AddHostKey
+    versions:
+      - fixed: v0.0.0-20220314234659-1baeb1ce4c0b
 description: |
-   Attackers can cause a crash in SSH servers when the server has been
-   configured by passing a Signer to ServerConfig.AddHostKey such that
-    1) the Signer passed to AddHostKey does not implement AlgorithmSigner, and
-    2) the Signer passed to AddHostKey returns a key of type “ssh-rsa” from its
-     PublicKey method.
+    Attackers can cause a crash in SSH servers when the server has been
+    configured by passing a Signer to ServerConfig.AddHostKey such that
+     1) the Signer passed to AddHostKey does not implement AlgorithmSigner, and
+     2) the Signer passed to AddHostKey returns a key of type “ssh-rsa” from its
+      PublicKey method.
 
-   Servers that only use Signer implementations provided by the ssh package are
-   unaffected.
+    Servers that only use Signer implementations provided by the ssh package are
+    unaffected.
 cves:
   - CVE-2022-27191
 ghsas:
   - GHSA-8c26-wmh5-6g9v
-symbols:
-  - ServerConfig.AddHostKey
-derived_symbols:
-  - ServerConfig.AddHostKey
 links:
     pr: https://go.dev/cl/392355
     commit: https://go.googlesource.com/crypto/+/1baeb1ce4c0b006eff0f294c47cb7617598dfb3d

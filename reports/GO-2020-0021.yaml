@@ -1,6 +1,11 @@
-module: github.com/gogits/gogs
-versions:
-  - fixed: v0.5.8
+packages:
+  - module: github.com/gogits/gogs
+    symbols:
+      - GetIssues
+      - SearchRepositoryByName
+      - SearchUserByName
+    versions:
+      - fixed: v0.5.8
 description: |
     Due to improper santization of user input, a number of methods are
     vulnerable to SQL injection if used with user input that has not
@@ -11,10 +16,6 @@ cves:
 ghsas:
   - GHSA-mr6h-chqp-p9g2
 credit: Pascal Turbing and Jiahua (Joe) Chen
-symbols:
-  - GetIssues
-  - SearchRepositoryByName
-  - SearchUserByName
 links:
     commit: https://github.com/gogs/gogs/commit/83283bca4cb4e0f4ec48a28af680f0d88db3d2c8
     context:

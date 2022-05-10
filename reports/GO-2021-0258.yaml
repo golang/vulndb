@@ -1,6 +1,9 @@
-module: github.com/pomerium/pomerium
-versions:
-  - fixed: v0.15.6
+packages:
+  - module: github.com/pomerium/pomerium
+    symbols:
+      - Manager.onUpdateRecords
+    versions:
+      - fixed: v0.15.6
 description: |
     Pomerium is an open source identity-aware access proxy. Changes to the OIDC
     claims of a user after initial login are not reflected in policy evaluation
@@ -15,8 +18,6 @@ cves:
   - CVE-2021-41230
 ghsas:
   - GHSA-j6wp-3859-vxfg
-symbols:
-  - Manager.onUpdateRecords
 links:
     pr: https://github.com/pomerium/pomerium/pull/2724
     commit: https://github.com/pomerium/pomerium/commit/f20542c4bf2cc691e4c324f7ec79e02e46d95511

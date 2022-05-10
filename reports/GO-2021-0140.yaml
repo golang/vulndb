@@ -1,8 +1,11 @@
-module: std
-package: crypto/x509
-versions:
-  - fixed: go1.13.13
-  - fixed: go1.14.5
+packages:
+  - module: std
+    package: crypto/x509
+    symbols:
+      - Certificate.Verify
+    versions:
+      - fixed: go1.13.13
+      - fixed: go1.14.5
 description: |
     X509 Certificate verification does not validate KeyUsages EKU
     requirements on Windows if VerifyOptions.Roots is nil.
@@ -10,8 +13,6 @@ published: 2022-01-04T18:11:08Z
 cves:
   - CVE-2020-14039
 credit: Niall Newman
-symbols:
-  - Certificate.Verify
 os:
   - windows
 links:

@@ -1,7 +1,10 @@
-module: github.com/opencontainers/runc
-package: github.com/opencontainers/runc/libcontainer
-versions:
-  - fixed: v1.0.0-rc9.0.20200122160610-2fc03cc11c77
+packages:
+  - module: github.com/opencontainers/runc
+    package: github.com/opencontainers/runc/libcontainer
+    symbols:
+      - mountToRootfs
+    versions:
+      - fixed: v1.0.0-rc9.0.20200122160610-2fc03cc11c77
 description: |
     A race while mounting volumes allows a possible symlink-exchange
     attack, allowing a user whom can start multiple containers with
@@ -12,8 +15,6 @@ cves:
 ghsas:
   - GHSA-fh74-hm69-rqjw
 credit: Leopold Schabel
-symbols:
-  - mountToRootfs
 links:
     pr: https://github.com/opencontainers/runc/pull/2207
     commit: https://github.com/opencontainers/runc/commit/2fc03cc11c775b7a8b2e48d7ee447cb9bef32ad0

@@ -1,7 +1,10 @@
-module: golang.org/x/net
-package: golang.org/x/net/html
-versions:
-  - fixed: v0.0.0-20210520170846-37e1c6afe023
+packages:
+  - module: golang.org/x/net
+    package: golang.org/x/net/html
+    symbols:
+      - inHeadIM
+    versions:
+      - fixed: v0.0.0-20210520170846-37e1c6afe023
 description: |
     An attacker can craft an input to ParseFragment that causes it
     to enter an infinite loop and never return.
@@ -9,8 +12,6 @@ published: 2022-02-17T17:33:43Z
 cves:
   - CVE-2021-33194
 credit: discovered by OSS-Fuzz and reported by Andrew Thornton
-symbols:
-  - inHeadIM
 links:
     pr: https://go.dev/cl/311090
     commit: https://go.googlesource.com/net/+/37e1c6afe02340126705deced573a85ab75209d7

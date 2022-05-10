@@ -1,7 +1,24 @@
-module: github.com/containers/storage
-package: github.com/containers/storage/pkg/archive
-versions:
-  - fixed: v1.28.1
+packages:
+  - module: github.com/containers/storage
+    package: github.com/containers/storage/pkg/archive
+    symbols:
+      - cmdStream
+    derived_symbols:
+      - ApplyLayer
+      - ApplyUncompressedLayer
+      - Archiver.CopyFileWithTar
+      - Archiver.CopyWithTar
+      - Archiver.TarUntar
+      - Archiver.UntarPath
+      - CopyResource
+      - CopyTo
+      - DecompressStream
+      - IsArchivePath
+      - Untar
+      - UntarPath
+      - UntarUncompressed
+    versions:
+      - fixed: v1.28.1
 description: |
     Due to a goroutine deadlock, using github.com/containers/storage/pkg/archive.DecompressStream
     on a xz archive returns a reader which will hang indefinitely when Close is called. An attacker
@@ -13,22 +30,6 @@ cves:
 ghsas:
   - GHSA-7qw8-847f-pggm
 credit: Aviv Sasson (Palo Alto Networks)
-symbols:
-  - cmdStream
-derived_symbols:
-  - ApplyLayer
-  - ApplyUncompressedLayer
-  - Archiver.CopyFileWithTar
-  - Archiver.CopyWithTar
-  - Archiver.TarUntar
-  - Archiver.UntarPath
-  - CopyResource
-  - CopyTo
-  - DecompressStream
-  - IsArchivePath
-  - Untar
-  - UntarPath
-  - UntarUncompressed
 links:
     pr: https://github.com/containers/storage/pull/860
     commit: https://github.com/containers/storage/commit/306fcabc964470e4b3b87a43a8f6b7d698209ee1

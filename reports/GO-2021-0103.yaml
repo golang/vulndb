@@ -1,7 +1,17 @@
-module: github.com/holiman/uint256
-versions:
-  - introduced: v0.1.0
-  - fixed: v1.1.1
+packages:
+  - module: github.com/holiman/uint256
+    symbols:
+      - udivrem
+    derived_symbols:
+      - Int.AddMod
+      - Int.Div
+      - Int.Mod
+      - Int.MulMod
+      - Int.SDiv
+      - Int.SMod
+    versions:
+      - introduced: v0.1.0
+      - fixed: v1.1.1
 description: |
     Due to improper bounds checking, certain mathmatical operations can cause a panic via an
     out of bounds read. If this package is used to process untrusted user inputs, this may be used
@@ -12,15 +22,6 @@ cves:
 ghsas:
   - GHSA-jm5c-rv3w-w83m
 credit: Dima Stebaev
-symbols:
-  - udivrem
-derived_symbols:
-  - Int.AddMod
-  - Int.Div
-  - Int.Mod
-  - Int.MulMod
-  - Int.SDiv
-  - Int.SMod
 links:
     pr: https://github.com/holiman/uint256/pull/80
     commit: https://github.com/holiman/uint256/commit/6785da6e3eea403260a5760029e722aa4ff1716d

@@ -1,5 +1,9 @@
-module: github.com/russellhaering/goxmldsig
-additional_packages:
+packages:
+  - module: github.com/russellhaering/goxmldsig
+    symbols:
+      - ValidationContext.validateSignature
+    versions:
+      - fixed: v1.1.0
   - module: github.com/russellhaering/gosaml2
     symbols:
       - SAMLServiceProvider.validateAssertionSignatures
@@ -8,8 +12,6 @@ additional_packages:
       - SAMLServiceProvider.ValidateEncodedResponse
     versions:
       - fixed: v0.6.0
-versions:
-  - fixed: v1.1.0
 description: |
     Due to a nil pointer dereference, a malformed XML Digital Signature
     can cause a panic during validation. If user supplied signatures are
@@ -18,8 +20,6 @@ published: 2021-04-14T20:04:52Z
 cves:
   - CVE-2020-7711
 credit: '@stevenjohnstone'
-symbols:
-  - ValidationContext.validateSignature
 links:
     context:
       - https://github.com/russellhaering/goxmldsig/issues/48

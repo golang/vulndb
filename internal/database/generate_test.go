@@ -17,8 +17,17 @@ import (
 
 func TestGenerate(t *testing.T) {
 	r := report.Report{
-		Module: "example.com/vulnerable/v2",
-		AdditionalPackages: []report.Additional{
+		Packages: []report.Package{
+			{
+				Module: "example.com/vulnerable/v2",
+				Versions: []report.VersionRange{
+					{Fixed: "v2.1.1"},
+					{Introduced: "v2.3.4", Fixed: "v2.3.5"},
+					{Introduced: "v2.5.0"},
+				},
+				Symbols:        []string{"A", "B.b"},
+				DerivedSymbols: []string{"D"},
+			},
 			{
 				Module:  "vanity.host/vulnerable",
 				Package: "vanity.host/vulnerable/package",
@@ -38,18 +47,11 @@ func TestGenerate(t *testing.T) {
 				},
 			},
 		},
-		Versions: []report.VersionRange{
-			{Fixed: "v2.1.1"},
-			{Introduced: "v2.3.4", Fixed: "v2.3.5"},
-			{Introduced: "v2.5.0"},
-		},
-		Description:    "It's a real bad one, I'll tell you that",
-		CVEs:           []string{"CVE-0000-0000"},
-		Credit:         "ignored",
-		Symbols:        []string{"A", "B.b"},
-		DerivedSymbols: []string{"D"},
-		OS:             []string{"windows"},
-		Arch:           []string{"arm64"},
+		Description: "It's a real bad one, I'll tell you that",
+		CVEs:        []string{"CVE-0000-0000"},
+		Credit:      "ignored",
+		OS:          []string{"windows"},
+		Arch:        []string{"arm64"},
 		Links: report.Links{
 			PR:      "pr",
 			Commit:  "commit",

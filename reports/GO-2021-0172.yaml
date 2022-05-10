@@ -1,9 +1,12 @@
-module: std
-package: mime/multipart
-versions:
-  - fixed: go1.6.4
-  - fixed: go1.7.4
-  - fixed: go1.8.0
+packages:
+  - module: std
+    package: mime/multipart
+    symbols:
+      - Reader.readForm
+    versions:
+      - fixed: go1.6.4
+      - fixed: go1.7.4
+      - fixed: go1.8.0
 description: |
     When parsing large multipart/form-data, an attacker can
     cause a HTTP server to open a large number of file
@@ -13,8 +16,6 @@ published: 2022-02-15T23:56:14Z
 cves:
   - CVE-2017-1000098
 credit: Simon Rawet
-symbols:
-  - Reader.readForm
 links:
     pr: https://go.dev/cl/30410
     commit: https://go.googlesource.com/go/+/7478ea5dba7ed02ddffd91c1d17ec8141f7cf184

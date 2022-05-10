@@ -1,7 +1,12 @@
-module: github.com/opencontainers/runc
-package: github.com/opencontainers/runc/libcontainer/user
-versions:
-  - fixed: v0.1.0
+packages:
+  - module: github.com/opencontainers/runc
+    package: github.com/opencontainers/runc/libcontainer/user
+    symbols:
+      - GetExecUser
+    derived_symbols:
+      - GetExecUserPath
+    versions:
+      - fixed: v0.1.0
 description: |
     GetExecUser in the github.com/opencontainers/runc/libcontainer/user package will
     improperly interpret numeric UIDs as usernames. If the method is used without
@@ -12,10 +17,6 @@ cves:
   - CVE-2016-3697
 ghsas:
   - GHSA-q3j5-32m5-58c2
-symbols:
-  - GetExecUser
-derived_symbols:
-  - GetExecUserPath
 links:
     pr: https://github.com/opencontainers/runc/pull/708
     commit: https://github.com/opencontainers/runc/commit/69af385de62ea68e2e608335cffbb0f4aa3db091

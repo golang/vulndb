@@ -1,6 +1,9 @@
-module: github.com/tidwall/gjson
-versions:
-  - fixed: v1.6.4
+packages:
+  - module: github.com/tidwall/gjson
+    symbols:
+      - sqaush
+    versions:
+      - fixed: v1.6.4
 description: |
     Due to improper bounds checking, maliciously crafted JSON objects
     can cause an out-of-bounds panic. If parsing user input, this may
@@ -11,8 +14,6 @@ cves:
 ghsas:
   - GHSA-w942-gw6m-p62c
 credit: '@toptotu'
-symbols:
-  - sqaush
 links:
     commit: https://github.com/tidwall/gjson/commit/f0ee9ebde4b619767ae4ac03e8e42addb530f6bc
     context:

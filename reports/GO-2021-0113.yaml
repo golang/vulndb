@@ -1,7 +1,14 @@
-module: golang.org/x/text
-package: golang.org/x/text/language
-versions:
-  - fixed: v0.3.7
+packages:
+  - module: golang.org/x/text
+    package: golang.org/x/text/language
+    symbols:
+      - Parse
+    derived_symbols:
+      - MatchStrings
+      - MustParse
+      - ParseAcceptLanguage
+    versions:
+      - fixed: v0.3.7
 description: |
     Due to improper index calculation, an incorrectly formatted language tag can cause Parse
     to panic via an out of bounds read. If Parse is used to process untrusted user inputs,
@@ -10,12 +17,6 @@ published: 2021-10-06T17:51:21Z
 cves:
   - CVE-2021-38561
 credit: Guido Vranken
-symbols:
-  - Parse
-derived_symbols:
-  - MatchStrings
-  - MustParse
-  - ParseAcceptLanguage
 links:
     pr: https://go-review.googlesource.com/c/text/+/340830
     commit: https://go.googlesource.com/text/+/383b2e75a7a4198c42f8f87833eefb772868a56f

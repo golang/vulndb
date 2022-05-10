@@ -1,8 +1,13 @@
-module: github.com/tendermint/tendermint
-package: github.com/tendermint/tendermint/types
-versions:
-  - introduced: v0.33.0
-    fixed: v0.34.0-dev1.0.20200702134149-480b995a3172
+packages:
+  - module: github.com/tendermint/tendermint
+    package: github.com/tendermint/tendermint/types
+    symbols:
+      - VoteSet.MakeCommit
+    derived_symbols:
+      - MakeCommit
+    versions:
+      - introduced: v0.33.0
+        fixed: v0.34.0-dev1.0.20200702134149-480b995a3172
 description: |
     Proposed commits may contain signatures for blocks not contained within the commit. Instead of skipping
     these signatures, they cause failure during verification. A malicious proposer can use this to force
@@ -13,10 +18,6 @@ cves:
 ghsas:
   - GHSA-6jqj-f58p-mrw3
 credit: Neeraj Murarka
-symbols:
-  - VoteSet.MakeCommit
-derived_symbols:
-  - MakeCommit
 links:
     pr: https://github.com/tendermint/tendermint/pull/5426
     commit: https://github.com/tendermint/tendermint/commit/480b995a31727593f58b361af979054d17d84340

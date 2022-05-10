@@ -232,7 +232,8 @@ Links:
 See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) for instructions on how to triage this report.
 
 ` + "```" + `
-module: a.Module
+packages:
+  - module: a.Module
 description: |
     a description
 cves:
@@ -271,9 +272,10 @@ func TestNewGHSABody(t *testing.T) {
 See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) for instructions on how to triage this report.
 
 ` + "```" + `
-package: aPackage
-versions:
-  - fixed: v1.2.3
+packages:
+  - package: aPackage
+    versions:
+      - fixed: v1.2.3
 description: a description
 ghsas:
   - G1

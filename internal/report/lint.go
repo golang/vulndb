@@ -173,75 +173,58 @@ func (r *Report) Lint() []string {
 		issues = append(issues, iss)
 	}
 
-	var importPath string
-	if !stdlib.Contains(r.Module) {
-		if r.Module == "" {
-			addIssue("missing module")
-		}
-		if r.Module != "" && r.Package == r.Module {
-			addIssue("package is redundant and can be removed")
-		}
-		if r.Package != "" && !strings.HasPrefix(r.Package, r.Module) {
-			addIssue("module must be a prefix of package")
-		}
-		if r.Package == "" {
-			importPath = r.Module
-		} else {
-			importPath = r.Package
-		}
-		if r.Module != "" && importPath != "" {
-			if err := checkModVersions(r.Module, r.Versions); err != nil {
-				addIssue(err.Error())
-			}
-
-			if err := module.CheckImportPath(importPath); err != nil {
-				addIssue(err.Error())
-			}
-		}
-		for _, v := range r.Versions {
-			if v.Introduced != "" && !strings.HasPrefix(v.Introduced, "v") {
-				addIssue(fmt.Sprintf("invalid semantic version: %q", v.Introduced))
-			}
-			if v.Fixed != "" && !strings.HasPrefix(v.Fixed, "v") {
-				addIssue(fmt.Sprintf("invalid semantic version: %q", v.Fixed))
-			}
-		}
-	} else {
-		if r.Package == "" {
-			addIssue("missing package")
-		}
-		for _, v := range r.Versions {
-			if v.Introduced != "" && !strings.HasPrefix(v.Introduced, "go") {
-				addIssue(fmt.Sprintf("invalid Go version: %q", v.Introduced))
-			}
-			if v.Fixed != "" && !strings.HasPrefix(v.Fixed, "go") {
-				addIssue(fmt.Sprintf("invalid Go version: %q", v.Fixed))
-			}
-		}
+	if len(r.Packages) == 0 {
+		addIssue("no packages")
 	}
 
-	for _, additionalPackage := range r.AdditionalPackages {
-		var additionalImportPath string
-		if additionalPackage.Module == "" {
-			addIssue("missing additional_package.module")
+	for i, p := range r.Packages {
+		addPkgIssue := func(iss string) {
+			issues = append(issues, fmt.Sprintf("packages[%v]: %v", i, iss))
 		}
-		if additionalPackage.Package == additionalPackage.Module {
-			addIssue("package is redundant and can be removed")
-		}
-		if !stdlib.Contains(additionalPackage.Module) && additionalPackage.Package != "" && !strings.HasPrefix(additionalPackage.Package, additionalPackage.Module) {
-			addIssue("additional_package.module must be a prefix of additional_package.package")
-		}
-		if additionalPackage.Package == "" {
-			additionalImportPath = additionalPackage.Module
+		if !stdlib.Contains(p.Module) {
+			if p.Module == "" {
+				addPkgIssue("missing module")
+			}
+			if p.Module != "" && p.Package == p.Module {
+				addPkgIssue("package is redundant and can be removed")
+			}
+			if p.Package != "" && !strings.HasPrefix(p.Package, p.Module) {
+				addPkgIssue("module must be a prefix of package")
+			}
+			var importPath string
+			if p.Package == "" {
+				importPath = p.Module
+			} else {
+				importPath = p.Package
+			}
+			if p.Module != "" && importPath != "" {
+				if err := checkModVersions(p.Module, p.Versions); err != nil {
+					addPkgIssue(err.Error())
+				}
+
+				if err := module.CheckImportPath(importPath); err != nil {
+					addPkgIssue(err.Error())
+				}
+			}
+			for _, v := range p.Versions {
+				if v.Introduced != "" && !strings.HasPrefix(v.Introduced, "v") {
+					addPkgIssue(fmt.Sprintf("invalid semantic version: %q", v.Introduced))
+				}
+				if v.Fixed != "" && !strings.HasPrefix(v.Fixed, "v") {
+					addPkgIssue(fmt.Sprintf("invalid semantic version: %q", v.Fixed))
+				}
+			}
 		} else {
-			additionalImportPath = additionalPackage.Package
-		}
-		if err := module.CheckImportPath(additionalImportPath); err != nil {
-			addIssue(err.Error())
-		}
-		if !stdlib.Contains(r.Module) {
-			if err := checkModVersions(additionalPackage.Module, additionalPackage.Versions); err != nil {
-				addIssue(err.Error())
+			if p.Package == "" {
+				addPkgIssue("missing package")
+			}
+			for _, v := range p.Versions {
+				if v.Introduced != "" && !strings.HasPrefix(v.Introduced, "go") {
+					addPkgIssue(fmt.Sprintf("invalid Go version: %q", v.Introduced))
+				}
+				if v.Fixed != "" && !strings.HasPrefix(v.Fixed, "go") {
+					addPkgIssue(fmt.Sprintf("invalid Go version: %q", v.Fixed))
+				}
 			}
 		}
 	}

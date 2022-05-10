@@ -155,16 +155,6 @@ func Generate(ctx context.Context, repoDir, jsonDir string) (err error) {
 // takes the ID for the vuln and a URL that will point to the entry in the vuln DB.
 // It returns the osv.Entry and a list of module paths that the vuln affects.
 func GenerateOSVEntry(id, url string, r report.Report) (osv.Entry, []string) {
-	importPath := r.Module
-	if r.Package != "" {
-		importPath = r.Package
-	}
-	moduleMap := make(map[string]bool)
-	if stdlib.Contains(r.Module) {
-		moduleMap["stdlib"] = true
-	} else {
-		moduleMap[r.Module] = true
-	}
 	lastModified := r.Published
 	if r.LastModified != nil {
 		lastModified = *r.LastModified
@@ -175,18 +165,20 @@ func GenerateOSVEntry(id, url string, r report.Report) (osv.Entry, []string) {
 		Modified:  lastModified,
 		Withdrawn: r.Withdrawn,
 		Details:   r.Description,
-		Affected:  []osv.Affected{generateAffected(importPath, r.Versions, r.OS, r.Arch, r.AllSymbols(), url)},
 	}
 
-	for _, additional := range r.AdditionalPackages {
-		additionalPath := additional.Module
-		if additional.Package != "" {
-			additionalPath = additional.Package
+	moduleMap := make(map[string]bool)
+	for _, p := range r.Packages {
+		importPath := p.Module
+		if p.Package != "" {
+			importPath = p.Package
 		}
-		if !stdlib.Contains(r.Module) {
-			moduleMap[additional.Module] = true
+		if stdlib.Contains(p.Module) {
+			moduleMap["stdlib"] = true
+		} else {
+			moduleMap[p.Module] = true
 		}
-		entry.Affected = append(entry.Affected, generateAffected(additionalPath, additional.Versions, r.OS, r.Arch, additional.AllSymbols(), url))
+		entry.Affected = append(entry.Affected, generateAffected(importPath, p.Versions, r.OS, r.Arch, p.AllSymbols(), url))
 	}
 
 	if r.Links.PR != "" {

@@ -15,7 +15,6 @@ import (
 func GHSAToReport(sa *ghsa.SecurityAdvisory, modulePath string) *Report {
 	u := sa.UpdatedAt
 	r := &Report{
-		Module:       modulePath,
 		Description:  sa.Description,
 		Published:    sa.PublishedAt,
 		LastModified: &u,
@@ -32,16 +31,15 @@ func GHSAToReport(sa *ghsa.SecurityAdvisory, modulePath string) *Report {
 	}
 	r.CVEs = cves
 	r.GHSAs = ghsas
-	if len(sa.Vulns) == 0 {
-		return r
-	}
-	r.Package = sa.Vulns[0].Package
-	r.Versions = versions(sa.Vulns[0].EarliestFixedVersion, sa.Vulns[0].VulnerableVersionRange)
-	for _, v := range sa.Vulns[1:] {
-		var a Additional
-		a.Package = v.Package
-		a.Versions = versions(v.EarliestFixedVersion, v.VulnerableVersionRange)
-		r.AdditionalPackages = append(r.AdditionalPackages, a)
+	for i, v := range sa.Vulns {
+		p := Package{
+			Package:  v.Package,
+			Versions: versions(v.EarliestFixedVersion, v.VulnerableVersionRange),
+		}
+		if i == 0 {
+			p.Module = modulePath
+		}
+		r.Packages = append(r.Packages, p)
 	}
 	r.Fix()
 	return r

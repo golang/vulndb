@@ -1,6 +1,15 @@
-module: gopkg.in/macaron.v1
-versions:
-  - fixed: v1.3.7
+packages:
+  - module: gopkg.in/macaron.v1
+    symbols:
+      - staticHandler
+    derived_symbols:
+      - Context.Next
+      - LoggerInvoker.Invoke
+      - Macaron.Run
+      - Macaron.ServeHTTP
+      - Router.ServeHTTP
+    versions:
+      - fixed: v1.3.7
 description: |
     Due to improper request santization, a specifically crafted URL
     can cause the static file handler to redirect to an attacker chosen
@@ -11,14 +20,6 @@ cves:
 ghsas:
   - GHSA-733f-44f3-3frw
 credit: '@ev0A'
-symbols:
-  - staticHandler
-derived_symbols:
-  - Context.Next
-  - LoggerInvoker.Invoke
-  - Macaron.Run
-  - Macaron.ServeHTTP
-  - Router.ServeHTTP
 links:
     pr: https://github.com/go-macaron/macaron/pull/199
     commit: https://github.com/go-macaron/macaron/commit/addc7461c3a90a040e79aa75bfd245107a210245

@@ -1,6 +1,15 @@
-module: github.com/docker/distribution
-package: github.com/docker/distribution/registry/handlers
-additional_packages:
+packages:
+  - module: github.com/docker/distribution
+    package: github.com/docker/distribution/registry/handlers
+    symbols:
+      - copyFullPayload
+    derived_symbols:
+      - blobUploadHandler.PatchBlobData
+      - blobUploadHandler.PutBlobUploadComplete
+      - imageManifestHandler.GetImageManifest
+      - imageManifestHandler.PutImageManifest
+    versions:
+      - fixed: v2.7.0-rc.0+incompatible
   - module: github.com/docker/distribution
     package: github.com/docker/distribution/registry/storage
     symbols:
@@ -18,8 +27,6 @@ additional_packages:
       - registry.Repositories
     versions:
       - fixed: v2.7.0-rc.0+incompatible
-versions:
-  - fixed: v2.7.0-rc.0+incompatible
 description: |
     Various storage methods do not impose limits on how much content is accepted
     from user requests, allowing a malicious user to force the caller to allocate
@@ -27,13 +34,6 @@ description: |
 published: 2021-04-14T20:04:52Z
 cves:
   - CVE-2017-11468
-symbols:
-  - copyFullPayload
-derived_symbols:
-  - blobUploadHandler.PatchBlobData
-  - blobUploadHandler.PutBlobUploadComplete
-  - imageManifestHandler.GetImageManifest
-  - imageManifestHandler.PutImageManifest
 links:
     pr: https://github.com/distribution/distribution/pull/2340
     commit: https://github.com/distribution/distribution/commit/91c507a39abfce14b5c8541cf284330e22208c0f

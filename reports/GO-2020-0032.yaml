@@ -1,5 +1,9 @@
-module: github.com/goadesign/goa
-additional_packages:
+packages:
+  - module: github.com/goadesign/goa
+    symbols:
+      - Controller.FileHandler
+    versions:
+      - fixed: v1.4.3
   - module: goa.design/goa
     symbols:
       - Controller.FileHandler
@@ -10,16 +14,12 @@ additional_packages:
       - Controller.FileHandler
     versions:
       - fixed: v3.0.9
-versions:
-  - fixed: v1.4.3
 description: |
     Due to improper santization of user input, Controller.FileHandler allows
     for directory traversal, allowing an attacker to read files outside of
     the target directory that the server has permission to read.
 published: 2021-04-14T20:04:52Z
 credit: '@christi3k'
-symbols:
-  - Controller.FileHandler
 links:
     pr: https://github.com/goadesign/goa/pull/2388
     commit: https://github.com/goadesign/goa/commit/70b5a199d0f813d74423993832c424e1fc73fb39

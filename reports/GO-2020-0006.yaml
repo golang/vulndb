@@ -1,6 +1,15 @@
-module: github.com/miekg/dns
-versions:
-  - fixed: v1.0.4-0.20180125103619-43913f2f4fbd
+packages:
+  - module: github.com/miekg/dns
+    symbols:
+      - Server.serveTCP
+    derived_symbols:
+      - ActivateAndServe
+      - ListenAndServe
+      - ListenAndServeTLS
+      - Server.ActivateAndServe
+      - Server.ListenAndServe
+    versions:
+      - fixed: v1.0.4-0.20180125103619-43913f2f4fbd
 description: |
     An attacker may prevent TCP connections to a Server by opening
     a connection and leaving it idle, until the connection is closed by
@@ -11,14 +20,6 @@ cves:
 ghsas:
   - GHSA-p55x-7x9v-q8m4
 credit: Pedro Sampaio
-symbols:
-  - Server.serveTCP
-derived_symbols:
-  - ActivateAndServe
-  - ListenAndServe
-  - ListenAndServeTLS
-  - Server.ActivateAndServe
-  - Server.ListenAndServe
 links:
     pr: https://github.com/miekg/dns/pull/631
     commit: https://github.com/miekg/dns/commit/43913f2f4fbd7dcff930b8a809e709591e4dd79e

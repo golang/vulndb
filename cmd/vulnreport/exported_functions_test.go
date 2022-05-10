@@ -35,9 +35,11 @@ func TestExportedFunctions(t *testing.T) {
 	defer e.Cleanup()
 
 	rc := newReportClient(&report.Report{
-		Module:  "example.com/m",
-		Package: "example.com/m/p",
-		Symbols: []string{"vuln"},
+		Packages: []report.Package{{
+			Module:  "example.com/m",
+			Package: "example.com/m/p",
+			Symbols: []string{"vuln"},
+		}},
 	})
 	pkgs, err := loadPackage(e.Config, path.Join(e.Temp(), "m/p"))
 	if err != nil {

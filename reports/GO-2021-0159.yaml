@@ -1,7 +1,18 @@
-module: std
-package: net/http
-versions:
-  - fixed: go1.4.3
+packages:
+  - module: std
+    package: net/http
+    symbols:
+      - CanonicalMIMEHeaderKey
+      - body.readLocked
+      - canonicalMIMEHeaderKey
+      - chunkWriter.writeHeader
+      - fixLength
+      - fixTransferEncoding
+      - readTransfer
+      - transferWriter.shouldSendContentLength
+      - validHeaderFieldByte
+    versions:
+      - fixed: go1.4.3
 description: |
     HTTP headers were not properly parsed, which allows remote attackers to
     conduct HTTP request smuggling attacks via a request that contains
@@ -12,16 +23,6 @@ cves:
   - CVE-2015-5740
   - CVE-2015-5741
 credit: Jed Denlea and Régis Leroy
-symbols:
-  - CanonicalMIMEHeaderKey
-  - body.readLocked
-  - canonicalMIMEHeaderKey
-  - chunkWriter.writeHeader
-  - fixLength
-  - fixTransferEncoding
-  - readTransfer
-  - transferWriter.shouldSendContentLength
-  - validHeaderFieldByte
 links:
     pr: https://go.dev/cl/13148
     commit: https://go.googlesource.com/go/+/26049f6f9171d1190f3bbe05ec304845cfe6399f
