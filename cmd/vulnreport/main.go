@@ -170,7 +170,11 @@ const todo = "TODO: fill this out"
 
 // addTODOs adds "TODO" comments to unfilled fields of r.
 func addTODOs(r *report.Report) {
-	for _, p := range r.Packages {
+	if len(r.Packages) == 0 {
+		r.Packages = append(r.Packages, report.Package{})
+	}
+	for i := range r.Packages {
+		p := &r.Packages[i]
 		if p.Module == "" && !stdlib.Contains(p.Module) {
 			p.Module = todo
 		}
