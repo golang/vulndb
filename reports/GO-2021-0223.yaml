@@ -5,8 +5,8 @@ packages:
       - Certificate.systemVerify
     versions:
       - fixed: go1.13.13
-      - fixed: go1.14.5
-      - fixed: go1.15.0
+      - introduced: go1.14.0
+        fixed: go1.14.5
 description: |
     On Windows, if VerifyOptions.Roots is nil, Certificate.Verify
     does not check the EKU requirements specified in VerifyOptions.KeyUsages.

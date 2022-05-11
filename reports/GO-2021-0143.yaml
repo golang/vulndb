@@ -5,16 +5,16 @@ packages:
       - response.Write
     versions:
       - fixed: go1.14.8
-      - fixed: go1.15.1
-      - fixed: go1.16.0
+      - introduced: go1.15.0
+        fixed: go1.15.1
   - module: std
     package: net/http/fcgi
     symbols:
       - response.Write
     versions:
       - fixed: go1.14.8
-      - fixed: go1.15.1
-      - fixed: go1.16.0
+      - introduced: go1.15.0
+        fixed: go1.15.1
 description: |
     When a Handler does not explicitly set the Content-Type header,
     the net/http/cgi and net/http/fcgi packages default to "text/html",

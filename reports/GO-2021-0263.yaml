@@ -4,8 +4,9 @@ packages:
     symbols:
       - NewFile
     versions:
-      - fixed: go1.17.3
       - fixed: go1.16.10
+      - introduced: go1.17.0
+        fixed: go1.17.3
 description: |
     Calling File.ImportedSymbols on a loaded file which contains an invalid
     dynamic symbol table command can cause a panic, in particular if the encoded

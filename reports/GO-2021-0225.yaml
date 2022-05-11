@@ -5,7 +5,8 @@ packages:
       - ReadUvarint
     versions:
       - fixed: go1.13.15
-      - fixed: go1.14.7
+      - introduced: go1.14.0
+        fixed: go1.14.7
 description: |
     Certain invalid inputs to ReadUvarint or ReadVarint could cause those
     functions to read an unlimited number of bytes from the ByteReader argument

@@ -181,6 +181,7 @@ func (r *Report) Lint() []string {
 		addPkgIssue := func(iss string) {
 			issues = append(issues, fmt.Sprintf("packages[%v]: %v", i, iss))
 		}
+		versions := p.Versions
 		if !stdlib.Contains(p.Module) {
 			if p.Module == "" {
 				addPkgIssue("missing module")
@@ -207,10 +208,10 @@ func (r *Report) Lint() []string {
 				}
 			}
 			for _, v := range p.Versions {
-				if v.Introduced != "" && !strings.HasPrefix(v.Introduced, "v") {
+				if v.Introduced != "" && !semver.IsValid(v.Introduced) {
 					addPkgIssue(fmt.Sprintf("invalid semantic version: %q", v.Introduced))
 				}
-				if v.Fixed != "" && !strings.HasPrefix(v.Fixed, "v") {
+				if v.Fixed != "" && !semver.IsValid(v.Fixed) {
 					addPkgIssue(fmt.Sprintf("invalid semantic version: %q", v.Fixed))
 				}
 			}
@@ -218,12 +219,30 @@ func (r *Report) Lint() []string {
 			if p.Package == "" {
 				addPkgIssue("missing package")
 			}
+			versions = nil // replace with actual semver versions
 			for _, v := range p.Versions {
-				if v.Introduced != "" && !strings.HasPrefix(v.Introduced, "go") {
+				introduced := "v" + strings.TrimPrefix(v.Introduced, "go")
+				fixed := "v" + strings.TrimPrefix(v.Fixed, "go")
+				if v.Introduced != "" && (!strings.HasPrefix(v.Introduced, "go") || !semver.IsValid(introduced)) {
 					addPkgIssue(fmt.Sprintf("invalid Go version: %q", v.Introduced))
 				}
-				if v.Fixed != "" && !strings.HasPrefix(v.Fixed, "go") {
+				if v.Fixed != "" && (!strings.HasPrefix(v.Fixed, "go") || !semver.IsValid(fixed)) {
 					addPkgIssue(fmt.Sprintf("invalid Go version: %q", v.Fixed))
+				}
+				versions = append(versions, VersionRange{
+					Introduced: introduced,
+					Fixed:      fixed,
+				})
+			}
+		}
+		for i, v1 := range versions {
+			if v1.Fixed != "" && semver.Compare(v1.Introduced, v1.Fixed) >= 0 {
+				addPkgIssue(fmt.Sprintf("version %q >= %q", p.Versions[i].Introduced, p.Versions[i].Fixed))
+				continue
+			}
+			for j, v2 := range versions[:i] {
+				if semver.Compare(v1.Fixed, v2.Introduced) > 0 && semver.Compare(v1.Introduced, v2.Fixed) < 0 {
+					addPkgIssue(fmt.Sprintf("version ranges overlap: [%v,%v), [%v,%v)", p.Versions[i].Introduced, p.Versions[i].Fixed, p.Versions[j].Introduced, p.Versions[j].Fixed))
 				}
 			}
 		}
