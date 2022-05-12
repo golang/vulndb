@@ -97,13 +97,13 @@ func versionToVersion(versions []VersionRange) cveschema.VersionData {
 	for _, vr := range versions {
 		if vr.Introduced != "" {
 			vd.Data = append(vd.Data, cveschema.VersionDataItem{
-				VersionValue:    vr.Introduced,
+				VersionValue:    string(vr.Introduced),
 				VersionAffected: ">=",
 			})
 		}
 		if vr.Fixed != "" {
 			vd.Data = append(vd.Data, cveschema.VersionDataItem{
-				VersionValue:    vr.Fixed,
+				VersionValue:    string(vr.Fixed),
 				VersionAffected: "<",
 			})
 		}

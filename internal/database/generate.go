@@ -14,7 +14,6 @@ import (
 	"path/filepath"
 	"strings"
 
-	"golang.org/x/mod/semver"
 	"golang.org/x/vuln/client"
 	"golang.org/x/vuln/osv"
 	"golang.org/x/vulndb/internal/derrors"
@@ -206,12 +205,10 @@ func generateAffectedRanges(versions []report.VersionRange) osv.Affects {
 	}
 	for _, v := range versions {
 		if v.Introduced != "" {
-			v.Introduced = canonicalizeSemverPrefix(v.Introduced)
-			a.Events = append(a.Events, osv.RangeEvent{Introduced: removeSemverPrefix(semver.Canonical(v.Introduced))})
+			a.Events = append(a.Events, osv.RangeEvent{Introduced: v.Introduced.Canonical()})
 		}
 		if v.Fixed != "" {
-			v.Fixed = canonicalizeSemverPrefix(v.Fixed)
-			a.Events = append(a.Events, osv.RangeEvent{Fixed: removeSemverPrefix(semver.Canonical(v.Fixed))})
+			a.Events = append(a.Events, osv.RangeEvent{Fixed: v.Fixed.Canonical()})
 		}
 	}
 	return osv.Affects{a}
@@ -231,30 +228,4 @@ func generateAffected(importPath string, versions []report.VersionRange, goos, g
 			Symbols: symbols,
 		},
 	}
-}
-
-// removeSemverPrefix removes the 'v' or 'go' prefixes from go-style
-// SEMVER strings, for usage in the public vulnerability format.
-func removeSemverPrefix(s string) string {
-	s = strings.TrimPrefix(s, "v")
-	s = strings.TrimPrefix(s, "go")
-	return s
-}
-
-// canonicalizeSemverPrefix turns a SEMVER string into the canonical
-// representation using the 'v' prefix, as used by the OSV format.
-// Input may be a bare SEMVER ("1.2.3"), Go prefixed SEMVER ("go1.2.3"),
-// or already canonical SEMVER ("v1.2.3").
-func canonicalizeSemverPrefix(s string) string {
-	return addSemverPrefix(removeSemverPrefix(s))
-}
-
-// addSemverPrefix adds a 'v' prefix to s if it isn't already prefixed
-// with 'v' or 'go'. This allows us to easily test go-style SEMVER
-// strings against normal SEMVER strings.
-func addSemverPrefix(s string) string {
-	if !strings.HasPrefix(s, "v") && !strings.HasPrefix(s, "go") {
-		return "v" + s
-	}
-	return s
 }

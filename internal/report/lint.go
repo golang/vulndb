@@ -115,17 +115,17 @@ func checkModVersions(path string, vr []VersionRange) (err error) {
 	if err != nil {
 		return fmt.Errorf("unable to retrieve module versions from proxy: %s", err)
 	}
-	checkVersion := func(version string) error {
-		if !semver.IsValid(version) {
+	checkVersion := func(version Version) error {
+		if !version.IsValid() {
 			return errors.New("invalid module semver")
 		}
-		if err := module.Check(path, version); err != nil {
+		if err := module.Check(path, version.V()); err != nil {
 			return err
 		}
-		if err := versionExists(version, realVersions); err != nil {
+		if err := versionExists(version.V(), realVersions); err != nil {
 			return err
 		}
-		canonicalPath, err := getCanonicalModName(path, version)
+		canonicalPath, err := getCanonicalModName(path, version.V())
 		if err != nil {
 			return err
 		}
@@ -181,7 +181,6 @@ func (r *Report) Lint() []string {
 		addPkgIssue := func(iss string) {
 			issues = append(issues, fmt.Sprintf("packages[%v]: %v", i, iss))
 		}
-		versions := p.Versions
 		if !stdlib.Contains(p.Module) {
 			if p.Module == "" {
 				addPkgIssue("missing module")
@@ -207,41 +206,26 @@ func (r *Report) Lint() []string {
 					addPkgIssue(err.Error())
 				}
 			}
-			for _, v := range p.Versions {
-				if v.Introduced != "" && !semver.IsValid(v.Introduced) {
-					addPkgIssue(fmt.Sprintf("invalid semantic version: %q", v.Introduced))
-				}
-				if v.Fixed != "" && !semver.IsValid(v.Fixed) {
-					addPkgIssue(fmt.Sprintf("invalid semantic version: %q", v.Fixed))
-				}
-			}
 		} else {
 			if p.Package == "" {
 				addPkgIssue("missing package")
 			}
-			versions = nil // replace with actual semver versions
-			for _, v := range p.Versions {
-				introduced := "v" + strings.TrimPrefix(v.Introduced, "go")
-				fixed := "v" + strings.TrimPrefix(v.Fixed, "go")
-				if v.Introduced != "" && (!strings.HasPrefix(v.Introduced, "go") || !semver.IsValid(introduced)) {
-					addPkgIssue(fmt.Sprintf("invalid Go version: %q", v.Introduced))
-				}
-				if v.Fixed != "" && (!strings.HasPrefix(v.Fixed, "go") || !semver.IsValid(fixed)) {
-					addPkgIssue(fmt.Sprintf("invalid Go version: %q", v.Fixed))
-				}
-				versions = append(versions, VersionRange{
-					Introduced: introduced,
-					Fixed:      fixed,
-				})
-			}
 		}
-		for i, v1 := range versions {
-			if v1.Fixed != "" && semver.Compare(v1.Introduced, v1.Fixed) >= 0 {
+		for i, v1 := range p.Versions {
+			for _, v := range []Version{v1.Introduced, v1.Fixed} {
+				if v == "" {
+					continue
+				}
+				if !v.IsValid() {
+					addPkgIssue(fmt.Sprintf("invalid semantic version: %q", v))
+				}
+			}
+			if v1.Introduced != "" && v1.Fixed != "" && !v1.Introduced.Before(v1.Fixed) {
 				addPkgIssue(fmt.Sprintf("version %q >= %q", p.Versions[i].Introduced, p.Versions[i].Fixed))
 				continue
 			}
-			for j, v2 := range versions[:i] {
-				if semver.Compare(v1.Fixed, v2.Introduced) > 0 && semver.Compare(v1.Introduced, v2.Fixed) < 0 {
+			for j, v2 := range p.Versions[:i] {
+				if v2.Introduced.Before(v1.Fixed) && v1.Introduced.Before(v2.Fixed) {
 					addPkgIssue(fmt.Sprintf("version ranges overlap: [%v,%v), [%v,%v)", p.Versions[i].Introduced, p.Versions[i].Fixed, p.Versions[j].Introduced, p.Versions[j].Fixed))
 				}
 			}
@@ -290,6 +274,28 @@ func (r *Report) Fix() {
 	var fixed []string
 	for _, l := range r.Links.Context {
 		fixed = append(fixed, fixURL(l))
+	}
+	fixVersion := func(vp *Version) {
+		v := *vp
+		if v == "" {
+			return
+		}
+		v = Version(strings.TrimPrefix(string(v), "v"))
+		v = Version(strings.TrimPrefix(string(v), "go"))
+		if v.IsValid() {
+			build := semver.Build(v.V())
+			v = Version(v.Canonical())
+			if build != "" {
+				v += Version("+" + build)
+			}
+		}
+		*vp = v
+	}
+	for i, p := range r.Packages {
+		for j, _ := range p.Versions {
+			fixVersion(&r.Packages[i].Versions[j].Introduced)
+			fixVersion(&r.Packages[i].Versions[j].Fixed)
+		}
 	}
 	r.Links.Context = fixed
 }

@@ -20,9 +20,9 @@ func TestLint(t *testing.T) {
 				Module:  "std",
 				Package: "time",
 				Versions: []VersionRange{{
-					Fixed: "go1.2.1",
+					Fixed: "1.2.1",
 				}, {
-					Fixed: "go1.3.2",
+					Fixed: "1.3.2",
 				}},
 			}},
 		},
@@ -33,12 +33,12 @@ func TestLint(t *testing.T) {
 				Module:  "std",
 				Package: "time",
 				Versions: []VersionRange{{
-					Introduced: "go1.3",
-					Fixed:      "go1.2.1",
+					Introduced: "1.3",
+					Fixed:      "1.2.1",
 				}},
 			}},
 		},
-		want: []string{`version "go1.3" >= "go1.2.1"`},
+		want: []string{`version "1.3" >= "1.2.1"`},
 	}} {
 		got := test.report.Lint()
 		var missing []string

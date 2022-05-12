@@ -275,7 +275,7 @@ See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) 
 packages:
   - package: aPackage
     versions:
-      - fixed: v1.2.3
+      - fixed: 1.2.3
 description: a description
 ghsas:
   - G1

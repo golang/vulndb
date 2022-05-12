@@ -57,7 +57,7 @@ func versions(earliestFixed, vulnRange string) []VersionRange {
 	items, err := parseVulnRange(vulnRange)
 	if err != nil {
 		return []VersionRange{{
-			Introduced: fmt.Sprintf("TODO (got error %q)", err),
+			Introduced: Version(fmt.Sprintf("TODO (got error %q)", err)),
 		}}
 	}
 
@@ -65,19 +65,19 @@ func versions(earliestFixed, vulnRange string) []VersionRange {
 
 	// Most common case: a single "<" item with a version that matches earliestFixed.
 	if len(items) == 1 && items[0].op == "<" && items[0].version == earliestFixed {
-		intro = "v0.0.0"
-		fixed = "v" + earliestFixed
+		intro = "0.0.0"
+		fixed = earliestFixed
 	}
 
 	// Two items, one >= and one <, with the latter matching earliestFixed.
 	if len(items) == 2 && items[0].op == ">=" && items[1].op == "<" && items[1].version == earliestFixed {
-		intro = "v" + items[0].version
-		fixed = "v" + earliestFixed
+		intro = items[0].version
+		fixed = earliestFixed
 	}
 
 	// A single "<=" item with no fixed version.
 	if len(items) == 1 && items[0].op == "<=" && earliestFixed == "" {
-		intro = "v0.0.0"
+		intro = "0.0.0"
 	}
 
 	if intro == "" {
@@ -85,11 +85,11 @@ func versions(earliestFixed, vulnRange string) []VersionRange {
 	}
 
 	// Unset intro if vuln was always present.
-	if intro == "v0.0.0" {
+	if intro == "0.0.0" {
 		intro = ""
 	}
 
-	return []VersionRange{{Introduced: intro, Fixed: fixed}}
+	return []VersionRange{{Introduced: Version(intro), Fixed: Version(fixed)}}
 }
 
 type vulnRangeItem struct {

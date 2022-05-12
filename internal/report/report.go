@@ -13,13 +13,38 @@ import (
 	"strings"
 	"time"
 
+	"golang.org/x/mod/semver"
 	"golang.org/x/vulndb/internal/derrors"
 	"gopkg.in/yaml.v3"
 )
 
+// Version is an SemVer 2.0.0 semantic version with no leading "v" prefix,
+// as used by OSV.
+type Version string
+
+// V returns the version with a "v" prefix.
+func (v Version) V() string {
+	return "v" + string(v)
+}
+
+// IsValid reports whether v is a valid semantic version string.
+func (v Version) IsValid() bool {
+	return semver.IsValid(v.V())
+}
+
+// Before reports whether v < v2.
+func (v Version) Before(v2 Version) bool {
+	return semver.Compare(v.V(), v2.V()) < 0
+}
+
+// Canonical returns the canonical formatting of the version.
+func (v Version) Canonical() string {
+	return strings.TrimPrefix(semver.Canonical(v.V()), "v")
+}
+
 type VersionRange struct {
-	Introduced string `yaml:"introduced,omitempty"`
-	Fixed      string `yaml:"fixed,omitempty"`
+	Introduced Version `yaml:"introduced,omitempty"`
+	Fixed      Version `yaml:"fixed,omitempty"`
 }
 
 type Package struct {

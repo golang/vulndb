@@ -32,7 +32,7 @@ func TestGHSAToReport(t *testing.T) {
 			Module:  "aModule",
 			Package: "aPackage",
 			Versions: []VersionRange{
-				{Fixed: "v1.2.3"},
+				{Fixed: "1.2.3"},
 			},
 		}},
 		LastModified: &updatedTime,
@@ -72,11 +72,11 @@ func TestVersions(t *testing.T) {
 	for _, test := range []struct {
 		earliestFixed string
 		vulnRange     string
-		intro, fixed  string
+		intro, fixed  Version
 	}{
-		{"1.0.0", "< 1.0.0", "", "v1.0.0"},
+		{"1.0.0", "< 1.0.0", "", "1.0.0"},
 		{"", "<= 1.4.2", "", ""},
-		{"1.1.3", ">= 1.1.0, < 1.1.3", "v1.1.0", "v1.1.3"},
+		{"1.1.3", ">= 1.1.0, < 1.1.3", "1.1.0", "1.1.3"},
 		{
 			"1.2.3", "<= 2.3.4",
 			`TODO (earliest fixed "1.2.3", vuln range "<= 2.3.4")`, "",

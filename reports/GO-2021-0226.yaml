@@ -6,9 +6,9 @@ packages:
       - response.WriteHeader
       - response.writeCGIHeader
     versions:
-      - fixed: go1.14.8
-      - introduced: go1.15.0
-        fixed: go1.15.1
+      - fixed: 1.14.8
+      - introduced: 1.15.0
+        fixed: 1.15.1
   - module: std
     package: net/http/fcgi
     symbols:
@@ -16,9 +16,9 @@ packages:
       - response.WriteHeader
       - response.writeCGIHeader
     versions:
-      - fixed: go1.14.8
-      - introduced: go1.15.0
-        fixed: go1.15.1
+      - fixed: 1.14.8
+      - introduced: 1.15.0
+        fixed: 1.15.1
 description: |
     When a Handler does not explicitly set the Content-Type header, the the
     package would default to “text/html”, which could cause a Cross-Site Scripting

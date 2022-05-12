@@ -21,9 +21,9 @@ func TestGenerate(t *testing.T) {
 			{
 				Module: "example.com/vulnerable/v2",
 				Versions: []report.VersionRange{
-					{Fixed: "v2.1.1"},
-					{Introduced: "v2.3.4", Fixed: "v2.3.5"},
-					{Introduced: "v2.5.0"},
+					{Fixed: "2.1.1"},
+					{Introduced: "2.3.4", Fixed: "2.3.5"},
+					{Introduced: "2.5.0"},
 				},
 				Symbols:        []string{"A", "B.b"},
 				DerivedSymbols: []string{"D"},
@@ -33,9 +33,9 @@ func TestGenerate(t *testing.T) {
 				Package: "vanity.host/vulnerable/package",
 				Symbols: []string{"b", "A.b"},
 				Versions: []report.VersionRange{
-					{Fixed: "v2.1.1"},
-					{Introduced: "v2.3.4", Fixed: "v2.3.5"},
-					{Introduced: "v2.5.0"},
+					{Fixed: "2.1.1"},
+					{Introduced: "2.3.4", Fixed: "2.3.5"},
+					{Introduced: "2.5.0"},
 				},
 			},
 			{
@@ -43,7 +43,7 @@ func TestGenerate(t *testing.T) {
 				Package: "example.com/also-vulnerable/package",
 				Symbols: []string{"z"},
 				Versions: []report.VersionRange{
-					{Fixed: "v2.1.1"},
+					{Fixed: "2.1.1"},
 				},
 			},
 		},
@@ -182,8 +182,8 @@ func TestGenerate(t *testing.T) {
 func TestSemverCanonicalize(t *testing.T) {
 	in := []report.VersionRange{
 		{
-			Introduced: "go1.16",
-			Fixed:      "go1.17",
+			Introduced: "1.16.0",
+			Fixed:      "1.17.0",
 		},
 	}
 	expected := osv.Affects{
