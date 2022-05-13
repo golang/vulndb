@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"os"
 	"regexp"
 	"strings"
@@ -232,11 +233,59 @@ func (r *Report) lintCVEs(addIssue func(string)) {
 	}
 }
 
+// Regex patterns for standard library links.
+var (
+	prRegex       = regexp.MustCompile(`https://go.dev/cl/\d+`)
+	commitRegex   = regexp.MustCompile(`https://go.googlesource.com/go/\+/([^/]+)`)
+	issueRegex    = regexp.MustCompile(`https://go.dev/issue/\d+`)
+	announceRegex = regexp.MustCompile(`https://groups.google.com/g/(golang-announce|golang-dev)/c/([^/]+)`)
+)
+
+func isFirstPartyGoLink(l string) bool {
+	return prRegex.MatchString(l) || commitRegex.MatchString(l) || issueRegex.MatchString(l) || announceRegex.MatchString(l)
+}
+
+// Checks that the "links" section of a Report for a package in the
+// standard library contains all necessary links, and no third-party links.
+func (r *Report) lintStdLibLinks(addIssue func(string)) {
+	if !prRegex.MatchString(r.Links.PR) {
+		addIssue(fmt.Sprintf("links.pr should contain a PR link matching %q", prRegex))
+	}
+	if !commitRegex.MatchString(r.Links.Commit) {
+		addIssue(fmt.Sprintf("links.commit should contain a commit link matching %q", commitRegex))
+	}
+	hasIssueLink := false
+	hasAnnounceLink := false
+	for _, c := range r.Links.Context {
+		if issueRegex.MatchString(c) {
+			hasIssueLink = true
+		} else if announceRegex.MatchString(c) {
+			hasAnnounceLink = true
+		}
+
+		if !isFirstPartyGoLink(c) {
+			addIssue(fmt.Sprintf("links.context should contain only first-party links, remove %q", c))
+		}
+	}
+	if !hasIssueLink {
+		addIssue(fmt.Sprintf("links.context should contain an issue link matching %q", issueRegex))
+	}
+	if !hasAnnounceLink {
+		addIssue(fmt.Sprintf("links.context should contain an announcement link matching %q", announceRegex))
+	}
+}
+
 func (r *Report) lintLinks(addIssue func(string)) {
 	links := append(r.Links.Context, r.Links.Commit, r.Links.PR)
 	for _, l := range links {
-		if !isValidURL(l) {
-			addIssue(fmt.Sprintf("%q should be %q", l, fixURL(l)))
+		if l == "" {
+			continue
+		}
+		if _, err := url.ParseRequestURI(l); err != nil {
+			addIssue(fmt.Sprintf("%q is not a valid URL", l))
+		}
+		if fixed := fixURL(l); fixed != l {
+			addIssue(fmt.Sprintf("unfixed url: %q should be %q", l, fixURL(l)))
 		}
 	}
 }
@@ -256,12 +305,14 @@ func (r *Report) Lint() []string {
 		addIssue("no packages")
 	}
 
+	isStdLibReport := false
 	for i, p := range r.Packages {
 		addPkgIssue := func(iss string) {
 			addIssue(fmt.Sprintf("packages[%v]: %v", i, iss))
 		}
 
 		if p.Module == "std" {
+			isStdLibReport = true
 			p.lintStdLibPkg(addPkgIssue)
 		} else {
 			p.lintThirdPartyPkg(addPkgIssue)
@@ -276,8 +327,13 @@ func (r *Report) Lint() []string {
 	if r.LastModified != nil && r.LastModified.Before(r.Published) {
 		addIssue("last_modified is before published")
 	}
+
 	r.lintCVEs(addIssue)
+
 	r.lintLinks(addIssue)
+	if isStdLibReport {
+		r.lintStdLibLinks(addIssue)
+	}
 
 	return issues
 }
@@ -330,10 +386,7 @@ var urlReplacements = []struct {
 }, {
 	regexp.MustCompile(`.*github.com/golang/go/commit`),
 	`https://go.googlesource.com/+`,
-}}
-
-func isValidURL(u string) bool {
-	return fixURL(u) == u
+},
 }
 
 func fixURL(u string) string {
