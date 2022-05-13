@@ -1,156 +1,221 @@
 # Vulnerability Report Format
 
-The Go vulnerability report format is used to generate JSON files served the
-the vulnerability database.
+The Go vulnerability report format is used to generate JSON files
+served to the the vulnerability database.
 
-This file format is meant for internal use only, and is subject to change
-without warning. See [golang.org/x/vuln](https://golang.org/x/vuln) for
-information on the Go Vulnerability database API.
+This file format is meant for internal use only, and is subject to
+change without warning. See [golang.org/x/vuln](https://golang.org/x/vuln)
+for information on the Go Vulnerability database API.
 
-This document explains data within the internal YAML file format.
+This page documents the internal YAML file format.
 
-## Module
+## `packages`
 
-**required:** `module` contains the module path of the vulnerable module.
+type [Package[]](#type-package)
 
-## Package
+**required** 
 
-**required:** `package` contains the import path of the vulnerable module.
+Information on each package affected by the vulnerability.
 
-## Description
+## Type **Package**
 
-**required:** `description` contains a textual description of the vulnerability
-and its impact.
+### `module`
 
-## CVEs
+type `string`
 
-`cves` contains all of the CVE numbers for the vulnerability that
-this report pertains to.
+**required** 
 
-## Credit
+The module path of the vulnerable module.
 
-`credit` contains credit for the person/organization that
-discovered/reported the vulnerability.
+### `package`
 
-## Symbols
+type `string`
 
-`symbols` contains an array of vulnerable symbols. If included, only programs
-which use these symbols will be marked as vulnerable. If omitted, any program
-which imports this module will be marked vulnerable.
+**required (if different from `module`)**
 
-These should be the symbols initially detected or identified in the CVE or
-other source.
+The import path of the vulnerable module.
 
-## Derived Symbols
+### `symbols`
 
-`derived_symbols` are additional symbols that are calculated from `symbols`,
+type `string[]`
+
+The symbols affected by this vulnerability.
+
+If included, only programs which use these symbols will be marked as
+vulnerable. If omitted, any program which imports this module will be
+marked vulnerable.
+
+These should be the symbols initially detected or identified in the CVE
+or other source.
+
+### `derived_symbols`
+
+type `string[]`
+
+Derived symbols that are calculated from `symbols`,
 such as by static analysis tools like `govulncheck`.
 
-Potentially, the set of derived symbols can differ with the module version. We
-don't attempt to capture that level of detail. Most of the values of
-`derived_symbols` as of this writing were obtained from a module version
-that was just prior to the version that the report listed as fixed.
+Potentially, the set of derived symbols can differ with the module
+version. We don't attempt to capture that level of detail. Most of the
+values of `derived_symbols` as of this writing were obtained from a
+module version that was just prior to the version that the report
+listed as fixed.
 
-## Versions
+### `versions`
 
-The `versions` sections of the YAML contain information about when
-the vulnerability was introduced, and when it was fixed. If the vulnerability
-is fixed in multiple major versions, then the YAML should contain multiple
-`versions` sections. If omitted, it is assumed that _every_ version of the
-module is vulnerable.
+type [`VersionRange[]`](#type-versionrange)
 
-### Introduced
+The version ranges in which the package is vulnerable.
 
-`introduced` contains the version at which the vulnerability was
-introduced. If this field is omitted it is assumed that every version, from the
+If the vulnerability is fixed in multiple major versions, then there
+should be multiple `versions` entries.
+
+If omitted, it is assumed that _every_ version of the module is
+vulnerable.
+
+Versions must be SemVer 2.0.0 versions, with no "v" or "go" prefix.
+Version ranges must not overlap.
+
+### Type **VersionRange**
+
+#### `introduced`
+
+type `string`
+
+The version at which the vulnerability was introduced.
+
+If this field is omitted, it is assumed that every version, from the
 initial commit, up to the `fixed` version is vulnerable.
 
-### Fixed
+#### `fixed`
 
-`fixed` contains the version at which the vulnerability was fixed.
-If this field is omitted it is assumed that every version since the
+type `string`
+
+The version at which the vulnerability was fixed.
+
+If this field is omitted, it is assumed that every version since the
 `introduced` version is vulnerable.
 
-## Additional Packages
+## `description`
 
-The `additional_packages` sections of the YAML contain information about
-additional packages impacted by the vulnerability. These may be other
-submodules which independently implement the same vulnerability, or alternate
-module names for the same module.
+type `string`
 
-### Package
+**required**
 
-`package` contains the import path of the additionally vulnerable
-module.
+A textual description of the vulnerability and its impact. Should be
+wrapped to 80 columns.
 
-### Symbols
+## `cves`
 
-`symbols` contains an array of vulnerable symbols. If included
-only programs which use these symbols will be marked as vulnerable. If omitted
-any program which imports this module will be marked vulnerable.
+type `string[]`
 
-### Versions
+The Common Vulnerabilities and Exposures (CVE) ID(s) for the
+ vulnerability.
 
-The `additional_packages.versions` sections contain version ranges for each
-additional package, following the same semantics as the `versions` section.
+## `ghsas`
 
-## Links
+type `string[]`
 
-The `links` section of the YAML contains further information about the
-vulnerability.
+The GitHub Security Advisory (GHSA) IDs for the vulnerability.
 
-### Commit
+## `credit`
 
-`commit` contains a link to the commit which fixes the
-vulnerability.
+The name of the person/organization that discovered/reported the
+ vulnerability.
 
-### PR
+## `links`
 
-`pr` contains a link to the PR/CL which fixes the vulnerability.
+type [`Links`](#type-links)
 
-### Context
+Links to further information about the vulnerability.
 
-`context` contains an array of additional links which provide
-additional context about the vulnerability, i.e. GitHub issues, vulnerability
-reports, etc.
+## Type **Links**
 
-## Example
+### `commit`
 
-```
-module: github.com/example/module
-package: github.com/example/module
+type `string`
+
+A link to the commit which fixes the vulnerability.
+
+### `pr`
+
+type `string`
+
+A link to the PR/CL which fixes the vulnerability.
+
+### `context`
+
+type `string[]`
+
+Additional links which provide more context about the vulnerability,
+i.e. GitHub issues, vulnerability reports, etc.
+
+## Example Reports
+
+### Third-party example report
+
+```yaml
+packages:
+  - module: github.com/example/module
+    package: github.com/example/module/package
+    symbols:
+      - Type.MethodA
+      - MethodB
+    versions:
+      # The vulnerability is present in all versions since version v0.2.0.
+      - introduced: 0.2.0
+      # The vulnerability is present in all versions up to version v0.2.5.
+      - fixed: 0.2.5
+    # Major versions must be explicitly specified
+  - module: github.com/example/module/v2
+    symbols:
+      - MethodB
+    versions:
+      - fixed: 2.5.0
+  - module: github.com/example/module/v3
+    symbols:
+      - MethodB
+    versions:
+      - introduced: 3.0.1
 description: |
   A description of the vulnerability present in this module.
 
   The description can contain newlines, and a limited set of markup.
 cves:
   - CVE-2021-3185
+ghsas:
+  - GHSA-1234-5678-9101
 credit:
   - John Smith
-symbols:
-  - Type.MethodA
-  - MethodB
-versions:
-  # The vulnerability is present in all versions since version v0.2.0.
-  - introduced: v0.2.0
-  # The vulnerability is present in all versions up to version v0.2.5.
-  - fixed: v0.2.5.
-additional_packages:
-  # Major versions must be explicitly specified
-  - module: github.com/example/module/v2
-    symbols:
-      - MethodB
-    versions:
-      - fixed: v2.5.0
-  - module: github.com/example/module/v3
-    symbols:
-      - MethodB
-    versions:
-      - introduced: v3.0.1
 links:
   - commit: https://github.com/example/module/commit/aabbccdd
   - pr: https://github.com/example/module/pull/10
   - context:
       - https://www.openwall.com/lists/oss-security/2016/11/03/1
       - https://github.com/example/module/advisories/1
+```
+
+### Standard library example report
+
+```yaml
+packages:
+  - module: std
+    package: a/package
+    symbols:
+      - pkg.ASymbol
+    versions:
+      - introduced: 1.14
+        fixed: 1.14.12
+      - introduced: 1.15
+        fixed: 1.15.5
+description: |
+    A description.
+cves:
+  - CVE-2020-12345
+links:
+    pr: https://go.dev/cl/12345
+    commit: https://go.googlesource.com/go/+/12345678
+    context:
+      - https://go.dev/issue/01010
+      - https://groups.google.com/g/golang-announce/c/123456
 ```

@@ -70,6 +70,8 @@ type CVEMeta struct {
 	Description string `yaml:",omitempty"`
 }
 
+// Report represents a vulnerability report in the vulndb.
+// Remember to update doc/format.md when this structure changes.
 type Report struct {
 	// TODO: could also be GoToolchain, but we might want
 	// this for other things?
