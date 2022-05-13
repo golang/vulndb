@@ -17,9 +17,9 @@ import (
 	"time"
 
 	"cloud.google.com/go/storage"
-	"golang.org/x/exp/vulncheck"
 	"golang.org/x/tools/go/packages"
 	vulnc "golang.org/x/vuln/client"
+	"golang.org/x/vuln/vulncheck"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"

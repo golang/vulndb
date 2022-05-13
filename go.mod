@@ -3,7 +3,7 @@ module golang.org/x/vulndb
 go 1.18
 
 require (
-	golang.org/x/vuln v0.0.0-20211221130724-9d39a965865f
+	golang.org/x/vuln v0.0.0-20220504230052-b2400d8d07c8
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 )
 
@@ -26,13 +26,12 @@ require (
 	go.opentelemetry.io/otel/metric v0.27.0
 	go.opentelemetry.io/otel/sdk v1.4.0
 	golang.org/x/exp/event v0.0.0-20220218215828-6cf2b201936e
-	golang.org/x/exp/vulncheck v0.0.0-20220128181451-c853b6ddb95e
 	golang.org/x/mod v0.6.0-dev.0.20220419223038-86c51ed26bb4
 	golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd
 	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/time v0.0.0-20191024005414-555d28b269f0
-	golang.org/x/tools v0.1.11-0.20220502155856-c39ac6a12f3f
+	golang.org/x/tools v0.1.11-0.20220504204054-4911e4af7dc7
 	google.golang.org/api v0.70.0
 	google.golang.org/grpc v1.44.0
 	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c

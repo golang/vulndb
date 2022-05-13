@@ -11,10 +11,10 @@ import (
 	"os"
 	"strings"
 
-	"golang.org/x/exp/vulncheck"
 	"golang.org/x/tools/go/packages"
 	vdbclient "golang.org/x/vuln/client"
 	"golang.org/x/vuln/osv"
+	"golang.org/x/vuln/vulncheck"
 	"golang.org/x/vulndb/internal/database"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/report"
