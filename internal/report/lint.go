@@ -40,6 +40,8 @@ func getModVersions(path string) (_ map[string]bool, err error) {
 	resp, err := http.Get(fmt.Sprintf("%s/%s/@v/list", proxyURL, escaped))
 	if err != nil {
 		return nil, err
+	} else if resp.StatusCode != 200 {
+		return nil, fmt.Errorf("http.Get returned status %v", resp.Status)
 	}
 	defer resp.Body.Close()
 	b, err := io.ReadAll(resp.Body)
@@ -66,6 +68,8 @@ func getCanonicalModName(path, version string) (_ string, err error) {
 	resp, err := http.Get(fmt.Sprintf("%s/%s/@v/%s.mod", proxyURL, escapedPath, escapedVersion))
 	if err != nil {
 		return "", err
+	} else if resp.StatusCode != 200 {
+		return "", fmt.Errorf("http.Get returned status %v", resp.Status)
 	}
 	defer resp.Body.Close()
 	b, err := io.ReadAll(resp.Body)
@@ -254,8 +258,7 @@ func (r *Report) Lint() []string {
 	if r.CVEMetadata != nil {
 		if r.CVEMetadata.ID == "" {
 			addIssue("cve_metadata.id is required")
-		}
-		if !cveRegex.MatchString(r.CVEMetadata.ID) {
+		} else if !cveRegex.MatchString(r.CVEMetadata.ID) {
 			addIssue("malformed cve_metadata.id identifier")
 		}
 	}
