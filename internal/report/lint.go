@@ -5,7 +5,6 @@
 package report
 
 import (
-	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -17,7 +16,6 @@ import (
 	"golang.org/x/mod/module"
 	"golang.org/x/mod/semver"
 	"golang.org/x/vulndb/internal/derrors"
-	"golang.org/x/vulndb/internal/stdlib"
 )
 
 // TODO: getting things from the proxy should all be cached so we
@@ -31,20 +29,28 @@ func init() {
 	}
 }
 
-func getModVersions(path string) (_ map[string]bool, err error) {
-	defer derrors.Wrap(&err, "getModVersions(%q)", path)
+func proxyLookup(urlSuffix string) ([]byte, error) {
+	url := fmt.Sprintf("%s/%s", proxyURL, urlSuffix)
+	resp, err := http.Get(url)
+	if err != nil {
+		return nil, err
+	} else if resp.StatusCode != 200 {
+		return nil, fmt.Errorf("http.Get(%q) returned status %v", url, resp.Status)
+	}
+	defer resp.Body.Close()
+	b, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
+func getModVersionsFromProxy(path string) (_ map[string]bool, err error) {
 	escaped, err := module.EscapePath(path)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := http.Get(fmt.Sprintf("%s/%s/@v/list", proxyURL, escaped))
-	if err != nil {
-		return nil, err
-	} else if resp.StatusCode != 200 {
-		return nil, fmt.Errorf("http.Get returned status %v", resp.Status)
-	}
-	defer resp.Body.Close()
-	b, err := io.ReadAll(resp.Body)
+	b, err := proxyLookup(fmt.Sprintf("%s/@v/list", escaped))
 	if err != nil {
 		return nil, err
 	}
@@ -55,8 +61,7 @@ func getModVersions(path string) (_ map[string]bool, err error) {
 	return versions, nil
 }
 
-func getCanonicalModName(path, version string) (_ string, err error) {
-	defer derrors.Wrap(&err, "getCanonicalModName(%q, %q)", path, version)
+func getCanonicalModNameFromProxy(path, version string) (_ string, err error) {
 	escapedPath, err := module.EscapePath(path)
 	if err != nil {
 		return "", err
@@ -65,14 +70,7 @@ func getCanonicalModName(path, version string) (_ string, err error) {
 	if err != nil {
 		return "", err
 	}
-	resp, err := http.Get(fmt.Sprintf("%s/%s/@v/%s.mod", proxyURL, escapedPath, escapedVersion))
-	if err != nil {
-		return "", err
-	} else if resp.StatusCode != 200 {
-		return "", fmt.Errorf("http.Get returned status %v", resp.Status)
-	}
-	defer resp.Body.Close()
-	b, err := io.ReadAll(resp.Body)
+	b, err := proxyLookup(fmt.Sprintf("%s/@v/%s.mod", escapedPath, escapedVersion))
 	if err != nil {
 		return "", err
 	}
@@ -96,14 +94,14 @@ func isPseudoVersion(v string) bool {
 }
 
 func versionExists(version string, versions map[string]bool) (err error) {
-	defer derrors.Wrap(&err, "versionExists(%q, %v)", version, versions)
-	// TODO: for now, just skip pseudo-versions. at some point we should verify that
-	// it is a likely pseudo-version, i.e. one that could feasibly exist given the
-	// actual versions that we know about.
+	// TODO: for now, don't check validity of pseudo-versions.
+	// We should add a check that the pseudo-version could feasibly exist given
+	// the actual versions that we know about.
 	//
-	// pseudo-version check should take into account the canonical import path
-	// probably? (I think cmd/go/internal/modfetch/coderepo.go has something like
-	// this, check the error containing "has post-%v module path")
+	// The pseudo-version check should probably take into account the canonical
+	// import path (investigate cmd/go/internal/modfetch/coderepo.go has, which
+	// has something like this, check the error containing "has post-%v module
+	// path").
 	if isPseudoVersion(version) {
 		return nil
 	}
@@ -113,40 +111,34 @@ func versionExists(version string, versions map[string]bool) (err error) {
 	return nil
 }
 
-func checkModVersions(path string, vr []VersionRange) (err error) {
-	defer derrors.Wrap(&err, "checkModVersions(%q, vr)", path)
-	realVersions, err := getModVersions(path)
+func checkModVersions(modPath string, vrs []VersionRange) (err error) {
+	foundVersions, err := getModVersionsFromProxy(modPath)
 	if err != nil {
 		return fmt.Errorf("unable to retrieve module versions from proxy: %s", err)
 	}
-	checkVersion := func(version Version) error {
-		if !version.IsValid() {
-			return errors.New("invalid module semver")
+	checkVersion := func(v Version) error {
+		if v == "" {
+			return nil
 		}
-		if err := module.Check(path, version.V()); err != nil {
+		if err := module.Check(modPath, v.V()); err != nil {
 			return err
 		}
-		if err := versionExists(version.V(), realVersions); err != nil {
+		if err := versionExists(v.V(), foundVersions); err != nil {
 			return err
 		}
-		canonicalPath, err := getCanonicalModName(path, version.V())
+		canonicalPath, err := getCanonicalModNameFromProxy(modPath, v.V())
 		if err != nil {
-			return err
+			return fmt.Errorf("unable to retrieve canonical module path from proxy: %s", err)
 		}
-		if canonicalPath != path {
-			return fmt.Errorf("invalid module path at version (canonical path is %s)", canonicalPath)
+		if canonicalPath != modPath {
+			return fmt.Errorf("invalid module path %q at version %q (canonical path is %q)", modPath, v, canonicalPath)
 		}
 		return nil
 	}
-	for _, version := range vr {
-		if version.Introduced != "" {
-			if err := checkVersion(version.Introduced); err != nil {
-				return fmt.Errorf("bad version.introduced %q: %s", version.Introduced, err)
-			}
-		}
-		if version.Fixed != "" {
-			if err := checkVersion(version.Fixed); err != nil {
-				return fmt.Errorf("bad version.fixed %q: %s", version.Fixed, err)
+	for _, vr := range vrs {
+		for _, v := range []Version{vr.Introduced, vr.Fixed} {
+			if err := checkVersion(v); err != nil {
+				return fmt.Errorf("bad version %q: %s", v, err)
 			}
 		}
 	}
@@ -165,87 +157,63 @@ func LintFile(filename string) (_ []string, err error) {
 	return r.Lint(), nil
 }
 
+func (p *Package) lintStdLibPkg(addPkgIssue func(string)) {
+	if p.Package == "" {
+		addPkgIssue("missing package")
+	}
+}
+
+func (p *Package) lintThirdPartyPkg(addPkgIssue func(string)) {
+	if p.Module == "" {
+		addPkgIssue("missing module")
+		return
+	}
+	if p.Package == p.Module {
+		addPkgIssue("package is redundant and can be removed")
+	}
+	if p.Package != "" && !strings.HasPrefix(p.Package, p.Module) {
+		addPkgIssue("module must be a prefix of package")
+	}
+	if err := checkModVersions(p.Module, p.Versions); err != nil {
+		addPkgIssue(err.Error())
+	}
+
+	importPath := p.Package
+	if p.Package == "" {
+		importPath = p.Module
+	}
+	if err := module.CheckImportPath(importPath); err != nil {
+		addPkgIssue(err.Error())
+	}
+}
+
+func (p *Package) lintVersions(addPkgIssue func(string)) {
+	for i, vr := range p.Versions {
+		for _, v := range []Version{vr.Introduced, vr.Fixed} {
+			if v != "" && !v.IsValid() {
+				addPkgIssue(fmt.Sprintf("invalid semantic version: %q", v))
+			}
+		}
+		if vr.Fixed != "" && !vr.Introduced.Before(vr.Fixed) {
+			addPkgIssue(
+				fmt.Sprintf("version %q >= %q", vr.Introduced, vr.Fixed))
+			continue
+		}
+		// Check all previous version ranges to ensure none overlap with
+		// this one.
+		for _, vrPrev := range p.Versions[:i] {
+			if vrPrev.Introduced.Before(vr.Fixed) && vr.Introduced.Before(vrPrev.Fixed) {
+				addPkgIssue(fmt.Sprintf("version ranges overlap: [%v,%v), [%v,%v)", vr.Introduced, vr.Fixed, vr.Introduced, vrPrev.Fixed))
+			}
+		}
+	}
+}
+
 var cveRegex = regexp.MustCompile(`^CVE-\d{4}-\d{4,}$`)
 
-// Lint checks the content of a Report.
-// TODO: It might make sense to include warnings or informational things
-// alongside errors, especially during for use during the triage process.
-func (r *Report) Lint() []string {
-	var issues []string
-
-	addIssue := func(iss string) {
-		issues = append(issues, iss)
-	}
-
-	if len(r.Packages) == 0 {
-		addIssue("no packages")
-	}
-
-	for i, p := range r.Packages {
-		addPkgIssue := func(iss string) {
-			issues = append(issues, fmt.Sprintf("packages[%v]: %v", i, iss))
-		}
-		if !stdlib.Contains(p.Module) {
-			if p.Module == "" {
-				addPkgIssue("missing module")
-			}
-			if p.Module != "" && p.Package == p.Module {
-				addPkgIssue("package is redundant and can be removed")
-			}
-			if p.Package != "" && !strings.HasPrefix(p.Package, p.Module) {
-				addPkgIssue("module must be a prefix of package")
-			}
-			var importPath string
-			if p.Package == "" {
-				importPath = p.Module
-			} else {
-				importPath = p.Package
-			}
-			if p.Module != "" && importPath != "" {
-				if err := checkModVersions(p.Module, p.Versions); err != nil {
-					addPkgIssue(err.Error())
-				}
-
-				if err := module.CheckImportPath(importPath); err != nil {
-					addPkgIssue(err.Error())
-				}
-			}
-		} else {
-			if p.Package == "" {
-				addPkgIssue("missing package")
-			}
-		}
-		for i, v1 := range p.Versions {
-			for _, v := range []Version{v1.Introduced, v1.Fixed} {
-				if v == "" {
-					continue
-				}
-				if !v.IsValid() {
-					addPkgIssue(fmt.Sprintf("invalid semantic version: %q", v))
-				}
-			}
-			if v1.Introduced != "" && v1.Fixed != "" && !v1.Introduced.Before(v1.Fixed) {
-				addPkgIssue(fmt.Sprintf("version %q >= %q", p.Versions[i].Introduced, p.Versions[i].Fixed))
-				continue
-			}
-			for j, v2 := range p.Versions[:i] {
-				if v2.Introduced.Before(v1.Fixed) && v1.Introduced.Before(v2.Fixed) {
-					addPkgIssue(fmt.Sprintf("version ranges overlap: [%v,%v), [%v,%v)", p.Versions[i].Introduced, p.Versions[i].Fixed, p.Versions[j].Introduced, p.Versions[j].Fixed))
-				}
-			}
-		}
-	}
-
-	if r.Description == "" {
-		addIssue("missing description")
-	}
-
-	if r.LastModified != nil && r.LastModified.Before(r.Published) {
-		addIssue("last_modified is before published")
-	}
-
+func (r *Report) lintCVEs(addIssue func(string)) {
 	if len(r.CVEs) > 0 && r.CVEMetadata != nil && r.CVEMetadata.ID != "" {
-		// TODO: may just want to use one of these? :shrug:
+		// TODO: consider removing one of these fields from the Report struct.
 		addIssue("only one of cve and cve_metadata.id should be present")
 	}
 
@@ -262,12 +230,55 @@ func (r *Report) Lint() []string {
 			addIssue("malformed cve_metadata.id identifier")
 		}
 	}
+}
+
+func (r *Report) lintLinks(addIssue func(string)) {
 	links := append(r.Links.Context, r.Links.Commit, r.Links.PR)
 	for _, l := range links {
 		if !isValidURL(l) {
 			addIssue(fmt.Sprintf("%q should be %q", l, fixURL(l)))
 		}
 	}
+}
+
+// Lint checks the content of a Report and outputs a list of strings
+// representing lint errors.
+// TODO: It might make sense to include warnings or informational things
+// alongside errors, especially during for use during the triage process.
+func (r *Report) Lint() []string {
+	var issues []string
+
+	addIssue := func(iss string) {
+		issues = append(issues, iss)
+	}
+
+	if len(r.Packages) == 0 {
+		addIssue("no packages")
+	}
+
+	for i, p := range r.Packages {
+		addPkgIssue := func(iss string) {
+			addIssue(fmt.Sprintf("packages[%v]: %v", i, iss))
+		}
+
+		if p.Module == "std" {
+			p.lintStdLibPkg(addPkgIssue)
+		} else {
+			p.lintThirdPartyPkg(addPkgIssue)
+		}
+
+		p.lintVersions(addPkgIssue)
+	}
+
+	if r.Description == "" {
+		addIssue("missing description")
+	}
+	if r.LastModified != nil && r.LastModified.Before(r.Published) {
+		addIssue("last_modified is before published")
+	}
+	r.lintCVEs(addIssue)
+	r.lintLinks(addIssue)
+
 	return issues
 }
 
