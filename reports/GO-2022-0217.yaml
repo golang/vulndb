@@ -1,0 +1,26 @@
+packages:
+  - module: std
+    package: crypto/elliptic
+    symbols:
+      - curve.doubleJacobian
+    versions:
+      - fixed: 1.10.8
+      - introduced: 1.11.0
+        fixed: 1.11.5
+description: |
+    A DoS vulnerability in the crypto/elliptic implementations of the P-521 and
+    P-384 elliptic curves may let an attacker craft inputs that consume
+    excessive amounts of CPU.
+
+    These inputs might be delivered via TLS handshakes, X.509 certificates, JWT
+    tokens, ECDH shares or ECDSA signatures. In some cases, if an ECDH private
+    key is reused more than once, the attack can also lead to key recovery.
+cves:
+  - CVE-2019-6486
+credit: Wycheproof Project
+links:
+    pr: https://go.dev/cl/159218
+    commit: https://go.googlesource.com/go/+/193c16a3648b8670a762e925b6ac6e074f468a20
+    context:
+      - https://go.dev/issue/29903
+      - https://groups.google.com/g/golang-announce/c/mVeX35iXuSw
