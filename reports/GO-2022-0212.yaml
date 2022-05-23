@@ -1,0 +1,29 @@
+packages:
+  - module: std
+    package: net/textproto
+    symbols:
+      - Reader.ReadMimeHeader
+    versions:
+      - fixed: 1.12.10
+      - introduced: 1.13.0
+        fixed: 1.13.1
+description: |
+    net/http (through net/textproto) used to accept and normalize invalid
+    HTTP/1.1 headers with a space before the colon, in violation of RFC 7230.
+
+    If a Go server is used behind an uncommon reverse proxy that accepts and
+    forwards but doesn't normalize such invalid headers, the reverse proxy and
+    the server can interpret the headers differently. This can lead to filter
+    bypasses or request smuggling, the latter if requests from separate clients
+    are multiplexed onto the same upstream connection by the proxy. Such
+    invalid headers are now rejected by Go servers, and passed without
+    normalization to Go client applications.
+cves:
+  - CVE-2019-16276
+credit: Andrew Stucki, Adam Scarr (99designs.com), and Jan Masarik (masarik.sh)
+links:
+    pr: https://go.dev/cl/197503
+    commit: https://go.googlesource.com/go/+/41b1f88efab9d263408448bf139659119002ea50
+    context:
+      - https://go.dev/issue/34540
+      - https://groups.google.com/g/golang-announce/c/cszieYyuL9Q/m/g4Z7pKaqAgAJ
