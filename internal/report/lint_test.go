@@ -275,7 +275,7 @@ func TestLint(t *testing.T) {
 				"links.commit should contain a commit link",
 				"links.context should contain an issue link",
 				"links.context should contain an announcement link",
-				"links.context should contain only first-party links",
+				"links.context should contain only PR, commit, issue and announcement links",
 				// Unfixed link errors.
 				`"https://github.com/golang/go/commit/12345" should be "https://go.googlesource.com/+/12345"`,
 				`"https://github.com/golang/go/issues/12345" should be "https://go.dev/issue/12345"`,

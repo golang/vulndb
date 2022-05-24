@@ -238,7 +238,7 @@ var (
 	prRegex       = regexp.MustCompile(`https://go.dev/cl/\d+`)
 	commitRegex   = regexp.MustCompile(`https://go.googlesource.com/go/\+/([^/]+)`)
 	issueRegex    = regexp.MustCompile(`https://go.dev/issue/\d+`)
-	announceRegex = regexp.MustCompile(`https://groups.google.com/g/(golang-announce|golang-dev)/c/([^/]+)`)
+	announceRegex = regexp.MustCompile(`https://groups.google.com/g/golang-(announce|dev|nuts)/c/([^/]+)`)
 )
 
 func isFirstPartyGoLink(l string) bool {
@@ -264,7 +264,7 @@ func (r *Report) lintStdLibLinks(addIssue func(string)) {
 		}
 
 		if !isFirstPartyGoLink(c) {
-			addIssue(fmt.Sprintf("links.context should contain only first-party links, remove %q", c))
+			addIssue(fmt.Sprintf("links.context should contain only PR, commit, issue and announcement links, remove or fix %q", c))
 		}
 	}
 	if !hasIssueLink {
