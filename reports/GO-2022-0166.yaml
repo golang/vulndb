@@ -1,0 +1,24 @@
+packages:
+  - module: std
+    package: crypto/dsa
+    symbols:
+      - Verify
+    versions:
+      - fixed: 1.5.4
+      - introduced: 1.6.0
+        fixed: 1.6.1
+description: |
+    The Verify function in crypto/dsa passed certain parameters unchecked to
+    the underlying big integer library, possibly leading to extremely
+    long-running computations, which in turn makes Go programs vulnerable to
+    remote denial of service attacks.  Programs using HTTPS client certificates
+    or the Go SSH server libraries are both exposed to this vulnerability.
+cves:
+  - CVE-2016-3959
+credit: David Wong
+links:
+    pr: https://go.dev/cl/21533
+    commit: https://go.googlesource.com/go/+/eb876dd83cb8413335d64e50aae5d38337d1ebb4
+    context:
+      - https://go.dev/issue/15184
+      - https://groups.google.com/g/golang-announce/c/9eqIHqaWvck
