@@ -1,0 +1,26 @@
+packages:
+  - module: std
+    package: crypto/tls
+    symbols:
+      - checkForResumption
+      - decryptTicket
+    versions:
+      - introduced: 1.1.0
+        fixed: 1.3.2
+description: |
+  When SessionTicketsDisabled is enabled, crypto/tls allowed man-in-the-middle
+  attackers to spoof clients via unspecified vectors.
+
+  If the server enables TLS client authentication using certificates (this is
+  rare) and explicitly sets SessionTicketsDisabled to true in the tls.Config,
+  then a malicious client can falsely assert ownership of any client
+  certificate it wishes.
+cves:
+  - CVE-2014-7189
+credit: Go Team
+links:
+    pr: https://go.dev/cl/148080043
+    commit: https://go.googlesource.com/go/+/commit/64df53ed7f
+    context:
+      - https://go.dev/issue/53085
+      - https://groups.google.com/g/golang-nuts/c/eeOHNw_shwU/m/OHALUmroA5kJ
