@@ -9,15 +9,15 @@ packages:
       - introduced: 1.18
         fixed: 1.18.1
 description: |
-    A crafted scalar input longer than 32 bytes can cause P256().ScalarMult
-    or P256().ScalarBaseMult to panic. Indirect uses through crypto/ecdsa and
-    crypto/tls are unaffected. amd64, arm64, ppc64le, and s390x are unaffected.
+  A crafted scalar input longer than 32 bytes can cause P256().ScalarMult
+  or P256().ScalarBaseMult to panic. Indirect uses through crypto/ecdsa and
+  crypto/tls are unaffected. amd64, arm64, ppc64le, and s390x are unaffected.
 cves:
   - CVE-2022-28327
 credit: Project Wycheproof
 links:
-    pr: https://go.dev/cl/397135
-    commit: https://go.googlesource.com/go/+/37065847d87df92b5eb246c88ba2085efcf0b331
-    context:
-      - https://go.dev/issue/52075
-      - https://groups.google.com/g/golang-announce/c/oecdBNLOml8
+  pr: https://go.dev/cl/397135
+  commit: https://go.googlesource.com/go/+/37065847d87df92b5eb246c88ba2085efcf0b331
+  context:
+    - https://go.dev/issue/52075
+    - https://groups.google.com/g/golang-announce/c/oecdBNLOml8
