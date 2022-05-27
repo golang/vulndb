@@ -5,16 +5,4 @@
 
 set -e
 
-deploy=$(
-	git cat-file -p 'HEAD' |
-	awk '
-		BEGIN { flag = "false" }
-		/^Reviewed-on:/ { flag = "false" }
-		/^Vulndb-Deploy:/ { flag = "true" }
-		END {print flag}
-	'
-)
-
-if $deploy; then
-    gsutil -m cp -r /workspace/db/* gs://go-vulndb
-fi
+gsutil -m cp -r /workspace/db/* gs://go-vulndb
