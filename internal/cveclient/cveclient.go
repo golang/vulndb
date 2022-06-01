@@ -7,6 +7,7 @@
 package cveclient
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -15,6 +16,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"golang.org/x/vulndb/internal/cveschema5"
 )
 
 const (
@@ -128,12 +131,13 @@ func (o *ReserveOptions) getURLParams(org string) url.Values {
 }
 
 func (c *Client) createReserveIDsRequest(opts ReserveOptions) (*http.Request, error) {
-	req, err := c.createRequest(http.MethodPost, c.getURL(cveIDTarget))
+	req, err := c.createRequest(http.MethodPost,
+		c.getURL(cveIDTarget), nil)
 	if err != nil {
 		return nil, err
 	}
 	req.URL.RawQuery = opts.getURLParams(c.Org).Encode()
-	return req, nil
+	return req, err
 }
 
 type reserveIDsResponse struct {
@@ -169,14 +173,59 @@ type Quota struct {
 
 // RetrieveQuota queries the API for the organizations reservation quota.
 func (c *Client) RetrieveQuota() (q *Quota, err error) {
-	err = c.queryAPI(http.MethodGet, c.getURL(orgTarget, c.Org, quotaTarget), &q)
+	err = c.queryAPI(http.MethodGet, c.getURL(orgTarget, c.Org, quotaTarget), nil, &q)
 	return
 }
 
 // RetrieveID requests information about an assigned CVE ID.
 func (c *Client) RetrieveID(id string) (cve *AssignedCVE, err error) {
-	err = c.queryAPI(http.MethodGet, c.getURL(cveIDTarget, id), &cve)
+	err = c.queryAPI(http.MethodGet, c.getURL(cveIDTarget, id), nil, &cve)
 	return
+}
+
+// RetrieveRecord requests a CVE record.
+func (c *Client) RetrieveRecord(id string) (cve *cveschema5.CVERecord, err error) {
+	err = c.queryAPI(http.MethodGet, c.getURL(cveTarget, id, cnaTarget), nil, &cve)
+	return
+}
+
+func (c *Client) getCVERecordEndpoint(cveID string) string {
+	return c.getURL(cveTarget, cveID, cnaTarget)
+}
+
+type recordRequestBody struct {
+	CNAContainer cveschema5.CNAPublishedContainer `json:"cnaContainer"`
+}
+type createResponse struct {
+	Created cveschema5.CVERecord `json:"created"`
+}
+
+func (c *Client) CreateRecord(id string, record *cveschema5.Containers) (*cveschema5.CVERecord, error) {
+	requestBody := recordRequestBody{
+		CNAContainer: record.CNAContainer,
+	}
+	var response createResponse
+	err := c.queryAPI(http.MethodPost, c.getCVERecordEndpoint(id), requestBody, &response)
+	if err != nil {
+		return nil, err
+	}
+	return &response.Created, nil
+}
+
+type updateResponse struct {
+	Updated cveschema5.CVERecord `json:"updated"`
+}
+
+func (c *Client) UpdateRecord(id string, record *cveschema5.Containers) (*cveschema5.CVERecord, error) {
+	requestBody := recordRequestBody{
+		CNAContainer: record.CNAContainer,
+	}
+	var response updateResponse
+	err := c.queryAPI(http.MethodPut, c.getCVERecordEndpoint(id), requestBody, &response)
+	if err != nil {
+		return nil, err
+	}
+	return &response.Updated, nil
 }
 
 type Org struct {
@@ -187,7 +236,7 @@ type Org struct {
 
 // RetrieveOrg requests information about an organization.
 func (c *Client) RetrieveOrg() (org *Org, err error) {
-	err = c.queryAPI(http.MethodGet, c.getURL(orgTarget, c.Org), &org)
+	err = c.queryAPI(http.MethodGet, c.getURL(orgTarget, c.Org), nil, &org)
 	return
 }
 
@@ -257,8 +306,8 @@ type listOrgCVEsResponse struct {
 	CVEs        AssignedCVEList `json:"cve_ids"`
 }
 
-func (c Client) createListOrgCVEsRequest(opts *ListOptions, page int) (*http.Request, error) {
-	req, err := c.createRequest(http.MethodGet, c.getURL(cveIDTarget))
+func (c Client) createListOrgCVEsRequest(opts *ListOptions, page int) (req *http.Request, err error) {
+	req, err = c.createRequest(http.MethodGet, c.getURL(cveIDTarget), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -267,7 +316,7 @@ func (c Client) createListOrgCVEsRequest(opts *ListOptions, page int) (*http.Req
 		params.Set("page", fmt.Sprint(page))
 	}
 	req.URL.RawQuery = params.Encode()
-	return req, nil
+	return
 }
 
 // ListOrgCVEs requests information about the CVEs the organization has been
@@ -294,8 +343,8 @@ func (c *Client) ListOrgCVEs(opts *ListOptions) (AssignedCVEList, error) {
 	return cves, nil
 }
 
-func (c *Client) queryAPI(method, url string, response any) error {
-	req, err := c.createRequest(method, url)
+func (c *Client) queryAPI(method, url string, requestBody any, response any) error {
+	req, err := c.createRequest(method, url, requestBody)
 	if err != nil {
 		return err
 	}
@@ -313,14 +362,23 @@ var (
 )
 
 // createRequest creates a new HTTP request and sets the header fields.
-func (c *Client) createRequest(method, url string) (*http.Request, error) {
-	req, err := http.NewRequest(method, url, nil)
+func (c *Client) createRequest(method, url string, body any) (*http.Request, error) {
+	var r io.Reader
+	if body != nil {
+		b, err := json.Marshal(body)
+		if err != nil {
+			return nil, err
+		}
+		r = bytes.NewReader(b)
+	}
+	req, err := http.NewRequest(method, url, r)
 	if err != nil {
 		return nil, err
 	}
 	req.Header.Set(headerApiUser, c.User)
 	req.Header.Set(headerApiOrg, c.Org)
 	req.Header.Set(headerApiKey, c.Key)
+	req.Header.Set("Content-Type", "application/json")
 	return req, nil
 }
 
@@ -352,9 +410,11 @@ func (c *Client) sendRequest(req *http.Request, checkStatus func(int) bool, resu
 }
 
 var (
+	cveTarget   = "cve"
 	cveIDTarget = "cve-id"
 	orgTarget   = "org"
 	quotaTarget = "id_quota"
+	cnaTarget   = "cna"
 )
 
 func (c *Client) getURL(targets ...string) string {
@@ -362,8 +422,18 @@ func (c *Client) getURL(targets ...string) string {
 }
 
 type apiError struct {
-	Error   string `json:"error"`
-	Message string `json:"message"`
+	Error   string         `json:"error"`
+	Message string         `json:"message"`
+	Detail  apiErrorDetail `json:"details"`
+}
+
+type apiErrorDetail struct {
+	Errors []apiErrorInner `json:"errors"`
+}
+
+type apiErrorInner struct {
+	InstancePath string `json:"instancePath"`
+	Message      string `json:"message"`
 }
 
 // extractError extracts additional error messages from the HTTP response
@@ -372,13 +442,11 @@ func extractError(resp *http.Response) error {
 	errMsg := resp.Status
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		// Discard the read error and return the HTTP status.
-		return fmt.Errorf(errMsg)
+		return fmt.Errorf("%s: could not read error data: %s", errMsg, err)
 	}
 	var apiErr apiError
 	if err := json.Unmarshal(body, &apiErr); err != nil {
-		// Discard the unmarshal error and return the HTTP status.
-		return fmt.Errorf(errMsg)
+		return fmt.Errorf("%s: could not unmarshal error: %s", errMsg, err)
 	}
 
 	// Append the error and message text if they add extra information
@@ -389,5 +457,10 @@ func extractError(resp *http.Response) error {
 			errMsg = fmt.Sprintf("%s: %s", errMsg, errText)
 		}
 	}
+
+	for _, detail := range apiErr.Detail.Errors {
+		errMsg = fmt.Sprintf("%s\n  %s: %s", errMsg, detail.InstancePath, detail.Message)
+	}
+
 	return fmt.Errorf(errMsg)
 }

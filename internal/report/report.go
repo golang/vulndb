@@ -128,6 +128,18 @@ func (r *Report) GetAliases() []string {
 	return append(r.GetCVEs(), r.GHSAs...)
 }
 
+// AllLinks returns all reference links in the report.
+func (r *Report) AllLinks() []string {
+	var links []string
+	if r.Links.PR != "" {
+		links = append(links, r.Links.PR)
+	}
+	if r.Links.Commit != "" {
+		links = append(links, r.Links.Commit)
+	}
+	return append(links, r.Links.Context...)
+}
+
 // AllSymbols returns both original and derived symbols.
 func (a *Package) AllSymbols() []string {
 	return append(append([]string(nil), a.Symbols...), a.DerivedSymbols...)

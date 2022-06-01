@@ -17,27 +17,45 @@ import (
 	"time"
 
 	"golang.org/x/vulndb/internal/cveschema"
+	"golang.org/x/vulndb/internal/cveschema5"
 )
 
-var (
+const (
 	testApiKey  = "test_api_key"
 	testApiOrg  = "test_api_org"
 	testApiUser = "test_api_user"
+
+	defaultTestCVEID = "CVE-2022-0000"
 )
 
-var defaultTestCVE = newTestCVE("CVE-2022-0000", cveschema.StateReserved, "2022")
-var defaultTestCVEs = AssignedCVEList{
-	defaultTestCVE, newTestCVE("CVE-2022-0001", cveschema.StateReserved, "2022"),
+var (
+	defaultTestCVE  = newTestCVE(defaultTestCVEID, cveschema.StateReserved, "2022")
+	defaultTestCVEs = AssignedCVEList{
+		defaultTestCVE,
+		newTestCVE("CVE-2022-0001", cveschema.StateReserved, "2022")}
+
+	defaultTestQuota = &Quota{
+		Quota:     10,
+		Reserved:  3,
+		Available: 7,
+	}
+	defaultTestOrg = &Org{
+		Name:      "An Org",
+		ShortName: testApiOrg,
+		UUID:      "000-000-000",
+	}
+)
+
+func readTestData(t *testing.T, filename string) *cveschema5.CVERecord {
+	record, err := cveschema5.Read(fmt.Sprintf("../cveschema5/testdata/%s", filename))
+	if err != nil {
+		t.Fatalf("could not read test data from file %s: %v", filename, err)
+	}
+	return record
 }
-var defaultTestQuota = &Quota{
-	Quota:     10,
-	Reserved:  3,
-	Available: 7,
-}
-var defaultTestOrg = &Org{
-	Name:      "An Org",
-	ShortName: testApiOrg,
-	UUID:      "000-000-000",
+
+var getDefaultTestCVERecord = func(t *testing.T) *cveschema5.CVERecord {
+	return readTestData(t, "basic-example.json")
 }
 
 var (
@@ -180,31 +198,41 @@ func TestCreateReserveIDsRequest(t *testing.T) {
 	}
 }
 
-type queryFunc func(c *Client) (any, error)
+type queryFunc func(t *testing.T, c *Client) (any, error)
 
 var (
-	reserveIDsQuery = func(c *Client) (any, error) {
+	reserveIDsQuery = func(t *testing.T, c *Client) (any, error) {
 		return c.ReserveIDs(ReserveOptions{
 			NumIDs: 2,
 			Year:   2002,
 			Mode:   SequentialRequest,
 		})
 	}
-	retrieveQuotaQuery = func(c *Client) (any, error) {
+	retrieveQuotaQuery = func(t *testing.T, c *Client) (any, error) {
 		return c.RetrieveQuota()
 	}
-	retrieveIDQuery = func(c *Client) (any, error) {
-		return c.RetrieveID(defaultTestCVE.ID)
+	retrieveIDQuery = func(t *testing.T, c *Client) (any, error) {
+		return c.RetrieveID(getDefaultTestCVERecord(t).Metadata.ID)
 	}
-	retrieveOrgQuery = func(c *Client) (any, error) {
+	retrieveRecordQuery = func(t *testing.T, c *Client) (any, error) {
+		return c.RetrieveRecord(getDefaultTestCVERecord(t).Metadata.ID)
+	}
+	createRecordQuery = func(t *testing.T, c *Client) (any, error) {
+		return c.CreateRecord(defaultTestCVE.ID, &getDefaultTestCVERecord(t).Containers)
+	}
+	updateRecordQuery = func(t *testing.T, c *Client) (any, error) {
+		return c.UpdateRecord(defaultTestCVE.ID, &getDefaultTestCVERecord(t).Containers)
+	}
+	retrieveOrgQuery = func(t *testing.T, c *Client) (any, error) {
 		return c.RetrieveOrg()
 	}
-	listOrgCVEsQuery = func(c *Client) (any, error) {
+	listOrgCVEsQuery = func(t *testing.T, c *Client) (any, error) {
 		return c.ListOrgCVEs(&ListOptions{})
 	}
 )
 
 func TestAllSuccess(t *testing.T) {
+	defaultTestCVERecord := getDefaultTestCVERecord(t)
 	tests := []struct {
 		name           string
 		mockStatus     int
@@ -253,6 +281,33 @@ func TestAllSuccess(t *testing.T) {
 			want:           &defaultTestCVE,
 		},
 		{
+			name:           "RetrieveRecord",
+			query:          retrieveRecordQuery,
+			mockStatus:     http.StatusOK,
+			mockResponse:   defaultTestCVERecord,
+			wantHTTPMethod: http.MethodGet,
+			wantPath:       "/api/cve/CVE-2022-0000/cna",
+			want:           defaultTestCVERecord,
+		},
+		{
+			name:           "CreateRecord",
+			query:          createRecordQuery,
+			mockStatus:     http.StatusOK,
+			mockResponse:   createResponse{*defaultTestCVERecord},
+			wantHTTPMethod: http.MethodPost,
+			wantPath:       "/api/cve/CVE-2022-0000/cna",
+			want:           defaultTestCVERecord,
+		},
+		{
+			name:           "UpdateRecord",
+			query:          updateRecordQuery,
+			mockStatus:     http.StatusOK,
+			mockResponse:   updateResponse{*defaultTestCVERecord},
+			wantHTTPMethod: http.MethodPut,
+			wantPath:       "/api/cve/CVE-2022-0000/cna",
+			want:           defaultTestCVERecord,
+		},
+		{
 			name:           "RetrieveOrg",
 			query:          retrieveOrgQuery,
 			mockStatus:     http.StatusOK,
@@ -288,7 +343,7 @@ func TestAllSuccess(t *testing.T) {
 			c, s := newTestClientAndServer(
 				newTestHandler(t, test.mockStatus, test.mockResponse, validateRequest))
 			defer s.Close()
-			got, err := test.query(c)
+			got, err := test.query(t, c)
 			if err != nil {
 				t.Fatalf("unexpected error: %v", err)
 			}
@@ -317,6 +372,18 @@ func TestAllFail(t *testing.T) {
 			query: retrieveIDQuery,
 		},
 		{
+			name:  "RetrieveRecord",
+			query: retrieveRecordQuery,
+		},
+		{
+			name:  "CreateRecord",
+			query: createRecordQuery,
+		},
+		{
+			name:  "UpdateRecord",
+			query: updateRecordQuery,
+		},
+		{
 			name:  "RetrieveOrg",
 			query: retrieveOrgQuery,
 		},
@@ -335,7 +402,7 @@ func TestAllFail(t *testing.T) {
 			c, s := newTestClientAndServer(newTestHandler(t, mockStatus, mockResponse, nil))
 			defer s.Close()
 			want := "401 Unauthorized: more info: even more info"
-			_, err := test.query(c)
+			_, err := test.query(t, c)
 			if err == nil {
 				t.Fatalf("unexpected success: want err %v", want)
 			}

@@ -7,15 +7,20 @@
 package main
 
 import (
+	"bufio"
+	"encoding/json"
 	"errors"
 	"flag"
 	"fmt"
 	"log"
 	"os"
 	"regexp"
+	"strings"
 	"time"
 
 	"golang.org/x/vulndb/internal/cveclient"
+	"golang.org/x/vulndb/internal/cveschema5"
+	"golang.org/x/vulndb/internal/report"
 )
 
 var (
@@ -34,6 +39,9 @@ var (
 	// flags for the list command
 	listState = flag.String("state", "", "list: filter by CVE state (RESERVED, PUBLIC, or REJECT)")
 
+	// flags for the publish command
+	publishUpdate = flag.Bool("update", false, "publish: if true, update an existing CVE Record")
+
 	// flags that apply to multiple commands
 	year = flag.Int("year", 0, "reserve: the CVE ID year for newly reserved CVE IDs (default is current year)\nlist: filter by the year in the CVE ID")
 )
@@ -47,6 +55,8 @@ func main() {
 		fmt.Fprintf(out, formatCmd, "[-n] [-seq] [-year] reserve", "reserves new CVE IDs")
 		fmt.Fprintf(out, formatCmd, "quota", "outputs the CVE ID quota of the authenticated organization")
 		fmt.Fprintf(out, formatCmd, "id {cve-id}", "outputs details on an assigned CVE ID (CVE-YYYY-NNNN)")
+		fmt.Fprintf(out, formatCmd, "record {cve-id}", "outputs the record associated with a CVE ID (CVE-YYYY-NNNN)")
+		fmt.Fprintf(out, formatCmd, "[-update] publish {filename}", "publishes a CVE Record from a YAML or JSON file")
 		fmt.Fprintf(out, formatCmd, "org", "outputs details on the authenticated organization")
 		fmt.Fprintf(out, formatCmd, "[-year] [-state] list", "lists all CVE IDs for an organization")
 		flag.PrintDefaults()
@@ -111,6 +121,35 @@ func main() {
 		if err := lookupID(c, id); err != nil {
 			log.Fatalf("cve id: could not retrieve CVE IDs due to error:\n  %v", err)
 		}
+	case "record":
+		id, err := validateID(flag.Arg(1))
+		if err != nil {
+			logUsageErr("cve record", err)
+		}
+		// TODO(https://go.dev/issue/53256): Remove when record lookup is
+		// supported by CVE Services API.
+		if !*test {
+			logUnsupportedErr("cve record")
+		}
+		if err := lookupRecord(c, id); err != nil {
+			log.Fatalf("cve record: could not retrieve CVE record due to error:\n  %v", err)
+		}
+	case "publish":
+		filename := flag.Arg(1)
+		if filename == "" {
+			logUsageErr("cve publish", errors.New("filename must be provided"))
+		}
+		if !strings.HasSuffix(filename, ".json") && !strings.HasSuffix(filename, ".yaml") {
+			logUsageErr("cve publish", errors.New("filename must end in '.json' or '.yaml'"))
+		}
+		// TODO(https://go.dev/issue/53256): Remove when record publish is
+		// supported by CVE Services API.
+		if !*test {
+			logUnsupportedErr("cve publish")
+		}
+		if err := publish(c, filename, *publishUpdate); err != nil {
+			log.Fatalf("cve publish: could not publish CVE record due to error:\n %v", err)
+		}
 	case "org":
 		if err := lookupOrg(c); err != nil {
 			log.Fatalf("cve org: could not retrieve org info due to error:\n  %v", err)
@@ -139,6 +178,10 @@ func logUsageErr(context string, err error) {
 	log.Printf("%s: %s\n\n", context, err)
 	flag.Usage()
 	os.Exit(1)
+}
+
+func logUnsupportedErr(context string) {
+	log.Fatalf("%s: command not yet supported by MITRE CVE Services API", context)
 }
 
 func getCurrentYear() int {
@@ -200,11 +243,78 @@ func lookupOrg(c *cveclient.Client) error {
 }
 
 func lookupID(c *cveclient.Client, id string) error {
-	cve, err := c.RetrieveID(id)
+	assigned, err := c.RetrieveID(id)
 	if err != nil {
 		return err
 	}
-	fmt.Println(cve)
+	// Display the retrieved CVE ID metadata.
+	fmt.Println(assigned)
+	return nil
+}
+
+const cveRecordLink = "https://cve.mitre.org/cgi-bin/cvename.cgi?name="
+
+func recordToString(r *cveschema5.CVERecord) string {
+	s, err := json.MarshalIndent(r, "", " ")
+	if err != nil {
+		s = []byte(fmt.Sprint(r))
+	}
+	return string(s)
+}
+
+func lookupRecord(c *cveclient.Client, id string) error {
+	record, err := c.RetrieveRecord(id)
+	if err != nil {
+		return err
+	}
+	// Display the retrieved CVE record.
+	fmt.Println(recordToString(record))
+	return nil
+}
+
+func publish(c *cveclient.Client, filename string, update bool) (err error) {
+	var toPublish *cveschema5.CVERecord
+	switch {
+	case strings.HasSuffix(filename, ".yaml"):
+		toPublish, err = report.ToCVE5(filename)
+		if err != nil {
+			return err
+		}
+	case strings.HasSuffix(filename, ".json"):
+		toPublish, err = cveschema5.Read(filename)
+		if err != nil {
+			return err
+		}
+	default:
+		return errors.New("filename must end in '.json' or '.yaml'")
+	}
+
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Printf("ready to publish:\n%s\ncontinue? (y/N)\n", recordToString(toPublish))
+	text, _ := reader.ReadString('\n')
+	if text != "y\n" {
+		fmt.Println("exiting")
+		return nil
+	}
+
+	var (
+		published *cveschema5.CVERecord
+		action    string
+	)
+	if update {
+		published, err = c.UpdateRecord(toPublish.Metadata.ID, &toPublish.Containers)
+		if err != nil {
+			return err
+		}
+		action = "update"
+	} else {
+		published, err = c.CreateRecord(toPublish.Metadata.ID, &toPublish.Containers)
+		if err != nil {
+			return err
+		}
+		action = "create"
+	}
+	fmt.Printf("successfully %sd record for %s:\n%v\nlink: %s%s\n", action, published.Metadata.ID, recordToString(published), cveRecordLink, published.Metadata.ID)
 	return nil
 }
 
