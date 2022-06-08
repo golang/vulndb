@@ -10,6 +10,7 @@ vuln DB bucket:
 ```
 gsutil cp index.html 404.html gs://go-vulndb
 ```
+This requires `golang-vulndb-project-owners` rights, or equivalent.
 
 ## Initial Setup
 
