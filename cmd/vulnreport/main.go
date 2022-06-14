@@ -163,7 +163,12 @@ func create(ctx context.Context, issueNumber int, ghToken, issueRepo, repoPath s
 	if !iss.CreatedAt.IsZero() {
 		year = iss.CreatedAt.Year()
 	}
-	return r.Write(fmt.Sprintf("reports/GO-%04d-%04d.yaml", year, issueNumber))
+	filename := fmt.Sprintf("reports/GO-%04d-%04d.yaml", year, issueNumber)
+	if err := r.Write(filename); err != nil {
+		return err
+	}
+	fmt.Println(filename)
+	return nil
 }
 
 const todo = "TODO: fill this out"
