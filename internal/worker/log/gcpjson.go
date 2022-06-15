@@ -56,7 +56,7 @@ func (h *gcpJSONHandler) Event(ctx context.Context, ev *event.Event) context.Con
 		fmt.Fprintf(h.w, ", %q: ", key)
 		switch {
 		case !l.HasValue():
-			io.WriteString(h.w, "null")
+			fmt.Fprint(h.w, "null")
 		case l.IsInt64():
 			fmt.Fprintf(h.w, "%d", l.Int64())
 		case l.IsUint64():
@@ -74,13 +74,13 @@ func (h *gcpJSONHandler) Event(ctx context.Context, ev *event.Event) context.Con
 		first := true
 		for k, v := range gcpLabels {
 			if !first {
-				io.WriteString(h.w, ", ")
+				fmt.Fprint(h.w, ", ")
 			}
 			first = false
 			fmt.Fprintf(h.w, "%q: %q", k, v)
 		}
-		io.WriteString(h.w, "}")
+		fmt.Fprint(h.w, "}")
 	}
-	io.WriteString(h.w, "}\n")
+	fmt.Fprint(h.w, "}\n")
 	return ctx
 }

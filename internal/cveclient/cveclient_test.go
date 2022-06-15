@@ -90,7 +90,10 @@ func newTestHandler(t *testing.T, mockStatus int, mockResponse any, validateRequ
 		}
 		checkHeaders(t, r)
 		w.WriteHeader(mockStatus)
-		w.Write(mr)
+		_, err := w.Write(mr)
+		if err != nil {
+			t.Errorf("could not write mock response body: %v", err)
+		}
 	}
 }
 
@@ -109,18 +112,21 @@ func newTestHandlerMultiPage(t *testing.T, mockResponses []any, validateRequest 
 		}
 		parsed, err := url.ParseQuery(r.URL.RawQuery)
 		if err != nil {
-			t.Fatalf("could not parse URL query: %v", err)
+			t.Errorf("could not parse URL query: %v", err)
 		}
 		var page int
 		if pages := parsed["page"]; len(pages) >= 1 {
 			page, err = strconv.Atoi(parsed["page"][0])
 			if err != nil {
-				t.Fatalf("could not parse page as int: %v", err)
+				t.Errorf("could not parse page as int: %v", err)
 			}
 		}
 		checkHeaders(t, r)
 		w.WriteHeader(http.StatusOK)
-		w.Write(mrs[page])
+		_, err = w.Write(mrs[page])
+		if err != nil {
+			t.Errorf("could not write mock response body: %v", err)
+		}
 	}
 }
 

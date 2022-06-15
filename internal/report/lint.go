@@ -365,7 +365,7 @@ func (r *Report) Fix() {
 		*vp = v
 	}
 	for i, p := range r.Packages {
-		for j, _ := range p.Versions {
+		for j := range p.Versions {
 			fixVersion(&r.Packages[i].Versions[j].Introduced)
 			fixVersion(&r.Packages[i].Versions[j].Fixed)
 		}

@@ -497,8 +497,8 @@ func changeToTempDir() (cleanup func(), _ error) {
 		return nil, err
 	}
 	cleanup = func() {
-		os.Chdir(cwd)
-		os.RemoveAll(dir)
+		_ = os.RemoveAll(dir)
+		_ = os.Chdir(cwd)
 	}
 	if err := os.Chdir(dir); err != nil {
 		cleanup()

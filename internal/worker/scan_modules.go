@@ -200,7 +200,9 @@ func writeZip(r *zip.Reader, destination, stripPrefix string) error {
 			return fmt.Errorf("%s is an illegal filepath", fpath)
 		}
 		if f.FileInfo().IsDir() {
-			os.MkdirAll(fpath, os.ModePerm)
+			if err := os.MkdirAll(fpath, os.ModePerm); err != nil {
+				return err
+			}
 			continue
 		}
 		if err := os.MkdirAll(filepath.Dir(fpath), os.ModePerm); err != nil {
