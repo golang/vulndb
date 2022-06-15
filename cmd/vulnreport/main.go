@@ -15,11 +15,13 @@ import (
 	"go/build"
 	"log"
 	"os"
+	"regexp"
 	"sort"
 	"strconv"
 	"strings"
 	"time"
 
+	"github.com/go-git/go-git/v5"
 	"golang.org/x/tools/go/packages"
 	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/derrors"
@@ -80,6 +82,15 @@ func main() {
 		}
 	case "lint":
 		if err := multi(lint, names); err != nil {
+			log.Fatal(err)
+		}
+	case "commit":
+		repo, err := gitrepo.Open(ctx, ".")
+		if err != nil {
+			log.Fatal(err)
+		}
+		f := func(name string) error { return commit(ctx, repo, name, *githubToken) }
+		if err := multi(f, names); err != nil {
 			log.Fatal(err)
 		}
 	case "newcve":
@@ -304,6 +315,83 @@ func findExportedSymbols(module, pkgPath string, c *reportClient) (_ []string, e
 	}
 	sort.Strings(newslice)
 	return newslice, nil
+}
+
+var reportRegexp = regexp.MustCompile(`^reports/GO-\d\d\d\d-(\d+)\.yaml$`)
+
+func commit(ctx context.Context, repo *git.Repository, filename, accessToken string) (err error) {
+	defer derrors.Wrap(&err, "commit(%q)", filename)
+	m := reportRegexp.FindStringSubmatch(filename)
+	if len(m) != 2 {
+		return fmt.Errorf("%v: not a report filename", filename)
+	}
+	issueID := m[1]
+
+	// Ignore errors. If anything is really wrong with the report, we'll
+	// detect it on re-linting below.
+	_ = fix(ctx, filename, accessToken)
+
+	r, err := report.Read(filename)
+	if err != nil {
+		return err
+	}
+	if lints := r.Lint(); len(lints) > 0 {
+		fmt.Fprintf(os.Stderr, "%v: contains lint warnings, not committing\n", filename)
+		for _, l := range lints {
+			fmt.Fprintln(os.Stderr, l)
+		}
+		fmt.Fprintln(os.Stderr)
+		return nil
+	}
+
+	tree, err := repo.Worktree()
+	if err != nil {
+		return err
+	}
+	_, err = tree.Add(filename)
+	if err != nil {
+		return err
+	}
+	st, err := tree.Status()
+	if err != nil {
+		return err
+	}
+	if _, ok := st[filename]; !ok {
+		// Trying to commit a file that hasn't changed from HEAD.
+		fmt.Printf("%v: unmodified\n", filename)
+		return nil
+	}
+	msg := fmt.Sprintf("x/vulndb: add %v for %v\n\nFixes golang/vulndb#%v\n",
+		filename, strings.Join(r.CVEs, ", "), issueID)
+	_, err = tree.Commit(msg, &git.CommitOptions{})
+	return err
+}
+
+// Regexp for matching go tags. The groups are:
+// 1  the major.minor version
+// 2  the patch version, or empty if none
+// 3  the entire prerelease, if present
+// 4  the prerelease type ("beta" or "rc")
+// 5  the prerelease number
+var tagRegexp = regexp.MustCompile(`^go(\d+\.\d+)(\.\d+|)((beta|rc)(\d+))?$`)
+
+// versionForTag returns the semantic version for a Go version string,
+// or "" if the version string doesn't correspond to a Go release or beta.
+func semverForGoVersion(v string) report.Version {
+	m := tagRegexp.FindStringSubmatch(v)
+	if m == nil {
+		return ""
+	}
+	version := m[1]
+	if m[2] != "" {
+		version += m[2]
+	} else {
+		version += ".0"
+	}
+	if m[3] != "" {
+		version += "-" + m[4] + "." + m[5]
+	}
+	return report.Version(version)
 }
 
 // loadPackage loads the package at the given import path, with enough
