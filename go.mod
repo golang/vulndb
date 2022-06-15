@@ -17,7 +17,7 @@ require (
 	github.com/client9/misspell v0.3.4
 	github.com/go-git/go-billy/v5 v5.3.1
 	github.com/go-git/go-git/v5 v5.4.2
-	github.com/google/go-cmp v0.5.7
+	github.com/google/go-cmp v0.5.8
 	github.com/google/go-github/v41 v41.0.0
 	github.com/google/safehtml v0.0.2
 	github.com/jba/templatecheck v0.6.0
@@ -25,6 +25,7 @@ require (
 	go.opentelemetry.io/otel v1.4.0
 	go.opentelemetry.io/otel/metric v0.27.0
 	go.opentelemetry.io/otel/sdk v1.4.0
+	golang.org/x/exp v0.0.0-20220613132600-b0d781184e0d
 	golang.org/x/exp/event v0.0.0-20220218215828-6cf2b201936e
 	golang.org/x/mod v0.6.0-dev.0.20220419223038-86c51ed26bb4
 	golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd

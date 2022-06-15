@@ -13,6 +13,7 @@ import (
 	"flag"
 	"fmt"
 	"go/build"
+	"go/types"
 	"log"
 	"os"
 	"os/exec"
@@ -24,6 +25,7 @@ import (
 	"time"
 
 	"github.com/go-git/go-git/v5"
+	"golang.org/x/exp/slices"
 	"golang.org/x/tools/go/packages"
 	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/derrors"
@@ -278,9 +280,8 @@ func checkReportSymbols(r *report.Report) (bool, error) {
 		if err != nil {
 			return false, err
 		}
-		if len(syms) > 0 {
+		if !slices.Equal(syms, r.Packages[i].DerivedSymbols) {
 			added = true
-			// Need to start from r because r.Packages is a slice of values.
 			r.Packages[i].DerivedSymbols = syms
 		}
 	}
@@ -348,13 +349,38 @@ func findExportedSymbols(p report.Package, c *reportClient) (_ []string, err err
 			return nil, fmt.Errorf("got module %v, expected %s", pm, module)
 		}
 	}
+
+	// Check to see that all symbols actually exist in the package.
+	// This should perhaps be a lint check, but lint doesn't
+	// load/typecheck packages at the moment, so do it here for now.
+	for _, sym := range p.Symbols {
+		if typ, method, ok := strings.Cut(sym, "."); ok {
+			n, ok := pkgs[0].Types.Scope().Lookup(typ).(*types.TypeName)
+			if !ok {
+				fmt.Fprintf(os.Stderr, "%v: type not found\n", typ)
+				continue
+			}
+			m, _, _ := types.LookupFieldOrMethod(n.Type(), true, pkgs[0].Types, method)
+			if m == nil {
+				fmt.Fprintf(os.Stderr, "%v: method not found\n", sym)
+			}
+		} else {
+			_, ok := pkgs[0].Types.Scope().Lookup(typ).(*types.Func)
+			if !ok {
+				fmt.Fprintf(os.Stderr, "%v: func not found\n", typ)
+			}
+		}
+	}
+
 	newsyms, err := exportedFunctions(pkgs, c)
 	if err != nil {
 		return nil, err
 	}
 	var newslice []string
 	for s := range newsyms {
-		newslice = append(newslice, s)
+		if !slices.Contains(p.Symbols, s) {
+			newslice = append(newslice, s)
+		}
 	}
 	sort.Strings(newslice)
 	return newslice, nil
