@@ -81,31 +81,18 @@ can add a new report to the database by following these steps:
 
 1. Assign the issue to yourself.
 2. Clone the x/vulndb repository: `git clone https://go.googlesource.com/vulndb`
-3. Run `go run ./cmd/vulnreport create <GitHub issue number>`. (Note: You will need a
-   [GitHub access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) with scope `repo: public_repo`. 
-4. Run `export VULN_GITHUB_ACCESS_TOKEN=<Github access token>`   
-5. Run `go run ./cmd/vulnreport fix <report file>` to add derived symbols to the
-   report. You should first create an empty module and `go get` the vulnerable
-   module at an unfixed version:
-   ```
-   mkdir /tmp/mymod
-   cd /tmp/mymod
-   go mod init
-   go get github.com/my/mod@<version-before-fixed>
-   go run <path to /cmd/vulnreport> fix
-   ```
-6. Edit the template accordingly, and mail a CL with this commit message format:
+3. You will need a
+   [GitHub access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+   with scope `repo: public_repo`.
 
-```
-x/vulndb: add <GO Vuln ID> for <CVE ID>
-
-<description>
-
-Fixes golang/vulndb#<GitHub Issue #>
-```
-
-vulnreport will download the github.com/CVEProject/cvelist repository and
-create a YAML report template for the CVE at the specified GitHub issue number.
+   Run `export VULN_GITHUB_ACCESS_TOKEN=<Github access token>`   
+4. Run `go run ./cmd/vulnreport create <GitHub issue number>`.
+   vulnreport will download the github.com/CVEProject/cvelist repository and
+   create a YAML report template for the CVE at the specified GitHub issue
+   number.
+5. Edit the report file template.
+6. Run `go run ./cmd/vulnreport commit <report file>`. This will lint the
+   report and commit it with a standard commit message.
 
 ### Standard Library Reports
 
