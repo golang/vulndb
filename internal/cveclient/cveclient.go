@@ -128,8 +128,7 @@ func (o *ReserveOptions) getURLParams(org string) url.Values {
 }
 
 func (c *Client) createReserveIDsRequest(opts ReserveOptions) (*http.Request, error) {
-	req, err := c.createRequest(http.MethodPost,
-		fmt.Sprintf("%s/api/cve-id", c.Endpoint))
+	req, err := c.createRequest(http.MethodPost, c.getURL(cveIDTarget))
 	if err != nil {
 		return nil, err
 	}
@@ -169,33 +168,27 @@ type Quota struct {
 }
 
 // RetrieveQuota queries the API for the organizations reservation quota.
-func (c *Client) RetrieveQuota() (Quota, error) {
-	req, err := c.createRequest(http.MethodGet, fmt.Sprintf("%s/api/org/%s/id_quota", c.Endpoint, c.Org))
-	if err != nil {
-		return Quota{}, err
-	}
-
-	var q Quota
-	err = c.sendRequest(req, nil, &q)
-	if err != nil {
-		return Quota{}, err
-	}
-	return q, nil
+func (c *Client) RetrieveQuota() (q *Quota, err error) {
+	err = c.queryAPI(http.MethodGet, c.getURL(orgTarget, c.Org, quotaTarget), &q)
+	return
 }
 
-// RetrieveCVE requests information about an assigned CVE ID.
-func (c *Client) RetrieveCVE(id string) (AssignedCVE, error) {
-	req, err := c.createRequest(http.MethodGet, fmt.Sprintf("%s/api/cve-id/%s", c.Endpoint, id))
-	if err != nil {
-		return AssignedCVE{}, err
-	}
+// RetrieveID requests information about an assigned CVE ID.
+func (c *Client) RetrieveID(id string) (cve *AssignedCVE, err error) {
+	err = c.queryAPI(http.MethodGet, c.getURL(cveIDTarget, id), &cve)
+	return
+}
 
-	var cve AssignedCVE
-	err = c.sendRequest(req, nil, &cve)
-	if err != nil {
-		return AssignedCVE{}, err
-	}
-	return cve, nil
+type Org struct {
+	Name      string `json:"name"`
+	ShortName string `json:"short_name"`
+	UUID      string `json:"UUID"`
+}
+
+// RetrieveOrg requests information about an organization.
+func (c *Client) RetrieveOrg() (org *Org, err error) {
+	err = c.queryAPI(http.MethodGet, c.getURL(orgTarget, c.Org), &org)
+	return
 }
 
 // ListOptions contains filters to be used when requesting a list of
@@ -234,6 +227,9 @@ func (o ListOptions) String() string {
 
 func (o *ListOptions) getURLParams() url.Values {
 	params := url.Values{}
+	if o == nil {
+		return params
+	}
 	if o.State != "" {
 		params.Set("state", o.State)
 	}
@@ -262,14 +258,11 @@ type listOrgCVEsResponse struct {
 }
 
 func (c Client) createListOrgCVEsRequest(opts *ListOptions, page int) (*http.Request, error) {
-	req, err := c.createRequest(http.MethodGet, fmt.Sprintf("%s/api/cve-id", c.Endpoint))
+	req, err := c.createRequest(http.MethodGet, c.getURL(cveIDTarget))
 	if err != nil {
 		return nil, err
 	}
-	params := url.Values{}
-	if opts != nil {
-		params = opts.getURLParams()
-	}
+	params := opts.getURLParams()
 	if page > 0 {
 		params.Set("page", fmt.Sprint(page))
 	}
@@ -299,6 +292,18 @@ func (c *Client) ListOrgCVEs(opts *ListOptions) (AssignedCVEList, error) {
 		page = result.NextPage
 	}
 	return cves, nil
+}
+
+func (c *Client) queryAPI(method, url string, response any) error {
+	req, err := c.createRequest(method, url)
+	if err != nil {
+		return err
+	}
+	err = c.sendRequest(req, nil, response)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 var (
@@ -334,7 +339,7 @@ func (c *Client) sendRequest(req *http.Request, checkStatus func(int) bool, resu
 		}
 	}
 	if !checkStatus(resp.StatusCode) {
-		return fmt.Errorf("HTTP request %s %q returned error: %w", req.Method, req.URL, extractError(resp))
+		return fmt.Errorf("HTTP request %s %q returned error: %v", req.Method, req.URL, extractError(resp))
 	}
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
@@ -344,6 +349,16 @@ func (c *Client) sendRequest(req *http.Request, checkStatus func(int) bool, resu
 		return err
 	}
 	return nil
+}
+
+var (
+	cveIDTarget = "cve-id"
+	orgTarget   = "org"
+	quotaTarget = "id_quota"
+)
+
+func (c *Client) getURL(targets ...string) string {
+	return fmt.Sprintf("%s/api/%s", c.Endpoint, strings.Join(targets, "/"))
 }
 
 type apiError struct {

@@ -45,8 +45,9 @@ func main() {
 		formatCmd := "    %s: %s\n"
 		fmt.Fprintf(out, "usage: cve [-key] [-user] [-org] [-test] <cmd> ...\n  commands:\n")
 		fmt.Fprintf(out, formatCmd, "[-n] [-seq] [-year] reserve", "reserves new CVE IDs")
-		fmt.Fprintf(out, formatCmd, "quota", "outputs the CVE ID quota of an organization")
-		fmt.Fprintf(out, formatCmd, "lookup {cve-id}", "outputs details on an assigned CVE ID (CVE-YYYY-NNNN)")
+		fmt.Fprintf(out, formatCmd, "quota", "outputs the CVE ID quota of the authenticated organization")
+		fmt.Fprintf(out, formatCmd, "id {cve-id}", "outputs details on an assigned CVE ID (CVE-YYYY-NNNN)")
+		fmt.Fprintf(out, formatCmd, "org", "outputs details on the authenticated organization")
 		fmt.Fprintf(out, formatCmd, "[-year] [-state] list", "lists all CVE IDs for an organization")
 		flag.PrintDefaults()
 	}
@@ -102,13 +103,17 @@ func main() {
 		if err := quota(c); err != nil {
 			log.Fatalf("cve quota: could not retrieve quota info due to error:\n  %v", err)
 		}
-	case "lookup":
+	case "id":
 		id, err := validateID(flag.Arg(1))
 		if err != nil {
-			logUsageErr("cve lookup", err)
+			logUsageErr("cve id", err)
 		}
-		if err := lookup(c, id); err != nil {
-			log.Fatalf("cve lookup: could not retrieve CVE IDs due to error:\n  %v", err)
+		if err := lookupID(c, id); err != nil {
+			log.Fatalf("cve id: could not retrieve CVE IDs due to error:\n  %v", err)
+		}
+	case "org":
+		if err := lookupOrg(c); err != nil {
+			log.Fatalf("cve org: could not retrieve org info due to error:\n  %v", err)
 		}
 	case "list":
 		// TODO(http://go.dev/issues/53258): allow time-based filters via flags.
@@ -185,8 +190,17 @@ func quota(c *cveclient.Client) error {
 	return nil
 }
 
-func lookup(c *cveclient.Client, id string) error {
-	cve, err := c.RetrieveCVE(id)
+func lookupOrg(c *cveclient.Client) error {
+	org, err := c.RetrieveOrg()
+	if err != nil {
+		return err
+	}
+	fmt.Printf("org name: %q\nshort name: %q\nuuid: %s\n", org.Name, org.ShortName, org.UUID)
+	return nil
+}
+
+func lookupID(c *cveclient.Client, id string) error {
+	cve, err := c.RetrieveID(id)
 	if err != nil {
 		return err
 	}

@@ -29,10 +29,15 @@ var defaultTestCVE = newTestCVE("CVE-2022-0000", cveschema.StateReserved, "2022"
 var defaultTestCVEs = AssignedCVEList{
 	defaultTestCVE, newTestCVE("CVE-2022-0001", cveschema.StateReserved, "2022"),
 }
-var defaultTestQuota = Quota{
+var defaultTestQuota = &Quota{
 	Quota:     10,
 	Reserved:  3,
 	Available: 7,
+}
+var defaultTestOrg = &Org{
+	Name:      "An Org",
+	ShortName: testApiOrg,
+	UUID:      "000-000-000",
 }
 
 var (
@@ -188,8 +193,11 @@ var (
 	retrieveQuotaQuery = func(c *Client) (any, error) {
 		return c.RetrieveQuota()
 	}
-	retrieveCVEQuery = func(c *Client) (any, error) {
-		return c.RetrieveCVE(defaultTestCVE.ID)
+	retrieveIDQuery = func(c *Client) (any, error) {
+		return c.RetrieveID(defaultTestCVE.ID)
+	}
+	retrieveOrgQuery = func(c *Client) (any, error) {
+		return c.RetrieveOrg()
 	}
 	listOrgCVEsQuery = func(c *Client) (any, error) {
 		return c.ListOrgCVEs(&ListOptions{})
@@ -236,13 +244,22 @@ func TestAllSuccess(t *testing.T) {
 			want:           defaultTestQuota,
 		},
 		{
-			name:           "RetrieveCVE",
-			query:          retrieveCVEQuery,
+			name:           "RetrieveID",
+			query:          retrieveIDQuery,
 			mockStatus:     http.StatusOK,
 			mockResponse:   defaultTestCVE,
 			wantHTTPMethod: http.MethodGet,
 			wantPath:       "/api/cve-id/CVE-2022-0000",
-			want:           defaultTestCVE,
+			want:           &defaultTestCVE,
+		},
+		{
+			name:           "RetrieveOrg",
+			query:          retrieveOrgQuery,
+			mockStatus:     http.StatusOK,
+			mockResponse:   defaultTestOrg,
+			wantHTTPMethod: http.MethodGet,
+			wantPath:       "/api/org/test_api_org",
+			want:           defaultTestOrg,
 		},
 		{
 			name:       "ListOrgCVEs/single page",
@@ -296,8 +313,12 @@ func TestAllFail(t *testing.T) {
 			query: retrieveQuotaQuery,
 		},
 		{
-			name:  "RetrieveCVE",
-			query: retrieveCVEQuery,
+			name:  "RetrieveID",
+			query: retrieveIDQuery,
+		},
+		{
+			name:  "RetrieveOrg",
+			query: retrieveOrgQuery,
 		},
 		{
 			name:  "ListOrgCVEs",
