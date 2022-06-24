@@ -1,0 +1,33 @@
+packages:
+  - module: github.com/pion/dtls/v2
+    symbols:
+      - flight4Parse
+    derived_symbols:
+      - Client
+      - ClientWithContext
+      - Dial
+      - DialWithContext
+      - Resume
+      - Server
+      - ServerWithContext
+      - handshakeFSM.Run
+      - listener.Accept
+    versions:
+      - fixed: 2.1.5
+    vulnerable_at: 2.1.4
+description: |
+    Client-provided certificates are not correctly validated,
+    and must not be trusted.
+
+    DTLS client certificates must be accompanied by proof that the client
+    possesses the private key for the certificate. The Pion DTLS server
+    accepted client certificates unaccompanied by this proof, permitting
+    an attacker to present any certificate and have it accepted as valid.
+cves:
+  - CVE-2022-29222
+ghsas:
+  - GHSA-w45j-f832-hxvh
+links:
+    commit: https://github.com/pion/dtls/commit/d2f797183a9f044ce976e6df6f362662ca722412
+    context:
+      - https://github.com/pion/dtls/security/advisories/GHSA-w45j-f832-hxvh
