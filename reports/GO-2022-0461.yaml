@@ -1,0 +1,29 @@
+packages:
+  - module: github.com/pion/dtls/v2
+    symbols:
+      - fragmentBuffer.push
+    derived_symbols:
+      - Client
+      - ClientWithContext
+      - Dial
+      - DialWithContext
+      - Resume
+      - Server
+      - ServerWithContext
+      - handshakeFSM.Run
+      - listener.Accept
+    versions:
+      - fixed: 2.1.4
+    vulnerable_at: 2.1.3
+description: |
+    Attacker can cause unbounded memory consumption.
+
+    The Pion DTLS client and server buffer handshake data with no
+    upper limit, permitting an attacker to cause unbounded memory
+    consumption by sending an unterminated handshake.
+cves:
+  - CVE-2022-29189
+ghsas:
+  - GHSA-cx94-mrg9-rq4j
+links:
+    commit: https://github.com/pion/dtls/commit/a6397ff7282bc56dc37a68ea9211702edb4de1de
