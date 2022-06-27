@@ -24,7 +24,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/go-git/go-git/v5"
 	"golang.org/x/exp/slices"
 	"golang.org/x/tools/go/packages"
 	"golang.org/x/vulndb/internal/cvelistrepo"
@@ -89,11 +88,7 @@ func main() {
 			log.Fatal(err)
 		}
 	case "commit":
-		repo, err := gitrepo.Open(ctx, ".")
-		if err != nil {
-			log.Fatal(err)
-		}
-		f := func(name string) error { return commit(ctx, repo, name, *githubToken) }
+		f := func(name string) error { return commit(ctx, name, *githubToken) }
 		if err := multi(f, names); err != nil {
 			log.Fatal(err)
 		}
@@ -388,7 +383,7 @@ func findExportedSymbols(p report.Package, c *reportClient) (_ []string, err err
 
 var reportRegexp = regexp.MustCompile(`^reports/GO-\d\d\d\d-(\d+)\.yaml$`)
 
-func commit(ctx context.Context, repo *git.Repository, filename, accessToken string) (err error) {
+func commit(ctx context.Context, filename, accessToken string) (err error) {
 	defer derrors.Wrap(&err, "commit(%q)", filename)
 	m := reportRegexp.FindStringSubmatch(filename)
 	if len(m) != 2 {
@@ -413,27 +408,27 @@ func commit(ctx context.Context, repo *git.Repository, filename, accessToken str
 		return nil
 	}
 
-	tree, err := repo.Worktree()
-	if err != nil {
-		return err
+	// Exec the git command rather than using go-git so as to run commit hooks
+	// and give the user a chance to edit the commit message.
+	irun := func(name string, arg ...string) error {
+		cmd := exec.Command(name, arg...)
+		cmd.Stdin = os.Stdin
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+		return cmd.Run()
 	}
-	_, err = tree.Add(filename)
-	if err != nil {
-		return err
-	}
-	st, err := tree.Status()
-	if err != nil {
-		return err
-	}
-	if _, ok := st[filename]; !ok {
-		// Trying to commit a file that hasn't changed from HEAD.
-		fmt.Printf("%v: unmodified\n", filename)
+	if err := irun("git", "add", filename); err != nil {
+		fmt.Fprintf(os.Stderr, "git add: %v\n", err)
 		return nil
 	}
 	msg := fmt.Sprintf("x/vulndb: add %v for %v\n\nFixes golang/vulndb#%v\n",
 		filename, strings.Join(r.CVEs, ", "), issueID)
-	_, err = tree.Commit(msg, &git.CommitOptions{})
-	return err
+	if err := irun("git", "commit", "-m", msg, "-e", filename); err != nil {
+		fmt.Fprintf(os.Stderr, "git commit: %v\n", err)
+		return nil
+	}
+
+	return nil
 }
 
 // Regexp for matching go tags. The groups are:
