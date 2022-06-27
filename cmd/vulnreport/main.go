@@ -202,6 +202,9 @@ func addTODOs(r *report.Report) {
 				Fixed:      todo,
 			}}
 		}
+		if p.VulnerableAt == "" {
+			p.VulnerableAt = todo
+		}
 		if len(p.Symbols) == 0 {
 			p.Symbols = []string{todo}
 		}
