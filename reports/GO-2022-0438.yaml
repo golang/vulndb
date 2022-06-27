@@ -1,0 +1,26 @@
+packages:
+  - module: github.com/hashicorp/go-getter
+    symbols:
+      - RedactURL
+    derived_symbols:
+      - Client.Get
+      - FolderStorage.Get
+      - Get
+      - GetAny
+      - GetFile
+      - HttpGetter.Get
+    versions:
+      - fixed: 1.5.11
+    vulnerable_at: 1.5.10
+description: |
+    The getter package can write SSH credentials to its logfile,
+    exposing credentials to local users able to read the logfile.
+cves:
+  - CVE-2022-29810
+ghsas:
+  - GHSA-27rq-4943-qcwp
+links:
+    pr: https://github.com/hashicorp/go-getter/pull/348
+    commit: https://github.com/hashicorp/go-getter/commit/36b68b2f68a3ed10ee7ecbb0cb9f6b1dc5da49cc
+    context:
+      - https://github.com/hashicorp/go-getter/releases/tag/v1.5.11
