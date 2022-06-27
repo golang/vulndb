@@ -1,0 +1,35 @@
+packages:
+  - module: github.com/theupdateframework/go-tuf
+    package: github.com/theupdateframework/go-tuf/client
+    symbols:
+      - Client.Update
+      - Client.UpdateRoots
+      - Client.downloadMetaFromSnapshot
+      - Client.downloadMetaFromTimestamp
+      - Client.decodeRoot
+      - Client.decodeTargets
+      - Client.decodeTimestamp
+    derived_symbols:
+      - Client.Download
+      - Client.Init
+      - Client.Target
+    versions:
+      - fixed: 0.3.0
+    vulnerable_at: 0.2.0
+  - module: github.com/theupdateframework/go-tuf
+    package: github.com/theupdateframework/go-tuf/util
+    symbols:
+      - TimestampFileMetaEqual
+    versions:
+      - fixed: 0.3.0
+    vulnerable_at: 0.2.0
+description: |
+    The TUF client is vulnerable to rollback attacks, in which an
+    attacker causes a client to install software older than the software
+    the client previously knew to be available.
+cves:
+  - CVE-2022-29173
+ghsas:
+  - GHSA-66x3-6cw3-v5gj
+links:
+    commit: https://github.com/theupdateframework/go-tuf/commit/ed6788e710fc3093a7ecc2d078bf734c0f200d8d
