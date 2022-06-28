@@ -1,0 +1,38 @@
+packages:
+  - module: github.com/Masterminds/vcs
+    symbols:
+      - BzrRepo.Get
+      - BzrRepo.Init
+      - BzrRepo.Ping
+      - BzrRepo.ExportDir
+      - GitRepo.Get
+      - GitRepo.Init
+      - GitRepo.Update
+      - HgRepo.Get
+      - HgRepo.Init
+      - HgRepo.Ping
+      - HgRepo.ExportDir
+      - NewSvnRepo
+      - SvnRepo.Get
+      - SvnRepo.Ping
+      - SvnRepo.ExportDir
+    derived_symbols:
+      - NewRepo
+    versions:
+      - fixed: 1.13.3
+    vulnerable_at: 1.13.1
+description: |
+    Passing untrusted inputs to VCS functions can permit an attacker
+    to execute arbitrary commands.
+
+    The vcs package executes version control commands with
+    user-provided arguments.  These arguments can be interpreted
+    as command-line flags, which can be used to perform command
+    injection.
+cves:
+  - CVE-2022-21235
+ghsas:
+  - GHSA-6635-c626-vj4r
+credit: Alessio Della Libera of Snyk Research Team
+links:
+    pr: https://github.com/Masterminds/vcs/pull/105
