@@ -1,0 +1,40 @@
+packages:
+  - module: github.com/nats-io/jwt
+    symbols:
+      - ActivationClaims.Validate
+      - Import.Validate
+    derived_symbols:
+      - Account.Validate
+      - AccountClaims.Validate
+      - Imports.Validate
+    versions:
+      - fixed: 1.2.3-0.20210314221642-a826c77dc9d2
+    vulnerable_at: 1.2.2
+  - module: github.com/nats-io/jwt/v2
+    symbols:
+      - Import.Validate
+    derived_symbols:
+      - Account.Validate
+      - AccountClaims.Validate
+      - Imports.Validate
+    versions:
+      - fixed: 2.0.1
+    vulnerable_at: 2.0.0
+description: |
+    Import tokens valid for one account may be used for any other account.
+
+    Validation of Import token bindings incorrectly warns on mismatches,
+    rather than rejecting the Goken. This permits a token for one account
+    to be used for any other account.
+
+    For further details and mitigation procedures, see
+    https://advisories.nats.io/CVE/CVE-2021-3127.txt
+cves:
+  - CVE-2021-3127
+ghsas:
+  - GHSA-j756-f273-xhp4
+  - GHSA-62mh-w5cv-p88c
+links:
+    pr: https://github.com/nats-io/jwt/pull/149
+    context:
+      - https://advisories.nats.io/CVE/CVE-2021-3127.txt
