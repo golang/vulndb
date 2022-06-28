@@ -1,0 +1,21 @@
+packages:
+  - module: github.com/ecnepsnai/web
+    symbols:
+      - Server.socketHandler
+    derived_symbols:
+      - Server.Socket
+    versions:
+      - introduced: 1.4.0
+        fixed: 1.5.2
+    vulnerable_at: 1.5.1
+description: |
+    The AuthenticateMethod authentication hook is not called for WebSocket
+    connections, allowing unauthenticated access.
+
+    This issue only affects WebSockets with an AuthenticateMethod hook.
+    Request handlers that do not explicitly use WebSockets are not
+    vulnerable.
+ghsas:
+  - GHSA-5gjg-jgh4-gppm
+links:
+    commit: https://github.com/ecnepsnai/web/commit/5a78f8d5c41ce60dcf9f61aaf47a7a8dc3e0002f
