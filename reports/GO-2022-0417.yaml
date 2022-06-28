@@ -1,0 +1,31 @@
+packages:
+  - module: github.com/containers/buildah
+    symbols:
+      - setupCapAdd
+      - setupCapDrop
+    versions:
+      - fixed: 1.25.0
+    vulnerable_at: 1.24.0
+  - module: github.com/containers/buildah
+    package: github.com/containers/buildah/chroot
+    symbols:
+      - setCapabilities
+    versions:
+      - fixed: 1.25.0
+    vulnerable_at: 1.24.0
+description: |
+    Containers are created with non-empty inheritable Linux process
+    capabilities, permitting programs with inheritable file capabilities
+    to elevate those capabilities to the permitted set during execve(2).
+
+    This bug does not affect the container security sandbox, as the
+    inheritable set never contains more capabilities than are included
+    in the container's bounding set.
+cves:
+  - CVE-2022-27651
+ghsas:
+  - GHSA-c3g4-w6cv-6v7h
+links:
+    commit: https://github.com/containers/buildah/commit/e7e55c988c05dd74005184ceb64f097a0cfe645b
+    context:
+      - https://bugzilla.redhat.com/show_bug.cgi?id=2066840
