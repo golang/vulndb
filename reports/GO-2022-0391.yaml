@@ -1,0 +1,30 @@
+packages:
+  - module: github.com/aws/aws-sdk-go
+    package: github.com/aws/aws-sdk-go/service/s3/s3crypto
+    symbols:
+      - encodeMeta
+    derived_symbols:
+      - DecryptionClient.GetObject
+      - DecryptionClient.GetObjectWithContext
+      - EncryptionClient.PutObject
+      - EncryptionClient.PutObjectWithContext
+      - S3LoadStrategy.Load
+      - S3SaveStrategy.Save
+      - defaultV2LoadStrategy.Load
+      - kmsKeyHandler.DecryptKey
+      - kmsKeyHandler.DecryptKeyWithContext
+      - kmsKeyHandler.GenerateCipherData
+      - kmsKeyHandler.GenerateCipherDataWithContext
+    versions:
+      - fixed: 1.34.0
+    vulnerable_at: 1.30.0
+description: |
+    The AWS S3 Crypto SDK sends an unencrypted hash of the plaintext alongside
+    the ciphertext as a metadata field. This hash can be used to brute force
+    the plaintext, if the hash is readable to the attacker.
+
+    AWS now blocks this metadata field, but older SDK versions still send it.
+ghsas:
+  - GHSA-76wf-9vgp-pj7w
+links:
+    commit: https://github.com/aws/aws-sdk-go/commit/35fa6ddf45c061e0f08d3a3b5119f8f4da38f6d1
