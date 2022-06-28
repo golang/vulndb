@@ -1,0 +1,24 @@
+packages:
+  - module: github.com/nats-io/jwt
+    symbols:
+      - Export.Validate
+      - Import.Validate
+      - Imports.Validate
+    derived_symbols:
+      - Account.Validate
+      - AccountClaims.Validate
+      - Exports.Validate
+    versions:
+      - fixed: 1.1.0
+    vulnerable_at: 1.0.1
+description: |
+    A malicious account can create and sign a User JWT which causes a panic
+    when decoded by the NATS JWT library.
+cves:
+  - CVE-2020-26521
+ghsas:
+  - GHSA-hmm9-r2m2-qg9w
+links:
+    pr: https://github.com/nats-io/jwt/pull/107
+    context:
+      - https://advisories.nats.io/CVE/CVE-2020-26521.txt
