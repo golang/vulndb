@@ -1,0 +1,14 @@
+packages:
+  - module: github.com/ntbosscher/gobase
+    package: github.com/ntbosscher/gobase/auth/httpauth
+    symbols:
+      - Setup
+      - middleware
+    versions:
+      - fixed: 0.7.2
+    vulnerable_at: 0.7.1
+description: A race condition can cause incorrect HTTP request routing.
+ghsas:
+  - GHSA-h2x7-2ff6-v32p
+links:
+    commit: https://github.com/ntbosscher/gobase/commit/a8d40bce9c429d324122d18c446924dab809e812
