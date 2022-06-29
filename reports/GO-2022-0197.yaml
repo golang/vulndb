@@ -1,0 +1,25 @@
+packages:
+  - module: golang.org/x/net
+    package: golang.org/x/net/html
+    symbols:
+      - nodeStack.contains
+    derived_symbols:
+      - Parse
+      - ParseFragment
+    versions:
+      - fixed: 0.0.0-20190125002852-4b62a64f59f7
+    vulnerable_at: 0.0.0-20190119204137-ed066c81e75e
+description: |
+    The Parse function can panic on some invalid inputs.
+
+    For example, the Parse function panics on the input
+    "<svg><template><desc><t><svg></template>".
+cves:
+  - CVE-2018-17847
+  - CVE-2018-17848
+credit: '@tr3ee'
+links:
+    pr: https://go.dev/cl/159397
+    commit: https://go.googlesource.com/net/+/4b62a64f59f73840b9ab79204c94fee61cd1ba2c
+    context:
+      - https://go.dev/issue/27846
