@@ -1,0 +1,24 @@
+packages:
+  - module: golang.org/x/net
+    package: golang.org/x/net/html
+    symbols:
+      - inBodyIM
+    derived_symbols:
+      - Parse
+      - ParseFragment
+    versions:
+      - fixed: 0.0.0-20180921000356-2f5d2388922f
+    vulnerable_at: 0.0.0-20180911220305-26e67e76b6c3
+description: |
+    The Parse function can panic on some invalid inputs.
+
+    For example, the Parse function panics on the input
+    "<template><tBody><isindex/action=0>".
+cves:
+  - CVE-2018-17143
+credit: '@tr3ee'
+links:
+    pr: https://go-review.googlesource.com/c/net/+/136575
+    commit: https://go.googlesource.com/net/+/2f5d2388922f370f4355f327fcf4cfe9f5583908
+    context:
+      - https://go.dev/issue/27704
