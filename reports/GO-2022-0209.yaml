@@ -1,0 +1,35 @@
+packages:
+  - module: golang.org/x/crypto
+    package: golang.org/x/crypto/salsa20/salsa
+    symbols:
+      - XORKeyStream
+    versions:
+      - fixed: 0.0.0-20190320223903-b7391e95e576
+    vulnerable_at: 0.0.0-20190313024323-a1f597ede03a
+description: |
+    XORKeyStream generates incorrect and insecure output for very
+    large inputs.
+
+    If more than 256 GiB of keystream is generated, or if the counter
+    otherwise grows greater than 32 bits, the amd64 implementation will
+    first generate incorrect output, and then cycle back to previously
+    generated keystream. Repeated keystream bytes can lead to loss of
+    confidentiality in encryption applications, or to predictability
+    in CSPRNG applications.
+
+    The issue might affect uses of golang.org/x/crypto/nacl with extremely
+    large messages.
+
+    Architectures other than amd64 and uses that generate less than 256 GiB
+    of keystream for a single salsa20.XORKeyStream invocation are unaffected.
+arch:
+  - amd64
+cves:
+  - CVE-2019-11840
+credit: Michael McLoughlin
+links:
+    pr: https://go.dev/cl/168406
+    commit: https://go.googlesource.com/crypto/+/b7391e95e576cacdcdd422573063bc057239113d
+    context:
+      - https://go.dev/issue/30965
+      - https://groups.google.com/g/golang-announce/c/tjyNcJxb2vQ/m/n0NRBziSCAAJ
