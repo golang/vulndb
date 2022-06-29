@@ -1,0 +1,24 @@
+packages:
+  - module: golang.org/x/net
+    package: golang.org/x/net/html
+    symbols:
+      - parser.resetInsertionMode
+    derived_symbols:
+      - Parse
+      - ParseFragment
+    versions:
+      - fixed: 0.0.0-20180925071336-cf3bd585ca2a
+    vulnerable_at: 0.0.0-20180921000356-2f5d2388922f
+description: |
+    The Parse function can panic on some invalid inputs.
+
+    For example, the Parse function panics on the input
+    "<math><template><mo><template>".
+cves:
+  - CVE-2018-17142
+credit: '@tr3ee'
+links:
+    pr: https://go.dev/cl/136875
+    commit: https://go.googlesource.com/net/+/cf3bd585ca2a5a21b057abd8be7eea2204af89d0
+    context:
+      - https://go.dev/issue/27702
