@@ -1,0 +1,35 @@
+packages:
+  - module: std
+    package: crypto/x509
+    versions:
+      - fixed: 1.12.16
+      - introduced: 1.13.0
+        fixed: 1.13.7
+    vulnerable_at: 1.13.6
+  - module: golang.org/x/crypto
+    package: golang.org/x/crypto/cryptobyte
+    versions:
+      - fixed: 0.0.0-20200124225646-8b5121be2f68
+    vulnerable_at: 0.0.0-20200115085410-6d4e4cb37c7d
+description: |
+    On 32-bit architectures, a malformed input to crypto/x509 or
+    the ASN.1 parsing functions of golang.org/x/crypto/cryptobyte
+    can lead to a panic.
+
+    The malformed certificate can be delivered via a crypto/tls
+    connection to a client, or to a server that accepts client
+    certificates. net/http clients can be made to crash by an HTTPS
+    server, while net/http servers that accept client certificates
+    will recover the panic and are unaffected.
+cves:
+  - CVE-2020-7919
+ghsas:
+  - GHSA-cjjc-xp8v-855w
+credit: Project Wycheproof
+links:
+    pr: https://go.dev/cl/216680
+    commit: https://go.googlesource.com/go/+/b13ce14c4a6aa59b7b041ad2b6eed2d23e15b574
+    context:
+      - https://go.dev/cl/216677
+      - https://go.dev/issue/36837
+      - https://groups.google.com/g/golang-announce/c/Hsw4mHYc470
