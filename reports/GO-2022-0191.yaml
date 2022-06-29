@@ -1,0 +1,26 @@
+packages:
+  - module: std
+    package: crypto/x509
+    symbols:
+      - CertPool.findVerifiedParents
+      - Certificate.buildChains
+    versions:
+      - fixed: 1.10.6
+      - introduced: 1.11.0
+        fixed: 1.11.3
+    vulnerable_at: 1.11.2
+description: |
+    The crypto/x509 package does not limit the amount of work
+    performed for each chain verification, which might allow attackers
+    to craft pathological inputs leading to a CPU denial of service.
+    Go TLS servers accepting client certificates and TLS clients
+    verifying certificates are affected.
+cves:
+  - CVE-2018-16875
+credit: Netflix
+links:
+    pr: https://go.dev/cl/154105
+    commit: https://go.googlesource.com/go/+/770130659b6fb2acf271476579a3644e093dda7f
+    context:
+      - https://go.dev/issue/29233
+      - https://groups.google.com/g/golang-announce/c/Kw31K8G7Fi0
