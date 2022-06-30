@@ -1,0 +1,23 @@
+packages:
+  - module: github.com/cloudflare/cfrpki
+    package: github.com/cloudflare/cfrpki/validator/lib
+    symbols:
+      - ROAEntry.Validate
+    derived_symbols:
+      - RPKIROA.ValidateEntries
+    versions:
+      - fixed: 1.3.0
+    vulnerable_at: 1.2.2
+description: |
+    The ROAEntry.Validate function fails to perform bounds checks on
+    the MaxLength field, allowing invalid values to pass validation.
+cves:
+  - CVE-2021-3761
+ghsas:
+  - GHSA-c8xp-8mf3-62h9
+credit: Job Snijders
+links:
+    pr: https://github.com/cloudflare/cfrpki/pull/90
+    commit: https://github.com/cloudflare/cfrpki/commit/a8db4e009ef217484598ba1fd1c595b54e0f6422
+    context:
+      - https://github.com/cloudflare/cfrpki/security/advisories/GHSA-c8xp-8mf3-62h9
