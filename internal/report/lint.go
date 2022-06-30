@@ -239,7 +239,7 @@ func (r *Report) lintCVEs(addIssue func(string)) {
 // Regex patterns for standard library links.
 var (
 	prRegex       = regexp.MustCompile(`https://go.dev/cl/\d+`)
-	commitRegex   = regexp.MustCompile(`https://go.googlesource.com/go/\+/([^/]+)`)
+	commitRegex   = regexp.MustCompile(`https://go.googlesource.com/[^/]+/\+/([^/]+)`)
 	issueRegex    = regexp.MustCompile(`https://go.dev/issue/\d+`)
 	announceRegex = regexp.MustCompile(`https://groups.google.com/g/golang-(announce|dev|nuts)/c/([^/]+)`)
 )
@@ -254,8 +254,8 @@ func (r *Report) lintStdLibLinks(addIssue func(string)) {
 	if !prRegex.MatchString(r.Links.PR) {
 		addIssue(fmt.Sprintf("links.pr should contain a PR link matching %q", prRegex))
 	}
-	if !commitRegex.MatchString(r.Links.Commit) {
-		addIssue(fmt.Sprintf("links.commit should contain a commit link matching %q", commitRegex))
+	if r.Links.Commit != "" && !commitRegex.MatchString(r.Links.Commit) {
+		addIssue(fmt.Sprintf("links.commit commit link should match %q", commitRegex))
 	}
 	hasIssueLink := false
 	hasAnnounceLink := false
@@ -365,6 +365,9 @@ func (r *Report) Fix() {
 		*vp = v
 	}
 	for i, p := range r.Packages {
+		if p.Package == p.Module {
+			p.Package = ""
+		}
 		for j := range p.Versions {
 			fixVersion(&r.Packages[i].Versions[j].Introduced)
 			fixVersion(&r.Packages[i].Versions[j].Fixed)

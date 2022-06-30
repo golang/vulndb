@@ -272,7 +272,7 @@ func TestLint(t *testing.T) {
 			want: []string{
 				// Standard library specific errors.
 				"links.pr should contain a PR link",
-				"links.commit should contain a commit link",
+				"links.commit commit link should match",
 				"links.context should contain an issue link",
 				"links.context should contain an announcement link",
 				"links.context should contain only PR, commit, issue and announcement links",
