@@ -1,0 +1,26 @@
+packages:
+  - module: github.com/ethereum/go-ethereum
+    package: github.com/ethereum/go-ethereum/eth/protocols/snap
+    symbols:
+      - handleMessage
+    versions:
+      - fixed: 1.10.9
+    vulnerable_at: 1.10.8
+  - module: github.com/ethereum/go-ethereum
+    package: github.com/ethereum/go-ethereum/trie
+    symbols:
+      - Trie.tryGetNode
+    derived_symbols:
+      - SecureTrie.TryGetNode
+      - Trie.TryGetNode
+    versions:
+      - fixed: 1.10.9
+    vulnerable_at: 1.10.8
+description: |
+    A maliciously crafted snap/1 protocol message can cause a panic.
+cves:
+  - CVE-2021-41173
+ghsas:
+  - GHSA-59hh-656j-3p7v
+links:
+    commit: https://github.com/ethereum/go-ethereum/pull/23657/commits/f1fd963a5a965e643e52fcf805a2a02a323c32b8
