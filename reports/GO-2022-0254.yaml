@@ -1,0 +1,33 @@
+packages:
+  - module: github.com/ethereum/go-ethereum
+    package: github.com/ethereum/go-ethereum/core/vm
+    symbols:
+      - opCall
+      - opCallCode
+      - opDelegateCall
+      - opStaticCall
+      - EVMInterpreter.Run
+    derived_symbols:
+      - EVM.Call
+      - EVM.CallCode
+      - EVM.Create
+      - EVM.Create2
+      - EVM.DelegateCall
+      - EVM.StaticCall
+    versions:
+      - fixed: 1.10.8
+    vulnerable_at: 1.10.7
+description: |
+    A vulnerability in the Geth EVM can cause a node to reject the
+    canonical chain.
+
+    A memory-corruption bug within the EVM can cause a consensus
+    error, where vulnerable nodes obtain a different stateRoot when
+    processing a maliciously crafted transaction. This, in turn,
+    would lead to the chain being split in two forks.
+cves:
+  - CVE-2021-39137
+ghsas:
+  - GHSA-9856-9gg9-qcmq
+links:
+    commit: https://github.com/ethereum/go-ethereum/pull/23381/commits/4d4879cafd1b3c906fc184a8c4a357137465128f
