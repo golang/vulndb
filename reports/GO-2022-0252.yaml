@@ -1,0 +1,25 @@
+packages:
+  - module: github.com/cloudflare/cfrpki
+    package: github.com/cloudflare/cfrpki/validator/lib
+    symbols:
+      - IPNet.GetRange
+      - ValidateIPCertificateList
+      - GetRangeIP
+      - ValidateIPRoaCertificateList
+    derived_symbols:
+      - DecodeROA
+      - DecoderConfig.DecodeROA
+      - RPKICertificate.ValidateIPCertificate
+      - RPKIROA.ValidateIPRoaCertificate
+    versions:
+      - fixed: 1.4.0
+    vulnerable_at: 1.3.0
+description: |
+    Invalid input data can cause a panic.
+cves:
+  - CVE-2021-3911
+ghsas:
+  - GHSA-w6ww-fmfx-2x22
+credit: Koen van Hove
+links:
+    commit: https://github.com/cloudflare/cfrpki/commit/2882307febd66801de97b2a2ce4d93fe58132005
