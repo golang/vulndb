@@ -1,0 +1,26 @@
+packages:
+  - module: github.com/cloudflare/cfrpki
+    package: github.com/cloudflare/cfrpki/validator/pki
+    symbols:
+      - ExtractPathManifest
+    derived_symbols:
+      - SimpleManager.Explore
+      - SimpleManager.ExploreAdd
+      - Validator.AddManifest
+      - Validator.AddResource
+    versions:
+      - fixed: 1.4.3
+    vulnerable_at: 1.4.2
+description: |
+    Manifest path extraction is vulnerable to directory traversal attacks.
+
+    The ExtractPathManifest function permits file paths containing relative
+    directory components (".."), permitting files to reference arbitrary
+    locations on the filesystem.
+cves:
+  - CVE-2021-3907
+ghsas:
+  - GHSA-cqh2-vc2f-q4fh
+credit: Koen van Hove
+links:
+    commit: https://github.com/cloudflare/cfrpki/commit/eb9cc4db7b7b79e44f56dfaa959fccdfb2af8284
