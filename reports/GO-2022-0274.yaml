@@ -1,0 +1,21 @@
+packages:
+  - module: github.com/opencontainers/runc
+    package: github.com/opencontainers/runc/libcontainer
+    symbols:
+      - Bytemsg.Serialize
+    versions:
+      - introduced: 1.0.1-0.20211012131345-9c444070ec7b
+        fixed: 1.1.0
+    vulnerable_at: 1.0.1-0.20211012131345-9c444070ec7b
+description: |
+    An attacker with partial control over the bind mount sources of a new
+    container can bypass namespace restrictions.
+cves:
+  - CVE-2021-43784
+ghsas:
+  - GHSA-v95c-p5hm-xq8f
+links:
+    commit: https://github.com/opencontainers/runc/commit/f50369af4b571e358f20b139eea52d612eb55eed
+    context:
+      - https://github.com/opencontainers/runc/commit/dde509df4e28cec33b3c99c6cda3d4fd5beafc77
+      - https://bugs.chromium.org/p/project-zero/issues/detail?id=2241
