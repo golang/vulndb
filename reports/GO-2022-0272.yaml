@@ -1,0 +1,31 @@
+packages:
+  - module: github.com/kataras/iris/v12
+    package: github.com/kataras/iris/v12/context
+    symbols:
+      - Context.UploadFormFiles
+    versions:
+      - fixed: 12.2.0-alpha8
+    vulnerable_at: 12.1.8
+  - module: github.com/kataras/iris
+    package: github.com/kataras/iris/context
+    symbols:
+      - Context.UploadFormFiles
+    vulnerable_at: 0.0.2
+description: |
+    The Context.UploadFormFiles function is vulnerable to directory
+    traversal attacks, and can be made to write to arbitrary locations
+    outside the destination directory.
+
+    This vulnerability only occurs when built with Go versions prior to 1.17.
+    Go 1.17 and later strip directory paths from filenames returned by
+    "mime/multipart".Part.FileName, which avoids this issue.
+cves:
+  - CVE-2021-23772
+ghsas:
+  - GHSA-jcxc-rh6w-wf49
+credit: Snyk Security Team
+links:
+    commit: https://github.com/kataras/iris/commit/e213dba0d32ff66653e0ef124bc5088817264b08
+    context:
+      - https://snyk.io/vuln/SNYK-GOLANG-GITHUBCOMKATARASIRIS-2325169
+      - https://snyk.io/vuln/SNYK-GOLANG-GITHUBCOMKATARASIRISV12-2325170
