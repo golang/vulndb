@@ -1,0 +1,28 @@
+packages:
+  - module: github.com/google/go-attestation
+    package: github.com/google/go-attestation/attest
+    symbols:
+      - AKPublic.validate12Quote
+      - AKPublic.validate20Quote
+    derived_symbols:
+      - AKPublic.Verify
+      - TPM.AttestPlatform
+    versions:
+      - fixed: 0.4.0
+    vulnerable_at: 0.3.2
+description: |
+    A local attacker can defeat remotely-attested measured boot.
+
+    Improper input validation in AKPublic.Verify can cause it to succeed when
+    provided with a maliciously-formed Quote over no/some PCRs. Subsequent use
+    of the same set of PCR values in Eventlog.Verify lacks the authentication
+    performed by quote verification, meaning a local attacker can couple this
+    vulnerability with a maliciously-formed TCG log in Eventlog.Verify to spoof
+    events in the TCG log, defeating remotely-attested measured-boot.
+cves:
+  - CVE-2022-0317
+ghsas:
+  - GHSA-99cg-575x-774p
+credit: Nikki VonHollen
+links:
+    commit: https://github.com/google/go-attestation/commit/82f2c9c2c76e1d3691d17ee78116d1d93a123788
