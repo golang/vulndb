@@ -1,0 +1,25 @@
+packages:
+  - module: github.com/open-policy-agent/opa
+    package: github.com/open-policy-agent/opa/format
+    symbols:
+      - groupIterable
+    derived_symbols:
+      - Ast
+      - MustAst
+      - Source
+    versions:
+      - introduced: 0.33.1
+        fixed: 0.37.2
+    vulnerable_at: 0.33.1
+description: |
+    Pretty-printing an AST that contains synthetic nodes can change the logic
+    of some statements by reordering array literals.
+cves:
+  - CVE-2022-23628
+ghsas:
+  - GHSA-hcw3-j74m-qc58
+links:
+    advisory: https://github.com/open-policy-agent/opa/security/advisories/GHSA-hcw3-j74m-qc58
+    commit: https://github.com/open-policy-agent/opa/commit/932e4ffc37a590ace79e9b75ca4340288c220239
+    context:
+      - https://github.com/open-policy-agent/opa/commit/2bd8edab9e10e2dc9cf76ae8335ced0c224f3055
