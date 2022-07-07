@@ -1,0 +1,28 @@
+packages:
+  - module: github.com/graph-gophers/graphql-go
+    symbols:
+      - Schema.ValidateWithVariables
+      - Schema.exec
+      - Schema.subscribe
+    derived_symbols:
+      - Schema.Exec
+      - Schema.Subscribe
+      - Schema.ToJSON
+      - Schema.Validate
+    versions:
+      - fixed: 1.3.0
+    vulnerable_at: 1.2.0
+description: |
+    Malicious inputs can cause a panic.
+
+    A maliciously crafted input can cause a stack overflow and panic.
+    Any user with access to the GraphQL can send such a query.
+
+    This issue only occurs when using the graphql.MaxDepth schema option
+    (which is highly recommended in most cases).
+cves:
+  - CVE-2022-21708
+ghsas:
+  - GHSA-mh3m-8c74-74xh
+links:
+    commit: https://github.com/graph-gophers/graphql-go/commit/eae31ca73eb3473c544710955d1dbebc22605bfe
