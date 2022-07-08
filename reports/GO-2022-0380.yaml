@@ -1,0 +1,26 @@
+packages:
+  - module: github.com/nats-io/jwt
+    symbols:
+      - AccountClaims.IsRevoked
+      - Export.IsRevoked
+    versions:
+      - fixed: 1.1.0
+    vulnerable_at: 1.0.1
+description: |
+    The AccountClaims.IsRevoked and Export.IsRevoked functions improperly
+    validate expired credentials using the current system time rather than
+    the issue time of the JWT to be tested.
+
+    These functions cannot be used properly. Newer versions of the jwt package
+    provide an IsClaimRevoked method which performs correct validation.
+    In these versions, the IsRevoked method always return true.
+
+    (This advisory is canonically https://advisories.nats.io/CVE/CVE-2020-26892.txt)
+cves:
+  - CVE-2020-26892
+ghsas:
+  - GHSA-2c64-vj8g-vwrq
+links:
+    commit: https://github.com/nats-io/jwt/commit/e11ce317263cef69619fc1ca743b195d02aa1d8a
+    context:
+      - https://advisories.nats.io/CVE/CVE-2020-26892.txt
