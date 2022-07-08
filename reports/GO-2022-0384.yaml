@@ -1,0 +1,27 @@
+packages:
+  - module: helm.sh/helm/v3
+    package: helm.sh/helm/v3/pkg/downloader
+    symbols:
+      - ChartDownloader.ResolveChartVersion
+    derived_symbols:
+      - ChartDownloader.DownloadTo
+      - Manager.Build
+      - Manager.Update
+    versions:
+      - fixed: 3.6.1
+    vulnerable_at: 3.6.0
+description: |
+    The username and password credentials associated with a Helm repository
+    can be passed to another domain referenced by that Helm repository.
+
+    If the index.yaml for a Helm repository is hosted on one domain and
+    references a chart archive on a different domain, Helm will provide
+    the credentials for the index.yaml's domain when fetching those
+    archives.
+
+    For further details, see
+    https://github.com/advisories/GHSA-56hp-xqp3-w2jf.
+ghsas:
+  - GHSA-56hp-xqp3-w2jf
+links:
+    commit: https://github.com/helm/helm/commit/61d8e8c4a6f95540c15c6a65f36a6dd0a45e7a2f
