@@ -1,0 +1,26 @@
+packages:
+  - module: github.com/valyala/fasthttp
+    symbols:
+      - FS.NewRequestHandler
+    versions:
+      - fixed: 1.34.0
+    vulnerable_at: 1.33.0
+description: |
+    The fasthttp.FS request handler is vulnerable to directory traversal
+    attacks on Windows systems, and can serve files from outside the
+    provided root directory.
+
+    URL path normalization does not handle Windows path separators
+    (backslashes), permitting an attacker to construct requests
+    with relative paths.
+cves:
+  - CVE-2022-21221
+ghsas:
+  - GHSA-fx95-883v-4q4h
+credit: egovorukhin
+links:
+    commit: https://github.com/valyala/fasthttp/commit/6b5bc7bb304975147b4af68df54ac214ed2554c1
+    context:
+      - https://github.com/valyala/fasthttp/issues/1226
+      - https://github.com/valyala/fasthttp/releases/tag/v1.34.0
+      - https://snyk.io/vuln/SNYK-GOLANG-GITHUBCOMVALYALAFASTHTTP-2407866
