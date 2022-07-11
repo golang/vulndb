@@ -1,0 +1,29 @@
+packages:
+  - module: std
+    package: syscall
+    symbols:
+      - Faccessat
+    versions:
+      - fixed: 1.17.10
+      - introduced: 1.18.0
+        fixed: 1.18.2
+    vulnerable_at: 1.18.1
+  - module: golang.org/x/sys
+    package: golang.org/x/sys/unix
+    symbols:
+      - Faccessat
+    versions:
+      - fixed: 0.0.0-20220412211240-33da011f77ad
+    vulnerable_at: 0.0.0-20220412071739-889880a91fd5
+description: |
+    When called with a non-zero flags parameter, the Faccessat function
+    can incorrectly report that a file is accessible.
+cves:
+  - CVE-2022-29526
+credit: Joël Gähwiler (@256dpi)
+links:
+    pr: https://go.dev/cl/399539
+    context:
+      - https://go.dev/issue/52313
+      - https://go.dev/cl/400074
+      - https://groups.google.com/g/golang-announce/c/Y5qrqw_lWdU
