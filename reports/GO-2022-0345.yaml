@@ -1,0 +1,17 @@
+packages:
+  - module: github.com/containers/buildah
+    package: github.com/containers/buildah/chroot
+    symbols:
+      - RunUsingChroot
+    versions:
+      - fixed: 1.22.0
+    vulnerable_at: 1.21.0
+description: |
+    The RunUsingChroot function unintentionally propagates environment
+    variables from the current process to the child process.
+cves:
+  - CVE-2021-3602
+ghsas:
+  - GHSA-7638-r9r3-rmjj
+links:
+    commit: https://github.com/containers/buildah/commit/a468ce0ffd347035d53ee0e26c205ef604097fb0
