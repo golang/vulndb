@@ -1,0 +1,19 @@
+packages:
+  - module: github.com/quay/claircore
+    package: github.com/quay/claircore/rpm
+    symbols:
+      - Scanner.Scan
+    versions:
+      - fixed: 1.1.0
+    vulnerable_at: 1.1.0-rc.0
+description: |
+    A maliciously crafted RPM file can cause the Scanner.Scan function to
+    write files with arbitrary contents to arbitrary locations on the local
+    filestem.
+cves:
+  - CVE-2021-3762
+ghsas:
+  - GHSA-mq47-6wwv-v79w
+links:
+    pr: https://github.com/quay/claircore/pull/478
+    commit: https://github.com/quay/claircore/commit/691f2023a1720a0579e688b69a2f4bfe1f4b7821
