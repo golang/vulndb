@@ -1,0 +1,36 @@
+packages:
+  - module: std
+    package: go/parser
+    symbols:
+      - ParseFile
+      - ParseExprFrom
+      - parser.tryIdentOrType
+      - parser.parsePrimaryExpr
+      - parser.parseUnaryExpr
+      - parser.parseBinaryExpr
+      - parser.parseIfStmt
+      - parser.parseStmt
+      - resolver.openScope
+      - resolver.closeScope
+    versions:
+      - fixed: 1.17.12
+      - introduced: 1.18.0
+        fixed: 1.18.4
+    vulnerable_at: 1.18.3
+description: |
+    Calling any of the Parse functions on Go source code which contains deeply
+    nested types or declarations can cause a panic due to stack exhaustion.
+credit: Juho Nurminen of Mattermost
+links:
+    pr: https://go.dev/cl/417063
+    commit: https://go.googlesource.com/go/+/695be961d57508da5a82217f7415200a11845879
+    context:
+      - https://go.dev/issue/53616
+      - https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE
+cve_metadata:
+    id: CVE-2022-1962
+    cwe: 'CWE-674: Uncontrolled Recursion'
+    description: |
+        Uncontrolled recursion in the Parse functions in go/parser before Go
+        1.17.12 and Go 1.18.4 allow an attacker to cause a panic due to stack
+        exhaustion via deeply nested types or declarations.
