@@ -1,0 +1,27 @@
+packages:
+  - module: std
+    package: encoding/xml
+    symbols:
+      - Decoder.Skip
+    versions:
+      - fixed: 1.17.12
+      - introduced: 1.18.0
+        fixed: 1.18.4
+    vulnerable_at: 1.18.3
+description: |
+    Calling Decoder.Skip when parsing a deeply nested XML document can cause a
+    panic due to stack exhaustion.
+credit: Go Security Team and Juho Nurminen of Mattermost
+links:
+    pr: https://go.dev/cl/417062
+    commit: https://go.googlesource.com/go/+/08c46ed43d80bbb67cb904944ea3417989be4af3
+    context:
+      - https://go.dev/issue/53614
+      - https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE
+cve_metadata:
+    id: CVE-2022-28131
+    cwe: 'CWE-674: Uncontrolled Recursion'
+    description: |
+        Uncontrolled recursion in Decoder.Skip in encoding/xml before Go
+        1.17.12 and Go 1.18.4 allows an attacker to cause a panic due to
+        stack exhaustion via a deeply nested XML document.
