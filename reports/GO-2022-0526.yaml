@@ -1,0 +1,28 @@
+packages:
+  - module: std
+    package: encoding/gob
+    symbols:
+      - Decoder.decIgnoreOpFor
+      - Decoder.compileIgnoreSingle
+      - Decoder.compileDec
+    versions:
+      - fixed: 1.17.12
+      - introduced: 1.18.0
+        fixed: 1.18.4
+    vulnerable_at: 1.18.3
+description: |
+    Calling Decoder.Decode on a message which contains deeply nested structures
+    can cause a panic due to stack exhaustion.
+links:
+    pr: https://go.dev/cl/417064
+    commit: https://go.googlesource.com/go/+/6fa37e98ea4382bf881428ee0c150ce591500eb7
+    context:
+      - https://go.dev/issue/53615
+      - https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE
+cve_metadata:
+    id: CVE-2022-30635
+    cwe: 'CWE-674: Uncontrolled Recursion'
+    description: |
+        Uncontrolled recursion in Decoder.Decode in encoding/gob before Go
+        1.17.12 and Go 1.18.4 allows an attacker to cause a panic due to stack
+        exhaustion via a message which contains deeply nested structures.
