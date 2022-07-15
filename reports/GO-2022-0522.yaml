@@ -1,0 +1,27 @@
+packages:
+  - module: std
+    package: path/filepath
+    symbols:
+      - Glob
+    versions:
+      - fixed: 1.17.12
+      - introduced: 1.18.0
+        fixed: 1.18.4
+    vulnerable_at: 1.18.3
+description: |
+    Calling Glob on a path which contains a large number of path separators can
+    cause a panic due to stack exhaustion.
+credit: Juho Nurminen of Mattermost
+links:
+    pr: https://go.dev/cl/417066
+    commit: https://go.googlesource.com/go/+/ac68c6c683409f98250d34ad282b9e1b0c9095ef
+    context:
+      - https://go.dev/issue/53416
+      - https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE
+cve_metadata:
+    id: CVE-2022-30632
+    cwe: 'CWE-674: Uncontrolled Recursion'
+    description: |
+        Uncontrolled recursion in Glob in path/filepath before Go 1.17.12 and
+        Go 1.18.4 allows an attacker to cause a panic due to stack exhaustion
+        via a path containing a large number of path separators.
