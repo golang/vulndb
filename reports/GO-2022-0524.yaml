@@ -1,0 +1,27 @@
+packages:
+  - module: std
+    package: compress/gzip
+    symbols:
+      - Reader.Read
+    versions:
+      - fixed: 1.17.12
+      - introduced: 1.18.0
+        fixed: 1.18.4
+    vulnerable_at: 1.18.3
+description: |
+    Calling Reader.Read on an archive containing a large number of concatenated
+    0-length compressed files can cause a panic due to stack exhaustion.
+links:
+    pr: https://go.dev/cl/417067
+    commit: https://go.googlesource.com/go/+/b2b8872c876201eac2d0707276c6999ff3eb185e
+    context:
+      - https://go.dev/issue/53168
+      - https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE
+cve_metadata:
+    id: CVE-2022-30631
+    cwe: 'CWE-674: Uncontrolled Recursion'
+    description: |
+        Uncontrolled recursion in Reader.Read in compress/gzip before Go
+        1.17.12 and Go 1.18.4 allows an attacker to cause a panic due to stack
+        exhaustion via an archive containing a large number of concatenated
+        0-length compressed files.
