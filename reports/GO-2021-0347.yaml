@@ -8,7 +8,10 @@ packages:
     symbols:
       - regexp.Compile
 description: |
-  On 64-bit platforms, an extremely deeply nested expression can cause regexp.Compile to cause goroutine stack exhaustion, forcing the program to exit. Note this applies to very large expressions, on the order of 2MB.
+  On 64-bit platforms, an extremely deeply nested expression can
+  cause regexp.Compile to cause goroutine stack exhaustion, forcing
+  the program to exit. Note this applies to very large expressions,
+  on the order of 2MB.
 cves:
   - CVE-2022-24921
 credit: Juho Nurminen

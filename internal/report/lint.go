@@ -236,6 +236,20 @@ func (r *Report) lintCVEs(addIssue func(string)) {
 	}
 }
 
+func (r *Report) lintLineLength(field, content string, addIssue func(string)) {
+	const maxLineLength = 100
+	for _, line := range strings.Split(content, "\n") {
+		if len(line) <= maxLineLength {
+			continue
+		}
+		if !strings.Contains(content, " ") {
+			continue // A single long word is OK.
+		}
+		addIssue(fmt.Sprintf("%v contains line > %v characters long", field, maxLineLength))
+		return
+	}
+}
+
 // Regex patterns for standard library links.
 var (
 	prRegex       = regexp.MustCompile(`https://go.dev/cl/\d+`)
@@ -331,6 +345,10 @@ func (r *Report) Lint() []string {
 		addIssue("last_modified is before published")
 	}
 
+	r.lintLineLength("description", r.Description, addIssue)
+	if r.CVEMetadata != nil {
+		r.lintLineLength("cve_metadata.description", r.CVEMetadata.Description, addIssue)
+	}
 	r.lintCVEs(addIssue)
 
 	r.lintLinks(addIssue)
