@@ -52,6 +52,7 @@ func main() {
 		fmt.Fprintf(flag.CommandLine.Output(), "  newcve filename.yaml ...: creates CVEs report from the provided YAML reports\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  fix filename.yaml ...: fixes and reformats YAML reports\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  set-dates filename.yaml ...: sets PublishDate of YAML reports\n")
+		fmt.Fprintf(flag.CommandLine.Output(), "  commit filename.yaml ...: creates new commits for YAML reports\n")
 		flag.PrintDefaults()
 	}
 
@@ -424,8 +425,16 @@ func commit(ctx context.Context, filename, accessToken string) (err error) {
 		fmt.Fprintf(os.Stderr, "git add: %v\n", err)
 		return nil
 	}
-	msg := fmt.Sprintf("x/vulndb: add %v for %v\n\nFixes golang/vulndb#%v\n",
-		filename, strings.Join(r.CVEs, ", "), issueID)
+	var cves, action string
+	if r.CVEMetadata != nil {
+		action = "Updates"
+		cves = r.CVEMetadata.ID
+	} else {
+		action = "Fixes"
+		cves = strings.Join(r.CVEs, ", ")
+	}
+	msg := fmt.Sprintf("x/vulndb: add %v for %v\n\n%s golang/vulndb#%v\n",
+		filename, cves, action, issueID)
 	if err := irun("git", "commit", "-m", msg, "-e", filename); err != nil {
 		fmt.Fprintf(os.Stderr, "git commit: %v\n", err)
 		return nil
