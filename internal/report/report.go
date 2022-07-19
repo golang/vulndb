@@ -114,6 +114,14 @@ type Report struct {
 	CVEMetadata *CVEMeta `yaml:"cve_metadata,omitempty"`
 }
 
+// GetCVEs returns all CVE IDs for a report.
+func (r *Report) GetCVEs() []string {
+	if r.CVEMetadata != nil {
+		return []string{r.CVEMetadata.ID}
+	}
+	return r.CVEs
+}
+
 // AllSymbols returns both original and derived symbols.
 func (a *Package) AllSymbols() []string {
 	return append(append([]string(nil), a.Symbols...), a.DerivedSymbols...)
