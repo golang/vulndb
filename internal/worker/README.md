@@ -19,12 +19,8 @@ painless browsing. Install it with
 ```
 go install github.com/GoogleCloudPlatform/cloud-run-proxy@latest
 ```
-If you have authenticated with `gcloud`, you can run it with
+
+Run it from the repo root with
 ```
-cloud-run-proxy -host WORKER_CLOUD_RUN_URL
+./devtools/proxy_worker.sh prod
 ```
-Otherwise, obtain a token on another machine that has authenticated with
-```
-gcloud auth print-identity-token
-```
-and pass the output to `cloud-run-proxy` with the `-token` flag.
