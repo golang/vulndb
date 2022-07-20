@@ -1,0 +1,29 @@
+name: Suggest an edit to an existing report
+title: "x/vulndb: suggestion regarding <GO-XXXX-YYYY>"
+description: Let us know about missing or incorrect information in a vulndb report.
+labels: "Needs Triage,Suggested Edit"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to help us maintain the Go vulnerability
+        database!
+
+        This form is only for suggested edits or comments about existing reports.
+
+        ❗ To report undisclosed Go vulnerabilities, please follow our [security policy](https://go.dev/security/policy).
+
+        For questions or concerns, do not hesitate to reach out to us directly at security@golang.org.
+  - type: input
+    id: report
+    attributes:
+      label: Report ID
+      placeholder: GO-XXXX-YYYY
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggestion/Comment
+    validations:
+      required: true
