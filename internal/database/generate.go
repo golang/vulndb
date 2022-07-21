@@ -180,6 +180,9 @@ func GenerateOSVEntry(id, url string, r report.Report) (osv.Entry, []string) {
 		entry.Affected = append(entry.Affected, generateAffected(importPath, p.Versions, r.OS, r.Arch, p.AllSymbols(), url))
 	}
 
+	if r.Links.Advisory != "" {
+		entry.References = append(entry.References, osv.Reference{Type: "ADVISORY", URL: r.Links.Advisory})
+	}
 	if r.Links.PR != "" {
 		entry.References = append(entry.References, osv.Reference{Type: "FIX", URL: r.Links.PR})
 	}

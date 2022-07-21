@@ -271,6 +271,9 @@ func (r *Report) lintStdLibLinks(addIssue func(string)) {
 	if r.Links.Commit != "" && !commitRegex.MatchString(r.Links.Commit) {
 		addIssue(fmt.Sprintf("links.commit commit link should match %q", commitRegex))
 	}
+	if r.Links.Advisory != "" {
+		addIssue("links.advisory should not be set for first-party issues")
+	}
 	hasIssueLink := false
 	hasAnnounceLink := false
 	for _, c := range r.Links.Context {
@@ -293,7 +296,7 @@ func (r *Report) lintStdLibLinks(addIssue func(string)) {
 }
 
 func (r *Report) lintLinks(addIssue func(string)) {
-	links := append(r.Links.Context, r.Links.Commit, r.Links.PR)
+	links := append(r.Links.Context, r.Links.Advisory, r.Links.Commit, r.Links.PR)
 	for _, l := range links {
 		if l == "" {
 			continue
@@ -362,6 +365,7 @@ func (r *Report) Lint() []string {
 func (r *Report) Fix() {
 	r.Links.Commit = fixURL(r.Links.Commit)
 	r.Links.PR = fixURL(r.Links.PR)
+	r.Links.Advisory = fixURL(r.Links.Advisory)
 	var fixed []string
 	for _, l := range r.Links.Context {
 		fixed = append(fixed, fixURL(l))

@@ -66,9 +66,10 @@ type Package struct {
 }
 
 type Links struct {
-	PR      string   `yaml:",omitempty"`
-	Commit  string   `yaml:",omitempty"`
-	Context []string `yaml:",omitempty"`
+	PR       string   `yaml:",omitempty"`
+	Commit   string   `yaml:",omitempty"`
+	Advisory string   `yaml:",omitempty"`
+	Context  []string `yaml:",omitempty"`
 }
 
 type CVEMeta struct {

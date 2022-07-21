@@ -53,9 +53,10 @@ func TestGenerate(t *testing.T) {
 		OS:          []string{"windows"},
 		Arch:        []string{"arm64"},
 		Links: report.Links{
-			PR:      "pr",
-			Commit:  "commit",
-			Context: []string{"issue-a", "issue-b"},
+			PR:       "pr",
+			Commit:   "commit",
+			Advisory: "advisory",
+			Context:  []string{"issue-a", "issue-b"},
 		},
 	}
 
@@ -64,6 +65,7 @@ func TestGenerate(t *testing.T) {
 		ID:      "GO-1991-0001",
 		Details: "It's a real bad one, I'll tell you that",
 		References: []osv.Reference{
+			{Type: "ADVISORY", URL: "advisory"},
 			{Type: "FIX", URL: "pr"},
 			{Type: "FIX", URL: "commit"},
 			{Type: "WEB", URL: "issue-a"},
