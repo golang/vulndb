@@ -58,7 +58,7 @@ func ScanModules(ctx context.Context, st store.Store, force bool) error {
 	}
 	for _, modulePath := range modulesToScan {
 		// Scan the latest version, and the latest tagged version (if they differ).
-		latest, err := latestVersion(ctx, modulePath)
+		latest, err := latestVersion(ctx, proxyURL, modulePath)
 		if err != nil {
 			return err
 		}
@@ -68,7 +68,7 @@ func ScanModules(ctx context.Context, st store.Store, force bool) error {
 			}
 			// Otherwise, if the error was in the scanning itself, keep going.
 		}
-		latestTagged, err := latestTaggedVersion(ctx, modulePath)
+		latestTagged, err := latestTaggedVersion(ctx, proxyURL, modulePath)
 		if err != nil {
 			return err
 		}
@@ -99,7 +99,7 @@ func processModule(ctx context.Context, modulePath, version string, dbClient vul
 			return nil
 		}
 	}
-	res, err := scanModule(ctx, modulePath, version, dbClient)
+	res, err := scanModule(ctx, proxyURL, modulePath, version, dbClient)
 	if err2 := createModuleScanRecord(ctx, st, modulePath, version, dbTime, res, err); err2 != nil {
 		return err2
 	}
@@ -142,7 +142,7 @@ func createModuleScanRecord(ctx context.Context, st store.Store, path, version s
 // scanRepo clones the given repo and analyzes it for vulnerabilities. If commit
 // is "HEAD", the head commit is scanned. Otherwise, commit must be a hex string
 // corresponding to a commit, and that commit is checked out and scanned.
-func scanModule(ctx context.Context, modulePath, version string, dbClient vulnc.Client) (_ *vulncheck.Result, err error) {
+func scanModule(ctx context.Context, proxyURL, modulePath, version string, dbClient vulnc.Client) (_ *vulncheck.Result, err error) {
 	defer derrors.Wrap(&err, "scanModule(%q, %q)", modulePath, version)
 
 	start := time.Now()
@@ -160,7 +160,7 @@ func scanModule(ctx context.Context, modulePath, version string, dbClient vulnc.
 		}
 	}()
 
-	zipr, err := moduleZip(ctx, modulePath, version)
+	zipr, err := moduleZip(ctx, proxyURL, modulePath, version)
 	if err != nil {
 		return nil, err
 	}

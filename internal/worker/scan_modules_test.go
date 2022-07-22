@@ -44,13 +44,16 @@ func TestAsScanError(t *testing.T) {
 }
 
 func TestScanModule(t *testing.T) {
+	pt := newProxyTest()
+	defer pt.Close()
+
 	ctx := event.WithExporter(context.Background(),
 		event.NewExporter(log.NewLineHandler(os.Stderr), nil))
 	dbClient, err := vulnc.NewClient([]string{vulnDBURL}, vulnc.Options{})
 	if err != nil {
 		t.Fatal(err)
 	}
-	got, err := scanModule(ctx, "golang.org/x/mod", "v0.5.1", dbClient)
+	got, err := scanModule(ctx, pt.URL, "golang.org/x/mod", "v0.5.1", dbClient)
 	if err != nil {
 		t.Fatal(err)
 	}

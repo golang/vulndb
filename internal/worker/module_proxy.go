@@ -27,8 +27,8 @@ const proxyURL = "https://proxy.golang.org"
 
 // latestVersion returns the version of modulePath provided by the proxy's "@latest"
 // endpoint.
-func latestVersion(ctx context.Context, modulePath string) (string, error) {
-	body, err := proxyRequest(ctx, modulePath, "/@latest")
+func latestVersion(ctx context.Context, proxyURL, modulePath string) (string, error) {
+	body, err := proxyRequest(ctx, proxyURL, modulePath, "/@latest")
 	if err != nil {
 		return "", err
 	}
@@ -46,8 +46,8 @@ func latestVersion(ctx context.Context, modulePath string) (string, error) {
 // latestTaggedVersion returns the latest (largest in the semver sense) tagged
 // version of modulePath, as determined by the module proxy's "list" endpoint.
 // It returns ("", nil) if there are no tagged versions.
-func latestTaggedVersion(ctx context.Context, modulePath string) (string, error) {
-	body, err := proxyRequest(ctx, modulePath, "/@v/list")
+func latestTaggedVersion(ctx context.Context, proxyURL, modulePath string) (string, error) {
+	body, err := proxyRequest(ctx, proxyURL, modulePath, "/@v/list")
 	if err != nil {
 		return "", err
 	}
@@ -59,19 +59,19 @@ func latestTaggedVersion(ctx context.Context, modulePath string) (string, error)
 	return vs[0], nil
 }
 
-func moduleZip(ctx context.Context, modulePath, version string) (*zip.Reader, error) {
+func moduleZip(ctx context.Context, proxyURL, modulePath, version string) (*zip.Reader, error) {
 	ev, err := module.EscapeVersion(version)
 	if err != nil {
 		return nil, err
 	}
-	body, err := proxyRequest(ctx, modulePath, fmt.Sprintf("/@v/%s.zip", ev))
+	body, err := proxyRequest(ctx, proxyURL, modulePath, fmt.Sprintf("/@v/%s.zip", ev))
 	if err != nil {
 		return nil, err
 	}
 	return zip.NewReader(bytes.NewReader(body), int64(len(body)))
 }
 
-func proxyRequest(ctx context.Context, modulePath, suffix string) ([]byte, error) {
+func proxyRequest(ctx context.Context, proxyURL, modulePath, suffix string) ([]byte, error) {
 	ep, err := module.EscapePath(modulePath)
 	if err != nil {
 		return nil, fmt.Errorf("module path %v: %w", modulePath, err)
