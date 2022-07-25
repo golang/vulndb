@@ -1,0 +1,34 @@
+packages:
+  - module: std
+    package: os/exec
+    symbols:
+      - Cmd.Start
+    versions:
+      - fixed: 1.17.11
+      - introduced: 1.18.0
+        fixed: 1.18.3
+    vulnerable_at: 1.18.2
+description: |
+    On Windows, executing Cmd.Run, Cmd.Start, Cmd.Output, or Cmd.CombinedOutput
+    when Cmd.Path is unset will unintentionally trigger execution of any
+    binaries in the working directory named either "..com" or "..exe".
+credit: |
+  Chris Darroch (chrisd8088@github.com), brian m. carlson (bk2204@github.com),
+  and Mikhail Shcherbakov (https://twitter.com/yu5k3)
+os:
+ - windows
+links:
+    pr: https://go.dev/cl/403759
+    commit: https://go.googlesource.com/go/+/960ffa98ce73ef2c2060c84c7ac28d37a83f345e
+    context:
+      - https://go.dev/issue/52574
+      - https://groups.google.com/g/golang-announce/c/TzIC9-t8Ytg/m/IWz5T6x7AAAJ
+cve_metadata:
+    id: CVE-2022-30580
+    cwe: 'CWE-94: Improper Control of Generation of Code (''Code Injection'')'
+    description: |
+        Code injection in Cmd.Start in os/exec before Go 1.17.11 and Go 1.18.3
+        allows execution of any binaries in the working directory named either
+        "..com" or "..exe" by calling Cmd.Run, Cmd.Start, Cmd.Output, or
+        Cmd.CombinedOutput when Cmd.Path is unset.
+
