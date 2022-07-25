@@ -173,6 +173,7 @@ func (r *Report) ToString() (string, error) {
 
 func (r *Report) encode(w io.Writer) error {
 	e := yaml.NewEncoder(w)
+	defer e.Close()
 	e.SetIndent(4)
 	return e.Encode(r)
 }
