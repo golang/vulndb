@@ -1,0 +1,38 @@
+packages:
+  - module: std
+    package: net/http
+    symbols:
+      - Header.Clone
+    versions:
+      - fixed: 1.17.12
+      - introduced: 1.18.0
+        fixed: 1.18.4
+    vulnerable_at: 1.18.3
+description: |
+    Client IP adresses may be unintentionally exposed via X-Forwarded-For
+    headers.
+
+    When httputil.ReverseProxy.ServeHTTP is called with a Request.Header map
+    containing a nil value for the X-Forwarded-For header, ReverseProxy sets
+    the client IP as the value of the X-Forwarded-For header, contrary to
+    its documentation.
+
+    In the more usual case where a Director function sets the
+    X-Forwarded-For header value to nil, ReverseProxy leaves the header
+    unmodified as expected.
+credit: Christian Mehlmauer
+links:
+    pr: https://go.dev/cl/412857
+    commit: https://go.googlesource.com/go/+/b2cc0fecc2ccd80e6d5d16542cc684f97b3a9c8a
+    context:
+      - https://go.dev/issue/53423
+      - https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE
+cve_metadata:
+    id: CVE-2022-32148
+    cwe: 'CWE-200: Information Exposure'
+    description: |
+        Improper exposure of client IP addresses in net/http before Go 1.17.12
+        and Go 1.18.4 can be triggered by calling
+        httputil.ReverseProxy.ServeHTTP with a Request.Header map containing a
+        nil value for the X-Forwarded-For header, which causes ReverseProxy to
+        set the client IP as the value of the X-Forwarded-For header.
