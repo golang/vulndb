@@ -1,0 +1,40 @@
+packages:
+  - module: std
+    package: cmd/go
+    symbols:
+      - Builder.cgo
+    versions:
+      - fixed: 1.14.12
+      - introduced: 1.15.0
+        fixed: 1.15.5
+    vulnerable_at: 1.15.4
+  - module: std
+    package: cmd/cgo
+    symbols:
+      - dynimport
+    versions:
+      - fixed: 1.14.12
+      - introduced: 1.15.0
+        fixed: 1.15.5
+    vulnerable_at: 1.15.4
+description: |
+    The go command may execute arbitrary code at build time when cgo is in use.
+    This may occur when running go get on a malicious package, or any other
+    command that builds untrusted code.
+
+    This can be caused by malicious unquoted symbol name in a linked object
+    file.
+credit: Chris Brown and Tempus Ex
+links:
+    pr: https://go.dev/cl/269658
+    commit: https://go.googlesource.com/go/+/062e0e5ce6df339dc26732438ad771f73dbf2292
+    context:
+      - https://go.dev/issue/42559
+      - https://groups.google.com/g/golang-announce/c/NpBGTTmKzpM
+cve_metadata:
+    id: CVE-2020-28366
+    cwe: 'CWE-94: Improper Control of Generation of Code (''Code Injection'')'
+    description: |
+        Code injection in the go command with cgo before Go 1.14.12 and Go
+        1.15.5 allows arbitrary code execution at build time via a malicious
+        unquoted symbol name in a linked object file.
