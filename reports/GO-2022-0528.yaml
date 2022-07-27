@@ -1,0 +1,21 @@
+packages:
+  - module: github.com/containrrr/shoutrrr
+    package: github.com/containrrr/shoutrrr/pkg/util
+    symbols:
+      - PartitionMessage
+    versions:
+      - fixed: 0.6.0
+    vulnerable_at: 0.5.3
+description: |
+    Sending a message exactly 2000, 4000, or 6000 characters in length
+    to Discord causes a panic.
+cves:
+  - CVE-2022-25891
+ghsas:
+  - GHSA-477v-w82m-634j
+credit: justinsteven
+links:
+    pr: https://github.com/containrrr/shoutrrr/pull/242
+    commit: https://github.com/containrrr/shoutrrr/commit/6a27056f9d7522a8b493216195cb7634bf4b5c42
+    context:
+      - https://github.com/containrrr/shoutrrr/issues/240
