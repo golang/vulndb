@@ -1,0 +1,35 @@
+packages:
+  - module: mellium.im/xmpp
+    package: mellium.im/xmpp/websocket
+    symbols:
+      - Dialer.config
+    derived_symbols:
+      - Dial
+      - DialDirect
+      - DialSession
+      - Dialer.Dial
+      - Dialer.DialDirect
+      - NewClient
+    versions:
+      - fixed: 0.21.1
+    vulnerable_at: 0.21.0
+description: |
+    Websocket client connections are vulnerable to man-in-the-middle
+    attacks via DNS spoofing.
+
+    When looking up a WSS endpoint using a DNS TXT record, the server
+    TLS certificate is incorrectly validated using the name of the
+    server returned by the TXT record request, not the name of the
+    the server being connected to. This permits any attacker that
+    can spoof a DNS record to redirect the user to a server of their
+    choosing.
+
+    Providing a *tls.Config with a ServerName field set to the
+    correct destination hostname will avoid this issue.
+cves:
+  - CVE-2022-24968
+ghsas:
+  - GHSA-h289-x5wc-xcv8
+links:
+    commit: https://github.com/mellium/xmpp/commit/0d92aa486da69b71f2f4a30e62aa722c711b98ac
+    advisory: https://mellium.im/cve/cve-2022-24968/
