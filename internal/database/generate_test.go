@@ -49,6 +49,7 @@ func TestGenerate(t *testing.T) {
 		},
 		Description: "It's a real bad one, I'll tell you that",
 		CVEs:        []string{"CVE-0000-0000"},
+		GHSAs:       []string{"GHSA-abcd-efgh"},
 		Credit:      "ignored",
 		OS:          []string{"windows"},
 		Arch:        []string{"arm64"},
@@ -71,7 +72,7 @@ func TestGenerate(t *testing.T) {
 			{Type: "WEB", URL: "issue-a"},
 			{Type: "WEB", URL: "issue-b"},
 		},
-		Aliases: []string{"CVE-0000-0000"},
+		Aliases: []string{"CVE-0000-0000", "GHSA-abcd-efgh"},
 		Affected: []osv.Affected{
 			{
 				Package: osv.Package{

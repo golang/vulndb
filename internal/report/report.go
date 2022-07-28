@@ -123,6 +123,11 @@ func (r *Report) GetCVEs() []string {
 	return r.CVEs
 }
 
+// GetAliases returns all aliases (e.g., CVEs, GHSAs) for a report.
+func (r *Report) GetAliases() []string {
+	return append(r.GetCVEs(), r.GHSAs...)
+}
+
 // AllSymbols returns both original and derived symbols.
 func (a *Package) AllSymbols() []string {
 	return append(append([]string(nil), a.Symbols...), a.DerivedSymbols...)
