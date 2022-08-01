@@ -1,0 +1,40 @@
+packages:
+  - module: std
+    package: net/http
+    symbols:
+      - http2serverConn.serve
+      - http2serverConn.writeFrame
+      - http2serverConn.scheduleFrameWrite
+    versions:
+      - fixed: 1.11.13
+      - introduced: 1.12.0
+        fixed: 1.12.8
+    vulnerable_at: 1.12.7
+  - module: golang.org/x/net
+    package: golang.org/x/net/http
+    symbols:
+      - serverConn.serve
+      - serverConn.writeFrame
+      - serverConn.scheduleFrameWrite
+    versions:
+      - fixed: 0.0.0-20190813141303-74dc4d7220e7
+description: |
+    Some HTTP/2 implementations are vulnerable to a reset flood, potentially
+    leading to a denial of service.
+
+    Servers that accept direct connections from untrusted clients could be
+    remotely made to allocate an unlimited amount of memory, until the program
+    crashes. The attacker opens a number of streams and sends an invalid request
+    over each stream that should solicit a stream of RST_STREAM frames from the
+    peer. Depending on how the peer queues the RST_STREAM frames, this can
+    consume excess memory, CPU, or both.
+cves:
+  - CVE-2019-9512
+  - CVE-2019-9514
+credit: Jonathan Looney of Netflix
+links:
+    pr: https://go.dev/cl/190137
+    commit: https://go.googlesource.com/go/+/145e193131eb486077b66009beb051aba07c52a5
+    context:
+      - https://go.dev/issue/33606
+      - https://groups.google.com/g/golang-announce/c/65QixT3tcmg/m/DrFiG6vvCwAJ
