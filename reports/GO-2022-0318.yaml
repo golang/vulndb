@@ -1,0 +1,25 @@
+packages:
+  - module: std
+    package: cmd/go/internal/modfetch
+    symbols:
+      - codeRepo.convert
+      - codeRepo.validatePseudoVersion
+    versions:
+      - fixed: 1.16.14
+      - introduced: 1.17.0
+        fixed: 1.17.7
+    vulnerable_at: 1.17.6
+description: |
+    Incorrect access control is possible in the go command.
+
+    The go command can misinterpret branch names that falsely appear to be
+    version tags. This can lead to incorrect access control if an actor is
+    authorized to create branches but not tags.
+cves:
+  - CVE-2022-23773
+links:
+    pr: https://go.dev/cl/378400
+    commit: https://go.googlesource.com/go/+/fa4d9b8e2bc2612960c80474fca83a4c85a974eb
+    context:
+      - https://go.dev/issue/35671
+      - https://groups.google.com/g/golang-announce/c/SUsQn0aSgPQ
