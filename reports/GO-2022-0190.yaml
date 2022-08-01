@@ -1,0 +1,28 @@
+packages:
+  - module: std
+    package: cmd/go/internal/get
+    symbols:
+      - downloadPackage
+    versions:
+      - fixed: 1.10.6
+      - introduced: 1.11.0
+        fixed: 1.11.3
+    vulnerable_at: 1.11.2
+description: |
+    The "go get" command is vulnerable to directory traversal when executed
+    with the import path of a malicious Go package which contains curly brace
+    (both '{'  and '}' characters).
+
+    Specifically, it is only vulnerable in GOPATH mode, but not in module mode
+    (the distinction is documented at
+    https://golang.org/cmd/go/#hdr-Module_aware_go_get). The attacker can cause
+    an arbitrary filesystem write, which can lead to code execution.
+cves:
+  - CVE-2018-16874
+credit: ztz of Tencent Security Platform
+links:
+    pr: https://go.dev/cl/154101
+    commit: https://go.googlesource.com/go/+/bc82d7c7db83487e05d7a88e06549d4ae2a688c3
+    context:
+      - https://go.dev/issue/29230
+      - https://groups.google.com/g/golang-announce/c/Kw31K8G7Fi0
