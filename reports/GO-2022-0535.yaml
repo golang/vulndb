@@ -1,0 +1,31 @@
+packages:
+  - module: std
+    package: crypto/x509
+    symbols:
+      - Certificate.systemVerify
+    versions:
+      - fixed: 1.12.6
+      - introduced: 1.13.0
+        fixed: 1.13.7
+    vulnerable_at: 1.13.6
+description: |
+    A Windows vulnerability allows attackers to spoof valid certificate chains
+    when the system root store is in use.
+
+    A workaround is present in Go 1.12.6+ and Go 1.13.7+, but affected
+    users should additionally install the Windows security update to protect
+    their system.
+
+    See
+    https://msrc.microsoft.com/update-guide/en-US/vulnerability/CVE-2020-0601
+    for details on the Windows vulnerability.
+os:
+  - windows
+cves:
+  - CVE-2020-0601
+links:
+    pr: https://go.dev/cl/215905
+    commit: https://go.googlesource.com/go/+/953bc8f391a63adf00bac2515dba62abe8a1e2c2
+    context:
+      - https://go.dev/issue/36834
+      - https://groups.google.com/g/golang-announce/c/Hsw4mHYc470/m/WJeW5wguEgAJ
