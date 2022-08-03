@@ -1,0 +1,24 @@
+packages:
+  - module: github.com/runatlantis/atlantis
+    package: github.com/runatlantis/atlantis/server/controllers/events
+    symbols:
+      - DefaultGitlabRequestParserValidator.ParseAndValidate
+    versions:
+      - fixed: 0.19.7
+    vulnerable_at: 0.19.6
+description: |
+    Validation of Gitlab requests can leak secrets.
+
+    The package github.com/runatlantis/atlantis/server/controllers/events uses a
+    non-constant time comparison for secrets while validating a Gitlab request.
+    This allows for a timing attack where an attacker can recover a secret and
+    then forge the request.
+cves:
+  - CVE-2022-24912
+credit: cedws
+links:
+    pr: https://github.com/runatlantis/atlantis/pull/2392
+    commit: https://github.com/runatlantis/atlantis/commit/48870911974adddaa4c99c8089e79b7d787fa820
+    context:
+      - https://github.com/runatlantis/atlantis/issues/2391
+      - https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMRUNATLANTISATLANTISSERVERCONTROLLERSEVENTS-2950851
