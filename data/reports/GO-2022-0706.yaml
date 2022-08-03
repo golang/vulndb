@@ -1,0 +1,26 @@
+modules:
+  - module: go.elastic.co/apm
+    versions:
+      - fixed: 1.11.0
+    vulnerable_at: 1.10.0
+    packages:
+      - package: go.elastic.co/apm
+        symbols:
+          - modelWriter.buildModelTransaction
+        derived_symbols:
+          - NewTracer
+          - NewTracerOptions
+description: |
+    Sensitive HTTP headers may not be properly sanitized before being sent to the
+    APM server if the program panics.
+published: 2021-05-18T18:34:18Z
+last_modified: 2021-05-18T18:34:18Z
+cves:
+  - CVE-2021-22133
+ghsas:
+  - GHSA-qqc5-rgcc-cjqh
+links:
+    pr: https://github.com/elastic/apm-agent-go/pull/888
+    commit: https://github.com/elastic/apm-agent-go/commit/dd3e8c593580e7b80a98b57e1cc6e017e56747b4
+    context:
+      - https://github.com/advisories/GHSA-qqc5-rgcc-cjqh
