@@ -1,0 +1,32 @@
+packages:
+  - module: github.com/microcosm-cc/bluemonday
+    symbols:
+      - Policy.AllowElements
+      - Policy.AllowElementsMatching
+    derived_symbols:
+      - Policy.AllowLists
+      - Policy.AllowTables
+      - UGCPolicy
+    versions:
+      - fixed: 1.0.16
+    vulnerable_at: 1.0.15
+description: |
+    The bluemonday HTML sanitizer can leak the contents of a "style" element
+    into HTML output, potentially causing XSS vulnerabilities.
+
+    The default bluemonday sanitization policies are not vulnerable.
+    Only user-defined policies allowing "select", "style", and
+    "option" elements are affected.
+
+    Permitting the "style" element in policies is hazardous, because bluemonday
+    does not contain a CSS sanitizer. Newer versions of bluemonday suppress
+    "style" and "script" elements even when allowed by a policy unless the
+    policy explicitly requests unsafe processing.
+cves:
+  - CVE-2021-42576
+ghsas:
+  - GHSA-x95h-979x-cf3j
+links:
+    commit: https://github.com/microcosm-cc/bluemonday/commit/c788a2a4d42e081ad54a31368478820bb4a42fb4
+    context:
+      - https://docs.google.com/document/d/11SoX296sMS0XoQiQbpxc5pNxSdbJKDJkm5BDv0zrX50/
