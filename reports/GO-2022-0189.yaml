@@ -1,0 +1,40 @@
+packages:
+  - module: std
+    package: cmd/go/internal/get
+    symbols:
+      - downloadPackage
+    versions:
+      - fixed: 1.10.6
+      - introduced: 1.11.0
+        fixed: 1.11.3
+    vulnerable_at: 1.11.2
+description: |
+    The "go get" command is vulnerable to remote code execution when executed
+    with the -u flag and the import path of a malicious Go package, or a
+    package that imports it directly or indirectly.
+
+    Specifically, it is only vulnerable in GOPATH mode, but not in module mode
+    (the distinction is documented at https://golang.org/cmd/go/#hdr-Module_aware_go_get).
+
+    Using custom domains, it's possible to arrange things so that a Git
+    repository is cloned to a folder named ".git" by using a vanity import path
+    that ends with "/.git". If the Git repository root contains a "HEAD" file,
+    a "config" file, an "objects" directory, a "refs" directory, with some work
+    to ensure the proper ordering of operations, "go get -u" can be tricked
+    into considering the parent directory as a repository root, and running Git
+    commands on it. That will use the "config" file in the original Git
+    repository root for its configuration, and if that config file contains
+    malicious commands, they will execute on the system running "go get -u".
+
+    Note that forbidding import paths with a .git element might not be
+    sufficient to mitigate this issue, as on certain systems there can be other
+    aliases for VCS state folders.
+cves:
+  - CVE-2018-16873
+credit: Etienne Stalmans of Heroku
+links:
+    pr: https://go.dev/cl/154101
+    commit: https://go.googlesource.com/go/+/bc82d7c7db83487e05d7a88e06549d4ae2a688c3
+    context:
+      - https://go.dev/issue/29230
+      - https://groups.google.com/g/golang-announce/c/Kw31K8G7Fi0
