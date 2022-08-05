@@ -1,0 +1,57 @@
+<!--
+  Copyright 2022 The Go Authors. All rights reserved.
+  Use of this source code is governed by a BSD-style
+  license that can be found in the LICENSE file.
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy Policy: Go Vulnerability Database</title>
+    <style>
+      body {
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+          font-size: 1rem;
+          line-height: normal;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Privacy Policy</h1>
+    <p>
+    The <code>govulncheck</code> command retrieves vulnerability information
+    for modules by connecting to the Go Vulnerability Database run by Google
+    (<a href="https://vuln.go.dev">vuln.go.dev</a>).
+    </p>
+
+    <p>
+    Clients send data in HTTP requests to this database, which logs standard HTTP information:
+    </p>
+
+    <ul>
+    <li>Request timestamp</li>
+    <li>IP address</li>
+    <li>Full request URL, including service domain and URI path being requested</li>
+    </ul>
+
+    <p>
+    We use this data for debugging. In general, we've built this tool to retain
+    as little information about usage as possible while still ensuring that we
+    are able to detect and fix problems.
+    </p>
+
+    <p>
+    We do not store logged identifiable information such as IP addresses for
+    more than 30 days. We also do not correlate or combine information from our
+    request logs with any personal information that you have provided Google
+    for other services.
+    </p>
+
+    <p>
+    If you'd like to read the main policy which govulncheck adheres to, see the
+    <a href="https://policies.google.com/privacy" target="_blank">Google
+    Privacy Policy</a>.
+    </p>
+  </body>
+</html>
