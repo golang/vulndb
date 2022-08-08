@@ -8,9 +8,10 @@ when they get a 404 on that site.
 After these files are modified and the CL has been submitted, copy them to the
 vuln DB bucket:
 ```
-gsutil cp index.html 404.html gs://go-vulndb
+gsutil cp *.html gs://go-vulndb
 ```
-This requires `golang-vulndb-project-owners` rights, or equivalent.
+This requires `golang-vulndb-project-owners` rights, which need to be requested
+and approved via Access on Demand (go/get-aod).
 
 ## Initial Setup
 
