@@ -265,7 +265,10 @@ func isFirstPartyGoLink(l string) bool {
 // Checks that the "links" section of a Report for a package in the
 // standard library contains all necessary links, and no third-party links.
 func (r *Report) lintStdLibLinks(addIssue func(string)) {
-	if !prRegex.MatchString(r.Links.PR) {
+	if r.Links.PR == "" && r.Links.Commit == "" {
+		addIssue("at least one of links.pr and links.commit must be set")
+	}
+	if r.Links.PR != "" && !prRegex.MatchString(r.Links.PR) {
 		addIssue(fmt.Sprintf("links.pr should contain a PR link matching %q", prRegex))
 	}
 	if r.Links.Commit != "" && !commitRegex.MatchString(r.Links.Commit) {
