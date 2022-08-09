@@ -1,0 +1,26 @@
+packages:
+  - module: github.com/microcosm-cc/bluemonday
+    symbols:
+      - Policy.sanitize
+    derived_symbols:
+      - Policy.Sanitize
+      - Policy.SanitizeBytes
+      - Policy.SanitizeReader
+    versions:
+      - fixed: 1.0.5
+    vulnerable_at: 1.0.4
+description: |
+    An XSS injection was possible because the sanitization of the Cyrillic
+    character i bypass a protection mechanism against user-inputted HTML elements
+    such as the <script> tag.
+published: 2021-05-18T21:07:37Z
+last_modified: 2022-03-15T21:37:06Z
+cves:
+  - CVE-2021-29272
+ghsas:
+  - GHSA-3x58-xr87-2fcj
+links:
+    commit: https://github.com/microcosm-cc/bluemonday/commit/524f142fe46e945b7dcd291d7805c4b7dcf75bee
+    context:
+      - https://github.com/microcosm-cc/bluemonday/issues/111
+      - https://github.com/microcosm-cc/bluemonday/releases/tag/v1.0.5
