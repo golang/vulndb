@@ -1,0 +1,43 @@
+packages:
+  - module: github.com/emicklei/go-restful
+    symbols:
+      - CrossOriginResourceSharing.isOriginAllowed
+    derived_symbols:
+      - CrossOriginResourceSharing.Filter
+    versions:
+      - fixed: 2.16.0+incompatible
+    vulnerable_at: 2.15.0+incompatible
+  - module: github.com/emicklei/go-restful/v2
+    symbols:
+      - CrossOriginResourceSharing.isOriginAllowed
+    derived_symbols:
+      - CrossOriginResourceSharing.Filter
+    versions:
+      - introduced: 2.7.1
+    vulnerable_at: 2.7.1
+  - module: github.com/emicklei/go-restful/v3
+    symbols:
+      - CrossOriginResourceSharing.isOriginAllowed
+    derived_symbols:
+      - CrossOriginResourceSharing.Filter
+    versions:
+      - introduced: 3.0.0
+        fixed: 3.8.0
+    vulnerable_at: 3.7.4
+description: |
+    CORS filters that use an AllowedDomains configuration parameter
+    can match domains outside the specified set, permitting an attacker
+    to avoid the CORS policy.
+
+    The AllowedDomains configuration parameter is documented as a list of
+    allowed origin domains, but values in this list are applied as regular
+    expression matches. For example, an allowed domain of "example.com" will
+    match the Origin header "example.com.malicious.domain".
+cves:
+  - CVE-2022-1996
+ghsas:
+  - GHSA-r48q-9g5r-8q2h
+links:
+    commit: https://github.com/emicklei/go-restful/commit/f292efff46ae17e9d104f865a60a39a2ae9402f1
+    context:
+      - https://github.com/emicklei/go-restful/issues/489
