@@ -1,0 +1,78 @@
+packages:
+  - module: github.com/open-policy-agent/opa
+    package: github.com/open-policy-agent/opa/ast
+    symbols:
+      - rewriteDeclaredVarsInTerm
+    derived_symbols:
+      - Args.Copy
+      - Array.Foreach
+      - Array.Iter
+      - Array.Until
+      - CompileModules
+      - CompileModulesWithOpt
+      - Compiler.Compile
+      - Copy
+      - GenericVisitor.Walk
+      - Head.Copy
+      - Import.Copy
+      - Module.Copy
+      - MustCompileModules
+      - MustCompileModulesWithOpts
+      - MustParseBody
+      - MustParseBodyWithOpts
+      - MustParseImports
+      - MustParseModule
+      - MustParseModuleWithOpts
+      - MustParsePackage
+      - MustParseRule
+      - MustParseStatement
+      - MustParseStatements
+      - ParseBodyWithOpts
+      - ParseImports
+      - ParseModule
+      - ParseModuleWithOpts
+      - ParsePackage
+      - ParseRule
+      - ParseStatement
+      - ParseStatements
+      - ParseStatementsWithOpts
+      - Parser.Parse
+      - QueryContext.Copy
+      - Ref.Extend
+      - Rule.Copy
+      - Term.Copy
+      - ValueToInterface
+      - VarVisitor.Walk
+      - WalkWiths
+      - baseDocEqIndex.AllRules
+      - baseDocEqIndex.Lookup
+      - object.Iter
+      - queryCompiler.Compile
+      - ruleWalker.Do
+      - set.Copy
+      - set.Diff
+      - set.Foreach
+      - set.Intersect
+      - set.Iter
+      - set.Reduce
+      - set.Union
+      - trieNode.Do
+      - trieNode.Traverse
+      - trieTraversalResult.Add
+    versions:
+      - fixed: 0.42.0
+    vulnerable_at: 0.41.0
+description: |
+    An issue in the AST parser of Open Policy Agent makes it possible for
+    attackers to cause a Denial of Service attack from a crafted input.
+published: 2022-07-01T00:01:03Z
+last_modified: 2022-07-13T20:04:44Z
+cves:
+  - CVE-2022-33082
+ghsas:
+  - GHSA-2m4x-4q9j-w97g
+links:
+    pr: https://github.com/open-policy-agent/opa/pull/4701
+    commit: https://github.com/open-policy-agent/opa/commit/064f6168a8dfebdeb2ea147f7882bb9f5d2b7f67
+    context:
+      - https://github.com/open-policy-agent/opa/issues/4762
