@@ -1,0 +1,44 @@
+packages:
+  - module: github.com/open-policy-agent/opa
+    package: github.com/open-policy-agent/opa/ast
+    symbols:
+      - Parser.parseSome
+      - Parser.parseEvery
+    derived_symbols:
+      - CompileModules
+      - CompileModulesWithOpt
+      - MustCompileModules
+      - MustCompileModulesWithOpts
+      - MustParseImports
+      - MustParseModule
+      - MustParseModuleWithOpts
+      - MustParsePackage
+      - MustParseRule
+      - MustParseStatement
+      - MustParseStatements
+      - ParseImports
+      - ParseModule
+      - ParseModuleWithOpts
+      - ParsePackage
+      - ParseRule
+      - ParseStatement
+      - ParseStatements
+      - ParseStatementsWithOpts
+      - Parser.Parse
+    versions:
+      - fixed: 0.40.0
+    vulnerable_at: 0.39.0
+description: |
+    An issue in ast.Parser in Open Policy Agent causes the application to
+    incorrectly interpret expressions, allowing a Denial of Service (DoS)
+    via triggering out-of-range memory access.
+published: 2022-05-20T00:00:26Z
+last_modified: 2022-05-31T23:27:53Z
+cves:
+  - CVE-2022-28946
+ghsas:
+  - GHSA-x7f3-62pm-9p38
+credit: Norbert Szetei of Doyensec
+links:
+    pr: https://github.com/open-policy-agent/opa/pull/4548
+    commit: https://github.com/open-policy-agent/opa/commit/e9d3828db670cbe11129885f37f08cbf04935264
