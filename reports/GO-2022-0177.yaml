@@ -1,0 +1,28 @@
+packages:
+  - module: std
+    package: cmd/go
+    versions:
+      - fixed: 1.8.4
+      - introduced: 1.9.0
+        fixed: 1.9.1
+    vulnerable_at: 1.9.0
+description: |
+    The "go get" command allows remote command execution.
+
+    Using custom domains, it is possible to arrange things so that
+    example.com/pkg1 points to a Subversion repository but
+    example.com/pkg1/pkg2 points to a Git repository. If the Subversion
+    repository includes a Git checkout in its pkg2 directory and
+    some other work is done to ensure the proper ordering of operations, "go
+    get" can be tricked into reusing this Git checkout for the fetch of code
+    from pkg2. If the Subversion repository's Git checkout has malicious
+    commands in .git/hooks/, they will execute on the system running "go get".
+cves:
+  - CVE-2017-15041
+credit: Simon Rawet
+links:
+    pr: https://go.dev/cl/68110
+    commit: https://go.googlesource.com/go/+/ec71ee078fd3243b78c0d404c8634bd97e38d7eb
+    context:
+      - https://go.dev/issue/22125
+      - https://groups.google.com/g/golang-dev/c/RinSE3EiJBI/m/kYL7zb07AgAJ
