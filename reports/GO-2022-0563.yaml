@@ -1,0 +1,25 @@
+packages:
+  - module: github.com/filebrowser/filebrowser/v2
+    package: github.com/filebrowser/filebrowser/v2/http
+    symbols:
+      - NewHandler
+    versions:
+      - fixed: 2.18.0
+    vulnerable_at: 2.17.2
+description: |
+    A Cross-Site Request Forgery vulnerability exists in Filebrowser
+    that allows attackers to create a backdoor user with admin privilege
+    and get access to the filesystem via a malicious HTML webpage that is sent
+    to the victim.
+published: 2022-02-05T00:00:31Z
+last_modified: 2022-02-16T22:05:45Z
+cves:
+  - CVE-2021-46398
+ghsas:
+  - GHSA-72wf-hwcq-65h9
+credit: Febin
+links:
+    commit: https://github.com/filebrowser/filebrowser/commit/74b7cd8e81840537a8206317344f118093153e8d
+    context:
+      - https://github.com/filebrowser/filebrowser/issues/1621
+      - https://systemweakness.com/critical-csrf-to-rce-in-filebrowser-865a3c34b8e7
