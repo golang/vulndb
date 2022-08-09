@@ -1,0 +1,24 @@
+packages:
+  - module: std
+    package: cmd/go
+    versions:
+      - fixed: 1.9.5
+      - introduced: 1.10.0
+        fixed: 1.10.1
+    vulnerable_at: 1.10.0
+description: |
+    The "go get" command is vulnerable to remote code execution.
+
+    When the -insecure command-line option is used, "go get" does not validate
+    the import path (get/vcs.go only checks for "://" anywhere in the string),
+    which allows remote attackers to execute arbitrary OS commands via a
+    crafted web site.
+cves:
+  - CVE-2018-7187
+credit: Arthur Khashaev
+links:
+    pr: https://go.dev/cl/94603
+    commit: https://go.googlesource.com/go/+/c941e27e70c3e06e1011d2dd71d72a7a06a9bcbc
+    context:
+      - https://go.dev/issue/23867
+      - https://groups.google.com/g/golang-announce/c/IkPkOF8JqLs/m/TFBbWHJYAwAJ
