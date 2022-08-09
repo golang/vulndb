@@ -1,0 +1,29 @@
+packages:
+  - module: std
+    package: cmd/go
+    versions:
+      - fixed: 1.8.7
+      - introduced: 1.9.0
+        fixed: 1.9.4
+    vulnerable_at: 1.9.3
+description: |
+    The "go get" command with cgo is vulnerable to remote command execution
+    by leveraging the gcc or clang plugin feature.
+
+    When cgo is enabled, the build step during "go get" invokes the host C
+    compiler, gcc or clang, adding compiler flags specified in the Go source
+    files. Both gcc and clang support a plugin mechanism in which a
+    shared-library plugin is loaded into the compiler, as directed by
+    compiler flags. This means that a Go package repository can contain an
+    attack.so file along with a Go source file that says (for example)
+    "// #cgo CFLAGS: -fplugin=attack.so" causing the attack plugin to be
+    loaded into the host C compiler during the build. Gcc and clang plugins are
+    completely unrestricted in their access to the host system.
+cves:
+  - CVE-2018-6574
+credit: Christopher Brown of Mattermost
+links:
+    commit: https://go.googlesource.com/go/+/1dcb5836ad2c60776561da2923c70576ba2eefc6
+    context:
+      - https://go.dev/issue/23672
+      - https://groups.google.com/g/golang-nuts/c/Gbhh1NxAjMU
