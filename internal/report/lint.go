@@ -384,7 +384,7 @@ func (r *Report) Fix() {
 			build := semver.Build(v.V())
 			v = Version(v.Canonical())
 			if build != "" {
-				v += Version("+" + build)
+				v += Version(build)
 			}
 		}
 		*vp = v
@@ -397,6 +397,7 @@ func (r *Report) Fix() {
 			fixVersion(&r.Packages[i].Versions[j].Introduced)
 			fixVersion(&r.Packages[i].Versions[j].Fixed)
 		}
+		fixVersion(&r.Packages[i].VulnerableAt)
 	}
 	r.Links.Context = fixed
 }
