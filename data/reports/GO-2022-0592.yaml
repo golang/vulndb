@@ -1,0 +1,24 @@
+packages:
+  - module: github.com/tidwall/gjson
+    symbols:
+      - queryMatches
+    derived_symbols:
+      - Get
+      - GetBytes
+      - GetMany
+      - GetManyBytes
+      - Result.Get
+    versions:
+      - fixed: 1.9.3
+    vulnerable_at: 1.9.2
+description: |
+    A maliciously crafted path can cause Get and other query functions
+    to consume excessive amounts of CPU and time.
+cves:
+  - CVE-2021-42248
+ghsas:
+  - GHSA-c9gm-7rfj-8w5h
+links:
+    commit: https://github.com/tidwall/gjson/commit/77a57fda87dca6d0d7d4627d512a630f89a91c96
+    context:
+      - https://github.com/tidwall/gjson/issues/237
