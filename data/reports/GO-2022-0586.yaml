@@ -1,0 +1,42 @@
+packages:
+  - module: github.com/hashicorp/go-getter
+    versions:
+      - introduced: 1.5.11
+        fixed: 1.6.1
+  - module: github.com/hashicorp/go-getter/v2
+    versions:
+      - introduced: 2.0.2
+        fixed: 2.1.0
+description: |
+    Malicious HTTP responses can cause a number of misbehaviors,
+    including overwriting local files, resource exhaustion, and panics.
+
+    * Protocol switching, endless redirect, and configuration bypass are
+      possible through abuse of custom HTTP response header processing.
+
+    * Arbitrary host access is possible through go-getter path traversal,
+      symlink processing, and command injection flaws.
+
+    * Asymmetric resource exhaustion can occur when go-getter processes
+      malicious HTTP responses.
+
+    * A panic can be triggered when go-getter processed password-protected ZIP
+      files.
+published: 2022-05-26T00:01:27Z
+last_modified: 2022-06-01T21:20:55Z
+cves:
+  - CVE-2022-26945
+  - CVE-2022-30321
+  - CVE-2022-30322
+  - CVE-2022-30323
+ghsas:
+  - GHSA-x24g-9w7v-vprh
+credit: Joern Schneeweisz of GitLab, Alessio Della Libera of Snyk, and HashiCorp Product
+    Security
+links:
+    pr: https://github.com/hashicorp/go-getter/pull/361
+    commit: https://github.com/hashicorp/go-getter/commit/38e97387488f5439616be60874979433a12edb48
+    advisory: https://discuss.hashicorp.com/t/hcsec-2022-13-multiple-vulnerabilities-in-go-getter-library/39930
+    context:
+      - https://github.com/hashicorp/go-getter/commit/a2ebce998f8d4105bd4b78d6c99a12803ad97a45
+      - https://github.com/hashicorp/go-getter/pull/359
