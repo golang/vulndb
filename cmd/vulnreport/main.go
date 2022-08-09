@@ -75,7 +75,7 @@ func main() {
 		}
 		githubID, err := strconv.Atoi(names[0])
 		if err != nil {
-			log.Fatal(err)
+			log.Fatalf("invalid GitHub issue ID: %q: %v", names[0], err)
 		}
 		repoPath := cvelistrepo.URL
 		if *localRepoPath != "" {
