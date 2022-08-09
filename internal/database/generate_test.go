@@ -71,6 +71,8 @@ func TestGenerate(t *testing.T) {
 			{Type: "FIX", URL: "commit"},
 			{Type: "WEB", URL: "issue-a"},
 			{Type: "WEB", URL: "issue-b"},
+			{Type: "WEB", URL: "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-0000-0000"},
+			{Type: "WEB", URL: "https://github.com/advisories/GHSA-abcd-efgh"},
 		},
 		Aliases: []string{"CVE-0000-0000", "GHSA-abcd-efgh"},
 		Affected: []osv.Affected{
