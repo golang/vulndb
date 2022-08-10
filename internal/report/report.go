@@ -148,7 +148,7 @@ func (r *Report) GetAliases() []string {
 }
 
 const (
-	cveURLPrefix  = "https://cve.mitre.org/cgi-bin/cvename.cgi?name="
+	NISTPrefix    = "https://nvd.nist.gov/vuln/detail/"
 	ghsaURLPrefix = "https://github.com/advisories/"
 )
 
@@ -157,7 +157,7 @@ const (
 func (r *Report) GetAliasLinks() []string {
 	var links []string
 	for _, cve := range r.CVEs {
-		links = append(links, fmt.Sprintf("%s%s", cveURLPrefix, cve))
+		links = append(links, fmt.Sprintf("%s%s", NISTPrefix, cve))
 	}
 	for _, ghsa := range r.GHSAs {
 		// Don't duplicate GHSA link if it is the canonical advisory.

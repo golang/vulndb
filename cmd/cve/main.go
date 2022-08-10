@@ -252,8 +252,6 @@ func lookupID(c *cveclient.Client, id string) error {
 	return nil
 }
 
-const cveRecordLink = "https://cve.mitre.org/cgi-bin/cvename.cgi?name="
-
 func recordToString(r *cveschema5.CVERecord) string {
 	s, err := json.MarshalIndent(r, "", " ")
 	if err != nil {
@@ -314,7 +312,7 @@ func publish(c *cveclient.Client, filename string, update bool) (err error) {
 		}
 		action = "create"
 	}
-	fmt.Printf("successfully %sd record for %s:\n%v\nlink: %s%s\n", action, published.Metadata.ID, recordToString(published), cveRecordLink, published.Metadata.ID)
+	fmt.Printf("successfully %sd record for %s:\n%v\nlink: %s%s\n", action, published.Metadata.ID, recordToString(published), report.NISTPrefix, published.Metadata.ID)
 	return nil
 }
 
