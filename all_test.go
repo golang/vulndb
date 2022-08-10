@@ -8,11 +8,13 @@
 package main
 
 import (
+	"errors"
 	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"runtime"
+	"sort"
 	"strings"
 	"testing"
 
@@ -33,7 +35,10 @@ func TestChecksBash(t *testing.T) {
 	}
 }
 
-const reportsDir = "reports"
+const (
+	reportsDir  = "reports"
+	excludedDir = "excluded"
+)
 
 func TestLintReports(t *testing.T) {
 	if runtime.GOOS == "js" {
@@ -42,20 +47,43 @@ func TestLintReports(t *testing.T) {
 	if runtime.GOOS == "android" {
 		t.Skipf("android builder does not have access to reports/")
 	}
-	reports, err := ioutil.ReadDir(reportsDir)
-	if err != nil {
-		t.Fatalf("unable to read reports/: %s", err)
-	}
-	for _, rf := range reports {
-		if rf.IsDir() {
-			continue
+	allFiles := make(map[string]string)
+	var reports []string
+	for _, dir := range []string{reportsDir, excludedDir} {
+		files, err := ioutil.ReadDir(dir)
+		if err != nil && !errors.Is(err, os.ErrNotExist) {
+			t.Fatalf("unable to read %v/: %s", dir, err)
 		}
-		t.Run(rf.Name(), func(t *testing.T) {
-			fn := filepath.Join(reportsDir, rf.Name())
-			lints, err := report.LintFile(fn)
+		for _, fi := range files {
+			if fi.IsDir() {
+				continue
+			}
+			fn := filepath.Join(dir, fi.Name())
+			if allFiles[fi.Name()] != "" {
+				t.Errorf("report appears in multiple locations: %v, %v", allFiles[fi.Name()], fn)
+			}
+			allFiles[fi.Name()] = fn
+			reports = append(reports, fn)
+		}
+	}
+	sort.Strings(reports)
+	for _, fn := range reports {
+		t.Run(fn, func(t *testing.T) {
+			r, err := report.Read(fn)
 			if err != nil {
 				t.Fatal(err)
 			}
+			switch filepath.Base(filepath.Dir(fn)) {
+			case reportsDir:
+				if r.Excluded != "" {
+					t.Errorf("report in %q must not have excluded set", reportsDir)
+				}
+			case excludedDir:
+				if r.Excluded == "" {
+					t.Errorf("report in %q must have excluded set", excludedDir)
+				}
+			}
+			lints := r.Lint(fn)
 			if len(lints) > 0 {
 				t.Errorf(strings.Join(lints, "\n"))
 			}

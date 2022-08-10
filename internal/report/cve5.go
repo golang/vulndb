@@ -29,7 +29,7 @@ func ToCVE5(reportPath string) (_ *cveschema5.CVERecord, err error) {
 		return nil, err
 	}
 
-	if lints := r.Lint(); len(lints) > 0 {
+	if lints := r.Lint(reportPath); len(lints) > 0 {
 		return nil, fmt.Errorf("report has outstanding lint errors:\n  %v", strings.Join(lints, "\n  "))
 	}
 	if len(r.CVEs) > 0 {

@@ -61,6 +61,12 @@ func Generate(ctx context.Context, repoDir, jsonDir string) (err error) {
 		if err != nil {
 			return err
 		}
+		if r.Excluded != "" {
+			// We may want to include excluded reports in the database
+			// at some point, with a bit indicating that they are
+			// uninteresting, but omit them for now.
+			continue
+		}
 
 		yamlPath := filepath.Join(yamlDir, f.Name())
 		dates, ok := commitDates[yamlPath]
@@ -80,7 +86,7 @@ func Generate(ctx context.Context, repoDir, jsonDir string) (err error) {
 			r.LastModified = &newest
 		}
 
-		if lints := r.Lint(); len(lints) > 0 {
+		if lints := r.Lint(yamlPath); len(lints) > 0 {
 			return fmt.Errorf("vuln.Lint: %v", lints)
 		}
 

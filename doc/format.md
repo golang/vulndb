@@ -222,6 +222,43 @@ type `string[]`
 Additional links which provide more context about the vulnerability,
 i.e. GitHub issues, vulnerability reports, etc.
 
+## `excluded`
+
+type `string`
+
+A reason the report is excluded from the database.
+
+When a CVE or GHSA is evaluated and determined to be out of scope
+for the Go Vulnerability Database, the reason for excluding it may
+be recorded in a report. This report should include a value for the
+`excluded` enum (this field) as well as a list of CVEs and/or GHSAs.
+
+Excluded reports are placed in the `excluded/` directory.
+
+Valid values are:
+
+    * `NOT_GO_CODE`: The vulnerability is not in a Go package, and
+      cannot affect any Go packages. (For example, a vulnerability in
+      a C++ library.)
+
+    * `NOT_IMPORTABLE`: The vulnerability occurs in package `main`,
+      an `internal/` package only imported by package `main`, or some
+      other location which can never be imported by another module.
+
+    * `EFFECTIVELY_PRIVATE`: While the vulnerability occurs in a Go
+      package which can be imported by another module, the package is
+      not intended for external use and is not likely to ever be imported
+      outside the module in which it is defined.
+
+    * `DEPENDENT_VULNERABILITY`: This vulnerability is a subset of another
+      vulnerability in the database. For example, if package A contains a
+      vulnerability, package B depends on package A, and there are separate
+      CVEs for packages A and B, we might mark the report for B as a dependent
+      vulnerability entirely superseded by the report for A.
+
+    * `NOT_A_VULNERABILITY`: While a CVE or GHSA has been assigned,
+      there is no known vulnerability associated with it.
+
 ## Example Reports
 
 ### Third-party example report

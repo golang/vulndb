@@ -10,13 +10,14 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"path/filepath"
 	"regexp"
 	"strings"
 
+	"golang.org/x/exp/slices"
 	"golang.org/x/mod/modfile"
 	"golang.org/x/mod/module"
 	"golang.org/x/mod/semver"
-	"golang.org/x/vulndb/internal/derrors"
 )
 
 // TODO: getting things from the proxy should all be cached so we
@@ -144,18 +145,6 @@ func checkModVersions(modPath string, vrs []VersionRange) (err error) {
 		}
 	}
 	return nil
-}
-
-// LintFile is used to lint the reports/ directory. It is run by
-// TestLintReports (in the vulndb repo) to ensure that there are no errors in
-// the YAML reports.
-func LintFile(filename string) (_ []string, err error) {
-	defer derrors.Wrap(&err, "LintFile(%q)", filename)
-	r, err := Read(filename)
-	if err != nil {
-		return nil, err
-	}
-	return r.Lint(), nil
 }
 
 func (p *Package) lintStdLibPkg(addPkgIssue func(string)) {
@@ -317,15 +306,36 @@ func (r *Report) lintLinks(addIssue func(string)) {
 // representing lint errors.
 // TODO: It might make sense to include warnings or informational things
 // alongside errors, especially during for use during the triage process.
-func (r *Report) Lint() []string {
+func (r *Report) Lint(filename string) []string {
 	var issues []string
 
 	addIssue := func(iss string) {
 		issues = append(issues, iss)
 	}
 
-	if len(r.Packages) == 0 {
-		addIssue("no packages")
+	switch filepath.Base(filepath.Dir(filename)) {
+	case "reports":
+		if r.Excluded != "" {
+			addIssue("report in reports/ must not have excluded set")
+		}
+		if len(r.Packages) == 0 {
+			addIssue("no packages")
+		}
+		if r.Description == "" {
+			addIssue("missing description")
+		}
+	case "excluded":
+		if r.Excluded == "" {
+			addIssue("report in excluded/ must have excluded set")
+		} else if !slices.Contains(ExcludedReasons, r.Excluded) {
+			addIssue(fmt.Sprintf("excluded (%q) is not in set %v", r.Excluded, ExcludedReasons))
+		}
+		if len(r.Packages) != 0 {
+			addIssue("excluded report should not have packages")
+		}
+		if len(r.CVEs) == 0 && len(r.GHSAs) == 0 {
+			addIssue("excluded report must have at least one associated CVE or GHSA")
+		}
 	}
 
 	isStdLibReport := false
@@ -344,9 +354,6 @@ func (r *Report) Lint() []string {
 		p.lintVersions(addPkgIssue)
 	}
 
-	if r.Description == "" {
-		addIssue("missing description")
-	}
 	if r.LastModified != nil && r.LastModified.Before(r.Published) {
 		addIssue("last_modified is before published")
 	}

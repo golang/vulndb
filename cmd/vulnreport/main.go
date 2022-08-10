@@ -237,7 +237,7 @@ func lint(filename string) (err error) {
 		return err
 	}
 
-	if lints := r.Lint(); len(lints) > 0 {
+	if lints := r.Lint(filename); len(lints) > 0 {
 		return fmt.Errorf("lint returned errors:\n\t %s", strings.Join(lints, "\n\t"))
 	}
 	return nil
@@ -249,7 +249,7 @@ func fix(ctx context.Context, filename string, accessToken string) (err error) {
 	if err != nil {
 		return err
 	}
-	if lints := r.Lint(); len(lints) > 0 {
+	if lints := r.Lint(filename); len(lints) > 0 {
 		r.Fix()
 	}
 	if !*skipSymbols {
@@ -403,7 +403,7 @@ func commit(ctx context.Context, filename, accessToken string) (err error) {
 	if err != nil {
 		return err
 	}
-	if lints := r.Lint(); len(lints) > 0 {
+	if lints := r.Lint(filename); len(lints) > 0 {
 		fmt.Fprintf(os.Stderr, "%v: contains lint warnings, not committing\n", filename)
 		for _, l := range lints {
 			fmt.Fprintln(os.Stderr, l)

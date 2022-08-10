@@ -29,6 +29,7 @@ func TestLint(t *testing.T) {
 	jan2022 := time.Date(2022, time.January, 0, 0, 0, 0, 0, time.UTC)
 	for _, test := range []struct {
 		desc   string
+		dir    string // default: "reports/"
 		report Report
 		want   []string
 	}{
@@ -296,8 +297,41 @@ func TestLint(t *testing.T) {
 				`"go.dev/cl/12345" is not a valid URL`,
 			},
 		},
+		{
+			desc: "excluded in wrong dir",
+			report: Report{
+				Excluded: "NOT_GO_CODE",
+				CVEs:     []string{"CVE-2022-1234545"},
+			},
+			want: []string{
+				`report in reports/ must not have excluded set`,
+				`no packages`,
+				`missing description`,
+			},
+		},
+		{
+			desc:   "report in wrong dir",
+			dir:    "excluded",
+			report: Report{},
+			want: []string{
+				`report in excluded/ must have excluded set`,
+				`excluded report must have at least one associated CVE or GHSA`,
+			},
+		},
+		{
+			desc: "excluded",
+			dir:  "excluded",
+			report: Report{
+				Excluded: "NOT_GO_CODE",
+				CVEs:     []string{"CVE-2022-1234545"},
+			},
+		},
 	} {
-		got := test.report.Lint()
+		dir := test.dir
+		if dir == "" {
+			dir = "reports"
+		}
+		got := test.report.Lint(dir + "/GO-0000-000.yaml")
 
 		var missing []string
 		for _, w := range test.want {
@@ -348,18 +382,5 @@ func TestLint(t *testing.T) {
 					"got:  %q\n", test.desc, buf.String(), unexpected)
 			}
 		}
-	}
-}
-
-func TestLintFile(t *testing.T) {
-	f := "testdata/report.yaml"
-	lintErrs, err := LintFile(f)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if len(lintErrs) > 0 {
-		t.Errorf("unexpected lint errors for %q:\n"+
-			"got:  %q\n"+
-			"want: []", f, lintErrs)
 	}
 }

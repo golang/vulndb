@@ -78,6 +78,22 @@ type CVEMeta struct {
 	Description string `yaml:",omitempty"`
 }
 
+// ExcludedReason is the reason a report is excluded from the database.
+//
+// It must be one of the values in ExcludedReasons.
+type ExcludedReason string
+
+// ExcludedReasons are the set of reasons a report may be excluded from the database.
+// These are described in detail at
+// https://go.googlesource.com/vulndb/+/refs/heads/master/doc/format.md.
+var ExcludedReasons = []ExcludedReason{
+	"NOT_IMPORTABLE",
+	"NOT_GO_CODE",
+	"NOT_A_VULNERABILITY",
+	"EFFECTIVELY_PRIVATE",
+	"DEPENDENT_VULNERABILITY",
+}
+
 // Report represents a vulnerability report in the vulndb.
 // Remember to update doc/format.md when this structure changes.
 type Report struct {
@@ -113,6 +129,9 @@ type Report struct {
 	// CVE ourselves. If a CVE already exists for an issue, use the CVE field
 	// to fill in the ID string.
 	CVEMetadata *CVEMeta `yaml:"cve_metadata,omitempty"`
+
+	// Excluded indicates an excluded report.
+	Excluded ExcludedReason `yaml:",omitempty"`
 }
 
 // GetCVEs returns all CVE IDs for a report.
