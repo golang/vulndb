@@ -377,6 +377,15 @@ func findExportedSymbols(p report.Package, c *reportClient) (_ []string, err err
 	}
 	var newslice []string
 	for s := range newsyms {
+		if s == "init" {
+			// Exclude init funcs from consideration.
+			//
+			// Assume that if init is calling a vulnerable symbol,
+			// it is doing so in a safe fashion (for example, the
+			// function might be vulnerable only when provided with
+			// untrusted input).
+			continue
+		}
 		if !slices.Contains(p.Symbols, s) {
 			newslice = append(newslice, s)
 		}
