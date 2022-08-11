@@ -32,6 +32,10 @@ const (
 	// yamlDir is the name of the directory in the vulndb repo that
 	// contains reports.
 	yamlDir = "reports"
+
+	// stdFileName is the name of the .json file in the vulndb repo
+	// that will contain info on standard library vulnerabilities.
+	stdFileName = "stdlib"
 )
 
 func Generate(ctx context.Context, repoDir, jsonDir string) (err error) {
@@ -179,7 +183,7 @@ func GenerateOSVEntry(id, url string, r report.Report) (osv.Entry, []string) {
 			importPath = p.Package
 		}
 		if stdlib.Contains(p.Module) {
-			moduleMap["stdlib"] = true
+			moduleMap[stdFileName] = true
 		} else {
 			moduleMap[p.Module] = true
 		}
