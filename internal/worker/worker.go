@@ -361,18 +361,19 @@ func createGHSAIssues(ctx context.Context, st store.Store, ic issues.Client, lim
 }
 
 func newGHSABody(sr storeRecord) (string, error) {
-	sa := sr.(*store.GHSARecord).GHSA
+	return CreateGHSABody(sr.(*store.GHSARecord).GHSA)
+}
 
+func CreateGHSABody(sa *ghsa.SecurityAdvisory) (body string, err error) {
 	r := report.GHSAToReport(sa, "")
 	rs, err := r.ToString()
 	if err != nil {
 		return "", err
 	}
-
 	var b strings.Builder
 	intro := fmt.Sprintf(
 		"In GitHub Security Advisory [%s](%s), there is a vulnerability in the following Go packages or modules:",
-		sr.GetPrettyID(), sa.Permalink)
+		sa.GHSA(), sa.Permalink)
 	intro += "\n\n" + vulnTable(sa.Vulns)
 	if err := issueTemplate.Execute(&b, issueTemplateData{
 		Intro:  intro,
