@@ -36,8 +36,8 @@ func TestChecksBash(t *testing.T) {
 }
 
 const (
-	reportsDir  = "reports"
-	excludedDir = "excluded"
+	reportsDir  = "data/reports"
+	excludedDir = "data/excluded"
 )
 
 func TestLintReports(t *testing.T) {

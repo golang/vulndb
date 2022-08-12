@@ -31,7 +31,7 @@ const (
 
 	// yamlDir is the name of the directory in the vulndb repo that
 	// contains reports.
-	yamlDir = "reports"
+	yamlDir = "data/reports"
 
 	// stdFileName is the name of the .json file in the vulndb repo
 	// that will contain info on standard library vulnerabilities.

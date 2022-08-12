@@ -107,7 +107,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		commitDates, err := gitrepo.AllCommitDates(repo, gitrepo.MainReference, "reports/")
+		commitDates, err := gitrepo.AllCommitDates(repo, gitrepo.MainReference, "data/reports/")
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -174,7 +174,7 @@ func create(ctx context.Context, issueNumber int, ghToken, issueRepo, repoPath s
 	if !iss.CreatedAt.IsZero() {
 		year = iss.CreatedAt.Year()
 	}
-	filename := fmt.Sprintf("reports/GO-%04d-%04d.yaml", year, issueNumber)
+	filename := fmt.Sprintf("data/reports/GO-%04d-%04d.yaml", year, issueNumber)
 	if err := r.Write(filename); err != nil {
 		return err
 	}
