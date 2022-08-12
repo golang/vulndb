@@ -24,6 +24,11 @@ type Issue struct {
 	CreatedAt time.Time
 }
 
+// GetIssueOptions are options for GetIssue.
+type GetIssueOptions struct {
+	GetLabels bool // get labels as well?
+}
+
 // Client is a client that can create and retrieve issues.
 type Client interface {
 	// Destination describes where issues will be created.
@@ -39,7 +44,7 @@ type Client interface {
 	CreateIssue(ctx context.Context, iss *Issue) (number int, err error)
 
 	// GetIssue returns an issue with the given issue number.
-	GetIssue(ctx context.Context, number int) (iss *Issue, err error)
+	GetIssue(ctx context.Context, number int, opts GetIssueOptions) (iss *Issue, err error)
 }
 
 type githubClient struct {
@@ -87,7 +92,7 @@ func (c *githubClient) IssueExists(ctx context.Context, number int) (_ bool, err
 }
 
 // GetIssue implements Client.GetIssue.
-func (c *githubClient) GetIssue(ctx context.Context, number int) (_ *Issue, err error) {
+func (c *githubClient) GetIssue(ctx context.Context, number int, opts GetIssueOptions) (_ *Issue, err error) {
 	defer derrors.Wrap(&err, "GetIssue(%d)", number)
 	iss, _, err := c.client.Issues.Get(ctx, c.owner, c.repo, number)
 	if err != nil {
@@ -102,6 +107,15 @@ func (c *githubClient) GetIssue(ctx context.Context, number int) (_ *Issue, err 
 	}
 	if iss.CreatedAt != nil {
 		r.CreatedAt = *iss.CreatedAt
+	}
+	if opts.GetLabels {
+		labels, _, err := c.client.Issues.ListLabelsByIssue(ctx, c.owner, c.repo, number, nil)
+		if err != nil {
+			return nil, err
+		}
+		for _, l := range labels {
+			r.Labels = append(r.Labels, l.GetName())
+		}
 	}
 	return r, nil
 }

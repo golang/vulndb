@@ -104,6 +104,9 @@ type Report struct {
 	// things prefixed with cmd/go?
 	DoNotExport bool `yaml:"do_not_export,omitempty"`
 
+	// Excluded indicates an excluded report.
+	Excluded ExcludedReason `yaml:",omitempty"`
+
 	Packages []Package `yaml:"packages,omitempty"`
 
 	// Description is the CVE description from an existing CVE. If we are
@@ -129,9 +132,6 @@ type Report struct {
 	// CVE ourselves. If a CVE already exists for an issue, use the CVE field
 	// to fill in the ID string.
 	CVEMetadata *CVEMeta `yaml:"cve_metadata,omitempty"`
-
-	// Excluded indicates an excluded report.
-	Excluded ExcludedReason `yaml:",omitempty"`
 }
 
 // GetCVEs returns all CVE IDs for a report.

@@ -30,7 +30,7 @@ func (c *fakeClient) Reference(num int) string {
 	return fmt.Sprintf("inMemory#%d", num)
 }
 
-func (c *fakeClient) GetIssue(_ context.Context, number int) (*Issue, error) {
+func (c *fakeClient) GetIssue(_ context.Context, number int, _ GetIssueOptions) (*Issue, error) {
 	return &Issue{Title: "Hello"}, nil
 }
 

@@ -138,43 +138,93 @@ func create(ctx context.Context, issueNumber int, ghToken, issueRepo, repoPath s
 	}
 	c := issues.NewGitHubClient(owner, repoName, ghToken)
 	// Get GitHub issue.
-	iss, err := c.GetIssue(ctx, issueNumber)
+	iss, err := c.GetIssue(ctx, issueNumber, issues.GetIssueOptions{GetLabels: true})
 	if err != nil {
 		return err
 	}
-	// Parse CVE or GHSA ID from GitHub issue.
-	parts := strings.Fields(iss.Title)
-	var modulePath string
-	for _, p := range parts {
-		if strings.HasSuffix(p, ":") && p != "x/vulndb:" {
-			modulePath = strings.TrimSuffix(p, ":")
+	// Parse labels for excluded issues.
+	var excluded report.ExcludedReason
+	for _, label := range iss.Labels {
+		if strings.HasPrefix(label, "excluded: ") {
+			excluded = report.ExcludedReason(strings.TrimPrefix(label, "excluded: "))
 			break
 		}
 	}
-	id := parts[len(parts)-1]
+	// Parse CVE or GHSA ID from GitHub issue.
+	parts := strings.Fields(iss.Title)
+	var (
+		modulePath string
+		cves       []string
+		ghsas      []string
+	)
+	for _, p := range parts {
+		switch {
+		case strings.HasSuffix(p, ":") && p != "x/vulndb:":
+			modulePath = strings.TrimSuffix(p, ":")
+		case strings.HasPrefix(p, "CVE"):
+			cves = append(cves, strings.TrimSuffix(p, ","))
+		case strings.HasPrefix(p, "GHSA"):
+			ghsas = append(ghsas, strings.TrimSuffix(p, ","))
+		}
+	}
+	if len(ghsas) == 0 && len(cves) > 0 {
+		for _, cve := range cves {
+			sas, err := ghsa.ListForCVE(ctx, ghToken, cve)
+			if err != nil {
+				return err
+			}
+			for _, sa := range sas {
+				ghsas = append(ghsas, sa.ID)
+			}
+		}
+		slices.Sort(ghsas)
+		ghsas = slices.Compact(ghsas)
+	}
+
 	var r *report.Report
 	switch {
-	case strings.HasPrefix(id, "CVE"):
-		cve, err := cvelistrepo.FetchCVE(ctx, repoPath, id)
-		if err != nil {
-			return err
-		}
-		r = report.CVEToReport(cve, modulePath)
-	case strings.HasPrefix(id, "GHSA"):
-		ghsa, err := ghsa.FetchGHSA(ctx, ghToken, id)
+	case len(ghsas) > 0:
+		ghsa, err := ghsa.FetchGHSA(ctx, ghToken, ghsas[0])
 		if err != nil {
 			return err
 		}
 		r = report.GHSAToReport(ghsa, modulePath)
+	case len(cves) > 0:
+		cve, err := cvelistrepo.FetchCVE(ctx, repoPath, cves[0])
+		if err != nil {
+			return err
+		}
+		r = report.CVEToReport(cve, modulePath)
 	default:
-		return fmt.Errorf("expected last element of title to be the CVE ID or GHSA ID; got %q", iss.Title)
+		return fmt.Errorf("expected title to contain at least one CVE ID or GHSA ID; got %q", iss.Title)
 	}
+
+	r.CVEs = append(r.CVEs, cves...)
+	slices.Sort(r.CVEs)
+	r.CVEs = slices.Compact(r.CVEs)
+
+	r.GHSAs = append(r.GHSAs, ghsas...)
+	slices.Sort(r.GHSAs)
+	r.GHSAs = slices.Compact(r.GHSAs)
+
+	if excluded != "" {
+		r = &report.Report{
+			Excluded: excluded,
+			CVEs:     r.CVEs,
+			GHSAs:    r.GHSAs,
+		}
+	}
+
 	addTODOs(r)
 	var year int
 	if !iss.CreatedAt.IsZero() {
 		year = iss.CreatedAt.Year()
 	}
-	filename := fmt.Sprintf("data/reports/GO-%04d-%04d.yaml", year, issueNumber)
+	dir := "reports"
+	if excluded != "" {
+		dir = "excluded"
+	}
+	filename := fmt.Sprintf("data/%s/GO-%04d-%04d.yaml", dir, year, issueNumber)
 	if err := r.Write(filename); err != nil {
 		return err
 	}
@@ -186,6 +236,9 @@ const todo = "TODO: fill this out"
 
 // addTODOs adds "TODO" comments to unfilled fields of r.
 func addTODOs(r *report.Report) {
+	if r.Excluded != "" {
+		return
+	}
 	if len(r.Packages) == 0 {
 		r.Packages = append(r.Packages, report.Package{})
 	}
