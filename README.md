@@ -26,5 +26,5 @@ Unless otherwise noted, the Go source files are distributed under
 the BSD-style license found in the LICENSE file.
 
 Database entries are distributed under the terms of the
-[CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/) license. See
+[CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/) license. See
 [x/vuln](https://golang.org/x/vuln) for information on how to access these entries.
