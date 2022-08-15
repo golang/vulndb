@@ -1,0 +1,24 @@
+modules:
+  - module: github.com/containers/psgo
+    versions:
+      - fixed: 1.7.2
+    vulnerable_at: 1.7.1
+    packages:
+      - package: github.com/containers/psgo
+        symbols:
+          - contextFromOptions
+      - package: github.com/containers/psgo/internal/proc
+        symbols:
+          - readStatusUserNS
+description: |
+    The psgo package executes the 'nsenter' binary, potentially allowing
+    privilege escalation when used in environments where nsenter is provided
+    by an untrusted source.
+cves:
+  - CVE-2022-1227
+ghsas:
+  - GHSA-66vw-v2x9-hw75
+links:
+    pr: https://github.com/containers/psgo/pull/92
+    context:
+      - https://github.com/containers/podman/issues/10941
