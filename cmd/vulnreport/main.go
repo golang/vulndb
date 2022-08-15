@@ -394,7 +394,7 @@ func findExportedSymbols(p report.Package, c *reportClient) (_ []string, err err
 	return newslice, nil
 }
 
-var reportRegexp = regexp.MustCompile(`^reports/GO-\d\d\d\d-(\d+)\.yaml$`)
+var reportRegexp = regexp.MustCompile(`^data/reports/GO-\d\d\d\d-(\d+)\.yaml$`)
 
 func commit(ctx context.Context, filename, accessToken string) (err error) {
 	defer derrors.Wrap(&err, "commit(%q)", filename)
