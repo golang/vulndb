@@ -149,6 +149,7 @@ func (r *Report) GetAliases() []string {
 
 const (
 	NISTPrefix    = "https://nvd.nist.gov/vuln/detail/"
+	mitrePrefix   = "https://cve.mitre.org/cgi-bin/cvename.cgi?name="
 	ghsaURLPrefix = "https://github.com/advisories/"
 )
 
@@ -158,6 +159,11 @@ func (r *Report) GetAliasLinks() []string {
 	var links []string
 	for _, cve := range r.CVEs {
 		links = append(links, fmt.Sprintf("%s%s", NISTPrefix, cve))
+	}
+	// TODO(https://go.dev/issue/54488): check CVE status to determine which
+	// link to include.
+	if r.CVEMetadata != nil && r.CVEMetadata.ID != "" {
+		links = append(links, fmt.Sprintf("%s%s", mitrePrefix, r.CVEMetadata.ID))
 	}
 	for _, ghsa := range r.GHSAs {
 		// Don't duplicate GHSA link if it is the canonical advisory.
