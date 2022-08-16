@@ -1,0 +1,28 @@
+packages:
+  - module: k8s.io/kube-state-metrics
+    package: k8s.io/kube-state-metrics/internal/store
+    symbols:
+      - kubeAnnotationsToPrometheusLabels
+    versions:
+      - introduced: 1.7.0
+        fixed: 1.7.2
+    vulnerable_at: 1.7.0
+description: |
+    Exposing annotations as metrics can leak secrets.
+
+    An experimental feature of kube-state-metrics enables annotations
+    to be exposed as metrics. By default, metrics only expose metadata
+    about secrets. However, a combination of the default kubectl behavior
+    and this new feature can cause the entire secret content to end up
+    in metric labels.
+published: 2021-05-18T15:38:54Z
+last_modified: 2022-08-13T03:06:04Z
+cves:
+  - CVE-2019-10223
+ghsas:
+  - GHSA-2v6x-frw8-7r7f
+credit: Moritz S.
+links:
+    commit: https://github.com/kubernetes/kube-state-metrics/commit/03122fe3e2df49a9a7298b8af921d3c37c430f7f
+    context:
+      - https://github.com/advisories/GHSA-2v6x-frw8-7r7f
