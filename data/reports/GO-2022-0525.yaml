@@ -13,6 +13,7 @@ description: |
     indicating a "chunked" encoding. This could potentially allow for request
     smuggling, but only if combined with an intermediate server that also
     improperly failed to reject the header as invalid.
+published: 2022-07-25T17:34:18Z
 credit: Zeyu Zhang (https://www.zeyu2001.com/)
 links:
     pr: https://go.dev/cl/409874
@@ -23,9 +24,9 @@ links:
       - https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE
 cve_metadata:
     id: CVE-2022-1705
-    cwe: "CWE-444: Inconsistent Interpretation of HTTP Requests ('HTTP Request Smuggling')"
+    cwe: 'CWE-444: Inconsistent Interpretation of HTTP Requests (''HTTP Request Smuggling'')'
     description: |
-      Acceptance of some invalid Transfer-Encoding headers in the HTTP/1 client
-      in net/http before Go 1.17.12 and Go 1.18.4 allows HTTP request smuggling
-      if combined with an intermediate server that also improperly fails to
-      reject the header as invalid.
+        Acceptance of some invalid Transfer-Encoding headers in the HTTP/1 client
+        in net/http before Go 1.17.12 and Go 1.18.4 allows HTTP request smuggling
+        if combined with an intermediate server that also improperly fails to
+        reject the header as invalid.

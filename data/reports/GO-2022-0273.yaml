@@ -6,13 +6,14 @@ packages:
       - OpenReader
     versions:
       - fixed: 1.16.8
-      - introduced: 1.17
+      - introduced: "1.17"
         fixed: 1.17.1
 description: |
-     The NewReader and OpenReader functions in archive/zip can cause a panic or
-     an unrecoverable fatal error when reading an archive that claims to contain
-     a large number of files, regardless of its actual size. This is
-     caused by an incomplete fix for CVE-2021-33196.
+    The NewReader and OpenReader functions in archive/zip can cause a panic or
+    an unrecoverable fatal error when reading an archive that claims to contain
+    a large number of files, regardless of its actual size. This is
+    caused by an incomplete fix for CVE-2021-33196.
+published: 2022-05-18T18:23:31Z
 cves:
   - CVE-2021-39293
 credit: OSS-Fuzz Project and Emmanuel Odeke

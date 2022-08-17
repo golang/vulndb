@@ -8,13 +8,14 @@ packages:
       - introduced: 1.1.0
         fixed: 1.3.2
 description: |
-  When SessionTicketsDisabled is enabled, crypto/tls allowed man-in-the-middle
-  attackers to spoof clients via unspecified vectors.
+    When SessionTicketsDisabled is enabled, crypto/tls allowed man-in-the-middle
+    attackers to spoof clients via unspecified vectors.
 
-  If the server enables TLS client authentication using certificates (this is
-  rare) and explicitly sets SessionTicketsDisabled to true in the tls.Config,
-  then a malicious client can falsely assert ownership of any client
-  certificate it wishes.
+    If the server enables TLS client authentication using certificates (this is
+    rare) and explicitly sets SessionTicketsDisabled to true in the tls.Config,
+    then a malicious client can falsely assert ownership of any client
+    certificate it wishes.
+published: 2022-05-25T21:11:41Z
 cves:
   - CVE-2014-7189
 credit: Go Team

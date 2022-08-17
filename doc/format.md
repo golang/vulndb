@@ -145,6 +145,25 @@ necessary.
 Use the present tense: "This is vulnerable" rather than "this was
 vulnerable".
 
+## `published`
+
+type `time.Time`
+
+Date the report was added to the vulnerability database.
+This is normally determined from the git repository history, and
+does not need to be set in the report YAML except when the first
+commit of the report YAML doesn't match the publication date.
+
+Older reports moved from a previous location have this set.
+
+## `last_modified`
+
+type `time.Time`
+
+Last time the report was changed. This is normally determined from
+the repository history, and does not need to be set in the report
+YAML.
+
 ## `cves`
 
 type `string[]`
