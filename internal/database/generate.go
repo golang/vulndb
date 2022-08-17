@@ -50,7 +50,7 @@ func Generate(ctx context.Context, repoDir, jsonDir string) (err error) {
 		return err
 	}
 
-	commitDates, err := gitrepo.AllCommitDates(repo, gitrepo.MainReference, "reports/")
+	commitDates, err := gitrepo.AllCommitDates(repo, gitrepo.MainReference, "data/reports/")
 	if err != nil {
 		return err
 	}
