@@ -17,12 +17,13 @@ import (
 var (
 	repoDir = flag.String("repo", ".", "Directory containing vulndb repo")
 	jsonDir = flag.String("out", "out", "Directory to write JSON database to")
+	indent  = flag.Bool("indent", false, "Indent JSON for debugging")
 )
 
 func main() {
 	flag.Parse()
 	ctx := context.Background()
-	if err := database.Generate(ctx, *repoDir, *jsonDir); err != nil {
+	if err := database.Generate(ctx, *repoDir, *jsonDir, *indent); err != nil {
 		log.Fatal(err)
 	}
 }

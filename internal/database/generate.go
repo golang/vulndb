@@ -38,7 +38,7 @@ const (
 	stdFileName = "stdlib"
 )
 
-func Generate(ctx context.Context, repoDir, jsonDir string) (err error) {
+func Generate(ctx context.Context, repoDir, jsonDir string, indent bool) (err error) {
 	defer derrors.Wrap(&err, "Generate(%q)", repoDir)
 	yamlFiles, err := ioutil.ReadDir(filepath.Join(repoDir, yamlDir))
 	if err != nil {
@@ -106,7 +106,7 @@ func Generate(ctx context.Context, repoDir, jsonDir string) (err error) {
 	index := make(client.DBIndex, len(jsonVulns))
 	for path, vulns := range jsonVulns {
 		outPath := filepath.Join(jsonDir, path)
-		content, err := json.Marshal(vulns)
+		content, err := jsonMarshal(vulns, indent)
 		if err != nil {
 			return fmt.Errorf("failed to marshal json: %s", err)
 		}
@@ -123,7 +123,7 @@ func Generate(ctx context.Context, repoDir, jsonDir string) (err error) {
 		}
 	}
 
-	indexJSON, err := json.Marshal(index)
+	indexJSON, err := jsonMarshal(index, indent)
 	if err != nil {
 		return fmt.Errorf("failed to marshal index json: %s", err)
 	}
@@ -139,7 +139,7 @@ func Generate(ctx context.Context, repoDir, jsonDir string) (err error) {
 	var idIndex []string
 	for _, e := range entries {
 		outPath := filepath.Join(idDir, e.ID+".json")
-		content, err := json.Marshal(e)
+		content, err := jsonMarshal(e, indent)
 		if err != nil {
 			return fmt.Errorf("failed to marshal json: %v", err)
 		}
@@ -150,7 +150,7 @@ func Generate(ctx context.Context, repoDir, jsonDir string) (err error) {
 	}
 
 	// Write an index.json in the ID directory with a list of all the IDs.
-	idIndexJSON, err := json.Marshal(idIndex)
+	idIndexJSON, err := jsonMarshal(idIndex, indent)
 	if err != nil {
 		return fmt.Errorf("failed to marshal index json: %s", err)
 	}
@@ -158,6 +158,13 @@ func Generate(ctx context.Context, repoDir, jsonDir string) (err error) {
 		return fmt.Errorf("failed to write index: %s", err)
 	}
 	return nil
+}
+
+func jsonMarshal(v interface{}, indent bool) ([]byte, error) {
+	if indent {
+		return json.MarshalIndent(v, "", "  ")
+	}
+	return json.Marshal(v)
 }
 
 // GenerateOSVEntry create an osv.Entry for a report. In addition to the report, it
