@@ -8,7 +8,6 @@ import (
 	"bytes"
 	"strings"
 	"testing"
-	"time"
 )
 
 // TODO: Add tests for helper functions that call the proxy.
@@ -25,8 +24,6 @@ var (
 )
 
 func TestLint(t *testing.T) {
-	jan2000 := time.Date(2000, time.January, 0, 0, 0, 0, 0, time.UTC)
-	jan2022 := time.Date(2022, time.January, 0, 0, 0, 0, 0, time.UTC)
 	for _, test := range []struct {
 		desc   string
 		dir    string // default: "reports/"
@@ -192,22 +189,6 @@ func TestLint(t *testing.T) {
 				Links:       validStdLibLinks,
 			},
 			want: []string{`invalid semantic version: "1.3.X"`},
-		},
-		{
-			desc: "last modified before published",
-			report: Report{
-				Modules: []*Module{{
-					Module: "std",
-					Packages: []*Package{{
-						Package: "time",
-					}},
-				}},
-				Description:  "description",
-				LastModified: &jan2000,
-				Published:    jan2022,
-				Links:        validStdLibLinks,
-			},
-			want: []string{"last_modified is before published"},
 		},
 		{
 			desc: "bad cve identifier",

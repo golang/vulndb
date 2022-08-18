@@ -37,11 +37,10 @@ func TestGHSAToReport(t *testing.T) {
 				Package: "aPackage",
 			}},
 		}},
-		LastModified: &updatedTime,
-		Description:  "a description",
-		GHSAs:        []string{"G1"},
-		CVEs:         []string{"C1"},
-		Links:        Links{Context: []string{"https://github.com/permalink/to/G1"}},
+		Description: "a description",
+		GHSAs:       []string{"G1"},
+		CVEs:        []string{"C1"},
+		Links:       Links{Context: []string{"https://github.com/permalink/to/G1"}},
 	}
 
 	if diff := cmp.Diff(*got, *want); diff != "" {

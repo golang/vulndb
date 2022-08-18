@@ -13,12 +13,9 @@ import (
 
 // GHSAToReport creates a Report struct from a given GHSA SecurityAdvisory and modulePath.
 func GHSAToReport(sa *ghsa.SecurityAdvisory, modulePath string) *Report {
-	u := sa.UpdatedAt
 	r := &Report{
-		Description:  sa.Description,
-		Published:    sa.PublishedAt,
-		LastModified: &u,
-		Links:        Links{Context: []string{sa.Permalink}},
+		Description: sa.Description,
+		Links:       Links{Context: []string{sa.Permalink}},
 	}
 	var cves, ghsas []string
 	for _, id := range sa.Identifiers {

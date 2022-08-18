@@ -363,10 +363,6 @@ func (r *Report) Lint(filename string) []string {
 		m.lintVersions(addPkgIssue)
 	}
 
-	if r.LastModified != nil && r.LastModified.Before(r.Published) {
-		addIssue("last_modified is before published")
-	}
-
 	r.lintLineLength("description", r.Description, addIssue)
 	if r.CVEMetadata != nil {
 		r.lintLineLength("cve_metadata.description", r.CVEMetadata.Description, addIssue)

@@ -14,6 +14,7 @@ import (
 	"path/filepath"
 	"sort"
 	"strings"
+	"time"
 
 	"golang.org/x/vuln/client"
 	"golang.org/x/vuln/osv"
@@ -101,15 +102,9 @@ func Generate(ctx context.Context, repoDir, jsonDir string, indent bool) (err er
 		if r.Published.IsZero() {
 			r.Published = dates.Oldest
 		}
-		// Always set the last_modified field based on git history.
-		// The alternative is to possibly miss modifications to any
-		// report with a checked-in last_modified field.
-		newest := dates.Newest
-		if lastUpdate.After(newest) {
-			newest = lastUpdate
-		}
-		if dates.Oldest.Before(newest) {
-			r.LastModified = &newest
+		lastModified := dates.Newest
+		if lastUpdate.After(lastModified) {
+			lastModified = lastUpdate
 		}
 
 		if lints := r.Lint(yamlPath); len(lints) > 0 {
@@ -118,7 +113,7 @@ func Generate(ctx context.Context, repoDir, jsonDir string, indent bool) (err er
 
 		name := strings.TrimSuffix(filepath.Base(f.Name()), filepath.Ext(f.Name()))
 		linkName := fmt.Sprintf("%s%s", dbURL, name)
-		entry, paths := GenerateOSVEntry(name, linkName, *r)
+		entry, paths := GenerateOSVEntry(name, linkName, lastModified, *r)
 		for _, path := range paths {
 			jsonVulns[path] = append(jsonVulns[path], entry)
 		}
@@ -192,11 +187,7 @@ func jsonMarshal(v interface{}, indent bool) ([]byte, error) {
 // GenerateOSVEntry create an osv.Entry for a report. In addition to the report, it
 // takes the ID for the vuln and a URL that will point to the entry in the vuln DB.
 // It returns the osv.Entry and a list of module paths that the vuln affects.
-func GenerateOSVEntry(id, url string, r report.Report) (osv.Entry, []string) {
-	lastModified := r.Published
-	if r.LastModified != nil {
-		lastModified = *r.LastModified
-	}
+func GenerateOSVEntry(id, url string, lastModified time.Time, r report.Report) (osv.Entry, []string) {
 	entry := osv.Entry{
 		ID:        id,
 		Published: r.Published,

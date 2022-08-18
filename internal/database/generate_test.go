@@ -204,7 +204,7 @@ func TestGenerate(t *testing.T) {
 	wantModules := []string{"example.com/vulnerable/v2", "vanity.host/vulnerable", "example.com/also-vulnerable"}
 	sort.Strings(wantModules)
 
-	gotEntry, gotModules := GenerateOSVEntry("GO-1991-0001", url, r)
+	gotEntry, gotModules := GenerateOSVEntry("GO-1991-0001", url, time.Time{}, r)
 	if diff := cmp.Diff(wantEntry, gotEntry, cmp.Comparer(func(a, b time.Time) bool { return a.Equal(b) })); diff != "" {
 		t.Errorf("Generate returned unexpected entry (-want +got):\n%s", diff)
 	}

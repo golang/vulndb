@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"time"
 
 	"golang.org/x/tools/go/packages"
 	vdbclient "golang.org/x/vuln/client"
@@ -29,7 +30,7 @@ type reportClient struct {
 // newReportClient creates a reportClient from a given report.
 func newReportClient(r *report.Report) *reportClient {
 	entries := map[string][]*osv.Entry{}
-	entry, modules := database.GenerateOSVEntry("?", "?", *r)
+	entry, modules := database.GenerateOSVEntry("?", "?", time.Time{}, *r)
 	for _, m := range modules {
 		entries[m] = append(entries[m], &entry)
 	}
