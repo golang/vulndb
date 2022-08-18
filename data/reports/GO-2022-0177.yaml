@@ -1,11 +1,12 @@
-packages:
+modules:
   - module: std
-    package: cmd/go
     versions:
       - fixed: 1.8.4
       - introduced: 1.9.0
         fixed: 1.9.1
     vulnerable_at: 1.9.0
+    packages:
+      - package: cmd/go
 description: |
     The "go get" command allows remote command execution.
 

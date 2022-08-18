@@ -1,10 +1,11 @@
-packages:
+modules:
   - module: github.com/containerd/imgcrypt
-    package: github.com/containerd/imgcrypt/images/encryption
-    symbols:
-      - cryptManifestList
     versions:
       - fixed: 1.1.4
+    packages:
+      - package: github.com/containerd/imgcrypt/images/encryption
+        symbols:
+          - cryptManifestList
 description: |
     The imgcrypt library provides API exensions for containerd to
     support encrypted container images and implements the ctd-decoder

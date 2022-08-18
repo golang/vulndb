@@ -1,16 +1,17 @@
-packages:
+modules:
   - module: github.com/containernetworking/cni
-    package: github.com/containernetworking/cni/pkg/invoke
-    symbols:
-      - FindInPath
-    derived_symbols:
-      - DelegateAdd
-      - DelegateCheck
-      - DelegateDel
-      - RawExec.FindInPath
     versions:
       - fixed: 0.8.1
     vulnerable_at: 0.8.0
+    packages:
+      - package: github.com/containernetworking/cni/pkg/invoke
+        symbols:
+          - FindInPath
+        derived_symbols:
+          - DelegateAdd
+          - DelegateCheck
+          - DelegateDel
+          - RawExec.FindInPath
 description: |
     The FindInPath function is vulnerable to directory traversal attacks,
     potentially permitting attackers to execute arbitrary binaries.

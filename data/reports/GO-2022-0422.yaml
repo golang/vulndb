@@ -1,14 +1,16 @@
-packages:
+modules:
   - module: github.com/ipld/go-codec-dagpb
-    symbols:
-      - DecodeBytes
-    derived_symbols:
-      - Decode
-      - Decoder
-      - Unmarshal
     versions:
       - fixed: 1.3.1
     vulnerable_at: 1.3.0
+    packages:
+      - package: github.com/ipld/go-codec-dagpb
+        symbols:
+          - DecodeBytes
+        derived_symbols:
+          - Decode
+          - Decoder
+          - Unmarshal
 description: The dag-pb codec can panic when decoding invalid blocks.
 published: 2022-07-01T20:08:04Z
 ghsas:

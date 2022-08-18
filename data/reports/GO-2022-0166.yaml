@@ -1,12 +1,13 @@
-packages:
+modules:
   - module: std
-    package: crypto/dsa
-    symbols:
-      - Verify
     versions:
       - fixed: 1.5.4
       - introduced: 1.6.0
         fixed: 1.6.1
+    packages:
+      - package: crypto/dsa
+        symbols:
+          - Verify
 description: |
     The Verify function in crypto/dsa passed certain parameters unchecked to
     the underlying big integer library, possibly leading to extremely

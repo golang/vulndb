@@ -1,34 +1,35 @@
-packages:
+modules:
   - module: github.com/aws/aws-sdk-go
-    package: github.com/aws/aws-sdk-go/service/s3/s3crypto
-    symbols:
-      - DecryptionClient.GetObjectRequest
-      - DecryptionClient.GetObjectWithContext
-      - EncryptionClient.PutObject
-      - EncryptionClient.PutObjectRequest
-      - EncryptionClient.PutObjectWithContext
-      - NewKMSKeyGeneratorWithMatDesc
-      - NewKMSKeyGeneratorWithMatDesc
-      - cekFromEnvelope
-      - contentCipherFromEnvelope
-      - generateBytes
-    derived_symbols:
-      - DecryptionClient.GetObject
-      - DecryptionClientV2.GetObject
-      - DecryptionClientV2.GetObjectWithContext
-      - EncryptionClientV2.PutObject
-      - EncryptionClientV2.PutObjectWithContext
-      - NewKMSKeyGenerator
-      - S3SaveStrategy.Save
-      - kmsKeyHandler.DecryptKey
-      - kmsKeyHandler.DecryptKeyWithContext
-      - kmsKeyHandler.GenerateCipherData
-      - kmsKeyHandler.GenerateCipherDataWithCEKAlg
-      - kmsKeyHandler.GenerateCipherDataWithCEKAlgWithContext
-      - kmsKeyHandler.GenerateCipherDataWithContext
     versions:
       - fixed: 1.34.0
     vulnerable_at: 1.33.21
+    packages:
+      - package: github.com/aws/aws-sdk-go/service/s3/s3crypto
+        symbols:
+          - DecryptionClient.GetObjectRequest
+          - DecryptionClient.GetObjectWithContext
+          - EncryptionClient.PutObject
+          - EncryptionClient.PutObjectRequest
+          - EncryptionClient.PutObjectWithContext
+          - NewKMSKeyGeneratorWithMatDesc
+          - NewKMSKeyGeneratorWithMatDesc
+          - cekFromEnvelope
+          - contentCipherFromEnvelope
+          - generateBytes
+        derived_symbols:
+          - DecryptionClient.GetObject
+          - DecryptionClientV2.GetObject
+          - DecryptionClientV2.GetObjectWithContext
+          - EncryptionClientV2.PutObject
+          - EncryptionClientV2.PutObjectWithContext
+          - NewKMSKeyGenerator
+          - S3SaveStrategy.Save
+          - kmsKeyHandler.DecryptKey
+          - kmsKeyHandler.DecryptKeyWithContext
+          - kmsKeyHandler.GenerateCipherData
+          - kmsKeyHandler.GenerateCipherDataWithCEKAlg
+          - kmsKeyHandler.GenerateCipherDataWithCEKAlgWithContext
+          - kmsKeyHandler.GenerateCipherDataWithContext
 description: |-
     The Go AWS S3 Crypto SDK has a vulnerability that can result in loss of
     confidentiality and message forgery. The attack requires write access to the

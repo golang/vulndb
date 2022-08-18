@@ -1,14 +1,15 @@
-packages:
+modules:
   - module: std
-    package: crypto/elliptic
-    symbols:
-      - CurveParams.IsOnCurve
-      - p384PointFromAffine
-      - p521PointFromAffine
     versions:
       - fixed: 1.16.14
       - introduced: 1.17.0
         fixed: 1.17.7
+    packages:
+      - package: crypto/elliptic
+        symbols:
+          - CurveParams.IsOnCurve
+          - p384PointFromAffine
+          - p521PointFromAffine
 description: |
     Some big.Int values that are not valid field elements (negative or overflowing)
     might cause Curve.IsOnCurve to incorrectly return true. Operating on those values

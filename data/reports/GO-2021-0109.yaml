@@ -1,9 +1,11 @@
-packages:
+modules:
   - module: github.com/ory/fosite
-    symbols:
-      - TokenRevocationHandler.RevokeToken
     versions:
       - fixed: 0.34.0
+    packages:
+      - package: github.com/ory/fosite
+        symbols:
+          - TokenRevocationHandler.RevokeToken
 description: |
     Due to improper error handling, an error with the underlying token storage may cause a user
     to believe a token has been successfully revoked when it is in fact still valid. An attackers
@@ -15,4 +17,3 @@ ghsas:
   - GHSA-7mqr-2v3q-v2wm
 links:
     commit: https://github.com/ory/fosite/commit/03dd55813f5521985f7dd64277b7ba0cf1441319
-    

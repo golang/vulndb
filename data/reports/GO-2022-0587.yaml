@@ -1,33 +1,34 @@
-packages:
+modules:
   - module: github.com/open-policy-agent/opa
-    package: github.com/open-policy-agent/opa/ast
-    symbols:
-      - Parser.parseSome
-      - Parser.parseEvery
-    derived_symbols:
-      - CompileModules
-      - CompileModulesWithOpt
-      - MustCompileModules
-      - MustCompileModulesWithOpts
-      - MustParseImports
-      - MustParseModule
-      - MustParseModuleWithOpts
-      - MustParsePackage
-      - MustParseRule
-      - MustParseStatement
-      - MustParseStatements
-      - ParseImports
-      - ParseModule
-      - ParseModuleWithOpts
-      - ParsePackage
-      - ParseRule
-      - ParseStatement
-      - ParseStatements
-      - ParseStatementsWithOpts
-      - Parser.Parse
     versions:
       - fixed: 0.40.0
     vulnerable_at: 0.39.0
+    packages:
+      - package: github.com/open-policy-agent/opa/ast
+        symbols:
+          - Parser.parseSome
+          - Parser.parseEvery
+        derived_symbols:
+          - CompileModules
+          - CompileModulesWithOpt
+          - MustCompileModules
+          - MustCompileModulesWithOpts
+          - MustParseImports
+          - MustParseModule
+          - MustParseModuleWithOpts
+          - MustParsePackage
+          - MustParseRule
+          - MustParseStatement
+          - MustParseStatements
+          - ParseImports
+          - ParseModule
+          - ParseModuleWithOpts
+          - ParsePackage
+          - ParseRule
+          - ParseStatement
+          - ParseStatements
+          - ParseStatementsWithOpts
+          - Parser.Parse
 description: |
     An issue in ast.Parser in Open Policy Agent causes the application to
     incorrectly interpret expressions, allowing a Denial of Service (DoS)

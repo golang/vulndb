@@ -1,14 +1,16 @@
-packages:
+modules:
   - module: github.com/microcosm-cc/bluemonday
-    symbols:
-      - Policy.sanitize
-    derived_symbols:
-      - Policy.Sanitize
-      - Policy.SanitizeBytes
-      - Policy.SanitizeReader
     versions:
       - fixed: 1.0.5
     vulnerable_at: 1.0.4
+    packages:
+      - package: github.com/microcosm-cc/bluemonday
+        symbols:
+          - Policy.sanitize
+        derived_symbols:
+          - Policy.Sanitize
+          - Policy.SanitizeBytes
+          - Policy.SanitizeReader
 description: |
     An XSS injection was possible because the sanitization of the Cyrillic
     character i bypass a protection mechanism against user-inputted HTML elements

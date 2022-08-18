@@ -1,12 +1,13 @@
-packages:
+modules:
   - module: std
-    package: mime/multipart
-    symbols:
-      - Reader.readForm
     versions:
       - fixed: 1.6.4
       - introduced: 1.7.0
         fixed: 1.7.4
+    packages:
+      - package: mime/multipart
+        symbols:
+          - Reader.readForm
 description: |
     When parsing large multipart/form-data, an attacker can
     cause a HTTP server to open a large number of file

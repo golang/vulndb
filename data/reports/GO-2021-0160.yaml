@@ -1,12 +1,13 @@
-packages:
+modules:
   - module: std
-    package: math/big
-    symbols:
-      - nat.expNNMontgomery
-      - nat.montgomery
     versions:
       - introduced: 1.5.0
         fixed: 1.5.3
+    packages:
+      - package: math/big
+        symbols:
+          - nat.expNNMontgomery
+          - nat.montgomery
 description: |
     Int.Exp Montgomery mishandled carry propagation and produced an incorrect
     output, which makes it easier for attackers to obtain private RSA keys via

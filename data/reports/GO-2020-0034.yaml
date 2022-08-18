@@ -1,19 +1,21 @@
-packages:
+modules:
   - module: github.com/artdarek/go-unzip
-    symbols:
-      - Unzip.Extract
     versions:
       - fixed: 1.0.0
+    packages:
+      - package: github.com/artdarek/go-unzip
+        symbols:
+          - Unzip.Extract
 description: |
     Due to improper path santization, archives containing relative file
     paths can cause files to be written (or overwritten) outside of the
     target directory.
 published: 2021-04-14T20:04:52Z
-cve_metadata:
-    id: CVE-2020-36560
-    cwe: 'CWE 29: Path Traversal: "\..\filename"'
 links:
     pr: https://github.com/artdarek/go-unzip/pull/2
     commit: https://github.com/artdarek/go-unzip/commit/4975cbe0a719dc50b12da8585f1f207c82f7dfe0
     context:
       - https://snyk.io/research/zip-slip-vulnerability
+cve_metadata:
+    id: CVE-2020-36560
+    cwe: 'CWE 29: Path Traversal: "\..\filename"'

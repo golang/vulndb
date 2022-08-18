@@ -1,12 +1,14 @@
-packages:
+modules:
   - module: github.com/dhowden/tag
-    symbols:
-      - readPICFrame
-      - readAPICFrame
-      - readTextWithDescrFrame
-      - readAtomData
     versions:
       - fixed: 0.0.0-20201120070457-d52dcb253c63
+    packages:
+      - package: github.com/dhowden/tag
+        symbols:
+          - readPICFrame
+          - readAPICFrame
+          - readTextWithDescrFrame
+          - readAtomData
 description: |
     Due to improper bounds checking, a number of methods can trigger a panic due to attempted
     out-of-bounds reads. If the package is used to parse user supplied input, this may be

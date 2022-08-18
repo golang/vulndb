@@ -1,13 +1,14 @@
-packages:
+modules:
   - module: std
-    package: net/http
-    symbols:
-      - transferReader.parseTransferEncoding
     versions:
       - fixed: 1.17.12
       - introduced: 1.18.0
         fixed: 1.18.4
     vulnerable_at: 1.18.3
+    packages:
+      - package: net/http
+        symbols:
+          - transferReader.parseTransferEncoding
 description: |
     The HTTP/1 client accepted some invalid Transfer-Encoding headers as
     indicating a "chunked" encoding. This could potentially allow for request

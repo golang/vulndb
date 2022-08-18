@@ -1,11 +1,12 @@
-packages:
+modules:
   - module: std
-    package: net/textproto
-    symbols:
-      - CanonicalMIMEHeaderKey
-      - canonicalMIMEHeaderKey
     versions:
       - fixed: 1.4.3
+    packages:
+      - package: net/textproto
+        symbols:
+          - CanonicalMIMEHeaderKey
+          - canonicalMIMEHeaderKey
 description: |
     The MIME header parser treated spaces and hyphens
     as equivalent, which can permit HTTP request smuggling.

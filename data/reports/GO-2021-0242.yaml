@@ -1,12 +1,13 @@
-packages:
+modules:
   - module: std
-    package: math/big
-    symbols:
-      - Rat.SetString
     versions:
       - fixed: 1.15.13
       - introduced: 1.16.0
         fixed: 1.16.5
+    packages:
+      - package: math/big
+        symbols:
+          - Rat.SetString
 description: |
     Rat.SetString and Rat.UnmarshalText may cause a panic or an
     unrecoverable fatal error if passed inputs with very large

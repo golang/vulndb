@@ -1,31 +1,33 @@
-packages:
+modules:
   - module: github.com/gorilla/websocket
-    symbols:
-      - Conn.advanceFrame
-      - messageReader.Read
-    derived_symbols:
-      - Conn.Close
-      - Conn.NextReader
-      - Conn.ReadJSON
-      - Conn.ReadMessage
-      - Conn.WriteJSON
-      - Conn.WritePreparedMessage
-      - Dialer.Dial
-      - Dialer.DialContext
-      - NewClient
-      - NewPreparedMessage
-      - ReadJSON
-      - Subprotocols
-      - Upgrade
-      - Upgrader.Upgrade
-      - WriteJSON
-      - httpProxyDialer.Dial
-      - netDialerFunc.Dial
-      - proxy_direct.Dial
-      - proxy_envOnce.Get
-      - proxy_socks5.Dial
     versions:
       - fixed: 1.4.1
+    packages:
+      - package: github.com/gorilla/websocket
+        symbols:
+          - Conn.advanceFrame
+          - messageReader.Read
+        derived_symbols:
+          - Conn.Close
+          - Conn.NextReader
+          - Conn.ReadJSON
+          - Conn.ReadMessage
+          - Conn.WriteJSON
+          - Conn.WritePreparedMessage
+          - Dialer.Dial
+          - Dialer.DialContext
+          - NewClient
+          - NewPreparedMessage
+          - ReadJSON
+          - Subprotocols
+          - Upgrade
+          - Upgrader.Upgrade
+          - WriteJSON
+          - httpProxyDialer.Dial
+          - netDialerFunc.Dial
+          - proxy_direct.Dial
+          - proxy_envOnce.Get
+          - proxy_socks5.Dial
 description: |
     An attacker can craft malicious WebSocket frames that cause an integer
     overflow in a variable which tracks the number of bytes remaining. This

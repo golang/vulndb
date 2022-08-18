@@ -1,29 +1,29 @@
-packages:
+modules:
   - module: github.com/git-lfs/git-lfs
-    package: github.com/git-lfs/git-lfs/commands
-    symbols:
-      - PipeCommand
     versions:
       - fixed: 1.5.1-0.20210113180018-fc664697ed2c
-  - module: github.com/git-lfs/git-lfs
-    package: github.com/git-lfs/git-lfs/creds
-    symbols:
-      - AskPassCredentialHelper.getFromProgram
-      - commandCredentialHelper.Approve
-    versions:
-      - fixed: 1.5.1-0.20210113180018-fc664697ed2c
-  - module: github.com/git-lfs/git-lfs
-    package: github.com/git-lfs/git-lfs/lfs
-    symbols:
-      - pipeExtensions
-    versions:
-      - fixed: 1.5.1-0.20210113180018-fc664697ed2c
-  - module: github.com/git-lfs/git-lfs
-    package: github.com/git-lfs/git-lfs/lfshttp
-    symbols:
-      - sshAuthClient.Resolve
-    versions:
-      - fixed: 1.5.1-0.20210113180018-fc664697ed2c
+    packages:
+      - package: github.com/git-lfs/git-lfs/commands
+        goos:
+          - windows
+        symbols:
+          - PipeCommand
+      - package: github.com/git-lfs/git-lfs/creds
+        goos:
+          - windows
+        symbols:
+          - AskPassCredentialHelper.getFromProgram
+          - commandCredentialHelper.Approve
+      - package: github.com/git-lfs/git-lfs/lfs
+        goos:
+          - windows
+        symbols:
+          - pipeExtensions
+      - package: github.com/git-lfs/git-lfs/lfshttp
+        goos:
+          - windows
+        symbols:
+          - sshAuthClient.Resolve
 description: |
     Due to the standard library behavior of exec.LookPath on Windows a number of methods may
     result in arbitrary code execution when cloning or operating on untrusted Git repositories.
@@ -33,9 +33,9 @@ cves:
 ghsas:
   - GHSA-cx3w-xqmc-84g5
 credit: '@Ry0taK'
-os:
-  - windows
 links:
     commit: https://github.com/git-lfs/git-lfs/commit/fc664697ed2c2081ee9633010de0a7f9debea72a
     context:
       - https://github.com/git-lfs/git-lfs/security/advisories/GHSA-cx3w-xqmc-84g5
+os:
+  - windows

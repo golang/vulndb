@@ -1,10 +1,11 @@
-packages:
+modules:
   - module: github.com/bytom/bytom
-    package: github.com/bytom/bytom/p2p/discover
-    symbols:
-      - Network.checkTopicRegister
     versions:
       - fixed: 1.0.4-0.20180831054840-1ac3c8ac4f2b
+    packages:
+      - package: github.com/bytom/bytom/p2p/discover
+        symbols:
+          - Network.checkTopicRegister
 description: |
     A malformed query can cause an out-of-bounds panic due to improper
     validation of arguments. If processing queries from untrusted

@@ -1,13 +1,15 @@
-packages:
+modules:
   - module: github.com/ecnepsnai/web
-    symbols:
-      - Server.socketHandler
-    derived_symbols:
-      - Server.Socket
     versions:
       - introduced: 1.4.0
         fixed: 1.5.2
     vulnerable_at: 1.5.1
+    packages:
+      - package: github.com/ecnepsnai/web
+        symbols:
+          - Server.socketHandler
+        derived_symbols:
+          - Server.Socket
 description: |
     The AuthenticateMethod authentication hook is not called for WebSocket
     connections, allowing unauthenticated access.

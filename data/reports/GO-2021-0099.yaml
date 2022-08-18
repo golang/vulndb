@@ -1,12 +1,13 @@
-packages:
+modules:
   - module: github.com/deislabs/oras
-    package: github.com/deislabs/oras/pkg/content
-    symbols:
-      - extractTarDirectory
-    derived_symbols:
-      - fileWriter.Commit
     versions:
       - fixed: 0.9.0
+    packages:
+      - package: github.com/deislabs/oras/pkg/content
+        symbols:
+          - extractTarDirectory
+        derived_symbols:
+          - fileWriter.Commit
 description: |
     Due to improper path validation, using the github.com/deislabs/oras/pkg/content.FileStore
     content store may result in directory traversal during archive extraction, allowing a

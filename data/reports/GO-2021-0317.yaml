@@ -1,12 +1,13 @@
-packages:
+modules:
   - module: std
-    package: math/big
-    symbols:
-      - Rat.SetString
     versions:
       - fixed: 1.16.14
       - introduced: 1.17.0
         fixed: 1.17.7
+    packages:
+      - package: math/big
+        symbols:
+          - Rat.SetString
 description: |
     Rat.SetString had an overflow issue that can lead to uncontrolled memory consumption.
 published: 2022-05-23T22:15:42Z

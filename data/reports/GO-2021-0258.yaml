@@ -1,13 +1,14 @@
-packages:
+modules:
   - module: github.com/pomerium/pomerium
-    package: github.com/pomerium/pomerium/internal/identity/manager
-    symbols:
-      - Manager.onUpdateRecords
-    derived_symbols:
-      - Manager.Run
     versions:
       - fixed: 0.15.6
     vulnerable_at: 0.15.5
+    packages:
+      - package: github.com/pomerium/pomerium/internal/identity/manager
+        symbols:
+          - Manager.onUpdateRecords
+        derived_symbols:
+          - Manager.Run
 description: |
     Pomerium is an open source identity-aware access proxy. Changes to the OIDC
     claims of a user after initial login are not reflected in policy evaluation

@@ -1,18 +1,16 @@
-packages:
+modules:
   - module: github.com/google/fscrypt
-    package: github.com/google/fscrypt/pam
-    symbols:
-      - NewHandle
-      - SetProcessPrivileges
-      - Handle.StopAsPamUser
     versions:
       - fixed: 0.2.4
-  - module: github.com/google/fscrypt
-    package: github.com/google/fscrypt/security
-    symbols:
-      - UserKeyringID
-    versions:
-      - fixed: 0.2.4
+    packages:
+      - package: github.com/google/fscrypt/pam
+        symbols:
+          - NewHandle
+          - SetProcessPrivileges
+          - Handle.StopAsPamUser
+      - package: github.com/google/fscrypt/security
+        symbols:
+          - UserKeyringID
 description: |
     After dropping and then elevating process privileges euid, guid, and groups
     are not properly restored to their original values, allowing an unprivileged

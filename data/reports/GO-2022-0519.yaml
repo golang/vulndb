@@ -1,11 +1,12 @@
-packages:
+modules:
   - module: github.com/flyteorg/flyteadmin
-    package: github.com/flyteorg/flyteadmin/auth/authzserver
-    symbols:
-      - ResourceServer.ValidateAccessToken
     versions:
       - fixed: 1.1.31
     vulnerable_at: 1.1.30
+    packages:
+      - package: github.com/flyteorg/flyteadmin/auth/authzserver
+        symbols:
+          - ResourceServer.ValidateAccessToken
 description: |
     Improper validation of access tokens can permit use of expired tokens.
 published: 2022-07-30T03:51:07Z

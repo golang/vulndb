@@ -1,12 +1,13 @@
-packages:
+modules:
   - module: k8s.io/kube-state-metrics
-    package: k8s.io/kube-state-metrics/internal/store
-    symbols:
-      - kubeAnnotationsToPrometheusLabels
     versions:
       - introduced: 1.7.0
         fixed: 1.7.2
     vulnerable_at: 1.7.0
+    packages:
+      - package: k8s.io/kube-state-metrics/internal/store
+        symbols:
+          - kubeAnnotationsToPrometheusLabels
 description: |
     Exposing annotations as metrics can leak secrets.
 

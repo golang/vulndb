@@ -1,12 +1,13 @@
-packages:
+modules:
   - module: std
-    package: crypto/tls
-    symbols:
-      - checkForResumption
-      - decryptTicket
     versions:
       - introduced: 1.1.0
         fixed: 1.3.2
+    packages:
+      - package: crypto/tls
+        symbols:
+          - checkForResumption
+          - decryptTicket
 description: |
     When SessionTicketsDisabled is enabled, crypto/tls allowed man-in-the-middle
     attackers to spoof clients via unspecified vectors.

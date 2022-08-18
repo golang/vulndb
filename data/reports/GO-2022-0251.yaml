@@ -1,15 +1,16 @@
-packages:
+modules:
   - module: github.com/cloudflare/cfrpki
-    package: github.com/cloudflare/cfrpki/validator/lib
-    symbols:
-      - readObject
-    derived_symbols:
-      - BER2DER
-      - DecodeManifest
-      - DecoderConfig.DecodeManifest
     versions:
       - fixed: 1.4.0
     vulnerable_at: 1.3.0
+    packages:
+      - package: github.com/cloudflare/cfrpki/validator/lib
+        symbols:
+          - readObject
+        derived_symbols:
+          - BER2DER
+          - DecodeManifest
+          - DecoderConfig.DecodeManifest
 description: |
     Invalid input data can cause a panic.
 published: 2022-07-15T23:07:28Z

@@ -1,11 +1,12 @@
-packages:
+modules:
   - module: std
-    package: cmd/go
     versions:
       - fixed: 1.8.7
       - introduced: 1.9.0
         fixed: 1.9.4
     vulnerable_at: 1.9.3
+    packages:
+      - package: cmd/go
 description: |
     The "go get" command with cgo is vulnerable to remote command execution
     by leveraging the gcc or clang plugin feature.

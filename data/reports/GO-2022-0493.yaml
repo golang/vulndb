@@ -1,20 +1,22 @@
-packages:
+modules:
   - module: std
-    package: syscall
-    symbols:
-      - Faccessat
     versions:
       - fixed: 1.17.10
       - introduced: 1.18.0
         fixed: 1.18.2
     vulnerable_at: 1.18.1
+    packages:
+      - package: syscall
+        symbols:
+          - Faccessat
   - module: golang.org/x/sys
-    package: golang.org/x/sys/unix
-    symbols:
-      - Faccessat
     versions:
       - fixed: 0.0.0-20220412211240-33da011f77ad
     vulnerable_at: 0.0.0-20220412071739-889880a91fd5
+    packages:
+      - package: golang.org/x/sys/unix
+        symbols:
+          - Faccessat
 description: |
     When called with a non-zero flags parameter, the Faccessat function
     can incorrectly report that a file is accessible.

@@ -1,36 +1,34 @@
-packages:
+modules:
   - module: github.com/unknwon/cae
-    package: github.com/unknwon/cae/tz
-    symbols:
-      - TzArchive.syncFiles
-      - TzArchive.ExtractToFunc
-    derived_symbols:
-      - Create
-      - ExtractTo
-      - Open
-      - OpenFile
-      - TzArchive.Close
-      - TzArchive.ExtractTo
-      - TzArchive.Flush
-      - TzArchive.Open
     versions:
       - fixed: 1.0.1
-  - module: github.com/unknwon/cae
-    package: github.com/unknwon/cae/zip
-    symbols:
-      - ZipArchive.Open
-      - ZipArchive.ExtractToFunc
-    derived_symbols:
-      - Create
-      - ExtractTo
-      - ExtractToFunc
-      - Open
-      - OpenFile
-      - ZipArchive.Close
-      - ZipArchive.ExtractTo
-      - ZipArchive.Flush
-    versions:
-      - fixed: 1.0.1
+    packages:
+      - package: github.com/unknwon/cae/tz
+        symbols:
+          - TzArchive.syncFiles
+          - TzArchive.ExtractToFunc
+        derived_symbols:
+          - Create
+          - ExtractTo
+          - Open
+          - OpenFile
+          - TzArchive.Close
+          - TzArchive.ExtractTo
+          - TzArchive.Flush
+          - TzArchive.Open
+      - package: github.com/unknwon/cae/zip
+        symbols:
+          - ZipArchive.Open
+          - ZipArchive.ExtractToFunc
+        derived_symbols:
+          - Create
+          - ExtractTo
+          - ExtractToFunc
+          - Open
+          - OpenFile
+          - ZipArchive.Close
+          - ZipArchive.ExtractTo
+          - ZipArchive.Flush
 description: |
     Due to improper path santization, archives containing relative file
     paths can cause files to be written (or overwritten) outside of the

@@ -1,9 +1,11 @@
-packages:
+modules:
   - module: github.com/AndrewBurian/powermux
-    symbols:
-      - Route.execute
     versions:
       - fixed: 1.1.1
+    packages:
+      - package: github.com/AndrewBurian/powermux
+        symbols:
+          - Route.execute
 description: |
     Attackers may be able to craft phishing links and other open
     redirects by exploiting PowerMux's trailing slash redirection

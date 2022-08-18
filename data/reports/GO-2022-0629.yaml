@@ -1,32 +1,23 @@
-packages:
+modules:
   - module: sigs.k8s.io/secrets-store-csi-driver
-    package: sigs.k8s.io/secrets-store-csi-driver/controllers
-    symbols:
-      - SecretProviderClassPodStatusReconciler.Reconcile
     versions:
       - introduced: 0.0.15
         fixed: 0.0.17
     vulnerable_at: 0.0.16
-  - module: sigs.k8s.io/secrets-store-csi-driver
-    package: sigs.k8s.io/secrets-store-csi-driver/pkg/rotation
-    symbols:
-      - Reconciler.reconcile
-    derived_symbols:
-      - Reconciler.Run
-    versions:
-      - introduced: 0.0.15
-        fixed: 0.0.17
-    vulnerable_at: 0.0.16
-  - module: sigs.k8s.io/secrets-store-csi-driver
-    package: sigs.k8s.io/secrets-store-csi-driver/pkg/secrets-store
-    symbols:
-      - nodeServer.NodeUnpublishVolume
-    derived_symbols:
-      - SecretsStore.Run
-    versions:
-      - introduced: 0.0.15
-        fixed: 0.0.17
-    vulnerable_at: 0.0.16
+    packages:
+      - package: sigs.k8s.io/secrets-store-csi-driver/controllers
+        symbols:
+          - SecretProviderClassPodStatusReconciler.Reconcile
+      - package: sigs.k8s.io/secrets-store-csi-driver/pkg/rotation
+        symbols:
+          - Reconciler.reconcile
+        derived_symbols:
+          - Reconciler.Run
+      - package: sigs.k8s.io/secrets-store-csi-driver/pkg/secrets-store
+        symbols:
+          - nodeServer.NodeUnpublishVolume
+        derived_symbols:
+          - SecretsStore.Run
 description: |
     Modifying pod status allows host directory traversal.
 

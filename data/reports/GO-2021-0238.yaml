@@ -1,10 +1,11 @@
-packages:
+modules:
   - module: golang.org/x/net
-    package: golang.org/x/net/html
-    symbols:
-      - inHeadIM
     versions:
       - fixed: 0.0.0-20210520170846-37e1c6afe023
+    packages:
+      - package: golang.org/x/net/html
+        symbols:
+          - inHeadIM
 description: |
     An attacker can craft an input to ParseFragment that causes it
     to enter an infinite loop and never return.

@@ -1,15 +1,17 @@
-packages:
+modules:
   - module: github.com/nanobox-io/golang-nanoauth
-    symbols:
-      - Auth.ServerHTTP
-      - Auth.ListenAndServeTLS
-      - Auth.ListenAndServe
-    derived_symbols:
-      - ListenAndServe
-      - ListenAndServeTLS
     versions:
       - introduced: 0.0.0-20160722212129-ac0cc4484ad4
         fixed: 0.0.0-20200131131040-063a3fb69896
+    packages:
+      - package: github.com/nanobox-io/golang-nanoauth
+        symbols:
+          - Auth.ServerHTTP
+          - Auth.ListenAndServeTLS
+          - Auth.ListenAndServe
+        derived_symbols:
+          - ListenAndServe
+          - ListenAndServeTLS
 description: |
     If any of the ListenAndServe functions are called with an empty token,
     token authentication is disabled globally for all listeners.

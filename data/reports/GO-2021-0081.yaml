@@ -1,10 +1,11 @@
-packages:
+modules:
   - module: github.com/containers/image
-    package: github.com/containers/image/docker
-    symbols:
-      - dockerClient.getBearerToken
     versions:
       - fixed: 2.0.2-0.20190802080134-634605d06e73+incompatible
+    packages:
+      - package: github.com/containers/image/docker
+        symbols:
+          - dockerClient.getBearerToken
 description: |
     The HTTP client used to connect to the container registry authorization
     service explicitly disables TLS verification, allowing an attacker that

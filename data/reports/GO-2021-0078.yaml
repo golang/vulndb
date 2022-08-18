@@ -1,11 +1,12 @@
-packages:
+modules:
   - module: golang.org/x/net
-    package: golang.org/x/net/html
-    symbols:
-      - inBodyIM
-      - inFramesetIM
     versions:
       - fixed: 0.0.0-20180816102801-aaf60122140d
+    packages:
+      - package: golang.org/x/net/html
+        symbols:
+          - inBodyIM
+          - inFramesetIM
 description: |
     The HTML parser does not properly handle "in frameset" insertion mode, and can be made
     to panic when operating on malformed HTML that contains <template> tags. If operating

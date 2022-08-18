@@ -1,10 +1,11 @@
-packages:
+modules:
   - module: github.com/hybridgroup/gobot
-    package: github.com/hybridgroup/gobot/platforms/mqtt
-    symbols:
-      - Adaptor.newTLSConfig
     versions:
       - fixed: 1.12.1-0.20190521122906-c1aa4f867846
+    packages:
+      - package: github.com/hybridgroup/gobot/platforms/mqtt
+        symbols:
+          - Adaptor.newTLSConfig
 description: |
     TLS certificate verification is skipped when connecting to a MQTT server.
     This allows an attacker who can MITM the connection to read, or forge,

@@ -1,16 +1,18 @@
-packages:
+modules:
   - module: github.com/kataras/iris/v12
-    package: github.com/kataras/iris/v12/context
-    symbols:
-      - Context.UploadFormFiles
     versions:
       - fixed: 12.2.0-alpha8
     vulnerable_at: 12.1.8
+    packages:
+      - package: github.com/kataras/iris/v12/context
+        symbols:
+          - Context.UploadFormFiles
   - module: github.com/kataras/iris
-    package: github.com/kataras/iris/context
-    symbols:
-      - Context.UploadFormFiles
     vulnerable_at: 0.0.2
+    packages:
+      - package: github.com/kataras/iris/context
+        symbols:
+          - Context.UploadFormFiles
 description: |
     The Context.UploadFormFiles function is vulnerable to directory
     traversal attacks, and can be made to write to arbitrary locations

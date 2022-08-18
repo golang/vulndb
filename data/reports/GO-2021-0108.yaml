@@ -1,9 +1,11 @@
-packages:
+modules:
   - module: github.com/gofiber/fiber
-    symbols:
-      - Ctx.Attachment
     versions:
       - fixed: 1.12.6
+    packages:
+      - package: github.com/gofiber/fiber
+        symbols:
+          - Ctx.Attachment
 description: |
     Due to improper input sanitization, a maliciously constructed filename could cause a file
     download to use an attacker controlled filename, as well as injecting additional headers

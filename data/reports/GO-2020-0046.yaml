@@ -1,17 +1,21 @@
-packages:
+modules:
   - module: github.com/russellhaering/goxmldsig
-    symbols:
-      - ValidationContext.validateSignature
     versions:
       - fixed: 1.1.0
+    packages:
+      - package: github.com/russellhaering/goxmldsig
+        symbols:
+          - ValidationContext.validateSignature
   - module: github.com/russellhaering/gosaml2
-    symbols:
-      - SAMLServiceProvider.validateAssertionSignatures
-    derived_symbols:
-      - SAMLServiceProvider.RetrieveAssertionInfo
-      - SAMLServiceProvider.ValidateEncodedResponse
     versions:
       - fixed: 0.6.0
+    packages:
+      - package: github.com/russellhaering/gosaml2
+        symbols:
+          - SAMLServiceProvider.validateAssertionSignatures
+        derived_symbols:
+          - SAMLServiceProvider.RetrieveAssertionInfo
+          - SAMLServiceProvider.ValidateEncodedResponse
 description: |
     Due to a nil pointer dereference, a malformed XML Digital Signature
     can cause a panic during validation. If user supplied signatures are

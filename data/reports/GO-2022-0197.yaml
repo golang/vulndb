@@ -1,14 +1,15 @@
-packages:
+modules:
   - module: golang.org/x/net
-    package: golang.org/x/net/html
-    symbols:
-      - nodeStack.contains
-    derived_symbols:
-      - Parse
-      - ParseFragment
     versions:
       - fixed: 0.0.0-20190125002852-4b62a64f59f7
     vulnerable_at: 0.0.0-20190119204137-ed066c81e75e
+    packages:
+      - package: golang.org/x/net/html
+        symbols:
+          - nodeStack.contains
+        derived_symbols:
+          - Parse
+          - ParseFragment
 description: |
     The Parse function can panic on some invalid inputs.
 

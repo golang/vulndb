@@ -1,11 +1,12 @@
-packages:
+modules:
   - module: github.com/ethereum/go-ethereum
-    package: github.com/ethereum/go-ethereum/core
-    symbols:
-      - StateDB.createObject
     versions:
       - introduced: 1.9.4
       - fixed: 1.9.20
+    packages:
+      - package: github.com/ethereum/go-ethereum/core
+        symbols:
+          - StateDB.createObject
 description: |
     Due to an incorrect state calculation, a specific set of
     transactions could cause a consensus disagreement,

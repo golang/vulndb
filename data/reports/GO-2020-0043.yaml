@@ -1,12 +1,13 @@
-packages:
+modules:
   - module: github.com/mholt/caddy
-    package: github.com/mholt/caddy/caddyhttp/httpserver
-    symbols:
-      - httpContext.MakeServers
-      - Server.serveHTTP
-      - assertConfigsCompatible
     versions:
       - fixed: 0.10.13
+    packages:
+      - package: github.com/mholt/caddy/caddyhttp/httpserver
+        symbols:
+          - httpContext.MakeServers
+          - Server.serveHTTP
+          - assertConfigsCompatible
 description: |
     Due to improper TLS verification when serving traffic for multiple
     SNIs, an attacker may bypass TLS client authentication by indicating

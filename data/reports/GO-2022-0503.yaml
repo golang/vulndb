@@ -1,30 +1,20 @@
-packages:
+modules:
   - module: github.com/ipld/go-car
     versions:
       - fixed: 0.4.0
     vulnerable_at: 0.3.3
-  - module: github.com/ipld/go-car
-    package: github.com/ipld/go-car/util
-    versions:
-      - fixed: 0.4.0
-    vulnerable_at: 0.3.3
+    packages:
+      - package: github.com/ipld/go-car
+      - package: github.com/ipld/go-car/util
   - module: github.com/ipld/go-car/v2
     versions:
       - introduced: 2.0.0
         fixed: 2.4.0
     vulnerable_at: 2.3.0
-  - module: github.com/ipld/go-car/v2
-    package: github.com/ipld/go-car/v2/blockstore
-    versions:
-      - introduced: 2.0.0
-        fixed: 2.4.0
-    vulnerable_at: 2.3.0
-  - module: github.com/ipld/go-car/v2
-    package: github.com/ipld/go-car/v2/index
-    versions:
-      - introduced: 2.0.0
-        fixed: 2.4.0
-    vulnerable_at: 2.3.0
+    packages:
+      - package: github.com/ipld/go-car/v2
+      - package: github.com/ipld/go-car/v2/blockstore
+      - package: github.com/ipld/go-car/v2/index
 description: |
     Decoding malformed CAR data can cause panics or excessive memory usage.
 published: 2022-07-30T03:50:50Z

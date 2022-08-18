@@ -1,14 +1,15 @@
-packages:
+modules:
   - module: std
-    package: encoding/binary
-    symbols:
-      - ReadUvarint
-      - ReadVarint
     versions:
       - fixed: 1.13.15
       - introduced: 1.14.0
         fixed: 1.14.7
     vulnerable_at: 1.14.6
+    packages:
+      - package: encoding/binary
+        symbols:
+          - ReadUvarint
+          - ReadVarint
 description: |
     ReadUvarint and ReadVarint can read an unlimited number of bytes from
     invalid inputs.

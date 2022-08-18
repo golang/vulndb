@@ -1,22 +1,23 @@
-packages:
+modules:
   - module: std
-    package: go/parser
-    symbols:
-      - ParseFile
-      - ParseExprFrom
-      - parser.tryIdentOrType
-      - parser.parsePrimaryExpr
-      - parser.parseUnaryExpr
-      - parser.parseBinaryExpr
-      - parser.parseIfStmt
-      - parser.parseStmt
-      - resolver.openScope
-      - resolver.closeScope
     versions:
       - fixed: 1.17.12
       - introduced: 1.18.0
         fixed: 1.18.4
     vulnerable_at: 1.18.3
+    packages:
+      - package: go/parser
+        symbols:
+          - ParseFile
+          - ParseExprFrom
+          - parser.tryIdentOrType
+          - parser.parsePrimaryExpr
+          - parser.parseUnaryExpr
+          - parser.parseBinaryExpr
+          - parser.parseIfStmt
+          - parser.parseStmt
+          - resolver.openScope
+          - resolver.closeScope
 description: |
     Calling any of the Parse functions on Go source code which contains deeply
     nested types or declarations can cause a panic due to stack exhaustion.

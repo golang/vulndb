@@ -1,11 +1,12 @@
-packages:
+modules:
   - module: github.com/cloudflare/cfrpki
-    package: github.com/cloudflare/cfrpki/sync/lib
-    symbols:
-      - HTTPFetcher.GetXML
     versions:
       - fixed: 1.4.0
     vulnerable_at: 1.3.0
+    packages:
+      - package: github.com/cloudflare/cfrpki/sync/lib
+        symbols:
+          - HTTPFetcher.GetXML
 description: |
     The HTTPFetcher.GetXML function reads a response of unlimited size into
     memory, permitting resource exhausion.

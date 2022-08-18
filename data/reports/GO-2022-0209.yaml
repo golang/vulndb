@@ -1,11 +1,14 @@
-packages:
+modules:
   - module: golang.org/x/crypto
-    package: golang.org/x/crypto/salsa20/salsa
-    symbols:
-      - XORKeyStream
     versions:
       - fixed: 0.0.0-20190320223903-b7391e95e576
     vulnerable_at: 0.0.0-20190313024323-a1f597ede03a
+    packages:
+      - package: golang.org/x/crypto/salsa20/salsa
+        goarch:
+          - amd64
+        symbols:
+          - XORKeyStream
 description: |
     XORKeyStream generates incorrect and insecure output for very
     large inputs.
@@ -26,11 +29,11 @@ published: 2022-07-01T20:15:25Z
 cves:
   - CVE-2019-11840
 credit: Michael McLoughlin
-arch:
-  - amd64
 links:
     pr: https://go.dev/cl/168406
     commit: https://go.googlesource.com/crypto/+/b7391e95e576cacdcdd422573063bc057239113d
     context:
       - https://go.dev/issue/30965
       - https://groups.google.com/g/golang-announce/c/tjyNcJxb2vQ/m/n0NRBziSCAAJ
+arch:
+  - amd64

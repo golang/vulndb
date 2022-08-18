@@ -1,16 +1,41 @@
-packages:
-  - module: github.com/square/go-jose
-    package: github.com/square/go-jose/cipher
-    symbols:
-      - cbcAEAD.computeAuthTag
-    versions:
-      - fixed: 0.0.0-20160903044734-789a4c4bd4c1
+modules:
   - module: github.com/square/go-jose
     versions:
       - fixed: 0.0.0-20160903044734-789a4c4bd4c1
-    symbols:
-      - JsonWebEncryption.Decrypt
-      - JsonWebEncryption.DecryptMulti
+    packages:
+      - package: github.com/square/go-jose/cipher
+        goarch:
+          - "386"
+          - arm
+          - armbe
+          - amd64p32
+          - mips
+          - mipsle
+          - mips64p32
+          - mips64p32le
+          - ppc
+          - riscv
+          - s390
+          - sparc
+        symbols:
+          - cbcAEAD.computeAuthTag
+      - package: github.com/square/go-jose
+        goarch:
+          - "386"
+          - arm
+          - armbe
+          - amd64p32
+          - mips
+          - mipsle
+          - mips64p32
+          - mips64p32le
+          - ppc
+          - riscv
+          - s390
+          - sparc
+        symbols:
+          - JsonWebEncryption.Decrypt
+          - JsonWebEncryption.DecryptMulti
 description: |
     On 32-bit platforms an attacker can manipulate a ciphertext encrypted with AES-CBC
     with HMAC such that they can control how large the input buffer is when computing
@@ -22,6 +47,10 @@ cves:
 ghsas:
   - GHSA-3fx4-7f69-5mmg
 credit: Quan Nguyen from Google's Information Security Engineering Team
+links:
+    commit: https://github.com/square/go-jose/commit/789a4c4bd4c118f7564954f441b29c153ccd6a96
+    context:
+      - https://www.openwall.com/lists/oss-security/2016/11/03/1
 arch:
   - "386"
   - arm
@@ -35,7 +64,3 @@ arch:
   - riscv
   - s390
   - sparc
-links:
-    commit: https://github.com/square/go-jose/commit/789a4c4bd4c118f7564954f441b29c153ccd6a96
-    context:
-      - https://www.openwall.com/lists/oss-security/2016/11/03/1

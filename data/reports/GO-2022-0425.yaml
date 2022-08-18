@@ -1,16 +1,18 @@
-packages:
+modules:
   - module: github.com/flynn/noise
-    symbols:
-      - CipherState.Encrypt
-      - CipherState.Decrypt
-      - symmetricState.EncryptAndHash
-    derived_symbols:
-      - HandshakeState.ReadMessage
-      - HandshakeState.WriteMessage
-      - symmetricState.DecryptAndHash
     versions:
       - fixed: 1.0.0
     vulnerable_at: 0.0.0-20210422170017-fc2bb37e287b
+    packages:
+      - package: github.com/flynn/noise
+        symbols:
+          - CipherState.Encrypt
+          - CipherState.Decrypt
+          - symmetricState.EncryptAndHash
+        derived_symbols:
+          - HandshakeState.ReadMessage
+          - HandshakeState.WriteMessage
+          - symmetricState.DecryptAndHash
 description: |
     The Noise protocol implementation suffers from weakened
     cryptographic security after encrypting 2^64 messages, and a
@@ -29,8 +31,8 @@ published: 2022-02-15T01:57:18Z
 last_modified: 2022-04-12T22:48:22Z
 ghsas:
   - GHSA-g9mp-8g3h-3c5c
-cve_metadata:
-    id: CVE-2021-4239
-    cwe: "CWE 400: Uncontrolled Resource Consumption"
 links:
     pr: https://github.com/flynn/noise/pull/44
+cve_metadata:
+    id: CVE-2021-4239
+    cwe: 'CWE 400: Uncontrolled Resource Consumption'

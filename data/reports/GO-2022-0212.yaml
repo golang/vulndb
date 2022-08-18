@@ -1,12 +1,13 @@
-packages:
+modules:
   - module: std
-    package: net/textproto
-    symbols:
-      - Reader.ReadMimeHeader
     versions:
       - fixed: 1.12.10
       - introduced: 1.13.0
         fixed: 1.13.1
+    packages:
+      - package: net/textproto
+        symbols:
+          - Reader.ReadMimeHeader
 description: |
     net/http (through net/textproto) used to accept and normalize invalid
     HTTP/1.1 headers with a space before the colon, in violation of RFC 7230.

@@ -1,22 +1,24 @@
-packages:
+modules:
   - module: std
-    package: net/http
-    symbols:
-      - http2serverConn.canonicalHeader
     versions:
       - fixed: 1.16.12
       - introduced: 1.17.0
         fixed: 1.17.5
     vulnerable_at: 1.17.4
+    packages:
+      - package: net/http
+        symbols:
+          - http2serverConn.canonicalHeader
   - module: golang.org/x/net
-    package: golang.org/x/net/http2
-    symbols:
-      - serverConn.canonicalHeader
-    derived_symbols:
-      - Server.ServeConn
     versions:
       - fixed: 0.0.0-20211209124913-491a49abca63
     vulnerable_at: 0.0.0-20211208012354-db4efeb81f4b
+    packages:
+      - package: golang.org/x/net/http2
+        symbols:
+          - serverConn.canonicalHeader
+        derived_symbols:
+          - Server.ServeConn
 description: |
     An attacker can cause unbounded memory growth in servers accepting
     HTTP/2 requests.

@@ -1,13 +1,14 @@
-packages:
+modules:
   - module: github.com/argoproj/argo-events
-    package: github.com/argoproj/argo-events/sensors/artifacts
-    symbols:
-      - NewGitReader
-    derived_symbols:
-      - GetArtifactReader
     versions:
       - fixed: 1.7.1
     vulnerable_at: 1.7.0
+    packages:
+      - package: github.com/argoproj/argo-events/sensors/artifacts
+        symbols:
+          - NewGitReader
+        derived_symbols:
+          - GetArtifactReader
 description: |
     GitArtifactReader is vulnerable to directory traversal attacks.
 

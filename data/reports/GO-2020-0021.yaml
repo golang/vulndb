@@ -1,11 +1,13 @@
-packages:
+modules:
   - module: github.com/gogits/gogs
-    symbols:
-      - GetIssues
-      - SearchRepositoryByName
-      - SearchUserByName
     versions:
       - fixed: 0.5.8
+    packages:
+      - package: github.com/gogits/gogs
+        symbols:
+          - GetIssues
+          - SearchRepositoryByName
+          - SearchUserByName
 description: |
     Due to improper santization of user input, a number of methods are
     vulnerable to SQL injection if used with user input that has not

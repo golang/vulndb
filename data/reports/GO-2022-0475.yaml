@@ -1,22 +1,17 @@
-packages:
+modules:
   - module: std
-    package: cmd/go
-    symbols:
-      - Builder.cgo
     versions:
       - fixed: 1.14.12
       - introduced: 1.15.0
         fixed: 1.15.5
     vulnerable_at: 1.15.4
-  - module: std
-    package: cmd/cgo
-    symbols:
-      - dynimport
-    versions:
-      - fixed: 1.14.12
-      - introduced: 1.15.0
-        fixed: 1.15.5
-    vulnerable_at: 1.15.4
+    packages:
+      - package: cmd/go
+        symbols:
+          - Builder.cgo
+      - package: cmd/cgo
+        symbols:
+          - dynimport
 description: |
     The go command may execute arbitrary code at build time when cgo is in use.
     This may occur when running go get on a malicious package, or any other

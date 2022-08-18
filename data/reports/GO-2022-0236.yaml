@@ -1,25 +1,27 @@
-packages:
+modules:
   - module: std
-    package: net/http
-    symbols:
-      - http2clientStream.writeRequest
-      - http2isConnectionCloseRequest
-      - isProtocolSwitchHeader
-      - shouldClose
     versions:
       - fixed: 1.15.12
       - introduced: 1.16.0
         fixed: 1.16.4
     vulnerable_at: 1.16.3
+    packages:
+      - package: net/http
+        symbols:
+          - http2clientStream.writeRequest
+          - http2isConnectionCloseRequest
+          - isProtocolSwitchHeader
+          - shouldClose
   - module: golang.org/x/net
-    package: golang.org/x/net/http/httpguts
-    symbols:
-      - headerValueContainsToken
-    derived_symbols:
-      - HeaderValuesContainsToken
     versions:
       - fixed: 0.0.0-20210428140749-89ef3d95e781
     vulnerable_at: 0.0.0-20210427231257-85d9c07bbe3a
+    packages:
+      - package: golang.org/x/net/http/httpguts
+        symbols:
+          - headerValueContainsToken
+        derived_symbols:
+          - HeaderValuesContainsToken
 description: |
     A malicious HTTP server or client can cause the net/http client
     or server to panic.

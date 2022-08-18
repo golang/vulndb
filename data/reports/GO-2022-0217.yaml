@@ -1,12 +1,13 @@
-packages:
+modules:
   - module: std
-    package: crypto/elliptic
-    symbols:
-      - curve.doubleJacobian
     versions:
       - fixed: 1.10.8
       - introduced: 1.11.0
         fixed: 1.11.5
+    packages:
+      - package: crypto/elliptic
+        symbols:
+          - curve.doubleJacobian
 description: |
     A DoS vulnerability in the crypto/elliptic implementations of the P-521 and
     P-384 elliptic curves may let an attacker craft inputs that consume

@@ -1,12 +1,13 @@
-packages:
+modules:
   - module: std
-    package: debug/macho
-    symbols:
-      - NewFile
     versions:
       - fixed: 1.16.10
       - introduced: 1.17.0
         fixed: 1.17.3
+    packages:
+      - package: debug/macho
+        symbols:
+          - NewFile
 description: |
     Calling File.ImportedSymbols on a loaded file which contains an invalid
     dynamic symbol table command can cause a panic, in particular if the encoded

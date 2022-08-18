@@ -1,11 +1,12 @@
-packages:
+modules:
   - module: github.com/containrrr/shoutrrr
-    package: github.com/containrrr/shoutrrr/pkg/util
-    symbols:
-      - PartitionMessage
     versions:
       - fixed: 0.6.0
     vulnerable_at: 0.5.3
+    packages:
+      - package: github.com/containrrr/shoutrrr/pkg/util
+        symbols:
+          - PartitionMessage
 description: |
     Sending a message exactly 2000, 4000, or 6000 characters in length
     to Discord causes a panic.

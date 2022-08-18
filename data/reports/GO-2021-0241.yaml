@@ -1,12 +1,13 @@
-packages:
+modules:
   - module: std
-    package: net/http/httputil
-    symbols:
-      - ReverseProxy.ServeHTTP
     versions:
       - fixed: 1.15.13
       - introduced: 1.16.0
         fixed: 1.16.5
+    packages:
+      - package: net/http/httputil
+        symbols:
+          - ReverseProxy.ServeHTTP
 description: |
     ReverseProxy can be made to forward certain hop-by-hop headers,
     including Connection. If the target of the ReverseProxy is

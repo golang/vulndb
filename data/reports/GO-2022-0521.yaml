@@ -1,13 +1,14 @@
-packages:
+modules:
   - module: std
-    package: encoding/xml
-    symbols:
-      - Decoder.Skip
     versions:
       - fixed: 1.17.12
       - introduced: 1.18.0
         fixed: 1.18.4
     vulnerable_at: 1.18.3
+    packages:
+      - package: encoding/xml
+        symbols:
+          - Decoder.Skip
 description: |
     Calling Decoder.Skip when parsing a deeply nested XML document can cause a
     panic due to stack exhaustion.

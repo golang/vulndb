@@ -1,12 +1,14 @@
-packages:
+modules:
   - module: github.com/miekg/dns
-    symbols:
-      - setTA
-    derived_symbols:
-      - ParseZone
-      - ReadRR
     versions:
       - fixed: 1.0.10
+    packages:
+      - package: github.com/miekg/dns
+        symbols:
+          - setTA
+        derived_symbols:
+          - ParseZone
+          - ReadRR
 description: |
     Due to a nil pointer dereference, parsing a malformed zone file
     containing TA records may cause a panic. If parsing user supplied

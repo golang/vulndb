@@ -1,12 +1,13 @@
-packages:
+modules:
   - module: std
-    package: syscall
-    symbols:
-      - LoadLibrary
     versions:
       - fixed: 1.5.4
       - introduced: 1.6.0
         fixed: 1.6.1
+    packages:
+      - package: syscall
+        symbols:
+          - LoadLibrary
 description: |
     Untrusted search path vulnerability on Windows related to LoadLibrary allows
     local users to gain privileges via a malicious DLL in the current working

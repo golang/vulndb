@@ -1,17 +1,19 @@
-packages:
+modules:
   - module: github.com/graph-gophers/graphql-go
-    symbols:
-      - Schema.ValidateWithVariables
-      - Schema.exec
-      - Schema.subscribe
-    derived_symbols:
-      - Schema.Exec
-      - Schema.Subscribe
-      - Schema.ToJSON
-      - Schema.Validate
     versions:
       - fixed: 1.3.0
     vulnerable_at: 1.2.0
+    packages:
+      - package: github.com/graph-gophers/graphql-go
+        symbols:
+          - Schema.ValidateWithVariables
+          - Schema.exec
+          - Schema.subscribe
+        derived_symbols:
+          - Schema.Exec
+          - Schema.Subscribe
+          - Schema.ToJSON
+          - Schema.Validate
 description: |
     Malicious inputs can cause a panic.
 

@@ -1,25 +1,29 @@
-packages:
+modules:
   - module: github.com/nats-io/jwt
-    symbols:
-      - ActivationClaims.Validate
-      - Import.Validate
-    derived_symbols:
-      - Account.Validate
-      - AccountClaims.Validate
-      - Imports.Validate
     versions:
       - fixed: 1.2.3-0.20210314221642-a826c77dc9d2
     vulnerable_at: 1.2.2
+    packages:
+      - package: github.com/nats-io/jwt
+        symbols:
+          - ActivationClaims.Validate
+          - Import.Validate
+        derived_symbols:
+          - Account.Validate
+          - AccountClaims.Validate
+          - Imports.Validate
   - module: github.com/nats-io/jwt/v2
-    symbols:
-      - Import.Validate
-    derived_symbols:
-      - Account.Validate
-      - AccountClaims.Validate
-      - Imports.Validate
     versions:
       - fixed: 2.0.1
     vulnerable_at: 2.0.0
+    packages:
+      - package: github.com/nats-io/jwt/v2
+        symbols:
+          - Import.Validate
+        derived_symbols:
+          - Account.Validate
+          - AccountClaims.Validate
+          - Imports.Validate
 description: |
     Import tokens valid for one account may be used for any other account.
 

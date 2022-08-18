@@ -1,15 +1,17 @@
-packages:
+modules:
   - module: github.com/pion/dtls
-    symbols:
-      - Conn.handleIncomingPacket
-    derived_symbols:
-      - Client
-      - Dial
-      - Listener.Accept
-      - Resume
-      - Server
     versions:
       - fixed: 1.5.2
+    packages:
+      - package: github.com/pion/dtls
+        symbols:
+          - Conn.handleIncomingPacket
+        derived_symbols:
+          - Client
+          - Dial
+          - Listener.Accept
+          - Resume
+          - Server
 description: |
     Due to improper verification of packets, unencrypted packets containing
     application data are accepted after the initial handshake. This allows

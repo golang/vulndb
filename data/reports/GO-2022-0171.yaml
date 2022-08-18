@@ -1,13 +1,16 @@
-packages:
+modules:
   - module: std
-    package: crypto/x509
-    symbols:
-      - FetchPEMRoots
-      - execSecurityRoots
     versions:
       - fixed: 1.6.4
       - introduced: 1.7.0
         fixed: 1.7.4
+    packages:
+      - package: crypto/x509
+        goos:
+          - darwin
+        symbols:
+          - FetchPEMRoots
+          - execSecurityRoots
 description: |
     On Darwin, user's trust preferences for root certificates were not honored.
     If the user had a root certificate loaded in their Keychain that was
@@ -17,11 +20,11 @@ published: 2022-05-24T20:17:59Z
 cves:
   - CVE-2017-1000097
 credit: Xy Ziemba
-os:
-  - darwin
 links:
     pr: https://go.dev/cl/33721
     commit: https://go.googlesource.com/go/+/7e5b2e0ec144d5f5b2923a7d5db0b9143f79a35a
     context:
       - https://go.dev/issue/18141
       - https://groups.google.com/g/golang-dev/c/4NdLzS8sls8/m/uIz8QlnIBQAJ
+os:
+  - darwin

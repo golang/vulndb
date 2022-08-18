@@ -1,34 +1,36 @@
-packages:
+modules:
   - module: github.com/blevesearch/bleve
-    package: github.com/blevesearch/bleve/http
-    symbols:
-      - AliasHandler.ServeHTTP
-      - CreateIndexHandler.ServeHTTP
-      - DebugDocumentHandler.ServeHTTP
-      - DeleteIndexHandler.ServeHTTP
-      - DocCountHandler.ServeHTTP
-      - DocDeleteHandler.ServeHTTP
-      - DocGetHandler.ServeHTTP
-      - DocIndexHandler.ServeHTTP
-      - GetIndexHandler.ServeHTTP
-      - ListFieldsHandler.ServeHTTP
-      - SearchHandler.ServeHTTP
     vulnerable_at: 1.0.14
+    packages:
+      - package: github.com/blevesearch/bleve/http
+        symbols:
+          - AliasHandler.ServeHTTP
+          - CreateIndexHandler.ServeHTTP
+          - DebugDocumentHandler.ServeHTTP
+          - DeleteIndexHandler.ServeHTTP
+          - DocCountHandler.ServeHTTP
+          - DocDeleteHandler.ServeHTTP
+          - DocGetHandler.ServeHTTP
+          - DocIndexHandler.ServeHTTP
+          - GetIndexHandler.ServeHTTP
+          - ListFieldsHandler.ServeHTTP
+          - SearchHandler.ServeHTTP
   - module: github.com/blevesearch/bleve/v2
-    package: github.com/blevesearch/bleve/v2/http
-    symbols:
-      - AliasHandler.ServeHTTP
-      - CreateIndexHandler.ServeHTTP
-      - DebugDocumentHandler.ServeHTTP
-      - DeleteIndexHandler.ServeHTTP
-      - DocCountHandler.ServeHTTP
-      - DocDeleteHandler.ServeHTTP
-      - DocGetHandler.ServeHTTP
-      - DocIndexHandler.ServeHTTP
-      - GetIndexHandler.ServeHTTP
-      - ListFieldsHandler.ServeHTTP
-      - SearchHandler.ServeHTTP
     vulnerable_at: 2.3.2
+    packages:
+      - package: github.com/blevesearch/bleve/v2/http
+        symbols:
+          - AliasHandler.ServeHTTP
+          - CreateIndexHandler.ServeHTTP
+          - DebugDocumentHandler.ServeHTTP
+          - DeleteIndexHandler.ServeHTTP
+          - DocCountHandler.ServeHTTP
+          - DocDeleteHandler.ServeHTTP
+          - DocGetHandler.ServeHTTP
+          - DocIndexHandler.ServeHTTP
+          - GetIndexHandler.ServeHTTP
+          - ListFieldsHandler.ServeHTTP
+          - SearchHandler.ServeHTTP
 description: |
     HTTP handlers provide unauthenticated access to the local filesystem.
 

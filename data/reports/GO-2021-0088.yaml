@@ -1,10 +1,11 @@
-packages:
+modules:
   - module: github.com/facebook/fbthrift
-    package: github.com/facebook/fbthrift/thrift/lib/go/thrift
-    symbols:
-      - Skip
     versions:
       - fixed: 0.31.1-0.20190225164308-c461c1bd1a3e
+    packages:
+      - package: github.com/facebook/fbthrift/thrift/lib/go/thrift
+        symbols:
+          - Skip
 description: |
     Skip ignores unknown fields, rather than failing. A malicious user can craft small
     messages with unknown fields which can take significant resources to parse. If a

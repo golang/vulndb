@@ -1,12 +1,13 @@
-packages:
+modules:
   - module: std
-    package: crypto/dsa
-    symbols:
-      - Verify
     versions:
       - fixed: 1.12.11
       - introduced: 1.13.0
         fixed: 1.13.2
+    packages:
+      - package: crypto/dsa
+        symbols:
+          - Verify
 description: |
     Invalid DSA public keys can cause a panic in dsa.Verify. In particular,
     using crypto/x509.Verify on a crafted X.509 certificate chain can lead to a

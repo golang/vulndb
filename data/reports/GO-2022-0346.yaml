@@ -1,11 +1,12 @@
-packages:
+modules:
   - module: github.com/quay/claircore
-    package: github.com/quay/claircore/rpm
-    symbols:
-      - Scanner.Scan
     versions:
       - fixed: 1.1.0
     vulnerable_at: 1.1.0-rc.0
+    packages:
+      - package: github.com/quay/claircore/rpm
+        symbols:
+          - Scanner.Scan
 description: |
     A maliciously crafted RPM file can cause the Scanner.Scan function to
     write files with arbitrary contents to arbitrary locations on the local

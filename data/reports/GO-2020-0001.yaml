@@ -1,9 +1,11 @@
-packages:
+modules:
   - module: github.com/gin-gonic/gin
-    symbols:
-      - defaultLogFormatter
     versions:
       - fixed: 1.6.0
+    packages:
+      - package: github.com/gin-gonic/gin
+        symbols:
+          - defaultLogFormatter
 description: |
     The default Formatter for the Logger middleware (LoggerConfig.Formatter),
     which is included in the Default engine, allows attackers to inject arbitrary
@@ -15,7 +17,7 @@ links:
     commit: https://github.com/gin-gonic/gin/commit/a71af9c144f9579f6dbe945341c1df37aaf09c0d
 cve_metadata:
     id: CVE-2020-36567
-    cwe: "CWE-117 Improper Output Neutralization for Logs"
+    cwe: CWE-117 Improper Output Neutralization for Logs
     description: |
         Unsanitized input in the default logger in github.com/gin-gonic/gin before v1.6.0
         allows remote attackers to inject arbitrary log lines.

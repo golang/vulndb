@@ -1,12 +1,13 @@
-packages:
+modules:
   - module: std
-    package: net/http
-    symbols:
-      - expectContinueReader.Read
     versions:
       - fixed: 1.13.13
       - introduced: 1.14.0
         fixed: 1.14.5
+    packages:
+      - package: net/http
+        symbols:
+          - expectContinueReader.Read
 description: |
     HTTP servers where the Handler concurrently reads the request
     body and writes a response can encounter a data race and crash.

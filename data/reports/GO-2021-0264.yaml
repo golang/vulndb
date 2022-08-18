@@ -1,13 +1,14 @@
-packages:
+modules:
   - module: std
-    package: archive/zip
-    symbols:
-      - split
-      - Reader.Open
     versions:
       - fixed: 1.16.10
       - introduced: 1.17.0
         fixed: 1.17.3
+    packages:
+      - package: archive/zip
+        symbols:
+          - split
+          - Reader.Open
 description: |
     Previously, opening a zip with (*Reader).Open could result in a panic if the
     zip contained a file whose name was exclusively made up of slash characters or

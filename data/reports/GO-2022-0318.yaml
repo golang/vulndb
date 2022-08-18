@@ -1,14 +1,15 @@
-packages:
+modules:
   - module: std
-    package: cmd/go/internal/modfetch
-    symbols:
-      - codeRepo.convert
-      - codeRepo.validatePseudoVersion
     versions:
       - fixed: 1.16.14
       - introduced: 1.17.0
         fixed: 1.17.7
     vulnerable_at: 1.17.6
+    packages:
+      - package: cmd/go/internal/modfetch
+        symbols:
+          - codeRepo.convert
+          - codeRepo.validatePseudoVersion
 description: |
     Incorrect access control is possible in the go command.
 

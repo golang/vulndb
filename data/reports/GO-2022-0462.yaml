@@ -1,20 +1,22 @@
-packages:
+modules:
   - module: github.com/pion/dtls/v2
-    symbols:
-      - flight4Parse
-    derived_symbols:
-      - Client
-      - ClientWithContext
-      - Dial
-      - DialWithContext
-      - Resume
-      - Server
-      - ServerWithContext
-      - handshakeFSM.Run
-      - listener.Accept
     versions:
       - fixed: 2.1.5
     vulnerable_at: 2.1.4
+    packages:
+      - package: github.com/pion/dtls/v2
+        symbols:
+          - flight4Parse
+        derived_symbols:
+          - Client
+          - ClientWithContext
+          - Dial
+          - DialWithContext
+          - Resume
+          - Server
+          - ServerWithContext
+          - handshakeFSM.Run
+          - listener.Accept
 description: |
     Client-provided certificates are not correctly validated,
     and must not be trusted.

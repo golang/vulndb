@@ -1,18 +1,19 @@
-packages:
+modules:
   - module: std
-    package: net/http
-    symbols:
-      - CanonicalMIMEHeaderKey
-      - body.readLocked
-      - canonicalMIMEHeaderKey
-      - chunkWriter.writeHeader
-      - fixLength
-      - fixTransferEncoding
-      - readTransfer
-      - transferWriter.shouldSendContentLength
-      - validHeaderFieldByte
     versions:
       - fixed: 1.4.3
+    packages:
+      - package: net/http
+        symbols:
+          - CanonicalMIMEHeaderKey
+          - body.readLocked
+          - canonicalMIMEHeaderKey
+          - chunkWriter.writeHeader
+          - fixLength
+          - fixTransferEncoding
+          - readTransfer
+          - transferWriter.shouldSendContentLength
+          - validHeaderFieldByte
 description: |
     HTTP headers were not properly parsed, which allows remote attackers to
     conduct HTTP request smuggling attacks via a request that contains

@@ -1,11 +1,12 @@
-packages:
+modules:
   - module: golang.org/x/net
-    package: golang.org/x/net/html
-    symbols:
-      - inSelectIM
-      - inSelectInTableIM
     versions:
       - fixed: 0.0.0-20190125091013-d26f9f9a57f3
+    packages:
+      - package: golang.org/x/net/html
+        symbols:
+          - inSelectIM
+          - inSelectInTableIM
 description: |
     html.Parse does not properly handle "select" tags, which can lead
     to an infinite loop. If parsing user supplied input, this may be used

@@ -1,15 +1,17 @@
-packages:
+modules:
   - module: github.com/miekg/dns
-    symbols:
-      - id
-    derived_symbols:
-      - Msg.SetAxfr
-      - Msg.SetIxfr
-      - Msg.SetNotify
-      - Msg.SetQuestion
-      - Msg.SetUpdate
     versions:
       - fixed: 1.1.25-0.20191211073109-8ebf2e419df7
+    packages:
+      - package: github.com/miekg/dns
+        symbols:
+          - id
+        derived_symbols:
+          - Msg.SetAxfr
+          - Msg.SetIxfr
+          - Msg.SetNotify
+          - Msg.SetQuestion
+          - Msg.SetUpdate
 description: |
     DNS message transaction IDs are generated using math/rand which
     makes them relatively predictable. This reduces the complexity

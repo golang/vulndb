@@ -1,9 +1,11 @@
-packages:
+modules:
   - module: github.com/evanphx/json-patch
-    symbols:
-      - partialArray.add
     versions:
       - fixed: 0.5.2
+    packages:
+      - package: github.com/evanphx/json-patch
+        symbols:
+          - partialArray.add
 description: |
     A malicious JSON patch can cause a panic due to an out-of-bounds
     write attempt. This can be used as a denial of service vector if

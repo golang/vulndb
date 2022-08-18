@@ -1,10 +1,11 @@
-packages:
+modules:
   - module: go.etcd.io/etcd
-    package: go.etcd.io/etcd/auth
-    symbols:
-      - authStore.AuthInfoFromTLS
     versions:
       - fixed: 0.5.0-alpha.5.0.20190108173120-83c051b701d3
+    packages:
+      - package: go.etcd.io/etcd/auth
+        symbols:
+          - authStore.AuthInfoFromTLS
 description: |
     A user can use a valid client certificate that contains a CommonName that matches a
     valid RBAC username to authenticate themselves as that user, despite lacking the

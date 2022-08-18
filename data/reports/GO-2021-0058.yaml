@@ -1,24 +1,20 @@
-packages:
+modules:
   - module: github.com/crewjam/saml
-    symbols:
-      - IdpAuthnRequest.Validate
-      - ServiceProvider.ParseXMLResponse
-      - ServiceProvider.ValidateLogoutResponseForm
-      - ServiceProvider.ValidateLogoutResponseRedirect
-    derived_symbols:
-      - IdentityProvider.ServeSSO
-      - ServiceProvider.ParseResponse
-      - ServiceProvider.ValidateLogoutResponseRequest
     versions:
       - fixed: 0.4.3
-  - module: github.com/crewjam/saml
-    package: github.com/crewjam/saml/samlidp
-    versions:
-      - fixed: 0.4.3
-  - module: github.com/crewjam/saml
-    package: github.com/crewjam/saml/samlsp
-    versions:
-      - fixed: 0.4.3
+    packages:
+      - package: github.com/crewjam/saml
+        symbols:
+          - IdpAuthnRequest.Validate
+          - ServiceProvider.ParseXMLResponse
+          - ServiceProvider.ValidateLogoutResponseForm
+          - ServiceProvider.ValidateLogoutResponseRedirect
+        derived_symbols:
+          - IdentityProvider.ServeSSO
+          - ServiceProvider.ParseResponse
+          - ServiceProvider.ValidateLogoutResponseRequest
+      - package: github.com/crewjam/saml/samlidp
+      - package: github.com/crewjam/saml/samlsp
 description: |
     Due to the behavior of encoding/xml, a crafted XML document may cause
     XML Digital Signature validation to be entirely bypassed, causing an

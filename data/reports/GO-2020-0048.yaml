@@ -1,9 +1,11 @@
-packages:
+modules:
   - module: github.com/antchfx/xmlquery
-    symbols:
-      - LoadURL
     versions:
       - fixed: 1.3.1
+    packages:
+      - package: github.com/antchfx/xmlquery
+        symbols:
+          - LoadURL
 description: |
     LoadURL does not check the Content-Type of loaded resources,
     which can cause a panic due to nil pointer deference if the loaded

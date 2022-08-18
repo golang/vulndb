@@ -1,13 +1,14 @@
-packages:
+modules:
   - module: std
-    package: net/smtp
-    symbols:
-      - plainAuth.Start
     versions:
       - introduced: 1.1.0
         fixed: 1.8.4
       - introduced: 1.9.0
         fixed: 1.9.1
+    packages:
+      - package: net/smtp
+        symbols:
+          - plainAuth.Start
 description: |
     SMTP clients using net/smtp can use the PLAIN authentication scheme on
     network connections not secured with TLS, exposing passwords to

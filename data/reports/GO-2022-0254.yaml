@@ -1,22 +1,23 @@
-packages:
+modules:
   - module: github.com/ethereum/go-ethereum
-    package: github.com/ethereum/go-ethereum/core/vm
-    symbols:
-      - opCall
-      - opCallCode
-      - opDelegateCall
-      - opStaticCall
-      - EVMInterpreter.Run
-    derived_symbols:
-      - EVM.Call
-      - EVM.CallCode
-      - EVM.Create
-      - EVM.Create2
-      - EVM.DelegateCall
-      - EVM.StaticCall
     versions:
       - fixed: 1.10.8
     vulnerable_at: 1.10.7
+    packages:
+      - package: github.com/ethereum/go-ethereum/core/vm
+        symbols:
+          - opCall
+          - opCallCode
+          - opDelegateCall
+          - opStaticCall
+          - EVMInterpreter.Run
+        derived_symbols:
+          - EVM.Call
+          - EVM.CallCode
+          - EVM.Create
+          - EVM.Create2
+          - EVM.DelegateCall
+          - EVM.StaticCall
 description: |
     A vulnerability in the Geth EVM can cause a node to reject the
     canonical chain.

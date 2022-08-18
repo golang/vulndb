@@ -1,14 +1,16 @@
-packages:
+modules:
   - module: github.com/russellhaering/gosaml2
-    symbols:
-      - parseResponse
-    derived_symbols:
-      - SAMLServiceProvider.RetrieveAssertionInfo
-      - SAMLServiceProvider.ValidateEncodedLogoutRequestPOST
-      - SAMLServiceProvider.ValidateEncodedLogoutResponsePOST
-      - SAMLServiceProvider.ValidateEncodedResponse
     versions:
       - fixed: 0.6.0
+    packages:
+      - package: github.com/russellhaering/gosaml2
+        symbols:
+          - parseResponse
+        derived_symbols:
+          - SAMLServiceProvider.RetrieveAssertionInfo
+          - SAMLServiceProvider.ValidateEncodedLogoutRequestPOST
+          - SAMLServiceProvider.ValidateEncodedLogoutResponsePOST
+          - SAMLServiceProvider.ValidateEncodedResponse
 description: |
     Due to the behavior of encoding/xml, a crafted XML document may cause
     XML Digital Signature validation to be entirely bypassed, causing an

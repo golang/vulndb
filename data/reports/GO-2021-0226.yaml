@@ -1,24 +1,20 @@
-packages:
+modules:
   - module: std
-    package: net/http/cgi
-    symbols:
-      - response.Write
-      - response.WriteHeader
-      - response.writeCGIHeader
     versions:
       - fixed: 1.14.8
       - introduced: 1.15.0
         fixed: 1.15.1
-  - module: std
-    package: net/http/fcgi
-    symbols:
-      - response.Write
-      - response.WriteHeader
-      - response.writeCGIHeader
-    versions:
-      - fixed: 1.14.8
-      - introduced: 1.15.0
-        fixed: 1.15.1
+    packages:
+      - package: net/http/cgi
+        symbols:
+          - response.Write
+          - response.WriteHeader
+          - response.writeCGIHeader
+      - package: net/http/fcgi
+        symbols:
+          - response.Write
+          - response.WriteHeader
+          - response.writeCGIHeader
 description: |
     When a Handler does not explicitly set the Content-Type header, the the
     package would default to “text/html”, which could cause a Cross-Site Scripting

@@ -1,10 +1,11 @@
-packages:
+modules:
   - module: golang.org/x/crypto
-    package: golang.org/x/crypto/ssh
-    symbols:
-      - NewClientConn
     versions:
       - fixed: 0.0.0-20170330155735-e4e2799dd7aa
+    packages:
+      - package: golang.org/x/crypto/ssh
+        symbols:
+          - NewClientConn
 description: |
     By default host key verification is disabled which allows for
     man-in-the-middle attacks against SSH clients if

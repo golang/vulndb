@@ -1,14 +1,15 @@
-packages:
+modules:
   - module: std
-    package: math/big
-    symbols:
-      - Float.GobDecode
-      - Rat.GobDecode
     versions:
       - fixed: 1.17.13
       - introduced: 1.18.0
         fixed: 1.18.5
     vulnerable_at: 1.18.4
+    packages:
+      - package: math/big
+        symbols:
+          - Float.GobDecode
+          - Rat.GobDecode
 description: |
     Decoding big.Float and big.Rat types can panic if the encoded message is
     too short, potentially allowing a denial of service.

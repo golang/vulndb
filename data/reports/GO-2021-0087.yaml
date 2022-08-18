@@ -1,10 +1,11 @@
-packages:
+modules:
   - module: github.com/opencontainers/runc
-    package: github.com/opencontainers/runc/libcontainer
-    symbols:
-      - mountToRootfs
     versions:
       - fixed: 1.0.0-rc9.0.20200122160610-2fc03cc11c77
+    packages:
+      - package: github.com/opencontainers/runc/libcontainer
+        symbols:
+          - mountToRootfs
 description: |
     A race while mounting volumes allows a possible symlink-exchange
     attack, allowing a user whom can start multiple containers with

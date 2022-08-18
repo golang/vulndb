@@ -1,13 +1,14 @@
-packages:
+modules:
   - module: std
-    package: cmd/go/internal/get
-    symbols:
-      - downloadPackage
     versions:
       - fixed: 1.10.6
       - introduced: 1.11.0
         fixed: 1.11.3
     vulnerable_at: 1.11.2
+    packages:
+      - package: cmd/go/internal/get
+        symbols:
+          - downloadPackage
 description: |
     The "go get" command is vulnerable to remote code execution when executed
     with the -u flag and the import path of a malicious Go package, or a

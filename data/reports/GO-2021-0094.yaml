@@ -1,9 +1,11 @@
-packages:
+modules:
   - module: github.com/hashicorp/go-slug
-    symbols:
-      - Unpack
     versions:
       - fixed: 0.5.0
+    packages:
+      - package: github.com/hashicorp/go-slug
+        symbols:
+          - Unpack
 description: |
     Protections against directory traversal during archive extraction can be
     bypassed by chaining multiple symbolic links within the archive. This allows

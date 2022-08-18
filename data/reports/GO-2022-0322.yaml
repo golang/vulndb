@@ -1,26 +1,27 @@
-packages:
+modules:
   - module: github.com/prometheus/client_golang
-    package: github.com/prometheus/client_golang/prometheus/promhttp
-    symbols:
-      - sanitizeMethod
-    derived_symbols:
-      - Handler
-      - HandlerFor
-      - InstrumentHandlerCounter
-      - InstrumentHandlerDuration
-      - InstrumentHandlerRequestSize
-      - InstrumentHandlerResponseSize
-      - InstrumentHandlerTimeToWriteHeader
-      - InstrumentMetricHandler
-      - InstrumentRoundTripperCounter
-      - InstrumentRoundTripperDuration
-      - flusherDelegator.Flush
-      - readerFromDelegator.ReadFrom
-      - responseWriterDelegator.Write
-      - responseWriterDelegator.WriteHeader
     versions:
       - fixed: 1.11.1
     vulnerable_at: 1.11.0
+    packages:
+      - package: github.com/prometheus/client_golang/prometheus/promhttp
+        symbols:
+          - sanitizeMethod
+        derived_symbols:
+          - Handler
+          - HandlerFor
+          - InstrumentHandlerCounter
+          - InstrumentHandlerDuration
+          - InstrumentHandlerRequestSize
+          - InstrumentHandlerResponseSize
+          - InstrumentHandlerTimeToWriteHeader
+          - InstrumentMetricHandler
+          - InstrumentRoundTripperCounter
+          - InstrumentRoundTripperDuration
+          - flusherDelegator.Flush
+          - readerFromDelegator.ReadFrom
+          - responseWriterDelegator.Write
+          - responseWriterDelegator.WriteHeader
 description: |
     The Prometheus client_golang HTTP server is vulnerable to a denial of
     service attack when handling requests with non-standard HTTP methods.

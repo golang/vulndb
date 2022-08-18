@@ -1,14 +1,18 @@
-packages:
+modules:
   - module: github.com/dgrijalva/jwt-go
-    symbols:
-      - MapClaims.VerifyAudience
     versions:
       - introduced: 0.0.0-20150717181359-44718f8a89b0
+    packages:
+      - package: github.com/dgrijalva/jwt-go
+        symbols:
+          - MapClaims.VerifyAudience
   - module: github.com/dgrijalva/jwt-go/v4
-    symbols:
-      - MapClaims.VerifyAudience
     versions:
       - fixed: 4.0.0-preview1
+    packages:
+      - package: github.com/dgrijalva/jwt-go/v4
+        symbols:
+          - MapClaims.VerifyAudience
 description: |
     If a JWT contains an audience claim with an array of strings, rather
     than a single string, and MapClaims.VerifyAudience is called with

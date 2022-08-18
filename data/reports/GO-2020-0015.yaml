@@ -1,18 +1,16 @@
-packages:
+modules:
   - module: golang.org/x/text
-    package: golang.org/x/text/encoding/unicode
-    symbols:
-      - utf16Decoder.Transform
-    derived_symbols:
-      - bomOverride.Transform
     versions:
       - fixed: 0.3.3
-  - module: golang.org/x/text
-    package: golang.org/x/text/transform
-    symbols:
-      - Transform
-    versions:
-      - fixed: 0.3.3
+    packages:
+      - package: golang.org/x/text/encoding/unicode
+        symbols:
+          - utf16Decoder.Transform
+        derived_symbols:
+          - bomOverride.Transform
+      - package: golang.org/x/text/transform
+        symbols:
+          - Transform
 description: |
     An attacker could provide a single byte to a UTF16 decoder instantiated with
     UseBOM or ExpectBOM to trigger an infinite loop if the String function on

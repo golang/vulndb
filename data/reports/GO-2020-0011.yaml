@@ -1,10 +1,12 @@
-packages:
+modules:
   - module: github.com/square/go-jose
-    symbols:
-      - JsonWebEncryption.Decrypt
-      - JsonWebSignature.Verify
     versions:
       - fixed: 0.0.0-20160922232413-2c5656adca99
+    packages:
+      - package: github.com/square/go-jose
+        symbols:
+          - JsonWebEncryption.Decrypt
+          - JsonWebSignature.Verify
 description: |
     When decrypting JsonWebEncryption objects with multiple recipients
     or JsonWebSignature objects with multiple signatures the Decrypt

@@ -1,11 +1,12 @@
-packages:
+modules:
   - module: github.com/containers/buildah
-    package: github.com/containers/buildah/chroot
-    symbols:
-      - RunUsingChroot
     versions:
       - fixed: 1.22.0
     vulnerable_at: 1.21.0
+    packages:
+      - package: github.com/containers/buildah/chroot
+        symbols:
+          - RunUsingChroot
 description: |
     The RunUsingChroot function unintentionally propagates environment
     variables from the current process to the child process.

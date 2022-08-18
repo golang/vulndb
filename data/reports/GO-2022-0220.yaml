@@ -1,22 +1,22 @@
-packages:
+modules:
   - module: std
-    package: runtime
-    symbols:
-      - loadOptionalSyscalls
-      - osinit
-      - syscall_loadsystemlibrary
     versions:
       - fixed: 1.11.10
       - introduced: 1.12.0
         fixed: 1.12.2
-  - module: std
-    package: syscall
-    symbols:
-      - LoadDLL
-    versions:
-      - fixed: 1.11.10
-      - introduced: 1.12.0
-        fixed: 1.12.2
+    packages:
+      - package: runtime
+        goos:
+          - windows
+        symbols:
+          - loadOptionalSyscalls
+          - osinit
+          - syscall_loadsystemlibrary
+      - package: syscall
+        goos:
+          - windows
+        symbols:
+          - LoadDLL
 description: |
     Go on Windows misused certain LoadLibrary functionality, leading to DLL
     injection.
@@ -24,11 +24,11 @@ published: 2022-05-25T18:01:46Z
 cves:
   - CVE-2019-9634
 credit: Samuel Cochran, Jason Donenfeld
-os:
-  - windows
 links:
     pr: https://go.dev/cl/165798
     commit: https://go.googlesource.com/go/+/9b6e9f0c8c66355c0f0575d808b32f52c8c6d21c
     context:
       - https://go.dev/issue/28978
       - https://groups.google.com/g/golang-announce/c/z9eTD34GEIs/m/Z_XmhTrVAwAJ
+os:
+  - windows

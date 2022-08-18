@@ -1,21 +1,23 @@
-packages:
+modules:
   - module: github.com/justinas/nosurf
-    symbols:
-      - VerifyToken
-      - verifyToken
-    derived_symbols:
-      - CSRFHandler.ServeHTTP
     versions:
       - fixed: 1.1.1
+    packages:
+      - package: github.com/justinas/nosurf
+        symbols:
+          - VerifyToken
+          - verifyToken
+        derived_symbols:
+          - CSRFHandler.ServeHTTP
 description: |
     Due to improper validation of caller input, validation is silently disabled
     if the provided expected token is malformed, causing any user supplied token
     to be considered valid.
 published: 2021-04-14T20:04:52Z
 credit: '@aeneasr'
-cve_metadata:
-    id: CVE-2020-36564
-    cwe: "CWE 345: Insufficient Verification of Data Authenticity"
 links:
     pr: https://github.com/justinas/nosurf/pull/60
     commit: https://github.com/justinas/nosurf/commit/4d86df7a4affa1fa50ab39fb09aac56c3ce9c314
+cve_metadata:
+    id: CVE-2020-36564
+    cwe: 'CWE 345: Insufficient Verification of Data Authenticity'

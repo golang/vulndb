@@ -1,23 +1,25 @@
-packages:
+modules:
   - module: std
-    package: net/http
-    symbols:
-      - http2serverConn.serve
-      - http2serverConn.writeFrame
-      - http2serverConn.scheduleFrameWrite
     versions:
       - fixed: 1.11.13
       - introduced: 1.12.0
         fixed: 1.12.8
     vulnerable_at: 1.12.7
+    packages:
+      - package: net/http
+        symbols:
+          - http2serverConn.serve
+          - http2serverConn.writeFrame
+          - http2serverConn.scheduleFrameWrite
   - module: golang.org/x/net
-    package: golang.org/x/net/http
-    symbols:
-      - serverConn.serve
-      - serverConn.writeFrame
-      - serverConn.scheduleFrameWrite
     versions:
       - fixed: 0.0.0-20190813141303-74dc4d7220e7
+    packages:
+      - package: golang.org/x/net/http
+        symbols:
+          - serverConn.serve
+          - serverConn.writeFrame
+          - serverConn.scheduleFrameWrite
 description: |
     Some HTTP/2 implementations are vulnerable to a reset flood, potentially
     leading to a denial of service.

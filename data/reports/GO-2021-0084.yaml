@@ -1,11 +1,12 @@
-packages:
+modules:
   - module: github.com/astaxie/beego
-    package: github.com/astaxie/beego/session
-    symbols:
-      - FileProvider.SessionRead
-      - FileProvider.SessionRegenerate
     versions:
       - fixed: 1.12.2-0.20200613154013-bac2b31afecc
+    packages:
+      - package: github.com/astaxie/beego/session
+        symbols:
+          - FileProvider.SessionRead
+          - FileProvider.SessionRegenerate
 description: |
     Session data is stored using permissive permissions, allowing local users
     with filesystem access to read arbitrary data.

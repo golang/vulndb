@@ -1,15 +1,17 @@
-packages:
+modules:
   - module: github.com/miekg/dns
-    symbols:
-      - Server.serveTCP
-    derived_symbols:
-      - ActivateAndServe
-      - ListenAndServe
-      - ListenAndServeTLS
-      - Server.ActivateAndServe
-      - Server.ListenAndServe
     versions:
       - fixed: 1.0.4-0.20180125103619-43913f2f4fbd
+    packages:
+      - package: github.com/miekg/dns
+        symbols:
+          - Server.serveTCP
+        derived_symbols:
+          - ActivateAndServe
+          - ListenAndServe
+          - ListenAndServeTLS
+          - Server.ActivateAndServe
+          - Server.ListenAndServe
 description: |
     An attacker may prevent TCP connections to a Server by opening
     a connection and leaving it idle, until the connection is closed by

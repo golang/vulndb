@@ -1,14 +1,16 @@
-packages:
+modules:
   - module: github.com/seccomp/libseccomp-golang
-    symbols:
-      - ScmpFilter.addRuleGeneric
-    derived_symbols:
-      - ScmpFilter.AddRule
-      - ScmpFilter.AddRuleConditional
-      - ScmpFilter.AddRuleConditionalExact
-      - ScmpFilter.AddRuleExact
     versions:
       - fixed: 0.9.1-0.20170424173420-06e7a29f36a3
+    packages:
+      - package: github.com/seccomp/libseccomp-golang
+        symbols:
+          - ScmpFilter.addRuleGeneric
+        derived_symbols:
+          - ScmpFilter.AddRule
+          - ScmpFilter.AddRuleConditional
+          - ScmpFilter.AddRuleConditionalExact
+          - ScmpFilter.AddRuleExact
 description: |
     Filters containing rules with multiple syscall arguments are improperly
     constructed, such that all arguments are required to match rather than

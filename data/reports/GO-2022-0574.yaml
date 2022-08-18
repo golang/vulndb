@@ -1,67 +1,68 @@
-packages:
+modules:
   - module: github.com/open-policy-agent/opa
-    package: github.com/open-policy-agent/opa/ast
-    symbols:
-      - rewriteDeclaredVarsInTerm
-    derived_symbols:
-      - Args.Copy
-      - Array.Foreach
-      - Array.Iter
-      - Array.Until
-      - CompileModules
-      - CompileModulesWithOpt
-      - Compiler.Compile
-      - Copy
-      - GenericVisitor.Walk
-      - Head.Copy
-      - Import.Copy
-      - Module.Copy
-      - MustCompileModules
-      - MustCompileModulesWithOpts
-      - MustParseBody
-      - MustParseBodyWithOpts
-      - MustParseImports
-      - MustParseModule
-      - MustParseModuleWithOpts
-      - MustParsePackage
-      - MustParseRule
-      - MustParseStatement
-      - MustParseStatements
-      - ParseBodyWithOpts
-      - ParseImports
-      - ParseModule
-      - ParseModuleWithOpts
-      - ParsePackage
-      - ParseRule
-      - ParseStatement
-      - ParseStatements
-      - ParseStatementsWithOpts
-      - Parser.Parse
-      - QueryContext.Copy
-      - Ref.Extend
-      - Rule.Copy
-      - Term.Copy
-      - ValueToInterface
-      - VarVisitor.Walk
-      - WalkWiths
-      - baseDocEqIndex.AllRules
-      - baseDocEqIndex.Lookup
-      - object.Iter
-      - queryCompiler.Compile
-      - ruleWalker.Do
-      - set.Copy
-      - set.Diff
-      - set.Foreach
-      - set.Intersect
-      - set.Iter
-      - set.Reduce
-      - set.Union
-      - trieNode.Do
-      - trieNode.Traverse
-      - trieTraversalResult.Add
     versions:
       - fixed: 0.42.0
     vulnerable_at: 0.41.0
+    packages:
+      - package: github.com/open-policy-agent/opa/ast
+        symbols:
+          - rewriteDeclaredVarsInTerm
+        derived_symbols:
+          - Args.Copy
+          - Array.Foreach
+          - Array.Iter
+          - Array.Until
+          - CompileModules
+          - CompileModulesWithOpt
+          - Compiler.Compile
+          - Copy
+          - GenericVisitor.Walk
+          - Head.Copy
+          - Import.Copy
+          - Module.Copy
+          - MustCompileModules
+          - MustCompileModulesWithOpts
+          - MustParseBody
+          - MustParseBodyWithOpts
+          - MustParseImports
+          - MustParseModule
+          - MustParseModuleWithOpts
+          - MustParsePackage
+          - MustParseRule
+          - MustParseStatement
+          - MustParseStatements
+          - ParseBodyWithOpts
+          - ParseImports
+          - ParseModule
+          - ParseModuleWithOpts
+          - ParsePackage
+          - ParseRule
+          - ParseStatement
+          - ParseStatements
+          - ParseStatementsWithOpts
+          - Parser.Parse
+          - QueryContext.Copy
+          - Ref.Extend
+          - Rule.Copy
+          - Term.Copy
+          - ValueToInterface
+          - VarVisitor.Walk
+          - WalkWiths
+          - baseDocEqIndex.AllRules
+          - baseDocEqIndex.Lookup
+          - object.Iter
+          - queryCompiler.Compile
+          - ruleWalker.Do
+          - set.Copy
+          - set.Diff
+          - set.Foreach
+          - set.Intersect
+          - set.Iter
+          - set.Reduce
+          - set.Union
+          - trieNode.Do
+          - trieNode.Traverse
+          - trieTraversalResult.Add
 description: |
     An issue in the AST parser of Open Policy Agent makes it possible for
     attackers to cause a Denial of Service attack from a crafted input.

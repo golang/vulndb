@@ -1,15 +1,16 @@
-packages:
+modules:
   - module: github.com/openshift/source-to-image
-    package: github.com/openshift/source-to-image/pkg/tar
-    symbols:
-      - stiTar.ExtractTarStreamFromTarReader
-      - stiTar.extractLink
-      - New
-    derived_symbols:
-      - stiTar.ExtractTarStream
-      - stiTar.ExtractTarStreamWithLogging
     versions:
       - fixed: 1.1.10-0.20180427153919-f5cbcbc5cc6f
+    packages:
+      - package: github.com/openshift/source-to-image/pkg/tar
+        symbols:
+          - stiTar.ExtractTarStreamFromTarReader
+          - stiTar.extractLink
+          - New
+        derived_symbols:
+          - stiTar.ExtractTarStream
+          - stiTar.ExtractTarStreamWithLogging
 description: |
     Due to improper path santization, archives containing relative file
     paths can cause files to be written (or overwritten) outside of the

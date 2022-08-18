@@ -1,16 +1,18 @@
-packages:
+modules:
   - module: std
-    package: crypto/x509
     versions:
       - fixed: 1.12.16
       - introduced: 1.13.0
         fixed: 1.13.7
     vulnerable_at: 1.13.6
+    packages:
+      - package: crypto/x509
   - module: golang.org/x/crypto
-    package: golang.org/x/crypto/cryptobyte
     versions:
       - fixed: 0.0.0-20200124225646-8b5121be2f68
     vulnerable_at: 0.0.0-20200115085410-6d4e4cb37c7d
+    packages:
+      - package: golang.org/x/crypto/cryptobyte
 description: |
     On 32-bit architectures, a malformed input to crypto/x509 or
     the ASN.1 parsing functions of golang.org/x/crypto/cryptobyte

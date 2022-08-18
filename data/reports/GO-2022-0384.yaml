@@ -1,15 +1,16 @@
-packages:
+modules:
   - module: helm.sh/helm/v3
-    package: helm.sh/helm/v3/pkg/downloader
-    symbols:
-      - ChartDownloader.ResolveChartVersion
-    derived_symbols:
-      - ChartDownloader.DownloadTo
-      - Manager.Build
-      - Manager.Update
     versions:
       - fixed: 3.6.1
     vulnerable_at: 3.6.0
+    packages:
+      - package: helm.sh/helm/v3/pkg/downloader
+        symbols:
+          - ChartDownloader.ResolveChartVersion
+        derived_symbols:
+          - ChartDownloader.DownloadTo
+          - Manager.Build
+          - Manager.Update
 description: |
     The username and password credentials associated with a Helm repository
     can be passed to another domain referenced by that Helm repository.

@@ -1,20 +1,24 @@
-packages:
+modules:
   - module: std
-    package: cmd/link
-    symbols:
-      - Link.address
     versions:
       - fixed: 1.16.9
       - introduced: 1.17.0
         fixed: 1.17.2
-  - module: std
-    package: misc/wasm
-    symbols:
-      - run
-    versions:
-      - fixed: 1.16.9
-      - introduced: 1.17.0
-        fixed: 1.17.2
+    packages:
+      - package: cmd/link
+        goos:
+          - js
+        goarch:
+          - wasm
+        symbols:
+          - Link.address
+      - package: misc/wasm
+        goos:
+          - js
+        goarch:
+          - wasm
+        symbols:
+          - run
 description: |
     When invoking functions from WASM modules, built using GOARCH=wasm GOOS=js,
     passing very large arguments can cause portions of the module to be
@@ -28,13 +32,13 @@ published: 2022-05-24T20:14:28Z
 cves:
   - CVE-2021-38297
 credit: Ben Lubar
-os:
-  - js
-arch:
-  - wasm
 links:
     pr: https://go.dev/cl/354571
     commit: https://go.googlesource.com/go/+/77f2750f4398990eed972186706f160631d7dae4
     context:
       - https://go.dev/issue/48797
       - https://groups.google.com/g/golang-announce/c/AEBu9j7yj5A
+os:
+  - js
+arch:
+  - wasm

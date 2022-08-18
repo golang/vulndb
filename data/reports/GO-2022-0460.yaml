@@ -1,20 +1,22 @@
-packages:
+modules:
   - module: github.com/pion/dtls/v2
-    symbols:
-      - fragmentBuffer.pop
-    derived_symbols:
-      - Client
-      - ClientWithContext
-      - Dial
-      - DialWithContext
-      - Resume
-      - Server
-      - ServerWithContext
-      - handshakeFSM.Run
-      - listener.Accept
     versions:
       - fixed: 2.1.4
     vulnerable_at: 2.1.3
+    packages:
+      - package: github.com/pion/dtls/v2
+        symbols:
+          - fragmentBuffer.pop
+        derived_symbols:
+          - Client
+          - ClientWithContext
+          - Dial
+          - DialWithContext
+          - Resume
+          - Server
+          - ServerWithContext
+          - handshakeFSM.Run
+          - listener.Accept
 description: |
     An attacker can send packets that send the DTLS server or client
     into an infinite loop.

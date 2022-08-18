@@ -1,19 +1,20 @@
-packages:
+modules:
   - module: std
-    package: crypto/rand
-    symbols:
-      - Read
     versions:
       - fixed: 1.17.11
       - introduced: 1.18.0
         fixed: 1.18.3
+    packages:
+      - package: crypto/rand
+        goos:
+          - windows
+        symbols:
+          - Read
 description: |
     On Windows, rand.Read will hang indefinitely if passed a buffer larger than
     1 << 32 - 1 bytes.
 published: 2022-06-09T01:43:37Z
 credit: Davis Goodin and Quim Muntal of Microsoft
-os:
-  - windows
 links:
     pr: https://go.dev/cl/402257
     commit: https://go.googlesource.com/go/+/bb1f4416180511231de6d17a1f2f55c82aafc863
@@ -27,3 +28,5 @@ cve_metadata:
         Infinite loop in Read in crypto/rand before Go 1.17.11 and Go 1.18.3 on
         Windows allows attacker to cause an indefinite hang by passing a buffer
         larger than 1 << 32 - 1 bytes.
+os:
+  - windows

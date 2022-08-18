@@ -1,14 +1,17 @@
-packages:
+modules:
   - module: std
-    package: crypto/elliptic
-    symbols:
-      - p256SubInternal
     versions:
       - introduced: 1.6.0
         fixed: 1.7.6
       - introduced: 1.8.0
         fixed: 1.8.2
     vulnerable_at: 1.8.1
+    packages:
+      - package: crypto/elliptic
+        goarch:
+          - amd64
+        symbols:
+          - p256SubInternal
 description: |
     The ScalarMult implementation of curve P-256 for amd64 architectures
     generates incorrect results for certain specific input points.
@@ -20,11 +23,11 @@ published: 2022-07-01T20:11:15Z
 cves:
   - CVE-2017-8932
 credit: Vlad Krasnov and Filippo Valsorda at Cloudflare
-arch:
-  - amd64
 links:
     pr: https://go.dev/cl/41070
     commit: https://go.googlesource.com/go/+/9294fa2749ffee7edbbb817a0ef9fe633136fa9c
     context:
       - https://go.dev/issue/20040
       - https://groups.google.com/g/golang-announce/c/B5ww0iFt1_Q/m/TgUFJV14BgAJ
+arch:
+  - amd64

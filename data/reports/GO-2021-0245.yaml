@@ -1,12 +1,13 @@
-packages:
+modules:
   - module: std
-    package: net/http/httputil
-    symbols:
-      - ReverseProxy.ServeHTTP
     versions:
       - fixed: 1.15.15
       - introduced: 1.16.0
         fixed: 1.16.7
+    packages:
+      - package: net/http/httputil
+        symbols:
+          - ReverseProxy.ServeHTTP
 description: |
     ReverseProxy can panic after encountering a problem copying
     a proxied response body.

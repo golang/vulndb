@@ -1,11 +1,12 @@
-packages:
+modules:
   - module: mellium.im/xmpp
-    package: mellium.im/xmpp/websocket
-    symbols:
-      - Dialer.config
     versions:
       - introduced: 0.18.0
         fixed: 0.21.1
+    packages:
+      - package: mellium.im/xmpp/websocket
+        symbols:
+          - Dialer.config
 description: |
     An attacker capable of spoofing DNS TXT records can redirect a
     WebSocket connection request to a server under their control without

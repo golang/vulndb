@@ -1,12 +1,13 @@
-packages:
+modules:
   - module: std
-    package: regexp
-    symbols:
-      - regexp.Compile
     versions:
       - fixed: 1.16.15
       - introduced: 1.17.0
         fixed: 1.17.8
+    packages:
+      - package: regexp
+        symbols:
+          - regexp.Compile
 description: |
     On 64-bit platforms, an extremely deeply nested expression can
     cause regexp.Compile to cause goroutine stack exhaustion, forcing

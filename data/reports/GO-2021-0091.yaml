@@ -1,9 +1,11 @@
-packages:
+modules:
   - module: github.com/gofiber/fiber
-    symbols:
-      - Ctx.Attachment
     versions:
       - fixed: 1.12.6-0.20200710202935-a8ad5454363f
+    packages:
+      - package: github.com/gofiber/fiber
+        symbols:
+          - Ctx.Attachment
 description: |
     Due to improper input validation when uploading a file, a malicious user may
     force the server to return arbitrary HTTP headers when the uploaded

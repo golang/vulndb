@@ -1,18 +1,19 @@
-packages:
+modules:
   - module: mellium.im/xmpp
-    package: mellium.im/xmpp/websocket
-    symbols:
-      - Dialer.config
-    derived_symbols:
-      - Dial
-      - DialDirect
-      - DialSession
-      - Dialer.Dial
-      - Dialer.DialDirect
-      - NewClient
     versions:
       - fixed: 0.21.1
     vulnerable_at: 0.21.0
+    packages:
+      - package: mellium.im/xmpp/websocket
+        symbols:
+          - Dialer.config
+        derived_symbols:
+          - Dial
+          - DialDirect
+          - DialSession
+          - Dialer.Dial
+          - Dialer.DialDirect
+          - NewClient
 description: |
     Websocket client connections are vulnerable to man-in-the-middle
     attacks via DNS spoofing.

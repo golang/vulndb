@@ -1,13 +1,14 @@
-packages:
+modules:
   - module: std
-    package: archive/zip
-    symbols:
-      - NewReader
-      - OpenReader
     versions:
       - fixed: 1.16.8
       - introduced: "1.17"
         fixed: 1.17.1
+    packages:
+      - package: archive/zip
+        symbols:
+          - NewReader
+          - OpenReader
 description: |
     The NewReader and OpenReader functions in archive/zip can cause a panic or
     an unrecoverable fatal error when reading an archive that claims to contain

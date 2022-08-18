@@ -1,12 +1,16 @@
-packages:
+modules:
   - module: github.com/hashicorp/go-getter
     versions:
       - introduced: 1.5.11
         fixed: 1.6.1
+    packages:
+      - package: github.com/hashicorp/go-getter
   - module: github.com/hashicorp/go-getter/v2
     versions:
       - introduced: 2.0.2
         fixed: 2.1.0
+    packages:
+      - package: github.com/hashicorp/go-getter/v2
 description: |
     Malicious HTTP responses can cause a number of misbehaviors,
     including overwriting local files, resource exhaustion, and panics.

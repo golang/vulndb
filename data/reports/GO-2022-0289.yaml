@@ -1,12 +1,13 @@
-packages:
+modules:
   - module: std
-    package: syscall
-    symbols:
-      - ForkExec
     versions:
       - fixed: 1.16.12
       - introduced: "1.17"
         fixed: 1.17.5
+    packages:
+      - package: syscall
+        symbols:
+          - ForkExec
 description: |
     When a Go program running on a Unix system is out of file descriptors and
     calls syscall.ForkExec (including indirectly by using the os/exec package),

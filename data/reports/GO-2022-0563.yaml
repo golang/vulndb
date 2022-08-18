@@ -1,11 +1,12 @@
-packages:
+modules:
   - module: github.com/filebrowser/filebrowser/v2
-    package: github.com/filebrowser/filebrowser/v2/http
-    symbols:
-      - NewHandler
     versions:
       - fixed: 2.18.0
     vulnerable_at: 2.17.2
+    packages:
+      - package: github.com/filebrowser/filebrowser/v2/http
+        symbols:
+          - NewHandler
 description: |
     A Cross-Site Request Forgery vulnerability exists in Filebrowser
     that allows attackers to create a backdoor user with admin privilege

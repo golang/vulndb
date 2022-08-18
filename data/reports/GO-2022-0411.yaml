@@ -1,11 +1,13 @@
-packages:
+modules:
   - module: github.com/Masterminds/goutils
-    symbols:
-      - RandomAlphaNumeric
-      - CryptoRandomAlphaNumeric
     versions:
       - fixed: 1.1.1
     vulnerable_at: 1.1.0
+    packages:
+      - package: github.com/Masterminds/goutils
+        symbols:
+          - RandomAlphaNumeric
+          - CryptoRandomAlphaNumeric
 description: |
     Randomly-generated alphanumeric strings contain significantly less entropy
     than expected.

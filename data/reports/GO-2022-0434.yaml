@@ -1,11 +1,14 @@
-packages:
+modules:
   - module: std
-    package: crypto/x509
-    symbols:
-      - Certificate.Verify
     versions:
       - introduced: 1.18.0
         fixed: 1.18.1
+    packages:
+      - package: crypto/x509
+        goos:
+          - darwin
+        symbols:
+          - Certificate.Verify
 description: |
     Verifying certificate chains containing certificates which are not compliant
     with RFC 5280 causes Certificate.Verify to panic on macOS.
@@ -16,11 +19,11 @@ published: 2022-05-23T21:59:00Z
 cves:
   - CVE-2022-27536
 credit: Tailscale
-os:
-  - darwin
 links:
     pr: https://go.dev/cl/393655
     commit: https://go.googlesource.com/go/+/0fca8a8f25cf4636fd980e72ba0bded4230922de
     context:
       - https://go.dev/issue/51759
       - https://groups.google.com/g/golang-announce/c/oecdBNLOml8
+os:
+  - darwin

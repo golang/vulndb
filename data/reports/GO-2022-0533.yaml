@@ -1,13 +1,16 @@
-packages:
+modules:
   - module: std
-    package: path/filepath
-    symbols:
-      - Clean
     versions:
       - fixed: 1.17.11
       - introduced: 1.18.0
         fixed: 1.18.3
     vulnerable_at: 1.18.2
+    packages:
+      - package: path/filepath
+        goos:
+          - windows
+        symbols:
+          - Clean
 description: |
     On Windows, the filepath.Clean function can convert certain invalid paths
     to valid, absolute paths, potentially allowing a directory traversal
@@ -16,8 +19,6 @@ description: |
     For example, Clean(`.\c:`) returns `c:`.
 published: 2022-07-28T17:25:07Z
 credit: Unrud
-os:
-  - windows
 links:
     pr: https://go.dev/cl/401595
     commit: https://go.googlesource.com/go/+/9cd1818a7d019c02fa4898b3e45a323e35033290
@@ -32,3 +33,5 @@ cve_metadata:
         Incorrect conversion of certain invalid paths to valid, absolute paths
         in Clean in path/filepath before Go 1.17.11 and Go 1.18.3 on Windows
         allows potential directory traversal attack.
+os:
+  - windows

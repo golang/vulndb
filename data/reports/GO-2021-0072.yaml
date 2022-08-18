@@ -1,32 +1,30 @@
-packages:
+modules:
   - module: github.com/docker/distribution
-    package: github.com/docker/distribution/registry/handlers
-    symbols:
-      - copyFullPayload
-    derived_symbols:
-      - blobUploadHandler.PatchBlobData
-      - blobUploadHandler.PutBlobUploadComplete
-      - imageManifestHandler.GetImageManifest
-      - imageManifestHandler.PutImageManifest
     versions:
       - fixed: 2.7.0-rc.0+incompatible
-  - module: github.com/docker/distribution
-    package: github.com/docker/distribution/registry/storage
-    symbols:
-      - blobStore.Get
-    derived_symbols:
-      - PurgeUploads
-      - Walk
-      - blobStore.Enumerate
-      - blobStore.Get
-      - linkedBlobStore.Enumerate
-      - linkedBlobStore.Get
-      - manifestStore.Enumerate
-      - manifestStore.Get
-      - registry.Enumerate
-      - registry.Repositories
-    versions:
-      - fixed: 2.7.0-rc.0+incompatible
+    packages:
+      - package: github.com/docker/distribution/registry/handlers
+        symbols:
+          - copyFullPayload
+        derived_symbols:
+          - blobUploadHandler.PatchBlobData
+          - blobUploadHandler.PutBlobUploadComplete
+          - imageManifestHandler.GetImageManifest
+          - imageManifestHandler.PutImageManifest
+      - package: github.com/docker/distribution/registry/storage
+        symbols:
+          - blobStore.Get
+        derived_symbols:
+          - PurgeUploads
+          - Walk
+          - blobStore.Enumerate
+          - blobStore.Get
+          - linkedBlobStore.Enumerate
+          - linkedBlobStore.Get
+          - manifestStore.Enumerate
+          - manifestStore.Get
+          - registry.Enumerate
+          - registry.Repositories
 description: |
     Various storage methods do not impose limits on how much content is accepted
     from user requests, allowing a malicious user to force the caller to allocate

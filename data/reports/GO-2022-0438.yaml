@@ -1,17 +1,19 @@
-packages:
+modules:
   - module: github.com/hashicorp/go-getter
-    symbols:
-      - RedactURL
-    derived_symbols:
-      - Client.Get
-      - FolderStorage.Get
-      - Get
-      - GetAny
-      - GetFile
-      - HttpGetter.Get
     versions:
       - fixed: 1.5.11
     vulnerable_at: 1.5.10
+    packages:
+      - package: github.com/hashicorp/go-getter
+        symbols:
+          - RedactURL
+        derived_symbols:
+          - Client.Get
+          - FolderStorage.Get
+          - Get
+          - GetAny
+          - GetFile
+          - HttpGetter.Get
 description: |
     The getter package can write SSH credentials to its logfile,
     exposing credentials to local users able to read the logfile.

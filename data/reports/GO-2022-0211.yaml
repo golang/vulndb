@@ -1,15 +1,16 @@
-packages:
+modules:
   - module: std
-    package: net/url
-    symbols:
-      - parseHost
-      - URL.Hostname
-      - URL.Port
     versions:
       - fixed: 1.11.13
       - introduced: 1.12.0
         fixed: 1.12.8
     vulnerable_at: 1.12.7
+    packages:
+      - package: net/url
+        symbols:
+          - parseHost
+          - URL.Hostname
+          - URL.Port
 description: |
     The url.Parse function accepts URLs with malformed hosts, such that the Host
     field can have arbitrary suffixes that appear in neither Hostname() nor Port(),

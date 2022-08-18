@@ -1,10 +1,12 @@
-packages:
+modules:
   - module: github.com/pires/go-proxyproto
-    symbols:
-      - Listener.Accept
     versions:
       - fixed: 0.6.1
     vulnerable_at: 0.5.0
+    packages:
+      - package: github.com/pires/go-proxyproto
+        symbols:
+          - Listener.Accept
 description: |
     The PROXY protocol server does not impose a timeout on reading the header
     from new connections, allowing a malicious client to cause resource

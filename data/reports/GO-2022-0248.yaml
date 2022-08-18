@@ -1,16 +1,17 @@
-packages:
+modules:
   - module: github.com/cloudflare/cfrpki
-    package: github.com/cloudflare/cfrpki/validator/pki
-    symbols:
-      - ExtractPathManifest
-    derived_symbols:
-      - SimpleManager.Explore
-      - SimpleManager.ExploreAdd
-      - Validator.AddManifest
-      - Validator.AddResource
     versions:
       - fixed: 1.4.3
     vulnerable_at: 1.4.2
+    packages:
+      - package: github.com/cloudflare/cfrpki/validator/pki
+        symbols:
+          - ExtractPathManifest
+        derived_symbols:
+          - SimpleManager.Explore
+          - SimpleManager.ExploreAdd
+          - Validator.AddManifest
+          - Validator.AddResource
 description: |
     Manifest path extraction is vulnerable to directory traversal attacks.
 

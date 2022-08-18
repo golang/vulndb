@@ -1,18 +1,15 @@
-packages:
+modules:
   - module: github.com/rancher/rancher
-    package: github.com/rancher/rancher/server
-    symbols:
-      - Start
     versions:
       - fixed: 2.2.5-rc6.0.20190621200032-0ddffe484adc+incompatible
     vulnerable_at: 2.2.5-rc6.0.20190621195844-88e9e38dc862+incompatible
-  - module: github.com/rancher/rancher
-    package: github.com/rancher/rancher/pkg/clusterrouter
-    symbols:
-      - Router.ServeHTTP
-    versions:
-      - fixed: 2.2.5-rc6.0.20190621200032-0ddffe484adc+incompatible
-    vulnerable_at: 2.2.5-rc6.0.20190621195844-88e9e38dc862+incompatible
+    packages:
+      - package: github.com/rancher/rancher/server
+        symbols:
+          - Start
+      - package: github.com/rancher/rancher/pkg/clusterrouter
+        symbols:
+          - Router.ServeHTTP
 description: |
     Rancher 2 is vulnerable to a Cross-Site Websocket Hijacking
     attack that allows an exploiter to gain access to clusters managed by
@@ -25,7 +22,7 @@ ghsas:
   - GHSA-xhg2-rvm8-w2jh
 credit: Matt Belisle and Alex Stevenson at Workiva
 links:
-    advisory: https://github.com/advisories/GHSA-xhg2-rvm8-w2jh
     commit: https://github.com/rancher/rancher/commit/0ddffe484adccb9e37d9432e8e625d8ebbfb0088
+    advisory: https://github.com/advisories/GHSA-xhg2-rvm8-w2jh
     context:
       - https://forums.rancher.com/t/rancher-release-v2-2-5-addresses-rancher-cve-2019-13209/14801

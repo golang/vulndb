@@ -1,26 +1,28 @@
-packages:
+modules:
   - module: github.com/Masterminds/vcs
-    symbols:
-      - BzrRepo.Get
-      - BzrRepo.Init
-      - BzrRepo.Ping
-      - BzrRepo.ExportDir
-      - GitRepo.Get
-      - GitRepo.Init
-      - GitRepo.Update
-      - HgRepo.Get
-      - HgRepo.Init
-      - HgRepo.Ping
-      - HgRepo.ExportDir
-      - NewSvnRepo
-      - SvnRepo.Get
-      - SvnRepo.Ping
-      - SvnRepo.ExportDir
-    derived_symbols:
-      - NewRepo
     versions:
       - fixed: 1.13.3
     vulnerable_at: 1.13.1
+    packages:
+      - package: github.com/Masterminds/vcs
+        symbols:
+          - BzrRepo.Get
+          - BzrRepo.Init
+          - BzrRepo.Ping
+          - BzrRepo.ExportDir
+          - GitRepo.Get
+          - GitRepo.Init
+          - GitRepo.Update
+          - HgRepo.Get
+          - HgRepo.Init
+          - HgRepo.Ping
+          - HgRepo.ExportDir
+          - NewSvnRepo
+          - SvnRepo.Get
+          - SvnRepo.Ping
+          - SvnRepo.ExportDir
+        derived_symbols:
+          - NewRepo
 description: |
     Passing untrusted inputs to VCS functions can permit an attacker
     to execute arbitrary commands.

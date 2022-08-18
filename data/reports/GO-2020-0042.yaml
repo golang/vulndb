@@ -1,10 +1,11 @@
-packages:
+modules:
   - module: github.com/sassoftware/go-rpmutils
-    package: github.com/sassoftware/go-rpmutils/cpio
-    symbols:
-      - Extract
     versions:
       - fixed: 0.1.0
+    packages:
+      - package: github.com/sassoftware/go-rpmutils/cpio
+        symbols:
+          - Extract
 description: |
     Due to improper path santization, RPMs containing relative file
     paths can cause files to be written (or overwritten) outside of the

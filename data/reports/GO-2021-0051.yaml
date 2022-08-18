@@ -1,20 +1,25 @@
-packages:
+modules:
   - module: github.com/labstack/echo/v4
-    symbols:
-      - common.static
     versions:
       - fixed: 4.1.18-0.20201215153152-4422e3b66b9f
+    packages:
+      - package: github.com/labstack/echo/v4
+        goos:
+          - windows
+        symbols:
+          - common.static
 description: |
     Due to improper sanitization of user input on Windows, the static file handler
     allows for directory traversal, allowing an attacker to read files outside of
     the target directory that the server has permission to read.
 published: 2021-04-14T20:04:52Z
 credit: '@little-cui (Apache ServiceComb)'
-cve_metadata:
-    id: CVE-2020-36565
-    cwe: "CWE 22: Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
-os:
-  - windows
 links:
     pr: https://github.com/labstack/echo/pull/1718
     commit: https://github.com/labstack/echo/commit/4422e3b66b9fd498ed1ae1d0242d660d0ed3faaa
+cve_metadata:
+    id: CVE-2020-36565
+    cwe: 'CWE 22: Improper Limitation of a Pathname to a Restricted Directory (''Path
+        Traversal'')'
+os:
+  - windows

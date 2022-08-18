@@ -1,13 +1,15 @@
-packages:
+modules:
   - module: github.com/ulikunitz/xz
-    symbols:
-      - readUvarint
-    derived_symbols:
-      - Reader.Read
-      - blockHeader.UnmarshalBinary
-      - streamReader.Read
     versions:
       - fixed: 0.5.8
+    packages:
+      - package: github.com/ulikunitz/xz
+        symbols:
+          - readUvarint
+        derived_symbols:
+          - Reader.Read
+          - blockHeader.UnmarshalBinary
+          - streamReader.Read
 description: |
     An attacker can construct a series of bytes such that calling
     Reader.Read on the bytes could cause an infinite loop. If

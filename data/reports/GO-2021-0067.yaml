@@ -1,11 +1,12 @@
-packages:
+modules:
   - module: std
-    package: archive/zip
-    symbols:
-      - toValidName
     versions:
       - introduced: 1.16.0
         fixed: 1.16.1
+    packages:
+      - package: archive/zip
+        symbols:
+          - toValidName
 description: |
     Using Reader.Open on an archive containing a file with a path
     prefixed by "../" will cause a panic due to a stack overflow.

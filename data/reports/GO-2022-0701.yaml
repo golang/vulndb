@@ -1,41 +1,27 @@
-packages:
+modules:
   - module: k8s.io/kubernetes
-    package: k8s.io/kubernetes/pkg/api/rest
-    symbols:
-      - BeforeCreate
     versions:
       - fixed: 1.1.1
-  - module: k8s.io/kubernetes
-    package: k8s.io/kubernetes/pkg/registry/generic/etcd
-    symbols:
-      - NamespaceKeyFunc
-    versions:
-      - fixed: 1.1.1
-  - module: k8s.io/kubernetes
-    package: k8s.io/kubernetes/pkg/storage
-    symbols:
-      - NamespaceKeyFunc
-      - NoNamespaceKeyFunc
-    versions:
-      - fixed: 1.1.1
-  - module: k8s.io/kubernetes
-    package: k8s.io/kubernetes/pkg/registry/namespace/etcd
-    symbols:
-      - NewREST
-    versions:
-      - fixed: 1.1.1
-  - module: k8s.io/kubernetes
-    package: k8s.io/kubernetes/pkg/registry/node/etcd
-    symbols:
-      - NewREST
-    versions:
-      - fixed: 1.1.1
-  - module: k8s.io/kubernetes
-    package: k8s.io/kubernetes/pkg/registry/persistentvolume/etcd
-    symbols:
-      - NewREST
-    versions:
-      - fixed: 1.1.1
+    packages:
+      - package: k8s.io/kubernetes/pkg/api/rest
+        symbols:
+          - BeforeCreate
+      - package: k8s.io/kubernetes/pkg/registry/generic/etcd
+        symbols:
+          - NamespaceKeyFunc
+      - package: k8s.io/kubernetes/pkg/storage
+        symbols:
+          - NamespaceKeyFunc
+          - NoNamespaceKeyFunc
+      - package: k8s.io/kubernetes/pkg/registry/namespace/etcd
+        symbols:
+          - NewREST
+      - package: k8s.io/kubernetes/pkg/registry/node/etcd
+        symbols:
+          - NewREST
+      - package: k8s.io/kubernetes/pkg/registry/persistentvolume/etcd
+        symbols:
+          - NewREST
 description: |
     Crafted object type names can cause directory traversal in Kubernetes.
 

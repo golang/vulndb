@@ -1,9 +1,11 @@
-packages:
+modules:
   - module: github.com/buger/jsonparser
-    symbols:
-      - findKeyStart
     versions:
       - fixed: 0.0.0-20200321185410-91ac96899e49
+    packages:
+      - package: github.com/buger/jsonparser
+        symbols:
+          - findKeyStart
 description: |
     Parsing malformed JSON which contain opening brackets, but not closing brackets,
     leads to an infinite loop. If operating on untrusted user input this can be

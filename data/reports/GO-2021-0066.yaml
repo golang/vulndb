@@ -1,11 +1,12 @@
-packages:
+modules:
   - module: k8s.io/kubernetes
-    package: k8s.io/kubernetes/pkg/credentialprovider
-    symbols:
-      - readDockerConfigFileFromBytes
-      - readDockerConfigJSONFileFromBytes
     versions:
       - fixed: 1.20.0-alpha.1
+    packages:
+      - package: k8s.io/kubernetes/pkg/credentialprovider
+        symbols:
+          - readDockerConfigFileFromBytes
+          - readDockerConfigJSONFileFromBytes
 description: |
     Attempting to read a malformed .dockercfg may cause secrets to be
     inappropriately logged.

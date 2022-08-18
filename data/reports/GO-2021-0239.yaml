@@ -1,16 +1,17 @@
-packages:
+modules:
   - module: std
-    package: net
-    symbols:
-      - Resolver.LookupAddr
-      - Resolver.LookupCNAME
-      - Resolver.LookupMX
-      - Resolver.LookupNS
-      - Resolver.LookupSRV
     versions:
       - fixed: 1.15.13
       - introduced: 1.16.0
         fixed: 1.16.5
+    packages:
+      - package: net
+        symbols:
+          - Resolver.LookupAddr
+          - Resolver.LookupCNAME
+          - Resolver.LookupMX
+          - Resolver.LookupNS
+          - Resolver.LookupSRV
 description: |
     The LookupCNAME, LookupSRV, LookupMX, LookupNS, and LookupAddr
     functions and their respective methods on the Resolver type may

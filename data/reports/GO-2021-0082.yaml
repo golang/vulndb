@@ -1,8 +1,9 @@
-packages:
+modules:
   - module: github.com/facebook/fbthrift
-    package: github.com/facebook/fbthrift/thrift/lib/go/thrift
     versions:
       - fixed: 0.31.1-0.20200311080807-483ed864d69f
+    packages:
+      - package: github.com/facebook/fbthrift/thrift/lib/go/thrift
 description: |
     Thirft Servers preallocate memory for the declared size of messages before
     checking the actual size of the message. This allows a malicious user to

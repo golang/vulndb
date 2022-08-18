@@ -1,25 +1,29 @@
-packages:
+modules:
   - module: github.com/cloudfoundry/archiver
-    symbols:
-      - tgzExtractor.Extract
-      - zipExtractor.Extract
     versions:
       - fixed: 0.0.0-20180523222229-09b5706aa936
+    packages:
+      - package: github.com/cloudfoundry/archiver
+        symbols:
+          - tgzExtractor.Extract
+          - zipExtractor.Extract
   - module: code.cloudfoundry.org/archiver
-    symbols:
-      - tgzExtractor.Extract
-      - zipExtractor.Extract
     versions:
       - fixed: 0.0.0-20180523222229-09b5706aa936
+    packages:
+      - package: code.cloudfoundry.org/archiver
+        symbols:
+          - tgzExtractor.Extract
+          - zipExtractor.Extract
 description: |
     Due to improper path santization, archives containing relative file
     paths can cause files to be written (or overwritten) outside of the
     target directory.
 published: 2021-04-14T20:04:52Z
-cve_metadata:
-    id: CVE-2018-25046
-    cwe: 'CWE 29: Path Traversal: "\..\filename"'
 links:
     commit: https://github.com/cloudfoundry/archiver/commit/09b5706aa9367972c09144a450bb4523049ee840
     context:
       - https://snyk.io/research/zip-slip-vulnerability
+cve_metadata:
+    id: CVE-2018-25046
+    cwe: 'CWE 29: Path Traversal: "\..\filename"'

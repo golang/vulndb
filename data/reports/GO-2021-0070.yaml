@@ -1,12 +1,13 @@
-packages:
+modules:
   - module: github.com/opencontainers/runc
-    package: github.com/opencontainers/runc/libcontainer/user
-    symbols:
-      - GetExecUser
-    derived_symbols:
-      - GetExecUserPath
     versions:
       - fixed: 0.1.0
+    packages:
+      - package: github.com/opencontainers/runc/libcontainer/user
+        symbols:
+          - GetExecUser
+        derived_symbols:
+          - GetExecUserPath
 description: |
     GetExecUser in the github.com/opencontainers/runc/libcontainer/user package will
     improperly interpret numeric UIDs as usernames. If the method is used without

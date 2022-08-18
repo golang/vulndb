@@ -1,18 +1,16 @@
-packages:
+modules:
   - module: github.com/containers/buildah
-    symbols:
-      - setupCapAdd
-      - setupCapDrop
     versions:
       - fixed: 1.25.0
     vulnerable_at: 1.24.0
-  - module: github.com/containers/buildah
-    package: github.com/containers/buildah/chroot
-    symbols:
-      - setCapabilities
-    versions:
-      - fixed: 1.25.0
-    vulnerable_at: 1.24.0
+    packages:
+      - package: github.com/containers/buildah
+        symbols:
+          - setupCapAdd
+          - setupCapDrop
+      - package: github.com/containers/buildah/chroot
+        symbols:
+          - setCapabilities
 description: |
     Containers are created with non-empty inheritable Linux process
     capabilities, permitting programs with inheritable file capabilities

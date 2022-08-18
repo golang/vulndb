@@ -1,11 +1,12 @@
-packages:
+modules:
   - module: go.etcd.io/etcd
-    package: go.etcd.io/etcd/wal
-    symbols:
-      - WAL.ReadAll
-      - decoder.decodeRecord
     versions:
       - fixed: 0.5.0-alpha.5.0.20200423152442-f4b650b51dc4
+    packages:
+      - package: go.etcd.io/etcd/wal
+        symbols:
+          - WAL.ReadAll
+          - decoder.decodeRecord
 description: |
     Malformed WALs can be constructed such that WAL.ReadAll can cause attempted
     out of bounds reads, or creation of arbitrarily sized slices, which may be used as

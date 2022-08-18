@@ -1,19 +1,21 @@
-packages:
+modules:
   - module: github.com/yi-ge/unzip
-    symbols:
-      - Unzip.Extract
     versions:
       - fixed: 1.0.3-0.20200308084313-2adbaa4891b9
+    packages:
+      - package: github.com/yi-ge/unzip
+        symbols:
+          - Unzip.Extract
 description: |
     Due to improper path santization, archives containing relative file
     paths can cause files to be written (or overwritten) outside of the
     target directory.
 published: 2021-04-14T20:04:52Z
-cve_metadata:
-    id: CVE-2020-36561
-    cwe: 'CWE 29: Path Traversal: "\..\filename"'
 links:
     pr: https://github.com/yi-ge/unzip/pull/1
     commit: https://github.com/yi-ge/unzip/commit/2adbaa4891b9690853ef10216189189f5ad7dc73
     context:
       - https://snyk.io/research/zip-slip-vulnerability
+cve_metadata:
+    id: CVE-2020-36561
+    cwe: 'CWE 29: Path Traversal: "\..\filename"'

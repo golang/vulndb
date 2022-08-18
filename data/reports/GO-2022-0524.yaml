@@ -1,13 +1,14 @@
-packages:
+modules:
   - module: std
-    package: compress/gzip
-    symbols:
-      - Reader.Read
     versions:
       - fixed: 1.17.12
       - introduced: 1.18.0
         fixed: 1.18.4
     vulnerable_at: 1.18.3
+    packages:
+      - package: compress/gzip
+        symbols:
+          - Reader.Read
 description: |
     Calling Reader.Read on an archive containing a large number of concatenated
     0-length compressed files can cause a panic due to stack exhaustion.
