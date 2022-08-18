@@ -3,7 +3,7 @@ module golang.org/x/vulndb
 go 1.18
 
 require (
-	golang.org/x/vuln v0.0.0-20220504230052-b2400d8d07c8
+	golang.org/x/vuln v0.0.0-20220819162940-6faf8534b80b
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 )
 
@@ -25,14 +25,14 @@ require (
 	go.opentelemetry.io/otel v1.4.0
 	go.opentelemetry.io/otel/metric v0.27.0
 	go.opentelemetry.io/otel/sdk v1.4.0
-	golang.org/x/exp v0.0.0-20220613132600-b0d781184e0d
+	golang.org/x/exp v0.0.0-20220722155223-a9213eeb770e
 	golang.org/x/exp/event v0.0.0-20220218215828-6cf2b201936e
 	golang.org/x/mod v0.6.0-dev.0.20220419223038-86c51ed26bb4
-	golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd
+	golang.org/x/net v0.0.0-20220722155237-a158d28d115b
 	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8
-	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
+	golang.org/x/sync v0.0.0-20220722155255-886fb9371eb4
 	golang.org/x/time v0.0.0-20191024005414-555d28b269f0
-	golang.org/x/tools v0.1.11-0.20220504204054-4911e4af7dc7
+	golang.org/x/tools v0.1.13-0.20220803210227-8b9a1fbdf5c3
 	google.golang.org/api v0.70.0
 	google.golang.org/grpc v1.44.0
 	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
@@ -71,7 +71,7 @@ require (
 	go.opentelemetry.io/otel/sdk/metric v0.26.0 // indirect
 	go.opentelemetry.io/otel/trace v1.4.0 // indirect
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519 // indirect
-	golang.org/x/sys v0.0.0-20220209214540-3681064d5158 // indirect
+	golang.org/x/sys v0.0.0-20220722155257-8c9f86f7a55f // indirect
 	golang.org/x/text v0.3.7 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/genproto v0.0.0-20220222213610-43724f9ea8cf // indirect

@@ -72,22 +72,20 @@ func ToCVE5(reportPath string) (_ *cveschema5.CVERecord, err error) {
 		},
 	}
 
-	for _, p := range r.Packages {
-		pkg := p.Package
-		if pkg == "" {
-			pkg = p.Module
+	for _, m := range r.Modules {
+		for _, p := range m.Packages {
+			affected := cveschema5.Affected{
+				CollectionURL: "https://pkg.go.dev",
+				PackageName:   p.Package,
+				Versions:      versionRangeToVersionRange(m.Versions),
+				DefaultStatus: cveschema5.StatusUnaffected,
+				Platforms:     p.GOOS,
+			}
+			for _, symbol := range p.AllSymbols() {
+				affected.ProgramRoutines = append(affected.ProgramRoutines, cveschema5.ProgramRoutine{Name: symbol})
+			}
+			c.Affected = append(c.Affected, affected)
 		}
-		affected := cveschema5.Affected{
-			CollectionURL: "https://pkg.go.dev",
-			PackageName:   pkg,
-			Versions:      versionRangeToVersionRange(p.Versions),
-			DefaultStatus: cveschema5.StatusUnaffected,
-			Platforms:     r.OS,
-		}
-		for _, symbol := range p.AllSymbols() {
-			affected.ProgramRoutines = append(affected.ProgramRoutines, cveschema5.ProgramRoutine{Name: symbol})
-		}
-		c.Affected = append(c.Affected, affected)
 	}
 
 	for _, link := range r.AllLinks() {

@@ -17,7 +17,7 @@ import (
 
 func TestGenerate(t *testing.T) {
 	r := report.Report{
-		Packages: []report.Package{
+		Modules: []*report.Module{
 			{
 				Module: "example.com/vulnerable/v2",
 				Versions: []report.VersionRange{
@@ -25,25 +25,42 @@ func TestGenerate(t *testing.T) {
 					{Introduced: "2.3.4", Fixed: "2.3.5"},
 					{Introduced: "2.5.0"},
 				},
-				Symbols:        []string{"A", "B.b"},
-				DerivedSymbols: []string{"D"},
-			},
-			{
-				Module:  "vanity.host/vulnerable",
-				Package: "vanity.host/vulnerable/package",
-				Symbols: []string{"b", "A.b"},
+				Packages: []*report.Package{
+					{
+						Package:        "example.com/vulnerable/v2",
+						GOOS:           []string{"windows"},
+						GOARCH:         []string{"arm64"},
+						Symbols:        []string{"A", "B.b"},
+						DerivedSymbols: []string{"D"},
+					},
+				},
+			}, {
+				Module: "vanity.host/vulnerable",
 				Versions: []report.VersionRange{
 					{Fixed: "2.1.1"},
 					{Introduced: "2.3.4", Fixed: "2.3.5"},
 					{Introduced: "2.5.0"},
 				},
-			},
-			{
-				Module:  "example.com/also-vulnerable",
-				Package: "example.com/also-vulnerable/package",
-				Symbols: []string{"z"},
+				Packages: []*report.Package{
+					{
+						Package: "vanity.host/vulnerable/package",
+						GOOS:    []string{"windows"},
+						GOARCH:  []string{"arm64"},
+						Symbols: []string{"A.b", "b"},
+					},
+				},
+			}, {
+				Module: "example.com/also-vulnerable",
 				Versions: []report.VersionRange{
 					{Fixed: "2.1.1"},
+				},
+				Packages: []*report.Package{
+					{
+						Package: "example.com/also-vulnerable/package",
+						GOOS:    []string{"windows"},
+						GOARCH:  []string{"arm64"},
+						Symbols: []string{"z"},
+					},
 				},
 			},
 		},
@@ -51,8 +68,6 @@ func TestGenerate(t *testing.T) {
 		CVEs:        []string{"CVE-0000-0000"},
 		GHSAs:       []string{"GHSA-abcd-efgh"},
 		Credit:      "ignored",
-		OS:          []string{"windows"},
-		Arch:        []string{"arm64"},
 		Links: report.Links{
 			PR:       "pr",
 			Commit:   "commit",
@@ -105,14 +120,19 @@ func TestGenerate(t *testing.T) {
 				},
 				DatabaseSpecific: osv.DatabaseSpecific{URL: url},
 				EcosystemSpecific: osv.EcosystemSpecific{
-					Symbols: []string{"A", "B.b", "D"},
-					GOOS:    []string{"windows"},
-					GOARCH:  []string{"arm64"},
+					Imports: []osv.EcosystemSpecificImport{
+						{
+							Path:    "example.com/vulnerable/v2",
+							GOOS:    []string{"windows"},
+							GOARCH:  []string{"arm64"},
+							Symbols: []string{"A", "B.b", "D"},
+						},
+					},
 				},
 			},
 			{
 				Package: osv.Package{
-					Name:      "vanity.host/vulnerable/package",
+					Name:      "vanity.host/vulnerable",
 					Ecosystem: "Go",
 				},
 				Ranges: []osv.AffectsRange{
@@ -139,14 +159,19 @@ func TestGenerate(t *testing.T) {
 				},
 				DatabaseSpecific: osv.DatabaseSpecific{URL: url},
 				EcosystemSpecific: osv.EcosystemSpecific{
-					Symbols: []string{"b", "A.b"},
-					GOOS:    []string{"windows"},
-					GOARCH:  []string{"arm64"},
+					Imports: []osv.EcosystemSpecificImport{
+						{
+							Path:    "vanity.host/vulnerable/package",
+							GOOS:    []string{"windows"},
+							GOARCH:  []string{"arm64"},
+							Symbols: []string{"A.b", "b"},
+						},
+					},
 				},
 			},
 			{
 				Package: osv.Package{
-					Name:      "example.com/also-vulnerable/package",
+					Name:      "example.com/also-vulnerable",
 					Ecosystem: "Go",
 				},
 				Ranges: []osv.AffectsRange{
@@ -164,9 +189,14 @@ func TestGenerate(t *testing.T) {
 				},
 				DatabaseSpecific: osv.DatabaseSpecific{URL: url},
 				EcosystemSpecific: osv.EcosystemSpecific{
-					Symbols: []string{"z"},
-					GOOS:    []string{"windows"},
-					GOARCH:  []string{"arm64"},
+					Imports: []osv.EcosystemSpecificImport{
+						{
+							Path:    "example.com/also-vulnerable/package",
+							GOOS:    []string{"windows"},
+							GOARCH:  []string{"arm64"},
+							Symbols: []string{"z"},
+						},
+					},
 				},
 			},
 		},

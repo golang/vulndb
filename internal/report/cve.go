@@ -65,14 +65,14 @@ func ToCVE(reportPath string) (_ *cveschema.CVE, err error) {
 		},
 	}
 
-	for _, p := range r.Packages {
+	for _, m := range r.Modules {
 		c.Affects.Vendor.Data = append(c.Affects.Vendor.Data, cveschema.VendorDataItem{
 			VendorName: "n/a", // ???
 			Product: cveschema.Product{
 				Data: []cveschema.ProductDataItem{
 					{
-						ProductName: p.Package,
-						Version:     versionToVersion(p.Versions),
+						ProductName: m.Module,
+						Version:     versionToVersion(m.Versions),
 					},
 				},
 			},
@@ -145,10 +145,18 @@ func CVEToReport(c *cveschema.CVE, modulePath string) *Report {
 			pkgPath = data2[0].ProductName
 		}
 	}
+	if modulePath == "" {
+		modulePath = "TODO"
+	}
+	if pkgPath == "" {
+		pkgPath = modulePath
+	}
 	r := &Report{
-		Packages: []Package{{
-			Module:  modulePath,
-			Package: pkgPath,
+		Modules: []*Module{{
+			Module: modulePath,
+			Packages: []*Package{{
+				Package: pkgPath,
+			}},
 		}},
 		Description: description,
 		CVEs:        []string{c.Metadata.ID},
@@ -160,11 +168,11 @@ func CVEToReport(c *cveschema.CVE, modulePath string) *Report {
 		},
 	}
 	if !strings.Contains(modulePath, ".") {
-		r.Packages[0].Module = stdlib.ModulePath
-		r.Packages[0].Package = modulePath
+		r.Modules[0].Module = stdlib.ModulePath
+		r.Modules[0].Packages[0].Package = modulePath
 	}
-	if stdlib.Contains(r.Packages[0].Module) && r.Packages[0].Package == "" {
-		r.Packages[0].Package = modulePath
+	if stdlib.Contains(r.Modules[0].Module) && r.Modules[0].Packages[0].Package == "" {
+		r.Modules[0].Packages[0].Package = modulePath
 	}
 	r.Fix()
 	return r

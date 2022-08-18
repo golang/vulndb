@@ -2,15 +2,18 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-packages:
+modules:
   - module: std
-    package: crypto/rand
-    symbols:
-      - TestSymbol
     versions:
       - fixed: 1.17.11
       - introduced: 1.18.0
         fixed: 1.18.3
+    packages:
+      - package: crypto/rand
+        goos:
+          - windows
+        symbols:
+          - TestSymbol
 description: |
     On Windows, TestSymbol will hang indefinitely if passed a large buffer.
 cve_metadata:
@@ -19,8 +22,6 @@ cve_metadata:
   description: |
       A description
 credit: A Credit
-os:
-  - windows
 links:
     pr: https://go.dev/cl/12345
     commit: https://go.googlesource.com/go/+/abcde

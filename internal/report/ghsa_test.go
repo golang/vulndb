@@ -28,12 +28,14 @@ func TestGHSAToReport(t *testing.T) {
 	}
 	got := GHSAToReport(sa, "aModule")
 	want := &Report{
-		Packages: []Package{{
-			Module:  "aModule",
-			Package: "aPackage",
+		Modules: []*Module{{
+			Module: "aModule",
 			Versions: []VersionRange{
 				{Fixed: "1.2.3"},
 			},
+			Packages: []*Package{{
+				Package: "aPackage",
+			}},
 		}},
 		LastModified: &updatedTime,
 		Description:  "a description",

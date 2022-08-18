@@ -34,18 +34,20 @@ func TestLint(t *testing.T) {
 		want   []string
 	}{
 		{
-			desc: "no packages",
+			desc: "no modules",
 			report: Report{
 				Description: "description",
 			},
-			want: []string{"no packages"},
+			want: []string{"no modules"},
 		},
 		{
 			desc: "missing module",
 			report: Report{
-				Packages: []Package{{
-					// no module
-					Package: "golang.org/x/vulndb",
+				Modules: []*Module{{
+					// mo module
+					Packages: []*Package{{
+						Package: "golang.org/x/vulndb",
+					}},
 				}},
 				Description: "description",
 			},
@@ -54,9 +56,11 @@ func TestLint(t *testing.T) {
 		{
 			desc: "missing description",
 			report: Report{
-				Packages: []Package{{
-					Module:  "std",
-					Package: "time",
+				Modules: []*Module{{
+					Module: "std",
+					Packages: []*Package{{
+						Package: "time",
+					}},
 				}},
 				// no description
 				Links: validStdLibLinks,
@@ -64,22 +68,26 @@ func TestLint(t *testing.T) {
 			want: []string{"missing description"},
 		},
 		{
-			desc: "third party: redundant module and package",
+			desc: "missing package path",
 			report: Report{
-				Packages: []Package{{
-					Module:  "golang.org/x/vulndb",
-					Package: "golang.org/x/vulndb",
+				Modules: []*Module{{
+					Module: "golang.org/x/vulndb",
+					Packages: []*Package{{
+						Symbols: []string{"Foo"},
+					}},
 				}},
 				Description: "description",
 			},
-			want: []string{"package is redundant and can be removed"},
+			want: []string{"missing package"},
 		},
 		{
 			desc: "third party: module is not a prefix of package",
 			report: Report{
-				Packages: []Package{{
-					Module:  "golang.org/x/vulndb",
-					Package: "golang.org/x/crypto",
+				Modules: []*Module{{
+					Module: "golang.org/x/vulndb",
+					Packages: []*Package{{
+						Package: "golang.org/x/crypto",
+					}},
 				}},
 				Description: "description",
 			},
@@ -88,8 +96,11 @@ func TestLint(t *testing.T) {
 		{
 			desc: "third party: invalid import path",
 			report: Report{
-				Packages: []Package{{
+				Modules: []*Module{{
 					Module: "invalid.",
+					Packages: []*Package{{
+						Package: "invalid.",
+					}},
 					Versions: []VersionRange{{
 						Fixed: "1.2.1",
 					}},
@@ -102,9 +113,12 @@ func TestLint(t *testing.T) {
 		{
 			desc: "standard library: missing package",
 			report: Report{
-				Packages: []Package{{
+				Modules: []*Module{{
 					Module: "std",
-					// no package
+					Packages: []*Package{{
+						// no package
+						Symbols: []string{"Atoi"},
+					}},
 				}},
 				Description: "description",
 				Links:       validStdLibLinks,
@@ -114,13 +128,15 @@ func TestLint(t *testing.T) {
 		{
 			desc: "overlapping version ranges",
 			report: Report{
-				Packages: []Package{{
-					Module:  "std",
-					Package: "time",
+				Modules: []*Module{{
+					Module: "std",
 					Versions: []VersionRange{{
 						Fixed: "1.2.1",
 					}, {
 						Fixed: "1.3.2",
+					}},
+					Packages: []*Package{{
+						Package: "time",
 					}},
 				}},
 				Description: "description",
@@ -131,12 +147,14 @@ func TestLint(t *testing.T) {
 		{
 			desc: "fixed before introduced",
 			report: Report{
-				Packages: []Package{{
-					Module:  "std",
-					Package: "time",
+				Modules: []*Module{{
+					Module: "std",
 					Versions: []VersionRange{{
 						Introduced: "1.3",
 						Fixed:      "1.2.1",
+					}},
+					Packages: []*Package{{
+						Package: "time",
 					}},
 				}},
 				Description: "description",
@@ -147,11 +165,13 @@ func TestLint(t *testing.T) {
 		{
 			desc: "invalid semantic version",
 			report: Report{
-				Packages: []Package{{
-					Module:  "std",
-					Package: "time",
+				Modules: []*Module{{
+					Module: "std",
 					Versions: []VersionRange{{
 						Introduced: "1.3.X",
+					}},
+					Packages: []*Package{{
+						Package: "time",
 					}},
 				}},
 				Description: "description",
@@ -162,9 +182,11 @@ func TestLint(t *testing.T) {
 		{
 			desc: "last modified before published",
 			report: Report{
-				Packages: []Package{{
-					Module:  "std",
-					Package: "time",
+				Modules: []*Module{{
+					Module: "std",
+					Packages: []*Package{{
+						Package: "time",
+					}},
 				}},
 				Description:  "description",
 				LastModified: &jan2000,
@@ -176,9 +198,11 @@ func TestLint(t *testing.T) {
 		{
 			desc: "bad cve identifier",
 			report: Report{
-				Packages: []Package{{
-					Module:  "std",
-					Package: "time",
+				Modules: []*Module{{
+					Module: "std",
+					Packages: []*Package{{
+						Package: "time",
+					}},
 				}},
 				Description: "description",
 				CVEs:        []string{"CVE.12345.456"},
@@ -189,9 +213,11 @@ func TestLint(t *testing.T) {
 		{
 			desc: "cve and cve metadata both present",
 			report: Report{
-				Packages: []Package{{
-					Module:  "std",
-					Package: "time",
+				Modules: []*Module{{
+					Module: "std",
+					Packages: []*Package{{
+						Package: "time",
+					}},
 				}},
 				Description: "description",
 				CVEs:        []string{"CVE-2022-1234545"},
@@ -205,9 +231,11 @@ func TestLint(t *testing.T) {
 		{
 			desc: "missing cve metadata id",
 			report: Report{
-				Packages: []Package{{
-					Module:  "std",
-					Package: "time",
+				Modules: []*Module{{
+					Module: "std",
+					Packages: []*Package{{
+						Package: "time",
+					}},
 				}},
 				Description: "description",
 				CVEMetadata: &CVEMeta{
@@ -220,9 +248,11 @@ func TestLint(t *testing.T) {
 		{
 			desc: "bad cve metadata id",
 			report: Report{
-				Packages: []Package{{
-					Module:  "std",
-					Package: "time",
+				Modules: []*Module{{
+					Module: "std",
+					Packages: []*Package{{
+						Package: "time",
+					}},
 				}},
 				Description: "description",
 				CVEMetadata: &CVEMeta{
@@ -235,8 +265,11 @@ func TestLint(t *testing.T) {
 		{
 			desc: "unfixed links",
 			report: Report{
-				Packages: []Package{{
+				Modules: []*Module{{
 					Module: "golang.org/x/vulndb",
+					Packages: []*Package{{
+						Package: "golang.org/x/vulndb",
+					}},
 				}},
 				Description: "description",
 				Links: Links{
@@ -256,9 +289,11 @@ func TestLint(t *testing.T) {
 		{
 			desc: "standard library: unfixed/missing links",
 			report: Report{
-				Packages: []Package{{
-					Module:  "std",
-					Package: "time",
+				Modules: []*Module{{
+					Module: "std",
+					Packages: []*Package{{
+						Package: "time",
+					}},
 				}},
 				Description: "description",
 				Links: Links{
@@ -285,8 +320,11 @@ func TestLint(t *testing.T) {
 		{
 			desc: "invalid URL",
 			report: Report{
-				Packages: []Package{{
+				Modules: []*Module{{
 					Module: "golang.org/x/vulndb",
+					Packages: []*Package{{
+						Package: "golang.org/x/vulndb",
+					}},
 				}},
 				Description: "description",
 				Links: Links{
@@ -305,7 +343,7 @@ func TestLint(t *testing.T) {
 			},
 			want: []string{
 				`report in reports/ must not have excluded set`,
-				`no packages`,
+				`no modules`,
 				`missing description`,
 			},
 		},

@@ -18,6 +18,7 @@ import (
 	"golang.org/x/mod/modfile"
 	"golang.org/x/mod/module"
 	"golang.org/x/mod/semver"
+	"golang.org/x/vulndb/internal/stdlib"
 )
 
 // TODO: getting things from the proxy should all be cached so we
@@ -147,41 +148,44 @@ func checkModVersions(modPath string, vrs []VersionRange) (err error) {
 	return nil
 }
 
-func (p *Package) lintStdLibPkg(addPkgIssue func(string)) {
-	if p.Package == "" {
+func (m *Module) lintStdLib(addPkgIssue func(string)) {
+	if len(m.Packages) == 0 {
 		addPkgIssue("missing package")
+	}
+	for _, p := range m.Packages {
+		if p.Package == "" {
+			addPkgIssue("missing package")
+		}
 	}
 }
 
-func (p *Package) lintThirdPartyPkg(addPkgIssue func(string)) {
-	if p.Module == "" {
+func (m *Module) lintThirdParty(addPkgIssue func(string)) {
+	if m.Module == "" {
 		addPkgIssue("missing module")
 		return
 	}
-	if p.Package == p.Module {
-		addPkgIssue("package is redundant and can be removed")
-	}
-	if p.Package != "" && !strings.HasPrefix(p.Package, p.Module) {
-		addPkgIssue("module must be a prefix of package")
-	}
-	if err := checkModVersions(p.Module, p.Versions); err != nil {
+	if err := checkModVersions(m.Module, m.Versions); err != nil {
 		addPkgIssue(err.Error())
 	}
-
-	importPath := p.Package
-	if p.Package == "" {
-		importPath = p.Module
-	}
-	if err := module.CheckImportPath(importPath); err != nil {
-		addPkgIssue(err.Error())
+	for _, p := range m.Packages {
+		if p.Package == "" {
+			addPkgIssue("missing package")
+			continue
+		}
+		if !strings.HasPrefix(p.Package, m.Module) {
+			addPkgIssue("module must be a prefix of package")
+		}
+		if err := module.CheckImportPath(p.Package); err != nil {
+			addPkgIssue(err.Error())
+		}
 	}
 }
 
-func (p *Package) lintVersions(addPkgIssue func(string)) {
-	if p.VulnerableAt != "" && !p.VulnerableAt.IsValid() {
-		addPkgIssue(fmt.Sprintf("invalid vulnerable_at semantic version: %q", p.VulnerableAt))
+func (m *Module) lintVersions(addPkgIssue func(string)) {
+	if m.VulnerableAt != "" && !m.VulnerableAt.IsValid() {
+		addPkgIssue(fmt.Sprintf("invalid vulnerable_at semantic version: %q", m.VulnerableAt))
 	}
-	for i, vr := range p.Versions {
+	for i, vr := range m.Versions {
 		for _, v := range []Version{vr.Introduced, vr.Fixed} {
 			if v != "" && !v.IsValid() {
 				addPkgIssue(fmt.Sprintf("invalid semantic version: %q", v))
@@ -194,7 +198,7 @@ func (p *Package) lintVersions(addPkgIssue func(string)) {
 		}
 		// Check all previous version ranges to ensure none overlap with
 		// this one.
-		for _, vrPrev := range p.Versions[:i] {
+		for _, vrPrev := range m.Versions[:i] {
 			if vrPrev.Introduced.Before(vr.Fixed) && vr.Introduced.Before(vrPrev.Fixed) {
 				addPkgIssue(fmt.Sprintf("version ranges overlap: [%v,%v), [%v,%v)", vr.Introduced, vr.Fixed, vr.Introduced, vrPrev.Fixed))
 			}
@@ -318,8 +322,8 @@ func (r *Report) Lint(filename string) []string {
 		if r.Excluded != "" {
 			addIssue("report in reports/ must not have excluded set")
 		}
-		if len(r.Packages) == 0 {
-			addIssue("no packages")
+		if len(r.Modules) == 0 {
+			addIssue("no modules")
 		}
 		if r.Description == "" {
 			addIssue("missing description")
@@ -330,8 +334,8 @@ func (r *Report) Lint(filename string) []string {
 		} else if !slices.Contains(ExcludedReasons, r.Excluded) {
 			addIssue(fmt.Sprintf("excluded (%q) is not in set %v", r.Excluded, ExcludedReasons))
 		}
-		if len(r.Packages) != 0 {
-			addIssue("excluded report should not have packages")
+		if len(r.Modules) != 0 {
+			addIssue("excluded report should not have modules")
 		}
 		if len(r.CVEs) == 0 && len(r.GHSAs) == 0 {
 			addIssue("excluded report must have at least one associated CVE or GHSA")
@@ -339,19 +343,19 @@ func (r *Report) Lint(filename string) []string {
 	}
 
 	isStdLibReport := false
-	for i, p := range r.Packages {
+	for i, m := range r.Modules {
 		addPkgIssue := func(iss string) {
-			addIssue(fmt.Sprintf("packages[%v]: %v", i, iss))
+			addIssue(fmt.Sprintf("modules[%v]: %v", i, iss))
 		}
 
-		if p.Module == "std" {
+		if m.Module == stdlib.ModulePath {
 			isStdLibReport = true
-			p.lintStdLibPkg(addPkgIssue)
+			m.lintStdLib(addPkgIssue)
 		} else {
-			p.lintThirdPartyPkg(addPkgIssue)
+			m.lintThirdParty(addPkgIssue)
 		}
 
-		p.lintVersions(addPkgIssue)
+		m.lintVersions(addPkgIssue)
 	}
 
 	if r.LastModified != nil && r.LastModified.Before(r.Published) {
@@ -396,15 +400,12 @@ func (r *Report) Fix() {
 		}
 		*vp = v
 	}
-	for i, p := range r.Packages {
-		if p.Package == p.Module {
-			p.Package = ""
+	for _, m := range r.Modules {
+		for i := range m.Versions {
+			fixVersion(&m.Versions[i].Introduced)
+			fixVersion(&m.Versions[i].Fixed)
 		}
-		for j := range p.Versions {
-			fixVersion(&r.Packages[i].Versions[j].Introduced)
-			fixVersion(&r.Packages[i].Versions[j].Fixed)
-		}
-		fixVersion(&r.Packages[i].VulnerableAt)
+		fixVersion(&m.VulnerableAt)
 	}
 	r.Links.Context = fixed
 }

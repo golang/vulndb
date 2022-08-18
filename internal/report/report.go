@@ -7,9 +7,11 @@
 package report
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"os"
+	"reflect"
 	"strings"
 	"time"
 
@@ -47,7 +49,31 @@ type VersionRange struct {
 	Fixed      Version `yaml:"fixed,omitempty"`
 }
 
+type Module struct {
+	Module   string         `yaml:",omitempty"`
+	Versions []VersionRange `yaml:",omitempty"`
+	// Known-vulnerable version, to use when performing static analysis or
+	// other techniques on a vulnerable version of the package.
+	//
+	// In general, we want to use the most recent vulnerable version of
+	// the package. Determining this programmatically is difficult, especially
+	// for packages without tagged versions, so we specify it manually here.
+	VulnerableAt Version    `yaml:"vulnerable_at,omitempty"`
+	Packages     []*Package `yaml:",omitempty"`
+}
+
 type Package struct {
+	Package string   `yaml:",omitempty"`
+	GOOS    []string `yaml:"goos,omitempty"`
+	GOARCH  []string `yaml:"goarch,omitempty"`
+	// Symbols originally identified as vulnerable.
+	Symbols []string `yaml:",omitempty"`
+	// Additional vulnerable symbols, computed from Symbols via static analysis
+	// or other technique.
+	DerivedSymbols []string `yaml:"derived_symbols,omitempty"`
+}
+
+type LegacyPackage struct {
 	Module  string `yaml:",omitempty"`
 	Package string `yaml:",omitempty"`
 	// Symbols originally identified as vulnerable.
@@ -107,7 +133,7 @@ type Report struct {
 	// Excluded indicates an excluded report.
 	Excluded ExcludedReason `yaml:",omitempty"`
 
-	Packages []Package `yaml:"packages,omitempty"`
+	Modules []*Module `yaml:",omitempty"`
 
 	// Description is the CVE description from an existing CVE. If we are
 	// assigning a CVE ID ourselves, use CVEMetadata.Description instead.
@@ -123,15 +149,19 @@ type Report struct {
 	// the above CVEs.
 	GHSAs []string `yaml:",omitempty"`
 
-	Credit string   `yaml:",omitempty"`
-	OS     []string `yaml:",omitempty"`
-	Arch   []string `yaml:",omitempty"`
-	Links  Links    `yaml:",omitempty"`
+	Credit string `yaml:",omitempty"`
+	Links  Links  `yaml:",omitempty"`
 
 	// CVEMetdata is used to capture CVE information when we want to assign a
 	// CVE ourselves. If a CVE already exists for an issue, use the CVE field
 	// to fill in the ID string.
 	CVEMetadata *CVEMeta `yaml:"cve_metadata,omitempty"`
+
+	// Pre-refactoring fields.
+	// TODO(dneil): Remove.
+	LegacyPackages []LegacyPackage `yaml:"packages,omitempty"`
+	LegacyOS       []string        `yaml:"os,omitempty"`
+	LegacyArch     []string        `yaml:"arch,omitempty"`
 }
 
 // GetCVEs returns all CVE IDs for a report.
@@ -208,7 +238,51 @@ func Read(filename string) (_ *Report, err error) {
 	if err := d.Decode(&r); err != nil {
 		return nil, fmt.Errorf("yaml.Decode: %v", err)
 	}
+
+	if err := r.upgrade(); err != nil {
+		return nil, err
+	}
+
 	return &r, nil
+}
+
+// upgrade updates the format of a report from a prior syntax version
+// to the current one.
+//
+// TODO(dneil): delete after all reports have been updated to the new syntax.
+func (r *Report) upgrade() error {
+	if len(r.Modules) > 0 && len(r.LegacyPackages) > 0 {
+		return errors.New("modules and packages both set")
+	}
+	mods := make(map[string]*Module)
+	for _, p := range r.LegacyPackages {
+		mod := mods[p.Module]
+		if mod == nil {
+			mod = &Module{
+				Module:       p.Module,
+				Versions:     p.Versions,
+				VulnerableAt: p.VulnerableAt,
+			}
+			mods[p.Module] = mod
+			r.Modules = append(r.Modules, mod)
+		}
+		if !reflect.DeepEqual(mod.Versions, p.Versions) || mod.VulnerableAt != p.VulnerableAt {
+			return errors.New("inconsistent module versions")
+		}
+		name := p.Package
+		if name == "" {
+			name = p.Module
+		}
+		mod.Packages = append(mod.Packages, &Package{
+			Package:        name,
+			GOOS:           r.LegacyOS,
+			GOARCH:         r.LegacyArch,
+			Symbols:        p.Symbols,
+			DerivedSymbols: p.DerivedSymbols,
+		})
+	}
+	r.LegacyPackages = nil
+	return nil
 }
 
 // Write writes r to filename in YAML format.

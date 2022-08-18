@@ -1,9 +1,11 @@
-packages:
+modules:
   - module: github.com/gin-gonic/gin
-    symbols:
-      - defaultLogFormatter
     versions:
       - fixed: 1.6.0
+    packages:
+      - package: github.com/gin-gonic/gin
+        symbols:
+          - defaultLogFormatter
 description: |
     The default Formatter for the Logger middleware (LoggerConfig.Formatter),
     which is included in the Default engine, allows attackers to inject arbitrary

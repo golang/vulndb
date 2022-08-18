@@ -5,9 +5,9 @@
 package report
 
 import (
-	"reflect"
 	"testing"
 
+	"github.com/google/go-cmp/cmp"
 	"golang.org/x/vulndb/internal/cveschema5"
 )
 
@@ -180,8 +180,8 @@ func TestToCVE5(t *testing.T) {
 			if err != nil {
 				t.Fatalf("ToCVE5(%s) failed unexpectedly; err=%v", test.filename, err)
 			}
-			if want := test.want; !reflect.DeepEqual(got, want) {
-				t.Fatalf("ToCVE5(%s)=\n%v\nwant=\n%v", test.filename, got, want)
+			if diff := cmp.Diff(test.want, got); diff != "" {
+				t.Fatalf("ToCVE5(%s): unexpected diffs (-want,+got):\n%v", test.filename, diff)
 			}
 		})
 	}

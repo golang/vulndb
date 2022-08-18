@@ -239,28 +239,31 @@ func addTODOs(r *report.Report) {
 	if r.Excluded != "" {
 		return
 	}
-	if len(r.Packages) == 0 {
-		r.Packages = append(r.Packages, report.Package{})
+	if len(r.Modules) == 0 {
+		r.Modules = append(r.Modules, &report.Module{
+			Packages: []*report.Package{{}},
+		})
 	}
-	for i := range r.Packages {
-		p := &r.Packages[i]
-		if p.Module == "" && !stdlib.Contains(p.Module) {
-			p.Module = todo
+	for _, m := range r.Modules {
+		if m.Module == "" {
+			m.Module = todo
 		}
-		if p.Package == "" {
-			p.Package = todo
-		}
-		if len(p.Versions) == 0 {
-			p.Versions = []report.VersionRange{{
+		if len(m.Versions) == 0 {
+			m.Versions = []report.VersionRange{{
 				Introduced: todo,
 				Fixed:      todo,
 			}}
 		}
-		if p.VulnerableAt == "" {
-			p.VulnerableAt = todo
+		if m.VulnerableAt == "" {
+			m.VulnerableAt = todo
 		}
-		if len(p.Symbols) == 0 {
-			p.Symbols = []string{todo}
+		for _, p := range m.Packages {
+			if p.Package == "" {
+				p.Package = todo
+			}
+			if len(p.Symbols) == 0 {
+				p.Symbols = []string{todo}
+			}
 		}
 	}
 	if r.Description == "" {
@@ -319,39 +322,35 @@ func fix(ctx context.Context, filename string, accessToken string) (err error) {
 }
 
 func checkReportSymbols(r *report.Report) (bool, error) {
-	if len(r.OS) > 0 || len(r.Arch) > 0 {
-		return false, errors.New("specific GOOS/GOARCH not yet implemented")
-	}
 	rc := newReportClient(r)
 	added := false
-	for i, p := range r.Packages {
-		if len(p.Symbols) == 0 {
-			continue
-		}
-		syms, err := findExportedSymbols(p, rc)
-		if err != nil {
-			return false, err
-		}
-		if !slices.Equal(syms, r.Packages[i].DerivedSymbols) {
-			added = true
-			r.Packages[i].DerivedSymbols = syms
+	for _, m := range r.Modules {
+		for _, p := range m.Packages {
+			if len(p.Symbols) == 0 {
+				continue
+			}
+			if len(p.GOOS) > 0 || len(p.GOARCH) > 0 {
+				return false, errors.New("specific GOOS/GOARCH not yet implemented")
+			}
+			syms, err := findExportedSymbols(m, p, rc)
+			if err != nil {
+				return false, err
+			}
+			if !slices.Equal(syms, p.DerivedSymbols) {
+				added = true
+				p.DerivedSymbols = syms
+			}
 		}
 	}
 	return added, nil
 }
 
-func findExportedSymbols(p report.Package, c *reportClient) (_ []string, err error) {
-	defer derrors.Wrap(&err, "addExportedSymbols(%q, %q)", p.Module, p.Package)
+func findExportedSymbols(m *report.Module, p *report.Package, c *reportClient) (_ []string, err error) {
+	defer derrors.Wrap(&err, "addExportedSymbols(%q, %q)", m.Module, p.Package)
 
-	if p.VulnerableAt == "" {
+	if m.VulnerableAt == "" {
 		fmt.Fprintf(os.Stderr, "%v: no vulnerable_at version, skipping symbol checks.\n", p.Package)
 		return nil, nil
-	}
-
-	module := p.Module
-	pkgPath := p.Package
-	if pkgPath == "" {
-		pkgPath = module
 	}
 
 	cleanup, err := changeToTempDir()
@@ -363,8 +362,8 @@ func findExportedSymbols(p report.Package, c *reportClient) (_ []string, err err
 		return nil, err
 	}
 	std := false
-	if !stdlib.Contains(p.Module) {
-		pkgPathAndVersion := pkgPath + "@" + p.VulnerableAt.V()
+	if m.Module != stdlib.ModulePath {
+		pkgPathAndVersion := p.Package + "@" + m.VulnerableAt.V()
 		if err := run("go", "get", pkgPathAndVersion); err != nil {
 			return nil, err
 		}
@@ -373,15 +372,15 @@ func findExportedSymbols(p report.Package, c *reportClient) (_ []string, err err
 		gover := runtime.Version()
 		ver := semverForGoVersion(gover)
 		if ver == "" || !affected(c.entry, ver.V()) {
-			fmt.Fprintf(os.Stderr, "%v: Go version %q is not in a vulnerable range, skipping symbol checks.\n", pkgPath, gover)
+			fmt.Fprintf(os.Stderr, "%v: Go version %q is not in a vulnerable range, skipping symbol checks.\n", p.Package, gover)
 			return nil, nil
 		}
-		if ver != p.VulnerableAt {
-			fmt.Fprintf(os.Stderr, "%v: WARNING: Go version %q does not match vulnerable_at version %q.\n", pkgPath, ver, p.VulnerableAt)
+		if ver != m.VulnerableAt {
+			fmt.Fprintf(os.Stderr, "%v: WARNING: Go version %q does not match vulnerable_at version %q.\n", p.Package, ver, m.VulnerableAt)
 		}
 	}
 
-	pkgs, err := loadPackage(&packages.Config{}, pkgPath)
+	pkgs, err := loadPackage(&packages.Config{}, p.Package)
 	if err != nil {
 		return nil, err
 	}
@@ -389,16 +388,16 @@ func findExportedSymbols(p report.Package, c *reportClient) (_ []string, err err
 		return nil, errors.New("no packages found")
 	}
 	// First package should match package path and module.
-	if pkgs[0].PkgPath != pkgPath {
-		return nil, fmt.Errorf("first package had import path %s, wanted %s", pkgs[0].PkgPath, pkgPath)
+	if pkgs[0].PkgPath != p.Package {
+		return nil, fmt.Errorf("first package had import path %s, wanted %s", pkgs[0].PkgPath, p.Package)
 	}
 	if std {
 		if pm := pkgs[0].Module; std && pm != nil {
 			return nil, fmt.Errorf("got module %v, expected nil", pm)
 		}
 	} else {
-		if pm := pkgs[0].Module; pm == nil || pm.Path != module {
-			return nil, fmt.Errorf("got module %v, expected %s", pm, module)
+		if pm := pkgs[0].Module; pm == nil || pm.Path != m.Module {
+			return nil, fmt.Errorf("got module %v, expected %s", pm, m.Module)
 		}
 	}
 

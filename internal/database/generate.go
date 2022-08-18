@@ -12,6 +12,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 
 	"golang.org/x/vuln/client"
@@ -184,17 +185,13 @@ func GenerateOSVEntry(id, url string, r report.Report) (osv.Entry, []string) {
 	}
 
 	moduleMap := make(map[string]bool)
-	for _, p := range r.Packages {
-		importPath := p.Module
-		if p.Package != "" {
-			importPath = p.Package
-		}
-		if stdlib.Contains(p.Module) {
+	for _, m := range r.Modules {
+		if m.Module == stdlib.ModulePath {
 			moduleMap[stdFileName] = true
 		} else {
-			moduleMap[p.Module] = true
+			moduleMap[m.Module] = true
 		}
-		entry.Affected = append(entry.Affected, generateAffected(importPath, p.Versions, r.OS, r.Arch, p.AllSymbols(), url))
+		entry.Affected = append(entry.Affected, generateAffected(m, url))
 	}
 
 	if r.Links.Advisory != "" {
@@ -237,18 +234,35 @@ func generateAffectedRanges(versions []report.VersionRange) osv.Affects {
 	return osv.Affects{a}
 }
 
-func generateAffected(importPath string, versions []report.VersionRange, goos, goarch, symbols []string, url string) osv.Affected {
+func generateImports(m *report.Module) (imps []osv.EcosystemSpecificImport) {
+	for _, p := range m.Packages {
+		syms := append([]string{}, p.Symbols...)
+		syms = append(syms, p.DerivedSymbols...)
+		sort.Strings(syms)
+		imps = append(imps, osv.EcosystemSpecificImport{
+			Path:    p.Package,
+			GOOS:    p.GOOS,
+			GOARCH:  p.GOARCH,
+			Symbols: syms,
+		})
+	}
+	return imps
+}
+
+func generateAffected(m *report.Module, url string) osv.Affected {
+	name := m.Module
+	if name == stdlib.ModulePath {
+		name = "stdlib"
+	}
 	return osv.Affected{
 		Package: osv.Package{
-			Name:      importPath,
+			Name:      name,
 			Ecosystem: osv.GoEcosystem,
 		},
-		Ranges:           generateAffectedRanges(versions),
+		Ranges:           generateAffectedRanges(m.Versions),
 		DatabaseSpecific: osv.DatabaseSpecific{URL: url},
 		EcosystemSpecific: osv.EcosystemSpecific{
-			GOOS:    goos,
-			GOARCH:  goarch,
-			Symbols: symbols,
+			Imports: generateImports(m),
 		},
 	}
 }
