@@ -2,6 +2,7 @@ modules:
   - module: golang.org/x/text
     versions:
       - fixed: 0.3.3
+    vulnerable_at: 0.3.2
     packages:
       - package: golang.org/x/text/encoding/unicode
         symbols:
@@ -10,7 +11,7 @@ modules:
           - bomOverride.Transform
       - package: golang.org/x/text/transform
         symbols:
-          - Transform
+          - String
 description: |
     An attacker could provide a single byte to a UTF16 decoder instantiated with
     UseBOM or ExpectBOM to trigger an infinite loop if the String function on
