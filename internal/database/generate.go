@@ -34,6 +34,10 @@ const (
 	// contains reports.
 	yamlDir = "data/reports"
 
+	// versionFile is the name of the file in the vulndb repo that
+	// tracks the generator version.
+	versionFile = "data/version.md"
+
 	// stdFileName is the name of the .json file in the vulndb repo
 	// that will contain info on standard library vulnerabilities.
 	stdFileName = "stdlib"
@@ -51,9 +55,14 @@ func Generate(ctx context.Context, repoDir, jsonDir string, indent bool) (err er
 		return err
 	}
 
-	commitDates, err := gitrepo.AllCommitDates(repo, gitrepo.MainReference, "data/reports/")
+	commitDates, err := gitrepo.AllCommitDates(repo, gitrepo.HeadReference, "data/")
 	if err != nil {
 		return err
+	}
+
+	lastUpdate := commitDates[versionFile].Newest
+	if lastUpdate.IsZero() {
+		return fmt.Errorf("can't find git repo commit dates for %q", versionFile)
 	}
 
 	jsonVulns := map[string][]osv.Entry{}
@@ -87,7 +96,11 @@ func Generate(ctx context.Context, repoDir, jsonDir string, indent bool) (err er
 		// Always set the last_modified field based on git history.
 		// The alternative is to possibly miss modifications to any
 		// report with a checked-in last_modified field.
-		if newest := dates.Newest; !dates.Oldest.Equal(newest) {
+		newest := dates.Newest
+		if lastUpdate.After(newest) {
+			newest = lastUpdate
+		}
+		if dates.Oldest.Before(newest) {
 			r.LastModified = &newest
 		}
 
