@@ -18,7 +18,8 @@ import (
 	"golang.org/x/vulndb/internal/worker/store"
 )
 
-// TestScanModules is slow, so put it behind a flag.
+// TestScanModules is slow and TestScanModule is non-hermetic,
+// so put them behind a flag.
 var runScanModulesTest = flag.Bool("scan", false, "run the ScanModules test")
 
 func TestScanModules(t *testing.T) {
@@ -44,6 +45,10 @@ func TestAsScanError(t *testing.T) {
 }
 
 func TestScanModule(t *testing.T) {
+	if !*runScanModulesTest {
+		t.Skip("-scan flag missing")
+	}
+
 	pt := newProxyTest()
 	defer pt.Close()
 
