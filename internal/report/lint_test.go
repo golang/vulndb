@@ -126,6 +126,20 @@ func TestLint(t *testing.T) {
 			want: []string{"missing package"},
 		},
 		{
+			desc: "toolchain: wrong module",
+			report: Report{
+				Modules: []*Module{{
+					Module: "std",
+					Packages: []*Package{{
+						Package: "cmd/go",
+					}},
+				}},
+				Description: "description",
+				Links:       validStdLibLinks,
+			},
+			want: []string{`should be in module "cmd", not "std"`},
+		},
+		{
 			desc: "overlapping version ranges",
 			report: Report{
 				Modules: []*Module{{

@@ -348,11 +348,16 @@ func (r *Report) Lint(filename string) []string {
 			addIssue(fmt.Sprintf("modules[%v]: %v", i, iss))
 		}
 
-		if m.Module == stdlib.ModulePath {
+		if m.Module == stdlib.ModulePath || m.Module == "cmd" {
 			isStdLibReport = true
 			m.lintStdLib(addPkgIssue)
 		} else {
 			m.lintThirdParty(addPkgIssue)
+		}
+		for _, p := range m.Packages {
+			if strings.HasPrefix(p.Package, "cmd/") && m.Module != "cmd" {
+				addPkgIssue(fmt.Sprintf(`%q should be in module "cmd", not %q`, p.Package, m.Module))
+			}
 		}
 
 		m.lintVersions(addPkgIssue)

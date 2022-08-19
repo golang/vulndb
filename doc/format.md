@@ -13,7 +13,7 @@ This page documents the internal YAML file format.
 
 type [Package[]](#type-package)
 
-**required** 
+**required**
 
 Information on each package affected by the vulnerability.
 
@@ -35,6 +35,8 @@ type `string`
 The module path of the vulnerable module.
 
 Use `"std"` for vulnerabilities in the standard library.
+
+Use `"cmd"` for vulnerabilities in the Go tools (`cmd/...`).
 
 ### `package`
 

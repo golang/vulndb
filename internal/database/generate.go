@@ -41,6 +41,14 @@ const (
 	// stdFileName is the name of the .json file in the vulndb repo
 	// that will contain info on standard library vulnerabilities.
 	stdFileName = "stdlib"
+
+	// cmdModule is the name of the module containing Go toolchain
+	// binaries.
+	cmdModule = "cmd"
+
+	// toolchainFileName is the name of the .json file in the vulndb repo
+	// that will contain info on toolchain (cmd/...) vulnerabilities.
+	toolchainFileName = "toolchain"
 )
 
 func Generate(ctx context.Context, repoDir, jsonDir string, indent bool) (err error) {
@@ -199,9 +207,12 @@ func GenerateOSVEntry(id, url string, r report.Report) (osv.Entry, []string) {
 
 	moduleMap := make(map[string]bool)
 	for _, m := range r.Modules {
-		if m.Module == stdlib.ModulePath {
+		switch m.Module {
+		case stdlib.ModulePath:
 			moduleMap[stdFileName] = true
-		} else {
+		case cmdModule:
+			moduleMap[toolchainFileName] = true
+		default:
 			moduleMap[m.Module] = true
 		}
 		entry.Affected = append(entry.Affected, generateAffected(m, url))
@@ -264,8 +275,11 @@ func generateImports(m *report.Module) (imps []osv.EcosystemSpecificImport) {
 
 func generateAffected(m *report.Module, url string) osv.Affected {
 	name := m.Module
-	if name == stdlib.ModulePath {
+	switch name {
+	case stdlib.ModulePath:
 		name = "stdlib"
+	case cmdModule:
+		name = "toolchain"
 	}
 	return osv.Affected{
 		Package: osv.Package{
