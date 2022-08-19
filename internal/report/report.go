@@ -7,11 +7,9 @@
 package report
 
 import (
-	"errors"
 	"fmt"
 	"io"
 	"os"
-	"reflect"
 	"strings"
 	"time"
 
@@ -156,12 +154,6 @@ type Report struct {
 	// CVE ourselves. If a CVE already exists for an issue, use the CVE field
 	// to fill in the ID string.
 	CVEMetadata *CVEMeta `yaml:"cve_metadata,omitempty"`
-
-	// Pre-refactoring fields.
-	// TODO(dneil): Remove.
-	LegacyPackages []LegacyPackage `yaml:"packages,omitempty"`
-	LegacyOS       []string        `yaml:"os,omitempty"`
-	LegacyArch     []string        `yaml:"arch,omitempty"`
 }
 
 // GetCVEs returns all CVE IDs for a report.
@@ -238,51 +230,7 @@ func Read(filename string) (_ *Report, err error) {
 	if err := d.Decode(&r); err != nil {
 		return nil, fmt.Errorf("yaml.Decode: %v", err)
 	}
-
-	if err := r.upgrade(); err != nil {
-		return nil, err
-	}
-
 	return &r, nil
-}
-
-// upgrade updates the format of a report from a prior syntax version
-// to the current one.
-//
-// TODO(dneil): delete after all reports have been updated to the new syntax.
-func (r *Report) upgrade() error {
-	if len(r.Modules) > 0 && len(r.LegacyPackages) > 0 {
-		return errors.New("modules and packages both set")
-	}
-	mods := make(map[string]*Module)
-	for _, p := range r.LegacyPackages {
-		mod := mods[p.Module]
-		if mod == nil {
-			mod = &Module{
-				Module:       p.Module,
-				Versions:     p.Versions,
-				VulnerableAt: p.VulnerableAt,
-			}
-			mods[p.Module] = mod
-			r.Modules = append(r.Modules, mod)
-		}
-		if !reflect.DeepEqual(mod.Versions, p.Versions) || mod.VulnerableAt != p.VulnerableAt {
-			return errors.New("inconsistent module versions")
-		}
-		name := p.Package
-		if name == "" {
-			name = p.Module
-		}
-		mod.Packages = append(mod.Packages, &Package{
-			Package:        name,
-			GOOS:           r.LegacyOS,
-			GOARCH:         r.LegacyArch,
-			Symbols:        p.Symbols,
-			DerivedSymbols: p.DerivedSymbols,
-		})
-	}
-	r.LegacyPackages = nil
-	return nil
 }
 
 // Write writes r to filename in YAML format.
