@@ -275,15 +275,13 @@ func addTODOs(r *report.Report) {
 	if len(r.CVEs) == 0 {
 		r.CVEs = []string{todo}
 	}
-	if r.Links.PR == "" {
-		r.Links.PR = todo
-	}
-	if r.Links.Commit == "" {
-		r.Links.Commit = todo
-	}
-	if len(r.Links.Context) == 0 {
-		r.Links.Context = []string{todo}
-	}
+	r.References = append(r.References, []*report.Reference{
+		{Type: report.ReferenceTypeAdvisory, URL: "TODO: canonical security advisory"},
+		{Type: report.ReferenceTypeArticle, URL: "TODO: article or blog post"},
+		{Type: report.ReferenceTypeReport, URL: "TODO: issue tracker link"},
+		{Type: report.ReferenceTypeFix, URL: "TODO: PR or commit"},
+		{Type: report.ReferenceTypeWeb, URL: "TODO: web page of some unspecified kind"},
+	}...)
 }
 
 func lint(filename string) (err error) {

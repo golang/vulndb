@@ -68,11 +68,11 @@ func TestGenerate(t *testing.T) {
 		CVEs:        []string{"CVE-0000-0000"},
 		GHSAs:       []string{"GHSA-abcd-efgh"},
 		Credit:      "ignored",
-		Links: report.Links{
-			PR:       "pr",
-			Commit:   "commit",
-			Advisory: "advisory",
-			Context:  []string{"issue-a", "issue-b"},
+		References: []*report.Reference{
+			{Type: report.ReferenceTypeAdvisory, URL: "advisory"},
+			{Type: report.ReferenceTypeReport, URL: "issue"},
+			{Type: report.ReferenceTypeFix, URL: "fix"},
+			{Type: report.ReferenceTypeWeb, URL: "web"},
 		},
 	}
 
@@ -82,10 +82,9 @@ func TestGenerate(t *testing.T) {
 		Details: "It's a real bad one, I'll tell you that",
 		References: []osv.Reference{
 			{Type: "ADVISORY", URL: "advisory"},
-			{Type: "FIX", URL: "pr"},
-			{Type: "FIX", URL: "commit"},
-			{Type: "WEB", URL: "issue-a"},
-			{Type: "WEB", URL: "issue-b"},
+			{Type: "REPORT", URL: "issue"},
+			{Type: "FIX", URL: "fix"},
+			{Type: "WEB", URL: "web"},
 		},
 		Aliases: []string{"CVE-0000-0000", "GHSA-abcd-efgh"},
 		Affected: []osv.Affected{

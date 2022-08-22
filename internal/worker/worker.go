@@ -291,20 +291,13 @@ func newCVEBody(sr storeRecord) (string, error) {
 	}
 	fmt.Fprintf(&intro, "Description:\n%s\n\n", description)
 
-	fmt.Fprintf(&intro, `Links:
+	fmt.Fprintf(&intro, `References:
 - NIST: https://nvd.nist.gov/vuln/detail/%s
 - JSON: %s/tree/%s/%s`, cr.ID, cvelistrepo.URL, cr.CommitHash, cr.Path)
-
-	if r.Links.Commit != "" {
-		fmt.Fprintf(&intro, "\n- Commit: %s", r.Links.Commit)
-	}
-	if r.Links.PR != "" {
-		fmt.Fprintf(&intro, "\n- PR: %s", r.Links.PR)
+	for _, ref := range r.References {
+		fmt.Fprintf(&intro, "\n- %v: %v", strings.ToLower(string(ref.Type)), ref.URL)
 	}
 	fmt.Fprintf(&intro, "\n- Imported by: https://pkg.go.dev/%s?tab=importedby", cr.Module)
-	for _, l := range r.Links.Context {
-		fmt.Fprintf(&intro, "\n- %s", l)
-	}
 	if err := issueTemplate.Execute(&b, issueTemplateData{
 		Intro:  intro.String(),
 		Report: out,

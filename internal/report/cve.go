@@ -6,7 +6,6 @@ package report
 
 import (
 	"errors"
-	"sort"
 	"strings"
 
 	"golang.org/x/vulndb/internal/cveschema"
@@ -79,14 +78,8 @@ func ToCVE(reportPath string) (_ *cveschema.CVE, err error) {
 		})
 	}
 
-	if r.Links.PR != "" {
-		c.References.Data = append(c.References.Data, cveschema.Reference{URL: r.Links.PR})
-	}
-	if r.Links.Commit != "" {
-		c.References.Data = append(c.References.Data, cveschema.Reference{URL: r.Links.Commit})
-	}
-	for _, url := range r.Links.Context {
-		c.References.Data = append(c.References.Data, cveschema.Reference{URL: url})
+	for _, ref := range r.References {
+		c.References.Data = append(c.References.Data, cveschema.Reference{URL: ref.URL})
 	}
 
 	return c, nil
@@ -117,22 +110,26 @@ func CVEToReport(c *cveschema.CVE, modulePath string) *Report {
 	for _, d := range c.Description.Data {
 		description += d.Value + "\n"
 	}
-	var (
-		pr, commit string
-		context    []string
-	)
+	var refs []*Reference
 	for _, r := range c.References.Data {
-		if strings.Contains(r.URL, "go-review.googlesource.com") {
-			pr = r.URL
-		} else if strings.Contains(r.URL, "commit") {
-			commit = r.URL
-		} else if strings.Contains(r.URL, "pull") {
-			pr = r.URL
-		} else {
-			context = append(context, r.URL)
+		typ := ReferenceTypeWeb
+		switch {
+		case strings.Contains(r.URL, "go-review.googlesource.com"):
+			typ = ReferenceTypeFix
+		case strings.Contains(r.URL, "commit"):
+			typ = ReferenceTypeFix
+		case strings.Contains(r.URL, "pull"):
+			typ = ReferenceTypeFix
+		case strings.Contains(r.URL, "pr"):
+			typ = ReferenceTypeFix
+		case strings.Contains(r.URL, "/issue/"):
+			typ = ReferenceTypeReport
 		}
+		refs = append(refs, &Reference{
+			Type: typ,
+			URL:  r.URL,
+		})
 	}
-	sort.Strings(context)
 	var credits []string
 	for _, v := range c.Credit.Data.Description.Data {
 		credits = append(credits, v.Value)
@@ -161,11 +158,7 @@ func CVEToReport(c *cveschema.CVE, modulePath string) *Report {
 		Description: description,
 		CVEs:        []string{c.Metadata.ID},
 		Credit:      credit,
-		Links: Links{
-			Commit:  commit,
-			PR:      pr,
-			Context: context,
-		},
+		References:  refs,
 	}
 	if !strings.Contains(modulePath, ".") {
 		r.Modules[0].Module = stdlib.ModulePath

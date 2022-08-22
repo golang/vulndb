@@ -88,8 +88,8 @@ func ToCVE5(reportPath string) (_ *cveschema5.CVERecord, err error) {
 		}
 	}
 
-	for _, link := range r.AllLinks() {
-		c.References = append(c.References, cveschema5.Reference{URL: link})
+	for _, ref := range r.References {
+		c.References = append(c.References, cveschema5.Reference{URL: ref.URL})
 	}
 
 	if r.Credit != "" {

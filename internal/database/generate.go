@@ -225,18 +225,11 @@ func GenerateOSVEntry(id, url string, lastModified time.Time, r report.Report) (
 		}
 		entry.Affected = append(entry.Affected, generateAffected(m, url))
 	}
-
-	if r.Links.Advisory != "" {
-		entry.References = append(entry.References, osv.Reference{Type: "ADVISORY", URL: r.Links.Advisory})
-	}
-	if r.Links.PR != "" {
-		entry.References = append(entry.References, osv.Reference{Type: "FIX", URL: r.Links.PR})
-	}
-	if r.Links.Commit != "" {
-		entry.References = append(entry.References, osv.Reference{Type: "FIX", URL: r.Links.Commit})
-	}
-	for _, link := range r.Links.Context {
-		entry.References = append(entry.References, osv.Reference{Type: "WEB", URL: link})
+	for _, ref := range r.References {
+		entry.References = append(entry.References, osv.Reference{
+			Type: string(ref.Type),
+			URL:  ref.URL,
+		})
 	}
 	entry.Aliases = r.GetAliases()
 

@@ -224,7 +224,7 @@ func TestNewCVEBody(t *testing.T) {
 Description:
 a description
 
-Links:
+References:
 - NIST: https://nvd.nist.gov/vuln/detail/ID1
 - JSON: https://github.com/CVEProject/cvelist/tree//
 - Imported by: https://pkg.go.dev/a.Module?tab=importedby

@@ -13,13 +13,10 @@ import (
 // TODO: Add tests for helper functions that call the proxy.
 
 var (
-	validStdLibLinks = Links{
-		PR:     "https://go.dev/cl/12345",
-		Commit: "https://go.googlesource.com/go/+/abcde",
-		Context: []string{
-			"https://groups.google.com/g/golang-announce/c/12345",
-			"https://go.dev/issue/12345",
-		},
+	validStdLibReferences = []*Reference{
+		{Type: ReferenceTypeFix, URL: "https://go.dev/cl/12345"},
+		{Type: ReferenceTypeWeb, URL: "https://groups.google.com/g/golang-announce/c/12345"},
+		{Type: ReferenceTypeReport, URL: "https://go.dev/issue/12345"},
 	}
 )
 
@@ -60,7 +57,7 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				// no description
-				Links: validStdLibLinks,
+				References: validStdLibReferences,
 			},
 			want: []string{"missing description"},
 		},
@@ -118,7 +115,7 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				Description: "description",
-				Links:       validStdLibLinks,
+				References:  validStdLibReferences,
 			},
 			want: []string{"missing package"},
 		},
@@ -132,7 +129,7 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				Description: "description",
-				Links:       validStdLibLinks,
+				References:  validStdLibReferences,
 			},
 			want: []string{`should be in module "cmd", not "std"`},
 		},
@@ -151,7 +148,7 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				Description: "description",
-				Links:       validStdLibLinks,
+				References:  validStdLibReferences,
 			},
 			want: []string{"version ranges overlap"},
 		},
@@ -169,7 +166,7 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				Description: "description",
-				Links:       validStdLibLinks,
+				References:  validStdLibReferences,
 			},
 			want: []string{`version "1.3" >= "1.2.1"`},
 		},
@@ -186,7 +183,7 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				Description: "description",
-				Links:       validStdLibLinks,
+				References:  validStdLibReferences,
 			},
 			want: []string{`invalid semantic version: "1.3.X"`},
 		},
@@ -201,7 +198,7 @@ func TestLint(t *testing.T) {
 				}},
 				Description: "description",
 				CVEs:        []string{"CVE.12345.456"},
-				Links:       validStdLibLinks,
+				References:  validStdLibReferences,
 			},
 			want: []string{"malformed cve identifier"},
 		},
@@ -219,7 +216,7 @@ func TestLint(t *testing.T) {
 				CVEMetadata: &CVEMeta{
 					ID: "CVE-2022-23456",
 				},
-				Links: validStdLibLinks,
+				References: validStdLibReferences,
 			},
 			want: []string{"only one of cve and cve_metadata.id should be present"},
 		},
@@ -236,7 +233,7 @@ func TestLint(t *testing.T) {
 				CVEMetadata: &CVEMeta{
 					// no id
 				},
-				Links: validStdLibLinks,
+				References: validStdLibReferences,
 			},
 			want: []string{"cve_metadata.id is required"},
 		},
@@ -253,9 +250,26 @@ func TestLint(t *testing.T) {
 				CVEMetadata: &CVEMeta{
 					ID: "CVE.2022.00000",
 				},
-				Links: validStdLibLinks,
+				References: validStdLibReferences,
 			},
 			want: []string{"malformed cve_metadata.id identifier"},
+		},
+		{
+			desc: "invalid reference type",
+			report: Report{
+				Modules: []*Module{{
+					Module: "std",
+					Packages: []*Package{{
+						Package: "time",
+					}},
+				}},
+				Description: "description",
+				References: append([]*Reference{{
+					Type: "INVALID",
+					URL:  "http://go.dev/",
+				}}, validStdLibReferences...),
+			},
+			want: []string{"not a valid reference type"},
 		},
 		{
 			desc: "unfixed links",
@@ -267,12 +281,11 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				Description: "description",
-				Links: Links{
-					Commit: "https://github.com/golang/go/commit/12345",
-					Context: []string{
-						"https://github.com/golang/go/issues/12345",
-						"https://golang.org/xxx",
-						"https://groups.google.com/forum/#!/golang-announce/12345/1/"},
+				References: []*Reference{
+					{Type: ReferenceTypeFix, URL: "https://github.com/golang/go/commit/12345"},
+					{Type: ReferenceTypeReport, URL: "https://github.com/golang/go/issues/12345"},
+					{Type: ReferenceTypeWeb, URL: "https://golang.org/xxx"},
+					{Type: ReferenceTypeWeb, URL: "https://groups.google.com/forum/#!/golang-announce/12345/1/"},
 				},
 			},
 			want: []string{
@@ -291,22 +304,20 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				Description: "description",
-				Links: Links{
-					PR:     "https://go-review.googlesource.com/c/go/+/12345",
-					Commit: "https://github.com/golang/go/commit/12345",
-					Context: []string{
-						"https://github.com/golang/go/issues/12345",
-						// no announce link
-					},
+				References: []*Reference{
+					{Type: ReferenceTypeFix, URL: "https://go-review.googlesource.com/c/go/+/12345"},
+					{Type: ReferenceTypeFix, URL: "https://github.com/golang/go/commit/12345"},
+					{Type: ReferenceTypeReport, URL: "https://github.com/golang/go/issues/12345"},
+					{Type: ReferenceTypeWeb, URL: "https://go.dev/"},
+					// no announce link
 				},
 			},
 			want: []string{
 				// Standard library specific errors.
-				"links.pr should contain a PR link",
-				"links.commit commit link should match",
-				"links.context should contain an issue link",
-				"links.context should contain an announcement link",
-				"links.context should contain only PR, commit, issue and announcement links",
+				"fix reference should match",
+				"report reference should match",
+				"references should contain an announcement link",
+				"web references should only contain announcement links",
 				// Unfixed link errors.
 				`"https://github.com/golang/go/commit/12345" should be "https://go.googlesource.com/+/12345"`,
 				`"https://github.com/golang/go/issues/12345" should be "https://go.dev/issue/12345"`,
@@ -322,8 +333,11 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				Description: "description",
-				Links: Links{
-					PR: "go.dev/cl/12345", // needs "https://" prefix
+				References: []*Reference{
+					{
+						Type: ReferenceTypeFix,
+						URL:  "go.dev/cl/12345", // needs "https://" prefix
+					},
 				},
 			},
 			want: []string{

@@ -251,52 +251,53 @@ var (
 	announceRegex = regexp.MustCompile(`https://groups.google.com/g/golang-(announce|dev|nuts)/c/([^/]+)`)
 )
 
-func isFirstPartyGoLink(l string) bool {
-	return prRegex.MatchString(l) || commitRegex.MatchString(l) || issueRegex.MatchString(l) || announceRegex.MatchString(l)
-}
-
 // Checks that the "links" section of a Report for a package in the
 // standard library contains all necessary links, and no third-party links.
 func (r *Report) lintStdLibLinks(addIssue func(string)) {
-	if r.Links.PR == "" && r.Links.Commit == "" {
-		addIssue("at least one of links.pr and links.commit must be set")
-	}
-	if r.Links.PR != "" && !prRegex.MatchString(r.Links.PR) {
-		addIssue(fmt.Sprintf("links.pr should contain a PR link matching %q", prRegex))
-	}
-	if r.Links.Commit != "" && !commitRegex.MatchString(r.Links.Commit) {
-		addIssue(fmt.Sprintf("links.commit commit link should match %q", commitRegex))
-	}
-	if r.Links.Advisory != "" {
-		addIssue("links.advisory should not be set for first-party issues")
-	}
-	hasIssueLink := false
-	hasAnnounceLink := false
-	for _, c := range r.Links.Context {
-		if issueRegex.MatchString(c) {
-			hasIssueLink = true
-		} else if announceRegex.MatchString(c) {
-			hasAnnounceLink = true
+	var (
+		hasFixLink      = false
+		hasReportLink   = false
+		hasAnnounceLink = false
+	)
+	for _, ref := range r.References {
+		switch ref.Type {
+		case ReferenceTypeAdvisory:
+			addIssue(fmt.Sprintf("%q: advisory reference should not be set for first-party issues", ref.URL))
+		case ReferenceTypeFix:
+			hasFixLink = true
+			if !prRegex.MatchString(ref.URL) && !commitRegex.MatchString(ref.URL) {
+				addIssue(fmt.Sprintf("%q: fix reference should match %q or %q", ref.URL, prRegex, commitRegex))
+			}
+		case ReferenceTypeReport:
+			hasReportLink = true
+			if !issueRegex.MatchString(ref.URL) {
+				addIssue(fmt.Sprintf("%q: report reference should match %q", ref.URL, issueRegex))
+			}
+		case ReferenceTypeWeb:
+			if !announceRegex.MatchString(ref.URL) {
+				addIssue(fmt.Sprintf("%q: web references should only contain announcement links matching %q", ref.URL, announceRegex))
+			} else {
+				hasAnnounceLink = true
+			}
 		}
-
-		if !isFirstPartyGoLink(c) {
-			addIssue(fmt.Sprintf("links.context should contain only PR, commit, issue and announcement links, remove or fix %q", c))
-		}
 	}
-	if !hasIssueLink {
-		addIssue(fmt.Sprintf("links.context should contain an issue link matching %q", issueRegex))
+	if !hasFixLink {
+		addIssue("references should contain at least one fix")
+	}
+	if !hasReportLink {
+		addIssue("references should contain at least one report")
 	}
 	if !hasAnnounceLink {
-		addIssue(fmt.Sprintf("links.context should contain an announcement link matching %q", announceRegex))
+		addIssue(fmt.Sprintf("references should contain an announcement link matching %q", announceRegex))
 	}
 }
 
 func (r *Report) lintLinks(addIssue func(string)) {
-	links := append(r.Links.Context, r.Links.Advisory, r.Links.Commit, r.Links.PR)
-	for _, l := range links {
-		if l == "" {
-			continue
+	for _, ref := range r.References {
+		if !slices.Contains(ReferenceTypes, ref.Type) {
+			addIssue(fmt.Sprintf("%q is not a valid reference type", ref.Type))
 		}
+		l := ref.URL
 		if _, err := url.ParseRequestURI(l); err != nil {
 			addIssue(fmt.Sprintf("%q is not a valid URL", l))
 		}
@@ -378,12 +379,8 @@ func (r *Report) Lint(filename string) []string {
 }
 
 func (r *Report) Fix() {
-	r.Links.Commit = fixURL(r.Links.Commit)
-	r.Links.PR = fixURL(r.Links.PR)
-	r.Links.Advisory = fixURL(r.Links.Advisory)
-	var fixed []string
-	for _, l := range r.Links.Context {
-		fixed = append(fixed, fixURL(l))
+	for _, ref := range r.References {
+		ref.URL = fixURL(ref.URL)
 	}
 	fixVersion := func(vp *Version) {
 		v := *vp
@@ -408,7 +405,6 @@ func (r *Report) Fix() {
 		}
 		fixVersion(&m.VulnerableAt)
 	}
-	r.Links.Context = fixed
 }
 
 var urlReplacements = []struct {
