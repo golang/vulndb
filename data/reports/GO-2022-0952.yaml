@@ -1,0 +1,34 @@
+modules:
+  - module: github.com/matrix-org/gomatrixserverlib
+    versions:
+      - fixed: 0.0.0-20220815091947-723fd495dde8
+    vulnerable_at: 0.0.0-20220812132423-6a49c18a298a
+    packages:
+      - package: github.com/matrix-org/gomatrixserverlib
+        symbols:
+          - NewPowerLevelContentFromEvent
+        derived_symbols:
+          - Allowed
+          - Event.PowerLevels
+          - EventsLoader.LoadAndVerify
+          - HeaderedReverseTopologicalOrdering
+          - NewPowerLevelContentFromAuthEvents
+          - RequestBackfill
+          - ResolveConflicts
+          - ResolveStateConflicts
+          - ResolveStateConflictsV2
+          - RespSendJoin.Check
+          - RespState.Check
+          - RespState.Events
+          - ReverseTopologicalOrdering
+          - VerifyAuthRulesAtState
+          - VerifyEventAuthChain
+description: |
+    Power level parsing does not parse the "events_default" key of the
+    m.room.power_levels event, setting the event default power level to
+    zero in all cases. This can cause events to be improperly accepted or
+    rejected in rooms where the event_default power level has been changed.
+cves:
+  - CVE-2022-36009
+links:
+    commit: https://github.com/matrix-org/gomatrixserverlib/commit/723fd495dde835d078b9f2074b6b62c06dea4575
