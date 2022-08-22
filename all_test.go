@@ -58,6 +58,9 @@ func TestLintReports(t *testing.T) {
 			if fi.IsDir() {
 				continue
 			}
+			if filepath.Ext(fi.Name()) != ".yaml" {
+				continue
+			}
 			fn := filepath.Join(dir, fi.Name())
 			if allFiles[fi.Name()] != "" {
 				t.Errorf("report appears in multiple locations: %v, %v", allFiles[fi.Name()], fn)
