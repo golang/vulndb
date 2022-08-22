@@ -1,0 +1,22 @@
+modules:
+  - module: gopkg.in/yaml.v2
+    versions:
+      - fixed: 2.2.4
+    vulnerable_at: 2.2.3
+    packages:
+      - package: gopkg.in/yaml.v2
+        symbols:
+          - decoder.unmarshal
+          - yaml_parser_increase_flow_level
+          - yaml_parser_roll_indent
+        derived_symbols:
+          - Decoder.Decode
+          - Unmarshal
+          - UnmarshalStrict
+description: |
+    Parsing malicious or large YAML documents can consume excessive amounts of
+    CPU or memory.
+links:
+    commit: https://github.com/go-yaml/yaml/commit/f221b8435cfb71e54062f6c6e99e9ade30b124d5
+    context:
+      - https://github.com/go-yaml/yaml/releases/tag/v2.2.4
