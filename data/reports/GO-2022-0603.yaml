@@ -1,0 +1,21 @@
+modules:
+  - module: gopkg.in/yaml.v3
+    versions:
+      - introduced: 3.0.0
+      - fixed: 3.0.1
+    vulnerable_at: 3.0.0-20130425192426-8171f560dedc
+    packages:
+      - package: gopkg.in/yaml.v3
+        symbols:
+          - Unmarshal
+description: |
+    An issue in the Unmarshal function can cause a program to
+    panic when attempting to deserialize invalid input.
+cves:
+  - CVE-2022-28948
+ghsas:
+  - GHSA-hp87-p4gw-j4gq
+links:
+    commit: https://github.com/go-yaml/yaml/commit/8f96da9f5d5eff988554c1aae1784627c4bf6754
+    context:
+      - https://github.com/go-yaml/yaml/issues/666
