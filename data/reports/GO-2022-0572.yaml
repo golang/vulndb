@@ -1,0 +1,27 @@
+modules:
+  - module: github.com/beego/beego
+    packages:
+      - package: github.com/beego/beego
+        symbols:
+          - Tree.Match
+  - module: github.com/beego/beego/v2
+    versions:
+      - introduced: 2.0.0
+        fixed: 2.0.3
+    vulnerable_at: 2.0.1
+    packages:
+      - package: github.com/beego/beego/v2/server/web
+        symbols:
+          - Tree.Match
+description: |
+    An issue was discovered in the route lookup process in
+    beego which attackers to bypass access control.
+published: 2022-04-06T00:01:30Z
+last_modified: 2022-04-12T21:53:25Z
+cves:
+  - CVE-2021-30080
+ghsas:
+  - GHSA-28r6-jm5h-mrgg
+links:
+    pr: https://github.com/beego/beego/pull/4459
+    commit: https://github.com/beego/beego/commit/d5df5e470d0a8ed291930ae802fd7e6b95226519
