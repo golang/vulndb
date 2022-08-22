@@ -1,0 +1,27 @@
+modules:
+  - module: github.com/beego/beego
+    versions:
+      - fixed: 1.12.11
+    packages:
+      - package: github.com/beego/beego
+        symbols:
+          - Tree.Match
+  - module: github.com/beego/beego/v2
+    versions:
+      - introduced: 2.0.0
+        fixed: 2.0.4
+    vulnerable_at: 2.0.3
+    packages:
+      - package: github.com/beego/beego/v2/server/web
+        symbols:
+          - Tree.Match
+description: |
+    The leafInfo.match() function uses path.join()
+    to deal with wildcard values which can lead to cross directory risk.
+cves:
+  - CVE-2022-31836
+ghsas:
+  - GHSA-95f9-94vc-665h
+links:
+    pr: https://github.com/beego/beego/pull/5025
+    commit: https://github.com/beego/beego/pull/5025/commits/ea5ae58d40589d249cf577a053e490509de2bf57
