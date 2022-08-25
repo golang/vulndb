@@ -54,24 +54,48 @@ const (
 
 func Generate(ctx context.Context, repoDir, jsonDir string, indent bool) (err error) {
 	defer derrors.Wrap(&err, "Generate(%q)", repoDir)
-	yamlFiles, err := ioutil.ReadDir(filepath.Join(repoDir, yamlDir))
-	if err != nil {
-		return fmt.Errorf("can't read %q: %s", yamlDir, err)
-	}
 
-	repo, err := gitrepo.Open(ctx, repoDir)
+	jsonVulns, entries, err := generateEntries(ctx, repoDir)
 	if err != nil {
 		return err
+	}
+
+	index := make(client.DBIndex, len(jsonVulns))
+	for path, vulns := range jsonVulns {
+		if err := writeVulns(filepath.Join(jsonDir, path), vulns, indent); err != nil {
+			return err
+		}
+		for _, v := range vulns {
+			if v.Modified.After(index[path]) || v.Published.After(index[path]) {
+				index[path] = v.Modified
+			}
+		}
+	}
+	if err := writeJSON(filepath.Join(jsonDir, "index.json"), index, indent); err != nil {
+		return err
+	}
+	return writeEntriesByID(filepath.Join(jsonDir, idDirectory), entries, indent)
+}
+
+func generateEntries(ctx context.Context, repoDir string) (map[string][]osv.Entry, []osv.Entry, error) {
+	repo, err := gitrepo.Open(ctx, repoDir)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	yamlFiles, err := ioutil.ReadDir(filepath.Join(repoDir, yamlDir))
+	if err != nil {
+		return nil, nil, fmt.Errorf("can't read %q: %s", yamlDir, err)
 	}
 
 	commitDates, err := gitrepo.AllCommitDates(repo, gitrepo.HeadReference, "data/")
 	if err != nil {
-		return err
+		return nil, nil, err
 	}
 
 	lastUpdate := commitDates[versionFile].Newest
 	if lastUpdate.IsZero() {
-		return fmt.Errorf("can't find git repo commit dates for %q", versionFile)
+		return nil, nil, fmt.Errorf("can't find git repo commit dates for %q", versionFile)
 	}
 
 	jsonVulns := map[string][]osv.Entry{}
@@ -82,7 +106,7 @@ func Generate(ctx context.Context, repoDir, jsonDir string, indent bool) (err er
 		}
 		r, err := report.Read(filepath.Join(repoDir, yamlDir, f.Name()))
 		if err != nil {
-			return err
+			return nil, nil, err
 		}
 		if r.Excluded != "" {
 			// We may want to include excluded reports in the database
@@ -94,7 +118,7 @@ func Generate(ctx context.Context, repoDir, jsonDir string, indent bool) (err er
 		yamlPath := filepath.Join(yamlDir, f.Name())
 		dates, ok := commitDates[yamlPath]
 		if !ok {
-			return fmt.Errorf("can't find git repo commit dates for %q", yamlPath)
+			return nil, nil, fmt.Errorf("can't find git repo commit dates for %q", yamlPath)
 		}
 		// If a report contains a published field, consider it
 		// the authoritative source of truth. Otherwise, set
@@ -108,7 +132,7 @@ func Generate(ctx context.Context, repoDir, jsonDir string, indent bool) (err er
 		}
 
 		if lints := r.Lint(yamlPath); len(lints) > 0 {
-			return fmt.Errorf("vuln.Lint: %v", lints)
+			return nil, nil, fmt.Errorf("vuln.Lint: %v", lints)
 		}
 
 		name := strings.TrimSuffix(filepath.Base(f.Name()), filepath.Ext(f.Name()))
@@ -119,65 +143,44 @@ func Generate(ctx context.Context, repoDir, jsonDir string, indent bool) (err er
 		}
 		entries = append(entries, entry)
 	}
+	return jsonVulns, entries, nil
+}
 
-	index := make(client.DBIndex, len(jsonVulns))
-	for path, vulns := range jsonVulns {
-		outPath := filepath.Join(jsonDir, path)
-		content, err := jsonMarshal(vulns, indent)
-		if err != nil {
-			return fmt.Errorf("failed to marshal json: %s", err)
-		}
-		if err := os.MkdirAll(filepath.Dir(outPath), 0755); err != nil {
-			return fmt.Errorf("failed to create directory %q: %s", filepath.Dir(outPath), err)
-		}
-		if err := ioutil.WriteFile(outPath+".json", content, 0644); err != nil {
-			return fmt.Errorf("failed to write %q: %s", outPath+".json", err)
-		}
-		for _, v := range vulns {
-			if v.Modified.After(index[path]) || v.Published.After(index[path]) {
-				index[path] = v.Modified
-			}
-		}
+func writeVulns(outPath string, vulns []osv.Entry, indent bool) error {
+	if err := os.MkdirAll(filepath.Dir(outPath), 0755); err != nil {
+		return fmt.Errorf("failed to create directory %q: %s", filepath.Dir(outPath), err)
 	}
+	return writeJSON(outPath+".json", vulns, indent)
+}
 
-	indexJSON, err := jsonMarshal(index, indent)
-	if err != nil {
-		return fmt.Errorf("failed to marshal index json: %s", err)
-	}
-	if err := ioutil.WriteFile(filepath.Join(jsonDir, "index.json"), indexJSON, 0644); err != nil {
-		return fmt.Errorf("failed to write index: %s", err)
-	}
-
+func writeEntriesByID(idDir string, entries []osv.Entry, indent bool) error {
 	// Write a directory containing entries by ID.
-	idDir := filepath.Join(jsonDir, idDirectory)
 	if err := os.MkdirAll(idDir, 0755); err != nil {
 		return fmt.Errorf("failed to create directory %q: %v", idDir, err)
 	}
 	var idIndex []string
 	for _, e := range entries {
 		outPath := filepath.Join(idDir, e.ID+".json")
-		content, err := jsonMarshal(e, indent)
-		if err != nil {
-			return fmt.Errorf("failed to marshal json: %v", err)
-		}
-		if err := ioutil.WriteFile(outPath, content, 0644); err != nil {
-			return fmt.Errorf("failed to write %q: %v", outPath, err)
+		if err := writeJSON(outPath, e, indent); err != nil {
+			return err
 		}
 		idIndex = append(idIndex, e.ID)
 	}
-
 	// Write an index.json in the ID directory with a list of all the IDs.
-	idIndexJSON, err := jsonMarshal(idIndex, indent)
-	if err != nil {
-		return fmt.Errorf("failed to marshal index json: %s", err)
-	}
-	if err := ioutil.WriteFile(filepath.Join(idDir, "index.json"), idIndexJSON, 0644); err != nil {
-		return fmt.Errorf("failed to write index: %s", err)
-	}
-	return nil
+	return writeJSON(filepath.Join(idDir, "index.json"), idIndex, indent)
 }
 
-func jsonMarshal(v interface{}, indent bool) ([]byte, error) {
+func writeJSON(filename string, value any, indent bool) (err error) {
+	defer derrors.Wrap(&err, "writeJSON(%s)", filename)
+
+	j, err := jsonMarshal(value, indent)
+	if err != nil {
+		return err
+	}
+	return os.WriteFile(filename, j, 0644)
+}
+
+func jsonMarshal(v any, indent bool) ([]byte, error) {
 	if indent {
 		return json.MarshalIndent(v, "", "  ")
 	}
