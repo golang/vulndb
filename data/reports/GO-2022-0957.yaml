@@ -1,0 +1,26 @@
+modules:
+  - module: github.com/tidwall/gjson
+    versions:
+      - fixed: 1.6.5
+    vulnerable_at: 1.6.4
+    packages:
+      - package: github.com/tidwall/gjson
+        symbols:
+          - parseObject
+          - queryMatches
+        derived_symbols:
+          - Get
+          - GetBytes
+          - GetMany
+          - GetManyBytes
+          - Result.Get
+description: A maliciously crafted JSON input can cause a denial of service attack.
+cves:
+  - CVE-2020-36066
+ghsas:
+  - GHSA-wjm3-fq3r-5x46
+links:
+    commit: https://github.com/tidwall/match/commit/c2f534168b739a7ec1821a33839fb2f029f26bbc
+    context:
+      - https://github.com/tidwall/gjson/commit/9f58baa7a613f89dfdc764c39e47fd3a15606153
+      - https://github.com/tidwall/gjson/issues/195
