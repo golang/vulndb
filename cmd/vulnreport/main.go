@@ -494,8 +494,8 @@ func commit(ctx context.Context, filename, accessToken string) (err error) {
 		action = "Fixes"
 		cves = strings.Join(r.CVEs, ", ")
 	}
-	msg := fmt.Sprintf("x/vulndb: add %v for %v\n\n%s golang/vulndb#%v\n",
-		filename, cves, action, issueID)
+	msg := fmt.Sprintf("data/reports: add %s for %s\n\n%s golang/vulndb#%s\n",
+		strings.TrimPrefix(filename, "data/reports/"), cves, action, strings.TrimPrefix(issueID, "0"))
 	if err := irun("git", "commit", "-m", msg, "-e", filename); err != nil {
 		fmt.Fprintf(os.Stderr, "git commit: %v\n", err)
 		return nil
