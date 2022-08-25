@@ -74,6 +74,9 @@ func Generate(ctx context.Context, repoDir, jsonDir string, indent bool) (err er
 	if err := writeJSON(filepath.Join(jsonDir, "index.json"), index, indent); err != nil {
 		return err
 	}
+	if err := writeAliasIndex(jsonDir, entries, indent); err != nil {
+		return err
+	}
 	return writeEntriesByID(filepath.Join(jsonDir, idDirectory), entries, indent)
 }
 
@@ -168,6 +171,17 @@ func writeEntriesByID(idDir string, entries []osv.Entry, indent bool) error {
 	}
 	// Write an index.json in the ID directory with a list of all the IDs.
 	return writeJSON(filepath.Join(idDir, "index.json"), idIndex, indent)
+}
+
+// Write a JSON file containing a map from alias to GO IDs.
+func writeAliasIndex(dir string, entries []osv.Entry, indent bool) error {
+	aliasToGoIDs := map[string][]string{}
+	for _, e := range entries {
+		for _, a := range e.Aliases {
+			aliasToGoIDs[a] = append(aliasToGoIDs[a], e.ID)
+		}
+	}
+	return writeJSON(filepath.Join(dir, "aliases.json"), aliasToGoIDs, indent)
 }
 
 func writeJSON(filename string, value any, indent bool) (err error) {
