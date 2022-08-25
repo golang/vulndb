@@ -2,22 +2,31 @@ modules:
   - module: github.com/tidwall/gjson
     versions:
       - fixed: 1.9.3
+    vulnerable_at: 1.9.2
     packages:
       - package: github.com/tidwall/gjson
         symbols:
-          - match.Match
+          - parseObject
+          - queryMatches
+        derived_symbols:
+          - Get
+          - GetBytes
+          - GetMany
+          - GetManyBytes
+          - Result.Get
 description: |
-    GJSON allowed a ReDoS (regular expression denial of service) attack.
-published: 2022-01-14T17:30:24Z
+    A maliciously crafted path can cause Get and other query functions
+    to consume excessive amounts of CPU and time.
+published: 2022-08-15T18:06:07Z
 cves:
-  - CVE-2020-36066
+  - CVE-2021-42248
   - CVE-2021-42836
 ghsas:
+  - GHSA-c9gm-7rfj-8w5h
   - GHSA-ppj4-34rq-v8j9
-  - GHSA-wjm3-fq3r-5x46
 links:
-    commit: https://github.com/tidwall/gjson/commit/590010fdac311cc8990ef5c97448d4fec8f29944
+    commit: https://github.com/tidwall/gjson/commit/77a57fda87dca6d0d7d4627d512a630f89a91c96
     context:
-      - https://github.com/tidwall/gjson/compare/v1.9.2...v1.9.3
-      - https://github.com/tidwall/gjson/issues/236
       - https://github.com/tidwall/gjson/issues/237
+      - https://github.com/tidwall/gjson/issues/236
+      - https://github.com/tidwall/gjson/commit/590010fdac311cc8990ef5c97448d4fec8f29944
