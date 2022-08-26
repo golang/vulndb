@@ -15,7 +15,6 @@ import (
 func GHSAToReport(sa *ghsa.SecurityAdvisory, modulePath string) *Report {
 	r := &Report{
 		Description: sa.Description,
-		Links:       Links{Context: []string{sa.Permalink}},
 	}
 	var cves, ghsas []string
 	for _, id := range sa.Identifiers {

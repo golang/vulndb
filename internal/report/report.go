@@ -174,27 +174,6 @@ const (
 	ghsaURLPrefix = "https://github.com/advisories/"
 )
 
-// GetAliasLinks returns links to all aliases (e.g., CVEs, GHSAs) for a report,
-// unless the link is already the canonical advisory.
-func (r *Report) GetAliasLinks() []string {
-	var links []string
-	for _, cve := range r.CVEs {
-		links = append(links, fmt.Sprintf("%s%s", NISTPrefix, cve))
-	}
-	// TODO(https://go.dev/issue/54488): check CVE status to determine which
-	// link to include.
-	if r.CVEMetadata != nil && r.CVEMetadata.ID != "" {
-		links = append(links, fmt.Sprintf("%s%s", mitrePrefix, r.CVEMetadata.ID))
-	}
-	for _, ghsa := range r.GHSAs {
-		// Don't duplicate GHSA link if it is the canonical advisory.
-		if url := fmt.Sprintf("%s%s", ghsaURLPrefix, ghsa); url != r.Links.Advisory {
-			links = append(links, url)
-		}
-	}
-	return links
-}
-
 // AllLinks returns all reference links in the report.
 func (r *Report) AllLinks() []string {
 	var links []string

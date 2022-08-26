@@ -283,9 +283,6 @@ modules:
 description: a description
 ghsas:
   - G1
-links:
-    context:
-      - https://github.com/permalink/to/G1
 
 ` + "```"
 

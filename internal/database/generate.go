@@ -238,9 +238,6 @@ func GenerateOSVEntry(id, url string, lastModified time.Time, r report.Report) (
 	for _, link := range r.Links.Context {
 		entry.References = append(entry.References, osv.Reference{Type: "WEB", URL: link})
 	}
-	for _, aliasLink := range r.GetAliasLinks() {
-		entry.References = append(entry.References, osv.Reference{Type: "WEB", URL: aliasLink})
-	}
 	entry.Aliases = r.GetAliases()
 
 	var modules []string
