@@ -15,12 +15,11 @@ description: |
     Calling Decoder.Decode on a message which contains deeply nested structures
     can cause a panic due to stack exhaustion.
 published: 2022-07-20T20:52:17Z
-links:
-    pr: https://go.dev/cl/417064
-    commit: https://go.googlesource.com/go/+/6fa37e98ea4382bf881428ee0c150ce591500eb7
-    context:
-      - https://go.dev/issue/53615
-      - https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE
+references:
+  - fix: https://go.dev/cl/417064
+  - fix: https://go.googlesource.com/go/+/6fa37e98ea4382bf881428ee0c150ce591500eb7
+  - report: https://go.dev/issue/53615
+  - web: https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE
 cve_metadata:
     id: CVE-2022-30635
     cwe: 'CWE-674: Uncontrolled Recursion'

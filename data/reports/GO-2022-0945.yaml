@@ -23,17 +23,16 @@ modules:
         derived_symbols:
           - cbcAEAD.Open
 description: |
-  The go-jose library suffers from multiple signatures exploitation. When
-  validating a signed message, the API did not indicate which signature was
-  valid, which creates the potential for confusion.
+    The go-jose library suffers from multiple signatures exploitation. When
+    validating a signed message, the API did not indicate which signature was
+    valid, which creates the potential for confusion.
 cves:
   - CVE-2016-9122
 ghsas:
   - GHSA-77gc-fj98-665h
-links:
-    pr: https://github.com/square/go-jose/pull/111
-    commit: https://github.com/square/go-jose/commit/2c5656adca9909843c4ff50acf1d2cf8f32da7e6
-    advisory: https://www.openwall.com/lists/oss-security/2016/11/03/1
-    context:
-      - https://github.com/square/go-jose/commit/789a4c4bd4c118f7564954f441b29c153ccd6a96
-      - https://github.com/square/go-jose/commit/c7581939a3656bb65e89d64da0a52364a33d2507
+references:
+  - advisory: https://www.openwall.com/lists/oss-security/2016/11/03/1
+  - fix: https://github.com/square/go-jose/pull/111
+  - fix: https://github.com/square/go-jose/commit/2c5656adca9909843c4ff50acf1d2cf8f32da7e6
+  - web: https://github.com/square/go-jose/commit/789a4c4bd4c118f7564954f441b29c153ccd6a96
+  - web: https://github.com/square/go-jose/commit/c7581939a3656bb65e89d64da0a52364a33d2507
