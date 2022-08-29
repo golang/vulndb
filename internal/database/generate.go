@@ -66,7 +66,7 @@ func Generate(ctx context.Context, repoDir, jsonDir string, indent bool) (err er
 			return err
 		}
 		for _, v := range vulns {
-			if v.Modified.After(index[path]) || v.Published.After(index[path]) {
+			if v.Modified.After(index[path]) {
 				index[path] = v.Modified
 			}
 		}
@@ -133,7 +133,10 @@ func generateEntries(ctx context.Context, repoDir string) (map[string][]osv.Entr
 		if lastUpdate.After(lastModified) {
 			lastModified = lastUpdate
 		}
-
+		if r.Published.After(lastModified) {
+			return nil, nil, fmt.Errorf("%s: published on %s after last modified on %s",
+				yamlPath, r.Published, lastModified)
+		}
 		if lints := r.Lint(yamlPath); len(lints) > 0 {
 			return nil, nil, fmt.Errorf("vuln.Lint: %v", lints)
 		}
