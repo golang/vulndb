@@ -11,7 +11,7 @@ This page documents the internal YAML file format.
 
 ## `packages`
 
-type [Package[]](#type-package)
+type [[]Package](#type-package)
 
 **required**
 
@@ -50,7 +50,7 @@ Omit this field if the package name is identical to the module name.
 
 ### `symbols`
 
-type `string[]`
+type `[]string`
 
 The symbols affected by this vulnerability.
 
@@ -63,7 +63,7 @@ or other source.
 
 ### `derived_symbols`
 
-type `string[]`
+type `[]string`
 
 Derived symbols that are calculated from `symbols`,
 such as by static analysis tools like `govulncheck`.
@@ -79,7 +79,7 @@ listed as fixed.
 
 ### `versions`
 
-type [`VersionRange[]`](#type-versionrange)
+type [`[]VersionRange`](#type-versionrange)
 
 The version ranges in which the package is vulnerable.
 
@@ -168,14 +168,14 @@ YAML.
 
 ## `cves`
 
-type `string[]`
+type `[]string`
 
 The Common Vulnerabilities and Exposures (CVE) ID(s) for the
  vulnerability.
 
 ## `ghsas`
 
-type `string[]`
+type `[]string`
 
 The GitHub Security Advisory (GHSA) IDs for the vulnerability.
 
@@ -191,57 +191,75 @@ when available.
 For third-party reports, if `vulnreport create` finds CVE or GHSA metadata,
 use that. Otherwise, it's okay to leave this blank.
 
-## `links`
+## `references`
 
-type [`Links`](#type-links)
+type [`[]Reference`]
 
 Links to further information about the vulnerability.
 
-Include a link to the fix pull request, Gerrit code review, or commit.
+Include a `FIX` link to the fix pull request, Gerrit code review, or commit.
 No need to link both the PR and the commit.
 Prefer to link to the PR or code review rather than the commit.
 
 Don't include links to CVEs and GHSAs just because they exist.
 (That's what the cve/ghsa fields are for.)
 
-DO include a link to an authoritative *first-party* advisory when one exists.
+DO include an `ADVISORY` link to an authoritative *first-party*
+advisory when one exists.
 If the first-party advisory is a GHSA, then link to that.
-If the first-party advisory is a CVE, then link to that and update this
-document with a policy on what URL that link should be (this scenario has
-not come up as of this time).
+If the first-party advisory is a CVE, then link to the CVE page on
+nvd.nist.gov/vuln.
+
+Include a `REPORT` link to a first-party bug or issue when one exists.
 
 Don't include links to random third-party issue trackers (e.g.,
 Debian announcements). CVEs often contain a bunch of random links
 of dubious value; be aggressive in pruning these out.
 
-Do include links to first-party bugs.
+## Type **Report**
 
-## Type **Links**
+The internal representation of a `Report` is a struct with `Type`
+and `URL` fields. For convenience, the YAML representation is a
+single-element map from type to URL. For example:
 
-### `advisory`
+```
+references:
+  - fix: https://go.dev/cl/25010
+  - report: https://go.dev/issue/16405
+```
 
-type `string`
-
-A link to an authoritative, first-party advisory.
-
-### `commit`
-
-type `string`
-
-A link to the commit which fixes the vulnerability.
-
-### `pr`
+### `type`
 
 type `string`
 
-A link to the PR/CL which fixes the vulnerability.
+The type of reference, as in the
+[OSV references field](https://ossf.github.io/osv-schema/#references-field).
 
-### `context`
+OSV types are upper-case, but the type in the YAML should be lower case.
 
-type `string[]`
+Types we use:
 
-Additional links which provide more context about the vulnerability,
-i.e. GitHub issues, vulnerability reports, etc.
+    * `ADVISORY`: A link to an authoritative, first-party advisory.
+
+    * `ARTICLE`: An article or blog post about the vulnerability.
+
+    * `REPORT`: A bug or issue tracker link.
+
+    * `FIX`: A link to the PR/CL which fixes the vulnerability.
+
+    * `PACKAGE`: The home page for the package.
+      (We usually do not include this.)
+
+    * `EVIDENCE`: A demonstration of the vulnerability.
+      (We usually do not include this.)
+
+    * `WEB`: Anything that doesn't fit into the above.
+
+### `url`
+
+type `string`
+
+The URL.
 
 ## `excluded`
 
@@ -317,12 +335,10 @@ ghsas:
   - GHSA-1234-5678-9101
 credit:
   - John Smith
-links:
-  - commit: https://github.com/example/module/commit/aabbccdd
-  - pr: https://github.com/example/module/pull/10
-  - context:
-      - https://www.openwall.com/lists/oss-security/2016/11/03/1
-      - https://github.com/example/module/advisories/1
+references:
+  - advisory: https://github.com/example/module/advisories/1
+  - fix: https://github.com/example/module/pull/10
+  - web: https://www.openwall.com/lists/oss-security/2016/11/03/1
 ```
 
 ### Standard library example report
@@ -342,10 +358,8 @@ description: |
     A description.
 cves:
   - CVE-2020-12345
-links:
-    pr: https://go.dev/cl/12345
-    commit: https://go.googlesource.com/go/+/12345678
-    context:
-      - https://go.dev/issue/01010
-      - https://groups.google.com/g/golang-announce/c/123456
+references:
+  - fix: https://go.dev/cl/12345
+  - report: https://go.dev/issue/01010
+  - web: https://groups.google.com/g/golang-announce/c/123456
 ```
