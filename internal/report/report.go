@@ -89,13 +89,6 @@ type LegacyPackage struct {
 	VulnerableAt Version `yaml:"vulnerable_at,omitempty"`
 }
 
-type Links struct {
-	PR       string   `yaml:",omitempty"`
-	Commit   string   `yaml:",omitempty"`
-	Advisory string   `yaml:",omitempty"`
-	Context  []string `yaml:",omitempty"`
-}
-
 type CVEMeta struct {
 	ID          string `yaml:",omitempty"`
 	CWE         string `yaml:",omitempty"`
@@ -196,9 +189,8 @@ type Report struct {
 	// the above CVEs.
 	GHSAs []string `yaml:",omitempty"`
 
-	Credit          string       `yaml:",omitempty"`
-	DeprecatedLinks Links        `yaml:"links,omitempty"`
-	References      []*Reference `yaml:",omitempty"`
+	Credit     string       `yaml:",omitempty"`
+	References []*Reference `yaml:",omitempty"`
 
 	// CVEMetdata is used to capture CVE information when we want to assign a
 	// CVE ourselves. If a CVE already exists for an issue, use the CVE field
@@ -247,45 +239,7 @@ func Read(filename string) (_ *Report, err error) {
 	if err := d.Decode(&r); err != nil {
 		return nil, fmt.Errorf("yaml.Decode: %v", err)
 	}
-	r.upgrade()
 	return &r, nil
-}
-
-func (r *Report) upgrade() {
-	if u := r.DeprecatedLinks.Advisory; u != "" {
-		r.References = append(r.References, &Reference{
-			Type: ReferenceTypeAdvisory,
-			URL:  u,
-		})
-	}
-	if u := r.DeprecatedLinks.PR; u != "" {
-		r.References = append(r.References, &Reference{
-			Type: ReferenceTypeFix,
-			URL:  u,
-		})
-	}
-	if u := r.DeprecatedLinks.Commit; u != "" {
-		r.References = append(r.References, &Reference{
-			Type: ReferenceTypeFix,
-			URL:  u,
-		})
-	}
-	for _, u := range r.DeprecatedLinks.Context {
-		typ := ReferenceTypeWeb
-		switch {
-		case strings.Contains(u, "/issue/"):
-			typ = ReferenceTypeReport
-		case strings.Contains(u, "/cl/"):
-			typ = ReferenceTypeFix
-		case strings.Contains(u, "https://go.googlesource.com/"):
-			typ = ReferenceTypeFix
-		}
-		r.References = append(r.References, &Reference{
-			Type: typ,
-			URL:  u,
-		})
-	}
-	r.DeprecatedLinks = Links{}
 }
 
 // Write writes r to filename in YAML format.
