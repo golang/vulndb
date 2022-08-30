@@ -1,7 +1,9 @@
 modules:
   - module: github.com/ecnepsnai/web
     versions:
-      - fixed: 1.5.2
+      - introduced: 1.4.0
+        fixed: 1.5.2
+    vulnerable_at: 1.5.1
     packages:
       - package: github.com/ecnepsnai/web
         symbols:
@@ -9,9 +11,13 @@ modules:
         derived_symbols:
           - Server.Socket
 description: |
-    Web Sockets do not execute any AuthenticateMethod methods which may be set,leading to a
-    nil pointer dereference if the returned UserData pointer is assumed to be non-nil, or
-    authentication bypass.
+    Web Sockets do not execute any AuthenticateMethod methods which may be set,
+    leading to a nil pointer dereference if the returned UserData pointer is
+    assumed to be non-nil, or authentication bypass.
+
+    This issue only affects WebSockets with an AuthenticateMethod hook.
+    Request handlers that do not explicitly use WebSockets are not
+    vulnerable.
 published: 2021-07-28T18:08:05Z
 ghsas:
   - GHSA-5gjg-jgh4-gppm
