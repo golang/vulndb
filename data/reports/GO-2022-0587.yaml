@@ -13,22 +13,33 @@ modules:
           - CompileModulesWithOpt
           - MustCompileModules
           - MustCompileModulesWithOpts
+          - MustParseBody
+          - MustParseBodyWithOpts
+          - MustParseExpr
           - MustParseImports
           - MustParseModule
           - MustParseModuleWithOpts
           - MustParsePackage
+          - MustParseRef
           - MustParseRule
           - MustParseStatement
           - MustParseStatements
+          - MustParseTerm
+          - ParseBody
+          - ParseBodyWithOpts
+          - ParseExpr
           - ParseImports
           - ParseModule
           - ParseModuleWithOpts
           - ParsePackage
+          - ParseRef
           - ParseRule
           - ParseStatement
           - ParseStatements
           - ParseStatementsWithOpts
+          - ParseTerm
           - Parser.Parse
+          - metadataParser.Parse
 description: |
     An issue in ast.Parser in Open Policy Agent causes the application to
     incorrectly interpret expressions, allowing a Denial of Service (DoS)

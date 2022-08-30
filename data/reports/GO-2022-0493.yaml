@@ -17,6 +17,8 @@ modules:
       - package: golang.org/x/sys/unix
         symbols:
           - Faccessat
+        derived_symbols:
+          - Access
 description: |
     When called with a non-zero flags parameter, the Faccessat function
     can incorrectly report that a file is accessible.

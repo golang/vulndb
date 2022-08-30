@@ -7,9 +7,18 @@ modules:
       - package: github.com/containers/psgo
         symbols:
           - contextFromOptions
+        derived_symbols:
+          - JoinNamespaceAndProcessInfo
+          - JoinNamespaceAndProcessInfoByPids
+          - JoinNamespaceAndProcessInfoByPidsWithOptions
+          - JoinNamespaceAndProcessInfoWithOptions
+          - ProcessInfo
+          - ProcessInfoByPids
       - package: github.com/containers/psgo/internal/proc
         symbols:
           - readStatusUserNS
+        derived_symbols:
+          - ParseStatus
 description: |
     The psgo package executes the 'nsenter' binary, potentially allowing
     privilege escalation when used in environments where nsenter is provided

@@ -8,6 +8,11 @@ modules:
       - package: github.com/opencontainers/runc/libcontainer
         symbols:
           - Bytemsg.Serialize
+        derived_symbols:
+          - LinuxFactory.StartInitialization
+          - linuxContainer.Run
+          - linuxContainer.Start
+          - linuxStandardInit.Init
 description: |
     An attacker with partial control over the bind mount sources of a new
     container can bypass namespace restrictions.

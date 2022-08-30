@@ -29,25 +29,63 @@ modules:
           - Tree.match
         derived_symbols:
           - AddNamespace
+          - AddViewPath
           - Any
           - AutoPrefix
           - AutoRouter
+          - BuildTemplate
           - Compare
           - CompareNot
+          - Controller.Abort
           - Controller.Bind
           - Controller.BindForm
+          - Controller.BindJSON
+          - Controller.BindProtobuf
           - Controller.BindXML
           - Controller.BindYAML
+          - Controller.CheckXSRFCookie
+          - Controller.CustomAbort
+          - Controller.Delete
+          - Controller.DestroySession
+          - Controller.Get
+          - Controller.GetBool
+          - Controller.GetFile
+          - Controller.GetFloat
+          - Controller.GetInt
+          - Controller.GetInt16
+          - Controller.GetInt32
+          - Controller.GetInt64
+          - Controller.GetInt8
           - Controller.GetSecureCookie
+          - Controller.GetString
+          - Controller.GetStrings
+          - Controller.GetUint16
+          - Controller.GetUint32
+          - Controller.GetUint64
+          - Controller.GetUint8
+          - Controller.Head
+          - Controller.Input
+          - Controller.IsAjax
+          - Controller.JSONResp
+          - Controller.Options
           - Controller.ParseForm
+          - Controller.Patch
+          - Controller.Post
+          - Controller.Put
+          - Controller.Redirect
           - Controller.Render
           - Controller.RenderBytes
           - Controller.RenderString
           - Controller.Resp
           - Controller.SaveToFile
+          - Controller.SaveToFileWithBuffer
           - Controller.ServeFormatted
+          - Controller.ServeJSON
+          - Controller.ServeJSONP
           - Controller.ServeXML
           - Controller.ServeYAML
+          - Controller.SessionRegenerateID
+          - Controller.SetData
           - Controller.SetSecureCookie
           - Controller.Trace
           - Controller.URLFor
@@ -73,6 +111,7 @@ modules:
           - ControllerRegister.FindPolicy
           - ControllerRegister.FindRouter
           - ControllerRegister.Get
+          - ControllerRegister.GetContext
           - ControllerRegister.Handler
           - ControllerRegister.Head
           - ControllerRegister.Include
@@ -93,11 +132,13 @@ modules:
           - CtrlPost
           - CtrlPut
           - Date
+          - DateFormat
           - DateParse
           - Delete
           - Exception
           - ExecuteTemplate
           - ExecuteViewPathTemplate
+          - FileSystem.Open
           - FilterRouter.ValidRouter
           - FlashData.Error
           - FlashData.Notice
@@ -129,6 +170,7 @@ modules:
           - HttpServer.Head
           - HttpServer.Include
           - HttpServer.InsertFilter
+          - HttpServer.LogAccess
           - HttpServer.Options
           - HttpServer.Patch
           - HttpServer.Post
@@ -142,6 +184,7 @@ modules:
           - InitBeegoBeforeTest
           - InsertFilter
           - LoadAppConfig
+          - LogAccess
           - MapGet
           - Namespace.Any
           - Namespace.AutoPrefix
@@ -194,6 +237,7 @@ modules:
           - URLFor
           - URLMap.GetMap
           - URLMap.GetMapData
+          - Walk
           - adminApp.Run
           - adminController.AdminIndex
           - adminController.Healthcheck
