@@ -444,15 +444,15 @@ func findExportedSymbols(m *report.Module, p *report.Package, c *reportClient) (
 	return newslice, nil
 }
 
-var reportRegexp = regexp.MustCompile(`^data/reports/GO-\d\d\d\d-(\d+)\.yaml$`)
+var reportRegexp = regexp.MustCompile(`^(data/\w+)/GO-\d\d\d\d-(\d+)\.yaml$`)
 
 func commit(ctx context.Context, filename, accessToken string) (err error) {
 	defer derrors.Wrap(&err, "commit(%q)", filename)
 	m := reportRegexp.FindStringSubmatch(filename)
-	if len(m) != 2 {
+	if len(m) != 3 {
 		return fmt.Errorf("%v: not a report filename", filename)
 	}
-	issueID := m[1]
+	issueID := m[2]
 
 	// Ignore errors. If anything is really wrong with the report, we'll
 	// detect it on re-linting below.
@@ -484,16 +484,25 @@ func commit(ctx context.Context, filename, accessToken string) (err error) {
 		fmt.Fprintf(os.Stderr, "git add: %v\n", err)
 		return nil
 	}
-	var cves, action string
-	if r.CVEMetadata != nil {
+
+	var externalAdvisories string
+	action := "Fixes"
+	switch {
+	case r.CVEMetadata != nil:
 		action = "Updates"
-		cves = r.CVEMetadata.ID
-	} else {
-		action = "Fixes"
-		cves = strings.Join(r.CVEs, ", ")
+		externalAdvisories = r.CVEMetadata.ID
+	case len(r.CVEs) > 0:
+		externalAdvisories = strings.Join(r.CVEs, ", ")
+	case len(r.GHSAs) > 0:
+		externalAdvisories = strings.Join(r.GHSAs, ", ")
+	default:
+		externalAdvisories = "[no CVE or GHSA]"
 	}
-	msg := fmt.Sprintf("data/reports: add %s for %s\n\n%s golang/vulndb#%s\n",
-		strings.TrimPrefix(filename, "data/reports/"), cves, action, strings.TrimPrefix(issueID, "0"))
+
+	folder := m[1]
+	msg := fmt.Sprintf("%s: add %s for %s\n\n%s golang/vulndb#%s\n",
+		folder,
+		strings.TrimPrefix(filename, fmt.Sprintf("%s/", folder)), externalAdvisories, action, strings.TrimPrefix(issueID, "0"))
 	if err := irun("git", "commit", "-m", msg, "-e", filename); err != nil {
 		fmt.Fprintf(os.Stderr, "git commit: %v\n", err)
 		return nil
