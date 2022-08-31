@@ -307,7 +307,7 @@ func fix(ctx context.Context, filename string, accessToken string) (err error) {
 		r.Fix()
 	}
 	if !*skipSymbols {
-		if _, err := checkReportSymbols(r); err != nil {
+		if err := checkReportSymbols(r); err != nil {
 			return err
 		}
 	}
@@ -319,28 +319,29 @@ func fix(ctx context.Context, filename string, accessToken string) (err error) {
 	return r.Write(filename)
 }
 
-func checkReportSymbols(r *report.Report) (bool, error) {
+func checkReportSymbols(r *report.Report) error {
+	for _, m := range r.Modules {
+		for _, p := range m.Packages {
+			p.DerivedSymbols = nil
+		}
+	}
 	rc := newReportClient(r)
-	added := false
 	for _, m := range r.Modules {
 		for _, p := range m.Packages {
 			if len(p.Symbols) == 0 {
 				continue
 			}
 			if len(p.GOOS) > 0 || len(p.GOARCH) > 0 {
-				return false, errors.New("specific GOOS/GOARCH not yet implemented")
+				return errors.New("specific GOOS/GOARCH not yet implemented")
 			}
 			syms, err := findExportedSymbols(m, p, rc)
 			if err != nil {
-				return false, err
+				return err
 			}
-			if !slices.Equal(syms, p.DerivedSymbols) {
-				added = true
-				p.DerivedSymbols = syms
-			}
+			p.DerivedSymbols = syms
 		}
 	}
-	return added, nil
+	return nil
 }
 
 func findExportedSymbols(m *report.Module, p *report.Package, c *reportClient) (_ []string, err error) {
