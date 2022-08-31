@@ -1,19 +1,20 @@
 # The Go Vulnerability Database
 
-This repository contains the reports for the
+[![Go Reference](https://pkg.go.dev/badge/golang.org/x/vulndb.svg)](https://pkg.go.dev/golang.org/x/vulndb)
+
+This repository contains the infrastructure and internal reports to create the
 [Go Vulnerability Database](https://vuln.go.dev).
 
 If you are interested accessing data from the Go Vulnerability Database, see
-[x/vuln](https://golang.org/x/vuln) for information. This repository is only
-used for adding new vulnerabilities.
+[x/vuln](https://golang.org/x/vuln).
 
-For more information on vulnerability management in the Go ecosystem, see
-[https://go.dev/security/vulndb](https://go.dev/security/vulndb).
+Check out [https://go.dev/security/vuln](https://go.dev/security/vuln) for more
+information about the Go vulnerability management system.
 
-## Reporting a vulnerability
+## Reporting a vulnerability or feedback
 
-We are not accepting new vulnerability reports at this time. We will update
-this README.md once we are ready to receive reports.
+[Click here](https://github.com/golang/vulndb/issues/new/choose) to report a
+public vulnerability in the Go ecosystem, or give feedback about the project.
 
 ## Privacy Policy
 
