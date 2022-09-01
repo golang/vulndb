@@ -16,6 +16,7 @@ import (
 	"strings"
 	"time"
 
+	"golang.org/x/mod/module"
 	"golang.org/x/vuln/client"
 	"golang.org/x/vuln/osv"
 	"golang.org/x/vulndb/internal/derrors"
@@ -61,13 +62,17 @@ func Generate(ctx context.Context, repoDir, jsonDir string, indent bool) (err er
 	}
 
 	index := make(client.DBIndex, len(jsonVulns))
-	for path, vulns := range jsonVulns {
-		if err := writeVulns(filepath.Join(jsonDir, path), vulns, indent); err != nil {
+	for modulePath, vulns := range jsonVulns {
+		epath, err := escapeModulePath(modulePath)
+		if err != nil {
+			return err
+		}
+		if err := writeVulns(filepath.Join(jsonDir, epath), vulns, indent); err != nil {
 			return err
 		}
 		for _, v := range vulns {
-			if v.Modified.After(index[path]) {
-				index[path] = v.Modified
+			if v.Modified.After(index[modulePath]) {
+				index[modulePath] = v.Modified
 			}
 		}
 	}
@@ -143,9 +148,9 @@ func generateEntries(ctx context.Context, repoDir string) (map[string][]osv.Entr
 
 		name := strings.TrimSuffix(filepath.Base(f.Name()), filepath.Ext(f.Name()))
 		linkName := fmt.Sprintf("%s%s", dbURL, name)
-		entry, paths := GenerateOSVEntry(name, linkName, lastModified, *r)
-		for _, path := range paths {
-			jsonVulns[path] = append(jsonVulns[path], entry)
+		entry, modulePaths := GenerateOSVEntry(name, linkName, lastModified, *r)
+		for _, modulePath := range modulePaths {
+			jsonVulns[modulePath] = append(jsonVulns[modulePath], entry)
 		}
 		entries = append(entries, entry)
 	}
@@ -236,11 +241,11 @@ func GenerateOSVEntry(id, url string, lastModified time.Time, r report.Report) (
 	}
 	entry.Aliases = r.GetAliases()
 
-	var modules []string
+	var modulePaths []string
 	for module := range moduleMap {
-		modules = append(modules, module)
+		modulePaths = append(modulePaths, module)
 	}
-	return entry, modules
+	return entry, modulePaths
 }
 
 func generateAffectedRanges(versions []report.VersionRange) osv.Affects {
@@ -293,4 +298,20 @@ func generateAffected(m *report.Module, url string) osv.Affected {
 			Imports: generateImports(m),
 		},
 	}
+}
+
+// Pseudo-module paths used for parts of the Go system.
+// These are technically not valid module paths, so we
+// mustn't pass them to module.EscapePath.
+// Keep in sync with vuln/client/client.go.
+var specialCaseModulePaths = map[string]bool{
+	stdFileName:       true,
+	toolchainFileName: true,
+}
+
+func escapeModulePath(path string) (string, error) {
+	if specialCaseModulePaths[path] {
+		return path, nil
+	}
+	return module.EscapePath(path)
 }
