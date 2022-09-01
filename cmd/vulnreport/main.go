@@ -174,7 +174,7 @@ func create(ctx context.Context, issueNumber int, ghToken, issueRepo, repoPath s
 				return err
 			}
 			for _, sa := range sas {
-				ghsas = append(ghsas, sa.ID)
+				ghsas = append(ghsas, sa.GHSA())
 			}
 		}
 		slices.Sort(ghsas)
