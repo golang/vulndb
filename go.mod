@@ -3,7 +3,7 @@ module golang.org/x/vulndb
 go 1.18
 
 require (
-	golang.org/x/vuln v0.0.0-20220819162940-6faf8534b80b
+	golang.org/x/vuln v0.0.0-20220901195212-c1a82ac9a5ef
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 )
 
