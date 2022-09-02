@@ -2,6 +2,7 @@ modules:
   - module: go.mongodb.org/mongo-driver
     versions:
       - fixed: 1.5.1
+    vulnerable_at: 1.5.0
     packages:
       - package: go.mongodb.org/mongo-driver/x/bsonx/bsoncore
         symbols:
@@ -82,6 +83,46 @@ modules:
           - DocumentBuilder.AppendUndefined
           - DocumentBuilder.AppendValue
           - DocumentBuilder.StartDocument
+      - package: go.mongodb.org/mongo-driver/bson/bsonrw
+        symbols:
+          - valueWriter.writeElementHeader
+        derived_symbols:
+          - Copier.AppendArrayBytes
+          - Copier.AppendDocumentBytes
+          - Copier.AppendValueBytes
+          - Copier.CopyArrayFromBytes
+          - Copier.CopyBytesToArrayWriter
+          - Copier.CopyBytesToDocumentWriter
+          - Copier.CopyDocument
+          - Copier.CopyDocumentFromBytes
+          - Copier.CopyDocumentToBytes
+          - Copier.CopyValue
+          - Copier.CopyValueFromBytes
+          - Copier.CopyValueToBytes
+          - CopyDocument
+          - valueWriter.WriteArray
+          - valueWriter.WriteBinary
+          - valueWriter.WriteBinaryWithSubtype
+          - valueWriter.WriteBoolean
+          - valueWriter.WriteCodeWithScope
+          - valueWriter.WriteDBPointer
+          - valueWriter.WriteDateTime
+          - valueWriter.WriteDecimal128
+          - valueWriter.WriteDocument
+          - valueWriter.WriteDouble
+          - valueWriter.WriteInt32
+          - valueWriter.WriteInt64
+          - valueWriter.WriteJavascript
+          - valueWriter.WriteMaxKey
+          - valueWriter.WriteMinKey
+          - valueWriter.WriteNull
+          - valueWriter.WriteObjectID
+          - valueWriter.WriteRegex
+          - valueWriter.WriteString
+          - valueWriter.WriteSymbol
+          - valueWriter.WriteTimestamp
+          - valueWriter.WriteUndefined
+          - valueWriter.WriteValueBytes
 description: |
     Due to improper input sanitization when marshalling Go objects into BSON, a maliciously constructed
     Go structure could allow an attacker to inject additional fields into a MongoDB document. Users are
