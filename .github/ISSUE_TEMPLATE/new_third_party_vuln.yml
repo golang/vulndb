@@ -2,18 +2,18 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-name: Tell us about a public vulnerability in the Go Ecosystem
+name: Tell us about a public vulnerability in the Go ecosystem
 description: |
   Report an existing, public vulnerability in a publicly importable package in the Go ecosystem that is not yet in our database.
 title: "x/vulndb: potential Go vuln in <package>"
-labels: "Needs Triage,Direct External Report"
+labels: ["Needs Triage","Direct External Report"]
 body:
   - type: markdown
     attributes:
       value: |
         Thanks for taking the time to file a vulnerability report!
 
-        Use this form only for PUBLIC vulnerabilities in publicly importable Go packages not maintained by the Go Team (i.e., anything outside the Go standard library, Go toolchain, and golang.org modules).
+        This form creates a public issue on our issue tracker containing all the details you report. It is intended for PUBLIC vulnerabilities in publicly importable Go packages not maintained by the Go Team (i.e., anything outside the Go standard library, Go toolchain, and golang.org modules).
 
         ❗ To report undisclosed Go vulnerabilities, please follow our [security policy](https://go.dev/security/policy) instead.
 
@@ -32,7 +32,7 @@ body:
       description: |
         The Go modules, packages, versions, and symbols this vulnerability affects.
 
-        Package versions should be in semver format, and should indicate when the vulnerability was introduced and when it was fixed, if known.
+        Package versions should be in semver format, and should indicate when the vulnerability was introduced and when it was fixed, if known. If there are multiple fixed (or introduced) versions for the same package, list them all.
 
         Symbols are functions, methods or structs that may trigger this vulnerability when used.
       value: |
@@ -45,7 +45,7 @@ body:
           - aFunction
           - SomeType.AMethod
 
-        Module: github.com/example/module
+        Module: github.com/example/module/v2
         Package: github.com/example/module/v2/package
         Versions:
           - Fixed: 2.4.5
