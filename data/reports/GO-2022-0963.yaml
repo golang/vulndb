@@ -1,0 +1,58 @@
+modules:
+  - module: github.com/gagliardetto/binary
+    versions:
+      - fixed: 0.7.1
+    vulnerable_at: 0.7.0
+    packages:
+      - package: github.com/gagliardetto/binary
+        symbols:
+          - Decoder.decodeBin
+          - Decoder.decodeBorsh
+          - Decoder.decodeCompactU16
+          - Decoder.ReadTypeID
+          - Decoder.Discard
+          - Decoder.ReadRustString
+          - readNBytes
+          - discardNBytes
+          - Encoder.WriteFloat32
+          - Encoder.WriteFloat64
+          - Encoder.encodeBin
+          - Encoder.encodeBorsh
+          - Encoder.encodeCompactU16
+        derived_symbols:
+          - BaseVariant.UnmarshalBinaryVariant
+          - BinByteCount
+          - BorshByteCount
+          - CompactU16ByteCount
+          - Decoder.Decode
+          - Decoder.ReadInt64
+          - Decoder.ReadNBytes
+          - Decoder.ReadUint64
+          - Encoder.Encode
+          - Int64.UnmarshalWithDecoder
+          - JSONFloat64.MarshalWithEncoder
+          - MarshalBin
+          - MarshalBorsh
+          - MarshalCompactU16
+          - MustBinByteCount
+          - MustBorshByteCount
+          - MustCompactU16ByteCount
+          - Uint64.UnmarshalWithDecoder
+          - UnmarshalBin
+          - UnmarshalBorsh
+          - UnmarshalCompactU16
+description: |
+    A memory allocation vulnerability can be exploited to allocate arbitrarily
+    large slices, which can exhaust available memory or crash the program.
+
+    When parsing data from untrusted sources of input (e.g. the blockchain),
+    the length of the slice to allocate is read directly from the data itself
+    without any checks, which could lead to an allocation of excessive memory.
+cves:
+  - CVE-2022-36078
+ghsas:
+  - GHSA-4p6f-m4f9-ch88
+references:
+  - advisory: https://github.com/gagliardetto/binary/security/advisories/GHSA-4p6f-m4f9-ch88
+  - fix: https://github.com/gagliardetto/binary/pull/7
+  - web: https://github.com/gagliardetto/binary/releases/tag/v0.7.1
