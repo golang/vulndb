@@ -80,7 +80,7 @@ func newTestCVE(id, state, year string) AssignedCVE {
 }
 
 func newTestClientAndServer(handler http.HandlerFunc) (*Client, *httptest.Server) {
-	s := httptest.NewServer(http.HandlerFunc(handler))
+	s := httptest.NewServer(handler)
 	c := New(Config{
 		Endpoint: s.URL,
 		Key:      testApiKey,
