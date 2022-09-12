@@ -1,0 +1,24 @@
+modules:
+  - module: std
+    versions:
+      - introduced: 1.19.0
+        fixed: 1.19.1
+    vulnerable_at: 1.19.0
+    packages:
+      - package: net/url
+        symbols:
+          - URL.JoinPath
+        derived_symbols:
+          - JoinPath
+description: |
+    JoinPath and URL.JoinPath do not remove ../ path elements appended
+    to a relative path. For example, JoinPath("https://go.dev", "../go")
+    returns the URL "https://go.dev/../go", despite the JoinPath documentation
+    stating that ../ path elements are removed from the result.
+cves:
+  - CVE-2022-32190
+credit: '@q0jt'
+references:
+  - web: https://groups.google.com/g/golang-announce/c/x49AQzIVX-s
+  - report: https://go.dev/issue/54385
+  - fix: https://go.dev/cl/423514
