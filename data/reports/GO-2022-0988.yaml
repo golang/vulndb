@@ -15,10 +15,12 @@ description: |
     to a relative path. For example, JoinPath("https://go.dev", "../go")
     returns the URL "https://go.dev/../go", despite the JoinPath documentation
     stating that ../ path elements are removed from the result.
-cves:
-  - CVE-2022-32190
 credit: '@q0jt'
 references:
   - web: https://groups.google.com/g/golang-announce/c/x49AQzIVX-s
   - report: https://go.dev/issue/54385
   - fix: https://go.dev/cl/423514
+cve_metadata:
+    id: CVE-2022-32190
+    cwe: 'CWE-22: Improper Limitation of a Pathname to a Restricted
+          Directory (''Path Traversal'')'
