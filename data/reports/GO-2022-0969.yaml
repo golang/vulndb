@@ -1,0 +1,43 @@
+modules:
+  - module: std
+    versions:
+      - fixed: 1.18.6
+      - introduced: 1.19.0
+        fixed: 1.19.1
+    vulnerable_at: 1.19.0
+    packages:
+      - package: net/http
+        symbols:
+          - http2serverConn.goAway
+        derived_symbols:
+          - ListenAndServe
+          - ListenAndServeTLS
+          - Serve
+          - ServeTLS
+          - Server.ListenAndServe
+          - Server.ListenAndServeTLS
+          - Server.Serve
+          - Server.ServeTLS
+          - http2Server.ServeConn
+  - module: golang.org/x/net
+    versions:
+      - fixed: 0.0.0-20220906165146-f3363e06e74c
+    vulnerable_at: 0.0.0-20220826154423-83b083e8dc8b
+    packages:
+      - package: golang.org/x/net/http2
+        symbols:
+          - serverConn.goAway
+        derived_symbols:
+          - Server.ServeConn
+description: |
+    HTTP/2 server connections can hang forever waiting for a clean shutdown
+    that was preempted by a fatal error. This condition can be exploited
+    by a malicious client to cause a denial of service.
+cves:
+  - CVE-2022-27664
+credit: Bahruz Jabiyev, Tommaso Innocenti, Anthony Gavazzi, Steven Sprecher, and Kaan
+    Onarlioglu
+references:
+  - web: https://groups.google.com/g/golang-announce/c/x49AQzIVX-s
+  - report: https://go.dev/issue/54658
+  - fix: https://go.dev/cl/428735
