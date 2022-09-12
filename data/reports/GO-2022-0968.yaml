@@ -1,0 +1,26 @@
+modules:
+  - module: golang.org/x/crypto
+    versions:
+      - fixed: 0.0.0-20211202192323-5770296d904e
+    vulnerable_at: 0.0.0-20211117183948-ae814b36b871
+    packages:
+      - package: golang.org/x/crypto/ssh
+        symbols:
+          - gcmCipher.readCipherPacket
+          - chacha20Poly1305Cipher.readCipherPacket
+        derived_symbols:
+          - Dial
+          - NewClientConn
+          - NewServerConn
+description: |
+    Unauthenticated clients can cause a panic in SSH servers.
+
+    When using AES-GCM or ChaCha20Poly1305, consuming a malformed packet which
+    contains an empty plaintext causes a panic.
+cves:
+  - CVE-2021-43565
+credit: Rod Hynes, Psiphon Inc.
+references:
+  - web: https://groups.google.com/g/golang-announce/c/2AR1sKiM-Qs
+  - report: https://go.dev/issues/49932
+  - fix: https://go.dev/cl/368814/
