@@ -5,6 +5,7 @@
 package report
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -85,6 +86,26 @@ func getCanonicalModNameFromProxy(path, version string) (_ string, err error) {
 		return "", fmt.Errorf("unable to retrieve module information for %s", path)
 	}
 	return m.Module.Mod.Path, nil
+}
+
+func getCanonicalModVersionFromProxy(path, version string) (_ string, err error) {
+	escaped, err := module.EscapePath(path)
+	if err != nil {
+		return "", err
+	}
+	b, err := proxyLookup(fmt.Sprintf("%s/@v/%v.info", escaped, version))
+	if err != nil {
+		return "", err
+	}
+	var v map[string]any
+	if err := json.Unmarshal(b, &v); err != nil {
+		return "", err
+	}
+	ver, ok := v["Version"].(string)
+	if !ok {
+		return "", fmt.Errorf("unable to retrieve canonical version for %s", version)
+	}
+	return ver, nil
 }
 
 var pseudoVersionRE = regexp.MustCompile(`^v[0-9]+\.(0\.0-|\d+\.\d+-([^+]*\.)?0\.)\d{14}-[A-Za-z0-9]+(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?$`)
@@ -378,14 +399,21 @@ func (r *Report) Lint(filename string) []string {
 	return issues
 }
 
+var commitHashRegex = regexp.MustCompile(`^[a-f0-9]+$`)
+
 func (r *Report) Fix() {
 	for _, ref := range r.References {
 		ref.URL = fixURL(ref.URL)
 	}
-	fixVersion := func(vp *Version) {
+	fixVersion := func(mod string, vp *Version) {
 		v := *vp
 		if v == "" {
 			return
+		}
+		if commitHashRegex.MatchString(string(v)) {
+			if c, err := getCanonicalModVersionFromProxy(mod, string(v)); err == nil {
+				v = Version(c)
+			}
 		}
 		v = Version(strings.TrimPrefix(string(v), "v"))
 		v = Version(strings.TrimPrefix(string(v), "go"))
@@ -400,10 +428,10 @@ func (r *Report) Fix() {
 	}
 	for _, m := range r.Modules {
 		for i := range m.Versions {
-			fixVersion(&m.Versions[i].Introduced)
-			fixVersion(&m.Versions[i].Fixed)
+			fixVersion(m.Module, &m.Versions[i].Introduced)
+			fixVersion(m.Module, &m.Versions[i].Fixed)
 		}
-		fixVersion(&m.VulnerableAt)
+		fixVersion(m.Module, &m.VulnerableAt)
 	}
 }
 
