@@ -1,0 +1,40 @@
+# Copyright 2021 The Go Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
+name: Missing CVE or GHSA
+description: |
+  Report a CVE or GHSA that is missing from our database.
+title: "x/vulndb: potential Go vuln in <package>: <CVE ID>, <GHSA ID>"
+labels: ["Needs Triage","Direct External Report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to let us know about a public CVE or GHSA that is missing from our database.
+
+        ❗ To report undisclosed Go vulnerabilities, please follow our [security policy](https://go.dev/security/policy) instead.
+
+        For questions or concerns, do not hesitate to reach out to us directly at security@golang.org.
+  - type: input
+    id: cve
+    attributes:
+      label: CVE ID
+      placeholder: CVE-20XX-NNNN
+    validations:
+      required: false
+  - type: input
+    id: ghsa
+    attributes:
+      label: GHSA ID
+      placeholder: GHSA-xxxx-yyyy-zzzz
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Additional information
+      description: |
+        Anything else you'd like us to know about this vulnerability?
+    validations:
+      required: false
+
