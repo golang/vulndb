@@ -30,8 +30,8 @@ type reportClient struct {
 // newReportClient creates a reportClient from a given report.
 func newReportClient(r *report.Report) *reportClient {
 	entries := map[string][]*osv.Entry{}
-	entry, modules := database.GenerateOSVEntry("?", time.Time{}, r)
-	for _, m := range modules {
+	entry := database.GenerateOSVEntry("?", time.Time{}, r)
+	for _, m := range database.ModulesForEntry(entry) {
 		entries[m] = append(entries[m], &entry)
 	}
 	return &reportClient{entry: &entry, entriesByModule: entries}

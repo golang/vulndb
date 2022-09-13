@@ -15,6 +15,7 @@ import (
 	"strings"
 	"time"
 
+	"golang.org/x/exp/maps"
 	"golang.org/x/vuln/client"
 	"golang.org/x/vuln/osv"
 	"golang.org/x/vulndb/internal/derrors"
@@ -33,6 +34,10 @@ const (
 	// yamlDir is the name of the directory in the vulndb repo that
 	// contains reports.
 	yamlDir = "data/reports"
+
+	// osvDir is the name of the directory in the vulndb repo that
+	// contains reports.
+	osvDir = "data/osv"
 
 	// versionFile is the name of the file in the vulndb repo that
 	// tracks the generator version.
@@ -96,68 +101,53 @@ func generateEntries(ctx context.Context, repoDir string) (map[string][]osv.Entr
 		return nil, nil, err
 	}
 
-	yamlFiles, err := os.ReadDir(filepath.Join(repoDir, yamlDir))
+	osvFiles, err := os.ReadDir(filepath.Join(repoDir, osvDir))
 	if err != nil {
-		return nil, nil, fmt.Errorf("can't read %q: %s", yamlDir, err)
+		return nil, nil, fmt.Errorf("can't read %q: %s", osvDir, err)
 	}
 
-	commitDates, err := gitrepo.AllCommitDates(repo, gitrepo.HeadReference, "data/")
+	commitDates, err := gitrepo.AllCommitDates(repo, gitrepo.HeadReference, osvDir)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	lastUpdate := commitDates[versionFile].Newest
-	if lastUpdate.IsZero() {
-		return nil, nil, fmt.Errorf("can't find git repo commit dates for %q", versionFile)
-	}
-
 	jsonVulns := map[string][]osv.Entry{}
 	var entries []osv.Entry
-	for _, f := range yamlFiles {
-		if !strings.HasSuffix(f.Name(), ".yaml") {
+	for _, f := range osvFiles {
+		if !strings.HasSuffix(f.Name(), ".json") {
 			continue
 		}
-		r, err := report.Read(filepath.Join(repoDir, yamlDir, f.Name()))
+		filename := filepath.Join(repoDir, osvDir, f.Name())
+		entry, err := ReadOSV(filename)
 		if err != nil {
 			return nil, nil, err
 		}
-		if r.Excluded != "" {
-			// We may want to include excluded reports in the database
-			// at some point, with a bit indicating that they are
-			// uninteresting, but omit them for now.
-			continue
-		}
-
-		yamlPath := filepath.Join(yamlDir, f.Name())
-		dates, ok := commitDates[yamlPath]
+		dates, ok := commitDates[filename]
 		if !ok {
-			return nil, nil, fmt.Errorf("can't find git repo commit dates for %q", yamlPath)
+			return nil, nil, fmt.Errorf("can't find git repo commit dates for %q", filename)
 		}
 		// If a report contains a published field, consider it
 		// the authoritative source of truth. Otherwise, set
 		// the published field from the git history.
-		if r.Published.IsZero() {
-			r.Published = dates.Oldest
+		if entry.Published.IsZero() {
+			entry.Published = dates.Oldest
 		}
-		lastModified := dates.Newest
-		if lastUpdate.After(lastModified) {
-			lastModified = lastUpdate
-		}
-		if r.Published.After(lastModified) {
-			return nil, nil, fmt.Errorf("%s: published on %s after last modified on %s",
-				yamlPath, r.Published, lastModified)
-		}
-		if lints := r.Lint(yamlPath); len(lints) > 0 {
-			return nil, nil, fmt.Errorf("vuln.Lint: %v", lints)
-		}
-
-		entry, modulePaths := GenerateOSVEntry(f.Name(), lastModified, r)
-		for _, modulePath := range modulePaths {
+		entry.Modified = dates.Newest
+		for _, modulePath := range ModulesForEntry(entry) {
 			jsonVulns[modulePath] = append(jsonVulns[modulePath], entry)
 		}
 		entries = append(entries, entry)
 	}
 	return jsonVulns, entries, nil
+}
+
+// ModulesForEntry returns the list of modules affected by an OSV entry.
+func ModulesForEntry(entry osv.Entry) []string {
+	mods := map[string]bool{}
+	for _, a := range entry.Affected {
+		mods[a.Package.Name] = true
+	}
+	return maps.Keys(mods)
 }
 
 func writeVulns(outPath string, vulns []osv.Entry, indent bool) error {
@@ -212,10 +202,22 @@ func jsonMarshal(v any, indent bool) ([]byte, error) {
 	return json.Marshal(v)
 }
 
+// ReadOSV reads an osv.Entry from a file.
+func ReadOSV(filename string) (osv.Entry, error) {
+	b, err := os.ReadFile(filename)
+	if err != nil {
+		return osv.Entry{}, err
+	}
+	var entry osv.Entry
+	if err := json.Unmarshal(b, &entry); err != nil {
+		return osv.Entry{}, fmt.Errorf("%v: %w", filename, err)
+	}
+	return entry, nil
+}
+
 // GenerateOSVEntry create an osv.Entry for a report. In addition to the report, it
 // takes the ID for the vuln and a URL that will point to the entry in the vuln DB.
-// It returns the osv.Entry and a list of module paths that the vuln affects.
-func GenerateOSVEntry(filename string, lastModified time.Time, r *report.Report) (osv.Entry, []string) {
+func GenerateOSVEntry(filename string, lastModified time.Time, r *report.Report) osv.Entry {
 	id := strings.TrimSuffix(filepath.Base(filename), filepath.Ext(filename))
 	entry := osv.Entry{
 		ID:        id,
@@ -225,17 +227,8 @@ func GenerateOSVEntry(filename string, lastModified time.Time, r *report.Report)
 		Details:   r.Description,
 	}
 
-	moduleMap := make(map[string]bool)
 	linkName := fmt.Sprintf("%s%s", dbURL, id)
 	for _, m := range r.Modules {
-		switch m.Module {
-		case stdlib.ModulePath:
-			moduleMap[stdFileName] = true
-		case cmdModule:
-			moduleMap[toolchainFileName] = true
-		default:
-			moduleMap[m.Module] = true
-		}
 		entry.Affected = append(entry.Affected, generateAffected(m, linkName))
 	}
 	for _, ref := range r.References {
@@ -245,12 +238,7 @@ func GenerateOSVEntry(filename string, lastModified time.Time, r *report.Report)
 		})
 	}
 	entry.Aliases = r.GetAliases()
-
-	var modulePaths []string
-	for module := range moduleMap {
-		modulePaths = append(modulePaths, module)
-	}
-	return entry, modulePaths
+	return entry
 }
 
 func generateAffectedRanges(versions []report.VersionRange) osv.Affects {
@@ -288,9 +276,9 @@ func generateAffected(m *report.Module, url string) osv.Affected {
 	name := m.Module
 	switch name {
 	case stdlib.ModulePath:
-		name = "stdlib"
+		name = stdFileName
 	case cmdModule:
-		name = "toolchain"
+		name = toolchainFileName
 	}
 	return osv.Affected{
 		Package: osv.Package{

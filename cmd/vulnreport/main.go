@@ -389,7 +389,7 @@ func fix(ctx context.Context, filename string, accessToken string) (err error) {
 	}
 	// Write the OSV for non-excluded reports.
 	if r.Excluded == "" {
-		entry, _ := database.GenerateOSVEntry(filename, time.Time{}, r)
+		entry := database.GenerateOSVEntry(filename, time.Time{}, r)
 		j, err := json.MarshalIndent(entry, "", "  ")
 		if err != nil {
 			return err

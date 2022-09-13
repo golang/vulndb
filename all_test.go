@@ -9,6 +9,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -16,7 +17,11 @@ import (
 	"sort"
 	"strings"
 	"testing"
+	"time"
 
+	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
+	"golang.org/x/vulndb/internal/database"
 	"golang.org/x/vulndb/internal/report"
 )
 
@@ -88,6 +93,16 @@ func TestLintReports(t *testing.T) {
 			lints := r.Lint(fn)
 			if len(lints) > 0 {
 				t.Errorf(strings.Join(lints, "\n"))
+			}
+			if r.Excluded == "" {
+				e1 := database.GenerateOSVEntry(fn, time.Time{}, r)
+				e2, err := database.ReadOSV(fmt.Sprintf("data/osv/%v.json", e1.ID))
+				if err != nil {
+					t.Fatal(err)
+				}
+				if diff := cmp.Diff(e1, e2, cmpopts.EquateEmpty()); diff != "" {
+					t.Errorf("data/osv/%v.json does not match report:\n%v", e1.ID, diff)
+				}
 			}
 		})
 	}
