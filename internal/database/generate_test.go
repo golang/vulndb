@@ -16,7 +16,7 @@ import (
 )
 
 func TestGenerate(t *testing.T) {
-	r := report.Report{
+	r := &report.Report{
 		Modules: []*report.Module{
 			{
 				Module: "example.com/vulnerable/v2",
@@ -76,7 +76,6 @@ func TestGenerate(t *testing.T) {
 		},
 	}
 
-	url := "https://vulns.golang.org/GO-1991-0001.html"
 	wantEntry := osv.Entry{
 		ID:      "GO-1991-0001",
 		Details: "It's a real bad one, I'll tell you that",
@@ -115,7 +114,7 @@ func TestGenerate(t *testing.T) {
 						},
 					},
 				},
-				DatabaseSpecific: osv.DatabaseSpecific{URL: url},
+				DatabaseSpecific: osv.DatabaseSpecific{URL: "https://pkg.go.dev/vuln/GO-1991-0001"},
 				EcosystemSpecific: osv.EcosystemSpecific{
 					Imports: []osv.EcosystemSpecificImport{
 						{
@@ -154,7 +153,7 @@ func TestGenerate(t *testing.T) {
 						},
 					},
 				},
-				DatabaseSpecific: osv.DatabaseSpecific{URL: url},
+				DatabaseSpecific: osv.DatabaseSpecific{URL: "https://pkg.go.dev/vuln/GO-1991-0001"},
 				EcosystemSpecific: osv.EcosystemSpecific{
 					Imports: []osv.EcosystemSpecificImport{
 						{
@@ -184,7 +183,7 @@ func TestGenerate(t *testing.T) {
 						},
 					},
 				},
-				DatabaseSpecific: osv.DatabaseSpecific{URL: url},
+				DatabaseSpecific: osv.DatabaseSpecific{URL: "https://pkg.go.dev/vuln/GO-1991-0001"},
 				EcosystemSpecific: osv.EcosystemSpecific{
 					Imports: []osv.EcosystemSpecificImport{
 						{
@@ -201,7 +200,7 @@ func TestGenerate(t *testing.T) {
 	wantModules := []string{"example.com/vulnerable/v2", "vanity.host/vulnerable", "example.com/also-vulnerable"}
 	sort.Strings(wantModules)
 
-	gotEntry, gotModules := GenerateOSVEntry("GO-1991-0001", url, time.Time{}, r)
+	gotEntry, gotModules := GenerateOSVEntry("GO-1991-0001", time.Time{}, r)
 	if diff := cmp.Diff(wantEntry, gotEntry, cmp.Comparer(func(a, b time.Time) bool { return a.Equal(b) })); diff != "" {
 		t.Errorf("Generate returned unexpected entry (-want +got):\n%s", diff)
 	}

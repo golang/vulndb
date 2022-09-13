@@ -28,6 +28,7 @@ import (
 	"golang.org/x/exp/slices"
 	"golang.org/x/tools/go/packages"
 	"golang.org/x/vulndb/internal/cvelistrepo"
+	"golang.org/x/vulndb/internal/database"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
@@ -382,9 +383,23 @@ func fix(ctx context.Context, filename string, accessToken string) (err error) {
 	if err := fixGHSAs(ctx, r, accessToken); err != nil {
 		return err
 	}
-
 	// Write unconditionally in order to format.
-	return r.Write(filename)
+	if err := r.Write(filename); err != nil {
+		return err
+	}
+	// Write the OSV for non-excluded reports.
+	if r.Excluded == "" {
+		entry, _ := database.GenerateOSVEntry(filename, time.Time{}, r)
+		j, err := json.MarshalIndent(entry, "", "  ")
+		if err != nil {
+			return err
+		}
+		jfilename := fmt.Sprintf("data/osv/%v.json", entry.ID)
+		if err := os.WriteFile(jfilename, j, 0644); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func checkReportSymbols(r *report.Report) error {
@@ -440,7 +455,7 @@ func findExportedSymbols(m *report.Module, p *report.Package, c *reportClient) (
 		ver := semverForGoVersion(gover)
 		if ver == "" || !affected(c.entry, ver.V()) {
 			fmt.Fprintf(os.Stderr, "%v: Go version %q is not in a vulnerable range, skipping symbol checks.\n", p.Package, gover)
-			return nil, nil
+			return p.DerivedSymbols, nil
 		}
 		if ver != m.VulnerableAt {
 			fmt.Fprintf(os.Stderr, "%v: WARNING: Go version %q does not match vulnerable_at version %q.\n", p.Package, ver, m.VulnerableAt)

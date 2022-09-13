@@ -151,9 +151,7 @@ func generateEntries(ctx context.Context, repoDir string) (map[string][]osv.Entr
 			return nil, nil, fmt.Errorf("vuln.Lint: %v", lints)
 		}
 
-		name := strings.TrimSuffix(filepath.Base(f.Name()), filepath.Ext(f.Name()))
-		linkName := fmt.Sprintf("%s%s", dbURL, name)
-		entry, modulePaths := GenerateOSVEntry(name, linkName, lastModified, *r)
+		entry, modulePaths := GenerateOSVEntry(f.Name(), lastModified, r)
 		for _, modulePath := range modulePaths {
 			jsonVulns[modulePath] = append(jsonVulns[modulePath], entry)
 		}
@@ -217,7 +215,8 @@ func jsonMarshal(v any, indent bool) ([]byte, error) {
 // GenerateOSVEntry create an osv.Entry for a report. In addition to the report, it
 // takes the ID for the vuln and a URL that will point to the entry in the vuln DB.
 // It returns the osv.Entry and a list of module paths that the vuln affects.
-func GenerateOSVEntry(id, url string, lastModified time.Time, r report.Report) (osv.Entry, []string) {
+func GenerateOSVEntry(filename string, lastModified time.Time, r *report.Report) (osv.Entry, []string) {
+	id := strings.TrimSuffix(filepath.Base(filename), filepath.Ext(filename))
 	entry := osv.Entry{
 		ID:        id,
 		Published: r.Published,
@@ -227,6 +226,7 @@ func GenerateOSVEntry(id, url string, lastModified time.Time, r report.Report) (
 	}
 
 	moduleMap := make(map[string]bool)
+	linkName := fmt.Sprintf("%s%s", dbURL, id)
 	for _, m := range r.Modules {
 		switch m.Module {
 		case stdlib.ModulePath:
@@ -236,7 +236,7 @@ func GenerateOSVEntry(id, url string, lastModified time.Time, r report.Report) (
 		default:
 			moduleMap[m.Module] = true
 		}
-		entry.Affected = append(entry.Affected, generateAffected(m, url))
+		entry.Affected = append(entry.Affected, generateAffected(m, linkName))
 	}
 	for _, ref := range r.References {
 		entry.References = append(entry.References, osv.Reference{
