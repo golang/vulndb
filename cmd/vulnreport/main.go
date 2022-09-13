@@ -17,6 +17,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"regexp"
 	"runtime"
 	"sort"
@@ -70,19 +71,57 @@ func main() {
 			flag.Usage()
 			log.Fatalf("githubToken must be provided")
 		}
-		if len(names) != 1 {
-			log.Fatal("need one ID")
+		if len(names) < 1 {
+			log.Fatal("need at least one ID")
 		}
-		githubID, err := strconv.Atoi(names[0])
-		if err != nil {
-			log.Fatalf("invalid GitHub issue ID: %q: %v", names[0], err)
+		var githubIDs []int
+		parseGithubID := func(s string) int {
+			id, err := strconv.Atoi(s)
+			if err != nil {
+				log.Fatalf("invalid GitHub issue ID: %q", s)
+			}
+			return id
+		}
+		for _, name := range names {
+			if !strings.Contains(name, "-") {
+				githubIDs = append(githubIDs, parseGithubID(name))
+				continue
+			}
+			from, to, _ := strings.Cut(name, "-")
+			fromID := parseGithubID(from)
+			toID := parseGithubID(to)
+			if fromID > toID {
+				log.Fatalf("%v > %v", fromID, toID)
+			}
+			existing, err := existingReports()
+			if err != nil {
+				log.Fatal(err)
+			}
+			for id := fromID; id <= toID; id++ {
+				if existing[id] {
+					continue
+				}
+				githubIDs = append(githubIDs, id)
+			}
 		}
 		repoPath := cvelistrepo.URL
 		if *localRepoPath != "" {
 			repoPath = *localRepoPath
+		} else if len(githubIDs) > 0 {
+			// Maybe we should automatically maintain a local clone of the
+			// cvelist repo, but for now we can avoid repeatedly fetching it
+			// when iterating over a list of reports.
+			log.Fatalf("git clone %v to a local directory, and set -local-cve-repo to that path", cvelistrepo.URL)
 		}
-		if err := create(ctx, githubID, *githubToken, *issueRepo, repoPath); err != nil {
+		owner, repoName, err := gitrepo.ParseGitHubRepo(*issueRepo)
+		if err != nil {
 			log.Fatal(err)
+		}
+		c := issues.NewGitHubClient(owner, repoName, *githubToken)
+		for _, githubID := range githubIDs {
+			if err := create(ctx, githubID, *githubToken, repoPath, c); err != nil {
+				log.Print(err)
+			}
 		}
 	case "lint":
 		if err := multi(lint, names); err != nil {
@@ -130,13 +169,38 @@ func multi(f func(string) error, args []string) error {
 	}
 	return nil
 }
-func create(ctx context.Context, issueNumber int, ghToken, issueRepo, repoPath string) (err error) {
-	defer derrors.Wrap(&err, "create(%d)", issueNumber)
-	owner, repoName, err := gitrepo.ParseGitHubRepo(issueRepo)
-	if err != nil {
-		return err
+
+func existingReports() (ids map[int]bool, err error) {
+	defer derrors.Wrap(&err, "existingReports")
+	ids = make(map[int]bool)
+	for _, dir := range []string{"data/reports", "data/excluded"} {
+		f, err := os.Open(dir)
+		if err != nil {
+			return nil, err
+		}
+		defer f.Close()
+		names, err := f.Readdirnames(0)
+		if err != nil {
+			return nil, err
+		}
+		for _, name := range names {
+			name := filepath.Join(dir, name)
+			m := reportRegexp.FindStringSubmatch(name)
+			if len(m) != 3 {
+				continue
+			}
+			id, err := strconv.Atoi(m[2])
+			if err != nil {
+				continue
+			}
+			ids[id] = true
+		}
 	}
-	c := issues.NewGitHubClient(owner, repoName, ghToken)
+	return ids, nil
+}
+
+func create(ctx context.Context, issueNumber int, ghToken, repoPath string, c issues.Client) (err error) {
+	defer derrors.Wrap(&err, "create(%d)", issueNumber)
 	// Get GitHub issue.
 	iss, err := c.GetIssue(ctx, issueNumber, issues.GetIssueOptions{GetLabels: true})
 	if err != nil {
@@ -148,6 +212,10 @@ func create(ctx context.Context, issueNumber int, ghToken, issueRepo, repoPath s
 		if strings.HasPrefix(label, "excluded: ") {
 			excluded = report.ExcludedReason(strings.TrimPrefix(label, "excluded: "))
 			break
+		}
+		if label == "duplicate" {
+			fmt.Printf("skipping issue %v: duplicate\n", issueNumber)
+			return nil
 		}
 	}
 	// Parse CVE or GHSA ID from GitHub issue.
