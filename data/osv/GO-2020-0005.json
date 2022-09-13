@@ -1,0 +1,59 @@
+{
+  "id": "GO-2020-0005",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-15106",
+    "CVE-2020-15112"
+  ],
+  "details": "Malformed WALs can be constructed such that WAL.ReadAll can cause attempted\nout of bounds reads, or creation of arbitrarily sized slices, which may be used as\na DoS vector.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "go.etcd.io/etcd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.5.0-alpha.5.0.20200423152442-f4b650b51dc4"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0005"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "go.etcd.io/etcd/wal",
+            "symbols": [
+              "WAL.ReadAll",
+              "decoder.decodeRecord"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/etcd-io/etcd/pull/11793"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/etcd-io/etcd/commit/f4b650b51dc4a53a8700700dc12e1242ac56ba07"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/etcd-io/etcd/blob/master/security/SECURITY_AUDIT.pdf"
+    }
+  ]
+}

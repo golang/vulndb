@@ -1,0 +1,87 @@
+{
+  "id": "GO-2020-0046",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-7711"
+  ],
+  "details": "Due to a nil pointer dereference, a malformed XML Digital Signature\ncan cause a panic during validation. If user supplied signatures are\nbeing validated, this may be used as a denial of service vector.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/russellhaering/goxmldsig",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.1.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0046"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/russellhaering/goxmldsig",
+            "symbols": [
+              "ValidationContext.validateSignature"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/russellhaering/gosaml2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.6.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0046"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/russellhaering/gosaml2",
+            "symbols": [
+              "SAMLServiceProvider.RetrieveAssertionInfo",
+              "SAMLServiceProvider.ValidateEncodedResponse",
+              "SAMLServiceProvider.validateAssertionSignatures"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/russellhaering/goxmldsig/issues/48"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/russellhaering/gosaml2/issues/59"
+    }
+  ]
+}

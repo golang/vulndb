@@ -1,0 +1,69 @@
+{
+  "id": "GO-2022-0523",
+  "published": "2022-07-20T20:52:06Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-30633"
+  ],
+  "details": "Unmarshaling an XML document into a Go struct which has a nested\nfield that uses the 'any' field tag can panic due to stack\nexhaustion.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.17.12"
+            },
+            {
+              "introduced": "1.18.0"
+            },
+            {
+              "fixed": "1.18.4"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0523"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "encoding/xml",
+            "symbols": [
+              "Decoder.DecodeElement",
+              "Decoder.unmarshal",
+              "Decoder.unmarshalPath"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/417061"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/c4c1993fd2a5b26fe45c09592af6d3388a3b2e08"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/53611"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE"
+    }
+  ]
+}

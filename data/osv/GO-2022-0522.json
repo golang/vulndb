@@ -1,0 +1,67 @@
+{
+  "id": "GO-2022-0522",
+  "published": "2022-07-20T17:02:29Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-30632"
+  ],
+  "details": "Calling Glob on a path which contains a large number of path separators can\ncause a panic due to stack exhaustion.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.17.12"
+            },
+            {
+              "introduced": "1.18.0"
+            },
+            {
+              "fixed": "1.18.4"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0522"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "path/filepath",
+            "symbols": [
+              "Glob"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/417066"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/ac68c6c683409f98250d34ad282b9e1b0c9095ef"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/53416"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE"
+    }
+  ]
+}

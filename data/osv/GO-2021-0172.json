@@ -1,0 +1,67 @@
+{
+  "id": "GO-2021-0172",
+  "published": "2022-02-15T23:56:14Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2017-1000098"
+  ],
+  "details": "When parsing large multipart/form-data, an attacker can\ncause a HTTP server to open a large number of file\ndescriptors. This may be used as a denial-of-service\nvector.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.6.4"
+            },
+            {
+              "introduced": "1.7.0"
+            },
+            {
+              "fixed": "1.7.4"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0172"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "mime/multipart",
+            "symbols": [
+              "Reader.readForm"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/30410"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/7478ea5dba7ed02ddffd91c1d17ec8141f7cf184"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/16296"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-dev/c/4NdLzS8sls8/m/uIz8QlnIBQAJ"
+    }
+  ]
+}

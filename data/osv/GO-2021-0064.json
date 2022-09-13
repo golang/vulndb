@@ -1,0 +1,89 @@
+{
+  "id": "GO-2021-0064",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-8565"
+  ],
+  "details": "Authorization tokens may be inappropriately logged if the verbosity\nlevel is set to a debug level.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "k8s.io/client-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.20.0-alpha.2"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0064"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "k8s.io/client-go/transport",
+            "symbols": [
+              "requestInfo.toCurl"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "k8s.io/kubernetes",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.20.0-alpha.2"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0064"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "k8s.io/kubernetes/staging/src/k8s.io/client-go/transport",
+            "symbols": [
+              "requestInfo.toCurl"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubernetes/kubernetes/pull/95316"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubernetes/kubernetes/commit/e99df0e5a75eb6e86123b56d53e9b7ca0fd00419"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubernetes/kubernetes/issues/95623"
+    }
+  ]
+}

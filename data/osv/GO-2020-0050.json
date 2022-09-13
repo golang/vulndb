@@ -1,0 +1,59 @@
+{
+  "id": "GO-2020-0050",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-15216",
+    "CVE-2020-26290",
+    "CVE-2020-27847",
+    "GHSA-2x32-jm95-2cpx",
+    "GHSA-m9hp-7r99-94h5",
+    "GHSA-q547-gmf8-8jr7"
+  ],
+  "details": "Due to the behavior of encoding/xml, a crafted XML document may cause\nXML Digital Signature validation to be entirely bypassed, causing an\nunsigned document to appear signed.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/russellhaering/goxmldsig",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.1.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0050"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/russellhaering/goxmldsig",
+            "symbols": [
+              "ValidationContext.Validate",
+              "ValidationContext.findSignature"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/russellhaering/goxmldsig/commit/f6188febf0c29d7ffe26a0436212b19cb9615e64"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/russellhaering/goxmldsig/security/advisories/GHSA-q547-gmf8-8jr7"
+    }
+  ]
+}

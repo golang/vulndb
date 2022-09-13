@@ -1,0 +1,69 @@
+{
+  "id": "GO-2021-0142",
+  "published": "2022-07-01T20:11:09Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-16845",
+    "GHSA-q6gq-997w-f55g"
+  ],
+  "details": "ReadUvarint and ReadVarint can read an unlimited number of bytes from\ninvalid inputs.\n\nCertain invalid inputs to ReadUvarint or ReadVarint can cause these\nfunctions to read an unlimited number of bytes from the ByteReader\nparameter before returning an error. This can lead to processing more\ninput than expected when the caller is reading directly from a\nnetwork and depends on ReadUvarint or ReadVarint only consuming a\nsmall, bounded number of bytes, even from invalid inputs.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.13.15"
+            },
+            {
+              "introduced": "1.14.0"
+            },
+            {
+              "fixed": "1.14.7"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0142"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "encoding/binary",
+            "symbols": [
+              "ReadUvarint",
+              "ReadVarint"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/247120"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/027d7241ce050d197e7fabea3d541ffbe3487258"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/40618"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/NyPIaucMgXo"
+    }
+  ]
+}

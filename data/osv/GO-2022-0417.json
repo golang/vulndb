@@ -1,0 +1,62 @@
+{
+  "id": "GO-2022-0417",
+  "published": "2022-07-01T20:08:10Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-27651",
+    "GHSA-c3g4-w6cv-6v7h"
+  ],
+  "details": "Containers are created with non-empty inheritable Linux process\ncapabilities, permitting programs with inheritable file capabilities\nto elevate those capabilities to the permitted set during execve(2).\n\nThis bug does not affect the container security sandbox, as the\ninheritable set never contains more capabilities than are included\nin the container's bounding set.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/containers/buildah",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.25.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0417"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/containers/buildah",
+            "symbols": [
+              "Builder.Run",
+              "setupCapAdd",
+              "setupCapDrop"
+            ]
+          },
+          {
+            "path": "github.com/containers/buildah/chroot",
+            "symbols": [
+              "setCapabilities"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/containers/buildah/commit/e7e55c988c05dd74005184ceb64f097a0cfe645b"
+    },
+    {
+      "type": "WEB",
+      "url": "https://bugzilla.redhat.com/show_bug.cgi?id=2066840"
+    }
+  ]
+}

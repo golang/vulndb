@@ -1,0 +1,55 @@
+{
+  "id": "GO-2022-0621",
+  "published": "2021-05-18T15:38:54Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2019-10223",
+    "CVE-2019-17110",
+    "GHSA-2v6x-frw8-7r7f"
+  ],
+  "details": "Exposing annotations as metrics can leak secrets.\n\nAn experimental feature of kube-state-metrics enables annotations\nto be exposed as metrics. By default, metrics only expose metadata\nabout secrets. However, a combination of the default kubectl behavior\nand this new feature can cause the entire secret content to end up\nin metric labels.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "k8s.io/kube-state-metrics",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.7.0"
+            },
+            {
+              "fixed": "1.7.2"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0621"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "k8s.io/kube-state-metrics/internal/store",
+            "symbols": [
+              "kubeAnnotationsToPrometheusLabels"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubernetes/kube-state-metrics/commit/03122fe3e2df49a9a7298b8af921d3c37c430f7f"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/advisories/GHSA-2v6x-frw8-7r7f"
+    }
+  ]
+}

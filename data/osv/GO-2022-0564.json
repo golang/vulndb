@@ -1,0 +1,47 @@
+{
+  "id": "GO-2022-0564",
+  "published": "2022-08-15T18:02:15Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-31053",
+    "GHSA-75rw-34q6-72cr"
+  ],
+  "details": "An attacker can forge Biscuit v1 tokens with any access level.\n\nThere is no known workaround for Biscuit v1. The Biscuit v2 specification\navoids this vulnerability.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/biscuit-auth/biscuit-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.0.1-0.20220327202226-f061134c2a1e"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0564"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/biscuit-auth/biscuit-go"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-75rw-34q6-72cr"
+    }
+  ]
+}

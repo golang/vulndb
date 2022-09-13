@@ -1,0 +1,58 @@
+{
+  "id": "GO-2021-0060",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-29509",
+    "GHSA-xhqq-x44f-9fgg"
+  ],
+  "details": "Due to the behavior of encoding/xml, a crafted XML document may cause\nXML Digital Signature validation to be entirely bypassed, causing an\nunsigned document to appear signed.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/russellhaering/gosaml2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.6.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0060"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/russellhaering/gosaml2",
+            "symbols": [
+              "SAMLServiceProvider.RetrieveAssertionInfo",
+              "SAMLServiceProvider.ValidateEncodedLogoutRequestPOST",
+              "SAMLServiceProvider.ValidateEncodedLogoutResponsePOST",
+              "SAMLServiceProvider.ValidateEncodedResponse",
+              "parseResponse"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/russellhaering/gosaml2/commit/42606dafba60c58c458f14f75c4c230459672ab9"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/russellhaering/gosaml2/security/advisories/GHSA-xhqq-x44f-9fgg"
+    }
+  ]
+}

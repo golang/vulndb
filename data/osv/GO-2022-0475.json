@@ -1,0 +1,73 @@
+{
+  "id": "GO-2022-0475",
+  "published": "2022-07-28T17:24:30Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-28366"
+  ],
+  "details": "The go command may execute arbitrary code at build time when cgo is in use.\nThis may occur when running go get on a malicious package, or any other\ncommand that builds untrusted code.\n\nThis can be caused by malicious unquoted symbol name in a linked object\nfile.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "toolchain",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.14.12"
+            },
+            {
+              "introduced": "1.15.0"
+            },
+            {
+              "fixed": "1.15.5"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0475"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "cmd/go",
+            "symbols": [
+              "Builder.cgo"
+            ]
+          },
+          {
+            "path": "cmd/cgo",
+            "symbols": [
+              "dynimport"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/269658"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/062e0e5ce6df339dc26732438ad771f73dbf2292"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/42559"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/NpBGTTmKzpM"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "id": "GO-2022-0190",
+  "published": "2022-08-02T15:44:23Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2018-16874"
+  ],
+  "details": "The \"go get\" command is vulnerable to directory traversal when executed\nwith the import path of a malicious Go package which contains curly brace\n(both '{'  and '}' characters).\n\nSpecifically, it is only vulnerable in GOPATH mode, but not in module mode\n(the distinction is documented at\nhttps://golang.org/cmd/go/#hdr-Module_aware_go_get). The attacker can cause\nan arbitrary filesystem write, which can lead to code execution.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "toolchain",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.10.6"
+            },
+            {
+              "introduced": "1.11.0"
+            },
+            {
+              "fixed": "1.11.3"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0190"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "cmd/go/internal/get",
+            "symbols": [
+              "downloadPackage"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/154101"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/bc82d7c7db83487e05d7a88e06549d4ae2a688c3"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/29230"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/Kw31K8G7Fi0"
+    }
+  ]
+}

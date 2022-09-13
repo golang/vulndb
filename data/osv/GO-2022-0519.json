@@ -1,0 +1,50 @@
+{
+  "id": "GO-2022-0519",
+  "published": "2022-07-30T03:51:07Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-31145",
+    "GHSA-qwrj-9hmp-gpxh"
+  ],
+  "details": "Improper validation of access tokens can permit use of expired tokens.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/flyteorg/flyteadmin",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.1.31"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0519"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/flyteorg/flyteadmin/auth/authzserver",
+            "symbols": [
+              "ResourceServer.ValidateAccessToken"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/flyteorg/flyteadmin/commit/a1ec282d02706e074bc4986fd0412e5da3b9d00a"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "id": "GO-2021-0317",
+  "published": "2022-05-23T22:15:42Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-23772"
+  ],
+  "details": "Rat.SetString had an overflow issue that can lead to uncontrolled memory consumption.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.16.14"
+            },
+            {
+              "introduced": "1.17.0"
+            },
+            {
+              "fixed": "1.17.7"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0317"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "math/big",
+            "symbols": [
+              "Rat.SetString"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/379537"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/ad345c265916bbf6c646865e4642eafce6d39e78"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/SUsQn0aSgPQ"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/50699"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "id": "GO-2021-0242",
+  "published": "2022-02-17T17:33:07Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-33198"
+  ],
+  "details": "Rat.SetString and Rat.UnmarshalText may cause a panic or an\nunrecoverable fatal error if passed inputs with very large\nexponents.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.15.13"
+            },
+            {
+              "introduced": "1.16.0"
+            },
+            {
+              "fixed": "1.16.5"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0242"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "math/big",
+            "symbols": [
+              "Rat.SetString"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/316149"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/6c591f79b0b5327549bd4e94970f7a279efb4ab0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/RgCMkAEQjSI"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/45910"
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "id": "GO-2021-0073",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2017-17831"
+  ],
+  "details": "Arbitrary command execution can be triggered by improperly\nsanitized SSH URLs in LFS configuration files. This can be\ntriggered by cloning a malicious repository.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/git-lfs/git-lfs",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.1.1-0.20170519163204-f913f5f9c7c6"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0073"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/git-lfs/git-lfs/lfsapi",
+            "symbols": [
+              "sshGetLFSExeAndArgs"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/git-lfs/git-lfs/pull/2241"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/git-lfs/git-lfs/commit/f913f5f9c7c6d1301785fdf9884a2942d59cdf19"
+    },
+    {
+      "type": "WEB",
+      "url": "http://blog.recurity-labs.com/2017-08-10/scm-vulns"
+    },
+    {
+      "type": "WEB",
+      "url": "https://confluence.atlassian.com/sourcetreekb/sourcetree-security-advisory-2018-01-24-942834324.html"
+    },
+    {
+      "type": "WEB",
+      "url": "http://www.securityfocus.com/bid/102926"
+    }
+  ]
+}

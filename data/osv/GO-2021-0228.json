@@ -1,0 +1,69 @@
+{
+  "id": "GO-2021-0228",
+  "published": "2022-01-14T17:30:28Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-7664",
+    "GHSA-vpx7-vm66-qx8r"
+  ],
+  "details": "The ExtractTo function doesn't securely escape file paths in zip archives\nwhich include leading or non-leading \"..\". This allows an attacker to add or\nreplace files system-wide.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/unknwon/cae",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.0.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0228"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/unknwon/cae/zip",
+            "symbols": [
+              "Create",
+              "ExtractTo",
+              "ExtractToFunc",
+              "Open",
+              "OpenFile",
+              "TzArchive.ExtractToFunc",
+              "TzArchive.ExtractToFunc",
+              "TzArchive.syncFiles",
+              "TzArchive.syncFiles",
+              "ZipArchive.Close",
+              "ZipArchive.ExtractTo",
+              "ZipArchive.ExtractToFunc",
+              "ZipArchive.ExtractToFunc",
+              "ZipArchive.Flush",
+              "ZipArchive.Open",
+              "ZipArchive.Open"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/unknwon/cae/commit/07971c00a1bfd9dc171c3ad0bfab5b67c2287e11"
+    },
+    {
+      "type": "WEB",
+      "url": "https://snyk.io/vuln/SNYK-GOLANG-GITHUBCOMUNKNWONCAEZIP-570383"
+    }
+  ]
+}

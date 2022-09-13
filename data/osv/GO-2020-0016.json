@@ -1,0 +1,61 @@
+{
+  "id": "GO-2020-0016",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-29482",
+    "GHSA-25xm-hr59-7c27"
+  ],
+  "details": "An attacker can construct a series of bytes such that calling\nReader.Read on the bytes could cause an infinite loop. If\nparsing user supplied input, this may be used as a denial of\nservice vector.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/ulikunitz/xz",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.5.8"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0016"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/ulikunitz/xz",
+            "symbols": [
+              "Reader.Read",
+              "blockHeader.UnmarshalBinary",
+              "readUvarint",
+              "streamReader.Read"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/ulikunitz/xz/commit/69c6093c7b2397b923acf82cb378f55ab2652b9b"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/ulikunitz/xz/issues/35"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/ulikunitz/xz/security/advisories/GHSA-25xm-hr59-7c27"
+    }
+  ]
+}

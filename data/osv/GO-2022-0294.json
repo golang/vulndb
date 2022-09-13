@@ -1,0 +1,53 @@
+{
+  "id": "GO-2022-0294",
+  "published": "2022-07-15T23:27:21Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-0317",
+    "GHSA-99cg-575x-774p"
+  ],
+  "details": "A local attacker can defeat remotely-attested measured boot.\n\nImproper input validation in AKPublic.Verify can cause it to succeed when\nprovided with a maliciously-formed Quote over no/some PCRs. Subsequent use\nof the same set of PCR values in Eventlog.Verify lacks the authentication\nperformed by quote verification, meaning a local attacker can couple this\nvulnerability with a maliciously-formed TCG log in Eventlog.Verify to spoof\nevents in the TCG log, defeating remotely-attested measured-boot.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/google/go-attestation",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.4.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0294"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/google/go-attestation/attest",
+            "symbols": [
+              "AKPublic.Verify",
+              "AKPublic.validate12Quote",
+              "AKPublic.validate20Quote",
+              "TPM.AttestPlatform"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/google/go-attestation/commit/82f2c9c2c76e1d3691d17ee78116d1d93a123788"
+    }
+  ]
+}

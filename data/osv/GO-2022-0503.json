@@ -1,0 +1,84 @@
+{
+  "id": "GO-2022-0503",
+  "published": "2022-07-30T03:50:50Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-9x4h-8wgm-8xfg"
+  ],
+  "details": "Decoding malformed CAR data can cause panics or excessive memory usage.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/ipld/go-car",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.4.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0503"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/ipld/go-car"
+          },
+          {
+            "path": "github.com/ipld/go-car/util"
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/ipld/go-car/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.0.0"
+            },
+            {
+              "fixed": "2.4.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0503"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/ipld/go-car/v2"
+          },
+          {
+            "path": "github.com/ipld/go-car/v2/blockstore"
+          },
+          {
+            "path": "github.com/ipld/go-car/v2/index"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-9x4h-8wgm-8xfg"
+    }
+  ]
+}

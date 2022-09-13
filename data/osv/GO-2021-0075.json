@@ -1,0 +1,57 @@
+{
+  "id": "GO-2021-0075",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2018-12018"
+  ],
+  "details": "Due to improper argument validation in RPC messages, a maliciously crafted\nmessage can cause a panic, leading to denial of service.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/ethereum/go-ethereum",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.8.11"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0075"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/ethereum/go-ethereum/les",
+            "symbols": [
+              "protocolManager.handleMsg"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/ethereum/go-ethereum/pull/16891"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/ethereum/go-ethereum/commit/a5237a27eaf81946a3edb4fafe13ed6359d119e4"
+    },
+    {
+      "type": "WEB",
+      "url": "https://peckshield.com/2018/06/27/EPoD/"
+    }
+  ]
+}

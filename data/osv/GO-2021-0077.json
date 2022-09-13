@@ -1,0 +1,54 @@
+{
+  "id": "GO-2021-0077",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2018-16886",
+    "GHSA-h6xx-pmxh-3wgp"
+  ],
+  "details": "A user can use a valid client certificate that contains a CommonName that matches a\nvalid RBAC username to authenticate themselves as that user, despite lacking the\nrequired credentials. This may allow authentication bypass, but requires a certificate\nthat is issued by a CA trusted by the server.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "go.etcd.io/etcd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.5.0-alpha.5.0.20190108173120-83c051b701d3"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0077"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "go.etcd.io/etcd/auth",
+            "symbols": [
+              "authStore.AuthInfoFromTLS"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/etcd-io/etcd/pull/10366"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/etcd-io/etcd/commit/bf9d0d8291dc71ecbfb2690612954e1a298154b2"
+    }
+  ]
+}

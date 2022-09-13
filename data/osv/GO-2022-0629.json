@@ -1,0 +1,72 @@
+{
+  "id": "GO-2022-0629",
+  "published": "2022-02-15T01:57:18Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-8568",
+    "GHSA-5cgx-vhfp-6cf9"
+  ],
+  "details": "Modifying pod status allows host directory traversal.\n\nKubernetes Secrets Store CSI Driver allows an attacker who can\nmodify a SecretProviderClassPodStatus/Status resource the ability\nto write content to the host filesystem and sync file contents\nto Kubernetes Secrets. This includes paths under var/lib/kubelet/pods\nthat contain other Kubernetes Secrets.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "sigs.k8s.io/secrets-store-csi-driver",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.0.15"
+            },
+            {
+              "fixed": "0.0.17"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0629"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "sigs.k8s.io/secrets-store-csi-driver/controllers",
+            "symbols": [
+              "SecretProviderClassPodStatusReconciler.Reconcile"
+            ]
+          },
+          {
+            "path": "sigs.k8s.io/secrets-store-csi-driver/pkg/rotation",
+            "symbols": [
+              "Reconciler.Run",
+              "Reconciler.reconcile"
+            ]
+          },
+          {
+            "path": "sigs.k8s.io/secrets-store-csi-driver/pkg/secrets-store",
+            "symbols": [
+              "SecretsStore.Run",
+              "nodeServer.NodeUnpublishVolume"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubernetes-sigs/secrets-store-csi-driver/pull/371"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubernetes-sigs/secrets-store-csi-driver/commit/c2cbb19e2eef16638fa0523383788a4bc22231fd"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/advisories/GHSA-5cgx-vhfp-6cf9"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "id": "GO-2021-0319",
+  "published": "2022-05-23T22:15:21Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-23806"
+  ],
+  "details": "Some big.Int values that are not valid field elements (negative or overflowing)\nmight cause Curve.IsOnCurve to incorrectly return true. Operating on those values\nmay cause a panic or an invalid curve operation. Note that Unmarshal will never\nreturn such values.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.16.14"
+            },
+            {
+              "introduced": "1.17.0"
+            },
+            {
+              "fixed": "1.17.7"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0319"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "crypto/elliptic",
+            "symbols": [
+              "CurveParams.IsOnCurve",
+              "p384PointFromAffine",
+              "p521PointFromAffine"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/382455"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/7f9494c277a471f6f47f4af3036285c0b1419816"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/SUsQn0aSgPQ"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/50974"
+    }
+  ]
+}

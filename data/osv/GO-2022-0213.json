@@ -1,0 +1,67 @@
+{
+  "id": "GO-2022-0213",
+  "published": "2022-05-24T20:14:11Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2019-17596"
+  ],
+  "details": "Invalid DSA public keys can cause a panic in dsa.Verify. In particular,\nusing crypto/x509.Verify on a crafted X.509 certificate chain can lead to a\npanic, even if the certificates don't chain to a trusted root. The chain\ncan be delivered via a crypto/tls connection to a client, or to a server\nthat accepts and verifies client certificates. net/http clients can be made\nto crash by an HTTPS server, while net/http servers that accept client\ncertificates will recover the panic and are unaffected.\n\nMoreover, an application might crash invoking\ncrypto/x509.(*CertificateRequest).CheckSignature on an X.509 certificate\nrequest, parsing a golang.org/x/crypto/openpgp Entity, or during a\ngolang.org/x/crypto/otr conversation. Finally, a golang.org/x/crypto/ssh\nclient can panic due to a malformed host key, while a server could panic if\neither PublicKeyCallback accepts a malformed public key, or if\nIsUserAuthority accepts a certificate with a malformed public key.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.12.11"
+            },
+            {
+              "introduced": "1.13.0"
+            },
+            {
+              "fixed": "1.13.2"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0213"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "crypto/dsa",
+            "symbols": [
+              "Verify"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/205441"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/552987fdbf4c2bc9641016fd323c3ae5d3a0d9a3"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/34960"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/lVEm7llp0w0/m/VbafyRkgCgAJ"
+    }
+  ]
+}

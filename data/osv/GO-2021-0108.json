@@ -1,0 +1,54 @@
+{
+  "id": "GO-2021-0108",
+  "published": "2021-07-28T18:08:05Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-15111",
+    "GHSA-9cx9-x2gp-9qvh"
+  ],
+  "details": "Due to improper input sanitization, a maliciously constructed filename\ncould cause a file download to use an attacker controlled filename, as well\nas injecting additional headers into an HTTP response.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gofiber/fiber",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.12.6"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0108"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/gofiber/fiber",
+            "symbols": [
+              "Ctx.Attachment"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/gofiber/fiber/pull/579"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gofiber/fiber/commit/f698b5d5066cfe594102ae252cd58a1fe57cf56f"
+    }
+  ]
+}

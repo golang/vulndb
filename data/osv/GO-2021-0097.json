@@ -1,0 +1,67 @@
+{
+  "id": "GO-2021-0097",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-29242",
+    "CVE-2020-29243",
+    "CVE-2020-29244",
+    "CVE-2020-29245"
+  ],
+  "details": "Due to improper bounds checking, a number of methods can trigger a panic due to attempted\nout-of-bounds reads. If the package is used to parse user supplied input, this may be\nused as a vector for a denial of service attack.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/dhowden/tag",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20201120070457-d52dcb253c63"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0097"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/dhowden/tag",
+            "symbols": [
+              "readAPICFrame",
+              "readAtomData",
+              "readPICFrame",
+              "readTextWithDescrFrame"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/dhowden/tag/commit/d52dcb253c63a153632bfee5f269dd411dcd8e96"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dhowden/tag/commit/a92213460e4838490ce3066ef11dc823cdc1740e"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dhowden/tag/commit/4b595ed4fac79f467594aa92f8953f90f817116e"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dhowden/tag/commit/6b18201aa5c5535511802ddfb4e4117686b4866d"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "id": "GO-2021-0110",
+  "published": "2021-07-28T18:08:05Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-15222",
+    "GHSA-v3q9-2p3m-7g43"
+  ],
+  "details": "Uniqueness of JWT IDs (jti) are not checked, allowing the JWT to be\nreplayed.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/ory/fosite",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.31.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0110"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/ory/fosite",
+            "symbols": [
+              "Fosite.AuthenticateClient",
+              "Fosite.NewAccessRequest",
+              "Fosite.NewRevocationRequest"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/ory/fosite/commit/0c9e0f6d654913ad57c507dd9a36631e1858a3e9"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/ory/fosite/security/advisories/GHSA-v3q9-2p3m-7g43"
+    }
+  ]
+}

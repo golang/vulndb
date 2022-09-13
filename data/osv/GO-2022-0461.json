@@ -1,0 +1,59 @@
+{
+  "id": "GO-2022-0461",
+  "published": "2022-07-01T20:07:25Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-29189",
+    "GHSA-cx94-mrg9-rq4j"
+  ],
+  "details": "Attacker can cause unbounded memory consumption.\n\nThe Pion DTLS client and server buffer handshake data with no\nupper limit, permitting an attacker to cause unbounded memory\nconsumption by sending an unterminated handshake.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/pion/dtls/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.1.4"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0461"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/pion/dtls/v2",
+            "symbols": [
+              "Client",
+              "ClientWithContext",
+              "Dial",
+              "DialWithContext",
+              "Resume",
+              "Server",
+              "ServerWithContext",
+              "fragmentBuffer.push",
+              "handshakeFSM.Run",
+              "listener.Accept"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/pion/dtls/commit/a6397ff7282bc56dc37a68ea9211702edb4de1de"
+    }
+  ]
+}

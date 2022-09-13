@@ -1,0 +1,81 @@
+{
+  "id": "GO-2021-0072",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2017-11468"
+  ],
+  "details": "Various storage methods do not impose limits on how much content is accepted\nfrom user requests, allowing a malicious user to force the caller to allocate\nan arbitrary amount of memory.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/docker/distribution",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.7.0-rc.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0072"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/docker/distribution/registry/handlers",
+            "symbols": [
+              "blobUploadHandler.PatchBlobData",
+              "blobUploadHandler.PutBlobUploadComplete",
+              "copyFullPayload",
+              "imageManifestHandler.GetImageManifest",
+              "imageManifestHandler.PutImageManifest"
+            ]
+          },
+          {
+            "path": "github.com/docker/distribution/registry/storage",
+            "symbols": [
+              "PurgeUploads",
+              "Walk",
+              "blobStore.Enumerate",
+              "blobStore.Get",
+              "blobStore.Get",
+              "linkedBlobStore.Enumerate",
+              "linkedBlobStore.Get",
+              "manifestStore.Enumerate",
+              "manifestStore.Get",
+              "registry.Enumerate",
+              "registry.Repositories"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/distribution/distribution/pull/2340"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/distribution/distribution/commit/91c507a39abfce14b5c8541cf284330e22208c0f"
+    },
+    {
+      "type": "WEB",
+      "url": "https://access.redhat.com/errata/RHSA-2017:2603"
+    },
+    {
+      "type": "WEB",
+      "url": "http://lists.opensuse.org/opensuse-security-announce/2020-09/msg00047.html"
+    }
+  ]
+}

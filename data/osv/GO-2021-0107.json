@@ -1,0 +1,51 @@
+{
+  "id": "GO-2021-0107",
+  "published": "2021-07-28T18:08:05Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-4236",
+    "GHSA-5gjg-jgh4-gppm"
+  ],
+  "details": "Web Sockets do not execute any AuthenticateMethod methods which may be set,\nleading to a nil pointer dereference if the returned UserData pointer is\nassumed to be non-nil, or authentication bypass.\n\nThis issue only affects WebSockets with an AuthenticateMethod hook.\nRequest handlers that do not explicitly use WebSockets are not\nvulnerable.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/ecnepsnai/web",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.4.0"
+            },
+            {
+              "fixed": "1.5.2"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0107"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/ecnepsnai/web",
+            "symbols": [
+              "Server.Socket",
+              "Server.socketHandler"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/ecnepsnai/web/commit/5a78f8d5c41ce60dcf9f61aaf47a7a8dc3e0002f"
+    }
+  ]
+}

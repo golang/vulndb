@@ -1,0 +1,70 @@
+{
+  "id": "GO-2022-0477",
+  "published": "2022-06-09T01:43:37Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-30634"
+  ],
+  "details": "On Windows, rand.Read will hang indefinitely if passed a buffer larger than\n1 \u003c\u003c 32 - 1 bytes.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.17.11"
+            },
+            {
+              "introduced": "1.18.0"
+            },
+            {
+              "fixed": "1.18.3"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0477"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "crypto/rand",
+            "goos": [
+              "windows"
+            ],
+            "symbols": [
+              "Read"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/402257"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/bb1f4416180511231de6d17a1f2f55c82aafc863"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/52561"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/TzIC9-t8Ytg/m/IWz5T6x7AAAJ"
+    }
+  ]
+}

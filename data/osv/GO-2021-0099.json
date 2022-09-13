@@ -1,0 +1,55 @@
+{
+  "id": "GO-2021-0099",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-21272",
+    "GHSA-g5v4-5x39-vwhx"
+  ],
+  "details": "Due to improper path validation, using the github.com/deislabs/oras/pkg/content.FileStore\ncontent store may result in directory traversal during archive extraction, allowing a\nmalicious archive to write paths to arbitrary paths that the process can write to.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/deislabs/oras",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.9.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0099"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/deislabs/oras/pkg/content",
+            "symbols": [
+              "extractTarDirectory",
+              "fileWriter.Commit"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/deislabs/oras/commit/96cd90423303f1bb42bd043cb4c36085e6e91e8e"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/deislabs/oras/security/advisories/GHSA-g5v4-5x39-vwhx"
+    }
+  ]
+}

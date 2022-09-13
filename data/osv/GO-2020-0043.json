@@ -1,0 +1,59 @@
+{
+  "id": "GO-2020-0043",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2018-21246"
+  ],
+  "details": "Due to improper TLS verification when serving traffic for multiple\nSNIs, an attacker may bypass TLS client authentication by indicating\nan SNI during the TLS handshake that is different from the name in\nthe HTTP Host header.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mholt/caddy",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.10.13"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0043"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/mholt/caddy/caddyhttp/httpserver",
+            "symbols": [
+              "Server.serveHTTP",
+              "assertConfigsCompatible",
+              "httpContext.MakeServers"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/caddyserver/caddy/pull/2099"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/caddyserver/caddy/commit/4d9ee000c8d2cbcdd8284007c1e0f2da7bc3c7c3"
+    },
+    {
+      "type": "WEB",
+      "url": "https://bugs.gentoo.org/715214"
+    }
+  ]
+}

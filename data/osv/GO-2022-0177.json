@@ -1,0 +1,64 @@
+{
+  "id": "GO-2022-0177",
+  "published": "2022-08-09T17:31:35Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2017-15041"
+  ],
+  "details": "The \"go get\" command allows remote command execution.\n\nUsing custom domains, it is possible to arrange things so that\nexample.com/pkg1 points to a Subversion repository but\nexample.com/pkg1/pkg2 points to a Git repository. If the Subversion\nrepository includes a Git checkout in its pkg2 directory and\nsome other work is done to ensure the proper ordering of operations, \"go\nget\" can be tricked into reusing this Git checkout for the fetch of code\nfrom pkg2. If the Subversion repository's Git checkout has malicious\ncommands in .git/hooks/, they will execute on the system running \"go get\".\n",
+  "affected": [
+    {
+      "package": {
+        "name": "toolchain",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.8.4"
+            },
+            {
+              "introduced": "1.9.0"
+            },
+            {
+              "fixed": "1.9.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0177"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "cmd/go"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/68110"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/ec71ee078fd3243b78c0d404c8634bd97e38d7eb"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/22125"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-dev/c/RinSE3EiJBI/m/kYL7zb07AgAJ"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "id": "GO-2022-0192",
+  "published": "2022-07-01T20:11:34Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2018-17142"
+  ],
+  "details": "The Parse function can panic on some invalid inputs.\n\nFor example, the Parse function panics on the input\n\"\u003cmath\u003e\u003ctemplate\u003e\u003cmo\u003e\u003ctemplate\u003e\".\n",
+  "affected": [
+    {
+      "package": {
+        "name": "golang.org/x/net",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20180925071336-cf3bd585ca2a"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0192"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "golang.org/x/net/html",
+            "symbols": [
+              "Parse",
+              "ParseFragment",
+              "parser.resetInsertionMode"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/136875"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/net/+/cf3bd585ca2a5a21b057abd8be7eea2204af89d0"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/27702"
+    }
+  ]
+}

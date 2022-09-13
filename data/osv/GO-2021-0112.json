@@ -1,0 +1,175 @@
+{
+  "id": "GO-2021-0112",
+  "published": "2021-07-28T18:08:05Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-20329",
+    "GHSA-f6mq-5m25-4r72"
+  ],
+  "details": "Due to improper input sanitization when marshalling Go objects into BSON, a maliciously constructed\nGo structure could allow an attacker to inject additional fields into a MongoDB document. Users are\naffected if they use this package to handle untrusted user input.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "go.mongodb.org/mongo-driver",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.5.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0112"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "go.mongodb.org/mongo-driver/x/bsonx/bsoncore",
+            "symbols": [
+              "AppendArrayElement",
+              "AppendArrayElementStart",
+              "AppendBinaryElement",
+              "AppendBooleanElement",
+              "AppendCodeWithScopeElement",
+              "AppendDBPointerElement",
+              "AppendDateTimeElement",
+              "AppendDecimal128Element",
+              "AppendDocumentElement",
+              "AppendDocumentElementStart",
+              "AppendDoubleElement",
+              "AppendHeader",
+              "AppendInt32Element",
+              "AppendInt64Element",
+              "AppendJavaScriptElement",
+              "AppendMaxKeyElement",
+              "AppendMinKeyElement",
+              "AppendNullElement",
+              "AppendObjectIDElement",
+              "AppendRegex",
+              "AppendRegexElement",
+              "AppendStringElement",
+              "AppendSymbolElement",
+              "AppendTimeElement",
+              "AppendTimestampElement",
+              "AppendUndefinedElement",
+              "AppendValueElement",
+              "ArrayBuilder.AppendArray",
+              "ArrayBuilder.AppendBinary",
+              "ArrayBuilder.AppendBoolean",
+              "ArrayBuilder.AppendCodeWithScope",
+              "ArrayBuilder.AppendDBPointer",
+              "ArrayBuilder.AppendDateTime",
+              "ArrayBuilder.AppendDecimal128",
+              "ArrayBuilder.AppendDocument",
+              "ArrayBuilder.AppendDouble",
+              "ArrayBuilder.AppendInt32",
+              "ArrayBuilder.AppendInt64",
+              "ArrayBuilder.AppendJavaScript",
+              "ArrayBuilder.AppendMaxKey",
+              "ArrayBuilder.AppendMinKey",
+              "ArrayBuilder.AppendNull",
+              "ArrayBuilder.AppendObjectID",
+              "ArrayBuilder.AppendRegex",
+              "ArrayBuilder.AppendString",
+              "ArrayBuilder.AppendSymbol",
+              "ArrayBuilder.AppendTimestamp",
+              "ArrayBuilder.AppendUndefined",
+              "ArrayBuilder.AppendValue",
+              "ArrayBuilder.StartArray",
+              "BuildArray",
+              "BuildArrayElement",
+              "BuildDocumentElement",
+              "DocumentBuilder.AppendArray",
+              "DocumentBuilder.AppendBinary",
+              "DocumentBuilder.AppendBoolean",
+              "DocumentBuilder.AppendCodeWithScope",
+              "DocumentBuilder.AppendDBPointer",
+              "DocumentBuilder.AppendDateTime",
+              "DocumentBuilder.AppendDecimal128",
+              "DocumentBuilder.AppendDocument",
+              "DocumentBuilder.AppendDouble",
+              "DocumentBuilder.AppendInt32",
+              "DocumentBuilder.AppendInt64",
+              "DocumentBuilder.AppendJavaScript",
+              "DocumentBuilder.AppendMaxKey",
+              "DocumentBuilder.AppendMinKey",
+              "DocumentBuilder.AppendNull",
+              "DocumentBuilder.AppendObjectID",
+              "DocumentBuilder.AppendRegex",
+              "DocumentBuilder.AppendString",
+              "DocumentBuilder.AppendSymbol",
+              "DocumentBuilder.AppendTimestamp",
+              "DocumentBuilder.AppendUndefined",
+              "DocumentBuilder.AppendValue",
+              "DocumentBuilder.StartDocument"
+            ]
+          },
+          {
+            "path": "go.mongodb.org/mongo-driver/bson/bsonrw",
+            "symbols": [
+              "Copier.AppendArrayBytes",
+              "Copier.AppendDocumentBytes",
+              "Copier.AppendValueBytes",
+              "Copier.CopyArrayFromBytes",
+              "Copier.CopyBytesToArrayWriter",
+              "Copier.CopyBytesToDocumentWriter",
+              "Copier.CopyDocument",
+              "Copier.CopyDocumentFromBytes",
+              "Copier.CopyDocumentToBytes",
+              "Copier.CopyValue",
+              "Copier.CopyValueFromBytes",
+              "Copier.CopyValueToBytes",
+              "CopyDocument",
+              "valueWriter.WriteArray",
+              "valueWriter.WriteBinary",
+              "valueWriter.WriteBinaryWithSubtype",
+              "valueWriter.WriteBoolean",
+              "valueWriter.WriteCodeWithScope",
+              "valueWriter.WriteDBPointer",
+              "valueWriter.WriteDateTime",
+              "valueWriter.WriteDecimal128",
+              "valueWriter.WriteDocument",
+              "valueWriter.WriteDouble",
+              "valueWriter.WriteInt32",
+              "valueWriter.WriteInt64",
+              "valueWriter.WriteJavascript",
+              "valueWriter.WriteMaxKey",
+              "valueWriter.WriteMinKey",
+              "valueWriter.WriteNull",
+              "valueWriter.WriteObjectID",
+              "valueWriter.WriteRegex",
+              "valueWriter.WriteString",
+              "valueWriter.WriteSymbol",
+              "valueWriter.WriteTimestamp",
+              "valueWriter.WriteUndefined",
+              "valueWriter.WriteValueBytes",
+              "valueWriter.writeElementHeader"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/mongodb/mongo-go-driver/pull/622"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/mongodb/mongo-go-driver/commit/2aca31d5986a9e1c65a92264736de9fdc3b9b4ca"
+    },
+    {
+      "type": "WEB",
+      "url": "https://jira.mongodb.org/browse/GODRIVER-1923"
+    }
+  ]
+}

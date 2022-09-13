@@ -1,0 +1,78 @@
+{
+  "id": "GO-2020-0041",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-7668",
+    "GHSA-88jf-7rch-32qc"
+  ],
+  "details": "Due to improper path santization, archives containing relative file\npaths can cause files to be written (or overwritten) outside of the\ntarget directory.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/unknwon/cae",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.0.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0041"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/unknwon/cae/tz",
+            "symbols": [
+              "Create",
+              "ExtractTo",
+              "Open",
+              "OpenFile",
+              "TzArchive.Close",
+              "TzArchive.ExtractTo",
+              "TzArchive.ExtractToFunc",
+              "TzArchive.Flush",
+              "TzArchive.Open",
+              "TzArchive.syncFiles"
+            ]
+          },
+          {
+            "path": "github.com/unknwon/cae/zip",
+            "symbols": [
+              "Create",
+              "ExtractTo",
+              "ExtractToFunc",
+              "Open",
+              "OpenFile",
+              "ZipArchive.Close",
+              "ZipArchive.ExtractTo",
+              "ZipArchive.ExtractToFunc",
+              "ZipArchive.Flush",
+              "ZipArchive.Open"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/unknwon/cae/commit/07971c00a1bfd9dc171c3ad0bfab5b67c2287e11"
+    },
+    {
+      "type": "WEB",
+      "url": "https://snyk.io/research/zip-slip-vulnerability"
+    }
+  ]
+}

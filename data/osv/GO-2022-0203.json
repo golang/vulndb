@@ -1,0 +1,64 @@
+{
+  "id": "GO-2022-0203",
+  "published": "2022-08-09T23:19:00Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2018-7187"
+  ],
+  "details": "The \"go get\" command is vulnerable to remote code execution.\n\nWhen the -insecure command-line option is used, \"go get\" does not validate\nthe import path (get/vcs.go only checks for \"://\" anywhere in the string),\nwhich allows remote attackers to execute arbitrary OS commands via a\ncrafted web site.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "toolchain",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.9.5"
+            },
+            {
+              "introduced": "1.10.0"
+            },
+            {
+              "fixed": "1.10.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0203"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "cmd/go"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/94603"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/c941e27e70c3e06e1011d2dd71d72a7a06a9bcbc"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/23867"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/IkPkOF8JqLs/m/TFBbWHJYAwAJ"
+    }
+  ]
+}

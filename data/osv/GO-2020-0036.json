@@ -1,0 +1,93 @@
+{
+  "id": "GO-2020-0036",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2019-11254",
+    "GHSA-wxc4-f4m6-wwqv"
+  ],
+  "details": "Due to unbounded aliasing, a crafted YAML file can cause consumption\nof significant system resources. If parsing user supplied input, this\nmay be used as a denial of service vector.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "gopkg.in/yaml.v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.2.8"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0036"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "gopkg.in/yaml.v2",
+            "symbols": [
+              "Decoder.Decode",
+              "Unmarshal",
+              "UnmarshalStrict",
+              "yaml_parser_fetch_more_tokens"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/go-yaml/yaml",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0036"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/go-yaml/yaml",
+            "symbols": [
+              "Decoder.Decode",
+              "Unmarshal",
+              "UnmarshalStrict",
+              "yaml_parser_fetch_more_tokens"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/go-yaml/yaml/pull/555"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/go-yaml/yaml/commit/53403b58ad1b561927d19068c655246f2db79d48"
+    },
+    {
+      "type": "WEB",
+      "url": "https://bugs.chromium.org/p/oss-fuzz/issues/detail?id=18496"
+    }
+  ]
+}

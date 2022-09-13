@@ -1,0 +1,85 @@
+{
+  "id": "GO-2022-0247",
+  "published": "2022-05-24T20:14:28Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-38297"
+  ],
+  "details": "When invoking functions from WASM modules, built using GOARCH=wasm GOOS=js,\npassing very large arguments can cause portions of the module to be\noverwritten with data from the arguments due to a buffer overflow error.\n\nIf using wasm_exec.js to execute WASM modules, users will need to replace\ntheir copy (as described in\nhttps://golang.org/wiki/WebAssembly#getting-started) after rebuilding any\nmodules.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "toolchain",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.16.9"
+            },
+            {
+              "introduced": "1.17.0"
+            },
+            {
+              "fixed": "1.17.2"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0247"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "cmd/link",
+            "goos": [
+              "js"
+            ],
+            "goarch": [
+              "wasm"
+            ],
+            "symbols": [
+              "Link.address"
+            ]
+          },
+          {
+            "path": "misc/wasm",
+            "goos": [
+              "js"
+            ],
+            "goarch": [
+              "wasm"
+            ],
+            "symbols": [
+              "run"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/354571"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/77f2750f4398990eed972186706f160631d7dae4"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/48797"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/AEBu9j7yj5A"
+    }
+  ]
+}

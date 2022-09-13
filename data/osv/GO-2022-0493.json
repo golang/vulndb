@@ -1,0 +1,100 @@
+{
+  "id": "GO-2022-0493",
+  "published": "2022-07-15T23:30:12Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-29526"
+  ],
+  "details": "When called with a non-zero flags parameter, the Faccessat function\ncan incorrectly report that a file is accessible.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.17.10"
+            },
+            {
+              "introduced": "1.18.0"
+            },
+            {
+              "fixed": "1.18.2"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0493"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "syscall",
+            "symbols": [
+              "Faccessat"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "golang.org/x/sys",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20220412211240-33da011f77ad"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0493"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "golang.org/x/sys/unix",
+            "symbols": [
+              "Access",
+              "Faccessat"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/399539"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/52313"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/400074"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/Y5qrqw_lWdU"
+    }
+  ]
+}

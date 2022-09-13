@@ -1,0 +1,59 @@
+{
+  "id": "GO-2020-0045",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2016-15005"
+  ],
+  "details": "CSRF tokens are generated using math/rand, which is not a cryptographically secure\nrander number generation, making predicting their values relatively trivial and\nallowing an attacker to bypass CSRF protections which relatively few requests.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/dinever/golf",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.3.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0045"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/dinever/golf",
+            "symbols": [
+              "Context.Render",
+              "Context.RenderFromString",
+              "randomBytes"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/dinever/golf/pull/24"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/dinever/golf/commit/3776f338be48b5bc5e8cf9faff7851fc52a3f1fe"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dinever/golf/issues/20"
+    }
+  ]
+}

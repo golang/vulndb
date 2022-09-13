@@ -1,0 +1,58 @@
+{
+  "id": "GO-2021-0089",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-10675",
+    "GHSA-rmh2-65xw-9m6q"
+  ],
+  "details": "Parsing malformed JSON which contain opening brackets, but not closing brackets,\nleads to an infinite loop. If operating on untrusted user input this can be\nused as a denial of service vector.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/buger/jsonparser",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20200321185410-91ac96899e49"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0089"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/buger/jsonparser",
+            "symbols": [
+              "findKeyStart"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/buger/jsonparser/pull/192"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/buger/jsonparser/commit/91ac96899e492584984ded0c8f9a08f10b473717"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/buger/jsonparser/issues/188"
+    }
+  ]
+}

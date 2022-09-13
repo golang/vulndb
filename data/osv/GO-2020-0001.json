@@ -1,0 +1,53 @@
+{
+  "id": "GO-2020-0001",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-36567"
+  ],
+  "details": "The default Formatter for the Logger middleware (LoggerConfig.Formatter),\nwhich is included in the Default engine, allows attackers to inject arbitrary\nlog entries by manipulating the request path.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gin-gonic/gin",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.6.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0001"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/gin-gonic/gin",
+            "symbols": [
+              "defaultLogFormatter"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/gin-gonic/gin/pull/2237"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gin-gonic/gin/commit/a71af9c144f9579f6dbe945341c1df37aaf09c0d"
+    }
+  ]
+}

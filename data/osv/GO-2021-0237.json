@@ -1,0 +1,58 @@
+{
+  "id": "GO-2021-0237",
+  "published": "2022-01-11T17:18:11Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-32721",
+    "GHSA-mj9r-wwm8-7q52"
+  ],
+  "details": "Attackers may be able to craft phishing links and other open\nredirects by exploiting PowerMux's trailing slash redirection\nfeature.  This may lead to users being redirected to untrusted\nsites after following an attacker crafted link.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/AndrewBurian/powermux",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.1.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0237"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/AndrewBurian/powermux",
+            "symbols": [
+              "Route.execute"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/AndrewBurian/powermux/pull/42"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/AndrewBurian/powermux/commit/5e60a8a0372b35a898796c2697c40e8daabed8e9"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/AndrewBurian/powermux/security/advisories/GHSA-mj9r-wwm8-7q52"
+    }
+  ]
+}

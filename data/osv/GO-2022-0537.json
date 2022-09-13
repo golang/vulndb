@@ -1,0 +1,68 @@
+{
+  "id": "GO-2022-0537",
+  "published": "2022-08-01T22:21:06Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-32189"
+  ],
+  "details": "Decoding big.Float and big.Rat types can panic if the encoded message is\ntoo short, potentially allowing a denial of service.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.17.13"
+            },
+            {
+              "introduced": "1.18.0"
+            },
+            {
+              "fixed": "1.18.5"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0537"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "math/big",
+            "symbols": [
+              "Float.GobDecode",
+              "Rat.GobDecode"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/417774"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/055113ef364337607e3e72ed7d48df67fde6fc66"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/53871"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/YqYYG87xB10"
+    }
+  ]
+}

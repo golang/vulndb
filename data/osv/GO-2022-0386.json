@@ -1,0 +1,95 @@
+{
+  "id": "GO-2022-0386",
+  "published": "2022-07-01T20:11:22Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-3127",
+    "GHSA-j756-f273-xhp4",
+    "GHSA-62mh-w5cv-p88c",
+    "GHSA-9r5x-fjv3-q6h4"
+  ],
+  "details": "Import tokens valid for one account may be used for any other account.\n\nValidation of Import token bindings incorrectly warns on mismatches,\nrather than rejecting the Goken. This permits a token for one account\nto be used for any other account.\n\nFor further details and mitigation procedures, see\nhttps://advisories.nats.io/CVE/CVE-2021-3127.txt\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/nats-io/jwt",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.2.3-0.20210314221642-a826c77dc9d2"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0386"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/nats-io/jwt",
+            "symbols": [
+              "Account.Validate",
+              "AccountClaims.Validate",
+              "ActivationClaims.Validate",
+              "Import.Validate",
+              "Imports.Validate"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/nats-io/jwt/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.0.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0386"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/nats-io/jwt/v2",
+            "symbols": [
+              "Account.Validate",
+              "AccountClaims.Validate",
+              "Import.Validate",
+              "Imports.Validate"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/nats-io/jwt/pull/149"
+    },
+    {
+      "type": "WEB",
+      "url": "https://advisories.nats.io/CVE/CVE-2021-3127.txt"
+    }
+  ]
+}

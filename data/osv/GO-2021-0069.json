@@ -1,0 +1,67 @@
+{
+  "id": "GO-2021-0069",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-28362"
+  ],
+  "details": "A number of math/big.Int methods can panic when provided large inputs due\nto a flawed division method.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.14.0"
+            },
+            {
+              "fixed": "1.14.12"
+            },
+            {
+              "introduced": "1.15.0"
+            },
+            {
+              "fixed": "1.15.5"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0069"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "math/big",
+            "symbols": [
+              "nat.divRecursiveStep"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/269657"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/1e1fa5903b760c6714ba17e50bf850b01f49135c"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/42552"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/NpBGTTmKzpM/m/fLguyiM2CAAJ"
+    }
+  ]
+}

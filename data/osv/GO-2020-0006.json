@@ -1,0 +1,59 @@
+{
+  "id": "GO-2020-0006",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2017-15133",
+    "GHSA-p55x-7x9v-q8m4"
+  ],
+  "details": "An attacker may prevent TCP connections to a Server by opening\na connection and leaving it idle, until the connection is closed by\nthe server no other connections will be accepted.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/miekg/dns",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.0.4-0.20180125103619-43913f2f4fbd"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0006"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/miekg/dns",
+            "symbols": [
+              "ActivateAndServe",
+              "ListenAndServe",
+              "ListenAndServeTLS",
+              "Server.ActivateAndServe",
+              "Server.ListenAndServe",
+              "Server.serveTCP"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/miekg/dns/pull/631"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/miekg/dns/commit/43913f2f4fbd7dcff930b8a809e709591e4dd79e"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "id": "GO-2022-0701",
+  "published": "2022-02-15T01:57:18Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2015-5305",
+    "GHSA-jp32-vmm6-3vf5"
+  ],
+  "details": "Crafted object type names can cause directory traversal in Kubernetes.\n\nObject names are not validated before being passed to etcd. This allows\nattackers to write arbitrary files via a crafted object name, hence causing\ndirectory traversal vulnerability in Kubernetes, as used in Red Hat\nOpenShift Enterprise 3.0.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "k8s.io/kubernetes",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.1.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0701"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "k8s.io/kubernetes/pkg/api/rest",
+            "symbols": [
+              "BeforeCreate"
+            ]
+          },
+          {
+            "path": "k8s.io/kubernetes/pkg/registry/generic/etcd",
+            "symbols": [
+              "NamespaceKeyFunc"
+            ]
+          },
+          {
+            "path": "k8s.io/kubernetes/pkg/storage",
+            "symbols": [
+              "NamespaceKeyFunc",
+              "NoNamespaceKeyFunc"
+            ]
+          },
+          {
+            "path": "k8s.io/kubernetes/pkg/registry/namespace/etcd",
+            "symbols": [
+              "NewREST"
+            ]
+          },
+          {
+            "path": "k8s.io/kubernetes/pkg/registry/node/etcd",
+            "symbols": [
+              "NewREST"
+            ]
+          },
+          {
+            "path": "k8s.io/kubernetes/pkg/registry/persistentvolume/etcd",
+            "symbols": [
+              "NewREST"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubernetes/kubernetes/pull/16381"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubernetes/kubernetes/commit/37f730f68c7f06e060f90714439bfb0dbb2df5e7"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/advisories/GHSA-jp32-vmm6-3vf5"
+    }
+  ]
+}

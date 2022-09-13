@@ -1,0 +1,50 @@
+{
+  "id": "GO-2022-0345",
+  "published": "2022-07-15T23:30:21Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-3602",
+    "GHSA-7638-r9r3-rmjj"
+  ],
+  "details": "The RunUsingChroot function unintentionally propagates environment\nvariables from the current process to the child process.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/containers/buildah",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.22.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0345"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/containers/buildah/chroot",
+            "symbols": [
+              "RunUsingChroot"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/containers/buildah/commit/a468ce0ffd347035d53ee0e26c205ef604097fb0"
+    }
+  ]
+}

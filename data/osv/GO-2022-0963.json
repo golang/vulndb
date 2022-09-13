@@ -1,0 +1,91 @@
+{
+  "id": "GO-2022-0963",
+  "published": "2022-09-02T18:37:03Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-36078",
+    "GHSA-4p6f-m4f9-ch88"
+  ],
+  "details": "A memory allocation vulnerability can be exploited to allocate arbitrarily\nlarge slices, which can exhaust available memory or crash the program.\n\nWhen parsing data from untrusted sources of input (e.g. the blockchain),\nthe length of the slice to allocate is read directly from the data itself\nwithout any checks, which could lead to an allocation of excessive memory.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gagliardetto/binary",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.7.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0963"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/gagliardetto/binary",
+            "symbols": [
+              "BaseVariant.UnmarshalBinaryVariant",
+              "BinByteCount",
+              "BorshByteCount",
+              "CompactU16ByteCount",
+              "Decoder.Decode",
+              "Decoder.Discard",
+              "Decoder.ReadInt64",
+              "Decoder.ReadNBytes",
+              "Decoder.ReadRustString",
+              "Decoder.ReadTypeID",
+              "Decoder.ReadUint64",
+              "Decoder.decodeBin",
+              "Decoder.decodeBorsh",
+              "Decoder.decodeCompactU16",
+              "Encoder.Encode",
+              "Encoder.WriteFloat32",
+              "Encoder.WriteFloat64",
+              "Encoder.encodeBin",
+              "Encoder.encodeBorsh",
+              "Encoder.encodeCompactU16",
+              "Int64.UnmarshalWithDecoder",
+              "JSONFloat64.MarshalWithEncoder",
+              "MarshalBin",
+              "MarshalBorsh",
+              "MarshalCompactU16",
+              "MustBinByteCount",
+              "MustBorshByteCount",
+              "MustCompactU16ByteCount",
+              "Uint64.UnmarshalWithDecoder",
+              "UnmarshalBin",
+              "UnmarshalBorsh",
+              "UnmarshalCompactU16",
+              "discardNBytes",
+              "readNBytes"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/gagliardetto/binary/security/advisories/GHSA-4p6f-m4f9-ch88"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gagliardetto/binary/pull/7"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/gagliardetto/binary/releases/tag/v0.7.1"
+    }
+  ]
+}

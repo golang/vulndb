@@ -1,0 +1,53 @@
+{
+  "id": "GO-2022-0251",
+  "published": "2022-07-15T23:07:28Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-3910",
+    "GHSA-5mxh-2qfv-4g7j"
+  ],
+  "details": "Invalid input data can cause a panic.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cloudflare/cfrpki",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.4.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0251"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cloudflare/cfrpki/validator/lib",
+            "symbols": [
+              "BER2DER",
+              "DecodeManifest",
+              "DecoderConfig.DecodeManifest",
+              "readObject"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/cloudflare/cfrpki/commit/76f0f7a98da001fa04e5bc0407c6702f91096bfa"
+    }
+  ]
+}

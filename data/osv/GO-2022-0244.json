@@ -1,0 +1,64 @@
+{
+  "id": "GO-2022-0244",
+  "published": "2022-07-15T23:06:26Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-3538"
+  ],
+  "details": "Random data used to create UUIDs can contain zeros, resulting in\npredictable UUIDs and possible collisions.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/satori/go.uuid",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.2.1-0.20180103161547-0ef6afb2f6cd"
+            },
+            {
+              "fixed": "1.2.1-0.20180404165556-75cca531ea76"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0244"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/satori/go.uuid",
+            "symbols": [
+              "NewV1",
+              "NewV2",
+              "NewV4",
+              "rfc4122Generator.NewV1",
+              "rfc4122Generator.NewV2",
+              "rfc4122Generator.NewV4",
+              "rfc4122Generator.getClockSequence",
+              "rfc4122Generator.getHardwareAddr"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/satori/go.uuid/pull/75"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/satori/go.uuid/commit/75cca531ea763666bc46e531da3b4c3b95f64557"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/satori/go.uuid/issues/73"
+    }
+  ]
+}

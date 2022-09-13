@@ -1,0 +1,67 @@
+{
+  "id": "GO-2021-0263",
+  "published": "2022-01-13T03:45:03Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-41771"
+  ],
+  "details": "Calling File.ImportedSymbols on a loaded file which contains an invalid\ndynamic symbol table command can cause a panic, in particular if the encoded\nnumber of undefined symbols is larger than the number of symbols in the symbol\ntable.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.16.10"
+            },
+            {
+              "introduced": "1.17.0"
+            },
+            {
+              "fixed": "1.17.3"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0263"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "debug/macho",
+            "symbols": [
+              "NewFile"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/367075"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/61536ec03063b4951163bd09609c86d82631fa27"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/0fM21h43arc"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/48990"
+    }
+  ]
+}

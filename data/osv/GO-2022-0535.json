@@ -1,0 +1,70 @@
+{
+  "id": "GO-2022-0535",
+  "published": "2022-08-01T22:21:17Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-0601"
+  ],
+  "details": "A Windows vulnerability allows attackers to spoof valid certificate chains\nwhen the system root store is in use.\n\nA workaround is present in Go 1.12.6+ and Go 1.13.7+, but affected\nusers should additionally install the Windows security update to protect\ntheir system.\n\nSee\nhttps://msrc.microsoft.com/update-guide/en-US/vulnerability/CVE-2020-0601\nfor details on the Windows vulnerability.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.12.16"
+            },
+            {
+              "introduced": "1.13.0"
+            },
+            {
+              "fixed": "1.13.7"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0535"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "crypto/x509",
+            "goos": [
+              "windows"
+            ],
+            "symbols": [
+              "Certificate.systemVerify"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/215905"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/953bc8f391a63adf00bac2515dba62abe8a1e2c2"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/36834"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/Hsw4mHYc470/m/WJeW5wguEgAJ"
+    }
+  ]
+}

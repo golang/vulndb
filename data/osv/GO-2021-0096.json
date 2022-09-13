@@ -1,0 +1,51 @@
+{
+  "id": "GO-2021-0096",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-8945",
+    "GHSA-m6wg-2mwg-4rfq"
+  ],
+  "details": "Due to improper setting of finalizers, memory passed to C may be freed before it is used,\nleading to crashes due to memory corruption or possible code execution.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/proglottis/gpgme",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.1.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0096"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/proglottis/gpgme"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/proglottis/gpgme/pull/23"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/proglottis/gpgme/commit/92153bcb59bd2f511e502262c46c7bd660e21733"
+    }
+  ]
+}

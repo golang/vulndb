@@ -1,0 +1,66 @@
+{
+  "id": "GO-2022-0646",
+  "published": "2022-02-11T23:26:26Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-8911",
+    "CVE-2020-8912",
+    "GHSA-7f33-f4f5-xwgw",
+    "GHSA-f5pg-7wfw-84q9"
+  ],
+  "details": "The Go AWS S3 Crypto SDK contains vulnerabilities that can permit an attacker\nwith write access to a bucket to decrypt files in that bucket.\n\nFiles encrypted by the V1 EncryptionClient using either the AES-CBC\ncontent cipher or the KMS key wrap algorithm are vulnerable. Users should\nmigrate to the V1 EncryptionClientV2 API, which will not create vulnerable\nfiles. Old files will remain vulnerable until reencrypted with the new\nclient.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/aws/aws-sdk-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0646"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/aws/aws-sdk-go/service/s3/s3crypto",
+            "symbols": [
+              "NewDecryptionClient",
+              "NewEncryptionClient"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://aws.amazon.com/blogs/developer/updates-to-the-amazon-s3-encryption-client/?s=09"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-7f33-f4f5-xwgw"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-f5pg-7wfw-84q9"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/aws/aws-sdk-go/pull/3403"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/aws/aws-sdk-go/commit/ae9b9fd92af132cfd8d879809d8611825ba135f4"
+    }
+  ]
+}

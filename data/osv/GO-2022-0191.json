@@ -1,0 +1,68 @@
+{
+  "id": "GO-2022-0191",
+  "published": "2022-07-15T23:03:26Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2018-16875"
+  ],
+  "details": "The crypto/x509 package does not limit the amount of work\nperformed for each chain verification, which might allow attackers\nto craft pathological inputs leading to a CPU denial of service.\nGo TLS servers accepting client certificates and TLS clients\nverifying certificates are affected.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.10.6"
+            },
+            {
+              "introduced": "1.11.0"
+            },
+            {
+              "fixed": "1.11.3"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0191"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "crypto/x509",
+            "symbols": [
+              "CertPool.findVerifiedParents",
+              "Certificate.buildChains"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/154105"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/770130659b6fb2acf271476579a3644e093dda7f"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/29233"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/Kw31K8G7Fi0"
+    }
+  ]
+}

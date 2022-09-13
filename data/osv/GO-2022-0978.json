@@ -1,0 +1,223 @@
+{
+  "id": "GO-2022-0978",
+  "published": "2022-09-13T17:40:16Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-36085"
+  ],
+  "details": "Open Policy Agent (OPA) is an open source, general-purpose policy engine.\nThe Rego compiler provides a (deprecated) `WithUnsafeBuiltins` function,\nwhich allows users to provide a set of built-in functions that should be\ndeemed unsafe and rejected by the compiler if encountered in the policy\ncompilation stage.\n\nA bypass of this protection is possible when using the `with`\nkeyword to mock a built-in function that isn’t taken into account by\n`WithUnsafeBuiltins`.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/open-policy-agent/opa",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.40.0"
+            },
+            {
+              "fixed": "0.44.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0978"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/open-policy-agent/opa/ast",
+            "symbols": [
+              "Args.Copy",
+              "Args.Vars",
+              "Array.Copy",
+              "Array.Foreach",
+              "Array.Iter",
+              "Array.Until",
+              "ArrayComprehension.Copy",
+              "BeforeAfterVisitor.Walk",
+              "Body.Copy",
+              "Body.Vars",
+              "Call.Copy",
+              "CompileModules",
+              "CompileModulesWithOpt",
+              "Compiler.Compile",
+              "Compiler.GetRulesDynamic",
+              "Compiler.GetRulesDynamicWithOpts",
+              "Compiler.PassesTypeCheck",
+              "Compiler.rewriteWithModifiers",
+              "ContainsClosures",
+              "ContainsComprehensions",
+              "ContainsRefs",
+              "Copy",
+              "Every.Copy",
+              "Every.KeyValueVars",
+              "Expr.Copy",
+              "Expr.CopyWithoutTerms",
+              "Expr.Vars",
+              "GenericTransformer.Transform",
+              "GenericVisitor.Walk",
+              "Head.Copy",
+              "Head.Vars",
+              "Import.Copy",
+              "IsConstant",
+              "JSON",
+              "JSONWithOpt",
+              "Module.Copy",
+              "Module.UnmarshalJSON",
+              "MustCompileModules",
+              "MustCompileModulesWithOpts",
+              "MustJSON",
+              "MustParseBody",
+              "MustParseBodyWithOpts",
+              "MustParseExpr",
+              "MustParseImports",
+              "MustParseModule",
+              "MustParseModuleWithOpts",
+              "MustParsePackage",
+              "MustParseRef",
+              "MustParseRule",
+              "MustParseStatement",
+              "MustParseStatements",
+              "MustParseTerm",
+              "NewGraph",
+              "ObjectComprehension.Copy",
+              "OutputVarsFromBody",
+              "OutputVarsFromExpr",
+              "Package.Copy",
+              "ParseBody",
+              "ParseBodyWithOpts",
+              "ParseExpr",
+              "ParseImports",
+              "ParseModule",
+              "ParseModuleWithOpts",
+              "ParsePackage",
+              "ParseRef",
+              "ParseRule",
+              "ParseStatement",
+              "ParseStatements",
+              "ParseStatementsWithOpts",
+              "ParseTerm",
+              "Parser.Parse",
+              "Pretty",
+              "QueryContext.Copy",
+              "Ref.ConstantPrefix",
+              "Ref.Copy",
+              "Ref.Dynamic",
+              "Ref.Extend",
+              "Ref.OutputVars",
+              "Rule.Copy",
+              "SetComprehension.Copy",
+              "SomeDecl.Copy",
+              "Term.Copy",
+              "Term.Vars",
+              "Transform",
+              "TransformComprehensions",
+              "TransformRefs",
+              "TransformVars",
+              "TreeNode.DepthFirst",
+              "TypeEnv.Get",
+              "Unify",
+              "ValueMap.Copy",
+              "ValueMap.Equal",
+              "ValueMap.Hash",
+              "ValueMap.Iter",
+              "ValueMap.MarshalJSON",
+              "ValueMap.String",
+              "ValueToInterface",
+              "VarVisitor.Walk",
+              "Walk",
+              "WalkBeforeAndAfter",
+              "WalkBodies",
+              "WalkClosures",
+              "WalkExprs",
+              "WalkNodes",
+              "WalkRefs",
+              "WalkRules",
+              "WalkTerms",
+              "WalkVars",
+              "WalkWiths",
+              "With.Copy",
+              "baseDocEqIndex.AllRules",
+              "baseDocEqIndex.Build",
+              "baseDocEqIndex.Lookup",
+              "bodySafetyTransformer.Visit",
+              "comprehensionIndexNestedCandidateVisitor.Walk",
+              "comprehensionIndexRegressionCheckVisitor.Walk",
+              "isBuiltinRefOrVar",
+              "metadataParser.Parse",
+              "object.Copy",
+              "object.Diff",
+              "object.Filter",
+              "object.Foreach",
+              "object.Intersect",
+              "object.Iter",
+              "object.Map",
+              "object.Merge",
+              "object.MergeWith",
+              "object.Until",
+              "queryCompiler.Compile",
+              "queryCompiler.checkDeprecatedBuiltins",
+              "queryCompiler.checkUnsafeBuiltins",
+              "refChecker.Visit",
+              "refindices.Sorted",
+              "refindices.Update",
+              "rewriteNestedHeadVarLocalTransform.Visit",
+              "rewriteWithModifier",
+              "rewriteWithModifiersInBody",
+              "ruleArgLocalRewriter.Visit",
+              "ruleWalker.Do",
+              "set.Copy",
+              "set.Diff",
+              "set.Foreach",
+              "set.Intersect",
+              "set.Iter",
+              "set.Map",
+              "set.Reduce",
+              "set.Union",
+              "set.Until",
+              "trieNode.Do",
+              "trieNode.Traverse",
+              "trieTraversalResult.Add",
+              "typeChecker.CheckBody",
+              "typeChecker.CheckTypes",
+              "validateWith",
+              "validateWithFunctionValue"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/open-policy-agent/opa/security/advisories/GHSA-f524-rf33-2jjr"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/open-policy-agent/opa/pull/4540"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/open-policy-agent/opa/pull/4616"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/open-policy-agent/opa/commit/25a597bc3f4985162e7f65f9c36599f4f8f55823"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/open-policy-agent/opa/commit/3e8c754ed007b22393cf65e48751ad9f6457fee8"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/open-policy-agent/opa/releases/tag/v0.43.1"
+    }
+  ]
+}

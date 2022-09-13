@@ -1,0 +1,58 @@
+{
+  "id": "GO-2022-0233",
+  "published": "2022-07-01T20:18:04Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-23409",
+    "GHSA-xcf7-q56x-78gh"
+  ],
+  "details": "The PROXY protocol server does not impose a timeout on reading the header\nfrom new connections, allowing a malicious client to cause resource\nexhaustion and a denial of service by opening many connections and\nsending no data on them.\n\nv0.6.0 of the proxyproto package adds support for a user-defined\nheader timeout. v0.6.1 adds a default timeout of 200ms and v0.6.2\nincreases the default timeout to 10s.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/pires/go-proxyproto",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.6.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0233"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/pires/go-proxyproto",
+            "symbols": [
+              "Listener.Accept"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/pires/go-proxyproto/pull/74"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/pires/go-proxyproto/pull/74/commits/cdc63867da24fc609b727231f682670d0d1cd346"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/pires/go-proxyproto/issues/65"
+    }
+  ]
+}

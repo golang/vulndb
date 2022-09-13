@@ -1,0 +1,67 @@
+{
+  "id": "GO-2022-0212",
+  "published": "2022-05-23T22:46:20Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2019-16276"
+  ],
+  "details": "net/http (through net/textproto) used to accept and normalize invalid\nHTTP/1.1 headers with a space before the colon, in violation of RFC 7230.\n\nIf a Go server is used behind an uncommon reverse proxy that accepts and\nforwards but doesn't normalize such invalid headers, the reverse proxy and\nthe server can interpret the headers differently. This can lead to filter\nbypasses or request smuggling, the latter if requests from separate clients\nare multiplexed onto the same upstream connection by the proxy. Such\ninvalid headers are now rejected by Go servers, and passed without\nnormalization to Go client applications.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.12.10"
+            },
+            {
+              "introduced": "1.13.0"
+            },
+            {
+              "fixed": "1.13.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0212"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "net/textproto",
+            "symbols": [
+              "Reader.ReadMimeHeader"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/197503"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/41b1f88efab9d263408448bf139659119002ea50"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/34540"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/cszieYyuL9Q/m/g4Z7pKaqAgAJ"
+    }
+  ]
+}

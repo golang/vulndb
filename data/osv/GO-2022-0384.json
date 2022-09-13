@@ -1,0 +1,54 @@
+{
+  "id": "GO-2022-0384",
+  "published": "2022-07-15T23:29:45Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-32690",
+    "GHSA-56hp-xqp3-w2jf",
+    "GHSA-7jr6-prv4-5wf5"
+  ],
+  "details": "The username and password credentials associated with a Helm repository\ncan be passed to another domain referenced by that Helm repository.\n\nIf the index.yaml for a Helm repository is hosted on one domain and\nreferences a chart archive on a different domain, Helm will provide\nthe credentials for the index.yaml's domain when fetching those\narchives.\n\nFor further details, see\nhttps://github.com/advisories/GHSA-56hp-xqp3-w2jf.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "helm.sh/helm/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.6.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0384"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "helm.sh/helm/v3/pkg/downloader",
+            "symbols": [
+              "ChartDownloader.DownloadTo",
+              "ChartDownloader.ResolveChartVersion",
+              "Manager.Build",
+              "Manager.Update"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/helm/helm/commit/61d8e8c4a6f95540c15c6a65f36a6dd0a45e7a2f"
+    }
+  ]
+}

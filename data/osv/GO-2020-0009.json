@@ -1,0 +1,89 @@
+{
+  "id": "GO-2020-0009",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2016-9123",
+    "GHSA-3fx4-7f69-5mmg"
+  ],
+  "details": "On 32-bit platforms an attacker can manipulate a ciphertext encrypted with AES-CBC\nwith HMAC such that they can control how large the input buffer is when computing\nthe HMAC authentication tag. This can can allow a manipulated ciphertext to be\nverified as authentic, opening the door for padding oracle attacks.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/square/go-jose",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20160903044734-789a4c4bd4c1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0009"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/square/go-jose/cipher",
+            "goarch": [
+              "386",
+              "arm",
+              "armbe",
+              "amd64p32",
+              "mips",
+              "mipsle",
+              "mips64p32",
+              "mips64p32le",
+              "ppc",
+              "riscv",
+              "s390",
+              "sparc"
+            ],
+            "symbols": [
+              "cbcAEAD.computeAuthTag"
+            ]
+          },
+          {
+            "path": "github.com/square/go-jose",
+            "goarch": [
+              "386",
+              "arm",
+              "armbe",
+              "amd64p32",
+              "mips",
+              "mipsle",
+              "mips64p32",
+              "mips64p32le",
+              "ppc",
+              "riscv",
+              "s390",
+              "sparc"
+            ],
+            "symbols": [
+              "JsonWebEncryption.Decrypt",
+              "JsonWebEncryption.DecryptMulti"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/square/go-jose/commit/789a4c4bd4c118f7564954f441b29c153ccd6a96"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.openwall.com/lists/oss-security/2016/11/03/1"
+    }
+  ]
+}

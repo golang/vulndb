@@ -1,0 +1,64 @@
+{
+  "id": "GO-2022-0209",
+  "published": "2022-07-01T20:15:25Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2019-11840"
+  ],
+  "details": "XORKeyStream generates incorrect and insecure output for very\nlarge inputs.\n\nIf more than 256 GiB of keystream is generated, or if the counter\notherwise grows greater than 32 bits, the amd64 implementation will\nfirst generate incorrect output, and then cycle back to previously\ngenerated keystream. Repeated keystream bytes can lead to loss of\nconfidentiality in encryption applications, or to predictability\nin CSPRNG applications.\n\nThe issue might affect uses of golang.org/x/crypto/nacl with extremely\nlarge messages.\n\nArchitectures other than amd64 and uses that generate less than 256 GiB\nof keystream for a single salsa20.XORKeyStream invocation are unaffected.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "golang.org/x/crypto",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20190320223903-b7391e95e576"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0209"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "golang.org/x/crypto/salsa20/salsa",
+            "goarch": [
+              "amd64"
+            ],
+            "symbols": [
+              "XORKeyStream"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/168406"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/crypto/+/b7391e95e576cacdcdd422573063bc057239113d"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/30965"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/tjyNcJxb2vQ/m/n0NRBziSCAAJ"
+    }
+  ]
+}

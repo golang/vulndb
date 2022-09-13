@@ -1,0 +1,67 @@
+{
+  "id": "GO-2022-0558",
+  "published": "2022-08-22T18:07:59Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-1227",
+    "GHSA-66vw-v2x9-hw75"
+  ],
+  "details": "The psgo package executes the 'nsenter' binary, potentially allowing\nprivilege escalation when used in environments where nsenter is provided\nby an untrusted source.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/containers/psgo",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.7.2"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0558"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/containers/psgo",
+            "symbols": [
+              "JoinNamespaceAndProcessInfo",
+              "JoinNamespaceAndProcessInfoByPids",
+              "JoinNamespaceAndProcessInfoByPidsWithOptions",
+              "JoinNamespaceAndProcessInfoWithOptions",
+              "ProcessInfo",
+              "ProcessInfoByPids",
+              "contextFromOptions"
+            ]
+          },
+          {
+            "path": "github.com/containers/psgo/internal/proc",
+            "symbols": [
+              "ParseStatus",
+              "readStatusUserNS"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/containers/psgo/pull/92"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/containers/podman/issues/10941"
+    }
+  ]
+}

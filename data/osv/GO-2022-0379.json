@@ -1,0 +1,49 @@
+{
+  "id": "GO-2022-0379",
+  "published": "2022-07-29T20:00:03Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-qq97-vm5h-rrhg"
+  ],
+  "details": "Systems that rely on digest equivalence for image attestations may be\nvulnerable to type confusion.\n\nA maliciously crafted OCI Container Image can cause registry clients to\nparse the same image in two different ways without modifying the image's\ndigest, invalidating the common pattern of relying on container image\ndigests for equivalence.\n\nThis problem has been addressed in newer versions by improving validation\nin manifest unmarshaling.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/docker/distribution",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.8.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0379"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/docker/distribution",
+            "symbols": [
+              "UnmarshalManifest"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/distribution/distribution/commit/b59a6f827947f9e0e67df0cfb571046de4733586"
+    }
+  ]
+}

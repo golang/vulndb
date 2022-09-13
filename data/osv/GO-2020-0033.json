@@ -1,0 +1,60 @@
+{
+  "id": "GO-2020-0033",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-36559"
+  ],
+  "details": "Due to improper santization of user input, HTTPEngine.Handle allows\nfor directory traversal, allowing an attacker to read files outside of\nthe target directory that the server has permission to read.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "aahframe.work",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.12.4"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0033"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "aahframe.work",
+            "symbols": [
+              "Application.Run",
+              "Application.ServeHTTP",
+              "Application.Start",
+              "HTTPEngine.Handle"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/go-aah/aah/pull/267"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/go-aah/aah/commit/881dc9f71d1f7a4e8a9a39df9c5c081d3a2da1ec"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-aah/aah/issues/266"
+    }
+  ]
+}

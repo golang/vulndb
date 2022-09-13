@@ -1,0 +1,71 @@
+{
+  "id": "GO-2022-0525",
+  "published": "2022-07-25T17:34:18Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-1705"
+  ],
+  "details": "The HTTP/1 client accepted some invalid Transfer-Encoding headers as\nindicating a \"chunked\" encoding. This could potentially allow for request\nsmuggling, but only if combined with an intermediate server that also\nimproperly failed to reject the header as invalid.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.17.12"
+            },
+            {
+              "introduced": "1.18.0"
+            },
+            {
+              "fixed": "1.18.4"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0525"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "net/http",
+            "symbols": [
+              "transferReader.parseTransferEncoding"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/409874"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/e5017a93fcde94f09836200bca55324af037ee5f"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/53188"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/410714"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE"
+    }
+  ]
+}

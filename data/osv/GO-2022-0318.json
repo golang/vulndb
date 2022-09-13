@@ -1,0 +1,68 @@
+{
+  "id": "GO-2022-0318",
+  "published": "2022-08-01T22:20:42Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-23773"
+  ],
+  "details": "Incorrect access control is possible in the go command.\n\nThe go command can misinterpret branch names that falsely appear to be\nversion tags. This can lead to incorrect access control if an actor is\nauthorized to create branches but not tags.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "toolchain",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.16.14"
+            },
+            {
+              "introduced": "1.17.0"
+            },
+            {
+              "fixed": "1.17.7"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0318"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "cmd/go/internal/modfetch",
+            "symbols": [
+              "codeRepo.convert",
+              "codeRepo.validatePseudoVersion"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/378400"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/fa4d9b8e2bc2612960c80474fca83a4c85a974eb"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/35671"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/SUsQn0aSgPQ"
+    }
+  ]
+}

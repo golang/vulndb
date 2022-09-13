@@ -1,0 +1,59 @@
+{
+  "id": "GO-2021-0084",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2019-16354",
+    "GHSA-f6px-w8rh-7r89"
+  ],
+  "details": "Session data is stored using permissive permissions, allowing local users\nwith filesystem access to read arbitrary data.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/astaxie/beego",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.12.2-0.20200613154013-bac2b31afecc"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0084"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/astaxie/beego/session",
+            "symbols": [
+              "FileProvider.SessionRead",
+              "FileProvider.SessionRegenerate"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/beego/beego/pull/3975"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/beego/beego/commit/bac2b31afecc65d9a89f9e473b8006c5edc0c8d1"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/beego/beego/issues/3763"
+    }
+  ]
+}

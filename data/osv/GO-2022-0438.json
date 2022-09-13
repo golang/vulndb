@@ -1,0 +1,65 @@
+{
+  "id": "GO-2022-0438",
+  "published": "2022-07-01T20:07:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-29810",
+    "GHSA-27rq-4943-qcwp"
+  ],
+  "details": "The getter package can write SSH credentials to its logfile,\nexposing credentials to local users able to read the logfile.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hashicorp/go-getter",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.5.11"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0438"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/hashicorp/go-getter",
+            "symbols": [
+              "Client.ChecksumFromFile",
+              "Client.Get",
+              "FolderStorage.Get",
+              "Get",
+              "GetAny",
+              "GetFile",
+              "HttpGetter.Get",
+              "RedactURL"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/hashicorp/go-getter/pull/348"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hashicorp/go-getter/commit/36b68b2f68a3ed10ee7ecbb0cb9f6b1dc5da49cc"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/hashicorp/go-getter/releases/tag/v1.5.11"
+    }
+  ]
+}

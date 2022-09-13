@@ -1,0 +1,71 @@
+{
+  "id": "GO-2021-0070",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2016-3697",
+    "GHSA-q3j5-32m5-58c2"
+  ],
+  "details": "GetExecUser in the github.com/opencontainers/runc/libcontainer/user package will\nimproperly interpret numeric UIDs as usernames. If the method is used without\nverifying that usernames are formatted as expected, it may allow a user to\ngain unexpected privileges.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/opencontainers/runc",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.1.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0070"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/opencontainers/runc/libcontainer/user",
+            "symbols": [
+              "GetExecUser",
+              "GetExecUserPath"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/pull/708"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/69af385de62ea68e2e608335cffbb0f4aa3db091"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/docker/docker/issues/21436"
+    },
+    {
+      "type": "WEB",
+      "url": "http://rhn.redhat.com/errata/RHSA-2016-1034.html"
+    },
+    {
+      "type": "WEB",
+      "url": "http://rhn.redhat.com/errata/RHSA-2016-2634.html"
+    },
+    {
+      "type": "WEB",
+      "url": "https://security.gentoo.org/glsa/201612-28"
+    }
+  ]
+}

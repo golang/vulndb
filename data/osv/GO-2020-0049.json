@@ -1,0 +1,55 @@
+{
+  "id": "GO-2020-0049",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-36564"
+  ],
+  "details": "Due to improper validation of caller input, validation is silently disabled\nif the provided expected token is malformed, causing any user supplied token\nto be considered valid.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/justinas/nosurf",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.1.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0049"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/justinas/nosurf",
+            "symbols": [
+              "CSRFHandler.ServeHTTP",
+              "VerifyToken",
+              "verifyToken"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/justinas/nosurf/pull/60"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/justinas/nosurf/commit/4d86df7a4affa1fa50ab39fb09aac56c3ce9c314"
+    }
+  ]
+}

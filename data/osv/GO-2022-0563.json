@@ -1,0 +1,58 @@
+{
+  "id": "GO-2022-0563",
+  "published": "2022-02-05T00:00:31Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-46398",
+    "GHSA-72wf-hwcq-65h9"
+  ],
+  "details": "A Cross-Site Request Forgery vulnerability exists in Filebrowser\nthat allows attackers to create a backdoor user with admin privilege\nand get access to the filesystem via a malicious HTML webpage that is sent\nto the victim.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/filebrowser/filebrowser/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.18.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0563"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/filebrowser/filebrowser/v2/http",
+            "symbols": [
+              "NewHandler"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/filebrowser/filebrowser/commit/74b7cd8e81840537a8206317344f118093153e8d"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/filebrowser/filebrowser/issues/1621"
+    },
+    {
+      "type": "WEB",
+      "url": "https://systemweakness.com/critical-csrf-to-rce-in-filebrowser-865a3c34b8e7"
+    }
+  ]
+}

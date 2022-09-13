@@ -1,0 +1,67 @@
+{
+  "id": "GO-2022-0217",
+  "published": "2022-05-24T15:21:01Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2019-6486"
+  ],
+  "details": "A DoS vulnerability in the crypto/elliptic implementations of the P-521 and\nP-384 elliptic curves may let an attacker craft inputs that consume\nexcessive amounts of CPU.\n\nThese inputs might be delivered via TLS handshakes, X.509 certificates, JWT\ntokens, ECDH shares or ECDSA signatures. In some cases, if an ECDH private\nkey is reused more than once, the attack can also lead to key recovery.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.10.8"
+            },
+            {
+              "introduced": "1.11.0"
+            },
+            {
+              "fixed": "1.11.5"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0217"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "crypto/elliptic",
+            "symbols": [
+              "curve.doubleJacobian"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/159218"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/193c16a3648b8670a762e925b6ac6e074f468a20"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/29903"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/mVeX35iXuSw"
+    }
+  ]
+}

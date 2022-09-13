@@ -1,0 +1,64 @@
+{
+  "id": "GO-2021-0103",
+  "published": "2021-07-28T18:08:05Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-26242",
+    "GHSA-jm5c-rv3w-w83m"
+  ],
+  "details": "Due to improper bounds checking, certain mathmatical operations can cause a panic via an\nout of bounds read. If this package is used to process untrusted user inputs, this may be used\nas a vector for a denial of service attack.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/holiman/uint256",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.1.0"
+            },
+            {
+              "fixed": "1.1.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0103"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/holiman/uint256",
+            "symbols": [
+              "Int.AddMod",
+              "Int.Div",
+              "Int.Mod",
+              "Int.MulMod",
+              "Int.SDiv",
+              "Int.SMod",
+              "udivrem"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/holiman/uint256/pull/80"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/holiman/uint256/commit/6785da6e3eea403260a5760029e722aa4ff1716d"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/ethereum/go-ethereum/security/advisories/GHSA-jm5c-rv3w-w83m"
+    }
+  ]
+}

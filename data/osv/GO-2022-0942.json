@@ -1,0 +1,51 @@
+{
+  "id": "GO-2022-0942",
+  "published": "2022-08-23T13:19:13Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-37315",
+    "GHSA-h3qm-jrrf-cgj3"
+  ],
+  "details": "graphql-go (aka GraphQL for Go) has infinite recursion\nin the type definition parser.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/graphql-go/graphql",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0942"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/graphql-go/graphql/language/parser",
+            "symbols": [
+              "Parse"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/graphql-go/graphql/pull/642"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/graphql-go/graphql/pull/642/commits/4188bd5b3877f7badb951b421cf66e0af2eacb22"
+    }
+  ]
+}

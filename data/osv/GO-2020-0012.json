@@ -1,0 +1,62 @@
+{
+  "id": "GO-2020-0012",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-9283",
+    "GHSA-ffhg-7mh4-33c4"
+  ],
+  "details": "An attacker can craft an ssh-ed25519 or sk-ssh-ed25519@openssh.com public\nkey, such that the library will panic when trying to verify a signature\nwith it. If verifying signatures using user supplied public keys, this\nmay be used as a denial of service vector.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "golang.org/x/crypto",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20200220183623-bac4c82f6975"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0012"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "golang.org/x/crypto/ssh",
+            "symbols": [
+              "NewPublicKey",
+              "ed25519PublicKey.Verify",
+              "parseED25519",
+              "parseSKEd25519",
+              "skEd25519PublicKey.Verify"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/220357"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/crypto/+/bac4c82f69751a6dd76e702d54b3ceb88adab236"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/3L45YRc91SY"
+    }
+  ]
+}

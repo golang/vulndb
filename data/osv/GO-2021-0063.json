@@ -1,0 +1,55 @@
+{
+  "id": "GO-2021-0063",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-26264",
+    "GHSA-r33q-22hv-j29q"
+  ],
+  "details": "Due to a nil pointer dereference, a malicously crafted RPC message\ncan cause a panic. If handling RPC messages from untrusted clients,\nthis may be used as a denial of service vector.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/ethereum/go-ethereum",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.9.25"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0063"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/ethereum/go-ethereum/les",
+            "symbols": [
+              "PrivateLightServerAPI.Benchmark",
+              "serverHandler.handleMsg"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/ethereum/go-ethereum/pull/21896"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/ethereum/go-ethereum/commit/bddd103a9f0af27ef533f04e06ea429cf76b6d46"
+    }
+  ]
+}

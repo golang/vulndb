@@ -1,0 +1,87 @@
+{
+  "id": "GO-2020-0025",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2018-25046"
+  ],
+  "details": "Due to improper path santization, archives containing relative file\npaths can cause files to be written (or overwritten) outside of the\ntarget directory.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cloudfoundry/archiver",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20180523222229-09b5706aa936"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0025"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cloudfoundry/archiver",
+            "symbols": [
+              "tgzExtractor.Extract",
+              "zipExtractor.Extract"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "code.cloudfoundry.org/archiver",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20180523222229-09b5706aa936"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0025"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "code.cloudfoundry.org/archiver",
+            "symbols": [
+              "tgzExtractor.Extract",
+              "zipExtractor.Extract"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/cloudfoundry/archiver/commit/09b5706aa9367972c09144a450bb4523049ee840"
+    },
+    {
+      "type": "WEB",
+      "url": "https://snyk.io/research/zip-slip-vulnerability"
+    }
+  ]
+}

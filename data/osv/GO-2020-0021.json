@@ -1,0 +1,56 @@
+{
+  "id": "GO-2020-0021",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2014-8681",
+    "GHSA-mr6h-chqp-p9g2"
+  ],
+  "details": "Due to improper santization of user input, a number of methods are\nvulnerable to SQL injection if used with user input that has not\nbeen santized by the caller.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gogits/gogs",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.5.8"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0021"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/gogits/gogs",
+            "symbols": [
+              "GetIssues",
+              "SearchRepositoryByName",
+              "SearchUserByName"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/gogs/gogs/commit/83283bca4cb4e0f4ec48a28af680f0d88db3d2c8"
+    },
+    {
+      "type": "WEB",
+      "url": "https://seclists.org/fulldisclosure/2014/Nov/31"
+    }
+  ]
+}

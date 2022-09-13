@@ -1,0 +1,77 @@
+{
+  "id": "GO-2021-0226",
+  "published": "2022-01-13T03:44:58Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-24553"
+  ],
+  "details": "When a Handler does not explicitly set the Content-Type header, the the\npackage would default to “text/html”, which could cause a Cross-Site Scripting\nvulnerability if an attacker can control any part of the contents of a\nresponse.\n\nThe Content-Type header is now set based on the contents of the first Write\nusing http.DetectContentType, which is consistent with the behavior of the\nnet/http package.\n\nAlthough this protects some applications that validate the contents of\nuploaded files, not setting the Content-Type header explicitly on any\nattacker-controlled file is unsafe and should be avoided.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.14.8"
+            },
+            {
+              "introduced": "1.15.0"
+            },
+            {
+              "fixed": "1.15.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0226"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "net/http/cgi",
+            "symbols": [
+              "response.Write",
+              "response.WriteHeader",
+              "response.writeCGIHeader"
+            ]
+          },
+          {
+            "path": "net/http/fcgi",
+            "symbols": [
+              "response.Write",
+              "response.WriteHeader",
+              "response.writeCGIHeader"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/252179"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/4f5cd0c0331943c7ec72df3b827d972584f77833"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/8wqlSbkLdPs"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/40928"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "id": "GO-2021-0076",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2018-14632"
+  ],
+  "details": "A malicious JSON patch can cause a panic due to an out-of-bounds\nwrite attempt. This can be used as a denial of service vector if\nexposed to arbitrary user input.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/evanphx/json-patch",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.5.2"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0076"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/evanphx/json-patch",
+            "symbols": [
+              "partialArray.add"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/evanphx/json-patch/pull/57"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/evanphx/json-patch/commit/4c9aadca8f89e349c999f04e28199e96e81aba03"
+    }
+  ]
+}

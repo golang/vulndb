@@ -1,0 +1,47 @@
+{
+  "id": "GO-2021-0053",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-3121",
+    "GHSA-c3h9-896r-86jm"
+  ],
+  "details": "Due to improper bounds checking, maliciously crafted input to generated\nUnmarshal methods can cause an out-of-bounds panic. If parsing messages\nfrom untrusted parties, this may be used as a denial of service vector.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gogo/protobuf",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.3.2"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0053"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/gogo/protobuf"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/gogo/protobuf/commit/b03c65ea87cdc3521ede29f62fe3ce239267c1bc"
+    }
+  ]
+}

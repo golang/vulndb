@@ -1,0 +1,100 @@
+{
+  "id": "GO-2022-0470",
+  "published": "2022-07-15T23:29:55Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-31022",
+    "GHSA-9w9f-6mg8-jp7w"
+  ],
+  "details": "HTTP handlers provide unauthenticated access to the local filesystem.\n\nThe Bleve http package is intended for demonstration purposes and\ncontains no authentication, authorization, or validation of user\ninputs. Exposing handlers from this package can permit attackers to\ncreate files and delete directories.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/blevesearch/bleve",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0470"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/blevesearch/bleve/http",
+            "symbols": [
+              "AliasHandler.ServeHTTP",
+              "CreateIndexHandler.ServeHTTP",
+              "DebugDocumentHandler.ServeHTTP",
+              "DeleteIndexHandler.ServeHTTP",
+              "DocCountHandler.ServeHTTP",
+              "DocDeleteHandler.ServeHTTP",
+              "DocGetHandler.ServeHTTP",
+              "DocIndexHandler.ServeHTTP",
+              "GetIndexHandler.ServeHTTP",
+              "ListFieldsHandler.ServeHTTP",
+              "SearchHandler.ServeHTTP"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/blevesearch/bleve/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0470"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/blevesearch/bleve/v2/http",
+            "symbols": [
+              "AliasHandler.ServeHTTP",
+              "CreateIndexHandler.ServeHTTP",
+              "DebugDocumentHandler.ServeHTTP",
+              "DeleteIndexHandler.ServeHTTP",
+              "DocCountHandler.ServeHTTP",
+              "DocDeleteHandler.ServeHTTP",
+              "DocGetHandler.ServeHTTP",
+              "DocIndexHandler.ServeHTTP",
+              "GetIndexHandler.ServeHTTP",
+              "ListFieldsHandler.ServeHTTP",
+              "SearchHandler.ServeHTTP"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/blevesearch/bleve/commit/1c7509d6a17d36f265c90b4e8f4e3a3182fe79ff"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/blevesearch/bleve/security/advisories/GHSA-9w9f-6mg8-jp7w"
+    }
+  ]
+}

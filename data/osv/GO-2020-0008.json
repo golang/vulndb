@@ -1,0 +1,67 @@
+{
+  "id": "GO-2020-0008",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2019-19794",
+    "GHSA-44r7-7p62-q3fr"
+  ],
+  "details": "DNS message transaction IDs are generated using math/rand which\nmakes them relatively predictable. This reduces the complexity\nof response spoofing attacks against DNS clients.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/miekg/dns",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.1.25-0.20191211073109-8ebf2e419df7"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0008"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/miekg/dns",
+            "symbols": [
+              "Msg.SetAxfr",
+              "Msg.SetIxfr",
+              "Msg.SetNotify",
+              "Msg.SetQuestion",
+              "Msg.SetUpdate",
+              "id"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/miekg/dns/pull/1044"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/miekg/dns/commit/8ebf2e419df7857ac8919baa05248789a8ffbf33"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/miekg/dns/issues/1037"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/miekg/dns/issues/1043"
+    }
+  ]
+}

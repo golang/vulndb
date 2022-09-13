@@ -1,0 +1,54 @@
+{
+  "id": "GO-2020-0007",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2017-18367",
+    "GHSA-58v3-j75h-xr49"
+  ],
+  "details": "Filters containing rules with multiple syscall arguments are improperly\nconstructed, such that all arguments are required to match rather than\nany of the arguments (AND is used rather than OR). These filters can be\nbypassed by only specifying a subset of the arguments due to this\nbehavior.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/seccomp/libseccomp-golang",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.9.1-0.20170424173420-06e7a29f36a3"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0007"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/seccomp/libseccomp-golang",
+            "symbols": [
+              "ScmpFilter.AddRule",
+              "ScmpFilter.AddRuleConditional",
+              "ScmpFilter.AddRuleConditionalExact",
+              "ScmpFilter.AddRuleExact",
+              "ScmpFilter.addRuleGeneric"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/seccomp/libseccomp-golang/commit/06e7a29f36a34b8cf419aeb87b979ee508e58f9e"
+    }
+  ]
+}

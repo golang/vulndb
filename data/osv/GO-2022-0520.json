@@ -1,0 +1,67 @@
+{
+  "id": "GO-2022-0520",
+  "published": "2022-07-28T17:23:05Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-32148"
+  ],
+  "details": "Client IP adresses may be unintentionally exposed via X-Forwarded-For\nheaders.\n\nWhen httputil.ReverseProxy.ServeHTTP is called with a Request.Header map\ncontaining a nil value for the X-Forwarded-For header, ReverseProxy sets\nthe client IP as the value of the X-Forwarded-For header, contrary to\nits documentation.\n\nIn the more usual case where a Director function sets the\nX-Forwarded-For header value to nil, ReverseProxy leaves the header\nunmodified as expected.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.17.12"
+            },
+            {
+              "introduced": "1.18.0"
+            },
+            {
+              "fixed": "1.18.4"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0520"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "net/http",
+            "symbols": [
+              "Header.Clone"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/412857"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/b2cc0fecc2ccd80e6d5d16542cc684f97b3a9c8a"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/53423"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE"
+    }
+  ]
+}

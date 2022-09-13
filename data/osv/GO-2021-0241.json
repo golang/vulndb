@@ -1,0 +1,67 @@
+{
+  "id": "GO-2021-0241",
+  "published": "2022-02-17T17:33:16Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-33197"
+  ],
+  "details": "ReverseProxy can be made to forward certain hop-by-hop headers,\nincluding Connection. If the target of the ReverseProxy is\nitself a reverse proxy, this lets an attacker drop arbitrary\nheaders, including those set by the ReverseProxy.Director.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.15.13"
+            },
+            {
+              "introduced": "1.16.0"
+            },
+            {
+              "fixed": "1.16.5"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0241"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "net/http/httputil",
+            "symbols": [
+              "ReverseProxy.ServeHTTP"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/321929"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/950fa11c4cb01a145bb07eeb167d90a1846061b3"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/RgCMkAEQjSI"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/46313"
+    }
+  ]
+}

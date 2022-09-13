@@ -1,0 +1,61 @@
+{
+  "id": "GO-2021-0067",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-27919"
+  ],
+  "details": "Using Reader.Open on an archive containing a file with a path\nprefixed by \"../\" will cause a panic due to a stack overflow.\nIf parsing user supplied archives, this may be used as a\ndenial of service vector.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.16.0"
+            },
+            {
+              "fixed": "1.16.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0067"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "archive/zip",
+            "symbols": [
+              "toValidName"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/300489"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/cd3b4ca9f20fd14187ed4cdfdee1a02ea87e5cd8"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/44916"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/MfiLYjG-RAw/m/zzhWj5jPAQAJ"
+    }
+  ]
+}

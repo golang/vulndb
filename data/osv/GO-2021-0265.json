@@ -1,0 +1,70 @@
+{
+  "id": "GO-2021-0265",
+  "published": "2022-08-15T18:06:07Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-42248",
+    "CVE-2021-42836",
+    "GHSA-c9gm-7rfj-8w5h",
+    "GHSA-ppj4-34rq-v8j9"
+  ],
+  "details": "A maliciously crafted path can cause Get and other query functions\nto consume excessive amounts of CPU and time.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/tidwall/gjson",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.9.3"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0265"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/tidwall/gjson",
+            "symbols": [
+              "Get",
+              "GetBytes",
+              "GetMany",
+              "GetManyBytes",
+              "Result.Get",
+              "parseObject",
+              "queryMatches"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/tidwall/gjson/commit/77a57fda87dca6d0d7d4627d512a630f89a91c96"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/tidwall/gjson/issues/237"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/tidwall/gjson/issues/236"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/tidwall/gjson/commit/590010fdac311cc8990ef5c97448d4fec8f29944"
+    }
+  ]
+}

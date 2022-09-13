@@ -1,0 +1,57 @@
+{
+  "id": "GO-2020-0004",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-36569"
+  ],
+  "details": "If any of the ListenAndServe functions are called with an empty token,\ntoken authentication is disabled globally for all listeners.\n\nAlso, a minor timing side channel was present allowing attackers with\nvery low latency and able to make a lot of requests to potentially\nrecover the token.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/nanobox-io/golang-nanoauth",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.0.0-20160722212129-ac0cc4484ad4"
+            },
+            {
+              "fixed": "0.0.0-20200131131040-063a3fb69896"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0004"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/nanobox-io/golang-nanoauth",
+            "symbols": [
+              "Auth.ListenAndServe",
+              "Auth.ListenAndServeTLS",
+              "Auth.ServerHTTP",
+              "ListenAndServe",
+              "ListenAndServeTLS"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/nanobox-io/golang-nanoauth/pull/5"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/nanobox-io/golang-nanoauth/commit/063a3fb69896acf985759f0fe3851f15973993f3"
+    }
+  ]
+}

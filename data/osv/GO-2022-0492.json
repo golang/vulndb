@@ -1,0 +1,55 @@
+{
+  "id": "GO-2022-0492",
+  "published": "2022-07-15T23:30:03Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-25856",
+    "GHSA-qpgx-64h2-gc3c"
+  ],
+  "details": "GitArtifactReader is vulnerable to directory traversal attacks.\n\nThe GitArtifactReader.Read function reads and returns the\ncontents of a Git repository file. A maliciously crafted repository\ncan exploit this to cause Read to read from arbitrary files on\nthe filesystem.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-events",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.7.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0492"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/argoproj/argo-events/sensors/artifacts",
+            "symbols": [
+              "GetArtifactReader",
+              "NewGitReader"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-events/pull/1965"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/argoproj/argo-events/issues/1947"
+    }
+  ]
+}

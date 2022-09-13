@@ -1,0 +1,62 @@
+{
+  "id": "GO-2022-0534",
+  "published": "2022-08-11T20:54:51Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-24912",
+    "GHSA-jxqv-jcvh-7gr4"
+  ],
+  "details": "Validation of Gitlab requests can leak secrets.\n\nThe package github.com/runatlantis/atlantis/server/controllers/events uses a\nnon-constant time comparison for secrets while validating a Gitlab request.\nThis allows for a timing attack where an attacker can recover a secret and\nthen forge the request.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/runatlantis/atlantis",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.19.7"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0534"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/runatlantis/atlantis/server/controllers/events",
+            "symbols": [
+              "DefaultGitlabRequestParserValidator.ParseAndValidate"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/runatlantis/atlantis/pull/2392"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/runatlantis/atlantis/commit/48870911974adddaa4c99c8089e79b7d787fa820"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/runatlantis/atlantis/issues/2391"
+    },
+    {
+      "type": "WEB",
+      "url": "https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMRUNATLANTISATLANTISSERVERCONTROLLERSEVENTS-2950851"
+    }
+  ]
+}

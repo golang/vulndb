@@ -1,0 +1,59 @@
+{
+  "id": "GO-2022-0460",
+  "published": "2022-07-01T20:07:34Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-29190",
+    "GHSA-cm8f-h6j3-p25c"
+  ],
+  "details": "An attacker can send packets that send the DTLS server or client\ninto an infinite loop.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/pion/dtls/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.1.4"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0460"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/pion/dtls/v2",
+            "symbols": [
+              "Client",
+              "ClientWithContext",
+              "Dial",
+              "DialWithContext",
+              "Resume",
+              "Server",
+              "ServerWithContext",
+              "fragmentBuffer.pop",
+              "handshakeFSM.Run",
+              "listener.Accept"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/pion/dtls/commit/e0b2ce3592e8e7d73713ac67b363a2e192a4cecf"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "id": "GO-2021-0051",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-36565"
+  ],
+  "details": "Due to improper sanitization of user input on Windows, the static file handler\nallows for directory traversal, allowing an attacker to read files outside of\nthe target directory that the server has permission to read.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/labstack/echo/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.1.18-0.20201215153152-4422e3b66b9f"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0051"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/labstack/echo/v4",
+            "goos": [
+              "windows"
+            ],
+            "symbols": [
+              "common.static"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/labstack/echo/pull/1718"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/labstack/echo/commit/4422e3b66b9fd498ed1ae1d0242d660d0ed3faaa"
+    }
+  ]
+}

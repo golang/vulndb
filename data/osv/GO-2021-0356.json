@@ -1,0 +1,63 @@
+{
+  "id": "GO-2021-0356",
+  "published": "2022-04-25T20:38:40Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-27191",
+    "GHSA-8c26-wmh5-6g9v"
+  ],
+  "details": "Attackers can cause a crash in SSH servers when the server has been\nconfigured by passing a Signer to ServerConfig.AddHostKey such that\n 1) the Signer passed to AddHostKey does not implement AlgorithmSigner, and\n 2) the Signer passed to AddHostKey returns a key of type “ssh-rsa” from its\n  PublicKey method.\n\nServers that only use Signer implementations provided by the ssh package are\nunaffected.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "golang.org/x/crypto",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20220314234659-1baeb1ce4c0b"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0356"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "golang.org/x/crypto/ssh",
+            "symbols": [
+              "ServerConfig.AddHostKey",
+              "ServerConfig.AddHostKey"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/392355"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/crypto/+/1baeb1ce4c0b006eff0f294c47cb7617598dfb3d"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/-cp44ypCT5s"
+    }
+  ]
+}

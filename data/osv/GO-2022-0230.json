@@ -1,0 +1,62 @@
+{
+  "id": "GO-2022-0230",
+  "published": "2022-07-01T20:17:57Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-20206",
+    "GHSA-xjqr-g762-pxwp"
+  ],
+  "details": "The FindInPath function is vulnerable to directory traversal attacks,\npotentially permitting attackers to execute arbitrary binaries.\n\nThis function does not sanitize its plugin parameter, so parameter\nnames containing \"../\" or other such elements may reference\narbitrary locations on the filesystem.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/containernetworking/cni",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.8.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0230"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/containernetworking/cni/pkg/invoke",
+            "symbols": [
+              "DelegateAdd",
+              "DelegateCheck",
+              "DelegateDel",
+              "FindInPath",
+              "RawExec.FindInPath"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/containernetworking/cni/pull/808"
+    },
+    {
+      "type": "WEB",
+      "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1919391"
+    },
+    {
+      "type": "WEB",
+      "url": "https://snyk.io/vuln/SNYK-GOLANG-GITHUBCOMCONTAINERNETWORKINGCNIPKGINVOKE-1070549"
+    }
+  ]
+}

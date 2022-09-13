@@ -1,0 +1,83 @@
+{
+  "id": "GO-2020-0017",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-26160",
+    "GHSA-w73w-5m7g-f7qc"
+  ],
+  "details": "If a JWT contains an audience claim with an array of strings, rather\nthan a single string, and MapClaims.VerifyAudience is called with\nreq set to false, then audience verification will be bypassed,\nallowing an invalid set of audiences to be provided.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/dgrijalva/jwt-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.0.0-20150717181359-44718f8a89b0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0017"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/dgrijalva/jwt-go",
+            "symbols": [
+              "MapClaims.VerifyAudience"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/dgrijalva/jwt-go/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.0.0-preview1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0017"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/dgrijalva/jwt-go/v4",
+            "symbols": [
+              "MapClaims.VerifyAudience"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/dgrijalva/jwt-go/commit/ec0a89a131e3e8567adcb21254a5cd20a70ea4ab"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dgrijalva/jwt-go/issues/422"
+    }
+  ]
+}

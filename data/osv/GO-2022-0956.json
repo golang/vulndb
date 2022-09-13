@@ -1,0 +1,58 @@
+{
+  "id": "GO-2022-0956",
+  "published": "2022-08-29T22:15:46Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-3064"
+  ],
+  "details": "Parsing malicious or large YAML documents can consume excessive amounts of\nCPU or memory.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "gopkg.in/yaml.v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.2.4"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0956"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "gopkg.in/yaml.v2",
+            "symbols": [
+              "Decoder.Decode",
+              "Unmarshal",
+              "UnmarshalStrict",
+              "decoder.unmarshal",
+              "yaml_parser_increase_flow_level",
+              "yaml_parser_roll_indent"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/go-yaml/yaml/commit/f221b8435cfb71e54062f6c6e99e9ade30b124d5"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-yaml/yaml/releases/tag/v2.2.4"
+    }
+  ]
+}

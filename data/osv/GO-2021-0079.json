@@ -1,0 +1,54 @@
+{
+  "id": "GO-2021-0079",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2018-18206",
+    "GHSA-vc3x-gx6c-g99f"
+  ],
+  "details": "A malformed query can cause an out-of-bounds panic due to improper\nvalidation of arguments. If processing queries from untrusted\nparties, this may be used as a vector for denial of service\nattacks.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/bytom/bytom",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.0.4-0.20180831054840-1ac3c8ac4f2b"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0079"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/bytom/bytom/p2p/discover",
+            "symbols": [
+              "Network.checkTopicRegister"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/Bytom/bytom/pull/1307"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/Bytom/bytom/commit/1ac3c8ac4f2b1e1df9675228290bda6b9586ba42"
+    }
+  ]
+}

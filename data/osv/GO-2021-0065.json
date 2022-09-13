@@ -1,0 +1,89 @@
+{
+  "id": "GO-2021-0065",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2019-11250"
+  ],
+  "details": "Authorization tokens may be inappropriately logged if the verbosity\nlevel is set to a debug level.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "k8s.io/client-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.17.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0065"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "k8s.io/client-go/transport",
+            "symbols": [
+              "debuggingRoundTripper.RoundTrip"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "k8s.io/kubernetes",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.16.0-beta.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0065"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "k8s.io/kubernetes/staging/src/k8s.io/client-go/transport",
+            "symbols": [
+              "debuggingRoundTripper.RoundTrip"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubernetes/kubernetes/pull/81330"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubernetes/kubernetes/commit/4441f1d9c3e94d9a3d93b4f184a591cab02a5245"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubernetes/kubernetes/issues/81114"
+    }
+  ]
+}

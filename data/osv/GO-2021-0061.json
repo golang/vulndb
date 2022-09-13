@@ -1,0 +1,88 @@
+{
+  "id": "GO-2021-0061",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-4235"
+  ],
+  "details": "Due to unbounded alias chasing, a maliciously crafted YAML file\ncan cause the system to consume significant system resources. If\nparsing user input, this may be used as a denial of service vector.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "gopkg.in/yaml.v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.2.3"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0061"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "gopkg.in/yaml.v2",
+            "symbols": [
+              "Decoder.Decode",
+              "Unmarshal",
+              "UnmarshalStrict",
+              "decoder.unmarshal"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/go-yaml/yaml",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0061"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/go-yaml/yaml",
+            "symbols": [
+              "Decoder.Decode",
+              "Unmarshal",
+              "UnmarshalStrict",
+              "decoder.unmarshal"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/go-yaml/yaml/pull/375"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/go-yaml/yaml/commit/bb4e33bf68bf89cad44d386192cbed201f35b241"
+    }
+  ]
+}

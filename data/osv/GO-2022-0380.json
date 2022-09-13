@@ -1,0 +1,56 @@
+{
+  "id": "GO-2022-0380",
+  "published": "2022-07-15T23:29:36Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-26892",
+    "GHSA-2c64-vj8g-vwrq",
+    "GHSA-4w5x-x539-ppf5"
+  ],
+  "details": "The AccountClaims.IsRevoked and Export.IsRevoked functions improperly\nvalidate expired credentials using the current system time rather than\nthe issue time of the JWT to be tested.\n\nThese functions cannot be used properly. Newer versions of the jwt package\nprovide an IsClaimRevoked method which performs correct validation.\nIn these versions, the IsRevoked method always return true.\n\n(This advisory is canonically https://advisories.nats.io/CVE/CVE-2020-26892.txt)\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/nats-io/jwt",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.1.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0380"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/nats-io/jwt",
+            "symbols": [
+              "AccountClaims.IsRevoked",
+              "Export.IsRevoked"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/nats-io/jwt/commit/e11ce317263cef69619fc1ca743b195d02aa1d8a"
+    },
+    {
+      "type": "WEB",
+      "url": "https://advisories.nats.io/CVE/CVE-2020-26892.txt"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "id": "GO-2021-0227",
+  "published": "2022-02-17T17:35:32Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-29652"
+  ],
+  "details": "Clients can cause a panic in SSH servers. An attacker can craft\nan authentication request message for the “gssapi-with-mic” method\nwhich will cause NewServerConn to panic via a nil pointer dereference\nif ServerConfig.GSSAPIWithMICConfig is nil.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "golang.org/x/crypto",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20201216223049-8b5274cf687f"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0227"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "golang.org/x/crypto/ssh",
+            "symbols": [
+              "connection.serverAuthenticate"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/278852"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/crypto/+/8b5274cf687fd9316b4108863654cc57385531e8"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/ouZIlBimOsE?pli=1"
+    }
+  ]
+}

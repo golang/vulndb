@@ -1,0 +1,81 @@
+{
+  "id": "GO-2022-0220",
+  "published": "2022-05-25T18:01:46Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2019-9634"
+  ],
+  "details": "Go on Windows misused certain LoadLibrary functionality, leading to DLL\ninjection.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.11.10"
+            },
+            {
+              "introduced": "1.12.0"
+            },
+            {
+              "fixed": "1.12.2"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0220"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "runtime",
+            "goos": [
+              "windows"
+            ],
+            "symbols": [
+              "loadOptionalSyscalls",
+              "osinit",
+              "syscall_loadsystemlibrary"
+            ]
+          },
+          {
+            "path": "syscall",
+            "goos": [
+              "windows"
+            ],
+            "symbols": [
+              "LoadDLL"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/165798"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/9b6e9f0c8c66355c0f0575d808b32f52c8c6d21c"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/28978"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/z9eTD34GEIs/m/Z_XmhTrVAwAJ"
+    }
+  ]
+}

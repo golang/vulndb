@@ -1,0 +1,96 @@
+{
+  "id": "GO-2022-0288",
+  "published": "2022-07-15T23:08:33Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-44716"
+  ],
+  "details": "An attacker can cause unbounded memory growth in servers accepting\nHTTP/2 requests.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.16.12"
+            },
+            {
+              "introduced": "1.17.0"
+            },
+            {
+              "fixed": "1.17.5"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0288"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "net/http",
+            "symbols": [
+              "http2serverConn.canonicalHeader"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "golang.org/x/net",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20211209124913-491a49abca63"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0288"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "golang.org/x/net/http2",
+            "symbols": [
+              "Server.ServeConn",
+              "serverConn.canonicalHeader"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/369794"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/50058"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/hcmEScgc00k"
+    }
+  ]
+}

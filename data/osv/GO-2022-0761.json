@@ -1,0 +1,67 @@
+{
+  "id": "GO-2022-0761",
+  "published": "2022-08-09T17:05:15Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2016-5386"
+  ],
+  "details": "An input validation flaw in the CGI components allows the HTTP_PROXY\nenvironment variable to be set by the incoming Proxy header, which changes\nwhere Go by default proxies all outbound HTTP requests.\n\nThis environment variable is also used to set the outgoing proxy, enabling\nan attacker to insert a proxy into outgoing requests of a CGI program.\n\nRead more about \"httpoxy\" here: https://httpoxy.org.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.6.3"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0761"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "net/http",
+            "symbols": [
+              "Handler.ServeHTTP"
+            ]
+          },
+          {
+            "path": "net/http/cgi",
+            "symbols": [
+              "ProxyFromEnvironment"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/25010"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/b97df54c31d6c4cc2a28a3c83725366d52329223"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/16405"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/7jZDOQ8f8tM/m/eWRWHnc8CgAJ"
+    }
+  ]
+}

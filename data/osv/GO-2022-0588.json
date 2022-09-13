@@ -1,0 +1,58 @@
+{
+  "id": "GO-2022-0588",
+  "published": "2022-08-15T18:02:24Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-42576",
+    "GHSA-x95h-979x-cf3j"
+  ],
+  "details": "The bluemonday HTML sanitizer can leak the contents of a \"style\" element\ninto HTML output, potentially causing XSS vulnerabilities.\n\nThe default bluemonday sanitization policies are not vulnerable.\nOnly user-defined policies allowing \"select\", \"style\", and\n\"option\" elements are affected.\n\nPermitting the \"style\" element in policies is hazardous, because bluemonday\ndoes not contain a CSS sanitizer. Newer versions of bluemonday suppress\n\"style\" and \"script\" elements even when allowed by a policy unless the\npolicy explicitly requests unsafe processing.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/microcosm-cc/bluemonday",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.0.16"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0588"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/microcosm-cc/bluemonday",
+            "symbols": [
+              "Policy.AllowElements",
+              "Policy.AllowElementsMatching",
+              "Policy.AllowLists",
+              "Policy.AllowTables",
+              "UGCPolicy"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/microcosm-cc/bluemonday/commit/c788a2a4d42e081ad54a31368478820bb4a42fb4"
+    },
+    {
+      "type": "WEB",
+      "url": "https://docs.google.com/document/d/11SoX296sMS0XoQiQbpxc5pNxSdbJKDJkm5BDv0zrX50/"
+    }
+  ]
+}

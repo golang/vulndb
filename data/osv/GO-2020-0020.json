@@ -1,0 +1,53 @@
+{
+  "id": "GO-2020-0020",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2017-20146"
+  ],
+  "details": "Usage of the CORS handler may apply improper CORS headers, allowing\nthe requester to explicitly control the value of the Access-Control-Allow-Origin\nheader, which bypasses the expected behavior of the Same Origin Policy.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gorilla/handlers",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.3.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0020"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/gorilla/handlers",
+            "symbols": [
+              "cors.ServeHTTP"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/gorilla/handlers/pull/116"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gorilla/handlers/commit/90663712d74cb411cbef281bc1e08c19d1a76145"
+    }
+  ]
+}

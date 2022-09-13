@@ -1,0 +1,54 @@
+{
+  "id": "GO-2021-0088",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2019-3564",
+    "GHSA-x4rg-4545-4w7w"
+  ],
+  "details": "Skip ignores unknown fields, rather than failing. A malicious user can craft small\nmessages with unknown fields which can take significant resources to parse. If a\nserver accepts messages from an untrusted user, it may be used as a denial of service\nvector.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/facebook/fbthrift",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.31.1-0.20190225164308-c461c1bd1a3e"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0088"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/facebook/fbthrift/thrift/lib/go/thrift",
+            "symbols": [
+              "Skip"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/facebook/fbthrift/commit/c461c1bd1a3e130b181aa9c854da3030cd4b5156"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.facebook.com/security/advisories/cve-2019-3564"
+    }
+  ]
+}

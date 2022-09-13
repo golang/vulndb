@@ -1,0 +1,54 @@
+{
+  "id": "GO-2022-0603",
+  "published": "2022-08-22T18:00:47Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-28948",
+    "GHSA-hp87-p4gw-j4gq"
+  ],
+  "details": "An issue in the Unmarshal function can cause a program to\npanic when attempting to deserialize invalid input.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "gopkg.in/yaml.v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "3.0.0"
+            },
+            {
+              "fixed": "3.0.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0603"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "gopkg.in/yaml.v3",
+            "symbols": [
+              "Unmarshal"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/go-yaml/yaml/commit/8f96da9f5d5eff988554c1aae1784627c4bf6754"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-yaml/yaml/issues/666"
+    }
+  ]
+}

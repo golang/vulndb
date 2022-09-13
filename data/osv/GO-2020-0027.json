@@ -1,0 +1,62 @@
+{
+  "id": "GO-2020-0027",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2018-6558",
+    "GHSA-qj26-7grj-whg3"
+  ],
+  "details": "After dropping and then elevating process privileges euid, guid, and groups\nare not properly restored to their original values, allowing an unprivileged\nuser to gain membership in the root group.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/google/fscrypt",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.2.4"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0027"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/google/fscrypt/pam",
+            "symbols": [
+              "Handle.StopAsPamUser",
+              "NewHandle",
+              "SetProcessPrivileges"
+            ]
+          },
+          {
+            "path": "github.com/google/fscrypt/security",
+            "symbols": [
+              "UserKeyringID"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/google/fscrypt/commit/3022c1603d968c22f147b4a2c49c4637dd1be91b"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/google/fscrypt/issues/77"
+    }
+  ]
+}

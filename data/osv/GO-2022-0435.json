@@ -1,0 +1,68 @@
+{
+  "id": "GO-2022-0435",
+  "published": "2022-05-20T21:17:46Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-28327"
+  ],
+  "details": "A crafted scalar input longer than 32 bytes can cause P256().ScalarMult\nor P256().ScalarBaseMult to panic. Indirect uses through crypto/ecdsa and\ncrypto/tls are unaffected. amd64, arm64, ppc64le, and s390x are unaffected.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.17.9"
+            },
+            {
+              "introduced": "1.18.0"
+            },
+            {
+              "fixed": "1.18.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0435"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "crypto/elliptic",
+            "symbols": [
+              "P256.ScalarBaseMult",
+              "P256.ScalarMult"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/397135"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/37065847d87df92b5eb246c88ba2085efcf0b331"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/52075"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/oecdBNLOml8"
+    }
+  ]
+}

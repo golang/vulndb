@@ -1,0 +1,60 @@
+{
+  "id": "GO-2022-0254",
+  "published": "2022-07-15T23:07:56Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-39137",
+    "GHSA-9856-9gg9-qcmq"
+  ],
+  "details": "A vulnerability in the Geth EVM can cause a node to reject the\ncanonical chain.\n\nA memory-corruption bug within the EVM can cause a consensus\nerror, where vulnerable nodes obtain a different stateRoot when\nprocessing a maliciously crafted transaction. This, in turn,\nwould lead to the chain being split in two forks.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/ethereum/go-ethereum",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.10.8"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0254"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/ethereum/go-ethereum/core/vm",
+            "symbols": [
+              "EVM.Call",
+              "EVM.CallCode",
+              "EVM.Create",
+              "EVM.Create2",
+              "EVM.DelegateCall",
+              "EVM.StaticCall",
+              "EVMInterpreter.Run",
+              "opCall",
+              "opCallCode",
+              "opDelegateCall",
+              "opStaticCall"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/ethereum/go-ethereum/pull/23381/commits/4d4879cafd1b3c906fc184a8c4a357137465128f"
+    }
+  ]
+}

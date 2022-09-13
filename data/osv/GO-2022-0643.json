@@ -1,0 +1,59 @@
+{
+  "id": "GO-2022-0643",
+  "published": "2022-02-15T01:57:18Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2017-11480",
+    "GHSA-9q3g-m353-cp4p"
+  ],
+  "details": "A local attacker can cause a panic if they are able to send arbitrary traffic\nto a monitored port, due to an out of bounds read.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/elastic/beats",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "6.1.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0643"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/elastic/beats/packetbeat/protos/pgsql",
+            "symbols": [
+              "pgsqlFieldsParser",
+              "pgsqlPlugin.Parse"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/elastic/beats/pull/5457"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/elastic/beats/commit/aeca65779d573976981587ca1d1461399e1b59dd"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/advisories/GHSA-9q3g-m353-cp4p"
+    }
+  ]
+}

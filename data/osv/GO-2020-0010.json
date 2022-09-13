@@ -1,0 +1,62 @@
+{
+  "id": "GO-2020-0010",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2016-9121",
+    "GHSA-86r9-39j9-99wp"
+  ],
+  "details": "When using ECDH-ES an attacker can mount an invalid curve attack during\ndecryption as the supplied public key is not checked to be on the same\ncurve as the receivers private key.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/square/go-jose",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20160831185616-c7581939a365"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0010"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/square/go-jose/cipher",
+            "symbols": [
+              "DeriveECDHES",
+              "ecDecrypterSigner.decryptKey",
+              "rawJsonWebKey.ecPublicKey"
+            ]
+          },
+          {
+            "path": "github.com/square/go-jose",
+            "symbols": [
+              "JsonWebEncryption.Decrypt"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/square/go-jose/commit/c7581939a3656bb65e89d64da0a52364a33d2507"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.openwall.com/lists/oss-security/2016/11/03/1"
+    }
+  ]
+}

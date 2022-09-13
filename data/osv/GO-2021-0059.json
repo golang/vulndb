@@ -1,0 +1,54 @@
+{
+  "id": "GO-2021-0059",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-35380",
+    "GHSA-w942-gw6m-p62c"
+  ],
+  "details": "Due to improper bounds checking, maliciously crafted JSON objects\ncan cause an out-of-bounds panic. If parsing user input, this may\nbe used as a denial of service vector.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/tidwall/gjson",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.6.4"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0059"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/tidwall/gjson",
+            "symbols": [
+              "sqaush"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/tidwall/gjson/commit/f0ee9ebde4b619767ae4ac03e8e42addb530f6bc"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/tidwall/gjson/issues/192"
+    }
+  ]
+}

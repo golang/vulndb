@@ -1,0 +1,65 @@
+{
+  "id": "GO-2022-0962",
+  "published": "2022-09-02T15:19:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-36055",
+    "GHSA-7hfp-qfw3-5jxh"
+  ],
+  "details": "Applications that use the strvals package in the Helm SDK to parse user\nsupplied input can suffer a Denial of Service when that input causes a\npanic that cannot be recovered from.\n\nThe strvals package contains a parser that turns strings into Go\nstructures. For example, the Helm client has command line flags like --set,\n--set-string, and others that enable the user to pass in strings that are\nmerged into the values. The strvals package converts these strings into\nstructures Go can work with. Some string inputs can cause array data\nstructures to be created causing an out of memory panic.\n\nThe Helm Client will panic with input to --set, --set-string, and other\nvalue setting flags that causes an out of memory panic. Helm is not a long\nrunning service so the panic will not affect future uses of the Helm client.",
+  "affected": [
+    {
+      "package": {
+        "name": "helm.sh/helm/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.9.4"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0962"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "helm.sh/helm/v3/pkg/strvals",
+            "symbols": [
+              "Parse",
+              "ParseFile",
+              "ParseInto",
+              "ParseIntoFile",
+              "ParseIntoString",
+              "ParseString",
+              "ToYAML",
+              "setIndex"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/helm/helm/security/advisories/GHSA-7hfp-qfw3-5jxh"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/helm/helm/commit/10466e3e179cc8cad4b0bb451108d3c442c69fbc"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/helm/helm/releases/tag/v3.9.4"
+    }
+  ]
+}

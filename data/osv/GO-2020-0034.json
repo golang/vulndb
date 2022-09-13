@@ -1,0 +1,57 @@
+{
+  "id": "GO-2020-0034",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-36560"
+  ],
+  "details": "Due to improper path santization, archives containing relative file\npaths can cause files to be written (or overwritten) outside of the\ntarget directory.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/artdarek/go-unzip",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.0.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0034"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/artdarek/go-unzip",
+            "symbols": [
+              "Unzip.Extract"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/artdarek/go-unzip/pull/2"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/artdarek/go-unzip/commit/4975cbe0a719dc50b12da8585f1f207c82f7dfe0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://snyk.io/research/zip-slip-vulnerability"
+    }
+  ]
+}

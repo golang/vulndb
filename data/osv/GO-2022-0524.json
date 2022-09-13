@@ -1,0 +1,67 @@
+{
+  "id": "GO-2022-0524",
+  "published": "2022-07-20T20:52:11Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-30631"
+  ],
+  "details": "Calling Reader.Read on an archive containing a large number of concatenated\n0-length compressed files can cause a panic due to stack exhaustion.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.17.12"
+            },
+            {
+              "introduced": "1.18.0"
+            },
+            {
+              "fixed": "1.18.4"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0524"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "compress/gzip",
+            "symbols": [
+              "Reader.Read"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/417067"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/b2b8872c876201eac2d0707276c6999ff3eb185e"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/53168"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE"
+    }
+  ]
+}

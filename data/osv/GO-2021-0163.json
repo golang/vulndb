@@ -1,0 +1,67 @@
+{
+  "id": "GO-2021-0163",
+  "published": "2022-01-05T22:41:50Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2016-3958"
+  ],
+  "details": "Untrusted search path vulnerability on Windows related to LoadLibrary allows\nlocal users to gain privileges via a malicious DLL in the current working\ndirectory.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.5.4"
+            },
+            {
+              "introduced": "1.6.0"
+            },
+            {
+              "fixed": "1.6.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0163"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "syscall",
+            "symbols": [
+              "LoadLibrary"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/21428"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/6a0bb87bd0bf0fdf8ddbd35f77a75ebd412f61b0"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/14959"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/9eqIHqaWvck"
+    }
+  ]
+}

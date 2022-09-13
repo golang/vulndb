@@ -1,0 +1,60 @@
+{
+  "id": "GO-2021-0258",
+  "published": "2022-01-14T17:30:31Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-41230",
+    "GHSA-j6wp-3859-vxfg"
+  ],
+  "details": "Pomerium is an open source identity-aware access proxy. Changes to the OIDC\nclaims of a user after initial login are not reflected in policy evaluation\nwhen using allowed_idp_claims as part of policy. If using allowed_idp_claims\nand a user's claims are changed, Pomerium can make incorrect authorization\ndecisions.\n\nFor users unable to upgrade clear data on databroker service by clearing\nredis or restarting the in-memory databroker to force claims to be updated.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/pomerium/pomerium",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.15.6"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0258"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/pomerium/pomerium/internal/identity/manager",
+            "symbols": [
+              "Manager.Run",
+              "Manager.RunLeased",
+              "Manager.onUpdateRecords"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/pomerium/pomerium/pull/2724"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/pomerium/pomerium/commit/f20542c4bf2cc691e4c324f7ec79e02e46d95511"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/pomerium/pomerium/security/advisories/GHSA-j6wp-3859-vxfg"
+    }
+  ]
+}

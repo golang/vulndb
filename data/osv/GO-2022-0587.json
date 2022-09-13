@@ -1,0 +1,86 @@
+{
+  "id": "GO-2022-0587",
+  "published": "2022-05-20T00:00:26Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-28946",
+    "GHSA-x7f3-62pm-9p38"
+  ],
+  "details": "An issue in ast.Parser in Open Policy Agent causes the application to\nincorrectly interpret expressions, allowing a Denial of Service (DoS)\nvia triggering out-of-range memory access.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/open-policy-agent/opa",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.40.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0587"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/open-policy-agent/opa/ast",
+            "symbols": [
+              "CompileModules",
+              "CompileModulesWithOpt",
+              "MustCompileModules",
+              "MustCompileModulesWithOpts",
+              "MustParseBody",
+              "MustParseBodyWithOpts",
+              "MustParseExpr",
+              "MustParseImports",
+              "MustParseModule",
+              "MustParseModuleWithOpts",
+              "MustParsePackage",
+              "MustParseRef",
+              "MustParseRule",
+              "MustParseStatement",
+              "MustParseStatements",
+              "MustParseTerm",
+              "ParseBody",
+              "ParseBodyWithOpts",
+              "ParseExpr",
+              "ParseImports",
+              "ParseModule",
+              "ParseModuleWithOpts",
+              "ParsePackage",
+              "ParseRef",
+              "ParseRule",
+              "ParseStatement",
+              "ParseStatements",
+              "ParseStatementsWithOpts",
+              "ParseTerm",
+              "Parser.Parse",
+              "Parser.parseEvery",
+              "Parser.parseSome",
+              "metadataParser.Parse"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/open-policy-agent/opa/pull/4548"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/open-policy-agent/opa/commit/e9d3828db670cbe11129885f37f08cbf04935264"
+    }
+  ]
+}

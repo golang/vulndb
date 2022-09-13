@@ -1,0 +1,84 @@
+{
+  "id": "GO-2021-0085",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2019-16884",
+    "GHSA-fgv8-vj5c-2ppq"
+  ],
+  "details": "AppArmor restrictions may be bypassed due to improper validation of mount\ntargets, allowing a malicious image to mount volumes over e.g. /proc.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/opencontainers/runc",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.0.0-rc8.0.20190930145003-cad42f6e0932"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0085"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/opencontainers/runc/libcontainer"
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/opencontainers/selinux",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.3.1-0.20190929122143-5215b1806f52"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0085"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/opencontainers/selinux/go-selinux"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/pull/2130"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/cad42f6e0932db0ce08c3a3d9e89e6063ec283e4"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/opencontainers/runc/issues/2128"
+    }
+  ]
+}

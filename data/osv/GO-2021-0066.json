@@ -1,0 +1,58 @@
+{
+  "id": "GO-2021-0066",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-8564"
+  ],
+  "details": "Attempting to read a malformed .dockercfg may cause secrets to be\ninappropriately logged.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "k8s.io/kubernetes",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.20.0-alpha.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0066"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "k8s.io/kubernetes/pkg/credentialprovider",
+            "symbols": [
+              "readDockerConfigFileFromBytes",
+              "readDockerConfigJSONFileFromBytes"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubernetes/kubernetes/pull/94712"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubernetes/kubernetes/commit/11793434dac97a49bfed0150b56ac63e5dc34634"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubernetes/kubernetes/issues/95622"
+    }
+  ]
+}

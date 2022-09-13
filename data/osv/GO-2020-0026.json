@@ -1,0 +1,57 @@
+{
+  "id": "GO-2020-0026",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2018-1103"
+  ],
+  "details": "Due to improper path santization, archives containing relative file\npaths can cause files to be written (or overwritten) outside of the\ntarget directory.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/openshift/source-to-image",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.1.10-0.20180427153919-f5cbcbc5cc6f"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0026"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/openshift/source-to-image/pkg/tar",
+            "symbols": [
+              "New",
+              "stiTar.ExtractTarStream",
+              "stiTar.ExtractTarStreamFromTarReader",
+              "stiTar.ExtractTarStreamWithLogging",
+              "stiTar.extractLink"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/openshift/source-to-image/commit/f5cbcbc5cc6f8cc2f479a7302443bea407a700cb"
+    },
+    {
+      "type": "WEB",
+      "url": "https://snyk.io/research/zip-slip-vulnerability"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "id": "GO-2020-0042",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-7667",
+    "GHSA-9423-6c93-gpp8"
+  ],
+  "details": "Due to improper path santization, RPMs containing relative file\npaths can cause files to be written (or overwritten) outside of the\ntarget directory.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/sassoftware/go-rpmutils",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.1.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0042"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/sassoftware/go-rpmutils/cpio",
+            "symbols": [
+              "Extract"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/sassoftware/go-rpmutils/commit/a64058cf21b8aada501bba923c9aab66fb6febf0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://snyk.io/research/zip-slip-vulnerability"
+    }
+  ]
+}

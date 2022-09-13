@@ -1,0 +1,60 @@
+{
+  "id": "GO-2022-0402",
+  "published": "2022-07-01T20:10:43Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-26521",
+    "GHSA-hmm9-r2m2-qg9w",
+    "GHSA-h2fg-54x9-5qhq"
+  ],
+  "details": "A malicious account can create and sign a User JWT which causes a panic\nwhen decoded by the NATS JWT library.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/nats-io/jwt",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.1.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0402"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/nats-io/jwt",
+            "symbols": [
+              "Account.Validate",
+              "AccountClaims.Validate",
+              "Export.Validate",
+              "Exports.Validate",
+              "Import.Validate",
+              "Imports.Validate"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/nats-io/jwt/pull/107"
+    },
+    {
+      "type": "WEB",
+      "url": "https://advisories.nats.io/CVE/CVE-2020-26521.txt"
+    }
+  ]
+}

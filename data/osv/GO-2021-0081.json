@@ -1,0 +1,62 @@
+{
+  "id": "GO-2021-0081",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2019-10214",
+    "GHSA-85p9-j7c9-v4gr"
+  ],
+  "details": "The HTTP client used to connect to the container registry authorization\nservice explicitly disables TLS verification, allowing an attacker that\nis able to MITM the connection to steal credentials.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/containers/image",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.0.2-0.20190802080134-634605d06e73"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0081"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/containers/image/docker",
+            "symbols": [
+              "dockerClient.getBearerToken"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/containers/image/pull/669"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/containers/image/commit/634605d06e738aec8332bcfd69162e7509ac7aaf"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/containers/image/issues/654"
+    },
+    {
+      "type": "WEB",
+      "url": "https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2019-10214"
+    }
+  ]
+}

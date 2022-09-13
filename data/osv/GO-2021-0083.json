@@ -1,0 +1,53 @@
+{
+  "id": "GO-2021-0083",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2019-12496"
+  ],
+  "details": "TLS certificate verification is skipped when connecting to a MQTT server.\nThis allows an attacker who can MITM the connection to read, or forge,\nmessages passed between the client and server.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hybridgroup/gobot",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.12.1-0.20190521122906-c1aa4f867846"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0083"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/hybridgroup/gobot/platforms/mqtt",
+            "symbols": [
+              "Adaptor.newTLSConfig"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/hybridgroup/gobot/commit/c1aa4f867846da4669ecf3bc3318bd96b7ee6f3f"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/hybridgroup/gobot/releases/tag/v1.13.0"
+    }
+  ]
+}

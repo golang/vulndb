@@ -1,0 +1,50 @@
+{
+  "id": "GO-2021-0082",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2019-11939"
+  ],
+  "details": "Thirft Servers preallocate memory for the declared size of messages before\nchecking the actual size of the message. This allows a malicious user to\nsend messages that declare that they are significantly larger than they\nactually are, allowing them to force the server to allocate significant\namounts of memory. This can be used as a denial of service vector.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/facebook/fbthrift",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.31.1-0.20200311080807-483ed864d69f"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0082"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/facebook/fbthrift/thrift/lib/go/thrift"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/facebook/fbthrift/commit/483ed864d69f307e9e3b9dadec048216100c0757"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.facebook.com/security/advisories/cve-2019-11939"
+    }
+  ]
+}

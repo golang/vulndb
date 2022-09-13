@@ -1,0 +1,67 @@
+{
+  "id": "GO-2021-0234",
+  "published": "2022-02-17T17:34:24Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-27918"
+  ],
+  "details": "The Decode, DecodeElement, and Skip methods of an xml.Decoder\nprovided by xml.NewTokenDecoder may enter an infinite loop when\noperating on a custom xml.TokenReader which returns an EOF in the\nmiddle of an open XML element.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.15.9"
+            },
+            {
+              "introduced": "1.16.0"
+            },
+            {
+              "fixed": "1.16.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0234"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "encoding/xml",
+            "symbols": [
+              "Decoder.Token"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/300391"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/d0b79e3513a29628f3599dc8860666b6eed75372"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/44913"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/MfiLYjG-RAw"
+    }
+  ]
+}

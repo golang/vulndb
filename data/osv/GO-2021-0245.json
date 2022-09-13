@@ -1,0 +1,67 @@
+{
+  "id": "GO-2021-0245",
+  "published": "2022-02-17T17:32:24Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-36221"
+  ],
+  "details": "ReverseProxy can panic after encountering a problem copying\na proxied response body.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.15.15"
+            },
+            {
+              "introduced": "1.16.0"
+            },
+            {
+              "fixed": "1.16.7"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0245"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "net/http/httputil",
+            "symbols": [
+              "ReverseProxy.ServeHTTP"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/333191"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/b7a85e0003cedb1b48a1fd3ae5b746ec6330102e"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/uHACNfXAZqk"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/46866"
+    }
+  ]
+}

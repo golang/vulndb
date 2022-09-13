@@ -1,0 +1,69 @@
+{
+  "id": "GO-2020-0015",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-14040",
+    "GHSA-5rcv-m4m3-hfh7"
+  ],
+  "details": "An attacker could provide a single byte to a UTF16 decoder instantiated with\nUseBOM or ExpectBOM to trigger an infinite loop if the String function on\nthe Decoder is called, or the Decoder is passed to transform.String.\nIf used to parse user supplied input, this may be used as a denial of service\nvector.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "golang.org/x/text",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.3.3"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0015"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "golang.org/x/text/encoding/unicode",
+            "symbols": [
+              "bomOverride.Transform",
+              "utf16Decoder.Transform"
+            ]
+          },
+          {
+            "path": "golang.org/x/text/transform",
+            "symbols": [
+              "String"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/238238"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/text/+/23ae387dee1f90d29a23c0e87ee0b46038fbed0e"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/39491"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/bXVeAmGOqz0"
+    }
+  ]
+}

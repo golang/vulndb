@@ -1,0 +1,58 @@
+{
+  "id": "GO-2022-0528",
+  "published": "2022-07-30T03:51:17Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-25891",
+    "GHSA-477v-w82m-634j"
+  ],
+  "details": "Sending a message exactly 2000, 4000, or 6000 characters in length\nto Discord causes a panic.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/containrrr/shoutrrr",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.6.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0528"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/containrrr/shoutrrr/pkg/util",
+            "symbols": [
+              "PartitionMessage"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/containrrr/shoutrrr/pull/242"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/containrrr/shoutrrr/commit/6a27056f9d7522a8b493216195cb7634bf4b5c42"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/containrrr/shoutrrr/issues/240"
+    }
+  ]
+}

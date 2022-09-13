@@ -1,0 +1,65 @@
+{
+  "id": "GO-2022-0414",
+  "published": "2022-07-01T20:08:17Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-21235",
+    "GHSA-6635-c626-vj4r"
+  ],
+  "details": "Passing untrusted inputs to VCS functions can permit an attacker\nto execute arbitrary commands.\n\nThe vcs package executes version control commands with\nuser-provided arguments.  These arguments can be interpreted\nas command-line flags, which can be used to perform command\ninjection.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/Masterminds/vcs",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.13.3"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0414"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/Masterminds/vcs",
+            "symbols": [
+              "BzrRepo.ExportDir",
+              "BzrRepo.Get",
+              "BzrRepo.Init",
+              "BzrRepo.Ping",
+              "GitRepo.Get",
+              "GitRepo.Init",
+              "GitRepo.Update",
+              "HgRepo.ExportDir",
+              "HgRepo.Get",
+              "HgRepo.Init",
+              "HgRepo.Ping",
+              "NewRepo",
+              "NewSvnRepo",
+              "SvnRepo.ExportDir",
+              "SvnRepo.Get",
+              "SvnRepo.Ping"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/Masterminds/vcs/pull/105"
+    }
+  ]
+}

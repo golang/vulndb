@@ -1,0 +1,62 @@
+{
+  "id": "GO-2021-0058",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-27846",
+    "GHSA-4hq8-gmxx-h6w9"
+  ],
+  "details": "Due to the behavior of encoding/xml, a crafted XML document may cause\nXML Digital Signature validation to be entirely bypassed, causing an\nunsigned document to appear signed.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/crewjam/saml",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.4.3"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0058"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/crewjam/saml",
+            "symbols": [
+              "IdentityProvider.ServeSSO",
+              "IdpAuthnRequest.Validate",
+              "ServiceProvider.ParseResponse",
+              "ServiceProvider.ParseXMLResponse",
+              "ServiceProvider.ValidateLogoutResponseForm",
+              "ServiceProvider.ValidateLogoutResponseRedirect",
+              "ServiceProvider.ValidateLogoutResponseRequest"
+            ]
+          },
+          {
+            "path": "github.com/crewjam/saml/samlidp"
+          },
+          {
+            "path": "github.com/crewjam/saml/samlsp"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/crewjam/saml/commit/da4f1a0612c0a8dd0452cf8b3c7a6518f6b4d053"
+    }
+  ]
+}

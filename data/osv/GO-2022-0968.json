@@ -1,0 +1,61 @@
+{
+  "id": "GO-2022-0968",
+  "published": "2022-09-13T03:32:38Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-43565"
+  ],
+  "details": "Unauthenticated clients can cause a panic in SSH servers.\n\nWhen using AES-GCM or ChaCha20Poly1305, consuming a malformed packet which\ncontains an empty plaintext causes a panic.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "golang.org/x/crypto",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20211202192323-5770296d904e"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0968"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "golang.org/x/crypto/ssh",
+            "symbols": [
+              "Dial",
+              "NewClientConn",
+              "NewServerConn",
+              "chacha20Poly1305Cipher.readCipherPacket",
+              "gcmCipher.readCipherPacket"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/2AR1sKiM-Qs"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issues/49932"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/368814/"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "id": "GO-2022-0755",
+  "published": "2021-05-18T15:42:40Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2019-13209",
+    "GHSA-xhg2-rvm8-w2jh"
+  ],
+  "details": "Rancher 2 is vulnerable to a Cross-Site Websocket Hijacking\nattack that allows an exploiter to gain access to clusters managed by\nRancher.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/rancher/rancher",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.2.5-rc6.0.20190621200032-0ddffe484adc"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0755"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/rancher/rancher/server",
+            "symbols": [
+              "Start"
+            ]
+          },
+          {
+            "path": "github.com/rancher/rancher/pkg/clusterrouter",
+            "symbols": [
+              "Router.ServeHTTP"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-xhg2-rvm8-w2jh"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rancher/rancher/commit/0ddffe484adccb9e37d9432e8e625d8ebbfb0088"
+    },
+    {
+      "type": "WEB",
+      "url": "https://forums.rancher.com/t/rancher-release-v2-2-5-addresses-rancher-cve-2019-13209/14801"
+    }
+  ]
+}

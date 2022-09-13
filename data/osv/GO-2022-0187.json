@@ -1,0 +1,70 @@
+{
+  "id": "GO-2022-0187",
+  "published": "2022-07-01T20:11:15Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2017-8932"
+  ],
+  "details": "The ScalarMult implementation of curve P-256 for amd64 architectures\ngenerates incorrect results for certain specific input points.\nAn adaptive attack can progressively extract the scalar input to\nScalarMult by submitting crafted points and observing failures to\nderive correct output. This leads to a full key recovery attack\nagainst static ECDH, as used in popular JWT libraries.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.6.0"
+            },
+            {
+              "fixed": "1.7.6"
+            },
+            {
+              "introduced": "1.8.0"
+            },
+            {
+              "fixed": "1.8.2"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0187"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "crypto/elliptic",
+            "goarch": [
+              "amd64"
+            ],
+            "symbols": [
+              "p256SubInternal"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/41070"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/9294fa2749ffee7edbbb817a0ef9fe633136fa9c"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/20040"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/B5ww0iFt1_Q/m/TgUFJV14BgAJ"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "id": "GO-2021-0105",
+  "published": "2021-07-28T18:08:05Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-26265",
+    "GHSA-xw37-57qp-9mm4"
+  ],
+  "details": "Due to an incorrect state calculation, a specific set of\ntransactions could cause a consensus disagreement,\ncausing users of this package to reject a canonical chain.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/ethereum/go-ethereum",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.9.4"
+            },
+            {
+              "fixed": "1.9.20"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0105"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/ethereum/go-ethereum/core",
+            "symbols": [
+              "StateDB.createObject"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/ethereum/go-ethereum/pull/21080"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/ethereum/go-ethereum/commit/87c0ba92136a75db0ab2aba1046d4a9860375d6a"
+    }
+  ]
+}

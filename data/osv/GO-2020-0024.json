@@ -1,0 +1,83 @@
+{
+  "id": "GO-2020-0024",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2013-10005"
+  ],
+  "details": "The RemoteAddr and LocalAddr methods on the returned net.Conn may\ncall themselves, leading to an infinite loop which will crash the\nprogram due to a stack overflow.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/btcsuite/go-socks",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20130808000456-233bccbb1abe"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0024"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/btcsuite/go-socks/socks",
+            "symbols": [
+              "proxiedConn.LocalAddr",
+              "proxiedConn.RemoteAddr"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/btcsuitereleases/go-socks",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20130808000456-233bccbb1abe"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0024"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/btcsuitereleases/go-socks/socks",
+            "symbols": [
+              "proxiedConn.LocalAddr",
+              "proxiedConn.RemoteAddr"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/btcsuite/go-socks/commit/233bccbb1abe02f05750f7ace66f5bffdb13defc"
+    }
+  ]
+}

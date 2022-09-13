@@ -1,0 +1,67 @@
+{
+  "id": "GO-2021-0224",
+  "published": "2022-02-17T17:36:04Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-15586"
+  ],
+  "details": "HTTP servers where the Handler concurrently reads the request\nbody and writes a response can encounter a data race and crash.\nThe httputil.ReverseProxy Handler is affected.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.13.13"
+            },
+            {
+              "introduced": "1.14.0"
+            },
+            {
+              "fixed": "1.14.5"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0224"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "net/http",
+            "symbols": [
+              "expectContinueReader.Read"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/242598"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/fa98f46741f818913a8c11b877520a548715131f"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/34902"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/XZNfaiwgt2w"
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "id": "GO-2021-0078",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2018-17075"
+  ],
+  "details": "The HTML parser does not properly handle \"in frameset\" insertion mode, and can be made\nto panic when operating on malformed HTML that contains \u003ctemplate\u003e tags. If operating\non user input, this may be a vector for a denial of service attack.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "golang.org/x/net",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20180816102801-aaf60122140d"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0078"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "golang.org/x/net/html",
+            "symbols": [
+              "inBodyIM",
+              "inFramesetIM"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/123776"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/net/+/aaf60122140d3fcf75376d319f0554393160eb50"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/27016"
+    },
+    {
+      "type": "WEB",
+      "url": "https://bugs.chromium.org/p/chromium/issues/detail?id=829668"
+    },
+    {
+      "type": "WEB",
+      "url": "https://go-review.googlesource.com/c/net/+/94838/9/html/parse.go#1906"
+    }
+  ]
+}

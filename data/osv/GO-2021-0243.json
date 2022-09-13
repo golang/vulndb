@@ -1,0 +1,67 @@
+{
+  "id": "GO-2021-0243",
+  "published": "2022-02-17T17:32:57Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-34558"
+  ],
+  "details": "crypto/tls clients can panic when provided a certificate of the\nwrong type for the negotiated parameters. net/http clients\nperforming HTTPS requests are also affected.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.15.14"
+            },
+            {
+              "introduced": "1.16.0"
+            },
+            {
+              "fixed": "1.16.6"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0243"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "crypto/tls",
+            "symbols": [
+              "rsaKeyAgreement.generateClientKeyExchange"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/334031"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/a98589711da5e9d935e8d690cfca92892e86d557"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/n9FxMelZGAQ"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/47143"
+    }
+  ]
+}

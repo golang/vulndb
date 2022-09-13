@@ -1,0 +1,60 @@
+{
+  "id": "GO-2022-0706",
+  "published": "2021-05-18T18:34:18Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-22133",
+    "GHSA-qqc5-rgcc-cjqh"
+  ],
+  "details": "Sensitive HTTP headers may not be properly sanitized before being sent to the\nAPM server if the program panics.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "go.elastic.co/apm",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.11.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0706"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "go.elastic.co/apm",
+            "symbols": [
+              "NewTracer",
+              "NewTracerOptions",
+              "modelWriter.buildModelTransaction"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/elastic/apm-agent-go/pull/888"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/elastic/apm-agent-go/commit/dd3e8c593580e7b80a98b57e1cc6e017e56747b4"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/advisories/GHSA-qqc5-rgcc-cjqh"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "id": "GO-2021-0347",
+  "published": "2022-05-23T22:15:47Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-24921"
+  ],
+  "details": "On 64-bit platforms, an extremely deeply nested expression can\ncause regexp.Compile to cause goroutine stack exhaustion, forcing\nthe program to exit. Note this applies to very large expressions,\non the order of 2MB.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.16.15"
+            },
+            {
+              "introduced": "1.17.0"
+            },
+            {
+              "fixed": "1.17.8"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2021-0347"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "regexp",
+            "symbols": [
+              "regexp.Compile"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/384616"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/go/+/452f24ae94f38afa3704d4361d91d51218405c0a"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/51112"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/RP1hfrBYVuk"
+    }
+  ]
+}

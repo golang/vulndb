@@ -1,0 +1,48 @@
+{
+  "id": "GO-2022-0322",
+  "published": "2022-07-15T23:29:02Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-21698",
+    "GHSA-cg3q-j54f-5p7p"
+  ],
+  "details": "The Prometheus client_golang HTTP server is vulnerable to a denial of\nservice attack when handling requests with non-standard HTTP methods.\n\nIn order to be affected, an instrumented software must use any of\nthe promhttp.InstrumentHandler* middleware except `RequestsInFlight`;\nnot filter any specific methods (e.g GET) before middleware;\npass a metric with a \"method\" label name to a middleware; and not\nhave any firewall/LB/proxy that filters away requests with unknown\n\"method\".\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/prometheus/client_golang",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.11.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0322"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/prometheus/client_golang/prometheus/promhttp",
+            "symbols": [
+              "flusherDelegator.Flush",
+              "readerFromDelegator.ReadFrom",
+              "responseWriterDelegator.Write",
+              "responseWriterDelegator.WriteHeader",
+              "sanitizeMethod"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

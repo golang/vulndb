@@ -1,0 +1,58 @@
+{
+  "id": "GO-2020-0014",
+  "published": "2021-04-14T20:04:52Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2018-17846"
+  ],
+  "details": "html.Parse does not properly handle \"select\" tags, which can lead\nto an infinite loop. If parsing user supplied input, this may be used\nas a denial of service vector.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "golang.org/x/net",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20190125091013-d26f9f9a57f3"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2020-0014"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "golang.org/x/net/html",
+            "symbols": [
+              "inSelectIM",
+              "inSelectInTableIM"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go-review.googlesource.com/c/137275"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.googlesource.com/net/+/d26f9f9a57f3fab6a695bec0d84433c2c50f8bbf"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/27842"
+    }
+  ]
+}

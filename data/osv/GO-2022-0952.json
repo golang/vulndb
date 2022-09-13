@@ -1,0 +1,65 @@
+{
+  "id": "GO-2022-0952",
+  "published": "2022-08-22T18:08:50Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-36009",
+    "GHSA-grvv-h2f9-7v9c"
+  ],
+  "details": "Power level parsing does not parse the \"events_default\" key of the\nm.room.power_levels event, setting the event default power level to\nzero in all cases. This can cause events to be improperly accepted or\nrejected in rooms where the event_default power level has been changed.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/matrix-org/gomatrixserverlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20220815091947-723fd495dde8"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0952"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/matrix-org/gomatrixserverlib",
+            "symbols": [
+              "Allowed",
+              "Event.PowerLevels",
+              "EventsLoader.LoadAndVerify",
+              "HeaderedReverseTopologicalOrdering",
+              "NewPowerLevelContentFromAuthEvents",
+              "NewPowerLevelContentFromEvent",
+              "RequestBackfill",
+              "ResolveConflicts",
+              "ResolveStateConflicts",
+              "ResolveStateConflictsV2",
+              "RespSendJoin.Check",
+              "RespState.Check",
+              "RespState.Events",
+              "ReverseTopologicalOrdering",
+              "VerifyAuthRulesAtState",
+              "VerifyEventAuthChain"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/matrix-org/gomatrixserverlib/commit/723fd495dde835d078b9f2074b6b62c06dea4575"
+    }
+  ]
+}

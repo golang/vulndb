@@ -1,0 +1,98 @@
+{
+  "id": "GO-2022-0586",
+  "published": "2022-05-26T00:01:27Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-26945",
+    "CVE-2022-30321",
+    "CVE-2022-30322",
+    "CVE-2022-30323",
+    "GHSA-28r2-q6m8-9hpx",
+    "GHSA-cjr4-fv6c-f3mv",
+    "GHSA-fcgg-rvwg-jv58",
+    "GHSA-x24g-9w7v-vprh"
+  ],
+  "details": "Malicious HTTP responses can cause a number of misbehaviors,\nincluding overwriting local files, resource exhaustion, and panics.\n\n* Protocol switching, endless redirect, and configuration bypass are\n  possible through abuse of custom HTTP response header processing.\n\n* Arbitrary host access is possible through go-getter path traversal,\n  symlink processing, and command injection flaws.\n\n* Asymmetric resource exhaustion can occur when go-getter processes\n  malicious HTTP responses.\n\n* A panic can be triggered when go-getter processed password-protected ZIP\n  files.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hashicorp/go-getter",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.5.11"
+            },
+            {
+              "fixed": "1.6.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0586"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/hashicorp/go-getter"
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/hashicorp/go-getter/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.0.2"
+            },
+            {
+              "fixed": "2.1.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0586"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/hashicorp/go-getter/v2"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://discuss.hashicorp.com/t/hcsec-2022-13-multiple-vulnerabilities-in-go-getter-library/39930"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hashicorp/go-getter/pull/361"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hashicorp/go-getter/commit/38e97387488f5439616be60874979433a12edb48"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/hashicorp/go-getter/commit/a2ebce998f8d4105bd4b78d6c99a12803ad97a45"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/hashicorp/go-getter/pull/359"
+    }
+  ]
+}

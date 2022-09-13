@@ -1,0 +1,65 @@
+{
+  "id": "GO-2022-0444",
+  "published": "2022-07-01T20:07:44Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-29173",
+    "GHSA-66x3-6cw3-v5gj"
+  ],
+  "details": "The TUF client is vulnerable to rollback attacks, in which an\nattacker causes a client to install software older than the software\nthe client previously knew to be available.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/theupdateframework/go-tuf",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.3.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0444"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/theupdateframework/go-tuf/client",
+            "symbols": [
+              "Client.Download",
+              "Client.Init",
+              "Client.Target",
+              "Client.Update",
+              "Client.UpdateRoots",
+              "Client.decodeRoot",
+              "Client.decodeTargets",
+              "Client.decodeTimestamp",
+              "Client.downloadMetaFromSnapshot",
+              "Client.downloadMetaFromTimestamp"
+            ]
+          },
+          {
+            "path": "github.com/theupdateframework/go-tuf/util",
+            "symbols": [
+              "TimestampFileMetaEqual"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/theupdateframework/go-tuf/commit/ed6788e710fc3093a7ecc2d078bf734c0f200d8d"
+    }
+  ]
+}
