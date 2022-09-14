@@ -9,7 +9,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"sort"
@@ -97,7 +96,7 @@ func generateEntries(ctx context.Context, repoDir string) (map[string][]osv.Entr
 		return nil, nil, err
 	}
 
-	yamlFiles, err := ioutil.ReadDir(filepath.Join(repoDir, yamlDir))
+	yamlFiles, err := os.ReadDir(filepath.Join(repoDir, yamlDir))
 	if err != nil {
 		return nil, nil, fmt.Errorf("can't read %q: %s", yamlDir, err)
 	}

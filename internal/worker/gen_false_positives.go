@@ -22,7 +22,6 @@ import (
 	"context"
 	"fmt"
 	"go/format"
-	"io/ioutil"
 	"log"
 	"os"
 	"strings"
@@ -288,7 +287,7 @@ func run(repoPath string) error {
 	if err != nil {
 		return err
 	}
-	return ioutil.WriteFile("false_positive_records.gen.go", src, 0644)
+	return os.WriteFile("false_positive_records.gen.go", src, 0644)
 }
 
 func buildCVERecords(repo *git.Repository) ([]*store.CVERecord, error) {
