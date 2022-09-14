@@ -9,7 +9,6 @@ package main
 
 import (
 	"errors"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -50,7 +49,7 @@ func TestLintReports(t *testing.T) {
 	allFiles := make(map[string]string)
 	var reports []string
 	for _, dir := range []string{reportsDir, excludedDir} {
-		files, err := ioutil.ReadDir(dir)
+		files, err := os.ReadDir(dir)
 		if err != nil && !errors.Is(err, os.ErrNotExist) {
 			t.Fatalf("unable to read %v/: %s", dir, err)
 		}

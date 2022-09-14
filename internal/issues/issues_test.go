@@ -10,7 +10,7 @@ package issues
 import (
 	"context"
 	"flag"
-	"io/ioutil"
+	"os"
 	"strings"
 	"testing"
 
@@ -37,7 +37,7 @@ func TestClient(t *testing.T) {
 		if *githubTokenFile == "" {
 			t.Fatal("need -ghtokenfile")
 		}
-		data, err := ioutil.ReadFile(*githubTokenFile)
+		data, err := os.ReadFile(*githubTokenFile)
 		if err != nil {
 			t.Fatal(err)
 		}

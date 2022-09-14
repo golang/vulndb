@@ -14,7 +14,6 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"os"
 	"strings"
@@ -76,7 +75,7 @@ func main() {
 
 	flag.Parse()
 	if *githubTokenFile != "" {
-		data, err := ioutil.ReadFile(*githubTokenFile)
+		data, err := os.ReadFile(*githubTokenFile)
 		if err != nil {
 			die("%v", err)
 		}

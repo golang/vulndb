@@ -7,7 +7,7 @@ package database
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"os"
 	"path/filepath"
 	"strings"
 
@@ -46,7 +46,7 @@ func loadDB(dbPath string) (_ client.DBIndex, _ map[string][]osv.Entry, err erro
 
 	var loadDir func(string) error
 	loadDir = func(path string) error {
-		dir, err := ioutil.ReadDir(path)
+		dir, err := os.ReadDir(path)
 		if err != nil {
 			return err
 		}
@@ -58,7 +58,7 @@ func loadDB(dbPath string) (_ client.DBIndex, _ map[string][]osv.Entry, err erro
 				}
 				continue
 			}
-			content, err := ioutil.ReadFile(fpath)
+			content, err := os.ReadFile(fpath)
 			if err != nil {
 				return err
 			}
