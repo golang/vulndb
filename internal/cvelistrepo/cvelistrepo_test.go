@@ -35,6 +35,7 @@ func TestRepoCVEFiles(t *testing.T) {
 		{DirPath: "2021/0xxx", Filename: "CVE-2021-0001.json", Year: 2021, Number: 1},
 		{DirPath: "2021/0xxx", Filename: "CVE-2021-0010.json", Year: 2021, Number: 10},
 		{DirPath: "2021/1xxx", Filename: "CVE-2021-1384.json", Year: 2021, Number: 1384},
+		{DirPath: "2022/39xxx", Filename: "CVE-2022-39213.json", Year: 2022, Number: 39213},
 	}
 
 	opt := cmpopts.IgnoreFields(File{}, "TreeHash", "BlobHash")

@@ -295,7 +295,7 @@ type Transaction interface {
 	// an error if no such record exists.
 	SetGHSARecord(*GHSARecord) error
 
-	// GetGHSARecord returns a single GHSARecord by ID.
+	// GetGHSARecord returns a single GHSARecord by GHSA ID.
 	// If not found, it returns (nil, nil).
 	GetGHSARecord(id string) (*GHSARecord, error)
 

@@ -189,6 +189,21 @@ func TestKnownToPkgsite(t *testing.T) {
 	}
 }
 
+func TestGetAliasGHSAs(t *testing.T) {
+	cve := &cveschema.CVE{
+		References: cveschema.References{
+			Data: []cveschema.Reference{
+				{URL: "https://github.com/hello/security/advisories/GHSA-xxxx-yyyy-0000"},
+				{URL: "some/url"},
+			},
+		},
+	}
+	want := "GHSA-xxxx-yyyy-0000"
+	if got := getAliasGHSAs(cve); got[0] != want {
+		t.Errorf("getAliasGHSAs: got %s, want %s", got, want)
+	}
+}
+
 // getPkgsiteURL returns a URL to either a fake server or the real pkg.go.dev,
 // depending on the usePkgsite flag.
 func getPkgsiteURL(t *testing.T) string {

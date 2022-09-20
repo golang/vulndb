@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -167,6 +168,16 @@ func triageV4CVE(ctx context.Context, c *cveschema.CVE, pkgsiteURL string) (resu
 		}
 	}
 	return nil, nil
+}
+
+var ghsaRegex = regexp.MustCompile(`GHSA-[^-]{4}-[^-]{4}-[^-]{4}`)
+
+func getAliasGHSAs(c *cveschema.CVE) []string {
+	var ghsas []string
+	for _, r := range c.References.Data {
+		ghsas = append(ghsas, ghsaRegex.FindAllString(r.URL, 1)...)
+	}
+	return ghsas
 }
 
 // Limit pkgsite requests to this many per second.

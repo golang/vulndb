@@ -217,6 +217,7 @@ func (u *cveUpdater) updateBatch(ctx context.Context, batch []cvelistrepo.File) 
 			idToRecord[cr.ID] = cr
 		}
 		// Determine what needs to be added and modified.
+		var toAdd, toModify []*store.CVERecord
 		for _, f := range batch {
 			id := idFromFilename(f.Filename)
 			old := idToRecord[id]
@@ -224,15 +225,28 @@ func (u *cveUpdater) updateBatch(ctx context.Context, batch []cvelistrepo.File) 
 				// No change; do nothing.
 				continue
 			}
-			added, err := u.handleCVE(f, old, tx)
+			record, add, err := u.handleCVE(f, old, tx)
 			if err != nil {
 				return err
 			}
-			if added {
-				numAdds++
+			if add {
+				toAdd = append(toAdd, record)
 			} else {
-				numMods++
+				toModify = append(toModify, record)
 			}
+		}
+		// Add/modify the records.
+		for _, r := range toAdd {
+			if err := tx.CreateCVERecord(r); err != nil {
+				return err
+			}
+			numAdds++
+		}
+		for _, r := range toModify {
+			if err := tx.SetCVERecord(r); err != nil {
+				return err
+			}
+			numMods++
 		}
 		return nil
 	})
@@ -243,14 +257,30 @@ func (u *cveUpdater) updateBatch(ctx context.Context, batch []cvelistrepo.File) 
 	return numAdds, numMods, nil
 }
 
+// checkForAliases determines if this CVE has an alias GHSA that the
+// worker has already handled, and returns the appropriate triage state
+// based on this.
+func checkForAliases(cve *cveschema.CVE, tx store.Transaction) (store.TriageState, error) {
+	for _, ghsaID := range getAliasGHSAs(cve) {
+		ghsa, err := tx.GetGHSARecord(ghsaID)
+		if err != nil {
+			return "", err
+		}
+		if ghsa != nil {
+			return getTriageStateFromAlias(ghsa.TriageState), nil
+		}
+	}
+	return store.TriageStateNeedsIssue, nil
+}
+
 // handleCVE determines how to change the store for a single CVE.
-// The CVE will definitely be either added, if it's new, or modified, if it's
-// already in the DB.
-func (u *cveUpdater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx store.Transaction) (added bool, err error) {
+// It returns the record, and a bool indicating whether to add or modify
+// the record.
+func (u *cveUpdater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx store.Transaction) (record *store.CVERecord, add bool, err error) {
 	defer derrors.Wrap(&err, "handleCVE(%s)", f.Filename)
 	cve, err := cvelistrepo.ParseCVE(u.repo, f)
 	if err != nil {
-		return false, err
+		return nil, false, err
 	}
 	var result *triageResult
 	if cve.State == cveschema.StatePublic && !u.knownIDs[cve.ID] {
@@ -264,20 +294,21 @@ func (u *cveUpdater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx stor
 		}
 		result, err = u.affectedModule(c)
 		if err != nil {
-			return false, err
+			return nil, false, err
 		}
 	}
 
 	pathname := path.Join(f.DirPath, f.Filename)
 	// If the CVE is not in the database, add it.
 	if old == nil {
-		// TODO(https://go.dev/issues/54049): Check if there is already
-		// a record in the store for a GHSA that is an alias of this CVE ID,
-		// to avoid creating duplicate issues.
 		cr := store.NewCVERecord(cve, pathname, f.BlobHash.String(), u.commit)
 		switch {
 		case result != nil:
-			cr.TriageState = store.TriageStateNeedsIssue
+			triageState, err := checkForAliases(cve, tx)
+			if err != nil {
+				return nil, false, err
+			}
+			cr.TriageState = triageState
 			cr.Module = result.modulePath
 			cr.Package = result.packagePath
 			cr.TriageStateReason = result.reason
@@ -287,10 +318,7 @@ func (u *cveUpdater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx stor
 		default:
 			cr.TriageState = store.TriageStateNoActionNeeded
 		}
-		if err := tx.CreateCVERecord(cr); err != nil {
-			return false, err
-		}
-		return true, nil
+		return cr, true, nil
 	}
 	// Change to an existing record.
 	mod := *old // copy the old one
@@ -336,20 +364,17 @@ func (u *cveUpdater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx stor
 		// There is already a Go vuln report for this CVE, so
 		// nothing to do.
 	default:
-		return false, fmt.Errorf("unknown TriageState: %q", old.TriageState)
+		return nil, false, fmt.Errorf("unknown TriageState: %q", old.TriageState)
 	}
 	// If the triage state changed, add the old state to the history at the beginning.
 	if old.TriageState != mod.TriageState {
 		mod.History = append([]*store.CVERecordSnapshot{old.Snapshot()}, mod.History...)
 	}
-	// If we're here, then mod is a modification to the DB.
-	if err := tx.SetCVERecord(&mod); err != nil {
-		return false, err
-	}
 	if mod.TriageState == store.TriageStateNeedsIssue && mod.CVE == nil {
-		return false, errors.New("needs issue but CVE is nil")
+		return nil, false, errors.New("needs issue but CVE is nil")
 	}
-	return false, nil
+	// If we're here, then mod is a valid modification to the DB.
+	return &mod, false, nil
 }
 
 // copyRemoving returns a copy of cve with any reference that has a given URL removed.
@@ -413,6 +438,22 @@ type UpdateGHSAStats struct {
 	NumModified int
 }
 
+func getTriageStateFromAlias(aliasTriageState store.TriageState) store.TriageState {
+	switch aliasTriageState {
+	case store.TriageStateIssueCreated,
+		store.TriageStateHasVuln, store.TriageStateNeedsIssue, store.TriageStateUpdatedSinceIssueCreation:
+		// The vuln was already covered by the alias ID.
+		// TODO(https://go.dev/issues/55303): Add comment to
+		// existing issue with new alias.
+		return store.TriageStateAlias
+	case store.TriageStateFalsePositive, store.TriageStateNoActionNeeded, store.TriageStateAlias:
+		// Create an issue for the vuln since no issue
+		// was created for the alias ID.
+		return store.TriageStateNeedsIssue
+	}
+	return store.TriageStateNeedsIssue
+}
+
 // triageNewGHSA determines the initial triage state for the GHSA.
 // It checks if we have already handled a CVE associated with this GHSA.
 func triageNewGHSA(sa *ghsa.SecurityAdvisory, tx store.Transaction) (store.TriageState, error) {
@@ -426,21 +467,9 @@ func triageNewGHSA(sa *ghsa.SecurityAdvisory, tx store.Transaction) (store.Triag
 			if len(cves) == 0 {
 				continue
 			}
-			switch cves[0].TriageState {
-			case store.TriageStateIssueCreated,
-				store.TriageStateHasVuln, store.TriageStateNeedsIssue, store.TriageStateUpdatedSinceIssueCreation:
-				// The vuln was already covered by the CVE.
-				// TODO(https://go.dev/issues/55303): Add comment to
-				// existing issue with new alias.
-				return store.TriageStateAlias, nil
-			case store.TriageStateFalsePositive, store.TriageStateNoActionNeeded, store.TriageStateAlias:
-				// Create an issue for the GHSA since no issue
-				// was created for the CVE.
-				return store.TriageStateNeedsIssue, nil
-			}
+			return getTriageStateFromAlias(cves[0].TriageState), nil
 		}
 	}
-
 	// The GHSA has no associated CVEs.
 	return store.TriageStateNeedsIssue, nil
 }

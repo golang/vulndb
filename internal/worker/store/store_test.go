@@ -228,7 +228,7 @@ func testGHSAs(t *testing.T, s Store) {
 		t.Errorf("mismatch (-want, +got):\n%s", diff)
 	}
 
-	// Retrieve one record by ID.
+	// Retrieve one record by GHSA ID.
 	var got0 *GHSARecord
 	must(s.RunTransaction(ctx, func(ctx context.Context, tx Transaction) error {
 		var err error

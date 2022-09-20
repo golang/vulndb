@@ -18,6 +18,7 @@ import (
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/cveschema"
+	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/worker/store"
 )
@@ -102,6 +103,7 @@ func TestDoUpdate(t *testing.T) {
 		"2021/0xxx/CVE-2021-0010.json",
 		"2021/1xxx/CVE-2021-1384.json",
 		"2020/9xxx/CVE-2020-9283.json",
+		"2022/39xxx/CVE-2022-39213.json",
 	}
 
 	var (
@@ -113,7 +115,7 @@ func TestDoUpdate(t *testing.T) {
 		cves = append(cves, cve)
 		blobHashes = append(blobHashes, bh)
 	}
-	// CVERecords after the above CVEs are added to an empty DB.
+	// Expected CVERecords after the above CVEs are added to an empty DB.
 	var rs []*store.CVERecord
 	for i := 0; i < len(cves); i++ {
 		r := store.NewCVERecord(cves[i], paths[i], blobHashes[i], commit)
@@ -122,28 +124,37 @@ func TestDoUpdate(t *testing.T) {
 	rs[0].TriageState = store.TriageStateNeedsIssue // a public CVE, has a golang.org path
 	rs[0].Module = "golang.org/x/mod"
 	rs[0].CVE = cves[0]
+
 	rs[1].TriageState = store.TriageStateNoActionNeeded // state is reserved
 	rs[2].TriageState = store.TriageStateNoActionNeeded // state is rejected
 	rs[3].TriageState = store.TriageStateHasVuln
 
+	rs[4].TriageState = store.TriageStateNeedsIssue
+	rs[4].Module = "bitbucket.org/foo/bar/baz"
+	if *usePkgsite {
+		rs[4].Module = "github.com/pandatix/go-cvss"
+	}
+	rs[4].CVE = cves[4]
+
 	for _, test := range []struct {
-		name string
-		cur  []*store.CVERecord // current state of DB
-		want []*store.CVERecord // expected state after update
+		name     string
+		curCVEs  []*store.CVERecord  // current state of CVEs collection
+		curGHSAs []*store.GHSARecord // current state of GHSAs collection
+		want     []*store.CVERecord  // expected state of CVEs collection after update
 	}{
 		{
-			name: "empty",
-			cur:  nil,
-			want: rs,
+			name:    "empty",
+			curCVEs: nil,
+			want:    rs,
 		},
 		{
-			name: "no change",
-			cur:  rs,
-			want: rs,
+			name:    "no change",
+			curCVEs: rs,
+			want:    rs,
 		},
 		{
 			name: "pre-issue changes",
-			cur: []*store.CVERecord{
+			curCVEs: []*store.CVERecord{
 				// NoActionNeeded -> NeedsIssue
 				modify(rs[0], &store.CVERecord{
 					BlobHash:    "x", // if we don't use a different blob hash, no update will happen
@@ -180,11 +191,12 @@ func TestDoUpdate(t *testing.T) {
 				}),
 				rs[2],
 				rs[3],
+				rs[4],
 			},
 		},
 		{
 			name: "post-issue changes",
-			cur: []*store.CVERecord{
+			curCVEs: []*store.CVERecord{
 				// IssueCreated -> Updated
 				modify(rs[0], &store.CVERecord{
 					BlobHash:    "x",
@@ -211,11 +223,12 @@ func TestDoUpdate(t *testing.T) {
 				}),
 				rs[2],
 				rs[3],
+				rs[4],
 			},
 		},
 		{
 			name: "false positive no Go URLs",
-			cur: []*store.CVERecord{
+			curCVEs: []*store.CVERecord{
 				// FalsePositive; no change
 				modify(rs[0], &store.CVERecord{
 					BlobHash:    "x",
@@ -234,12 +247,12 @@ func TestDoUpdate(t *testing.T) {
 						"https://golang.org/x/mod",
 					},
 				}),
-				rs[1], rs[2], rs[3],
+				rs[1], rs[2], rs[3], rs[4],
 			},
 		},
 		{
 			name: "false positive new Go URLs",
-			cur: []*store.CVERecord{
+			curCVEs: []*store.CVERecord{
 				// FalsePositive; no change
 				modify(rs[0], &store.CVERecord{
 					BlobHash:    "x",
@@ -260,13 +273,33 @@ func TestDoUpdate(t *testing.T) {
 						TriageState: "FalsePositive",
 					}},
 				}),
-				rs[1], rs[2], rs[3],
+				rs[1], rs[2], rs[3], rs[4],
+			},
+		},
+		{
+			name: "alias already created",
+			curCVEs: []*store.CVERecord{rs[0],
+				rs[1], rs[2], rs[3]},
+			curGHSAs: []*store.GHSARecord{
+				{
+					GHSA: &ghsa.SecurityAdvisory{
+						ID: "GHSA-xhmf-mmv2-4hhx",
+					},
+					TriageState: store.TriageStateIssueCreated,
+				},
+			},
+			want: []*store.CVERecord{
+				rs[0],
+				rs[1], rs[2], rs[3], modify(rs[4], &store.CVERecord{
+					TriageState: store.TriageStateAlias,
+				}),
 			},
 		},
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			mstore := store.NewMemStore()
-			createCVERecords(t, mstore, test.cur)
+			createCVERecords(t, mstore, test.curCVEs)
+			createGHSARecords(t, mstore, test.curGHSAs)
 			if _, err := newCVEUpdater(repo, commit, mstore, knownVulns, needsIssue).update(ctx); err != nil {
 				t.Fatal(err)
 			}
