@@ -183,6 +183,14 @@ func main() {
 
 func multi(f func(string) error, args []string) error {
 	for _, arg := range args {
+		if _, err := os.Stat(arg); err != nil {
+			// If arg isn't a file, see if it might be an issue ID
+			// with an existing report.
+			m, _ := filepath.Glob("data/*/GO-*-" + arg + ".yaml")
+			if len(m) == 1 {
+				arg = m[0]
+			}
+		}
 		if err := f(arg); err != nil {
 			return err
 		}
