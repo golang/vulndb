@@ -1,0 +1,50 @@
+{
+  "id": "GO-2022-1002",
+  "published": "0001-01-01T00:00:00Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-39213",
+    "GHSA-xhmf-mmv2-4hhx"
+  ],
+  "details": "ParseVector can panic when provided with invalid input.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/pandatix/go-cvss",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.2.0"
+            },
+            {
+              "fixed": "0.4.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-1002"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/pandatix/go-cvss/20",
+            "symbols": [
+              "ParseVector"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/pandatix/go-cvss/commit/d9d478ff0c13b8b09ace030db9262f3c2fe031f4"
+    }
+  ]
+}
