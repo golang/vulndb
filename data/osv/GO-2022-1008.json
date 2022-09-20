@@ -1,0 +1,55 @@
+{
+  "id": "GO-2022-1008",
+  "published": "0001-01-01T00:00:00Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-2990",
+    "GHSA-fjm8-m7m6-2fjp"
+  ],
+  "details": "SGID programs executed in a container can access files that have negative\ngroup permissions for the user's primary group.\n\nConsider a file which is owned by user u1 and group g1, permits user and\nother read access, and does NOT permit group read access. This file is\nreadable by u1 and all other users except for ones in group g1.\n\nA program with the set-group-ID (SGID) bit set assumes the primary group\nof the program's group when it executes.\n\nA user with the primary group g1 who executes an SGID program owned by\ngroup g2 should not be able to access the file described above. While\nthe program executes with the primary group g2, the group g1 should\nremain in its supplementary groups, blocking access to the file.\n\nBuildah does not correctly add g1 to the supplementary groups in this\nscenario, permitting unauthorized access.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/containers/buildah",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.27.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-1008"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/containers/buildah",
+            "symbols": [
+              "Builder.Run",
+              "Builder.configureUIDGID"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ARTICLE",
+      "url": "https://www.benthamsgaze.org/2022/08/22/vulnerability-in-linux-containers-investigation-and-mitigation/"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/containers/buildah/commit/4a8bf740e862f2438279c6feee2ea59ddf0cda0b"
+    }
+  ]
+}
