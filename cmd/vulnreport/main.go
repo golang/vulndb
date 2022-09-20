@@ -25,6 +25,8 @@ import (
 	"strings"
 	"time"
 
+	"golang.org/x/exp/constraints"
+	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
 	"golang.org/x/tools/go/packages"
 	"golang.org/x/vulndb/internal/cvelistrepo"
@@ -55,6 +57,7 @@ func main() {
 		fmt.Fprintf(flag.CommandLine.Output(), "  fix filename.yaml ...: fixes and reformats YAML reports\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  set-dates filename.yaml ...: sets PublishDate of YAML reports\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  commit filename.yaml ...: creates new commits for YAML reports\n")
+		fmt.Fprintf(flag.CommandLine.Output(), "  xref filename.yaml ...: prints cross references for YAML reports\n")
 		flag.PrintDefaults()
 	}
 
@@ -83,6 +86,10 @@ func main() {
 			}
 			return id
 		}
+		existingByIssue, existingByFile, err := existingReports()
+		if err != nil {
+			log.Fatal(err)
+		}
 		for _, name := range names {
 			if !strings.Contains(name, "-") {
 				githubIDs = append(githubIDs, parseGithubID(name))
@@ -94,12 +101,8 @@ func main() {
 			if fromID > toID {
 				log.Fatalf("%v > %v", fromID, toID)
 			}
-			existing, err := existingReports()
-			if err != nil {
-				log.Fatal(err)
-			}
 			for id := fromID; id <= toID; id++ {
-				if existing[id] {
+				if existingByIssue[id] != nil {
 					continue
 				}
 				githubIDs = append(githubIDs, id)
@@ -120,7 +123,7 @@ func main() {
 		}
 		c := issues.NewGitHubClient(owner, repoName, *githubToken)
 		for _, githubID := range githubIDs {
-			if err := create(ctx, githubID, *githubToken, repoPath, c); err != nil {
+			if err := create(ctx, githubID, *githubToken, repoPath, c, existingByFile); err != nil {
 				log.Print(err)
 			}
 		}
@@ -155,7 +158,23 @@ func main() {
 		if err := multi(f, names); err != nil {
 			log.Fatal(err)
 		}
-
+	case "xref":
+		_, existingByFile, err := existingReports()
+		if err != nil {
+			log.Fatal(err)
+		}
+		f := func(name string) error {
+			r, err := report.Read(name)
+			if err != nil {
+				return err
+			}
+			fmt.Println(name)
+			fmt.Print(xref(name, r, existingByFile))
+			return nil
+		}
+		if err := multi(f, names); err != nil {
+			log.Fatal(err)
+		}
 	default:
 		flag.Usage()
 		log.Fatalf("unsupported command: %q", cmd)
@@ -171,18 +190,19 @@ func multi(f func(string) error, args []string) error {
 	return nil
 }
 
-func existingReports() (ids map[int]bool, err error) {
+func existingReports() (byIssue map[int]*report.Report, byFile map[string]*report.Report, err error) {
 	defer derrors.Wrap(&err, "existingReports")
-	ids = make(map[int]bool)
+	byIssue = make(map[int]*report.Report)
+	byFile = make(map[string]*report.Report)
 	for _, dir := range []string{"data/reports", "data/excluded"} {
 		f, err := os.Open(dir)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 		defer f.Close()
 		names, err := f.Readdirnames(0)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 		for _, name := range names {
 			name := filepath.Join(dir, name)
@@ -190,17 +210,23 @@ func existingReports() (ids map[int]bool, err error) {
 			if len(m) != 3 {
 				continue
 			}
-			id, err := strconv.Atoi(m[2])
+			id := m[2]
+			iss, err := strconv.Atoi(id)
 			if err != nil {
 				continue
 			}
-			ids[id] = true
+			r, err := report.Read(name)
+			if err != nil {
+				continue
+			}
+			byIssue[iss] = r
+			byFile[name] = r
 		}
 	}
-	return ids, nil
+	return byIssue, byFile, nil
 }
 
-func create(ctx context.Context, issueNumber int, ghToken, repoPath string, c issues.Client) (err error) {
+func create(ctx context.Context, issueNumber int, ghToken, repoPath string, c issues.Client, existingByFile map[string]*report.Report) (err error) {
 	defer derrors.Wrap(&err, "create(%d)", issueNumber)
 	// Get GitHub issue.
 	iss, err := c.GetIssue(ctx, issueNumber, issues.GetIssueOptions{GetLabels: true})
@@ -298,7 +324,61 @@ func create(ctx context.Context, issueNumber int, ghToken, repoPath string, c is
 		return err
 	}
 	fmt.Println(filename)
+	fmt.Print(xref(filename, r, existingByFile))
 	return nil
+}
+
+// xref returns cross-references for a report: Information about other reports
+// for the same CVE, GHSA, or module.
+func xref(rname string, r *report.Report, existingByFile map[string]*report.Report) string {
+	out := &strings.Builder{}
+	mods := make(map[string]bool)
+	for _, m := range r.Modules {
+		if m.Module != "" {
+			mods[m.Module] = true
+		}
+	}
+	existingByID := make(map[string][]string)
+	basename := filepath.Base(rname)
+	for fname, rr := range existingByFile {
+		if basename == filepath.Base(fname) {
+			continue
+		}
+		for _, cve := range rr.CVEs {
+			if slices.Contains(r.CVEs, cve) {
+				existingByID[cve] = append(existingByID[cve], fname)
+			}
+		}
+		for _, ghsa := range rr.GHSAs {
+			if slices.Contains(r.GHSAs, ghsa) {
+				existingByID[ghsa] = append(existingByID[ghsa], fname)
+			}
+		}
+		for _, m := range rr.Modules {
+			if mods[m.Module] {
+				k := "Module " + m.Module
+				existingByID[k] = append(existingByID[k], fname)
+			}
+		}
+	}
+	// This sorts as CVEs, GHSAs, and then modules.
+	for _, id := range sorted(maps.Keys(existingByID)) {
+		for _, fname := range sorted(existingByID[id]) {
+			fmt.Fprintf(out, "%v appears in %v", id, fname)
+			e := existingByFile[fname].Excluded
+			if e != "" {
+				fmt.Fprintf(out, "  %v", e)
+			}
+			fmt.Fprintf(out, "\n")
+		}
+	}
+	return out.String()
+}
+
+func sorted[E constraints.Ordered](s []E) []E {
+	s = slices.Clone(s)
+	slices.Sort(s)
+	return s
 }
 
 const todo = "TODO: fill this out"
