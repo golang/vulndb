@@ -648,6 +648,14 @@ func commit(ctx context.Context, filename, accessToken string) (err error) {
 		fmt.Fprintf(os.Stderr, "git add: %v\n", err)
 		return nil
 	}
+	var osvfilename string
+	if r.Excluded == "" {
+		osvfilename = "data/osv/" + strings.TrimSuffix(filepath.Base(filename), ".yaml") + ".json"
+		if err := irun("git", "add", osvfilename); err != nil {
+			fmt.Fprintf(os.Stderr, "git add %v: %v\n", osvfilename, err)
+			return nil
+		}
+	}
 
 	var externalAdvisories string
 	action := "Fixes"
@@ -667,7 +675,11 @@ func commit(ctx context.Context, filename, accessToken string) (err error) {
 	msg := fmt.Sprintf("%s: add %s for %s\n\n%s golang/vulndb#%s\n",
 		folder,
 		strings.TrimPrefix(filename, fmt.Sprintf("%s/", folder)), externalAdvisories, action, strings.TrimPrefix(issueID, "0"))
-	if err := irun("git", "commit", "-m", msg, "-e", filename); err != nil {
+	args := []string{"commit", "-m", msg, "-e", filename}
+	if osvfilename != "" {
+		args = append(args, osvfilename)
+	}
+	if err := irun("git", args...); err != nil {
 		fmt.Fprintf(os.Stderr, "git commit: %v\n", err)
 		return nil
 	}
