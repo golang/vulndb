@@ -108,7 +108,7 @@ func main() {
 		repoPath := cvelistrepo.URL
 		if *localRepoPath != "" {
 			repoPath = *localRepoPath
-		} else if len(githubIDs) > 0 {
+		} else if len(githubIDs) > 1 {
 			// Maybe we should automatically maintain a local clone of the
 			// cvelist repo, but for now we can avoid repeatedly fetching it
 			// when iterating over a list of reports.
