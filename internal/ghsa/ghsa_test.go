@@ -31,8 +31,7 @@ func TestList(t *testing.T) {
 	accessToken := mustGetAccessToken(t)
 	// There were at least three relevant SAs since this date.
 	since := time.Date(2022, 1, 1, 0, 0, 0, 0, time.UTC)
-	const withoutCVEs = false
-	got, err := List(context.Background(), accessToken, since, withoutCVEs)
+	got, err := List(context.Background(), accessToken, since)
 	if err != nil {
 		t.Fatal(err)
 	}

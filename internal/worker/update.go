@@ -18,6 +18,7 @@ import (
 	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"
 )
@@ -269,6 +270,9 @@ func (u *cveUpdater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx stor
 	pathname := path.Join(f.DirPath, f.Filename)
 	// If the CVE is not in the database, add it.
 	if old == nil {
+		// TODO(https://go.dev/issues/54049): Check if there is already
+		// a record in the store for a GHSA that is an alias of this CVE ID,
+		// to avoid creating duplicate issues.
 		cr := store.NewCVERecord(cve, pathname, f.BlobHash.String(), u.commit)
 		switch {
 		case result != nil:
@@ -325,6 +329,8 @@ func (u *cveUpdater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx stor
 			mp = result.modulePath
 		}
 		mod.TriageStateReason = fmt.Sprintf("CVE changed; affected module = %q", mp)
+	case store.TriageStateAlias:
+		// For now, do nothing.
 	case store.TriageStateHasVuln:
 		// There is already a Go vuln report for this CVE, so
 		// nothing to do.
@@ -406,6 +412,38 @@ type UpdateGHSAStats struct {
 	NumModified int
 }
 
+// triageNewGHSA determines the initial triage state for the GHSA.
+// It checks if we have already handled a CVE associated with this GHSA.
+func triageNewGHSA(sa *ghsa.SecurityAdvisory, tx store.Transaction) (store.TriageState, error) {
+	for _, alias := range sa.Identifiers {
+		if alias.Type == "CVE" {
+			cveID := alias.Value
+			cves, err := tx.GetCVERecords(cveID, cveID)
+			if err != nil {
+				return store.TriageStateNeedsIssue, err
+			}
+			if len(cves) == 0 {
+				continue
+			}
+			switch cves[0].TriageState {
+			case store.TriageStateIssueCreated,
+				store.TriageStateHasVuln, store.TriageStateNeedsIssue, store.TriageStateUpdatedSinceIssueCreation:
+				// The vuln was already covered by the CVE.
+				// TODO(https://go.dev/issues/55303): Add comment to
+				// existing issue with new alias.
+				return store.TriageStateAlias, nil
+			case store.TriageStateFalsePositive, store.TriageStateNoActionNeeded, store.TriageStateAlias:
+				// Create an issue for the GHSA since no issue
+				// was created for the CVE.
+				return store.TriageStateNeedsIssue, nil
+			}
+		}
+	}
+
+	// The GHSA has no associated CVEs.
+	return store.TriageStateNeedsIssue, nil
+}
+
 func updateGHSAs(ctx context.Context, listSAs GHSAListFunc, since time.Time, st store.Store) (stats UpdateGHSAStats, err error) {
 	defer derrors.Wrap(&err, "updateGHSAs(%s)", since)
 	ctx = event.Start(ctx, "updateGHSAs")
@@ -435,26 +473,29 @@ func updateGHSAs(ctx context.Context, listSAs GHSAListFunc, since time.Time, st 
 	err = st.RunTransaction(ctx, func(ctx context.Context, tx store.Transaction) error {
 		numAdded = 0
 		numModified = 0
-		// Read the existing records from the store.
+		// Read the existing GHSA records from the store.
 		sars, err := tx.GetGHSARecords()
 		if err != nil {
 			return err
 		}
-		idToRecord := map[string]*store.GHSARecord{}
+		ghsaIDToRecord := map[string]*store.GHSARecord{}
 		for _, r := range sars {
-			idToRecord[r.GHSA.ID] = r
+			ghsaIDToRecord[r.GHSA.ID] = r
 		}
 
 		// Determine what needs to be added and modified.
 		for _, sa := range sas {
-			old := idToRecord[sa.ID]
+			old := ghsaIDToRecord[sa.ID]
 			if old == nil {
-				// Add record.
+				// ghsa.List already filters for vulns in the Go ecosystem,
+				// so add a record for all found GHSAs.
+				triageState, err := triageNewGHSA(sa, tx)
+				if err != nil {
+					return err
+				}
 				r := &store.GHSARecord{
-					GHSA: sa,
-					// All new records need an issue, since ghsa.List already
-					// filters for vulns in the Go ecosystem.
-					TriageState: store.TriageStateNeedsIssue,
+					GHSA:        sa,
+					TriageState: triageState,
 				}
 				if err := tx.CreateGHSARecord(r); err != nil {
 					return err

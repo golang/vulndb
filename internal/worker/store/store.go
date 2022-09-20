@@ -89,19 +89,22 @@ func (r *CVERecord) Validate() error {
 	return r.TriageState.Validate()
 }
 
-// TriageState is the state of our work on the CVE.
+// TriageState is the state of our work on the CVE or GHSA.
 // It is implemented as a string rather than an int so that stored values are
 // immune to renumbering.
 type TriageState string
 
 const (
-	// No action is needed on the CVE (perhaps because it is rejected, reserved or invalid).
+	// No action is needed on the CVE or GHSA (perhaps because it is rejected, reserved or invalid).
 	TriageStateNoActionNeeded TriageState = "NoActionNeeded"
 	// The CVE needs to have an issue created.
 	TriageStateNeedsIssue TriageState = "NeedsIssue"
 	// An issue has been created in the issue tracker.
 	// The IssueReference and IssueCreatedAt fields have more information.
 	TriageStateIssueCreated TriageState = "IssueCreated"
+	// This vulnerability has already been handled under an alias (i.e., a CVE
+	// or GHSA that refers to the same vulnerability).
+	TriageStateAlias TriageState = "Alias"
 	// The CVE state was changed after the CVE was created.
 	TriageStateUpdatedSinceIssueCreation TriageState = "UpdatedSinceIssueCreation"
 	// Although the triager might think this CVE is relevant to Go, it is not.
@@ -113,7 +116,7 @@ const (
 // Validate returns an error if the TriageState is not one of the above values.
 func (s TriageState) Validate() error {
 	switch s {
-	case TriageStateNoActionNeeded, TriageStateNeedsIssue, TriageStateIssueCreated, TriageStateUpdatedSinceIssueCreation, TriageStateFalsePositive, TriageStateHasVuln:
+	case TriageStateNoActionNeeded, TriageStateNeedsIssue, TriageStateIssueCreated, TriageStateAlias, TriageStateUpdatedSinceIssueCreation, TriageStateFalsePositive, TriageStateHasVuln:
 		return nil
 	default:
 		return fmt.Errorf("bad TriageState %q", s)

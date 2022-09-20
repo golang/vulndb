@@ -160,6 +160,13 @@ func TestCreateIssues(t *testing.T) {
 			},
 			TriageState: store.TriageStateIssueCreated,
 		},
+		{
+			GHSA: &ghsa.SecurityAdvisory{
+				ID:    "g4",
+				Vulns: []*ghsa.Vuln{{Package: "p4"}},
+			},
+			TriageState: store.TriageStateAlias,
+		},
 	}
 	createGHSARecords(t, mstore, grs)
 
@@ -325,7 +332,8 @@ func day(year, month, day int) time.Time {
 }
 
 func TestUpdateGHSAs(t *testing.T) {
-	ctx := context.Background()
+	ctx := event.WithExporter(context.Background(),
+		event.NewExporter(log.NewLineHandler(os.Stderr), nil))
 	sas := []*ghsa.SecurityAdvisory{
 		{
 			ID:        "g1",
@@ -338,6 +346,16 @@ func TestUpdateGHSAs(t *testing.T) {
 		{
 			ID:        "g3",
 			UpdatedAt: day(2021, 12, 1),
+		},
+		{
+			ID:          "g4",
+			Identifiers: []ghsa.Identifier{{Type: "CVE", Value: "CVE-2000-1111"}},
+			UpdatedAt:   day(2021, 12, 1),
+		},
+		{
+			ID:          "g5",
+			Identifiers: []ghsa.Identifier{{Type: "CVE", Value: "CVE-2000-2222"}},
+			UpdatedAt:   day(2021, 12, 1),
 		},
 	}
 
@@ -358,15 +376,43 @@ func TestUpdateGHSAs(t *testing.T) {
 		}
 	}
 
-	// First run, from an empty store: all SAs entered with NeedsIssue.
+	// Add some existing CVE records.
+	ctime := time.Date(2020, 1, 2, 0, 0, 0, 0, time.UTC)
+	crs := []*store.CVERecord{
+		{
+			ID:          "CVE-2000-1111",
+			BlobHash:    "bh1",
+			CommitHash:  "ch",
+			CommitTime:  ctime,
+			Path:        "path1",
+			TriageState: store.TriageStateNoActionNeeded,
+		},
+		{
+			ID:          "CVE-2000-2222",
+			BlobHash:    "bh2",
+			CommitHash:  "ch",
+			CommitTime:  ctime,
+			Path:        "path2",
+			TriageState: store.TriageStateIssueCreated,
+		},
+	}
+	createCVERecords(t, mstore, crs)
+
+	// First four SAs entered with NeedsIssue.
 	var want []*store.GHSARecord
-	for _, sa := range sas {
+	for _, sa := range sas[:4] {
 		want = append(want, &store.GHSARecord{
 			GHSA:        sa,
 			TriageState: store.TriageStateNeedsIssue,
 		})
 	}
-	updateAndCheck(UpdateGHSAStats{3, 3, 0}, want)
+	// SA "g5" entered with Alias state because it is an alias of
+	// "CVE-2000-2222" which already has an issue.
+	want = append(want, &store.GHSARecord{
+		GHSA:        sas[4],
+		TriageState: store.TriageStateAlias,
+	})
+	updateAndCheck(UpdateGHSAStats{5, 5, 0}, want)
 
 	// New SA added, old one updated.
 	sas[0] = &ghsa.SecurityAdvisory{
@@ -375,7 +421,7 @@ func TestUpdateGHSAs(t *testing.T) {
 	}
 	want[0].GHSA = sas[0]
 	sas = append(sas, &ghsa.SecurityAdvisory{
-		ID:        "g4",
+		ID:        "g6",
 		UpdatedAt: day(2021, 12, 2),
 	})
 	listSAs = fakeListFunc(sas)

@@ -66,7 +66,7 @@ func UpdateCVEsAtCommit(ctx context.Context, repoPath, commitHashString string, 
 			return err
 		}
 	}
-	knownVulnIDs, err := readVulnDB(ctx)
+	knownVulnIDs, err := getAllCVEsAndGHSAsInVulnDB(ctx)
 	if err != nil {
 		return err
 	}
@@ -130,8 +130,9 @@ const (
 	vulnDBURL    = "https://storage.googleapis.com/" + vulnDBBucket
 )
 
-// readVulnDB returns a list of all CVE IDs in the Go vuln DB.
-func readVulnDB(ctx context.Context) ([]string, error) {
+// getAllCVEsAndGHSAsInVulnDB returns a list of all CVE IDs and
+// GHSA IDs in the Go vuln DB.
+func getAllCVEsAndGHSAsInVulnDB(ctx context.Context) ([]string, error) {
 	const concurrency = 4
 
 	client, err := vulnc.NewClient([]string{vulnDBURL}, vulnc.Options{})
@@ -144,8 +145,8 @@ func readVulnDB(ctx context.Context) ([]string, error) {
 		return nil, err
 	}
 	var (
-		mu     sync.Mutex
-		cveIDs []string
+		mu      sync.Mutex
+		vulnIDs []string
 	)
 	sem := make(chan struct{}, concurrency)
 	g, ctx := errgroup.WithContext(ctx)
@@ -158,9 +159,8 @@ func readVulnDB(ctx context.Context) ([]string, error) {
 			if err != nil {
 				return err
 			}
-			// Assume all the aliases are CVE IDs.
 			mu.Lock()
-			cveIDs = append(cveIDs, e.Aliases...)
+			vulnIDs = append(vulnIDs, e.Aliases...)
 			mu.Unlock()
 			return nil
 		})
@@ -168,7 +168,7 @@ func readVulnDB(ctx context.Context) ([]string, error) {
 	if err := g.Wait(); err != nil {
 		return nil, err
 	}
-	return cveIDs, nil
+	return vulnIDs, nil
 }
 
 // GHSAListFunc is the type of a function that lists GitHub security advisories.

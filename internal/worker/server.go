@@ -109,9 +109,10 @@ func NewServer(ctx context.Context, cfg Config) (_ *Server, err error) {
 		return nil
 	})
 
-	// update: Update the DB from the cvelist repo head and decide which CVEs need issues.
+	// update: Update the DB from the cvelist repo head and the Github Security
+	// Advisories API and decide which CVEs and GHSAs need issues.
 	s.handle(ctx, "/update", s.handleUpdate)
-	// issues: File issues on GitHub for CVEs that need them.
+	// issues: File issues on GitHub for CVEs and GHSAs that need them.
 	s.handle(ctx, "/issues", s.handleIssues)
 	// update-and-issues: do update followed by issues.
 	s.handle(ctx, "/update-and-issues", s.handleUpdateAndIssues)
@@ -333,8 +334,7 @@ func (s *Server) doUpdate(r *http.Request) (err error) {
 		return err
 	}
 	listSAs := func(ctx context.Context, since time.Time) ([]*ghsa.SecurityAdvisory, error) {
-		const withoutCVES = false
-		return ghsa.List(ctx, s.cfg.GitHubAccessToken, since, withoutCVES)
+		return ghsa.List(ctx, s.cfg.GitHubAccessToken, since)
 	}
 	_, err = UpdateGHSAs(r.Context(), listSAs, s.cfg.Store)
 	return err

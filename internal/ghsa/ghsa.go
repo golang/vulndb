@@ -149,9 +149,7 @@ func newGitHubClient(ctx context.Context, accessToken string) *githubv4.Client {
 
 // List returns all SecurityAdvisories that affect Go,
 // published or updated since the given time.
-// If withCVE is true, selects only advisories that are
-// connected to CVEs, otherwise selects only advisories without CVEs.
-func List(ctx context.Context, accessToken string, since time.Time, withCVE bool) ([]*SecurityAdvisory, error) {
+func List(ctx context.Context, accessToken string, since time.Time) ([]*SecurityAdvisory, error) {
 	client := newGitHubClient(ctx, accessToken)
 
 	var query struct { // the GraphQL query
@@ -177,9 +175,6 @@ func List(ctx context.Context, accessToken string, since time.Time, withCVE bool
 			return nil, err
 		}
 		for _, sa := range query.SAs.Nodes {
-			if withCVE != isCVE(sa.Identifiers) {
-				continue
-			}
 			if len(sa.Vulnerabilities.Nodes) == 0 {
 				continue
 			}

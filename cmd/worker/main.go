@@ -213,8 +213,7 @@ func updateCommand(ctx context.Context, commitHash string) error {
 		return nil
 	}
 	listSAs := func(ctx context.Context, since time.Time) ([]*ghsa.SecurityAdvisory, error) {
-		const withoutCVES = false
-		return ghsa.List(ctx, cfg.GitHubAccessToken, since, withoutCVES)
+		return ghsa.List(ctx, cfg.GitHubAccessToken, since)
 	}
 	_, err = worker.UpdateGHSAs(ctx, listSAs, cfg.Store)
 	return err

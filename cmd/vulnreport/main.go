@@ -826,12 +826,11 @@ func newCVE(filename string) (err error) {
 
 // loadGHSAsByCVE returns a map from CVE ID to GHSA IDs.
 // It does this by using the GitHub API to list all Go security
-// advisories with CVEs.
+// advisories.
 func loadGHSAsByCVE(ctx context.Context, accessToken string) (_ map[string][]string, err error) {
 	defer derrors.Wrap(&err, "loadGHSAsByCVE")
 
-	const withCVE = true
-	sas, err := ghsa.List(ctx, accessToken, time.Time{}, withCVE)
+	sas, err := ghsa.List(ctx, accessToken, time.Time{})
 	if err != nil {
 		return nil, err
 	}
