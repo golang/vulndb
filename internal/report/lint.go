@@ -314,6 +314,7 @@ func (r *Report) lintStdLibLinks(addIssue func(string)) {
 }
 
 func (r *Report) lintLinks(addIssue func(string)) {
+	advisoryCount := 0
 	for _, ref := range r.References {
 		if !slices.Contains(ReferenceTypes, ref.Type) {
 			addIssue(fmt.Sprintf("%q is not a valid reference type", ref.Type))
@@ -325,6 +326,12 @@ func (r *Report) lintLinks(addIssue func(string)) {
 		if fixed := fixURL(l); fixed != l {
 			addIssue(fmt.Sprintf("unfixed url: %q should be %q", l, fixURL(l)))
 		}
+		if ref.Type == ReferenceTypeAdvisory {
+			advisoryCount++
+		}
+	}
+	if advisoryCount > 1 {
+		addIssue("references should contain at most one advisory link")
 	}
 }
 

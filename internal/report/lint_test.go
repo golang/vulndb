@@ -20,6 +20,20 @@ var (
 	}
 )
 
+func validXReport(f func(r *Report)) Report {
+	r := Report{
+		Modules: []*Module{{
+			Module: "golang.org/x/net",
+			Packages: []*Package{{
+				Package: "golang.org/x/net/http2",
+			}},
+		}},
+		Description: "description",
+	}
+	f(&r)
+	return r
+}
+
 func TestLint(t *testing.T) {
 	for _, test := range []struct {
 		desc   string
@@ -270,6 +284,19 @@ func TestLint(t *testing.T) {
 				}}, validStdLibReferences...),
 			},
 			want: []string{"not a valid reference type"},
+		},
+		{
+			desc: "multiple advisory links",
+			report: validXReport(func(r *Report) {
+				r.References = append(r.References, &Reference{
+					Type: "ADVISORY",
+					URL:  "http://go.dev/a",
+				}, &Reference{
+					Type: "ADVISORY",
+					URL:  "http://go.dev/b",
+				})
+			}),
+			want: []string{"at most one advisory link"},
 		},
 		{
 			desc: "unfixed links",
