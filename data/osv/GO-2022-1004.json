@@ -1,0 +1,58 @@
+{
+  "id": "GO-2022-1004",
+  "published": "0001-01-01T00:00:00Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-3633-5h82-39pq"
+  ],
+  "details": "An attacker with the ability to insert public keys into a TUF\nrepository can cause clients to accept a staged change that has\nnot been signed by the correct threshold of signatures.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/theupdateframework/go-tuf",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.3.2"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-1004"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/theupdateframework/go-tuf/verify",
+            "symbols": [
+              "DB.Unmarshal",
+              "DB.UnmarshalIgnoreExpired",
+              "DB.UnmarshalTrusted",
+              "DB.Verify",
+              "DB.VerifyIgnoreExpiredCheck",
+              "DB.VerifySignatures"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-3633-5h82-39pq"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/theupdateframework/go-tuf/pull/369"
+    }
+  ]
+}
