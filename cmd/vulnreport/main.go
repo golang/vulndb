@@ -62,9 +62,9 @@ func main() {
 	}
 
 	flag.Parse()
-	if flag.NArg() < 3 {
+	if flag.NArg() < 2 {
 		flag.Usage()
-		os.Exit(1)
+		log.Fatal("not enough arguments")
 	}
 
 	cmd := flag.Arg(0)
@@ -236,16 +236,15 @@ type createCfg struct {
 
 func setupCreate(args []string) ([]int, *createCfg, error) {
 	if *githubToken == "" {
-		flag.Usage()
-		log.Fatalf("githubToken must be provided")
+		return nil, nil, fmt.Errorf("githubToken must be provided")
 	}
 	existingByIssue, existingByFile, err := existingReports()
 	if err != nil {
-		log.Fatal(err)
+		return nil, nil, err
 	}
 	githubIDs, err := parseArgsToGithubIDs(args, existingByIssue)
 	if err != nil {
-		log.Fatal(err)
+		return nil, nil, err
 	}
 	if len(githubIDs) > 1 {
 		// Maybe we should automatically maintain a local clone of the
