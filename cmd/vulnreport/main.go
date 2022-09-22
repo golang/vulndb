@@ -346,6 +346,11 @@ func create(ctx context.Context, issueNumber int, cfg *createCfg) (err error) {
 
 	if excluded != "" {
 		r = &report.Report{
+			Modules: []*report.Module{
+				{
+					Module: modulePath,
+				},
+			},
 			Excluded: excluded,
 			CVEs:     r.CVEs,
 			GHSAs:    r.GHSAs,
