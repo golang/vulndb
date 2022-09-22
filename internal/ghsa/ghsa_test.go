@@ -15,22 +15,29 @@ import (
 
 var githubTokenFile = flag.String("ghtokenfile", "",
 	"path to file containing GitHub access token")
+var githubToken = flag.String("ghtoken", os.Getenv("VULN_GITHUB_ACCESS_TOKEN"), "GitHub access token")
 
 func mustGetAccessToken(t *testing.T) string {
-	if *githubTokenFile == "" {
-		t.Skip("-ghtokenfile not provided")
+	var token string
+	switch {
+	case *githubToken != "":
+		token = *githubToken
+	case *githubTokenFile != "":
+		bytes, err := os.ReadFile(*githubTokenFile)
+		if err != nil {
+			t.Fatal(err)
+		}
+		token = string(bytes)
+	default:
+		t.Skip("neither -ghtokenfile nor -ghtoken provided")
 	}
-	bytes, err := os.ReadFile(*githubTokenFile)
-	if err != nil {
-		t.Fatal(err)
-	}
-	return strings.TrimSpace(string(bytes))
+	return strings.TrimSpace(string(token))
 }
 
 func TestList(t *testing.T) {
 	accessToken := mustGetAccessToken(t)
 	// There were at least three relevant SAs since this date.
-	since := time.Date(2022, 1, 1, 0, 0, 0, 0, time.UTC)
+	since := time.Date(2022, 9, 1, 0, 0, 0, 0, time.UTC)
 	got, err := List(context.Background(), accessToken, since)
 	if err != nil {
 		t.Fatal(err)
@@ -38,11 +45,6 @@ func TestList(t *testing.T) {
 	want := 3
 	if len(got) < want {
 		t.Errorf("got %d, want at least %d", len(got), want)
-	}
-	for _, g := range got {
-		if isCVE(g.Identifiers) {
-			t.Errorf("isCVE true, want false for %+v", g)
-		}
 	}
 }
 
@@ -54,15 +56,7 @@ func TestFetchGHSA(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	want := ghsaID
-	var gotID string
-	for _, id := range got.Identifiers {
-		if id.Type == "GHSA" {
-			gotID = id.Value
-			break
-		}
-	}
-	if gotID != want {
+	if gotID, want := got.ID, ghsaID; gotID != want {
 		t.Errorf("got GHSA with id %q, want %q", got.ID, want)
 	}
 }
@@ -78,17 +72,15 @@ func TestListForCVE(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	var ids []string
-	for _, sa := range got {
-		for _, id := range sa.Identifiers {
-			if id.Type != "GHSA" {
-				continue
-			}
-			ids = append(ids, id.Value)
-			if id.Value == ghsaID {
-				return
-			}
+
+	want := ghsaID
+	if len(got) != 1 {
+		var gotIDs []string
+		for _, sa := range got {
+			gotIDs = append(gotIDs, sa.ID)
 		}
+		t.Errorf("got %v GHSAs %v, want %v", len(got), gotIDs, want)
+	} else if gotID := got[0].ID; gotID != want {
+		t.Errorf("got GHSA %v, want %v", gotID, want)
 	}
-	t.Errorf("got %v GHSAs %v, want %v", len(got), ids, ghsaID)
 }

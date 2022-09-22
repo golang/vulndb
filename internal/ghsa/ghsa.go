@@ -16,7 +16,7 @@ import (
 
 // A SecurityAdvisory represents a GitHub security advisory.
 type SecurityAdvisory struct {
-	// The GitHub Security Advisory identifier
+	// The GitHub Security Advisory identifier.
 	ID string
 	// A complete list of identifiers, e.g. CVE numbers.
 	Identifiers []Identifier
@@ -84,7 +84,7 @@ func (s *SecurityAdvisory) PrettyID() string {
 // GitHub's GraphQL schema. The fields must be exported to be populated by
 // Github's Client.Query function.
 type gqlSecurityAdvisory struct {
-	ID              string
+	GhsaID          string
 	Identifiers     []Identifier
 	Summary         string
 	Description     string
@@ -114,13 +114,13 @@ type gqlSecurityAdvisory struct {
 // there are more than 100 vulnerabilities associated with the advisory.
 func (sa *gqlSecurityAdvisory) securityAdvisory() (*SecurityAdvisory, error) {
 	if sa.PublishedAt.After(sa.UpdatedAt) {
-		return nil, fmt.Errorf("%s: published at %s, after updated at %s", sa.ID, sa.PublishedAt, sa.UpdatedAt)
+		return nil, fmt.Errorf("%s: published at %s, after updated at %s", sa.GhsaID, sa.PublishedAt, sa.UpdatedAt)
 	}
 	if sa.Vulnerabilities.PageInfo.HasNextPage {
-		return nil, fmt.Errorf("%s has more than 100 vulns", sa.ID)
+		return nil, fmt.Errorf("%s has more than 100 vulns", sa.GhsaID)
 	}
 	s := &SecurityAdvisory{
-		ID:          sa.ID,
+		ID:          sa.GhsaID,
 		Identifiers: sa.Identifiers,
 		Summary:     sa.Summary,
 		Description: sa.Description,
