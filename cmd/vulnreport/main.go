@@ -275,83 +275,37 @@ func create(ctx context.Context, issueNumber int, cfg *createCfg) (err error) {
 	if err != nil {
 		return err
 	}
-	// Parse labels for excluded issues.
-	var excluded report.ExcludedReason
-	for _, label := range iss.Labels {
-		if strings.HasPrefix(label, "excluded: ") {
-			excluded = report.ExcludedReason(strings.TrimPrefix(label, "excluded: "))
-			break
-		}
-		if label == "duplicate" {
-			fmt.Printf("skipping issue %v: duplicate\n", issueNumber)
-			return nil
-		}
+	parsed, err := parseGithubIssue(iss)
+	if err != nil {
+		return err
 	}
-	// Parse CVE or GHSA ID from GitHub issue.
-	parts := strings.Fields(iss.Title)
-	var (
-		modulePath string
-		cves       []string
-		ghsas      []string
-	)
-	for _, p := range parts {
-		switch {
-		case strings.HasSuffix(p, ":") && p != "x/vulndb:":
-			modulePath = strings.TrimSuffix(p, ":")
-		case strings.HasPrefix(p, "CVE"):
-			cves = append(cves, strings.TrimSuffix(p, ","))
-		case strings.HasPrefix(p, "GHSA"):
-			ghsas = append(ghsas, strings.TrimSuffix(p, ","))
-		}
-	}
-	if len(ghsas) == 0 && len(cves) > 0 {
-		for _, cve := range cves {
+	if len(parsed.ghsas) == 0 && len(parsed.cves) > 0 {
+		for _, cve := range parsed.cves {
 			sas, err := ghsa.ListForCVE(ctx, cfg.ghToken, cve)
 			if err != nil {
 				return err
 			}
 			for _, sa := range sas {
-				ghsas = append(ghsas, sa.GHSA())
+				parsed.ghsas = append(parsed.ghsas, sa.GHSA())
 			}
 		}
-		slices.Sort(ghsas)
-		ghsas = slices.Compact(ghsas)
+		slices.Sort(parsed.ghsas)
+		parsed.ghsas = slices.Compact(parsed.ghsas)
 	}
 
-	var r *report.Report
-	switch {
-	case len(ghsas) > 0:
-		ghsa, err := ghsa.FetchGHSA(ctx, cfg.ghToken, ghsas[0])
-		if err != nil {
-			return err
-		}
-		r = report.GHSAToReport(ghsa, modulePath)
-	case len(cves) > 0:
-		cve, err := cvelistrepo.FetchCVE(ctx, cfg.repoPath, cves[0])
-		if err != nil {
-			return err
-		}
-		r = report.CVEToReport(cve, modulePath)
-	default:
-		return fmt.Errorf("expected title to contain at least one CVE ID or GHSA ID; got %q", iss.Title)
+	r, err := newReport(ctx, cfg, parsed)
+	if err != nil {
+		return err
 	}
 
-	r.CVEs = append(r.CVEs, cves...)
-	slices.Sort(r.CVEs)
-	r.CVEs = slices.Compact(r.CVEs)
-
-	r.GHSAs = append(r.GHSAs, ghsas...)
-	slices.Sort(r.GHSAs)
-	r.GHSAs = slices.Compact(r.GHSAs)
-
-	if excluded != "" {
+	if parsed.excluded != "" {
 		r = &report.Report{
 			Modules: []*report.Module{
 				{
-					Module: modulePath,
+					Module: parsed.modulePath,
 				},
 			},
-			Excluded: excluded,
+			Excluded: parsed.excluded,
 			CVEs:     r.CVEs,
 			GHSAs:    r.GHSAs,
 		}
@@ -363,7 +317,7 @@ func create(ctx context.Context, issueNumber int, cfg *createCfg) (err error) {
 		year = iss.CreatedAt.Year()
 	}
 	dir := "reports"
-	if excluded != "" {
+	if parsed.excluded != "" {
 		dir = "excluded"
 	}
 	filename := fmt.Sprintf("data/%s/GO-%04d-%04d.yaml", dir, year, issueNumber)
@@ -373,6 +327,83 @@ func create(ctx context.Context, issueNumber int, cfg *createCfg) (err error) {
 	fmt.Println(filename)
 	fmt.Print(xref(filename, r, cfg.existingByFile))
 	return nil
+}
+
+func newReport(ctx context.Context, cfg *createCfg, parsed *parsedIssue) (*report.Report, error) {
+	var r *report.Report
+	switch {
+	case len(parsed.ghsas) > 0:
+		ghsa, err := ghsa.FetchGHSA(ctx, cfg.ghToken, parsed.ghsas[0])
+		if err != nil {
+			return nil, err
+		}
+		r = report.GHSAToReport(ghsa, parsed.modulePath)
+	case len(parsed.cves) > 0:
+		cve, err := cvelistrepo.FetchCVE(ctx, cfg.repoPath, parsed.cves[0])
+		if err != nil {
+			return nil, err
+		}
+		r = report.CVEToReport(cve, parsed.modulePath)
+	default:
+		r = &report.Report{}
+	}
+
+	// Fill an any CVEs and GHSAs we found that may have been missed
+	// in report creation.
+	r.CVEs = append(r.CVEs, parsed.cves...)
+	slices.Sort(r.CVEs)
+	r.CVEs = slices.Compact(r.CVEs)
+
+	r.GHSAs = append(r.GHSAs, parsed.ghsas...)
+	slices.Sort(r.GHSAs)
+	r.GHSAs = slices.Compact(r.GHSAs)
+
+	return r, nil
+}
+
+type parsedIssue struct {
+	modulePath  string
+	cves        []string
+	ghsas       []string
+	excluded    report.ExcludedReason
+	isDuplicate bool
+}
+
+func parseGithubIssue(iss *issues.Issue) (*parsedIssue, error) {
+	var parsed *parsedIssue = &parsedIssue{}
+
+	// Parse labels for excluded and duplicate issues.
+	for _, label := range iss.Labels {
+		if strings.HasPrefix(label, "excluded: ") {
+			if parsed.excluded == "" {
+				parsed.excluded = report.ExcludedReason(strings.TrimPrefix(label, "excluded: "))
+			} else {
+				return nil, fmt.Errorf("issue has multiple excluded reasons")
+			}
+		}
+		if label == "duplicate" {
+			parsed.isDuplicate = true
+		}
+	}
+
+	// Parse CVE and GHSA IDs from GitHub issue.
+	parts := strings.Fields(iss.Title)
+	for _, p := range parts {
+		switch {
+		case strings.HasSuffix(p, ":") && p != "x/vulndb:":
+			parsed.modulePath = strings.TrimSuffix(p, ":")
+		case strings.HasPrefix(p, "CVE"):
+			parsed.cves = append(parsed.cves, strings.TrimSuffix(p, ","))
+		case strings.HasPrefix(p, "GHSA"):
+			parsed.ghsas = append(parsed.ghsas, strings.TrimSuffix(p, ","))
+		}
+	}
+
+	if len(parsed.cves) == 0 && len(parsed.ghsas) == 0 {
+		return nil, fmt.Errorf("expected title to contain at least one CVE ID or GHSA ID; got %q", iss.Title)
+	}
+
+	return parsed, nil
 }
 
 // xref returns cross-references for a report: Information about other reports
