@@ -484,6 +484,8 @@ func updateGHSAs(ctx context.Context, listSAs GHSAListFunc, since time.Time, st 
 		}
 
 		// Determine what needs to be added and modified.
+		var toAdd []*store.GHSARecord
+		var toUpdate []*store.GHSARecord
 		for _, sa := range sas {
 			old := ghsaIDToRecord[sa.ID]
 			if old == nil {
@@ -493,14 +495,10 @@ func updateGHSAs(ctx context.Context, listSAs GHSAListFunc, since time.Time, st 
 				if err != nil {
 					return err
 				}
-				r := &store.GHSARecord{
+				toAdd = append(toAdd, &store.GHSARecord{
 					GHSA:        sa,
 					TriageState: triageState,
-				}
-				if err := tx.CreateGHSARecord(r); err != nil {
-					return err
-				}
-				numAdded++
+				})
 			} else if !old.GHSA.UpdatedAt.Equal(sa.UpdatedAt) {
 				// Modify record.
 				mod := *old
@@ -514,12 +512,23 @@ func updateGHSAs(ctx context.Context, listSAs GHSAListFunc, since time.Time, st 
 				default:
 					// Don't change the TriageState.
 				}
-				if err := tx.SetGHSARecord(&mod); err != nil {
-					return err
-				}
-				numModified++
+				toUpdate = append(toUpdate, &mod)
 			}
 		}
+
+		for _, r := range toAdd {
+			if err := tx.CreateGHSARecord(r); err != nil {
+				return err
+			}
+			numAdded++
+		}
+		for _, r := range toUpdate {
+			if err := tx.SetGHSARecord(r); err != nil {
+				return err
+			}
+			numModified++
+		}
+
 		return nil
 	})
 	stats.NumAdded = numAdded
