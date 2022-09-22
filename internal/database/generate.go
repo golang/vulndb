@@ -73,13 +73,6 @@ func Generate(ctx context.Context, repoDir, jsonDir string, indent bool) (err er
 		if err := writeVulns(filepath.Join(jsonDir, epath), vulns, indent); err != nil {
 			return err
 		}
-		// For backwards compatibility, write unescaped module path too.
-		// TODO(golang/go#54821): remove when clients have updated.
-		if modulePath != epath {
-			if err := writeVulns(filepath.Join(jsonDir, modulePath), vulns, indent); err != nil {
-				return err
-			}
-		}
 		for _, v := range vulns {
 			if v.Modified.After(index[modulePath]) {
 				index[modulePath] = v.Modified
