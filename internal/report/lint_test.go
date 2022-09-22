@@ -299,6 +299,34 @@ func TestLint(t *testing.T) {
 			want: []string{"at most one advisory link"},
 		},
 		{
+			desc: "reduntant advisory links",
+			report: validXReport(func(r *Report) {
+				r.CVEs = []string{"CVE-0000-0000", "CVE-0000-0001"}
+				r.GHSAs = []string{"GHSA-0000-0000-0000"}
+				r.References = append(r.References, &Reference{
+					Type: "WEB",
+					URL:  "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-0000-0000",
+				}, &Reference{
+					Type: "WEB",
+					URL:  "https://nvd.nist.gov/vuln/detail/CVE-0000-0001",
+				}, &Reference{
+					Type: "WEB",
+					URL:  "https://nvd.nist.gov/vuln/detail/CVE-0000-0002", // ok
+				}, &Reference{
+					Type: "WEB",
+					URL:  "https://github.com/advisories/GHSA-0000-0000-0000",
+				}, &Reference{
+					Type: "WEB",
+					URL:  "https://github.com/advisories/GHSA-0000-0000-0001", // ok
+				})
+			}),
+			want: []string{
+				"redundant non-advisory reference to CVE-0000-0000",
+				"redundant non-advisory reference to CVE-0000-0001",
+				"redundant non-advisory reference to GHSA-0000-0000-0000",
+			},
+		},
+		{
 			desc: "unfixed links",
 			report: Report{
 				Modules: []*Module{{

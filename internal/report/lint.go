@@ -264,12 +264,16 @@ func (r *Report) lintLineLength(field, content string, addIssue func(string)) {
 	}
 }
 
-// Regex patterns for standard library links.
+// Regex patterns for standard links.
 var (
 	prRegex       = regexp.MustCompile(`https://go.dev/cl/\d+`)
 	commitRegex   = regexp.MustCompile(`https://go.googlesource.com/[^/]+/\+/([^/]+)`)
 	issueRegex    = regexp.MustCompile(`https://go.dev/issue/\d+`)
 	announceRegex = regexp.MustCompile(`https://groups.google.com/g/golang-(announce|dev|nuts)/c/([^/]+)`)
+
+	nistRegex  = regexp.MustCompile(`^https://nvd.nist.gov/vuln/detail/(CVE-.*)$`)
+	ghsaRegex  = regexp.MustCompile(`^https://github.com/.*/(GHSA-[^/]+)$`)
+	mitreRegex = regexp.MustCompile(`^https://cve.mitre.org/.*(CVE-[\d\-]+)$`)
 )
 
 // Checks that the "links" section of a Report for a package in the
@@ -328,6 +332,24 @@ func (r *Report) lintLinks(addIssue func(string)) {
 		}
 		if ref.Type == ReferenceTypeAdvisory {
 			advisoryCount++
+		}
+		if ref.Type != ReferenceTypeAdvisory {
+			// An ADVISORY reference to a CVE/GHSA indicates that it
+			// is the canonical source of information on this vuln.
+			//
+			// A reference to a CVE/GHSA that is not an alias of this
+			// report indicates that it may contain related information.
+			//
+			// A reference to a CVE/GHSA that appears in the CVEs/GHSAs
+			// aliases is redundant.
+			for _, re := range []*regexp.Regexp{nistRegex, mitreRegex, ghsaRegex} {
+				if m := re.FindStringSubmatch(ref.URL); len(m) > 0 {
+					id := m[1]
+					if slices.Contains(r.CVEs, id) || slices.Contains(r.GHSAs, id) {
+						addIssue(fmt.Sprintf("redundant non-advisory reference to %v", id))
+					}
+				}
+			}
 		}
 	}
 	if advisoryCount > 1 {
