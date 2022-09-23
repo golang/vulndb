@@ -385,9 +385,6 @@ func (r *Report) Lint(filename string) []string {
 		} else if !slices.Contains(ExcludedReasons, r.Excluded) {
 			addIssue(fmt.Sprintf("excluded (%q) is not in set %v", r.Excluded, ExcludedReasons))
 		}
-		if len(r.Modules) != 0 {
-			addIssue("excluded report should not have modules")
-		}
 		if len(r.CVEs) == 0 && len(r.GHSAs) == 0 {
 			addIssue("excluded report must have at least one associated CVE or GHSA")
 		}
