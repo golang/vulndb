@@ -14,7 +14,13 @@ steps:
 
   - id: Unshallow
     name: gcr.io/cloud-builders/git
-    args: ["fetch", "--unshallow"]
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        if ! git fetch --unshallow; then
+          echo "git fetch --unshallow failed, no worries mate"
+        fi
 
   - id: Generate
     name: golang
