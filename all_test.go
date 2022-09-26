@@ -58,50 +58,41 @@ func TestLintReports(t *testing.T) {
 		if err != nil && !errors.Is(err, os.ErrNotExist) {
 			t.Fatalf("unable to read %v/: %s", dir, err)
 		}
-		for _, fi := range files {
-			if fi.IsDir() {
+		for _, file := range files {
+			if file.IsDir() {
 				continue
 			}
-			if filepath.Ext(fi.Name()) != ".yaml" {
+			if filepath.Ext(file.Name()) != ".yaml" {
 				continue
 			}
-			fn := filepath.Join(dir, fi.Name())
-			if allFiles[fi.Name()] != "" {
-				t.Errorf("report appears in multiple locations: %v, %v", allFiles[fi.Name()], fn)
+			filename := filepath.Join(dir, file.Name())
+			if allFiles[file.Name()] != "" {
+				t.Errorf("report appears in multiple locations: %v, %v", allFiles[file.Name()], filename)
 			}
-			allFiles[fi.Name()] = fn
-			reports = append(reports, fn)
+			allFiles[file.Name()] = filename
+			reports = append(reports, filename)
 		}
 	}
 	sort.Strings(reports)
-	for _, fn := range reports {
-		t.Run(fn, func(t *testing.T) {
-			r, err := report.Read(fn)
+	for _, filename := range reports {
+		t.Run(filename, func(t *testing.T) {
+			r, err := report.Read(filename)
 			if err != nil {
 				t.Fatal(err)
 			}
-			switch filepath.Base(filepath.Dir(fn)) {
-			case reportsDir:
-				if r.Excluded != "" {
-					t.Errorf("report in %q must not have excluded set", reportsDir)
-				}
-			case excludedDir:
-				if r.Excluded == "" {
-					t.Errorf("report in %q must have excluded set", excludedDir)
-				}
-			}
-			lints := r.Lint(fn)
+			lints := r.Lint(filename)
 			if len(lints) > 0 {
 				t.Errorf(strings.Join(lints, "\n"))
 			}
+			// Check that a correct OSV file was generated for each YAML report.
 			if r.Excluded == "" {
-				e1 := database.GenerateOSVEntry(fn, time.Time{}, r)
-				e2, err := database.ReadOSV(fmt.Sprintf("data/osv/%v.json", e1.ID))
+				generated := database.GenerateOSVEntry(filename, time.Time{}, r)
+				current, err := database.ReadOSV(fmt.Sprintf("data/osv/%v.json", generated.ID))
 				if err != nil {
 					t.Fatal(err)
 				}
-				if diff := cmp.Diff(e1, e2, cmpopts.EquateEmpty()); diff != "" {
-					t.Errorf("data/osv/%v.json does not match report:\n%v", e1.ID, diff)
+				if diff := cmp.Diff(generated, current, cmpopts.EquateEmpty()); diff != "" {
+					t.Errorf("data/osv/%v.json does not match report:\n%v", generated.ID, diff)
 				}
 			}
 		})
