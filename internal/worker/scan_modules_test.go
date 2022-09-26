@@ -10,10 +10,12 @@ import (
 	"flag"
 	"io"
 	"os"
+	"reflect"
 	"testing"
 
 	"golang.org/x/exp/event"
 	vulnc "golang.org/x/vuln/client"
+	"golang.org/x/vuln/vulncheck"
 	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"
 )
@@ -64,5 +66,18 @@ func TestScanModule(t *testing.T) {
 	}
 	if got, want := len(got.Vulns), 0; got != want {
 		t.Errorf("got %d vulns, want %d", got, want)
+	}
+}
+
+func TestRemoveUncalledVulns(t *testing.T) {
+	vulns := []*vulncheck.Vuln{
+		{CallSink: 0}, {CallSink: 1}, {CallSink: 2}, {CallSink: 0},
+	}
+	want := []*vulncheck.Vuln{
+		{CallSink: 1}, {CallSink: 2},
+	}
+	got := removeUncalledVulns(vulns)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got %v, want %v", got, want)
 	}
 }

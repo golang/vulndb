@@ -106,9 +106,13 @@ func processModule(ctx context.Context, modulePath, version string, dbClient vul
 	if err != nil {
 		return scanError{err}
 	}
-	for _, v := range res.Vulns {
-		log.Warningf(ctx, "module %s@%s is vulnerable to %s: package %s, symbol %s",
-			modulePath, version, v.OSV.ID, v.PkgPath, v.Symbol)
+	if len(res.Vulns) > 0 {
+		var vulnInfo []string
+		for _, v := range res.Vulns {
+			vulnInfo = append(vulnInfo, fmt.Sprintf("vuln: %s, package: %s, symbol: %s", v.OSV.ID, v.PkgPath, v.Symbol))
+		}
+		log.Warningf(ctx, "module %s@%s is vulnerable:\n\t%s",
+			modulePath, version, strings.Join(vulnInfo, "\n\t"))
 	}
 	return nil
 }
@@ -178,7 +182,24 @@ func scanModule(ctx context.Context, proxyURL, modulePath, version string, dbCli
 		return nil, err
 	}
 	vcfg := &vulncheck.Config{Client: dbClient}
-	return vulncheck.Source(ctx, vulncheck.Convert(pkgs), vcfg)
+	res, err := vulncheck.Source(ctx, vulncheck.Convert(pkgs), vcfg)
+	if err != nil {
+		return nil, err
+	}
+	res.Vulns = removeUncalledVulns(res.Vulns)
+	return res, nil
+}
+
+// removeUncalledVulns removes the vulnerabilities that import vulnerable
+// modules but do not call any vulnerable symbols.
+func removeUncalledVulns(vulns []*vulncheck.Vuln) []*vulncheck.Vuln {
+	var calledOnly []*vulncheck.Vuln
+	for _, v := range vulns {
+		if v.CallSink != 0 {
+			calledOnly = append(calledOnly, v)
+		}
+	}
+	return calledOnly
 }
 
 func loadPackages(cfg *packages.Config, patterns []string) ([]*packages.Package, error) {
