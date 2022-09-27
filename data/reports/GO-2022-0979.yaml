@@ -1,0 +1,18 @@
+modules:
+  - module: github.com/peterzen/goresolver
+    vulnerable_at: 1.0.2
+    packages:
+      - package: github.com/peterzen/goresolver
+description: |
+    DNSSEC validation is not performed correctly. An attacker can
+    cause this package to report successful validation for invalid,
+    attacker-controlled records.
+
+    The owner name of RRSIG RRs is not validated, permitting an attacker
+    to present the RRSIG for an attacker-controlled domain in a response
+    for any other domain.
+references:
+  - report: https://github.com/peterzen/goresolver/issues/5
+cve_metadata:
+    id: CVE-2022-3346
+    cwe: 'CWE 347: Improper Verification of Cryptographic Signature'

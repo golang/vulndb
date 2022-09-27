@@ -1,0 +1,43 @@
+{
+  "id": "GO-2022-0979",
+  "published": "0001-01-01T00:00:00Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-3346"
+  ],
+  "details": "DNSSEC validation is not performed correctly. An attacker can\ncause this package to report successful validation for invalid,\nattacker-controlled records.\n\nThe owner name of RRSIG RRs is not validated, permitting an attacker\nto present the RRSIG for an attacker-controlled domain in a response\nfor any other domain.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/peterzen/goresolver",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0979"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/peterzen/goresolver"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://github.com/peterzen/goresolver/issues/5"
+    }
+  ]
+}
