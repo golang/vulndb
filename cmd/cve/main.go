@@ -220,7 +220,7 @@ func reserve(c *cveclient.Client, opts cveclient.ReserveOptions) error {
 		fmt.Printf("warning: only %d of %d requested CVE IDs were reserved\n",
 			len(cves), opts.NumIDs)
 	}
-	fmt.Printf("successfully reserved %d CVE IDs:\n  %v\n", cvesReserved, cves.ShortString())
+	fmt.Println(cves.ShortString())
 	return nil
 }
 

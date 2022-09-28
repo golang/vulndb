@@ -76,13 +76,13 @@ func (c AssignedCVE) String() string {
 // AssignedCVEList is a list of AssignedCVEs.
 type AssignedCVEList []AssignedCVE
 
-// ShortString outputs a formatted string of comma-separated CVE IDs.
+// ShortString outputs a formatted string of newline-separated CVE IDs.
 func (cs AssignedCVEList) ShortString() string {
 	strs := []string{}
 	for _, c := range cs {
 		strs = append(strs, c.ID)
 	}
-	return strings.Join(strs, ", ")
+	return strings.Join(strs, "\n")
 }
 
 // String outputs a formatted string of newline-separated CVE data.
