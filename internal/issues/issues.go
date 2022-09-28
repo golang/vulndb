@@ -20,6 +20,7 @@ import (
 type Issue struct {
 	Title     string
 	Body      string
+	State     string
 	Labels    []string
 	CreatedAt time.Time
 }
@@ -107,6 +108,9 @@ func (c *githubClient) GetIssue(ctx context.Context, number int, opts GetIssueOp
 	}
 	if iss.CreatedAt != nil {
 		r.CreatedAt = *iss.CreatedAt
+	}
+	if iss.State != nil {
+		r.State = *iss.State
 	}
 	if opts.GetLabels {
 		labels, _, err := c.client.Issues.ListLabelsByIssue(ctx, c.owner, c.repo, number, nil)

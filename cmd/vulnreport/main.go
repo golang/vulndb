@@ -79,7 +79,7 @@ func main() {
 		}
 		for _, githubID := range githubIDs {
 			if err := create(ctx, githubID, cfg); err != nil {
-				log.Fatal(err)
+				fmt.Printf("skipped: %s\n", err)
 			}
 		}
 		return
@@ -246,7 +246,7 @@ func setupCreate(args []string) ([]int, *createCfg, error) {
 	if err != nil {
 		return nil, nil, err
 	}
-	if len(githubIDs) > 1 {
+	if len(githubIDs) > 1 && *localRepoPath == "" {
 		// Maybe we should automatically maintain a local clone of the
 		// cvelist repo, but for now we can avoid repeatedly fetching it
 		// when iterating over a list of reports.
@@ -362,15 +362,18 @@ func newReport(ctx context.Context, cfg *createCfg, parsed *parsedIssue) (*repor
 }
 
 type parsedIssue struct {
-	modulePath  string
-	cves        []string
-	ghsas       []string
-	excluded    report.ExcludedReason
-	isDuplicate bool
+	modulePath string
+	cves       []string
+	ghsas      []string
+	excluded   report.ExcludedReason
 }
 
 func parseGithubIssue(iss *issues.Issue) (*parsedIssue, error) {
 	var parsed *parsedIssue = &parsedIssue{}
+
+	if iss.State == "closed" {
+		return nil, errors.New("issue is closed")
+	}
 
 	// Parse labels for excluded and duplicate issues.
 	for _, label := range iss.Labels {
@@ -382,7 +385,7 @@ func parseGithubIssue(iss *issues.Issue) (*parsedIssue, error) {
 			}
 		}
 		if label == "duplicate" {
-			parsed.isDuplicate = true
+			return nil, fmt.Errorf("duplicate issue")
 		}
 	}
 
@@ -400,7 +403,7 @@ func parseGithubIssue(iss *issues.Issue) (*parsedIssue, error) {
 	}
 
 	if len(parsed.cves) == 0 && len(parsed.ghsas) == 0 {
-		return nil, fmt.Errorf("expected title to contain at least one CVE ID or GHSA ID; got %q", iss.Title)
+		return nil, fmt.Errorf("%q has no CVE or GHSA IDs", iss.Title)
 	}
 
 	return parsed, nil
