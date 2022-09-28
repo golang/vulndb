@@ -86,7 +86,7 @@ func Generate(ctx context.Context, repoDir, jsonDir string, indent bool) (err er
 			}
 		}
 	}
-	if err := writeJSON(filepath.Join(jsonDir, "index.json"), index, indent); err != nil {
+	if err := WriteJSON(filepath.Join(jsonDir, "index.json"), index, indent); err != nil {
 		return err
 	}
 	if err := writeAliasIndex(jsonDir, entries, indent); err != nil {
@@ -154,7 +154,7 @@ func writeVulns(outPath string, vulns []osv.Entry, indent bool) error {
 	if err := os.MkdirAll(filepath.Dir(outPath), 0755); err != nil {
 		return fmt.Errorf("failed to create directory %q: %s", filepath.Dir(outPath), err)
 	}
-	return writeJSON(outPath+".json", vulns, indent)
+	return WriteJSON(outPath+".json", vulns, indent)
 }
 
 func writeEntriesByID(idDir string, entries []osv.Entry, indent bool) error {
@@ -165,13 +165,13 @@ func writeEntriesByID(idDir string, entries []osv.Entry, indent bool) error {
 	var idIndex []string
 	for _, e := range entries {
 		outPath := filepath.Join(idDir, e.ID+".json")
-		if err := writeJSON(outPath, e, indent); err != nil {
+		if err := WriteJSON(outPath, e, indent); err != nil {
 			return err
 		}
 		idIndex = append(idIndex, e.ID)
 	}
 	// Write an index.json in the ID directory with a list of all the IDs.
-	return writeJSON(filepath.Join(idDir, "index.json"), idIndex, indent)
+	return WriteJSON(filepath.Join(idDir, "index.json"), idIndex, indent)
 }
 
 // Write a JSON file containing a map from alias to GO IDs.
@@ -182,10 +182,10 @@ func writeAliasIndex(dir string, entries []osv.Entry, indent bool) error {
 			aliasToGoIDs[a] = append(aliasToGoIDs[a], e.ID)
 		}
 	}
-	return writeJSON(filepath.Join(dir, "aliases.json"), aliasToGoIDs, indent)
+	return WriteJSON(filepath.Join(dir, "aliases.json"), aliasToGoIDs, indent)
 }
 
-func writeJSON(filename string, value any, indent bool) (err error) {
+func WriteJSON(filename string, value any, indent bool) (err error) {
 	defer derrors.Wrap(&err, "writeJSON(%s)", filename)
 
 	j, err := jsonMarshal(value, indent)

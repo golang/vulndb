@@ -551,12 +551,7 @@ func fix(ctx context.Context, filename string, accessToken string) (err error) {
 	// Write the OSV for non-excluded reports.
 	if r.Excluded == "" {
 		entry := database.GenerateOSVEntry(filename, time.Time{}, r)
-		j, err := json.MarshalIndent(entry, "", "  ")
-		if err != nil {
-			return err
-		}
-		jfilename := fmt.Sprintf("data/osv/%v.json", entry.ID)
-		if err := os.WriteFile(jfilename, j, 0644); err != nil {
+		if err := database.WriteJSON(fmt.Sprintf("data/osv/%v.json", entry.ID), entry, true); err != nil {
 			return err
 		}
 	}
