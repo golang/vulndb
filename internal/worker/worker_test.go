@@ -61,16 +61,6 @@ func TestCheckUpdate(t *testing.T) {
 			},
 			"not finish",
 		},
-		// latest update finished with error
-		{
-			&store.CommitUpdateRecord{
-				CommitHash: "abc",
-				CommitTime: tm.Add(-time.Hour),
-				EndedAt:    time.Now(),
-				Error:      "bad",
-			},
-			"with error",
-		},
 		// latest update finished on a later commit
 		{
 			&store.CommitUpdateRecord{

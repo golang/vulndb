@@ -100,11 +100,6 @@ func checkCVEUpdate(ctx context.Context, commit *object.Commit, st store.Store) 
 			msg: fmt.Sprintf("latest update started %s ago and has not finished", time.Since(lu.StartedAt)),
 		}
 	}
-	if lu.Error != "" {
-		return &CheckUpdateError{
-			msg: fmt.Sprintf("latest update finished with error %q", lu.Error),
-		}
-	}
 	if commit.Committer.When.Before(lu.CommitTime) {
 		return &CheckUpdateError{
 			msg: fmt.Sprintf("commit %s time %s is before latest update commit %s time %s",
