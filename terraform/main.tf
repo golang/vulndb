@@ -8,8 +8,7 @@ terraform {
   required_version = ">= 1.0.9, < 2.0.0"
   # Store terraform state in a GCS bucket, so all team members share it.
   backend "gcs" {
-    bucket = "go-discovery-exp"
-    prefix = "vuln"
+    bucket = "go-vuln"
   }
   required_providers {
     google = {
