@@ -28,19 +28,15 @@ import (
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
+	"golang.org/x/vulndb/internal/observe"
 	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"
-
-	mexporter "github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/metric"
-	texporter "github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/trace"
-	gcppropagator "github.com/GoogleCloudPlatform/opentelemetry-operations-go/propagator"
-	"go.opentelemetry.io/otel/metric"
-	"go.opentelemetry.io/otel/propagation"
-	sdktrace "go.opentelemetry.io/otel/sdk/trace"
-	eotel "golang.org/x/exp/event/otel"
 )
 
-const pkgsiteURL = "https://pkg.go.dev"
+const (
+	pkgsiteURL = "https://pkg.go.dev"
+	serverName = "vulndb-worker"
+)
 
 var staticPath = template.TrustedSourceFromConstant("internal/worker/static")
 
@@ -48,10 +44,7 @@ type Server struct {
 	cfg           Config
 	indexTemplate *template.Template
 	issueClient   issues.Client
-	traceHandler  event.Handler
-	metricHandler event.Handler
-	propagator    propagation.TextMapPropagator
-	afterRequest  func()
+	observer      *observe.Observer
 }
 
 func NewServer(ctx context.Context, cfg Config) (_ *Server, err error) {
@@ -59,22 +52,10 @@ func NewServer(ctx context.Context, cfg Config) (_ *Server, err error) {
 
 	s := &Server{cfg: cfg}
 
-	tracerProvider, meterProvider, err := initOpenTelemetry(cfg.Project)
+	s.observer, err = observe.NewObserver(ctx, cfg.Project, serverName)
 	if err != nil {
 		return nil, err
 	}
-	s.traceHandler = eotel.NewTraceHandler(tracerProvider.Tracer("vulndb-worker"))
-	s.metricHandler = eotel.NewMetricHandler(meterProvider.Meter("vulndb-worker"))
-
-	s.afterRequest = func() { tracerProvider.ForceFlush(ctx) }
-	// The propagator extracts incoming trace IDs so that we can connect our trace spans
-	// to the incoming ones constructed by Cloud Run.
-	s.propagator = propagation.NewCompositeTextMapPropagator(
-		propagation.TraceContext{},
-		propagation.Baggage{},
-		gcppropagator.New(),
-	)
-
 	if cfg.UseErrorReporting {
 		reportingClient, err := errorreporting.NewClient(ctx, cfg.Project, errorreporting.Config{
 			ServiceName: serviceID,
@@ -124,8 +105,11 @@ func NewServer(ctx context.Context, cfg Config) (_ *Server, err error) {
 func (s *Server) handle(_ context.Context, pattern string, handler func(w http.ResponseWriter, r *http.Request) error) {
 	http.HandleFunc(pattern, func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now()
-		r = s.beforeRequest(r)
-		defer s.afterRequest()
+		const traceIDHeader = "X-Cloud-Trace-Context"
+
+		traceID := r.Header.Get(traceIDHeader)
+		r = s.observer.BeforeRequest(r, log.NewGCPJSONHandler(os.Stderr, traceID))
+		defer s.observer.AfterRequest()
 		ctx := r.Context()
 		log.With("httpRequest", r).Infof(ctx, "starting %s", r.URL.Path)
 
@@ -138,18 +122,6 @@ func (s *Server) handle(_ context.Context, pattern string, handler func(w http.R
 			"status", translateStatus(w2.status)).
 			Infof(ctx, "request end")
 	})
-}
-
-func (s *Server) beforeRequest(r *http.Request) *http.Request {
-	traceID := r.Header.Get("X-Cloud-Trace-Context")
-	exporter := event.NewExporter(multiEventHandler{
-		log.NewGCPJSONHandler(os.Stderr, traceID),
-		s.traceHandler,
-		s.metricHandler,
-	}, nil)
-	ctx := event.WithExporter(r.Context(), exporter)
-	ctx = s.propagator.Extract(ctx, propagation.HeaderCarrier(r.Header))
-	return r.WithContext(ctx)
 }
 
 type serverError struct {
@@ -394,37 +366,4 @@ func (s *Server) handleUpdateAndIssues(w http.ResponseWriter, r *http.Request) e
 
 func (s *Server) handleScanModules(w http.ResponseWriter, r *http.Request) error {
 	return ScanModules(r.Context(), s.cfg.Store, r.FormValue("force") == "true")
-}
-
-func initOpenTelemetry(projectID string) (tp *sdktrace.TracerProvider, mp metric.MeterProvider, err error) {
-	defer derrors.Wrap(&err, "initOpenTelemetry(%q)", projectID)
-
-	exporter, err := texporter.New(texporter.WithProjectID(projectID))
-	if err != nil {
-		return nil, nil, err
-	}
-	tp = sdktrace.NewTracerProvider(
-		// Enable tracing if there is no incoming request, or if the incoming
-		// request is sampled.
-		sdktrace.WithSampler(sdktrace.ParentBased(sdktrace.AlwaysSample())),
-		sdktrace.WithBatcher(exporter))
-
-	// Create exporter (collector embedded with the exporter).
-	controller, err := mexporter.NewExportPipeline([]mexporter.Option{mexporter.WithProjectID(projectID)})
-	if err != nil {
-		return nil, nil, err
-	}
-	return tp, controller, nil
-}
-
-// multiEventHandler is an event.Handler that calls all of its contained handlers
-// on each event.
-type multiEventHandler []event.Handler
-
-// Event implements event.Handler.Event.
-func (eh multiEventHandler) Event(ctx context.Context, ev *event.Event) context.Context {
-	for _, h := range eh {
-		ctx = h.Event(ctx, ev)
-	}
-	return ctx
 }

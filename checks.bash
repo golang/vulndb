@@ -62,7 +62,8 @@ check_headers() {
 # check_unparam runs unparam on source files.
 check_unparam() {
   ensure_go_binary mvdan.cc/unparam
-  runcmd unparam ./...
+  # Temporarily exclude until updated for Go 1.20.
+  # runcmd unparam ./...
 }
 
 # check_vet runs go vet on source files.
