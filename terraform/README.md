@@ -11,10 +11,6 @@ with the information, like this one:
 prod_project    = "prod-project"
 prod_issue_repo = "org/repo"
 prod_client_id  = "xyzzy@apps.googleusercontent.com"
-
-dev_project    = "dev-project"
-dev_issue_repo = "org/dev-repo"
-dev_client_id  = "abc@@apps.googleusercontent.com"
 ```
 
 `terraform.tfvars` is in the repo's `.gitignore` file, so it won't show up in

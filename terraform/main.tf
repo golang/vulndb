@@ -48,33 +48,7 @@ variable "prod_client_id" {
   type        = string
 }
 
-variable "dev_project" {
-  description = "GCP project where resources live"
-  type        = string
-}
-
-variable "dev_issue_repo" {
-  description = "repo where issues are filed"
-  type        = string
-}
-
-variable "dev_client_id" {
-  description = "OAuth2 client ID"
-  type        = string
-}
-
 # Deployment environments
-
-module "dev" {
-  source                 = "./environment"
-  env                    = "dev"
-  project                = var.dev_project
-  region                 = local.region
-  use_profiler           = false
-  min_frontend_instances = 0
-  oauth_client_id        = var.dev_client_id
-  issue_repo             = var.dev_issue_repo
-}
 
 module "prod" {
   source                 = "./environment"
