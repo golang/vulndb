@@ -66,7 +66,7 @@ func TestGenerate(t *testing.T) {
 		Description: "It's a real bad one, I'll tell you that",
 		CVEs:        []string{"CVE-0000-0000"},
 		GHSAs:       []string{"GHSA-abcd-efgh"},
-		Credit:      "ignored",
+		Credit:      "gopherbot",
 		References: []*report.Reference{
 			{Type: report.ReferenceTypeAdvisory, URL: "advisory"},
 			{Type: report.ReferenceTypeReport, URL: "issue"},
@@ -193,6 +193,11 @@ func TestGenerate(t *testing.T) {
 						},
 					},
 				},
+			},
+		},
+		Credits: []osv.Credit{
+			{
+				Name: "gopherbot",
 			},
 		},
 	}

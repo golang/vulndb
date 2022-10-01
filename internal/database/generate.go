@@ -206,12 +206,21 @@ func ReadOSV(filename string) (osv.Entry, error) {
 // takes the ID for the vuln and a URL that will point to the entry in the vuln DB.
 func GenerateOSVEntry(filename string, lastModified time.Time, r *report.Report) osv.Entry {
 	id := report.GetGoIDFromFilename(filename)
+
+	var credits []osv.Credit
+	if r.Credit != "" {
+		credits = append(credits, osv.Credit{
+			Name: r.Credit,
+		})
+	}
+
 	entry := osv.Entry{
 		ID:        id,
 		Published: r.Published,
 		Modified:  lastModified,
 		Withdrawn: r.Withdrawn,
 		Details:   r.Description,
+		Credits:   credits,
 	}
 
 	linkName := report.GetGoAdvisoryLink(id)
