@@ -1,0 +1,41 @@
+modules:
+  - module: github.com/cloudwego/hertz
+    versions:
+      - fixed: 0.3.1
+    vulnerable_at: 0.3.0
+    packages:
+      - package: github.com/cloudwego/hertz/pkg/protocol
+        symbols:
+          - normalizePath
+        derived_symbols:
+          - Cookie.SetPath
+          - Cookie.SetPathBytes
+          - NewRequest
+          - ParseURI
+          - Request.Host
+          - Request.ParseURI
+          - Request.Path
+          - Request.QueryString
+          - Request.SetHost
+          - Request.SetQueryString
+          - Request.URI
+          - URI.Parse
+          - URI.SetPath
+          - URI.SetPathBytes
+          - URI.Update
+          - URI.UpdateBytes
+        goos:
+          - windows
+description: |
+    Improper path sanitization on Windows permits path traversal attacks.
+    Static file serving with the Static or StaticFS functions allows an
+    attacker to access files from outside the filesystem root.
+
+    This vulnerability does not affect non-Windows systems.
+cves:
+  - CVE-2022-40082
+ghsas:
+  - GHSA-c9qr-f6c8-rgxf
+references:
+  - web: https://github.com/cloudwego/hertz/issues/228
+  - fix: https://github.com/cloudwego/hertz/pull/229

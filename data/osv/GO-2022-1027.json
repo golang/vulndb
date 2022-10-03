@@ -1,0 +1,73 @@
+{
+  "id": "GO-2022-1027",
+  "published": "0001-01-01T00:00:00Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-40082",
+    "GHSA-c9qr-f6c8-rgxf"
+  ],
+  "details": "Improper path sanitization on Windows permits path traversal attacks.\nStatic file serving with the Static or StaticFS functions allows an\nattacker to access files from outside the filesystem root.\n\nThis vulnerability does not affect non-Windows systems.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cloudwego/hertz",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.3.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-1027"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cloudwego/hertz/pkg/protocol",
+            "goos": [
+              "windows"
+            ],
+            "symbols": [
+              "Cookie.SetPath",
+              "Cookie.SetPathBytes",
+              "NewRequest",
+              "ParseURI",
+              "Request.Host",
+              "Request.ParseURI",
+              "Request.Path",
+              "Request.QueryString",
+              "Request.SetHost",
+              "Request.SetQueryString",
+              "Request.URI",
+              "URI.Parse",
+              "URI.SetPath",
+              "URI.SetPathBytes",
+              "URI.Update",
+              "URI.UpdateBytes",
+              "normalizePath"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/cloudwego/hertz/issues/228"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cloudwego/hertz/pull/229"
+    }
+  ]
+}
