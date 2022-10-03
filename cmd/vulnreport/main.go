@@ -569,9 +569,6 @@ func checkReportSymbols(r *report.Report) error {
 			if len(p.Symbols) == 0 {
 				continue
 			}
-			if len(p.GOOS) > 0 || len(p.GOARCH) > 0 {
-				return errors.New("specific GOOS/GOARCH not yet implemented")
-			}
 			syms, err := findExportedSymbols(m, p, rc)
 			if err != nil {
 				return err
