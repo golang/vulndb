@@ -55,6 +55,7 @@ func main() {
 		fmt.Fprintf(flag.CommandLine.Output(), "  lint filename.yaml ...: lints vulnerability YAML reports\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  newcve filename.yaml ...: creates CVEs report from the provided YAML reports\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  fix filename.yaml ...: fixes and reformats YAML reports\n")
+		fmt.Fprintf(flag.CommandLine.Output(), "  osv filename.yaml ...: converts YAMLS reports to OSV JSON and writes to data/osv\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  set-dates filename.yaml ...: sets PublishDate of YAML reports\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  commit filename.yaml ...: creates new commits for YAML reports\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  xref filename.yaml ...: prints cross references for YAML reports\n")
@@ -95,6 +96,8 @@ func main() {
 		cmdFunc = newCVE
 	case "fix":
 		cmdFunc = func(name string) error { return fix(ctx, name, *githubToken) }
+	case "osv":
+		cmdFunc = osvCmd
 	case "set-dates":
 		repo, err := gitrepo.Open(ctx, ".")
 		if err != nil {
@@ -548,12 +551,8 @@ func fix(ctx context.Context, filename string, accessToken string) (err error) {
 	if err := r.Write(filename); err != nil {
 		return err
 	}
-	// Write the OSV for non-excluded reports.
-	if r.Excluded == "" {
-		entry := database.GenerateOSVEntry(filename, time.Time{}, r)
-		if err := database.WriteJSON(fmt.Sprintf("data/osv/%v.json", entry.ID), entry, true); err != nil {
-			return err
-		}
+	if _, err := writeOSV(r, filename); err != nil {
+		return err
 	}
 	return nil
 }
@@ -684,6 +683,35 @@ func findExportedSymbols(m *report.Module, p *report.Package, c *reportClient) (
 	return newslice, nil
 }
 
+func osvCmd(filename string) (err error) {
+	defer derrors.Wrap(&err, "osv(%q)", filename)
+	r, err := report.Read(filename)
+	if err != nil {
+		return err
+	}
+	if !checkLint(r, filename) {
+		return nil
+	}
+	osvFilename, err := writeOSV(r, filename)
+	if err != nil {
+		return err
+	}
+	fmt.Println(osvFilename)
+	return nil
+}
+
+func writeOSV(r *report.Report, filename string) (string, error) {
+	if r.Excluded == "" {
+		entry := database.GenerateOSVEntry(filename, time.Time{}, r)
+		osvFilename := fmt.Sprintf("data/osv/%v.json", entry.ID)
+		if err := database.WriteJSON(osvFilename, entry, true); err != nil {
+			return "", err
+		}
+		return osvFilename, nil
+	}
+	return "", nil
+}
+
 var reportRegexp = regexp.MustCompile(`^(data/\w+)/GO-\d\d\d\d-(\d+)\.yaml$`)
 
 func commit(ctx context.Context, filename, accessToken string) (err error) {
@@ -702,12 +730,7 @@ func commit(ctx context.Context, filename, accessToken string) (err error) {
 	if err != nil {
 		return err
 	}
-	if lints := r.Lint(filename); len(lints) > 0 {
-		fmt.Fprintf(os.Stderr, "%v: contains lint warnings, not committing\n", filename)
-		for _, l := range lints {
-			fmt.Fprintln(os.Stderr, l)
-		}
-		fmt.Fprintln(os.Stderr)
+	if !checkLint(r, filename) {
 		return nil
 	}
 
@@ -761,6 +784,18 @@ func commit(ctx context.Context, filename, accessToken string) (err error) {
 	}
 
 	return nil
+}
+
+func checkLint(r *report.Report, filename string) bool {
+	if lints := r.Lint(filename); len(lints) > 0 {
+		fmt.Fprintf(os.Stderr, "%v: contains lint warnings\n", filename)
+		for _, l := range lints {
+			fmt.Fprintln(os.Stderr, l)
+		}
+		fmt.Fprintln(os.Stderr)
+		return false
+	}
+	return true
 }
 
 // Regexp for matching go tags. The groups are:
