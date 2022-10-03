@@ -36,18 +36,6 @@ type SecurityAdvisory struct {
 	Vulns []*Vuln
 }
 
-// GHSA is the GHSA ID corresponding to this SecurityAdvisory.
-// It is different from sa.ID, which is the identifier in the GHSA database.
-func (sa *SecurityAdvisory) GHSA() string {
-	for _, id := range sa.Identifiers {
-		if id.Type == "GHSA" {
-			return id.Value
-		}
-	}
-	// This should never happen.
-	return "UNKNOWN"
-}
-
 // An Identifier identifies an advisory according to some scheme or
 // organization, given by the Type field. Example types are GHSA and CVE.
 type Identifier struct {
@@ -68,16 +56,6 @@ type Vuln struct {
 	VulnerableVersionRange string
 	// When the vulnerability was last updated.
 	UpdatedAt time.Time
-}
-
-// PrettyID returns the most human-readable GHSA identifier available.
-func (s *SecurityAdvisory) PrettyID() string {
-	for _, id := range s.Identifiers {
-		if id.Type == "GHSA" {
-			return id.Value
-		}
-	}
-	return s.ID
 }
 
 // A gqlSecurityAdvisory represents a GitHub security advisory structured for

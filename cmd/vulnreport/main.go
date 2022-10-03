@@ -289,7 +289,7 @@ func create(ctx context.Context, issueNumber int, cfg *createCfg) (err error) {
 				return err
 			}
 			for _, sa := range sas {
-				parsed.ghsas = append(parsed.ghsas, sa.GHSA())
+				parsed.ghsas = append(parsed.ghsas, sa.ID)
 			}
 		}
 		slices.Sort(parsed.ghsas)
@@ -941,7 +941,7 @@ func loadGHSAsByCVE(ctx context.Context, accessToken string) (_ map[string][]str
 	for _, sa := range sas {
 		for _, id := range sa.Identifiers {
 			if id.Type == "CVE" {
-				m[id.Value] = append(m[id.Value], sa.PrettyID())
+				m[id.Value] = append(m[id.Value], sa.ID)
 			}
 		}
 	}
@@ -964,7 +964,7 @@ func fixGHSAs(ctx context.Context, r *report.Report, accessToken string) error {
 			return err
 		}
 		for _, sa := range sas {
-			m[sa.PrettyID()] = struct{}{}
+			m[sa.ID] = struct{}{}
 		}
 	}
 	var gids []string

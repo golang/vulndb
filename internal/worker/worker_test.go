@@ -247,7 +247,7 @@ cves:
 func TestNewGHSABody(t *testing.T) {
 	r := &store.GHSARecord{
 		GHSA: &ghsa.SecurityAdvisory{
-			ID:          "G1_blah",
+			ID:          "G1",
 			Identifiers: []ghsa.Identifier{{Type: "GHSA", Value: "G1"}},
 			Permalink:   "https://github.com/permalink/to/G1",
 			Description: "a description",

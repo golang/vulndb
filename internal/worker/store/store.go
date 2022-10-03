@@ -64,7 +64,6 @@ type CVERecord struct {
 }
 
 func (r *CVERecord) GetID() string                { return r.ID }
-func (r *CVERecord) GetPrettyID() string          { return r.ID }
 func (r *CVERecord) GetUnit() string              { return r.Module }
 func (r *CVERecord) GetIssueReference() string    { return r.IssueReference }
 func (r *CVERecord) GetIssueCreatedAt() time.Time { return r.IssueCreatedAt }
@@ -201,8 +200,6 @@ func (r *GHSARecord) GetID() string                { return r.GHSA.ID }
 func (r *GHSARecord) GetUnit() string              { return r.GHSA.Vulns[0].Package }
 func (r *GHSARecord) GetIssueReference() string    { return r.IssueReference }
 func (r *GHSARecord) GetIssueCreatedAt() time.Time { return r.IssueCreatedAt }
-
-func (r *GHSARecord) GetPrettyID() string { return r.GHSA.PrettyID() }
 
 // A ModuleScanRecord holds information about a vulnerability scan of a module.
 type ModuleScanRecord struct {

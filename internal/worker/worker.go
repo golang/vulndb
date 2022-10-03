@@ -361,7 +361,7 @@ func CreateGHSABody(sa *ghsa.SecurityAdvisory) (body string, err error) {
 	var b strings.Builder
 	intro := fmt.Sprintf(
 		"In GitHub Security Advisory [%s](%s), there is a vulnerability in the following Go packages or modules:",
-		sa.GHSA(), sa.Permalink)
+		sa.ID, sa.Permalink)
 	intro += "\n\n" + vulnTable(sa.Vulns)
 	if err := issueTemplate.Execute(&b, issueTemplateData{
 		Intro:  intro,
@@ -386,7 +386,6 @@ func vulnTable(vs []*ghsa.Vuln) string {
 
 type storeRecord interface {
 	GetID() string
-	GetPrettyID() string
 	GetUnit() string
 	GetIssueReference() string
 	GetIssueCreatedAt() time.Time
@@ -410,13 +409,13 @@ func createIssue(ctx context.Context, r storeRecord, ic issues.Client, newBody f
 		return "", nil
 	}
 	var labels []string
-	label := yearLabel(r.GetPrettyID())
+	label := yearLabel(r.GetID())
 	if label != "" {
 		labels = append(labels, label)
 	}
 	// Create the issue.
 	iss := &issues.Issue{
-		Title:  fmt.Sprintf("x/vulndb: potential Go vuln in %s: %s", r.GetUnit(), r.GetPrettyID()),
+		Title:  fmt.Sprintf("x/vulndb: potential Go vuln in %s: %s", r.GetUnit(), r.GetID()),
 		Body:   body,
 		Labels: labels,
 	}
