@@ -3,7 +3,7 @@ module golang.org/x/vulndb
 go 1.18
 
 require (
-	golang.org/x/vuln v0.0.0-20220901195212-c1a82ac9a5ef
+	golang.org/x/vuln v0.0.0-20221004232641-2aa0553d353b
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 )
 
@@ -31,7 +31,7 @@ require (
 	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8
 	golang.org/x/sync v0.0.0-20220722155255-886fb9371eb4
 	golang.org/x/time v0.0.0-20191024005414-555d28b269f0
-	golang.org/x/tools v0.1.13-0.20220803210227-8b9a1fbdf5c3
+	golang.org/x/tools v0.1.13-0.20220928184430-f80e98464e27
 	google.golang.org/api v0.70.0
 	google.golang.org/grpc v1.44.0
 	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
