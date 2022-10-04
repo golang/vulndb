@@ -20,6 +20,9 @@ modules:
           - sparc
         symbols:
           - cbcAEAD.computeAuthTag
+        derived_symbols:
+          - cbcAEAD.Open
+          - cbcAEAD.Seal
       - package: github.com/square/go-jose
         goarch:
           - "386"

@@ -2,12 +2,16 @@ modules:
   - module: github.com/labstack/echo/v4
     versions:
       - fixed: 4.1.18-0.20201215153152-4422e3b66b9f
+    vulnerable_at: 4.1.17
     packages:
       - package: github.com/labstack/echo/v4
         goos:
           - windows
         symbols:
           - common.static
+        derived_symbols:
+          - Echo.Static
+          - Group.Static
 description: |
     Due to improper sanitization of user input on Windows, the static file handler
     allows for directory traversal, allowing an attacker to read files outside of
