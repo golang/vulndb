@@ -2,6 +2,7 @@ modules:
   - module: github.com/square/go-jose
     versions:
       - fixed: 0.0.0-20160903044734-789a4c4bd4c1
+    vulnerable_at: 0.0.0-20160831221313-d00415a0a4fd
     packages:
       - package: github.com/square/go-jose/cipher
         goarch:
@@ -35,7 +36,6 @@ modules:
           - sparc
         symbols:
           - JsonWebEncryption.Decrypt
-          - JsonWebEncryption.DecryptMulti
 description: |
     On 32-bit platforms an attacker can manipulate a ciphertext encrypted with AES-CBC
     with HMAC such that they can control how large the input buffer is when computing
