@@ -447,6 +447,10 @@ func xref(rname string, r *report.Report, existingByFile map[string]*report.Repo
 	}
 	// This sorts as CVEs, GHSAs, and then modules.
 	for _, id := range sorted(maps.Keys(existingByID)) {
+		// Skip cross-references for standard library and toolchain.
+		if id == "Module std" || id == "Module cmd" {
+			continue
+		}
 		for _, fname := range sorted(existingByID[id]) {
 			fmt.Fprintf(out, "%v appears in %v", id, fname)
 			e := existingByFile[fname].Excluded
