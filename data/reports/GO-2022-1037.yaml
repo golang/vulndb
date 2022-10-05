@@ -1,0 +1,28 @@
+modules:
+  - module: std
+    versions:
+      - fixed: 1.18.7
+      - introduced: 1.19.0
+        fixed: 1.19.2
+    vulnerable_at: 1.19.1
+    packages:
+      - package: archive/tar
+        symbols:
+          - Reader.next
+          - parsePAX
+          - Writer.writePAXHeader
+        derived_symbols:
+          - Reader.Next
+          - Writer.WriteHeader
+description: |
+    Reader.Read does not set a limit on the maximum size of file headers.
+    A maliciously crafted archive could cause Read to allocate unbounded
+    amounts of memory, potentially causing resource exhaustion or panics.
+    After fix, Reader.Read limits the maximum size of header blocks to 1 MiB.
+credit: Adam Korczynski (ADA Logics) and OSS-Fuzz
+references:
+  - report: https://go.dev/issue/54853
+  - fix: https://go.dev/cl/439355
+  - web: https://groups.google.com/g/golang-announce/c/xtuG5faxtaU
+cve_metadata:
+    id: CVE-2022-2879
