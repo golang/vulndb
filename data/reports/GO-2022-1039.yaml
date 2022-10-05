@@ -1,0 +1,34 @@
+modules:
+  - module: std
+    versions:
+      - fixed: 1.18.7
+      - introduced: 1.19.0
+        fixed: 1.19.2
+    vulnerable_at: 1.19.1
+    packages:
+      - package: regexp/syntax
+        symbols:
+          - parser.push
+          - parser.repeat
+          - parser.factor
+          - parse
+        derived_symbols:
+          - Parse
+description: |
+    Programs which compile regular expressions from untrusted sources may be
+    vulnerable to memory exhaustion or denial of service.
+
+    The parsed regexp representation is linear in the size of the input,
+    but in some cases the constant factor can be as high as 40,000,
+    making relatively small regexps consume much larger amounts of memory.
+
+    After fix, each regexp being parsed is limited to a 256 MB memory
+    footprint. Regular expressions whose representation would use more space
+    than that are rejected. Normal use of regular expressions is unaffected.
+credit: Adam Korczynski (ADA Logics) and OSS-Fuzz
+references:
+  - report: https://go.dev/issue/55949
+  - fix: https://go.dev/cl/439356
+  - web: https://groups.google.com/g/golang-announce/c/xtuG5faxtaU
+cve_metadata:
+    id: CVE-2022-41715
