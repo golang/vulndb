@@ -1,0 +1,30 @@
+modules:
+  - module: std
+    versions:
+      - fixed: 1.18.7
+      - introduced: 1.19.0
+        fixed: 1.19.2
+    vulnerable_at: 1.19.1
+    packages:
+      - package: net/http/httputil
+        symbols:
+          - ReverseProxy.ServeHTTP
+description: |
+    Requests forwarded by ReverseProxy include the raw query parameters from
+    the inbound request, including unparseable parameters rejected by net/http.
+    This could permit query parameter smuggling when a Go proxy forwards a
+    parameter with an unparseable value.
+
+    After fix, ReverseProxy sanitizes the query parameters in the forwarded
+    query when the outbound request's Form field is set after the ReverseProxy.
+    Director function returns, indicating that the proxy has parsed the query
+    parameters. Proxies which do not parse query parameters continue to forward
+    the original query parameters unchanged.
+credit: |
+    Gal Goldstein (Security Researcher, Oxeye) and Daniel Abeles (Head of Research, Oxeye)
+references:
+  - report: https://go.dev/issue/54663
+  - fix: https://go.dev/cl/432976
+  - web: https://groups.google.com/g/golang-announce/c/xtuG5faxtaU
+cve_metadata:
+    id: CVE-2022-2880
