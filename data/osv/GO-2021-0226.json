@@ -5,7 +5,7 @@
   "aliases": [
     "CVE-2020-24553"
   ],
-  "details": "When a Handler does not explicitly set the Content-Type header, the the\npackage would default to “text/html”, which could cause a Cross-Site Scripting\nvulnerability if an attacker can control any part of the contents of a\nresponse.\n\nThe Content-Type header is now set based on the contents of the first Write\nusing http.DetectContentType, which is consistent with the behavior of the\nnet/http package.\n\nAlthough this protects some applications that validate the contents of\nuploaded files, not setting the Content-Type header explicitly on any\nattacker-controlled file is unsafe and should be avoided.\n",
+  "details": "When a Handler does not explicitly set the Content-Type header, the the package would default to “text/html”, which could cause a Cross-Site Scripting vulnerability if an attacker can control any part of the contents of a response.\n\nThe Content-Type header is now set based on the contents of the first Write using http.DetectContentType, which is consistent with the behavior of the net/http package.\n\nAlthough this protects some applications that validate the contents of uploaded files, not setting the Content-Type header explicitly on any attacker-controlled file is unsafe and should be avoided.",
   "affected": [
     {
       "package": {

@@ -5,7 +5,7 @@
   "aliases": [
     "CVE-2017-15041"
   ],
-  "details": "The \"go get\" command allows remote command execution.\n\nUsing custom domains, it is possible to arrange things so that\nexample.com/pkg1 points to a Subversion repository but\nexample.com/pkg1/pkg2 points to a Git repository. If the Subversion\nrepository includes a Git checkout in its pkg2 directory and\nsome other work is done to ensure the proper ordering of operations, \"go\nget\" can be tricked into reusing this Git checkout for the fetch of code\nfrom pkg2. If the Subversion repository's Git checkout has malicious\ncommands in .git/hooks/, they will execute on the system running \"go get\".\n",
+  "details": "The \"go get\" command allows remote command execution.\n\nUsing custom domains, it is possible to arrange things so that example.com/pkg1 points to a Subversion repository but example.com/pkg1/pkg2 points to a Git repository. If the Subversion repository includes a Git checkout in its pkg2 directory and some other work is done to ensure the proper ordering of operations, \"go get\" can be tricked into reusing this Git checkout for the fetch of code from pkg2. If the Subversion repository's Git checkout has malicious commands in .git/hooks/, they will execute on the system running \"go get\".",
   "affected": [
     {
       "package": {

@@ -5,7 +5,7 @@
   "aliases": [
     "CVE-2018-6574"
   ],
-  "details": "The \"go get\" command with cgo is vulnerable to remote command execution\nby leveraging the gcc or clang plugin feature.\n\nWhen cgo is enabled, the build step during \"go get\" invokes the host C\ncompiler, gcc or clang, adding compiler flags specified in the Go source\nfiles. Both gcc and clang support a plugin mechanism in which a\nshared-library plugin is loaded into the compiler, as directed by\ncompiler flags. This means that a Go package repository can contain an\nattack.so file along with a Go source file that says (for example)\n\"// #cgo CFLAGS: -fplugin=attack.so\" causing the attack plugin to be\nloaded into the host C compiler during the build. Gcc and clang plugins are\ncompletely unrestricted in their access to the host system.\n",
+  "details": "The \"go get\" command with cgo is vulnerable to remote command execution by leveraging the gcc or clang plugin feature.\n\nWhen cgo is enabled, the build step during \"go get\" invokes the host C compiler, gcc or clang, adding compiler flags specified in the Go source files. Both gcc and clang support a plugin mechanism in which a shared-library plugin is loaded into the compiler, as directed by compiler flags. This means that a Go package repository can contain an attack.so file along with a Go source file that says (for example) \"// #cgo CFLAGS: -fplugin=attack.so\" causing the attack plugin to be loaded into the host C compiler during the build. Gcc and clang plugins are completely unrestricted in their access to the host system.",
   "affected": [
     {
       "package": {

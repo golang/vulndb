@@ -7,7 +7,7 @@
     "GHSA-h289-x5wc-xcv8",
     "GHSA-m658-p24x-p74r"
   ],
-  "details": "Websocket client connections are vulnerable to man-in-the-middle\nattacks via DNS spoofing.\n\nWhen looking up a WSS endpoint using a DNS TXT record, the server\nTLS certificate is incorrectly validated using the name of the\nserver returned by the TXT record request, not the name of the\nthe server being connected to. This permits any attacker that\ncan spoof a DNS record to redirect the user to a server of their\nchoosing.\n\nProviding a *tls.Config with a ServerName field set to the\ncorrect destination hostname will avoid this issue.\n",
+  "details": "Websocket client connections are vulnerable to man-in-the-middle attacks via DNS spoofing.\n\nWhen looking up a WSS endpoint using a DNS TXT record, the server TLS certificate is incorrectly validated using the name of the server returned by the TXT record request, not the name of the the server being connected to. This permits any attacker that can spoof a DNS record to redirect the user to a server of their choosing.\n\nProviding a *tls.Config with a ServerName field set to the correct destination hostname will avoid this issue.",
   "affected": [
     {
       "package": {

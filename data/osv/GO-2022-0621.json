@@ -7,7 +7,7 @@
     "CVE-2019-17110",
     "GHSA-2v6x-frw8-7r7f"
   ],
-  "details": "Exposing annotations as metrics can leak secrets.\n\nAn experimental feature of kube-state-metrics enables annotations\nto be exposed as metrics. By default, metrics only expose metadata\nabout secrets. However, a combination of the default kubectl behavior\nand this new feature can cause the entire secret content to end up\nin metric labels.\n",
+  "details": "Exposing annotations as metrics can leak secrets.\n\nAn experimental feature of kube-state-metrics enables annotations to be exposed as metrics. By default, metrics only expose metadata about secrets. However, a combination of the default kubectl behavior and this new feature can cause the entire secret content to end up in metric labels.",
   "affected": [
     {
       "package": {

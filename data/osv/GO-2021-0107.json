@@ -6,7 +6,7 @@
     "CVE-2021-4236",
     "GHSA-5gjg-jgh4-gppm"
   ],
-  "details": "Web Sockets do not execute any AuthenticateMethod methods which may be set,\nleading to a nil pointer dereference if the returned UserData pointer is\nassumed to be non-nil, or authentication bypass.\n\nThis issue only affects WebSockets with an AuthenticateMethod hook.\nRequest handlers that do not explicitly use WebSockets are not\nvulnerable.\n",
+  "details": "Web Sockets do not execute any AuthenticateMethod methods which may be set, leading to a nil pointer dereference if the returned UserData pointer is assumed to be non-nil, or authentication bypass.\n\nThis issue only affects WebSockets with an AuthenticateMethod hook. Request handlers that do not explicitly use WebSockets are not vulnerable.",
   "affected": [
     {
       "package": {

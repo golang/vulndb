@@ -5,7 +5,7 @@
   "aliases": [
     "CVE-2019-16276"
   ],
-  "details": "net/http (through net/textproto) used to accept and normalize invalid\nHTTP/1.1 headers with a space before the colon, in violation of RFC 7230.\n\nIf a Go server is used behind an uncommon reverse proxy that accepts and\nforwards but doesn't normalize such invalid headers, the reverse proxy and\nthe server can interpret the headers differently. This can lead to filter\nbypasses or request smuggling, the latter if requests from separate clients\nare multiplexed onto the same upstream connection by the proxy. Such\ninvalid headers are now rejected by Go servers, and passed without\nnormalization to Go client applications.\n",
+  "details": "net/http (through net/textproto) used to accept and normalize invalid HTTP/1.1 headers with a space before the colon, in violation of RFC 7230.\n\nIf a Go server is used behind an uncommon reverse proxy that accepts and forwards but doesn't normalize such invalid headers, the reverse proxy and the server can interpret the headers differently. This can lead to filter bypasses or request smuggling, the latter if requests from separate clients are multiplexed onto the same upstream connection by the proxy. Such invalid headers are now rejected by Go servers, and passed without normalization to Go client applications.",
   "affected": [
     {
       "package": {

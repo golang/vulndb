@@ -6,7 +6,7 @@
     "CVE-2020-8568",
     "GHSA-5cgx-vhfp-6cf9"
   ],
-  "details": "Modifying pod status allows host directory traversal.\n\nKubernetes Secrets Store CSI Driver allows an attacker who can\nmodify a SecretProviderClassPodStatus/Status resource the ability\nto write content to the host filesystem and sync file contents\nto Kubernetes Secrets. This includes paths under var/lib/kubelet/pods\nthat contain other Kubernetes Secrets.\n",
+  "details": "Modifying pod status allows host directory traversal.\n\nKubernetes Secrets Store CSI Driver allows an attacker who can modify a SecretProviderClassPodStatus/Status resource the ability to write content to the host filesystem and sync file contents to Kubernetes Secrets. This includes paths under var/lib/kubelet/pods that contain other Kubernetes Secrets.",
   "affected": [
     {
       "package": {

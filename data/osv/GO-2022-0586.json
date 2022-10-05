@@ -12,7 +12,7 @@
     "GHSA-fcgg-rvwg-jv58",
     "GHSA-x24g-9w7v-vprh"
   ],
-  "details": "Malicious HTTP responses can cause a number of misbehaviors,\nincluding overwriting local files, resource exhaustion, and panics.\n\n* Protocol switching, endless redirect, and configuration bypass are\n  possible through abuse of custom HTTP response header processing.\n\n* Arbitrary host access is possible through go-getter path traversal,\n  symlink processing, and command injection flaws.\n\n* Asymmetric resource exhaustion can occur when go-getter processes\n  malicious HTTP responses.\n\n* A panic can be triggered when go-getter processed password-protected ZIP\n  files.\n",
+  "details": "Malicious HTTP responses can cause a number of misbehaviors, including overwriting local files, resource exhaustion, and panics.\n\n* Protocol switching, endless redirect, and configuration bypass are possible through abuse of custom HTTP response header processing.\n\n* Arbitrary host access is possible through go-getter path traversal, symlink processing, and command injection flaws.\n\n* Asymmetric resource exhaustion can occur when go-getter processes malicious HTTP responses.\n\n* A panic can be triggered when go-getter processed password-protected ZIP files.",
   "affected": [
     {
       "package": {

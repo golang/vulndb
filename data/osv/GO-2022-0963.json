@@ -6,7 +6,7 @@
     "CVE-2022-36078",
     "GHSA-4p6f-m4f9-ch88"
   ],
-  "details": "A memory allocation vulnerability can be exploited to allocate arbitrarily\nlarge slices, which can exhaust available memory or crash the program.\n\nWhen parsing data from untrusted sources of input (e.g. the blockchain),\nthe length of the slice to allocate is read directly from the data itself\nwithout any checks, which could lead to an allocation of excessive memory.\n",
+  "details": "A memory allocation vulnerability can be exploited to allocate arbitrarily large slices, which can exhaust available memory or crash the program.\n\nWhen parsing data from untrusted sources of input (e.g. the blockchain), the length of the slice to allocate is read directly from the data itself without any checks, which could lead to an allocation of excessive memory.",
   "affected": [
     {
       "package": {

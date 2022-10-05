@@ -5,7 +5,7 @@
   "aliases": [
     "CVE-2018-16874"
   ],
-  "details": "The \"go get\" command is vulnerable to directory traversal when executed\nwith the import path of a malicious Go package which contains curly brace\n(both '{'  and '}' characters).\n\nSpecifically, it is only vulnerable in GOPATH mode, but not in module mode\n(the distinction is documented at\nhttps://golang.org/cmd/go/#hdr-Module_aware_go_get). The attacker can cause\nan arbitrary filesystem write, which can lead to code execution.\n",
+  "details": "The \"go get\" command is vulnerable to directory traversal when executed with the import path of a malicious Go package which contains curly brace (both '{' and '}' characters).\n\nSpecifically, it is only vulnerable in GOPATH mode, but not in module mode (the distinction is documented at https://golang.org/cmd/go/#hdr-Module_aware_go_get). The attacker can cause an arbitrary filesystem write, which can lead to code execution.",
   "affected": [
     {
       "package": {

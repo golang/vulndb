@@ -5,7 +5,7 @@
   "aliases": [
     "CVE-2022-2879"
   ],
-  "details": "Reader.Read does not set a limit on the maximum size of file headers.\nA maliciously crafted archive could cause Read to allocate unbounded\namounts of memory, potentially causing resource exhaustion or panics.\nAfter fix, Reader.Read limits the maximum size of header blocks to 1 MiB.\n",
+  "details": "Reader.Read does not set a limit on the maximum size of file headers. A maliciously crafted archive could cause Read to allocate unbounded amounts of memory, potentially causing resource exhaustion or panics. After fix, Reader.Read limits the maximum size of header blocks to 1 MiB.",
   "affected": [
     {
       "package": {

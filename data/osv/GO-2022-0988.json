@@ -5,7 +5,7 @@
   "aliases": [
     "CVE-2022-32190"
   ],
-  "details": "JoinPath and URL.JoinPath do not remove ../ path elements appended\nto a relative path. For example, JoinPath(\"https://go.dev\", \"../go\")\nreturns the URL \"https://go.dev/../go\", despite the JoinPath documentation\nstating that ../ path elements are removed from the result.\n",
+  "details": "JoinPath and URL.JoinPath do not remove ../ path elements appended to a relative path. For example, JoinPath(\"https://go.dev\", \"../go\") returns the URL \"https://go.dev/../go\", despite the JoinPath documentation stating that ../ path elements are removed from the result.",
   "affected": [
     {
       "package": {

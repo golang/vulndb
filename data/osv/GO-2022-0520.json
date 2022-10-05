@@ -5,7 +5,7 @@
   "aliases": [
     "CVE-2022-32148"
   ],
-  "details": "Client IP adresses may be unintentionally exposed via X-Forwarded-For\nheaders.\n\nWhen httputil.ReverseProxy.ServeHTTP is called with a Request.Header map\ncontaining a nil value for the X-Forwarded-For header, ReverseProxy sets\nthe client IP as the value of the X-Forwarded-For header, contrary to\nits documentation.\n\nIn the more usual case where a Director function sets the\nX-Forwarded-For header value to nil, ReverseProxy leaves the header\nunmodified as expected.\n",
+  "details": "Client IP adresses may be unintentionally exposed via X-Forwarded-For headers.\n\nWhen httputil.ReverseProxy.ServeHTTP is called with a Request.Header map containing a nil value for the X-Forwarded-For header, ReverseProxy sets the client IP as the value of the X-Forwarded-For header, contrary to its documentation.\n\nIn the more usual case where a Director function sets the X-Forwarded-For header value to nil, ReverseProxy leaves the header unmodified as expected.",
   "affected": [
     {
       "package": {

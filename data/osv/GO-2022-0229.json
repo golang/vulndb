@@ -6,7 +6,7 @@
     "CVE-2020-7919",
     "GHSA-cjjc-xp8v-855w"
   ],
-  "details": "On 32-bit architectures, a malformed input to crypto/x509 or\nthe ASN.1 parsing functions of golang.org/x/crypto/cryptobyte\ncan lead to a panic.\n\nThe malformed certificate can be delivered via a crypto/tls\nconnection to a client, or to a server that accepts client\ncertificates. net/http clients can be made to crash by an HTTPS\nserver, while net/http servers that accept client certificates\nwill recover the panic and are unaffected.\n",
+  "details": "On 32-bit architectures, a malformed input to crypto/x509 or the ASN.1 parsing functions of golang.org/x/crypto/cryptobyte can lead to a panic.\n\nThe malformed certificate can be delivered via a crypto/tls connection to a client, or to a server that accepts client certificates. net/http clients can be made to crash by an HTTPS server, while net/http servers that accept client certificates will recover the panic and are unaffected.",
   "affected": [
     {
       "package": {

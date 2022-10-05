@@ -11,6 +11,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"regexp"
 	"sort"
 	"strings"
 	"time"
@@ -219,7 +220,7 @@ func GenerateOSVEntry(filename string, lastModified time.Time, r *report.Report)
 		Published: r.Published,
 		Modified:  lastModified,
 		Withdrawn: r.Withdrawn,
-		Details:   r.Description,
+		Details:   trimWhitespace(r.Description),
 		Credits:   credits,
 	}
 
@@ -251,6 +252,22 @@ func generateAffectedRanges(versions []report.VersionRange) osv.Affects {
 		}
 	}
 	return osv.Affects{a}
+}
+
+// trimWhitespace removes unnecessary whitespace from a string, but preserves
+// paragraph breaks (indicated by two newlines).
+func trimWhitespace(s string) string {
+	s = strings.TrimSpace(s)
+	// Replace single newlines with spaces.
+	newlines := regexp.MustCompile(`([^\n])\n([^\n])`)
+	s = newlines.ReplaceAllString(s, "$1 $2")
+	// Replace instances of 2 or more newlines with exactly two newlines.
+	paragraphs := regexp.MustCompile(`\s*\n\n\s*`)
+	s = paragraphs.ReplaceAllString(s, "\n\n")
+	// Replace tabs and double spaces with single spaces.
+	spaces := regexp.MustCompile(`[ \t]+`)
+	s = spaces.ReplaceAllString(s, " ")
+	return s
 }
 
 func generateImports(m *report.Module) (imps []osv.EcosystemSpecificImport) {

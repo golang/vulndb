@@ -5,7 +5,7 @@
   "aliases": [
     "CVE-2017-8932"
   ],
-  "details": "The ScalarMult implementation of curve P-256 for amd64 architectures\ngenerates incorrect results for certain specific input points.\nAn adaptive attack can progressively extract the scalar input to\nScalarMult by submitting crafted points and observing failures to\nderive correct output. This leads to a full key recovery attack\nagainst static ECDH, as used in popular JWT libraries.\n",
+  "details": "The ScalarMult implementation of curve P-256 for amd64 architectures generates incorrect results for certain specific input points. An adaptive attack can progressively extract the scalar input to ScalarMult by submitting crafted points and observing failures to derive correct output. This leads to a full key recovery attack against static ECDH, as used in popular JWT libraries.",
   "affected": [
     {
       "package": {

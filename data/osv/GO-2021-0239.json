@@ -5,7 +5,7 @@
   "aliases": [
     "CVE-2021-33195"
   ],
-  "details": "The LookupCNAME, LookupSRV, LookupMX, LookupNS, and LookupAddr\nfunctions and their respective methods on the Resolver type may\nreturn arbitrary values retrieved from DNS which do not follow\nthe established RFC 1035 rules for domain names. If these names\nare used without further sanitization, for instance unsafely\nincluded in HTML, they may allow for injection of unexpected\ncontent. Note that LookupTXT may still return arbitrary values\nthat could require sanitization before further use.\n",
+  "details": "The LookupCNAME, LookupSRV, LookupMX, LookupNS, and LookupAddr functions and their respective methods on the Resolver type may return arbitrary values retrieved from DNS which do not follow the established RFC 1035 rules for domain names. If these names are used without further sanitization, for instance unsafely included in HTML, they may allow for injection of unexpected content. Note that LookupTXT may still return arbitrary values that could require sanitization before further use.",
   "affected": [
     {
       "package": {

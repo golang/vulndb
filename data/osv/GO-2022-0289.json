@@ -5,7 +5,7 @@
   "aliases": [
     "CVE-2021-44717"
   ],
-  "details": "When a Go program running on a Unix system is out of file descriptors and\ncalls syscall.ForkExec (including indirectly by using the os/exec package),\nsyscall.ForkExec can close file descriptor 0 as it fails. If this happens\n(or can be provoked) repeatedly, it can result in misdirected I/O such as\nwriting network traffic intended for one connection to a different\nconnection, or content intended for one file to a different one.\n\nFor users who cannot immediately update to the new release, the bug can be\nmitigated by raising the per-process file descriptor limit.\n",
+  "details": "When a Go program running on a Unix system is out of file descriptors and calls syscall.ForkExec (including indirectly by using the os/exec package), syscall.ForkExec can close file descriptor 0 as it fails. If this happens (or can be provoked) repeatedly, it can result in misdirected I/O such as writing network traffic intended for one connection to a different connection, or content intended for one file to a different one.\n\nFor users who cannot immediately update to the new release, the bug can be mitigated by raising the per-process file descriptor limit.",
   "affected": [
     {
       "package": {

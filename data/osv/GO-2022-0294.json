@@ -6,7 +6,7 @@
     "CVE-2022-0317",
     "GHSA-99cg-575x-774p"
   ],
-  "details": "A local attacker can defeat remotely-attested measured boot.\n\nImproper input validation in AKPublic.Verify can cause it to succeed when\nprovided with a maliciously-formed Quote over no/some PCRs. Subsequent use\nof the same set of PCR values in Eventlog.Verify lacks the authentication\nperformed by quote verification, meaning a local attacker can couple this\nvulnerability with a maliciously-formed TCG log in Eventlog.Verify to spoof\nevents in the TCG log, defeating remotely-attested measured-boot.\n",
+  "details": "A local attacker can defeat remotely-attested measured boot.\n\nImproper input validation in AKPublic.Verify can cause it to succeed when provided with a maliciously-formed Quote over no/some PCRs. Subsequent use of the same set of PCR values in Eventlog.Verify lacks the authentication performed by quote verification, meaning a local attacker can couple this vulnerability with a maliciously-formed TCG log in Eventlog.Verify to spoof events in the TCG log, defeating remotely-attested measured-boot.",
   "affected": [
     {
       "package": {

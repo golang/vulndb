@@ -5,7 +5,7 @@
   "aliases": [
     "CVE-2019-6486"
   ],
-  "details": "A DoS vulnerability in the crypto/elliptic implementations of the P-521 and\nP-384 elliptic curves may let an attacker craft inputs that consume\nexcessive amounts of CPU.\n\nThese inputs might be delivered via TLS handshakes, X.509 certificates, JWT\ntokens, ECDH shares or ECDSA signatures. In some cases, if an ECDH private\nkey is reused more than once, the attack can also lead to key recovery.\n",
+  "details": "A DoS vulnerability in the crypto/elliptic implementations of the P-521 and P-384 elliptic curves may let an attacker craft inputs that consume excessive amounts of CPU.\n\nThese inputs might be delivered via TLS handshakes, X.509 certificates, JWT tokens, ECDH shares or ECDSA signatures. In some cases, if an ECDH private key is reused more than once, the attack can also lead to key recovery.",
   "affected": [
     {
       "package": {

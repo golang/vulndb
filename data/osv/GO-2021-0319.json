@@ -5,7 +5,7 @@
   "aliases": [
     "CVE-2022-23806"
   ],
-  "details": "Some big.Int values that are not valid field elements (negative or overflowing)\nmight cause Curve.IsOnCurve to incorrectly return true. Operating on those values\nmay cause a panic or an invalid curve operation. Note that Unmarshal will never\nreturn such values.\n",
+  "details": "Some big.Int values that are not valid field elements (negative or overflowing) might cause Curve.IsOnCurve to incorrectly return true. Operating on those values may cause a panic or an invalid curve operation. Note that Unmarshal will never return such values.",
   "affected": [
     {
       "package": {

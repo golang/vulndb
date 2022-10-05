@@ -6,7 +6,7 @@
     "CVE-2022-31259",
     "GHSA-qx32-f6g6-fcfr"
   ],
-  "details": "Routes in the beego HTTP router can match unintended patterns.\nThis overly-broad matching may permit an attacker to bypass access\ncontrols.\n\nFor example, the pattern \"/a/b/:name\" can match the URL \"/a.xml/b/\".\nThis may bypass access control applied to the prefix \"/a/\".\n",
+  "details": "Routes in the beego HTTP router can match unintended patterns. This overly-broad matching may permit an attacker to bypass access controls.\n\nFor example, the pattern \"/a/b/:name\" can match the URL \"/a.xml/b/\". This may bypass access control applied to the prefix \"/a/\".",
   "affected": [
     {
       "package": {

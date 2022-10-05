@@ -6,7 +6,7 @@
     "CVE-2022-24912",
     "GHSA-jxqv-jcvh-7gr4"
   ],
-  "details": "Validation of Gitlab requests can leak secrets.\n\nThe package github.com/runatlantis/atlantis/server/controllers/events uses a\nnon-constant time comparison for secrets while validating a Gitlab request.\nThis allows for a timing attack where an attacker can recover a secret and\nthen forge the request.\n",
+  "details": "Validation of Gitlab requests can leak secrets.\n\nThe package github.com/runatlantis/atlantis/server/controllers/events uses a non-constant time comparison for secrets while validating a Gitlab request. This allows for a timing attack where an attacker can recover a secret and then forge the request.",
   "affected": [
     {
       "package": {

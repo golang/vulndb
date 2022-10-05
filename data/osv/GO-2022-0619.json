@@ -6,7 +6,7 @@
     "CVE-2022-1996",
     "GHSA-r48q-9g5r-8q2h"
   ],
-  "details": "CORS filters that use an AllowedDomains configuration parameter\ncan match domains outside the specified set, permitting an attacker\nto avoid the CORS policy.\n\nThe AllowedDomains configuration parameter is documented as a list of\nallowed origin domains, but values in this list are applied as regular\nexpression matches. For example, an allowed domain of \"example.com\" will\nmatch the Origin header \"example.com.malicious.domain\".\n",
+  "details": "CORS filters that use an AllowedDomains configuration parameter can match domains outside the specified set, permitting an attacker to avoid the CORS policy.\n\nThe AllowedDomains configuration parameter is documented as a list of allowed origin domains, but values in this list are applied as regular expression matches. For example, an allowed domain of \"example.com\" will match the Origin header \"example.com.malicious.domain\".",
   "affected": [
     {
       "package": {

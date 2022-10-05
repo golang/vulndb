@@ -6,7 +6,7 @@
     "CVE-2022-2582",
     "GHSA-76wf-9vgp-pj7w"
   ],
-  "details": "The AWS S3 Crypto SDK sends an unencrypted hash of the plaintext alongside\nthe ciphertext as a metadata field. This hash can be used to brute force\nthe plaintext, if the hash is readable to the attacker.\n\nAWS now blocks this metadata field, but older SDK versions still send it.\n",
+  "details": "The AWS S3 Crypto SDK sends an unencrypted hash of the plaintext alongside the ciphertext as a metadata field. This hash can be used to brute force the plaintext, if the hash is readable to the attacker.\n\nAWS now blocks this metadata field, but older SDK versions still send it.",
   "affected": [
     {
       "package": {

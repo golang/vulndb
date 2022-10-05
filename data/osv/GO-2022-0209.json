@@ -5,7 +5,7 @@
   "aliases": [
     "CVE-2019-11840"
   ],
-  "details": "XORKeyStream generates incorrect and insecure output for very\nlarge inputs.\n\nIf more than 256 GiB of keystream is generated, or if the counter\notherwise grows greater than 32 bits, the amd64 implementation will\nfirst generate incorrect output, and then cycle back to previously\ngenerated keystream. Repeated keystream bytes can lead to loss of\nconfidentiality in encryption applications, or to predictability\nin CSPRNG applications.\n\nThe issue might affect uses of golang.org/x/crypto/nacl with extremely\nlarge messages.\n\nArchitectures other than amd64 and uses that generate less than 256 GiB\nof keystream for a single salsa20.XORKeyStream invocation are unaffected.\n",
+  "details": "XORKeyStream generates incorrect and insecure output for very large inputs.\n\nIf more than 256 GiB of keystream is generated, or if the counter otherwise grows greater than 32 bits, the amd64 implementation will first generate incorrect output, and then cycle back to previously generated keystream. Repeated keystream bytes can lead to loss of confidentiality in encryption applications, or to predictability in CSPRNG applications.\n\nThe issue might affect uses of golang.org/x/crypto/nacl with extremely large messages.\n\nArchitectures other than amd64 and uses that generate less than 256 GiB of keystream for a single salsa20.XORKeyStream invocation are unaffected.",
   "affected": [
     {
       "package": {

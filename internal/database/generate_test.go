@@ -14,7 +14,7 @@ import (
 	"golang.org/x/vulndb/internal/report"
 )
 
-func TestGenerate(t *testing.T) {
+func TestGenerateOSVEntry(t *testing.T) {
 	r := &report.Report{
 		Modules: []*report.Module{
 			{
@@ -63,7 +63,7 @@ func TestGenerate(t *testing.T) {
 				},
 			},
 		},
-		Description: "It's a real bad one, I'll tell you that",
+		Description: "It's a real bad one, \nI'll tell you that.\n\n More info.\n",
 		CVEs:        []string{"CVE-0000-0000"},
 		GHSAs:       []string{"GHSA-abcd-efgh"},
 		Credit:      "gopherbot",
@@ -77,7 +77,7 @@ func TestGenerate(t *testing.T) {
 
 	wantEntry := osv.Entry{
 		ID:      "GO-1991-0001",
-		Details: "It's a real bad one, I'll tell you that",
+		Details: "It's a real bad one, I'll tell you that.\n\nMore info.",
 		References: []osv.Reference{
 			{Type: "ADVISORY", URL: "advisory"},
 			{Type: "REPORT", URL: "issue"},
@@ -204,7 +204,7 @@ func TestGenerate(t *testing.T) {
 
 	gotEntry := GenerateOSVEntry("GO-1991-0001", time.Time{}, r)
 	if diff := cmp.Diff(wantEntry, gotEntry, cmp.Comparer(func(a, b time.Time) bool { return a.Equal(b) })); diff != "" {
-		t.Errorf("Generate returned unexpected entry (-want +got):\n%s", diff)
+		t.Errorf("GenerateOSVEntry returned unexpected entry (-want +got):\n%s", diff)
 	}
 }
 
@@ -232,5 +232,14 @@ func TestSemverCanonicalize(t *testing.T) {
 	out := generateAffectedRanges(in)
 	if !reflect.DeepEqual(out, expected) {
 		t.Fatalf("unexpected output: got %#v, want %#v", out, expected)
+	}
+}
+
+func TestTrimWhitespace(t *testing.T) {
+	s := "\n Lorem ipsum dolor sit amet,\n consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. \n \tDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. \n\n\nExcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n"
+	want := "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\n\nExcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+	got := trimWhitespace(s)
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("removeNewlines() mismatch (-want, +got):\n%s", diff)
 	}
 }
