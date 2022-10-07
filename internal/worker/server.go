@@ -47,6 +47,8 @@ type Server struct {
 	observer      *observe.Observer
 }
 
+const traceIDHeader = "X-Cloud-Trace-Context"
+
 func NewServer(ctx context.Context, cfg Config) (_ *Server, err error) {
 	defer derrors.Wrap(&err, "NewServer(%q)", cfg.Namespace)
 
@@ -56,6 +58,14 @@ func NewServer(ctx context.Context, cfg Config) (_ *Server, err error) {
 	if err != nil {
 		return nil, err
 	}
+	// This function will be called for each request.
+	// It lets us install a log handler that knows about the request's
+	// trace ID.
+	s.observer.LogHandlerFunc = func(r *http.Request) event.Handler {
+		traceID := r.Header.Get(traceIDHeader)
+		return log.NewGCPJSONHandler(os.Stderr, traceID)
+	}
+
 	if cfg.UseErrorReporting {
 		reportingClient, err := errorreporting.NewClient(ctx, cfg.Project, errorreporting.Config{
 			ServiceName: serviceID,
@@ -102,19 +112,14 @@ func NewServer(ctx context.Context, cfg Config) (_ *Server, err error) {
 	return s, nil
 }
 
-func (s *Server) handle(_ context.Context, pattern string, handler func(w http.ResponseWriter, r *http.Request) error) {
-	http.HandleFunc(pattern, func(w http.ResponseWriter, r *http.Request) {
+func (s *Server) handle(_ context.Context, pattern string, hfunc func(w http.ResponseWriter, r *http.Request) error) {
+	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now()
-		const traceIDHeader = "X-Cloud-Trace-Context"
-
-		traceID := r.Header.Get(traceIDHeader)
-		r = s.observer.BeforeRequest(r, log.NewGCPJSONHandler(os.Stderr, traceID))
-		defer s.observer.AfterRequest()
 		ctx := r.Context()
 		log.With("httpRequest", r).Infof(ctx, "starting %s", r.URL.Path)
 
 		w2 := &responseWriter{ResponseWriter: w}
-		if err := handler(w2, r); err != nil {
+		if err := hfunc(w2, r); err != nil {
 			s.serveError(ctx, w2, r, err)
 		}
 		log.With(
@@ -122,6 +127,7 @@ func (s *Server) handle(_ context.Context, pattern string, handler func(w http.R
 			"status", translateStatus(w2.status)).
 			Infof(ctx, "request end")
 	})
+	http.Handle(pattern, s.observer.Observe(handler))
 }
 
 type serverError struct {

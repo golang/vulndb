@@ -28,6 +28,11 @@ type Observer struct {
 	traceHandler   *eotel.TraceHandler
 	metricHandler  *eotel.MetricHandler
 	propagator     propagation.TextMapPropagator
+
+	// LogHandlerFunc is invoked in [Observer.Observe] to obtain an
+	// [event.Handler] for logging to be added to the [event.Exporter] in
+	// addition to the tracing and metrics handlers.
+	LogHandlerFunc func(*http.Request) event.Handler
 }
 
 // NewObserver creates an Observer.
@@ -69,20 +74,19 @@ func NewObserver(ctx context.Context, projectID, serverName string) (_ *Observer
 	}, nil
 }
 
-// BeforeRequest should be called before a request is processed.
-// otherHandler can be any event.Handler that should be added to the event exporter
-// for the request.
-func (o *Observer) BeforeRequest(r *http.Request, otherHandler event.Handler) *http.Request {
-	exporter := event.NewExporter(eventHandler{o, otherHandler}, nil)
-	ctx := event.WithExporter(r.Context(), exporter)
-	ctx = o.propagator.Extract(ctx, propagation.HeaderCarrier(r.Header))
-	return r.WithContext(ctx)
-
-}
-
-// AfterRequest should be called after each request.
-func (o *Observer) AfterRequest() {
-	o.tracerProvider.ForceFlush(o.ctx)
+// Observe adds metrics and tracing to an http.Handler.
+func (o *Observer) Observe(h http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		var otherHandler event.Handler
+		if o.LogHandlerFunc != nil {
+			otherHandler = o.LogHandlerFunc(r)
+		}
+		exporter := event.NewExporter(eventHandler{o, otherHandler}, nil)
+		ctx := event.WithExporter(r.Context(), exporter)
+		ctx = o.propagator.Extract(ctx, propagation.HeaderCarrier(r.Header))
+		defer o.tracerProvider.ForceFlush(o.ctx)
+		h.ServeHTTP(w, r.WithContext(ctx))
+	})
 }
 
 type eventHandler struct {
@@ -92,7 +96,9 @@ type eventHandler struct {
 
 // Event implements event.Handler.
 func (h eventHandler) Event(ctx context.Context, ev *event.Event) context.Context {
-	ctx = h.eh.Event(ctx, ev)
+	if h.eh != nil {
+		ctx = h.eh.Event(ctx, ev)
+	}
 	ctx = h.o.traceHandler.Event(ctx, ev)
 	return h.o.metricHandler.Event(ctx, ev)
 }
