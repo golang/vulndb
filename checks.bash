@@ -87,6 +87,13 @@ check_misspell() {
   runcmd misspell -i "unknwon"  -error .
 }
 
+check_data_osv() {
+  commit=$(git log --name-status HEAD^..HEAD)
+  if [[ "$commit" =~ .*"D"."data/osv/".* ]]; then
+    err "Files in the data/osv/ directory should never be deleted. Use the withdrawn field instead to remove reports. See doc/format.md for details."
+  fi
+}
+
 go_linters() {
   check_vet
   check_staticcheck
@@ -99,6 +106,7 @@ go_modtidy() {
 }
 
 runchecks() {
+  check_data_osv
   check_headers
   go_linters
   go_modtidy
