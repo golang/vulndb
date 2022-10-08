@@ -8,6 +8,7 @@
 package main
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"os"
@@ -21,6 +22,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
+	vulnc "golang.org/x/vuln/client"
 	"golang.org/x/vulndb/internal/database"
 	"golang.org/x/vulndb/internal/report"
 )
@@ -96,5 +98,36 @@ func TestLintReports(t *testing.T) {
 				}
 			}
 		})
+	}
+}
+
+const vulnDBURL = "https://vuln.go.dev"
+
+// This test fails with this error on TryBots:
+// ListIDs(): ListIDs(): Get "https://vuln.go.dev/ID/index.json": dial tcp
+// 34.117.213.18:443: connect: no route to host
+//
+// TODO(https://go.dev/issue/56139): add this test as a deployment step.
+func TestMissingReports(t *testing.T) {
+	t.Skip()
+
+	ctx := context.Background()
+	dbClient, err := vulnc.NewClient([]string{vulnDBURL}, vulnc.Options{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	ids, err := dbClient.ListIDs(ctx)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, id := range ids {
+		f := fmt.Sprintf("data/osv/%s.json", id)
+		if _, err := os.Stat(f); err != nil {
+			if errors.Is(err, os.ErrNotExist) {
+				t.Errorf("%s was deleted; use the withdrawn field instead to remove reports. See doc/format.md for details.\n", f)
+			} else {
+				t.Fatal(err)
+			}
+		}
 	}
 }
