@@ -219,7 +219,7 @@ func (tx *memTransaction) GetGHSARecord(id string) (*GHSARecord, error) {
 	if r, ok := tx.ms.ghsaRecords[id]; ok {
 		return r, nil
 	}
-	return nil, fmt.Errorf("GHSARecord %s does not exist", id)
+	return nil, nil
 }
 
 // GetGHSARecords implements Transaction.GetGHSARecords.
