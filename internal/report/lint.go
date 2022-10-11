@@ -399,15 +399,15 @@ func (r *Report) Lint(filename string) []string {
 			addIssue(fmt.Sprintf("modules[%v]: %v", i, iss))
 		}
 
-		if m.Module == stdlib.ModulePath || m.Module == "cmd" {
+		if m.Module == stdlib.ModulePath || m.Module == stdlib.ToolchainModulePath {
 			isStdLibReport = true
 			m.lintStdLib(addPkgIssue)
 		} else {
 			m.lintThirdParty(addPkgIssue)
 		}
 		for _, p := range m.Packages {
-			if strings.HasPrefix(p.Package, "cmd/") && m.Module != "cmd" {
-				addPkgIssue(fmt.Sprintf(`%q should be in module "cmd", not %q`, p.Package, m.Module))
+			if strings.HasPrefix(p.Package, fmt.Sprintf("%s/", stdlib.ToolchainModulePath)) && m.Module != stdlib.ToolchainModulePath {
+				addPkgIssue(fmt.Sprintf(`%q should be in module "%s", not %q`, p.Package, stdlib.ToolchainModulePath, m.Module))
 			}
 		}
 

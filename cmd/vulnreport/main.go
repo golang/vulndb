@@ -40,11 +40,13 @@ import (
 )
 
 var (
-	localRepoPath = flag.String("local-cve-repo", "", "path to local repo, instead of cloning remote")
-	issueRepo     = flag.String("issue-repo", "github.com/golang/vulndb", "repo to create issues in")
-	githubToken   = flag.String("ghtoken", os.Getenv("VULN_GITHUB_ACCESS_TOKEN"), "GitHub access token")
-	skipSymbols   = flag.Bool("skip-symbols", false, "for lint and fix, don't load package for symbols checks")
-	alwaysFixGHSA = flag.Bool("always-fix-ghsa", false, "for fix, always update GHSAs")
+	localRepoPath  = flag.String("local-cve-repo", "", "path to local repo, instead of cloning remote")
+	issueRepo      = flag.String("issue-repo", "github.com/golang/vulndb", "repo to create issues in")
+	githubToken    = flag.String("ghtoken", os.Getenv("VULN_GITHUB_ACCESS_TOKEN"), "GitHub access token")
+	cveJSONVersion = flag.String("cve-version", "4.0", "for newcve, the CVE JSON version, either 4.0 or 5.0")
+	skipSymbols    = flag.Bool("skip-symbols", false, "for lint and fix, don't load package for symbols checks")
+	alwaysFixGHSA  = flag.Bool("always-fix-ghsa", false, "for fix, always update GHSAs")
+	indent         = flag.Bool("indent", false, "for newcve, indent JSON output")
 )
 
 func main() {
@@ -53,7 +55,7 @@ func main() {
 		fmt.Fprintf(flag.CommandLine.Output(), "usage: vulnreport [cmd] [filename.yaml]\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  create [githubIssueNumber]: creates a new vulnerability YAML report\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  lint filename.yaml ...: lints vulnerability YAML reports\n")
-		fmt.Fprintf(flag.CommandLine.Output(), "  newcve filename.yaml ...: creates CVEs report from the provided YAML reports\n")
+		fmt.Fprintf(flag.CommandLine.Output(), "  newcve filename.yaml ...: creates CVE record from the provided YAML reports\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  fix filename.yaml ...: fixes and reformats YAML reports\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  osv filename.yaml ...: converts YAMLS reports to OSV JSON and writes to data/osv\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  set-dates filename.yaml ...: sets PublishDate of YAML reports\n")
@@ -93,7 +95,7 @@ func main() {
 	case "commit":
 		cmdFunc = func(name string) error { return commit(ctx, name, *githubToken) }
 	case "newcve":
-		cmdFunc = newCVE
+		cmdFunc = func(name string) error { return newCVE(ctx, name, *cveJSONVersion, *indent) }
 	case "fix":
 		cmdFunc = func(name string) error { return fix(ctx, name, *githubToken) }
 	case "osv":
@@ -913,9 +915,17 @@ func setDates(filename string, dates map[string]gitrepo.Dates) (err error) {
 	return r.Write(filename)
 }
 
-func newCVE(filename string) (err error) {
-	defer derrors.Wrap(&err, "newCVE(%q)", filename)
-	cve, err := report.ToCVE(filename)
+func newCVE(ctx context.Context, filename string, version string, indent bool) (err error) {
+	defer derrors.Wrap(&err, "newCVE(%q, %s)", filename, version)
+	var cve any
+	switch version {
+	case "4.0":
+		cve, err = report.ToCVE(filename)
+	case "5.0":
+		cve, err = report.ToCVE5(filename)
+	default:
+		return fmt.Errorf("CVE JSON version %q not supported", version)
+	}
 	if err != nil {
 		return err
 	}
@@ -924,7 +934,9 @@ func newCVE(filename string) (err error) {
 	// brackets.
 	e := json.NewEncoder(os.Stdout)
 	e.SetEscapeHTML(false)
-	e.SetIndent("", "\t")
+	if indent {
+		e.SetIndent("", "\t")
+	}
 	return e.Encode(cve)
 }
 

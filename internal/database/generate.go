@@ -25,8 +25,6 @@ import (
 )
 
 const (
-	dbURL = "https://pkg.go.dev/vuln/"
-
 	// idDirectory is the name of the directory that contains entries
 	// listed by their IDs.
 	idDirectory = "ID"
@@ -46,10 +44,6 @@ const (
 	// stdFileName is the name of the .json file in the vulndb repo
 	// that will contain info on standard library vulnerabilities.
 	stdFileName = "stdlib"
-
-	// cmdModule is the name of the module containing Go toolchain
-	// binaries.
-	cmdModule = "cmd"
 
 	// toolchainFileName is the name of the .json file in the vulndb repo
 	// that will contain info on toolchain (cmd/...) vulnerabilities.
@@ -211,7 +205,7 @@ func ReadOSV(filename string) (osv.Entry, error) {
 // GenerateOSVEntry create an osv.Entry for a report. In addition to the report, it
 // takes the ID for the vuln and a URL that will point to the entry in the vuln DB.
 func GenerateOSVEntry(filename string, lastModified time.Time, r *report.Report) osv.Entry {
-	id := strings.TrimSuffix(filepath.Base(filename), filepath.Ext(filename))
+	id := report.GetGoIDFromFilename(filename)
 	entry := osv.Entry{
 		ID:        id,
 		Published: r.Published,
@@ -220,7 +214,7 @@ func GenerateOSVEntry(filename string, lastModified time.Time, r *report.Report)
 		Details:   r.Description,
 	}
 
-	linkName := fmt.Sprintf("%s%s", dbURL, id)
+	linkName := report.GetGoAdvisoryLink(id)
 	for _, m := range r.Modules {
 		entry.Affected = append(entry.Affected, generateAffected(m, linkName))
 	}
@@ -270,7 +264,7 @@ func generateAffected(m *report.Module, url string) osv.Affected {
 	switch name {
 	case stdlib.ModulePath:
 		name = stdFileName
-	case cmdModule:
+	case stdlib.ToolchainModulePath:
 		name = toolchainFileName
 	}
 	return osv.Affected{

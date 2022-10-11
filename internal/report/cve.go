@@ -6,7 +6,10 @@ package report
 
 import (
 	"errors"
+	"regexp"
 	"strings"
+
+	"encoding/json"
 
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/derrors"
@@ -28,7 +31,15 @@ func ToCVE(reportPath string) (_ *cveschema.CVE, err error) {
 		return nil, errors.New("report missing cve_metadata section")
 	}
 	if r.CVEMetadata.ID == "" {
-		return nil, errors.New("report missing CVE ID")
+		return nil, errors.New("report missing cve_metadata.id")
+	}
+	if r.CVEMetadata.CWE == "" {
+		return nil, errors.New("report missing cve_metadata.cwe")
+	}
+
+	description := r.CVEMetadata.Description
+	if description == "" {
+		description = r.Description
 	}
 
 	c := &cveschema.CVE{
@@ -45,7 +56,7 @@ func ToCVE(reportPath string) (_ *cveschema.CVE, err error) {
 			Data: []cveschema.LangString{
 				{
 					Lang:  "eng",
-					Value: strings.TrimSuffix(r.CVEMetadata.Description, "\n"),
+					Value: removeNewlines(description),
 				},
 			},
 		},
@@ -65,15 +76,27 @@ func ToCVE(reportPath string) (_ *cveschema.CVE, err error) {
 	}
 
 	for _, m := range r.Modules {
+		var vendor string
+		switch mPath := m.Module; mPath {
+		case stdlib.ModulePath:
+			vendor = "Go standard library"
+		case stdlib.ToolchainModulePath:
+			vendor = "Go toolchain"
+		default:
+			vendor = mPath
+		}
+		var pkgData []cveschema.ProductDataItem
+		for _, p := range m.Packages {
+			pkgData = append(pkgData,
+				cveschema.ProductDataItem{
+					ProductName: p.Package,
+					Version:     versionToVersion(m.Versions),
+				})
+		}
 		c.Affects.Vendor.Data = append(c.Affects.Vendor.Data, cveschema.VendorDataItem{
-			VendorName: "n/a", // ???
+			VendorName: vendor,
 			Product: cveschema.Product{
-				Data: []cveschema.ProductDataItem{
-					{
-						ProductName: m.Module,
-						Version:     versionToVersion(m.Versions),
-					},
-				},
+				Data: pkgData,
 			},
 		})
 	}
@@ -82,7 +105,25 @@ func ToCVE(reportPath string) (_ *cveschema.CVE, err error) {
 		c.References.Data = append(c.References.Data, cveschema.Reference{URL: ref.URL})
 	}
 
+	goAdvisory := GetGoAdvisoryLink(GetGoIDFromFilename(reportPath))
+	c.References.Data = append(c.References.Data, cveschema.Reference{URL: goAdvisory})
+
+	c.RawCredit, err = json.Marshal([]cveschema.LangString{{
+		Lang:  "eng",
+		Value: removeNewlines(r.Credit),
+	}})
+	if err != nil {
+		return nil, err
+	}
+
 	return c, nil
+}
+
+// removeNewlines removes leading and trailing space characters and
+// replaces inner newlines with spaces.
+func removeNewlines(s string) string {
+	newlines := regexp.MustCompile(`\n+`)
+	return newlines.ReplaceAllString(strings.TrimSpace(s), " ")
 }
 
 func versionToVersion(versions []VersionRange) cveschema.VersionData {

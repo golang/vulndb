@@ -11,7 +11,13 @@ import (
 	"golang.org/x/mod/module"
 )
 
-const ModulePath = "std"
+const (
+	// ModulePath is the name of the Go standard library module.
+	ModulePath = "std"
+	// ToolchainModulePath is the name of the module containing Go
+	// toolchain binaries.
+	ToolchainModulePath = "cmd"
+)
 
 // Contains reports whether the given import path could be part of the Go
 // standard library, by reporting whether the first component lacks a '.'.

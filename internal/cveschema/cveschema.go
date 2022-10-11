@@ -85,7 +85,7 @@ type CVE struct {
 	// Credit is the credit information (different than CVE_timeline in that
 	// these are specific things being credited to specific
 	// people/organizations/etc.).
-	Credit Credit
+	Credit Credit `json:"-"`
 
 	// RawCredit is for unmarshaling only. Do not use.
 	RawCredit json.RawMessage `json:"credit"`

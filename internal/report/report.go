@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"path/filepath"
 	"strings"
 	"time"
 
@@ -215,7 +216,16 @@ const (
 	NISTPrefix    = "https://nvd.nist.gov/vuln/detail/"
 	mitrePrefix   = "https://cve.mitre.org/cgi-bin/cvename.cgi?name="
 	ghsaURLPrefix = "https://github.com/advisories/"
+	goURLPrefix   = "https://pkg.go.dev/vuln/"
 )
+
+func GetGoIDFromFilename(filename string) string {
+	return strings.TrimSuffix(filepath.Base(filename), filepath.Ext(filename))
+}
+
+func GetGoAdvisoryLink(id string) string {
+	return fmt.Sprintf("%s%s", goURLPrefix, id)
+}
 
 // AllSymbols returns both original and derived symbols.
 func (a *Package) AllSymbols() []string {
