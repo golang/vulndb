@@ -228,14 +228,15 @@ func TestLint(t *testing.T) {
 				Description: "description",
 				CVEs:        []string{"CVE-2022-1234545"},
 				CVEMetadata: &CVEMeta{
-					ID: "CVE-2022-23456",
+					ID:  "CVE-2022-23456",
+					CWE: "CWE 111",
 				},
 				References: validStdLibReferences,
 			},
 			want: []string{"only one of cve and cve_metadata.id should be present"},
 		},
 		{
-			desc: "missing cve metadata id",
+			desc: "missing cve metadata required fields",
 			report: Report{
 				Modules: []*Module{{
 					Module: "std",
@@ -246,10 +247,11 @@ func TestLint(t *testing.T) {
 				Description: "description",
 				CVEMetadata: &CVEMeta{
 					// no id
+					// no cwe
 				},
 				References: validStdLibReferences,
 			},
-			want: []string{"cve_metadata.id is required"},
+			want: []string{"cve_metadata.id is required", "cve_metadata.cwe is required"},
 		},
 		{
 			desc: "bad cve metadata id",
@@ -262,7 +264,8 @@ func TestLint(t *testing.T) {
 				}},
 				Description: "description",
 				CVEMetadata: &CVEMeta{
-					ID: "CVE.2022.00000",
+					ID:  "CVE.2022.00000",
+					CWE: "CWE 111",
 				},
 				References: validStdLibReferences,
 			},

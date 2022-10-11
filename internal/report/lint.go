@@ -247,6 +247,9 @@ func (r *Report) lintCVEs(addIssue func(string)) {
 		} else if !cveRegex.MatchString(r.CVEMetadata.ID) {
 			addIssue("malformed cve_metadata.id identifier")
 		}
+		if r.CVEMetadata.CWE == "" {
+			addIssue("cve_metadata.cwe is required")
+		}
 	}
 }
 
