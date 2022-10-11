@@ -20,21 +20,12 @@ import (
 func ToCVE(reportPath string) (_ *cveschema.CVE, err error) {
 	defer derrors.Wrap(&err, "report.ToCVE(%q)", reportPath)
 
-	r, err := Read(reportPath)
+	r, err := ReadAndLint(reportPath)
 	if err != nil {
 		return nil, err
 	}
-	if len(r.CVEs) > 0 {
-		return nil, errors.New("report has CVE ID is wrong section (should be in cve_metadata for self-issued CVEs)")
-	}
 	if r.CVEMetadata == nil {
-		return nil, errors.New("report missing cve_metadata section")
-	}
-	if r.CVEMetadata.ID == "" {
-		return nil, errors.New("report missing cve_metadata.id")
-	}
-	if r.CVEMetadata.CWE == "" {
-		return nil, errors.New("report missing cve_metadata.cwe")
+		return nil, errors.New("cve_metadata must be present to convert a report to a CVE")
 	}
 
 	description := r.CVEMetadata.Description

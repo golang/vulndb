@@ -252,6 +252,20 @@ func Read(filename string) (_ *Report, err error) {
 	return &r, nil
 }
 
+// ReadAndLint reads a Report in YAML format from filename,
+// lints the Report, and errors if there are any lint warnings.
+func ReadAndLint(filename string) (r *Report, err error) {
+	defer derrors.Wrap(&err, "report.ReadAndLint(%q)", filename)
+	r, err = Read(filename)
+	if err != nil {
+		return nil, err
+	}
+	if lints := r.Lint(filename); len(lints) > 0 {
+		return nil, fmt.Errorf("%v: contains lint warnings:\n%s\n", filename, strings.Join(lints, "\n"))
+	}
+	return r, nil
+}
+
 // Write writes r to filename in YAML format.
 func (r *Report) Write(filename string) (err error) {
 	f, err := os.Create(filename)

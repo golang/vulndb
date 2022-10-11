@@ -133,10 +133,11 @@ func main() {
 	for _, arg := range args {
 		arg, err := argToFilename(arg)
 		if err != nil {
-			log.Fatal(err)
+			fmt.Fprintln(os.Stderr, err)
+			continue
 		}
 		if err := cmdFunc(arg); err != nil {
-			log.Fatal(err)
+			fmt.Fprintln(os.Stderr, err)
 		}
 	}
 }
@@ -688,12 +689,9 @@ func findExportedSymbols(m *report.Module, p *report.Package, c *reportClient) (
 
 func osvCmd(filename string) (err error) {
 	defer derrors.Wrap(&err, "osv(%q)", filename)
-	r, err := report.Read(filename)
+	r, err := report.ReadAndLint(filename)
 	if err != nil {
 		return err
-	}
-	if !checkLint(r, filename) {
-		return nil
 	}
 	osvFilename, err := writeOSV(r, filename)
 	if err != nil {
@@ -729,12 +727,9 @@ func commit(ctx context.Context, filename, accessToken string) (err error) {
 	// detect it on re-linting below.
 	_ = fix(ctx, filename, accessToken)
 
-	r, err := report.Read(filename)
+	r, err := report.ReadAndLint(filename)
 	if err != nil {
 		return err
-	}
-	if !checkLint(r, filename) {
-		return nil
 	}
 
 	// Exec the git command rather than using go-git so as to run commit hooks
@@ -787,18 +782,6 @@ func commit(ctx context.Context, filename, accessToken string) (err error) {
 	}
 
 	return nil
-}
-
-func checkLint(r *report.Report, filename string) bool {
-	if lints := r.Lint(filename); len(lints) > 0 {
-		fmt.Fprintf(os.Stderr, "%v: contains lint warnings\n", filename)
-		for _, l := range lints {
-			fmt.Fprintln(os.Stderr, l)
-		}
-		fmt.Fprintln(os.Stderr)
-		return false
-	}
-	return true
 }
 
 // Regexp for matching go tags. The groups are:
