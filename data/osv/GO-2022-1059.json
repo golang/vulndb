@@ -1,0 +1,58 @@
+{
+  "id": "GO-2022-1059",
+  "published": "0001-01-01T00:00:00Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-32149"
+  ],
+  "details": "An attacker may cause a denial of service by crafting an Accept-Language\nheader which ParseAcceptLanguage will take significant time to parse.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "golang.org/x/text",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.3.8"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-1059"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "golang.org/x/text/language",
+            "symbols": [
+              "MatchStrings",
+              "ParseAcceptLanguage"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/56152"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/442235"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/-hjNw559_tE/m/KlGTfid5CAAJ"
+    }
+  ]
+}
