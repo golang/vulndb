@@ -124,6 +124,7 @@ func (u *cveUpdater) update(ctx context.Context) (ur *store.CommitUpdateRecord, 
 			if err2 := u.st.SetCommitUpdateRecord(ctx, ur); err2 != nil {
 				return ur, fmt.Errorf("update failed with %w, could not set update record: %v", err, err2)
 			}
+			return ur, err
 		}
 		if stats.skipped {
 			skippedDirs = append(skippedDirs, dirFiles[0].DirPath)
