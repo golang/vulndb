@@ -1,0 +1,58 @@
+{
+  "id": "GO-2022-1031",
+  "published": "0001-01-01T00:00:00Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-40083",
+    "GHSA-crxj-hrmp-4rwf"
+  ],
+  "details": "Labstack Echo contains an open redirect vulnerability via the Static\nHandler component. This vulnerability can be leveraged by attackers\nto cause a Server-Side Request Forgery (SSRF).\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/labstack/echo/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.9.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-1031"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/labstack/echo/v4",
+            "symbols": [
+              "Echo.Static",
+              "Echo.StaticFS",
+              "Group.Static",
+              "Group.StaticFS",
+              "StaticDirectoryHandler"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://github.com/labstack/echo/issues/2259"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/labstack/echo/pull/2260"
+    }
+  ]
+}
