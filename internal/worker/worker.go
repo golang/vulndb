@@ -408,11 +408,12 @@ func createIssue(ctx context.Context, r storeRecord, ic issues.Client, newBody f
 		log.With("ID", id).Errorf(ctx, "%s: triage state is NeedsIssue but could not generate body; skipping: %v", id, err)
 		return "", nil
 	}
-	var labels []string
-	label := yearLabel(r.GetID())
-	if label != "" {
-		labels = append(labels, label)
+	labels := []string{"NeedsTriage"}
+	yrLabel := yearLabel(r.GetID())
+	if yrLabel != "" {
+		labels = append(labels, yrLabel)
 	}
+
 	// Create the issue.
 	iss := &issues.Issue{
 		Title:  fmt.Sprintf("x/vulndb: potential Go vuln in %s: %s", r.GetUnit(), r.GetID()),
