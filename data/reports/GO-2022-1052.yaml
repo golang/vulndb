@@ -1,0 +1,44 @@
+modules:
+  - module: github.com/tendermint/tendermint
+    versions:
+      - introduced: 0.34.0
+        fixed: 0.34.3
+    vulnerable_at: 0.34.2
+    packages:
+      - package: github.com/tendermint/tendermint/evidence
+        symbols:
+          - Pool.Update
+          - Pool.CheckEvidence
+      - package: github.com/tendermint/tendermint/consensus
+        symbols:
+          - State.tryAddVote
+        derived_symbols:
+          - BaseWAL.OnStart
+          - Handshaker.Handshake
+          - Handshaker.ReplayBlocks
+          - Reactor.OnStart
+          - Reactor.SwitchToConsensus
+          - RunReplayFile
+          - State.OnStart
+          - State.OpenWAL
+          - State.ReplayFile
+          - WALGenerateNBlocks
+          - WALWithNBlocks
+description: |
+    Mishandling of timestamps during consensus process can cause a denial of service.
+
+    While reaching consensus, different tendermint nodes can observe a different
+    timestamp for a consensus evidence. This mismatch can cause the evidence to be
+    invalid, upon which the node producing the evidence will be asked to generate
+    a new evidence. This new evidence will be the same, which means it will again
+    be rejected by other nodes involved in the consensus. This loop will continue
+    until the peer nodes decide to disconnect from the node producing the evidence.
+cves:
+  - CVE-2021-21271
+ghsas:
+  - GHSA-p658-8693-mhvg
+credit: cmwaters (Github)
+references:
+  - advisory: https://github.com/tendermint/tendermint/security/advisories/GHSA-p658-8693-mhvg
+  - article: https://github.com/tendermint/tendermint/blob/v0.34.3/CHANGELOG.md#v0.34.3
+  - fix: https://github.com/tendermint/tendermint/commit/a2a6852ab99e4a0f9e79f0ea8c1726e262e25c76

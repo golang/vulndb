@@ -1,0 +1,76 @@
+{
+  "id": "GO-2022-1052",
+  "published": "0001-01-01T00:00:00Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-21271",
+    "GHSA-p658-8693-mhvg"
+  ],
+  "details": "Mishandling of timestamps during consensus process can cause a denial of service.\n\nWhile reaching consensus, different tendermint nodes can observe a different\ntimestamp for a consensus evidence. This mismatch can cause the evidence to be\ninvalid, upon which the node producing the evidence will be asked to generate\na new evidence. This new evidence will be the same, which means it will again\nbe rejected by other nodes involved in the consensus. This loop will continue\nuntil the peer nodes decide to disconnect from the node producing the evidence.\n",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/tendermint/tendermint",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.34.0"
+            },
+            {
+              "fixed": "0.34.3"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-1052"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/tendermint/tendermint/evidence",
+            "symbols": [
+              "Pool.CheckEvidence",
+              "Pool.Update"
+            ]
+          },
+          {
+            "path": "github.com/tendermint/tendermint/consensus",
+            "symbols": [
+              "BaseWAL.OnStart",
+              "Handshaker.Handshake",
+              "Handshaker.ReplayBlocks",
+              "Reactor.OnStart",
+              "Reactor.SwitchToConsensus",
+              "RunReplayFile",
+              "State.OnStart",
+              "State.OpenWAL",
+              "State.ReplayFile",
+              "State.tryAddVote",
+              "WALGenerateNBlocks",
+              "WALWithNBlocks"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/tendermint/tendermint/security/advisories/GHSA-p658-8693-mhvg"
+    },
+    {
+      "type": "ARTICLE",
+      "url": "https://github.com/tendermint/tendermint/blob/v0.34.3/CHANGELOG.md#v0.34.3"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/tendermint/tendermint/commit/a2a6852ab99e4a0f9e79f0ea8c1726e262e25c76"
+    }
+  ]
+}
