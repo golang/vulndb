@@ -1,0 +1,50 @@
+{
+  "id": "GO-2022-1053",
+  "published": "0001-01-01T00:00:00Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-x279-68rr-jp4p"
+  ],
+  "details": "Potential creation of an invalid signature from correct inputs.\n\nSome inputs to the blst_fp_eucl_inverse function can produce incorrect\noutputs. This could theoretically permit the creation of an invalid\nsignature from correct inputs.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/supranational/blst",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.3.0"
+            },
+            {
+              "fixed": "0.3.3"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-1053"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/supranational/blst/bindings/go"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-x279-68rr-jp4p"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/supranational/blst/commit/dd980e7f81397895705c49fcb4f52e485bb45e21"
+    }
+  ]
+}
