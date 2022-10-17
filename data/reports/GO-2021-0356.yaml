@@ -2,11 +2,10 @@ modules:
   - module: golang.org/x/crypto
     versions:
       - fixed: 0.0.0-20220314234659-1baeb1ce4c0b
+    vulnerable_at: 0.0.0-20220314234646-fcc990c556fe
     packages:
       - package: golang.org/x/crypto/ssh
         symbols:
-          - ServerConfig.AddHostKey
-        derived_symbols:
           - ServerConfig.AddHostKey
 description: |
     Attackers can cause a crash in SSH servers when the server has been
