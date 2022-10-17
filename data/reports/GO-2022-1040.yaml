@@ -1,0 +1,44 @@
+modules:
+  - module: helm.sh/helm/v3
+    versions:
+      - introduced: 3.0.0
+        fixed: 3.5.2
+    vulnerable_at: 3.5.1
+    packages:
+      - package: helm.sh/helm/v3/pkg/chart
+        symbols:
+          - Metadata.Validate
+        derived_symbols:
+          - Chart.Validate
+      - package: helm.sh/helm/v3/pkg/plugin
+        symbols:
+          - validatePluginData
+        derived_symbols:
+          - FindPlugins
+          - LoadAll
+          - LoadDir
+      - package: helm.sh/helm/v3/pkg/repo
+        symbols:
+          - IndexFile.Add
+          - loadIndex
+        derived_symbols:
+          - ChartRepository.DownloadIndexFile
+          - ChartRepository.Index
+          - ChartRepository.Load
+          - FindChartInAuthAndTLSRepoURL
+          - FindChartInAuthRepoURL
+          - FindChartInRepoURL
+          - IndexDirectory
+          - LoadIndexFile
+description: |-
+    Helm does not sanitize all fields read from repository data files.
+    A maliciously crafted data file may contain strings containing arbitrary
+    data. If printed to a terminal, a malicious string could obscure or alter
+    data on the screen.
+cves:
+  - CVE-2021-21303
+ghsas:
+  - GHSA-c38g-469g-cmgx
+references:
+  - advisory: https://github.com/advisories/GHSA-c38g-469g-cmgx
+  - fix: https://github.com/helm/helm/commit/6ce9ba60b73013857e2e7c73d3f86ed70bc1ac9a

@@ -1,0 +1,79 @@
+{
+  "id": "GO-2022-1040",
+  "published": "0001-01-01T00:00:00Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-21303",
+    "GHSA-c38g-469g-cmgx"
+  ],
+  "details": "Helm does not sanitize all fields read from repository data files.\nA maliciously crafted data file may contain strings containing arbitrary\ndata. If printed to a terminal, a malicious string could obscure or alter\ndata on the screen.",
+  "affected": [
+    {
+      "package": {
+        "name": "helm.sh/helm/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "3.0.0"
+            },
+            {
+              "fixed": "3.5.2"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-1040"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "helm.sh/helm/v3/pkg/chart",
+            "symbols": [
+              "Chart.Validate",
+              "Metadata.Validate"
+            ]
+          },
+          {
+            "path": "helm.sh/helm/v3/pkg/plugin",
+            "symbols": [
+              "FindPlugins",
+              "LoadAll",
+              "LoadDir",
+              "validatePluginData"
+            ]
+          },
+          {
+            "path": "helm.sh/helm/v3/pkg/repo",
+            "symbols": [
+              "ChartRepository.DownloadIndexFile",
+              "ChartRepository.Index",
+              "ChartRepository.Load",
+              "FindChartInAuthAndTLSRepoURL",
+              "FindChartInAuthRepoURL",
+              "FindChartInRepoURL",
+              "IndexDirectory",
+              "IndexFile.Add",
+              "LoadIndexFile",
+              "loadIndex"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-c38g-469g-cmgx"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/helm/helm/commit/6ce9ba60b73013857e2e7c73d3f86ed70bc1ac9a"
+    }
+  ]
+}
