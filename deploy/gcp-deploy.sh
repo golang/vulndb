@@ -6,3 +6,4 @@
 set -e
 
 gsutil -m cp -r /workspace/db/* gs://go-vulndb
+gsutil cp webconfig/*.html webconfig/*.ico gs://go-vulndb
