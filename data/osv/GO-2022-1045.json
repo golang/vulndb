@@ -1,0 +1,60 @@
+{
+  "id": "GO-2022-1045",
+  "published": "0001-01-01T00:00:00Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-39237",
+    "GHSA-m5m3-46gj-wch8"
+  ],
+  "details": "The Singularity Image Format (SIF) reference implementation does not verify\nthat the hash algorithm(s) used are cryptographically secure when verifying\ndigital signatures.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/sylabs/sif/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.8.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-1045"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/sylabs/sif/v2/pkg/integrity",
+            "symbols": [
+              "Signer.Sign",
+              "Verifier.Verify",
+              "digest.MarshalJSON",
+              "digest.UnmarshalJSON",
+              "newDigest",
+              "signAndEncodeJSON",
+              "verifyAndDecode"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/sylabs/sif/security/advisories/GHSA-m5m3-46gj-wch8"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/sylabs/sif/commit/07fb86029a12e3210f6131e065570124605daeaa"
+    }
+  ]
+}
