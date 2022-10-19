@@ -41,8 +41,9 @@ func ToCVE5(reportPath string) (_ *cveschema5.CVERecord, err error) {
 	if r.CVEMetadata.ID == "" {
 		return nil, errors.New("report missing CVE ID")
 	}
-	if r.CVEMetadata.Description == "" {
-		return nil, errors.New("report missing cve_metadata.description")
+	description := r.CVEMetadata.Description
+	if description == "" {
+		description = r.Description
 	}
 	if r.CVEMetadata.CWE == "" {
 		return nil, errors.New("report missing CWE")
@@ -57,7 +58,7 @@ func ToCVE5(reportPath string) (_ *cveschema5.CVERecord, err error) {
 				Lang: "en",
 				// Remove trailing newline, then replace all newlines with
 				// spaces.
-				Value: strings.ReplaceAll(strings.TrimSuffix(r.CVEMetadata.Description, "\n"), "\n", " "),
+				Value: strings.ReplaceAll(strings.TrimSuffix(description, "\n"), "\n", " "),
 			},
 		},
 		ProblemTypes: []cveschema5.ProblemType{
