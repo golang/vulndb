@@ -23,6 +23,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	vulnc "golang.org/x/vuln/client"
+	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/database"
 	"golang.org/x/vulndb/internal/report"
 )
@@ -96,6 +97,21 @@ func TestLintReports(t *testing.T) {
 				if diff := cmp.Diff(generated, current, cmpopts.EquateEmpty()); diff != "" {
 					t.Errorf("data/osv/%v.json does not match report:\n%v", generated.ID, diff)
 				}
+			}
+			if r.CVEMetadata != nil {
+				generated, err := report.ToCVE5(filename)
+				if err != nil {
+					t.Fatal(err)
+				}
+				cvePath := fmt.Sprintf("data/cve/v5/%v.json", report.GetGoIDFromFilename(filename))
+				current, err := cveschema5.Read(cvePath)
+				if err != nil {
+					t.Fatal(err)
+				}
+				if diff := cmp.Diff(generated, current, cmpopts.EquateEmpty()); diff != "" {
+					t.Errorf("%s does not match report:\n%v", cvePath, diff)
+				}
+
 			}
 		})
 	}
