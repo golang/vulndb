@@ -30,6 +30,8 @@ import (
 	"golang.org/x/exp/slices"
 	"golang.org/x/tools/go/packages"
 	"golang.org/x/vulndb/internal/cvelistrepo"
+	"golang.org/x/vulndb/internal/cveschema"
+	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/database"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/ghsa"
@@ -40,13 +42,12 @@ import (
 )
 
 var (
-	localRepoPath  = flag.String("local-cve-repo", "", "path to local repo, instead of cloning remote")
-	issueRepo      = flag.String("issue-repo", "github.com/golang/vulndb", "repo to create issues in")
-	githubToken    = flag.String("ghtoken", os.Getenv("VULN_GITHUB_ACCESS_TOKEN"), "GitHub access token")
-	cveJSONVersion = flag.String("cve-version", "4.0", "for newcve, the CVE JSON version, either 4.0 or 5.0")
-	skipSymbols    = flag.Bool("skip-symbols", false, "for lint and fix, don't load package for symbols checks")
-	alwaysFixGHSA  = flag.Bool("always-fix-ghsa", false, "for fix, always update GHSAs")
-	indent         = flag.Bool("indent", false, "for newcve, indent JSON output")
+	localRepoPath = flag.String("local-cve-repo", "", "path to local repo, instead of cloning remote")
+	issueRepo     = flag.String("issue-repo", "github.com/golang/vulndb", "repo to create issues in")
+	githubToken   = flag.String("ghtoken", os.Getenv("VULN_GITHUB_ACCESS_TOKEN"), "GitHub access token")
+	skipSymbols   = flag.Bool("skip-symbols", false, "for lint and fix, don't load package for symbols checks")
+	alwaysFixGHSA = flag.Bool("always-fix-ghsa", false, "for fix, always update GHSAs")
+	indent        = flag.Bool("indent", false, "for newcve, indent JSON output")
 )
 
 func main() {
@@ -55,7 +56,8 @@ func main() {
 		fmt.Fprintf(flag.CommandLine.Output(), "usage: vulnreport [cmd] [filename.yaml]\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  create [githubIssueNumber]: creates a new vulnerability YAML report\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  lint filename.yaml ...: lints vulnerability YAML reports\n")
-		fmt.Fprintf(flag.CommandLine.Output(), "  newcve filename.yaml ...: creates CVE record from the provided YAML reports\n")
+		fmt.Fprintf(flag.CommandLine.Output(), "  cve filename.yaml ...: creates and saves CVE 5.0 record from the provided YAML reports\n")
+		fmt.Fprintf(flag.CommandLine.Output(), "  cve4 filename.yaml ...: creates and prints CVE 4.0 record from the provided YAML reports\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  fix filename.yaml ...: fixes and reformats YAML reports\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  osv filename.yaml ...: converts YAMLS reports to OSV JSON and writes to data/osv\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  set-dates filename.yaml ...: sets PublishDate of YAML reports\n")
@@ -94,8 +96,11 @@ func main() {
 		cmdFunc = lint
 	case "commit":
 		cmdFunc = func(name string) error { return commit(ctx, name, *githubToken) }
-	case "newcve":
-		cmdFunc = func(name string) error { return newCVE(ctx, name, *cveJSONVersion, *indent) }
+	case "cve":
+		cmdFunc = func(name string) error { return cveCmd(ctx, name) }
+	//TODO: (https://github.com/golang/go/issues/56356): Deprecate this command once CVE JSON 5.0 publishing is available
+	case "cve4":
+		cmdFunc = func(name string) error { return cve4Cmd(ctx, name, *indent) }
 	case "fix":
 		cmdFunc = func(name string) error { return fix(ctx, name, *githubToken) }
 	case "osv":
@@ -561,6 +566,9 @@ func fix(ctx context.Context, filename string, accessToken string) (err error) {
 	if _, err := writeOSV(r, filename); err != nil {
 		return err
 	}
+	if err := writeCVE(r, filename); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -713,6 +721,60 @@ func writeOSV(r *report.Report, filename string) (string, error) {
 	return "", nil
 }
 
+func cveCmd(ctx context.Context, filename string) (err error) {
+	defer derrors.Wrap(&err, "cve(%q)", filename)
+	r, err := report.Read(filename)
+	if err != nil {
+		return err
+	}
+	return writeCVE(r, filename)
+}
+
+// writeCVE takes a report and the path to a .yaml description and marshals the data
+// into a JSON CVE5 record and writes it to data/cve/v5.
+func writeCVE(r *report.Report, filename string) error {
+	if r.CVEMetadata == nil {
+		return nil
+	}
+	var cve *cveschema5.CVERecord
+	var err error
+
+	cveName := report.GetGoIDFromFilename(filename)
+	cvePath := fmt.Sprintf("data/cve/v5/%v.json", cveName)
+	if cve, err = report.ToCVE5(filename); err != nil {
+		return err
+	}
+	if err = database.WriteJSON(cvePath, cve, true); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func cve4Cmd(ctx context.Context, filename string, indent bool) (err error) {
+	defer derrors.Wrap(&err, "cve4(%q, %t)", filename, indent)
+	r, err := report.Read(filename)
+	if err != nil {
+		return err
+	}
+	return printCVE4(r, filename, indent)
+}
+
+// printCVE4 takes a report and prints out the JSON CVE 4.0 Record to stdOut
+func printCVE4(r *report.Report, filename string, indent bool) error {
+	var cve *cveschema.CVE
+	var err error
+	if cve, err = report.ToCVE(filename); err != nil {
+		return err
+	}
+	e := json.NewEncoder(os.Stdout)
+	e.SetEscapeHTML(false)
+	if indent {
+		e.SetIndent("", "\t")
+	}
+	return e.Encode(cve)
+}
+
 var reportRegexp = regexp.MustCompile(`^(data/\w+)/GO-\d\d\d\d-(\d+)\.yaml$`)
 
 func commit(ctx context.Context, filename, accessToken string) (err error) {
@@ -750,6 +812,15 @@ func commit(ctx context.Context, filename, accessToken string) (err error) {
 		osvfilename = "data/osv/" + strings.TrimSuffix(filepath.Base(filename), ".yaml") + ".json"
 		if err := irun("git", "add", osvfilename); err != nil {
 			fmt.Fprintf(os.Stderr, "git add %v: %v\n", osvfilename, err)
+			return nil
+		}
+	}
+	if r.CVEMetadata != nil {
+		cveID := report.GetGoIDFromFilename(filename)
+		cvefilename := fmt.Sprintf("data/cve/v5/%v.json", cveID)
+
+		if err := irun("git", "add", cvefilename); err != nil {
+			fmt.Fprintf(os.Stderr, "git add %v: %v\n", cvefilename, err)
 			return nil
 		}
 	}
@@ -896,31 +967,6 @@ func setDates(filename string, dates map[string]gitrepo.Dates) (err error) {
 	}
 	r.Published = d.Oldest
 	return r.Write(filename)
-}
-
-func newCVE(ctx context.Context, filename string, version string, indent bool) (err error) {
-	defer derrors.Wrap(&err, "newCVE(%q, %s)", filename, version)
-	var cve any
-	switch version {
-	case "4.0":
-		cve, err = report.ToCVE(filename)
-	case "5.0":
-		cve, err = report.ToCVE5(filename)
-	default:
-		return fmt.Errorf("CVE JSON version %q not supported", version)
-	}
-	if err != nil {
-		return err
-	}
-
-	// We need to use an encoder so that it doesn't escape angle
-	// brackets.
-	e := json.NewEncoder(os.Stdout)
-	e.SetEscapeHTML(false)
-	if indent {
-		e.SetIndent("", "\t")
-	}
-	return e.Encode(cve)
 }
 
 // loadGHSAsByCVE returns a map from CVE ID to GHSA IDs.
