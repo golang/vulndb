@@ -1,6 +1,6 @@
 steps:
   - id: Lock
-    name: golang:1.17.3
+    name: golang:1.19.2
     entrypoint: bash
     args:
       - -ec
@@ -22,8 +22,15 @@ steps:
           echo "git fetch --unshallow failed, no worries mate"
         fi
 
+  - id: Test
+    name: golang:1.19.2
+    entrypoint: bash
+    args:
+      - -ec
+      - go test ./...
+
   - id: Generate
-    name: golang
+    name: golang:1.19.2
     entrypoint: bash
     args: ["-c", "go run ./cmd/gendb -out /workspace/db"]
 
