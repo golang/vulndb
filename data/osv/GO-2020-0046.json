@@ -3,7 +3,8 @@
   "published": "2021-04-14T20:04:52Z",
   "modified": "0001-01-01T00:00:00Z",
   "aliases": [
-    "CVE-2020-7711"
+    "CVE-2020-7711",
+    "GHSA-mqqv-chpx-vq25"
   ],
   "details": "Due to a nil pointer dereference, a malformed XML Digital Signature\ncan cause a panic during validation. If user supplied signatures are\nbeing validated, this may be used as a denial of service vector.\n",
   "affected": [
@@ -20,7 +21,7 @@
               "introduced": "0"
             },
             {
-              "fixed": "1.1.0"
+              "fixed": "1.1.1"
             }
           ]
         }
@@ -33,6 +34,7 @@
           {
             "path": "github.com/russellhaering/goxmldsig",
             "symbols": [
+              "ValidationContext.Validate",
               "ValidationContext.validateSignature"
             ]
           }
@@ -52,7 +54,7 @@
               "introduced": "0"
             },
             {
-              "fixed": "0.6.0"
+              "fixed": "0.7.0"
             }
           ]
         }
@@ -66,6 +68,8 @@
             "path": "github.com/russellhaering/gosaml2",
             "symbols": [
               "SAMLServiceProvider.RetrieveAssertionInfo",
+              "SAMLServiceProvider.ValidateEncodedLogoutRequestPOST",
+              "SAMLServiceProvider.ValidateEncodedLogoutResponsePOST",
               "SAMLServiceProvider.ValidateEncodedResponse",
               "SAMLServiceProvider.validateAssertionSignatures"
             ]
