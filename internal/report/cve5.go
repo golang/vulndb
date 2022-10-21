@@ -74,12 +74,18 @@ func ToCVE5(reportPath string) (_ *cveschema5.CVERecord, err error) {
 	}
 
 	for _, m := range r.Modules {
+		versions := versionRangeToVersionRange(m.Versions)
+		defaultStatus := cveschema5.StatusUnaffected
+		if len(versions) == 0 {
+			// If there are no recorded versions affected, we assume all versions are affected.
+			defaultStatus = cveschema5.StatusAffected
+		}
 		for _, p := range m.Packages {
 			affected := cveschema5.Affected{
 				CollectionURL: "https://pkg.go.dev",
 				PackageName:   p.Package,
-				Versions:      versionRangeToVersionRange(m.Versions),
-				DefaultStatus: cveschema5.StatusUnaffected,
+				Versions:      versions,
+				DefaultStatus: defaultStatus,
 				Platforms:     p.GOOS,
 			}
 			for _, symbol := range p.AllSymbols() {
@@ -92,6 +98,8 @@ func ToCVE5(reportPath string) (_ *cveschema5.CVERecord, err error) {
 	for _, ref := range r.References {
 		c.References = append(c.References, cveschema5.Reference{URL: ref.URL})
 	}
+	advisoryLink := GetGoAdvisoryLink(GetGoIDFromFilename(reportPath))
+	c.References = append(c.References, cveschema5.Reference{URL: advisoryLink})
 
 	if r.Credit != "" {
 		c.Credits = []cveschema5.Credit{

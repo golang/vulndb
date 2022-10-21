@@ -81,6 +81,11 @@ var (
 					{
 						URL: "https://groups.google.com/g/golang-announce/c/abcdef",
 					},
+					{
+						// This normally reports in the format .../vuln/GO-YYYY-XXXX, but our logic
+						// relies on file path so this "abnormal" formatting is so that tests pass.
+						URL: "https://pkg.go.dev/vuln/std-report",
+					},
 				},
 				Credits: []cveschema5.Credit{
 					{
@@ -145,6 +150,73 @@ var (
 					{
 						URL: "https://github.com/gin-gonic/gin/commit/a71af9c144f9579f6dbe945341c1df37aaf09c0d",
 					},
+					{
+						// This normally reports in the format .../vuln/GO-YYYY-XXXX, but our logic
+						// relies on file path so this "abnormal" formatting is so that tests pass.
+						URL: "https://pkg.go.dev/vuln/report",
+					},
+				},
+				Credits: []cveschema5.Credit{
+					{
+						Lang:  "en",
+						Value: "@thinkerou <thinkerou@gmail.com>",
+					},
+				},
+			},
+		},
+	}
+	testNoVersionsRecord = &cveschema5.CVERecord{
+		DataType:    "CVE_RECORD",
+		DataVersion: "5.0",
+		Metadata: cveschema5.Metadata{
+			ID: "CVE-9999-0001",
+		},
+		Containers: cveschema5.Containers{
+			CNAContainer: cveschema5.CNAPublishedContainer{
+				ProviderMetadata: cveschema5.ProviderMetadata{
+					OrgID: GoOrgUUID,
+				},
+				Descriptions: []cveschema5.Description{
+					{
+						Lang:  "en",
+						Value: `Unsanitized input in the default logger in github.com/gin-gonic/gin before v1.6.0 allows remote attackers to inject arbitrary log lines.`,
+					},
+				},
+				Affected: []cveschema5.Affected{
+					{
+						CollectionURL: "https://pkg.go.dev",
+						PackageName:   "github.com/gin-gonic/gin",
+						Versions:      nil,
+						ProgramRoutines: []cveschema5.ProgramRoutine{
+							{
+								Name: "defaultLogFormatter",
+							},
+						},
+						DefaultStatus: cveschema5.StatusAffected,
+					},
+				},
+				ProblemTypes: []cveschema5.ProblemType{
+					{
+						Descriptions: []cveschema5.ProblemTypeDescription{
+							{
+								Lang:        "en",
+								Description: "CWE-20: Improper Input Validation",
+							},
+						},
+					},
+				},
+				References: []cveschema5.Reference{
+					{
+						URL: "https://github.com/gin-gonic/gin/pull/2237",
+					},
+					{
+						URL: "https://github.com/gin-gonic/gin/commit/a71af9c144f9579f6dbe945341c1df37aaf09c0d",
+					},
+					{
+						// This normally reports in the format .../vuln/GO-YYYY-XXXX, but our logic
+						// relies on file path so this "abnormal" formatting is so that tests pass.
+						URL: "https://pkg.go.dev/vuln/no-versions",
+					},
 				},
 				Credits: []cveschema5.Credit{
 					{
@@ -172,6 +244,11 @@ func TestToCVE5(t *testing.T) {
 			name:     "Third Party Report",
 			filename: "testdata/report.yaml",
 			want:     testThirdPartyRecord,
+		},
+		{
+			name:     "No Versions Report",
+			filename: "testdata/no-versions.yaml",
+			want:     testNoVersionsRecord,
 		},
 	}
 	for _, test := range tests {
