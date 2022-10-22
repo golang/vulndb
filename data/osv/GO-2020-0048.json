@@ -3,7 +3,8 @@
   "published": "2021-04-14T20:04:52Z",
   "modified": "0001-01-01T00:00:00Z",
   "aliases": [
-    "CVE-2020-25614"
+    "CVE-2020-25614",
+    "GHSA-93m7-c69f-5cfj"
   ],
   "details": "LoadURL does not check the Content-Type of loaded resources,\nwhich can cause a panic due to nil pointer deference if the loaded\nresource is not XML. If user supplied URLs are loaded, this may be\nused as a denial of service vector.\n",
   "affected": [
