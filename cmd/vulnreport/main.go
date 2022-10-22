@@ -47,6 +47,7 @@ var (
 	githubToken   = flag.String("ghtoken", os.Getenv("VULN_GITHUB_ACCESS_TOKEN"), "GitHub access token")
 	skipSymbols   = flag.Bool("skip-symbols", false, "for lint and fix, don't load package for symbols checks")
 	alwaysFixGHSA = flag.Bool("always-fix-ghsa", false, "for fix, always update GHSAs")
+	updateIssue   = flag.Bool("up", false, "for commit, create a CL that updates (doesn't fix) the tracking bug")
 	indent        = flag.Bool("indent", false, "for newcve, indent JSON output")
 )
 
@@ -775,15 +776,10 @@ func printCVE4(r *report.Report, filename string, indent bool) error {
 	return e.Encode(cve)
 }
 
-var reportRegexp = regexp.MustCompile(`^(data/\w+)/GO-\d\d\d\d-(\d+)\.yaml$`)
+var reportRegexp = regexp.MustCompile(`^(data/\w+)/(GO-\d\d\d\d-0*(\d+)\.yaml)$`)
 
 func commit(ctx context.Context, filename, accessToken string) (err error) {
 	defer derrors.Wrap(&err, "commit(%q)", filename)
-	m := reportRegexp.FindStringSubmatch(filename)
-	if len(m) != 3 {
-		return fmt.Errorf("%v: not a report filename", filename)
-	}
-	issueID := m[2]
 
 	// Ignore errors. If anything is really wrong with the report, we'll
 	// detect it on re-linting below.
@@ -809,7 +805,7 @@ func commit(ctx context.Context, filename, accessToken string) (err error) {
 	}
 	var osvfilename string
 	if r.Excluded == "" {
-		osvfilename = "data/osv/" + strings.TrimSuffix(filepath.Base(filename), ".yaml") + ".json"
+		osvfilename = "data/osv/" + report.GetGoIDFromFilename(filename) + ".json"
 		if err := irun("git", "add", osvfilename); err != nil {
 			fmt.Fprintf(os.Stderr, "git add %v: %v\n", osvfilename, err)
 			return nil
@@ -825,24 +821,11 @@ func commit(ctx context.Context, filename, accessToken string) (err error) {
 		}
 	}
 
-	var externalAdvisories string
-	action := "Fixes"
-	switch {
-	case r.CVEMetadata != nil:
-		action = "Updates"
-		externalAdvisories = r.CVEMetadata.ID
-	case len(r.CVEs) > 0:
-		externalAdvisories = strings.Join(r.CVEs, ", ")
-	case len(r.GHSAs) > 0:
-		externalAdvisories = strings.Join(r.GHSAs, ", ")
-	default:
-		externalAdvisories = "[no CVE or GHSA]"
+	msg, err := newCommitMsg(r, filename)
+	if err != nil {
+		return err
 	}
 
-	folder := m[1]
-	msg := fmt.Sprintf("%s: add %s for %s\n\n%s golang/vulndb#%s\n",
-		folder,
-		strings.TrimPrefix(filename, fmt.Sprintf("%s/", folder)), externalAdvisories, action, strings.TrimPrefix(issueID, "0"))
 	args := []string{"commit", "-m", msg, "-e", filename}
 	if osvfilename != "" {
 		args = append(args, osvfilename)
@@ -853,6 +836,33 @@ func commit(ctx context.Context, filename, accessToken string) (err error) {
 	}
 
 	return nil
+}
+
+func newCommitMsg(r *report.Report, filepath string) (string, error) {
+	m := reportRegexp.FindStringSubmatch(filepath)
+	if len(m) != 4 {
+		return "", fmt.Errorf("%v: not a report filepath", filepath)
+	}
+	folder := m[1]
+	filename := m[2]
+	issueID := m[3]
+
+	issueAction := "Fixes"
+	fileAction := "add"
+	if *updateIssue {
+		fileAction = "update"
+		issueAction = "Updates"
+	}
+	// For now, we need to manually publish the CVE record so the issue
+	// should not be auto-closed on add.
+	if r.CVEMetadata != nil {
+		issueAction = "Updates"
+	}
+
+	return fmt.Sprintf(
+		"%s: %s %s\n\nAliases: %s\n\n%s golang/vulndb#%s",
+		folder, fileAction, filename, strings.Join(r.GetAliases(), ", "),
+		issueAction, issueID), nil
 }
 
 // Regexp for matching go tags. The groups are:
