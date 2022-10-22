@@ -2,6 +2,7 @@ modules:
   - module: github.com/gorilla/websocket
     versions:
       - fixed: 1.4.1
+    vulnerable_at: 1.4.0
     packages:
       - package: github.com/gorilla/websocket
         symbols:
@@ -10,9 +11,12 @@ modules:
         derived_symbols:
           - Conn.Close
           - Conn.NextReader
+          - Conn.NextWriter
           - Conn.ReadJSON
           - Conn.ReadMessage
+          - Conn.WriteControl
           - Conn.WriteJSON
+          - Conn.WriteMessage
           - Conn.WritePreparedMessage
           - Dialer.Dial
           - Dialer.DialContext
@@ -23,11 +27,18 @@ modules:
           - Upgrade
           - Upgrader.Upgrade
           - WriteJSON
+          - flateReadWrapper.Read
+          - flateWriteWrapper.Close
+          - flateWriteWrapper.Write
           - httpProxyDialer.Dial
-          - netDialerFunc.Dial
+          - messageWriter.Close
+          - messageWriter.ReadFrom
+          - messageWriter.Write
+          - messageWriter.WriteString
           - proxy_direct.Dial
           - proxy_envOnce.Get
           - proxy_socks5.Dial
+          - truncWriter.Write
 description: |
     An attacker can craft malicious WebSocket frames that cause an integer
     overflow in a variable which tracks the number of bytes remaining. This
