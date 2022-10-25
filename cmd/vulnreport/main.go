@@ -282,7 +282,7 @@ func setupCreate(ctx context.Context, args []string) ([]int, *createCfg, error) 
 func create(ctx context.Context, issueNumber int, cfg *createCfg) (err error) {
 	defer derrors.Wrap(&err, "create(%d)", issueNumber)
 	// Get GitHub issue.
-	iss, err := cfg.issuesClient.GetIssue(ctx, issueNumber, issues.GetIssueOptions{GetLabels: true})
+	iss, err := cfg.issuesClient.GetIssue(ctx, issueNumber)
 	if err != nil {
 		return err
 	}

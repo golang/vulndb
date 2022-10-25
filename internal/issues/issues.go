@@ -18,6 +18,7 @@ import (
 
 // An Issue represents a GitHub issue or similar.
 type Issue struct {
+	Number    int
 	Title     string
 	Body      string
 	State     string
@@ -25,9 +26,14 @@ type Issue struct {
 	CreatedAt time.Time
 }
 
-// GetIssueOptions are options for GetIssue.
-type GetIssueOptions struct {
-	GetLabels bool // get labels as well?
+// GetIssuesOptions are options for GetIssues
+type GetIssuesOptions struct {
+	// State filters issues based on their state. Possible values are: open,
+	// closed, all. Default is "open".
+	State string
+
+	// Labels filters issues based on their label.
+	Labels []string
 }
 
 // Client is a client that can create and retrieve issues.
@@ -45,7 +51,9 @@ type Client interface {
 	CreateIssue(ctx context.Context, iss *Issue) (number int, err error)
 
 	// GetIssue returns an issue with the given issue number.
-	GetIssue(ctx context.Context, number int, opts GetIssueOptions) (iss *Issue, err error)
+	GetIssue(ctx context.Context, number int) (iss *Issue, err error)
+
+	GetIssues(ctx context.Context, opts GetIssuesOptions) (issues []*Issue, err error)
 }
 
 type githubClient struct {
@@ -92,36 +100,62 @@ func (c *githubClient) IssueExists(ctx context.Context, number int) (_ bool, err
 	return false, nil
 }
 
+// convertGithubIssueToIssue converts the github.Issue type to our Issue type
+func convertGithubIssueToIssue(ghIss *github.Issue) *Issue {
+	iss := &Issue{}
+	if ghIss.Number != nil {
+		iss.Number = *ghIss.Number
+	}
+	if ghIss.Title != nil {
+		iss.Title = *ghIss.Title
+	}
+	if ghIss.Body != nil {
+		iss.Body = *ghIss.Body
+	}
+	if ghIss.CreatedAt != nil {
+		iss.CreatedAt = *ghIss.CreatedAt
+	}
+	if ghIss.State != nil {
+		iss.State = *ghIss.State
+	}
+	if ghIss.Labels != nil {
+		iss.Labels = make([]string, len(ghIss.Labels))
+		for i, label := range ghIss.Labels {
+			iss.Labels[i] = label.GetName()
+		}
+	}
+	return iss
+}
+
 // GetIssue implements Client.GetIssue.
-func (c *githubClient) GetIssue(ctx context.Context, number int, opts GetIssueOptions) (_ *Issue, err error) {
+func (c *githubClient) GetIssue(ctx context.Context, number int) (_ *Issue, err error) {
 	defer derrors.Wrap(&err, "GetIssue(%d)", number)
-	iss, _, err := c.client.Issues.Get(ctx, c.owner, c.repo, number)
+	ghIss, _, err := c.client.Issues.Get(ctx, c.owner, c.repo, number)
 	if err != nil {
 		return nil, err
 	}
-	r := &Issue{}
-	if iss.Title != nil {
-		r.Title = *iss.Title
+	iss := convertGithubIssueToIssue(ghIss)
+
+	return iss, nil
+}
+
+// GetIssues implements Client.GetIssues
+func (c *githubClient) GetIssues(ctx context.Context, opts GetIssuesOptions) (_ []*Issue, err error) {
+	defer derrors.Wrap(&err, "GetIssues()")
+	clientOpts := &github.IssueListByRepoOptions{
+		State:  opts.State,
+		Labels: opts.Labels,
 	}
-	if iss.Body != nil {
-		r.Body = *iss.Body
+	ghIssues, _, err := c.client.Issues.ListByRepo(ctx, c.owner, c.repo, clientOpts)
+	if err != nil {
+		return nil, err
 	}
-	if iss.CreatedAt != nil {
-		r.CreatedAt = *iss.CreatedAt
+	issues := make([]*Issue, len(ghIssues))
+	for i, iss := range ghIssues {
+		issues[i] = convertGithubIssueToIssue(iss)
 	}
-	if iss.State != nil {
-		r.State = *iss.State
-	}
-	if opts.GetLabels {
-		labels, _, err := c.client.Issues.ListLabelsByIssue(ctx, c.owner, c.repo, number, nil)
-		if err != nil {
-			return nil, err
-		}
-		for _, l := range labels {
-			r.Labels = append(r.Labels, l.GetName())
-		}
-	}
-	return r, nil
+
+	return issues, nil
 }
 
 // CreateIssue implements Client.CreateIssue.
