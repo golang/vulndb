@@ -22,7 +22,6 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/object"
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/derrors"
-	"golang.org/x/vulndb/internal/gitrepo"
 )
 
 // URL is the URL of the cvelist repo.
@@ -113,12 +112,8 @@ func blobReader(repo *git.Repository, hash plumbing.Hash) (io.Reader, error) {
 
 // FetchCVE fetches the CVE file for cveID from the CVElist repo and returns
 // the parsed info.
-func FetchCVE(ctx context.Context, repoPath, cveID string) (_ *cveschema.CVE, err error) {
+func FetchCVE(ctx context.Context, repo *git.Repository, cveID string) (_ *cveschema.CVE, err error) {
 	defer derrors.Wrap(&err, "FetchCVE(repo, commit, %s)", cveID)
-	repo, err := gitrepo.CloneOrOpen(ctx, repoPath)
-	if err != nil {
-		return nil, err
-	}
 	ref, err := repo.Reference(plumbing.HEAD, true)
 	if err != nil {
 		return nil, err

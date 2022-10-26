@@ -25,6 +25,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/go-git/go-git/v5"
 	"golang.org/x/exp/constraints"
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
@@ -79,7 +80,7 @@ func main() {
 	// Create operates on github issue IDs instead of filenames, so it is
 	// separated from the other commands.
 	if cmd == "create" {
-		githubIDs, cfg, err := setupCreate(args)
+		githubIDs, cfg, err := setupCreate(ctx, args)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -241,12 +242,12 @@ func parseArgsToGithubIDs(args []string, existingByIssue map[int]*report.Report)
 
 type createCfg struct {
 	ghToken        string
-	repoPath       string
+	repo           *git.Repository
 	issuesClient   issues.Client
 	existingByFile map[string]*report.Report
 }
 
-func setupCreate(args []string) ([]int, *createCfg, error) {
+func setupCreate(ctx context.Context, args []string) ([]int, *createCfg, error) {
 	if *githubToken == "" {
 		return nil, nil, fmt.Errorf("githubToken must be provided")
 	}
@@ -258,15 +259,13 @@ func setupCreate(args []string) ([]int, *createCfg, error) {
 	if err != nil {
 		return nil, nil, err
 	}
-	if len(githubIDs) > 1 && *localRepoPath == "" {
-		// Maybe we should automatically maintain a local clone of the
-		// cvelist repo, but for now we can avoid repeatedly fetching it
-		// when iterating over a list of reports.
-		return nil, nil, fmt.Errorf("git clone %v to a local directory, and set -local-cve-repo to that path", cvelistrepo.URL)
-	}
 	repoPath := cvelistrepo.URL
 	if *localRepoPath != "" {
 		repoPath = *localRepoPath
+	}
+	repo, err := gitrepo.CloneOrOpen(ctx, repoPath)
+	if err != nil {
+		return nil, nil, err
 	}
 	owner, repoName, err := gitrepo.ParseGitHubRepo(*issueRepo)
 	if err != nil {
@@ -274,7 +273,7 @@ func setupCreate(args []string) ([]int, *createCfg, error) {
 	}
 	return githubIDs, &createCfg{
 		ghToken:        *githubToken,
-		repoPath:       repoPath,
+		repo:           repo,
 		issuesClient:   issues.NewGitHubClient(owner, repoName, *githubToken),
 		existingByFile: existingByFile,
 	}, nil
@@ -351,7 +350,7 @@ func newReport(ctx context.Context, cfg *createCfg, parsed *parsedIssue) (*repor
 		}
 		r = report.GHSAToReport(ghsa, parsed.modulePath)
 	case len(parsed.cves) > 0:
-		cve, err := cvelistrepo.FetchCVE(ctx, cfg.repoPath, parsed.cves[0])
+		cve, err := cvelistrepo.FetchCVE(ctx, cfg.repo, parsed.cves[0])
 		if err != nil {
 			return nil, err
 		}
