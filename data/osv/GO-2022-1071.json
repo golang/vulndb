@@ -1,0 +1,225 @@
+{
+  "id": "GO-2022-1071",
+  "published": "0001-01-01T00:00:00Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-39272",
+    "GHSA-f4p5-x4vc-mh4v"
+  ],
+  "details": "Flux controllers are vulnerable to a denial of service attack.\n\nUsers that have permissions to change Flux's objects, either through a Flux source or directly within a cluster, can provide invalid data to fields `.spec.interval` or `.spec.timeout` (and structured variations of these fields), causing the entire object type to stop being processed.\n\nThe issue has two root causes: a) the Kubernetes type `metav1.Duration` is not fully compatible with the Go type `time.Duration` as explained in https://github.com/kubernetes/apimachinery/issues/131, and b) a lack of validation within Flux to restrict allowed values.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/fluxcd/helm-controller/api",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.26.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-1071"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/fluxcd/helm-controller/api/v2beta1"
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/fluxcd/image-automation-controller/api",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.26.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-1071"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/fluxcd/image-automation-controller/api/v1beta1"
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/fluxcd/image-reflector-controller/api",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.22.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-1071"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/fluxcd/image-reflector-controller/api/v1beta1"
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/fluxcd/kustomize-controller/api",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.30.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-1071"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/fluxcd/kustomize-controller/api/v1beta2"
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/fluxcd/notification-controller/api",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.28.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-1071"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/fluxcd/notification-controller/api/v1beta1"
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/fluxcd/source-controller/api",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.30.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-1071"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/fluxcd/source-controller/api/v1beta2"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-f4p5-x4vc-mh4v"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/fluxcd/helm-controller/pull/533"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/fluxcd/image-automation-controller/pull/439"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/fluxcd/image-reflector-controller/pull/314"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/fluxcd/kustomize-controller/pull/731"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/fluxcd/notification-controller/pull/420"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/fluxcd/source-controller/pull/903"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubernetes/apimachinery#131"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Alexander Block (@codablock)"
+    }
+  ]
+}
