@@ -28,8 +28,14 @@ var (
 		os.Getenv("CVE_API_KEY"), "key for accessing the CVE API (can also be set via env var CVE_API_KEY)")
 	apiUser = flag.String("user",
 		os.Getenv("CVE_API_USER"), "username for accessing the CVE API (can also be set via env var CVE_API_USER)")
+	testApiKey = flag.String("test-key",
+		os.Getenv("TEST_CVE_API_KEY"), "key for accessing the CVE API in test env (can also be set via env var TEST_CVE_API_KEY)")
+	testApiUser = flag.String("test-user",
+		os.Getenv("TEST_CVE_API_USER"), "username for accessing the CVE API in test env (can also be set via env var TEST_CVE_API_USER)")
 	apiOrg = flag.String("org",
 		"Go", "organization name for accessing the CVE API")
+	// Note: the cve tool does not currently support the dev endpoint as there
+	// is no clear use case for us.
 	test = flag.Bool("test", false, "whether to access the CVE API in the test environment")
 
 	// flags for the reserve command
@@ -64,30 +70,10 @@ func main() {
 
 	flag.Parse()
 	if flag.NArg() < 1 {
-		logUsageErr("cve", fmt.Errorf("must provide subcommand"))
+		logFatalUsageErr("cve", fmt.Errorf("must provide subcommand"))
 	}
 
-	// The cve tool does not currently support the dev endpoint as there is
-	// no clear use case for us.
-	endpoint := cveclient.ProdEndpoint
-	if *test {
-		endpoint = cveclient.TestEndpoint
-	}
-
-	if *apiKey == "" {
-		logUsageErr("cve", errors.New("the CVE API key (flag -key or env var CVE_API_KEY) must be set"))
-	}
-	if *apiUser == "" {
-		logUsageErr("cve", errors.New("the CVE API user (flag -user or env var CVE_API_USER) must be set"))
-	}
-
-	cfg := cveclient.Config{
-		Endpoint: endpoint,
-		Key:      *apiKey,
-		Org:      *apiOrg,
-		User:     *apiUser,
-	}
-	c := cveclient.New(cfg)
+	c := cveclient.New(*getCfgFromFlags())
 
 	cmd := flag.Arg(0)
 	switch cmd {
@@ -116,7 +102,7 @@ func main() {
 	case "id":
 		id, err := validateID(flag.Arg(1))
 		if err != nil {
-			logUsageErr("cve id", err)
+			logFatalUsageErr("cve id", err)
 		}
 		if err := lookupID(c, id); err != nil {
 			log.Fatalf("cve id: could not retrieve CVE IDs due to error:\n  %v", err)
@@ -124,7 +110,7 @@ func main() {
 	case "record":
 		id, err := validateID(flag.Arg(1))
 		if err != nil {
-			logUsageErr("cve record", err)
+			logFatalUsageErr("cve record", err)
 		}
 		// TODO(https://go.dev/issue/53256): Remove when record lookup is
 		// supported by CVE Services API.
@@ -137,10 +123,10 @@ func main() {
 	case "publish":
 		filename := flag.Arg(1)
 		if filename == "" {
-			logUsageErr("cve publish", errors.New("filename must be provided"))
+			logFatalUsageErr("cve publish", errors.New("filename must be provided"))
 		}
 		if !strings.HasSuffix(filename, ".json") && !strings.HasSuffix(filename, ".yaml") {
-			logUsageErr("cve publish", errors.New("filename must end in '.json' or '.yaml'"))
+			logFatalUsageErr("cve publish", errors.New("filename must end in '.json' or '.yaml'"))
 		}
 		// TODO(https://go.dev/issue/53256): Remove when record publish is
 		// supported by CVE Services API.
@@ -161,7 +147,7 @@ func main() {
 			filters = new(cveclient.ListOptions)
 			state, err := validateState(*listState)
 			if err != nil {
-				logUsageErr("cve list", err)
+				logFatalUsageErr("cve list", err)
 			}
 			filters.State = state
 			filters.Year = *year
@@ -170,11 +156,11 @@ func main() {
 			log.Fatalf("cve list: could not retrieve CVE IDs due to error:\n  %v", err)
 		}
 	default:
-		logUsageErr("cve", fmt.Errorf("unsupported command: %q", cmd))
+		logFatalUsageErr("cve", fmt.Errorf("unsupported command: %q", cmd))
 	}
 }
 
-func logUsageErr(context string, err error) {
+func logFatalUsageErr(context string, err error) {
 	log.Printf("%s: %s\n\n", context, err)
 	flag.Usage()
 	os.Exit(1)
@@ -187,6 +173,36 @@ func logUnsupportedErr(context string) {
 func getCurrentYear() int {
 	year, _, _ := time.Now().Date()
 	return year
+}
+
+func getCfgFromFlags() *cveclient.Config {
+	if *test {
+		if *testApiKey == "" {
+			logFatalUsageErr("cve", errors.New("the test CVE API key (flag -test-key or env var TEST_CVE_API_KEY) must be set in test env"))
+		}
+		if *testApiUser == "" {
+			logFatalUsageErr("cve", errors.New("the test CVE API user (flag -test-user or env var TEST_CVE_API_USER) must be set in test env"))
+		}
+		return &cveclient.Config{
+			Endpoint: cveclient.TestEndpoint,
+			Key:      *testApiKey,
+			Org:      *apiOrg,
+			User:     *testApiUser,
+		}
+	}
+
+	if *apiKey == "" {
+		logFatalUsageErr("cve", errors.New("the CVE API key (flag -key or env var CVE_API_KEY) must be set in prod env"))
+	}
+	if *apiUser == "" {
+		logFatalUsageErr("cve", errors.New("the CVE API user (flag -user or env var CVE_API_USER) must be set in prod env"))
+	}
+	return &cveclient.Config{
+		Endpoint: cveclient.ProdEndpoint,
+		Key:      *apiKey,
+		Org:      *apiOrg,
+		User:     *apiUser,
+	}
 }
 
 var cveRegex = regexp.MustCompile(`^CVE-\d{4}-\d{4,}$`)
