@@ -122,3 +122,13 @@ func Read(filename string) (*CVERecord, error) {
 	}
 	return &record, nil
 }
+
+// ReadForPublish reads the portion of a CVE record that can be published
+// via the CVE Services API from filename.
+func ReadForPublish(filename string) (cveID string, toPublish *Containers, err error) {
+	record, err := Read(filename)
+	if err != nil {
+		return "", nil, err
+	}
+	return record.Metadata.ID, &record.Containers, nil
+}

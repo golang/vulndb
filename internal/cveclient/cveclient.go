@@ -55,12 +55,12 @@ func New(cfg Config) *Client {
 
 // AssignedCVE contains information about an assigned CVE.
 type AssignedCVE struct {
-	ID          string      `json:"cve_id"`
-	Year        string      `json:"cve_year"`
-	State       string      `json:"state"`
-	CNA         string      `json:"owning_cna"`
-	Reserved    time.Time   `json:"reserved"`
-	RequestedBy RequestedBy `json:"requested_by"`
+	ID          string           `json:"cve_id"`
+	Year        string           `json:"cve_year"`
+	State       cveschema5.State `json:"state"`
+	CNA         string           `json:"owning_cna"`
+	Reserved    time.Time        `json:"reserved"`
+	RequestedBy RequestedBy      `json:"requested_by"`
 }
 
 // RequestedBy indicates the requesting user and organization for a CVE.

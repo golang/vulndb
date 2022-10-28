@@ -65,7 +65,7 @@ var (
 	testTime1992 = time.Date(1992, 1, 1, 0, 0, 0, 0, time.UTC)
 )
 
-func newTestCVE(id, state, year string) AssignedCVE {
+func newTestCVE(id string, state cveschema5.State, year string) AssignedCVE {
 	return AssignedCVE{
 		ID:       id,
 		Year:     year,

@@ -18,6 +18,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/google/go-cmp/cmp"
 	"golang.org/x/vulndb/internal/cveclient"
 	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/report"
@@ -43,10 +44,7 @@ var (
 	reserveSequential = flag.Bool("seq", true, "reserve: if true, reserve new CVE ID batches in sequence")
 
 	// flags for the list command
-	listState = flag.String("state", "", "list: filter by CVE state (RESERVED, PUBLIC, or REJECT)")
-
-	// flags for the publish command
-	publishUpdate = flag.Bool("update", false, "publish: if true, update an existing CVE Record")
+	listState = flag.String("state", "", "list: filter by CVE state (RESERVED, PUBLISHED, or REJECTED)")
 
 	// flags that apply to multiple commands
 	year = flag.Int("year", 0, "reserve: the CVE ID year for newly reserved CVE IDs (default is current year)\nlist: filter by the year in the CVE ID")
@@ -62,7 +60,7 @@ func main() {
 		fmt.Fprintf(out, formatCmd, "quota", "outputs the CVE ID quota of the authenticated organization")
 		fmt.Fprintf(out, formatCmd, "id {cve-id}", "outputs details on an assigned CVE ID (CVE-YYYY-NNNN)")
 		fmt.Fprintf(out, formatCmd, "record {cve-id}", "outputs the record associated with a CVE ID (CVE-YYYY-NNNN)")
-		fmt.Fprintf(out, formatCmd, "[-update] publish {filename}", "publishes a CVE Record from a YAML or JSON file")
+		fmt.Fprintf(out, formatCmd, "publish {filename}", "publishes or updates a CVE Record from a YAML or JSON file")
 		fmt.Fprintf(out, formatCmd, "org", "outputs details on the authenticated organization")
 		fmt.Fprintf(out, formatCmd, "[-year] [-state] list", "lists all CVE IDs for an organization")
 		flag.PrintDefaults()
@@ -123,7 +121,7 @@ func main() {
 		if !strings.HasSuffix(filename, ".json") && !strings.HasSuffix(filename, ".yaml") {
 			logFatalUsageErr("cve publish", errors.New("filename must end in '.json' or '.yaml'"))
 		}
-		if err := publish(c, filename, *publishUpdate); err != nil {
+		if err := publish(c, filename); err != nil {
 			log.Fatalf("cve publish: could not publish CVE record due to error:\n %v", err)
 		}
 	case "org":
@@ -203,7 +201,7 @@ func validateID(id string) (string, error) {
 	return id, nil
 }
 
-var stateRegex = regexp.MustCompile(`^(RESERVED|PUBLIC|REJECT)$`)
+var stateRegex = regexp.MustCompile(`^(RESERVED|PUBLISHED|REJECTED)$`)
 
 func validateState(state string) (string, error) {
 	if state != "" && !stateRegex.MatchString(state) {
@@ -254,10 +252,12 @@ func lookupID(c *cveclient.Client, id string) error {
 	return nil
 }
 
-func recordToString(r *cveschema5.CVERecord) string {
-	s, err := json.MarshalIndent(r, "", " ")
+// toJSON converts a struct into a JSON string.
+// If JSON marshal fails, it falls back to fmt.Sprint.
+func toJSON(v any) string {
+	s, err := json.Marshal(v)
 	if err != nil {
-		s = []byte(fmt.Sprint(r))
+		return fmt.Sprint(v)
 	}
 	return string(s)
 }
@@ -268,53 +268,67 @@ func lookupRecord(c *cveclient.Client, id string) error {
 		return err
 	}
 	// Display the retrieved CVE record.
-	fmt.Println(recordToString(record))
+	fmt.Println(toJSON(record))
 	return nil
 }
 
-func publish(c *cveclient.Client, filename string, update bool) (err error) {
-	var toPublish *cveschema5.CVERecord
-	switch {
-	case strings.HasSuffix(filename, ".yaml"):
-		toPublish, err = report.ToCVE5(filename)
-		if err != nil {
-			return err
-		}
-	case strings.HasSuffix(filename, ".json"):
-		toPublish, err = cveschema5.Read(filename)
-		if err != nil {
-			return err
-		}
-	default:
-		return errors.New("filename must end in '.json' or '.yaml'")
+func publish(c *cveclient.Client, filename string) (err error) {
+	if !strings.HasSuffix(filename, ".json") {
+		return errors.New("filename must end in '.json'")
 	}
 
-	reader := bufio.NewReader(os.Stdin)
-	fmt.Printf("ready to publish:\n%s\ncontinue? (y/N)\n", recordToString(toPublish))
-	text, _ := reader.ReadString('\n')
-	if text != "y\n" {
-		fmt.Println("exiting")
-		return nil
+	cveID, toPublish, err := cveschema5.ReadForPublish(filename)
+	if err != nil {
+		return err
+	}
+
+	// Determine if the record should be created or updated.
+	assigned, err := c.RetrieveID(cveID)
+	if err != nil {
+		return err
 	}
 
 	var (
-		published *cveschema5.CVERecord
-		action    string
+		publish func(string, *cveschema5.Containers) (*cveschema5.CVERecord, error)
+		action  string
 	)
-	if update {
-		published, err = c.UpdateRecord(toPublish.Metadata.ID, &toPublish.Containers)
+	switch state := assigned.State; state {
+	case cveschema5.StatePublished:
+		existing, err := c.RetrieveRecord(cveID)
 		if err != nil {
 			return err
 		}
+		if diff := cmp.Diff(existing.Containers, *toPublish); diff != "" {
+			fmt.Printf("publish would update record for %s (-existing, +new):\n%s\n", cveID, diff)
+		} else {
+			fmt.Println("updating record would have no effect, exiting")
+			return nil
+		}
+		publish = c.UpdateRecord
 		action = "update"
-	} else {
-		published, err = c.CreateRecord(toPublish.Metadata.ID, &toPublish.Containers)
-		if err != nil {
-			return err
-		}
+	case cveschema5.StateReserved:
+		fmt.Printf("publish would create new record for %s\n", cveID)
+		publish = c.CreateRecord
 		action = "create"
+	default:
+		return fmt.Errorf("publishing a %s record is not supported", state)
 	}
-	fmt.Printf("successfully %sd record for %s:\n%v\nlink: %s%s\n", action, published.Metadata.ID, recordToString(published), report.NISTPrefix, published.Metadata.ID)
+
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Printf("%s record for %s? (y/N)\n", action, cveID)
+	text, _ := reader.ReadString('\n')
+	if text != "y\n" {
+		fmt.Printf("exiting without %sing record\n", strings.TrimSuffix(action, "e"))
+		return nil
+	}
+
+	published, err := publish(cveID, toPublish)
+	if err != nil {
+		return err
+	}
+
+	fmt.Printf("successfully %sd record for %s:\n\n%v\n\nlink: %s%s\n", action, cveID, toJSON(published), report.MITREPrefix, cveID)
+
 	return nil
 }
 

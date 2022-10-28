@@ -214,7 +214,7 @@ func (r *Report) GetAliases() []string {
 
 const (
 	NISTPrefix    = "https://nvd.nist.gov/vuln/detail/"
-	mitrePrefix   = "https://cve.mitre.org/cgi-bin/cvename.cgi?name="
+	MITREPrefix   = "https://cve.org/CVERecord?id="
 	ghsaURLPrefix = "https://github.com/advisories/"
 	goURLPrefix   = "https://pkg.go.dev/vuln/"
 )
