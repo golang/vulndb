@@ -67,15 +67,6 @@ func ToCVE(reportPath string) (_ *cveschema.CVE, err error) {
 	}
 
 	for _, m := range r.Modules {
-		var vendor string
-		switch mPath := m.Module; mPath {
-		case stdlib.ModulePath:
-			vendor = "Go standard library"
-		case stdlib.ToolchainModulePath:
-			vendor = "Go toolchain"
-		default:
-			vendor = mPath
-		}
 		var pkgData []cveschema.ProductDataItem
 		for _, p := range m.Packages {
 			pkgData = append(pkgData,
@@ -85,7 +76,7 @@ func ToCVE(reportPath string) (_ *cveschema.CVE, err error) {
 				})
 		}
 		c.Affects.Vendor.Data = append(c.Affects.Vendor.Data, cveschema.VendorDataItem{
-			VendorName: vendor,
+			VendorName: getVendor(m.Module),
 			Product: cveschema.Product{
 				Data: pkgData,
 			},
@@ -108,6 +99,17 @@ func ToCVE(reportPath string) (_ *cveschema.CVE, err error) {
 	}
 
 	return c, nil
+}
+
+func getVendor(modulePath string) string {
+	switch modulePath {
+	case stdlib.ModulePath:
+		return "Go standard library"
+	case stdlib.ToolchainModulePath:
+		return "Go toolchain"
+	default:
+		return modulePath
+	}
 }
 
 // removeNewlines removes leading and trailing space characters and

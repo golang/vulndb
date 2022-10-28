@@ -12,11 +12,13 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "The AWS S3 Crypto SDK sends an unencrypted hash of the plaintext alongside the ciphertext as a metadata field. This hash can be used to brute force the plaintext, if the hash is readable to the attacker.  AWS now blocks this metadata field, but older SDK versions still send it."
+          "value": "The AWS S3 Crypto SDK sends an unencrypted hash of the plaintext alongside the ciphertext as a metadata field. This hash can be used to brute force the plaintext, if the hash is readable to the attacker. AWS now blocks this metadata field, but older SDK versions still send it."
         }
       ],
       "affected": [
         {
+          "vendor": "github.com/aws/aws-sdk-go",
+          "product": "github.com/aws/aws-sdk-go/service/s3/s3crypto",
           "collectionURL": "https://pkg.go.dev",
           "packageName": "github.com/aws/aws-sdk-go/service/s3/s3crypto",
           "versions": [

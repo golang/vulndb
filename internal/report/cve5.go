@@ -55,10 +55,8 @@ func ToCVE5(reportPath string) (_ *cveschema5.CVERecord, err error) {
 		},
 		Descriptions: []cveschema5.Description{
 			{
-				Lang: "en",
-				// Remove trailing newline, then replace all newlines with
-				// spaces.
-				Value: strings.ReplaceAll(strings.TrimSuffix(description, "\n"), "\n", " "),
+				Lang:  "en",
+				Value: removeNewlines(description),
 			},
 		},
 		ProblemTypes: []cveschema5.ProblemType{
@@ -82,6 +80,8 @@ func ToCVE5(reportPath string) (_ *cveschema5.CVERecord, err error) {
 		}
 		for _, p := range m.Packages {
 			affected := cveschema5.Affected{
+				Vendor:        getVendor(m.Module),
+				Product:       p.Package,
 				CollectionURL: "https://pkg.go.dev",
 				PackageName:   p.Package,
 				Versions:      versions,

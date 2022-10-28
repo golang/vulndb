@@ -12,11 +12,13 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "Web Sockets do not execute any AuthenticateMethod methods which may be set, leading to a nil pointer dereference if the returned UserData pointer is assumed to be non-nil, or authentication bypass.  This issue only affects WebSockets with an AuthenticateMethod hook. Request handlers that do not explicitly use WebSockets are not vulnerable."
+          "value": "Web Sockets do not execute any AuthenticateMethod methods which may be set, leading to a nil pointer dereference if the returned UserData pointer is assumed to be non-nil, or authentication bypass. This issue only affects WebSockets with an AuthenticateMethod hook. Request handlers that do not explicitly use WebSockets are not vulnerable."
         }
       ],
       "affected": [
         {
+          "vendor": "github.com/ecnepsnai/web",
+          "product": "github.com/ecnepsnai/web",
           "collectionURL": "https://pkg.go.dev",
           "packageName": "github.com/ecnepsnai/web",
           "versions": [

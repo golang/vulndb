@@ -31,6 +31,8 @@ var (
 				},
 				Affected: []cveschema5.Affected{
 					{
+						Vendor:        "Go standard library",
+						Product:       "crypto/rand",
 						CollectionURL: "https://pkg.go.dev",
 						PackageName:   "crypto/rand",
 						Versions: []cveschema5.VersionRange{
@@ -115,6 +117,8 @@ var (
 				},
 				Affected: []cveschema5.Affected{
 					{
+						Vendor:        "github.com/gin-gonic/gin",
+						Product:       "github.com/gin-gonic/gin",
 						CollectionURL: "https://pkg.go.dev",
 						PackageName:   "github.com/gin-gonic/gin",
 						Versions: []cveschema5.VersionRange{
@@ -184,6 +188,8 @@ var (
 				},
 				Affected: []cveschema5.Affected{
 					{
+						Vendor:        "github.com/gin-gonic/gin",
+						Product:       "github.com/gin-gonic/gin",
 						CollectionURL: "https://pkg.go.dev",
 						PackageName:   "github.com/gin-gonic/gin",
 						Versions:      nil,
