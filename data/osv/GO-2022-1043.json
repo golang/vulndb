@@ -1,0 +1,55 @@
+{
+  "id": "GO-2022-1043",
+  "published": "0001-01-01T00:00:00Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-39273",
+    "GHSA-67x4-qr35-qvrm"
+  ],
+  "details": "Default authorization server's configuration settings contain a known hardcoded hashed password.\n\nUsers who enable auth but do not override this setting may unknowingly allow public traffic in by way of this default password with attackers effectively impersonating propeller.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/flyteorg/flyteadmin",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.0.0"
+            },
+            {
+              "fixed": "1.1.44"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-1043"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/flyteorg/flyteadmin/auth/config"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-67x4-qr35-qvrm"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/flyteorg/flyteadmin/pull/478"
+    },
+    {
+      "type": "WEB",
+      "url": "https://docs.flyte.org/en/latest/deployment/cluster_config/auth_setup.html#oauth2-authorization-server"
+    }
+  ]
+}

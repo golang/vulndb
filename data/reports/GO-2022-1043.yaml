@@ -1,0 +1,23 @@
+modules:
+  - module: github.com/flyteorg/flyteadmin
+    versions:
+      - introduced: 1.0.0
+        fixed: 1.1.44
+    vulnerable_at: 1.1.43
+    packages:
+      - package: github.com/flyteorg/flyteadmin/auth/config
+description: |
+    Default authorization server's configuration settings contain
+    a known hardcoded hashed password.
+
+    Users who enable auth but do not override this setting may unknowingly
+    allow public traffic in by way of this default password with attackers
+    effectively impersonating propeller.
+cves:
+  - CVE-2022-39273
+ghsas:
+  - GHSA-67x4-qr35-qvrm
+references:
+  - advisory: https://github.com/advisories/GHSA-67x4-qr35-qvrm
+  - fix: https://github.com/flyteorg/flyteadmin/pull/478
+  - web: https://docs.flyte.org/en/latest/deployment/cluster_config/auth_setup.html#oauth2-authorization-server
