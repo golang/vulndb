@@ -112,11 +112,6 @@ func main() {
 		if err != nil {
 			logFatalUsageErr("cve record", err)
 		}
-		// TODO(https://go.dev/issue/53256): Remove when record lookup is
-		// supported by CVE Services API.
-		if !*test {
-			logUnsupportedErr("cve record")
-		}
 		if err := lookupRecord(c, id); err != nil {
 			log.Fatalf("cve record: could not retrieve CVE record due to error:\n  %v", err)
 		}
@@ -127,11 +122,6 @@ func main() {
 		}
 		if !strings.HasSuffix(filename, ".json") && !strings.HasSuffix(filename, ".yaml") {
 			logFatalUsageErr("cve publish", errors.New("filename must end in '.json' or '.yaml'"))
-		}
-		// TODO(https://go.dev/issue/53256): Remove when record publish is
-		// supported by CVE Services API.
-		if !*test {
-			logUnsupportedErr("cve publish")
 		}
 		if err := publish(c, filename, *publishUpdate); err != nil {
 			log.Fatalf("cve publish: could not publish CVE record due to error:\n %v", err)
@@ -164,10 +154,6 @@ func logFatalUsageErr(context string, err error) {
 	log.Printf("%s: %s\n\n", context, err)
 	flag.Usage()
 	os.Exit(1)
-}
-
-func logUnsupportedErr(context string) {
-	log.Fatalf("%s: command not yet supported by MITRE CVE Services API", context)
 }
 
 func getCurrentYear() int {

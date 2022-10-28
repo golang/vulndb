@@ -185,7 +185,7 @@ func (c *Client) RetrieveID(id string) (cve *AssignedCVE, err error) {
 
 // RetrieveRecord requests a CVE record.
 func (c *Client) RetrieveRecord(id string) (cve *cveschema5.CVERecord, err error) {
-	err = c.queryAPI(http.MethodGet, c.getURL(cveTarget, id, cnaTarget), nil, &cve)
+	err = c.queryAPI(http.MethodGet, c.getURL(cveTarget, id), nil, &cve)
 	return
 }
 

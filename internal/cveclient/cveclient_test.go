@@ -286,7 +286,7 @@ func TestAllSuccess(t *testing.T) {
 			mockStatus:     http.StatusOK,
 			mockResponse:   defaultTestCVERecord,
 			wantHTTPMethod: http.MethodGet,
-			wantPath:       "/api/cve/CVE-2022-0000/cna",
+			wantPath:       "/api/cve/CVE-2022-0000",
 			want:           defaultTestCVERecord,
 		},
 		{
