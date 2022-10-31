@@ -5,5 +5,12 @@
 
 set -e
 
+# Deploy database files.
 gsutil -m cp -r /workspace/db/* gs://go-vulndb
-gsutil cp webconfig/*.html webconfig/*.ico gs://go-vulndb
+
+# Deploy web files.
+for file in index 404 copyright privacy; do
+    gsutil -h "Content-Type:text/html" cp webconfig/$file.html gs://go-vulndb/$file
+done
+gsutil cp webconfig/favicon.ico gs://go-vulndb
+
