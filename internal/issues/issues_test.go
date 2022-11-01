@@ -62,13 +62,14 @@ func testClient(t *testing.T, c Client) {
 		State:  "open",
 	}
 	iss2 := &Issue{
-		Title:  "vuln worker test",
-		Body:   "test of go.googlesource.com/internal/issues",
+		Title:  "vuln worker test2",
+		Body:   "test of go.googlesource.com/vulndb/internal/issues",
 		Labels: []string{"testing", "other"},
 		State:  "open",
 	}
 
 	num, err := c.CreateIssue(ctx, iss)
+	iss.Number = num
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -87,7 +88,8 @@ func testClient(t *testing.T, c Client) {
 		fmt.Printf("%v", *gotIss)
 		t.Errorf("mismatch (-want, +got):\n%s", diff)
 	}
-	_, err = c.CreateIssue(ctx, iss2)
+	num2, err := c.CreateIssue(ctx, iss2)
+	iss2.Number = num2
 	if err != nil {
 		t.Fatal(err)
 	}

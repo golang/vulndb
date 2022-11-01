@@ -109,6 +109,9 @@ func convertGithubIssueToIssue(ghIss *github.Issue) *Issue {
 	if ghIss.Title != nil {
 		iss.Title = *ghIss.Title
 	}
+	if ghIss.Number != nil {
+		iss.Number = *ghIss.Number
+	}
 	if ghIss.Body != nil {
 		iss.Body = *ghIss.Body
 	}
