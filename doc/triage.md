@@ -87,8 +87,8 @@ new report to the database by following these steps:
 2. Clone the x/vulndb repository: `git clone https://go.googlesource.com/vulndb`
 3. Run `go install ./cmd/vulnreport` to install the vulnreport tool.
 4. You will need a
-   [GitHub access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
-   with scope `repo: public_repo`.
+   [GitHub access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) with scope `repo: public_repo`
+   (follow instructions for "personal access token (classic)").
 
    Store the token in a file, e.g., `~/.github-token`, and run:
    ``export VULN_GITHUB_ACCESS_TOKEN=`cat ~/.github-token` `` (you can also store
@@ -101,9 +101,13 @@ new report to the database by following these steps:
 6. Edit the report file template.
 7. Run `vulnreport commit [<report file> | <Github issue number>]`. This will
    lint the report, add exported symbols, convert the YAML to OSV, and commit
-   the new files with a standard commit message. The `vulnreport commit` command
-   also accepts multiple space-separated files/issue numbers, and will create a
-   separate commit for each report.
+   the new files with a standard commit message. Commits are to the local git 
+   repository. The `vulnreport commit` command also accepts multiple
+   space-separated files/issue numbers, and will create a separate commit for
+   each report.
+8. Send the commit for review and approval. See the Go
+   [contribution guide](https://go.dev/doc/contribute) for sending a change on
+   Gerrit.
 
 ### Standard Library Reports
 
