@@ -33,7 +33,7 @@ The initial setup has already been completed and no further action is required.
 The go-vulndb bucket was configured to display these pages via:
 
 ```sh
-gsutil web set -m index.html -e 404.html gs://go-vulndb
+gsutil web set -m index -e 404 gs://go-vulndb
 ```
 
 Use `gsutil web get gs://go-vulndb` to display the current configuration.
