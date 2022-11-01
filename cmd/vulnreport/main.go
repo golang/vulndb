@@ -57,6 +57,7 @@ func main() {
 	flag.Usage = func() {
 		fmt.Fprintf(flag.CommandLine.Output(), "usage: vulnreport [cmd] [filename.yaml]\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  create [githubIssueNumber]: creates a new vulnerability YAML report\n")
+		fmt.Fprintf(flag.CommandLine.Output(), "  create-excluded: creates and commits all open github issues marked as excluded\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  lint filename.yaml ...: lints vulnerability YAML reports\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  cve filename.yaml ...: creates and saves CVE 5.0 record from the provided YAML reports\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  cve4 filename.yaml ...: creates and prints CVE 4.0 record from the provided YAML reports\n")
@@ -69,12 +70,30 @@ func main() {
 	}
 
 	flag.Parse()
+	if flag.NArg() < 1 {
+		flag.Usage()
+		log.Fatal("subcommand required")
+	}
+
+	cmd := flag.Arg(0)
+
+	// Create-excluded has no args, so it is separated form the other commands.
+	if cmd == "create-excluded" {
+		_, cfg, err := setupCreate(ctx, nil)
+		if err != nil {
+			log.Fatal(err)
+		}
+		if err = createExcluded(ctx, cfg); err != nil {
+			log.Fatal(err)
+		}
+		return
+	}
+
 	if flag.NArg() < 2 {
 		flag.Usage()
 		log.Fatal("not enough arguments")
 	}
 
-	cmd := flag.Arg(0)
 	args := flag.Args()[1:]
 
 	// Create operates on github issue IDs instead of filenames, so it is
@@ -236,10 +255,11 @@ func parseArgsToGithubIDs(args []string, existingByIssue map[int]*report.Report)
 }
 
 type createCfg struct {
-	ghToken        string
-	repo           *git.Repository
-	issuesClient   issues.Client
-	existingByFile map[string]*report.Report
+	ghToken         string
+	repo            *git.Repository
+	issuesClient    issues.Client
+	existingByFile  map[string]*report.Report
+	existingByIssue map[int]*report.Report
 }
 
 func setupCreate(ctx context.Context, args []string) ([]int, *createCfg, error) {
@@ -267,29 +287,25 @@ func setupCreate(ctx context.Context, args []string) ([]int, *createCfg, error) 
 		return nil, nil, err
 	}
 	return githubIDs, &createCfg{
-		ghToken:        *githubToken,
-		repo:           repo,
-		issuesClient:   issues.NewGitHubClient(owner, repoName, *githubToken),
-		existingByFile: existingByFile,
+		ghToken:         *githubToken,
+		repo:            repo,
+		issuesClient:    issues.NewGitHubClient(owner, repoName, *githubToken),
+		existingByFile:  existingByFile,
+		existingByIssue: existingByIssue,
 	}, nil
 }
 
-func create(ctx context.Context, issueNumber int, cfg *createCfg) (err error) {
-	defer derrors.Wrap(&err, "create(%d)", issueNumber)
-	// Get GitHub issue.
-	iss, err := cfg.issuesClient.GetIssue(ctx, issueNumber)
-	if err != nil {
-		return err
-	}
+func createReport(ctx context.Context, cfg *createCfg, iss *issues.Issue) (r *report.Report, err error) {
+	defer derrors.Wrap(&err, "createReport(%d)", iss.Number)
 	parsed, err := parseGithubIssue(iss)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	if len(parsed.ghsas) == 0 && len(parsed.cves) > 0 {
 		for _, cve := range parsed.cves {
 			sas, err := ghsa.ListForCVE(ctx, cfg.ghToken, cve)
 			if err != nil {
-				return err
+				return nil, err
 			}
 			for _, sa := range sas {
 				parsed.ghsas = append(parsed.ghsas, sa.ID)
@@ -299,9 +315,9 @@ func create(ctx context.Context, issueNumber int, cfg *createCfg) (err error) {
 		parsed.ghsas = slices.Compact(parsed.ghsas)
 	}
 
-	r, err := newReport(ctx, cfg, parsed)
+	r, err = newReport(ctx, cfg, parsed)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	if parsed.excluded != "" {
@@ -318,20 +334,105 @@ func create(ctx context.Context, issueNumber int, cfg *createCfg) (err error) {
 	}
 
 	addTODOs(r)
+
+	return r, nil
+}
+
+func createFilename(iss *issues.Issue, r *report.Report) string {
 	var year int
 	if !iss.CreatedAt.IsZero() {
 		year = iss.CreatedAt.Year()
 	}
 	dir := "reports"
-	if parsed.excluded != "" {
+	if r.Excluded != "" {
 		dir = "excluded"
 	}
-	filename := fmt.Sprintf("data/%s/GO-%04d-%04d.yaml", dir, year, issueNumber)
+	filename := fmt.Sprintf("data/%s/GO-%04d-%04d.yaml", dir, year, iss.Number)
+
+	return filename
+}
+
+func create(ctx context.Context, issueNumber int, cfg *createCfg) (err error) {
+	defer derrors.Wrap(&err, "create(%d)", issueNumber)
+	// Get GitHub issue.
+	iss, err := cfg.issuesClient.GetIssue(ctx, issueNumber)
+	if err != nil {
+		return err
+	}
+
+	r, err := createReport(ctx, cfg, iss)
+	if err != nil {
+		return err
+	}
+
+	filename := createFilename(iss, r)
 	if err := r.Write(filename); err != nil {
 		return err
 	}
 	fmt.Println(filename)
 	fmt.Print(xref(filename, r, cfg.existingByFile))
+	return nil
+}
+
+func handleExcludedIssue(ctx context.Context, cfg *createCfg, iss *issues.Issue) (string, error) {
+	r, err := createReport(ctx, cfg, iss)
+	if err != nil {
+		return "", err
+	}
+	r.Fix()
+	filename := createFilename(iss, r)
+
+	if err := r.Write(filename); err != nil {
+		return "", err
+	}
+
+	if lints := r.Lint(filename); len(lints) != 0 {
+		return "", fmt.Errorf("lint errors %s: %v", filename, lints)
+	}
+
+	if err := irun("git", "add", filename); err != nil {
+		return "", fmt.Errorf("git add %s: %v", filename, err)
+	}
+	return filename, nil
+}
+
+func createExcluded(ctx context.Context, cfg *createCfg) (err error) {
+	defer derrors.Wrap(&err, "createExcluded()")
+	excludedLabels := []string{"excluded: DEPENDENT_VULNERABILITY",
+		"excluded: EFFECTIVELY_PRIVATE", "excluded: NOT_A_VULNERABILITY",
+		"excluded: NOT_GO_CODE", "excluded: NOT_IMPORTABLE"}
+	isses := []*issues.Issue{}
+	for _, label := range excludedLabels {
+		tempIssues, err :=
+			cfg.issuesClient.GetIssues(ctx, issues.GetIssuesOptions{Labels: []string{label}})
+		if err != nil {
+			return err
+		}
+		isses = append(isses, tempIssues...)
+	}
+
+	var successfulIssNums, successfulGoIDs []string
+	for _, iss := range isses {
+		if _, exists := cfg.existingByIssue[iss.Number]; exists {
+			continue
+		}
+		filename, err := handleExcludedIssue(ctx, cfg, iss)
+		if err != nil {
+			fmt.Printf("skipped issue %d due to error: %v", iss.Number, err)
+			continue
+		}
+		successfulIssNums = append(successfulIssNums, fmt.Sprintf("golang/vulndb#%d", iss.Number))
+		successfulGoIDs = append(successfulGoIDs, report.GetGoIDFromFilename(filename))
+	}
+
+	msg := fmt.Sprintf("data/excluded: batch add %s\n\nFixes%s",
+		strings.Join(successfulGoIDs, ", "), strings.Join(successfulIssNums, ", "))
+	args := []string{"commit", "-m", msg, "-e"}
+
+	if err := irun("git", args...); err != nil {
+		return fmt.Errorf("git commit: %v", err)
+	}
+
 	return nil
 }
 
@@ -765,6 +866,18 @@ func printCVE4(r *report.Report, filename string, indent bool) error {
 	return e.Encode(cve)
 }
 
+var reportRegexp = regexp.MustCompile(`^(data/\w+)/(GO-\d\d\d\d-0*(\d+)\.yaml)$`)
+
+func irun(name string, arg ...string) error {
+	// Exec git commands rather than using go-git so as to run commit hooks
+	// and give the user a chance to edit the commit message.
+	cmd := exec.Command(name, arg...)
+	cmd.Stdin = os.Stdin
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	return cmd.Run()
+}
+
 func commit(ctx context.Context, filename, accessToken string) (err error) {
 	defer derrors.Wrap(&err, "commit(%q)", filename)
 
@@ -777,15 +890,6 @@ func commit(ctx context.Context, filename, accessToken string) (err error) {
 		return err
 	}
 
-	// Exec the git command rather than using go-git so as to run commit hooks
-	// and give the user a chance to edit the commit message.
-	irun := func(name string, arg ...string) error {
-		cmd := exec.Command(name, arg...)
-		cmd.Stdin = os.Stdin
-		cmd.Stdout = os.Stdout
-		cmd.Stderr = os.Stderr
-		return cmd.Run()
-	}
 	if err := irun("git", "add", filename); err != nil {
 		fmt.Fprintf(os.Stderr, "git add: %v\n", err)
 		return nil

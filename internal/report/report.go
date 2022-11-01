@@ -286,6 +286,7 @@ func ReadAndLint(filename string) (r *Report, err error) {
 
 // Write writes r to filename in YAML format.
 func (r *Report) Write(filename string) (err error) {
+	defer derrors.Wrap(&err, "Write(%s)", filename)
 	f, err := os.Create(filename)
 	if err != nil {
 		return err
