@@ -1,0 +1,43 @@
+modules:
+  - module: std
+    versions:
+      - fixed: 1.18.8
+      - introduced: 1.19.0
+        fixed: 1.19.3
+    vulnerable_at: 1.19.2
+    packages:
+      - package: syscall
+        goos:
+          - windows
+        symbols:
+          - StartProcess
+      - package: os/exec
+        goos:
+          - windows
+        symbols:
+          - Cmd.environ
+          - dedupEnv
+          - dedupEnvCase
+        derived_symbols:
+          - Cmd.CombinedOutput
+          - Cmd.Environ
+          - Cmd.Output
+          - Cmd.Run
+          - Cmd.Start
+description: |
+    Due to unsanitized NUL values, attackers may be able to maliciously set
+    environment variables on Windows.
+
+    In syscall.StartProcess and os/exec.Cmd, invalid environment variable
+    values containing NUL values are not properly checked for. A malicious
+    environment variable value can exploit this behavior to set a
+    value for a different environment variable. For example, the environment
+    variable string "A=B\x00C=D" sets the variables "A=B" and "C=D".
+credit: RyotaK (https://twitter.com/ryotkak)
+references:
+  - report: https://go.dev/issue/56284
+  - fix: https://go.dev/cl/446916
+  - web: https://groups.google.com/g/golang-announce/c/mbHY1UY3BaM/m/hSpmRzk-AgAJ
+cve_metadata:
+    id: CVE-2022-41716
+    cwe: 'CWE-158: Improper Neutralization of Null Byte or NUL Character'
