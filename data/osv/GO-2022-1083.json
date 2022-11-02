@@ -1,0 +1,52 @@
+{
+  "id": "GO-2022-1083",
+  "published": "0001-01-01T00:00:00Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-43677",
+    "GHSA-59hj-62f5-fgmc"
+  ],
+  "details": "A malformed message can crash the free5gc/amf and free5gc/ngap decoders via an index-out-of-range panic in `aper.GetBitString`.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/free5gc/aper",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-1083"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/free5gc/aper",
+            "symbols": [
+              "GetBitString"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://github.com/free5gc/free5gc/issues/402"
+    }
+  ],
+  "credits": [
+    {
+      "name": "@fisherwky"
+    }
+  ]
+}
