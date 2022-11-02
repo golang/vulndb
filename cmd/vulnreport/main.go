@@ -180,18 +180,13 @@ func existingReports() (byIssue map[int]*report.Report, byFile map[string]*repor
 		}
 		for _, name := range names {
 			name := filepath.Join(dir, name)
-			m := reportRegexp.FindStringSubmatch(name)
-			if len(m) != 3 {
-				continue
-			}
-			id := m[2]
-			iss, err := strconv.Atoi(id)
+			_, _, iss, err := report.ParseFilepath(name)
 			if err != nil {
-				continue
+				return nil, nil, err
 			}
 			r, err := report.Read(name)
 			if err != nil {
-				continue
+				return nil, nil, err
 			}
 			byIssue[iss] = r
 			byFile[name] = r
@@ -436,14 +431,9 @@ func xref(rname string, r *report.Report, existingByFile map[string]*report.Repo
 		if basename == filepath.Base(fname) {
 			continue
 		}
-		for _, cve := range rr.CVEs {
-			if slices.Contains(r.CVEs, cve) {
-				existingByID[cve] = append(existingByID[cve], fname)
-			}
-		}
-		for _, ghsa := range rr.GHSAs {
-			if slices.Contains(r.GHSAs, ghsa) {
-				existingByID[ghsa] = append(existingByID[ghsa], fname)
+		for _, alias := range rr.GetAliases() {
+			if slices.Contains(r.GetAliases(), alias) {
+				existingByID[alias] = append(existingByID[alias], fname)
 			}
 		}
 		for _, m := range rr.Modules {
@@ -775,8 +765,6 @@ func printCVE4(r *report.Report, filename string, indent bool) error {
 	return e.Encode(cve)
 }
 
-var reportRegexp = regexp.MustCompile(`^(data/\w+)/(GO-\d\d\d\d-0*(\d+)\.yaml)$`)
-
 func commit(ctx context.Context, filename, accessToken string) (err error) {
 	defer derrors.Wrap(&err, "commit(%q)", filename)
 
@@ -838,13 +826,10 @@ func commit(ctx context.Context, filename, accessToken string) (err error) {
 }
 
 func newCommitMsg(r *report.Report, filepath string) (string, error) {
-	m := reportRegexp.FindStringSubmatch(filepath)
-	if len(m) != 4 {
-		return "", fmt.Errorf("%v: not a report filepath", filepath)
+	folder, filename, issueID, err := report.ParseFilepath(filepath)
+	if err != nil {
+		return "", err
 	}
-	folder := m[1]
-	filename := m[2]
-	issueID := m[3]
 
 	issueAction := "Fixes"
 	fileAction := "add"
@@ -859,7 +844,7 @@ func newCommitMsg(r *report.Report, filepath string) (string, error) {
 	}
 
 	return fmt.Sprintf(
-		"%s: %s %s\n\nAliases: %s\n\n%s golang/vulndb#%s",
+		"%s: %s %s\n\nAliases: %s\n\n%s golang/vulndb#%d",
 		folder, fileAction, filename, strings.Join(r.GetAliases(), ", "),
 		issueAction, issueID), nil
 }

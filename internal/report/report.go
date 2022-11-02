@@ -11,6 +11,8 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"regexp"
+	"strconv"
 	"strings"
 	"time"
 
@@ -230,6 +232,22 @@ func GetGoAdvisoryLink(id string) string {
 // AllSymbols returns both original and derived symbols.
 func (a *Package) AllSymbols() []string {
 	return append(append([]string(nil), a.Symbols...), a.DerivedSymbols...)
+}
+
+var reportFilepathRegexp = regexp.MustCompile(`^(data/\w+)/(GO-\d\d\d\d-0*(\d+)\.yaml)$`)
+
+func ParseFilepath(path string) (folder, filename string, issueID int, err error) {
+	m := reportFilepathRegexp.FindStringSubmatch(path)
+	if len(m) != 4 {
+		return "", "", 0, fmt.Errorf("%v: not a report filepath", path)
+	}
+	folder = m[1]
+	filename = m[2]
+	issueID, err = strconv.Atoi(m[3])
+	if err != nil {
+		return "", "", 0, err
+	}
+	return
 }
 
 // Read reads a Report in YAML format from filename.

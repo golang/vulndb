@@ -45,3 +45,24 @@ func TestUnknownField(t *testing.T) {
 		t.Errorf("got %v, want error containing %q", err, want)
 	}
 }
+
+func TestParseFilepath(t *testing.T) {
+	filepath := "data/reports/GO-1999-0023.yaml"
+	wantFolder := "data/reports"
+	wantFilename := "GO-1999-0023.yaml"
+	wantIssueID := 23
+
+	gotFolder, gotFilename, gotIssueID, err := ParseFilepath(filepath)
+	if err != nil {
+		t.Fatalf("ParseFilepath(%s) returned unexpected error: %v", filepath, err)
+	}
+	if wantFolder != gotFolder {
+		t.Errorf("ParseFilepath(%s) returned incorrect folder: want %q, got %q", filepath, wantFolder, gotFolder)
+	}
+	if wantFilename != gotFilename {
+		t.Errorf("ParseFilepath(%s) returned incorrect filename: want %q, got %q", filepath, wantFilename, gotFilename)
+	}
+	if wantIssueID != gotIssueID {
+		t.Errorf("ParseFilepath(%s) returned incorrect filename: want %d, got %d", filepath, wantIssueID, gotIssueID)
+	}
+}
