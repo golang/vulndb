@@ -1,0 +1,61 @@
+{
+  "id": "GO-2022-1086",
+  "published": "0001-01-01T00:00:00Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-38580",
+    "GHSA-f2rj-m42r-6jm2"
+  ],
+  "details": "An attacker can access the internal metadata server or other unauthenticated URLs by adding a specific header (X-Skipper-Proxy) to the http request.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/zalando/skipper",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.13.237"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-1086"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/zalando/skipper",
+            "symbols": [
+              "Proxy.ServeHTTP",
+              "context.Loopback",
+              "forwardToProxy",
+              "proxyFromHeader"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/zalando/skipper/security/advisories/GHSA-f2rj-m42r-6jm2"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/zalando/skipper/pull/2058"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/zalando/skipper/releases/tag/v0.13.237"
+    }
+  ]
+}
