@@ -83,7 +83,7 @@ func NewFireStore(ctx context.Context, projectID, namespace, impersonate string)
 // CreateCommitUpdateRecord implements Store.CreateCommitUpdateRecord.
 // On successful return, r.ID is set to the record's ID.
 func (fs *FireStore) CreateCommitUpdateRecord(ctx context.Context, r *CommitUpdateRecord) (err error) {
-	defer derrors.Wrap(&err, "CreateCommitUpdateRecord()")
+	defer derrors.Wrap(&err, "FireStore.CreateCommitUpdateRecord")
 
 	docref := fs.nsDoc.Collection(updateCollection).NewDoc()
 	if _, err := docref.Create(ctx, r); err != nil {
@@ -95,7 +95,7 @@ func (fs *FireStore) CreateCommitUpdateRecord(ctx context.Context, r *CommitUpda
 
 // SetCommitUpdateRecord implements Store.SetCommitUpdateRecord.
 func (fs *FireStore) SetCommitUpdateRecord(ctx context.Context, r *CommitUpdateRecord) (err error) {
-	defer derrors.Wrap(&err, "SetCommitUpdateRecord(%q)", r.ID)
+	defer derrors.Wrap(&err, "FireStore.SetCommitUpdateRecord(%q)", r.ID)
 
 	if r.ID == "" {
 		return errors.New("missing ID")
@@ -106,7 +106,7 @@ func (fs *FireStore) SetCommitUpdateRecord(ctx context.Context, r *CommitUpdateR
 
 // GetCVERecord implements store.GetCVERecord.
 func (fs *FireStore) GetCVERecord(ctx context.Context, id string) (_ *CVERecord, err error) {
-	defer derrors.Wrap(&err, "GetCVERecord(%q)", id)
+	defer derrors.Wrap(&err, "FireStore.GetCVERecord(%q)", id)
 
 	docsnap, err := fs.cveRecordRef(id).Get(ctx)
 	if status.Code(err) == codes.NotFound {
@@ -120,7 +120,9 @@ func (fs *FireStore) GetCVERecord(ctx context.Context, id string) (_ *CVERecord,
 }
 
 // ListCommitUpdateRecords implements Store.ListCommitUpdateRecords.
-func (fs *FireStore) ListCommitUpdateRecords(ctx context.Context, limit int) ([]*CommitUpdateRecord, error) {
+func (fs *FireStore) ListCommitUpdateRecords(ctx context.Context, limit int) (_ []*CommitUpdateRecord, err error) {
+	defer derrors.Wrap(&err, "Firestore.ListCommitUpdateRecords(%d)", limit)
+
 	var urs []*CommitUpdateRecord
 	q := fs.nsDoc.Collection(updateCollection).OrderBy("StartedAt", firestore.Desc)
 	if limit > 0 {
@@ -128,7 +130,7 @@ func (fs *FireStore) ListCommitUpdateRecords(ctx context.Context, limit int) ([]
 	}
 	iter := q.Documents(ctx)
 	defer iter.Stop()
-	err := apply(iter, func(ds *firestore.DocumentSnapshot) error {
+	err = apply(iter, func(ds *firestore.DocumentSnapshot) error {
 		var ur CommitUpdateRecord
 		if err := ds.DataTo(&ur); err != nil {
 			return err
@@ -149,7 +151,7 @@ type dirHash struct {
 
 // ListCVERecordsWithTriageState implements Store.ListCVERecordsWithTriageState.
 func (fs *FireStore) ListCVERecordsWithTriageState(ctx context.Context, ts TriageState) (_ []*CVERecord, err error) {
-	defer derrors.Wrap(&err, "ListCVERecordsWithTriageState(%s)", ts)
+	defer derrors.Wrap(&err, "Firestore.ListCVERecordsWithTriageState(%s)", ts)
 
 	q := fs.nsDoc.Collection(cveCollection).Where("TriageState", "==", ts).OrderBy("ID", firestore.Asc)
 	docsnaps, err := q.Documents(ctx).GetAll()
@@ -160,17 +162,21 @@ func (fs *FireStore) ListCVERecordsWithTriageState(ctx context.Context, ts Triag
 }
 
 // CreateModuleScanRecord implements Store.CreateModuleScanRecord.
-func (fs *FireStore) CreateModuleScanRecord(ctx context.Context, r *ModuleScanRecord) error {
+func (fs *FireStore) CreateModuleScanRecord(ctx context.Context, r *ModuleScanRecord) (err error) {
+	defer derrors.Wrap(&err, "FireStore.CreateModuleScanRecord")
+
 	if err := r.Validate(); err != nil {
 		return err
 	}
 	docref := fs.nsDoc.Collection(modScanCollection).NewDoc()
-	_, err := docref.Create(ctx, r)
+	_, err = docref.Create(ctx, r)
 	return err
 }
 
 // GetModuleScanRecord implements store.GetModuleScanRecord.
-func (fs *FireStore) GetModuleScanRecord(ctx context.Context, path, version string, dbTime time.Time) (*ModuleScanRecord, error) {
+func (fs *FireStore) GetModuleScanRecord(ctx context.Context, path, version string, dbTime time.Time) (_ *ModuleScanRecord, err error) {
+	defer derrors.Wrap(&err, "FireStore.GetModuleScanRecord(%s, %s, %s)", path, version, dbTime)
+
 	// There may be several, but we only need one; take the most recent.
 	q := fs.nsDoc.Collection(modScanCollection).
 		Where("Path", "==", path).
@@ -193,7 +199,9 @@ func (fs *FireStore) GetModuleScanRecord(ctx context.Context, path, version stri
 }
 
 // ListModuleScanRecords implements Store.ListModuleScanRecords.
-func (fs *FireStore) ListModuleScanRecords(ctx context.Context, limit int) ([]*ModuleScanRecord, error) {
+func (fs *FireStore) ListModuleScanRecords(ctx context.Context, limit int) (_ []*ModuleScanRecord, err error) {
+	defer derrors.Wrap(&err, "FireStore.ListModuleScanRecords(%d)", limit)
+
 	q := fs.nsDoc.Collection(modScanCollection).OrderBy("FinishedAt", firestore.Desc)
 	if limit > 0 {
 		q = q.Limit(limit)
@@ -201,7 +209,7 @@ func (fs *FireStore) ListModuleScanRecords(ctx context.Context, limit int) ([]*M
 	var rs []*ModuleScanRecord
 	iter := q.Documents(ctx)
 	defer iter.Stop()
-	err := apply(iter, func(ds *firestore.DocumentSnapshot) error {
+	err = apply(iter, func(ds *firestore.DocumentSnapshot) error {
 		var r ModuleScanRecord
 		if err := ds.DataTo(&r); err != nil {
 			return err
@@ -225,7 +233,7 @@ func (s *FireStore) dirHashRef(dir string) *firestore.DocumentRef {
 
 // GetDirectoryHash implements Transaction.GetDirectoryHash.
 func (fs *FireStore) GetDirectoryHash(ctx context.Context, dir string) (_ string, err error) {
-	defer derrors.Wrap(&err, "GetDirectoryHash(%s)", dir)
+	defer derrors.Wrap(&err, "FireStore.GetDirectoryHash(%s)", dir)
 
 	ds, err := fs.dirHashRef(dir).Get(ctx)
 	if err != nil {
@@ -246,13 +254,17 @@ func (fs *FireStore) GetDirectoryHash(ctx context.Context, dir string) (_ string
 }
 
 // SetDirectoryHash implements Transaction.SetDirectoryHash.
-func (fs *FireStore) SetDirectoryHash(ctx context.Context, dir, hash string) error {
-	_, err := fs.dirHashRef(dir).Set(ctx, dirHash{Hash: hash})
+func (fs *FireStore) SetDirectoryHash(ctx context.Context, dir, hash string) (err error) {
+	defer derrors.Wrap(&err, "FireStore.SetDirectoryHash(%s, %s)", dir, hash)
+
+	_, err = fs.dirHashRef(dir).Set(ctx, dirHash{Hash: hash})
 	return err
 }
 
 // RunTransaction implements Store.RunTransaction.
-func (fs *FireStore) RunTransaction(ctx context.Context, f func(context.Context, Transaction) error) error {
+func (fs *FireStore) RunTransaction(ctx context.Context, f func(context.Context, Transaction) error) (err error) {
+	defer derrors.Wrap(&err, "FireStore.RunTransaction")
+
 	return fs.client.RunTransaction(ctx,
 		func(ctx context.Context, tx *firestore.Transaction) error {
 			return f(ctx, &fsTransaction{fs, tx})
@@ -277,7 +289,7 @@ type fsTransaction struct {
 
 // CreateCVERecord implements Transaction.CreateCVERecord.
 func (tx *fsTransaction) CreateCVERecord(r *CVERecord) (err error) {
-	defer derrors.Wrap(&err, "FireStore.CreateCVERecord(%s)", r.ID)
+	defer derrors.Wrap(&err, "fsTransaction.CreateCVERecord(%s)", r.ID)
 
 	if err := r.Validate(); err != nil {
 		return err
@@ -287,7 +299,7 @@ func (tx *fsTransaction) CreateCVERecord(r *CVERecord) (err error) {
 
 // SetCVERecord implements Transaction.SetCVERecord.
 func (tx *fsTransaction) SetCVERecord(r *CVERecord) (err error) {
-	defer derrors.Wrap(&err, "SetCVERecord(%s)", r.ID)
+	defer derrors.Wrap(&err, "fsTransaction.SetCVERecord(%s)", r.ID)
 
 	if err := r.Validate(); err != nil {
 		return err
@@ -297,7 +309,7 @@ func (tx *fsTransaction) SetCVERecord(r *CVERecord) (err error) {
 
 // GetCVERecords implements Transaction.GetCVERecords.
 func (tx *fsTransaction) GetCVERecords(startID, endID string) (_ []*CVERecord, err error) {
-	defer derrors.Wrap(&err, "GetCVERecords(%s, %s)", startID, endID)
+	defer derrors.Wrap(&err, "fsTransaction.GetCVERecords(%s, %s)", startID, endID)
 
 	q := tx.s.nsDoc.Collection(cveCollection).
 		OrderBy(firestore.DocumentID, firestore.Asc).
@@ -325,21 +337,21 @@ func docsnapsToCVERecords(docsnaps []*firestore.DocumentSnapshot) ([]*CVERecord,
 
 // CreateGHSARecord implements Transaction.CreateGHSARecord.
 func (tx *fsTransaction) CreateGHSARecord(r *GHSARecord) (err error) {
-	defer derrors.Wrap(&err, "FireStore.CreateGHSARecord(%s)", r.GHSA.ID)
+	defer derrors.Wrap(&err, "fsTransaction.CreateGHSARecord(%s)", r.GHSA.ID)
 
 	return tx.t.Create(tx.s.ghsaRecordRef(r.GHSA.ID), r)
 }
 
 // SetGHSARecord implements Transaction.SetGHSARecord.
 func (tx *fsTransaction) SetGHSARecord(r *GHSARecord) (err error) {
-	defer derrors.Wrap(&err, "SetGHSARecord(%s)", r.GHSA.ID)
+	defer derrors.Wrap(&err, "fsTransaction.SetGHSARecord(%s)", r.GHSA.ID)
 
 	return tx.t.Set(tx.s.ghsaRecordRef(r.GHSA.ID), r)
 }
 
 // GetGHSARecord implements Transaction.GetGHSARecord.
 func (tx *fsTransaction) GetGHSARecord(id string) (_ *GHSARecord, err error) {
-	defer derrors.Wrap(&err, "GetGHSARecord(%s)", id)
+	defer derrors.Wrap(&err, "fsTransaction.GetGHSARecord(%s)", id)
 
 	docsnap, err := tx.t.Get(tx.s.ghsaRecordRef(id))
 	if status.Code(err) == codes.NotFound {
@@ -354,7 +366,7 @@ func (tx *fsTransaction) GetGHSARecord(id string) (_ *GHSARecord, err error) {
 
 // GetGHSARecords implements Transaction.GetGHSARecords.
 func (tx *fsTransaction) GetGHSARecords() (_ []*GHSARecord, err error) {
-	defer derrors.Wrap(&err, "GetGHSARecords()")
+	defer derrors.Wrap(&err, "fsTransaction.GetGHSARecords()")
 
 	q := tx.s.nsDoc.Collection(ghsaCollection).
 		OrderBy(firestore.DocumentID, firestore.Asc)
@@ -380,7 +392,7 @@ func docsnapsToGHSARecords(docsnaps []*firestore.DocumentSnapshot) ([]*GHSARecor
 
 // Clear removes all documents in the namespace.
 func (s *FireStore) Clear(ctx context.Context) (err error) {
-	defer derrors.Wrap(&err, "Clear")
+	defer derrors.Wrap(&err, "FireStore.Clear")
 
 	collrefs, err := s.nsDoc.Collections(ctx).GetAll()
 	if err != nil {

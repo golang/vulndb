@@ -93,7 +93,7 @@ func triageV4CVE(ctx context.Context, c *cveschema.CVE, pkgsiteURL string) (resu
 			log.Debugf(ctx, "%s: not Go vuln", msg)
 			return
 		}
-		log.Debugf(ctx, "%s: is Go vuln (%s)", msg, result.reason)
+		log.Debugf(ctx, "%s: is Go vuln:\n%s", msg, result.reason)
 	}()
 	for _, r := range c.References.Data {
 		if r.URL == "" {
@@ -230,7 +230,7 @@ func knownToPkgsite(ctx context.Context, baseURL, modulePath string) (bool, erro
 		"latency", time.Since(start),
 		"status", status,
 		"error", err,
-	).Debugf(ctx, "HEAD "+url)
+	).Debugf(ctx, "checked if %s is known to pkgsite at HEAD", url)
 	if err != nil {
 		return false, err
 	}

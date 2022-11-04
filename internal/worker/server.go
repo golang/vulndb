@@ -125,7 +125,7 @@ func (s *Server) handle(_ context.Context, pattern string, hfunc func(w http.Res
 		log.With(
 			"latency", time.Since(start),
 			"status", translateStatus(w2.status)).
-			Infof(ctx, "request end")
+			Infof(ctx, "finished %s", r.URL.Path)
 	})
 	http.Handle(pattern, s.observer.Observe(handler))
 }
@@ -290,8 +290,9 @@ func (s *Server) handleUpdate(w http.ResponseWriter, r *http.Request) error {
 
 func (s *Server) doUpdate(r *http.Request) (err error) {
 	defer func() {
-		updateCounter.Record(r.Context(), 1, event.Bool("success", err == nil))
-		log.Debugf(r.Context(), "recorded one update")
+		success := err == nil
+		updateCounter.Record(r.Context(), 1, event.Bool("success", success))
+		log.Debugf(r.Context(), "recorded one /update operation in counter (success=%t)", success)
 	}()
 
 	if r.Method != http.MethodPost {

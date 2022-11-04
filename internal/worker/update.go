@@ -73,20 +73,18 @@ func (u *cveUpdater) update(ctx context.Context) (ur *store.CommitUpdateRecord, 
 	defer event.End(ctx)
 
 	defer func() {
-		if err != nil {
-			log.Errorf(ctx, "update failed: %v", err)
-		} else {
+		if err == nil {
 			var nAdded, nModified int64
 			if ur != nil {
 				nAdded = int64(ur.NumAdded)
 				nModified = int64(ur.NumModified)
 			}
-			log.Infof(ctx, "update succeeded on %s: added %d, modified %d",
+			log.Infof(ctx, "CVE Firestore update succeeded on CVE list repo hash=%s: added %d, modified %d",
 				u.commit.Hash, nAdded, nModified)
 		}
 	}()
 
-	log.Infof(ctx, "CVE update starting on %s", u.commit.Hash)
+	log.Infof(ctx, "CVE Firestore update starting on CVE list repo hash=%s", u.commit.Hash)
 
 	// Get all the CVE files.
 	// It is cheaper to read all the files from the repo and compare
@@ -115,7 +113,8 @@ func (u *cveUpdater) update(ctx context.Context) (ur *store.CommitUpdateRecord, 
 	}
 
 	var skippedDirs []string
-	const logSkippedEvery = 20 // Log a message every this many skipped directories.
+	// Log a message every this many skipped directories.
+	const logSkippedEvery = 40
 	for _, dirFiles := range filesByDir {
 		stats, err := u.updateDirectory(ctx, dirFiles)
 		// Change the CommitUpdateRecord in the Store to reflect the results of the directory update.
@@ -129,8 +128,8 @@ func (u *cveUpdater) update(ctx context.Context) (ur *store.CommitUpdateRecord, 
 		if stats.skipped {
 			skippedDirs = append(skippedDirs, dirFiles[0].DirPath)
 			if len(skippedDirs) >= logSkippedEvery {
-				log.Infof(ctx, "skipping directory %s and %d others because the hashes match",
-					skippedDirs[0], len(skippedDirs)-1)
+				log.Debugf(ctx, "skipped %d directories because they have not changed since last update:\n%s",
+					len(skippedDirs), strings.Join(skippedDirs, ", "))
 				skippedDirs = nil
 			}
 		}
@@ -199,7 +198,7 @@ func (u *cveUpdater) updateDirectory(ctx context.Context, dirFiles []cvelistrepo
 func (u *cveUpdater) updateBatch(ctx context.Context, batch []cvelistrepo.File) (numAdds, numMods int, err error) {
 	startID := idFromFilename(batch[0].Filename)
 	endID := idFromFilename(batch[len(batch)-1].Filename)
-	defer derrors.Wrap(&err, "updateBatch(%s-%s)", startID, endID)
+	defer derrors.Wrap(&err, "updateBatch(%q-%q)", startID, endID)
 
 	err = u.st.RunTransaction(ctx, func(ctx context.Context, tx store.Transaction) error {
 		numAdds = 0
@@ -253,7 +252,7 @@ func (u *cveUpdater) updateBatch(ctx context.Context, batch []cvelistrepo.File) 
 	if err != nil {
 		return 0, 0, err
 	}
-	log.Debugf(ctx, "update transaction %s=%s: added %d, modified %d", startID, endID, numAdds, numMods)
+	log.Debugf(ctx, "batch updated Firestore records for %q-%q: added %d, modified %d", startID, endID, numAdds, numMods)
 	return numAdds, numMods, nil
 }
 
@@ -278,6 +277,7 @@ func checkForAliases(cve *cveschema.CVE, tx store.Transaction) (store.TriageStat
 // the record.
 func (u *cveUpdater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx store.Transaction) (record *store.CVERecord, add bool, err error) {
 	defer derrors.Wrap(&err, "handleCVE(%s)", f.Filename)
+
 	cve, err := cvelistrepo.ParseCVE(u.repo, f)
 	if err != nil {
 		return nil, false, err
@@ -480,14 +480,12 @@ func updateGHSAs(ctx context.Context, listSAs GHSAListFunc, since time.Time, st 
 	defer event.End(ctx)
 
 	defer func() {
-		if err != nil {
-			log.Errorf(ctx, "GHSA update failed: %v", err)
-		} else {
-			log.Infof(ctx, "GHSA update succeeded with since=%s: %+v", since, stats)
+		if err == nil {
+			log.Infof(ctx, "GHSA Firestore update succeeded with since=%s: %+v", since, stats)
 		}
 	}()
 
-	log.Infof(ctx, "GHSA update starting with since=%s", since)
+	log.Infof(ctx, "Starting GHSA Firestore update, looking at new/modified GHSAs since=%s", since)
 
 	// Get all of the GHSAs since the given time from GitHub.
 	sas, err := listSAs(ctx, since)
@@ -525,6 +523,7 @@ func updateGHSAs(ctx context.Context, listSAs GHSAListFunc, since time.Time, st 
 				if err != nil {
 					return err
 				}
+				log.Debugf(ctx, "Triage state for new %s: %s", sa.ID, triageState)
 				toAdd = append(toAdd, &store.GHSARecord{
 					GHSA:        sa,
 					TriageState: triageState,
@@ -542,6 +541,7 @@ func updateGHSAs(ctx context.Context, listSAs GHSAListFunc, since time.Time, st 
 				default:
 					// Don't change the TriageState.
 				}
+				log.Debugf(ctx, "Triage state for modified %s: %s", sa.ID, mod.TriageState)
 				toUpdate = append(toUpdate, &mod)
 			}
 		}
