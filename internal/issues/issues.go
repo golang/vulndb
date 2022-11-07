@@ -148,14 +148,27 @@ func (c *githubClient) GetIssues(ctx context.Context, opts GetIssuesOptions) (_ 
 	clientOpts := &github.IssueListByRepoOptions{
 		State:  opts.State,
 		Labels: opts.Labels,
+		ListOptions: github.ListOptions{
+			PerPage: 100,
+		},
 	}
-	ghIssues, _, err := c.client.Issues.ListByRepo(ctx, c.owner, c.repo, clientOpts)
-	if err != nil {
-		return nil, err
-	}
-	issues := make([]*Issue, len(ghIssues))
-	for i, iss := range ghIssues {
-		issues[i] = convertGithubIssueToIssue(iss)
+
+	issues := []*Issue{}
+	page := 1
+
+	for {
+		clientOpts.ListOptions.Page = page
+		pageIssues, resp, err := c.client.Issues.ListByRepo(ctx, c.owner, c.repo, clientOpts)
+		if err != nil {
+			return nil, err
+		}
+		for _, giss := range pageIssues {
+			issues = append(issues, convertGithubIssueToIssue(giss))
+		}
+		if resp.NextPage == 0 {
+			break
+		}
+		page = resp.NextPage
 	}
 
 	return issues, nil
