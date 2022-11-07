@@ -50,6 +50,7 @@ var (
 	alwaysFixGHSA = flag.Bool("always-fix-ghsa", false, "for fix, always update GHSAs")
 	updateIssue   = flag.Bool("up", false, "for commit, create a CL that updates (doesn't fix) the tracking bug")
 	indent        = flag.Bool("indent", false, "for newcve, indent JSON output")
+	closedOk      = flag.Bool("closed-ok", false, "for create & create-excluded, allow closed issues to be created")
 )
 
 func main() {
@@ -260,6 +261,7 @@ type createCfg struct {
 	issuesClient    issues.Client
 	existingByFile  map[string]*report.Report
 	existingByIssue map[int]*report.Report
+	allowClosed     bool
 }
 
 func setupCreate(ctx context.Context, args []string) ([]int, *createCfg, error) {
@@ -292,12 +294,13 @@ func setupCreate(ctx context.Context, args []string) ([]int, *createCfg, error) 
 		issuesClient:    issues.NewGitHubClient(owner, repoName, *githubToken),
 		existingByFile:  existingByFile,
 		existingByIssue: existingByIssue,
+		allowClosed:     *closedOk,
 	}, nil
 }
 
 func createReport(ctx context.Context, cfg *createCfg, iss *issues.Issue) (r *report.Report, err error) {
 	defer derrors.Wrap(&err, "createReport(%d)", iss.Number)
-	parsed, err := parseGithubIssue(iss)
+	parsed, err := parseGithubIssue(iss, cfg.allowClosed)
 	if err != nil {
 		return nil, err
 	}
@@ -402,29 +405,38 @@ func createExcluded(ctx context.Context, cfg *createCfg) (err error) {
 		"excluded: EFFECTIVELY_PRIVATE", "excluded: NOT_A_VULNERABILITY",
 		"excluded: NOT_GO_CODE", "excluded: NOT_IMPORTABLE"}
 	isses := []*issues.Issue{}
+	stateOption := "open"
+	if cfg.allowClosed {
+		stateOption = "all"
+	}
 	for _, label := range excludedLabels {
 		tempIssues, err :=
-			cfg.issuesClient.GetIssues(ctx, issues.GetIssuesOptions{Labels: []string{label}})
+			cfg.issuesClient.GetIssues(ctx, issues.GetIssuesOptions{Labels: []string{label}, State: stateOption})
 		if err != nil {
 			return err
 		}
+		fmt.Printf("Found %d issues with label %s\n", len(tempIssues), label)
 		isses = append(isses, tempIssues...)
 	}
 
 	var successfulIssNums, successfulGoIDs []string
+	skipped := 0
 	for _, iss := range isses {
-		if _, exists := cfg.existingByIssue[iss.Number]; exists {
+
+		if _, exists := cfg.existingByIssue[iss.Number]; !cfg.allowClosed && exists {
+			skipped++
 			continue
 		}
 		filename, err := handleExcludedIssue(ctx, cfg, iss)
 		if err != nil {
-			fmt.Printf("skipped issue %d due to error: %v", iss.Number, err)
+			fmt.Printf("skipped issue %d due to error: %v\n", iss.Number, err)
+			skipped++
 			continue
 		}
 		successfulIssNums = append(successfulIssNums, fmt.Sprintf("golang/vulndb#%d", iss.Number))
 		successfulGoIDs = append(successfulGoIDs, report.GetGoIDFromFilename(filename))
 	}
-
+	fmt.Printf("Skipped %d issues\n", skipped)
 	msg := fmt.Sprintf("data/excluded: batch add %s\n\nFixes%s",
 		strings.Join(successfulGoIDs, ", "), strings.Join(successfulIssNums, ", "))
 	args := []string{"commit", "-m", msg, "-e"}
@@ -475,10 +487,10 @@ type parsedIssue struct {
 	excluded   report.ExcludedReason
 }
 
-func parseGithubIssue(iss *issues.Issue) (*parsedIssue, error) {
+func parseGithubIssue(iss *issues.Issue, allowClosed bool) (*parsedIssue, error) {
 	var parsed *parsedIssue = &parsedIssue{}
 
-	if iss.State == "closed" {
+	if !allowClosed && iss.State == "closed" {
 		return nil, errors.New("issue is closed")
 	}
 
