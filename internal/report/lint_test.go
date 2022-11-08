@@ -6,9 +6,12 @@ package report
 
 import (
 	"bytes"
+	"flag"
 	"strings"
 	"testing"
 )
+
+var proxy = flag.Bool("proxy", false, "test helper functions that call the proxy")
 
 // TODO: Add tests for helper functions that call the proxy.
 
@@ -487,5 +490,45 @@ func TestLint(t *testing.T) {
 					"got:  %q\n", test.desc, buf.String(), unexpected)
 			}
 		}
+	}
+}
+func TestFindModuleFromPackage(t *testing.T) {
+	if !*proxy {
+		t.Skip("no -proxy flag")
+	}
+
+	tests := []struct {
+		name string
+		path string
+		want string
+	}{
+		{
+			name: "escape package",
+			path: "k8s.io/kubernetes/staging/src/k8s.io/apiserver/pkg/server",
+			want: "k8s.io/kubernetes/staging/src/k8s.io/apiserver",
+		},
+		{
+			name: "no change required",
+			path: "k8s.io/kubernetes/staging/src/k8s.io/apiserver",
+			want: "k8s.io/kubernetes/staging/src/k8s.io/apiserver",
+		},
+		{
+			name: "no viable module found (stdlib)",
+			path: "std/net",
+			want: "std/net",
+		},
+		{
+			name: "no viable module found (third party lib)",
+			path: "example.co.io/module/package/src/versions/v8",
+			want: "example.co.io/module/package/src/versions/v8",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := FindModuleFromPackage(tt.path); got != tt.want {
+				t.Errorf("FindModuleFromPackage() = %v, want %v", got, tt.want)
+			}
+		})
 	}
 }

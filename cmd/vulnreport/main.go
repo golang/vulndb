@@ -514,6 +514,9 @@ func parseGithubIssue(iss *issues.Issue, allowClosed bool) (*parsedIssue, error)
 		switch {
 		case strings.HasSuffix(p, ":") && p != "x/vulndb:":
 			parsed.modulePath = strings.TrimSuffix(p, ":")
+			parsed.modulePath = strings.ReplaceAll(parsed.modulePath, "\"", "")
+			parsed.modulePath = report.FindModuleFromPackage(parsed.modulePath)
+
 		case strings.HasPrefix(p, "CVE"):
 			parsed.cves = append(parsed.cves, strings.TrimSuffix(p, ","))
 		case strings.HasPrefix(p, "GHSA"):

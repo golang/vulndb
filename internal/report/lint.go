@@ -370,7 +370,8 @@ func (r *Report) Lint(filename string) []string {
 	addIssue := func(iss string) {
 		issues = append(issues, iss)
 	}
-
+	isStdLibReport := false
+	isExcluded := false
 	switch filepath.Base(filepath.Dir(filename)) {
 	case "reports":
 		if r.Excluded != "" {
@@ -382,23 +383,25 @@ func (r *Report) Lint(filename string) []string {
 		if r.Description == "" {
 			addIssue("missing description")
 		}
+
 	case "excluded":
+		isExcluded = true
 		if r.Excluded == "" {
 			addIssue("report in excluded/ must have excluded set")
 		} else if !slices.Contains(ExcludedReasons, r.Excluded) {
 			addIssue(fmt.Sprintf("excluded (%q) is not in set %v", r.Excluded, ExcludedReasons))
+		} else if r.Excluded != "NOT_GO_CODE" && len(r.Modules) == 0 {
+			addIssue("no modules")
 		}
 		if len(r.CVEs) == 0 && len(r.GHSAs) == 0 {
 			addIssue("excluded report must have at least one associated CVE or GHSA")
 		}
 	}
 
-	isStdLibReport := false
 	for i, m := range r.Modules {
 		addPkgIssue := func(iss string) {
 			addIssue(fmt.Sprintf("modules[%v]: %v", i, iss))
 		}
-
 		if m.Module == stdlib.ModulePath || m.Module == stdlib.ToolchainModulePath {
 			isStdLibReport = true
 			m.lintStdLib(addPkgIssue)
@@ -420,10 +423,11 @@ func (r *Report) Lint(filename string) []string {
 	}
 	r.lintCVEs(addIssue)
 
-	r.lintLinks(addIssue)
-	if isStdLibReport {
+	if isStdLibReport && !isExcluded {
 		r.lintStdLibLinks(addIssue)
 	}
+
+	r.lintLinks(addIssue)
 
 	return issues
 }
@@ -488,4 +492,24 @@ func fixURL(u string) string {
 		u = repl.re.ReplaceAllString(u, repl.repl)
 	}
 	return u
+}
+
+// FindModuleFromPackage checks that module path leads to a module in the proxy
+// server, then trims the path until it does or uses the full path from the issue
+// title if a working module path cannot be found.
+func FindModuleFromPackage(path string) string {
+	for temp := path; temp != "."; temp = filepath.Dir(temp) {
+		escaped, err := module.EscapePath(temp)
+		if err != nil {
+			return path
+		}
+		url := fmt.Sprintf("https://proxy.golang.org/%s/@v/list", escaped)
+		resp, err := http.Get(url)
+		if err != nil {
+			return path
+		} else if resp.StatusCode == 200 {
+			return temp
+		}
+	}
+	return path
 }
