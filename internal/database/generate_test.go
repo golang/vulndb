@@ -43,6 +43,12 @@ func TestGenerateIntegration(t *testing.T) {
 		t.Fatal(err)
 	}
 
+	t.Run("Generate outputs valid DB", func(t *testing.T) {
+		if err := Validate(genDir); err != nil {
+			t.Error(err)
+		}
+	})
+
 	t.Run("Generate equivalent to New then Write", func(t *testing.T) {
 		writeDir := t.TempDir()
 		if err = new.Write(writeDir, false); err != nil {

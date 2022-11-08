@@ -35,7 +35,7 @@ func TestNew(t *testing.T) {
 	}
 }
 
-func TestNewWriteLoad(t *testing.T) {
+func TestAll(t *testing.T) {
 	ctx := context.Background()
 	testRepo, err := gitrepo.ReadTxtarRepo(testRepoDir, jan2002)
 	if err != nil {
@@ -61,9 +61,13 @@ func TestNewWriteLoad(t *testing.T) {
 	if diff := cmp.Diff(loaded, new); diff != "" {
 		t.Errorf("unexpected diff (loaded-, new+):\n%s", diff)
 	}
+
+	if err = Validate(writeDir); err != nil {
+		t.Error(err)
+	}
 }
 
-func TestNewWriteLoadIntegration(t *testing.T) {
+func TestAllIntegration(t *testing.T) {
 	if !*integration {
 		t.Skip("Skipping integration tests, use flag -integration to run")
 	}
@@ -91,5 +95,9 @@ func TestNewWriteLoadIntegration(t *testing.T) {
 
 	if diff := cmp.Diff(loaded, new); diff != "" {
 		t.Errorf("unexpected diff (loaded-, new+):\n%s", diff)
+	}
+
+	if err = Validate(writeDir); err != nil {
+		t.Error(err)
 	}
 }
