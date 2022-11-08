@@ -6,7 +6,6 @@ package database
 
 import (
 	"encoding/json"
-	"fmt"
 	"os"
 	"regexp"
 	"sort"
@@ -15,6 +14,7 @@ import (
 
 	"golang.org/x/exp/maps"
 	"golang.org/x/vuln/osv"
+	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/stdlib"
 )
@@ -55,16 +55,23 @@ func GenerateOSVEntry(filename string, lastModified time.Time, r *report.Report)
 }
 
 // ReadOSV reads an osv.Entry from a file.
-func ReadOSV(filename string) (osv.Entry, error) {
-	b, err := os.ReadFile(filename)
-	if err != nil {
+func ReadOSV(filename string) (entry osv.Entry, err error) {
+	derrors.Wrap(&err, "ReadOSV(%s)", filename)
+	if err = unmarshalFromFile(filename, &entry); err != nil {
 		return osv.Entry{}, err
 	}
-	var entry osv.Entry
-	if err := json.Unmarshal(b, &entry); err != nil {
-		return osv.Entry{}, fmt.Errorf("%v: %w", filename, err)
-	}
 	return entry, nil
+}
+
+func unmarshalFromFile(path string, v any) (err error) {
+	content, err := os.ReadFile(path)
+	if err != nil {
+		return err
+	}
+	if err = json.Unmarshal(content, v); err != nil {
+		return err
+	}
+	return nil
 }
 
 // ModulesForEntry returns the list of modules affected by an OSV entry.

@@ -13,22 +13,18 @@ import (
 
 func Diff(dbname1, dbname2 string) (err error) {
 	defer derrors.Wrap(&err, "Diff(%q, %q)", dbname1, dbname2)
-	indexA, dbA, err := Load(dbname1)
+	db1, err := Load(dbname1)
 	if err != nil {
-		return fmt.Errorf("unable to load %q: %s", dbname1, err)
+		return err
 	}
-	indexB, dbB, err := Load(dbname2)
+	db2, err := Load(dbname2)
 	if err != nil {
-		return fmt.Errorf("unable to load %q: %s", dbname2, err)
+		return err
 	}
-	indexDiff := cmp.Diff(indexA, indexB)
-	if indexDiff == "" {
-		indexDiff = "(no change)"
+	diff := cmp.Diff(db1, db2)
+	if diff == "" {
+		diff = "(no change)"
 	}
-	dbDiff := cmp.Diff(dbA, dbB)
-	if dbDiff == "" {
-		dbDiff = "(no change)"
-	}
-	fmt.Printf("# index\n%s\n\n# db\n%s\n", indexDiff, dbDiff)
+	fmt.Printf("diff (-db1, +db2):\n%s", diff)
 	return nil
 }

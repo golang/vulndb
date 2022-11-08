@@ -1,73 +1,81 @@
-// Copyright 2021 The Go Authors. All rights reserved.
+// Copyright 2022 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
 package database
 
 import (
-	"encoding/json"
-	"fmt"
-	"os"
 	"path/filepath"
-	"strings"
 
+	"golang.org/x/exp/maps"
 	"golang.org/x/vuln/client"
 	"golang.org/x/vuln/osv"
 	"golang.org/x/vulndb/internal/derrors"
 )
 
-func Load(dbPath string) (_ client.DBIndex, _ map[string][]osv.Entry, err error) {
+// Load reads the contents of dbPath into a Database, and errors
+// if the database has missing files (based on the module and ID indexes).
+func Load(dbPath string) (_ *Database, err error) {
 	defer derrors.Wrap(&err, "Load(%q)", dbPath)
-	index := client.DBIndex{}
-	dbMap := map[string][]osv.Entry{}
 
-	var loadDir func(string) error
-	loadDir = func(path string) error {
-		dir, err := os.ReadDir(path)
+	d := &Database{
+		Index:      make(client.DBIndex),
+		IDsByAlias: make(map[string][]string),
+	}
+
+	if err := unmarshalFromFile(filepath.Join(dbPath, indexFile), &d.Index); err != nil {
+		return nil, err
+	}
+
+	d.EntriesByModule, err = getEntriesByModule(dbPath, d.Index)
+	if err != nil {
+		return nil, err
+	}
+
+	d.EntriesByID, err = getEntriesByID(dbPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := unmarshalFromFile(filepath.Join(dbPath, aliasesFile), &d.IDsByAlias); err != nil {
+		return nil, err
+	}
+
+	return d, nil
+}
+
+func getEntriesByID(dbPath string) (map[string]*osv.Entry, error) {
+	var ids []string
+	if err := unmarshalFromFile(filepath.Join(dbPath, idDirectory, indexFile), &ids); err != nil {
+		return nil, err
+	}
+
+	entriesByID := make(map[string]*osv.Entry, len(ids))
+	for _, id := range ids {
+		var entry osv.Entry
+		err := unmarshalFromFile(filepath.Join(dbPath, idDirectory, id+".json"), &entry)
 		if err != nil {
-			return err
+			return nil, err
 		}
-		for _, f := range dir {
-			fpath := filepath.Join(path, f.Name())
-			if f.IsDir() {
-				if err := loadDir(fpath); err != nil {
-					return err
-				}
-				continue
-			}
-			content, err := os.ReadFile(fpath)
-			if err != nil {
-				return err
-			}
-			if path == dbPath && f.Name() == "index.json" {
-				if err := json.Unmarshal(content, &index); err != nil {
-					return fmt.Errorf("unable to parse %q: %s", fpath, err)
-				}
-			} else if path == filepath.Join(dbPath, idDirectory) {
-				if f.Name() == "index.json" {
-					// The ID index is just a list of the entries' IDs; we'll
-					// catch any diffs in the entries themselves.
-					continue
-				}
-				var entry osv.Entry
-				if err := json.Unmarshal(content, &entry); err != nil {
-					return fmt.Errorf("unable to parse %q: %s", fpath, err)
-				}
-				fname := strings.TrimPrefix(fpath, dbPath)
-				dbMap[fname] = []osv.Entry{entry}
-			} else {
-				var entries []osv.Entry
-				if err := json.Unmarshal(content, &entries); err != nil {
-					return fmt.Errorf("unable to parse %q: %s", fpath, err)
-				}
-				module := strings.TrimPrefix(fpath, dbPath)
-				dbMap[module] = entries
-			}
+		entriesByID[id] = &entry
+	}
+	return entriesByID, nil
+}
+
+func getEntriesByModule(dbPath string, index client.DBIndex) (map[string][]*osv.Entry, error) {
+	entriesByModule := make(map[string][]*osv.Entry, len(index))
+	for _, module := range maps.Keys(index) {
+		emodule, err := client.EscapeModulePath(module)
+		if err != nil {
+			return nil, err
 		}
-		return nil
+		fpath := filepath.Join(dbPath, emodule+".json")
+		var entries []*osv.Entry
+		err = unmarshalFromFile(fpath, &entries)
+		if err != nil {
+			return nil, err
+		}
+		entriesByModule[module] = entries
 	}
-	if err := loadDir(dbPath); err != nil {
-		return nil, nil, err
-	}
-	return index, dbMap, nil
+	return entriesByModule, nil
 }

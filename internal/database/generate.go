@@ -2,7 +2,6 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package database generates the vulnerability database.
 package database
 
 import (
@@ -17,32 +16,6 @@ import (
 	"golang.org/x/vuln/osv"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/gitrepo"
-)
-
-const (
-	// idDirectory is the name of the directory that contains entries
-	// listed by their IDs.
-	idDirectory = "ID"
-
-	// yamlDir is the name of the directory in the vulndb repo that
-	// contains reports.
-	yamlDir = "data/reports"
-
-	// osvDir is the name of the directory in the vulndb repo that
-	// contains reports.
-	osvDir = "data/osv"
-
-	// versionFile is the name of the file in the vulndb repo that
-	// tracks the generator version.
-	versionFile = "data/version.md"
-
-	// stdFileName is the name of the .json file in the vulndb repo
-	// that will contain info on standard library vulnerabilities.
-	stdFileName = "stdlib"
-
-	// toolchainFileName is the name of the .json file in the vulndb repo
-	// that will contain info on toolchain (cmd/...) vulnerabilities.
-	toolchainFileName = "toolchain"
 )
 
 func Generate(ctx context.Context, repoDir, jsonDir string, indent bool) (err error) {
