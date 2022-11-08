@@ -11,36 +11,13 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/google/go-cmp/cmp"
 	"golang.org/x/vuln/client"
 	"golang.org/x/vuln/osv"
 	"golang.org/x/vulndb/internal/derrors"
 )
 
-func Diff(dbname1, dbname2 string) (err error) {
-	defer derrors.Wrap(&err, "Diff(%q, %q)", dbname1, dbname2)
-	indexA, dbA, err := loadDB(dbname1)
-	if err != nil {
-		return fmt.Errorf("unable to load %q: %s", dbname1, err)
-	}
-	indexB, dbB, err := loadDB(dbname2)
-	if err != nil {
-		return fmt.Errorf("unable to load %q: %s", dbname2, err)
-	}
-	indexDiff := cmp.Diff(indexA, indexB)
-	if indexDiff == "" {
-		indexDiff = "(no change)"
-	}
-	dbDiff := cmp.Diff(dbA, dbB)
-	if dbDiff == "" {
-		dbDiff = "(no change)"
-	}
-	fmt.Printf("# index\n%s\n\n# db\n%s\n", indexDiff, dbDiff)
-	return nil
-}
-
-func loadDB(dbPath string) (_ client.DBIndex, _ map[string][]osv.Entry, err error) {
-	defer derrors.Wrap(&err, "loadDB(%q)", dbPath)
+func Load(dbPath string) (_ client.DBIndex, _ map[string][]osv.Entry, err error) {
+	defer derrors.Wrap(&err, "Load(%q)", dbPath)
 	index := client.DBIndex{}
 	dbMap := map[string][]osv.Entry{}
 
