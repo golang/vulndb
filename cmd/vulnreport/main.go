@@ -437,7 +437,7 @@ func createExcluded(ctx context.Context, cfg *createCfg) (err error) {
 		successfulGoIDs = append(successfulGoIDs, report.GetGoIDFromFilename(filename))
 	}
 	fmt.Printf("Skipped %d issues\n", skipped)
-	msg := fmt.Sprintf("data/excluded: batch add %s\n\nFixes%s",
+	msg := fmt.Sprintf("data/excluded: batch add %s\n\nFixes %s",
 		strings.Join(successfulGoIDs, ", "), strings.Join(successfulIssNums, ", "))
 	args := []string{"commit", "-m", msg, "-e"}
 
