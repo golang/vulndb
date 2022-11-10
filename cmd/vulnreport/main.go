@@ -812,10 +812,14 @@ func osvCmd(filename string) (err error) {
 	return nil
 }
 
+func getOSVFilename(goID string) string {
+	return fmt.Sprintf("data/osv/%v.json", goID)
+}
+
 func writeOSV(r *report.Report, filename string) (string, error) {
 	if r.Excluded == "" {
 		entry := database.GenerateOSVEntry(filename, time.Time{}, r)
-		osvFilename := fmt.Sprintf("data/osv/%v.json", entry.ID)
+		osvFilename := getOSVFilename(entry.ID)
 		if err := database.WriteJSON(osvFilename, entry, true); err != nil {
 			return "", err
 		}
@@ -833,6 +837,10 @@ func cveCmd(ctx context.Context, filename string) (err error) {
 	return writeCVE(r, filename)
 }
 
+func getCVEFilename(goID string) string {
+	return fmt.Sprintf("data/cve/v5/%v.json", goID)
+}
+
 // writeCVE takes a report and the path to a .yaml description and marshals the data
 // into a JSON CVE5 record and writes it to data/cve/v5.
 func writeCVE(r *report.Report, filename string) error {
@@ -842,8 +850,7 @@ func writeCVE(r *report.Report, filename string) error {
 	var cve *cveschema5.CVERecord
 	var err error
 
-	cveName := report.GetGoIDFromFilename(filename)
-	cvePath := fmt.Sprintf("data/cve/v5/%v.json", cveName)
+	cvePath := getCVEFilename(report.GetGoIDFromFilename(filename))
 	if cve, err = report.ToCVE5(filename); err != nil {
 		return err
 	}
@@ -902,38 +909,32 @@ func commit(ctx context.Context, filename, accessToken string) (err error) {
 		return err
 	}
 
-	if err := irun("git", "add", filename); err != nil {
+	// Find all derived files (OSV and CVE).
+	files := []string{filename}
+	goID := report.GetGoIDFromFilename(filename)
+	if r.Excluded == "" {
+		files = append(files, getOSVFilename(goID))
+	}
+	if r.CVEMetadata != nil {
+		files = append(files, getCVEFilename(goID))
+	}
+
+	// Add the files.
+	addArgs := []string{"add"}
+	addArgs = append(addArgs, files...)
+	if err := irun("git", addArgs...); err != nil {
 		fmt.Fprintf(os.Stderr, "git add: %v\n", err)
 		return nil
 	}
-	var osvfilename string
-	if r.Excluded == "" {
-		osvfilename = "data/osv/" + report.GetGoIDFromFilename(filename) + ".json"
-		if err := irun("git", "add", osvfilename); err != nil {
-			fmt.Fprintf(os.Stderr, "git add %v: %v\n", osvfilename, err)
-			return nil
-		}
-	}
-	if r.CVEMetadata != nil {
-		cveID := report.GetGoIDFromFilename(filename)
-		cvefilename := fmt.Sprintf("data/cve/v5/%v.json", cveID)
 
-		if err := irun("git", "add", cvefilename); err != nil {
-			fmt.Fprintf(os.Stderr, "git add %v: %v\n", cvefilename, err)
-			return nil
-		}
-	}
-
+	// Commit the files, allowing the user to edit the default commit message.
 	msg, err := newCommitMsg(r, filename)
 	if err != nil {
 		return err
 	}
-
-	args := []string{"commit", "-m", msg, "-e", filename}
-	if osvfilename != "" {
-		args = append(args, osvfilename)
-	}
-	if err := irun("git", args...); err != nil {
+	commitArgs := []string{"commit", "-m", msg, "-e"}
+	commitArgs = append(commitArgs, files...)
+	if err := irun("git", commitArgs...); err != nil {
 		fmt.Fprintf(os.Stderr, "git commit: %v\n", err)
 		return nil
 	}
