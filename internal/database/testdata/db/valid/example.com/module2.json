@@ -1,100 +1,101 @@
-[{
-  "id": "GO-2000-0002",
-  "published": "2000-01-01T00:00:00Z",
-  "modified": "2002-01-01T00:00:00Z",
-  "aliases": [
-    "CVE-1999-2222"
-  ],
-  "details": "Some details",
-  "affected": [
-    {
-      "package": {
-        "name": "example.com/module2",
-        "ecosystem": "Go"
-      },
-      "ranges": [
-        {
-          "type": "SEMVER",
-          "events": [
+[
+  {
+    "id": "GO-2000-0002",
+    "published": "2000-01-01T00:00:00Z",
+    "modified": "2002-01-01T00:00:00Z",
+    "aliases": [
+      "CVE-1999-2222"
+    ],
+    "details": "Some details",
+    "affected": [
+      {
+        "package": {
+          "name": "example.com/module2",
+          "ecosystem": "Go"
+        },
+        "ranges": [
+          {
+            "type": "SEMVER",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "1.2.0"
+              }
+            ]
+          }
+        ],
+        "database_specific": {
+          "url": "https://pkg.go.dev/vuln/GO-2000-0002"
+        },
+        "ecosystem_specific": {
+          "imports": [
             {
-              "introduced": "0"
-            },
-            {
-              "fixed": "1.2.0"
+              "path": "package",
+              "symbols": [
+                "Symbol"
+              ]
             }
           ]
         }
-      ],
-      "database_specific": {
-        "url": "https://pkg.go.dev/vuln/GO-2000-0002"
-      },
-      "ecosystem_specific": {
-        "imports": [
+      }
+    ],
+    "references": [
+      {
+        "type": "FIX",
+        "url": "https://example.com/cl/543"
+      }
+    ]
+  },
+  {
+    "id": "GO-2000-0003",
+    "published": "2000-01-01T00:00:00Z",
+    "modified": "2002-01-01T00:00:00Z",
+    "aliases": [
+      "CVE-1999-3333",
+      "GHSA-xxxx-yyyy-zzzz"
+    ],
+    "details": "Some details",
+    "affected": [
+      {
+        "package": {
+          "name": "example.com/module2",
+          "ecosystem": "Go"
+        },
+        "ranges": [
           {
-            "path": "package",
-            "symbols": [
-              "Symbol"
+            "type": "SEMVER",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "1.1.0"
+              }
             ]
           }
-        ]
-      }
-    }
-  ],
-  "references": [
-    {
-      "type": "FIX",
-      "url": "https://example.com/cl/543"
-    }
-  ]
-},
-{
-  "id": "GO-2000-0003",
-  "published": "2000-01-01T00:00:00Z",
-  "modified": "2002-01-01T00:00:00Z",
-  "aliases": [
-    "CVE-1999-3333",
-    "GHSA-xxxx-yyyy-zzzz"
-  ],
-  "details": "Some details",
-  "affected": [
-    {
-      "package": {
-        "name": "example.com/module2",
-        "ecosystem": "Go"
-      },
-      "ranges": [
-        {
-          "type": "SEMVER",
-          "events": [
+        ],
+        "database_specific": {
+          "url": "https://pkg.go.dev/vuln/GO-2000-0003"
+        },
+        "ecosystem_specific": {
+          "imports": [
             {
-              "introduced": "0"
-            },
-            {
-              "fixed": "1.1.0"
+              "path": "package",
+              "symbols": [
+                "Symbol"
+              ]
             }
           ]
         }
-      ],
-      "database_specific": {
-        "url": "https://pkg.go.dev/vuln/GO-2000-0003"
-      },
-      "ecosystem_specific": {
-        "imports": [
-          {
-            "path": "package",
-            "symbols": [
-              "Symbol"
-            ]
-          }
-        ]
       }
-    }
-  ],
-  "references": [
-    {
-      "type": "FIX",
-      "url": "https://example.com/cl/000"
-    }
-  ]
-}
+    ],
+    "references": [
+      {
+        "type": "FIX",
+        "url": "https://example.com/cl/000"
+      }
+    ]
+  }
 ]

@@ -14,6 +14,7 @@ import (
 )
 
 var (
+	validDir          = "testdata/db/valid"
 	testModifiedTime1 = time.Date(2000, 1, 1, 0, 0, 0, 0, time.UTC)
 	testModifiedTime2 = time.Date(2002, 1, 1, 0, 0, 0, 0, time.UTC)
 	testOSV1          = &osv.Entry{
@@ -115,7 +116,7 @@ var valid = &Database{
 }
 
 func TestLoad(t *testing.T) {
-	path := "testdata/db/valid"
+	path := validDir
 	got, err := Load(path)
 	if err != nil {
 		t.Fatalf("Load(%s): want succeess, got %s", path, err)
