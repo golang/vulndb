@@ -8,6 +8,7 @@ import (
 	"context"
 	"flag"
 	"os"
+	"reflect"
 	"strings"
 	"testing"
 	"time"
@@ -63,24 +64,37 @@ func TestFetchGHSA(t *testing.T) {
 
 func TestListForCVE(t *testing.T) {
 	accessToken := mustGetAccessToken(t)
-	// Real CVE and GHSA.
-	const (
-		cveID  string = "CVE-2022-27191"
-		ghsaID string = "GHSA-8c26-wmh5-6g9v"
-	)
-	got, err := ListForCVE(context.Background(), accessToken, cveID)
-	if err != nil {
-		t.Fatal(err)
+	ctx := context.Background()
+	tests := []struct {
+		name string
+		cve  string
+		want []string
+	}{
+		{
+			name: "Real CVE/GHSA",
+			cve:  "CVE-2022-27191",
+			want: []string{"GHSA-8c26-wmh5-6g9v"},
+		},
+		{
+			name: "Check exact matching",
+			cve:  "CVE-2022-2529",
+			want: []string{"GHSA-9rpw-2h95-666c"},
+		},
 	}
-
-	want := ghsaID
-	if len(got) != 1 {
-		var gotIDs []string
-		for _, sa := range got {
-			gotIDs = append(gotIDs, sa.ID)
-		}
-		t.Errorf("got %v GHSAs %v, want %v", len(got), gotIDs, want)
-	} else if gotID := got[0].ID; gotID != want {
-		t.Errorf("got GHSA %v, want %v", gotID, want)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := ListForCVE(ctx, accessToken, tt.cve)
+			if err != nil {
+				t.Errorf("ListForCVE() error = %v", err)
+				return
+			}
+			gotIDs := []string{}
+			for _, sa := range got {
+				gotIDs = append(gotIDs, sa.ID)
+			}
+			if !reflect.DeepEqual(gotIDs, tt.want) {
+				t.Errorf("ListForCVE() = %v, want %v", gotIDs, tt.want)
+			}
+		})
 	}
 }

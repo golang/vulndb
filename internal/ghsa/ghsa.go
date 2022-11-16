@@ -201,6 +201,17 @@ func ListForCVE(ctx context.Context, accessToken string, cve string) ([]*Securit
 		if len(sa.Vulnerabilities.Nodes) == 0 {
 			continue
 		}
+		exactMatch := false
+		for _, id := range sa.Identifiers {
+			if id.Type == "CVE" && id.Value == cve {
+				exactMatch = true
+				continue
+			}
+		}
+		if !exactMatch {
+			continue
+		}
+
 		s, err := sa.securityAdvisory()
 		if err != nil {
 			return nil, err
