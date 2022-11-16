@@ -14,14 +14,16 @@ import (
 )
 
 var (
-	validDir          = "testdata/db/valid"
-	testModifiedTime1 = time.Date(2000, 1, 1, 0, 0, 0, 0, time.UTC)
-	testModifiedTime2 = time.Date(2002, 1, 1, 0, 0, 0, 0, time.UTC)
-	testOSV1          = &osv.Entry{
+	validDir = "testdata/db/valid"
+	jan1999  = time.Date(1999, 1, 1, 0, 0, 0, 0, time.UTC)
+	jan2000  = time.Date(2000, 1, 1, 0, 0, 0, 0, time.UTC)
+	jan2002  = time.Date(2002, 1, 1, 0, 0, 0, 0, time.UTC)
+	testOSV1 = &osv.Entry{
 		ID:        "GO-1999-0001",
-		Published: time.Date(1999, time.January, 1, 0, 0, 0, 0, time.UTC), Modified: testModifiedTime1,
-		Aliases: []string{"CVE-1999-1111"},
-		Details: "Some details",
+		Published: jan1999,
+		Modified:  jan2002,
+		Aliases:   []string{"CVE-1999-1111"},
+		Details:   "Some details",
 		Affected: []osv.Affected{
 			{
 				Package: osv.Package{
@@ -46,9 +48,10 @@ var (
 		}}
 	testOSV2 = &osv.Entry{
 		ID:        "GO-2000-0002",
-		Published: time.Date(2000, time.January, 1, 0, 0, 0, 0, time.UTC), Modified: testModifiedTime2,
-		Aliases: []string{"CVE-1999-2222"},
-		Details: "Some details",
+		Published: jan2000,
+		Modified:  jan2002,
+		Aliases:   []string{"CVE-1999-2222"},
+		Details:   "Some details",
 		Affected: []osv.Affected{
 			{
 				Package: osv.Package{
@@ -69,9 +72,10 @@ var (
 		}}
 	testOSV3 = &osv.Entry{
 		ID:        "GO-2000-0003",
-		Published: time.Date(2000, time.January, 1, 0, 0, 0, 0, time.UTC), Modified: testModifiedTime2,
-		Aliases: []string{"CVE-1999-3333", "GHSA-xxxx-yyyy-zzzz"},
-		Details: "Some details",
+		Published: jan2002,
+		Modified:  jan2002,
+		Aliases:   []string{"CVE-1999-3333", "GHSA-xxxx-yyyy-zzzz"},
+		Details:   "Some details",
 		Affected: []osv.Affected{
 			{
 				Package: osv.Package{
@@ -99,15 +103,15 @@ var (
 
 var valid = &Database{
 	Index: client.DBIndex{
-		"example.com/module":  testModifiedTime1,
-		"example.com/module2": testModifiedTime2,
+		"example.com/module":  jan2002,
+		"example.com/module2": jan2002,
 	},
-	EntriesByID: map[string]*osv.Entry{"GO-1999-0001": testOSV1, "GO-2000-0002": testOSV2, "GO-2000-0003": testOSV3},
-	EntriesByModule: map[string][]*osv.Entry{
+	EntriesByID: EntriesByID{"GO-1999-0001": testOSV1, "GO-2000-0002": testOSV2, "GO-2000-0003": testOSV3},
+	EntriesByModule: EntriesByModule{
 		"example.com/module":  {testOSV1},
 		"example.com/module2": {testOSV2, testOSV3},
 	},
-	IDsByAlias: map[string][]string{
+	IDsByAlias: IDsByAlias{
 		"CVE-1999-1111":       {"GO-1999-0001"},
 		"CVE-1999-2222":       {"GO-2000-0002"},
 		"CVE-1999-3333":       {"GO-2000-0003"},

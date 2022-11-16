@@ -20,19 +20,19 @@ func Load(dbPath string) (_ *Database, err error) {
 
 	d := &Database{
 		Index:      make(client.DBIndex),
-		IDsByAlias: make(map[string][]string),
+		IDsByAlias: make(IDsByAlias),
 	}
 
 	if err := unmarshalFromFile(filepath.Join(dbPath, indexFile), &d.Index); err != nil {
 		return nil, err
 	}
 
-	d.EntriesByModule, err = getEntriesByModule(dbPath, d.Index)
+	d.EntriesByModule, err = loadEntriesByModule(dbPath, d.Index)
 	if err != nil {
 		return nil, err
 	}
 
-	d.EntriesByID, err = getEntriesByID(dbPath)
+	d.EntriesByID, err = loadEntriesByID(dbPath)
 	if err != nil {
 		return nil, err
 	}
@@ -44,13 +44,13 @@ func Load(dbPath string) (_ *Database, err error) {
 	return d, nil
 }
 
-func getEntriesByID(dbPath string) (map[string]*osv.Entry, error) {
+func loadEntriesByID(dbPath string) (EntriesByID, error) {
 	var ids []string
 	if err := unmarshalFromFile(filepath.Join(dbPath, idDirectory, indexFile), &ids); err != nil {
 		return nil, err
 	}
 
-	entriesByID := make(map[string]*osv.Entry, len(ids))
+	entriesByID := make(EntriesByID, len(ids))
 	for _, id := range ids {
 		var entry osv.Entry
 		err := unmarshalFromFile(filepath.Join(dbPath, idDirectory, id+".json"), &entry)
@@ -62,8 +62,8 @@ func getEntriesByID(dbPath string) (map[string]*osv.Entry, error) {
 	return entriesByID, nil
 }
 
-func getEntriesByModule(dbPath string, index client.DBIndex) (map[string][]*osv.Entry, error) {
-	entriesByModule := make(map[string][]*osv.Entry, len(index))
+func loadEntriesByModule(dbPath string, index client.DBIndex) (EntriesByModule, error) {
+	entriesByModule := make(EntriesByModule, len(index))
 	for _, module := range maps.Keys(index) {
 		emodule, err := client.EscapeModulePath(module)
 		if err != nil {
