@@ -101,13 +101,38 @@ new report to the database by following these steps:
 6. Edit the report file template.
 7. Run `vulnreport commit [<report file> | <Github issue number>]`. This will
    lint the report, add exported symbols, convert the YAML to OSV, and commit
-   the new files with a standard commit message. Commits are to the local git 
+   the new files with a standard commit message. Commits are to the local git
    repository. The `vulnreport commit` command also accepts multiple
    space-separated files/issue numbers, and will create a separate commit for
    each report.
 8. Send the commit for review and approval. See the Go
    [contribution guide](https://go.dev/doc/contribute) for sending a change on
    Gerrit.
+
+## Handling duplicates
+
+Sometimes an issue describes a vulnerability that we already have a report for.
+The worker doesn't (yet) detect this automatically, so it is a good idea to
+grep the `/data` directory of this repo for the module path and read the
+report to see if the vulns are the same.
+
+If the issue is indeed a duplicate:
+
+1. Apply the label `duplicate` to the issue.
+
+2. Find the duplicate issue (say it is #NNN) in the issue tracker, and on the
+   current issue, write the comment "Duplicate of #NNN". (No period after the
+   number.)
+
+3. Find the corresponding report yaml file (say GO-YYYY-NNNN.yaml) in
+   `data/reports`, and add the duplicate IDs to the `cves` or `ghsas` section,
+   as appropriate.
+
+4. Run `vulnreport -up commit NNN` to update generated files and create a
+   commit. Edit the generated commit message so that it includes the words
+   "add aliases".
+
+5. Mail the commit.
 
 ### Standard Library Reports
 
