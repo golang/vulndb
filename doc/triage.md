@@ -93,19 +93,36 @@ new report to the database by following these steps:
    Store the token in a file, e.g., `~/.github-token`, and run:
    ``export VULN_GITHUB_ACCESS_TOKEN=`cat ~/.github-token` `` (you can also store
    this command in a `~/.bashrc` file or similar).
-5. Run `vulnreport create <GitHub issue number>`.
+
+### If the report is labeled `NeedsReport`
+
+1. Run `vulnreport create <GitHub issue number>`.
    vulnreport will create a YAML report template for the CVE or GHSA at the
    specified GitHub issue number. This command works for both regular reports
    and excluded reports. It also accepts multiple Github issue numbers (space
    separated), and Github issue ranges (e.g., `1000-1010`).
-6. Edit the report file template.
-7. Run `vulnreport commit [<report file> | <Github issue number>]`. This will
+2. Edit the report file template.
+3. Run `vulnreport commit [<report file> | <Github issue number>]`. This will
    lint the report, add exported symbols, convert the YAML to OSV, and commit
    the new files with a standard commit message. Commits are to the local git
    repository. The `vulnreport commit` command also accepts multiple
    space-separated files/issue numbers, and will create a separate commit for
    each report.
-8. Send the commit for review and approval. See the Go
+4. Send the commit for review and approval. See the Go
+   [contribution guide](https://go.dev/doc/contribute) for sending a change on
+   Gerrit.
+
+### If the report is labeled `excluded: REASON`
+
+1. Run `vulnreport create-excluded`.
+   vulnreport will batch create YAML reports for all issues with the
+   `excluded: REASON` label. If there is an error creating any given report,
+   the skipped issue number will be printed to stdout and said issue will have
+   to be created manually with `vulnreport create <Github issue number>`.
+   (see steps 2-4 above for more information).  
+   Additionally, `create-excluded` will automatically create a single commit for
+   all successful reports.
+2. Send the commit for review and approval. See the Go
    [contribution guide](https://go.dev/doc/contribute) for sending a change on
    Gerrit.
 
