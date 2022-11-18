@@ -76,6 +76,8 @@ func TestLintReports(t *testing.T) {
 			reports = append(reports, filename)
 		}
 	}
+	// Map from aliases (CVEs/GHSAS) to report paths, used to check for duplicate aliases.
+	aliases := make(map[string]string)
 	sort.Strings(reports)
 	for _, filename := range reports {
 		t.Run(filename, func(t *testing.T) {
@@ -86,6 +88,13 @@ func TestLintReports(t *testing.T) {
 			lints := r.Lint(filename)
 			if len(lints) > 0 {
 				t.Errorf(strings.Join(lints, "\n"))
+			}
+			for _, alias := range r.GetAliases() {
+				if report, ok := aliases[alias]; ok {
+					t.Errorf("report %s shares duplicate alias %s with report %s", filename, alias, report)
+				} else {
+					aliases[alias] = filename
+				}
 			}
 			// Check that a correct OSV file was generated for each YAML report.
 			if r.Excluded == "" {
