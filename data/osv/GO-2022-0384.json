@@ -7,7 +7,7 @@
     "GHSA-56hp-xqp3-w2jf",
     "GHSA-7jr6-prv4-5wf5"
   ],
-  "details": "The username and password credentials associated with a Helm repository can be passed to another domain referenced by that Helm repository.\n\nIf the index.yaml for a Helm repository is hosted on one domain and references a chart archive on a different domain, Helm will provide the credentials for the index.yaml's domain when fetching those archives.\n\nFor further details, see https://github.com/advisories/GHSA-56hp-xqp3-w2jf.",
+  "details": "The username and password credentials associated with a Helm repository can be passed to another domain referenced by that Helm repository.\n\nIf the index.yaml for a Helm repository is hosted on one domain and references a chart archive on a different domain, Helm will provide the credentials for the index.yaml's domain when fetching those archives.",
   "affected": [
     {
       "package": {
@@ -46,6 +46,10 @@
     }
   ],
   "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-56hp-xqp3-w2jf"
+    },
     {
       "type": "FIX",
       "url": "https://github.com/helm/helm/commit/61d8e8c4a6f95540c15c6a65f36a6dd0a45e7a2f"
