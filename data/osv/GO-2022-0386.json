@@ -8,7 +8,7 @@
     "GHSA-62mh-w5cv-p88c",
     "GHSA-9r5x-fjv3-q6h4"
   ],
-  "details": "Import tokens valid for one account may be used for any other account.\n\nValidation of Import token bindings incorrectly warns on mismatches, rather than rejecting the Goken. This permits a token for one account to be used for any other account.\n\nFor further details and mitigation procedures, see https://advisories.nats.io/CVE/CVE-2021-3127.txt",
+  "details": "Import tokens valid for one account may be used for any other account.\n\nValidation of Import token bindings incorrectly warns on mismatches, rather than rejecting the Goken. This permits a token for one account to be used for any other account.",
   "affected": [
     {
       "package": {
@@ -84,12 +84,12 @@
   ],
   "references": [
     {
-      "type": "FIX",
-      "url": "https://github.com/nats-io/jwt/pull/149"
+      "type": "ADVISORY",
+      "url": "https://advisories.nats.io/CVE/CVE-2021-3127.txt"
     },
     {
-      "type": "WEB",
-      "url": "https://advisories.nats.io/CVE/CVE-2021-3127.txt"
+      "type": "FIX",
+      "url": "https://github.com/nats-io/jwt/pull/149"
     }
   ]
 }
