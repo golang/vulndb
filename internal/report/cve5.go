@@ -6,8 +6,7 @@ package report
 
 import (
 	"errors"
-	"fmt"
-	"strings"
+	"path/filepath"
 
 	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/derrors"
@@ -16,22 +15,18 @@ import (
 // TODO(https://go.dev/issues/53256): Add a function to convert from
 // cveschema5.CVERecord to Report.
 
-// The universal unique identifier for the Go Project CNA, which
-// needs to be included CVE JSON 5.0 records.
-var GoOrgUUID = "1bb62c36-49e3-4200-9d77-64a1400537cc"
+var (
+	// The universal unique identifier for the Go Project CNA, which
+	// needs to be included CVE JSON 5.0 records.
+	GoOrgUUID = "1bb62c36-49e3-4200-9d77-64a1400537cc"
+
+	cve5Dir = "data/cve/v5"
+)
 
 // ToCVE5 creates a CVE in 5.0 format from a YAML report file.
-func ToCVE5(reportPath string) (_ *cveschema5.CVERecord, err error) {
-	defer derrors.Wrap(&err, "report.ToCVERecord(%q)", reportPath)
+func (r *Report) ToCVE5(goID string) (_ *cveschema5.CVERecord, err error) {
+	defer derrors.Wrap(&err, "Report.ToCVERecord(%q)", goID)
 
-	r, err := Read(reportPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if lints := r.Lint(reportPath); len(lints) > 0 {
-		return nil, fmt.Errorf("report has outstanding lint errors:\n  %v", strings.Join(lints, "\n  "))
-	}
 	if len(r.CVEs) > 0 {
 		return nil, errors.New("report has CVE ID is wrong section (should be in cve_metadata for self-issued CVEs)")
 	}
@@ -98,7 +93,7 @@ func ToCVE5(reportPath string) (_ *cveschema5.CVERecord, err error) {
 	for _, ref := range r.References {
 		c.References = append(c.References, cveschema5.Reference{URL: ref.URL})
 	}
-	advisoryLink := GetGoAdvisoryLink(GetGoIDFromFilename(reportPath))
+	advisoryLink := GetGoAdvisoryLink(goID)
 	c.References = append(c.References, cveschema5.Reference{URL: advisoryLink})
 
 	if r.Credit != "" {
@@ -120,6 +115,10 @@ func ToCVE5(reportPath string) (_ *cveschema5.CVERecord, err error) {
 			CNAContainer: *c,
 		},
 	}, nil
+}
+
+func GetCVEFilename(goID string) string {
+	return filepath.Join(cve5Dir, goID+".json")
 }
 
 func versionRangeToVersionRange(versions []VersionRange) []cveschema5.VersionRange {

@@ -18,6 +18,7 @@ import (
 	"golang.org/x/vuln/osv"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/gitrepo"
+	"golang.org/x/vulndb/internal/report"
 )
 
 // Database is an in-memory representation of a Go vulnerability database,
@@ -58,25 +59,9 @@ const (
 	// listed by their IDs.
 	idDirectory = "ID"
 
-	// yamlDir is the name of the directory in the vulndb repo that
-	// contains reports.
-	yamlDir = "data/reports"
-
-	// osvDir is the name of the directory in the vulndb repo that
-	// contains reports.
-	osvDir = "data/osv"
-
 	// versionFile is the name of the file in the vulndb repo that
 	// tracks the generator version.
 	versionFile = "data/version.md"
-
-	// stdFileName is the name of the .json file in the vulndb repo
-	// that will contain info on standard library vulnerabilities.
-	stdFileName = "stdlib"
-
-	// toolchainFileName is the name of the .json file in the vulndb repo
-	// that will contain info on toolchain (cmd/...) vulnerabilities.
-	toolchainFileName = "toolchain"
 )
 
 func New(ctx context.Context, repo *git.Repository) (_ *Database, err error) {
@@ -94,13 +79,13 @@ func New(ctx context.Context, repo *git.Repository) (_ *Database, err error) {
 		return nil, err
 	}
 
-	commitDates, err := gitrepo.AllCommitDates(repo, gitrepo.HeadReference, osvDir)
+	commitDates, err := gitrepo.AllCommitDates(repo, gitrepo.HeadReference, report.OSVDir)
 	if err != nil {
 		return nil, err
 	}
 
 	if err = root.Files().ForEach(func(f *object.File) error {
-		if filepath.Dir(f.Name) != osvDir ||
+		if filepath.Dir(f.Name) != report.OSVDir ||
 			filepath.Ext(f.Name) != ".json" {
 			return nil
 		}
@@ -134,7 +119,7 @@ func New(ctx context.Context, repo *git.Repository) (_ *Database, err error) {
 }
 
 func (d *Database) addEntry(entry *osv.Entry) {
-	for _, module := range ModulesForEntry(*entry) {
+	for _, module := range report.ModulesForEntry(*entry) {
 		d.EntriesByModule[module] = append(d.EntriesByModule[module], entry)
 		if entry.Modified.After(d.Index[module]) {
 			d.Index[module] = entry.Modified

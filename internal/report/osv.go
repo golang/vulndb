@@ -2,11 +2,12 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package database
+package report
 
 import (
 	"encoding/json"
 	"os"
+	"path/filepath"
 	"regexp"
 	"sort"
 	"strings"
@@ -15,15 +16,26 @@ import (
 	"golang.org/x/exp/maps"
 	"golang.org/x/vuln/osv"
 	"golang.org/x/vulndb/internal/derrors"
-	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/stdlib"
 )
 
-// GenerateOSVEntry create an osv.Entry for a report. In addition to the report, it
-// takes the ID for the vuln and a URL that will point to the entry in the vuln DB.
-func GenerateOSVEntry(filename string, lastModified time.Time, r *report.Report) osv.Entry {
-	id := report.GetGoIDFromFilename(filename)
+var (
+	// stdFileName is the name of the .json file in the vulndb repo
+	// that will contain info on standard library vulnerabilities.
+	stdFileName = "stdlib"
 
+	// toolchainFileName is the name of the .json file in the vulndb repo
+	// that will contain info on toolchain (cmd/...) vulnerabilities.
+	toolchainFileName = "toolchain"
+
+	// osvDir is the name of the directory in the vulndb repo that
+	// contains reports.
+	OSVDir = "data/osv"
+)
+
+// GenerateOSVEntry create an osv.Entry for a  In addition to the report, it
+// takes the ID for the vuln and a URL that will point to the entry in the vuln DB.
+func (r *Report) GenerateOSVEntry(goID string, lastModified time.Time) osv.Entry {
 	var credits []osv.Credit
 	if r.Credit != "" {
 		credits = append(credits, osv.Credit{
@@ -32,7 +44,7 @@ func GenerateOSVEntry(filename string, lastModified time.Time, r *report.Report)
 	}
 
 	entry := osv.Entry{
-		ID:        id,
+		ID:        goID,
 		Published: r.Published,
 		Modified:  lastModified,
 		Withdrawn: r.Withdrawn,
@@ -40,7 +52,7 @@ func GenerateOSVEntry(filename string, lastModified time.Time, r *report.Report)
 		Credits:   credits,
 	}
 
-	linkName := report.GetGoAdvisoryLink(id)
+	linkName := GetGoAdvisoryLink(goID)
 	for _, m := range r.Modules {
 		entry.Affected = append(entry.Affected, generateAffected(m, linkName))
 	}
@@ -54,16 +66,20 @@ func GenerateOSVEntry(filename string, lastModified time.Time, r *report.Report)
 	return entry
 }
 
+func GetOSVFilename(goID string) string {
+	return filepath.Join(OSVDir, goID+".json")
+}
+
 // ReadOSV reads an osv.Entry from a file.
 func ReadOSV(filename string) (entry osv.Entry, err error) {
 	derrors.Wrap(&err, "ReadOSV(%s)", filename)
-	if err = unmarshalFromFile(filename, &entry); err != nil {
+	if err = UnmarshalFromFile(filename, &entry); err != nil {
 		return osv.Entry{}, err
 	}
 	return entry, nil
 }
 
-func unmarshalFromFile(path string, v any) (err error) {
+func UnmarshalFromFile(path string, v any) (err error) {
 	content, err := os.ReadFile(path)
 	if err != nil {
 		return err
@@ -83,7 +99,7 @@ func ModulesForEntry(entry osv.Entry) []string {
 	return maps.Keys(mods)
 }
 
-func generateAffectedRanges(versions []report.VersionRange) osv.Affects {
+func generateAffectedRanges(versions []VersionRange) osv.Affects {
 	a := osv.AffectsRange{Type: osv.TypeSemver}
 	if len(versions) == 0 || versions[0].Introduced == "" {
 		a.Events = append(a.Events, osv.RangeEvent{Introduced: "0"})
@@ -115,7 +131,7 @@ func trimWhitespace(s string) string {
 	return s
 }
 
-func generateImports(m *report.Module) (imps []osv.EcosystemSpecificImport) {
+func generateImports(m *Module) (imps []osv.EcosystemSpecificImport) {
 	for _, p := range m.Packages {
 		syms := append([]string{}, p.Symbols...)
 		syms = append(syms, p.DerivedSymbols...)
@@ -130,7 +146,7 @@ func generateImports(m *report.Module) (imps []osv.EcosystemSpecificImport) {
 	return imps
 }
 
-func generateAffected(m *report.Module, url string) osv.Affected {
+func generateAffected(m *Module, url string) osv.Affected {
 	name := m.Module
 	switch name {
 	case stdlib.ModulePath:

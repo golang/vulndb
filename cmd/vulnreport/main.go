@@ -132,13 +132,13 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		commitDates, err := gitrepo.AllCommitDates(repo, gitrepo.MainReference, "data/reports/")
+		commitDates, err := gitrepo.AllCommitDates(repo, gitrepo.MainReference, report.YAMLDir)
 		if err != nil {
 			log.Fatal(err)
 		}
 		cmdFunc = func(name string) error { return setDates(name, commitDates) }
 	case "xref":
-		_, existingByFile, err := existingReports()
+		_, existingByFile, err := report.GetAllExisting()
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -182,37 +182,6 @@ func argToFilename(arg string) (string, error) {
 		return "", fmt.Errorf("%s is not a valid filename or issue ID with existing report", arg)
 	}
 	return arg, nil
-}
-
-func existingReports() (byIssue map[int]*report.Report, byFile map[string]*report.Report, err error) {
-	defer derrors.Wrap(&err, "existingReports")
-	byIssue = make(map[int]*report.Report)
-	byFile = make(map[string]*report.Report)
-	for _, dir := range []string{"data/reports", "data/excluded"} {
-		f, err := os.Open(dir)
-		if err != nil {
-			return nil, nil, err
-		}
-		defer f.Close()
-		names, err := f.Readdirnames(0)
-		if err != nil {
-			return nil, nil, err
-		}
-		for _, name := range names {
-			name := filepath.Join(dir, name)
-			_, _, iss, err := report.ParseFilepath(name)
-			if err != nil {
-				return nil, nil, err
-			}
-			r, err := report.Read(name)
-			if err != nil {
-				return nil, nil, err
-			}
-			byIssue[iss] = r
-			byFile[name] = r
-		}
-	}
-	return byIssue, byFile, nil
 }
 
 func parseArgsToGithubIDs(args []string, existingByIssue map[int]*report.Report) ([]int, error) {
@@ -268,7 +237,7 @@ func setupCreate(ctx context.Context, args []string) ([]int, *createCfg, error) 
 	if *githubToken == "" {
 		return nil, nil, fmt.Errorf("githubToken must be provided")
 	}
-	existingByIssue, existingByFile, err := existingReports()
+	existingByIssue, existingByFile, err := report.GetAllExisting()
 	if err != nil {
 		return nil, nil, err
 	}
@@ -341,20 +310,6 @@ func createReport(ctx context.Context, cfg *createCfg, iss *issues.Issue) (r *re
 	return r, nil
 }
 
-func createFilename(iss *issues.Issue, r *report.Report) string {
-	var year int
-	if !iss.CreatedAt.IsZero() {
-		year = iss.CreatedAt.Year()
-	}
-	dir := "reports"
-	if r.Excluded != "" {
-		dir = "excluded"
-	}
-	filename := fmt.Sprintf("data/%s/GO-%04d-%04d.yaml", dir, year, iss.Number)
-
-	return filename
-}
-
 func create(ctx context.Context, issueNumber int, cfg *createCfg) (err error) {
 	defer derrors.Wrap(&err, "create(%d)", issueNumber)
 	// Get GitHub issue.
@@ -368,7 +323,7 @@ func create(ctx context.Context, issueNumber int, cfg *createCfg) (err error) {
 		return err
 	}
 
-	filename := createFilename(iss, r)
+	filename := r.GetYAMLFilename(iss.NewGoID())
 	if err := r.Write(filename); err != nil {
 		return err
 	}
@@ -383,8 +338,8 @@ func handleExcludedIssue(ctx context.Context, cfg *createCfg, iss *issues.Issue)
 		return "", err
 	}
 	r.Fix()
-	filename := createFilename(iss, r)
 
+	filename := r.GetYAMLFilename(iss.NewGoID())
 	if err := r.Write(filename); err != nil {
 		return "", err
 	}
@@ -437,7 +392,7 @@ func createExcluded(ctx context.Context, cfg *createCfg) (err error) {
 		successfulGoIDs = append(successfulGoIDs, report.GetGoIDFromFilename(filename))
 	}
 	fmt.Printf("Skipped %d issues\n", skipped)
-	msg := fmt.Sprintf("data/excluded: batch add %s\n\nFixes %s",
+	msg := fmt.Sprintf("%s: batch add %s\n\nFixes %s", report.ExcludedDir,
 		strings.Join(successfulGoIDs, ", "), strings.Join(successfulIssNums, ", "))
 	args := []string{"commit", "-m", msg, "-e"}
 
@@ -669,10 +624,11 @@ func fix(ctx context.Context, filename string, accessToken string) (err error) {
 	if err := r.Write(filename); err != nil {
 		return err
 	}
-	if _, err := writeOSV(r, filename); err != nil {
+	goID := report.GetGoIDFromFilename(filename)
+	if _, err := writeOSV(r, goID); err != nil {
 		return err
 	}
-	if err := writeCVE(r, filename); err != nil {
+	if err := writeCVE(r, goID); err != nil {
 		return err
 	}
 	return nil
@@ -807,7 +763,7 @@ func osvCmd(filename string) (err error) {
 	if err != nil {
 		return err
 	}
-	osvFilename, err := writeOSV(r, filename)
+	osvFilename, err := writeOSV(r, report.GetGoIDFromFilename(filename))
 	if err != nil {
 		return err
 	}
@@ -815,14 +771,10 @@ func osvCmd(filename string) (err error) {
 	return nil
 }
 
-func getOSVFilename(goID string) string {
-	return fmt.Sprintf("data/osv/%v.json", goID)
-}
-
-func writeOSV(r *report.Report, filename string) (string, error) {
+func writeOSV(r *report.Report, goID string) (string, error) {
 	if r.Excluded == "" {
-		entry := database.GenerateOSVEntry(filename, time.Time{}, r)
-		osvFilename := getOSVFilename(entry.ID)
+		entry := r.GenerateOSVEntry(goID, time.Time{})
+		osvFilename := report.GetOSVFilename(goID)
 		if err := database.WriteJSON(osvFilename, entry, true); err != nil {
 			return "", err
 		}
@@ -840,21 +792,17 @@ func cveCmd(ctx context.Context, filename string) (err error) {
 	return writeCVE(r, filename)
 }
 
-func getCVEFilename(goID string) string {
-	return fmt.Sprintf("data/cve/v5/%v.json", goID)
-}
-
 // writeCVE takes a report and the path to a .yaml description and marshals the data
 // into a JSON CVE5 record and writes it to data/cve/v5.
-func writeCVE(r *report.Report, filename string) error {
+func writeCVE(r *report.Report, goID string) error {
 	if r.CVEMetadata == nil {
 		return nil
 	}
 	var cve *cveschema5.CVERecord
 	var err error
 
-	cvePath := getCVEFilename(report.GetGoIDFromFilename(filename))
-	if cve, err = report.ToCVE5(filename); err != nil {
+	cvePath := report.GetCVEFilename(goID)
+	if cve, err = r.ToCVE5(goID); err != nil {
 		return err
 	}
 	if err = database.WriteJSON(cvePath, cve, true); err != nil {
@@ -916,10 +864,10 @@ func commit(ctx context.Context, filename, accessToken string) (err error) {
 	files := []string{filename}
 	goID := report.GetGoIDFromFilename(filename)
 	if r.Excluded == "" {
-		files = append(files, getOSVFilename(goID))
+		files = append(files, report.GetOSVFilename(goID))
 	}
 	if r.CVEMetadata != nil {
-		files = append(files, getCVEFilename(goID))
+		files = append(files, report.GetCVEFilename(goID))
 	}
 
 	// Add the files.

@@ -15,7 +15,6 @@ import (
 	vdbclient "golang.org/x/vuln/client"
 	"golang.org/x/vuln/osv"
 	"golang.org/x/vuln/vulncheck"
-	"golang.org/x/vulndb/internal/database"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/report"
 )
@@ -30,8 +29,8 @@ type reportClient struct {
 // newReportClient creates a reportClient from a given report.
 func newReportClient(r *report.Report) *reportClient {
 	entries := map[string][]*osv.Entry{}
-	entry := database.GenerateOSVEntry("?", time.Time{}, r)
-	for _, m := range database.ModulesForEntry(entry) {
+	entry := r.GenerateOSVEntry("?", time.Time{})
+	for _, m := range report.ModulesForEntry(entry) {
 		entries[m] = append(entries[m], &entry)
 	}
 	return &reportClient{entry: &entry, entriesByModule: entries}

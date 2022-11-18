@@ -16,6 +16,7 @@ import (
 	"golang.org/x/vuln/osv"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/gitrepo"
+	"golang.org/x/vulndb/internal/report"
 )
 
 func Generate(ctx context.Context, repoDir, jsonDir string, indent bool) (err error) {
@@ -56,12 +57,12 @@ func generateEntries(ctx context.Context, repoDir string) (map[string][]osv.Entr
 		return nil, nil, err
 	}
 
-	osvFiles, err := os.ReadDir(filepath.Join(repoDir, osvDir))
+	osvFiles, err := os.ReadDir(filepath.Join(repoDir, report.OSVDir))
 	if err != nil {
-		return nil, nil, fmt.Errorf("can't read %q: %s", osvDir, err)
+		return nil, nil, fmt.Errorf("can't read %q: %s", report.OSVDir, err)
 	}
 
-	commitDates, err := gitrepo.AllCommitDates(repo, gitrepo.HeadReference, osvDir)
+	commitDates, err := gitrepo.AllCommitDates(repo, gitrepo.HeadReference, report.OSVDir)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -72,8 +73,8 @@ func generateEntries(ctx context.Context, repoDir string) (map[string][]osv.Entr
 		if !strings.HasSuffix(f.Name(), ".json") {
 			continue
 		}
-		filename := filepath.Join(repoDir, osvDir, f.Name())
-		entry, err := ReadOSV(filename)
+		filename := filepath.Join(repoDir, report.OSVDir, f.Name())
+		entry, err := report.ReadOSV(filename)
 		if err != nil {
 			return nil, nil, err
 		}
@@ -88,7 +89,7 @@ func generateEntries(ctx context.Context, repoDir string) (map[string][]osv.Entr
 			entry.Published = dates.Oldest
 		}
 		entry.Modified = dates.Newest
-		for _, modulePath := range ModulesForEntry(entry) {
+		for _, modulePath := range report.ModulesForEntry(entry) {
 			jsonVulns[modulePath] = append(jsonVulns[modulePath], entry)
 		}
 		entries = append(entries, entry)

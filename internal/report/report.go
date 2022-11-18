@@ -284,9 +284,18 @@ func ReadAndLint(filename string) (r *Report, err error) {
 	return r, nil
 }
 
+func (r *Report) GetYAMLFilename(goID string) string {
+	dir := YAMLDir
+	if r.Excluded != "" {
+		dir = ExcludedDir
+	}
+	return filepath.Join(dir, goID+".yaml")
+}
+
 // Write writes r to filename in YAML format.
 func (r *Report) Write(filename string) (err error) {
 	defer derrors.Wrap(&err, "Write(%s)", filename)
+
 	f, err := os.Create(filename)
 	if err != nil {
 		return err

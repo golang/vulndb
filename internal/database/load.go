@@ -11,6 +11,7 @@ import (
 	"golang.org/x/vuln/client"
 	"golang.org/x/vuln/osv"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/report"
 )
 
 // Load reads the contents of dbPath into a Database, and errors
@@ -23,7 +24,7 @@ func Load(dbPath string) (_ *Database, err error) {
 		IDsByAlias: make(IDsByAlias),
 	}
 
-	if err := unmarshalFromFile(filepath.Join(dbPath, indexFile), &d.Index); err != nil {
+	if err := report.UnmarshalFromFile(filepath.Join(dbPath, indexFile), &d.Index); err != nil {
 		return nil, err
 	}
 
@@ -37,7 +38,7 @@ func Load(dbPath string) (_ *Database, err error) {
 		return nil, err
 	}
 
-	if err := unmarshalFromFile(filepath.Join(dbPath, aliasesFile), &d.IDsByAlias); err != nil {
+	if err := report.UnmarshalFromFile(filepath.Join(dbPath, aliasesFile), &d.IDsByAlias); err != nil {
 		return nil, err
 	}
 
@@ -46,14 +47,14 @@ func Load(dbPath string) (_ *Database, err error) {
 
 func loadEntriesByID(dbPath string) (EntriesByID, error) {
 	var ids []string
-	if err := unmarshalFromFile(filepath.Join(dbPath, idDirectory, indexFile), &ids); err != nil {
+	if err := report.UnmarshalFromFile(filepath.Join(dbPath, idDirectory, indexFile), &ids); err != nil {
 		return nil, err
 	}
 
 	entriesByID := make(EntriesByID, len(ids))
 	for _, id := range ids {
 		var entry osv.Entry
-		err := unmarshalFromFile(filepath.Join(dbPath, idDirectory, id+".json"), &entry)
+		err := report.UnmarshalFromFile(filepath.Join(dbPath, idDirectory, id+".json"), &entry)
 		if err != nil {
 			return nil, err
 		}
@@ -71,7 +72,7 @@ func loadEntriesByModule(dbPath string, index client.DBIndex) (EntriesByModule, 
 		}
 		fpath := filepath.Join(dbPath, emodule+".json")
 		var entries []*osv.Entry
-		err = unmarshalFromFile(fpath, &entries)
+		err = report.UnmarshalFromFile(fpath, &entries)
 		if err != nil {
 			return nil, err
 		}

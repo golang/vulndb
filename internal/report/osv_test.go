@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package database
+package report
 
 import (
 	"reflect"
@@ -11,20 +11,19 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"golang.org/x/vuln/osv"
-	"golang.org/x/vulndb/internal/report"
 )
 
 func TestGenerateOSVEntry(t *testing.T) {
-	r := &report.Report{
-		Modules: []*report.Module{
+	r := &Report{
+		Modules: []*Module{
 			{
 				Module: "example.com/vulnerable/v2",
-				Versions: []report.VersionRange{
+				Versions: []VersionRange{
 					{Fixed: "2.1.1"},
 					{Introduced: "2.3.4", Fixed: "2.3.5"},
 					{Introduced: "2.5.0"},
 				},
-				Packages: []*report.Package{
+				Packages: []*Package{
 					{
 						Package:        "example.com/vulnerable/v2",
 						GOOS:           []string{"windows"},
@@ -35,12 +34,12 @@ func TestGenerateOSVEntry(t *testing.T) {
 				},
 			}, {
 				Module: "vanity.host/vulnerable",
-				Versions: []report.VersionRange{
+				Versions: []VersionRange{
 					{Fixed: "2.1.1"},
 					{Introduced: "2.3.4", Fixed: "2.3.5"},
 					{Introduced: "2.5.0"},
 				},
-				Packages: []*report.Package{
+				Packages: []*Package{
 					{
 						Package: "vanity.host/vulnerable/package",
 						GOOS:    []string{"windows"},
@@ -50,10 +49,10 @@ func TestGenerateOSVEntry(t *testing.T) {
 				},
 			}, {
 				Module: "example.com/also-vulnerable",
-				Versions: []report.VersionRange{
+				Versions: []VersionRange{
 					{Fixed: "2.1.1"},
 				},
-				Packages: []*report.Package{
+				Packages: []*Package{
 					{
 						Package: "example.com/also-vulnerable/package",
 						GOOS:    []string{"windows"},
@@ -67,11 +66,11 @@ func TestGenerateOSVEntry(t *testing.T) {
 		CVEs:        []string{"CVE-0000-0000"},
 		GHSAs:       []string{"GHSA-abcd-efgh"},
 		Credit:      "gopherbot",
-		References: []*report.Reference{
-			{Type: report.ReferenceTypeAdvisory, URL: "advisory"},
-			{Type: report.ReferenceTypeReport, URL: "issue"},
-			{Type: report.ReferenceTypeFix, URL: "fix"},
-			{Type: report.ReferenceTypeWeb, URL: "web"},
+		References: []*Reference{
+			{Type: ReferenceTypeAdvisory, URL: "advisory"},
+			{Type: ReferenceTypeReport, URL: "issue"},
+			{Type: ReferenceTypeFix, URL: "fix"},
+			{Type: ReferenceTypeWeb, URL: "web"},
 		},
 	}
 
@@ -202,14 +201,21 @@ func TestGenerateOSVEntry(t *testing.T) {
 		},
 	}
 
-	gotEntry := GenerateOSVEntry("GO-1991-0001", time.Time{}, r)
+	gotEntry := r.GenerateOSVEntry("GO-1991-0001", time.Time{})
 	if diff := cmp.Diff(wantEntry, gotEntry, cmp.Comparer(func(a, b time.Time) bool { return a.Equal(b) })); diff != "" {
 		t.Errorf("GenerateOSVEntry returned unexpected entry (-want +got):\n%s", diff)
 	}
 }
 
+func TestGetOSVFilename(t *testing.T) {
+	want := "data/osv/GO-1999-0001.json"
+	if got := GetOSVFilename("GO-1999-0001"); got != want {
+		t.Errorf("got %s, want %s", got, want)
+	}
+}
+
 func TestSemverCanonicalize(t *testing.T) {
-	in := []report.VersionRange{
+	in := []VersionRange{
 		{
 			Introduced: "1.16.0",
 			Fixed:      "1.17.0",

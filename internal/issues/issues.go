@@ -191,3 +191,13 @@ func (c *githubClient) CreateIssue(ctx context.Context, iss *Issue) (number int,
 	}
 	return giss.GetNumber(), nil
 }
+
+// NewGoID creates a Go advisory ID based on the issue number
+// and time of issue creation.
+func (iss *Issue) NewGoID() string {
+	var year int
+	if !iss.CreatedAt.IsZero() {
+		year = iss.CreatedAt.Year()
+	}
+	return fmt.Sprintf("GO-%04d-%04d", year, iss.Number)
+}

@@ -46,6 +46,33 @@ func TestUnknownField(t *testing.T) {
 	}
 }
 
+func TestGetYAMLFilename(t *testing.T) {
+	tests := []struct {
+		name string
+		r    *Report
+		goID string
+		want string
+	}{
+		{
+			name: "normal",
+			r:    &Report{},
+			goID: "GO-1999-0001",
+			want: "data/reports/GO-1999-0001.yaml",
+		},
+		{
+			name: "excluded",
+			r:    &Report{Excluded: "NOT_IMPORTABLE"},
+			goID: "GO-1999-0002",
+			want: "data/excluded/GO-1999-0002.yaml",
+		},
+	}
+	for _, test := range tests {
+		if got := test.r.GetYAMLFilename(test.goID); got != test.want {
+			t.Errorf("got %s, want %s", got, test.want)
+		}
+	}
+}
+
 func TestParseFilepath(t *testing.T) {
 	filepath := "data/reports/GO-1999-0023.yaml"
 	wantFolder := "data/reports"

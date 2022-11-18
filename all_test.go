@@ -10,7 +10,6 @@ package main
 import (
 	"context"
 	"errors"
-	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -24,7 +23,6 @@ import (
 	"github.com/google/go-cmp/cmp/cmpopts"
 	vulnc "golang.org/x/vuln/client"
 	"golang.org/x/vulndb/internal/cveschema5"
-	"golang.org/x/vulndb/internal/database"
 	"golang.org/x/vulndb/internal/report"
 )
 
@@ -42,11 +40,6 @@ func TestChecksBash(t *testing.T) {
 	}
 }
 
-const (
-	reportsDir  = "data/reports"
-	excludedDir = "data/excluded"
-)
-
 func TestLintReports(t *testing.T) {
 	if runtime.GOOS == "js" {
 		t.Skipf("wasm builder does not have network access")
@@ -56,7 +49,7 @@ func TestLintReports(t *testing.T) {
 	}
 	allFiles := make(map[string]string)
 	var reports []string
-	for _, dir := range []string{reportsDir, excludedDir} {
+	for _, dir := range []string{report.YAMLDir, report.ExcludedDir} {
 		files, err := os.ReadDir(dir)
 		if err != nil && !errors.Is(err, os.ErrNotExist) {
 			t.Fatalf("unable to read %v/: %s", dir, err)
@@ -89,6 +82,7 @@ func TestLintReports(t *testing.T) {
 			if len(lints) > 0 {
 				t.Errorf(strings.Join(lints, "\n"))
 			}
+			goID := report.GetGoIDFromFilename(filename)
 			for _, alias := range r.GetAliases() {
 				if report, ok := aliases[alias]; ok {
 					t.Errorf("report %s shares duplicate alias %s with report %s", filename, alias, report)
@@ -98,21 +92,22 @@ func TestLintReports(t *testing.T) {
 			}
 			// Check that a correct OSV file was generated for each YAML report.
 			if r.Excluded == "" {
-				generated := database.GenerateOSVEntry(filename, time.Time{}, r)
-				current, err := database.ReadOSV(fmt.Sprintf("data/osv/%v.json", generated.ID))
+				generated := r.GenerateOSVEntry(goID, time.Time{})
+				osvFilename := report.GetOSVFilename(goID)
+				current, err := report.ReadOSV(osvFilename)
 				if err != nil {
 					t.Fatal(err)
 				}
 				if diff := cmp.Diff(generated, current, cmpopts.EquateEmpty()); diff != "" {
-					t.Errorf("data/osv/%v.json does not match report:\n%v", generated.ID, diff)
+					t.Errorf("%s does not match report:\n%v", osvFilename, diff)
 				}
 			}
 			if r.CVEMetadata != nil {
-				generated, err := report.ToCVE5(filename)
+				generated, err := r.ToCVE5(goID)
 				if err != nil {
 					t.Fatal(err)
 				}
-				cvePath := fmt.Sprintf("data/cve/v5/%v.json", report.GetGoIDFromFilename(filename))
+				cvePath := report.GetCVEFilename(goID)
 				current, err := cveschema5.Read(cvePath)
 				if err != nil {
 					t.Fatal(err)
@@ -146,7 +141,7 @@ func TestMissingReports(t *testing.T) {
 		t.Fatal(err)
 	}
 	for _, id := range ids {
-		f := fmt.Sprintf("data/osv/%s.json", id)
+		f := report.GetOSVFilename(id)
 		if _, err := os.Stat(f); err != nil {
 			if errors.Is(err, os.ErrNotExist) {
 				t.Errorf("%s was deleted; use the withdrawn field instead to remove reports. See doc/format.md for details.\n", f)
