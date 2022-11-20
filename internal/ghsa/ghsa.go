@@ -240,12 +240,3 @@ func FetchGHSA(ctx context.Context, accessToken, ghsaID string) (_ *SecurityAdvi
 
 	return query.SA.securityAdvisory()
 }
-
-func isCVE(ids []Identifier) bool {
-	for _, id := range ids {
-		if id.Type == "CVE" {
-			return true
-		}
-	}
-	return false
-}
