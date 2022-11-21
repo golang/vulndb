@@ -75,8 +75,9 @@ func TestGenerateOSVEntry(t *testing.T) {
 	}
 
 	wantEntry := osv.Entry{
-		ID:      "GO-1991-0001",
-		Details: "It's a real bad one, I'll tell you that.\n\nMore info.",
+		SchemaVersion: schemaVersion,
+		ID:            "GO-1991-0001",
+		Details:       "It's a real bad one, I'll tell you that.\n\nMore info.",
 		References: []osv.Reference{
 			{Type: "ADVISORY", URL: "advisory"},
 			{Type: "REPORT", URL: "issue"},

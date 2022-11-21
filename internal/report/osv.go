@@ -31,6 +31,10 @@ var (
 	// osvDir is the name of the directory in the vulndb repo that
 	// contains reports.
 	OSVDir = "data/osv"
+
+	// schemaVersion is used to indicate which version of the OSV schema a
+	// particular vulnerability was exported with.
+	schemaVersion = "1.3.1"
 )
 
 // GenerateOSVEntry create an osv.Entry for a  In addition to the report, it
@@ -44,12 +48,13 @@ func (r *Report) GenerateOSVEntry(goID string, lastModified time.Time) osv.Entry
 	}
 
 	entry := osv.Entry{
-		ID:        goID,
-		Published: r.Published,
-		Modified:  lastModified,
-		Withdrawn: r.Withdrawn,
-		Details:   trimWhitespace(r.Description),
-		Credits:   credits,
+		ID:            goID,
+		Published:     r.Published,
+		Modified:      lastModified,
+		Withdrawn:     r.Withdrawn,
+		Details:       trimWhitespace(r.Description),
+		Credits:       credits,
+		SchemaVersion: schemaVersion,
 	}
 
 	linkName := GetGoAdvisoryLink(goID)
