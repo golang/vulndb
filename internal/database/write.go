@@ -22,6 +22,10 @@ import (
 func (d *Database) Write(path string, indent bool) (err error) {
 	defer derrors.Wrap(&err, "Database.Write(%q)", path)
 
+	if err := os.MkdirAll(path, 0755); err != nil {
+		return fmt.Errorf("failed to create directory %q: %s", path, err)
+	}
+
 	if err = d.writeIndex(path, indent); err != nil {
 		return err
 	}
