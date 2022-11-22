@@ -45,7 +45,7 @@ import (
 var (
 	localRepoPath = flag.String("local-cve-repo", "", "path to local repo, instead of cloning remote")
 	issueRepo     = flag.String("issue-repo", "github.com/golang/vulndb", "repo to create issues in")
-	githubToken   = flag.String("ghtoken", os.Getenv("VULN_GITHUB_ACCESS_TOKEN"), "GitHub access token")
+	githubToken   = flag.String("ghtoken", "", "GitHub access token (default: value of VULN_GITHUB_ACCESS_TOKEN)")
 	skipSymbols   = flag.Bool("skip-symbols", false, "for lint and fix, don't load package for symbols checks")
 	alwaysFixGHSA = flag.Bool("always-fix-ghsa", false, "for fix, always update GHSAs")
 	updateIssue   = flag.Bool("up", false, "for commit, create a CL that updates (doesn't fix) the tracking bug")
@@ -74,6 +74,10 @@ func main() {
 	if flag.NArg() < 1 {
 		flag.Usage()
 		log.Fatal("subcommand required")
+	}
+
+	if *githubToken == "" {
+		*githubToken = os.Getenv("VULN_GITHUB_ACCESS_TOKEN")
 	}
 
 	cmd := flag.Arg(0)
