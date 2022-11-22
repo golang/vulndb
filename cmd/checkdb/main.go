@@ -12,16 +12,13 @@ import (
 	"golang.org/x/vulndb/internal/database"
 )
 
-var (
-	path = flag.String("path", "", "path to database")
-)
-
 func main() {
 	flag.Parse()
-	if *path == "" {
-		log.Fatalf("flag -path must be set")
+	path := flag.Arg(0)
+	if path == "" {
+		log.Fatal("path must be set\nusage: checkdb [path]")
 	}
-	if err := database.Validate(*path); err != nil {
+	if _, err := database.Load(path); err != nil {
 		log.Fatal(err)
 	}
 }

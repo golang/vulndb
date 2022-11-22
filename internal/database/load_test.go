@@ -13,6 +13,9 @@ import (
 	"golang.org/x/vuln/osv"
 )
 
+// TODO(https://github.com/golang/go#56417): Write unit tests for various
+// invalid databases.
+
 var (
 	validDir = "testdata/db/valid"
 	jan1999  = time.Date(1999, 1, 1, 0, 0, 0, 0, time.UTC)

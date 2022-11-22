@@ -1,0 +1,51 @@
+[
+  {
+    "id": "GO-2000-0002",
+    "published": "2000-01-01T00:00:00Z",
+    "modified": "2001-01-01T00:00:00Z",
+    "aliases": [
+      "CVE-1999-2222"
+    ],
+    "details": "Some details",
+    "affected": [
+      {
+        "package": {
+          "name": "example.com/module2",
+          "ecosystem": "Go"
+        },
+        "ranges": [
+          {
+            "type": "SEMVER",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "1.2.0"
+              }
+            ]
+          }
+        ],
+        "database_specific": {
+          "url": "https://pkg.go.dev/vuln/GO-2000-0002"
+        },
+        "ecosystem_specific": {
+          "imports": [
+            {
+              "path": "package",
+              "symbols": [
+                "Symbol"
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "references": [
+      {
+        "type": "FIX",
+        "url": "https://example.com/cl/543"
+      }
+    ]
+  }
+]

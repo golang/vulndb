@@ -67,12 +67,7 @@ const (
 func New(ctx context.Context, repo *git.Repository) (_ *Database, err error) {
 	defer derrors.Wrap(&err, "New()")
 
-	d := &Database{
-		Index:           make(client.DBIndex),
-		EntriesByID:     make(EntriesByID),
-		EntriesByModule: make(EntriesByModule),
-		IDsByAlias:      make(IDsByAlias),
-	}
+	d := newEmpty()
 
 	root, err := gitrepo.Root(repo)
 	if err != nil {
@@ -116,6 +111,15 @@ func New(ctx context.Context, repo *git.Repository) (_ *Database, err error) {
 	}
 
 	return d, nil
+}
+
+func newEmpty() *Database {
+	return &Database{
+		Index:           make(client.DBIndex),
+		EntriesByID:     make(EntriesByID),
+		EntriesByModule: make(EntriesByModule),
+		IDsByAlias:      make(IDsByAlias),
+	}
 }
 
 func (d *Database) addEntry(entry *osv.Entry) {

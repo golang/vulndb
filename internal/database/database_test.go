@@ -54,16 +54,13 @@ func TestAll(t *testing.T) {
 		t.Error(err)
 	}
 
-	loaded, err := Load(writeDir)
+	validated, err := Load(writeDir)
 	if err != nil {
 		t.Error(err)
 	}
-	if diff := cmp.Diff(loaded, new); diff != "" {
-		t.Errorf("unexpected diff (loaded-, new+):\n%s", diff)
-	}
 
-	if err = Validate(writeDir); err != nil {
-		t.Error(err)
+	if diff := cmp.Diff(validated, new); diff != "" {
+		t.Errorf("unexpected diff (validated-, new+):\n%s", diff)
 	}
 }
 
@@ -88,16 +85,12 @@ func TestAllIntegration(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	loaded, err := Load(writeDir)
+	validated, err := Load(writeDir)
 	if err != nil {
 		t.Error(err)
 	}
 
-	if diff := cmp.Diff(loaded, new); diff != "" {
-		t.Errorf("unexpected diff (loaded-, new+):\n%s", diff)
-	}
-
-	if err = Validate(writeDir); err != nil {
-		t.Error(err)
+	if diff := cmp.Diff(validated, new); diff != "" {
+		t.Errorf("unexpected diff (validated-, new+):\n%s", diff)
 	}
 }
