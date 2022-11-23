@@ -1,0 +1,29 @@
+# Copyright 2022 The Go Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+Repo for testing reports.GetAllExisting, semi in the shape of
+github.com/golang/vulndb
+
+-- data/reports/GO-9999-0001.yaml --
+modules:
+  - module: std
+cve_metadata:
+  id: CVE-9999-0001
+
+-- data/excluded/GO-9999-0002.yaml --
+modules:
+  - module: example.com/fake/module
+cve_metadata:
+    id: CVE-9999-0002
+
+-- data/reports/GO-9999-0004.yaml --
+modules:
+  - module: example.com/another/module
+ghsas:
+  - GHSA-9999-abcd-efgh
+
+-- data/reports/GO-9999-0005.yaml --
+modules:
+  - module: example.com/adiff/module
+cves:
+  - CVE-9999-0002

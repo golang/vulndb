@@ -5,10 +5,14 @@
 package report
 
 import (
-	"os"
+	"fmt"
 	"path/filepath"
 
+	"github.com/go-git/go-git/v5"
+	"github.com/go-git/go-git/v5/plumbing/object"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/gitrepo"
+	"gopkg.in/yaml.v3"
 )
 
 var (
@@ -21,34 +25,45 @@ var (
 	ExcludedDir = "data/excluded"
 )
 
-func GetAllExisting() (byIssue map[int]*Report, byFile map[string]*Report, err error) {
+func GetAllExisting(repo *git.Repository) (byIssue map[int]*Report, byFile map[string]*Report, err error) {
 	defer derrors.Wrap(&err, "GetAllExisting")
+	root, err := gitrepo.Root(repo)
+	if err != nil {
+		return nil, nil, err
+	}
 
 	byIssue = make(map[int]*Report)
 	byFile = make(map[string]*Report)
-	for _, dir := range []string{YAMLDir, ExcludedDir} {
-		f, err := os.Open(dir)
+
+	if err = root.Files().ForEach(func(f *object.File) error {
+		name := f.Name
+		if !(filepath.Dir(name) == YAMLDir || filepath.Dir(name) == ExcludedDir) ||
+			filepath.Ext(name) != ".yaml" {
+			return nil
+		}
+
+		reader, err := f.Reader()
 		if err != nil {
-			return nil, nil, err
+			return err
 		}
-		defer f.Close()
-		names, err := f.Readdirnames(0)
+		d := yaml.NewDecoder(reader)
+		d.KnownFields(true)
+		var r Report
+		if err := d.Decode(&r); err != nil {
+			return fmt.Errorf("yaml.Decode: %v", err)
+		}
+
+		_, _, iss, err := ParseFilepath(name)
 		if err != nil {
-			return nil, nil, err
+			return err
 		}
-		for _, name := range names {
-			name := filepath.Join(dir, name)
-			_, _, iss, err := ParseFilepath(name)
-			if err != nil {
-				return nil, nil, err
-			}
-			r, err := Read(name)
-			if err != nil {
-				return nil, nil, err
-			}
-			byIssue[iss] = r
-			byFile[name] = r
-		}
+
+		byFile[name] = &r
+		byIssue[iss] = &r
+
+		return nil
+	}); err != nil {
+		return nil, nil, err
 	}
 
 	return byIssue, byFile, nil

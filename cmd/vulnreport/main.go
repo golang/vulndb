@@ -142,7 +142,11 @@ func main() {
 		}
 		cmdFunc = func(name string) error { return setDates(name, commitDates) }
 	case "xref":
-		_, existingByFile, err := report.GetAllExisting()
+		repo, err := gitrepo.Open(ctx, ".")
+		if err != nil {
+			log.Fatal(err)
+		}
+		_, existingByFile, err := report.GetAllExisting(repo)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -241,7 +245,11 @@ func setupCreate(ctx context.Context, args []string) ([]int, *createCfg, error) 
 	if *githubToken == "" {
 		return nil, nil, fmt.Errorf("githubToken must be provided")
 	}
-	existingByIssue, existingByFile, err := report.GetAllExisting()
+	localRepo, err := gitrepo.Open(ctx, ".")
+	if err != nil {
+		log.Fatal(err)
+	}
+	existingByIssue, existingByFile, err := report.GetAllExisting(localRepo)
 	if err != nil {
 		return nil, nil, err
 	}
