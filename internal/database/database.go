@@ -64,6 +64,19 @@ const (
 	versionFile = "data/version.md"
 )
 
+// New creates a new Database based on the contents of the "data/osv"
+// folder in the given repo.
+//
+// It reads each OSV file, marshals it into a struct, updates the
+// modified and published times based on the time of latest and first
+// CL to modify the file, and stores the struct in the Database (and updates
+// associated index maps). The result is an in-memory vulnerability database
+// that can be written to files via Database.Write.
+//
+// The repo must contain a "data/osv" folder to with files in
+// OSV JSON format with filenames of the form GO-YYYY-XXXX.json.
+//
+// New does not modify the repo.
 func New(ctx context.Context, repo *git.Repository) (_ *Database, err error) {
 	defer derrors.Wrap(&err, "New()")
 

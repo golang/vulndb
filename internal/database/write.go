@@ -5,6 +5,7 @@
 package database
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -43,6 +44,23 @@ func (d *Database) Write(path string, indent bool) (err error) {
 	}
 
 	return nil
+}
+
+func WriteJSON(filename string, value any, indent bool) (err error) {
+	defer derrors.Wrap(&err, "writeJSON(%s)", filename)
+
+	j, err := jsonMarshal(value, indent)
+	if err != nil {
+		return err
+	}
+	return os.WriteFile(filename, j, 0644)
+}
+
+func jsonMarshal(v any, indent bool) ([]byte, error) {
+	if indent {
+		return json.MarshalIndent(v, "", "  ")
+	}
+	return json.Marshal(v)
 }
 
 func (d *Database) writeIndex(path string, indent bool) error {
