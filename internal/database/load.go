@@ -54,7 +54,7 @@ func rawLoad(dbPath string) (_ *Database, err error) {
 	}
 
 	if err := report.UnmarshalFromFile(filepath.Join(dbPath, indexFile), &d.Index); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("invalid or missing index.json: %v", err)
 	}
 
 	d.EntriesByModule, err = loadEntriesByModule(dbPath, d.Index)
@@ -68,7 +68,7 @@ func rawLoad(dbPath string) (_ *Database, err error) {
 	}
 
 	if err := report.UnmarshalFromFile(filepath.Join(dbPath, aliasesFile), &d.IDsByAlias); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("invalid or missing aliases.json: %v", err)
 	}
 
 	return d, nil
@@ -102,7 +102,7 @@ func (d *Database) checkNoUnexpectedFiles(dbPath string) error {
 			}
 			id := report.GetGoIDFromFilename(fname)
 			if _, ok := d.EntriesByID[id]; !ok {
-				return fmt.Errorf("found unexpected ID %q which is not present in %s", id, filepath.Join(idDirectory, indexFile))
+				return fmt.Errorf("found unexpected file %q which is not present in %s", fname, filepath.Join(idDirectory, indexFile))
 			}
 		// All other files should have corresponding entries in
 		// EntriesByModule.
@@ -153,6 +153,18 @@ func (d *Database) checkInternalConsistency() error {
 			if !reflect.DeepEqual(entry, entryByID) {
 				return fmt.Errorf("inconsistent OSV contents in module and ID advisory for %s", entry.ID)
 			}
+
+			var found bool
+			for _, affected := range entry.Affected {
+				m := affected.Package.Name
+				if m == module {
+					found = true
+					break
+				}
+			}
+			if !found {
+				return fmt.Errorf("%s does not reference %s", entry.ID, module)
+			}
 		}
 		if modified != wantModified {
 			return fmt.Errorf("incorrect modified timestamp for module %s: want %s, got %s", module, wantModified, modified)
@@ -190,7 +202,7 @@ func (d *Database) checkInternalConsistency() error {
 				}
 			}
 			if !found {
-				return fmt.Errorf("%s is not listed as an alias of %s", entry.ID, alias)
+				return fmt.Errorf("%s is not listed as an alias of %s in aliases.json", entry.ID, alias)
 			}
 		}
 		if entry.Published.After(entry.Modified) {
@@ -202,7 +214,7 @@ func (d *Database) checkInternalConsistency() error {
 		for _, goID := range goIDs {
 			entry, ok := d.EntriesByID[goID]
 			if !ok {
-				return fmt.Errorf("no advisory found for ID %s listed under %s", goID, alias)
+				return fmt.Errorf("no advisory found for %s listed under %s", goID, alias)
 			}
 
 			if !slices.Contains(entry.Aliases, alias) {
@@ -217,7 +229,7 @@ func (d *Database) checkInternalConsistency() error {
 func loadEntriesByID(dbPath string) (EntriesByID, error) {
 	var ids []string
 	if err := report.UnmarshalFromFile(filepath.Join(dbPath, idDirectory, indexFile), &ids); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("invalid or missing ID/index.json: %v", err)
 	}
 
 	entriesByID := make(EntriesByID, len(ids))
@@ -225,7 +237,7 @@ func loadEntriesByID(dbPath string) (EntriesByID, error) {
 		var entry osv.Entry
 		err := report.UnmarshalFromFile(filepath.Join(dbPath, idDirectory, id+".json"), &entry)
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("invalid or missing OSV file: %v", err)
 		}
 		entriesByID[id] = &entry
 	}
@@ -243,7 +255,7 @@ func loadEntriesByModule(dbPath string, index client.DBIndex) (EntriesByModule, 
 		var entries []*osv.Entry
 		err = report.UnmarshalFromFile(fpath, &entries)
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("invalid or missing module directory: %v", err)
 		}
 		entriesByModule[module] = entries
 	}

@@ -5,6 +5,7 @@
 package database
 
 import (
+	"strings"
 	"testing"
 	"time"
 
@@ -12,9 +13,6 @@ import (
 	"golang.org/x/vuln/client"
 	"golang.org/x/vuln/osv"
 )
-
-// TODO(https://github.com/golang/go#56417): Write unit tests for various
-// invalid databases.
 
 var (
 	validDir = "testdata/db/valid"
@@ -123,13 +121,217 @@ var valid = &Database{
 }
 
 func TestLoad(t *testing.T) {
-	path := validDir
-	got, err := Load(path)
-	if err != nil {
-		t.Fatalf("Load(%s): want succeess, got %s", path, err)
+	t.Run("ok", func(t *testing.T) {
+		path := validDir
+		got, err := Load(path)
+		if err != nil {
+			t.Fatalf("Load(%s): want succeess, got %s", path, err)
+		}
+		want := valid
+		if diff := cmp.Diff(want, got); diff != "" {
+			t.Errorf("Load(%s): unexpected diff (want- got+):\n %s", path, diff)
+		}
+	})
+
+	failTests := []struct {
+		name    string
+		dbPath  string
+		wantErr string
+	}{
+		{
+			name:    "missing file",
+			dbPath:  "testdata/db/missing-file",
+			wantErr: "invalid or missing",
+		},
+		{
+			name:    "unexpected file",
+			dbPath:  "testdata/db/unexpected-file",
+			wantErr: "found unexpected file",
+		},
 	}
-	want := valid
-	if diff := cmp.Diff(want, got); diff != "" {
-		t.Errorf("Load(%s): unexpected diff (want- got+):\n %s", path, diff)
+	for _, test := range failTests {
+		t.Run(test.name, func(t *testing.T) {
+			_, err := Load(test.dbPath)
+			if err == nil || !strings.Contains(err.Error(), test.wantErr) {
+				t.Fatalf("Load(%s): want err containing %s, got %v", test.dbPath, test.wantErr, err)
+			}
+		})
+	}
+}
+
+func TestCheckInternalConsistency(t *testing.T) {
+	t.Run("ok", func(t *testing.T) {
+		if err := valid.checkInternalConsistency(); err != nil {
+			t.Error(err)
+		}
+	})
+
+	failTests := []struct {
+		name    string
+		db      *Database
+		wantErr string
+	}{
+		{
+			name: "too many modules",
+			db: &Database{
+				EntriesByModule: EntriesByModule{"module": []*osv.Entry{}},
+			},
+			wantErr: "length mismatch",
+		},
+		{
+			name: "missing module from index",
+			db: &Database{
+				Index:           client.DBIndex{"module": time.Time{}},
+				EntriesByModule: EntriesByModule{"module2": []*osv.Entry{}},
+			},
+			wantErr: "no module directory found",
+		},
+		{
+			name: "missing OSV from module reference",
+			db: &Database{
+				Index: client.DBIndex{"module": time.Time{}},
+				EntriesByModule: EntriesByModule{"module": []*osv.Entry{
+					{ID: "GO-1999-0001"},
+				}},
+				EntriesByID: EntriesByID{},
+			},
+			wantErr: "no advisory found for ID GO-1999-0001",
+		},
+		{
+			name: "inconsistent OSV",
+			db: &Database{
+				Index: client.DBIndex{"module": time.Time{}},
+				EntriesByModule: EntriesByModule{"module": []*osv.Entry{
+					{ID: "GO-1999-0001"},
+				}},
+				EntriesByID: EntriesByID{"GO-1999-0001": {ID: "GO-1999-0001",
+					Published: jan1999}},
+			},
+			wantErr: "inconsistent OSV contents",
+		},
+		{
+			name: "incorrect modified timestamp in index",
+			db: &Database{
+				Index: client.DBIndex{"module": jan2000},
+				EntriesByModule: EntriesByModule{"module": []*osv.Entry{
+					{ID: "GO-1999-0001", Modified: jan1999,
+						Affected: []osv.Affected{
+							{
+								Package: osv.Package{
+									Name: "module",
+								},
+							},
+						}},
+				}},
+				EntriesByID: EntriesByID{"GO-1999-0001": {ID: "GO-1999-0001",
+					Modified: jan1999, Affected: []osv.Affected{
+						{
+							Package: osv.Package{
+								Name: "module",
+							},
+						},
+					}}},
+			},
+			wantErr: "incorrect modified timestamp",
+		},
+		{
+			name: "missing module referenced by OSV",
+			db: &Database{
+				Index:           client.DBIndex{},
+				EntriesByModule: EntriesByModule{},
+				EntriesByID: EntriesByID{"GO-1999-0001": {ID: "GO-1999-0001",
+					Affected: []osv.Affected{
+						{
+							Package: osv.Package{
+								Name: "a/module",
+							},
+						},
+					},
+				}}},
+			wantErr: "module a/module not found",
+		},
+		{
+			name: "OSV does not reference module",
+			db: &Database{
+				Index: client.DBIndex{"module": time.Time{}},
+				EntriesByModule: EntriesByModule{"module": []*osv.Entry{
+					{ID: "GO-1999-0001"},
+				}},
+				EntriesByID: EntriesByID{"GO-1999-0001": {ID: "GO-1999-0001"}},
+			},
+			wantErr: "GO-1999-0001 does not reference module",
+		},
+		{
+			name: "missing OSV entry in module",
+			db: &Database{
+				Index: client.DBIndex{"module": time.Time{}},
+				EntriesByModule: EntriesByModule{"module": []*osv.Entry{
+					{ID: "GO-1999-0002",
+						Affected: []osv.Affected{
+							{
+								Package: osv.Package{
+									Name: "module",
+								},
+							},
+						},
+					}}},
+				EntriesByID: EntriesByID{"GO-1999-0001": {ID: "GO-1999-0001",
+					Affected: []osv.Affected{
+						{
+							Package: osv.Package{
+								Name: "module",
+							},
+						},
+					},
+				}, "GO-1999-0002": {ID: "GO-1999-0002",
+					Affected: []osv.Affected{
+						{
+							Package: osv.Package{
+								Name: "module",
+							},
+						},
+					},
+				},
+				}},
+			wantErr: "GO-1999-0001 does not have an entry in module",
+		},
+		{
+			name: "missing alias in aliases.json",
+			db: &Database{
+				EntriesByID: EntriesByID{"GO-1999-0001": {ID: "GO-1999-0001", Aliases: []string{"CVE-1999-0001"}}},
+				IDsByAlias:  IDsByAlias{},
+			},
+			wantErr: "alias CVE-1999-0001 not found",
+		},
+		{
+			name: "missing OSV reference in aliases.json",
+			db: &Database{
+				EntriesByID: EntriesByID{"GO-1999-0001": {ID: "GO-1999-0001", Aliases: []string{"CVE-1999-0001"}}},
+				IDsByAlias:  IDsByAlias{"CVE-1999-0001": []string{"GO-2000-2222"}},
+			},
+			wantErr: "GO-1999-0001 is not listed as an alias of CVE-1999-0001",
+		},
+		{
+			name: "missing OSV referenced by aliases.json",
+			db: &Database{
+				IDsByAlias: IDsByAlias{"CVE-1999-0001": []string{"GO-1999-0001"}},
+			},
+			wantErr: "no advisory found for GO-1999-0001 listed under CVE-1999-0001",
+		},
+		{
+			name: "missing alias in OSV",
+			db: &Database{
+				EntriesByID: EntriesByID{"GO-1999-0001": {ID: "GO-1999-0001"}},
+				IDsByAlias:  IDsByAlias{"CVE-1999-0001": []string{"GO-1999-0001"}},
+			},
+			wantErr: "advisory GO-1999-0001 does not reference alias CVE-1999-0001",
+		},
+	}
+	for _, test := range failTests {
+		t.Run(test.name, func(t *testing.T) {
+			if err := test.db.checkInternalConsistency(); err == nil || !strings.Contains(err.Error(), test.wantErr) {
+				t.Errorf("want error containing %q, got %v", test.wantErr, err)
+			}
+		})
 	}
 }
