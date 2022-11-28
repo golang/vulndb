@@ -39,7 +39,7 @@ steps:
     entrypoint: bash
     args:
       - -e
-      - mkdir /workspace/go-vulndb && gsutil -q -m cp -r gs://go-vulndb/* /workspace/go-vulndb
+      - mkdir -p /workspace/go-vulndb && gsutil -q -m cp -r gs://go-vulndb/* /workspace/go-vulndb
 
   - id: Validate
     name: golang:1.19.2
