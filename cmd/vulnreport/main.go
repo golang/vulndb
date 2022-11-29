@@ -502,37 +502,11 @@ func parseGithubIssue(iss *issues.Issue, allowClosed bool) (*parsedIssue, error)
 // for the same CVE, GHSA, or module.
 func xref(rname string, r *report.Report, existingByFile map[string]*report.Report) string {
 	out := &strings.Builder{}
-	mods := make(map[string]bool)
-	for _, m := range r.Modules {
-		if m.Module != "" {
-			mods[m.Module] = true
-		}
-	}
-	existingByID := make(map[string][]string)
-	basename := filepath.Base(rname)
-	for fname, rr := range existingByFile {
-		if basename == filepath.Base(fname) {
-			continue
-		}
-		for _, alias := range rr.GetAliases() {
-			if slices.Contains(r.GetAliases(), alias) {
-				existingByID[alias] = append(existingByID[alias], fname)
-			}
-		}
-		for _, m := range rr.Modules {
-			if mods[m.Module] {
-				k := "Module " + m.Module
-				existingByID[k] = append(existingByID[k], fname)
-			}
-		}
-	}
+	matches := report.XRef(r, existingByFile)
+	delete(matches, rname)
 	// This sorts as CVEs, GHSAs, and then modules.
-	for _, id := range sorted(maps.Keys(existingByID)) {
-		// Skip cross-references for standard library and toolchain.
-		if id == "Module std" || id == "Module cmd" {
-			continue
-		}
-		for _, fname := range sorted(existingByID[id]) {
+	for _, fname := range sorted(maps.Keys(matches)) {
+		for _, id := range sorted(matches[fname]) {
 			fmt.Fprintf(out, "%v appears in %v", id, fname)
 			e := existingByFile[fname].Excluded
 			if e != "" {

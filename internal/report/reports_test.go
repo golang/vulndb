@@ -73,3 +73,87 @@ func TestGetAllExisting(t *testing.T) {
 		t.Errorf("GetAllExisting() byFile mismatch (-got, +want): %s", diff)
 	}
 }
+
+func TestXRef(t *testing.T) {
+	existingByFile := map[string]*Report{
+		"data/reports/GO-9999-0001.yaml":  &r1,
+		"data/excluded/GO-9999-0002.yaml": &r2,
+		"data/reports/GO-9999-0004.yaml":  &r4,
+		"data/reports/GO-9999-0005.yaml":  &r5,
+	}
+
+	type args struct {
+		r              *Report
+		existingByFile map[string]*Report
+	}
+	tests := []struct {
+		name        string
+		args        args
+		wantMatches map[string][]string
+	}{
+		{
+			name: "No matches",
+			args: args{
+				r: &Report{
+					Modules: []*Module{
+						{Module: "example.com/unused/module"},
+					},
+					CVEMetadata: &CVEMeta{
+						ID: "CVE-9999-0003",
+					},
+				},
+				existingByFile: existingByFile,
+			},
+			wantMatches: map[string][]string{},
+		},
+		{
+			name: "Ignores std lib modules",
+			args: args{
+				r: &Report{
+					Modules: []*Module{
+						{Module: "std"},
+					},
+					CVEs: []string{"CVE-9999-0003"},
+				},
+				existingByFile: existingByFile,
+			},
+			wantMatches: map[string][]string{},
+		},
+		{
+			name: "Match on CVE (ignores std module)",
+			args: args{
+				r: &Report{
+					Modules: []*Module{
+						{Module: "std"},
+					},
+					CVEs: []string{"CVE-9999-0001"},
+				},
+				existingByFile: existingByFile,
+			},
+			wantMatches: map[string][]string{
+				"data/reports/GO-9999-0001.yaml": {"CVE-9999-0001"},
+			},
+		},
+		{
+			name: "Match on GHSA & module",
+			args: args{
+				r:              &r4,
+				existingByFile: existingByFile,
+			},
+			wantMatches: map[string][]string{
+				"data/reports/GO-9999-0004.yaml": {
+					"GHSA-9999-abcd-efgh",
+					"Module example.com/another/module",
+				},
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotMatches := XRef(tt.args.r, tt.args.existingByFile)
+			if diff := cmp.Diff(gotMatches, tt.wantMatches); diff != "" {
+				t.Errorf("XRef(): matches mismatch (-got, +want): %s", diff)
+			}
+		})
+	}
+}

@@ -10,6 +10,7 @@ import (
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/object"
+	"golang.org/x/exp/slices"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"gopkg.in/yaml.v3"
@@ -67,4 +68,32 @@ func GetAllExisting(repo *git.Repository) (byIssue map[int]*Report, byFile map[s
 	}
 
 	return byIssue, byFile, nil
+}
+
+// XRef returns cross-references for a report: in this case, a map from
+// filenames to aliases (CVE & GHSA IDs) and modules (excluding std and cmd).
+func XRef(r *Report, existingByFile map[string]*Report) (matches map[string][]string) {
+	mods := make(map[string]bool)
+	for _, m := range r.Modules {
+		if mod := m.Module; mod != "" && mod != "std" && mod != "cmd" {
+			mods[m.Module] = true
+		}
+	}
+
+	// matches is a map from filename -> alias/module
+	matches = make(map[string][]string)
+	for fname, rr := range existingByFile {
+		for _, alias := range rr.GetAliases() {
+			if slices.Contains(r.GetAliases(), alias) {
+				matches[fname] = append(matches[fname], alias)
+			}
+		}
+		for _, m := range rr.Modules {
+			if mods[m.Module] {
+				k := "Module " + m.Module
+				matches[fname] = append(matches[fname], k)
+			}
+		}
+	}
+	return matches
 }
