@@ -1,0 +1,67 @@
+{
+  "id": "GO-2022-1129",
+  "published": "0001-01-01T00:00:00Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-41912",
+    "GHSA-j2jp-wvqg-wc2g"
+  ],
+  "details": "Authentication bypass is possible when processing SAML responses containing multiple Assertion elements.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/crewjam/saml",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.4.9"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-1129"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/crewjam/saml",
+            "symbols": [
+              "ServiceProvider.ParseResponse",
+              "ServiceProvider.ParseXMLArtifactResponse",
+              "ServiceProvider.ParseXMLResponse",
+              "ServiceProvider.ValidateLogoutResponseForm",
+              "ServiceProvider.ValidateLogoutResponseRedirect",
+              "ServiceProvider.ValidateLogoutResponseRequest",
+              "ServiceProvider.validateSignature",
+              "findChild"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/prometheus/exporter-toolkit/security/advisories/GHSA-7rg2-cxvp-9p7p"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/crewjam/saml/commit/aee3fb1edeeaf1088fcb458727e0fd863d277f8b"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Felix Wilhelm from Google Project Zero"
+    }
+  ],
+  "schema_version": "1.3.1"
+}
