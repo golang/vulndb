@@ -1,19 +1,21 @@
 modules:
-    - module: github.com/shamaton/msgpack/v2
-      versions:
-        - fixed: 2.1.1
-      vulnerable_at: 2.1.0
-      packages:
-        - package: github.com/shamaton/msgpack/v2
-          symbols:
-            - Unmarshal
+  - module: github.com/shamaton/msgpack/v2
+    versions:
+      - fixed: 2.1.1
+    vulnerable_at: 2.1.0
+    packages:
+      - package: github.com/shamaton/msgpack/v2
+        symbols:
+          - Unmarshal
 description: |
     Unmarshal can panic on some inputs, possibly allowing for denial
     of service attacks.
+ghsas:
+  - GHSA-jr77-8gx4-h5qh
 credit: Red Canary
 references:
-    - report: https://github.com/shamaton/msgpack/issues/31
-    - fix: https://github.com/shamaton/msgpack/pull/32
+  - report: https://github.com/shamaton/msgpack/issues/31
+  - fix: https://github.com/shamaton/msgpack/pull/32
 cve_metadata:
     id: CVE-2022-41719
     cwe: 'CWE 400: Uncontrolled Resource Consumption'
