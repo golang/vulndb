@@ -234,7 +234,7 @@ func createCVEIssues(ctx context.Context, st store.Store, ic issues.Client, limi
 		if limit > 0 && numCreated >= limit {
 			break
 		}
-		ref, err := createIssue(ctx, cr, ic, newCVEBody)
+		ref, err := createIssue(ctx, cr, ic)
 		if err != nil {
 			return err
 		}
@@ -324,7 +324,7 @@ func createGHSAIssues(ctx context.Context, st store.Store, ic issues.Client, lim
 		if limit > 0 && numCreated >= limit {
 			break
 		}
-		ref, err := createIssue(ctx, gr, ic, newGHSABody)
+		ref, err := createIssue(ctx, gr, ic)
 		if err != nil {
 			return err
 		}
@@ -391,7 +391,7 @@ type storeRecord interface {
 	GetIssueCreatedAt() time.Time
 }
 
-func createIssue(ctx context.Context, r storeRecord, ic issues.Client, newBody func(storeRecord) (string, error)) (ref string, err error) {
+func createIssue(ctx context.Context, r storeRecord, ic issues.Client) (ref string, err error) {
 	id := r.GetID()
 	defer derrors.Wrap(&err, "createIssue(%s)", id)
 
@@ -403,11 +403,22 @@ func createIssue(ctx context.Context, r storeRecord, ic issues.Client, newBody f
 		).Errorf(ctx, "%s: triage state is NeedsIssue but issue field(s) non-zero; skipping", id)
 		return "", nil
 	}
-	body, err := newBody(r)
+
+	var body string
+	switch v := r.(type) {
+	case *store.GHSARecord:
+		body, err = newGHSABody(v)
+	case *store.CVERecord:
+		body, err = newCVEBody(v)
+	default:
+		log.With("ID", id).Errorf(ctx, "%s: record has unexpected type %T; skipping: %v", id, v, err)
+		return "", nil
+	}
 	if err != nil {
 		log.With("ID", id).Errorf(ctx, "%s: triage state is NeedsIssue but could not generate body; skipping: %v", id, err)
 		return "", nil
 	}
+
 	labels := []string{"NeedsTriage"}
 	yrLabel := yearLabel(r.GetID())
 	if yrLabel != "" {
