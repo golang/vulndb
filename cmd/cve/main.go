@@ -14,6 +14,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 	"regexp"
 	"strings"
 	"time"
@@ -60,7 +61,7 @@ func main() {
 		fmt.Fprintf(out, formatCmd, "quota", "outputs the CVE ID quota of the authenticated organization")
 		fmt.Fprintf(out, formatCmd, "id {cve-id}", "outputs details on an assigned CVE ID (CVE-YYYY-NNNN)")
 		fmt.Fprintf(out, formatCmd, "record {cve-id}", "outputs the record associated with a CVE ID (CVE-YYYY-NNNN)")
-		fmt.Fprintf(out, formatCmd, "publish {filename}", "publishes or updates a CVE Record from a YAML or JSON file")
+		fmt.Fprintf(out, formatCmd, "publish [{filename} | {issue ID}]", "publishes or updates a CVE Record from a YAML/JSON file or issue ID")
 		fmt.Fprintf(out, formatCmd, "org", "outputs details on the authenticated organization")
 		fmt.Fprintf(out, formatCmd, "[-year] [-state] list", "lists all CVE IDs for an organization")
 		flag.PrintDefaults()
@@ -114,9 +115,9 @@ func main() {
 			log.Fatalf("cve record: could not retrieve CVE record due to error:\n  %v", err)
 		}
 	case "publish":
-		filename := flag.Arg(1)
-		if filename == "" {
-			logFatalUsageErr("cve publish", errors.New("filename must be provided"))
+		filename, err := argToFilename(flag.Arg(1))
+		if err != nil {
+			logFatalUsageErr("cve publish", err)
 		}
 		if !strings.HasSuffix(filename, ".json") && !strings.HasSuffix(filename, ".yaml") {
 			logFatalUsageErr("cve publish", errors.New("filename must end in '.json' or '.yaml'"))
@@ -270,6 +271,24 @@ func lookupRecord(c *cveclient.Client, id string) error {
 	// Display the retrieved CVE record.
 	fmt.Println(toJSON(record))
 	return nil
+}
+
+func argToFilename(arg string) (string, error) {
+	if arg == "" {
+		return "", errors.New("filename or issue ID must be provided")
+	}
+	if _, err := os.Stat(arg); err != nil {
+		// If arg isn't a file, see if it might be an issue ID
+		// with an existing CVE record.
+		for _, padding := range []string{"", "0", "00", "000"} {
+			m, _ := filepath.Glob("data/cve/v5/GO-*-" + padding + arg + ".json")
+			if len(m) == 1 {
+				return m[0], nil
+			}
+		}
+		return "", fmt.Errorf("%s is not a valid filename or issue ID with existing record", arg)
+	}
+	return arg, nil
 }
 
 func publish(c *cveclient.Client, filename string) (err error) {
