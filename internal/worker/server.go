@@ -29,6 +29,7 @@ import (
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/observe"
+	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"
 )
@@ -346,7 +347,15 @@ func (s *Server) handleIssues(w http.ResponseWriter, r *http.Request) error {
 		}
 	}
 	log.With("limit", limit).Infof(r.Context(), "creating issues")
-	return CreateIssues(r.Context(), s.cfg.Store, s.issueClient, limit)
+	repo, err := gitrepo.Clone(r.Context(), "https://github.com/golang/vulndb")
+	if err != nil {
+		return err
+	}
+	_, allReports, err := report.GetAllExisting(repo)
+	if err != nil {
+		return err
+	}
+	return CreateIssues(r.Context(), s.cfg.Store, s.issueClient, allReports, limit)
 }
 
 var updateAndIssuesInProgress atomic.Value

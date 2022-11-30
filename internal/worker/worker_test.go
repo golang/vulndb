@@ -24,6 +24,7 @@ import (
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
+	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"
 )
@@ -160,7 +161,7 @@ func TestCreateIssues(t *testing.T) {
 	}
 	createGHSARecords(t, mstore, grs)
 
-	if err := CreateIssues(ctx, mstore, ic, 0); err != nil {
+	if err := CreateIssues(ctx, mstore, ic, map[string]*report.Report{}, 0); err != nil {
 		t.Fatal(err)
 	}
 
@@ -212,7 +213,13 @@ func TestNewCVEBody(t *testing.T) {
 			},
 		},
 	}
-	got, err := newCVEBody(r)
+
+	rep := &report.Report{
+		Modules: []*report.Module{{Module: "a.Module"}},
+		CVEs:    []string{"ID1"},
+		GHSAs:   []string{},
+	}
+	got, err := newCVEBody(r, map[string]*report.Report{"data/reports/GO-9999-0002.yaml": rep})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -225,6 +232,11 @@ References:
 - NIST: https://nvd.nist.gov/vuln/detail/ID1
 - JSON: https://github.com/CVEProject/cvelist/tree//
 - Imported by: https://pkg.go.dev/a.Module?tab=importedby
+
+Cross references:
+ID1 appears in issue #2
+Module a.Module appears in issue #2
+
 
 See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) for instructions on how to triage this report.
 
@@ -244,7 +256,7 @@ cves:
 	}
 }
 
-func TestNewGHSABody(t *testing.T) {
+func TestCreateGHSABody(t *testing.T) {
 	r := &store.GHSARecord{
 		GHSA: &ghsa.SecurityAdvisory{
 			ID:          "G1",
@@ -258,7 +270,12 @@ func TestNewGHSABody(t *testing.T) {
 			}},
 		},
 	}
-	got, err := newGHSABody(r)
+	rep := &report.Report{
+		Excluded: "EXCLUDED",
+		GHSAs:    []string{"G1"},
+	}
+
+	got, err := CreateGHSABody(r.GHSA, map[string]*report.Report{"data/excluded/GO-9999-0001.yaml": rep})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -267,6 +284,10 @@ func TestNewGHSABody(t *testing.T) {
 | Unit | Fixed | Vulnerable Ranges |
 | - | - | - |
 | [aPackage](https://pkg.go.dev/aPackage) | 1.2.3 | < 1.2.3 |
+
+Cross references:
+G1 appears in issue #1  EXCLUDED
+
 
 See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) for instructions on how to triage this report.
 

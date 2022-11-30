@@ -19,6 +19,8 @@ import (
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"
 	"golang.org/x/exp/event"
+	"golang.org/x/exp/maps"
+	"golang.org/x/exp/slices"
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/time/rate"
 	vulnc "golang.org/x/vuln/client"
@@ -209,18 +211,55 @@ const issueQPS = 1
 // basically lets you exceed the rate briefly.
 var issueRateLimiter = rate.NewLimiter(rate.Every(time.Duration(1000/float64(issueQPS))*time.Millisecond), 1)
 
-func CreateIssues(ctx context.Context, st store.Store, ic issues.Client, limit int) (err error) {
+func CreateIssues(ctx context.Context, st store.Store, ic issues.Client, allReports map[string]*report.Report, limit int) (err error) {
 	defer derrors.Wrap(&err, "CreateIssues(destination: %s)", ic.Destination())
 	ctx = event.Start(ctx, "CreateIssues")
 	defer event.End(ctx)
 
-	if err := createCVEIssues(ctx, st, ic, limit); err != nil {
+	if err := createCVEIssues(ctx, st, ic, allReports, limit); err != nil {
 		return err
 	}
-	return createGHSAIssues(ctx, st, ic, limit)
+	return createGHSAIssues(ctx, st, ic, allReports, limit)
 }
 
-func createCVEIssues(ctx context.Context, st store.Store, ic issues.Client, limit int) (err error) {
+// xref returns cross-references for a report: Information about other reports
+// for the same CVE, GHSA, or module.
+func xref(r *report.Report, allReports map[string]*report.Report) string {
+	out := &strings.Builder{}
+	sorted := func(s []string) []string {
+		s = slices.Clone(s)
+		slices.Sort(s)
+		return s
+	}
+
+	fmt.Fprint(out, "Cross references:\n")
+	matches := report.XRef(r, allReports)
+	for _, fname := range sorted(maps.Keys(matches)) {
+		for _, match := range sorted(matches[fname]) {
+			// Getting issue number from file name
+			var appearsIn string
+			_, _, issueNum, err := report.ParseFilepath(fname)
+			if err != nil {
+				appearsIn = fmt.Sprintf("%s (unable to convert file name to issue number, %v)", fname, err)
+			} else {
+				appearsIn = strconv.Itoa(issueNum)
+			}
+
+			fmt.Fprintf(out, "%v appears in issue #%v", match, appearsIn)
+			e := allReports[fname].Excluded
+			if e != "" {
+				fmt.Fprintf(out, "  %v", e)
+			}
+			fmt.Fprintf(out, "\n")
+		}
+	}
+	if len(matches) == 0 {
+		fmt.Fprint(out, "No existing reports found with this module or alias.")
+	}
+	return out.String()
+}
+
+func createCVEIssues(ctx context.Context, st store.Store, ic issues.Client, allReports map[string]*report.Report, limit int) (err error) {
 	defer derrors.Wrap(&err, "createCVEIssues(destination: %s)", ic.Destination())
 
 	needsIssue, err := st.ListCVERecordsWithTriageState(ctx, store.TriageStateNeedsIssue)
@@ -234,7 +273,7 @@ func createCVEIssues(ctx context.Context, st store.Store, ic issues.Client, limi
 		if limit > 0 && numCreated >= limit {
 			break
 		}
-		ref, err := createIssue(ctx, cr, ic)
+		ref, err := createIssue(ctx, cr, ic, allReports)
 		if err != nil {
 			return err
 		}
@@ -260,7 +299,7 @@ func createCVEIssues(ctx context.Context, st store.Store, ic issues.Client, limi
 	return nil
 }
 
-func newCVEBody(sr storeRecord) (string, error) {
+func newCVEBody(sr storeRecord, allReports map[string]*report.Report) (string, error) {
 	cr := sr.(*store.CVERecord)
 	var b strings.Builder
 	if cr.CVE == nil {
@@ -293,6 +332,7 @@ func newCVEBody(sr storeRecord) (string, error) {
 		fmt.Fprintf(&intro, "\n- %v: %v", strings.ToLower(string(ref.Type)), ref.URL)
 	}
 	fmt.Fprintf(&intro, "\n- Imported by: https://pkg.go.dev/%s?tab=importedby", cr.Module)
+	fmt.Fprintf(&intro, "\n\n%s", xref(r, allReports))
 	if err := issueTemplate.Execute(&b, issueTemplateData{
 		Intro:  intro.String(),
 		Report: out,
@@ -303,7 +343,7 @@ func newCVEBody(sr storeRecord) (string, error) {
 	return b.String(), nil
 }
 
-func createGHSAIssues(ctx context.Context, st store.Store, ic issues.Client, limit int) (err error) {
+func createGHSAIssues(ctx context.Context, st store.Store, ic issues.Client, allReports map[string]*report.Report, limit int) (err error) {
 	defer derrors.Wrap(&err, "createGHSAIssues(destination: %s)", ic.Destination())
 
 	sas, err := getGHSARecords(ctx, st)
@@ -324,7 +364,7 @@ func createGHSAIssues(ctx context.Context, st store.Store, ic issues.Client, lim
 		if limit > 0 && numCreated >= limit {
 			break
 		}
-		ref, err := createIssue(ctx, gr, ic)
+		ref, err := createIssue(ctx, gr, ic, allReports)
 		if err != nil {
 			return err
 		}
@@ -348,11 +388,7 @@ func createGHSAIssues(ctx context.Context, st store.Store, ic issues.Client, lim
 	return nil
 }
 
-func newGHSABody(sr storeRecord) (string, error) {
-	return CreateGHSABody(sr.(*store.GHSARecord).GHSA)
-}
-
-func CreateGHSABody(sa *ghsa.SecurityAdvisory) (body string, err error) {
+func CreateGHSABody(sa *ghsa.SecurityAdvisory, allReports map[string]*report.Report) (body string, err error) {
 	r := report.GHSAToReport(sa, "")
 	rs, err := r.ToString()
 	if err != nil {
@@ -363,6 +399,7 @@ func CreateGHSABody(sa *ghsa.SecurityAdvisory) (body string, err error) {
 		"In GitHub Security Advisory [%s](%s), there is a vulnerability in the following Go packages or modules:",
 		sa.ID, sa.Permalink)
 	intro += "\n\n" + vulnTable(sa.Vulns)
+	intro += "\n\n" + xref(r, allReports)
 	if err := issueTemplate.Execute(&b, issueTemplateData{
 		Intro:  intro,
 		Report: rs,
@@ -391,7 +428,7 @@ type storeRecord interface {
 	GetIssueCreatedAt() time.Time
 }
 
-func createIssue(ctx context.Context, r storeRecord, ic issues.Client) (ref string, err error) {
+func createIssue(ctx context.Context, r storeRecord, ic issues.Client, allReports map[string]*report.Report) (ref string, err error) {
 	id := r.GetID()
 	defer derrors.Wrap(&err, "createIssue(%s)", id)
 
@@ -407,9 +444,9 @@ func createIssue(ctx context.Context, r storeRecord, ic issues.Client) (ref stri
 	var body string
 	switch v := r.(type) {
 	case *store.GHSARecord:
-		body, err = newGHSABody(v)
+		body, err = CreateGHSABody(v.GHSA, allReports)
 	case *store.CVERecord:
-		body, err = newCVEBody(v)
+		body, err = newCVEBody(v, allReports)
 	default:
 		log.With("ID", id).Errorf(ctx, "%s: record has unexpected type %T; skipping: %v", id, v, err)
 		return "", nil

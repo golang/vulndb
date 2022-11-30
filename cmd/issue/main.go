@@ -22,6 +22,7 @@ import (
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
+	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/worker"
 )
 
@@ -121,11 +122,19 @@ func constructIssue(ctx context.Context, c issues.Client, alias, ghToken string,
 		ids    []string
 		bodies []string
 	)
+	repo, err := gitrepo.Clone(ctx, "https://github.com/golang/vulndb")
+	if err != nil {
+		return err
+	}
+	_, allReports, err := report.GetAllExisting(repo)
+	if err != nil {
+		return err
+	}
 	for _, sa := range ghsas {
 		for _, id := range sa.Identifiers {
 			ids = append(ids, id.Value)
 		}
-		body, err := worker.CreateGHSABody(sa)
+		body, err := worker.CreateGHSABody(sa, allReports)
 		if err != nil {
 			return err
 		}
