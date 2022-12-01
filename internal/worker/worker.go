@@ -245,7 +245,7 @@ func xref(r *report.Report, allReports map[string]*report.Report) string {
 				appearsIn = strconv.Itoa(issueNum)
 			}
 
-			fmt.Fprintf(out, "%v appears in issue #%v", match, appearsIn)
+			fmt.Fprintf(out, "- %v appears in issue #%v", match, appearsIn)
 			e := allReports[fname].Excluded
 			if e != "" {
 				fmt.Fprintf(out, "  %v", e)

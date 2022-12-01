@@ -234,8 +234,8 @@ References:
 - Imported by: https://pkg.go.dev/a.Module?tab=importedby
 
 Cross references:
-ID1 appears in issue #2
-Module a.Module appears in issue #2
+- ID1 appears in issue #2
+- Module a.Module appears in issue #2
 
 
 See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) for instructions on how to triage this report.
@@ -286,7 +286,7 @@ func TestCreateGHSABody(t *testing.T) {
 | [aPackage](https://pkg.go.dev/aPackage) | 1.2.3 | < 1.2.3 |
 
 Cross references:
-G1 appears in issue #1  EXCLUDED
+- G1 appears in issue #1  EXCLUDED
 
 
 See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) for instructions on how to triage this report.
