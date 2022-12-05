@@ -1,0 +1,20 @@
+modules:
+  - module: github.com/oam-dev/kubevela
+    versions:
+      - fixed: 1.5.8
+      - introduced: 1.6.0
+        fixed: 1.6.1
+    packages:
+      - package: github.com/oam-dev/kubevela/pkg/utils/common
+        symbols:
+          - HTTPGetResponse
+description: |-
+    When using Helm Chart as the component delivery method, the request address
+     of the warehouse is not restricted, and there is a blind SSRF vulnerability.
+cves:
+  - CVE-2022-39383
+ghsas:
+  - GHSA-m5xf-x7q6-3rm7
+references:
+  - advisory: https://github.com/kubevela/kubevela/security/advisories/GHSA-m5xf-x7q6-3rm7
+  - fix: https://github.com/kubevela/kubevela/pull/5000
