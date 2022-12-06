@@ -1,0 +1,48 @@
+modules:
+  - module: std
+    versions:
+      - fixed: 1.18.9
+      - introduced: 1.19.0
+        fixed: 1.19.4
+    vulnerable_at: 1.19.3
+    packages:
+      - package: os
+        goos:
+          - windows
+        symbols:
+          - dirFS.Open
+          - dirFS.Stat
+          - DirFS
+      - package: net/http
+        goos:
+          - windows
+        symbols:
+          - Dir.Open
+        derived_symbols:
+          - ServeFile
+          - fileHandler.ServeHTTP
+          - fileTransport.RoundTrip
+description: |
+    On Windows, restricted files can be accessed via os.DirFS and http.Dir.
+
+    The os.DirFS function and http.Dir type provide access to a tree of files
+    rooted at a given directory. These functions permit access to Windows
+    device files under that root. For example, os.DirFS("C:/tmp").Open("COM1")
+    opens the COM1 device. Both os.DirFS and http.Dir only provide read-only
+    filesystem access.
+
+    In addition, on Windows, an os.DirFS for the directory (the root of the
+    current drive) can permit a maliciously crafted path to escape from the
+    drive and access any path on the system.
+
+    With fix applied, the behavior of os.DirFS("") has changed. Previously, an
+    empty root was treated equivalently to "/", so os.DirFS("").Open("tmp")
+    would open the path "/tmp". This now returns an error.
+references:
+  - report: https://go.dev/issue/56694
+  - fix: https://go.dev/cl/455716
+  - web: https://groups.google.com/g/golang-announce/c/L_3rmdT0BMU/m/yZDrXjIiBQAJ
+cve_metadata:
+    id: CVE-2022-41720
+    cwe: 'CWE 22: Improper Limitation of a Pathname to a Restricted Directory (''Path
+        Traversal'')'

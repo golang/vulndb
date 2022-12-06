@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2022-1143",
+  "published": "0001-01-01T00:00:00Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-41720"
+  ],
+  "details": "On Windows, restricted files can be accessed via os.DirFS and http.Dir.\n\nThe os.DirFS function and http.Dir type provide access to a tree of files rooted at a given directory. These functions permit access to Windows device files under that root. For example, os.DirFS(\"C:/tmp\").Open(\"COM1\") opens the COM1 device. Both os.DirFS and http.Dir only provide read-only filesystem access.\n\nIn addition, on Windows, an os.DirFS for the directory (the root of the current drive) can permit a maliciously crafted path to escape from the drive and access any path on the system.\n\nWith fix applied, the behavior of os.DirFS(\"\") has changed. Previously, an empty root was treated equivalently to \"/\", so os.DirFS(\"\").Open(\"tmp\") would open the path \"/tmp\". This now returns an error.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.18.9"
+            },
+            {
+              "introduced": "1.19.0"
+            },
+            {
+              "fixed": "1.19.4"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-1143"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "os",
+            "goos": [
+              "windows"
+            ],
+            "symbols": [
+              "DirFS",
+              "dirFS.Open",
+              "dirFS.Stat"
+            ]
+          },
+          {
+            "path": "net/http",
+            "goos": [
+              "windows"
+            ],
+            "symbols": [
+              "Dir.Open",
+              "ServeFile",
+              "fileHandler.ServeHTTP",
+              "fileTransport.RoundTrip"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/56694"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/455716"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/L_3rmdT0BMU/m/yZDrXjIiBQAJ"
+    }
+  ]
+}
