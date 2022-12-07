@@ -777,10 +777,10 @@ func cveCmd(ctx context.Context, filename string) (err error) {
 	if err != nil {
 		return err
 	}
-	return writeCVE(r, filename)
+	return writeCVE(r, report.GetGoIDFromFilename(filename))
 }
 
-// writeCVE takes a report and the path to a .yaml description and marshals the data
+// writeCVE takes a report and its Go ID, converts the report
 // into a JSON CVE5 record and writes it to data/cve/v5.
 func writeCVE(r *report.Report, goID string) error {
 	if r.CVEMetadata == nil {
