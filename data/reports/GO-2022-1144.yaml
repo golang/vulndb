@@ -1,0 +1,48 @@
+modules:
+  - module: std
+    versions:
+      - fixed: 1.18.9
+      - introduced: 1.19.0
+        fixed: 1.19.4
+    vulnerable_at: 1.19.3
+    packages:
+      - package: net/http
+        symbols:
+          - http2serverConn.canonicalHeader
+        derived_symbols:
+          - ListenAndServe
+          - ListenAndServeTLS
+          - Serve
+          - ServeTLS
+          - Server.ListenAndServe
+          - Server.ListenAndServeTLS
+          - Server.Serve
+          - Server.ServeTLS
+          - http2Server.ServeConn
+  - module: golang.org/x/net
+    versions:
+      - fixed: 0.4.0
+    vulnerable_at: 0.3.0
+    packages:
+      - package: golang.org/x/net/http2
+        symbols:
+          - serverConn.canonicalHeader
+        derived_symbols:
+          - Server.ServeConn
+description: |
+    An attacker can cause excessive memory growth in a Go server accepting
+    HTTP/2 requests.
+
+    HTTP/2 server connections contain a cache of HTTP header keys sent by the
+    client. While the total number of entries in this cache is capped, an
+    attacker sending very large keys can cause the server to allocate
+    approximately 64 MiB per open connection.
+credit: Josselin Costanzi
+references:
+  - report: https://go.dev/issue/56350
+  - fix: https://go.dev/cl/455717
+  - fix: https://go.dev/cl/455635
+  - web: https://groups.google.com/g/golang-announce/c/L_3rmdT0BMU/m/yZDrXjIiBQAJ
+cve_metadata:
+    id: CVE-2022-41717
+    cwe: 'CWE 400: Uncontrolled Resource Consumption'
