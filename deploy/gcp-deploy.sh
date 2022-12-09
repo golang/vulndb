@@ -6,7 +6,7 @@
 set -e
 
 # Deploy database files.
-gsutil -m cp -r /workspace/db/* gs://go-vulndb
+gsutil -q -m cp -r /workspace/db/* gs://go-vulndb
 
 # Deploy web files.
 for file in index 404 copyright privacy; do
