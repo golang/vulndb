@@ -112,14 +112,10 @@ func TestLint(t *testing.T) {
 					Packages: []*Package{{
 						Package: "invalid.",
 					}},
-					Versions: []VersionRange{{
-						Fixed: "1.2.1",
-					}},
 				}},
 				Description: "description",
 			},
-			want: []string{"malformed import path",
-				"unable to retrieve module versions from proxy"},
+			want: []string{"malformed import path"},
 		},
 		{
 			desc: "standard library: missing package",

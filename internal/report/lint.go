@@ -49,22 +49,6 @@ func proxyLookup(urlSuffix string) ([]byte, error) {
 	return b, nil
 }
 
-func getModVersionsFromProxy(path string) (_ map[string]bool, err error) {
-	escaped, err := module.EscapePath(path)
-	if err != nil {
-		return nil, err
-	}
-	b, err := proxyLookup(fmt.Sprintf("%s/@v/list", escaped))
-	if err != nil {
-		return nil, err
-	}
-	versions := map[string]bool{}
-	for _, v := range strings.Split(string(b), "\n") {
-		versions[v] = true
-	}
-	return versions, nil
-}
-
 func getCanonicalModNameFromProxy(path, version string) (_ string, err error) {
 	escapedPath, err := module.EscapePath(path)
 	if err != nil {
@@ -108,46 +92,12 @@ func getCanonicalModVersionFromProxy(path, version string) (_ string, err error)
 	return ver, nil
 }
 
-var pseudoVersionRE = regexp.MustCompile(`^v[0-9]+\.(0\.0-|\d+\.\d+-([^+]*\.)?0\.)\d{14}-[A-Za-z0-9]+(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?$`)
-
-// isPseudoVersion reports whether v is a pseudo-version.
-// NOTE: this is taken from cmd/go/internal/modfetch/pseudo.go but
-// uses regexp instead of the internal lazyregex package.
-func isPseudoVersion(v string) bool {
-	return strings.Count(v, "-") >= 2 && semver.IsValid(v) && pseudoVersionRE.MatchString(v)
-}
-
-func versionExists(version string, versions map[string]bool) (err error) {
-	// TODO: for now, don't check validity of pseudo-versions.
-	// We should add a check that the pseudo-version could feasibly exist given
-	// the actual versions that we know about.
-	//
-	// The pseudo-version check should probably take into account the canonical
-	// import path (investigate cmd/go/internal/modfetch/coderepo.go has, which
-	// has something like this, check the error containing "has post-%v module
-	// path").
-	if isPseudoVersion(version) {
-		return nil
-	}
-	if !versions[version] {
-		return fmt.Errorf("proxy unaware of version")
-	}
-	return nil
-}
-
 func checkModVersions(modPath string, vrs []VersionRange) (err error) {
-	foundVersions, err := getModVersionsFromProxy(modPath)
-	if err != nil {
-		return fmt.Errorf("unable to retrieve module versions from proxy: %s", err)
-	}
 	checkVersion := func(v Version) error {
 		if v == "" {
 			return nil
 		}
 		if err := module.Check(modPath, v.V()); err != nil {
-			return err
-		}
-		if err := versionExists(v.V(), foundVersions); err != nil {
 			return err
 		}
 		canonicalPath, err := getCanonicalModNameFromProxy(modPath, v.V())
