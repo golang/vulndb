@@ -14,12 +14,22 @@ import (
 )
 
 func TestGenerate(t *testing.T) {
-	// TODO(https://github.com/golang/go#56417): Write unit tests for Generate.
+	ctx := context.Background()
+	testRepo, err := gitrepo.ReadTxtarRepo(testRepoDir, jan2002)
+	if err != nil {
+		t.Fatal(err)
+	}
+	tmpDir := t.TempDir()
+	err = Generate(ctx, testRepo, tmpDir, true)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = cmpDirHashes(tmpDir, validDir); err != nil {
+		t.Error(err)
+	}
 }
 
 func TestGenerateIntegration(t *testing.T) {
-	// Generate (in its current state) can only be tested with respect to the
-	// real contents of vulndb.
 	if !*integration {
 		t.Skip("Skipping integration tests, use flag -integration to run")
 	}
@@ -28,16 +38,17 @@ func TestGenerateIntegration(t *testing.T) {
 
 	ctx := context.Background()
 
-	genDir := t.TempDir()
-	err := Generate(ctx, ".", genDir, false)
-	if err != nil {
-		t.Fatal(err)
-	}
-
 	repo, err := gitrepo.Open(ctx, ".")
 	if err != nil {
 		t.Fatal(err)
 	}
+
+	genDir := t.TempDir()
+	err = Generate(ctx, repo, genDir, false)
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	new, err := New(ctx, repo)
 	if err != nil {
 		t.Fatal(err)

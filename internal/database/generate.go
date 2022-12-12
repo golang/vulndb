@@ -7,28 +7,23 @@ package database
 import (
 	"context"
 
+	"github.com/go-git/go-git/v5"
 	"golang.org/x/vulndb/internal/derrors"
-	"golang.org/x/vulndb/internal/gitrepo"
 )
 
 // Generate creates and writes a new Go vulnerability database to outDir
-// based on the contents of the "data/osv" folder inside repoDir, a local
-// git repo.
+// based on the contents of the "data/osv" folder inside repo.
 //
-// repoDir must contain a "data/osv" folder to with files in
+// The repo must contain a "data/osv" folder with files in
 // OSV JSON format with filenames of the form GO-YYYY-XXXX.json.
-func Generate(ctx context.Context, repoDir, outDir string, indent bool) (err error) {
-	defer derrors.Wrap(&err, "Generate(%q)", repoDir)
+func Generate(ctx context.Context, repo *git.Repository, outDir string, indent bool) (err error) {
+	defer derrors.Wrap(&err, "Generate()")
 
-	repo, err := gitrepo.Open(ctx, repoDir)
-	if err != nil {
-		return err
-	}
 	new, err := New(ctx, repo)
 	if err != nil {
 		return err
 	}
-	if err = new.Write(outDir, false); err != nil {
+	if err = new.Write(outDir, indent); err != nil {
 		return err
 	}
 

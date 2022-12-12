@@ -12,6 +12,7 @@ import (
 	"log"
 
 	"golang.org/x/vulndb/internal/database"
+	"golang.org/x/vulndb/internal/gitrepo"
 )
 
 var (
@@ -23,7 +24,11 @@ var (
 func main() {
 	flag.Parse()
 	ctx := context.Background()
-	if err := database.Generate(ctx, *repoDir, *jsonDir, *indent); err != nil {
+	repo, err := gitrepo.CloneOrOpen(ctx, *repoDir)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := database.Generate(ctx, repo, *jsonDir, *indent); err != nil {
 		log.Fatal(err)
 	}
 }

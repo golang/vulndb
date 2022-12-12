@@ -73,7 +73,7 @@ const (
 // associated index maps). The result is an in-memory vulnerability database
 // that can be written to files via Database.Write.
 //
-// The repo must contain a "data/osv" folder to with files in
+// The repo must contain a "data/osv" folder with files in
 // OSV JSON format with filenames of the form GO-YYYY-XXXX.json.
 //
 // New does not modify the repo.
