@@ -80,55 +80,56 @@ func main() {
 		*githubToken = os.Getenv("VULN_GITHUB_ACCESS_TOKEN")
 	}
 
-	cmd := flag.Arg(0)
-
-	// Create-excluded has no args, so it is separated form the other commands.
-	if cmd == "create-excluded" {
-		_, cfg, err := setupCreate(ctx, nil)
-		if err != nil {
-			log.Fatal(err)
+	var (
+		args []string
+		cmd  = flag.Arg(0)
+	)
+	if cmd != "create-excluded" {
+		if flag.NArg() < 2 {
+			flag.Usage()
+			log.Fatal("not enough arguments")
 		}
-		if err = createExcluded(ctx, cfg); err != nil {
-			log.Fatal(err)
-		}
-		return
+		args = flag.Args()[1:]
 	}
 
-	if flag.NArg() < 2 {
-		flag.Usage()
-		log.Fatal("not enough arguments")
-	}
-
-	args := flag.Args()[1:]
-
-	// Create operates on github issue IDs instead of filenames, so it is
-	// separated from the other commands.
-	if cmd == "create" {
+	// setupCreate clones the CVEList repo and can be very slow,
+	// so commands that require this functionality are separated from other
+	// commands.
+	if cmd == "create-excluded" || cmd == "create" {
 		githubIDs, cfg, err := setupCreate(ctx, args)
 		if err != nil {
 			log.Fatal(err)
 		}
-		for _, githubID := range githubIDs {
-			if err := create(ctx, githubID, cfg); err != nil {
-				fmt.Printf("skipped: %s\n", err)
+		switch cmd {
+		case "create-excluded":
+			if err = createExcluded(ctx, cfg); err != nil {
+				log.Fatal(err)
+			}
+		case "create":
+			// Unlike commands below, create operates on github issue IDs
+			// instead of filenames.
+			for _, githubID := range githubIDs {
+				if err := create(ctx, githubID, cfg); err != nil {
+					fmt.Printf("skipped: %s\n", err)
+				}
 			}
 		}
-		return
 	}
 
+	ghsaClient := ghsa.NewClient(ctx, *githubToken)
 	var cmdFunc func(string) error
 	switch cmd {
 	case "lint":
 		cmdFunc = lint
 	case "commit":
-		cmdFunc = func(name string) error { return commit(ctx, name, *githubToken) }
+		cmdFunc = func(name string) error { return commit(ctx, name, ghsaClient) }
 	case "cve":
 		cmdFunc = func(name string) error { return cveCmd(ctx, name) }
 	//TODO: (https://github.com/golang/go/issues/56356): Deprecate this command once CVE JSON 5.0 publishing is available
 	case "cve4":
 		cmdFunc = func(name string) error { return cve4Cmd(ctx, name, *indent) }
 	case "fix":
-		cmdFunc = func(name string) error { return fix(ctx, name, *githubToken) }
+		cmdFunc = func(name string) error { return fix(ctx, name, ghsaClient) }
 	case "osv":
 		cmdFunc = osvCmd
 	case "set-dates":
@@ -233,8 +234,8 @@ func parseArgsToGithubIDs(args []string, existingByIssue map[int]*report.Report)
 }
 
 type createCfg struct {
-	ghToken         string
 	repo            *git.Repository
+	ghsaClient      *ghsa.Client
 	issuesClient    *issues.Client
 	existingByFile  map[string]*report.Report
 	existingByIssue map[int]*report.Report
@@ -270,9 +271,9 @@ func setupCreate(ctx context.Context, args []string) ([]int, *createCfg, error) 
 		return nil, nil, err
 	}
 	return githubIDs, &createCfg{
-		ghToken:         *githubToken,
 		repo:            repo,
 		issuesClient:    issues.NewClient(&issues.Config{Owner: owner, Repo: repoName, Token: *githubToken}),
+		ghsaClient:      ghsa.NewClient(ctx, *githubToken),
 		existingByFile:  existingByFile,
 		existingByIssue: existingByIssue,
 		allowClosed:     *closedOk,
@@ -287,7 +288,7 @@ func createReport(ctx context.Context, cfg *createCfg, iss *issues.Issue) (r *re
 	}
 	if len(parsed.ghsas) == 0 && len(parsed.cves) > 0 {
 		for _, cve := range parsed.cves {
-			sas, err := ghsa.ListForCVE(ctx, cfg.ghToken, cve)
+			sas, err := cfg.ghsaClient.ListForCVE(ctx, cve)
 			if err != nil {
 				return nil, err
 			}
@@ -427,7 +428,7 @@ func newReport(ctx context.Context, cfg *createCfg, parsed *parsedIssue) (*repor
 	var r *report.Report
 	switch {
 	case len(parsed.ghsas) > 0:
-		ghsa, err := ghsa.FetchGHSA(ctx, cfg.ghToken, parsed.ghsas[0])
+		ghsa, err := cfg.ghsaClient.FetchGHSA(ctx, parsed.ghsas[0])
 		if err != nil {
 			return nil, err
 		}
@@ -597,7 +598,7 @@ func lint(filename string) (err error) {
 	return nil
 }
 
-func fix(ctx context.Context, filename string, accessToken string) (err error) {
+func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client) (err error) {
 	defer derrors.Wrap(&err, "fix(%q)", filename)
 	r, err := report.Read(filename)
 	if err != nil {
@@ -611,7 +612,7 @@ func fix(ctx context.Context, filename string, accessToken string) (err error) {
 			return err
 		}
 	}
-	if err := fixGHSAs(ctx, r, accessToken); err != nil {
+	if err := fixGHSAs(ctx, r, ghsaClient); err != nil {
 		return err
 	}
 	// Write unconditionally in order to format.
@@ -842,12 +843,12 @@ func irun(name string, arg ...string) error {
 	return cmd.Run()
 }
 
-func commit(ctx context.Context, filename, accessToken string) (err error) {
+func commit(ctx context.Context, filename string, ghsaClient *ghsa.Client) (err error) {
 	defer derrors.Wrap(&err, "commit(%q)", filename)
 
 	// Ignore errors. If anything is really wrong with the report, we'll
 	// detect it on re-linting below.
-	_ = fix(ctx, filename, accessToken)
+	_ = fix(ctx, filename, ghsaClient)
 
 	r, err := report.ReadAndLint(filename)
 	if err != nil {
@@ -1027,39 +1028,15 @@ func setDates(filename string, dates map[string]gitrepo.Dates) (err error) {
 	return r.Write(filename)
 }
 
-// loadGHSAsByCVE returns a map from CVE ID to GHSA IDs.
-// It does this by using the GitHub API to list all Go security
-// advisories.
-func loadGHSAsByCVE(ctx context.Context, accessToken string) (_ map[string][]string, err error) {
-	defer derrors.Wrap(&err, "loadGHSAsByCVE")
-
-	sas, err := ghsa.List(ctx, accessToken, time.Time{})
-	if err != nil {
-		return nil, err
-	}
-	m := map[string][]string{}
-	for _, sa := range sas {
-		for _, id := range sa.Identifiers {
-			if id.Type == "CVE" {
-				m[id.Value] = append(m[id.Value], sa.ID)
-			}
-		}
-	}
-	return m, nil
-}
-
 // fixGHSAs replaces r.GHSAs with a sorted list of GitHub Security
 // Advisory IDs that correspond to the CVEs.
-func fixGHSAs(ctx context.Context, r *report.Report, accessToken string) error {
-	if accessToken == "" {
-		return nil
-	}
+func fixGHSAs(ctx context.Context, r *report.Report, ghsaClient *ghsa.Client) error {
 	if len(r.GHSAs) > 0 && !*alwaysFixGHSA {
 		return nil
 	}
 	m := map[string]struct{}{}
 	for _, cid := range r.CVEs {
-		sas, err := ghsa.ListForCVE(ctx, accessToken, cid)
+		sas, err := ghsaClient.ListForCVE(ctx, cid)
 		if err != nil {
 			return err
 		}

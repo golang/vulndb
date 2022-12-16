@@ -119,17 +119,25 @@ func (sa *gqlSecurityAdvisory) securityAdvisory() (*SecurityAdvisory, error) {
 	return s, nil
 }
 
-func newGitHubClient(ctx context.Context, accessToken string) *githubv4.Client {
+// Client is a client that can fetch data about GitHub security advisories.
+type Client struct {
+	client *githubv4.Client
+	token  string
+}
+
+// NewClient creates a new client for making requests to the GHSA API.
+func NewClient(ctx context.Context, accessToken string) *Client {
 	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: accessToken})
 	tc := oauth2.NewClient(ctx, ts)
-	return githubv4.NewClient(tc)
+	return &Client{
+		client: githubv4.NewClient(tc),
+		token:  accessToken,
+	}
 }
 
 // List returns all SecurityAdvisories that affect Go,
 // published or updated since the given time.
-func List(ctx context.Context, accessToken string, since time.Time) ([]*SecurityAdvisory, error) {
-	client := newGitHubClient(ctx, accessToken)
-
+func (c *Client) List(ctx context.Context, since time.Time) ([]*SecurityAdvisory, error) {
 	var query struct { // the GraphQL query
 		SAs struct {
 			Nodes    []gqlSecurityAdvisory
@@ -149,7 +157,7 @@ func List(ctx context.Context, accessToken string, since time.Time) ([]*Security
 	// We need a loop to page through the list. The GitHub API limits us to 100
 	// values per call.
 	for {
-		if err := client.Query(ctx, &query, vars); err != nil {
+		if err := c.client.Query(ctx, &query, vars); err != nil {
 			return nil, err
 		}
 		for _, sa := range query.SAs.Nodes {
@@ -170,9 +178,7 @@ func List(ctx context.Context, accessToken string, since time.Time) ([]*Security
 	return sas, nil
 }
 
-func ListForCVE(ctx context.Context, accessToken string, cve string) ([]*SecurityAdvisory, error) {
-	client := newGitHubClient(ctx, accessToken)
-
+func (c *Client) ListForCVE(ctx context.Context, cve string) ([]*SecurityAdvisory, error) {
 	var query struct { // The GraphQL query
 		SAs struct {
 			Nodes    []gqlSecurityAdvisory
@@ -190,7 +196,7 @@ func ListForCVE(ctx context.Context, accessToken string, cve string) ([]*Securit
 		"go": githubv4.SecurityAdvisoryEcosystemGo,
 	}
 
-	if err := client.Query(ctx, &query, vars); err != nil {
+	if err := c.client.Query(ctx, &query, vars); err != nil {
 		return nil, err
 	}
 	if query.SAs.PageInfo.HasNextPage {
@@ -223,9 +229,7 @@ func ListForCVE(ctx context.Context, accessToken string, cve string) ([]*Securit
 
 // FetchGHSA returns the SecurityAdvisory for the given Github Security
 // Advisory ID.
-func FetchGHSA(ctx context.Context, accessToken, ghsaID string) (_ *SecurityAdvisory, err error) {
-	client := newGitHubClient(ctx, accessToken)
-
+func (c *Client) FetchGHSA(ctx context.Context, ghsaID string) (_ *SecurityAdvisory, err error) {
 	var query struct {
 		SA gqlSecurityAdvisory `graphql:"securityAdvisory(ghsaId: $id)"`
 	}
@@ -234,9 +238,8 @@ func FetchGHSA(ctx context.Context, accessToken, ghsaID string) (_ *SecurityAdvi
 		"go": githubv4.SecurityAdvisoryEcosystemGo,
 	}
 
-	if err := client.Query(ctx, &query, vars); err != nil {
+	if err := c.client.Query(ctx, &query, vars); err != nil {
 		return nil, err
 	}
-
 	return query.SA.securityAdvisory()
 }

@@ -45,6 +45,7 @@ type Server struct {
 	cfg           Config
 	indexTemplate *template.Template
 	issueClient   *issues.Client
+	ghsaClient    *ghsa.Client
 	observer      *observe.Observer
 }
 
@@ -318,7 +319,7 @@ func (s *Server) doUpdate(r *http.Request) (err error) {
 		return err
 	}
 	listSAs := func(ctx context.Context, since time.Time) ([]*ghsa.SecurityAdvisory, error) {
-		return ghsa.List(ctx, s.cfg.GitHubAccessToken, since)
+		return s.ghsaClient.List(ctx, since)
 	}
 	_, err = UpdateGHSAs(r.Context(), listSAs, s.cfg.Store)
 	return err

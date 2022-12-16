@@ -213,8 +213,9 @@ func updateCommand(ctx context.Context, commitHash string) error {
 		fmt.Printf("Missing GitHub access token; not updating GH security advisories.\n")
 		return nil
 	}
+	ghsaClient := ghsa.NewClient(ctx, cfg.GitHubAccessToken)
 	listSAs := func(ctx context.Context, since time.Time) ([]*ghsa.SecurityAdvisory, error) {
-		return ghsa.List(ctx, cfg.GitHubAccessToken, since)
+		return ghsaClient.List(ctx, since)
 	}
 	_, err = worker.UpdateGHSAs(ctx, listSAs, cfg.Store)
 	return err

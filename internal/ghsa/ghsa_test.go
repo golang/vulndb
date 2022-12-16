@@ -35,11 +35,18 @@ func mustGetAccessToken(t *testing.T) string {
 	return strings.TrimSpace(string(token))
 }
 
-func TestList(t *testing.T) {
+func setupClient(ctx context.Context, t *testing.T) *Client {
+	t.Helper()
 	accessToken := mustGetAccessToken(t)
+	return NewClient(ctx, accessToken)
+}
+
+func TestList(t *testing.T) {
+	ctx := context.Background()
+	c := setupClient(ctx, t)
 	// There were at least three relevant SAs since this date.
 	since := time.Date(2022, 9, 1, 0, 0, 0, 0, time.UTC)
-	got, err := List(context.Background(), accessToken, since)
+	got, err := c.List(context.Background(), since)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -50,10 +57,11 @@ func TestList(t *testing.T) {
 }
 
 func TestFetchGHSA(t *testing.T) {
-	accessToken := mustGetAccessToken(t)
+	ctx := context.Background()
+	c := setupClient(ctx, t)
 	// Real GHSA that should be found.
 	const ghsaID string = "GHSA-g9mp-8g3h-3c5c"
-	got, err := FetchGHSA(context.Background(), accessToken, ghsaID)
+	got, err := c.FetchGHSA(context.Background(), ghsaID)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -63,8 +71,8 @@ func TestFetchGHSA(t *testing.T) {
 }
 
 func TestListForCVE(t *testing.T) {
-	accessToken := mustGetAccessToken(t)
 	ctx := context.Background()
+	c := setupClient(ctx, t)
 	tests := []struct {
 		name string
 		cve  string
@@ -83,7 +91,7 @@ func TestListForCVE(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := ListForCVE(ctx, accessToken, tt.cve)
+			got, err := c.ListForCVE(ctx, tt.cve)
 			if err != nil {
 				t.Errorf("ListForCVE() error = %v", err)
 				return
