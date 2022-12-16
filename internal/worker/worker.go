@@ -211,15 +211,16 @@ const issueQPS = 1
 // basically lets you exceed the rate briefly.
 var issueRateLimiter = rate.NewLimiter(rate.Every(time.Duration(1000/float64(issueQPS))*time.Millisecond), 1)
 
-func CreateIssues(ctx context.Context, st store.Store, ic issues.Client, allReports map[string]*report.Report, limit int) (err error) {
-	defer derrors.Wrap(&err, "CreateIssues(destination: %s)", ic.Destination())
+// CreateIssues creates issues on the x/vulndb issue tracker for allReports.
+func CreateIssues(ctx context.Context, st store.Store, client *issues.Client, allReports map[string]*report.Report, limit int) (err error) {
+	defer derrors.Wrap(&err, "CreateIssues(destination: %s)", client.Destination())
 	ctx = event.Start(ctx, "CreateIssues")
 	defer event.End(ctx)
 
-	if err := createCVEIssues(ctx, st, ic, allReports, limit); err != nil {
+	if err := createCVEIssues(ctx, st, client, allReports, limit); err != nil {
 		return err
 	}
-	return createGHSAIssues(ctx, st, ic, allReports, limit)
+	return createGHSAIssues(ctx, st, client, allReports, limit)
 }
 
 // xref returns cross-references for a report: Information about other reports
@@ -259,21 +260,21 @@ func xref(r *report.Report, allReports map[string]*report.Report) string {
 	return out.String()
 }
 
-func createCVEIssues(ctx context.Context, st store.Store, ic issues.Client, allReports map[string]*report.Report, limit int) (err error) {
-	defer derrors.Wrap(&err, "createCVEIssues(destination: %s)", ic.Destination())
+func createCVEIssues(ctx context.Context, st store.Store, client *issues.Client, allReports map[string]*report.Report, limit int) (err error) {
+	defer derrors.Wrap(&err, "createCVEIssues(destination: %s)", client.Destination())
 
 	needsIssue, err := st.ListCVERecordsWithTriageState(ctx, store.TriageStateNeedsIssue)
 	if err != nil {
 		return err
 	}
 	log.Infof(ctx, "createCVEIssues starting; destination: %s, total needing issue: %d",
-		ic.Destination(), len(needsIssue))
+		client.Destination(), len(needsIssue))
 	numCreated := 0
 	for _, cr := range needsIssue {
 		if limit > 0 && numCreated >= limit {
 			break
 		}
-		ref, err := createIssue(ctx, cr, ic, allReports)
+		ref, err := createIssue(ctx, cr, client, allReports)
 		if err != nil {
 			return err
 		}
@@ -343,8 +344,8 @@ func newCVEBody(sr storeRecord, allReports map[string]*report.Report) (string, e
 	return b.String(), nil
 }
 
-func createGHSAIssues(ctx context.Context, st store.Store, ic issues.Client, allReports map[string]*report.Report, limit int) (err error) {
-	defer derrors.Wrap(&err, "createGHSAIssues(destination: %s)", ic.Destination())
+func createGHSAIssues(ctx context.Context, st store.Store, client *issues.Client, allReports map[string]*report.Report, limit int) (err error) {
+	defer derrors.Wrap(&err, "createGHSAIssues(destination: %s)", client.Destination())
 
 	sas, err := getGHSARecords(ctx, st)
 	if err != nil {
@@ -358,13 +359,13 @@ func createGHSAIssues(ctx context.Context, st store.Store, ic issues.Client, all
 	}
 
 	log.Infof(ctx, "createGHSAIssues starting; destination: %s, total needing issue: %d",
-		ic.Destination(), len(needsIssue))
+		client.Destination(), len(needsIssue))
 	numCreated := 0
 	for _, gr := range needsIssue {
 		if limit > 0 && numCreated >= limit {
 			break
 		}
-		ref, err := createIssue(ctx, gr, ic, allReports)
+		ref, err := createIssue(ctx, gr, client, allReports)
 		if err != nil {
 			return err
 		}
@@ -428,7 +429,7 @@ type storeRecord interface {
 	GetIssueCreatedAt() time.Time
 }
 
-func createIssue(ctx context.Context, r storeRecord, ic issues.Client, allReports map[string]*report.Report) (ref string, err error) {
+func createIssue(ctx context.Context, r storeRecord, client *issues.Client, allReports map[string]*report.Report) (ref string, err error) {
 	id := r.GetID()
 	defer derrors.Wrap(&err, "createIssue(%s)", id)
 
@@ -471,7 +472,7 @@ func createIssue(ctx context.Context, r storeRecord, ic issues.Client, allReport
 	if err := issueRateLimiter.Wait(ctx); err != nil {
 		return "", err
 	}
-	num, err := ic.CreateIssue(ctx, iss)
+	num, err := client.CreateIssue(ctx, iss)
 	if err != nil {
 		return "", fmt.Errorf("creating issue for %s: %w", id, err)
 	}
@@ -479,7 +480,7 @@ func createIssue(ctx context.Context, r storeRecord, ic issues.Client, allReport
 	// that fact in the DB. That can lead to duplicate issues, but nothing
 	// worse (we won't miss a CVE).
 	// TODO(https://go.dev/issue/49733): look for the issue title to avoid duplications.
-	ref = ic.Reference(num)
+	ref = client.Reference(num)
 	log.With("ID", id).Infof(ctx, "created issue %s for %s", ref, id)
 	return ref, nil
 }

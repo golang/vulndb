@@ -11,6 +11,7 @@ import (
 	"context"
 	"fmt"
 	"math"
+	"net/http"
 	"os"
 	"sort"
 	"strings"
@@ -24,6 +25,7 @@ import (
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
+	"golang.org/x/vulndb/internal/issues/githubtest"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"
@@ -94,7 +96,22 @@ func TestCreateIssues(t *testing.T) {
 	ctx := event.WithExporter(context.Background(),
 		event.NewExporter(log.NewLineHandler(os.Stderr), nil))
 	mstore := store.NewMemStore()
-	ic := issues.NewFakeClient()
+
+	ic, mux := githubtest.Setup(t, &issues.Config{
+		Owner: githubtest.TestOwner,
+		Repo:  githubtest.TestRepo,
+		Token: githubtest.TestToken,
+	})
+
+	mux.HandleFunc(fmt.Sprintf("/repos/%s/%s/issues", githubtest.TestOwner, githubtest.TestRepo), func(w http.ResponseWriter, r *http.Request) {
+		switch r.Method {
+		case http.MethodGet:
+			fmt.Fprintf(w, `[{"number":%d},{"number":%d}]`, 1, 2)
+		case http.MethodPost:
+			fmt.Fprintf(w, `{"number":%d}`, 1)
+		}
+	})
+
 	ctime := time.Date(2020, 1, 2, 0, 0, 0, 0, time.UTC)
 
 	crs := []*store.CVERecord{
@@ -171,7 +188,7 @@ func TestCreateIssues(t *testing.T) {
 		wantCVERecords = append(wantCVERecords, &copy)
 	}
 	wantCVERecords[0].TriageState = store.TriageStateIssueCreated
-	wantCVERecords[0].IssueReference = "inMemory#1"
+	wantCVERecords[0].IssueReference = "https://github.com/test-owner/test-repo/issues/1"
 
 	gotCVERecs := mstore.CVERecords()
 	if len(gotCVERecs) != len(wantCVERecords) {
@@ -190,7 +207,7 @@ func TestCreateIssues(t *testing.T) {
 		wantGHSARecs = append(wantGHSARecs, &copy)
 	}
 	wantGHSARecs[0].TriageState = store.TriageStateIssueCreated
-	wantGHSARecs[0].IssueReference = "inMemory#2"
+	wantGHSARecs[0].IssueReference = "https://github.com/test-owner/test-repo/issues/1"
 
 	gotGHSARecs := getGHSARecordsSorted(t, mstore)
 	fmt.Printf("%+v\n", gotGHSARecs[0])

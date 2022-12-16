@@ -235,7 +235,7 @@ func parseArgsToGithubIDs(args []string, existingByIssue map[int]*report.Report)
 type createCfg struct {
 	ghToken         string
 	repo            *git.Repository
-	issuesClient    issues.Client
+	issuesClient    *issues.Client
 	existingByFile  map[string]*report.Report
 	existingByIssue map[int]*report.Report
 	allowClosed     bool
@@ -272,7 +272,7 @@ func setupCreate(ctx context.Context, args []string) ([]int, *createCfg, error) 
 	return githubIDs, &createCfg{
 		ghToken:         *githubToken,
 		repo:            repo,
-		issuesClient:    issues.NewGitHubClient(owner, repoName, *githubToken),
+		issuesClient:    issues.NewClient(&issues.Config{Owner: owner, Repo: repoName, Token: *githubToken}),
 		existingByFile:  existingByFile,
 		existingByIssue: existingByIssue,
 		allowClosed:     *closedOk,

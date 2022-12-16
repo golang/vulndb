@@ -9,6 +9,7 @@ package issues
 import (
 	"context"
 	"fmt"
+	"net/url"
 	"time"
 
 	"github.com/google/go-github/v41/github"
@@ -37,56 +38,60 @@ type GetIssuesOptions struct {
 }
 
 // Client is a client that can create and retrieve issues.
-type Client interface {
-	// Destination describes where issues will be created.
-	Destination() string
-
-	// Reference returns a string that refers to the issue with number.
-	Reference(number int) string
-
-	// IssueExists reports whether an issue with the given ID exists.
-	IssueExists(ctx context.Context, number int) (bool, error)
-
-	// CreateIssue creates a new issue.
-	CreateIssue(ctx context.Context, iss *Issue) (number int, err error)
-
-	// GetIssue returns an issue with the given issue number.
-	GetIssue(ctx context.Context, number int) (iss *Issue, err error)
-
-	GetIssues(ctx context.Context, opts GetIssuesOptions) (issues []*Issue, err error)
-}
-
-type githubClient struct {
+type Client struct {
 	client *github.Client
 	owner  string
 	repo   string
 }
 
-// NewGitHubClient creates a Client that will create issues in
+// Config is used to initialize a new Client.
+type Config struct {
+	// Owner is the owner of a GitHub repo. For example, "golang" is the owner
+	// for github.com/golang/vulndb.
+	Owner string
+
+	// Repo is the name of a GitHub repo. For example, "vulndb" is the repo
+	// name for github.com/golang/vulndb.
+	Repo string
+
+	// Token is access token that authorizes and authenticates
+	// requests to the GitHub API.
+	Token string
+}
+
+// NewClient creates a Client that will create issues in
 // the a GitHub repo.
-// A GitHub access token is required to create issues.
-func NewGitHubClient(owner, repo, accessToken string) *githubClient {
-	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: accessToken})
+func NewClient(cfg *Config) *Client {
+	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: cfg.Token})
 	tc := oauth2.NewClient(context.Background(), ts)
-	return &githubClient{
-		client: github.NewClient(tc),
-		owner:  owner,
-		repo:   repo,
+	c := github.NewClient(tc)
+	return &Client{
+		client: c,
+		owner:  cfg.Owner,
+		repo:   cfg.Repo,
 	}
 }
 
+// NewTestClient creates a Client for use in tests.
+func NewTestClient(cfg *Config, baseURL *url.URL) *Client {
+	c := NewClient(cfg)
+	c.client.BaseURL = baseURL
+	c.client.UploadURL = baseURL
+	return c
+}
+
 // Destination implements Client.Destination.
-func (c *githubClient) Destination() string {
+func (c *Client) Destination() string {
 	return fmt.Sprintf("https://github.com/%s/%s", c.owner, c.repo)
 }
 
 // Reference implements Client.Reference.
-func (c *githubClient) Reference(num int) string {
+func (c *Client) Reference(num int) string {
 	return fmt.Sprintf("%s/issues/%d", c.Destination(), num)
 }
 
 // IssueExists implements Client.IssueExists.
-func (c *githubClient) IssueExists(ctx context.Context, number int) (_ bool, err error) {
+func (c *Client) IssueExists(ctx context.Context, number int) (_ bool, err error) {
 	defer derrors.Wrap(&err, "IssueExists(%d)", number)
 
 	iss, _, err := c.client.Issues.Get(ctx, c.owner, c.repo, number)
@@ -131,7 +136,7 @@ func convertGithubIssueToIssue(ghIss *github.Issue) *Issue {
 }
 
 // GetIssue implements Client.GetIssue.
-func (c *githubClient) GetIssue(ctx context.Context, number int) (_ *Issue, err error) {
+func (c *Client) GetIssue(ctx context.Context, number int) (_ *Issue, err error) {
 	defer derrors.Wrap(&err, "GetIssue(%d)", number)
 	ghIss, _, err := c.client.Issues.Get(ctx, c.owner, c.repo, number)
 	if err != nil {
@@ -143,7 +148,7 @@ func (c *githubClient) GetIssue(ctx context.Context, number int) (_ *Issue, err 
 }
 
 // GetIssues implements Client.GetIssues
-func (c *githubClient) GetIssues(ctx context.Context, opts GetIssuesOptions) (_ []*Issue, err error) {
+func (c *Client) GetIssues(ctx context.Context, opts GetIssuesOptions) (_ []*Issue, err error) {
 	defer derrors.Wrap(&err, "GetIssues()")
 	clientOpts := &github.IssueListByRepoOptions{
 		State:  opts.State,
@@ -175,7 +180,7 @@ func (c *githubClient) GetIssues(ctx context.Context, opts GetIssuesOptions) (_ 
 }
 
 // CreateIssue implements Client.CreateIssue.
-func (c *githubClient) CreateIssue(ctx context.Context, iss *Issue) (number int, err error) {
+func (c *Client) CreateIssue(ctx context.Context, iss *Issue) (number int, err error) {
 	defer derrors.Wrap(&err, "CreateIssue(%s)", iss.Title)
 
 	req := &github.IssueRequest{

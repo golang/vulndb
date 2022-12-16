@@ -2,114 +2,128 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-//go:build go1.17
-// +build go1.17
-
-package issues
+package issues_test
 
 import (
 	"context"
-	"flag"
 	"fmt"
-	"os"
+	"net/http"
+	"strconv"
+	"strings"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
-	"golang.org/x/vulndb/internal/gitrepo"
+	"golang.org/x/vulndb/internal/issues"
+	"golang.org/x/vulndb/internal/issues/githubtest"
 )
 
-var (
-	githubRepo  = flag.String("repo", "", "GitHub repo (in form owner/repo) to test issues")
-	githubToken = flag.String("ghtoken", os.Getenv("VULN_GITHUB_ACCESS_TOKEN"), "GitHub access token")
-)
-
-func diffIssue(want, got *Issue) string {
-	return cmp.Diff(want, got,
-		cmpopts.IgnoreFields(Issue{}, "CreatedAt"))
-}
-func diffIssues(want, got []*Issue) string {
-	byTitle := func(a, b *Issue) bool { return a.Title < b.Title }
-	return cmp.Diff(want, got, cmpopts.SortSlices(byTitle),
-		cmpopts.IgnoreFields(Issue{}, "CreatedAt"))
+var testConfig = &issues.Config{
+	Owner: githubtest.TestOwner,
+	Repo:  githubtest.TestRepo,
+	Token: githubtest.TestToken,
 }
 
 func TestClient(t *testing.T) {
-	t.Run("fake", func(t *testing.T) {
-		testClient(t, NewFakeClient())
-	})
-	t.Run("github", func(t *testing.T) {
-		if *githubRepo == "" {
-			t.Skip("skipping: no -repo flag")
-		}
-		owner, repo, err := gitrepo.ParseGitHubRepo(*githubRepo)
-		if err != nil {
-			t.Fatal(err)
-		}
-		if *githubToken == "" {
-			t.Fatal("need -ghtoken")
-		}
-		testClient(t, NewGitHubClient(owner, repo, *githubToken))
-	})
+	client, _ := githubtest.Setup(t, testConfig)
+	want := fmt.Sprintf("https://github.com/%s/%s", githubtest.TestOwner, githubtest.TestRepo)
+	if got := client.Destination(); got != want {
+		t.Fatalf("client.Destination(): %q; want = %q", got, want)
+	}
+	want = fmt.Sprintf("https://github.com/%s/%s/issues/2", githubtest.TestOwner, githubtest.TestRepo)
+	if got := client.Reference(2); got != want {
+		t.Fatalf("client.Reference(): %q; want = %q", got, want)
+	}
 }
 
-func testClient(t *testing.T, c Client) {
+func TestCreateIssue(t *testing.T) {
+	c, mux := githubtest.Setup(t, testConfig)
+	want := 15
+	mux.HandleFunc(fmt.Sprintf("/repos/%s/%s/issues", githubtest.TestOwner, githubtest.TestRepo), func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "POST")
+		fmt.Fprint(w, fmt.Sprintf(`{"number":%d}`, want))
+	})
 	ctx := context.Background()
-	iss := &Issue{
+	input := &issues.Issue{Title: "title", Body: "body"}
+	got, err := c.CreateIssue(ctx, input)
+	if err != nil {
+		t.Fatalf("c.CreateIssue: %v", err)
+	}
+	if got != want {
+		t.Errorf("c.CreateIssue(ctx, %v) = %d; got = %d", input, got, want)
+	}
+}
+
+func TestGetIssueAndIssueExists(t *testing.T) {
+	c, mux := githubtest.Setup(t, testConfig)
+	want := &issues.Issue{
+		Number: 7,
+		Title:  "title",
+		Body:   "body",
+	}
+	mux.HandleFunc(fmt.Sprintf("/repos/%s/%s/issues/%d", githubtest.TestOwner, githubtest.TestRepo, want.Number), func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "GET")
+		if strings.HasSuffix(r.URL.Path, strconv.Itoa(want.Number)) {
+			fmt.Fprint(w, fmt.Sprintf(`{"number":%d, "title":%q, "body":%q}`, want.Number, want.Title, want.Body))
+			return
+		}
+	})
+	ctx := context.Background()
+	got, err := c.GetIssue(ctx, want.Number)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("unexpected diff (want-, got+):\n%s", diff)
+	}
+	got2, err := c.IssueExists(ctx, want.Number)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !got2 {
+		t.Errorf("c.IssueExist(ctx, %d) = %t; want = true", want.Number, got2)
+	}
+}
+
+func TestGetIssues(t *testing.T) {
+	c, mux := githubtest.Setup(t, testConfig)
+	iss := &issues.Issue{
+		Number: 1,
 		Title:  "vuln worker test",
 		Body:   "test of go.googlesource.com/vulndb/internal/issues",
-		Labels: []string{"testing"},
 		State:  "open",
 	}
-	iss2 := &Issue{
+	iss2 := &issues.Issue{
+		Number: 2,
 		Title:  "vuln worker test2",
 		Body:   "test of go.googlesource.com/vulndb/internal/issues",
-		Labels: []string{"testing", "other"},
 		State:  "open",
 	}
-
-	num, err := c.CreateIssue(ctx, iss)
-	iss.Number = num
+	mux.HandleFunc(fmt.Sprintf("/repos/%s/%s/issues", githubtest.TestOwner, githubtest.TestRepo), func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "GET")
+		fmt.Fprint(w, fmt.Sprintf(`[{"number":%d, "title":%q, "body":%q, "state":%q},{"number":%d, "title":%q, "body":%q, "state":%q}]`,
+			iss.Number, iss.Title, iss.Body, iss.State, iss2.Number, iss2.Title, iss2.Body, iss2.State))
+	})
+	ctx := context.Background()
+	want := []*issues.Issue{iss, iss2}
+	got, err := c.GetIssues(ctx, issues.GetIssuesOptions{State: "open"})
 	if err != nil {
 		t.Fatal(err)
 	}
-	gotExists, err := c.IssueExists(ctx, num)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if !gotExists {
-		t.Error("created issue doesn't exist")
-	}
-	gotIss, err := c.GetIssue(ctx, num)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if diff := diffIssue(iss, gotIss); diff != "" {
-		fmt.Printf("%v", *gotIss)
-		t.Errorf("mismatch (-want, +got):\n%s", diff)
-	}
-	num2, err := c.CreateIssue(ctx, iss2)
-	iss2.Number = num2
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	want := []*Issue{iss, iss2}
-	got, err := c.GetIssues(ctx, GetIssuesOptions{Labels: []string{"testing"}})
-	if err != nil {
-		t.Fatal(err)
-	}
-
 	if diff := diffIssues(want, got); diff != "" {
 		t.Errorf("mismatch (-want, +got):\n%s", diff)
 	}
-	want = []*Issue{iss2}
-	got, err = c.GetIssues(ctx, GetIssuesOptions{Labels: []string{"other"}})
-	if err != nil {
-		t.Fatal(err)
-	}
+}
 
-	if diff := diffIssues(want, got); diff != "" {
-		t.Errorf("mismatch (-want, +got):\n%s", diff)
+func testMethod(t *testing.T, r *http.Request, want string) {
+	t.Helper()
+	if got := r.Method; got != want {
+		t.Errorf("Request method: %v, want %v", got, want)
 	}
+}
+
+func diffIssues(want, got []*issues.Issue) string {
+	byTitle := func(a, b *issues.Issue) bool { return a.Title < b.Title }
+	return cmp.Diff(want, got, cmpopts.SortSlices(byTitle),
+		cmpopts.IgnoreFields(issues.Issue{}, "CreatedAt"))
 }

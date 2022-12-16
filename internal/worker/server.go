@@ -44,7 +44,7 @@ var staticPath = template.TrustedSourceFromConstant("internal/worker/static")
 type Server struct {
 	cfg           Config
 	indexTemplate *template.Template
-	issueClient   issues.Client
+	issueClient   *issues.Client
 	observer      *observe.Observer
 }
 
@@ -84,7 +84,11 @@ func NewServer(ctx context.Context, cfg Config) (_ *Server, err error) {
 		if err != nil {
 			return nil, err
 		}
-		s.issueClient = issues.NewGitHubClient(owner, repoName, cfg.GitHubAccessToken)
+		s.issueClient = issues.NewClient(&issues.Config{
+			Owner: owner,
+			Repo:  repoName,
+			Token: cfg.GitHubAccessToken,
+		})
 		log.Infof(ctx, "issue creation enabled for repo %s", cfg.IssueRepo)
 	} else {
 		log.Infof(ctx, "issue creation disabled")

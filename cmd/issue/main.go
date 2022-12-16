@@ -50,7 +50,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	c := issues.NewGitHubClient(owner, repoName, *githubToken)
+	c := issues.NewClient(&issues.Config{Owner: owner, Repo: repoName, Token: *githubToken})
 	switch cmd {
 	case "triage":
 		err = createIssueToTriage(ctx, c, *githubToken, filename)
@@ -64,7 +64,7 @@ func main() {
 	}
 }
 
-func createIssueToTriage(ctx context.Context, c issues.Client, ghToken, filename string) (err error) {
+func createIssueToTriage(ctx context.Context, c *issues.Client, ghToken, filename string) (err error) {
 	aliases, err := parseAliases(filename)
 	if err != nil {
 		return err
@@ -77,7 +77,7 @@ func createIssueToTriage(ctx context.Context, c issues.Client, ghToken, filename
 	return nil
 }
 
-func createExcluded(ctx context.Context, c issues.Client, ghToken, filename string) (err error) {
+func createExcluded(ctx context.Context, c *issues.Client, ghToken, filename string) (err error) {
 	records, err := parseExcluded(filename)
 	if err != nil {
 		return err
@@ -90,7 +90,7 @@ func createExcluded(ctx context.Context, c issues.Client, ghToken, filename stri
 	return nil
 }
 
-func constructIssue(ctx context.Context, c issues.Client, alias, ghToken string, labels []string) (err error) {
+func constructIssue(ctx context.Context, c *issues.Client, alias, ghToken string, labels []string) (err error) {
 	var ghsas []*ghsa.SecurityAdvisory
 	if strings.HasPrefix(alias, "GHSA") {
 		sa, err := ghsa.FetchGHSA(ctx, ghToken, alias)
