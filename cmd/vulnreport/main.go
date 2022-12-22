@@ -940,7 +940,9 @@ func semverForGoVersion(v string) report.Version {
 
 // loadPackage loads the package at the given import path, with enough
 // information for constructing a call graph.
-func loadPackage(cfg *packages.Config, importPath string) ([]*packages.Package, error) {
+func loadPackage(cfg *packages.Config, importPath string) (_ []*packages.Package, err error) {
+	defer derrors.Wrap(&err, "loadPackage(%s)", importPath)
+
 	cfg.Mode |= packages.NeedName | packages.NeedFiles | packages.NeedCompiledGoFiles |
 		packages.NeedImports | packages.NeedTypes | packages.NeedTypesSizes |
 		packages.NeedSyntax | packages.NeedTypesInfo | packages.NeedDeps |
@@ -953,11 +955,11 @@ func loadPackage(cfg *packages.Config, importPath string) ([]*packages.Package, 
 	var msgs []string
 	packages.Visit(pkgs, nil, func(pkg *packages.Package) {
 		for _, err := range pkg.Errors {
-			msgs = append(msgs, err.Msg)
+			msgs = append(msgs, err.Error())
 		}
 	})
 	if len(msgs) > 0 {
-		return nil, fmt.Errorf("packages.Load:\n%s", strings.Join(msgs, "\n"))
+		return nil, fmt.Errorf("packages.Visit:\n%s", strings.Join(msgs, "\n"))
 	}
 	return pkgs, nil
 }
