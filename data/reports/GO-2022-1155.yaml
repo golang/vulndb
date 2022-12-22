@@ -1,0 +1,64 @@
+modules:
+    - module: github.com/ipfs/go-merkledag
+      versions:
+        - introduced: 0.4.0
+          fixed: 0.8.1
+      vulnerable_at: 0.7.0
+      packages:
+        - package: github.com/ipfs/go-merkledag
+          symbols:
+            - ProtoNode.SetCidBuilder
+            - ProtoNode.marshalImmutable
+            - ProtoNode.AddRawLink
+            - ProtoNode.UnmarshalJSON
+            - ProtoNode.Cid
+            - ProtoNode.RawData
+            - ProtoNode.Multihash
+            - ProtoNode.SetLinks
+          derived_symbols:
+            - ProtoNode.AddNodeLink
+            - ProtoNode.AsBool
+            - ProtoNode.AsBytes
+            - ProtoNode.AsFloat
+            - ProtoNode.AsInt
+            - ProtoNode.AsLink
+            - ProtoNode.AsString
+            - ProtoNode.EncodeProtobuf
+            - ProtoNode.IsAbsent
+            - ProtoNode.IsNull
+            - ProtoNode.Kind
+            - ProtoNode.Length
+            - ProtoNode.ListIterator
+            - ProtoNode.Loggable
+            - ProtoNode.LookupByIndex
+            - ProtoNode.LookupByNode
+            - ProtoNode.LookupBySegment
+            - ProtoNode.LookupByString
+            - ProtoNode.MapIterator
+            - ProtoNode.Marshal
+            - ProtoNode.Size
+            - ProtoNode.Stat
+            - ProtoNode.String
+            - ProtoNode.UpdateNodeLink
+description: |-
+    A ProtoNode may be modified in such a way as to cause various encode
+    errors which will trigger a panic on common method calls that don't
+    allow for error returns.
+
+    Additionally, use of the ProtoNode.SetCidBuilder() method to set
+    non-functioning CidBuilder (such as one that refers to a multihash
+    where an implementation of that hash function is not available) may
+    cause the same methods to panic as a new CID is required but cannot
+    be created.
+cves:
+    - CVE-2022-23495
+ghsas:
+    - GHSA-x39j-h85h-3f46
+credit: '@mrd0ll4r (https://github.com/mrd0ll4r)'
+references:
+    - advisory: https://github.com/ipfs/go-merkledag/security/advisories/GHSA-x39j-h85h-3f46
+    - report: https://github.com/ipfs/kubo/issues/9297
+    - report: https://github.com/ipfs/go-merkledag/issues/90
+    - fix: https://github.com/ipfs/go-merkledag/pull/91
+    - fix: https://github.com/ipfs/go-merkledag/pull/92
+    - fix: https://github.com/ipfs/go-merkledag/pull/93
