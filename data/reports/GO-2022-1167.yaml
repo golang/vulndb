@@ -1,0 +1,43 @@
+modules:
+  - module: helm.sh/helm/v3
+    versions:
+      - fixed: 3.10.3
+    vulnerable_at: 3.10.2
+    packages:
+      - package: helm.sh/helm/v3/pkg/strvals
+        symbols:
+          - parser.key
+        derived_symbols:
+          - Parse
+          - ParseFile
+          - ParseInto
+          - ParseIntoFile
+          - ParseIntoString
+          - ParseJSON
+          - ParseString
+          - ToYAML
+description: |-
+    Applications that use the strvals package in the Helm SDK to parse user
+    supplied input can suffer a Denial of Service when that input causes an
+    error that cannot be recovered from.
+
+    The strvals package contains a parser that turns strings into Go
+    structures. For example, the Helm client has command line flags like --set,
+    --set-string, and others that enable the user to pass in strings that are
+    merged into the values. The strvals package converts these strings into
+    structures Go can work with. Some string inputs can cause can cause a stack
+    overflow to be created causing a stack overflow error. Stack overflow errors
+    cannot be recovered from.
+
+    The Helm Client will panic with input to --set, --set-string, and other
+    value setting flags that causes a stack overflow. Helm is not a long running
+    service so the error will not affect future uses of the Helm client.
+published: 2022-12-14T18:06:02Z
+cves:
+  - CVE-2022-23524
+ghsas:
+  - GHSA-6rx9-889q-vv2r
+credit: Ada Logics in a fuzzing audit sponsored by CNCF
+references:
+  - advisory: https://github.com/helm/helm/security/advisories/GHSA-6rx9-889q-vv2r
+  - fix: https://github.com/helm/helm/commit/3636f6824757ff734cb265b8770efe48c1fb3737

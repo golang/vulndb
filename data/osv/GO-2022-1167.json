@@ -1,0 +1,68 @@
+{
+  "id": "GO-2022-1167",
+  "published": "2022-12-14T18:06:02Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-23524",
+    "GHSA-6rx9-889q-vv2r"
+  ],
+  "details": "Applications that use the strvals package in the Helm SDK to parse user supplied input can suffer a Denial of Service when that input causes an error that cannot be recovered from.\n\nThe strvals package contains a parser that turns strings into Go structures. For example, the Helm client has command line flags like --set, --set-string, and others that enable the user to pass in strings that are merged into the values. The strvals package converts these strings into structures Go can work with. Some string inputs can cause can cause a stack overflow to be created causing a stack overflow error. Stack overflow errors cannot be recovered from.\n\nThe Helm Client will panic with input to --set, --set-string, and other value setting flags that causes a stack overflow. Helm is not a long running service so the error will not affect future uses of the Helm client.",
+  "affected": [
+    {
+      "package": {
+        "name": "helm.sh/helm/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.10.3"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-1167"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "helm.sh/helm/v3/pkg/strvals",
+            "symbols": [
+              "Parse",
+              "ParseFile",
+              "ParseInto",
+              "ParseIntoFile",
+              "ParseIntoString",
+              "ParseJSON",
+              "ParseString",
+              "ToYAML",
+              "parser.key"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/helm/helm/security/advisories/GHSA-6rx9-889q-vv2r"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/helm/helm/commit/3636f6824757ff734cb265b8770efe48c1fb3737"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Ada Logics in a fuzzing audit sponsored by CNCF"
+    }
+  ],
+  "schema_version": "1.3.1"
+}
