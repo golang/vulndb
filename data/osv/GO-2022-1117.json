@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2022-1117",
+  "published": "0001-01-01T00:00:00Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-36111",
+    "GHSA-672p-m5jq-mrh8"
+  ],
+  "details": "In certain scenarios, a malicious immudb server can provide a falsified proof that will be accepted by the client SDK signing a falsified transaction replacing the genuine one. This situation can not be triggered by a genuine immudb server and requires the client to perform a specific list of verified operations resulting in acceptance of an invalid state value.\n\nThis vulnerability only affects immudb client SDKs, the immudb server itself is not affected by this vulnerability.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/codenotary/immudb",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.4.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-1117"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/codenotary/immudb/pkg/client/auditor",
+            "symbols": [
+              "defaultAuditor.Run",
+              "defaultAuditor.audit"
+            ]
+          },
+          {
+            "path": "github.com/codenotary/immudb/pkg/client",
+            "symbols": [
+              "immuClient.SafeGet",
+              "immuClient.SafeReference",
+              "immuClient.SafeSet",
+              "immuClient.SafeZAdd",
+              "immuClient.StreamVerifiedGet",
+              "immuClient.StreamVerifiedSet",
+              "immuClient.VerifiedGet",
+              "immuClient.VerifiedGetAt",
+              "immuClient.VerifiedGetAtRevision",
+              "immuClient.VerifiedGetSince",
+              "immuClient.VerifiedSet",
+              "immuClient.VerifiedSetReference",
+              "immuClient.VerifiedSetReferenceAt",
+              "immuClient.VerifiedTxByID",
+              "immuClient.VerifiedZAdd",
+              "immuClient.VerifiedZAddAt",
+              "immuClient.VerifyRow",
+              "immuClient._streamVerifiedGet",
+              "immuClient._streamVerifiedSet",
+              "immuClient.verifiedGet"
+            ]
+          },
+          {
+            "path": "github.com/codenotary/immudb/embedded/store",
+            "symbols": [
+              "ImmuStore.DualProof",
+              "VerifyDualProof",
+              "VerifyLinearProof"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/codenotary/immudb/security/advisories/GHSA-672p-m5jq-mrh8"
+    },
+    {
+      "type": "ARTICLE",
+      "url": "https://github.com/codenotary/immudb/tree/master/docs/security/vulnerabilities/linear-fake"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/codenotary/immudb/commit/acf7f1b3d62436ea5e038acea1fc6394f90ab1c6"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/codenotary/immudb/commit/7267d67e28be8f0257b71d734611a051593e8a81"
+    }
+  ]
+}

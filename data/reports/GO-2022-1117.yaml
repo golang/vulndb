@@ -1,0 +1,58 @@
+modules:
+    - module: github.com/codenotary/immudb
+      versions:
+        - fixed: 1.4.1
+      vulnerable_at: 1.4.0
+      packages:
+        - package: github.com/codenotary/immudb/pkg/client/auditor
+          symbols:
+            - defaultAuditor.audit
+          derived_symbols:
+            - defaultAuditor.Run
+        - package: github.com/codenotary/immudb/pkg/client
+          symbols:
+            - immuClient.verifiedGet
+            - immuClient.VerifiedSet
+            - immuClient.VerifiedTxByID
+            - immuClient.VerifiedSetReferenceAt
+            - immuClient.VerifiedZAddAt
+            - immuClient.VerifyRow
+            - immuClient._streamVerifiedSet
+            - immuClient._streamVerifiedGet
+          derived_symbols:
+            - immuClient.SafeGet
+            - immuClient.SafeReference
+            - immuClient.SafeSet
+            - immuClient.SafeZAdd
+            - immuClient.StreamVerifiedGet
+            - immuClient.StreamVerifiedSet
+            - immuClient.VerifiedGet
+            - immuClient.VerifiedGetAt
+            - immuClient.VerifiedGetAtRevision
+            - immuClient.VerifiedGetSince
+            - immuClient.VerifiedSetReference
+            - immuClient.VerifiedZAdd
+        - package: github.com/codenotary/immudb/embedded/store
+          symbols:
+            - ImmuStore.DualProof
+            - VerifyLinearProof
+            - VerifyDualProof
+description: |
+    In certain scenarios, a malicious immudb server can provide a
+    falsified proof that will be accepted by the client SDK signing a
+    falsified transaction replacing the genuine one. This situation can
+    not be triggered by a genuine immudb server and requires the client to
+    perform a specific list of verified operations resulting in acceptance
+    of an invalid state value.
+
+    This vulnerability only affects immudb client SDKs, the immudb server
+    itself is not affected by this vulnerability.
+cves:
+    - CVE-2022-36111
+ghsas:
+    - GHSA-672p-m5jq-mrh8
+references:
+    - advisory: https://github.com/codenotary/immudb/security/advisories/GHSA-672p-m5jq-mrh8
+    - article: https://github.com/codenotary/immudb/tree/master/docs/security/vulnerabilities/linear-fake
+    - fix: https://github.com/codenotary/immudb/commit/acf7f1b3d62436ea5e038acea1fc6394f90ab1c6
+    - fix: https://github.com/codenotary/immudb/commit/7267d67e28be8f0257b71d734611a051593e8a81
