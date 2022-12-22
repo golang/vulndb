@@ -404,6 +404,12 @@ func createExcluded(ctx context.Context, cfg *createCfg) (err error) {
 		successfulGoIDs = append(successfulGoIDs, report.GetGoIDFromFilename(filename))
 	}
 	fmt.Printf("Skipped %d issues\n", skipped)
+
+	if len(successfulGoIDs) == 0 {
+		fmt.Println("No files to commit, exiting")
+		return nil
+	}
+
 	msg := fmt.Sprintf("%s: batch add %s\n\nFixes %s",
 		report.ExcludedDir,
 		strings.Join(successfulGoIDs, ", "),
