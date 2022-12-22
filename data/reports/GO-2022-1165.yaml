@@ -1,0 +1,44 @@
+modules:
+    - module: helm.sh/helm/v3
+      versions:
+        - fixed: 3.10.3
+      vulnerable_at: 3.10.2
+      packages:
+        - package: helm.sh/helm/v3/pkg/repo
+          symbols:
+            - IndexFile.MustAdd
+            - loadIndex
+            - File.Remove
+          derived_symbols:
+            - ChartRepository.DownloadIndexFile
+            - ChartRepository.Index
+            - ChartRepository.Load
+            - FindChartInAuthAndTLSAndPassRepoURL
+            - FindChartInAuthAndTLSRepoURL
+            - FindChartInAuthRepoURL
+            - FindChartInRepoURL
+            - IndexDirectory
+            - IndexFile.Add
+            - LoadIndexFile
+description: |
+    Applications that use the repo package in the Helm SDK to parse an index
+    file can suffer a Denial of Service when that input causes a panic that
+    cannot be recovered from.
+
+    The repo package contains a handler that processes the index file of a
+    repository. For example, the Helm client adds references to chart
+    repositories where charts are managed. The repo package parses the index
+    file of the repository and loads it into memory. Some index files can cause
+    array data structures to be created causing a memory violation.
+
+    The Helm Client will panic with an index file that causes a memory
+    violation panic. Helm is not a long running service so the panic will not
+    affect future uses of the Helm client.
+cves:
+    - CVE-2022-23525
+ghsas:
+    - GHSA-53c4-hhmh-vw5q
+credit: Ada Logics, in a fuzzing audit sponsored by CNCF
+references:
+    - advisory: https://github.com/helm/helm/security/advisories/GHSA-53c4-hhmh-vw5q
+    - fix: https://github.com/helm/helm/commit/638ebffbc2e445156f3978f02fd83d9af1e56f5b
