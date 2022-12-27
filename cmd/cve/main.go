@@ -115,15 +115,21 @@ func main() {
 			log.Fatalf("cve record: could not retrieve CVE record due to error:\n  %v", err)
 		}
 	case "publish":
-		filename, err := argToFilename(flag.Arg(1))
-		if err != nil {
-			logFatalUsageErr("cve publish", err)
+		args := flag.Args()[1:]
+		if len(args) == 0 {
+			logFatalUsageErr("cve publish", errors.New("must provide filename or issue ID"))
 		}
-		if !strings.HasSuffix(filename, ".json") && !strings.HasSuffix(filename, ".yaml") {
-			logFatalUsageErr("cve publish", errors.New("filename must end in '.json' or '.yaml'"))
-		}
-		if err := publish(c, filename); err != nil {
-			log.Fatalf("cve publish: could not publish CVE record due to error:\n %v", err)
+		for _, arg := range args {
+			filename, err := argToFilename(arg)
+			if err != nil {
+				logFatalUsageErr("cve publish", err)
+			}
+			if !strings.HasSuffix(filename, ".json") && !strings.HasSuffix(filename, ".yaml") {
+				logFatalUsageErr("cve publish", errors.New("filename must end in '.json' or '.yaml'"))
+			}
+			if err := publish(c, filename); err != nil {
+				log.Printf("cve publish: could not publish CVE record due to error:\n %v", err)
+			}
 		}
 	case "org":
 		if err := lookupOrg(c); err != nil {
@@ -150,9 +156,8 @@ func main() {
 }
 
 func logFatalUsageErr(context string, err error) {
-	log.Printf("%s: %s\n\n", context, err)
 	flag.Usage()
-	os.Exit(1)
+	log.Fatalf("%s: %s\n", context, err)
 }
 
 func getCurrentYear() int {
@@ -320,7 +325,7 @@ func publish(c *cveclient.Client, filename string) (err error) {
 		if diff := cmp.Diff(existing.Containers, *toPublish); diff != "" {
 			fmt.Printf("publish would update record for %s (-existing, +new):\n%s\n", cveID, diff)
 		} else {
-			fmt.Println("updating record would have no effect, exiting")
+			fmt.Printf("updating record for %s would have no effect, skipping\n", cveID)
 			return nil
 		}
 		publish = c.UpdateRecord
