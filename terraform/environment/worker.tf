@@ -183,30 +183,3 @@ resource "google_cloud_scheduler_job" "vuln_issue_triage" {
     retry_count          = 0
   }
 }
-
-resource "google_cloud_scheduler_job" "scan_modules" {
-  name             = "vuln-${var.env}-scan-modules"
-  description      = "Scan selected modules for vulns."
-  schedule         = "30 * * * *" # every hour on the half hour
-  time_zone        = local.tz
-  project          = var.project
-  attempt_deadline = format("%ds", 30 * 60)
-
-  http_target {
-    http_method = "POST"
-    uri         = "${google_cloud_run_service.worker.status[0].url}/scan-modules"
-    oidc_token {
-      service_account_email = data.google_compute_default_service_account.default.email
-      audience              = var.oauth_client_id
-    }
-  }
-
-  retry_config {
-    max_backoff_duration = "3600s"
-    max_doublings        = 5
-    max_retry_duration   = "0s"
-    min_backoff_duration = "5s"
-    retry_count          = 0
-  }
-}
-
