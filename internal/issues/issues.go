@@ -17,7 +17,7 @@ import (
 	"golang.org/x/vulndb/internal/derrors"
 )
 
-// An Issue represents a GitHub issue or similar.
+// Issue represents a GitHub issue.
 type Issue struct {
 	Number    int
 	Title     string
@@ -80,17 +80,17 @@ func NewTestClient(cfg *Config, baseURL *url.URL) *Client {
 	return c
 }
 
-// Destination implements Client.Destination.
+// Destination returns the URL of the Github repo.
 func (c *Client) Destination() string {
 	return fmt.Sprintf("https://github.com/%s/%s", c.owner, c.repo)
 }
 
-// Reference implements Client.Reference.
+// Reference returns the URL of the given issue.
 func (c *Client) Reference(num int) string {
 	return fmt.Sprintf("%s/issues/%d", c.Destination(), num)
 }
 
-// IssueExists implements Client.IssueExists.
+// IssueExists reports whether an issue with the given ID exists.
 func (c *Client) IssueExists(ctx context.Context, number int) (_ bool, err error) {
 	defer derrors.Wrap(&err, "IssueExists(%d)", number)
 
@@ -105,7 +105,7 @@ func (c *Client) IssueExists(ctx context.Context, number int) (_ bool, err error
 	return false, nil
 }
 
-// convertGithubIssueToIssue converts the github.Issue type to our Issue type
+// convertGithubIssueToIssue converts a github.Issue to an Issue.
 func convertGithubIssueToIssue(ghIss *github.Issue) *Issue {
 	iss := &Issue{}
 	if ghIss.Number != nil {
@@ -135,7 +135,7 @@ func convertGithubIssueToIssue(ghIss *github.Issue) *Issue {
 	return iss
 }
 
-// GetIssue implements Client.GetIssue.
+// GetIssue returns the issue with the given issue number.
 func (c *Client) GetIssue(ctx context.Context, number int) (_ *Issue, err error) {
 	defer derrors.Wrap(&err, "GetIssue(%d)", number)
 	ghIss, _, err := c.client.Issues.Get(ctx, c.owner, c.repo, number)
@@ -147,7 +147,7 @@ func (c *Client) GetIssue(ctx context.Context, number int) (_ *Issue, err error)
 	return iss, nil
 }
 
-// GetIssues implements Client.GetIssues
+// GetIssues returns all Github issues that match the filters in opts.
 func (c *Client) GetIssues(ctx context.Context, opts GetIssuesOptions) (_ []*Issue, err error) {
 	defer derrors.Wrap(&err, "GetIssues()")
 	clientOpts := &github.IssueListByRepoOptions{
@@ -179,7 +179,7 @@ func (c *Client) GetIssues(ctx context.Context, opts GetIssuesOptions) (_ []*Iss
 	return issues, nil
 }
 
-// CreateIssue implements Client.CreateIssue.
+// CreateIssue creates a new issue.
 func (c *Client) CreateIssue(ctx context.Context, iss *Issue) (number int, err error) {
 	defer derrors.Wrap(&err, "CreateIssue(%s)", iss.Title)
 
