@@ -22,7 +22,6 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"golang.org/x/vulndb/internal/cveclient"
 	"golang.org/x/vulndb/internal/cveschema5"
-	"golang.org/x/vulndb/internal/report"
 )
 
 var (
@@ -322,10 +321,11 @@ func publish(c *cveclient.Client, filename string) (err error) {
 		if err != nil {
 			return err
 		}
+		fmt.Printf("%s is published at %s\n", cveID, c.GetWebURL(cveID))
 		if diff := cmp.Diff(existing.Containers, *toPublish); diff != "" {
-			fmt.Printf("publish would update record for %s (-existing, +new):\n%s\n", cveID, diff)
+			fmt.Printf("publish would update record with diff (-existing, +new):\n%s\n", diff)
 		} else {
-			fmt.Printf("updating record for %s would have no effect, skipping\n", cveID)
+			fmt.Println("updating record would have no effect, skipping")
 			return nil
 		}
 		publish = c.UpdateRecord
@@ -346,12 +346,12 @@ func publish(c *cveclient.Client, filename string) (err error) {
 		return nil
 	}
 
-	published, err := publish(cveID, toPublish)
+	_, err = publish(cveID, toPublish)
 	if err != nil {
 		return err
 	}
 
-	fmt.Printf("successfully %sd record for %s:\n\n%v\n\nlink: %s%s\n", action, cveID, toJSON(published), report.MITREPrefix, cveID)
+	fmt.Printf("successfully %sd record for %s at %s\n", action, cveID, c.GetWebURL(cveID))
 
 	return nil
 }

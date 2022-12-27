@@ -27,12 +27,27 @@ const (
 	TestEndpoint = "https://cveawg-test.mitre.org"
 	// DevEndpoint is the dev endpoint
 	DevEndpoint = "https://cveawg-dev.mitre.org"
+
+	// WebURL is the URL to view production CVE records on the web.
+	WebURL = "https://www.cve.org"
+	// TestWebURL is the URL to view test CVE records on the web.
+	TestWebURL = "https://test.cve.org"
 )
 
 // Client is a MITRE CVE Services API client.
 type Client struct {
 	Config
 	c *http.Client
+}
+
+// GetWebURL returns the URL that can be used to view a published
+// CVE record on the web.
+func (c *Client) GetWebURL(cveID string) string {
+	baseURL := WebURL
+	if c.Config.Endpoint == TestEndpoint {
+		baseURL = TestWebURL
+	}
+	return fmt.Sprintf("%s/CVERecord?id=%s", baseURL, cveID)
 }
 
 // Config contains client configuration data.
