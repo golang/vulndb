@@ -143,7 +143,8 @@ If the issue is indeed a duplicate:
 
 3. Find the corresponding report yaml file (say GO-YYYY-NNNN.yaml) in
    `data/reports`, and add the duplicate IDs to the `cves` or `ghsas` section,
-   as appropriate.
+   as appropriate. (If the duplicate IDs are already present, close the GH
+   issue.)
 
 4. Run `vulnreport -up commit NNN` to update generated files and create a
    commit. Edit the generated commit message so that it includes the words
