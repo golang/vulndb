@@ -1,0 +1,17 @@
+modules:
+  - module: github.com/go-macaron/i18n
+    versions:
+      - fixed: 0.5.0
+    vulnerable_at: 0.0.0-20200216154541-326bc77d7eb1
+    packages:
+      - package: github.com/go-macaron/i18n
+        symbols:
+          - I18n
+description: |
+    A user controlled string could lead to open redirect.
+cves:
+  - CVE-2020-36627
+references:
+  - web: https://vuldb.com/?id.216745
+  - fix: https://github.com/go-macaron/i18n/commit/329b0c4844cc16a5a253c011b55180598e707735
+  - web: https://github.com/go-macaron/i18n/releases/tag/v0.5.0
