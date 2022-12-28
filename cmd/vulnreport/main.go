@@ -19,6 +19,7 @@ import (
 	"path/filepath"
 	"regexp"
 	"runtime"
+	"runtime/pprof"
 	"sort"
 	"strconv"
 	"strings"
@@ -49,6 +50,7 @@ var (
 	updateIssue   = flag.Bool("up", false, "for commit, create a CL that updates (doesn't fix) the tracking bug")
 	indent        = flag.Bool("indent", false, "for newcve, indent JSON output")
 	closedOk      = flag.Bool("closed-ok", false, "for create & create-excluded, allow closed issues to be created")
+	cpuprofile    = flag.String("cpuprofile", "", "write cpuprofile to file")
 )
 
 func main() {
@@ -88,6 +90,16 @@ func main() {
 			log.Fatal("not enough arguments")
 		}
 		args = flag.Args()[1:]
+	}
+
+	// Start CPU profiler.
+	if *cpuprofile != "" {
+		f, err := os.Create(*cpuprofile)
+		if err != nil {
+			log.Fatal(err)
+		}
+		pprof.StartCPUProfile(f)
+		defer pprof.StopCPUProfile()
 	}
 
 	// setupCreate clones the CVEList repo and can be very slow,
