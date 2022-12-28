@@ -8,7 +8,6 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"flag"
 	"fmt"
@@ -31,7 +30,6 @@ import (
 	"golang.org/x/exp/slices"
 	"golang.org/x/tools/go/packages"
 	"golang.org/x/vulndb/internal/cvelistrepo"
-	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/database"
 	"golang.org/x/vulndb/internal/derrors"
@@ -125,9 +123,6 @@ func main() {
 		cmdFunc = func(name string) error { return commit(ctx, name, ghsaClient) }
 	case "cve":
 		cmdFunc = func(name string) error { return cveCmd(ctx, name) }
-	//TODO: (https://github.com/golang/go/issues/56356): Deprecate this command once CVE JSON 5.0 publishing is available
-	case "cve4":
-		cmdFunc = func(name string) error { return cve4Cmd(ctx, name, *indent) }
 	case "fix":
 		cmdFunc = func(name string) error { return fix(ctx, name, ghsaClient) }
 	case "osv":
@@ -805,30 +800,6 @@ func writeCVE(r *report.Report, goID string) error {
 	}
 
 	return nil
-}
-
-func cve4Cmd(ctx context.Context, filename string, indent bool) (err error) {
-	defer derrors.Wrap(&err, "cve4(%q, %t)", filename, indent)
-	r, err := report.Read(filename)
-	if err != nil {
-		return err
-	}
-	return printCVE4(r, filename, indent)
-}
-
-// printCVE4 takes a report and prints out the JSON CVE 4.0 Record to stdOut
-func printCVE4(r *report.Report, filename string, indent bool) error {
-	var cve *cveschema.CVE
-	var err error
-	if cve, err = report.ToCVE(filename); err != nil {
-		return err
-	}
-	e := json.NewEncoder(os.Stdout)
-	e.SetEscapeHTML(false)
-	if indent {
-		e.SetIndent("", "\t")
-	}
-	return e.Encode(cve)
 }
 
 var reportRegexp = regexp.MustCompile(`^(data/\w+)/(GO-\d\d\d\d-0*(\d+)\.yaml)$`)
