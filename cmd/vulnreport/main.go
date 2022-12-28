@@ -124,6 +124,7 @@ func main() {
 				}
 			}
 		}
+		return
 	}
 
 	ghsaClient := ghsa.NewClient(ctx, *githubToken)
