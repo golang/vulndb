@@ -50,7 +50,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	c := issues.NewClient(&issues.Config{Owner: owner, Repo: repoName, Token: *githubToken})
+	c := issues.NewClient(ctx, &issues.Config{Owner: owner, Repo: repoName, Token: *githubToken})
 	ghsaClient := ghsa.NewClient(ctx, *githubToken)
 	switch cmd {
 	case "triage":

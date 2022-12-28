@@ -49,7 +49,7 @@ func TestRealClient(t *testing.T) {
 		if *githubToken == "" {
 			t.Fatal("need -ghtoken")
 		}
-		testClient(t, NewClient(&Config{Owner: owner, Repo: repo, Token: *githubToken}))
+		testClient(t, NewClient(context.Background(), &Config{Owner: owner, Repo: repo, Token: *githubToken}))
 	})
 }
 

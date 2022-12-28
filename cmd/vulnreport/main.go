@@ -280,7 +280,7 @@ func setupCreate(ctx context.Context, args []string) ([]int, *createCfg, error) 
 	}
 	return githubIDs, &createCfg{
 		repo:            repo,
-		issuesClient:    issues.NewClient(&issues.Config{Owner: owner, Repo: repoName, Token: *githubToken}),
+		issuesClient:    issues.NewClient(ctx, &issues.Config{Owner: owner, Repo: repoName, Token: *githubToken}),
 		ghsaClient:      ghsa.NewClient(ctx, *githubToken),
 		existingByFile:  existingByFile,
 		existingByIssue: existingByIssue,

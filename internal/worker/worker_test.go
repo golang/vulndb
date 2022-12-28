@@ -97,7 +97,7 @@ func TestCreateIssues(t *testing.T) {
 		event.NewExporter(log.NewLineHandler(os.Stderr), nil))
 	mstore := store.NewMemStore()
 
-	ic, mux := githubtest.Setup(t, &issues.Config{
+	ic, mux := githubtest.Setup(ctx, t, &issues.Config{
 		Owner: githubtest.TestOwner,
 		Repo:  githubtest.TestRepo,
 		Token: githubtest.TestToken,

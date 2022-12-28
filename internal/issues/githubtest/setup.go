@@ -7,6 +7,7 @@
 package githubtest
 
 import (
+	"context"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -25,7 +26,7 @@ const (
 
 // Setup sets up a test HTTP server along with a issues.Client that is
 // configured to talk to that test server.
-func Setup(t *testing.T, cfg *issues.Config) (*issues.Client, *http.ServeMux) {
+func Setup(ctx context.Context, t *testing.T, cfg *issues.Config) (*issues.Client, *http.ServeMux) {
 	mux := http.NewServeMux()
 	apiHandler := http.NewServeMux()
 
@@ -33,7 +34,7 @@ func Setup(t *testing.T, cfg *issues.Config) (*issues.Client, *http.ServeMux) {
 	server := httptest.NewServer(apiHandler)
 
 	url, _ := url.Parse(server.URL + testBaseURLPath + "/")
-	client := issues.NewTestClient(cfg, url)
+	client := issues.NewTestClient(ctx, cfg, url)
 	t.Cleanup(server.Close)
 	return client, mux
 }

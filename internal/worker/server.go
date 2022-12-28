@@ -87,7 +87,7 @@ func NewServer(ctx context.Context, cfg Config) (_ *Server, err error) {
 		if err != nil {
 			return nil, err
 		}
-		s.issueClient = issues.NewClient(&issues.Config{
+		s.issueClient = issues.NewClient(ctx, &issues.Config{
 			Owner: owner,
 			Repo:  repoName,
 			Token: cfg.GitHubAccessToken,

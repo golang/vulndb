@@ -25,7 +25,7 @@ var testConfig = &issues.Config{
 }
 
 func TestClient(t *testing.T) {
-	client, _ := githubtest.Setup(t, testConfig)
+	client, _ := githubtest.Setup(context.Background(), t, testConfig)
 	want := fmt.Sprintf("https://github.com/%s/%s", githubtest.TestOwner, githubtest.TestRepo)
 	if got := client.Destination(); got != want {
 		t.Fatalf("client.Destination(): %q; want = %q", got, want)
@@ -37,7 +37,7 @@ func TestClient(t *testing.T) {
 }
 
 func TestCreateIssue(t *testing.T) {
-	c, mux := githubtest.Setup(t, testConfig)
+	c, mux := githubtest.Setup(context.Background(), t, testConfig)
 	want := 15
 	mux.HandleFunc(fmt.Sprintf("/repos/%s/%s/issues", githubtest.TestOwner, githubtest.TestRepo), func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "POST")
@@ -55,7 +55,7 @@ func TestCreateIssue(t *testing.T) {
 }
 
 func TestGetIssueAndIssueExists(t *testing.T) {
-	c, mux := githubtest.Setup(t, testConfig)
+	c, mux := githubtest.Setup(context.Background(), t, testConfig)
 	want := &issues.Issue{
 		Number: 7,
 		Title:  "title",
@@ -86,7 +86,7 @@ func TestGetIssueAndIssueExists(t *testing.T) {
 }
 
 func TestGetIssues(t *testing.T) {
-	c, mux := githubtest.Setup(t, testConfig)
+	c, mux := githubtest.Setup(context.Background(), t, testConfig)
 	iss := &issues.Issue{
 		Number: 1,
 		Title:  "vuln worker test",

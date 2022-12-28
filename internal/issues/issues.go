@@ -37,11 +37,11 @@ type GetIssuesOptions struct {
 	Labels []string
 }
 
-// Client is a client that can create and retrieve issues.
+// Client is a shallow client for a github.Client.
 type Client struct {
-	client *github.Client
-	owner  string
-	repo   string
+	GitHub *github.Client
+	Owner  string
+	Repo   string
 }
 
 // Config is used to initialize a new Client.
@@ -61,28 +61,28 @@ type Config struct {
 
 // NewClient creates a Client that will create issues in
 // the a GitHub repo.
-func NewClient(cfg *Config) *Client {
+func NewClient(ctx context.Context, cfg *Config) *Client {
 	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: cfg.Token})
-	tc := oauth2.NewClient(context.Background(), ts)
+	tc := oauth2.NewClient(ctx, ts)
 	c := github.NewClient(tc)
 	return &Client{
-		client: c,
-		owner:  cfg.Owner,
-		repo:   cfg.Repo,
+		GitHub: c,
+		Owner:  cfg.Owner,
+		Repo:   cfg.Repo,
 	}
 }
 
 // NewTestClient creates a Client for use in tests.
-func NewTestClient(cfg *Config, baseURL *url.URL) *Client {
-	c := NewClient(cfg)
-	c.client.BaseURL = baseURL
-	c.client.UploadURL = baseURL
+func NewTestClient(ctx context.Context, cfg *Config, baseURL *url.URL) *Client {
+	c := NewClient(ctx, cfg)
+	c.GitHub.BaseURL = baseURL
+	c.GitHub.UploadURL = baseURL
 	return c
 }
 
 // Destination returns the URL of the Github repo.
 func (c *Client) Destination() string {
-	return fmt.Sprintf("https://github.com/%s/%s", c.owner, c.repo)
+	return fmt.Sprintf("https://github.com/%s/%s", c.Owner, c.Repo)
 }
 
 // Reference returns the URL of the given issue.
@@ -94,7 +94,7 @@ func (c *Client) Reference(num int) string {
 func (c *Client) IssueExists(ctx context.Context, number int) (_ bool, err error) {
 	defer derrors.Wrap(&err, "IssueExists(%d)", number)
 
-	iss, _, err := c.client.Issues.Get(ctx, c.owner, c.repo, number)
+	iss, _, err := c.GitHub.Issues.Get(ctx, c.Owner, c.Repo, number)
 	if err != nil {
 		return false, err
 	}
@@ -138,7 +138,7 @@ func convertGithubIssueToIssue(ghIss *github.Issue) *Issue {
 // GetIssue returns the issue with the given issue number.
 func (c *Client) GetIssue(ctx context.Context, number int) (_ *Issue, err error) {
 	defer derrors.Wrap(&err, "GetIssue(%d)", number)
-	ghIss, _, err := c.client.Issues.Get(ctx, c.owner, c.repo, number)
+	ghIss, _, err := c.GitHub.Issues.Get(ctx, c.Owner, c.Repo, number)
 	if err != nil {
 		return nil, err
 	}
@@ -160,10 +160,9 @@ func (c *Client) GetIssues(ctx context.Context, opts GetIssuesOptions) (_ []*Iss
 
 	issues := []*Issue{}
 	page := 1
-
 	for {
 		clientOpts.ListOptions.Page = page
-		pageIssues, resp, err := c.client.Issues.ListByRepo(ctx, c.owner, c.repo, clientOpts)
+		pageIssues, resp, err := c.GitHub.Issues.ListByRepo(ctx, c.Owner, c.Repo, clientOpts)
 		if err != nil {
 			return nil, err
 		}
@@ -190,7 +189,7 @@ func (c *Client) CreateIssue(ctx context.Context, iss *Issue) (number int, err e
 	if len(iss.Labels) > 0 {
 		req.Labels = &iss.Labels
 	}
-	giss, _, err := c.client.Issues.Create(ctx, c.owner, c.repo, req)
+	giss, _, err := c.GitHub.Issues.Create(ctx, c.Owner, c.Repo, req)
 	if err != nil {
 		return 0, err
 	}
