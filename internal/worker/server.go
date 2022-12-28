@@ -80,6 +80,8 @@ func NewServer(ctx context.Context, cfg Config) (_ *Server, err error) {
 		}
 		derrors.SetReportingClient(reportingClient)
 	}
+
+	s.ghsaClient = ghsa.NewClient(ctx, cfg.GitHubAccessToken)
 	if cfg.IssueRepo != "" {
 		owner, repoName, err := gitrepo.ParseGitHubRepo(cfg.IssueRepo)
 		if err != nil {
