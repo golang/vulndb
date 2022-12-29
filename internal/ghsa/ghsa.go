@@ -30,6 +30,8 @@ type SecurityAdvisory struct {
 	Permalink string
 	// When the advisory was first published.
 	PublishedAt time.Time
+	// References linked to by this advisory.
+	References []Reference
 	// When the advisory was last updated; should always be >= PublishedAt.
 	UpdatedAt time.Time
 	// The vulnerabilities associated with this advisory.
@@ -41,6 +43,11 @@ type SecurityAdvisory struct {
 type Identifier struct {
 	Type  string
 	Value string
+}
+
+// A Reference is a URL linked to by the advisory.
+type Reference struct {
+	URL string
 }
 
 // A Vuln represents a vulnerability.
@@ -68,6 +75,7 @@ type gqlSecurityAdvisory struct {
 	Description     string
 	Origin          string
 	Permalink       githubv4.URI
+	References      []Reference
 	PublishedAt     time.Time
 	UpdatedAt       time.Time
 	Vulnerabilities struct {
@@ -104,6 +112,7 @@ func (sa *gqlSecurityAdvisory) securityAdvisory() (*SecurityAdvisory, error) {
 		Description: sa.Description,
 		Origin:      sa.Origin,
 		Permalink:   sa.Permalink.URL.String(),
+		References:  sa.References,
 		PublishedAt: sa.PublishedAt,
 		UpdatedAt:   sa.UpdatedAt,
 	}
