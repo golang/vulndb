@@ -26,24 +26,55 @@ func TestGHSAToReport(t *testing.T) {
 			VulnerableVersionRange: "< 1.2.3",
 		}},
 	}
-	got := GHSAToReport(sa, "aModule")
-	want := &Report{
-		Modules: []*Module{{
-			Module: "aModule",
-			Versions: []VersionRange{
-				{Fixed: "1.2.3"},
+	for _, test := range []struct {
+		name   string
+		module string
+		want   *Report
+	}{
+		{
+			name:   "module provided",
+			module: "aModule",
+			want: &Report{
+				Modules: []*Module{{
+					Module: "aModule",
+					Versions: []VersionRange{
+						{Fixed: "1.2.3"},
+					},
+					Packages: []*Package{{
+						Package: "aPackage",
+					}},
+				}},
+				Description: "a description",
+				GHSAs:       []string{"G1"},
+				CVEs:        []string{"C1"},
 			},
-			Packages: []*Package{{
-				Package: "aPackage",
-			}},
-		}},
-		Description: "a description",
-		GHSAs:       []string{"G1"},
-		CVEs:        []string{"C1"},
-	}
-
-	if diff := cmp.Diff(*got, *want); diff != "" {
-		t.Errorf("mismatch (-want, +got):\n%s", diff)
+		},
+		{
+			name:   "empty module uses package",
+			module: "",
+			want: &Report{
+				Modules: []*Module{{
+					Module: "aPackage",
+					Versions: []VersionRange{
+						{Fixed: "1.2.3"},
+					},
+					Packages: []*Package{{
+						Package: "aPackage",
+					}},
+				}},
+				Description: "a description",
+				GHSAs:       []string{"G1"},
+				CVEs:        []string{"C1"},
+			},
+		},
+	} {
+		test := test
+		t.Run(test.name, func(t *testing.T) {
+			got := GHSAToReport(sa, test.module)
+			if diff := cmp.Diff(*got, *test.want); diff != "" {
+				t.Errorf("mismatch (-want, +got):\n%s", diff)
+			}
+		})
 	}
 }
 func TestParseVulnRange(t *testing.T) {

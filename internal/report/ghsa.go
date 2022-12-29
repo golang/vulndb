@@ -27,10 +27,10 @@ func GHSAToReport(sa *ghsa.SecurityAdvisory, modulePath string) *Report {
 	}
 	r.CVEs = cves
 	r.GHSAs = ghsas
-	if modulePath == "" {
-		modulePath = "TODO"
-	}
 	for _, v := range sa.Vulns {
+		if modulePath == "" {
+			modulePath = v.Package
+		}
 		m := &Module{
 			Module:   modulePath,
 			Versions: versions(v.EarliestFixedVersion, v.VulnerableVersionRange),

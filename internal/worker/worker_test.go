@@ -310,7 +310,7 @@ See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) 
 
 ` + "```" + `
 modules:
-  - module: TODO
+  - module: aPackage
     versions:
       - fixed: 1.2.3
     packages:
