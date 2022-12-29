@@ -115,8 +115,6 @@ func NewServer(ctx context.Context, cfg Config) (_ *Server, err error) {
 	s.handle(ctx, "/issues", s.handleIssues)
 	// update-and-issues: do update followed by issues.
 	s.handle(ctx, "/update-and-issues", s.handleUpdateAndIssues)
-	// scan-repos: scan various modules for vulnerabilities
-	s.handle(ctx, "/scan-modules", s.handleScanModules)
 	return s, nil
 }
 
@@ -385,8 +383,4 @@ func (s *Server) handleUpdateAndIssues(w http.ResponseWriter, r *http.Request) e
 		return err
 	}
 	return s.handleIssues(w, r)
-}
-
-func (s *Server) handleScanModules(w http.ResponseWriter, r *http.Request) error {
-	return ScanModules(r.Context(), s.cfg.Store, r.FormValue("force") == "true")
 }
