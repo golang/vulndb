@@ -4,7 +4,8 @@
   "modified": "0001-01-01T00:00:00Z",
   "aliases": [
     "CVE-2021-4239",
-    "GHSA-g9mp-8g3h-3c5c"
+    "GHSA-g9mp-8g3h-3c5c",
+    "GHSA-6cr6-fmvc-vw2p"
   ],
   "details": "The Noise protocol implementation suffers from weakened cryptographic security after encrypting 2^64 messages, and a potential denial of service attack.\n\nAfter 2^64 (~18.4 quintillion) messages are encrypted with the Encrypt function, the nonce counter will wrap around, causing multiple messages to be encrypted with the same key and nonce.\n\nIn a separate issue, the Decrypt function increments the nonce state even when it fails to decrypt a message. If an attacker can provide an invalid input to the Decrypt function, this will cause the nonce state to desynchronize between the peers, resulting in a failure to encrypt all subsequent messages.",
   "affected": [
