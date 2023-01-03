@@ -1,0 +1,51 @@
+{
+  "id": "GO-2022-1213",
+  "published": "0001-01-01T00:00:00Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2018-25060"
+  ],
+  "details": "The Options.Secure value is ignored, and cookies created by Generate never have the secure attribute.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/go-macaron/csrf",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20180426211050-dadd1711a617"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-1213"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/go-macaron/csrf"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/go-macaron/csrf/pull/7"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/go-macaron/csrf/commit/dadd1711a617000b70e5e408a76531b73187031c"
+    }
+  ],
+  "schema_version": "1.3.1"
+}
