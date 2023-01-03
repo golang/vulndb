@@ -1,0 +1,21 @@
+modules:
+  - module: github.com/openshift/osin
+    versions:
+      - fixed: 1.0.2-0.20210113124101-8612686d6dda
+    vulnerable_at: 1.0.1
+    packages:
+      - package: github.com/openshift/osin
+        symbols:
+          - DefaultClient.ClientSecretMatches
+          - CheckClientSecret
+        derived_symbols:
+          - Server.HandleAccessRequest
+          - Server.HandleAuthorizeRequest
+description: |
+    Client secret checks are vulnerable to timing attacks, which could
+    permit an attacker to determine client secrets.
+cves:
+  - CVE-2021-4294
+references:
+  - fix: https://github.com/openshift/osin/pull/200
+  - fix: https://github.com/openshift/osin/commit/8612686d6dda34ae9ef6b5a974e4b7accb4fea29
