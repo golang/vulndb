@@ -175,10 +175,20 @@ func TestCreateIssues(t *testing.T) {
 			},
 			TriageState: store.TriageStateAlias,
 		},
+		{
+			GHSA: &ghsa.SecurityAdvisory{
+				ID:          "g5",
+				Vulns:       []*ghsa.Vuln{{Package: "p1"}},
+				Identifiers: []ghsa.Identifier{{Type: "GHSA", Value: "g5"}},
+			},
+			TriageState: store.TriageStateNeedsIssue,
+		},
 	}
 	createGHSARecords(t, mstore, grs)
 
-	if err := CreateIssues(ctx, mstore, ic, map[string]*report.Report{}, 0); err != nil {
+	// Add an existing report with GHSA "g5".
+	allReports := map[string]*report.Report{"data/reports/GO-1999-0001": {GHSAs: []string{"g5"}}}
+	if err := CreateIssues(ctx, mstore, ic, allReports, 0); err != nil {
 		t.Fatal(err)
 	}
 
@@ -208,6 +218,9 @@ func TestCreateIssues(t *testing.T) {
 	}
 	wantGHSARecs[0].TriageState = store.TriageStateIssueCreated
 	wantGHSARecs[0].IssueReference = "https://github.com/test-owner/test-repo/issues/1"
+
+	// A report already exists for GHSA "g5".
+	wantGHSARecs[4].TriageState = store.TriageStateHasVuln
 
 	gotGHSARecs := getGHSARecordsSorted(t, mstore)
 	fmt.Printf("%+v\n", gotGHSARecs[0])

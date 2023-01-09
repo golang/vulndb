@@ -365,6 +365,24 @@ func createGHSAIssues(ctx context.Context, st store.Store, client *issues.Client
 		if limit > 0 && numCreated >= limit {
 			break
 		}
+		// TODO(https://github.com/golang/go/issues/54049): Move this
+		// check to the triage step of the worker.
+		if isDuplicate(ctx, gr.GHSA, allReports) {
+			// Update the GHSARecord in the DB to reflect that the GHSA
+			// already has an advisory.
+			if err = st.RunTransaction(ctx, func(ctx context.Context, tx store.Transaction) error {
+				r, err := tx.GetGHSARecord(gr.GetID())
+				if err != nil {
+					return err
+				}
+				r.TriageState = store.TriageStateHasVuln
+				return tx.SetGHSARecord(r)
+			}); err != nil {
+				return err
+			}
+			// Do not create an issue.
+			continue
+		}
 		ref, err := createIssue(ctx, gr, client, allReports)
 		if err != nil {
 			return err
@@ -387,6 +405,16 @@ func createGHSAIssues(ctx context.Context, st store.Store, client *issues.Client
 	}
 	log.With("limit", limit).Infof(ctx, "createGHSAIssues done: %d created", numCreated)
 	return nil
+}
+
+func isDuplicate(ctx context.Context, sa *ghsa.SecurityAdvisory, allReports map[string]*report.Report) bool {
+	r := report.GHSAToReport(sa, "")
+	for _, aliases := range report.XRef(r, allReports) {
+		if slices.Contains(aliases, sa.ID) {
+			return true
+		}
+	}
+	return false
 }
 
 func CreateGHSABody(sa *ghsa.SecurityAdvisory, allReports map[string]*report.Report) (body string, err error) {
