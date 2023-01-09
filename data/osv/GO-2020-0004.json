@@ -3,9 +3,10 @@
   "published": "2021-04-14T20:04:52Z",
   "modified": "0001-01-01T00:00:00Z",
   "aliases": [
-    "CVE-2020-36569"
+    "CVE-2020-36569",
+    "GHSA-hrm3-3xm6-x33h"
   ],
-  "details": "If any of the ListenAndServe functions are called with an empty token, token authentication is disabled globally for all listeners.\n\nAlso, a minor timing side channel was present allowing attackers with very low latency and able to make a lot of requests to potentially recover the token.",
+  "details": "If any of the ListenAndServe functions are called with an empty token, token authentication is disabled globally for all listeners.\n\nAlso, a minor timing side channel was present allowing attackers with very low latency and able to make many requests to potentially recover the token.",
   "affected": [
     {
       "package": {
@@ -35,7 +36,7 @@
             "symbols": [
               "Auth.ListenAndServe",
               "Auth.ListenAndServeTLS",
-              "Auth.ServerHTTP",
+              "Auth.ServeHTTP",
               "ListenAndServe",
               "ListenAndServeTLS"
             ]
