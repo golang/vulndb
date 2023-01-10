@@ -937,16 +937,47 @@ func loadPackage(cfg *packages.Config, importPath string) (_ []*packages.Package
 	if err != nil {
 		return nil, err
 	}
-	var msgs []string
-	packages.Visit(pkgs, nil, func(pkg *packages.Package) {
+
+	if err := packageLoadingError(pkgs); err != nil {
+		return nil, err
+	}
+
+	return pkgs, nil
+}
+
+// packageLoadingError returns an error summarizing packages.Package.Errors if there were any.
+func packageLoadingError(pkgs []*packages.Package) error {
+	pkgError := func(pkg *packages.Package) error {
+		var msgs []string
 		for _, err := range pkg.Errors {
 			msgs = append(msgs, err.Error())
 		}
-	})
-	if len(msgs) > 0 {
-		return nil, fmt.Errorf("packages.Visit:\n%s", strings.Join(msgs, "\n"))
+		if len(msgs) == 0 {
+			return nil
+		}
+		// Report a more helpful error message for the package if possible.
+		for _, msg := range msgs {
+			// cgo failure?
+			if strings.Contains(msg, "could not import C (no metadata for C)") {
+				const url = `https://github.com/golang/vulndb/blob/master/doc/triage.md#vulnreport-cgo-failures`
+				return fmt.Errorf("package %s has a cgo error (install relevant C packages? %s)\nerrors:%s", pkg.PkgPath, url, strings.Join(msgs, "\n"))
+			}
+		}
+		return fmt.Errorf("package %s had %d errors: %s", pkg.PkgPath, len(msgs), strings.Join(msgs, "\n"))
 	}
-	return pkgs, nil
+
+	var paths []string
+	var msgs []string
+	packages.Visit(pkgs, nil, func(pkg *packages.Package) {
+		if err := pkgError(pkg); err != nil {
+			paths = append(paths, pkg.PkgPath)
+			msgs = append(msgs, err.Error())
+		}
+	})
+	if len(msgs) == 0 {
+		return nil // no errors
+	}
+	return fmt.Errorf("packages with errors: %s\nerrors:\n%s", strings.Join(paths, " "), strings.Join(msgs, "\n"))
 }
 
 func changeToTempDir() (cleanup func(), _ error) {
