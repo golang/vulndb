@@ -2,6 +2,7 @@ modules:
   - module: github.com/dinever/golf
     versions:
       - fixed: 0.3.0
+    vulnerable_at: 0.2.0
     packages:
       - package: github.com/dinever/golf
         symbols:
@@ -10,15 +11,17 @@ modules:
           - Context.Render
           - Context.RenderFromString
 description: |
-    CSRF tokens are generated using math/rand, which is not a cryptographically secure
-    rander number generation, making predicting their values relatively trivial and
-    allowing an attacker to bypass CSRF protections which relatively few requests.
+    CSRF tokens are generated using math/rand, which is not a cryptographically
+    secure random number generator, allowing an attacker to predict values and
+    bypass CSRF protections with relatively few requests.
 published: 2021-04-14T20:04:52Z
+ghsas:
+  - GHSA-q9qr-jwpw-3qvv
 credit: '@elithrar'
 references:
   - fix: https://github.com/dinever/golf/pull/24
   - fix: https://github.com/dinever/golf/commit/3776f338be48b5bc5e8cf9faff7851fc52a3f1fe
-  - web: https://github.com/dinever/golf/issues/20
+  - report: https://github.com/dinever/golf/issues/20
 cve_metadata:
     id: CVE-2016-15005
     cwe: 'CWE 338: Use of Cryptographically Weak Pseudo-Random Number Generator (PRNG)'

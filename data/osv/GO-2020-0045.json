@@ -3,9 +3,10 @@
   "published": "2021-04-14T20:04:52Z",
   "modified": "0001-01-01T00:00:00Z",
   "aliases": [
-    "CVE-2016-15005"
+    "CVE-2016-15005",
+    "GHSA-q9qr-jwpw-3qvv"
   ],
-  "details": "CSRF tokens are generated using math/rand, which is not a cryptographically secure rander number generation, making predicting their values relatively trivial and allowing an attacker to bypass CSRF protections which relatively few requests.",
+  "details": "CSRF tokens are generated using math/rand, which is not a cryptographically secure random number generator, allowing an attacker to predict values and bypass CSRF protections with relatively few requests.",
   "affected": [
     {
       "package": {
@@ -52,7 +53,7 @@
       "url": "https://github.com/dinever/golf/commit/3776f338be48b5bc5e8cf9faff7851fc52a3f1fe"
     },
     {
-      "type": "WEB",
+      "type": "REPORT",
       "url": "https://github.com/dinever/golf/issues/20"
     }
   ],
