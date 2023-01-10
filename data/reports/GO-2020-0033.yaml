@@ -2,6 +2,7 @@ modules:
   - module: aahframe.work
     versions:
       - fixed: 0.12.4
+    vulnerable_at: 0.12.3
     packages:
       - package: aahframe.work
         symbols:
@@ -15,11 +16,13 @@ description: |
     for directory traversal, allowing an attacker to read files outside of
     the target directory that the server has permission to read.
 published: 2021-04-14T20:04:52Z
+ghsas:
+  - GHSA-vp56-r7qv-783v
 credit: '@snyff'
 references:
   - fix: https://github.com/go-aah/aah/pull/267
   - fix: https://github.com/go-aah/aah/commit/881dc9f71d1f7a4e8a9a39df9c5c081d3a2da1ec
-  - web: https://github.com/go-aah/aah/issues/266
+  - report: https://github.com/go-aah/aah/issues/266
 cve_metadata:
     id: CVE-2020-36559
     cwe: 'CWE 23: Relative Path Traversal'
