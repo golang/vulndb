@@ -181,3 +181,21 @@ to update the existing report.
 
 In that case, reopen the issue for the report to discuss the change, rather
 than create a new issue.
+
+## Frequent issues during triage
+
+This section describes frequent issues that come up when triaging vulndb reports.
+
+### vulnreport cgo failures
+
+When `vulnreport fix` fails with an error message like
+```
+/path/to/package@v1.2.3/foo.go:1:2: could not import C (no metadata for C)
+````
+a frequent cause is the local machine missing `C` library headers causing
+typechecking of cgo packages to fail. The easiest workaround is to use
+a machine with the development headers installed or to install them.
+
+Commonly missing packages include:
+* libgpgme-dev
+* libdevmapper-dev
