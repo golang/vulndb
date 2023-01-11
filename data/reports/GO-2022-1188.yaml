@@ -1,0 +1,20 @@
+modules:
+  - module: code.sajari.com/docconv
+    versions:
+      - fixed: 1.2.1
+    vulnerable_at: 1.2.0
+    packages:
+      - package: code.sajari.com/docconv/docd
+        symbols:
+          - serve
+        derived_symbols:
+          - main
+description: |
+    An attacker can remotely supply a specially crafted input that causes
+    uncontrolled memory allocation.
+cves:
+  - CVE-2022-4741
+ghsas:
+  - GHSA-qvx2-59g8-8hph
+references:
+  - fix: https://github.com/sajari/docconv/commit/42bcff666855ab978e67a9041d0cdea552f20301
