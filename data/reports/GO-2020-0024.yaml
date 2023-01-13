@@ -2,16 +2,18 @@ modules:
   - module: github.com/btcsuite/go-socks
     versions:
       - fixed: 0.0.0-20130808000456-233bccbb1abe
+    vulnerable_at: 0.0.0-20130225212758-6dca7033f514
     packages:
-      - package: github.com/btcsuite/go-socks/socks
+      - package: github.com/btcsuite/go-socks
         symbols:
           - proxiedConn.LocalAddr
           - proxiedConn.RemoteAddr
   - module: github.com/btcsuitereleases/go-socks
     versions:
       - fixed: 0.0.0-20130808000456-233bccbb1abe
+    vulnerable_at: 0.0.0-20130225212758-6dca7033f514
     packages:
-      - package: github.com/btcsuitereleases/go-socks/socks
+      - package: github.com/btcsuitereleases/go-socks
         symbols:
           - proxiedConn.LocalAddr
           - proxiedConn.RemoteAddr
