@@ -2,19 +2,31 @@ modules:
   - module: gopkg.in/yaml.v2
     versions:
       - fixed: 2.2.8
+    vulnerable_at: 2.2.7
     packages:
       - package: gopkg.in/yaml.v2
         symbols:
           - yaml_parser_fetch_more_tokens
+          - yaml_parser_save_simple_key
+          - yaml_parser_remove_simple_key
+          - yaml_parser_decrease_flow_level
+          - yaml_parser_fetch_stream_start
+          - yaml_parser_fetch_value
         derived_symbols:
           - Decoder.Decode
           - Unmarshal
           - UnmarshalStrict
   - module: github.com/go-yaml/yaml
+    vulnerable_at: 2.1.0+incompatible
     packages:
       - package: github.com/go-yaml/yaml
         symbols:
           - yaml_parser_fetch_more_tokens
+          - yaml_parser_save_simple_key
+          - yaml_parser_remove_simple_key
+          - yaml_parser_decrease_flow_level
+          - yaml_parser_fetch_stream_start
+          - yaml_parser_fetch_value
         derived_symbols:
           - Decoder.Decode
           - Unmarshal
