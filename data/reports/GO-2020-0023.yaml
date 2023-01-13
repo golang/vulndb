@@ -2,10 +2,13 @@ modules:
   - module: github.com/robbert229/jwt
     versions:
       - fixed: 0.0.0-20170426191122-ca1404ee6e83
+    vulnerable_at: 0.0.0-20170303194658-2eb16e9a008d
     packages:
       - package: github.com/robbert229/jwt
         symbols:
           - Algorithm.validateSignature
+        derived_symbols:
+          - Algorithm.Validate
 description: |
     Token validation methods are susceptible to a timing side-channel
     during HMAC comparison. With a large enough number of requests
