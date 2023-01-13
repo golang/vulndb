@@ -1,11 +1,14 @@
 modules:
   - module: github.com/RobotsAndPencils/go-saml
+    vulnerable_at: 0.0.0-20170520135329-fb13cb52a46b
     packages:
       - package: github.com/RobotsAndPencils/go-saml
         symbols:
           - AuthnRequest.Validate
           - NewAuthnRequest
           - NewSignedResponse
+        derived_symbols:
+          - ServiceProviderSettings.GetAuthnRequest
 description: |
     XML Digital Signatures generated and validated using this package use
     SHA-1, which may allow an attacker to craft inputs which cause hash
