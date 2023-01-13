@@ -17,10 +17,10 @@
       ],
       "affected": [
         {
-          "vendor": "github.com/cloudfoundry/archiver",
-          "product": "github.com/cloudfoundry/archiver",
+          "vendor": "code.cloudfoundry.org/archiver",
+          "product": "code.cloudfoundry.org/archiver/extractor",
           "collectionURL": "https://pkg.go.dev",
-          "packageName": "github.com/cloudfoundry/archiver",
+          "packageName": "code.cloudfoundry.org/archiver/extractor",
           "versions": [
             {
               "version": "0",
@@ -31,28 +31,17 @@
           ],
           "programRoutines": [
             {
-              "name": "tgzExtractor.Extract"
+              "name": "extractTarArchiveFile"
             },
             {
-              "name": "zipExtractor.Extract"
-            }
-          ],
-          "defaultStatus": "unaffected"
-        },
-        {
-          "vendor": "code.cloudfoundry.org/archiver",
-          "product": "code.cloudfoundry.org/archiver",
-          "collectionURL": "https://pkg.go.dev",
-          "packageName": "code.cloudfoundry.org/archiver",
-          "versions": [
+              "name": "extractZipArchiveFile"
+            },
             {
-              "version": "0",
-              "lessThan": "0.0.0-20180523222229-09b5706aa936",
-              "status": "affected",
-              "versionType": "semver"
-            }
-          ],
-          "programRoutines": [
+              "name": "detectableExtractor.Extract"
+            },
+            {
+              "name": "tarExtractor.Extract"
+            },
             {
               "name": "tgzExtractor.Extract"
             },

@@ -1,18 +1,16 @@
 modules:
-  - module: github.com/cloudfoundry/archiver
-    versions:
-      - fixed: 0.0.0-20180523222229-09b5706aa936
-    packages:
-      - package: github.com/cloudfoundry/archiver
-        symbols:
-          - tgzExtractor.Extract
-          - zipExtractor.Extract
   - module: code.cloudfoundry.org/archiver
     versions:
       - fixed: 0.0.0-20180523222229-09b5706aa936
+    vulnerable_at: 0.0.0-20170223024658-7291196139d7
     packages:
-      - package: code.cloudfoundry.org/archiver
+      - package: code.cloudfoundry.org/archiver/extractor
         symbols:
+          - extractTarArchiveFile
+          - extractZipArchiveFile
+        derived_symbols:
+          - detectableExtractor.Extract
+          - tarExtractor.Extract
           - tgzExtractor.Extract
           - zipExtractor.Extract
 description: |

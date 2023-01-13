@@ -10,39 +10,6 @@
   "affected": [
     {
       "package": {
-        "name": "github.com/cloudfoundry/archiver",
-        "ecosystem": "Go"
-      },
-      "ranges": [
-        {
-          "type": "SEMVER",
-          "events": [
-            {
-              "introduced": "0"
-            },
-            {
-              "fixed": "0.0.0-20180523222229-09b5706aa936"
-            }
-          ]
-        }
-      ],
-      "database_specific": {
-        "url": "https://pkg.go.dev/vuln/GO-2020-0025"
-      },
-      "ecosystem_specific": {
-        "imports": [
-          {
-            "path": "github.com/cloudfoundry/archiver",
-            "symbols": [
-              "tgzExtractor.Extract",
-              "zipExtractor.Extract"
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "package": {
         "name": "code.cloudfoundry.org/archiver",
         "ecosystem": "Go"
       },
@@ -65,8 +32,12 @@
       "ecosystem_specific": {
         "imports": [
           {
-            "path": "code.cloudfoundry.org/archiver",
+            "path": "code.cloudfoundry.org/archiver/extractor",
             "symbols": [
+              "detectableExtractor.Extract",
+              "extractTarArchiveFile",
+              "extractZipArchiveFile",
+              "tarExtractor.Extract",
               "tgzExtractor.Extract",
               "zipExtractor.Extract"
             ]
