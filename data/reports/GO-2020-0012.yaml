@@ -2,6 +2,7 @@ modules:
   - module: golang.org/x/crypto
     versions:
       - fixed: 0.0.0-20200220183623-bac4c82f6975
+    vulnerable_at: 0.0.0-20200219234226-1ad67e1f0ef4
     packages:
       - package: golang.org/x/crypto/ssh
         symbols:
@@ -10,6 +11,23 @@ modules:
           - parseSKEd25519
           - skEd25519PublicKey.Verify
           - NewPublicKey
+        derived_symbols:
+          - CertChecker.Authenticate
+          - CertChecker.CheckCert
+          - CertChecker.CheckHostKey
+          - Certificate.Verify
+          - Dial
+          - NewClientConn
+          - NewServerConn
+          - NewSignerFromKey
+          - NewSignerFromSigner
+          - ParseAuthorizedKey
+          - ParseKnownHosts
+          - ParsePrivateKey
+          - ParsePrivateKeyWithPassphrase
+          - ParsePublicKey
+          - ParseRawPrivateKey
+          - ParseRawPrivateKeyWithPassphrase
 description: |
     An attacker can craft an ssh-ed25519 or sk-ssh-ed25519@openssh.com public
     key, such that the library will panic when trying to verify a signature
