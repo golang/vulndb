@@ -2,11 +2,13 @@ modules:
   - module: github.com/miekg/dns
     versions:
       - fixed: 1.0.10
+    vulnerable_at: 1.0.9
     packages:
       - package: github.com/miekg/dns
         symbols:
           - setTA
         derived_symbols:
+          - NewRR
           - ParseZone
           - ReadRR
 description: |
@@ -21,4 +23,4 @@ ghsas:
 credit: '@tr3ee'
 references:
   - fix: https://github.com/miekg/dns/commit/501e858f679edecd4a38a86317ce50271014a80d
-  - web: https://github.com/miekg/dns/issues/742
+  - report: https://github.com/miekg/dns/issues/742
