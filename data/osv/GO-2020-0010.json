@@ -21,7 +21,7 @@
               "introduced": "0"
             },
             {
-              "fixed": "0.0.0-20160831185616-c7581939a365"
+              "fixed": "1.0.4"
             }
           ]
         }
@@ -34,15 +34,16 @@
           {
             "path": "github.com/square/go-jose/cipher",
             "symbols": [
-              "DeriveECDHES",
-              "ecDecrypterSigner.decryptKey",
-              "rawJsonWebKey.ecPublicKey"
+              "DeriveECDHES"
             ]
           },
           {
             "path": "github.com/square/go-jose",
             "symbols": [
-              "JsonWebEncryption.Decrypt"
+              "JsonWebEncryption.Decrypt",
+              "JsonWebKey.UnmarshalJSON",
+              "ecDecrypterSigner.decryptKey",
+              "rawJsonWebKey.ecPublicKey"
             ]
           }
         ]

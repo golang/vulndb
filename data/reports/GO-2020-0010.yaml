@@ -1,16 +1,19 @@
 modules:
   - module: github.com/square/go-jose
     versions:
-      - fixed: 0.0.0-20160831185616-c7581939a365
+      - fixed: 1.0.4
+    vulnerable_at: 1.0.3
     packages:
       - package: github.com/square/go-jose/cipher
         symbols:
           - DeriveECDHES
-          - ecDecrypterSigner.decryptKey
-          - rawJsonWebKey.ecPublicKey
       - package: github.com/square/go-jose
         symbols:
           - JsonWebEncryption.Decrypt
+          - rawJsonWebKey.ecPublicKey
+          - ecDecrypterSigner.decryptKey
+        derived_symbols:
+          - JsonWebKey.UnmarshalJSON
 description: |
     When using ECDH-ES an attacker can mount an invalid curve attack during
     decryption as the supplied public key is not checked to be on the same
