@@ -2,6 +2,7 @@ modules:
   - module: github.com/crewjam/saml
     versions:
       - fixed: 0.4.3
+    vulnerable_at: 0.4.2
     packages:
       - package: github.com/crewjam/saml
         symbols:
@@ -14,7 +15,17 @@ modules:
           - ServiceProvider.ParseResponse
           - ServiceProvider.ValidateLogoutResponseRequest
       - package: github.com/crewjam/saml/samlidp
+        symbols:
+          - getSPMetadata
+        derived_symbols:
+          - Server.HandlePutService
       - package: github.com/crewjam/saml/samlsp
+        symbols:
+          - ParseMetadata
+        derived_symbols:
+          - FetchMetadata
+          - Middleware.ServeHTTP
+          - New
 description: |
     Due to the behavior of encoding/xml, a crafted XML document may cause
     XML Digital Signature validation to be entirely bypassed, causing an
