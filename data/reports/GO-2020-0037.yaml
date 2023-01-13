@@ -2,10 +2,14 @@ modules:
   - module: github.com/tendermint/tendermint
     versions:
       - fixed: 0.31.1
+    vulnerable_at: 0.31.0
     packages:
-      - package: github.com/tendermint/tendermint/rpc/client
+      - package: github.com/tendermint/tendermint/rpc/lib/client
         symbols:
           - makeHTTPClient
+        derived_symbols:
+          - NewJSONRPCClient
+          - NewURIClient
 description: |
     Due to support of Gzip compression in request bodies, as well
     as a lack of limiting response body sizes, a malicious server
