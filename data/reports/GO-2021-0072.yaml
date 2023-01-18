@@ -2,6 +2,7 @@ modules:
   - module: github.com/docker/distribution
     versions:
       - fixed: 2.7.0-rc.0+incompatible
+    vulnerable_at: 2.6.2+incompatible
     packages:
       - package: github.com/docker/distribution/registry/handlers
         symbols:
@@ -18,7 +19,6 @@ modules:
           - PurgeUploads
           - Walk
           - blobStore.Enumerate
-          - blobStore.Get
           - linkedBlobStore.Enumerate
           - linkedBlobStore.Get
           - manifestStore.Enumerate
