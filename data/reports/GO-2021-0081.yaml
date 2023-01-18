@@ -2,10 +2,32 @@ modules:
   - module: github.com/containers/image
     versions:
       - fixed: 2.0.2-0.20190802080134-634605d06e73+incompatible
+    vulnerable_at: 2.0.1+incompatible
     packages:
       - package: github.com/containers/image/docker
         symbols:
           - dockerClient.getBearerToken
+        derived_symbols:
+          - CheckAuth
+          - GetRepositoryTags
+          - Image.GetRepositoryTags
+          - NewReference
+          - ParseReference
+          - SearchRegistry
+          - dockerImageDestination.PutBlob
+          - dockerImageDestination.PutManifest
+          - dockerImageDestination.PutSignatures
+          - dockerImageDestination.SupportsSignatures
+          - dockerImageDestination.TryReusingBlob
+          - dockerImageSource.GetBlob
+          - dockerImageSource.GetManifest
+          - dockerImageSource.GetSignatures
+          - dockerReference.DeleteImage
+          - dockerReference.NewImage
+          - dockerReference.NewImageDestination
+          - dockerReference.NewImageSource
+          - dockerReference.PolicyConfigurationIdentity
+          - dockerTransport.ParseReference
 description: |
     The HTTP client used to connect to the container registry authorization
     service explicitly disables TLS verification, allowing an attacker that
