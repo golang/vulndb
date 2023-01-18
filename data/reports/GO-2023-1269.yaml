@@ -1,0 +1,25 @@
+modules:
+  - module: github.com/ipld/go-ipld-prime
+    versions:
+      - fixed: 0.19.0
+    vulnerable_at: 0.18.0
+    packages:
+      - package: github.com/ipld/go-ipld-prime/codec/dagjson
+        symbols:
+          - Marshal
+        derived_symbols:
+          - Encode
+          - EncodeOptions.Encode
+description: |-
+    Encoding data using the 'json' codec which contains a 'Bytes' type
+    Node will cause the encoder to panic. The decoder is not impacted. If
+    the codec is used to encode user supplied data, this may be used as
+    a vector for a denial of service attack.
+cves:
+  - CVE-2023-22460
+ghsas:
+  - GHSA-c653-6hhg-9x92
+credit: '@hacdias'
+references:
+  - advisory: https://github.com/ipld/go-ipld-prime/security/advisories/GHSA-c653-6hhg-9x92
+  - fix: https://github.com/ipld/go-ipld-prime/pull/472
