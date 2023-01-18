@@ -2,10 +2,17 @@ modules:
   - module: k8s.io/client-go
     versions:
       - fixed: 0.20.0-alpha.2
+    vulnerable_at: 0.20.0-alpha.1
     packages:
       - package: k8s.io/client-go/transport
         symbols:
           - requestInfo.toCurl
+        derived_symbols:
+          - basicAuthRoundTripper.RoundTrip
+          - bearerAuthRoundTripper.RoundTrip
+          - debuggingRoundTripper.RoundTrip
+          - impersonatingRoundTripper.RoundTrip
+          - userAgentRoundTripper.RoundTrip
   - module: k8s.io/kubernetes
     versions:
       - fixed: 1.20.0-alpha.2
