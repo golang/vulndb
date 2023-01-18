@@ -2,11 +2,15 @@ modules:
   - module: golang.org/x/net
     versions:
       - fixed: 0.0.0-20180816102801-aaf60122140d
+    vulnerable_at: 0.0.0-20180811021610-c39426892332
     packages:
       - package: golang.org/x/net/html
         symbols:
           - inBodyIM
           - inFramesetIM
+        derived_symbols:
+          - Parse
+          - ParseFragment
 description: |
     The HTML parser does not properly handle "in frameset" insertion mode, and can be made
     to panic when operating on malformed HTML that contains <template> tags. If operating
