@@ -2,10 +2,16 @@ modules:
   - module: k8s.io/client-go
     versions:
       - fixed: 0.17.0
+    vulnerable_at: 0.16.16-rc.0
     packages:
       - package: k8s.io/client-go/transport
         symbols:
           - debuggingRoundTripper.RoundTrip
+        derived_symbols:
+          - basicAuthRoundTripper.RoundTrip
+          - bearerAuthRoundTripper.RoundTrip
+          - impersonatingRoundTripper.RoundTrip
+          - userAgentRoundTripper.RoundTrip
   - module: k8s.io/kubernetes
     versions:
       - fixed: 1.16.0-beta.1
