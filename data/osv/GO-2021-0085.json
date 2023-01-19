@@ -32,7 +32,16 @@
       "ecosystem_specific": {
         "imports": [
           {
-            "path": "github.com/opencontainers/runc/libcontainer"
+            "path": "github.com/opencontainers/runc/libcontainer/apparmor",
+            "symbols": [
+              "ApplyProfile"
+            ]
+          },
+          {
+            "path": "github.com/opencontainers/runc/libcontainer/utils",
+            "symbols": [
+              "CloseExecFrom"
+            ]
           }
         ]
       }
@@ -61,7 +70,11 @@
       "ecosystem_specific": {
         "imports": [
           {
-            "path": "github.com/opencontainers/selinux/go-selinux"
+            "path": "github.com/opencontainers/selinux/go-selinux",
+            "symbols": [
+              "readCon",
+              "writeCon"
+            ]
           }
         ]
       }
@@ -75,6 +88,10 @@
     {
       "type": "FIX",
       "url": "https://github.com/opencontainers/runc/commit/cad42f6e0932db0ce08c3a3d9e89e6063ec283e4"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/selinux/commit/03b517dc4fd57245b1cf506e8ba7b817b6d309da"
     },
     {
       "type": "WEB",
