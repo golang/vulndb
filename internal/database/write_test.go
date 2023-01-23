@@ -6,7 +6,6 @@ package database
 
 import (
 	"fmt"
-	"os"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -14,22 +13,13 @@ import (
 )
 
 func TestWrite(t *testing.T) {
-	tempDir, err := os.MkdirTemp("", "testWrite")
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	defer func() {
-		if err := os.RemoveAll(tempDir); err != nil {
-			t.Log(err)
-		}
-	}()
+	tempDir := t.TempDir()
 
 	if err := valid.Write(tempDir, true); err != nil {
 		t.Fatal(err)
 	}
 
-	if err = cmpDirHashes(tempDir, validDir); err != nil {
+	if err := cmpDirHashes(tempDir, validDir); err != nil {
 		t.Error(err)
 	}
 }
@@ -53,16 +43,7 @@ func cmpDirHashes(d1, d2 string) error {
 
 // Check that Write and Load are inverses.
 func TestWriteLoad(t *testing.T) {
-	tempDir, err := os.MkdirTemp("", "testWriteLoad")
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	defer func() {
-		if err := os.RemoveAll(tempDir); err != nil {
-			t.Log(err)
-		}
-	}()
+	tempDir := t.TempDir()
 
 	written := valid
 	if err := written.Write(tempDir, false); err != nil {
