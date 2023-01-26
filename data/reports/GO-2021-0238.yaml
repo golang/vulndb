@@ -2,10 +2,16 @@ modules:
   - module: golang.org/x/net
     versions:
       - fixed: 0.0.0-20210520170846-37e1c6afe023
+    vulnerable_at: 0.0.0-20210510120150-4163338589ed
     packages:
       - package: golang.org/x/net/html
         symbols:
           - inHeadIM
+        derived_symbols:
+          - Parse
+          - ParseFragment
+          - ParseFragmentWithOptions
+          - ParseWithOptions
 description: |
     An attacker can craft an input to ParseFragment that causes it
     to enter an infinite loop and never return.
