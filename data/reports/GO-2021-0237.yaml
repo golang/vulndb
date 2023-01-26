@@ -2,10 +2,15 @@ modules:
   - module: github.com/AndrewBurian/powermux
     versions:
       - fixed: 1.1.1
+    vulnerable_at: 1.1.0
     packages:
       - package: github.com/AndrewBurian/powermux
         symbols:
           - Route.execute
+        derived_symbols:
+          - ServeMux.Handler
+          - ServeMux.HandlerAndMiddleware
+          - ServeMux.ServeHTTP
 description: |
     Attackers may be able to craft phishing links and other open
     redirects by exploiting PowerMux's trailing slash redirection
