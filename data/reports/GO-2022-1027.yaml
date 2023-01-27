@@ -5,6 +5,8 @@ modules:
     vulnerable_at: 0.3.0
     packages:
       - package: github.com/cloudwego/hertz/pkg/protocol
+        goos:
+          - windows
         symbols:
           - normalizePath
         derived_symbols:
@@ -24,8 +26,6 @@ modules:
           - URI.SetPathBytes
           - URI.Update
           - URI.UpdateBytes
-        goos:
-          - windows
 description: |
     Improper path sanitization on Windows permits path traversal attacks.
     Static file serving with the Static or StaticFS functions allows an
