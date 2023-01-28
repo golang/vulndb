@@ -104,7 +104,7 @@ func ModulesForEntry(entry osv.Entry) []string {
 	return maps.Keys(mods)
 }
 
-func generateAffectedRanges(versions []VersionRange) osv.Affects {
+func AffectedRanges(versions []VersionRange) osv.Affects {
 	a := osv.AffectsRange{Type: osv.TypeSemver}
 	if len(versions) == 0 || versions[0].Introduced == "" {
 		a.Events = append(a.Events, osv.RangeEvent{Introduced: "0"})
@@ -164,7 +164,7 @@ func generateAffected(m *Module, url string) osv.Affected {
 			Name:      name,
 			Ecosystem: osv.GoEcosystem,
 		},
-		Ranges:           generateAffectedRanges(m.Versions),
+		Ranges:           AffectedRanges(m.Versions),
 		DatabaseSpecific: osv.DatabaseSpecific{URL: url},
 		EcosystemSpecific: osv.EcosystemSpecific{
 			Imports: generateImports(m),

@@ -638,16 +638,33 @@ func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client) (err err
 }
 
 func checkReportSymbols(r *report.Report) error {
+	// If some symbol is in the std library at a different version,
+	// we may derive the wrong symbols for this package and other.
+	// In this case, skip updating DerivedSymbols.
+	for _, m := range r.Modules {
+		if m.Module == stdlib.ModulePath {
+			gover := runtime.Version()
+			ver := semverForGoVersion(gover)
+			affects := report.AffectedRanges(m.Versions)
+			if ver == "" || !affects.AffectsSemver(ver.V()) {
+				fmt.Fprintf(os.Stderr, "Current Go version %q is not in a vulnerable range, skipping symbol checks.\n", gover)
+				return nil
+			}
+		}
+	}
+
 	for _, m := range r.Modules {
 		for _, p := range m.Packages {
 			p.DerivedSymbols = nil
 		}
 	}
+
+	// Recompute derived_symbols from symbols.
 	rc := newReportClient(r)
 	for _, m := range r.Modules {
 		for _, p := range m.Packages {
 			if len(p.Symbols) == 0 {
-				continue
+				continue // no symbols to derive from. skip.
 			}
 			syms, err := findExportedSymbols(m, p, rc)
 			if err != nil {

@@ -236,7 +236,7 @@ func TestSemverCanonicalize(t *testing.T) {
 		},
 	}
 
-	out := generateAffectedRanges(in)
+	out := AffectedRanges(in)
 	if !reflect.DeepEqual(out, expected) {
 		t.Fatalf("unexpected output: got %#v, want %#v", out, expected)
 	}
