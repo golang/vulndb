@@ -1,16 +1,16 @@
 modules:
-    - module: github.com/codenotary/immudb
-      versions:
-        - fixed: 1.4.1
-      vulnerable_at: 1.4.0
-      packages:
-        - package: github.com/codenotary/immudb/pkg/client
-          symbols:
-            - NewImmuClient
-            - DefaultOptions
-            - immuClient.OpenSession
-          derived_symbols:
-            - NewClient
+  - module: github.com/codenotary/immudb
+    versions:
+      - fixed: 1.4.1
+    vulnerable_at: 1.4.0
+    packages:
+      - package: github.com/codenotary/immudb/pkg/client
+        symbols:
+          - NewImmuClient
+          - DefaultOptions
+          - immuClient.OpenSession
+        derived_symbols:
+          - NewClient
 description: |
     A malicious server can trick a client into treating it as a different
     server by changing the reported UUID.
@@ -22,9 +22,9 @@ description: |
     malicious server can therefore change the reported UUID and trick the
     client into treating it as a different server.
 cves:
-    - CVE-2022-39199
+  - CVE-2022-39199
 ghsas:
-    - GHSA-6cqj-6969-p57x
+  - GHSA-6cqj-6969-p57x
 references:
-    - advisory: https://github.com/codenotary/immudb/security/advisories/GHSA-6cqj-6969-p57x
-    - fix: https://github.com/codenotary/immudb/commit/cade04756ff3f0a3b9e8d24149062744574adf5d
+  - advisory: https://github.com/codenotary/immudb/security/advisories/GHSA-6cqj-6969-p57x
+  - fix: https://github.com/codenotary/immudb/commit/cade04756ff3f0a3b9e8d24149062744574adf5d
