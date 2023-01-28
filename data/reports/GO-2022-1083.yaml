@@ -5,6 +5,12 @@ modules:
       - package: github.com/free5gc/aper
         symbols:
           - GetBitString
+        derived_symbols:
+          - GetBitsValue
+          - Marshal
+          - MarshalWithParams
+          - Unmarshal
+          - UnmarshalWithParams
 description: |
     A malformed message can crash the free5gc/amf and free5gc/ngap decoders via
     an index-out-of-range panic in `aper.GetBitString`.

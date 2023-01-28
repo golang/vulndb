@@ -39,6 +39,9 @@ modules:
           - sparc
         symbols:
           - JsonWebEncryption.Decrypt
+        derived_symbols:
+          - genericEncrypter.Encrypt
+          - genericEncrypter.EncryptWithAuthData
 description: |
     On 32-bit platforms an attacker can manipulate a ciphertext encrypted with AES-CBC
     with HMAC such that they can control how large the input buffer is when computing
