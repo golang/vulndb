@@ -4,6 +4,7 @@ modules:
       - fixed: 0.1.1
     packages:
       - package: github.com/proglottis/gpgme
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     Due to improper setting of finalizers, memory passed to C may be freed before it is used,
     leading to crashes due to memory corruption or possible code execution.

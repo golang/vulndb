@@ -8,9 +8,11 @@ modules:
           - NewHandle
           - SetProcessPrivileges
           - Handle.StopAsPamUser
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
       - package: github.com/google/fscrypt/security
         symbols:
           - UserKeyringID
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     After dropping and then elevating process privileges euid, guid, and groups
     are not properly restored to their original values, allowing an unprivileged

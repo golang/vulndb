@@ -8,6 +8,7 @@ modules:
         symbols:
           - nat.expNNMontgomery
           - nat.montgomery
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     Int.Exp Montgomery mishandled carry propagation and produced an incorrect
     output, which makes it easier for attackers to obtain private RSA keys via

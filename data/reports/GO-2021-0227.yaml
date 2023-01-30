@@ -6,6 +6,7 @@ modules:
       - package: golang.org/x/crypto/ssh
         symbols:
           - connection.serverAuthenticate
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     Clients can cause a panic in SSH servers. An attacker can craft
     an authentication request message for the “gssapi-with-mic” method

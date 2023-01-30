@@ -8,6 +8,7 @@ modules:
       - package: syscall
         symbols:
           - ForkExec
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     When a Go program running on a Unix system is out of file descriptors and
     calls syscall.ForkExec (including indirectly by using the os/exec package),

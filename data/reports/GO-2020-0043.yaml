@@ -8,6 +8,7 @@ modules:
           - httpContext.MakeServers
           - Server.serveHTTP
           - assertConfigsCompatible
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     Due to improper TLS verification when serving traffic for multiple
     SNIs, an attacker may bypass TLS client authentication by indicating

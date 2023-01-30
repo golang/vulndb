@@ -7,6 +7,7 @@ modules:
       - package: github.com/ethereum/go-ethereum/core
         symbols:
           - StateDB.createObject
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     Due to an incorrect state calculation, a specific set of
     transactions could cause a consensus disagreement,

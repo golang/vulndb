@@ -6,6 +6,7 @@ modules:
       - package: github.com/ethereum/go-ethereum/les
         symbols:
           - ProtocolManager.handleMsg
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     Due to improper argument validation in RPC messages, a maliciously crafted
     message can cause a panic, leading to denial of service.

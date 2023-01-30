@@ -9,6 +9,7 @@ modules:
       - package: math/big
         symbols:
           - nat.divRecursiveStep
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     A number of math/big.Int methods can panic when provided large inputs due
     to a flawed division method.

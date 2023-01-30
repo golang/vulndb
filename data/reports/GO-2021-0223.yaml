@@ -10,6 +10,7 @@ modules:
           - windows
         symbols:
           - Certificate.systemVerify
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     On Windows, if VerifyOptions.Roots is nil, Certificate.Verify
     does not check the EKU requirements specified in VerifyOptions.KeyUsages.

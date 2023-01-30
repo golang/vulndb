@@ -8,6 +8,7 @@ modules:
       - package: mime/multipart
         symbols:
           - Reader.readForm
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     When parsing large multipart/form-data, an attacker can
     cause a HTTP server to open a large number of file

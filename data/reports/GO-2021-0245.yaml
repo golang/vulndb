@@ -8,6 +8,7 @@ modules:
       - package: net/http/httputil
         symbols:
           - ReverseProxy.ServeHTTP
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     ReverseProxy can panic after encountering a problem copying
     a proxied response body.

@@ -8,6 +8,7 @@ modules:
       - package: crypto/dsa
         symbols:
           - Verify
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     The Verify function in crypto/dsa passed certain parameters unchecked to
     the underlying big integer library, possibly leading to extremely

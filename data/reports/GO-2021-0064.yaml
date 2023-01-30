@@ -20,6 +20,7 @@ modules:
       - package: k8s.io/kubernetes/staging/src/k8s.io/client-go/transport
         symbols:
           - requestInfo.toCurl
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     Authorization tokens may be inappropriately logged if the verbosity
     level is set to a debug level.

@@ -8,6 +8,7 @@ modules:
       - package: net/http
         symbols:
           - expectContinueReader.Read
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     HTTP servers where the Handler concurrently reads the request
     body and writes a response can encounter a data race and crash.

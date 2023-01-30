@@ -8,6 +8,7 @@ modules:
       - package: math/big
         symbols:
           - Rat.SetString
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     Rat.SetString had an overflow issue that can lead to uncontrolled memory consumption.
 published: 2022-05-23T22:15:42Z

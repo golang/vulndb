@@ -6,6 +6,7 @@ modules:
       - package: github.com/goadesign/goa
         symbols:
           - Controller.FileHandler
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
   - module: goa.design/goa
     versions:
       - fixed: 1.4.3
@@ -13,6 +14,7 @@ modules:
       - package: goa.design/goa
         symbols:
           - Controller.FileHandler
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
   - module: goa.design/goa/v3
     versions:
       - fixed: 3.0.9
@@ -20,6 +22,7 @@ modules:
       - package: goa.design/goa/v3
         symbols:
           - Controller.FileHandler
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     Due to improper santization of user input, Controller.FileHandler allows
     for directory traversal, allowing an attacker to read files outside of

@@ -10,6 +10,7 @@ modules:
           - CurveParams.IsOnCurve
           - p384PointFromAffine
           - p521PointFromAffine
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     Some big.Int values that are not valid field elements (negative or overflowing)
     might cause Curve.IsOnCurve to incorrectly return true. Operating on those values

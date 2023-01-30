@@ -20,6 +20,7 @@ modules:
           - Untar
           - UntarPath
           - UntarUncompressed
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     Due to a goroutine deadlock, using github.com/containers/storage/pkg/archive.DecompressStream
     on a xz archive returns a reader which will hang indefinitely when Close is called. An attacker

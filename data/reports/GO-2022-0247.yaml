@@ -12,6 +12,7 @@ modules:
           - wasm
         symbols:
           - Link.address
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
       - package: misc/wasm
         goos:
           - js
@@ -19,6 +20,7 @@ modules:
           - wasm
         symbols:
           - run
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     When invoking functions from WASM modules, built using GOARCH=wasm GOOS=js,
     passing very large arguments can cause portions of the module to be

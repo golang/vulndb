@@ -15,6 +15,7 @@ modules:
           - PeerConnection.SetRemoteDescription
           - operations.Done
           - operations.Enqueue
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     Due to improper error handling, DTLS connections were not killed when certificate verification
     failed, causing users who did not check the connection state to continue to use the connection.

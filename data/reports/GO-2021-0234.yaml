@@ -8,6 +8,7 @@ modules:
       - package: encoding/xml
         symbols:
           - Decoder.Token
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     The Decode, DecodeElement, and Skip methods of an xml.Decoder
     provided by xml.NewTokenDecoder may enter an infinite loop when

@@ -12,11 +12,13 @@ modules:
           - loadOptionalSyscalls
           - osinit
           - syscall_loadsystemlibrary
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
       - package: syscall
         goos:
           - windows
         symbols:
           - LoadDLL
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     Go on Windows misused certain LoadLibrary functionality, leading to DLL
     injection.

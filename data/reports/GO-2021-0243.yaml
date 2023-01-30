@@ -8,6 +8,7 @@ modules:
       - package: crypto/tls
         symbols:
           - rsaKeyAgreement.generateClientKeyExchange
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     crypto/tls clients can panic when provided a certificate of the
     wrong type for the negotiated parameters. net/http clients

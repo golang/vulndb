@@ -6,22 +6,28 @@ modules:
       - package: k8s.io/kubernetes/pkg/api/rest
         symbols:
           - BeforeCreate
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
       - package: k8s.io/kubernetes/pkg/registry/generic/etcd
         symbols:
           - NamespaceKeyFunc
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
       - package: k8s.io/kubernetes/pkg/storage
         symbols:
           - NamespaceKeyFunc
           - NoNamespaceKeyFunc
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
       - package: k8s.io/kubernetes/pkg/registry/namespace/etcd
         symbols:
           - NewREST
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
       - package: k8s.io/kubernetes/pkg/registry/node/etcd
         symbols:
           - NewREST
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
       - package: k8s.io/kubernetes/pkg/registry/persistentvolume/etcd
         symbols:
           - NewREST
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     Crafted object type names can cause directory traversal in Kubernetes.
 

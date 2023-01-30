@@ -6,6 +6,7 @@ modules:
       - package: github.com/opencontainers/runc/libcontainer
         symbols:
           - mountToRootfs
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     A race while mounting volumes allows a possible symlink-exchange
     attack, allowing a user whom can start multiple containers with

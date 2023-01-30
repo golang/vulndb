@@ -8,6 +8,7 @@ modules:
       - package: debug/macho
         symbols:
           - NewFile
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     Calling File.ImportedSymbols on a loaded file which contains an invalid
     dynamic symbol table command can cause a panic, in particular if the encoded

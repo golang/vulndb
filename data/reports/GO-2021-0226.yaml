@@ -10,11 +10,13 @@ modules:
           - response.Write
           - response.WriteHeader
           - response.writeCGIHeader
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
       - package: net/http/fcgi
         symbols:
           - response.Write
           - response.WriteHeader
           - response.writeCGIHeader
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     When a Handler does not explicitly set the Content-Type header, the the
     package would default to “text/html”, which could cause a Cross-Site Scripting

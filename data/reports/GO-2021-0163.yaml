@@ -8,6 +8,7 @@ modules:
       - package: syscall
         symbols:
           - LoadLibrary
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     Untrusted search path vulnerability on Windows related to LoadLibrary allows
     local users to gain privileges via a malicious DLL in the current working

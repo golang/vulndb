@@ -8,6 +8,7 @@ modules:
       - package: regexp
         symbols:
           - regexp.Compile
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     On 64-bit platforms, an extremely deeply nested expression can
     cause regexp.Compile to cause goroutine stack exhaustion, forcing

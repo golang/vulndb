@@ -9,6 +9,7 @@ modules:
       - package: net/smtp
         symbols:
           - plainAuth.Start
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     SMTP clients using net/smtp can use the PLAIN authentication scheme on
     network connections not secured with TLS, exposing passwords to

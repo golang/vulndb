@@ -6,6 +6,7 @@ modules:
       - package: github.com/gofiber/fiber
         symbols:
           - Ctx.Attachment
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     Due to improper input sanitization, a maliciously constructed filename
     could cause a file download to use an attacker controlled filename, as well

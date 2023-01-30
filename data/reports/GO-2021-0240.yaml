@@ -8,6 +8,7 @@ modules:
       - package: archive/zip
         symbols:
           - Reader.init
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     NewReader and OpenReader can cause a panic or an unrecoverable
     fatal error when reading an archive that claims to contain a large

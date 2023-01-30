@@ -9,6 +9,7 @@ modules:
       - package: cmd/go
         goos:
           - windows
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     The go command may execute arbitrary code at build time when using cgo on Windows.
     This can be triggered by running go get on a malicious module, or any other time

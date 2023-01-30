@@ -8,6 +8,7 @@ modules:
       - package: crypto/dsa
         symbols:
           - Verify
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     Invalid DSA public keys can cause a panic in dsa.Verify. In particular,
     using crypto/x509.Verify on a crafted X.509 certificate chain can lead to a

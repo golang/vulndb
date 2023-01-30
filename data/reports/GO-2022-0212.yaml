@@ -8,6 +8,7 @@ modules:
       - package: net/textproto
         symbols:
           - Reader.ReadMimeHeader
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     net/http (through net/textproto) used to accept and normalize invalid
     HTTP/1.1 headers with a space before the colon, in violation of RFC 7230.

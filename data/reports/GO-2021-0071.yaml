@@ -6,6 +6,7 @@ modules:
       - package: github.com/lxc/lxd/shared
         symbols:
           - IdmapSet.doUidshiftIntoContainer
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     A race between chown and chmod operations during a container
     filesystem shift may allow a user who can modify the filesystem to
