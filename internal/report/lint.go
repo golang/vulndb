@@ -365,6 +365,28 @@ func (r *Report) Lint(filename string) []string {
 		}
 
 		m.lintVersions(addPkgIssue)
+
+		// TODO(taking): Roll out applying vulnreport fix to populate Fixed field once before enabling the following lint rule.
+		// if !isExcluded {
+		// 	for _, p := range m.Packages {
+		// 		V, S, F := m.VulnerableAt != "", len(p.Symbols) > 0, p.SkipFix != ""
+		// 		// V S F | warn?
+		// 		// 0 0 0 | yes
+		// 		// 0 0 1 | no    (whole package is vuln but vuln_at cannot/is hard to give)
+		// 		// 0 1 0 | yes
+		// 		// 0 1 1 | no    (functions are vuln but vuln_at cannot/is hard to give)
+		// 		// 1 0 0 | yes
+		// 		// 1 0 1 | no    (whole package is vuln and reason is given)
+		// 		// 1 1 0 | no    (package has vulnerable symbols at version and can be automated)
+		// 		// 1 1 1 | no    (prevent automated updates on p)
+		// 		if !V && !F { // Warn that one should be set
+		// 			addPkgIssue(fmt.Sprintf("either module needs vulnerable_at or package skip_fix must be set: %q and %q", m.Module, p.Package))
+		// 		}
+		// 		if V && !S && !F {
+		// 			addPkgIssue(fmt.Sprintf("module %q is vulnerable at %s. package %q must give either symbols or set skip_fix reason", m.Module, m.VulnerableAt, p.Package))
+		// 		}
+		// 	}
+		// }
 	}
 
 	r.lintLineLength("description", r.Description, addIssue)

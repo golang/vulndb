@@ -72,6 +72,8 @@ type Package struct {
 	// Additional vulnerable symbols, computed from Symbols via static analysis
 	// or other technique.
 	DerivedSymbols []string `yaml:"derived_symbols,omitempty"`
+	// Reason the package is already considered fixed and should not be automatically updated.
+	SkipFix string `yaml:"skip_fix,omitempty"`
 }
 
 type LegacyPackage struct {

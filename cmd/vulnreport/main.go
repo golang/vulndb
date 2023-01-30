@@ -573,6 +573,9 @@ func addTODOs(r *report.Report) {
 			if len(p.Symbols) == 0 {
 				p.Symbols = []string{todo}
 			}
+			if m.VulnerableAt == todo {
+				p.SkipFix = todo + " [or remove to derive symbols]"
+			}
 		}
 	}
 	if r.Description == "" {
@@ -615,6 +618,10 @@ func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client) (err err
 	if lints := r.Lint(filename); len(lints) > 0 {
 		r.Fix()
 	}
+
+	// Adds a todo for a human. Currently outside of the scope of r.Fix()
+	addSkipFixTodos(r)
+
 	if !*skipSymbols {
 		if err := checkReportSymbols(r); err != nil {
 			return err
@@ -637,6 +644,23 @@ func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client) (err err
 	return nil
 }
 
+// addSkipFixTodos adds a todo SkipFix to every package in an
+// unexcluded module that does not give a VulnerableAt.
+func addSkipFixTodos(r *report.Report) {
+	if r.Excluded != "" {
+		return
+	}
+	for _, m := range r.Modules {
+		if m.VulnerableAt == "" {
+			for _, p := range m.Packages {
+				if p.SkipFix == "" {
+					p.SkipFix = todo + " [or set vulnerable_at to derive symbols]"
+				}
+			}
+		}
+	}
+}
+
 func checkReportSymbols(r *report.Report) error {
 	// If some symbol is in the std library at a different version,
 	// we may derive the wrong symbols for this package and other.
@@ -655,14 +679,20 @@ func checkReportSymbols(r *report.Report) error {
 
 	for _, m := range r.Modules {
 		for _, p := range m.Packages {
+			if p.SkipFix != "" {
+				continue
+			}
 			p.DerivedSymbols = nil
 		}
 	}
 
-	// Recompute derived_symbols from symbols.
 	rc := newReportClient(r)
 	for _, m := range r.Modules {
 		for _, p := range m.Packages {
+			if p.SkipFix != "" {
+				fmt.Fprintf(os.Stderr, "%v: skip_fix set, skipping symbol checks (reason: %q)\n", p.Package, p.SkipFix)
+				continue
+			}
 			if len(p.Symbols) == 0 {
 				continue // no symbols to derive from. skip.
 			}
@@ -678,11 +708,6 @@ func checkReportSymbols(r *report.Report) error {
 
 func findExportedSymbols(m *report.Module, p *report.Package, c *reportClient) (_ []string, err error) {
 	defer derrors.Wrap(&err, "addExportedSymbols(%q, %q)", m.Module, p.Package)
-
-	if m.VulnerableAt == "" {
-		fmt.Fprintf(os.Stderr, "%v: no vulnerable_at version, skipping symbol checks.\n", p.Package)
-		return nil, nil
-	}
 
 	cleanup, err := changeToTempDir()
 	if err != nil {
