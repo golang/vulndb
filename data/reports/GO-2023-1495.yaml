@@ -16,6 +16,8 @@ description: |
     consumed. When the server attempts to read HTTP2 frames from the
     connection, it will instead be reading the body of the HTTP request,
     which could be attacker-manipulated to represent arbitrary HTTP2 requests.
+ghsas:
+  - GHSA-fxg5-wq6x-vr4w
 credit: John Howard (Google)
 references:
   - report: https://go.dev/issue/56352
