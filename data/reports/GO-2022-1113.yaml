@@ -8,6 +8,7 @@ modules:
       - package: github.com/oam-dev/kubevela/pkg/utils/common
         symbols:
           - HTTPGetResponse
+        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |-
     When using Helm Chart as the component delivery method, the request address
      of the warehouse is not restricted, and there is a blind SSRF vulnerability.
