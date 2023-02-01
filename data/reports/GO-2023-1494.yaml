@@ -1,0 +1,22 @@
+modules:
+  - module: github.com/elgs/gosqljson
+    versions:
+      - fixed: 0.0.0-20220916234230-750f26ee23c7
+    vulnerable_at: 0.0.0-20140902115517-fa34a82f9316
+    packages:
+      - package: github.com/elgs/gosqljson
+        symbols:
+          - ExecDb
+          - QueryDbToArray
+          - QueryDbToMap
+        derived_symbols:
+          - QueryDbToArrayJson
+          - QueryDbToMapJson
+description: There is a potential for SQL injection through manipulate of the sqlStatement
+    argument.
+cves:
+  - CVE-2014-125064
+ghsas:
+  - GHSA-g7mw-9pf9-p2pm
+references:
+  - fix: https://github.com/elgs/gosqljson/commit/2740b331546cb88eb61771df4c07d389e9f0363a
