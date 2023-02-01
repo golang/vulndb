@@ -1,0 +1,22 @@
+modules:
+  - module: github.com/square/squalor
+    versions:
+      - fixed: 0.0.0-20200306154055-f6f0a47cc344
+    vulnerable_at: 0.0.0-20190215211619-afa27bf1201c
+    packages:
+      - package: github.com/square/squalor
+        symbols:
+          - Table.loadColumns
+          - Table.loadKeys
+        derived_symbols:
+          - DB.BindModel
+          - DB.MustBindModel
+          - LoadTable
+description: There is a potential for SQL injection in the table name parameter.
+cves:
+  - CVE-2020-36645
+ghsas:
+  - GHSA-3hc7-2xcc-7p8f
+references:
+  - report: https://github.com/square/squalor/pull/76
+  - fix: https://github.com/square/squalor/pull/76/commits/033350b8596b397c6cefa066b1f2c83d35fc8c4a
