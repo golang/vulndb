@@ -26,7 +26,8 @@ var (
 func validXReport(f func(r *Report)) Report {
 	r := Report{
 		Modules: []*Module{{
-			Module: "golang.org/x/net",
+			Module:       "golang.org/x/net",
+			VulnerableAt: "1.2.3",
 			Packages: []*Package{{
 				Package: "golang.org/x/net/http2",
 			}},
@@ -55,7 +56,8 @@ func TestLint(t *testing.T) {
 			desc: "missing module",
 			report: Report{
 				Modules: []*Module{{
-					// mo module
+					// no module field
+					VulnerableAt: "1.2.3",
 					Packages: []*Package{{
 						Package: "golang.org/x/vulndb",
 					}},
@@ -68,7 +70,8 @@ func TestLint(t *testing.T) {
 			desc: "missing description",
 			report: Report{
 				Modules: []*Module{{
-					Module: "std",
+					Module:       "std",
+					VulnerableAt: "1.2.3",
 					Packages: []*Package{{
 						Package: "time",
 					}},
@@ -82,7 +85,8 @@ func TestLint(t *testing.T) {
 			desc: "missing package path",
 			report: Report{
 				Modules: []*Module{{
-					Module: "golang.org/x/vulndb",
+					Module:       "golang.org/x/vulndb",
+					VulnerableAt: "1.2.3",
 					Packages: []*Package{{
 						Symbols: []string{"Foo"},
 					}},
@@ -92,10 +96,58 @@ func TestLint(t *testing.T) {
 			want: []string{"missing package"},
 		},
 		{
-			desc: "third party: module is not a prefix of package",
+			desc: "missing vulnerable at and skip fix",
 			report: Report{
 				Modules: []*Module{{
 					Module: "golang.org/x/vulndb",
+					// no vulnerable at
+					Packages: []*Package{{
+						Package: "golang.org/x/vulndb/internal/lint",
+						Symbols: []string{"Foo"},
+					}},
+				}},
+				Description: "description",
+			},
+			want: []string{"missing skip_fix and vulnerable_at"},
+		},
+		{
+			desc: "skip fix given",
+			report: Report{
+				Modules: []*Module{{
+					Module: "golang.org/x/vulndb",
+					// no vulnerable at
+					Packages: []*Package{{
+						Package: "golang.org/x/vulndb/internal/lint",
+						Symbols: []string{"Foo"},
+						SkipFix: "reason given",
+					}},
+				}},
+				Description: "description",
+			},
+			want: []string{},
+		},
+		{
+			desc: "vulnerable at and skip fix given",
+			report: Report{
+				Modules: []*Module{{
+					Module:       "golang.org/x/vulndb",
+					VulnerableAt: "1.2.3",
+					Packages: []*Package{{
+						Package: "golang.org/x/vulndb/internal/lint",
+						Symbols: []string{"Foo"},
+						SkipFix: "reason given",
+					}},
+				}},
+				Description: "description",
+			},
+			want: []string{},
+		},
+		{
+			desc: "third party: module is not a prefix of package",
+			report: Report{
+				Modules: []*Module{{
+					Module:       "golang.org/x/vulndb",
+					VulnerableAt: "1.2.3",
 					Packages: []*Package{{
 						Package: "golang.org/x/crypto",
 					}},
@@ -108,7 +160,8 @@ func TestLint(t *testing.T) {
 			desc: "third party: invalid import path",
 			report: Report{
 				Modules: []*Module{{
-					Module: "invalid.",
+					Module:       "invalid.",
+					VulnerableAt: "1.2.3",
 					Packages: []*Package{{
 						Package: "invalid.",
 					}},
@@ -121,7 +174,8 @@ func TestLint(t *testing.T) {
 			desc: "standard library: missing package",
 			report: Report{
 				Modules: []*Module{{
-					Module: "std",
+					Module:       "std",
+					VulnerableAt: "1.2.3",
 					Packages: []*Package{{
 						// no package
 						Symbols: []string{"Atoi"},
@@ -136,7 +190,8 @@ func TestLint(t *testing.T) {
 			desc: "toolchain: wrong module",
 			report: Report{
 				Modules: []*Module{{
-					Module: "std",
+					Module:       "std",
+					VulnerableAt: "1.2.3",
 					Packages: []*Package{{
 						Package: "cmd/go",
 					}},
@@ -156,6 +211,7 @@ func TestLint(t *testing.T) {
 					}, {
 						Fixed: "1.3.2",
 					}},
+					VulnerableAt: "1.2.3",
 					Packages: []*Package{{
 						Package: "time",
 					}},
@@ -174,6 +230,7 @@ func TestLint(t *testing.T) {
 						Introduced: "1.3",
 						Fixed:      "1.2.1",
 					}},
+					VulnerableAt: "1.2.3",
 					Packages: []*Package{{
 						Package: "time",
 					}},
@@ -191,6 +248,7 @@ func TestLint(t *testing.T) {
 					Versions: []VersionRange{{
 						Introduced: "1.3.X",
 					}},
+					VulnerableAt: "1.2.3",
 					Packages: []*Package{{
 						Package: "time",
 					}},
@@ -204,7 +262,8 @@ func TestLint(t *testing.T) {
 			desc: "bad cve identifier",
 			report: Report{
 				Modules: []*Module{{
-					Module: "std",
+					Module:       "std",
+					VulnerableAt: "1.2.3",
 					Packages: []*Package{{
 						Package: "time",
 					}},
@@ -219,7 +278,8 @@ func TestLint(t *testing.T) {
 			desc: "cve and cve metadata both present",
 			report: Report{
 				Modules: []*Module{{
-					Module: "std",
+					Module:       "std",
+					VulnerableAt: "1.2.3",
 					Packages: []*Package{{
 						Package: "time",
 					}},
@@ -238,7 +298,8 @@ func TestLint(t *testing.T) {
 			desc: "missing cve metadata required fields",
 			report: Report{
 				Modules: []*Module{{
-					Module: "std",
+					Module:       "std",
+					VulnerableAt: "1.2.3",
 					Packages: []*Package{{
 						Package: "time",
 					}},
@@ -256,7 +317,8 @@ func TestLint(t *testing.T) {
 			desc: "bad cve metadata id",
 			report: Report{
 				Modules: []*Module{{
-					Module: "std",
+					Module:       "std",
+					VulnerableAt: "1.2.3",
 					Packages: []*Package{{
 						Package: "time",
 					}},
@@ -274,7 +336,8 @@ func TestLint(t *testing.T) {
 			desc: "invalid reference type",
 			report: Report{
 				Modules: []*Module{{
-					Module: "std",
+					Module:       "std",
+					VulnerableAt: "1.2.3",
 					Packages: []*Package{{
 						Package: "time",
 					}},
@@ -332,7 +395,8 @@ func TestLint(t *testing.T) {
 			desc: "unfixed links",
 			report: Report{
 				Modules: []*Module{{
-					Module: "golang.org/x/vulndb",
+					Module:       "golang.org/x/vulndb",
+					VulnerableAt: "1.2.3",
 					Packages: []*Package{{
 						Package: "golang.org/x/vulndb",
 					}},
@@ -355,7 +419,8 @@ func TestLint(t *testing.T) {
 			desc: "standard library: unfixed/missing links",
 			report: Report{
 				Modules: []*Module{{
-					Module: "std",
+					Module:       "std",
+					VulnerableAt: "1.2.3",
 					Packages: []*Package{{
 						Package: "time",
 					}},
@@ -384,7 +449,8 @@ func TestLint(t *testing.T) {
 			desc: "invalid URL",
 			report: Report{
 				Modules: []*Module{{
-					Module: "golang.org/x/vulndb",
+					Module:       "golang.org/x/vulndb",
+					VulnerableAt: "1.2.3",
 					Packages: []*Package{{
 						Package: "golang.org/x/vulndb",
 					}},
@@ -431,61 +497,64 @@ func TestLint(t *testing.T) {
 			},
 		},
 	} {
-		dir := test.dir
-		if dir == "" {
-			dir = "reports"
-		}
-		got := test.report.Lint(dir + "/GO-0000-000.yaml")
+		test := test
+		t.Run(test.desc, func(t *testing.T) {
+			dir := test.dir
+			if dir == "" {
+				dir = "reports"
+			}
+			got := test.report.Lint(dir + "/GO-0000-000.yaml")
 
-		var missing []string
-		for _, w := range test.want {
-			found := false
-			for _, g := range got {
-				if strings.Contains(g, w) {
-					found = true
-					continue
-				}
-			}
-			if !found {
-				missing = append(missing, w)
-			}
-		}
-		if len(missing) > 0 {
-			var buf bytes.Buffer
-			if err := test.report.encode(&buf); err != nil {
-				t.Error(err)
-			}
-			t.Errorf("TestLint(%q): missing expected lint errors in report:\n"+
-				"%v\n"+
-				"got:  %q\n"+
-				"want: %q\n", test.desc, buf.String(), got, missing)
-		}
-
-		// Check for unexpected lint errors if there are no missing ones.
-		if len(missing) == 0 {
-			var unexpected []string
-			for _, g := range got {
+			var missing []string
+			for _, w := range test.want {
 				found := false
-				for _, w := range test.want {
+				for _, g := range got {
 					if strings.Contains(g, w) {
 						found = true
 						continue
 					}
 				}
 				if !found {
-					unexpected = append(unexpected, g)
+					missing = append(missing, w)
 				}
 			}
-			if len(unexpected) > 0 {
+			if len(missing) > 0 {
 				var buf bytes.Buffer
 				if err := test.report.encode(&buf); err != nil {
 					t.Error(err)
 				}
-				t.Errorf("TestLint(%q): unexpected lint errors in report:\n"+
+				t.Errorf("missing expected lint errors in report:\n"+
 					"%v\n"+
-					"got:  %q\n", test.desc, buf.String(), unexpected)
+					"got:  %q\n"+
+					"want: %q\n", buf.String(), got, missing)
 			}
-		}
+
+			// Check for unexpected lint errors if there are no missing ones.
+			if len(missing) == 0 {
+				var unexpected []string
+				for _, g := range got {
+					found := false
+					for _, w := range test.want {
+						if strings.Contains(g, w) {
+							found = true
+							continue
+						}
+					}
+					if !found {
+						unexpected = append(unexpected, g)
+					}
+				}
+				if len(unexpected) > 0 {
+					var buf bytes.Buffer
+					if err := test.report.encode(&buf); err != nil {
+						t.Error(err)
+					}
+					t.Errorf("unexpected lint errors in report:\n"+
+						"%v\n"+
+						"got:  %q\n", buf.String(), unexpected)
+				}
+			}
+		})
 	}
 }
 func TestFindModuleFromPackage(t *testing.T) {
