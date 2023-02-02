@@ -24,7 +24,7 @@
           "type": "SEMVER",
           "events": [
             {
-              "introduced": "1.5.11"
+              "introduced": "0"
             },
             {
               "fixed": "1.6.1"
@@ -53,7 +53,7 @@
           "type": "SEMVER",
           "events": [
             {
-              "introduced": "2.0.2"
+              "introduced": "0"
             },
             {
               "fixed": "2.1.0"
@@ -68,6 +68,74 @@
         "imports": [
           {
             "path": "github.com/hashicorp/go-getter/v2"
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/hashicorp/go-getter/s3/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.1.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0586"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/hashicorp/go-getter/s3/v2",
+            "symbols": [
+              "Getter.Get",
+              "Getter.GetFile",
+              "Getter.Mode"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/hashicorp/go-getter/gcs/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.1.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0586"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/hashicorp/go-getter/gcs/v2",
+            "symbols": [
+              "Getter.Get",
+              "Getter.GetFile",
+              "Getter.Mode"
+            ]
           }
         ]
       }

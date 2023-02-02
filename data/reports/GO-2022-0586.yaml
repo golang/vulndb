@@ -1,18 +1,36 @@
 modules:
   - module: github.com/hashicorp/go-getter
     versions:
-      - introduced: 1.5.11
-        fixed: 1.6.1
+      - fixed: 1.6.1
+    vulnerable_at: 1.6.0
     packages:
       - package: github.com/hashicorp/go-getter
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
   - module: github.com/hashicorp/go-getter/v2
     versions:
-      - introduced: 2.0.2
-        fixed: 2.1.0
+      - fixed: 2.1.0
+    vulnerable_at: 2.0.2
     packages:
       - package: github.com/hashicorp/go-getter/v2
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+  - module: github.com/hashicorp/go-getter/s3/v2
+    versions:
+      - fixed: 2.1.0
+    vulnerable_at: 2.0.2
+    packages:
+      - package: github.com/hashicorp/go-getter/s3/v2
+        symbols:
+          - Getter.Mode
+          - Getter.Get
+          - Getter.GetFile
+  - module: github.com/hashicorp/go-getter/gcs/v2
+    versions:
+      - fixed: 2.1.0
+    vulnerable_at: 2.0.2
+    packages:
+      - package: github.com/hashicorp/go-getter/gcs/v2
+        symbols:
+          - Getter.Mode
+          - Getter.Get
+          - Getter.GetFile
 description: |
     Malicious HTTP responses can cause a number of misbehaviors,
     including overwriting local files, resource exhaustion, and panics.
