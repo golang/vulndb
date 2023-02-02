@@ -2,6 +2,7 @@ modules:
   - module: github.com/seccomp/libseccomp-golang
     versions:
       - fixed: 0.9.1-0.20170424173420-06e7a29f36a3
+    vulnerable_at: 0.9.1-0.20170424173400-fc0298087f32
     packages:
       - package: github.com/seccomp/libseccomp-golang
         symbols:
@@ -11,7 +12,6 @@ modules:
           - ScmpFilter.AddRuleConditional
           - ScmpFilter.AddRuleConditionalExact
           - ScmpFilter.AddRuleExact
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     Filters containing rules with multiple syscall arguments are improperly
     constructed, such that all arguments are required to match rather than
