@@ -2,17 +2,24 @@ modules:
   - module: github.com/google/fscrypt
     versions:
       - fixed: 0.2.4
+    vulnerable_at: 0.2.4-0.20180823175935-d4d88e16b54e
     packages:
       - package: github.com/google/fscrypt/pam
         symbols:
           - NewHandle
-          - SetProcessPrivileges
           - Handle.StopAsPamUser
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+          - Handle.StartAsPamUser
       - package: github.com/google/fscrypt/security
         symbols:
+          - SetProcessPrivileges
+          - setUids
+          - setGids
+          - setGroups
+        derived_symbols:
+          - FindKey
+          - InsertKey
+          - RemoveKey
           - UserKeyringID
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     After dropping and then elevating process privileges euid, guid, and groups
     are not properly restored to their original values, allowing an unprivileged
