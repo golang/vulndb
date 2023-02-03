@@ -2,11 +2,13 @@ modules:
   - module: github.com/whyrusleeping/tar-utils
     versions:
       - fixed: 0.0.0-20201201191210-20a61371de5b
+    vulnerable_at: 0.0.0-20201201182126-c528cc7df19d
     packages:
       - package: github.com/whyrusleeping/tar-utils
         symbols:
           - Extractor.outputPath
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        derived_symbols:
+          - Extractor.Extract
 description: |
     Due to improper path santization, archives containing relative file
     paths can cause files to be written (or overwritten) outside of the
