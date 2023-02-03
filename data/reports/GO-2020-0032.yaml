@@ -2,14 +2,20 @@ modules:
   - module: github.com/goadesign/goa
     versions:
       - fixed: 1.4.3
+    vulnerable_at: 1.4.3-0.20191129212618-4f2e80285f2e
     packages:
       - package: github.com/goadesign/goa
         symbols:
           - Controller.FileHandler
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        derived_symbols:
+          - Service.ListenAndServe
+          - Service.ListenAndServeTLS
+          - Service.Serve
+          - mux.ServeHTTP
   - module: goa.design/goa
     versions:
       - fixed: 1.4.3
+    vulnerable_at: 1.4.3-0.20191129212618-4f2e80285f2e
     packages:
       - package: goa.design/goa
         symbols:
