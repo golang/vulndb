@@ -2,6 +2,7 @@ modules:
   - module: github.com/ory/fosite
     versions:
       - fixed: 0.31.0
+    vulnerable_at: 0.30.6
     packages:
       - package: github.com/ory/fosite
         symbols:
@@ -9,7 +10,6 @@ modules:
         derived_symbols:
           - Fosite.NewAccessRequest
           - Fosite.NewRevocationRequest
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     Uniqueness of JWT IDs (jti) are not checked, allowing the JWT to be
     replayed.

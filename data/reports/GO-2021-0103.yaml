@@ -3,6 +3,7 @@ modules:
     versions:
       - introduced: 0.1.0
       - fixed: 1.1.1
+    vulnerable_at: 1.1.0
     packages:
       - package: github.com/holiman/uint256
         symbols:
@@ -14,7 +15,6 @@ modules:
           - Int.MulMod
           - Int.SDiv
           - Int.SMod
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     Due to improper bounds checking, certain mathmatical operations can cause a panic via an
     out of bounds read. If this package is used to process untrusted user inputs, this may be used
