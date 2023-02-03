@@ -2,12 +2,14 @@ modules:
   - module: github.com/pion/webrtc/v3
     versions:
       - fixed: 3.0.15
+    vulnerable_at: 3.0.14
     packages:
       - package: github.com/pion/webrtc/v3
         symbols:
           - DTLSTransport.Start
         derived_symbols:
           - PeerConnection.AddTrack
+          - PeerConnection.AddTransceiverFromKind
           - PeerConnection.AddTransceiverFromTrack
           - PeerConnection.CreateDataChannel
           - PeerConnection.RemoveTrack
@@ -15,7 +17,6 @@ modules:
           - PeerConnection.SetRemoteDescription
           - operations.Done
           - operations.Enqueue
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     Due to improper error handling, DTLS connections were not killed when certificate verification
     failed, causing users who did not check the connection state to continue to use the connection.
