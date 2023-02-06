@@ -2,14 +2,19 @@ modules:
   - module: github.com/dhowden/tag
     versions:
       - fixed: 0.0.0-20201120070457-d52dcb253c63
+    vulnerable_at: 0.0.0-20201119192538-6b18201aa5c5
     packages:
       - package: github.com/dhowden/tag
         symbols:
           - readPICFrame
           - readAPICFrame
           - readTextWithDescrFrame
-          - readAtomData
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+          - metadataMP4.readAtomData
+        derived_symbols:
+          - ReadAtoms
+          - ReadDSFTags
+          - ReadFrom
+          - ReadID3v2Tags
 description: |
     Due to improper bounds checking, a number of methods can trigger a panic due to attempted
     out-of-bounds reads. If the package is used to parse user supplied input, this may be
