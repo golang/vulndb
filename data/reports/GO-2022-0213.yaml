@@ -4,11 +4,12 @@ modules:
       - fixed: 1.12.11
       - introduced: 1.13.0
         fixed: 1.13.2
+    vulnerable_at: 1.13.1
     packages:
       - package: crypto/dsa
         symbols:
           - Verify
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 description: |
     Invalid DSA public keys can cause a panic in dsa.Verify. In particular,
     using crypto/x509.Verify on a crafted X.509 certificate chain can lead to a

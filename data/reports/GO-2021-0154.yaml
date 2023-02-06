@@ -3,12 +3,13 @@ modules:
     versions:
       - introduced: 1.1.0
         fixed: 1.3.2
+    vulnerable_at: 1.3.1
     packages:
       - package: crypto/tls
         symbols:
           - checkForResumption
           - decryptTicket
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 description: |
     When SessionTicketsDisabled is enabled, crypto/tls allowed man-in-the-middle
     attackers to spoof clients via unspecified vectors.

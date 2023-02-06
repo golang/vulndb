@@ -4,11 +4,12 @@ modules:
       - fixed: 1.16.15
       - introduced: 1.17.0
         fixed: 1.17.8
+    vulnerable_at: 1.17.7
     packages:
       - package: regexp
         symbols:
           - regexp.Compile
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 description: |
     On 64-bit platforms, an extremely deeply nested expression can
     cause regexp.Compile to cause goroutine stack exhaustion, forcing

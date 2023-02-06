@@ -4,11 +4,12 @@ modules:
       - fixed: 1.12.10
       - introduced: 1.13.0
         fixed: 1.13.1
+    vulnerable_at: 1.13.0
     packages:
       - package: net/textproto
         symbols:
           - Reader.ReadMimeHeader
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 description: |
     net/http (through net/textproto) used to accept and normalize invalid
     HTTP/1.1 headers with a space before the colon, in violation of RFC 7230.

@@ -2,13 +2,14 @@ modules:
   - module: std
     versions:
       - fixed: 1.16.12
-      - introduced: "1.17"
+      - introduced: 1.17.0
         fixed: 1.17.5
+    vulnerable_at: 1.17.4
     packages:
       - package: syscall
         symbols:
           - ForkExec
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 description: |
     When a Go program running on a Unix system is out of file descriptors and
     calls syscall.ForkExec (including indirectly by using the os/exec package),

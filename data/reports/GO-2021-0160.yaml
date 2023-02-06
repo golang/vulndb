@@ -3,12 +3,13 @@ modules:
     versions:
       - introduced: 1.5.0
         fixed: 1.5.3
+    vulnerable_at: 1.5.2
     packages:
       - package: math/big
         symbols:
           - nat.expNNMontgomery
           - nat.montgomery
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 description: |
     Int.Exp Montgomery mishandled carry propagation and produced an incorrect
     output, which makes it easier for attackers to obtain private RSA keys via

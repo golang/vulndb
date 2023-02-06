@@ -4,13 +4,14 @@ modules:
       - fixed: 1.13.13
       - introduced: 1.14.0
         fixed: 1.14.5
+    vulnerable_at: 1.14.4
     packages:
       - package: crypto/x509
         goos:
           - windows
         symbols:
           - Certificate.systemVerify
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 description: |
     On Windows, if VerifyOptions.Roots is nil, Certificate.Verify
     does not check the EKU requirements specified in VerifyOptions.KeyUsages.

@@ -4,11 +4,12 @@ modules:
       - fixed: 1.6.4
       - introduced: 1.7.0
         fixed: 1.7.4
+    vulnerable_at: 1.7.3
     packages:
       - package: mime/multipart
         symbols:
           - Reader.readForm
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 description: |
     When parsing large multipart/form-data, an attacker can
     cause a HTTP server to open a large number of file

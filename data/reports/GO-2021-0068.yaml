@@ -5,11 +5,12 @@ modules:
       - fixed: 1.14.14
       - introduced: 1.15.0
         fixed: 1.15.7
+    vulnerable_at: 1.15.6
     packages:
       - package: cmd/go
         goos:
           - windows
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 description: |
     The go command may execute arbitrary code at build time when using cgo on Windows.
     This can be triggered by running go get on a malicious module, or any other time

@@ -3,11 +3,12 @@ modules:
     versions:
       - introduced: 1.16.0
         fixed: 1.16.1
+    vulnerable_at: 1.16.0
     packages:
       - package: archive/zip
         symbols:
           - toValidName
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 description: |
     Using Reader.Open on an archive containing a file with a path
     prefixed by "../" will cause a panic due to a stack overflow.

@@ -4,11 +4,12 @@ modules:
       - fixed: 1.16.10
       - introduced: 1.17.0
         fixed: 1.17.3
+    vulnerable_at: 1.17.2
     packages:
       - package: debug/macho
         symbols:
           - NewFile
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 description: |
     Calling File.ImportedSymbols on a loaded file which contains an invalid
     dynamic symbol table command can cause a panic, in particular if the encoded

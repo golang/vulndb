@@ -5,11 +5,12 @@ modules:
         fixed: 1.14.12
       - introduced: 1.15.0
         fixed: 1.15.5
+    vulnerable_at: 1.15.4
     packages:
       - package: math/big
         symbols:
           - nat.divRecursiveStep
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 description: |
     A number of math/big.Int methods can panic when provided large inputs due
     to a flawed division method.

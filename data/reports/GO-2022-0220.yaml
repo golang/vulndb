@@ -4,6 +4,7 @@ modules:
       - fixed: 1.11.10
       - introduced: 1.12.0
         fixed: 1.12.2
+    vulnerable_at: 1.12.1
     packages:
       - package: runtime
         goos:
@@ -12,13 +13,13 @@ modules:
           - loadOptionalSyscalls
           - osinit
           - syscall_loadsystemlibrary
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
       - package: syscall
         goos:
           - windows
         symbols:
           - LoadDLL
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 description: |
     Go on Windows misused certain LoadLibrary functionality, leading to DLL
     injection.

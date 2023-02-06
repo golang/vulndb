@@ -2,11 +2,13 @@ modules:
   - module: github.com/ethereum/go-ethereum
     versions:
       - fixed: 1.8.11
+    vulnerable_at: 1.8.11-0.20180605071142-7a22e89080b2
     packages:
       - package: github.com/ethereum/go-ethereum/les
         symbols:
           - ProtocolManager.handleMsg
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        skip_fix: 'TODO: revisit this reason (cannot find module providing package
+            github.com/hashicorp/golang-lru)'
 description: |
     Due to improper argument validation in RPC messages, a maliciously crafted
     message can cause a panic, leading to denial of service.

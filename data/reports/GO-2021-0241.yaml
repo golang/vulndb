@@ -4,11 +4,12 @@ modules:
       - fixed: 1.15.13
       - introduced: 1.16.0
         fixed: 1.16.5
+    vulnerable_at: 1.16.4
     packages:
       - package: net/http/httputil
         symbols:
           - ReverseProxy.ServeHTTP
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 description: |
     ReverseProxy can be made to forward certain hop-by-hop headers,
     including Connection. If the target of the ReverseProxy is

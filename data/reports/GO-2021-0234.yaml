@@ -4,11 +4,12 @@ modules:
       - fixed: 1.15.9
       - introduced: 1.16.0
         fixed: 1.16.1
+    vulnerable_at: 1.16.0
     packages:
       - package: encoding/xml
         symbols:
           - Decoder.Token
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 description: |
     The Decode, DecodeElement, and Skip methods of an xml.Decoder
     provided by xml.NewTokenDecoder may enter an infinite loop when

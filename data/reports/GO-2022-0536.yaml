@@ -11,16 +11,17 @@ modules:
           - http2serverConn.serve
           - http2serverConn.writeFrame
           - http2serverConn.scheduleFrameWrite
+        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
   - module: golang.org/x/net
     versions:
       - fixed: 0.0.0-20190813141303-74dc4d7220e7
+    vulnerable_at: 0.0.0-20190813141303-74dc4d7220e7
     packages:
       - package: golang.org/x/net/http
         symbols:
           - serverConn.serve
           - serverConn.writeFrame
           - serverConn.scheduleFrameWrite
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     Some HTTP/2 implementations are vulnerable to a reset flood, potentially
     leading to a denial of service.

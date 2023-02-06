@@ -4,11 +4,12 @@ modules:
       - fixed: 1.14.14
       - introduced: 1.15.0
         fixed: 1.15.7
+    vulnerable_at: 1.15.6
     packages:
       - package: crypto/elliptic
         symbols:
           - p224Contract
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 description: |
     The P224() Curve implementation can in rare circumstances generate
     incorrect outputs, including returning invalid points from

@@ -15,11 +15,12 @@ modules:
   - module: k8s.io/kubernetes
     versions:
       - fixed: 1.16.0-beta.1
+    vulnerable_at: 1.16.0-beta.0
     packages:
       - package: k8s.io/kubernetes/staging/src/k8s.io/client-go/transport
         symbols:
           - debuggingRoundTripper.RoundTrip
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        skip_fix: 'TODO: revisit this reason (module does not contain package k8s.io/kubernetes/staging/src/k8s.io/client-go/transport)'
 description: |
     Authorization tokens may be inappropriately logged if the verbosity
     level is set to a debug level.

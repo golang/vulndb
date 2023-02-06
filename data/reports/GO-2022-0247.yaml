@@ -4,6 +4,7 @@ modules:
       - fixed: 1.16.9
       - introduced: 1.17.0
         fixed: 1.17.2
+    vulnerable_at: 1.17.1
     packages:
       - package: cmd/link
         goos:
@@ -12,7 +13,7 @@ modules:
           - wasm
         symbols:
           - Link.address
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
       - package: misc/wasm
         goos:
           - js
@@ -20,7 +21,7 @@ modules:
           - wasm
         symbols:
           - run
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 description: |
     When invoking functions from WASM modules, built using GOARCH=wasm GOOS=js,
     passing very large arguments can cause portions of the module to be

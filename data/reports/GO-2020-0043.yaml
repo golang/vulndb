@@ -2,13 +2,15 @@ modules:
   - module: github.com/mholt/caddy
     versions:
       - fixed: 0.10.13
+    vulnerable_at: 0.10.13-0.20180330123946-2966db7b7800
     packages:
       - package: github.com/mholt/caddy/caddyhttp/httpserver
         symbols:
           - httpContext.MakeServers
           - Server.serveHTTP
           - assertConfigsCompatible
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        skip_fix: 'TODO: revisit this reason. (cannot find module providing package
+            github.com/lucas-clemente/quic-go/h2quic)'
 description: |
     Due to improper TLS verification when serving traffic for multiple
     SNIs, an attacker may bypass TLS client authentication by indicating

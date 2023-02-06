@@ -2,14 +2,15 @@ modules:
   - module: std
     versions:
       - fixed: 1.16.8
-      - introduced: "1.17"
+      - introduced: 1.17.0
         fixed: 1.17.1
+    vulnerable_at: 1.17.0
     packages:
       - package: archive/zip
         symbols:
           - NewReader
           - OpenReader
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 description: |
     The NewReader and OpenReader functions in archive/zip can cause a panic or
     an unrecoverable fatal error when reading an archive that claims to contain

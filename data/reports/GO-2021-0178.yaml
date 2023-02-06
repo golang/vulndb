@@ -5,11 +5,12 @@ modules:
         fixed: 1.8.4
       - introduced: 1.9.0
         fixed: 1.9.1
+    vulnerable_at: 1.9.0
     packages:
       - package: net/smtp
         symbols:
           - plainAuth.Start
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 description: |
     SMTP clients using net/smtp can use the PLAIN authentication scheme on
     network connections not secured with TLS, exposing passwords to
