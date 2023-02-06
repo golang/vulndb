@@ -3,11 +3,21 @@ modules:
     versions:
       - introduced: 1.9.4
       - fixed: 1.9.20
+    vulnerable_at: 1.9.20-0.20200821114314-b68929caee77
     packages:
-      - package: github.com/ethereum/go-ethereum/core
+      - package: github.com/ethereum/go-ethereum/core/state
         symbols:
           - StateDB.createObject
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        derived_symbols:
+          - StateDB.AddBalance
+          - StateDB.CreateAccount
+          - StateDB.GetOrNewStateObject
+          - StateDB.SetBalance
+          - StateDB.SetCode
+          - StateDB.SetNonce
+          - StateDB.SetState
+          - StateDB.SetStorage
+          - StateDB.SubBalance
 description: |
     Due to an incorrect state calculation, a specific set of
     transactions could cause a consensus disagreement,
