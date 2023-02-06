@@ -2,32 +2,53 @@ modules:
   - module: github.com/git-lfs/git-lfs
     versions:
       - fixed: 1.5.1-0.20210113180018-fc664697ed2c
+    vulnerable_at: 1.5.1-0.20201211195948-e896fc7af7db
     packages:
       - package: github.com/git-lfs/git-lfs/commands
         goos:
           - windows
         symbols:
           - PipeCommand
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        derived_symbols:
+          - PipeMediaCommand
+          - Run
+          - lockVerifier.Verify
+          - singleCheckout.Run
+          - singleCheckout.RunToPath
+          - uploadContext.NewQueue
+          - uploadContext.UploadPointers
       - package: github.com/git-lfs/git-lfs/creds
         goos:
           - windows
         symbols:
           - AskPassCredentialHelper.getFromProgram
           - commandCredentialHelper.Approve
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        derived_symbols:
+          - AskPassCredentialHelper.Fill
+          - CredentialHelperWrapper.FillCreds
+          - CredentialHelpers.Approve
+          - CredentialHelpers.Fill
       - package: github.com/git-lfs/git-lfs/lfs
         goos:
           - windows
         symbols:
           - pipeExtensions
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        derived_symbols:
+          - GitFilter.Clean
+          - GitFilter.Smudge
+          - GitFilter.SmudgeToFile
       - package: github.com/git-lfs/git-lfs/lfshttp
         goos:
           - windows
         symbols:
           - sshAuthClient.Resolve
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        derived_symbols:
+          - Client.Do
+          - Client.DoWithAccess
+          - Client.HttpClient
+          - Client.NewRequest
+          - Client.Transport
+          - sshCache.Resolve
 description: |
     Due to the standard library behavior of exec.LookPath on Windows a number of methods may
     result in arbitrary code execution when cloning or operating on untrusted Git repositories.
