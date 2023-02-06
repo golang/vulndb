@@ -7,9 +7,11 @@ modules:
       - package: github.com/rancher/rancher/server
         symbols:
           - Start
+        skip_fix: "TODO: revisit this reason (multiple cannot find module providing package errors)"
       - package: github.com/rancher/rancher/pkg/clusterrouter
         symbols:
           - Router.ServeHTTP
+        skip_fix: "TODO: revisit this reason (multiple cannot find module providing package errors)"
 description: |
     Rancher 2 is vulnerable to a Cross-Site Websocket Hijacking
     attack that allows an exploiter to gain access to clusters managed by
