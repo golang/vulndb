@@ -2,11 +2,11 @@ modules:
   - module: github.com/documize/community
     versions:
       - fixed: 1.76.3-0.20191119114751-a4384210d4d0
+    vulnerable_at: 1.76.3-0.20191115182156-68824912016c
     packages:
       - package: github.com/documize/community/domain/section/markdown
         symbols:
           - Provider.Render
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     HTML content in markdown is not santized during rendering, possibly allowing
     XSS if used to render untrusted user input.

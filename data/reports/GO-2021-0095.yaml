@@ -2,11 +2,11 @@ modules:
   - module: github.com/google/go-tpm
     versions:
       - fixed: 0.3.0
+    vulnerable_at: 0.2.1-0.20200723190029-e82f64f63a31
     packages:
       - package: github.com/google/go-tpm/tpm
         symbols:
           - CreateWrapKey
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     Due to repeated usage of a XOR key an attacker that can eavesdrop on the TPM 1.2 transport
     is able to calculate usageAuth for keys created using CreateWrapKey, despite it being encrypted,

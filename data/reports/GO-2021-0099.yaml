@@ -2,13 +2,13 @@ modules:
   - module: github.com/deislabs/oras
     versions:
       - fixed: 0.9.0
+    vulnerable_at: 0.8.1
     packages:
       - package: github.com/deislabs/oras/pkg/content
         symbols:
           - extractTarDirectory
         derived_symbols:
           - fileWriter.Commit
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     Due to improper path validation, using the github.com/deislabs/oras/pkg/content.FileStore
     content store may result in directory traversal during archive extraction, allowing a
