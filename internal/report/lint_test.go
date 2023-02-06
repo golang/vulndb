@@ -301,7 +301,7 @@ func TestLint(t *testing.T) {
 			want: []string{"at most one advisory link"},
 		},
 		{
-			desc: "reduntant advisory links",
+			desc: "redundant advisory links",
 			report: validXReport(func(r *Report) {
 				r.CVEs = []string{"CVE-0000-0000", "CVE-0000-0001"}
 				r.GHSAs = []string{"GHSA-0000-0000-0000"}
