@@ -2,11 +2,25 @@ modules:
   - module: github.com/facebook/fbthrift
     versions:
       - fixed: 0.31.1-0.20190225164308-c461c1bd1a3e
+    vulnerable_at: 0.31.1-0.20190225124004-41af43a0444b
     packages:
       - package: github.com/facebook/fbthrift/thrift/lib/go/thrift
         symbols:
           - Skip
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        derived_symbols:
+          - BinaryProtocol.Skip
+          - CompactProtocol.Skip
+          - HeaderProtocol.Skip
+          - JSONProtocol.Skip
+          - Process
+          - ProcessContext
+          - SimpleJSONProtocol.Skip
+          - SimpleServer.AcceptLoop
+          - SimpleServer.AcceptLoopContext
+          - SimpleServer.Serve
+          - SimpleServer.ServeContext
+          - SkipDefaultDepth
+          - applicationException.Read
 description: |
     Skip ignores unknown fields, rather than failing. A malicious user can craft small
     messages with unknown fields which can take significant resources to parse. If a
