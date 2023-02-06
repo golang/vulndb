@@ -125,7 +125,7 @@ func TestLoad(t *testing.T) {
 		path := validDir
 		got, err := Load(path)
 		if err != nil {
-			t.Fatalf("Load(%s): want succeess, got %s", path, err)
+			t.Fatalf("Load(%s): want success, got %s", path, err)
 		}
 		want := valid
 		if diff := cmp.Diff(want, got); diff != "" {
