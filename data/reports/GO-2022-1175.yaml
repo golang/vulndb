@@ -5,12 +5,14 @@ modules:
         fixed: 1.13.2
       - introduced: 1.14.0
         fixed: 1.14.1
+    vulnerable_at: 1.14.0
     packages:
       - package: github.com/cortexproject/cortex/pkg/alertmanager
         symbols:
           - validateAlertmanagerConfig
           - validateGlobalConfig
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        skip_fix: 'TODO: Revisit this reason. (Running fix causes error containing
+            undefined: grpc.WithBalancerName)'
 description: |
     A malicious actor could remotely read local files by submitting to the
     Alertmanager Set Configuration API maliciously crafted inputs. Only users

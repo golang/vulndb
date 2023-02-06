@@ -2,13 +2,14 @@ modules:
   - module: github.com/gogits/gogs
     versions:
       - fixed: 0.5.8
+    vulnerable_at: 0.5.5
     packages:
       - package: github.com/gogits/gogs
         symbols:
           - GetIssues
           - SearchRepositoryByName
           - SearchUserByName
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        skip_fix: 'TODO: Revisit this reason (Some dependencies no longer exist)'
 description: |
     Due to improper santization of user input, a number of methods are
     vulnerable to SQL injection if used with user input that has not

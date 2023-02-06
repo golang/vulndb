@@ -2,11 +2,12 @@ modules:
   - module: github.com/bytom/bytom
     versions:
       - fixed: 1.0.4-0.20180831054840-1ac3c8ac4f2b
+    vulnerable_at: 1.0.4-0.20180831031436-69b3d4c7cf41
     packages:
       - package: github.com/bytom/bytom/p2p/discover
         symbols:
           - Network.checkTopicRegister
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        skip_fix: "TODO: Revisit this reason. (Fix causes error containing cannot find module providing package github.com/bytom/common)"
 description: |
     A malformed query can cause an out-of-bounds panic due to improper
     validation of arguments. If processing queries from untrusted

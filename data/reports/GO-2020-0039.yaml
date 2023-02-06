@@ -2,6 +2,7 @@ modules:
   - module: gopkg.in/macaron.v1
     versions:
       - fixed: 1.3.7
+    vulnerable_at: 1.3.6
     packages:
       - package: gopkg.in/macaron.v1
         symbols:
@@ -12,7 +13,6 @@ modules:
           - Macaron.Run
           - Macaron.ServeHTTP
           - Router.ServeHTTP
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
 description: |
     Due to improper request santization, a specifically crafted URL
     can cause the static file handler to redirect to an attacker chosen

@@ -2,11 +2,14 @@ modules:
   - module: github.com/lxc/lxd
     versions:
       - fixed: 0.0.0-20151004155856-19c6961cc101
+    vulnerable_at: 0.0.0-20151004071337-96e120e828e4
     packages:
       - package: github.com/lxc/lxd/shared
         symbols:
           - IdmapSet.doUidshiftIntoContainer
-        skip_fix: 'TODO: fill this out [or set vulnerable_at to derive symbols]'
+        skip_fix: 'TODO: Revisit this reason (Fix causes error containing cannot find
+            module providing package github.com/chai2010/gettext-go/gettext - possibly
+            an issue with lack of go.mod file in affected version)'
 description: |
     A race between chown and chmod operations during a container
     filesystem shift may allow a user who can modify the filesystem to
