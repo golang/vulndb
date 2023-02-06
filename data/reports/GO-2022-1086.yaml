@@ -4,13 +4,15 @@ modules:
       - fixed: 0.13.237
     vulnerable_at: 0.13.236
     packages:
-      - package: github.com/zalando/skipper
+      - package: github.com/zalando/skipper/proxy
         symbols:
+          - mapRequest
           - proxyFromHeader
           - forwardToProxy
         derived_symbols:
           - Proxy.ServeHTTP
           - context.Loopback
+        skip_fix: 'TODO: revisit this reason (net/redisclient: r.ring.SetAddrs undefined)'
 description: |-
     An attacker can access the internal metadata server or other unauthenticated
     URLs by adding a specific header (X-Skipper-Proxy) to the http request.
