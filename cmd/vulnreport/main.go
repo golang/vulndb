@@ -662,32 +662,22 @@ func addSkipFixTodos(r *report.Report) {
 }
 
 func checkReportSymbols(r *report.Report) error {
-	// If some symbol is in the std library at a different version,
-	// we may derive the wrong symbols for this package and other.
-	// In this case, skip updating DerivedSymbols.
+	rc := newReportClient(r)
+
 	for _, m := range r.Modules {
+		// If some symbol is in the std library at a different version,
+		// we may derive the wrong symbols for this package and other.
+		// In this case, skip updating DerivedSymbols.
 		if m.Module == stdlib.ModulePath {
 			gover := runtime.Version()
 			ver := semverForGoVersion(gover)
 			affects := report.AffectedRanges(m.Versions)
 			if ver == "" || !affects.AffectsSemver(ver.V()) {
 				fmt.Fprintf(os.Stderr, "Current Go version %q is not in a vulnerable range, skipping symbol checks.\n", gover)
-				return nil
-			}
-		}
-	}
-
-	for _, m := range r.Modules {
-		for _, p := range m.Packages {
-			if p.SkipFix != "" {
 				continue
 			}
-			p.DerivedSymbols = nil
 		}
-	}
 
-	rc := newReportClient(r)
-	for _, m := range r.Modules {
 		for _, p := range m.Packages {
 			if p.SkipFix != "" {
 				fmt.Fprintf(os.Stderr, "%v: skip_fix set, skipping symbol checks (reason: %q)\n", p.Package, p.SkipFix)
@@ -700,11 +690,12 @@ func checkReportSymbols(r *report.Report) error {
 			p.DerivedSymbols = syms
 		}
 	}
+
 	return nil
 }
 
 func findExportedSymbols(m *report.Module, p *report.Package, c *reportClient) (_ []string, err error) {
-	defer derrors.Wrap(&err, "addExportedSymbols(%q, %q)", m.Module, p.Package)
+	defer derrors.Wrap(&err, "findExportedSymbols(%q, %q)", m.Module, p.Package)
 
 	cleanup, err := changeToTempDir()
 	if err != nil {
