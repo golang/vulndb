@@ -352,7 +352,7 @@ func (r *Report) Lint(filename string) []string {
 		addPkgIssue := func(iss string) {
 			addIssue(fmt.Sprintf("modules[%v]: %v", i, iss))
 		}
-		if m.Module == stdlib.ModulePath || m.Module == stdlib.ToolchainModulePath {
+		if m.IsStdLib() || m.IsToolchain() {
 			isStdLibReport = true
 			m.lintStdLib(addPkgIssue)
 		} else {
@@ -402,6 +402,14 @@ func (r *Report) Lint(filename string) []string {
 	r.lintLinks(addIssue)
 
 	return issues
+}
+
+func (m *Module) IsStdLib() bool {
+	return m.Module == stdlib.ModulePath
+}
+
+func (m *Module) IsToolchain() bool {
+	return m.Module == stdlib.ToolchainModulePath
 }
 
 var commitHashRegex = regexp.MustCompile(`^[a-f0-9]+$`)

@@ -38,7 +38,6 @@ import (
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/report"
-	"golang.org/x/vulndb/internal/stdlib"
 )
 
 var (
@@ -665,16 +664,19 @@ func checkReportSymbols(r *report.Report) error {
 	rc := newReportClient(r)
 
 	for _, m := range r.Modules {
-		// If some symbol is in the std library at a different version,
-		// we may derive the wrong symbols for this package and other.
-		// In this case, skip updating DerivedSymbols.
-		if m.Module == stdlib.ModulePath {
+		if m.IsStdLib() {
 			gover := runtime.Version()
 			ver := semverForGoVersion(gover)
-			affects := report.AffectedRanges(m.Versions)
-			if ver == "" || !affects.AffectsSemver(ver.V()) {
+			// If some symbol is in the std library at a different version,
+			// we may derive the wrong symbols for this package and other.
+			// In this case, skip updating DerivedSymbols.
+			affected := report.AffectedRanges(m.Versions).AffectsSemver(ver.V())
+			if ver == "" || !affected {
 				fmt.Fprintf(os.Stderr, "Current Go version %q is not in a vulnerable range, skipping symbol checks.\n", gover)
 				continue
+			}
+			if ver != m.VulnerableAt {
+				fmt.Fprintf(os.Stderr, "%v: WARNING: Go version %q does not match vulnerable_at version %q.\n", m.Module, ver, m.VulnerableAt)
 			}
 		}
 
@@ -705,22 +707,10 @@ func findExportedSymbols(m *report.Module, p *report.Package, c *reportClient) (
 	if err := run("go", "mod", "init", "go.dev/_"); err != nil {
 		return nil, err
 	}
-	std := false
-	if m.Module != stdlib.ModulePath {
+	if !m.IsStdLib() {
 		pkgPathAndVersion := p.Package + "@" + m.VulnerableAt.V()
 		if err := run("go", "get", pkgPathAndVersion); err != nil {
 			return nil, err
-		}
-	} else {
-		std = true
-		gover := runtime.Version()
-		ver := semverForGoVersion(gover)
-		if ver == "" || !affected(c.entry, ver.V()) {
-			fmt.Fprintf(os.Stderr, "%v: Go version %q is not in a vulnerable range, skipping symbol checks.\n", p.Package, gover)
-			return p.DerivedSymbols, nil
-		}
-		if ver != m.VulnerableAt {
-			fmt.Fprintf(os.Stderr, "%v: WARNING: Go version %q does not match vulnerable_at version %q.\n", p.Package, ver, m.VulnerableAt)
 		}
 	}
 
@@ -735,8 +725,8 @@ func findExportedSymbols(m *report.Module, p *report.Package, c *reportClient) (
 	if pkgs[0].PkgPath != p.Package {
 		return nil, fmt.Errorf("first package had import path %s, wanted %s", pkgs[0].PkgPath, p.Package)
 	}
-	if std {
-		if pm := pkgs[0].Module; std && pm != nil {
+	if m.IsStdLib() {
+		if pm := pkgs[0].Module; pm != nil {
 			return nil, fmt.Errorf("got module %v, expected nil", pm)
 		}
 	} else {
