@@ -1,22 +1,22 @@
 modules:
-    - module: github.com/containers/podman/v4
-      versions:
-        - introduced: 4.1.0-rc1
-      vulnerable_at: 4.3.1
-      packages:
-        - package: github.com/containers/podman/v4/pkg/bindings/images
-          symbols:
-            - Build
-            - nTar
+  - module: github.com/containers/podman/v4
+    versions:
+      - introduced: 4.1.0-rc1
+    vulnerable_at: 4.3.1
+    packages:
+      - package: github.com/containers/podman/v4/pkg/bindings/images
+        symbols:
+          - Build
+          - nTar
 description: |-
-      The local path and the lowest subdirectory may be disclosed due to
-      incorrect absolute path traversal, resulting in an impact to
-      confidentiality.
+    The local path and the lowest subdirectory may be disclosed due to
+    incorrect absolute path traversal, resulting in an impact to
+    confidentiality.
 cves:
-    - CVE-2022-4123
+  - CVE-2022-4123
 ghsas:
-    - GHSA-rprg-4v7q-87v7
+  - GHSA-rprg-4v7q-87v7
 credit: Sage McTaggart
 references:
-    - report: https://bugzilla.redhat.com/show_bug.cgi?id=2144989
-    - web: https://github.com/containers/podman/pull/13531
+  - report: https://bugzilla.redhat.com/show_bug.cgi?id=2144989
+  - web: https://github.com/containers/podman/pull/13531
