@@ -3,7 +3,8 @@
   "published": "2021-04-14T20:04:52Z",
   "modified": "0001-01-01T00:00:00Z",
   "aliases": [
-    "CVE-2020-29529"
+    "CVE-2020-29529",
+    "GHSA-2g5j-5x95-r6hr"
   ],
   "details": "Protections against directory traversal during archive extraction can be bypassed by chaining multiple symbolic links within the archive. This allows a malicious attacker to cause files to be created outside of the target directory. Additionally if the attacker is able to read extracted files they may create symbolic links to arbitrary files on the system which the unpacker has permissions to read.",
   "affected": [
