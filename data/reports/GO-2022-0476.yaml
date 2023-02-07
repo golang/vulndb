@@ -9,6 +9,8 @@ modules:
       - package: cmd/go
         symbols:
           - validCompilerFlags
+        skip_fix: 'TODO: revisit this reason (cant request explicit version v1.15.4
+            of standard library package cmd/go)'
 description: |
     The go command may execute arbitrary code at build time when cgo is in use.
     This may occur when running go get on a malicious package, or any other
