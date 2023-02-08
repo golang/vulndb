@@ -5,6 +5,10 @@ modules:
     vulnerable_at: 0.0.0-20170207230724-428b7c62d7d0
     packages:
       - package: github.com/go-macaron/csrf
+        symbols:
+          - Generate
+        skip_fix: 'TODO: revisit this reason (cannot find module providing package
+            github.com/Unknwon/com)'
 description: |
     The Options.Secure value is ignored, and cookies created by Generate never
     have the secure attribute.
