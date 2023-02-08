@@ -3,7 +3,8 @@
   "published": "2022-02-17T17:35:32Z",
   "modified": "0001-01-01T00:00:00Z",
   "aliases": [
-    "CVE-2020-29652"
+    "CVE-2020-29652",
+    "GHSA-3vm4-22fp-5rfm"
   ],
   "details": "Clients can cause a panic in SSH servers. An attacker can craft an authentication request message for the “gssapi-with-mic” method which will cause NewServerConn to panic via a nil pointer dereference if ServerConfig.GSSAPIWithMICConfig is nil.",
   "affected": [

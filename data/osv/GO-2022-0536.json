@@ -4,7 +4,9 @@
   "modified": "0001-01-01T00:00:00Z",
   "aliases": [
     "CVE-2019-9512",
-    "CVE-2019-9514"
+    "CVE-2019-9514",
+    "GHSA-39qc-96h7-956f",
+    "GHSA-hgr8-6h9x-f7q9"
   ],
   "details": "Some HTTP/2 implementations are vulnerable to a reset flood, potentially leading to a denial of service.\n\nServers that accept direct connections from untrusted clients could be remotely made to allocate an unlimited amount of memory, until the program crashes. The attacker opens a number of streams and sends an invalid request over each stream that should solicit a stream of RST_STREAM frames from the peer. Depending on how the peer queues the RST_STREAM frames, this can consume excess memory, CPU, or both.",
   "affected": [
