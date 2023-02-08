@@ -45,7 +45,7 @@ var (
 	issueRepo     = flag.String("issue-repo", "github.com/golang/vulndb", "repo to create issues in")
 	githubToken   = flag.String("ghtoken", "", "GitHub access token (default: value of VULN_GITHUB_ACCESS_TOKEN)")
 	skipSymbols   = flag.Bool("skip-symbols", false, "for lint and fix, don't load package for symbols checks")
-	alwaysFixGHSA = flag.Bool("always-fix-ghsa", false, "for fix, always update GHSAs")
+	skipGHSA      = flag.Bool("skip-ghsa", false, "for fix, skip adding new GHSAs")
 	updateIssue   = flag.Bool("up", false, "for commit, create a CL that updates (doesn't fix) the tracking bug")
 	indent        = flag.Bool("indent", false, "for newcve, indent JSON output")
 	closedOk      = flag.Bool("closed-ok", false, "for create & create-excluded, allow closed issues to be created")
@@ -303,8 +303,7 @@ func createReport(ctx context.Context, cfg *createCfg, iss *issues.Issue) (r *re
 				parsed.ghsas = append(parsed.ghsas, sa.ID)
 			}
 		}
-		slices.Sort(parsed.ghsas)
-		parsed.ghsas = slices.Compact(parsed.ghsas)
+		parsed.ghsas = dedupeAndSort(parsed.ghsas)
 	}
 
 	r, err = newReport(ctx, cfg, parsed)
@@ -452,13 +451,8 @@ func newReport(ctx context.Context, cfg *createCfg, parsed *parsedIssue) (*repor
 
 	// Fill an any CVEs and GHSAs we found that may have been missed
 	// in report creation.
-	r.CVEs = append(r.CVEs, parsed.cves...)
-	slices.Sort(r.CVEs)
-	r.CVEs = slices.Compact(r.CVEs)
-
-	r.GHSAs = append(r.GHSAs, parsed.ghsas...)
-	slices.Sort(r.GHSAs)
-	r.GHSAs = slices.Compact(r.GHSAs)
+	r.CVEs = dedupeAndSort(append(r.CVEs, parsed.cves...))
+	r.GHSAs = dedupeAndSort(append(r.GHSAs, parsed.ghsas...))
 
 	return r, nil
 }
@@ -626,9 +620,12 @@ func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client) (err err
 			return err
 		}
 	}
-	if err := fixGHSAs(ctx, r, ghsaClient); err != nil {
-		return err
+	if !*skipGHSA {
+		if err := addGHSAs(ctx, r, ghsaClient); err != nil {
+			return err
+		}
 	}
+
 	// Write unconditionally in order to format.
 	if err := r.Write(filename); err != nil {
 		return err
@@ -1067,27 +1064,24 @@ func setDates(filename string, dates map[string]gitrepo.Dates) (err error) {
 	return r.Write(filename)
 }
 
-// fixGHSAs replaces r.GHSAs with a sorted list of GitHub Security
-// Advisory IDs that correspond to the CVEs.
-func fixGHSAs(ctx context.Context, r *report.Report, ghsaClient *ghsa.Client) error {
-	if len(r.GHSAs) > 0 && !*alwaysFixGHSA {
-		return nil
-	}
-	m := map[string]struct{}{}
-	for _, cid := range r.CVEs {
-		sas, err := ghsaClient.ListForCVE(ctx, cid)
+func dedupeAndSort[T constraints.Ordered](s []T) []T {
+	s = slices.Clone(s)
+	slices.Sort(s)
+	return slices.Compact(s)
+}
+
+// addGHSAs adds any missing GHSAs that correspond to the CVEs in the report.
+func addGHSAs(ctx context.Context, r *report.Report, ghsaClient *ghsa.Client) error {
+	ghsas := r.GHSAs
+	for _, cve := range r.GetCVEs() {
+		sas, err := ghsaClient.ListForCVE(ctx, cve)
 		if err != nil {
 			return err
 		}
 		for _, sa := range sas {
-			m[sa.ID] = struct{}{}
+			ghsas = append(ghsas, sa.ID)
 		}
 	}
-	var gids []string
-	for gid := range m {
-		gids = append(gids, gid)
-	}
-	sort.Strings(gids)
-	r.GHSAs = gids
+	r.GHSAs = dedupeAndSort(ghsas)
 	return nil
 }
