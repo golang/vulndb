@@ -7,6 +7,8 @@ modules:
     vulnerable_at: 1.10.0
     packages:
       - package: cmd/go
+        skip_fix: 'TODO: revisit this reason (cant request explicit version of standard
+            library package cmd/go)'
 description: |
     The "go get" command is vulnerable to remote code execution.
 
