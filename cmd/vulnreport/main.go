@@ -693,9 +693,6 @@ func checkReportSymbols(r *report.Report) error {
 				fmt.Fprintf(os.Stderr, "%v: skip_fix set, skipping symbol checks (reason: %q)\n", p.Package, p.SkipFix)
 				continue
 			}
-			if len(p.Symbols) == 0 {
-				continue // no symbols to derive from. skip.
-			}
 			syms, err := findExportedSymbols(m, p, rc)
 			if err != nil {
 				return err
@@ -755,6 +752,10 @@ func findExportedSymbols(m *report.Module, p *report.Package, c *reportClient) (
 		if pm := pkgs[0].Module; pm == nil || pm.Path != m.Module {
 			return nil, fmt.Errorf("got module %v, expected %s", pm, m.Module)
 		}
+	}
+
+	if len(p.Symbols) == 0 {
+		return nil, nil // no symbols to derive from. skip.
 	}
 
 	// Check to see that all symbols actually exist in the package.
