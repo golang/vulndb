@@ -5,9 +5,9 @@ modules:
     vulnerable_at: 1.3.1
     packages:
       - package: github.com/gogo/protobuf/plugin/unmarshal
-      - package: github.com/gogo/protobuf/test
-      - package: github.com/gogo/protobuf/types
-      - package: github.com/gogo/protobuf/vanity/test
+        symbols:
+          - unmarshal.field
+          - unmarshal.Generate
 description: |
     Due to improper bounds checking, maliciously crafted input to generated
     Unmarshal methods can cause an out-of-bounds panic. If parsing messages
