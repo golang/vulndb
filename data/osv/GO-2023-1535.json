@@ -1,0 +1,51 @@
+{
+  "id": "GO-2023-1535",
+  "published": "0001-01-01T00:00:00Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-hxp2-xqf3-v83h"
+  ],
+  "details": "Unmarshalling a Server Hello can panic, which could allow a denial of service.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/pion/dtls/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.2.4"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2023-1535"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/pion/dtls/v2/pkg/protocol/handshake",
+            "symbols": [
+              "Handshake.Unmarshal",
+              "MessageServerHello.Unmarshal"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/pion/dtls/commit/7a14903448b70069fd9e02adf210ca23083c56d2"
+    }
+  ],
+  "schema_version": "1.3.1"
+}

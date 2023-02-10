@@ -1,0 +1,18 @@
+modules:
+  - module: github.com/pion/dtls/v2
+    versions:
+      - fixed: 2.2.4
+    vulnerable_at: 2.2.3
+    packages:
+      - package: github.com/pion/dtls/v2/pkg/protocol/handshake
+        symbols:
+          - MessageServerHello.Unmarshal
+        derived_symbols:
+          - Handshake.Unmarshal
+description: |
+    Unmarshalling a Server Hello can panic, which
+    could allow a denial of service.
+ghsas:
+  - GHSA-hxp2-xqf3-v83h
+references:
+  - fix: https://github.com/pion/dtls/commit/7a14903448b70069fd9e02adf210ca23083c56d2
