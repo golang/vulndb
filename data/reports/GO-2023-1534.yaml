@@ -1,0 +1,18 @@
+modules:
+  - module: github.com/pion/dtls/v2
+    versions:
+      - fixed: 2.2.4
+    vulnerable_at: 2.2.3
+    packages:
+      - package: github.com/pion/dtls/v2/pkg/protocol/handshake
+        symbols:
+          - MessageHelloVerifyRequest.Unmarshal
+        derived_symbols:
+          - Handshake.Unmarshal
+description: |
+    Unmarshalling a Hello Verify request can panic, which
+    could allow a denial of service.
+ghsas:
+  - GHSA-4xgv-j62q-h3rj
+references:
+  - fix: https://github.com/pion/dtls/commit/a50d26c5e4eed2ca87509494ffef2d2ebd22b1eb
