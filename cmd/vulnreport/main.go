@@ -293,18 +293,6 @@ func createReport(ctx context.Context, cfg *createCfg, iss *issues.Issue) (r *re
 	if err != nil {
 		return nil, err
 	}
-	if len(parsed.ghsas) == 0 && len(parsed.cves) > 0 {
-		for _, cve := range parsed.cves {
-			sas, err := cfg.ghsaClient.ListForCVE(ctx, cve)
-			if err != nil {
-				return nil, err
-			}
-			for _, sa := range sas {
-				parsed.ghsas = append(parsed.ghsas, sa.ID)
-			}
-		}
-		parsed.ghsas = dedupeAndSort(parsed.ghsas)
-	}
 
 	r, err = newReport(ctx, cfg, parsed)
 	if err != nil {
@@ -448,6 +436,8 @@ func newReport(ctx context.Context, cfg *createCfg, parsed *parsedIssue) (*repor
 	default:
 		r = &report.Report{}
 	}
+
+	addGHSAs(ctx, r, cfg.ghsaClient)
 
 	// Fill an any CVEs and GHSAs we found that may have been missed
 	// in report creation.
