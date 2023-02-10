@@ -146,23 +146,7 @@ func CVEToReport(c *cveschema.CVE, modulePath string) *Report {
 	}
 	var refs []*Reference
 	for _, r := range c.References.Data {
-		typ := ReferenceTypeWeb
-		switch {
-		case strings.Contains(r.URL, "go-review.googlesource.com"):
-			typ = ReferenceTypeFix
-		case strings.Contains(r.URL, "commit"):
-			typ = ReferenceTypeFix
-		case strings.Contains(r.URL, "pull"):
-			typ = ReferenceTypeFix
-		case strings.Contains(r.URL, "pr"):
-			typ = ReferenceTypeFix
-		case strings.Contains(r.URL, "/issue/"):
-			typ = ReferenceTypeReport
-		}
-		refs = append(refs, &Reference{
-			Type: typ,
-			URL:  r.URL,
-		})
+		refs = append(refs, referenceFromUrl(r.URL))
 	}
 	var credits []string
 	for _, v := range c.Credit.Data.Description.Data {

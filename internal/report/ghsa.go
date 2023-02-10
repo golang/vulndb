@@ -25,6 +25,9 @@ func GHSAToReport(sa *ghsa.SecurityAdvisory, modulePath string) *Report {
 			ghsas = append(ghsas, id.Value)
 		}
 	}
+	for _, ref := range sa.References {
+		r.References = append(r.References, referenceFromUrl(ref.URL))
+	}
 	r.CVEs = cves
 	r.GHSAs = ghsas
 	for _, v := range sa.Vulns {

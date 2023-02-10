@@ -25,6 +25,7 @@ func TestGHSAToReport(t *testing.T) {
 			EarliestFixedVersion:   "1.2.3",
 			VulnerableVersionRange: "< 1.2.3",
 		}},
+		References: []ghsa.Reference{{URL: "https://github.com/permalink/to/issue/12345"}},
 	}
 	for _, test := range []struct {
 		name   string
@@ -47,6 +48,7 @@ func TestGHSAToReport(t *testing.T) {
 				Description: "a description",
 				GHSAs:       []string{"G1"},
 				CVEs:        []string{"C1"},
+				References:  []*Reference{{Type: "REPORT", URL: "https://github.com/permalink/to/issue/12345"}},
 			},
 		},
 		{
@@ -65,6 +67,7 @@ func TestGHSAToReport(t *testing.T) {
 				Description: "a description",
 				GHSAs:       []string{"G1"},
 				CVEs:        []string{"C1"},
+				References:  []*Reference{{Type: "REPORT", URL: "https://github.com/permalink/to/issue/12345"}},
 			},
 		},
 	} {
