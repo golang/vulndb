@@ -567,13 +567,28 @@ func addTODOs(r *report.Report) {
 	if len(r.CVEs) == 0 {
 		r.CVEs = []string{todo}
 	}
-	r.References = append(r.References, []*report.Reference{
+	addReferenceTODOs(r)
+}
+
+// addReferenceTODOs adds a TODO for each reference type not already present
+// in the report.
+func addReferenceTODOs(r *report.Report) {
+	todos := []*report.Reference{
 		{Type: report.ReferenceTypeAdvisory, URL: "TODO: canonical security advisory"},
 		{Type: report.ReferenceTypeArticle, URL: "TODO: article or blog post"},
 		{Type: report.ReferenceTypeReport, URL: "TODO: issue tracker link"},
 		{Type: report.ReferenceTypeFix, URL: "TODO: PR or commit"},
-		{Type: report.ReferenceTypeWeb, URL: "TODO: web page of some unspecified kind"},
-	}...)
+		{Type: report.ReferenceTypeWeb, URL: "TODO: web page of some unspecified kind"}}
+
+	types := make(map[report.ReferenceType]bool)
+	for _, r := range r.References {
+		types[r.Type] = true
+	}
+	for _, todo := range todos {
+		if !types[todo.Type] {
+			r.References = append(r.References, todo)
+		}
+	}
 }
 
 func lint(filename string) (err error) {
