@@ -166,6 +166,10 @@ func CVEToReport(c *cveschema.CVE, modulePath string) *Report {
 	if pkgPath == "" {
 		pkgPath = modulePath
 	}
+	if stdlib.Contains(modulePath) {
+		modulePath = stdlib.ModulePath
+		pkgPath = modulePath
+	}
 	r := &Report{
 		Modules: []*Module{{
 			Module: modulePath,
@@ -174,16 +178,19 @@ func CVEToReport(c *cveschema.CVE, modulePath string) *Report {
 			}},
 		}},
 		Description: description,
-		CVEs:        []string{c.Metadata.ID},
 		Credit:      credit,
 		References:  refs,
 	}
-	if !strings.Contains(modulePath, ".") {
-		r.Modules[0].Module = stdlib.ModulePath
-		r.Modules[0].Packages[0].Package = modulePath
-	}
-	if stdlib.Contains(r.Modules[0].Module) && r.Modules[0].Packages[0].Package == "" {
-		r.Modules[0].Packages[0].Package = modulePath
+	// New standard library and x/ repo CVEs are likely maintained by
+	// the Go CNA.
+	if stdlib.IsStdModule(modulePath) || stdlib.IsCmdModule(modulePath) ||
+		stdlib.IsXModule(modulePath) {
+		r.CVEMetadata = &CVEMeta{
+			ID:  c.Metadata.ID,
+			CWE: "TODO",
+		}
+	} else {
+		r.CVEs = []string{c.Metadata.ID}
 	}
 	r.Fix()
 	return r

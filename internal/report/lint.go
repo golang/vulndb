@@ -389,11 +389,11 @@ func (r *Report) Lint(filename string) []string {
 }
 
 func (m *Module) IsStdLib() bool {
-	return m.Module == stdlib.ModulePath
+	return stdlib.IsStdModule(m.Module)
 }
 
 func (m *Module) IsToolchain() bool {
-	return m.Module == stdlib.ToolchainModulePath
+	return stdlib.IsCmdModule(m.Module)
 }
 
 var commitHashRegex = regexp.MustCompile(`^[a-f0-9]+$`)

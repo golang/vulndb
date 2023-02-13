@@ -30,3 +30,15 @@ func Contains(path string) bool {
 	}
 	return !strings.Contains(path, ".")
 }
+
+func IsStdModule(path string) bool {
+	return path == ModulePath
+}
+
+func IsCmdModule(path string) bool {
+	return path == ToolchainModulePath
+}
+
+func IsXModule(path string) bool {
+	return strings.HasPrefix(path, "golang.org/x/")
+}
