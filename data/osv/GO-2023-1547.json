@@ -1,0 +1,83 @@
+{
+  "id": "GO-2023-1547",
+  "published": "0001-01-01T00:00:00Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-25165",
+    "GHSA-pwcw-6f5g-gxf8"
+  ],
+  "details": "An information disclosure vulnerability exists in the `getHostByName` template function.\n\n`getHostByName` is a Helm template function introduced in Helm v3. The function is able to accept a hostname and return an IP address for that hostname. To get the IP address the function performs a DNS lookup. The DNS lookup happens when used with `helm install|upgrade|template` or when the Helm SDK is used to render a chart.\n\nInformation passed into the chart can be disclosed to the DNS servers used to lookup the IP address. For example, a malicious chart could inject `getHostByName` into a chart in order to disclose values to a malicious DNS server.",
+  "affected": [
+    {
+      "package": {
+        "name": "helm.sh/helm/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.11.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2023-1547"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "helm.sh/helm/v3/cmd/helm",
+            "symbols": [
+              "addInstallFlags",
+              "main",
+              "newUpgradeCmd"
+            ]
+          },
+          {
+            "path": "helm.sh/helm/v3/pkg/action",
+            "symbols": [
+              "Configuration.renderResources",
+              "Install.Run",
+              "Install.RunWithContext",
+              "Lint.Run",
+              "Upgrade.Run",
+              "Upgrade.RunWithContext",
+              "Upgrade.prepareUpgrade"
+            ]
+          },
+          {
+            "path": "helm.sh/helm/v3/pkg/engine",
+            "symbols": [
+              "Engine.Render",
+              "Engine.initFunMap",
+              "Render",
+              "RenderWithClient"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/helm/helm/security/advisories/GHSA-pwcw-6f5g-gxf8"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/helm/helm/commit/293b50c65d4d56187cd4e2f390f0ada46b4c4737"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Philipp Stehle of SAP"
+    }
+  ],
+  "schema_version": "1.3.1"
+}
