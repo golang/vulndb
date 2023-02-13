@@ -547,7 +547,7 @@ func addTODOs(r *report.Report) {
 			}}
 		}
 		if m.VulnerableAt == "" {
-			m.VulnerableAt = todo
+			m.VulnerableAt = todo + " [and/or add skip_fix to skip a package]"
 		}
 		for _, p := range m.Packages {
 			if p.Package == "" {
@@ -555,9 +555,6 @@ func addTODOs(r *report.Report) {
 			}
 			if len(p.Symbols) == 0 {
 				p.Symbols = []string{todo}
-			}
-			if m.VulnerableAt == todo {
-				p.SkipFix = todo + " [or remove to derive symbols]"
 			}
 		}
 	}
