@@ -1,0 +1,65 @@
+{
+  "id": "GO-2023-1548",
+  "published": "0001-01-01T00:00:00Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-25163",
+    "GHSA-mv6w-j4xc-qpfw"
+  ],
+  "details": "Argo CD has an output sanitization bug which leaks repository access credentials in error messages.\n\nThese error messages are visible to the user, and they are logged. The error message is visible when a user attempts to create or update an Application via the Argo CD API (and therefor the UI or CLI).\n\nThe user must have `applications, create` or `applications, update` RBAC access to reach the code which may produce the error. The user is not guaranteed to be able to trigger the error message. They may attempt to spam the API with requests to trigger a rate limit error from the upstream repository.\n\nIf the user has `repositories, update` access, they may edit an existing repository to introduce a URL typo or otherwise force an error message.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-cd/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.6.0-rc1"
+            },
+            {
+              "fixed": "2.6.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2023-1548"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/argoproj/argo-cd/v2/util/argo",
+            "symbols": [
+              "ValidateRepo",
+              "validateRepo"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/argoproj/argo-cd/security/advisories/GHSA-mv6w-j4xc-qpfw"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/argoproj/argo-cd/issues/12309"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-cd/pull/12320"
+    }
+  ],
+  "credits": [
+    {
+      "name": "James Callahan"
+    }
+  ],
+  "schema_version": "1.3.1"
+}

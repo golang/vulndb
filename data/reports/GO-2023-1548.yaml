@@ -1,0 +1,39 @@
+modules:
+  - module: github.com/argoproj/argo-cd/v2
+    versions:
+      - introduced: 2.6.0-rc1
+      - fixed: 2.6.1
+    vulnerable_at: 2.6.0
+    packages:
+      - package: github.com/argoproj/argo-cd/v2/util/argo
+        symbols:
+          - validateRepo
+        derived_symbols:
+          - ValidateRepo
+description: |-
+    Argo CD has an output sanitization bug which leaks repository access
+    credentials in error messages.
+
+    These error messages are visible to the user, and they are logged.
+    The error message is visible when a user attempts to create or
+    update an Application via the Argo CD API (and therefor the UI or
+    CLI).
+
+    The user must have `applications, create` or `applications, update`
+    RBAC access to reach the code which may produce the error. The user
+    is not guaranteed to be able to trigger the error message. They may
+    attempt to spam the API with requests to trigger a rate limit error
+    from the upstream repository.
+
+    If the user has `repositories, update` access, they may edit an
+    existing repository to introduce a URL typo or otherwise force an
+    error message.
+cves:
+  - CVE-2023-25163
+ghsas:
+  - GHSA-mv6w-j4xc-qpfw
+credit: James Callahan
+references:
+  - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-mv6w-j4xc-qpfw
+  - report: https://github.com/argoproj/argo-cd/issues/12309
+  - fix: https://github.com/argoproj/argo-cd/pull/12320
