@@ -1,0 +1,73 @@
+{
+  "id": "GO-2023-1557",
+  "published": "0001-01-01T00:00:00Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-23625",
+    "GHSA-q264-w97q-q778"
+  ],
+  "details": "Trying to read malformed HAMT sharded directories can cause panics and virtual memory leaks. If you are reading untrusted user input, an attacker can then trigger a panic.\n\nThis is caused by bogus `fanout` parameter in the HAMT directory nodes. A workaround is to not feed untrusted user data to the decoding functions.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/ipfs/go-unixfs",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.4.3"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2023-1557"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/ipfs/go-unixfs/hamt",
+            "symbols": [
+              "NewHamtFromDag",
+              "NewShard",
+              "NewShardValue",
+              "Shard.EnumLinks",
+              "Shard.EnumLinksAsync",
+              "Shard.Find",
+              "Shard.ForEachLink",
+              "Shard.Remove",
+              "Shard.Set",
+              "Shard.SetLink",
+              "Shard.Swap",
+              "Shard.Take",
+              "makeShard",
+              "newChilder"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-q264-w97q-q778"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/ipfs/go-unixfs/commit/467d139a640ecee4f2e74643dafcc58bb3b54175"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Jorropo"
+    }
+  ],
+  "schema_version": "1.3.1"
+}
