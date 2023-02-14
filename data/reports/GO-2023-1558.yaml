@@ -1,0 +1,26 @@
+modules:
+  - module: github.com/ipfs/go-bitfield
+    versions:
+      - fixed: 1.1.0
+    vulnerable_at: 1.0.0
+    packages:
+      - package: github.com/ipfs/go-bitfield
+        symbols:
+          - NewBitfield
+          - FromBytes
+description: |
+    When feeding untrusted user input into the size parameter of `NewBitfield`
+    and FromBytes functions, an attacker can trigger panics.
+
+    This happens when the size is a not a multiple of 8 or is negative.
+
+    A workaround is to ensure size%8 == 0 && size >= 0 yourself before calling
+    NewBitfield or FromBytes.
+cves:
+  - CVE-2023-23626
+ghsas:
+  - GHSA-2h6c-j3gf-xp9r
+credit: Jorropo
+references:
+  - advisory: https://github.com/ipfs/go-bitfield/security/advisories/GHSA-2h6c-j3gf-xp9r
+  - fix: https://github.com/ipfs/go-bitfield/commit/5e1d256fe043fc4163343ccca83862c69c52e579
