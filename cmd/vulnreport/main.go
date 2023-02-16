@@ -441,7 +441,9 @@ func newReport(ctx context.Context, cfg *createCfg, parsed *parsedIssue) (*repor
 
 	// Fill an any CVEs and GHSAs we found that may have been missed
 	// in report creation.
-	r.CVEs = dedupeAndSort(append(r.CVEs, parsed.cves...))
+	if r.CVEMetadata == nil {
+		r.CVEs = dedupeAndSort(append(r.CVEs, parsed.cves...))
+	}
 	r.GHSAs = dedupeAndSort(append(r.GHSAs, parsed.ghsas...))
 
 	return r, nil

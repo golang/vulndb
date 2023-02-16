@@ -160,14 +160,14 @@ func CVEToReport(c *cveschema.CVE, modulePath string) *Report {
 			pkgPath = data2[0].ProductName
 		}
 	}
+	if stdlib.Contains(modulePath) {
+		pkgPath = modulePath
+		modulePath = stdlib.ModulePath
+	}
 	if modulePath == "" {
 		modulePath = "TODO"
 	}
 	if pkgPath == "" {
-		pkgPath = modulePath
-	}
-	if stdlib.Contains(modulePath) {
-		modulePath = stdlib.ModulePath
 		pkgPath = modulePath
 	}
 	r := &Report{
