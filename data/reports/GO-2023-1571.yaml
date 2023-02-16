@@ -1,0 +1,35 @@
+modules:
+  - module: std
+    versions:
+      - fixed: 1.19.6
+      - introduced: 1.20.0
+        fixed: 1.20.1
+    vulnerable_at: 1.20.0
+    packages:
+      - package: net/http
+  - module: golang.org/x/net
+    versions:
+      - fixed: 0.7.0
+    vulnerable_at: 0.6.1-0.20230213185550-547e7edf3873
+    packages:
+      - package: golang.org/x/net/http2
+      - package: golang.org/x/net/http2/hpack
+        symbols:
+          - Decoder.parseFieldLiteral
+          - Decoder.readString
+        derived_symbols:
+          - Decoder.DecodeFull
+          - Decoder.Write
+description: |
+    A maliciously crafted HTTP/2 stream could cause excessive CPU consumption
+    in the HPACK decoder, sufficient to cause a denial of service from a small
+    number of small requests.
+credit: Philippe Antoine (Catena cyber)
+references:
+  - report: https://go.dev/issue/57855
+  - fix: https://go.dev/cl/468135
+  - fix: https://go.dev/cl/468295
+  - web: https://groups.google.com/g/golang-announce/c/V0aBFqaFs_E
+cve_metadata:
+    id: CVE-2022-41723
+    cwe: 'CWE 400: Uncontrolled Resource Consumption'
