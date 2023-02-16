@@ -1,0 +1,26 @@
+modules:
+  - module: github.com/openshift/apiserver-library-go
+    versions:
+      - fixed: 0.0.0-20230119093715-30f75d79e424
+    vulnerable_at: 0.0.0-20221118165437-6006085c7412
+    packages:
+      - package: github.com/openshift/apiserver-library-go/pkg/securitycontextconstraints/seccomp
+        symbols:
+          - strategy.validateProfile
+        derived_symbols:
+          - strategy.ValidateContainer
+          - strategy.ValidatePod
+description: |
+    Low-privileged users can set the seccomp profile for pods they control to "unconfined."
+
+    By default, the seccomp profile used in the restricted-v2 Security Context
+    Constraint (SCC) is "runtime/default," allowing users to disable seccomp
+    for pods they can create and modify.
+cves:
+  - CVE-2023-0229
+ghsas:
+  - GHSA-5465-xc2j-6p84
+references:
+  - advisory: https://github.com/advisories/GHSA-5465-xc2j-6p84
+  - fix: https://github.com/openshift/apiserver-library-go/pull/97
+  - fix: https://github.com/openshift/apiserver-library-go/commit/30f75d79e424ca462c6de53ee8b93f91183763e6
