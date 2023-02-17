@@ -1,0 +1,34 @@
+modules:
+  - module: github.com/containerd/containerd
+    versions:
+      - introduced: 1.6.0
+        fixed: 1.6.18
+    vulnerable_at: 1.6.0
+    packages:
+      - package: github.com/containerd/containerd/images/archive
+        symbols:
+          - onUntarJSON
+          - ImportIndex
+  - module: github.com/containerd/containerd
+    versions:
+      - fixed: 1.5.18
+    vulnerable_at: 1.5.17
+    packages:
+      - package: github.com/containerd/containerd/images/archive
+        symbols:
+          - onUntarJSON
+          - ImportIndex
+description: |
+    When importing an OCI image, there was no limit on the number of bytes
+    read from the io.Reader passed into ImportIndex. A large number of bytes could be
+    read from this and could cause a denial of service.
+cves:
+  - CVE-2023-25153
+ghsas:
+  - GHSA-259w-8hf6-59c2
+credit: '@AdamKorcz and @DavidKorczynski'
+references:
+  - advisory: https://github.com/containerd/containerd/security/advisories/GHSA-259w-8hf6-59c2
+  - fix: https://github.com/containerd/containerd/commit/0c314901076a74a7b797a545d2f462285fdbb8c4
+  - web: https://github.com/containerd/containerd/releases/tag/v1.5.18
+  - web: https://github.com/containerd/containerd/releases/tag/v1.6.18
