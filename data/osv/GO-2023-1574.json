@@ -1,0 +1,132 @@
+{
+  "id": "GO-2023-1574",
+  "published": "0001-01-01T00:00:00Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-25173",
+    "GHSA-hmfx-3pcx-653p"
+  ],
+  "details": "Supplementary groups are not set up properly inside a container. If an attacker has direct access to a container and manipulates their supplementary group access, they may be able to use supplementary group access to bypass primary group restrictions in some cases and potentially excalate privledges in the container. Uses of the containerd client library may also have improperly setup supplementary groups.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/containerd/containerd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.6.0"
+            },
+            {
+              "fixed": "1.6.18"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2023-1574"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/containerd/containerd/oci",
+            "symbols": [
+              "WithAdditionalGIDs",
+              "WithUIDGID",
+              "WithUser",
+              "WithUserID",
+              "WithUsername"
+            ]
+          },
+          {
+            "path": "github.com/containerd/containerd/pkg/cri/server",
+            "symbols": [
+              "criService.CreateContainer",
+              "criService.containerSpecOpts",
+              "instrumentedAlphaService.CreateContainer",
+              "instrumentedService.CreateContainer"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/containerd/containerd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.5.18"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2023-1574"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/containerd/containerd/oci",
+            "symbols": [
+              "WithAdditionalGIDs",
+              "WithUIDGID",
+              "WithUser",
+              "WithUserID",
+              "WithUsername"
+            ]
+          },
+          {
+            "path": "github.com/containerd/containerd/pkg/cri/server",
+            "symbols": [
+              "criService.CreateContainer",
+              "criService.containerSpecOpts",
+              "instrumentedService.CreateContainer"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/containerd/containerd/security/advisories/GHSA-hmfx-3pcx-653p"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/moby/moby/security/advisories/GHSA-rc4r-wh2q-q6c4"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/containerd/containerd/commit/133f6bb6cd827ce35a5fb279c1ead12b9d21460a"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/advisories/GHSA-4wjj-jwc9-2x96"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/advisories/GHSA-fjm8-m7m6-2fjp"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/advisories/GHSA-phjr-8j92-w5v7"
+    },
+    {
+      "type": "ARTICLE",
+      "url": "https://www.benthamsgaze.org/2022/08/22/vulnerability-in-linux-containers-investigation-and-mitigation/"
+    }
+  ],
+  "schema_version": "1.3.1"
+}
