@@ -7,6 +7,7 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"errors"
 	"flag"
@@ -705,14 +706,36 @@ func findExportedSymbols(m *report.Module, p *report.Package, c *reportClient) (
 		return nil, err
 	}
 	defer cleanup()
+
+	// This procedure was developed through trial and error finding a way
+	// to load symbols for GO-2023-1549, which has a dependency tree that
+	// includes go.mod files that reference v0.0.0 versions which do not exist.
+	//
+	// Create an empty go.mod.
 	if err := run("go", "mod", "init", "go.dev/_"); err != nil {
 		return nil, err
 	}
-	if !m.IsStdLib() {
-		pkgPathAndVersion := p.Package + "@" + m.VulnerableAt.V()
-		if err := run("go", "get", pkgPathAndVersion); err != nil {
+	// Require the module we're interested in at the vulnerable_at version.
+	if err := run("go", "mod", "edit", "-require", m.Module+"@"+m.VulnerableAt.V()); err != nil {
+		return nil, err
+	}
+	for _, req := range m.VulnerableAtRequires {
+		if err := run("go", "mod", "edit", "-require", req); err != nil {
 			return nil, err
 		}
+	}
+	// Create a package that imports the package we're interested in.
+	var content bytes.Buffer
+	fmt.Fprintf(&content, "package p\n")
+	fmt.Fprintf(&content, "import _ %q\n", p.Package)
+	for _, req := range m.VulnerableAtRequires {
+		pkg, _, _ := strings.Cut(req, "@")
+		fmt.Fprintf(&content, "import _ %q", pkg)
+	}
+	os.WriteFile("p.go", content.Bytes(), 0666)
+	// Run go mod tidy.
+	if err := run("go", "mod", "tidy"); err != nil {
+		return nil, err
 	}
 
 	pkgs, err := loadPackage(&packages.Config{}, p.Package)

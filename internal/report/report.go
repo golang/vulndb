@@ -59,8 +59,11 @@ type Module struct {
 	// In general, we want to use the most recent vulnerable version of
 	// the package. Determining this programmatically is difficult, especially
 	// for packages without tagged versions, so we specify it manually here.
-	VulnerableAt Version    `yaml:"vulnerable_at,omitempty"`
-	Packages     []*Package `yaml:",omitempty"`
+	VulnerableAt Version `yaml:"vulnerable_at,omitempty"`
+	// Additional list of module@version to require when performing static analysis.
+	// It is rare that we need to specify this.
+	VulnerableAtRequires []string   `yaml:"vulnerable_at_requires,omitempty"`
+	Packages             []*Package `yaml:",omitempty"`
 }
 
 type Package struct {

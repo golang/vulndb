@@ -3,13 +3,17 @@ modules:
     versions:
       - fixed: 2.7.0-rc.0+incompatible
     vulnerable_at: 2.6.2+incompatible
+    vulnerable_at_requires:
+      - github.com/Sirupsen/logrus@v1.0.6
     packages:
       - package: github.com/docker/distribution/registry/handlers
         symbols:
           - copyFullPayload
         derived_symbols:
+          - NewApp
           - blobUploadHandler.PatchBlobData
           - blobUploadHandler.PutBlobUploadComplete
+          - catalogHandler.GetCatalog
           - imageManifestHandler.GetImageManifest
           - imageManifestHandler.PutImageManifest
       - package: github.com/docker/distribution/registry/storage
