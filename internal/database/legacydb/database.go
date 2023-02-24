@@ -2,9 +2,9 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package database provides functionality for generating, reading, writing,
-// and validating vulnerability databases.
-package database
+// Package legacydb provides functionality for generating, reading, writing,
+// and validating vulnerability databases according to the legacy schema.
+package legacydb
 
 import (
 	"context"
@@ -22,7 +22,8 @@ import (
 )
 
 // Database is an in-memory representation of a Go vulnerability database,
-// following the specification at https://go.dev/security/vuln/database#api.
+// following the legacy specification at
+// https://go.dev/security/vuln/database#api.
 type Database struct {
 	// A map from module names to the last modified time.
 	// Represents $dbPath/index.json

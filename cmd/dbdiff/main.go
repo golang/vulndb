@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 // Command dbdiff provides a tool for comparing two different versions of the
-// vulnerability database.
+// vulnerability database in legacy format.
 package main
 
 import (
@@ -11,7 +11,7 @@ import (
 	"log"
 	"os"
 
-	"golang.org/x/vulndb/internal/database"
+	"golang.org/x/vulndb/internal/database/legacydb"
 )
 
 func main() {
@@ -19,7 +19,7 @@ func main() {
 		fmt.Fprintln(os.Stderr, "usage: dbdiff db-a db-b")
 		os.Exit(1)
 	}
-	if err := database.Diff(os.Args[1], os.Args[2]); err != nil {
+	if err := legacydb.Diff(os.Args[1], os.Args[2]); err != nil {
 		log.Fatal(err)
 	}
 }

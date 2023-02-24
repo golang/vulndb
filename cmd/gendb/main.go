@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 // Command gendb provides a tool for converting YAML reports into JSON
-// database.
+// Go vulnerability databases in the legacy format.
 package main
 
 import (
@@ -11,7 +11,7 @@ import (
 	"flag"
 	"log"
 
-	"golang.org/x/vulndb/internal/database"
+	"golang.org/x/vulndb/internal/database/legacydb"
 	"golang.org/x/vulndb/internal/gitrepo"
 )
 
@@ -28,7 +28,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	if err := database.Generate(ctx, repo, *jsonDir, *indent); err != nil {
+	if err := legacydb.Generate(ctx, repo, *jsonDir, *indent); err != nil {
 		log.Fatal(err)
 	}
 }

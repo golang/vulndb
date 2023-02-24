@@ -2,14 +2,14 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Command checkdb validates Go vulnerability databases.
+// Command checkdb validates Go vulnerability databases in the legacy format.
 package main
 
 import (
 	"flag"
 	"log"
 
-	"golang.org/x/vulndb/internal/database"
+	"golang.org/x/vulndb/internal/database/legacydb"
 )
 
 func main() {
@@ -18,7 +18,7 @@ func main() {
 	if path == "" {
 		log.Fatal("path must be set\nusage: checkdb [path]")
 	}
-	if _, err := database.Load(path); err != nil {
+	if _, err := legacydb.Load(path); err != nil {
 		log.Fatal(err)
 	}
 }
