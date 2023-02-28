@@ -1,4 +1,21 @@
 modules:
+  - module: github.com/astaxie/beego
+    vulnerable_at: 1.12.3
+    packages:
+      - package: github.com/astaxie/beego
+        symbols:
+          - Tree.Match
+        derived_symbols:
+          - App.Run
+          - ControllerRegister.FindPolicy
+          - ControllerRegister.FindRouter
+          - ControllerRegister.ServeHTTP
+          - FilterRouter.ValidRouter
+          - InitBeegoBeforeTest
+          - Run
+          - RunWithMiddleWares
+          - TestBeegoInit
+          - adminApp.Run
   - module: github.com/beego/beego
     versions:
       - fixed: 1.12.11

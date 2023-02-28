@@ -10,6 +10,45 @@
   "affected": [
     {
       "package": {
+        "name": "github.com/astaxie/beego",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2022-0463"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/astaxie/beego",
+            "symbols": [
+              "App.Run",
+              "ControllerRegister.FindPolicy",
+              "ControllerRegister.FindRouter",
+              "ControllerRegister.ServeHTTP",
+              "FilterRouter.ValidRouter",
+              "InitBeegoBeforeTest",
+              "Run",
+              "RunWithMiddleWares",
+              "TestBeegoInit",
+              "Tree.Match",
+              "adminApp.Run"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
         "name": "github.com/beego/beego",
         "ecosystem": "Go"
       },
