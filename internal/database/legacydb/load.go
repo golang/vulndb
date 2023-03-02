@@ -16,6 +16,7 @@ import (
 	"golang.org/x/exp/slices"
 	"golang.org/x/vuln/client"
 	"golang.org/x/vuln/osv"
+	dbv1 "golang.org/x/vulndb/internal/database"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/report"
 )
@@ -87,6 +88,9 @@ func (d *Database) checkNoUnexpectedFiles(dbPath string) error {
 		switch {
 		// Skip directories.
 		case f.IsDir():
+			return nil
+		// Skip files in the v1 spec.
+		case ext == ".gz" || dbv1.IsIndexEndpoint(fname):
 			return nil
 		// In the top-level directory, web files and index files are OK.
 		case dir == dbPath && isIndexOrWebFile(fname, ext):
