@@ -29,11 +29,6 @@ steps:
       - -ec
       - go test ./...
 
-  - id: Generate
-    name: golang:1.19.2
-    entrypoint: bash
-    args: ["-c", "go run ./cmd/gendb -out /workspace/db"]
-
   - id: CopyExisting
     name: gcr.io/cloud-builders/gsutil
     entrypoint: bash
@@ -41,12 +36,22 @@ steps:
       - -ec
       - gsutil -q -m cp -r gs://go-vulndb /workspace
 
+  - id: GenerateLegacy
+    name: golang:1.19.2
+    entrypoint: bash
+    args: ["-c", "go run ./cmd/gendb -out /workspace/legacydb -legacy"]
+
+  - id: Generate
+    name: golang:1.19.2
+    entrypoint: bash
+    args: ["-c", "go run ./cmd/gendb -out /workspace/db"]
+
   - id: Validate
     name: golang:1.19.2
     entrypoint: bash
     args:
       - -ec
-      - go run ./cmd/checkdeploy -new /workspace/db -existing /workspace/go-vulndb
+      - go run ./cmd/checkdeploy -new /workspace/db -existing /workspace/go-vulndb -legacy /workspace/legacydb
 
   - id: Deploy
     name: gcr.io/cloud-builders/gsutil

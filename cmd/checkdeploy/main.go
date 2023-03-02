@@ -3,19 +3,21 @@
 // license that can be found in the LICENSE file.
 
 // Command checkdeploy validates that it is safe to deploy a new
-// vulnerability database in the legacy format.
+// vulnerability database.
 package main
 
 import (
 	"flag"
 	"log"
 
+	db "golang.org/x/vulndb/internal/database"
 	"golang.org/x/vulndb/internal/database/legacydb"
 )
 
 var (
-	newPath      = flag.String("new", "", "path to new database")
-	existingPath = flag.String("existing", "", "path to existing database")
+	newPath       = flag.String("new", "", "path to new database")
+	newLegacyPath = flag.String("legacy", "", "path to the new database in the legacy schema (optional)")
+	existingPath  = flag.String("existing", "", "path to existing database")
 )
 
 func main() {
@@ -26,7 +28,15 @@ func main() {
 	if *existingPath == "" {
 		log.Fatalf("flag -existing must be set")
 	}
-	if err := legacydb.Validate(*newPath, *existingPath); err != nil {
+	if err := db.Validate(*newPath, *existingPath); err != nil {
 		log.Fatal(err)
+	}
+	if *newLegacyPath != "" {
+		if err := legacydb.Validate(*newLegacyPath, *existingPath); err != nil {
+			log.Fatal(err)
+		}
+		if err := legacydb.Equivalent(*newPath, *newLegacyPath); err != nil {
+			log.Fatal(err)
+		}
 	}
 }

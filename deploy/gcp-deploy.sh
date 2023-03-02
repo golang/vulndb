@@ -5,8 +5,10 @@
 
 set -e
 
-# Deploy database files.
-gsutil -q -m cp -r /workspace/db/* gs://go-vulndb
+# Deploy legacy database files.
+gsutil -q -m cp -r /workspace/legacydb/* gs://go-vulndb
+
+# TODO(https://go.dev/issue/58816): Deploy v1 database files.
 
 # Deploy web files.
 for file in index 404 copyright privacy; do
