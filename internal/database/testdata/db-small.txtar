@@ -1,0 +1,89 @@
+// Copyright 2023 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+//
+// Test database for the Go vulnerability database v1 schema with one
+// entry.
+
+-- index/db.json --
+{
+    "modified": "2003-01-01T00:00:00Z"
+}
+
+-- index/vulns.json --
+[
+    {
+        "id": "GO-2000-0003",
+        "modified": "2003-01-01T00:00:00Z",
+        "aliases": [
+            "CVE-1999-3333",
+            "GHSA-xxxx-yyyy-zzzz"
+        ]
+    }
+]
+
+-- index/modules.json --
+[
+    {
+        "path": "example.com/module",
+        "vulns": [
+            {
+                "id": "GO-2000-0003",
+                "modified": "2003-01-01T00:00:00Z",
+                "fixed": "1.1.0"
+            }
+        ]
+    }
+]
+
+-- ID/GO-2000-0003.json --
+{
+  "id": "GO-2000-0003",
+  "published": "2000-01-01T00:00:00Z",
+  "modified": "2003-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-1999-3333",
+    "GHSA-xxxx-yyyy-zzzz"
+  ],
+  "details": "Some details",
+  "affected": [
+    {
+      "package": {
+        "name": "example.com/module",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.1.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2000-0003"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "example.com/module/package",
+            "symbols": [
+              "Symbol"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://example.com/cl/000"
+    }
+  ]
+}
