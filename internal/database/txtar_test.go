@@ -8,6 +8,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"os"
+	"path/filepath"
 
 	"golang.org/x/tools/txtar"
 )
@@ -37,6 +39,40 @@ func data(ar *txtar.Archive, filename string) ([]byte, error) {
 		}
 	}
 	return nil, fmt.Errorf("file %s not found", filename)
+}
+
+// txtarToDir writes the contents of a txtar file into a directory dir,
+// removing any whitespace from the contents.
+// It assumes that all "files" in the txtar file contain json.
+// If gzip is true, it adds a corresponding gzipped file for each file present.
+//
+// This a test helper function.
+func txtarToDir(filename string, dir string, gzip bool) error {
+	ar, err := txtar.ParseFile(filename)
+	if err != nil {
+		return err
+	}
+
+	for _, f := range ar.Files {
+		if err := os.MkdirAll(filepath.Join(dir, filepath.Dir(f.Name)), 0755); err != nil {
+			return err
+		}
+		data, err := removeWhitespace(f.Data)
+		if err != nil {
+			return err
+		}
+		fname := filepath.Join(dir, f.Name)
+		if err := os.WriteFile(fname, data, 0644); err != nil {
+			return err
+		}
+		if gzip {
+			if err := writeGzipped(fname+".gz", data); err != nil {
+				return err
+			}
+		}
+	}
+
+	return nil
 }
 
 func removeWhitespace(data []byte) ([]byte, error) {
