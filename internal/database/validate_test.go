@@ -31,8 +31,6 @@ func TestValidate(t *testing.T) {
 		}
 	})
 
-	// TODO(https://go.dev/issue/58816): Add a test for an invalid
-	// old DB once we change RawLoad to Load in Validate.
 	failTests := []struct {
 		name string
 		old  string
@@ -47,6 +45,11 @@ func TestValidate(t *testing.T) {
 			name: "invalid new db",
 			old:  small,
 			new:  invalid,
+		},
+		{
+			name: "invalid old db",
+			old:  invalid,
+			new:  big,
 		},
 	}
 	for _, test := range failTests {

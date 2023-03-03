@@ -6,7 +6,6 @@ package database
 
 import (
 	"fmt"
-	"path/filepath"
 
 	"golang.org/x/vuln/osv"
 	"golang.org/x/vulndb/internal/derrors"
@@ -23,11 +22,7 @@ func Validate(newPath, oldPath string) (err error) {
 		return err
 	}
 
-	// TODO(https://go.dev/issue/58816): Change this to Load(oldPath)
-	// once the v1 database deploys for the first time.
-	// On the first deploy, the old database will not be valid with
-	// respect to the v1 spec.
-	old, err := RawLoad(filepath.Join(oldPath, idDir))
+	old, err := Load(oldPath)
 	if err != nil {
 		return err
 	}
