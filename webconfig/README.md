@@ -17,7 +17,8 @@ In exceptional cases, the files may need to be manually copied into the bucket.
 To do this, run this script:
 
 ```sh
-for file in index 404 copyright privacy; do
+gsutil cp webconfig/index.html gs://go-vulndb
+for file in 404 copyright privacy; do
     gsutil -h "Content-Type:text/html" cp webconfig/$file.html gs://go-vulndb/$file
 done
 gsutil cp webconfig/favicon.ico gs://go-vulndb
@@ -33,7 +34,7 @@ The initial setup has already been completed and no further action is required.
 The go-vulndb bucket was configured to display these pages via:
 
 ```sh
-gsutil web set -m index -e 404 gs://go-vulndb
+gsutil web set -m index.html -e 404 gs://go-vulndb
 ```
 
 Use `gsutil web get gs://go-vulndb` to display the current configuration.
