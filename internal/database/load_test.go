@@ -14,7 +14,7 @@ import (
 
 func TestLoad(t *testing.T) {
 	tmp := t.TempDir()
-	gzip := true
+	gzip := false
 	if err := txtarToDir(validTxtar, tmp, gzip); err != nil {
 		t.Fatal(err)
 	}
@@ -34,51 +34,39 @@ func TestLoadError(t *testing.T) {
 	tests := []struct {
 		name    string
 		db      string
-		gzip    bool
 		wantErr string
 	}{
 		{
 			name:    "invalid db.json",
 			db:      invalidDBMetaTxtar,
-			gzip:    true,
 			wantErr: "db.json: contents do not match",
 		},
 		{
 			name:    "invalid modules.json",
 			db:      invalidModulesTxtar,
-			gzip:    true,
 			wantErr: "modules.json: contents do not match",
 		},
 		{
 			name:    "invalid vulns.json",
 			db:      invalidVulnsTxtar,
-			gzip:    true,
 			wantErr: "vulns.json: contents do not match",
 		},
 		{
 			name:    "invalid entry filename",
 			db:      invalidFilenameTxtar,
-			gzip:    true,
 			wantErr: "GO-1999-0001.json: no such file or directory",
 		},
 		{
 			name:    "unmarshalable entry contents",
 			db:      invalidEntriesTxtar,
-			gzip:    true,
 			wantErr: "cannot unmarshal",
-		},
-		{
-			name:    "not gzipped",
-			db:      validTxtar,
-			gzip:    false,
-			wantErr: "db.json.gz: no such file",
 		},
 	}
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
 			tmp := t.TempDir()
-			if err := txtarToDir(test.db, tmp, test.gzip); err != nil {
+			if err := txtarToDir(test.db, tmp, false); err != nil {
 				t.Fatal(err)
 			}
 
@@ -92,7 +80,7 @@ func TestLoadError(t *testing.T) {
 
 func TestRawLoad(t *testing.T) {
 	tmp := t.TempDir()
-	gzip := true
+	gzip := false
 	if err := txtarToDir(validTxtar, tmp, gzip); err != nil {
 		t.Fatal(err)
 	}

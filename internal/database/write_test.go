@@ -13,7 +13,7 @@ import (
 
 func TestWrite(t *testing.T) {
 	want := t.TempDir()
-	gzip := true
+	gzip := false
 	if err := txtarToDir(validTxtar, want, gzip); err != nil {
 		t.Fatal(err)
 	}
@@ -31,7 +31,7 @@ func TestWrite(t *testing.T) {
 func TestLoadWrite(t *testing.T) {
 	// Check that Load and Write are inverses.
 	want := t.TempDir()
-	gzip := true
+	gzip := false
 	if err := txtarToDir(validTxtar, want, gzip); err != nil {
 		t.Fatal(err)
 	}

@@ -85,15 +85,15 @@ func (db *Database) validateIndex(indexPath string) (err error) {
 	// Check that the index files are present and have the correct
 	// contents.
 	dbPath := filepath.Join(indexPath, dbEndpoint)
-	if err := checkFiles(dbPath, db.DB); err != nil {
+	if err := checkFiles(dbPath, db.DB, false); err != nil {
 		return err
 	}
 	modulesPath := filepath.Join(indexPath, modulesEndpoint)
-	if err := checkFiles(modulesPath, db.Modules); err != nil {
+	if err := checkFiles(modulesPath, db.Modules, false); err != nil {
 		return err
 	}
 	vulnsPath := filepath.Join(indexPath, vulnsEndpoint)
-	if err := checkFiles(vulnsPath, db.Vulns); err != nil {
+	if err := checkFiles(vulnsPath, db.Vulns, false); err != nil {
 		return err
 	}
 
@@ -119,7 +119,7 @@ func (db *Database) validateEntries(idPath string) (err error) {
 			return err
 		}
 		path := filepath.Join(idPath, entry.ID+".json")
-		if err = checkFiles(path, entry); err != nil {
+		if err = checkFiles(path, entry, false); err != nil {
 			return err
 		}
 		expected = append(expected, entry.ID+".json", entry.ID+".json.gz")
@@ -161,7 +161,7 @@ func validateEntry(entry osv.Entry) error {
 //     of marshaling v
 //   - the uncompressed contents of filepath+".gz" do not match the
 //     contents of filepath
-func checkFiles(filepath string, v any) (err error) {
+func checkFiles(filepath string, v any, requireGzip bool) (err error) {
 	defer derrors.Wrap(&err, "checkFiles(%q)", filepath)
 
 	contents, err := os.ReadFile(filepath)
@@ -175,12 +175,15 @@ func checkFiles(filepath string, v any) (err error) {
 	if string(contents) != string(marshaled) {
 		return fmt.Errorf("%s: contents do not match marshaled bytes", filepath)
 	}
-	gzipped, err := readGzipped(filepath + ".gz")
-	if err != nil {
-		return err
-	}
-	if string(contents) != string(gzipped) {
-		return fmt.Errorf("%s: contents do not match uncompressed file", filepath+".gz")
+
+	if requireGzip {
+		gzipped, err := readGzipped(filepath + ".gz")
+		if err != nil {
+			return err
+		}
+		if string(contents) != string(gzipped) {
+			return fmt.Errorf("%s: contents do not match uncompressed file", filepath+".gz")
+		}
 	}
 
 	return nil
