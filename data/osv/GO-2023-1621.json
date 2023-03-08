@@ -1,0 +1,71 @@
+{
+  "id": "GO-2023-1621",
+  "published": "0001-01-01T00:00:00Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-24532"
+  ],
+  "details": "The ScalarMult and ScalarBaseMult methods of the P256 Curve may return an incorrect result if called with some specific unreduced scalars (a scalar larger than the order of the curve).\n\nThis does not impact usages of crypto/ecdsa or crypto/ecdh.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.19.7"
+            },
+            {
+              "introduced": "1.20.0"
+            },
+            {
+              "fixed": "1.20.2"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2023-1621"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "crypto/internal/nistec",
+            "symbols": [
+              "P256OrdInverse",
+              "P256Point.ScalarBaseMult",
+              "P256Point.ScalarMult"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/58647"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/471255"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/3-TpUx48iQY"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Guido Vranken, via the Ethereum Foundation bug bounty program"
+    }
+  ],
+  "schema_version": "1.3.1"
+}
