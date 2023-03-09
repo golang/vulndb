@@ -9,22 +9,18 @@ set -e
 gsutil -q -m cp -r /workspace/legacydb/* gs://go-vulndb
 
 # Deploy v1 database files.
-# The "-z json" flag indicates that all JSON files will be compressed in
-# storage on the server, and sent compressed to clients that set the
-# "Accept-Encoding:gzip" header.
-# (Clients that do not set this header will receive the data uncompressed,
-# because the "no-transform" directive is removed in the step below).
-gsutil -m cp -z json -r /workspace/db/* gs://go-vulndb
-
-# Set metadata for all files.
 # The "no-cache" directive indicates that browsers may cache
 # the data but must first check that is is fresh by contacting the
 # origin server.
-# This step also removes the "no-transform" directive set automatically
-# by the "-z" flag above. (The "no-transform" directive instructs the server
-# to always compress the data, regardless of the Accept-Encoding header. We
-# don't want this behavior.)
-gsutil -m setmeta -h "Cache-Control:no-cache" -r gs://go-vulndb
+gsutil -m -h "Cache-Control:no-cache" cp -r /workspace/db/* gs://go-vulndb
+
+# Set metadata for all .gz files.
+# The "no-transform" directive instructs the server
+# to always send the data in its original form (i.e., compressed).
+gsutil -m setmeta -h "Cache-Control:no-cache, no-transform" \
+    -h "Content-Type:application/json" \
+    -h "Content-Encoding:gzip" \
+     -r gs://go-vulndb/*/*.gz
 
 # Deploy web files.
 # index.html is deployed as-is to avoid a name conflict with

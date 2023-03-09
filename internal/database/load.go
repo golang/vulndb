@@ -33,10 +33,12 @@ func Load(path string) (_ *Database, err error) {
 	if err != nil {
 		return nil, err
 	}
-	if err := db.validateIndex(filepath.Join(path, indexDir)); err != nil {
+
+	requireGzip := true
+	if err := db.validateIndex(filepath.Join(path, indexDir), requireGzip); err != nil {
 		return nil, err
 	}
-	if err := db.validateEntries(filepath.Join(path, idDir)); err != nil {
+	if err := db.validateEntries(filepath.Join(path, idDir), requireGzip); err != nil {
 		return nil, err
 	}
 	return db, nil
@@ -79,21 +81,21 @@ func RawLoad(vulnsPath string) (_ *Database, err error) {
 	return db, nil
 }
 
-func (db *Database) validateIndex(indexPath string) (err error) {
+func (db *Database) validateIndex(indexPath string, requireGzip bool) (err error) {
 	defer derrors.Wrap(&err, "validateIndex(%q)", indexPath)
 
 	// Check that the index files are present and have the correct
 	// contents.
 	dbPath := filepath.Join(indexPath, dbEndpoint)
-	if err := checkFiles(dbPath, db.DB, false); err != nil {
+	if err := checkFiles(dbPath, db.DB, requireGzip); err != nil {
 		return err
 	}
 	modulesPath := filepath.Join(indexPath, modulesEndpoint)
-	if err := checkFiles(modulesPath, db.Modules, false); err != nil {
+	if err := checkFiles(modulesPath, db.Modules, requireGzip); err != nil {
 		return err
 	}
 	vulnsPath := filepath.Join(indexPath, vulnsEndpoint)
-	if err := checkFiles(vulnsPath, db.Vulns, false); err != nil {
+	if err := checkFiles(vulnsPath, db.Vulns, requireGzip); err != nil {
 		return err
 	}
 
@@ -107,7 +109,7 @@ func (db *Database) validateIndex(indexPath string) (err error) {
 	return checkNoUnexpectedFiles(indexPath, expected)
 }
 
-func (db *Database) validateEntries(idPath string) (err error) {
+func (db *Database) validateEntries(idPath string, requireGzip bool) (err error) {
 	defer derrors.Wrap(&err, "validateEntries(%q)", idPath)
 
 	expected := []string{
@@ -119,7 +121,7 @@ func (db *Database) validateEntries(idPath string) (err error) {
 			return err
 		}
 		path := filepath.Join(idPath, entry.ID+".json")
-		if err = checkFiles(path, entry, false); err != nil {
+		if err = checkFiles(path, entry, requireGzip); err != nil {
 			return err
 		}
 		expected = append(expected, entry.ID+".json", entry.ID+".json.gz")

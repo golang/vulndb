@@ -12,10 +12,11 @@ import (
 )
 
 func (db *Database) Write(dir string) error {
-	if err := db.writeIndex(filepath.Join(dir, indexDir), false); err != nil {
+	gzip := true
+	if err := db.writeIndex(filepath.Join(dir, indexDir), gzip); err != nil {
 		return err
 	}
-	return db.writeEntries(filepath.Join(dir, idDir), false)
+	return db.writeEntries(filepath.Join(dir, idDir), gzip)
 }
 
 func (db *Database) writeIndex(dir string, gzip bool) error {
