@@ -46,11 +46,7 @@ func TestValidate(t *testing.T) {
 			old:  small,
 			new:  invalid,
 		},
-		{
-			name: "invalid old db",
-			old:  invalid,
-			new:  big,
-		},
+		// TODO(tatianabradley): test invalid old db after first deploy.
 	}
 	for _, test := range failTests {
 		t.Run(test.name, func(t *testing.T) {
