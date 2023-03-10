@@ -14,14 +14,6 @@ gsutil -q -m cp -r /workspace/legacydb/* gs://go-vulndb
 # origin server.
 gsutil -m -h "Cache-Control:no-cache" cp -r /workspace/db/* gs://go-vulndb
 
-# Set metadata for all .gz files.
-# The "no-transform" directive instructs the server
-# to always send the data in its original form (i.e., compressed).
-gsutil -m setmeta -h "Cache-Control:no-cache, no-transform" \
-    -h "Content-Type:application/json" \
-    -h "Content-Encoding:gzip" \
-     -r gs://go-vulndb/*/*.gz
-
 # Deploy web files.
 # index.html is deployed as-is to avoid a name conflict with
 # the "index/" folder, but other HTML files are deployed without the
