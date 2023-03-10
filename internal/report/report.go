@@ -184,6 +184,9 @@ type Report struct {
 
 	Modules []*Module `yaml:",omitempty"`
 
+	// Summary is a short phrase describing the vulnerability.
+	Summary string `yaml:",omitempty"`
+
 	// Description is the CVE description from an existing CVE. If we are
 	// assigning a CVE ID ourselves, use CVEMetadata.Description instead.
 	Description string     `yaml:",omitempty"`
