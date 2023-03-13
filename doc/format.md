@@ -128,6 +128,11 @@ The version at which the vulnerability was fixed.
 If this field is omitted, it is assumed that every version since the
 `introduced` version is vulnerable.
 
+## `vulnerable_at`
+
+The version (see above for format) at which the vulnerable symbols
+were obtained. Ideally, this is the version just prior to the fix.
+
 ## `description`
 
 type `string`
@@ -188,8 +193,10 @@ This should be filled in for Go project reports (standard library,
 golang.org/x, etc.). Use the text from the golang-announce email
 when available.
 
-For third-party reports, if `vulnreport create` finds CVE or GHSA metadata,
-use that. Otherwise, it's okay to leave this blank.
+For third-party reports, if `vulnreport create` finds CVE or GHSA metadata, use
+that. Also, look for a "Credits" heading on the GHSA report linked from the
+GitHub issue. Otherwise, it's okay to leave this blank.
+
 
 ## `references`
 

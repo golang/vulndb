@@ -96,14 +96,15 @@ new report to the database by following these steps:
 
 ### If the report is labeled `NeedsReport`
 
-1. Run `vulnreport create <GitHub issue number>`.
+1. From the repo root, run `vulnreport create <GitHub issue number>`.
    vulnreport will create a YAML report template for the CVE or GHSA at the
    specified GitHub issue number. This command works for both regular reports
    and excluded reports. It also accepts multiple Github issue numbers (space
    separated), and Github issue ranges (e.g., `1000-1010`).
 2. Edit the report file template.
-3. Run `vulnreport commit [<report file> | <Github issue number>]`. This will
-   lint the report, add exported symbols, convert the YAML to OSV, and commit
+3. From the repo root, run `vulnreport commit [<report file> | <Github issue number>]`.
+   (Example: `vulnreport commit 1623`.)
+   This will lint the report, add exported symbols, convert the YAML to OSV, and commit
    the new files with a standard commit message. Commits are to the local git
    repository. The `vulnreport commit` command also accepts multiple
    space-separated files/issue numbers, and will create a separate commit for
@@ -154,7 +155,7 @@ If the issue is indeed a duplicate:
 
 5. Mail the commit.
 
-### Standard Library Reports
+## Standard Library Reports
 
 When adding a vulnerability report about the standard library, ensure that the
 references section follows this format:
