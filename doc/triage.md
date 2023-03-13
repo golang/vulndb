@@ -102,7 +102,7 @@ new report to the database by following these steps:
    and excluded reports. It also accepts multiple Github issue numbers (space
    separated), and Github issue ranges (e.g., `1000-1010`).
 2. Edit the report file template.
-3. From the repo root, run `vulnreport commit [<report file> | <Github issue number>]`.
+3. From the repo root, run `vulnreport commit [<report file> | <GitHub issue number>]`.
    (Example: `vulnreport commit 1623`.)
    This will lint the report, add exported symbols, convert the YAML to OSV, and commit
    the new files with a standard commit message. Commits are to the local git
@@ -112,6 +112,10 @@ new report to the database by following these steps:
 4. Send the commit for review and approval. See the Go
    [contribution guide](https://go.dev/doc/contribute) for sending a change on
    Gerrit.
+5. If you make changes to the report during review, run
+   `vulnreport fix <GitHub issue number>` before re-mailing to update the OSV
+   and perform other useful actions.
+
 
 ### If the report is labeled `excluded: REASON`
 
