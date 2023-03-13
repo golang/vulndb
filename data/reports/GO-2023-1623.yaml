@@ -1,0 +1,45 @@
+modules:
+  - module: github.com/crossplane/crossplane-runtime
+    versions:
+      - introduced: 0.6.0
+        fixed: 0.16.1
+      - introduced: 0.17.0
+        fixed: 0.19.2
+    vulnerable_at: 0.19.1
+    packages:
+      - package: github.com/crossplane/crossplane-runtime/pkg/fieldpath
+        symbols:
+          - Paved.SetValue
+        derived_symbols:
+          - Paved.MergeValue
+          - Paved.SetBool
+          - Paved.SetNumber
+          - Paved.SetString
+summary: Out-of-memory panic in Paved.SetValue.
+description: |
+    An out of memory panic vulnerability exists in the crossplane-runtime
+    libraries.
+
+    Applications that use the Paved type's SetValue method with user-provided
+    input that is not properly validated might use excessive amounts of memory
+    and cause an out of memory panic.
+
+    In the fieldpath package, the Paved.SetValue method sets a value on the
+    Paved object according to the provided path, without any validation. This
+    allows setting values in slices at any provided index, which grows the
+    target array up to the requested index. The index is currently capped at max
+    uint32 (4294967295), a large value. If callers do not validate paths'
+    indexes on their own, this could allow users to consume arbitrary amounts of
+    memory.
+
+    Applications that do not use the Paved type's SetValue method are not affected.
+
+    Users unable to upgrade can work around this issue by parsing and validating
+    the path before passing it to the SetValue method of the Paved type,
+    constraining the index size as deemed appropriate.
+cves:
+  - CVE-2023-27483
+credit: Disclosed by Ada Logics in a fuzzing audit sponsored by CNCF.
+references:
+  - advisory: https://github.com/crossplane/crossplane-runtime/security/advisories/GHSA-vfvj-3m3g-m532
+  - fix: https://github.com/crossplane/crossplane-runtime/commit/53508a9f4374604db140dd8ab2fa52276441e738
