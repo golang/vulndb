@@ -114,15 +114,17 @@ new report to the database by following these steps:
 
 ### If the report is labeled `excluded: REASON`
 
-1. Run `vulnreport create-excluded`.
+1. Start a new branch in your vuldb clone for the commit that the next step
+   will create.
+2. Run `vulnreport create-excluded`.
    vulnreport will batch create YAML reports for all issues with the
    `excluded: REASON` label. If there is an error creating any given report,
-   the skipped issue number will be printed to stdout and said issue will have
+   the skipped issue number will be printed to stdout and that issue will have
    to be created manually with `vulnreport create <Github issue number>`.
-   (see steps 2-4 above for more information).  
+   (see steps 2-4 above for more information).
    Additionally, `create-excluded` will automatically create a single commit for
    all successful reports.
-2. Send the commit for review and approval. See the Go
+3. Send the commit for review and approval. See the Go
    [contribution guide](https://go.dev/doc/contribute) for sending a change on
    Gerrit.
 
