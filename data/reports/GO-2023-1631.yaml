@@ -1,0 +1,34 @@
+modules:
+  - module: google.golang.org/protobuf
+    versions:
+      - introduced: 1.29.0
+        fixed: 1.29.1
+    vulnerable_at: 1.29.0
+    packages:
+      - package: google.golang.org/protobuf/encoding/prototext
+        symbols:
+          - UnmarshalOptions.unmarshal
+        derived_symbols:
+          - Unmarshal
+          - UnmarshalOptions.Unmarshal
+      - package: google.golang.org/protobuf/internal/encoding/text
+        symbols:
+          - parseNumber
+        derived_symbols:
+          - Decoder.Peek
+          - Decoder.Read
+summary: |
+    Parsing invalid messages can panic.
+description: |
+    Parsing invalid messages can panic.
+
+    Parsing a text-format message which contains
+    a potential number consisting of a minus sign,
+    one or more characters of whitespace,
+    and no further input will cause a panic.
+references:
+  - fix: https://go.dev/cl/475995
+  - report: https://github.com/golang/protobuf/issues/1530
+cve_metadata:
+    id: CVE-2023-24535
+    cwe: 'CWE-125: Out-of-bounds Read'

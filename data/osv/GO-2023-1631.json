@@ -1,0 +1,64 @@
+{
+  "id": "GO-2023-1631",
+  "published": "0001-01-01T00:00:00Z",
+  "modified": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-24535"
+  ],
+  "details": "Parsing invalid messages can panic.\n\nParsing a text-format message which contains a potential number consisting of a minus sign, one or more characters of whitespace, and no further input will cause a panic.",
+  "affected": [
+    {
+      "package": {
+        "name": "google.golang.org/protobuf",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.29.0"
+            },
+            {
+              "fixed": "1.29.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2023-1631"
+      },
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "google.golang.org/protobuf/encoding/prototext",
+            "symbols": [
+              "Unmarshal",
+              "UnmarshalOptions.Unmarshal",
+              "UnmarshalOptions.unmarshal"
+            ]
+          },
+          {
+            "path": "google.golang.org/protobuf/internal/encoding/text",
+            "symbols": [
+              "Decoder.Peek",
+              "Decoder.Read",
+              "parseNumber"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/475995"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/golang/protobuf/issues/1530"
+    }
+  ],
+  "schema_version": "1.3.1"
+}
