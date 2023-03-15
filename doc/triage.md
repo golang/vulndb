@@ -153,9 +153,11 @@ If the issue is indeed a duplicate:
    as appropriate. (If the duplicate IDs are already present, close the GH
    issue.)
 
-4. Run `vulnreport -up commit NNN` to update generated files and create a
-   commit. Edit the generated commit message so that it includes the words
-   "add aliases".
+4. On a new branch, run `vulnreport -up commit NNN` to update generated files
+   and create a commit. Edit the generated commit message so that it includes
+   the words "add aliases".
+   You can also add "Fixes #DDDD" (the number of the duplicate issue) to the
+   commit message, or close it manually.
 
 5. Mail the commit.
 
