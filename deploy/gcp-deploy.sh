@@ -9,10 +9,7 @@ set -e
 gsutil -q -m cp -r /workspace/legacydb/* gs://go-vulndb
 
 # Deploy v1 database files.
-# The "no-cache" directive indicates that browsers may cache
-# the data but must first check that is is fresh by contacting the
-# origin server.
-gsutil -m -h "Cache-Control:no-cache" cp -r /workspace/db/* gs://go-vulndb
+gsutil -m cp -r /workspace/db/* gs://go-vulndb
 
 # Deploy web files.
 # index.html is deployed as-is to avoid a name conflict with
