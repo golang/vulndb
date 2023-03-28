@@ -15,9 +15,9 @@ import (
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
 	"golang.org/x/vuln/client"
-	"golang.org/x/vuln/osv"
 	dbv1 "golang.org/x/vulndb/internal/database"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/report"
 )
 

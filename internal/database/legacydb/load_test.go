@@ -11,7 +11,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"golang.org/x/vuln/client"
-	"golang.org/x/vuln/osv"
+	"golang.org/x/vulndb/internal/osv"
 )
 
 var (

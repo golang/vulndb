@@ -8,15 +8,17 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"sort"
 	"strings"
-	"time"
 
+	"golang.org/x/exp/maps"
 	"golang.org/x/tools/go/packages"
 	vdbclient "golang.org/x/vuln/client"
 	"golang.org/x/vuln/osv"
 	"golang.org/x/vuln/vulncheck"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/report"
+	"golang.org/x/vulndb/internal/stdlib"
 )
 
 // A reportClient is a vulndb.Client that returns the Entry for a single report.
@@ -29,8 +31,8 @@ type reportClient struct {
 // newReportClient creates a reportClient from a given report.
 func newReportClient(r *report.Report) *reportClient {
 	entries := map[string][]*osv.Entry{}
-	entry := r.GenerateOSVEntry("?", time.Time{})
-	for _, m := range report.ModulesForEntry(entry) {
+	entry := generateOSVEntry(r)
+	for _, m := range modulesForEntry(entry) {
 		entries[m] = append(entries[m], &entry)
 	}
 	return &reportClient{entry: &entry, entriesByModule: entries}
@@ -92,4 +94,65 @@ func affected(e *osv.Entry, version string) bool {
 		}
 	}
 	return false
+}
+
+// generateOSV creates a new OSV entry in the x/vuln OSV format.
+// The entry only contains an Affected field, because all other fields
+// are irrelevant for finding derived symbols.
+// Used temporarily in the transition away from x/vuln.
+func generateOSVEntry(r *report.Report) osv.Entry {
+	entry := osv.Entry{}
+
+	for _, m := range r.Modules {
+		name := m.Module
+		switch name {
+		case stdlib.ModulePath:
+			name = report.GoStdModulePath
+		case stdlib.ToolchainModulePath:
+			name = report.GoCmdModulePath
+		}
+		imps := make([]osv.EcosystemSpecificImport, 0)
+		for _, p := range m.Packages {
+			syms := append([]string{}, p.Symbols...)
+			syms = append(syms, p.DerivedSymbols...)
+			sort.Strings(syms)
+			imps = append(imps, osv.EcosystemSpecificImport{
+				Path:    p.Package,
+				GOOS:    p.GOOS,
+				GOARCH:  p.GOARCH,
+				Symbols: syms,
+			})
+		}
+		a := osv.AffectsRange{Type: osv.TypeSemver}
+		if len(m.Versions) == 0 || m.Versions[0].Introduced == "" {
+			a.Events = append(a.Events, osv.RangeEvent{Introduced: "0"})
+		}
+		for _, v := range m.Versions {
+			if v.Introduced != "" {
+				a.Events = append(a.Events, osv.RangeEvent{Introduced: v.Introduced.Canonical()})
+			}
+			if v.Fixed != "" {
+				a.Events = append(a.Events, osv.RangeEvent{Fixed: v.Fixed.Canonical()})
+			}
+		}
+		entry.Affected = append(entry.Affected, osv.Affected{
+			Package: osv.Package{
+				Name:      name,
+				Ecosystem: osv.GoEcosystem,
+			},
+			Ranges: osv.Affects{a},
+			EcosystemSpecific: osv.EcosystemSpecific{
+				Imports: imps,
+			},
+		})
+	}
+	return entry
+}
+
+func modulesForEntry(entry osv.Entry) []string {
+	mods := map[string]bool{}
+	for _, a := range entry.Affected {
+		mods[a.Package.Name] = true
+	}
+	return maps.Keys(mods)
 }

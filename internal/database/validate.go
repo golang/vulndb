@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"golang.org/x/vuln/osv"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/osv"
 )
 
 // Validate checks that the databases in newPath and oldPath are

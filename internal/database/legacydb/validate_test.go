@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"golang.org/x/vuln/osv"
+	"golang.org/x/vulndb/internal/osv"
 )
 
 var existingDir = "testdata/db/existing"

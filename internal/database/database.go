@@ -12,7 +12,7 @@ import (
 
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
-	"golang.org/x/vuln/osv"
+	"golang.org/x/vulndb/internal/osv"
 )
 
 // Database represents a Go Vulnerability Database in the v1 schema.

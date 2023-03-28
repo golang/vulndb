@@ -15,9 +15,9 @@ import (
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/object"
 	"golang.org/x/vuln/client"
-	"golang.org/x/vuln/osv"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/gitrepo"
+	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/report"
 )
 

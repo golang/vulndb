@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/google/go-cmp/cmp"
-	"golang.org/x/vuln/osv"
+	"golang.org/x/vulndb/internal/osv"
 )
 
 var (

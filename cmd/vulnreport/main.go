@@ -39,6 +39,7 @@ import (
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/report"
+	isem "golang.org/x/vulndb/internal/semver"
 )
 
 var (
@@ -675,7 +676,7 @@ func checkReportSymbols(r *report.Report) error {
 			// If some symbol is in the std library at a different version,
 			// we may derive the wrong symbols for this package and other.
 			// In this case, skip updating DerivedSymbols.
-			affected := report.AffectedRanges(m.Versions).AffectsSemver(ver.V())
+			affected := isem.AffectsSemver(report.AffectedRanges(m.Versions), ver.V())
 			if ver == "" || !affected {
 				fmt.Fprintf(os.Stderr, "Current Go version %q is not in a vulnerable range, skipping symbol checks.\n", gover)
 				continue

@@ -12,8 +12,8 @@ import (
 	"path/filepath"
 
 	"golang.org/x/exp/slices"
-	"golang.org/x/vuln/osv"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/report"
 )
 

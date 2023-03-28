@@ -14,19 +14,19 @@ import (
 	"time"
 
 	"golang.org/x/exp/maps"
-	"golang.org/x/vuln/osv"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/stdlib"
 )
 
 var (
-	// stdFileName is the name of the .json file in the vulndb repo
-	// that will contain info on standard library vulnerabilities.
-	stdFileName = "stdlib"
+	// GoStdModulePath is the internal Go module path string used
+	// when listing vulnerabilities in standard library.
+	GoStdModulePath = "stdlib"
 
-	// toolchainFileName is the name of the .json file in the vulndb repo
-	// that will contain info on toolchain (cmd/...) vulnerabilities.
-	toolchainFileName = "toolchain"
+	// GoCmdModulePath is the internal Go module path string used
+	// when listing vulnerabilities in the go command.
+	GoCmdModulePath = "toolchain"
 
 	// osvDir is the name of the directory in the vulndb repo that
 	// contains reports.
@@ -155,9 +155,9 @@ func generateAffected(m *Module, url string) osv.Affected {
 	name := m.Module
 	switch name {
 	case stdlib.ModulePath:
-		name = stdFileName
+		name = GoStdModulePath
 	case stdlib.ToolchainModulePath:
-		name = toolchainFileName
+		name = GoCmdModulePath
 	}
 	return osv.Affected{
 		Package: osv.Package{

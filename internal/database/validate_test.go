@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"golang.org/x/vuln/osv"
+	"golang.org/x/vulndb/internal/osv"
 )
 
 func TestValidate(t *testing.T) {

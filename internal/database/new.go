@@ -7,7 +7,7 @@ package database
 import (
 	"fmt"
 
-	"golang.org/x/vuln/osv"
+	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/report"
 )
 
