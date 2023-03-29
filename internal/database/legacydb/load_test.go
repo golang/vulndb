@@ -16,9 +16,9 @@ import (
 
 var (
 	validDir = "testdata/db/valid"
-	jan1999  = time.Date(1999, 1, 1, 0, 0, 0, 0, time.UTC)
-	jan2000  = time.Date(2000, 1, 1, 0, 0, 0, 0, time.UTC)
-	jan2002  = time.Date(2002, 1, 1, 0, 0, 0, 0, time.UTC)
+	jan1999  = osv.Time{Time: time.Date(1999, 1, 1, 0, 0, 0, 0, time.UTC)}
+	jan2000  = osv.Time{Time: time.Date(2000, 1, 1, 0, 0, 0, 0, time.UTC)}
+	jan2002  = osv.Time{Time: time.Date(2002, 1, 1, 0, 0, 0, 0, time.UTC)}
 	testOSV1 = &osv.Entry{
 		ID:        "GO-1999-0001",
 		Published: jan1999,
@@ -104,8 +104,8 @@ var (
 
 var valid = &Database{
 	Index: client.DBIndex{
-		"example.com/module":  jan2002,
-		"example.com/module2": jan2002,
+		"example.com/module":  jan2002.Time,
+		"example.com/module2": jan2002.Time,
 	},
 	EntriesByID: EntriesByID{"GO-1999-0001": testOSV1, "GO-2000-0002": testOSV2, "GO-2000-0003": testOSV3},
 	EntriesByModule: EntriesByModule{
@@ -212,7 +212,7 @@ func TestCheckInternalConsistency(t *testing.T) {
 		{
 			name: "incorrect modified timestamp in index",
 			db: &Database{
-				Index: client.DBIndex{"module": jan2000},
+				Index: client.DBIndex{"module": jan2000.Time},
 				EntriesByModule: EntriesByModule{"module": []*osv.Entry{
 					{ID: "GO-1999-0001", Modified: jan1999,
 						Affected: []osv.Affected{

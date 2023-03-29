@@ -46,7 +46,7 @@ func (db *Database) Add(entries ...osv.Entry) error {
 
 func (dbi *DBMeta) add(entry osv.Entry) {
 	if entry.Modified.After(dbi.Modified.Time) {
-		dbi.Modified = Time{entry.Modified}
+		dbi.Modified = entry.Modified
 	}
 }
 
@@ -62,7 +62,7 @@ func (m *ModulesIndex) add(entry osv.Entry) {
 		module := (*m)[modulePath]
 		module.Vulns = append(module.Vulns, ModuleVuln{
 			ID:       entry.ID,
-			Modified: Time{entry.Modified},
+			Modified: entry.Modified,
 			Fixed:    latestFixedVersion(affected.Ranges),
 		})
 	}
@@ -74,7 +74,7 @@ func (v *VulnsIndex) add(entry osv.Entry) error {
 	}
 	(*v)[entry.ID] = &Vuln{
 		ID:       entry.ID,
-		Modified: Time{entry.Modified},
+		Modified: entry.Modified,
 		Aliases:  entry.Aliases,
 	}
 	return nil

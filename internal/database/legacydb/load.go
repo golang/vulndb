@@ -10,7 +10,6 @@ import (
 	"path/filepath"
 	"reflect"
 	"strings"
-	"time"
 
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
@@ -144,9 +143,9 @@ func (d *Database) checkInternalConsistency() error {
 			return fmt.Errorf("no module directory found for indexed module %s", module)
 		}
 
-		var wantModified time.Time
+		var wantModified osv.Time
 		for _, entry := range entries {
-			if mod := entry.Modified; mod.After(wantModified) {
+			if mod := entry.Modified; mod.After(wantModified.Time) {
 				wantModified = mod
 			}
 
@@ -170,8 +169,8 @@ func (d *Database) checkInternalConsistency() error {
 				return fmt.Errorf("%s does not reference %s", entry.ID, module)
 			}
 		}
-		if modified != wantModified {
-			return fmt.Errorf("incorrect modified timestamp for module %s: want %s, got %s", module, wantModified, modified)
+		if modified != wantModified.Time {
+			return fmt.Errorf("incorrect modified timestamp for module %s: want %s, got %s", module, wantModified.Time, modified)
 		}
 	}
 
@@ -209,7 +208,7 @@ func (d *Database) checkInternalConsistency() error {
 				return fmt.Errorf("%s is not listed as an alias of %s in aliases.json", entry.ID, alias)
 			}
 		}
-		if entry.Published.After(entry.Modified) {
+		if entry.Published.After(entry.Modified.Time) {
 			return fmt.Errorf("%s: published time (%s) cannot be after modified time (%s)", entry.ID, entry.Published, entry.Modified)
 		}
 	}

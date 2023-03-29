@@ -31,7 +31,7 @@ type Database struct {
 type DBMeta struct {
 	// Modified is the time the database was last modified, calculated
 	// as the most recent time any single OSV entry was modified.
-	Modified Time `json:"modified"`
+	Modified osv.Time `json:"modified"`
 }
 
 // ModulesIndex is a map from module paths to module metadata.
@@ -84,7 +84,7 @@ type ModuleVuln struct {
 	// GO-<YEAR>-<ENTRYID>.
 	ID string `json:"id"`
 	// Modified is the time the vuln was last modified.
-	Modified Time `json:"modified"`
+	Modified osv.Time `json:"modified"`
 	// Fixed is the latest version that introduces a fix for the
 	// vulnerability, in SemVer 2.0.0 format, with no leading "v" prefix.
 	// (This is technically the earliest version V such that the
@@ -146,7 +146,7 @@ type Vuln struct {
 	// GO-<YEAR>-<ENTRYID>.
 	ID string `json:"id"`
 	// Modified is the time the vulnerability was last modified.
-	Modified Time `json:"modified"`
+	Modified osv.Time `json:"modified"`
 	// Aliases is a list of IDs for the same vulnerability in other
 	// databases.
 	Aliases []string `json:"aliases,omitempty"`

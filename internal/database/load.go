@@ -149,7 +149,7 @@ func validateEntry(entry osv.Entry) error {
 	if entry.Modified.IsZero() {
 		return fmt.Errorf("%s: modified time must be non-zero (found %s)", entry.ID, entry.Modified)
 	}
-	if entry.Published.After(entry.Modified) {
+	if entry.Published.After(entry.Modified.Time) {
 		return fmt.Errorf("%s: published time (%s) cannot be after modified time (%s)", entry.ID, entry.Published, entry.Modified)
 	}
 	return nil

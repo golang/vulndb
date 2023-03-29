@@ -140,7 +140,7 @@ func (d *Database) addEntry(entry *osv.Entry) {
 	for _, module := range report.ModulesForEntry(*entry) {
 		d.EntriesByModule[module] = append(d.EntriesByModule[module], entry)
 		if entry.Modified.After(d.Index[module]) {
-			d.Index[module] = entry.Modified
+			d.Index[module] = entry.Modified.Time
 		}
 	}
 	d.EntriesByID[entry.ID] = entry
@@ -154,9 +154,9 @@ func addTimestamps(entry *osv.Entry, dates gitrepo.Dates) {
 	// the authoritative source of truth.
 	// Otherwise, use the time of the earliest commit in the git history.
 	if entry.Published.IsZero() {
-		entry.Published = dates.Oldest
+		entry.Published = osv.Time{Time: dates.Oldest}
 	}
 
 	// The modified time is the time of the latest commit for the file.
-	entry.Modified = dates.Newest
+	entry.Modified = osv.Time{Time: dates.Newest}
 }

@@ -46,7 +46,7 @@ func validate(new, old *Database) error {
 		if newEntry.Published != oldEntry.Published {
 			return fmt.Errorf("%s: published time cannot change (new %s, old %s)", oldEntry.ID, newEntry.Published, oldEntry.Published)
 		}
-		if newEntry.Modified.Before(oldEntry.Modified) {
+		if newEntry.Modified.Before(oldEntry.Modified.Time) {
 			return fmt.Errorf("%s: modified time cannot decrease (new %s, old %s)", oldEntry.ID, newEntry.Modified, oldEntry.Modified)
 		}
 	}

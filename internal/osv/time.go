@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package database
+package osv
 
 import (
 	"encoding/json"
@@ -23,7 +23,7 @@ func (t Time) MarshalJSON() ([]byte, error) {
 }
 
 // UnmarshalJSON decodes an RFC3339-formatted string
-// (ending in "Z") into a Time struct. It errors if data
+// into a Time struct. It errors if data
 // is not a valid RFC3339-formatted string.
 func (t *Time) UnmarshalJSON(data []byte) error {
 	var s string

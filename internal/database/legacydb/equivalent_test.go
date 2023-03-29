@@ -14,7 +14,7 @@ import (
 
 func TestEquivalent(t *testing.T) {
 	ctx := context.Background()
-	testRepo, err := gitrepo.ReadTxtarRepo(testRepoDir, jan2002)
+	testRepo, err := gitrepo.ReadTxtarRepo(testRepoDir, jan2002.Time)
 	if err != nil {
 		t.Fatal(err)
 	}

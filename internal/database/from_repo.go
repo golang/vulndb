@@ -89,9 +89,9 @@ func addTimestamps(entry *osv.Entry, dates gitrepo.Dates) {
 	// the authoritative source of truth.
 	// Otherwise, use the time of the earliest commit in the git history.
 	if entry.Published.IsZero() {
-		entry.Published = dates.Oldest
+		entry.Published = osv.Time{Time: dates.Oldest}
 	}
 
 	// The modified time is the time of the latest commit for the file.
-	entry.Modified = dates.Newest
+	entry.Modified = osv.Time{Time: dates.Newest}
 }

@@ -13,10 +13,10 @@ import (
 )
 
 var (
-	jan1999  = time.Date(1999, 1, 1, 0, 0, 0, 0, time.UTC)
-	jan2000  = time.Date(2000, 1, 1, 0, 0, 0, 0, time.UTC)
-	jan2002  = time.Date(2002, 1, 1, 0, 0, 0, 0, time.UTC)
-	jan2003  = time.Date(2003, 1, 1, 0, 0, 0, 0, time.UTC)
+	jan1999  = osv.Time{Time: time.Date(1999, 1, 1, 0, 0, 0, 0, time.UTC)}
+	jan2000  = osv.Time{Time: time.Date(2000, 1, 1, 0, 0, 0, 0, time.UTC)}
+	jan2002  = osv.Time{Time: time.Date(2002, 1, 1, 0, 0, 0, 0, time.UTC)}
+	jan2003  = osv.Time{Time: time.Date(2003, 1, 1, 0, 0, 0, 0, time.UTC)}
 	testOSV1 = osv.Entry{
 		ID:        "GO-1999-0001",
 		Published: jan1999,
@@ -99,12 +99,12 @@ var (
 			{Type: "FIX", URL: "https://example.com/cl/000"},
 		}}
 	valid = &Database{
-		DB: DBMeta{Modified: Time{jan2003}},
+		DB: DBMeta{Modified: jan2003},
 		Modules: ModulesIndex{
-			"example.com/module": &Module{Path: "example.com/module", Vulns: []ModuleVuln{{ID: "GO-2000-0002", Modified: Time{jan2002}, Fixed: "1.2.0"}, {ID: "GO-2000-0003", Modified: Time{jan2003}, Fixed: "1.1.0"}}}, "stdlib": &Module{Path: "stdlib", Vulns: []ModuleVuln{{ID: "GO-1999-0001", Modified: Time{jan2000}, Fixed: "1.2.2"}}},
+			"example.com/module": &Module{Path: "example.com/module", Vulns: []ModuleVuln{{ID: "GO-2000-0002", Modified: jan2002, Fixed: "1.2.0"}, {ID: "GO-2000-0003", Modified: jan2003, Fixed: "1.1.0"}}}, "stdlib": &Module{Path: "stdlib", Vulns: []ModuleVuln{{ID: "GO-1999-0001", Modified: jan2000, Fixed: "1.2.2"}}},
 		},
 		Vulns: VulnsIndex{
-			"GO-1999-0001": &Vuln{ID: "GO-1999-0001", Modified: Time{jan2000}, Aliases: []string{"CVE-1999-1111"}}, "GO-2000-0002": &Vuln{ID: "GO-2000-0002", Modified: Time{jan2002}, Aliases: []string{"CVE-1999-2222"}}, "GO-2000-0003": &Vuln{ID: "GO-2000-0003", Modified: Time{jan2003}, Aliases: []string{"CVE-1999-3333", "GHSA-xxxx-yyyy-zzzz"}},
+			"GO-1999-0001": &Vuln{ID: "GO-1999-0001", Modified: jan2000, Aliases: []string{"CVE-1999-1111"}}, "GO-2000-0002": &Vuln{ID: "GO-2000-0002", Modified: jan2002, Aliases: []string{"CVE-1999-2222"}}, "GO-2000-0003": &Vuln{ID: "GO-2000-0003", Modified: jan2003, Aliases: []string{"CVE-1999-3333", "GHSA-xxxx-yyyy-zzzz"}},
 		},
 		Entries: []osv.Entry{testOSV1, testOSV2, testOSV3}}
 )

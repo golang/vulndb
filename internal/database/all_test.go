@@ -39,7 +39,7 @@ func TestNewWriteLoadValidate(t *testing.T) {
 
 func TestFromRepoWriteLoadValidate(t *testing.T) {
 	ctx := context.Background()
-	testRepo, err := gitrepo.ReadTxtarRepo(vulndbTxtar, jan2002)
+	testRepo, err := gitrepo.ReadTxtarRepo(vulndbTxtar, jan2002.Time)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -29,8 +29,9 @@ var (
 	schemaVersion = "1.3.1"
 )
 
-// GenerateOSVEntry create an osv.Entry for a  In addition to the report, it
-// takes the ID for the vuln and a URL that will point to the entry in the vuln DB.
+// GenerateOSVEntry create an osv.Entry for a report.
+// In addition to the report, it takes the ID for the vuln and the time
+// the vuln was last modified.
 func (r *Report) GenerateOSVEntry(goID string, lastModified time.Time) osv.Entry {
 	var credits []osv.Credit
 	if r.Credit != "" {
@@ -39,11 +40,16 @@ func (r *Report) GenerateOSVEntry(goID string, lastModified time.Time) osv.Entry
 		})
 	}
 
+	var withdrawn *osv.Time
+	if r.Withdrawn != nil {
+		withdrawn = &osv.Time{Time: *r.Withdrawn}
+	}
+
 	entry := osv.Entry{
 		ID:            goID,
-		Published:     r.Published,
-		Modified:      lastModified,
-		Withdrawn:     r.Withdrawn,
+		Published:     osv.Time{Time: r.Published},
+		Modified:      osv.Time{Time: lastModified},
+		Withdrawn:     withdrawn,
 		Details:       trimWhitespace(r.Description),
 		Credits:       credits,
 		SchemaVersion: schemaVersion,

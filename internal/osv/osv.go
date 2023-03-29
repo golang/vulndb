@@ -14,8 +14,6 @@
 // range type is implemented).
 package osv
 
-import "time"
-
 // RangeType specifies the type of version range being recorded and
 // defines the interpretation of the RangeEvent object's Introduced
 // and Fixed fields.
@@ -200,13 +198,13 @@ type Entry struct {
 	ID string `json:"id"`
 	// Published is the time the entry should be considered to have
 	// been published.
-	Published time.Time `json:"published,omitempty"`
+	Published Time `json:"published,omitempty"`
 	// Modified is the time the entry was last modified. Required.
-	Modified time.Time `json:"modified,omitempty"`
+	Modified Time `json:"modified,omitempty"`
 	// Withdrawn is the time the entry should be considered to have
 	// been withdrawn. If the field is missing, then the entry has
 	// not been withdrawn.
-	Withdrawn *time.Time `json:"withdrawn,omitempty"`
+	Withdrawn *Time `json:"withdrawn,omitempty"`
 	// Aliases is a list of IDs for the same vulnerability in other
 	// databases.
 	Aliases []string `json:"aliases,omitempty"`
