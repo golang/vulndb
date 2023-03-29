@@ -38,6 +38,7 @@ import (
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
+	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/report"
 	isem "golang.org/x/vulndb/internal/semver"
 )
@@ -581,13 +582,13 @@ func addTODOs(r *report.Report) {
 // in the report.
 func addReferenceTODOs(r *report.Report) {
 	todos := []*report.Reference{
-		{Type: report.ReferenceTypeAdvisory, URL: "TODO: canonical security advisory"},
-		{Type: report.ReferenceTypeArticle, URL: "TODO: article or blog post"},
-		{Type: report.ReferenceTypeReport, URL: "TODO: issue tracker link"},
-		{Type: report.ReferenceTypeFix, URL: "TODO: PR or commit"},
-		{Type: report.ReferenceTypeWeb, URL: "TODO: web page of some unspecified kind"}}
+		{Type: osv.ReferenceTypeAdvisory, URL: "TODO: canonical security advisory"},
+		{Type: osv.ReferenceTypeArticle, URL: "TODO: article or blog post"},
+		{Type: osv.ReferenceTypeReport, URL: "TODO: issue tracker link"},
+		{Type: osv.ReferenceTypeFix, URL: "TODO: PR or commit"},
+		{Type: osv.ReferenceTypeWeb, URL: "TODO: web page of some unspecified kind"}}
 
-	types := make(map[report.ReferenceType]bool)
+	types := make(map[osv.ReferenceType]bool)
 	for _, r := range r.References {
 		types[r.Type] = true
 	}

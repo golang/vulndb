@@ -18,6 +18,7 @@ import (
 
 	"golang.org/x/mod/semver"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/osv"
 	"gopkg.in/yaml.v3"
 )
 
@@ -119,36 +120,12 @@ var ExcludedReasons = []ExcludedReason{
 	"DEPENDENT_VULNERABILITY",
 }
 
-// Reference type is a reference (link) type.
-type ReferenceType string
-
-const (
-	ReferenceTypeAdvisory = ReferenceType("ADVISORY")
-	ReferenceTypeArticle  = ReferenceType("ARTICLE")
-	ReferenceTypeReport   = ReferenceType("REPORT")
-	ReferenceTypeFix      = ReferenceType("FIX")
-	ReferenceTypePackage  = ReferenceType("PACKAGE")
-	ReferenceTypeEvidence = ReferenceType("EVIDENCE")
-	ReferenceTypeWeb      = ReferenceType("WEB")
-)
-
-// ReferenceTypes is the set of reference types defined in OSV.
-var ReferenceTypes = []ReferenceType{
-	ReferenceTypeAdvisory,
-	ReferenceTypeArticle,
-	ReferenceTypeReport,
-	ReferenceTypeFix,
-	ReferenceTypePackage,
-	ReferenceTypeEvidence,
-	ReferenceTypeWeb,
-}
-
 // A Reference is a link to some external resource.
 //
 // For ease of typing, References are represented in the YAML as a
 // single-element mapping of type to URL.
 type Reference struct {
-	Type ReferenceType
+	Type osv.ReferenceType
 	URL  string
 }
 
@@ -164,7 +141,7 @@ func (r *Reference) UnmarshalYAML(n *yaml.Node) (err error) {
 			fmt.Sprintf("line %d: report.Reference must contain a mapping with one value", n.Line),
 		}}
 	}
-	r.Type = ReferenceType(strings.ToUpper(n.Content[0].Value))
+	r.Type = osv.ReferenceType(strings.ToUpper(n.Content[0].Value))
 	r.URL = n.Content[1].Value
 	return nil
 }

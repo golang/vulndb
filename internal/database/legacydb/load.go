@@ -160,7 +160,7 @@ func (d *Database) checkInternalConsistency() error {
 
 			var found bool
 			for _, affected := range entry.Affected {
-				m := affected.Package.Name
+				m := affected.Module.Path
 				if m == module {
 					found = true
 					break
@@ -177,7 +177,7 @@ func (d *Database) checkInternalConsistency() error {
 
 	for id, entry := range d.EntriesByID {
 		for _, affected := range entry.Affected {
-			module := affected.Package.Name
+			module := affected.Module.Path
 			entries, ok := d.EntriesByModule[module]
 			if !ok || len(entries) == 0 {
 				return fmt.Errorf("module %s not found (referenced by %s)", module, id)

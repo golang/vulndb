@@ -19,6 +19,7 @@ import (
 	"golang.org/x/mod/modfile"
 	"golang.org/x/mod/module"
 	"golang.org/x/mod/semver"
+	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/stdlib"
 )
 
@@ -239,19 +240,19 @@ func (r *Report) lintStdLibLinks(addIssue func(string)) {
 	)
 	for _, ref := range r.References {
 		switch ref.Type {
-		case ReferenceTypeAdvisory:
+		case osv.ReferenceTypeAdvisory:
 			addIssue(fmt.Sprintf("%q: advisory reference should not be set for first-party issues", ref.URL))
-		case ReferenceTypeFix:
+		case osv.ReferenceTypeFix:
 			hasFixLink = true
 			if !prRegex.MatchString(ref.URL) && !commitRegex.MatchString(ref.URL) {
 				addIssue(fmt.Sprintf("%q: fix reference should match %q or %q", ref.URL, prRegex, commitRegex))
 			}
-		case ReferenceTypeReport:
+		case osv.ReferenceTypeReport:
 			hasReportLink = true
 			if !issueRegex.MatchString(ref.URL) {
 				addIssue(fmt.Sprintf("%q: report reference should match %q", ref.URL, issueRegex))
 			}
-		case ReferenceTypeWeb:
+		case osv.ReferenceTypeWeb:
 			if !announceRegex.MatchString(ref.URL) {
 				addIssue(fmt.Sprintf("%q: web references should only contain announcement links matching %q", ref.URL, announceRegex))
 			} else {
@@ -273,7 +274,7 @@ func (r *Report) lintStdLibLinks(addIssue func(string)) {
 func (r *Report) lintLinks(addIssue func(string)) {
 	advisoryCount := 0
 	for _, ref := range r.References {
-		if !slices.Contains(ReferenceTypes, ref.Type) {
+		if !slices.Contains(osv.ReferenceTypes, ref.Type) {
 			addIssue(fmt.Sprintf("%q is not a valid reference type", ref.Type))
 		}
 		l := ref.URL
@@ -283,10 +284,10 @@ func (r *Report) lintLinks(addIssue func(string)) {
 		if fixed := fixURL(l); fixed != l {
 			addIssue(fmt.Sprintf("unfixed url: %q should be %q", l, fixURL(l)))
 		}
-		if ref.Type == ReferenceTypeAdvisory {
+		if ref.Type == osv.ReferenceTypeAdvisory {
 			advisoryCount++
 		}
-		if ref.Type != ReferenceTypeAdvisory {
+		if ref.Type != osv.ReferenceTypeAdvisory {
 			// An ADVISORY reference to a CVE/GHSA indicates that it
 			// is the canonical source of information on this vuln.
 			//

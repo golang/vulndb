@@ -9,6 +9,8 @@ import (
 	"flag"
 	"strings"
 	"testing"
+
+	"golang.org/x/vulndb/internal/osv"
 )
 
 var proxy = flag.Bool("proxy", false, "test helper functions that call the proxy")
@@ -17,9 +19,9 @@ var proxy = flag.Bool("proxy", false, "test helper functions that call the proxy
 
 var (
 	validStdLibReferences = []*Reference{
-		{Type: ReferenceTypeFix, URL: "https://go.dev/cl/12345"},
-		{Type: ReferenceTypeWeb, URL: "https://groups.google.com/g/golang-announce/c/12345"},
-		{Type: ReferenceTypeReport, URL: "https://go.dev/issue/12345"},
+		{Type: osv.ReferenceTypeFix, URL: "https://go.dev/cl/12345"},
+		{Type: osv.ReferenceTypeWeb, URL: "https://groups.google.com/g/golang-announce/c/12345"},
+		{Type: osv.ReferenceTypeReport, URL: "https://go.dev/issue/12345"},
 	}
 )
 
@@ -403,10 +405,10 @@ func TestLint(t *testing.T) {
 				}},
 				Description: "description",
 				References: []*Reference{
-					{Type: ReferenceTypeFix, URL: "https://github.com/golang/go/commit/12345"},
-					{Type: ReferenceTypeReport, URL: "https://github.com/golang/go/issues/12345"},
-					{Type: ReferenceTypeWeb, URL: "https://golang.org/xxx"},
-					{Type: ReferenceTypeWeb, URL: "https://groups.google.com/forum/#!/golang-announce/12345/1/"},
+					{Type: osv.ReferenceTypeFix, URL: "https://github.com/golang/go/commit/12345"},
+					{Type: osv.ReferenceTypeReport, URL: "https://github.com/golang/go/issues/12345"},
+					{Type: osv.ReferenceTypeWeb, URL: "https://golang.org/xxx"},
+					{Type: osv.ReferenceTypeWeb, URL: "https://groups.google.com/forum/#!/golang-announce/12345/1/"},
 				},
 			},
 			want: []string{
@@ -427,10 +429,10 @@ func TestLint(t *testing.T) {
 				}},
 				Description: "description",
 				References: []*Reference{
-					{Type: ReferenceTypeFix, URL: "https://go-review.googlesource.com/c/go/+/12345"},
-					{Type: ReferenceTypeFix, URL: "https://github.com/golang/go/commit/12345"},
-					{Type: ReferenceTypeReport, URL: "https://github.com/golang/go/issues/12345"},
-					{Type: ReferenceTypeWeb, URL: "https://go.dev/"},
+					{Type: osv.ReferenceTypeFix, URL: "https://go-review.googlesource.com/c/go/+/12345"},
+					{Type: osv.ReferenceTypeFix, URL: "https://github.com/golang/go/commit/12345"},
+					{Type: osv.ReferenceTypeReport, URL: "https://github.com/golang/go/issues/12345"},
+					{Type: osv.ReferenceTypeWeb, URL: "https://go.dev/"},
 					// no announce link
 				},
 			},
@@ -458,7 +460,7 @@ func TestLint(t *testing.T) {
 				Description: "description",
 				References: []*Reference{
 					{
-						Type: ReferenceTypeFix,
+						Type: osv.ReferenceTypeFix,
 						URL:  "go.dev/cl/12345", // needs "https://" prefix
 					},
 				},

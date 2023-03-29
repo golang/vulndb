@@ -25,12 +25,12 @@ var (
 		Details:   "Some details",
 		Affected: []osv.Affected{
 			{
-				Package: osv.Package{
-					Name:      "stdlib",
+				Module: osv.Module{
+					Path:      "stdlib",
 					Ecosystem: "Go",
 				},
-				Ranges: osv.Affects{
-					osv.AffectsRange{
+				Ranges: []osv.Range{
+					{
 						Type: "SEMVER",
 						Events: []osv.RangeEvent{
 							{Introduced: "0"}, {Fixed: "1.1.0"},
@@ -39,8 +39,8 @@ var (
 						}}},
 				DatabaseSpecific: osv.DatabaseSpecific{
 					URL: "https://pkg.go.dev/vuln/GO-1999-0001"},
-				EcosystemSpecific: osv.EcosystemSpecific{
-					Imports: []osv.EcosystemSpecificImport{{Path: "package", Symbols: []string{"Symbol"}}}}},
+				EcosystemSpecific: &osv.EcosystemSpecific{
+					Packages: []osv.Package{{Path: "package", Symbols: []string{"Symbol"}}}}},
 		},
 		References: []osv.Reference{
 			{Type: "FIX", URL: "https://example.com/cl/123"},
@@ -53,17 +53,17 @@ var (
 		Details:   "Some details",
 		Affected: []osv.Affected{
 			{
-				Package: osv.Package{
-					Name:      "example.com/module",
+				Module: osv.Module{
+					Path:      "example.com/module",
 					Ecosystem: "Go",
 				},
-				Ranges: osv.Affects{
-					osv.AffectsRange{
+				Ranges: []osv.Range{
+					{
 						Type: "SEMVER", Events: []osv.RangeEvent{{Introduced: "0"},
 							{Fixed: "1.2.0"},
 						}}},
-				DatabaseSpecific: osv.DatabaseSpecific{URL: "https://pkg.go.dev/vuln/GO-2000-0002"}, EcosystemSpecific: osv.EcosystemSpecific{
-					Imports: []osv.EcosystemSpecificImport{{Path: "example.com/module/package",
+				DatabaseSpecific: osv.DatabaseSpecific{URL: "https://pkg.go.dev/vuln/GO-2000-0002"}, EcosystemSpecific: &osv.EcosystemSpecific{
+					Packages: []osv.Package{{Path: "example.com/module/package",
 						Symbols: []string{"Symbol"},
 					}}}}},
 		References: []osv.Reference{
@@ -77,12 +77,12 @@ var (
 		Details:   "Some details",
 		Affected: []osv.Affected{
 			{
-				Package: osv.Package{
-					Name:      "example.com/module",
+				Module: osv.Module{
+					Path:      "example.com/module",
 					Ecosystem: "Go",
 				},
-				Ranges: osv.Affects{
-					osv.AffectsRange{
+				Ranges: []osv.Range{
+					{
 						Type: "SEMVER",
 						Events: []osv.RangeEvent{
 							{Introduced: "0"}, {Fixed: "1.1.0"},
@@ -90,7 +90,7 @@ var (
 				DatabaseSpecific: osv.DatabaseSpecific{
 					URL: "https://pkg.go.dev/vuln/GO-2000-0003",
 				},
-				EcosystemSpecific: osv.EcosystemSpecific{Imports: []osv.EcosystemSpecificImport{
+				EcosystemSpecific: &osv.EcosystemSpecific{Packages: []osv.Package{
 					{
 						Path:    "example.com/module/package",
 						Symbols: []string{"Symbol"},
@@ -123,18 +123,18 @@ func TestNew(t *testing.T) {
 func TestLatestFixedVerion(t *testing.T) {
 	tests := []struct {
 		name   string
-		ranges []osv.AffectsRange
+		ranges []osv.Range
 		want   string
 	}{
 		{
 			name:   "empty",
-			ranges: []osv.AffectsRange{},
+			ranges: []osv.Range{},
 			want:   "",
 		},
 		{
 			name: "no fix",
-			ranges: []osv.AffectsRange{{
-				Type: osv.TypeSemver,
+			ranges: []osv.Range{{
+				Type: osv.RangeTypeSemver,
 				Events: []osv.RangeEvent{
 					{
 						Introduced: "0",
@@ -145,8 +145,8 @@ func TestLatestFixedVerion(t *testing.T) {
 		},
 		{
 			name: "unsorted",
-			ranges: []osv.AffectsRange{{
-				Type: osv.TypeSemver,
+			ranges: []osv.Range{{
+				Type: osv.RangeTypeSemver,
 				Events: []osv.RangeEvent{
 					{
 						Fixed: "1.0.0",
@@ -166,8 +166,8 @@ func TestLatestFixedVerion(t *testing.T) {
 		},
 		{
 			name: "multiple ranges",
-			ranges: []osv.AffectsRange{{
-				Type: osv.TypeSemver,
+			ranges: []osv.Range{{
+				Type: osv.RangeTypeSemver,
 				Events: []osv.RangeEvent{
 					{
 						Introduced: "0",
@@ -178,7 +178,7 @@ func TestLatestFixedVerion(t *testing.T) {
 				},
 			},
 				{
-					Type: osv.TypeSemver,
+					Type: osv.RangeTypeSemver,
 					Events: []osv.RangeEvent{
 						{
 							Introduced: "0",
@@ -192,8 +192,8 @@ func TestLatestFixedVerion(t *testing.T) {
 		},
 		{
 			name: "pseudoversion",
-			ranges: []osv.AffectsRange{{
-				Type: osv.TypeSemver,
+			ranges: []osv.Range{{
+				Type: osv.RangeTypeSemver,
 				Events: []osv.RangeEvent{
 					{
 						Introduced: "0",

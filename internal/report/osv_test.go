@@ -67,10 +67,10 @@ func TestGenerateOSVEntry(t *testing.T) {
 		GHSAs:       []string{"GHSA-abcd-efgh"},
 		Credit:      "gopherbot",
 		References: []*Reference{
-			{Type: ReferenceTypeAdvisory, URL: "advisory"},
-			{Type: ReferenceTypeReport, URL: "issue"},
-			{Type: ReferenceTypeFix, URL: "fix"},
-			{Type: ReferenceTypeWeb, URL: "web"},
+			{Type: osv.ReferenceTypeAdvisory, URL: "advisory"},
+			{Type: osv.ReferenceTypeReport, URL: "issue"},
+			{Type: osv.ReferenceTypeFix, URL: "fix"},
+			{Type: osv.ReferenceTypeWeb, URL: "web"},
 		},
 	}
 
@@ -87,13 +87,13 @@ func TestGenerateOSVEntry(t *testing.T) {
 		Aliases: []string{"CVE-0000-0000", "GHSA-abcd-efgh"},
 		Affected: []osv.Affected{
 			{
-				Package: osv.Package{
-					Name:      "example.com/vulnerable/v2",
+				Module: osv.Module{
+					Path:      "example.com/vulnerable/v2",
 					Ecosystem: "Go",
 				},
-				Ranges: []osv.AffectsRange{
+				Ranges: []osv.Range{
 					{
-						Type: osv.TypeSemver,
+						Type: osv.RangeTypeSemver,
 						Events: []osv.RangeEvent{
 							{
 								Introduced: "0",
@@ -114,8 +114,8 @@ func TestGenerateOSVEntry(t *testing.T) {
 					},
 				},
 				DatabaseSpecific: osv.DatabaseSpecific{URL: "https://pkg.go.dev/vuln/GO-1991-0001"},
-				EcosystemSpecific: osv.EcosystemSpecific{
-					Imports: []osv.EcosystemSpecificImport{
+				EcosystemSpecific: &osv.EcosystemSpecific{
+					Packages: []osv.Package{
 						{
 							Path:    "example.com/vulnerable/v2",
 							GOOS:    []string{"windows"},
@@ -126,13 +126,13 @@ func TestGenerateOSVEntry(t *testing.T) {
 				},
 			},
 			{
-				Package: osv.Package{
-					Name:      "vanity.host/vulnerable",
+				Module: osv.Module{
+					Path:      "vanity.host/vulnerable",
 					Ecosystem: "Go",
 				},
-				Ranges: []osv.AffectsRange{
+				Ranges: []osv.Range{
 					{
-						Type: osv.TypeSemver,
+						Type: osv.RangeTypeSemver,
 						Events: []osv.RangeEvent{
 							{
 								Introduced: "0",
@@ -153,8 +153,8 @@ func TestGenerateOSVEntry(t *testing.T) {
 					},
 				},
 				DatabaseSpecific: osv.DatabaseSpecific{URL: "https://pkg.go.dev/vuln/GO-1991-0001"},
-				EcosystemSpecific: osv.EcosystemSpecific{
-					Imports: []osv.EcosystemSpecificImport{
+				EcosystemSpecific: &osv.EcosystemSpecific{
+					Packages: []osv.Package{
 						{
 							Path:    "vanity.host/vulnerable/package",
 							GOOS:    []string{"windows"},
@@ -165,13 +165,13 @@ func TestGenerateOSVEntry(t *testing.T) {
 				},
 			},
 			{
-				Package: osv.Package{
-					Name:      "example.com/also-vulnerable",
+				Module: osv.Module{
+					Path:      "example.com/also-vulnerable",
 					Ecosystem: "Go",
 				},
-				Ranges: []osv.AffectsRange{
+				Ranges: []osv.Range{
 					{
-						Type: osv.TypeSemver,
+						Type: osv.RangeTypeSemver,
 						Events: []osv.RangeEvent{
 							{
 								Introduced: "0",
@@ -183,8 +183,8 @@ func TestGenerateOSVEntry(t *testing.T) {
 					},
 				},
 				DatabaseSpecific: osv.DatabaseSpecific{URL: "https://pkg.go.dev/vuln/GO-1991-0001"},
-				EcosystemSpecific: osv.EcosystemSpecific{
-					Imports: []osv.EcosystemSpecificImport{
+				EcosystemSpecific: &osv.EcosystemSpecific{
+					Packages: []osv.Package{
 						{
 							Path:    "example.com/also-vulnerable/package",
 							GOOS:    []string{"windows"},
@@ -222,9 +222,9 @@ func TestSemverCanonicalize(t *testing.T) {
 			Fixed:      "1.17.0",
 		},
 	}
-	expected := osv.Affects{
+	expected := []osv.Range{
 		{
-			Type: osv.TypeSemver,
+			Type: osv.RangeTypeSemver,
 			Events: []osv.RangeEvent{
 				{
 					Introduced: "1.16.0",

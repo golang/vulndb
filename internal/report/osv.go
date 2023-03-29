@@ -20,14 +20,6 @@ import (
 )
 
 var (
-	// GoStdModulePath is the internal Go module path string used
-	// when listing vulnerabilities in standard library.
-	GoStdModulePath = "stdlib"
-
-	// GoCmdModulePath is the internal Go module path string used
-	// when listing vulnerabilities in the go command.
-	GoCmdModulePath = "toolchain"
-
 	// osvDir is the name of the directory in the vulndb repo that
 	// contains reports.
 	OSVDir = "data/osv"
@@ -63,7 +55,7 @@ func (r *Report) GenerateOSVEntry(goID string, lastModified time.Time) osv.Entry
 	}
 	for _, ref := range r.References {
 		entry.References = append(entry.References, osv.Reference{
-			Type: string(ref.Type),
+			Type: ref.Type,
 			URL:  ref.URL,
 		})
 	}
@@ -99,13 +91,13 @@ func UnmarshalFromFile(path string, v any) (err error) {
 func ModulesForEntry(entry osv.Entry) []string {
 	mods := map[string]bool{}
 	for _, a := range entry.Affected {
-		mods[a.Package.Name] = true
+		mods[a.Module.Path] = true
 	}
 	return maps.Keys(mods)
 }
 
-func AffectedRanges(versions []VersionRange) osv.Affects {
-	a := osv.AffectsRange{Type: osv.TypeSemver}
+func AffectedRanges(versions []VersionRange) []osv.Range {
+	a := osv.Range{Type: osv.RangeTypeSemver}
 	if len(versions) == 0 || versions[0].Introduced == "" {
 		a.Events = append(a.Events, osv.RangeEvent{Introduced: "0"})
 	}
@@ -117,7 +109,7 @@ func AffectedRanges(versions []VersionRange) osv.Affects {
 			a.Events = append(a.Events, osv.RangeEvent{Fixed: v.Fixed.Canonical()})
 		}
 	}
-	return osv.Affects{a}
+	return []osv.Range{a}
 }
 
 // trimWhitespace removes unnecessary whitespace from a string, but preserves
@@ -136,12 +128,12 @@ func trimWhitespace(s string) string {
 	return s
 }
 
-func generateImports(m *Module) (imps []osv.EcosystemSpecificImport) {
+func generateImports(m *Module) (imps []osv.Package) {
 	for _, p := range m.Packages {
 		syms := append([]string{}, p.Symbols...)
 		syms = append(syms, p.DerivedSymbols...)
 		sort.Strings(syms)
-		imps = append(imps, osv.EcosystemSpecificImport{
+		imps = append(imps, osv.Package{
 			Path:    p.Package,
 			GOOS:    p.GOOS,
 			GOARCH:  p.GOARCH,
@@ -155,19 +147,19 @@ func generateAffected(m *Module, url string) osv.Affected {
 	name := m.Module
 	switch name {
 	case stdlib.ModulePath:
-		name = GoStdModulePath
+		name = osv.GoStdModulePath
 	case stdlib.ToolchainModulePath:
-		name = GoCmdModulePath
+		name = osv.GoCmdModulePath
 	}
 	return osv.Affected{
-		Package: osv.Package{
-			Name:      name,
+		Module: osv.Module{
+			Path:      name,
 			Ecosystem: osv.GoEcosystem,
 		},
 		Ranges:           AffectedRanges(m.Versions),
 		DatabaseSpecific: osv.DatabaseSpecific{URL: url},
-		EcosystemSpecific: osv.EcosystemSpecific{
-			Imports: generateImports(m),
+		EcosystemSpecific: &osv.EcosystemSpecific{
+			Packages: generateImports(m),
 		},
 	}
 }

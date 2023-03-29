@@ -17,6 +17,7 @@ import (
 	"golang.org/x/vuln/osv"
 	"golang.org/x/vuln/vulncheck"
 	"golang.org/x/vulndb/internal/derrors"
+	iosv "golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/stdlib"
 )
@@ -107,9 +108,9 @@ func generateOSVEntry(r *report.Report) osv.Entry {
 		name := m.Module
 		switch name {
 		case stdlib.ModulePath:
-			name = report.GoStdModulePath
+			name = iosv.GoStdModulePath
 		case stdlib.ToolchainModulePath:
-			name = report.GoCmdModulePath
+			name = iosv.GoCmdModulePath
 		}
 		imps := make([]osv.EcosystemSpecificImport, 0)
 		for _, p := range m.Packages {
@@ -140,7 +141,7 @@ func generateOSVEntry(r *report.Report) osv.Entry {
 				Name:      name,
 				Ecosystem: osv.GoEcosystem,
 			},
-			Ranges: osv.Affects{a},
+			Ranges: []osv.AffectsRange{a},
 			EcosystemSpecific: osv.EcosystemSpecific{
 				Imports: imps,
 			},

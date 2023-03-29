@@ -52,7 +52,7 @@ func (dbi *DBMeta) add(entry osv.Entry) {
 
 func (m *ModulesIndex) add(entry osv.Entry) {
 	for _, affected := range entry.Affected {
-		modulePath := affected.Package.Name
+		modulePath := affected.Module.Path
 		if _, ok := (*m)[modulePath]; !ok {
 			(*m)[modulePath] = &Module{
 				Path:  modulePath,
@@ -80,7 +80,7 @@ func (v *VulnsIndex) add(entry osv.Entry) error {
 	return nil
 }
 
-func latestFixedVersion(ranges osv.Affects) string {
+func latestFixedVersion(ranges []osv.Range) string {
 	var latestFixed report.Version
 	for _, r := range ranges {
 		if r.Type == "SEMVER" {
