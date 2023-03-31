@@ -192,15 +192,18 @@ type EcosystemSpecific struct {
 // Only fields that are published in the Go Vulnerability Database
 // are supported.
 type Entry struct {
+	// SchemaVersion is the OSV schema version used to encode this
+	// vulnerability.
+	SchemaVersion string `json:"schema_version,omitempty"`
 	// ID is a unique identifier for the vulnerability. Required.
 	// The Go vulnerability database issues IDs of the form
 	// GO-<YEAR>-<ENTRYID>.
 	ID string `json:"id"`
+	// Modified is the time the entry was last modified. Required.
+	Modified Time `json:"modified,omitempty"`
 	// Published is the time the entry should be considered to have
 	// been published.
 	Published Time `json:"published,omitempty"`
-	// Modified is the time the entry was last modified. Required.
-	Modified Time `json:"modified,omitempty"`
 	// Withdrawn is the time the entry should be considered to have
 	// been withdrawn. If the field is missing, then the entry has
 	// not been withdrawn.
@@ -219,9 +222,6 @@ type Entry struct {
 	// Credits contains credits to entities that helped find or fix the
 	// vulnerability.
 	Credits []Credit `json:"credits,omitempty"`
-	// SchemaVersion is the OSV schema version used to encode this
-	// vulnerability.
-	SchemaVersion string `json:"schema_version,omitempty"`
 }
 
 // Credit represents a credit for the discovery, confirmation, patch, or
