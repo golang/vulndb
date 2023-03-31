@@ -11,10 +11,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"path/filepath"
+	"time"
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/object"
-	"golang.org/x/vuln/client"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/osv"
@@ -27,7 +27,7 @@ import (
 type Database struct {
 	// A map from module names to the last modified time.
 	// Represents $dbPath/index.json
-	Index client.DBIndex
+	Index DBIndex
 	// Map from each Go ID to its OSV entry.
 	// Represents $dbPath/ID/index.json and the contents of $dbPath/ID/
 	EntriesByID EntriesByID
@@ -42,6 +42,7 @@ type Database struct {
 }
 
 type (
+	DBIndex         map[string]time.Time
 	EntriesByID     map[string]*osv.Entry
 	EntriesByModule map[string][]*osv.Entry
 	IDsByAlias      map[string][]string
@@ -129,7 +130,7 @@ func New(ctx context.Context, repo *git.Repository) (_ *Database, err error) {
 
 func newEmpty() *Database {
 	return &Database{
-		Index:           make(client.DBIndex),
+		Index:           make(DBIndex),
 		EntriesByID:     make(EntriesByID),
 		EntriesByModule: make(EntriesByModule),
 		IDsByAlias:      make(IDsByAlias),

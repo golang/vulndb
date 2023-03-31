@@ -13,7 +13,6 @@ import (
 
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
-	"golang.org/x/vuln/client"
 	dbv1 "golang.org/x/vulndb/internal/database"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/osv"
@@ -49,7 +48,7 @@ func rawLoad(dbPath string) (_ *Database, err error) {
 	defer derrors.Wrap(&err, "Load(%q)", dbPath)
 
 	d := &Database{
-		Index:      make(client.DBIndex),
+		Index:      make(DBIndex),
 		IDsByAlias: make(IDsByAlias),
 	}
 
@@ -111,7 +110,7 @@ func (d *Database) checkNoUnexpectedFiles(dbPath string) error {
 		// EntriesByModule.
 		default:
 			module := strings.TrimSuffix(strings.TrimPrefix(strings.TrimPrefix(path, dbPath), "/"), ".json")
-			unescaped, err := client.UnescapeModulePath(module)
+			unescaped, err := unescapeModulePath(module)
 			if err != nil {
 				return fmt.Errorf("could not unescape module file %s: %v", path, err)
 			}
@@ -228,7 +227,6 @@ func (d *Database) checkInternalConsistency() error {
 
 	return nil
 }
-
 func loadEntriesByID(dbPath string) (EntriesByID, error) {
 	var ids []string
 	if err := report.UnmarshalFromFile(filepath.Join(dbPath, idDirectory, indexFile), &ids); err != nil {
@@ -247,10 +245,10 @@ func loadEntriesByID(dbPath string) (EntriesByID, error) {
 	return entriesByID, nil
 }
 
-func loadEntriesByModule(dbPath string, index client.DBIndex) (EntriesByModule, error) {
+func loadEntriesByModule(dbPath string, index DBIndex) (EntriesByModule, error) {
 	entriesByModule := make(EntriesByModule, len(index))
 	for _, module := range maps.Keys(index) {
-		emodule, err := client.EscapeModulePath(module)
+		emodule, err := escapeModulePath(module)
 		if err != nil {
 			return nil, err
 		}

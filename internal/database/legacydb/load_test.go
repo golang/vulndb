@@ -10,7 +10,6 @@ import (
 	"time"
 
 	"github.com/google/go-cmp/cmp"
-	"golang.org/x/vuln/client"
 	"golang.org/x/vulndb/internal/osv"
 )
 
@@ -103,7 +102,7 @@ var (
 )
 
 var valid = &Database{
-	Index: client.DBIndex{
+	Index: DBIndex{
 		"example.com/module":  jan2002.Time,
 		"example.com/module2": jan2002.Time,
 	},
@@ -181,7 +180,7 @@ func TestCheckInternalConsistency(t *testing.T) {
 		{
 			name: "missing module from index",
 			db: &Database{
-				Index:           client.DBIndex{"module": time.Time{}},
+				Index:           DBIndex{"module": time.Time{}},
 				EntriesByModule: EntriesByModule{"module2": []*osv.Entry{}},
 			},
 			wantErr: "no module directory found",
@@ -189,7 +188,7 @@ func TestCheckInternalConsistency(t *testing.T) {
 		{
 			name: "missing OSV from module reference",
 			db: &Database{
-				Index: client.DBIndex{"module": time.Time{}},
+				Index: DBIndex{"module": time.Time{}},
 				EntriesByModule: EntriesByModule{"module": []*osv.Entry{
 					{ID: "GO-1999-0001"},
 				}},
@@ -200,7 +199,7 @@ func TestCheckInternalConsistency(t *testing.T) {
 		{
 			name: "inconsistent OSV",
 			db: &Database{
-				Index: client.DBIndex{"module": time.Time{}},
+				Index: DBIndex{"module": time.Time{}},
 				EntriesByModule: EntriesByModule{"module": []*osv.Entry{
 					{ID: "GO-1999-0001"},
 				}},
@@ -212,7 +211,7 @@ func TestCheckInternalConsistency(t *testing.T) {
 		{
 			name: "incorrect modified timestamp in index",
 			db: &Database{
-				Index: client.DBIndex{"module": jan2000.Time},
+				Index: DBIndex{"module": jan2000.Time},
 				EntriesByModule: EntriesByModule{"module": []*osv.Entry{
 					{ID: "GO-1999-0001", Modified: jan1999,
 						Affected: []osv.Affected{
@@ -237,7 +236,7 @@ func TestCheckInternalConsistency(t *testing.T) {
 		{
 			name: "missing module referenced by OSV",
 			db: &Database{
-				Index:           client.DBIndex{},
+				Index:           DBIndex{},
 				EntriesByModule: EntriesByModule{},
 				EntriesByID: EntriesByID{"GO-1999-0001": {ID: "GO-1999-0001",
 					Affected: []osv.Affected{
@@ -253,7 +252,7 @@ func TestCheckInternalConsistency(t *testing.T) {
 		{
 			name: "OSV does not reference module",
 			db: &Database{
-				Index: client.DBIndex{"module": time.Time{}},
+				Index: DBIndex{"module": time.Time{}},
 				EntriesByModule: EntriesByModule{"module": []*osv.Entry{
 					{ID: "GO-1999-0001"},
 				}},
@@ -264,7 +263,7 @@ func TestCheckInternalConsistency(t *testing.T) {
 		{
 			name: "missing OSV entry in module",
 			db: &Database{
-				Index: client.DBIndex{"module": time.Time{}},
+				Index: DBIndex{"module": time.Time{}},
 				EntriesByModule: EntriesByModule{"module": []*osv.Entry{
 					{ID: "GO-1999-0002",
 						Affected: []osv.Affected{
