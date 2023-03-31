@@ -113,7 +113,6 @@ func TestGenerateOSVEntry(t *testing.T) {
 						},
 					},
 				},
-				DatabaseSpecific: osv.DatabaseSpecific{URL: "https://pkg.go.dev/vuln/GO-1991-0001"},
 				EcosystemSpecific: &osv.EcosystemSpecific{
 					Packages: []osv.Package{
 						{
@@ -152,7 +151,6 @@ func TestGenerateOSVEntry(t *testing.T) {
 						},
 					},
 				},
-				DatabaseSpecific: osv.DatabaseSpecific{URL: "https://pkg.go.dev/vuln/GO-1991-0001"},
 				EcosystemSpecific: &osv.EcosystemSpecific{
 					Packages: []osv.Package{
 						{
@@ -182,7 +180,6 @@ func TestGenerateOSVEntry(t *testing.T) {
 						},
 					},
 				},
-				DatabaseSpecific: osv.DatabaseSpecific{URL: "https://pkg.go.dev/vuln/GO-1991-0001"},
 				EcosystemSpecific: &osv.EcosystemSpecific{
 					Packages: []osv.Package{
 						{
@@ -200,6 +197,7 @@ func TestGenerateOSVEntry(t *testing.T) {
 				Name: "gopherbot",
 			},
 		},
+		DatabaseSpecific: &osv.DatabaseSpecific{URL: "https://pkg.go.dev/vuln/GO-1991-0001"},
 	}
 
 	gotEntry := r.GenerateOSVEntry("GO-1991-0001", time.Time{})

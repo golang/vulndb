@@ -147,14 +147,9 @@ type Affected struct {
 	// Note that this field is called "package" in the OSV specification.
 	Module Module `json:"package"`
 	// The module version ranges affected by the vulnerability.
-	Ranges           []Range          `json:"ranges,omitempty"`
-	DatabaseSpecific DatabaseSpecific `json:"database_specific"`
+	Ranges []Range `json:"ranges,omitempty"`
 	// Details on the affected packages and symbols within the module.
 	EcosystemSpecific *EcosystemSpecific `json:"ecosystem_specific,omitempty"`
-}
-
-type DatabaseSpecific struct {
-	URL string `json:"url"`
 }
 
 // Package contains additional information about an affected package.
@@ -222,6 +217,9 @@ type Entry struct {
 	// Credits contains credits to entities that helped find or fix the
 	// vulnerability.
 	Credits []Credit `json:"credits,omitempty"`
+	// DatabaseSpecific contains additional information about the
+	// vulnerability, specific to the Go vulnerability database.
+	DatabaseSpecific *DatabaseSpecific `json:"database_specific,omitempty"`
 }
 
 // Credit represents a credit for the discovery, confirmation, patch, or
@@ -232,4 +230,14 @@ type Credit struct {
 	// Name is the name, label, or other identifier of the individual or
 	// entity being credited. Required.
 	Name string `json:"name"`
+}
+
+// DatabaseSpecific contains additional information about the
+// vulnerability, specific to the Go vulnerability database.
+//
+// See https://go.dev/security/vuln/database#schema.
+type DatabaseSpecific struct {
+	// The URL of the Go advisory for this vulnerability, of the form
+	// "https://pkg.go.dev/GO-YYYY-XXXX".
+	URL string `json:"url,omitempty"`
 }

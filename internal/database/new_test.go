@@ -37,14 +37,14 @@ var (
 							{Introduced: "1.2.0"},
 							{Fixed: "1.2.2"},
 						}}},
-				DatabaseSpecific: osv.DatabaseSpecific{
-					URL: "https://pkg.go.dev/vuln/GO-1999-0001"},
 				EcosystemSpecific: &osv.EcosystemSpecific{
-					Packages: []osv.Package{{Path: "package", Symbols: []string{"Symbol"}}}}},
+					Packages: []osv.Package{{Path: "package", Symbols: []string{"Symbol"}}}},
+			},
 		},
 		References: []osv.Reference{
 			{Type: "FIX", URL: "https://example.com/cl/123"},
-		}}
+		}, DatabaseSpecific: &osv.DatabaseSpecific{
+			URL: "https://pkg.go.dev/vuln/GO-1999-0001"}}
 	testOSV2 = osv.Entry{
 		ID:        "GO-2000-0002",
 		Published: jan2000,
@@ -62,13 +62,13 @@ var (
 						Type: "SEMVER", Events: []osv.RangeEvent{{Introduced: "0"},
 							{Fixed: "1.2.0"},
 						}}},
-				DatabaseSpecific: osv.DatabaseSpecific{URL: "https://pkg.go.dev/vuln/GO-2000-0002"}, EcosystemSpecific: &osv.EcosystemSpecific{
+				EcosystemSpecific: &osv.EcosystemSpecific{
 					Packages: []osv.Package{{Path: "example.com/module/package",
 						Symbols: []string{"Symbol"},
 					}}}}},
 		References: []osv.Reference{
 			{Type: "FIX", URL: "https://example.com/cl/543"},
-		}}
+		}, DatabaseSpecific: &osv.DatabaseSpecific{URL: "https://pkg.go.dev/vuln/GO-2000-0002"}}
 	testOSV3 = osv.Entry{
 		ID:        "GO-2000-0003",
 		Published: jan2000,
@@ -87,9 +87,6 @@ var (
 						Events: []osv.RangeEvent{
 							{Introduced: "0"}, {Fixed: "1.1.0"},
 						}}},
-				DatabaseSpecific: osv.DatabaseSpecific{
-					URL: "https://pkg.go.dev/vuln/GO-2000-0003",
-				},
 				EcosystemSpecific: &osv.EcosystemSpecific{Packages: []osv.Package{
 					{
 						Path:    "example.com/module/package",
@@ -97,6 +94,9 @@ var (
 					}}}}},
 		References: []osv.Reference{
 			{Type: "FIX", URL: "https://example.com/cl/000"},
+		},
+		DatabaseSpecific: &osv.DatabaseSpecific{
+			URL: "https://pkg.go.dev/vuln/GO-2000-0003",
 		}}
 	valid = &Database{
 		DB: DBMeta{Modified: jan2003},

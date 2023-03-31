@@ -46,18 +46,18 @@ func (r *Report) GenerateOSVEntry(goID string, lastModified time.Time) osv.Entry
 	}
 
 	entry := osv.Entry{
-		ID:            goID,
-		Published:     osv.Time{Time: r.Published},
-		Modified:      osv.Time{Time: lastModified},
-		Withdrawn:     withdrawn,
-		Details:       trimWhitespace(r.Description),
-		Credits:       credits,
-		SchemaVersion: schemaVersion,
+		ID:               goID,
+		Published:        osv.Time{Time: r.Published},
+		Modified:         osv.Time{Time: lastModified},
+		Withdrawn:        withdrawn,
+		Details:          trimWhitespace(r.Description),
+		Credits:          credits,
+		SchemaVersion:    schemaVersion,
+		DatabaseSpecific: &osv.DatabaseSpecific{URL: GetGoAdvisoryLink(goID)},
 	}
 
-	linkName := GetGoAdvisoryLink(goID)
 	for _, m := range r.Modules {
-		entry.Affected = append(entry.Affected, generateAffected(m, linkName))
+		entry.Affected = append(entry.Affected, generateAffected(m))
 	}
 	for _, ref := range r.References {
 		entry.References = append(entry.References, osv.Reference{
@@ -149,7 +149,7 @@ func generateImports(m *Module) (imps []osv.Package) {
 	return imps
 }
 
-func generateAffected(m *Module, url string) osv.Affected {
+func generateAffected(m *Module) osv.Affected {
 	name := m.Module
 	switch name {
 	case stdlib.ModulePath:
@@ -162,8 +162,7 @@ func generateAffected(m *Module, url string) osv.Affected {
 			Path:      name,
 			Ecosystem: osv.GoEcosystem,
 		},
-		Ranges:           AffectedRanges(m.Versions),
-		DatabaseSpecific: osv.DatabaseSpecific{URL: url},
+		Ranges: AffectedRanges(m.Versions),
 		EcosystemSpecific: &osv.EcosystemSpecific{
 			Packages: generateImports(m),
 		},

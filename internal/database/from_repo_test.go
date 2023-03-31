@@ -34,14 +34,15 @@ var (
 							{Introduced: "1.2.0"},
 							{Fixed: "1.2.2"},
 						}}},
-				DatabaseSpecific: osv.DatabaseSpecific{
-					URL: "https://pkg.go.dev/vuln/GO-1999-0001"},
 				EcosystemSpecific: &osv.EcosystemSpecific{
 					Packages: []osv.Package{{Path: "package", Symbols: []string{"Symbol"}}}}},
 		},
 		References: []osv.Reference{
 			{Type: "FIX", URL: "https://example.com/cl/123"},
-		}}
+		},
+		DatabaseSpecific: &osv.DatabaseSpecific{
+			URL: "https://pkg.go.dev/vuln/GO-1999-0001"},
+	}
 	testOSV5 = osv.Entry{
 		ID:        "GO-2000-0002",
 		Published: jan2000, // not overwritten
@@ -59,13 +60,14 @@ var (
 						Type: "SEMVER", Events: []osv.RangeEvent{{Introduced: "0"},
 							{Fixed: "1.2.0"},
 						}}},
-				DatabaseSpecific: osv.DatabaseSpecific{URL: "https://pkg.go.dev/vuln/GO-2000-0002"}, EcosystemSpecific: &osv.EcosystemSpecific{
+				EcosystemSpecific: &osv.EcosystemSpecific{
 					Packages: []osv.Package{{Path: "example.com/module/package",
 						Symbols: []string{"Symbol"},
 					}}}}},
 		References: []osv.Reference{
 			{Type: "FIX", URL: "https://example.com/cl/543"},
-		}}
+		},
+		DatabaseSpecific: &osv.DatabaseSpecific{URL: "https://pkg.go.dev/vuln/GO-2000-0002"}}
 	testOSV6 = osv.Entry{
 		ID:        "GO-2000-0003",
 		Published: jan2000, // not overwritten
@@ -84,9 +86,6 @@ var (
 						Events: []osv.RangeEvent{
 							{Introduced: "0"}, {Fixed: "1.1.0"},
 						}}},
-				DatabaseSpecific: osv.DatabaseSpecific{
-					URL: "https://pkg.go.dev/vuln/GO-2000-0003",
-				},
 				EcosystemSpecific: &osv.EcosystemSpecific{Packages: []osv.Package{
 					{
 						Path:    "example.com/module/package",
@@ -94,7 +93,11 @@ var (
 					}}}}},
 		References: []osv.Reference{
 			{Type: "FIX", URL: "https://example.com/cl/000"},
-		}}
+		},
+		DatabaseSpecific: &osv.DatabaseSpecific{
+			URL: "https://pkg.go.dev/vuln/GO-2000-0003",
+		},
+	}
 	validFromRepo = &Database{
 		DB:      DBMeta{Modified: jan2002},
 		Modules: ModulesIndex{"example.com/module": &Module{Path: "example.com/module", Vulns: []ModuleVuln{{ID: "GO-2000-0002", Modified: jan2002, Fixed: "1.2.0"}, {ID: "GO-2000-0003", Modified: jan2002, Fixed: "1.1.0"}}}, "stdlib": &Module{Path: "stdlib", Vulns: []ModuleVuln{{ID: "GO-1999-0001", Modified: jan2002, Fixed: "1.2.2"}}}},
