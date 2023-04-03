@@ -8,7 +8,7 @@ This repository contains the infrastructure and internal reports to create the
 If you are interested accessing data from the Go Vulnerability Database, see
 [x/vuln](https://golang.org/x/vuln).
 
-Check out [https://go.dev/security/vuln](https://go.dev/security/vuln) for more
+Check out [vuln security](https://go.dev/security/vuln) for more
 information about the Go vulnerability management system.
 
 ## Reporting a vulnerability or feedback
@@ -19,7 +19,7 @@ public vulnerability in the Go ecosystem, or give feedback about the project.
 ## Privacy Policy
 
 The privacy policy for `govulncheck` can be found at
-[https://vuln.go.dev/privacy](https://vuln.go.dev/privacy.html).
+[vuln privacy](https://vuln.go.dev/privacy.html).
 
 ## License
 
