@@ -5,9 +5,6 @@
 This repository contains the infrastructure and internal reports to create the
 [Go Vulnerability Database](https://vuln.go.dev).
 
-If you are interested accessing data from the Go Vulnerability Database, see
-[x/vuln](https://golang.org/x/vuln).
-
 Check out [https://go.dev/security/vuln](https://go.dev/security/vuln) for more
 information about the Go vulnerability management system.
 
@@ -28,4 +25,5 @@ the BSD-style license found in the LICENSE file.
 
 Database entries are distributed under the terms of the
 [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/) license. See
-[x/vuln](https://golang.org/x/vuln) for information on how to access these entries.
+[go.dev/security/vuln/database](https://go.dev/security/vuln/database) for
+information on how to access these entries.

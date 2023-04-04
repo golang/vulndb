@@ -4,7 +4,7 @@ The Go vulnerability report format is used to generate JSON files
 served to the the vulnerability database.
 
 This file format is meant for internal use only, and is subject to
-change without warning. See [golang.org/x/vuln](https://golang.org/x/vuln)
+change without warning. See [go.dev/security/vuln/database](https://go.dev/security/vuln/database)
 for information on the Go Vulnerability database API.
 
 This page documents the internal YAML file format.
