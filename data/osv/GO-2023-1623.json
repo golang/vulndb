@@ -4,7 +4,8 @@
   "modified": "0001-01-01T00:00:00Z",
   "published": "0001-01-01T00:00:00Z",
   "aliases": [
-    "CVE-2023-27483"
+    "CVE-2023-27483",
+    "GHSA-vfvj-3m3g-m532"
   ],
   "details": "An out of memory panic vulnerability exists in the crossplane-runtime libraries.\n\nApplications that use the Paved type's SetValue method with user-provided input that is not properly validated might use excessive amounts of memory and cause an out of memory panic.\n\nIn the fieldpath package, the Paved.SetValue method sets a value on the Paved object according to the provided path, without any validation. This allows setting values in slices at any provided index, which grows the target array up to the requested index. The index is currently capped at max uint32 (4294967295), a large value. If callers do not validate paths' indexes on their own, this could allow users to consume arbitrary amounts of memory.\n\nApplications that do not use the Paved type's SetValue method are not affected.\n\nUsers unable to upgrade can work around this issue by parsing and validating the path before passing it to the SetValue method of the Paved type, constraining the index size as deemed appropriate.",
   "affected": [
