@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1546",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-25151",
+    "GHSA-5r5m-65gx-7vrh"
+  ],
+  "details": "The otelhttp package of opentelemetry-go-contrib is vulnerable to a denial-of-service attack.\n\nThe otelhttp package uses the httpconv.ServerRequest function to annotate metric measurements for the http.server.request_content_length, http.server.response_content_length, and http.server.duration instruments. The ServerRequest function sets the http.target attribute value to be the whole request URI (including the query string). The metric instruments do not \"forget\" previous measurement attributes when \"cumulative\" temporality is used, meaning that the cardinality of the measurements allocated is directly correlated with the unique URIs handled. If the query string is constantly random, this will result in a constant increase in memory allocation that can be used in a denial-of-service attack.",
+  "affected": [
+    {
+      "package": {
+        "name": "go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.38.0"
+            },
+            {
+              "fixed": "0.39.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp",
+            "symbols": [
+              "Handler.ServeHTTP"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/open-telemetry/opentelemetry-go-contrib/security/advisories/GHSA-5r5m-65gx-7vrh"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1546"
+  }
+}
