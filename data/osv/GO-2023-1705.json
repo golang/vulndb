@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1705",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-24536"
+  ],
+  "details": "Multipart form parsing can consume large amounts of CPU and memory when processing form inputs containing very large numbers of parts.\n\nThis stems from several causes:\n\n1. mime/multipart.Reader.ReadForm limits the total memory a parsed multipart form can consume. ReadForm can undercount the amount of memory consumed, leading it to accept larger inputs than intended.\n\n2. Limiting total memory does not account for increased pressure on the garbage collector from large numbers of small allocations in forms with many parts.\n\n3. ReadForm can allocate a large number of short-lived buffers, further increasing pressure on the garbage collector.\n\nThe combination of these factors can permit an attacker to cause an program that parses multipart forms to consume large amounts of CPU and memory, potentially resulting in a denial of service. This affects programs that use mime/multipart.Reader.ReadForm, as well as form parsing in the net/http package with the Request methods FormFile, FormValue, ParseMultipartForm, and PostFormValue.\n\nWith fix, ReadForm now does a better job of estimating the memory consumption of parsed forms, and performs many fewer short-lived allocations.\n\nIn addition, the fixed mime/multipart.Reader imposes the following limits on the size of parsed forms:\n\n1. Forms parsed with ReadForm may contain no more than 1000 parts. This limit may be adjusted with the environment variable GODEBUG=multipartmaxparts=.\n\n2. Form parts parsed with NextPart and NextRawPart may contain no more than 10,000 header fields. In addition, forms parsed with ReadForm may contain no more than 10,000 header fields across all parts. This limit may be adjusted with the environment variable GODEBUG=multipartmaxheaders=.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.19.8"
+            },
+            {
+              "introduced": "1.20.0"
+            },
+            {
+              "fixed": "1.20.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "mime/multipart",
+            "symbols": [
+              "Part.populateHeaders",
+              "Reader.NextPart",
+              "Reader.NextRawPart",
+              "Reader.ReadForm",
+              "Reader.nextPart",
+              "Reader.readForm",
+              "mimeHeaderSize",
+              "newPart",
+              "readMIMEHeader"
+            ]
+          },
+          {
+            "path": "net/textproto",
+            "symbols": [
+              "Reader.ReadMIMEHeader",
+              "readMIMEHeader"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/59153"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/482076"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/482075"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/482077"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/Xdv6JL9ENs8"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Jakob Ackermann (@das7pad)"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1705"
+  }
+}
