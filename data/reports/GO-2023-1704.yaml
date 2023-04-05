@@ -1,0 +1,35 @@
+modules:
+  - module: std
+    versions:
+      - fixed: 1.19.8
+      - introduced: 1.20.0
+        fixed: 1.20.3
+    vulnerable_at: 1.20.2
+    packages:
+      - package: net/textproto
+        symbols:
+          - readMIMEHeader
+          - Reader.upcomingHeaderNewlines
+        derived_symbols:
+          - Reader.ReadMIMEHeader
+summary: Excessive memory allocation in net/http and net/textproto
+description: |
+    HTTP and MIME header parsing can allocate large amounts of memory, even
+    when parsing small inputs, potentially leading to a denial of service.
+
+    Certain unusual patterns of input data can cause the common function used
+    to parse HTTP and MIME headers to allocate substantially more memory than
+    required to hold the parsed headers. An attacker can exploit this behavior
+    to cause an HTTP server to allocate large amounts of memory from a small
+    request, potentially leading to memory exhaustion and a denial of service.
+
+    With fix, header parsing now correctly allocates only the memory required
+    to hold parsed headers.
+credit: Jakob Ackermann (@das7pad)
+references:
+  - report: https://go.dev/issue/58975
+  - fix: https://go.dev/cl/481994
+  - web: https://groups.google.com/g/golang-announce/c/Xdv6JL9ENs8
+cve_metadata:
+    id: CVE-2023-24534
+    cwe: 'CWE-400: Uncontrolled Resource Consumption'
