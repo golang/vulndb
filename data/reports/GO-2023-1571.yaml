@@ -7,12 +7,104 @@ modules:
     vulnerable_at: 1.20.0
     packages:
       - package: net/http
+        symbols:
+          - Transport.RoundTrip
+          - Server.Serve
+        derived_symbols:
+          - Client.Do
+          - Client.Get
+          - Client.Head
+          - Client.Post
+          - Client.PostForm
+          - Get
+          - Head
+          - ListenAndServe
+          - ListenAndServeTLS
+          - Post
+          - PostForm
+          - Serve
+          - ServeTLS
+          - Server.ListenAndServe
+          - Server.ListenAndServeTLS
+          - Server.ServeTLS
   - module: golang.org/x/net
     versions:
       - fixed: 0.7.0
     vulnerable_at: 0.6.1-0.20230213185550-547e7edf3873
     packages:
       - package: golang.org/x/net/http2
+        symbols:
+          - Transport.RoundTrip
+          - Server.ServeConn
+        derived_symbols:
+          - ClientConn.Close
+          - ClientConn.Ping
+          - ClientConn.RoundTrip
+          - ClientConn.Shutdown
+          - ConfigureServer
+          - ConfigureTransport
+          - ConfigureTransports
+          - ConnectionError.Error
+          - ErrCode.String
+          - FrameHeader.String
+          - FrameType.String
+          - FrameWriteRequest.String
+          - Framer.ReadFrame
+          - Framer.WriteContinuation
+          - Framer.WriteData
+          - Framer.WriteDataPadded
+          - Framer.WriteGoAway
+          - Framer.WriteHeaders
+          - Framer.WritePing
+          - Framer.WritePriority
+          - Framer.WritePushPromise
+          - Framer.WriteRSTStream
+          - Framer.WriteRawFrame
+          - Framer.WriteSettings
+          - Framer.WriteSettingsAck
+          - Framer.WriteWindowUpdate
+          - GoAwayError.Error
+          - ReadFrameHeader
+          - Setting.String
+          - SettingID.String
+          - SettingsFrame.ForeachSetting
+          - StreamError.Error
+          - Transport.CloseIdleConnections
+          - Transport.NewClientConn
+          - Transport.RoundTripOpt
+          - bufferedWriter.Flush
+          - bufferedWriter.Write
+          - chunkWriter.Write
+          - clientConnPool.GetClientConn
+          - connError.Error
+          - dataBuffer.Read
+          - duplicatePseudoHeaderError.Error
+          - gzipReader.Close
+          - gzipReader.Read
+          - headerFieldNameError.Error
+          - headerFieldValueError.Error
+          - noDialClientConnPool.GetClientConn
+          - noDialH2RoundTripper.RoundTrip
+          - pipe.Read
+          - priorityWriteScheduler.CloseStream
+          - priorityWriteScheduler.OpenStream
+          - pseudoHeaderError.Error
+          - requestBody.Close
+          - requestBody.Read
+          - responseWriter.Flush
+          - responseWriter.FlushError
+          - responseWriter.Push
+          - responseWriter.SetReadDeadline
+          - responseWriter.SetWriteDeadline
+          - responseWriter.Write
+          - responseWriter.WriteHeader
+          - responseWriter.WriteString
+          - serverConn.CloseConn
+          - serverConn.Flush
+          - stickyErrWriter.Write
+          - transportResponseBody.Close
+          - transportResponseBody.Read
+          - writeData.String
       - package: golang.org/x/net/http2/hpack
         symbols:
           - Decoder.parseFieldLiteral
