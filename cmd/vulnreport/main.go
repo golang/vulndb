@@ -578,6 +578,47 @@ func addTODOs(r *report.Report) {
 	addReferenceTODOs(r)
 }
 
+// hasUnaddressedTodos returns true if report has any unaddressed todos in the
+// report, i.e. starts with "TODO:".
+func hasUnaddressedTodos(r *report.Report) bool {
+	is := func(s string) bool { return strings.HasPrefix(s, "TODO:") }
+	any := func(ss []string) bool { return slices.IndexFunc(ss, is) >= 0 }
+
+	if is(string(r.Excluded)) {
+		return true
+	}
+	for _, m := range r.Modules {
+		if is(m.Module) {
+			return true
+		}
+		for _, v := range m.Versions {
+			if is(string(v.Introduced)) {
+				return true
+			}
+			if is(string(v.Fixed)) {
+				return true
+			}
+		}
+		if is(string(m.VulnerableAt)) {
+			return true
+		}
+		for _, p := range m.Packages {
+			if is(p.Package) || is(p.SkipFix) || any(p.Symbols) || any(p.DerivedSymbols) {
+				return true
+			}
+		}
+	}
+	for _, ref := range r.References {
+		if is(ref.URL) {
+			return true
+		}
+	}
+	if any(r.CVEs) || any(r.GHSAs) {
+		return true
+	}
+	return is(r.Summary) || is(r.Description) || is(r.Credit)
+}
+
 // addReferenceTODOs adds a TODO for each reference type not already present
 // in the report.
 func addReferenceTODOs(r *report.Report) {
@@ -883,13 +924,18 @@ func irun(name string, arg ...string) error {
 func commit(ctx context.Context, filename string, ghsaClient *ghsa.Client) (err error) {
 	defer derrors.Wrap(&err, "commit(%q)", filename)
 
-	// Ignore errors. If anything is really wrong with the report, we'll
-	// detect it on re-linting below.
-	_ = fix(ctx, filename, ghsaClient)
-
+	// Clean up the report file and lint the result.
+	// Stop if there any problems.
+	if err := fix(ctx, filename, ghsaClient); err != nil {
+		return err
+	}
 	r, err := report.ReadAndLint(filename)
 	if err != nil {
 		return err
+	}
+	if hasUnaddressedTodos(r) {
+		// Check after fix() as it can add new TODOs.
+		return fmt.Errorf("File %q has unaddressed %q fields", filename, "TODO:")
 	}
 
 	// Find all derived files (OSV and CVE).
