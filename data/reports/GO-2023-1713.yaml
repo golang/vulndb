@@ -1,0 +1,33 @@
+modules:
+  - module: github.com/sjqzhang/go-fastdfs
+    versions:
+      - fixed: 1.4.5-0.20230408141131-61cbff5124c6
+    vulnerable_at: 1.4.4
+    packages:
+      - package: github.com/sjqzhang/go-fastdfs/server
+        symbols:
+          - Server.upload
+          - Server.CrossOrigin
+          - Server.Download
+        derived_symbols:
+          - HttpHandler.ServeHTTP
+          - Server.ConsumerUpload
+          - Server.DownloadNormalFileByURI
+          - Server.Start
+          - Server.Upload
+          - Start
+summary: sjqzhang go-fastdfs vulnerable to path traversal
+description: |
+    An attacker can craft a remote request to upload a file to `/group1/upload`
+    that uses path traversal to instead write the file contents to an attacker
+    controlled path on the server.
+cves:
+  - CVE-2023-1800
+ghsas:
+  - GHSA-xq3x-grrj-fj6x
+references:
+  - web: https://github.com/yangyanglo/ForCVE/blob/93a16663cd32a36d37d8a0f0102e1592254d0279/2023-0x05.md
+  - web: https://vuldb.com/?ctiid.224768
+  - web: https://vuldb.com/?id.224768
+  - fix: https://github.com/sjqzhang/go-fastdfs/commit/61cbff5124c61e292994099372b11c06cdb5b80b
+  - advisory: https://github.com/advisories/GHSA-xq3x-grrj-fj6x
