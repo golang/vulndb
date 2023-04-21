@@ -83,10 +83,18 @@ func (v *VulnsIndex) add(entry osv.Entry) error {
 func latestFixedVersion(ranges []osv.Range) string {
 	var latestFixed report.Version
 	for _, r := range ranges {
-		if r.Type == "SEMVER" {
+		if r.Type == osv.RangeTypeSemver {
 			for _, e := range r.Events {
 				if fixed := report.Version(e.Fixed); fixed != "" && latestFixed.Before(fixed) {
 					latestFixed = fixed
+				}
+			}
+			// If the vulnerability was re-introduced after the latest fix
+			// we found, there is no latest fix for this range.
+			for _, e := range r.Events {
+				if introduced := report.Version(e.Introduced); introduced != "" && introduced != "0" && latestFixed.Before(introduced) {
+					latestFixed = ""
+					break
 				}
 			}
 		}

@@ -120,7 +120,7 @@ func TestNew(t *testing.T) {
 	}
 }
 
-func TestLatestFixedVerion(t *testing.T) {
+func TestLatestFixedVersion(t *testing.T) {
 	tests := []struct {
 		name   string
 		ranges []osv.Range
@@ -144,7 +144,33 @@ func TestLatestFixedVerion(t *testing.T) {
 			want: "",
 		},
 		{
-			name: "unsorted",
+			name: "no latest fix",
+			ranges: []osv.Range{{
+				Type: osv.RangeTypeSemver,
+				Events: []osv.RangeEvent{
+					{Introduced: "0"},
+					{Fixed: "1.0.4"},
+					{Introduced: "1.1.2"},
+				},
+			}},
+			want: "",
+		},
+		{
+			name: "unsorted no latest fix",
+			ranges: []osv.Range{{
+				Type: osv.RangeTypeSemver,
+				Events: []osv.RangeEvent{
+					{Fixed: "1.0.4"},
+					{Introduced: "0"},
+					{Introduced: "1.1.2"},
+					{Introduced: "1.5.0"},
+					{Fixed: "1.1.4"},
+				},
+			}},
+			want: "",
+		},
+		{
+			name: "unsorted with fix",
 			ranges: []osv.Range{{
 				Type: osv.RangeTypeSemver,
 				Events: []osv.RangeEvent{
@@ -215,7 +241,10 @@ func TestLatestFixedVerion(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			latestFixedVersion(test.ranges)
+			got := latestFixedVersion(test.ranges)
+			if got != test.want {
+				t.Errorf("latestFixedVersion = %q, want %q", got, test.want)
+			}
 		})
 	}
 }
