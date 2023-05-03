@@ -1,0 +1,28 @@
+modules:
+  - module: std
+    versions:
+      - fixed: 1.19.9
+      - introduced: 1.20.0-0
+        fixed: 1.20.4
+    vulnerable_at: 1.20.3
+    packages:
+      - package: html/template
+        symbols:
+          - nextJSCtx
+        derived_symbols:
+          - Template.Execute
+          - Template.ExecuteTemplate
+summary: Improper handling of JavaScript whitespace in html/template
+description: |
+    Not all valid JavaScript whitespace characters are considered to be
+    whitespace. Templates containing whitespace characters outside of the
+    character set "\t\n\f\r\u0020\u2028\u2029" in JavaScript contexts that also
+    contain actions may not be properly sanitized during execution.
+credit: Juho Nurminen of Mattermost
+references:
+  - report: https://go.dev/issue/59721
+  - fix: https://go.dev/cl/491616
+  - web: https://groups.google.com/g/golang-announce/c/MEb0UyuSMsU
+cve_metadata:
+    id: CVE-2023-24540
+    cwe: 'CWE-74: Improper input validation'
