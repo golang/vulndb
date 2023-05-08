@@ -10,6 +10,7 @@ modules:
         symbols:
           - expectContinueReader.Read
         skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     HTTP servers where the Handler concurrently reads the request
     body and writes a response can encounter a data race and crash.

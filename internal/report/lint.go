@@ -334,7 +334,9 @@ func (r *Report) Lint(filename string) []string {
 		if r.Description == "" {
 			addIssue("missing description")
 		}
-
+		if r.Summary == "" {
+			addIssue("missing summary")
+		}
 	case "excluded":
 		isExcluded = true
 		if r.Excluded == "" {

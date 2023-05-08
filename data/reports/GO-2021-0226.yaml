@@ -18,6 +18,7 @@ modules:
           - response.WriteHeader
           - response.writeCGIHeader
         skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     When a Handler does not explicitly set the Content-Type header, the the
     package would default to “text/html”, which could cause a Cross-Site Scripting

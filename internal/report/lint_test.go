@@ -35,6 +35,7 @@ func validXReport(f func(r *Report)) Report {
 			}},
 		}},
 		Description: "description",
+		Summary:     "a summary",
 	}
 	f(&r)
 	return r
@@ -51,6 +52,7 @@ func TestLint(t *testing.T) {
 			desc: "no modules",
 			report: Report{
 				Description: "description",
+				Summary:     "a summary",
 			},
 			want: []string{"no modules"},
 		},
@@ -65,12 +67,14 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				Description: "description",
+				Summary:     "a summary",
 			},
 			want: []string{"missing module"},
 		},
 		{
 			desc: "missing description",
 			report: Report{
+				Summary: "a summary",
 				Modules: []*Module{{
 					Module:       "std",
 					VulnerableAt: "1.2.3",
@@ -84,6 +88,22 @@ func TestLint(t *testing.T) {
 			want: []string{"missing description"},
 		},
 		{
+			desc: "missing summary",
+			report: Report{
+				Modules: []*Module{{
+					Module:       "std",
+					VulnerableAt: "1.2.3",
+					Packages: []*Package{{
+						Package: "time",
+					}},
+				}},
+				Description: "description",
+				// no summary
+				References: validStdLibReferences,
+			},
+			want: []string{"missing summary"},
+		},
+		{
 			desc: "missing package path",
 			report: Report{
 				Modules: []*Module{{
@@ -94,6 +114,7 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				Description: "description",
+				Summary:     "a summary",
 			},
 			want: []string{"missing package"},
 		},
@@ -109,6 +130,7 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				Description: "description",
+				Summary:     "a summary",
 			},
 			want: []string{"missing skip_fix and vulnerable_at"},
 		},
@@ -125,6 +147,7 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				Description: "description",
+				Summary:     "a summary",
 			},
 			want: []string{},
 		},
@@ -141,6 +164,7 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				Description: "description",
+				Summary:     "a summary",
 			},
 			want: []string{},
 		},
@@ -155,6 +179,7 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				Description: "description",
+				Summary:     "a summary",
 			},
 			want: []string{"module must be a prefix of package"},
 		},
@@ -169,6 +194,7 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				Description: "description",
+				Summary:     "a summary",
 			},
 			want: []string{"malformed import path"},
 		},
@@ -184,6 +210,7 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				Description: "description",
+				Summary:     "a summary",
 				References:  validStdLibReferences,
 			},
 			want: []string{"missing package"},
@@ -199,6 +226,7 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				Description: "description",
+				Summary:     "a summary",
 				References:  validStdLibReferences,
 			},
 			want: []string{`should be in module "cmd", not "std"`},
@@ -219,6 +247,7 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				Description: "description",
+				Summary:     "a summary",
 				References:  validStdLibReferences,
 			},
 			want: []string{"version ranges overlap"},
@@ -238,6 +267,7 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				Description: "description",
+				Summary:     "a summary",
 				References:  validStdLibReferences,
 			},
 			want: []string{`version "1.3" >= "1.2.1"`},
@@ -256,6 +286,7 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				Description: "description",
+				Summary:     "a summary",
 				References:  validStdLibReferences,
 			},
 			want: []string{`invalid semantic version: "1.3.X"`},
@@ -271,6 +302,7 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				Description: "description",
+				Summary:     "a summary",
 				CVEs:        []string{"CVE.12345.456"},
 				References:  validStdLibReferences,
 			},
@@ -287,6 +319,7 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				Description: "description",
+				Summary:     "a summary",
 				CVEs:        []string{"CVE-2022-1234545"},
 				CVEMetadata: &CVEMeta{
 					ID:  "CVE-2022-23456",
@@ -307,6 +340,7 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				Description: "description",
+				Summary:     "a summary",
 				CVEMetadata: &CVEMeta{
 					// no id
 					// no cwe
@@ -326,6 +360,7 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				Description: "description",
+				Summary:     "a summary",
 				CVEMetadata: &CVEMeta{
 					ID:  "CVE.2022.00000",
 					CWE: "CWE 111",
@@ -345,6 +380,7 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				Description: "description",
+				Summary:     "a summary",
 				References: append([]*Reference{{
 					Type: "INVALID",
 					URL:  "http://go.dev/",
@@ -404,6 +440,7 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				Description: "description",
+				Summary:     "a summary",
 				References: []*Reference{
 					{Type: osv.ReferenceTypeFix, URL: "https://github.com/golang/go/commit/12345"},
 					{Type: osv.ReferenceTypeReport, URL: "https://github.com/golang/go/issues/12345"},
@@ -428,6 +465,7 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				Description: "description",
+				Summary:     "a summary",
 				References: []*Reference{
 					{Type: osv.ReferenceTypeFix, URL: "https://go-review.googlesource.com/c/go/+/12345"},
 					{Type: osv.ReferenceTypeFix, URL: "https://github.com/golang/go/commit/12345"},
@@ -458,6 +496,7 @@ func TestLint(t *testing.T) {
 					}},
 				}},
 				Description: "description",
+				Summary:     "a summary",
 				References: []*Reference{
 					{
 						Type: osv.ReferenceTypeFix,
@@ -479,6 +518,7 @@ func TestLint(t *testing.T) {
 				`report in reports/ must not have excluded set`,
 				`no modules`,
 				`missing description`,
+				`missing summary`,
 			},
 		},
 		{
