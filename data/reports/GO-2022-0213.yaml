@@ -10,7 +10,7 @@ modules:
         symbols:
           - Verify
         skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: Panic in crypto/dsa
 description: |
     Invalid DSA public keys can cause a panic in dsa.Verify. In particular,
     using crypto/x509.Verify on a crafted X.509 certificate chain can lead to a

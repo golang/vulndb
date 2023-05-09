@@ -28,7 +28,8 @@ modules:
           - ParsePublicKey
           - ParseRawPrivateKey
           - ParseRawPrivateKeyWithPassphrase
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: |
+    Panic due to improper verification of cryptographic signatures in golang.org/x/crypto/ssh
 description: |
     An attacker can craft an ssh-ed25519 or sk-ssh-ed25519@openssh.com public
     key, such that the library will panic when trying to verify a signature
