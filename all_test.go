@@ -25,7 +25,6 @@ import (
 )
 
 func TestChecksBash(t *testing.T) {
-	t.Skip("TODO(https://go.dev/issue/60077): Unskip once fixed.")
 	bash, err := exec.LookPath("bash")
 	if err != nil {
 		t.Skipf("skipping: %v", err)
