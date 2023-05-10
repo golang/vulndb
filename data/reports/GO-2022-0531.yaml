@@ -10,7 +10,7 @@ modules:
         - package: crypto/tls
           symbols:
             - serverHandshakeStateTLS13.sendSessionTickets
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: Session tickets lack random ticket_age_add in crypto/tls
 description: |
     An attacker can correlate a resumed TLS session with a previous connection.
 

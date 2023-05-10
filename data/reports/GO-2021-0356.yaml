@@ -8,7 +8,7 @@ modules:
         - package: golang.org/x/crypto/ssh
           symbols:
             - ServerConfig.AddHostKey
-summary: Denial of service in golang.org/x/crypto/ssh
+summary: Denial of service via crafted Signer in golang.org/x/crypto/ssh
 description: |
     Attackers can cause a crash in SSH servers when the server has been
     configured by passing a Signer to ServerConfig.AddHostKey such that

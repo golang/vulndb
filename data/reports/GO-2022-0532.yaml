@@ -12,7 +12,8 @@ modules:
             - windows
           symbols:
             - Cmd.Start
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: |
+    Empty Cmd.Path can trigger unintended binary in os/exec on Windows
 description: |
     On Windows, executing Cmd.Run, Cmd.Start, Cmd.Output, or Cmd.CombinedOutput
     when Cmd.Path is unset will unintentionally trigger execution of any

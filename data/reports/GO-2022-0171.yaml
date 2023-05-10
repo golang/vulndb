@@ -14,7 +14,8 @@ modules:
             - FetchPEMRoots
             - execSecurityRoots
           skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: |
+    Mishandled trust preferences for root certificates on Darwin in crypto/x509
 description: |
     On Darwin, user's trust preferences for root certificates were not honored.
     If the user had a root certificate loaded in their Keychain that was

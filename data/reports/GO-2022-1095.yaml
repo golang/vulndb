@@ -25,7 +25,8 @@ modules:
             - Cmd.Output
             - Cmd.Run
             - Cmd.Start
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: |
+    Unsanitized NUL in environment variabes in syscall and os/exec on Windows
 description: |
     Due to unsanitized NUL values, attackers may be able to maliciously set
     environment variables on Windows.

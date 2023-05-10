@@ -11,7 +11,7 @@ modules:
           symbols:
             - ForkExec
           skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: Misdirected I/O in syscall
 description: |
     When a Go program running on a Unix system is out of file descriptors and
     calls syscall.ForkExec (including indirectly by using the os/exec package),

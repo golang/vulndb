@@ -12,7 +12,8 @@ modules:
           derived_symbols:
             - Parse
             - ParseFragment
-summary: Infinite loop in golang.org/x/net/html
+summary: |
+    Infinite loop due to improper handling of "select" tags in golang.org/x/net/html
 description: |
     html.Parse does not properly handle "select" tags, which can lead
     to an infinite loop. If parsing user supplied input, this may be used

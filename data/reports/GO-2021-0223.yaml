@@ -13,7 +13,7 @@ modules:
           symbols:
             - Certificate.systemVerify
           skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: Certificate verification error on Windows in crypto/x509
 description: |
     On Windows, if VerifyOptions.Roots is nil, Certificate.Verify
     does not check the EKU requirements specified in VerifyOptions.KeyUsages.

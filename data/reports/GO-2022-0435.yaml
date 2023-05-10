@@ -16,7 +16,7 @@ modules:
             - p256Curve.CombinedMult
             - p256Curve.ScalarBaseMult
             - p256Curve.ScalarMult
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: Panic due to large inputs affecting P-256 curves in crypto/elliptic
 description: |
     A crafted scalar input longer than 32 bytes can cause P256().ScalarMult
     or P256().ScalarBaseMult to panic. Indirect uses through crypto/ecdsa and

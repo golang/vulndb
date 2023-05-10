@@ -10,7 +10,8 @@ modules:
             - ParseAcceptLanguage
           derived_symbols:
             - MatchStrings
-summary: Denial of service in golang.org/x/text/language
+summary: |
+    Denial of service via crafted Accept-Language header in golang.org/x/text/language
 description: |
     An attacker may cause a denial of service by crafting an Accept-Language
     header which ParseAcceptLanguage will take significant time to parse.

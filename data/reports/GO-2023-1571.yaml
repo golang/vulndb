@@ -113,7 +113,8 @@ modules:
           derived_symbols:
             - Decoder.DecodeFull
             - Decoder.Write
-summary: Denial of service in net/http and golang.org/x/net/http2
+summary: |
+    Denial of service via crafted HTTP/2 stream in net/http and golang.org/x/net
 description: |
     A maliciously crafted HTTP/2 stream could cause excessive CPU consumption
     in the HPACK decoder, sufficient to cause a denial of service from a small

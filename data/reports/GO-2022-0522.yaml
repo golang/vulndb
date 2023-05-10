@@ -10,7 +10,7 @@ modules:
         - package: path/filepath
           symbols:
             - Glob
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: Stack exhaustion on crafted paths in path/filepath
 description: |
     Calling Glob on a path which contains a large number of path separators can
     cause a panic due to stack exhaustion.

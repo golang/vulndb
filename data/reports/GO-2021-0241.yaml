@@ -11,7 +11,7 @@ modules:
           symbols:
             - ReverseProxy.ServeHTTP
           skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: Attacker can drop certain headers in net/http/httputil
 description: |
     ReverseProxy can be made to forward certain hop-by-hop headers,
     including Connection. If the target of the ReverseProxy is

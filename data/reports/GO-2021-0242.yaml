@@ -11,7 +11,7 @@ modules:
           symbols:
             - Rat.SetString
           skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: Panic on inputs with large exponents in math/big
 description: |
     Rat.SetString and Rat.UnmarshalText may cause a panic or an
     unrecoverable fatal error if passed inputs with very large

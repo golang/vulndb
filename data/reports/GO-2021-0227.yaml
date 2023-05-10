@@ -10,7 +10,8 @@ modules:
             - connection.serverAuthenticate
           derived_symbols:
             - NewServerConn
-summary: Panic in golang.org/x/crypto/ssh
+summary: |
+    Panic on crafted authentication request message in golang.org/x/crypto/ssh
 description: |
     Clients can cause a panic in SSH servers. An attacker can craft
     an authentication request message for the “gssapi-with-mic” method

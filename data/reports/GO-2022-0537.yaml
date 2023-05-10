@@ -11,7 +11,7 @@ modules:
           symbols:
             - Float.GobDecode
             - Rat.GobDecode
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: Panic when decoding Float and Rat types in math/big
 description: |
     Decoding big.Float and big.Rat types can panic if the encoded message is
     too short, potentially allowing a denial of service.

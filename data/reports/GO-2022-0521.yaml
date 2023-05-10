@@ -10,7 +10,7 @@ modules:
         - package: encoding/xml
           symbols:
             - Decoder.Skip
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: Stack exhaustion from deeply nested XML documents in encoding/xml
 description: |
     Calling Decoder.Skip when parsing a deeply nested XML document can cause a
     panic due to stack exhaustion.

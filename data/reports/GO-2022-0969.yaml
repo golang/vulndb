@@ -30,7 +30,8 @@ modules:
             - serverConn.goAway
           derived_symbols:
             - Server.ServeConn
-summary: Denial of service in net/http and golang.org/x/net/http2
+summary: |
+    Denial of service in net/http and golang.org/x/net/http2
 description: |
     HTTP/2 server connections can hang forever waiting for a clean shutdown
     that was preempted by a fatal error. This condition can be exploited

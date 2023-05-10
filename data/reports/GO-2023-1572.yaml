@@ -12,7 +12,7 @@ modules:
             - Decode
           derived_symbols:
             - DecodeConfig
-summary: Denial of service in golang.org/x/image/tiff
+summary: Denial of service via crafted TIFF image in golang.org/x/image/tiff
 description: |
     An attacker can craft a malformed TIFF image which will consume a
     significant amount of memory when passed to DecodeConfig. This could

@@ -12,7 +12,7 @@ modules:
             - Scanner.updateLineInfo
           derived_symbols:
             - Scanner.Scan
-summary: Infinite loop in go/parser
+summary: Infinite loop in parsing in go/scanner
 description: |
     Calling any of the Parse functions on Go source code which contains //line
     directives with very large line numbers can cause an infinite loop due to

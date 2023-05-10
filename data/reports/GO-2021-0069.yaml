@@ -12,7 +12,7 @@ modules:
           symbols:
             - nat.divRecursiveStep
           skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: Panic during division of very large numbers in math/big
 description: |
     A number of math/big.Int methods can panic when provided large inputs due
     to a flawed division method.

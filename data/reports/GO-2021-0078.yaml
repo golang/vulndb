@@ -12,7 +12,7 @@ modules:
           derived_symbols:
             - Parse
             - ParseFragment
-summary: Panic in golang.org/x/net/html
+summary: Panic when parsing malformed HTML in golang.org/x/net/html
 description: |
     The HTML parser does not properly handle "in frameset" insertion mode, and can be made
     to panic when operating on malformed HTML that contains <template> tags. If operating

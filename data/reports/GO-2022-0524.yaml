@@ -10,7 +10,7 @@ modules:
         - package: compress/gzip
           symbols:
             - Reader.Read
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: Stack exhaustion when reading certain archives in compress/gzip
 description: |
     Calling Reader.Read on an archive containing a large number of concatenated
     0-length compressed files can cause a panic due to stack exhaustion.

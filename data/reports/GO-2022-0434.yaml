@@ -11,7 +11,7 @@ modules:
             - darwin
           symbols:
             - Certificate.Verify
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: Panic during certificate parsing on Darwin in crypto/x509
 description: |
     Verifying certificate chains containing certificates which are not compliant
     with RFC 5280 causes Certificate.Verify to panic on macOS.
