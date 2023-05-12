@@ -21,6 +21,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"golang.org/x/vulndb/internal/cveschema5"
+	"golang.org/x/vulndb/internal/osvutils"
 	"golang.org/x/vulndb/internal/report"
 )
 
@@ -98,6 +99,9 @@ func TestLintReports(t *testing.T) {
 				}
 				if diff := cmp.Diff(generated, current, cmpopts.EquateEmpty()); diff != "" {
 					t.Errorf("%s does not match report:\n%v", osvFilename, diff)
+				}
+				if err := osvutils.ValidateExceptTimestamps(&current); err != nil {
+					t.Error(err)
 				}
 			}
 			if r.CVEMetadata != nil {

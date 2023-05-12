@@ -14,6 +14,7 @@ import (
 	"golang.org/x/exp/slices"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/osv"
+	"golang.org/x/vulndb/internal/osvutils"
 	"golang.org/x/vulndb/internal/report"
 )
 
@@ -117,7 +118,7 @@ func (db *Database) validateEntries(idPath string, requireGzip bool) (err error)
 		"index.json", // index.json is OK to accommodate legacy spec
 	}
 	for _, entry := range db.Entries {
-		if err = validateEntry(entry); err != nil {
+		if err = osvutils.Validate(&entry); err != nil {
 			return err
 		}
 		path := filepath.Join(idPath, entry.ID+".json")
@@ -141,16 +142,6 @@ func checkNoUnexpectedFiles(path string, expected []string) error {
 		return nil
 	}); err != nil {
 		return err
-	}
-	return nil
-}
-
-func validateEntry(entry osv.Entry) error {
-	if entry.Modified.IsZero() {
-		return fmt.Errorf("%s: modified time must be non-zero (found %s)", entry.ID, entry.Modified)
-	}
-	if entry.Published.After(entry.Modified.Time) {
-		return fmt.Errorf("%s: published time (%s) cannot be after modified time (%s)", entry.ID, entry.Published, entry.Modified)
 	}
 	return nil
 }
