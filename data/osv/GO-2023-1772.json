@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1772",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-2253",
+    "GHSA-hqxw-f8mx-cpmw"
+  ],
+  "details": "Systems that run distribution built after a specific commit running on memory-restricted environments can suffer from denial of service by a crafted malicious /v2/_catalog API endpoint request.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/distribution/distribution",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.8.2-beta.1+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/distribution/distribution/registry/handlers",
+            "symbols": [
+              "catalogHandler.GetCatalog"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/distribution/distribution/commit/f55a6552b006a381d9167e328808565dd2bf77dc"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-hqxw-f8mx-cpmw"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1772"
+  }
+}
