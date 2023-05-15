@@ -210,10 +210,10 @@ func (r *Report) lintLineLength(field, content string, addIssue func(string)) {
 		if len(line) <= maxLineLength {
 			continue
 		}
-		if !strings.Contains(content, " ") {
+		if !strings.Contains(line, " ") {
 			continue // A single long word is OK.
 		}
-		addIssue(fmt.Sprintf("%v contains line > %v characters long", field, maxLineLength))
+		addIssue(fmt.Sprintf("%v contains line > %v characters long: %q", field, maxLineLength, line))
 		return
 	}
 }
