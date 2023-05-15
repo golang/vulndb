@@ -10,6 +10,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"golang.org/x/vulndb/internal/osv"
+	"golang.org/x/vulndb/internal/report"
 )
 
 var (
@@ -18,11 +19,12 @@ var (
 	jan2002  = osv.Time{Time: time.Date(2002, 1, 1, 0, 0, 0, 0, time.UTC)}
 	jan2003  = osv.Time{Time: time.Date(2003, 1, 1, 0, 0, 0, 0, time.UTC)}
 	testOSV1 = osv.Entry{
-		ID:        "GO-1999-0001",
-		Published: jan1999,
-		Modified:  jan2000,
-		Aliases:   []string{"CVE-1999-1111"},
-		Details:   "Some details",
+		SchemaVersion: report.SchemaVersion,
+		ID:            "GO-1999-0001",
+		Published:     jan1999,
+		Modified:      jan2000,
+		Aliases:       []string{"CVE-1999-1111"},
+		Details:       "Some details",
 		Affected: []osv.Affected{
 			{
 				Module: osv.Module{
@@ -46,11 +48,12 @@ var (
 		}, DatabaseSpecific: &osv.DatabaseSpecific{
 			URL: "https://pkg.go.dev/vuln/GO-1999-0001"}}
 	testOSV2 = osv.Entry{
-		ID:        "GO-2000-0002",
-		Published: jan2000,
-		Modified:  jan2002,
-		Aliases:   []string{"CVE-1999-2222"},
-		Details:   "Some details",
+		SchemaVersion: report.SchemaVersion,
+		ID:            "GO-2000-0002",
+		Published:     jan2000,
+		Modified:      jan2002,
+		Aliases:       []string{"CVE-1999-2222"},
+		Details:       "Some details",
 		Affected: []osv.Affected{
 			{
 				Module: osv.Module{
@@ -70,11 +73,12 @@ var (
 			{Type: "FIX", URL: "https://example.com/cl/543"},
 		}, DatabaseSpecific: &osv.DatabaseSpecific{URL: "https://pkg.go.dev/vuln/GO-2000-0002"}}
 	testOSV3 = osv.Entry{
-		ID:        "GO-2000-0003",
-		Published: jan2000,
-		Modified:  jan2003,
-		Aliases:   []string{"CVE-1999-3333", "GHSA-xxxx-yyyy-zzzz"},
-		Details:   "Some details",
+		SchemaVersion: report.SchemaVersion,
+		ID:            "GO-2000-0003",
+		Published:     jan2000,
+		Modified:      jan2003,
+		Aliases:       []string{"CVE-1999-3333", "GHSA-xxxx-yyyy-zzzz"},
+		Details:       "Some details",
 		Affected: []osv.Affected{
 			{
 				Module: osv.Module{

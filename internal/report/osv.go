@@ -24,9 +24,9 @@ var (
 	// contains reports.
 	OSVDir = "data/osv"
 
-	// schemaVersion is used to indicate which version of the OSV schema a
+	// SchemaVersion is used to indicate which version of the OSV schema a
 	// particular vulnerability was exported with.
-	schemaVersion = "1.3.1"
+	SchemaVersion = "1.3.1"
 )
 
 // GenerateOSVEntry create an osv.Entry for a report.
@@ -52,7 +52,7 @@ func (r *Report) GenerateOSVEntry(goID string, lastModified time.Time) osv.Entry
 		Withdrawn:        withdrawn,
 		Details:          trimWhitespace(r.Description),
 		Credits:          credits,
-		SchemaVersion:    schemaVersion,
+		SchemaVersion:    SchemaVersion,
 		DatabaseSpecific: &osv.DatabaseSpecific{URL: GetGoAdvisoryLink(goID)},
 	}
 

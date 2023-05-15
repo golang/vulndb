@@ -19,11 +19,12 @@ var (
 	jan2000  = osv.Time{Time: time.Date(2000, 1, 1, 0, 0, 0, 0, time.UTC)}
 	jan2002  = osv.Time{Time: time.Date(2002, 1, 1, 0, 0, 0, 0, time.UTC)}
 	testOSV1 = &osv.Entry{
-		ID:        "GO-1999-0001",
-		Published: jan1999,
-		Modified:  jan2002,
-		Aliases:   []string{"CVE-1999-1111"},
-		Details:   "Some details",
+		SchemaVersion: "1.3.1",
+		ID:            "GO-1999-0001",
+		Published:     jan1999,
+		Modified:      jan2002,
+		Aliases:       []string{"CVE-1999-1111"},
+		Details:       "Some details",
 		Affected: []osv.Affected{
 			{
 				Module: osv.Module{
@@ -39,7 +40,7 @@ var (
 							{Fixed: "1.2.2"},
 						}}},
 				EcosystemSpecific: &osv.EcosystemSpecific{
-					Packages: []osv.Package{{Path: "package", Symbols: []string{"Symbol"}}}}},
+					Packages: []osv.Package{{Path: "example.com/module/package", Symbols: []string{"Symbol"}}}}},
 		},
 		References: []osv.Reference{
 			{Type: "FIX", URL: "https://example.com/cl/123"},
@@ -47,11 +48,12 @@ var (
 		DatabaseSpecific: &osv.DatabaseSpecific{
 			URL: "https://pkg.go.dev/vuln/GO-1999-0001"}}
 	testOSV2 = &osv.Entry{
-		ID:        "GO-2000-0002",
-		Published: jan2000,
-		Modified:  jan2002,
-		Aliases:   []string{"CVE-1999-2222"},
-		Details:   "Some details",
+		SchemaVersion: "1.3.1",
+		ID:            "GO-2000-0002",
+		Published:     jan2000,
+		Modified:      jan2002,
+		Aliases:       []string{"CVE-1999-2222"},
+		Details:       "Some details",
 		Affected: []osv.Affected{
 			{
 				Module: osv.Module{
@@ -64,7 +66,7 @@ var (
 							{Fixed: "1.2.0"},
 						}}},
 				EcosystemSpecific: &osv.EcosystemSpecific{
-					Packages: []osv.Package{{Path: "package",
+					Packages: []osv.Package{{Path: "example.com/module2/package",
 						Symbols: []string{"Symbol"},
 					}}}}},
 		References: []osv.Reference{
@@ -72,11 +74,12 @@ var (
 		},
 		DatabaseSpecific: &osv.DatabaseSpecific{URL: "https://pkg.go.dev/vuln/GO-2000-0002"}}
 	testOSV3 = &osv.Entry{
-		ID:        "GO-2000-0003",
-		Published: jan2002,
-		Modified:  jan2002,
-		Aliases:   []string{"CVE-1999-3333", "GHSA-xxxx-yyyy-zzzz"},
-		Details:   "Some details",
+		SchemaVersion: "1.3.1",
+		ID:            "GO-2000-0003",
+		Published:     jan2002,
+		Modified:      jan2002,
+		Aliases:       []string{"CVE-1999-3333", "GHSA-xxxx-yyyy-zzzz"},
+		Details:       "Some details",
 		Affected: []osv.Affected{
 			{
 				Module: osv.Module{
@@ -91,7 +94,7 @@ var (
 						}}},
 				EcosystemSpecific: &osv.EcosystemSpecific{Packages: []osv.Package{
 					{
-						Path:    "package",
+						Path:    "example.com/module2/package",
 						Symbols: []string{"Symbol"},
 					}}}}},
 		References: []osv.Reference{

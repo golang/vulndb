@@ -11,15 +11,17 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/osv"
+	"golang.org/x/vulndb/internal/report"
 )
 
 var (
 	testOSV4 = osv.Entry{
-		ID:        "GO-1999-0001",
-		Published: jan2002, // overwritten because unset
-		Modified:  jan2002, // overwritten
-		Aliases:   []string{"CVE-1999-1111"},
-		Details:   "Some details",
+		SchemaVersion: report.SchemaVersion,
+		ID:            "GO-1999-0001",
+		Published:     jan2002, // overwritten because unset
+		Modified:      jan2002, // overwritten
+		Aliases:       []string{"CVE-1999-1111"},
+		Details:       "Some details",
 		Affected: []osv.Affected{
 			{
 				Module: osv.Module{
@@ -44,11 +46,12 @@ var (
 			URL: "https://pkg.go.dev/vuln/GO-1999-0001"},
 	}
 	testOSV5 = osv.Entry{
-		ID:        "GO-2000-0002",
-		Published: jan2000, // not overwritten
-		Modified:  jan2002, // overwritten
-		Aliases:   []string{"CVE-1999-2222"},
-		Details:   "Some details",
+		SchemaVersion: report.SchemaVersion,
+		ID:            "GO-2000-0002",
+		Published:     jan2000, // not overwritten
+		Modified:      jan2002, // overwritten
+		Aliases:       []string{"CVE-1999-2222"},
+		Details:       "Some details",
 		Affected: []osv.Affected{
 			{
 				Module: osv.Module{
@@ -69,11 +72,12 @@ var (
 		},
 		DatabaseSpecific: &osv.DatabaseSpecific{URL: "https://pkg.go.dev/vuln/GO-2000-0002"}}
 	testOSV6 = osv.Entry{
-		ID:        "GO-2000-0003",
-		Published: jan2000, // not overwritten
-		Modified:  jan2002, // overwritten
-		Aliases:   []string{"CVE-1999-3333", "GHSA-xxxx-yyyy-zzzz"},
-		Details:   "Some details",
+		SchemaVersion: report.SchemaVersion,
+		ID:            "GO-2000-0003",
+		Published:     jan2000, // not overwritten
+		Modified:      jan2002, // overwritten
+		Aliases:       []string{"CVE-1999-3333", "GHSA-xxxx-yyyy-zzzz"},
+		Details:       "Some details",
 		Affected: []osv.Affected{
 			{
 				Module: osv.Module{
