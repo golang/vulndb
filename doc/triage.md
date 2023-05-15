@@ -96,23 +96,34 @@ new report to the database by following these steps:
 
 ### If the report is labeled `NeedsReport`
 
-1. From the repo root, run `vulnreport create <GitHub issue number>`.
+1. Create a new branch.
+2. From the repo root, run `vulnreport create <GitHub issue number>`.
    vulnreport will create a YAML report template for the CVE or GHSA at the
    specified GitHub issue number. This command works for both regular reports
    and excluded reports. It also accepts multiple Github issue numbers (space
    separated), and Github issue ranges (e.g., `1000-1010`).
-2. Edit the report file template.
-3. From the repo root, run `vulnreport commit [<report file> | <GitHub issue number>]`.
+3. Edit the report file template.
+   1. If a person or organization is given credit in the CVE or GHSA, add the
+      name to the "credit" field. Otherwise, delete the field.
+   2. In the "vulnerable_at" field, put the highest version just before the
+      vuln is fixed. The pkgsite versions page can help with the list of
+      versions. The GitHub UI also makes it easy to list tags (click "Code",
+      then the dropdown that shows the current branch, then "Tags"). Walk the
+      versions backwards from the fixed one to find the highest that doesn't
+      contain the fix. (It might not be the immediately preceding version.)
+   3. Add vulnerable functions to the "symbols" list by reading the CVE,
+      the fixing CLs, and the code at the vulnerable version you chose above.
+4. From the repo root, run `vulnreport commit [<report file> | <GitHub issue number>]`.
    (Example: `vulnreport commit 1623`.)
    This will lint the report, add exported symbols, convert the YAML to OSV, and commit
    the new files with a standard commit message. Commits are to the local git
    repository. The `vulnreport commit` command also accepts multiple
    space-separated files/issue numbers, and will create a separate commit for
    each report.
-4. Send the commit for review and approval. See the Go
+5. Send the commit for review and approval. See the Go
    [contribution guide](https://go.dev/doc/contribute) for sending a change on
    Gerrit.
-5. If you make changes to the report during review, run
+6. If you make changes to the report during review, run
    `vulnreport fix <GitHub issue number>` before re-mailing to update the OSV
    and perform other useful actions.
 
