@@ -1,0 +1,17 @@
+modules:
+  - module: github.com/uber/kraken
+    vulnerable_at: 0.1.4
+    packages:
+      - package: github.com/uber/kraken/lib/backend/testfs
+        symbols:
+          - Server.downloadHandler
+          - Server.Handler
+summary: Component testfs contains an arbitrary file read vulnerability.
+description: kraken contains an arbitrary file read vulnerability via component testfs.
+cves:
+  - CVE-2022-47747
+ghsas:
+  - GHSA-hj4g-4w36-x8hp
+references:
+  - report: https://github.com/uber/kraken/issues/333
+  - advisory: https://github.com/advisories/GHSA-hj4g-4w36-x8hp
