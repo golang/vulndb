@@ -165,9 +165,7 @@ func parseAliases(filename string) (aliases []string, err error) {
 	if err != nil {
 		return nil, err
 	}
-	for _, line := range lines {
-		aliases = append(aliases, line)
-	}
+	aliases = append(aliases, lines...)
 	return aliases, nil
 }
 

@@ -50,7 +50,6 @@ var (
 	skipSymbols   = flag.Bool("skip-symbols", false, "for lint and fix, don't load package for symbols checks")
 	skipGHSA      = flag.Bool("skip-ghsa", false, "for fix, skip adding new GHSAs")
 	updateIssue   = flag.Bool("up", false, "for commit, create a CL that updates (doesn't fix) the tracking bug")
-	indent        = flag.Bool("indent", false, "for newcve, indent JSON output")
 	closedOk      = flag.Bool("closed-ok", false, "for create & create-excluded, allow closed issues to be created")
 	cpuprofile    = flag.String("cpuprofile", "", "write cpuprofile to file")
 )
@@ -100,7 +99,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		pprof.StartCPUProfile(f)
+		_ = pprof.StartCPUProfile(f)
 		defer pprof.StopCPUProfile()
 	}
 
@@ -440,7 +439,9 @@ func newReport(ctx context.Context, cfg *createCfg, parsed *parsedIssue) (*repor
 		r = &report.Report{}
 	}
 
-	addGHSAs(ctx, r, cfg.ghsaClient)
+	if err := addGHSAs(ctx, r, cfg.ghsaClient); err != nil {
+		return nil, err
+	}
 
 	// Fill an any CVEs and GHSAs we found that may have been missed
 	// in report creation.
@@ -778,7 +779,9 @@ func findExportedSymbols(m *report.Module, p *report.Package, c *reportClient) (
 		pkg, _, _ := strings.Cut(req, "@")
 		fmt.Fprintf(&content, "import _ %q", pkg)
 	}
-	os.WriteFile("p.go", content.Bytes(), 0666)
+	if err := os.WriteFile("p.go", content.Bytes(), 0666); err != nil {
+		return nil, err
+	}
 	// Run go mod tidy.
 	if err := run("go", "mod", "tidy"); err != nil {
 		return nil, err
@@ -908,8 +911,6 @@ func writeCVE(r *report.Report, goID string) error {
 
 	return nil
 }
-
-var reportRegexp = regexp.MustCompile(`^(data/\w+)/(GO-\d\d\d\d-0*(\d+)\.yaml)$`)
 
 func irun(name string, arg ...string) error {
 	// Exec git commands rather than using go-git so as to run commit hooks

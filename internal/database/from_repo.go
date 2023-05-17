@@ -74,9 +74,7 @@ func FromRepo(ctx context.Context, repo *git.Repository) (_ *Database, err error
 		}
 		addTimestamps(&entry, dates)
 
-		d.Add(entry)
-
-		return nil
+		return d.Add(entry)
 	}); err != nil {
 		return nil, err
 	}

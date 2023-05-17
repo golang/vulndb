@@ -58,7 +58,9 @@ func TestCheckSameModulesAndVulns(t *testing.T) {
 		t.Error("checkSameModulesAndVulns: got nil, want error")
 	}
 
-	v1.Add(*testOSV3)
+	if err := v1.Add(*testOSV3); err != nil {
+		t.Error(err)
+	}
 
 	// Should now succeed.
 	if err := legacy.checkSameModulesAndVulns(v1); err != nil {

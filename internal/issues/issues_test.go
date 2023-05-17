@@ -41,7 +41,7 @@ func TestCreateIssue(t *testing.T) {
 	want := 15
 	mux.HandleFunc(fmt.Sprintf("/repos/%s/%s/issues", githubtest.TestOwner, githubtest.TestRepo), func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "POST")
-		fmt.Fprint(w, fmt.Sprintf(`{"number":%d}`, want))
+		fmt.Fprintf(w, `{"number":%d}`, want)
 	})
 	ctx := context.Background()
 	input := &issues.Issue{Title: "title", Body: "body"}
@@ -64,7 +64,7 @@ func TestGetIssueAndIssueExists(t *testing.T) {
 	mux.HandleFunc(fmt.Sprintf("/repos/%s/%s/issues/%d", githubtest.TestOwner, githubtest.TestRepo, want.Number), func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		if strings.HasSuffix(r.URL.Path, strconv.Itoa(want.Number)) {
-			fmt.Fprint(w, fmt.Sprintf(`{"number":%d, "title":%q, "body":%q}`, want.Number, want.Title, want.Body))
+			fmt.Fprintf(w, `{"number":%d, "title":%q, "body":%q}`, want.Number, want.Title, want.Body)
 			return
 		}
 	})
@@ -101,8 +101,8 @@ func TestGetIssues(t *testing.T) {
 	}
 	mux.HandleFunc(fmt.Sprintf("/repos/%s/%s/issues", githubtest.TestOwner, githubtest.TestRepo), func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
-		fmt.Fprint(w, fmt.Sprintf(`[{"number":%d, "title":%q, "body":%q, "state":%q},{"number":%d, "title":%q, "body":%q, "state":%q}]`,
-			iss.Number, iss.Title, iss.Body, iss.State, iss2.Number, iss2.Title, iss2.Body, iss2.State))
+		fmt.Fprintf(w, `[{"number":%d, "title":%q, "body":%q, "state":%q},{"number":%d, "title":%q, "body":%q, "state":%q}]`,
+			iss.Number, iss.Title, iss.Body, iss.State, iss2.Number, iss2.Title, iss2.Body, iss2.State)
 	})
 	ctx := context.Background()
 	want := []*issues.Issue{iss, iss2}

@@ -60,10 +60,6 @@ const (
 	// idDirectory is the name of the directory that contains entries
 	// listed by their IDs.
 	idDirectory = "ID"
-
-	// versionFile is the name of the file in the vulndb repo that
-	// tracks the generator version.
-	versionFile = "data/version.md"
 )
 
 // New creates a new Database based on the contents of the "data/osv"
