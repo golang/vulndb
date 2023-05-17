@@ -39,6 +39,7 @@ import (
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/osv"
+	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
 	isem "golang.org/x/vulndb/internal/semver"
 )
@@ -481,15 +482,16 @@ func parseGithubIssue(iss *issues.Issue, allowClosed bool) (*parsedIssue, error)
 		}
 	}
 
-	// Parse CVE and GHSA IDs from GitHub issue.
+	// Parse elements from GitHub issue title.
 	parts := strings.Fields(iss.Title)
 	for _, p := range parts {
 		switch {
 		case strings.HasSuffix(p, ":") && p != "x/vulndb:":
 			parsed.modulePath = strings.TrimSuffix(p, ":")
 			parsed.modulePath = strings.ReplaceAll(parsed.modulePath, "\"", "")
-			parsed.modulePath = report.FindModuleFromPackage(parsed.modulePath)
-
+			if module := proxy.FindModule(parsed.modulePath); module != "" {
+				parsed.modulePath = module
+			}
 		case strings.HasPrefix(p, "CVE"):
 			parsed.cves = append(parsed.cves, strings.TrimSuffix(p, ","))
 		case strings.HasPrefix(p, "GHSA"):

@@ -5,93 +5,19 @@
 package report
 
 import (
-	"encoding/json"
 	"fmt"
-	"io"
-	"net/http"
 	"net/url"
-	"os"
 	"path/filepath"
 	"regexp"
 	"strings"
 
 	"golang.org/x/exp/slices"
-	"golang.org/x/mod/modfile"
 	"golang.org/x/mod/module"
 	"golang.org/x/mod/semver"
 	"golang.org/x/vulndb/internal/osv"
+	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/stdlib"
 )
-
-// TODO: getting things from the proxy should all be cached so we
-// aren't re-requesting the same stuff over and over.
-
-var proxyURL = "https://proxy.golang.org"
-
-func init() {
-	if proxy, ok := os.LookupEnv("GOPROXY"); ok {
-		proxyURL = proxy
-	}
-}
-
-func proxyLookup(urlSuffix string) ([]byte, error) {
-	url := fmt.Sprintf("%s/%s", proxyURL, urlSuffix)
-	resp, err := http.Get(url)
-	if err != nil {
-		return nil, err
-	} else if resp.StatusCode != 200 {
-		return nil, fmt.Errorf("http.Get(%q) returned status %v", url, resp.Status)
-	}
-	defer resp.Body.Close()
-	b, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, err
-	}
-	return b, nil
-}
-
-func getCanonicalModNameFromProxy(path, version string) (_ string, err error) {
-	escapedPath, err := module.EscapePath(path)
-	if err != nil {
-		return "", err
-	}
-	escapedVersion, err := module.EscapeVersion(version)
-	if err != nil {
-		return "", err
-	}
-	b, err := proxyLookup(fmt.Sprintf("%s/@v/%s.mod", escapedPath, escapedVersion))
-	if err != nil {
-		return "", err
-	}
-	m, err := modfile.ParseLax("go.mod", b, nil)
-	if err != nil {
-		return "", err
-	}
-	if m.Module == nil {
-		return "", fmt.Errorf("unable to retrieve module information for %s", path)
-	}
-	return m.Module.Mod.Path, nil
-}
-
-func getCanonicalModVersionFromProxy(path, version string) (_ string, err error) {
-	escaped, err := module.EscapePath(path)
-	if err != nil {
-		return "", err
-	}
-	b, err := proxyLookup(fmt.Sprintf("%s/@v/%v.info", escaped, version))
-	if err != nil {
-		return "", err
-	}
-	var v map[string]any
-	if err := json.Unmarshal(b, &v); err != nil {
-		return "", err
-	}
-	ver, ok := v["Version"].(string)
-	if !ok {
-		return "", fmt.Errorf("unable to retrieve canonical version for %s", version)
-	}
-	return ver, nil
-}
 
 func checkModVersions(modPath string, vrs []VersionRange) (err error) {
 	checkVersion := func(v Version) error {
@@ -101,7 +27,7 @@ func checkModVersions(modPath string, vrs []VersionRange) (err error) {
 		if err := module.Check(modPath, v.V()); err != nil {
 			return err
 		}
-		canonicalPath, err := getCanonicalModNameFromProxy(modPath, v.V())
+		canonicalPath, err := proxy.CanonicalModulePath(modPath, v.V())
 		if err != nil {
 			return fmt.Errorf("unable to retrieve canonical module path from proxy: %s", err)
 		}
@@ -411,7 +337,7 @@ func (r *Report) Fix() {
 			return
 		}
 		if commitHashRegex.MatchString(string(v)) {
-			if c, err := getCanonicalModVersionFromProxy(mod, string(v)); err == nil {
+			if c, err := proxy.CanonicalModuleVersion(mod, string(v)); err == nil {
 				v = Version(c)
 			}
 		}
@@ -459,24 +385,4 @@ func fixURL(u string) string {
 		u = repl.re.ReplaceAllString(u, repl.repl)
 	}
 	return u
-}
-
-// FindModuleFromPackage checks that module path leads to a module in the proxy
-// server, then trims the path until it does or uses the full path from the issue
-// title if a working module path cannot be found.
-func FindModuleFromPackage(path string) string {
-	for temp := path; temp != "."; temp = filepath.Dir(temp) {
-		escaped, err := module.EscapePath(temp)
-		if err != nil {
-			return path
-		}
-		url := fmt.Sprintf("https://proxy.golang.org/%s/@v/list", escaped)
-		resp, err := http.Get(url)
-		if err != nil {
-			return path
-		} else if resp.StatusCode == 200 {
-			return temp
-		}
-	}
-	return path
 }
