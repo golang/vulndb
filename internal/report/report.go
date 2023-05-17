@@ -80,24 +80,6 @@ type Package struct {
 	SkipFix string `yaml:"skip_fix,omitempty"`
 }
 
-type LegacyPackage struct {
-	Module  string `yaml:",omitempty"`
-	Package string `yaml:",omitempty"`
-	// Symbols originally identified as vulnerable.
-	Symbols []string `yaml:",omitempty"`
-	// Additional vulnerable symbols, computed from Symbols via static analysis
-	// or other technique.
-	DerivedSymbols []string       `yaml:"derived_symbols,omitempty"`
-	Versions       []VersionRange `yaml:",omitempty"`
-	// Known-vulnerable version, to use when performing static analysis or
-	// other techniques on a vulnerable version of the package.
-	//
-	// In general, we want to use the most recent vulnerable version of
-	// the package. Determining this programmatically is difficult, especially
-	// for packages without tagged versions, so we specify it manually here.
-	VulnerableAt Version `yaml:"vulnerable_at,omitempty"`
-}
-
 type CVEMeta struct {
 	ID          string `yaml:",omitempty"`
 	CWE         string `yaml:",omitempty"`
@@ -253,7 +235,7 @@ func ReadAndLint(filename string) (r *Report, err error) {
 		return nil, err
 	}
 	if lints := r.Lint(filename); len(lints) > 0 {
-		return nil, fmt.Errorf("%v: contains lint warnings:\n%s\n", filename, strings.Join(lints, "\n"))
+		return nil, fmt.Errorf("%v: contains lint warnings:\n%s", filename, strings.Join(lints, "\n"))
 	}
 	return r, nil
 }

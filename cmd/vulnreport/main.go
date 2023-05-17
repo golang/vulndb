@@ -63,7 +63,6 @@ func main() {
 		fmt.Fprintf(flag.CommandLine.Output(), "  create-excluded: creates and commits all open github issues marked as excluded\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  lint filename.yaml ...: lints vulnerability YAML reports\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  cve filename.yaml ...: creates and saves CVE 5.0 record from the provided YAML reports\n")
-		fmt.Fprintf(flag.CommandLine.Output(), "  cve4 filename.yaml ...: creates and prints CVE 4.0 record from the provided YAML reports\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  fix filename.yaml ...: fixes and reformats YAML reports\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  osv filename.yaml ...: converts YAMLS reports to OSV JSON and writes to data/osv\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  set-dates filename.yaml ...: sets PublishDate of YAML reports\n")
@@ -486,11 +485,16 @@ func parseGithubIssue(iss *issues.Issue, allowClosed bool) (*parsedIssue, error)
 	parts := strings.Fields(iss.Title)
 	for _, p := range parts {
 		switch {
-		case strings.HasSuffix(p, ":") && p != "x/vulndb:":
-			parsed.modulePath = strings.TrimSuffix(p, ":")
-			parsed.modulePath = strings.ReplaceAll(parsed.modulePath, "\"", "")
+		case p == "x/vulndb:":
+			continue
+		case strings.HasSuffix(p, ":"):
+			// Remove backslashes.
+			path := strings.ReplaceAll(strings.TrimSuffix(p, ":"), "\"", "")
+			// Find the underlying module if this is a package path.
 			if module := proxy.FindModule(parsed.modulePath); module != "" {
 				parsed.modulePath = module
+			} else {
+				parsed.modulePath = path
 			}
 		case strings.HasPrefix(p, "CVE"):
 			parsed.cves = append(parsed.cves, strings.TrimSuffix(p, ","))
@@ -936,7 +940,7 @@ func commit(ctx context.Context, filename string, ghsaClient *ghsa.Client) (err 
 	}
 	if hasUnaddressedTodos(r) {
 		// Check after fix() as it can add new TODOs.
-		return fmt.Errorf("File %q has unaddressed %q fields", filename, "TODO:")
+		return fmt.Errorf("file %q has unaddressed %q fields", filename, "TODO:")
 	}
 
 	// Find all derived files (OSV and CVE).
