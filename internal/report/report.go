@@ -124,10 +124,7 @@ var ExcludedReasons = []ExcludedReason{
 //
 // For ease of typing, References are represented in the YAML as a
 // single-element mapping of type to URL.
-type Reference struct {
-	Type osv.ReferenceType
-	URL  string
-}
+type Reference osv.Reference
 
 func (r *Reference) MarshalYAML() (interface{}, error) {
 	return map[string]string{
