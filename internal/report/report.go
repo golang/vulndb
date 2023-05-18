@@ -146,13 +146,6 @@ func (r *Reference) UnmarshalYAML(n *yaml.Node) (err error) {
 // Report represents a vulnerability report in the vulndb.
 // Remember to update doc/format.md when this structure changes.
 type Report struct {
-	// TODO: could also be GoToolchain, but we might want
-	// this for other things?
-	//
-	// could we also automate this by just looking for
-	// things prefixed with cmd/go?
-	DoNotExport bool `yaml:"do_not_export,omitempty"`
-
 	// Excluded indicates an excluded report.
 	Excluded ExcludedReason `yaml:",omitempty"`
 
