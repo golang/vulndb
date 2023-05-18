@@ -20,7 +20,9 @@ description: |
     A maliciously crafted archive could cause Read to allocate unbounded
     amounts of memory, potentially causing resource exhaustion or panics.
     After fix, Reader.Read limits the maximum size of header blocks to 1 MiB.
-credit: Adam Korczynski (ADA Logics) and OSS-Fuzz
+credits:
+  - Adam Korczynski (ADA Logics)
+  - OSS-Fuzz
 references:
   - report: https://go.dev/issue/54853
   - fix: https://go.dev/cl/439355

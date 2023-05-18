@@ -44,7 +44,6 @@ func CVEToReport(c *cveschema.CVE, modulePath string) *Report {
 	for _, v := range c.Credit.Data.Description.Data {
 		credits = append(credits, v.Value)
 	}
-	credit := strings.Join(credits, "\t")
 
 	var pkgPath string
 	if data := c.Affects.Vendor.Data; len(data) > 0 {
@@ -70,7 +69,7 @@ func CVEToReport(c *cveschema.CVE, modulePath string) *Report {
 			}},
 		}},
 		Description: description,
-		Credit:      credit,
+		Credits:     credits,
 		References:  refs,
 	}
 	// New standard library and x/ repo CVEs are likely maintained by

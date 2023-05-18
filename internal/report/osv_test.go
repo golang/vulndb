@@ -65,7 +65,7 @@ func TestGenerateOSVEntry(t *testing.T) {
 		Description: "It's a real bad one, \nI'll tell you that.\n\n More info.\n",
 		CVEs:        []string{"CVE-0000-0000"},
 		GHSAs:       []string{"GHSA-abcd-efgh"},
-		Credit:      "gopherbot",
+		Credits:     []string{"gopherbot"},
 		References: []*Reference{
 			{Type: osv.ReferenceTypeAdvisory, URL: "advisory"},
 			{Type: osv.ReferenceTypeReport, URL: "issue"},

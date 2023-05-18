@@ -570,8 +570,8 @@ func addTODOs(r *report.Report) {
 	if r.Description == "" {
 		r.Description = todo
 	}
-	if r.Credit == "" {
-		r.Credit = todo
+	if len(r.Credits) == 0 {
+		r.Credits = []string{todo}
 	}
 	if len(r.CVEs) == 0 {
 		r.CVEs = []string{todo}
@@ -617,7 +617,7 @@ func hasUnaddressedTodos(r *report.Report) bool {
 	if any(r.CVEs) || any(r.GHSAs) {
 		return true
 	}
-	return is(r.Summary) || is(r.Description) || is(r.Credit)
+	return is(r.Summary) || is(r.Description) || any(r.Credits)
 }
 
 // addReferenceTODOs adds a TODO for each reference type not already present

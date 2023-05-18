@@ -167,7 +167,7 @@ type Report struct {
 	// the above CVEs.
 	GHSAs []string `yaml:",omitempty"`
 
-	Credit     string       `yaml:",omitempty"`
+	Credits    []string     `yaml:",omitempty"`
 	References []*Reference `yaml:",omitempty"`
 
 	// CVEMetdata is used to capture CVE information when we want to assign a

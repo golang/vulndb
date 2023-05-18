@@ -96,13 +96,11 @@ func (r *Report) ToCVE5(goID string) (_ *cveschema5.CVERecord, err error) {
 	advisoryLink := GetGoAdvisoryLink(goID)
 	c.References = append(c.References, cveschema5.Reference{URL: advisoryLink})
 
-	if r.Credit != "" {
-		c.Credits = []cveschema5.Credit{
-			{
-				Lang:  "en",
-				Value: r.Credit,
-			},
-		}
+	for _, credit := range r.Credits {
+		c.Credits = append(c.Credits, cveschema5.Credit{
+			Lang:  "en",
+			Value: credit,
+		})
 	}
 
 	return &cveschema5.CVERecord{

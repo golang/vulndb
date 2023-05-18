@@ -34,9 +34,9 @@ var (
 // the vuln was last modified.
 func (r *Report) GenerateOSVEntry(goID string, lastModified time.Time) osv.Entry {
 	var credits []osv.Credit
-	if r.Credit != "" {
+	for _, credit := range r.Credits {
 		credits = append(credits, osv.Credit{
-			Name: r.Credit,
+			Name: credit,
 		})
 	}
 
