@@ -5,101 +5,12 @@
 package report
 
 import (
-	"errors"
 	"regexp"
 	"strings"
 
-	"encoding/json"
-
 	"golang.org/x/vulndb/internal/cveschema"
-	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/stdlib"
 )
-
-// ToCVE creates a CVE from a reports/GO-YYYY-NNNN.yaml file.
-func ToCVE(reportPath string) (_ *cveschema.CVE, err error) {
-	defer derrors.Wrap(&err, "report.ToCVE(%q)", reportPath)
-
-	r, err := ReadAndLint(reportPath)
-	if err != nil {
-		return nil, err
-	}
-	if r.CVEMetadata == nil {
-		return nil, errors.New("cve_metadata must be present to convert a report to a CVE")
-	}
-
-	description := r.CVEMetadata.Description
-	if description == "" {
-		description = r.Description
-	}
-
-	c := &cveschema.CVE{
-		DataType:    "CVE",
-		DataFormat:  "MITRE",
-		DataVersion: "4.0",
-		Metadata: cveschema.Metadata{
-			ID:       r.CVEMetadata.ID,
-			Assigner: "security@golang.org",
-			State:    cveschema.StatePublic,
-		},
-
-		Description: cveschema.Description{
-			Data: []cveschema.LangString{
-				{
-					Lang:  "eng",
-					Value: removeNewlines(description),
-				},
-			},
-		},
-
-		ProblemType: cveschema.ProblemType{
-			Data: []cveschema.ProblemTypeDataItem{
-				{
-					Description: []cveschema.LangString{
-						{
-							Lang:  "eng",
-							Value: r.CVEMetadata.CWE,
-						},
-					},
-				},
-			},
-		},
-	}
-
-	for _, m := range r.Modules {
-		var pkgData []cveschema.ProductDataItem
-		for _, p := range m.Packages {
-			pkgData = append(pkgData,
-				cveschema.ProductDataItem{
-					ProductName: p.Package,
-					Version:     versionToVersion(m.Versions),
-				})
-		}
-		c.Affects.Vendor.Data = append(c.Affects.Vendor.Data, cveschema.VendorDataItem{
-			VendorName: getVendor(m.Module),
-			Product: cveschema.Product{
-				Data: pkgData,
-			},
-		})
-	}
-
-	for _, ref := range r.References {
-		c.References.Data = append(c.References.Data, cveschema.Reference{URL: ref.URL})
-	}
-
-	goAdvisory := GetGoAdvisoryLink(GetGoIDFromFilename(reportPath))
-	c.References.Data = append(c.References.Data, cveschema.Reference{URL: goAdvisory})
-
-	c.RawCredit, err = json.Marshal([]cveschema.LangString{{
-		Lang:  "eng",
-		Value: removeNewlines(r.Credit),
-	}})
-	if err != nil {
-		return nil, err
-	}
-
-	return c, nil
-}
 
 func getVendor(modulePath string) string {
 	switch modulePath {
@@ -117,25 +28,6 @@ func getVendor(modulePath string) string {
 func removeNewlines(s string) string {
 	newlines := regexp.MustCompile(`\n+`)
 	return newlines.ReplaceAllString(strings.TrimSpace(s), " ")
-}
-
-func versionToVersion(versions []VersionRange) cveschema.VersionData {
-	vd := cveschema.VersionData{}
-	for _, vr := range versions {
-		if vr.Introduced != "" {
-			vd.Data = append(vd.Data, cveschema.VersionDataItem{
-				VersionValue:    string(vr.Introduced),
-				VersionAffected: ">=",
-			})
-		}
-		if vr.Fixed != "" {
-			vd.Data = append(vd.Data, cveschema.VersionDataItem{
-				VersionValue:    string(vr.Fixed),
-				VersionAffected: "<",
-			})
-		}
-	}
-	return vd
 }
 
 // CVEToReport creates a Report struct from a given CVE and modulePath.
