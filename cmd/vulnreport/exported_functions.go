@@ -14,8 +14,8 @@ import (
 	"golang.org/x/tools/go/ssa"
 	"golang.org/x/vulndb/cmd/vulnreport/internal/vulnentries"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/osvutils"
 	"golang.org/x/vulndb/internal/report"
-	"golang.org/x/vulndb/internal/semver"
 )
 
 // exportedFunctions returns a set of vulnerable functions exported by a set of packages
@@ -79,7 +79,7 @@ func affected(r *report.Report, version string) bool {
 	// can check semver ranges.
 	o := r.GenerateOSVEntry("", time.Now())
 	for _, a := range o.Affected {
-		if semver.AffectsSemver(a.Ranges, version) {
+		if osvutils.AffectsSemver(a.Ranges, version) {
 			return true
 		}
 	}

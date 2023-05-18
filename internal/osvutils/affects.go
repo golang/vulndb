@@ -2,13 +2,14 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package semver
+package osvutils
 
 import (
 	"sort"
 
 	"golang.org/x/mod/semver"
 	"golang.org/x/vulndb/internal/osv"
+	"golang.org/x/vulndb/internal/version"
 )
 
 func AffectsSemver(ranges []osv.Range, v string) bool {
@@ -52,7 +53,7 @@ func containsSemver(ar osv.Range, v string) bool {
 	}
 	// Strip and then add the semver prefix so we can support bare versions,
 	// versions prefixed with 'v', and versions prefixed with 'go'.
-	v = CanonicalizeSemverPrefix(v)
+	v = version.CanonicalizeSemverPrefix(v)
 	// Sort events by semver versions. Event for beginning
 	// of time, if present, always comes first.
 	sort.SliceStable(ar.Events, func(i, j int) bool {
@@ -74,14 +75,14 @@ func containsSemver(ar osv.Range, v string) bool {
 		if e2.Fixed != "" {
 			v2 = e2.Fixed
 		}
-		return semver.Compare(CanonicalizeSemverPrefix(v1), CanonicalizeSemverPrefix(v2)) < 0
+		return semver.Compare(version.CanonicalizeSemverPrefix(v1), version.CanonicalizeSemverPrefix(v2)) < 0
 	})
 	var affected bool
 	for _, e := range ar.Events {
 		if !affected && e.Introduced != "" {
-			affected = e.Introduced == "0" || semver.Compare(v, CanonicalizeSemverPrefix(e.Introduced)) >= 0
+			affected = e.Introduced == "0" || semver.Compare(v, version.CanonicalizeSemverPrefix(e.Introduced)) >= 0
 		} else if affected && e.Fixed != "" {
-			affected = semver.Compare(v, CanonicalizeSemverPrefix(e.Fixed)) < 0
+			affected = semver.Compare(v, version.CanonicalizeSemverPrefix(e.Fixed)) < 0
 		}
 	}
 	return affected

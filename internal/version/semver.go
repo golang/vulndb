@@ -2,9 +2,9 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package semver provides shared utilities for manipulating
+// Package version provides shared utilities for manipulating
 // Go semantic versions.
-package semver
+package version
 
 import (
 	"regexp"

@@ -187,12 +187,12 @@ func less(v, w string) bool {
 	return semver.Compare("v"+v, "v"+w) < 0
 }
 
-type version struct {
+type event struct {
 	v          string
 	introduced bool
 }
 
-func parseRangeEvent(e *osv.RangeEvent) (*version, error) {
+func parseRangeEvent(e *osv.RangeEvent) (*event, error) {
 	introduced, fixed := e.Introduced, e.Fixed
 
 	var v string
@@ -203,7 +203,7 @@ func parseRangeEvent(e *osv.RangeEvent) (*version, error) {
 	case introduced != "" && fixed != "":
 		return nil, errBothIntroducedAndFixed
 	case introduced == "0":
-		return &version{v: "0", introduced: true}, nil
+		return &event{v: "0", introduced: true}, nil
 	case introduced != "":
 		v = introduced
 		isIntroduced = true
@@ -216,7 +216,7 @@ func parseRangeEvent(e *osv.RangeEvent) (*version, error) {
 		return nil, fmt.Errorf("%w (found %s)", errInvalidSemver, v)
 	}
 
-	return &version{v: v, introduced: isIntroduced}, nil
+	return &event{v: v, introduced: isIntroduced}, nil
 }
 
 func validateEcosystemSpecific(es *osv.EcosystemSpecific, module string) error {
