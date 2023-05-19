@@ -60,7 +60,7 @@ func versions(earliestFixed, vulnRange string) []VersionRange {
 	items, err := parseVulnRange(vulnRange)
 	if err != nil {
 		return []VersionRange{{
-			Introduced: Version(fmt.Sprintf("TODO (got error %q)", err)),
+			Introduced: fmt.Sprintf("TODO (got error %q)", err),
 		}}
 	}
 
@@ -92,7 +92,7 @@ func versions(earliestFixed, vulnRange string) []VersionRange {
 		intro = ""
 	}
 
-	return []VersionRange{{Introduced: Version(intro), Fixed: Version(fixed)}}
+	return []VersionRange{{Introduced: intro, Fixed: fixed}}
 }
 
 type vulnRangeItem struct {

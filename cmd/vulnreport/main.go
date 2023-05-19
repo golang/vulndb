@@ -723,7 +723,7 @@ func checkReportSymbols(r *report.Report) error {
 			// If some symbol is in the std library at a different version,
 			// we may derive the wrong symbols for this package and other.
 			// In this case, skip updating DerivedSymbols.
-			affected := osvutils.AffectsSemver(report.AffectedRanges(m.Versions), ver.V())
+			affected := osvutils.AffectsSemver(report.AffectedRanges(m.Versions), "v"+ver)
 			if ver == "" || !affected {
 				fmt.Fprintf(os.Stderr, "Current Go version %q is not in a vulnerable range, skipping symbol checks.\n", gover)
 				continue
@@ -767,7 +767,7 @@ func findExportedSymbols(m *report.Module, p *report.Package, r *report.Report) 
 		return nil, err
 	}
 	// Require the module we're interested in at the vulnerable_at version.
-	if err := run("go", "mod", "edit", "-require", m.Module+"@"+m.VulnerableAt.V()); err != nil {
+	if err := run("go", "mod", "edit", "-require", m.Module+"@v"+m.VulnerableAt); err != nil {
 		return nil, err
 	}
 	for _, req := range m.VulnerableAtRequires {
@@ -1010,7 +1010,7 @@ var tagRegexp = regexp.MustCompile(`^go(\d+\.\d+)(\.\d+|)((beta|rc)(\d+))?$`)
 
 // versionForTag returns the semantic version for a Go version string,
 // or "" if the version string doesn't correspond to a Go release or beta.
-func semverForGoVersion(v string) report.Version {
+func semverForGoVersion(v string) string {
 	m := tagRegexp.FindStringSubmatch(v)
 	if m == nil {
 		return ""
@@ -1024,7 +1024,7 @@ func semverForGoVersion(v string) report.Version {
 	if m[3] != "" {
 		version += "-" + m[4] + "." + m[5]
 	}
-	return report.Version(version)
+	return version
 }
 
 // loadPackage loads the package at the given import path, with enough

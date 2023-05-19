@@ -17,17 +17,19 @@ import (
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/stdlib"
+	"golang.org/x/vulndb/internal/version"
 )
 
 func checkModVersions(modPath string, vrs []VersionRange) (err error) {
-	checkVersion := func(v Version) error {
+	checkVersion := func(v string) error {
 		if v == "" {
 			return nil
 		}
-		if err := module.Check(modPath, v.V()); err != nil {
+		vv := "v" + v
+		if err := module.Check(modPath, vv); err != nil {
 			return err
 		}
-		canonicalPath, err := proxy.CanonicalModulePath(modPath, v.V())
+		canonicalPath, err := proxy.CanonicalModulePath(modPath, vv)
 		if err != nil {
 			return fmt.Errorf("unable to retrieve canonical module path from proxy: %s", err)
 		}
@@ -37,7 +39,7 @@ func checkModVersions(modPath string, vrs []VersionRange) (err error) {
 		return nil
 	}
 	for _, vr := range vrs {
-		for _, v := range []Version{vr.Introduced, vr.Fixed} {
+		for _, v := range []string{vr.Introduced, vr.Fixed} {
 			if err := checkVersion(v); err != nil {
 				return fmt.Errorf("bad version %q: %s", v, err)
 			}
@@ -80,16 +82,16 @@ func (m *Module) lintThirdParty(addPkgIssue func(string)) {
 }
 
 func (m *Module) lintVersions(addPkgIssue func(string)) {
-	if m.VulnerableAt != "" && !m.VulnerableAt.IsValid() {
+	if m.VulnerableAt != "" && !version.IsValid(m.VulnerableAt) {
 		addPkgIssue(fmt.Sprintf("invalid vulnerable_at semantic version: %q", m.VulnerableAt))
 	}
 	for i, vr := range m.Versions {
-		for _, v := range []Version{vr.Introduced, vr.Fixed} {
-			if v != "" && !v.IsValid() {
+		for _, v := range []string{vr.Introduced, vr.Fixed} {
+			if v != "" && !version.IsValid(v) {
 				addPkgIssue(fmt.Sprintf("invalid semantic version: %q", v))
 			}
 		}
-		if vr.Fixed != "" && !vr.Introduced.Before(vr.Fixed) {
+		if vr.Fixed != "" && !version.Before(vr.Introduced, vr.Fixed) {
 			addPkgIssue(
 				fmt.Sprintf("version %q >= %q", vr.Introduced, vr.Fixed))
 			continue
@@ -97,7 +99,7 @@ func (m *Module) lintVersions(addPkgIssue func(string)) {
 		// Check all previous version ranges to ensure none overlap with
 		// this one.
 		for _, vrPrev := range m.Versions[:i] {
-			if vrPrev.Introduced.Before(vr.Fixed) && vr.Introduced.Before(vrPrev.Fixed) {
+			if version.Before(vrPrev.Introduced, vr.Fixed) && version.Before(vr.Introduced, vrPrev.Fixed) {
 				addPkgIssue(fmt.Sprintf("version ranges overlap: [%v,%v), [%v,%v)", vr.Introduced, vr.Fixed, vr.Introduced, vrPrev.Fixed))
 			}
 		}
@@ -331,23 +333,23 @@ func (r *Report) Fix() {
 	for _, ref := range r.References {
 		ref.URL = fixURL(ref.URL)
 	}
-	fixVersion := func(mod string, vp *Version) {
+	fixVersion := func(mod string, vp *string) {
 		v := *vp
 		if v == "" {
 			return
 		}
-		if commitHashRegex.MatchString(string(v)) {
-			if c, err := proxy.CanonicalModuleVersion(mod, string(v)); err == nil {
-				v = Version(c)
+		if commitHashRegex.MatchString(v) {
+			if c, err := proxy.CanonicalModuleVersion(mod, v); err == nil {
+				v = c
 			}
 		}
-		v = Version(strings.TrimPrefix(string(v), "v"))
-		v = Version(strings.TrimPrefix(string(v), "go"))
-		if v.IsValid() {
-			build := semver.Build(v.V())
-			v = Version(v.Canonical())
+		v = strings.TrimPrefix(v, "v")
+		v = strings.TrimPrefix(v, "go")
+		if version.IsValid(v) {
+			build := semver.Build("v" + v)
+			v = version.Canonical(v)
 			if build != "" {
-				v += Version(build)
+				v += build
 			}
 		}
 		*vp = v

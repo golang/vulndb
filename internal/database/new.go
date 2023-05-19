@@ -8,7 +8,7 @@ import (
 	"fmt"
 
 	"golang.org/x/vulndb/internal/osv"
-	"golang.org/x/vulndb/internal/report"
+	"golang.org/x/vulndb/internal/version"
 )
 
 // New creates a new database from the given entries.
@@ -81,18 +81,18 @@ func (v *VulnsIndex) add(entry osv.Entry) error {
 }
 
 func latestFixedVersion(ranges []osv.Range) string {
-	var latestFixed report.Version
+	var latestFixed string
 	for _, r := range ranges {
 		if r.Type == osv.RangeTypeSemver {
 			for _, e := range r.Events {
-				if fixed := report.Version(e.Fixed); fixed != "" && latestFixed.Before(fixed) {
+				if fixed := e.Fixed; fixed != "" && version.Before(latestFixed, fixed) {
 					latestFixed = fixed
 				}
 			}
 			// If the vulnerability was re-introduced after the latest fix
 			// we found, there is no latest fix for this range.
 			for _, e := range r.Events {
-				if introduced := report.Version(e.Introduced); introduced != "" && introduced != "0" && latestFixed.Before(introduced) {
+				if introduced := e.Introduced; introduced != "" && introduced != "0" && version.Before(latestFixed, introduced) {
 					latestFixed = ""
 					break
 				}

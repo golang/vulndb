@@ -16,39 +16,14 @@ import (
 	"strings"
 	"time"
 
-	"golang.org/x/mod/semver"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/osv"
 	"gopkg.in/yaml.v3"
 )
 
-// Version is an SemVer 2.0.0 semantic version with no leading "v" prefix,
-// as used by OSV.
-type Version string
-
-// V returns the version with a "v" prefix.
-func (v Version) V() string {
-	return "v" + string(v)
-}
-
-// IsValid reports whether v is a valid semantic version string.
-func (v Version) IsValid() bool {
-	return semver.IsValid(v.V())
-}
-
-// Before reports whether v < v2.
-func (v Version) Before(v2 Version) bool {
-	return semver.Compare(v.V(), v2.V()) < 0
-}
-
-// Canonical returns the canonical formatting of the version.
-func (v Version) Canonical() string {
-	return strings.TrimPrefix(semver.Canonical(v.V()), "v")
-}
-
 type VersionRange struct {
-	Introduced Version `yaml:"introduced,omitempty"`
-	Fixed      Version `yaml:"fixed,omitempty"`
+	Introduced string `yaml:"introduced,omitempty"`
+	Fixed      string `yaml:"fixed,omitempty"`
 }
 
 type Module struct {
@@ -60,7 +35,7 @@ type Module struct {
 	// In general, we want to use the most recent vulnerable version of
 	// the package. Determining this programmatically is difficult, especially
 	// for packages without tagged versions, so we specify it manually here.
-	VulnerableAt Version `yaml:"vulnerable_at,omitempty"`
+	VulnerableAt string `yaml:"vulnerable_at,omitempty"`
 	// Additional list of module@version to require when performing static analysis.
 	// It is rare that we need to specify this.
 	VulnerableAtRequires []string   `yaml:"vulnerable_at_requires,omitempty"`

@@ -17,6 +17,7 @@ import (
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/stdlib"
+	"golang.org/x/vulndb/internal/version"
 )
 
 var (
@@ -109,10 +110,10 @@ func AffectedRanges(versions []VersionRange) []osv.Range {
 	}
 	for _, v := range versions {
 		if v.Introduced != "" {
-			a.Events = append(a.Events, osv.RangeEvent{Introduced: v.Introduced.Canonical()})
+			a.Events = append(a.Events, osv.RangeEvent{Introduced: version.Canonical(v.Introduced)})
 		}
 		if v.Fixed != "" {
-			a.Events = append(a.Events, osv.RangeEvent{Fixed: v.Fixed.Canonical()})
+			a.Events = append(a.Events, osv.RangeEvent{Fixed: version.Canonical(v.Fixed)})
 		}
 	}
 	return []osv.Range{a}

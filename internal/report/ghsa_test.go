@@ -106,7 +106,7 @@ func TestVersions(t *testing.T) {
 	for _, test := range []struct {
 		earliestFixed string
 		vulnRange     string
-		intro, fixed  Version
+		intro, fixed  string
 	}{
 		{"1.0.0", "< 1.0.0", "", "1.0.0"},
 		{"", "<= 1.4.2", "", ""},

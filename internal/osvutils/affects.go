@@ -12,6 +12,8 @@ import (
 	"golang.org/x/vulndb/internal/version"
 )
 
+// AffectsSemver returns whether the semver version v (which may have a 'v',
+// 'go' or no prefix) is within the given ranges.
 func AffectsSemver(ranges []osv.Range, v string) bool {
 	if len(ranges) == 0 {
 		// No ranges implies all versions are affected

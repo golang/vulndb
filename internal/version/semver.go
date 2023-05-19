@@ -3,13 +3,32 @@
 // license that can be found in the LICENSE file.
 
 // Package version provides shared utilities for manipulating
-// Go semantic versions.
+// Go semantic versions with no prefix.
 package version
 
 import (
 	"regexp"
 	"strings"
+
+	"golang.org/x/mod/semver"
 )
+
+// IsValid reports whether v is a valid unprefixed semantic version.
+func IsValid(v string) bool {
+	return semver.IsValid("v" + v)
+}
+
+// Before reports whether v < v2, where v and v2 are unprefixed semantic
+// versions.
+func Before(v, v2 string) bool {
+	return semver.Compare("v"+v, "v"+v2) < 0
+}
+
+// Canonical returns the canonical, unprefixed form of the version v,
+// which should be an unprefixed semantic version.
+func Canonical(v string) string {
+	return strings.TrimPrefix(semver.Canonical("v"+v), "v")
+}
 
 // addSemverPrefix adds a 'v' prefix to s if it isn't already prefixed
 // with 'v' or 'go'. This allows us to easily test go-style SEMVER
