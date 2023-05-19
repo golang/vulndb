@@ -5,86 +5,42 @@
 package osvutils
 
 import (
-	"sort"
+	"fmt"
 
-	"golang.org/x/mod/semver"
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/version"
 )
 
-// AffectsSemver returns whether the semver version v (which may have a 'v',
-// 'go' or no prefix) is within the given ranges.
-func AffectsSemver(ranges []osv.Range, v string) bool {
-	if len(ranges) == 0 {
-		// No ranges implies all versions are affected
-		return true
+// AffectsSemver returns whether the version v is within the given ranges.
+// v must be unprefixed, valid semver, and ranges must be sorted,
+// non-overlapping, and contain only valid semver.
+// The function errors if either of the inputs is invalid.
+func AffectsSemver(ranges []osv.Range, v string) (bool, error) {
+	// Check that ranges are sorted and otherwise valid.
+	if err := validateRanges(ranges); err != nil {
+		return false, err
 	}
-	var semverRangePresent bool
+	if !version.IsValid(v) {
+		return false, fmt.Errorf("%w: %s", errInvalidSemver, v)
+	}
 	for _, r := range ranges {
-		if r.Type != osv.RangeTypeSemver {
-			continue
-		}
-		semverRangePresent = true
 		if containsSemver(r, v) {
-			return true
+			return true, nil
 		}
 	}
-	// If there were no semver ranges present we
-	// assume that all semvers are affected, similarly
-	// to how to we assume all semvers are affected
-	// if there are no ranges at all.
-	return !semverRangePresent
+	return false, nil
 }
 
 // containsSemver checks if semver version v is in the
-// range encoded by ar. If ar is not a semver range,
-// returns false.
-//
-// Assumes that
-//   - exactly one of Introduced or Fixed fields is set
-//   - ranges in ar are not overlapping
-//   - beginning of time is encoded with .Introduced="0"
-//   - no-fix is not an event, as opposed to being an
-//     event where Introduced="" and Fixed=""
+// range encoded by ar.
+// The range must be sorted in ascending order.
 func containsSemver(ar osv.Range, v string) bool {
-	if ar.Type != osv.RangeTypeSemver {
-		return false
-	}
-	if len(ar.Events) == 0 {
-		return true
-	}
-	// Strip and then add the semver prefix so we can support bare versions,
-	// versions prefixed with 'v', and versions prefixed with 'go'.
-	v = version.CanonicalizeSemverPrefix(v)
-	// Sort events by semver versions. Event for beginning
-	// of time, if present, always comes first.
-	sort.SliceStable(ar.Events, func(i, j int) bool {
-		e1 := ar.Events[i]
-		v1 := e1.Introduced
-		if v1 == "0" {
-			// -inf case.
-			return true
-		}
-		if e1.Fixed != "" {
-			v1 = e1.Fixed
-		}
-		e2 := ar.Events[j]
-		v2 := e2.Introduced
-		if v2 == "0" {
-			// -inf case.
-			return false
-		}
-		if e2.Fixed != "" {
-			v2 = e2.Fixed
-		}
-		return semver.Compare(version.CanonicalizeSemverPrefix(v1), version.CanonicalizeSemverPrefix(v2)) < 0
-	})
 	var affected bool
 	for _, e := range ar.Events {
 		if !affected && e.Introduced != "" {
-			affected = e.Introduced == "0" || semver.Compare(v, version.CanonicalizeSemverPrefix(e.Introduced)) >= 0
+			affected = e.Introduced == "0" || !version.Before(v, e.Introduced)
 		} else if affected && e.Fixed != "" {
-			affected = semver.Compare(v, version.CanonicalizeSemverPrefix(e.Fixed)) < 0
+			affected = version.Before(v, e.Fixed)
 		}
 	}
 	return affected

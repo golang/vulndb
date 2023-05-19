@@ -21,8 +21,15 @@ import (
 func exportedFunctions(pkg *packages.Package, m *report.Module) (_ map[string]bool, err error) {
 	defer derrors.Wrap(&err, "exportedFunctions(%q)", pkg.PkgPath)
 
-	if pkg.Module != nil && !osvutils.AffectsSemver(report.AffectedRanges(m.Versions), pkg.Module.Version) {
-		return nil, fmt.Errorf("version %s of module %s is not affected by this vuln", pkg.Module.Version, pkg.Module.Path)
+	if pkg.Module != nil {
+		v := strings.TrimPrefix(pkg.Module.Version, "v")
+		affected, err := osvutils.AffectsSemver(report.AffectedRanges(m.Versions), v)
+		if err != nil {
+			return nil, err
+		}
+		if !affected {
+			return nil, fmt.Errorf("version %s of module %s is not affected by this vuln", v, pkg.Module.Path)
+		}
 	}
 
 	entries, err := vulnentries.Functions([]*packages.Package{pkg}, m)
