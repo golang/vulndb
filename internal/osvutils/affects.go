@@ -17,7 +17,7 @@ import (
 // The function errors if either of the inputs is invalid.
 func AffectsSemver(ranges []osv.Range, v string) (bool, error) {
 	// Check that ranges are sorted and otherwise valid.
-	if err := validateRanges(ranges); err != nil {
+	if err := ValidateRanges(ranges); err != nil {
 		return false, err
 	}
 	if !version.IsValid(v) {

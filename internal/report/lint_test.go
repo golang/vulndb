@@ -131,6 +131,16 @@ func TestLint(t *testing.T) {
 			want: []string{},
 		},
 		{
+			desc: "vulnerable_at outside vulnerable range",
+			report: validStdReport(func(r *Report) {
+				r.Modules[0].VulnerableAt = "2.0.0"
+				r.Modules[0].Versions = []VersionRange{
+					{Fixed: "1.2.1"},
+				}
+			}),
+			want: []string{"vulnerable_at version 2.0.0 is not inside vulnerable range"},
+		},
+		{
 			desc: "third party: module is not a prefix of package",
 			report: validReport(func(r *Report) {
 				r.Modules[0].Module = "example.com/module"
@@ -169,19 +179,19 @@ func TestLint(t *testing.T) {
 					{Fixed: "1.2.1"}, {Fixed: "1.3.2"},
 				}
 			}),
-			want: []string{"version ranges overlap"},
+			want: []string{"introduced and fixed versions must alternate"},
 		},
 		{
 			desc: "fixed before introduced",
 			report: validStdReport(func(r *Report) {
 				r.Modules[0].Versions = []VersionRange{
 					{
-						Introduced: "1.3",
+						Introduced: "1.3.0",
 						Fixed:      "1.2.1",
 					},
 				}
 			}),
-			want: []string{`version "1.3" >= "1.2.1"`},
+			want: []string{`range events must be in strictly ascending order (found 1.3.0>=1.2.1)`},
 		},
 		{
 			desc: "invalid semantic version",
@@ -192,7 +202,7 @@ func TestLint(t *testing.T) {
 					},
 				}
 			}),
-			want: []string{`invalid semantic version: "1.3.X"`},
+			want: []string{`invalid or non-canonical semver version (found 1.3.X)`},
 		},
 		{
 			desc: "bad cve identifier",

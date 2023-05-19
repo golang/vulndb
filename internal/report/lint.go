@@ -14,6 +14,7 @@ import (
 	"golang.org/x/exp/slices"
 	"golang.org/x/mod/module"
 	"golang.org/x/vulndb/internal/osv"
+	"golang.org/x/vulndb/internal/osvutils"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/stdlib"
 	"golang.org/x/vulndb/internal/version"
@@ -81,26 +82,17 @@ func (m *Module) lintThirdParty(addPkgIssue func(string)) {
 }
 
 func (m *Module) lintVersions(addPkgIssue func(string)) {
-	if m.VulnerableAt != "" && !version.IsValid(m.VulnerableAt) {
-		addPkgIssue(fmt.Sprintf("invalid vulnerable_at semantic version: %q", m.VulnerableAt))
-	}
-	for i, vr := range m.Versions {
-		for _, v := range []string{vr.Introduced, vr.Fixed} {
-			if v != "" && !version.IsValid(v) {
-				addPkgIssue(fmt.Sprintf("invalid semantic version: %q", v))
-			}
+	ranges := AffectedRanges(m.Versions)
+	if v := m.VulnerableAt; v != "" {
+		affected, err := osvutils.AffectsSemver(ranges, v)
+		if err != nil {
+			addPkgIssue(fmt.Sprintf("version issue: %s", err))
+		} else if !affected {
+			addPkgIssue(fmt.Sprintf("vulnerable_at version %s is not inside vulnerable range", v))
 		}
-		if vr.Fixed != "" && !version.Before(vr.Introduced, vr.Fixed) {
-			addPkgIssue(
-				fmt.Sprintf("version %q >= %q", vr.Introduced, vr.Fixed))
-			continue
-		}
-		// Check all previous version ranges to ensure none overlap with
-		// this one.
-		for _, vrPrev := range m.Versions[:i] {
-			if version.Before(vrPrev.Introduced, vr.Fixed) && version.Before(vr.Introduced, vrPrev.Fixed) {
-				addPkgIssue(fmt.Sprintf("version ranges overlap: [%v,%v), [%v,%v)", vr.Introduced, vr.Fixed, vr.Introduced, vrPrev.Fixed))
-			}
+	} else {
+		if err := osvutils.ValidateRanges(ranges); err != nil {
+			addPkgIssue(fmt.Sprintf("version issue: %s", err))
 		}
 	}
 }

@@ -126,14 +126,14 @@ func validateAffected(a *osv.Affected) error {
 		return errNotGoEcosystem
 	}
 
-	if err := validateRanges(a.Ranges); err != nil {
+	if err := ValidateRanges(a.Ranges); err != nil {
 		return err
 	}
 
 	return validateEcosystemSpecific(a.EcosystemSpecific, a.Module.Path)
 }
 
-func validateRanges(ranges []osv.Range) error {
+func ValidateRanges(ranges []osv.Range) error {
 	switch {
 	case len(ranges) == 0:
 		return errNoRanges

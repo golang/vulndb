@@ -15,13 +15,15 @@ modules:
   - module: golang.org/x/net
     versions:
       - fixed: 0.0.0-20190813141303-74dc4d7220e7
-    vulnerable_at: 0.0.0-20190813141303-74dc4d7220e7
+    vulnerable_at: 0.0.0-20190607181551-461777fb6f67
     packages:
-      - package: golang.org/x/net/http
+      - package: golang.org/x/net/http2
         symbols:
           - serverConn.serve
           - serverConn.writeFrame
           - serverConn.scheduleFrameWrite
+        derived_symbols:
+          - Server.ServeConn
 summary: Reset flood in net/http and golang.org/x/net/http
 description: |
     Some HTTP/2 implementations are vulnerable to a reset flood, potentially
