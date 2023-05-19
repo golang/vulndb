@@ -49,32 +49,29 @@ func TestExportedFunctions(t *testing.T) {
 	})
 	defer e.Cleanup()
 
-	r := &report.Report{
-		Modules: []*report.Module{{
-			Module: "example.com/m",
-			Packages: []*report.Package{
-				{
-					Package: "example.com/m/p",
-					Symbols: []string{"vuln"},
-				},
-				{
-					Package: "example.com/m/internal/v",
-					Symbols: []string{"V.Vuln"},
-				},
+	m := &report.Module{
+		Module: "example.com/m",
+		Packages: []*report.Package{
+			{
+				Package: "example.com/m/p",
+				Symbols: []string{"vuln"},
 			},
-		}},
+			{
+				Package: "example.com/m/internal/v",
+				Symbols: []string{"V.Vuln"},
+			},
+		},
 	}
-	pkgs, err := loadPackage(e.Config, path.Join(e.Temp(), "m/p"))
+	pkg, err := loadPackage(e.Config, path.Join(e.Temp(), "m/p"))
 	if err != nil {
 		t.Fatal(err)
 	}
 	// Clear Module.Dir so vulncheck doesn't think that the module is local and ignore it.
 	// Set Module.Version so vulncheck doesn't filter it out.
-	for _, p := range pkgs {
-		p.Module.Dir = ""
-		p.Module.Version = "v1.0.0"
-	}
-	got, err := exportedFunctions(pkgs, r)
+	pkg.Module.Dir = ""
+	pkg.Module.Version = "v1.0.0"
+
+	got, err := exportedFunctions(pkg, m)
 	if err != nil {
 		t.Fatal(err)
 	}

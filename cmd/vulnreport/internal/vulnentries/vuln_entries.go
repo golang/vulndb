@@ -16,11 +16,11 @@ import (
 )
 
 // Functions returns entries of pkgs call graph that lead to
-// vulnerable symbols in r.
+// vulnerable symbols in m.
 //
-// It assumes that the modules in r present in pkgs, if any,
-// are at a version deemed vulnerable by r.
-func Functions(pkgs []*packages.Package, r *report.Report) ([]*ssa.Function, error) {
+// It assumes that the modules in m present in pkgs, if any,
+// are at a version deemed vulnerable by m.
+func Functions(pkgs []*packages.Package, m *report.Module) ([]*ssa.Function, error) {
 	ctx := context.Background()
 
 	// The following code block is copied from
@@ -44,7 +44,7 @@ func Functions(pkgs []*packages.Package, r *report.Report) ([]*ssa.Function, err
 
 	// Identify vulnerable functions/methods in the call graph and
 	// compute the backwards reachable entries.
-	entryNodes := vulnReachingEntries(cg, vulnFuncs(cg, r), entries)
+	entryNodes := vulnReachingEntries(cg, vulnFuncs(cg, m), entries)
 	var vres []*ssa.Function
 	for _, n := range entryNodes {
 		vres = append(vres, n.Func)
@@ -52,24 +52,22 @@ func Functions(pkgs []*packages.Package, r *report.Report) ([]*ssa.Function, err
 	return vres, nil
 }
 
-// vulnFuncs returns functions/methods of cg deemed vulnerable by r.
+// vulnFuncs returns functions/methods of cg deemed vulnerable by m.
 //
 // It mimics golang.org/x/vuln/internal/vulncheck/source.go:vulnFuncs.
-func vulnFuncs(cg *callgraph.Graph, r *report.Report) []*callgraph.Node {
+func vulnFuncs(cg *callgraph.Graph, m *report.Module) []*callgraph.Node {
 	// Create a set of vulnerable symbols easy to query.
 	type vulnSym struct {
 		pkg string
 		sym string
 	}
 	vulnSyms := make(map[vulnSym]bool)
-	for _, m := range r.Modules {
-		for _, p := range m.Packages {
-			for _, s := range p.Symbols {
-				vulnSyms[vulnSym{p.Package, s}] = true
-			}
-			for _, s := range p.DerivedSymbols { // for sanity
-				vulnSyms[vulnSym{p.Package, s}] = true
-			}
+	for _, p := range m.Packages {
+		for _, s := range p.Symbols {
+			vulnSyms[vulnSym{p.Package, s}] = true
+		}
+		for _, s := range p.DerivedSymbols { // for sanity
+			vulnSyms[vulnSym{p.Package, s}] = true
 		}
 	}
 

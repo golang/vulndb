@@ -6,9 +6,7 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"strings"
-	"time"
 
 	"golang.org/x/tools/go/packages"
 	"golang.org/x/tools/go/ssa"
@@ -18,18 +16,16 @@ import (
 	"golang.org/x/vulndb/internal/report"
 )
 
-// exportedFunctions returns a set of vulnerable functions exported by a set of packages
-// from the same module.
-func exportedFunctions(pkgs []*packages.Package, r *report.Report) (_ map[string]bool, err error) {
-	defer derrors.Wrap(&err, "exportedFunctions(%q)", pkgs[0].PkgPath)
+// exportedFunctions returns a set of vulnerable functions exported
+// by a packages from the module.
+func exportedFunctions(pkg *packages.Package, m *report.Module) (_ map[string]bool, err error) {
+	defer derrors.Wrap(&err, "exportedFunctions(%q)", pkg.PkgPath)
 
-	if pkgs[0].Module != nil && !affected(r, pkgs[0].Module.Version) {
-		fmt.Fprintf(os.Stderr, "version %s of module %s is not affected by this vuln\n",
-			pkgs[0].Module.Version, pkgs[0].Module.Path)
-		return map[string]bool{}, nil
+	if pkg.Module != nil && !osvutils.AffectsSemver(report.AffectedRanges(m.Versions), pkg.Module.Version) {
+		return nil, fmt.Errorf("version %s of module %s is not affected by this vuln", pkg.Module.Version, pkg.Module.Path)
 	}
 
-	entries, err := vulnentries.Functions(pkgs, r)
+	entries, err := vulnentries.Functions([]*packages.Package{pkg}, m)
 	if err != nil {
 		return nil, err
 	}
@@ -42,7 +38,7 @@ func exportedFunctions(pkgs []*packages.Package, r *report.Report) (_ map[string
 	// information as they wish.
 	names := map[string]bool{}
 	for _, e := range entries {
-		if pkgPath(e) == pkgs[0].PkgPath {
+		if pkgPath(e) == pkg.PkgPath {
 			names[symbolName(e)] = true
 		}
 	}
@@ -72,16 +68,4 @@ func pkgPath(f *ssa.Function) string {
 		return f.Package().Pkg.Path()
 	}
 	return ""
-}
-
-func affected(r *report.Report, version string) bool {
-	// Generate dummy osv entry just so we
-	// can check semver ranges.
-	o := r.GenerateOSVEntry("", time.Now())
-	for _, a := range o.Affected {
-		if osvutils.AffectsSemver(a.Ranges, version) {
-			return true
-		}
-	}
-	return false
 }

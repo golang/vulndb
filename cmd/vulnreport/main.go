@@ -738,7 +738,7 @@ func checkReportSymbols(r *report.Report) error {
 				fmt.Fprintf(os.Stderr, "%v: skip_fix set, skipping symbol checks (reason: %q)\n", p.Package, p.SkipFix)
 				continue
 			}
-			syms, err := findExportedSymbols(m, p, r)
+			syms, err := findExportedSymbols(m, p)
 			if err != nil {
 				return err
 			}
@@ -749,7 +749,7 @@ func checkReportSymbols(r *report.Report) error {
 	return nil
 }
 
-func findExportedSymbols(m *report.Module, p *report.Package, r *report.Report) (_ []string, err error) {
+func findExportedSymbols(m *report.Module, p *report.Package) (_ []string, err error) {
 	defer derrors.Wrap(&err, "findExportedSymbols(%q, %q)", m.Module, p.Package)
 
 	cleanup, err := changeToTempDir()
@@ -791,23 +791,20 @@ func findExportedSymbols(m *report.Module, p *report.Package, r *report.Report) 
 		return nil, err
 	}
 
-	pkgs, err := loadPackage(&packages.Config{}, p.Package)
+	pkg, err := loadPackage(&packages.Config{}, p.Package)
 	if err != nil {
 		return nil, err
 	}
-	if len(pkgs) == 0 {
-		return nil, errors.New("no packages found")
-	}
 	// First package should match package path and module.
-	if pkgs[0].PkgPath != p.Package {
-		return nil, fmt.Errorf("first package had import path %s, wanted %s", pkgs[0].PkgPath, p.Package)
+	if pkg.PkgPath != p.Package {
+		return nil, fmt.Errorf("first package had import path %s, wanted %s", pkg.PkgPath, p.Package)
 	}
 	if m.IsStdLib() {
-		if pm := pkgs[0].Module; pm != nil {
+		if pm := pkg.Module; pm != nil {
 			return nil, fmt.Errorf("got module %v, expected nil", pm)
 		}
 	} else {
-		if pm := pkgs[0].Module; pm == nil || pm.Path != m.Module {
+		if pm := pkg.Module; pm == nil || pm.Path != m.Module {
 			return nil, fmt.Errorf("got module %v, expected %s", pm, m.Module)
 		}
 	}
@@ -821,24 +818,24 @@ func findExportedSymbols(m *report.Module, p *report.Package, r *report.Report) 
 	// load/typecheck packages at the moment, so do it here for now.
 	for _, sym := range p.Symbols {
 		if typ, method, ok := strings.Cut(sym, "."); ok {
-			n, ok := pkgs[0].Types.Scope().Lookup(typ).(*types.TypeName)
+			n, ok := pkg.Types.Scope().Lookup(typ).(*types.TypeName)
 			if !ok {
 				fmt.Fprintf(os.Stderr, "%v: type not found\n", typ)
 				continue
 			}
-			m, _, _ := types.LookupFieldOrMethod(n.Type(), true, pkgs[0].Types, method)
+			m, _, _ := types.LookupFieldOrMethod(n.Type(), true, pkg.Types, method)
 			if m == nil {
 				fmt.Fprintf(os.Stderr, "%v: method not found\n", sym)
 			}
 		} else {
-			_, ok := pkgs[0].Types.Scope().Lookup(typ).(*types.Func)
+			_, ok := pkg.Types.Scope().Lookup(typ).(*types.Func)
 			if !ok {
 				fmt.Fprintf(os.Stderr, "%v: func not found\n", typ)
 			}
 		}
 	}
 
-	newsyms, err := exportedFunctions(pkgs, r)
+	newsyms, err := exportedFunctions(pkg, m)
 	if err != nil {
 		return nil, err
 	}
@@ -1029,7 +1026,7 @@ func semverForGoVersion(v string) string {
 
 // loadPackage loads the package at the given import path, with enough
 // information for constructing a call graph.
-func loadPackage(cfg *packages.Config, importPath string) (_ []*packages.Package, err error) {
+func loadPackage(cfg *packages.Config, importPath string) (_ *packages.Package, err error) {
 	defer derrors.Wrap(&err, "loadPackage(%s)", importPath)
 
 	cfg.Mode |= packages.NeedName | packages.NeedFiles | packages.NeedCompiledGoFiles |
@@ -1046,7 +1043,14 @@ func loadPackage(cfg *packages.Config, importPath string) (_ []*packages.Package
 		return nil, err
 	}
 
-	return pkgs, nil
+	if len(pkgs) == 0 {
+		return nil, errors.New("no packages found")
+	}
+	if len(pkgs) > 1 {
+		return nil, fmt.Errorf("multiple (%d) packages found for import path %s", len(pkgs), importPath)
+	}
+
+	return pkgs[0], nil
 }
 
 // packageLoadingError returns an error summarizing packages.Package.Errors if there were any.
