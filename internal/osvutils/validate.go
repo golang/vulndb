@@ -13,9 +13,9 @@ import (
 	"regexp"
 	"strings"
 
-	"golang.org/x/mod/semver"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/osv"
+	"golang.org/x/vulndb/internal/version"
 )
 
 // Validate errors if there are any problems with the OSV Entry.
@@ -184,7 +184,7 @@ func less(v, w string) bool {
 	if w == "0" {
 		return false
 	}
-	return semver.Compare("v"+v, "v"+w) < 0
+	return version.Before(v, w)
 }
 
 type event struct {
@@ -212,7 +212,7 @@ func parseRangeEvent(e *osv.RangeEvent) (*event, error) {
 		isIntroduced = false
 	}
 
-	if sv := "v" + v; !semver.IsValid(sv) || semver.Canonical(sv) != sv {
+	if !version.IsValid(v) || v != version.Canonical(v) {
 		return nil, fmt.Errorf("%w (found %s)", errInvalidSemver, v)
 	}
 

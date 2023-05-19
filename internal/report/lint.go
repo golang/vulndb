@@ -13,7 +13,6 @@ import (
 
 	"golang.org/x/exp/slices"
 	"golang.org/x/mod/module"
-	"golang.org/x/mod/semver"
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/stdlib"
@@ -343,14 +342,9 @@ func (r *Report) Fix() {
 				v = c
 			}
 		}
-		v = strings.TrimPrefix(v, "v")
-		v = strings.TrimPrefix(v, "go")
+		v = version.TrimPrefix(v)
 		if version.IsValid(v) {
-			build := semver.Build("v" + v)
 			v = version.Canonical(v)
-			if build != "" {
-				v += build
-			}
 		}
 		*vp = v
 	}

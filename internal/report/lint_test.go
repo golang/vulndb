@@ -18,9 +18,10 @@ var (
 		{Type: osv.ReferenceTypeWeb, URL: "https://groups.google.com/g/golang-announce/c/12345"},
 		{Type: osv.ReferenceTypeReport, URL: "https://go.dev/issue/12345"},
 	}
+	noop = func(*Report) {}
 )
 
-func validXReport(f func(r *Report)) Report {
+func validReport(f func(r *Report)) Report {
 	r := Report{
 		Modules: []*Module{{
 			Module:       "golang.org/x/net",
@@ -31,6 +32,33 @@ func validXReport(f func(r *Report)) Report {
 		}},
 		Description: "description",
 		Summary:     "a summary",
+		CVEs:        []string{"CVE-1234-0000"},
+	}
+	f(&r)
+	return r
+}
+
+func validStdReport(f func(r *Report)) Report {
+	r := Report{
+		Modules: []*Module{{
+			Module:       "std",
+			VulnerableAt: "1.2.3",
+			Packages: []*Package{{
+				Package: "net/http",
+			}},
+		}},
+		Description: "description",
+		Summary:     "a summary",
+		References:  validStdLibReferences,
+	}
+	f(&r)
+	return r
+}
+
+func validExcludedReport(f func(r *Report)) Report {
+	r := Report{
+		Excluded: "NOT_GO_CODE",
+		CVEs:     []string{"CVE-2022-1234545"},
 	}
 	f(&r)
 	return r
@@ -45,347 +73,179 @@ func TestLint(t *testing.T) {
 	}{
 		{
 			desc: "no modules",
-			report: Report{
-				Description: "description",
-				Summary:     "a summary",
-			},
+			report: validReport(func(r *Report) {
+				r.Modules = nil
+			}),
 			want: []string{"no modules"},
 		},
 		{
-			desc: "missing module",
-			report: Report{
-				Modules: []*Module{{
-					// no module field
-					VulnerableAt: "1.2.3",
-					Packages: []*Package{{
-						Package: "golang.org/x/vulndb",
-					}},
-				}},
-				Description: "description",
-				Summary:     "a summary",
-			},
+			desc: "missing module path",
+			report: validReport(func(r *Report) {
+				r.Modules[0].Module = ""
+			}),
 			want: []string{"missing module"},
 		},
 		{
 			desc: "missing description",
-			report: Report{
-				Summary: "a summary",
-				Modules: []*Module{{
-					Module:       "std",
-					VulnerableAt: "1.2.3",
-					Packages: []*Package{{
-						Package: "time",
-					}},
-				}},
-				// no description
-				References: validStdLibReferences,
-			},
+			report: validReport(func(r *Report) {
+				r.Description = ""
+			}),
 			want: []string{"missing description"},
 		},
 		{
 			desc: "missing summary",
-			report: Report{
-				Modules: []*Module{{
-					Module:       "std",
-					VulnerableAt: "1.2.3",
-					Packages: []*Package{{
-						Package: "time",
-					}},
-				}},
-				Description: "description",
-				// no summary
-				References: validStdLibReferences,
-			},
+			report: validReport(func(r *Report) {
+				r.Summary = ""
+			}),
 			want: []string{"missing summary"},
 		},
 		{
 			desc: "missing package path",
-			report: Report{
-				Modules: []*Module{{
-					Module:       "golang.org/x/vulndb",
-					VulnerableAt: "1.2.3",
-					Packages: []*Package{{
-						Symbols: []string{"Foo"},
-					}},
-				}},
-				Description: "description",
-				Summary:     "a summary",
-			},
+			report: validReport(func(r *Report) {
+				r.Modules[0].Packages[0].Package = ""
+			}),
 			want: []string{"missing package"},
 		},
 		{
 			desc: "missing vulnerable at and skip fix",
-			report: Report{
-				Modules: []*Module{{
-					Module: "golang.org/x/vulndb",
-					// no vulnerable at
-					Packages: []*Package{{
-						Package: "golang.org/x/vulndb/internal/lint",
-						Symbols: []string{"Foo"},
-					}},
-				}},
-				Description: "description",
-				Summary:     "a summary",
-			},
+			report: validReport(func(r *Report) {
+				r.Modules[0].VulnerableAt = ""
+				r.Modules[0].Packages[0].SkipFix = ""
+			}),
 			want: []string{"missing skip_fix and vulnerable_at"},
 		},
 		{
 			desc: "skip fix given",
-			report: Report{
-				Modules: []*Module{{
-					Module: "golang.org/x/vulndb",
-					// no vulnerable at
-					Packages: []*Package{{
-						Package: "golang.org/x/vulndb/internal/lint",
-						Symbols: []string{"Foo"},
-						SkipFix: "reason given",
-					}},
-				}},
-				Description: "description",
-				Summary:     "a summary",
-			},
+			report: validReport(func(r *Report) {
+				r.Modules[0].VulnerableAt = ""
+				r.Modules[0].Packages[0].SkipFix = "a reason"
+			}),
 			want: []string{},
 		},
 		{
 			desc: "vulnerable at and skip fix given",
-			report: Report{
-				Modules: []*Module{{
-					Module:       "golang.org/x/vulndb",
-					VulnerableAt: "1.2.3",
-					Packages: []*Package{{
-						Package: "golang.org/x/vulndb/internal/lint",
-						Symbols: []string{"Foo"},
-						SkipFix: "reason given",
-					}},
-				}},
-				Description: "description",
-				Summary:     "a summary",
-			},
+			report: validReport(func(r *Report) {
+				r.Modules[0].VulnerableAt = "1.2.3"
+				r.Modules[0].Packages[0].SkipFix = "a reason"
+			}),
 			want: []string{},
 		},
 		{
 			desc: "third party: module is not a prefix of package",
-			report: Report{
-				Modules: []*Module{{
-					Module:       "golang.org/x/vulndb",
-					VulnerableAt: "1.2.3",
-					Packages: []*Package{{
-						Package: "golang.org/x/crypto",
-					}},
-				}},
-				Description: "description",
-				Summary:     "a summary",
-			},
+			report: validReport(func(r *Report) {
+				r.Modules[0].Module = "example.com/module"
+				r.Modules[0].Packages[0].Package = "example.com/package"
+			}),
 			want: []string{"module must be a prefix of package"},
 		},
 		{
 			desc: "third party: invalid import path",
-			report: Report{
-				Modules: []*Module{{
-					Module:       "invalid.",
-					VulnerableAt: "1.2.3",
-					Packages: []*Package{{
-						Package: "invalid.",
-					}},
-				}},
-				Description: "description",
-				Summary:     "a summary",
-			},
+			report: validReport(func(r *Report) {
+				r.Modules[0].Module = "invalid."
+				r.Modules[0].Packages[0].Package = "invalid."
+			}),
 			want: []string{"malformed import path"},
 		},
 		{
 			desc: "standard library: missing package",
-			report: Report{
-				Modules: []*Module{{
-					Module:       "std",
-					VulnerableAt: "1.2.3",
-					Packages: []*Package{{
-						// no package
-						Symbols: []string{"Atoi"},
-					}},
-				}},
-				Description: "description",
-				Summary:     "a summary",
-				References:  validStdLibReferences,
-			},
+			report: validStdReport(func(r *Report) {
+				r.Modules[0].Packages[0].Package = ""
+			}),
 			want: []string{"missing package"},
 		},
 		{
 			desc: "toolchain: wrong module",
-			report: Report{
-				Modules: []*Module{{
-					Module:       "std",
-					VulnerableAt: "1.2.3",
-					Packages: []*Package{{
-						Package: "cmd/go",
-					}},
-				}},
-				Description: "description",
-				Summary:     "a summary",
-				References:  validStdLibReferences,
-			},
+			report: validStdReport(func(r *Report) {
+				r.Modules[0].Module = "std"
+				r.Modules[0].Packages[0].Package = "cmd/go"
+			}),
 			want: []string{`should be in module "cmd", not "std"`},
 		},
 		{
 			desc: "overlapping version ranges",
-			report: Report{
-				Modules: []*Module{{
-					Module: "std",
-					Versions: []VersionRange{{
-						Fixed: "1.2.1",
-					}, {
-						Fixed: "1.3.2",
-					}},
-					VulnerableAt: "1.2.3",
-					Packages: []*Package{{
-						Package: "time",
-					}},
-				}},
-				Description: "description",
-				Summary:     "a summary",
-				References:  validStdLibReferences,
-			},
+			report: validStdReport(func(r *Report) {
+				r.Modules[0].Versions = []VersionRange{
+					// Two fixed versions in a row with no introduced.
+					{Fixed: "1.2.1"}, {Fixed: "1.3.2"},
+				}
+			}),
 			want: []string{"version ranges overlap"},
 		},
 		{
 			desc: "fixed before introduced",
-			report: Report{
-				Modules: []*Module{{
-					Module: "std",
-					Versions: []VersionRange{{
+			report: validStdReport(func(r *Report) {
+				r.Modules[0].Versions = []VersionRange{
+					{
 						Introduced: "1.3",
 						Fixed:      "1.2.1",
-					}},
-					VulnerableAt: "1.2.3",
-					Packages: []*Package{{
-						Package: "time",
-					}},
-				}},
-				Description: "description",
-				Summary:     "a summary",
-				References:  validStdLibReferences,
-			},
+					},
+				}
+			}),
 			want: []string{`version "1.3" >= "1.2.1"`},
 		},
 		{
 			desc: "invalid semantic version",
-			report: Report{
-				Modules: []*Module{{
-					Module: "std",
-					Versions: []VersionRange{{
+			report: validStdReport(func(r *Report) {
+				r.Modules[0].Versions = []VersionRange{
+					{
 						Introduced: "1.3.X",
-					}},
-					VulnerableAt: "1.2.3",
-					Packages: []*Package{{
-						Package: "time",
-					}},
-				}},
-				Description: "description",
-				Summary:     "a summary",
-				References:  validStdLibReferences,
-			},
+					},
+				}
+			}),
 			want: []string{`invalid semantic version: "1.3.X"`},
 		},
 		{
 			desc: "bad cve identifier",
-			report: Report{
-				Modules: []*Module{{
-					Module:       "std",
-					VulnerableAt: "1.2.3",
-					Packages: []*Package{{
-						Package: "time",
-					}},
-				}},
-				Description: "description",
-				Summary:     "a summary",
-				CVEs:        []string{"CVE.12345.456"},
-				References:  validStdLibReferences,
-			},
+			report: validReport(func(r *Report) {
+				r.CVEs = []string{"CVE.1234.5678"}
+			}),
 			want: []string{"malformed cve identifier"},
 		},
 		{
 			desc: "cve and cve metadata both present",
-			report: Report{
-				Modules: []*Module{{
-					Module:       "std",
-					VulnerableAt: "1.2.3",
-					Packages: []*Package{{
-						Package: "time",
-					}},
-				}},
-				Description: "description",
-				Summary:     "a summary",
-				CVEs:        []string{"CVE-2022-1234545"},
-				CVEMetadata: &CVEMeta{
-					ID:  "CVE-2022-23456",
-					CWE: "CWE 111",
-				},
-				References: validStdLibReferences,
-			},
+			report: validReport(func(r *Report) {
+				r.CVEs = []string{"CVE-0000-1111"}
+				r.CVEMetadata = &CVEMeta{
+					ID:  "CVE-0000-1111",
+					CWE: "a cwe",
+				}
+			}),
 			want: []string{"only one of cve and cve_metadata.id should be present"},
 		},
 		{
 			desc: "missing cve metadata required fields",
-			report: Report{
-				Modules: []*Module{{
-					Module:       "std",
-					VulnerableAt: "1.2.3",
-					Packages: []*Package{{
-						Package: "time",
-					}},
-				}},
-				Description: "description",
-				Summary:     "a summary",
-				CVEMetadata: &CVEMeta{
-					// no id
-					// no cwe
-				},
-				References: validStdLibReferences,
-			},
+			report: validReport(func(r *Report) {
+				r.CVEs = nil
+				r.CVEMetadata = &CVEMeta{
+					// missing fields
+				}
+			}),
 			want: []string{"cve_metadata.id is required", "cve_metadata.cwe is required"},
 		},
 		{
 			desc: "bad cve metadata id",
-			report: Report{
-				Modules: []*Module{{
-					Module:       "std",
-					VulnerableAt: "1.2.3",
-					Packages: []*Package{{
-						Package: "time",
-					}},
-				}},
-				Description: "description",
-				Summary:     "a summary",
-				CVEMetadata: &CVEMeta{
-					ID:  "CVE.2022.00000",
-					CWE: "CWE 111",
-				},
-				References: validStdLibReferences,
-			},
+			report: validReport(func(r *Report) {
+				r.CVEs = nil
+				r.CVEMetadata = &CVEMeta{
+					ID:  "CVE.0000.1111",
+					CWE: "a cwe",
+				}
+			}),
 			want: []string{"malformed cve_metadata.id identifier"},
 		},
 		{
 			desc: "invalid reference type",
-			report: Report{
-				Modules: []*Module{{
-					Module:       "std",
-					VulnerableAt: "1.2.3",
-					Packages: []*Package{{
-						Package: "time",
-					}},
-				}},
-				Description: "description",
-				Summary:     "a summary",
-				References: append([]*Reference{{
+			report: validReport(func(r *Report) {
+				r.References = append(r.References, &Reference{
 					Type: "INVALID",
 					URL:  "http://go.dev/",
-				}}, validStdLibReferences...),
-			},
+				})
+			}),
 			want: []string{"not a valid reference type"},
 		},
 		{
 			desc: "multiple advisory links",
-			report: validXReport(func(r *Report) {
+			report: validReport(func(r *Report) {
 				r.References = append(r.References, &Reference{
 					Type: "ADVISORY",
 					URL:  "http://go.dev/a",
@@ -398,7 +258,7 @@ func TestLint(t *testing.T) {
 		},
 		{
 			desc: "redundant advisory links",
-			report: validXReport(func(r *Report) {
+			report: validReport(func(r *Report) {
 				r.CVEs = []string{"CVE-0000-0000", "CVE-0000-0001"}
 				r.GHSAs = []string{"GHSA-0000-0000-0000"}
 				r.References = append(r.References, &Reference{
@@ -426,23 +286,14 @@ func TestLint(t *testing.T) {
 		},
 		{
 			desc: "unfixed links",
-			report: Report{
-				Modules: []*Module{{
-					Module:       "golang.org/x/vulndb",
-					VulnerableAt: "1.2.3",
-					Packages: []*Package{{
-						Package: "golang.org/x/vulndb",
-					}},
-				}},
-				Description: "description",
-				Summary:     "a summary",
-				References: []*Reference{
+			report: validReport(func(r *Report) {
+				r.References = []*Reference{
 					{Type: osv.ReferenceTypeFix, URL: "https://github.com/golang/go/commit/12345"},
 					{Type: osv.ReferenceTypeReport, URL: "https://github.com/golang/go/issues/12345"},
 					{Type: osv.ReferenceTypeWeb, URL: "https://golang.org/xxx"},
 					{Type: osv.ReferenceTypeWeb, URL: "https://groups.google.com/forum/#!/golang-announce/12345/1/"},
-				},
-			},
+				}
+			}),
 			want: []string{
 				`"https://github.com/golang/go/issues/12345" should be "https://go.dev/issue/12345"`,
 				`"https://golang.org/xxx" should be "https://go.dev/xxx"`,
@@ -451,24 +302,15 @@ func TestLint(t *testing.T) {
 		},
 		{
 			desc: "standard library: unfixed/missing links",
-			report: Report{
-				Modules: []*Module{{
-					Module:       "std",
-					VulnerableAt: "1.2.3",
-					Packages: []*Package{{
-						Package: "time",
-					}},
-				}},
-				Description: "description",
-				Summary:     "a summary",
-				References: []*Reference{
+			report: validStdReport(func(r *Report) {
+				r.References = []*Reference{
 					{Type: osv.ReferenceTypeFix, URL: "https://go-review.googlesource.com/c/go/+/12345"},
 					{Type: osv.ReferenceTypeFix, URL: "https://github.com/golang/go/commit/12345"},
 					{Type: osv.ReferenceTypeReport, URL: "https://github.com/golang/go/issues/12345"},
 					{Type: osv.ReferenceTypeWeb, URL: "https://go.dev/"},
 					// no announce link
-				},
-			},
+				}
+			}),
 			want: []string{
 				// Standard library specific errors.
 				"fix reference should match",
@@ -482,33 +324,21 @@ func TestLint(t *testing.T) {
 		},
 		{
 			desc: "invalid URL",
-			report: Report{
-				Modules: []*Module{{
-					Module:       "golang.org/x/vulndb",
-					VulnerableAt: "1.2.3",
-					Packages: []*Package{{
-						Package: "golang.org/x/vulndb",
-					}},
-				}},
-				Description: "description",
-				Summary:     "a summary",
-				References: []*Reference{
+			report: validReport(func(r *Report) {
+				r.References = []*Reference{
 					{
 						Type: osv.ReferenceTypeFix,
 						URL:  "go.dev/cl/12345", // needs "https://" prefix
 					},
-				},
-			},
+				}
+			}),
 			want: []string{
 				`"go.dev/cl/12345" is not a valid URL`,
 			},
 		},
 		{
-			desc: "excluded in wrong dir",
-			report: Report{
-				Excluded: "NOT_GO_CODE",
-				CVEs:     []string{"CVE-2022-1234545"},
-			},
+			desc:   "excluded in wrong dir",
+			report: validExcludedReport(noop),
 			want: []string{
 				`report in reports/ must not have excluded set`,
 				`no modules`,
@@ -519,19 +349,27 @@ func TestLint(t *testing.T) {
 		{
 			desc:   "report in wrong dir",
 			dir:    "excluded",
-			report: Report{},
+			report: validReport(noop),
 			want: []string{
 				`report in excluded/ must have excluded set`,
+			},
+		},
+		{
+			desc: "excluded missing CVE/GHSA",
+			dir:  "excluded",
+			report: validExcludedReport(func(r *Report) {
+				r.CVEs = nil
+				r.GHSAs = nil
+			}),
+			want: []string{
 				`excluded report must have at least one associated CVE or GHSA`,
 			},
 		},
 		{
-			desc: "excluded",
-			dir:  "excluded",
-			report: Report{
-				Excluded: "NOT_GO_CODE",
-				CVEs:     []string{"CVE-2022-1234545"},
-			},
+			desc:   "excluded",
+			dir:    "excluded",
+			report: validExcludedReport(noop),
+			// No lints.
 		},
 	} {
 		test := test

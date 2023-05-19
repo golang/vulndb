@@ -7,7 +7,6 @@
 package version
 
 import (
-	"regexp"
 	"strings"
 
 	"golang.org/x/mod/semver"
@@ -26,75 +25,18 @@ func Before(v, v2 string) bool {
 
 // Canonical returns the canonical, unprefixed form of the version v,
 // which should be an unprefixed semantic version.
+// Unlike semver.Canonical, this function preserves build tags.
 func Canonical(v string) string {
-	return strings.TrimPrefix(semver.Canonical("v"+v), "v")
+	sv := "v" + v
+	build := semver.Build(sv)
+	c := strings.TrimPrefix(semver.Canonical(sv), "v")
+	return c + build
 }
 
-// addSemverPrefix adds a 'v' prefix to s if it isn't already prefixed
-// with 'v' or 'go'. This allows us to easily test go-style SEMVER
-// strings against normal SEMVER strings.
-func addSemverPrefix(s string) string {
-	if !strings.HasPrefix(s, "v") && !strings.HasPrefix(s, "go") {
-		return "v" + s
-	}
-	return s
-}
-
-// removeSemverPrefix removes the 'v' or 'go' prefixes from go-style
-// SEMVER strings, for usage in the public vulnerability format.
-func removeSemverPrefix(s string) string {
-	s = strings.TrimPrefix(s, "v")
-	s = strings.TrimPrefix(s, "go")
-	return s
-}
-
-// CanonicalizeSemverPrefix turns a SEMVER string into the canonical
-// representation using the 'v' prefix, as used by the OSV format.
-// Input may be a bare SEMVER ("1.2.3"), Go prefixed SEMVER ("go1.2.3"),
-// or already canonical SEMVER ("v1.2.3").
-func CanonicalizeSemverPrefix(s string) string {
-	return addSemverPrefix(removeSemverPrefix(s))
-}
-
-var (
-	// Regexp for matching go tags. The groups are:
-	// 1  the major.minor version
-	// 2  the patch version, or empty if none
-	// 3  the entire prerelease, if present
-	// 4  the prerelease type ("beta" or "rc")
-	// 5  the prerelease number
-	tagRegexp = regexp.MustCompile(`^go(\d+\.\d+)(\.\d+|)((beta|rc|-pre)(\d+))?$`)
-)
-
-// This is a modified copy of pkgsite/internal/stdlib:VersionForTag.
-func GoTagToSemver(tag string) string {
-	if tag == "" {
-		return ""
-	}
-
-	tag = strings.Fields(tag)[0]
-	// Special cases for go1.
-	if tag == "go1" {
-		return "v1.0.0"
-	}
-	if tag == "go1.0" {
-		return ""
-	}
-	m := tagRegexp.FindStringSubmatch(tag)
-	if m == nil {
-		return ""
-	}
-	version := "v" + m[1]
-	if m[2] != "" {
-		version += m[2]
-	} else {
-		version += ".0"
-	}
-	if m[3] != "" {
-		if !strings.HasPrefix(m[4], "-") {
-			version += "-"
-		}
-		version += m[4] + "." + m[5]
-	}
-	return version
+// TrimPrefix removes the 'v' or 'go' prefix from the given
+// semantic version v.
+func TrimPrefix(v string) string {
+	v = strings.TrimPrefix(v, "v")
+	v = strings.TrimPrefix(v, "go")
+	return v
 }

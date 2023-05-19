@@ -14,6 +14,7 @@ import (
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/osvutils"
 	"golang.org/x/vulndb/internal/report"
+	"golang.org/x/vulndb/internal/version"
 )
 
 // exportedFunctions returns a set of vulnerable functions exported
@@ -22,7 +23,7 @@ func exportedFunctions(pkg *packages.Package, m *report.Module) (_ map[string]bo
 	defer derrors.Wrap(&err, "exportedFunctions(%q)", pkg.PkgPath)
 
 	if pkg.Module != nil {
-		v := strings.TrimPrefix(pkg.Module.Version, "v")
+		v := version.TrimPrefix(pkg.Module.Version)
 		affected, err := osvutils.AffectsSemver(report.AffectedRanges(m.Versions), v)
 		if err != nil {
 			return nil, err
