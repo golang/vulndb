@@ -25,24 +25,45 @@ func TestExportedFunctions(t *testing.T) {
 				`,
 				"p/b.go": `
 					package p
+
+					import "example.com/m/internal/v"
+
 					func Exp() { vuln() }
 					func Trans() { Exp() }
 					func Fine() { ok() }
+
+					type D struct {}
+					func (d D) Dep() {
+						vl := v.V{}
+						vl.Vuln()
+					}
+				`,
+				"internal/v/v.go": `
+					package v
+
+					type V struct {}
+					func (v V) Vuln() {}
 				`,
 			},
 		},
 	})
 	defer e.Cleanup()
 
-	rc := newReportClient(&report.Report{
+	r := &report.Report{
 		Modules: []*report.Module{{
 			Module: "example.com/m",
-			Packages: []*report.Package{{
-				Package: "example.com/m/p",
-				Symbols: []string{"vuln"},
-			}},
+			Packages: []*report.Package{
+				{
+					Package: "example.com/m/p",
+					Symbols: []string{"vuln"},
+				},
+				{
+					Package: "example.com/m/internal/v",
+					Symbols: []string{"V.Vuln"},
+				},
+			},
 		}},
-	})
+	}
 	pkgs, err := loadPackage(e.Config, path.Join(e.Temp(), "m/p"))
 	if err != nil {
 		t.Fatal(err)
@@ -53,11 +74,11 @@ func TestExportedFunctions(t *testing.T) {
 		p.Module.Dir = ""
 		p.Module.Version = "v1.0.0"
 	}
-	got, err := exportedFunctions(pkgs, rc)
+	got, err := exportedFunctions(pkgs, r)
 	if err != nil {
 		t.Fatal(err)
 	}
-	want := map[string]bool{"Exp": true, "Trans": true}
+	want := map[string]bool{"Exp": true, "Trans": true, "D.Dep": true}
 	if !cmp.Equal(got, want) {
 		t.Errorf("\ngot\n\t%v\nwant\n\t%v", got, want)
 	}

@@ -710,8 +710,6 @@ func addSkipFixTodos(r *report.Report) {
 }
 
 func checkReportSymbols(r *report.Report) error {
-	rc := newReportClient(r)
-
 	for _, m := range r.Modules {
 		if m.IsStdLib() {
 			gover := runtime.Version()
@@ -734,7 +732,7 @@ func checkReportSymbols(r *report.Report) error {
 				fmt.Fprintf(os.Stderr, "%v: skip_fix set, skipping symbol checks (reason: %q)\n", p.Package, p.SkipFix)
 				continue
 			}
-			syms, err := findExportedSymbols(m, p, rc)
+			syms, err := findExportedSymbols(m, p, r)
 			if err != nil {
 				return err
 			}
@@ -745,7 +743,7 @@ func checkReportSymbols(r *report.Report) error {
 	return nil
 }
 
-func findExportedSymbols(m *report.Module, p *report.Package, c *reportClient) (_ []string, err error) {
+func findExportedSymbols(m *report.Module, p *report.Package, r *report.Report) (_ []string, err error) {
 	defer derrors.Wrap(&err, "findExportedSymbols(%q, %q)", m.Module, p.Package)
 
 	cleanup, err := changeToTempDir()
@@ -834,7 +832,7 @@ func findExportedSymbols(m *report.Module, p *report.Package, c *reportClient) (
 		}
 	}
 
-	newsyms, err := exportedFunctions(pkgs, c)
+	newsyms, err := exportedFunctions(pkgs, r)
 	if err != nil {
 		return nil, err
 	}
