@@ -5,7 +5,6 @@
 package report
 
 import (
-	"fmt"
 	"path/filepath"
 
 	"github.com/go-git/go-git/v5"
@@ -37,29 +36,25 @@ func GetAllExisting(repo *git.Repository) (byIssue map[int]*Report, byFile map[s
 	byFile = make(map[string]*Report)
 
 	if err = root.Files().ForEach(func(f *object.File) error {
-		name := f.Name
-		if !(filepath.Dir(name) == YAMLDir || filepath.Dir(name) == ExcludedDir) ||
-			filepath.Ext(name) != ".yaml" {
+		if !isYAMLReport(f) {
 			return nil
 		}
 
-		reader, err := f.Reader()
+		content, err := f.Contents()
 		if err != nil {
 			return err
 		}
-		d := yaml.NewDecoder(reader)
-		d.KnownFields(true)
 		var r Report
-		if err := d.Decode(&r); err != nil {
-			return fmt.Errorf("yaml.Decode: %v", err)
+		if err := yaml.Unmarshal([]byte(content), &r); err != nil {
+			return err
 		}
 
-		_, _, iss, err := ParseFilepath(name)
+		_, _, iss, err := ParseFilepath(f.Name)
 		if err != nil {
 			return err
 		}
 
-		byFile[name] = &r
+		byFile[f.Name] = &r
 		byIssue[iss] = &r
 
 		return nil
@@ -96,4 +91,44 @@ func XRef(r *Report, existingByFile map[string]*Report) (matches map[string][]st
 		}
 	}
 	return matches
+}
+
+// Aliases returns a sorted list of all aliases (CVEs and GHSAs) in vulndb,
+// including those in the excluded directory.
+func Aliases(repo *git.Repository) (_ []string, err error) {
+	defer derrors.Wrap(&err, "Aliases()")
+	root, err := gitrepo.Root(repo)
+	if err != nil {
+		return nil, err
+	}
+
+	var aliases []string
+	if err = root.Files().ForEach(func(f *object.File) error {
+		if !isYAMLReport(f) {
+			return nil
+		}
+
+		content, err := f.Contents()
+		if err != nil {
+			return err
+		}
+		var r Report
+		if err := yaml.Unmarshal([]byte(content), &r); err != nil {
+			return err
+		}
+
+		aliases = append(aliases, r.GetAliases()...)
+
+		return nil
+	}); err != nil {
+		return nil, err
+	}
+
+	slices.Sort(aliases)
+	return aliases, nil
+}
+
+func isYAMLReport(f *object.File) bool {
+	dir, ext := filepath.Dir(f.Name), filepath.Ext(f.Name)
+	return (dir == YAMLDir || dir == ExcludedDir) && ext == ".yaml"
 }

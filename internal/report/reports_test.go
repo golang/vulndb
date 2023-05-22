@@ -42,7 +42,7 @@ var (
 		Modules: []*Module{
 			{Module: "example.com/adiff/module"},
 		},
-		CVEs: []string{"CVE-9999-0002"},
+		CVEs: []string{"CVE-9999-0005"},
 	}
 )
 
@@ -155,5 +155,26 @@ func TestXRef(t *testing.T) {
 				t.Errorf("XRef(): matches mismatch (-got, +want): %s", diff)
 			}
 		})
+	}
+}
+
+func TestAliases(t *testing.T) {
+	repo, err := gitrepo.ReadTxtarRepo("testdata/repo.txtar", time.Now())
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	got, err := Aliases(repo)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	want := []string{"CVE-9999-0001",
+		"CVE-9999-0002",
+		"CVE-9999-0005",
+		"GHSA-9999-abcd-efgh"}
+
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("Aliases() mismatch (-want, +got): %s", diff)
 	}
 }
