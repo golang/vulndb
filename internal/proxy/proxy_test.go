@@ -9,7 +9,79 @@ import (
 	"testing"
 )
 
-// TODO(https://go.dev/issues/60275): Add more unit tests.
+func TestCanonicalModulePath(t *testing.T) {
+	if runtime.GOOS == "js" {
+		t.Skipf("wasm builder does not have network access")
+	}
+	tcs := []struct {
+		name    string
+		path    string
+		version string
+		want    string
+	}{
+		{
+			name:    "non-canonical",
+			path:    "github.com/golang/vulndb",
+			version: "v0.0.0-20230522180520-0cbf4ffdb4e7",
+			want:    "golang.org/x/vulndb",
+		},
+		{
+			name:    "canonical",
+			path:    "golang.org/x/vulndb",
+			version: "v0.0.0-20230522180520-0cbf4ffdb4e7",
+			want:    "golang.org/x/vulndb",
+		},
+	}
+
+	for _, tc := range tcs {
+		t.Run(tc.name, func(t *testing.T) {
+			got, err := CanonicalModulePath(tc.path, tc.version)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if got != tc.want {
+				t.Errorf("CanonicalModulePath() = %v, want %v", got, tc.want)
+			}
+		})
+	}
+}
+
+func TestCanonicalModuleVersion(t *testing.T) {
+	if runtime.GOOS == "js" {
+		t.Skipf("wasm builder does not have network access")
+	}
+	tcs := []struct {
+		name    string
+		path    string
+		version string
+		want    string
+	}{
+		{
+			name:    "already canonical",
+			path:    "golang.org/x/vulndb",
+			version: "v0.0.0-20230522180520-0cbf4ffdb4e7",
+			want:    "v0.0.0-20230522180520-0cbf4ffdb4e7",
+		},
+		{
+			name:    "commit hash",
+			path:    "golang.org/x/vulndb",
+			version: "0cbf4ffdb4e70fce663ec8d59198745b04e7801b",
+			want:    "v0.0.0-20230522180520-0cbf4ffdb4e7",
+		},
+	}
+
+	for _, tc := range tcs {
+		t.Run(tc.name, func(t *testing.T) {
+			got, err := CanonicalModuleVersion(tc.path, tc.version)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if got != tc.want {
+				t.Errorf("CanonicalModuleVersion() = %v, want %v", got, tc.want)
+			}
+		})
+	}
+}
 
 func TestFindModule(t *testing.T) {
 	if runtime.GOOS == "js" {
