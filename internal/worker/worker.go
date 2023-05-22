@@ -12,7 +12,6 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
-	"sync"
 	"text/template"
 	"time"
 
@@ -21,9 +20,7 @@ import (
 	"golang.org/x/exp/event"
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
-	"golang.org/x/sync/errgroup"
 	"golang.org/x/time/rate"
-	vulnc "golang.org/x/vuln/client"
 	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/derrors"
@@ -68,7 +65,11 @@ func UpdateCVEsAtCommit(ctx context.Context, repoPath, commitHashString string, 
 			return err
 		}
 	}
-	knownVulnIDs, err := getAllCVEsAndGHSAsInVulnDB(ctx)
+	vulndb, err := gitrepo.Clone(ctx, "https://github.com/golang/vulndb")
+	if err != nil {
+		return err
+	}
+	knownVulnIDs, err := report.Aliases(vulndb)
 	if err != nil {
 		return err
 	}
@@ -126,47 +127,6 @@ const (
 	vulnDBBucket = "go-vulndb"
 	vulnDBURL    = "https://storage.googleapis.com/" + vulnDBBucket
 )
-
-// getAllCVEsAndGHSAsInVulnDB returns a list of all CVE IDs and
-// GHSA IDs in the Go vuln DB.
-func getAllCVEsAndGHSAsInVulnDB(ctx context.Context) ([]string, error) {
-	const concurrency = 4
-
-	client, err := vulnc.NewClient([]string{vulnDBURL}, vulnc.Options{})
-	if err != nil {
-		return nil, err
-	}
-
-	goIDs, err := client.ListIDs(ctx)
-	if err != nil {
-		return nil, err
-	}
-	var (
-		mu      sync.Mutex
-		vulnIDs []string
-	)
-	sem := make(chan struct{}, concurrency)
-	g, ctx := errgroup.WithContext(ctx)
-	for _, id := range goIDs {
-		id := id
-		sem <- struct{}{}
-		g.Go(func() error {
-			defer func() { <-sem }()
-			e, err := client.GetByID(ctx, id)
-			if err != nil {
-				return err
-			}
-			mu.Lock()
-			vulnIDs = append(vulnIDs, e.Aliases...)
-			mu.Unlock()
-			return nil
-		})
-	}
-	if err := g.Wait(); err != nil {
-		return nil, err
-	}
-	return vulnIDs, nil
-}
 
 // GHSAListFunc is the type of a function that lists GitHub security advisories.
 type GHSAListFunc func(_ context.Context, since time.Time) ([]*ghsa.SecurityAdvisory, error)

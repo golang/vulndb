@@ -2,10 +2,7 @@ module golang.org/x/vulndb
 
 go 1.18
 
-require (
-	golang.org/x/vuln v0.0.0-20230217204342-b91abcc5ae3c
-	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
-)
+require golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 
 require (
 	cloud.google.com/go/errorreporting v0.1.0
