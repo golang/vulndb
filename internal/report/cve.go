@@ -12,7 +12,7 @@ import (
 	"golang.org/x/vulndb/internal/stdlib"
 )
 
-func getVendor(modulePath string) string {
+func vendor(modulePath string) string {
 	switch modulePath {
 	case stdlib.ModulePath:
 		return "Go standard library"

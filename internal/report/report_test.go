@@ -67,7 +67,7 @@ func TestGetYAMLFilename(t *testing.T) {
 		},
 	}
 	for _, test := range tests {
-		if got := test.r.GetYAMLFilename(test.goID); got != test.want {
+		if got := test.r.YAMLFilename(test.goID); got != test.want {
 			t.Errorf("got %s, want %s", got, test.want)
 		}
 	}

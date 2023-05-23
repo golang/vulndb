@@ -27,8 +27,8 @@ type Issue struct {
 	CreatedAt time.Time
 }
 
-// GetIssuesOptions are options for GetIssues
-type GetIssuesOptions struct {
+// IssuesOptions are options for Issues
+type IssuesOptions struct {
 	// State filters issues based on their state. Possible values are: open,
 	// closed, all. Default is "open".
 	State string
@@ -135,9 +135,9 @@ func convertGithubIssueToIssue(ghIss *github.Issue) *Issue {
 	return iss
 }
 
-// GetIssue returns the issue with the given issue number.
-func (c *Client) GetIssue(ctx context.Context, number int) (_ *Issue, err error) {
-	defer derrors.Wrap(&err, "GetIssue(%d)", number)
+// Issue returns the issue with the given issue number.
+func (c *Client) Issue(ctx context.Context, number int) (_ *Issue, err error) {
+	defer derrors.Wrap(&err, "Issue(%d)", number)
 	ghIss, _, err := c.GitHub.Issues.Get(ctx, c.Owner, c.Repo, number)
 	if err != nil {
 		return nil, err
@@ -147,9 +147,9 @@ func (c *Client) GetIssue(ctx context.Context, number int) (_ *Issue, err error)
 	return iss, nil
 }
 
-// GetIssues returns all Github issues that match the filters in opts.
-func (c *Client) GetIssues(ctx context.Context, opts GetIssuesOptions) (_ []*Issue, err error) {
-	defer derrors.Wrap(&err, "GetIssues()")
+// Issues returns all Github issues that match the filters in opts.
+func (c *Client) Issues(ctx context.Context, opts IssuesOptions) (_ []*Issue, err error) {
+	defer derrors.Wrap(&err, "Issues()")
 	clientOpts := &github.IssueListByRepoOptions{
 		State:  opts.State,
 		Labels: opts.Labels,

@@ -80,7 +80,7 @@ func testClient(t *testing.T, c *Client) {
 	if !gotExists {
 		t.Error("created issue doesn't exist")
 	}
-	gotIss, err := c.GetIssue(ctx, num)
+	gotIss, err := c.Issue(ctx, num)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -95,7 +95,7 @@ func testClient(t *testing.T, c *Client) {
 	}
 
 	want := []*Issue{iss, iss2}
-	got, err := c.GetIssues(ctx, GetIssuesOptions{Labels: []string{"testing"}})
+	got, err := c.Issues(ctx, IssuesOptions{Labels: []string{"testing"}})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -104,7 +104,7 @@ func testClient(t *testing.T, c *Client) {
 		t.Errorf("mismatch (-want, +got):\n%s", diff)
 	}
 	want = []*Issue{iss2}
-	got, err = c.GetIssues(ctx, GetIssuesOptions{Labels: []string{"other"}})
+	got, err = c.Issues(ctx, IssuesOptions{Labels: []string{"other"}})
 	if err != nil {
 		t.Fatal(err)
 	}

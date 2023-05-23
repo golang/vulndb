@@ -75,7 +75,7 @@ func (r *Report) ToCVE5(goID string) (_ *cveschema5.CVERecord, err error) {
 		}
 		for _, p := range m.Packages {
 			affected := cveschema5.Affected{
-				Vendor:        getVendor(m.Module),
+				Vendor:        vendor(m.Module),
 				Product:       p.Package,
 				CollectionURL: "https://pkg.go.dev",
 				PackageName:   p.Package,
@@ -93,7 +93,7 @@ func (r *Report) ToCVE5(goID string) (_ *cveschema5.CVERecord, err error) {
 	for _, ref := range r.References {
 		c.References = append(c.References, cveschema5.Reference{URL: ref.URL})
 	}
-	advisoryLink := GetGoAdvisoryLink(goID)
+	advisoryLink := GoAdvisory(goID)
 	c.References = append(c.References, cveschema5.Reference{URL: advisoryLink})
 
 	for _, credit := range r.Credits {
@@ -115,7 +115,7 @@ func (r *Report) ToCVE5(goID string) (_ *cveschema5.CVERecord, err error) {
 	}, nil
 }
 
-func GetCVEFilename(goID string) string {
+func CVEFilename(goID string) string {
 	return filepath.Join(cve5Dir, goID+".json")
 }
 

@@ -258,7 +258,7 @@ func createIssuesCommand(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	_, allReports, err := report.GetAllExisting(repo)
+	_, allReports, err := report.All(repo)
 	if err != nil {
 		return err
 	}

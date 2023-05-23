@@ -13,7 +13,7 @@ import (
 	"golang.org/x/vulndb/internal/osv"
 )
 
-func TestGenerateOSVEntry(t *testing.T) {
+func TestToOSV(t *testing.T) {
 	r := &Report{
 		Modules: []*Module{
 			{
@@ -200,20 +200,20 @@ func TestGenerateOSVEntry(t *testing.T) {
 		DatabaseSpecific: &osv.DatabaseSpecific{URL: "https://pkg.go.dev/vuln/GO-1991-0001"},
 	}
 
-	gotEntry := r.GenerateOSVEntry("GO-1991-0001", time.Time{})
+	gotEntry := r.ToOSV("GO-1991-0001", time.Time{})
 	if diff := cmp.Diff(wantEntry, gotEntry, cmp.Comparer(func(a, b time.Time) bool { return a.Equal(b) })); diff != "" {
 		t.Errorf("GenerateOSVEntry returned unexpected entry (-want +got):\n%s", diff)
 	}
 }
 
-func TestGetOSVFilename(t *testing.T) {
+func TestOSVFilename(t *testing.T) {
 	want := "data/osv/GO-1999-0001.json"
-	if got := GetOSVFilename("GO-1999-0001"); got != want {
+	if got := OSVFilename("GO-1999-0001"); got != want {
 		t.Errorf("got %s, want %s", got, want)
 	}
 }
 
-func TestSemverCanonicalize(t *testing.T) {
+func TestAffectedRanges(t *testing.T) {
 	in := []VersionRange{
 		{
 			Introduced: "1.16.0",

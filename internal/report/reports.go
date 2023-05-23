@@ -25,8 +25,9 @@ var (
 	ExcludedDir = "data/excluded"
 )
 
-func GetAllExisting(repo *git.Repository) (byIssue map[int]*Report, byFile map[string]*Report, err error) {
-	defer derrors.Wrap(&err, "GetAllExisting")
+// All returns all the reports in the repo, indexed by issue and by filename.
+func All(repo *git.Repository) (byIssue map[int]*Report, byFile map[string]*Report, err error) {
+	defer derrors.Wrap(&err, "All()")
 	root, err := gitrepo.Root(repo)
 	if err != nil {
 		return nil, nil, err
@@ -78,8 +79,8 @@ func XRef(r *Report, existingByFile map[string]*Report) (matches map[string][]st
 	// matches is a map from filename -> alias/module
 	matches = make(map[string][]string)
 	for fname, rr := range existingByFile {
-		for _, alias := range rr.GetAliases() {
-			if slices.Contains(r.GetAliases(), alias) {
+		for _, alias := range rr.Aliases() {
+			if slices.Contains(r.Aliases(), alias) {
 				matches[fname] = append(matches[fname], alias)
 			}
 		}
@@ -117,7 +118,7 @@ func Aliases(repo *git.Repository) (_ []string, err error) {
 			return err
 		}
 
-		aliases = append(aliases, r.GetAliases()...)
+		aliases = append(aliases, r.Aliases()...)
 
 		return nil
 	}); err != nil {

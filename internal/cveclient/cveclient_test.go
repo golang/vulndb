@@ -54,7 +54,7 @@ func readTestData(t *testing.T, filename string) *cveschema5.CVERecord {
 	return record
 }
 
-var getDefaultTestCVERecord = func(t *testing.T) *cveschema5.CVERecord {
+var defaultTestCVERecord = func(t *testing.T) *cveschema5.CVERecord {
 	return readTestData(t, "basic-example.json")
 }
 
@@ -212,16 +212,16 @@ var (
 		return c.RetrieveQuota()
 	}
 	retrieveIDQuery = func(t *testing.T, c *Client) (any, error) {
-		return c.RetrieveID(getDefaultTestCVERecord(t).Metadata.ID)
+		return c.RetrieveID(defaultTestCVERecord(t).Metadata.ID)
 	}
 	retrieveRecordQuery = func(t *testing.T, c *Client) (any, error) {
-		return c.RetrieveRecord(getDefaultTestCVERecord(t).Metadata.ID)
+		return c.RetrieveRecord(defaultTestCVERecord(t).Metadata.ID)
 	}
 	createRecordQuery = func(t *testing.T, c *Client) (any, error) {
-		return c.CreateRecord(defaultTestCVE.ID, &getDefaultTestCVERecord(t).Containers)
+		return c.CreateRecord(defaultTestCVE.ID, &defaultTestCVERecord(t).Containers)
 	}
 	updateRecordQuery = func(t *testing.T, c *Client) (any, error) {
-		return c.UpdateRecord(defaultTestCVE.ID, &getDefaultTestCVERecord(t).Containers)
+		return c.UpdateRecord(defaultTestCVE.ID, &defaultTestCVERecord(t).Containers)
 	}
 	retrieveOrgQuery = func(t *testing.T, c *Client) (any, error) {
 		return c.RetrieveOrg()
@@ -232,7 +232,7 @@ var (
 )
 
 func TestAllSuccess(t *testing.T) {
-	defaultTestCVERecord := getDefaultTestCVERecord(t)
+	defaultTestCVERecord := defaultTestCVERecord(t)
 	tests := []struct {
 		name           string
 		mockStatus     int

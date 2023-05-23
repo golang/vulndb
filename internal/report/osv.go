@@ -29,10 +29,10 @@ var (
 	SchemaVersion = "1.3.1"
 )
 
-// GenerateOSVEntry create an osv.Entry for a report.
+// ToOSV creates an osv.Entry for a report.
 // In addition to the report, it takes the ID for the vuln and the time
 // the vuln was last modified.
-func (r *Report) GenerateOSVEntry(goID string, lastModified time.Time) osv.Entry {
+func (r *Report) ToOSV(goID string, lastModified time.Time) osv.Entry {
 	var credits []osv.Credit
 	for _, credit := range r.Credits {
 		credits = append(credits, osv.Credit{
@@ -53,11 +53,11 @@ func (r *Report) GenerateOSVEntry(goID string, lastModified time.Time) osv.Entry
 		Details:          trimWhitespace(r.Description),
 		Credits:          credits,
 		SchemaVersion:    SchemaVersion,
-		DatabaseSpecific: &osv.DatabaseSpecific{URL: GetGoAdvisoryLink(goID)},
+		DatabaseSpecific: &osv.DatabaseSpecific{URL: GoAdvisory(goID)},
 	}
 
 	for _, m := range r.Modules {
-		entry.Affected = append(entry.Affected, generateAffected(m))
+		entry.Affected = append(entry.Affected, toAffected(m))
 	}
 	for _, ref := range r.References {
 		entry.References = append(entry.References, osv.Reference{
@@ -65,11 +65,11 @@ func (r *Report) GenerateOSVEntry(goID string, lastModified time.Time) osv.Entry
 			URL:  ref.URL,
 		})
 	}
-	entry.Aliases = r.GetAliases()
+	entry.Aliases = r.Aliases()
 	return entry
 }
 
-func GetOSVFilename(goID string) string {
+func OSVFilename(goID string) string {
 	return filepath.Join(OSVDir, goID+".json")
 }
 
@@ -134,8 +134,8 @@ func trimWhitespace(s string) string {
 	return s
 }
 
-func generateImports(m *Module) (imps []osv.Package) {
-	for _, p := range m.Packages {
+func toOSVPackages(pkgs []*Package) (imps []osv.Package) {
+	for _, p := range pkgs {
 		syms := append([]string{}, p.Symbols...)
 		syms = append(syms, p.DerivedSymbols...)
 		sort.Strings(syms)
@@ -149,7 +149,7 @@ func generateImports(m *Module) (imps []osv.Package) {
 	return imps
 }
 
-func generateAffected(m *Module) osv.Affected {
+func toAffected(m *Module) osv.Affected {
 	name := m.Module
 	switch name {
 	case stdlib.ModulePath:
@@ -164,7 +164,7 @@ func generateAffected(m *Module) osv.Affected {
 		},
 		Ranges: AffectedRanges(m.Versions),
 		EcosystemSpecific: &osv.EcosystemSpecific{
-			Packages: generateImports(m),
+			Packages: toOSVPackages(m.Packages),
 		},
 	}
 }

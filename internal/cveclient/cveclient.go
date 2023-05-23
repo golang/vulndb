@@ -40,9 +40,9 @@ type Client struct {
 	c *http.Client
 }
 
-// GetWebURL returns the URL that can be used to view a published
+// WebURL returns the URL that can be used to view a published
 // CVE record on the web.
-func (c *Client) GetWebURL(cveID string) string {
+func (c *Client) WebURL(cveID string) string {
 	baseURL := WebURL
 	if c.Config.Endpoint == TestEndpoint {
 		baseURL = TestWebURL
@@ -132,7 +132,7 @@ const (
 	NonsequentialRequest RequestType = "nonsequential"
 )
 
-func (o *ReserveOptions) getURLParams(org string) url.Values {
+func (o *ReserveOptions) urlParams(org string) url.Values {
 	params := url.Values{}
 	params.Set("amount", fmt.Sprint(o.NumIDs))
 	if o.Year != 0 {
@@ -147,11 +147,11 @@ func (o *ReserveOptions) getURLParams(org string) url.Values {
 
 func (c *Client) createReserveIDsRequest(opts ReserveOptions) (*http.Request, error) {
 	req, err := c.createRequest(http.MethodPost,
-		c.getURL(cveIDTarget), nil)
+		c.requestURL(cveIDTarget), nil)
 	if err != nil {
 		return nil, err
 	}
-	req.URL.RawQuery = opts.getURLParams(c.Org).Encode()
+	req.URL.RawQuery = opts.urlParams(c.Org).Encode()
 	return req, err
 }
 
@@ -188,24 +188,24 @@ type Quota struct {
 
 // RetrieveQuota queries the API for the organizations reservation quota.
 func (c *Client) RetrieveQuota() (q *Quota, err error) {
-	err = c.queryAPI(http.MethodGet, c.getURL(orgTarget, c.Org, quotaTarget), nil, &q)
+	err = c.queryAPI(http.MethodGet, c.requestURL(orgTarget, c.Org, quotaTarget), nil, &q)
 	return
 }
 
 // RetrieveID requests information about an assigned CVE ID.
 func (c *Client) RetrieveID(id string) (cve *AssignedCVE, err error) {
-	err = c.queryAPI(http.MethodGet, c.getURL(cveIDTarget, id), nil, &cve)
+	err = c.queryAPI(http.MethodGet, c.requestURL(cveIDTarget, id), nil, &cve)
 	return
 }
 
 // RetrieveRecord requests a CVE record.
 func (c *Client) RetrieveRecord(id string) (cve *cveschema5.CVERecord, err error) {
-	err = c.queryAPI(http.MethodGet, c.getURL(cveTarget, id), nil, &cve)
+	err = c.queryAPI(http.MethodGet, c.requestURL(cveTarget, id), nil, &cve)
 	return
 }
 
-func (c *Client) getCVERecordEndpoint(cveID string) string {
-	return c.getURL(cveTarget, cveID, cnaTarget)
+func (c *Client) cveRecordEndpoint(cveID string) string {
+	return c.requestURL(cveTarget, cveID, cnaTarget)
 }
 
 type recordRequestBody struct {
@@ -220,7 +220,7 @@ func (c *Client) CreateRecord(id string, record *cveschema5.Containers) (*cvesch
 		CNAContainer: record.CNAContainer,
 	}
 	var response createResponse
-	err := c.queryAPI(http.MethodPost, c.getCVERecordEndpoint(id), requestBody, &response)
+	err := c.queryAPI(http.MethodPost, c.cveRecordEndpoint(id), requestBody, &response)
 	if err != nil {
 		return nil, err
 	}
@@ -236,7 +236,7 @@ func (c *Client) UpdateRecord(id string, record *cveschema5.Containers) (*cvesch
 		CNAContainer: record.CNAContainer,
 	}
 	var response updateResponse
-	err := c.queryAPI(http.MethodPut, c.getCVERecordEndpoint(id), requestBody, &response)
+	err := c.queryAPI(http.MethodPut, c.cveRecordEndpoint(id), requestBody, &response)
 	if err != nil {
 		return nil, err
 	}
@@ -251,7 +251,7 @@ type Org struct {
 
 // RetrieveOrg requests information about an organization.
 func (c *Client) RetrieveOrg() (org *Org, err error) {
-	err = c.queryAPI(http.MethodGet, c.getURL(orgTarget, c.Org), nil, &org)
+	err = c.queryAPI(http.MethodGet, c.requestURL(orgTarget, c.Org), nil, &org)
 	return
 }
 
@@ -289,7 +289,7 @@ func (o ListOptions) String() string {
 	return strings.Join(s, ", ")
 }
 
-func (o *ListOptions) getURLParams() url.Values {
+func (o *ListOptions) urlParams() url.Values {
 	params := url.Values{}
 	if o == nil {
 		return params
@@ -322,11 +322,11 @@ type listOrgCVEsResponse struct {
 }
 
 func (c Client) createListOrgCVEsRequest(opts *ListOptions, page int) (req *http.Request, err error) {
-	req, err = c.createRequest(http.MethodGet, c.getURL(cveIDTarget), nil)
+	req, err = c.createRequest(http.MethodGet, c.requestURL(cveIDTarget), nil)
 	if err != nil {
 		return nil, err
 	}
-	params := opts.getURLParams()
+	params := opts.urlParams()
 	if page > 0 {
 		params.Set("page", fmt.Sprint(page))
 	}
@@ -432,7 +432,7 @@ var (
 	cnaTarget   = "cna"
 )
 
-func (c *Client) getURL(targets ...string) string {
+func (c *Client) requestURL(targets ...string) string {
 	return fmt.Sprintf("%s/api/%s", c.Endpoint, strings.Join(targets, "/"))
 }
 

@@ -156,7 +156,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		_, existingByFile, err := report.GetAllExisting(repo)
+		_, existingByFile, err := report.All(repo)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -259,7 +259,7 @@ func setupCreate(ctx context.Context, args []string) ([]int, *createCfg, error) 
 	if err != nil {
 		log.Fatal(err)
 	}
-	existingByIssue, existingByFile, err := report.GetAllExisting(localRepo)
+	existingByIssue, existingByFile, err := report.All(localRepo)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -322,7 +322,7 @@ func createReport(ctx context.Context, cfg *createCfg, iss *issues.Issue) (r *re
 func create(ctx context.Context, issueNumber int, cfg *createCfg) (err error) {
 	defer derrors.Wrap(&err, "create(%d)", issueNumber)
 	// Get GitHub issue.
-	iss, err := cfg.issuesClient.GetIssue(ctx, issueNumber)
+	iss, err := cfg.issuesClient.Issue(ctx, issueNumber)
 	if err != nil {
 		return err
 	}
@@ -332,7 +332,7 @@ func create(ctx context.Context, issueNumber int, cfg *createCfg) (err error) {
 		return err
 	}
 
-	filename := r.GetYAMLFilename(iss.NewGoID())
+	filename := r.YAMLFilename(iss.NewGoID())
 	if err := r.Write(filename); err != nil {
 		return err
 	}
@@ -348,7 +348,7 @@ func handleExcludedIssue(ctx context.Context, cfg *createCfg, iss *issues.Issue)
 	}
 	r.Fix()
 
-	filename := r.GetYAMLFilename(iss.NewGoID())
+	filename := r.YAMLFilename(iss.NewGoID())
 	if err := r.Write(filename); err != nil {
 		return "", err
 	}
@@ -375,7 +375,7 @@ func createExcluded(ctx context.Context, cfg *createCfg) (err error) {
 	}
 	for _, label := range excludedLabels {
 		tempIssues, err :=
-			cfg.issuesClient.GetIssues(ctx, issues.GetIssuesOptions{Labels: []string{label}, State: stateOption})
+			cfg.issuesClient.Issues(ctx, issues.IssuesOptions{Labels: []string{label}, State: stateOption})
 		if err != nil {
 			return err
 		}
@@ -398,7 +398,7 @@ func createExcluded(ctx context.Context, cfg *createCfg) (err error) {
 			continue
 		}
 		successfulIssNums = append(successfulIssNums, fmt.Sprintf("golang/vulndb#%d", iss.Number))
-		successfulGoIDs = append(successfulGoIDs, report.GetGoIDFromFilename(filename))
+		successfulGoIDs = append(successfulGoIDs, report.GoID(filename))
 	}
 	fmt.Printf("Skipped %d issues\n", skipped)
 
@@ -688,7 +688,7 @@ func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client) (err err
 	if err := r.Write(filename); err != nil {
 		return err
 	}
-	goID := report.GetGoIDFromFilename(filename)
+	goID := report.GoID(filename)
 	if _, err := writeOSV(r, goID); err != nil {
 		return err
 	}
@@ -867,7 +867,7 @@ func osvCmd(filename string) (err error) {
 	if err != nil {
 		return err
 	}
-	osvFilename, err := writeOSV(r, report.GetGoIDFromFilename(filename))
+	osvFilename, err := writeOSV(r, report.GoID(filename))
 	if err != nil {
 		return err
 	}
@@ -877,8 +877,8 @@ func osvCmd(filename string) (err error) {
 
 func writeOSV(r *report.Report, goID string) (string, error) {
 	if r.Excluded == "" {
-		entry := r.GenerateOSVEntry(goID, time.Time{})
-		osvFilename := report.GetOSVFilename(goID)
+		entry := r.ToOSV(goID, time.Time{})
+		osvFilename := report.OSVFilename(goID)
 		if err := database.WriteJSON(osvFilename, entry, true); err != nil {
 			return "", err
 		}
@@ -893,7 +893,7 @@ func cveCmd(ctx context.Context, filename string) (err error) {
 	if err != nil {
 		return err
 	}
-	return writeCVE(r, report.GetGoIDFromFilename(filename))
+	return writeCVE(r, report.GoID(filename))
 }
 
 // writeCVE takes a report and its Go ID, converts the report
@@ -905,7 +905,7 @@ func writeCVE(r *report.Report, goID string) error {
 	var cve *cveschema5.CVERecord
 	var err error
 
-	cvePath := report.GetCVEFilename(goID)
+	cvePath := report.CVEFilename(goID)
 	if cve, err = r.ToCVE5(goID); err != nil {
 		return err
 	}
@@ -945,12 +945,12 @@ func commit(ctx context.Context, filename string, ghsaClient *ghsa.Client) (err 
 
 	// Find all derived files (OSV and CVE).
 	files := []string{filename}
-	goID := report.GetGoIDFromFilename(filename)
+	goID := report.GoID(filename)
 	if r.Excluded == "" {
-		files = append(files, report.GetOSVFilename(goID))
+		files = append(files, report.OSVFilename(goID))
 	}
 	if r.CVEMetadata != nil {
-		files = append(files, report.GetCVEFilename(goID))
+		files = append(files, report.CVEFilename(goID))
 	}
 
 	// Add the files.
@@ -996,7 +996,7 @@ func newCommitMsg(r *report.Report, filepath string) (string, error) {
 
 	return fmt.Sprintf(
 		"%s: %s %s\n\nAliases: %s\n\n%s golang/vulndb#%d",
-		folder, fileAction, filename, strings.Join(r.GetAliases(), ", "),
+		folder, fileAction, filename, strings.Join(r.Aliases(), ", "),
 		issueAction, issueID), nil
 }
 
@@ -1163,7 +1163,7 @@ func dedupeAndSort[T constraints.Ordered](s []T) []T {
 // addGHSAs adds any missing GHSAs that correspond to the CVEs in the report.
 func addGHSAs(ctx context.Context, r *report.Report, ghsaClient *ghsa.Client) error {
 	ghsas := r.GHSAs
-	for _, cve := range r.GetCVEs() {
+	for _, cve := range r.AllCVEs() {
 		sas, err := ghsaClient.ListForCVE(ctx, cve)
 		if err != nil {
 			return err

@@ -102,7 +102,7 @@ func (d *Database) checkNoUnexpectedFiles(dbPath string) error {
 			if fname == indexFile {
 				return nil
 			}
-			id := report.GetGoIDFromFilename(fname)
+			id := report.GoID(fname)
 			if _, ok := d.EntriesByID[id]; !ok {
 				return fmt.Errorf("found unexpected file %q which is not present in %s", fname, filepath.Join(idDirectory, indexFile))
 			}

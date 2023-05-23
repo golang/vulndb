@@ -71,7 +71,7 @@ func main() {
 		logFatalUsageErr("cve", fmt.Errorf("must provide subcommand"))
 	}
 
-	c := cveclient.New(*getCfgFromFlags())
+	c := cveclient.New(*cfgFromFlags())
 
 	cmd := flag.Arg(0)
 	switch cmd {
@@ -80,7 +80,7 @@ func main() {
 	case "reserve":
 		year := *year
 		if year == 0 {
-			year = getCurrentYear()
+			year = currentYear()
 		}
 		mode := cveclient.SequentialRequest
 		if !*reserveSequential {
@@ -159,12 +159,12 @@ func logFatalUsageErr(context string, err error) {
 	log.Fatalf("%s: %s\n", context, err)
 }
 
-func getCurrentYear() int {
+func currentYear() int {
 	year, _, _ := time.Now().Date()
 	return year
 }
 
-func getCfgFromFlags() *cveclient.Config {
+func cfgFromFlags() *cveclient.Config {
 	if *test {
 		if *testApiKey == "" {
 			logFatalUsageErr("cve", errors.New("the test CVE API key (flag -test-key or env var TEST_CVE_API_KEY) must be set in test env"))
@@ -321,7 +321,7 @@ func publish(c *cveclient.Client, filename string) (err error) {
 		if err != nil {
 			return err
 		}
-		fmt.Printf("%s is published at %s\n", cveID, c.GetWebURL(cveID))
+		fmt.Printf("%s is published at %s\n", cveID, c.WebURL(cveID))
 		if diff := cmp.Diff(existing.Containers, *toPublish); diff != "" {
 			fmt.Printf("publish would update record with diff (-existing, +new):\n%s\n", diff)
 		} else {
@@ -351,7 +351,7 @@ func publish(c *cveclient.Client, filename string) (err error) {
 		return err
 	}
 
-	fmt.Printf("successfully %sd record for %s at %s\n", action, cveID, c.GetWebURL(cveID))
+	fmt.Printf("successfully %sd record for %s at %s\n", action, cveID, c.WebURL(cveID))
 
 	return nil
 }

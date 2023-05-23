@@ -356,7 +356,7 @@ func (s *Server) handleIssues(w http.ResponseWriter, r *http.Request) error {
 	if err != nil {
 		return err
 	}
-	_, allReports, err := report.GetAllExisting(repo)
+	_, allReports, err := report.All(repo)
 	if err != nil {
 		return err
 	}

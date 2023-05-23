@@ -133,17 +133,17 @@ type Report struct {
 	CVEMetadata *CVEMeta `yaml:"cve_metadata,omitempty"`
 }
 
-// GetCVEs returns all CVE IDs for a report.
-func (r *Report) GetCVEs() []string {
+// AllCVEs returns all CVE IDs for a report, including any in cve_metadata.
+func (r *Report) AllCVEs() []string {
 	if r.CVEMetadata != nil {
 		return []string{r.CVEMetadata.ID}
 	}
 	return r.CVEs
 }
 
-// GetAliases returns all aliases (e.g., CVEs, GHSAs) for a report.
-func (r *Report) GetAliases() []string {
-	return append(r.GetCVEs(), r.GHSAs...)
+// Aliases returns all aliases (e.g., CVEs, GHSAs) for a report.
+func (r *Report) Aliases() []string {
+	return append(r.AllCVEs(), r.GHSAs...)
 }
 
 const (
@@ -152,11 +152,13 @@ const (
 	goURLPrefix   = "https://pkg.go.dev/vuln/"
 )
 
-func GetGoIDFromFilename(filename string) string {
+// GoID returns the Go ID from the given filename, assuming the filename
+// is of the form "*/<goID>.<ext>".
+func GoID(filename string) string {
 	return strings.TrimSuffix(filepath.Base(filename), filepath.Ext(filename))
 }
 
-func GetGoAdvisoryLink(id string) string {
+func GoAdvisory(id string) string {
 	return fmt.Sprintf("%s%s", goURLPrefix, id)
 }
 
@@ -215,7 +217,7 @@ func ReadAndLint(filename string) (r *Report, err error) {
 	return r, nil
 }
 
-func (r *Report) GetYAMLFilename(goID string) string {
+func (r *Report) YAMLFilename(goID string) string {
 	dir := YAMLDir
 	if r.Excluded != "" {
 		dir = ExcludedDir

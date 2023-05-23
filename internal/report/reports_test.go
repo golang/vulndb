@@ -46,7 +46,7 @@ var (
 	}
 )
 
-func TestGetAllExisting(t *testing.T) {
+func TestAll(t *testing.T) {
 
 	wantByIssue := map[int]*Report{1: &r1, 2: &r2, 4: &r4, 5: &r5}
 	wantByFile := map[string]*Report{
@@ -61,16 +61,16 @@ func TestGetAllExisting(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	gotByIssue, gotByFile, err := GetAllExisting(repo)
+	gotByIssue, gotByFile, err := All(repo)
 	if err != nil {
-		t.Fatalf("GetAllExisting() error = %v, ", err)
+		t.Fatalf("All() error = %v, ", err)
 	}
 	if diff := cmp.Diff(gotByIssue, wantByIssue); diff != "" {
-		t.Errorf("GetAllExisting(): byIssue mismatch (-got, +want): %s", diff)
+		t.Errorf("All(): byIssue mismatch (-got, +want): %s", diff)
 	}
 
 	if diff := cmp.Diff(gotByFile, wantByFile); diff != "" {
-		t.Errorf("GetAllExisting() byFile mismatch (-got, +want): %s", diff)
+		t.Errorf("All() byFile mismatch (-got, +want): %s", diff)
 	}
 }
 

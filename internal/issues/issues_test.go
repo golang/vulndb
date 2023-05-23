@@ -54,7 +54,7 @@ func TestCreateIssue(t *testing.T) {
 	}
 }
 
-func TestGetIssueAndIssueExists(t *testing.T) {
+func TestIssueAndIssueExists(t *testing.T) {
 	c, mux := githubtest.Setup(context.Background(), t, testConfig)
 	want := &issues.Issue{
 		Number: 7,
@@ -69,7 +69,7 @@ func TestGetIssueAndIssueExists(t *testing.T) {
 		}
 	})
 	ctx := context.Background()
-	got, err := c.GetIssue(ctx, want.Number)
+	got, err := c.Issue(ctx, want.Number)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -85,7 +85,7 @@ func TestGetIssueAndIssueExists(t *testing.T) {
 	}
 }
 
-func TestGetIssues(t *testing.T) {
+func TestIssues(t *testing.T) {
 	c, mux := githubtest.Setup(context.Background(), t, testConfig)
 	iss := &issues.Issue{
 		Number: 1,
@@ -106,7 +106,7 @@ func TestGetIssues(t *testing.T) {
 	})
 	ctx := context.Background()
 	want := []*issues.Issue{iss, iss2}
-	got, err := c.GetIssues(ctx, issues.GetIssuesOptions{State: "open"})
+	got, err := c.Issues(ctx, issues.IssuesOptions{State: "open"})
 	if err != nil {
 		t.Fatal(err)
 	}

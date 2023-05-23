@@ -263,7 +263,7 @@ func TestToCVE5(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			got, err := r.ToCVE5(GetGoIDFromFilename(test.filename))
+			got, err := r.ToCVE5(GoID(test.filename))
 			if err != nil {
 				t.Fatalf("ToCVE5(%s) failed unexpectedly; err=%v", test.filename, err)
 			}
@@ -274,9 +274,9 @@ func TestToCVE5(t *testing.T) {
 	}
 }
 
-func TestGetCVEFilename(t *testing.T) {
+func TestCVEFilename(t *testing.T) {
 	want := "data/cve/v5/GO-1999-0001.json"
-	if got := GetCVEFilename("GO-1999-0001"); got != want {
+	if got := CVEFilename("GO-1999-0001"); got != want {
 		t.Errorf("got %s, want %s", got, want)
 	}
 }

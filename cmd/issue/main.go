@@ -127,7 +127,7 @@ func constructIssue(ctx context.Context, c *issues.Client, ghsaClient *ghsa.Clie
 	if err != nil {
 		return err
 	}
-	_, allReports, err := report.GetAllExisting(repo)
+	_, allReports, err := report.All(repo)
 	if err != nil {
 		return err
 	}
