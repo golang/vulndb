@@ -5,6 +5,7 @@
 package report
 
 import (
+	"errors"
 	"fmt"
 	"net/url"
 	"path/filepath"
@@ -13,6 +14,7 @@ import (
 
 	"golang.org/x/exp/slices"
 	"golang.org/x/mod/module"
+	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/osvutils"
 	"golang.org/x/vulndb/internal/proxy"
@@ -229,23 +231,53 @@ func (r *Report) lintLinks(addIssue func(string)) {
 	}
 }
 
+func (r *Report) IsExcluded() bool {
+	return r.Excluded != ""
+}
+
+var errWrongDir = errors.New("report is in incorrect directory")
+
+// CheckFilename errors if the filename is inconsistent with the report.
+func (r *Report) CheckFilename(filename string) (err error) {
+	defer derrors.Wrap(&err, "CheckFilename(%q)", filename)
+
+	dir := filepath.Base(filepath.Dir(filename)) // innermost folder
+	excluded := r.IsExcluded()
+
+	if excluded && dir != "excluded" {
+		return fmt.Errorf("%w (want %s, found %s)", errWrongDir, "excluded", dir)
+	}
+
+	if !excluded && dir != "reports" {
+		return fmt.Errorf("%w (want %s, found %s)", errWrongDir, "reports", dir)
+	}
+
+	return nil
+}
+
 // Lint checks the content of a Report and outputs a list of strings
 // representing lint errors.
 // TODO: It might make sense to include warnings or informational things
 // alongside errors, especially during for use during the triage process.
-func (r *Report) Lint(filename string) []string {
+func (r *Report) Lint() []string {
 	var issues []string
 
 	addIssue := func(iss string) {
 		issues = append(issues, iss)
 	}
+
 	isStdLibReport := false
-	isExcluded := false
-	switch filepath.Base(filepath.Dir(filename)) {
-	case "reports":
-		if r.Excluded != "" {
-			addIssue("report in reports/ must not have excluded set")
+	if r.IsExcluded() {
+		if !slices.Contains(ExcludedReasons, r.Excluded) {
+			addIssue(fmt.Sprintf("excluded reason (%q) is not a valid excluded reason (accepted: %v)", r.Excluded, ExcludedReasons))
 		}
+		if r.Excluded != "NOT_GO_CODE" && len(r.Modules) == 0 {
+			addIssue("no modules")
+		}
+		if len(r.CVEs) == 0 && len(r.GHSAs) == 0 {
+			addIssue("excluded report must have at least one associated CVE or GHSA")
+		}
+	} else {
 		if len(r.Modules) == 0 {
 			addIssue("no modules")
 		}
@@ -254,18 +286,6 @@ func (r *Report) Lint(filename string) []string {
 		}
 		if r.Summary == "" {
 			addIssue("missing summary")
-		}
-	case "excluded":
-		isExcluded = true
-		if r.Excluded == "" {
-			addIssue("report in excluded/ must have excluded set")
-		} else if !slices.Contains(ExcludedReasons, r.Excluded) {
-			addIssue(fmt.Sprintf("excluded (%q) is not in set %v", r.Excluded, ExcludedReasons))
-		} else if r.Excluded != "NOT_GO_CODE" && len(r.Modules) == 0 {
-			addIssue("no modules")
-		}
-		if len(r.CVEs) == 0 && len(r.GHSAs) == 0 {
-			addIssue("excluded report must have at least one associated CVE or GHSA")
 		}
 	}
 
@@ -284,7 +304,7 @@ func (r *Report) Lint(filename string) []string {
 				addPkgIssue(fmt.Sprintf(`%q should be in module "%s", not %q`, p.Package, stdlib.ToolchainModulePath, m.Module))
 			}
 
-			if r.Excluded == "" {
+			if !r.IsExcluded() {
 				if m.VulnerableAt == "" && p.SkipFix == "" {
 					addPkgIssue(fmt.Sprintf("missing skip_fix and vulnerable_at: %q", p.Package))
 				}
@@ -300,7 +320,7 @@ func (r *Report) Lint(filename string) []string {
 	}
 	r.lintCVEs(addIssue)
 
-	if isStdLibReport && !isExcluded {
+	if isStdLibReport && !r.IsExcluded() {
 		r.lintStdLibLinks(addIssue)
 	}
 

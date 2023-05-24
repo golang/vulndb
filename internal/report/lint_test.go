@@ -6,6 +6,7 @@ package report
 
 import (
 	"bytes"
+	"errors"
 	"strings"
 	"testing"
 
@@ -67,7 +68,6 @@ func validExcludedReport(f func(r *Report)) Report {
 func TestLint(t *testing.T) {
 	for _, test := range []struct {
 		desc   string
-		dir    string // default: "reports/"
 		report Report
 		want   []string
 	}{
@@ -347,48 +347,28 @@ func TestLint(t *testing.T) {
 			},
 		},
 		{
-			desc:   "excluded in wrong dir",
-			report: validExcludedReport(noop),
-			want: []string{
-				`report in reports/ must not have excluded set`,
-				`no modules`,
-				`missing description`,
-				`missing summary`,
-			},
-		},
-		{
-			desc:   "report in wrong dir",
-			dir:    "excluded",
-			report: validReport(noop),
-			want: []string{
-				`report in excluded/ must have excluded set`,
-			},
-		},
-		{
-			desc: "excluded missing CVE/GHSA",
-			dir:  "excluded",
+			desc: "excluded missing/incorrect fields",
 			report: validExcludedReport(func(r *Report) {
+				r.Excluded = "not a real reason"
+				r.Modules = nil
 				r.CVEs = nil
 				r.GHSAs = nil
 			}),
 			want: []string{
-				`excluded report must have at least one associated CVE or GHSA`,
+				"not a valid excluded reason",
+				"no modules",
+				"excluded report must have at least one associated CVE or GHSA",
 			},
 		},
 		{
-			desc:   "excluded",
-			dir:    "excluded",
+			desc:   "valid excluded",
 			report: validExcludedReport(noop),
 			// No lints.
 		},
 	} {
 		test := test
 		t.Run(test.desc, func(t *testing.T) {
-			dir := test.dir
-			if dir == "" {
-				dir = "reports"
-			}
-			got := test.report.Lint(dir + "/GO-0000-000.yaml")
+			got := test.report.Lint()
 
 			var missing []string
 			for _, w := range test.want {
@@ -438,6 +418,47 @@ func TestLint(t *testing.T) {
 						"%v\n"+
 						"got:  %q\n", buf.String(), unexpected)
 				}
+			}
+		})
+	}
+}
+
+func TestCheckFilename(t *testing.T) {
+	for _, test := range []struct {
+		desc     string
+		filename string
+		report   Report
+		wantErr  error
+	}{
+		{
+			desc:     "excluded in correct directory",
+			filename: "data/excluded/GO-0000-0001.yaml",
+			report:   validExcludedReport(noop),
+			wantErr:  nil,
+		},
+		{
+			desc:     "excluded in wrong directory",
+			filename: "data/wrong/GO-0000-0001.yaml",
+			report:   validExcludedReport(noop),
+			wantErr:  errWrongDir,
+		},
+		{
+			desc:     "non-excluded in correct directory",
+			filename: "data/reports/GO-0000-0001.yaml",
+			report:   validReport(noop),
+			wantErr:  nil,
+		},
+		{
+			desc:     "non-excluded in wrong directory",
+			filename: "data/wrong/GO-0000-0001.yaml",
+			report:   validReport(noop),
+			wantErr:  errWrongDir,
+		},
+	} {
+		test := test
+		t.Run(test.desc, func(t *testing.T) {
+			if err := test.report.CheckFilename(test.filename); !errors.Is(err, test.wantErr) {
+				t.Errorf("CheckFilename(%s) = %v, want error %v", test.filename, err, test.wantErr)
 			}
 		})
 	}

@@ -77,7 +77,10 @@ func TestLintReports(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			lints := r.Lint(filename)
+			if err := r.CheckFilename(filename); err != nil {
+				t.Error(err)
+			}
+			lints := r.Lint()
 			if len(lints) > 0 {
 				t.Errorf(strings.Join(lints, "\n"))
 			}

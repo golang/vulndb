@@ -353,7 +353,7 @@ func handleExcludedIssue(ctx context.Context, cfg *createCfg, iss *issues.Issue)
 		return "", err
 	}
 
-	if lints := r.Lint(filename); len(lints) != 0 {
+	if lints := r.Lint(); len(lints) != 0 {
 		return "", fmt.Errorf("lint errors %s: %v", filename, lints)
 	}
 
@@ -649,15 +649,8 @@ func addReferenceTODOs(r *report.Report) {
 
 func lint(filename string) (err error) {
 	defer derrors.Wrap(&err, "lint(%q)", filename)
-	r, err := report.Read(filename)
-	if err != nil {
-		return err
-	}
-
-	if lints := r.Lint(filename); len(lints) > 0 {
-		return fmt.Errorf("lint returned errors:\n\t %s", strings.Join(lints, "\n\t"))
-	}
-	return nil
+	_, err = report.ReadAndLint(filename)
+	return err
 }
 
 func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client) (err error) {
@@ -666,7 +659,7 @@ func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client) (err err
 	if err != nil {
 		return err
 	}
-	if lints := r.Lint(filename); len(lints) > 0 {
+	if lints := r.Lint(); len(lints) > 0 {
 		r.Fix()
 	}
 
