@@ -315,7 +315,7 @@ func createReport(ctx context.Context, cfg *createCfg, iss *issues.Issue) (r *re
 	}
 
 	addTODOs(r)
-
+	r.ID = iss.NewGoID()
 	return r, nil
 }
 
@@ -332,10 +332,14 @@ func create(ctx context.Context, issueNumber int, cfg *createCfg) (err error) {
 		return err
 	}
 
-	filename := r.YAMLFilename(iss.NewGoID())
+	filename, err := r.YAMLFilename()
+	if err != nil {
+		return nil
+	}
 	if err := r.Write(filename); err != nil {
 		return err
 	}
+
 	fmt.Println(filename)
 	fmt.Print(xref(filename, r, cfg.existingByFile))
 	return nil
@@ -348,7 +352,10 @@ func handleExcludedIssue(ctx context.Context, cfg *createCfg, iss *issues.Issue)
 	}
 	r.Fix()
 
-	filename := r.YAMLFilename(iss.NewGoID())
+	filename, err := r.YAMLFilename()
+	if err != nil {
+		return "", err
+	}
 	if err := r.Write(filename); err != nil {
 		return "", err
 	}

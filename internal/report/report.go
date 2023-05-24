@@ -7,6 +7,7 @@
 package report
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -103,6 +104,8 @@ func (r *Reference) UnmarshalYAML(n *yaml.Node) (err error) {
 // Report represents a vulnerability report in the vulndb.
 // Remember to update doc/format.md when this structure changes.
 type Report struct {
+	ID string `yaml:",omitempty"`
+
 	// Excluded indicates an excluded report.
 	Excluded ExcludedReason `yaml:",omitempty"`
 
@@ -219,12 +222,15 @@ func ReadAndLint(filename string) (r *Report, err error) {
 	return r, nil
 }
 
-func (r *Report) YAMLFilename(goID string) string {
+func (r *Report) YAMLFilename() (string, error) {
 	dir := YAMLDir
 	if r.Excluded != "" {
 		dir = ExcludedDir
 	}
-	return filepath.Join(dir, goID+".yaml")
+	if r.ID == "" {
+		return "", errors.New("report has no ID")
+	}
+	return filepath.Join(dir, r.ID+".yaml"), nil
 }
 
 // Write writes r to filename in YAML format.

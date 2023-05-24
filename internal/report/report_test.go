@@ -55,19 +55,21 @@ func TestGetYAMLFilename(t *testing.T) {
 	}{
 		{
 			name: "normal",
-			r:    &Report{},
-			goID: "GO-1999-0001",
+			r:    &Report{ID: "GO-1999-0001"},
 			want: "data/reports/GO-1999-0001.yaml",
 		},
 		{
 			name: "excluded",
-			r:    &Report{Excluded: "NOT_IMPORTABLE"},
-			goID: "GO-1999-0002",
+			r:    &Report{ID: "GO-1999-0002", Excluded: "NOT_IMPORTABLE"},
 			want: "data/excluded/GO-1999-0002.yaml",
 		},
 	}
 	for _, test := range tests {
-		if got := test.r.YAMLFilename(test.goID); got != test.want {
+		got, err := test.r.YAMLFilename()
+		if err != nil {
+			t.Fatal(err)
+		}
+		if got != test.want {
 			t.Errorf("got %s, want %s", got, test.want)
 		}
 	}
