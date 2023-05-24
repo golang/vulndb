@@ -666,6 +666,13 @@ func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client) (err err
 	if err != nil {
 		return err
 	}
+	// Add/fix the Go ID if needed.
+	if goID := report.GoID(filename); goID != r.ID {
+		r.ID = goID
+	}
+	if err := r.CheckFilename(filename); err != nil {
+		return err
+	}
 	if lints := r.Lint(); len(lints) > 0 {
 		r.Fix()
 	}

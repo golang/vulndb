@@ -235,7 +235,10 @@ func (r *Report) IsExcluded() bool {
 	return r.Excluded != ""
 }
 
-var errWrongDir = errors.New("report is in incorrect directory")
+var (
+	errWrongDir = errors.New("report is in incorrect directory")
+	errWrongID  = errors.New("report ID mismatch")
+)
 
 // CheckFilename errors if the filename is inconsistent with the report.
 func (r *Report) CheckFilename(filename string) (err error) {
@@ -252,6 +255,11 @@ func (r *Report) CheckFilename(filename string) (err error) {
 		return fmt.Errorf("%w (want %s, found %s)", errWrongDir, "reports", dir)
 	}
 
+	wantID := GoID(filename)
+	if r.ID != wantID {
+		return fmt.Errorf("%w (want %s, found %s)", errWrongID, wantID, r.ID)
+	}
+
 	return nil
 }
 
@@ -266,7 +274,10 @@ func (r *Report) Lint() []string {
 		issues = append(issues, iss)
 	}
 
-	isStdLibReport := false
+	if r.ID == "" {
+		addIssue("missing ID")
+	}
+
 	if r.IsExcluded() {
 		if !slices.Contains(ExcludedReasons, r.Excluded) {
 			addIssue(fmt.Sprintf("excluded reason (%q) is not a valid excluded reason (accepted: %v)", r.Excluded, ExcludedReasons))
@@ -289,6 +300,7 @@ func (r *Report) Lint() []string {
 		}
 	}
 
+	isStdLibReport := false
 	for i, m := range r.Modules {
 		addPkgIssue := func(iss string) {
 			addIssue(fmt.Sprintf("modules[%v]: %v", i, iss))

@@ -24,6 +24,7 @@ var (
 
 func validReport(f func(r *Report)) Report {
 	r := Report{
+		ID: "GO-0000-0000",
 		Modules: []*Module{{
 			Module:       "golang.org/x/net",
 			VulnerableAt: "1.2.3",
@@ -41,6 +42,7 @@ func validReport(f func(r *Report)) Report {
 
 func validStdReport(f func(r *Report)) Report {
 	r := Report{
+		ID: "GO-0000-0000",
 		Modules: []*Module{{
 			Module:       "std",
 			VulnerableAt: "1.2.3",
@@ -58,6 +60,7 @@ func validStdReport(f func(r *Report)) Report {
 
 func validExcludedReport(f func(r *Report)) Report {
 	r := Report{
+		ID:       "GO-0000-0000",
 		Excluded: "NOT_GO_CODE",
 		CVEs:     []string{"CVE-2022-1234545"},
 	}
@@ -71,6 +74,13 @@ func TestLint(t *testing.T) {
 		report Report
 		want   []string
 	}{
+		{
+			desc: "no ID",
+			report: validReport(func(r *Report) {
+				r.ID = ""
+			}),
+			want: []string{"missing ID"},
+		},
 		{
 			desc: "no modules",
 			report: validReport(func(r *Report) {
@@ -431,26 +441,35 @@ func TestCheckFilename(t *testing.T) {
 		wantErr  error
 	}{
 		{
+			desc:     "wrong ID",
+			filename: "data/reports/GO-0000-0000.yaml",
+			report: validReport(
+				func(r *Report) {
+					r.ID = "GO-0000-1111"
+				}),
+			wantErr: errWrongID,
+		},
+		{
 			desc:     "excluded in correct directory",
-			filename: "data/excluded/GO-0000-0001.yaml",
+			filename: "data/excluded/GO-0000-0000.yaml",
 			report:   validExcludedReport(noop),
 			wantErr:  nil,
 		},
 		{
 			desc:     "excluded in wrong directory",
-			filename: "data/wrong/GO-0000-0001.yaml",
+			filename: "data/wrong/GO-0000-0000.yaml",
 			report:   validExcludedReport(noop),
 			wantErr:  errWrongDir,
 		},
 		{
 			desc:     "non-excluded in correct directory",
-			filename: "data/reports/GO-0000-0001.yaml",
+			filename: "data/reports/GO-0000-0000.yaml",
 			report:   validReport(noop),
 			wantErr:  nil,
 		},
 		{
 			desc:     "non-excluded in wrong directory",
-			filename: "data/wrong/GO-0000-0001.yaml",
+			filename: "data/wrong/GO-0000-0000.yaml",
 			report:   validReport(noop),
 			wantErr:  errWrongDir,
 		},
