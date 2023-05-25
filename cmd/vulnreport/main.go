@@ -331,11 +331,8 @@ func create(ctx context.Context, issueNumber int, cfg *createCfg) (err error) {
 		return err
 	}
 
-	filename, err := r.YAMLFilename()
+	filename, err := writeReport(r)
 	if err != nil {
-		return nil
-	}
-	if err := r.Write(filename); err != nil {
 		return err
 	}
 
@@ -344,13 +341,7 @@ func create(ctx context.Context, issueNumber int, cfg *createCfg) (err error) {
 	return nil
 }
 
-func handleExcludedIssue(ctx context.Context, cfg *createCfg, iss *issues.Issue) (string, error) {
-	r, err := createReport(ctx, cfg, iss)
-	if err != nil {
-		return "", err
-	}
-	r.Fix()
-
+func writeReport(r *report.Report) (string, error) {
 	filename, err := r.YAMLFilename()
 	if err != nil {
 		return "", err
@@ -358,15 +349,7 @@ func handleExcludedIssue(ctx context.Context, cfg *createCfg, iss *issues.Issue)
 	if err := r.Write(filename); err != nil {
 		return "", err
 	}
-
-	if lints := r.Lint(); len(lints) != 0 {
-		return "", fmt.Errorf("lint errors %s: %v", filename, lints)
-	}
-
-	if err := gitAdd(filename); err != nil {
-		return "", err
-	}
-	return r.ID, nil
+	return filename, nil
 }
 
 func createExcluded(ctx context.Context, cfg *createCfg) (err error) {
@@ -385,39 +368,72 @@ func createExcluded(ctx context.Context, cfg *createCfg) (err error) {
 		if err != nil {
 			return err
 		}
-		fmt.Printf("Found %d issues with label %s\n", len(tempIssues), label)
+		fmt.Printf("found %d issues with label %s\n", len(tempIssues), label)
 		isses = append(isses, tempIssues...)
 	}
 
-	var successfulIssNums, successfulGoIDs []string
-	skipped := 0
+	var created []string
 	for _, iss := range isses {
-
-		if _, exists := cfg.existingByIssue[iss.Number]; !cfg.allowClosed && exists {
-			skipped++
+		// Don't create a report for an issue that already has a report.
+		if _, ok := cfg.existingByIssue[iss.Number]; ok {
 			continue
 		}
-		id, err := handleExcludedIssue(ctx, cfg, iss)
+
+		r, err := createReport(ctx, cfg, iss)
 		if err != nil {
-			fmt.Printf("skipped issue %d due to error: %v\n", iss.Number, err)
-			skipped++
+			fmt.Printf("skipped issue %d: %v\n", iss.Number, err)
 			continue
 		}
-		successfulIssNums = append(successfulIssNums, fmt.Sprintf("golang/vulndb#%d", iss.Number))
-		successfulGoIDs = append(successfulGoIDs, id)
-	}
-	fmt.Printf("Skipped %d issues\n", skipped)
 
-	if len(successfulGoIDs) == 0 {
-		fmt.Println("No files to commit, exiting")
+		filename, err := writeReport(r)
+		if err != nil {
+			return err
+		}
+
+		created = append(created, filename)
+	}
+
+	skipped := len(isses) - len(created)
+	if skipped > 0 {
+		fmt.Printf("skipped %d issue(s)\n", skipped)
+	}
+
+	if len(created) == 0 {
+		fmt.Println("no files to commit, exiting")
 		return nil
 	}
 
-	msg := fmt.Sprintf("%s: batch add %s\n\nFixes %s",
+	msg, err := excludedCommitMsg(created)
+	if err != nil {
+		return err
+	}
+	if err := gitAdd(created...); err != nil {
+		return err
+	}
+	return gitCommit(msg, created...)
+}
+
+func excludedCommitMsg(fs []string) (string, error) {
+	var issNums []string
+	for _, f := range fs {
+		_, _, iss, err := report.ParseFilepath(f)
+		if err != nil {
+			return "", err
+		}
+		issNums = append(issNums, fmt.Sprintf("Fixes golang/vulndb#%d", iss))
+	}
+
+	return fmt.Sprintf(
+		`%s: batch add %d excluded reports
+
+Adds excluded reports:
+	- %s
+
+%s`,
 		report.ExcludedDir,
-		strings.Join(successfulGoIDs, ", "),
-		strings.Join(successfulIssNums, "\nFixes "))
-	return gitCommit(msg)
+		len(fs),
+		strings.Join(fs, "\n\t- "),
+		strings.Join(issNums, "\n")), nil
 }
 
 func newReport(ctx context.Context, cfg *createCfg, parsed *parsedIssue) (*report.Report, error) {
