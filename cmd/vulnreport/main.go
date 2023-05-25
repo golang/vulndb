@@ -24,6 +24,7 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/go-git/go-git/v5"
@@ -242,12 +243,32 @@ func parseArgsToGithubIDs(args []string, existingByIssue map[int]*report.Report)
 }
 
 type createCfg struct {
-	repo            *git.Repository
 	ghsaClient      *ghsa.Client
 	issuesClient    *issues.Client
 	existingByFile  map[string]*report.Report
 	existingByIssue map[int]*report.Report
 	allowClosed     bool
+}
+
+var (
+	once    sync.Once
+	cveRepo *git.Repository
+)
+
+func loadCVERepo(ctx context.Context) *git.Repository {
+	// Loading the CVE git repo takes a while, so do it on demand only.
+	once.Do(func() {
+		repoPath := cvelistrepo.URL
+		if *localRepoPath != "" {
+			repoPath = *localRepoPath
+		}
+		var err error
+		cveRepo, err = gitrepo.CloneOrOpen(ctx, repoPath)
+		if err != nil {
+			log.Fatal(err)
+		}
+	})
+	return cveRepo
 }
 
 func setupCreate(ctx context.Context, args []string) ([]int, *createCfg, error) {
@@ -266,20 +287,11 @@ func setupCreate(ctx context.Context, args []string) ([]int, *createCfg, error) 
 	if err != nil {
 		return nil, nil, err
 	}
-	repoPath := cvelistrepo.URL
-	if *localRepoPath != "" {
-		repoPath = *localRepoPath
-	}
-	repo, err := gitrepo.CloneOrOpen(ctx, repoPath)
-	if err != nil {
-		return nil, nil, err
-	}
 	owner, repoName, err := gitrepo.ParseGitHubRepo(*issueRepo)
 	if err != nil {
 		return nil, nil, err
 	}
 	return githubIDs, &createCfg{
-		repo:            repo,
 		issuesClient:    issues.NewClient(ctx, &issues.Config{Owner: owner, Repo: repoName, Token: *githubToken}),
 		ghsaClient:      ghsa.NewClient(ctx, *githubToken),
 		existingByFile:  existingByFile,
@@ -446,7 +458,7 @@ func newReport(ctx context.Context, cfg *createCfg, parsed *parsedIssue) (*repor
 		}
 		r = report.GHSAToReport(ghsa, parsed.modulePath)
 	case len(parsed.cves) > 0:
-		cve, err := cvelistrepo.FetchCVE(ctx, cfg.repo, parsed.cves[0])
+		cve, err := cvelistrepo.FetchCVE(ctx, loadCVERepo(ctx), parsed.cves[0])
 		if err != nil {
 			return nil, err
 		}
