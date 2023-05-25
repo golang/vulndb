@@ -363,8 +363,8 @@ func handleExcludedIssue(ctx context.Context, cfg *createCfg, iss *issues.Issue)
 		return "", fmt.Errorf("lint errors %s: %v", filename, lints)
 	}
 
-	if err := irun("git", "add", filename); err != nil {
-		return "", fmt.Errorf("git add %s: %v", filename, err)
+	if err := gitAdd(filename); err != nil {
+		return "", err
 	}
 	return r.ID, nil
 }
@@ -417,13 +417,7 @@ func createExcluded(ctx context.Context, cfg *createCfg) (err error) {
 		report.ExcludedDir,
 		strings.Join(successfulGoIDs, ", "),
 		strings.Join(successfulIssNums, "\nFixes "))
-	args := []string{"commit", "-m", msg, "-e"}
-
-	if err := irun("git", args...); err != nil {
-		return fmt.Errorf("git commit: %v", err)
-	}
-
-	return nil
+	return gitCommit(msg)
 }
 
 func newReport(ctx context.Context, cfg *createCfg, parsed *parsedIssue) (*report.Report, error) {
@@ -914,16 +908,6 @@ func writeCVE(r *report.Report) error {
 	return database.WriteJSON(r.CVEFilename(), cve, true)
 }
 
-func irun(name string, arg ...string) error {
-	// Exec git commands rather than using go-git so as to run commit hooks
-	// and give the user a chance to edit the commit message.
-	cmd := exec.Command(name, arg...)
-	cmd.Stdin = os.Stdin
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	return cmd.Run()
-}
-
 func commit(ctx context.Context, filename string, ghsaClient *ghsa.Client) (err error) {
 	defer derrors.Wrap(&err, "commit(%q)", filename)
 
@@ -950,12 +934,9 @@ func commit(ctx context.Context, filename string, ghsaClient *ghsa.Client) (err 
 		files = append(files, r.CVEFilename())
 	}
 
-	// Add the files.
-	addArgs := []string{"add"}
-	addArgs = append(addArgs, files...)
-	if err := irun("git", addArgs...); err != nil {
-		fmt.Fprintf(os.Stderr, "git add: %v\n", err)
-		return nil
+	// Add the files to git.
+	if err := gitAdd(files...); err != nil {
+		return err
 	}
 
 	// Commit the files, allowing the user to edit the default commit message.
@@ -963,14 +944,7 @@ func commit(ctx context.Context, filename string, ghsaClient *ghsa.Client) (err 
 	if err != nil {
 		return err
 	}
-	commitArgs := []string{"commit", "-m", msg, "-e"}
-	commitArgs = append(commitArgs, files...)
-	if err := irun("git", commitArgs...); err != nil {
-		fmt.Fprintf(os.Stderr, "git commit: %v\n", err)
-		return nil
-	}
-
-	return nil
+	return gitCommit(msg, files...)
 }
 
 func newCommitMsg(r *report.Report) (string, error) {
