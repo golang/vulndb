@@ -15,6 +15,7 @@ import (
 
 func TestToOSV(t *testing.T) {
 	r := &Report{
+		ID: "GO-1991-0001",
 		Modules: []*Module{
 			{
 				Module: "example.com/vulnerable/v2",
@@ -200,15 +201,16 @@ func TestToOSV(t *testing.T) {
 		DatabaseSpecific: &osv.DatabaseSpecific{URL: "https://pkg.go.dev/vuln/GO-1991-0001"},
 	}
 
-	gotEntry := r.ToOSV("GO-1991-0001", time.Time{})
+	gotEntry := r.ToOSV(time.Time{})
 	if diff := cmp.Diff(wantEntry, gotEntry, cmp.Comparer(func(a, b time.Time) bool { return a.Equal(b) })); diff != "" {
-		t.Errorf("GenerateOSVEntry returned unexpected entry (-want +got):\n%s", diff)
+		t.Errorf("ToOSV() mismatch (-want +got):\n%s", diff)
 	}
 }
 
 func TestOSVFilename(t *testing.T) {
 	want := "data/osv/GO-1999-0001.json"
-	if got := OSVFilename("GO-1999-0001"); got != want {
+	r := &Report{ID: "GO-1999-0001"}
+	if got := r.OSVFilename(); got != want {
 		t.Errorf("got %s, want %s", got, want)
 	}
 }

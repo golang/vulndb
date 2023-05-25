@@ -24,8 +24,8 @@ var (
 )
 
 // ToCVE5 creates a CVE in 5.0 format from a YAML report file.
-func (r *Report) ToCVE5(goID string) (_ *cveschema5.CVERecord, err error) {
-	defer derrors.Wrap(&err, "Report.ToCVERecord(%q)", goID)
+func (r *Report) ToCVE5() (_ *cveschema5.CVERecord, err error) {
+	defer derrors.Wrap(&err, "ToCVERecord(%q)", r.ID)
 
 	if len(r.CVEs) > 0 {
 		return nil, errors.New("report has CVE ID is wrong section (should be in cve_metadata for self-issued CVEs)")
@@ -93,8 +93,9 @@ func (r *Report) ToCVE5(goID string) (_ *cveschema5.CVERecord, err error) {
 	for _, ref := range r.References {
 		c.References = append(c.References, cveschema5.Reference{URL: ref.URL})
 	}
-	advisoryLink := GoAdvisory(goID)
-	c.References = append(c.References, cveschema5.Reference{URL: advisoryLink})
+	c.References = append(c.References, cveschema5.Reference{
+		URL: GoAdvisory(r.ID),
+	})
 
 	for _, credit := range r.Credits {
 		c.Credits = append(c.Credits, cveschema5.Credit{
@@ -115,8 +116,8 @@ func (r *Report) ToCVE5(goID string) (_ *cveschema5.CVERecord, err error) {
 	}, nil
 }
 
-func CVEFilename(goID string) string {
-	return filepath.Join(cve5Dir, goID+".json")
+func (r *Report) CVEFilename() string {
+	return filepath.Join(cve5Dir, r.ID+".json")
 }
 
 func versionRangeToVersionRange(versions []VersionRange) []cveschema5.VersionRange {

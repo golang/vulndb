@@ -84,7 +84,6 @@ func TestLintReports(t *testing.T) {
 			if len(lints) > 0 {
 				t.Errorf(strings.Join(lints, "\n"))
 			}
-			goID := report.GoID(filename)
 			for _, alias := range r.Aliases() {
 				if report, ok := aliases[alias]; ok {
 					t.Errorf("report %s shares duplicate alias %s with report %s", filename, alias, report)
@@ -94,8 +93,8 @@ func TestLintReports(t *testing.T) {
 			}
 			// Check that a correct OSV file was generated for each YAML report.
 			if r.Excluded == "" {
-				generated := r.ToOSV(goID, time.Time{})
-				osvFilename := report.OSVFilename(goID)
+				generated := r.ToOSV(time.Time{})
+				osvFilename := r.OSVFilename()
 				current, err := report.ReadOSV(osvFilename)
 				if err != nil {
 					t.Fatal(err)
@@ -108,11 +107,11 @@ func TestLintReports(t *testing.T) {
 				}
 			}
 			if r.CVEMetadata != nil {
-				generated, err := r.ToCVE5(goID)
+				generated, err := r.ToCVE5()
 				if err != nil {
 					t.Fatal(err)
 				}
-				cvePath := report.CVEFilename(goID)
+				cvePath := r.CVEFilename()
 				current, err := cveschema5.Read(cvePath)
 				if err != nil {
 					t.Fatal(err)

@@ -30,9 +30,9 @@ var (
 )
 
 // ToOSV creates an osv.Entry for a report.
-// In addition to the report, it takes the ID for the vuln and the time
-// the vuln was last modified.
-func (r *Report) ToOSV(goID string, lastModified time.Time) osv.Entry {
+// lastModified is the time the report should be considered to have
+// been most recently modified.
+func (r *Report) ToOSV(lastModified time.Time) osv.Entry {
 	var credits []osv.Credit
 	for _, credit := range r.Credits {
 		credits = append(credits, osv.Credit{
@@ -46,14 +46,14 @@ func (r *Report) ToOSV(goID string, lastModified time.Time) osv.Entry {
 	}
 
 	entry := osv.Entry{
-		ID:               goID,
+		ID:               r.ID,
 		Published:        osv.Time{Time: r.Published},
 		Modified:         osv.Time{Time: lastModified},
 		Withdrawn:        withdrawn,
 		Details:          trimWhitespace(r.Description),
 		Credits:          credits,
 		SchemaVersion:    SchemaVersion,
-		DatabaseSpecific: &osv.DatabaseSpecific{URL: GoAdvisory(goID)},
+		DatabaseSpecific: &osv.DatabaseSpecific{URL: GoAdvisory(r.ID)},
 	}
 
 	for _, m := range r.Modules {
@@ -69,8 +69,8 @@ func (r *Report) ToOSV(goID string, lastModified time.Time) osv.Entry {
 	return entry
 }
 
-func OSVFilename(goID string) string {
-	return filepath.Join(OSVDir, goID+".json")
+func (r *Report) OSVFilename() string {
+	return filepath.Join(OSVDir, r.ID+".json")
 }
 
 // ReadOSV reads an osv.Entry from a file.

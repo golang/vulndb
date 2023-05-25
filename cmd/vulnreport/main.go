@@ -32,7 +32,6 @@ import (
 	"golang.org/x/exp/slices"
 	"golang.org/x/tools/go/packages"
 	"golang.org/x/vulndb/internal/cvelistrepo"
-	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/database"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/ghsa"
@@ -367,7 +366,7 @@ func handleExcludedIssue(ctx context.Context, cfg *createCfg, iss *issues.Issue)
 	if err := irun("git", "add", filename); err != nil {
 		return "", fmt.Errorf("git add %s: %v", filename, err)
 	}
-	return filename, nil
+	return r.ID, nil
 }
 
 func createExcluded(ctx context.Context, cfg *createCfg) (err error) {
@@ -398,14 +397,14 @@ func createExcluded(ctx context.Context, cfg *createCfg) (err error) {
 			skipped++
 			continue
 		}
-		filename, err := handleExcludedIssue(ctx, cfg, iss)
+		id, err := handleExcludedIssue(ctx, cfg, iss)
 		if err != nil {
 			fmt.Printf("skipped issue %d due to error: %v\n", iss.Number, err)
 			skipped++
 			continue
 		}
 		successfulIssNums = append(successfulIssNums, fmt.Sprintf("golang/vulndb#%d", iss.Number))
-		successfulGoIDs = append(successfulGoIDs, report.GoID(filename))
+		successfulGoIDs = append(successfulGoIDs, id)
 	}
 	fmt.Printf("Skipped %d issues\n", skipped)
 
@@ -695,13 +694,19 @@ func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client) (err err
 	if err := r.Write(filename); err != nil {
 		return err
 	}
-	goID := report.GoID(filename)
-	if _, err := writeOSV(r, goID); err != nil {
-		return err
+
+	if !r.IsExcluded() {
+		if err := writeOSV(r); err != nil {
+			return err
+		}
 	}
-	if err := writeCVE(r, goID); err != nil {
-		return err
+
+	if r.CVEMetadata != nil {
+		if err := writeCVE(r); err != nil {
+			return err
+		}
 	}
+
 	return nil
 }
 
@@ -874,24 +879,17 @@ func osvCmd(filename string) (err error) {
 	if err != nil {
 		return err
 	}
-	osvFilename, err := writeOSV(r, report.GoID(filename))
-	if err != nil {
-		return err
+	if !r.IsExcluded() {
+		if err := writeOSV(r); err != nil {
+			return err
+		}
+		fmt.Println(r.OSVFilename())
 	}
-	fmt.Println(osvFilename)
 	return nil
 }
 
-func writeOSV(r *report.Report, goID string) (string, error) {
-	if r.Excluded == "" {
-		entry := r.ToOSV(goID, time.Time{})
-		osvFilename := report.OSVFilename(goID)
-		if err := database.WriteJSON(osvFilename, entry, true); err != nil {
-			return "", err
-		}
-		return osvFilename, nil
-	}
-	return "", nil
+func writeOSV(r *report.Report) error {
+	return database.WriteJSON(r.OSVFilename(), r.ToOSV(time.Time{}), true)
 }
 
 func cveCmd(ctx context.Context, filename string) (err error) {
@@ -900,27 +898,20 @@ func cveCmd(ctx context.Context, filename string) (err error) {
 	if err != nil {
 		return err
 	}
-	return writeCVE(r, report.GoID(filename))
+	if r.CVEMetadata != nil {
+		return writeCVE(r)
+	}
+	return nil
 }
 
-// writeCVE takes a report and its Go ID, converts the report
-// into a JSON CVE5 record and writes it to data/cve/v5.
-func writeCVE(r *report.Report, goID string) error {
-	if r.CVEMetadata == nil {
-		return nil
-	}
-	var cve *cveschema5.CVERecord
-	var err error
-
-	cvePath := report.CVEFilename(goID)
-	if cve, err = r.ToCVE5(goID); err != nil {
+// writeCVE converts a report to JSON CVE5 record and writes it to
+// data/cve/v5.
+func writeCVE(r *report.Report) error {
+	cve, err := r.ToCVE5()
+	if err != nil {
 		return err
 	}
-	if err = database.WriteJSON(cvePath, cve, true); err != nil {
-		return err
-	}
-
-	return nil
+	return database.WriteJSON(r.CVEFilename(), cve, true)
 }
 
 func irun(name string, arg ...string) error {
@@ -952,12 +943,11 @@ func commit(ctx context.Context, filename string, ghsaClient *ghsa.Client) (err 
 
 	// Find all derived files (OSV and CVE).
 	files := []string{filename}
-	goID := report.GoID(filename)
 	if r.Excluded == "" {
-		files = append(files, report.OSVFilename(goID))
+		files = append(files, r.OSVFilename())
 	}
 	if r.CVEMetadata != nil {
-		files = append(files, report.CVEFilename(goID))
+		files = append(files, r.CVEFilename())
 	}
 
 	// Add the files.
@@ -969,7 +959,7 @@ func commit(ctx context.Context, filename string, ghsaClient *ghsa.Client) (err 
 	}
 
 	// Commit the files, allowing the user to edit the default commit message.
-	msg, err := newCommitMsg(r, filename)
+	msg, err := newCommitMsg(r)
 	if err != nil {
 		return err
 	}
@@ -983,8 +973,13 @@ func commit(ctx context.Context, filename string, ghsaClient *ghsa.Client) (err 
 	return nil
 }
 
-func newCommitMsg(r *report.Report, filepath string) (string, error) {
-	folder, filename, issueID, err := report.ParseFilepath(filepath)
+func newCommitMsg(r *report.Report) (string, error) {
+	f, err := r.YAMLFilename()
+	if err != nil {
+		return "", err
+	}
+
+	folder, filename, issueID, err := report.ParseFilepath(f)
 	if err != nil {
 		return "", err
 	}

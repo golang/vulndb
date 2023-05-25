@@ -46,7 +46,7 @@ func TestUnknownField(t *testing.T) {
 	}
 }
 
-func TestGetYAMLFilename(t *testing.T) {
+func TestYAMLFilename(t *testing.T) {
 	tests := []struct {
 		name string
 		r    *Report
