@@ -1,0 +1,45 @@
+id: GO-2023-1788
+modules:
+    - module: github.com/goreleaser/nfpm/v2
+      versions:
+        - introduced: 2.0.0
+          fixed: 2.29.0
+      vulnerable_at: 2.28.0
+      packages:
+        - package: github.com/goreleaser/nfpm/v2
+          symbols:
+            - ParseWithEnvMapping
+            - WithDefaults
+          derived_symbols:
+            - Config.Validate
+            - Info.Validate
+            - Parse
+            - ParseFile
+            - ParseFileWithEnvMapping
+            - PrepareForPackager
+            - Validate
+        - package: github.com/goreleaser/nfpm/v2/files
+          symbols:
+            - Content.WithFileInfoDefaults
+            - PrepareForPackager
+            - addGlobbedFiles
+            - addTree
+summary: Building packages directly from source control doesn't maintain file permissions
+description: |
+    When nfpm packages files without additional configuration to enforce its
+    own permissions, the files could be packaged with incorrect permissions
+    (chmod 666 or 777). Anyone who uses nfpm to create packages and does not
+    check or set file permissions before packaging could result in files or
+    folders being packaged with incorrect permissions.
+cves:
+    - CVE-2023-32698
+ghsas:
+    - GHSA-w7jw-q4fg-qc4c
+credits:
+    - oCHRISo
+    - caarlos0
+    - djgilcrease
+references:
+    - fix: https://github.com/goreleaser/nfpm/commit/ed9abdf63d5012cc884f2a83b4ab2b42b3680d30
+    - web: https://github.com/goreleaser/nfpm/releases/tag/v2.29.0
+    - advisory: https://github.com/advisories/GHSA-w7jw-q4fg-qc4c

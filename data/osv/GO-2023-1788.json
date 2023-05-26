@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1788",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-32698",
+    "GHSA-w7jw-q4fg-qc4c"
+  ],
+  "details": "When nfpm packages files without additional configuration to enforce its own permissions, the files could be packaged with incorrect permissions (chmod 666 or 777). Anyone who uses nfpm to create packages and does not check or set file permissions before packaging could result in files or folders being packaged with incorrect permissions.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/goreleaser/nfpm/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.0.0"
+            },
+            {
+              "fixed": "2.29.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/goreleaser/nfpm/v2",
+            "symbols": [
+              "Config.Validate",
+              "Info.Validate",
+              "Parse",
+              "ParseFile",
+              "ParseFileWithEnvMapping",
+              "ParseWithEnvMapping",
+              "PrepareForPackager",
+              "Validate",
+              "WithDefaults"
+            ]
+          },
+          {
+            "path": "github.com/goreleaser/nfpm/v2/files",
+            "symbols": [
+              "Content.WithFileInfoDefaults",
+              "PrepareForPackager",
+              "addGlobbedFiles",
+              "addTree"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/goreleaser/nfpm/commit/ed9abdf63d5012cc884f2a83b4ab2b42b3680d30"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/goreleaser/nfpm/releases/tag/v2.29.0"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-w7jw-q4fg-qc4c"
+    }
+  ],
+  "credits": [
+    {
+      "name": "oCHRISo"
+    },
+    {
+      "name": "caarlos0"
+    },
+    {
+      "name": "djgilcrease"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1788"
+  }
+}
