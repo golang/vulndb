@@ -272,13 +272,13 @@ See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) 
 
 ` + "```" + `
 modules:
-  - module: a.Module
-    packages:
-      - package: a.Module
+    - module: a.Module
+      packages:
+        - package: a.Module
 description: |
     a description
 cves:
-  - ID1
+    - ID1
 
 ` + "```"
 	if diff := cmp.Diff(unindent(want), got); diff != "" {
@@ -323,14 +323,14 @@ See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) 
 
 ` + "```" + `
 modules:
-  - module: aPackage
-    versions:
-      - fixed: 1.2.3
-    packages:
-      - package: aPackage
+    - module: aPackage
+      versions:
+        - fixed: 1.2.3
+      packages:
+        - package: aPackage
 description: a description
 ghsas:
-  - G1
+    - G1
 
 ` + "```"
 
