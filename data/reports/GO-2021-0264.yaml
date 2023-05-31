@@ -1,17 +1,17 @@
 id: GO-2021-0264
 modules:
-  - module: std
-    versions:
-      - fixed: 1.16.10
-      - introduced: 1.17.0-0
-        fixed: 1.17.3
-    vulnerable_at: 1.17.2
-    packages:
-      - package: archive/zip
-        symbols:
-          - split
-          - Reader.Open
-        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+    - module: std
+      versions:
+        - fixed: 1.16.10
+        - introduced: 1.17.0-0
+          fixed: 1.17.3
+      vulnerable_at: 1.17.2
+      packages:
+        - package: archive/zip
+          symbols:
+            - split
+            - Reader.Open
+          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Previously, opening a zip with (*Reader).Open could result in a panic if the
@@ -31,12 +31,12 @@ description: |
     Finally, the actual panic site was made robust as a defense-in-depth measure.
 published: 2022-01-13T20:54:43Z
 cves:
-  - CVE-2021-41772
+    - CVE-2021-41772
 credits:
-  - Colin Arnott (SiteHost)
-  - Noah Santschi-Cooney (Sourcegraph Code Intelligence Team)
+    - Colin Arnott (SiteHost)
+    - Noah Santschi-Cooney (Sourcegraph Code Intelligence Team)
 references:
-  - fix: https://go.dev/cl/349770
-  - fix: https://go.googlesource.com/go/+/b24687394b55a93449e2be4e6892ead58ea9a10f
-  - web: https://groups.google.com/g/golang-announce/c/0fM21h43arc
-  - report: https://go.dev/issue/48085
+    - fix: https://go.dev/cl/349770
+    - fix: https://go.googlesource.com/go/+/b24687394b55a93449e2be4e6892ead58ea9a10f
+    - web: https://groups.google.com/g/golang-announce/c/0fM21h43arc
+    - report: https://go.dev/issue/48085

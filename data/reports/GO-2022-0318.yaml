@@ -1,18 +1,17 @@
 id: GO-2022-0318
 modules:
-  - module: cmd
-    versions:
-      - fixed: 1.16.14
-      - introduced: 1.17.0-0
-        fixed: 1.17.7
-    vulnerable_at: 1.17.6
-    packages:
-      - package: cmd/go/internal/modfetch
-        symbols:
-          - codeRepo.convert
-          - codeRepo.validatePseudoVersion
-        skip_fix: 'TODO: revisit this reason (cant request explicit version v1.17.6
-            of standard library package cmd/go/internal/modfetch)'
+    - module: cmd
+      versions:
+        - fixed: 1.16.14
+        - introduced: 1.17.0-0
+          fixed: 1.17.7
+      vulnerable_at: 1.17.6
+      packages:
+        - package: cmd/go/internal/modfetch
+          symbols:
+            - codeRepo.convert
+            - codeRepo.validatePseudoVersion
+          skip_fix: 'TODO: revisit this reason (cant request explicit version v1.17.6 of standard library package cmd/go/internal/modfetch)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Incorrect access control is possible in the go command.
@@ -22,9 +21,9 @@ description: |
     authorized to create branches but not tags.
 published: 2022-08-01T22:20:42Z
 cves:
-  - CVE-2022-23773
+    - CVE-2022-23773
 references:
-  - fix: https://go.dev/cl/378400
-  - fix: https://go.googlesource.com/go/+/fa4d9b8e2bc2612960c80474fca83a4c85a974eb
-  - report: https://go.dev/issue/35671
-  - web: https://groups.google.com/g/golang-announce/c/SUsQn0aSgPQ
+    - fix: https://go.dev/cl/378400
+    - fix: https://go.googlesource.com/go/+/fa4d9b8e2bc2612960c80474fca83a4c85a974eb
+    - report: https://go.dev/issue/35671
+    - web: https://groups.google.com/g/golang-announce/c/SUsQn0aSgPQ

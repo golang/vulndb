@@ -1,46 +1,46 @@
 id: GO-2020-0019
 modules:
-  - module: github.com/gorilla/websocket
-    versions:
-      - fixed: 1.4.1
-    vulnerable_at: 1.4.0
-    packages:
-      - package: github.com/gorilla/websocket
-        symbols:
-          - Conn.advanceFrame
-          - messageReader.Read
-        derived_symbols:
-          - Conn.Close
-          - Conn.NextReader
-          - Conn.NextWriter
-          - Conn.ReadJSON
-          - Conn.ReadMessage
-          - Conn.WriteControl
-          - Conn.WriteJSON
-          - Conn.WriteMessage
-          - Conn.WritePreparedMessage
-          - Dialer.Dial
-          - Dialer.DialContext
-          - NewClient
-          - NewPreparedMessage
-          - ReadJSON
-          - Subprotocols
-          - Upgrade
-          - Upgrader.Upgrade
-          - WriteJSON
-          - flateReadWrapper.Read
-          - flateWriteWrapper.Close
-          - flateWriteWrapper.Write
-          - httpProxyDialer.Dial
-          - messageWriter.Close
-          - messageWriter.ReadFrom
-          - messageWriter.Write
-          - messageWriter.WriteString
-          - netDialerFunc.Dial
-          - proxy_direct.Dial
-          - proxy_envOnce.Get
-          - proxy_socks5.Dial
-          - truncWriter.Write
+    - module: github.com/gorilla/websocket
+      versions:
+        - fixed: 1.4.1
+      vulnerable_at: 1.4.0
+      packages:
+        - package: github.com/gorilla/websocket
+          symbols:
+            - Conn.advanceFrame
+            - messageReader.Read
+          derived_symbols:
+            - Conn.Close
+            - Conn.NextReader
+            - Conn.NextWriter
+            - Conn.ReadJSON
+            - Conn.ReadMessage
+            - Conn.WriteControl
+            - Conn.WriteJSON
+            - Conn.WriteMessage
+            - Conn.WritePreparedMessage
+            - Dialer.Dial
+            - Dialer.DialContext
+            - NewClient
+            - NewPreparedMessage
+            - ReadJSON
+            - Subprotocols
+            - Upgrade
+            - Upgrader.Upgrade
+            - WriteJSON
+            - flateReadWrapper.Read
+            - flateWriteWrapper.Close
+            - flateWriteWrapper.Write
+            - httpProxyDialer.Dial
+            - messageWriter.Close
+            - messageWriter.ReadFrom
+            - messageWriter.Write
+            - messageWriter.WriteString
+            - netDialerFunc.Dial
+            - proxy_direct.Dial
+            - proxy_envOnce.Get
+            - proxy_socks5.Dial
+            - truncWriter.Write
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     An attacker can craft malicious WebSocket frames that cause an integer
@@ -49,11 +49,11 @@ description: |
     in a loop, which can be used as a denial of service vector.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2020-27813
+    - CVE-2020-27813
 ghsas:
-  - GHSA-3xh2-74w9-5vxm
+    - GHSA-3xh2-74w9-5vxm
 credits:
-  - Max Justicz
+    - Max Justicz
 references:
-  - fix: https://github.com/gorilla/websocket/pull/537
-  - fix: https://github.com/gorilla/websocket/commit/5b740c29263eb386f33f265561c8262522f19d37
+    - fix: https://github.com/gorilla/websocket/pull/537
+    - fix: https://github.com/gorilla/websocket/commit/5b740c29263eb386f33f265561c8262522f19d37

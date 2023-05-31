@@ -1,16 +1,16 @@
 id: GO-2021-0243
 modules:
-  - module: std
-    versions:
-      - fixed: 1.15.14
-      - introduced: 1.16.0-0
-        fixed: 1.16.6
-    vulnerable_at: 1.16.5
-    packages:
-      - package: crypto/tls
-        symbols:
-          - rsaKeyAgreement.generateClientKeyExchange
-        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+    - module: std
+      versions:
+        - fixed: 1.15.14
+        - introduced: 1.16.0-0
+          fixed: 1.16.6
+      vulnerable_at: 1.16.5
+      packages:
+        - package: crypto/tls
+          symbols:
+            - rsaKeyAgreement.generateClientKeyExchange
+          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     crypto/tls clients can panic when provided a certificate of the
@@ -18,11 +18,11 @@ description: |
     performing HTTPS requests are also affected.
 published: 2022-02-17T17:32:57Z
 cves:
-  - CVE-2021-34558
+    - CVE-2021-34558
 credits:
-  - Imre Rad
+    - Imre Rad
 references:
-  - fix: https://go.dev/cl/334031
-  - fix: https://go.googlesource.com/go/+/a98589711da5e9d935e8d690cfca92892e86d557
-  - web: https://groups.google.com/g/golang-announce/c/n9FxMelZGAQ
-  - report: https://go.dev/issue/47143
+    - fix: https://go.dev/cl/334031
+    - fix: https://go.googlesource.com/go/+/a98589711da5e9d935e8d690cfca92892e86d557
+    - web: https://groups.google.com/g/golang-announce/c/n9FxMelZGAQ
+    - report: https://go.dev/issue/47143

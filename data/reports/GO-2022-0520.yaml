@@ -1,15 +1,15 @@
 id: GO-2022-0520
 modules:
-  - module: std
-    versions:
-      - fixed: 1.17.12
-      - introduced: 1.18.0-0
-        fixed: 1.18.4
-    vulnerable_at: 1.18.3
-    packages:
-      - package: net/http
-        symbols:
-          - Header.Clone
+    - module: std
+      versions:
+        - fixed: 1.17.12
+        - introduced: 1.18.0-0
+          fixed: 1.18.4
+      vulnerable_at: 1.18.3
+      packages:
+        - package: net/http
+          symbols:
+            - Header.Clone
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Client IP adresses may be unintentionally exposed via X-Forwarded-For
@@ -25,12 +25,12 @@ description: |
     unmodified as expected.
 published: 2022-07-28T17:23:05Z
 credits:
-  - Christian Mehlmauer
+    - Christian Mehlmauer
 references:
-  - fix: https://go.dev/cl/412857
-  - fix: https://go.googlesource.com/go/+/b2cc0fecc2ccd80e6d5d16542cc684f97b3a9c8a
-  - report: https://go.dev/issue/53423
-  - web: https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE
+    - fix: https://go.dev/cl/412857
+    - fix: https://go.googlesource.com/go/+/b2cc0fecc2ccd80e6d5d16542cc684f97b3a9c8a
+    - report: https://go.dev/issue/53423
+    - web: https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE
 cve_metadata:
     id: CVE-2022-32148
     cwe: 'CWE-200: Information Exposure'

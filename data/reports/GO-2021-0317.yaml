@@ -1,26 +1,26 @@
 id: GO-2021-0317
 modules:
-  - module: std
-    versions:
-      - fixed: 1.16.14
-      - introduced: 1.17.0-0
-        fixed: 1.17.7
-    vulnerable_at: 1.17.6
-    packages:
-      - package: math/big
-        symbols:
-          - Rat.SetString
-        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+    - module: std
+      versions:
+        - fixed: 1.16.14
+        - introduced: 1.17.0-0
+          fixed: 1.17.7
+      vulnerable_at: 1.17.6
+      packages:
+        - package: math/big
+          symbols:
+            - Rat.SetString
+          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Rat.SetString had an overflow issue that can lead to uncontrolled memory consumption.
 published: 2022-05-23T22:15:42Z
 cves:
-  - CVE-2022-23772
+    - CVE-2022-23772
 credits:
-  - Emmanuel Odeke
+    - Emmanuel Odeke
 references:
-  - fix: https://go.dev/cl/379537
-  - fix: https://go.googlesource.com/go/+/ad345c265916bbf6c646865e4642eafce6d39e78
-  - web: https://groups.google.com/g/golang-announce/c/SUsQn0aSgPQ
-  - report: https://go.dev/issue/50699
+    - fix: https://go.dev/cl/379537
+    - fix: https://go.googlesource.com/go/+/ad345c265916bbf6c646865e4642eafce6d39e78
+    - web: https://groups.google.com/g/golang-announce/c/SUsQn0aSgPQ
+    - report: https://go.dev/issue/50699

@@ -1,20 +1,20 @@
 id: GO-2022-0300
 modules:
-  - module: github.com/graph-gophers/graphql-go
-    versions:
-      - fixed: 1.3.0
-    vulnerable_at: 1.2.0
-    packages:
-      - package: github.com/graph-gophers/graphql-go
-        symbols:
-          - Schema.ValidateWithVariables
-          - Schema.exec
-          - Schema.subscribe
-        derived_symbols:
-          - Schema.Exec
-          - Schema.Subscribe
-          - Schema.ToJSON
-          - Schema.Validate
+    - module: github.com/graph-gophers/graphql-go
+      versions:
+        - fixed: 1.3.0
+      vulnerable_at: 1.2.0
+      packages:
+        - package: github.com/graph-gophers/graphql-go
+          symbols:
+            - Schema.ValidateWithVariables
+            - Schema.exec
+            - Schema.subscribe
+          derived_symbols:
+            - Schema.Exec
+            - Schema.Subscribe
+            - Schema.ToJSON
+            - Schema.Validate
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Malicious inputs can cause a panic.
@@ -26,8 +26,8 @@ description: |
     (which is highly recommended in most cases).
 published: 2022-07-15T23:10:20Z
 cves:
-  - CVE-2022-21708
+    - CVE-2022-21708
 ghsas:
-  - GHSA-mh3m-8c74-74xh
+    - GHSA-mh3m-8c74-74xh
 references:
-  - fix: https://github.com/graph-gophers/graphql-go/commit/eae31ca73eb3473c544710955d1dbebc22605bfe
+    - fix: https://github.com/graph-gophers/graphql-go/commit/eae31ca73eb3473c544710955d1dbebc22605bfe

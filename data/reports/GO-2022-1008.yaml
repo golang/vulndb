@@ -1,15 +1,15 @@
 id: GO-2022-1008
 modules:
-  - module: github.com/containers/buildah
-    versions:
-      - fixed: 1.27.1
-    vulnerable_at: 1.27.0
-    packages:
-      - package: github.com/containers/buildah
-        symbols:
-          - Builder.configureUIDGID
-        derived_symbols:
-          - Builder.Run
+    - module: github.com/containers/buildah
+      versions:
+        - fixed: 1.27.1
+      vulnerable_at: 1.27.0
+      packages:
+        - package: github.com/containers/buildah
+          symbols:
+            - Builder.configureUIDGID
+          derived_symbols:
+            - Builder.Run
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     SGID programs executed in a container can access files that have negative
@@ -30,9 +30,9 @@ description: |
     Buildah does not correctly add g1 to the supplementary groups in this
     scenario, permitting unauthorized access.
 cves:
-  - CVE-2022-2990
+    - CVE-2022-2990
 ghsas:
-  - GHSA-fjm8-m7m6-2fjp
+    - GHSA-fjm8-m7m6-2fjp
 references:
-  - article: https://www.benthamsgaze.org/2022/08/22/vulnerability-in-linux-containers-investigation-and-mitigation/
-  - fix: https://github.com/containers/buildah/commit/4a8bf740e862f2438279c6feee2ea59ddf0cda0b
+    - article: https://www.benthamsgaze.org/2022/08/22/vulnerability-in-linux-containers-investigation-and-mitigation/
+    - fix: https://github.com/containers/buildah/commit/4a8bf740e862f2438279c6feee2ea59ddf0cda0b

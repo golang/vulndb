@@ -1,22 +1,22 @@
 id: GO-2023-1602
 modules:
-  - module: github.com/russellhaering/gosaml2
-    versions:
-      - fixed: 0.9.0
-    vulnerable_at: 0.8.1
-    packages:
-      - package: github.com/russellhaering/gosaml2
-        symbols:
-          - SAMLServiceProvider.ValidateEncodedLogoutRequestPOST
-          - SAMLServiceProvider.validationContext
-          - SAMLServiceProvider.ValidateEncodedResponse
-          - maybeDeflate
-          - DecodeUnverifiedBaseResponse
-          - parseResponse
-          - DecodeUnverifiedLogoutResponse
-          - SAMLServiceProvider.ValidateEncodedLogoutResponsePOST
-        derived_symbols:
-          - SAMLServiceProvider.RetrieveAssertionInfo
+    - module: github.com/russellhaering/gosaml2
+      versions:
+        - fixed: 0.9.0
+      vulnerable_at: 0.8.1
+      packages:
+        - package: github.com/russellhaering/gosaml2
+          symbols:
+            - SAMLServiceProvider.ValidateEncodedLogoutRequestPOST
+            - SAMLServiceProvider.validationContext
+            - SAMLServiceProvider.ValidateEncodedResponse
+            - maybeDeflate
+            - DecodeUnverifiedBaseResponse
+            - parseResponse
+            - DecodeUnverifiedLogoutResponse
+            - SAMLServiceProvider.ValidateEncodedLogoutResponsePOST
+          derived_symbols:
+            - SAMLServiceProvider.RetrieveAssertionInfo
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |-
     A bug in SAML authentication library can result in Denial of Service attacks.
@@ -25,10 +25,10 @@ description: |-
     memory during processing than the size of the original request. This may eventually lead
     to memory exhaustion and the process being killed.
 cves:
-  - CVE-2023-26483
+    - CVE-2023-26483
 ghsas:
-  - GHSA-6gc3-crp7-25w5
+    - GHSA-6gc3-crp7-25w5
 references:
-  - advisory: https://github.com/advisories/GHSA-6gc3-crp7-25w5
-  - fix: https://github.com/russellhaering/gosaml2/commit/f9d66040241093e8702649baff50cc70d2c683c0
-  - web: https://github.com/russellhaering/gosaml2/releases/tag/v0.9.0
+    - advisory: https://github.com/advisories/GHSA-6gc3-crp7-25w5
+    - fix: https://github.com/russellhaering/gosaml2/commit/f9d66040241093e8702649baff50cc70d2c683c0
+    - web: https://github.com/russellhaering/gosaml2/releases/tag/v0.9.0

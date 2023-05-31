@@ -1,51 +1,50 @@
 id: GO-2023-1765
 modules:
-  - module: github.com/cloudflare/circl
-    versions:
-      - fixed: 1.3.3
-    vulnerable_at: 1.3.2
-    packages:
-      - package: github.com/cloudflare/circl/abe/cpabe/tkn20/internal/tkn
-        symbols:
-          - EncryptCCA
-      - package: github.com/cloudflare/circl/blindsign/blindrsa
-        symbols:
-          - RSAVerifier.Blind
-      - package: github.com/cloudflare/circl/kem/frodo/frodo640shake
-        symbols:
-          - PublicKey.EncapsulateTo
-        derived_symbols:
-          - scheme.Encapsulate
-          - scheme.EncapsulateDeterministically
-      - package: github.com/cloudflare/circl/kem/kyber/kyber1024
-        symbols:
-          - PublicKey.EncapsulateTo
-        derived_symbols:
-          - scheme.Encapsulate
-          - scheme.EncapsulateDeterministically
-      - package: github.com/cloudflare/circl/kem/kyber/kyber512
-        symbols:
-          - PublicKey.EncapsulateTo
-        derived_symbols:
-          - scheme.Encapsulate
-          - scheme.EncapsulateDeterministically
-      - package: github.com/cloudflare/circl/kem/kyber/kyber768
-        symbols:
-          - PublicKey.EncapsulateTo
-        derived_symbols:
-          - scheme.Encapsulate
-          - scheme.EncapsulateDeterministically
-      - package: github.com/cloudflare/circl/kem/sike/sikep434
-        symbols:
-          - scheme.Encapsulate
-      - package: github.com/cloudflare/circl/kem/sike/sikep503
-        symbols:
-          - scheme.Encapsulate
-      - package: github.com/cloudflare/circl/kem/sike/sikep751
-        symbols:
-          - scheme.Encapsulate
-summary: Kyber and FrodoKEM leak shared secret; blinding could be weak for tkn20 and
-    blindrsa.
+    - module: github.com/cloudflare/circl
+      versions:
+        - fixed: 1.3.3
+      vulnerable_at: 1.3.2
+      packages:
+        - package: github.com/cloudflare/circl/abe/cpabe/tkn20/internal/tkn
+          symbols:
+            - EncryptCCA
+        - package: github.com/cloudflare/circl/blindsign/blindrsa
+          symbols:
+            - RSAVerifier.Blind
+        - package: github.com/cloudflare/circl/kem/frodo/frodo640shake
+          symbols:
+            - PublicKey.EncapsulateTo
+          derived_symbols:
+            - scheme.Encapsulate
+            - scheme.EncapsulateDeterministically
+        - package: github.com/cloudflare/circl/kem/kyber/kyber1024
+          symbols:
+            - PublicKey.EncapsulateTo
+          derived_symbols:
+            - scheme.Encapsulate
+            - scheme.EncapsulateDeterministically
+        - package: github.com/cloudflare/circl/kem/kyber/kyber512
+          symbols:
+            - PublicKey.EncapsulateTo
+          derived_symbols:
+            - scheme.Encapsulate
+            - scheme.EncapsulateDeterministically
+        - package: github.com/cloudflare/circl/kem/kyber/kyber768
+          symbols:
+            - PublicKey.EncapsulateTo
+          derived_symbols:
+            - scheme.Encapsulate
+            - scheme.EncapsulateDeterministically
+        - package: github.com/cloudflare/circl/kem/sike/sikep434
+          symbols:
+            - scheme.Encapsulate
+        - package: github.com/cloudflare/circl/kem/sike/sikep503
+          symbols:
+            - scheme.Encapsulate
+        - package: github.com/cloudflare/circl/kem/sike/sikep751
+          symbols:
+            - scheme.Encapsulate
+summary: Leaked shared secret and weak blinding in github.com/cloudflare/circl
 description: |
     When sampling randomness for a shared secret, the implementation of Kyber
     and FrodoKEM, did not check whether crypto/rand.Read() returns an error. In
@@ -59,9 +58,9 @@ description: |
     user provides a source that does not, the blinding for blindrsa is weak and
     integrity of the plaintext is not ensured in tkn20.
 cves:
-  - CVE-2023-1732
+    - CVE-2023-1732
 ghsas:
-  - GHSA-2q89-485c-9j2x
+    - GHSA-2q89-485c-9j2x
 references:
-  - advisory: https://github.com/cloudflare/circl/security/advisories/GHSA-2q89-485c-9j2x
-  - fix: https://github.com/cloudflare/circl/commit/ff8d91225f8954b4970b6d6382d2e4c78f4a4cf8
+    - advisory: https://github.com/cloudflare/circl/security/advisories/GHSA-2q89-485c-9j2x
+    - fix: https://github.com/cloudflare/circl/commit/ff8d91225f8954b4970b6d6382d2e4c78f4a4cf8

@@ -1,22 +1,22 @@
 id: GO-2022-0603
 modules:
-  - module: gopkg.in/yaml.v3
-    versions:
-      - fixed: 3.0.0-20220521103104-8f96da9f5d5e
-    vulnerable_at: 3.0.0-20220512140231-539c8e751b99
-    packages:
-      - package: gopkg.in/yaml.v3
-        symbols:
-          - Unmarshal
+    - module: gopkg.in/yaml.v3
+      versions:
+        - fixed: 3.0.0-20220521103104-8f96da9f5d5e
+      vulnerable_at: 3.0.0-20220512140231-539c8e751b99
+      packages:
+        - package: gopkg.in/yaml.v3
+          symbols:
+            - Unmarshal
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     An issue in the Unmarshal function can cause a program to
     panic when attempting to deserialize invalid input.
 published: 2022-08-22T18:00:47Z
 cves:
-  - CVE-2022-28948
+    - CVE-2022-28948
 ghsas:
-  - GHSA-hp87-p4gw-j4gq
+    - GHSA-hp87-p4gw-j4gq
 references:
-  - fix: https://github.com/go-yaml/yaml/commit/8f96da9f5d5eff988554c1aae1784627c4bf6754
-  - web: https://github.com/go-yaml/yaml/issues/666
+    - fix: https://github.com/go-yaml/yaml/commit/8f96da9f5d5eff988554c1aae1784627c4bf6754
+    - web: https://github.com/go-yaml/yaml/issues/666

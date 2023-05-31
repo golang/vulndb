@@ -1,16 +1,16 @@
 id: GO-2021-0263
 modules:
-  - module: std
-    versions:
-      - fixed: 1.16.10
-      - introduced: 1.17.0-0
-        fixed: 1.17.3
-    vulnerable_at: 1.17.2
-    packages:
-      - package: debug/macho
-        symbols:
-          - NewFile
-        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+    - module: std
+      versions:
+        - fixed: 1.16.10
+        - introduced: 1.17.0-0
+          fixed: 1.17.3
+      vulnerable_at: 1.17.2
+      packages:
+        - package: debug/macho
+          symbols:
+            - NewFile
+          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Calling File.ImportedSymbols on a loaded file which contains an invalid
@@ -19,11 +19,11 @@ description: |
     table.
 published: 2022-01-13T03:45:03Z
 cves:
-  - CVE-2021-41771
+    - CVE-2021-41771
 credits:
-  - Burak Çarıkçı - Yunus Yıldırım (CT-Zer0 Crypttech)
+    - Burak Çarıkçı - Yunus Yıldırım (CT-Zer0 Crypttech)
 references:
-  - fix: https://go.dev/cl/367075
-  - fix: https://go.googlesource.com/go/+/61536ec03063b4951163bd09609c86d82631fa27
-  - web: https://groups.google.com/g/golang-announce/c/0fM21h43arc
-  - report: https://go.dev/issue/48990
+    - fix: https://go.dev/cl/367075
+    - fix: https://go.googlesource.com/go/+/61536ec03063b4951163bd09609c86d82631fa27
+    - web: https://groups.google.com/g/golang-announce/c/0fM21h43arc
+    - report: https://go.dev/issue/48990

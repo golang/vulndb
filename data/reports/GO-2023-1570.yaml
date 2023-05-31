@@ -1,83 +1,83 @@
 id: GO-2023-1570
 modules:
-  - module: std
-    versions:
-      - fixed: 1.19.6
-      - introduced: 1.20.0-0
-        fixed: 1.20.1
-    vulnerable_at: 1.20.0
-    packages:
-      - package: crypto/tls
-        symbols:
-          - handshakeMessage.marshal
-          - Conn.writeRecord
-          - Conn.readHandshake
-          - Conn.handleRenegotiation
-          - Conn.handlePostHandshakeMessage
-          - Conn.handleKeyUpdate
-          - Conn.clientHandshake
-          - Conn.loadSession
-          - clientHandshakeState.handshake
-          - clientHandshakeState.doFullHandshake
-          - clientHandshakeState.readFinished
-          - clientHandshakeState.readSessionTicket
-          - clientHandshakeState.sendFinished
-          - clientHandshakeStateTLS13.handshake
-          - clientHandshakeStateTLS13.sendDummyChangeCipherSpec
-          - clientHandshakeStateTLS13.processHelloRetryRequest
-          - clientHandshakeStateTLS13.readServerParameters
-          - clientHandshakeStateTLS13.readServerCertificate
-          - clientHandshakeStateTLS13.readServerFinished
-          - clientHandshakeStateTLS13.sendClientCertificate
-          - clientHandshakeStateTLS13.sendClientFinished
-          - clientHelloMsg.marshal
-          - clientHelloMsg.marshalWithoutBinders
-          - clientHelloMsg.updateBinders
-          - serverHelloMsg.marshal
-          - encryptedExtensionsMsg.marshal
-          - endOfEarlyDataMsg.marshal
-          - keyUpdateMsg.marshal
-          - newSessionTicketMsgTLS13.marshal
-          - certificateRequestMsgTLS13.marshal
-          - certificateMsg.marshal
-          - certificateMsgTLS13.marshal
-          - serverKeyExchangeMsg.marshal
-          - certificateStatusMsg.marshal
-          - serverHelloDoneMsg.marshal
-          - clientKeyExchangeMsg.marshal
-          - finishedMsg.marshal
-          - certificateRequestMsg.marshal
-          - certificateVerifyMsg.marshal
-          - newSessionTicketMsg.marshal
-          - helloRequestMsg.marshal
-          - Conn.readClientHello
-          - serverHandshakeState.doResumeHandshake
-          - serverHandshakeState.doFullHandshake
-          - serverHandshakeState.readFinished
-          - serverHandshakeState.sendSessionTicket
-          - serverHandshakeState.sendFinished
-          - serverHandshakeStateTLS13.checkForResumption
-          - serverHandshakeStateTLS13.sendDummyChangeCipherSpec
-          - serverHandshakeStateTLS13.doHelloRetryRequest
-          - serverHandshakeStateTLS13.sendServerParameters
-          - serverHandshakeStateTLS13.sendServerCertificate
-          - serverHandshakeStateTLS13.sendServerFinished
-          - serverHandshakeStateTLS13.sendSessionTickets
-          - serverHandshakeStateTLS13.readClientCertificate
-          - serverHandshakeStateTLS13.readClientFinished
-          - cipherSuiteTLS13.expandLabel
-          - sessionState.marshal
-          - sessionStateTLS13.marshal
-        derived_symbols:
-          - Conn.Handshake
-          - Conn.HandshakeContext
-          - Conn.Read
-          - Conn.Write
-          - ConnectionState.ExportKeyingMaterial
-          - Dial
-          - DialWithDialer
-          - Dialer.Dial
-          - Dialer.DialContext
+    - module: std
+      versions:
+        - fixed: 1.19.6
+        - introduced: 1.20.0-0
+          fixed: 1.20.1
+      vulnerable_at: 1.20.0
+      packages:
+        - package: crypto/tls
+          symbols:
+            - handshakeMessage.marshal
+            - Conn.writeRecord
+            - Conn.readHandshake
+            - Conn.handleRenegotiation
+            - Conn.handlePostHandshakeMessage
+            - Conn.handleKeyUpdate
+            - Conn.clientHandshake
+            - Conn.loadSession
+            - clientHandshakeState.handshake
+            - clientHandshakeState.doFullHandshake
+            - clientHandshakeState.readFinished
+            - clientHandshakeState.readSessionTicket
+            - clientHandshakeState.sendFinished
+            - clientHandshakeStateTLS13.handshake
+            - clientHandshakeStateTLS13.sendDummyChangeCipherSpec
+            - clientHandshakeStateTLS13.processHelloRetryRequest
+            - clientHandshakeStateTLS13.readServerParameters
+            - clientHandshakeStateTLS13.readServerCertificate
+            - clientHandshakeStateTLS13.readServerFinished
+            - clientHandshakeStateTLS13.sendClientCertificate
+            - clientHandshakeStateTLS13.sendClientFinished
+            - clientHelloMsg.marshal
+            - clientHelloMsg.marshalWithoutBinders
+            - clientHelloMsg.updateBinders
+            - serverHelloMsg.marshal
+            - encryptedExtensionsMsg.marshal
+            - endOfEarlyDataMsg.marshal
+            - keyUpdateMsg.marshal
+            - newSessionTicketMsgTLS13.marshal
+            - certificateRequestMsgTLS13.marshal
+            - certificateMsg.marshal
+            - certificateMsgTLS13.marshal
+            - serverKeyExchangeMsg.marshal
+            - certificateStatusMsg.marshal
+            - serverHelloDoneMsg.marshal
+            - clientKeyExchangeMsg.marshal
+            - finishedMsg.marshal
+            - certificateRequestMsg.marshal
+            - certificateVerifyMsg.marshal
+            - newSessionTicketMsg.marshal
+            - helloRequestMsg.marshal
+            - Conn.readClientHello
+            - serverHandshakeState.doResumeHandshake
+            - serverHandshakeState.doFullHandshake
+            - serverHandshakeState.readFinished
+            - serverHandshakeState.sendSessionTicket
+            - serverHandshakeState.sendFinished
+            - serverHandshakeStateTLS13.checkForResumption
+            - serverHandshakeStateTLS13.sendDummyChangeCipherSpec
+            - serverHandshakeStateTLS13.doHelloRetryRequest
+            - serverHandshakeStateTLS13.sendServerParameters
+            - serverHandshakeStateTLS13.sendServerCertificate
+            - serverHandshakeStateTLS13.sendServerFinished
+            - serverHandshakeStateTLS13.sendSessionTickets
+            - serverHandshakeStateTLS13.readClientCertificate
+            - serverHandshakeStateTLS13.readClientFinished
+            - cipherSuiteTLS13.expandLabel
+            - sessionState.marshal
+            - sessionStateTLS13.marshal
+          derived_symbols:
+            - Conn.Handshake
+            - Conn.HandshakeContext
+            - Conn.Read
+            - Conn.Write
+            - ConnectionState.ExportKeyingMaterial
+            - Dial
+            - DialWithDialer
+            - Dialer.Dial
+            - Dialer.DialContext
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Large handshake records may cause panics in crypto/tls.
@@ -91,11 +91,11 @@ description: |
     a non-nil value), and TLS 1.3 servers which request client
     certificates (by setting Config.ClientAuth >= RequestClientCert).
 credits:
-  - Marten Seemann
+    - Marten Seemann
 references:
-  - report: https://go.dev/issue/58001
-  - fix: https://go.dev/cl/468125
-  - web: https://groups.google.com/g/golang-announce/c/V0aBFqaFs_E
+    - report: https://go.dev/issue/58001
+    - fix: https://go.dev/cl/468125
+    - web: https://groups.google.com/g/golang-announce/c/V0aBFqaFs_E
 cve_metadata:
     id: CVE-2022-41724
     cwe: 'CWE-400: Uncontrolled Resource Consumption'

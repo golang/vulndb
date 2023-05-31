@@ -1,24 +1,24 @@
 id: GO-2021-0105
 modules:
-  - module: github.com/ethereum/go-ethereum
-    versions:
-      - introduced: 1.9.4
-      - fixed: 1.9.20
-    vulnerable_at: 1.9.20-0.20200821114314-b68929caee77
-    packages:
-      - package: github.com/ethereum/go-ethereum/core/state
-        symbols:
-          - StateDB.createObject
-        derived_symbols:
-          - StateDB.AddBalance
-          - StateDB.CreateAccount
-          - StateDB.GetOrNewStateObject
-          - StateDB.SetBalance
-          - StateDB.SetCode
-          - StateDB.SetNonce
-          - StateDB.SetState
-          - StateDB.SetStorage
-          - StateDB.SubBalance
+    - module: github.com/ethereum/go-ethereum
+      versions:
+        - introduced: 1.9.4
+        - fixed: 1.9.20
+      vulnerable_at: 1.9.20-0.20200821114314-b68929caee77
+      packages:
+        - package: github.com/ethereum/go-ethereum/core/state
+          symbols:
+            - StateDB.createObject
+          derived_symbols:
+            - StateDB.AddBalance
+            - StateDB.CreateAccount
+            - StateDB.GetOrNewStateObject
+            - StateDB.SetBalance
+            - StateDB.SetCode
+            - StateDB.SetNonce
+            - StateDB.SetState
+            - StateDB.SetStorage
+            - StateDB.SubBalance
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Due to an incorrect state calculation, a specific set of
@@ -26,11 +26,11 @@ description: |
     causing users of this package to reject a canonical chain.
 published: 2021-07-28T18:08:05Z
 cves:
-  - CVE-2020-26265
+    - CVE-2020-26265
 ghsas:
-  - GHSA-xw37-57qp-9mm4
+    - GHSA-xw37-57qp-9mm4
 credits:
-  - John Youngseok Yang (Software Platform Lab)
+    - John Youngseok Yang (Software Platform Lab)
 references:
-  - fix: https://github.com/ethereum/go-ethereum/pull/21080
-  - fix: https://github.com/ethereum/go-ethereum/commit/87c0ba92136a75db0ab2aba1046d4a9860375d6a
+    - fix: https://github.com/ethereum/go-ethereum/pull/21080
+    - fix: https://github.com/ethereum/go-ethereum/commit/87c0ba92136a75db0ab2aba1046d4a9860375d6a

@@ -1,28 +1,28 @@
 id: GO-2022-0957
 modules:
-  - module: github.com/tidwall/gjson
-    versions:
-      - fixed: 1.6.5
-    vulnerable_at: 1.6.4
-    packages:
-      - package: github.com/tidwall/gjson
-        symbols:
-          - parseObject
-          - queryMatches
-        derived_symbols:
-          - Get
-          - GetBytes
-          - GetMany
-          - GetManyBytes
-          - Result.Get
+    - module: github.com/tidwall/gjson
+      versions:
+        - fixed: 1.6.5
+      vulnerable_at: 1.6.4
+      packages:
+        - package: github.com/tidwall/gjson
+          symbols:
+            - parseObject
+            - queryMatches
+          derived_symbols:
+            - Get
+            - GetBytes
+            - GetMany
+            - GetManyBytes
+            - Result.Get
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: A maliciously crafted JSON input can cause a denial of service attack.
 published: 2022-08-25T06:28:20Z
 cves:
-  - CVE-2020-36066
+    - CVE-2020-36066
 ghsas:
-  - GHSA-wjm3-fq3r-5x46
+    - GHSA-wjm3-fq3r-5x46
 references:
-  - fix: https://github.com/tidwall/match/commit/c2f534168b739a7ec1821a33839fb2f029f26bbc
-  - web: https://github.com/tidwall/gjson/commit/9f58baa7a613f89dfdc764c39e47fd3a15606153
-  - web: https://github.com/tidwall/gjson/issues/195
+    - fix: https://github.com/tidwall/match/commit/c2f534168b739a7ec1821a33839fb2f029f26bbc
+    - web: https://github.com/tidwall/gjson/commit/9f58baa7a613f89dfdc764c39e47fd3a15606153
+    - web: https://github.com/tidwall/gjson/issues/195

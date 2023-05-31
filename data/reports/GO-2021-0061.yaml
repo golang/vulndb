@@ -1,27 +1,27 @@
 id: GO-2021-0061
 modules:
-  - module: gopkg.in/yaml.v2
-    versions:
-      - fixed: 2.2.3
-    vulnerable_at: 2.2.2
-    packages:
-      - package: gopkg.in/yaml.v2
-        symbols:
-          - decoder.unmarshal
-        derived_symbols:
-          - Decoder.Decode
-          - Unmarshal
-          - UnmarshalStrict
-  - module: github.com/go-yaml/yaml
-    vulnerable_at: 2.1.0+incompatible
-    packages:
-      - package: github.com/go-yaml/yaml
-        symbols:
-          - decoder.unmarshal
-        derived_symbols:
-          - Decoder.Decode
-          - Unmarshal
-          - UnmarshalStrict
+    - module: gopkg.in/yaml.v2
+      versions:
+        - fixed: 2.2.3
+      vulnerable_at: 2.2.2
+      packages:
+        - package: gopkg.in/yaml.v2
+          symbols:
+            - decoder.unmarshal
+          derived_symbols:
+            - Decoder.Decode
+            - Unmarshal
+            - UnmarshalStrict
+    - module: github.com/go-yaml/yaml
+      vulnerable_at: 2.1.0+incompatible
+      packages:
+        - package: github.com/go-yaml/yaml
+          symbols:
+            - decoder.unmarshal
+          derived_symbols:
+            - Decoder.Decode
+            - Unmarshal
+            - UnmarshalStrict
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Due to unbounded alias chasing, a maliciously crafted YAML file
@@ -29,12 +29,12 @@ description: |
     parsing user input, this may be used as a denial of service vector.
 published: 2021-04-14T20:04:52Z
 ghsas:
-  - GHSA-r88r-gmrh-7j83
+    - GHSA-r88r-gmrh-7j83
 credits:
-  - '@simonferquel'
+    - '@simonferquel'
 references:
-  - fix: https://github.com/go-yaml/yaml/pull/375
-  - fix: https://github.com/go-yaml/yaml/commit/bb4e33bf68bf89cad44d386192cbed201f35b241
+    - fix: https://github.com/go-yaml/yaml/pull/375
+    - fix: https://github.com/go-yaml/yaml/commit/bb4e33bf68bf89cad44d386192cbed201f35b241
 cve_metadata:
     id: CVE-2021-4235
     cwe: 'CWE 400: Uncontrolled Resource Consumption'

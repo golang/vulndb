@@ -1,23 +1,23 @@
 id: GO-2022-0253
 modules:
-  - module: github.com/cloudflare/cfrpki
-    versions:
-      - fixed: 1.4.0
-    vulnerable_at: 1.3.0
-    packages:
-      - package: github.com/cloudflare/cfrpki/sync/lib
-        symbols:
-          - HTTPFetcher.GetXML
+    - module: github.com/cloudflare/cfrpki
+      versions:
+        - fixed: 1.4.0
+      vulnerable_at: 1.3.0
+      packages:
+        - package: github.com/cloudflare/cfrpki/sync/lib
+          symbols:
+            - HTTPFetcher.GetXML
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The HTTPFetcher.GetXML function reads a response of unlimited size into
     memory, permitting resource exhausion.
 published: 2022-07-15T23:07:48Z
 cves:
-  - CVE-2021-3912
+    - CVE-2021-3912
 ghsas:
-  - GHSA-g9wh-3vrx-r7hg
+    - GHSA-g9wh-3vrx-r7hg
 credits:
-  - Koen van Hove
+    - Koen van Hove
 references:
-  - fix: https://github.com/cloudflare/cfrpki/commit/648658b1b176a747b52645989cfddc73a81eacad
+    - fix: https://github.com/cloudflare/cfrpki/commit/648658b1b176a747b52645989cfddc73a81eacad

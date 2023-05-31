@@ -1,28 +1,28 @@
 id: GO-2022-0316
 modules:
-  - module: github.com/open-policy-agent/opa
-    versions:
-      - introduced: 0.33.1
-        fixed: 0.37.2
-    vulnerable_at: 0.33.1
-    packages:
-      - package: github.com/open-policy-agent/opa/format
-        symbols:
-          - groupIterable
-        derived_symbols:
-          - Ast
-          - MustAst
-          - Source
+    - module: github.com/open-policy-agent/opa
+      versions:
+        - introduced: 0.33.1
+          fixed: 0.37.2
+      vulnerable_at: 0.33.1
+      packages:
+        - package: github.com/open-policy-agent/opa/format
+          symbols:
+            - groupIterable
+          derived_symbols:
+            - Ast
+            - MustAst
+            - Source
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Pretty-printing an AST that contains synthetic nodes can change the logic
     of some statements by reordering array literals.
 published: 2022-07-27T20:27:33Z
 cves:
-  - CVE-2022-23628
+    - CVE-2022-23628
 ghsas:
-  - GHSA-hcw3-j74m-qc58
+    - GHSA-hcw3-j74m-qc58
 references:
-  - advisory: https://github.com/open-policy-agent/opa/security/advisories/GHSA-hcw3-j74m-qc58
-  - fix: https://github.com/open-policy-agent/opa/commit/932e4ffc37a590ace79e9b75ca4340288c220239
-  - web: https://github.com/open-policy-agent/opa/commit/2bd8edab9e10e2dc9cf76ae8335ced0c224f3055
+    - advisory: https://github.com/open-policy-agent/opa/security/advisories/GHSA-hcw3-j74m-qc58
+    - fix: https://github.com/open-policy-agent/opa/commit/932e4ffc37a590ace79e9b75ca4340288c220239
+    - web: https://github.com/open-policy-agent/opa/commit/2bd8edab9e10e2dc9cf76ae8335ced0c224f3055

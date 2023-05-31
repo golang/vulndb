@@ -1,14 +1,14 @@
 id: GO-2022-0621
 modules:
-  - module: k8s.io/kube-state-metrics
-    versions:
-      - introduced: 1.7.0
-        fixed: 1.7.2
-    vulnerable_at: 1.7.0
-    packages:
-      - package: k8s.io/kube-state-metrics/internal/store
-        symbols:
-          - kubeAnnotationsToPrometheusLabels
+    - module: k8s.io/kube-state-metrics
+      versions:
+        - introduced: 1.7.0
+          fixed: 1.7.2
+      vulnerable_at: 1.7.0
+      packages:
+        - package: k8s.io/kube-state-metrics/internal/store
+          symbols:
+            - kubeAnnotationsToPrometheusLabels
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Exposing annotations as metrics can leak secrets.
@@ -20,12 +20,12 @@ description: |
     in metric labels.
 published: 2021-05-18T15:38:54Z
 cves:
-  - CVE-2019-10223
-  - CVE-2019-17110
+    - CVE-2019-10223
+    - CVE-2019-17110
 ghsas:
-  - GHSA-2v6x-frw8-7r7f
-  - GHSA-c92w-72c5-9x59
+    - GHSA-2v6x-frw8-7r7f
+    - GHSA-c92w-72c5-9x59
 credits:
-  - Moritz S.
+    - Moritz S.
 references:
-  - fix: https://github.com/kubernetes/kube-state-metrics/commit/03122fe3e2df49a9a7298b8af921d3c37c430f7f
+    - fix: https://github.com/kubernetes/kube-state-metrics/commit/03122fe3e2df49a9a7298b8af921d3c37c430f7f

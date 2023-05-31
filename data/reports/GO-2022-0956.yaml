@@ -1,29 +1,29 @@
 id: GO-2022-0956
 modules:
-  - module: gopkg.in/yaml.v2
-    versions:
-      - fixed: 2.2.4
-    vulnerable_at: 2.2.3
-    packages:
-      - package: gopkg.in/yaml.v2
-        symbols:
-          - decoder.unmarshal
-          - yaml_parser_increase_flow_level
-          - yaml_parser_roll_indent
-        derived_symbols:
-          - Decoder.Decode
-          - Unmarshal
-          - UnmarshalStrict
+    - module: gopkg.in/yaml.v2
+      versions:
+        - fixed: 2.2.4
+      vulnerable_at: 2.2.3
+      packages:
+        - package: gopkg.in/yaml.v2
+          symbols:
+            - decoder.unmarshal
+            - yaml_parser_increase_flow_level
+            - yaml_parser_roll_indent
+          derived_symbols:
+            - Decoder.Decode
+            - Unmarshal
+            - UnmarshalStrict
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Parsing malicious or large YAML documents can consume excessive amounts of
     CPU or memory.
 published: 2022-08-29T22:15:46Z
 ghsas:
-  - GHSA-6q6q-88xp-6f2r
+    - GHSA-6q6q-88xp-6f2r
 references:
-  - fix: https://github.com/go-yaml/yaml/commit/f221b8435cfb71e54062f6c6e99e9ade30b124d5
-  - web: https://github.com/go-yaml/yaml/releases/tag/v2.2.4
+    - fix: https://github.com/go-yaml/yaml/commit/f221b8435cfb71e54062f6c6e99e9ade30b124d5
+    - web: https://github.com/go-yaml/yaml/releases/tag/v2.2.4
 cve_metadata:
     id: CVE-2022-3064
     cwe: 'CWE 400: Uncontrolled Resource Consumption'

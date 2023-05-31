@@ -1,107 +1,107 @@
 id: GO-2023-1295
 modules:
-  - module: github.com/square/squalor
-    versions:
-      - fixed: 0.0.0-20200306154055-f6f0a47cc344
-    vulnerable_at: 0.0.0-20190215211619-afa27bf1201c
-    packages:
-      - package: github.com/square/squalor
-        symbols:
-          - quoteName
-          - Table.loadColumns
-          - Table.loadKeys
-        derived_symbols:
-          - AliasedTableExpr.Serialize
-          - AndExpr.Serialize
-          - BinaryExpr.Serialize
-          - ColName.Serialize
-          - Columns.Serialize
-          - ComparisonExpr.Serialize
-          - DB.BindModel
-          - DB.Delete
-          - DB.DeleteContext
-          - DB.Exec
-          - DB.ExecContext
-          - DB.Get
-          - DB.GetContext
-          - DB.Insert
-          - DB.InsertContext
-          - DB.InsertIgnore
-          - DB.InsertIgnoreContext
-          - DB.MustBindModel
-          - DB.Query
-          - DB.QueryContext
-          - DB.QueryRow
-          - DB.QueryRowContext
-          - DB.Replace
-          - DB.ReplaceContext
-          - DB.Select
-          - DB.SelectContext
-          - DB.Update
-          - DB.UpdateContext
-          - DB.Upsert
-          - DB.UpsertContext
-          - Delete.Serialize
-          - FuncExpr.Serialize
-          - GroupBy.Serialize
-          - Insert.Serialize
-          - JoinTableExpr.Serialize
-          - Limit.Serialize
-          - LoadTable
-          - NonStarExpr.Serialize
-          - NotExpr.Serialize
-          - NullCheck.Serialize
-          - OnDup.Serialize
-          - OnJoinCond.Serialize
-          - OrExpr.Serialize
-          - Order.Serialize
-          - OrderBy.Serialize
-          - ParenBoolExpr.Serialize
-          - RangeCond.Serialize
-          - Select.Serialize
-          - SelectExprs.Serialize
-          - Serialize
-          - StandardLogger.Log
-          - StarExpr.Serialize
-          - TableExprs.Serialize
-          - TableName.Serialize
-          - TableNames.Serialize
-          - Tx.Delete
-          - Tx.DeleteContext
-          - Tx.Exec
-          - Tx.ExecContext
-          - Tx.Get
-          - Tx.GetContext
-          - Tx.Insert
-          - Tx.InsertContext
-          - Tx.InsertIgnore
-          - Tx.InsertIgnoreContext
-          - Tx.Query
-          - Tx.QueryContext
-          - Tx.QueryRow
-          - Tx.QueryRowContext
-          - Tx.Replace
-          - Tx.ReplaceContext
-          - Tx.Select
-          - Tx.SelectContext
-          - Tx.Update
-          - Tx.UpdateContext
-          - Tx.Upsert
-          - Tx.UpsertContext
-          - Update.Serialize
-          - UpdateExpr.Serialize
-          - UpdateExprs.Serialize
-          - UsingJoinCond.Serialize
-          - ValExprs.Serialize
-          - ValTuple.Serialize
-          - Values.Serialize
-          - Where.Serialize
+    - module: github.com/square/squalor
+      versions:
+        - fixed: 0.0.0-20200306154055-f6f0a47cc344
+      vulnerable_at: 0.0.0-20190215211619-afa27bf1201c
+      packages:
+        - package: github.com/square/squalor
+          symbols:
+            - quoteName
+            - Table.loadColumns
+            - Table.loadKeys
+          derived_symbols:
+            - AliasedTableExpr.Serialize
+            - AndExpr.Serialize
+            - BinaryExpr.Serialize
+            - ColName.Serialize
+            - Columns.Serialize
+            - ComparisonExpr.Serialize
+            - DB.BindModel
+            - DB.Delete
+            - DB.DeleteContext
+            - DB.Exec
+            - DB.ExecContext
+            - DB.Get
+            - DB.GetContext
+            - DB.Insert
+            - DB.InsertContext
+            - DB.InsertIgnore
+            - DB.InsertIgnoreContext
+            - DB.MustBindModel
+            - DB.Query
+            - DB.QueryContext
+            - DB.QueryRow
+            - DB.QueryRowContext
+            - DB.Replace
+            - DB.ReplaceContext
+            - DB.Select
+            - DB.SelectContext
+            - DB.Update
+            - DB.UpdateContext
+            - DB.Upsert
+            - DB.UpsertContext
+            - Delete.Serialize
+            - FuncExpr.Serialize
+            - GroupBy.Serialize
+            - Insert.Serialize
+            - JoinTableExpr.Serialize
+            - Limit.Serialize
+            - LoadTable
+            - NonStarExpr.Serialize
+            - NotExpr.Serialize
+            - NullCheck.Serialize
+            - OnDup.Serialize
+            - OnJoinCond.Serialize
+            - OrExpr.Serialize
+            - Order.Serialize
+            - OrderBy.Serialize
+            - ParenBoolExpr.Serialize
+            - RangeCond.Serialize
+            - Select.Serialize
+            - SelectExprs.Serialize
+            - Serialize
+            - StandardLogger.Log
+            - StarExpr.Serialize
+            - TableExprs.Serialize
+            - TableName.Serialize
+            - TableNames.Serialize
+            - Tx.Delete
+            - Tx.DeleteContext
+            - Tx.Exec
+            - Tx.ExecContext
+            - Tx.Get
+            - Tx.GetContext
+            - Tx.Insert
+            - Tx.InsertContext
+            - Tx.InsertIgnore
+            - Tx.InsertIgnoreContext
+            - Tx.Query
+            - Tx.QueryContext
+            - Tx.QueryRow
+            - Tx.QueryRowContext
+            - Tx.Replace
+            - Tx.ReplaceContext
+            - Tx.Select
+            - Tx.SelectContext
+            - Tx.Update
+            - Tx.UpdateContext
+            - Tx.Upsert
+            - Tx.UpsertContext
+            - Update.Serialize
+            - UpdateExpr.Serialize
+            - UpdateExprs.Serialize
+            - UsingJoinCond.Serialize
+            - ValExprs.Serialize
+            - ValTuple.Serialize
+            - Values.Serialize
+            - Where.Serialize
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: There is a potential for SQL injection in the table name parameter.
 cves:
-  - CVE-2020-36645
+    - CVE-2020-36645
 ghsas:
-  - GHSA-3hc7-2xcc-7p8f
+    - GHSA-3hc7-2xcc-7p8f
 references:
-  - report: https://github.com/square/squalor/pull/76
-  - fix: https://github.com/square/squalor/pull/76/commits/033350b8596b397c6cefa066b1f2c83d35fc8c4a
+    - report: https://github.com/square/squalor/pull/76
+    - fix: https://github.com/square/squalor/pull/76/commits/033350b8596b397c6cefa066b1f2c83d35fc8c4a

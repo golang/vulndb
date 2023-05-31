@@ -1,9 +1,9 @@
 id: GO-2022-0979
 modules:
-  - module: github.com/peterzen/goresolver
-    vulnerable_at: 1.0.2
-    packages:
-      - package: github.com/peterzen/goresolver
+    - module: github.com/peterzen/goresolver
+      vulnerable_at: 1.0.2
+      packages:
+        - package: github.com/peterzen/goresolver
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     DNSSEC validation is not performed correctly. An attacker can
@@ -14,9 +14,9 @@ description: |
     to present the RRSIG for an attacker-controlled domain in a response
     for any other domain.
 ghsas:
-  - GHSA-87mm-qxm5-cp3f
+    - GHSA-87mm-qxm5-cp3f
 references:
-  - report: https://github.com/peterzen/goresolver/issues/5
+    - report: https://github.com/peterzen/goresolver/issues/5
 cve_metadata:
     id: CVE-2022-3346
     cwe: 'CWE 347: Improper Verification of Cryptographic Signature'

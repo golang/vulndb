@@ -1,30 +1,30 @@
 id: GO-2022-0386
 modules:
-  - module: github.com/nats-io/jwt
-    versions:
-      - fixed: 1.2.3-0.20210314221642-a826c77dc9d2
-    vulnerable_at: 1.2.2
-    packages:
-      - package: github.com/nats-io/jwt
-        symbols:
-          - ActivationClaims.Validate
-          - Import.Validate
-        derived_symbols:
-          - Account.Validate
-          - AccountClaims.Validate
-          - Imports.Validate
-  - module: github.com/nats-io/jwt/v2
-    versions:
-      - fixed: 2.0.1
-    vulnerable_at: 2.0.0
-    packages:
-      - package: github.com/nats-io/jwt/v2
-        symbols:
-          - Import.Validate
-        derived_symbols:
-          - Account.Validate
-          - AccountClaims.Validate
-          - Imports.Validate
+    - module: github.com/nats-io/jwt
+      versions:
+        - fixed: 1.2.3-0.20210314221642-a826c77dc9d2
+      vulnerable_at: 1.2.2
+      packages:
+        - package: github.com/nats-io/jwt
+          symbols:
+            - ActivationClaims.Validate
+            - Import.Validate
+          derived_symbols:
+            - Account.Validate
+            - AccountClaims.Validate
+            - Imports.Validate
+    - module: github.com/nats-io/jwt/v2
+      versions:
+        - fixed: 2.0.1
+      vulnerable_at: 2.0.0
+      packages:
+        - package: github.com/nats-io/jwt/v2
+          symbols:
+            - Import.Validate
+          derived_symbols:
+            - Account.Validate
+            - AccountClaims.Validate
+            - Imports.Validate
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Import tokens valid for one account may be used for any other account.
@@ -34,11 +34,11 @@ description: |
     to be used for any other account.
 published: 2022-07-01T20:11:22Z
 cves:
-  - CVE-2021-3127
+    - CVE-2021-3127
 ghsas:
-  - GHSA-62mh-w5cv-p88c
-  - GHSA-9r5x-fjv3-q6h4
-  - GHSA-j756-f273-xhp4
+    - GHSA-62mh-w5cv-p88c
+    - GHSA-9r5x-fjv3-q6h4
+    - GHSA-j756-f273-xhp4
 references:
-  - advisory: https://advisories.nats.io/CVE/CVE-2021-3127.txt
-  - fix: https://github.com/nats-io/jwt/pull/149
+    - advisory: https://advisories.nats.io/CVE/CVE-2021-3127.txt
+    - fix: https://github.com/nats-io/jwt/pull/149

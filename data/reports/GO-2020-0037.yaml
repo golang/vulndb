@@ -1,16 +1,16 @@
 id: GO-2020-0037
 modules:
-  - module: github.com/tendermint/tendermint
-    versions:
-      - fixed: 0.31.1
-    vulnerable_at: 0.31.0
-    packages:
-      - package: github.com/tendermint/tendermint/rpc/lib/client
-        symbols:
-          - makeHTTPClient
-        derived_symbols:
-          - NewJSONRPCClient
-          - NewURIClient
+    - module: github.com/tendermint/tendermint
+      versions:
+        - fixed: 0.31.1
+      vulnerable_at: 0.31.0
+      packages:
+        - package: github.com/tendermint/tendermint/rpc/lib/client
+          symbols:
+            - makeHTTPClient
+          derived_symbols:
+            - NewJSONRPCClient
+            - NewURIClient
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Due to support of Gzip compression in request bodies, as well
@@ -19,12 +19,12 @@ description: |
     resources, which may be used as a denial of service vector.
 published: 2021-04-14T20:04:52Z
 ghsas:
-  - GHSA-3fm3-m23v-5r46
+    - GHSA-3fm3-m23v-5r46
 credits:
-  - '@guagualvcha'
+    - '@guagualvcha'
 references:
-  - fix: https://github.com/tendermint/tendermint/pull/3430
-  - fix: https://github.com/tendermint/tendermint/commit/03085c2da23b179c4a51f59a03cb40aa4e85a613
+    - fix: https://github.com/tendermint/tendermint/pull/3430
+    - fix: https://github.com/tendermint/tendermint/commit/03085c2da23b179c4a51f59a03cb40aa4e85a613
 cve_metadata:
     id: CVE-2019-25072
     cwe: 'CWE-400: Uncontrolled Resource Consumption'

@@ -1,16 +1,16 @@
 id: GO-2021-0107
 modules:
-  - module: github.com/ecnepsnai/web
-    versions:
-      - introduced: 1.4.0
-        fixed: 1.5.2
-    vulnerable_at: 1.5.1
-    packages:
-      - package: github.com/ecnepsnai/web
-        symbols:
-          - Server.socketHandler
-        derived_symbols:
-          - Server.Socket
+    - module: github.com/ecnepsnai/web
+      versions:
+        - introduced: 1.4.0
+          fixed: 1.5.2
+      vulnerable_at: 1.5.1
+      packages:
+        - package: github.com/ecnepsnai/web
+          symbols:
+            - Server.socketHandler
+          derived_symbols:
+            - Server.Socket
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Web Sockets do not execute any AuthenticateMethod methods which may be set,
@@ -22,10 +22,10 @@ description: |
     vulnerable.
 published: 2021-07-28T18:08:05Z
 ghsas:
-  - GHSA-5gjg-jgh4-gppm
-  - GHSA-jpgg-cp2x-qrw3
+    - GHSA-5gjg-jgh4-gppm
+    - GHSA-jpgg-cp2x-qrw3
 references:
-  - fix: https://github.com/ecnepsnai/web/commit/5a78f8d5c41ce60dcf9f61aaf47a7a8dc3e0002f
+    - fix: https://github.com/ecnepsnai/web/commit/5a78f8d5c41ce60dcf9f61aaf47a7a8dc3e0002f
 cve_metadata:
     id: CVE-2021-4236
     cwe: 'CWE-400: Uncontrolled Resource Consumption'

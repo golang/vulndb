@@ -1,15 +1,15 @@
 id: GO-2020-0013
 modules:
-  - module: golang.org/x/crypto
-    versions:
-      - fixed: 0.0.0-20170330155735-e4e2799dd7aa
-    vulnerable_at: 0.0.0-20170317163734-459e26527287
-    packages:
-      - package: golang.org/x/crypto/ssh
-        symbols:
-          - NewClientConn
-        derived_symbols:
-          - Dial
+    - module: golang.org/x/crypto
+      versions:
+        - fixed: 0.0.0-20170330155735-e4e2799dd7aa
+      vulnerable_at: 0.0.0-20170317163734-459e26527287
+      packages:
+        - package: golang.org/x/crypto/ssh
+          symbols:
+            - NewClientConn
+          derived_symbols:
+            - Dial
 summary: Man-in-the-middle attack in golang.org/x/crypto/ssh
 description: |
     By default host key verification is disabled which allows for
@@ -17,13 +17,13 @@ description: |
     ClientConfig.HostKeyCallback is not set.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2017-3204
+    - CVE-2017-3204
 ghsas:
-  - GHSA-xhjq-w7xm-p8qj
+    - GHSA-xhjq-w7xm-p8qj
 credits:
-  - Phil Pennock
+    - Phil Pennock
 references:
-  - fix: https://go.dev/cl/340830
-  - fix: https://go.googlesource.com/crypto/+/e4e2799dd7aab89f583e1d898300d96367750991
-  - report: https://go.dev/issue/19767
-  - web: https://bridge.grumpy-troll.org/2017/04/golang-ssh-security/
+    - fix: https://go.dev/cl/340830
+    - fix: https://go.googlesource.com/crypto/+/e4e2799dd7aab89f583e1d898300d96367750991
+    - report: https://go.dev/issue/19767
+    - web: https://bridge.grumpy-troll.org/2017/04/golang-ssh-security/

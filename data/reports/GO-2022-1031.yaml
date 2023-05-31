@@ -1,27 +1,27 @@
 id: GO-2022-1031
 modules:
-  - module: github.com/labstack/echo/v4
-    versions:
-      - fixed: 4.9.0
-    vulnerable_at: 4.8.0
-    packages:
-      - package: github.com/labstack/echo/v4
-        symbols:
-          - StaticDirectoryHandler
-        derived_symbols:
-          - Echo.Static
-          - Echo.StaticFS
-          - Group.Static
-          - Group.StaticFS
+    - module: github.com/labstack/echo/v4
+      versions:
+        - fixed: 4.9.0
+      vulnerable_at: 4.8.0
+      packages:
+        - package: github.com/labstack/echo/v4
+          symbols:
+            - StaticDirectoryHandler
+          derived_symbols:
+            - Echo.Static
+            - Echo.StaticFS
+            - Group.Static
+            - Group.StaticFS
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Labstack Echo contains an open redirect vulnerability via the Static
     Handler component. This vulnerability can be leveraged by attackers
     to cause a Server-Side Request Forgery (SSRF).
 cves:
-  - CVE-2022-40083
+    - CVE-2022-40083
 ghsas:
-  - GHSA-crxj-hrmp-4rwf
+    - GHSA-crxj-hrmp-4rwf
 references:
-  - report: https://github.com/labstack/echo/issues/2259
-  - fix: https://github.com/labstack/echo/pull/2260
+    - report: https://github.com/labstack/echo/issues/2259
+    - fix: https://github.com/labstack/echo/pull/2260

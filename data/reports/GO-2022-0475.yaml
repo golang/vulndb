@@ -1,22 +1,20 @@
 id: GO-2022-0475
 modules:
-  - module: cmd
-    versions:
-      - fixed: 1.14.12
-      - introduced: 1.15.0-0
-        fixed: 1.15.5
-    vulnerable_at: 1.15.4
-    packages:
-      - package: cmd/go
-        symbols:
-          - Builder.cgo
-        skip_fix: 'TODO: revisit this reason (cant request explicit version v1.15.4
-            of standard library package cmd/go)'
-      - package: cmd/cgo
-        symbols:
-          - dynimport
-        skip_fix: 'TODO: revisit this reason (cant request explicit version v1.15.4
-            of standard library package cmd/go)'
+    - module: cmd
+      versions:
+        - fixed: 1.14.12
+        - introduced: 1.15.0-0
+          fixed: 1.15.5
+      vulnerable_at: 1.15.4
+      packages:
+        - package: cmd/go
+          symbols:
+            - Builder.cgo
+          skip_fix: 'TODO: revisit this reason (cant request explicit version v1.15.4 of standard library package cmd/go)'
+        - package: cmd/cgo
+          symbols:
+            - dynimport
+          skip_fix: 'TODO: revisit this reason (cant request explicit version v1.15.4 of standard library package cmd/go)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The go command may execute arbitrary code at build time when cgo is in use.
@@ -27,12 +25,12 @@ description: |
     file.
 published: 2022-07-28T17:24:30Z
 credits:
-  - Chris Brown (Tempus Ex)
+    - Chris Brown (Tempus Ex)
 references:
-  - fix: https://go.dev/cl/269658
-  - fix: https://go.googlesource.com/go/+/062e0e5ce6df339dc26732438ad771f73dbf2292
-  - report: https://go.dev/issue/42559
-  - web: https://groups.google.com/g/golang-announce/c/NpBGTTmKzpM
+    - fix: https://go.dev/cl/269658
+    - fix: https://go.googlesource.com/go/+/062e0e5ce6df339dc26732438ad771f73dbf2292
+    - report: https://go.dev/issue/42559
+    - web: https://groups.google.com/g/golang-announce/c/NpBGTTmKzpM
 cve_metadata:
     id: CVE-2020-28366
     cwe: 'CWE-94: Improper Control of Generation of Code (''Code Injection'')'

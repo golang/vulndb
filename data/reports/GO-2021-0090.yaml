@@ -1,16 +1,16 @@
 id: GO-2021-0090
 modules:
-  - module: github.com/tendermint/tendermint
-    versions:
-      - introduced: 0.33.0
-        fixed: 0.34.0-dev1.0.20200702134149-480b995a3172
-    vulnerable_at: 0.33.0
-    packages:
-      - package: github.com/tendermint/tendermint/types
-        symbols:
-          - VoteSet.MakeCommit
-        derived_symbols:
-          - MakeCommit
+    - module: github.com/tendermint/tendermint
+      versions:
+        - introduced: 0.33.0
+          fixed: 0.34.0-dev1.0.20200702134149-480b995a3172
+      vulnerable_at: 0.33.0
+      packages:
+        - package: github.com/tendermint/tendermint/types
+          symbols:
+            - VoteSet.MakeCommit
+          derived_symbols:
+            - MakeCommit
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Proposed commits may contain signatures for blocks not contained
@@ -19,12 +19,12 @@ description: |
     this to force consensus failures.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2020-15091
+    - CVE-2020-15091
 ghsas:
-  - GHSA-6jqj-f58p-mrw3
+    - GHSA-6jqj-f58p-mrw3
 credits:
-  - Neeraj Murarka
+    - Neeraj Murarka
 references:
-  - fix: https://github.com/tendermint/tendermint/pull/5426
-  - fix: https://github.com/tendermint/tendermint/commit/480b995a31727593f58b361af979054d17d84340
-  - web: https://github.com/tendermint/tendermint/issues/4926
+    - fix: https://github.com/tendermint/tendermint/pull/5426
+    - fix: https://github.com/tendermint/tendermint/commit/480b995a31727593f58b361af979054d17d84340
+    - web: https://github.com/tendermint/tendermint/issues/4926

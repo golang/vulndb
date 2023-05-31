@@ -1,12 +1,12 @@
 id: GO-2022-1043
 modules:
-  - module: github.com/flyteorg/flyteadmin
-    versions:
-      - introduced: 1.0.0
-        fixed: 1.1.44
-    vulnerable_at: 1.1.43
-    packages:
-      - package: github.com/flyteorg/flyteadmin/auth/config
+    - module: github.com/flyteorg/flyteadmin
+      versions:
+        - introduced: 1.0.0
+          fixed: 1.1.44
+      vulnerable_at: 1.1.43
+      packages:
+        - package: github.com/flyteorg/flyteadmin/auth/config
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Default authorization server's configuration settings contain
@@ -16,10 +16,10 @@ description: |
     allow public traffic in by way of this default password with attackers
     effectively impersonating propeller.
 cves:
-  - CVE-2022-39273
+    - CVE-2022-39273
 ghsas:
-  - GHSA-67x4-qr35-qvrm
+    - GHSA-67x4-qr35-qvrm
 references:
-  - advisory: https://github.com/advisories/GHSA-67x4-qr35-qvrm
-  - fix: https://github.com/flyteorg/flyteadmin/pull/478
-  - web: https://docs.flyte.org/en/latest/deployment/cluster_config/auth_setup.html#oauth2-authorization-server
+    - advisory: https://github.com/advisories/GHSA-67x4-qr35-qvrm
+    - fix: https://github.com/flyteorg/flyteadmin/pull/478
+    - web: https://docs.flyte.org/en/latest/deployment/cluster_config/auth_setup.html#oauth2-authorization-server

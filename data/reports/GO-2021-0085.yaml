@@ -1,39 +1,39 @@
 id: GO-2021-0085
 modules:
-  - module: github.com/opencontainers/runc
-    versions:
-      - fixed: 1.0.0-rc8.0.20190930145003-cad42f6e0932
-    vulnerable_at: 1.0.0-rc8
-    packages:
-      - package: github.com/opencontainers/runc/libcontainer/apparmor
-        symbols:
-          - ApplyProfile
-      - package: github.com/opencontainers/runc/libcontainer/utils
-        symbols:
-          - CloseExecFrom
-  - module: github.com/opencontainers/selinux
-    versions:
-      - fixed: 1.3.1-0.20190929122143-5215b1806f52
-    vulnerable_at: 1.3.0
-    packages:
-      - package: github.com/opencontainers/selinux/go-selinux
-        symbols:
-          - readCon
-          - writeCon
-        skip_fix: 'TODO: revisit this reason (readCon and writeCon: func not found)'
+    - module: github.com/opencontainers/runc
+      versions:
+        - fixed: 1.0.0-rc8.0.20190930145003-cad42f6e0932
+      vulnerable_at: 1.0.0-rc8
+      packages:
+        - package: github.com/opencontainers/runc/libcontainer/apparmor
+          symbols:
+            - ApplyProfile
+        - package: github.com/opencontainers/runc/libcontainer/utils
+          symbols:
+            - CloseExecFrom
+    - module: github.com/opencontainers/selinux
+      versions:
+        - fixed: 1.3.1-0.20190929122143-5215b1806f52
+      vulnerable_at: 1.3.0
+      packages:
+        - package: github.com/opencontainers/selinux/go-selinux
+          symbols:
+            - readCon
+            - writeCon
+          skip_fix: 'TODO: revisit this reason (readCon and writeCon: func not found)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     AppArmor restrictions may be bypassed due to improper validation of mount
     targets, allowing a malicious image to mount volumes over e.g. /proc.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2019-16884
+    - CVE-2019-16884
 ghsas:
-  - GHSA-fgv8-vj5c-2ppq
+    - GHSA-fgv8-vj5c-2ppq
 credits:
-  - Leopold Schabel
+    - Leopold Schabel
 references:
-  - fix: https://github.com/opencontainers/runc/pull/2130
-  - fix: https://github.com/opencontainers/runc/commit/cad42f6e0932db0ce08c3a3d9e89e6063ec283e4
-  - fix: https://github.com/opencontainers/selinux/commit/03b517dc4fd57245b1cf506e8ba7b817b6d309da
-  - web: https://github.com/opencontainers/runc/issues/2128
+    - fix: https://github.com/opencontainers/runc/pull/2130
+    - fix: https://github.com/opencontainers/runc/commit/cad42f6e0932db0ce08c3a3d9e89e6063ec283e4
+    - fix: https://github.com/opencontainers/selinux/commit/03b517dc4fd57245b1cf506e8ba7b817b6d309da
+    - web: https://github.com/opencontainers/runc/issues/2128

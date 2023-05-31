@@ -1,16 +1,16 @@
 id: GO-2020-0021
 modules:
-  - module: github.com/gogits/gogs
-    versions:
-      - fixed: 0.5.8
-    vulnerable_at: 0.5.5
-    packages:
-      - package: github.com/gogits/gogs
-        symbols:
-          - GetIssues
-          - SearchRepositoryByName
-          - SearchUserByName
-        skip_fix: 'TODO: Revisit this reason (Some dependencies no longer exist)'
+    - module: github.com/gogits/gogs
+      versions:
+        - fixed: 0.5.8
+      vulnerable_at: 0.5.5
+      packages:
+        - package: github.com/gogits/gogs
+          symbols:
+            - GetIssues
+            - SearchRepositoryByName
+            - SearchUserByName
+          skip_fix: 'TODO: Revisit this reason (Some dependencies no longer exist)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Due to improper santization of user input, a number of methods are
@@ -18,12 +18,12 @@ description: |
     been santized by the caller.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2014-8681
+    - CVE-2014-8681
 ghsas:
-  - GHSA-mr6h-chqp-p9g2
+    - GHSA-mr6h-chqp-p9g2
 credits:
-  - Pascal Turbing
-  - Jiahua (Joe) Chen
+    - Pascal Turbing
+    - Jiahua (Joe) Chen
 references:
-  - fix: https://github.com/gogs/gogs/commit/83283bca4cb4e0f4ec48a28af680f0d88db3d2c8
-  - web: https://seclists.org/fulldisclosure/2014/Nov/31
+    - fix: https://github.com/gogs/gogs/commit/83283bca4cb4e0f4ec48a28af680f0d88db3d2c8
+    - web: https://seclists.org/fulldisclosure/2014/Nov/31

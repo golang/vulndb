@@ -1,15 +1,15 @@
 id: GO-2023-1495
 modules:
-  - module: golang.org/x/net
-    versions:
-      - introduced: 0.0.0-20220524220425-1d687d428aca
-        fixed: 0.1.1-0.20221104162952-702349b0e862
-    vulnerable_at: 0.1.1-0.20221104145632-7a676822c292
-    packages:
-      - package: golang.org/x/net/http2/h2c
-        symbols:
-          - h2cHandler.ServeHTTP
-          - h2cUpgrade
+    - module: golang.org/x/net
+      versions:
+        - introduced: 0.0.0-20220524220425-1d687d428aca
+          fixed: 0.1.1-0.20221104162952-702349b0e862
+      vulnerable_at: 0.1.1-0.20221104145632-7a676822c292
+      packages:
+        - package: golang.org/x/net/http2/h2c
+          symbols:
+            - h2cHandler.ServeHTTP
+            - h2cUpgrade
 summary: Request smuggling in golang.org/x/net/http2/h2c
 description: |
     A request smuggling attack is possible when using MaxBytesHandler.
@@ -19,13 +19,12 @@ description: |
     connection, it will instead be reading the body of the HTTP request,
     which could be attacker-manipulated to represent arbitrary HTTP2 requests.
 ghsas:
-  - GHSA-fxg5-wq6x-vr4w
+    - GHSA-fxg5-wq6x-vr4w
 credits:
-  - John Howard (Google)
+    - John Howard (Google)
 references:
-  - report: https://go.dev/issue/56352
-  - fix: https://go.dev/cl/447396
+    - report: https://go.dev/issue/56352
+    - fix: https://go.dev/cl/447396
 cve_metadata:
     id: CVE-2022-41721
-    cwe: 'CWE 444: Inconsistent Interpretation of HTTP Requests ("HTTP Request/Response
-        Smuggling)'
+    cwe: 'CWE 444: Inconsistent Interpretation of HTTP Requests ("HTTP Request/Response Smuggling)'

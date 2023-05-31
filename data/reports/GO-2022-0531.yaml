@@ -1,15 +1,15 @@
 id: GO-2022-0531
 modules:
-  - module: std
-    versions:
-      - fixed: 1.17.11
-      - introduced: 1.18.0-0
-        fixed: 1.18.3
-    vulnerable_at: 1.18.2
-    packages:
-      - package: crypto/tls
-        symbols:
-          - serverHandshakeStateTLS13.sendSessionTickets
+    - module: std
+      versions:
+        - fixed: 1.17.11
+        - introduced: 1.18.0-0
+          fixed: 1.18.3
+      vulnerable_at: 1.18.2
+      packages:
+        - package: crypto/tls
+          symbols:
+            - serverHandshakeStateTLS13.sendSessionTickets
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     An attacker can correlate a resumed TLS session with a previous connection.
@@ -20,12 +20,12 @@ description: |
     during session resumption.
 published: 2022-07-28T17:24:57Z
 credits:
-  - Github user @nervuri
+    - Github user @nervuri
 references:
-  - fix: https://go.dev/cl/405994
-  - fix: https://go.googlesource.com/go/+/fe4de36198794c447fbd9d7cc2d7199a506c76a5
-  - report: https://go.dev/issue/52814
-  - web: https://groups.google.com/g/golang-announce/c/TzIC9-t8Ytg/m/IWz5T6x7AAAJ
+    - fix: https://go.dev/cl/405994
+    - fix: https://go.googlesource.com/go/+/fe4de36198794c447fbd9d7cc2d7199a506c76a5
+    - report: https://go.dev/issue/52814
+    - web: https://groups.google.com/g/golang-announce/c/TzIC9-t8Ytg/m/IWz5T6x7AAAJ
 cve_metadata:
     id: CVE-2022-30629
     cwe: 'CWE-200: Information Exposure'

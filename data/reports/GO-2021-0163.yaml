@@ -1,16 +1,16 @@
 id: GO-2021-0163
 modules:
-  - module: std
-    versions:
-      - fixed: 1.5.4
-      - introduced: 1.6.0-0
-        fixed: 1.6.1
-    vulnerable_at: 1.6.0
-    packages:
-      - package: syscall
-        symbols:
-          - LoadLibrary
-        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+    - module: std
+      versions:
+        - fixed: 1.5.4
+        - introduced: 1.6.0-0
+          fixed: 1.6.1
+      vulnerable_at: 1.6.0
+      packages:
+        - package: syscall
+          symbols:
+            - LoadLibrary
+          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Untrusted search path vulnerability on Windows related to LoadLibrary allows
@@ -18,9 +18,9 @@ description: |
     directory.
 published: 2022-01-05T22:41:50Z
 cves:
-  - CVE-2016-3958
+    - CVE-2016-3958
 references:
-  - fix: https://go.dev/cl/21428
-  - fix: https://go.googlesource.com/go/+/6a0bb87bd0bf0fdf8ddbd35f77a75ebd412f61b0
-  - report: https://go.dev/issue/14959
-  - web: https://groups.google.com/g/golang-announce/c/9eqIHqaWvck
+    - fix: https://go.dev/cl/21428
+    - fix: https://go.googlesource.com/go/+/6a0bb87bd0bf0fdf8ddbd35f77a75ebd412f61b0
+    - report: https://go.dev/issue/14959
+    - web: https://groups.google.com/g/golang-announce/c/9eqIHqaWvck

@@ -1,17 +1,16 @@
 id: GO-2020-0043
 modules:
-  - module: github.com/mholt/caddy
-    versions:
-      - fixed: 0.10.13
-    vulnerable_at: 0.10.13-0.20180330123946-2966db7b7800
-    packages:
-      - package: github.com/mholt/caddy/caddyhttp/httpserver
-        symbols:
-          - httpContext.MakeServers
-          - Server.serveHTTP
-          - assertConfigsCompatible
-        skip_fix: 'TODO: revisit this reason. (cannot find module providing package
-            github.com/lucas-clemente/quic-go/h2quic)'
+    - module: github.com/mholt/caddy
+      versions:
+        - fixed: 0.10.13
+      vulnerable_at: 0.10.13-0.20180330123946-2966db7b7800
+      packages:
+        - package: github.com/mholt/caddy/caddyhttp/httpserver
+          symbols:
+            - httpContext.MakeServers
+            - Server.serveHTTP
+            - assertConfigsCompatible
+          skip_fix: 'TODO: revisit this reason. (cannot find module providing package github.com/lucas-clemente/quic-go/h2quic)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Due to improper TLS verification when serving traffic for multiple
@@ -20,10 +19,10 @@ description: |
     the HTTP Host header.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2018-21246
+    - CVE-2018-21246
 ghsas:
-  - GHSA-gr7w-x2jp-3xgw
+    - GHSA-gr7w-x2jp-3xgw
 references:
-  - fix: https://github.com/caddyserver/caddy/pull/2099
-  - fix: https://github.com/caddyserver/caddy/commit/4d9ee000c8d2cbcdd8284007c1e0f2da7bc3c7c3
-  - web: https://bugs.gentoo.org/715214
+    - fix: https://github.com/caddyserver/caddy/pull/2099
+    - fix: https://github.com/caddyserver/caddy/commit/4d9ee000c8d2cbcdd8284007c1e0f2da7bc3c7c3
+    - web: https://bugs.gentoo.org/715214

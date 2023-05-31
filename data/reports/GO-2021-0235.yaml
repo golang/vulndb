@@ -1,16 +1,16 @@
 id: GO-2021-0235
 modules:
-  - module: std
-    versions:
-      - fixed: 1.14.14
-      - introduced: 1.15.0-0
-        fixed: 1.15.7
-    vulnerable_at: 1.15.6
-    packages:
-      - package: crypto/elliptic
-        symbols:
-          - p224Contract
-        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+    - module: std
+      versions:
+        - fixed: 1.14.14
+        - introduced: 1.15.0-0
+          fixed: 1.15.7
+      vulnerable_at: 1.15.6
+      packages:
+        - package: crypto/elliptic
+          symbols:
+            - p224Contract
+          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The P224() Curve implementation can in rare circumstances generate
@@ -18,12 +18,12 @@ description: |
     ScalarMult.
 published: 2022-02-17T17:34:14Z
 cves:
-  - CVE-2021-3114
+    - CVE-2021-3114
 credits:
-  - The elliptic-curve-differential-fuzzer project running on OSS-Fuzz
-  - Philippe Antoine (Catena cyber)
+    - The elliptic-curve-differential-fuzzer project running on OSS-Fuzz
+    - Philippe Antoine (Catena cyber)
 references:
-  - fix: https://go.dev/cl/284779
-  - fix: https://go.googlesource.com/go/+/d95ca9138026cbe40e0857d76a81a16d03230871
-  - report: https://go.dev/issue/43786
-  - web: https://groups.google.com/g/golang-announce/c/mperVMGa98w
+    - fix: https://go.dev/cl/284779
+    - fix: https://go.googlesource.com/go/+/d95ca9138026cbe40e0857d76a81a16d03230871
+    - report: https://go.dev/issue/43786
+    - web: https://groups.google.com/g/golang-announce/c/mperVMGa98w

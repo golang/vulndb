@@ -1,24 +1,24 @@
 id: GO-2022-0254
 modules:
-  - module: github.com/ethereum/go-ethereum
-    versions:
-      - fixed: 1.10.8
-    vulnerable_at: 1.10.7
-    packages:
-      - package: github.com/ethereum/go-ethereum/core/vm
-        symbols:
-          - opCall
-          - opCallCode
-          - opDelegateCall
-          - opStaticCall
-          - EVMInterpreter.Run
-        derived_symbols:
-          - EVM.Call
-          - EVM.CallCode
-          - EVM.Create
-          - EVM.Create2
-          - EVM.DelegateCall
-          - EVM.StaticCall
+    - module: github.com/ethereum/go-ethereum
+      versions:
+        - fixed: 1.10.8
+      vulnerable_at: 1.10.7
+      packages:
+        - package: github.com/ethereum/go-ethereum/core/vm
+          symbols:
+            - opCall
+            - opCallCode
+            - opDelegateCall
+            - opStaticCall
+            - EVMInterpreter.Run
+          derived_symbols:
+            - EVM.Call
+            - EVM.CallCode
+            - EVM.Create
+            - EVM.Create2
+            - EVM.DelegateCall
+            - EVM.StaticCall
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     A vulnerability in the Geth EVM can cause a node to reject the
@@ -30,8 +30,8 @@ description: |
     would lead to the chain being split in two forks.
 published: 2022-07-15T23:07:56Z
 cves:
-  - CVE-2021-39137
+    - CVE-2021-39137
 ghsas:
-  - GHSA-9856-9gg9-qcmq
+    - GHSA-9856-9gg9-qcmq
 references:
-  - fix: https://github.com/ethereum/go-ethereum/pull/23381/commits/4d4879cafd1b3c906fc184a8c4a357137465128f
+    - fix: https://github.com/ethereum/go-ethereum/pull/23381/commits/4d4879cafd1b3c906fc184a8c4a357137465128f

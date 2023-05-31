@@ -1,30 +1,30 @@
 id: GO-2022-0477
 modules:
-  - module: std
-    versions:
-      - fixed: 1.17.11
-      - introduced: 1.18.0-0
-        fixed: 1.18.3
-    vulnerable_at: 1.18.0
-    packages:
-      - package: crypto/rand
-        goos:
-          - windows
-        symbols:
-          - Read
+    - module: std
+      versions:
+        - fixed: 1.17.11
+        - introduced: 1.18.0-0
+          fixed: 1.18.3
+      vulnerable_at: 1.18.0
+      packages:
+        - package: crypto/rand
+          goos:
+            - windows
+          symbols:
+            - Read
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     On Windows, rand.Read will hang indefinitely if passed a buffer larger than
     1 << 32 - 1 bytes.
 published: 2022-06-09T01:43:37Z
 credits:
-  - Davis Goodin
-  - Quim Muntal of Microsoft
+    - Davis Goodin
+    - Quim Muntal of Microsoft
 references:
-  - fix: https://go.dev/cl/402257
-  - fix: https://go.googlesource.com/go/+/bb1f4416180511231de6d17a1f2f55c82aafc863
-  - report: https://go.dev/issue/52561
-  - web: https://groups.google.com/g/golang-announce/c/TzIC9-t8Ytg/m/IWz5T6x7AAAJ
+    - fix: https://go.dev/cl/402257
+    - fix: https://go.googlesource.com/go/+/bb1f4416180511231de6d17a1f2f55c82aafc863
+    - report: https://go.dev/issue/52561
+    - web: https://groups.google.com/g/golang-announce/c/TzIC9-t8Ytg/m/IWz5T6x7AAAJ
 cve_metadata:
     id: CVE-2022-30634
     cwe: 'CWE-835: Loop with Unreachable Exit Condition (''Infinite Loop'')'

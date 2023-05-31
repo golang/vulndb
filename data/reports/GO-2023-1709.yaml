@@ -1,21 +1,21 @@
 id: GO-2023-1709
 modules:
-  - module: github.com/hashicorp/vault
-    versions:
-      - fixed: 1.11.9
-      - introduced: 1.12.0
-        fixed: 1.12.5
-      - introduced: 1.13.0
-        fixed: 1.13.1
-    vulnerable_at: 1.13.0
-    packages:
-      - package: github.com/hashicorp/vault/shamir
-        symbols:
-          - div
-          - mult
-        derived_symbols:
-          - Combine
-          - Split
+    - module: github.com/hashicorp/vault
+      versions:
+        - fixed: 1.11.9
+        - introduced: 1.12.0
+          fixed: 1.12.5
+        - introduced: 1.13.0
+          fixed: 1.13.1
+      vulnerable_at: 1.13.0
+      packages:
+        - package: github.com/hashicorp/vault/shamir
+          symbols:
+            - div
+            - mult
+          derived_symbols:
+            - Combine
+            - Split
 summary: |
     Shamir's secret sharing implementation vulnerable to cache-timing attacks
     in HashiCorp Vault
@@ -27,11 +27,11 @@ description: |
     unseal operations on the host through a side channel may reduce the search
     space of a brute force effort to recover the Shamir shares.
 cves:
-  - CVE-2023-25000
+    - CVE-2023-25000
 ghsas:
-  - GHSA-vq4h-9ghm-qmrr
+    - GHSA-vq4h-9ghm-qmrr
 credits:
-  - Giuseppe Cocomazzi
+    - Giuseppe Cocomazzi
 references:
-  - fix: https://github.com/hashicorp/vault/pull/19495
-  - web: https://discuss.hashicorp.com/t/hcsec-2023-10-vault-vulnerable-to-cache-timing-attacks-during-seal-and-unseal-operations/52078
+    - fix: https://github.com/hashicorp/vault/pull/19495
+    - web: https://discuss.hashicorp.com/t/hcsec-2023-10-vault-vulnerable-to-cache-timing-attacks-during-seal-and-unseal-operations/52078

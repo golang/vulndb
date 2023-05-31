@@ -1,27 +1,27 @@
 id: GO-2021-0088
 modules:
-  - module: github.com/facebook/fbthrift
-    versions:
-      - fixed: 0.31.1-0.20190225164308-c461c1bd1a3e
-    vulnerable_at: 0.31.1-0.20190225124004-41af43a0444b
-    packages:
-      - package: github.com/facebook/fbthrift/thrift/lib/go/thrift
-        symbols:
-          - Skip
-        derived_symbols:
-          - BinaryProtocol.Skip
-          - CompactProtocol.Skip
-          - HeaderProtocol.Skip
-          - JSONProtocol.Skip
-          - Process
-          - ProcessContext
-          - SimpleJSONProtocol.Skip
-          - SimpleServer.AcceptLoop
-          - SimpleServer.AcceptLoopContext
-          - SimpleServer.Serve
-          - SimpleServer.ServeContext
-          - SkipDefaultDepth
-          - applicationException.Read
+    - module: github.com/facebook/fbthrift
+      versions:
+        - fixed: 0.31.1-0.20190225164308-c461c1bd1a3e
+      vulnerable_at: 0.31.1-0.20190225124004-41af43a0444b
+      packages:
+        - package: github.com/facebook/fbthrift/thrift/lib/go/thrift
+          symbols:
+            - Skip
+          derived_symbols:
+            - BinaryProtocol.Skip
+            - CompactProtocol.Skip
+            - HeaderProtocol.Skip
+            - JSONProtocol.Skip
+            - Process
+            - ProcessContext
+            - SimpleJSONProtocol.Skip
+            - SimpleServer.AcceptLoop
+            - SimpleServer.AcceptLoopContext
+            - SimpleServer.Serve
+            - SimpleServer.ServeContext
+            - SkipDefaultDepth
+            - applicationException.Read
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Skip ignores unknown fields, rather than failing. A malicious user can craft small
@@ -30,9 +30,9 @@ description: |
     vector.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2019-3564
+    - CVE-2019-3564
 ghsas:
-  - GHSA-x4rg-4545-4w7w
+    - GHSA-x4rg-4545-4w7w
 references:
-  - fix: https://github.com/facebook/fbthrift/commit/c461c1bd1a3e130b181aa9c854da3030cd4b5156
-  - web: https://www.facebook.com/security/advisories/cve-2019-3564
+    - fix: https://github.com/facebook/fbthrift/commit/c461c1bd1a3e130b181aa9c854da3030cd4b5156
+    - web: https://www.facebook.com/security/advisories/cve-2019-3564

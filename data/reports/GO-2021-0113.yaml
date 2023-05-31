@@ -1,17 +1,17 @@
 id: GO-2021-0113
 modules:
-  - module: golang.org/x/text
-    versions:
-      - fixed: 0.3.7
-    vulnerable_at: 0.3.6
-    packages:
-      - package: golang.org/x/text/language
-        symbols:
-          - Parse
-        derived_symbols:
-          - MatchStrings
-          - MustParse
-          - ParseAcceptLanguage
+    - module: golang.org/x/text
+      versions:
+        - fixed: 0.3.7
+      vulnerable_at: 0.3.6
+      packages:
+        - package: golang.org/x/text/language
+          symbols:
+            - Parse
+          derived_symbols:
+            - MatchStrings
+            - MustParse
+            - ParseAcceptLanguage
 summary: Out-of-bounds read in golang.org/x/text/language
 description: |
     Due to improper index calculation, an incorrectly formatted language tag can cause Parse
@@ -19,11 +19,11 @@ description: |
     this may be used as a vector for a denial of service attack.
 published: 2021-10-06T17:51:21Z
 cves:
-  - CVE-2021-38561
+    - CVE-2021-38561
 ghsas:
-  - GHSA-ppp9-7jff-5vj2
+    - GHSA-ppp9-7jff-5vj2
 credits:
-  - Guido Vranken
+    - Guido Vranken
 references:
-  - fix: https://go.dev/cl/340830
-  - fix: https://go.googlesource.com/text/+/383b2e75a7a4198c42f8f87833eefb772868a56f
+    - fix: https://go.dev/cl/340830
+    - fix: https://go.googlesource.com/text/+/383b2e75a7a4198c42f8f87833eefb772868a56f

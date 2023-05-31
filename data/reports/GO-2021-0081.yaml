@@ -1,34 +1,34 @@
 id: GO-2021-0081
 modules:
-  - module: github.com/containers/image
-    versions:
-      - fixed: 2.0.2-0.20190802080134-634605d06e73+incompatible
-    vulnerable_at: 2.0.1+incompatible
-    packages:
-      - package: github.com/containers/image/docker
-        symbols:
-          - dockerClient.getBearerToken
-        derived_symbols:
-          - CheckAuth
-          - GetRepositoryTags
-          - Image.GetRepositoryTags
-          - NewReference
-          - ParseReference
-          - SearchRegistry
-          - dockerImageDestination.PutBlob
-          - dockerImageDestination.PutManifest
-          - dockerImageDestination.PutSignatures
-          - dockerImageDestination.SupportsSignatures
-          - dockerImageDestination.TryReusingBlob
-          - dockerImageSource.GetBlob
-          - dockerImageSource.GetManifest
-          - dockerImageSource.GetSignatures
-          - dockerReference.DeleteImage
-          - dockerReference.NewImage
-          - dockerReference.NewImageDestination
-          - dockerReference.NewImageSource
-          - dockerReference.PolicyConfigurationIdentity
-          - dockerTransport.ParseReference
+    - module: github.com/containers/image
+      versions:
+        - fixed: 2.0.2-0.20190802080134-634605d06e73+incompatible
+      vulnerable_at: 2.0.1+incompatible
+      packages:
+        - package: github.com/containers/image/docker
+          symbols:
+            - dockerClient.getBearerToken
+          derived_symbols:
+            - CheckAuth
+            - GetRepositoryTags
+            - Image.GetRepositoryTags
+            - NewReference
+            - ParseReference
+            - SearchRegistry
+            - dockerImageDestination.PutBlob
+            - dockerImageDestination.PutManifest
+            - dockerImageDestination.PutSignatures
+            - dockerImageDestination.SupportsSignatures
+            - dockerImageDestination.TryReusingBlob
+            - dockerImageSource.GetBlob
+            - dockerImageSource.GetManifest
+            - dockerImageSource.GetSignatures
+            - dockerReference.DeleteImage
+            - dockerReference.NewImage
+            - dockerReference.NewImageDestination
+            - dockerReference.NewImageSource
+            - dockerReference.PolicyConfigurationIdentity
+            - dockerTransport.ParseReference
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The HTTP client used to connect to the container registry authorization
@@ -36,11 +36,11 @@ description: |
     is able to MITM the connection to steal credentials.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2019-10214
+    - CVE-2019-10214
 ghsas:
-  - GHSA-85p9-j7c9-v4gr
+    - GHSA-85p9-j7c9-v4gr
 references:
-  - fix: https://github.com/containers/image/pull/669
-  - fix: https://github.com/containers/image/commit/634605d06e738aec8332bcfd69162e7509ac7aaf
-  - web: https://github.com/containers/image/issues/654
-  - web: https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2019-10214
+    - fix: https://github.com/containers/image/pull/669
+    - fix: https://github.com/containers/image/commit/634605d06e738aec8332bcfd69162e7509ac7aaf
+    - web: https://github.com/containers/image/issues/654
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2019-10214

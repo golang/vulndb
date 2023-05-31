@@ -1,46 +1,45 @@
 id: GO-2023-1717
 modules:
-  - module: vitess.io/vitess
-    versions:
-      - fixed: 0.16.1
-    vulnerable_at: 0.16.0
-    packages:
-      - package: vitess.io/vitess/go/vt/vtorc/inst
-        symbols:
-          - ReadKeyspace
-        derived_symbols:
-          - GetDurabilityPolicy
-          - ReadTopologyInstance
-          - ReadTopologyInstanceBufferable
-          - SwitchPrimary
-      - package: vitess.io/vitess/go/vt/topo
-        symbols:
-          - Server.CreateKeyspace
-          - Server.GetKeyspace
-        derived_symbols:
-          - Server.CreateShard
-          - Server.FindAllShardsInKeyspace
-          - Server.GetKeyspaceDurability
-          - Server.GetOnlyShard
-          - Server.GetOrCreateShard
-          - Server.GetServingShards
-          - Server.GetShardNames
-          - Server.InitTablet
-          - Server.ResolveShardWildcard
-summary: vitess allows users to create keyspaces that can deny access to already existing
-    keyspaces
+    - module: vitess.io/vitess
+      versions:
+        - fixed: 0.16.1
+      vulnerable_at: 0.16.0
+      packages:
+        - package: vitess.io/vitess/go/vt/vtorc/inst
+          symbols:
+            - ReadKeyspace
+          derived_symbols:
+            - GetDurabilityPolicy
+            - ReadTopologyInstance
+            - ReadTopologyInstanceBufferable
+            - SwitchPrimary
+        - package: vitess.io/vitess/go/vt/topo
+          symbols:
+            - Server.CreateKeyspace
+            - Server.GetKeyspace
+          derived_symbols:
+            - Server.CreateShard
+            - Server.FindAllShardsInKeyspace
+            - Server.GetKeyspaceDurability
+            - Server.GetOnlyShard
+            - Server.GetOrCreateShard
+            - Server.GetServingShards
+            - Server.GetShardNames
+            - Server.InitTablet
+            - Server.ResolveShardWildcard
+summary: vitess allows users to create keyspaces that can deny access to already existing keyspaces
 description: |
     Users can create a keyspace containing `/`. Future attempts to view keyspaces
     from some tools (including VTAdmin and `vtctldclient GetKeyspaces`) receive an
     error.
 cves:
-  - CVE-2023-29194
+    - CVE-2023-29194
 ghsas:
-  - GHSA-735r-hv67-g38f
+    - GHSA-735r-hv67-g38f
 credits:
-  - '@AdamKorcz'
-  - '@ajm188'
+    - '@AdamKorcz'
+    - '@ajm188'
 references:
-  - advisory: https://github.com/vitessio/vitess/security/advisories/GHSA-735r-hv67-g38f
-  - fix: https://github.com/vitessio/vitess/commit/adf10196760ad0b3991a7aa7a8580a544e6ddf88
-  - fix: https://github.com/vitessio/vitess/commits/v0.16.1/
+    - advisory: https://github.com/vitessio/vitess/security/advisories/GHSA-735r-hv67-g38f
+    - fix: https://github.com/vitessio/vitess/commit/adf10196760ad0b3991a7aa7a8580a544e6ddf88
+    - fix: https://github.com/vitessio/vitess/commits/v0.16.1/

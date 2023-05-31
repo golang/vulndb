@@ -1,19 +1,19 @@
 id: GO-2022-0417
 modules:
-  - module: github.com/containers/buildah
-    versions:
-      - fixed: 1.25.0
-    vulnerable_at: 1.24.0
-    packages:
-      - package: github.com/containers/buildah
-        symbols:
-          - setupCapAdd
-          - setupCapDrop
-        derived_symbols:
-          - Builder.Run
-      - package: github.com/containers/buildah/chroot
-        symbols:
-          - setCapabilities
+    - module: github.com/containers/buildah
+      versions:
+        - fixed: 1.25.0
+      vulnerable_at: 1.24.0
+      packages:
+        - package: github.com/containers/buildah
+          symbols:
+            - setupCapAdd
+            - setupCapDrop
+          derived_symbols:
+            - Builder.Run
+        - package: github.com/containers/buildah/chroot
+          symbols:
+            - setCapabilities
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Containers are created with non-empty inheritable Linux process
@@ -25,9 +25,9 @@ description: |
     in the container's bounding set.
 published: 2022-07-01T20:08:10Z
 cves:
-  - CVE-2022-27651
+    - CVE-2022-27651
 ghsas:
-  - GHSA-c3g4-w6cv-6v7h
+    - GHSA-c3g4-w6cv-6v7h
 references:
-  - fix: https://github.com/containers/buildah/commit/e7e55c988c05dd74005184ceb64f097a0cfe645b
-  - web: https://bugzilla.redhat.com/show_bug.cgi?id=2066840
+    - fix: https://github.com/containers/buildah/commit/e7e55c988c05dd74005184ceb64f097a0cfe645b
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2066840

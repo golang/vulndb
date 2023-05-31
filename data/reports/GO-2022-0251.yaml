@@ -1,26 +1,26 @@
 id: GO-2022-0251
 modules:
-  - module: github.com/cloudflare/cfrpki
-    versions:
-      - fixed: 1.4.0
-    vulnerable_at: 1.3.0
-    packages:
-      - package: github.com/cloudflare/cfrpki/validator/lib
-        symbols:
-          - readObject
-        derived_symbols:
-          - BER2DER
-          - DecodeManifest
-          - DecoderConfig.DecodeManifest
+    - module: github.com/cloudflare/cfrpki
+      versions:
+        - fixed: 1.4.0
+      vulnerable_at: 1.3.0
+      packages:
+        - package: github.com/cloudflare/cfrpki/validator/lib
+          symbols:
+            - readObject
+          derived_symbols:
+            - BER2DER
+            - DecodeManifest
+            - DecoderConfig.DecodeManifest
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Invalid input data can cause a panic.
 published: 2022-07-15T23:07:28Z
 cves:
-  - CVE-2021-3910
+    - CVE-2021-3910
 ghsas:
-  - GHSA-5mxh-2qfv-4g7j
+    - GHSA-5mxh-2qfv-4g7j
 credits:
-  - Koen van Hove
+    - Koen van Hove
 references:
-  - fix: https://github.com/cloudflare/cfrpki/commit/76f0f7a98da001fa04e5bc0407c6702f91096bfa
+    - fix: https://github.com/cloudflare/cfrpki/commit/76f0f7a98da001fa04e5bc0407c6702f91096bfa

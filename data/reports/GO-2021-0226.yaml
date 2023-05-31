@@ -1,24 +1,24 @@
 id: GO-2021-0226
 modules:
-  - module: std
-    versions:
-      - fixed: 1.14.8
-      - introduced: 1.15.0-0
-        fixed: 1.15.1
-    vulnerable_at: 1.15.0
-    packages:
-      - package: net/http/cgi
-        symbols:
-          - response.Write
-          - response.WriteHeader
-          - response.writeCGIHeader
-        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
-      - package: net/http/fcgi
-        symbols:
-          - response.Write
-          - response.WriteHeader
-          - response.writeCGIHeader
-        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+    - module: std
+      versions:
+        - fixed: 1.14.8
+        - introduced: 1.15.0-0
+          fixed: 1.15.1
+      vulnerable_at: 1.15.0
+      packages:
+        - package: net/http/cgi
+          symbols:
+            - response.Write
+            - response.WriteHeader
+            - response.writeCGIHeader
+          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+        - package: net/http/fcgi
+          symbols:
+            - response.Write
+            - response.WriteHeader
+            - response.writeCGIHeader
+          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     When a Handler does not explicitly set the Content-Type header, the the
@@ -35,11 +35,11 @@ description: |
     attacker-controlled file is unsafe and should be avoided.
 published: 2022-01-13T03:44:58Z
 cves:
-  - CVE-2020-24553
+    - CVE-2020-24553
 credits:
-  - RedTeam Pentesting GmbH
+    - RedTeam Pentesting GmbH
 references:
-  - fix: https://go.dev/cl/252179
-  - fix: https://go.googlesource.com/go/+/4f5cd0c0331943c7ec72df3b827d972584f77833
-  - web: https://groups.google.com/g/golang-announce/c/8wqlSbkLdPs
-  - report: https://go.dev/issue/40928
+    - fix: https://go.dev/cl/252179
+    - fix: https://go.googlesource.com/go/+/4f5cd0c0331943c7ec72df3b827d972584f77833
+    - web: https://groups.google.com/g/golang-announce/c/8wqlSbkLdPs
+    - report: https://go.dev/issue/40928

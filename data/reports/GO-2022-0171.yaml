@@ -1,19 +1,19 @@
 id: GO-2022-0171
 modules:
-  - module: std
-    versions:
-      - fixed: 1.6.4
-      - introduced: 1.7.0-0
-        fixed: 1.7.4
-    vulnerable_at: 1.7.3
-    packages:
-      - package: crypto/x509
-        goos:
-          - darwin
-        symbols:
-          - FetchPEMRoots
-          - execSecurityRoots
-        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+    - module: std
+      versions:
+        - fixed: 1.6.4
+        - introduced: 1.7.0-0
+          fixed: 1.7.4
+      vulnerable_at: 1.7.3
+      packages:
+        - package: crypto/x509
+          goos:
+            - darwin
+          symbols:
+            - FetchPEMRoots
+            - execSecurityRoots
+          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     On Darwin, user's trust preferences for root certificates were not honored.
@@ -22,11 +22,11 @@ description: |
     that root certificate.
 published: 2022-05-24T20:17:59Z
 cves:
-  - CVE-2017-1000097
+    - CVE-2017-1000097
 credits:
-  - Xy Ziemba
+    - Xy Ziemba
 references:
-  - fix: https://go.dev/cl/33721
-  - fix: https://go.googlesource.com/go/+/7e5b2e0ec144d5f5b2923a7d5db0b9143f79a35a
-  - report: https://go.dev/issue/18141
-  - web: https://groups.google.com/g/golang-dev/c/4NdLzS8sls8/m/uIz8QlnIBQAJ
+    - fix: https://go.dev/cl/33721
+    - fix: https://go.googlesource.com/go/+/7e5b2e0ec144d5f5b2923a7d5db0b9143f79a35a
+    - report: https://go.dev/issue/18141
+    - web: https://groups.google.com/g/golang-dev/c/4NdLzS8sls8/m/uIz8QlnIBQAJ

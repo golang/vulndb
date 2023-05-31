@@ -1,22 +1,22 @@
 id: GO-2021-0096
 modules:
-  - module: github.com/proglottis/gpgme
-    versions:
-      - fixed: 0.1.1
-    vulnerable_at: 0.1.1-0.20191030043844-e5586b79c357
-    packages:
-      - package: github.com/proglottis/gpgme
+    - module: github.com/proglottis/gpgme
+      versions:
+        - fixed: 0.1.1
+      vulnerable_at: 0.1.1-0.20191030043844-e5586b79c357
+      packages:
+        - package: github.com/proglottis/gpgme
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Due to improper setting of finalizers, memory passed to C may be freed before it is used,
     leading to crashes due to memory corruption or possible code execution.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2020-8945
+    - CVE-2020-8945
 ghsas:
-  - GHSA-m6wg-2mwg-4rfq
+    - GHSA-m6wg-2mwg-4rfq
 credits:
-  - Ulrich Obergfell
+    - Ulrich Obergfell
 references:
-  - fix: https://github.com/proglottis/gpgme/pull/23
-  - fix: https://github.com/proglottis/gpgme/commit/92153bcb59bd2f511e502262c46c7bd660e21733
+    - fix: https://github.com/proglottis/gpgme/pull/23
+    - fix: https://github.com/proglottis/gpgme/commit/92153bcb59bd2f511e502262c46c7bd660e21733

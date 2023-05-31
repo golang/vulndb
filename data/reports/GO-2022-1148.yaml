@@ -1,63 +1,63 @@
 id: GO-2022-1148
 modules:
-  - module: github.com/libp2p/go-libp2p
-    versions:
-      - fixed: 0.18.0
-    vulnerable_at: 0.18.0-rc1
-    packages:
-      - package: github.com/libp2p/go-libp2p
-        symbols:
-          - New
-        derived_symbols:
-          - DefaultStaticRelays
-          - Muxer
-          - NewWithoutDefaults
-          - Security
-          - Transport
-      - package: github.com/libp2p/go-libp2p/config
-        symbols:
-          - MuxerConstructor
-          - makeMuxer
-          - TransportConstructor
-          - makeTransports
-          - makeArgumentConstructors
-          - makeConstructor
-          - SecurityConstructor
-        derived_symbols:
-          - Config.NewNode
-      - package: github.com/libp2p/go-libp2p/p2p/host/autonat
-        symbols:
-          - client.DialBack
-          - autoNATService.handleStream
-        derived_symbols:
-          - New
-      - package: github.com/libp2p/go-libp2p/p2p/host/basic
-        symbols:
-          - BasicHost.newStreamHandler
-        derived_symbols:
-          - NewHost
-      - package: github.com/libp2p/go-libp2p/p2p/protocol/circuitv1/relay
-        symbols:
-          - NewRelay
-      - package: github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/client
-        symbols:
-          - Client.connectV1
-          - Client.connectV2
-          - Client.Dial
-      - package: github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay
-        symbols:
-          - New
-          - Relay.Close
-          - Relay.handleStream
-          - Relay.handleConnect
-      - package: github.com/libp2p/go-libp2p/p2p/protocol/holepunch
-        symbols:
-          - Service.initiateHolePunch
-          - Service.incomingHolePunch
-          - Service.handleNewStream
-        derived_symbols:
-          - Service.DirectConnect
-          - netNotifiee.Connected
+    - module: github.com/libp2p/go-libp2p
+      versions:
+        - fixed: 0.18.0
+      vulnerable_at: 0.18.0-rc1
+      packages:
+        - package: github.com/libp2p/go-libp2p
+          symbols:
+            - New
+          derived_symbols:
+            - DefaultStaticRelays
+            - Muxer
+            - NewWithoutDefaults
+            - Security
+            - Transport
+        - package: github.com/libp2p/go-libp2p/config
+          symbols:
+            - MuxerConstructor
+            - makeMuxer
+            - TransportConstructor
+            - makeTransports
+            - makeArgumentConstructors
+            - makeConstructor
+            - SecurityConstructor
+          derived_symbols:
+            - Config.NewNode
+        - package: github.com/libp2p/go-libp2p/p2p/host/autonat
+          symbols:
+            - client.DialBack
+            - autoNATService.handleStream
+          derived_symbols:
+            - New
+        - package: github.com/libp2p/go-libp2p/p2p/host/basic
+          symbols:
+            - BasicHost.newStreamHandler
+          derived_symbols:
+            - NewHost
+        - package: github.com/libp2p/go-libp2p/p2p/protocol/circuitv1/relay
+          symbols:
+            - NewRelay
+        - package: github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/client
+          symbols:
+            - Client.connectV1
+            - Client.connectV2
+            - Client.Dial
+        - package: github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay
+          symbols:
+            - New
+            - Relay.Close
+            - Relay.handleStream
+            - Relay.handleConnect
+        - package: github.com/libp2p/go-libp2p/p2p/protocol/holepunch
+          symbols:
+            - Service.initiateHolePunch
+            - Service.incomingHolePunch
+            - Service.handleNewStream
+          derived_symbols:
+            - Service.DirectConnect
+            - netNotifiee.Connected
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     go-libp2p is vulnerable to targeted resource exhaustion attacks.
@@ -77,9 +77,9 @@ description: |
     resource usage, Grafana dashboards around resource usage, allow list
     support, and default autoscaling limits.
 cves:
-  - CVE-2022-23492
+    - CVE-2022-23492
 ghsas:
-  - GHSA-j7qp-mfxf-8xjw
+    - GHSA-j7qp-mfxf-8xjw
 references:
-  - advisory: https://github.com/libp2p/go-libp2p/security/advisories/GHSA-j7qp-mfxf-8xjw
-  - fix: https://github.com/libp2p/go-libp2p/commit/15d7dfbf54264ead8e6f49ca658d79c90635e2de
+    - advisory: https://github.com/libp2p/go-libp2p/security/advisories/GHSA-j7qp-mfxf-8xjw
+    - fix: https://github.com/libp2p/go-libp2p/commit/15d7dfbf54264ead8e6f49ca658d79c90635e2de

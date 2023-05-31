@@ -1,23 +1,23 @@
 id: GO-2022-0461
 modules:
-  - module: github.com/pion/dtls/v2
-    versions:
-      - fixed: 2.1.4
-    vulnerable_at: 2.1.3
-    packages:
-      - package: github.com/pion/dtls/v2
-        symbols:
-          - fragmentBuffer.push
-        derived_symbols:
-          - Client
-          - ClientWithContext
-          - Dial
-          - DialWithContext
-          - Resume
-          - Server
-          - ServerWithContext
-          - handshakeFSM.Run
-          - listener.Accept
+    - module: github.com/pion/dtls/v2
+      versions:
+        - fixed: 2.1.4
+      vulnerable_at: 2.1.3
+      packages:
+        - package: github.com/pion/dtls/v2
+          symbols:
+            - fragmentBuffer.push
+          derived_symbols:
+            - Client
+            - ClientWithContext
+            - Dial
+            - DialWithContext
+            - Resume
+            - Server
+            - ServerWithContext
+            - handshakeFSM.Run
+            - listener.Accept
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Attacker can cause unbounded memory consumption.
@@ -27,8 +27,8 @@ description: |
     consumption by sending an unterminated handshake.
 published: 2022-07-01T20:07:25Z
 cves:
-  - CVE-2022-29189
+    - CVE-2022-29189
 ghsas:
-  - GHSA-cx94-mrg9-rq4j
+    - GHSA-cx94-mrg9-rq4j
 references:
-  - fix: https://github.com/pion/dtls/commit/a6397ff7282bc56dc37a68ea9211702edb4de1de
+    - fix: https://github.com/pion/dtls/commit/a6397ff7282bc56dc37a68ea9211702edb4de1de

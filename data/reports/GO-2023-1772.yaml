@@ -1,22 +1,22 @@
 id: GO-2023-1772
 modules:
-  - module: github.com/distribution/distribution
-    versions:
-      - fixed: 2.8.2-beta.1+incompatible
-    vulnerable_at: 2.8.1+incompatible
-    packages:
-      - package: github.com/distribution/distribution/registry/handlers
-        symbols:
-          - catalogHandler.GetCatalog
+    - module: github.com/distribution/distribution
+      versions:
+        - fixed: 2.8.2-beta.1+incompatible
+      vulnerable_at: 2.8.1+incompatible
+      packages:
+        - package: github.com/distribution/distribution/registry/handlers
+          symbols:
+            - catalogHandler.GetCatalog
 summary: distribution catalog API endpoint can lead to OOM via malicious user input
 description: |
     Systems that run distribution built after a specific commit running on
     memory-restricted environments can suffer from denial of service by a
     crafted malicious /v2/_catalog API endpoint request.
 cves:
-  - CVE-2023-2253
+    - CVE-2023-2253
 ghsas:
-  - GHSA-hqxw-f8mx-cpmw
+    - GHSA-hqxw-f8mx-cpmw
 references:
-  - fix: https://github.com/distribution/distribution/commit/f55a6552b006a381d9167e328808565dd2bf77dc
-  - advisory: https://github.com/advisories/GHSA-hqxw-f8mx-cpmw
+    - fix: https://github.com/distribution/distribution/commit/f55a6552b006a381d9167e328808565dd2bf77dc
+    - advisory: https://github.com/advisories/GHSA-hqxw-f8mx-cpmw

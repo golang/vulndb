@@ -1,28 +1,28 @@
 id: GO-2022-0537
 modules:
-  - module: std
-    versions:
-      - fixed: 1.17.13
-      - introduced: 1.18.0-0
-        fixed: 1.18.5
-    vulnerable_at: 1.18.4
-    packages:
-      - package: math/big
-        symbols:
-          - Float.GobDecode
-          - Rat.GobDecode
+    - module: std
+      versions:
+        - fixed: 1.17.13
+        - introduced: 1.18.0-0
+          fixed: 1.18.5
+      vulnerable_at: 1.18.4
+      packages:
+        - package: math/big
+          symbols:
+            - Float.GobDecode
+            - Rat.GobDecode
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Decoding big.Float and big.Rat types can panic if the encoded message is
     too short, potentially allowing a denial of service.
 published: 2022-08-01T22:21:06Z
 credits:
-  - '@catenacyber'
+    - '@catenacyber'
 references:
-  - fix: https://go.dev/cl/417774
-  - fix: https://go.googlesource.com/go/+/055113ef364337607e3e72ed7d48df67fde6fc66
-  - report: https://go.dev/issue/53871
-  - web: https://groups.google.com/g/golang-announce/c/YqYYG87xB10
+    - fix: https://go.dev/cl/417774
+    - fix: https://go.googlesource.com/go/+/055113ef364337607e3e72ed7d48df67fde6fc66
+    - report: https://go.dev/issue/53871
+    - web: https://groups.google.com/g/golang-announce/c/YqYYG87xB10
 cve_metadata:
     id: CVE-2022-32189
     cwe: 'CWE 400: Uncontrolled Resource Consumption'

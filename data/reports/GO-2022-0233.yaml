@@ -1,13 +1,13 @@
 id: GO-2022-0233
 modules:
-  - module: github.com/pires/go-proxyproto
-    versions:
-      - fixed: 0.6.1
-    vulnerable_at: 0.5.0
-    packages:
-      - package: github.com/pires/go-proxyproto
-        symbols:
-          - Listener.Accept
+    - module: github.com/pires/go-proxyproto
+      versions:
+        - fixed: 0.6.1
+      vulnerable_at: 0.5.0
+      packages:
+        - package: github.com/pires/go-proxyproto
+          symbols:
+            - Listener.Accept
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The PROXY protocol server does not impose a timeout on reading the header
@@ -20,10 +20,10 @@ description: |
     increases the default timeout to 10s.
 published: 2022-07-01T20:18:04Z
 cves:
-  - CVE-2021-23409
+    - CVE-2021-23409
 ghsas:
-  - GHSA-xcf7-q56x-78gh
+    - GHSA-xcf7-q56x-78gh
 references:
-  - fix: https://github.com/pires/go-proxyproto/pull/74
-  - fix: https://github.com/pires/go-proxyproto/pull/74/commits/cdc63867da24fc609b727231f682670d0d1cd346
-  - web: https://github.com/pires/go-proxyproto/issues/65
+    - fix: https://github.com/pires/go-proxyproto/pull/74
+    - fix: https://github.com/pires/go-proxyproto/pull/74/commits/cdc63867da24fc609b727231f682670d0d1cd346
+    - web: https://github.com/pires/go-proxyproto/issues/65

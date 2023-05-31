@@ -1,17 +1,17 @@
 id: GO-2022-0532
 modules:
-  - module: std
-    versions:
-      - fixed: 1.17.11
-      - introduced: 1.18.0-0
-        fixed: 1.18.3
-    vulnerable_at: 1.18.2
-    packages:
-      - package: os/exec
-        goos:
-          - windows
-        symbols:
-          - Cmd.Start
+    - module: std
+      versions:
+        - fixed: 1.17.11
+        - introduced: 1.18.0-0
+          fixed: 1.18.3
+      vulnerable_at: 1.18.2
+      packages:
+        - package: os/exec
+          goos:
+            - windows
+          symbols:
+            - Cmd.Start
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     On Windows, executing Cmd.Run, Cmd.Start, Cmd.Output, or Cmd.CombinedOutput
@@ -19,14 +19,14 @@ description: |
     binaries in the working directory named either "..com" or "..exe".
 published: 2022-07-26T21:41:20Z
 credits:
-  - Chris Darroch (chrisd8088@github.com)
-  - brian m. carlson (bk2204@github.com)
-  - Mikhail Shcherbakov (https://twitter.com/yu5k3)
+    - Chris Darroch (chrisd8088@github.com)
+    - brian m. carlson (bk2204@github.com)
+    - Mikhail Shcherbakov (https://twitter.com/yu5k3)
 references:
-  - fix: https://go.dev/cl/403759
-  - fix: https://go.googlesource.com/go/+/960ffa98ce73ef2c2060c84c7ac28d37a83f345e
-  - report: https://go.dev/issue/52574
-  - web: https://groups.google.com/g/golang-announce/c/TzIC9-t8Ytg/m/IWz5T6x7AAAJ
+    - fix: https://go.dev/cl/403759
+    - fix: https://go.googlesource.com/go/+/960ffa98ce73ef2c2060c84c7ac28d37a83f345e
+    - report: https://go.dev/issue/52574
+    - web: https://groups.google.com/g/golang-announce/c/TzIC9-t8Ytg/m/IWz5T6x7AAAJ
 cve_metadata:
     id: CVE-2022-30580
     cwe: 'CWE-94: Improper Control of Generation of Code (''Code Injection'')'

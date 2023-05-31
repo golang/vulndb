@@ -1,13 +1,13 @@
 id: GO-2022-0379
 modules:
-  - module: github.com/docker/distribution
-    versions:
-      - fixed: 2.8.0+incompatible
-    vulnerable_at: 2.7.1+incompatible
-    packages:
-      - package: github.com/docker/distribution
-        symbols:
-          - UnmarshalManifest
+    - module: github.com/docker/distribution
+      versions:
+        - fixed: 2.8.0+incompatible
+      vulnerable_at: 2.7.1+incompatible
+      packages:
+        - package: github.com/docker/distribution
+          symbols:
+            - UnmarshalManifest
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Systems that rely on digest equivalence for image attestations may be
@@ -22,6 +22,6 @@ description: |
     in manifest unmarshaling.
 published: 2022-07-29T20:00:03Z
 ghsas:
-  - GHSA-qq97-vm5h-rrhg
+    - GHSA-qq97-vm5h-rrhg
 references:
-  - fix: https://github.com/distribution/distribution/commit/b59a6f827947f9e0e67df0cfb571046de4733586
+    - fix: https://github.com/distribution/distribution/commit/b59a6f827947f9e0e67df0cfb571046de4733586

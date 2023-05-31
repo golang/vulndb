@@ -1,18 +1,18 @@
 id: GO-2020-0005
 modules:
-  - module: go.etcd.io/etcd
-    versions:
-      - fixed: 0.5.0-alpha.5.0.20200423152442-f4b650b51dc4
-    vulnerable_at: 0.5.0-alpha.5.0.20200422225029-2369cb367873
-    packages:
-      - package: go.etcd.io/etcd/wal
-        symbols:
-          - WAL.ReadAll
-          - decoder.decodeRecord
-        derived_symbols:
-          - Create
-          - Repair
-          - Verify
+    - module: go.etcd.io/etcd
+      versions:
+        - fixed: 0.5.0-alpha.5.0.20200423152442-f4b650b51dc4
+      vulnerable_at: 0.5.0-alpha.5.0.20200422225029-2369cb367873
+      packages:
+        - package: go.etcd.io/etcd/wal
+          symbols:
+            - WAL.ReadAll
+            - decoder.decodeRecord
+          derived_symbols:
+            - Create
+            - Repair
+            - Verify
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Malformed WALs can be constructed such that WAL.ReadAll can cause attempted
@@ -20,14 +20,14 @@ description: |
     a DoS vector.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2020-15106
-  - CVE-2020-15112
+    - CVE-2020-15106
+    - CVE-2020-15112
 ghsas:
-  - GHSA-m332-53r6-2w93
-  - GHSA-p4g4-wgrh-qrg2
+    - GHSA-m332-53r6-2w93
+    - GHSA-p4g4-wgrh-qrg2
 credits:
-  - Trail of Bits
+    - Trail of Bits
 references:
-  - fix: https://github.com/etcd-io/etcd/pull/11793
-  - fix: https://github.com/etcd-io/etcd/commit/f4b650b51dc4a53a8700700dc12e1242ac56ba07
-  - web: https://github.com/etcd-io/etcd/blob/master/security/SECURITY_AUDIT.pdf
+    - fix: https://github.com/etcd-io/etcd/pull/11793
+    - fix: https://github.com/etcd-io/etcd/commit/f4b650b51dc4a53a8700700dc12e1242ac56ba07
+    - web: https://github.com/etcd-io/etcd/blob/master/security/SECURITY_AUDIT.pdf

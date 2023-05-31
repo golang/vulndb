@@ -1,19 +1,19 @@
 id: GO-2022-0229
 modules:
-  - module: std
-    versions:
-      - fixed: 1.12.16
-      - introduced: 1.13.0-0
-        fixed: 1.13.7
-    vulnerable_at: 1.13.6
-    packages:
-      - package: crypto/x509
-  - module: golang.org/x/crypto
-    versions:
-      - fixed: 0.0.0-20200124225646-8b5121be2f68
-    vulnerable_at: 0.0.0-20200115085410-6d4e4cb37c7d
-    packages:
-      - package: golang.org/x/crypto/cryptobyte
+    - module: std
+      versions:
+        - fixed: 1.12.16
+        - introduced: 1.13.0-0
+          fixed: 1.13.7
+      vulnerable_at: 1.13.6
+      packages:
+        - package: crypto/x509
+    - module: golang.org/x/crypto
+      versions:
+        - fixed: 0.0.0-20200124225646-8b5121be2f68
+      vulnerable_at: 0.0.0-20200115085410-6d4e4cb37c7d
+      packages:
+        - package: golang.org/x/crypto/cryptobyte
 summary: Panic in crypto/x509 and golang.org/x/crypto/cryptobyte
 description: |
     On 32-bit architectures, a malformed input to crypto/x509 or
@@ -27,14 +27,14 @@ description: |
     will recover the panic and are unaffected.
 published: 2022-07-06T18:23:48Z
 cves:
-  - CVE-2020-7919
+    - CVE-2020-7919
 ghsas:
-  - GHSA-cjjc-xp8v-855w
+    - GHSA-cjjc-xp8v-855w
 credits:
-  - Project Wycheproof
+    - Project Wycheproof
 references:
-  - fix: https://go.dev/cl/216680
-  - fix: https://go.googlesource.com/go/+/b13ce14c4a6aa59b7b041ad2b6eed2d23e15b574
-  - fix: https://go.dev/cl/216677
-  - report: https://go.dev/issue/36837
-  - web: https://groups.google.com/g/golang-announce/c/Hsw4mHYc470
+    - fix: https://go.dev/cl/216680
+    - fix: https://go.googlesource.com/go/+/b13ce14c4a6aa59b7b041ad2b6eed2d23e15b574
+    - fix: https://go.dev/cl/216677
+    - report: https://go.dev/issue/36837
+    - web: https://groups.google.com/g/golang-announce/c/Hsw4mHYc470

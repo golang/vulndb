@@ -1,32 +1,32 @@
 id: GO-2021-0058
 modules:
-  - module: github.com/crewjam/saml
-    versions:
-      - fixed: 0.4.3
-    vulnerable_at: 0.4.2
-    packages:
-      - package: github.com/crewjam/saml
-        symbols:
-          - IdpAuthnRequest.Validate
-          - ServiceProvider.ParseXMLResponse
-          - ServiceProvider.ValidateLogoutResponseForm
-          - ServiceProvider.ValidateLogoutResponseRedirect
-        derived_symbols:
-          - IdentityProvider.ServeSSO
-          - ServiceProvider.ParseResponse
-          - ServiceProvider.ValidateLogoutResponseRequest
-      - package: github.com/crewjam/saml/samlidp
-        symbols:
-          - getSPMetadata
-        derived_symbols:
-          - Server.HandlePutService
-      - package: github.com/crewjam/saml/samlsp
-        symbols:
-          - ParseMetadata
-        derived_symbols:
-          - FetchMetadata
-          - Middleware.ServeHTTP
-          - New
+    - module: github.com/crewjam/saml
+      versions:
+        - fixed: 0.4.3
+      vulnerable_at: 0.4.2
+      packages:
+        - package: github.com/crewjam/saml
+          symbols:
+            - IdpAuthnRequest.Validate
+            - ServiceProvider.ParseXMLResponse
+            - ServiceProvider.ValidateLogoutResponseForm
+            - ServiceProvider.ValidateLogoutResponseRedirect
+          derived_symbols:
+            - IdentityProvider.ServeSSO
+            - ServiceProvider.ParseResponse
+            - ServiceProvider.ValidateLogoutResponseRequest
+        - package: github.com/crewjam/saml/samlidp
+          symbols:
+            - getSPMetadata
+          derived_symbols:
+            - Server.HandlePutService
+        - package: github.com/crewjam/saml/samlsp
+          symbols:
+            - ParseMetadata
+          derived_symbols:
+            - FetchMetadata
+            - Middleware.ServeHTTP
+            - New
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Due to the behavior of encoding/xml, a crafted XML document may cause
@@ -34,8 +34,8 @@ description: |
     unsigned document to appear signed.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2020-27846
+    - CVE-2020-27846
 ghsas:
-  - GHSA-4hq8-gmxx-h6w9
+    - GHSA-4hq8-gmxx-h6w9
 references:
-  - fix: https://github.com/crewjam/saml/commit/da4f1a0612c0a8dd0452cf8b3c7a6518f6b4d053
+    - fix: https://github.com/crewjam/saml/commit/da4f1a0612c0a8dd0452cf8b3c7a6518f6b4d053

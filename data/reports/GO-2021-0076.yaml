@@ -1,18 +1,18 @@
 id: GO-2021-0076
 modules:
-  - module: github.com/evanphx/json-patch
-    versions:
-      - fixed: 0.5.2
-      - introduced: 3.0.0+incompatible
-        fixed: 3.0.1-0.20180525145409-4c9aadca8f89+incompatible
-    vulnerable_at: 3.0.1-0.20180510154552-9f095e073247+incompatible
-    packages:
-      - package: github.com/evanphx/json-patch
-        symbols:
-          - partialArray.add
-        derived_symbols:
-          - Patch.Apply
-          - Patch.ApplyIndent
+    - module: github.com/evanphx/json-patch
+      versions:
+        - fixed: 0.5.2
+        - introduced: 3.0.0+incompatible
+          fixed: 3.0.1-0.20180525145409-4c9aadca8f89+incompatible
+      vulnerable_at: 3.0.1-0.20180510154552-9f095e073247+incompatible
+      packages:
+        - package: github.com/evanphx/json-patch
+          symbols:
+            - partialArray.add
+          derived_symbols:
+            - Patch.Apply
+            - Patch.ApplyIndent
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     A malicious JSON patch can cause a panic due to an out-of-bounds
@@ -20,9 +20,9 @@ description: |
     exposed to arbitrary user input.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2018-14632
+    - CVE-2018-14632
 ghsas:
-  - GHSA-gxhv-3hwf-wjp9
+    - GHSA-gxhv-3hwf-wjp9
 references:
-  - fix: https://github.com/evanphx/json-patch/pull/57
-  - fix: https://github.com/evanphx/json-patch/commit/4c9aadca8f89e349c999f04e28199e96e81aba03
+    - fix: https://github.com/evanphx/json-patch/pull/57
+    - fix: https://github.com/evanphx/json-patch/commit/4c9aadca8f89e349c999f04e28199e96e81aba03

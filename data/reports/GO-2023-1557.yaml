@@ -1,27 +1,27 @@
 id: GO-2023-1557
 modules:
-  - module: github.com/ipfs/go-unixfs
-    versions:
-      - fixed: 0.4.3
-    vulnerable_at: 0.4.2
-    packages:
-      - package: github.com/ipfs/go-unixfs/hamt
-        symbols:
-          - makeShard
-          - newChilder
-        derived_symbols:
-          - NewHamtFromDag
-          - NewShard
-          - NewShardValue
-          - Shard.EnumLinks
-          - Shard.EnumLinksAsync
-          - Shard.Find
-          - Shard.ForEachLink
-          - Shard.Remove
-          - Shard.Set
-          - Shard.SetLink
-          - Shard.Swap
-          - Shard.Take
+    - module: github.com/ipfs/go-unixfs
+      versions:
+        - fixed: 0.4.3
+      vulnerable_at: 0.4.2
+      packages:
+        - package: github.com/ipfs/go-unixfs/hamt
+          symbols:
+            - makeShard
+            - newChilder
+          derived_symbols:
+            - NewHamtFromDag
+            - NewShard
+            - NewShardValue
+            - Shard.EnumLinks
+            - Shard.EnumLinksAsync
+            - Shard.Find
+            - Shard.ForEachLink
+            - Shard.Remove
+            - Shard.Set
+            - Shard.SetLink
+            - Shard.Swap
+            - Shard.Take
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Trying to read malformed HAMT sharded directories can cause panics and virtual memory leaks.
@@ -30,11 +30,11 @@ description: |
     This is caused by bogus `fanout` parameter in the HAMT directory nodes.
     A workaround is to not feed untrusted user data to the decoding functions.
 cves:
-  - CVE-2023-23625
+    - CVE-2023-23625
 ghsas:
-  - GHSA-q264-w97q-q778
+    - GHSA-q264-w97q-q778
 credits:
-  - Jorropo
+    - Jorropo
 references:
-  - advisory: https://github.com/advisories/GHSA-q264-w97q-q778
-  - fix: https://github.com/ipfs/go-unixfs/commit/467d139a640ecee4f2e74643dafcc58bb3b54175
+    - advisory: https://github.com/advisories/GHSA-q264-w97q-q778
+    - fix: https://github.com/ipfs/go-unixfs/commit/467d139a640ecee4f2e74643dafcc58bb3b54175

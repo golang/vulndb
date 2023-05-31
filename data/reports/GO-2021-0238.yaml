@@ -1,32 +1,32 @@
 id: GO-2021-0238
 modules:
-  - module: golang.org/x/net
-    versions:
-      - fixed: 0.0.0-20210520170846-37e1c6afe023
-    vulnerable_at: 0.0.0-20210510120150-4163338589ed
-    packages:
-      - package: golang.org/x/net/html
-        symbols:
-          - inHeadIM
-        derived_symbols:
-          - Parse
-          - ParseFragment
-          - ParseFragmentWithOptions
-          - ParseWithOptions
+    - module: golang.org/x/net
+      versions:
+        - fixed: 0.0.0-20210520170846-37e1c6afe023
+      vulnerable_at: 0.0.0-20210510120150-4163338589ed
+      packages:
+        - package: golang.org/x/net/html
+          symbols:
+            - inHeadIM
+          derived_symbols:
+            - Parse
+            - ParseFragment
+            - ParseFragmentWithOptions
+            - ParseWithOptions
 summary: Infinite loop in golang.org/x/net/html
 description: |
     An attacker can craft an input to ParseFragment that causes it
     to enter an infinite loop and never return.
 published: 2022-02-17T17:33:43Z
 cves:
-  - CVE-2021-33194
+    - CVE-2021-33194
 ghsas:
-  - GHSA-83g2-8m93-v3w7
+    - GHSA-83g2-8m93-v3w7
 credits:
-  - OSS-Fuzz (discovery)
-  - Andrew Thornton (reporter)
+    - OSS-Fuzz (discovery)
+    - Andrew Thornton (reporter)
 references:
-  - fix: https://go.dev/cl/311090
-  - fix: https://go.googlesource.com/net/+/37e1c6afe02340126705deced573a85ab75209d7
-  - report: https://go.dev/issue/46288
-  - web: https://groups.google.com/g/golang-announce/c/wPunbCPkWUg
+    - fix: https://go.dev/cl/311090
+    - fix: https://go.googlesource.com/net/+/37e1c6afe02340126705deced573a85ab75209d7
+    - report: https://go.dev/issue/46288
+    - web: https://groups.google.com/g/golang-announce/c/wPunbCPkWUg

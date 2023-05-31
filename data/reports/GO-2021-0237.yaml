@@ -1,17 +1,17 @@
 id: GO-2021-0237
 modules:
-  - module: github.com/AndrewBurian/powermux
-    versions:
-      - fixed: 1.1.1
-    vulnerable_at: 1.1.0
-    packages:
-      - package: github.com/AndrewBurian/powermux
-        symbols:
-          - Route.execute
-        derived_symbols:
-          - ServeMux.Handler
-          - ServeMux.HandlerAndMiddleware
-          - ServeMux.ServeHTTP
+    - module: github.com/AndrewBurian/powermux
+      versions:
+        - fixed: 1.1.1
+      vulnerable_at: 1.1.0
+      packages:
+        - package: github.com/AndrewBurian/powermux
+          symbols:
+            - Route.execute
+          derived_symbols:
+            - ServeMux.Handler
+            - ServeMux.HandlerAndMiddleware
+            - ServeMux.ServeHTTP
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Attackers may be able to craft phishing links and other open
@@ -20,9 +20,9 @@ description: |
     sites after following an attacker crafted link.
 published: 2022-01-11T17:18:11Z
 cves:
-  - CVE-2021-32721
+    - CVE-2021-32721
 ghsas:
-  - GHSA-mj9r-wwm8-7q52
+    - GHSA-mj9r-wwm8-7q52
 references:
-  - fix: https://github.com/AndrewBurian/powermux/pull/42
-  - fix: https://github.com/AndrewBurian/powermux/commit/5e60a8a0372b35a898796c2697c40e8daabed8e9
+    - fix: https://github.com/AndrewBurian/powermux/pull/42
+    - fix: https://github.com/AndrewBurian/powermux/commit/5e60a8a0372b35a898796c2697c40e8daabed8e9

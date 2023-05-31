@@ -1,23 +1,23 @@
 id: GO-2022-0462
 modules:
-  - module: github.com/pion/dtls/v2
-    versions:
-      - fixed: 2.1.5
-    vulnerable_at: 2.1.4
-    packages:
-      - package: github.com/pion/dtls/v2
-        symbols:
-          - flight4Parse
-        derived_symbols:
-          - Client
-          - ClientWithContext
-          - Dial
-          - DialWithContext
-          - Resume
-          - Server
-          - ServerWithContext
-          - handshakeFSM.Run
-          - listener.Accept
+    - module: github.com/pion/dtls/v2
+      versions:
+        - fixed: 2.1.5
+      vulnerable_at: 2.1.4
+      packages:
+        - package: github.com/pion/dtls/v2
+          symbols:
+            - flight4Parse
+          derived_symbols:
+            - Client
+            - ClientWithContext
+            - Dial
+            - DialWithContext
+            - Resume
+            - Server
+            - ServerWithContext
+            - handshakeFSM.Run
+            - listener.Accept
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Client-provided certificates are not correctly validated,
@@ -29,8 +29,8 @@ description: |
     an attacker to present any certificate and have it accepted as valid.
 published: 2022-07-01T20:07:12Z
 cves:
-  - CVE-2022-29222
+    - CVE-2022-29222
 ghsas:
-  - GHSA-w45j-f832-hxvh
+    - GHSA-w45j-f832-hxvh
 references:
-  - fix: https://github.com/pion/dtls/commit/d2f797183a9f044ce976e6df6f362662ca722412
+    - fix: https://github.com/pion/dtls/commit/d2f797183a9f044ce976e6df6f362662ca722412

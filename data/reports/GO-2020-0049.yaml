@@ -1,16 +1,16 @@
 id: GO-2020-0049
 modules:
-  - module: github.com/justinas/nosurf
-    versions:
-      - fixed: 1.1.1
-    vulnerable_at: 1.1.0
-    packages:
-      - package: github.com/justinas/nosurf
-        symbols:
-          - VerifyToken
-          - verifyToken
-        derived_symbols:
-          - CSRFHandler.ServeHTTP
+    - module: github.com/justinas/nosurf
+      versions:
+        - fixed: 1.1.1
+      vulnerable_at: 1.1.0
+      packages:
+        - package: github.com/justinas/nosurf
+          symbols:
+            - VerifyToken
+            - verifyToken
+          derived_symbols:
+            - CSRFHandler.ServeHTTP
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Due to improper validation of caller input, validation is silently disabled
@@ -18,12 +18,12 @@ description: |
     to be considered valid.
 published: 2021-04-14T20:04:52Z
 ghsas:
-  - GHSA-5x84-q523-vvwr
+    - GHSA-5x84-q523-vvwr
 credits:
-  - '@aeneasr'
+    - '@aeneasr'
 references:
-  - fix: https://github.com/justinas/nosurf/pull/60
-  - fix: https://github.com/justinas/nosurf/commit/4d86df7a4affa1fa50ab39fb09aac56c3ce9c314
+    - fix: https://github.com/justinas/nosurf/pull/60
+    - fix: https://github.com/justinas/nosurf/commit/4d86df7a4affa1fa50ab39fb09aac56c3ce9c314
 cve_metadata:
     id: CVE-2020-36564
     cwe: 'CWE 345: Insufficient Verification of Data Authenticity'

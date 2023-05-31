@@ -1,31 +1,31 @@
 id: GO-2022-0460
 modules:
-  - module: github.com/pion/dtls/v2
-    versions:
-      - fixed: 2.1.4
-    vulnerable_at: 2.1.3
-    packages:
-      - package: github.com/pion/dtls/v2
-        symbols:
-          - fragmentBuffer.pop
-        derived_symbols:
-          - Client
-          - ClientWithContext
-          - Dial
-          - DialWithContext
-          - Resume
-          - Server
-          - ServerWithContext
-          - handshakeFSM.Run
-          - listener.Accept
+    - module: github.com/pion/dtls/v2
+      versions:
+        - fixed: 2.1.4
+      vulnerable_at: 2.1.3
+      packages:
+        - package: github.com/pion/dtls/v2
+          symbols:
+            - fragmentBuffer.pop
+          derived_symbols:
+            - Client
+            - ClientWithContext
+            - Dial
+            - DialWithContext
+            - Resume
+            - Server
+            - ServerWithContext
+            - handshakeFSM.Run
+            - listener.Accept
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     An attacker can send packets that send the DTLS server or client
     into an infinite loop.
 published: 2022-07-01T20:07:34Z
 cves:
-  - CVE-2022-29190
+    - CVE-2022-29190
 ghsas:
-  - GHSA-cm8f-h6j3-p25c
+    - GHSA-cm8f-h6j3-p25c
 references:
-  - fix: https://github.com/pion/dtls/commit/e0b2ce3592e8e7d73713ac67b363a2e192a4cecf
+    - fix: https://github.com/pion/dtls/commit/e0b2ce3592e8e7d73713ac67b363a2e192a4cecf

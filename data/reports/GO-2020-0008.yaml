@@ -1,19 +1,19 @@
 id: GO-2020-0008
 modules:
-  - module: github.com/miekg/dns
-    versions:
-      - fixed: 1.1.25-0.20191211073109-8ebf2e419df7
-    vulnerable_at: 1.1.24
-    packages:
-      - package: github.com/miekg/dns
-        symbols:
-          - id
-        derived_symbols:
-          - Msg.SetAxfr
-          - Msg.SetIxfr
-          - Msg.SetNotify
-          - Msg.SetQuestion
-          - Msg.SetUpdate
+    - module: github.com/miekg/dns
+      versions:
+        - fixed: 1.1.25-0.20191211073109-8ebf2e419df7
+      vulnerable_at: 1.1.24
+      packages:
+        - package: github.com/miekg/dns
+          symbols:
+            - id
+          derived_symbols:
+            - Msg.SetAxfr
+            - Msg.SetIxfr
+            - Msg.SetNotify
+            - Msg.SetQuestion
+            - Msg.SetUpdate
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     DNS message transaction IDs are generated using math/rand which
@@ -21,11 +21,11 @@ description: |
     of response spoofing attacks against DNS clients.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2019-19794
+    - CVE-2019-19794
 ghsas:
-  - GHSA-44r7-7p62-q3fr
+    - GHSA-44r7-7p62-q3fr
 references:
-  - fix: https://github.com/miekg/dns/pull/1044
-  - fix: https://github.com/miekg/dns/commit/8ebf2e419df7857ac8919baa05248789a8ffbf33
-  - web: https://github.com/miekg/dns/issues/1037
-  - web: https://github.com/miekg/dns/issues/1043
+    - fix: https://github.com/miekg/dns/pull/1044
+    - fix: https://github.com/miekg/dns/commit/8ebf2e419df7857ac8919baa05248789a8ffbf33
+    - web: https://github.com/miekg/dns/issues/1037
+    - web: https://github.com/miekg/dns/issues/1043

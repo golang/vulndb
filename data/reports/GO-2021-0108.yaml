@@ -1,13 +1,13 @@
 id: GO-2021-0108
 modules:
-  - module: github.com/gofiber/fiber
-    versions:
-      - fixed: 1.12.6
-    vulnerable_at: 1.12.5
-    packages:
-      - package: github.com/gofiber/fiber
-        symbols:
-          - Ctx.Attachment
+    - module: github.com/gofiber/fiber
+      versions:
+        - fixed: 1.12.6
+      vulnerable_at: 1.12.5
+      packages:
+        - package: github.com/gofiber/fiber
+          symbols:
+            - Ctx.Attachment
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Due to improper input sanitization, a maliciously constructed filename
@@ -15,12 +15,12 @@ description: |
     as injecting additional headers into an HTTP response.
 published: 2021-07-28T18:08:05Z
 cves:
-  - CVE-2020-15111
+    - CVE-2020-15111
 ghsas:
-  - GHSA-9cx9-x2gp-9qvh
+    - GHSA-9cx9-x2gp-9qvh
 credits:
-  - Hasibul Hasan
-  - Abdullah Shaleh
+    - Hasibul Hasan
+    - Abdullah Shaleh
 references:
-  - fix: https://github.com/gofiber/fiber/pull/579
-  - fix: https://github.com/gofiber/fiber/commit/f698b5d5066cfe594102ae252cd58a1fe57cf56f
+    - fix: https://github.com/gofiber/fiber/pull/579
+    - fix: https://github.com/gofiber/fiber/commit/f698b5d5066cfe594102ae252cd58a1fe57cf56f

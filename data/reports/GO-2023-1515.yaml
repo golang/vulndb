@@ -1,27 +1,27 @@
 id: GO-2023-1515
 modules:
-  - module: github.com/rancher/wrangler
-    versions:
-      - fixed: 0.7.4-security1
-      - introduced: 0.8.0
-        fixed: 0.8.5-security1
-      - introduced: 0.8.6
-        fixed: 0.8.11
-      - introduced: 1.0.0
-        fixed: 1.0.1
-    vulnerable_at: 1.0.0
-    packages:
-      - package: github.com/rancher/wrangler/pkg/git
-        symbols:
-          - Git.Clone
-          - Git.fetchAndReset
-          - Git.reset
-          - Git.gitCmd
-        derived_symbols:
-          - Git.Ensure
-          - Git.Head
-          - Git.LsRemote
-          - Git.Update
+    - module: github.com/rancher/wrangler
+      versions:
+        - fixed: 0.7.4-security1
+        - introduced: 0.8.0
+          fixed: 0.8.5-security1
+        - introduced: 0.8.6
+          fixed: 0.8.11
+        - introduced: 1.0.0
+          fixed: 1.0.1
+      vulnerable_at: 1.0.0
+      packages:
+        - package: github.com/rancher/wrangler/pkg/git
+          symbols:
+            - Git.Clone
+            - Git.fetchAndReset
+            - Git.reset
+            - Git.gitCmd
+          derived_symbols:
+            - Git.Ensure
+            - Git.Head
+            - Git.LsRemote
+            - Git.Update
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     A denial of service (DoS) vulnerability exists in the Wrangler Git package.
@@ -37,10 +37,10 @@ description: |
     unsafe and ambiguous characters. Otherwise, the best course of action is to update
     to a patched Wrangler version.
 cves:
-  - CVE-2022-43756
+    - CVE-2022-43756
 ghsas:
-  - GHSA-8fcj-gf77-47mg
+    - GHSA-8fcj-gf77-47mg
 references:
-  - fix: https://github.com/rancher/wrangler/commit/341018c8fef3e12867c7cb2649bd2cecac75f287
-  - advisory: https://github.com/advisories/GHSA-8fcj-gf77-47mg
-  - web: https://github.com/rancher/rancher/security/policy
+    - fix: https://github.com/rancher/wrangler/commit/341018c8fef3e12867c7cb2649bd2cecac75f287
+    - advisory: https://github.com/advisories/GHSA-8fcj-gf77-47mg
+    - web: https://github.com/rancher/rancher/security/policy

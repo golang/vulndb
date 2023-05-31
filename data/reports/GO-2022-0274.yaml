@@ -1,29 +1,29 @@
 id: GO-2022-0274
 modules:
-  - module: github.com/opencontainers/runc
-    versions:
-      - introduced: 1.0.1-0.20211012131345-9c444070ec7b
-        fixed: 1.1.0
-    vulnerable_at: 1.0.1-0.20211012131345-9c444070ec7b
-    packages:
-      - package: github.com/opencontainers/runc/libcontainer
-        symbols:
-          - Bytemsg.Serialize
-        derived_symbols:
-          - LinuxFactory.StartInitialization
-          - linuxContainer.Run
-          - linuxContainer.Start
-          - linuxStandardInit.Init
+    - module: github.com/opencontainers/runc
+      versions:
+        - introduced: 1.0.1-0.20211012131345-9c444070ec7b
+          fixed: 1.1.0
+      vulnerable_at: 1.0.1-0.20211012131345-9c444070ec7b
+      packages:
+        - package: github.com/opencontainers/runc/libcontainer
+          symbols:
+            - Bytemsg.Serialize
+          derived_symbols:
+            - LinuxFactory.StartInitialization
+            - linuxContainer.Run
+            - linuxContainer.Start
+            - linuxStandardInit.Init
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     An attacker with partial control over the bind mount sources of a new
     container can bypass namespace restrictions.
 published: 2022-07-15T23:08:20Z
 cves:
-  - CVE-2021-43784
+    - CVE-2021-43784
 ghsas:
-  - GHSA-v95c-p5hm-xq8f
+    - GHSA-v95c-p5hm-xq8f
 references:
-  - fix: https://github.com/opencontainers/runc/commit/f50369af4b571e358f20b139eea52d612eb55eed
-  - web: https://github.com/opencontainers/runc/commit/dde509df4e28cec33b3c99c6cda3d4fd5beafc77
-  - web: https://bugs.chromium.org/p/project-zero/issues/detail?id=2241
+    - fix: https://github.com/opencontainers/runc/commit/f50369af4b571e358f20b139eea52d612eb55eed
+    - web: https://github.com/opencontainers/runc/commit/dde509df4e28cec33b3c99c6cda3d4fd5beafc77
+    - web: https://bugs.chromium.org/p/project-zero/issues/detail?id=2241

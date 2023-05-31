@@ -1,19 +1,19 @@
 id: GO-2022-0425
 modules:
-  - module: github.com/flynn/noise
-    versions:
-      - fixed: 1.0.0
-    vulnerable_at: 0.0.0-20210422170017-fc2bb37e287b
-    packages:
-      - package: github.com/flynn/noise
-        symbols:
-          - CipherState.Encrypt
-          - CipherState.Decrypt
-          - symmetricState.EncryptAndHash
-        derived_symbols:
-          - HandshakeState.ReadMessage
-          - HandshakeState.WriteMessage
-          - symmetricState.DecryptAndHash
+    - module: github.com/flynn/noise
+      versions:
+        - fixed: 1.0.0
+      vulnerable_at: 0.0.0-20210422170017-fc2bb37e287b
+      packages:
+        - package: github.com/flynn/noise
+          symbols:
+            - CipherState.Encrypt
+            - CipherState.Decrypt
+            - symmetricState.EncryptAndHash
+          derived_symbols:
+            - HandshakeState.ReadMessage
+            - HandshakeState.WriteMessage
+            - symmetricState.DecryptAndHash
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The Noise protocol implementation suffers from weakened
@@ -31,10 +31,10 @@ description: |
     resulting in a failure to encrypt all subsequent messages.
 published: 2022-02-15T01:57:18Z
 ghsas:
-  - GHSA-6cr6-fmvc-vw2p
-  - GHSA-g9mp-8g3h-3c5c
+    - GHSA-6cr6-fmvc-vw2p
+    - GHSA-g9mp-8g3h-3c5c
 references:
-  - fix: https://github.com/flynn/noise/pull/44
+    - fix: https://github.com/flynn/noise/pull/44
 cve_metadata:
     id: CVE-2021-4239
     cwe: 'CWE 400: Uncontrolled Resource Consumption'

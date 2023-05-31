@@ -1,25 +1,24 @@
 id: GO-2022-1113
 modules:
-  - module: github.com/oam-dev/kubevela
-    versions:
-      - fixed: 1.5.8
-      - introduced: 1.6.0
-        fixed: 1.6.1
-    vulnerable_at: 1.6.0
-    packages:
-      - package: github.com/oam-dev/kubevela/pkg/utils/common
-        symbols:
-          - HTTPGetResponse
-        skip_fix: 'TODO: Revisit this reason. (Running fix causes error containing
-            unknown revision konnectivity-client/v0.0.0)'
+    - module: github.com/oam-dev/kubevela
+      versions:
+        - fixed: 1.5.8
+        - introduced: 1.6.0
+          fixed: 1.6.1
+      vulnerable_at: 1.6.0
+      packages:
+        - package: github.com/oam-dev/kubevela/pkg/utils/common
+          symbols:
+            - HTTPGetResponse
+          skip_fix: 'TODO: Revisit this reason. (Running fix causes error containing unknown revision konnectivity-client/v0.0.0)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |-
     When using Helm Chart as the component delivery method, the request address
      of the warehouse is not restricted, and there is a blind SSRF vulnerability.
 cves:
-  - CVE-2022-39383
+    - CVE-2022-39383
 ghsas:
-  - GHSA-m5xf-x7q6-3rm7
+    - GHSA-m5xf-x7q6-3rm7
 references:
-  - advisory: https://github.com/kubevela/kubevela/security/advisories/GHSA-m5xf-x7q6-3rm7
-  - fix: https://github.com/kubevela/kubevela/pull/5000
+    - advisory: https://github.com/kubevela/kubevela/security/advisories/GHSA-m5xf-x7q6-3rm7
+    - fix: https://github.com/kubevela/kubevela/pull/5000

@@ -1,21 +1,21 @@
 id: GO-2021-0102
 modules:
-  - module: code.cloudfoundry.org/gorouter
-    versions:
-      - fixed: 0.0.0-20191101214924-b1b5c44e050f
-    vulnerable_at: 0.0.0-20191101214739-a658664ae1e3
-    packages:
-      - package: code.cloudfoundry.org/gorouter/common/secure
-        symbols:
-          - AesGCM.Decrypt
-  - module: github.com/cloudfoundry/gorouter
-    versions:
-      - fixed: 0.0.0-20191101214924-b1b5c44e050f
-    vulnerable_at: 0.0.0-20191101214739-a658664ae1e3
-    packages:
-      - package: github.com/cloudfoundry/gorouter/common/secure
-        symbols:
-          - AesGCM.Decrypt
+    - module: code.cloudfoundry.org/gorouter
+      versions:
+        - fixed: 0.0.0-20191101214924-b1b5c44e050f
+      vulnerable_at: 0.0.0-20191101214739-a658664ae1e3
+      packages:
+        - package: code.cloudfoundry.org/gorouter/common/secure
+          symbols:
+            - AesGCM.Decrypt
+    - module: github.com/cloudfoundry/gorouter
+      versions:
+        - fixed: 0.0.0-20191101214924-b1b5c44e050f
+      vulnerable_at: 0.0.0-20191101214739-a658664ae1e3
+      packages:
+        - package: github.com/cloudfoundry/gorouter/common/secure
+          symbols:
+            - AesGCM.Decrypt
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Due to improper input validation, a maliciously crafted input can cause a panic, due to incorrect
@@ -23,9 +23,9 @@ description: |
     supplied nonces, this may be used as a vector for a denial of service attack.
 published: 2021-07-28T18:08:05Z
 cves:
-  - CVE-2019-11289
+    - CVE-2019-11289
 ghsas:
-  - GHSA-5796-p3m6-9qj4
+    - GHSA-5796-p3m6-9qj4
 references:
-  - fix: https://github.com/cloudfoundry/gorouter/commit/b1b5c44e050f73b399b379ca63a42a2c5780a83f
-  - web: https://www.cloudfoundry.org/blog/cve-2019-11289/
+    - fix: https://github.com/cloudfoundry/gorouter/commit/b1b5c44e050f73b399b379ca63a42a2c5780a83f
+    - web: https://www.cloudfoundry.org/blog/cve-2019-11289/

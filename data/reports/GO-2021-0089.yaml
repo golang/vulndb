@@ -1,15 +1,15 @@
 id: GO-2021-0089
 modules:
-  - module: github.com/buger/jsonparser
-    versions:
-      - fixed: 1.0.0
-    vulnerable_at: 0.0.0-20191204142016-1a29609e0929
-    packages:
-      - package: github.com/buger/jsonparser
-        symbols:
-          - findKeyStart
-        derived_symbols:
-          - Delete
+    - module: github.com/buger/jsonparser
+      versions:
+        - fixed: 1.0.0
+      vulnerable_at: 0.0.0-20191204142016-1a29609e0929
+      packages:
+        - package: github.com/buger/jsonparser
+          symbols:
+            - findKeyStart
+          derived_symbols:
+            - Delete
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Parsing malformed JSON which contain opening brackets, but not closing brackets,
@@ -17,12 +17,12 @@ description: |
     used as a denial of service vector.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2020-10675
+    - CVE-2020-10675
 ghsas:
-  - GHSA-rmh2-65xw-9m6q
+    - GHSA-rmh2-65xw-9m6q
 credits:
-  - Cong Wang
+    - Cong Wang
 references:
-  - fix: https://github.com/buger/jsonparser/pull/192
-  - fix: https://github.com/buger/jsonparser/commit/91ac96899e492584984ded0c8f9a08f10b473717
-  - web: https://github.com/buger/jsonparser/issues/188
+    - fix: https://github.com/buger/jsonparser/pull/192
+    - fix: https://github.com/buger/jsonparser/commit/91ac96899e492584984ded0c8f9a08f10b473717
+    - web: https://github.com/buger/jsonparser/issues/188

@@ -1,17 +1,17 @@
 id: GO-2022-0762
 modules:
-  - module: github.com/microcosm-cc/bluemonday
-    versions:
-      - fixed: 1.0.5
-    vulnerable_at: 1.0.4
-    packages:
-      - package: github.com/microcosm-cc/bluemonday
-        symbols:
-          - Policy.sanitize
-        derived_symbols:
-          - Policy.Sanitize
-          - Policy.SanitizeBytes
-          - Policy.SanitizeReader
+    - module: github.com/microcosm-cc/bluemonday
+      versions:
+        - fixed: 1.0.5
+      vulnerable_at: 1.0.4
+      packages:
+        - package: github.com/microcosm-cc/bluemonday
+          symbols:
+            - Policy.sanitize
+          derived_symbols:
+            - Policy.Sanitize
+            - Policy.SanitizeBytes
+            - Policy.SanitizeReader
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     An XSS injection was possible because the sanitization of the Cyrillic
@@ -19,10 +19,10 @@ description: |
     such as the <script> tag.
 published: 2021-05-18T21:07:37Z
 cves:
-  - CVE-2021-29272
+    - CVE-2021-29272
 ghsas:
-  - GHSA-3x58-xr87-2fcj
+    - GHSA-3x58-xr87-2fcj
 references:
-  - fix: https://github.com/microcosm-cc/bluemonday/commit/524f142fe46e945b7dcd291d7805c4b7dcf75bee
-  - web: https://github.com/microcosm-cc/bluemonday/issues/111
-  - web: https://github.com/microcosm-cc/bluemonday/releases/tag/v1.0.5
+    - fix: https://github.com/microcosm-cc/bluemonday/commit/524f142fe46e945b7dcd291d7805c4b7dcf75bee
+    - web: https://github.com/microcosm-cc/bluemonday/issues/111
+    - web: https://github.com/microcosm-cc/bluemonday/releases/tag/v1.0.5

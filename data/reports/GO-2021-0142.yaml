@@ -1,16 +1,16 @@
 id: GO-2021-0142
 modules:
-  - module: std
-    versions:
-      - fixed: 1.13.15
-      - introduced: 1.14.0-0
-        fixed: 1.14.7
-    vulnerable_at: 1.14.6
-    packages:
-      - package: encoding/binary
-        symbols:
-          - ReadUvarint
-          - ReadVarint
+    - module: std
+      versions:
+        - fixed: 1.13.15
+        - introduced: 1.14.0-0
+          fixed: 1.14.7
+      vulnerable_at: 1.14.6
+      packages:
+        - package: encoding/binary
+          symbols:
+            - ReadUvarint
+            - ReadVarint
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     ReadUvarint and ReadVarint can read an unlimited number of bytes from
@@ -24,16 +24,16 @@ description: |
     small, bounded number of bytes, even from invalid inputs.
 published: 2022-07-01T20:11:09Z
 cves:
-  - CVE-2020-16845
+    - CVE-2020-16845
 ghsas:
-  - GHSA-q6gq-997w-f55g
+    - GHSA-q6gq-997w-f55g
 credits:
-  - Diederik Loerakker
-  - Jonny Rhea
-  - Raúl Kripalani
-  - Preston Van Loon
+    - Diederik Loerakker
+    - Jonny Rhea
+    - Raúl Kripalani
+    - Preston Van Loon
 references:
-  - fix: https://go.dev/cl/247120
-  - fix: https://go.googlesource.com/go/+/027d7241ce050d197e7fabea3d541ffbe3487258
-  - report: https://go.dev/issue/40618
-  - web: https://groups.google.com/g/golang-announce/c/NyPIaucMgXo
+    - fix: https://go.dev/cl/247120
+    - fix: https://go.googlesource.com/go/+/027d7241ce050d197e7fabea3d541ffbe3487258
+    - report: https://go.dev/issue/40618
+    - web: https://groups.google.com/g/golang-announce/c/NyPIaucMgXo

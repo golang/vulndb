@@ -1,12 +1,12 @@
 id: GO-2022-0646
 modules:
-  - module: github.com/aws/aws-sdk-go
-    vulnerable_at: 1.33.21
-    packages:
-      - package: github.com/aws/aws-sdk-go/service/s3/s3crypto
-        symbols:
-          - NewDecryptionClient
-          - NewEncryptionClient
+    - module: github.com/aws/aws-sdk-go
+      vulnerable_at: 1.33.21
+      packages:
+        - package: github.com/aws/aws-sdk-go/service/s3/s3crypto
+          symbols:
+            - NewDecryptionClient
+            - NewEncryptionClient
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |-
     The Go AWS S3 Crypto SDK contains vulnerabilities that can permit an attacker
@@ -19,14 +19,14 @@ description: |-
     client.
 published: 2022-02-11T23:26:26Z
 cves:
-  - CVE-2020-8911
-  - CVE-2020-8912
+    - CVE-2020-8911
+    - CVE-2020-8912
 ghsas:
-  - GHSA-7f33-f4f5-xwgw
-  - GHSA-f5pg-7wfw-84q9
+    - GHSA-7f33-f4f5-xwgw
+    - GHSA-f5pg-7wfw-84q9
 credits:
-  - Sophie Schmieg from the Google ISE team
+    - Sophie Schmieg from the Google ISE team
 references:
-  - advisory: https://aws.amazon.com/blogs/developer/updates-to-the-amazon-s3-encryption-client/?s=09
-  - fix: https://github.com/aws/aws-sdk-go/pull/3403
-  - fix: https://github.com/aws/aws-sdk-go/commit/ae9b9fd92af132cfd8d879809d8611825ba135f4
+    - advisory: https://aws.amazon.com/blogs/developer/updates-to-the-amazon-s3-encryption-client/?s=09
+    - fix: https://github.com/aws/aws-sdk-go/pull/3403
+    - fix: https://github.com/aws/aws-sdk-go/commit/ae9b9fd92af132cfd8d879809d8611825ba135f4

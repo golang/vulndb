@@ -1,19 +1,19 @@
 id: GO-2020-0038
 modules:
-  - module: github.com/pion/dtls
-    versions:
-      - fixed: 1.5.2
-    vulnerable_at: 1.5.1
-    packages:
-      - package: github.com/pion/dtls
-        symbols:
-          - Conn.handleIncomingPacket
-        derived_symbols:
-          - Client
-          - Dial
-          - Listener.Accept
-          - Resume
-          - Server
+    - module: github.com/pion/dtls
+      versions:
+        - fixed: 1.5.2
+      vulnerable_at: 1.5.1
+      packages:
+        - package: github.com/pion/dtls
+          symbols:
+            - Conn.handleIncomingPacket
+          derived_symbols:
+            - Client
+            - Dial
+            - Listener.Accept
+            - Resume
+            - Server
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Due to improper verification of packets, unencrypted packets containing
@@ -22,10 +22,10 @@ description: |
     was encrypted, despite not knowing the session key.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2019-20786
+    - CVE-2019-20786
 ghsas:
-  - GHSA-7gfg-6934-mqq2
+    - GHSA-7gfg-6934-mqq2
 references:
-  - fix: https://github.com/pion/dtls/pull/128
-  - fix: https://github.com/pion/dtls/commit/fd73a5df2ff0e1fb6ae6a51e2777d7a16cc4f4e0
-  - web: https://www.usenix.org/system/files/sec20fall_fiterau-brostean_prepub.pdf
+    - fix: https://github.com/pion/dtls/pull/128
+    - fix: https://github.com/pion/dtls/commit/fd73a5df2ff0e1fb6ae6a51e2777d7a16cc4f4e0
+    - web: https://www.usenix.org/system/files/sec20fall_fiterau-brostean_prepub.pdf

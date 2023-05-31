@@ -1,34 +1,34 @@
 id: GO-2022-0244
 modules:
-  - module: github.com/satori/go.uuid
-    versions:
-      - introduced: 1.2.1-0.20180103161547-0ef6afb2f6cd
-        fixed: 1.2.1-0.20180404165556-75cca531ea76
-    vulnerable_at: 1.2.1-0.20180103161547-0ef6afb2f6cd
-    packages:
-      - package: github.com/satori/go.uuid
-        symbols:
-          - rfc4122Generator.NewV4
-          - rfc4122Generator.getClockSequence
-          - rfc4122Generator.getHardwareAddr
-        derived_symbols:
-          - NewV1
-          - NewV2
-          - NewV4
-          - rfc4122Generator.NewV1
-          - rfc4122Generator.NewV2
+    - module: github.com/satori/go.uuid
+      versions:
+        - introduced: 1.2.1-0.20180103161547-0ef6afb2f6cd
+          fixed: 1.2.1-0.20180404165556-75cca531ea76
+      vulnerable_at: 1.2.1-0.20180103161547-0ef6afb2f6cd
+      packages:
+        - package: github.com/satori/go.uuid
+          symbols:
+            - rfc4122Generator.NewV4
+            - rfc4122Generator.getClockSequence
+            - rfc4122Generator.getHardwareAddr
+          derived_symbols:
+            - NewV1
+            - NewV2
+            - NewV4
+            - rfc4122Generator.NewV1
+            - rfc4122Generator.NewV2
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Random data used to create UUIDs can contain zeros, resulting in
     predictable UUIDs and possible collisions.
 published: 2022-07-15T23:06:26Z
 cves:
-  - CVE-2021-3538
+    - CVE-2021-3538
 ghsas:
-  - GHSA-33m6-q9v5-62r7
+    - GHSA-33m6-q9v5-62r7
 credits:
-  - '@josselin-c'
+    - '@josselin-c'
 references:
-  - fix: https://github.com/satori/go.uuid/pull/75
-  - fix: https://github.com/satori/go.uuid/commit/75cca531ea763666bc46e531da3b4c3b95f64557
-  - report: https://github.com/satori/go.uuid/issues/73
+    - fix: https://github.com/satori/go.uuid/pull/75
+    - fix: https://github.com/satori/go.uuid/commit/75cca531ea763666bc46e531da3b4c3b95f64557
+    - report: https://github.com/satori/go.uuid/issues/73

@@ -1,16 +1,16 @@
 id: GO-2021-0242
 modules:
-  - module: std
-    versions:
-      - fixed: 1.15.13
-      - introduced: 1.16.0-0
-        fixed: 1.16.5
-    vulnerable_at: 1.16.4
-    packages:
-      - package: math/big
-        symbols:
-          - Rat.SetString
-        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+    - module: std
+      versions:
+        - fixed: 1.15.13
+        - introduced: 1.16.0-0
+          fixed: 1.16.5
+      vulnerable_at: 1.16.4
+      packages:
+        - package: math/big
+          symbols:
+            - Rat.SetString
+          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Rat.SetString and Rat.UnmarshalText may cause a panic or an
@@ -18,12 +18,12 @@ description: |
     exponents.
 published: 2022-02-17T17:33:07Z
 cves:
-  - CVE-2021-33198
+    - CVE-2021-33198
 credits:
-  - The OSS-Fuzz project (discovery)
-  - Emmanuel Odeke (reporter)
+    - The OSS-Fuzz project (discovery)
+    - Emmanuel Odeke (reporter)
 references:
-  - fix: https://go.dev/cl/316149
-  - fix: https://go.googlesource.com/go/+/6c591f79b0b5327549bd4e94970f7a279efb4ab0
-  - web: https://groups.google.com/g/golang-announce/c/RgCMkAEQjSI
-  - report: https://go.dev/issue/45910
+    - fix: https://go.dev/cl/316149
+    - fix: https://go.googlesource.com/go/+/6c591f79b0b5327549bd4e94970f7a279efb4ab0
+    - web: https://groups.google.com/g/golang-announce/c/RgCMkAEQjSI
+    - report: https://go.dev/issue/45910

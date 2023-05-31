@@ -1,25 +1,24 @@
 id: GO-2021-0075
 modules:
-  - module: github.com/ethereum/go-ethereum
-    versions:
-      - fixed: 1.8.11
-    vulnerable_at: 1.8.11-0.20180605071142-7a22e89080b2
-    packages:
-      - package: github.com/ethereum/go-ethereum/les
-        symbols:
-          - ProtocolManager.handleMsg
-        skip_fix: 'TODO: revisit this reason (cannot find module providing package
-            github.com/hashicorp/golang-lru)'
+    - module: github.com/ethereum/go-ethereum
+      versions:
+        - fixed: 1.8.11
+      vulnerable_at: 1.8.11-0.20180605071142-7a22e89080b2
+      packages:
+        - package: github.com/ethereum/go-ethereum/les
+          symbols:
+            - ProtocolManager.handleMsg
+          skip_fix: 'TODO: revisit this reason (cannot find module providing package github.com/hashicorp/golang-lru)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Due to improper argument validation in RPC messages, a maliciously crafted
     message can cause a panic, leading to denial of service.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2018-12018
+    - CVE-2018-12018
 ghsas:
-  - GHSA-p5gc-957x-gfw9
+    - GHSA-p5gc-957x-gfw9
 references:
-  - fix: https://github.com/ethereum/go-ethereum/pull/16891
-  - fix: https://github.com/ethereum/go-ethereum/commit/a5237a27eaf81946a3edb4fafe13ed6359d119e4
-  - web: https://peckshield.com/2018/06/27/EPoD/
+    - fix: https://github.com/ethereum/go-ethereum/pull/16891
+    - fix: https://github.com/ethereum/go-ethereum/commit/a5237a27eaf81946a3edb4fafe13ed6359d119e4
+    - web: https://peckshield.com/2018/06/27/EPoD/

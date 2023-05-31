@@ -1,15 +1,14 @@
 id: GO-2022-0201
 modules:
-  - module: cmd
-    versions:
-      - fixed: 1.8.7
-      - introduced: 1.9.0-0
-        fixed: 1.9.4
-    vulnerable_at: 1.9.3
-    packages:
-      - package: cmd/go
-        skip_fix: 'TODO: revisit this reason (cant request explicit version of standard
-            library package cmd/go)'
+    - module: cmd
+      versions:
+        - fixed: 1.8.7
+        - introduced: 1.9.0-0
+          fixed: 1.9.4
+      vulnerable_at: 1.9.3
+      packages:
+        - package: cmd/go
+          skip_fix: 'TODO: revisit this reason (cant request explicit version of standard library package cmd/go)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The "go get" command with cgo is vulnerable to remote command execution
@@ -26,10 +25,10 @@ description: |
     completely unrestricted in their access to the host system.
 published: 2022-08-09T18:15:41Z
 cves:
-  - CVE-2018-6574
+    - CVE-2018-6574
 credits:
-  - Christopher Brown of Mattermost
+    - Christopher Brown of Mattermost
 references:
-  - fix: https://go.googlesource.com/go/+/1dcb5836ad2c60776561da2923c70576ba2eefc6
-  - report: https://go.dev/issue/23672
-  - web: https://groups.google.com/g/golang-nuts/c/Gbhh1NxAjMU
+    - fix: https://go.googlesource.com/go/+/1dcb5836ad2c60776561da2923c70576ba2eefc6
+    - report: https://go.dev/issue/23672
+    - web: https://groups.google.com/g/golang-nuts/c/Gbhh1NxAjMU

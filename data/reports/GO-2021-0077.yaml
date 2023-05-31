@@ -1,13 +1,13 @@
 id: GO-2021-0077
 modules:
-  - module: go.etcd.io/etcd
-    versions:
-      - fixed: 0.5.0-alpha.5.0.20190108173120-83c051b701d3
-    vulnerable_at: 0.5.0-alpha.5.0.20190108163607-9c6b407e7d45
-    packages:
-      - package: go.etcd.io/etcd/auth
-        symbols:
-          - authStore.AuthInfoFromTLS
+    - module: go.etcd.io/etcd
+      versions:
+        - fixed: 0.5.0-alpha.5.0.20190108173120-83c051b701d3
+      vulnerable_at: 0.5.0-alpha.5.0.20190108163607-9c6b407e7d45
+      packages:
+        - package: go.etcd.io/etcd/auth
+          symbols:
+            - authStore.AuthInfoFromTLS
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     A user can use a valid client certificate that contains a CommonName that matches a
@@ -16,9 +16,9 @@ description: |
     that is issued by a CA trusted by the server.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2018-16886
+    - CVE-2018-16886
 ghsas:
-  - GHSA-h6xx-pmxh-3wgp
+    - GHSA-h6xx-pmxh-3wgp
 references:
-  - fix: https://github.com/etcd-io/etcd/pull/10366
-  - fix: https://github.com/etcd-io/etcd/commit/bf9d0d8291dc71ecbfb2690612954e1a298154b2
+    - fix: https://github.com/etcd-io/etcd/pull/10366
+    - fix: https://github.com/etcd-io/etcd/commit/bf9d0d8291dc71ecbfb2690612954e1a298154b2

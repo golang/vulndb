@@ -1,26 +1,26 @@
 id: GO-2022-1165
 modules:
-  - module: helm.sh/helm/v3
-    versions:
-      - fixed: 3.10.3
-    vulnerable_at: 3.10.2
-    packages:
-      - package: helm.sh/helm/v3/pkg/repo
-        symbols:
-          - IndexFile.MustAdd
-          - loadIndex
-          - File.Remove
-        derived_symbols:
-          - ChartRepository.DownloadIndexFile
-          - ChartRepository.Index
-          - ChartRepository.Load
-          - FindChartInAuthAndTLSAndPassRepoURL
-          - FindChartInAuthAndTLSRepoURL
-          - FindChartInAuthRepoURL
-          - FindChartInRepoURL
-          - IndexDirectory
-          - IndexFile.Add
-          - LoadIndexFile
+    - module: helm.sh/helm/v3
+      versions:
+        - fixed: 3.10.3
+      vulnerable_at: 3.10.2
+      packages:
+        - package: helm.sh/helm/v3/pkg/repo
+          symbols:
+            - IndexFile.MustAdd
+            - loadIndex
+            - File.Remove
+          derived_symbols:
+            - ChartRepository.DownloadIndexFile
+            - ChartRepository.Index
+            - ChartRepository.Load
+            - FindChartInAuthAndTLSAndPassRepoURL
+            - FindChartInAuthAndTLSRepoURL
+            - FindChartInAuthRepoURL
+            - FindChartInRepoURL
+            - IndexDirectory
+            - IndexFile.Add
+            - LoadIndexFile
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Applications that use the repo package in the Helm SDK to parse an index
@@ -37,11 +37,11 @@ description: |
     violation panic. Helm is not a long running service so the panic will not
     affect future uses of the Helm client.
 cves:
-  - CVE-2022-23525
+    - CVE-2022-23525
 ghsas:
-  - GHSA-53c4-hhmh-vw5q
+    - GHSA-53c4-hhmh-vw5q
 credits:
-  - Ada Logics, in a fuzzing audit sponsored by CNCF
+    - Ada Logics, in a fuzzing audit sponsored by CNCF
 references:
-  - advisory: https://github.com/helm/helm/security/advisories/GHSA-53c4-hhmh-vw5q
-  - fix: https://github.com/helm/helm/commit/638ebffbc2e445156f3978f02fd83d9af1e56f5b
+    - advisory: https://github.com/helm/helm/security/advisories/GHSA-53c4-hhmh-vw5q
+    - fix: https://github.com/helm/helm/commit/638ebffbc2e445156f3978f02fd83d9af1e56f5b

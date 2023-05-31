@@ -1,15 +1,15 @@
 id: GO-2021-0067
 modules:
-  - module: std
-    versions:
-      - introduced: 1.16.0-0
-        fixed: 1.16.1
-    vulnerable_at: 1.16.0
-    packages:
-      - package: archive/zip
-        symbols:
-          - toValidName
-        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+    - module: std
+      versions:
+        - introduced: 1.16.0-0
+          fixed: 1.16.1
+      vulnerable_at: 1.16.0
+      packages:
+        - package: archive/zip
+          symbols:
+            - toValidName
+          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Using Reader.Open on an archive containing a file with a path
@@ -18,9 +18,9 @@ description: |
     denial of service vector.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2021-27919
+    - CVE-2021-27919
 references:
-  - fix: https://go.dev/cl/300489
-  - fix: https://go.googlesource.com/go/+/cd3b4ca9f20fd14187ed4cdfdee1a02ea87e5cd8
-  - report: https://go.dev/issue/44916
-  - web: https://groups.google.com/g/golang-announce/c/MfiLYjG-RAw/m/zzhWj5jPAQAJ
+    - fix: https://go.dev/cl/300489
+    - fix: https://go.googlesource.com/go/+/cd3b4ca9f20fd14187ed4cdfdee1a02ea87e5cd8
+    - report: https://go.dev/issue/44916
+    - web: https://groups.google.com/g/golang-announce/c/MfiLYjG-RAw/m/zzhWj5jPAQAJ

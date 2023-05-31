@@ -1,23 +1,23 @@
 id: GO-2020-0024
 modules:
-  - module: github.com/btcsuite/go-socks
-    versions:
-      - fixed: 0.0.0-20130808000456-233bccbb1abe
-    vulnerable_at: 0.0.0-20130225212758-6dca7033f514
-    packages:
-      - package: github.com/btcsuite/go-socks
-        symbols:
-          - proxiedConn.LocalAddr
-          - proxiedConn.RemoteAddr
-  - module: github.com/btcsuitereleases/go-socks
-    versions:
-      - fixed: 0.0.0-20130808000456-233bccbb1abe
-    vulnerable_at: 0.0.0-20130225212758-6dca7033f514
-    packages:
-      - package: github.com/btcsuitereleases/go-socks
-        symbols:
-          - proxiedConn.LocalAddr
-          - proxiedConn.RemoteAddr
+    - module: github.com/btcsuite/go-socks
+      versions:
+        - fixed: 0.0.0-20130808000456-233bccbb1abe
+      vulnerable_at: 0.0.0-20130225212758-6dca7033f514
+      packages:
+        - package: github.com/btcsuite/go-socks
+          symbols:
+            - proxiedConn.LocalAddr
+            - proxiedConn.RemoteAddr
+    - module: github.com/btcsuitereleases/go-socks
+      versions:
+        - fixed: 0.0.0-20130808000456-233bccbb1abe
+      vulnerable_at: 0.0.0-20130225212758-6dca7033f514
+      packages:
+        - package: github.com/btcsuitereleases/go-socks
+          symbols:
+            - proxiedConn.LocalAddr
+            - proxiedConn.RemoteAddr
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The RemoteAddr and LocalAddr methods on the returned net.Conn may
@@ -25,9 +25,9 @@ description: |
     program due to a stack overflow.
 published: 2021-04-14T20:04:52Z
 ghsas:
-  - GHSA-gxgj-xjcw-fv9p
+    - GHSA-gxgj-xjcw-fv9p
 references:
-  - fix: https://github.com/btcsuite/go-socks/commit/233bccbb1abe02f05750f7ace66f5bffdb13defc
+    - fix: https://github.com/btcsuite/go-socks/commit/233bccbb1abe02f05750f7ace66f5bffdb13defc
 cve_metadata:
     id: CVE-2013-10005
     cwe: 'CWE 400: Uncontrolled Resource Consumption'

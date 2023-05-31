@@ -1,17 +1,16 @@
 id: GO-2022-0476
 modules:
-  - module: cmd
-    versions:
-      - fixed: 1.14.12
-      - introduced: 1.15.0-0
-        fixed: 1.15.5
-    vulnerable_at: 1.15.4
-    packages:
-      - package: cmd/go
-        symbols:
-          - validCompilerFlags
-        skip_fix: 'TODO: revisit this reason (cant request explicit version v1.15.4
-            of standard library package cmd/go)'
+    - module: cmd
+      versions:
+        - fixed: 1.14.12
+        - introduced: 1.15.0-0
+          fixed: 1.15.5
+      vulnerable_at: 1.15.4
+      packages:
+        - package: cmd/go
+          symbols:
+            - validCompilerFlags
+          skip_fix: 'TODO: revisit this reason (cant request explicit version v1.15.4 of standard library package cmd/go)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The go command may execute arbitrary code at build time when cgo is in use.
@@ -21,12 +20,12 @@ description: |
     This can be caused by malicious gcc flags specified via a cgo directive.
 published: 2022-07-28T17:24:43Z
 credits:
-  - Imre Rad
+    - Imre Rad
 references:
-  - fix: https://go.dev/cl/267277
-  - fix: https://go.googlesource.com/go/+/da7aa86917811a571e6634b45a457f918b8e6561
-  - report: https://go.dev/issue/42556
-  - web: https://groups.google.com/g/golang-announce/c/NpBGTTmKzpM
+    - fix: https://go.dev/cl/267277
+    - fix: https://go.googlesource.com/go/+/da7aa86917811a571e6634b45a457f918b8e6561
+    - report: https://go.dev/issue/42556
+    - web: https://groups.google.com/g/golang-announce/c/NpBGTTmKzpM
 cve_metadata:
     id: CVE-2020-28367
     cwe: 'CWE-94: Improper Control of Generation of Code (''Code Injection'')'

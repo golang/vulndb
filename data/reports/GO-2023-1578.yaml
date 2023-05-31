@@ -1,73 +1,73 @@
 id: GO-2023-1578
 modules:
-  - module: github.com/hashicorp/go-getter/v2
-    versions:
-      - introduced: 2.0.0
-        fixed: 2.2.0
-    vulnerable_at: 2.0.0
-    packages:
-      - package: github.com/hashicorp/go-getter/v2
-        symbols:
-          - untar
-          - ZipDecompressor.Decompress
-          - copyReader
-        derived_symbols:
-          - Bzip2Decompressor.Decompress
-          - Client.Get
-          - Client.GetChecksum
-          - FolderStorage.Get
-          - Get
-          - GetAny
-          - GetFile
-          - GzipDecompressor.Decompress
-          - HttpGetter.Get
-          - Request.CopyReader
-          - TarBzip2Decompressor.Decompress
-          - TarGzipDecompressor.Decompress
-          - TarXzDecompressor.Decompress
-          - XzDecompressor.Decompress
-        skip_fix: TODO include package variable Decompressors.
-  - module: github.com/hashicorp/go-getter
-    versions:
-      - fixed: 1.7.0
-    vulnerable_at: 1.6.0
-    packages:
-      - package: github.com/hashicorp/go-getter
-        symbols:
-          - untar
-          - ZipDecompressor.Decompress
-          - copyReader
-        derived_symbols:
-          - Bzip2Decompressor.Decompress
-          - Client.ChecksumFromFile
-          - Client.Get
-          - FolderStorage.Get
-          - GCSGetter.Get
-          - GCSGetter.GetFile
-          - Get
-          - GetAny
-          - GetFile
-          - GzipDecompressor.Decompress
-          - HttpGetter.Get
-          - S3Getter.Get
-          - S3Getter.GetFile
-          - TarBzip2Decompressor.Decompress
-          - TarDecompressor.Decompress
-          - TarGzipDecompressor.Decompress
-          - TarXzDecompressor.Decompress
-          - TarZstdDecompressor.Decompress
-          - XzDecompressor.Decompress
-          - ZstdDecompressor.Decompress
-        skip_fix: TODO include package variable Decompressors.
+    - module: github.com/hashicorp/go-getter/v2
+      versions:
+        - introduced: 2.0.0
+          fixed: 2.2.0
+      vulnerable_at: 2.0.0
+      packages:
+        - package: github.com/hashicorp/go-getter/v2
+          symbols:
+            - untar
+            - ZipDecompressor.Decompress
+            - copyReader
+          derived_symbols:
+            - Bzip2Decompressor.Decompress
+            - Client.Get
+            - Client.GetChecksum
+            - FolderStorage.Get
+            - Get
+            - GetAny
+            - GetFile
+            - GzipDecompressor.Decompress
+            - HttpGetter.Get
+            - Request.CopyReader
+            - TarBzip2Decompressor.Decompress
+            - TarGzipDecompressor.Decompress
+            - TarXzDecompressor.Decompress
+            - XzDecompressor.Decompress
+          skip_fix: TODO include package variable Decompressors.
+    - module: github.com/hashicorp/go-getter
+      versions:
+        - fixed: 1.7.0
+      vulnerable_at: 1.6.0
+      packages:
+        - package: github.com/hashicorp/go-getter
+          symbols:
+            - untar
+            - ZipDecompressor.Decompress
+            - copyReader
+          derived_symbols:
+            - Bzip2Decompressor.Decompress
+            - Client.ChecksumFromFile
+            - Client.Get
+            - FolderStorage.Get
+            - GCSGetter.Get
+            - GCSGetter.GetFile
+            - Get
+            - GetAny
+            - GetFile
+            - GzipDecompressor.Decompress
+            - HttpGetter.Get
+            - S3Getter.Get
+            - S3Getter.GetFile
+            - TarBzip2Decompressor.Decompress
+            - TarDecompressor.Decompress
+            - TarGzipDecompressor.Decompress
+            - TarXzDecompressor.Decompress
+            - TarZstdDecompressor.Decompress
+            - XzDecompressor.Decompress
+            - ZstdDecompressor.Decompress
+          skip_fix: TODO include package variable Decompressors.
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |-
     HashiCorp go-getter is vulnerable to decompression bombs. This can lead
     to excessive memory consumption and denial-of-service attacks.
 cves:
-  - CVE-2023-0475
+    - CVE-2023-0475
 ghsas:
-  - GHSA-jpxj-2jvg-6jv9
+    - GHSA-jpxj-2jvg-6jv9
 references:
-  - web: https://discuss.hashicorp.com/t/hcsec-2023-4-go-getter-vulnerable-to-denial-of-service-via-malicious-compressed-archive/50125
-  - fix: https://github.com/hashicorp/go-getter/commit/0edab85348271c843782993345b07b1ac98912e6
-  - fix: https://github.com/hashicorp/go-getter/commit/78e6721a2a76266718dc92c3c03c1571dffdefdc
+    - web: https://discuss.hashicorp.com/t/hcsec-2023-4-go-getter-vulnerable-to-denial-of-service-via-malicious-compressed-archive/50125
+    - fix: https://github.com/hashicorp/go-getter/commit/0edab85348271c843782993345b07b1ac98912e6
+    - fix: https://github.com/hashicorp/go-getter/commit/78e6721a2a76266718dc92c3c03c1571dffdefdc

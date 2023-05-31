@@ -1,32 +1,32 @@
 id: GO-2022-1027
 modules:
-  - module: github.com/cloudwego/hertz
-    versions:
-      - fixed: 0.3.1
-    vulnerable_at: 0.3.0
-    packages:
-      - package: github.com/cloudwego/hertz/pkg/protocol
-        goos:
-          - windows
-        symbols:
-          - normalizePath
-        derived_symbols:
-          - Cookie.SetPath
-          - Cookie.SetPathBytes
-          - NewRequest
-          - ParseURI
-          - Request.Host
-          - Request.ParseURI
-          - Request.Path
-          - Request.QueryString
-          - Request.SetHost
-          - Request.SetQueryString
-          - Request.URI
-          - URI.Parse
-          - URI.SetPath
-          - URI.SetPathBytes
-          - URI.Update
-          - URI.UpdateBytes
+    - module: github.com/cloudwego/hertz
+      versions:
+        - fixed: 0.3.1
+      vulnerable_at: 0.3.0
+      packages:
+        - package: github.com/cloudwego/hertz/pkg/protocol
+          goos:
+            - windows
+          symbols:
+            - normalizePath
+          derived_symbols:
+            - Cookie.SetPath
+            - Cookie.SetPathBytes
+            - NewRequest
+            - ParseURI
+            - Request.Host
+            - Request.ParseURI
+            - Request.Path
+            - Request.QueryString
+            - Request.SetHost
+            - Request.SetQueryString
+            - Request.URI
+            - URI.Parse
+            - URI.SetPath
+            - URI.SetPathBytes
+            - URI.Update
+            - URI.UpdateBytes
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Improper path sanitization on Windows permits path traversal attacks.
@@ -35,9 +35,9 @@ description: |
 
     This vulnerability does not affect non-Windows systems.
 cves:
-  - CVE-2022-40082
+    - CVE-2022-40082
 ghsas:
-  - GHSA-c9qr-f6c8-rgxf
+    - GHSA-c9qr-f6c8-rgxf
 references:
-  - web: https://github.com/cloudwego/hertz/issues/228
-  - fix: https://github.com/cloudwego/hertz/pull/229
+    - web: https://github.com/cloudwego/hertz/issues/228
+    - fix: https://github.com/cloudwego/hertz/pull/229

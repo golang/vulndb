@@ -1,17 +1,17 @@
 id: GO-2022-0523
 modules:
-  - module: std
-    versions:
-      - fixed: 1.17.12
-      - introduced: 1.18.0-0
-        fixed: 1.18.4
-    vulnerable_at: 1.18.3
-    packages:
-      - package: encoding/xml
-        symbols:
-          - Decoder.DecodeElement
-          - Decoder.unmarshal
-          - Decoder.unmarshalPath
+    - module: std
+      versions:
+        - fixed: 1.17.12
+        - introduced: 1.18.0-0
+          fixed: 1.18.4
+      vulnerable_at: 1.18.3
+      packages:
+        - package: encoding/xml
+          symbols:
+            - Decoder.DecodeElement
+            - Decoder.unmarshal
+            - Decoder.unmarshalPath
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Unmarshaling an XML document into a Go struct which has a nested
@@ -19,10 +19,10 @@ description: |
     exhaustion.
 published: 2022-07-20T20:52:06Z
 references:
-  - fix: https://go.dev/cl/417061
-  - fix: https://go.googlesource.com/go/+/c4c1993fd2a5b26fe45c09592af6d3388a3b2e08
-  - report: https://go.dev/issue/53611
-  - web: https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE
+    - fix: https://go.dev/cl/417061
+    - fix: https://go.googlesource.com/go/+/c4c1993fd2a5b26fe45c09592af6d3388a3b2e08
+    - report: https://go.dev/issue/53611
+    - web: https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE
 cve_metadata:
     id: CVE-2022-30633
     cwe: 'CWE-674: Uncontrolled Recursion'

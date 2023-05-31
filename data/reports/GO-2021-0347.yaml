@@ -1,16 +1,16 @@
 id: GO-2021-0347
 modules:
-  - module: std
-    versions:
-      - fixed: 1.16.15
-      - introduced: 1.17.0-0
-        fixed: 1.17.8
-    vulnerable_at: 1.17.7
-    packages:
-      - package: regexp
-        symbols:
-          - regexp.Compile
-        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+    - module: std
+      versions:
+        - fixed: 1.16.15
+        - introduced: 1.17.0-0
+          fixed: 1.17.8
+      vulnerable_at: 1.17.7
+      packages:
+        - package: regexp
+          symbols:
+            - regexp.Compile
+          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     On 64-bit platforms, an extremely deeply nested expression can
@@ -19,11 +19,11 @@ description: |
     on the order of 2MB.
 published: 2022-05-23T22:15:47Z
 cves:
-  - CVE-2022-24921
+    - CVE-2022-24921
 credits:
-  - Juho Nurminen
+    - Juho Nurminen
 references:
-  - fix: https://go.dev/cl/384616
-  - fix: https://go.googlesource.com/go/+/452f24ae94f38afa3704d4361d91d51218405c0a
-  - report: https://go.dev/issue/51112
-  - web: https://groups.google.com/g/golang-announce/c/RP1hfrBYVuk
+    - fix: https://go.dev/cl/384616
+    - fix: https://go.googlesource.com/go/+/452f24ae94f38afa3704d4361d91d51218405c0a
+    - report: https://go.dev/issue/51112
+    - web: https://groups.google.com/g/golang-announce/c/RP1hfrBYVuk

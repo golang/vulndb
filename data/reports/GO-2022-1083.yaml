@@ -1,26 +1,26 @@
 id: GO-2022-1083
 modules:
-  - module: github.com/free5gc/aper
-    vulnerable_at: 1.0.4
-    packages:
-      - package: github.com/free5gc/aper
-        symbols:
-          - GetBitString
-        derived_symbols:
-          - GetBitsValue
-          - Marshal
-          - MarshalWithParams
-          - Unmarshal
-          - UnmarshalWithParams
+    - module: github.com/free5gc/aper
+      vulnerable_at: 1.0.4
+      packages:
+        - package: github.com/free5gc/aper
+          symbols:
+            - GetBitString
+          derived_symbols:
+            - GetBitsValue
+            - Marshal
+            - MarshalWithParams
+            - Unmarshal
+            - UnmarshalWithParams
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     A malformed message can crash the free5gc/amf and free5gc/ngap decoders via
     an index-out-of-range panic in `aper.GetBitString`.
 cves:
-  - CVE-2022-43677
+    - CVE-2022-43677
 ghsas:
-  - GHSA-59hj-62f5-fgmc
+    - GHSA-59hj-62f5-fgmc
 credits:
-  - '@fisherwky'
+    - '@fisherwky'
 references:
-  - report: https://github.com/free5gc/free5gc/issues/402
+    - report: https://github.com/free5gc/free5gc/issues/402

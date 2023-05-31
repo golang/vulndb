@@ -1,16 +1,16 @@
 id: GO-2022-0166
 modules:
-  - module: std
-    versions:
-      - fixed: 1.5.4
-      - introduced: 1.6.0-0
-        fixed: 1.6.1
-    vulnerable_at: 1.6.0
-    packages:
-      - package: crypto/dsa
-        symbols:
-          - Verify
-        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+    - module: std
+      versions:
+        - fixed: 1.5.4
+        - introduced: 1.6.0-0
+          fixed: 1.6.1
+      vulnerable_at: 1.6.0
+      packages:
+        - package: crypto/dsa
+          symbols:
+            - Verify
+          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The Verify function in crypto/dsa passed certain parameters unchecked to
@@ -20,11 +20,11 @@ description: |
     or the Go SSH server libraries are both exposed to this vulnerability.
 published: 2022-05-24T22:06:33Z
 cves:
-  - CVE-2016-3959
+    - CVE-2016-3959
 credits:
-  - David Wong
+    - David Wong
 references:
-  - fix: https://go.dev/cl/21533
-  - fix: https://go.googlesource.com/go/+/eb876dd83cb8413335d64e50aae5d38337d1ebb4
-  - report: https://go.dev/issue/15184
-  - web: https://groups.google.com/g/golang-announce/c/9eqIHqaWvck
+    - fix: https://go.dev/cl/21533
+    - fix: https://go.googlesource.com/go/+/eb876dd83cb8413335d64e50aae5d38337d1ebb4
+    - report: https://go.dev/issue/15184
+    - web: https://groups.google.com/g/golang-announce/c/9eqIHqaWvck

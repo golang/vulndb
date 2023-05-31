@@ -1,24 +1,23 @@
 id: GO-2023-1494
 modules:
-  - module: github.com/elgs/gosqljson
-    versions:
-      - fixed: 0.0.0-20220916234230-750f26ee23c7
-    vulnerable_at: 0.0.0-20140902115517-fa34a82f9316
-    packages:
-      - package: github.com/elgs/gosqljson
-        symbols:
-          - ExecDb
-          - QueryDbToArray
-          - QueryDbToMap
-        derived_symbols:
-          - QueryDbToArrayJson
-          - QueryDbToMapJson
+    - module: github.com/elgs/gosqljson
+      versions:
+        - fixed: 0.0.0-20220916234230-750f26ee23c7
+      vulnerable_at: 0.0.0-20140902115517-fa34a82f9316
+      packages:
+        - package: github.com/elgs/gosqljson
+          symbols:
+            - ExecDb
+            - QueryDbToArray
+            - QueryDbToMap
+          derived_symbols:
+            - QueryDbToArrayJson
+            - QueryDbToMapJson
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
-description: There is a potential for SQL injection through manipulation of the sqlStatement
-    argument.
+description: There is a potential for SQL injection through manipulation of the sqlStatement argument.
 cves:
-  - CVE-2014-125064
+    - CVE-2014-125064
 ghsas:
-  - GHSA-g7mw-9pf9-p2pm
+    - GHSA-g7mw-9pf9-p2pm
 references:
-  - fix: https://github.com/elgs/gosqljson/commit/2740b331546cb88eb61771df4c07d389e9f0363a
+    - fix: https://github.com/elgs/gosqljson/commit/2740b331546cb88eb61771df4c07d389e9f0363a

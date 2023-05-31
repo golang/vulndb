@@ -1,18 +1,18 @@
 id: GO-2023-1704
 modules:
-  - module: std
-    versions:
-      - fixed: 1.19.8
-      - introduced: 1.20.0-0
-        fixed: 1.20.3
-    vulnerable_at: 1.20.2
-    packages:
-      - package: net/textproto
-        symbols:
-          - readMIMEHeader
-          - Reader.upcomingHeaderNewlines
-        derived_symbols:
-          - Reader.ReadMIMEHeader
+    - module: std
+      versions:
+        - fixed: 1.19.8
+        - introduced: 1.20.0-0
+          fixed: 1.20.3
+      vulnerable_at: 1.20.2
+      packages:
+        - package: net/textproto
+          symbols:
+            - readMIMEHeader
+            - Reader.upcomingHeaderNewlines
+          derived_symbols:
+            - Reader.ReadMIMEHeader
 summary: Excessive memory allocation in net/http and net/textproto
 description: |
     HTTP and MIME header parsing can allocate large amounts of memory, even
@@ -27,11 +27,11 @@ description: |
     With fix, header parsing now correctly allocates only the memory required
     to hold parsed headers.
 credits:
-  - Jakob Ackermann (@das7pad)
+    - Jakob Ackermann (@das7pad)
 references:
-  - report: https://go.dev/issue/58975
-  - fix: https://go.dev/cl/481994
-  - web: https://groups.google.com/g/golang-announce/c/Xdv6JL9ENs8
+    - report: https://go.dev/issue/58975
+    - fix: https://go.dev/cl/481994
+    - web: https://groups.google.com/g/golang-announce/c/Xdv6JL9ENs8
 cve_metadata:
     id: CVE-2023-24534
     cwe: 'CWE-400: Uncontrolled Resource Consumption'

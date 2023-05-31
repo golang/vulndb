@@ -1,22 +1,22 @@
 id: GO-2023-1526
 modules:
-  - module: github.com/hakobe/paranoidhttp
-    versions:
-      - fixed: 0.3.0
-    vulnerable_at: 0.2.0
-    packages:
-      - package: github.com/hakobe/paranoidhttp
-        symbols:
-          - safeAddr
+    - module: github.com/hakobe/paranoidhttp
+      versions:
+        - fixed: 0.3.0
+      vulnerable_at: 0.2.0
+      packages:
+        - package: github.com/hakobe/paranoidhttp
+          symbols:
+            - safeAddr
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Paranoidhttp before is vulnerable to SSRF because [::] is equivalent to the
     127.0.0.1 address, but does not match the filter for private addresses.
 cves:
-  - CVE-2023-24623
+    - CVE-2023-24623
 ghsas:
-  - GHSA-v9mp-j8g7-2q6m
+    - GHSA-v9mp-j8g7-2q6m
 references:
-  - web: https://github.com/hakobe/paranoidhttp/blob/master/CHANGELOG.md#v030-2023-01-19
-  - fix: https://github.com/hakobe/paranoidhttp/commit/07f671da14ce63a80f4e52432b32e8d178d75fd3
-  - web: https://github.com/hakobe/paranoidhttp/compare/v0.2.0...v0.3.0
+    - web: https://github.com/hakobe/paranoidhttp/blob/master/CHANGELOG.md#v030-2023-01-19
+    - fix: https://github.com/hakobe/paranoidhttp/commit/07f671da14ce63a80f4e52432b32e8d178d75fd3
+    - web: https://github.com/hakobe/paranoidhttp/compare/v0.2.0...v0.3.0

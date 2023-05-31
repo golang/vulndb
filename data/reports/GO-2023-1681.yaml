@@ -1,13 +1,13 @@
 id: GO-2023-1681
 modules:
-  - module: github.com/containers/podman/v4
-    versions:
-      - fixed: 4.4.2
-    vulnerable_at: 4.4.1
-    packages:
-      - package: github.com/containers/podman/v4/utils
-        symbols:
-          - CreateTarFromSrc
+    - module: github.com/containers/podman/v4
+      versions:
+        - fixed: 4.4.2
+      vulnerable_at: 4.4.1
+      packages:
+        - package: github.com/containers/podman/v4/utils
+          symbols:
+            - CreateTarFromSrc
 summary: Podman Time-of-check Time-of-use (TOCTOU) Race Condition
 description: |
     A Time-of-check Time-of-use (TOCTOU) flaw appears in this version of podman.
@@ -15,12 +15,12 @@ description: |
     with a symlink while exporting the volume, allowing for access to arbitrary
     files on the host file system.
 cves:
-  - CVE-2023-0778
+    - CVE-2023-0778
 ghsas:
-  - GHSA-qwqv-rqgf-8qh8
+    - GHSA-qwqv-rqgf-8qh8
 references:
-  - web: https://bugzilla.redhat.com/show_bug.cgi?id=2168256
-  - fix: https://github.com/containers/podman/pull/17528
-  - fix: https://github.com/containers/podman/pull/17532
-  - fix: https://github.com/containers/podman/commit/6ca857feb07a5fdc96fd947afef03916291673d8
-  - advisory: https://github.com/advisories/GHSA-qwqv-rqgf-8qh8
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2168256
+    - fix: https://github.com/containers/podman/pull/17528
+    - fix: https://github.com/containers/podman/pull/17532
+    - fix: https://github.com/containers/podman/commit/6ca857feb07a5fdc96fd947afef03916291673d8
+    - advisory: https://github.com/advisories/GHSA-qwqv-rqgf-8qh8

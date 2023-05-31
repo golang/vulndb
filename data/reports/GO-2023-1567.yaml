@@ -1,42 +1,42 @@
 id: GO-2023-1567
 modules:
-  - module: github.com/caddyserver/caddy/v2
-    versions:
-      - fixed: 2.5.0-beta.1
-    vulnerable_at: 2.4.6
-    packages:
-      - package: github.com/caddyserver/caddy/v2/modules/caddyhttp
-        symbols:
-          - SanitizedPathJoin
-        skip_fix: |-
+    - module: github.com/caddyserver/caddy/v2
+      versions:
+        - fixed: 2.5.0-beta.1
+      vulnerable_at: 2.4.6
+      packages:
+        - package: github.com/caddyserver/caddy/v2/modules/caddyhttp
+          symbols:
+            - SanitizedPathJoin
+          skip_fix: |-
             Cannot reproduce with normal vulnreport yet.
             After the step `go get github.com/caddyserver/caddy/v2/modules/caddyhttp@v2.4.6`
             in vulnreport, run `go1.18 get github.com/lucas-clemente/quic-go@v0.27.2`.
-      - package: github.com/caddyserver/caddy/v2/modules/caddyhttp/fileserver
-        symbols:
-          - FileServer.directoryListing
-        derived_symbols:
-          - FileServer.Provision
-          - FileServer.ServeHTTP
-          - MatchFile.Match
-          - MatchFile.UnmarshalCaddyfile
-          - MatchFile.Validate
-          - fileInfo.HumanModTime
-          - fileInfo.HumanSize
-          - statusOverrideResponseWriter.WriteHeader
-        skip_fix: See skip_fix for github.com/caddyserver/caddy/v2/modules/caddyhttp
+        - package: github.com/caddyserver/caddy/v2/modules/caddyhttp/fileserver
+          symbols:
+            - FileServer.directoryListing
+          derived_symbols:
+            - FileServer.Provision
+            - FileServer.ServeHTTP
+            - MatchFile.Match
+            - MatchFile.UnmarshalCaddyfile
+            - MatchFile.Validate
+            - fileInfo.HumanModTime
+            - fileInfo.HumanSize
+            - statusOverrideResponseWriter.WriteHeader
+          skip_fix: See skip_fix for github.com/caddyserver/caddy/v2/modules/caddyhttp
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |-
     Due to improper request santization, a crafted URL can cause the static
     file handler to redirect to an attacker chosen URL, allowing for open redirect
     attacks.
 cves:
-  - CVE-2022-28923
+    - CVE-2022-28923
 ghsas:
-  - GHSA-qpm3-vr34-h8w8
+    - GHSA-qpm3-vr34-h8w8
 credits:
-  - Mayank Mukhi (@Hunt2behunter)
+    - Mayank Mukhi (@Hunt2behunter)
 references:
-  - web: https://lednerb.de/en/publications/responsible-disclosure/caddy-open-redirect-vulnerability/
-  - fix: https://github.com/caddyserver/caddy/commit/78b5356f2b1945a90de1ef7f2c7669d82098edbd
-  - advisory: https://github.com/advisories/GHSA-qpm3-vr34-h8w8
+    - web: https://lednerb.de/en/publications/responsible-disclosure/caddy-open-redirect-vulnerability/
+    - fix: https://github.com/caddyserver/caddy/commit/78b5356f2b1945a90de1ef7f2c7669d82098edbd
+    - advisory: https://github.com/advisories/GHSA-qpm3-vr34-h8w8

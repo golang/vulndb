@@ -1,13 +1,13 @@
 id: GO-2020-0020
 modules:
-  - module: github.com/gorilla/handlers
-    versions:
-      - fixed: 1.3.0
-    vulnerable_at: 1.2.1
-    packages:
-      - package: github.com/gorilla/handlers
-        symbols:
-          - cors.ServeHTTP
+    - module: github.com/gorilla/handlers
+      versions:
+        - fixed: 1.3.0
+      vulnerable_at: 1.2.1
+      packages:
+        - package: github.com/gorilla/handlers
+          symbols:
+            - cors.ServeHTTP
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Usage of the CORS handler may apply improper CORS headers, allowing
@@ -15,12 +15,12 @@ description: |
     header, which bypasses the expected behavior of the Same Origin Policy.
 published: 2021-04-14T20:04:52Z
 ghsas:
-  - GHSA-jcr6-mmjj-pchw
+    - GHSA-jcr6-mmjj-pchw
 credits:
-  - Evan J Johnson
+    - Evan J Johnson
 references:
-  - fix: https://github.com/gorilla/handlers/pull/116
-  - fix: https://github.com/gorilla/handlers/commit/90663712d74cb411cbef281bc1e08c19d1a76145
+    - fix: https://github.com/gorilla/handlers/pull/116
+    - fix: https://github.com/gorilla/handlers/commit/90663712d74cb411cbef281bc1e08c19d1a76145
 cve_metadata:
     id: CVE-2017-20146
     cwe: 'CWE 284: Improper Access Control'

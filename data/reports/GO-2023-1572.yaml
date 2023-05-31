@@ -1,31 +1,31 @@
 id: GO-2023-1572
 modules:
-  - module: golang.org/x/image
-    versions:
-      - fixed: 0.5.0
-    vulnerable_at: 0.4.0
-    packages:
-      - package: golang.org/x/image/tiff
-        symbols:
-          - decoder.ifdUint
-          - newDecoder
-          - Decode
-        derived_symbols:
-          - DecodeConfig
+    - module: golang.org/x/image
+      versions:
+        - fixed: 0.5.0
+      vulnerable_at: 0.4.0
+      packages:
+        - package: golang.org/x/image/tiff
+          symbols:
+            - decoder.ifdUint
+            - newDecoder
+            - Decode
+          derived_symbols:
+            - DecodeConfig
 summary: Denial of service in golang.org/x/image/tiff
 description: |
     An attacker can craft a malformed TIFF image which will consume a
     significant amount of memory when passed to DecodeConfig. This could
     lead to a denial of service.
 ghsas:
-  - GHSA-qgc7-mgm3-q253
+    - GHSA-qgc7-mgm3-q253
 credits:
-  - Philippe Antoine (Catena cyber)
-  - OSS Fuzz
+    - Philippe Antoine (Catena cyber)
+    - OSS Fuzz
 references:
-  - report: https://go.dev/issue/58003
-  - fix: https://go.dev/cl/468195
-  - web: https://groups.google.com/g/golang-announce/c/ag-FiyjlD5o
+    - report: https://go.dev/issue/58003
+    - fix: https://go.dev/cl/468195
+    - web: https://groups.google.com/g/golang-announce/c/ag-FiyjlD5o
 cve_metadata:
     id: CVE-2022-41727
     cwe: 'CWE-400: Uncontrolled Resource Consumption'

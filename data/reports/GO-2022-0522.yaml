@@ -1,27 +1,27 @@
 id: GO-2022-0522
 modules:
-  - module: std
-    versions:
-      - fixed: 1.17.12
-      - introduced: 1.18.0-0
-        fixed: 1.18.4
-    vulnerable_at: 1.18.3
-    packages:
-      - package: path/filepath
-        symbols:
-          - Glob
+    - module: std
+      versions:
+        - fixed: 1.17.12
+        - introduced: 1.18.0-0
+          fixed: 1.18.4
+      vulnerable_at: 1.18.3
+      packages:
+        - package: path/filepath
+          symbols:
+            - Glob
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Calling Glob on a path which contains a large number of path separators can
     cause a panic due to stack exhaustion.
 published: 2022-07-20T17:02:29Z
 credits:
-  - Juho Nurminen of Mattermost
+    - Juho Nurminen of Mattermost
 references:
-  - fix: https://go.dev/cl/417066
-  - fix: https://go.googlesource.com/go/+/ac68c6c683409f98250d34ad282b9e1b0c9095ef
-  - report: https://go.dev/issue/53416
-  - web: https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE
+    - fix: https://go.dev/cl/417066
+    - fix: https://go.googlesource.com/go/+/ac68c6c683409f98250d34ad282b9e1b0c9095ef
+    - report: https://go.dev/issue/53416
+    - web: https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE
 cve_metadata:
     id: CVE-2022-30632
     cwe: 'CWE-674: Uncontrolled Recursion'

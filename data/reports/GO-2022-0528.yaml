@@ -1,25 +1,25 @@
 id: GO-2022-0528
 modules:
-  - module: github.com/containrrr/shoutrrr
-    versions:
-      - fixed: 0.6.0
-    vulnerable_at: 0.5.3
-    packages:
-      - package: github.com/containrrr/shoutrrr/pkg/util
-        symbols:
-          - PartitionMessage
+    - module: github.com/containrrr/shoutrrr
+      versions:
+        - fixed: 0.6.0
+      vulnerable_at: 0.5.3
+      packages:
+        - package: github.com/containrrr/shoutrrr/pkg/util
+          symbols:
+            - PartitionMessage
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Sending a message exactly 2000, 4000, or 6000 characters in length
     to Discord causes a panic.
 published: 2022-07-30T03:51:17Z
 cves:
-  - CVE-2022-25891
+    - CVE-2022-25891
 ghsas:
-  - GHSA-477v-w82m-634j
+    - GHSA-477v-w82m-634j
 credits:
-  - justinsteven
+    - justinsteven
 references:
-  - fix: https://github.com/containrrr/shoutrrr/pull/242
-  - fix: https://github.com/containrrr/shoutrrr/commit/6a27056f9d7522a8b493216195cb7634bf4b5c42
-  - web: https://github.com/containrrr/shoutrrr/issues/240
+    - fix: https://github.com/containrrr/shoutrrr/pull/242
+    - fix: https://github.com/containrrr/shoutrrr/commit/6a27056f9d7522a8b493216195cb7634bf4b5c42
+    - web: https://github.com/containrrr/shoutrrr/issues/240

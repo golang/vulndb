@@ -1,43 +1,43 @@
 id: GO-2023-1574
 modules:
-  - module: github.com/containerd/containerd
-    versions:
-      - introduced: 1.6.0
-        fixed: 1.6.18
-    vulnerable_at: 1.6.17
-    packages:
-      - package: github.com/containerd/containerd/oci
-        symbols:
-          - WithUser
-          - WithUIDGID
-          - WithUserID
-          - WithUsername
-          - WithAdditionalGIDs
-      - package: github.com/containerd/containerd/pkg/cri/server
-        symbols:
-          - criService.containerSpecOpts
-        derived_symbols:
-          - criService.CreateContainer
-          - instrumentedAlphaService.CreateContainer
-          - instrumentedService.CreateContainer
-  - module: github.com/containerd/containerd
-    versions:
-      - fixed: 1.5.18
-    vulnerable_at: 1.5.17
-    packages:
-      - package: github.com/containerd/containerd/oci
-        symbols:
-          - WithUser
-          - WithUIDGID
-          - WithUserID
-          - WithUsername
-          - WithAdditionalGIDs
-      - package: github.com/containerd/containerd/pkg/cri/server
-        symbols:
-          - criService.containerSpecOpts
-        derived_symbols:
-          - criService.CreateContainer
-          - instrumentedService.CreateContainer
+    - module: github.com/containerd/containerd
+      versions:
+        - introduced: 1.6.0
+          fixed: 1.6.18
+      vulnerable_at: 1.6.17
+      packages:
+        - package: github.com/containerd/containerd/oci
+          symbols:
+            - WithUser
+            - WithUIDGID
+            - WithUserID
+            - WithUsername
+            - WithAdditionalGIDs
+        - package: github.com/containerd/containerd/pkg/cri/server
+          symbols:
+            - criService.containerSpecOpts
+          derived_symbols:
+            - criService.CreateContainer
+            - instrumentedAlphaService.CreateContainer
+            - instrumentedService.CreateContainer
+    - module: github.com/containerd/containerd
+      versions:
+        - fixed: 1.5.18
+      vulnerable_at: 1.5.17
+      packages:
+        - package: github.com/containerd/containerd/oci
+          symbols:
+            - WithUser
+            - WithUIDGID
+            - WithUserID
+            - WithUsername
+            - WithAdditionalGIDs
+        - package: github.com/containerd/containerd/pkg/cri/server
+          symbols:
+            - criService.containerSpecOpts
+          derived_symbols:
+            - criService.CreateContainer
+            - instrumentedService.CreateContainer
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |-
     Supplementary groups are not set up properly inside a container. If an attacker has direct
@@ -46,14 +46,14 @@ description: |-
     excalate privledges in the container.
     Uses of the containerd client library may also have improperly setup supplementary groups.
 cves:
-  - CVE-2023-25173
+    - CVE-2023-25173
 ghsas:
-  - GHSA-hmfx-3pcx-653p
+    - GHSA-hmfx-3pcx-653p
 references:
-  - advisory: https://github.com/containerd/containerd/security/advisories/GHSA-hmfx-3pcx-653p
-  - web: https://github.com/moby/moby/security/advisories/GHSA-rc4r-wh2q-q6c4
-  - fix: https://github.com/containerd/containerd/commit/133f6bb6cd827ce35a5fb279c1ead12b9d21460a
-  - web: https://github.com/advisories/GHSA-4wjj-jwc9-2x96
-  - web: https://github.com/advisories/GHSA-fjm8-m7m6-2fjp
-  - web: https://github.com/advisories/GHSA-phjr-8j92-w5v7
-  - article: https://www.benthamsgaze.org/2022/08/22/vulnerability-in-linux-containers-investigation-and-mitigation/
+    - advisory: https://github.com/containerd/containerd/security/advisories/GHSA-hmfx-3pcx-653p
+    - web: https://github.com/moby/moby/security/advisories/GHSA-rc4r-wh2q-q6c4
+    - fix: https://github.com/containerd/containerd/commit/133f6bb6cd827ce35a5fb279c1ead12b9d21460a
+    - web: https://github.com/advisories/GHSA-4wjj-jwc9-2x96
+    - web: https://github.com/advisories/GHSA-fjm8-m7m6-2fjp
+    - web: https://github.com/advisories/GHSA-phjr-8j92-w5v7
+    - article: https://www.benthamsgaze.org/2022/08/22/vulnerability-in-linux-containers-investigation-and-mitigation/

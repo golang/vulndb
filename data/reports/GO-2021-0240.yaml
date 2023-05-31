@@ -1,16 +1,16 @@
 id: GO-2021-0240
 modules:
-  - module: std
-    versions:
-      - fixed: 1.15.13
-      - introduced: 1.16.0-0
-        fixed: 1.16.5
-    vulnerable_at: 1.16.4
-    packages:
-      - package: archive/zip
-        symbols:
-          - Reader.init
-        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+    - module: std
+      versions:
+        - fixed: 1.15.13
+        - introduced: 1.16.0-0
+          fixed: 1.16.5
+      vulnerable_at: 1.16.4
+      packages:
+        - package: archive/zip
+          symbols:
+            - Reader.init
+          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     NewReader and OpenReader can cause a panic or an unrecoverable
@@ -18,12 +18,12 @@ description: |
     number of files, regardless of its actual size.
 published: 2022-02-17T17:33:25Z
 cves:
-  - CVE-2021-33196
+    - CVE-2021-33196
 credits:
-  - OSS-Fuzz (discovery)
-  - Emmanuel Odeke (reporter)
+    - OSS-Fuzz (discovery)
+    - Emmanuel Odeke (reporter)
 references:
-  - fix: https://go.dev/cl/318909
-  - fix: https://go.googlesource.com/go/+/74242baa4136c7a9132a8ccd9881354442788c8c
-  - web: https://groups.google.com/g/golang-announce/c/RgCMkAEQjSI
-  - report: https://go.dev/issue/46242
+    - fix: https://go.dev/cl/318909
+    - fix: https://go.googlesource.com/go/+/74242baa4136c7a9132a8ccd9881354442788c8c
+    - web: https://groups.google.com/g/golang-announce/c/RgCMkAEQjSI
+    - report: https://go.dev/issue/46242

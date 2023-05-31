@@ -1,28 +1,28 @@
 id: GO-2022-0236
 modules:
-  - module: std
-    versions:
-      - fixed: 1.15.12
-      - introduced: 1.16.0-0
-        fixed: 1.16.4
-    vulnerable_at: 1.16.3
-    packages:
-      - package: net/http
-        symbols:
-          - http2clientStream.writeRequest
-          - http2isConnectionCloseRequest
-          - isProtocolSwitchHeader
-          - shouldClose
-  - module: golang.org/x/net
-    versions:
-      - fixed: 0.0.0-20210428140749-89ef3d95e781
-    vulnerable_at: 0.0.0-20210427231257-85d9c07bbe3a
-    packages:
-      - package: golang.org/x/net/http/httpguts
-        symbols:
-          - headerValueContainsToken
-        derived_symbols:
-          - HeaderValuesContainsToken
+    - module: std
+      versions:
+        - fixed: 1.15.12
+        - introduced: 1.16.0-0
+          fixed: 1.16.4
+      vulnerable_at: 1.16.3
+      packages:
+        - package: net/http
+          symbols:
+            - http2clientStream.writeRequest
+            - http2isConnectionCloseRequest
+            - isProtocolSwitchHeader
+            - shouldClose
+    - module: golang.org/x/net
+      versions:
+        - fixed: 0.0.0-20210428140749-89ef3d95e781
+      vulnerable_at: 0.0.0-20210427231257-85d9c07bbe3a
+      packages:
+        - package: golang.org/x/net/http/httpguts
+          symbols:
+            - headerValueContainsToken
+          derived_symbols:
+            - HeaderValuesContainsToken
 summary: Panic in net/http and golang.org/x/net/http/httpguts
 description: |
     A malicious HTTP server or client can cause the net/http client
@@ -41,13 +41,13 @@ description: |
     HeaderValuesContainsToken in golang.org/x/net/http/httpguts.
 published: 2022-07-15T23:04:18Z
 cves:
-  - CVE-2021-31525
+    - CVE-2021-31525
 ghsas:
-  - GHSA-h86h-8ppg-mxmh
+    - GHSA-h86h-8ppg-mxmh
 credits:
-  - Guido Vranken
+    - Guido Vranken
 references:
-  - fix: https://go.dev/cl/313069
-  - fix: https://go.googlesource.com/net/+/89ef3d95e781148a0951956029c92a211477f7f9
-  - report: https://go.dev/issue/45710
-  - web: https://groups.google.com/g/golang-announce/c/cu9SP4eSXMc
+    - fix: https://go.dev/cl/313069
+    - fix: https://go.googlesource.com/net/+/89ef3d95e781148a0951956029c92a211477f7f9
+    - report: https://go.dev/issue/45710
+    - web: https://groups.google.com/g/golang-announce/c/cu9SP4eSXMc

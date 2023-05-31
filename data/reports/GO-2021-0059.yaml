@@ -1,22 +1,22 @@
 id: GO-2021-0059
 modules:
-  - module: github.com/tidwall/gjson
-    versions:
-      - fixed: 1.6.4
-    vulnerable_at: 1.6.3
-    packages:
-      - package: github.com/tidwall/gjson
-        symbols:
-          - squash
-        derived_symbols:
-          - Get
-          - GetBytes
-          - GetMany
-          - GetManyBytes
-          - Result.Array
-          - Result.Get
-          - Result.Map
-          - Result.Value
+    - module: github.com/tidwall/gjson
+      versions:
+        - fixed: 1.6.4
+      vulnerable_at: 1.6.3
+      packages:
+        - package: github.com/tidwall/gjson
+          symbols:
+            - squash
+          derived_symbols:
+            - Get
+            - GetBytes
+            - GetMany
+            - GetManyBytes
+            - Result.Array
+            - Result.Get
+            - Result.Map
+            - Result.Value
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Due to improper bounds checking, maliciously crafted JSON objects
@@ -24,11 +24,11 @@ description: |
     be used as a denial of service vector.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2020-35380
+    - CVE-2020-35380
 ghsas:
-  - GHSA-w942-gw6m-p62c
+    - GHSA-w942-gw6m-p62c
 credits:
-  - '@toptotu'
+    - '@toptotu'
 references:
-  - fix: https://github.com/tidwall/gjson/commit/f0ee9ebde4b619767ae4ac03e8e42addb530f6bc
-  - web: https://github.com/tidwall/gjson/issues/192
+    - fix: https://github.com/tidwall/gjson/commit/f0ee9ebde4b619767ae4ac03e8e42addb530f6bc
+    - web: https://github.com/tidwall/gjson/issues/192

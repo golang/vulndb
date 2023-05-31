@@ -1,17 +1,17 @@
 id: GO-2022-0294
 modules:
-  - module: github.com/google/go-attestation
-    versions:
-      - fixed: 0.4.0
-    vulnerable_at: 0.3.2
-    packages:
-      - package: github.com/google/go-attestation/attest
-        symbols:
-          - AKPublic.validate12Quote
-          - AKPublic.validate20Quote
-        derived_symbols:
-          - AKPublic.Verify
-          - TPM.AttestPlatform
+    - module: github.com/google/go-attestation
+      versions:
+        - fixed: 0.4.0
+      vulnerable_at: 0.3.2
+      packages:
+        - package: github.com/google/go-attestation/attest
+          symbols:
+            - AKPublic.validate12Quote
+            - AKPublic.validate20Quote
+          derived_symbols:
+            - AKPublic.Verify
+            - TPM.AttestPlatform
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     A local attacker can defeat remotely-attested measured boot.
@@ -24,10 +24,10 @@ description: |
     events in the TCG log, defeating remotely-attested measured-boot.
 published: 2022-07-15T23:27:21Z
 cves:
-  - CVE-2022-0317
+    - CVE-2022-0317
 ghsas:
-  - GHSA-99cg-575x-774p
+    - GHSA-99cg-575x-774p
 credits:
-  - Nikki VonHollen
+    - Nikki VonHollen
 references:
-  - fix: https://github.com/google/go-attestation/commit/82f2c9c2c76e1d3691d17ee78116d1d93a123788
+    - fix: https://github.com/google/go-attestation/commit/82f2c9c2c76e1d3691d17ee78116d1d93a123788

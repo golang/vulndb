@@ -1,13 +1,13 @@
 id: GO-2022-0534
 modules:
-  - module: github.com/runatlantis/atlantis
-    versions:
-      - fixed: 0.19.7
-    vulnerable_at: 0.19.6
-    packages:
-      - package: github.com/runatlantis/atlantis/server/controllers/events
-        symbols:
-          - DefaultGitlabRequestParserValidator.ParseAndValidate
+    - module: github.com/runatlantis/atlantis
+      versions:
+        - fixed: 0.19.7
+      vulnerable_at: 0.19.6
+      packages:
+        - package: github.com/runatlantis/atlantis/server/controllers/events
+          symbols:
+            - DefaultGitlabRequestParserValidator.ParseAndValidate
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Validation of Gitlab requests can leak secrets.
@@ -18,13 +18,13 @@ description: |
     then forge the request.
 published: 2022-08-11T20:54:51Z
 cves:
-  - CVE-2022-24912
+    - CVE-2022-24912
 ghsas:
-  - GHSA-jxqv-jcvh-7gr4
+    - GHSA-jxqv-jcvh-7gr4
 credits:
-  - cedws
+    - cedws
 references:
-  - fix: https://github.com/runatlantis/atlantis/pull/2392
-  - fix: https://github.com/runatlantis/atlantis/commit/48870911974adddaa4c99c8089e79b7d787fa820
-  - web: https://github.com/runatlantis/atlantis/issues/2391
-  - web: https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMRUNATLANTISATLANTISSERVERCONTROLLERSEVENTS-2950851
+    - fix: https://github.com/runatlantis/atlantis/pull/2392
+    - fix: https://github.com/runatlantis/atlantis/commit/48870911974adddaa4c99c8089e79b7d787fa820
+    - web: https://github.com/runatlantis/atlantis/issues/2391
+    - web: https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMRUNATLANTISATLANTISSERVERCONTROLLERSEVENTS-2950851

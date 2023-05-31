@@ -1,34 +1,34 @@
 id: GO-2020-0012
 modules:
-  - module: golang.org/x/crypto
-    versions:
-      - fixed: 0.0.0-20200220183623-bac4c82f6975
-    vulnerable_at: 0.0.0-20200219234226-1ad67e1f0ef4
-    packages:
-      - package: golang.org/x/crypto/ssh
-        symbols:
-          - parseED25519
-          - ed25519PublicKey.Verify
-          - parseSKEd25519
-          - skEd25519PublicKey.Verify
-          - NewPublicKey
-        derived_symbols:
-          - CertChecker.Authenticate
-          - CertChecker.CheckCert
-          - CertChecker.CheckHostKey
-          - Certificate.Verify
-          - Dial
-          - NewClientConn
-          - NewServerConn
-          - NewSignerFromKey
-          - NewSignerFromSigner
-          - ParseAuthorizedKey
-          - ParseKnownHosts
-          - ParsePrivateKey
-          - ParsePrivateKeyWithPassphrase
-          - ParsePublicKey
-          - ParseRawPrivateKey
-          - ParseRawPrivateKeyWithPassphrase
+    - module: golang.org/x/crypto
+      versions:
+        - fixed: 0.0.0-20200220183623-bac4c82f6975
+      vulnerable_at: 0.0.0-20200219234226-1ad67e1f0ef4
+      packages:
+        - package: golang.org/x/crypto/ssh
+          symbols:
+            - parseED25519
+            - ed25519PublicKey.Verify
+            - parseSKEd25519
+            - skEd25519PublicKey.Verify
+            - NewPublicKey
+          derived_symbols:
+            - CertChecker.Authenticate
+            - CertChecker.CheckCert
+            - CertChecker.CheckHostKey
+            - Certificate.Verify
+            - Dial
+            - NewClientConn
+            - NewServerConn
+            - NewSignerFromKey
+            - NewSignerFromSigner
+            - ParseAuthorizedKey
+            - ParseKnownHosts
+            - ParsePrivateKey
+            - ParsePrivateKeyWithPassphrase
+            - ParsePublicKey
+            - ParseRawPrivateKey
+            - ParseRawPrivateKeyWithPassphrase
 summary: |
     Panic due to improper verification of cryptographic signatures in golang.org/x/crypto/ssh
 description: |
@@ -38,12 +38,12 @@ description: |
     may be used as a denial of service vector.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2020-9283
+    - CVE-2020-9283
 ghsas:
-  - GHSA-ffhg-7mh4-33c4
+    - GHSA-ffhg-7mh4-33c4
 credits:
-  - Alex Gaynor, Fish in a Barrel
+    - Alex Gaynor, Fish in a Barrel
 references:
-  - fix: https://go.dev/cl/220357
-  - fix: https://go.googlesource.com/crypto/+/bac4c82f69751a6dd76e702d54b3ceb88adab236
-  - web: https://groups.google.com/g/golang-announce/c/3L45YRc91SY
+    - fix: https://go.dev/cl/220357
+    - fix: https://go.googlesource.com/crypto/+/bac4c82f69751a6dd76e702d54b3ceb88adab236
+    - web: https://groups.google.com/g/golang-announce/c/3L45YRc91SY

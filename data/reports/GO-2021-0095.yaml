@@ -1,13 +1,13 @@
 id: GO-2021-0095
 modules:
-  - module: github.com/google/go-tpm
-    versions:
-      - fixed: 0.3.0
-    vulnerable_at: 0.2.1-0.20200723190029-e82f64f63a31
-    packages:
-      - package: github.com/google/go-tpm/tpm
-        symbols:
-          - CreateWrapKey
+    - module: github.com/google/go-tpm
+      versions:
+        - fixed: 0.3.0
+      vulnerable_at: 0.2.1-0.20200723190029-e82f64f63a31
+      packages:
+        - package: github.com/google/go-tpm/tpm
+          symbols:
+            - CreateWrapKey
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Due to repeated usage of a XOR key an attacker that can eavesdrop on the TPM 1.2 transport
@@ -15,11 +15,11 @@ description: |
     allowing them to use the created key.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2020-8918
+    - CVE-2020-8918
 ghsas:
-  - GHSA-5x29-3hr9-6wpw
+    - GHSA-5x29-3hr9-6wpw
 credits:
-  - Chris Fenner
+    - Chris Fenner
 references:
-  - fix: https://github.com/google/go-tpm/pull/195
-  - fix: https://github.com/google/go-tpm/commit/d7806cce857a1a020190c03348e5361725d8f141
+    - fix: https://github.com/google/go-tpm/pull/195
+    - fix: https://github.com/google/go-tpm/commit/d7806cce857a1a020190c03348e5361725d8f141

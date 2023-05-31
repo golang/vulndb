@@ -1,17 +1,17 @@
 id: GO-2022-0273
 modules:
-  - module: std
-    versions:
-      - fixed: 1.16.8
-      - introduced: 1.17.0-0
-        fixed: 1.17.1
-    vulnerable_at: 1.17.0
-    packages:
-      - package: archive/zip
-        symbols:
-          - NewReader
-          - OpenReader
-        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+    - module: std
+      versions:
+        - fixed: 1.16.8
+        - introduced: 1.17.0-0
+          fixed: 1.17.1
+      vulnerable_at: 1.17.0
+      packages:
+        - package: archive/zip
+          symbols:
+            - NewReader
+            - OpenReader
+          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The NewReader and OpenReader functions in archive/zip can cause a panic or
@@ -20,12 +20,12 @@ description: |
     caused by an incomplete fix for CVE-2021-33196.
 published: 2022-05-18T18:23:31Z
 cves:
-  - CVE-2021-39293
+    - CVE-2021-39293
 credits:
-  - OSS-Fuzz Project
-  - Emmanuel Odeke
+    - OSS-Fuzz Project
+    - Emmanuel Odeke
 references:
-  - fix: https://go.dev/cl/343434
-  - fix: https://go.googlesource.com/go/+/bacbc33439b124ffd7392c91a5f5d96eca8c0c0b
-  - report: https://go.dev/issue/47801
-  - web: https://groups.google.com/g/golang-announce/c/dx9d7IOseHw
+    - fix: https://go.dev/cl/343434
+    - fix: https://go.googlesource.com/go/+/bacbc33439b124ffd7392c91a5f5d96eca8c0c0b
+    - report: https://go.dev/issue/47801
+    - web: https://groups.google.com/g/golang-announce/c/dx9d7IOseHw

@@ -1,16 +1,16 @@
 id: GO-2022-0191
 modules:
-  - module: std
-    versions:
-      - fixed: 1.10.6
-      - introduced: 1.11.0-0
-        fixed: 1.11.3
-    vulnerable_at: 1.11.2
-    packages:
-      - package: crypto/x509
-        symbols:
-          - CertPool.findVerifiedParents
-          - Certificate.buildChains
+    - module: std
+      versions:
+        - fixed: 1.10.6
+        - introduced: 1.11.0-0
+          fixed: 1.11.3
+      vulnerable_at: 1.11.2
+      packages:
+        - package: crypto/x509
+          symbols:
+            - CertPool.findVerifiedParents
+            - Certificate.buildChains
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The crypto/x509 package does not limit the amount of work
@@ -20,11 +20,11 @@ description: |
     verifying certificates are affected.
 published: 2022-07-15T23:03:26Z
 cves:
-  - CVE-2018-16875
+    - CVE-2018-16875
 credits:
-  - Netflix
+    - Netflix
 references:
-  - fix: https://go.dev/cl/154105
-  - fix: https://go.googlesource.com/go/+/770130659b6fb2acf271476579a3644e093dda7f
-  - report: https://go.dev/issue/29233
-  - web: https://groups.google.com/g/golang-announce/c/Kw31K8G7Fi0
+    - fix: https://go.dev/cl/154105
+    - fix: https://go.googlesource.com/go/+/770130659b6fb2acf271476579a3644e093dda7f
+    - report: https://go.dev/issue/29233
+    - web: https://groups.google.com/g/golang-announce/c/Kw31K8G7Fi0

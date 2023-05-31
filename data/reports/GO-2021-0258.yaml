@@ -1,16 +1,16 @@
 id: GO-2021-0258
 modules:
-  - module: github.com/pomerium/pomerium
-    versions:
-      - fixed: 0.15.6
-    vulnerable_at: 0.15.5
-    packages:
-      - package: github.com/pomerium/pomerium/internal/identity/manager
-        symbols:
-          - Manager.onUpdateRecords
-        derived_symbols:
-          - Manager.Run
-          - Manager.RunLeased
+    - module: github.com/pomerium/pomerium
+      versions:
+        - fixed: 0.15.6
+      vulnerable_at: 0.15.5
+      packages:
+        - package: github.com/pomerium/pomerium/internal/identity/manager
+          symbols:
+            - Manager.onUpdateRecords
+          derived_symbols:
+            - Manager.Run
+            - Manager.RunLeased
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Pomerium is an open source identity-aware access proxy. Changes to the OIDC
@@ -23,9 +23,9 @@ description: |
     redis or restarting the in-memory databroker to force claims to be updated.
 published: 2022-01-14T17:30:31Z
 cves:
-  - CVE-2021-41230
+    - CVE-2021-41230
 ghsas:
-  - GHSA-j6wp-3859-vxfg
+    - GHSA-j6wp-3859-vxfg
 references:
-  - fix: https://github.com/pomerium/pomerium/pull/2724
-  - fix: https://github.com/pomerium/pomerium/commit/f20542c4bf2cc691e4c324f7ec79e02e46d95511
+    - fix: https://github.com/pomerium/pomerium/pull/2724
+    - fix: https://github.com/pomerium/pomerium/commit/f20542c4bf2cc691e4c324f7ec79e02e46d95511

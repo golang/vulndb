@@ -1,14 +1,14 @@
 id: GO-2023-1268
 modules:
-  - module: mellium.im/sasl
-    versions:
-      - fixed: 0.3.1
-    vulnerable_at: 0.3.0
-    packages:
-      - package: mellium.im/sasl
-        symbols:
-          - NewClient
-          - NewServer
+    - module: mellium.im/sasl
+      versions:
+        - fixed: 0.3.1
+      vulnerable_at: 0.3.0
+      packages:
+        - package: mellium.im/sasl
+          symbols:
+            - NewClient
+            - NewServer
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |-
     An issue was discovered in Mellium mellium.im/sasl before 0.3.1. When
@@ -18,9 +18,9 @@ description: |-
     end that does not validate the length of the nonce) could lead to insufficient
     randomness being used during authentication.
 cves:
-  - CVE-2022-48195
+    - CVE-2022-48195
 ghsas:
-  - GHSA-gvfj-fxx3-j323
+    - GHSA-gvfj-fxx3-j323
 references:
-  - advisory: https://mellium.im/cve/cve-2022-48195/
-  - fix: https://codeberg.org/mellium/sasl/commit/e6cbf681b247c4efa1477eaad2cc47a01707b732
+    - advisory: https://mellium.im/cve/cve-2022-48195/
+    - fix: https://codeberg.org/mellium/sasl/commit/e6cbf681b247c4efa1477eaad2cc47a01707b732

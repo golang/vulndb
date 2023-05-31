@@ -1,19 +1,19 @@
 id: GO-2020-0004
 modules:
-  - module: github.com/nanobox-io/golang-nanoauth
-    versions:
-      - introduced: 0.0.0-20160722212129-ac0cc4484ad4
-        fixed: 0.0.0-20200131131040-063a3fb69896
-    vulnerable_at: 0.0.0-20190311151057-c2ebbac481bb
-    packages:
-      - package: github.com/nanobox-io/golang-nanoauth
-        symbols:
-          - Auth.ServeHTTP
-          - Auth.ListenAndServeTLS
-          - Auth.ListenAndServe
-        derived_symbols:
-          - ListenAndServe
-          - ListenAndServeTLS
+    - module: github.com/nanobox-io/golang-nanoauth
+      versions:
+        - introduced: 0.0.0-20160722212129-ac0cc4484ad4
+          fixed: 0.0.0-20200131131040-063a3fb69896
+      vulnerable_at: 0.0.0-20190311151057-c2ebbac481bb
+      packages:
+        - package: github.com/nanobox-io/golang-nanoauth
+          symbols:
+            - Auth.ServeHTTP
+            - Auth.ListenAndServeTLS
+            - Auth.ListenAndServe
+          derived_symbols:
+            - ListenAndServe
+            - ListenAndServeTLS
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     If any of the ListenAndServe functions are called with an empty token,
@@ -24,12 +24,12 @@ description: |
     recover the token.
 published: 2021-04-14T20:04:52Z
 ghsas:
-  - GHSA-hrm3-3xm6-x33h
+    - GHSA-hrm3-3xm6-x33h
 credits:
-  - '@bouk'
+    - '@bouk'
 references:
-  - fix: https://github.com/nanobox-io/golang-nanoauth/pull/5
-  - fix: https://github.com/nanobox-io/golang-nanoauth/commit/063a3fb69896acf985759f0fe3851f15973993f3
+    - fix: https://github.com/nanobox-io/golang-nanoauth/pull/5
+    - fix: https://github.com/nanobox-io/golang-nanoauth/commit/063a3fb69896acf985759f0fe3851f15973993f3
 cve_metadata:
     id: CVE-2020-36569
     cwe: 'CWE-305: Authentication Bypass by Primary Weakness'

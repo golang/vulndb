@@ -1,23 +1,22 @@
 id: GO-2022-1213
 modules:
-  - module: github.com/go-macaron/csrf
-    versions:
-      - fixed: 0.0.0-20180426211050-dadd1711a617
-    vulnerable_at: 0.0.0-20170207230724-428b7c62d7d0
-    packages:
-      - package: github.com/go-macaron/csrf
-        symbols:
-          - Generate
-        skip_fix: 'TODO: revisit this reason (cannot find module providing package
-            github.com/Unknwon/com)'
+    - module: github.com/go-macaron/csrf
+      versions:
+        - fixed: 0.0.0-20180426211050-dadd1711a617
+      vulnerable_at: 0.0.0-20170207230724-428b7c62d7d0
+      packages:
+        - package: github.com/go-macaron/csrf
+          symbols:
+            - Generate
+          skip_fix: 'TODO: revisit this reason (cannot find module providing package github.com/Unknwon/com)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The Options.Secure value is ignored, and cookies created by Generate never
     have the secure attribute.
 cves:
-  - CVE-2018-25060
+    - CVE-2018-25060
 ghsas:
-  - GHSA-hhxg-px5h-jc32
+    - GHSA-hhxg-px5h-jc32
 references:
-  - fix: https://github.com/go-macaron/csrf/pull/7
-  - fix: https://github.com/go-macaron/csrf/commit/dadd1711a617000b70e5e408a76531b73187031c
+    - fix: https://github.com/go-macaron/csrf/pull/7
+    - fix: https://github.com/go-macaron/csrf/commit/dadd1711a617000b70e5e408a76531b73187031c

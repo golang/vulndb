@@ -1,25 +1,25 @@
 id: GO-2023-1600
 modules:
-  - module: github.com/kitabisa/teler-waf
-    versions:
-      - fixed: 0.2.0
-    vulnerable_at: 0.1.2
-    packages:
-      - package: github.com/kitabisa/teler-waf
-        symbols:
-          - Teler.checkCommonWebAttack
-        derived_symbols:
-          - Teler.Analyze
-          - Teler.HandlerFuncWithNext
+    - module: github.com/kitabisa/teler-waf
+      versions:
+        - fixed: 0.2.0
+      vulnerable_at: 0.1.2
+      packages:
+        - package: github.com/kitabisa/teler-waf
+          symbols:
+            - Teler.checkCommonWebAttack
+          derived_symbols:
+            - Teler.Analyze
+            - Teler.HandlerFuncWithNext
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |-
     Improper handling of payload with special characters, such as CR/LF and horizontal tab,
     can lead to execution of arbitrary JavaScript code.
 cves:
-  - CVE-2023-26047
+    - CVE-2023-26047
 ghsas:
-  - GHSA-p2pf-g8cq-3gq5
+    - GHSA-p2pf-g8cq-3gq5
 references:
-  - advisory: https://github.com/advisories/GHSA-p2pf-g8cq-3gq5
-  - fix: https://github.com/kitabisa/teler-waf/commit/6e1b0e19b8adc1bbc3513a986025d4adf88d59f8
-  - web: https://github.com/kitabisa/teler-waf/releases/tag/v0.2.0
+    - advisory: https://github.com/advisories/GHSA-p2pf-g8cq-3gq5
+    - fix: https://github.com/kitabisa/teler-waf/commit/6e1b0e19b8adc1bbc3513a986025d4adf88d59f8
+    - web: https://github.com/kitabisa/teler-waf/releases/tag/v0.2.0

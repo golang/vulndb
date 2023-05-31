@@ -1,23 +1,23 @@
 id: GO-2021-0052
 modules:
-  - module: github.com/gin-gonic/gin
-    versions:
-      - fixed: 1.7.7
-    vulnerable_at: 1.7.6
-    packages:
-      - package: github.com/gin-gonic/gin
-        symbols:
-          - Context.ClientIP
-          - Context.RemoteIP
-        derived_symbols:
-          - Context.Next
-          - Engine.HandleContext
-          - Engine.Run
-          - Engine.RunFd
-          - Engine.RunListener
-          - Engine.RunTLS
-          - Engine.RunUnix
-          - Engine.ServeHTTP
+    - module: github.com/gin-gonic/gin
+      versions:
+        - fixed: 1.7.7
+      vulnerable_at: 1.7.6
+      packages:
+        - package: github.com/gin-gonic/gin
+          symbols:
+            - Context.ClientIP
+            - Context.RemoteIP
+          derived_symbols:
+            - Context.Next
+            - Engine.HandleContext
+            - Engine.Run
+            - Engine.RunFd
+            - Engine.RunListener
+            - Engine.RunTLS
+            - Engine.RunUnix
+            - Engine.ServeHTTP
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Due to improper HTTP header santization, a malicious user can spoof their
@@ -25,19 +25,19 @@ description: |
     a user to bypass IP based restrictions, or obfuscate their true source.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2020-28483
+    - CVE-2020-28483
 ghsas:
-  - GHSA-h395-qcrw-5vmq
+    - GHSA-h395-qcrw-5vmq
 credits:
-  - '@sorenisanerd'
+    - '@sorenisanerd'
 references:
-  - report: https://github.com/gin-gonic/gin/issues/2862
-  - report: https://github.com/gin-gonic/gin/issues/2473
-  - report: https://github.com/gin-gonic/gin/issues/2232
-  - fix: https://github.com/gin-gonic/gin/pull/2844
-  - fix: https://github.com/gin-gonic/gin/commit/5929d521715610c9dd14898ebbe1d188d5de8937
-  - fix: https://github.com/gin-gonic/gin/pull/2632
-  - fix: https://github.com/gin-gonic/gin/commit/bfc8ca285eb46dad60e037d57c545cd260636711
-  - fix: https://github.com/gin-gonic/gin/pull/2675
-  - fix: https://github.com/gin-gonic/gin/commit/03e5e05ae089bc989f1ca41841f05504d29e3fd9
-  - web: https://github.com/gin-gonic/gin/pull/2474
+    - report: https://github.com/gin-gonic/gin/issues/2862
+    - report: https://github.com/gin-gonic/gin/issues/2473
+    - report: https://github.com/gin-gonic/gin/issues/2232
+    - fix: https://github.com/gin-gonic/gin/pull/2844
+    - fix: https://github.com/gin-gonic/gin/commit/5929d521715610c9dd14898ebbe1d188d5de8937
+    - fix: https://github.com/gin-gonic/gin/pull/2632
+    - fix: https://github.com/gin-gonic/gin/commit/bfc8ca285eb46dad60e037d57c545cd260636711
+    - fix: https://github.com/gin-gonic/gin/pull/2675
+    - fix: https://github.com/gin-gonic/gin/commit/03e5e05ae089bc989f1ca41841f05504d29e3fd9
+    - web: https://github.com/gin-gonic/gin/pull/2474

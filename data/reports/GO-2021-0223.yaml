@@ -1,18 +1,18 @@
 id: GO-2021-0223
 modules:
-  - module: std
-    versions:
-      - fixed: 1.13.13
-      - introduced: 1.14.0-0
-        fixed: 1.14.5
-    vulnerable_at: 1.14.4
-    packages:
-      - package: crypto/x509
-        goos:
-          - windows
-        symbols:
-          - Certificate.systemVerify
-        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+    - module: std
+      versions:
+        - fixed: 1.13.13
+        - introduced: 1.14.0-0
+          fixed: 1.14.5
+      vulnerable_at: 1.14.4
+      packages:
+        - package: crypto/x509
+          goos:
+            - windows
+          symbols:
+            - Certificate.systemVerify
+          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     On Windows, if VerifyOptions.Roots is nil, Certificate.Verify
@@ -20,11 +20,11 @@ description: |
     This may allow a certificate to be used for an unintended purpose.
 published: 2022-02-17T17:46:03Z
 cves:
-  - CVE-2020-14039
+    - CVE-2020-14039
 credits:
-  - Niall Newman
+    - Niall Newman
 references:
-  - fix: https://go.dev/cl/242597
-  - fix: https://go.googlesource.com/go/+/82175e699a2e2cd83d3aa34949e9b922d66d52f5
-  - report: https://go.dev/issue/39360
-  - web: https://groups.google.com/g/golang-announce/c/XZNfaiwgt2w
+    - fix: https://go.dev/cl/242597
+    - fix: https://go.googlesource.com/go/+/82175e699a2e2cd83d3aa34949e9b922d66d52f5
+    - report: https://go.dev/issue/39360
+    - web: https://groups.google.com/g/golang-announce/c/XZNfaiwgt2w

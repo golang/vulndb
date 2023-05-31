@@ -1,26 +1,26 @@
 id: GO-2022-0246
 modules:
-  - module: github.com/cloudflare/cfrpki
-    versions:
-      - fixed: 1.3.0
-    vulnerable_at: 1.2.2
-    packages:
-      - package: github.com/cloudflare/cfrpki/validator/lib
-        symbols:
-          - ROAEntry.Validate
-        derived_symbols:
-          - RPKIROA.ValidateEntries
+    - module: github.com/cloudflare/cfrpki
+      versions:
+        - fixed: 1.3.0
+      vulnerable_at: 1.2.2
+      packages:
+        - package: github.com/cloudflare/cfrpki/validator/lib
+          symbols:
+            - ROAEntry.Validate
+          derived_symbols:
+            - RPKIROA.ValidateEntries
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The ROAEntry.Validate function fails to perform bounds checks on
     the MaxLength field, allowing invalid values to pass validation.
 published: 2022-07-15T23:06:38Z
 cves:
-  - CVE-2021-3761
+    - CVE-2021-3761
 ghsas:
-  - GHSA-c8xp-8mf3-62h9
+    - GHSA-c8xp-8mf3-62h9
 credits:
-  - Job Snijders
+    - Job Snijders
 references:
-  - fix: https://github.com/cloudflare/cfrpki/pull/90
-  - fix: https://github.com/cloudflare/cfrpki/commit/a8db4e009ef217484598ba1fd1c595b54e0f6422
+    - fix: https://github.com/cloudflare/cfrpki/pull/90
+    - fix: https://github.com/cloudflare/cfrpki/commit/a8db4e009ef217484598ba1fd1c595b54e0f6422

@@ -1,18 +1,18 @@
 id: GO-2022-0230
 modules:
-  - module: github.com/containernetworking/cni
-    versions:
-      - fixed: 0.8.1
-    vulnerable_at: 0.8.0
-    packages:
-      - package: github.com/containernetworking/cni/pkg/invoke
-        symbols:
-          - FindInPath
-        derived_symbols:
-          - DelegateAdd
-          - DelegateCheck
-          - DelegateDel
-          - RawExec.FindInPath
+    - module: github.com/containernetworking/cni
+      versions:
+        - fixed: 0.8.1
+      vulnerable_at: 0.8.0
+      packages:
+        - package: github.com/containernetworking/cni/pkg/invoke
+          symbols:
+            - FindInPath
+          derived_symbols:
+            - DelegateAdd
+            - DelegateCheck
+            - DelegateDel
+            - RawExec.FindInPath
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The FindInPath function is vulnerable to directory traversal attacks,
@@ -23,10 +23,10 @@ description: |
     arbitrary locations on the filesystem.
 published: 2022-07-01T20:17:57Z
 cves:
-  - CVE-2021-20206
+    - CVE-2021-20206
 ghsas:
-  - GHSA-xjqr-g762-pxwp
+    - GHSA-xjqr-g762-pxwp
 references:
-  - fix: https://github.com/containernetworking/cni/pull/808
-  - web: https://bugzilla.redhat.com/show_bug.cgi?id=1919391
-  - web: https://snyk.io/vuln/SNYK-GOLANG-GITHUBCOMCONTAINERNETWORKINGCNIPKGINVOKE-1070549
+    - fix: https://github.com/containernetworking/cni/pull/808
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=1919391
+    - web: https://snyk.io/vuln/SNYK-GOLANG-GITHUBCOMCONTAINERNETWORKINGCNIPKGINVOKE-1070549

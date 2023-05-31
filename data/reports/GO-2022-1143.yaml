@@ -1,28 +1,28 @@
 id: GO-2022-1143
 modules:
-  - module: std
-    versions:
-      - fixed: 1.18.9
-      - introduced: 1.19.0-0
-        fixed: 1.19.4
-    vulnerable_at: 1.19.3
-    packages:
-      - package: os
-        goos:
-          - windows
-        symbols:
-          - dirFS.Open
-          - dirFS.Stat
-          - DirFS
-      - package: net/http
-        goos:
-          - windows
-        symbols:
-          - Dir.Open
-        derived_symbols:
-          - ServeFile
-          - fileHandler.ServeHTTP
-          - fileTransport.RoundTrip
+    - module: std
+      versions:
+        - fixed: 1.18.9
+        - introduced: 1.19.0-0
+          fixed: 1.19.4
+      vulnerable_at: 1.19.3
+      packages:
+        - package: os
+          goos:
+            - windows
+          symbols:
+            - dirFS.Open
+            - dirFS.Stat
+            - DirFS
+        - package: net/http
+          goos:
+            - windows
+          symbols:
+            - Dir.Open
+          derived_symbols:
+            - ServeFile
+            - fileHandler.ServeHTTP
+            - fileTransport.RoundTrip
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     On Windows, restricted files can be accessed via os.DirFS and http.Dir.
@@ -41,10 +41,9 @@ description: |
     empty root was treated equivalently to "/", so os.DirFS("").Open("tmp")
     would open the path "/tmp". This now returns an error.
 references:
-  - report: https://go.dev/issue/56694
-  - fix: https://go.dev/cl/455716
-  - web: https://groups.google.com/g/golang-announce/c/L_3rmdT0BMU/m/yZDrXjIiBQAJ
+    - report: https://go.dev/issue/56694
+    - fix: https://go.dev/cl/455716
+    - web: https://groups.google.com/g/golang-announce/c/L_3rmdT0BMU/m/yZDrXjIiBQAJ
 cve_metadata:
     id: CVE-2022-41720
-    cwe: 'CWE 22: Improper Limitation of a Pathname to a Restricted Directory (''Path
-        Traversal'')'
+    cwe: 'CWE 22: Improper Limitation of a Pathname to a Restricted Directory (''Path Traversal'')'

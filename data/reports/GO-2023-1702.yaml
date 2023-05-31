@@ -1,28 +1,28 @@
 id: GO-2023-1702
 modules:
-  - module: std
-    versions:
-      - fixed: 1.19.8
-      - introduced: 1.20.0-0
-        fixed: 1.20.3
-    vulnerable_at: 1.20.2
-    packages:
-      - package: go/scanner
-        symbols:
-          - Scanner.updateLineInfo
-        derived_symbols:
-          - Scanner.Scan
+    - module: std
+      versions:
+        - fixed: 1.19.8
+        - introduced: 1.20.0-0
+          fixed: 1.20.3
+      vulnerable_at: 1.20.2
+      packages:
+        - package: go/scanner
+          symbols:
+            - Scanner.updateLineInfo
+          derived_symbols:
+            - Scanner.Scan
 summary: Infinite loop in go/parser
 description: |
     Calling any of the Parse functions on Go source code which contains //line
     directives with very large line numbers can cause an infinite loop due to
     integer overflow.
 credits:
-  - Philippe Antoine (Catena cyber)
+    - Philippe Antoine (Catena cyber)
 references:
-  - report: https://go.dev/issue/59180
-  - fix: https://go.dev/cl/482078
-  - web: https://groups.google.com/g/golang-announce/c/Xdv6JL9ENs8
+    - report: https://go.dev/issue/59180
+    - fix: https://go.dev/cl/482078
+    - web: https://groups.google.com/g/golang-announce/c/Xdv6JL9ENs8
 cve_metadata:
     id: CVE-2023-24537
     cwe: 'CWE-835: Loop with Unreachable Exit Condition (''Infinite Loop'')'

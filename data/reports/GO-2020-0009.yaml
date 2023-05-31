@@ -1,48 +1,48 @@
 id: GO-2020-0009
 modules:
-  - module: github.com/square/go-jose
-    versions:
-      - fixed: 0.0.0-20160903044734-789a4c4bd4c1
-    vulnerable_at: 0.0.0-20160831221313-d00415a0a4fd
-    packages:
-      - package: github.com/square/go-jose/cipher
-        goarch:
-          - "386"
-          - arm
-          - armbe
-          - amd64p32
-          - mips
-          - mipsle
-          - mips64p32
-          - mips64p32le
-          - ppc
-          - riscv
-          - s390
-          - sparc
-        symbols:
-          - cbcAEAD.computeAuthTag
-        derived_symbols:
-          - cbcAEAD.Open
-          - cbcAEAD.Seal
-      - package: github.com/square/go-jose
-        goarch:
-          - "386"
-          - arm
-          - armbe
-          - amd64p32
-          - mips
-          - mipsle
-          - mips64p32
-          - mips64p32le
-          - ppc
-          - riscv
-          - s390
-          - sparc
-        symbols:
-          - JsonWebEncryption.Decrypt
-        derived_symbols:
-          - genericEncrypter.Encrypt
-          - genericEncrypter.EncryptWithAuthData
+    - module: github.com/square/go-jose
+      versions:
+        - fixed: 0.0.0-20160903044734-789a4c4bd4c1
+      vulnerable_at: 0.0.0-20160831221313-d00415a0a4fd
+      packages:
+        - package: github.com/square/go-jose/cipher
+          goarch:
+            - "386"
+            - arm
+            - armbe
+            - amd64p32
+            - mips
+            - mipsle
+            - mips64p32
+            - mips64p32le
+            - ppc
+            - riscv
+            - s390
+            - sparc
+          symbols:
+            - cbcAEAD.computeAuthTag
+          derived_symbols:
+            - cbcAEAD.Open
+            - cbcAEAD.Seal
+        - package: github.com/square/go-jose
+          goarch:
+            - "386"
+            - arm
+            - armbe
+            - amd64p32
+            - mips
+            - mipsle
+            - mips64p32
+            - mips64p32le
+            - ppc
+            - riscv
+            - s390
+            - sparc
+          symbols:
+            - JsonWebEncryption.Decrypt
+          derived_symbols:
+            - genericEncrypter.Encrypt
+            - genericEncrypter.EncryptWithAuthData
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     On 32-bit platforms an attacker can manipulate a ciphertext encrypted with AES-CBC
@@ -51,11 +51,11 @@ description: |
     verified as authentic, opening the door for padding oracle attacks.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2016-9123
+    - CVE-2016-9123
 ghsas:
-  - GHSA-3fx4-7f69-5mmg
+    - GHSA-3fx4-7f69-5mmg
 credits:
-  - Quan Nguyen from Google's Information Security Engineering Team
+    - Quan Nguyen from Google's Information Security Engineering Team
 references:
-  - fix: https://github.com/square/go-jose/commit/789a4c4bd4c118f7564954f441b29c153ccd6a96
-  - web: https://www.openwall.com/lists/oss-security/2016/11/03/1
+    - fix: https://github.com/square/go-jose/commit/789a4c4bd4c118f7564954f441b29c153ccd6a96
+    - web: https://www.openwall.com/lists/oss-security/2016/11/03/1

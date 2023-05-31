@@ -1,17 +1,17 @@
 id: GO-2022-0535
 modules:
-  - module: std
-    versions:
-      - fixed: 1.12.16
-      - introduced: 1.13.0-0
-        fixed: 1.13.7
-    vulnerable_at: 1.13.6
-    packages:
-      - package: crypto/x509
-        goos:
-          - windows
-        symbols:
-          - Certificate.systemVerify
+    - module: std
+      versions:
+        - fixed: 1.12.16
+        - introduced: 1.13.0-0
+          fixed: 1.13.7
+      vulnerable_at: 1.13.6
+      packages:
+        - package: crypto/x509
+          goos:
+            - windows
+          symbols:
+            - Certificate.systemVerify
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     A Windows vulnerability allows attackers to spoof valid certificate chains
@@ -26,9 +26,9 @@ description: |
     for details on the Windows vulnerability.
 published: 2022-08-01T22:21:17Z
 cves:
-  - CVE-2020-0601
+    - CVE-2020-0601
 references:
-  - fix: https://go.dev/cl/215905
-  - fix: https://go.googlesource.com/go/+/953bc8f391a63adf00bac2515dba62abe8a1e2c2
-  - report: https://go.dev/issue/36834
-  - web: https://groups.google.com/g/golang-announce/c/Hsw4mHYc470/m/WJeW5wguEgAJ
+    - fix: https://go.dev/cl/215905
+    - fix: https://go.googlesource.com/go/+/953bc8f391a63adf00bac2515dba62abe8a1e2c2
+    - report: https://go.dev/issue/36834
+    - web: https://groups.google.com/g/golang-announce/c/Hsw4mHYc470/m/WJeW5wguEgAJ

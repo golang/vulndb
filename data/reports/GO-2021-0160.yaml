@@ -1,16 +1,16 @@
 id: GO-2021-0160
 modules:
-  - module: std
-    versions:
-      - introduced: 1.5.0-0
-        fixed: 1.5.3
-    vulnerable_at: 1.5.2
-    packages:
-      - package: math/big
-        symbols:
-          - nat.expNNMontgomery
-          - nat.montgomery
-        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+    - module: std
+      versions:
+        - introduced: 1.5.0-0
+          fixed: 1.5.3
+      vulnerable_at: 1.5.2
+      packages:
+        - package: math/big
+          symbols:
+            - nat.expNNMontgomery
+            - nat.montgomery
+          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Int.Exp Montgomery mishandled carry propagation and produced an incorrect
@@ -34,13 +34,13 @@ description: |
     (less than one in 2^50) that it would be very difficult to exploit.
 published: 2022-01-05T15:31:16Z
 cves:
-  - CVE-2015-8618
+    - CVE-2015-8618
 credits:
-  - Nick Craig-Wood
+    - Nick Craig-Wood
 references:
-  - fix: https://go.dev/cl/18491
-  - fix: https://go.googlesource.com/go/+/1e066cad1ba23f4064545355b8737e4762dd6838
-  - fix: https://go.googlesource.com/go/+/4306352182bf94f86f0cfc6a8b0ed461cbf1d82c
-  - fix: https://go.dev/cl/17672
-  - report: https://go.dev/issue/13515
-  - web: https://groups.google.com/g/golang-announce/c/MEATuOi_ei4
+    - fix: https://go.dev/cl/18491
+    - fix: https://go.googlesource.com/go/+/1e066cad1ba23f4064545355b8737e4762dd6838
+    - fix: https://go.googlesource.com/go/+/4306352182bf94f86f0cfc6a8b0ed461cbf1d82c
+    - fix: https://go.dev/cl/17672
+    - report: https://go.dev/issue/13515
+    - web: https://groups.google.com/g/golang-announce/c/MEATuOi_ei4

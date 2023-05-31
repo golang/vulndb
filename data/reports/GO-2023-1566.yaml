@@ -1,28 +1,28 @@
 id: GO-2023-1566
 modules:
-  - module: github.com/usememos/memos
-    versions:
-      - fixed: 0.10.4-0.20230211093429-b11d2130a084
-    vulnerable_at: 0.10.3
-    packages:
-      - package: github.com/usememos/memos/server
-        symbols:
-          - Server.registerResourcePublicRoutes
-          - Server.registerResourceRoutes
-        derived_symbols:
-          - NewServer
+    - module: github.com/usememos/memos
+      versions:
+        - fixed: 0.10.4-0.20230211093429-b11d2130a084
+      vulnerable_at: 0.10.3
+      packages:
+        - package: github.com/usememos/memos/server
+          symbols:
+            - Server.registerResourcePublicRoutes
+            - Server.registerResourceRoutes
+          derived_symbols:
+            - NewServer
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     A malicious actor can introduce links starting with a `javascript:` scheme
     due to insufficient checks on external resources. This can be used as a
     part of Cross-site Scripting (XSS) attack.
 cves:
-  - CVE-2022-25978
+    - CVE-2022-25978
 ghsas:
-  - GHSA-9w8x-5hv5-r6gw
+    - GHSA-9w8x-5hv5-r6gw
 credits:
-  - Kahla
+    - Kahla
 references:
-  - web: https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMUSEMEMOSMEMOSSERVER-3319070
-  - fix: https://github.com/usememos/memos/commit/b11d2130a084385eb65c3761a3c841ebe9f81ae8
-  - report: https://github.com/usememos/memos/issues/1026
+    - web: https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMUSEMEMOSMEMOSSERVER-3319070
+    - fix: https://github.com/usememos/memos/commit/b11d2130a084385eb65c3761a3c841ebe9f81ae8
+    - report: https://github.com/usememos/memos/issues/1026

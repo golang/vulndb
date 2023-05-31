@@ -1,15 +1,14 @@
 id: GO-2021-0087
 modules:
-  - module: github.com/opencontainers/runc
-    versions:
-      - fixed: 1.0.0-rc9.0.20200122160610-2fc03cc11c77
-    vulnerable_at: 1.0.0-rc9.0.20191217094952-7496a9682535
-    packages:
-      - package: github.com/opencontainers/runc/libcontainer
-        symbols:
-          - mountToRootfs
-        skip_fix: 'TODO: Revisit this reason. (Fix causes multiple errors (dependent
-            fields/methods undefined)'
+    - module: github.com/opencontainers/runc
+      versions:
+        - fixed: 1.0.0-rc9.0.20200122160610-2fc03cc11c77
+      vulnerable_at: 1.0.0-rc9.0.20191217094952-7496a9682535
+      packages:
+        - package: github.com/opencontainers/runc/libcontainer
+          symbols:
+            - mountToRootfs
+          skip_fix: 'TODO: Revisit this reason. (Fix causes multiple errors (dependent fields/methods undefined)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     A race while mounting volumes allows a possible symlink-exchange
@@ -17,12 +16,12 @@ description: |
     custom volume mount configurations to escape the container.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2019-19921
+    - CVE-2019-19921
 ghsas:
-  - GHSA-fh74-hm69-rqjw
+    - GHSA-fh74-hm69-rqjw
 credits:
-  - Leopold Schabel
+    - Leopold Schabel
 references:
-  - fix: https://github.com/opencontainers/runc/pull/2207
-  - fix: https://github.com/opencontainers/runc/commit/2fc03cc11c775b7a8b2e48d7ee447cb9bef32ad0
-  - web: https://github.com/opencontainers/runc/issues/2197
+    - fix: https://github.com/opencontainers/runc/pull/2207
+    - fix: https://github.com/opencontainers/runc/commit/2fc03cc11c775b7a8b2e48d7ee447cb9bef32ad0
+    - web: https://github.com/opencontainers/runc/issues/2197

@@ -1,28 +1,28 @@
 id: GO-2022-1059
 modules:
-  - module: golang.org/x/text
-    versions:
-      - fixed: 0.3.8
-    vulnerable_at: 0.3.7
-    packages:
-      - package: golang.org/x/text/language
-        symbols:
-          - ParseAcceptLanguage
-        derived_symbols:
-          - MatchStrings
+    - module: golang.org/x/text
+      versions:
+        - fixed: 0.3.8
+      vulnerable_at: 0.3.7
+      packages:
+        - package: golang.org/x/text/language
+          symbols:
+            - ParseAcceptLanguage
+          derived_symbols:
+            - MatchStrings
 summary: Denial of service in golang.org/x/text/language
 description: |
     An attacker may cause a denial of service by crafting an Accept-Language
     header which ParseAcceptLanguage will take significant time to parse.
 ghsas:
-  - GHSA-69ch-w2m2-3vjp
+    - GHSA-69ch-w2m2-3vjp
 credits:
-  - Adam Korczynski (ADA Logics)
-  - OSS-Fuzz
+    - Adam Korczynski (ADA Logics)
+    - OSS-Fuzz
 references:
-  - report: https://go.dev/issue/56152
-  - fix: https://go.dev/cl/442235
-  - web: https://groups.google.com/g/golang-announce/c/-hjNw559_tE/m/KlGTfid5CAAJ
+    - report: https://go.dev/issue/56152
+    - fix: https://go.dev/cl/442235
+    - web: https://groups.google.com/g/golang-announce/c/-hjNw559_tE/m/KlGTfid5CAAJ
 cve_metadata:
     id: CVE-2022-32149
     cwe: 'CWE 400: Uncontrolled Resource Consumption'

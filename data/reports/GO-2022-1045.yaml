@@ -1,29 +1,29 @@
 id: GO-2022-1045
 modules:
-  - module: github.com/sylabs/sif/v2
-    versions:
-      - fixed: 2.8.1
-    vulnerable_at: 2.8.0
-    packages:
-      - package: github.com/sylabs/sif/v2/pkg/integrity
-        symbols:
-          - signAndEncodeJSON
-          - verifyAndDecode
-          - newDigest
-          - digest.MarshalJSON
-        derived_symbols:
-          - Signer.Sign
-          - Verifier.Verify
-          - digest.UnmarshalJSON
+    - module: github.com/sylabs/sif/v2
+      versions:
+        - fixed: 2.8.1
+      vulnerable_at: 2.8.0
+      packages:
+        - package: github.com/sylabs/sif/v2/pkg/integrity
+          symbols:
+            - signAndEncodeJSON
+            - verifyAndDecode
+            - newDigest
+            - digest.MarshalJSON
+          derived_symbols:
+            - Signer.Sign
+            - Verifier.Verify
+            - digest.UnmarshalJSON
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |-
     The Singularity Image Format (SIF) reference implementation does not verify
     that the hash algorithm(s) used are cryptographically secure when verifying
     digital signatures.
 cves:
-  - CVE-2022-39237
+    - CVE-2022-39237
 ghsas:
-  - GHSA-m5m3-46gj-wch8
+    - GHSA-m5m3-46gj-wch8
 references:
-  - advisory: https://github.com/sylabs/sif/security/advisories/GHSA-m5m3-46gj-wch8
-  - fix: https://github.com/sylabs/sif/commit/07fb86029a12e3210f6131e065570124605daeaa
+    - advisory: https://github.com/sylabs/sif/security/advisories/GHSA-m5m3-46gj-wch8
+    - fix: https://github.com/sylabs/sif/commit/07fb86029a12e3210f6131e065570124605daeaa

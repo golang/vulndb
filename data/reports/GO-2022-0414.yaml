@@ -1,29 +1,29 @@
 id: GO-2022-0414
 modules:
-  - module: github.com/Masterminds/vcs
-    versions:
-      - fixed: 1.13.3
-    vulnerable_at: 1.13.1
-    packages:
-      - package: github.com/Masterminds/vcs
-        symbols:
-          - BzrRepo.Get
-          - BzrRepo.Init
-          - BzrRepo.Ping
-          - BzrRepo.ExportDir
-          - GitRepo.Get
-          - GitRepo.Init
-          - GitRepo.Update
-          - HgRepo.Get
-          - HgRepo.Init
-          - HgRepo.Ping
-          - HgRepo.ExportDir
-          - NewSvnRepo
-          - SvnRepo.Get
-          - SvnRepo.Ping
-          - SvnRepo.ExportDir
-        derived_symbols:
-          - NewRepo
+    - module: github.com/Masterminds/vcs
+      versions:
+        - fixed: 1.13.3
+      vulnerable_at: 1.13.1
+      packages:
+        - package: github.com/Masterminds/vcs
+          symbols:
+            - BzrRepo.Get
+            - BzrRepo.Init
+            - BzrRepo.Ping
+            - BzrRepo.ExportDir
+            - GitRepo.Get
+            - GitRepo.Init
+            - GitRepo.Update
+            - HgRepo.Get
+            - HgRepo.Init
+            - HgRepo.Ping
+            - HgRepo.ExportDir
+            - NewSvnRepo
+            - SvnRepo.Get
+            - SvnRepo.Ping
+            - SvnRepo.ExportDir
+          derived_symbols:
+            - NewRepo
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Passing untrusted inputs to VCS functions can permit an attacker
@@ -35,10 +35,10 @@ description: |
     injection.
 published: 2022-07-01T20:08:17Z
 cves:
-  - CVE-2022-21235
+    - CVE-2022-21235
 ghsas:
-  - GHSA-6635-c626-vj4r
+    - GHSA-6635-c626-vj4r
 credits:
-  - Alessio Della Libera of Snyk Research Team
+    - Alessio Della Libera of Snyk Research Team
 references:
-  - fix: https://github.com/Masterminds/vcs/pull/105
+    - fix: https://github.com/Masterminds/vcs/pull/105

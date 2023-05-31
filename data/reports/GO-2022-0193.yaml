@@ -1,16 +1,16 @@
 id: GO-2022-0193
 modules:
-  - module: golang.org/x/net
-    versions:
-      - fixed: 0.0.0-20180921000356-2f5d2388922f
-    vulnerable_at: 0.0.0-20180911220305-26e67e76b6c3
-    packages:
-      - package: golang.org/x/net/html
-        symbols:
-          - inBodyIM
-        derived_symbols:
-          - Parse
-          - ParseFragment
+    - module: golang.org/x/net
+      versions:
+        - fixed: 0.0.0-20180921000356-2f5d2388922f
+      vulnerable_at: 0.0.0-20180911220305-26e67e76b6c3
+      packages:
+        - package: golang.org/x/net/html
+          symbols:
+            - inBodyIM
+          derived_symbols:
+            - Parse
+            - ParseFragment
 summary: Improper input validation in golang.org/x/net/html
 description: |
     The Parse function can panic on some invalid inputs.
@@ -19,12 +19,12 @@ description: |
     "<template><tBody><isindex/action=0>".
 published: 2022-07-06T18:14:54Z
 cves:
-  - CVE-2018-17143
+    - CVE-2018-17143
 ghsas:
-  - GHSA-fcf9-6fv2-fc5v
+    - GHSA-fcf9-6fv2-fc5v
 credits:
-  - '@tr3ee'
+    - '@tr3ee'
 references:
-  - fix: https://go-review.googlesource.com/c/net/+/136575
-  - fix: https://go.googlesource.com/net/+/2f5d2388922f370f4355f327fcf4cfe9f5583908
-  - report: https://go.dev/issue/27704
+    - fix: https://go-review.googlesource.com/c/net/+/136575
+    - fix: https://go.googlesource.com/net/+/2f5d2388922f370f4355f327fcf4cfe9f5583908
+    - report: https://go.dev/issue/27704

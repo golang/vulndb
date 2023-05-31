@@ -1,14 +1,14 @@
 id: GO-2022-0380
 modules:
-  - module: github.com/nats-io/jwt
-    versions:
-      - fixed: 1.1.0
-    vulnerable_at: 1.0.1
-    packages:
-      - package: github.com/nats-io/jwt
-        symbols:
-          - AccountClaims.IsRevoked
-          - Export.IsRevoked
+    - module: github.com/nats-io/jwt
+      versions:
+        - fixed: 1.1.0
+      vulnerable_at: 1.0.1
+      packages:
+        - package: github.com/nats-io/jwt
+          symbols:
+            - AccountClaims.IsRevoked
+            - Export.IsRevoked
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The AccountClaims.IsRevoked and Export.IsRevoked functions improperly
@@ -20,10 +20,10 @@ description: |
     In these versions, the IsRevoked method always return true.
 published: 2022-07-15T23:29:36Z
 cves:
-  - CVE-2020-26892
+    - CVE-2020-26892
 ghsas:
-  - GHSA-2c64-vj8g-vwrq
-  - GHSA-4w5x-x539-ppf5
+    - GHSA-2c64-vj8g-vwrq
+    - GHSA-4w5x-x539-ppf5
 references:
-  - advisory: https://advisories.nats.io/CVE/CVE-2020-26892.txt
-  - fix: https://github.com/nats-io/jwt/commit/e11ce317263cef69619fc1ca743b195d02aa1d8a
+    - advisory: https://advisories.nats.io/CVE/CVE-2020-26892.txt
+    - fix: https://github.com/nats-io/jwt/commit/e11ce317263cef69619fc1ca743b195d02aa1d8a

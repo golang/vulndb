@@ -1,28 +1,28 @@
 id: GO-2022-1086
 modules:
-  - module: github.com/zalando/skipper
-    versions:
-      - fixed: 0.13.237
-    vulnerable_at: 0.13.236
-    packages:
-      - package: github.com/zalando/skipper/proxy
-        symbols:
-          - mapRequest
-          - proxyFromHeader
-          - forwardToProxy
-        derived_symbols:
-          - Proxy.ServeHTTP
-          - context.Loopback
-        skip_fix: 'TODO: revisit this reason (net/redisclient: r.ring.SetAddrs undefined)'
+    - module: github.com/zalando/skipper
+      versions:
+        - fixed: 0.13.237
+      vulnerable_at: 0.13.236
+      packages:
+        - package: github.com/zalando/skipper/proxy
+          symbols:
+            - mapRequest
+            - proxyFromHeader
+            - forwardToProxy
+          derived_symbols:
+            - Proxy.ServeHTTP
+            - context.Loopback
+          skip_fix: 'TODO: revisit this reason (net/redisclient: r.ring.SetAddrs undefined)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |-
     An attacker can access the internal metadata server or other unauthenticated
     URLs by adding a specific header (X-Skipper-Proxy) to the http request.
 cves:
-  - CVE-2022-38580
+    - CVE-2022-38580
 ghsas:
-  - GHSA-f2rj-m42r-6jm2
+    - GHSA-f2rj-m42r-6jm2
 references:
-  - advisory: https://github.com/zalando/skipper/security/advisories/GHSA-f2rj-m42r-6jm2
-  - fix: https://github.com/zalando/skipper/pull/2058
-  - web: https://github.com/zalando/skipper/releases/tag/v0.13.237
+    - advisory: https://github.com/zalando/skipper/security/advisories/GHSA-f2rj-m42r-6jm2
+    - fix: https://github.com/zalando/skipper/pull/2058
+    - web: https://github.com/zalando/skipper/releases/tag/v0.13.237

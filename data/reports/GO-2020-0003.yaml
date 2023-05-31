@@ -1,11 +1,11 @@
 id: GO-2020-0003
 modules:
-  - module: github.com/revel/revel
-    versions:
-      - fixed: 1.0.0
-    vulnerable_at: 0.21.0
-    packages:
-      - package: github.com/revel/revel
+    - module: github.com/revel/revel
+      versions:
+        - fixed: 1.0.0
+      vulnerable_at: 0.21.0
+      packages:
+        - package: github.com/revel/revel
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     An attacker can cause an application that accepts slice parameters
@@ -13,13 +13,13 @@ description: |
     amounts of memory and crash through manipulating the request query sent to the application.
 published: 2021-04-14T20:04:52Z
 ghsas:
-  - GHSA-hggr-p7v6-73p5
+    - GHSA-hggr-p7v6-73p5
 credits:
-  - '@SYM01'
+    - '@SYM01'
 references:
-  - fix: https://github.com/revel/revel/pull/1427
-  - fix: https://github.com/revel/revel/commit/d160ecb72207824005b19778594cbdc272e8a605
-  - web: https://github.com/revel/revel/issues/1424
+    - fix: https://github.com/revel/revel/pull/1427
+    - fix: https://github.com/revel/revel/commit/d160ecb72207824005b19778594cbdc272e8a605
+    - web: https://github.com/revel/revel/issues/1424
 cve_metadata:
     id: CVE-2020-36568
     cwe: 'CWE-400: Uncontrolled Resource Consumption'

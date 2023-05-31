@@ -1,18 +1,18 @@
 id: GO-2022-0187
 modules:
-  - module: std
-    versions:
-      - introduced: 1.6.0-0
-        fixed: 1.7.6
-      - introduced: 1.8.0-0
-        fixed: 1.8.2
-    vulnerable_at: 1.8.1
-    packages:
-      - package: crypto/elliptic
-        goarch:
-          - amd64
-        symbols:
-          - p256SubInternal
+    - module: std
+      versions:
+        - introduced: 1.6.0-0
+          fixed: 1.7.6
+        - introduced: 1.8.0-0
+          fixed: 1.8.2
+      vulnerable_at: 1.8.1
+      packages:
+        - package: crypto/elliptic
+          goarch:
+            - amd64
+          symbols:
+            - p256SubInternal
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The ScalarMult implementation of curve P-256 for amd64 architectures
@@ -23,12 +23,12 @@ description: |
     against static ECDH, as used in popular JWT libraries.
 published: 2022-07-01T20:11:15Z
 cves:
-  - CVE-2017-8932
+    - CVE-2017-8932
 credits:
-  - Vlad Krasnov
-  - Filippo Valsorda at Cloudflare
+    - Vlad Krasnov
+    - Filippo Valsorda at Cloudflare
 references:
-  - fix: https://go.dev/cl/41070
-  - fix: https://go.googlesource.com/go/+/9294fa2749ffee7edbbb817a0ef9fe633136fa9c
-  - report: https://go.dev/issue/20040
-  - web: https://groups.google.com/g/golang-announce/c/B5ww0iFt1_Q/m/TgUFJV14BgAJ
+    - fix: https://go.dev/cl/41070
+    - fix: https://go.googlesource.com/go/+/9294fa2749ffee7edbbb817a0ef9fe633136fa9c
+    - report: https://go.dev/issue/20040
+    - web: https://groups.google.com/g/golang-announce/c/B5ww0iFt1_Q/m/TgUFJV14BgAJ

@@ -1,21 +1,21 @@
 id: GO-2021-0103
 modules:
-  - module: github.com/holiman/uint256
-    versions:
-      - introduced: 0.1.0
-      - fixed: 1.1.1
-    vulnerable_at: 1.1.0
-    packages:
-      - package: github.com/holiman/uint256
-        symbols:
-          - udivrem
-        derived_symbols:
-          - Int.AddMod
-          - Int.Div
-          - Int.Mod
-          - Int.MulMod
-          - Int.SDiv
-          - Int.SMod
+    - module: github.com/holiman/uint256
+      versions:
+        - introduced: 0.1.0
+        - fixed: 1.1.1
+      vulnerable_at: 1.1.0
+      packages:
+        - package: github.com/holiman/uint256
+          symbols:
+            - udivrem
+          derived_symbols:
+            - Int.AddMod
+            - Int.Div
+            - Int.Mod
+            - Int.MulMod
+            - Int.SDiv
+            - Int.SMod
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Due to improper bounds checking, certain mathmatical operations can cause a panic via an
@@ -23,11 +23,11 @@ description: |
     as a vector for a denial of service attack.
 published: 2021-07-28T18:08:05Z
 cves:
-  - CVE-2020-26242
+    - CVE-2020-26242
 ghsas:
-  - GHSA-jm5c-rv3w-w83m
+    - GHSA-jm5c-rv3w-w83m
 credits:
-  - Dima Stebaev
+    - Dima Stebaev
 references:
-  - fix: https://github.com/holiman/uint256/pull/80
-  - fix: https://github.com/holiman/uint256/commit/6785da6e3eea403260a5760029e722aa4ff1716d
+    - fix: https://github.com/holiman/uint256/pull/80
+    - fix: https://github.com/holiman/uint256/commit/6785da6e3eea403260a5760029e722aa4ff1716d

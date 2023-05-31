@@ -1,16 +1,16 @@
 id: GO-2021-0234
 modules:
-  - module: std
-    versions:
-      - fixed: 1.15.9
-      - introduced: 1.16.0-0
-        fixed: 1.16.1
-    vulnerable_at: 1.16.0
-    packages:
-      - package: encoding/xml
-        symbols:
-          - Decoder.Token
-        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+    - module: std
+      versions:
+        - fixed: 1.15.9
+        - introduced: 1.16.0-0
+          fixed: 1.16.1
+      vulnerable_at: 1.16.0
+      packages:
+        - package: encoding/xml
+          symbols:
+            - Decoder.Token
+          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The Decode, DecodeElement, and Skip methods of an xml.Decoder
@@ -19,11 +19,11 @@ description: |
     middle of an open XML element.
 published: 2022-02-17T17:34:24Z
 cves:
-  - CVE-2021-27918
+    - CVE-2021-27918
 credits:
-  - Sam Whited
+    - Sam Whited
 references:
-  - fix: https://go.dev/cl/300391
-  - fix: https://go.googlesource.com/go/+/d0b79e3513a29628f3599dc8860666b6eed75372
-  - report: https://go.dev/issue/44913
-  - web: https://groups.google.com/g/golang-announce/c/MfiLYjG-RAw
+    - fix: https://go.dev/cl/300391
+    - fix: https://go.googlesource.com/go/+/d0b79e3513a29628f3599dc8860666b6eed75372
+    - report: https://go.dev/issue/44913
+    - web: https://groups.google.com/g/golang-announce/c/MfiLYjG-RAw

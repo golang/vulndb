@@ -1,18 +1,18 @@
 id: GO-2020-0001
 modules:
-  - module: github.com/gin-gonic/gin
-    versions:
-      - fixed: 1.6.0
-    vulnerable_at: 1.5.0
-    packages:
-      - package: github.com/gin-gonic/gin
-        symbols:
-          - LoggerWithConfig
-        derived_symbols:
-          - Default
-          - Logger
-          - LoggerWithFormatter
-          - LoggerWithWriter
+    - module: github.com/gin-gonic/gin
+      versions:
+        - fixed: 1.6.0
+      vulnerable_at: 1.5.0
+      packages:
+        - package: github.com/gin-gonic/gin
+          symbols:
+            - LoggerWithConfig
+          derived_symbols:
+            - Default
+            - Logger
+            - LoggerWithFormatter
+            - LoggerWithWriter
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The default Formatter for the Logger middleware (LoggerConfig.Formatter),
@@ -20,12 +20,12 @@ description: |
     log entries by manipulating the request path.
 published: 2021-04-14T20:04:52Z
 ghsas:
-  - GHSA-6vm3-jj99-7229
+    - GHSA-6vm3-jj99-7229
 credits:
-  - '@thinkerou <thinkerou@gmail.com>'
+    - '@thinkerou <thinkerou@gmail.com>'
 references:
-  - fix: https://github.com/gin-gonic/gin/pull/2237
-  - fix: https://github.com/gin-gonic/gin/commit/a71af9c144f9579f6dbe945341c1df37aaf09c0d
+    - fix: https://github.com/gin-gonic/gin/pull/2237
+    - fix: https://github.com/gin-gonic/gin/commit/a71af9c144f9579f6dbe945341c1df37aaf09c0d
 cve_metadata:
     id: CVE-2020-36567
     cwe: CWE-117 Improper Output Neutralization for Logs

@@ -1,23 +1,23 @@
 id: GO-2022-1098
 modules:
-  - module: github.com/btcsuite/btcd
-    versions:
-      - fixed: 0.23.2
-    vulnerable_at: 0.23.1
-    packages:
-      - package: github.com/btcsuite/btcd/wire
-        symbols:
-          - MsgTx.BtcDecode
-        derived_symbols:
-          - MsgBlock.BtcDecode
-          - MsgBlock.Deserialize
-          - MsgBlock.DeserializeNoWitness
-          - MsgBlock.DeserializeTxLoc
-          - MsgTx.Deserialize
-          - MsgTx.DeserializeNoWitness
-          - ReadMessage
-          - ReadMessageN
-          - ReadMessageWithEncodingN
+    - module: github.com/btcsuite/btcd
+      versions:
+        - fixed: 0.23.2
+      vulnerable_at: 0.23.1
+      packages:
+        - package: github.com/btcsuite/btcd/wire
+          symbols:
+            - MsgTx.BtcDecode
+          derived_symbols:
+            - MsgBlock.BtcDecode
+            - MsgBlock.Deserialize
+            - MsgBlock.DeserializeNoWitness
+            - MsgBlock.DeserializeTxLoc
+            - MsgTx.Deserialize
+            - MsgTx.DeserializeNoWitness
+            - ReadMessage
+            - ReadMessageN
+            - ReadMessageWithEncodingN
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Erroneous message decoding can cause denial of service.
@@ -26,14 +26,14 @@ description: |
     message decoding prevented nodes in Lightning Labs lnd
     (before 0.15.2-beta) to sync.
 cves:
-  - CVE-2022-44797
+    - CVE-2022-44797
 ghsas:
-  - GHSA-2chg-86hq-7w38
+    - GHSA-2chg-86hq-7w38
 credits:
-  - rsafier (Github user)
-  - Roasbeef (Github user)
+    - rsafier (Github user)
+    - Roasbeef (Github user)
 references:
-  - advisory: https://github.com/advisories/GHSA-2chg-86hq-7w38
-  - report: https://github.com/lightningnetwork/lnd/issues/7002
-  - fix: https://github.com/btcsuite/btcd/pull/1896/commits/f523d4ccaa5f34a2f761f16a05f5d6e6665b1168
-  - web: https://github.com/btcsuite/btcd/releases/tag/v0.23.2
+    - advisory: https://github.com/advisories/GHSA-2chg-86hq-7w38
+    - report: https://github.com/lightningnetwork/lnd/issues/7002
+    - fix: https://github.com/btcsuite/btcd/pull/1896/commits/f523d4ccaa5f34a2f761f16a05f5d6e6665b1168
+    - web: https://github.com/btcsuite/btcd/releases/tag/v0.23.2

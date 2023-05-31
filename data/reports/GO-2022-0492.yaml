@@ -1,15 +1,15 @@
 id: GO-2022-0492
 modules:
-  - module: github.com/argoproj/argo-events
-    versions:
-      - fixed: 1.7.1
-    vulnerable_at: 1.7.0
-    packages:
-      - package: github.com/argoproj/argo-events/sensors/artifacts
-        symbols:
-          - NewGitReader
-        derived_symbols:
-          - GetArtifactReader
+    - module: github.com/argoproj/argo-events
+      versions:
+        - fixed: 1.7.1
+      vulnerable_at: 1.7.0
+      packages:
+        - package: github.com/argoproj/argo-events/sensors/artifacts
+          symbols:
+            - NewGitReader
+          derived_symbols:
+            - GetArtifactReader
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     GitArtifactReader is vulnerable to directory traversal attacks.
@@ -20,11 +20,11 @@ description: |
     the filesystem.
 published: 2022-07-15T23:30:03Z
 cves:
-  - CVE-2022-25856
+    - CVE-2022-25856
 ghsas:
-  - GHSA-qpgx-64h2-gc3c
+    - GHSA-qpgx-64h2-gc3c
 credits:
-  - Derek Wang
+    - Derek Wang
 references:
-  - fix: https://github.com/argoproj/argo-events/pull/1965
-  - web: https://github.com/argoproj/argo-events/issues/1947
+    - fix: https://github.com/argoproj/argo-events/pull/1965
+    - web: https://github.com/argoproj/argo-events/issues/1947

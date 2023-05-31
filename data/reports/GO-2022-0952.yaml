@@ -1,29 +1,29 @@
 id: GO-2022-0952
 modules:
-  - module: github.com/matrix-org/gomatrixserverlib
-    versions:
-      - fixed: 0.0.0-20220815091947-723fd495dde8
-    vulnerable_at: 0.0.0-20220812132423-6a49c18a298a
-    packages:
-      - package: github.com/matrix-org/gomatrixserverlib
-        symbols:
-          - NewPowerLevelContentFromEvent
-        derived_symbols:
-          - Allowed
-          - Event.PowerLevels
-          - EventsLoader.LoadAndVerify
-          - HeaderedReverseTopologicalOrdering
-          - NewPowerLevelContentFromAuthEvents
-          - RequestBackfill
-          - ResolveConflicts
-          - ResolveStateConflicts
-          - ResolveStateConflictsV2
-          - RespSendJoin.Check
-          - RespState.Check
-          - RespState.Events
-          - ReverseTopologicalOrdering
-          - VerifyAuthRulesAtState
-          - VerifyEventAuthChain
+    - module: github.com/matrix-org/gomatrixserverlib
+      versions:
+        - fixed: 0.0.0-20220815091947-723fd495dde8
+      vulnerable_at: 0.0.0-20220812132423-6a49c18a298a
+      packages:
+        - package: github.com/matrix-org/gomatrixserverlib
+          symbols:
+            - NewPowerLevelContentFromEvent
+          derived_symbols:
+            - Allowed
+            - Event.PowerLevels
+            - EventsLoader.LoadAndVerify
+            - HeaderedReverseTopologicalOrdering
+            - NewPowerLevelContentFromAuthEvents
+            - RequestBackfill
+            - ResolveConflicts
+            - ResolveStateConflicts
+            - ResolveStateConflictsV2
+            - RespSendJoin.Check
+            - RespState.Check
+            - RespState.Events
+            - ReverseTopologicalOrdering
+            - VerifyAuthRulesAtState
+            - VerifyEventAuthChain
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Power level parsing does not parse the "events_default" key of the
@@ -32,8 +32,8 @@ description: |
     rejected in rooms where the event_default power level has been changed.
 published: 2022-08-22T18:08:50Z
 cves:
-  - CVE-2022-36009
+    - CVE-2022-36009
 ghsas:
-  - GHSA-grvv-h2f9-7v9c
+    - GHSA-grvv-h2f9-7v9c
 references:
-  - fix: https://github.com/matrix-org/gomatrixserverlib/commit/723fd495dde835d078b9f2074b6b62c06dea4575
+    - fix: https://github.com/matrix-org/gomatrixserverlib/commit/723fd495dde835d078b9f2074b6b62c06dea4575

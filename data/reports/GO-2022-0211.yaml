@@ -1,17 +1,17 @@
 id: GO-2022-0211
 modules:
-  - module: std
-    versions:
-      - fixed: 1.11.13
-      - introduced: 1.12.0-0
-        fixed: 1.12.8
-    vulnerable_at: 1.12.7
-    packages:
-      - package: net/url
-        symbols:
-          - parseHost
-          - URL.Hostname
-          - URL.Port
+    - module: std
+      versions:
+        - fixed: 1.11.13
+        - introduced: 1.12.0-0
+          fixed: 1.12.8
+      vulnerable_at: 1.12.7
+      packages:
+        - package: net/url
+          symbols:
+            - parseHost
+            - URL.Hostname
+            - URL.Port
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The url.Parse function accepts URLs with malformed hosts, such that the Host
@@ -19,13 +19,13 @@ description: |
     allowing authorization bypasses in certain applications.
 published: 2022-07-01T20:15:30Z
 cves:
-  - CVE-2019-14809
+    - CVE-2019-14809
 credits:
-  - Julian Hector
-  - Nikolai Krein from Cure53
-  - Adi Cohen (adico.me)
+    - Julian Hector
+    - Nikolai Krein from Cure53
+    - Adi Cohen (adico.me)
 references:
-  - fix: https://go.dev/cl/189258
-  - fix: https://go.googlesource.com/go/+/61bb56ad63992a3199acc55b2537c8355ef887b6
-  - report: https://go.dev/issue/29098
-  - web: https://groups.google.com/g/golang-announce/c/65QixT3tcmg
+    - fix: https://go.dev/cl/189258
+    - fix: https://go.googlesource.com/go/+/61bb56ad63992a3199acc55b2537c8355ef887b6
+    - report: https://go.dev/issue/29098
+    - web: https://groups.google.com/g/golang-announce/c/65QixT3tcmg

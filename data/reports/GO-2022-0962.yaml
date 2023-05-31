@@ -1,21 +1,21 @@
 id: GO-2022-0962
 modules:
-  - module: helm.sh/helm/v3
-    versions:
-      - fixed: 3.9.4
-    vulnerable_at: 3.9.3
-    packages:
-      - package: helm.sh/helm/v3/pkg/strvals
-        symbols:
-          - setIndex
-        derived_symbols:
-          - Parse
-          - ParseFile
-          - ParseInto
-          - ParseIntoFile
-          - ParseIntoString
-          - ParseString
-          - ToYAML
+    - module: helm.sh/helm/v3
+      versions:
+        - fixed: 3.9.4
+      vulnerable_at: 3.9.3
+      packages:
+        - package: helm.sh/helm/v3/pkg/strvals
+          symbols:
+            - setIndex
+          derived_symbols:
+            - Parse
+            - ParseFile
+            - ParseInto
+            - ParseIntoFile
+            - ParseIntoString
+            - ParseString
+            - ToYAML
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |-
     Applications that use the strvals package in the Helm SDK to parse user
@@ -34,12 +34,12 @@ description: |-
     running service so the panic will not affect future uses of the Helm client.
 published: 2022-09-02T15:19:52Z
 cves:
-  - CVE-2022-36055
+    - CVE-2022-36055
 ghsas:
-  - GHSA-7hfp-qfw3-5jxh
+    - GHSA-7hfp-qfw3-5jxh
 credits:
-  - Ada Logics in a fuzzing audit sponsored by CNCF
+    - Ada Logics in a fuzzing audit sponsored by CNCF
 references:
-  - advisory: https://github.com/helm/helm/security/advisories/GHSA-7hfp-qfw3-5jxh
-  - fix: https://github.com/helm/helm/commit/10466e3e179cc8cad4b0bb451108d3c442c69fbc
-  - web: https://github.com/helm/helm/releases/tag/v3.9.4
+    - advisory: https://github.com/helm/helm/security/advisories/GHSA-7hfp-qfw3-5jxh
+    - fix: https://github.com/helm/helm/commit/10466e3e179cc8cad4b0bb451108d3c442c69fbc
+    - web: https://github.com/helm/helm/releases/tag/v3.9.4

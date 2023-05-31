@@ -1,18 +1,18 @@
 id: GO-2020-0026
 modules:
-  - module: github.com/openshift/source-to-image
-    versions:
-      - fixed: 1.1.10-0.20180427153919-f5cbcbc5cc6f
-    vulnerable_at: 1.1.9
-    packages:
-      - package: github.com/openshift/source-to-image/pkg/tar
-        symbols:
-          - stiTar.ExtractTarStreamFromTarReader
-          - stiTar.extractLink
-          - New
-        derived_symbols:
-          - stiTar.ExtractTarStream
-          - stiTar.ExtractTarStreamWithLogging
+    - module: github.com/openshift/source-to-image
+      versions:
+        - fixed: 1.1.10-0.20180427153919-f5cbcbc5cc6f
+      vulnerable_at: 1.1.9
+      packages:
+        - package: github.com/openshift/source-to-image/pkg/tar
+          symbols:
+            - stiTar.ExtractTarStreamFromTarReader
+            - stiTar.extractLink
+            - New
+          derived_symbols:
+            - stiTar.ExtractTarStream
+            - stiTar.ExtractTarStreamWithLogging
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Due to improper path santization, archives containing relative file
@@ -20,9 +20,9 @@ description: |
     target directory.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2018-1103
+    - CVE-2018-1103
 ghsas:
-  - GHSA-w55j-f7vx-6q37
+    - GHSA-w55j-f7vx-6q37
 references:
-  - fix: https://github.com/openshift/source-to-image/commit/f5cbcbc5cc6f8cc2f479a7302443bea407a700cb
-  - web: https://snyk.io/research/zip-slip-vulnerability
+    - fix: https://github.com/openshift/source-to-image/commit/f5cbcbc5cc6f8cc2f479a7302443bea407a700cb
+    - web: https://snyk.io/research/zip-slip-vulnerability

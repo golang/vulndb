@@ -1,24 +1,24 @@
 id: GO-2022-0629
 modules:
-  - module: sigs.k8s.io/secrets-store-csi-driver
-    versions:
-      - introduced: 0.0.15
-        fixed: 0.0.17
-    vulnerable_at: 0.0.16
-    packages:
-      - package: sigs.k8s.io/secrets-store-csi-driver/controllers
-        symbols:
-          - SecretProviderClassPodStatusReconciler.Reconcile
-      - package: sigs.k8s.io/secrets-store-csi-driver/pkg/rotation
-        symbols:
-          - Reconciler.reconcile
-        derived_symbols:
-          - Reconciler.Run
-      - package: sigs.k8s.io/secrets-store-csi-driver/pkg/secrets-store
-        symbols:
-          - nodeServer.NodeUnpublishVolume
-        derived_symbols:
-          - SecretsStore.Run
+    - module: sigs.k8s.io/secrets-store-csi-driver
+      versions:
+        - introduced: 0.0.15
+          fixed: 0.0.17
+      vulnerable_at: 0.0.16
+      packages:
+        - package: sigs.k8s.io/secrets-store-csi-driver/controllers
+          symbols:
+            - SecretProviderClassPodStatusReconciler.Reconcile
+        - package: sigs.k8s.io/secrets-store-csi-driver/pkg/rotation
+          symbols:
+            - Reconciler.reconcile
+          derived_symbols:
+            - Reconciler.Run
+        - package: sigs.k8s.io/secrets-store-csi-driver/pkg/secrets-store
+          symbols:
+            - nodeServer.NodeUnpublishVolume
+          derived_symbols:
+            - SecretsStore.Run
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Modifying pod status allows host directory traversal.
@@ -30,11 +30,11 @@ description: |
     that contain other Kubernetes Secrets.
 published: 2022-02-15T01:57:18Z
 cves:
-  - CVE-2020-8568
+    - CVE-2020-8568
 ghsas:
-  - GHSA-5cgx-vhfp-6cf9
+    - GHSA-5cgx-vhfp-6cf9
 credits:
-  - tam7t (Tommy Murphy)
+    - tam7t (Tommy Murphy)
 references:
-  - fix: https://github.com/kubernetes-sigs/secrets-store-csi-driver/pull/371
-  - fix: https://github.com/kubernetes-sigs/secrets-store-csi-driver/commit/c2cbb19e2eef16638fa0523383788a4bc22231fd
+    - fix: https://github.com/kubernetes-sigs/secrets-store-csi-driver/pull/371
+    - fix: https://github.com/kubernetes-sigs/secrets-store-csi-driver/commit/c2cbb19e2eef16638fa0523383788a4bc22231fd

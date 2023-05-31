@@ -1,18 +1,18 @@
 id: GO-2020-0007
 modules:
-  - module: github.com/seccomp/libseccomp-golang
-    versions:
-      - fixed: 0.9.1-0.20170424173420-06e7a29f36a3
-    vulnerable_at: 0.9.1-0.20170424173400-fc0298087f32
-    packages:
-      - package: github.com/seccomp/libseccomp-golang
-        symbols:
-          - ScmpFilter.addRuleGeneric
-        derived_symbols:
-          - ScmpFilter.AddRule
-          - ScmpFilter.AddRuleConditional
-          - ScmpFilter.AddRuleConditionalExact
-          - ScmpFilter.AddRuleExact
+    - module: github.com/seccomp/libseccomp-golang
+      versions:
+        - fixed: 0.9.1-0.20170424173420-06e7a29f36a3
+      vulnerable_at: 0.9.1-0.20170424173400-fc0298087f32
+      packages:
+        - package: github.com/seccomp/libseccomp-golang
+          symbols:
+            - ScmpFilter.addRuleGeneric
+          derived_symbols:
+            - ScmpFilter.AddRule
+            - ScmpFilter.AddRuleConditional
+            - ScmpFilter.AddRuleConditionalExact
+            - ScmpFilter.AddRuleExact
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Filters containing rules with multiple syscall arguments are improperly
@@ -22,10 +22,10 @@ description: |
     behavior.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2017-18367
+    - CVE-2017-18367
 ghsas:
-  - GHSA-58v3-j75h-xr49
+    - GHSA-58v3-j75h-xr49
 credits:
-  - '@ihac'
+    - '@ihac'
 references:
-  - fix: https://github.com/seccomp/libseccomp-golang/commit/06e7a29f36a34b8cf419aeb87b979ee508e58f9e
+    - fix: https://github.com/seccomp/libseccomp-golang/commit/06e7a29f36a34b8cf419aeb87b979ee508e58f9e

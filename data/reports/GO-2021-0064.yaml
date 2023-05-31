@@ -1,40 +1,40 @@
 id: GO-2021-0064
 modules:
-  - module: k8s.io/client-go
-    versions:
-      - fixed: 0.20.0-alpha.2
-    vulnerable_at: 0.20.0-alpha.1
-    packages:
-      - package: k8s.io/client-go/transport
-        symbols:
-          - requestInfo.toCurl
-        derived_symbols:
-          - basicAuthRoundTripper.RoundTrip
-          - bearerAuthRoundTripper.RoundTrip
-          - debuggingRoundTripper.RoundTrip
-          - impersonatingRoundTripper.RoundTrip
-          - userAgentRoundTripper.RoundTrip
-  - module: k8s.io/kubernetes
-    versions:
-      - fixed: 1.20.0-alpha.2
-    vulnerable_at: 1.20.0-alpha.1
-    packages:
-      - package: k8s.io/kubernetes/staging/src/k8s.io/client-go/transport
-        symbols:
-          - requestInfo.toCurl
-        skip_fix: 'TODO: revisit this reason (module does not contain package k8s.io/kubernetes/staging/src/k8s.io/client-go/transport)'
+    - module: k8s.io/client-go
+      versions:
+        - fixed: 0.20.0-alpha.2
+      vulnerable_at: 0.20.0-alpha.1
+      packages:
+        - package: k8s.io/client-go/transport
+          symbols:
+            - requestInfo.toCurl
+          derived_symbols:
+            - basicAuthRoundTripper.RoundTrip
+            - bearerAuthRoundTripper.RoundTrip
+            - debuggingRoundTripper.RoundTrip
+            - impersonatingRoundTripper.RoundTrip
+            - userAgentRoundTripper.RoundTrip
+    - module: k8s.io/kubernetes
+      versions:
+        - fixed: 1.20.0-alpha.2
+      vulnerable_at: 1.20.0-alpha.1
+      packages:
+        - package: k8s.io/kubernetes/staging/src/k8s.io/client-go/transport
+          symbols:
+            - requestInfo.toCurl
+          skip_fix: 'TODO: revisit this reason (module does not contain package k8s.io/kubernetes/staging/src/k8s.io/client-go/transport)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Authorization tokens may be inappropriately logged if the verbosity
     level is set to a debug level.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2020-8565
+    - CVE-2020-8565
 ghsas:
-  - GHSA-8cfg-vx93-jvxw
+    - GHSA-8cfg-vx93-jvxw
 credits:
-  - '@sfowl'
+    - '@sfowl'
 references:
-  - fix: https://github.com/kubernetes/kubernetes/pull/95316
-  - fix: https://github.com/kubernetes/kubernetes/commit/e99df0e5a75eb6e86123b56d53e9b7ca0fd00419
-  - web: https://github.com/kubernetes/kubernetes/issues/95623
+    - fix: https://github.com/kubernetes/kubernetes/pull/95316
+    - fix: https://github.com/kubernetes/kubernetes/commit/e99df0e5a75eb6e86123b56d53e9b7ca0fd00419
+    - web: https://github.com/kubernetes/kubernetes/issues/95623

@@ -1,16 +1,16 @@
 id: GO-2021-0068
 modules:
-  - module: cmd
-    versions:
-      - fixed: 1.14.14
-      - introduced: 1.15.0-0
-        fixed: 1.15.7
-    vulnerable_at: 1.15.6
-    packages:
-      - package: cmd/go
-        goos:
-          - windows
-        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+    - module: cmd
+      versions:
+        - fixed: 1.14.14
+        - introduced: 1.15.0-0
+          fixed: 1.15.7
+      vulnerable_at: 1.15.6
+      packages:
+        - package: cmd/go
+          goos:
+            - windows
+          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The go command may execute arbitrary code at build time when using cgo on Windows.
@@ -18,13 +18,13 @@ description: |
     the code is built.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2021-3115
+    - CVE-2021-3115
 credits:
-  - RyotaK
+    - RyotaK
 references:
-  - fix: https://go.dev/cl/284783
-  - fix: https://go.googlesource.com/go/+/953d1feca9b21af075ad5fc8a3dad096d3ccc3a0
-  - report: https://go.dev/issue/43783
-  - web: https://groups.google.com/g/golang-announce/c/mperVMGa98w/m/yo5W5wnvAAAJ
-  - fix: https://go.dev/cl/284780
-  - fix: https://go.googlesource.com/go/+/46e2e2e9d99925bbf724b12693c6d3e27a95d6a0
+    - fix: https://go.dev/cl/284783
+    - fix: https://go.googlesource.com/go/+/953d1feca9b21af075ad5fc8a3dad096d3ccc3a0
+    - report: https://go.dev/issue/43783
+    - web: https://groups.google.com/g/golang-announce/c/mperVMGa98w/m/yo5W5wnvAAAJ
+    - fix: https://go.dev/cl/284780
+    - fix: https://go.googlesource.com/go/+/46e2e2e9d99925bbf724b12693c6d3e27a95d6a0

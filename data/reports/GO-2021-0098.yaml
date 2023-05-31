@@ -1,65 +1,65 @@
 id: GO-2021-0098
 modules:
-  - module: github.com/git-lfs/git-lfs
-    versions:
-      - fixed: 1.5.1-0.20210113180018-fc664697ed2c
-    vulnerable_at: 1.5.1-0.20201211195948-e896fc7af7db
-    packages:
-      - package: github.com/git-lfs/git-lfs/commands
-        goos:
-          - windows
-        symbols:
-          - PipeCommand
-        derived_symbols:
-          - PipeMediaCommand
-          - Run
-          - lockVerifier.Verify
-          - singleCheckout.Run
-          - singleCheckout.RunToPath
-          - uploadContext.NewQueue
-          - uploadContext.UploadPointers
-      - package: github.com/git-lfs/git-lfs/creds
-        goos:
-          - windows
-        symbols:
-          - AskPassCredentialHelper.getFromProgram
-          - commandCredentialHelper.Approve
-        derived_symbols:
-          - AskPassCredentialHelper.Fill
-          - CredentialHelperWrapper.FillCreds
-          - CredentialHelpers.Approve
-          - CredentialHelpers.Fill
-      - package: github.com/git-lfs/git-lfs/lfs
-        goos:
-          - windows
-        symbols:
-          - pipeExtensions
-        derived_symbols:
-          - GitFilter.Clean
-          - GitFilter.Smudge
-          - GitFilter.SmudgeToFile
-      - package: github.com/git-lfs/git-lfs/lfshttp
-        goos:
-          - windows
-        symbols:
-          - sshAuthClient.Resolve
-        derived_symbols:
-          - Client.Do
-          - Client.DoWithAccess
-          - Client.HttpClient
-          - Client.NewRequest
-          - Client.Transport
-          - sshCache.Resolve
+    - module: github.com/git-lfs/git-lfs
+      versions:
+        - fixed: 1.5.1-0.20210113180018-fc664697ed2c
+      vulnerable_at: 1.5.1-0.20201211195948-e896fc7af7db
+      packages:
+        - package: github.com/git-lfs/git-lfs/commands
+          goos:
+            - windows
+          symbols:
+            - PipeCommand
+          derived_symbols:
+            - PipeMediaCommand
+            - Run
+            - lockVerifier.Verify
+            - singleCheckout.Run
+            - singleCheckout.RunToPath
+            - uploadContext.NewQueue
+            - uploadContext.UploadPointers
+        - package: github.com/git-lfs/git-lfs/creds
+          goos:
+            - windows
+          symbols:
+            - AskPassCredentialHelper.getFromProgram
+            - commandCredentialHelper.Approve
+          derived_symbols:
+            - AskPassCredentialHelper.Fill
+            - CredentialHelperWrapper.FillCreds
+            - CredentialHelpers.Approve
+            - CredentialHelpers.Fill
+        - package: github.com/git-lfs/git-lfs/lfs
+          goos:
+            - windows
+          symbols:
+            - pipeExtensions
+          derived_symbols:
+            - GitFilter.Clean
+            - GitFilter.Smudge
+            - GitFilter.SmudgeToFile
+        - package: github.com/git-lfs/git-lfs/lfshttp
+          goos:
+            - windows
+          symbols:
+            - sshAuthClient.Resolve
+          derived_symbols:
+            - Client.Do
+            - Client.DoWithAccess
+            - Client.HttpClient
+            - Client.NewRequest
+            - Client.Transport
+            - sshCache.Resolve
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Due to the standard library behavior of exec.LookPath on Windows a number of methods may
     result in arbitrary code execution when cloning or operating on untrusted Git repositories.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2021-21237
+    - CVE-2021-21237
 ghsas:
-  - GHSA-cx3w-xqmc-84g5
+    - GHSA-cx3w-xqmc-84g5
 credits:
-  - '@Ry0taK'
+    - '@Ry0taK'
 references:
-  - fix: https://github.com/git-lfs/git-lfs/commit/fc664697ed2c2081ee9633010de0a7f9debea72a
+    - fix: https://github.com/git-lfs/git-lfs/commit/fc664697ed2c2081ee9633010de0a7f9debea72a

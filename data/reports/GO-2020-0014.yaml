@@ -1,17 +1,17 @@
 id: GO-2020-0014
 modules:
-  - module: golang.org/x/net
-    versions:
-      - fixed: 0.0.0-20190125091013-d26f9f9a57f3
-    vulnerable_at: 0.0.0-20190125002852-4b62a64f59f7
-    packages:
-      - package: golang.org/x/net/html
-        symbols:
-          - inSelectIM
-          - inSelectInTableIM
-        derived_symbols:
-          - Parse
-          - ParseFragment
+    - module: golang.org/x/net
+      versions:
+        - fixed: 0.0.0-20190125091013-d26f9f9a57f3
+      vulnerable_at: 0.0.0-20190125002852-4b62a64f59f7
+      packages:
+        - package: golang.org/x/net/html
+          symbols:
+            - inSelectIM
+            - inSelectInTableIM
+          derived_symbols:
+            - Parse
+            - ParseFragment
 summary: Infinite loop in golang.org/x/net/html
 description: |
     html.Parse does not properly handle "select" tags, which can lead
@@ -19,10 +19,10 @@ description: |
     as a denial of service vector.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2018-17846
+    - CVE-2018-17846
 credits:
-  - '@tr3ee'
+    - '@tr3ee'
 references:
-  - fix: https://go-review.googlesource.com/c/137275
-  - fix: https://go.googlesource.com/net/+/d26f9f9a57f3fab6a695bec0d84433c2c50f8bbf
-  - report: https://go.dev/issue/27842
+    - fix: https://go-review.googlesource.com/c/137275
+    - fix: https://go.googlesource.com/net/+/d26f9f9a57f3fab6a695bec0d84433c2c50f8bbf
+    - report: https://go.dev/issue/27842

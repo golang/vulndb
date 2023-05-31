@@ -1,20 +1,20 @@
 id: GO-2023-1595
 modules:
-  - module: filippo.io/nistec
-    versions:
-      - fixed: 0.0.2
-    vulnerable_at: 0.0.1
-    packages:
-      - package: filippo.io/nistec
-        goarch:
-          - amd64
-          - arm64
-          - ppc64le
-          - s390x
-        symbols:
-          - p256OrdInverse
-          - P256Point.ScalarBaseMult
-          - P256Point.ScalarMult
+    - module: filippo.io/nistec
+      versions:
+        - fixed: 0.0.2
+      vulnerable_at: 0.0.1
+      packages:
+        - package: filippo.io/nistec
+          goarch:
+            - amd64
+            - arm64
+            - ppc64le
+            - s390x
+          symbols:
+            - p256OrdInverse
+            - P256Point.ScalarBaseMult
+            - P256Point.ScalarMult
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |-
     Multiplication of certain unreduced P-256 scalars produce incorrect
@@ -23,12 +23,12 @@ description: |-
     There are no protocols known at this time that can be attacked due
     to this.
 ghsas:
-  - GHSA-f6hc-9g49-xmx7
+    - GHSA-f6hc-9g49-xmx7
 credits:
-  - Guido Vranken via the Ethereum Foundation bug bounty program
+    - Guido Vranken via the Ethereum Foundation bug bounty program
 references:
-  - report: https://go.dev/issue/58647
-  - fix: https://github.com/FiloSottile/nistec/commit/c58aa1223ccf3943513e1e661cebce95af137244
+    - report: https://go.dev/issue/58647
+    - fix: https://github.com/FiloSottile/nistec/commit/c58aa1223ccf3943513e1e661cebce95af137244
 cve_metadata:
     id: CVE-2023-24533
     cwe: 'CWE-682: Incorrect Calculation'

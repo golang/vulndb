@@ -1,15 +1,15 @@
 id: GO-2021-0099
 modules:
-  - module: github.com/deislabs/oras
-    versions:
-      - fixed: 0.9.0
-    vulnerable_at: 0.8.1
-    packages:
-      - package: github.com/deislabs/oras/pkg/content
-        symbols:
-          - extractTarDirectory
-        derived_symbols:
-          - fileWriter.Commit
+    - module: github.com/deislabs/oras
+      versions:
+        - fixed: 0.9.0
+      vulnerable_at: 0.8.1
+      packages:
+        - package: github.com/deislabs/oras/pkg/content
+          symbols:
+            - extractTarDirectory
+          derived_symbols:
+            - fileWriter.Commit
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Due to improper path validation, using the github.com/deislabs/oras/pkg/content.FileStore
@@ -17,10 +17,10 @@ description: |
     malicious archive to write paths to arbitrary paths that the process can write to.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2021-21272
+    - CVE-2021-21272
 ghsas:
-  - GHSA-g5v4-5x39-vwhx
+    - GHSA-g5v4-5x39-vwhx
 credits:
-  - Chris Smowton
+    - Chris Smowton
 references:
-  - fix: https://github.com/deislabs/oras/commit/96cd90423303f1bb42bd043cb4c36085e6e91e8e
+    - fix: https://github.com/deislabs/oras/commit/96cd90423303f1bb42bd043cb4c36085e6e91e8e

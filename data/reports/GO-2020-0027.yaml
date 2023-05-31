@@ -1,26 +1,26 @@
 id: GO-2020-0027
 modules:
-  - module: github.com/google/fscrypt
-    versions:
-      - fixed: 0.2.4
-    vulnerable_at: 0.2.4-0.20180823175935-d4d88e16b54e
-    packages:
-      - package: github.com/google/fscrypt/pam
-        symbols:
-          - NewHandle
-          - Handle.StopAsPamUser
-          - Handle.StartAsPamUser
-      - package: github.com/google/fscrypt/security
-        symbols:
-          - SetProcessPrivileges
-          - setUids
-          - setGids
-          - setGroups
-        derived_symbols:
-          - FindKey
-          - InsertKey
-          - RemoveKey
-          - UserKeyringID
+    - module: github.com/google/fscrypt
+      versions:
+        - fixed: 0.2.4
+      vulnerable_at: 0.2.4-0.20180823175935-d4d88e16b54e
+      packages:
+        - package: github.com/google/fscrypt/pam
+          symbols:
+            - NewHandle
+            - Handle.StopAsPamUser
+            - Handle.StartAsPamUser
+        - package: github.com/google/fscrypt/security
+          symbols:
+            - SetProcessPrivileges
+            - setUids
+            - setGids
+            - setGroups
+          derived_symbols:
+            - FindKey
+            - InsertKey
+            - RemoveKey
+            - UserKeyringID
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     After dropping and then elevating process privileges euid, guid, and groups
@@ -28,9 +28,9 @@ description: |
     user to gain membership in the root group.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2018-6558
+    - CVE-2018-6558
 ghsas:
-  - GHSA-qj26-7grj-whg3
+    - GHSA-qj26-7grj-whg3
 references:
-  - fix: https://github.com/google/fscrypt/commit/3022c1603d968c22f147b4a2c49c4637dd1be91b
-  - web: https://github.com/google/fscrypt/issues/77
+    - fix: https://github.com/google/fscrypt/commit/3022c1603d968c22f147b4a2c49c4637dd1be91b
+    - web: https://github.com/google/fscrypt/issues/77

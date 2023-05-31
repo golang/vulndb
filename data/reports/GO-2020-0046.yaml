@@ -1,28 +1,28 @@
 id: GO-2020-0046
 modules:
-  - module: github.com/russellhaering/goxmldsig
-    versions:
-      - fixed: 1.1.1
-    vulnerable_at: 1.1.0
-    packages:
-      - package: github.com/russellhaering/goxmldsig
-        symbols:
-          - ValidationContext.validateSignature
-        derived_symbols:
-          - ValidationContext.Validate
-  - module: github.com/russellhaering/gosaml2
-    versions:
-      - fixed: 0.7.0
-    vulnerable_at: 0.6.0
-    packages:
-      - package: github.com/russellhaering/gosaml2
-        symbols:
-          - SAMLServiceProvider.validateAssertionSignatures
-        derived_symbols:
-          - SAMLServiceProvider.RetrieveAssertionInfo
-          - SAMLServiceProvider.ValidateEncodedLogoutRequestPOST
-          - SAMLServiceProvider.ValidateEncodedLogoutResponsePOST
-          - SAMLServiceProvider.ValidateEncodedResponse
+    - module: github.com/russellhaering/goxmldsig
+      versions:
+        - fixed: 1.1.1
+      vulnerable_at: 1.1.0
+      packages:
+        - package: github.com/russellhaering/goxmldsig
+          symbols:
+            - ValidationContext.validateSignature
+          derived_symbols:
+            - ValidationContext.Validate
+    - module: github.com/russellhaering/gosaml2
+      versions:
+        - fixed: 0.7.0
+      vulnerable_at: 0.6.0
+      packages:
+        - package: github.com/russellhaering/gosaml2
+          symbols:
+            - SAMLServiceProvider.validateAssertionSignatures
+          derived_symbols:
+            - SAMLServiceProvider.RetrieveAssertionInfo
+            - SAMLServiceProvider.ValidateEncodedLogoutRequestPOST
+            - SAMLServiceProvider.ValidateEncodedLogoutResponsePOST
+            - SAMLServiceProvider.ValidateEncodedResponse
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Due to a nil pointer dereference, a malformed XML Digital Signature
@@ -30,14 +30,14 @@ description: |
     being validated, this may be used as a denial of service vector.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2020-7711
-  - CVE-2020-7731
+    - CVE-2020-7711
+    - CVE-2020-7731
 ghsas:
-  - GHSA-gq5r-cc4w-g8xf
-  - GHSA-mqqv-chpx-vq25
-  - GHSA-prjq-f4q3-fvfr
+    - GHSA-gq5r-cc4w-g8xf
+    - GHSA-mqqv-chpx-vq25
+    - GHSA-prjq-f4q3-fvfr
 credits:
-  - '@stevenjohnstone'
+    - '@stevenjohnstone'
 references:
-  - web: https://github.com/russellhaering/goxmldsig/issues/48
-  - web: https://github.com/russellhaering/gosaml2/issues/59
+    - web: https://github.com/russellhaering/goxmldsig/issues/48
+    - web: https://github.com/russellhaering/gosaml2/issues/59

@@ -1,27 +1,27 @@
 id: GO-2022-0965
 modules:
-  - module: k8s.io/apimachinery
-    versions:
-      - fixed: 0.0.0-20190927203648-9ce6eca90e73
-    vulnerable_at: 0.0.0-20190925125216-3ddb1b485b38
-    packages:
-      - package: k8s.io/apimachinery/pkg/runtime/serializer/json
-        symbols:
-          - customNumberDecoder.Decode
-        derived_symbols:
-          - Serializer.Decode
-          - Serializer.Encode
-      - package: k8s.io/apimachinery/pkg/util/json
-        symbols:
-          - Unmarshal
+    - module: k8s.io/apimachinery
+      versions:
+        - fixed: 0.0.0-20190927203648-9ce6eca90e73
+      vulnerable_at: 0.0.0-20190925125216-3ddb1b485b38
+      packages:
+        - package: k8s.io/apimachinery/pkg/runtime/serializer/json
+          symbols:
+            - customNumberDecoder.Decode
+          derived_symbols:
+            - Serializer.Decode
+            - Serializer.Encode
+        - package: k8s.io/apimachinery/pkg/util/json
+          symbols:
+            - Unmarshal
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |-
     Unbounded recursion in JSON parsing allows malicious JSON input to
     cause excessive memory consumption or panics.
 published: 2022-09-02T21:12:51Z
 ghsas:
-  - GHSA-74fp-r6jw-h4mp
+    - GHSA-74fp-r6jw-h4mp
 references:
-  - fix: https://github.com/kubernetes/kubernetes/pull/83261
-  - web: https://github.com/advisories/GHSA-pmqp-h87c-mr78
-  - web: https://nvd.nist.gov/vuln/detail/CVE-2019-11253
+    - fix: https://github.com/kubernetes/kubernetes/pull/83261
+    - web: https://github.com/advisories/GHSA-pmqp-h87c-mr78
+    - web: https://nvd.nist.gov/vuln/detail/CVE-2019-11253

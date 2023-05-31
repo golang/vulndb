@@ -1,16 +1,16 @@
 id: GO-2021-0224
 modules:
-  - module: std
-    versions:
-      - fixed: 1.13.13
-      - introduced: 1.14.0-0
-        fixed: 1.14.5
-    vulnerable_at: 1.14.4
-    packages:
-      - package: net/http
-        symbols:
-          - expectContinueReader.Read
-        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+    - module: std
+      versions:
+        - fixed: 1.13.13
+        - introduced: 1.14.0-0
+          fixed: 1.14.5
+      vulnerable_at: 1.14.4
+      packages:
+        - package: net/http
+          symbols:
+            - expectContinueReader.Read
+          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     HTTP servers where the Handler concurrently reads the request
@@ -18,16 +18,16 @@ description: |
     The httputil.ReverseProxy Handler is affected.
 published: 2022-02-17T17:36:04Z
 cves:
-  - CVE-2020-15586
+    - CVE-2020-15586
 credits:
-  - Mikael Manukyan
-  - Andrew Kutz
-  - Dave McClure
-  - Tim Downey
-  - Clay Kauzlaric
-  - Gabe Rosenhouse
+    - Mikael Manukyan
+    - Andrew Kutz
+    - Dave McClure
+    - Tim Downey
+    - Clay Kauzlaric
+    - Gabe Rosenhouse
 references:
-  - fix: https://go.dev/cl/242598
-  - fix: https://go.googlesource.com/go/+/fa98f46741f818913a8c11b877520a548715131f
-  - report: https://go.dev/issue/34902
-  - web: https://groups.google.com/g/golang-announce/c/XZNfaiwgt2w
+    - fix: https://go.dev/cl/242598
+    - fix: https://go.googlesource.com/go/+/fa98f46741f818913a8c11b877520a548715131f
+    - report: https://go.dev/issue/34902
+    - web: https://groups.google.com/g/golang-announce/c/XZNfaiwgt2w

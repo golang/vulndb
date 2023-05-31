@@ -1,33 +1,33 @@
 id: GO-2023-1547
 modules:
-  - module: helm.sh/helm/v3
-    versions:
-      - fixed: 3.11.1
-    vulnerable_at: 3.11.0
-    packages:
-      - package: helm.sh/helm/v3/cmd/helm
-        symbols:
-          - addInstallFlags
-          - newUpgradeCmd
-        derived_symbols:
-          - main
-      - package: helm.sh/helm/v3/pkg/action
-        symbols:
-          - Configuration.renderResources
-          - Install.RunWithContext
-          - Upgrade.prepareUpgrade
-        derived_symbols:
-          - Install.Run
-          - Lint.Run
-          - Upgrade.Run
-          - Upgrade.RunWithContext
-      - package: helm.sh/helm/v3/pkg/engine
-        symbols:
-          - Engine.initFunMap
-        derived_symbols:
-          - Engine.Render
-          - Render
-          - RenderWithClient
+    - module: helm.sh/helm/v3
+      versions:
+        - fixed: 3.11.1
+      vulnerable_at: 3.11.0
+      packages:
+        - package: helm.sh/helm/v3/cmd/helm
+          symbols:
+            - addInstallFlags
+            - newUpgradeCmd
+          derived_symbols:
+            - main
+        - package: helm.sh/helm/v3/pkg/action
+          symbols:
+            - Configuration.renderResources
+            - Install.RunWithContext
+            - Upgrade.prepareUpgrade
+          derived_symbols:
+            - Install.Run
+            - Lint.Run
+            - Upgrade.Run
+            - Upgrade.RunWithContext
+        - package: helm.sh/helm/v3/pkg/engine
+          symbols:
+            - Engine.initFunMap
+          derived_symbols:
+            - Engine.Render
+            - Render
+            - RenderWithClient
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |-
     An information disclosure vulnerability exists in the `getHostByName`
@@ -44,11 +44,11 @@ description: |-
     `getHostByName` into a chart in order to disclose values to a malicious DNS
     server.
 cves:
-  - CVE-2023-25165
+    - CVE-2023-25165
 ghsas:
-  - GHSA-pwcw-6f5g-gxf8
+    - GHSA-pwcw-6f5g-gxf8
 credits:
-  - Philipp Stehle of SAP
+    - Philipp Stehle of SAP
 references:
-  - advisory: https://github.com/helm/helm/security/advisories/GHSA-pwcw-6f5g-gxf8
-  - fix: https://github.com/helm/helm/commit/293b50c65d4d56187cd4e2f390f0ada46b4c4737
+    - advisory: https://github.com/helm/helm/security/advisories/GHSA-pwcw-6f5g-gxf8
+    - fix: https://github.com/helm/helm/commit/293b50c65d4d56187cd4e2f390f0ada46b4c4737

@@ -1,22 +1,22 @@
 id: GO-2021-0159
 modules:
-  - module: std
-    versions:
-      - fixed: 1.4.3
-    vulnerable_at: 1.4.2
-    packages:
-      - package: net/http
-        symbols:
-          - CanonicalMIMEHeaderKey
-          - body.readLocked
-          - canonicalMIMEHeaderKey
-          - chunkWriter.writeHeader
-          - fixLength
-          - fixTransferEncoding
-          - readTransfer
-          - transferWriter.shouldSendContentLength
-          - validHeaderFieldByte
-        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+    - module: std
+      versions:
+        - fixed: 1.4.3
+      vulnerable_at: 1.4.2
+      packages:
+        - package: net/http
+          symbols:
+            - CanonicalMIMEHeaderKey
+            - body.readLocked
+            - canonicalMIMEHeaderKey
+            - chunkWriter.writeHeader
+            - fixLength
+            - fixTransferEncoding
+            - readTransfer
+            - transferWriter.shouldSendContentLength
+            - validHeaderFieldByte
+          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     HTTP headers were not properly parsed, which allows remote attackers to
@@ -24,21 +24,21 @@ description: |
     Content-Length and Transfer-Encoding header fields.
 published: 2022-01-05T21:39:14Z
 cves:
-  - CVE-2015-5739
-  - CVE-2015-5740
-  - CVE-2015-5741
+    - CVE-2015-5739
+    - CVE-2015-5740
+    - CVE-2015-5741
 credits:
-  - Jed Denlea
-  - Régis Leroy
+    - Jed Denlea
+    - Régis Leroy
 references:
-  - fix: https://go.dev/cl/13148
-  - fix: https://go.googlesource.com/go/+/26049f6f9171d1190f3bbe05ec304845cfe6399f
-  - fix: https://go.dev/cl/11772
-  - fix: https://go.dev/cl/11810
-  - fix: https://go.dev/cl/12865
-  - fix: https://go.googlesource.com/go/+/117ddcb83d7f42d6aa72241240af99ded81118e9
-  - fix: https://go.googlesource.com/go/+/300d9a21583e7cf0149a778a0611e76ff7c6680f
-  - fix: https://go.googlesource.com/go/+/c2db5f4ccc61ba7df96a747e268a277b802cbb87
-  - report: https://go.dev/issue/12027
-  - report: https://go.dev/issue/11930
-  - web: https://groups.google.com/g/golang-announce/c/iSIyW4lM4hY/m/ADuQR4DiDwAJ
+    - fix: https://go.dev/cl/13148
+    - fix: https://go.googlesource.com/go/+/26049f6f9171d1190f3bbe05ec304845cfe6399f
+    - fix: https://go.dev/cl/11772
+    - fix: https://go.dev/cl/11810
+    - fix: https://go.dev/cl/12865
+    - fix: https://go.googlesource.com/go/+/117ddcb83d7f42d6aa72241240af99ded81118e9
+    - fix: https://go.googlesource.com/go/+/300d9a21583e7cf0149a778a0611e76ff7c6680f
+    - fix: https://go.googlesource.com/go/+/c2db5f4ccc61ba7df96a747e268a277b802cbb87
+    - report: https://go.dev/issue/12027
+    - report: https://go.dev/issue/11930
+    - web: https://groups.google.com/g/golang-announce/c/iSIyW4lM4hY/m/ADuQR4DiDwAJ

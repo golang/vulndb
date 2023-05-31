@@ -1,13 +1,13 @@
 id: GO-2020-0048
 modules:
-  - module: github.com/antchfx/xmlquery
-    versions:
-      - fixed: 1.3.1
-    vulnerable_at: 1.3.0
-    packages:
-      - package: github.com/antchfx/xmlquery
-        symbols:
-          - LoadURL
+    - module: github.com/antchfx/xmlquery
+      versions:
+        - fixed: 1.3.1
+      vulnerable_at: 1.3.0
+      packages:
+        - package: github.com/antchfx/xmlquery
+          symbols:
+            - LoadURL
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     LoadURL does not check the Content-Type of loaded resources,
@@ -16,11 +16,11 @@ description: |
     used as a denial of service vector.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2020-25614
+    - CVE-2020-25614
 ghsas:
-  - GHSA-93m7-c69f-5cfj
+    - GHSA-93m7-c69f-5cfj
 credits:
-  - '@dwisiswant0'
+    - '@dwisiswant0'
 references:
-  - fix: https://github.com/antchfx/xmlquery/commit/5648b2f39e8d5d3fc903c45a4f1274829df71821
-  - web: https://github.com/antchfx/xmlquery/issues/39
+    - fix: https://github.com/antchfx/xmlquery/commit/5648b2f39e8d5d3fc903c45a4f1274829df71821
+    - web: https://github.com/antchfx/xmlquery/issues/39

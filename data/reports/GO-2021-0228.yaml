@@ -1,36 +1,36 @@
 id: GO-2021-0228
 modules:
-  - module: github.com/unknwon/cae
-    versions:
-      - fixed: 1.0.1
-    vulnerable_at: 1.0.0
-    packages:
-      - package: github.com/unknwon/cae/tz
-        symbols:
-          - TzArchive.syncFiles
-          - TzArchive.ExtractToFunc
-        derived_symbols:
-          - Create
-          - ExtractTo
-          - Open
-          - OpenFile
-          - TzArchive.Close
-          - TzArchive.ExtractTo
-          - TzArchive.Flush
-          - TzArchive.Open
-      - package: github.com/unknwon/cae/zip
-        symbols:
-          - ZipArchive.Open
-          - ZipArchive.ExtractToFunc
-        derived_symbols:
-          - Create
-          - ExtractTo
-          - ExtractToFunc
-          - Open
-          - OpenFile
-          - ZipArchive.Close
-          - ZipArchive.ExtractTo
-          - ZipArchive.Flush
+    - module: github.com/unknwon/cae
+      versions:
+        - fixed: 1.0.1
+      vulnerable_at: 1.0.0
+      packages:
+        - package: github.com/unknwon/cae/tz
+          symbols:
+            - TzArchive.syncFiles
+            - TzArchive.ExtractToFunc
+          derived_symbols:
+            - Create
+            - ExtractTo
+            - Open
+            - OpenFile
+            - TzArchive.Close
+            - TzArchive.ExtractTo
+            - TzArchive.Flush
+            - TzArchive.Open
+        - package: github.com/unknwon/cae/zip
+          symbols:
+            - ZipArchive.Open
+            - ZipArchive.ExtractToFunc
+          derived_symbols:
+            - Create
+            - ExtractTo
+            - ExtractToFunc
+            - Open
+            - OpenFile
+            - ZipArchive.Close
+            - ZipArchive.ExtractTo
+            - ZipArchive.Flush
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The ExtractTo function doesn't securely escape file paths in zip archives
@@ -38,11 +38,11 @@ description: |
     replace files system-wide.
 published: 2022-01-14T17:30:28Z
 cves:
-  - CVE-2020-7664
+    - CVE-2020-7664
 ghsas:
-  - GHSA-vpx7-vm66-qx8r
+    - GHSA-vpx7-vm66-qx8r
 credits:
-  - Georgios Gkitsas of Snyk Security Team
+    - Georgios Gkitsas of Snyk Security Team
 references:
-  - fix: https://github.com/unknwon/cae/commit/07971c00a1bfd9dc171c3ad0bfab5b67c2287e11
-  - web: https://snyk.io/vuln/SNYK-GOLANG-GITHUBCOMUNKNWONCAEZIP-570383
+    - fix: https://github.com/unknwon/cae/commit/07971c00a1bfd9dc171c3ad0bfab5b67c2287e11
+    - web: https://snyk.io/vuln/SNYK-GOLANG-GITHUBCOMUNKNWONCAEZIP-570383

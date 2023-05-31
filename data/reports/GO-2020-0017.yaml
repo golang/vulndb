@@ -1,21 +1,21 @@
 id: GO-2020-0017
 modules:
-  - module: github.com/dgrijalva/jwt-go
-    versions:
-      - introduced: 0.0.0-20150717181359-44718f8a89b0
-    vulnerable_at: 3.2.0+incompatible
-    packages:
-      - package: github.com/dgrijalva/jwt-go
-        symbols:
-          - MapClaims.VerifyAudience
-  - module: github.com/dgrijalva/jwt-go/v4
-    versions:
-      - fixed: 4.0.0-preview1
-    vulnerable_at: 4.0.0-20190408202314-32acca36b99f
-    packages:
-      - package: github.com/dgrijalva/jwt-go/v4
-        symbols:
-          - MapClaims.VerifyAudience
+    - module: github.com/dgrijalva/jwt-go
+      versions:
+        - introduced: 0.0.0-20150717181359-44718f8a89b0
+      vulnerable_at: 3.2.0+incompatible
+      packages:
+        - package: github.com/dgrijalva/jwt-go
+          symbols:
+            - MapClaims.VerifyAudience
+    - module: github.com/dgrijalva/jwt-go/v4
+      versions:
+        - fixed: 4.0.0-preview1
+      vulnerable_at: 4.0.0-20190408202314-32acca36b99f
+      packages:
+        - package: github.com/dgrijalva/jwt-go/v4
+          symbols:
+            - MapClaims.VerifyAudience
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     If a JWT contains an audience claim with an array of strings, rather
@@ -24,11 +24,11 @@ description: |
     allowing an invalid set of audiences to be provided.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2020-26160
+    - CVE-2020-26160
 ghsas:
-  - GHSA-w73w-5m7g-f7qc
+    - GHSA-w73w-5m7g-f7qc
 credits:
-  - '@christopher-wong'
+    - '@christopher-wong'
 references:
-  - fix: https://github.com/dgrijalva/jwt-go/commit/ec0a89a131e3e8567adcb21254a5cd20a70ea4ab
-  - web: https://github.com/dgrijalva/jwt-go/issues/422
+    - fix: https://github.com/dgrijalva/jwt-go/commit/ec0a89a131e3e8567adcb21254a5cd20a70ea4ab
+    - web: https://github.com/dgrijalva/jwt-go/issues/422

@@ -1,16 +1,16 @@
 id: GO-2022-0988
 modules:
-  - module: std
-    versions:
-      - introduced: 1.19.0-0
-        fixed: 1.19.1
-    vulnerable_at: 1.19.0
-    packages:
-      - package: net/url
-        symbols:
-          - URL.JoinPath
-        derived_symbols:
-          - JoinPath
+    - module: std
+      versions:
+        - introduced: 1.19.0-0
+          fixed: 1.19.1
+      vulnerable_at: 1.19.0
+      packages:
+        - package: net/url
+          symbols:
+            - URL.JoinPath
+          derived_symbols:
+            - JoinPath
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     JoinPath and URL.JoinPath do not remove ../ path elements appended
@@ -19,12 +19,11 @@ description: |
     stating that ../ path elements are removed from the result.
 published: 2022-09-12T20:23:15Z
 credits:
-  - '@q0jt'
+    - '@q0jt'
 references:
-  - web: https://groups.google.com/g/golang-announce/c/x49AQzIVX-s
-  - report: https://go.dev/issue/54385
-  - fix: https://go.dev/cl/423514
+    - web: https://groups.google.com/g/golang-announce/c/x49AQzIVX-s
+    - report: https://go.dev/issue/54385
+    - fix: https://go.dev/cl/423514
 cve_metadata:
     id: CVE-2022-32190
-    cwe: 'CWE-22: Improper Limitation of a Pathname to a Restricted Directory (''Path
-        Traversal'')'
+    cwe: 'CWE-22: Improper Limitation of a Pathname to a Restricted Directory (''Path Traversal'')'

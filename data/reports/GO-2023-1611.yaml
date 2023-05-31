@@ -1,22 +1,22 @@
 id: GO-2023-1611
 modules:
-  - module: github.com/gookit/goutil
-    versions:
-      - fixed: 0.6.7
-    vulnerable_at: 0.6.6
-    packages:
-      - package: github.com/gookit/goutil/fsutil
-        symbols:
-          - Unzip
+    - module: github.com/gookit/goutil
+      versions:
+        - fixed: 0.6.7
+      vulnerable_at: 0.6.6
+      packages:
+        - package: github.com/gookit/goutil/fsutil
+          symbols:
+            - Unzip
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     fsutil.Unzip is vulnerable to path traversal attacks due to improper validation of paths.
 cves:
-  - CVE-2023-27475
+    - CVE-2023-27475
 ghsas:
-  - GHSA-fx2v-qfhr-4chv
+    - GHSA-fx2v-qfhr-4chv
 credits:
-  - '@cokeBeer'
+    - '@cokeBeer'
 references:
-  - advisory: https://github.com/gookit/goutil/security/advisories/GHSA-fx2v-qfhr-4chv
-  - fix: https://github.com/gookit/goutil/commit/d7b94fede71f018f129f7d21feb58c895d28dadc
+    - advisory: https://github.com/gookit/goutil/security/advisories/GHSA-fx2v-qfhr-4chv
+    - fix: https://github.com/gookit/goutil/commit/d7b94fede71f018f129f7d21feb58c895d28dadc

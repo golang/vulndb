@@ -1,18 +1,18 @@
 id: GO-2022-0968
 modules:
-  - module: golang.org/x/crypto
-    versions:
-      - fixed: 0.0.0-20211202192323-5770296d904e
-    vulnerable_at: 0.0.0-20211117183948-ae814b36b871
-    packages:
-      - package: golang.org/x/crypto/ssh
-        symbols:
-          - gcmCipher.readCipherPacket
-          - chacha20Poly1305Cipher.readCipherPacket
-        derived_symbols:
-          - Dial
-          - NewClientConn
-          - NewServerConn
+    - module: golang.org/x/crypto
+      versions:
+        - fixed: 0.0.0-20211202192323-5770296d904e
+      vulnerable_at: 0.0.0-20211117183948-ae814b36b871
+      packages:
+        - package: golang.org/x/crypto/ssh
+          symbols:
+            - gcmCipher.readCipherPacket
+            - chacha20Poly1305Cipher.readCipherPacket
+          derived_symbols:
+            - Dial
+            - NewClientConn
+            - NewServerConn
 summary: Panic in golang.org/x/crypto/ssh
 description: |
     Unauthenticated clients can cause a panic in SSH servers.
@@ -21,12 +21,12 @@ description: |
     contains an empty plaintext causes a panic.
 published: 2022-09-13T03:32:38Z
 cves:
-  - CVE-2021-43565
+    - CVE-2021-43565
 ghsas:
-  - GHSA-gwc9-m7rh-j2ww
+    - GHSA-gwc9-m7rh-j2ww
 credits:
-  - Rod Hynes (Psiphon Inc)
+    - Rod Hynes (Psiphon Inc)
 references:
-  - web: https://groups.google.com/g/golang-announce/c/2AR1sKiM-Qs
-  - report: https://go.dev/issues/49932
-  - fix: https://go.dev/cl/368814/
+    - web: https://groups.google.com/g/golang-announce/c/2AR1sKiM-Qs
+    - report: https://go.dev/issues/49932
+    - fix: https://go.dev/cl/368814/

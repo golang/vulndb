@@ -1,15 +1,14 @@
 id: GO-2022-0177
 modules:
-  - module: cmd
-    versions:
-      - fixed: 1.8.4
-      - introduced: 1.9.0-0
-        fixed: 1.9.1
-    vulnerable_at: 1.9.0
-    packages:
-      - package: cmd/go
-        skip_fix: 'TODO: revisit this reason (cant request explicit version of standard
-            library package cmd/go)'
+    - module: cmd
+      versions:
+        - fixed: 1.8.4
+        - introduced: 1.9.0-0
+          fixed: 1.9.1
+      vulnerable_at: 1.9.0
+      packages:
+        - package: cmd/go
+          skip_fix: 'TODO: revisit this reason (cant request explicit version of standard library package cmd/go)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The "go get" command allows remote command execution.
@@ -24,11 +23,11 @@ description: |
     commands in .git/hooks/, they will execute on the system running "go get".
 published: 2022-08-09T17:31:35Z
 cves:
-  - CVE-2017-15041
+    - CVE-2017-15041
 credits:
-  - Simon Rawet
+    - Simon Rawet
 references:
-  - fix: https://go.dev/cl/68110
-  - fix: https://go.googlesource.com/go/+/ec71ee078fd3243b78c0d404c8634bd97e38d7eb
-  - report: https://go.dev/issue/22125
-  - web: https://groups.google.com/g/golang-dev/c/RinSE3EiJBI/m/kYL7zb07AgAJ
+    - fix: https://go.dev/cl/68110
+    - fix: https://go.googlesource.com/go/+/ec71ee078fd3243b78c0d404c8634bd97e38d7eb
+    - report: https://go.dev/issue/22125
+    - web: https://groups.google.com/g/golang-dev/c/RinSE3EiJBI/m/kYL7zb07AgAJ

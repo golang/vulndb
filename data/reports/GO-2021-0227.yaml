@@ -1,15 +1,15 @@
 id: GO-2021-0227
 modules:
-  - module: golang.org/x/crypto
-    versions:
-      - fixed: 0.0.0-20201216223049-8b5274cf687f
-    vulnerable_at: 0.0.0-20201208171446-5f87f3452ae9
-    packages:
-      - package: golang.org/x/crypto/ssh
-        symbols:
-          - connection.serverAuthenticate
-        derived_symbols:
-          - NewServerConn
+    - module: golang.org/x/crypto
+      versions:
+        - fixed: 0.0.0-20201216223049-8b5274cf687f
+      vulnerable_at: 0.0.0-20201208171446-5f87f3452ae9
+      packages:
+        - package: golang.org/x/crypto/ssh
+          symbols:
+            - connection.serverAuthenticate
+          derived_symbols:
+            - NewServerConn
 summary: Panic in golang.org/x/crypto/ssh
 description: |
     Clients can cause a panic in SSH servers. An attacker can craft
@@ -18,12 +18,12 @@ description: |
     if ServerConfig.GSSAPIWithMICConfig is nil.
 published: 2022-02-17T17:35:32Z
 cves:
-  - CVE-2020-29652
+    - CVE-2020-29652
 ghsas:
-  - GHSA-3vm4-22fp-5rfm
+    - GHSA-3vm4-22fp-5rfm
 credits:
-  - Joern Schneewesiz (GitLab Security Research Team)
+    - Joern Schneewesiz (GitLab Security Research Team)
 references:
-  - fix: https://go.dev/cl/278852
-  - fix: https://go.googlesource.com/crypto/+/8b5274cf687fd9316b4108863654cc57385531e8
-  - web: https://groups.google.com/g/golang-announce/c/ouZIlBimOsE?pli=1
+    - fix: https://go.dev/cl/278852
+    - fix: https://go.googlesource.com/crypto/+/8b5274cf687fd9316b4108863654cc57385531e8
+    - web: https://groups.google.com/g/golang-announce/c/ouZIlBimOsE?pli=1

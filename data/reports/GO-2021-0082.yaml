@@ -1,11 +1,11 @@
 id: GO-2021-0082
 modules:
-  - module: github.com/facebook/fbthrift
-    versions:
-      - fixed: 0.31.1-0.20200311080807-483ed864d69f
-    vulnerable_at: 0.31.1-0.20200311052902-c8800899625e
-    packages:
-      - package: github.com/facebook/fbthrift/thrift/lib/go/thrift
+    - module: github.com/facebook/fbthrift
+      versions:
+        - fixed: 0.31.1-0.20200311080807-483ed864d69f
+      vulnerable_at: 0.31.1-0.20200311052902-c8800899625e
+      packages:
+        - package: github.com/facebook/fbthrift/thrift/lib/go/thrift
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Thirft Servers preallocate memory for the declared size of messages before
@@ -15,9 +15,9 @@ description: |
     amounts of memory. This can be used as a denial of service vector.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2019-11939
+    - CVE-2019-11939
 ghsas:
-  - GHSA-w3r9-r9w7-8h48
+    - GHSA-w3r9-r9w7-8h48
 references:
-  - fix: https://github.com/facebook/fbthrift/commit/483ed864d69f307e9e3b9dadec048216100c0757
-  - web: https://www.facebook.com/security/advisories/cve-2019-11939
+    - fix: https://github.com/facebook/fbthrift/commit/483ed864d69f307e9e3b9dadec048216100c0757
+    - web: https://www.facebook.com/security/advisories/cve-2019-11939

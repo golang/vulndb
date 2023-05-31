@@ -1,30 +1,30 @@
 id: GO-2022-1184
 modules:
-  - module: code.sajari.com/docconv
-    versions:
-      - introduced: 1.1.0
-        fixed: 1.3.5
-    vulnerable_at: 1.3.4
-    packages:
-      - package: code.sajari.com/docconv
-        symbols:
-          - PDFHasImage
-          - ConvertPDF
-        derived_symbols:
-          - Convert
-          - ConvertPages
-          - ConvertPath
-          - ConvertPathReadability
+    - module: code.sajari.com/docconv
+      versions:
+        - introduced: 1.1.0
+          fixed: 1.3.5
+      vulnerable_at: 1.3.4
+      packages:
+        - package: code.sajari.com/docconv
+          symbols:
+            - PDFHasImage
+            - ConvertPDF
+          derived_symbols:
+            - Convert
+            - ConvertPages
+            - ConvertPath
+            - ConvertPathReadability
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The manipulation of the argument path to docconv.{ConvertPDF,PDFHasImage}
     leads to os command injection.
 cves:
-  - CVE-2022-4643
+    - CVE-2022-4643
 ghsas:
-  - GHSA-6m4h-hfpp-x8cx
+    - GHSA-6m4h-hfpp-x8cx
 references:
-  - fix: https://github.com/sajari/docconv/pull/110
-  - web: https://github.com/sajari/docconv/releases/tag/v1.3.5
-  - fix: https://github.com/sajari/docconv/commit/b19021ade3d0b71c89d35cb00eb9e589a121faa5
-  - web: https://vuldb.com/?id.216502
+    - fix: https://github.com/sajari/docconv/pull/110
+    - web: https://github.com/sajari/docconv/releases/tag/v1.3.5
+    - fix: https://github.com/sajari/docconv/commit/b19021ade3d0b71c89d35cb00eb9e589a121faa5
+    - web: https://vuldb.com/?id.216502

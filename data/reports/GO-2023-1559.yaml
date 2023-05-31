@@ -1,46 +1,46 @@
 id: GO-2023-1559
 modules:
-  - module: github.com/ipfs/go-unixfsnode
-    versions:
-      - fixed: 1.5.2
-    vulnerable_at: 1.5.1
-    packages:
-      - package: github.com/ipfs/go-unixfsnode/hamt
-        symbols:
-          - NewUnixFSHAMTShard
-          - bitField
-        derived_symbols:
-          - AttemptHAMTShardFromNode
-          - NewUnixFSHAMTShardWithPreload
-          - _UnixFSHAMTShard.Length
-          - _UnixFSHAMTShard.Lookup
-          - _UnixFSHAMTShard.LookupByNode
-          - _UnixFSHAMTShard.LookupBySegment
-          - _UnixFSHAMTShard.LookupByString
-          - _UnixFSShardedDir__ListItr.Next
-      - package: github.com/ipfs/go-unixfsnode/data/builder
-        symbols:
-          - shard.bitmap
-          - shard.serialize
-        derived_symbols:
-          - BlockSizes
-          - BuildUnixFS
-          - BuildUnixFSDirectory
-          - BuildUnixFSFile
-          - BuildUnixFSRecursive
-          - BuildUnixFSShardedDirectory
-          - BuildUnixFSSymlink
-          - Data
-          - DataType
-          - Fanout
-          - FileSize
-          - FractionalNanoseconds
-          - HashType
-          - Mtime
-          - Permissions
-          - PermissionsString
-          - Seconds
-          - Time
+    - module: github.com/ipfs/go-unixfsnode
+      versions:
+        - fixed: 1.5.2
+      vulnerable_at: 1.5.1
+      packages:
+        - package: github.com/ipfs/go-unixfsnode/hamt
+          symbols:
+            - NewUnixFSHAMTShard
+            - bitField
+          derived_symbols:
+            - AttemptHAMTShardFromNode
+            - NewUnixFSHAMTShardWithPreload
+            - _UnixFSHAMTShard.Length
+            - _UnixFSHAMTShard.Lookup
+            - _UnixFSHAMTShard.LookupByNode
+            - _UnixFSHAMTShard.LookupBySegment
+            - _UnixFSHAMTShard.LookupByString
+            - _UnixFSShardedDir__ListItr.Next
+        - package: github.com/ipfs/go-unixfsnode/data/builder
+          symbols:
+            - shard.bitmap
+            - shard.serialize
+          derived_symbols:
+            - BlockSizes
+            - BuildUnixFS
+            - BuildUnixFSDirectory
+            - BuildUnixFSFile
+            - BuildUnixFSRecursive
+            - BuildUnixFSShardedDirectory
+            - BuildUnixFSSymlink
+            - Data
+            - DataType
+            - Fanout
+            - FileSize
+            - FractionalNanoseconds
+            - HashType
+            - Mtime
+            - Permissions
+            - PermissionsString
+            - Seconds
+            - Time
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Trying to read malformed HAMT sharded directories can cause panics and virtual memory leaks.
@@ -50,11 +50,11 @@ description: |
 
     There are no known workarounds (users are advised to upgrade).
 cves:
-  - CVE-2023-23631
+    - CVE-2023-23631
 ghsas:
-  - GHSA-4gj3-6r43-3wfc
+    - GHSA-4gj3-6r43-3wfc
 credits:
-  - Jorropo
+    - Jorropo
 references:
-  - advisory: https://github.com/ipfs/go-unixfsnode/security/advisories/GHSA-4gj3-6r43-3wfc
-  - fix: https://github.com/ipfs/go-unixfsnode/commit/59050ea8bc458ae55246ae09243e6e165923e076
+    - advisory: https://github.com/ipfs/go-unixfsnode/security/advisories/GHSA-4gj3-6r43-3wfc
+    - fix: https://github.com/ipfs/go-unixfsnode/commit/59050ea8bc458ae55246ae09243e6e165923e076

@@ -1,13 +1,13 @@
 id: GO-2020-0022
 modules:
-  - module: github.com/cloudflare/golz4
-    versions:
-      - fixed: 0.0.0-20140711154735-199f5f787806
-    vulnerable_at: 0.0.0-20140711153818-2dcef6a6aeec
-    packages:
-      - package: github.com/cloudflare/golz4
-        symbols:
-          - Uncompress
+    - module: github.com/cloudflare/golz4
+      versions:
+        - fixed: 0.0.0-20140711154735-199f5f787806
+      vulnerable_at: 0.0.0-20140711153818-2dcef6a6aeec
+      packages:
+        - package: github.com/cloudflare/golz4
+          symbols:
+            - Uncompress
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     LZ4 bindings use a deprecated C API that is vulnerable to
@@ -15,12 +15,12 @@ description: |
     if called with untrusted user input.
 published: 2021-04-14T20:04:52Z
 ghsas:
-  - GHSA-4wp2-8rm2-jgmh
+    - GHSA-4wp2-8rm2-jgmh
 credits:
-  - Yann Collet
+    - Yann Collet
 references:
-  - fix: https://github.com/cloudflare/golz4/commit/199f5f7878062ca17a98e079f2dbe1205e2ed898
-  - web: https://github.com/cloudflare/golz4/issues/5
+    - fix: https://github.com/cloudflare/golz4/commit/199f5f7878062ca17a98e079f2dbe1205e2ed898
+    - web: https://github.com/cloudflare/golz4/issues/5
 cve_metadata:
     id: CVE-2014-125026
     cwe: 'CWE 94: Improper Control of Generation of Code (''Code Injection'')'

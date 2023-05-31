@@ -1,22 +1,22 @@
 id: GO-2022-0942
 modules:
-  - module: github.com/graphql-go/graphql
-    versions:
-      - fixed: 0.8.1
-    vulnerable_at: 0.8.0
-    packages:
-      - package: github.com/graphql-go/graphql/language/parser
-        symbols:
-          - Parse
+    - module: github.com/graphql-go/graphql
+      versions:
+        - fixed: 0.8.1
+      vulnerable_at: 0.8.0
+      packages:
+        - package: github.com/graphql-go/graphql/language/parser
+          symbols:
+            - Parse
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     graphql-go (aka GraphQL for Go) has infinite recursion
     in the type definition parser.
 published: 2022-08-23T13:19:13Z
 cves:
-  - CVE-2022-37315
+    - CVE-2022-37315
 ghsas:
-  - GHSA-h3qm-jrrf-cgj3
+    - GHSA-h3qm-jrrf-cgj3
 references:
-  - fix: https://github.com/graphql-go/graphql/pull/642
-  - fix: https://github.com/graphql-go/graphql/pull/642/commits/4188bd5b3877f7badb951b421cf66e0af2eacb22
+    - fix: https://github.com/graphql-go/graphql/pull/642
+    - fix: https://github.com/graphql-go/graphql/pull/642/commits/4188bd5b3877f7badb951b421cf66e0af2eacb22

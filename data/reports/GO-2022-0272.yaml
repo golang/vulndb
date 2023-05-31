@@ -1,19 +1,19 @@
 id: GO-2022-0272
 modules:
-  - module: github.com/kataras/iris/v12
-    versions:
-      - fixed: 12.2.0-alpha8
-    vulnerable_at: 12.1.8
-    packages:
-      - package: github.com/kataras/iris/v12/context
-        symbols:
-          - Context.UploadFormFiles
-  - module: github.com/kataras/iris
-    vulnerable_at: 0.0.2
-    packages:
-      - package: github.com/kataras/iris/context
-        symbols:
-          - Context.UploadFormFiles
+    - module: github.com/kataras/iris/v12
+      versions:
+        - fixed: 12.2.0-alpha8
+      vulnerable_at: 12.1.8
+      packages:
+        - package: github.com/kataras/iris/v12/context
+          symbols:
+            - Context.UploadFormFiles
+    - module: github.com/kataras/iris
+      vulnerable_at: 0.0.2
+      packages:
+        - package: github.com/kataras/iris/context
+          symbols:
+            - Context.UploadFormFiles
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The Context.UploadFormFiles function is vulnerable to directory
@@ -25,12 +25,12 @@ description: |
     "mime/multipart".Part.FileName, which avoids this issue.
 published: 2022-07-15T23:08:12Z
 cves:
-  - CVE-2021-23772
+    - CVE-2021-23772
 ghsas:
-  - GHSA-jcxc-rh6w-wf49
+    - GHSA-jcxc-rh6w-wf49
 credits:
-  - Snyk Security Team
+    - Snyk Security Team
 references:
-  - fix: https://github.com/kataras/iris/commit/e213dba0d32ff66653e0ef124bc5088817264b08
-  - web: https://snyk.io/vuln/SNYK-GOLANG-GITHUBCOMKATARASIRIS-2325169
-  - web: https://snyk.io/vuln/SNYK-GOLANG-GITHUBCOMKATARASIRISV12-2325170
+    - fix: https://github.com/kataras/iris/commit/e213dba0d32ff66653e0ef124bc5088817264b08
+    - web: https://snyk.io/vuln/SNYK-GOLANG-GITHUBCOMKATARASIRIS-2325169
+    - web: https://snyk.io/vuln/SNYK-GOLANG-GITHUBCOMKATARASIRISV12-2325170

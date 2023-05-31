@@ -1,30 +1,30 @@
 id: GO-2022-0536
 modules:
-  - module: std
-    versions:
-      - fixed: 1.11.13
-      - introduced: 1.12.0-0
-        fixed: 1.12.8
-    vulnerable_at: 1.12.7
-    packages:
-      - package: net/http
-        symbols:
-          - http2serverConn.serve
-          - http2serverConn.writeFrame
-          - http2serverConn.scheduleFrameWrite
-        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
-  - module: golang.org/x/net
-    versions:
-      - fixed: 0.0.0-20190813141303-74dc4d7220e7
-    vulnerable_at: 0.0.0-20190607181551-461777fb6f67
-    packages:
-      - package: golang.org/x/net/http2
-        symbols:
-          - serverConn.serve
-          - serverConn.writeFrame
-          - serverConn.scheduleFrameWrite
-        derived_symbols:
-          - Server.ServeConn
+    - module: std
+      versions:
+        - fixed: 1.11.13
+        - introduced: 1.12.0-0
+          fixed: 1.12.8
+      vulnerable_at: 1.12.7
+      packages:
+        - package: net/http
+          symbols:
+            - http2serverConn.serve
+            - http2serverConn.writeFrame
+            - http2serverConn.scheduleFrameWrite
+          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+    - module: golang.org/x/net
+      versions:
+        - fixed: 0.0.0-20190813141303-74dc4d7220e7
+      vulnerable_at: 0.0.0-20190607181551-461777fb6f67
+      packages:
+        - package: golang.org/x/net/http2
+          symbols:
+            - serverConn.serve
+            - serverConn.writeFrame
+            - serverConn.scheduleFrameWrite
+          derived_symbols:
+            - Server.ServeConn
 summary: Reset flood in net/http and golang.org/x/net/http
 description: |
     Some HTTP/2 implementations are vulnerable to a reset flood, potentially
@@ -38,15 +38,15 @@ description: |
     consume excess memory, CPU, or both.
 published: 2022-08-01T22:20:53Z
 cves:
-  - CVE-2019-9512
-  - CVE-2019-9514
+    - CVE-2019-9512
+    - CVE-2019-9514
 ghsas:
-  - GHSA-39qc-96h7-956f
-  - GHSA-hgr8-6h9x-f7q9
+    - GHSA-39qc-96h7-956f
+    - GHSA-hgr8-6h9x-f7q9
 credits:
-  - Jonathan Looney of Netflix
+    - Jonathan Looney of Netflix
 references:
-  - fix: https://go.dev/cl/190137
-  - fix: https://go.googlesource.com/go/+/145e193131eb486077b66009beb051aba07c52a5
-  - report: https://go.dev/issue/33606
-  - web: https://groups.google.com/g/golang-announce/c/65QixT3tcmg/m/DrFiG6vvCwAJ
+    - fix: https://go.dev/cl/190137
+    - fix: https://go.googlesource.com/go/+/145e193131eb486077b66009beb051aba07c52a5
+    - report: https://go.dev/issue/33606
+    - web: https://groups.google.com/g/golang-announce/c/65QixT3tcmg/m/DrFiG6vvCwAJ

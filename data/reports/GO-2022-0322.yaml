@@ -1,28 +1,28 @@
 id: GO-2022-0322
 modules:
-  - module: github.com/prometheus/client_golang
-    versions:
-      - fixed: 1.11.1
-    vulnerable_at: 1.11.0
-    packages:
-      - package: github.com/prometheus/client_golang/prometheus/promhttp
-        symbols:
-          - sanitizeMethod
-        derived_symbols:
-          - Handler
-          - HandlerFor
-          - InstrumentHandlerCounter
-          - InstrumentHandlerDuration
-          - InstrumentHandlerRequestSize
-          - InstrumentHandlerResponseSize
-          - InstrumentHandlerTimeToWriteHeader
-          - InstrumentMetricHandler
-          - InstrumentRoundTripperCounter
-          - InstrumentRoundTripperDuration
-          - flusherDelegator.Flush
-          - readerFromDelegator.ReadFrom
-          - responseWriterDelegator.Write
-          - responseWriterDelegator.WriteHeader
+    - module: github.com/prometheus/client_golang
+      versions:
+        - fixed: 1.11.1
+      vulnerable_at: 1.11.0
+      packages:
+        - package: github.com/prometheus/client_golang/prometheus/promhttp
+          symbols:
+            - sanitizeMethod
+          derived_symbols:
+            - Handler
+            - HandlerFor
+            - InstrumentHandlerCounter
+            - InstrumentHandlerDuration
+            - InstrumentHandlerRequestSize
+            - InstrumentHandlerResponseSize
+            - InstrumentHandlerTimeToWriteHeader
+            - InstrumentMetricHandler
+            - InstrumentRoundTripperCounter
+            - InstrumentRoundTripperDuration
+            - flusherDelegator.Flush
+            - readerFromDelegator.ReadFrom
+            - responseWriterDelegator.Write
+            - responseWriterDelegator.WriteHeader
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The Prometheus client_golang HTTP server is vulnerable to a denial of
@@ -36,8 +36,8 @@ description: |
     "method".
 published: 2022-07-15T23:29:02Z
 cves:
-  - CVE-2022-21698
+    - CVE-2022-21698
 ghsas:
-  - GHSA-cg3q-j54f-5p7p
+    - GHSA-cg3q-j54f-5p7p
 references:
-  - fix: https://github.com/prometheus/client_golang/pull/962
+    - fix: https://github.com/prometheus/client_golang/pull/962

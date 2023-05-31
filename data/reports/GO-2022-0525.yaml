@@ -1,15 +1,15 @@
 id: GO-2022-0525
 modules:
-  - module: std
-    versions:
-      - fixed: 1.17.12
-      - introduced: 1.18.0-0
-        fixed: 1.18.4
-    vulnerable_at: 1.18.3
-    packages:
-      - package: net/http
-        symbols:
-          - transferReader.parseTransferEncoding
+    - module: std
+      versions:
+        - fixed: 1.17.12
+        - introduced: 1.18.0-0
+          fixed: 1.18.4
+      vulnerable_at: 1.18.3
+      packages:
+        - package: net/http
+          symbols:
+            - transferReader.parseTransferEncoding
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The HTTP/1 client accepted some invalid Transfer-Encoding headers as
@@ -18,13 +18,13 @@ description: |
     improperly failed to reject the header as invalid.
 published: 2022-07-25T17:34:18Z
 credits:
-  - Zeyu Zhang (https://www.zeyu2001.com/)
+    - Zeyu Zhang (https://www.zeyu2001.com/)
 references:
-  - fix: https://go.dev/cl/409874
-  - fix: https://go.googlesource.com/go/+/e5017a93fcde94f09836200bca55324af037ee5f
-  - report: https://go.dev/issue/53188
-  - fix: https://go.dev/cl/410714
-  - web: https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE
+    - fix: https://go.dev/cl/409874
+    - fix: https://go.googlesource.com/go/+/e5017a93fcde94f09836200bca55324af037ee5f
+    - report: https://go.dev/issue/53188
+    - fix: https://go.dev/cl/410714
+    - web: https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE
 cve_metadata:
     id: CVE-2022-1705
     cwe: 'CWE-444: Inconsistent Interpretation of HTTP Requests (''HTTP Request Smuggling'')'

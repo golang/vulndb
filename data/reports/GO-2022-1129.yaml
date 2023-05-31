@@ -1,31 +1,31 @@
 id: GO-2022-1129
 modules:
-  - module: github.com/crewjam/saml
-    versions:
-      - fixed: 0.4.9
-    vulnerable_at: 0.4.8
-    packages:
-      - package: github.com/crewjam/saml
-        symbols:
-          - ServiceProvider.validateSignature
-          - findChild
-        derived_symbols:
-          - ServiceProvider.ParseResponse
-          - ServiceProvider.ParseXMLArtifactResponse
-          - ServiceProvider.ParseXMLResponse
-          - ServiceProvider.ValidateLogoutResponseForm
-          - ServiceProvider.ValidateLogoutResponseRedirect
-          - ServiceProvider.ValidateLogoutResponseRequest
+    - module: github.com/crewjam/saml
+      versions:
+        - fixed: 0.4.9
+      vulnerable_at: 0.4.8
+      packages:
+        - package: github.com/crewjam/saml
+          symbols:
+            - ServiceProvider.validateSignature
+            - findChild
+          derived_symbols:
+            - ServiceProvider.ParseResponse
+            - ServiceProvider.ParseXMLArtifactResponse
+            - ServiceProvider.ParseXMLResponse
+            - ServiceProvider.ValidateLogoutResponseForm
+            - ServiceProvider.ValidateLogoutResponseRedirect
+            - ServiceProvider.ValidateLogoutResponseRequest
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Authentication bypass is possible when processing SAML responses containing
     multiple Assertion elements.
 cves:
-  - CVE-2022-41912
+    - CVE-2022-41912
 ghsas:
-  - GHSA-j2jp-wvqg-wc2g
+    - GHSA-j2jp-wvqg-wc2g
 credits:
-  - Felix Wilhelm from Google Project Zero
+    - Felix Wilhelm from Google Project Zero
 references:
-  - advisory: https://github.com/prometheus/exporter-toolkit/security/advisories/GHSA-7rg2-cxvp-9p7p
-  - fix: https://github.com/crewjam/saml/commit/aee3fb1edeeaf1088fcb458727e0fd863d277f8b
+    - advisory: https://github.com/prometheus/exporter-toolkit/security/advisories/GHSA-7rg2-cxvp-9p7p
+    - fix: https://github.com/crewjam/saml/commit/aee3fb1edeeaf1088fcb458727e0fd863d277f8b

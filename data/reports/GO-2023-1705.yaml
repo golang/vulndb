@@ -1,29 +1,29 @@
 id: GO-2023-1705
 modules:
-  - module: std
-    versions:
-      - fixed: 1.19.8
-      - introduced: 1.20.0-0
-        fixed: 1.20.3
-    vulnerable_at: 1.20.2
-    packages:
-      - package: mime/multipart
-        symbols:
-          - Reader.readForm
-          - mimeHeaderSize
-          - newPart
-          - Part.populateHeaders
-          - Reader.NextPart
-          - Reader.NextRawPart
-          - Reader.nextPart
-          - readMIMEHeader
-        derived_symbols:
-          - Reader.ReadForm
-      - package: net/textproto
-        symbols:
-          - readMIMEHeader
-        derived_symbols:
-          - Reader.ReadMIMEHeader
+    - module: std
+      versions:
+        - fixed: 1.19.8
+        - introduced: 1.20.0-0
+          fixed: 1.20.3
+      vulnerable_at: 1.20.2
+      packages:
+        - package: mime/multipart
+          symbols:
+            - Reader.readForm
+            - mimeHeaderSize
+            - newPart
+            - Part.populateHeaders
+            - Reader.NextPart
+            - Reader.NextRawPart
+            - Reader.nextPart
+            - readMIMEHeader
+          derived_symbols:
+            - Reader.ReadForm
+        - package: net/textproto
+          symbols:
+            - readMIMEHeader
+          derived_symbols:
+            - Reader.ReadMIMEHeader
 summary: |
     Excessive resource consumption in net/http, net/textproto and mime/multipart
 description: |
@@ -66,13 +66,13 @@ description: |
     no more than 10,000 header fields across all parts. This limit may be
     adjusted with the environment variable GODEBUG=multipartmaxheaders=.
 credits:
-  - Jakob Ackermann (@das7pad)
+    - Jakob Ackermann (@das7pad)
 references:
-  - report: https://go.dev/issue/59153
-  - fix: https://go.dev/cl/482076
-  - fix: https://go.dev/cl/482075
-  - fix: https://go.dev/cl/482077
-  - web: https://groups.google.com/g/golang-announce/c/Xdv6JL9ENs8
+    - report: https://go.dev/issue/59153
+    - fix: https://go.dev/cl/482076
+    - fix: https://go.dev/cl/482075
+    - fix: https://go.dev/cl/482077
+    - web: https://groups.google.com/g/golang-announce/c/Xdv6JL9ENs8
 cve_metadata:
     id: CVE-2023-24536
     cwe: 'CWE-400: Uncontrolled Resource Consumption'

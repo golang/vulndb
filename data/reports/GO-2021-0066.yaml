@@ -1,28 +1,27 @@
 id: GO-2021-0066
 modules:
-  - module: k8s.io/kubernetes
-    versions:
-      - fixed: 1.20.0-alpha.1
-    vulnerable_at: 1.20.0-alpha.0
-    packages:
-      - package: k8s.io/kubernetes/pkg/credentialprovider
-        symbols:
-          - readDockerConfigFileFromBytes
-          - readDockerConfigJSONFileFromBytes
-        skip_fix: 'TODO: revisit this reason (reading k8s.io/api/go.mod at revision
-            v0.0.0: unknown revision v0.0.0)'
+    - module: k8s.io/kubernetes
+      versions:
+        - fixed: 1.20.0-alpha.1
+      vulnerable_at: 1.20.0-alpha.0
+      packages:
+        - package: k8s.io/kubernetes/pkg/credentialprovider
+          symbols:
+            - readDockerConfigFileFromBytes
+            - readDockerConfigJSONFileFromBytes
+          skip_fix: 'TODO: revisit this reason (reading k8s.io/api/go.mod at revision v0.0.0: unknown revision v0.0.0)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Attempting to read a malformed .dockercfg may cause secrets to be
     inappropriately logged.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2020-8564
+    - CVE-2020-8564
 ghsas:
-  - GHSA-8mjg-8c8g-6h85
+    - GHSA-8mjg-8c8g-6h85
 credits:
-  - '@sfowl'
+    - '@sfowl'
 references:
-  - fix: https://github.com/kubernetes/kubernetes/pull/94712
-  - fix: https://github.com/kubernetes/kubernetes/commit/11793434dac97a49bfed0150b56ac63e5dc34634
-  - web: https://github.com/kubernetes/kubernetes/issues/95622
+    - fix: https://github.com/kubernetes/kubernetes/pull/94712
+    - fix: https://github.com/kubernetes/kubernetes/commit/11793434dac97a49bfed0150b56ac63e5dc34634
+    - web: https://github.com/kubernetes/kubernetes/issues/95622

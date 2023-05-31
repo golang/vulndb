@@ -1,16 +1,16 @@
 id: GO-2021-0241
 modules:
-  - module: std
-    versions:
-      - fixed: 1.15.13
-      - introduced: 1.16.0-0
-        fixed: 1.16.5
-    vulnerable_at: 1.16.4
-    packages:
-      - package: net/http/httputil
-        symbols:
-          - ReverseProxy.ServeHTTP
-        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+    - module: std
+      versions:
+        - fixed: 1.15.13
+        - introduced: 1.16.0-0
+          fixed: 1.16.5
+      vulnerable_at: 1.16.4
+      packages:
+        - package: net/http/httputil
+          symbols:
+            - ReverseProxy.ServeHTTP
+          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     ReverseProxy can be made to forward certain hop-by-hop headers,
@@ -19,12 +19,12 @@ description: |
     headers, including those set by the ReverseProxy.Director.
 published: 2022-02-17T17:33:16Z
 cves:
-  - CVE-2021-33197
+    - CVE-2021-33197
 credits:
-  - Mattias Grenfeldt (https://grenfeldt.dev)
-  - Asta Olofsson
+    - Mattias Grenfeldt (https://grenfeldt.dev)
+    - Asta Olofsson
 references:
-  - fix: https://go.dev/cl/321929
-  - fix: https://go.googlesource.com/go/+/950fa11c4cb01a145bb07eeb167d90a1846061b3
-  - web: https://groups.google.com/g/golang-announce/c/RgCMkAEQjSI
-  - report: https://go.dev/issue/46313
+    - fix: https://go.dev/cl/321929
+    - fix: https://go.googlesource.com/go/+/950fa11c4cb01a145bb07eeb167d90a1846061b3
+    - web: https://groups.google.com/g/golang-announce/c/RgCMkAEQjSI
+    - report: https://go.dev/issue/46313

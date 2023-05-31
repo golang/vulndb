@@ -1,24 +1,24 @@
 id: GO-2022-0643
 modules:
-  - module: github.com/elastic/beats
-    versions:
-      - fixed: 6.1.0+incompatible
-    vulnerable_at: 6.0.0
-    packages:
-      - package: github.com/elastic/beats/packetbeat/protos/pgsql
-        symbols:
-          - pgsqlFieldsParser
-        derived_symbols:
-          - pgsqlPlugin.Parse
+    - module: github.com/elastic/beats
+      versions:
+        - fixed: 6.1.0+incompatible
+      vulnerable_at: 6.0.0
+      packages:
+        - package: github.com/elastic/beats/packetbeat/protos/pgsql
+          symbols:
+            - pgsqlFieldsParser
+          derived_symbols:
+            - pgsqlPlugin.Parse
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     A local attacker can cause a panic if they are able to send arbitrary traffic
     to a monitored port, due to an out of bounds read.
 published: 2022-02-15T01:57:18Z
 cves:
-  - CVE-2017-11480
+    - CVE-2017-11480
 ghsas:
-  - GHSA-9q3g-m353-cp4p
+    - GHSA-9q3g-m353-cp4p
 references:
-  - fix: https://github.com/elastic/beats/pull/5457
-  - fix: https://github.com/elastic/beats/commit/aeca65779d573976981587ca1d1461399e1b59dd
+    - fix: https://github.com/elastic/beats/pull/5457
+    - fix: https://github.com/elastic/beats/commit/aeca65779d573976981587ca1d1461399e1b59dd

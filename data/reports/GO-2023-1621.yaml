@@ -1,17 +1,17 @@
 id: GO-2023-1621
 modules:
-  - module: std
-    versions:
-      - fixed: 1.19.7
-      - introduced: 1.20.0-0
-        fixed: 1.20.2
-    vulnerable_at: 1.20.1
-    packages:
-      - package: crypto/internal/nistec
-        symbols:
-          - P256Point.ScalarBaseMult
-          - P256Point.ScalarMult
-          - P256OrdInverse
+    - module: std
+      versions:
+        - fixed: 1.19.7
+        - introduced: 1.20.0-0
+          fixed: 1.20.2
+      vulnerable_at: 1.20.1
+      packages:
+        - package: crypto/internal/nistec
+          symbols:
+            - P256Point.ScalarBaseMult
+            - P256Point.ScalarMult
+            - P256OrdInverse
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The ScalarMult and ScalarBaseMult methods of the P256 Curve may
@@ -20,11 +20,11 @@ description: |
 
     This does not impact usages of crypto/ecdsa or crypto/ecdh.
 credits:
-  - Guido Vranken, via the Ethereum Foundation bug bounty program
+    - Guido Vranken, via the Ethereum Foundation bug bounty program
 references:
-  - report: https://go.dev/issue/58647
-  - fix: https://go.dev/cl/471255
-  - web: https://groups.google.com/g/golang-announce/c/3-TpUx48iQY
+    - report: https://go.dev/issue/58647
+    - fix: https://go.dev/cl/471255
+    - web: https://groups.google.com/g/golang-announce/c/3-TpUx48iQY
 cve_metadata:
     id: CVE-2023-24532
     cwe: 'CWE-682: Incorrect Calculation'

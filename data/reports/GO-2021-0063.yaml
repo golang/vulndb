@@ -1,15 +1,15 @@
 id: GO-2021-0063
 modules:
-  - module: github.com/ethereum/go-ethereum
-    versions:
-      - fixed: 1.9.25
-    vulnerable_at: 1.9.24
-    packages:
-      - package: github.com/ethereum/go-ethereum/les
-        symbols:
-          - serverHandler.handleMsg
-        derived_symbols:
-          - PrivateLightServerAPI.Benchmark
+    - module: github.com/ethereum/go-ethereum
+      versions:
+        - fixed: 1.9.25
+      vulnerable_at: 1.9.24
+      packages:
+        - package: github.com/ethereum/go-ethereum/les
+          symbols:
+            - serverHandler.handleMsg
+          derived_symbols:
+            - PrivateLightServerAPI.Benchmark
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Due to a nil pointer dereference, a malicously crafted RPC message
@@ -17,11 +17,11 @@ description: |
     this may be used as a denial of service vector.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2020-26264
+    - CVE-2020-26264
 ghsas:
-  - GHSA-r33q-22hv-j29q
+    - GHSA-r33q-22hv-j29q
 credits:
-  - '@zsfelfoldi'
+    - '@zsfelfoldi'
 references:
-  - fix: https://github.com/ethereum/go-ethereum/pull/21896
-  - fix: https://github.com/ethereum/go-ethereum/commit/bddd103a9f0af27ef533f04e06ea429cf76b6d46
+    - fix: https://github.com/ethereum/go-ethereum/pull/21896
+    - fix: https://github.com/ethereum/go-ethereum/commit/bddd103a9f0af27ef533f04e06ea429cf76b6d46

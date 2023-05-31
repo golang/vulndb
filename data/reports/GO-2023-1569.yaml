@@ -1,15 +1,15 @@
 id: GO-2023-1569
 modules:
-  - module: std
-    versions:
-      - fixed: 1.19.6
-      - introduced: 1.20.0-0
-        fixed: 1.20.1
-    vulnerable_at: 1.20.0
-    packages:
-      - package: mime/multipart
-        symbols:
-          - Reader.ReadForm
+    - module: std
+      versions:
+        - fixed: 1.19.6
+        - introduced: 1.20.0-0
+          fixed: 1.20.1
+      vulnerable_at: 1.20.0
+      packages:
+        - package: mime/multipart
+          symbols:
+            - Reader.ReadForm
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     A denial of service is possible from excessive resource consumption
@@ -54,12 +54,12 @@ description: |
     temporary files. Callers can limit the size of form data with
     http.MaxBytesReader.
 credits:
-  - Arpad Ryszka
-  - Jakob Ackermann (@das7pad)
+    - Arpad Ryszka
+    - Jakob Ackermann (@das7pad)
 references:
-  - report: https://go.dev/issue/58006
-  - fix: https://go.dev/cl/468124
-  - web: https://groups.google.com/g/golang-announce/c/V0aBFqaFs_E
+    - report: https://go.dev/issue/58006
+    - fix: https://go.dev/cl/468124
+    - web: https://groups.google.com/g/golang-announce/c/V0aBFqaFs_E
 cve_metadata:
     id: CVE-2022-41725
     cwe: 'CWE-400: Uncontrolled Resource Consumption'

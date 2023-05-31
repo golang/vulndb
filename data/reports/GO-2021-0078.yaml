@@ -1,17 +1,17 @@
 id: GO-2021-0078
 modules:
-  - module: golang.org/x/net
-    versions:
-      - fixed: 0.0.0-20180816102801-aaf60122140d
-    vulnerable_at: 0.0.0-20180811021610-c39426892332
-    packages:
-      - package: golang.org/x/net/html
-        symbols:
-          - inBodyIM
-          - inFramesetIM
-        derived_symbols:
-          - Parse
-          - ParseFragment
+    - module: golang.org/x/net
+      versions:
+        - fixed: 0.0.0-20180816102801-aaf60122140d
+      vulnerable_at: 0.0.0-20180811021610-c39426892332
+      packages:
+        - package: golang.org/x/net/html
+          symbols:
+            - inBodyIM
+            - inFramesetIM
+          derived_symbols:
+            - Parse
+            - ParseFragment
 summary: Panic in golang.org/x/net/html
 description: |
     The HTML parser does not properly handle "in frameset" insertion mode, and can be made
@@ -19,14 +19,14 @@ description: |
     on user input, this may be a vector for a denial of service attack.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2018-17075
+    - CVE-2018-17075
 ghsas:
-  - GHSA-5p4h-3377-7w67
+    - GHSA-5p4h-3377-7w67
 credits:
-  - Kunpei Sakai
+    - Kunpei Sakai
 references:
-  - fix: https://go.dev/cl/123776
-  - fix: https://go.googlesource.com/net/+/aaf60122140d3fcf75376d319f0554393160eb50
-  - report: https://go.dev/issue/27016
-  - web: https://bugs.chromium.org/p/chromium/issues/detail?id=829668
-  - web: https://go-review.googlesource.com/c/net/+/94838/9/html/parse.go#1906
+    - fix: https://go.dev/cl/123776
+    - fix: https://go.googlesource.com/net/+/aaf60122140d3fcf75376d319f0554393160eb50
+    - report: https://go.dev/issue/27016
+    - web: https://bugs.chromium.org/p/chromium/issues/detail?id=829668
+    - web: https://go-review.googlesource.com/c/net/+/94838/9/html/parse.go#1906

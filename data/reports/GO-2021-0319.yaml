@@ -1,18 +1,18 @@
 id: GO-2021-0319
 modules:
-  - module: std
-    versions:
-      - fixed: 1.16.14
-      - introduced: 1.17.0-0
-        fixed: 1.17.7
-    vulnerable_at: 1.17.6
-    packages:
-      - package: crypto/elliptic
-        symbols:
-          - CurveParams.IsOnCurve
-          - p384PointFromAffine
-          - p521PointFromAffine
-        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+    - module: std
+      versions:
+        - fixed: 1.16.14
+        - introduced: 1.17.0-0
+          fixed: 1.17.7
+      vulnerable_at: 1.17.6
+      packages:
+        - package: crypto/elliptic
+          symbols:
+            - CurveParams.IsOnCurve
+            - p384PointFromAffine
+            - p521PointFromAffine
+          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Some big.Int values that are not valid field elements (negative or overflowing)
@@ -21,11 +21,11 @@ description: |
     return such values.
 published: 2022-05-23T22:15:21Z
 cves:
-  - CVE-2022-23806
+    - CVE-2022-23806
 credits:
-  - Guido Vranken
+    - Guido Vranken
 references:
-  - fix: https://go.dev/cl/382455
-  - fix: https://go.googlesource.com/go/+/7f9494c277a471f6f47f4af3036285c0b1419816
-  - web: https://groups.google.com/g/golang-announce/c/SUsQn0aSgPQ
-  - report: https://go.dev/issue/50974
+    - fix: https://go.dev/cl/382455
+    - fix: https://go.googlesource.com/go/+/7f9494c277a471f6f47f4af3036285c0b1419816
+    - web: https://groups.google.com/g/golang-announce/c/SUsQn0aSgPQ
+    - report: https://go.dev/issue/50974

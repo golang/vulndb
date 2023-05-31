@@ -1,41 +1,41 @@
 id: GO-2022-1071
 modules:
-  - module: github.com/fluxcd/helm-controller/api
-    versions:
-      - fixed: 0.26.0
-    vulnerable_at: 0.25.0
-    packages:
-      - package: github.com/fluxcd/helm-controller/api/v2beta1
-  - module: github.com/fluxcd/image-automation-controller/api
-    versions:
-      - fixed: 0.26.1
-    vulnerable_at: 0.26.0
-    packages:
-      - package: github.com/fluxcd/image-automation-controller/api/v1beta1
-  - module: github.com/fluxcd/image-reflector-controller/api
-    versions:
-      - fixed: 0.22.1
-    vulnerable_at: 0.22.0
-    packages:
-      - package: github.com/fluxcd/image-reflector-controller/api/v1beta1
-  - module: github.com/fluxcd/kustomize-controller/api
-    versions:
-      - fixed: 0.30.0
-    vulnerable_at: 0.29.0
-    packages:
-      - package: github.com/fluxcd/kustomize-controller/api/v1beta2
-  - module: github.com/fluxcd/notification-controller/api
-    versions:
-      - fixed: 0.28.0
-    vulnerable_at: 0.27.0
-    packages:
-      - package: github.com/fluxcd/notification-controller/api/v1beta1
-  - module: github.com/fluxcd/source-controller/api
-    versions:
-      - fixed: 0.30.0
-    vulnerable_at: 0.29.0
-    packages:
-      - package: github.com/fluxcd/source-controller/api/v1beta2
+    - module: github.com/fluxcd/helm-controller/api
+      versions:
+        - fixed: 0.26.0
+      vulnerable_at: 0.25.0
+      packages:
+        - package: github.com/fluxcd/helm-controller/api/v2beta1
+    - module: github.com/fluxcd/image-automation-controller/api
+      versions:
+        - fixed: 0.26.1
+      vulnerable_at: 0.26.0
+      packages:
+        - package: github.com/fluxcd/image-automation-controller/api/v1beta1
+    - module: github.com/fluxcd/image-reflector-controller/api
+      versions:
+        - fixed: 0.22.1
+      vulnerable_at: 0.22.0
+      packages:
+        - package: github.com/fluxcd/image-reflector-controller/api/v1beta1
+    - module: github.com/fluxcd/kustomize-controller/api
+      versions:
+        - fixed: 0.30.0
+      vulnerable_at: 0.29.0
+      packages:
+        - package: github.com/fluxcd/kustomize-controller/api/v1beta2
+    - module: github.com/fluxcd/notification-controller/api
+      versions:
+        - fixed: 0.28.0
+      vulnerable_at: 0.27.0
+      packages:
+        - package: github.com/fluxcd/notification-controller/api/v1beta1
+    - module: github.com/fluxcd/source-controller/api
+      versions:
+        - fixed: 0.30.0
+      vulnerable_at: 0.29.0
+      packages:
+        - package: github.com/fluxcd/source-controller/api/v1beta2
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |-
     Flux controllers are vulnerable to a denial of service attack.
@@ -50,17 +50,17 @@ description: |-
     https://github.com/kubernetes/apimachinery/issues/131, and b)
     a lack of validation within Flux to restrict allowed values.
 cves:
-  - CVE-2022-39272
+    - CVE-2022-39272
 ghsas:
-  - GHSA-f4p5-x4vc-mh4v
+    - GHSA-f4p5-x4vc-mh4v
 credits:
-  - Alexander Block (@codablock)
+    - Alexander Block (@codablock)
 references:
-  - advisory: https://github.com/advisories/GHSA-f4p5-x4vc-mh4v
-  - fix: https://github.com/fluxcd/helm-controller/pull/533
-  - fix: https://github.com/fluxcd/image-automation-controller/pull/439
-  - fix: https://github.com/fluxcd/image-reflector-controller/pull/314
-  - fix: https://github.com/fluxcd/kustomize-controller/pull/731
-  - fix: https://github.com/fluxcd/notification-controller/pull/420
-  - fix: https://github.com/fluxcd/source-controller/pull/903
-  - web: https://github.com/kubernetes/apimachinery#131
+    - advisory: https://github.com/advisories/GHSA-f4p5-x4vc-mh4v
+    - fix: https://github.com/fluxcd/helm-controller/pull/533
+    - fix: https://github.com/fluxcd/image-automation-controller/pull/439
+    - fix: https://github.com/fluxcd/image-reflector-controller/pull/314
+    - fix: https://github.com/fluxcd/kustomize-controller/pull/731
+    - fix: https://github.com/fluxcd/notification-controller/pull/420
+    - fix: https://github.com/fluxcd/source-controller/pull/903
+    - web: https://github.com/kubernetes/apimachinery#131

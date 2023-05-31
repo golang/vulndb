@@ -1,26 +1,26 @@
 id: GO-2021-0084
 modules:
-  - module: github.com/astaxie/beego
-    versions:
-      - fixed: 1.12.2-0.20200613154013-bac2b31afecc
-    vulnerable_at: 1.12.2-0.20200610083815-4ad699b7b813
-    packages:
-      - package: github.com/astaxie/beego/session
-        symbols:
-          - FileProvider.SessionRead
-          - FileProvider.SessionRegenerate
+    - module: github.com/astaxie/beego
+      versions:
+        - fixed: 1.12.2-0.20200613154013-bac2b31afecc
+      vulnerable_at: 1.12.2-0.20200610083815-4ad699b7b813
+      packages:
+        - package: github.com/astaxie/beego/session
+          symbols:
+            - FileProvider.SessionRead
+            - FileProvider.SessionRegenerate
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Session data is stored using permissive permissions, allowing local users
     with filesystem access to read arbitrary data.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2019-16354
+    - CVE-2019-16354
 ghsas:
-  - GHSA-f6px-w8rh-7r89
+    - GHSA-f6px-w8rh-7r89
 credits:
-  - '@nicowaisman'
+    - '@nicowaisman'
 references:
-  - fix: https://github.com/beego/beego/pull/3975
-  - fix: https://github.com/beego/beego/commit/bac2b31afecc65d9a89f9e473b8006c5edc0c8d1
-  - web: https://github.com/beego/beego/issues/3763
+    - fix: https://github.com/beego/beego/pull/3975
+    - fix: https://github.com/beego/beego/commit/bac2b31afecc65d9a89f9e473b8006c5edc0c8d1
+    - web: https://github.com/beego/beego/issues/3763

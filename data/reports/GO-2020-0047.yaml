@@ -1,15 +1,15 @@
 id: GO-2020-0047
 modules:
-  - module: github.com/RobotsAndPencils/go-saml
-    vulnerable_at: 0.0.0-20170520135329-fb13cb52a46b
-    packages:
-      - package: github.com/RobotsAndPencils/go-saml
-        symbols:
-          - AuthnRequest.Validate
-          - NewAuthnRequest
-          - NewSignedResponse
-        derived_symbols:
-          - ServiceProviderSettings.GetAuthnRequest
+    - module: github.com/RobotsAndPencils/go-saml
+      vulnerable_at: 0.0.0-20170520135329-fb13cb52a46b
+      packages:
+        - package: github.com/RobotsAndPencils/go-saml
+          symbols:
+            - AuthnRequest.Validate
+            - NewAuthnRequest
+            - NewSignedResponse
+          derived_symbols:
+            - ServiceProviderSettings.GetAuthnRequest
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     XML Digital Signatures generated and validated using this package use
@@ -17,9 +17,9 @@ description: |
     collisions depending on their control over the input.
 published: 2021-04-14T20:04:52Z
 ghsas:
-  - GHSA-5rhg-xhgr-5hfj
+    - GHSA-5rhg-xhgr-5hfj
 references:
-  - web: https://github.com/RobotsAndPencils/go-saml/pull/38
+    - web: https://github.com/RobotsAndPencils/go-saml/pull/38
 cve_metadata:
     id: CVE-2020-36563
     cwe: 'CWE 328: Use of Weak Hash'

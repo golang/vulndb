@@ -1,28 +1,28 @@
 id: GO-2022-0247
 modules:
-  - module: cmd
-    versions:
-      - fixed: 1.16.9
-      - introduced: 1.17.0-0
-        fixed: 1.17.2
-    vulnerable_at: 1.17.1
-    packages:
-      - package: cmd/link
-        goos:
-          - js
-        goarch:
-          - wasm
-        symbols:
-          - Link.address
-        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
-      - package: misc/wasm
-        goos:
-          - js
-        goarch:
-          - wasm
-        symbols:
-          - run
-        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+    - module: cmd
+      versions:
+        - fixed: 1.16.9
+        - introduced: 1.17.0-0
+          fixed: 1.17.2
+      vulnerable_at: 1.17.1
+      packages:
+        - package: cmd/link
+          goos:
+            - js
+          goarch:
+            - wasm
+          symbols:
+            - Link.address
+          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+        - package: misc/wasm
+          goos:
+            - js
+          goarch:
+            - wasm
+          symbols:
+            - run
+          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     When invoking functions from WASM modules, built using GOARCH=wasm GOOS=js,
@@ -35,11 +35,11 @@ description: |
     modules.
 published: 2022-05-24T20:14:28Z
 cves:
-  - CVE-2021-38297
+    - CVE-2021-38297
 credits:
-  - Ben Lubar
+    - Ben Lubar
 references:
-  - fix: https://go.dev/cl/354571
-  - fix: https://go.googlesource.com/go/+/77f2750f4398990eed972186706f160631d7dae4
-  - report: https://go.dev/issue/48797
-  - web: https://groups.google.com/g/golang-announce/c/AEBu9j7yj5A
+    - fix: https://go.dev/cl/354571
+    - fix: https://go.googlesource.com/go/+/77f2750f4398990eed972186706f160631d7dae4
+    - report: https://go.dev/issue/48797
+    - web: https://groups.google.com/g/golang-announce/c/AEBu9j7yj5A

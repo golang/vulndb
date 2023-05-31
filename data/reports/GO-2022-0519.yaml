@@ -1,20 +1,20 @@
 id: GO-2022-0519
 modules:
-  - module: github.com/flyteorg/flyteadmin
-    versions:
-      - fixed: 1.1.31
-    vulnerable_at: 1.1.30
-    packages:
-      - package: github.com/flyteorg/flyteadmin/auth/authzserver
-        symbols:
-          - ResourceServer.ValidateAccessToken
+    - module: github.com/flyteorg/flyteadmin
+      versions:
+        - fixed: 1.1.31
+      vulnerable_at: 1.1.30
+      packages:
+        - package: github.com/flyteorg/flyteadmin/auth/authzserver
+          symbols:
+            - ResourceServer.ValidateAccessToken
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Improper validation of access tokens can permit use of expired tokens.
 published: 2022-07-30T03:51:07Z
 cves:
-  - CVE-2022-31145
+    - CVE-2022-31145
 ghsas:
-  - GHSA-qwrj-9hmp-gpxh
+    - GHSA-qwrj-9hmp-gpxh
 references:
-  - fix: https://github.com/flyteorg/flyteadmin/commit/a1ec282d02706e074bc4986fd0412e5da3b9d00a
+    - fix: https://github.com/flyteorg/flyteadmin/commit/a1ec282d02706e074bc4986fd0412e5da3b9d00a

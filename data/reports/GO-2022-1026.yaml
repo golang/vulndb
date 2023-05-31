@@ -1,9 +1,9 @@
 id: GO-2022-1026
 modules:
-  - module: github.com/peterzen/goresolver
-    vulnerable_at: 1.0.2
-    packages:
-      - package: github.com/peterzen/goresolver
+    - module: github.com/peterzen/goresolver
+      vulnerable_at: 1.0.2
+      packages:
+        - package: github.com/peterzen/goresolver
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     DNSSEC validation is not performed correctly. An attacker can
@@ -13,9 +13,9 @@ description: |
     Root DNSSEC public keys are not validated, permitting an attacker
     to present a self-signed root key and delegation chain.
 ghsas:
-  - GHSA-jr65-gpj5-cw74
+    - GHSA-jr65-gpj5-cw74
 references:
-  - report: https://github.com/peterzen/goresolver/issues/5#issuecomment-1150214257
+    - report: https://github.com/peterzen/goresolver/issues/5#issuecomment-1150214257
 cve_metadata:
     id: CVE-2022-3347
     cwe: 'CWE 295: Improper Certificate Validation'

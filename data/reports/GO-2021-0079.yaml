@@ -1,15 +1,14 @@
 id: GO-2021-0079
 modules:
-  - module: github.com/bytom/bytom
-    versions:
-      - fixed: 1.0.4-0.20180831054840-1ac3c8ac4f2b
-    vulnerable_at: 1.0.4-0.20180831031436-69b3d4c7cf41
-    packages:
-      - package: github.com/bytom/bytom/p2p/discover
-        symbols:
-          - Network.checkTopicRegister
-        skip_fix: 'TODO: Revisit this reason. (Fix causes error containing cannot
-            find module providing package github.com/bytom/common)'
+    - module: github.com/bytom/bytom
+      versions:
+        - fixed: 1.0.4-0.20180831054840-1ac3c8ac4f2b
+      vulnerable_at: 1.0.4-0.20180831031436-69b3d4c7cf41
+      packages:
+        - package: github.com/bytom/bytom/p2p/discover
+          symbols:
+            - Network.checkTopicRegister
+          skip_fix: 'TODO: Revisit this reason. (Fix causes error containing cannot find module providing package github.com/bytom/common)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     A malformed query can cause an out-of-bounds panic due to improper
@@ -18,11 +17,11 @@ description: |
     attacks.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2018-18206
+    - CVE-2018-18206
 ghsas:
-  - GHSA-vc3x-gx6c-g99f
+    - GHSA-vc3x-gx6c-g99f
 credits:
-  - '@yahtoo'
+    - '@yahtoo'
 references:
-  - fix: https://github.com/Bytom/bytom/pull/1307
-  - fix: https://github.com/Bytom/bytom/commit/1ac3c8ac4f2b1e1df9675228290bda6b9586ba42
+    - fix: https://github.com/Bytom/bytom/pull/1307
+    - fix: https://github.com/Bytom/bytom/commit/1ac3c8ac4f2b1e1df9675228290bda6b9586ba42

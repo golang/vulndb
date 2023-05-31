@@ -1,13 +1,13 @@
 id: GO-2020-0035
 modules:
-  - module: github.com/yi-ge/unzip
-    versions:
-      - fixed: 1.0.3-0.20200308084313-2adbaa4891b9
-    vulnerable_at: 1.0.3-0.20190904092328-cc5a75ef5eca
-    packages:
-      - package: github.com/yi-ge/unzip
-        symbols:
-          - Unzip.Extract
+    - module: github.com/yi-ge/unzip
+      versions:
+        - fixed: 1.0.3-0.20200308084313-2adbaa4891b9
+      vulnerable_at: 1.0.3-0.20190904092328-cc5a75ef5eca
+      packages:
+        - package: github.com/yi-ge/unzip
+          symbols:
+            - Unzip.Extract
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Due to improper path santization, archives containing relative file
@@ -15,11 +15,11 @@ description: |
     target directory.
 published: 2021-04-14T20:04:52Z
 ghsas:
-  - GHSA-f5c5-hmw9-v8hx
+    - GHSA-f5c5-hmw9-v8hx
 references:
-  - fix: https://github.com/yi-ge/unzip/pull/1
-  - fix: https://github.com/yi-ge/unzip/commit/2adbaa4891b9690853ef10216189189f5ad7dc73
-  - web: https://snyk.io/research/zip-slip-vulnerability
+    - fix: https://github.com/yi-ge/unzip/pull/1
+    - fix: https://github.com/yi-ge/unzip/commit/2adbaa4891b9690853ef10216189189f5ad7dc73
+    - web: https://snyk.io/research/zip-slip-vulnerability
 cve_metadata:
     id: CVE-2020-36561
     cwe: 'CWE 29: Path Traversal: "\..\filename"'

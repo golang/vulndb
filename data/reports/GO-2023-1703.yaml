@@ -1,19 +1,19 @@
 id: GO-2023-1703
 modules:
-  - module: std
-    versions:
-      - fixed: 1.19.8
-      - introduced: 1.20.0-0
-        fixed: 1.20.3
-    vulnerable_at: 1.20.2
-    packages:
-      - package: html/template
-        symbols:
-          - tJS
-          - tJSDelimited
-        derived_symbols:
-          - Template.Execute
-          - Template.ExecuteTemplate
+    - module: std
+      versions:
+        - fixed: 1.19.8
+        - introduced: 1.20.0-0
+          fixed: 1.20.3
+      vulnerable_at: 1.20.2
+      packages:
+        - package: html/template
+          symbols:
+            - tJS
+            - tJSDelimited
+          derived_symbols:
+            - Template.Execute
+            - Template.ExecuteTemplate
 summary: Backticks not treated as string delimiters in html/template
 description: |
     Templates do not properly consider backticks (`) as Javascript string
@@ -38,11 +38,11 @@ description: |
     GODEBUG flag jstmpllitinterp=1, with the caveat that backticks will now be
     escaped. This should be used with caution.
 credits:
-  - Sohom Datta, Manipal Institute of Technology
+    - Sohom Datta, Manipal Institute of Technology
 references:
-  - report: https://go.dev/issue/59234
-  - fix: https://go.dev/cl/482079
-  - web: https://groups.google.com/g/golang-announce/c/Xdv6JL9ENs8
+    - report: https://go.dev/issue/59234
+    - fix: https://go.dev/cl/482079
+    - web: https://groups.google.com/g/golang-announce/c/Xdv6JL9ENs8
 cve_metadata:
     id: CVE-2023-24538
     cwe: 'CWE-94: Improper Control of Generation of Code (''Code Injection'')'

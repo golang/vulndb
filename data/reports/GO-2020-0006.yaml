@@ -1,19 +1,19 @@
 id: GO-2020-0006
 modules:
-  - module: github.com/miekg/dns
-    versions:
-      - fixed: 1.0.4-0.20180125103619-43913f2f4fbd
-    vulnerable_at: 1.0.3
-    packages:
-      - package: github.com/miekg/dns
-        symbols:
-          - Server.serveTCP
-        derived_symbols:
-          - ActivateAndServe
-          - ListenAndServe
-          - ListenAndServeTLS
-          - Server.ActivateAndServe
-          - Server.ListenAndServe
+    - module: github.com/miekg/dns
+      versions:
+        - fixed: 1.0.4-0.20180125103619-43913f2f4fbd
+      vulnerable_at: 1.0.3
+      packages:
+        - package: github.com/miekg/dns
+          symbols:
+            - Server.serveTCP
+          derived_symbols:
+            - ActivateAndServe
+            - ListenAndServe
+            - ListenAndServeTLS
+            - Server.ActivateAndServe
+            - Server.ListenAndServe
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     An attacker may prevent TCP connections to a Server by opening
@@ -21,11 +21,11 @@ description: |
     the server no other connections will be accepted.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2017-15133
+    - CVE-2017-15133
 ghsas:
-  - GHSA-p55x-7x9v-q8m4
+    - GHSA-p55x-7x9v-q8m4
 credits:
-  - Pedro Sampaio
+    - Pedro Sampaio
 references:
-  - fix: https://github.com/miekg/dns/pull/631
-  - fix: https://github.com/miekg/dns/commit/43913f2f4fbd7dcff930b8a809e709591e4dd79e
+    - fix: https://github.com/miekg/dns/pull/631
+    - fix: https://github.com/miekg/dns/commit/43913f2f4fbd7dcff930b8a809e709591e4dd79e

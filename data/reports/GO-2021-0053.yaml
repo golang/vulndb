@@ -1,14 +1,14 @@
 id: GO-2021-0053
 modules:
-  - module: github.com/gogo/protobuf
-    versions:
-      - fixed: 1.3.2
-    vulnerable_at: 1.3.1
-    packages:
-      - package: github.com/gogo/protobuf/plugin/unmarshal
-        symbols:
-          - unmarshal.field
-          - unmarshal.Generate
+    - module: github.com/gogo/protobuf
+      versions:
+        - fixed: 1.3.2
+      vulnerable_at: 1.3.1
+      packages:
+        - package: github.com/gogo/protobuf/plugin/unmarshal
+          symbols:
+            - unmarshal.field
+            - unmarshal.Generate
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Due to improper bounds checking, maliciously crafted input to generated
@@ -16,8 +16,8 @@ description: |
     from untrusted parties, this may be used as a denial of service vector.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2021-3121
+    - CVE-2021-3121
 ghsas:
-  - GHSA-c3h9-896r-86jm
+    - GHSA-c3h9-896r-86jm
 references:
-  - fix: https://github.com/gogo/protobuf/commit/b03c65ea87cdc3521ede29f62fe3ce239267c1bc
+    - fix: https://github.com/gogo/protobuf/commit/b03c65ea87cdc3521ede29f62fe3ce239267c1bc

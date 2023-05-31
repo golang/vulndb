@@ -1,18 +1,18 @@
 id: GO-2020-0015
 modules:
-  - module: golang.org/x/text
-    versions:
-      - fixed: 0.3.3
-    vulnerable_at: 0.3.2
-    packages:
-      - package: golang.org/x/text/encoding/unicode
-        symbols:
-          - utf16Decoder.Transform
-        derived_symbols:
-          - bomOverride.Transform
-      - package: golang.org/x/text/transform
-        symbols:
-          - String
+    - module: golang.org/x/text
+      versions:
+        - fixed: 0.3.3
+      vulnerable_at: 0.3.2
+      packages:
+        - package: golang.org/x/text/encoding/unicode
+          symbols:
+            - utf16Decoder.Transform
+          derived_symbols:
+            - bomOverride.Transform
+        - package: golang.org/x/text/transform
+          symbols:
+            - String
 summary: Infinite loop in golang.org/x/text
 description: |
     An attacker could provide a single byte to a UTF16 decoder instantiated with
@@ -22,14 +22,14 @@ description: |
     vector.
 published: 2021-04-14T20:04:52Z
 cves:
-  - CVE-2020-14040
+    - CVE-2020-14040
 ghsas:
-  - GHSA-5rcv-m4m3-hfh7
+    - GHSA-5rcv-m4m3-hfh7
 credits:
-  - '@abacabadabacaba'
-  - Anton Gyllenberg
+    - '@abacabadabacaba'
+    - Anton Gyllenberg
 references:
-  - fix: https://go.dev/cl/238238
-  - fix: https://go.googlesource.com/text/+/23ae387dee1f90d29a23c0e87ee0b46038fbed0e
-  - report: https://go.dev/issue/39491
-  - web: https://groups.google.com/g/golang-announce/c/bXVeAmGOqz0
+    - fix: https://go.dev/cl/238238
+    - fix: https://go.googlesource.com/text/+/23ae387dee1f90d29a23c0e87ee0b46038fbed0e
+    - report: https://go.dev/issue/39491
+    - web: https://groups.google.com/g/golang-announce/c/bXVeAmGOqz0

@@ -1,15 +1,15 @@
 id: GO-2022-0209
 modules:
-  - module: golang.org/x/crypto
-    versions:
-      - fixed: 0.0.0-20190320223903-b7391e95e576
-    vulnerable_at: 0.0.0-20190313024323-a1f597ede03a
-    packages:
-      - package: golang.org/x/crypto/salsa20/salsa
-        goarch:
-          - amd64
-        symbols:
-          - XORKeyStream
+    - module: golang.org/x/crypto
+      versions:
+        - fixed: 0.0.0-20190320223903-b7391e95e576
+      vulnerable_at: 0.0.0-20190313024323-a1f597ede03a
+      packages:
+        - package: golang.org/x/crypto/salsa20/salsa
+          goarch:
+            - amd64
+          symbols:
+            - XORKeyStream
 summary: Insufficiently random values in golang.org/x/crypto/salsa20
 description: |
     XORKeyStream generates incorrect and insecure output for very
@@ -29,13 +29,13 @@ description: |
     of keystream for a single salsa20.XORKeyStream invocation are unaffected.
 published: 2022-07-01T20:15:25Z
 cves:
-  - CVE-2019-11840
+    - CVE-2019-11840
 ghsas:
-  - GHSA-r5c5-pr8j-pfp7
+    - GHSA-r5c5-pr8j-pfp7
 credits:
-  - Michael McLoughlin
+    - Michael McLoughlin
 references:
-  - fix: https://go.dev/cl/168406
-  - fix: https://go.googlesource.com/crypto/+/b7391e95e576cacdcdd422573063bc057239113d
-  - report: https://go.dev/issue/30965
-  - web: https://groups.google.com/g/golang-announce/c/tjyNcJxb2vQ/m/n0NRBziSCAAJ
+    - fix: https://go.dev/cl/168406
+    - fix: https://go.googlesource.com/crypto/+/b7391e95e576cacdcdd422573063bc057239113d
+    - report: https://go.dev/issue/30965
+    - web: https://groups.google.com/g/golang-announce/c/tjyNcJxb2vQ/m/n0NRBziSCAAJ

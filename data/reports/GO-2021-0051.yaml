@@ -1,18 +1,18 @@
 id: GO-2021-0051
 modules:
-  - module: github.com/labstack/echo/v4
-    versions:
-      - fixed: 4.1.18-0.20201215153152-4422e3b66b9f
-    vulnerable_at: 4.1.17
-    packages:
-      - package: github.com/labstack/echo/v4
-        goos:
-          - windows
-        symbols:
-          - common.static
-        derived_symbols:
-          - Echo.Static
-          - Group.Static
+    - module: github.com/labstack/echo/v4
+      versions:
+        - fixed: 4.1.18-0.20201215153152-4422e3b66b9f
+      vulnerable_at: 4.1.17
+      packages:
+        - package: github.com/labstack/echo/v4
+          goos:
+            - windows
+          symbols:
+            - common.static
+          derived_symbols:
+            - Echo.Static
+            - Group.Static
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Due to improper sanitization of user input on Windows, the static file handler
@@ -20,13 +20,12 @@ description: |
     the target directory that the server has permission to read.
 published: 2021-04-14T20:04:52Z
 ghsas:
-  - GHSA-j453-hm5x-c46w
+    - GHSA-j453-hm5x-c46w
 credits:
-  - '@little-cui (Apache ServiceComb)'
+    - '@little-cui (Apache ServiceComb)'
 references:
-  - fix: https://github.com/labstack/echo/pull/1718
-  - fix: https://github.com/labstack/echo/commit/4422e3b66b9fd498ed1ae1d0242d660d0ed3faaa
+    - fix: https://github.com/labstack/echo/pull/1718
+    - fix: https://github.com/labstack/echo/commit/4422e3b66b9fd498ed1ae1d0242d660d0ed3faaa
 cve_metadata:
     id: CVE-2020-36565
-    cwe: 'CWE 22: Improper Limitation of a Pathname to a Restricted Directory (''Path
-        Traversal'')'
+    cwe: 'CWE 22: Improper Limitation of a Pathname to a Restricted Directory (''Path Traversal'')'

@@ -1,38 +1,36 @@
 id: GO-2020-0032
 modules:
-  - module: github.com/goadesign/goa
-    versions:
-      - fixed: 1.4.3
-    vulnerable_at: 1.4.3-0.20191129212618-4f2e80285f2e
-    packages:
-      - package: github.com/goadesign/goa
-        symbols:
-          - Controller.FileHandler
-        derived_symbols:
-          - Service.ListenAndServe
-          - Service.ListenAndServeTLS
-          - Service.Serve
-          - mux.ServeHTTP
-  - module: goa.design/goa
-    versions:
-      - fixed: 1.4.3
-    vulnerable_at: 1.4.3-0.20191129212618-4f2e80285f2e
-    packages:
-      - package: goa.design/goa
-        symbols:
-          - Controller.FileHandler
-        skip_fix: 'TODO: revisit this reason (cannot find module providing package
-            github.com/goadesign/goa/uuid)'
-  - module: goa.design/goa/v3
-    versions:
-      - fixed: 3.0.9
-    vulnerable_at: 3.0.8
-    packages:
-      - package: goa.design/goa/v3
-        symbols:
-          - Controller.FileHandler
-        skip_fix: 'TODO: revisit this reason (goa.design/goa/v3 appears to not be
-            a package, but I could not locate the fix for this issue in v3)'
+    - module: github.com/goadesign/goa
+      versions:
+        - fixed: 1.4.3
+      vulnerable_at: 1.4.3-0.20191129212618-4f2e80285f2e
+      packages:
+        - package: github.com/goadesign/goa
+          symbols:
+            - Controller.FileHandler
+          derived_symbols:
+            - Service.ListenAndServe
+            - Service.ListenAndServeTLS
+            - Service.Serve
+            - mux.ServeHTTP
+    - module: goa.design/goa
+      versions:
+        - fixed: 1.4.3
+      vulnerable_at: 1.4.3-0.20191129212618-4f2e80285f2e
+      packages:
+        - package: goa.design/goa
+          symbols:
+            - Controller.FileHandler
+          skip_fix: 'TODO: revisit this reason (cannot find module providing package github.com/goadesign/goa/uuid)'
+    - module: goa.design/goa/v3
+      versions:
+        - fixed: 3.0.9
+      vulnerable_at: 3.0.8
+      packages:
+        - package: goa.design/goa/v3
+          symbols:
+            - Controller.FileHandler
+          skip_fix: 'TODO: revisit this reason (goa.design/goa/v3 appears to not be a package, but I could not locate the fix for this issue in v3)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Due to improper santization of user input, Controller.FileHandler allows
@@ -40,16 +38,15 @@ description: |
     the target directory that the server has permission to read.
 published: 2021-04-14T20:04:52Z
 ghsas:
-  - GHSA-fjgq-224f-fq37
+    - GHSA-fjgq-224f-fq37
 credits:
-  - '@christi3k'
+    - '@christi3k'
 references:
-  - fix: https://github.com/goadesign/goa/pull/2388
-  - fix: https://github.com/goadesign/goa/commit/70b5a199d0f813d74423993832c424e1fc73fb39
+    - fix: https://github.com/goadesign/goa/pull/2388
+    - fix: https://github.com/goadesign/goa/commit/70b5a199d0f813d74423993832c424e1fc73fb39
 cve_metadata:
     id: CVE-2019-25073
-    cwe: 'CWE-22: Improper Limitation of a Pathname to a Restricted Directory(''Path
-        Traversal'')'
+    cwe: 'CWE-22: Improper Limitation of a Pathname to a Restricted Directory(''Path Traversal'')'
     description: |
         Improper path santiziation in github.com/goadesign/goa before v3.0.9, v2.0.10, or
         v1.4.3 allow remote attackers to read files outside of the intended directory.

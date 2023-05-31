@@ -1,25 +1,25 @@
 id: GO-2022-0558
 modules:
-  - module: github.com/containers/psgo
-    versions:
-      - fixed: 1.7.2
-    vulnerable_at: 1.7.1
-    packages:
-      - package: github.com/containers/psgo
-        symbols:
-          - contextFromOptions
-        derived_symbols:
-          - JoinNamespaceAndProcessInfo
-          - JoinNamespaceAndProcessInfoByPids
-          - JoinNamespaceAndProcessInfoByPidsWithOptions
-          - JoinNamespaceAndProcessInfoWithOptions
-          - ProcessInfo
-          - ProcessInfoByPids
-      - package: github.com/containers/psgo/internal/proc
-        symbols:
-          - readStatusUserNS
-        derived_symbols:
-          - ParseStatus
+    - module: github.com/containers/psgo
+      versions:
+        - fixed: 1.7.2
+      vulnerable_at: 1.7.1
+      packages:
+        - package: github.com/containers/psgo
+          symbols:
+            - contextFromOptions
+          derived_symbols:
+            - JoinNamespaceAndProcessInfo
+            - JoinNamespaceAndProcessInfoByPids
+            - JoinNamespaceAndProcessInfoByPidsWithOptions
+            - JoinNamespaceAndProcessInfoWithOptions
+            - ProcessInfo
+            - ProcessInfoByPids
+        - package: github.com/containers/psgo/internal/proc
+          symbols:
+            - readStatusUserNS
+          derived_symbols:
+            - ParseStatus
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     The psgo package executes the 'nsenter' binary, potentially allowing
@@ -27,9 +27,9 @@ description: |
     by an untrusted source.
 published: 2022-08-22T18:07:59Z
 cves:
-  - CVE-2022-1227
+    - CVE-2022-1227
 ghsas:
-  - GHSA-66vw-v2x9-hw75
+    - GHSA-66vw-v2x9-hw75
 references:
-  - fix: https://github.com/containers/psgo/pull/92
-  - web: https://github.com/containers/podman/issues/10941
+    - fix: https://github.com/containers/psgo/pull/92
+    - web: https://github.com/containers/podman/issues/10941

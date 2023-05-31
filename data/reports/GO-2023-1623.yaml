@@ -1,22 +1,22 @@
 id: GO-2023-1623
 modules:
-  - module: github.com/crossplane/crossplane-runtime
-    versions:
-      - introduced: 0.6.0
-        fixed: 0.16.1
-      - introduced: 0.17.0
-        fixed: 0.19.2
-    vulnerable_at: 0.19.1
-    packages:
-      - package: github.com/crossplane/crossplane-runtime/pkg/fieldpath
-        symbols:
-          - Paved.SetValue
-        derived_symbols:
-          - Paved.MergeValue
-          - Paved.SetBool
-          - Paved.SetNumber
-          - Paved.SetString
-summary: Out-of-memory panic in Paved.SetValue.
+    - module: github.com/crossplane/crossplane-runtime
+      versions:
+        - introduced: 0.6.0
+          fixed: 0.16.1
+        - introduced: 0.17.0
+          fixed: 0.19.2
+      vulnerable_at: 0.19.1
+      packages:
+        - package: github.com/crossplane/crossplane-runtime/pkg/fieldpath
+          symbols:
+            - Paved.SetValue
+          derived_symbols:
+            - Paved.MergeValue
+            - Paved.SetBool
+            - Paved.SetNumber
+            - Paved.SetString
+summary: Out-of-memory panic in github.com/crossplane/crossplane-runtime
 description: |
     An out of memory panic vulnerability exists in the crossplane-runtime
     libraries.
@@ -39,11 +39,11 @@ description: |
     the path before passing it to the SetValue method of the Paved type,
     constraining the index size as deemed appropriate.
 cves:
-  - CVE-2023-27483
+    - CVE-2023-27483
 ghsas:
-  - GHSA-vfvj-3m3g-m532
+    - GHSA-vfvj-3m3g-m532
 credits:
-  - Disclosed by Ada Logics in a fuzzing audit sponsored by CNCF.
+    - Disclosed by Ada Logics in a fuzzing audit sponsored by CNCF.
 references:
-  - advisory: https://github.com/crossplane/crossplane-runtime/security/advisories/GHSA-vfvj-3m3g-m532
-  - fix: https://github.com/crossplane/crossplane-runtime/commit/53508a9f4374604db140dd8ab2fa52276441e738
+    - advisory: https://github.com/crossplane/crossplane-runtime/security/advisories/GHSA-vfvj-3m3g-m532
+    - fix: https://github.com/crossplane/crossplane-runtime/commit/53508a9f4374604db140dd8ab2fa52276441e738

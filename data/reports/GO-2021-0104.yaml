@@ -1,23 +1,23 @@
 id: GO-2021-0104
 modules:
-  - module: github.com/pion/webrtc/v3
-    versions:
-      - fixed: 3.0.15
-    vulnerable_at: 3.0.14
-    packages:
-      - package: github.com/pion/webrtc/v3
-        symbols:
-          - DTLSTransport.Start
-        derived_symbols:
-          - PeerConnection.AddTrack
-          - PeerConnection.AddTransceiverFromKind
-          - PeerConnection.AddTransceiverFromTrack
-          - PeerConnection.CreateDataChannel
-          - PeerConnection.RemoveTrack
-          - PeerConnection.SetLocalDescription
-          - PeerConnection.SetRemoteDescription
-          - operations.Done
-          - operations.Enqueue
+    - module: github.com/pion/webrtc/v3
+      versions:
+        - fixed: 3.0.15
+      vulnerable_at: 3.0.14
+      packages:
+        - package: github.com/pion/webrtc/v3
+          symbols:
+            - DTLSTransport.Start
+          derived_symbols:
+            - PeerConnection.AddTrack
+            - PeerConnection.AddTransceiverFromKind
+            - PeerConnection.AddTransceiverFromTrack
+            - PeerConnection.CreateDataChannel
+            - PeerConnection.RemoveTrack
+            - PeerConnection.SetLocalDescription
+            - PeerConnection.SetRemoteDescription
+            - operations.Done
+            - operations.Enqueue
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     Due to improper error handling, DTLS connections were not killed when certificate verification
@@ -26,12 +26,12 @@ description: |
     to bypass this restriction.
 published: 2021-07-28T18:08:05Z
 cves:
-  - CVE-2021-28681
+    - CVE-2021-28681
 ghsas:
-  - GHSA-74xm-qj29-cq8p
+    - GHSA-74xm-qj29-cq8p
 credits:
-  - Gaukas Wang (@Gaukas)
+    - Gaukas Wang (@Gaukas)
 references:
-  - fix: https://github.com/pion/webrtc/pull/1709
-  - fix: https://github.com/pion/webrtc/commit/545613dcdeb5dedb01cce94175f40bcbe045df2e
-  - web: https://github.com/pion/webrtc/issues/1708
+    - fix: https://github.com/pion/webrtc/pull/1709
+    - fix: https://github.com/pion/webrtc/commit/545613dcdeb5dedb01cce94175f40bcbe045df2e
+    - web: https://github.com/pion/webrtc/issues/1708

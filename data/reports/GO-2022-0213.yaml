@@ -1,16 +1,16 @@
 id: GO-2022-0213
 modules:
-  - module: std
-    versions:
-      - fixed: 1.12.11
-      - introduced: 1.13.0-0
-        fixed: 1.13.2
-    vulnerable_at: 1.13.1
-    packages:
-      - package: crypto/dsa
-        symbols:
-          - Verify
-        skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
+    - module: std
+      versions:
+        - fixed: 1.12.11
+        - introduced: 1.13.0-0
+          fixed: 1.13.2
+      vulnerable_at: 1.13.1
+      packages:
+        - package: crypto/dsa
+          symbols:
+            - Verify
+          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: Panic in crypto/dsa
 description: |
     Invalid DSA public keys can cause a panic in dsa.Verify. In particular,
@@ -30,12 +30,12 @@ description: |
     IsUserAuthority accepts a certificate with a malformed public key.
 published: 2022-05-24T20:14:11Z
 cves:
-  - CVE-2019-17596
+    - CVE-2019-17596
 credits:
-  - Daniel M
-  - ragona
+    - Daniel M
+    - ragona
 references:
-  - fix: https://go.dev/cl/205441
-  - fix: https://go.googlesource.com/go/+/552987fdbf4c2bc9641016fd323c3ae5d3a0d9a3
-  - report: https://go.dev/issue/34960
-  - web: https://groups.google.com/g/golang-announce/c/lVEm7llp0w0/m/VbafyRkgCgAJ
+    - fix: https://go.dev/cl/205441
+    - fix: https://go.googlesource.com/go/+/552987fdbf4c2bc9641016fd323c3ae5d3a0d9a3
+    - report: https://go.dev/issue/34960
+    - web: https://groups.google.com/g/golang-announce/c/lVEm7llp0w0/m/VbafyRkgCgAJ

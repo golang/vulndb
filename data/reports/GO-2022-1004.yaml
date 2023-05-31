@@ -1,26 +1,26 @@
 id: GO-2022-1004
 modules:
-  - module: github.com/theupdateframework/go-tuf
-    versions:
-      - fixed: 0.3.2
-    vulnerable_at: 0.3.1
-    packages:
-      - package: github.com/theupdateframework/go-tuf/verify
-        symbols:
-          - DB.VerifySignatures
-        derived_symbols:
-          - DB.Unmarshal
-          - DB.UnmarshalIgnoreExpired
-          - DB.UnmarshalTrusted
-          - DB.Verify
-          - DB.VerifyIgnoreExpiredCheck
+    - module: github.com/theupdateframework/go-tuf
+      versions:
+        - fixed: 0.3.2
+      vulnerable_at: 0.3.1
+      packages:
+        - package: github.com/theupdateframework/go-tuf/verify
+          symbols:
+            - DB.VerifySignatures
+          derived_symbols:
+            - DB.Unmarshal
+            - DB.UnmarshalIgnoreExpired
+            - DB.UnmarshalTrusted
+            - DB.Verify
+            - DB.VerifyIgnoreExpiredCheck
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     An attacker with the ability to insert public keys into a TUF
     repository can cause clients to accept a staged change that has
     not been signed by the correct threshold of signatures.
 ghsas:
-  - GHSA-3633-5h82-39pq
+    - GHSA-3633-5h82-39pq
 references:
-  - advisory: https://github.com/advisories/GHSA-3633-5h82-39pq
-  - fix: https://github.com/theupdateframework/go-tuf/pull/369
+    - advisory: https://github.com/advisories/GHSA-3633-5h82-39pq
+    - fix: https://github.com/theupdateframework/go-tuf/pull/369

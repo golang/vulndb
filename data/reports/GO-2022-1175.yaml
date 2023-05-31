@@ -1,19 +1,18 @@
 id: GO-2022-1175
 modules:
-  - module: github.com/cortexproject/cortex
-    versions:
-      - introduced: 1.13.0
-        fixed: 1.13.2
-      - introduced: 1.14.0
-        fixed: 1.14.1
-    vulnerable_at: 1.14.0
-    packages:
-      - package: github.com/cortexproject/cortex/pkg/alertmanager
-        symbols:
-          - validateAlertmanagerConfig
-          - validateGlobalConfig
-        skip_fix: 'TODO: Revisit this reason. (Running fix causes error containing
-            undefined: grpc.WithBalancerName)'
+    - module: github.com/cortexproject/cortex
+      versions:
+        - introduced: 1.13.0
+          fixed: 1.13.2
+        - introduced: 1.14.0
+          fixed: 1.14.1
+      vulnerable_at: 1.14.0
+      packages:
+        - package: github.com/cortexproject/cortex/pkg/alertmanager
+          symbols:
+            - validateAlertmanagerConfig
+            - validateGlobalConfig
+          skip_fix: 'TODO: Revisit this reason. (Running fix causes error containing undefined: grpc.WithBalancerName)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     A malicious actor could remotely read local files by submitting to the
@@ -21,12 +20,12 @@ description: |
     of the Alertmanager service where `-experimental.alertmanager.enable-api`
     or `enable_api: true` is configured are affected.
 cves:
-  - CVE-2022-23536
+    - CVE-2022-23536
 ghsas:
-  - GHSA-cq2g-pw6q-hf7j
+    - GHSA-cq2g-pw6q-hf7j
 credits:
-  - Austin Robertson with Amazon Web Services
+    - Austin Robertson with Amazon Web Services
 references:
-  - advisory: https://github.com/cortexproject/cortex/security/advisories/GHSA-cq2g-pw6q-hf7j
-  - fix: https://github.com/cortexproject/cortex/commit/03e023d8b012887b31cc268d0d011b01e1e65506
-  - web: https://cortexmetrics.io/docs/api/#set-alertmanager-configuration
+    - advisory: https://github.com/cortexproject/cortex/security/advisories/GHSA-cq2g-pw6q-hf7j
+    - fix: https://github.com/cortexproject/cortex/commit/03e023d8b012887b31cc268d0d011b01e1e65506
+    - web: https://cortexmetrics.io/docs/api/#set-alertmanager-configuration

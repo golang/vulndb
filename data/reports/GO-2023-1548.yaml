@@ -1,16 +1,16 @@
 id: GO-2023-1548
 modules:
-  - module: github.com/argoproj/argo-cd/v2
-    versions:
-      - introduced: 2.6.0-rc1
-      - fixed: 2.6.1
-    vulnerable_at: 2.6.0
-    packages:
-      - package: github.com/argoproj/argo-cd/v2/util/argo
-        symbols:
-          - validateRepo
-        derived_symbols:
-          - ValidateRepo
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - introduced: 2.6.0-rc1
+        - fixed: 2.6.1
+      vulnerable_at: 2.6.0
+      packages:
+        - package: github.com/argoproj/argo-cd/v2/util/argo
+          symbols:
+            - validateRepo
+          derived_symbols:
+            - ValidateRepo
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |-
     Argo CD has an output sanitization bug which leaks repository access
@@ -31,12 +31,12 @@ description: |-
     existing repository to introduce a URL typo or otherwise force an
     error message.
 cves:
-  - CVE-2023-25163
+    - CVE-2023-25163
 ghsas:
-  - GHSA-mv6w-j4xc-qpfw
+    - GHSA-mv6w-j4xc-qpfw
 credits:
-  - James Callahan
+    - James Callahan
 references:
-  - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-mv6w-j4xc-qpfw
-  - report: https://github.com/argoproj/argo-cd/issues/12309
-  - fix: https://github.com/argoproj/argo-cd/pull/12320
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-mv6w-j4xc-qpfw
+    - report: https://github.com/argoproj/argo-cd/issues/12309
+    - fix: https://github.com/argoproj/argo-cd/pull/12320

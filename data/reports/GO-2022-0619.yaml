@@ -1,36 +1,36 @@
 id: GO-2022-0619
 modules:
-  - module: github.com/emicklei/go-restful
-    versions:
-      - fixed: 2.16.0+incompatible
-    vulnerable_at: 2.15.0+incompatible
-    packages:
-      - package: github.com/emicklei/go-restful
-        symbols:
-          - CrossOriginResourceSharing.isOriginAllowed
-        derived_symbols:
-          - CrossOriginResourceSharing.Filter
-  - module: github.com/emicklei/go-restful/v2
-    versions:
-      - introduced: 2.7.1
-    vulnerable_at: 2.7.1
-    packages:
-      - package: github.com/emicklei/go-restful/v2
-        symbols:
-          - CrossOriginResourceSharing.isOriginAllowed
-        derived_symbols:
-          - CrossOriginResourceSharing.Filter
-  - module: github.com/emicklei/go-restful/v3
-    versions:
-      - introduced: 3.0.0
-        fixed: 3.8.0
-    vulnerable_at: 3.7.4
-    packages:
-      - package: github.com/emicklei/go-restful/v3
-        symbols:
-          - CrossOriginResourceSharing.isOriginAllowed
-        derived_symbols:
-          - CrossOriginResourceSharing.Filter
+    - module: github.com/emicklei/go-restful
+      versions:
+        - fixed: 2.16.0+incompatible
+      vulnerable_at: 2.15.0+incompatible
+      packages:
+        - package: github.com/emicklei/go-restful
+          symbols:
+            - CrossOriginResourceSharing.isOriginAllowed
+          derived_symbols:
+            - CrossOriginResourceSharing.Filter
+    - module: github.com/emicklei/go-restful/v2
+      versions:
+        - introduced: 2.7.1
+      vulnerable_at: 2.7.1
+      packages:
+        - package: github.com/emicklei/go-restful/v2
+          symbols:
+            - CrossOriginResourceSharing.isOriginAllowed
+          derived_symbols:
+            - CrossOriginResourceSharing.Filter
+    - module: github.com/emicklei/go-restful/v3
+      versions:
+        - introduced: 3.0.0
+          fixed: 3.8.0
+      vulnerable_at: 3.7.4
+      packages:
+        - package: github.com/emicklei/go-restful/v3
+          symbols:
+            - CrossOriginResourceSharing.isOriginAllowed
+          derived_symbols:
+            - CrossOriginResourceSharing.Filter
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
     CORS filters that use an AllowedDomains configuration parameter
@@ -43,9 +43,9 @@ description: |
     match the Origin header "example.com.malicious.domain".
 published: 2022-08-15T18:05:29Z
 cves:
-  - CVE-2022-1996
+    - CVE-2022-1996
 ghsas:
-  - GHSA-r48q-9g5r-8q2h
+    - GHSA-r48q-9g5r-8q2h
 references:
-  - fix: https://github.com/emicklei/go-restful/commit/f292efff46ae17e9d104f865a60a39a2ae9402f1
-  - web: https://github.com/emicklei/go-restful/issues/489
+    - fix: https://github.com/emicklei/go-restful/commit/f292efff46ae17e9d104f865a60a39a2ae9402f1
+    - web: https://github.com/emicklei/go-restful/issues/489
