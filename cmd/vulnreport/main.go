@@ -14,6 +14,7 @@ import (
 	"fmt"
 	"go/build"
 	"go/types"
+	"io"
 	"log"
 	"os"
 	"os/exec"
@@ -53,7 +54,22 @@ var (
 	updateIssue   = flag.Bool("up", false, "for commit, create a CL that updates (doesn't fix) the tracking bug")
 	closedOk      = flag.Bool("closed-ok", false, "for create & create-excluded, allow closed issues to be created")
 	cpuprofile    = flag.String("cpuprofile", "", "write cpuprofile to file")
+	quiet         = flag.Bool("q", false, "quiet mode (suppress info logs)")
 )
+
+var (
+	infolog *log.Logger
+	outlog  *log.Logger
+	warnlog *log.Logger
+	errlog  *log.Logger
+)
+
+func init() {
+	infolog = log.New(os.Stdout, "info: ", 0)
+	outlog = log.New(os.Stdout, "", 0)
+	warnlog = log.New(os.Stderr, "WARNING: ", 0)
+	errlog = log.New(os.Stderr, "ERROR: ", 0)
+}
 
 func main() {
 	ctx := context.Background()
@@ -79,6 +95,10 @@ func main() {
 
 	if *githubToken == "" {
 		*githubToken = os.Getenv("VULN_GITHUB_ACCESS_TOKEN")
+	}
+
+	if *quiet {
+		infolog = log.New(io.Discard, "", 0)
 	}
 
 	var (
@@ -121,7 +141,7 @@ func main() {
 			// instead of filenames.
 			for _, githubID := range githubIDs {
 				if err := create(ctx, githubID, cfg); err != nil {
-					fmt.Printf("skipped: %s\n", err)
+					errlog.Println(err)
 				}
 			}
 		}
@@ -129,16 +149,16 @@ func main() {
 	}
 
 	ghsaClient := ghsa.NewClient(ctx, *githubToken)
-	var cmdFunc func(string) error
+	var cmdFunc func(context.Context, string) error
 	switch cmd {
 	case "lint":
 		cmdFunc = lint
 	case "commit":
-		cmdFunc = func(name string) error { return commit(ctx, name, ghsaClient) }
+		cmdFunc = func(ctx context.Context, name string) error { return commit(ctx, name, ghsaClient) }
 	case "cve":
-		cmdFunc = func(name string) error { return cveCmd(ctx, name) }
+		cmdFunc = func(ctx context.Context, name string) error { return cveCmd(ctx, name) }
 	case "fix":
-		cmdFunc = func(name string) error { return fix(ctx, name, ghsaClient) }
+		cmdFunc = func(ctx context.Context, name string) error { return fix(ctx, name, ghsaClient) }
 	case "osv":
 		cmdFunc = osvCmd
 	case "set-dates":
@@ -150,7 +170,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		cmdFunc = func(name string) error { return setDates(name, commitDates) }
+		cmdFunc = func(ctx context.Context, name string) error { return setDates(ctx, name, commitDates) }
 	case "xref":
 		repo, err := gitrepo.Open(ctx, ".")
 		if err != nil {
@@ -160,13 +180,13 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		cmdFunc = func(name string) error {
+		cmdFunc = func(ctx context.Context, name string) error {
 			r, err := report.Read(name)
 			if err != nil {
 				return err
 			}
-			fmt.Println(name)
-			fmt.Print(xref(name, r, existingByFile))
+			outlog.Println(name)
+			outlog.Println(xref(name, r, existingByFile))
 			return nil
 		}
 	default:
@@ -178,11 +198,11 @@ func main() {
 	for _, arg := range args {
 		arg, err := argToFilename(arg)
 		if err != nil {
-			fmt.Fprintln(os.Stderr, err)
+			errlog.Println(err)
 			continue
 		}
-		if err := cmdFunc(arg); err != nil {
-			fmt.Fprintln(os.Stderr, err)
+		if err := cmdFunc(ctx, arg); err != nil {
+			errlog.Println(err)
 		}
 	}
 }
@@ -197,7 +217,7 @@ func argToFilename(arg string) (string, error) {
 				return m[0], nil
 			}
 		}
-		return "", fmt.Errorf("%s is not a valid filename or issue ID with existing report", arg)
+		return "", fmt.Errorf("%s is not a valid filename or issue ID with existing report: %w", arg, err)
 	}
 	return arg, nil
 }
@@ -258,6 +278,7 @@ var (
 func loadCVERepo(ctx context.Context) *git.Repository {
 	// Loading the CVE git repo takes a while, so do it on demand only.
 	once.Do(func() {
+		infolog.Println("cloning CVE repo (this takes a while)")
 		repoPath := cvelistrepo.URL
 		if *localRepoPath != "" {
 			repoPath = *localRepoPath
@@ -277,7 +298,7 @@ func setupCreate(ctx context.Context, args []string) ([]int, *createCfg, error) 
 	}
 	localRepo, err := gitrepo.Open(ctx, ".")
 	if err != nil {
-		log.Fatal(err)
+		return nil, nil, err
 	}
 	existingByIssue, existingByFile, err := report.All(localRepo)
 	if err != nil {
@@ -306,6 +327,8 @@ func createReport(ctx context.Context, cfg *createCfg, iss *issues.Issue) (r *re
 	if err != nil {
 		return nil, err
 	}
+	id := iss.NewGoID()
+	infolog.Printf("creating report %s", id)
 
 	r, err = newReport(ctx, cfg, parsed)
 	if err != nil {
@@ -326,7 +349,7 @@ func createReport(ctx context.Context, cfg *createCfg, iss *issues.Issue) (r *re
 	}
 
 	addTODOs(r)
-	r.ID = iss.NewGoID()
+	r.ID = id
 	return r, nil
 }
 
@@ -348,8 +371,8 @@ func create(ctx context.Context, issueNumber int, cfg *createCfg) (err error) {
 		return err
 	}
 
-	fmt.Println(filename)
-	fmt.Print(xref(filename, r, cfg.existingByFile))
+	outlog.Println(filename)
+	infolog.Print(xref(filename, r, cfg.existingByFile))
 	return nil
 }
 
@@ -380,7 +403,7 @@ func createExcluded(ctx context.Context, cfg *createCfg) (err error) {
 		if err != nil {
 			return err
 		}
-		fmt.Printf("found %d issues with label %s\n", len(tempIssues), label)
+		infolog.Printf("found %d issues with label %s\n", len(tempIssues), label)
 		isses = append(isses, tempIssues...)
 	}
 
@@ -388,12 +411,13 @@ func createExcluded(ctx context.Context, cfg *createCfg) (err error) {
 	for _, iss := range isses {
 		// Don't create a report for an issue that already has a report.
 		if _, ok := cfg.existingByIssue[iss.Number]; ok {
+			infolog.Printf("skipped issue %d which already has a report\n", iss.Number)
 			continue
 		}
 
 		r, err := createReport(ctx, cfg, iss)
 		if err != nil {
-			fmt.Printf("skipped issue %d: %v\n", iss.Number, err)
+			errlog.Printf("skipped issue %d: %v\n", iss.Number, err)
 			continue
 		}
 
@@ -407,11 +431,11 @@ func createExcluded(ctx context.Context, cfg *createCfg) (err error) {
 
 	skipped := len(isses) - len(created)
 	if skipped > 0 {
-		fmt.Printf("skipped %d issue(s)\n", skipped)
+		infolog.Printf("skipped %d issue(s)\n", skipped)
 	}
 
 	if len(created) == 0 {
-		fmt.Println("no files to commit, exiting")
+		infolog.Printf("no files to commit, exiting")
 		return nil
 	}
 
@@ -675,14 +699,18 @@ func addReferenceTODOs(r *report.Report) {
 	}
 }
 
-func lint(filename string) (err error) {
+func lint(ctx context.Context, filename string) (err error) {
 	defer derrors.Wrap(&err, "lint(%q)", filename)
+	infolog.Printf("lint %s\n", filename)
+
 	_, err = report.ReadAndLint(filename)
 	return err
 }
 
 func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client) (err error) {
 	defer derrors.Wrap(&err, "fix(%q)", filename)
+	infolog.Printf("fix %s\n", filename)
+
 	r, err := report.Read(filename)
 	if err != nil {
 		return err
@@ -696,6 +724,9 @@ func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client) (err err
 	}
 	if lints := r.Lint(); len(lints) > 0 {
 		r.Fix()
+	}
+	if lints := r.Lint(); len(lints) > 0 {
+		warnlog.Printf("%s still has lint errors after fix:\n\t- %s", filename, strings.Join(lints, "\n\t- "))
 	}
 
 	// Adds a todo for a human. Currently outside of the scope of r.Fix()
@@ -750,6 +781,10 @@ func addSkipFixTodos(r *report.Report) {
 }
 
 func checkReportSymbols(r *report.Report) error {
+	if r.IsExcluded() {
+		infolog.Printf("%s is excluded, skipping symbol checks\n", r.ID)
+		return nil
+	}
 	for _, m := range r.Modules {
 		if m.IsStdLib() {
 			gover := runtime.Version()
@@ -762,17 +797,17 @@ func checkReportSymbols(r *report.Report) error {
 				return err
 			}
 			if ver == "" || !affected {
-				fmt.Fprintf(os.Stderr, "Current Go version %q is not in a vulnerable range, skipping symbol checks.\n", gover)
+				warnlog.Printf("current Go version %q is not in a vulnerable range, skipping symbol checks\n", gover)
 				continue
 			}
 			if ver != m.VulnerableAt {
-				fmt.Fprintf(os.Stderr, "%v: WARNING: Go version %q does not match vulnerable_at version %q.\n", m.Module, ver, m.VulnerableAt)
+				warnlog.Printf("%v: Go version %q does not match vulnerable_at version %q\n", m.Module, ver, m.VulnerableAt)
 			}
 		}
 
 		for _, p := range m.Packages {
 			if p.SkipFix != "" {
-				fmt.Fprintf(os.Stderr, "%v: skip_fix set, skipping symbol checks (reason: %q)\n", p.Package, p.SkipFix)
+				infolog.Printf("%v: skip_fix set, skipping symbol checks (reason: %q)\n", p.Package, p.SkipFix)
 				continue
 			}
 			syms, err := findExportedSymbols(m, p)
@@ -857,17 +892,17 @@ func findExportedSymbols(m *report.Module, p *report.Package) (_ []string, err e
 		if typ, method, ok := strings.Cut(sym, "."); ok {
 			n, ok := pkg.Types.Scope().Lookup(typ).(*types.TypeName)
 			if !ok {
-				fmt.Fprintf(os.Stderr, "%v: type not found\n", typ)
+				errlog.Printf("%v: type not found\n", typ)
 				continue
 			}
 			m, _, _ := types.LookupFieldOrMethod(n.Type(), true, pkg.Types, method)
 			if m == nil {
-				fmt.Fprintf(os.Stderr, "%v: method not found\n", sym)
+				errlog.Printf("%v: method not found\n", sym)
 			}
 		} else {
 			_, ok := pkg.Types.Scope().Lookup(typ).(*types.Func)
 			if !ok {
-				fmt.Fprintf(os.Stderr, "%v: func not found\n", typ)
+				errlog.Printf("%v: func not found\n", typ)
 			}
 		}
 	}
@@ -895,7 +930,7 @@ func findExportedSymbols(m *report.Module, p *report.Package) (_ []string, err e
 	return newslice, nil
 }
 
-func osvCmd(filename string) (err error) {
+func osvCmd(ctx context.Context, filename string) (err error) {
 	defer derrors.Wrap(&err, "osv(%q)", filename)
 	r, err := report.ReadAndLint(filename)
 	if err != nil {
@@ -905,7 +940,7 @@ func osvCmd(filename string) (err error) {
 		if err := writeOSV(r); err != nil {
 			return err
 		}
-		fmt.Println(r.OSVFilename())
+		outlog.Println(r.OSVFilename())
 	}
 	return nil
 }
@@ -921,7 +956,10 @@ func cveCmd(ctx context.Context, filename string) (err error) {
 		return err
 	}
 	if r.CVEMetadata != nil {
-		return writeCVE(r)
+		if err := writeCVE(r); err != nil {
+			return err
+		}
+		outlog.Println(r.CVEFilename())
 	}
 	return nil
 }
@@ -1119,7 +1157,7 @@ func run(name string, arg ...string) error {
 	cmd := exec.Command(name, arg...)
 	out, err := cmd.CombinedOutput()
 	if err != nil {
-		os.Stderr.Write(out)
+		errlog.Println(string(out))
 	}
 	return err
 }
@@ -1140,7 +1178,7 @@ func run(name string, arg ...string) error {
 // date can. Always using the git history as the source of truth for the
 // last-modified date avoids confusion if the report YAML and the git history
 // disagree.
-func setDates(filename string, dates map[string]gitrepo.Dates) (err error) {
+func setDates(ctx context.Context, filename string, dates map[string]gitrepo.Dates) (err error) {
 	defer derrors.Wrap(&err, "setDates(%q)", filename)
 
 	r, err := report.Read(filename)
