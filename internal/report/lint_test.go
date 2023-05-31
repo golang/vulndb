@@ -110,6 +110,20 @@ func TestLint(t *testing.T) {
 			want: []string{"missing summary"},
 		},
 		{
+			desc: "summary too long",
+			report: validReport(func(r *Report) {
+				r.Summary = "This summary is too long; it needs to be shortened to less than 101 characters to pass the lint check"
+			}),
+			want: []string{"too long"},
+		},
+		{
+			desc: "summary ending in period",
+			report: validReport(func(r *Report) {
+				r.Summary = "This summary is a sentence, not a phrase."
+			}),
+			want: []string{"should not end in a period"},
+		},
+		{
 			desc: "missing package path",
 			report: validReport(func(r *Report) {
 				r.Modules[0].Packages[0].Package = ""

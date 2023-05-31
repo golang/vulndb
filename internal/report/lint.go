@@ -298,6 +298,12 @@ func (r *Report) Lint() []string {
 		if r.Summary == "" {
 			addIssue("missing summary")
 		}
+		if len(r.Summary) > 100 {
+			addIssue("summary is too long (max 100 characters)")
+		}
+		if strings.HasSuffix(r.Summary, ".") {
+			addIssue("summary should not end in a period (should be a phrase, not a sentence)")
+		}
 	}
 
 	isStdLibReport := false

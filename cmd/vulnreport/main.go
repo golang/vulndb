@@ -599,7 +599,7 @@ func addTODOs(r *report.Report) {
 		}
 	}
 	if r.Summary == "" {
-		r.Summary = "TODO: add a short (one phrase) summary"
+		r.Summary = "TODO: add a short (one phrase) summary of the form '<Problem> in <module>(s)'"
 	}
 	if r.Description == "" {
 		r.Description = todo
