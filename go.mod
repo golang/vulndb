@@ -29,7 +29,7 @@ require (
 	golang.org/x/tools v0.9.1
 	google.golang.org/api v0.70.0
 	google.golang.org/grpc v1.44.0
-	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
+	gopkg.in/yaml.v3 v3.0.0-20220521103104-8f96da9f5d5e
 	honnef.co/go/tools v0.2.2
 	mvdan.cc/unparam v0.0.0-20220926085101-66de63301820
 )
