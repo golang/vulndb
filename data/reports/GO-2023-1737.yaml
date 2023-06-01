@@ -1,13 +1,14 @@
 id: GO-2023-1737
 modules:
-  - module: github.com/gin-gonic/gin
-    versions:
-      - introduced: 1.3.1-0.20190301021747-ccb9e902956d
-    vulnerable_at: 1.9.0
-    packages:
-      - package: github.com/gin-gonic/gin
-        symbols:
-          - Context.FileAttachment
+    - module: github.com/gin-gonic/gin
+      versions:
+        - introduced: 1.3.1-0.20190301021747-ccb9e902956d
+          fixed: 1.9.1
+      vulnerable_at: 1.9.0
+      packages:
+        - package: github.com/gin-gonic/gin
+          symbols:
+            - Context.FileAttachment
 summary: Improper handling of file names in Content-Disposition HTTP header
 description: |
     The filename parameter of the Context.FileAttachment function is
@@ -22,12 +23,13 @@ description: |
     be served with a name different than provided. Maliciously crafted
     attachment file name can modify the Content-Disposition header.
 ghsas:
-  - GHSA-2c4m-59x9-fr2g
+    - GHSA-2c4m-59x9-fr2g
 credits:
-  - motoyasu-saburi
+    - motoyasu-saburi
 references:
-  - report: https://github.com/gin-gonic/gin/issues/3555
-  - fix: https://github.com/gin-gonic/gin/pull/3556
+    - report: https://github.com/gin-gonic/gin/issues/3555
+    - fix: https://github.com/gin-gonic/gin/pull/3556
+    - web: https://github.com/gin-gonic/gin/releases/tag/v1.9.1
 cve_metadata:
     id: CVE-2023-29401
     cwe: 'CWE 20: Improper Input Validation'
