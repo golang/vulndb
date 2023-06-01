@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1792",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2018-20744",
+    "GHSA-927h-x4qj-r242"
+  ],
+  "details": "Fiber's CORS middleware actively bypasses the wildcard exception: if developers configure their CORS to allow credentials and specify the wildcard as an allowed origin, the resulting middleware unconditionally reflects the value of the request's Origin header in the Access-Control-Allow-Origin response header.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gofiber/fiber/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.0.0"
+            },
+            {
+              "fixed": "2.43.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/gofiber/fiber/v2/middleware/cors",
+            "symbols": [
+              "New"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/gofiber/fiber/pull/2339"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1792"
+  }
+}
