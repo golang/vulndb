@@ -715,10 +715,6 @@ func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client) (err err
 	if err != nil {
 		return err
 	}
-	// Add/fix the Go ID if needed.
-	if goID := report.GoID(filename); goID != r.ID {
-		r.ID = goID
-	}
 	if err := r.CheckFilename(filename); err != nil {
 		return err
 	}
@@ -728,9 +724,6 @@ func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client) (err err
 	if lints := r.Lint(); len(lints) > 0 {
 		warnlog.Printf("%s still has lint errors after fix:\n\t- %s", filename, strings.Join(lints, "\n\t- "))
 	}
-
-	// Adds a todo for a human. Currently outside of the scope of r.Fix()
-	addSkipFixTodos(r)
 
 	if !*skipSymbols {
 		if err := checkReportSymbols(r); err != nil {
@@ -761,23 +754,6 @@ func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client) (err err
 	}
 
 	return nil
-}
-
-// addSkipFixTodos adds a todo SkipFix to every package in an
-// unexcluded module that does not give a VulnerableAt.
-func addSkipFixTodos(r *report.Report) {
-	if r.Excluded != "" {
-		return
-	}
-	for _, m := range r.Modules {
-		if m.VulnerableAt == "" {
-			for _, p := range m.Packages {
-				if p.SkipFix == "" {
-					p.SkipFix = todo + " [or set vulnerable_at to derive symbols]"
-				}
-			}
-		}
-	}
 }
 
 func checkReportSymbols(r *report.Report) error {
