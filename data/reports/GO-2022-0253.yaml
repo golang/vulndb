@@ -8,7 +8,7 @@ modules:
         - package: github.com/cloudflare/cfrpki/sync/lib
           symbols:
             - HTTPFetcher.GetXML
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: Resource exhaustion via GZIP bomb in github.com/cloudflare/cfrpki
 description: |
     The HTTPFetcher.GetXML function reads a response of unlimited size into
     memory, permitting resource exhaustion.

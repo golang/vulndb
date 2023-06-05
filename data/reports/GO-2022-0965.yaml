@@ -14,7 +14,7 @@ modules:
         - package: k8s.io/apimachinery/pkg/util/json
           symbols:
             - Unmarshal
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: Unbounded recursion in JSON parsing in k8s.io/apimachinery
 description: |-
     Unbounded recursion in JSON parsing allows malicious JSON input to
     cause excessive memory consumption or panics.

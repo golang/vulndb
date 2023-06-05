@@ -12,7 +12,7 @@ modules:
             - BER2DER
             - DecodeManifest
             - DecoderConfig.DecodeManifest
-summary: Panic on NUL character in ROA in github.com/cloudflare/cfrpki
+summary: NUL character in ROA causes OctoRPKI to crash
 description: |
     OctoRPKI crashes when a repository returns an invalid ROA that is
     only an encoded NUL character (\0).
