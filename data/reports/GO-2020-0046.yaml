@@ -23,7 +23,7 @@ modules:
             - SAMLServiceProvider.ValidateEncodedLogoutRequestPOST
             - SAMLServiceProvider.ValidateEncodedLogoutResponsePOST
             - SAMLServiceProvider.ValidateEncodedResponse
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: Panic due to malformed XML digital signature in github.com/russellhaering/goxmldsig
 description: |
     Due to a nil pointer dereference, a malformed XML Digital Signature
     can cause a panic during validation. If user supplied signatures are

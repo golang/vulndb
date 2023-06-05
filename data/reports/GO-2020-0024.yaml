@@ -18,7 +18,7 @@ modules:
           symbols:
             - proxiedConn.LocalAddr
             - proxiedConn.RemoteAddr
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: Infinite loop in github.com/btcsuite/go-socks
 description: |
     The RemoteAddr and LocalAddr methods on the returned net.Conn may
     call themselves, leading to an infinite loop which will crash the
