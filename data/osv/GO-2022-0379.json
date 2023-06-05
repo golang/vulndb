@@ -6,7 +6,7 @@
   "aliases": [
     "GHSA-qq97-vm5h-rrhg"
   ],
-  "details": "Systems that rely on digest equivalence for image attestations may be vulnerable to type confusion.\n\nA maliciously crafted OCI Container Image can cause registry clients to parse the same image in two different ways without modifying the image's digest, invalidating the common pattern of relying on container image digests for equivalence.\n\nThis problem has been addressed in newer versions by improving validation in manifest unmarshaling.",
+  "details": "Systems that rely on digest equivalence for image attestations may be vulnerable to type confusion.\n\nA maliciously crafted OCI Container Image can cause registry clients to parse the same image in two different ways without modifying the image's digest, invalidating the common pattern of relying on container image digests for equivalence.\n\nThis problem has been addressed in newer versions by improving validation in manifest unmarshalling.",
   "affected": [
     {
       "package": {

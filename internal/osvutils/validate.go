@@ -53,7 +53,7 @@ var (
 	errNoModule            = errors.New("affected field missing module path")
 	errNotGoEcosystem      = errors.New("affected ecosystem is not Go")
 	errNoRanges            = errors.New("affected field contains no ranges")
-	errNoEcosystemSpecific = errors.New("affected field contains no ecosytem_specific field")
+	errNoEcosystemSpecific = errors.New("affected field contains no ecosystem_specific field")
 	errNoPackages          = errors.New("affected.ecosystem_specific field has no packages")
 	errNoPackagePath       = errors.New("affected.ecosystem_specific.imports field has no package path")
 

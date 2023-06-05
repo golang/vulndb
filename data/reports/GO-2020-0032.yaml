@@ -33,7 +33,7 @@ modules:
           skip_fix: 'TODO: revisit this reason (goa.design/goa/v3 appears to not be a package, but I could not locate the fix for this issue in v3)'
 summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
 description: |
-    Due to improper santization of user input, Controller.FileHandler allows
+    Due to improper sanitization of user input, Controller.FileHandler allows
     for directory traversal, allowing an attacker to read files outside of
     the target directory that the server has permission to read.
 published: 2021-04-14T20:04:52Z
@@ -48,5 +48,5 @@ cve_metadata:
     id: CVE-2019-25073
     cwe: 'CWE-22: Improper Limitation of a Pathname to a Restricted Directory(''Path Traversal'')'
     description: |
-        Improper path santiziation in github.com/goadesign/goa before v3.0.9, v2.0.10, or
+        Improper path sanitization in github.com/goadesign/goa before v3.0.9, v2.0.10, or
         v1.4.3 allow remote attackers to read files outside of the intended directory.

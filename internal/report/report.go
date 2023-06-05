@@ -121,7 +121,7 @@ type Report struct {
 	Withdrawn   *time.Time `yaml:",omitempty"`
 
 	// CVE are CVE IDs for existing CVEs.
-	// If we are assigning a CVE ID ourselves, use CVEMetdata.ID instead.
+	// If we are assigning a CVE ID ourselves, use CVEMetadata.ID instead.
 	CVEs []string `yaml:",omitempty"`
 	// GHSAs are the IDs of GitHub Security Advisories that match
 	// the above CVEs.
@@ -130,7 +130,7 @@ type Report struct {
 	Credits    []string     `yaml:",omitempty"`
 	References []*Reference `yaml:",omitempty"`
 
-	// CVEMetdata is used to capture CVE information when we want to assign a
+	// CVEMetadata is used to capture CVE information when we want to assign a
 	// CVE ourselves. If a CVE already exists for an issue, use the CVE field
 	// to fill in the ID string.
 	CVEMetadata *CVEMeta `yaml:"cve_metadata,omitempty"`
