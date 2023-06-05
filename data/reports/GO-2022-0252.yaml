@@ -16,9 +16,10 @@ modules:
             - DecoderConfig.DecodeROA
             - RPKICertificate.ValidateIPCertificate
             - RPKIROA.ValidateIPRoaCertificate
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: Panic on misconfigured IP address in github.com/cloudflare/cfrpki
 description: |
-    Invalid input data can cause a panic.
+    OctoRPKI crashes when a repository returns an ROA with a IP address that
+    contains too many bits.
 published: 2022-07-15T23:07:41Z
 cves:
     - CVE-2021-3911

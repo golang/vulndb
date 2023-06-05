@@ -12,9 +12,10 @@ modules:
             - BER2DER
             - DecodeManifest
             - DecoderConfig.DecodeManifest
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: Panic on NUL character in ROA in github.com/cloudflare/cfrpki
 description: |
-    Invalid input data can cause a panic.
+    OctoRPKI crashes when a repository returns an invalid ROA that is
+    only an encoded NUL character (\0).
 published: 2022-07-15T23:07:28Z
 cves:
     - CVE-2021-3910
