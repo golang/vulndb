@@ -15,7 +15,7 @@ modules:
           symbols:
             - dynimport
           skip_fix: 'TODO: revisit this reason (cant request explicit version v1.15.4 of standard library package cmd/go)'
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: Arbitrary code execution in go command with cgo in cmd/go and cmd/cgo
 description: |
     The go command may execute arbitrary code at build time when cgo is in use.
     This may occur when running go get on a malicious package, or any other
