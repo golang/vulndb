@@ -9,7 +9,8 @@ modules:
         - package: github.com/gin-gonic/gin
           symbols:
             - Context.FileAttachment
-summary: Improper handling of file names in Content-Disposition HTTP header
+summary: |
+  Improper handling of filenames in Content-Disposition HTTP header in github.com/gin-gonic/gin
 description: |
     The filename parameter of the Context.FileAttachment function is
     not properly sanitized. A maliciously crafted filename can cause

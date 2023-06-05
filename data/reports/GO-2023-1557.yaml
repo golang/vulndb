@@ -22,7 +22,7 @@ modules:
             - Shard.SetLink
             - Shard.Swap
             - Shard.Take
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: Denial of service via HAMT decoding panic in github.com/ipfs/go-unixfs
 description: |
     Trying to read malformed HAMT sharded directories can cause panics and virtual memory leaks.
     If you are reading untrusted user input, an attacker can then trigger a panic.
