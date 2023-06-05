@@ -8,7 +8,7 @@ modules:
         - package: github.com/ory/fosite/handler/oauth2
           symbols:
             - TokenRevocationHandler.RevokeToken
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: Improper handling of token revocation in github.com/ory/fosite
 description: |
     Due to improper error handling, an error with the underlying token storage may cause a user
     to believe a token has been successfully revoked when it is in fact still valid. An attackers

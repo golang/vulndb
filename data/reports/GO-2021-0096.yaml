@@ -6,7 +6,7 @@ modules:
       vulnerable_at: 0.1.1-0.20191030043844-e5586b79c357
       packages:
         - package: github.com/proglottis/gpgme
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: Memory corruption or code execution in github.com/proglottis/gpgme
 description: |
     Due to improper setting of finalizers, memory passed to C may be freed before it is used,
     leading to crashes due to memory corruption or possible code execution.

@@ -22,7 +22,7 @@ modules:
             - Untar
             - UntarPath
             - UntarUncompressed
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: Denial of service via deadlock in github.com/containers/storage
 description: |
     Due to a goroutine deadlock, using github.com/containers/storage/pkg/archive.DecompressStream
     on a xz archive returns a reader which will hang indefinitely when Close is called. An attacker

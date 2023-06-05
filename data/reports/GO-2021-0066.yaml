@@ -10,7 +10,7 @@ modules:
             - readDockerConfigFileFromBytes
             - readDockerConfigJSONFileFromBytes
           skip_fix: 'TODO: revisit this reason (reading k8s.io/api/go.mod at revision v0.0.0: unknown revision v0.0.0)'
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: Sensitive information leak via log file in k8s.io/kubernetes
 description: |
     Attempting to read a malformed .dockercfg may cause secrets to be
     inappropriately logged.

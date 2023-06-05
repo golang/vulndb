@@ -8,7 +8,7 @@ modules:
         - package: github.com/google/go-tpm/tpm
           symbols:
             - CreateWrapKey
-summary: 'TODO(https://go.dev/issue/56443): fill in summary field'
+summary: Sensitive information exposure in github.com/google/go-tpm
 description: |
     Due to repeated usage of a XOR key an attacker that can eavesdrop on the TPM 1.2 transport
     is able to calculate usageAuth for keys created using CreateWrapKey, despite it being encrypted,
