@@ -24,6 +24,7 @@ var (
 		Published:     jan1999,
 		Modified:      jan2002,
 		Aliases:       []string{"CVE-1999-1111"},
+		Summary:       "A summary",
 		Details:       "Some details",
 		Affected: []osv.Affected{
 			{
@@ -53,6 +54,7 @@ var (
 		Published:     jan2000,
 		Modified:      jan2002,
 		Aliases:       []string{"CVE-1999-2222"},
+		Summary:       "A summary",
 		Details:       "Some details",
 		Affected: []osv.Affected{
 			{
@@ -79,6 +81,7 @@ var (
 		Published:     jan2002,
 		Modified:      jan2002,
 		Aliases:       []string{"CVE-1999-3333", "GHSA-xxxx-yyyy-zzzz"},
+		Summary:       "A summary",
 		Details:       "Some details",
 		Affected: []osv.Affected{
 			{

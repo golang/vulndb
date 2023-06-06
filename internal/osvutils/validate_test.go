@@ -26,6 +26,7 @@ func testEntry(transform func(e *osv.Entry)) *osv.Entry {
 		Published:     jan1999,
 		Modified:      jan2000,
 		Aliases:       []string{"CVE-1999-1111"},
+		Summary:       "A summary",
 		Details:       "Some details",
 		Affected: []osv.Affected{
 			{
@@ -146,6 +147,13 @@ func TestValidate(t *testing.T) {
 					e.SchemaVersion = ""
 				}),
 				wantErr: errNoSchemaVersion,
+			},
+			{
+				name: "no summary",
+				entry: testEntry(func(e *osv.Entry) {
+					e.Summary = ""
+				}),
+				wantErr: errNoSummary,
 			},
 			{
 				name: "no details",

@@ -21,6 +21,7 @@ var (
 		Published:     jan2002, // overwritten because unset
 		Modified:      jan2002, // overwritten
 		Aliases:       []string{"CVE-1999-1111"},
+		Summary:       "A summary",
 		Details:       "Some details",
 		Affected: []osv.Affected{
 			{
@@ -51,6 +52,7 @@ var (
 		Published:     jan2000, // not overwritten
 		Modified:      jan2002, // overwritten
 		Aliases:       []string{"CVE-1999-2222"},
+		Summary:       "A summary",
 		Details:       "Some details",
 		Affected: []osv.Affected{
 			{
@@ -77,6 +79,7 @@ var (
 		Published:     jan2000, // not overwritten
 		Modified:      jan2002, // overwritten
 		Aliases:       []string{"CVE-1999-3333", "GHSA-xxxx-yyyy-zzzz"},
+		Summary:       "A summary",
 		Details:       "Some details",
 		Affected: []osv.Affected{
 			{

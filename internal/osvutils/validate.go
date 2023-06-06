@@ -46,6 +46,7 @@ var (
 	// Errors for missing fields.
 	errNoID                = errors.New("id field is empty")
 	errNoSchemaVersion     = errors.New("schema_version field is empty")
+	errNoSummary           = errors.New("summary field is empty")
 	errNoDetails           = errors.New("details field is empty")
 	errNoAffected          = errors.New("affected field is empty")
 	errNoReferences        = errors.New("references field is empty")
@@ -94,6 +95,8 @@ func validate(e *osv.Entry, checkTimestamps bool) (err error) {
 		return errNoID
 	case e.SchemaVersion == "":
 		return errNoSchemaVersion
+	case e.Summary == "":
+		return errNoSummary
 	case e.Details == "":
 		return errNoDetails
 	case len(e.Affected) == 0:
