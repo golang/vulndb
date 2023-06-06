@@ -7,6 +7,7 @@
     "CVE-2022-39304",
     "GHSA-h4q8-96p6-jcgr"
   ],
+  "summary": "JWT leak in github.com/bradleyfalzon/ghinstallation",
   "details": "Errors returned by ghinstallation.Transport can include the JWT used for the failed operation. If the error is exposed to an untrusted party, this JWT could be extracted and used to authenticate further requests.",
   "affected": [
     {

@@ -6,6 +6,7 @@
   "aliases": [
     "CVE-2022-30633"
   ],
+  "summary": "Stack exhaustion when unmarshaling certain documents in encoding/xml",
   "details": "Unmarshaling an XML document into a Go struct which has a nested field that uses the 'any' field tag can panic due to stack exhaustion.",
   "affected": [
     {

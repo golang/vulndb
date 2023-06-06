@@ -7,6 +7,7 @@
     "CVE-2016-3697",
     "GHSA-q3j5-32m5-58c2"
   ],
+  "summary": "Privilege escalation in github.com/opencontainers/runc",
   "details": "GetExecUser in the github.com/opencontainers/runc/libcontainer/user package will improperly interpret numeric UIDs as usernames. If the method is used without verifying that usernames are formatted as expected, it may allow a user to gain unexpected privileges.",
   "affected": [
     {

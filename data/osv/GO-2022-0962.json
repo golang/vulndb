@@ -7,6 +7,7 @@
     "CVE-2022-36055",
     "GHSA-7hfp-qfw3-5jxh"
   ],
+  "summary": "Denial of service through string value parsing in helm.sh/helm/v3",
   "details": "Applications that use the strvals package in the Helm SDK to parse user supplied input can suffer a Denial of Service when that input causes a panic that cannot be recovered from.\n\nThe strvals package contains a parser that turns strings into Go structures. For example, the Helm client has command line flags like --set, --set-string, and others that enable the user to pass in strings that are merged into the values. The strvals package converts these strings into structures Go can work with. Some string inputs can cause array data structures to be created causing an out of memory panic.\n\nThe Helm Client will panic with input to --set, --set-string, and other value setting flags that causes an out of memory panic. Helm is not a long running service so the panic will not affect future uses of the Helm client.",
   "affected": [
     {

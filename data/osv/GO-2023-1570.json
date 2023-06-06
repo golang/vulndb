@@ -6,6 +6,7 @@
   "aliases": [
     "CVE-2022-41724"
   ],
+  "summary": "Panic on large handshake records in crypto/tls",
   "details": "Large handshake records may cause panics in crypto/tls.\n\nBoth clients and servers may send large TLS handshake records which cause servers and clients, respectively, to panic when attempting to construct responses.\n\nThis affects all TLS 1.3 clients, TLS 1.2 clients which explicitly enable session resumption (by setting Config.ClientSessionCache to a non-nil value), and TLS 1.3 servers which request client certificates (by setting Config.ClientAuth \u003e= RequestClientCert).",
   "affected": [
     {

@@ -6,6 +6,7 @@
   "aliases": [
     "CVE-2022-30631"
   ],
+  "summary": "Stack exhaustion when reading certain archives in compress/gzip",
   "details": "Calling Reader.Read on an archive containing a large number of concatenated 0-length compressed files can cause a panic due to stack exhaustion.",
   "affected": [
     {

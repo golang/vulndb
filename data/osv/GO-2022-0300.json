@@ -7,6 +7,7 @@
     "CVE-2022-21708",
     "GHSA-mh3m-8c74-74xh"
   ],
+  "summary": "Panic via malicious inputs in github.com/graph-gophers/graphql-go",
   "details": "Malicious inputs can cause a panic.\n\nA maliciously crafted input can cause a stack overflow and panic. Any user with access to the GraphQL can send such a query.\n\nThis issue only occurs when using the graphql.MaxDepth schema option (which is highly recommended in most cases).",
   "affected": [
     {

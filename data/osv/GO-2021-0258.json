@@ -7,6 +7,7 @@
     "CVE-2021-41230",
     "GHSA-j6wp-3859-vxfg"
   ],
+  "summary": "Incorrect authorization in github.com/pomerium/pomerium",
   "details": "Pomerium is an open source identity-aware access proxy. Changes to the OIDC claims of a user after initial login are not reflected in policy evaluation when using allowed_idp_claims as part of policy. If using allowed_idp_claims and a user's claims are changed, Pomerium can make incorrect authorization decisions.\n\nFor users unable to upgrade clear data on databroker service by clearing redis or restarting the in-memory databroker to force claims to be updated.",
   "affected": [
     {

@@ -6,6 +6,7 @@
   "aliases": [
     "CVE-2023-24532"
   ],
+  "summary": "Incorrect calculation on P256 curves in crypto/internal/nistec",
   "details": "The ScalarMult and ScalarBaseMult methods of the P256 Curve may return an incorrect result if called with some specific unreduced scalars (a scalar larger than the order of the curve).\n\nThis does not impact usages of crypto/ecdsa or crypto/ecdh.",
   "affected": [
     {

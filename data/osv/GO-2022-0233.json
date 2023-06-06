@@ -7,6 +7,7 @@
     "CVE-2021-23409",
     "GHSA-xcf7-q56x-78gh"
   ],
+  "summary": "Resource exhaustion in github.com/pires/go-proxyproto",
   "details": "The PROXY protocol server does not impose a timeout on reading the header from new connections, allowing a malicious client to cause resource exhaustion and a denial of service by opening many connections and sending no data on them.\n\nv0.6.0 of the proxyproto package adds support for a user-defined header timeout. v0.6.1 adds a default timeout of 200ms and v0.6.2 increases the default timeout to 10s.",
   "affected": [
     {

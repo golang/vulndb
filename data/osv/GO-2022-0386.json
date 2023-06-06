@@ -9,6 +9,7 @@
     "GHSA-9r5x-fjv3-q6h4",
     "GHSA-j756-f273-xhp4"
   ],
+  "summary": "Import token permissions checking not enforced in github.com/nats-io/jwt",
   "details": "Import tokens valid for one account may be used for any other account.\n\nValidation of Import token bindings incorrectly warns on mismatches, rather than rejecting the Goken. This permits a token for one account to be used for any other account.",
   "affected": [
     {

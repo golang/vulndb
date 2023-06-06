@@ -50,6 +50,7 @@ func (r *Report) ToOSV(lastModified time.Time) osv.Entry {
 		Published:        osv.Time{Time: r.Published},
 		Modified:         osv.Time{Time: lastModified},
 		Withdrawn:        withdrawn,
+		Summary:          trimWhitespace(r.Summary),
 		Details:          trimWhitespace(r.Description),
 		Credits:          credits,
 		SchemaVersion:    SchemaVersion,

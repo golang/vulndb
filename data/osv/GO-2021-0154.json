@@ -6,6 +6,7 @@
   "aliases": [
     "CVE-2014-7189"
   ],
+  "summary": "Man-in-the-middle attack with SessionTicketsDisabled in crypto/tls",
   "details": "When SessionTicketsDisabled is enabled, crypto/tls allowed man-in-the-middle attackers to spoof clients via unspecified vectors.\n\nIf the server enables TLS client authentication using certificates (this is rare) and explicitly sets SessionTicketsDisabled to true in the tls.Config, then a malicious client can falsely assert ownership of any client certificate it wishes.",
   "affected": [
     {

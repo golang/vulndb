@@ -6,6 +6,7 @@
   "aliases": [
     "CVE-2022-30635"
   ],
+  "summary": "Stack exhaustion when decoding certain messages in encoding/gob",
   "details": "Calling Decoder.Decode on a message which contains deeply nested structures can cause a panic due to stack exhaustion.",
   "affected": [
     {

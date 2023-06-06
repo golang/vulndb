@@ -6,6 +6,7 @@
   "aliases": [
     "CVE-2022-2879"
   ],
+  "summary": "Unbounded memory consumption when reading headers in archive/tar",
   "details": "Reader.Read does not set a limit on the maximum size of file headers. A maliciously crafted archive could cause Read to allocate unbounded amounts of memory, potentially causing resource exhaustion or panics. After fix, Reader.Read limits the maximum size of header blocks to 1 MiB.",
   "affected": [
     {

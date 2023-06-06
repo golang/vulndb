@@ -8,6 +8,7 @@
     "GHSA-6jvc-q2x7-pchv",
     "GHSA-76wf-9vgp-pj7w"
   ],
+  "summary": "Exposure of unencrypted plaintext hash in github.com/aws/aws-sdk-go",
   "details": "The AWS S3 Crypto SDK sends an unencrypted hash of the plaintext alongside the ciphertext as a metadata field. This hash can be used to brute force the plaintext, if the hash is readable to the attacker.\n\nAWS now blocks this metadata field, but older SDK versions still send it.",
   "affected": [
     {

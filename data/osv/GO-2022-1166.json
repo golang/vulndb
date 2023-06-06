@@ -7,6 +7,7 @@
     "CVE-2022-23526",
     "GHSA-67fx-wx78-jx33"
   ],
+  "summary": "Denial of service via schema file in helm.sh/helm/v3",
   "details": "Certain JSON schema validation files can cause a Helm Client to panic, leading to a possible denial of service.\n\nThe chartutil package contains a parser that loads a JSON Schema validation file. For example, the Helm client when rendering a chart will validate its values with the schema file. The chartutil package parses the schema file and loads it into memory, but some schema files can cause array data structures to be created causing a memory violation.\n\nThe Helm Client will panic with a schema file that causes a memory violation panic. Helm is not a long running service so the panic will not affect future uses of the Helm client.",
   "affected": [
     {

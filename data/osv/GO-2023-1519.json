@@ -7,6 +7,7 @@
     "CVE-2022-31249",
     "GHSA-qrg7-hfx7-95c5"
   ],
+  "summary": "Command injection in github.com/rancher/wrangler",
   "details": "A command injection vulnerability exists in the Wrangler Git package. Specially crafted commands can be passed to Wrangler that will change their behavior and cause confusion when executed through Git, resulting in command injection in the underlying host.\n\nA workaround is to sanitize input passed to the Git package to remove potential unsafe and ambiguous characters. Otherwise, the best course of action is to update to a patched Wrangler version.",
   "affected": [
     {

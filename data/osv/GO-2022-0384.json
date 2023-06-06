@@ -8,6 +8,7 @@
     "GHSA-56hp-xqp3-w2jf",
     "GHSA-7jr6-prv4-5wf5"
   ],
+  "summary": "Repository credentials passed to alternate domain in helm.sh/helm/v3",
   "details": "The username and password credentials associated with a Helm repository can be passed to another domain referenced by that Helm repository.\n\nIf the index.yaml for a Helm repository is hosted on one domain and references a chart archive on a different domain, Helm will provide the credentials for the index.yaml's domain when fetching those archives.",
   "affected": [
     {

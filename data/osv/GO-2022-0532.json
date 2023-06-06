@@ -6,6 +6,7 @@
   "aliases": [
     "CVE-2022-30580"
   ],
+  "summary": "Empty Cmd.Path can trigger unintended binary in os/exec on Windows",
   "details": "On Windows, executing Cmd.Run, Cmd.Start, Cmd.Output, or Cmd.CombinedOutput when Cmd.Path is unset will unintentionally trigger execution of any binaries in the working directory named either \"..com\" or \"..exe\".",
   "affected": [
     {

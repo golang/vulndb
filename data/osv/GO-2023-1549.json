@@ -7,6 +7,7 @@
     "CVE-2023-0229",
     "GHSA-5465-xc2j-6p84"
   ],
+  "summary": "Improper input validation in github.com/openshift/apiserver-library-go",
   "details": "Low-privileged users can set the seccomp profile for pods they control to \"unconfined.\"\n\nBy default, the seccomp profile used in the restricted-v2 Security Context Constraint (SCC) is \"runtime/default,\" allowing users to disable seccomp for pods they can create and modify.",
   "affected": [
     {

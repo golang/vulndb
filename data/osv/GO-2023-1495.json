@@ -7,6 +7,7 @@
     "CVE-2022-41721",
     "GHSA-fxg5-wq6x-vr4w"
   ],
+  "summary": "Request smuggling due to improper request handling in golang.org/x/net/http2/h2c",
   "details": "A request smuggling attack is possible when using MaxBytesHandler.\n\nWhen using MaxBytesHandler, the body of an HTTP request is not fully consumed. When the server attempts to read HTTP2 frames from the connection, it will instead be reading the body of the HTTP request, which could be attacker-manipulated to represent arbitrary HTTP2 requests.",
   "affected": [
     {

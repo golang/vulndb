@@ -6,6 +6,7 @@
   "aliases": [
     "CVE-2022-41716"
   ],
+  "summary": "Unsanitized NUL in environment variables on Windows in syscall and os/exec",
   "details": "Due to unsanitized NUL values, attackers may be able to maliciously set environment variables on Windows.\n\nIn syscall.StartProcess and os/exec.Cmd, invalid environment variable values containing NUL values are not properly checked for. A malicious environment variable value can exploit this behavior to set a value for a different environment variable. For example, the environment variable string \"A=B\\x00C=D\" sets the variables \"A=B\" and \"C=D\".",
   "affected": [
     {

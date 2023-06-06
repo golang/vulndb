@@ -7,6 +7,7 @@
     "CVE-2022-23495",
     "GHSA-x39j-h85h-3f46"
   ],
+  "summary": "Panic in github.com/ipfs/go-merkledag",
   "details": "A ProtoNode may be modified in such a way as to cause various encode errors which will trigger a panic on common method calls that don't allow for error returns.\n\nAdditionally, use of the ProtoNode.SetCidBuilder() method to set non-functioning CidBuilder (such as one that refers to a multihash where an implementation of that hash function is not available) may cause the same methods to panic as a new CID is required but cannot be created.",
   "affected": [
     {

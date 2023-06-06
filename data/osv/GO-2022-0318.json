@@ -6,6 +6,7 @@
   "aliases": [
     "CVE-2022-23773"
   ],
+  "summary": "Incorrect access control in the go command in cmd/go/internal/modfetch",
   "details": "Incorrect access control is possible in the go command.\n\nThe go command can misinterpret branch names that falsely appear to be version tags. This can lead to incorrect access control if an actor is authorized to create branches but not tags.",
   "affected": [
     {

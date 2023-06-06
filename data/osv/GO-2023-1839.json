@@ -6,6 +6,7 @@
   "aliases": [
     "CVE-2023-29402"
   ],
+  "summary": "Code injection via go command with cgo in cmd/go",
   "details": "The go command may generate unexpected code at build time when using cgo. This may result in unexpected behavior when running a go program which uses cgo.\n\nThis may occur when running an untrusted module which contains directories with newline characters in their names. Modules which are retrieved using the go command, i.e. via \"go get\", are not affected (modules retrieved using GOPATH-mode, i.e. GO111MODULE=off, may be affected).",
   "affected": [
     {

@@ -7,6 +7,7 @@
     "CVE-2020-16845",
     "GHSA-q6gq-997w-f55g"
   ],
+  "summary": "Unbounded read from invalid inputs in encoding/binary",
   "details": "ReadUvarint and ReadVarint can read an unlimited number of bytes from invalid inputs.\n\nCertain invalid inputs to ReadUvarint or ReadVarint can cause these functions to read an unlimited number of bytes from the ByteReader parameter before returning an error. This can lead to processing more input than expected when the caller is reading directly from a network and depends on ReadUvarint or ReadVarint only consuming a small, bounded number of bytes, even from invalid inputs.",
   "affected": [
     {

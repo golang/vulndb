@@ -6,6 +6,7 @@
   "aliases": [
     "CVE-2022-30634"
   ],
+  "summary": "Indefinite hang with large buffers on Windows in crypto/rand",
   "details": "On Windows, rand.Read will hang indefinitely if passed a buffer larger than 1 \u003c\u003c 32 - 1 bytes.",
   "affected": [
     {

@@ -7,6 +7,7 @@
     "CVE-2022-27191",
     "GHSA-8c26-wmh5-6g9v"
   ],
+  "summary": "Denial of service via crafted Signer in golang.org/x/crypto/ssh",
   "details": "Attackers can cause a crash in SSH servers when the server has been configured by passing a Signer to ServerConfig.AddHostKey such that 1) the Signer passed to AddHostKey does not implement AlgorithmSigner, and 2) the Signer passed to AddHostKey returns a key of type “ssh-rsa” from its PublicKey method.\n\nServers that only use Signer implementations provided by the ssh package are unaffected.",
   "affected": [
     {

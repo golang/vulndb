@@ -7,6 +7,7 @@
     "CVE-2022-27651",
     "GHSA-c3g4-w6cv-6v7h"
   ],
+  "summary": "Incorrect default permissions in github.com/containers/buildah",
   "details": "Containers are created with non-empty inheritable Linux process capabilities, permitting programs with inheritable file capabilities to elevate those capabilities to the permitted set during execve(2).\n\nThis bug does not affect the container security sandbox, as the inheritable set never contains more capabilities than are included in the container's bounding set.",
   "affected": [
     {

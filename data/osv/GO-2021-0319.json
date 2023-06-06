@@ -6,6 +6,7 @@
   "aliases": [
     "CVE-2022-23806"
   ],
+  "summary": "Incorrect computation for some invalid field elements in crypto/elliptic",
   "details": "Some big.Int values that are not valid field elements (negative or overflowing) might cause Curve.IsOnCurve to incorrectly return true. Operating on those values may cause a panic or an invalid curve operation. Note that Unmarshal will never return such values.",
   "affected": [
     {

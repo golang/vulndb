@@ -7,6 +7,7 @@
     "CVE-2023-23626",
     "GHSA-2h6c-j3gf-xp9r"
   ],
+  "summary": "Denial of service via malformed size parameters in github.com/ipfs/go-bitfield",
   "details": "When feeding untrusted user input into the size parameter of `NewBitfield` and FromBytes functions, an attacker can trigger panics.\n\nThis happens when the size is a not a multiple of 8 or is negative.\n\nA workaround is to ensure size%8 == 0 \u0026\u0026 size \u003e= 0 yourself before calling NewBitfield or FromBytes.",
   "affected": [
     {

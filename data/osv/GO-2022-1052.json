@@ -7,6 +7,7 @@
     "CVE-2021-21271",
     "GHSA-p658-8693-mhvg"
   ],
+  "summary": "Uncontrolled resource consumption during consensus in github.com/tendermint/tendermint",
   "details": "Mishandling of timestamps during consensus process can cause a denial of service.\n\nWhile reaching consensus, different tendermint nodes can observe a different timestamp for a consensus evidence. This mismatch can cause the evidence to be invalid, upon which the node producing the evidence will be asked to generate a new evidence. This new evidence will be the same, which means it will again be rejected by other nodes involved in the consensus. This loop will continue until the peer nodes decide to disconnect from the node producing the evidence.",
   "affected": [
     {

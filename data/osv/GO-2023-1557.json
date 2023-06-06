@@ -7,6 +7,7 @@
     "CVE-2023-23625",
     "GHSA-q264-w97q-q778"
   ],
+  "summary": "Denial of service via HAMT decoding panic in github.com/ipfs/go-unixfs",
   "details": "Trying to read malformed HAMT sharded directories can cause panics and virtual memory leaks. If you are reading untrusted user input, an attacker can then trigger a panic.\n\nThis is caused by bogus `fanout` parameter in the HAMT directory nodes. A workaround is to not feed untrusted user data to the decoding functions.",
   "affected": [
     {

@@ -6,6 +6,7 @@
   "aliases": [
     "CVE-2018-7187"
   ],
+  "summary": "Remote command execution via \"go get\" command with \"-insecure\" option in cmd/go",
   "details": "The \"go get\" command is vulnerable to remote code execution.\n\nWhen the -insecure command-line option is used, \"go get\" does not validate the import path (get/vcs.go only checks for \"://\" anywhere in the string), which allows remote attackers to execute arbitrary OS commands via a crafted web site.",
   "affected": [
     {

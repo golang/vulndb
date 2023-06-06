@@ -7,6 +7,7 @@
     "CVE-2023-25000",
     "GHSA-vq4h-9ghm-qmrr"
   ],
+  "summary": "Cache-timing attacks in Shamir's secret sharing in github.com/hashicorp/vault",
   "details": "HashiCorp Vault's implementation of Shamir's secret sharing uses precomputed table lookups, and is vulnerable to cache-timing attacks.\n\nAn attacker with access to, and the ability to observe a large number of unseal operations on the host through a side channel may reduce the search space of a brute force effort to recover the Shamir shares.",
   "affected": [
     {

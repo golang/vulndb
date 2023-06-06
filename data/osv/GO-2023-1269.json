@@ -7,6 +7,7 @@
     "CVE-2023-22460",
     "GHSA-c653-6hhg-9x92"
   ],
+  "summary": "Panic in encoding in github.com/ipld/go-ipld-prime",
   "details": "Encoding data using the 'json' codec which contains a 'Bytes' type Node will cause the encoder to panic. The decoder is not impacted. If the codec is used to encode user supplied data, this may be used as a vector for a denial of service attack.",
   "affected": [
     {

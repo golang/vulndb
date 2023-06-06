@@ -7,6 +7,7 @@
     "CVE-2019-3564",
     "GHSA-x4rg-4545-4w7w"
   ],
+  "summary": "Denial of service in github.com/facebook/fbthrift",
   "details": "Skip ignores unknown fields, rather than failing. A malicious user can craft small messages with unknown fields which can take significant resources to parse. If a server accepts messages from an untrusted user, it may be used as a denial of service vector.",
   "affected": [
     {

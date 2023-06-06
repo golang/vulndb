@@ -6,6 +6,7 @@
   "aliases": [
     "CVE-2021-27919"
   ],
+  "summary": "Panic when opening archives in archive/zip",
   "details": "Using Reader.Open on an archive containing a file with a path prefixed by \"../\" will cause a panic due to a stack overflow. If parsing user supplied archives, this may be used as a denial of service vector.",
   "affected": [
     {

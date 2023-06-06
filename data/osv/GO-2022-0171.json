@@ -6,6 +6,7 @@
   "aliases": [
     "CVE-2017-1000097"
   ],
+  "summary": "Mishandled trust preferences for root certificates on Darwin in crypto/x509",
   "details": "On Darwin, user's trust preferences for root certificates were not honored. If the user had a root certificate loaded in their Keychain that was explicitly not trusted, a Go program would still verify a connection using that root certificate.",
   "affected": [
     {

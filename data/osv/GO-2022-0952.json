@@ -7,6 +7,7 @@
     "CVE-2022-36009",
     "GHSA-grvv-h2f9-7v9c"
   ],
+  "summary": "Incorrect event parsing in github.com/matrix-org/gomatrixserverlib",
   "details": "Power level parsing does not parse the \"events_default\" key of the m.room.power_levels event, setting the event default power level to zero in all cases. This can cause events to be improperly accepted or rejected in rooms where the event_default power level has been changed.",
   "affected": [
     {

@@ -7,6 +7,7 @@
     "CVE-2022-25856",
     "GHSA-qpgx-64h2-gc3c"
   ],
+  "summary": "Path traversal in github.com/argoproj/argo-events",
   "details": "GitArtifactReader is vulnerable to directory traversal attacks.\n\nThe GitArtifactReader.Read function reads and returns the contents of a Git repository file. A maliciously crafted repository can exploit this to cause Read to read from arbitrary files on the filesystem.",
   "affected": [
     {

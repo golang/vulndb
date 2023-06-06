@@ -9,6 +9,7 @@
     "GHSA-m332-53r6-2w93",
     "GHSA-p4g4-wgrh-qrg2"
   ],
+  "summary": "Panic due to malformed WALs in go.etcd.io/etcd",
   "details": "Malformed WALs can be constructed such that WAL.ReadAll can cause attempted out of bounds reads, or creation of arbitrarily sized slices, which may be used as a DoS vector.",
   "affected": [
     {

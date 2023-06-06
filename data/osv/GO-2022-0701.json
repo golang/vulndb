@@ -7,6 +7,7 @@
     "CVE-2015-5305",
     "GHSA-jp32-vmm6-3vf5"
   ],
+  "summary": "Directory traversal in k8s.io/kubernetes",
   "details": "Crafted object type names can cause directory traversal in Kubernetes.\n\nObject names are not validated before being passed to etcd. This allows attackers to write arbitrary files via a crafted object name, hence causing directory traversal vulnerability in Kubernetes, as used in Red Hat OpenShift Enterprise 3.0.",
   "affected": [
     {

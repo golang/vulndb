@@ -7,6 +7,7 @@
     "CVE-2021-20291",
     "GHSA-7qw8-847f-pggm"
   ],
+  "summary": "Denial of service via deadlock in github.com/containers/storage",
   "details": "Due to a goroutine deadlock, using github.com/containers/storage/pkg/archive.DecompressStream on a xz archive returns a reader which will hang indefinitely when Close is called. An attacker can use this to cause denial of service if they are able to cause the caller to attempt to decompress an archive they control.",
   "affected": [
     {

@@ -6,6 +6,7 @@
   "aliases": [
     "CVE-2022-41715"
   ],
+  "summary": "Memory exhaustion when compiling regular expressions in regexp/syntax",
   "details": "Programs which compile regular expressions from untrusted sources may be vulnerable to memory exhaustion or denial of service.\n\nThe parsed regexp representation is linear in the size of the input, but in some cases the constant factor can be as high as 40,000, making relatively small regexps consume much larger amounts of memory.\n\nAfter fix, each regexp being parsed is limited to a 256 MB memory footprint. Regular expressions whose representation would use more space than that are rejected. Normal use of regular expressions is unaffected.",
   "affected": [
     {

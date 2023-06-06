@@ -6,6 +6,7 @@
   "aliases": [
     "CVE-2016-3959"
   ],
+  "summary": "Denial of service due to unchecked parameters in crypto/dsa",
   "details": "The Verify function in crypto/dsa passed certain parameters unchecked to the underlying big integer library, possibly leading to extremely long-running computations, which in turn makes Go programs vulnerable to remote denial of service attacks. Programs using HTTPS client certificates or the Go SSH server libraries are both exposed to this vulnerability.",
   "affected": [
     {

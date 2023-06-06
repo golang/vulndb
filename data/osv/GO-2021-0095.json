@@ -7,6 +7,7 @@
     "CVE-2020-8918",
     "GHSA-5x29-3hr9-6wpw"
   ],
+  "summary": "Sensitive information exposure in github.com/google/go-tpm",
   "details": "Due to repeated usage of a XOR key an attacker that can eavesdrop on the TPM 1.2 transport is able to calculate usageAuth for keys created using CreateWrapKey, despite it being encrypted, allowing them to use the created key.",
   "affected": [
     {

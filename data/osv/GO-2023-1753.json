@@ -6,6 +6,7 @@
   "aliases": [
     "CVE-2023-29400"
   ],
+  "summary": "Improper handling of empty HTML attributes in html/template",
   "details": "Templates containing actions in unquoted HTML attributes (e.g. \"attr={{.}}\") executed with empty input can result in output with unexpected results when parsed due to HTML normalization rules. This may allow injection of arbitrary attributes into tags.",
   "affected": [
     {

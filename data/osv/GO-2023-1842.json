@@ -6,6 +6,7 @@
   "aliases": [
     "CVE-2023-29405"
   ],
+  "summary": "Improper sanitization of LDFLAGS in go command with cgo in cmd/go",
   "details": "The go command may execute arbitrary code at build time when using cgo. This may occur when running \"go get\" on a malicious module, or when running any other command which builds untrusted code. This is can by triggered by linker flags, specified via a \"#cgo LDFLAGS\" directive.\n\nFlags containing embedded spaces are mishandled, allowing disallowed flags to be smuggled through the LDFLAGS sanitization by including them in the argument of another flag. This only affects usage of the gccgo compiler.",
   "affected": [
     {

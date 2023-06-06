@@ -6,6 +6,7 @@
   "aliases": [
     "CVE-2020-15586"
   ],
+  "summary": "Data race and crash in net/http",
   "details": "HTTP servers where the Handler concurrently reads the request body and writes a response can encounter a data race and crash. The httputil.ReverseProxy Handler is affected.",
   "affected": [
     {

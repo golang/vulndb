@@ -7,6 +7,7 @@
     "CVE-2020-29652",
     "GHSA-3vm4-22fp-5rfm"
   ],
+  "summary": "Panic on crafted authentication request message in golang.org/x/crypto/ssh",
   "details": "Clients can cause a panic in SSH servers. An attacker can craft an authentication request message for the “gssapi-with-mic” method which will cause NewServerConn to panic via a nil pointer dereference if ServerConfig.GSSAPIWithMICConfig is nil.",
   "affected": [
     {

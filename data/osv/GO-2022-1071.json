@@ -7,6 +7,7 @@
     "CVE-2022-39272",
     "GHSA-f4p5-x4vc-mh4v"
   ],
+  "summary": "Denial of service in flux controllers in github.com/fluxcd modules",
   "details": "Flux controllers are vulnerable to a denial of service attack.\n\nUsers that have permissions to change Flux's objects, either through a Flux source or directly within a cluster, can provide invalid data to fields `.spec.interval` or `.spec.timeout` (and structured variations of these fields), causing the entire object type to stop being processed.\n\nThe issue has two root causes: a) the Kubernetes type `metav1.Duration` is not fully compatible with the Go type `time.Duration` as explained in https://github.com/kubernetes/apimachinery/issues/131, and b) a lack of validation within Flux to restrict allowed values.",
   "affected": [
     {

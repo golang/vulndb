@@ -6,6 +6,7 @@
   "aliases": [
     "CVE-2021-38297"
   ],
+  "summary": "Buffer overflow in WASM modules in misc/wasm",
   "details": "When invoking functions from WASM modules, built using GOARCH=wasm GOOS=js, passing very large arguments can cause portions of the module to be overwritten with data from the arguments due to a buffer overflow error.\n\nIf using wasm_exec.js to execute WASM modules, users will need to replace their copy (as described in https://golang.org/wiki/WebAssembly#getting-started) after rebuilding any modules.",
   "affected": [
     {

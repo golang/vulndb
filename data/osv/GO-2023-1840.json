@@ -6,6 +6,7 @@
   "aliases": [
     "CVE-2023-29403"
   ],
+  "summary": "Unsafe behavior in setuid/setgid binaries in runtime",
   "details": "On Unix platforms, the Go runtime does not behave differently when a binary is run with the setuid/setgid bits. This can be dangerous in certain cases, such as when dumping memory state, or assuming the status of standard i/o file descriptors.\n\nIf a setuid/setgid binary is executed with standard I/O file descriptors closed, opening any files can result in unexpected content being read or written with elevated privileges. Similarly, if a setuid/setgid program is terminated, either via panic or signal, it may leak the contents of its registers.",
   "affected": [
     {

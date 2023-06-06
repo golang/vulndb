@@ -6,6 +6,7 @@
   "aliases": [
     "CVE-2022-1705"
   ],
+  "summary": "Improper sanitization of Transfer-Encoding headers in net/http",
   "details": "The HTTP/1 client accepted some invalid Transfer-Encoding headers as indicating a \"chunked\" encoding. This could potentially allow for request smuggling, but only if combined with an intermediate server that also improperly failed to reject the header as invalid.",
   "affected": [
     {

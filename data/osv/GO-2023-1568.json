@@ -6,6 +6,7 @@
   "aliases": [
     "CVE-2022-41722"
   ],
+  "summary": "Path traversal on Windows in path/filepath",
   "details": "A path traversal vulnerability exists in filepath.Clean on Windows.\n\nOn Windows, the filepath.Clean function could transform an invalid path such as \"a/../c:/b\" into the valid path \"c:\\b\". This transformation of a relative (if invalid) path into an absolute path could enable a directory traversal attack.\n\nAfter fix, the filepath.Clean function transforms this path into the relative (but still invalid) path \".\\c:\\b\".",
   "affected": [
     {

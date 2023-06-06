@@ -7,6 +7,7 @@
     "CVE-2021-42576",
     "GHSA-x95h-979x-cf3j"
   ],
+  "summary": "Cross-site scripting in github.com/microcosm-cc/bluemonday",
   "details": "The bluemonday HTML sanitizer can leak the contents of a \"style\" element into HTML output, potentially causing XSS vulnerabilities.\n\nThe default bluemonday sanitization policies are not vulnerable. Only user-defined policies allowing \"select\", \"style\", and \"option\" elements are affected.\n\nPermitting the \"style\" element in policies is hazardous, because bluemonday does not contain a CSS sanitizer. Newer versions of bluemonday suppress \"style\" and \"script\" elements even when allowed by a policy unless the policy explicitly requests unsafe processing.",
   "affected": [
     {

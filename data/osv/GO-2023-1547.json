@@ -7,6 +7,7 @@
     "CVE-2023-25165",
     "GHSA-pwcw-6f5g-gxf8"
   ],
+  "summary": "Information disclosure in helm.sh/helm/v3",
   "details": "An information disclosure vulnerability exists in the `getHostByName` template function.\n\n`getHostByName` is a Helm template function introduced in Helm v3. The function is able to accept a hostname and return an IP address for that hostname. To get the IP address the function performs a DNS lookup. The DNS lookup happens when used with `helm install|upgrade|template` or when the Helm SDK is used to render a chart.\n\nInformation passed into the chart can be disclosed to the DNS servers used to lookup the IP address. For example, a malicious chart could inject `getHostByName` into a chart in order to disclose values to a malicious DNS server.",
   "affected": [
     {

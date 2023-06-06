@@ -6,6 +6,7 @@
   "aliases": [
     "CVE-2021-41771"
   ],
+  "summary": "Panic on invalid symbol tables in debug/macho",
   "details": "Calling File.ImportedSymbols on a loaded file which contains an invalid dynamic symbol table command can cause a panic, in particular if the encoded number of undefined symbols is larger than the number of symbols in the symbol table.",
   "affected": [
     {

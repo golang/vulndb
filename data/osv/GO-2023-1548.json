@@ -7,6 +7,7 @@
     "CVE-2023-25163",
     "GHSA-mv6w-j4xc-qpfw"
   ],
+  "summary": "Repository access credential leak in github.com/argoproj/argo-cd/v2",
   "details": "Argo CD has an output sanitization bug which leaks repository access credentials in error messages.\n\nThese error messages are visible to the user, and they are logged. The error message is visible when a user attempts to create or update an Application via the Argo CD API (and therefor the UI or CLI).\n\nThe user must have `applications, create` or `applications, update` RBAC access to reach the code which may produce the error. The user is not guaranteed to be able to trigger the error message. They may attempt to spam the API with requests to trigger a rate limit error from the upstream repository.\n\nIf the user has `repositories, update` access, they may edit an existing repository to introduce a URL typo or otherwise force an error message.",
   "affected": [
     {

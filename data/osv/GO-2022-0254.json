@@ -7,6 +7,7 @@
     "CVE-2021-39137",
     "GHSA-9856-9gg9-qcmq"
   ],
+  "summary": "Consensus flaw during block processing in github.com/ethereum/go-ethereum",
   "details": "A vulnerability in the Geth EVM can cause a node to reject the canonical chain.\n\nA memory-corruption bug within the EVM can cause a consensus error, where vulnerable nodes obtain a different stateRoot when processing a maliciously crafted transaction. This, in turn, would lead to the chain being split in two forks.",
   "affected": [
     {

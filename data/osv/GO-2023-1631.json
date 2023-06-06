@@ -7,6 +7,7 @@
     "CVE-2023-24535",
     "GHSA-hw7c-3rfg-p46j"
   ],
+  "summary": "Panic when parsing invalid messages in google.golang.org/protobuf",
   "details": "Parsing invalid messages can panic.\n\nParsing a text-format message which contains a potential number consisting of a minus sign, one or more characters of whitespace, and no further input will cause a panic.",
   "affected": [
     {
