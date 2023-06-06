@@ -298,6 +298,9 @@ func (r *Report) Lint() []string {
 		if r.Summary == "" {
 			addIssue("missing summary")
 		}
+		if strings.HasPrefix(r.Summary, "TODO") {
+			addIssue("summary contains a TODO")
+		}
 		if l := len(r.Summary); l > 100 {
 			addIssue(fmt.Sprintf("summary is too long: %d characters (max 100)", l))
 		}

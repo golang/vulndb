@@ -110,6 +110,13 @@ func TestLint(t *testing.T) {
 			want: []string{"missing summary"},
 		},
 		{
+			desc: "summary has TODO",
+			report: validReport(func(r *Report) {
+				r.Summary = "TODO: fill this out"
+			}),
+			want: []string{"summary contains a TODO"},
+		},
+		{
 			desc: "summary too long",
 			report: validReport(func(r *Report) {
 				r.Summary = "This summary is too long; it needs to be shortened to less than 101 characters to pass the lint check"
