@@ -43,6 +43,7 @@ type Containers struct {
 
 type CNAPublishedContainer struct {
 	ProviderMetadata ProviderMetadata `json:"providerMetadata"`
+	Title            string           `json:"title,omitempty"`
 	Descriptions     []Description    `json:"descriptions"`
 	Affected         []Affected       `json:"affected"`
 	ProblemTypes     []ProblemType    `json:"problemTypes,omitempty"`
