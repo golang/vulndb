@@ -121,6 +121,9 @@ func (r *Report) lintCVEs(addIssue func(string)) {
 		if r.CVEMetadata.CWE == "" {
 			addIssue("cve_metadata.cwe is required")
 		}
+		if strings.Contains(r.CVEMetadata.CWE, "TODO") {
+			addIssue("cve_metadata.cwe contains a TODO")
+		}
 	}
 }
 

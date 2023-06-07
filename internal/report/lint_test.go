@@ -264,15 +264,15 @@ func TestLint(t *testing.T) {
 			want: []string{"cve_metadata.id is required", "cve_metadata.cwe is required"},
 		},
 		{
-			desc: "bad cve metadata id",
+			desc: "bad cve metadata",
 			report: validReport(func(r *Report) {
 				r.CVEs = nil
 				r.CVEMetadata = &CVEMeta{
 					ID:  "CVE.0000.1111",
-					CWE: "a cwe",
+					CWE: "TODO",
 				}
 			}),
-			want: []string{"malformed cve_metadata.id identifier"},
+			want: []string{"malformed cve_metadata.id identifier", "cve_metadata.cwe contains a TODO"},
 		},
 		{
 			desc: "invalid reference type",
