@@ -1,0 +1,29 @@
+id: GO-2023-1839
+modules:
+    - module: cmd
+      versions:
+        - fixed: 1.19.10
+        - introduced: 1.20.0-0
+          fixed: 1.20.5
+      vulnerable_at: 1.20.4
+      packages:
+        - package: cmd/go
+summary: Code injection via go command with cgo in cmd/go
+description: |
+    The go command may generate unexpected code at build time when using cgo.
+    This may result in unexpected behavior when running a go program which uses
+    cgo.
+
+    This may occur when running an untrusted module which contains directories
+    with newline characters in their names. Modules which are retrieved using
+    the go command, i.e. via "go get", are not affected (modules retrieved
+    using GOPATH-mode, i.e. GO111MODULE=off, may be affected).
+credits:
+    - Juho Nurminen of Mattermost
+references:
+    - report: https://go.dev/issue/60167
+    - fix: https://go.dev/cl/501226
+    - web: https://groups.google.com/g/golang-announce/c/q5135a9d924/m/j0ZoAJOHAwAJ
+cve_metadata:
+    id: CVE-2023-29402
+    cwe: 'CWE-94: Improper Control of Generation of Code (''Code Injection'')'
