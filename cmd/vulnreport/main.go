@@ -762,7 +762,7 @@ func checkReportSymbols(r *report.Report) error {
 		return nil
 	}
 	for _, m := range r.Modules {
-		if m.IsStdLib() {
+		if m.IsFirstParty() {
 			gover := runtime.Version()
 			ver := semverForGoVersion(gover)
 			// If some symbol is in the std library at a different version,
@@ -814,25 +814,27 @@ func findExportedSymbols(m *report.Module, p *report.Package) (_ []string, err e
 	if err := run("go", "mod", "init", "go.dev/_"); err != nil {
 		return nil, err
 	}
-	// Require the module we're interested in at the vulnerable_at version.
-	if err := run("go", "mod", "edit", "-require", m.Module+"@v"+m.VulnerableAt); err != nil {
-		return nil, err
-	}
-	for _, req := range m.VulnerableAtRequires {
-		if err := run("go", "mod", "edit", "-require", req); err != nil {
+	if !m.IsFirstParty() {
+		// Require the module we're interested in at the vulnerable_at version.
+		if err := run("go", "mod", "edit", "-require", m.Module+"@v"+m.VulnerableAt); err != nil {
 			return nil, err
 		}
-	}
-	// Create a package that imports the package we're interested in.
-	var content bytes.Buffer
-	fmt.Fprintf(&content, "package p\n")
-	fmt.Fprintf(&content, "import _ %q\n", p.Package)
-	for _, req := range m.VulnerableAtRequires {
-		pkg, _, _ := strings.Cut(req, "@")
-		fmt.Fprintf(&content, "import _ %q", pkg)
-	}
-	if err := os.WriteFile("p.go", content.Bytes(), 0666); err != nil {
-		return nil, err
+		for _, req := range m.VulnerableAtRequires {
+			if err := run("go", "mod", "edit", "-require", req); err != nil {
+				return nil, err
+			}
+		}
+		// Create a package that imports the package we're interested in.
+		var content bytes.Buffer
+		fmt.Fprintf(&content, "package p\n")
+		fmt.Fprintf(&content, "import _ %q\n", p.Package)
+		for _, req := range m.VulnerableAtRequires {
+			pkg, _, _ := strings.Cut(req, "@")
+			fmt.Fprintf(&content, "import _ %q", pkg)
+		}
+		if err := os.WriteFile("p.go", content.Bytes(), 0666); err != nil {
+			return nil, err
+		}
 	}
 	// Run go mod tidy.
 	if err := run("go", "mod", "tidy"); err != nil {
@@ -847,7 +849,7 @@ func findExportedSymbols(m *report.Module, p *report.Package) (_ []string, err e
 	if pkg.PkgPath != p.Package {
 		return nil, fmt.Errorf("first package had import path %s, wanted %s", pkg.PkgPath, p.Package)
 	}
-	if m.IsStdLib() {
+	if m.IsFirstParty() {
 		if pm := pkg.Module; pm != nil {
 			return nil, fmt.Errorf("got module %v, expected nil", pm)
 		}

@@ -306,13 +306,13 @@ func (r *Report) Lint() []string {
 		}
 	}
 
-	isStdLibReport := false
+	isFirstParty := false
 	for i, m := range r.Modules {
 		addPkgIssue := func(iss string) {
 			addIssue(fmt.Sprintf("modules[%v]: %v", i, iss))
 		}
-		if m.IsStdLib() || m.IsToolchain() {
-			isStdLibReport = true
+		if m.IsFirstParty() {
+			isFirstParty = true
 			m.lintStdLib(addPkgIssue)
 		} else {
 			m.lintThirdParty(addPkgIssue)
@@ -338,7 +338,7 @@ func (r *Report) Lint() []string {
 	}
 	r.lintCVEs(addIssue)
 
-	if isStdLibReport && !r.IsExcluded() {
+	if isFirstParty && !r.IsExcluded() {
 		r.lintStdLibLinks(addIssue)
 	}
 
@@ -347,10 +347,6 @@ func (r *Report) Lint() []string {
 	return issues
 }
 
-func (m *Module) IsStdLib() bool {
-	return stdlib.IsStdModule(m.Module)
-}
-
-func (m *Module) IsToolchain() bool {
-	return stdlib.IsCmdModule(m.Module)
+func (m *Module) IsFirstParty() bool {
+	return stdlib.IsStdModule(m.Module) || stdlib.IsCmdModule(m.Module)
 }
