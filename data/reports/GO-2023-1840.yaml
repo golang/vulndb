@@ -1,0 +1,31 @@
+id: GO-2023-1840
+modules:
+    - module: cmd
+      versions:
+        - fixed: 1.19.10
+        - introduced: 1.20.0-0
+          fixed: 1.20.5
+      vulnerable_at: 1.20.4
+      packages:
+        - package: cmd/go
+summary: Unsafe behavior in setuid/setgid binaries in Go runtime
+description: |
+    On Unix platforms, the Go runtime does not behave differently when a binary
+    is run with the setuid/setgid bits. This can be dangerous in certain
+    cases, such as when dumping memory state, or assuming the status of
+    standard i/o file descriptors.
+
+    If a setuid/setgid binary is executed with standard I/O file descriptors
+    closed, opening any files can result in unexpected content being read
+    or written with elevated privileges. Similarly, if a setuid/setgid program
+    is terminated, either via panic or signal, it may leak the contents of its
+    registers.
+credits:
+    - Vincent Dehors from Synacktiv
+references:
+    - report: https://go.dev/issue/60272
+    - fix: https://go.dev/cl/501223
+    - web: https://groups.google.com/g/golang-announce/c/q5135a9d924/m/j0ZoAJOHAwAJ
+cve_metadata:
+    id: CVE-2023-29403
+    cwe: 'CWE-642: External Control of Critical State Data'
