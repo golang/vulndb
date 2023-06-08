@@ -1,0 +1,29 @@
+id: GO-2023-1841
+modules:
+    - module: cmd
+      versions:
+        - fixed: 1.19.10
+        - introduced: 1.20.0-0
+          fixed: 1.20.5
+      vulnerable_at: 1.20.4
+      packages:
+        - package: cmd/go
+summary: Improper sanitization of LDFLAGS in go command with cgo in cmd/go
+description: |
+    The go command may execute arbitrary code at build time when using cgo.
+    This may occur when running "go get" on a malicious module, or when running
+    any other command which builds untrusted code. This is can by triggered by
+    linker flags, specified via a "#cgo LDFLAGS" directive.
+
+    The arguments for a number of flags which are non-optional are incorrectly
+    considered optional, allowing disallowed flags to be smuggled through the
+    LDFLAGS sanitization. This affects usage of both the gc and gccgo compilers.
+credits:
+    - Juho Nurminen of Mattermost
+references:
+    - report: https://go.dev/issue/60305
+    - fix: https://go.dev/cl/501225
+    - web: https://groups.google.com/g/golang-announce/c/q5135a9d924/m/j0ZoAJOHAwAJ
+cve_metadata:
+    id: CVE-2023-29404
+    cwe: 'CWE-94: Improper Control of Generation of Code ("Code Injection")'
