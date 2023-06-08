@@ -1,14 +1,14 @@
 id: GO-2023-1840
 modules:
-    - module: cmd
+    - module: std
       versions:
         - fixed: 1.19.10
         - introduced: 1.20.0-0
           fixed: 1.20.5
       vulnerable_at: 1.20.4
       packages:
-        - package: cmd/go
-summary: Unsafe behavior in setuid/setgid binaries in Go runtime
+        - package: runtime
+summary: Unsafe behavior in setuid/setgid binaries in runtime
 description: |
     On Unix platforms, the Go runtime does not behave differently when a binary
     is run with the setuid/setgid bits. This can be dangerous in certain
