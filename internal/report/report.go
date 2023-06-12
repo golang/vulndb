@@ -60,6 +60,11 @@ type CVEMeta struct {
 	ID          string `yaml:",omitempty"`
 	CWE         string `yaml:",omitempty"`
 	Description string `yaml:",omitempty"`
+	// Additional references that should be included in the CVE record
+	// but not the OSV. This is used to preserve references that have been
+	// added to a CVE by the CVE program that the Go team does not want
+	// to display via OSV. An example that uses this is GO-2022-0476.
+	References []string `yaml:",omitempty"`
 }
 
 // ExcludedReason is the reason a report is excluded from the database.

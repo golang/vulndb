@@ -97,6 +97,9 @@ func (r *Report) ToCVE5() (_ *cveschema5.CVERecord, err error) {
 	c.References = append(c.References, cveschema5.Reference{
 		URL: GoAdvisory(r.ID),
 	})
+	for _, ref := range r.CVEMetadata.References {
+		c.References = append(c.References, cveschema5.Reference{URL: ref})
+	}
 
 	for _, credit := range r.Credits {
 		c.Credits = append(c.Credits, cveschema5.Credit{

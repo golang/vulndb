@@ -324,6 +324,15 @@ func publish(c *cveclient.Client, filename string) (err error) {
 		fmt.Printf("%s is published at %s\n", cveID, c.WebURL(cveID))
 		if diff := cmp.Diff(existing.Containers, *toPublish); diff != "" {
 			fmt.Printf("publish would update record with diff (-existing, +new):\n%s\n", diff)
+			// The CVE program sometimes adds references to CVEs, so we need
+			// to make sure we don't accidentally delete them.
+			// To preserve an externally-added reference, add it to
+			// cve_metadata.references. An example is GO-2022-0476.
+			// This warning may be spurious if a reference is deleted from
+			// a YAML report - in this case it should be ignored.
+			if d := len(existing.Containers.CNAContainer.References) - len(toPublish.CNAContainer.References); d > 0 {
+				fmt.Printf("WARNING: publish would delete %d reference(s) that may have been added by the CVE program; use cve_metadata.references to preserve them\n", d)
+			}
 		} else {
 			fmt.Println("updating record would have no effect, skipping")
 			return nil
