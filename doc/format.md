@@ -42,7 +42,7 @@ Use `"std"` for vulnerabilities in the standard library.
 
 Use `"cmd"` for vulnerabilities in the Go tools (`cmd/...`).
 
-### `modules.versions`
+### `module.versions`
 
 type `[]version`
 
@@ -91,14 +91,14 @@ The version at which the vulnerability was fixed.
 If this field is omitted, it is assumed that every version since the
 `introduced` version is vulnerable.
 
-## `module.vulnerable_at`
+### `module.vulnerable_at`
 
 type `string`
 
 The version at which the vulnerable symbols were obtained. Ideally, this
 is the version just prior to the fix.
 
-## `module.vulnerable_at_requires`
+### `module.vulnerable_at_requires`
 
 type `[]string`
 
