@@ -1,36 +1,40 @@
 # Vulnerability Report Format & Style Guide
 
-The Go vulnerability report format is used to generate JSON files
-served to the the vulnerability database.
+The Go security team uses an internal YAML format to create vulnerability
+reports, which are automatically converted to OSV JSON and served to the
+vulnerability database at [vuln.go.dev](https://vuln.go.dev).
 
-This file format is meant for internal use only, and is subject to
-change without warning. See [go.dev/security/vuln/database](https://go.dev/security/vuln/database)
-for information on the Go Vulnerability database API.
+The YAML format is subject to change without warning and should not be
+relied on by external tools. (See [go.dev/security/vuln/database](https://go.dev/security/vuln/database) for information on the public Go Vulnerability
+database API and the OSV schema.)
 
-This page documents the internal YAML file format.
+This page documents the fields of the internal YAML file format.
 
-## `packages`
-
-type [[]Package](#type-package)
-
-**required**
-
-Information on each package affected by the vulnerability.
-
-Include every importable package containing a root vulnerable symbol.
-If `"internal/foo".F` is vulnerable and `"foo".F` calls it, only include
-the innermost (internal) package.
-
-If a vulnerability occurs in multiple major versions of a module,
-include an entry for each major version.
-
-## Type **Package**
-
-### `module`
+## `id`
 
 type `string`
 
-**required** 
+**required**
+
+The unique Go identifier assigned to this report.
+
+This is automatically assigned via `vulnreport create`. It should be of
+the form `GO-YYYY-NNNN` where `YYYY` is the year the report was created,
+and `NNNN` is the x/vulndb issue tracker number associated with the report.
+
+## `modules`
+
+type `[]module`
+
+**required**
+
+Information on each Go module affected by the vulnerability.
+
+### `module.module`
+
+type `string`
+
+**required**
 
 The module path of the vulnerable module.
 
@@ -38,48 +42,9 @@ Use `"std"` for vulnerabilities in the standard library.
 
 Use `"cmd"` for vulnerabilities in the Go tools (`cmd/...`).
 
-### `package`
+### `modules.versions`
 
-type `string`
-
-**required (if different from `module`)**
-
-The import path of the vulnerable package.
-
-Omit this field if the package name is identical to the module name.
-
-### `symbols`
-
-type `[]string`
-
-The symbols affected by this vulnerability.
-
-If included, only programs which use these symbols will be marked as
-vulnerable. If omitted, any program which imports this module will be
-marked vulnerable.
-
-These should be the symbols initially detected or identified in the CVE
-or other source.
-
-### `derived_symbols`
-
-type `[]string`
-
-Derived symbols that are calculated from `symbols`,
-such as by static analysis tools like `govulncheck`.
-
-This is generated automatically by the `vulnreport fix` command.
-Don't edit this field manually.
-
-Potentially, the set of derived symbols can differ with the module
-version. We don't attempt to capture that level of detail. Most of the
-values of `derived_symbols` as of this writing were obtained from a
-module version that was just prior to the version that the report
-listed as fixed.
-
-### `versions`
-
-type [`[]VersionRange`](#type-versionrange)
+type `[]version`
 
 The version ranges in which the package is vulnerable.
 
@@ -95,11 +60,11 @@ it's obvious.
 The version ranges in announcements, CVE text, GHSAs, and so forth are
 frequently wrong. Always verify the fixed version from the repository history.
 
-If the vulnerability is fixed in multiple minor versions, define
+If the vulnerability is fixed in multiple minor versions, define sorted,
 non-overlapping version ranges thats describe the affected revisions.
 For example, for a fix in 1.17.2, 1.18.4, and 1.19.0:
 
-```
+```yaml
 - fixed: 1.17.2
 - introduced: 1.18.0
   fixed: 1.18.4
@@ -108,9 +73,7 @@ For example, for a fix in 1.17.2, 1.18.4, and 1.19.0:
 Note that we don't need to mention 1.19.0 in the version ranges, since it
 comes after 1.18.4.
 
-### Type **VersionRange**
-
-#### `introduced`
+#### `version.introduced`
 
 type `string`
 
@@ -119,7 +82,7 @@ The version at which the vulnerability was introduced.
 If this field is omitted, it is assumed that every version, from the
 initial commit, up to the `fixed` version is vulnerable.
 
-#### `fixed`
+#### `version.fixed`
 
 type `string`
 
@@ -128,10 +91,96 @@ The version at which the vulnerability was fixed.
 If this field is omitted, it is assumed that every version since the
 `introduced` version is vulnerable.
 
-## `vulnerable_at`
+## `module.vulnerable_at`
 
-The version (see above for format) at which the vulnerable symbols
-were obtained. Ideally, this is the version just prior to the fix.
+type `string`
+
+The version at which the vulnerable symbols were obtained. Ideally, this
+is the version just prior to the fix.
+
+## `module.vulnerable_at_requires`
+
+type `[]string`
+
+List of module@version to require when performing static analysis.
+It is rare that we need to specify this.
+
+Example from [GO-2021-0072](../data/reports/GO-2021-0072.yaml):
+
+```yaml
+vulnerable_at_requires:
+  - github.com/Sirupsen/logrus@v1.0.6
+```
+
+### `module.packages`
+
+type `[]package`
+
+**required**
+
+Information on each package affected by the vulnerability.
+
+Include every importable package containing a root vulnerable symbol.
+If `"internal/foo".F` is vulnerable and `"foo".F` calls it, only include
+the innermost (internal) package.
+
+If a vulnerability occurs in multiple major versions of a module,
+include an entry for each major version.
+
+#### `package.package`
+
+type `string`
+
+**required**
+
+The import path of the vulnerable package.
+
+#### `package.symbols`
+
+type `[]string`
+
+The symbols affected by this vulnerability.
+
+If included, only programs which use these symbols will be marked as
+vulnerable. If omitted, any program which imports this module will be
+marked vulnerable.
+
+These should be the symbols initially detected or identified in the CVE
+or other source.
+
+#### `package.derived_symbols`
+
+type `[]string`
+
+Derived symbols that are calculated from `symbols`,
+such as by static analysis tools like `govulncheck`.
+
+This is generated automatically by the `vulnreport fix` command.
+Don't edit this field manually.
+
+Potentially, the set of derived symbols can differ with the module
+version. We don't attempt to capture that level of detail. Most of the
+values of `derived_symbols` as of this writing were obtained from a
+module version that was just prior to the version that the report
+listed as fixed.
+
+#### `package.skip_fix`
+
+type `string`
+
+A text justification for why static analysis should not be performed
+on this package (perhaps because it causes an error). It is rare
+that we need to specify this.
+
+## `summary`
+
+type `string`
+
+**required**
+
+A short (<=100 characters) textual description of the vulnerability,
+usually of the form "PROBLEM in MODULE(s)", e.g:
+`summary: "Man-in-the-middle attack in golang.org/x/crypto/ssh`.
 
 ## `description`
 
@@ -156,6 +205,8 @@ vulnerable".
 
 type `time.Time`
 
+(Handled automatically, do not edit manually)
+
 Date the report was added to the vulnerability database.
 This is normally determined from the git repository history, and
 does not need to be set in the report YAML except when the first
@@ -166,6 +217,8 @@ Older reports moved from a previous location have this set.
 ## `last_modified`
 
 type `time.Time`
+
+(Handled automatically, do not edit manually)
 
 Last time the report was changed. This is normally determined from
 the repository history, and does not need to be set in the report
@@ -184,9 +237,11 @@ type `[]string`
 
 The GitHub Security Advisory (GHSA) IDs for the vulnerability.
 
-## `credit`
+## `credits`
 
-The name of the person/organization that discovered/reported the
+type `[]string`
+
+The name(s) of the person/organization that discovered/reported the
 vulnerability.
 
 This should be filled in for Go project reports (standard library,
@@ -197,45 +252,42 @@ For third-party reports, if `vulnreport create` finds CVE or GHSA metadata, use
 that. Also, look for a "Credits" heading on the GHSA report linked from the
 GitHub issue. Otherwise, it's okay to leave this blank.
 
-
 ## `references`
 
-type [`[]Reference`]
+type `[]reference`
 
 Links to further information about the vulnerability.
 
-Include a `FIX` link to the fix pull request, Gerrit code review, or commit.
+Include a `fix` link to the fix pull request, Gerrit code review, or commit.
 No need to link both the PR and the commit.
 Prefer to link to the PR or code review rather than the commit.
 
 Don't include links to CVEs and GHSAs just because they exist.
 (That's what the cve/ghsa fields are for.)
 
-DO include an `ADVISORY` link to an authoritative *first-party*
+DO include an `advisory` link to an authoritative *first-party*
 advisory when one exists.
 If the first-party advisory is a GHSA, then link to that.
 If the first-party advisory is a CVE, then link to the CVE page on
 nvd.nist.gov/vuln.
 
-Include a `REPORT` link to a first-party bug or issue when one exists.
+Include a `report` link to a first-party bug or issue when one exists.
 
 Don't include links to random third-party issue trackers (e.g.,
 Debian announcements). CVEs often contain a bunch of random links
 of dubious value; be aggressive in pruning these out.
 
-## Type **Report**
-
-The internal representation of a `Report` is a struct with `Type`
+The internal representation of a `Reference` is a struct with `Type`
 and `URL` fields. For convenience, the YAML representation is a
 single-element map from type to URL. For example:
 
-```
+```yaml
 references:
   - fix: https://go.dev/cl/25010
   - report: https://go.dev/issue/16405
 ```
 
-### `type`
+### `reference.type`
 
 type `string`
 
@@ -246,27 +298,59 @@ OSV types are upper-case, but the type in the YAML should be lower case.
 
 Types we use:
 
-    * `ADVISORY`: A link to an authoritative, first-party advisory.
+* `ADVISORY`: A link to an authoritative, first-party advisory.
+* `ARTICLE`: An article or blog post about the vulnerability.
+* `REPORT`: A bug or issue tracker link.
+* `FIX`: A link to the PR/CL which fixes the vulnerability.
+* `PACKAGE`: The home page for the package. (We usually do not include this.)
+* `EVIDENCE`: A demonstration of the vulnerability. (We usually do not include this.)
+* `WEB`: Anything that doesn't fit into the above.
 
-    * `ARTICLE`: An article or blog post about the vulnerability.
-
-    * `REPORT`: A bug or issue tracker link.
-
-    * `FIX`: A link to the PR/CL which fixes the vulnerability.
-
-    * `PACKAGE`: The home page for the package.
-      (We usually do not include this.)
-
-    * `EVIDENCE`: A demonstration of the vulnerability.
-      (We usually do not include this.)
-
-    * `WEB`: Anything that doesn't fit into the above.
-
-### `url`
+### `reference.url`
 
 type `string`
 
-The URL.
+The URL of the reference.
+
+## `cve_metadata`
+
+type `cve_metadata`
+
+Information used to generate a CVE record based on this report. This
+should be populated only if the Go CNA assigned the CVE for this report.
+
+### `cve_metadata.id`
+
+type `string`
+
+The CVE ID assigned by the Go CNA for this report.
+
+### `cve_metadata.cwe`
+
+type `string`
+
+The [CWE](https://cwe.mitre.org/index.html) most closely associated
+with this vulnerability, of the form "CWE-XXX: Description".
+
+### `cve_metadata.description`
+
+type `string`
+
+The description of the vulnerability to use in the CVE record. If blank,
+the top-level description is used.
+
+This was used to preserve existing descriptions. For new reports, this
+does not need to be set.
+
+### `cve_metadata.references`
+
+type `[]string`
+
+References that should be published in the CVE record, but not the OSV
+record. This is used to preserve references added by the CVE program,
+and is rarely used.
+
+Example: [GO-2022-0476](../data/reports/GO-2022-0476.yaml)
 
 ## `excluded`
 
@@ -283,90 +367,28 @@ Excluded reports are placed in the `excluded/` directory.
 
 Valid values are:
 
-    * `NOT_GO_CODE`: The vulnerability is not in a Go package, and
-      cannot affect any Go packages. (For example, a vulnerability in
-      a C++ library.)
-
-    * `NOT_IMPORTABLE`: The vulnerability occurs in package `main`,
-      an `internal/` package only imported by package `main`, or some
-      other location which can never be imported by another module.
-
-    * `EFFECTIVELY_PRIVATE`: While the vulnerability occurs in a Go
-      package which can be imported by another module, the package is
-      not intended for external use and is not likely to ever be imported
-      outside the module in which it is defined.
-
-    * `DEPENDENT_VULNERABILITY`: This vulnerability is a subset of another
-      vulnerability in the database. For example, if package A contains a
-      vulnerability, package B depends on package A, and there are separate
-      CVEs for packages A and B, we might mark the report for B as a dependent
-      vulnerability entirely superseded by the report for A.
-
-    * `NOT_A_VULNERABILITY`: While a CVE or GHSA has been assigned,
-      there is no known vulnerability associated with it.
+* `NOT_GO_CODE`: The vulnerability is not in a Go package, and
+  cannot affect any Go packages. (For example, a vulnerability in
+  a C++ library.)
+* `NOT_IMPORTABLE`: The vulnerability occurs in package `main`,
+  an `internal/` package only imported by package `main`, or some
+  other location which can never be imported by another module.
+* `EFFECTIVELY_PRIVATE`: While the vulnerability occurs in a Go
+  package which can be imported by another module, the package is
+  not intended for external use and is not likely to ever be imported
+  outside the module in which it is defined.
+* `DEPENDENT_VULNERABILITY`: This vulnerability is a subset of another
+  vulnerability in the database. For example, if package A contains a
+  vulnerability, package B depends on package A, and there are separate
+  CVEs for packages A and B, we might mark the report for B as a dependent
+  vulnerability entirely superseded by the report for A.
+* `NOT_A_VULNERABILITY`: While a CVE or GHSA has been assigned,
+  there is no known vulnerability associated with it.
 
 ## Example Reports
 
-### Third-party example report
-
-```yaml
-packages:
-  - module: github.com/example/module
-    package: github.com/example/module/package
-    symbols:
-      - Type.MethodA
-      - MethodB
-    versions:
-      # The vulnerability is present in all versions since version v0.2.0.
-      - introduced: 0.2.0
-      # The vulnerability is present in all versions up to version v0.2.5.
-      - fixed: 0.2.5
-    # Major versions must be explicitly specified
-  - module: github.com/example/module/v2
-    symbols:
-      - MethodB
-    versions:
-      - fixed: 2.5.0
-  - module: github.com/example/module/v3
-    symbols:
-      - MethodB
-    versions:
-      - introduced: 3.0.1
-description: |
-  A description of the vulnerability present in this module.
-
-  The description can contain newlines, and a limited set of markup.
-cves:
-  - CVE-2021-3185
-ghsas:
-  - GHSA-1234-5678-9101
-credit:
-  - John Smith
-references:
-  - advisory: https://github.com/example/module/advisories/1
-  - fix: https://github.com/example/module/pull/10
-  - web: https://www.openwall.com/lists/oss-security/2016/11/03/1
-```
-
-### Standard library example report
-
-```yaml
-packages:
-  - module: std
-    package: a/package
-    symbols:
-      - pkg.ASymbol
-    versions:
-      - introduced: 1.14
-        fixed: 1.14.12
-      - introduced: 1.15
-        fixed: 1.15.5
-description: |
-    A description.
-cves:
-  - CVE-2020-12345
-references:
-  - fix: https://go.dev/cl/12345
-  - report: https://go.dev/issue/01010
-  - web: https://groups.google.com/g/golang-announce/c/123456
-```
+* Standard library: [GO-2021-0067](../data/reports/GO-2021-0067.yaml)
+* Toolchain: [GO-2021-0068](../data/reports/GO-2021-0068.yaml)
+* x/ repo: [GO-2020-0012](../data/reports/GO-2020-0012.yaml)
+* Third-party: [GO-2021-0075](../data/reports/GO-2021-0075.yaml)
+* Excluded:[GO-2022-0559](../data/excluded/GO-2022-0559.yaml)
