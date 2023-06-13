@@ -7,12 +7,12 @@
     "CVE-2018-20744",
     "GHSA-927h-x4qj-r242"
   ],
-  "summary": "Problem in github.com/gofiber/fiber/v2",
-  "details": "Fiber's CORS middleware actively bypasses the wildcard exception: if developers configure their CORS to allow credentials and specify the wildcard as an allowed origin, the resulting middleware unconditionally reflects the value of the request's Origin header in the Access-Control-Allow-Origin response header.",
+  "summary": "Insecure wildcard CORS policy in github.com/rs/cors",
+  "details": "The CORS handler actively converts a wildcard CORS policy into reflecting an arbitrary Origin header value, which is incompatible with the CORS security design, and could lead to CORS misconfiguration security problems.",
   "affected": [
     {
       "package": {
-        "name": "github.com/gofiber/fiber/v2",
+        "name": "github.com/rs/cors",
         "ecosystem": "Go"
       },
       "ranges": [
@@ -20,10 +20,10 @@
           "type": "SEMVER",
           "events": [
             {
-              "introduced": "2.0.0"
+              "introduced": "0"
             },
             {
-              "fixed": "2.43.0"
+              "fixed": "1.5.0"
             }
           ]
         }
@@ -31,8 +31,13 @@
       "ecosystem_specific": {
         "imports": [
           {
-            "path": "github.com/gofiber/fiber/v2/middleware/cors",
+            "path": "github.com/rs/cors",
             "symbols": [
+              "AllowAll",
+              "Cors.HandlerFunc",
+              "Cors.ServeHTTP",
+              "Cors.handlePreflight",
+              "Default",
               "New"
             ]
           }
@@ -43,7 +48,11 @@
   "references": [
     {
       "type": "FIX",
-      "url": "https://github.com/gofiber/fiber/pull/2339"
+      "url": "https://github.com/rs/cors/pull/57"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/rs/cors/issues/55"
     }
   ],
   "database_specific": {

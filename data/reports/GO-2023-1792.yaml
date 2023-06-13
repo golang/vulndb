@@ -1,24 +1,28 @@
 id: GO-2023-1792
 modules:
-    - module: github.com/gofiber/fiber/v2
+    - module: github.com/rs/cors
       versions:
-        - introduced: 2.0.0
-          fixed: 2.43.0
-      vulnerable_at: 2.42.0
+        - fixed: 1.5.0
+      vulnerable_at: 1.4.0
       packages:
-        - package: github.com/gofiber/fiber/v2/middleware/cors
+        - package: github.com/rs/cors
           symbols:
             - New
-summary: Problem in github.com/gofiber/fiber/v2
+            - Cors.handlePreflight
+          derived_symbols:
+            - AllowAll
+            - Cors.HandlerFunc
+            - Cors.ServeHTTP
+            - Default
+summary: Insecure wildcard CORS policy in github.com/rs/cors
 description: |
-    Fiber's CORS middleware actively bypasses the wildcard exception:
-    if developers configure their CORS to allow credentials and specify the
-    wildcard as an allowed origin, the resulting middleware unconditionally
-    reflects the value of the request's Origin header in the
-    Access-Control-Allow-Origin response header.
+    The CORS handler actively converts a wildcard CORS policy into reflecting an
+    arbitrary Origin header value, which is incompatible with the CORS security
+    design, and could lead to CORS misconfiguration security problems.
 cves:
     - CVE-2018-20744
 ghsas:
     - GHSA-927h-x4qj-r242
 references:
-    - fix: https://github.com/gofiber/fiber/pull/2339
+    - fix: https://github.com/rs/cors/pull/57
+    - report: https://github.com/rs/cors/issues/55
