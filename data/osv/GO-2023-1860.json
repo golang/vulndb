@@ -1,0 +1,184 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1860",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "summary": "IBC protocol \"Huckleberry\" vulnerability in github.com/cosmos/ibc-go",
+  "details": "The ibc-go module is affected by the Inter-Blockchain Communication (IBC) protocol \"Huckleberry\" vulnerability.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cosmos/ibc-go/v7",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "7.0.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cosmos/ibc-go/v7/modules/core/04-channel/keeper",
+            "symbols": [
+              "Keeper.UnreceivedPackets"
+            ]
+          },
+          {
+            "path": "github.com/cosmos/ibc-go/v7/modules/core/keeper",
+            "symbols": [
+              "Keeper.RecvPacket",
+              "Keeper.UnreceivedPackets"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/cosmos/ibc-go/v6",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "6.1.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cosmos/ibc-go/v6/modules/core/04-channel/keeper",
+            "symbols": [
+              "Keeper.UnreceivedPackets"
+            ]
+          },
+          {
+            "path": "github.com/cosmos/ibc-go/v6/modules/core/keeper",
+            "symbols": [
+              "Keeper.RecvPacket"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/cosmos/ibc-go/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.2.1"
+            },
+            {
+              "introduced": "5.3.0"
+            },
+            {
+              "fixed": "5.3.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cosmos/ibc-go/v5/modules/core/04-channel/keeper",
+            "symbols": [
+              "Keeper.UnreceivedPackets"
+            ]
+          },
+          {
+            "path": "github.com/cosmos/ibc-go/v5/modules/core/keeper",
+            "symbols": [
+              "Keeper.RecvPacket"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/cosmos/ibc-go/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.1.3"
+            },
+            {
+              "introduced": "4.2.0"
+            },
+            {
+              "fixed": "4.2.2"
+            },
+            {
+              "introduced": "4.3.0"
+            },
+            {
+              "fixed": "4.3.1"
+            },
+            {
+              "introduced": "4.4.0"
+            },
+            {
+              "fixed": "4.4.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cosmos/ibc-go/v4/modules/core/04-channel/keeper",
+            "symbols": [
+              "Keeper.UnreceivedPackets"
+            ]
+          },
+          {
+            "path": "github.com/cosmos/ibc-go/v4/modules/core/keeper",
+            "symbols": [
+              "Keeper.RecvPacket"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://forum.cosmos.network/t/ibc-security-advisory-huckleberry/10731"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1860"
+  }
+}
