@@ -1,0 +1,27 @@
+id: GO-2023-1766
+modules:
+    - module: github.com/ipfs/go-libipfs
+      versions:
+        - fixed: 0.4.1
+        - introduced: 0.5.0
+          fixed: 0.6.0
+      vulnerable_at: 0.5.0
+      packages:
+        - package: github.com/ipfs/go-libipfs/bitswap/server
+    - module: github.com/ipfs/go-bitswap
+      versions:
+        - fixed: 0.12.0
+      vulnerable_at: 0.11.0
+      packages:
+        - package: github.com/ipfs/go-bitswap/server
+summary: Denial of service from memory leak in github.com/ipfs/go-libipfs
+description: |
+    An attacker can cause a Bitswap server to allocate and leak unbounded
+    amounts of memory.
+cves:
+    - CVE-2023-25568
+ghsas:
+    - GHSA-m974-xj4j-7qv5
+    - GHSA-q3j6-22wf-3jh9
+references:
+    - advisory: https://github.com/ipfs/go-libipfs/security/advisories/GHSA-m974-xj4j-7qv5
