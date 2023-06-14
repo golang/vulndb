@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1832",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-33959",
+    "GHSA-xhg5-42rf-296r"
+  ],
+  "summary": "Verification bypass in github.com/notaryproject/notation-go",
+  "details": "An attacker who controls or compromises a registry can lead a user to verify the wrong artifact.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/notaryproject/notation-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.0.0-rc.6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/notaryproject/notation-go",
+            "symbols": [
+              "Sign",
+              "Verify"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/notaryproject/notation-go/security/advisories/GHSA-xhg5-42rf-296r"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/notaryproject/notation-go/commit/39c8ed050a65cca3f3f308534acb612096735a64"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/notaryproject/notation-go/commit/eba60f5aed9c9e05dee55324423c95fe34700b4c"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/notaryproject/notation-go/releases/tag/v1.0.0-rc.6"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Adam Korczynski (@AdamKorcz)"
+    },
+    {
+      "name": "Shiwei Zhang (@shizhMSFT)"
+    },
+    {
+      "name": "Pritesh Bandi (@priteshbandi)"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1832"
+  }
+}
