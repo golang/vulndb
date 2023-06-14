@@ -11,13 +11,26 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to file a vulnerability report!
+        Thanks for taking the time to help us maintain the Go vulnerability
+        database!
 
-        This form creates a public issue on our issue tracker containing all the details you report. It is intended for PUBLIC vulnerabilities in publicly importable Go packages not maintained by the Go Team (i.e., anything outside the Go standard library, Go toolchain, and golang.org modules).
+        Filling out this form creates a **public** issue on the x/vulndb issue tracker containing all the details you report.
 
-        ❗ To report undisclosed Go vulnerabilities, please follow our [security policy](https://go.dev/security/policy) instead.
+        This issue tracker is used solely to track the work of adding/updating the Go vulnerability database, not to track the work of fixing or mitigating vulnerabilities.
+
+        It is intended only for PUBLIC vulnerabilities in publicly importable Go packages not maintained by the Go Team (i.e., anything outside the Go standard library, Go toolchain, and golang.org modules).
+
+        ❗ Please report new issues directly to project maintainers following their security policy **before** creating an issue here.
+
+        ❗ To report undisclosed Go standard library or toolchain vulnerabilities, please follow our [security policy](https://go.dev/security/policy) instead.
 
         For questions or concerns, do not hesitate to reach out to us directly at security@golang.org.
+  - type: checkboxes
+    attributes:
+      label: Acknowledgement
+      options:
+        - label: The maintainer(s) of the affected project have already been made aware of this vulnerability.
+          required: true
   - type: textarea
     id: description
     attributes:
@@ -54,57 +67,21 @@ body:
       render: shell
     validations:
       required: true
-  - type: dropdown
-    id: has-cve
-    attributes:
-      label: Does this vulnerability already have an associated CVE ID?
-      description: |
-        A CVE ID is a unique identifier for a vulnerability (see https://cve.mitre.org).
-        The Go Security team will assign a CVE ID for the vulnerability if it does not already have one.
-      multiple: false
-      options:
-      - "Yes"
-      - "No"
-      - "I'm not sure"
-    validations:
-      required: true
   - type: input
     id: cve
     attributes:
-      label: CVE ID
-      description: If you selected "Yes" in the previous question, please include the CVE ID below.
-      placeholder: CVE-20XX-NNNN
+      label: CVE/GHSA ID
+      description: List any CVE or GHSA IDs already associated with this vulnerability.
+      placeholder: CVE-20XX-NNNN, GHSA-xxxx-yyyy-zzzz
     validations:
       required: false
-  - type: input
-    id: credit
-    attributes:
-      label: Credit
-      description: |
-        [Optional] The name of the person or organization that discovered or fixed this vulnerability.
-  - type: input
-    id: cwe
-    attributes:
-      label: CWE ID
-      description: |
-        [Optional] The CWE ID that best describes the class of vulnerability.
-        See https://cwe.mitre.org/data/definitions/699.html for a list of common types.
   - type: input
     id: pr
     attributes:
-      label: Pull Request
+      label: Fix Commit or Pull Request
       description: |
-        The pull request(s) that fixed this vulnerability, if known.
+        The pull request(s) or commit(s) that fixed this vulnerability, if known.
       placeholder: https://github.com/example/pull/123
-    validations:
-      required: false
-  - type: input
-    id: commit
-    attributes:
-      label: Commit
-      description: |
-        The commit(s) that fixed this vulnerability, if known.
-      placeholder: https://github.com/example/commit/abcdef
     validations:
       required: false
   - type: textarea
