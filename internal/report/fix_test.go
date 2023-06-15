@@ -15,10 +15,21 @@ func TestFix(t *testing.T) {
 		Modules: []*Module{
 			{
 				Module: "std",
-				Versions: []VersionRange{{
-					Introduced: "go1.20",
-					Fixed:      "go1.20.1",
-				}},
+				Versions: []VersionRange{
+					{
+						Introduced: "go1.20",
+					},
+					{
+						Fixed: "go1.20.1",
+					},
+					{
+						Introduced: "go1.19",
+						Fixed:      "go1.19.5",
+					},
+					{
+						Fixed: "go1.18.5",
+					},
+				},
 				VulnerableAt: "go1.20",
 			},
 			{
@@ -39,10 +50,19 @@ func TestFix(t *testing.T) {
 		Modules: []*Module{
 			{
 				Module: "std",
-				Versions: []VersionRange{{
-					Introduced: "1.20.0",
-					Fixed:      "1.20.1",
-				}},
+				Versions: []VersionRange{
+					{
+						Fixed: "1.18.5",
+					},
+					{
+						Introduced: "1.19.0",
+						Fixed:      "1.19.5",
+					},
+					{
+						Introduced: "1.20.0",
+						Fixed:      "1.20.1",
+					},
+				},
 				VulnerableAt: "1.20.0",
 			},
 			{
