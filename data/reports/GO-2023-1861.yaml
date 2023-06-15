@@ -1,0 +1,19 @@
+id: GO-2023-1861
+modules:
+    - module: github.com/cosmos/cosmos-sdk
+      versions:
+        - fixed: 0.46.13
+        - introduced: 0.47.0
+          fixed: 0.47.3
+      vulnerable_at: 0.47.2
+      packages:
+        - package: github.com/cosmos/cosmos-sdk/x/auth/vesting/types
+          symbols:
+            - MsgCreatePeriodicVestingAccount.ValidateBasic
+summary: Cosmos "Barberry" vulnerability in github.com/cosmos/cosmos-sdk
+description: |
+    The cosmos-sdk module is affected by the vulnerability
+    codenamed "Barberry".
+references:
+    - advisory: https://forum.cosmos.network/t/cosmos-sdk-security-advisory-barberry/10825
+    - fix: https://github.com/cosmos/cosmos-sdk/pull/16466
