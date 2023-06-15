@@ -352,6 +352,16 @@ and is rarely used.
 
 Example: [GO-2022-0476](../data/reports/GO-2022-0476.yaml)
 
+## `notes`
+
+type `[]string`
+
+Optional, freeform notes about the report. This field is ignored when creating
+OSV and CVE records, so it does not need to be polished.
+
+It can be used to document decisions made when creating the report,
+outstanding issues, or anything else worth mentioning.
+
 ## `excluded`
 
 type `string`

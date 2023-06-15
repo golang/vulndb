@@ -139,6 +139,12 @@ type Report struct {
 	// CVE ourselves. If a CVE already exists for an issue, use the CVE field
 	// to fill in the ID string.
 	CVEMetadata *CVEMeta `yaml:"cve_metadata,omitempty"`
+
+	// Freeform notes about the report. This field is ignored when creating
+	// OSV and CVE records. It can be used to document decisions made when
+	// creating the report, outstanding issues, or anything else worth
+	// mentioning.
+	Notes []string `yaml:",omitempty"`
 }
 
 // AllCVEs returns all CVE IDs for a report, including any in cve_metadata.
