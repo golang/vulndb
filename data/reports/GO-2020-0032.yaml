@@ -32,10 +32,10 @@ modules:
             - Controller.FileHandler
           skip_fix: 'TODO: revisit this reason (goa.design/goa/v3 appears to not be a package, but I could not locate the fix for this issue in v3)'
 summary: Path traversal in github.com/goadesign/goa
-description: |
-    Due to improper sanitization of user input, Controller.FileHandler allows
-    for directory traversal, allowing an attacker to read files outside of
-    the target directory that the server has permission to read.
+description: |-
+    Due to improper sanitization of user input, Controller.FileHandler allows for
+    directory traversal, allowing an attacker to read files outside of the target
+    directory that the server has permission to read.
 published: 2021-04-14T20:04:52Z
 ghsas:
     - GHSA-fjgq-224f-fq37
@@ -47,6 +47,7 @@ references:
 cve_metadata:
     id: CVE-2019-25073
     cwe: 'CWE-22: Improper Limitation of a Pathname to a Restricted Directory(''Path Traversal'')'
-    description: |
-        Improper path sanitization in github.com/goadesign/goa before v3.0.9, v2.0.10, or
-        v1.4.3 allow remote attackers to read files outside of the intended directory.
+    description: |-
+        Improper path sanitization in github.com/goadesign/goa before v3.0.9, v2.0.10,
+        or v1.4.3 allow remote attackers to read files outside of the intended
+        directory.

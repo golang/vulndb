@@ -11,12 +11,12 @@ modules:
             - NewServer
 summary: Authentication failure in mellium.im/sasl
 description: |-
-    An issue was discovered in Mellium mellium.im/sasl before 0.3.1. When
-    performing SCRAM-based SASL authentication, if the remote end advertises support
-    for channel binding, no random nonce is generated (instead, the nonce is empty).
-    This causes authentication to fail in the best case, but (if paired with a remote
-    end that does not validate the length of the nonce) could lead to insufficient
-    randomness being used during authentication.
+    An issue was discovered in Mellium mellium.im/sasl before 0.3.1. When performing
+    SCRAM-based SASL authentication, if the remote end advertises support for
+    channel binding, no random nonce is generated (instead, the nonce is empty).
+    This causes authentication to fail in the best case, but (if paired with a
+    remote end that does not validate the length of the nonce) could lead to
+    insufficient randomness being used during authentication.
 cves:
     - CVE-2022-48195
 ghsas:

@@ -15,13 +15,12 @@ modules:
             - ListenAndServe
             - ListenAndServeTLS
 summary: Authentication bypass in github.com/nanobox-io/golang-nanoauth
-description: |
-    If any of the ListenAndServe functions are called with an empty token,
-    token authentication is disabled globally for all listeners.
+description: |-
+    If any of the ListenAndServe functions are called with an empty token, token
+    authentication is disabled globally for all listeners.
 
-    Also, a minor timing side channel was present allowing attackers with
-    very low latency and able to make many requests to potentially
-    recover the token.
+    Also, a minor timing side channel was present allowing attackers with very low
+    latency and able to make many requests to potentially recover the token.
 published: 2021-04-14T20:04:52Z
 ghsas:
     - GHSA-hrm3-3xm6-x33h
@@ -33,7 +32,8 @@ references:
 cve_metadata:
     id: CVE-2020-36569
     cwe: 'CWE-305: Authentication Bypass by Primary Weakness'
-    description: |
-        Authentication is globally bypassed in github.com/nanobox-io/golang-nanoauth between
-        v0.0.0-20160722212129-ac0cc4484ad4 and v0.0.0-20200131131040-063a3fb69896 if ListenAndServe
-        is called with an empty token.
+    description: |-
+        Authentication is globally bypassed in github.com/nanobox-io/golang-nanoauth
+        between v0.0.0-20160722212129-ac0cc4484ad4 and
+        v0.0.0-20200131131040-063a3fb69896 if ListenAndServe is called with an empty
+        token.

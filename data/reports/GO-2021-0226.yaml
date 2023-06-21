@@ -20,19 +20,18 @@ modules:
             - response.writeCGIHeader
           skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: Cross-site scripting in net/http/cgi and net/http/fcgi
-description: |
-    When a Handler does not explicitly set the Content-Type header, the the
-    package would default to “text/html”, which could cause a Cross-Site Scripting
-    vulnerability if an attacker can control any part of the contents of a
-    response.
+description: |-
+    When a Handler does not explicitly set the Content-Type header, the the package
+    would default to “text/html”, which could cause a Cross-Site Scripting
+    vulnerability if an attacker can control any part of the contents of a response.
 
     The Content-Type header is now set based on the contents of the first Write
     using http.DetectContentType, which is consistent with the behavior of the
     net/http package.
 
-    Although this protects some applications that validate the contents of
-    uploaded files, not setting the Content-Type header explicitly on any
-    attacker-controlled file is unsafe and should be avoided.
+    Although this protects some applications that validate the contents of uploaded
+    files, not setting the Content-Type header explicitly on any attacker-controlled
+    file is unsafe and should be avoided.
 published: 2022-01-13T03:44:58Z
 cves:
     - CVE-2020-24553

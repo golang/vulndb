@@ -125,10 +125,11 @@ modules:
             - valueWriter.WriteUndefined
             - valueWriter.WriteValueBytes
 summary: Improper input validation in go.mongodb.org/mongo-driver
-description: |
-    Due to improper input sanitization when marshalling Go objects into BSON, a maliciously constructed
-    Go structure could allow an attacker to inject additional fields into a MongoDB document. Users are
-    affected if they use this package to handle untrusted user input.
+description: |-
+    Due to improper input sanitization when marshalling Go objects into BSON, a
+    maliciously constructed Go structure could allow an attacker to inject
+    additional fields into a MongoDB document. Users are affected if they use this
+    package to handle untrusted user input.
 published: 2021-07-28T18:08:05Z
 cves:
     - CVE-2021-20329

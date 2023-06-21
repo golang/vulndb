@@ -74,7 +74,7 @@ func TestFix(t *testing.T) {
 				VulnerableAt: "0.0.0-20230522180520-0cbf4ffdb4e7",
 			},
 		},
-		Description: "A long form description of the problem that will be broken up into multiple lines so it is more\nreadable.",
+		Description: "A long form description of the problem that will be broken up into multiple\nlines so it is more readable.",
 		References: []*Reference{
 			{
 				URL: "https://go.dev/issue/123",

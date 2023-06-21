@@ -19,11 +19,12 @@ modules:
             - operations.Done
             - operations.Enqueue
 summary: Authorization bypass in github.com/pion/webrtc/v3
-description: |
-    Due to improper error handling, DTLS connections were not killed when certificate verification
-    failed, causing users who did not check the connection state to continue to use the connection.
-    This could allow allow an attacker which holds the ICE password, but not a valid certificate,
-    to bypass this restriction.
+description: |-
+    Due to improper error handling, DTLS connections were not killed when
+    certificate verification failed, causing users who did not check the connection
+    state to continue to use the connection. This could allow allow an attacker
+    which holds the ICE password, but not a valid certificate, to bypass this
+    restriction.
 published: 2021-07-28T18:08:05Z
 cves:
     - CVE-2021-28681

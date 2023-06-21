@@ -44,11 +44,12 @@ modules:
             - genericEncrypter.Encrypt
             - genericEncrypter.EncryptWithAuthData
 summary: Integer overflow in github.com/square/go-jose
-description: |
-    On 32-bit platforms an attacker can manipulate a ciphertext encrypted with AES-CBC
-    with HMAC such that they can control how large the input buffer is when computing
-    the HMAC authentication tag. This can can allow a manipulated ciphertext to be
-    verified as authentic, opening the door for padding oracle attacks.
+description: |-
+    On 32-bit platforms an attacker can manipulate a ciphertext encrypted with
+    AES-CBC with HMAC such that they can control how large the input buffer is when
+    computing the HMAC authentication tag. This can can allow a manipulated
+    ciphertext to be verified as authentic, opening the door for padding oracle
+    attacks.
 published: 2021-04-14T20:04:52Z
 cves:
     - CVE-2016-9123

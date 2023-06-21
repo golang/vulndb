@@ -23,15 +23,15 @@ modules:
             - Git.LsRemote
             - Git.Update
 summary: Command injection in github.com/rancher/wrangler
-description: |
-    A command injection vulnerability exists in the Wrangler Git package.
-    Specially crafted commands can be passed to Wrangler that will change their
-    behavior and cause confusion when executed through Git, resulting in command
-    injection in the underlying host.
+description: |-
+    A command injection vulnerability exists in the Wrangler Git package. Specially
+    crafted commands can be passed to Wrangler that will change their behavior and
+    cause confusion when executed through Git, resulting in command injection in the
+    underlying host.
 
     A workaround is to sanitize input passed to the Git package to remove potential
-    unsafe and ambiguous characters. Otherwise, the best course of action is to update to a
-    patched Wrangler version.
+    unsafe and ambiguous characters. Otherwise, the best course of action is to
+    update to a patched Wrangler version.
 cves:
     - CVE-2022-31249
 ghsas:

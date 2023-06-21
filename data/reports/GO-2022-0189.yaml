@@ -12,27 +12,28 @@ modules:
             - downloadPackage
           skip_fix: 'TODO: revisit this reason (cant request explicit version v1.11.2 of standard library package cmd/go/internal/get'
 summary: Remote command execution via "go get" with "-u" flag in cmd/go
-description: |
-    The "go get" command is vulnerable to remote code execution when executed
-    with the -u flag and the import path of a malicious Go package, or a
-    package that imports it directly or indirectly.
+description: |-
+    The "go get" command is vulnerable to remote code execution when executed with
+    the -u flag and the import path of a malicious Go package, or a package that
+    imports it directly or indirectly.
 
-    Specifically, it is only vulnerable in GOPATH mode, but not in module mode
-    (the distinction is documented at https://golang.org/cmd/go/#hdr-Module_aware_go_get).
+    Specifically, it is only vulnerable in GOPATH mode, but not in module mode (the
+    distinction is documented at
+    https://golang.org/cmd/go/#hdr-Module_aware_go_get).
 
-    Using custom domains, it's possible to arrange things so that a Git
-    repository is cloned to a folder named ".git" by using a vanity import path
-    that ends with "/.git". If the Git repository root contains a "HEAD" file,
-    a "config" file, an "objects" directory, a "refs" directory, with some work
-    to ensure the proper ordering of operations, "go get -u" can be tricked
-    into considering the parent directory as a repository root, and running Git
-    commands on it. That will use the "config" file in the original Git
-    repository root for its configuration, and if that config file contains
-    malicious commands, they will execute on the system running "go get -u".
+    Using custom domains, it's possible to arrange things so that a Git repository
+    is cloned to a folder named ".git" by using a vanity import path that ends with
+    "/.git". If the Git repository root contains a "HEAD" file, a "config" file, an
+    "objects" directory, a "refs" directory, with some work to ensure the proper
+    ordering of operations, "go get -u" can be tricked into considering the parent
+    directory as a repository root, and running Git commands on it. That will use
+    the "config" file in the original Git repository root for its configuration, and
+    if that config file contains malicious commands, they will execute on the system
+    running "go get -u".
 
-    Note that forbidding import paths with a .git element might not be
-    sufficient to mitigate this issue, as on certain systems there can be other
-    aliases for VCS state folders.
+    Note that forbidding import paths with a .git element might not be sufficient to
+    mitigate this issue, as on certain systems there can be other aliases for VCS
+    state folders.
 published: 2022-08-04T21:30:35Z
 cves:
     - CVE-2018-16873

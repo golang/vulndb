@@ -12,12 +12,13 @@ modules:
             - strategy.ValidateContainer
             - strategy.ValidatePod
 summary: Improper input validation in github.com/openshift/apiserver-library-go
-description: |
-    Low-privileged users can set the seccomp profile for pods they control to "unconfined."
+description: |-
+    Low-privileged users can set the seccomp profile for pods they control to
+    "unconfined."
 
     By default, the seccomp profile used in the restricted-v2 Security Context
-    Constraint (SCC) is "runtime/default," allowing users to disable seccomp
-    for pods they can create and modify.
+    Constraint (SCC) is "runtime/default," allowing users to disable seccomp for
+    pods they can create and modify.
 cves:
     - CVE-2023-0229
 ghsas:

@@ -7,10 +7,11 @@ modules:
       packages:
         - package: github.com/revel/revel
 summary: Resource exhaustion in github.com/revel/revel
-description: |
+description: |-
     An attacker can cause an application that accepts slice parameters
     (https://revel.github.io/manual/parameters.html#slices) to allocate large
-    amounts of memory and crash through manipulating the request query sent to the application.
+    amounts of memory and crash through manipulating the request query sent to the
+    application.
 published: 2021-04-14T20:04:52Z
 ghsas:
     - GHSA-hggr-p7v6-73p5
@@ -23,6 +24,6 @@ references:
 cve_metadata:
     id: CVE-2020-36568
     cwe: 'CWE-400: Uncontrolled Resource Consumption'
-    description: |
+    description: |-
         Unsanitized input in the query parser in github.com/revel/revel before v1.0.0
         allows remote attackers to cause resource exhaustion via memory allocation.
