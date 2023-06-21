@@ -1,0 +1,32 @@
+id: GO-2023-1589
+modules:
+    - module: github.com/notaryproject/notation-go
+      versions:
+        - fixed: 1.0.0-rc.3
+      vulnerable_at: 1.0.0-rc.1
+      packages:
+        - package: github.com/notaryproject/notation-go/internal/pkix
+          symbols:
+            - ParseDistinguishedName
+        - package: github.com/notaryproject/notation-go/verifier
+          symbols:
+            - verifyX509TrustedIdentities
+          derived_symbols:
+            - New
+            - NewFromConfig
+            - verifier.Verify
+        - package: github.com/notaryproject/notation-go/verifier/trustpolicy
+          symbols:
+            - validateTrustedIdentities
+          derived_symbols:
+            - Document.Validate
+summary: Denial of service from memory exhaustion in github.com/notaryproject/notation-go
+description: |
+    Parsing PKIX distinguished names containing the string "=#" can
+    cause excessive memory consumption.
+cves:
+    - CVE-2023-25656
+ghsas:
+    - GHSA-87x9-7grx-m28v
+references:
+    - fix: https://github.com/notaryproject/notation-go/pull/275
