@@ -50,8 +50,8 @@ func (r *Report) ToOSV(lastModified time.Time) osv.Entry {
 		Published:        osv.Time{Time: r.Published},
 		Modified:         osv.Time{Time: lastModified},
 		Withdrawn:        withdrawn,
-		Summary:          trimWhitespace(r.Summary),
-		Details:          trimWhitespace(r.Description),
+		Summary:          toParagraphs(r.Summary),
+		Details:          toParagraphs(r.Description),
 		Credits:          credits,
 		SchemaVersion:    SchemaVersion,
 		DatabaseSpecific: &osv.DatabaseSpecific{URL: GoAdvisory(r.ID)},
@@ -119,20 +119,41 @@ func AffectedRanges(versions []VersionRange) []osv.Range {
 	return []osv.Range{a}
 }
 
-// trimWhitespace removes unnecessary whitespace from a string, but preserves
-// paragraph breaks (indicated by two newlines).
-func trimWhitespace(s string) string {
-	s = strings.TrimSpace(s)
-	// Replace single newlines with spaces.
-	newlines := regexp.MustCompile(`([^\n])\n([^\n])`)
-	s = newlines.ReplaceAllString(s, "$1 $2")
+var (
+	listMarker     = regexp.MustCompile(`([\*\-\+>]|\d+[.\)]) [^\n]+`)
+	spaces         = regexp.MustCompile(`[[:space:]]+`)
+	paragraphBreak = regexp.MustCompile(`\s*\n{2,}\s*`)
+)
+
+// toParagraphs removes unnecessary whitespace (spaces, tabs and newlines) from
+// a string, but preserves paragraph breaks (indicated by two consecutive
+// newlines), and Markdown-style list breaks.
+func toParagraphs(s string) string {
+	if len(s) == 0 {
+		return ""
+	}
+	var result strings.Builder
+	result.Grow(len(s))
+	for i, line := range strings.Split(strings.TrimSpace(s), "\n") {
+		// Replace consecutive space characters with single spaces.
+		line = spaces.ReplaceAllString(strings.TrimSpace(line), " ")
+		// An empty line represents a paragraph break.
+		if len(line) == 0 {
+			result.WriteString("\n\n")
+			continue
+		}
+		if i > 0 {
+			// Preserve line break if the line starts with a Markdown list marker.
+			if loc := listMarker.FindStringIndex(line); loc != nil && loc[0] == 0 {
+				result.WriteRune('\n')
+			} else {
+				result.WriteRune(' ')
+			}
+		}
+		result.WriteString(line)
+	}
 	// Replace instances of 2 or more newlines with exactly two newlines.
-	paragraphs := regexp.MustCompile(`\s*\n\n\s*`)
-	s = paragraphs.ReplaceAllString(s, "\n\n")
-	// Replace tabs and double spaces with single spaces.
-	spaces := regexp.MustCompile(`[ \t]+`)
-	s = spaces.ReplaceAllString(s, " ")
-	return s
+	return paragraphBreak.ReplaceAllString(result.String(), "\n\n")
 }
 
 func toOSVPackages(pkgs []*Package) (imps []osv.Package) {

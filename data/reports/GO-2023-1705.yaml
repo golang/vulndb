@@ -35,11 +35,9 @@ description: |
     1. mime/multipart.Reader.ReadForm limits the total memory a parsed
     multipart form can consume. ReadForm can undercount the amount of memory
     consumed, leading it to accept larger inputs than intended.
-
     2. Limiting total memory does not account for increased pressure on the
     garbage collector from large numbers of small allocations in forms with
     many parts.
-
     3. ReadForm can allocate a large number of short-lived buffers, further
     increasing pressure on the garbage collector.
 
@@ -60,7 +58,6 @@ description: |
     1. Forms parsed with ReadForm may contain no more than 1000 parts. This
     limit may be adjusted with the environment variable
     GODEBUG=multipartmaxparts=.
-
     2. Form parts parsed with NextPart and NextRawPart may contain no more than
     10,000 header fields. In addition, forms parsed with ReadForm may contain
     no more than 10,000 header fields across all parts. This limit may be

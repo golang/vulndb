@@ -242,11 +242,82 @@ func TestAffectedRanges(t *testing.T) {
 	}
 }
 
-func TestTrimWhitespace(t *testing.T) {
-	s := "\n Lorem ipsum dolor sit amet,\n consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. \n \tDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. \n\n\nExcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n"
-	want := "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\n\nExcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-	got := trimWhitespace(s)
-	if diff := cmp.Diff(want, got); diff != "" {
-		t.Errorf("removeNewlines() mismatch (-want, +got):\n%s", diff)
+func TestToParagraphs(t *testing.T) {
+	for _, tc := range []struct {
+		name string
+		in   string
+		want string
+	}{{
+		name: "empty",
+		in:   "",
+		want: "",
+	},
+		{
+			name: "extra spaces",
+			in: `
+The first paragraph
+is split into multiple lines.
+
+   
+
+The second paragraph
+	  contains tabs 	and multiple lines    and extra spaces.
+`,
+			want: `The first paragraph is split into multiple lines.
+
+The second paragraph contains tabs and multiple lines and extra spaces.`,
+		},
+		{
+			name: "markdown elements preserved",
+			in: `Hello
+
+
+* A point
+* Point 2
+
+- A different list
+- Another
+
+	1. Numbered with tab
+	2. More numbered
+10. Multi-digit numbered
+
+ 1) Different numbering style with leading space
+
++ Plus sign
++ Another one 
+
+A separate paragraph containing inline list 1) and elements that might look like Markdown:
+1,
+2, 
+3
+--flag
+++i`,
+			want: `Hello
+
+* A point
+* Point 2
+
+- A different list
+- Another
+
+1. Numbered with tab
+2. More numbered
+10. Multi-digit numbered
+
+1) Different numbering style with leading space
+
++ Plus sign
++ Another one
+
+A separate paragraph containing inline list 1) and elements that might look like Markdown: 1, 2, 3 --flag ++i`,
+		},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			got := toParagraphs(tc.in)
+			if diff := cmp.Diff(tc.want, got); diff != "" {
+				t.Errorf("toParagraphs() mismatch (-want, +got):\n%s", diff)
+			}
+		})
 	}
 }
