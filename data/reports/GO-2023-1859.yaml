@@ -1,0 +1,31 @@
+id: GO-2023-1859
+modules:
+    - module: github.com/lestrrat-go/jwx
+      versions:
+        - fixed: 1.2.26
+      vulnerable_at: 1.2.25
+      packages:
+        - package: github.com/lestrrat-go/jwx/jwe/internal/aescbc
+          symbols:
+            - unpad
+          derived_symbols:
+            - Hmac.Open
+    - module: github.com/lestrrat-go/jwx/v2
+      versions:
+        - fixed: 2.0.11-0.20230614080639-c8b6bec919a1
+      vulnerable_at: 2.0.10
+      packages:
+        - package: github.com/lestrrat-go/jwx/v2/jwe/internal/aescbc
+          symbols:
+            - unpad
+          derived_symbols:
+            - Hmac.Open
+summary: Padding oracle vulnerability in github.com/lestrrat-go/jwx
+description: |
+    AES-CBC decryption is vulnerable to a timing attack which may permit
+    an attacker to recover the plaintext of JWE data.
+ghsas:
+    - GHSA-rm8v-mxj3-5rmq
+references:
+    - fix: https://github.com/lestrrat-go/jwx/commit/6c41e3822485fc7e11dd70b4b0524b075d66b103
+    - fix: https://github.com/lestrrat-go/jwx/commit/d9ddbc8e5009cfdd8c28413390b67afa7f576dd6

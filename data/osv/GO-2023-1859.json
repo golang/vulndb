@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1859",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-rm8v-mxj3-5rmq"
+  ],
+  "summary": "Padding oracle vulnerability in github.com/lestrrat-go/jwx",
+  "details": "AES-CBC decryption is vulnerable to a timing attack which may permit an attacker to recover the plaintext of JWE data.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/lestrrat-go/jwx",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.2.26"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/lestrrat-go/jwx/jwe/internal/aescbc",
+            "symbols": [
+              "Hmac.Open",
+              "unpad"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/lestrrat-go/jwx/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.0.11-0.20230614080639-c8b6bec919a1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/lestrrat-go/jwx/v2/jwe/internal/aescbc",
+            "symbols": [
+              "Hmac.Open",
+              "unpad"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/lestrrat-go/jwx/commit/6c41e3822485fc7e11dd70b4b0524b075d66b103"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/lestrrat-go/jwx/commit/d9ddbc8e5009cfdd8c28413390b67afa7f576dd6"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1859"
+  }
+}
