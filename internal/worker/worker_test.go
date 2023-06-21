@@ -275,8 +275,7 @@ modules:
     - module: a.Module
       packages:
         - package: a.Module
-description: |
-    a description
+description: a description
 cves:
     - ID1
 

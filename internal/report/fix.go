@@ -7,6 +7,7 @@ package report
 import (
 	"regexp"
 	"sort"
+	"strings"
 
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/version"
@@ -20,6 +21,14 @@ func (r *Report) Fix() {
 	}
 	for _, m := range r.Modules {
 		m.fixVersions()
+	}
+	fixLines := func(sp *string) {
+		*sp = fixLineLength(*sp, maxLineLength)
+	}
+	fixLines(&r.Summary)
+	fixLines(&r.Description)
+	if r.CVEMetadata != nil {
+		fixLines(&r.CVEMetadata.Description)
 	}
 }
 
@@ -80,6 +89,48 @@ func (m *Module) fixVersions() {
 			}
 		}
 	}
+}
+
+// fixLineLength returns a copy of s with all lines trimmed to <=n characters
+// (with the exception of single-word lines).
+// It preserves paragraph breaks (indicated by "\n\n") and markdown-style list
+// breaks.
+func fixLineLength(s string, n int) string {
+	var result strings.Builder
+	result.Grow(len(s))
+	for i, paragraph := range strings.Split(toParagraphs(s), "\n\n") {
+		if i > 0 {
+			result.WriteString("\n\n")
+		}
+		var lines []string
+		for _, forcedLine := range strings.Split(paragraph, "\n") {
+			words := strings.Split(forcedLine, " ")
+			start, length := 0, 0
+			for k, word := range words {
+				newLength := length + len(word)
+				if length > 0 {
+					newLength++ // space character
+				}
+				if newLength <= n {
+					length = newLength
+					continue
+				}
+				// Adding the word would put the line over the max length,
+				// so add the line as is (if it is non-empty).
+				if length > 0 {
+					lines = append(lines, strings.Join(words[start:k], " "))
+				}
+				// Begin a new line with just the word.
+				start, length = k, len(word)
+			}
+			// Add the last line.
+			if length > 0 {
+				lines = append(lines, strings.Join(words[start:], " "))
+			}
+		}
+		result.WriteString(strings.Join(lines, "\n"))
+	}
+	return result.String()
 }
 
 var urlReplacements = []struct {

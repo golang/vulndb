@@ -127,8 +127,9 @@ func (r *Report) lintCVEs(addIssue func(string)) {
 	}
 }
 
+const maxLineLength = 100
+
 func (r *Report) lintLineLength(field, content string, addIssue func(string)) {
-	const maxLineLength = 100
 	for _, line := range strings.Split(content, "\n") {
 		if len(line) <= maxLineLength {
 			continue
