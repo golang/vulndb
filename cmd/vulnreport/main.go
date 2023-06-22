@@ -55,6 +55,7 @@ var (
 	closedOk      = flag.Bool("closed-ok", false, "for create & create-excluded, allow closed issues to be created")
 	cpuprofile    = flag.String("cpuprofile", "", "write cpuprofile to file")
 	quiet         = flag.Bool("q", false, "quiet mode (suppress info logs)")
+	force         = flag.Bool("f", false, "for fix, force Fix to run even if there are no lint errors")
 )
 
 var (
@@ -154,11 +155,11 @@ func main() {
 	case "lint":
 		cmdFunc = lint
 	case "commit":
-		cmdFunc = func(ctx context.Context, name string) error { return commit(ctx, name, ghsaClient) }
+		cmdFunc = func(ctx context.Context, name string) error { return commit(ctx, name, ghsaClient, *force) }
 	case "cve":
 		cmdFunc = func(ctx context.Context, name string) error { return cveCmd(ctx, name) }
 	case "fix":
-		cmdFunc = func(ctx context.Context, name string) error { return fix(ctx, name, ghsaClient) }
+		cmdFunc = func(ctx context.Context, name string) error { return fix(ctx, name, ghsaClient, *force) }
 	case "osv":
 		cmdFunc = osvCmd
 	case "set-dates":
@@ -707,7 +708,7 @@ func lint(ctx context.Context, filename string) (err error) {
 	return err
 }
 
-func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client) (err error) {
+func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client, force bool) (err error) {
 	defer derrors.Wrap(&err, "fix(%q)", filename)
 	infolog.Printf("fix %s\n", filename)
 
@@ -718,7 +719,7 @@ func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client) (err err
 	if err := r.CheckFilename(filename); err != nil {
 		return err
 	}
-	if lints := r.Lint(); len(lints) > 0 {
+	if lints := r.Lint(); force || len(lints) > 0 {
 		r.Fix()
 	}
 	if lints := r.Lint(); len(lints) > 0 {
@@ -952,12 +953,12 @@ func writeCVE(r *report.Report) error {
 	return database.WriteJSON(r.CVEFilename(), cve, true)
 }
 
-func commit(ctx context.Context, filename string, ghsaClient *ghsa.Client) (err error) {
+func commit(ctx context.Context, filename string, ghsaClient *ghsa.Client, force bool) (err error) {
 	defer derrors.Wrap(&err, "commit(%q)", filename)
 
 	// Clean up the report file and lint the result.
 	// Stop if there any problems.
-	if err := fix(ctx, filename, ghsaClient); err != nil {
+	if err := fix(ctx, filename, ghsaClient, force); err != nil {
 		return err
 	}
 	r, err := report.ReadAndLint(filename)
