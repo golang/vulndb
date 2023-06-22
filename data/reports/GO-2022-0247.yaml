@@ -24,15 +24,14 @@ modules:
             - run
           skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: Buffer overflow in WASM modules in misc/wasm
-description: |
+description: |-
     When invoking functions from WASM modules, built using GOARCH=wasm GOOS=js,
-    passing very large arguments can cause portions of the module to be
-    overwritten with data from the arguments due to a buffer overflow error.
+    passing very large arguments can cause portions of the module to be overwritten
+    with data from the arguments due to a buffer overflow error.
 
-    If using wasm_exec.js to execute WASM modules, users will need to replace
-    their copy (as described in
-    https://golang.org/wiki/WebAssembly#getting-started) after rebuilding any
-    modules.
+    If using wasm_exec.js to execute WASM modules, users will need to replace their
+    copy (as described in https://golang.org/wiki/WebAssembly#getting-started) after
+    rebuilding any modules.
 published: 2022-05-24T20:14:28Z
 cves:
     - CVE-2021-38297

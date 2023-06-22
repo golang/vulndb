@@ -33,21 +33,21 @@ modules:
             - Getter.Get
             - Getter.GetFile
 summary: Resource exhaustion in github.com/hashicorp/go-getter and related modules
-description: |
-    Malicious HTTP responses can cause a number of misbehaviors,
-    including overwriting local files, resource exhaustion, and panics.
+description: |-
+    Malicious HTTP responses can cause a number of misbehaviors, including
+    overwriting local files, resource exhaustion, and panics.
 
-    * Protocol switching, endless redirect, and configuration bypass are
-      possible through abuse of custom HTTP response header processing.
+    * Protocol switching, endless redirect, and configuration bypass are possible
+    through abuse of custom HTTP response header processing.
 
-    * Arbitrary host access is possible through go-getter path traversal,
-      symlink processing, and command injection flaws.
+    * Arbitrary host access is possible through go-getter path traversal, symlink
+    processing, and command injection flaws.
 
-    * Asymmetric resource exhaustion can occur when go-getter processes
-      malicious HTTP responses.
+    * Asymmetric resource exhaustion can occur when go-getter processes malicious
+    HTTP responses.
 
     * A panic can be triggered when go-getter processed password-protected ZIP
-      files.
+    files.
 published: 2022-05-26T00:01:27Z
 cves:
     - CVE-2022-26945

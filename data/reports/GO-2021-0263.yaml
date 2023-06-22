@@ -12,11 +12,10 @@ modules:
             - NewFile
           skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: Panic on invalid symbol tables in debug/macho
-description: |
-    Calling File.ImportedSymbols on a loaded file which contains an invalid
-    dynamic symbol table command can cause a panic, in particular if the encoded
-    number of undefined symbols is larger than the number of symbols in the symbol
-    table.
+description: |-
+    Calling File.ImportedSymbols on a loaded file which contains an invalid dynamic
+    symbol table command can cause a panic, in particular if the encoded number of
+    undefined symbols is larger than the number of symbols in the symbol table.
 published: 2022-01-13T03:45:03Z
 cves:
     - CVE-2021-41771

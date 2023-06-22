@@ -18,12 +18,11 @@ modules:
             - Engine.RunTLS
             - Engine.RunUnix
             - Engine.ServeHTTP
-summary: |
-    Inconsistent interpretation of HTTP Requests in github.com/gin-gonic/gin
-description: |
+summary: Inconsistent interpretation of HTTP Requests in github.com/gin-gonic/gin
+description: |-
     Due to improper HTTP header sanitization, a malicious user can spoof their
-    source IP address by setting the X-Forwarded-For header. This may allow
-    a user to bypass IP based restrictions, or obfuscate their true source.
+    source IP address by setting the X-Forwarded-For header. This may allow a user
+    to bypass IP based restrictions, or obfuscate their true source.
 published: 2021-04-14T20:04:52Z
 cves:
     - CVE-2020-28483

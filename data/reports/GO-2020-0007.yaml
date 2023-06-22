@@ -14,12 +14,11 @@ modules:
             - ScmpFilter.AddRuleConditionalExact
             - ScmpFilter.AddRuleExact
 summary: Improper input validation in github.com/seccomp/libseccomp-golang
-description: |
+description: |-
     Filters containing rules with multiple syscall arguments are improperly
-    constructed, such that all arguments are required to match rather than
-    any of the arguments (AND is used rather than OR). These filters can be
-    bypassed by only specifying a subset of the arguments due to this
-    behavior.
+    constructed, such that all arguments are required to match rather than any of
+    the arguments (AND is used rather than OR). These filters can be bypassed by
+    only specifying a subset of the arguments due to this behavior.
 published: 2021-04-14T20:04:52Z
 cves:
     - CVE-2017-18367

@@ -33,10 +33,9 @@ modules:
             - LoadIndexFile
 summary: Insufficient sanitization of data files in helm.sh/helm/v3
 description: |-
-    Helm does not sanitize all fields read from repository data files.
-    A maliciously crafted data file may contain strings containing arbitrary
-    data. If printed to a terminal, a malicious string could obscure or alter
-    data on the screen.
+    Helm does not sanitize all fields read from repository data files. A maliciously
+    crafted data file may contain strings containing arbitrary data. If printed to a
+    terminal, a malicious string could obscure or alter data on the screen.
 cves:
     - CVE-2021-21303
 ghsas:

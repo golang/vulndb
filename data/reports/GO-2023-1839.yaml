@@ -9,15 +9,14 @@ modules:
       packages:
         - package: cmd/go
 summary: Code injection via go command with cgo in cmd/go
-description: |
-    The go command may generate unexpected code at build time when using cgo.
-    This may result in unexpected behavior when running a go program which uses
-    cgo.
+description: |-
+    The go command may generate unexpected code at build time when using cgo. This
+    may result in unexpected behavior when running a go program which uses cgo.
 
-    This may occur when running an untrusted module which contains directories
-    with newline characters in their names. Modules which are retrieved using
-    the go command, i.e. via "go get", are not affected (modules retrieved
-    using GOPATH-mode, i.e. GO111MODULE=off, may be affected).
+    This may occur when running an untrusted module which contains directories with
+    newline characters in their names. Modules which are retrieved using the go
+    command, i.e. via "go get", are not affected (modules retrieved using
+    GOPATH-mode, i.e. GO111MODULE=off, may be affected).
 credits:
     - Juho Nurminen of Mattermost
 references:

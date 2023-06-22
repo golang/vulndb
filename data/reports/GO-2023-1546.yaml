@@ -9,22 +9,23 @@ modules:
         - package: go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp
           symbols:
             - Handler.ServeHTTP
-summary: Denial of service in go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp
-description: |
+summary: |-
+    Denial of service in
+    go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp
+description: |-
     The otelhttp package of opentelemetry-go-contrib is vulnerable to a
     denial-of-service attack.
 
-    The otelhttp package uses the httpconv.ServerRequest function to annotate
-    metric measurements for the http.server.request_content_length,
-    http.server.response_content_length, and http.server.duration
-    instruments. The ServerRequest function sets the http.target attribute
-    value to be the whole request URI (including the query string). The metric
-    instruments do not "forget" previous measurement attributes when
-    "cumulative" temporality is used, meaning that the cardinality of the
-    measurements allocated is directly correlated with the unique URIs handled.
-    If the query string is constantly random, this will result in a constant
-    increase in memory allocation that can be used in a denial-of-service
-    attack.
+    The otelhttp package uses the httpconv.ServerRequest function to annotate metric
+    measurements for the http.server.request_content_length,
+    http.server.response_content_length, and http.server.duration instruments. The
+    ServerRequest function sets the http.target attribute value to be the whole
+    request URI (including the query string). The metric instruments do not "forget"
+    previous measurement attributes when "cumulative" temporality is used, meaning
+    that the cardinality of the measurements allocated is directly correlated with
+    the unique URIs handled. If the query string is constantly random, this will
+    result in a constant increase in memory allocation that can be used in a
+    denial-of-service attack.
 cves:
     - CVE-2023-25151
 ghsas:

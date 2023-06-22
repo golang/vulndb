@@ -13,16 +13,14 @@ modules:
           symbols:
             - Certificate.systemVerify
 summary: Certificate validation bypass on Windows in crypto/x509
-description: |
-    A Windows vulnerability allows attackers to spoof valid certificate chains
-    when the system root store is in use.
+description: |-
+    A Windows vulnerability allows attackers to spoof valid certificate chains when
+    the system root store is in use.
 
-    A workaround is present in Go 1.12.6+ and Go 1.13.7+, but affected
-    users should additionally install the Windows security update to protect
-    their system.
+    A workaround is present in Go 1.12.6+ and Go 1.13.7+, but affected users should
+    additionally install the Windows security update to protect their system.
 
-    See
-    https://msrc.microsoft.com/update-guide/en-US/vulnerability/CVE-2020-0601
+    See https://msrc.microsoft.com/update-guide/en-US/vulnerability/CVE-2020-0601
     for details on the Windows vulnerability.
 published: 2022-08-01T22:21:17Z
 cves:

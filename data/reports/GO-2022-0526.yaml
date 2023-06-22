@@ -13,9 +13,9 @@ modules:
             - Decoder.compileIgnoreSingle
             - Decoder.compileDec
 summary: Stack exhaustion when decoding certain messages in encoding/gob
-description: |
-    Calling Decoder.Decode on a message which contains deeply nested structures
-    can cause a panic due to stack exhaustion.
+description: |-
+    Calling Decoder.Decode on a message which contains deeply nested structures can
+    cause a panic due to stack exhaustion.
 published: 2022-07-20T20:52:17Z
 references:
     - fix: https://go.dev/cl/417064
@@ -25,7 +25,7 @@ references:
 cve_metadata:
     id: CVE-2022-30635
     cwe: 'CWE-674: Uncontrolled Recursion'
-    description: |
-        Uncontrolled recursion in Decoder.Decode in encoding/gob before Go
-        1.17.12 and Go 1.18.4 allows an attacker to cause a panic due to stack
-        exhaustion via a message which contains deeply nested structures.
+    description: |-
+        Uncontrolled recursion in Decoder.Decode in encoding/gob before Go 1.17.12 and
+        Go 1.18.4 allows an attacker to cause a panic due to stack exhaustion via a
+        message which contains deeply nested structures.

@@ -9,15 +9,14 @@ modules:
           symbols:
             - Listener.Accept
 summary: Resource exhaustion in github.com/pires/go-proxyproto
-description: |
-    The PROXY protocol server does not impose a timeout on reading the header
-    from new connections, allowing a malicious client to cause resource
-    exhaustion and a denial of service by opening many connections and
-    sending no data on them.
+description: |-
+    The PROXY protocol server does not impose a timeout on reading the header from
+    new connections, allowing a malicious client to cause resource exhaustion and a
+    denial of service by opening many connections and sending no data on them.
 
-    v0.6.0 of the proxyproto package adds support for a user-defined
-    header timeout. v0.6.1 adds a default timeout of 200ms and v0.6.2
-    increases the default timeout to 10s.
+    v0.6.0 of the proxyproto package adds support for a user-defined header timeout.
+    v0.6.1 adds a default timeout of 200ms and v0.6.2 increases the default timeout
+    to 10s.
 published: 2022-07-01T20:18:04Z
 cves:
     - CVE-2021-23409

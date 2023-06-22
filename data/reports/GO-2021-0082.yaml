@@ -7,12 +7,12 @@ modules:
       packages:
         - package: github.com/facebook/fbthrift/thrift/lib/go/thrift
 summary: Denial of service in github.com/facebook/fbthrift
-description: |
+description: |-
     Thirft Servers preallocate memory for the declared size of messages before
-    checking the actual size of the message. This allows a malicious user to
-    send messages that declare that they are significantly larger than they
-    actually are, allowing them to force the server to allocate significant
-    amounts of memory. This can be used as a denial of service vector.
+    checking the actual size of the message. This allows a malicious user to send
+    messages that declare that they are significantly larger than they actually are,
+    allowing them to force the server to allocate significant amounts of memory.
+    This can be used as a denial of service vector.
 published: 2021-04-14T20:04:52Z
 cves:
     - CVE-2019-11939

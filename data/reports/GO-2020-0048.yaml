@@ -9,11 +9,10 @@ modules:
           symbols:
             - LoadURL
 summary: Denial of service in github.com/antchfx/xmlquery
-description: |
-    LoadURL does not check the Content-Type of loaded resources,
-    which can cause a panic due to nil pointer deference if the loaded
-    resource is not XML. If user supplied URLs are loaded, this may be
-    used as a denial of service vector.
+description: |-
+    LoadURL does not check the Content-Type of loaded resources, which can cause a
+    panic due to nil pointer deference if the loaded resource is not XML. If user
+    supplied URLs are loaded, this may be used as a denial of service vector.
 published: 2021-04-14T20:04:52Z
 cves:
     - CVE-2020-25614

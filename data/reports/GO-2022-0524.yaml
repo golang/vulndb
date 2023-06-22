@@ -11,7 +11,7 @@ modules:
           symbols:
             - Reader.Read
 summary: Stack exhaustion when reading certain archives in compress/gzip
-description: |
+description: |-
     Calling Reader.Read on an archive containing a large number of concatenated
     0-length compressed files can cause a panic due to stack exhaustion.
 published: 2022-07-20T20:52:11Z
@@ -23,8 +23,7 @@ references:
 cve_metadata:
     id: CVE-2022-30631
     cwe: 'CWE-674: Uncontrolled Recursion'
-    description: |
-        Uncontrolled recursion in Reader.Read in compress/gzip before Go
-        1.17.12 and Go 1.18.4 allows an attacker to cause a panic due to stack
-        exhaustion via an archive containing a large number of concatenated
-        0-length compressed files.
+    description: |-
+        Uncontrolled recursion in Reader.Read in compress/gzip before Go 1.17.12 and Go
+        1.18.4 allows an attacker to cause a panic due to stack exhaustion via an
+        archive containing a large number of concatenated 0-length compressed files.

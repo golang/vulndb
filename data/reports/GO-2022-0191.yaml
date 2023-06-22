@@ -12,12 +12,11 @@ modules:
             - CertPool.findVerifiedParents
             - Certificate.buildChains
 summary: Denial of service in chain verification in crypto/x509
-description: |
-    The crypto/x509 package does not limit the amount of work
-    performed for each chain verification, which might allow attackers
-    to craft pathological inputs leading to a CPU denial of service.
-    Go TLS servers accepting client certificates and TLS clients
-    verifying certificates are affected.
+description: |-
+    The crypto/x509 package does not limit the amount of work performed for each
+    chain verification, which might allow attackers to craft pathological inputs
+    leading to a CPU denial of service. Go TLS servers accepting client certificates
+    and TLS clients verifying certificates are affected.
 published: 2022-07-15T23:03:26Z
 cves:
     - CVE-2018-16875

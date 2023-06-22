@@ -267,13 +267,12 @@ modules:
             - beegoAppConfig.Bool
             - beegoAppConfig.DefaultBool
 summary: Access control bypass in github.com/beego/beego and beego/v2
-description: |
-    Routes in the beego HTTP router can match unintended patterns.
-    This overly-broad matching may permit an attacker to bypass access
-    controls.
+description: |-
+    Routes in the beego HTTP router can match unintended patterns. This overly-broad
+    matching may permit an attacker to bypass access controls.
 
-    For example, the pattern "/a/b/:name" can match the URL "/a.xml/b/".
-    This may bypass access control applied to the prefix "/a/".
+    For example, the pattern "/a/b/:name" can match the URL "/a.xml/b/". This may
+    bypass access control applied to the prefix "/a/".
 published: 2022-07-01T20:06:59Z
 cves:
     - CVE-2022-31259

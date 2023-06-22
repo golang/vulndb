@@ -12,17 +12,17 @@ modules:
             - Reader.ReadMimeHeader
           skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: Request smuggling due to accepting invalid headers in net/http
-description: |
-    net/http (through net/textproto) used to accept and normalize invalid
-    HTTP/1.1 headers with a space before the colon, in violation of RFC 7230.
+description: |-
+    net/http (through net/textproto) used to accept and normalize invalid HTTP/1.1
+    headers with a space before the colon, in violation of RFC 7230.
 
     If a Go server is used behind an uncommon reverse proxy that accepts and
-    forwards but doesn't normalize such invalid headers, the reverse proxy and
-    the server can interpret the headers differently. This can lead to filter
-    bypasses or request smuggling, the latter if requests from separate clients
-    are multiplexed onto the same upstream connection by the proxy. Such
-    invalid headers are now rejected by Go servers, and passed without
-    normalization to Go client applications.
+    forwards but doesn't normalize such invalid headers, the reverse proxy and the
+    server can interpret the headers differently. This can lead to filter bypasses
+    or request smuggling, the latter if requests from separate clients are
+    multiplexed onto the same upstream connection by the proxy. Such invalid headers
+    are now rejected by Go servers, and passed without normalization to Go client
+    applications.
 published: 2022-05-23T22:46:20Z
 cves:
     - CVE-2019-16276

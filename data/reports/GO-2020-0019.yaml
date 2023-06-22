@@ -42,11 +42,11 @@ modules:
             - proxy_socks5.Dial
             - truncWriter.Write
 summary: Integer overflow in github.com/gorilla/websocket
-description: |
-    An attacker can craft malicious WebSocket frames that cause an integer
-    overflow in a variable which tracks the number of bytes remaining. This
-    may cause the server or client to get stuck attempting to read frames
-    in a loop, which can be used as a denial of service vector.
+description: |-
+    An attacker can craft malicious WebSocket frames that cause an integer overflow
+    in a variable which tracks the number of bytes remaining. This may cause the
+    server or client to get stuck attempting to read frames in a loop, which can be
+    used as a denial of service vector.
 published: 2021-04-14T20:04:52Z
 cves:
     - CVE-2020-27813

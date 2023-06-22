@@ -13,10 +13,9 @@ modules:
           symbols:
             - Clean
 summary: Path traversal on Windows in path/filepath
-description: |
-    On Windows, the filepath.Clean function can convert certain invalid paths
-    to valid, absolute paths, potentially allowing a directory traversal
-    attack.
+description: |-
+    On Windows, the filepath.Clean function can convert certain invalid paths to
+    valid, absolute paths, potentially allowing a directory traversal attack.
 
     For example, Clean(`.\c:`) returns `c:`.
 published: 2022-07-28T17:25:07Z
@@ -30,7 +29,7 @@ references:
 cve_metadata:
     id: CVE-2022-29804
     cwe: 'CWE-22: Improper Limitation of a Pathname to a Restricted Directory (''Path Traversal'')'
-    description: |
-        Incorrect conversion of certain invalid paths to valid, absolute paths
-        in Clean in path/filepath before Go 1.17.11 and Go 1.18.3 on Windows
-        allows potential directory traversal attack.
+    description: |-
+        Incorrect conversion of certain invalid paths to valid, absolute paths in Clean
+        in path/filepath before Go 1.17.11 and Go 1.18.3 on Windows allows potential
+        directory traversal attack.

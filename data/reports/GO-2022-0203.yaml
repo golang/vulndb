@@ -9,15 +9,13 @@ modules:
       packages:
         - package: cmd/go
           skip_fix: 'TODO: revisit this reason (cant request explicit version of standard library package cmd/go)'
-summary: |
-    Remote command execution via "go get" command with "-insecure" option in cmd/go
-description: |
+summary: Remote command execution via "go get" command with "-insecure" option in cmd/go
+description: |-
     The "go get" command is vulnerable to remote code execution.
 
-    When the -insecure command-line option is used, "go get" does not validate
-    the import path (get/vcs.go only checks for "://" anywhere in the string),
-    which allows remote attackers to execute arbitrary OS commands via a
-    crafted web site.
+    When the -insecure command-line option is used, "go get" does not validate the
+    import path (get/vcs.go only checks for "://" anywhere in the string), which
+    allows remote attackers to execute arbitrary OS commands via a crafted web site.
 published: 2022-08-09T23:19:00Z
 cves:
     - CVE-2018-7187

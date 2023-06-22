@@ -223,14 +223,12 @@ modules:
             - tcpKeepaliveListener.Accept
             - workerPool.Serve
 summary: Path traversal in github.com/valyala/fasthttp
-description: |
-    The fasthttp.FS request handler is vulnerable to directory traversal
-    attacks on Windows systems, and can serve files from outside the
-    provided root directory.
+description: |-
+    The fasthttp.FS request handler is vulnerable to directory traversal attacks on
+    Windows systems, and can serve files from outside the provided root directory.
 
-    URL path normalization does not handle Windows path separators
-    (backslashes), permitting an attacker to construct requests
-    with relative paths.
+    URL path normalization does not handle Windows path separators (backslashes),
+    permitting an attacker to construct requests with relative paths.
 published: 2022-07-27T20:26:59Z
 cves:
     - CVE-2022-21221

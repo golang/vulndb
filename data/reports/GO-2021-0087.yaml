@@ -10,10 +10,10 @@ modules:
             - mountToRootfs
           skip_fix: 'TODO: Revisit this reason. (Fix causes multiple errors (dependent fields/methods undefined)'
 summary: Race condition in github.com/opencontainers/runc
-description: |
-    A race while mounting volumes allows a possible symlink-exchange
-    attack, allowing a user whom can start multiple containers with
-    custom volume mount configurations to escape the container.
+description: |-
+    A race while mounting volumes allows a possible symlink-exchange attack,
+    allowing a user whom can start multiple containers with custom volume mount
+    configurations to escape the container.
 published: 2021-04-14T20:04:52Z
 cves:
     - CVE-2019-19921

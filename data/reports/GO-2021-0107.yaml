@@ -12,14 +12,13 @@ modules:
           derived_symbols:
             - Server.Socket
 summary: Panic or authentication bypass in github.com/ecnepsnai/web
-description: |
+description: |-
     Web Sockets do not execute any AuthenticateMethod methods which may be set,
-    leading to a nil pointer dereference if the returned UserData pointer is
-    assumed to be non-nil, or authentication bypass.
+    leading to a nil pointer dereference if the returned UserData pointer is assumed
+    to be non-nil, or authentication bypass.
 
-    This issue only affects WebSockets with an AuthenticateMethod hook.
-    Request handlers that do not explicitly use WebSockets are not
-    vulnerable.
+    This issue only affects WebSockets with an AuthenticateMethod hook. Request
+    handlers that do not explicitly use WebSockets are not vulnerable.
 published: 2021-07-28T18:08:05Z
 ghsas:
     - GHSA-5gjg-jgh4-gppm

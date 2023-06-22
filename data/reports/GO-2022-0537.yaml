@@ -12,9 +12,9 @@ modules:
             - Float.GobDecode
             - Rat.GobDecode
 summary: Panic when decoding Float and Rat types in math/big
-description: |
-    Decoding big.Float and big.Rat types can panic if the encoded message is
-    too short, potentially allowing a denial of service.
+description: |-
+    Decoding big.Float and big.Rat types can panic if the encoded message is too
+    short, potentially allowing a denial of service.
 published: 2022-08-01T22:21:06Z
 credits:
     - '@catenacyber'
@@ -26,7 +26,7 @@ references:
 cve_metadata:
     id: CVE-2022-32189
     cwe: 'CWE 400: Uncontrolled Resource Consumption'
-    description: |
+    description: |-
         A too-short encoded message can cause a panic in Float.GobDecode and Rat
-        GobDecode in math/big in Go before 1.17.13 and 1.18.5, potentially
-        allowing a denial of service.
+        GobDecode in math/big in Go before 1.17.13 and 1.18.5, potentially allowing a
+        denial of service.

@@ -31,13 +31,13 @@ modules:
             - NewREST
           skip_fix: 'TODO: Revisit this reason (Dependency github.com/docker/docker/pkg/units no longer exists)'
 summary: Directory traversal in k8s.io/kubernetes
-description: |
+description: |-
     Crafted object type names can cause directory traversal in Kubernetes.
 
     Object names are not validated before being passed to etcd. This allows
     attackers to write arbitrary files via a crafted object name, hence causing
-    directory traversal vulnerability in Kubernetes, as used in Red Hat
-    OpenShift Enterprise 3.0.
+    directory traversal vulnerability in Kubernetes, as used in Red Hat OpenShift
+    Enterprise 3.0.
 published: 2022-02-15T01:57:18Z
 cves:
     - CVE-2015-5305

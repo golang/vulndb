@@ -13,16 +13,16 @@ modules:
             - Reader.Open
           skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: Panic when opening certain archives in archive/zip
-description: |
-    Previously, opening a zip with (*Reader).Open could result in a panic if the
-    zip contained a file whose name was exclusively made up of slash characters or
-    ".." path elements.
+description: |-
+    Previously, opening a zip with (*Reader).Open could result in a panic if the zip
+    contained a file whose name was exclusively made up of slash characters or ".."
+    path elements.
 
     Open could also panic if passed the empty string directly as an argument.
 
-    Now, any files in the zip whose name could not be made valid for fs.FS.Open
-    will be skipped, and no longer added to the fs.FS file list, although they
-    are still accessible through (*Reader).File.
+    Now, any files in the zip whose name could not be made valid for fs.FS.Open will
+    be skipped, and no longer added to the fs.FS file list, although they are still
+    accessible through (*Reader).File.
 
     Note that it was already the case that a file could be accessible from
     (*Reader).Open with a name different from the one in (*Reader).File, as the

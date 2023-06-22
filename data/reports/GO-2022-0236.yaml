@@ -23,23 +23,20 @@ modules:
             - headerValueContainsToken
           derived_symbols:
             - HeaderValuesContainsToken
-summary: |
-    Panic due to large headers in net/http and golang.org/x/net/http/httpguts
-description: |
-    A malicious HTTP server or client can cause the net/http client
-    or server to panic.
+summary: Panic due to large headers in net/http and golang.org/x/net/http/httpguts
+description: |-
+    A malicious HTTP server or client can cause the net/http client or server to
+    panic.
 
-    ReadRequest and ReadResponse can hit an unrecoverable panic
-    when reading a very large header (over 7MB on 64-bit architectures,
-    or over 4MB on 32-bit ones). Transport and Client are vulnerable
-    and the program can be made to crash by a malicious server.
-    Server is not vulnerable by default, but can be if the default
-    max header of 1MB is overridden by setting Server.MaxHeaderBytes
-    to a higher value, in which case the program can be made to
-    crash by a malicious client.
+    ReadRequest and ReadResponse can hit an unrecoverable panic when reading a very
+    large header (over 7MB on 64-bit architectures, or over 4MB on 32-bit ones).
+    Transport and Client are vulnerable and the program can be made to crash by a
+    malicious server. Server is not vulnerable by default, but can be if the default
+    max header of 1MB is overridden by setting Server.MaxHeaderBytes to a higher
+    value, in which case the program can be made to crash by a malicious client.
 
-    This also affects golang.org/x/net/http2/h2c and
-    HeaderValuesContainsToken in golang.org/x/net/http/httpguts.
+    This also affects golang.org/x/net/http2/h2c and HeaderValuesContainsToken in
+    golang.org/x/net/http/httpguts.
 published: 2022-07-15T23:04:18Z
 cves:
     - CVE-2021-31525

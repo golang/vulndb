@@ -12,12 +12,11 @@ modules:
             - windows
           symbols:
             - Cmd.Start
-summary: |
-    Empty Cmd.Path can trigger unintended binary in os/exec on Windows
-description: |
-    On Windows, executing Cmd.Run, Cmd.Start, Cmd.Output, or Cmd.CombinedOutput
-    when Cmd.Path is unset will unintentionally trigger execution of any
-    binaries in the working directory named either "..com" or "..exe".
+summary: Empty Cmd.Path can trigger unintended binary in os/exec on Windows
+description: |-
+    On Windows, executing Cmd.Run, Cmd.Start, Cmd.Output, or Cmd.CombinedOutput when
+    Cmd.Path is unset will unintentionally trigger execution of any binaries in the
+    working directory named either "..com" or "..exe".
 published: 2022-07-26T21:41:20Z
 credits:
     - Chris Darroch (chrisd8088@github.com)
@@ -31,8 +30,8 @@ references:
 cve_metadata:
     id: CVE-2022-30580
     cwe: 'CWE-94: Improper Control of Generation of Code (''Code Injection'')'
-    description: |
-        Code injection in Cmd.Start in os/exec before Go 1.17.11 and Go 1.18.3
-        allows execution of any binaries in the working directory named either
-        "..com" or "..exe" by calling Cmd.Run, Cmd.Start, Cmd.Output, or
-        Cmd.CombinedOutput when Cmd.Path is unset.
+    description: |-
+        Code injection in Cmd.Start in os/exec before Go 1.17.11 and Go 1.18.3 allows
+        execution of any binaries in the working directory named either "..com" or
+        "..exe" by calling Cmd.Run, Cmd.Start, Cmd.Output, or Cmd.CombinedOutput when
+        Cmd.Path is unset.

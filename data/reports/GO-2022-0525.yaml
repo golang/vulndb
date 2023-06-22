@@ -11,11 +11,11 @@ modules:
           symbols:
             - transferReader.parseTransferEncoding
 summary: Improper sanitization of Transfer-Encoding headers in net/http
-description: |
-    The HTTP/1 client accepted some invalid Transfer-Encoding headers as
-    indicating a "chunked" encoding. This could potentially allow for request
-    smuggling, but only if combined with an intermediate server that also
-    improperly failed to reject the header as invalid.
+description: |-
+    The HTTP/1 client accepted some invalid Transfer-Encoding headers as indicating
+    a "chunked" encoding. This could potentially allow for request smuggling, but
+    only if combined with an intermediate server that also improperly failed to
+    reject the header as invalid.
 published: 2022-07-25T17:34:18Z
 credits:
     - Zeyu Zhang (https://www.zeyu2001.com/)
@@ -28,8 +28,8 @@ references:
 cve_metadata:
     id: CVE-2022-1705
     cwe: 'CWE-444: Inconsistent Interpretation of HTTP Requests (''HTTP Request Smuggling'')'
-    description: |
-        Acceptance of some invalid Transfer-Encoding headers in the HTTP/1 client
-        in net/http before Go 1.17.12 and Go 1.18.4 allows HTTP request smuggling
-        if combined with an intermediate server that also improperly fails to
-        reject the header as invalid.
+    description: |-
+        Acceptance of some invalid Transfer-Encoding headers in the HTTP/1 client in
+        net/http before Go 1.17.12 and Go 1.18.4 allows HTTP request smuggling if
+        combined with an intermediate server that also improperly fails to reject the
+        header as invalid.

@@ -12,10 +12,9 @@ modules:
             - Reader.readForm
           skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: Denial of service when parsing large forms in mime/multipart
-description: |
-    When parsing large multipart/form-data, an attacker can
-    cause a HTTP server to open a large number of file
-    descriptors. This may be used as a denial-of-service
+description: |-
+    When parsing large multipart/form-data, an attacker can cause a HTTP server to
+    open a large number of file descriptors. This may be used as a denial-of-service
     vector.
 published: 2022-02-15T23:56:14Z
 cves:

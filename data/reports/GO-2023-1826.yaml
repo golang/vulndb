@@ -9,20 +9,20 @@ modules:
           symbols:
             - Validator.Validate
 summary: Signature validation bypass in github.com/moov-io/signedxml
-description: |
-    Signature validation canonicalizes the input XML document before validating
-    the signature. Parsing the uncanonicalized and canonicalized forms can
-    produce different results. An attacker can exploit this variation to
-    bypass signature validation.
+description: |-
+    Signature validation canonicalizes the input XML document before validating the
+    signature. Parsing the uncanonicalized and canonicalized forms can produce
+    different results. An attacker can exploit this variation to bypass signature
+    validation.
 
     Users of signature validation must only parse the canonicalized form of the
     validated document. The Validator.Validate function does not return the
     canonical form, and cannot be used safely. Users should only use the
-    Validator.ValidateReferences function and only parse the canonical form
-    which it returns.
+    Validator.ValidateReferences function and only parse the canonical form which it
+    returns.
 
-    The Validator.Validate function was removed in
-    github.com/moov-io/signedxml v1.1.0.
+    The Validator.Validate function was removed in github.com/moov-io/signedxml
+    v1.1.0.
 cves:
     - CVE-2023-34205
 ghsas:

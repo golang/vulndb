@@ -5,13 +5,12 @@ modules:
       packages:
         - package: github.com/peterzen/goresolver
 summary: Incorrect DNSSEC validation in github.com/peterzen/goresolver
-description: |
-    DNSSEC validation is not performed correctly. An attacker can
-    cause this package to report successful validation for invalid,
-    attacker-controlled records.
+description: |-
+    DNSSEC validation is not performed correctly. An attacker can cause this package
+    to report successful validation for invalid, attacker-controlled records.
 
-    Root DNSSEC public keys are not validated, permitting an attacker
-    to present a self-signed root key and delegation chain.
+    Root DNSSEC public keys are not validated, permitting an attacker to present a
+    self-signed root key and delegation chain.
 ghsas:
     - GHSA-jr65-gpj5-cw74
 references:

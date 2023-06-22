@@ -20,14 +20,13 @@ modules:
             - EVM.DelegateCall
             - EVM.StaticCall
 summary: Consensus flaw during block processing in github.com/ethereum/go-ethereum
-description: |
-    A vulnerability in the Geth EVM can cause a node to reject the
-    canonical chain.
+description: |-
+    A vulnerability in the Geth EVM can cause a node to reject the canonical chain.
 
-    A memory-corruption bug within the EVM can cause a consensus
-    error, where vulnerable nodes obtain a different stateRoot when
-    processing a maliciously crafted transaction. This, in turn,
-    would lead to the chain being split in two forks.
+    A memory-corruption bug within the EVM can cause a consensus error, where
+    vulnerable nodes obtain a different stateRoot when processing a maliciously
+    crafted transaction. This, in turn, would lead to the chain being split in two
+    forks.
 published: 2022-07-15T23:07:56Z
 cves:
     - CVE-2021-39137

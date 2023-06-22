@@ -10,18 +10,17 @@ modules:
         - package: cmd/go
           skip_fix: 'TODO: revisit this reason (cant request explicit version of standard library package cmd/go)'
 summary: Remote command execution via "go get" command with cgo in cmd/go
-description: |
-    The "go get" command with cgo is vulnerable to remote command execution
-    by leveraging the gcc or clang plugin feature.
+description: |-
+    The "go get" command with cgo is vulnerable to remote command execution by
+    leveraging the gcc or clang plugin feature.
 
-    When cgo is enabled, the build step during "go get" invokes the host C
-    compiler, gcc or clang, adding compiler flags specified in the Go source
-    files. Both gcc and clang support a plugin mechanism in which a
-    shared-library plugin is loaded into the compiler, as directed by
-    compiler flags. This means that a Go package repository can contain an
-    attack.so file along with a Go source file that says (for example)
-    "// #cgo CFLAGS: -fplugin=attack.so" causing the attack plugin to be
-    loaded into the host C compiler during the build. Gcc and clang plugins are
+    When cgo is enabled, the build step during "go get" invokes the host C compiler,
+    gcc or clang, adding compiler flags specified in the Go source files. Both gcc
+    and clang support a plugin mechanism in which a shared-library plugin is loaded
+    into the compiler, as directed by compiler flags. This means that a Go package
+    repository can contain an attack.so file along with a Go source file that says
+    (for example) "// #cgo CFLAGS: -fplugin=attack.so" causing the attack plugin to
+    be loaded into the host C compiler during the build. Gcc and clang plugins are
     completely unrestricted in their access to the host system.
 published: 2022-08-09T18:15:41Z
 cves:

@@ -12,10 +12,10 @@ modules:
             - rsaKeyAgreement.generateClientKeyExchange
           skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: Panic on certain certificates in crypto/tls
-description: |
-    crypto/tls clients can panic when provided a certificate of the
-    wrong type for the negotiated parameters. net/http clients
-    performing HTTPS requests are also affected.
+description: |-
+    crypto/tls clients can panic when provided a certificate of the wrong type for
+    the negotiated parameters. net/http clients performing HTTPS requests are also
+    affected.
 published: 2022-02-17T17:32:57Z
 cves:
     - CVE-2021-34558

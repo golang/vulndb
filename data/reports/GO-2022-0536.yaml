@@ -26,16 +26,16 @@ modules:
           derived_symbols:
             - Server.ServeConn
 summary: Reset flood in net/http and golang.org/x/net/http
-description: |
-    Some HTTP/2 implementations are vulnerable to a reset flood, potentially
-    leading to a denial of service.
+description: |-
+    Some HTTP/2 implementations are vulnerable to a reset flood, potentially leading
+    to a denial of service.
 
-    Servers that accept direct connections from untrusted clients could be
-    remotely made to allocate an unlimited amount of memory, until the program
-    crashes. The attacker opens a number of streams and sends an invalid request
-    over each stream that should solicit a stream of RST_STREAM frames from the
-    peer. Depending on how the peer queues the RST_STREAM frames, this can
-    consume excess memory, CPU, or both.
+    Servers that accept direct connections from untrusted clients could be remotely
+    made to allocate an unlimited amount of memory, until the program crashes. The
+    attacker opens a number of streams and sends an invalid request over each stream
+    that should solicit a stream of RST_STREAM frames from the peer. Depending on
+    how the peer queues the RST_STREAM frames, this can consume excess memory, CPU,
+    or both.
 published: 2022-08-01T22:20:53Z
 cves:
     - CVE-2019-9512

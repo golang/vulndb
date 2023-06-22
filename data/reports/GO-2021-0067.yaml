@@ -11,11 +11,10 @@ modules:
             - toValidName
           skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: Panic when opening archives in archive/zip
-description: |
-    Using Reader.Open on an archive containing a file with a path
-    prefixed by "../" will cause a panic due to a stack overflow.
-    If parsing user supplied archives, this may be used as a
-    denial of service vector.
+description: |-
+    Using Reader.Open on an archive containing a file with a path prefixed by "../"
+    will cause a panic due to a stack overflow. If parsing user supplied archives,
+    this may be used as a denial of service vector.
 published: 2021-04-14T20:04:52Z
 cves:
     - CVE-2021-27919

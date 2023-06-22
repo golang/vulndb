@@ -165,16 +165,14 @@ modules:
             - typeChecker.CheckBody
             - typeChecker.CheckTypes
 summary: Protection bypass in github.com/open-policy-agent/opa
-description: |
-    Open Policy Agent (OPA) is an open source, general-purpose policy engine.
-    The Rego compiler provides a (deprecated) `WithUnsafeBuiltins` function,
-    which allows users to provide a set of built-in functions that should be
-    deemed unsafe and rejected by the compiler if encountered in the policy
-    compilation stage.
+description: |-
+    Open Policy Agent (OPA) is an open source, general-purpose policy engine. The
+    Rego compiler provides a (deprecated) `WithUnsafeBuiltins` function, which
+    allows users to provide a set of built-in functions that should be deemed unsafe
+    and rejected by the compiler if encountered in the policy compilation stage.
 
-    A bypass of this protection is possible when using the `with`
-    keyword to mock a built-in function that isn't taken into account by
-    `WithUnsafeBuiltins`.
+    A bypass of this protection is possible when using the `with` keyword to mock a
+    built-in function that isn't taken into account by `WithUnsafeBuiltins`.
 published: 2022-09-13T17:40:16Z
 cves:
     - CVE-2022-36085

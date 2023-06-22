@@ -14,13 +14,13 @@ modules:
             - DelegateDel
             - RawExec.FindInPath
 summary: Improper limitation of path name in github.com/containernetworking/cni
-description: |
+description: |-
     The FindInPath function is vulnerable to directory traversal attacks,
     potentially permitting attackers to execute arbitrary binaries.
 
-    This function does not sanitize its plugin parameter, so parameter
-    names containing "../" or other such elements may reference
-    arbitrary locations on the filesystem.
+    This function does not sanitize its plugin parameter, so parameter names
+    containing "../" or other such elements may reference arbitrary locations on the
+    filesystem.
 published: 2022-07-01T20:17:57Z
 cves:
     - CVE-2021-20206

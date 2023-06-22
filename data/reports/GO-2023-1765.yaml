@@ -45,18 +45,18 @@ modules:
           symbols:
             - scheme.Encapsulate
 summary: Leaked shared secret and weak blinding in github.com/cloudflare/circl
-description: |
-    When sampling randomness for a shared secret, the implementation of Kyber
-    and FrodoKEM, did not check whether crypto/rand.Read() returns an error. In
-    rare deployment cases (error thrown by the Read() function), this could lead
-    to a predictable shared secret.
+description: |-
+    When sampling randomness for a shared secret, the implementation of Kyber and
+    FrodoKEM, did not check whether crypto/rand.Read() returns an error. In rare
+    deployment cases (error thrown by the Read() function), this could lead to a
+    predictable shared secret.
 
-    The tkn20 and blindrsa components did not check whether enough randomness
-    was returned from the user provided randomness source. Typically the user
-    provides crypto/rand.Reader, which in the vast majority of cases will always
-    return the right number random bytes. In the cases where it does not, or the
-    user provides a source that does not, the blinding for blindrsa is weak and
-    integrity of the plaintext is not ensured in tkn20.
+    The tkn20 and blindrsa components did not check whether enough randomness was
+    returned from the user provided randomness source. Typically the user provides
+    crypto/rand.Reader, which in the vast majority of cases will always return the
+    right number random bytes. In the cases where it does not, or the user provides
+    a source that does not, the blinding for blindrsa is weak and integrity of the
+    plaintext is not ensured in tkn20.
 cves:
     - CVE-2023-1732
 ghsas:

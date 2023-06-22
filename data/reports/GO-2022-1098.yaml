@@ -19,12 +19,11 @@ modules:
             - ReadMessageN
             - ReadMessageWithEncodingN
 summary: Denial of service in message decoding in github.com/btcsuite/btcd
-description: |
+description: |-
     Erroneous message decoding can cause denial of service.
 
-    Improper checking of maximum witness size during node
-    message decoding prevented nodes in Lightning Labs lnd
-    (before 0.15.2-beta) to sync.
+    Improper checking of maximum witness size during node message decoding prevented
+    nodes in Lightning Labs lnd (before 0.15.2-beta) to sync.
 cves:
     - CVE-2022-44797
 ghsas:

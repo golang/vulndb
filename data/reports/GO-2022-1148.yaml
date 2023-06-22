@@ -59,23 +59,21 @@ modules:
             - Service.DirectConnect
             - netNotifiee.Connected
 summary: Resource exhaustion in github.com/libp2p/go-libp2p
-description: |
+description: |-
     go-libp2p is vulnerable to targeted resource exhaustion attacks.
 
-    These attacks target libp2p's connection, stream, peer, and memory
-    management. An attacker can cause the allocation of large amounts of memory
-    ultimately leading to the process getting killed by the host's operating
-    system.
+    These attacks target libp2p's connection, stream, peer, and memory management.
+    An attacker can cause the allocation of large amounts of memory ultimately
+    leading to the process getting killed by the host's operating system.
 
-    While a connection manager tasked with keeping the number of connections
-    within manageable limits has been part of go-libp2p, this component was
-    designed to handle the regular churn of peers, not a targeted resource
-    exhaustion attack.
+    While a connection manager tasked with keeping the number of connections within
+    manageable limits has been part of go-libp2p, this component was designed to
+    handle the regular churn of peers, not a targeted resource exhaustion attack.
 
     It's recommend to update to v0.21.0 onwards to get some useful functionality
-    that will help in production environments like better metrics around
-    resource usage, Grafana dashboards around resource usage, allow list
-    support, and default autoscaling limits.
+    that will help in production environments like better metrics around resource
+    usage, Grafana dashboards around resource usage, allow list support, and default
+    autoscaling limits.
 cves:
     - CVE-2022-23492
 ghsas:

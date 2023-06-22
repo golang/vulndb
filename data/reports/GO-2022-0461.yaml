@@ -19,12 +19,12 @@ modules:
             - handshakeFSM.Run
             - listener.Accept
 summary: Unbounded memory consumption in github.com/pion/dtls/v2
-description: |
+description: |-
     Attacker can cause unbounded memory consumption.
 
-    The Pion DTLS client and server buffer handshake data with no
-    upper limit, permitting an attacker to cause unbounded memory
-    consumption by sending an unterminated handshake.
+    The Pion DTLS client and server buffer handshake data with no upper limit,
+    permitting an attacker to cause unbounded memory consumption by sending an
+    unterminated handshake.
 published: 2022-07-01T20:07:25Z
 cves:
     - CVE-2022-29189

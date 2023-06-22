@@ -10,19 +10,18 @@ modules:
         - package: net/http/httputil
           symbols:
             - ReverseProxy.ServeHTTP
-summary: |
-    Incorrect sanitization of forwarded query parameters in net/http/httputil
-description: |
-    Requests forwarded by ReverseProxy include the raw query parameters from
-    the inbound request, including unparsable parameters rejected by net/http.
-    This could permit query parameter smuggling when a Go proxy forwards a
-    parameter with an unparsable value.
+summary: Incorrect sanitization of forwarded query parameters in net/http/httputil
+description: |-
+    Requests forwarded by ReverseProxy include the raw query parameters from the
+    inbound request, including unparsable parameters rejected by net/http. This
+    could permit query parameter smuggling when a Go proxy forwards a parameter with
+    an unparsable value.
 
-    After fix, ReverseProxy sanitizes the query parameters in the forwarded
-    query when the outbound request's Form field is set after the ReverseProxy.
-    Director function returns, indicating that the proxy has parsed the query
-    parameters. Proxies which do not parse query parameters continue to forward
-    the original query parameters unchanged.
+    After fix, ReverseProxy sanitizes the query parameters in the forwarded query
+    when the outbound request's Form field is set after the ReverseProxy. Director
+    function returns, indicating that the proxy has parsed the query parameters.
+    Proxies which do not parse query parameters continue to forward the original
+    query parameters unchanged.
 credits:
     - Gal Goldstein (Security Researcher, Oxeye)
     - Daniel Abeles (Head of Research, Oxeye)

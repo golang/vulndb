@@ -10,11 +10,10 @@ modules:
             - IdmapSet.doUidshiftIntoContainer
           skip_fix: 'TODO: Revisit this reason (Fix causes error containing cannot find module providing package github.com/chai2010/gettext-go/gettext - possibly an issue with lack of go.mod file in affected version)'
 summary: Race condition in github.com/lxc/lxd
-description: |
-    A race between chown and chmod operations during a container
-    filesystem shift may allow a user who can modify the filesystem to
-    chmod an arbitrary path of their choice, rather than the expected
-    path.
+description: |-
+    A race between chown and chmod operations during a container filesystem shift
+    may allow a user who can modify the filesystem to chmod an arbitrary path of
+    their choice, rather than the expected path.
 published: 2021-04-14T20:04:52Z
 cves:
     - CVE-2015-1340

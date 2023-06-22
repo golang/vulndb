@@ -11,18 +11,16 @@ modules:
           symbols:
             - Header.Clone
 summary: Exposure of client IP addresses in net/http
-description: |
-    Client IP adresses may be unintentionally exposed via X-Forwarded-For
-    headers.
+description: |-
+    Client IP adresses may be unintentionally exposed via X-Forwarded-For headers.
 
     When httputil.ReverseProxy.ServeHTTP is called with a Request.Header map
-    containing a nil value for the X-Forwarded-For header, ReverseProxy sets
-    the client IP as the value of the X-Forwarded-For header, contrary to
-    its documentation.
+    containing a nil value for the X-Forwarded-For header, ReverseProxy sets the
+    client IP as the value of the X-Forwarded-For header, contrary to its
+    documentation.
 
-    In the more usual case where a Director function sets the
-    X-Forwarded-For header value to nil, ReverseProxy leaves the header
-    unmodified as expected.
+    In the more usual case where a Director function sets the X-Forwarded-For header
+    value to nil, ReverseProxy leaves the header unmodified as expected.
 published: 2022-07-28T17:23:05Z
 credits:
     - Christian Mehlmauer
@@ -34,9 +32,9 @@ references:
 cve_metadata:
     id: CVE-2022-32148
     cwe: 'CWE-200: Information Exposure'
-    description: |
-        Improper exposure of client IP addresses in net/http before Go 1.17.12
-        and Go 1.18.4 can be triggered by calling
-        httputil.ReverseProxy.ServeHTTP with a Request.Header map containing a
-        nil value for the X-Forwarded-For header, which causes ReverseProxy to
-        set the client IP as the value of the X-Forwarded-For header.
+    description: |-
+        Improper exposure of client IP addresses in net/http before Go 1.17.12 and Go
+        1.18.4 can be triggered by calling httputil.ReverseProxy.ServeHTTP with a
+        Request.Header map containing a nil value for the X-Forwarded-For header, which
+        causes ReverseProxy to set the client IP as the value of the X-Forwarded-For
+        header.

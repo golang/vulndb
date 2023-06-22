@@ -11,13 +11,12 @@ modules:
           derived_symbols:
             - GetArtifactReader
 summary: Path traversal in github.com/argoproj/argo-events
-description: |
+description: |-
     GitArtifactReader is vulnerable to directory traversal attacks.
 
-    The GitArtifactReader.Read function reads and returns the
-    contents of a Git repository file. A maliciously crafted repository
-    can exploit this to cause Read to read from arbitrary files on
-    the filesystem.
+    The GitArtifactReader.Read function reads and returns the contents of a Git
+    repository file. A maliciously crafted repository can exploit this to cause Read
+    to read from arbitrary files on the filesystem.
 published: 2022-07-15T23:30:03Z
 cves:
     - CVE-2022-25856

@@ -25,12 +25,12 @@ modules:
             - addGlobbedFiles
             - addTree
 summary: Incorrect permissions in github.com/goreleaser/nfpm/v2
-description: |
-    When nfpm packages files without additional configuration to enforce its
-    own permissions, the files could be packaged with incorrect permissions
-    (chmod 666 or 777). Anyone who uses nfpm to create packages and does not
-    check or set file permissions before packaging could result in files or
-    folders being packaged with incorrect permissions.
+description: |-
+    When nfpm packages files without additional configuration to enforce its own
+    permissions, the files could be packaged with incorrect permissions (chmod 666
+    or 777). Anyone who uses nfpm to create packages and does not check or set file
+    permissions before packaging could result in files or folders being packaged
+    with incorrect permissions.
 cves:
     - CVE-2023-32698
 ghsas:

@@ -14,18 +14,18 @@ modules:
           derived_symbols:
             - Reader.ReadMIMEHeader
 summary: Excessive memory allocation in net/http and net/textproto
-description: |
-    HTTP and MIME header parsing can allocate large amounts of memory, even
-    when parsing small inputs, potentially leading to a denial of service.
+description: |-
+    HTTP and MIME header parsing can allocate large amounts of memory, even when
+    parsing small inputs, potentially leading to a denial of service.
 
-    Certain unusual patterns of input data can cause the common function used
-    to parse HTTP and MIME headers to allocate substantially more memory than
-    required to hold the parsed headers. An attacker can exploit this behavior
-    to cause an HTTP server to allocate large amounts of memory from a small
-    request, potentially leading to memory exhaustion and a denial of service.
+    Certain unusual patterns of input data can cause the common function used to
+    parse HTTP and MIME headers to allocate substantially more memory than required
+    to hold the parsed headers. An attacker can exploit this behavior to cause an
+    HTTP server to allocate large amounts of memory from a small request,
+    potentially leading to memory exhaustion and a denial of service.
 
-    With fix, header parsing now correctly allocates only the memory required
-    to hold parsed headers.
+    With fix, header parsing now correctly allocates only the memory required to
+    hold parsed headers.
 credits:
     - Jakob Ackermann (@das7pad)
 references:

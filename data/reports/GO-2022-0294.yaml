@@ -13,15 +13,15 @@ modules:
             - AKPublic.Verify
             - TPM.AttestPlatform
 summary: Improper input validation in github.com/google/go-attestation
-description: |
+description: |-
     A local attacker can defeat remotely-attested measured boot.
 
     Improper input validation in AKPublic.Verify can cause it to succeed when
-    provided with a maliciously-formed Quote over no/some PCRs. Subsequent use
-    of the same set of PCR values in Eventlog.Verify lacks the authentication
-    performed by quote verification, meaning a local attacker can couple this
-    vulnerability with a maliciously-formed TCG log in Eventlog.Verify to spoof
-    events in the TCG log, defeating remotely-attested measured-boot.
+    provided with a maliciously-formed Quote over no/some PCRs. Subsequent use of
+    the same set of PCR values in Eventlog.Verify lacks the authentication performed
+    by quote verification, meaning a local attacker can couple this vulnerability
+    with a maliciously-formed TCG log in Eventlog.Verify to spoof events in the TCG
+    log, defeating remotely-attested measured-boot.
 published: 2022-07-15T23:27:21Z
 cves:
     - CVE-2022-0317

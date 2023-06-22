@@ -16,15 +16,14 @@ modules:
             - Resolver.LookupSRV
           skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: Improper sanitization when resolving values from DNS in net
-description: |
-    The LookupCNAME, LookupSRV, LookupMX, LookupNS, and LookupAddr
-    functions and their respective methods on the Resolver type may
-    return arbitrary values retrieved from DNS which do not follow
-    the established RFC 1035 rules for domain names. If these names
-    are used without further sanitization, for instance unsafely
-    included in HTML, they may allow for injection of unexpected
-    content. Note that LookupTXT may still return arbitrary values
-    that could require sanitization before further use.
+description: |-
+    The LookupCNAME, LookupSRV, LookupMX, LookupNS, and LookupAddr functions and
+    their respective methods on the Resolver type may return arbitrary values
+    retrieved from DNS which do not follow the established RFC 1035 rules for domain
+    names. If these names are used without further sanitization, for instance
+    unsafely included in HTML, they may allow for injection of unexpected content.
+    Note that LookupTXT may still return arbitrary values that could require
+    sanitization before further use.
 published: 2022-02-17T17:33:35Z
 cves:
     - CVE-2021-33195

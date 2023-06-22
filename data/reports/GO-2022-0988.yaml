@@ -12,11 +12,11 @@ modules:
           derived_symbols:
             - JoinPath
 summary: Failure to strip relative path components in net/url
-description: |
-    JoinPath and URL.JoinPath do not remove ../ path elements appended
-    to a relative path. For example, JoinPath("https://go.dev", "../go")
-    returns the URL "https://go.dev/../go", despite the JoinPath documentation
-    stating that ../ path elements are removed from the result.
+description: |-
+    JoinPath and URL.JoinPath do not remove ../ path elements appended to a relative
+    path. For example, JoinPath("https://go.dev", "../go") returns the URL
+    "https://go.dev/../go", despite the JoinPath documentation stating that ../ path
+    elements are removed from the result.
 published: 2022-09-12T20:23:15Z
 credits:
     - '@q0jt'

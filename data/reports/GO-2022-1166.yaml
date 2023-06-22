@@ -12,19 +12,19 @@ modules:
             - ToRenderValues
             - ValidateAgainstSchema
 summary: Denial of service via schema file in helm.sh/helm/v3
-description: |
-    Certain JSON schema validation files can cause a Helm Client to panic,
-    leading to a possible denial of service.
+description: |-
+    Certain JSON schema validation files can cause a Helm Client to panic, leading
+    to a possible denial of service.
 
     The chartutil package contains a parser that loads a JSON Schema validation
     file. For example, the Helm client when rendering a chart will validate its
-    values with the schema file. The chartutil package parses the schema file
-    and loads it into memory, but some schema files can cause array
-    data structures to be created causing a memory violation.
+    values with the schema file. The chartutil package parses the schema file and
+    loads it into memory, but some schema files can cause array data structures to
+    be created causing a memory violation.
 
     The Helm Client will panic with a schema file that causes a memory violation
-    panic. Helm is not a long running service so the panic will not affect
-    future uses of the Helm client.
+    panic. Helm is not a long running service so the panic will not affect future
+    uses of the Helm client.
 cves:
     - CVE-2022-23526
 ghsas:

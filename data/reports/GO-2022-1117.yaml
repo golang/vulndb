@@ -39,16 +39,15 @@ modules:
             - VerifyLinearProof
             - VerifyDualProof
 summary: Insufficient verification of proofs in github.com/codenotary/immudb
-description: |
-    In certain scenarios, a malicious immudb server can provide a
-    falsified proof that will be accepted by the client SDK signing a
-    falsified transaction replacing the genuine one. This situation can
-    not be triggered by a genuine immudb server and requires the client to
-    perform a specific list of verified operations resulting in acceptance
-    of an invalid state value.
+description: |-
+    In certain scenarios, a malicious immudb server can provide a falsified proof
+    that will be accepted by the client SDK signing a falsified transaction
+    replacing the genuine one. This situation can not be triggered by a genuine
+    immudb server and requires the client to perform a specific list of verified
+    operations resulting in acceptance of an invalid state value.
 
-    This vulnerability only affects immudb client SDKs, the immudb server
-    itself is not affected by this vulnerability.
+    This vulnerability only affects immudb client SDKs, the immudb server itself is
+    not affected by this vulnerability.
 cves:
     - CVE-2022-36111
 ghsas:

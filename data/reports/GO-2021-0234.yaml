@@ -12,11 +12,10 @@ modules:
             - Decoder.Token
           skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: Infinite loop when decoding inputs in encoding/xml
-description: |
-    The Decode, DecodeElement, and Skip methods of an xml.Decoder
-    provided by xml.NewTokenDecoder may enter an infinite loop when
-    operating on a custom xml.TokenReader which returns an EOF in the
-    middle of an open XML element.
+description: |-
+    The Decode, DecodeElement, and Skip methods of an xml.Decoder provided by
+    xml.NewTokenDecoder may enter an infinite loop when operating on a custom
+    xml.TokenReader which returns an EOF in the middle of an open XML element.
 published: 2022-02-17T17:34:24Z
 cves:
     - CVE-2021-27918

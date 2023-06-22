@@ -20,7 +20,7 @@ modules:
             - resolver.openScope
             - resolver.closeScope
 summary: Stack exhaustion due to deeply nested types in go/parser
-description: |
+description: |-
     Calling any of the Parse functions on Go source code which contains deeply
     nested types or declarations can cause a panic due to stack exhaustion.
 published: 2022-07-20T17:01:45Z
@@ -34,7 +34,7 @@ references:
 cve_metadata:
     id: CVE-2022-1962
     cwe: 'CWE-674: Uncontrolled Recursion'
-    description: |
-        Uncontrolled recursion in the Parse functions in go/parser before Go
-        1.17.12 and Go 1.18.4 allow an attacker to cause a panic due to stack
-        exhaustion via deeply nested types or declarations.
+    description: |-
+        Uncontrolled recursion in the Parse functions in go/parser before Go 1.17.12 and
+        Go 1.18.4 allow an attacker to cause a panic due to stack exhaustion via deeply
+        nested types or declarations.

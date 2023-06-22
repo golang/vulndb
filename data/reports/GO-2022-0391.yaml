@@ -21,10 +21,10 @@ modules:
             - kmsKeyHandler.GenerateCipherData
             - kmsKeyHandler.GenerateCipherDataWithContext
 summary: Exposure of unencrypted plaintext hash in github.com/aws/aws-sdk-go
-description: |
-    The AWS S3 Crypto SDK sends an unencrypted hash of the plaintext alongside
-    the ciphertext as a metadata field. This hash can be used to brute force
-    the plaintext, if the hash is readable to the attacker.
+description: |-
+    The AWS S3 Crypto SDK sends an unencrypted hash of the plaintext alongside the
+    ciphertext as a metadata field. This hash can be used to brute force the
+    plaintext, if the hash is readable to the attacker.
 
     AWS now blocks this metadata field, but older SDK versions still send it.
 published: 2022-07-01T20:10:56Z

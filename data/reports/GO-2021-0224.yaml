@@ -12,10 +12,10 @@ modules:
             - expectContinueReader.Read
           skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: Data race and crash in net/http
-description: |
-    HTTP servers where the Handler concurrently reads the request
-    body and writes a response can encounter a data race and crash.
-    The httputil.ReverseProxy Handler is affected.
+description: |-
+    HTTP servers where the Handler concurrently reads the request body and writes a
+    response can encounter a data race and crash. The httputil.ReverseProxy Handler
+    is affected.
 published: 2022-02-17T17:36:04Z
 cves:
     - CVE-2020-15586

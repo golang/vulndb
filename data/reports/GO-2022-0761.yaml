@@ -12,13 +12,13 @@ modules:
           symbols:
             - ProxyFromEnvironment
 summary: Improper input validation in net/http and net/http/cgi
-description: |
-    An input validation flaw in the CGI components allows the HTTP_PROXY
-    environment variable to be set by the incoming Proxy header, which changes
-    where Go by default proxies all outbound HTTP requests.
+description: |-
+    An input validation flaw in the CGI components allows the HTTP_PROXY environment
+    variable to be set by the incoming Proxy header, which changes where Go by
+    default proxies all outbound HTTP requests.
 
-    This environment variable is also used to set the outgoing proxy, enabling
-    an attacker to insert a proxy into outgoing requests of a CGI program.
+    This environment variable is also used to set the outgoing proxy, enabling an
+    attacker to insert a proxy into outgoing requests of a CGI program.
 
     Read more about "httpoxy" here: https://httpoxy.org.
 published: 2022-08-09T17:05:15Z

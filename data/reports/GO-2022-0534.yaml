@@ -9,13 +9,13 @@ modules:
           symbols:
             - DefaultGitlabRequestParserValidator.ParseAndValidate
 summary: Timing attack in github.com/runatlantis/atlantis
-description: |
+description: |-
     Validation of Gitlab requests can leak secrets.
 
     The package github.com/runatlantis/atlantis/server/controllers/events uses a
-    non-constant time comparison for secrets while validating a Gitlab request.
-    This allows for a timing attack where an attacker can recover a secret and
-    then forge the request.
+    non-constant time comparison for secrets while validating a Gitlab request. This
+    allows for a timing attack where an attacker can recover a secret and then forge
+    the request.
 published: 2022-08-11T20:54:51Z
 cves:
     - CVE-2022-24912

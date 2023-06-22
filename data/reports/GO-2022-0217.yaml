@@ -12,14 +12,14 @@ modules:
             - curve.doubleJacobian
           skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: Denial of service affecting P-521 and P-384 curves in crypto/elliptic
-description: |
+description: |-
     A DoS vulnerability in the crypto/elliptic implementations of the P-521 and
-    P-384 elliptic curves may let an attacker craft inputs that consume
-    excessive amounts of CPU.
+    P-384 elliptic curves may let an attacker craft inputs that consume excessive
+    amounts of CPU.
 
     These inputs might be delivered via TLS handshakes, X.509 certificates, JWT
-    tokens, ECDH shares or ECDSA signatures. In some cases, if an ECDH private
-    key is reused more than once, the attack can also lead to key recovery.
+    tokens, ECDH shares or ECDSA signatures. In some cases, if an ECDH private key
+    is reused more than once, the attack can also lead to key recovery.
 published: 2022-05-24T15:21:01Z
 cves:
     - CVE-2019-6486

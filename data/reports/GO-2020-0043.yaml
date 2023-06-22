@@ -12,11 +12,10 @@ modules:
             - assertConfigsCompatible
           skip_fix: 'TODO: revisit this reason. (cannot find module providing package github.com/lucas-clemente/quic-go/h2quic)'
 summary: Authentication bypass in github.com/mholt/caddy
-description: |
-    Due to improper TLS verification when serving traffic for multiple
-    SNIs, an attacker may bypass TLS client authentication by indicating
-    an SNI during the TLS handshake that is different from the name in
-    the HTTP Host header.
+description: |-
+    Due to improper TLS verification when serving traffic for multiple SNIs, an
+    attacker may bypass TLS client authentication by indicating an SNI during the
+    TLS handshake that is different from the name in the HTTP Host header.
 published: 2021-04-14T20:04:52Z
 cves:
     - CVE-2018-21246

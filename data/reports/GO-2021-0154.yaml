@@ -12,14 +12,14 @@ modules:
             - decryptTicket
           skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: Man-in-the-middle attack with SessionTicketsDisabled in crypto/tls
-description: |
+description: |-
     When SessionTicketsDisabled is enabled, crypto/tls allowed man-in-the-middle
     attackers to spoof clients via unspecified vectors.
 
     If the server enables TLS client authentication using certificates (this is
-    rare) and explicitly sets SessionTicketsDisabled to true in the tls.Config,
-    then a malicious client can falsely assert ownership of any client
-    certificate it wishes.
+    rare) and explicitly sets SessionTicketsDisabled to true in the tls.Config, then
+    a malicious client can falsely assert ownership of any client certificate it
+    wishes.
 published: 2022-05-25T21:11:41Z
 cves:
     - CVE-2014-7189

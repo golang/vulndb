@@ -13,11 +13,10 @@ modules:
             - blockHeader.UnmarshalBinary
             - streamReader.Read
 summary: Infinite loop in github.com/ulikunitz/xz
-description: |
-    An attacker can construct a series of bytes such that calling
-    Reader.Read on the bytes could cause an infinite loop. If
-    parsing user supplied input, this may be used as a denial of
-    service vector.
+description: |-
+    An attacker can construct a series of bytes such that calling Reader.Read on the
+    bytes could cause an infinite loop. If parsing user supplied input, this may be
+    used as a denial of service vector.
 published: 2021-04-14T20:04:52Z
 cves:
     - CVE-2021-29482

@@ -24,16 +24,15 @@ modules:
             - responseWriterDelegator.Write
             - responseWriterDelegator.WriteHeader
 summary: Uncontrolled resource consumption in github.com/prometheus/client_golang
-description: |
-    The Prometheus client_golang HTTP server is vulnerable to a denial of
-    service attack when handling requests with non-standard HTTP methods.
+description: |-
+    The Prometheus client_golang HTTP server is vulnerable to a denial of service
+    attack when handling requests with non-standard HTTP methods.
 
-    In order to be affected, an instrumented software must use any of
-    the promhttp.InstrumentHandler* middleware except `RequestsInFlight`;
-    not filter any specific methods (e.g GET) before middleware;
-    pass a metric with a "method" label name to a middleware; and not
-    have any firewall/LB/proxy that filters away requests with unknown
-    "method".
+    In order to be affected, an instrumented software must use any of the
+    promhttp.InstrumentHandler* middleware except `RequestsInFlight`; not filter any
+    specific methods (e.g GET) before middleware; pass a metric with a "method"
+    label name to a middleware; and not have any firewall/LB/proxy that filters away
+    requests with unknown "method".
 published: 2022-07-15T23:29:02Z
 cves:
     - CVE-2022-21698

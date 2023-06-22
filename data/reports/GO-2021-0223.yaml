@@ -14,10 +14,10 @@ modules:
             - Certificate.systemVerify
           skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: Certificate verification error on Windows in crypto/x509
-description: |
-    On Windows, if VerifyOptions.Roots is nil, Certificate.Verify
-    does not check the EKU requirements specified in VerifyOptions.KeyUsages.
-    This may allow a certificate to be used for an unintended purpose.
+description: |-
+    On Windows, if VerifyOptions.Roots is nil, Certificate.Verify does not check the
+    EKU requirements specified in VerifyOptions.KeyUsages. This may allow a
+    certificate to be used for an unintended purpose.
 published: 2022-02-17T17:46:03Z
 cves:
     - CVE-2020-14039

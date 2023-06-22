@@ -13,11 +13,11 @@ modules:
             - OpenReader
           skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: Panic due to crafted inputs in archive/zip
-description: |
-    The NewReader and OpenReader functions in archive/zip can cause a panic or
-    an unrecoverable fatal error when reading an archive that claims to contain
-    a large number of files, regardless of its actual size. This is
-    caused by an incomplete fix for CVE-2021-33196.
+description: |-
+    The NewReader and OpenReader functions in archive/zip can cause a panic or an
+    unrecoverable fatal error when reading an archive that claims to contain a large
+    number of files, regardless of its actual size. This is caused by an incomplete
+    fix for CVE-2021-33196.
 published: 2022-05-18T18:23:31Z
 cves:
     - CVE-2021-39293

@@ -12,11 +12,10 @@ description: |-
     The Go AWS S3 Crypto SDK contains vulnerabilities that can permit an attacker
     with write access to a bucket to decrypt files in that bucket.
 
-    Files encrypted by the V1 EncryptionClient using either the AES-CBC
-    content cipher or the KMS key wrap algorithm are vulnerable. Users should
-    migrate to the V1 EncryptionClientV2 API, which will not create vulnerable
-    files. Old files will remain vulnerable until re-encrypted with the new
-    client.
+    Files encrypted by the V1 EncryptionClient using either the AES-CBC content
+    cipher or the KMS key wrap algorithm are vulnerable. Users should migrate to the
+    V1 EncryptionClientV2 API, which will not create vulnerable files. Old files
+    will remain vulnerable until re-encrypted with the new client.
 published: 2022-02-11T23:26:26Z
 cves:
     - CVE-2020-8911

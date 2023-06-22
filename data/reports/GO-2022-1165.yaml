@@ -22,20 +22,20 @@ modules:
             - IndexFile.Add
             - LoadIndexFile
 summary: Denial of service via repository index file in helm.sh/helm/v3
-description: |
-    Applications that use the repo package in the Helm SDK to parse an index
-    file can suffer a Denial of Service when that input causes a panic that
-    cannot be recovered from.
+description: |-
+    Applications that use the repo package in the Helm SDK to parse an index file
+    can suffer a Denial of Service when that input causes a panic that cannot be
+    recovered from.
 
     The repo package contains a handler that processes the index file of a
-    repository. For example, the Helm client adds references to chart
-    repositories where charts are managed. The repo package parses the index
-    file of the repository and loads it into memory. Some index files can cause
-    array data structures to be created causing a memory violation.
+    repository. For example, the Helm client adds references to chart repositories
+    where charts are managed. The repo package parses the index file of the
+    repository and loads it into memory. Some index files can cause array data
+    structures to be created causing a memory violation.
 
-    The Helm Client will panic with an index file that causes a memory
-    violation panic. Helm is not a long running service so the panic will not
-    affect future uses of the Helm client.
+    The Helm Client will panic with an index file that causes a memory violation
+    panic. Helm is not a long running service so the panic will not affect future
+    uses of the Helm client.
 cves:
     - CVE-2022-23525
 ghsas:

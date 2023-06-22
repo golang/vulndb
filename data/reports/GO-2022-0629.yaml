@@ -20,14 +20,13 @@ modules:
           derived_symbols:
             - SecretsStore.Run
 summary: Directory traversal in sigs.k8s.io/secrets-store-csi-driver
-description: |
+description: |-
     Modifying pod status allows host directory traversal.
 
-    Kubernetes Secrets Store CSI Driver allows an attacker who can
-    modify a SecretProviderClassPodStatus/Status resource the ability
-    to write content to the host filesystem and sync file contents
-    to Kubernetes Secrets. This includes paths under var/lib/kubelet/pods
-    that contain other Kubernetes Secrets.
+    Kubernetes Secrets Store CSI Driver allows an attacker who can modify a
+    SecretProviderClassPodStatus/Status resource the ability to write content to the
+    host filesystem and sync file contents to Kubernetes Secrets. This includes
+    paths under var/lib/kubelet/pods that contain other Kubernetes Secrets.
 published: 2022-02-15T01:57:18Z
 cves:
     - CVE-2020-8568

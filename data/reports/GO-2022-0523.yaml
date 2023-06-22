@@ -13,10 +13,9 @@ modules:
             - Decoder.unmarshal
             - Decoder.unmarshalPath
 summary: Stack exhaustion when unmarshaling certain documents in encoding/xml
-description: |
-    Unmarshaling an XML document into a Go struct which has a nested
-    field that uses the 'any' field tag can panic due to stack
-    exhaustion.
+description: |-
+    Unmarshaling an XML document into a Go struct which has a nested field that uses
+    the 'any' field tag can panic due to stack exhaustion.
 published: 2022-07-20T20:52:06Z
 references:
     - fix: https://go.dev/cl/417061
@@ -26,8 +25,8 @@ references:
 cve_metadata:
     id: CVE-2022-30633
     cwe: 'CWE-674: Uncontrolled Recursion'
-    description: |
-        Uncontrolled recursion in Unmarshal in encoding/xml before Go 1.17.12
-        and Go 1.18.4 allows an attacker to cause a panic due to stack
-        exhaustion via unmarshalling an XML document into a Go struct which has
-        a nested field that uses the 'any' field tag.
+    description: |-
+        Uncontrolled recursion in Unmarshal in encoding/xml before Go 1.17.12 and Go
+        1.18.4 allows an attacker to cause a panic due to stack exhaustion via
+        unmarshalling an XML document into a Go struct which has a nested field that
+        uses the 'any' field tag.

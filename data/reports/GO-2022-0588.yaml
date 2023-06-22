@@ -14,18 +14,18 @@ modules:
             - Policy.AllowTables
             - UGCPolicy
 summary: Cross-site scripting in github.com/microcosm-cc/bluemonday
-description: |
-    The bluemonday HTML sanitizer can leak the contents of a "style" element
-    into HTML output, potentially causing XSS vulnerabilities.
+description: |-
+    The bluemonday HTML sanitizer can leak the contents of a "style" element into
+    HTML output, potentially causing XSS vulnerabilities.
 
-    The default bluemonday sanitization policies are not vulnerable.
-    Only user-defined policies allowing "select", "style", and
-    "option" elements are affected.
+    The default bluemonday sanitization policies are not vulnerable. Only
+    user-defined policies allowing "select", "style", and "option" elements are
+    affected.
 
-    Permitting the "style" element in policies is hazardous, because bluemonday
-    does not contain a CSS sanitizer. Newer versions of bluemonday suppress
-    "style" and "script" elements even when allowed by a policy unless the
-    policy explicitly requests unsafe processing.
+    Permitting the "style" element in policies is hazardous, because bluemonday does
+    not contain a CSS sanitizer. Newer versions of bluemonday suppress "style" and
+    "script" elements even when allowed by a policy unless the policy explicitly
+    requests unsafe processing.
 published: 2022-08-15T18:02:24Z
 cves:
     - CVE-2021-42576

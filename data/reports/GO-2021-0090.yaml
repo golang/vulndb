@@ -12,11 +12,10 @@ modules:
           derived_symbols:
             - MakeCommit
 summary: Denial of service in github.com/tendermint/tendermint
-description: |
-    Proposed commits may contain signatures for blocks not contained
-    within the commit. Instead of skipping these signatures, they
-    cause failure during verification. A malicious proposer can use
-    this to force consensus failures.
+description: |-
+    Proposed commits may contain signatures for blocks not contained within the
+    commit. Instead of skipping these signatures, they cause failure during
+    verification. A malicious proposer can use this to force consensus failures.
 published: 2021-04-14T20:04:52Z
 cves:
     - CVE-2020-15091

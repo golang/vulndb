@@ -11,7 +11,7 @@ modules:
           symbols:
             - Glob
 summary: Stack exhaustion on crafted paths in path/filepath
-description: |
+description: |-
     Calling Glob on a path which contains a large number of path separators can
     cause a panic due to stack exhaustion.
 published: 2022-07-20T17:02:29Z
@@ -25,7 +25,7 @@ references:
 cve_metadata:
     id: CVE-2022-30632
     cwe: 'CWE-674: Uncontrolled Recursion'
-    description: |
-        Uncontrolled recursion in Glob in path/filepath before Go 1.17.12 and
-        Go 1.18.4 allows an attacker to cause a panic due to stack exhaustion
-        via a path containing a large number of path separators.
+    description: |-
+        Uncontrolled recursion in Glob in path/filepath before Go 1.17.12 and Go 1.18.4
+        allows an attacker to cause a panic due to stack exhaustion via a path
+        containing a large number of path separators.

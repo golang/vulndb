@@ -17,9 +17,9 @@ modules:
             - p256Curve.ScalarBaseMult
             - p256Curve.ScalarMult
 summary: Panic due to large inputs affecting P-256 curves in crypto/elliptic
-description: |
-    A crafted scalar input longer than 32 bytes can cause P256().ScalarMult
-    or P256().ScalarBaseMult to panic. Indirect uses through crypto/ecdsa and
+description: |-
+    A crafted scalar input longer than 32 bytes can cause P256().ScalarMult or
+    P256().ScalarBaseMult to panic. Indirect uses through crypto/ecdsa and
     crypto/tls are unaffected. amd64, arm64, ppc64le, and s390x are unaffected.
 published: 2022-05-20T21:17:46Z
 cves:

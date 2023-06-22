@@ -19,14 +19,14 @@ modules:
             - handshakeFSM.Run
             - listener.Accept
 summary: Improper validation of client certificates in github.com/pion/dtls/v2
-description: |
-    Client-provided certificates are not correctly validated,
-    and must not be trusted.
+description: |-
+    Client-provided certificates are not correctly validated, and must not be
+    trusted.
 
-    DTLS client certificates must be accompanied by proof that the client
-    possesses the private key for the certificate. The Pion DTLS server
-    accepted client certificates unaccompanied by this proof, permitting
-    an attacker to present any certificate and have it accepted as valid.
+    DTLS client certificates must be accompanied by proof that the client possesses
+    the private key for the certificate. The Pion DTLS server accepted client
+    certificates unaccompanied by this proof, permitting an attacker to present any
+    certificate and have it accepted as valid.
 published: 2022-07-01T20:07:12Z
 cves:
     - CVE-2022-29222

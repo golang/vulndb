@@ -9,13 +9,13 @@ modules:
           symbols:
             - Unpack
 summary: Directory traversal in github.com/hashicorp/go-slug
-description: |
+description: |-
     Protections against directory traversal during archive extraction can be
-    bypassed by chaining multiple symbolic links within the archive. This allows
-    a malicious attacker to cause files to be created outside of the target
-    directory. Additionally if the attacker is able to read extracted files
-    they may create symbolic links to arbitrary files on the system which the
-    unpacker has permissions to read.
+    bypassed by chaining multiple symbolic links within the archive. This allows a
+    malicious attacker to cause files to be created outside of the target directory.
+    Additionally if the attacker is able to read extracted files they may create
+    symbolic links to arbitrary files on the system which the unpacker has
+    permissions to read.
 published: 2021-04-14T20:04:52Z
 cves:
     - CVE-2020-29529

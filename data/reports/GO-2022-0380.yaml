@@ -10,14 +10,14 @@ modules:
             - AccountClaims.IsRevoked
             - Export.IsRevoked
 summary: Incorrect handling of credential expiry in github.com/nats-io/jwt
-description: |
-    The AccountClaims.IsRevoked and Export.IsRevoked functions improperly
-    validate expired credentials using the current system time rather than
-    the issue time of the JWT to be tested.
+description: |-
+    The AccountClaims.IsRevoked and Export.IsRevoked functions improperly validate
+    expired credentials using the current system time rather than the issue time of
+    the JWT to be tested.
 
     These functions cannot be used properly. Newer versions of the jwt package
-    provide an IsClaimRevoked method which performs correct validation.
-    In these versions, the IsRevoked method always return true.
+    provide an IsClaimRevoked method which performs correct validation. In these
+    versions, the IsRevoked method always return true.
 published: 2022-07-15T23:29:36Z
 cves:
     - CVE-2020-26892

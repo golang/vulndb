@@ -10,9 +10,9 @@ modules:
             - NewBitfield
             - FromBytes
 summary: Denial of service via malformed size parameters in github.com/ipfs/go-bitfield
-description: |
-    When feeding untrusted user input into the size parameter of `NewBitfield`
-    and FromBytes functions, an attacker can trigger panics.
+description: |-
+    When feeding untrusted user input into the size parameter of `NewBitfield` and
+    FromBytes functions, an attacker can trigger panics.
 
     This happens when the size is a not a multiple of 8 or is negative.
 

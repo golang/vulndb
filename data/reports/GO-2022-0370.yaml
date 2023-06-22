@@ -16,20 +16,21 @@ modules:
             - Dialer.Dial
             - Dialer.DialDirect
             - NewClient
-summary: Man-in-the-middle attack due to improper validation of certificate in mellium.im/xmpp
-description: |
-    Websocket client connections are vulnerable to man-in-the-middle
-    attacks via DNS spoofing.
+summary: |-
+    Man-in-the-middle attack due to improper validation of certificate in
+    mellium.im/xmpp
+description: |-
+    Websocket client connections are vulnerable to man-in-the-middle attacks via DNS
+    spoofing.
 
-    When looking up a WSS endpoint using a DNS TXT record, the server
-    TLS certificate is incorrectly validated using the name of the
-    server returned by the TXT record request, not the name of the
-    the server being connected to. This permits any attacker that
-    can spoof a DNS record to redirect the user to a server of their
-    choosing.
+    When looking up a WSS endpoint using a DNS TXT record, the server TLS
+    certificate is incorrectly validated using the name of the server returned by
+    the TXT record request, not the name of the the server being connected to. This
+    permits any attacker that can spoof a DNS record to redirect the user to a
+    server of their choosing.
 
-    Providing a *tls.Config with a ServerName field set to the
-    correct destination hostname will avoid this issue.
+    Providing a *tls.Config with a ServerName field set to the correct destination
+    hostname will avoid this issue.
 published: 2022-07-29T20:00:14Z
 cves:
     - CVE-2022-24968

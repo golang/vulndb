@@ -12,15 +12,14 @@ modules:
             - Manager.Run
             - Manager.RunLeased
 summary: Incorrect authorization in github.com/pomerium/pomerium
-description: |
+description: |-
     Pomerium is an open source identity-aware access proxy. Changes to the OIDC
-    claims of a user after initial login are not reflected in policy evaluation
-    when using allowed_idp_claims as part of policy. If using allowed_idp_claims
-    and a user's claims are changed, Pomerium can make incorrect authorization
-    decisions.
+    claims of a user after initial login are not reflected in policy evaluation when
+    using allowed_idp_claims as part of policy. If using allowed_idp_claims and a
+    user's claims are changed, Pomerium can make incorrect authorization decisions.
 
-    For users unable to upgrade clear data on databroker service by clearing
-    redis or restarting the in-memory databroker to force claims to be updated.
+    For users unable to upgrade clear data on databroker service by clearing redis
+    or restarting the in-memory databroker to force claims to be updated.
 published: 2022-01-14T17:30:31Z
 cves:
     - CVE-2021-41230

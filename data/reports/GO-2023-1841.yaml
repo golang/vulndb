@@ -9,11 +9,11 @@ modules:
       packages:
         - package: cmd/go
 summary: Improper sanitization of LDFLAGS in go command with cgo in cmd/go
-description: |
-    The go command may execute arbitrary code at build time when using cgo.
-    This may occur when running "go get" on a malicious module, or when running
-    any other command which builds untrusted code. This is can by triggered by
-    linker flags, specified via a "#cgo LDFLAGS" directive.
+description: |-
+    The go command may execute arbitrary code at build time when using cgo. This may
+    occur when running "go get" on a malicious module, or when running any other
+    command which builds untrusted code. This is can by triggered by linker flags,
+    specified via a "#cgo LDFLAGS" directive.
 
     The arguments for a number of flags which are non-optional are incorrectly
     considered optional, allowing disallowed flags to be smuggled through the

@@ -12,15 +12,15 @@ modules:
             - downloadPackage
           skip_fix: 'TODO: revisit this reason (cant request explicit version v1.11.2 of standard library package cmd/go/internal/get'
 summary: Directory traversal via "go get" command in cmd/go
-description: |
-    The "go get" command is vulnerable to directory traversal when executed
-    with the import path of a malicious Go package which contains curly brace
-    (both '{'  and '}' characters).
+description: |-
+    The "go get" command is vulnerable to directory traversal when executed with the
+    import path of a malicious Go package which contains curly brace (both '{' and
+    '}' characters).
 
-    Specifically, it is only vulnerable in GOPATH mode, but not in module mode
-    (the distinction is documented at
-    https://golang.org/cmd/go/#hdr-Module_aware_go_get). The attacker can cause
-    an arbitrary filesystem write, which can lead to code execution.
+    Specifically, it is only vulnerable in GOPATH mode, but not in module mode (the
+    distinction is documented at
+    https://golang.org/cmd/go/#hdr-Module_aware_go_get). The attacker can cause an
+    arbitrary filesystem write, which can lead to code execution.
 published: 2022-08-02T15:44:23Z
 cves:
     - CVE-2018-16874

@@ -18,20 +18,20 @@ modules:
             - ToYAML
 summary: Denial of service through string value parsing in helm.sh/helm/v3
 description: |-
-    Applications that use the strvals package in the Helm SDK to parse user
-    supplied input can suffer a Denial of Service when that input causes a
-    panic that cannot be recovered from.
+    Applications that use the strvals package in the Helm SDK to parse user supplied
+    input can suffer a Denial of Service when that input causes a panic that cannot
+    be recovered from.
 
-    The strvals package contains a parser that turns strings into Go
-    structures. For example, the Helm client has command line flags like --set,
-    --set-string, and others that enable the user to pass in strings that are
-    merged into the values. The strvals package converts these strings into
-    structures Go can work with. Some string inputs can cause array data
-    structures to be created causing an out of memory panic.
+    The strvals package contains a parser that turns strings into Go structures. For
+    example, the Helm client has command line flags like --set, --set-string, and
+    others that enable the user to pass in strings that are merged into the values.
+    The strvals package converts these strings into structures Go can work with.
+    Some string inputs can cause array data structures to be created causing an out
+    of memory panic.
 
-    The Helm Client will panic with input to --set, --set-string, and other
-    value setting flags that causes an out of memory panic. Helm is not a long
-    running service so the panic will not affect future uses of the Helm client.
+    The Helm Client will panic with input to --set, --set-string, and other value
+    setting flags that causes an out of memory panic. Helm is not a long running
+    service so the panic will not affect future uses of the Helm client.
 published: 2022-09-02T15:19:52Z
 cves:
     - CVE-2022-36055

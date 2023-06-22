@@ -3,7 +3,7 @@ modules:
     - module: github.com/ethereum/go-ethereum
       versions:
         - introduced: 1.9.4
-        - fixed: 1.9.20
+          fixed: 1.9.20
       vulnerable_at: 1.9.20-0.20200821114314-b68929caee77
       packages:
         - package: github.com/ethereum/go-ethereum/core/state
@@ -20,10 +20,10 @@ modules:
             - StateDB.SetStorage
             - StateDB.SubBalance
 summary: Consensus flaw in github.com/ethereum/go-ethereum
-description: |
-    Due to an incorrect state calculation, a specific set of
-    transactions could cause a consensus disagreement,
-    causing users of this package to reject a canonical chain.
+description: |-
+    Due to an incorrect state calculation, a specific set of transactions could
+    cause a consensus disagreement, causing users of this package to reject a
+    canonical chain.
 published: 2021-07-28T18:08:05Z
 cves:
     - CVE-2020-26265

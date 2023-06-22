@@ -19,10 +19,10 @@ modules:
             - proxiedConn.LocalAddr
             - proxiedConn.RemoteAddr
 summary: Infinite loop in github.com/btcsuite/go-socks
-description: |
-    The RemoteAddr and LocalAddr methods on the returned net.Conn may
-    call themselves, leading to an infinite loop which will crash the
-    program due to a stack overflow.
+description: |-
+    The RemoteAddr and LocalAddr methods on the returned net.Conn may call
+    themselves, leading to an infinite loop which will crash the program due to a
+    stack overflow.
 published: 2021-04-14T20:04:52Z
 ghsas:
     - GHSA-gxgj-xjcw-fv9p

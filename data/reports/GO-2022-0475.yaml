@@ -16,13 +16,12 @@ modules:
             - dynimport
           skip_fix: 'TODO: revisit this reason (cant request explicit version v1.15.4 of standard library package cmd/go)'
 summary: Arbitrary code execution in go command with cgo in cmd/go and cmd/cgo
-description: |
-    The go command may execute arbitrary code at build time when cgo is in use.
-    This may occur when running go get on a malicious package, or any other
-    command that builds untrusted code.
+description: |-
+    The go command may execute arbitrary code at build time when cgo is in use. This
+    may occur when running go get on a malicious package, or any other command that
+    builds untrusted code.
 
-    This can be caused by malicious unquoted symbol name in a linked object
-    file.
+    This can be caused by malicious unquoted symbol name in a linked object file.
 published: 2022-07-28T17:24:30Z
 credits:
     - Chris Brown (Tempus Ex)
@@ -34,7 +33,7 @@ references:
 cve_metadata:
     id: CVE-2020-28366
     cwe: 'CWE-94: Improper Control of Generation of Code (''Code Injection'')'
-    description: |
-        Code injection in the go command with cgo before Go 1.14.12 and Go
-        1.15.5 allows arbitrary code execution at build time via a malicious
-        unquoted symbol name in a linked object file.
+    description: |-
+        Code injection in the go command with cgo before Go 1.14.12 and Go 1.15.5 allows
+        arbitrary code execution at build time via a malicious unquoted symbol name in a
+        linked object file.

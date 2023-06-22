@@ -13,9 +13,9 @@ modules:
           symbols:
             - Read
 summary: Indefinite hang with large buffers on Windows in crypto/rand
-description: |
-    On Windows, rand.Read will hang indefinitely if passed a buffer larger than
-    1 << 32 - 1 bytes.
+description: |-
+    On Windows, rand.Read will hang indefinitely if passed a buffer larger than 1 <<
+    32 - 1 bytes.
 published: 2022-06-09T01:43:37Z
 credits:
     - Davis Goodin
@@ -28,7 +28,7 @@ references:
 cve_metadata:
     id: CVE-2022-30634
     cwe: 'CWE-835: Loop with Unreachable Exit Condition (''Infinite Loop'')'
-    description: |
-        Infinite loop in Read in crypto/rand before Go 1.17.11 and Go 1.18.3 on
-        Windows allows attacker to cause an indefinite hang by passing a buffer
-        larger than 1 << 32 - 1 bytes.
+    description: |-
+        Infinite loop in Read in crypto/rand before Go 1.17.11 and Go 1.18.3 on Windows
+        allows attacker to cause an indefinite hang by passing a buffer larger than 1 <<
+        32 - 1 bytes.

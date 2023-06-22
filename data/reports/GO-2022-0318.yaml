@@ -13,12 +13,12 @@ modules:
             - codeRepo.validatePseudoVersion
           skip_fix: 'TODO: revisit this reason (cant request explicit version v1.17.6 of standard library package cmd/go/internal/modfetch)'
 summary: Incorrect access control in the go command in cmd/go/internal/modfetch
-description: |
+description: |-
     Incorrect access control is possible in the go command.
 
-    The go command can misinterpret branch names that falsely appear to be
-    version tags. This can lead to incorrect access control if an actor is
-    authorized to create branches but not tags.
+    The go command can misinterpret branch names that falsely appear to be version
+    tags. This can lead to incorrect access control if an actor is authorized to
+    create branches but not tags.
 published: 2022-08-01T22:20:42Z
 cves:
     - CVE-2022-23773

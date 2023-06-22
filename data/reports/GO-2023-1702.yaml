@@ -13,7 +13,7 @@ modules:
           derived_symbols:
             - Scanner.Scan
 summary: Infinite loop in parsing in go/scanner
-description: |
+description: |-
     Calling any of the Parse functions on Go source code which contains //line
     directives with very large line numbers can cause an infinite loop due to
     integer overflow.

@@ -9,17 +9,17 @@ modules:
           symbols:
             - UnmarshalManifest
 summary: Type confusion in github.com/docker/distribution
-description: |
-    Systems that rely on digest equivalence for image attestations may be
-    vulnerable to type confusion.
+description: |-
+    Systems that rely on digest equivalence for image attestations may be vulnerable
+    to type confusion.
 
-    A maliciously crafted OCI Container Image can cause registry clients to
-    parse the same image in two different ways without modifying the image's
-    digest, invalidating the common pattern of relying on container image
-    digests for equivalence.
+    A maliciously crafted OCI Container Image can cause registry clients to parse
+    the same image in two different ways without modifying the image's digest,
+    invalidating the common pattern of relying on container image digests for
+    equivalence.
 
-    This problem has been addressed in newer versions by improving validation
-    in manifest unmarshalling.
+    This problem has been addressed in newer versions by improving validation in
+    manifest unmarshalling.
 published: 2022-07-29T20:00:03Z
 ghsas:
     - GHSA-qq97-vm5h-rrhg

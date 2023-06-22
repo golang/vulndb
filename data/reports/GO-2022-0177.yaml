@@ -10,16 +10,15 @@ modules:
         - package: cmd/go
           skip_fix: 'TODO: revisit this reason (cant request explicit version of standard library package cmd/go)'
 summary: Remote command execution via "go get" in cmd/go
-description: |
+description: |-
     The "go get" command allows remote command execution.
 
-    Using custom domains, it is possible to arrange things so that
-    example.com/pkg1 points to a Subversion repository but
-    example.com/pkg1/pkg2 points to a Git repository. If the Subversion
-    repository includes a Git checkout in its pkg2 directory and
-    some other work is done to ensure the proper ordering of operations, "go
-    get" can be tricked into reusing this Git checkout for the fetch of code
-    from pkg2. If the Subversion repository's Git checkout has malicious
+    Using custom domains, it is possible to arrange things so that example.com/pkg1
+    points to a Subversion repository but example.com/pkg1/pkg2 points to a Git
+    repository. If the Subversion repository includes a Git checkout in its pkg2
+    directory and some other work is done to ensure the proper ordering of
+    operations, "go get" can be tricked into reusing this Git checkout for the fetch
+    of code from pkg2. If the Subversion repository's Git checkout has malicious
     commands in .git/hooks/, they will execute on the system running "go get".
 published: 2022-08-09T17:31:35Z
 cves:
