@@ -10,6 +10,8 @@ import (
 	"net/http/httptest"
 	"runtime"
 	"testing"
+
+	"github.com/google/go-cmp/cmp"
 )
 
 func newTestClient(expectedEndpoint, mockResponse string) *Client {
@@ -81,14 +83,14 @@ func TestCanonicalModuleVersion(t *testing.T) {
 			path:         "golang.org/x/vulndb",
 			version:      "v0.0.0-20230522180520-0cbf4ffdb4e7",
 			mockResponse: `{"Version":"v0.0.0-20230522180520-0cbf4ffdb4e7"}`,
-			want:         "v0.0.0-20230522180520-0cbf4ffdb4e7",
+			want:         "0.0.0-20230522180520-0cbf4ffdb4e7",
 		},
 		{
 			name:         "commit hash",
 			path:         "golang.org/x/vulndb",
 			version:      "0cbf4ffdb4e70fce663ec8d59198745b04e7801b",
 			mockResponse: `{"Version":"v0.0.0-20230522180520-0cbf4ffdb4e7"}`,
-			want:         "v0.0.0-20230522180520-0cbf4ffdb4e7",
+			want:         "0.0.0-20230522180520-0cbf4ffdb4e7",
 		},
 	}
 
@@ -102,6 +104,74 @@ func TestCanonicalModuleVersion(t *testing.T) {
 			}
 			if got != tc.want {
 				t.Errorf("CanonicalModuleVersion() = %v, want %v", got, tc.want)
+			}
+		})
+	}
+}
+
+func TestVersions(t *testing.T) {
+	tcs := []struct {
+		name         string
+		path         string
+		mockResponse string
+		want         []string
+	}{
+		{
+			name:         "no tagged versions",
+			path:         "golang.org/x/vulndb",
+			mockResponse: "",
+			want:         nil,
+		},
+		{
+			name: "unsorted -> sorted",
+			path: "golang.org/x/tools",
+			mockResponse: `
+v0.1.4
+v0.9.3
+v0.7.0
+`,
+			want: []string{"0.1.4", "0.7.0", "0.9.3"},
+		},
+	}
+
+	for _, tc := range tcs {
+		t.Run(tc.name, func(t *testing.T) {
+			endpoint := fmt.Sprintf("%s/@v/list", tc.path)
+			c := newTestClient(endpoint, tc.mockResponse)
+			got, err := c.Versions(tc.path)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if diff := cmp.Diff(tc.want, got); diff != "" {
+				t.Errorf("Versions() mismatch (-want +got):\n%s", diff)
+			}
+		})
+	}
+}
+
+func TestLatest(t *testing.T) {
+	tcs := []struct {
+		path         string
+		mockResponse string
+		want         string
+	}{
+		{
+			path:         "golang.org/x/vulndb",
+			mockResponse: `{"Version":"v0.0.0-20230522180520-0cbf4ffdb4e7"}`,
+			want:         "0.0.0-20230522180520-0cbf4ffdb4e7",
+		},
+	}
+
+	for _, tc := range tcs {
+		t.Run(tc.path, func(t *testing.T) {
+			endpoint := fmt.Sprintf("%s/@latest", tc.path)
+			c := newTestClient(endpoint, tc.mockResponse)
+			got, err := c.Latest(tc.path)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if got != tc.want {
+				t.Errorf("Latest() = %v, want %v", got, tc.want)
 			}
 		})
 	}

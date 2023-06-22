@@ -5,6 +5,8 @@
 package report
 
 import (
+	"errors"
+	"fmt"
 	"regexp"
 	"sort"
 	"strings"
@@ -89,6 +91,67 @@ func (m *Module) fixVersions() {
 			}
 		}
 	}
+
+	if m.VulnerableAt == "" {
+		v, err := m.guessVulnerableAt(proxy.DefaultClient)
+		// For now, ignore errors and leave the field blank if it can't
+		// be determined.
+		if err == nil {
+			m.VulnerableAt = v
+		}
+	}
+}
+
+type proxyClient interface {
+	Latest(path string) (string, error)
+	Versions(path string) ([]string, error)
+}
+
+// guessVulnerableAt attempts to find a vulnerable_at
+// version using the module proxy.
+// If there is no fix, the latest version is used.
+func (m *Module) guessVulnerableAt(pc proxyClient) (string, error) {
+	if m.IsFirstParty() {
+		return "", errors.New("cannot auto-guess vulnerable_at for first-party modules")
+	}
+
+	// Find the last fixed version, assuming the version ranges are sorted.
+	fixed := ""
+	if len(m.Versions) > 0 {
+		fixed = m.Versions[len(m.Versions)-1].Fixed
+	}
+
+	// If there is no fix, find the latest version of the module.
+	if fixed == "" {
+		latest, err := pc.Latest(m.Module)
+		if err != nil || latest == "" {
+			return "", fmt.Errorf("could not find latest version from proxy: %s", err)
+		}
+
+		return latest, nil
+	}
+
+	// If the latest fixed version is a 0.0.0 pseudo-version, or not a valid version,
+	// don't attempt to determine the vulnerable_at version.
+	if !version.IsValid(fixed) {
+		return "", errors.New("cannot auto-guess when fixed version is invalid")
+	}
+	if strings.HasPrefix(fixed, "0.0.0-") {
+		return "", errors.New("cannot auto-guess when fixed version is 0.0.0 pseudo-version")
+	}
+
+	// Otherwise, find the version right before the fixed version.
+	vs, err := pc.Versions(m.Module)
+	if err != nil {
+		return "", fmt.Errorf("could not find versions from proxy: %s", err)
+	}
+	for i := len(vs) - 1; i >= 0; i-- {
+		if version.Before(vs[i], fixed) {
+			return vs[i], nil
+		}
+	}
+
+	return "", fmt.Errorf("could not find tagged version less than fixed (lowest version is %s)", vs[0])
 }
 
 // fixLineLength returns a copy of s with all lines trimmed to <=n characters

@@ -21,9 +21,9 @@ func TestGHSAToReport(t *testing.T) {
 		Permalink:   "https://github.com/permalink/to/G1",
 		Description: "a description",
 		Vulns: []*ghsa.Vuln{{
-			Package:                "aPackage",
-			EarliestFixedVersion:   "1.2.3",
-			VulnerableVersionRange: "< 1.2.3",
+			Package:                "golang.org/x/tools/go/packages",
+			EarliestFixedVersion:   "0.9.0",
+			VulnerableVersionRange: "< 0.9.0",
 		}},
 		References: []ghsa.Reference{{URL: "https://github.com/permalink/to/issue/12345"}},
 	}
@@ -34,15 +34,16 @@ func TestGHSAToReport(t *testing.T) {
 	}{
 		{
 			name:   "module provided",
-			module: "aModule",
+			module: "golang.org/x/tools",
 			want: &Report{
 				Modules: []*Module{{
-					Module: "aModule",
+					Module:       "golang.org/x/tools",
+					VulnerableAt: "0.8.0",
 					Versions: []VersionRange{
-						{Fixed: "1.2.3"},
+						{Fixed: "0.9.0"},
 					},
 					Packages: []*Package{{
-						Package: "aPackage",
+						Package: "golang.org/x/tools/go/packages",
 					}},
 				}},
 				Description: "a description",
@@ -52,16 +53,16 @@ func TestGHSAToReport(t *testing.T) {
 			},
 		},
 		{
-			name:   "empty module uses package",
+			name:   "empty module uses package as module",
 			module: "",
 			want: &Report{
 				Modules: []*Module{{
-					Module: "aPackage",
+					Module: "golang.org/x/tools/go/packages",
 					Versions: []VersionRange{
-						{Fixed: "1.2.3"},
+						{Fixed: "0.9.0"},
 					},
 					Packages: []*Package{{
-						Package: "aPackage",
+						Package: "golang.org/x/tools/go/packages",
 					}},
 				}},
 				Description: "a description",

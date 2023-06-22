@@ -12,10 +12,13 @@ import (
 	"net/http"
 	"os"
 	"path"
+	"sort"
+	"strings"
 	"sync"
 
 	"golang.org/x/mod/modfile"
 	"golang.org/x/mod/module"
+	"golang.org/x/vulndb/internal/version"
 )
 
 var DefaultClient *Client
@@ -100,16 +103,44 @@ func (c *Client) CanonicalModulePath(path, version string) (_ string, err error)
 	return m.Module.Mod.Path, nil
 }
 
-func CanonicalModuleVersion(path, version string) (_ string, err error) {
-	return DefaultClient.CanonicalModuleVersion(path, version)
+func CanonicalModuleVersion(path, ver string) (_ string, err error) {
+	return DefaultClient.CanonicalModuleVersion(path, ver)
 }
 
-func (c *Client) CanonicalModuleVersion(path, version string) (_ string, err error) {
+// CanonicalModuleVersion returns the canonical version string (with no leading "v" prefix)
+// for the given module path and version string.
+func (c *Client) CanonicalModuleVersion(path, ver string) (_ string, err error) {
 	escaped, err := module.EscapePath(path)
 	if err != nil {
 		return "", err
 	}
-	b, err := c.lookup(fmt.Sprintf("%s/@v/%v.info", escaped, version))
+	b, err := c.lookup(fmt.Sprintf("%s/@v/%v.info", escaped, ver))
+	if err != nil {
+		return "", err
+	}
+	var val map[string]any
+	if err := json.Unmarshal(b, &val); err != nil {
+		return "", err
+	}
+	v, ok := val["Version"].(string)
+	if !ok {
+		return "", fmt.Errorf("unable to retrieve canonical version for %s", ver)
+	}
+	return version.TrimPrefix(v), nil
+}
+
+func Latest(path string) (string, error) {
+	return DefaultClient.Latest(path)
+}
+
+// Latest returns the latest version of the module, with no leading "v"
+// prefix.
+func (c *Client) Latest(path string) (string, error) {
+	escaped, err := module.EscapePath(path)
+	if err != nil {
+		return "", err
+	}
+	b, err := c.lookup(fmt.Sprintf("%s/@latest", escaped))
 	if err != nil {
 		return "", err
 	}
@@ -119,9 +150,37 @@ func (c *Client) CanonicalModuleVersion(path, version string) (_ string, err err
 	}
 	ver, ok := v["Version"].(string)
 	if !ok {
-		return "", fmt.Errorf("unable to retrieve canonical version for %s", version)
+		return "", fmt.Errorf("unable to retrieve latest version for %s", path)
 	}
-	return ver, nil
+	return version.TrimPrefix(ver), nil
+}
+
+func Versions(path string) ([]string, error) {
+	return DefaultClient.Versions(path)
+}
+
+// Versions returns a list of module versions (with no leading "v" prefix),
+// sorted in ascending order.
+func (c *Client) Versions(path string) ([]string, error) {
+	escaped, err := module.EscapePath(path)
+	if err != nil {
+		return nil, err
+	}
+	b, err := c.lookup(fmt.Sprintf("%s/@v/list", escaped))
+	if err != nil {
+		return nil, err
+	}
+	if len(b) == 0 {
+		return nil, nil
+	}
+	var vs []string
+	for _, v := range strings.Split(strings.TrimSpace(string(b)), "\n") {
+		vs = append(vs, version.TrimPrefix(v))
+	}
+	sort.SliceStable(vs, func(i, j int) bool {
+		return version.Before(vs[i], vs[j])
+	})
+	return vs, nil
 }
 
 func FindModule(path string) string {
