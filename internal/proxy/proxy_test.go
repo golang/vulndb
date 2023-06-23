@@ -5,37 +5,59 @@
 package proxy
 
 import (
+	"fmt"
+	"net/http"
+	"net/http/httptest"
 	"runtime"
 	"testing"
 )
+
+func newTestClient(expectedEndpoint, mockResponse string) *Client {
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == http.MethodGet &&
+			r.URL.Path == "/"+expectedEndpoint {
+			_, _ = w.Write([]byte(mockResponse))
+			w.WriteHeader(http.StatusOK)
+			return
+		}
+		w.WriteHeader(http.StatusBadRequest)
+	}
+	s := httptest.NewServer(http.HandlerFunc(handler))
+	return NewClient(s.Client(), s.URL)
+}
 
 func TestCanonicalModulePath(t *testing.T) {
 	if runtime.GOOS == "js" {
 		t.Skipf("wasm builder does not have network access")
 	}
 	tcs := []struct {
-		name    string
-		path    string
-		version string
-		want    string
+		name         string
+		path         string
+		version      string
+		mockResponse string
+		want         string
 	}{
 		{
-			name:    "non-canonical",
-			path:    "github.com/golang/vulndb",
-			version: "v0.0.0-20230522180520-0cbf4ffdb4e7",
-			want:    "golang.org/x/vulndb",
+			name:         "non-canonical",
+			path:         "github.com/golang/vulndb",
+			version:      "v0.0.0-20230522180520-0cbf4ffdb4e7",
+			mockResponse: "module golang.org/x/vulndb",
+			want:         "golang.org/x/vulndb",
 		},
 		{
-			name:    "canonical",
-			path:    "golang.org/x/vulndb",
-			version: "v0.0.0-20230522180520-0cbf4ffdb4e7",
-			want:    "golang.org/x/vulndb",
+			name:         "canonical",
+			path:         "golang.org/x/vulndb",
+			version:      "v0.0.0-20230522180520-0cbf4ffdb4e7",
+			mockResponse: "module golang.org/x/vulndb",
+			want:         "golang.org/x/vulndb",
 		},
 	}
 
 	for _, tc := range tcs {
 		t.Run(tc.name, func(t *testing.T) {
-			got, err := CanonicalModulePath(tc.path, tc.version)
+			endpoint := fmt.Sprintf("%s/@v/%s.mod", tc.path, tc.version)
+			c := newTestClient(endpoint, tc.mockResponse)
+			got, err := c.CanonicalModulePath(tc.path, tc.version)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -47,32 +69,34 @@ func TestCanonicalModulePath(t *testing.T) {
 }
 
 func TestCanonicalModuleVersion(t *testing.T) {
-	if runtime.GOOS == "js" {
-		t.Skipf("wasm builder does not have network access")
-	}
 	tcs := []struct {
-		name    string
-		path    string
-		version string
-		want    string
+		name         string
+		path         string
+		version      string
+		mockResponse string
+		want         string
 	}{
 		{
-			name:    "already canonical",
-			path:    "golang.org/x/vulndb",
-			version: "v0.0.0-20230522180520-0cbf4ffdb4e7",
-			want:    "v0.0.0-20230522180520-0cbf4ffdb4e7",
+			name:         "already canonical",
+			path:         "golang.org/x/vulndb",
+			version:      "v0.0.0-20230522180520-0cbf4ffdb4e7",
+			mockResponse: `{"Version":"v0.0.0-20230522180520-0cbf4ffdb4e7"}`,
+			want:         "v0.0.0-20230522180520-0cbf4ffdb4e7",
 		},
 		{
-			name:    "commit hash",
-			path:    "golang.org/x/vulndb",
-			version: "0cbf4ffdb4e70fce663ec8d59198745b04e7801b",
-			want:    "v0.0.0-20230522180520-0cbf4ffdb4e7",
+			name:         "commit hash",
+			path:         "golang.org/x/vulndb",
+			version:      "0cbf4ffdb4e70fce663ec8d59198745b04e7801b",
+			mockResponse: `{"Version":"v0.0.0-20230522180520-0cbf4ffdb4e7"}`,
+			want:         "v0.0.0-20230522180520-0cbf4ffdb4e7",
 		},
 	}
 
 	for _, tc := range tcs {
 		t.Run(tc.name, func(t *testing.T) {
-			got, err := CanonicalModuleVersion(tc.path, tc.version)
+			endpoint := fmt.Sprintf("%s/@v/%s.info", tc.path, tc.version)
+			c := newTestClient(endpoint, tc.mockResponse)
+			got, err := c.CanonicalModuleVersion(tc.path, tc.version)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -84,9 +108,6 @@ func TestCanonicalModuleVersion(t *testing.T) {
 }
 
 func TestFindModule(t *testing.T) {
-	if runtime.GOOS == "js" {
-		t.Skipf("wasm builder does not have network access")
-	}
 	tcs := []struct {
 		name string
 		path string
@@ -116,7 +137,9 @@ func TestFindModule(t *testing.T) {
 
 	for _, tc := range tcs {
 		t.Run(tc.name, func(t *testing.T) {
-			if got := FindModule(tc.path); got != tc.want {
+			endpoint := fmt.Sprintf("%s/@v/list", tc.want)
+			c := newTestClient(endpoint, "")
+			if got := c.FindModule(tc.path); got != tc.want {
 				t.Errorf("FindModule() = %v, want %v", got, tc.want)
 			}
 		})
