@@ -69,8 +69,8 @@ func TestYAMLFilename(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		if got != test.want {
-			t.Errorf("got %s, want %s", got, test.want)
+		if want := filepath.FromSlash(test.want); got != want {
+			t.Errorf("got %s, want %s", got, want)
 		}
 	}
 }

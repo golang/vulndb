@@ -10,7 +10,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"path/filepath"
+	"path"
 	"time"
 
 	"github.com/go-git/go-git/v5"
@@ -91,8 +91,8 @@ func New(ctx context.Context, repo *git.Repository) (_ *Database, err error) {
 	}
 
 	if err = root.Files().ForEach(func(f *object.File) error {
-		if filepath.Dir(f.Name) != report.OSVDir ||
-			filepath.Ext(f.Name) != ".json" {
+		if path.Dir(f.Name) != report.OSVDir ||
+			path.Ext(f.Name) != ".json" {
 			return nil
 		}
 

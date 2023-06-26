@@ -184,7 +184,7 @@ func (a *Package) AllSymbols() []string {
 var reportFilepathRegexp = regexp.MustCompile(`^(data/\w+)/(GO-\d\d\d\d-0*(\d+)\.yaml)$`)
 
 func ParseFilepath(path string) (folder, filename string, issueID int, err error) {
-	m := reportFilepathRegexp.FindStringSubmatch(path)
+	m := reportFilepathRegexp.FindStringSubmatch(filepath.ToSlash(path))
 	if len(m) != 4 {
 		return "", "", 0, fmt.Errorf("%v: not a report filepath", path)
 	}

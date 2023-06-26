@@ -5,13 +5,14 @@
 package legacydb
 
 import (
+	"path/filepath"
 	"strings"
 	"testing"
 
 	"golang.org/x/vulndb/internal/osv"
 )
 
-var existingDir = "testdata/db/existing"
+var existingDir = filepath.FromSlash("testdata/db/existing")
 
 func TestValidate(t *testing.T) {
 	t.Run("valid", func(t *testing.T) {

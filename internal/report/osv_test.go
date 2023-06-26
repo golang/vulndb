@@ -5,6 +5,7 @@
 package report
 
 import (
+	"path/filepath"
 	"reflect"
 	"testing"
 	"time"
@@ -208,7 +209,7 @@ func TestToOSV(t *testing.T) {
 }
 
 func TestOSVFilename(t *testing.T) {
-	want := "data/osv/GO-1999-0001.json"
+	want := filepath.FromSlash("data/osv/GO-1999-0001.json")
 	r := &Report{ID: "GO-1999-0001"}
 	if got := r.OSVFilename(); got != want {
 		t.Errorf("got %s, want %s", got, want)

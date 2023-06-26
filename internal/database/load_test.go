@@ -6,7 +6,7 @@ package database
 
 import (
 	"path/filepath"
-	"strings"
+	"regexp"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -32,46 +32,46 @@ func TestLoad(t *testing.T) {
 
 func TestLoadError(t *testing.T) {
 	tests := []struct {
-		name    string
-		db      string
-		gzip    bool
-		wantErr string
+		name      string
+		db        string
+		gzip      bool
+		wantErrRe string
 	}{
 		{
-			name:    "invalid db.json",
-			db:      invalidDBMetaTxtar,
-			gzip:    true,
-			wantErr: "db.json: contents do not match",
+			name:      "invalid db.json",
+			db:        invalidDBMetaTxtar,
+			gzip:      true,
+			wantErrRe: `db\.json: contents do not match`,
 		},
 		{
-			name:    "invalid modules.json",
-			db:      invalidModulesTxtar,
-			gzip:    true,
-			wantErr: "modules.json: contents do not match",
+			name:      "invalid modules.json",
+			db:        invalidModulesTxtar,
+			gzip:      true,
+			wantErrRe: `modules\.json: contents do not match`,
 		},
 		{
-			name:    "invalid vulns.json",
-			db:      invalidVulnsTxtar,
-			gzip:    true,
-			wantErr: "vulns.json: contents do not match",
+			name:      "invalid vulns.json",
+			db:        invalidVulnsTxtar,
+			gzip:      true,
+			wantErrRe: `vulns\.json: contents do not match`,
 		},
 		{
-			name:    "invalid entry filename",
-			db:      invalidFilenameTxtar,
-			gzip:    true,
-			wantErr: "GO-1999-0001.json: no such file or directory",
+			name:      "invalid entry filename",
+			db:        invalidFilenameTxtar,
+			gzip:      true,
+			wantErrRe: `GO-1999-0001\.json:.*(cannot find|no such)`,
 		},
 		{
-			name:    "unmarshalable entry contents",
-			db:      invalidEntriesTxtar,
-			gzip:    true,
-			wantErr: "cannot unmarshal",
+			name:      "unmarshalable entry contents",
+			db:        invalidEntriesTxtar,
+			gzip:      true,
+			wantErrRe: `cannot unmarshal`,
 		},
 		{
-			name:    "no gzip",
-			db:      validTxtar,
-			gzip:    false,
-			wantErr: ".gz: no such file",
+			name:      "no gzip",
+			db:        validTxtar,
+			gzip:      false,
+			wantErrRe: `\.gz:.*(cannot find|no such)`,
 		},
 	}
 
@@ -82,9 +82,10 @@ func TestLoadError(t *testing.T) {
 				t.Fatal(err)
 			}
 
+			errRe := regexp.MustCompile(test.wantErrRe)
 			if _, gotErr := Load(tmp); gotErr == nil ||
-				!strings.Contains(gotErr.Error(), test.wantErr) {
-				t.Errorf("Load: got %s, want error containing %q", gotErr, test.wantErr)
+				!errRe.MatchString(gotErr.Error()) {
+				t.Errorf("Load: got %s, want error containing %q", gotErr, test.wantErrRe)
 			}
 		})
 	}

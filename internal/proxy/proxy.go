@@ -11,7 +11,7 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"path/filepath"
+	"path"
 
 	"golang.org/x/mod/modfile"
 	"golang.org/x/mod/module"
@@ -88,11 +88,11 @@ func CanonicalModuleVersion(path, version string) (_ string, err error) {
 
 // FindModule returns the longest directory prefix of path that
 // is a module, or "" if no such prefix is found.
-func FindModule(path string) string {
-	for candidate := path; candidate != "."; candidate = filepath.Dir(candidate) {
+func FindModule(modPath string) string {
+	for candidate := modPath; candidate != "."; candidate = path.Dir(candidate) {
 		escaped, err := module.EscapePath(candidate)
 		if err != nil {
-			return path
+			return modPath
 		}
 		if _, err := lookup(fmt.Sprintf("%s/@v/list", escaped)); err != nil {
 			// Keep looking.

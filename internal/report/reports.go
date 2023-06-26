@@ -5,7 +5,7 @@
 package report
 
 import (
-	"path/filepath"
+	"path"
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/object"
@@ -130,6 +130,6 @@ func Aliases(repo *git.Repository) (_ []string, err error) {
 }
 
 func isYAMLReport(f *object.File) bool {
-	dir, ext := filepath.Dir(f.Name), filepath.Ext(f.Name)
+	dir, ext := path.Dir(f.Name), path.Ext(f.Name)
 	return (dir == YAMLDir || dir == ExcludedDir) && ext == ".yaml"
 }

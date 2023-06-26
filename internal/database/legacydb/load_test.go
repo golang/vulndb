@@ -5,6 +5,7 @@
 package legacydb
 
 import (
+	"path/filepath"
 	"strings"
 	"testing"
 	"time"
@@ -14,7 +15,7 @@ import (
 )
 
 var (
-	validDir = "testdata/db/valid"
+	validDir = filepath.FromSlash("testdata/db/valid")
 	jan1999  = osv.Time{Time: time.Date(1999, 1, 1, 0, 0, 0, 0, time.UTC)}
 	jan2000  = osv.Time{Time: time.Date(2000, 1, 1, 0, 0, 0, 0, time.UTC)}
 	jan2002  = osv.Time{Time: time.Date(2002, 1, 1, 0, 0, 0, 0, time.UTC)}

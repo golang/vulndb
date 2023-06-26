@@ -25,7 +25,7 @@ import (
 //   - The database has unexpected files not listed in the indexes
 //   - The database is internally inconsistent
 func Load(dbPath string) (_ *Database, err error) {
-	derrors.Wrap(&err, "Load(%s)", dbPath)
+	defer derrors.Wrap(&err, "Load(%s)", dbPath)
 
 	d, err := rawLoad(dbPath)
 	if err != nil {
@@ -45,7 +45,7 @@ func Load(dbPath string) (_ *Database, err error) {
 // if any files are malformed, or the database has missing files
 // (based on the module and ID indexes).
 func rawLoad(dbPath string) (_ *Database, err error) {
-	defer derrors.Wrap(&err, "Load(%q)", dbPath)
+	defer derrors.Wrap(&err, "loading data")
 
 	d := &Database{
 		Index:      make(DBIndex),
@@ -109,8 +109,8 @@ func (d *Database) checkNoUnexpectedFiles(dbPath string) error {
 		// All other files should have corresponding entries in
 		// EntriesByModule.
 		default:
-			module := strings.TrimSuffix(strings.TrimPrefix(strings.TrimPrefix(path, dbPath), "/"), ".json")
-			unescaped, err := unescapeModulePath(module)
+			module := strings.TrimSuffix(strings.TrimPrefix(strings.TrimPrefix(path, dbPath), string(filepath.Separator)), ".json")
+			unescaped, err := unescapeModulePath(filepath.ToSlash(module))
 			if err != nil {
 				return fmt.Errorf("could not unescape module file %s: %v", path, err)
 			}
