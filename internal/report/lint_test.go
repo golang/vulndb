@@ -19,6 +19,10 @@ var (
 		{Type: osv.ReferenceTypeWeb, URL: "https://groups.google.com/g/golang-announce/c/12345"},
 		{Type: osv.ReferenceTypeReport, URL: "https://go.dev/issue/12345"},
 	}
+	validCVEMetadata = &CVEMeta{
+		ID:  "CVE-0000-1111",
+		CWE: "CWE XXX: A CWE description",
+	}
 	noop = func(*Report) {}
 )
 
@@ -96,9 +100,29 @@ func TestLint(t *testing.T) {
 			want: []string{"missing module"},
 		},
 		{
-			desc: "missing description",
+			desc: "missing description & advisory",
 			report: validReport(func(r *Report) {
 				r.Description = ""
+				r.References = nil
+			}),
+			want: []string{"missing advisory"},
+		},
+		{
+			desc: "missing description with advisory ok",
+			report: validReport(func(r *Report) {
+				r.Description = ""
+				r.References = []*Reference{
+					{Type: osv.ReferenceTypeAdvisory, URL: "https://example.com"},
+				}
+			}),
+			want: nil,
+		},
+		{
+			desc: "missing description (Go CVE)",
+			report: validReport(func(r *Report) {
+				r.Description = ""
+				r.CVEs = nil
+				r.CVEMetadata = validCVEMetadata
 			}),
 			want: []string{"missing description"},
 		},
@@ -246,10 +270,7 @@ func TestLint(t *testing.T) {
 			desc: "cve and cve metadata both present",
 			report: validReport(func(r *Report) {
 				r.CVEs = []string{"CVE-0000-1111"}
-				r.CVEMetadata = &CVEMeta{
-					ID:  "CVE-0000-1111",
-					CWE: "a cwe",
-				}
+				r.CVEMetadata = validCVEMetadata
 			}),
 			want: []string{"only one of cve and cve_metadata.id should be present"},
 		},

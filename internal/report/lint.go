@@ -235,6 +235,23 @@ func (r *Report) lintLinks(addIssue func(string)) {
 	}
 }
 
+func (r *Report) lintDescription(addIssue func(string)) {
+	if r.Description == "" && r.CVEMetadata != nil {
+		addIssue("missing description (reports with Go CVEs must have a description)")
+	}
+	hasAdvisory := func() bool {
+		for _, ref := range r.References {
+			if ref.Type == osv.ReferenceTypeAdvisory {
+				return true
+			}
+		}
+		return false
+	}
+	if r.Description == "" && r.CVEMetadata == nil && !hasAdvisory() {
+		addIssue("missing advisory (reports without descriptions must have an advisory link)")
+	}
+}
+
 func (r *Report) IsExcluded() bool {
 	return r.Excluded != ""
 }
@@ -296,9 +313,7 @@ func (r *Report) Lint() []string {
 		if len(r.Modules) == 0 {
 			addIssue("no modules")
 		}
-		if r.Description == "" {
-			addIssue("missing description")
-		}
+		r.lintDescription(addIssue)
 		if r.Summary == "" {
 			addIssue("missing summary")
 		}

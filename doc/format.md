@@ -186,7 +186,7 @@ usually of the form "PROBLEM in MODULE(s)", e.g:
 
 type `string`
 
-**required**
+**required** if first-party, optional if third-party (w/ advisory link)
 
 A textual description of the vulnerability and its impact. Should be
 wrapped to 80 columns. Does not use Markdown formatting.
@@ -200,6 +200,9 @@ necessary.
 
 Use the present tense: "This is vulnerable" rather than "this was
 vulnerable".
+
+This field may be omitted for third-party reports that have an
+external canonical advisory linked in the references section.
 
 ## `published`
 
