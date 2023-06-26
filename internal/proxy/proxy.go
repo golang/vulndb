@@ -12,19 +12,25 @@ import (
 	"net/http"
 	"os"
 	"path"
+	"sync"
 
 	"golang.org/x/mod/modfile"
 	"golang.org/x/mod/module"
 )
 
-// TODO(https://go.dev/issues/60275): Cache proxy lookups.
-
 var DefaultClient *Client
 
 // Client is a client for reading from the proxy.
+//
+// It uses a simple in-memory cache that does not expire,
+// which is acceptable because we use this Client in a short-lived
+// context (~1 day at most, in the case of the worker, and a few seconds
+// in the case of the vulnreport command), and module/version data does
+// not change often enough to be a problem for our use cases.
 type Client struct {
 	*http.Client
-	url string
+	url   string
+	cache *cache
 }
 
 func init() {
@@ -39,11 +45,15 @@ func NewClient(c *http.Client, url string) *Client {
 	return &Client{
 		Client: c,
 		url:    url,
+		cache:  newCache(),
 	}
 }
 
 func (c *Client) lookup(urlSuffix string) ([]byte, error) {
 	url := fmt.Sprintf("%s/%s", c.url, urlSuffix)
+	if b, found := c.cache.get(url); found {
+		return b, nil
+	}
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
 		return nil, err
@@ -59,6 +69,7 @@ func (c *Client) lookup(urlSuffix string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
+	c.cache.set(url, b)
 	return b, nil
 }
 
@@ -132,4 +143,34 @@ func (c *Client) FindModule(modPath string) string {
 		return candidate
 	}
 	return ""
+}
+
+// A simple in-memory cache that never expires.
+type cache struct {
+	data map[string][]byte
+	hits int // for testing
+	mu   sync.Mutex
+}
+
+func newCache() *cache {
+	return &cache{data: make(map[string][]byte)}
+}
+
+func (c *cache) get(key string) ([]byte, bool) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
+	if b, ok := c.data[key]; ok {
+		c.hits++
+		return b, true
+	}
+
+	return nil, false
+}
+
+func (c *cache) set(key string, val []byte) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
+	c.data[key] = val
 }

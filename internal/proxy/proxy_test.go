@@ -145,3 +145,22 @@ func TestFindModule(t *testing.T) {
 		})
 	}
 }
+
+func TestCache(t *testing.T) {
+	endpoint := "endpoint"
+	want := "response"
+	wantHits := 3
+	c := newTestClient(endpoint, want)
+	for i := 0; i < wantHits+1; i++ {
+		b, err := c.lookup("endpoint")
+		if err != nil {
+			t.Fatal(err)
+		}
+		if got := string(b); got != want {
+			t.Errorf("lookup() = %s, want %s", got, want)
+		}
+	}
+	if c.cache.hits != wantHits {
+		t.Errorf("cache hits = %d, want %d", c.cache.hits, wantHits)
+	}
+}
