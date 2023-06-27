@@ -6,7 +6,6 @@ package database
 
 import (
 	"fmt"
-	"path/filepath"
 
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/osv"
@@ -23,8 +22,7 @@ func Validate(newPath, oldPath string) (err error) {
 		return err
 	}
 
-	// TODO(tatianabradley): Change to Load after first deploy.
-	old, err := RawLoad(filepath.Join(oldPath, idDir))
+	old, err := Load(oldPath)
 	if err != nil {
 		return err
 	}
