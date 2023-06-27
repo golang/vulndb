@@ -700,7 +700,7 @@ func addReferenceTODOs(r *report.Report) {
 	}
 }
 
-func lint(ctx context.Context, filename string) (err error) {
+func lint(_ context.Context, filename string) (err error) {
 	defer derrors.Wrap(&err, "lint(%q)", filename)
 	infolog.Printf("lint %s\n", filename)
 
@@ -909,7 +909,7 @@ func findExportedSymbols(m *report.Module, p *report.Package) (_ []string, err e
 	return newslice, nil
 }
 
-func osvCmd(ctx context.Context, filename string) (err error) {
+func osvCmd(_ context.Context, filename string) (err error) {
 	defer derrors.Wrap(&err, "osv(%q)", filename)
 	r, err := report.ReadAndLint(filename)
 	if err != nil {
@@ -928,7 +928,7 @@ func writeOSV(r *report.Report) error {
 	return database.WriteJSON(r.OSVFilename(), r.ToOSV(time.Time{}), true)
 }
 
-func cveCmd(ctx context.Context, filename string) (err error) {
+func cveCmd(_ context.Context, filename string) (err error) {
 	defer derrors.Wrap(&err, "cve(%q)", filename)
 	r, err := report.Read(filename)
 	if err != nil {
@@ -1157,7 +1157,7 @@ func run(name string, arg ...string) error {
 // date can. Always using the git history as the source of truth for the
 // last-modified date avoids confusion if the report YAML and the git history
 // disagree.
-func setDates(ctx context.Context, filename string, dates map[string]gitrepo.Dates) (err error) {
+func setDates(_ context.Context, filename string, dates map[string]gitrepo.Dates) (err error) {
 	defer derrors.Wrap(&err, "setDates(%q)", filename)
 
 	r, err := report.Read(filename)

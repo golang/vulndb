@@ -486,7 +486,7 @@ func getGHSARecordsSorted(t *testing.T, st store.Store) []*store.GHSARecord {
 }
 
 func fakeListFunc(sas []*ghsa.SecurityAdvisory) GHSAListFunc {
-	return func(_ context.Context, since time.Time) ([]*ghsa.SecurityAdvisory, error) {
+	return func(ctx context.Context, since time.Time) ([]*ghsa.SecurityAdvisory, error) {
 		var rs []*ghsa.SecurityAdvisory
 		for _, sa := range sas {
 			if !sa.UpdatedAt.Before(since) {

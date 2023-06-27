@@ -327,7 +327,7 @@ func createGHSAIssues(ctx context.Context, st store.Store, client *issues.Client
 		}
 		// TODO(https://github.com/golang/go/issues/54049): Move this
 		// check to the triage step of the worker.
-		if isDuplicate(ctx, gr.GHSA, allReports) {
+		if isDuplicate(gr.GHSA, allReports) {
 			// Update the GHSARecord in the DB to reflect that the GHSA
 			// already has an advisory.
 			if err = st.RunTransaction(ctx, func(ctx context.Context, tx store.Transaction) error {
@@ -367,7 +367,7 @@ func createGHSAIssues(ctx context.Context, st store.Store, client *issues.Client
 	return nil
 }
 
-func isDuplicate(ctx context.Context, sa *ghsa.SecurityAdvisory, allReports map[string]*report.Report) bool {
+func isDuplicate(sa *ghsa.SecurityAdvisory, allReports map[string]*report.Report) bool {
 	r := report.GHSAToReport(sa, "")
 	for _, aliases := range report.XRef(r, allReports) {
 		if slices.Contains(aliases, sa.ID) {

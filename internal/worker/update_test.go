@@ -384,7 +384,7 @@ func readCVE(t *testing.T, repo *git.Repository, commit *object.Commit, path str
 }
 
 func createCVERecords(t *testing.T, s store.Store, crs []*store.CVERecord) {
-	err := s.RunTransaction(context.Background(), func(_ context.Context, tx store.Transaction) error {
+	err := s.RunTransaction(context.Background(), func(ctx context.Context, tx store.Transaction) error {
 		for _, cr := range crs {
 			copy := *cr
 			if err := tx.CreateCVERecord(&copy); err != nil {
@@ -399,7 +399,7 @@ func createCVERecords(t *testing.T, s store.Store, crs []*store.CVERecord) {
 }
 
 func createGHSARecords(t *testing.T, s store.Store, grs []*store.GHSARecord) {
-	err := s.RunTransaction(context.Background(), func(_ context.Context, tx store.Transaction) error {
+	err := s.RunTransaction(context.Background(), func(ctx context.Context, tx store.Transaction) error {
 		for _, gr := range grs {
 			copy := *gr
 			if err := tx.CreateGHSARecord(&copy); err != nil {
