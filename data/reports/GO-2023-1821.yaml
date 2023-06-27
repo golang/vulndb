@@ -1,0 +1,20 @@
+id: GO-2023-1821
+modules:
+    - module: github.com/cosmos/cosmos-sdk
+      vulnerable_at: 0.47.3
+      packages:
+        - package: github.com/cosmos/cosmos-sdk/x/crisis
+summary: The x/crisis package does not cause chain halt in github.com/cosmos/cosmos-sdk
+description: |-
+    If an invariant check fails on a Cosmos SDK network, and a transaction is sent
+    to the x/crisis package to halt the chain, the chain does not halt as originally
+    intended.
+
+    No patch will be released, as the package is planned to be deprecated
+    and replaced.
+ghsas:
+    - GHSA-qfc5-6r3j-jj22
+references:
+    - advisory: https://github.com/cosmos/cosmos-sdk/security/advisories/GHSA-qfc5-6r3j-jj22
+    - report: https://github.com/cosmos/cosmos-sdk/issues/15325
+    - report: https://github.com/cosmos/cosmos-sdk/issues/15706
