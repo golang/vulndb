@@ -97,7 +97,7 @@ func validate(e *osv.Entry, checkTimestamps bool) (err error) {
 		return errNoSchemaVersion
 	case e.Summary == "":
 		return errNoSummary
-	case e.Details == "":
+	case e.Details == "" && !hasAdvisory(e):
 		return errNoDetails
 	case len(e.Affected) == 0:
 		return errNoAffected
@@ -119,6 +119,15 @@ func validate(e *osv.Entry, checkTimestamps bool) (err error) {
 	}
 
 	return validateDatabaseSpecific(e.DatabaseSpecific)
+}
+
+func hasAdvisory(entry *osv.Entry) bool {
+	for _, ref := range entry.References {
+		if ref.Type == osv.ReferenceTypeAdvisory {
+			return true
+		}
+	}
+	return false
 }
 
 func validateAffected(a *osv.Affected) error {
