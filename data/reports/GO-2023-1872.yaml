@@ -1,0 +1,25 @@
+id: GO-2023-1872
+modules:
+    - module: github.com/openfga/openfga
+      versions:
+        - fixed: 1.1.1
+      vulnerable_at: 1.1.1-0.20230623171216-d180fc3e227f
+      packages:
+        - package: github.com/openfga/openfga/pkg/typesystem
+          symbols:
+            - New
+            - NewAndValidate
+            - TypeSystem.validateNames
+            - TypeSystem.validateRelationTypeRestrictions
+summary: Denial of service in github.com/openfga/openfga
+description: |-
+    OpenFGA is vulnerable to a denial of service attack when certain Check and
+    ListObjects calls are executed against authorization models that contain
+    circular relationship definitions.
+cves:
+    - CVE-2023-35933
+ghsas:
+    - GHSA-hr9r-8phq-5x8j
+references:
+    - advisory: https://github.com/openfga/openfga/security/advisories/GHSA-hr9r-8phq-5x8j
+    - fix: https://github.com/openfga/openfga/commit/087ce392595f3c319ab3028b5089118ea4063452
