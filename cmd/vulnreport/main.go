@@ -29,6 +29,7 @@ import (
 	"time"
 
 	"github.com/go-git/go-git/v5"
+	"github.com/google/go-cmp/cmp"
 	"golang.org/x/exp/constraints"
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
@@ -727,11 +728,13 @@ func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client, force bo
 	}
 
 	if !*skipSymbols {
+		infolog.Printf("%s: checking packages and symbols (use -skip-symbols to skip this)", r.ID)
 		if err := checkReportSymbols(r); err != nil {
 			return err
 		}
 	}
 	if !*skipGHSA {
+		infolog.Printf("%s: checking for missing GHSAs (use -skip-ghsa to skip this)", r.ID)
 		if err := addGHSAs(ctx, r, ghsaClient); err != nil {
 			return err
 		}
@@ -774,24 +777,27 @@ func checkReportSymbols(r *report.Report) error {
 				return err
 			}
 			if ver == "" || !affected {
-				warnlog.Printf("current Go version %q is not in a vulnerable range, skipping symbol checks\n", gover)
+				warnlog.Printf("%s: current Go version %q is not in a vulnerable range, skipping symbol checks for module %s\n", r.ID, gover, m.Module)
 				continue
 			}
 			if ver != m.VulnerableAt {
-				warnlog.Printf("%v: Go version %q does not match vulnerable_at version %q\n", m.Module, ver, m.VulnerableAt)
+				warnlog.Printf("%s: current Go version %q does not match vulnerable_at version (%s) for module %s\n", r.ID, ver, m.VulnerableAt, m.Module)
 			}
 		}
 
 		for _, p := range m.Packages {
 			if p.SkipFix != "" {
-				infolog.Printf("%v: skip_fix set, skipping symbol checks (reason: %q)\n", p.Package, p.SkipFix)
+				infolog.Printf("%s: skipping symbol checks for package %s (reason: %q)\n", r.ID, p.Package, p.SkipFix)
 				continue
 			}
 			syms, err := findExportedSymbols(m, p)
 			if err != nil {
 				return err
 			}
-			p.DerivedSymbols = syms
+			if !cmp.Equal(syms, p.DerivedSymbols) {
+				p.DerivedSymbols = syms
+				infolog.Printf("%s: updated derived symbols for package %s\n", r.ID, p.Package)
+			}
 		}
 	}
 
@@ -1183,6 +1189,7 @@ func dedupeAndSort[T constraints.Ordered](s []T) []T {
 
 // addGHSAs adds any missing GHSAs that correspond to the CVEs in the report.
 func addGHSAs(ctx context.Context, r *report.Report, ghsaClient *ghsa.Client) error {
+	orig := len(r.GHSAs)
 	ghsas := r.GHSAs
 	for _, cve := range r.AllCVEs() {
 		sas, err := ghsaClient.ListForCVE(ctx, cve)
@@ -1194,5 +1201,8 @@ func addGHSAs(ctx context.Context, r *report.Report, ghsaClient *ghsa.Client) er
 		}
 	}
 	r.GHSAs = dedupeAndSort(ghsas)
+	if count := len(r.GHSAs) - orig; count > 0 {
+		infolog.Printf("%s: found %d new GHSAs\n", r.ID, count)
+	}
 	return nil
 }
