@@ -1,0 +1,28 @@
+id: GO-2023-1874
+modules:
+    - module: github.com/corazawaf/coraza/v2
+      vulnerable_at: 2.0.1
+      packages:
+        - package: github.com/corazawaf/coraza/v2/bodyprocessors
+          symbols:
+            - multipartBodyProcessor.Read
+    - module: github.com/corazawaf/coraza/v3
+      versions:
+        - fixed: 3.0.1
+      vulnerable_at: 3.0.0
+      packages:
+        - package: github.com/corazawaf/coraza/v3/internal/bodyprocessors
+          symbols:
+            - multipartBodyProcessor.ProcessRequest
+summary: Denial of service in github.com/corazawaf/coraza/v2 and v3
+description: |-
+    Due to the misuse of log.Fatalf, Coraza may crash after receiving crafted
+    requests from attackers.
+ghsas:
+    - GHSA-c2pj-v37r-2p6h
+credits:
+    - rmb122
+references:
+    - advisory: https://github.com/corazawaf/coraza/security/advisories/GHSA-c2pj-v37r-2p6h
+    - fix: https://github.com/corazawaf/coraza/commit/a5239ba3ce839e14d9b4f9486e1b4a403dcade8c
+    - web: https://github.com/corazawaf/coraza/releases/tag/v3.0.1
