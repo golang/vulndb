@@ -720,6 +720,15 @@ func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client, force bo
 	if err := r.CheckFilename(filename); err != nil {
 		return err
 	}
+
+	// We may make partial progress on fixing a report, so write the
+	// report even if a fatal error occurs somewhere.
+	defer func() {
+		if err := r.Write(filename); err != nil {
+			errlog.Println(err)
+		}
+	}()
+
 	if lints := r.Lint(); force || len(lints) > 0 {
 		r.Fix()
 	}
@@ -738,11 +747,6 @@ func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client, force bo
 		if err := addGHSAs(ctx, r, ghsaClient); err != nil {
 			return err
 		}
-	}
-
-	// Write unconditionally in order to format.
-	if err := r.Write(filename); err != nil {
-		return err
 	}
 
 	if !r.IsExcluded() {
