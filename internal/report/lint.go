@@ -14,7 +14,9 @@ import (
 
 	"golang.org/x/exp/slices"
 	"golang.org/x/mod/module"
+	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/osvutils"
 	"golang.org/x/vulndb/internal/proxy"
@@ -98,16 +100,15 @@ func (m *Module) lintVersions(addPkgIssue func(string)) {
 	}
 }
 
-var cveRegex = regexp.MustCompile(`^CVE-\d{4}-\d{4,}$`)
-
 func (r *Report) lintCVEs(addIssue func(string)) {
 	if len(r.CVEs) > 0 && r.CVEMetadata != nil && r.CVEMetadata.ID != "" {
-		// TODO: consider removing one of these fields from the Report struct.
+		// TODO(https://go.dev/issue/61184): consider allowing both these fields
+		// to be populated.
 		addIssue("only one of cve and cve_metadata.id should be present")
 	}
 
 	for _, cve := range r.CVEs {
-		if !cveRegex.MatchString(cve) {
+		if !cveschema5.IsCVE(cve) {
 			addIssue("malformed cve identifier")
 		}
 	}
@@ -115,7 +116,7 @@ func (r *Report) lintCVEs(addIssue func(string)) {
 	if r.CVEMetadata != nil {
 		if r.CVEMetadata.ID == "" {
 			addIssue("cve_metadata.id is required")
-		} else if !cveRegex.MatchString(r.CVEMetadata.ID) {
+		} else if !cveschema5.IsCVE(r.CVEMetadata.ID) {
 			addIssue("malformed cve_metadata.id identifier")
 		}
 		if r.CVEMetadata.CWE == "" {
@@ -149,9 +150,9 @@ var (
 	issueRegex    = regexp.MustCompile(`https://go.dev/issue/\d+`)
 	announceRegex = regexp.MustCompile(`https://groups.google.com/g/golang-(announce|dev|nuts)/c/([^/]+)`)
 
-	nistRegex  = regexp.MustCompile(`^https://nvd.nist.gov/vuln/detail/(CVE-.*)$`)
-	ghsaRegex  = regexp.MustCompile(`^https://github.com/.*/(GHSA-[^/]+)$`)
-	mitreRegex = regexp.MustCompile(`^https://cve.mitre.org/.*(CVE-[\d\-]+)$`)
+	nistRegex     = regexp.MustCompile(`^https://nvd.nist.gov/vuln/detail/(` + cveschema5.Regex + `)$`)
+	ghsaLinkRegex = regexp.MustCompile(`^https://github.com/.*/(` + ghsa.Regex + `)$`)
+	mitreRegex    = regexp.MustCompile(`^https://cve.mitre.org/.*(` + cveschema5.Regex + `)$`)
 )
 
 // Checks that the "links" section of a Report for a package in the
@@ -220,7 +221,7 @@ func (r *Report) lintLinks(addIssue func(string)) {
 			//
 			// A reference to a CVE/GHSA that appears in the CVEs/GHSAs
 			// aliases is redundant.
-			for _, re := range []*regexp.Regexp{nistRegex, mitreRegex, ghsaRegex} {
+			for _, re := range []*regexp.Regexp{nistRegex, mitreRegex, ghsaLinkRegex} {
 				if m := re.FindStringSubmatch(ref.URL); len(m) > 0 {
 					id := m[1]
 					if slices.Contains(r.CVEs, id) || slices.Contains(r.GHSAs, id) {

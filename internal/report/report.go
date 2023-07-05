@@ -147,10 +147,21 @@ type Report struct {
 	Notes []string `yaml:",omitempty"`
 }
 
-// AllCVEs returns all CVE IDs for a report, including any in cve_metadata.
+// GoCVE returns the CVE assigned to this report by the Go CNA,
+// or the empty string if not applicable.
+func (r *Report) GoCVE() string {
+	if r.CVEMetadata == nil {
+		return ""
+	}
+	return r.CVEMetadata.ID
+}
+
+// AllCVEs returns all CVE IDs for a report.
 func (r *Report) AllCVEs() []string {
-	if r.CVEMetadata != nil {
-		return []string{r.CVEMetadata.ID}
+	if goCVE := r.GoCVE(); goCVE != "" {
+		// TODO(https://go.dev/issue/61184): If we allow both cve and
+		// cve_metadata to be populated, this needs to be updated.
+		return []string{goCVE}
 	}
 	return r.CVEs
 }

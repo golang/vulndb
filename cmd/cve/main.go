@@ -194,13 +194,11 @@ func cfgFromFlags() *cveclient.Config {
 	}
 }
 
-var cveRegex = regexp.MustCompile(`^CVE-\d{4}-\d{4,}$`)
-
 func validateID(id string) (string, error) {
 	if id == "" {
 		return "", errors.New("CVE ID must be provided")
 	}
-	if !cveRegex.MatchString(id) {
+	if !cveschema5.IsCVE(id) {
 		return "", fmt.Errorf("%q is not a valid CVE ID", id)
 	}
 	return id, nil

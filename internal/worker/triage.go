@@ -18,6 +18,7 @@ import (
 	"golang.org/x/time/rate"
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/stdlib"
 	"golang.org/x/vulndb/internal/worker/log"
 )
@@ -170,7 +171,7 @@ func triageV4CVE(ctx context.Context, c *cveschema.CVE, pkgsiteURL string) (resu
 	return nil, nil
 }
 
-var ghsaRegex = regexp.MustCompile(`GHSA-[^-]{4}-[^-]{4}-[^-]{4}`)
+var ghsaRegex = regexp.MustCompile(ghsa.Regex)
 
 func getAliasGHSAs(c *cveschema.CVE) []string {
 	var ghsas []string

@@ -13,7 +13,9 @@ import (
 	"regexp"
 	"strings"
 
+	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/version"
 )
@@ -71,9 +73,6 @@ var (
 	errBothIntroducedAndFixed = errors.New("introduced and fixed cannot both be set in same event")
 	errInvalidSemver          = errors.New("invalid or non-canonical semver version")
 
-	// Regular expressions.
-	ghsaRegex        = regexp.MustCompile(`^GHSA-[^-]{4}-[^-]{4}-[^-]{4}$`)
-	cveRegex         = regexp.MustCompile(`^CVE-\d{4}-\d{4,}$`)
 	pkgsiteLinkRegex = regexp.MustCompile(`^https://pkg.go.dev/vuln/GO-\d{4}-\d{4,}$`)
 )
 
@@ -113,7 +112,7 @@ func validate(e *osv.Entry, checkTimestamps bool) (err error) {
 		}
 	}
 	for _, alias := range e.Aliases {
-		if !ghsaRegex.MatchString(alias) && !cveRegex.MatchString(alias) {
+		if !ghsa.IsGHSA(alias) && !cveschema5.IsCVE(alias) {
 			return fmt.Errorf("%w (found alias %s)", errInvalidAlias, alias)
 		}
 	}
