@@ -1,0 +1,20 @@
+id: GO-2023-1881
+modules:
+    - module: github.com/cosmos/cosmos-sdk
+      vulnerable_at: 0.47.3
+      packages:
+        - package: github.com/cosmos/cosmos-sdk/x/crisis
+summary: |-
+    The x/crisis package does not charge ConstantFee in
+    github.com/cosmos/cosmos-sdk
+description: |-
+    If a transaction is sent to the `x/crisis` module to check an invariant, the
+    ConstantFee parameter of the chain is not charged.
+
+    No patch will be released, as the package is planned to be deprecated and
+    replaced.
+ghsas:
+    - GHSA-w5w5-2882-47pc
+references:
+    - advisory: https://github.com/cosmos/cosmos-sdk/security/advisories/GHSA-w5w5-2882-47pc
+    - report: https://github.com/cosmos/cosmos-sdk/issues/15706
