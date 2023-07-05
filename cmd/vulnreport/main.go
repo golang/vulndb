@@ -329,8 +329,6 @@ func createReport(ctx context.Context, cfg *createCfg, iss *issues.Issue) (r *re
 	if err != nil {
 		return nil, err
 	}
-	id := iss.NewGoID()
-	infolog.Printf("creating report %s", id)
 
 	r, err = newReport(ctx, cfg, parsed)
 	if err != nil {
@@ -339,6 +337,7 @@ func createReport(ctx context.Context, cfg *createCfg, iss *issues.Issue) (r *re
 
 	if parsed.excluded != "" {
 		r = &report.Report{
+			ID: parsed.id,
 			Modules: []*report.Module{
 				{
 					Module: parsed.modulePath,
@@ -351,7 +350,6 @@ func createReport(ctx context.Context, cfg *createCfg, iss *issues.Issue) (r *re
 	}
 
 	addTODOs(r)
-	r.ID = id
 	return r, nil
 }
 
@@ -475,6 +473,8 @@ Adds excluded reports:
 }
 
 func newReport(ctx context.Context, cfg *createCfg, parsed *parsedIssue) (*report.Report, error) {
+	infolog.Printf("creating report %s", parsed.id)
+
 	var r *report.Report
 	switch {
 	case len(parsed.ghsas) > 0:
@@ -492,6 +492,7 @@ func newReport(ctx context.Context, cfg *createCfg, parsed *parsedIssue) (*repor
 	default:
 		r = &report.Report{}
 	}
+	r.ID = parsed.id
 
 	if err := addGHSAs(ctx, r, cfg.ghsaClient); err != nil {
 		return nil, err
@@ -508,6 +509,7 @@ func newReport(ctx context.Context, cfg *createCfg, parsed *parsedIssue) (*repor
 }
 
 type parsedIssue struct {
+	id         string
 	modulePath string
 	cves       []string
 	ghsas      []string
@@ -515,7 +517,9 @@ type parsedIssue struct {
 }
 
 func parseGithubIssue(iss *issues.Issue, allowClosed bool) (*parsedIssue, error) {
-	var parsed *parsedIssue = &parsedIssue{}
+	parsed := &parsedIssue{
+		id: iss.NewGoID(),
+	}
 
 	if !allowClosed && iss.State == "closed" {
 		return nil, errors.New("issue is closed")
