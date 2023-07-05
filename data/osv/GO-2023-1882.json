@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1882",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-34450",
+    "GHSA-mvj3-qrqh-cjvr"
+  ],
+  "summary": "Deadlock in github.com/cometbft/cometbft/consensus",
+  "details": "An internal modification to the way PeerState is serialized to JSON introduced a deadlock when the new function MarshalJSON is called.\n\nThis function can be called in two ways. The first is via logs, by setting the consensus logging module to \"debug\" level (which should not happen in production), and setting the log output format to JSON. The second is via RPC dump_consensus_state.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cometbft/cometbft",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.37.1"
+            },
+            {
+              "fixed": "0.37.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cometbft/cometbft/consensus",
+            "symbols": [
+              "PeerState.MarshalJSON"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cometbft/cometbft/security/advisories/GHSA-mvj3-qrqh-cjvr"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cometbft/cometbft/pull/524"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cometbft/cometbft/pull/863"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cometbft/cometbft/pull/865"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1882"
+  }
+}
