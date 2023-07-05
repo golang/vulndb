@@ -51,7 +51,7 @@ var (
 	issueRepo     = flag.String("issue-repo", "github.com/golang/vulndb", "repo to create issues in")
 	githubToken   = flag.String("ghtoken", "", "GitHub access token (default: value of VULN_GITHUB_ACCESS_TOKEN)")
 	skipSymbols   = flag.Bool("skip-symbols", false, "for lint and fix, don't load package for symbols checks")
-	skipGHSA      = flag.Bool("skip-ghsa", false, "for fix, skip adding new GHSAs")
+	skipAlias     = flag.Bool("skip-alias", false, "for fix, skip adding new GHSAs and CVEs")
 	updateIssue   = flag.Bool("up", false, "for commit, create a CL that updates (doesn't fix) the tracking bug")
 	closedOk      = flag.Bool("closed-ok", false, "for create & create-excluded, allow closed issues to be created")
 	cpuprofile    = flag.String("cpuprofile", "", "write cpuprofile to file")
@@ -494,7 +494,7 @@ func newReport(ctx context.Context, cfg *createCfg, parsed *parsedIssue) (*repor
 	}
 	r.ID = parsed.id
 
-	if err := addGHSAs(ctx, r, cfg.ghsaClient); err != nil {
+	if err := addAliases(ctx, r, cfg.ghsaClient); err != nil {
 		return nil, err
 	}
 
@@ -746,9 +746,9 @@ func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client, force bo
 			return err
 		}
 	}
-	if !*skipGHSA {
-		infolog.Printf("%s: checking for missing GHSAs (use -skip-ghsa to skip this)", r.ID)
-		if err := addGHSAs(ctx, r, ghsaClient); err != nil {
+	if !*skipAlias {
+		infolog.Printf("%s: checking for missing GHSAs and CVEs (use -skip-alias to skip this)", r.ID)
+		if err := addAliases(ctx, r, ghsaClient); err != nil {
 			return err
 		}
 	}
@@ -1195,22 +1195,57 @@ func dedupeAndSort[T constraints.Ordered](s []T) []T {
 	return slices.Compact(s)
 }
 
-// addGHSAs adds any missing GHSAs that correspond to the CVEs in the report.
-func addGHSAs(ctx context.Context, r *report.Report, ghsaClient *ghsa.Client) error {
-	orig := len(r.GHSAs)
-	ghsas := r.GHSAs
+// addAliases finds and adds missing GHSAs and CVEs that correspond to the
+// aliases already in the report.
+// For now, this function does not do an exhaustive search for aliases (i.e., it does not
+// search for aliases associated with the new ones we found), as it is relatively rare
+// for a vuln to have more than one CVE and GHSA.
+func addAliases(ctx context.Context, r *report.Report, gc *ghsa.Client) error {
+	origG := len(r.GHSAs)
+	r.GHSAs = dedupeAndSort(append(r.GHSAs, findGHSAs(ctx, r, gc)...))
+
+	origC := len(r.CVEs)
+	r.CVEs = dedupeAndSort(append(r.CVEs, findCVEs(ctx, r, gc)...))
+
+	if newG, newC := len(r.GHSAs)-origG, len(r.CVEs)-origC; newG+newC > 0 {
+		infolog.Printf("%s: found %d new GHSAs and %d new CVEs\n", r.ID, newG, newC)
+	}
+	return nil
+}
+
+func findGHSAs(ctx context.Context, r *report.Report, gc *ghsa.Client) []string {
+	var ghsas []string
 	for _, cve := range r.AllCVEs() {
-		sas, err := ghsaClient.ListForCVE(ctx, cve)
+		sas, err := gc.ListForCVE(ctx, cve)
 		if err != nil {
-			return err
+			errlog.Printf("%s: could not find GHSAs for %s", r.ID, cve)
+			continue
 		}
 		for _, sa := range sas {
 			ghsas = append(ghsas, sa.ID)
 		}
 	}
-	r.GHSAs = dedupeAndSort(ghsas)
-	if count := len(r.GHSAs) - orig; count > 0 {
-		infolog.Printf("%s: found %d new GHSAs\n", r.ID, count)
+	return ghsas
+}
+
+func findCVEs(ctx context.Context, r *report.Report, gc *ghsa.Client) []string {
+	var cves []string
+	for _, ghsa := range r.GHSAs {
+		sa, err := gc.FetchGHSA(ctx, ghsa)
+		if err != nil {
+			errlog.Printf("%s: could not fetch record for %s", r.ID, ghsa)
+			continue
+		}
+		for _, id := range sa.Identifiers {
+			if id.Type == "CVE" {
+				// Skip CVEs that we assigned, as we already know about them,
+				// and they are stored in "cve_metadata" instead of "cves".
+				if id.Value == r.GoCVE() {
+					continue
+				}
+				cves = append(cves, id.Value)
+			}
+		}
 	}
-	return nil
+	return cves
 }
