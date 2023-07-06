@@ -151,7 +151,7 @@ func (m *Module) guessVulnerableAt(pc proxyClient) (string, error) {
 		}
 	}
 
-	return "", fmt.Errorf("could not find tagged version less than fixed (lowest version is %s)", vs[0])
+	return "", errors.New("could not find tagged version less than fixed")
 }
 
 // fixLineLength returns a copy of s with all lines trimmed to <=n characters
