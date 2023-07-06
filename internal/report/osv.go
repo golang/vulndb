@@ -45,13 +45,21 @@ func (r *Report) ToOSV(lastModified time.Time) osv.Entry {
 		withdrawn = &osv.Time{Time: *r.Withdrawn}
 	}
 
+	// If the report has no description, use the summary for now.
+	// TODO(https://go.dev/issues/61201): Remove this once pkgsite and
+	// govulncheck can robustly display summaries in place of details.
+	details := r.Description
+	if details == "" {
+		details = r.Summary
+	}
+
 	entry := osv.Entry{
 		ID:               r.ID,
 		Published:        osv.Time{Time: r.Published},
 		Modified:         osv.Time{Time: lastModified},
 		Withdrawn:        withdrawn,
 		Summary:          toParagraphs(r.Summary),
-		Details:          toParagraphs(r.Description),
+		Details:          toParagraphs(details),
 		Credits:          credits,
 		SchemaVersion:    SchemaVersion,
 		DatabaseSpecific: &osv.DatabaseSpecific{URL: GoAdvisory(r.ID)},
