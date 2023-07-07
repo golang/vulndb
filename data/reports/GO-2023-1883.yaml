@@ -1,0 +1,30 @@
+id: GO-2023-1883
+modules:
+    - module: github.com/cometbft/cometbft
+      versions:
+        - fixed: 0.37.2
+      vulnerable_at: 0.37.1
+      packages:
+        - package: github.com/cometbft/cometbft/mempool/v0
+          symbols:
+            - CListMempool.resCbFirstTime
+          derived_symbols:
+            - CListMempool.CheckTx
+            - Reactor.ReceiveEnvelope
+summary: Denial of service via OOM in github.com/cometbft/cometbft
+description: |-
+    A bug in the CometBFT middleware causes the mempool's two data structures to
+    fall out of sync. This can lead to duplicate transactions that cannot be
+    removed, even after they are committed in a block. The only way to remove
+    the transaction is to restart the node. This can be exploited by an attacker
+    to bring down a node by repeatedly submitting duplicate transactions.
+cves:
+    - CVE-2023-34451
+ghsas:
+    - GHSA-w24w-wp77-qffm
+references:
+    - advisory: https://github.com/cometbft/cometbft/security/advisories/GHSA-w24w-wp77-qffm
+    - fix: https://github.com/cometbft/cometbft/pull/890
+    - fix: https://github.com/tendermint/tendermint/pull/2778
+notes:
+    - The advisory refers to versions beginning 0.34. The module at those versions requires a replace directive to be usable. There is a fix in 0.34.28.
