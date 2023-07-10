@@ -1,0 +1,14 @@
+id: GO-2023-1857
+modules:
+    - module: github.com/malfunkt/iprange
+      vulnerable_at: 0.9.0
+      packages:
+        - package: github.com/malfunkt/iprange
+          symbols:
+            - Parse
+            - ParseList
+summary: Panic when parsing ranges with invalid masks in github.com/malfunkt/iprange
+description: |
+    Parsing a range with a mask larger than 32 bits causes a panic.
+references:
+    - report: https://github.com/malfunkt/iprange/issues/1
