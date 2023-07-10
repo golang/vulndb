@@ -332,7 +332,11 @@ func (r *Report) Lint() []string {
 	isFirstParty := false
 	for i, m := range r.Modules {
 		addPkgIssue := func(iss string) {
-			addIssue(fmt.Sprintf("modules[%v]: %v", i, iss))
+			mod := m.Module
+			if mod == "" {
+				mod = fmt.Sprintf("modules[%d]", i)
+			}
+			addIssue(fmt.Sprintf("%s: %v", mod, iss))
 		}
 		if m.IsFirstParty() {
 			isFirstParty = true
