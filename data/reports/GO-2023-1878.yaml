@@ -1,0 +1,45 @@
+id: GO-2023-1878
+modules:
+    - module: std
+      versions:
+        - fixed: 1.19.11
+        - introduced: 1.20.0-0
+          fixed: 1.20.6
+      vulnerable_at: 1.20.5
+      packages:
+        - package: net/http
+          symbols:
+            - Request.write
+          derived_symbols:
+            - Client.CloseIdleConnections
+            - Client.Do
+            - Client.Get
+            - Client.Head
+            - Client.Post
+            - Client.PostForm
+            - Get
+            - Head
+            - Post
+            - PostForm
+            - Request.Write
+            - Request.WriteProxy
+            - Transport.CancelRequest
+            - Transport.CloseIdleConnections
+            - Transport.RoundTrip
+summary: Insufficient sanitization of Host header in net/http
+description: |-
+    The HTTP/1 client does not fully validate the contents of the Host header. A
+    maliciously crafted Host header can inject additional headers or entire
+    requests.
+
+    With fix, the HTTP/1 client now refuses to send requests containing an invalid
+    Request.Host or Request.URL.Host value.
+credits:
+    - Bartek Nowotarski
+references:
+    - report: https://go.dev/issue/60374
+    - fix: https://go.dev/cl/506996
+    - web: https://groups.google.com/g/golang-announce/c/2q13H6LEEx0
+cve_metadata:
+    id: CVE-2023-29406
+    cwe: 'CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers (''HTTP Request/Response Splitting'')'

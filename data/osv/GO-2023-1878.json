@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1878",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-29406"
+  ],
+  "summary": "Insufficient sanitization of Host header in net/http",
+  "details": "The HTTP/1 client does not fully validate the contents of the Host header. A maliciously crafted Host header can inject additional headers or entire requests.\n\nWith fix, the HTTP/1 client now refuses to send requests containing an invalid Request.Host or Request.URL.Host value.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.19.11"
+            },
+            {
+              "introduced": "1.20.0-0"
+            },
+            {
+              "fixed": "1.20.6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "net/http",
+            "symbols": [
+              "Client.CloseIdleConnections",
+              "Client.Do",
+              "Client.Get",
+              "Client.Head",
+              "Client.Post",
+              "Client.PostForm",
+              "Get",
+              "Head",
+              "Post",
+              "PostForm",
+              "Request.Write",
+              "Request.WriteProxy",
+              "Request.write",
+              "Transport.CancelRequest",
+              "Transport.CloseIdleConnections",
+              "Transport.RoundTrip"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/60374"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/506996"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/2q13H6LEEx0"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Bartek Nowotarski"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1878"
+  }
+}
