@@ -12,6 +12,10 @@ import (
 )
 
 func TestFix(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test that uses internet in short mode")
+	}
+
 	r := Report{
 		Modules: []*Module{
 			{

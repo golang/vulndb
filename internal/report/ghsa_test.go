@@ -13,6 +13,10 @@ import (
 )
 
 func TestGHSAToReport(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test that uses internet in short mode")
+	}
+
 	updatedTime := time.Date(2022, 01, 01, 01, 01, 00, 00, time.UTC)
 	sa := &ghsa.SecurityAdvisory{
 		ID:          "G1_blah",

@@ -26,6 +26,9 @@ import (
 )
 
 func TestChecksBash(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test that uses internet in short mode")
+	}
 	bash, err := exec.LookPath("bash")
 	if err != nil {
 		t.Skipf("skipping: %v", err)
@@ -40,8 +43,8 @@ func TestChecksBash(t *testing.T) {
 }
 
 func TestLintReports(t *testing.T) {
-	if runtime.GOOS == "js" {
-		t.Skipf("wasm builder does not have network access")
+	if testing.Short() {
+		t.Skip("skipping test that uses internet in short mode")
 	}
 	if runtime.GOOS == "android" {
 		t.Skipf("android builder does not have access to reports/")
