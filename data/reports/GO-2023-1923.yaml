@@ -1,0 +1,27 @@
+id: GO-2023-1923
+modules:
+    - module: github.com/mastercactapus/proxyprotocol
+      versions:
+        - fixed: 0.0.2
+      vulnerable_at: 0.0.1
+      packages:
+        - package: github.com/mastercactapus/proxyprotocol
+          symbols:
+            - parseV2
+          derived_symbols:
+            - Conn.LocalAddr
+            - Conn.ProxyHeader
+            - Conn.Read
+            - Conn.RemoteAddr
+            - Parse
+summary: |-
+    Panic when handling invalid HAProxy PROXY v2 request in
+    github.com/mastercactapus/proxyprotocol
+cves:
+    - CVE-2019-14243
+ghsas:
+    - GHSA-85c5-ccm8-vr96
+references:
+    - advisory: https://github.com/advisories/GHSA-85c5-ccm8-vr96
+    - report: https://github.com/mastercactapus/proxyprotocol/issues/1
+    - fix: https://github.com/mastercactapus/proxyprotocol/commit/5c4a101121fc3e868026189c7a73f7f19eef90ac
