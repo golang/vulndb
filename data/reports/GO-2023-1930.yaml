@@ -1,0 +1,83 @@
+id: GO-2023-1930
+modules:
+    - module: github.com/hamba/avro/v2
+      versions:
+        - fixed: 2.13.0
+      vulnerable_at: 2.12.0
+      packages:
+        - package: github.com/hamba/avro/v2
+          symbols:
+            - Reader.readBytes
+          derived_symbols:
+            - Decoder.Decode
+            - Reader.ReadArrayCB
+            - Reader.ReadBytes
+            - Reader.ReadMapCB
+            - Reader.ReadNext
+            - Reader.ReadString
+            - Reader.ReadVal
+            - Unmarshal
+            - arrayDecoder.Decode
+            - bytesCodec.Decode
+            - bytesDecimalCodec.Decode
+            - bytesDecimalPtrCodec.Decode
+            - dereferenceDecoder.Decode
+            - efaceDecoder.Decode
+            - frozenConfig.Unmarshal
+            - mapDecoder.Decode
+            - mapSkipDecoder.Decode
+            - mapUnionDecoder.Decode
+            - recordIfaceDecoder.Decode
+            - recordMapDecoder.Decode
+            - recordSkipDecoder.Decode
+            - referenceDecoder.Decode
+            - sliceSkipDecoder.Decode
+            - stringCodec.Decode
+            - structDecoder.Decode
+            - textMarshalerCodec.Decode
+            - unionPtrDecoder.Decode
+            - unionResolvedDecoder.Decode
+            - unionSkipDecoder.Decode
+    - module: github.com/hamba/avro
+      vulnerable_at: 1.8.0
+      packages:
+        - package: github.com/hamba/avro
+          symbols:
+            - Reader.ReadBytes
+            - Reader.ReadString
+          derived_symbols:
+            - Decoder.Decode
+            - Reader.ReadArrayCB
+            - Reader.ReadMapCB
+            - Reader.ReadNext
+            - Reader.ReadVal
+            - Unmarshal
+            - arrayDecoder.Decode
+            - bytesCodec.Decode
+            - bytesDecimalCodec.Decode
+            - bytesDecimalPtrCodec.Decode
+            - dereferenceDecoder.Decode
+            - efaceDecoder.Decode
+            - frozenConfig.Unmarshal
+            - mapDecoder.Decode
+            - mapSkipDecoder.Decode
+            - mapUnionDecoder.Decode
+            - recordIfaceDecoder.Decode
+            - recordMapDecoder.Decode
+            - recordSkipDecoder.Decode
+            - referenceDecoder.Decode
+            - sliceSkipDecoder.Decode
+            - stringCodec.Decode
+            - structDecoder.Decode
+            - textMarshalerCodec.Decode
+            - unionPtrDecoder.Decode
+            - unionResolvedDecoder.Decode
+            - unionSkipDecoder.Decode
+summary: Unrestriced memory consumption in github.com/hamba/avro
+cves:
+    - CVE-2023-37475
+ghsas:
+    - GHSA-9x44-9pgq-cf45
+references:
+    - advisory: https://github.com/hamba/avro/security/advisories/GHSA-9x44-9pgq-cf45
+    - fix: https://github.com/hamba/avro/pull/273

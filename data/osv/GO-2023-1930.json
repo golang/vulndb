@@ -1,0 +1,139 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1930",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-37475",
+    "GHSA-9x44-9pgq-cf45"
+  ],
+  "summary": "Unrestriced memory consumption in github.com/hamba/avro",
+  "details": "Unrestriced memory consumption in github.com/hamba/avro",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hamba/avro/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.13.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/hamba/avro/v2",
+            "symbols": [
+              "Decoder.Decode",
+              "Reader.ReadArrayCB",
+              "Reader.ReadBytes",
+              "Reader.ReadMapCB",
+              "Reader.ReadNext",
+              "Reader.ReadString",
+              "Reader.ReadVal",
+              "Reader.readBytes",
+              "Unmarshal",
+              "arrayDecoder.Decode",
+              "bytesCodec.Decode",
+              "bytesDecimalCodec.Decode",
+              "bytesDecimalPtrCodec.Decode",
+              "dereferenceDecoder.Decode",
+              "efaceDecoder.Decode",
+              "frozenConfig.Unmarshal",
+              "mapDecoder.Decode",
+              "mapSkipDecoder.Decode",
+              "mapUnionDecoder.Decode",
+              "recordIfaceDecoder.Decode",
+              "recordMapDecoder.Decode",
+              "recordSkipDecoder.Decode",
+              "referenceDecoder.Decode",
+              "sliceSkipDecoder.Decode",
+              "stringCodec.Decode",
+              "structDecoder.Decode",
+              "textMarshalerCodec.Decode",
+              "unionPtrDecoder.Decode",
+              "unionResolvedDecoder.Decode",
+              "unionSkipDecoder.Decode"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/hamba/avro",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/hamba/avro",
+            "symbols": [
+              "Decoder.Decode",
+              "Reader.ReadArrayCB",
+              "Reader.ReadBytes",
+              "Reader.ReadMapCB",
+              "Reader.ReadNext",
+              "Reader.ReadString",
+              "Reader.ReadVal",
+              "Unmarshal",
+              "arrayDecoder.Decode",
+              "bytesCodec.Decode",
+              "bytesDecimalCodec.Decode",
+              "bytesDecimalPtrCodec.Decode",
+              "dereferenceDecoder.Decode",
+              "efaceDecoder.Decode",
+              "frozenConfig.Unmarshal",
+              "mapDecoder.Decode",
+              "mapSkipDecoder.Decode",
+              "mapUnionDecoder.Decode",
+              "recordIfaceDecoder.Decode",
+              "recordMapDecoder.Decode",
+              "recordSkipDecoder.Decode",
+              "referenceDecoder.Decode",
+              "sliceSkipDecoder.Decode",
+              "stringCodec.Decode",
+              "structDecoder.Decode",
+              "textMarshalerCodec.Decode",
+              "unionPtrDecoder.Decode",
+              "unionResolvedDecoder.Decode",
+              "unionSkipDecoder.Decode"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/hamba/avro/security/advisories/GHSA-9x44-9pgq-cf45"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hamba/avro/pull/273"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1930"
+  }
+}
