@@ -1,0 +1,21 @@
+id: GO-2023-1941
+modules:
+    - module: github.com/elazarl/goproxy
+      versions:
+        - fixed: 0.0.0-20230731152917-f99041a5c027
+      vulnerable_at: 0.0.0-20221015165544-a0805db90819
+      packages:
+        - package: github.com/elazarl/goproxy
+          symbols:
+            - ProxyHttpServer.handleHttps
+          derived_symbols:
+            - ProxyHttpServer.ServeHTTP
+summary: Panic when handling invalid request in MITM mode in github.com/elazarl/goproxy
+description: An invalid request can cause a panic when running in MITM mode.
+cves:
+    - CVE-2023-37788
+ghsas:
+    - GHSA-4r8x-2p26-976p
+references:
+    - report: https://github.com/elazarl/goproxy/issues/502
+    - fix: https://github.com/elazarl/goproxy/pull/507
