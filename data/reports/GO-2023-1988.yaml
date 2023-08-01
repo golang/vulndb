@@ -1,0 +1,22 @@
+id: GO-2023-1988
+modules:
+    - module: golang.org/x/net
+      versions:
+        - fixed: 0.13.0
+      vulnerable_at: 0.12.0
+      packages:
+        - package: golang.org/x/net/html
+          symbols:
+            - render1
+          derived_symbols:
+            - Render
+summary: Improper rendering of text nodes in golang.org/x/net/html
+description: |-
+    Text nodes not in the HTML namespace are incorrectly literally rendered, causing
+    text which should be escaped to not be. This could lead to an XSS attack.
+references:
+    - report: https://go.dev/issue/61615
+    - fix: https://go.dev/cl/514896
+cve_metadata:
+    id: CVE-2023-3978
+    cwe: 'CWE-79: Improper Neutralization of Input During Web Page Generation (''Cross-site Scripting'')'
