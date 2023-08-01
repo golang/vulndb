@@ -1,0 +1,47 @@
+id: GO-2023-1987
+modules:
+    - module: std
+      versions:
+        - fixed: 1.19.12
+        - introduced: 1.20.0-0
+          fixed: 1.20.7
+        - introduced: 1.21.0-0
+          fixed: 1.21.0-rc.4
+      vulnerable_at: 1.20.6
+      packages:
+        - package: crypto/tls
+          symbols:
+            - Conn.verifyServerCertificate
+            - Conn.processCertsFromClient
+          derived_symbols:
+            - Conn.Handshake
+            - Conn.HandshakeContext
+            - Conn.Read
+            - Conn.Write
+            - Dial
+            - DialWithDialer
+            - Dialer.Dial
+            - Dialer.DialContext
+summary: Large RSA keys can cause high CPU usage in crypto/tls
+description: |-
+    Extremely large RSA keys in certificate chains can cause a client/server to
+    expend significant CPU time verifying signatures.
+
+    With fix, the size of RSA keys transmitted during handshakes is
+    restricted to <= 8192 bits.
+
+    Based on a survey of publicly trusted RSA keys, there are currently only three
+    certificates in circulation with keys larger than this, and all three appear to
+    be test certificates that are not actively deployed. It is possible there are
+    larger keys in use in private PKIs, but we target the web PKI, so causing
+    breakage here in the interests of increasing the default safety of users of
+    crypto/tls seems reasonable.
+credits:
+    - Mateusz Poliwczak
+references:
+    - report: https://go.dev/issue/61460
+    - fix: https://go.dev/cl/515257
+    - web: https://groups.google.com/g/golang-announce/c/X0b6CsSAaYI/m/Efv5DbZ9AwAJ
+cve_metadata:
+    id: CVE-2023-29409
+    cwe: 'CWE-400: Uncontrolled Resource Consumption'

@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1987",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-29409"
+  ],
+  "summary": "Large RSA keys can cause high CPU usage in crypto/tls",
+  "details": "Extremely large RSA keys in certificate chains can cause a client/server to expend significant CPU time verifying signatures.\n\nWith fix, the size of RSA keys transmitted during handshakes is restricted to \u003c= 8192 bits.\n\nBased on a survey of publicly trusted RSA keys, there are currently only three certificates in circulation with keys larger than this, and all three appear to be test certificates that are not actively deployed. It is possible there are larger keys in use in private PKIs, but we target the web PKI, so causing breakage here in the interests of increasing the default safety of users of crypto/tls seems reasonable.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.19.12"
+            },
+            {
+              "introduced": "1.20.0-0"
+            },
+            {
+              "fixed": "1.20.7"
+            },
+            {
+              "introduced": "1.21.0-0"
+            },
+            {
+              "fixed": "1.21.0-rc.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "crypto/tls",
+            "symbols": [
+              "Conn.Handshake",
+              "Conn.HandshakeContext",
+              "Conn.Read",
+              "Conn.Write",
+              "Conn.processCertsFromClient",
+              "Conn.verifyServerCertificate",
+              "Dial",
+              "DialWithDialer",
+              "Dialer.Dial",
+              "Dialer.DialContext"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/61460"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/515257"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/X0b6CsSAaYI/m/Efv5DbZ9AwAJ"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Mateusz Poliwczak"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1987"
+  }
+}
