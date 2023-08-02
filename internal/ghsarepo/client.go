@@ -1,6 +1,7 @@
 // Copyright 2023 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
+//
 // Package ghsarepo provides a client and utilities for reading
 // GitHub security advisories directly from the Git repo
 // https://github.com/github/advisory-database.
@@ -15,16 +16,14 @@ import (
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/object"
 	"github.com/go-git/go-git/v5/storage/memory"
-	osvschema "github.com/google/osv-scanner/pkg/models"
 	"golang.org/x/exp/maps"
+	"golang.org/x/vulndb/internal/genericosv"
 	"golang.org/x/vulndb/internal/gitrepo"
 )
 
-type OSV osvschema.Vulnerability
-
 type Client struct {
-	byID    map[string]*OSV
-	byAlias map[string][]*OSV
+	byID    map[string]*genericosv.Entry
+	byAlias map[string][]*genericosv.Entry
 }
 
 // NewClient returns a client to read from the GHSA database.
@@ -64,15 +63,15 @@ func NewClientFromRepo(repo *git.Repository) (*Client, error) {
 	}
 
 	c := &Client{
-		byID:    make(map[string]*OSV),
-		byAlias: make(map[string][]*OSV),
+		byID:    make(map[string]*genericosv.Entry),
+		byAlias: make(map[string][]*genericosv.Entry),
 	}
 	if err := tree.Files().ForEach(func(f *object.File) error {
 		contents, err := f.Contents()
 		if err != nil {
 			return err
 		}
-		var advisory OSV
+		var advisory genericosv.Entry
 		if err := json.Unmarshal([]byte(contents), &advisory); err != nil {
 			return err
 		}
@@ -91,9 +90,9 @@ func NewClientFromRepo(repo *git.Repository) (*Client, error) {
 	return c, nil
 }
 
-func affectsGo(osv *OSV) bool {
+func affectsGo(osv *genericosv.Entry) bool {
 	for _, a := range osv.Affected {
-		if a.Package.Ecosystem == osvschema.EcosystemGo {
+		if a.Package.Ecosystem == genericosv.EcosystemGo {
 			return true
 		}
 	}
@@ -105,19 +104,19 @@ func (c *Client) IDs() []string {
 	return maps.Keys(c.byID)
 }
 
-// List returns all the OSV entries in the GHSA database.
-func (c *Client) List() []*OSV {
+// List returns all the genericosv.Entry entries in the GHSA database.
+func (c *Client) List() []*genericosv.Entry {
 	return maps.Values(c.byID)
 }
 
-// ByGHSA returns the OSV entry for the given GHSA, or nil if none
+// ByGHSA returns the genericosv.Entry entry for the given GHSA, or nil if none
 // exists.
-func (c *Client) ByGHSA(ghsa string) *OSV {
+func (c *Client) ByGHSA(ghsa string) *genericosv.Entry {
 	return c.byID[ghsa]
 }
 
-// ByCVE returns the OSV entries for the given CVE, or nil if none
+// ByCVE returns the genericosv.Entry entries for the given CVE, or nil if none
 // exist.
-func (c *Client) ByCVE(cve string) []*OSV {
+func (c *Client) ByCVE(cve string) []*genericosv.Entry {
 	return c.byAlias[cve]
 }
