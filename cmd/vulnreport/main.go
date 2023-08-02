@@ -391,15 +391,13 @@ func writeReport(r *report.Report) (string, error) {
 
 func createExcluded(ctx context.Context, cfg *createCfg) (err error) {
 	defer derrors.Wrap(&err, "createExcluded()")
-	excludedLabels := []string{"excluded: DEPENDENT_VULNERABILITY",
-		"excluded: EFFECTIVELY_PRIVATE", "excluded: NOT_A_VULNERABILITY",
-		"excluded: NOT_GO_CODE", "excluded: NOT_IMPORTABLE"}
 	isses := []*issues.Issue{}
 	stateOption := "open"
 	if cfg.allowClosed {
 		stateOption = "all"
 	}
-	for _, label := range excludedLabels {
+	for _, er := range report.ExcludedReasons {
+		label := fmt.Sprintf("excluded: %s", er)
 		tempIssues, err :=
 			cfg.issuesClient.Issues(ctx, issues.IssuesOptions{Labels: []string{label}, State: stateOption})
 		if err != nil {
