@@ -34,10 +34,10 @@ func checkModVersions(modPath string, vrs []VersionRange) (err error) {
 		}
 		canonicalPath, err := proxy.CanonicalModulePath(modPath, vv)
 		if err != nil {
-			return fmt.Errorf("unable to retrieve canonical module path from proxy: %s", err)
+			return err
 		}
 		if canonicalPath != modPath {
-			return fmt.Errorf("invalid module path %q at version %q (canonical path is %q)", modPath, v, canonicalPath)
+			return fmt.Errorf("non-canonical path %q (expected %q)", modPath, canonicalPath)
 		}
 		return nil
 	}

@@ -1,0 +1,56 @@
+id: GO-TEST-ID
+modules:
+    - module: github.com/goharbor/harbor
+      versions:
+        - introduced: 1.0.0
+          fixed: 1.10.13
+      vulnerable_at: 1.10.13-rc1
+    - module: github.com/goharbor/harbor
+      versions:
+        - introduced: 2.0.0
+          fixed: 2.4.3
+      vulnerable_at: 2.4.3-rc1+incompatible
+    - module: github.com/goharbor/harbor
+      versions:
+        - introduced: 2.5.0
+          fixed: 2.5.2
+      vulnerable_at: 2.5.2-rc1+incompatible
+summary: Harbor fails to validate the user permissions when updating a robot account
+description: |-
+    ### Impact Harbor fails to validate the user permissions when updating a robot
+    account that belongs to a project that the authenticated user doesn’t have
+    access to. API call:
+
+    PUT /robots/{robot_id}
+
+    By sending a request that attempts to update a robot account, and specifying a
+    robot account id and robot account name that belongs to a different project that
+    the user doesn’t have access to, it was possible to revoke the robot account
+    permissions.
+
+    ### Patches This and similar issues are fixed in Harbor v2.5.2 and later. Please
+    upgrade as soon as possible.
+
+    ### Workarounds There are no workarounds available.
+
+    ### For more information If you have any questions or comments about this
+    advisory:
+    * Open an issue in [the Harbor GitHub
+    repository](https://github.com/goharbor/harbor)
+
+    ### Credits Thanks to [Gal
+    Goldstein](https://www.linkedin.com/in/gal-goldshtein/) and [Daniel
+    Abeles](https://www.linkedin.com/in/daniel-abeles/) from [Oxeye
+    Security](https://www.oxeye.io/) for reporting this issue.
+cves:
+    - CVE-2022-31667
+ghsas:
+    - GHSA-xx9w-464f-7h6f
+references:
+    - web: https://github.com/goharbor/harbor/security/advisories/GHSA-xx9w-464f-7h6f
+    - package: https://github.com/goharbor/harbor
+notes:
+    - 'lint: github.com/goharbor/harbor: bad version "1.0.0": HTTP GET /github.com/goharbor/harbor/@v/v1.0.0.mod returned status 404 Not Found'
+    - 'lint: github.com/goharbor/harbor: bad version "2.0.0": github.com/goharbor/harbor@v2.0.0: invalid version: should be v0 or v1, not v2'
+    - 'lint: github.com/goharbor/harbor: bad version "2.5.0": github.com/goharbor/harbor@v2.5.0: invalid version: should be v0 or v1, not v2'
+    - 'lint: redundant non-advisory reference to GHSA-xx9w-464f-7h6f'

@@ -1,0 +1,62 @@
+id: GO-TEST-ID
+modules:
+    - module: github.com/apptainer/sif/v2
+      versions:
+        - introduced: 1.2.1-0.20180103161547-0ef6afb2f6cd
+          fixed: 1.2.1-0.20180404165556-75cca531ea76
+    - module: github.com/satori/go.uuid
+      versions:
+        - introduced: 1.2.1-0.20180103161547-0ef6afb2f6cd
+          fixed: 1.2.1-0.20180404165556-75cca531ea76
+      vulnerable_at: 1.2.0
+summary: github.com/satori/go.uuid has Predictable SIF UUID Identifiers
+description: |-
+    ### Impact
+
+    The siftool new command produces predictable UUID identifiers due to insecure
+    randomness in the version of the `github.com/satori/go.uuid` module used as a
+    dependency.
+
+    ### Patches
+
+    A patch is available in version >= v1.2.1-0.20180404165556-75cca531ea76 of the
+    module. Users are encouraged to upgrade.
+
+    Fixed by https://github.com/hpcng/sif/pull/90
+
+    ### Workarounds
+
+    Users passing CreateInfo struct should ensure the ID field is generated using a
+    version of github.com/satori/go.uuid that is not vulnerable to this issue.
+    Unfortunately, the latest tagged release is vulnerable to this issue. One way to
+    obtain a non-vulnerable version is:
+
+    `go get -u github.com/satori/go.uuid@v1.2.1-0.20180404165556-75cca531ea76`
+
+    ### References
+
+    https://github.com/satori/go.uuid/issues/73
+
+    ### For more information
+
+    If you have any questions or comments about this advisory:
+
+    Open an issue in https://github.com/hpcng/sif/issues
+cves:
+    - CVE-2021-3538
+ghsas:
+    - GHSA-33m6-q9v5-62r7
+references:
+    - web: https://github.com/hpcng/sif/security/advisories/GHSA-33m6-q9v5-62r7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-3538
+    - web: https://github.com/satori/go.uuid/issues/73
+    - web: https://github.com/satori/go.uuid/pull/75
+    - web: https://github.com/satori/go.uuid/commit/75cca531ea763666bc46e531da3b4c3b95f64557
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=1954376
+    - package: https://github.com/satori/go.uuid
+    - web: https://pkg.go.dev/vuln/GO-2022-0244
+    - web: https://snyk.io/vuln/SNYK-GOLANG-GITHUBCOMSATORIGOUUID-72488
+notes:
+    - 'lint: github.com/apptainer/sif/v2: bad version "1.2.1-0.20180103161547-0ef6afb2f6cd": github.com/apptainer/sif/v2@v1.2.1-0.20180103161547-0ef6afb2f6cd: invalid version: should be v2, not v1'
+    - 'lint: github.com/satori/go.uuid: vulnerable_at version 1.2.0 is not inside vulnerable range'
+    - 'lint: redundant non-advisory reference to GHSA-33m6-q9v5-62r7'

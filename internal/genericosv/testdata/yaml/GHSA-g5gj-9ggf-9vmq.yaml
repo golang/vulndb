@@ -1,0 +1,27 @@
+id: GO-TEST-ID
+modules:
+    - module: github.com/cloudflare/cfrpki/cmd/octorpki
+      versions:
+        - fixed: 1.4.0
+summary: Infinite certificate chain depth results in OctoRPKI running forever
+description: |-
+    OctoRPKI does not limit the depth of a certificate chain, allowing for a CA to
+    create children in an ad-hoc fashion, thereby making tree traversal never end.
+
+    ## Patches
+
+    ## For more information If you have any questions or comments about this
+    advisory email us at security@cloudflare.com
+cves:
+    - CVE-2021-3908
+ghsas:
+    - GHSA-g5gj-9ggf-9vmq
+references:
+    - web: https://github.com/cloudflare/cfrpki/security/advisories/GHSA-g5gj-9ggf-9vmq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-3908
+    - package: https://github.com/cloudflare/cfrpki
+    - web: https://github.com/cloudflare/cfrpki/releases/tag/v1.4.0
+    - web: https://www.debian.org/security/2022/dsa-5041
+notes:
+    - 'lint: github.com/cloudflare/cfrpki/cmd/octorpki: bad version "1.4.0": HTTP GET /github.com/cloudflare/cfrpki/cmd/octorpki/@v/v1.4.0.mod returned status 404 Not Found'
+    - 'lint: redundant non-advisory reference to GHSA-g5gj-9ggf-9vmq'

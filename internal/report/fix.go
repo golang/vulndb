@@ -22,7 +22,7 @@ func (r *Report) Fix() {
 		ref.URL = fixURL(ref.URL)
 	}
 	for _, m := range r.Modules {
-		m.fixVersions()
+		m.FixVersions()
 	}
 	fixLines := func(sp *string) {
 		*sp = fixLineLength(*sp, maxLineLength)
@@ -34,9 +34,9 @@ func (r *Report) Fix() {
 	}
 }
 
-// fixVersions replaces each version with its canonical form (if possible),
+// FixVersions replaces each version with its canonical form (if possible),
 // sorts version ranges, and collects version ranges into a compact form.
-func (m *Module) fixVersions() {
+func (m *Module) FixVersions() {
 	fixVersion := func(v string) string {
 		if v == "" {
 			return ""

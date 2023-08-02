@@ -1,0 +1,33 @@
+id: GO-TEST-ID
+modules:
+    - module: github.com/google/exposure-notifications-verification-server
+      versions:
+        - fixed: 1.1.2
+      vulnerable_at: 1.1.1
+summary: |-
+    Insufficient Granularity of Access Control in
+    github.com/google/exposure-notifications-verification-server
+description: |-
+    ### Impact Users or API keys with permission to expire verification codes could
+    have expired codes that belonged to another realm if they guessed the UUID.
+
+    ### Patches v1.1.2+
+
+    ### Workarounds There are no workarounds, and there are no indications this has
+    been exploited in the wild. Verification codes can only be expired by providing
+    their 64-bit UUID, and verification codes are already valid for a very short
+    period of time (thus the UUID rotates frequently).
+
+    ### For more information Contact exposure-notifications-feedback@google.com
+cves:
+    - CVE-2021-22565
+ghsas:
+    - GHSA-wx8q-rgfr-cf6v
+references:
+    - web: https://github.com/google/exposure-notifications-verification-server/security/advisories/GHSA-wx8q-rgfr-cf6v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-22565
+    - package: https://github.com/google/exposure-notifications-verification-server/
+    - web: https://github.com/google/exposure-notifications-verification-server/releases/tag/v1.1.2
+notes:
+    - 'lint: redundant non-advisory reference to GHSA-wx8q-rgfr-cf6v'
+    - 'lint: summary is too long: 106 characters (max 100)'

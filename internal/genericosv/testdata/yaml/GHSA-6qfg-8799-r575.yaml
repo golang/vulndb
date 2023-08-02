@@ -1,0 +1,35 @@
+id: GO-TEST-ID
+modules:
+    - module: github.com/kubernetes/kubernetes/pkg/kubectl/cmd/cp
+      versions:
+        - introduced: 1.13.10
+          fixed: 1.13.11
+    - module: github.com/kubernetes/kubernetes/pkg/kubectl/cmd/cp
+      versions:
+        - introduced: 1.14.6
+          fixed: 1.14.7
+    - module: github.com/kubernetes/kubernetes/pkg/kubectl/cmd/cp
+      versions:
+        - introduced: 1.15.3
+          fixed: 1.16.0
+summary: Symlink Attack
+description: |-
+    The Kubernetes kubectl cp command in versions 1.1-1.12, and versions prior to
+    1.13.11, 1.14.7, and 1.15.4 allows a combination of two symlinks provided by tar
+    output of a malicious container to place a file outside of the destination
+    directory specified in the kubectl cp invocation. This could be used to allow an
+    attacker to place a nefarious file using a symlink, outside of the destination
+    tree.
+cves:
+    - CVE-2019-11251
+ghsas:
+    - GHSA-6qfg-8799-r575
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2019-11251
+    - web: https://github.com/kubernetes/kubernetes/issues/87773
+    - web: https://github.com/kubernetes/kubernetes/pull/82143
+    - web: https://groups.google.com/d/msg/kubernetes-announce/YYtEFdFimZ4/nZnOezZuBgAJ
+notes:
+    - 'lint: github.com/kubernetes/kubernetes/pkg/kubectl/cmd/cp: bad version "1.13.10": HTTP GET /github.com/kubernetes/kubernetes/pkg/kubectl/cmd/cp/@v/v1.13.10.mod returned status 404 Not Found'
+    - 'lint: github.com/kubernetes/kubernetes/pkg/kubectl/cmd/cp: bad version "1.14.6": HTTP GET /github.com/kubernetes/kubernetes/pkg/kubectl/cmd/cp/@v/v1.14.6.mod returned status 404 Not Found'
+    - 'lint: github.com/kubernetes/kubernetes/pkg/kubectl/cmd/cp: bad version "1.15.3": HTTP GET /github.com/kubernetes/kubernetes/pkg/kubectl/cmd/cp/@v/v1.15.3.mod returned status 404 Not Found'

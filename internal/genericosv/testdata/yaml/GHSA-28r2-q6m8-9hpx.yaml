@@ -1,0 +1,49 @@
+id: GO-TEST-ID
+modules:
+    - module: github.com/hashicorp/go-getter
+      versions:
+        - fixed: 1.6.1
+      vulnerable_at: 1.6.0
+    - module: github.com/hashicorp/go-getter
+      versions:
+        - introduced: 2.0.0
+          fixed: 2.1.0
+      vulnerable_at: 1.7.2
+    - module: github.com/hashicorp/go-getter/gcs/v2
+      versions:
+        - fixed: 2.1.0
+      vulnerable_at: 2.0.2
+    - module: github.com/hashicorp/go-getter/s3/v2
+      versions:
+        - fixed: 2.1.0
+      vulnerable_at: 2.0.2
+    - module: github.com/hashicorp/go-getter/v2
+      versions:
+        - fixed: 2.1.0
+      vulnerable_at: 2.0.2
+summary: |-
+    HashiCorp go-getter unsafe downloads could lead to asymmetric resource
+    exhaustion
+description: |-
+    HashiCorp go-getter through 2.0.2 does not safely perform downloads. Asymmetric
+    resource exhaustion could occur when go-getter processed malicious HTTP
+    responses.
+cves:
+    - CVE-2022-30323
+ghsas:
+    - GHSA-28r2-q6m8-9hpx
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-30323
+    - web: https://github.com/hashicorp/go-getter/pull/359
+    - web: https://github.com/hashicorp/go-getter/pull/361
+    - web: https://github.com/hashicorp/go-getter/commit/38e97387488f5439616be60874979433a12edb48
+    - web: https://github.com/hashicorp/go-getter/commit/a2ebce998f8d4105bd4b78d6c99a12803ad97a45
+    - web: https://discuss.hashicorp.com
+    - web: https://discuss.hashicorp.com/t/hcsec-2022-13-multiple-vulnerabilities-in-go-getter-library/
+    - web: https://discuss.hashicorp.com/t/hcsec-2022-13-multiple-vulnerabilities-in-go-getter-library/39930
+    - package: https://github.com/hashicorp/go-getter
+    - web: https://github.com/hashicorp/go-getter/releases
+    - web: https://pkg.go.dev/vuln/GO-2022-0586
+notes:
+    - 'lint: github.com/hashicorp/go-getter: bad version "2.0.0": github.com/hashicorp/go-getter@v2.0.0: invalid version: should be v0 or v1, not v2'
+    - 'lint: github.com/hashicorp/go-getter: vulnerable_at version 1.7.2 is not inside vulnerable range'

@@ -1,0 +1,25 @@
+id: GO-TEST-ID
+modules:
+    - module: github.com/drakkan/sftpgo
+      versions:
+        - fixed: 2.3.5
+      vulnerable_at: 1.2.2
+summary: SFTPGo WebClient vulnerable to Cross-site Scripting
+description: |-
+    ### Impact Cross-site scripting (XSS) vulnerabilities have been reported to
+    affect SFTPGo WebClient. If exploited, this vulnerability allows remote
+    attackers to inject malicious code.
+
+    ### Patches Fixed in v2.3.5.
+cves:
+    - CVE-2022-39220
+ghsas:
+    - GHSA-cf7g-cm7q-rq7f
+references:
+    - web: https://github.com/drakkan/sftpgo/security/advisories/GHSA-cf7g-cm7q-rq7f
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-39220
+    - web: https://github.com/drakkan/sftpgo/commit/cbef217cfa92478ee8e00ba1a5fb074f8a8aeee0
+    - package: https://github.com/drakkan/sftpgo
+notes:
+    - 'lint: github.com/drakkan/sftpgo: bad version "2.3.5": github.com/drakkan/sftpgo@v2.3.5: invalid version: should be v0 or v1, not v2'
+    - 'lint: redundant non-advisory reference to GHSA-cf7g-cm7q-rq7f'

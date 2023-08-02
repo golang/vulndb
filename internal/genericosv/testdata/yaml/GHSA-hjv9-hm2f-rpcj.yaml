@@ -1,0 +1,46 @@
+id: GO-TEST-ID
+modules:
+    - module: github.com/grafana/grafana
+      versions:
+        - introduced: 8.1.0
+          fixed: 8.5.21
+      vulnerable_at: 6.1.6+incompatible
+    - module: github.com/grafana/grafana
+      versions:
+        - introduced: 9.0.0
+          fixed: 9.2.13
+      vulnerable_at: 6.1.6+incompatible
+    - module: github.com/grafana/grafana
+      versions:
+        - introduced: 9.3.0
+          fixed: 9.3.8
+      vulnerable_at: 6.1.6+incompatible
+summary: Grafana vulnerable to Cross-site Scripting
+description: |-
+    Grafana is an open-source platform for monitoring and observability. Starting
+    with the 8.1 branch, Grafana had a stored XSS vulnerability affecting the core
+    plugin GeoMap. The stored XSS vulnerability was possible due to map attributions
+    weren't properly sanitized and allowed arbitrary JavaScript to be executed in
+    the context of the currently authorized user of the Grafana instance. An
+    attacker needs to have the Editor role in order to change a panel to include a
+    map attribution containing JavaScript. This means that vertical privilege
+    escalation is possible, where a user with Editor role can change to a known
+    password for a user having Admin role if the user with Admin role executes
+    malicious JavaScript viewing a dashboard. Users may upgrade to version 8.5.21,
+    9.2.13 and 9.3.8 to receive a fix.
+cves:
+    - CVE-2023-0507
+ghsas:
+    - GHSA-hjv9-hm2f-rpcj
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-0507
+    - package: https://github.com/grafana/grafana
+    - web: https://grafana.com/security/security-advisories/cve-2023-0507/
+    - web: https://security.netapp.com/advisory/ntap-20230413-0001/
+notes:
+    - 'lint: github.com/grafana/grafana: bad version "8.1.0": github.com/grafana/grafana@v8.1.0: invalid version: should be v0 or v1, not v8'
+    - 'lint: github.com/grafana/grafana: bad version "9.0.0": github.com/grafana/grafana@v9.0.0: invalid version: should be v0 or v1, not v9'
+    - 'lint: github.com/grafana/grafana: bad version "9.3.0": github.com/grafana/grafana@v9.3.0: invalid version: should be v0 or v1, not v9'
+    - 'lint: github.com/grafana/grafana: vulnerable_at version 6.1.6+incompatible is not inside vulnerable range'
+    - 'lint: github.com/grafana/grafana: vulnerable_at version 6.1.6+incompatible is not inside vulnerable range'
+    - 'lint: github.com/grafana/grafana: vulnerable_at version 6.1.6+incompatible is not inside vulnerable range'

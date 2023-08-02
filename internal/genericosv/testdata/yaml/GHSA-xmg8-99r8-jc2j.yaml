@@ -1,0 +1,85 @@
+id: GO-TEST-ID
+modules:
+    - module: github.com/argoproj/argo-cd
+      versions:
+        - fixed: 2.1.15
+      vulnerable_at: 1.8.7
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - introduced: 2.0.0
+          fixed: 2.1.15
+      vulnerable_at: 2.1.14
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - introduced: 2.2.0
+          fixed: 2.2.9
+      vulnerable_at: 2.2.8
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - introduced: 2.3.0
+          fixed: 2.3.4
+      vulnerable_at: 2.3.3
+summary: Login screen allows message spoofing if SSO is enabled
+description: |-
+    ### Impact
+
+    A vulnerability was found in Argo CD that allows an attacker to spoof error
+    messages on the login screen when SSO is enabled.
+
+    In order to exploit this vulnerability, an attacker would have to trick the
+    victim to visit a specially crafted URL which contains the message to be
+    displayed.
+
+    As far as the research of the Argo CD team concluded, it is not possible to
+    specify any active content (e.g. Javascript) or other HTML fragments (e.g.
+    clickable links) in the spoofed message.
+
+    ### Patched versions
+
+    A patch for this vulnerability has been released in the following Argo CD
+    versions:
+
+    * v2.3.4
+    * v2.2.9
+    * v2.1.15
+
+    ### Workarounds
+
+    No workaround available.
+
+    #### Mitigations
+
+    It is advised to update to an Argo CD version containing a fix for this issue
+    (see *Patched versions* above).
+
+    ### Credits
+
+    This vulnerability was discovered by Naufal Septiadi (<naufal@horangi.com>) and
+    reported to us in a responsible way.
+
+    ### For more information
+
+    <!-- Use only one of the paragraphs below. Remove all others. -->
+
+    <!-- For Argo CD -->
+
+    * Open an issue in [the Argo CD issue
+    tracker](https://github.com/argoproj/argo-cd/issues) or
+    [discussions](https://github.com/argoproj/argo-cd/discussions)
+    * Join us on [Slack](https://argoproj.github.io/community/join-slack) in channel
+    #argo-cd
+cves:
+    - CVE-2022-24905
+ghsas:
+    - GHSA-xmg8-99r8-jc2j
+references:
+    - web: https://github.com/argoproj/argo-cd/security/advisories/GHSA-xmg8-99r8-jc2j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-24905
+    - web: https://github.com/argoproj/argo-cd/releases/tag/v2.1.15
+    - web: https://github.com/argoproj/argo-cd/releases/tag/v2.2.9
+    - web: https://github.com/argoproj/argo-cd/releases/tag/v2.3.4
+    - package: github.com/argoproj/argo-cd
+notes:
+    - 'lint: "github.com/argoproj/argo-cd" is not a valid URL'
+    - 'lint: github.com/argoproj/argo-cd: bad version "2.1.15": github.com/argoproj/argo-cd@v2.1.15: invalid version: should be v0 or v1, not v2'
+    - 'lint: redundant non-advisory reference to GHSA-xmg8-99r8-jc2j'

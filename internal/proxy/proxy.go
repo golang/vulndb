@@ -65,7 +65,7 @@ func (c *Client) lookup(urlSuffix string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	} else if resp.StatusCode != 200 {
-		return nil, fmt.Errorf("http.Get(%q) returned status %v", url, resp.Status)
+		return nil, fmt.Errorf("HTTP GET /%s returned status %v", urlSuffix, resp.Status)
 	}
 	defer resp.Body.Close()
 	b, err := io.ReadAll(resp.Body)
