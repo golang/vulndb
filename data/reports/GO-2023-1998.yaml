@@ -1,0 +1,48 @@
+id: GO-2023-1998
+modules:
+    - module: github.com/projectdiscovery/nuclei/v2
+      versions:
+        - fixed: 2.9.9
+      vulnerable_at: 2.9.8
+      packages:
+        - package: github.com/projectdiscovery/nuclei/v2/cmd/nuclei
+          symbols:
+            - readConfig
+          derived_symbols:
+            - init#1
+            - main
+        - package: github.com/projectdiscovery/nuclei/v2/pkg/protocols/common/generators
+          symbols:
+            - New
+            - PayloadGenerator.loadPayloads
+        - package: github.com/projectdiscovery/nuclei/v2/pkg/protocols/common/protocolstate
+          symbols:
+            - Init
+        - package: github.com/projectdiscovery/nuclei/v2/pkg/protocols/dns
+          symbols:
+            - Request.Compile
+        - package: github.com/projectdiscovery/nuclei/v2/pkg/protocols/http
+          symbols:
+            - Request.Compile
+        - package: github.com/projectdiscovery/nuclei/v2/pkg/protocols/headless
+          symbols:
+            - Request.Compile
+        - package: github.com/projectdiscovery/nuclei/v2/pkg/protocols/network
+          symbols:
+            - Request.Compile
+        - package: github.com/projectdiscovery/nuclei/v2/pkg/protocols/websocket
+          symbols:
+            - Request.Compile
+summary: |-
+    Improper path sanitization in sandbox mode in
+    github.com/projectdiscovery/nuclei/v2
+cves:
+    - CVE-2023-37896
+ghsas:
+    - GHSA-2xx4-jj5v-6mff
+credits:
+    - keomutchoiboi
+references:
+    - advisory: https://github.com/projectdiscovery/nuclei/security/advisories/GHSA-2xx4-jj5v-6mff
+    - fix: https://github.com/projectdiscovery/nuclei/pull/3927
+    - web: https://github.com/projectdiscovery/nuclei/releases/tag/v2.9.9

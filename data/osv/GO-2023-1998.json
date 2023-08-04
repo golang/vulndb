@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1998",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-37896",
+    "GHSA-2xx4-jj5v-6mff"
+  ],
+  "summary": "Improper path sanitization in sandbox mode in github.com/projectdiscovery/nuclei/v2",
+  "details": "Improper path sanitization in sandbox mode in github.com/projectdiscovery/nuclei/v2",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/projectdiscovery/nuclei/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.9.9"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/projectdiscovery/nuclei/v2/cmd/nuclei",
+            "symbols": [
+              "init#1",
+              "main",
+              "readConfig"
+            ]
+          },
+          {
+            "path": "github.com/projectdiscovery/nuclei/v2/pkg/protocols/common/generators",
+            "symbols": [
+              "New",
+              "PayloadGenerator.loadPayloads"
+            ]
+          },
+          {
+            "path": "github.com/projectdiscovery/nuclei/v2/pkg/protocols/common/protocolstate",
+            "symbols": [
+              "Init"
+            ]
+          },
+          {
+            "path": "github.com/projectdiscovery/nuclei/v2/pkg/protocols/dns",
+            "symbols": [
+              "Request.Compile"
+            ]
+          },
+          {
+            "path": "github.com/projectdiscovery/nuclei/v2/pkg/protocols/http",
+            "symbols": [
+              "Request.Compile"
+            ]
+          },
+          {
+            "path": "github.com/projectdiscovery/nuclei/v2/pkg/protocols/headless",
+            "symbols": [
+              "Request.Compile"
+            ]
+          },
+          {
+            "path": "github.com/projectdiscovery/nuclei/v2/pkg/protocols/network",
+            "symbols": [
+              "Request.Compile"
+            ]
+          },
+          {
+            "path": "github.com/projectdiscovery/nuclei/v2/pkg/protocols/websocket",
+            "symbols": [
+              "Request.Compile"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/projectdiscovery/nuclei/security/advisories/GHSA-2xx4-jj5v-6mff"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/projectdiscovery/nuclei/pull/3927"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/projectdiscovery/nuclei/releases/tag/v2.9.9"
+    }
+  ],
+  "credits": [
+    {
+      "name": "keomutchoiboi"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1998"
+  }
+}
