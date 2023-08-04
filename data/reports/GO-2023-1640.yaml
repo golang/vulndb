@@ -1,0 +1,22 @@
+id: GO-2023-1640
+modules:
+    - module: github.com/dablelv/go-huge-util
+      versions:
+        - fixed: 0.0.34
+      vulnerable_at: 0.0.33
+      packages:
+        - package: github.com/dablelv/go-huge-util/zip
+          symbols:
+            - unzipFile
+          derived_symbols:
+            - Unzip
+summary: Path traversal when unzipping files in github.com/dablelv/go-huge-util
+cves:
+    - CVE-2023-28105
+ghsas:
+    - GHSA-5g39-ppwg-6xx8
+credits:
+    - '@cokeBeer'
+references:
+    - advisory: https://github.com/dablelv/go-huge-util/security/advisories/GHSA-5g39-ppwg-6xx8
+    - fix: https://github.com/dablelv/go-huge-util/commit/0e308b0fac8973e6fa251b0ab095cdc5c1c0956b
