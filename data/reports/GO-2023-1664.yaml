@@ -1,0 +1,24 @@
+id: GO-2023-1664
+modules:
+    - module: github.com/crewjam/saml
+      versions:
+        - fixed: 0.4.13
+      vulnerable_at: 0.4.12
+      packages:
+        - package: github.com/crewjam/saml
+          symbols:
+            - NewIdpAuthnRequest
+            - ServiceProvider.ValidateLogoutResponseRedirect
+          derived_symbols:
+            - IdentityProvider.ServeSSO
+            - ServiceProvider.ValidateLogoutResponseRequest
+summary: Denial of service via deflate compression bomb in github.com/crewjam/saml
+cves:
+    - CVE-2023-28119
+ghsas:
+    - GHSA-5mqj-xc49-246p
+credits:
+    - '@nszetei'
+references:
+    - advisory: https://github.com/crewjam/saml/security/advisories/GHSA-5mqj-xc49-246p
+    - fix: https://github.com/crewjam/saml/commit/8e9236867d176ad6338c870a84e2039aef8a5021
