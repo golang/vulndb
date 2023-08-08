@@ -1,0 +1,31 @@
+id: GO-2023-2000
+modules:
+    - module: github.com/libp2p/go-libp2p
+      versions:
+        - fixed: 0.27.8
+        - introduced: 0.28.0
+          fixed: 0.28.2
+        - introduced: 0.29.0
+          fixed: 0.29.1
+      vulnerable_at: 0.29.0
+      packages:
+        - package: github.com/libp2p/go-libp2p/core/crypto
+          symbols:
+            - GenerateRSAKeyPair
+            - UnmarshalRsaPrivateKey
+            - UnmarshalRsaPublicKey
+          derived_symbols:
+            - GenerateKeyPair
+            - GenerateKeyPairWithReader
+summary: Large RSA keys can cause high resource usage in core/crypto package
+description: |-
+    Large RSA keys can lead to resource exhaustion attacks.
+
+    With fix, the size of RSA keys transmitted during handshakes is
+    restricted to <= 8192 bits.
+cves:
+    - CVE-2023-39533
+references:
+    - advisory: https://github.com/libp2p/go-libp2p/security/advisories/GHSA-876p-8259-xjgg
+    - report: https://go.dev/issue/61460
+    - fix: https://github.com/libp2p/go-libp2p/commit/0cce607219f3710addc7e18672cffd1f1d912fbb
