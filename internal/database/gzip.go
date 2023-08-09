@@ -11,7 +11,7 @@ import (
 	"os"
 )
 
-// writeGzipped compresses the data in data and writes it to
+// writeGzipped compresses the data in data and writes it
 // to filename, creating the file if needed.
 func writeGzipped(filename string, data []byte) error {
 	var b bytes.Buffer

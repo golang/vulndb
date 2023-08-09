@@ -112,7 +112,7 @@ func (cs AssignedCVEList) String() string {
 // ReserveOptions contains the configuration options for reserving new
 // CVE IDs.
 type ReserveOptions struct {
-	// NumIDs is the the number of CVE IDs to reserve. Required.
+	// NumIDs is the number of CVE IDs to reserve. Required.
 	NumIDs int
 	// Year is the CVE ID year for new IDs, indicating the year the
 	// vulnerability was discovered. Required.
