@@ -1,0 +1,25 @@
+id: GO-2023-2003
+modules:
+    - module: github.com/supranational/blst
+      versions:
+        - introduced: 0.3.0
+          fixed: 0.3.11
+      vulnerable_at: 0.3.10
+      packages:
+        - package: github.com/supranational/blst/bindings/go
+          symbols:
+            - P2Affine.SigValidate
+            - P1Affine.SigValidate
+summary: Blst fails to perform group signature validation
+description: |-
+    When complemented with a check for infinity, blst skips performing a signature
+    group-check. Formally speaking, infinity is the identity element of the elliptic
+    curve group and as such it is a member of the group, so the group-check should
+    be performed. The fix performs the check even in the presence of infinity.
+ghsas:
+    - GHSA-8c37-7qx3-4c4p
+credits:
+    - Yunjong Jeong (@blukat29)
+references:
+    - fix: https://github.com/supranational/blst/commit/fb91221c91c82f65bfc7f243256308977a06d48b
+    - web: https://github.com/supranational/blst/releases/tag/v0.3.11
