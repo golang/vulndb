@@ -10,17 +10,34 @@ import (
 	"context"
 	"database/sql"
 	"errors"
-
-	"golang.org/x/pkgsite-metrics/internal/config"
-	"golang.org/x/pkgsite-metrics/internal/scan"
 )
 
 var errDoesNotCompile = errors.New("github.com/lib/pq does not compile on plan9")
 
-func Open(ctx context.Context, cfg *config.Config) (_ *sql.DB, err error) {
+type Config struct {
+	User           string
+	PasswordSecret string
+	Password       string
+	Host           string
+	Port           string
+	DBName         string
+}
+
+func Open(ctx context.Context, cfg Config) (_ *sql.DB, err error) {
 	return nil, errDoesNotCompile
 }
 
-func ModuleSpecs(ctx context.Context, db *sql.DB, minImportedByCount int) (specs []scan.ModuleSpec, err error) {
+type Module struct {
+	Path     string
+	Packages []*Package
+}
+
+type Package struct {
+	Path         string
+	Version      string
+	NumImporters int
+}
+
+func QueryModule(ctx context.Context, db *sql.DB, modulePath string) (*Module, error) {
 	return nil, errDoesNotCompile
 }
