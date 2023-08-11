@@ -7,7 +7,7 @@
     "CVE-2023-39533"
   ],
   "summary": "Large RSA keys can cause high resource usage in core/crypto package",
-  "details": "Extremely large RSA keys can cause a client/server to spend significant CPU time verifying signatures leading to resource exhaustion attacks.\n\nWith fix, the size of RSA keys transmitted during handshakes is restricted to \u003c= 8192 bits.",
+  "details": "Large RSA keys can lead to resource exhaustion attacks.\n\nWith fix, the size of RSA keys transmitted during handshakes is restricted to \u003c= 8192 bits.",
   "affected": [
     {
       "package": {
