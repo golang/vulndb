@@ -26,7 +26,11 @@ var (
 
 // To update test cases to reflect new expected behavior:
 // go test ./internal/genericosv/... -update -run TestToReport
+//
+// TODO(https://go.dev/issues/61769): mock out proxy calls in the non-update
+// case so that this test is hermetic.
 func TestToReport(t *testing.T) {
+	t.Skip("need to mock out proxy calls")
 	if err := filepath.WalkDir(testOSVDir, func(path string, f fs.DirEntry, err error) error {
 		if err != nil {
 			return err
