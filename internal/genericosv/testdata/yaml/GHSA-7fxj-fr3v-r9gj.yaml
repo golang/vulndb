@@ -5,7 +5,6 @@ modules:
     - module: github.com/pingcap/tidb
       versions:
         - introduced: 6.2.0
-      vulnerable_at: 1.0.9
 summary: TiDB vulnerable to Use of Externally-Controlled Format String
 description: |-
     TiDB server (importer CLI tool) prior to version 6.4.0 & 6.1.3 is vulnerable to
@@ -26,4 +25,3 @@ notes:
     - 'create: unsupported version range event models.Event{Introduced:"", Fixed:"", LastAffected:"6.1.2", Limit:""}'
     - 'create: unsupported version range event models.Event{Introduced:"", Fixed:"", LastAffected:"6.4.0-alpha1", Limit:""}'
     - 'lint: github.com/pingcap/tidb: bad version "6.2.0": github.com/pingcap/tidb@v6.2.0: invalid version: should be v0 or v1, not v6'
-    - 'lint: github.com/pingcap/tidb: vulnerable_at version 1.0.9 is not inside vulnerable range'

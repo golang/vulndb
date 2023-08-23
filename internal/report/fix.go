@@ -11,6 +11,7 @@ import (
 	"sort"
 	"strings"
 
+	"golang.org/x/vulndb/internal/osvutils"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/version"
 )
@@ -125,7 +126,16 @@ func (m *Module) guessVulnerableAt(pc proxyClient) (string, error) {
 	if fixed == "" {
 		latest, err := pc.Latest(m.Module)
 		if err != nil || latest == "" {
-			return "", fmt.Errorf("could not find latest version from proxy: %s", err)
+			return "", fmt.Errorf("no fix, but could not find latest version from proxy: %s", err)
+		}
+
+		// Make sure the latest version is actually in the vulnerable range.
+		// This may not be the case if the proxy doesn't recognize the affected versions.
+		affected, err := osvutils.AffectsSemver(AffectedRanges(m.Versions), latest)
+		if err != nil {
+			return "", err
+		} else if !affected {
+			return "", fmt.Errorf("no fix, but latest version %s is not inside vulnerable range", latest)
 		}
 
 		return latest, nil
