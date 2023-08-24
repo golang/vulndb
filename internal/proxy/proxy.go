@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/http/httptest"
 	"os"
 	"path"
 	"sort"
@@ -32,8 +33,9 @@ var DefaultClient *Client
 // not change often enough to be a problem for our use cases.
 type Client struct {
 	*http.Client
-	url   string
-	cache *cache
+	url    string
+	cache  *cache
+	errLog *errLog // for testing
 }
 
 func init() {
@@ -49,12 +51,42 @@ func NewClient(c *http.Client, url string) *Client {
 		Client: c,
 		url:    url,
 		cache:  newCache(),
+		errLog: newErrLog(),
 	}
+}
+
+// Response is a representation of an HTTP response used to
+// facilitate testing.
+type Response struct {
+	Body       string `json:"body,omitempty"`
+	StatusCode int    `json:"status_code"`
+}
+
+// NewTestClient creates a client that returns hard-coded mock responses.
+// endpointsToResponses is a map from proxy endpoints
+// (with no server url, and no leading '/'), to their desired responses.
+func NewTestClient(endpointsToResponses map[string]*Response) (c *Client, cleanup func()) {
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		for endpoint, response := range endpointsToResponses {
+			if r.Method == http.MethodGet &&
+				r.URL.Path == "/"+endpoint {
+				if response.StatusCode == http.StatusOK {
+					_, _ = w.Write([]byte(response.Body))
+				} else {
+					w.WriteHeader(response.StatusCode)
+				}
+				return
+			}
+		}
+		w.WriteHeader(http.StatusBadRequest)
+	}
+	s := httptest.NewServer(http.HandlerFunc(handler))
+	return NewClient(s.Client(), s.URL), func() { s.Close() }
 }
 
 func (c *Client) lookup(urlSuffix string) ([]byte, error) {
 	url := fmt.Sprintf("%s/%s", c.url, urlSuffix)
-	if b, found := c.cache.get(url); found {
+	if b, found := c.cache.get(urlSuffix); found {
 		return b, nil
 	}
 	req, err := http.NewRequest(http.MethodGet, url, nil)
@@ -64,15 +96,17 @@ func (c *Client) lookup(urlSuffix string) ([]byte, error) {
 	resp, err := c.Do(req)
 	if err != nil {
 		return nil, err
-	} else if resp.StatusCode != 200 {
-		return nil, fmt.Errorf("HTTP GET /%s returned status %v", urlSuffix, resp.Status)
 	}
 	defer resp.Body.Close()
+	if resp.StatusCode != 200 {
+		c.errLog.set(urlSuffix, resp.StatusCode)
+		return nil, fmt.Errorf("HTTP GET /%s returned status %v", urlSuffix, resp.Status)
+	}
 	b, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
-	c.cache.set(url, b)
+	c.cache.set(urlSuffix, b)
 	return b, nil
 }
 
@@ -204,6 +238,25 @@ func (c *Client) FindModule(modPath string) string {
 	return ""
 }
 
+func Responses() map[string]*Response {
+	return DefaultClient.Responses()
+}
+
+// Responses returns a map from endpoints to the latest response received for each endpoint.
+//
+// Intended for testing: the output can be passed to NewTestClient to create a mock client
+// that returns the same responses.
+func (c *Client) Responses() map[string]*Response {
+	m := make(map[string]*Response)
+	for key, status := range c.errLog.getData() {
+		m[key] = &Response{StatusCode: status}
+	}
+	for key, b := range c.cache.getData() {
+		m[key] = &Response{Body: string(b), StatusCode: http.StatusOK}
+	}
+	return m
+}
+
 // A simple in-memory cache that never expires.
 type cache struct {
 	data map[string][]byte
@@ -232,4 +285,36 @@ func (c *cache) set(key string, val []byte) {
 	defer c.mu.Unlock()
 
 	c.data[key] = val
+}
+
+func (c *cache) getData() map[string][]byte {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
+	return c.data
+}
+
+// An in-memory store of the errors seen so far.
+// Used by the Responses() function, for testing.
+type errLog struct {
+	data map[string]int
+	mu   sync.Mutex
+}
+
+func newErrLog() *errLog {
+	return &errLog{data: make(map[string]int)}
+}
+
+func (e *errLog) set(key string, status int) {
+	e.mu.Lock()
+	defer e.mu.Unlock()
+
+	e.data[key] = status
+}
+
+func (e *errLog) getData() map[string]int {
+	e.mu.Lock()
+	defer e.mu.Unlock()
+
+	return e.data
 }

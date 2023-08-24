@@ -5,65 +5,88 @@
 package genericosv
 
 import (
+	"encoding/json"
 	"flag"
 	"io/fs"
+	"os"
 	"path/filepath"
 	"strings"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
 	osvschema "github.com/google/osv-scanner/pkg/models"
+	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
 )
 
-var update = flag.Bool("update", false, "if true, update test cases")
+var (
+	realProxy = flag.Bool("proxy", false, "if true, contact the real module proxy and update expected responses")
+	update    = flag.Bool("update", false, "if true, update test YAML reports to reflect new expected behavior")
+)
 
 var (
-	testdataDir = "testdata"
-	testOSVDir  = filepath.Join(testdataDir, "osv")
-	testYAMLDir = filepath.Join(testdataDir, "yaml")
+	testdataDir        = "testdata"
+	testOSVDir         = filepath.Join(testdataDir, "osv")
+	testYAMLDir        = filepath.Join(testdataDir, "yaml")
+	proxyResponsesFile = filepath.Join(testdataDir, "proxy.json")
 )
 
 // To update test cases to reflect new expected behavior:
 // go test ./internal/genericosv/... -update -run TestToReport
-//
-// TODO(https://go.dev/issues/61769): mock out proxy calls in the non-update
-// case so that this test is hermetic.
 func TestToReport(t *testing.T) {
-	t.Skip("need to mock out proxy calls")
-	if err := filepath.WalkDir(testOSVDir, func(path string, f fs.DirEntry, err error) error {
-		if err != nil {
-			return err
-		}
-		if f.IsDir() || filepath.Ext(path) != ".json" {
-			return nil
-		}
-		ghsaID := strings.TrimSuffix(f.Name(), ".json")
-		t.Run(ghsaID, func(t *testing.T) {
-			t.Parallel()
-			osv := Entry{}
-			if err := report.UnmarshalFromFile(path, &osv); err != nil {
-				t.Fatal(err)
-			}
-			got := osv.ToReport("GO-TEST-ID")
-			yamlFile := filepath.Join(testYAMLDir, ghsaID+".yaml")
-			if *update {
-				if err := got.Write(yamlFile); err != nil {
-					t.Fatal(err)
-				}
-			}
-			want, err := report.Read(yamlFile)
+	if *realProxy {
+		defer func() {
+			err := updateProxyResponses()
 			if err != nil {
 				t.Fatal(err)
 			}
-			if diff := cmp.Diff(want, got); diff != "" {
-				t.Errorf("ToReport() mismatch (-want +got)\n%s", diff)
-			}
-		})
-		return nil
-	}); err != nil {
-		t.Fatal(err)
+		}()
+	} else {
+		err := setupMockProxy(t)
+		if err != nil {
+			t.Fatal(err)
+		}
 	}
+
+	// The outer test run forces the test to wait for all parallel tests
+	// to finish before tearing down test.
+	t.Run("run", func(t *testing.T) {
+		if err := filepath.WalkDir(testOSVDir, func(path string, f fs.DirEntry, err error) error {
+			if err != nil {
+				return err
+			}
+			if f.IsDir() || filepath.Ext(path) != ".json" {
+				return nil
+			}
+			ghsaID := strings.TrimSuffix(f.Name(), ".json")
+			t.Run(ghsaID, func(t *testing.T) {
+				t.Parallel()
+
+				osv := Entry{}
+				if err := report.UnmarshalFromFile(path, &osv); err != nil {
+					t.Fatal(err)
+				}
+
+				got := osv.ToReport("GO-TEST-ID")
+				yamlFile := filepath.Join(testYAMLDir, ghsaID+".yaml")
+				if *update {
+					if err := got.Write(yamlFile); err != nil {
+						t.Fatal(err)
+					}
+				}
+				want, err := report.Read(yamlFile)
+				if err != nil {
+					t.Fatal(err)
+				}
+				if diff := cmp.Diff(want, got); diff != "" {
+					t.Errorf("ToReport() mismatch (-want +got)\n%s", diff)
+				}
+			})
+			return nil
+		}); err != nil {
+			t.Fatal(err)
+		}
+	})
 }
 
 // TODO(https://go.dev/issues/61769): unskip test cases as we add features.
@@ -259,4 +282,38 @@ func TestAffectedToModules(t *testing.T) {
 		})
 
 	}
+}
+
+// Use saved responses from testdata/proxy.json instead of real proxy calls.
+func setupMockProxy(t *testing.T) error {
+	t.Helper()
+
+	b, err := os.ReadFile(proxyResponsesFile)
+	if err != nil {
+		return err
+	}
+	var responses map[string]*proxy.Response
+	err = json.Unmarshal(b, &responses)
+	if err != nil {
+		return err
+	}
+
+	defaultProxyClient := proxy.DefaultClient
+	testClient, cleanup := proxy.NewTestClient(responses)
+	proxy.DefaultClient = testClient
+	t.Cleanup(cleanup)
+	t.Cleanup(func() {
+		proxy.DefaultClient = defaultProxyClient
+	})
+
+	return nil
+}
+
+// Write proxy responses for this run to testdata/proxy.json.
+func updateProxyResponses() error {
+	responses, err := json.MarshalIndent(proxy.Responses(), "", "\t")
+	if err != nil {
+		return err
+	}
+	return os.WriteFile(proxyResponsesFile, responses, 0644)
 }

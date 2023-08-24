@@ -7,31 +7,12 @@ package proxy
 import (
 	"fmt"
 	"net/http"
-	"net/http/httptest"
-	"runtime"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
 )
 
-func newTestClient(expectedEndpoint, mockResponse string) *Client {
-	handler := func(w http.ResponseWriter, r *http.Request) {
-		if r.Method == http.MethodGet &&
-			r.URL.Path == "/"+expectedEndpoint {
-			_, _ = w.Write([]byte(mockResponse))
-			w.WriteHeader(http.StatusOK)
-			return
-		}
-		w.WriteHeader(http.StatusBadRequest)
-	}
-	s := httptest.NewServer(http.HandlerFunc(handler))
-	return NewClient(s.Client(), s.URL)
-}
-
 func TestCanonicalModulePath(t *testing.T) {
-	if runtime.GOOS == "js" {
-		t.Skipf("wasm builder does not have network access")
-	}
 	tcs := []struct {
 		name         string
 		path         string
@@ -58,7 +39,12 @@ func TestCanonicalModulePath(t *testing.T) {
 	for _, tc := range tcs {
 		t.Run(tc.name, func(t *testing.T) {
 			endpoint := fmt.Sprintf("%s/@v/%s.mod", tc.path, tc.version)
-			c := newTestClient(endpoint, tc.mockResponse)
+			c, cleanup := NewTestClient(map[string]*Response{
+				endpoint: {
+					Body:       tc.mockResponse,
+					StatusCode: http.StatusOK,
+				}})
+			t.Cleanup(cleanup)
 			got, err := c.CanonicalModulePath(tc.path, tc.version)
 			if err != nil {
 				t.Fatal(err)
@@ -97,7 +83,12 @@ func TestCanonicalModuleVersion(t *testing.T) {
 	for _, tc := range tcs {
 		t.Run(tc.name, func(t *testing.T) {
 			endpoint := fmt.Sprintf("%s/@v/%s.info", tc.path, tc.version)
-			c := newTestClient(endpoint, tc.mockResponse)
+			c, cleanup := NewTestClient(map[string]*Response{
+				endpoint: {
+					Body:       tc.mockResponse,
+					StatusCode: http.StatusOK,
+				}})
+			t.Cleanup(cleanup)
 			got, err := c.CanonicalModuleVersion(tc.path, tc.version)
 			if err != nil {
 				t.Fatal(err)
@@ -137,7 +128,12 @@ v0.7.0
 	for _, tc := range tcs {
 		t.Run(tc.name, func(t *testing.T) {
 			endpoint := fmt.Sprintf("%s/@v/list", tc.path)
-			c := newTestClient(endpoint, tc.mockResponse)
+			c, cleanup := NewTestClient(map[string]*Response{
+				endpoint: {
+					Body:       tc.mockResponse,
+					StatusCode: http.StatusOK,
+				}})
+			t.Cleanup(cleanup)
 			got, err := c.Versions(tc.path)
 			if err != nil {
 				t.Fatal(err)
@@ -165,7 +161,12 @@ func TestLatest(t *testing.T) {
 	for _, tc := range tcs {
 		t.Run(tc.path, func(t *testing.T) {
 			endpoint := fmt.Sprintf("%s/@latest", tc.path)
-			c := newTestClient(endpoint, tc.mockResponse)
+			c, cleanup := NewTestClient(map[string]*Response{
+				endpoint: {
+					Body:       tc.mockResponse,
+					StatusCode: http.StatusOK,
+				}})
+			t.Cleanup(cleanup)
 			got, err := c.Latest(tc.path)
 			if err != nil {
 				t.Fatal(err)
@@ -208,7 +209,13 @@ func TestFindModule(t *testing.T) {
 	for _, tc := range tcs {
 		t.Run(tc.name, func(t *testing.T) {
 			endpoint := fmt.Sprintf("%s/@v/list", tc.want)
-			c := newTestClient(endpoint, "")
+			c, cleanup := NewTestClient(map[string]*Response{
+				endpoint: {
+					Body:       tc.want,
+					StatusCode: http.StatusOK,
+				},
+			})
+			t.Cleanup(cleanup)
 			if got := c.FindModule(tc.path); got != tc.want {
 				t.Errorf("FindModule() = %v, want %v", got, tc.want)
 			}
@@ -216,21 +223,42 @@ func TestFindModule(t *testing.T) {
 	}
 }
 
-func TestCache(t *testing.T) {
-	endpoint := "endpoint"
-	want := "response"
+func TestCacheAndErrors(t *testing.T) {
+	okEndpoint, notFoundEndpoint := "endpoint", "not/found"
+	okResponse := "response"
+	responses := map[string]*Response{
+		okEndpoint: {
+			Body:       okResponse,
+			StatusCode: http.StatusOK,
+		},
+		notFoundEndpoint: {
+			Body:       "",
+			StatusCode: http.StatusNotFound,
+		},
+	}
+	c, cleanup := NewTestClient(responses)
+	t.Cleanup(cleanup)
+
 	wantHits := 3
-	c := newTestClient(endpoint, want)
 	for i := 0; i < wantHits+1; i++ {
-		b, err := c.lookup("endpoint")
+		b, err := c.lookup(okEndpoint)
 		if err != nil {
 			t.Fatal(err)
 		}
-		if got := string(b); got != want {
-			t.Errorf("lookup() = %s, want %s", got, want)
+		if got, want := string(b), okResponse; got != want {
+			t.Errorf("lookup(%q) = %s, want %s", okEndpoint, got, want)
 		}
 	}
 	if c.cache.hits != wantHits {
 		t.Errorf("cache hits = %d, want %d", c.cache.hits, wantHits)
+	}
+
+	if _, err := c.lookup(notFoundEndpoint); err == nil {
+		t.Errorf("lookup(%q) succeeded, want error", notFoundEndpoint)
+	}
+
+	want, got := responses, c.Responses()
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("Responses() unexpected diff (want-, got+):\n%s", diff)
 	}
 }
