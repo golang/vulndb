@@ -4,17 +4,14 @@ modules:
       versions:
         - introduced: 0.4.0
           fixed: 2.2.11
-      vulnerable_at: 1.8.7
     - module: github.com/argoproj/argo-cd
       versions:
         - introduced: 2.3.0
           fixed: 2.3.6
-      vulnerable_at: 1.8.7
     - module: github.com/argoproj/argo-cd
       versions:
         - introduced: 2.4.0
           fixed: 2.4.5
-      vulnerable_at: 1.8.7
 summary: Argo CD certificate verification is skipped for connections to OIDC providers
 description: |-
     ### Impact
@@ -136,6 +133,4 @@ notes:
     - 'lint: github.com/argoproj/argo-cd: bad version "2.2.11": github.com/argoproj/argo-cd@v2.2.11: invalid version: should be v0 or v1, not v2'
     - 'lint: github.com/argoproj/argo-cd: bad version "2.3.0": github.com/argoproj/argo-cd@v2.3.0: invalid version: should be v0 or v1, not v2'
     - 'lint: github.com/argoproj/argo-cd: bad version "2.4.0": github.com/argoproj/argo-cd@v2.4.0: invalid version: should be v0 or v1, not v2'
-    - 'lint: github.com/argoproj/argo-cd: vulnerable_at version 1.8.7 is not inside vulnerable range'
-    - 'lint: github.com/argoproj/argo-cd: vulnerable_at version 1.8.7 is not inside vulnerable range'
     - 'lint: redundant non-advisory reference to GHSA-7943-82jg-wmw5'

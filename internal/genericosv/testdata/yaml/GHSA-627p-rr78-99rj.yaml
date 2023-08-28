@@ -4,22 +4,18 @@ modules:
       versions:
         - introduced: 6.3.0
           fixed: 6.3.1
-      vulnerable_at: 4.2.3+incompatible
     - module: github.com/concourse/concourse
       versions:
         - introduced: 6.4.0
           fixed: 6.4.1
-      vulnerable_at: 4.2.3+incompatible
     - module: github.com/concourse/dex
       versions:
         - introduced: 6.3.0
           fixed: 6.3.1
-      vulnerable_at: 1.8.0
     - module: github.com/concourse/dex
       versions:
         - introduced: 6.4.0
           fixed: 6.4.1
-      vulnerable_at: 1.8.0
 summary: |-
     GitLab auth uses full name instead of username as user ID, allowing
     impersonation
@@ -76,10 +72,6 @@ references:
 notes:
     - 'lint: github.com/concourse/concourse: bad version "6.3.0": github.com/concourse/concourse@v6.3.0: invalid version: should be v0 or v1, not v6'
     - 'lint: github.com/concourse/concourse: bad version "6.4.0": github.com/concourse/concourse@v6.4.0: invalid version: should be v0 or v1, not v6'
-    - 'lint: github.com/concourse/concourse: vulnerable_at version 4.2.3+incompatible is not inside vulnerable range'
-    - 'lint: github.com/concourse/concourse: vulnerable_at version 4.2.3+incompatible is not inside vulnerable range'
     - 'lint: github.com/concourse/dex: bad version "6.3.0": github.com/concourse/dex@v6.3.0: invalid version: should be v0 or v1, not v6'
     - 'lint: github.com/concourse/dex: bad version "6.4.0": github.com/concourse/dex@v6.4.0: invalid version: should be v0 or v1, not v6'
-    - 'lint: github.com/concourse/dex: vulnerable_at version 1.8.0 is not inside vulnerable range'
-    - 'lint: github.com/concourse/dex: vulnerable_at version 1.8.0 is not inside vulnerable range'
     - 'lint: redundant non-advisory reference to GHSA-627p-rr78-99rj'

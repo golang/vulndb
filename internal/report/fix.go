@@ -11,7 +11,6 @@ import (
 	"sort"
 	"strings"
 
-	"golang.org/x/vulndb/internal/osvutils"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/version"
 )
@@ -93,14 +92,22 @@ func (m *Module) FixVersions() {
 		}
 	}
 
-	if m.VulnerableAt == "" {
-		v, err := m.guessVulnerableAt(proxy.DefaultClient)
-		// For now, ignore errors and leave the field blank if it can't
-		// be determined.
-		if err == nil {
-			m.VulnerableAt = v
-		}
+	m.fixVulnerableAt()
+}
+
+func (m *Module) fixVulnerableAt() {
+	if m.VulnerableAt != "" {
+		return
 	}
+	// Don't attempt to guess if the given version ranges don't make sense.
+	if err := checkModVersions(m.Module, m.Versions); err != nil {
+		return
+	}
+	v, err := m.guessVulnerableAt(proxy.DefaultClient)
+	if err != nil {
+		return
+	}
+	m.VulnerableAt = v
 }
 
 type proxyClient interface {
@@ -109,9 +116,10 @@ type proxyClient interface {
 }
 
 // guessVulnerableAt attempts to find a vulnerable_at
-// version using the module proxy.
+// version using the module proxy, assuming that the version ranges
+// have already been validated.
 // If there is no fix, the latest version is used.
-func (m *Module) guessVulnerableAt(pc proxyClient) (string, error) {
+func (m *Module) guessVulnerableAt(pc proxyClient) (v string, err error) {
 	if m.IsFirstParty() {
 		return "", errors.New("cannot auto-guess vulnerable_at for first-party modules")
 	}
@@ -127,15 +135,6 @@ func (m *Module) guessVulnerableAt(pc proxyClient) (string, error) {
 		latest, err := pc.Latest(m.Module)
 		if err != nil || latest == "" {
 			return "", fmt.Errorf("no fix, but could not find latest version from proxy: %s", err)
-		}
-
-		// Make sure the latest version is actually in the vulnerable range.
-		// This may not be the case if the proxy doesn't recognize the affected versions.
-		affected, err := osvutils.AffectsSemver(AffectedRanges(m.Versions), latest)
-		if err != nil {
-			return "", err
-		} else if !affected {
-			return "", fmt.Errorf("no fix, but latest version %s is not inside vulnerable range", latest)
 		}
 
 		return latest, nil
