@@ -82,9 +82,10 @@ check_staticcheck() {
 # check_misspell runs misspell on source files.
 check_misspell() {
   ensure_go_binary github.com/client9/misspell/cmd/misspell
-  # reports/GO-2020-0041.yaml is about module "github.com/unknwon/cae",
-  # and the second element is a common misspelling of unknown.
-  runcmd misspell -i "unknwon"  -error .
+  # exceptions:
+  # "github.com/unknwon/cae" - OK
+  # "github.com/julz/importas" - OK
+  runcmd misspell -i "unknwon,importas"  -error .
 }
 
 check_data_osv() {
