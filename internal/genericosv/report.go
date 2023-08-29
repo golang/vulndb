@@ -74,11 +74,29 @@ func affectedToModules(as []osvschema.Affected, addNote addNoteFunc, pc *proxy.C
 	}
 
 	for _, m := range modules {
+		extractImportPath(m, pc)
 		m.FixVersions(pc)
 	}
 
 	sortModules(modules)
 	return modules
+}
+
+// extractImportPath checks if the module m's "module" path is actually
+// an import path. If so, it adds the import path to the packages list
+// and fixes the module path. Modifies m.
+//
+// Does nothing if the module path is already correct, or isn't recognized
+// by the proxy at all.
+func extractImportPath(m *report.Module, pc *proxy.Client) {
+	path := m.Module
+	modulePath := pc.FindModule(m.Module)
+	if modulePath == "" || // path doesn't contain a module, needs human review
+		path == modulePath { // path is already a module, no action needed
+		return
+	}
+	m.Module = modulePath
+	m.Packages = append(m.Packages, &report.Package{Package: path})
 }
 
 func sortModules(ms []*report.Module) {

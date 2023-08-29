@@ -3,7 +3,9 @@ modules:
     - module: github.com/git-lfs/git-lfs
       versions:
         - fixed: 2.1.1-0.20170519163204-f913f5f9c7c6
-    - module: github.com/git-lfs/git-lfs/lfsapi
+      packages:
+        - package: github.com/git-lfs/git-lfs/lfsapi
+    - module: github.com/git-lfs/git-lfs
       versions:
         - fixed: 2.1.1-0.20170519163204-f913f5f9c7c6
 summary: GitHub Git LFS Improper Input Validation vulnerability
@@ -28,5 +30,6 @@ references:
     - web: http://blog.recurity-labs.com/2017-08-10/scm-vulns
     - web: http://www.securityfocus.com/bid/102926
 notes:
-    - 'lint: github.com/git-lfs/git-lfs/lfsapi: bad version "2.1.1-0.20170519163204-f913f5f9c7c6": github.com/git-lfs/git-lfs/lfsapi@v2.1.1-0.20170519163204-f913f5f9c7c6: invalid version: should be v0 or v1, not v2'
     - 'lint: github.com/git-lfs/git-lfs: bad version "2.1.1-0.20170519163204-f913f5f9c7c6": github.com/git-lfs/git-lfs@v2.1.1-0.20170519163204-f913f5f9c7c6: invalid version: should be v0 or v1, not v2'
+    - 'lint: github.com/git-lfs/git-lfs: bad version "2.1.1-0.20170519163204-f913f5f9c7c6": github.com/git-lfs/git-lfs@v2.1.1-0.20170519163204-f913f5f9c7c6: invalid version: should be v0 or v1, not v2'
+    - 'lint: github.com/git-lfs/git-lfs: missing skip_fix and vulnerable_at: "github.com/git-lfs/git-lfs/lfsapi"'

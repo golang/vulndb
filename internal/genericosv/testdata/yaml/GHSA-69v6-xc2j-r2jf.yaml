@@ -5,9 +5,11 @@ modules:
         - introduced: 1.9.7
           fixed: 1.9.17
       vulnerable_at: 1.9.16
-    - module: github.com/ethereum/go-ethereum/core/vm
+    - module: github.com/ethereum/go-ethereum
       versions:
         - fixed: 1.19.7
+      packages:
+        - package: github.com/ethereum/go-ethereum/core/vm
 summary: Shallow copy bug in geth
 description: |-
     ### Impact This is a Consensus vulnerability, which can be used to cause a
@@ -38,5 +40,6 @@ references:
     - web: https://github.com/ethereum/go-ethereum/commit/295693759e5ded05fec0b2fb39359965b60da785
     - web: https://blog.ethereum.org/2020/11/12/geth_security_release/
 notes:
-    - 'lint: github.com/ethereum/go-ethereum/core/vm: bad version "1.19.7": HTTP GET /github.com/ethereum/go-ethereum/core/vm/@v/v1.19.7.mod returned status 404 Not Found'
+    - 'lint: github.com/ethereum/go-ethereum: bad version "1.19.7": HTTP GET /github.com/ethereum/go-ethereum/@v/v1.19.7.mod returned status 404 Not Found'
+    - 'lint: github.com/ethereum/go-ethereum: missing skip_fix and vulnerable_at: "github.com/ethereum/go-ethereum/core/vm"'
     - 'lint: redundant non-advisory reference to GHSA-69v6-xc2j-r2jf'

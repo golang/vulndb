@@ -1,8 +1,11 @@
 id: GO-TEST-ID
 modules:
-    - module: github.com/cloudflare/cfrpki/cmd/octorpki
+    - module: github.com/cloudflare/cfrpki
       versions:
         - fixed: 1.4.0
+      vulnerable_at: 1.3.0
+      packages:
+        - package: github.com/cloudflare/cfrpki/cmd/octorpki
 summary: Infinite certificate chain depth results in OctoRPKI running forever
 description: |-
     OctoRPKI does not limit the depth of a certificate chain, allowing for a CA to
@@ -23,5 +26,4 @@ references:
     - web: https://github.com/cloudflare/cfrpki/releases/tag/v1.4.0
     - web: https://www.debian.org/security/2022/dsa-5041
 notes:
-    - 'lint: github.com/cloudflare/cfrpki/cmd/octorpki: bad version "1.4.0": HTTP GET /github.com/cloudflare/cfrpki/cmd/octorpki/@v/v1.4.0.mod returned status 404 Not Found'
     - 'lint: redundant non-advisory reference to GHSA-g5gj-9ggf-9vmq'

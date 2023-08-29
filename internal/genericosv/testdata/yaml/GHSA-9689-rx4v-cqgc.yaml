@@ -1,16 +1,22 @@
 id: GO-TEST-ID
 modules:
-    - module: github.com/concourse/concourse/skymarshal/skyserver
+    - module: github.com/concourse/concourse
       versions:
         - fixed: 5.2.8
-    - module: github.com/concourse/concourse/skymarshal/skyserver
+      packages:
+        - package: github.com/concourse/concourse/skymarshal/skyserver
+    - module: github.com/concourse/concourse
       versions:
         - introduced: 5.3.0
           fixed: 5.5.10
-    - module: github.com/concourse/concourse/skymarshal/skyserver
+      packages:
+        - package: github.com/concourse/concourse/skymarshal/skyserver
+    - module: github.com/concourse/concourse
       versions:
         - introduced: 5.6.0
           fixed: 5.8.1
+      packages:
+        - package: github.com/concourse/concourse/skymarshal/skyserver
 summary: Open Redirect
 description: |-
     Pivotal Concourse Release, versions 4.x prior to 4.2.2, login flow allows
@@ -27,6 +33,9 @@ references:
     - web: https://github.com/concourse/concourse/blob/release/5.2.x/release-notes/v5.2.8.md
     - web: https://pivotal.io/security/cve-2018-15798
 notes:
-    - 'lint: github.com/concourse/concourse/skymarshal/skyserver: bad version "5.2.8": github.com/concourse/concourse/skymarshal/skyserver@v5.2.8: invalid version: should be v0 or v1, not v5'
-    - 'lint: github.com/concourse/concourse/skymarshal/skyserver: bad version "5.3.0": github.com/concourse/concourse/skymarshal/skyserver@v5.3.0: invalid version: should be v0 or v1, not v5'
-    - 'lint: github.com/concourse/concourse/skymarshal/skyserver: bad version "5.6.0": github.com/concourse/concourse/skymarshal/skyserver@v5.6.0: invalid version: should be v0 or v1, not v5'
+    - 'lint: github.com/concourse/concourse: bad version "5.2.8": github.com/concourse/concourse@v5.2.8: invalid version: should be v0 or v1, not v5'
+    - 'lint: github.com/concourse/concourse: bad version "5.3.0": github.com/concourse/concourse@v5.3.0: invalid version: should be v0 or v1, not v5'
+    - 'lint: github.com/concourse/concourse: bad version "5.6.0": github.com/concourse/concourse@v5.6.0: invalid version: should be v0 or v1, not v5'
+    - 'lint: github.com/concourse/concourse: missing skip_fix and vulnerable_at: "github.com/concourse/concourse/skymarshal/skyserver"'
+    - 'lint: github.com/concourse/concourse: missing skip_fix and vulnerable_at: "github.com/concourse/concourse/skymarshal/skyserver"'
+    - 'lint: github.com/concourse/concourse: missing skip_fix and vulnerable_at: "github.com/concourse/concourse/skymarshal/skyserver"'

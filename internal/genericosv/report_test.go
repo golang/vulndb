@@ -150,7 +150,6 @@ func TestAffectedToModules(t *testing.T) {
 				},
 				VulnerableAt: "1.7.5",
 			}},
-			skip: true,
 		},
 		{
 			name: "major_version",

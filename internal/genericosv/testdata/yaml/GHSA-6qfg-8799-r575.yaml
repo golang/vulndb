@@ -1,17 +1,25 @@
 id: GO-TEST-ID
 modules:
-    - module: github.com/kubernetes/kubernetes/pkg/kubectl/cmd/cp
+    - module: github.com/kubernetes/kubernetes
       versions:
         - introduced: 1.13.10
           fixed: 1.13.11
-    - module: github.com/kubernetes/kubernetes/pkg/kubectl/cmd/cp
+      vulnerable_at: 1.13.11-beta.0
+      packages:
+        - package: github.com/kubernetes/kubernetes/pkg/kubectl/cmd/cp
+    - module: github.com/kubernetes/kubernetes
       versions:
         - introduced: 1.14.6
           fixed: 1.14.7
-    - module: github.com/kubernetes/kubernetes/pkg/kubectl/cmd/cp
+      vulnerable_at: 1.14.7-beta.0
+      packages:
+        - package: github.com/kubernetes/kubernetes/pkg/kubectl/cmd/cp
+    - module: github.com/kubernetes/kubernetes
       versions:
         - introduced: 1.15.3
           fixed: 1.16.0
+      packages:
+        - package: github.com/kubernetes/kubernetes/pkg/kubectl/cmd/cp
 summary: Symlink Attack
 description: |-
     The Kubernetes kubectl cp command in versions 1.1-1.12, and versions prior to
@@ -30,6 +38,5 @@ references:
     - web: https://github.com/kubernetes/kubernetes/pull/82143
     - web: https://groups.google.com/d/msg/kubernetes-announce/YYtEFdFimZ4/nZnOezZuBgAJ
 notes:
-    - 'lint: github.com/kubernetes/kubernetes/pkg/kubectl/cmd/cp: bad version "1.13.10": HTTP GET /github.com/kubernetes/kubernetes/pkg/kubectl/cmd/cp/@v/v1.13.10.mod returned status 404 Not Found'
-    - 'lint: github.com/kubernetes/kubernetes/pkg/kubectl/cmd/cp: bad version "1.14.6": HTTP GET /github.com/kubernetes/kubernetes/pkg/kubectl/cmd/cp/@v/v1.14.6.mod returned status 404 Not Found'
-    - 'lint: github.com/kubernetes/kubernetes/pkg/kubectl/cmd/cp: bad version "1.15.3": HTTP GET /github.com/kubernetes/kubernetes/pkg/kubectl/cmd/cp/@v/v1.15.3.mod returned status 404 Not Found'
+    - 'lint: github.com/kubernetes/kubernetes: bad version "1.15.3": non-canonical path "github.com/kubernetes/kubernetes" (expected "k8s.io/kubernetes")'
+    - 'lint: github.com/kubernetes/kubernetes: missing skip_fix and vulnerable_at: "github.com/kubernetes/kubernetes/pkg/kubectl/cmd/cp"'

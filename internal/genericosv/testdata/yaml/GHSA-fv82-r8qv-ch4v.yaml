@@ -5,10 +5,13 @@ modules:
         - introduced: 0.10.0
           fixed: 0.13.4
       vulnerable_at: 0.13.3
-    - module: github.com/pomerium/pomerium/authenticate
+    - module: github.com/pomerium/pomerium
       versions:
         - introduced: 0.10.0
           fixed: 0.13.4
+      vulnerable_at: 0.13.3
+      packages:
+        - package: github.com/pomerium/pomerium/authenticate
 summary: pomerium_signature is not verified in middleware in github.com/pomerium/pomerium
 description: |-
     ### Impact Some API endpoints under /.pomerium/ do not verify parameters with
@@ -33,5 +36,4 @@ references:
     - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-29652
     - web: https://github.com/pomerium/pomerium/pull/2048
 notes:
-    - 'lint: github.com/pomerium/pomerium/authenticate: bad version "0.10.0": HTTP GET /github.com/pomerium/pomerium/authenticate/@v/v0.10.0.mod returned status 404 Not Found'
     - 'lint: redundant non-advisory reference to GHSA-fv82-r8qv-ch4v'
