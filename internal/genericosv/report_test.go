@@ -36,7 +36,7 @@ var (
 func TestToReport(t *testing.T) {
 	if *realProxy {
 		defer func() {
-			err := updateProxyResponses()
+			err := updateProxyResponses(proxy.DefaultClient)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -67,7 +67,7 @@ func TestToReport(t *testing.T) {
 					t.Fatal(err)
 				}
 
-				got := osv.ToReport("GO-TEST-ID")
+				got := osv.ToReport("GO-TEST-ID", proxy.DefaultClient)
 				yamlFile := filepath.Join(testYAMLDir, ghsaID+".yaml")
 				if *update {
 					if err := got.Write(yamlFile); err != nil {
@@ -91,6 +91,7 @@ func TestToReport(t *testing.T) {
 
 // TODO(https://go.dev/issues/61769): unskip test cases as we add features.
 func TestAffectedToModules(t *testing.T) {
+	pc := proxy.DefaultClient
 	for _, tc := range []struct {
 		desc string
 		in   []osvschema.Affected
@@ -272,7 +273,7 @@ func TestAffectedToModules(t *testing.T) {
 			addNote := func(note string) {
 				gotNotes = append(gotNotes, note)
 			}
-			got := affectedToModules(tc.in, addNote)
+			got := affectedToModules(tc.in, addNote, pc)
 			if diff := cmp.Diff(tc.want, got); diff != "" {
 				t.Errorf("affectedToModules() mismatch (-want +got)\n%s", diff)
 			}
@@ -310,8 +311,8 @@ func setupMockProxy(t *testing.T) error {
 }
 
 // Write proxy responses for this run to testdata/proxy.json.
-func updateProxyResponses() error {
-	responses, err := json.MarshalIndent(proxy.Responses(), "", "\t")
+func updateProxyResponses(pc *proxy.Client) error {
+	responses, err := json.MarshalIndent(pc.Responses(), "", "\t")
 	if err != nil {
 		return err
 	}

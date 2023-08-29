@@ -22,7 +22,11 @@ import (
 	"golang.org/x/vulndb/internal/version"
 )
 
+// TODO(https://go.dev/issues/60275): Replace this with a function that
+// returns a new instance of a default client.
 var DefaultClient *Client
+
+const ProxyURL = "https://proxy.golang.org"
 
 // Client is a client for reading from the proxy.
 //
@@ -39,7 +43,7 @@ type Client struct {
 }
 
 func init() {
-	proxyURL := "https://proxy.golang.org"
+	proxyURL := ProxyURL
 	if proxy, ok := os.LookupEnv("GOPROXY"); ok {
 		proxyURL = proxy
 	}
@@ -110,10 +114,6 @@ func (c *Client) lookup(urlSuffix string) ([]byte, error) {
 	return b, nil
 }
 
-func CanonicalModulePath(path, version string) (string, error) {
-	return DefaultClient.CanonicalModulePath(path, version)
-}
-
 func (c *Client) CanonicalModulePath(path, version string) (_ string, err error) {
 	escapedPath, err := module.EscapePath(path)
 	if err != nil {
@@ -135,10 +135,6 @@ func (c *Client) CanonicalModulePath(path, version string) (_ string, err error)
 		return "", fmt.Errorf("unable to retrieve module information for %s, %s", path, string(b))
 	}
 	return m.Module.Mod.Path, nil
-}
-
-func CanonicalModuleVersion(path, ver string) (_ string, err error) {
-	return DefaultClient.CanonicalModuleVersion(path, ver)
 }
 
 // CanonicalModuleVersion returns the canonical version string (with no leading "v" prefix)
@@ -163,10 +159,6 @@ func (c *Client) CanonicalModuleVersion(path, ver string) (_ string, err error) 
 	return version.TrimPrefix(v), nil
 }
 
-func Latest(path string) (string, error) {
-	return DefaultClient.Latest(path)
-}
-
 // Latest returns the latest version of the module, with no leading "v"
 // prefix.
 func (c *Client) Latest(path string) (string, error) {
@@ -187,10 +179,6 @@ func (c *Client) Latest(path string) (string, error) {
 		return "", fmt.Errorf("unable to retrieve latest version for %s", path)
 	}
 	return version.TrimPrefix(ver), nil
-}
-
-func Versions(path string) ([]string, error) {
-	return DefaultClient.Versions(path)
 }
 
 // Versions returns a list of module versions (with no leading "v" prefix),
@@ -217,10 +205,6 @@ func (c *Client) Versions(path string) ([]string, error) {
 	return vs, nil
 }
 
-func FindModule(path string) string {
-	return DefaultClient.FindModule(path)
-}
-
 // FindModule returns the longest directory prefix of path that
 // is a module, or "" if no such prefix is found.
 func (c *Client) FindModule(modPath string) string {
@@ -236,10 +220,6 @@ func (c *Client) FindModule(modPath string) string {
 		return candidate
 	}
 	return ""
-}
-
-func Responses() map[string]*Response {
-	return DefaultClient.Responses()
 }
 
 // Responses returns a map from endpoints to the latest response received for each endpoint.

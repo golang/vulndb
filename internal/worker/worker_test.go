@@ -26,6 +26,7 @@ import (
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/issues/githubtest"
+	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"
@@ -113,6 +114,7 @@ func TestCreateIssues(t *testing.T) {
 	})
 
 	ctime := time.Date(2020, 1, 2, 0, 0, 0, 0, time.UTC)
+	pc := proxy.DefaultClient
 
 	crs := []*store.CVERecord{
 		{
@@ -188,7 +190,7 @@ func TestCreateIssues(t *testing.T) {
 
 	// Add an existing report with GHSA "g5".
 	allReports := map[string]*report.Report{"data/reports/GO-1999-0001": {GHSAs: []string{"g5"}}}
-	if err := CreateIssues(ctx, mstore, ic, allReports, 0); err != nil {
+	if err := CreateIssues(ctx, mstore, ic, pc, allReports, 0); err != nil {
 		t.Fatal(err)
 	}
 
@@ -249,7 +251,8 @@ func TestNewCVEBody(t *testing.T) {
 		CVEs:    []string{"ID1"},
 		GHSAs:   []string{},
 	}
-	got, err := newCVEBody(r, map[string]*report.Report{"data/reports/GO-9999-0002.yaml": rep})
+	pc := proxy.DefaultClient
+	got, err := newCVEBody(r, map[string]*report.Report{"data/reports/GO-9999-0002.yaml": rep}, pc)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -303,8 +306,8 @@ func TestCreateGHSABody(t *testing.T) {
 		Excluded: "EXCLUDED",
 		GHSAs:    []string{"G1"},
 	}
-
-	got, err := CreateGHSABody(r.GHSA, map[string]*report.Report{"data/excluded/GO-9999-0001.yaml": rep})
+	pc := proxy.DefaultClient
+	got, err := CreateGHSABody(r.GHSA, map[string]*report.Report{"data/excluded/GO-9999-0001.yaml": rep}, pc)
 	if err != nil {
 		t.Fatal(err)
 	}

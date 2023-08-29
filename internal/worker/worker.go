@@ -27,6 +27,7 @@ import (
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
+	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"
@@ -172,15 +173,15 @@ const issueQPS = 1
 var issueRateLimiter = rate.NewLimiter(rate.Every(time.Duration(1000/float64(issueQPS))*time.Millisecond), 1)
 
 // CreateIssues creates issues on the x/vulndb issue tracker for allReports.
-func CreateIssues(ctx context.Context, st store.Store, client *issues.Client, allReports map[string]*report.Report, limit int) (err error) {
+func CreateIssues(ctx context.Context, st store.Store, client *issues.Client, pc *proxy.Client, allReports map[string]*report.Report, limit int) (err error) {
 	defer derrors.Wrap(&err, "CreateIssues(destination: %s)", client.Destination())
 	ctx = event.Start(ctx, "CreateIssues")
 	defer event.End(ctx)
 
-	if err := createCVEIssues(ctx, st, client, allReports, limit); err != nil {
+	if err := createCVEIssues(ctx, st, client, pc, allReports, limit); err != nil {
 		return err
 	}
-	return createGHSAIssues(ctx, st, client, allReports, limit)
+	return createGHSAIssues(ctx, st, client, pc, allReports, limit)
 }
 
 // xref returns cross-references for a report: Information about other reports
@@ -220,7 +221,7 @@ func xref(r *report.Report, allReports map[string]*report.Report) string {
 	return out.String()
 }
 
-func createCVEIssues(ctx context.Context, st store.Store, client *issues.Client, allReports map[string]*report.Report, limit int) (err error) {
+func createCVEIssues(ctx context.Context, st store.Store, client *issues.Client, pc *proxy.Client, allReports map[string]*report.Report, limit int) (err error) {
 	defer derrors.Wrap(&err, "createCVEIssues(destination: %s)", client.Destination())
 
 	needsIssue, err := st.ListCVERecordsWithTriageState(ctx, store.TriageStateNeedsIssue)
@@ -234,7 +235,7 @@ func createCVEIssues(ctx context.Context, st store.Store, client *issues.Client,
 		if limit > 0 && numCreated >= limit {
 			break
 		}
-		ref, err := createIssue(ctx, cr, client, allReports)
+		ref, err := createIssue(ctx, cr, client, pc, allReports)
 		if err != nil {
 			return err
 		}
@@ -260,7 +261,7 @@ func createCVEIssues(ctx context.Context, st store.Store, client *issues.Client,
 	return nil
 }
 
-func newCVEBody(sr storeRecord, allReports map[string]*report.Report) (string, error) {
+func newCVEBody(sr storeRecord, allReports map[string]*report.Report, pc *proxy.Client) (string, error) {
 	cr := sr.(*store.CVERecord)
 	var b strings.Builder
 	if cr.CVE == nil {
@@ -269,7 +270,7 @@ func newCVEBody(sr storeRecord, allReports map[string]*report.Report) (string, e
 	if cr.CVE.Metadata.ID == "" {
 		cr.CVE.Metadata.ID = cr.ID
 	}
-	r := report.CVEToReport(cr.CVE, cr.Module)
+	r := report.CVEToReport(cr.CVE, cr.Module, pc)
 	out, err := r.ToString()
 	if err != nil {
 		return "", err
@@ -304,7 +305,7 @@ func newCVEBody(sr storeRecord, allReports map[string]*report.Report) (string, e
 	return b.String(), nil
 }
 
-func createGHSAIssues(ctx context.Context, st store.Store, client *issues.Client, allReports map[string]*report.Report, limit int) (err error) {
+func createGHSAIssues(ctx context.Context, st store.Store, client *issues.Client, pc *proxy.Client, allReports map[string]*report.Report, limit int) (err error) {
 	defer derrors.Wrap(&err, "createGHSAIssues(destination: %s)", client.Destination())
 
 	sas, err := getGHSARecords(ctx, st)
@@ -327,7 +328,7 @@ func createGHSAIssues(ctx context.Context, st store.Store, client *issues.Client
 		}
 		// TODO(https://github.com/golang/go/issues/54049): Move this
 		// check to the triage step of the worker.
-		if isDuplicate(gr.GHSA, allReports) {
+		if isDuplicate(gr.GHSA, pc, allReports) {
 			// Update the GHSARecord in the DB to reflect that the GHSA
 			// already has an advisory.
 			if err = st.RunTransaction(ctx, func(ctx context.Context, tx store.Transaction) error {
@@ -343,7 +344,7 @@ func createGHSAIssues(ctx context.Context, st store.Store, client *issues.Client
 			// Do not create an issue.
 			continue
 		}
-		ref, err := createIssue(ctx, gr, client, allReports)
+		ref, err := createIssue(ctx, gr, client, pc, allReports)
 		if err != nil {
 			return err
 		}
@@ -367,8 +368,8 @@ func createGHSAIssues(ctx context.Context, st store.Store, client *issues.Client
 	return nil
 }
 
-func isDuplicate(sa *ghsa.SecurityAdvisory, allReports map[string]*report.Report) bool {
-	r := report.GHSAToReport(sa, "")
+func isDuplicate(sa *ghsa.SecurityAdvisory, pc *proxy.Client, allReports map[string]*report.Report) bool {
+	r := report.GHSAToReport(sa, "", pc)
 	for _, aliases := range report.XRef(r, allReports) {
 		if slices.Contains(aliases, sa.ID) {
 			return true
@@ -377,8 +378,8 @@ func isDuplicate(sa *ghsa.SecurityAdvisory, allReports map[string]*report.Report
 	return false
 }
 
-func CreateGHSABody(sa *ghsa.SecurityAdvisory, allReports map[string]*report.Report) (body string, err error) {
-	r := report.GHSAToReport(sa, "")
+func CreateGHSABody(sa *ghsa.SecurityAdvisory, allReports map[string]*report.Report, pc *proxy.Client) (body string, err error) {
+	r := report.GHSAToReport(sa, "", pc)
 	rs, err := r.ToString()
 	if err != nil {
 		return "", err
@@ -417,7 +418,7 @@ type storeRecord interface {
 	GetIssueCreatedAt() time.Time
 }
 
-func createIssue(ctx context.Context, r storeRecord, client *issues.Client, allReports map[string]*report.Report) (ref string, err error) {
+func createIssue(ctx context.Context, r storeRecord, client *issues.Client, pc *proxy.Client, allReports map[string]*report.Report) (ref string, err error) {
 	id := r.GetID()
 	defer derrors.Wrap(&err, "createIssue(%s)", id)
 
@@ -433,9 +434,9 @@ func createIssue(ctx context.Context, r storeRecord, client *issues.Client, allR
 	var body string
 	switch v := r.(type) {
 	case *store.GHSARecord:
-		body, err = CreateGHSABody(v.GHSA, allReports)
+		body, err = CreateGHSABody(v.GHSA, allReports, pc)
 	case *store.CVERecord:
-		body, err = newCVEBody(v, allReports)
+		body, err = newCVEBody(v, allReports, pc)
 	default:
 		log.With("ID", id).Errorf(ctx, "%s: record has unexpected type %T; skipping: %v", id, v, err)
 		return "", nil

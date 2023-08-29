@@ -17,12 +17,12 @@ import (
 
 var commitHashRegex = regexp.MustCompile(`^[a-f0-9]+$`)
 
-func (r *Report) Fix() {
+func (r *Report) Fix(pc *proxy.Client) {
 	for _, ref := range r.References {
 		ref.URL = fixURL(ref.URL)
 	}
 	for _, m := range r.Modules {
-		m.FixVersions()
+		m.FixVersions(pc)
 	}
 	fixLines := func(sp *string) {
 		*sp = fixLineLength(*sp, maxLineLength)
@@ -36,13 +36,13 @@ func (r *Report) Fix() {
 
 // FixVersions replaces each version with its canonical form (if possible),
 // sorts version ranges, and collects version ranges into a compact form.
-func (m *Module) FixVersions() {
+func (m *Module) FixVersions(pc *proxy.Client) {
 	fixVersion := func(v string) string {
 		if v == "" {
 			return ""
 		}
 		if commitHashRegex.MatchString(v) {
-			if c, err := proxy.CanonicalModuleVersion(m.Module, v); err == nil {
+			if c, err := pc.CanonicalModuleVersion(m.Module, v); err == nil {
 				v = c
 			}
 		}
@@ -92,18 +92,18 @@ func (m *Module) FixVersions() {
 		}
 	}
 
-	m.fixVulnerableAt()
+	m.fixVulnerableAt(pc)
 }
 
-func (m *Module) fixVulnerableAt() {
+func (m *Module) fixVulnerableAt(pc *proxy.Client) {
 	if m.VulnerableAt != "" {
 		return
 	}
 	// Don't attempt to guess if the given version ranges don't make sense.
-	if err := checkModVersions(m.Module, m.Versions); err != nil {
+	if err := checkModVersions(m.Module, m.Versions, pc); err != nil {
 		return
 	}
-	v, err := m.guessVulnerableAt(proxy.DefaultClient)
+	v, err := m.guessVulnerableAt(pc)
 	if err != nil {
 		return
 	}

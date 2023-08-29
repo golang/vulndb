@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"golang.org/x/vulndb/internal/cveschema"
+	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/stdlib"
 )
 
@@ -31,7 +32,7 @@ func removeNewlines(s string) string {
 }
 
 // CVEToReport creates a Report struct from a given CVE and modulePath.
-func CVEToReport(c *cveschema.CVE, modulePath string) *Report {
+func CVEToReport(c *cveschema.CVE, modulePath string, pc *proxy.Client) *Report {
 	var description string
 	for _, d := range c.Description.Data {
 		description += d.Value + "\n"
@@ -83,6 +84,6 @@ func CVEToReport(c *cveschema.CVE, modulePath string) *Report {
 	} else {
 		r.CVEs = []string{c.Metadata.ID}
 	}
-	r.Fix()
+	r.Fix(pc)
 	return r
 }

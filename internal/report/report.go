@@ -19,6 +19,7 @@ import (
 
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/osv"
+	"golang.org/x/vulndb/internal/proxy"
 	"gopkg.in/yaml.v3"
 )
 
@@ -230,7 +231,7 @@ func Read(filename string) (_ *Report, err error) {
 
 // ReadAndLint reads a Report in YAML format from filename,
 // lints the Report, and errors if there are any lint warnings.
-func ReadAndLint(filename string) (r *Report, err error) {
+func ReadAndLint(filename string, pc *proxy.Client) (r *Report, err error) {
 	r, err = Read(filename)
 	if err != nil {
 		return nil, err
@@ -238,7 +239,7 @@ func ReadAndLint(filename string) (r *Report, err error) {
 	if err := r.CheckFilename(filename); err != nil {
 		return nil, err
 	}
-	if lints := r.Lint(); len(lints) > 0 {
+	if lints := r.Lint(pc); len(lints) > 0 {
 		return nil, fmt.Errorf("%v: contains lint warnings:\n%s", filename, strings.Join(lints, "\n"))
 	}
 	return r, nil

@@ -22,6 +22,7 @@ import (
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/osvutils"
+	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
 )
 
@@ -74,6 +75,7 @@ func TestLintReports(t *testing.T) {
 	// Map from aliases (CVEs/GHSAS) to report paths, used to check for duplicate aliases.
 	aliases := make(map[string]string)
 	sort.Strings(reports)
+	pc := proxy.DefaultClient
 	for _, filename := range reports {
 		t.Run(filename, func(t *testing.T) {
 			r, err := report.Read(filename)
@@ -83,7 +85,7 @@ func TestLintReports(t *testing.T) {
 			if err := r.CheckFilename(filename); err != nil {
 				t.Error(err)
 			}
-			lints := r.Lint()
+			lints := r.Lint(pc)
 			if len(lints) > 0 {
 				t.Errorf(strings.Join(lints, "\n"))
 			}

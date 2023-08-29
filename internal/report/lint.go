@@ -23,7 +23,7 @@ import (
 	"golang.org/x/vulndb/internal/stdlib"
 )
 
-func checkModVersions(modPath string, vrs []VersionRange) (err error) {
+func checkModVersions(modPath string, vrs []VersionRange, pc *proxy.Client) (err error) {
 	checkVersion := func(v string) error {
 		if v == "" {
 			return nil
@@ -32,7 +32,7 @@ func checkModVersions(modPath string, vrs []VersionRange) (err error) {
 		if err := module.Check(modPath, vv); err != nil {
 			return err
 		}
-		canonicalPath, err := proxy.CanonicalModulePath(modPath, vv)
+		canonicalPath, err := pc.CanonicalModulePath(modPath, vv)
 		if err != nil {
 			return err
 		}
@@ -62,12 +62,12 @@ func (m *Module) lintStdLib(addPkgIssue func(string)) {
 	}
 }
 
-func (m *Module) lintThirdParty(addPkgIssue func(string)) {
+func (m *Module) lintThirdParty(addPkgIssue func(string), pc *proxy.Client) {
 	if m.Module == "" {
 		addPkgIssue("missing module")
 		return
 	}
-	if err := checkModVersions(m.Module, m.Versions); err != nil {
+	if err := checkModVersions(m.Module, m.Versions, pc); err != nil {
 		addPkgIssue(err.Error())
 	}
 	for _, p := range m.Packages {
@@ -289,7 +289,7 @@ func (r *Report) CheckFilename(filename string) (err error) {
 // representing lint errors.
 // TODO: It might make sense to include warnings or informational things
 // alongside errors, especially during for use during the triage process.
-func (r *Report) Lint() []string {
+func (r *Report) Lint(pc *proxy.Client) []string {
 	var issues []string
 
 	addIssue := func(iss string) {
@@ -342,7 +342,7 @@ func (r *Report) Lint() []string {
 			isFirstParty = true
 			m.lintStdLib(addPkgIssue)
 		} else {
-			m.lintThirdParty(addPkgIssue)
+			m.lintThirdParty(addPkgIssue, pc)
 		}
 		for _, p := range m.Packages {
 			if strings.HasPrefix(p.Package, fmt.Sprintf("%s/", stdlib.ToolchainModulePath)) && m.Module != stdlib.ToolchainModulePath {

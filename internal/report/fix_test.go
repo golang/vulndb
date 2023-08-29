@@ -9,6 +9,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	"golang.org/x/vulndb/internal/proxy"
 )
 
 func TestFix(t *testing.T) {
@@ -87,7 +88,8 @@ func TestFix(t *testing.T) {
 		},
 	}
 
-	r.Fix()
+	pc := proxy.DefaultClient
+	r.Fix(pc)
 
 	got := r
 	if diff := cmp.Diff(want, got); diff != "" {

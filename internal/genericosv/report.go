@@ -14,12 +14,13 @@ import (
 	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/osv"
+	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/version"
 )
 
 // ToReport converts OSV into a Go Report with the given ID.
-func (osv *Entry) ToReport(goID string) *report.Report {
+func (osv *Entry) ToReport(goID string, pc *proxy.Client) *report.Report {
 	r := &report.Report{
 		ID:          goID,
 		Summary:     osv.Summary,
@@ -45,10 +46,10 @@ func (osv *Entry) ToReport(goID string) *report.Report {
 	for _, ref := range osv.References {
 		r.References = append(r.References, convertRef(ref))
 	}
-	r.Modules = affectedToModules(osv.Affected, addNote)
+	r.Modules = affectedToModules(osv.Affected, addNote, pc)
 	r.Credits = convertCredits(osv.Credits)
-	r.Fix()
-	if lints := r.Lint(); len(lints) > 0 {
+	r.Fix(pc)
+	if lints := r.Lint(pc); len(lints) > 0 {
 		slices.Sort(lints)
 		for _, lint := range lints {
 			addNote(fmt.Sprintf("lint: %s", lint))
@@ -59,7 +60,7 @@ func (osv *Entry) ToReport(goID string) *report.Report {
 
 type addNoteFunc func(string)
 
-func affectedToModules(as []osvschema.Affected, addNote addNoteFunc) []*report.Module {
+func affectedToModules(as []osvschema.Affected, addNote addNoteFunc, pc *proxy.Client) []*report.Module {
 	var modules []*report.Module
 	for _, a := range as {
 		if a.Package.Ecosystem != osvschema.EcosystemGo {
@@ -73,7 +74,7 @@ func affectedToModules(as []osvschema.Affected, addNote addNoteFunc) []*report.M
 	}
 
 	for _, m := range modules {
-		m.FixVersions()
+		m.FixVersions(pc)
 	}
 
 	sortModules(modules)

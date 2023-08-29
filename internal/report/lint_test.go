@@ -11,6 +11,7 @@ import (
 	"testing"
 
 	"golang.org/x/vulndb/internal/osv"
+	"golang.org/x/vulndb/internal/proxy"
 )
 
 var (
@@ -73,6 +74,7 @@ func validExcludedReport(f func(r *Report)) Report {
 }
 
 func TestLint(t *testing.T) {
+	pc := proxy.DefaultClient
 	for _, test := range []struct {
 		desc   string
 		report Report
@@ -420,7 +422,7 @@ func TestLint(t *testing.T) {
 	} {
 		test := test
 		t.Run(test.desc, func(t *testing.T) {
-			got := test.report.Lint()
+			got := test.report.Lint(pc)
 
 			var missing []string
 			for _, w := range test.want {

@@ -153,18 +153,19 @@ func main() {
 	}
 
 	ghsaClient := ghsa.NewClient(ctx, *githubToken)
+	pc := proxy.DefaultClient
 	var cmdFunc func(context.Context, string) error
 	switch cmd {
 	case "lint":
 		cmdFunc = lint
 	case "commit":
-		cmdFunc = func(ctx context.Context, name string) error { return commit(ctx, name, ghsaClient, *force) }
+		cmdFunc = func(ctx context.Context, name string) error { return commit(ctx, name, ghsaClient, pc, *force) }
 	case "cve":
 		cmdFunc = func(ctx context.Context, name string) error { return cveCmd(ctx, name) }
 	case "fix":
-		cmdFunc = func(ctx context.Context, name string) error { return fix(ctx, name, ghsaClient, *force) }
+		cmdFunc = func(ctx context.Context, name string) error { return fix(ctx, name, ghsaClient, pc, *force) }
 	case "osv":
-		cmdFunc = osvCmd
+		cmdFunc = func(ctx context.Context, name string) error { return osvCmd(ctx, name, pc) }
 	case "set-dates":
 		repo, err := gitrepo.Open(ctx, ".")
 		if err != nil {
@@ -269,6 +270,7 @@ func parseArgsToGithubIDs(args []string, existingByIssue map[int]*report.Report)
 type createCfg struct {
 	ghsaClient      *ghsa.Client
 	issuesClient    *issues.Client
+	proxyClient     *proxy.Client
 	existingByFile  map[string]*report.Report
 	existingByIssue map[int]*report.Report
 	allowClosed     bool
@@ -319,6 +321,7 @@ func setupCreate(ctx context.Context, args []string) ([]int, *createCfg, error) 
 	return githubIDs, &createCfg{
 		issuesClient:    issues.NewClient(ctx, &issues.Config{Owner: owner, Repo: repoName, Token: *githubToken}),
 		ghsaClient:      ghsa.NewClient(ctx, *githubToken),
+		proxyClient:     proxy.DefaultClient,
 		existingByFile:  existingByFile,
 		existingByIssue: existingByIssue,
 		allowClosed:     *closedOk,
@@ -327,7 +330,7 @@ func setupCreate(ctx context.Context, args []string) ([]int, *createCfg, error) 
 
 func createReport(ctx context.Context, cfg *createCfg, iss *issues.Issue) (r *report.Report, err error) {
 	defer derrors.Wrap(&err, "createReport(%d)", iss.Number)
-	parsed, err := parseGithubIssue(iss, cfg.allowClosed)
+	parsed, err := parseGithubIssue(iss, cfg.proxyClient, cfg.allowClosed)
 	if err != nil {
 		return nil, err
 	}
@@ -483,20 +486,20 @@ func newReport(ctx context.Context, cfg *createCfg, parsed *parsedIssue) (*repor
 			if err != nil {
 				return nil, err
 			}
-			r = ghsa.ToReport(parsed.id)
+			r = ghsa.ToReport(parsed.id, cfg.proxyClient)
 		} else {
 			ghsa, err := cfg.ghsaClient.FetchGHSA(ctx, parsed.ghsas[0])
 			if err != nil {
 				return nil, err
 			}
-			r = report.GHSAToReport(ghsa, parsed.modulePath)
+			r = report.GHSAToReport(ghsa, parsed.modulePath, cfg.proxyClient)
 		}
 	case len(parsed.cves) > 0:
 		cve, err := cvelistrepo.FetchCVE(ctx, loadCVERepo(ctx), parsed.cves[0])
 		if err != nil {
 			return nil, err
 		}
-		r = report.CVEToReport(cve, parsed.modulePath)
+		r = report.CVEToReport(cve, parsed.modulePath, cfg.proxyClient)
 	default:
 		r = &report.Report{}
 	}
@@ -524,7 +527,7 @@ type parsedIssue struct {
 	excluded   report.ExcludedReason
 }
 
-func parseGithubIssue(iss *issues.Issue, allowClosed bool) (*parsedIssue, error) {
+func parseGithubIssue(iss *issues.Issue, pc *proxy.Client, allowClosed bool) (*parsedIssue, error) {
 	parsed := &parsedIssue{
 		id: iss.NewGoID(),
 	}
@@ -557,7 +560,7 @@ func parseGithubIssue(iss *issues.Issue, allowClosed bool) (*parsedIssue, error)
 			// Remove backslashes.
 			path := strings.ReplaceAll(strings.TrimSuffix(p, ":"), "\"", "")
 			// Find the underlying module if this is a package path.
-			if module := proxy.FindModule(parsed.modulePath); module != "" {
+			if module := pc.FindModule(parsed.modulePath); module != "" {
 				parsed.modulePath = module
 			} else {
 				parsed.modulePath = path
@@ -717,11 +720,11 @@ func lint(_ context.Context, filename string) (err error) {
 	defer derrors.Wrap(&err, "lint(%q)", filename)
 	infolog.Printf("lint %s\n", filename)
 
-	_, err = report.ReadAndLint(filename)
+	_, err = report.ReadAndLint(filename, proxy.DefaultClient)
 	return err
 }
 
-func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client, force bool) (err error) {
+func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client, pc *proxy.Client, force bool) (err error) {
 	defer derrors.Wrap(&err, "fix(%q)", filename)
 	infolog.Printf("fix %s\n", filename)
 
@@ -741,10 +744,10 @@ func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client, force bo
 		}
 	}()
 
-	if lints := r.Lint(); force || len(lints) > 0 {
-		r.Fix()
+	if lints := r.Lint(pc); force || len(lints) > 0 {
+		r.Fix(pc)
 	}
-	if lints := r.Lint(); len(lints) > 0 {
+	if lints := r.Lint(pc); len(lints) > 0 {
 		warnlog.Printf("%s still has lint errors after fix:\n\t- %s", filename, strings.Join(lints, "\n\t- "))
 	}
 
@@ -931,9 +934,10 @@ func findExportedSymbols(m *report.Module, p *report.Package) (_ []string, err e
 	return newslice, nil
 }
 
-func osvCmd(_ context.Context, filename string) (err error) {
+func osvCmd(_ context.Context, filename string, pc *proxy.Client) (err error) {
 	defer derrors.Wrap(&err, "osv(%q)", filename)
-	r, err := report.ReadAndLint(filename)
+
+	r, err := report.ReadAndLint(filename, pc)
 	if err != nil {
 		return err
 	}
@@ -975,15 +979,15 @@ func writeCVE(r *report.Report) error {
 	return database.WriteJSON(r.CVEFilename(), cve, true)
 }
 
-func commit(ctx context.Context, filename string, ghsaClient *ghsa.Client, force bool) (err error) {
+func commit(ctx context.Context, filename string, ghsaClient *ghsa.Client, pc *proxy.Client, force bool) (err error) {
 	defer derrors.Wrap(&err, "commit(%q)", filename)
 
 	// Clean up the report file and lint the result.
 	// Stop if there any problems.
-	if err := fix(ctx, filename, ghsaClient, force); err != nil {
+	if err := fix(ctx, filename, ghsaClient, pc, force); err != nil {
 		return err
 	}
-	r, err := report.ReadAndLint(filename)
+	r, err := report.ReadAndLint(filename, pc)
 	if err != nil {
 		return err
 	}

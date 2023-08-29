@@ -22,6 +22,7 @@ import (
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
+	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/worker"
 )
@@ -131,11 +132,12 @@ func constructIssue(ctx context.Context, c *issues.Client, ghsaClient *ghsa.Clie
 	if err != nil {
 		return err
 	}
+	pc := proxy.DefaultClient
 	for _, sa := range ghsas {
 		for _, id := range sa.Identifiers {
 			ids = append(ids, id.Value)
 		}
-		body, err := worker.CreateGHSABody(sa, allReports)
+		body, err := worker.CreateGHSABody(sa, allReports, pc)
 		if err != nil {
 			return err
 		}

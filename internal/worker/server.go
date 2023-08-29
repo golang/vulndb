@@ -29,6 +29,7 @@ import (
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/observe"
+	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"
@@ -46,6 +47,7 @@ type Server struct {
 	indexTemplate *template.Template
 	issueClient   *issues.Client
 	ghsaClient    *ghsa.Client
+	proxyClient   *proxy.Client
 	observer      *observe.Observer
 }
 
@@ -96,6 +98,8 @@ func NewServer(ctx context.Context, cfg Config) (_ *Server, err error) {
 	} else {
 		log.Infof(ctx, "issue creation disabled")
 	}
+
+	s.proxyClient = proxy.DefaultClient
 
 	s.indexTemplate, err = parseTemplate(staticPath, template.TrustedSourceFromConstant("index.tmpl"))
 	if err != nil {
@@ -360,7 +364,7 @@ func (s *Server) handleIssues(w http.ResponseWriter, r *http.Request) error {
 	if err != nil {
 		return err
 	}
-	return CreateIssues(r.Context(), s.cfg.Store, s.issueClient, allReports, limit)
+	return CreateIssues(r.Context(), s.cfg.Store, s.issueClient, s.proxyClient, allReports, limit)
 }
 
 var updateAndIssuesInProgress atomic.Value

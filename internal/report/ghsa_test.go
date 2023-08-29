@@ -10,6 +10,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"golang.org/x/vulndb/internal/ghsa"
+	"golang.org/x/vulndb/internal/proxy"
 )
 
 func TestGHSAToReport(t *testing.T) {
@@ -31,6 +32,7 @@ func TestGHSAToReport(t *testing.T) {
 		}},
 		References: []ghsa.Reference{{URL: "https://github.com/permalink/to/issue/12345"}},
 	}
+	pc := proxy.DefaultClient
 	for _, test := range []struct {
 		name   string
 		module string
@@ -78,7 +80,7 @@ func TestGHSAToReport(t *testing.T) {
 	} {
 		test := test
 		t.Run(test.name, func(t *testing.T) {
-			got := GHSAToReport(sa, test.module)
+			got := GHSAToReport(sa, test.module, pc)
 			if diff := cmp.Diff(*got, *test.want); diff != "" {
 				t.Errorf("mismatch (-want, +got):\n%s", diff)
 			}
