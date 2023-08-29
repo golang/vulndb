@@ -12,11 +12,11 @@ import (
 	"github.com/google/go-cmp/cmp"
 )
 
-func newTestClient(expectedEndpoint, mockResponse string) *client {
+func newTestClient(expectedEndpoint, fakeResponse string) *client {
 	handler := func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet &&
 			r.URL.Path == "/"+expectedEndpoint {
-			_, _ = w.Write([]byte(mockResponse))
+			_, _ = w.Write([]byte(fakeResponse))
 			return
 		}
 		w.WriteHeader(http.StatusBadRequest)

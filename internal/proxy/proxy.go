@@ -10,7 +10,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"net/http/httptest"
 	"os"
 	"path"
 	"sort"
@@ -57,35 +56,6 @@ func NewClient(c *http.Client, url string) *Client {
 		cache:  newCache(),
 		errLog: newErrLog(),
 	}
-}
-
-// Response is a representation of an HTTP response used to
-// facilitate testing.
-type Response struct {
-	Body       string `json:"body,omitempty"`
-	StatusCode int    `json:"status_code"`
-}
-
-// NewTestClient creates a client that returns hard-coded mock responses.
-// endpointsToResponses is a map from proxy endpoints
-// (with no server url, and no leading '/'), to their desired responses.
-func NewTestClient(endpointsToResponses map[string]*Response) (c *Client, cleanup func()) {
-	handler := func(w http.ResponseWriter, r *http.Request) {
-		for endpoint, response := range endpointsToResponses {
-			if r.Method == http.MethodGet &&
-				r.URL.Path == "/"+endpoint {
-				if response.StatusCode == http.StatusOK {
-					_, _ = w.Write([]byte(response.Body))
-				} else {
-					w.WriteHeader(response.StatusCode)
-				}
-				return
-			}
-		}
-		w.WriteHeader(http.StatusBadRequest)
-	}
-	s := httptest.NewServer(http.HandlerFunc(handler))
-	return NewClient(s.Client(), s.URL), func() { s.Close() }
 }
 
 func (c *Client) lookup(urlSuffix string) ([]byte, error) {
@@ -222,21 +192,6 @@ func (c *Client) FindModule(modPath string) string {
 	return ""
 }
 
-// Responses returns a map from endpoints to the latest response received for each endpoint.
-//
-// Intended for testing: the output can be passed to NewTestClient to create a mock client
-// that returns the same responses.
-func (c *Client) Responses() map[string]*Response {
-	m := make(map[string]*Response)
-	for key, status := range c.errLog.getData() {
-		m[key] = &Response{StatusCode: status}
-	}
-	for key, b := range c.cache.getData() {
-		m[key] = &Response{Body: string(b), StatusCode: http.StatusOK}
-	}
-	return m
-}
-
 // A simple in-memory cache that never expires.
 type cache struct {
 	data map[string][]byte
@@ -272,29 +227,4 @@ func (c *cache) getData() map[string][]byte {
 	defer c.mu.Unlock()
 
 	return c.data
-}
-
-// An in-memory store of the errors seen so far.
-// Used by the Responses() function, for testing.
-type errLog struct {
-	data map[string]int
-	mu   sync.Mutex
-}
-
-func newErrLog() *errLog {
-	return &errLog{data: make(map[string]int)}
-}
-
-func (e *errLog) set(key string, status int) {
-	e.mu.Lock()
-	defer e.mu.Unlock()
-
-	e.data[key] = status
-}
-
-func (e *errLog) getData() map[string]int {
-	e.mu.Lock()
-	defer e.mu.Unlock()
-
-	return e.data
 }

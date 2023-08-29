@@ -14,10 +14,6 @@ import (
 )
 
 func TestGHSAToReport(t *testing.T) {
-	if testing.Short() {
-		t.Skip("skipping test that uses internet in short mode")
-	}
-
 	updatedTime := time.Date(2022, 01, 01, 01, 01, 00, 00, time.UTC)
 	sa := &ghsa.SecurityAdvisory{
 		ID:          "G1_blah",
@@ -32,7 +28,12 @@ func TestGHSAToReport(t *testing.T) {
 		}},
 		References: []ghsa.Reference{{URL: "https://github.com/permalink/to/issue/12345"}},
 	}
-	pc := proxy.DefaultClient
+
+	pc, err := proxy.NewTestClient(t, *realProxy)
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	for _, test := range []struct {
 		name   string
 		module string

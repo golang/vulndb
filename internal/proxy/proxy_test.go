@@ -14,34 +14,34 @@ import (
 
 func TestCanonicalModulePath(t *testing.T) {
 	tcs := []struct {
-		name         string
-		path         string
-		version      string
-		mockResponse string
-		want         string
+		name     string
+		path     string
+		version  string
+		response string // hard-coded response
+		want     string
 	}{
 		{
-			name:         "non-canonical",
-			path:         "github.com/golang/vulndb",
-			version:      "v0.0.0-20230522180520-0cbf4ffdb4e7",
-			mockResponse: "module golang.org/x/vulndb",
-			want:         "golang.org/x/vulndb",
+			name:     "non-canonical",
+			path:     "github.com/golang/vulndb",
+			version:  "v0.0.0-20230522180520-0cbf4ffdb4e7",
+			response: "module golang.org/x/vulndb",
+			want:     "golang.org/x/vulndb",
 		},
 		{
-			name:         "canonical",
-			path:         "golang.org/x/vulndb",
-			version:      "v0.0.0-20230522180520-0cbf4ffdb4e7",
-			mockResponse: "module golang.org/x/vulndb",
-			want:         "golang.org/x/vulndb",
+			name:     "canonical",
+			path:     "golang.org/x/vulndb",
+			version:  "v0.0.0-20230522180520-0cbf4ffdb4e7",
+			response: "module golang.org/x/vulndb",
+			want:     "golang.org/x/vulndb",
 		},
 	}
 
 	for _, tc := range tcs {
 		t.Run(tc.name, func(t *testing.T) {
 			endpoint := fmt.Sprintf("%s/@v/%s.mod", tc.path, tc.version)
-			c, cleanup := NewTestClient(map[string]*Response{
+			c, cleanup := fakeClient(map[string]*response{
 				endpoint: {
-					Body:       tc.mockResponse,
+					Body:       tc.response,
 					StatusCode: http.StatusOK,
 				}})
 			t.Cleanup(cleanup)
@@ -58,34 +58,34 @@ func TestCanonicalModulePath(t *testing.T) {
 
 func TestCanonicalModuleVersion(t *testing.T) {
 	tcs := []struct {
-		name         string
-		path         string
-		version      string
-		mockResponse string
-		want         string
+		name     string
+		path     string
+		version  string
+		response string // hard-coded response
+		want     string
 	}{
 		{
-			name:         "already canonical",
-			path:         "golang.org/x/vulndb",
-			version:      "v0.0.0-20230522180520-0cbf4ffdb4e7",
-			mockResponse: `{"Version":"v0.0.0-20230522180520-0cbf4ffdb4e7"}`,
-			want:         "0.0.0-20230522180520-0cbf4ffdb4e7",
+			name:     "already canonical",
+			path:     "golang.org/x/vulndb",
+			version:  "v0.0.0-20230522180520-0cbf4ffdb4e7",
+			response: `{"Version":"v0.0.0-20230522180520-0cbf4ffdb4e7"}`,
+			want:     "0.0.0-20230522180520-0cbf4ffdb4e7",
 		},
 		{
-			name:         "commit hash",
-			path:         "golang.org/x/vulndb",
-			version:      "0cbf4ffdb4e70fce663ec8d59198745b04e7801b",
-			mockResponse: `{"Version":"v0.0.0-20230522180520-0cbf4ffdb4e7"}`,
-			want:         "0.0.0-20230522180520-0cbf4ffdb4e7",
+			name:     "commit hash",
+			path:     "golang.org/x/vulndb",
+			version:  "0cbf4ffdb4e70fce663ec8d59198745b04e7801b",
+			response: `{"Version":"v0.0.0-20230522180520-0cbf4ffdb4e7"}`,
+			want:     "0.0.0-20230522180520-0cbf4ffdb4e7",
 		},
 	}
 
 	for _, tc := range tcs {
 		t.Run(tc.name, func(t *testing.T) {
 			endpoint := fmt.Sprintf("%s/@v/%s.info", tc.path, tc.version)
-			c, cleanup := NewTestClient(map[string]*Response{
+			c, cleanup := fakeClient(map[string]*response{
 				endpoint: {
-					Body:       tc.mockResponse,
+					Body:       tc.response,
 					StatusCode: http.StatusOK,
 				}})
 			t.Cleanup(cleanup)
@@ -102,21 +102,21 @@ func TestCanonicalModuleVersion(t *testing.T) {
 
 func TestVersions(t *testing.T) {
 	tcs := []struct {
-		name         string
-		path         string
-		mockResponse string
-		want         []string
+		name     string
+		path     string
+		response string // hard-coded response
+		want     []string
 	}{
 		{
-			name:         "no tagged versions",
-			path:         "golang.org/x/vulndb",
-			mockResponse: "",
-			want:         nil,
+			name:     "no tagged versions",
+			path:     "golang.org/x/vulndb",
+			response: "",
+			want:     nil,
 		},
 		{
 			name: "unsorted -> sorted",
 			path: "golang.org/x/tools",
-			mockResponse: `
+			response: `
 v0.1.4
 v0.9.3
 v0.7.0
@@ -128,9 +128,9 @@ v0.7.0
 	for _, tc := range tcs {
 		t.Run(tc.name, func(t *testing.T) {
 			endpoint := fmt.Sprintf("%s/@v/list", tc.path)
-			c, cleanup := NewTestClient(map[string]*Response{
+			c, cleanup := fakeClient(map[string]*response{
 				endpoint: {
-					Body:       tc.mockResponse,
+					Body:       tc.response,
 					StatusCode: http.StatusOK,
 				}})
 			t.Cleanup(cleanup)
@@ -147,23 +147,23 @@ v0.7.0
 
 func TestLatest(t *testing.T) {
 	tcs := []struct {
-		path         string
-		mockResponse string
-		want         string
+		path     string
+		response string // hard-coded response
+		want     string
 	}{
 		{
-			path:         "golang.org/x/vulndb",
-			mockResponse: `{"Version":"v0.0.0-20230522180520-0cbf4ffdb4e7"}`,
-			want:         "0.0.0-20230522180520-0cbf4ffdb4e7",
+			path:     "golang.org/x/vulndb",
+			response: `{"Version":"v0.0.0-20230522180520-0cbf4ffdb4e7"}`,
+			want:     "0.0.0-20230522180520-0cbf4ffdb4e7",
 		},
 	}
 
 	for _, tc := range tcs {
 		t.Run(tc.path, func(t *testing.T) {
 			endpoint := fmt.Sprintf("%s/@latest", tc.path)
-			c, cleanup := NewTestClient(map[string]*Response{
+			c, cleanup := fakeClient(map[string]*response{
 				endpoint: {
-					Body:       tc.mockResponse,
+					Body:       tc.response,
 					StatusCode: http.StatusOK,
 				}})
 			t.Cleanup(cleanup)
@@ -209,7 +209,7 @@ func TestFindModule(t *testing.T) {
 	for _, tc := range tcs {
 		t.Run(tc.name, func(t *testing.T) {
 			endpoint := fmt.Sprintf("%s/@v/list", tc.want)
-			c, cleanup := NewTestClient(map[string]*Response{
+			c, cleanup := fakeClient(map[string]*response{
 				endpoint: {
 					Body:       tc.want,
 					StatusCode: http.StatusOK,
@@ -226,7 +226,7 @@ func TestFindModule(t *testing.T) {
 func TestCacheAndErrors(t *testing.T) {
 	okEndpoint, notFoundEndpoint := "endpoint", "not/found"
 	okResponse := "response"
-	responses := map[string]*Response{
+	responses := map[string]*response{
 		okEndpoint: {
 			Body:       okResponse,
 			StatusCode: http.StatusOK,
@@ -236,7 +236,7 @@ func TestCacheAndErrors(t *testing.T) {
 			StatusCode: http.StatusNotFound,
 		},
 	}
-	c, cleanup := NewTestClient(responses)
+	c, cleanup := fakeClient(responses)
 	t.Cleanup(cleanup)
 
 	wantHits := 3
@@ -257,7 +257,7 @@ func TestCacheAndErrors(t *testing.T) {
 		t.Errorf("lookup(%q) succeeded, want error", notFoundEndpoint)
 	}
 
-	want, got := responses, c.Responses()
+	want, got := responses, c.responses()
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("Responses() unexpected diff (want-, got+):\n%s", diff)
 	}

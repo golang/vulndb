@@ -9,6 +9,7 @@ package worker
 
 import (
 	"context"
+	"flag"
 	"fmt"
 	"math"
 	"net/http"
@@ -33,6 +34,8 @@ import (
 )
 
 const testRepoPath = "../cvelistrepo/testdata/basic.txtar"
+
+var realProxy = flag.Bool("proxy", false, "if true, contact the real module proxy and update expected responses")
 
 func TestCheckUpdate(t *testing.T) {
 	ctx := context.Background()
@@ -114,7 +117,11 @@ func TestCreateIssues(t *testing.T) {
 	})
 
 	ctime := time.Date(2020, 1, 2, 0, 0, 0, 0, time.UTC)
-	pc := proxy.DefaultClient
+
+	pc, err := proxy.NewTestClient(t, *realProxy)
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	crs := []*store.CVERecord{
 		{
@@ -251,7 +258,12 @@ func TestNewCVEBody(t *testing.T) {
 		CVEs:    []string{"ID1"},
 		GHSAs:   []string{},
 	}
-	pc := proxy.DefaultClient
+
+	pc, err := proxy.NewTestClient(t, *realProxy)
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	got, err := newCVEBody(r, map[string]*report.Report{"data/reports/GO-9999-0002.yaml": rep}, pc)
 	if err != nil {
 		t.Fatal(err)
@@ -306,7 +318,12 @@ func TestCreateGHSABody(t *testing.T) {
 		Excluded: "EXCLUDED",
 		GHSAs:    []string{"G1"},
 	}
-	pc := proxy.DefaultClient
+
+	pc, err := proxy.NewTestClient(t, *realProxy)
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	got, err := CreateGHSABody(r.GHSA, map[string]*report.Report{"data/excluded/GO-9999-0001.yaml": rep}, pc)
 	if err != nil {
 		t.Fatal(err)

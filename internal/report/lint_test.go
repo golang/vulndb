@@ -7,12 +7,15 @@ package report
 import (
 	"bytes"
 	"errors"
+	"flag"
 	"strings"
 	"testing"
 
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/proxy"
 )
+
+var realProxy = flag.Bool("proxy", false, "if true, contact the real module proxy and update expected responses")
 
 var (
 	validStdLibReferences = []*Reference{
@@ -74,7 +77,10 @@ func validExcludedReport(f func(r *Report)) Report {
 }
 
 func TestLint(t *testing.T) {
-	pc := proxy.DefaultClient
+	pc, err := proxy.NewTestClient(t, *realProxy)
+	if err != nil {
+		t.Fatal(err)
+	}
 	for _, test := range []struct {
 		desc   string
 		report Report

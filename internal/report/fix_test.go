@@ -13,10 +13,6 @@ import (
 )
 
 func TestFix(t *testing.T) {
-	if testing.Short() {
-		t.Skip("skipping test that uses internet in short mode")
-	}
-
 	r := Report{
 		Modules: []*Module{
 			{
@@ -88,7 +84,11 @@ func TestFix(t *testing.T) {
 		},
 	}
 
-	pc := proxy.DefaultClient
+	pc, err := proxy.NewTestClient(t, *realProxy)
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	r.Fix(pc)
 
 	got := r

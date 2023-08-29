@@ -5,10 +5,8 @@
 package genericosv
 
 import (
-	"encoding/json"
 	"flag"
 	"io/fs"
-	"os"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -25,81 +23,101 @@ var (
 )
 
 var (
-	testdataDir        = "testdata"
-	testOSVDir         = filepath.Join(testdataDir, "osv")
-	testYAMLDir        = filepath.Join(testdataDir, "yaml")
-	proxyResponsesFile = filepath.Join(testdataDir, "proxy.json")
+	testdataDir = "testdata"
+	testOSVDir  = filepath.Join(testdataDir, "osv")
+	testYAMLDir = filepath.Join(testdataDir, "yaml")
 )
 
-// To update test cases to reflect new expected behavior:
-// go test ./internal/genericosv/... -update -run TestToReport
+// To update test cases to reflect new expected behavior
+// (only use -proxy if the calls to the proxy will change):
+// go test ./internal/genericosv/... -update -proxy -run TestToReport
 func TestToReport(t *testing.T) {
-	if *realProxy {
-		defer func() {
-			err := updateProxyResponses(proxy.DefaultClient)
+	if err := filepath.WalkDir(testOSVDir, func(path string, f fs.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+		if f.IsDir() || filepath.Ext(path) != ".json" {
+			return nil
+		}
+		ghsaID := strings.TrimSuffix(f.Name(), ".json")
+		t.Run(ghsaID, func(t *testing.T) {
+			t.Parallel()
+
+			pc, err := proxy.NewTestClient(t, *realProxy)
 			if err != nil {
 				t.Fatal(err)
 			}
-		}()
-	} else {
-		err := setupMockProxy(t)
-		if err != nil {
-			t.Fatal(err)
-		}
-	}
 
-	// The outer test run forces the test to wait for all parallel tests
-	// to finish before tearing down test.
-	t.Run("run", func(t *testing.T) {
-		if err := filepath.WalkDir(testOSVDir, func(path string, f fs.DirEntry, err error) error {
+			osv := Entry{}
+			if err := report.UnmarshalFromFile(path, &osv); err != nil {
+				t.Fatal(err)
+			}
+
+			got := osv.ToReport("GO-TEST-ID", pc)
+			yamlFile := filepath.Join(testYAMLDir, ghsaID+".yaml")
+			if *update {
+				if err := got.Write(yamlFile); err != nil {
+					t.Fatal(err)
+				}
+			}
+			want, err := report.Read(yamlFile)
 			if err != nil {
-				return err
+				t.Fatal(err)
 			}
-			if f.IsDir() || filepath.Ext(path) != ".json" {
-				return nil
+			if diff := cmp.Diff(want, got); diff != "" {
+				t.Errorf("ToReport() mismatch (-want +got)\n%s", diff)
 			}
-			ghsaID := strings.TrimSuffix(f.Name(), ".json")
-			t.Run(ghsaID, func(t *testing.T) {
-				t.Parallel()
-
-				osv := Entry{}
-				if err := report.UnmarshalFromFile(path, &osv); err != nil {
-					t.Fatal(err)
-				}
-
-				got := osv.ToReport("GO-TEST-ID", proxy.DefaultClient)
-				yamlFile := filepath.Join(testYAMLDir, ghsaID+".yaml")
-				if *update {
-					if err := got.Write(yamlFile); err != nil {
-						t.Fatal(err)
-					}
-				}
-				want, err := report.Read(yamlFile)
-				if err != nil {
-					t.Fatal(err)
-				}
-				if diff := cmp.Diff(want, got); diff != "" {
-					t.Errorf("ToReport() mismatch (-want +got)\n%s", diff)
-				}
-			})
-			return nil
-		}); err != nil {
-			t.Fatal(err)
-		}
-	})
+		})
+		return nil
+	}); err != nil {
+		t.Fatal(err)
+	}
 }
 
 // TODO(https://go.dev/issues/61769): unskip test cases as we add features.
+// To update proxy responses:
+// go test ./internal/genericosv/... -proxy -run TestAffectedToModules
 func TestAffectedToModules(t *testing.T) {
-	pc := proxy.DefaultClient
 	for _, tc := range []struct {
+		name string
 		desc string
 		in   []osvschema.Affected
 		want []*report.Module
 		skip bool
 	}{
 		{
-			desc: "find module from package",
+			name: "ok",
+			desc: "module is already OK",
+			in: []osvschema.Affected{{
+				Package: osvschema.Package{
+					Ecosystem: osvschema.EcosystemGo,
+					Name:      "github.com/influxdata/influxdb",
+				},
+				Ranges: []osvschema.Range{{
+					Type: osvschema.RangeEcosystem,
+					Events: []osvschema.Event{
+						{
+							Introduced: "0.3.2",
+						},
+						{
+							Fixed: "1.7.6",
+						},
+					},
+				}},
+			}},
+			want: []*report.Module{{
+				Module: "github.com/influxdata/influxdb",
+				Versions: []report.VersionRange{
+					{
+						Introduced: "0.3.2",
+						Fixed:      "1.7.6",
+					}},
+				VulnerableAt: "1.7.5",
+			}},
+		},
+		{
+			name: "import_path",
+			desc: "find module from import path",
 			in: []osvschema.Affected{{
 				Package: osvschema.Package{
 					Ecosystem: osvschema.EcosystemGo,
@@ -130,10 +148,12 @@ func TestAffectedToModules(t *testing.T) {
 						Package: "github.com/influxdata/influxdb/services/httpd",
 					},
 				},
+				VulnerableAt: "1.7.5",
 			}},
 			skip: true,
 		},
 		{
+			name: "major_version",
 			desc: "correct major version of module path",
 			in: []osvschema.Affected{{
 				Package: osvschema.Package{
@@ -164,6 +184,7 @@ func TestAffectedToModules(t *testing.T) {
 			skip: true,
 		},
 		{
+			name: "canonicalize",
 			desc: "canonicalize module path",
 			in: []osvschema.Affected{{
 				Package: osvschema.Package{
@@ -190,6 +211,7 @@ func TestAffectedToModules(t *testing.T) {
 			skip: true,
 		},
 		{
+			name: "add_incompatible",
 			desc: "add +incompatible",
 			in: []osvschema.Affected{{
 				Package: osvschema.Package{
@@ -216,7 +238,8 @@ func TestAffectedToModules(t *testing.T) {
 			skip: true,
 		},
 		{
-			desc: "remove subtle duplicates",
+			name: "remove_duplicates",
+			desc: "remove major version duplicates",
 			in: []osvschema.Affected{{
 				Package: osvschema.Package{
 					Ecosystem: osvschema.EcosystemGo,
@@ -264,57 +287,29 @@ func TestAffectedToModules(t *testing.T) {
 		},
 	} {
 		tc := tc
-		t.Run(tc.desc, func(t *testing.T) {
+		t.Run(tc.name, func(t *testing.T) {
 			t.Parallel()
 			if tc.skip {
 				t.Skip("skipping (not implemented yet)")
 			}
+
+			pc, err := proxy.NewTestClient(t, *realProxy)
+			if err != nil {
+				t.Fatal(err)
+			}
+
 			var gotNotes []string
 			addNote := func(note string) {
 				gotNotes = append(gotNotes, note)
 			}
 			got := affectedToModules(tc.in, addNote, pc)
 			if diff := cmp.Diff(tc.want, got); diff != "" {
-				t.Errorf("affectedToModules() mismatch (-want +got)\n%s", diff)
+				t.Errorf("%s: affectedToModules() mismatch (-want +got)\n%s", tc.desc, diff)
 			}
 			if len(gotNotes) > 0 {
-				t.Errorf("affectedToModules() output unexpected notes = %s", gotNotes)
+				t.Errorf("%s: affectedToModules() output unexpected notes = %s", tc.desc, gotNotes)
 			}
 		})
 
 	}
-}
-
-// Use saved responses from testdata/proxy.json instead of real proxy calls.
-func setupMockProxy(t *testing.T) error {
-	t.Helper()
-
-	b, err := os.ReadFile(proxyResponsesFile)
-	if err != nil {
-		return err
-	}
-	var responses map[string]*proxy.Response
-	err = json.Unmarshal(b, &responses)
-	if err != nil {
-		return err
-	}
-
-	defaultProxyClient := proxy.DefaultClient
-	testClient, cleanup := proxy.NewTestClient(responses)
-	proxy.DefaultClient = testClient
-	t.Cleanup(cleanup)
-	t.Cleanup(func() {
-		proxy.DefaultClient = defaultProxyClient
-	})
-
-	return nil
-}
-
-// Write proxy responses for this run to testdata/proxy.json.
-func updateProxyResponses(pc *proxy.Client) error {
-	responses, err := json.MarshalIndent(pc.Responses(), "", "\t")
-	if err != nil {
-		return err
-	}
-	return os.WriteFile(proxyResponsesFile, responses, 0644)
 }
