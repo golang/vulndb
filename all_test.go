@@ -44,9 +44,6 @@ func TestChecksBash(t *testing.T) {
 }
 
 func TestLintReports(t *testing.T) {
-	if testing.Short() {
-		t.Skip("skipping test that uses internet in short mode")
-	}
 	if runtime.GOOS == "android" {
 		t.Skipf("android builder does not have access to reports/")
 	}
@@ -72,10 +69,23 @@ func TestLintReports(t *testing.T) {
 			reports = append(reports, filename)
 		}
 	}
+
+	// Skip network calls in short mode.
+	var lint func(r *report.Report) []string
+	if testing.Short() {
+		lint = func(r *report.Report) []string {
+			return r.LintOffline()
+		}
+	} else {
+		pc := proxy.DefaultClient
+		lint = func(r *report.Report) []string {
+			return r.Lint(pc)
+		}
+	}
+
 	// Map from aliases (CVEs/GHSAS) to report paths, used to check for duplicate aliases.
 	aliases := make(map[string]string)
 	sort.Strings(reports)
-	pc := proxy.DefaultClient
 	for _, filename := range reports {
 		t.Run(filename, func(t *testing.T) {
 			r, err := report.Read(filename)
@@ -85,7 +95,7 @@ func TestLintReports(t *testing.T) {
 			if err := r.CheckFilename(filename); err != nil {
 				t.Error(err)
 			}
-			lints := r.Lint(pc)
+			lints := lint(r)
 			if len(lints) > 0 {
 				t.Errorf(strings.Join(lints, "\n"))
 			}

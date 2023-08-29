@@ -62,13 +62,10 @@ func (m *Module) lintStdLib(addPkgIssue func(string)) {
 	}
 }
 
-func (m *Module) lintThirdParty(addPkgIssue func(string), pc *proxy.Client) {
+func (m *Module) lintThirdParty(addPkgIssue func(string)) {
 	if m.Module == "" {
 		addPkgIssue("missing module")
 		return
-	}
-	if err := checkModVersions(m.Module, m.Versions, pc); err != nil {
-		addPkgIssue(err.Error())
 	}
 	for _, p := range m.Packages {
 		if p.Package == "" {
@@ -290,6 +287,19 @@ func (r *Report) CheckFilename(filename string) (err error) {
 // TODO: It might make sense to include warnings or informational things
 // alongside errors, especially during for use during the triage process.
 func (r *Report) Lint(pc *proxy.Client) []string {
+	result := r.lint(pc)
+	if pc == nil {
+		result = append(result, "proxy client is nil; cannot perform all lint checks")
+	}
+	return result
+}
+
+// LintOffline performs all lint checks that don't require a network connection.
+func (r *Report) LintOffline() []string {
+	return r.lint(nil)
+}
+
+func (r *Report) lint(pc *proxy.Client) []string {
 	var issues []string
 
 	addIssue := func(iss string) {
@@ -342,7 +352,12 @@ func (r *Report) Lint(pc *proxy.Client) []string {
 			isFirstParty = true
 			m.lintStdLib(addPkgIssue)
 		} else {
-			m.lintThirdParty(addPkgIssue, pc)
+			m.lintThirdParty(addPkgIssue)
+			if pc != nil {
+				if err := checkModVersions(m.Module, m.Versions, pc); err != nil {
+					addPkgIssue(err.Error())
+				}
+			}
 		}
 		for _, p := range m.Packages {
 			if strings.HasPrefix(p.Package, fmt.Sprintf("%s/", stdlib.ToolchainModulePath)) && m.Module != stdlib.ToolchainModulePath {

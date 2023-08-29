@@ -5,7 +5,6 @@
 package report
 
 import (
-	"bytes"
 	"errors"
 	"flag"
 	"strings"
@@ -81,6 +80,48 @@ func TestLint(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
+	for _, test := range []struct {
+		desc   string
+		report Report
+		want   []string
+	}{
+		{
+			desc: "ok module-version pair",
+			report: validReport(func(r *Report) {
+				r.Modules = append(r.Modules, &Module{
+					Module: "golang.org/x/net",
+					Versions: []VersionRange{
+						{
+							Introduced: "0.2.0",
+						},
+					}})
+			}),
+			// No lints.
+		},
+		{
+			desc: "invalid module-version pair",
+			report: validReport(func(r *Report) {
+				r.Modules = append(r.Modules, &Module{
+					Module: "golang.org/x/net",
+					Versions: []VersionRange{
+						{
+							Introduced: "0.2.5", // does not exist
+						},
+					}})
+			}),
+			want: []string{`bad version`},
+		},
+	} {
+		test := test
+		t.Run(test.desc, func(t *testing.T) {
+			got := test.report.Lint(pc)
+			checkLints(t, got, test.want)
+		})
+	}
+}
+
+func TestLintOffline(t *testing.T) {
 	for _, test := range []struct {
 		desc   string
 		report Report
@@ -421,6 +462,19 @@ func TestLint(t *testing.T) {
 			},
 		},
 		{
+			desc: "invalid module-version pair ignored",
+			report: validReport(func(r *Report) {
+				r.Modules = append(r.Modules, &Module{
+					Module: "golang.org/x/net",
+					Versions: []VersionRange{
+						{
+							Introduced: "0.2.5", // does not exist
+						},
+					}})
+			}),
+			// No lints: in offline mode, versions aren't checked.
+		},
+		{
 			desc:   "valid excluded",
 			report: validExcludedReport(noop),
 			// No lints.
@@ -428,58 +482,51 @@ func TestLint(t *testing.T) {
 	} {
 		test := test
 		t.Run(test.desc, func(t *testing.T) {
-			got := test.report.Lint(pc)
-
-			var missing []string
-			for _, w := range test.want {
-				found := false
-				for _, g := range got {
-					if strings.Contains(g, w) {
-						found = true
-						continue
-					}
-				}
-				if !found {
-					missing = append(missing, w)
-				}
-			}
-			if len(missing) > 0 {
-				var buf bytes.Buffer
-				if err := test.report.encode(&buf); err != nil {
-					t.Error(err)
-				}
-				t.Errorf("missing expected lint errors in report:\n"+
-					"%v\n"+
-					"got:  %q\n"+
-					"want: %q\n", buf.String(), got, missing)
-			}
-
-			// Check for unexpected lint errors if there are no missing ones.
-			if len(missing) == 0 {
-				var unexpected []string
-				for _, g := range got {
-					found := false
-					for _, w := range test.want {
-						if strings.Contains(g, w) {
-							found = true
-							continue
-						}
-					}
-					if !found {
-						unexpected = append(unexpected, g)
-					}
-				}
-				if len(unexpected) > 0 {
-					var buf bytes.Buffer
-					if err := test.report.encode(&buf); err != nil {
-						t.Error(err)
-					}
-					t.Errorf("unexpected lint errors in report:\n"+
-						"%v\n"+
-						"got:  %q\n", buf.String(), unexpected)
-				}
-			}
+			got := test.report.LintOffline()
+			checkLints(t, got, test.want)
 		})
+	}
+}
+
+func checkLints(t *testing.T, got, want []string) {
+	var missing []string
+	for _, w := range want {
+		found := false
+		for _, g := range got {
+			if strings.Contains(g, w) {
+				found = true
+				continue
+			}
+		}
+		if !found {
+			missing = append(missing, w)
+		}
+	}
+	if len(missing) > 0 {
+		t.Errorf("missing expected lint errors in report:\n"+
+			"got:  %q\n"+
+			"want: %q\n", got, missing)
+	}
+
+	// Check for unexpected lint errors if there are no missing ones.
+	if len(missing) == 0 {
+		var unexpected []string
+		for _, g := range got {
+			found := false
+			for _, w := range want {
+				if strings.Contains(g, w) {
+					found = true
+					continue
+				}
+			}
+			if !found {
+				unexpected = append(unexpected, g)
+			}
+		}
+		if len(unexpected) > 0 {
+			t.Errorf("unexpected lint errors in report:\n"+
+				"got:  %q\n", unexpected)
+		}
 	}
 }
 
