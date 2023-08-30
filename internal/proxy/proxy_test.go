@@ -228,6 +228,44 @@ func TestFindModule(t *testing.T) {
 	}
 }
 
+func TestModuleExists(t *testing.T) {
+	c, err := NewTestClient(t, *realProxy)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	tcs := []struct {
+		name    string
+		path    string
+		want    bool
+	}{
+		{
+			name: "exists",
+			path: "k8s.io/kubernetes",
+			want: true,
+		},
+		{
+			name: "exists (needs escape)",
+			path: "github.com/RobotsAndPencils/go-saml",
+			want: true,
+		},
+		{
+			name: "does not exist",
+			path: "example.com/not/a/module",
+			want: false,
+		},
+	}
+
+	for _, tc := range tcs {
+		t.Run(tc.name, func(t *testing.T) {
+			got := c.ModuleExists(tc.path)
+			if got != tc.want {
+				t.Errorf("ModuleExists() = %v, want %v", got, tc.want)
+			}
+		})
+	}
+}
+
 func TestCacheAndErrors(t *testing.T) {
 	okEndpoint, notFoundEndpoint := "endpoint", "not/found"
 	okResponse := "response"

@@ -4,10 +4,6 @@ modules:
       versions:
         - fixed: 1.6.1
       vulnerable_at: 1.6.0
-    - module: github.com/hashicorp/go-getter
-      versions:
-        - introduced: 2.0.0
-          fixed: 2.1.0
     - module: github.com/hashicorp/go-getter/gcs/v2
       versions:
         - fixed: 2.1.0
@@ -15,6 +11,11 @@ modules:
     - module: github.com/hashicorp/go-getter/s3/v2
       versions:
         - fixed: 2.1.0
+      vulnerable_at: 2.0.2
+    - module: github.com/hashicorp/go-getter/v2
+      versions:
+        - introduced: 2.0.0
+          fixed: 2.1.0
       vulnerable_at: 2.0.2
     - module: github.com/hashicorp/go-getter/v2
       versions:
@@ -43,5 +44,3 @@ references:
     - package: https://github.com/hashicorp/go-getter
     - web: https://github.com/hashicorp/go-getter/releases
     - web: https://pkg.go.dev/vuln/GO-2022-0586
-notes:
-    - 'lint: github.com/hashicorp/go-getter: bad version "2.0.0": github.com/hashicorp/go-getter@v2.0.0: invalid version: should be v0 or v1, not v2'

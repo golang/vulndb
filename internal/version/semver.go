@@ -23,6 +23,12 @@ func Before(v, v2 string) bool {
 	return semver.Compare("v"+v, "v"+v2) < 0
 }
 
+// Major returns the major version (e.g. "v2") of the
+// unprefixed semantic version v.
+func Major(v string) string {
+	return semver.Major("v" + v)
+}
+
 // Canonical returns the canonical, unprefixed form of the version v,
 // which should be an unprefixed semantic version.
 // Unlike semver.Canonical, this function preserves build tags.

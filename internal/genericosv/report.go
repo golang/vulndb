@@ -11,6 +11,7 @@ import (
 
 	osvschema "github.com/google/osv-scanner/pkg/models"
 	"golang.org/x/exp/slices"
+	"golang.org/x/mod/module"
 	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/osv"
@@ -75,6 +76,7 @@ func affectedToModules(as []osvschema.Affected, addNote addNoteFunc, pc *proxy.C
 
 	for _, m := range modules {
 		extractImportPath(m, pc)
+		fixMajorVersion(m, pc)
 		m.FixVersions(pc)
 	}
 
@@ -97,6 +99,87 @@ func extractImportPath(m *report.Module, pc *proxy.Client) {
 	}
 	m.Module = modulePath
 	m.Packages = append(m.Packages, &report.Package{Package: path})
+}
+
+// fixMajorVersion corrects the major version prefix of the module
+// path if possible.
+// For now, it gives up if it encounters various problems and
+// special cases (see comments inline).
+func fixMajorVersion(m *report.Module, pc *proxy.Client) {
+	if strings.HasPrefix(m.Module, "gopkg.in/") {
+		return // don't attempt to fix gopkg.in modules
+	}
+	// If there is no "introduced" version, don't attempt to fix
+	// major version.
+	// Example: example.com/module is fixed at 2.2.2. This likely means
+	// that example.com/module is vulnerable at all versions and
+	// example.com/module/v2 is vulnerable up to 2.2.2.
+	// Changing example.com/module to example.com/module/v2 would lose
+	// information.
+	hasIntroduced := func(m *report.Module) bool {
+		for _, vr := range m.Versions {
+			if vr.Introduced != "" {
+				return true
+			}
+		}
+		return false
+	}
+	if !hasIntroduced(m) {
+		return
+	}
+	wantMajor, ok := commonMajor(m.Versions)
+	if !ok { // inconsistent major version, don't attempt to fix
+		return
+	}
+	prefix, major, ok := module.SplitPathVersion(m.Module)
+	if !ok { // couldn't parse module path, don't attempt to fix
+		return
+	}
+	if major == wantMajor {
+		return // nothing to do
+	}
+	fixed := prefix + wantMajor
+	if !pc.ModuleExists(fixed) {
+		return // attempted fixed module doesn't exist, give up
+	}
+	m.Module = fixed
+}
+
+// commonMajor returns the major version path suffix (e.g. "/v2") common
+// to all versions in the version range, or ("", false) if not all versions
+// have the same major version.
+// Returns ("", true) if the major version is 0 or 1.
+func commonMajor(vs []report.VersionRange) (_ string, ok bool) {
+	const (
+		v0   = "v0"
+		v1   = "v1"
+		v0v1 = "v0 or v1"
+	)
+
+	getMajor := func(v string) string {
+		m := version.Major(v)
+		if m == v0 || m == v1 {
+			return v0v1
+		}
+		return m
+	}
+
+	major := getMajor(first(vs))
+	for _, vr := range vs {
+		for _, v := range []string{vr.Introduced, vr.Fixed} {
+			if v == "" {
+				continue
+			}
+			current := getMajor(v)
+			if current != major {
+				return "", false
+			}
+		}
+	}
+	if major == v0v1 {
+		return "", true
+	}
+	return "/" + major, true
 }
 
 func sortModules(ms []*report.Module) {

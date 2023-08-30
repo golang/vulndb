@@ -179,8 +179,8 @@ func TestAffectedToModules(t *testing.T) {
 						Fixed:      "2.8.3",
 					},
 				},
+				VulnerableAt: "2.8.2",
 			}},
-			skip: true,
 		},
 		{
 			name: "canonicalize",

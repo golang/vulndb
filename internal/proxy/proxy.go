@@ -187,18 +187,30 @@ func (c *Client) FindModule(path string) (modPath string, err error) {
 	}
 
 	for candidate := escaped; candidate != "."; candidate = urlpath.Dir(candidate) {
-		if _, err := c.lookup(fmt.Sprintf("%s/@v/list", candidate)); err != nil {
-			// Keep looking.
-			continue
+		if c.moduleExists(candidate) {
+			unescaped, err := module.UnescapePath(candidate)
+			if err != nil {
+				return "", err
+			}
+			return unescaped, nil
 		}
-		unescaped, err := module.UnescapePath(candidate)
-		if err != nil {
-			return "", err
-		}
-		return unescaped, nil
 	}
 
 	return "", errNoModuleFound
+}
+
+// ModuleExists returns true if modPath is a recognized module.
+func (c *Client) ModuleExists(modPath string) bool {
+	escaped, err := module.EscapePath(modPath)
+	if err != nil {
+		return false
+	}
+	return c.moduleExists(escaped)
+}
+
+func (c *Client) moduleExists(escaped string) bool {
+	_, err := c.lookup(fmt.Sprintf("%s/@v/list", escaped))
+	return err == nil
 }
 
 // A simple in-memory cache that never expires.
