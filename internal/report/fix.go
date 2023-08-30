@@ -110,16 +110,11 @@ func (m *Module) fixVulnerableAt(pc *proxy.Client) {
 	m.VulnerableAt = v
 }
 
-type proxyClient interface {
-	Latest(path string) (string, error)
-	Versions(path string) ([]string, error)
-}
-
 // guessVulnerableAt attempts to find a vulnerable_at
 // version using the module proxy, assuming that the version ranges
 // have already been validated.
 // If there is no fix, the latest version is used.
-func (m *Module) guessVulnerableAt(pc proxyClient) (v string, err error) {
+func (m *Module) guessVulnerableAt(pc *proxy.Client) (v string, err error) {
 	if m.IsFirstParty() {
 		return "", errors.New("cannot auto-guess vulnerable_at for first-party modules")
 	}

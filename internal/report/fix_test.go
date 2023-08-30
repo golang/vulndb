@@ -5,7 +5,6 @@
 package report
 
 import (
-	"errors"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -182,6 +181,10 @@ broken up
 }
 
 func TestGuessVulnerableAt(t *testing.T) {
+	pc, err := proxy.NewTestClient(t, *realProxy)
+	if err != nil {
+		t.Fatal(err)
+	}
 	for _, tc := range []struct {
 		name string
 		m    *Module
@@ -192,7 +195,7 @@ func TestGuessVulnerableAt(t *testing.T) {
 			m: &Module{
 				Module: "golang.org/x/tools",
 			},
-			want: "0.2.0",
+			want: "0.12.0", // latest
 		},
 		{
 			name: "has fix",
@@ -208,7 +211,7 @@ func TestGuessVulnerableAt(t *testing.T) {
 		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
-			got, err := tc.m.guessVulnerableAt(&mockProxy{})
+			got, err := tc.m.guessVulnerableAt(pc)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -217,20 +220,4 @@ func TestGuessVulnerableAt(t *testing.T) {
 			}
 		})
 	}
-}
-
-type mockProxy struct{}
-
-func (m *mockProxy) Versions(path string) ([]string, error) {
-	if path == "golang.org/x/tools" {
-		return []string{"0.1.6", "0.1.7", "0.1.8", "0.2.0"}, nil
-	}
-	return nil, errors.New("unexpected input")
-}
-
-func (m *mockProxy) Latest(path string) (string, error) {
-	if path == "golang.org/x/tools" {
-		return "0.2.0", nil
-	}
-	return "", errors.New("unexpected input")
 }
