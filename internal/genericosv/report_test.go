@@ -207,7 +207,6 @@ func TestAffectedToModules(t *testing.T) {
 					},
 				},
 			}},
-			skip: true,
 		},
 		{
 			name: "add_incompatible",

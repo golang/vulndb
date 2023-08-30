@@ -14,12 +14,13 @@ modules:
       vulnerable_at: 1.14.7-beta.0
       packages:
         - package: github.com/kubernetes/kubernetes/pkg/kubectl/cmd/cp
-    - module: github.com/kubernetes/kubernetes
+    - module: k8s.io/kubernetes
       versions:
         - introduced: 1.15.3
           fixed: 1.16.0
+      vulnerable_at: 1.16.0-rc.2
       packages:
-        - package: github.com/kubernetes/kubernetes/pkg/kubectl/cmd/cp
+        - package: k8s.io/kubernetes/pkg/kubectl/cmd/cp
 summary: Symlink Attack
 description: |-
     The Kubernetes kubectl cp command in versions 1.1-1.12, and versions prior to
@@ -37,6 +38,3 @@ references:
     - web: https://github.com/kubernetes/kubernetes/issues/87773
     - web: https://github.com/kubernetes/kubernetes/pull/82143
     - web: https://groups.google.com/d/msg/kubernetes-announce/YYtEFdFimZ4/nZnOezZuBgAJ
-notes:
-    - 'lint: github.com/kubernetes/kubernetes: bad version "1.15.3": non-canonical path "github.com/kubernetes/kubernetes" (expected "k8s.io/kubernetes")'
-    - 'lint: github.com/kubernetes/kubernetes: missing skip_fix and vulnerable_at: "github.com/kubernetes/kubernetes/pkg/kubectl/cmd/cp"'

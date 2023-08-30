@@ -1,21 +1,25 @@
 id: GO-TEST-ID
 modules:
-    - module: github.com/kubernetes/kubernetes
+    - module: k8s.io/kubernetes
       versions:
         - introduced: 1.22.0
           fixed: 1.22.16
-    - module: github.com/kubernetes/kubernetes
+      vulnerable_at: 1.22.16-rc.0
+    - module: k8s.io/kubernetes
       versions:
         - introduced: 1.23.0
           fixed: 1.23.14
-    - module: github.com/kubernetes/kubernetes
+      vulnerable_at: 1.23.14-rc.0
+    - module: k8s.io/kubernetes
       versions:
         - introduced: 1.24.0
           fixed: 1.24.8
-    - module: github.com/kubernetes/kubernetes
+      vulnerable_at: 1.24.8-rc.0
+    - module: k8s.io/kubernetes
       versions:
         - introduced: 1.25.0
           fixed: 1.25.4
+      vulnerable_at: 1.25.4-rc.0
 summary: Kubernetes vulnerable to validation bypass
 description: |-
     Users may have access to secure endpoints in the control plane network.
@@ -37,8 +41,3 @@ references:
     - package: https://github.com/kubernetes/kubernetes
     - web: https://groups.google.com/g/kubernetes-security-announce/c/VyPOxF7CIbA
     - web: https://security.netapp.com/advisory/ntap-20230505-0007/
-notes:
-    - 'lint: github.com/kubernetes/kubernetes: bad version "1.22.0": non-canonical path "github.com/kubernetes/kubernetes" (expected "k8s.io/kubernetes")'
-    - 'lint: github.com/kubernetes/kubernetes: bad version "1.23.0": non-canonical path "github.com/kubernetes/kubernetes" (expected "k8s.io/kubernetes")'
-    - 'lint: github.com/kubernetes/kubernetes: bad version "1.24.0": non-canonical path "github.com/kubernetes/kubernetes" (expected "k8s.io/kubernetes")'
-    - 'lint: github.com/kubernetes/kubernetes: bad version "1.25.0": non-canonical path "github.com/kubernetes/kubernetes" (expected "k8s.io/kubernetes")'

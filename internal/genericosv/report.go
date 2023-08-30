@@ -77,6 +77,7 @@ func affectedToModules(as []osvschema.Affected, addNote addNoteFunc, pc *proxy.C
 	for _, m := range modules {
 		extractImportPath(m, pc)
 		fixMajorVersion(m, pc)
+		canonicalize(m, pc)
 		m.FixVersions(pc)
 	}
 
@@ -180,6 +181,56 @@ func commonMajor(vs []report.VersionRange) (_ string, ok bool) {
 		return "", true
 	}
 	return "/" + major, true
+}
+
+// canonicalize attempts to canonicalize the module path,
+// and updates the module path and packages list if successful.
+// Modifies m.
+//
+// Does nothing if the module path is already canonical, or isn't recognized
+// by the proxy at all.
+func canonicalize(m *report.Module, pc *proxy.Client) {
+	if len(m.Versions) == 0 {
+		return // no versions, don't attempt to fix
+	}
+
+	canonical, err := commonCanonical(m, pc)
+	if err != nil {
+		return // no consistent canonical version found, don't attempt to fix
+	}
+
+	original := m.Module
+	m.Module = canonical
+
+	// Fix any package paths.
+	for _, p := range m.Packages {
+		if strings.HasPrefix(p.Package, original) {
+			p.Package = canonical + strings.TrimPrefix(p.Package, original)
+		}
+	}
+}
+
+func commonCanonical(m *report.Module, pc *proxy.Client) (string, error) {
+	canonical, err := pc.CanonicalModulePath(m.Module, first(m.Versions))
+	if err != nil {
+		return "", err
+	}
+
+	for _, vr := range m.Versions {
+		for _, v := range []string{vr.Introduced, vr.Fixed} {
+			if v == "" {
+				continue
+			}
+			current, err := pc.CanonicalModulePath(m.Module, v)
+			if err != nil {
+				return "", err
+			}
+			if current != canonical {
+				return "", fmt.Errorf("inconsistent canonical module paths: %s and %s", canonical, current)
+			}
+		}
+	}
+	return canonical, nil
 }
 
 func sortModules(ms []*report.Module) {
