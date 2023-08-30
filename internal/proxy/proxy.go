@@ -21,12 +21,6 @@ import (
 	"golang.org/x/vulndb/internal/version"
 )
 
-// TODO(https://go.dev/issues/60275): Replace this with a function that
-// returns a new instance of a default client.
-var DefaultClient *Client
-
-const ProxyURL = "https://proxy.golang.org"
-
 // Client is a client for reading from the proxy.
 //
 // It uses a simple in-memory cache that does not expire,
@@ -41,14 +35,6 @@ type Client struct {
 	errLog *errLog // for testing
 }
 
-func init() {
-	proxyURL := ProxyURL
-	if proxy, ok := os.LookupEnv("GOPROXY"); ok {
-		proxyURL = proxy
-	}
-	DefaultClient = NewClient(http.DefaultClient, proxyURL)
-}
-
 func NewClient(c *http.Client, url string) *Client {
 	return &Client{
 		Client: c,
@@ -56,6 +42,16 @@ func NewClient(c *http.Client, url string) *Client {
 		cache:  newCache(),
 		errLog: newErrLog(),
 	}
+}
+
+const ProxyURL = "https://proxy.golang.org"
+
+func NewDefaultClient() *Client {
+	proxyURL := ProxyURL
+	if proxy, ok := os.LookupEnv("GOPROXY"); ok {
+		proxyURL = proxy
+	}
+	return NewClient(http.DefaultClient, proxyURL)
 }
 
 func (c *Client) lookup(urlSuffix string) ([]byte, error) {

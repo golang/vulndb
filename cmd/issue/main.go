@@ -53,11 +53,12 @@ func main() {
 	}
 	c := issues.NewClient(ctx, &issues.Config{Owner: owner, Repo: repoName, Token: *githubToken})
 	ghsaClient := ghsa.NewClient(ctx, *githubToken)
+	pc := proxy.NewDefaultClient()
 	switch cmd {
 	case "triage":
-		err = createIssueToTriage(ctx, c, ghsaClient, filename)
+		err = createIssueToTriage(ctx, c, ghsaClient, pc, filename)
 	case "excluded":
-		err = createExcluded(ctx, c, ghsaClient, filename)
+		err = createExcluded(ctx, c, ghsaClient, pc, filename)
 	default:
 		err = fmt.Errorf("unsupported command: %q", cmd)
 	}
@@ -66,33 +67,33 @@ func main() {
 	}
 }
 
-func createIssueToTriage(ctx context.Context, c *issues.Client, ghsaClient *ghsa.Client, filename string) (err error) {
+func createIssueToTriage(ctx context.Context, c *issues.Client, ghsaClient *ghsa.Client, pc *proxy.Client, filename string) (err error) {
 	aliases, err := parseAliases(filename)
 	if err != nil {
 		return err
 	}
 	for _, alias := range aliases {
-		if err := constructIssue(ctx, c, ghsaClient, alias, []string{"NeedsTriage"}); err != nil {
+		if err := constructIssue(ctx, c, ghsaClient, pc, alias, []string{"NeedsTriage"}); err != nil {
 			return err
 		}
 	}
 	return nil
 }
 
-func createExcluded(ctx context.Context, c *issues.Client, ghsaClient *ghsa.Client, filename string) (err error) {
+func createExcluded(ctx context.Context, c *issues.Client, ghsaClient *ghsa.Client, pc *proxy.Client, filename string) (err error) {
 	records, err := parseExcluded(filename)
 	if err != nil {
 		return err
 	}
 	for _, r := range records {
-		if err := constructIssue(ctx, c, ghsaClient, r.identifier, []string{fmt.Sprintf("excluded: %s", r.category)}); err != nil {
+		if err := constructIssue(ctx, c, ghsaClient, pc, r.identifier, []string{fmt.Sprintf("excluded: %s", r.category)}); err != nil {
 			return err
 		}
 	}
 	return nil
 }
 
-func constructIssue(ctx context.Context, c *issues.Client, ghsaClient *ghsa.Client, alias string, labels []string) (err error) {
+func constructIssue(ctx context.Context, c *issues.Client, ghsaClient *ghsa.Client, pc *proxy.Client, alias string, labels []string) (err error) {
 	var ghsas []*ghsa.SecurityAdvisory
 	if strings.HasPrefix(alias, "GHSA") {
 		sa, err := ghsaClient.FetchGHSA(ctx, alias)
@@ -132,7 +133,6 @@ func constructIssue(ctx context.Context, c *issues.Client, ghsaClient *ghsa.Clie
 	if err != nil {
 		return err
 	}
-	pc := proxy.DefaultClient
 	for _, sa := range ghsas {
 		for _, id := range sa.Identifiers {
 			ids = append(ids, id.Value)

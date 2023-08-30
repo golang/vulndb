@@ -77,7 +77,7 @@ func TestLintReports(t *testing.T) {
 			return r.LintOffline()
 		}
 	} else {
-		pc := proxy.DefaultClient
+		pc := proxy.NewDefaultClient()
 		lint = func(r *report.Report) []string {
 			return r.Lint(pc)
 		}

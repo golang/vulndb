@@ -263,7 +263,7 @@ func createIssuesCommand(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	pc := proxy.DefaultClient
+	pc := proxy.NewDefaultClient()
 	return worker.CreateIssues(ctx, cfg.Store, client, pc, allReports, *limit)
 }
 

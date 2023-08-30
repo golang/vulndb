@@ -99,7 +99,7 @@ func NewServer(ctx context.Context, cfg Config) (_ *Server, err error) {
 		log.Infof(ctx, "issue creation disabled")
 	}
 
-	s.proxyClient = proxy.DefaultClient
+	s.proxyClient = proxy.NewDefaultClient()
 
 	s.indexTemplate, err = parseTemplate(staticPath, template.TrustedSourceFromConstant("index.tmpl"))
 	if err != nil {

@@ -153,11 +153,11 @@ func main() {
 	}
 
 	ghsaClient := ghsa.NewClient(ctx, *githubToken)
-	pc := proxy.DefaultClient
+	pc := proxy.NewDefaultClient()
 	var cmdFunc func(context.Context, string) error
 	switch cmd {
 	case "lint":
-		cmdFunc = lint
+		cmdFunc = func(ctx context.Context, name string) error { return lint(ctx, name, pc) }
 	case "commit":
 		cmdFunc = func(ctx context.Context, name string) error { return commit(ctx, name, ghsaClient, pc, *force) }
 	case "cve":
@@ -321,7 +321,7 @@ func setupCreate(ctx context.Context, args []string) ([]int, *createCfg, error) 
 	return githubIDs, &createCfg{
 		issuesClient:    issues.NewClient(ctx, &issues.Config{Owner: owner, Repo: repoName, Token: *githubToken}),
 		ghsaClient:      ghsa.NewClient(ctx, *githubToken),
-		proxyClient:     proxy.DefaultClient,
+		proxyClient:     proxy.NewDefaultClient(),
 		existingByFile:  existingByFile,
 		existingByIssue: existingByIssue,
 		allowClosed:     *closedOk,
@@ -716,11 +716,11 @@ func addReferenceTODOs(r *report.Report) {
 	}
 }
 
-func lint(_ context.Context, filename string) (err error) {
+func lint(_ context.Context, filename string, pc *proxy.Client) (err error) {
 	defer derrors.Wrap(&err, "lint(%q)", filename)
 	infolog.Printf("lint %s\n", filename)
 
-	_, err = report.ReadAndLint(filename, proxy.DefaultClient)
+	_, err = report.ReadAndLint(filename, pc)
 	return err
 }
 
