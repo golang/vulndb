@@ -1,0 +1,34 @@
+id: GO-2023-2041
+modules:
+    - module: std
+      versions:
+        - fixed: 1.20.8
+        - introduced: 1.21.0-0
+          fixed: 1.21.1
+      vulnerable_at: 1.21.0
+      packages:
+        - package: html/template
+          symbols:
+            - isComment
+            - escaper.escapeText
+            - tJS
+            - tLineCmt
+          derived_symbols:
+            - Template.Execute
+            - Template.ExecuteTemplate
+summary: Improper handling of HTML-like comments in script contexts in html/template
+description: |-
+    The html/template package does not properly handle HTML-like "" comment tokens,
+    nor hashbang "#!" comment tokens, in <script> contexts. This may cause the
+    template parser to improperly interpret the contents of <script> contexts,
+    causing actions to be improperly escaped. This may be leveraged to perform an
+    XSS attack.
+credits:
+    - Takeshi Kaneko (GMO Cybersecurity by Ierae, Inc.)
+references:
+    - report: https://go.dev/issue/62196
+    - fix: https://go.dev/cl/526156
+    - web: https://groups.google.com/g/golang-dev/c/2C5vbR-UNkI/m/L1hdrPhfBAAJ
+cve_metadata:
+    id: CVE-2023-39318
+    cwe: 'CWE-79: Improper Neutralization of Input During Web Page Generation (''Cross-site Scripting'')'
