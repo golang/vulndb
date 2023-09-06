@@ -1,0 +1,25 @@
+id: GO-2023-2044
+modules:
+    - module: std
+      versions:
+        - fixed: 1.20.8
+        - introduced: 1.21.0-0
+          fixed: 1.21.1
+      vulnerable_at: 1.21.0
+      packages:
+        - package: crypto/tls
+          symbols:
+            - QUICConn.HandleData
+summary: Panic when processing post-handshake message on QUIC connections in crypto/tls
+description: |-
+    Processing an incomplete post-handshake message for a QUIC connection can cause
+    a panic.
+credits:
+    - Marten Seemann
+references:
+    - report: https://go.dev/issue/62266
+    - fix: https://go.dev/cl/523039
+    - web: https://groups.google.com/g/golang-dev/c/2C5vbR-UNkI/m/L1hdrPhfBAAJ
+cve_metadata:
+    id: CVE-2023-39321
+    cwe: 'CWE-400: Uncontrolled Resource Consumption'
