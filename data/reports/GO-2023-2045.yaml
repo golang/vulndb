@@ -1,0 +1,29 @@
+id: GO-2023-2045
+modules:
+    - module: std
+      versions:
+        - fixed: 1.20.8
+        - introduced: 1.21.0-0
+          fixed: 1.21.1
+      vulnerable_at: 1.21.0
+      packages:
+        - package: crypto/tls
+          symbols:
+            - QUICConn.HandleData
+summary: Memory exhaustion in QUIC connection handling in crypto/tls
+description: |-
+    QUIC connections do not set an upper bound on the amount of data buffered when
+    reading post-handshake messages, allowing a malicious QUIC connection to cause
+    unbounded memory growth.
+
+    With fix, connections now consistently reject messages larger than 65KiB in
+    size.
+credits:
+    - Marten Seemann
+references:
+    - report: https://go.dev/issue/62266
+    - fix: https://go.dev/cl/523039
+    - web: https://groups.google.com/g/golang-dev/c/2C5vbR-UNkI/m/L1hdrPhfBAAJ
+cve_metadata:
+    id: CVE-2023-39322
+    cwe: 'CWE-400: Uncontrolled Resource Consumption'
