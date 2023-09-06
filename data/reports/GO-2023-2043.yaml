@@ -1,0 +1,33 @@
+id: GO-2023-2043
+modules:
+    - module: std
+      versions:
+        - fixed: 1.20.8
+        - introduced: 1.21.0-0
+          fixed: 1.21.1
+      vulnerable_at: 1.21.0
+      packages:
+        - package: html/template
+          symbols:
+            - escaper.escapeText
+            - tSpecialTagEnd
+            - indexTagEnd
+          derived_symbols:
+            - Template.Execute
+            - Template.ExecuteTemplate
+summary: Improper handling of special tags within script contexts in html/template
+description: |-
+    The html/template package does not apply the proper rules for handling
+    occurrences of "<script", "<!--", and "</script" within JS literals in <script>
+    contexts. This may cause the template parser to improperly consider script
+    contexts to be terminated early, causing actions to be improperly escaped. This
+    could be leveraged to perform an XSS attack.
+credits:
+    - Takeshi Kaneko (GMO Cybersecurity by Ierae, Inc.)
+references:
+    - report: https://go.dev/issue/62197
+    - fix: https://go.dev/cl/526157
+    - web: https://groups.google.com/g/golang-dev/c/2C5vbR-UNkI/m/L1hdrPhfBAAJ
+cve_metadata:
+    id: CVE-2023-39319
+    cwe: 'CWE-79: Improper Neutralization of Input During Web Page Generation (''Cross-site Scripting'')'
