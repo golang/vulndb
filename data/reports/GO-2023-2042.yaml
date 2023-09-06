@@ -1,0 +1,25 @@
+id: GO-2023-2042
+modules:
+    - module: cmd
+      versions:
+        - introduced: 1.21.0-0
+          fixed: 1.21.1
+      vulnerable_at: 1.21.0
+      packages:
+        - package: cmd/go
+summary: Arbitrary code execution via go.mod toolchain directive in cmd/go
+description: |-
+    The go.mod toolchain directive, introduced in Go 1.21, can be leveraged to
+    execute scripts and binaries relative to the root of the module when the "go"
+    command was executed within the module. This applies to modules downloaded using
+    the "go" command from the module proxy, as well as modules downloaded directly
+    using VCS software.
+credits:
+    - Juho Nurminen of Mattermost
+references:
+    - report: https://go.dev/issue/62198
+    - fix: https://go.dev/cl/526158
+    - web: https://groups.google.com/g/golang-dev/c/2C5vbR-UNkI/m/L1hdrPhfBAAJ
+cve_metadata:
+    id: CVE-2023-39320
+    cwe: 'CWE-94: Improper Control of Generation of Code (''Code Injection'')'
