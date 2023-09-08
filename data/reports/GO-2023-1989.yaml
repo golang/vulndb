@@ -13,12 +13,10 @@ modules:
             - DecodeConfig
 summary: Excessive resource consumption in golang.org/x/image/tiff
 description: |-
-    The TIFF decoder does not place a limit on the size of
-    compressed tile data. A maliciously-crafted image can
-    exploit this to cause a small image (both in terms of
-    pixel width/height, and encoded size) to make the decoder
-    decode large amounts of compressed data, consuming
-    excessive memory and CPU.
+    The TIFF decoder does not place a limit on the size of compressed tile data. A
+    maliciously-crafted image can exploit this to cause a small image (both in terms
+    of pixel width/height, and encoded size) to make the decoder decode large
+    amounts of compressed data, consuming excessive memory and CPU.
 credits:
     - Philippe Antoine (Catena cyber)
 references:
@@ -27,3 +25,5 @@ references:
 cve_metadata:
     id: CVE-2023-29408
     cwe: 'CWE-770: Allocation of Resources Without Limits or Throttling'
+    references:
+        - https://security.netapp.com/advisory/ntap-20230831-0009/

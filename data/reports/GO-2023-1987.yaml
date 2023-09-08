@@ -27,8 +27,8 @@ description: |-
     Extremely large RSA keys in certificate chains can cause a client/server to
     expend significant CPU time verifying signatures.
 
-    With fix, the size of RSA keys transmitted during handshakes is
-    restricted to <= 8192 bits.
+    With fix, the size of RSA keys transmitted during handshakes is restricted to <=
+    8192 bits.
 
     Based on a survey of publicly trusted RSA keys, there are currently only three
     certificates in circulation with keys larger than this, and all three appear to
@@ -45,3 +45,5 @@ references:
 cve_metadata:
     id: CVE-2023-29409
     cwe: 'CWE-400: Uncontrolled Resource Consumption'
+    references:
+        - https://security.netapp.com/advisory/ntap-20230831-0010/
