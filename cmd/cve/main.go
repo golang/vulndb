@@ -324,13 +324,7 @@ func publish(c *cveclient.Client, filename string) (err error) {
 			fmt.Printf("publish would update record with diff (-existing, +new):\n%s\n", diff)
 			// The CVE program sometimes adds references to CVEs, so we need
 			// to make sure we don't accidentally delete them.
-			// To preserve an externally-added reference, add it to
-			// cve_metadata.references. An example is GO-2022-0476.
-			// This warning may be spurious if a reference is deleted from
-			// a YAML report - in this case it should be ignored.
-			if d := len(existing.Containers.CNAContainer.References) - len(toPublish.CNAContainer.References); d > 0 {
-				fmt.Printf("WARNING: publish would delete %d reference(s) that may have been added by the CVE program; use cve_metadata.references to preserve them\n", d)
-			}
+			handleDeleted(existing, toPublish, filename)
 		} else {
 			fmt.Println("updating record would have no effect, skipping")
 			return nil
@@ -361,6 +355,45 @@ func publish(c *cveclient.Client, filename string) (err error) {
 	fmt.Printf("successfully %sd record for %s at %s\n", action, cveID, c.WebURL(cveID))
 
 	return nil
+}
+
+func handleDeleted(existing *cveschema5.CVERecord, toPublish *cveschema5.Containers, filename string) {
+	deleted := findDeleted(existing.Containers.CNAContainer.References, toPublish.CNAContainer.References)
+	if len(deleted) > 0 {
+		goID := strings.TrimSuffix(filepath.Base(filename), filepath.Ext(filename))
+		yamlReportFile := fmt.Sprintf("data/reports/%s.yaml", goID)
+		// To preserve an externally-added reference, add it to
+		// cve_metadata.references. An example is GO-2022-0476.
+		// This warning may be spurious if a reference is deleted from
+		// a YAML report - in this case it should be ignored.
+		fmt.Printf(
+			`!! WARNING !!
+updating record would delete %[1]d reference(s) that may have been added by the CVE program;
+to preserve these references, add references to %[2]s and run "vulnreport fix %[2]s":
+
+cve_metadata:
+    ...
+    references:
+        ...
+        - %[3]s
+
+only update now if this warning is spurious (i.e., the records were deleted on purpose)
+`, len(deleted), yamlReportFile, strings.Join(deleted, "\n        - "))
+	}
+}
+
+// findDeleted returns a list of URLs in oldRefs that are not in newRefs.
+func findDeleted(oldRefs []cveschema5.Reference, newRefs []cveschema5.Reference) (deleted []string) {
+	m := make(map[string]bool)
+	for _, r := range newRefs {
+		m[r.URL] = true
+	}
+	for _, r := range oldRefs {
+		if !m[r.URL] {
+			deleted = append(deleted, r.URL)
+		}
+	}
+	return deleted
 }
 
 func list(c *cveclient.Client, lf *cveclient.ListOptions) error {
