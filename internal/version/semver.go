@@ -7,6 +7,7 @@
 package version
 
 import (
+	"regexp"
 	"strings"
 
 	"golang.org/x/mod/semver"
@@ -45,4 +46,10 @@ func TrimPrefix(v string) string {
 	v = strings.TrimPrefix(v, "v")
 	v = strings.TrimPrefix(v, "go")
 	return v
+}
+
+var commitHashRegex = regexp.MustCompile(`^[a-f0-9]+$`)
+
+func IsCommitHash(v string) bool {
+	return commitHashRegex.MatchString(v)
 }

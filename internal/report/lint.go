@@ -28,11 +28,7 @@ func checkModVersions(modPath string, vrs []VersionRange, pc *proxy.Client) (err
 		if v == "" {
 			return nil
 		}
-		vv := "v" + v
-		if err := module.Check(modPath, vv); err != nil {
-			return err
-		}
-		canonicalPath, err := pc.CanonicalModulePath(modPath, vv)
+		canonicalPath, err := pc.CanonicalModulePath(modPath, v)
 		if err != nil {
 			return err
 		}

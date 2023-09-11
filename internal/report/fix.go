@@ -15,8 +15,6 @@ import (
 	"golang.org/x/vulndb/internal/version"
 )
 
-var commitHashRegex = regexp.MustCompile(`^[a-f0-9]+$`)
-
 func (r *Report) Fix(pc *proxy.Client) {
 	for _, ref := range r.References {
 		ref.URL = fixURL(ref.URL)
@@ -41,8 +39,8 @@ func (m *Module) FixVersions(pc *proxy.Client) {
 		if v == "" {
 			return ""
 		}
-		if commitHashRegex.MatchString(v) {
-			if c, err := pc.CanonicalModuleVersion(m.Module, v); err == nil {
+		if version.IsCommitHash(v) {
+			if c, err := pc.CanonicalModuleVersion(m.Module, v); err == nil { // no error
 				v = c
 			}
 		}

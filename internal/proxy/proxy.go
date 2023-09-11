@@ -83,16 +83,30 @@ func (c *Client) lookup(urlSuffix string) ([]byte, error) {
 	return b, nil
 }
 
+func escapePathAndVersion(path, ver string) (ePath, eVersion string, err error) {
+	ePath, err = module.EscapePath(path)
+	if err != nil {
+		return "", "", err
+	}
+	if version.IsCommitHash(ver) {
+		return ePath, ver, nil
+	}
+	eVersion, err = module.EscapeVersion("v" + ver)
+	if err != nil {
+		return "", "", err
+	}
+	if err := module.Check(ePath, eVersion); err != nil {
+		return "", "", err
+	}
+	return ePath, eVersion, err
+}
+
 func (c *Client) CanonicalModulePath(path, version string) (_ string, err error) {
-	escapedPath, err := module.EscapePath(path)
+	ep, ev, err := escapePathAndVersion(path, version)
 	if err != nil {
 		return "", err
 	}
-	escapedVersion, err := module.EscapeVersion(version)
-	if err != nil {
-		return "", err
-	}
-	b, err := c.lookup(fmt.Sprintf("%s/@v/%s.mod", escapedPath, escapedVersion))
+	b, err := c.lookup(fmt.Sprintf("%s/@v/%s.mod", ep, ev))
 	if err != nil {
 		return "", err
 	}
@@ -109,11 +123,11 @@ func (c *Client) CanonicalModulePath(path, version string) (_ string, err error)
 // CanonicalModuleVersion returns the canonical version string (with no leading "v" prefix)
 // for the given module path and version string.
 func (c *Client) CanonicalModuleVersion(path, ver string) (_ string, err error) {
-	escaped, err := module.EscapePath(path)
+	ep, ev, err := escapePathAndVersion(path, ver)
 	if err != nil {
 		return "", err
 	}
-	b, err := c.lookup(fmt.Sprintf("%s/@v/%v.info", escaped, ver))
+	b, err := c.lookup(fmt.Sprintf("%s/@v/%v.info", ep, ev))
 	if err != nil {
 		return "", err
 	}

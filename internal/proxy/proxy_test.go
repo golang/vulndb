@@ -7,7 +7,6 @@ package proxy
 import (
 	"errors"
 	"flag"
-	"fmt"
 	"net/http"
 	"testing"
 
@@ -17,38 +16,33 @@ import (
 var realProxy = flag.Bool("proxy", false, "if true, contact the real module proxy and update expected responses")
 
 func TestCanonicalModulePath(t *testing.T) {
+	c, err := NewTestClient(t, *realProxy)
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	tcs := []struct {
-		name     string
-		path     string
-		version  string
-		response string // hard-coded response
-		want     string
+		name    string
+		path    string
+		version string
+		want    string
 	}{
 		{
-			name:     "non-canonical",
-			path:     "github.com/golang/vulndb",
-			version:  "v0.0.0-20230522180520-0cbf4ffdb4e7",
-			response: "module golang.org/x/vulndb",
-			want:     "golang.org/x/vulndb",
+			name:    "non-canonical",
+			path:    "github.com/golang/vulndb",
+			version: "0.0.0-20230522180520-0cbf4ffdb4e7",
+			want:    "golang.org/x/vulndb",
 		},
 		{
-			name:     "canonical",
-			path:     "golang.org/x/vulndb",
-			version:  "v0.0.0-20230522180520-0cbf4ffdb4e7",
-			response: "module golang.org/x/vulndb",
-			want:     "golang.org/x/vulndb",
+			name:    "canonical",
+			path:    "golang.org/x/vulndb",
+			version: "0.0.0-20230522180520-0cbf4ffdb4e7",
+			want:    "golang.org/x/vulndb",
 		},
 	}
 
 	for _, tc := range tcs {
 		t.Run(tc.name, func(t *testing.T) {
-			endpoint := fmt.Sprintf("%s/@v/%s.mod", tc.path, tc.version)
-			c, cleanup := fakeClient(map[string]*response{
-				endpoint: {
-					Body:       tc.response,
-					StatusCode: http.StatusOK,
-				}})
-			t.Cleanup(cleanup)
 			got, err := c.CanonicalModulePath(tc.path, tc.version)
 			if err != nil {
 				t.Fatal(err)
@@ -61,38 +55,39 @@ func TestCanonicalModulePath(t *testing.T) {
 }
 
 func TestCanonicalModuleVersion(t *testing.T) {
+	c, err := NewTestClient(t, *realProxy)
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	tcs := []struct {
-		name     string
-		path     string
-		version  string
-		response string // hard-coded response
-		want     string
+		name    string
+		path    string
+		version string
+		want    string
 	}{
 		{
-			name:     "already canonical",
-			path:     "golang.org/x/vulndb",
-			version:  "v0.0.0-20230522180520-0cbf4ffdb4e7",
-			response: `{"Version":"v0.0.0-20230522180520-0cbf4ffdb4e7"}`,
-			want:     "0.0.0-20230522180520-0cbf4ffdb4e7",
+			name:    "tagged version already canonical",
+			path:    "golang.org/x/vuln",
+			version: "0.1.0",
+			want:    "0.1.0",
 		},
 		{
-			name:     "commit hash",
-			path:     "golang.org/x/vulndb",
-			version:  "0cbf4ffdb4e70fce663ec8d59198745b04e7801b",
-			response: `{"Version":"v0.0.0-20230522180520-0cbf4ffdb4e7"}`,
-			want:     "0.0.0-20230522180520-0cbf4ffdb4e7",
+			name:    "pseudo-version already canonical",
+			path:    "golang.org/x/vulndb",
+			version: "0.0.0-20230522180520-0cbf4ffdb4e7",
+			want:    "0.0.0-20230522180520-0cbf4ffdb4e7",
+		},
+		{
+			name:    "commit hash",
+			path:    "golang.org/x/vulndb",
+			version: "0cbf4ffdb4e70fce663ec8d59198745b04e7801b",
+			want:    "0.0.0-20230522180520-0cbf4ffdb4e7",
 		},
 	}
 
 	for _, tc := range tcs {
 		t.Run(tc.name, func(t *testing.T) {
-			endpoint := fmt.Sprintf("%s/@v/%s.info", tc.path, tc.version)
-			c, cleanup := fakeClient(map[string]*response{
-				endpoint: {
-					Body:       tc.response,
-					StatusCode: http.StatusOK,
-				}})
-			t.Cleanup(cleanup)
 			got, err := c.CanonicalModuleVersion(tc.path, tc.version)
 			if err != nil {
 				t.Fatal(err)
@@ -105,39 +100,35 @@ func TestCanonicalModuleVersion(t *testing.T) {
 }
 
 func TestVersions(t *testing.T) {
+	c, err := NewTestClient(t, *realProxy)
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	tcs := []struct {
-		name     string
-		path     string
-		response string // hard-coded response
-		want     []string
+		name string
+		path string
+		want []string
 	}{
 		{
-			name:     "no tagged versions",
-			path:     "golang.org/x/vulndb",
-			response: "",
-			want:     nil,
+			name: "no tagged versions",
+			path: "golang.org/x/vulndb",
+			want: nil,
 		},
 		{
-			name: "unsorted -> sorted",
-			path: "golang.org/x/tools",
-			response: `
-v0.1.4
-v0.9.3
-v0.7.0
-`,
-			want: []string{"0.1.4", "0.7.0", "0.9.3"},
+			name: "tagged versions",
+			path: "golang.org/x/vuln",
+			want: []string{
+				"0.1.0",
+				"0.2.0",
+				"1.0.0",
+				"1.0.1",
+			},
 		},
 	}
 
 	for _, tc := range tcs {
 		t.Run(tc.name, func(t *testing.T) {
-			endpoint := fmt.Sprintf("%s/@v/list", tc.path)
-			c, cleanup := fakeClient(map[string]*response{
-				endpoint: {
-					Body:       tc.response,
-					StatusCode: http.StatusOK,
-				}})
-			t.Cleanup(cleanup)
 			got, err := c.Versions(tc.path)
 			if err != nil {
 				t.Fatal(err)
@@ -150,27 +141,27 @@ v0.7.0
 }
 
 func TestLatest(t *testing.T) {
+	c, err := NewTestClient(t, *realProxy)
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	tcs := []struct {
-		path     string
-		response string // hard-coded response
-		want     string
+		path string
+		want string
 	}{
 		{
-			path:     "golang.org/x/vulndb",
-			response: `{"Version":"v0.0.0-20230522180520-0cbf4ffdb4e7"}`,
-			want:     "0.0.0-20230522180520-0cbf4ffdb4e7",
+			path: "golang.org/x/vulndb",
+			want: "0.0.0-20230911193511-c7cbbd05f085",
+		},
+		{
+			path: "golang.org/x/vuln",
+			want: "1.0.1",
 		},
 	}
 
 	for _, tc := range tcs {
 		t.Run(tc.path, func(t *testing.T) {
-			endpoint := fmt.Sprintf("%s/@latest", tc.path)
-			c, cleanup := fakeClient(map[string]*response{
-				endpoint: {
-					Body:       tc.response,
-					StatusCode: http.StatusOK,
-				}})
-			t.Cleanup(cleanup)
 			got, err := c.Latest(tc.path)
 			if err != nil {
 				t.Fatal(err)
@@ -235,9 +226,9 @@ func TestModuleExists(t *testing.T) {
 	}
 
 	tcs := []struct {
-		name    string
-		path    string
-		want    bool
+		name string
+		path string
+		want bool
 	}{
 		{
 			name: "exists",
