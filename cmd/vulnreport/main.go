@@ -558,12 +558,10 @@ func parseGithubIssue(iss *issues.Issue, pc *proxy.Client, allowClosed bool) (*p
 			continue
 		case strings.HasSuffix(p, ":"):
 			// Remove backslashes.
-			path := strings.ReplaceAll(strings.TrimSuffix(p, ":"), "\"", "")
+			parsed.modulePath = strings.ReplaceAll(strings.TrimSuffix(p, ":"), "\"", "")
 			// Find the underlying module if this is a package path.
-			if module := pc.FindModule(parsed.modulePath); module != "" {
+			if module, err := pc.FindModule(parsed.modulePath); err == nil { // no error
 				parsed.modulePath = module
-			} else {
-				parsed.modulePath = path
 			}
 		case strings.HasPrefix(p, "CVE"):
 			parsed.cves = append(parsed.cves, strings.TrimSuffix(p, ","))

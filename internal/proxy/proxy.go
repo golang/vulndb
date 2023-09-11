@@ -2,22 +2,25 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package proxy provides utilities for accessing the Go module proxy.
+// Package proxy provides a client and utilities for accessing the Go module proxy.
+// Queries about the Go standard library and toolchain are not supported.
 package proxy
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
 	"os"
-	"path"
+	urlpath "path"
 	"sort"
 	"strings"
 	"sync"
 
 	"golang.org/x/mod/modfile"
 	"golang.org/x/mod/module"
+	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/version"
 )
 
@@ -171,21 +174,31 @@ func (c *Client) Versions(path string) ([]string, error) {
 	return vs, nil
 }
 
+var errNoModuleFound = errors.New("no module found")
+
 // FindModule returns the longest directory prefix of path that
 // is a module, or "" if no such prefix is found.
-func (c *Client) FindModule(modPath string) string {
-	for candidate := modPath; candidate != "."; candidate = path.Dir(candidate) {
-		escaped, err := module.EscapePath(candidate)
-		if err != nil {
-			return modPath
-		}
-		if _, err := c.lookup(fmt.Sprintf("%s/@v/list", escaped)); err != nil {
+func (c *Client) FindModule(path string) (modPath string, err error) {
+	derrors.Wrap(&err, "FindModule(%s)", path)
+
+	escaped, err := module.EscapePath(path)
+	if err != nil {
+		return "", err
+	}
+
+	for candidate := escaped; candidate != "."; candidate = urlpath.Dir(candidate) {
+		if _, err := c.lookup(fmt.Sprintf("%s/@v/list", candidate)); err != nil {
 			// Keep looking.
 			continue
 		}
-		return candidate
+		unescaped, err := module.UnescapePath(candidate)
+		if err != nil {
+			return "", err
+		}
+		return unescaped, nil
 	}
-	return ""
+
+	return "", errNoModuleFound
 }
 
 // A simple in-memory cache that never expires.

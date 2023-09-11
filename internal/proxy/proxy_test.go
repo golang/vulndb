@@ -5,12 +5,16 @@
 package proxy
 
 import (
+	"errors"
+	"flag"
 	"fmt"
 	"net/http"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
 )
+
+var realProxy = flag.Bool("proxy", false, "if true, contact the real module proxy and update expected responses")
 
 func TestCanonicalModulePath(t *testing.T) {
 	tcs := []struct {
@@ -179,10 +183,16 @@ func TestLatest(t *testing.T) {
 }
 
 func TestFindModule(t *testing.T) {
+	c, err := NewTestClient(t, *realProxy)
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	tcs := []struct {
-		name string
-		path string
-		want string
+		name    string
+		path    string
+		want    string
+		wantErr error
 	}{
 		{
 			name: "module is a prefix of path",
@@ -195,28 +205,23 @@ func TestFindModule(t *testing.T) {
 			want: "k8s.io/kubernetes/staging/src/k8s.io/apiserver",
 		},
 		{
-			name: "stdlib package",
-			path: "net/http",
-			want: "net/http",
+			name:    "no module",
+			path:    "example.co.io/module/package/src/versions/v8",
+			wantErr: errNoModuleFound,
 		},
 		{
-			name: "no module (3p)",
-			path: "example.co.io/module/package/src/versions/v8",
-			want: "",
+			name: "module needs to be escaped",
+			path: "github.com/RobotsAndPencils/go-saml/util",
+			want: "github.com/RobotsAndPencils/go-saml",
 		},
 	}
 
 	for _, tc := range tcs {
 		t.Run(tc.name, func(t *testing.T) {
-			endpoint := fmt.Sprintf("%s/@v/list", tc.want)
-			c, cleanup := fakeClient(map[string]*response{
-				endpoint: {
-					Body:       tc.want,
-					StatusCode: http.StatusOK,
-				},
-			})
-			t.Cleanup(cleanup)
-			if got := c.FindModule(tc.path); got != tc.want {
+			got, err := c.FindModule(tc.path)
+			if !errors.Is(err, tc.wantErr) {
+				t.Errorf("FindModule() error = %v, want err containing %v", err, tc.wantErr)
+			} else if got != tc.want {
 				t.Errorf("FindModule() = %v, want %v", got, tc.want)
 			}
 		})

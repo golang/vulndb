@@ -90,8 +90,8 @@ func affectedToModules(as []osvschema.Affected, addNote addNoteFunc, pc *proxy.C
 // by the proxy at all.
 func extractImportPath(m *report.Module, pc *proxy.Client) {
 	path := m.Module
-	modulePath := pc.FindModule(m.Module)
-	if modulePath == "" || // path doesn't contain a module, needs human review
+	modulePath, err := pc.FindModule(m.Module)
+	if err != nil || // path doesn't contain a module, needs human review
 		path == modulePath { // path is already a module, no action needed
 		return
 	}
