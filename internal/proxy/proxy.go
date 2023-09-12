@@ -14,10 +14,12 @@ import (
 	"net/http"
 	"os"
 	urlpath "path"
+	"regexp"
 	"sort"
 	"strings"
 	"sync"
 
+	"golang.org/x/exp/slices"
 	"golang.org/x/mod/modfile"
 	"golang.org/x/mod/module"
 	"golang.org/x/vulndb/internal/derrors"
@@ -83,6 +85,40 @@ func (c *Client) lookup(urlSuffix string) ([]byte, error) {
 	return b, nil
 }
 
+func (c *Client) list(path string) ([]byte, error) {
+	escaped, err := module.EscapePath(path)
+	if err != nil {
+		return nil, err
+	}
+	return c.lookup(fmt.Sprintf("%s/@v/list", escaped))
+}
+
+func (c *Client) latest(path string) ([]byte, error) {
+	escaped, err := module.EscapePath(path)
+	if err != nil {
+		return nil, err
+	}
+	return c.lookup(fmt.Sprintf("%s/@latest", escaped))
+}
+
+func (c *Client) info(path string, ver string) ([]byte, error) {
+	ep, ev, err := escapePathAndVersion(path, ver)
+	if err != nil {
+		return nil, err
+	}
+	return c.lookup(fmt.Sprintf("%s/@v/%v.info", ep, ev))
+}
+
+func (c *Client) mod(path string, ver string) ([]byte, error) {
+	ep, ev, err := escapePathAndVersion(path, ver)
+	if err != nil {
+		return nil, err
+	}
+	return c.lookup(fmt.Sprintf("%s/@v/%v.mod", ep, ev))
+}
+
+var commitHashRegex = regexp.MustCompile(`^[a-f0-9]+$`)
+
 func escapePathAndVersion(path, ver string) (ePath, eVersion string, err error) {
 	ePath, err = module.EscapePath(path)
 	if err != nil {
@@ -102,11 +138,7 @@ func escapePathAndVersion(path, ver string) (ePath, eVersion string, err error) 
 }
 
 func (c *Client) CanonicalModulePath(path, version string) (_ string, err error) {
-	ep, ev, err := escapePathAndVersion(path, version)
-	if err != nil {
-		return "", err
-	}
-	b, err := c.lookup(fmt.Sprintf("%s/@v/%s.mod", ep, ev))
+	b, err := c.mod(path, version)
 	if err != nil {
 		return "", err
 	}
@@ -115,19 +147,30 @@ func (c *Client) CanonicalModulePath(path, version string) (_ string, err error)
 		return "", err
 	}
 	if m.Module == nil {
-		return "", fmt.Errorf("unable to retrieve module information for %s, %s", path, string(b))
+		return "", fmt.Errorf("unable to retrieve module information for %s", path)
 	}
 	return m.Module.Mod.Path, nil
+}
+
+// ModuleExistsAtTaggedVersion returns whether the given module path exists
+// at the given version.
+// The module need not be canonical, but the version must be an unprefixed
+// canonical tagged version (e.g. 1.2.3 or 1.2.3+incompatible).
+func (c *Client) ModuleExistsAtTaggedVersion(path, version string) bool {
+	// Use this strategy to take advantage of caching.
+	// Some reports would cause this function to be called for many versions
+	// on the same module.
+	vs, err := c.versions(path)
+	if err != nil {
+		return false
+	}
+	return slices.Contains(vs, version)
 }
 
 // CanonicalModuleVersion returns the canonical version string (with no leading "v" prefix)
 // for the given module path and version string.
 func (c *Client) CanonicalModuleVersion(path, ver string) (_ string, err error) {
-	ep, ev, err := escapePathAndVersion(path, ver)
-	if err != nil {
-		return "", err
-	}
-	b, err := c.lookup(fmt.Sprintf("%s/@v/%v.info", ep, ev))
+	b, err := c.info(path, ver)
 	if err != nil {
 		return "", err
 	}
@@ -145,11 +188,7 @@ func (c *Client) CanonicalModuleVersion(path, ver string) (_ string, err error) 
 // Latest returns the latest version of the module, with no leading "v"
 // prefix.
 func (c *Client) Latest(path string) (string, error) {
-	escaped, err := module.EscapePath(path)
-	if err != nil {
-		return "", err
-	}
-	b, err := c.lookup(fmt.Sprintf("%s/@latest", escaped))
+	b, err := c.latest(path)
 	if err != nil {
 		return "", err
 	}
@@ -167,11 +206,19 @@ func (c *Client) Latest(path string) (string, error) {
 // Versions returns a list of module versions (with no leading "v" prefix),
 // sorted in ascending order.
 func (c *Client) Versions(path string) ([]string, error) {
-	escaped, err := module.EscapePath(path)
+	vs, err := c.versions(path)
 	if err != nil {
 		return nil, err
 	}
-	b, err := c.lookup(fmt.Sprintf("%s/@v/list", escaped))
+	sort.SliceStable(vs, func(i, j int) bool {
+		return version.Before(vs[i], vs[j])
+	})
+	return vs, nil
+}
+
+// versions returns an unsorted list of module versions (with no leading "v" prefix).
+func (c *Client) versions(path string) ([]string, error) {
+	b, err := c.list(path)
 	if err != nil {
 		return nil, err
 	}
@@ -182,9 +229,6 @@ func (c *Client) Versions(path string) ([]string, error) {
 	for _, v := range strings.Split(strings.TrimSpace(string(b)), "\n") {
 		vs = append(vs, version.TrimPrefix(v))
 	}
-	sort.SliceStable(vs, func(i, j int) bool {
-		return version.Before(vs[i], vs[j])
-	})
 	return vs, nil
 }
 
@@ -195,35 +239,18 @@ var errNoModuleFound = errors.New("no module found")
 func (c *Client) FindModule(path string) (modPath string, err error) {
 	derrors.Wrap(&err, "FindModule(%s)", path)
 
-	escaped, err := module.EscapePath(path)
-	if err != nil {
-		return "", err
-	}
-
-	for candidate := escaped; candidate != "."; candidate = urlpath.Dir(candidate) {
-		if c.moduleExists(candidate) {
-			unescaped, err := module.UnescapePath(candidate)
-			if err != nil {
-				return "", err
-			}
-			return unescaped, nil
+	for candidate := path; candidate != "."; candidate = urlpath.Dir(candidate) {
+		if c.ModuleExists(candidate) {
+			return candidate, nil
 		}
 	}
 
 	return "", errNoModuleFound
 }
 
-// ModuleExists returns true if modPath is a recognized module.
-func (c *Client) ModuleExists(modPath string) bool {
-	escaped, err := module.EscapePath(modPath)
-	if err != nil {
-		return false
-	}
-	return c.moduleExists(escaped)
-}
-
-func (c *Client) moduleExists(escaped string) bool {
-	_, err := c.lookup(fmt.Sprintf("%s/@v/list", escaped))
+// ModuleExists returns true if path is a recognized module.
+func (c *Client) ModuleExists(path string) bool {
+	_, err := c.list(path)
 	return err == nil
 }
 

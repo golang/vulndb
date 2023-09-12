@@ -99,6 +99,59 @@ func TestCanonicalModuleVersion(t *testing.T) {
 	}
 }
 
+func TestModuleExistsAtTaggedVersion(t *testing.T) {
+	c, err := NewTestClient(t, *realProxy)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	tcs := []struct {
+		name    string
+		path    string
+		version string
+		want    bool
+	}{
+		{
+			name:    "exists",
+			path:    "golang.org/x/vuln",
+			version: "0.1.0",
+			want:    true,
+		},
+		{
+			name:    "non-canonical module ok",
+			path:    "github.com/golang/vuln",
+			version: "0.1.0",
+			want:    true,
+		},
+		{
+			name:    "non-canonical version not OK",
+			path:    "golang.org/x/vulndb",
+			version: "0cbf4ffdb4e70fce663ec8d59198745b04e7801b",
+			want:    false,
+		},
+		{
+			name:    "module exists, version does not",
+			path:    "golang.org/x/vulndb",
+			version: "1.0.0",
+			want:    false,
+		},
+		{
+			name:    "neither exist",
+			path:    "golang.org/x/notamod",
+			version: "1.0.0",
+			want:    false,
+		},
+	}
+
+	for _, tc := range tcs {
+		t.Run(tc.name, func(t *testing.T) {
+			if got := c.ModuleExistsAtTaggedVersion(tc.path, tc.version); got != tc.want {
+				t.Errorf("ModuleExistsAtTaggedVersion() = %v, want %v", got, tc.want)
+			}
+		})
+	}
+}
+
 func TestVersions(t *testing.T) {
 	c, err := NewTestClient(t, *realProxy)
 	if err != nil {
