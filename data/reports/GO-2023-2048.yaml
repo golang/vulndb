@@ -1,0 +1,25 @@
+id: GO-2023-2048
+modules:
+    - module: github.com/cyphar/filepath-securejoin
+      versions:
+        - fixed: 0.2.4
+      vulnerable_at: 0.2.3
+      packages:
+        - package: github.com/cyphar/filepath-securejoin
+          goos:
+            - windows
+          symbols:
+            - SecureJoinVFS
+          derived_symbols:
+            - SecureJoin
+summary: Paths outside of the rootfs could be produced on Windows
+description: |-
+    Certain rootfs and path combinations result in generated paths that are outside
+    of the provided rootfs on Windows.
+ghsas:
+    - GHSA-6xv5-86q9-7xr8
+credits:
+    - '@pjbgf'
+references:
+    - advisory: https://github.com/cyphar/filepath-securejoin/security/advisories/GHSA-6xv5-86q9-7xr8
+    - fix: https://github.com/cyphar/filepath-securejoin/commit/c121231e1276e11049547bee5ce68d5a2cfe2d9b
