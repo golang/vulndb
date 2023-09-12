@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-2052",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-41338",
+    "GHSA-3q5p-3558-364f"
+  ],
+  "summary": "IsFromLocal local address check can be circumvented in github.com/gofiber/fiber/v2",
+  "details": "The Ctx.IsFromLocal function can incorrectly report a request as being sent from localhost when the request contains an X-Forwarded-For header containing a localhost IP address.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gofiber/fiber/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.49.2-0.20230906112033-b8c9ede6efa2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/gofiber/fiber/v2",
+            "symbols": [
+              "Ctx.IsFromLocal",
+              "Ctx.isLocalHost"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/gofiber/fiber/security/advisories/GHSA-3q5p-3558-364f"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gofiber/fiber/commit/b8c9ede6efa231116c4bd8bb9d5e03eac1cb76dc"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-2052"
+  }
+}
