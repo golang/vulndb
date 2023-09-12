@@ -6,12 +6,14 @@ modules:
           fixed: 1.10.13
     - module: github.com/goharbor/harbor
       versions:
-        - introduced: 2.0.0
-          fixed: 2.4.3
+        - introduced: 2.0.0+incompatible
+          fixed: 2.4.3+incompatible
+      vulnerable_at: 2.4.3-rc1+incompatible
     - module: github.com/goharbor/harbor
       versions:
-        - introduced: 2.5.0
-          fixed: 2.5.2
+        - introduced: 2.5.0+incompatible
+          fixed: 2.5.2+incompatible
+      vulnerable_at: 2.5.2-rc1+incompatible
 summary: Harbor fails to validate the user permissions when updating a robot account
 description: |-
     ### Impact Harbor fails to validate the user permissions when updating a robot
@@ -48,6 +50,4 @@ references:
     - package: https://github.com/goharbor/harbor
 notes:
     - 'lint: github.com/goharbor/harbor: bad version "1.0.0": HTTP GET /github.com/goharbor/harbor/@v/v1.0.0.mod returned status 404 Not Found'
-    - 'lint: github.com/goharbor/harbor: bad version "2.0.0": github.com/goharbor/harbor@v2.0.0: invalid version: should be v0 or v1, not v2'
-    - 'lint: github.com/goharbor/harbor: bad version "2.5.0": github.com/goharbor/harbor@v2.5.0: invalid version: should be v0 or v1, not v2'
     - 'lint: redundant non-advisory reference to GHSA-xx9w-464f-7h6f'

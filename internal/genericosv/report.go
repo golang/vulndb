@@ -76,7 +76,9 @@ func affectedToModules(as []osvschema.Affected, addNote addNoteFunc, pc *proxy.C
 
 	for _, m := range modules {
 		extractImportPath(m, pc)
-		fixMajorVersion(m, pc)
+		if ok := fixMajorVersion(m, pc); !ok {
+			addIncompatible(m, pc)
+		}
 		canonicalize(m, pc)
 		m.FixVersions(pc)
 	}
@@ -104,11 +106,13 @@ func extractImportPath(m *report.Module, pc *proxy.Client) {
 
 // fixMajorVersion corrects the major version prefix of the module
 // path if possible.
+// Returns true if the major version was already correct or could be
+// fixed.
 // For now, it gives up if it encounters various problems and
 // special cases (see comments inline).
-func fixMajorVersion(m *report.Module, pc *proxy.Client) {
+func fixMajorVersion(m *report.Module, pc *proxy.Client) (ok bool) {
 	if strings.HasPrefix(m.Module, "gopkg.in/") {
-		return // don't attempt to fix gopkg.in modules
+		return false // don't attempt to fix gopkg.in modules
 	}
 	// If there is no "introduced" version, don't attempt to fix
 	// major version.
@@ -126,24 +130,39 @@ func fixMajorVersion(m *report.Module, pc *proxy.Client) {
 		return false
 	}
 	if !hasIntroduced(m) {
-		return
+		return false
 	}
 	wantMajor, ok := commonMajor(m.Versions)
 	if !ok { // inconsistent major version, don't attempt to fix
-		return
+		return false
 	}
 	prefix, major, ok := module.SplitPathVersion(m.Module)
 	if !ok { // couldn't parse module path, don't attempt to fix
-		return
+		return false
 	}
 	if major == wantMajor {
-		return // nothing to do
+		return true // nothing to do
 	}
 	fixed := prefix + wantMajor
 	if !pc.ModuleExists(fixed) {
-		return // attempted fixed module doesn't exist, give up
+		return false // attempted fixed module doesn't exist, give up
 	}
 	m.Module = fixed
+	return true
+}
+
+const (
+	v0   = "v0"
+	v1   = "v1"
+	v0v1 = "v0 or v1"
+)
+
+func major(v string) string {
+	m := version.Major(v)
+	if m == v0 || m == v1 {
+		return v0v1
+	}
+	return m
 }
 
 // commonMajor returns the major version path suffix (e.g. "/v2") common
@@ -151,36 +170,22 @@ func fixMajorVersion(m *report.Module, pc *proxy.Client) {
 // have the same major version.
 // Returns ("", true) if the major version is 0 or 1.
 func commonMajor(vs []report.VersionRange) (_ string, ok bool) {
-	const (
-		v0   = "v0"
-		v1   = "v1"
-		v0v1 = "v0 or v1"
-	)
-
-	getMajor := func(v string) string {
-		m := version.Major(v)
-		if m == v0 || m == v1 {
-			return v0v1
-		}
-		return m
-	}
-
-	major := getMajor(first(vs))
+	maj := major(first(vs))
 	for _, vr := range vs {
 		for _, v := range []string{vr.Introduced, vr.Fixed} {
 			if v == "" {
 				continue
 			}
-			current := getMajor(v)
-			if current != major {
+			current := major(v)
+			if current != maj {
 				return "", false
 			}
 		}
 	}
-	if major == v0v1 {
+	if maj == v0v1 {
 		return "", true
 	}
-	return "/" + major, true
+	return "/" + maj, true
 }
 
 // canonicalize attempts to canonicalize the module path,
@@ -231,6 +236,36 @@ func commonCanonical(m *report.Module, pc *proxy.Client) (string, error) {
 		}
 	}
 	return canonical, nil
+}
+
+// addIncompatible adds "+incompatible" to all versions where module@version
+// does not exist but module@version+incompatible does exist.
+// TODO(https://go.dev/issue/61769): Consider making this work for
+// non-canonical versions too (example: GHSA-w4xh-w33p-4v29).
+func addIncompatible(m *report.Module, pc *proxy.Client) {
+	tryAdd := func(v string) (string, bool) {
+		if v == "" {
+			return "", false
+		}
+		if major(v) == v0v1 {
+			return "", false // +incompatible does not apply for major versions < 2
+		}
+		if pc.ModuleExistsAtTaggedVersion(m.Module, v) {
+			return "", false // module@version is already OK
+		}
+		if vi := v + "+incompatible"; pc.ModuleExistsAtTaggedVersion(m.Module, vi) {
+			return vi, true
+		}
+		return "", false // module@version+incompatible doesn't exist
+	}
+	for i, vr := range m.Versions {
+		if vi, ok := tryAdd(vr.Introduced); ok {
+			m.Versions[i].Introduced = vi
+		}
+		if vi, ok := tryAdd(vr.Fixed); ok {
+			m.Versions[i].Fixed = vi
+		}
+	}
 }
 
 func sortModules(ms []*report.Module) {

@@ -2,7 +2,7 @@ id: GO-TEST-ID
 modules:
     - module: github.com/sylabs/singularity
       versions:
-        - introduced: 3.0.0
+        - introduced: 3.0.0+incompatible
           fixed: 3.6.0
 summary: Execution Control List (ECL) Is Insecure in Singularity
 description: |-
@@ -68,5 +68,5 @@ references:
     - web: http://lists.opensuse.org/opensuse-security-announce/2020-07/msg00059.html
     - web: http://lists.opensuse.org/opensuse-security-announce/2020-09/msg00053.html
 notes:
-    - 'lint: github.com/sylabs/singularity: bad version "3.0.0": github.com/sylabs/singularity@v3.0.0: invalid version: should be v0 or v1, not v3'
+    - 'lint: github.com/sylabs/singularity: bad version "3.6.0": github.com/sylabs/singularity@v3.6.0: invalid version: should be v0 or v1, not v3'
     - 'lint: redundant non-advisory reference to GHSA-pmfr-63c2-jr5c'

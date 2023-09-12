@@ -2,7 +2,8 @@ id: GO-TEST-ID
 modules:
     - module: github.com/moby/moby
       versions:
-        - fixed: 20.10.20
+        - fixed: 20.10.20+incompatible
+      vulnerable_at: 20.10.19+incompatible
 summary: Container build can leak any path on the host into the container
 description: |-
     ### Description
@@ -109,5 +110,4 @@ references:
     - web: https://github.com/moby/moby/releases/tag/v20.10.20
     - web: https://lore.kernel.org/git/xmqq4jw1uku5.fsf@gitster.g/T/#u
 notes:
-    - 'lint: github.com/moby/moby: bad version "20.10.20": github.com/moby/moby@v20.10.20: invalid version: should be v0 or v1, not v20'
     - 'lint: redundant non-advisory reference to GHSA-vp35-85q5-9f25'

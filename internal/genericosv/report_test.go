@@ -232,8 +232,8 @@ func TestAffectedToModules(t *testing.T) {
 						Fixed: "23.0.0+incompatible",
 					},
 				},
+				VulnerableAt: "23.0.0-rc.4+incompatible",
 			}},
-			skip: true,
 		},
 		{
 			name: "remove_duplicates",
