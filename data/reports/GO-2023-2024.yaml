@@ -1,0 +1,33 @@
+id: GO-2023-2024
+modules:
+    - module: github.com/libp2p/go-libp2p
+      versions:
+        - fixed: 0.27.4
+      vulnerable_at: 0.27.3
+      packages:
+        - package: github.com/libp2p/go-libp2p/core/record
+          symbols:
+            - ConsumeEnvelope
+        - package: github.com/libp2p/go-libp2p/p2p/protocol/identify
+          symbols:
+            - idService.consumeMessage
+          derived_symbols:
+            - idService.IdentifyConn
+            - idService.IdentifyWait
+            - netNotifiee.Connected
+summary: libp2p nodes vulnerable to OOM attack
+description: |-
+    A malicious actor can store an arbitrary amount of data in the memory of a
+    remote node by sending the node a message with a signed peer record. Signed peer
+    records from randomly generated peers can be sent by a malicious actor. This
+    memory does not get garbage collected and so the remote node can run out of
+    memory (OOM).
+cves:
+    - CVE-2023-40583
+ghsas:
+    - GHSA-gcq9-qqwx-rgj3
+credits:
+    - Marten Seemann
+references:
+    - advisory: https://github.com/libp2p/go-libp2p/security/advisories/GHSA-gcq9-qqwx-rgj3
+    - fix: https://github.com/libp2p/go-libp2p/commit/45d3c6fff662ddd6938982e7e9309ad5fa2ad8dd
