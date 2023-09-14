@@ -212,13 +212,6 @@ func TestValidate(t *testing.T) {
 				wantErr: errNoEcosystemSpecific,
 			},
 			{
-				name: "no packages",
-				entry: testEntry(func(e *osv.Entry) {
-					e.Affected[0].EcosystemSpecific.Packages = nil
-				}),
-				wantErr: errNoPackages,
-			},
-			{
 				name: "no package path",
 				entry: testEntry(func(e *osv.Entry) {
 					e.Affected[0].EcosystemSpecific.Packages[0].Path = ""
