@@ -11,6 +11,7 @@ import (
 	"sort"
 	"strings"
 
+	"golang.org/x/exp/slices"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/version"
 )
@@ -73,6 +74,9 @@ func (m *Module) FixVersions(pc *proxy.Client) {
 			return false
 		}
 	})
+
+	// Remove duplicate version ranges.
+	m.Versions = slices.Compact(m.Versions)
 
 	// Collect together version ranges that don't need to be separate,
 	// e.g:

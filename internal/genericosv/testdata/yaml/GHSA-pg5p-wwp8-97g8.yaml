@@ -3,24 +3,15 @@ modules:
     - module: github.com/cilium/cilium
       versions:
         - introduced: 1.7.0
+        - introduced: 1.11.0
+          fixed: 1.11.16
+        - introduced: 1.12.0
+          fixed: 1.12.9
+        - introduced: 1.13.0
+          fixed: 1.13.2
       unsupported_versions:
         - version: 1.10.0
           type: last_affected
-      vulnerable_at: 1.14.2
-    - module: github.com/cilium/cilium
-      versions:
-        - introduced: 1.11.0
-          fixed: 1.11.16
-      vulnerable_at: 1.11.15
-    - module: github.com/cilium/cilium
-      versions:
-        - introduced: 1.12.0
-          fixed: 1.12.9
-      vulnerable_at: 1.12.8
-    - module: github.com/cilium/cilium
-      versions:
-        - introduced: 1.13.0
-          fixed: 1.13.2
       vulnerable_at: 1.13.1
 summary: Debug mode leaks confidential data in Cilium
 description: |-
@@ -72,4 +63,5 @@ references:
     - package: https://github.com/cilium/cilium
 notes:
     - 'lint: github.com/cilium/cilium: version issue: 1 unsupported version(s)'
+    - 'lint: github.com/cilium/cilium: version issue: introduced and fixed versions must alternate'
     - 'lint: redundant non-advisory reference to GHSA-pg5p-wwp8-97g8'

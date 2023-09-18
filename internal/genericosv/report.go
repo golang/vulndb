@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	osvschema "github.com/google/osv-scanner/pkg/models"
+	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
 	"golang.org/x/mod/module"
 	"golang.org/x/vulndb/internal/cveschema5"
@@ -82,6 +83,12 @@ func affectedToModules(as []osvschema.Affected, addNote addNoteFunc, pc *proxy.C
 			addIncompatible(m, pc)
 		}
 		canonicalize(m, pc)
+	}
+
+	modules = merge(modules)
+
+	// Fix the versions *after* the modules have been merged.
+	for _, m := range modules {
 		m.FixVersions(pc)
 	}
 
@@ -285,6 +292,50 @@ func sortModules(ms []*report.Module) {
 		}
 		return m1.Module < m2.Module
 	})
+}
+
+// merge merges all modules with the same module & package info
+// (but possibly different versions) into one.
+func merge(ms []*report.Module) []*report.Module {
+	type compMod struct {
+		path     string
+		packages string // sorted, comma separated list of package names
+	}
+
+	toCompMod := func(m *report.Module) compMod {
+		var packages []string
+		for _, p := range m.Packages {
+			packages = append(packages, p.Package)
+		}
+		return compMod{
+			path:     m.Module,
+			packages: strings.Join(packages, ","),
+		}
+	}
+
+	merge := func(m1, m2 *report.Module) *report.Module {
+		// only run if m1 and m2 are same except versions
+		// deletes vulnerable_at if set
+		return &report.Module{
+			Module:              m1.Module,
+			Versions:            append(m1.Versions, m2.Versions...),
+			UnsupportedVersions: append(m1.UnsupportedVersions, m2.UnsupportedVersions...),
+			Packages:            m1.Packages,
+		}
+	}
+
+	modules := make(map[compMod]*report.Module)
+	for _, m := range ms {
+		c := toCompMod(m)
+		mod, ok := modules[c]
+		if !ok {
+			modules[c] = m
+		} else {
+			modules[c] = merge(mod, m)
+		}
+	}
+
+	return maps.Values(modules)
 }
 
 func first(vrs []report.VersionRange) string {

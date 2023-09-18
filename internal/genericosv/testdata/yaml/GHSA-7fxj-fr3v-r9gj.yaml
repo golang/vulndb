@@ -1,14 +1,11 @@
 id: GO-TEST-ID
 modules:
     - module: github.com/pingcap/tidb
-      unsupported_versions:
-        - version: 6.1.2
-          type: last_affected
-      vulnerable_at: 1.0.9
-    - module: github.com/pingcap/tidb
       versions:
         - introduced: 6.2.0
       unsupported_versions:
+        - version: 6.1.2
+          type: last_affected
         - version: 6.4.0-alpha1
           type: last_affected
 summary: TiDB vulnerable to Use of Externally-Controlled Format String
@@ -29,5 +26,4 @@ references:
     - web: https://huntr.dev/bounties/120f1346-e958-49d0-b66c-0f889a469540
 notes:
     - 'lint: github.com/pingcap/tidb: bad version "6.2.0": github.com/pingcap/tidb@v6.2.0: invalid version: should be v0 or v1, not v6'
-    - 'lint: github.com/pingcap/tidb: version issue: 1 unsupported version(s)'
-    - 'lint: github.com/pingcap/tidb: version issue: 1 unsupported version(s)'
+    - 'lint: github.com/pingcap/tidb: version issue: 2 unsupported version(s)'

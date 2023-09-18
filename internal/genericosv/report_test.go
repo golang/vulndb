@@ -236,6 +236,58 @@ func TestAffectedToModules(t *testing.T) {
 			}},
 		},
 		{
+			name: "merge_modules",
+			desc: "merge modules that are the same except for versions",
+			in: []osvschema.Affected{{
+				Package: osvschema.Package{
+					Ecosystem: osvschema.EcosystemGo,
+					Name:      "github.com/hashicorp/go-getter/v2",
+				},
+				Ranges: []osvschema.Range{{
+					Type: osvschema.RangeEcosystem,
+					Events: []osvschema.Event{
+						{
+							Introduced: "2.0.0",
+						},
+						{
+							Fixed: "2.0.2",
+						},
+					},
+				}},
+			},
+				{
+					Package: osvschema.Package{
+						Ecosystem: osvschema.EcosystemGo,
+						Name:      "github.com/hashicorp/go-getter/v2",
+					},
+					Ranges: []osvschema.Range{{
+						Type: osvschema.RangeEcosystem,
+						Events: []osvschema.Event{
+							{
+								Introduced: "2.1.0",
+							},
+							{
+								Fixed: "2.1.1",
+							},
+						},
+					}},
+				}},
+			want: []*report.Module{{
+				Module: "github.com/hashicorp/go-getter/v2",
+				Versions: []report.VersionRange{
+					{
+						Introduced: "2.0.0",
+						Fixed:      "2.0.2",
+					},
+					{
+						Introduced: "2.1.0",
+						Fixed:      "2.1.1",
+					},
+				},
+				VulnerableAt: "2.1.0",
+			}},
+		},
+		{
 			name: "remove_duplicates",
 			desc: "remove major version duplicates",
 			in: []osvschema.Affected{{
@@ -286,7 +338,7 @@ func TestAffectedToModules(t *testing.T) {
 	} {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			if tc.skip {
 				t.Skip("skipping (not implemented yet)")
 			}
