@@ -14,7 +14,6 @@ import (
 	"net/http"
 	"os"
 	urlpath "path"
-	"regexp"
 	"sort"
 	"strings"
 	"sync"
@@ -102,6 +101,13 @@ func (c *Client) latest(path string) ([]byte, error) {
 }
 
 func (c *Client) info(path string, ver string) ([]byte, error) {
+	// module.Check does not accept commit hash versions,
+	// but the proxy does (for "info" requests).
+	if !version.IsCommitHash(ver) {
+		if err := module.Check(path, vv(ver)); err != nil {
+			return nil, err
+		}
+	}
 	ep, ev, err := escapePathAndVersion(path, ver)
 	if err != nil {
 		return nil, err
@@ -110,6 +116,9 @@ func (c *Client) info(path string, ver string) ([]byte, error) {
 }
 
 func (c *Client) mod(path string, ver string) ([]byte, error) {
+	if err := module.Check(path, vv(ver)); err != nil {
+		return nil, err
+	}
 	ep, ev, err := escapePathAndVersion(path, ver)
 	if err != nil {
 		return nil, err
@@ -117,24 +126,24 @@ func (c *Client) mod(path string, ver string) ([]byte, error) {
 	return c.lookup(fmt.Sprintf("%s/@v/%v.mod", ep, ev))
 }
 
-var commitHashRegex = regexp.MustCompile(`^[a-f0-9]+$`)
-
+// escapePathAndVersion escapes the module path and version.
 func escapePathAndVersion(path, ver string) (ePath, eVersion string, err error) {
-	ePath, err = module.EscapePath(path)
-	if err != nil {
+	vv := vv(ver)
+	if ePath, err = module.EscapePath(path); err != nil {
 		return "", "", err
 	}
-	if version.IsCommitHash(ver) {
-		return ePath, ver, nil
-	}
-	eVersion, err = module.EscapeVersion("v" + ver)
-	if err != nil {
-		return "", "", err
-	}
-	if err := module.Check(ePath, eVersion); err != nil {
+	if eVersion, err = module.EscapeVersion(vv); err != nil {
 		return "", "", err
 	}
 	return ePath, eVersion, err
+}
+
+func vv(ver string) string {
+	// The proxy does not expect a "v" prefix for commit hashes.
+	if version.IsCommitHash(ver) {
+		return ver
+	}
+	return "v" + ver
 }
 
 func (c *Client) CanonicalModulePath(path, version string) (_ string, err error) {

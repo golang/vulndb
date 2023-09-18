@@ -39,6 +39,12 @@ func TestCanonicalModulePath(t *testing.T) {
 			version: "0.0.0-20230522180520-0cbf4ffdb4e7",
 			want:    "golang.org/x/vulndb",
 		},
+		{
+			name:    "module needs to be escaped",
+			path:    "github.com/RobotsAndPencils/go-saml",
+			version: "0.0.0-20230606195814-29020529affc",
+			want:    "github.com/RobotsAndPencils/go-saml",
+		},
 	}
 
 	for _, tc := range tcs {
@@ -84,6 +90,12 @@ func TestCanonicalModuleVersion(t *testing.T) {
 			version: "0cbf4ffdb4e70fce663ec8d59198745b04e7801b",
 			want:    "0.0.0-20230522180520-0cbf4ffdb4e7",
 		},
+		{
+			name:    "module needs to be escaped",
+			path:    "github.com/RobotsAndPencils/go-saml",
+			version: "0.0.0-20230606195814-29020529affc",
+			want:    "0.0.0-20230606195814-29020529affc",
+		},
 	}
 
 	for _, tc := range tcs {
@@ -121,6 +133,12 @@ func TestModuleExistsAtTaggedVersion(t *testing.T) {
 			name:    "non-canonical module ok",
 			path:    "github.com/golang/vuln",
 			version: "0.1.0",
+			want:    true,
+		},
+		{
+			name:    "module needs to be escaped",
+			path:    "github.com/Masterminds/squirrel",
+			version: "1.5.4",
 			want:    true,
 		},
 		{
@@ -178,6 +196,11 @@ func TestVersions(t *testing.T) {
 				"1.0.1",
 			},
 		},
+		{
+			name: "module needs to be escaped",
+			path: "github.com/RobotsAndPencils/go-saml",
+			want: nil, // no tagged versions
+		},
 	}
 
 	for _, tc := range tcs {
@@ -210,6 +233,11 @@ func TestLatest(t *testing.T) {
 		{
 			path: "golang.org/x/vuln",
 			want: "1.0.1",
+		},
+		{
+			// module needs to be escaped
+			path: "github.com/RobotsAndPencils/go-saml",
+			want: "0.0.0-20230606195814-29020529affc",
 		},
 	}
 
