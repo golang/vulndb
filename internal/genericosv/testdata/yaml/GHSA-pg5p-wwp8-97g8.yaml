@@ -3,6 +3,9 @@ modules:
     - module: github.com/cilium/cilium
       versions:
         - introduced: 1.7.0
+      unsupported_versions:
+        - version: 1.10.0
+          type: last_affected
       vulnerable_at: 1.14.2
     - module: github.com/cilium/cilium
       versions:
@@ -68,5 +71,5 @@ references:
     - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-29002
     - package: https://github.com/cilium/cilium
 notes:
-    - 'create: unsupported version range event models.Event{Introduced:"", Fixed:"", LastAffected:"1.10.0", Limit:""}'
+    - 'lint: github.com/cilium/cilium: version issue: 1 unsupported version(s)'
     - 'lint: redundant non-advisory reference to GHSA-pg5p-wwp8-97g8'

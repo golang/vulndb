@@ -3,6 +3,9 @@ modules:
     - module: github.com/zhaojh329/rttys
       versions:
         - introduced: 4.0.0
+      unsupported_versions:
+        - version: 4.0.2
+          type: last_affected
 summary: rttys SQL Injection vulnerability
 description: |-
     SQL Injection vulnerability in rttys versions 4.0.0, 4.0.1, and 4.0.2 in api.go,
@@ -16,5 +19,5 @@ references:
     - web: https://github.com/zhaojh329/rttys/issues/117
     - package: https://github.com/zhaojh329/rttys
 notes:
-    - 'create: unsupported version range event models.Event{Introduced:"", Fixed:"", LastAffected:"4.0.2", Limit:""}'
     - 'lint: github.com/zhaojh329/rttys: bad version "4.0.0": github.com/zhaojh329/rttys@v4.0.0: invalid version: should be v0 or v1, not v4'
+    - 'lint: github.com/zhaojh329/rttys: version issue: 1 unsupported version(s)'

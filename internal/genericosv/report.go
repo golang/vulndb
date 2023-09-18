@@ -68,9 +68,11 @@ func affectedToModules(as []osvschema.Affected, addNote addNoteFunc, pc *proxy.C
 			continue
 		}
 
+		versions, unsupportedVersions := convertVersions(a.Ranges)
 		modules = append(modules, &report.Module{
-			Module:   a.Package.Name,
-			Versions: convertVersions(a.Ranges, addNote),
+			Module:              a.Package.Name,
+			Versions:            versions,
+			UnsupportedVersions: unsupportedVersions,
 		})
 	}
 
@@ -296,26 +298,41 @@ func first(vrs []report.VersionRange) string {
 	return ""
 }
 
-func convertVersions(rs []osvschema.Range, addNote addNoteFunc) []report.VersionRange {
+func convertVersions(rs []osvschema.Range) ([]report.VersionRange, []report.UnsupportedVersion) {
 	var vrs []report.VersionRange
+	var uvs []report.UnsupportedVersion
 	for _, r := range rs {
 		for _, e := range r.Events {
-			var vr report.VersionRange
-			switch {
-			case e.Introduced == "0":
-				continue
-			case e.Introduced != "":
-				vr.Introduced = e.Introduced
-			case e.Fixed != "":
-				vr.Fixed = e.Fixed
-			default:
-				addNote(fmt.Sprintf("create: unsupported version range event %#v", e))
+			if e.Introduced != "" || e.Fixed != "" {
+				var vr report.VersionRange
+				switch {
+				case e.Introduced == "0":
+					continue
+				case e.Introduced != "":
+					vr.Introduced = e.Introduced
+				case e.Fixed != "":
+					vr.Fixed = e.Fixed
+				}
+				vrs = append(vrs, vr)
 				continue
 			}
-			vrs = append(vrs, vr)
+
+			var uv report.UnsupportedVersion
+			switch {
+			case e.LastAffected != "":
+				uv.Version = e.LastAffected
+				uv.Type = "last_affected"
+			case e.Limit != "":
+				uv.Version = e.Limit
+				uv.Type = "limit"
+			default:
+				uv.Version = fmt.Sprint(e)
+				uv.Type = "unknown"
+			}
+			uvs = append(uvs, uv)
 		}
 	}
-	return vrs
+	return vrs, uvs
 }
 
 func convertRef(ref osvschema.Reference) *report.Reference {

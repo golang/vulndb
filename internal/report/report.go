@@ -28,9 +28,18 @@ type VersionRange struct {
 	Fixed      string `yaml:"fixed,omitempty"`
 }
 
+type UnsupportedVersion struct {
+	Version string `yaml:",omitempty"`
+	Type    string `yaml:",omitempty"`
+}
+
 type Module struct {
 	Module   string         `yaml:",omitempty"`
 	Versions []VersionRange `yaml:",omitempty"`
+	// Version types that exist in OSV, but we don't support.
+	// These may be added when automatically creating a report,
+	// but must be deleted in order to pass lint checks.
+	UnsupportedVersions []UnsupportedVersion `yaml:"unsupported_versions,omitempty"`
 	// Known-vulnerable version, to use when performing static analysis or
 	// other techniques on a vulnerable version of the package.
 	//

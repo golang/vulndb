@@ -78,6 +78,9 @@ func (m *Module) lintThirdParty(addPkgIssue func(string)) {
 }
 
 func (m *Module) lintVersions(addPkgIssue func(string)) {
+	if u := len(m.UnsupportedVersions); u > 0 {
+		addPkgIssue(fmt.Sprintf("version issue: %d unsupported version(s)", u))
+	}
 	ranges := AffectedRanges(m.Versions)
 	if v := m.VulnerableAt; v != "" {
 		affected, err := osvutils.AffectsSemver(ranges, v)
