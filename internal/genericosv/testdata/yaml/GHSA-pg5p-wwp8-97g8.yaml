@@ -58,10 +58,9 @@ cves:
 ghsas:
     - GHSA-pg5p-wwp8-97g8
 references:
-    - web: https://github.com/cilium/cilium/security/advisories/GHSA-pg5p-wwp8-97g8
+    - advisory: https://github.com/cilium/cilium/security/advisories/GHSA-pg5p-wwp8-97g8
     - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-29002
-    - package: https://github.com/cilium/cilium
 notes:
     - 'lint: github.com/cilium/cilium: version issue: 1 unsupported version(s)'
     - 'lint: github.com/cilium/cilium: version issue: introduced and fixed versions must alternate'
-    - 'lint: redundant non-advisory reference to GHSA-pg5p-wwp8-97g8'
+    - 'lint: references should contain at most one advisory link'

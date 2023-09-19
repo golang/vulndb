@@ -13,6 +13,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	osvschema "github.com/google/osv-scanner/pkg/models"
+	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
 )
@@ -338,7 +339,7 @@ func TestAffectedToModules(t *testing.T) {
 	} {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
-			// t.Parallel()
+			t.Parallel()
 			if tc.skip {
 				t.Skip("skipping (not implemented yet)")
 			}
@@ -361,5 +362,151 @@ func TestAffectedToModules(t *testing.T) {
 			}
 		})
 
+	}
+}
+
+func TestFixRefs(t *testing.T) {
+	for _, tc := range []struct {
+		name     string
+		in, want []*report.Reference
+	}{
+		{
+			// GHSA and CVE references are converted to advisory type
+			name: "to_advisory",
+			in: []*report.Reference{
+				{
+					URL:  "https://github.com/example/module/security/advisories/GHSA-xxxx-yyyy-zzz",
+					Type: osv.ReferenceTypeWeb,
+				},
+				{
+					URL:  "https://github.com/advisories/GHSA-1234-5678-9101",
+					Type: osv.ReferenceTypeWeb,
+				},
+				{
+					URL:  "https://nvd.nist.gov/vuln/detail/CVE-1999-0001",
+					Type: osv.ReferenceTypeWeb,
+				},
+				{
+					URL:  "https://nvd.nist.gov/vuln/detail/CVE-1999-2222",
+					Type: osv.ReferenceTypeWeb,
+				},
+				{
+					URL:  "https://github.com/other/module/security/advisories/GHSA-xxxx-yyyy-zzz",
+					Type: osv.ReferenceTypeWeb,
+				},
+			},
+			want: []*report.Reference{
+				{
+					URL:  "https://github.com/example/module/security/advisories/GHSA-xxxx-yyyy-zzz",
+					Type: osv.ReferenceTypeAdvisory,
+				},
+				{
+					URL:  "https://github.com/advisories/GHSA-1234-5678-9101",
+					Type: osv.ReferenceTypeAdvisory,
+				},
+				{
+					URL:  "https://nvd.nist.gov/vuln/detail/CVE-1999-0001",
+					Type: osv.ReferenceTypeAdvisory,
+				},
+				{
+					URL:  "https://nvd.nist.gov/vuln/detail/CVE-1999-2222",
+					Type: osv.ReferenceTypeWeb, // different CVE, keep "web" type
+				},
+				{
+					URL:  "https://github.com/other/module/security/advisories/GHSA-xxxx-yyyy-zzz",
+					Type: osv.ReferenceTypeAdvisory, // different module OK, because GHSA matches
+				},
+			},
+		},
+		{
+			name: "to_fix_or_report",
+			in: []*report.Reference{
+				{
+					URL:  "https://github.com/example/module/pull/123",
+					Type: osv.ReferenceTypeWeb,
+				},
+				{
+					URL:  "https://github.com/example/module/commit/123",
+					Type: osv.ReferenceTypeWeb,
+				},
+				{
+					URL:  "https://github.com/module/module/issues/123",
+					Type: osv.ReferenceTypeWeb,
+				},
+				{
+					URL:  "https://github.com/example/module/issue/123",
+					Type: osv.ReferenceTypeWeb,
+				},
+				{
+					URL:  "https://github.com/different/module/issue/123",
+					Type: osv.ReferenceTypeWeb,
+				},
+			},
+			want: []*report.Reference{
+				{
+					URL:  "https://github.com/example/module/pull/123",
+					Type: osv.ReferenceTypeFix,
+				},
+				{
+					URL:  "https://github.com/example/module/commit/123",
+					Type: osv.ReferenceTypeFix,
+				},
+				{
+					URL:  "https://github.com/module/module/issues/123",
+					Type: osv.ReferenceTypeReport,
+				},
+				{
+					URL:  "https://github.com/example/module/issue/123",
+					Type: osv.ReferenceTypeReport,
+				},
+				{
+					URL:  "https://github.com/different/module/issue/123",
+					Type: osv.ReferenceTypeWeb, // different module, keep web type
+				},
+			},
+		},
+		{
+			// package references and go advisory references are deleted
+			name: "delete",
+			in: []*report.Reference{
+				{
+					URL:  "https://pkg.go.dev/vuln/GO-0000-0000",
+					Type: osv.ReferenceTypeWeb,
+				},
+				{
+					URL:  "https://github.com/anything",
+					Type: osv.ReferenceTypePackage,
+				},
+				{
+					URL:  "https://example.com",
+					Type: osv.ReferenceTypePackage,
+				},
+			},
+			want: nil,
+		},
+	} {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			r := &report.Report{
+				Modules: []*report.Module{
+					{
+						Module: "github.com/example/module",
+					},
+					{
+						Module: "github.com/module/module",
+					},
+				},
+				GHSAs:      []string{"GHSA-xxxx-yyyy-zzz", "GHSA-1234-5678-9101"},
+				CVEs:       []string{"CVE-1999-0001", "CVE-1999-0002"},
+				References: tc.in,
+			}
+			fixRefs(r)
+			got := r.References
+			if diff := cmp.Diff(tc.want, got); diff != "" {
+				t.Errorf("fixRefs() mismatch (-want +got)\n%s", diff)
+			}
+		})
 	}
 }

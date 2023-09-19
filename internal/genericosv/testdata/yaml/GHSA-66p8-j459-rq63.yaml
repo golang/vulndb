@@ -38,11 +38,10 @@ cves:
 ghsas:
     - GHSA-66p8-j459-rq63
 references:
-    - web: https://github.com/pterodactyl/wings/security/advisories/GHSA-66p8-j459-rq63
+    - advisory: https://github.com/pterodactyl/wings/security/advisories/GHSA-66p8-j459-rq63
     - web: https://github.com/pterodactyl/wings/security/advisories/GHSA-p8r3-83r8-jwj5
     - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-25168
-    - web: https://github.com/pterodactyl/wings/commit/429ac62dba22997a278bc709df5ac00a5a25d83d
-    - package: https://github.com/pterodactyl/wings
+    - fix: https://github.com/pterodactyl/wings/commit/429ac62dba22997a278bc709df5ac00a5a25d83d
 notes:
-    - 'lint: redundant non-advisory reference to GHSA-66p8-j459-rq63'
+    - 'lint: references should contain at most one advisory link'
     - 'lint: summary is too long: 131 characters (max 100)'

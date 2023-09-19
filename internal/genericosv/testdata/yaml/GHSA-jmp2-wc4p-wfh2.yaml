@@ -54,11 +54,10 @@ cves:
 ghsas:
     - GHSA-jmp2-wc4p-wfh2
 references:
-    - web: https://github.com/mutagen-io/mutagen/security/advisories/GHSA-jmp2-wc4p-wfh2
+    - advisory: https://github.com/mutagen-io/mutagen/security/advisories/GHSA-jmp2-wc4p-wfh2
     - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-30844
-    - package: https://github.com/mutagen-io/mutagen
     - web: https://github.com/mutagen-io/mutagen/releases/tag/v0.16.6
     - web: https://github.com/mutagen-io/mutagen/releases/tag/v0.17.1
 notes:
-    - 'lint: redundant non-advisory reference to GHSA-jmp2-wc4p-wfh2'
+    - 'lint: references should contain at most one advisory link'
     - 'lint: summary is too long: 111 characters (max 100)'

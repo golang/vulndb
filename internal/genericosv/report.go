@@ -6,6 +6,7 @@ package genericosv
 
 import (
 	"fmt"
+	"regexp"
 	"sort"
 	"strings"
 
@@ -49,6 +50,7 @@ func (osv *Entry) ToReport(goID string, pc *proxy.Client) *report.Report {
 		r.References = append(r.References, convertRef(ref))
 	}
 	r.Modules = affectedToModules(osv.Affected, addNote, pc)
+	fixRefs(r)
 	r.Credits = convertCredits(osv.Credits)
 	r.Fix(pc)
 	if lints := r.Lint(pc); len(lints) > 0 {
@@ -386,10 +388,68 @@ func convertVersions(rs []osvschema.Range) ([]report.VersionRange, []report.Unsu
 	return vrs, uvs
 }
 
+var (
+	goAdvisory = regexp.MustCompile(`^https://pkg.go.dev/vuln/.*$`)
+)
+
 func convertRef(ref osvschema.Reference) *report.Reference {
 	return &report.Reference{
 		Type: osv.ReferenceType(ref.Type),
 		URL:  ref.URL,
+	}
+}
+
+// fixRefs deletes some unneeded references, and attempts to fix reference types.
+// Modifies r.
+//
+// Deletes:
+//   - "package"-type references
+//   - Go advisory references (these are redundant for us)
+//
+// Changes:
+//   - reference type to "advisory" for GHSA and CVE links.
+//   - reference type to "fix" for Github pull requests and commit links in one of
+//     the affected modules
+//   - reference type to "report" for Github issues in one of
+//     the affected modules
+func fixRefs(r *report.Report) {
+	r.References = slices.DeleteFunc(r.References, func(ref *report.Reference) bool {
+		return ref.Type == osv.ReferenceTypePackage ||
+			goAdvisory.MatchString(ref.URL)
+	})
+
+	if len(r.References) == 0 {
+		r.References = nil
+		return
+	}
+
+	oneOfRE := func(s []string) string {
+		return `(` + strings.Join(s, "|") + `)`
+	}
+
+	ghsaAdvisory := regexp.MustCompile(`^https://github.com/.*advisories/(` + oneOfRE(r.GHSAs) + `)$`)
+	cveAdvisory := regexp.MustCompile(`^https://nvd.nist.gov/vuln/detail/(` + oneOfRE(r.CVEs) + `)$`)
+
+	// For now, this will not attempt to fix reference types for
+	// modules whose canonical names are different from their github path.
+	var modulePaths []string
+	for _, m := range r.Modules {
+		modulePaths = append(modulePaths, m.Module)
+	}
+	moduleRE := oneOfRE(modulePaths)
+	issue := regexp.MustCompile(`https://` + moduleRE + `/issue(s?)/.*$`)
+	fix := regexp.MustCompile(`https://` + moduleRE + `/(commit(s?)|pull)/.*$`)
+
+	for _, ref := range r.References {
+		switch {
+		case ghsaAdvisory.MatchString(ref.URL) ||
+			cveAdvisory.MatchString(ref.URL):
+			ref.Type = osv.ReferenceTypeAdvisory
+		case issue.MatchString(ref.URL):
+			ref.Type = osv.ReferenceTypeReport
+		case fix.MatchString(ref.URL):
+			ref.Type = osv.ReferenceTypeFix
+		}
 	}
 }
 

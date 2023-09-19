@@ -15,10 +15,9 @@ cves:
 ghsas:
     - GHSA-cf7g-cm7q-rq7f
 references:
-    - web: https://github.com/drakkan/sftpgo/security/advisories/GHSA-cf7g-cm7q-rq7f
+    - advisory: https://github.com/drakkan/sftpgo/security/advisories/GHSA-cf7g-cm7q-rq7f
     - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-39220
-    - web: https://github.com/drakkan/sftpgo/commit/cbef217cfa92478ee8e00ba1a5fb074f8a8aeee0
-    - package: https://github.com/drakkan/sftpgo
+    - fix: https://github.com/drakkan/sftpgo/commit/cbef217cfa92478ee8e00ba1a5fb074f8a8aeee0
 notes:
     - 'lint: github.com/drakkan/sftpgo: bad version "2.3.5": github.com/drakkan/sftpgo@v2.3.5: invalid version: should be v0 or v1, not v2'
-    - 'lint: redundant non-advisory reference to GHSA-cf7g-cm7q-rq7f'
+    - 'lint: references should contain at most one advisory link'

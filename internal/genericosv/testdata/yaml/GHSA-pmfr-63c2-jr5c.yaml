@@ -61,7 +61,7 @@ cves:
 ghsas:
     - GHSA-pmfr-63c2-jr5c
 references:
-    - web: https://github.com/hpcng/singularity/security/advisories/GHSA-pmfr-63c2-jr5c
+    - advisory: https://github.com/hpcng/singularity/security/advisories/GHSA-pmfr-63c2-jr5c
     - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-13845
     - web: https://medium.com/sylabs
     - web: http://lists.opensuse.org/opensuse-security-announce/2020-07/msg00046.html
@@ -69,4 +69,4 @@ references:
     - web: http://lists.opensuse.org/opensuse-security-announce/2020-09/msg00053.html
 notes:
     - 'lint: github.com/sylabs/singularity: bad version "3.6.0": github.com/sylabs/singularity@v3.6.0: invalid version: should be v0 or v1, not v3'
-    - 'lint: redundant non-advisory reference to GHSA-pmfr-63c2-jr5c'
+    - 'lint: references should contain at most one advisory link'

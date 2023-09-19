@@ -20,10 +20,9 @@ cves:
 ghsas:
     - GHSA-g5gj-9ggf-9vmq
 references:
-    - web: https://github.com/cloudflare/cfrpki/security/advisories/GHSA-g5gj-9ggf-9vmq
+    - advisory: https://github.com/cloudflare/cfrpki/security/advisories/GHSA-g5gj-9ggf-9vmq
     - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-3908
-    - package: https://github.com/cloudflare/cfrpki
     - web: https://github.com/cloudflare/cfrpki/releases/tag/v1.4.0
     - web: https://www.debian.org/security/2022/dsa-5041
 notes:
-    - 'lint: redundant non-advisory reference to GHSA-g5gj-9ggf-9vmq'
+    - 'lint: references should contain at most one advisory link'
