@@ -55,6 +55,9 @@ func TestToReport(t *testing.T) {
 			}
 
 			got := osv.ToReport("GO-TEST-ID", pc)
+			// Keep record of what lints would apply to each generated report.
+			got.LintAsNotes(pc)
+
 			yamlFile := filepath.Join(testYAMLDir, ghsaID+".yaml")
 			if *update {
 				if err := got.Write(yamlFile); err != nil {

@@ -55,16 +55,8 @@ func (osv *Entry) ToReport(goID string, pc *proxy.Client) *report.Report {
 	fixRefs(r)
 
 	r.Credits = convertCredits(osv.Credits)
+
 	r.Fix(pc)
-	if lints := r.Lint(pc); len(lints) > 0 {
-		slices.Sort(lints)
-		for _, lint := range lints {
-			r.Notes = append(r.Notes, &report.Note{
-				Body: lint,
-				Type: report.NoteTypeLint,
-			})
-		}
-	}
 	return r
 }
 

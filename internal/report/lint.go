@@ -287,6 +287,29 @@ func (r *Report) Lint(pc *proxy.Client) []string {
 	return result
 }
 
+// LintAsNotes works like Lint, but modifies r by adding any lints found
+// to the notes section, instead of returning them.
+// Removes any pre-existing lint notes.
+// Returns true if any lints were found.
+func (r *Report) LintAsNotes(pc *proxy.Client) bool {
+	r.Notes = slices.DeleteFunc(r.Notes, func(n *Note) bool {
+		return n.Type == NoteTypeLint
+	})
+
+	if lints := r.Lint(pc); len(lints) > 0 {
+		slices.Sort(lints)
+		for _, lint := range lints {
+			r.Notes = append(r.Notes, &Note{
+				Body: lint,
+				Type: NoteTypeLint,
+			})
+		}
+		return true
+	}
+
+	return false
+}
+
 // LintOffline performs all lint checks that don't require a network connection.
 func (r *Report) LintOffline() []string {
 	return r.lint(nil)
