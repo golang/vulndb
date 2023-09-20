@@ -278,7 +278,7 @@ func addIncompatible(m *report.Module, pc *proxy.Client) {
 }
 
 func sortModules(ms []*report.Module) {
-	sort.Slice(ms, func(i, j int) bool {
+	sort.SliceStable(ms, func(i, j int) bool {
 		m1, m2 := ms[i], ms[j]
 		// Break ties by lowest affected version, assuming the version list is sorted.
 		if m1.Module == m2.Module {
