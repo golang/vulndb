@@ -349,16 +349,9 @@ func TestAffectedToModules(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			var gotNotes []string
-			addNote := func(note string) {
-				gotNotes = append(gotNotes, note)
-			}
-			got := affectedToModules(tc.in, addNote, pc)
+			got := affectedToModules(tc.in, pc)
 			if diff := cmp.Diff(tc.want, got); diff != "" {
 				t.Errorf("%s: affectedToModules() mismatch (-want +got)\n%s", tc.desc, diff)
-			}
-			if len(gotNotes) > 0 {
-				t.Errorf("%s: affectedToModules() output unexpected notes = %s", tc.desc, gotNotes)
 			}
 		})
 

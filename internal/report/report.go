@@ -102,13 +102,13 @@ var ExcludedReasons = []ExcludedReason{
 // single-element mapping of type to URL.
 type Reference osv.Reference
 
-func (r *Reference) MarshalYAML() (interface{}, error) {
+func (r *Reference) MarshalYAML() (any, error) {
 	return map[string]string{
 		strings.ToLower(string(r.Type)): r.URL,
 	}, nil
 }
 
-func (r *Reference) UnmarshalYAML(n *yaml.Node) (err error) {
+func (r *Reference) UnmarshalYAML(n *yaml.Node) error {
 	if n.Kind != yaml.MappingNode || len(n.Content) != 2 || n.Content[0].Kind != yaml.ScalarNode || n.Content[1].Kind != yaml.ScalarNode {
 		return &yaml.TypeError{Errors: []string{
 			fmt.Sprintf("line %d: report.Reference must contain a mapping with one value", n.Line),
@@ -116,6 +116,50 @@ func (r *Reference) UnmarshalYAML(n *yaml.Node) (err error) {
 	}
 	r.Type = osv.ReferenceType(strings.ToUpper(n.Content[0].Value))
 	r.URL = n.Content[1].Value
+	return nil
+}
+
+// A Note is a note about the report.
+// May be typed or untyped (with Type left blank).
+type Note struct {
+	Body string
+	Type NoteType
+}
+
+type NoteType string
+
+const (
+	NoteTypeNone   NoteType = ""
+	NoteTypeLint   NoteType = "LINT"
+	NoteTypeFix    NoteType = "FIX"
+	NoteTypeCreate NoteType = "CREATE"
+)
+
+func (n *Note) MarshalYAML() (any, error) {
+	if n.Type == NoteTypeNone {
+		return n.Body, nil
+	}
+	return map[string]string{
+		strings.ToLower(string(n.Type)): n.Body,
+	}, nil
+}
+
+func (n *Note) UnmarshalYAML(node *yaml.Node) error {
+	// Handle untyped notes.
+	if node.Kind == yaml.ScalarNode {
+		n.Type = NoteTypeNone
+		n.Body = node.Value
+		return nil
+	}
+
+	// Handle typed notes.
+	if node.Kind != yaml.MappingNode || len(node.Content) != 2 || node.Content[0].Kind != yaml.ScalarNode || node.Content[1].Kind != yaml.ScalarNode {
+		return &yaml.TypeError{Errors: []string{
+			fmt.Sprintf("line %d: typed Note must contain a mapping with one value", node.Line),
+		}}
+	}
+	n.Type = NoteType(strings.ToUpper(node.Content[0].Value))
+	n.Body = node.Content[1].Value
 	return nil
 }
 
@@ -153,11 +197,11 @@ type Report struct {
 	// to fill in the ID string.
 	CVEMetadata *CVEMeta `yaml:"cve_metadata,omitempty"`
 
-	// Freeform notes about the report. This field is ignored when creating
+	// Notes about the report. This field is ignored when creating
 	// OSV and CVE records. It can be used to document decisions made when
 	// creating the report, outstanding issues, or anything else worth
 	// mentioning.
-	Notes []string `yaml:",omitempty"`
+	Notes []*Note `yaml:",omitempty"`
 }
 
 // GoCVE returns the CVE assigned to this report by the Go CNA,

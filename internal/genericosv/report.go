@@ -29,9 +29,6 @@ func (osv *Entry) ToReport(goID string, pc *proxy.Client) *report.Report {
 		Summary:     osv.Summary,
 		Description: osv.Details,
 	}
-	addNote := func(note string) {
-		r.Notes = append(r.Notes, note)
-	}
 	addAlias := func(alias string) {
 		switch {
 		case cveschema5.IsCVE(alias):
@@ -39,32 +36,39 @@ func (osv *Entry) ToReport(goID string, pc *proxy.Client) *report.Report {
 		case ghsa.IsGHSA(alias):
 			r.GHSAs = append(r.GHSAs, alias)
 		default:
-			addNote(fmt.Sprintf("create: found alias %s that is not a GHSA or CVE", alias))
+			r.Notes = append(r.Notes, &report.Note{
+				Body: fmt.Sprintf("found alias %s that is not a GHSA or CVE", alias),
+				Type: report.NoteTypeCreate,
+			})
 		}
 	}
 	addAlias(osv.ID)
 	for _, alias := range osv.Aliases {
 		addAlias(alias)
 	}
+
+	r.Modules = affectedToModules(osv.Affected, pc)
+
 	for _, ref := range osv.References {
 		r.References = append(r.References, convertRef(ref))
 	}
-	r.Modules = affectedToModules(osv.Affected, addNote, pc)
 	fixRefs(r)
+
 	r.Credits = convertCredits(osv.Credits)
 	r.Fix(pc)
 	if lints := r.Lint(pc); len(lints) > 0 {
 		slices.Sort(lints)
 		for _, lint := range lints {
-			addNote(fmt.Sprintf("lint: %s", lint))
+			r.Notes = append(r.Notes, &report.Note{
+				Body: lint,
+				Type: report.NoteTypeLint,
+			})
 		}
 	}
 	return r
 }
 
-type addNoteFunc func(string)
-
-func affectedToModules(as []osvschema.Affected, addNote addNoteFunc, pc *proxy.Client) []*report.Module {
+func affectedToModules(as []osvschema.Affected, pc *proxy.Client) []*report.Module {
 	var modules []*report.Module
 	for _, a := range as {
 		if a.Package.Ecosystem != osvschema.EcosystemGo {
