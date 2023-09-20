@@ -56,12 +56,26 @@ func (m *ModulesIndex) UnmarshalJSON(data []byte) error {
 
 func (m ModulesIndex) MarshalJSON() ([]byte, error) {
 	modules := maps.Values(m)
-	slices.SortFunc(modules, func(m1, m2 *Module) bool {
-		return m1.Path < m2.Path
+	slices.SortStableFunc(modules, func(m1, m2 *Module) int {
+		switch {
+		case m1.Path < m2.Path:
+			return -1
+		case m1.Path > m2.Path:
+			return 1
+		default:
+			return 0
+		}
 	})
 	for _, module := range modules {
-		slices.SortFunc(module.Vulns, func(v1, v2 ModuleVuln) bool {
-			return v1.ID < v2.ID
+		slices.SortStableFunc(module.Vulns, func(v1, v2 ModuleVuln) int {
+			switch {
+			case v1.ID < v2.ID:
+				return -1
+			case v1.ID > v2.ID:
+				return 1
+			default:
+				return 0
+			}
 		})
 	}
 	return json.Marshal(modules)
@@ -117,8 +131,15 @@ type VulnsIndex map[string]*Vuln
 
 func (v VulnsIndex) MarshalJSON() ([]byte, error) {
 	vulns := maps.Values(v)
-	slices.SortFunc(vulns, func(v1, v2 *Vuln) bool {
-		return v1.ID < v2.ID
+	slices.SortStableFunc(vulns, func(v1, v2 *Vuln) int {
+		switch {
+		case v1.ID < v2.ID:
+			return -1
+		case v1.ID > v2.ID:
+			return 1
+		default:
+			return 0
+		}
 	})
 	return json.Marshal(vulns)
 }
