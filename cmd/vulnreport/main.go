@@ -603,7 +603,7 @@ func sorted[E constraints.Ordered](s []E) []E {
 	return s
 }
 
-const todo = "TODO: fill this out"
+const todo = "TODO: "
 
 // addTODOs adds "TODO" comments to unfilled fields of r.
 func addTODOs(r *report.Report) {
@@ -617,37 +617,44 @@ func addTODOs(r *report.Report) {
 	}
 	for _, m := range r.Modules {
 		if m.Module == "" {
-			m.Module = todo
+			m.Module = todo + "affected module path"
 		}
 		if len(m.Versions) == 0 {
 			m.Versions = []report.VersionRange{{
-				Introduced: todo,
-				Fixed:      todo,
+				Introduced: todo + "introduced version (blank if unknown)",
+				Fixed:      todo + "fixed version",
 			}}
 		}
 		if m.VulnerableAt == "" {
-			m.VulnerableAt = todo + " [and/or add skip_fix to skip a package]"
+			m.VulnerableAt = todo + "a version at which the package is vulnerable"
+		}
+		if len(m.Packages) == 0 {
+			m.Packages = []*report.Package{
+				{
+					Package: todo + "affected package path(s) - blank if all",
+				},
+			}
 		}
 		for _, p := range m.Packages {
 			if p.Package == "" {
-				p.Package = todo
+				p.Package = todo + "affected package path"
 			}
 			if len(p.Symbols) == 0 {
-				p.Symbols = []string{todo}
+				p.Symbols = []string{todo + "affected symbol(s) - blank if all"}
 			}
 		}
 	}
 	if r.Summary == "" {
-		r.Summary = "TODO: add a short (one phrase) summary of the form '<Problem> in <module>(s)'"
+		r.Summary = todo + "short (one phrase) summary of the form '<Problem> in <module>(s)'"
 	}
 	if r.Description == "" {
-		r.Description = todo
+		r.Description = todo + "description of the vulnerability"
 	}
 	if len(r.Credits) == 0 {
-		r.Credits = []string{todo}
+		r.Credits = []string{todo + "who discovered/reported this vulnerability (optional)"}
 	}
 	if len(r.CVEs) == 0 {
-		r.CVEs = []string{todo}
+		r.CVEs = []string{todo + "CVE id(s) for this vulnerability"}
 	}
 	addReferenceTODOs(r)
 }
@@ -693,15 +700,13 @@ func hasUnaddressedTodos(r *report.Report) bool {
 	return is(r.Summary) || is(r.Description) || any(r.Credits)
 }
 
-// addReferenceTODOs adds a TODO for each reference type not already present
-// in the report.
+// addReferenceTODOs adds a TODO for each important reference type not
+// already present in the report.
 func addReferenceTODOs(r *report.Report) {
 	todos := []*report.Reference{
 		{Type: osv.ReferenceTypeAdvisory, URL: "TODO: canonical security advisory"},
-		{Type: osv.ReferenceTypeArticle, URL: "TODO: article or blog post"},
 		{Type: osv.ReferenceTypeReport, URL: "TODO: issue tracker link"},
-		{Type: osv.ReferenceTypeFix, URL: "TODO: PR or commit"},
-		{Type: osv.ReferenceTypeWeb, URL: "TODO: web page of some unspecified kind"}}
+		{Type: osv.ReferenceTypeFix, URL: "TODO: PR or commit (commit preferred)"}}
 
 	types := make(map[osv.ReferenceType]bool)
 	for _, r := range r.References {
