@@ -53,7 +53,7 @@ var (
 	githubToken   = flag.String("ghtoken", "", "GitHub access token (default: value of VULN_GITHUB_ACCESS_TOKEN)")
 	skipSymbols   = flag.Bool("skip-symbols", false, "for lint and fix, don't load package for symbols checks")
 	skipAlias     = flag.Bool("skip-alias", false, "for fix, skip adding new GHSAs and CVEs")
-	ghsaOSV       = flag.Bool("ghsa-osv", false, "for create, fetch GHSAs in OSV format (experimental)")
+	graphQL       = flag.Bool("graphql", false, "for create, fetch GHSAs from the Github GraphQL API instead of the OSV database")
 	updateIssue   = flag.Bool("up", false, "for commit, create a CL that updates (doesn't fix) the tracking bug")
 	closedOk      = flag.Bool("closed-ok", false, "for create & create-excluded, allow closed issues to be created")
 	cpuprofile    = flag.String("cpuprofile", "", "write cpuprofile to file")
@@ -484,7 +484,7 @@ func newReport(ctx context.Context, cfg *createCfg, parsed *parsedIssue) (*repor
 	var r *report.Report
 	switch {
 	case len(parsed.ghsas) > 0:
-		if *ghsaOSV {
+		if !*graphQL {
 			ghsa, err := genericosv.Fetch(parsed.ghsas[0])
 			if err != nil {
 				return nil, err
