@@ -290,7 +290,19 @@ func sortModules(ms []*report.Module) {
 			} else if len(vr2) == 0 {
 				return false
 			}
-			return version.Before(first(vr1), first(vr2))
+
+			v1, v2 := first(vr1), first(vr2)
+			if v1 == v2 {
+				pkgs1, pkgs2 := m1.Packages, m2.Packages
+				if len(pkgs1) == 0 {
+					return true
+				} else if len(pkgs2) == 0 {
+					return false
+				}
+				return pkgs1[0].Package < pkgs2[0].Package
+			}
+
+			return version.Before(v1, v2)
 		}
 		return m1.Module < m2.Module
 	})
