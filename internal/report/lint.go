@@ -23,26 +23,41 @@ import (
 	"golang.org/x/vulndb/internal/stdlib"
 )
 
-func checkModVersions(modPath string, vrs []VersionRange, pc *proxy.Client) (err error) {
-	checkVersion := func(v string) error {
-		if v == "" {
-			return nil
-		}
-		canonicalPath, err := pc.CanonicalModulePath(modPath, v)
-		if err != nil {
-			return err
-		}
-		if canonicalPath != modPath {
-			return fmt.Errorf("non-canonical path %q (expected %q)", modPath, canonicalPath)
-		}
-		return nil
-	}
-	for _, vr := range vrs {
+func (m *Module) checkModVersions(pc *proxy.Client) error {
+	var notFound []string
+	var nonCanonical []string
+	for _, vr := range m.Versions {
 		for _, v := range []string{vr.Introduced, vr.Fixed} {
-			if err := checkVersion(v); err != nil {
-				return fmt.Errorf("bad version %q: %s", v, err)
+			if v == "" {
+				continue
+			}
+			c, err := pc.CanonicalModulePath(m.Module, v)
+			if err != nil {
+				notFound = append(notFound, v)
+				continue
+			}
+			if c != m.Module {
+				nonCanonical = append(nonCanonical, fmt.Sprintf("%s (canonical:%s)", v, c))
 			}
 		}
+	}
+	var sb strings.Builder
+	nf, nc := len(notFound), len(nonCanonical)
+	if nf > 0 {
+		if nf == 1 {
+			sb.WriteString(fmt.Sprintf("version %s does not exist", notFound[0]))
+		} else {
+			sb.WriteString(fmt.Sprintf("%d versions do not exist: %s", nf, strings.Join(notFound, ", ")))
+		}
+	}
+	if nc > 0 {
+		if nf > 0 {
+			sb.WriteString(" and ")
+		}
+		sb.WriteString(fmt.Sprintf("module is not canonical at %d version(s):\n%s", nc, strings.Join(nonCanonical, "\n")))
+	}
+	if s := sb.String(); s != "" {
+		return errors.New(s)
 	}
 	return nil
 }
@@ -370,7 +385,7 @@ func (r *Report) lint(pc *proxy.Client) []string {
 		} else {
 			m.lintThirdParty(addPkgIssue)
 			if pc != nil {
-				if err := checkModVersions(m.Module, m.Versions, pc); err != nil {
+				if err := m.checkModVersions(pc); err != nil {
 					addPkgIssue(err.Error())
 				}
 			}

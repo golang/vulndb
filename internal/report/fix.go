@@ -102,7 +102,7 @@ func (m *Module) fixVulnerableAt(pc *proxy.Client) {
 		return
 	}
 	// Don't attempt to guess if the given version ranges don't make sense.
-	if err := checkModVersions(m.Module, m.Versions, pc); err != nil {
+	if err := m.checkModVersions(pc); err != nil {
 		return
 	}
 	v, err := m.guessVulnerableAt(pc)

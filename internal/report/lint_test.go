@@ -110,7 +110,20 @@ func TestLint(t *testing.T) {
 						},
 					}})
 			}),
-			want: []string{`bad version`},
+			want: []string{`version 0.2.5 does not exist`},
+		},
+		{
+			desc: "non-canonical module",
+			report: validReport(func(r *Report) {
+				r.Modules = append(r.Modules, &Module{
+					Module: "github.com/golang/vuln",
+					Versions: []VersionRange{
+						{
+							Introduced: "0.1.0",
+						},
+					}})
+			}),
+			want: []string{`module is not canonical`},
 		},
 	} {
 		test := test
