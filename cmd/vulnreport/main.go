@@ -508,17 +508,12 @@ func newReport(ctx context.Context, cfg *createCfg, parsed *parsedIssue) (*repor
 	}
 	r.ID = parsed.id
 
-	if err := addAliases(ctx, r, cfg.ghsaClient); err != nil {
-		return nil, err
-	}
+	// Ensure all source aliases are added to the report.
+	r.AddAliases(parsed.ghsas)
+	r.AddAliases(parsed.cves)
 
-	// Fill an any CVEs and GHSAs we found that may have been missed
-	// in report creation.
-	if r.CVEMetadata == nil {
-		r.CVEs = dedupeAndSort(append(r.CVEs, parsed.cves...))
-	}
-	r.GHSAs = dedupeAndSort(append(r.GHSAs, parsed.ghsas...))
-
+	// Find any additional aliases referenced by the source aliases.
+	addMissingAliases(ctx, r, cfg.ghsaClient)
 	return r, nil
 }
 
@@ -765,8 +760,8 @@ func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client, pc *prox
 	}
 	if !*skipAlias {
 		infolog.Printf("%s: checking for missing GHSAs and CVEs (use -skip-alias to skip this)", r.ID)
-		if err := addAliases(ctx, r, ghsaClient); err != nil {
-			return err
+		if added := addMissingAliases(ctx, r, ghsaClient); added > 0 {
+			infolog.Printf("%s: added %d missing aliases", r.ID, added)
 		}
 	}
 
@@ -1205,65 +1200,4 @@ func setDates(_ context.Context, filename string, dates map[string]gitrepo.Dates
 	}
 	r.Published = d.Oldest
 	return r.Write(filename)
-}
-
-func dedupeAndSort[T constraints.Ordered](s []T) []T {
-	s = slices.Clone(s)
-	slices.Sort(s)
-	return slices.Compact(s)
-}
-
-// addAliases finds and adds missing GHSAs and CVEs that correspond to the
-// aliases already in the report.
-// For now, this function does not do an exhaustive search for aliases (i.e., it does not
-// search for aliases associated with the new ones we found), as it is relatively rare
-// for a vuln to have more than one CVE and GHSA.
-func addAliases(ctx context.Context, r *report.Report, gc *ghsa.Client) error {
-	origG := len(r.GHSAs)
-	r.GHSAs = dedupeAndSort(append(r.GHSAs, findGHSAs(ctx, r, gc)...))
-
-	origC := len(r.CVEs)
-	r.CVEs = dedupeAndSort(append(r.CVEs, findCVEs(ctx, r, gc)...))
-
-	if newG, newC := len(r.GHSAs)-origG, len(r.CVEs)-origC; newG+newC > 0 {
-		infolog.Printf("%s: found %d new GHSAs and %d new CVEs\n", r.ID, newG, newC)
-	}
-	return nil
-}
-
-func findGHSAs(ctx context.Context, r *report.Report, gc *ghsa.Client) []string {
-	var ghsas []string
-	for _, cve := range r.AllCVEs() {
-		sas, err := gc.ListForCVE(ctx, cve)
-		if err != nil {
-			errlog.Printf("%s: could not find GHSAs for %s", r.ID, cve)
-			continue
-		}
-		for _, sa := range sas {
-			ghsas = append(ghsas, sa.ID)
-		}
-	}
-	return ghsas
-}
-
-func findCVEs(ctx context.Context, r *report.Report, gc *ghsa.Client) []string {
-	var cves []string
-	for _, ghsa := range r.GHSAs {
-		sa, err := gc.FetchGHSA(ctx, ghsa)
-		if err != nil {
-			errlog.Printf("%s: could not fetch record for %s", r.ID, ghsa)
-			continue
-		}
-		for _, id := range sa.Identifiers {
-			if id.Type == "CVE" {
-				// Skip CVEs that we assigned, as we already know about them,
-				// and they are stored in "cve_metadata" instead of "cves".
-				if id.Value == r.GoCVE() {
-					continue
-				}
-				cves = append(cves, id.Value)
-			}
-		}
-	}
-	return cves
 }
