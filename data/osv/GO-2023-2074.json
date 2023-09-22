@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-2074",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-42821",
+    "GHSA-m9xq-6h2j-65r2"
+  ],
+  "summary": "Parser out-of-bounds read vulnerability caused by a malformed markdown input",
+  "details": "Parser out-of-bounds read vulnerability caused by a malformed markdown input",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gomarkdown/markdown",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20230922105210-14b16010c2ee"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/gomarkdown/markdown/parser",
+            "symbols": [
+              "Parser.Block",
+              "Parser.Inline",
+              "Parser.Parse",
+              "Parser.isPrefixHeading",
+              "citation"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/gomarkdown/markdown/security/advisories/GHSA-m9xq-6h2j-65r2"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gomarkdown/markdown/commit/14b16010c2ee7ff33a940a541d993bd043a88940"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-2074"
+  }
+}
