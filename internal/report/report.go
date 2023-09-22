@@ -17,7 +17,10 @@ import (
 	"strings"
 	"time"
 
+	"golang.org/x/exp/slices"
+	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/proxy"
 	"gopkg.in/yaml.v3"
@@ -168,17 +171,46 @@ func (r *Report) GoCVE() string {
 
 // AllCVEs returns all CVE IDs for a report.
 func (r *Report) AllCVEs() []string {
+	all := slices.Clone(r.CVEs)
 	if goCVE := r.GoCVE(); goCVE != "" {
-		// TODO(https://go.dev/issue/61184): If we allow both cve and
-		// cve_metadata to be populated, this needs to be updated.
-		return []string{goCVE}
+		all = append(all, goCVE)
 	}
-	return r.CVEs
+	return all
 }
 
 // Aliases returns all aliases (e.g., CVEs, GHSAs) for a report.
 func (r *Report) Aliases() []string {
 	return append(r.AllCVEs(), r.GHSAs...)
+}
+
+// AddAliases adds any GHSAs and CVEs in aliases that were not
+// already present to the report.
+func (r *Report) AddAliases(aliases []string) (added int) {
+	original := make(map[string]bool)
+	for _, alias := range r.Aliases() {
+		original[alias] = true
+	}
+
+	for _, alias := range aliases {
+		switch {
+		case original[alias]:
+			continue
+		case ghsa.IsGHSA(alias):
+			r.GHSAs = append(r.GHSAs, alias)
+		case cveschema5.IsCVE(alias):
+			r.CVEs = append(r.CVEs, alias)
+		default:
+			continue // skip aliases that are not CVEs or GHSAs
+		}
+		added++
+	}
+
+	if added > 0 {
+		slices.Sort(r.GHSAs)
+		slices.Sort(r.CVEs)
+	}
+
+	return added
 }
 
 const (

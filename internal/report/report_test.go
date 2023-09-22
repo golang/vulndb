@@ -95,3 +95,57 @@ func TestParseFilepath(t *testing.T) {
 		t.Errorf("ParseFilepath(%s) returned incorrect filename: want %d, got %d", filepath, wantIssueID, gotIssueID)
 	}
 }
+
+func TestAddAliases(t *testing.T) {
+	tests := []struct {
+		name       string
+		report     *Report
+		aliases    []string
+		want       int
+		wantReport *Report
+	}{
+		{
+			name: "add",
+			report: &Report{
+				CVEs: []string{"CVE-2023-0002"},
+			},
+			aliases: []string{"CVE-2023-0001", "CVE-2023-0002", "GHSA-aaaa-bbbb-cccc"},
+			want:    2,
+			wantReport: &Report{
+				CVEs:  []string{"CVE-2023-0001", "CVE-2023-0002"},
+				GHSAs: []string{"GHSA-aaaa-bbbb-cccc"},
+			},
+		},
+		{
+			name: "no_change",
+			report: &Report{
+				CVEs:  []string{"CVE-2023-0001"},
+				GHSAs: []string{"GHSA-aaaa-bbbb-cccc"},
+				CVEMetadata: &CVEMeta{
+					ID: "CVE-2023-0002",
+				},
+			},
+			aliases: []string{"CVE-2023-0001", "CVE-2023-0002", "GHSA-aaaa-bbbb-cccc"},
+			want:    0,
+			wantReport: &Report{
+				CVEs:  []string{"CVE-2023-0001"},
+				GHSAs: []string{"GHSA-aaaa-bbbb-cccc"},
+				CVEMetadata: &CVEMeta{
+					ID: "CVE-2023-0002",
+				},
+			},
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			gotAdded := test.report.AddAliases(test.aliases)
+			if gotAdded != test.want {
+				t.Errorf("AddAliases(%v) = %v, want %v", test.aliases, gotAdded, test.want)
+			}
+			if diff := cmp.Diff(test.wantReport, test.report); diff != "" {
+				t.Errorf("AddAliases(%v) report mismatch: (-want, +got):\n%s", test.aliases, diff)
+			}
+		})
+	}
+}
