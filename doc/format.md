@@ -186,7 +186,8 @@ usually of the form "PROBLEM in MODULE(s)", e.g:
 
 type `string`
 
-**required** if first-party, optional if third-party (w/ advisory link)
+**required** if first-party.
+Optional for third-party when there is an advisory link.
 
 A textual description of the vulnerability and its impact. Should be
 wrapped to 80 columns. Does not use Markdown formatting.

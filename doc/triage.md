@@ -85,7 +85,7 @@ The issue can be closed without further action.
    Store the token in a file, e.g., `~/.github-token`, and run:
    ``export VULN_GITHUB_ACCESS_TOKEN=`cat ~/.github-token` `` (you can also store
    this command in a `~/.bashrc` file or similar).
-3. Run `go install ./cmd/vulnreport` to install the latest version of vulnreport tool
+3. From the repo root, run `go install ./cmd/vulnreport` to install the latest version of vulnreport tool.
 
 ### Add a new report (label `NeedsReport`)
 
