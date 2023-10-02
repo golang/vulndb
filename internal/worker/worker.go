@@ -271,6 +271,7 @@ func newCVEBody(sr storeRecord, allReports map[string]*report.Report, pc *proxy.
 		cr.CVE.Metadata.ID = cr.ID
 	}
 	r := report.CVEToReport(cr.CVE, cr.Module, pc)
+	r.Description = ""
 	out, err := r.ToString()
 	if err != nil {
 		return "", err
@@ -380,6 +381,7 @@ func isDuplicate(sa *ghsa.SecurityAdvisory, pc *proxy.Client, allReports map[str
 
 func CreateGHSABody(sa *ghsa.SecurityAdvisory, allReports map[string]*report.Report, pc *proxy.Client) (body string, err error) {
 	r := report.GHSAToReport(sa, "", pc)
+	r.Description = ""
 	rs, err := r.ToString()
 	if err != nil {
 		return "", err
