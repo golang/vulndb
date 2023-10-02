@@ -1,0 +1,20 @@
+id: GO-2023-2077
+modules:
+    - module: github.com/sagernet/sing
+      versions:
+        - fixed: 0.2.12-0.20230925092853-5b05b5c147d9
+      vulnerable_at: 0.2.12-0.20230921162020-494f88c9b8bf
+      packages:
+        - package: github.com/sagernet/sing/protocol/socks
+          symbols:
+            - HandleConnection0
+          derived_symbols:
+            - HandleConnection
+summary: Authentication bypass in github.com/sagernet/sing
+cves:
+    - CVE-2023-43644
+ghsas:
+    - GHSA-r5hm-mp3j-285g
+references:
+    - advisory: https://github.com/SagerNet/sing-box/security/advisories/GHSA-r5hm-mp3j-285g
+    - fix: https://github.com/SagerNet/sing/commit/5b05b5c147d9650e8accb4441e216c72a61f4859
