@@ -1,0 +1,120 @@
+id: GO-2023-2096
+modules:
+    - module: github.com/consensys/gnark-crypto
+      versions:
+        - fixed: 0.12.0
+      vulnerable_at: 0.11.2
+      packages:
+        - package: github.com/consensys/gnark-crypto/ecc/bls12-377/ecdsa
+          symbols:
+            - Signature.SetBytes
+          derived_symbols:
+            - PublicKey.Verify
+        - package: github.com/consensys/gnark-crypto/ecc/bls12-377/twistededwards
+          symbols:
+            - Signature.SetBytes
+        - package: github.com/consensys/gnark-crypto/ecc/bls12-378/ecdsa
+          symbols:
+            - Signature.SetBytes
+          derived_symbols:
+            - PublicKey.Verify
+        - package: github.com/consensys/gnark-crypto/ecc/bls12-378/twistededwards/eddsa
+          symbols:
+            - Signature.SetBytes
+          derived_symbols:
+            - PublicKey.Verify
+        - package: github.com/consensys/gnark-crypto/ecc/bls12-381/bandersnatch/eddsa
+          symbols:
+            - Signature.SetBytes
+          derived_symbols:
+            - PublicKey.Verify
+        - package: github.com/consensys/gnark-crypto/ecc/bls12-381/ecdsa
+          symbols:
+            - Signature.SetBytes
+          derived_symbols:
+            - PublicKey.Verify
+        - package: github.com/consensys/gnark-crypto/ecc/bls12-381/twistededwards/eddsa
+          symbols:
+            - Signature.SetBytes
+          derived_symbols:
+            - PublicKey.Verify
+        - package: github.com/consensys/gnark-crypto/ecc/bls24-315/ecdsa
+          symbols:
+            - Signature.SetBytes
+          derived_symbols:
+            - PublicKey.Verify
+        - package: github.com/consensys/gnark-crypto/ecc/bls24-315/twistededwards/eddsa
+          symbols:
+            - Signature.SetBytes
+          derived_symbols:
+            - PublicKey.Verify
+        - package: github.com/consensys/gnark-crypto/ecc/bls24-317/ecdsa
+          symbols:
+            - Signature.SetBytes
+          derived_symbols:
+            - PublicKey.Verify
+        - package: github.com/consensys/gnark-crypto/ecc/bls24-317/twistededwards/eddsa
+          symbols:
+            - Signature.SetBytes
+          derived_symbols:
+            - PublicKey.Verify
+        - package: github.com/consensys/gnark-crypto/ecc/bn254/ecdsa
+          symbols:
+            - Signature.SetBytes
+          derived_symbols:
+            - PublicKey.Verify
+        - package: github.com/consensys/gnark-crypto/ecc/bn254/twistededwards/eddsa
+          symbols:
+            - Signature.SetBytes
+          derived_symbols:
+            - PublicKey.Verify
+        - package: github.com/consensys/gnark-crypto/ecc/bw6-633/ecdsa
+          symbols:
+            - Signature.SetBytes
+          derived_symbols:
+            - PublicKey.Verify
+        - package: github.com/consensys/gnark-crypto/ecc/bw6-633/twistededwards/eddsa
+          symbols:
+            - Signature.SetBytes
+          derived_symbols:
+            - PublicKey.Verify
+        - package: github.com/consensys/gnark-crypto/ecc/bw6-756/ecdsa
+          symbols:
+            - Signature.SetBytes
+          derived_symbols:
+            - PublicKey.Verify
+        - package: github.com/consensys/gnark-crypto/ecc/bw6-756/twistededwards/eddsa
+          symbols:
+            - Signature.SetBytes
+          derived_symbols:
+            - PublicKey.Verify
+        - package: github.com/consensys/gnark-crypto/ecc/bw6-761/ecdsa
+          symbols:
+            - Signature.SetBytes
+          derived_symbols:
+            - PublicKey.Verify
+        - package: github.com/consensys/gnark-crypto/ecc/bw6-761/twistededwards/eddsa
+          symbols:
+            - Signature.SetBytes
+          derived_symbols:
+            - PublicKey.Verify
+        - package: github.com/consensys/gnark-crypto/ecc/secp256k1/ecdsa
+          symbols:
+            - Signature.SetBytes
+          derived_symbols:
+            - PublicKey.Verify
+        - package: github.com/consensys/gnark-crypto/ecc/stark-curve/ecdsa
+          symbols:
+            - Signature.SetBytes
+          derived_symbols:
+            - PublicKey.Verify
+summary: Signature malleability in github.com/consensys/gnark-crypto
+cves:
+    - CVE-2023-44273
+ghsas:
+    - GHSA-9xfq-8j3r-xp5g
+references:
+    - fix: https://github.com/Consensys/gnark-crypto/pull/449
+    - web: https://verichains.io
+    - web: https://github.com/Consensys/gnark-crypto/releases/tag/v0.12.0
+    - advisory: https://github.com/advisories/GHSA-9xfq-8j3r-xp5g
