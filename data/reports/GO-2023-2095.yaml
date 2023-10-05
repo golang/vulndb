@@ -1,0 +1,25 @@
+id: GO-2023-2095
+modules:
+    - module: cmd
+      versions:
+        - fixed: 1.20.9
+        - introduced: 1.21.0-0
+          fixed: 1.21.2
+      vulnerable_at: 1.21.1
+      packages:
+        - package: cmd/go
+summary: Arbitrary code execution during build via line directives in cmd/go
+description: |
+    Line directives ("//line") can be used to bypass the restrictions on "//go:cgo_"
+    directives, allowing blocked linker and compiler flags to be passed during
+    compilation. This can result in unexpected execution of arbitrary code when
+    running "go build". The line directive requires the absolute path of the file in
+    which the directive lives, which makes exploiting this issue significantly more
+    complex.
+references:
+    - report: https://go.dev/issue/63211
+    - fix: https://go.dev/cl/533215
+    - web: https://groups.google.com/g/golang-announce/c/XBa1oHDevAo
+cve_metadata:
+    id: CVE-2023-39323
+    cwe: 'CWE 94: Improper Control of Generation of Code (''Code Injection'')'
