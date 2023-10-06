@@ -86,6 +86,7 @@ func main() {
 		fmt.Fprintf(flag.CommandLine.Output(), "  fix filename.yaml ...: fixes and reformats YAML reports\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  osv filename.yaml ...: converts YAML reports to OSV JSON and writes to data/osv\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  set-dates filename.yaml ...: sets PublishDate of YAML reports\n")
+		fmt.Fprintf(flag.CommandLine.Output(), "  suggest filename.yaml ...: (EXPERIMENTAL) use AI to suggest summary and description for YAML reports\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  commit filename.yaml ...: creates new commits for YAML reports\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  xref filename.yaml ...: prints cross references for YAML reports\n")
 		flag.PrintDefaults()
@@ -158,6 +159,8 @@ func main() {
 	switch cmd {
 	case "lint":
 		cmdFunc = func(ctx context.Context, name string) error { return lint(ctx, name, pc) }
+	case "suggest":
+		cmdFunc = func(ctx context.Context, name string) error { return suggest(ctx, name) }
 	case "commit":
 		cmdFunc = func(ctx context.Context, name string) error { return commit(ctx, name, ghsaClient, pc, *force) }
 	case "cve":
