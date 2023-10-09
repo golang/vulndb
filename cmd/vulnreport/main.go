@@ -814,7 +814,7 @@ func checkReportSymbols(r *report.Report) error {
 			}
 			syms, err := findExportedSymbols(m, p)
 			if err != nil {
-				return err
+				return fmt.Errorf("package %s: %w", p.Package, err)
 			}
 			if !cmp.Equal(syms, p.DerivedSymbols) {
 				p.DerivedSymbols = syms
@@ -899,17 +899,17 @@ func findExportedSymbols(m *report.Module, p *report.Package) (_ []string, err e
 		if typ, method, ok := strings.Cut(sym, "."); ok {
 			n, ok := pkg.Types.Scope().Lookup(typ).(*types.TypeName)
 			if !ok {
-				errlog.Printf("%v: type not found\n", typ)
+				errlog.Printf("package %s: %v: type not found\n", p.Package, typ)
 				continue
 			}
 			m, _, _ := types.LookupFieldOrMethod(n.Type(), true, pkg.Types, method)
 			if m == nil {
-				errlog.Printf("%v: method not found\n", sym)
+				errlog.Printf("package %s: %v: method not found\n", p.Package, sym)
 			}
 		} else {
 			_, ok := pkg.Types.Scope().Lookup(typ).(*types.Func)
 			if !ok {
-				errlog.Printf("%v: func not found\n", typ)
+				errlog.Printf("package %s: %v: func not found\n", p.Package, typ)
 			}
 		}
 	}
