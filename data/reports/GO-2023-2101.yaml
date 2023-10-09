@@ -1,0 +1,77 @@
+id: GO-2023-2101
+modules:
+    - module: github.com/consensys/gnark-crypto
+      versions:
+        - fixed: 0.12.1
+      vulnerable_at: 0.12.0
+      packages:
+        - package: github.com/consensys/gnark-crypto/ecc/bls12-377
+          symbols:
+            - G1Jac.mulWindowed
+            - G2Jac.mulWindowed
+        - package: github.com/consensys/gnark-crypto/ecc/bls12-381
+          symbols:
+            - G1Jac.mulWindowed
+            - G2Jac.mulWindowed
+        - package: github.com/consensys/gnark-crypto/ecc/bls24-315
+          symbols:
+            - G1Jac.mulWindowed
+            - G2Jac.mulWindowed
+        - package: github.com/consensys/gnark-crypto/ecc/bls24-317
+          symbols:
+            - G1Jac.mulWindowed
+            - G2Jac.mulWindowed
+        - package: github.com/consensys/gnark-crypto/ecc/bn254
+          symbols:
+            - G1Jac.mulWindowed
+            - G2Jac.mulWindowed
+        - package: github.com/consensys/gnark-crypto/ecc/bw6-633
+          symbols:
+            - G1Jac.mulWindowed
+            - G2Jac.mulWindowed
+        - package: github.com/consensys/gnark-crypto/ecc/bw6-756
+          symbols:
+            - G1Jac.mulWindowed
+            - G2Jac.mulWindowed
+        - package: github.com/consensys/gnark-crypto/ecc/bw6-761
+          symbols:
+            - G1Jac.mulWindowed
+            - G2Jac.mulWindowed
+        - package: github.com/consensys/gnark-crypto/ecc/secp256k1
+          symbols:
+            - G1Jac.mulWindowed
+        - package: github.com/consensys/gnark-crypto/ecc/bls12-377/internal/fptower
+          symbols:
+            - E12.ExpGLV
+        - package: github.com/consensys/gnark-crypto/ecc/bls12-381/internal/fptower
+          symbols:
+            - E12.ExpGLV
+        - package: github.com/consensys/gnark-crypto/ecc/bls24-315/internal/fptower
+          symbols:
+            - E24.ExpGLV
+        - package: github.com/consensys/gnark-crypto/ecc/bls24-317/internal/fptower
+          symbols:
+            - E24.ExpGLV
+        - package: github.com/consensys/gnark-crypto/ecc/bn254/internal/fptower
+          symbols:
+            - E12.ExpGLV
+        - package: github.com/consensys/gnark-crypto/ecc/bw6-633/internal/fptower
+          symbols:
+            - E6.ExpGLV
+        - package: github.com/consensys/gnark-crypto/ecc/bw6-756/internal/fptower
+          symbols:
+            - E6.ExpGLV
+        - package: github.com/consensys/gnark-crypto/ecc/bw6-761/internal/fptower
+          symbols:
+            - E6.ExpGLV
+summary: Incorrect exponentiation results in github.com/consensys/gnark-crypto
+ghsas:
+    - GHSA-pffg-92cg-xf5c
+credits:
+    - '@asanso'
+references:
+    - fix: https://github.com/Consensys/gnark-crypto/pull/213
+    - fix: https://github.com/Consensys/gnark-crypto/pull/451
+    - fix: https://github.com/Consensys/gnark-crypto/commit/ec6be1a037f7c496d595c541a8a8d31c47bcfa3d
+    - web: https://eprint.iacr.org/2015/565
+    - advisory: https://github.com/advisories/GHSA-pffg-92cg-xf5c
