@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-2098",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-44378",
+    "GHSA-498w-5j49-vqjg"
+  ],
+  "summary": "Unsoundness in variable comparison / non-unique binary decomposition in github.com/consensys/gnark",
+  "details": "Unsoundness in variable comparison / non-unique binary decomposition in github.com/consensys/gnark",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/consensys/gnark",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.9.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/consensys/gnark/frontend/cs/r1cs",
+            "symbols": [
+              "builder.AssertIsLessOrEqual",
+              "builder.Cmp",
+              "builder.ToBinary",
+              "builder.mustBeLessOrEqCst",
+              "builder.mustBeLessOrEqVar"
+            ]
+          },
+          {
+            "path": "github.com/consensys/gnark/frontend/cs/scs",
+            "symbols": [
+              "builder.AssertIsLessOrEqual",
+              "builder.Cmp",
+              "builder.ToBinary",
+              "builder.mustBeLessOrEqCst",
+              "builder.mustBeLessOrEqVar"
+            ]
+          },
+          {
+            "path": "github.com/consensys/gnark/internal/backend/circuits",
+            "symbols": [
+              "recursiveHint.Define"
+            ]
+          },
+          {
+            "path": "github.com/consensys/gnark/std/math/bits",
+            "symbols": [
+              "WithNbDigits"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://github.com/zkopru-network/zkopru/issues/116"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/Consensys/gnark/pull/835"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/Consensys/gnark/commit/59a4087261a6c73f13e80d695c17b398c3d0934f"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-498w-5j49-vqjg"
+    }
+  ],
+  "credits": [
+    {
+      "name": "@kustosz"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-2098"
+  }
+}
