@@ -27,9 +27,6 @@ var (
 func (r *Report) ToCVE5() (_ *cveschema5.CVERecord, err error) {
 	defer derrors.Wrap(&err, "ToCVERecord(%q)", r.ID)
 
-	if len(r.CVEs) > 0 {
-		return nil, errors.New("report has CVE ID is wrong section (should be in cve_metadata for self-issued CVEs)")
-	}
 	if r.CVEMetadata == nil {
 		return nil, errors.New("report missing cve_metadata section")
 	}

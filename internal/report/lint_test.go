@@ -321,7 +321,7 @@ func TestLintOffline(t *testing.T) {
 				r.CVEs = []string{"CVE-0000-1111"}
 				r.CVEMetadata = validCVEMetadata
 			}),
-			want: []string{"only one of cve and cve_metadata.id should be present"},
+			want: nil,
 		},
 		{
 			desc: "missing cve metadata required fields",

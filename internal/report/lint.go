@@ -97,12 +97,6 @@ func (m *Module) lintVersions(addPkgIssue func(string)) {
 }
 
 func (r *Report) lintCVEs(addIssue func(string)) {
-	if len(r.CVEs) > 0 && r.CVEMetadata != nil && r.CVEMetadata.ID != "" {
-		// TODO(https://go.dev/issue/61184): consider allowing both these fields
-		// to be populated.
-		addIssue("only one of cve and cve_metadata.id should be present")
-	}
-
 	for _, cve := range r.CVEs {
 		if !cveschema5.IsCVE(cve) {
 			addIssue("malformed cve identifier")
