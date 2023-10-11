@@ -14,6 +14,8 @@ summary: Improper rendering of text nodes in golang.org/x/net/html
 description: |-
     Text nodes not in the HTML namespace are incorrectly literally rendered, causing
     text which should be escaped to not be. This could lead to an XSS attack.
+ghsas:
+    - GHSA-2wrh-6pvc-2jm9
 references:
     - report: https://go.dev/issue/61615
     - fix: https://go.dev/cl/514896
