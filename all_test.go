@@ -27,15 +27,19 @@ import (
 )
 
 func TestChecksBash(t *testing.T) {
-	if testing.Short() {
-		t.Skip("skipping test that uses internet in short mode")
-	}
 	bash, err := exec.LookPath("bash")
 	if err != nil {
 		t.Skipf("skipping: %v", err)
 	}
 
-	cmd := exec.Command(bash, "./checks.bash")
+	// In short mode (used by presubmit checks), only do offline checks.
+	var cmd *exec.Cmd
+	if testing.Short() {
+		cmd = exec.Command(bash, "./checks.bash", "offline")
+	} else {
+		cmd = exec.Command(bash, "./checks.bash")
+	}
+
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {

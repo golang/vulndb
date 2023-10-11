@@ -55,7 +55,7 @@ check_headers() {
   else
     # Check code files that have been modified or added.
     info "Checking go and sh files for license header"
-    verify_header $(find **/*.go) $(find **/*.sh)
+    verify_header $(find **/*.go -type f) $(find **/*.sh -type f)
   fi
 }
 
@@ -113,11 +113,19 @@ runchecks() {
   go_modtidy
 }
 
+# checkoffline runs all checks that can be performed without network access.
+checkoffline() {
+  check_data_osv
+  check_headers
+  check_vet
+}
+
 usage() {
   cat <<EOUSAGE
 Usage: $0 [subcommand]
 Available subcommands:
   help           - display this help message
+  offline        - run checks that do not require network access
 EOUSAGE
 }
 
@@ -127,6 +135,9 @@ main() {
       usage
       exit 0
       ;;
+    "--offline" | "offline")
+      checkoffline
+      ;;
     "")
       runchecks
       ;;
@@ -135,7 +146,7 @@ main() {
       exit 1
   esac
   if [[ $EXIT_CODE != 0 ]]; then
-    err "FAILED; see errors above"
+    err "checks.bash FAILED; see errors above"
   fi
   exit $EXIT_CODE
 }
