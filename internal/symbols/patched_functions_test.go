@@ -4,10 +4,42 @@
 package main
 
 import (
+	"path/filepath"
+	"sort"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
 )
+
+func TestModuleFiles(t *testing.T) {
+	fileNames := func(filePaths []string) []string {
+		var fs []string
+		for _, p := range filePaths {
+			fs = append(fs, filepath.Base(p))
+		}
+		sort.Strings(fs)
+		return fs
+	}
+
+	for _, tc := range []struct {
+		module string
+		want   []string
+	}{
+		{"golang.org/module", []string{"bar.go", "foo.go", "main.go"}},
+		{"golang.org/nestedmodule", []string{"main_linux.go", "main_windows.go"}},
+		{"golang.org/testdata", nil},
+		{"golang.org/nonexistentmodule", nil},
+	} {
+		fPaths, err := moduleFiles("testdata/module", tc.module)
+		if err != nil {
+			t.Error(err)
+		}
+		got := fileNames(fPaths)
+		if diff := cmp.Diff(tc.want, got); diff != "" {
+			t.Errorf("got %s; want %s", got, tc.want)
+		}
+	}
+}
 
 func TestModuleRoots(t *testing.T) {
 	want := map[string]string{
