@@ -8,6 +8,7 @@ import (
 	"errors"
 	"io/fs"
 	"os"
+	"path"
 	"path/filepath"
 	"strings"
 
@@ -129,4 +130,35 @@ func moduleName(path string) (string, error) {
 		return "", err
 	}
 	return gomod.Module.Mod.Path, nil
+}
+
+// packageImportPath computes the full package import path for a
+// a package directory or file on local disk, given a module path
+// and root of a module on local disk. For instance,
+//
+//	 packageImportPath("golang.org/module", "/module/root",
+//		"module/root/internal/foo/foo.go") =
+//				"golang.org/module/internal/foo"
+//
+// Returns empty string in case of any errors or if moduleRoot is
+// not a sub-path of path.
+//
+// moduleRoot and path have to be either both absolute or both
+// relative paths. The last element in path will always be interpreted
+// as a file, hence directory paths should end with a file separator.
+func packageImportPath(module, moduleRoot, pkgPath string) string {
+	if !subdir(pkgPath, moduleRoot) {
+		return ""
+	}
+	dir := filepath.Dir(pkgPath)
+	rel, err := filepath.Rel(moduleRoot, dir)
+	if err != nil {
+		return ""
+	}
+	if rel == "." {
+		// The path is moduleRoot
+		return module
+	}
+	rel = filepath.ToSlash(rel) // cross platform
+	return path.Join(module, rel)
 }

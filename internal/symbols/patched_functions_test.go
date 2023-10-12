@@ -54,3 +54,29 @@ func TestModuleRoots(t *testing.T) {
 		t.Errorf("(-got, want+):\n%s", diff)
 	}
 }
+
+func TestPackageImportPath(t *testing.T) {
+	const module = "golang.org/module"
+	for _, tc := range []struct {
+		root string
+		path string
+		want string
+	}{
+		// relative paths
+		{"modroot", "modroot/main.go", "golang.org/module"},
+		{"modroot", "modroot/", "golang.org/module"},
+		{"./modroot", "./modroot/main.go", "golang.org/module"},
+		{"modroot", "modroot/internal/internal.go", "golang.org/module/internal"},
+		{"modroot", "modroot/internal/", "golang.org/module/internal"},
+		{"modroot", "modroot/exp/foo/foo.go", "golang.org/module/exp/foo"},
+		// absolute paths
+		{"/modroot", "/modroot/exp/foo/foo.go", "golang.org/module/exp/foo"},
+		{"/", "/internal/internal.go", "golang.org/module/internal"},
+		{"/", "/internal/", "golang.org/module/internal"},
+	} {
+		got := packageImportPath(module, tc.root, tc.path)
+		if got != tc.want {
+			t.Errorf("got %s; want %s", got, tc.want)
+		}
+	}
+}
