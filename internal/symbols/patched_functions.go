@@ -6,10 +6,13 @@ package main
 
 import (
 	"errors"
+	"fmt"
+	"go/ast"
 	"io/fs"
 	"os"
 	"path"
 	"path/filepath"
+	"reflect"
 	"strings"
 
 	"golang.org/x/mod/modfile"
@@ -161,4 +164,33 @@ func packageImportPath(module, moduleRoot, pkgPath string) string {
 	}
 	rel = filepath.ToSlash(rel) // cross platform
 	return path.Join(module, rel)
+}
+
+// symbolName returns the name of f as a symbol in
+// a vulnerability database.
+func symbolName(f *ast.FuncDecl) string {
+	name := f.Name.Name
+	if f.Recv == nil || len(f.Recv.List) == 0 {
+		return name
+	}
+	field := f.Recv.List[0]
+	if len(field.Names) == 0 {
+		return "" // sanity
+	}
+
+	t := ""
+	switch xv := field.Type.(type) {
+	case *ast.StarExpr:
+		if si, ok := xv.X.(*ast.Ident); ok {
+			t = si.Name
+		}
+	case *ast.Ident:
+		t = xv.Name
+	case *ast.IndexExpr:
+		// TODO(#63535): cover index instructions stemming from generics
+		return ""
+	default:
+		panic(fmt.Sprintf("symbolName: unexpected receiver type: %v\n", reflect.TypeOf(field.Type)))
+	}
+	return t + "." + name
 }

@@ -4,6 +4,9 @@
 package main
 
 import (
+	"go/ast"
+	"go/parser"
+	"go/token"
 	"path/filepath"
 	"sort"
 	"testing"
@@ -78,5 +81,36 @@ func TestPackageImportPath(t *testing.T) {
 		if got != tc.want {
 			t.Errorf("got %s; want %s", got, tc.want)
 		}
+	}
+}
+
+func TestSymbolName(t *testing.T) {
+	src := `
+package p
+
+func Foo() {}
+
+type A struct {}
+func (a A) Do() {}
+
+type B struct {}
+func (b *B) Do() {}
+`
+	fset := token.NewFileSet() // positions are relative to fset
+	f, err := parser.ParseFile(fset, "src.go", src, 0)
+	if err != nil {
+		t.Error(err)
+	}
+
+	var got []string
+	for _, decl := range f.Decls {
+		if fn, ok := decl.(*ast.FuncDecl); ok {
+			got = append(got, symbolName(fn))
+		}
+	}
+	sort.Strings(got)
+	want := []string{"A.Do", "B.Do", "Foo"}
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("(-got, want+):\n%s", diff)
 	}
 }
