@@ -1,0 +1,96 @@
+id: GO-2023-2113
+modules:
+    - module: go.opentelemetry.io/contrib/instrumentation/github.com/emicklei/go-restful/otelrestful
+      versions:
+        - fixed: 0.44.0
+      vulnerable_at: 0.43.0
+      packages:
+        - package: go.opentelemetry.io/contrib/instrumentation/github.com/emicklei/go-restful/otelrestful/internal/semconvutil
+          symbols:
+            - httpConv.proto
+          derived_symbols:
+            - HTTPClientRequest
+            - HTTPServerRequest
+            - httpConv.ClientRequest
+            - httpConv.ServerRequest
+    - module: go.opentelemetry.io/contrib/instrumentation/github.com/gin-gonic/gin/otelgin
+      versions:
+        - fixed: 0.44.0
+      vulnerable_at: 0.43.0
+      packages:
+        - package: go.opentelemetry.io/contrib/instrumentation/github.com/gin-gonic/gin/otelgin/internal/semconvutil
+          symbols:
+            - httpConv.proto
+          derived_symbols:
+            - HTTPClientRequest
+            - HTTPServerRequest
+            - httpConv.ClientRequest
+            - httpConv.ServerRequest
+    - module: go.opentelemetry.io/contrib/instrumentation/github.com/gorilla/mux/otelmux
+      versions:
+        - fixed: 0.44.0
+      vulnerable_at: 0.43.0
+      packages:
+        - package: go.opentelemetry.io/contrib/instrumentation/github.com/gorilla/mux/otelmux/internal/semconvutil
+          symbols:
+            - httpConv.proto
+          derived_symbols:
+            - HTTPClientRequest
+            - HTTPServerRequest
+            - httpConv.ClientRequest
+            - httpConv.ServerRequest
+    - module: go.opentelemetry.io/contrib/instrumentation/github.com/labstack/echo/otelecho
+      versions:
+        - fixed: 0.44.0
+      vulnerable_at: 0.43.0
+      packages:
+        - package: go.opentelemetry.io/contrib/instrumentation/github.com/labstack/echo/otelecho/internal/semconvutil
+          symbols:
+            - httpConv.proto
+          derived_symbols:
+            - HTTPClientRequest
+            - HTTPServerRequest
+            - httpConv.ClientRequest
+            - httpConv.ServerRequest
+    - module: go.opentelemetry.io/contrib/instrumentation/gopkg.in/macaron.v1/otelmacaron
+      versions:
+        - fixed: 0.44.0
+      vulnerable_at: 0.43.0
+      packages:
+        - package: go.opentelemetry.io/contrib/instrumentation/gopkg.in/macaron.v1/otelmacaron/internal/semconvutil
+          symbols:
+            - httpConv.proto
+          derived_symbols:
+            - HTTPClientRequest
+            - HTTPServerRequest
+            - httpConv.ClientRequest
+            - httpConv.ServerRequest
+    - module: go.opentelemetry.io/contrib/instrumentation/net/http/httptrace/otelhttptrace
+      versions:
+        - fixed: 0.44.0
+      vulnerable_at: 0.43.0
+      packages:
+        - package: go.opentelemetry.io/contrib/instrumentation/net/http/httptrace/otelhttptrace/internal/semconvutil
+          symbols:
+            - httpConv.proto
+          derived_symbols:
+            - HTTPClientRequest
+            - HTTPServerRequest
+            - httpConv.ClientRequest
+            - httpConv.ServerRequest
+    - module: go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp
+      versions:
+        - fixed: 0.44.0
+      vulnerable_at: 0.43.0
+      packages:
+        - package: go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp
+          symbols:
+            - middleware.serveHTTP
+summary: Memory exhaustion in github.com/open-telemetry/opentelemetry-go-contrib
+cves:
+    - CVE-2023-45142
+ghsas:
+    - GHSA-rcjv-mgp8-qvmr
+references:
+    - advisory: https://github.com/open-telemetry/opentelemetry-go-contrib/security/advisories/GHSA-rcjv-mgp8-qvmr
+    - fix: https://github.com/open-telemetry/opentelemetry-go-contrib/pull/4277
