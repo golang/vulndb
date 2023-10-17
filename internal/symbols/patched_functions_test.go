@@ -1,7 +1,7 @@
 // Copyright 2023 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
-package main
+package symbols
 
 import (
 	"go/ast"
@@ -14,7 +14,53 @@ import (
 	"github.com/google/go-cmp/cmp"
 )
 
-func TestModuleFiles(t *testing.T) {
+func TestModuleSymbols(t *testing.T) {
+	symKeys := func(syms map[symKey]*ast.FuncDecl) map[symKey]bool {
+		m := make(map[symKey]bool)
+		for sym := range syms {
+			m[sym] = true
+		}
+		return m
+	}
+
+	for _, tc := range []struct {
+		module   string
+		repoRoot string
+		want     map[symKey]bool
+	}{
+		{"golang.org/module", "testdata/module", map[symKey]bool{
+			{"golang.org/module", "", "Foo"}:          true,
+			{"golang.org/module", "", "main"}:         true,
+			{"golang.org/module/internal", "", "Bar"}: true,
+		}},
+		{"golang.org/nestedmodule", "testdata/module/submodule", map[symKey]bool{
+			{"golang.org/nestedmodule", "main_linux.go", "main"}:   true,
+			{"golang.org/nestedmodule", "main_windows.go", "main"}: true,
+		}},
+	} {
+		syms, err := moduleSymbols(tc.repoRoot, tc.module)
+		if err != nil {
+			t.Error(err)
+		}
+		got := symKeys(syms)
+		if diff := cmp.Diff(got, tc.want); diff != "" {
+			t.Errorf("(-got, want+):\n%s", diff)
+		}
+	}
+}
+
+func TestModuleRootAndFiles(t *testing.T) {
+	dirName := func(path string) string {
+		if path == "" {
+			return ""
+		}
+		rel, err := filepath.Rel("testdata", path)
+		if err != nil {
+			t.Error(err)
+		}
+		return rel
+	}
+
 	fileNames := func(filePaths []string) []string {
 		var fs []string
 		for _, p := range filePaths {
@@ -25,21 +71,28 @@ func TestModuleFiles(t *testing.T) {
 	}
 
 	for _, tc := range []struct {
-		module string
-		want   []string
+		module    string
+		wantRoot  string
+		wantFiles []string
 	}{
-		{"golang.org/module", []string{"bar.go", "foo.go", "main.go"}},
-		{"golang.org/nestedmodule", []string{"main_linux.go", "main_windows.go"}},
-		{"golang.org/testdata", nil},
-		{"golang.org/nonexistentmodule", nil},
+		{"golang.org/module", "module", []string{"bar.go", "foo.go", "main.go"}},
+		{"golang.org/nestedmodule", "module/submodule", []string{"main_linux.go", "main_windows.go"}},
+		{"golang.org/testdata", "", nil},
+		{"golang.org/nonexistentmodule", "", nil},
 	} {
-		fPaths, err := moduleFiles("testdata/module", tc.module)
+		modRoot, fPaths, err := moduleRootAndFiles("testdata/module", tc.module)
 		if err != nil {
 			t.Error(err)
 		}
-		got := fileNames(fPaths)
-		if diff := cmp.Diff(tc.want, got); diff != "" {
-			t.Errorf("got %s; want %s", got, tc.want)
+
+		gotFiles := fileNames(fPaths)
+		if diff := cmp.Diff(tc.wantFiles, gotFiles); diff != "" {
+			t.Errorf("got %s; want %s", gotFiles, tc.wantFiles)
+		}
+
+		gotRoot := dirName(modRoot)
+		if gotRoot != tc.wantRoot {
+			t.Errorf("module root: got %s; want %s", gotRoot, tc.wantRoot)
 		}
 	}
 }

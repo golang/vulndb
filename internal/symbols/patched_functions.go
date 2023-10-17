@@ -2,12 +2,14 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package main
+package symbols
 
 import (
 	"errors"
 	"fmt"
 	"go/ast"
+	"go/parser"
+	"go/token"
 	"io/fs"
 	"os"
 	"path"
@@ -18,21 +20,93 @@ import (
 	"golang.org/x/mod/modfile"
 )
 
-// moduleFiles returns all .go files for a module within
-// repo at repoRoot. Test Go files (*_test.go) and Go files
-// in "testdata" subdirectories are omitted.
+// moduleSymbols indexes all symbols of a module located
+// within repo at repoRoot. Test symbols are omitted.
+//
+// If the module is not defined in the repo, an empty
+// index is returned.
+func moduleSymbols(repoRoot, module string) (map[symKey]*ast.FuncDecl, error) {
+	modRoot, files, err := moduleRootAndFiles(repoRoot, module)
+	if err != nil {
+		return nil, err
+	}
+
+	m := make(map[symKey]*ast.FuncDecl)
+	fset := token.NewFileSet()
+	for _, file := range files {
+		f, err := parser.ParseFile(fset, file, nil, 0)
+		if err != nil {
+			return nil, err
+		}
+
+		for _, decl := range f.Decls {
+			if fn, ok := decl.(*ast.FuncDecl); ok {
+				m[symKey{
+					pkg:    packageImportPath(module, modRoot, file),
+					file:   filepath.Base(file),
+					symbol: symbolName(fn)}] = fn
+			}
+		}
+	}
+	// Remove file info from indices that don't actually need it.
+	// This should make things more robust for cases when there
+	// the function name is unique and the patch moves the function
+	// to a different file (due to, say, refactoring).
+	return cleanFileInfo(m), nil
+}
+
+// cleanFileInfo deletes the value of file field in symKeys for
+// function declarations that do not need the file information to
+// differentiate between other same-named symbols in the same package.
+func cleanFileInfo(syms map[symKey]*ast.FuncDecl) map[symKey]*ast.FuncDecl {
+	// collisions tracks which symbols have multiple
+	// function declarations in a package.
+	collisions := make(map[symKey]int)
+	for sk := range syms {
+		k := symKey{pkg: sk.pkg, symbol: sk.symbol}
+		collisions[k]++
+	}
+
+	m := make(map[symKey]*ast.FuncDecl)
+	for sk, f := range syms {
+		k := symKey{pkg: sk.pkg, symbol: sk.symbol}
+		if collisions[k] > 1 {
+			// multiple functions with the same name,
+			// so we keep the file info.
+			m[sk] = f
+		} else {
+			m[k] = f // get rid of file info
+		}
+	}
+	return m
+}
+
+// symKey is used as a unique key for
+// a Go symbol in a repo.
+type symKey struct {
+	pkg string
+	// file is the name of the file where the symbol
+	// is defined. Set when multiple same-named
+	// symbols are hidden under different build tags.
+	file   string
+	symbol string
+}
+
+// moduleRootAndFiles returns the root of Go module within
+// repo and all of its .go files. Test Go files (*_test.go)
+// and Go files in "testdata" subdirectories are omitted.
 //
 // If there are no Go files or module does not exist in the
 // repo, empty file slice is returned. Each returned file
 // path has repoRoot as its prefix.
-func moduleFiles(repoRoot, module string) ([]string, error) {
+func moduleRootAndFiles(repoRoot, module string) (string, []string, error) {
 	modRoots, err := moduleRoots(repoRoot)
 	if err != nil {
-		return nil, err
+		return "", nil, err
 	}
 	moduleRoot, ok := modRoots[module]
 	if !ok {
-		return nil, nil
+		return "", nil, nil
 	}
 
 	// directlyUnder checks if path belongs
@@ -71,9 +145,9 @@ func moduleFiles(repoRoot, module string) ([]string, error) {
 		return nil
 	})
 	if err != nil {
-		return nil, err
+		return "", nil, err
 	}
-	return files, err
+	return moduleRoot, files, err
 }
 
 // subdir checks if target is a sub-directory of base. It assumes
