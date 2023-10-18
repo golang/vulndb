@@ -14,6 +14,45 @@ import (
 	"github.com/google/go-cmp/cmp"
 )
 
+func TestPatchedSymbols(t *testing.T) {
+	toMap := func(syms []symKey) map[symKey]bool {
+		m := make(map[symKey]bool)
+		for _, s := range syms {
+			m[s] = true
+		}
+		return m
+	}
+
+	for _, tc := range []struct {
+		module        string
+		oldRepoRoot   string
+		fixedRepoRoot string
+		want          map[symKey]bool
+	}{
+		{"golang.org/module", "testdata/module", "testdata/fixed-module", map[symKey]bool{
+			{pkg: "golang.org/module", symbol: "Foo"}:          true,
+			{pkg: "golang.org/module/internal", symbol: "Bar"}: true,
+		}},
+		{"golang.org/nestedmodule", "testdata/module", "testdata/fixed-module", map[symKey]bool{
+			{pkg: "golang.org/nestedmodule", file: "main_linux.go", symbol: "main"}: true,
+		}},
+	} {
+		oldSyms, err := moduleSymbols(tc.oldRepoRoot, tc.module)
+		if err != nil {
+			t.Error(err)
+		}
+		newSyms, err := moduleSymbols(tc.fixedRepoRoot, tc.module)
+		if err != nil {
+			t.Error(err)
+		}
+
+		got := toMap(patchedSymbols(oldSyms, newSyms))
+		if diff := cmp.Diff(got, tc.want); diff != "" {
+			t.Errorf("(-got, want+):\n%s", diff)
+		}
+	}
+}
+
 func TestModuleSymbols(t *testing.T) {
 	symKeys := func(syms map[symKey]*ast.FuncDecl) map[symKey]bool {
 		m := make(map[symKey]bool)

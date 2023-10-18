@@ -5,10 +5,12 @@
 package symbols
 
 import (
+	"bytes"
 	"errors"
 	"fmt"
 	"go/ast"
 	"go/parser"
+	"go/printer"
 	"go/token"
 	"io/fs"
 	"os"
@@ -19,6 +21,39 @@ import (
 
 	"golang.org/x/mod/modfile"
 )
+
+// patchedSymbols returns symbol indices in oldSymbols that either 1) cannot
+// be identified in newSymbols or 2) the corresponding functions have their
+// source code changed.
+func patchedSymbols(oldSymbols, newSymbols map[symKey]*ast.FuncDecl) []symKey {
+	var syms []symKey
+	for key, of := range oldSymbols {
+		nf, ok := newSymbols[key]
+		if !ok {
+			// We cannot locate the symbol in the new version
+			// of code, so we designate it as being patched.
+			syms = append(syms, key)
+			continue
+		}
+
+		if source(of) != source(nf) {
+			syms = append(syms, key)
+		}
+	}
+	return syms
+}
+
+// source returns f's source code as text.
+func source(f *ast.FuncDecl) string {
+	var b bytes.Buffer
+	fs := token.NewFileSet()
+	if err := printer.Fprint(&b, fs, f); err != nil {
+		// should not happen, so just printing a warning
+		fmt.Printf("warning: getting source of %s failed with %v", symbolName(f), err)
+		return ""
+	}
+	return strings.TrimSpace(b.String())
+}
 
 // moduleSymbols indexes all symbols of a module located
 // within repo at repoRoot. Test symbols are omitted.
