@@ -23,7 +23,7 @@ import (
 	"golang.org/x/vulndb/internal/worker/log"
 )
 
-// Clone returns a repo by cloning the repo at repoURL.
+// Clone returns a bare repo by cloning the repo at repoURL.
 func Clone(ctx context.Context, repoURL string) (repo *git.Repository, err error) {
 	defer derrors.Wrap(&err, "gitrepo.Clone(%q)", repoURL)
 	ctx = event.Start(ctx, "gitrepo.Clone")
@@ -35,6 +35,22 @@ func Clone(ctx context.Context, repoURL string) (repo *git.Repository, err error
 		ReferenceName: plumbing.HEAD,
 		SingleBranch:  true,
 		Depth:         1,
+		Tags:          git.NoTags,
+	})
+}
+
+// PlainClone returns a (non-bare) repo with its history by cloning the repo at repoURL.
+func PlainClone(ctx context.Context, dir, repoURL string) (repo *git.Repository, err error) {
+	defer derrors.Wrap(&err, "gitrepo.PlainClone(%q)", repoURL)
+	ctx = event.Start(ctx, "gitrepo.PlainClone")
+	defer event.End(ctx)
+
+	log.Infof(ctx, "Plain cloning repo %q at HEAD", repoURL)
+	return git.PlainCloneContext(ctx, dir, false, &git.CloneOptions{
+		URL:           repoURL,
+		ReferenceName: plumbing.HEAD,
+		SingleBranch:  true, // allow branches other than master
+		Depth:         0,    // pull in history
 		Tags:          git.NoTags,
 	})
 }

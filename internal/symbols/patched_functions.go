@@ -6,6 +6,7 @@ package symbols
 
 import (
 	"bytes"
+	"context"
 	"errors"
 	"fmt"
 	"go/ast"
@@ -19,8 +20,83 @@ import (
 	"reflect"
 	"strings"
 
+	"github.com/go-git/go-git/v5"
+	"github.com/go-git/go-git/v5/plumbing"
 	"golang.org/x/mod/modfile"
+	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/gitrepo"
 )
+
+// Patched returns symbols of module patched in commit identified
+// by commitHash. repoURL is URL of the git repository containing
+// the module.
+//
+// Patched returns a map from package import paths to symbols
+// patched in the package. Test packages and symbols are omitted.
+//
+// If the commit has more than one parent, an error is returned.
+func Patched(module, repoURL, commitHash string) (_ map[string][]string, err error) {
+	defer derrors.Wrap(&err, "Patched(%s ,%s, %s)", module, repoURL, commitHash)
+
+	repoRoot, err := os.MkdirTemp("", commitHash)
+	if err != nil {
+		return nil, err
+	}
+	defer func() {
+		_ = os.RemoveAll(repoRoot)
+	}()
+
+	ctx := context.Background()
+	repo, err := gitrepo.PlainClone(ctx, repoRoot, repoURL)
+	if err != nil {
+		return nil, err
+	}
+
+	w, err := repo.Worktree()
+	if err != nil {
+		return nil, err
+	}
+
+	hash := plumbing.NewHash(commitHash)
+	commit, err := repo.CommitObject(hash)
+	if err != nil {
+		return nil, err
+	}
+
+	if commit.NumParents() != 1 {
+		return nil, fmt.Errorf("more than 1 parent: %d", commit.NumParents())
+	}
+
+	parent, err := commit.Parent(0)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := w.Checkout(&git.CheckoutOptions{Hash: hash, Force: true}); err != nil {
+		return nil, err
+	}
+
+	newSymbols, err := moduleSymbols(repoRoot, module)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := w.Checkout(&git.CheckoutOptions{Hash: parent.Hash, Force: true}); err != nil {
+		return nil, err
+	}
+
+	oldSymbols, err := moduleSymbols(repoRoot, module)
+	if err != nil {
+		return nil, err
+	}
+
+	patched := patchedSymbols(oldSymbols, newSymbols)
+	pkgSyms := make(map[string][]string)
+	for _, sym := range patched {
+		pkgSyms[sym.pkg] = append(pkgSyms[sym.pkg], sym.symbol)
+	}
+	return pkgSyms, nil
+}
 
 // patchedSymbols returns symbol indices in oldSymbols that either 1) cannot
 // be identified in newSymbols or 2) the corresponding functions have their
