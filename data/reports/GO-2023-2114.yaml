@@ -1,0 +1,30 @@
+id: GO-2023-2114
+modules:
+    - module: github.com/crewjam/saml
+      versions:
+        - fixed: 0.4.14
+      vulnerable_at: 0.4.13
+      packages:
+        - package: github.com/crewjam/saml
+summary: |-
+    Cross-site scripting via missing binding syntax validation in
+    github.com/crewjam/saml
+description: |-
+    The package does not validate the ACS Location URI according to the SAML binding
+    being parsed. If abused, this flaw allows attackers to register malicious
+    Service Providers at the IdP and inject Javascript in the ACS endpoint
+    definition, achieving Cross-Site-Scripting (XSS) in the IdP context during the
+    redirection at the end of a SAML SSO Flow. Consequently, an attacker may perform
+    any authenticated action as the victim once the victim's browser loads the SAML
+    IdP initiated SSO link for the malicious service provider.
+cves:
+    - CVE-2023-45683
+ghsas:
+    - GHSA-267v-3v32-g6q5
+credits:
+    - Francesco Lacerenza from Doyensec
+references:
+    - advisory: https://github.com/crewjam/saml/security/advisories/GHSA-267v-3v32-g6q5
+    - fix: https://github.com/crewjam/saml/commit/b07b16cf83c4171d16da4d85608cb827f183cd79
+notes:
+    - The fix introduced functions Endpoint.UnmarshalXML and IndexedEndpoint.UnmarshalXML, but we currently do not have a way to mark uses of xml.Unmarshal on a certain type as vulnerable.
