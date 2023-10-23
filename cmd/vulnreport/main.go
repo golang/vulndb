@@ -35,6 +35,7 @@ import (
 	"golang.org/x/exp/slices"
 	"golang.org/x/tools/go/packages"
 	"golang.org/x/vulndb/internal/cvelistrepo"
+	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/database"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/genericosv"
@@ -54,6 +55,7 @@ var (
 	skipSymbols   = flag.Bool("skip-symbols", false, "for lint and fix, don't load package for symbols checks")
 	skipAlias     = flag.Bool("skip-alias", false, "for fix, skip adding new GHSAs and CVEs")
 	graphQL       = flag.Bool("graphql", false, "for create, fetch GHSAs from the Github GraphQL API instead of the OSV database")
+	preferCVE     = flag.Bool("cve", false, "for create, prefer CVEs over GHSAs as canonical source")
 	updateIssue   = flag.Bool("up", false, "for commit, create a CL that updates (doesn't fix) the tracking bug")
 	closedOk      = flag.Bool("closed-ok", false, "for create & create-excluded, allow closed issues to be created")
 	cpuprofile    = flag.String("cpuprofile", "", "write cpuprofile to file")
@@ -333,14 +335,22 @@ func setupCreate(ctx context.Context, args []string) ([]int, *createCfg, error) 
 
 func createReport(ctx context.Context, cfg *createCfg, iss *issues.Issue) (r *report.Report, err error) {
 	defer derrors.Wrap(&err, "createReport(%d)", iss.Number)
+
 	parsed, err := parseGithubIssue(iss, cfg.proxyClient, cfg.allowClosed)
 	if err != nil {
 		return nil, err
 	}
 
-	r, err = newReport(ctx, cfg, parsed)
-	if err != nil {
-		return nil, err
+	aliases := allAliases(ctx, parsed.aliases, cfg.ghsaClient)
+	if alias, ok := pickBestAlias(aliases, *preferCVE); ok {
+		infolog.Printf("creating report %s based on %s (picked from [%s])", parsed.id, alias, strings.Join(aliases, ", "))
+		r, err = reportFromAlias(ctx, parsed.id, parsed.modulePath, alias, cfg)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		infolog.Printf("no alias found, creating empty report %s", parsed.id)
+		r = &report.Report{ID: parsed.id}
 	}
 
 	if parsed.excluded != "" {
@@ -356,6 +366,12 @@ func createReport(ctx context.Context, cfg *createCfg, iss *issues.Issue) (r *re
 			GHSAs:    r.GHSAs,
 		}
 	}
+
+	// Ensure all source aliases are added to the report.
+	r.AddAliases(aliases)
+
+	// Find any additional aliases referenced by the source aliases.
+	addMissingAliases(ctx, r, cfg.ghsaClient)
 
 	addTODOs(r)
 	return r, nil
@@ -478,50 +494,65 @@ Adds excluded reports:
 		strings.Join(issNums, "\n")), nil
 }
 
-func newReport(ctx context.Context, cfg *createCfg, parsed *parsedIssue) (*report.Report, error) {
-	infolog.Printf("creating report %s", parsed.id)
+// pickBestAlias returns the "best" alias in the list.
+// By default, it prefers the first GHSA in the list, followed by the first CVE in the list
+// (if no GHSA is present).
+// If "preferCVE" is true, it prefers CVEs instead.
+// If no GHSAs or CVEs are present, it returns ("", false).
+func pickBestAlias(aliases []string, preferCVE bool) (_ string, ok bool) {
+	firstChoice := ghsa.IsGHSA
+	secondChoice := cveschema5.IsCVE
+	if preferCVE {
+		firstChoice, secondChoice = secondChoice, firstChoice
+	}
+	for _, alias := range aliases {
+		if firstChoice(alias) {
+			return alias, true
+		}
+	}
+	for _, alias := range aliases {
+		if secondChoice(alias) {
+			return alias, true
+		}
+	}
+	return "", false
+}
 
+// reportFromBestAlias returns a new report created from the "best" alias in the list.
+// For now, it prefers the first GHSA in the list, followed by the first CVE in the list
+// (if no GHSA is present). If no GHSAs or CVEs are present, it returns a new empty Report.
+func reportFromAlias(ctx context.Context, id, modulePath, alias string, cfg *createCfg) (*report.Report, error) {
 	var r *report.Report
 	switch {
-	case len(parsed.ghsas) > 0:
-		if !*graphQL {
-			ghsa, err := genericosv.Fetch(parsed.ghsas[0])
-			if err != nil {
-				return nil, err
-			}
-			r = ghsa.ToReport(parsed.id, cfg.proxyClient)
-		} else {
-			ghsa, err := cfg.ghsaClient.FetchGHSA(ctx, parsed.ghsas[0])
-			if err != nil {
-				return nil, err
-			}
-			r = report.GHSAToReport(ghsa, parsed.modulePath, cfg.proxyClient)
-		}
-	case len(parsed.cves) > 0:
-		cve, err := cvelistrepo.FetchCVE(ctx, loadCVERepo(ctx), parsed.cves[0])
+	case ghsa.IsGHSA(alias) && *graphQL:
+		ghsa, err := cfg.ghsaClient.FetchGHSA(ctx, alias)
 		if err != nil {
 			return nil, err
 		}
-		r = report.CVEToReport(cve, parsed.modulePath, cfg.proxyClient)
+		r = report.GHSAToReport(ghsa, modulePath, cfg.proxyClient)
+	case ghsa.IsGHSA(alias):
+		ghsa, err := genericosv.Fetch(alias)
+		if err != nil {
+			return nil, err
+		}
+		r = ghsa.ToReport(id, cfg.proxyClient)
+	case cveschema5.IsCVE(alias):
+		cve, err := cvelistrepo.FetchCVE(ctx, loadCVERepo(ctx), alias)
+		if err != nil {
+			return nil, err
+		}
+		r = report.CVEToReport(cve, modulePath, cfg.proxyClient)
 	default:
 		r = &report.Report{}
 	}
-	r.ID = parsed.id
-
-	// Ensure all source aliases are added to the report.
-	r.AddAliases(parsed.ghsas)
-	r.AddAliases(parsed.cves)
-
-	// Find any additional aliases referenced by the source aliases.
-	addMissingAliases(ctx, r, cfg.ghsaClient)
+	r.ID = id
 	return r, nil
 }
 
 type parsedIssue struct {
 	id         string
 	modulePath string
-	cves       []string
-	ghsas      []string
+	aliases    []string
 	excluded   report.ExcludedReason
 }
 
@@ -561,14 +592,12 @@ func parseGithubIssue(iss *issues.Issue, pc *proxy.Client, allowClosed bool) (*p
 			if module, err := pc.FindModule(parsed.modulePath); err == nil { // no error
 				parsed.modulePath = module
 			}
-		case strings.HasPrefix(p, "CVE"):
-			parsed.cves = append(parsed.cves, strings.TrimSuffix(p, ","))
-		case strings.HasPrefix(p, "GHSA"):
-			parsed.ghsas = append(parsed.ghsas, strings.TrimSuffix(p, ","))
+		case cveschema5.IsCVE(p) || ghsa.IsGHSA(p):
+			parsed.aliases = append(parsed.aliases, strings.TrimSuffix(p, ","))
 		}
 	}
 
-	if len(parsed.cves) == 0 && len(parsed.ghsas) == 0 {
+	if len(parsed.aliases) == 0 {
 		return nil, fmt.Errorf("%q has no CVE or GHSA IDs", iss.Title)
 	}
 
