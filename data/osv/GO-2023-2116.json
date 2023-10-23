@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-2116",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-45141",
+    "GHSA-mv73-f69x-444p"
+  ],
+  "summary": "CSRF token validation vulnerability in github.com/gofiber/fiber/v2",
+  "details": "A cross-site request forgery vulnerability can allow an attacker to obtain tokens and forge malicious requests on behalf of a user. This can lead to unauthorized actions being taken on the user's behalf, potentially compromising the security and integrity of the application.\n\nThe vulnerability is caused by improper validation and enforcement of CSRF tokens within the application. The CSRF token is validated against tokens in storage but was is not tied to the original requestor that generated it, allowing for token reuse.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gofiber/fiber/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.50.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/gofiber/fiber/v2/middleware/csrf",
+            "symbols": [
+              "CsrfFromCookie",
+              "CsrfFromForm",
+              "CsrfFromHeader",
+              "CsrfFromParam",
+              "CsrfFromQuery",
+              "New",
+              "configDefault",
+              "manager.getRaw",
+              "manager.setRaw",
+              "newManager"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/gofiber/fiber/security/advisories/GHSA-mv73-f69x-444p"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gofiber/fiber/commit/8c3916dbf4ad2ed427d02c6eb63ae8b2fa8f019a"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gofiber/fiber/commit/b50d91d58ecdff2a330bf07950244b6c4caf65b1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-2116"
+  }
+}

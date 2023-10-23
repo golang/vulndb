@@ -1,0 +1,40 @@
+id: GO-2023-2116
+modules:
+    - module: github.com/gofiber/fiber/v2
+      versions:
+        - fixed: 2.50.0
+      vulnerable_at: 2.49.2
+      packages:
+        - package: github.com/gofiber/fiber/v2/middleware/csrf
+          symbols:
+            - configDefault
+            - New
+            - CsrfFromParam
+            - CsrfFromForm
+            - CsrfFromCookie
+            - CsrfFromHeader
+            - CsrfFromQuery
+            - newManager
+            - manager.getRaw
+            - manager.setRaw
+summary: CSRF token validation vulnerability in github.com/gofiber/fiber/v2
+description: |-
+    A cross-site request forgery vulnerability can allow an attacker to obtain
+    tokens and forge malicious requests on behalf of a user. This can lead to
+    unauthorized actions being taken on the user's behalf, potentially compromising
+    the security and integrity of the application.
+
+    The vulnerability is caused by improper validation and enforcement of CSRF
+    tokens within the application. The CSRF token is validated against tokens in
+    storage but was is not tied to the original requestor that generated it,
+    allowing for token reuse.
+cves:
+    - CVE-2023-45141
+ghsas:
+    - GHSA-mv73-f69x-444p
+references:
+    - advisory: https://github.com/gofiber/fiber/security/advisories/GHSA-mv73-f69x-444p
+    - fix: https://github.com/gofiber/fiber/commit/8c3916dbf4ad2ed427d02c6eb63ae8b2fa8f019a
+    - fix: https://github.com/gofiber/fiber/commit/b50d91d58ecdff2a330bf07950244b6c4caf65b1
+notes:
+    - There is a closely related vulnerability (GO-2023-2115), and it is not clear which fix applies to which vulnerability, so I have marked both fixes as applying to both vulnerabilities.
