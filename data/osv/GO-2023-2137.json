@@ -1,0 +1,124 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-2137",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-45825",
+    "GHSA-q24m-6h38-5xj8"
+  ],
+  "summary": "Credentials leak in github.com/ydb-platform/ydb-go-sdk/v3",
+  "details": "A custom credentials object that does not implement the fmt.Stringer interface may leak sensitive information (e.g., credentials) via logs.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/ydb-platform/ydb-go-sdk/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "3.48.6"
+            },
+            {
+              "fixed": "3.53.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/ydb-platform/ydb-go-sdk/v3",
+            "symbols": [
+              "Connector",
+              "Driver.Close",
+              "Driver.Coordination",
+              "Driver.Discovery",
+              "Driver.Ratelimiter",
+              "Driver.Scheme",
+              "Driver.Scripting",
+              "Driver.Table",
+              "Driver.Topic",
+              "Driver.With",
+              "IsTimeoutError",
+              "IsTransportError",
+              "MustConnector",
+              "MustOpen",
+              "New",
+              "Open",
+              "Unwrap",
+              "WithAccessTokenCredentials",
+              "WithAnonymousCredentials",
+              "WithCertificatesFromFile",
+              "WithRequestType",
+              "WithTraceID",
+              "connect",
+              "initOnce.Close",
+              "initOnce.Init",
+              "sqlDriver.OpenConnector"
+            ]
+          },
+          {
+            "path": "github.com/ydb-platform/ydb-go-sdk/v3/credentials",
+            "symbols": [
+              "NewAccessTokenCredentials",
+              "NewAnonymousCredentials",
+              "NewStaticCredentials",
+              "WithSourceInfo",
+              "staticCredentialsConfig.Endpoint",
+              "staticCredentialsConfig.GrpcDialOptions"
+            ]
+          },
+          {
+            "path": "github.com/ydb-platform/ydb-go-sdk/v3/internal/balancer",
+            "symbols": [
+              "Balancer.Invoke",
+              "Balancer.NewStream",
+              "Balancer.clusterDiscovery",
+              "Balancer.wrapCall",
+              "New"
+            ]
+          },
+          {
+            "path": "github.com/ydb-platform/ydb-go-sdk/v3/internal/conn",
+            "symbols": [
+              "WithAfterFunc"
+            ]
+          },
+          {
+            "path": "github.com/ydb-platform/ydb-go-sdk/v3/internal/credentials",
+            "symbols": [
+              "AccessToken.String",
+              "Anonymous.String",
+              "NewAccessTokenCredentials",
+              "NewAnonymousCredentials",
+              "NewStaticCredentials",
+              "Static.String",
+              "WithSourceInfo"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/ydb-platform/ydb-go-sdk/security/advisories/GHSA-q24m-6h38-5xj8"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/ydb-platform/ydb-go-sdk/pull/859"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/ydb-platform/ydb-go-sdk/commit/a0d92057c4e1bbdc5e85ae8d649edb0232b8fd4c"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-2137"
+  }
+}

@@ -1,0 +1,77 @@
+id: GO-2023-2137
+modules:
+    - module: github.com/ydb-platform/ydb-go-sdk/v3
+      versions:
+        - introduced: 3.48.6
+          fixed: 3.53.3
+      vulnerable_at: 3.53.2
+      packages:
+        - package: github.com/ydb-platform/ydb-go-sdk/v3
+          symbols:
+            - connect
+          derived_symbols:
+            - Connector
+            - Driver.Close
+            - Driver.Coordination
+            - Driver.Discovery
+            - Driver.Ratelimiter
+            - Driver.Scheme
+            - Driver.Scripting
+            - Driver.Table
+            - Driver.Topic
+            - Driver.With
+            - IsTimeoutError
+            - IsTransportError
+            - MustConnector
+            - MustOpen
+            - New
+            - Open
+            - Unwrap
+            - WithAccessTokenCredentials
+            - WithAnonymousCredentials
+            - WithCertificatesFromFile
+            - WithRequestType
+            - WithTraceID
+            - initOnce.Close
+            - initOnce.Init
+            - sqlDriver.OpenConnector
+        - package: github.com/ydb-platform/ydb-go-sdk/v3/credentials
+          symbols:
+            - NewAccessTokenCredentials
+            - NewAnonymousCredentials
+            - staticCredentialsConfig.Endpoint
+            - staticCredentialsConfig.GrpcDialOptions
+            - NewStaticCredentials
+            - WithSourceInfo
+        - package: github.com/ydb-platform/ydb-go-sdk/v3/internal/balancer
+          symbols:
+            - Balancer.clusterDiscovery
+            - Balancer.wrapCall
+          derived_symbols:
+            - Balancer.Invoke
+            - Balancer.NewStream
+            - New
+        - package: github.com/ydb-platform/ydb-go-sdk/v3/internal/conn
+          symbols:
+            - WithAfterFunc
+        - package: github.com/ydb-platform/ydb-go-sdk/v3/internal/credentials
+          symbols:
+            - NewAccessTokenCredentials
+            - AccessToken.String
+            - NewAnonymousCredentials
+            - Anonymous.String
+            - WithSourceInfo
+            - NewStaticCredentials
+            - Static.String
+summary: Credentials leak in github.com/ydb-platform/ydb-go-sdk/v3
+description: |-
+    A custom credentials object that does not implement the fmt.Stringer interface
+    may leak sensitive information (e.g., credentials) via logs.
+cves:
+    - CVE-2023-45825
+ghsas:
+    - GHSA-q24m-6h38-5xj8
+references:
+    - advisory: https://github.com/ydb-platform/ydb-go-sdk/security/advisories/GHSA-q24m-6h38-5xj8
+    - fix: https://github.com/ydb-platform/ydb-go-sdk/pull/859
+    - fix: https://github.com/ydb-platform/ydb-go-sdk/commit/a0d92057c4e1bbdc5e85ae8d649edb0232b8fd4c
