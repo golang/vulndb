@@ -1,0 +1,48 @@
+id: GO-2023-2119
+modules:
+    - module: github.com/consensys/gnark
+      versions:
+        - fixed: 0.9.1
+      vulnerable_at: 0.9.0
+      packages:
+        - package: github.com/consensys/gnark/backend/plonk/bls12-377
+          symbols:
+            - Prove
+            - Verify
+        - package: github.com/consensys/gnark/backend/plonk/bls12-381
+          symbols:
+            - Prove
+            - Verify
+        - package: github.com/consensys/gnark/backend/plonk/bls24-315
+          symbols:
+            - Prove
+            - Verify
+        - package: github.com/consensys/gnark/backend/plonk/bls24-317
+          symbols:
+            - Prove
+            - Verify
+        - package: github.com/consensys/gnark/backend/plonk/bn254
+          symbols:
+            - Prove
+            - Verify
+        - package: github.com/consensys/gnark/backend/plonk/bw6-633
+          symbols:
+            - Prove
+            - Verify
+        - package: github.com/consensys/gnark/backend/plonk/bw6-761
+          symbols:
+            - Prove
+            - Verify
+summary: Proof forgery due to insufficient randomness in github.com/consensys/gnark
+description: |-
+    A a third party may derive a valid proof from a valid initial tuple {proof,
+    public_inputs}, corresponding to the same public inputs as the initial proof.
+    This vulnerability is due to randomness being generated using a small part of
+    the scratch memory describing the state, allowing for degrees of freedom in the
+    transcript. Note that the impact is limited to the PlonK verifier smart
+    contract.
+ghsas:
+    - GHSA-7p92-x423-vwj6
+references:
+    - advisory: https://github.com/Consensys/gnark/security/advisories/GHSA-7p92-x423-vwj6
+    - fix: https://github.com/Consensys/gnark/commit/3421eaa7d544286abf3de8c46282b8d4da6d5da0
