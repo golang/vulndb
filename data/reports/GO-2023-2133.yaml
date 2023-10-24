@@ -1,0 +1,66 @@
+id: GO-2023-2133
+modules:
+    - module: github.com/nats-io/nats-server/v2
+      versions:
+        - introduced: 2.2.0
+          fixed: 2.9.23
+        - introduced: 2.10.0
+          fixed: 2.10.2
+      vulnerable_at: 2.10.1
+      packages:
+        - package: github.com/nats-io/nats-server/v2/server
+          symbols:
+            - Options.processConfigFileLine
+            - Server.configureAccounts
+          derived_symbols:
+            - ConfigureOptions
+            - New
+            - NewServer
+            - Options.ProcessConfigFile
+            - ProcessConfigFile
+            - Run
+            - Server.EnableJetStream
+            - Server.Reload
+            - Server.ReloadOptions
+            - Server.SetDefaultSystemAccount
+            - Server.SetSystemAccount
+            - Server.Start
+summary: Authorization bypass in github.com/nats-io/nats-server/v2
+description: |-
+    Without any authorization rules in the nats-server, users can connect without
+    authentication.
+
+    Before nats-server 2.2.0, all authentication and authorization rules for a
+    nats-server lived in an "authorization" block, defining users. With nats-server
+    2.2.0 all users live inside accounts. When using the authorization block, whose
+    syntax predates this, those users will be placed into the implicit global
+    account, "$G". Users inside accounts go into the newer "accounts" block.
+
+    If an "accounts" block is defined, in simple deployment scenarios this is often
+    used only to enable client access to the system account. When the only account
+    added is the system account "$SYS", the nats-server would create an implicit
+    user in "$G" and set it as the `no_auth_user` account, enabling the same
+    "without authentication" logic as without any rules.
+
+    This preserved the ability to connect simply, and then add one authenticated
+    login for system access.
+
+    But with an "authorization" block, this is wrong. Users exist in the global
+    account, with login rules. And in simple testing, they might still connect fine
+    without administrators seeing that authentication has been disabled.
+
+    In the fixed versions, using an "authorization" block will inhibit the implicit
+    creation of a "$G" user and setting it as the `no_auth_user` target. In unfixed
+    versions, just creating a second account, with no users, will also inhibit this
+    behavior.
+ghsas:
+    - GHSA-fr2g-9hjm-wr23
+credits:
+    - Alex Herrington
+references:
+    - fix: https://github.com/nats-io/nats-server/pull/4605
+    - fix: https://github.com/nats-io/nats-server/commit/fa5b7afcb64e7e887e49afdd032358802b5c4478
+    - advisory: https://advisories.nats.io/CVE/secnote-2023-01.txt
+    - report: https://github.com/nats-io/nats-server/discussions/4535
+    - web: https://github.com/nats-io/nats-server/releases/tag/v2.10.2
+    - web: https://github.com/nats-io/nats-server/releases/tag/v2.9.23
