@@ -58,7 +58,7 @@ func TestModuleRootAndFiles(t *testing.T) {
 		if err != nil {
 			t.Error(err)
 		}
-		return rel
+		return filepath.ToSlash(rel)
 	}
 
 	fileNames := func(filePaths []string) []string {
@@ -98,14 +98,23 @@ func TestModuleRootAndFiles(t *testing.T) {
 }
 
 func TestModuleRoots(t *testing.T) {
+	toSlash := func(modRoots map[string]string) map[string]string {
+		m := make(map[string]string)
+		for mod, root := range modRoots {
+			m[mod] = filepath.ToSlash(root)
+		}
+		return m
+	}
+
 	want := map[string]string{
 		"golang.org/module":       "testdata/module",
 		"golang.org/nestedmodule": "testdata/module/submodule",
 	}
-	got, err := moduleRoots("testdata/module")
+	roots, err := moduleRoots("testdata/module")
 	if err != nil {
 		t.Fatal(err)
 	}
+	got := toSlash(roots)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("(-got, want+):\n%s", diff)
 	}
