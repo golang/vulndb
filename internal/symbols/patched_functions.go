@@ -125,7 +125,7 @@ func source(f *ast.FuncDecl) string {
 	fs := token.NewFileSet()
 	if err := printer.Fprint(&b, fs, f); err != nil {
 		// should not happen, so just printing a warning
-		fmt.Printf("warning: getting source of %s failed with %v", symbolName(f), err)
+		fmt.Printf("warning: getting source of %s failed with %v", astSymbolName(f), err)
 		return ""
 	}
 	return strings.TrimSpace(b.String())
@@ -155,7 +155,7 @@ func moduleSymbols(repoRoot, module string) (map[symKey]*ast.FuncDecl, error) {
 				m[symKey{
 					pkg:    packageImportPath(module, modRoot, file),
 					file:   filepath.Base(file),
-					symbol: symbolName(fn)}] = fn
+					symbol: astSymbolName(fn)}] = fn
 			}
 		}
 	}
@@ -351,9 +351,9 @@ func packageImportPath(module, moduleRoot, pkgPath string) string {
 	return path.Join(module, rel)
 }
 
-// symbolName returns the name of f as a symbol in
+// astSymbolName returns the name of f as a symbol in
 // a vulnerability database.
-func symbolName(f *ast.FuncDecl) string {
+func astSymbolName(f *ast.FuncDecl) string {
 	name := f.Name.Name
 	if f.Recv == nil || len(f.Recv.List) == 0 {
 		return name
@@ -375,7 +375,7 @@ func symbolName(f *ast.FuncDecl) string {
 		// TODO(#63535): cover index instructions stemming from generics
 		return ""
 	default:
-		panic(fmt.Sprintf("symbolName: unexpected receiver type: %v\n", reflect.TypeOf(field.Type)))
+		panic(fmt.Sprintf("astSymbolName: unexpected receiver type: %v\n", reflect.TypeOf(field.Type)))
 	}
 	return t + "." + name
 }

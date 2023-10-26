@@ -206,7 +206,7 @@ func (b *B) Do() {}
 	var got []string
 	for _, decl := range f.Decls {
 		if fn, ok := decl.(*ast.FuncDecl); ok {
-			got = append(got, symbolName(fn))
+			got = append(got, astSymbolName(fn))
 		}
 	}
 	sort.Strings(got)

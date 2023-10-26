@@ -2,14 +2,18 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package vulnentries
+package symbols
 
 // This file is a subset of golang.org/x/vuln/internal/vulncheck/utils.go.
 
 import (
 	"context"
+	"errors"
+	"fmt"
+	"go/build"
 	"go/token"
 	"go/types"
+	"os"
 	"strings"
 
 	"golang.org/x/tools/go/callgraph"
@@ -18,9 +22,74 @@ import (
 	"golang.org/x/tools/go/packages"
 	"golang.org/x/tools/go/ssa/ssautil"
 	"golang.org/x/tools/go/types/typeutil"
+	"golang.org/x/vulndb/internal/derrors"
 
 	"golang.org/x/tools/go/ssa"
 )
+
+// loadPackage loads the package at the given import path, with enough
+// information for constructing a call graph.
+func loadPackage(cfg *packages.Config, importPath string) (_ *packages.Package, err error) {
+	defer derrors.Wrap(&err, "loadPackage(%s)", importPath)
+
+	cfg.Mode |= packages.NeedName | packages.NeedFiles | packages.NeedCompiledGoFiles |
+		packages.NeedImports | packages.NeedTypes | packages.NeedTypesSizes |
+		packages.NeedSyntax | packages.NeedTypesInfo | packages.NeedDeps |
+		packages.NeedModule
+	cfg.BuildFlags = []string{fmt.Sprintf("-tags=%s", strings.Join(build.Default.BuildTags, ","))}
+	pkgs, err := packages.Load(cfg, importPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := packageLoadingError(pkgs); err != nil {
+		return nil, err
+	}
+
+	if len(pkgs) == 0 {
+		return nil, errors.New("no packages found")
+	}
+	if len(pkgs) > 1 {
+		return nil, fmt.Errorf("multiple (%d) packages found for import path %s", len(pkgs), importPath)
+	}
+
+	return pkgs[0], nil
+}
+
+// packageLoadingError returns an error summarizing packages.Package.Errors if there were any.
+func packageLoadingError(pkgs []*packages.Package) error {
+	pkgError := func(pkg *packages.Package) error {
+		var msgs []string
+		for _, err := range pkg.Errors {
+			msgs = append(msgs, err.Error())
+		}
+		if len(msgs) == 0 {
+			return nil
+		}
+		// Report a more helpful error message for the package if possible.
+		for _, msg := range msgs {
+			// cgo failure?
+			if strings.Contains(msg, "could not import C (no metadata for C)") {
+				const url = `https://github.com/golang/vulndb/blob/master/doc/triage.md#vulnreport-cgo-failures`
+				return fmt.Errorf("package %s has a cgo error (install relevant C packages? %s)\nerrors:%s", pkg.PkgPath, url, strings.Join(msgs, "\n"))
+			}
+		}
+		return fmt.Errorf("package %s had %d errors: %s", pkg.PkgPath, len(msgs), strings.Join(msgs, "\n"))
+	}
+
+	var paths []string
+	var msgs []string
+	packages.Visit(pkgs, nil, func(pkg *packages.Package) {
+		if err := pkgError(pkg); err != nil {
+			paths = append(paths, pkg.PkgPath)
+			msgs = append(msgs, err.Error())
+		}
+	})
+	if len(msgs) == 0 {
+		return nil // no errors
+	}
+	return fmt.Errorf("packages with errors: %s\nerrors:\n%s", strings.Join(paths, " "), strings.Join(msgs, "\n"))
+}
 
 // buildSSA creates an ssa representation for pkgs. Returns
 // the ssa program encapsulating the packages and top level
@@ -176,4 +245,35 @@ func memberFuncs(member ssa.Member, prog *ssa.Program) []*ssa.Function {
 	default:
 		return nil
 	}
+}
+
+// pkgPath returns the path of the f's enclosing package, if any.
+// Otherwise, returns "".
+//
+// Copy of golang.org/x/vuln/internal/vulncheck/source.go:pkgPath.
+func pkgPath(f *ssa.Function) string {
+	if f.Package() != nil && f.Package().Pkg != nil {
+		return f.Package().Pkg.Path()
+	}
+	return ""
+}
+
+func changeToTempDir() (cleanup func(), _ error) {
+	cwd, err := os.Getwd()
+	if err != nil {
+		return nil, err
+	}
+	dir, err := os.MkdirTemp("", "vulnreport")
+	if err != nil {
+		return nil, err
+	}
+	cleanup = func() {
+		_ = os.RemoveAll(dir)
+		_ = os.Chdir(cwd)
+	}
+	if err := os.Chdir(dir); err != nil {
+		cleanup()
+		return nil, err
+	}
+	return cleanup, err
 }

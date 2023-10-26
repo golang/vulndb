@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package vulnentries
+package symbols
 
 // This file is a subset of golang.org/x/vuln/internal/vulncheck/entries.go.
 

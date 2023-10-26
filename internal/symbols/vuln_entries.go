@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package vulnentries
+package symbols
 
 import (
 	"context"
@@ -15,12 +15,12 @@ import (
 	"golang.org/x/vulndb/internal/report"
 )
 
-// Functions returns entries of pkgs call graph that lead to
+// vulnEntries returns entries of pkgs call graph that lead to
 // vulnerable symbols in m.
 //
 // It assumes that the modules in m present in pkgs, if any,
 // are at a version deemed vulnerable by m.
-func Functions(pkgs []*packages.Package, m *report.Module) ([]*ssa.Function, error) {
+func vulnEntries(pkgs []*packages.Package, m *report.Module) ([]*ssa.Function, error) {
 	ctx := context.Background()
 
 	// The following code block is copied from
@@ -112,15 +112,4 @@ func vulnReachingEntries(cg *callgraph.Graph, sinks []*callgraph.Node, allEntrie
 		visit(s)
 	}
 	return vres
-}
-
-// pkgPath returns the path of the f's enclosing package, if any.
-// Otherwise, returns "".
-//
-// Copy of golang.org/x/vuln/internal/vulncheck/source.go:pkgPath.
-func pkgPath(f *ssa.Function) string {
-	if f.Package() != nil && f.Package().Pkg != nil {
-		return f.Package().Pkg.Path()
-	}
-	return ""
 }

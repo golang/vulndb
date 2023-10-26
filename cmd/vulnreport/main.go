@@ -7,22 +7,17 @@
 package main
 
 import (
-	"bytes"
 	"context"
 	"errors"
 	"flag"
 	"fmt"
-	"go/build"
-	"go/types"
 	"io"
 	"log"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"regexp"
 	"runtime"
 	"runtime/pprof"
-	"sort"
 	"strconv"
 	"strings"
 	"sync"
@@ -33,7 +28,6 @@ import (
 	"golang.org/x/exp/constraints"
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
-	"golang.org/x/tools/go/packages"
 	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/database"
@@ -46,6 +40,7 @@ import (
 	"golang.org/x/vulndb/internal/osvutils"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
+	"golang.org/x/vulndb/internal/symbols"
 )
 
 var (
@@ -839,7 +834,7 @@ func checkReportSymbols(r *report.Report) error {
 				infolog.Printf("%s: skipping symbol checks for package %s (reason: %q)\n", r.ID, p.Package, p.SkipFix)
 				continue
 			}
-			syms, err := findExportedSymbols(m, p)
+			syms, err := symbols.Exported(m, p, errlog)
 			if err != nil {
 				return fmt.Errorf("package %s: %w", p.Package, err)
 			}
@@ -851,117 +846,6 @@ func checkReportSymbols(r *report.Report) error {
 	}
 
 	return nil
-}
-
-func findExportedSymbols(m *report.Module, p *report.Package) (_ []string, err error) {
-	defer derrors.Wrap(&err, "findExportedSymbols(%q, %q)", m.Module, p.Package)
-
-	cleanup, err := changeToTempDir()
-	if err != nil {
-		return nil, err
-	}
-	defer cleanup()
-
-	// This procedure was developed through trial and error finding a way
-	// to load symbols for GO-2023-1549, which has a dependency tree that
-	// includes go.mod files that reference v0.0.0 versions which do not exist.
-	//
-	// Create an empty go.mod.
-	if err := run("go", "mod", "init", "go.dev/_"); err != nil {
-		return nil, err
-	}
-	if !m.IsFirstParty() {
-		// Require the module we're interested in at the vulnerable_at version.
-		if err := run("go", "mod", "edit", "-require", m.Module+"@v"+m.VulnerableAt); err != nil {
-			return nil, err
-		}
-		for _, req := range m.VulnerableAtRequires {
-			if err := run("go", "mod", "edit", "-require", req); err != nil {
-				return nil, err
-			}
-		}
-		// Create a package that imports the package we're interested in.
-		var content bytes.Buffer
-		fmt.Fprintf(&content, "package p\n")
-		fmt.Fprintf(&content, "import _ %q\n", p.Package)
-		for _, req := range m.VulnerableAtRequires {
-			pkg, _, _ := strings.Cut(req, "@")
-			fmt.Fprintf(&content, "import _ %q", pkg)
-		}
-		if err := os.WriteFile("p.go", content.Bytes(), 0666); err != nil {
-			return nil, err
-		}
-	}
-	// Run go mod tidy.
-	if err := run("go", "mod", "tidy"); err != nil {
-		return nil, err
-	}
-
-	pkg, err := loadPackage(&packages.Config{}, p.Package)
-	if err != nil {
-		return nil, err
-	}
-	// First package should match package path and module.
-	if pkg.PkgPath != p.Package {
-		return nil, fmt.Errorf("first package had import path %s, wanted %s", pkg.PkgPath, p.Package)
-	}
-	if m.IsFirstParty() {
-		if pm := pkg.Module; pm != nil {
-			return nil, fmt.Errorf("got module %v, expected nil", pm)
-		}
-	} else {
-		if pm := pkg.Module; pm == nil || pm.Path != m.Module {
-			return nil, fmt.Errorf("got module %v, expected %s", pm, m.Module)
-		}
-	}
-
-	if len(p.Symbols) == 0 {
-		return nil, nil // no symbols to derive from. skip.
-	}
-
-	// Check to see that all symbols actually exist in the package.
-	// This should perhaps be a lint check, but lint doesn't
-	// load/typecheck packages at the moment, so do it here for now.
-	for _, sym := range p.Symbols {
-		if typ, method, ok := strings.Cut(sym, "."); ok {
-			n, ok := pkg.Types.Scope().Lookup(typ).(*types.TypeName)
-			if !ok {
-				errlog.Printf("package %s: %v: type not found\n", p.Package, typ)
-				continue
-			}
-			m, _, _ := types.LookupFieldOrMethod(n.Type(), true, pkg.Types, method)
-			if m == nil {
-				errlog.Printf("package %s: %v: method not found\n", p.Package, sym)
-			}
-		} else {
-			_, ok := pkg.Types.Scope().Lookup(typ).(*types.Func)
-			if !ok {
-				errlog.Printf("package %s: %v: func not found\n", p.Package, typ)
-			}
-		}
-	}
-
-	newsyms, err := exportedFunctions(pkg, m)
-	if err != nil {
-		return nil, err
-	}
-	var newslice []string
-	for s := range newsyms {
-		if s == "init" {
-			// Exclude init funcs from consideration.
-			//
-			// Assume that if init is calling a vulnerable symbol,
-			// it is doing so in a safe fashion (for example, the
-			// function might be vulnerable only when provided with
-			// untrusted input).
-			continue
-		}
-		if !slices.Contains(p.Symbols, s) {
-			newslice = append(newslice, s)
-		}
-	}
-	sort.Strings(newslice)
-	return newslice, nil
 }
 
 func osvCmd(_ context.Context, filename string, pc *proxy.Client) (err error) {
@@ -1102,99 +986,6 @@ func semverForGoVersion(v string) string {
 		version += "-" + m[4] + "." + m[5]
 	}
 	return version
-}
-
-// loadPackage loads the package at the given import path, with enough
-// information for constructing a call graph.
-func loadPackage(cfg *packages.Config, importPath string) (_ *packages.Package, err error) {
-	defer derrors.Wrap(&err, "loadPackage(%s)", importPath)
-
-	cfg.Mode |= packages.NeedName | packages.NeedFiles | packages.NeedCompiledGoFiles |
-		packages.NeedImports | packages.NeedTypes | packages.NeedTypesSizes |
-		packages.NeedSyntax | packages.NeedTypesInfo | packages.NeedDeps |
-		packages.NeedModule
-	cfg.BuildFlags = []string{fmt.Sprintf("-tags=%s", strings.Join(build.Default.BuildTags, ","))}
-	pkgs, err := packages.Load(cfg, importPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if err := packageLoadingError(pkgs); err != nil {
-		return nil, err
-	}
-
-	if len(pkgs) == 0 {
-		return nil, errors.New("no packages found")
-	}
-	if len(pkgs) > 1 {
-		return nil, fmt.Errorf("multiple (%d) packages found for import path %s", len(pkgs), importPath)
-	}
-
-	return pkgs[0], nil
-}
-
-// packageLoadingError returns an error summarizing packages.Package.Errors if there were any.
-func packageLoadingError(pkgs []*packages.Package) error {
-	pkgError := func(pkg *packages.Package) error {
-		var msgs []string
-		for _, err := range pkg.Errors {
-			msgs = append(msgs, err.Error())
-		}
-		if len(msgs) == 0 {
-			return nil
-		}
-		// Report a more helpful error message for the package if possible.
-		for _, msg := range msgs {
-			// cgo failure?
-			if strings.Contains(msg, "could not import C (no metadata for C)") {
-				const url = `https://github.com/golang/vulndb/blob/master/doc/triage.md#vulnreport-cgo-failures`
-				return fmt.Errorf("package %s has a cgo error (install relevant C packages? %s)\nerrors:%s", pkg.PkgPath, url, strings.Join(msgs, "\n"))
-			}
-		}
-		return fmt.Errorf("package %s had %d errors: %s", pkg.PkgPath, len(msgs), strings.Join(msgs, "\n"))
-	}
-
-	var paths []string
-	var msgs []string
-	packages.Visit(pkgs, nil, func(pkg *packages.Package) {
-		if err := pkgError(pkg); err != nil {
-			paths = append(paths, pkg.PkgPath)
-			msgs = append(msgs, err.Error())
-		}
-	})
-	if len(msgs) == 0 {
-		return nil // no errors
-	}
-	return fmt.Errorf("packages with errors: %s\nerrors:\n%s", strings.Join(paths, " "), strings.Join(msgs, "\n"))
-}
-
-func changeToTempDir() (cleanup func(), _ error) {
-	cwd, err := os.Getwd()
-	if err != nil {
-		return nil, err
-	}
-	dir, err := os.MkdirTemp("", "vulnreport")
-	if err != nil {
-		return nil, err
-	}
-	cleanup = func() {
-		_ = os.RemoveAll(dir)
-		_ = os.Chdir(cwd)
-	}
-	if err := os.Chdir(dir); err != nil {
-		cleanup()
-		return nil, err
-	}
-	return cleanup, err
-}
-
-func run(name string, arg ...string) error {
-	cmd := exec.Command(name, arg...)
-	out, err := cmd.CombinedOutput()
-	if err != nil {
-		errlog.Println(string(out))
-	}
-	return err
 }
 
 // setDates sets the PublishedDate of the report at filename to the oldest
