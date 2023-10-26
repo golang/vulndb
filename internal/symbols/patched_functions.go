@@ -14,6 +14,7 @@ import (
 	"go/printer"
 	"go/token"
 	"io/fs"
+	"log"
 	"os"
 	"path"
 	"path/filepath"
@@ -35,7 +36,7 @@ import (
 // patched in the package. Test packages and symbols are omitted.
 //
 // If the commit has more than one parent, an error is returned.
-func Patched(module, repoURL, commitHash string) (_ map[string][]string, err error) {
+func Patched(module, repoURL, commitHash string, errlog *log.Logger) (_ map[string][]string, err error) {
 	defer derrors.Wrap(&err, "Patched(%s ,%s, %s)", module, repoURL, commitHash)
 
 	repoRoot, err := os.MkdirTemp("", commitHash)
@@ -90,7 +91,7 @@ func Patched(module, repoURL, commitHash string) (_ map[string][]string, err err
 		return nil, err
 	}
 
-	patched := patchedSymbols(oldSymbols, newSymbols)
+	patched := patchedSymbols(oldSymbols, newSymbols, errlog)
 	pkgSyms := make(map[string][]string)
 	for _, sym := range patched {
 		pkgSyms[sym.pkg] = append(pkgSyms[sym.pkg], sym.symbol)
@@ -101,7 +102,7 @@ func Patched(module, repoURL, commitHash string) (_ map[string][]string, err err
 // patchedSymbols returns symbol indices in oldSymbols that either 1) cannot
 // be identified in newSymbols or 2) the corresponding functions have their
 // source code changed.
-func patchedSymbols(oldSymbols, newSymbols map[symKey]*ast.FuncDecl) []symKey {
+func patchedSymbols(oldSymbols, newSymbols map[symKey]*ast.FuncDecl, errlog *log.Logger) []symKey {
 	var syms []symKey
 	for key, of := range oldSymbols {
 		nf, ok := newSymbols[key]
@@ -112,7 +113,7 @@ func patchedSymbols(oldSymbols, newSymbols map[symKey]*ast.FuncDecl) []symKey {
 			continue
 		}
 
-		if source(of) != source(nf) {
+		if source(of, errlog) != source(nf, errlog) {
 			syms = append(syms, key)
 		}
 	}
@@ -120,12 +121,12 @@ func patchedSymbols(oldSymbols, newSymbols map[symKey]*ast.FuncDecl) []symKey {
 }
 
 // source returns f's source code as text.
-func source(f *ast.FuncDecl) string {
+func source(f *ast.FuncDecl, errlog *log.Logger) string {
 	var b bytes.Buffer
 	fs := token.NewFileSet()
 	if err := printer.Fprint(&b, fs, f); err != nil {
 		// should not happen, so just printing a warning
-		fmt.Printf("warning: getting source of %s failed with %v", astSymbolName(f), err)
+		errlog.Printf("getting source of %s failed with %v", astSymbolName(f), err)
 		return ""
 	}
 	return strings.TrimSpace(b.String())
