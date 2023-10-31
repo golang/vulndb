@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-2162",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-41891",
+    "GHSA-r847-6w6h-r8g4"
+  ],
+  "summary": "SQL Injection in List Endpoints in github.com/flyteorg/flyteadmin",
+  "details": "A malicious user can send a REST request to a List endpoint with filters that contain custom SQL statements. This can result in SQL injection.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/flyteorg/flyteadmin",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.1.124"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/flyteorg/flyteadmin/pkg/common",
+            "symbols": [
+              "NewSortParameter"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/flyteorg/flyteadmin/commit/b3177ef70f068e908140b8a4a9913dfa74f289fd"
+    }
+  ],
+  "credits": [
+    {
+      "name": "@Sanjana-Sarda"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-2162"
+  }
+}

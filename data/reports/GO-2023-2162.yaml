@@ -1,0 +1,22 @@
+id: GO-2023-2162
+modules:
+    - module: github.com/flyteorg/flyteadmin
+      versions:
+        - fixed: 1.1.124
+      vulnerable_at: 1.1.123
+      packages:
+        - package: github.com/flyteorg/flyteadmin/pkg/common
+          symbols:
+            - NewSortParameter
+summary: SQL Injection in List Endpoints in github.com/flyteorg/flyteadmin
+description: |-
+    A malicious user can send a REST request to a List endpoint with filters that
+    contain custom SQL statements. This can result in SQL injection.
+cves:
+    - CVE-2023-41891
+ghsas:
+    - GHSA-r847-6w6h-r8g4
+credits:
+    - '@Sanjana-Sarda'
+references:
+    - fix: https://github.com/flyteorg/flyteadmin/commit/b3177ef70f068e908140b8a4a9913dfa74f289fd
