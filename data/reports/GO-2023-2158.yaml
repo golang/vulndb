@@ -1,0 +1,24 @@
+id: GO-2023-2158
+modules:
+    - module: github.com/grafana/google-sheets-datasource
+      versions:
+        - introduced: 0.9.0
+          fixed: 1.2.2
+      vulnerable_at: 1.2.0
+      packages:
+        - package: github.com/grafana/google-sheets-datasource/pkg/googlesheets
+          symbols:
+            - GoogleSheets.getSheetData
+          derived_symbols:
+            - GoogleSheets.Query
+            - googleSheetsDatasource.QueryData
+summary: Google Sheet API key disclosure in github.com/grafana/google-sheets-datasource
+description: |-
+    Error messages for the Google Sheets data source plugin were improperly
+    sanitized. The Google Sheet API-key could potentially be exposed.
+cves:
+    - CVE-2023-4457
+ghsas:
+    - GHSA-37x5-qpm8-53rq
+references:
+    - web: https://grafana.com/security/security-advisories/cve-2023-4457/

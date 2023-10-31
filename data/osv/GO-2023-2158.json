@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-2158",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-4457",
+    "GHSA-37x5-qpm8-53rq"
+  ],
+  "summary": "Google Sheet API key disclosure in github.com/grafana/google-sheets-datasource",
+  "details": "Error messages for the Google Sheets data source plugin were improperly sanitized. The Google Sheet API-key could potentially be exposed.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/grafana/google-sheets-datasource",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.9.0"
+            },
+            {
+              "fixed": "1.2.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/grafana/google-sheets-datasource/pkg/googlesheets",
+            "symbols": [
+              "GoogleSheets.Query",
+              "GoogleSheets.getSheetData",
+              "googleSheetsDatasource.QueryData"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://grafana.com/security/security-advisories/cve-2023-4457/"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-2158"
+  }
+}
