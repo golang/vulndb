@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-2153",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-m425-mq94-257g"
+  ],
+  "summary": "denial of service from HTTP/2 Rapid Reset in google.golang.org/grpc",
+  "details": "An attacker can send HTTP/2 requests, cancel them, and send subsequent requests. This is valid by the HTTP/2 protocol, but would cause the gRPC-Go server to launch more concurrent method handlers than the configured maximum stream limit, `grpc.MaxConcurrentStreams`. This results in a denial of service due to resource consumption.",
+  "affected": [
+    {
+      "package": {
+        "name": "google.golang.org/grpc",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.56.3"
+            },
+            {
+              "introduced": "1.57.0"
+            },
+            {
+              "fixed": "1.57.1"
+            },
+            {
+              "introduced": "1.58.0"
+            },
+            {
+              "fixed": "1.58.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "google.golang.org/grpc/internal/transport",
+            "symbols": [
+              "NewServerTransport"
+            ]
+          },
+          {
+            "path": "google.golang.org/grpc",
+            "symbols": [
+              "NewServer",
+              "Server.Serve",
+              "Server.initServerWorkers"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/grpc/grpc-go/pull/6703"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/grpc/grpc-go/commit/f2180b4d5403d2210b30b93098eb7da31c05c721"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-2153"
+  }
+}
