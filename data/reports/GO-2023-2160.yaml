@@ -1,0 +1,22 @@
+id: GO-2023-2160
+modules:
+    - module: github.com/quic-go/quic-go
+      versions:
+        - introduced: 0.37.0
+          fixed: 0.37.3
+      vulnerable_at: 0.37.2
+      packages:
+        - package: github.com/quic-go/quic-go
+summary: panic during QUIC handshake in github.com/quic-go/quic-go
+description: |-
+    The QUIC handshake can cause a panic when processing a certain sequence of
+    frames. A malicious peer can deliberately trigger this panic.
+cves:
+    - CVE-2023-46239
+ghsas:
+    - GHSA-3q6m-v84f-6p9h
+references:
+    - advisory: https://github.com/quic-go/quic-go/security/advisories/GHSA-3q6m-v84f-6p9h
+    - fix: https://github.com/quic-go/quic-go/commit/b6a4725b60f1fe04e8f1ddcc3114e290fcea1617
+notes:
+    - No symbols, because the only vulnerable versions only build with unreleased versions of Go and the vulnerability affects all users of the package anyway.
