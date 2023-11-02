@@ -1,0 +1,28 @@
+id: GO-2023-2163
+modules:
+    - module: github.com/nats-io/nkeys
+      versions:
+        - introduced: 0.4.0
+          fixed: 0.4.6
+      vulnerable_at: 0.4.5
+      packages:
+        - package: github.com/nats-io/nkeys
+          symbols:
+            - decodePubCurveKey
+          derived_symbols:
+            - ckp.Open
+            - ckp.Seal
+            - ckp.SealWithRand
+summary: curve KeyPairs fail to encrypt github.com/nats-io/nkeys
+description: |-
+    Curve KeyPairs always use the same (all-zeros) key to encrypt data,
+    and provide no security.
+cves:
+    - CVE-2023-46129
+ghsas:
+    - GHSA-mr45-rx8q-wcm9
+credits:
+    - Quentin Matillat (GitHub @tinou98)
+references:
+    - advisory: https://github.com/nats-io/nkeys/security/advisories/GHSA-mr45-rx8q-wcm9
+    - fix: https://github.com/nats-io/nkeys/commit/58fb9d69f42ea73fffad1d14e5914dc666f3daa1

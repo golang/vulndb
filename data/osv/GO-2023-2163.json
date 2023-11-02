@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-2163",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-46129",
+    "GHSA-mr45-rx8q-wcm9"
+  ],
+  "summary": "curve KeyPairs fail to encrypt github.com/nats-io/nkeys",
+  "details": "Curve KeyPairs always use the same (all-zeros) key to encrypt data, and provide no security.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/nats-io/nkeys",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.4.0"
+            },
+            {
+              "fixed": "0.4.6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/nats-io/nkeys",
+            "symbols": [
+              "ckp.Open",
+              "ckp.Seal",
+              "ckp.SealWithRand",
+              "decodePubCurveKey"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/nats-io/nkeys/security/advisories/GHSA-mr45-rx8q-wcm9"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/nats-io/nkeys/commit/58fb9d69f42ea73fffad1d14e5914dc666f3daa1"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Quentin Matillat (GitHub @tinou98)"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-2163"
+  }
+}
