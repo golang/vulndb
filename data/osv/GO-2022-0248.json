@@ -5,7 +5,8 @@
   "published": "2022-07-15T23:07:18Z",
   "aliases": [
     "CVE-2021-3907",
-    "GHSA-cqh2-vc2f-q4fh"
+    "GHSA-cqh2-vc2f-q4fh",
+    "GHSA-8459-6rc9-8vf8"
   ],
   "summary": "Directory traversal in manifest path extraction in github.com/cloudflare/cfrpki",
   "details": "Manifest path extraction is vulnerable to directory traversal attacks.\n\nThe ExtractPathManifest function permits file paths containing relative directory components (\"..\"), permitting files to reference arbitrary locations on the filesystem.",
@@ -23,7 +24,7 @@
               "introduced": "0"
             },
             {
-              "fixed": "1.4.3"
+              "fixed": "1.4.4"
             }
           ]
         }
@@ -48,6 +49,10 @@
     {
       "type": "FIX",
       "url": "https://github.com/cloudflare/cfrpki/commit/eb9cc4db7b7b79e44f56dfaa959fccdfb2af8284"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cloudflare/cfrpki/commit/a053a808feeb3115c76b6cc263ee55598ce6e8cd"
     }
   ],
   "credits": [
