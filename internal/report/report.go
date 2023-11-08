@@ -94,6 +94,7 @@ var ExcludedReasons = []ExcludedReason{
 	"NOT_A_VULNERABILITY",
 	"EFFECTIVELY_PRIVATE",
 	"DEPENDENT_VULNERABILITY",
+	"LEGACY_FALSE_POSITIVE",
 }
 
 const excludedLabelPrefix = "excluded: "
