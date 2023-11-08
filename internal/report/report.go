@@ -104,7 +104,10 @@ func (er ExcludedReason) ToLabel() string {
 }
 
 func FromLabel(label string) (ExcludedReason, bool) {
-	er, ok := strings.CutPrefix(label, excludedLabelPrefix)
+	pre, er, ok := strings.Cut(label, excludedLabelPrefix)
+	if pre != "" {
+		return "", false
+	}
 	return ExcludedReason(er), ok
 }
 

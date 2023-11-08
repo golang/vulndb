@@ -75,6 +75,19 @@ func TestYAMLFilename(t *testing.T) {
 	}
 }
 
+func TestToFromLabel(t *testing.T) {
+	str := "EFFECTIVELY_PRIVATE"
+	label := "excluded: EFFECTIVELY_PRIVATE"
+	er := ExcludedReason(str)
+	if got, want := er.ToLabel(), label; got != want {
+		t.Errorf("(%s).ToLabel = %s, want %s", er, got, want)
+	}
+	got, ok := FromLabel(label)
+	if want := er; !ok || got != want {
+		t.Errorf("FromLabel(%s) = (%s, %t), want (%s, true)", label, got, ok, want)
+	}
+}
+
 func TestParseFilepath(t *testing.T) {
 	filepath := "data/reports/GO-1999-0023.yaml"
 	wantFolder := "data/reports"
