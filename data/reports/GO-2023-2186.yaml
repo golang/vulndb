@@ -1,0 +1,29 @@
+id: GO-2023-2186
+modules:
+    - module: std
+      versions:
+        - fixed: 1.20.11
+        - introduced: 1.21.0-0
+          fixed: 1.21.4
+      vulnerable_at: 1.21.3
+      packages:
+        - package: path/filepath
+          symbols:
+            - IsLocal
+summary: Incorrect detection of reserved device names on Windows in path/filepath
+description: |-
+    On Windows, The IsLocal function does not correctly detect reserved device
+    names in some cases.
+
+    Reserved names followed by spaces, such as "COM1 ", and
+    reserved names "COM" and "LPT" followed by superscript 1, 2, or 3, are
+    incorrectly reported as local.
+
+    With fix, IsLocal now correctly reports these names as non-local.
+references:
+    - report: https://go.dev/issue/63713
+    - fix: https://go.dev/cl/540277
+    - web: https://groups.google.com/g/golang-announce/c/4tU8LZfBFkY
+cve_metadata:
+    id: CVE-2023-45284
+    cwe: 'CWE-41: Improper Resolution of Path Equivalence'
