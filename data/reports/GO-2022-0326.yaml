@@ -1,0 +1,38 @@
+id: GO-2022-0326
+modules:
+    - module: github.com/sigstore/cosign
+      versions:
+        - fixed: 1.5.2
+      vulnerable_at: 1.5.1
+      packages:
+        - package: github.com/sigstore/cosign/pkg/cosign
+          symbols:
+            - VerifyBundle
+          derived_symbols:
+            - VerifyImageAttestations
+            - VerifyImageSignature
+            - VerifyImageSignatures
+            - VerifyLocalImageAttestations
+            - VerifyLocalImageSignatures
+        - package: github.com/sigstore/cosign/pkg/sget
+          symbols:
+            - SecureGet.Do
+        - package: github.com/sigstore/cosign/cmd/cosign/cli/verify
+          symbols:
+            - VerifyAttestationCommand.Exec
+            - VerifyCommand.Exec
+            - PrintVerificationHeader
+summary: Improper certificate validation in github.com/sigstore/cosign
+description: |-
+    Cosign can be manipulated to claim that an entry for a signature in the OCI
+    registry exists in the Rekor transparency log even if it does not. This requires
+    the attacker to have pull and push permissions for the signature in OCI. This
+    can happen with both standard signing with a keypair and "keyless signing" with
+    Fulcio certificate authority.
+cves:
+    - CVE-2022-23649
+ghsas:
+    - GHSA-ccxc-vr6p-4858
+references:
+    - fix: https://github.com/sigstore/cosign/commit/96d410a6580e4e81d24d112a0855c70ca3fb5b49
+    - web: https://github.com/sigstore/cosign/releases/tag/v1.5.2
