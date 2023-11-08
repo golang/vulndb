@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-2185",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-45283"
+  ],
+  "summary": "Insecure parsing of Windows paths with a \\??\\ prefix in path/filepath",
+  "details": "The filepath package does not recognize paths with a \\??\\ prefix as special.\n\nOn Windows, a path beginning with \\??\\ is a Root Local Device path equivalent to a path beginning with \\\\?\\. Paths with a \\??\\ prefix may be used to access arbitrary locations on the system. For example, the path \\??\\c:\\x is equivalent to the more common path c:\\x.\n\nBefore fix, Clean could convert a rooted path such as \\a\\..\\??\\b into the root local device path \\??\\b. Clean will now convert this to .\\??\\b.\n\nSimilarly, Join(\\, ??, b) could convert a seemingly innocent sequence of path elements into the root local device path \\??\\b. Join will now convert this to \\.\\??\\b.\n\nIn addition, with fix, IsAbs now correctly reports paths beginning with \\??\\ as absolute, and VolumeName correctly reports the \\??\\ prefix as a volume name.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.20.11"
+            },
+            {
+              "introduced": "1.21.0-0"
+            },
+            {
+              "fixed": "1.21.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "path/filepath",
+            "goos": [
+              "windows"
+            ],
+            "symbols": [
+              "Abs",
+              "Base",
+              "Clean",
+              "Dir",
+              "EvalSymlinks",
+              "Glob",
+              "IsLocal",
+              "Join",
+              "Rel",
+              "Split",
+              "VolumeName",
+              "Walk",
+              "WalkDir",
+              "join",
+              "volumeNameLen"
+            ]
+          },
+          {
+            "path": "internal/safefilepath",
+            "goos": [
+              "windows"
+            ],
+            "symbols": [
+              "FromFS",
+              "fromFS"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/63713"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/540277"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/4tU8LZfBFkY"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-2185"
+  }
+}
