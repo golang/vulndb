@@ -86,7 +86,7 @@ func createExcluded(ctx context.Context, c *issues.Client, ghsaClient *ghsa.Clie
 		return err
 	}
 	for _, r := range records {
-		if err := constructIssue(ctx, c, ghsaClient, pc, r.identifier, []string{fmt.Sprintf("excluded: %s", r.category)}); err != nil {
+		if err := constructIssue(ctx, c, ghsaClient, pc, r.identifier, []string{r.category.ToLabel()}); err != nil {
 			return err
 		}
 	}
@@ -159,7 +159,7 @@ func constructIssue(ctx context.Context, c *issues.Client, ghsaClient *ghsa.Clie
 
 type record struct {
 	identifier string
-	category   string
+	category   report.ExcludedReason
 }
 
 func parseAliases(filename string) (aliases []string, err error) {
@@ -182,7 +182,7 @@ func parseExcluded(filename string) (records []*record, err error) {
 			return nil, fmt.Errorf("wrong number of fields on line %d: %q", i, line)
 		}
 		r := &record{
-			category:   parts[0],
+			category:   report.ExcludedReason(parts[0]),
 			identifier: parts[1],
 		}
 		records = append(records, r)

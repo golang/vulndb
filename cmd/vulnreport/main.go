@@ -414,7 +414,7 @@ func createExcluded(ctx context.Context, cfg *createCfg) (err error) {
 		stateOption = "all"
 	}
 	for _, er := range report.ExcludedReasons {
-		label := fmt.Sprintf("excluded: %s", er)
+		label := er.ToLabel()
 		tempIssues, err :=
 			cfg.issuesClient.Issues(ctx, issues.IssuesOptions{Labels: []string{label}, State: stateOption})
 		if err != nil {
@@ -562,9 +562,9 @@ func parseGithubIssue(iss *issues.Issue, pc *proxy.Client, allowClosed bool) (*p
 
 	// Parse labels for excluded and duplicate issues.
 	for _, label := range iss.Labels {
-		if strings.HasPrefix(label, "excluded: ") {
+		if reason, ok := report.FromLabel(label); ok {
 			if parsed.excluded == "" {
-				parsed.excluded = report.ExcludedReason(strings.TrimPrefix(label, "excluded: "))
+				parsed.excluded = reason
 			} else {
 				return nil, fmt.Errorf("issue has multiple excluded reasons")
 			}

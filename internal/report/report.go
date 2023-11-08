@@ -96,6 +96,17 @@ var ExcludedReasons = []ExcludedReason{
 	"DEPENDENT_VULNERABILITY",
 }
 
+const excludedLabelPrefix = "excluded: "
+
+func (er ExcludedReason) ToLabel() string {
+	return fmt.Sprintf("%s%s", excludedLabelPrefix, string(er))
+}
+
+func FromLabel(label string) (ExcludedReason, bool) {
+	er, ok := strings.CutPrefix(label, excludedLabelPrefix)
+	return ExcludedReason(er), ok
+}
+
 // A Reference is a link to some external resource.
 //
 // For ease of typing, References are represented in the YAML as a
