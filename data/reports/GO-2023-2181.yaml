@@ -1,0 +1,28 @@
+id: GO-2023-2181
+modules:
+    - module: github.com/sigstore/cosign
+      vulnerable_at: 1.13.1
+      packages:
+        - package: github.com/sigstore/cosign/pkg/cosign
+          symbols:
+            - FetchSignaturesForReference
+    - module: github.com/sigstore/cosign/v2
+      versions:
+        - fixed: 2.2.1
+      vulnerable_at: 2.2.0
+      packages:
+        - package: github.com/sigstore/cosign/v2/pkg/cosign
+          symbols:
+            - FetchSignaturesForReference
+summary: Denial of service attack from remote registry in github.com/sigstore/cosign
+description: |-
+    An attacker who controls a remote registry can return a high number of
+    attestations and/or signatures to cosign. This can cause cosign to enter
+    a long loop resulting in a denial of service, i.e., endless data attack.
+cves:
+    - CVE-2023-46737
+ghsas:
+    - GHSA-vfp6-jrw2-99g9
+references:
+    - fix: https://github.com/sigstore/cosign/commit/8ac891ff0e29ddc67965423bee8f826219c6eb0f
+    - web: https://github.com/sigstore/cosign/releases/tag/v2.2.1
