@@ -58,6 +58,7 @@ func (r *Report) ToOSV(lastModified time.Time) osv.Entry {
 		Published:        osv.Time{Time: r.Published},
 		Modified:         osv.Time{Time: lastModified},
 		Withdrawn:        withdrawn,
+		Related:          r.Related,
 		Summary:          toParagraphs(r.Summary),
 		Details:          toParagraphs(details),
 		Credits:          credits,

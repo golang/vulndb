@@ -67,6 +67,7 @@ func TestToOSV(t *testing.T) {
 		Description: "It's a real bad one, \nI'll tell you that.\n\n More info.\n",
 		CVEs:        []string{"CVE-0000-0000"},
 		GHSAs:       []string{"GHSA-abcd-efgh"},
+		Related:     []string{"CVE-0000-0002"},
 		Credits:     []string{"gopherbot"},
 		References: []*Reference{
 			{Type: osv.ReferenceTypeAdvisory, URL: "advisory"},
@@ -87,6 +88,7 @@ func TestToOSV(t *testing.T) {
 			{Type: "WEB", URL: "web"},
 		},
 		Aliases: []string{"CVE-0000-0000", "GHSA-abcd-efgh"},
+		Related: []string{"CVE-0000-0002"},
 		Affected: []osv.Affected{
 			{
 				Module: osv.Module{

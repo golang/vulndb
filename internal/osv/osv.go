@@ -206,6 +206,8 @@ type Entry struct {
 	// Aliases is a list of IDs for the same vulnerability in other
 	// databases.
 	Aliases []string `json:"aliases,omitempty"`
+	// Related is a list of IDs closely related to this vulnerability.
+	Related []string `json:"related,omitempty"`
 	// Summary contains a a one-line, English textual summary of the
 	// vulnerability.
 	Summary string `json:"summary,omitempty"`
