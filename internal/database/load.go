@@ -165,8 +165,8 @@ func checkFiles(filepath string, v any, requireGzip bool) (err error) {
 	if err != nil {
 		return err
 	}
-	if string(contents) != string(marshaled) {
-		return fmt.Errorf("%s: contents do not match marshaled bytes", filepath)
+	if c, m := string(contents), string(marshaled); c != m {
+		return fmt.Errorf("%s: contents do not match marshaled bytes of value:\ncontents:\n%s\nvalue (marshaled):\n%s", filepath, c, m)
 	}
 
 	if requireGzip {
@@ -174,8 +174,8 @@ func checkFiles(filepath string, v any, requireGzip bool) (err error) {
 		if err != nil {
 			return err
 		}
-		if string(contents) != string(gzipped) {
-			return fmt.Errorf("%s: contents do not match uncompressed file", filepath+".gz")
+		if c, g := string(contents), string(gzipped); c != g {
+			return fmt.Errorf("%[1]s: contents of uncompressed file do not match contents of compressed file:\ncontents of %[1]s:\n%[2]s\ncontents of %[1]s.gz:\n%[3]s", filepath, c, g)
 		}
 	}
 
