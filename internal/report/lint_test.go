@@ -329,6 +329,13 @@ func TestLintOffline(t *testing.T) {
 			want: []string{"malformed cve identifier"},
 		},
 		{
+			desc: "bad ghsa identifier",
+			report: validReport(func(r *Report) {
+				r.GHSAs = []string{"GHSA-123"}
+			}),
+			want: []string{"GHSA-123 is not a valid GHSA"},
+		},
+		{
 			desc: "cve and cve metadata both present",
 			report: validReport(func(r *Report) {
 				r.CVEs = []string{"CVE-0000-1111"}

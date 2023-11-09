@@ -133,6 +133,14 @@ func (r *Report) lintCVEs(addIssue func(string)) {
 	}
 }
 
+func (r *Report) lintGHSAs(addIssue func(string)) {
+	for _, g := range r.GHSAs {
+		if !ghsa.IsGHSA(g) {
+			addIssue(fmt.Sprintf("%s is not a valid GHSA", g))
+		}
+	}
+}
+
 func (r *Report) lintRelated(addIssue func(string)) {
 	if len(r.Related) == 0 {
 		return
@@ -438,6 +446,7 @@ func (r *Report) lint(pc *proxy.Client) []string {
 		r.lintLineLength("cve_metadata.description", r.CVEMetadata.Description, addIssue)
 	}
 	r.lintCVEs(addIssue)
+	r.lintGHSAs(addIssue)
 	r.lintRelated(addIssue)
 
 	if isFirstParty && !r.IsExcluded() {
