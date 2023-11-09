@@ -204,6 +204,10 @@ type Report struct {
 	// the above CVEs.
 	GHSAs []string `yaml:",omitempty"`
 
+	// Related is a list of identifiers (e.g. CVEs or GHSAs)
+	// that are related to, but are not direct aliases of, this report.
+	Related []string `yaml:",omitempty"`
+
 	Credits    []string     `yaml:",omitempty"`
 	References []*Reference `yaml:",omitempty"`
 

@@ -475,6 +475,23 @@ func TestLintOffline(t *testing.T) {
 			},
 		},
 		{
+			desc: "related field",
+			report: validReport(func(r *Report) {
+				r.CVEs = []string{"CVE-0000-1111"}
+				r.Related = []string{
+					"not-an-id",           // bad
+					"CVE-0000-1111",       // bad (duplicate)
+					"CVE-0000-1112",       // ok
+					"GHSA-0000-0000-0000", // ok
+					"GO-1990-0001",        // ok
+				}
+			}),
+			want: []string{
+				"not-an-id is not a recognized identifier",
+				"CVE-0000-1111 is also listed among aliases",
+			},
+		},
+		{
 			desc: "invalid module-version pair ignored",
 			report: validReport(func(r *Report) {
 				r.Modules = append(r.Modules, &Module{

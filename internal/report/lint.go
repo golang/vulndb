@@ -133,6 +133,34 @@ func (r *Report) lintCVEs(addIssue func(string)) {
 	}
 }
 
+func (r *Report) lintRelated(addIssue func(string)) {
+	if len(r.Related) == 0 {
+		return
+	}
+
+	aliases := r.Aliases()
+	for _, related := range r.Related {
+		// In most cases, the related list is very short, so there's no
+		// need create a map of aliases.
+		if slices.Contains(aliases, related) {
+			addIssue(fmt.Sprintf("related: identifier %s is also listed among aliases", related))
+		}
+		if !isIdentifier(related) {
+			addIssue(fmt.Sprintf("related: %s is not a recognized identifier (CVE, GHSA or Go ID)", related))
+		}
+	}
+}
+
+func isIdentifier(id string) bool {
+	return cveschema5.IsCVE(id) || ghsa.IsGHSA(id) || IsGoID(id)
+}
+
+var goIDregexp = regexp.MustCompile(`^GO-\d{4}-\d{4,}$`)
+
+func IsGoID(s string) bool {
+	return goIDregexp.MatchString(s)
+}
+
 const maxLineLength = 80
 
 func (r *Report) lintLineLength(field, content string, addIssue func(string)) {
@@ -410,6 +438,7 @@ func (r *Report) lint(pc *proxy.Client) []string {
 		r.lintLineLength("cve_metadata.description", r.CVEMetadata.Description, addIssue)
 	}
 	r.lintCVEs(addIssue)
+	r.lintRelated(addIssue)
 
 	if isFirstParty && !r.IsExcluded() {
 		r.lintStdLibLinks(addIssue)
