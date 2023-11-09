@@ -1,0 +1,39 @@
+id: GO-2022-0998
+modules:
+    - module: github.com/sigstore/cosign
+      versions:
+        - fixed: 1.12.0
+      vulnerable_at: 1.11.1
+      packages:
+        - package: github.com/sigstore/cosign/cmd/cosign/cli/verify
+          symbols:
+            - VerifyBlobCmd
+            - verifySigByUUID
+            - signatures
+            - verifyRekorEntry
+            - verifyRekorBundle
+          derived_symbols:
+            - VerifyAttestationCommand.Exec
+            - VerifyCommand.Exec
+        - package: github.com/sigstore/cosign/pkg/cosign
+          symbols:
+            - VerifySET
+          derived_symbols:
+            - TLogUpload
+            - TLogUploadInTotoAttestation
+            - VerifyBundle
+            - VerifyImageAttestations
+            - VerifyImageSignature
+            - VerifyImageSignatures
+            - VerifyLocalImageAttestations
+            - VerifyLocalImageSignatures
+            - VerifyTLogEntry
+summary: Improper blob verification in github.com/sigstore/cosign
+cves:
+    - CVE-2022-36056
+ghsas:
+    - GHSA-8gw7-4j42-w388
+references:
+    - advisory: https://github.com/sigstore/cosign/security/advisories/GHSA-8gw7-4j42-w388
+    - fix: https://github.com/sigstore/cosign/commit/80b79ed8b4d28ccbce3d279fd273606b5cddcc25
+    - web: https://github.com/sigstore/cosign/releases/tag/v1.12.0
