@@ -1,0 +1,18 @@
+id: GO-2022-0758
+modules:
+    - module: github.com/sigstore/cosign
+      versions:
+        - fixed: 1.10.1
+      vulnerable_at: 1.10.0
+      packages:
+        - package: github.com/sigstore/cosign/cmd/cosign/cli/verify
+          symbols:
+            - VerifyAttestationCommand.Exec
+summary: Improper verification of signature attestations in github.com/sigstore/cosign
+cves:
+    - CVE-2022-35929
+ghsas:
+    - GHSA-vjxv-45g9-9296
+references:
+    - advisory: https://github.com/sigstore/cosign/security/advisories/GHSA-vjxv-45g9-9296
+    - fix: https://github.com/sigstore/cosign/commit/c5fda01a8ff33ca981f45a9f13e7fb6bd2080b94

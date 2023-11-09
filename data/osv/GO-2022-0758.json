@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2022-0758",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-35929",
+    "GHSA-vjxv-45g9-9296"
+  ],
+  "summary": "Improper verification of signature attestations in github.com/sigstore/cosign",
+  "details": "Improper verification of signature attestations in github.com/sigstore/cosign",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/sigstore/cosign",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.10.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/sigstore/cosign/cmd/cosign/cli/verify",
+            "symbols": [
+              "VerifyAttestationCommand.Exec"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/sigstore/cosign/security/advisories/GHSA-vjxv-45g9-9296"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/sigstore/cosign/commit/c5fda01a8ff33ca981f45a9f13e7fb6bd2080b94"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2022-0758"
+  }
+}
