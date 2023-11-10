@@ -39,12 +39,12 @@ steps:
   - id: GenerateLegacy
     name: golang:1.19.2
     entrypoint: bash
-    args: ["-c", "go run ./cmd/gendb -out /workspace/legacydb -legacy"]
+    args: ["-ec", "go run ./cmd/gendb -out /workspace/legacydb -legacy"]
 
   - id: Generate
     name: golang:1.19.2
     entrypoint: bash
-    args: ["-c", "go run ./cmd/gendb -out /workspace/db"]
+    args: ["-ec", "go run ./cmd/gendb -out /workspace/db"]
 
   - id: PreValidate
     name: golang:1.19.2
@@ -63,9 +63,9 @@ steps:
     entrypoint: bash
     args:
       - -ec
-      - gsutil -q -m cp -r gs://go-vulndb /workspace/deployed
+      - mkdir /workspace/deployed && gsutil -q -m cp -r gs://go-vulndb /workspace/deployed
 
   - id: PostValidate
     name: golang:1.19.2
     entrypoint: bash
-    args: ["-c", "go run ./cmd/checkdb /workspace/deployed/go-vulndb"]
+    args: ["-ec", "go run ./cmd/checkdb /workspace/deployed/go-vulndb"]
