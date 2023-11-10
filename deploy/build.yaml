@@ -68,4 +68,4 @@ steps:
   - id: PostValidate
     name: golang:1.19.2
     entrypoint: bash
-    args: ["-ec", "go run ./cmd/checkdb /workspace/deployed/go-vulndb"]
+    args: ["-ec", "go run ./cmd/checkdb -v1 -legacy /workspace/deployed/go-vulndb"]

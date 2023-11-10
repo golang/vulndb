@@ -8,6 +8,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
 
 	db "golang.org/x/vulndb/internal/database"
@@ -28,9 +29,12 @@ func main() {
 	if *existingPath == "" {
 		log.Fatalf("flag -existing must be set")
 	}
+
 	if err := db.ValidateDeploy(*newPath, *existingPath); err != nil {
 		log.Fatal(err)
 	}
+	fmt.Printf("ok to deploy v1 database %s on top of %s\n", *newPath, *existingPath)
+
 	if *newLegacyPath != "" {
 		if err := legacydb.Validate(*newLegacyPath, *existingPath); err != nil {
 			log.Fatal(err)
@@ -38,5 +42,8 @@ func main() {
 		if err := legacydb.Equivalent(*newPath, *newLegacyPath); err != nil {
 			log.Fatal(err)
 		}
+		fmt.Printf("ok to deploy legacy database %s on top of %s\n", *newLegacyPath, *existingPath)
+	} else {
+		fmt.Println("not checking legacy database deploy (use -legacy flag to set)")
 	}
 }
