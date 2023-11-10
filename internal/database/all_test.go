@@ -32,7 +32,7 @@ func TestNewWriteLoadValidate(t *testing.T) {
 	if diff := cmp.Diff(newDB, loaded); diff != "" {
 		t.Errorf("new/write/load mismatch (-new, +loaded):\n%s", diff)
 	}
-	if err := Validate(tmpDir, tmpDir); err != nil {
+	if err := ValidateDeploy(tmpDir, tmpDir); err != nil {
 		t.Error(err)
 	}
 }
@@ -59,7 +59,7 @@ func TestFromRepoWriteLoadValidate(t *testing.T) {
 	if diff := cmp.Diff(fromRepo, loaded); diff != "" {
 		t.Errorf("fromRepo/write/load mismatch (-fromRepo, +loaded):\n%s", diff)
 	}
-	if err := Validate(tmpDir, tmpDir); err != nil {
+	if err := ValidateDeploy(tmpDir, tmpDir); err != nil {
 		t.Error(err)
 	}
 }
@@ -97,7 +97,7 @@ func TestIntegration(t *testing.T) {
 		t.Errorf("unexpected diff: (-created,+loaded):\n%s", diff)
 	}
 
-	if err := Validate(dir, dir); err != nil {
+	if err := ValidateDeploy(dir, dir); err != nil {
 		t.Error(err)
 	}
 }

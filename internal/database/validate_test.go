@@ -26,7 +26,7 @@ func TestValidate(t *testing.T) {
 
 	t.Run("valid", func(t *testing.T) {
 		// Adding more entries is OK.
-		if err := Validate(big, small); err != nil {
+		if err := ValidateDeploy(big, small); err != nil {
 			t.Error(err)
 		}
 	})
@@ -46,15 +46,10 @@ func TestValidate(t *testing.T) {
 			old:  small,
 			new:  invalid,
 		},
-		{
-			name: "invalid old db",
-			old:  invalid,
-			new:  big,
-		},
 	}
 	for _, test := range failTests {
 		t.Run(test.name, func(t *testing.T) {
-			if err := Validate(test.new, test.old); err == nil {
+			if err := ValidateDeploy(test.new, test.old); err == nil {
 				t.Error("expected error, got nil")
 			}
 		})

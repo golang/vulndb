@@ -6,15 +6,16 @@ package database
 
 import (
 	"fmt"
+	"path/filepath"
 
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/osv"
 )
 
-// Validate checks that the databases in newPath and oldPath are
-// both valid databases, and that the database in newPath can
-// be safely deployed on top of the database in oldPath.
-func Validate(newPath, oldPath string) (err error) {
+// ValidateDeploy checks that the database in newPath is a valid database,
+// and that the database in newPath can be safely deployed on top of the
+// database in oldPath.
+func ValidateDeploy(newPath, oldPath string) (err error) {
 	derrors.Wrap(&err, "Validate(new=%s, old=%s)", newPath, oldPath)
 
 	new, err := Load(newPath)
@@ -22,7 +23,7 @@ func Validate(newPath, oldPath string) (err error) {
 		return err
 	}
 
-	old, err := Load(oldPath)
+	old, err := RawLoad(filepath.Join(oldPath, idDir))
 	if err != nil {
 		return err
 	}

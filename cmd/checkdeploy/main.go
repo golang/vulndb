@@ -28,7 +28,7 @@ func main() {
 	if *existingPath == "" {
 		log.Fatalf("flag -existing must be set")
 	}
-	if err := db.Validate(*newPath, *existingPath); err != nil {
+	if err := db.ValidateDeploy(*newPath, *existingPath); err != nil {
 		log.Fatal(err)
 	}
 	if *newLegacyPath != "" {
