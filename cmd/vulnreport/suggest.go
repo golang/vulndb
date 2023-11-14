@@ -31,7 +31,7 @@ func suggest(_ context.Context, filename string) (err error) {
 
 	suggestions, err := c.Suggest(&palmapi.Input{
 		Module:      r.Modules[0].Module,
-		Description: r.Description,
+		Description: r.Description.String(),
 	})
 	if err != nil {
 		return fmt.Errorf("PaLM API error: %s", err)
@@ -67,7 +67,7 @@ func suggest(_ context.Context, filename string) (err error) {
 			switch choice {
 			case "a":
 				r.Summary = report.Summary(s.Summary)
-				r.Description = s.Description
+				r.Description = report.Description(s.Description)
 				if err := r.Write(filename); err != nil {
 					errlog.Println(err)
 				}

@@ -35,7 +35,7 @@ func (r *Report) ToCVE5() (_ *cveschema5.CVERecord, err error) {
 	}
 	description := r.CVEMetadata.Description
 	if description == "" {
-		description = r.Description
+		description = r.Description.String()
 	}
 	if r.CVEMetadata.CWE == "" {
 		return nil, errors.New("report missing CWE")

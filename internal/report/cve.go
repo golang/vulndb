@@ -33,9 +33,9 @@ func removeNewlines(s string) string {
 
 // CVEToReport creates a Report struct from a given CVE and modulePath.
 func CVEToReport(c *cveschema.CVE, modulePath string, pc *proxy.Client) *Report {
-	var description string
+	var description Description
 	for _, d := range c.Description.Data {
-		description += d.Value + "\n"
+		description += Description(d.Value + "\n")
 	}
 	var refs []*Reference
 	for _, r := range c.References.Data {

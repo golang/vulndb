@@ -133,7 +133,7 @@ func toExamples(vs []*vuln) (palmapi.Examples, error) {
 			},
 			Suggestion: palmapi.Suggestion{
 				Summary:     removeNewlines(v.r.Summary.String()),
-				Description: removeNewlines(v.r.Description),
+				Description: removeNewlines(v.r.Description.String()),
 			},
 		}
 		es = append(es, ex)

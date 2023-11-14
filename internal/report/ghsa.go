@@ -16,7 +16,7 @@ import (
 func GHSAToReport(sa *ghsa.SecurityAdvisory, modulePath string, pc *proxy.Client) *Report {
 	r := &Report{
 		Summary:     Summary(sa.Summary),
-		Description: sa.Description,
+		Description: Description(sa.Description),
 	}
 	var cves, ghsas []string
 	for _, id := range sa.Identifiers {

@@ -277,8 +277,9 @@ func (r *Report) lintLinks(addIssue func(string)) {
 	}
 }
 
-func (r *Report) lintDescription(addIssue func(string)) {
-	if r.Description == "" && r.CVEMetadata != nil {
+func (d *Description) lint(addIssue func(string), r *Report) {
+	desc := d.String()
+	if desc == "" && r.CVEMetadata != nil {
 		addIssue("missing description (reports with Go CVEs must have a description)")
 	}
 	hasAdvisory := func() bool {
@@ -289,7 +290,7 @@ func (r *Report) lintDescription(addIssue func(string)) {
 		}
 		return false
 	}
-	if r.Description == "" && r.CVEMetadata == nil && !hasAdvisory() {
+	if desc == "" && r.CVEMetadata == nil && !hasAdvisory() {
 		addIssue("missing advisory (reports without descriptions must have an advisory link)")
 	}
 }
@@ -407,7 +408,7 @@ func (r *Report) lint(pc *proxy.Client) []string {
 		if len(r.Modules) == 0 {
 			addIssue("no modules")
 		}
-		r.lintDescription(addIssue)
+		r.Description.lint(addIssue, r)
 		r.Summary.lint(addIssue)
 	}
 
@@ -446,7 +447,7 @@ func (r *Report) lint(pc *proxy.Client) []string {
 		m.lintVersions(addPkgIssue)
 	}
 
-	r.lintLineLength("description", r.Description, addIssue)
+	r.lintLineLength("description", r.Description.String(), addIssue)
 	if r.CVEMetadata != nil {
 		r.lintLineLength("cve_metadata.description", r.CVEMetadata.Description, addIssue)
 	}

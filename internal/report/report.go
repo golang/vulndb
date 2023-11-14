@@ -193,9 +193,9 @@ type Report struct {
 
 	// Description is the CVE description from an existing CVE. If we are
 	// assigning a CVE ID ourselves, use CVEMetadata.Description instead.
-	Description string     `yaml:",omitempty"`
-	Published   time.Time  `yaml:",omitempty"`
-	Withdrawn   *time.Time `yaml:",omitempty"`
+	Description Description `yaml:",omitempty"`
+	Published   time.Time   `yaml:",omitempty"`
+	Withdrawn   *time.Time  `yaml:",omitempty"`
 
 	// CVE are CVE IDs for existing CVEs.
 	// If we are assigning a CVE ID ourselves, use CVEMetadata.ID instead.
@@ -224,9 +224,14 @@ type Report struct {
 }
 
 type Summary string
+type Description string
 
 func (s *Summary) String() string {
 	return string(*s)
+}
+
+func (d *Description) String() string {
+	return string(*d)
 }
 
 // GoCVE returns the CVE assigned to this report by the Go CNA,

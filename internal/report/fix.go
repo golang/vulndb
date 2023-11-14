@@ -27,7 +27,7 @@ func (r *Report) Fix(pc *proxy.Client) {
 		*sp = fixLineLength(*sp, maxLineLength)
 	}
 	fixLines((*string)(&r.Summary))
-	fixLines(&r.Description)
+	fixLines((*string)(&r.Description))
 	if r.CVEMetadata != nil {
 		fixLines(&r.CVEMetadata.Description)
 	}
