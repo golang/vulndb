@@ -41,7 +41,7 @@ func validReport(f func(r *Report)) Report {
 			}},
 		}},
 		Description: "description",
-		Summary:     "a summary",
+		Summary:     "A summary",
 		CVEs:        []string{"CVE-1234-0000"},
 	}
 	f(&r)
@@ -59,7 +59,7 @@ func validStdReport(f func(r *Report)) Report {
 			}},
 		}},
 		Description: "description",
-		Summary:     "a summary",
+		Summary:     "A summary",
 		References:  validStdLibReferences,
 	}
 	f(&r)

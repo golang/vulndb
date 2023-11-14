@@ -11,6 +11,7 @@ import (
 	"path/filepath"
 	"regexp"
 	"strings"
+	"unicode"
 
 	"golang.org/x/exp/slices"
 	"golang.org/x/mod/module"
@@ -303,6 +304,10 @@ func (s *Summary) lint(addIssue func(string), r *Report) {
 	if !r.IsExcluded() && len(summary) == 0 {
 		addIssue("missing summary")
 	}
+	// Nothing to lint.
+	if len(summary) == 0 {
+		return
+	}
 	if strings.HasPrefix(summary, "TODO") {
 		addIssue("summary contains a TODO")
 	}
@@ -311,6 +316,14 @@ func (s *Summary) lint(addIssue func(string), r *Report) {
 	}
 	if strings.HasSuffix(summary, ".") {
 		addIssue("summary should not end in a period (should be a phrase, not a sentence)")
+	}
+	for i, r := range summary {
+		if i != 0 {
+			break
+		}
+		if !unicode.IsUpper(r) {
+			addIssue("summary should begin with a capital letter")
+		}
 	}
 }
 
