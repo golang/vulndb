@@ -26,7 +26,7 @@ import (
 func (osv *Entry) ToReport(goID string, pc *proxy.Client) *report.Report {
 	r := &report.Report{
 		ID:          goID,
-		Summary:     osv.Summary,
+		Summary:     report.Summary(osv.Summary),
 		Description: osv.Details,
 	}
 	addAlias := func(alias string) {

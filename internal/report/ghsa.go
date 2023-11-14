@@ -15,7 +15,7 @@ import (
 // GHSAToReport creates a Report struct from a given GHSA SecurityAdvisory and modulePath.
 func GHSAToReport(sa *ghsa.SecurityAdvisory, modulePath string, pc *proxy.Client) *Report {
 	r := &Report{
-		Summary:     sa.Summary,
+		Summary:     Summary(sa.Summary),
 		Description: sa.Description,
 	}
 	var cves, ghsas []string

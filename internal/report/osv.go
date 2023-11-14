@@ -50,7 +50,7 @@ func (r *Report) ToOSV(lastModified time.Time) osv.Entry {
 	// govulncheck can robustly display summaries in place of details.
 	details := r.Description
 	if details == "" {
-		details = r.Summary
+		details = r.Summary.String()
 	}
 
 	entry := osv.Entry{
@@ -59,7 +59,7 @@ func (r *Report) ToOSV(lastModified time.Time) osv.Entry {
 		Modified:         osv.Time{Time: lastModified},
 		Withdrawn:        withdrawn,
 		Related:          r.Related,
-		Summary:          toParagraphs(r.Summary),
+		Summary:          toParagraphs(r.Summary.String()),
 		Details:          toParagraphs(details),
 		Credits:          credits,
 		SchemaVersion:    SchemaVersion,

@@ -294,6 +294,22 @@ func (r *Report) lintDescription(addIssue func(string)) {
 	}
 }
 
+func (s *Summary) lint(addIssue func(string)) {
+	summary := s.String()
+	if len(summary) == 0 {
+		addIssue("missing summary")
+	}
+	if strings.HasPrefix(summary, "TODO") {
+		addIssue("summary contains a TODO")
+	}
+	if l := len(summary); l > 100 {
+		addIssue(fmt.Sprintf("summary is too long: %d characters (max 100)", l))
+	}
+	if strings.HasSuffix(summary, ".") {
+		addIssue("summary should not end in a period (should be a phrase, not a sentence)")
+	}
+}
+
 func (r *Report) IsExcluded() bool {
 	return r.Excluded != ""
 }
@@ -392,18 +408,7 @@ func (r *Report) lint(pc *proxy.Client) []string {
 			addIssue("no modules")
 		}
 		r.lintDescription(addIssue)
-		if r.Summary == "" {
-			addIssue("missing summary")
-		}
-		if strings.HasPrefix(r.Summary, "TODO") {
-			addIssue("summary contains a TODO")
-		}
-		if l := len(r.Summary); l > 100 {
-			addIssue(fmt.Sprintf("summary is too long: %d characters (max 100)", l))
-		}
-		if strings.HasSuffix(r.Summary, ".") {
-			addIssue("summary should not end in a period (should be a phrase, not a sentence)")
-		}
+		r.Summary.lint(addIssue)
 	}
 
 	isFirstParty := false

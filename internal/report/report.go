@@ -189,7 +189,7 @@ type Report struct {
 	Modules []*Module `yaml:",omitempty"`
 
 	// Summary is a short phrase describing the vulnerability.
-	Summary string `yaml:",omitempty"`
+	Summary Summary `yaml:",omitempty"`
 
 	// Description is the CVE description from an existing CVE. If we are
 	// assigning a CVE ID ourselves, use CVEMetadata.Description instead.
@@ -221,6 +221,12 @@ type Report struct {
 	// creating the report, outstanding issues, or anything else worth
 	// mentioning.
 	Notes []*Note `yaml:",omitempty"`
+}
+
+type Summary string
+
+func (s *Summary) String() string {
+	return string(*s)
 }
 
 // GoCVE returns the CVE assigned to this report by the Go CNA,

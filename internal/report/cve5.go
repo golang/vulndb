@@ -45,7 +45,7 @@ func (r *Report) ToCVE5() (_ *cveschema5.CVERecord, err error) {
 		ProviderMetadata: cveschema5.ProviderMetadata{
 			OrgID: GoOrgUUID,
 		},
-		Title: removeNewlines(r.Summary),
+		Title: removeNewlines(r.Summary.String()),
 		Descriptions: []cveschema5.Description{
 			{
 				Lang:  "en",

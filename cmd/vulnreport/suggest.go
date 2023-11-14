@@ -66,7 +66,7 @@ func suggest(_ context.Context, filename string) (err error) {
 			}
 			switch choice {
 			case "a":
-				r.Summary = s.Summary
+				r.Summary = report.Summary(s.Summary)
 				r.Description = s.Description
 				if err := r.Write(filename); err != nil {
 					errlog.Println(err)

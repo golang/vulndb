@@ -132,7 +132,7 @@ func toExamples(vs []*vuln) (palmapi.Examples, error) {
 				Description: v.ghsa.Details,
 			},
 			Suggestion: palmapi.Suggestion{
-				Summary:     removeNewlines(v.r.Summary),
+				Summary:     removeNewlines(v.r.Summary.String()),
 				Description: removeNewlines(v.r.Description),
 			},
 		}

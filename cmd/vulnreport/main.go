@@ -719,7 +719,7 @@ func hasUnaddressedTodos(r *report.Report) bool {
 	if any(r.CVEs) || any(r.GHSAs) {
 		return true
 	}
-	return is(r.Summary) || is(r.Description) || any(r.Credits)
+	return is(r.Summary.String()) || is(r.Description) || any(r.Credits)
 }
 
 // addReferenceTODOs adds a TODO for each important reference type not
