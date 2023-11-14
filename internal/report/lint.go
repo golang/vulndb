@@ -118,20 +118,6 @@ func (r *Report) lintCVEs(addIssue func(string)) {
 			addIssue("malformed cve identifier")
 		}
 	}
-
-	if r.CVEMetadata != nil {
-		if r.CVEMetadata.ID == "" {
-			addIssue("cve_metadata.id is required")
-		} else if !cveschema5.IsCVE(r.CVEMetadata.ID) {
-			addIssue("malformed cve_metadata.id identifier")
-		}
-		if r.CVEMetadata.CWE == "" {
-			addIssue("cve_metadata.cwe is required")
-		}
-		if strings.Contains(r.CVEMetadata.CWE, "TODO") {
-			addIssue("cve_metadata.cwe contains a TODO")
-		}
-	}
 }
 
 func (r *Report) lintGHSAs(addIssue func(string)) {
@@ -238,7 +224,7 @@ func (r *Report) lintStdLibLinks(addIssue func(string)) {
 	}
 }
 
-func (r *Report) lintLinks(addIssue func(string)) {
+func (r *Report) lintReferences(addIssue func(string)) {
 	advisoryCount := 0
 	for _, ref := range r.References {
 		if !slices.Contains(osv.ReferenceTypes, ref.Type) {
@@ -275,6 +261,9 @@ func (r *Report) lintLinks(addIssue func(string)) {
 	}
 	if advisoryCount > 1 {
 		addIssue("references should contain at most one advisory link")
+	}
+	if r.IsFirstParty() && !r.IsExcluded() {
+		r.lintStdLibLinks(addIssue)
 	}
 }
 
@@ -411,24 +400,62 @@ func (r *Report) lint(pc *proxy.Client) []string {
 	}
 	r.Summary.lint(addIssue, r)
 	r.Description.lint(addIssue, r)
+	r.Excluded.lint(addIssue)
 
-	if r.IsExcluded() {
-		if !slices.Contains(ExcludedReasons, r.Excluded) {
-			addIssue(fmt.Sprintf("excluded reason (%q) is not a valid excluded reason (accepted: %v)", r.Excluded, ExcludedReasons))
-		}
-		if r.Excluded != "NOT_GO_CODE" && len(r.Modules) == 0 {
-			addIssue("no modules")
-		}
-		if len(r.CVEs) == 0 && len(r.GHSAs) == 0 {
-			addIssue("excluded report must have at least one associated CVE or GHSA")
-		}
+	r.lintModules(addIssue, pc)
+
+	r.CVEMetadata.lint(addIssue, r)
+
+	if r.IsExcluded() && len(r.Aliases()) == 0 {
+		addIssue("excluded report must have at least one associated CVE or GHSA")
+	}
+
+	r.lintCVEs(addIssue)
+	r.lintGHSAs(addIssue)
+	r.lintRelated(addIssue)
+
+	r.lintReferences(addIssue)
+
+	return issues
+}
+
+func (m *Module) lint(addIssue func(string), r *Report, pc *proxy.Client) {
+	if m.IsFirstParty() {
+		m.lintStdLib(addIssue)
 	} else {
-		if len(r.Modules) == 0 {
-			addIssue("no modules")
+		m.lintThirdParty(addIssue)
+		if pc != nil {
+			if err := m.checkModVersions(pc); err != nil {
+				addIssue(err.Error())
+			}
 		}
 	}
 
-	isFirstParty := false
+	for _, p := range m.Packages {
+		p.lint(addIssue, m, r)
+	}
+
+	m.lintVersions(addIssue)
+}
+
+func (p *Package) lint(addIssue func(string), m *Module, r *Report) {
+	if strings.HasPrefix(p.Package, fmt.Sprintf("%s/", stdlib.ToolchainModulePath)) &&
+		m.Module != stdlib.ToolchainModulePath {
+		addIssue(fmt.Sprintf(`%q should be in module "%s", not %q`, p.Package, stdlib.ToolchainModulePath, m.Module))
+	}
+
+	if !r.IsExcluded() {
+		if m.VulnerableAt == "" && p.SkipFix == "" {
+			addIssue(fmt.Sprintf("missing skip_fix and vulnerable_at: %q", p.Package))
+		}
+	}
+}
+
+func (r *Report) lintModules(addIssue func(string), pc *proxy.Client) {
+	if r.Excluded != "NOT_GO_CODE" && len(r.Modules) == 0 {
+		addIssue("no modules")
+	}
+
 	for i, m := range r.Modules {
 		addPkgIssue := func(iss string) {
 			mod := m.Module
@@ -437,48 +464,47 @@ func (r *Report) lint(pc *proxy.Client) []string {
 			}
 			addIssue(fmt.Sprintf("%s: %v", mod, iss))
 		}
+		m.lint(addPkgIssue, r, pc)
+	}
+}
+
+func (r *Report) IsFirstParty() bool {
+	for _, m := range r.Modules {
 		if m.IsFirstParty() {
-			isFirstParty = true
-			m.lintStdLib(addPkgIssue)
-		} else {
-			m.lintThirdParty(addPkgIssue)
-			if pc != nil {
-				if err := m.checkModVersions(pc); err != nil {
-					addPkgIssue(err.Error())
-				}
-			}
+			return true
 		}
-		for _, p := range m.Packages {
-			if strings.HasPrefix(p.Package, fmt.Sprintf("%s/", stdlib.ToolchainModulePath)) && m.Module != stdlib.ToolchainModulePath {
-				addPkgIssue(fmt.Sprintf(`%q should be in module "%s", not %q`, p.Package, stdlib.ToolchainModulePath, m.Module))
-			}
-
-			if !r.IsExcluded() {
-				if m.VulnerableAt == "" && p.SkipFix == "" {
-					addPkgIssue(fmt.Sprintf("missing skip_fix and vulnerable_at: %q", p.Package))
-				}
-			}
-		}
-
-		m.lintVersions(addPkgIssue)
 	}
-
-	if r.CVEMetadata != nil {
-		r.lintLineLength("cve_metadata.description", r.CVEMetadata.Description, addIssue)
-	}
-	r.lintCVEs(addIssue)
-	r.lintGHSAs(addIssue)
-	r.lintRelated(addIssue)
-
-	if isFirstParty && !r.IsExcluded() {
-		r.lintStdLibLinks(addIssue)
-	}
-
-	r.lintLinks(addIssue)
-
-	return issues
+	return false
 }
 
 func (m *Module) IsFirstParty() bool {
 	return stdlib.IsStdModule(m.Module) || stdlib.IsCmdModule(m.Module)
+}
+
+func (e *ExcludedReason) lint(addIssue func(string)) {
+	if e == nil || *e == "" {
+		return
+	}
+	if !slices.Contains(ExcludedReasons, *e) {
+		addIssue(fmt.Sprintf("excluded reason (%q) is not a valid excluded reason (accepted: %v)", *e, ExcludedReasons))
+	}
+}
+
+func (m *CVEMeta) lint(addIssue func(string), r *Report) {
+	if m == nil {
+		return
+	}
+
+	if m.ID == "" {
+		addIssue("cve_metadata.id is required")
+	} else if !cveschema5.IsCVE(m.ID) {
+		addIssue("malformed cve_metadata.id identifier")
+	}
+	if m.CWE == "" {
+		addIssue("cve_metadata.cwe is required")
+	}
+	if strings.Contains(m.CWE, "TODO") {
+		addIssue("cve_metadata.cwe contains a TODO")
+	}
+	r.lintLineLength("cve_metadata.description", m.Description, addIssue)
 }
