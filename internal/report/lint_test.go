@@ -10,6 +10,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/google/go-cmp/cmp"
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/proxy"
 )
@@ -84,6 +85,7 @@ func TestLint(t *testing.T) {
 	for _, test := range []struct {
 		desc   string
 		report Report
+		pc     *proxy.Client
 		want   []string
 	}{
 		{
@@ -97,6 +99,7 @@ func TestLint(t *testing.T) {
 						},
 					}})
 			}),
+			pc: pc,
 			// No lints.
 		},
 		{
@@ -110,6 +113,7 @@ func TestLint(t *testing.T) {
 						},
 					}})
 			}),
+			pc:   pc,
 			want: []string{`version 0.2.5 does not exist`},
 		},
 		{
@@ -123,12 +127,37 @@ func TestLint(t *testing.T) {
 						},
 					}})
 			}),
+			pc:   pc,
 			want: []string{`module is not canonical`},
+		},
+		{
+			desc: "multiple problems",
+			report: validReport(func(r *Report) {
+				r.Modules = append(r.Modules, &Module{
+					Module: "github.com/golang/vuln",
+					Versions: []VersionRange{
+						{
+							Introduced: "0.1.0",
+							Fixed:      "0.2.5", // does not exist
+						},
+						{
+							Introduced: "0.2.6", // does not exist
+						},
+					}})
+			}),
+			pc:   pc,
+			want: []string{"2 versions do not exist: 0.2.5, 0.2.6 and module is not canonical"},
+		},
+		{
+			desc:   "nil proxy client",
+			report: validReport(noop),
+			pc:     nil,
+			want:   []string{"proxy client is nil"},
 		},
 	} {
 		test := test
 		t.Run(test.desc, func(t *testing.T) {
-			got := test.report.Lint(pc)
+			got := test.report.Lint(test.pc)
 			checkLints(t, got, test.want)
 		})
 	}
@@ -187,6 +216,20 @@ func TestLintOffline(t *testing.T) {
 				r.CVEMetadata = validCVEMetadata
 			}),
 			want: []string{"missing description"},
+		},
+		{
+			desc: "description line length too long",
+			report: validReport(func(r *Report) {
+				r.Description = "This line is too long; it needs to be shortened to less than 80 characters to pass the lint check"
+			}),
+			want: []string{"description contains line > 80 characters long"},
+		},
+		{
+			desc: "description: long word OK",
+			report: validReport(func(r *Report) {
+				r.Description = "http://1234567890.abcdefghijklmnopqrstuvwxyz.1234567890.abcdefghijklmnopqrstuvwxyz" // 82 chars ok if single word
+			}),
+			want: []string{},
 		},
 		{
 			desc: "missing summary",
@@ -258,6 +301,15 @@ func TestLintOffline(t *testing.T) {
 			want: []string{"vulnerable_at version 2.0.0 is not inside vulnerable range"},
 		},
 		{
+			desc: "unsupported versions",
+			report: validStdReport(func(r *Report) {
+				r.Modules[0].UnsupportedVersions = []UnsupportedVersion{
+					{Version: "1.2.1", Type: "unknown"},
+				}
+			}),
+			want: []string{"version issue: 1 unsupported version(s)"},
+		},
+		{
 			desc: "third party: module is not a prefix of package",
 			report: validReport(func(r *Report) {
 				r.Modules[0].Module = "example.com/module"
@@ -274,9 +326,16 @@ func TestLintOffline(t *testing.T) {
 			want: []string{"malformed import path"},
 		},
 		{
-			desc: "standard library: missing package",
+			desc: "standard library: empty package",
 			report: validStdReport(func(r *Report) {
 				r.Modules[0].Packages[0].Package = ""
+			}),
+			want: []string{"missing package"},
+		},
+		{
+			desc: "standard library: missing packages",
+			report: validStdReport(func(r *Report) {
+				r.Modules[0].Packages = nil
 			}),
 			want: []string{"missing package"},
 		},
@@ -309,6 +368,20 @@ func TestLintOffline(t *testing.T) {
 				}
 			}),
 			want: []string{`range events must be in strictly ascending order (found 1.3.0>=1.2.1)`},
+		},
+		{
+			desc: "versions still checked if no vulnerable_at",
+			report: validStdReport(func(r *Report) {
+				r.Modules[0].VulnerableAt = ""
+				r.Modules[0].Versions = []VersionRange{
+					// Two fixed versions in a row with no introduced.
+					{Fixed: "1.2.1"}, {Fixed: "1.3.2"},
+				}
+			}),
+			want: []string{
+				"introduced and fixed versions must alternate",
+				"missing skip_fix and vulnerable_at",
+			},
 		},
 		{
 			desc: "invalid semantic version",
@@ -432,9 +505,10 @@ func TestLintOffline(t *testing.T) {
 				`"https://groups.google.com/forum/#!/golang-announce/12345/1/" should be "https://groups.google.com/g/golang-announce/c/12345/m/1/"`},
 		},
 		{
-			desc: "standard library: unfixed/missing links",
+			desc: "standard library: incorrect links",
 			report: validStdReport(func(r *Report) {
 				r.References = []*Reference{
+					{Type: osv.ReferenceTypeAdvisory, URL: "http://www.example.com"},
 					{Type: osv.ReferenceTypeFix, URL: "https://go-review.googlesource.com/c/go/+/12345"},
 					{Type: osv.ReferenceTypeFix, URL: "https://github.com/golang/go/commit/12345"},
 					{Type: osv.ReferenceTypeReport, URL: "https://github.com/golang/go/issues/12345"},
@@ -444,6 +518,7 @@ func TestLintOffline(t *testing.T) {
 			}),
 			want: []string{
 				// Standard library specific errors.
+				"advisory reference should not be set",
 				"fix reference should match",
 				"report reference should match",
 				"references should contain an announcement link",
@@ -451,6 +526,19 @@ func TestLintOffline(t *testing.T) {
 				// Unfixed link errors.
 				`"https://github.com/golang/go/commit/12345" should be "https://go.googlesource.com/+/12345"`,
 				`"https://github.com/golang/go/issues/12345" should be "https://go.dev/issue/12345"`,
+			},
+		},
+		{
+			desc: "standard library: missing links",
+			report: validStdReport(func(r *Report) {
+				r.References = []*Reference{
+					// no links
+				}
+			}),
+			want: []string{
+				"references should contain at least one report",
+				"references should contain at least one fix",
+				"references should contain an announcement link",
 			},
 		},
 		{
@@ -614,5 +702,30 @@ func TestCheckFilename(t *testing.T) {
 				t.Errorf("CheckFilename(%s) = %v, want error %v", test.filename, err, test.wantErr)
 			}
 		})
+	}
+}
+
+func TestLintAsNotes(t *testing.T) {
+	// A report with lints.
+	report := validReport(
+		func(r *Report) {
+			r.Summary = ""
+			r.Notes = []*Note{
+				{Body: "an existing lint that will be deleted", Type: NoteTypeLint},
+				{Body: "a note added by a human", Type: NoteTypeNone}}
+		},
+	)
+
+	found := report.LintAsNotes(nil)
+	if !found {
+		t.Error("LintAsNotes() = false, want true")
+	}
+
+	want, got := []*Note{
+		{Body: "a note added by a human", Type: NoteTypeNone}, // preserved
+		{Body: "missing summary", Type: NoteTypeLint},
+		{Body: "proxy client is nil; cannot perform all lint checks", Type: NoteTypeLint}}, report.Notes
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch (-want, +got):\n%s", diff)
 	}
 }
