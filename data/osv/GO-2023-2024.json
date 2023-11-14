@@ -7,7 +7,7 @@
     "CVE-2023-40583",
     "GHSA-gcq9-qqwx-rgj3"
   ],
-  "summary": "libp2p nodes vulnerable to OOM attack",
+  "summary": "Out-of-memory vulnerability in github.com/libp2p/go-libp2p",
   "details": "A malicious actor can store an arbitrary amount of data in the memory of a remote node by sending the node a message with a signed peer record. Signed peer records from randomly generated peers can be sent by a malicious actor. This memory does not get garbage collected and so the remote node can run out of memory (OOM).",
   "affected": [
     {
