@@ -279,9 +279,8 @@ func (r *Report) lintLinks(addIssue func(string)) {
 
 func (d *Description) lint(addIssue func(string), r *Report) {
 	desc := d.String()
-	if desc == "" && r.CVEMetadata != nil {
-		addIssue("missing description (reports with Go CVEs must have a description)")
-	}
+
+	r.lintLineLength("description", desc, addIssue)
 	hasAdvisory := func() bool {
 		for _, ref := range r.References {
 			if ref.Type == osv.ReferenceTypeAdvisory {
@@ -290,14 +289,18 @@ func (d *Description) lint(addIssue func(string), r *Report) {
 		}
 		return false
 	}
-	if desc == "" && r.CVEMetadata == nil && !hasAdvisory() {
-		addIssue("missing advisory (reports without descriptions must have an advisory link)")
+	if !r.IsExcluded() && desc == "" {
+		if r.CVEMetadata != nil {
+			addIssue("missing description (reports with Go CVEs must have a description)")
+		} else if !hasAdvisory() {
+			addIssue("missing advisory (reports without descriptions must have an advisory link)")
+		}
 	}
 }
 
-func (s *Summary) lint(addIssue func(string)) {
+func (s *Summary) lint(addIssue func(string), r *Report) {
 	summary := s.String()
-	if len(summary) == 0 {
+	if !r.IsExcluded() && len(summary) == 0 {
 		addIssue("missing summary")
 	}
 	if strings.HasPrefix(summary, "TODO") {
@@ -393,6 +396,8 @@ func (r *Report) lint(pc *proxy.Client) []string {
 	if r.ID == "" {
 		addIssue("missing ID")
 	}
+	r.Summary.lint(addIssue, r)
+	r.Description.lint(addIssue, r)
 
 	if r.IsExcluded() {
 		if !slices.Contains(ExcludedReasons, r.Excluded) {
@@ -408,8 +413,6 @@ func (r *Report) lint(pc *proxy.Client) []string {
 		if len(r.Modules) == 0 {
 			addIssue("no modules")
 		}
-		r.Description.lint(addIssue, r)
-		r.Summary.lint(addIssue)
 	}
 
 	isFirstParty := false
@@ -447,7 +450,6 @@ func (r *Report) lint(pc *proxy.Client) []string {
 		m.lintVersions(addPkgIssue)
 	}
 
-	r.lintLineLength("description", r.Description.String(), addIssue)
 	if r.CVEMetadata != nil {
 		r.lintLineLength("cve_metadata.description", r.CVEMetadata.Description, addIssue)
 	}
