@@ -1,0 +1,21 @@
+id: GO-2023-2333
+modules:
+    - module: github.com/consensys/gnark
+      versions:
+        - fixed: 0.9.2-0.20231110170422-f528807119e9
+      vulnerable_at: 0.9.1
+      packages:
+        - package: github.com/consensys/gnark/std/rangecheck
+          symbols:
+            - commitChecker.commit
+            - nbR1CSConstraints
+            - nbPLONKConstraints
+summary: Range checker gadget allows wider inputs than allowed in github.com/consensys/gnark
+ghsas:
+    - GHSA-rjjm-x32p-m3f7
+credits:
+    - '@ultrainstinct30'
+references:
+    - advisory: https://github.com/Consensys/gnark/security/advisories/GHSA-rjjm-x32p-m3f7
+    - web: https://github.com/Consensys/gnark/issues/897
+    - fix: https://github.com/Consensys/gnark/commit/f528807119e9443df94b8c01fe8ee65abe3c75d8
