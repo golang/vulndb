@@ -63,72 +63,72 @@ func (m *Module) checkModVersions(pc *proxy.Client) error {
 	return nil
 }
 
-func (m *Module) lintStdLib(addPkgIssue func(string)) {
+func (m *Module) lintStdLib(l *linter) {
 	if len(m.Packages) == 0 {
-		addPkgIssue("missing package")
+		l.Error("missing package")
 	}
 	for _, p := range m.Packages {
 		if p.Package == "" {
-			addPkgIssue("missing package")
+			l.Error("missing package")
 		}
 	}
 }
 
-func (m *Module) lintThirdParty(addPkgIssue func(string)) {
+func (m *Module) lintThirdParty(l *linter) {
 	if m.Module == "" {
-		addPkgIssue("missing module")
+		l.Error("missing module")
 		return
 	}
 	for _, p := range m.Packages {
 		if p.Package == "" {
-			addPkgIssue("missing package")
+			l.Error("missing package")
 			continue
 		}
 		if !strings.HasPrefix(p.Package, m.Module) {
-			addPkgIssue("module must be a prefix of package")
+			l.Error("module must be a prefix of package")
 		}
 		if err := module.CheckImportPath(p.Package); err != nil {
-			addPkgIssue(err.Error())
+			l.Error(err)
 		}
 	}
 }
 
-func (m *Module) lintVersions(addPkgIssue func(string)) {
+func (m *Module) lintVersions(l *linter) {
 	if u := len(m.UnsupportedVersions); u > 0 {
-		addPkgIssue(fmt.Sprintf("version issue: %d unsupported version(s)", u))
+		l.Errorf("version issue: %d unsupported version(s)", u)
 	}
 	ranges := AffectedRanges(m.Versions)
 	if v := m.VulnerableAt; v != "" {
 		affected, err := osvutils.AffectsSemver(ranges, v)
 		if err != nil {
-			addPkgIssue(fmt.Sprintf("version issue: %s", err))
+			l.Errorf("version issue: %s", err)
 		} else if !affected {
-			addPkgIssue(fmt.Sprintf("vulnerable_at version %s is not inside vulnerable range", v))
+			l.Errorf("vulnerable_at version %s is not inside vulnerable range", v)
 		}
 	} else {
 		if err := osvutils.ValidateRanges(ranges); err != nil {
-			addPkgIssue(fmt.Sprintf("version issue: %s", err))
+			l.Errorf("version issue: %s", err)
 		}
 	}
 }
 
-func (r *Report) lintCVEs(addIssue func(string)) {
+func (r *Report) lintCVEs(l *linter) {
 	for _, cve := range r.CVEs {
 		if !cveschema5.IsCVE(cve) {
-			addIssue("malformed cve identifier")
+			l.Error("malformed cve identifier")
 		}
 	}
 }
 
-func (r *Report) lintGHSAs(addIssue func(string)) {
+func (r *Report) lintGHSAs(l *linter) {
 	for _, g := range r.GHSAs {
 		if !ghsa.IsGHSA(g) {
-			addIssue(fmt.Sprintf("%s is not a valid GHSA", g))
+			l.Errorf("%s is not a valid GHSA", g)
 		}
 	}
 }
 
-func (r *Report) lintRelated(addIssue func(string)) {
+func (r *Report) lintRelated(l *linter) {
 	if len(r.Related) == 0 {
 		return
 	}
@@ -138,10 +138,10 @@ func (r *Report) lintRelated(addIssue func(string)) {
 		// In most cases, the related list is very short, so there's no
 		// need create a map of aliases.
 		if slices.Contains(aliases, related) {
-			addIssue(fmt.Sprintf("related: identifier %s is also listed among aliases", related))
+			l.Errorf("related: identifier %s is also listed among aliases", related)
 		}
 		if !isIdentifier(related) {
-			addIssue(fmt.Sprintf("related: %s is not a recognized identifier (CVE, GHSA or Go ID)", related))
+			l.Errorf("related: %s is not a recognized identifier (CVE, GHSA or Go ID)", related)
 		}
 	}
 }
@@ -158,7 +158,7 @@ func IsGoID(s string) bool {
 
 const maxLineLength = 80
 
-func (r *Report) lintLineLength(field, content string, addIssue func(string)) {
+func (r *Report) lintLineLength(l *linter, field, content string) {
 	for _, line := range strings.Split(content, "\n") {
 		if len(line) <= maxLineLength {
 			continue
@@ -166,7 +166,7 @@ func (r *Report) lintLineLength(field, content string, addIssue func(string)) {
 		if !strings.Contains(line, " ") {
 			continue // A single long word is OK.
 		}
-		addIssue(fmt.Sprintf("%v contains line > %v characters long: %q", field, maxLineLength, line))
+		l.Errorf("%v contains line > %v characters long: %q", field, maxLineLength, line)
 		return
 	}
 }
@@ -185,7 +185,7 @@ var (
 
 // Checks that the "links" section of a Report for a package in the
 // standard library contains all necessary links, and no third-party links.
-func (r *Report) lintStdLibLinks(addIssue func(string)) {
+func (r *Report) lintStdLibLinks(l *linter) {
 	var (
 		hasFixLink      = false
 		hasReportLink   = false
@@ -194,48 +194,48 @@ func (r *Report) lintStdLibLinks(addIssue func(string)) {
 	for _, ref := range r.References {
 		switch ref.Type {
 		case osv.ReferenceTypeAdvisory:
-			addIssue(fmt.Sprintf("%q: advisory reference should not be set for first-party issues", ref.URL))
+			l.Errorf("%q: advisory reference should not be set for first-party issues", ref.URL)
 		case osv.ReferenceTypeFix:
 			hasFixLink = true
 			if !prRegex.MatchString(ref.URL) && !commitRegex.MatchString(ref.URL) {
-				addIssue(fmt.Sprintf("%q: fix reference should match %q or %q", ref.URL, prRegex, commitRegex))
+				l.Errorf("%q: fix reference should match %q or %q", ref.URL, prRegex, commitRegex)
 			}
 		case osv.ReferenceTypeReport:
 			hasReportLink = true
 			if !issueRegex.MatchString(ref.URL) {
-				addIssue(fmt.Sprintf("%q: report reference should match %q", ref.URL, issueRegex))
+				l.Errorf("%q: report reference should match %q", ref.URL, issueRegex)
 			}
 		case osv.ReferenceTypeWeb:
 			if !announceRegex.MatchString(ref.URL) {
-				addIssue(fmt.Sprintf("%q: web references should only contain announcement links matching %q", ref.URL, announceRegex))
+				l.Errorf("%q: web references should only contain announcement links matching %q", ref.URL, announceRegex)
 			} else {
 				hasAnnounceLink = true
 			}
 		}
 	}
 	if !hasFixLink {
-		addIssue("references should contain at least one fix")
+		l.Error("references should contain at least one fix")
 	}
 	if !hasReportLink {
-		addIssue("references should contain at least one report")
+		l.Error("references should contain at least one report")
 	}
 	if !hasAnnounceLink {
-		addIssue(fmt.Sprintf("references should contain an announcement link matching %q", announceRegex))
+		l.Errorf("references should contain an announcement link matching %q", announceRegex)
 	}
 }
 
-func (r *Report) lintReferences(addIssue func(string)) {
+func (r *Report) lintReferences(l *linter) {
 	advisoryCount := 0
 	for _, ref := range r.References {
 		if !slices.Contains(osv.ReferenceTypes, ref.Type) {
-			addIssue(fmt.Sprintf("%q is not a valid reference type", ref.Type))
+			l.Errorf("%q is not a valid reference type", ref.Type)
 		}
-		l := ref.URL
-		if _, err := url.ParseRequestURI(l); err != nil {
-			addIssue(fmt.Sprintf("%q is not a valid URL", l))
+		u := ref.URL
+		if _, err := url.ParseRequestURI(u); err != nil {
+			l.Errorf("%q is not a valid URL", u)
 		}
-		if fixed := fixURL(l); fixed != l {
-			addIssue(fmt.Sprintf("unfixed url: %q should be %q", l, fixURL(l)))
+		if fixed := fixURL(u); fixed != u {
+			l.Errorf("unfixed url: %q should be %q", u, fixURL(u))
 		}
 		if ref.Type == osv.ReferenceTypeAdvisory {
 			advisoryCount++
@@ -253,24 +253,24 @@ func (r *Report) lintReferences(addIssue func(string)) {
 				if m := re.FindStringSubmatch(ref.URL); len(m) > 0 {
 					id := m[1]
 					if slices.Contains(r.CVEs, id) || slices.Contains(r.GHSAs, id) {
-						addIssue(fmt.Sprintf("redundant non-advisory reference to %v", id))
+						l.Errorf("redundant non-advisory reference to %v", id)
 					}
 				}
 			}
 		}
 	}
 	if advisoryCount > 1 {
-		addIssue("references should contain at most one advisory link")
+		l.Error("references should contain at most one advisory link")
 	}
 	if r.IsFirstParty() && !r.IsExcluded() {
-		r.lintStdLibLinks(addIssue)
+		r.lintStdLibLinks(l)
 	}
 }
 
-func (d *Description) lint(addIssue func(string), r *Report) {
+func (d *Description) lint(l *linter, r *Report) {
 	desc := d.String()
 
-	r.lintLineLength("description", desc, addIssue)
+	r.lintLineLength(l, "description", desc)
 	hasAdvisory := func() bool {
 		for _, ref := range r.References {
 			if ref.Type == osv.ReferenceTypeAdvisory {
@@ -281,37 +281,37 @@ func (d *Description) lint(addIssue func(string), r *Report) {
 	}
 	if !r.IsExcluded() && desc == "" {
 		if r.CVEMetadata != nil {
-			addIssue("missing description (reports with Go CVEs must have a description)")
+			l.Error("missing description (reports with Go CVEs must have a description)")
 		} else if !hasAdvisory() {
-			addIssue("missing advisory (reports without descriptions must have an advisory link)")
+			l.Error("missing advisory (reports without descriptions must have an advisory link)")
 		}
 	}
 }
 
-func (s *Summary) lint(addIssue func(string), r *Report) {
+func (s *Summary) lint(l *linter, r *Report) {
 	summary := s.String()
 	if !r.IsExcluded() && len(summary) == 0 {
-		addIssue("missing summary")
+		l.Error("missing summary")
 	}
 	// Nothing to lint.
 	if len(summary) == 0 {
 		return
 	}
 	if strings.HasPrefix(summary, "TODO") {
-		addIssue("summary contains a TODO")
+		l.Error("summary contains a TODO")
 	}
-	if l := len(summary); l > 100 {
-		addIssue(fmt.Sprintf("summary is too long: %d characters (max 100)", l))
+	if ln := len(summary); ln > 100 {
+		l.Errorf("summary is too long: %d characters (max 100)", ln)
 	}
 	if strings.HasSuffix(summary, ".") {
-		addIssue("summary should not end in a period (should be a phrase, not a sentence)")
+		l.Error("summary should not end in a period (should be a phrase, not a sentence)")
 	}
 	for i, r := range summary {
 		if i != 0 {
 			break
 		}
 		if !unicode.IsUpper(r) {
-			addIssue("summary should begin with a capital letter")
+			l.Error("summary should begin with a capital letter")
 		}
 	}
 }
@@ -389,82 +389,75 @@ func (r *Report) LintOffline() []string {
 }
 
 func (r *Report) lint(pc *proxy.Client) []string {
-	var issues []string
-
-	addIssue := func(iss string) {
-		issues = append(issues, iss)
-	}
+	l := NewLinter("")
 
 	if r.ID == "" {
-		addIssue("missing ID")
+		l.Error("missing ID")
 	}
-	r.Summary.lint(addIssue, r)
-	r.Description.lint(addIssue, r)
-	r.Excluded.lint(addIssue)
+	r.Summary.lint(l, r)
+	r.Description.lint(l, r)
+	r.Excluded.lint(l)
 
-	r.lintModules(addIssue, pc)
+	r.lintModules(l, pc)
 
-	r.CVEMetadata.lint(addIssue, r)
+	r.CVEMetadata.lint(l, r)
 
 	if r.IsExcluded() && len(r.Aliases()) == 0 {
-		addIssue("excluded report must have at least one associated CVE or GHSA")
+		l.Error("excluded report must have at least one associated CVE or GHSA")
 	}
 
-	r.lintCVEs(addIssue)
-	r.lintGHSAs(addIssue)
-	r.lintRelated(addIssue)
+	r.lintCVEs(l)
+	r.lintGHSAs(l)
+	r.lintRelated(l)
 
-	r.lintReferences(addIssue)
+	r.lintReferences(l)
 
-	return issues
+	return l.Errors()
 }
 
-func (m *Module) lint(addIssue func(string), r *Report, pc *proxy.Client) {
+func (m *Module) lint(l *linter, r *Report, pc *proxy.Client) {
 	if m.IsFirstParty() {
-		m.lintStdLib(addIssue)
+		m.lintStdLib(l)
 	} else {
-		m.lintThirdParty(addIssue)
+		m.lintThirdParty(l)
 		if pc != nil {
 			if err := m.checkModVersions(pc); err != nil {
-				addIssue(err.Error())
+				l.Error(err.Error())
 			}
 		}
 	}
 
 	for _, p := range m.Packages {
-		p.lint(addIssue, m, r)
+		p.lint(l, m, r)
 	}
 
-	m.lintVersions(addIssue)
+	m.lintVersions(l)
 }
 
-func (p *Package) lint(addIssue func(string), m *Module, r *Report) {
+func (p *Package) lint(l *linter, m *Module, r *Report) {
 	if strings.HasPrefix(p.Package, fmt.Sprintf("%s/", stdlib.ToolchainModulePath)) &&
 		m.Module != stdlib.ToolchainModulePath {
-		addIssue(fmt.Sprintf(`%q should be in module "%s", not %q`, p.Package, stdlib.ToolchainModulePath, m.Module))
+		l.Errorf(`%q should be in module "%s", not %q`, p.Package, stdlib.ToolchainModulePath, m.Module)
 	}
 
 	if !r.IsExcluded() {
 		if m.VulnerableAt == "" && p.SkipFix == "" {
-			addIssue(fmt.Sprintf("missing skip_fix and vulnerable_at: %q", p.Package))
+			l.Errorf("missing skip_fix and vulnerable_at: %q", p.Package)
 		}
 	}
 }
 
-func (r *Report) lintModules(addIssue func(string), pc *proxy.Client) {
+func (r *Report) lintModules(l *linter, pc *proxy.Client) {
 	if r.Excluded != "NOT_GO_CODE" && len(r.Modules) == 0 {
-		addIssue("no modules")
+		l.Error("no modules")
 	}
 
 	for i, m := range r.Modules {
-		addPkgIssue := func(iss string) {
-			mod := m.Module
-			if mod == "" {
-				mod = fmt.Sprintf("modules[%d]", i)
-			}
-			addIssue(fmt.Sprintf("%s: %v", mod, iss))
+		mod := m.Module
+		if mod == "" {
+			mod = fmt.Sprintf("modules[%d]", i)
 		}
-		m.lint(addPkgIssue, r, pc)
+		m.lint(l.Group(mod), r, pc)
 	}
 }
 
@@ -481,30 +474,30 @@ func (m *Module) IsFirstParty() bool {
 	return stdlib.IsStdModule(m.Module) || stdlib.IsCmdModule(m.Module)
 }
 
-func (e *ExcludedReason) lint(addIssue func(string)) {
+func (e *ExcludedReason) lint(l *linter) {
 	if e == nil || *e == "" {
 		return
 	}
 	if !slices.Contains(ExcludedReasons, *e) {
-		addIssue(fmt.Sprintf("excluded reason (%q) is not a valid excluded reason (accepted: %v)", *e, ExcludedReasons))
+		l.Errorf("excluded reason (%q) is not a valid excluded reason (accepted: %v)", *e, ExcludedReasons)
 	}
 }
 
-func (m *CVEMeta) lint(addIssue func(string), r *Report) {
+func (m *CVEMeta) lint(l *linter, r *Report) {
 	if m == nil {
 		return
 	}
 
 	if m.ID == "" {
-		addIssue("cve_metadata.id is required")
+		l.Error("cve_metadata.id is required")
 	} else if !cveschema5.IsCVE(m.ID) {
-		addIssue("malformed cve_metadata.id identifier")
+		l.Error("malformed cve_metadata.id identifier")
 	}
 	if m.CWE == "" {
-		addIssue("cve_metadata.cwe is required")
+		l.Error("cve_metadata.cwe is required")
 	}
 	if strings.Contains(m.CWE, "TODO") {
-		addIssue("cve_metadata.cwe contains a TODO")
+		l.Error("cve_metadata.cwe contains a TODO")
 	}
-	r.lintLineLength("cve_metadata.description", m.Description, addIssue)
+	r.lintLineLength(l, "cve_metadata.cwe", m.Description)
 }
