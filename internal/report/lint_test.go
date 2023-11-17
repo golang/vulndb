@@ -119,7 +119,6 @@ func TestLint(t *testing.T) {
 					}})
 			}),
 			pc:           pc,
-			want:         []string{`version 0.2.5 does not exist`},
 			wantNumLints: 1,
 		},
 		{
@@ -135,7 +134,6 @@ func TestLint(t *testing.T) {
 					}})
 			}),
 			pc:           pc,
-			want:         []string{`module is not canonical`},
 			wantNumLints: 1,
 		},
 		{
@@ -155,7 +153,6 @@ func TestLint(t *testing.T) {
 					}})
 			}),
 			pc:           pc,
-			want:         []string{"2 versions do not exist: 0.2.5, 0.2.6 and module is not canonical"},
 			wantNumLints: 1,
 		},
 		{
@@ -163,7 +160,6 @@ func TestLint(t *testing.T) {
 			desc:         "A non-nil proxy client must be provided.",
 			report:       validReport(noop),
 			pc:           nil,
-			want:         []string{"proxy client is nil"},
 			wantNumLints: 1,
 		},
 	} {
@@ -171,7 +167,6 @@ func TestLint(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			got := test.report.Lint(test.pc)
 			updateAndCheckGolden(t, &test, got)
-			checkLints(t, got, test.want)
 		})
 	}
 }
@@ -181,7 +176,6 @@ type lintTC struct {
 	name, desc   string
 	report       Report
 	pc           *proxy.Client
-	want         []string
 	wantNumLints int
 }
 
@@ -193,7 +187,6 @@ func TestLintOffline(t *testing.T) {
 			report: validReport(func(r *Report) {
 				r.ID = ""
 			}),
-			want:         []string{"missing ID"},
 			wantNumLints: 1,
 		},
 		{
@@ -202,7 +195,6 @@ func TestLintOffline(t *testing.T) {
 			report: validReport(func(r *Report) {
 				r.Modules = nil
 			}),
-			want:         []string{"no modules"},
 			wantNumLints: 1,
 		},
 		{
@@ -211,7 +203,6 @@ func TestLintOffline(t *testing.T) {
 			report: validReport(func(r *Report) {
 				r.Modules[0].Module = ""
 			}),
-			want:         []string{"modules[0]: missing module"},
 			wantNumLints: 1,
 		},
 		{
@@ -221,7 +212,6 @@ func TestLintOffline(t *testing.T) {
 				r.Description = ""
 				r.References = nil
 			}),
-			want:         []string{"missing advisory"},
 			wantNumLints: 1,
 		},
 		{
@@ -243,7 +233,6 @@ func TestLintOffline(t *testing.T) {
 				r.CVEs = nil
 				r.CVEMetadata = validCVEMetadata
 			}),
-			want:         []string{"missing description"},
 			wantNumLints: 1,
 		},
 		{
@@ -252,7 +241,6 @@ func TestLintOffline(t *testing.T) {
 			report: validReport(func(r *Report) {
 				r.Description = "This line is too long; it needs to be shortened to less than 80 characters to pass the lint check"
 			}),
-			want:         []string{"description contains line > 80 characters long"},
 			wantNumLints: 1,
 		},
 		{
@@ -269,7 +257,6 @@ func TestLintOffline(t *testing.T) {
 			report: validReport(func(r *Report) {
 				r.Summary = ""
 			}),
-			want:         []string{"missing summary"},
 			wantNumLints: 1,
 		},
 		{
@@ -278,7 +265,6 @@ func TestLintOffline(t *testing.T) {
 			report: validReport(func(r *Report) {
 				r.Summary = "TODO: fill this out"
 			}),
-			want:         []string{"summary contains a TODO"},
 			wantNumLints: 1,
 		},
 		{
@@ -287,7 +273,6 @@ func TestLintOffline(t *testing.T) {
 			report: validReport(func(r *Report) {
 				r.Summary = "This summary is too long; it needs to be shortened to less than 101 characters to pass the lint check"
 			}),
-			want:         []string{"too long"},
 			wantNumLints: 1,
 		},
 		{
@@ -296,7 +281,6 @@ func TestLintOffline(t *testing.T) {
 			report: validReport(func(r *Report) {
 				r.Summary = "This summary is a sentence, not a phrase."
 			}),
-			want:         []string{"should not end in a period"},
 			wantNumLints: 1,
 		},
 		{
@@ -305,7 +289,6 @@ func TestLintOffline(t *testing.T) {
 			report: validReport(func(r *Report) {
 				r.Modules[0].Packages[0].Package = ""
 			}),
-			want:         []string{"golang.org/x/net: missing package"},
 			wantNumLints: 1,
 		},
 		{
@@ -315,7 +298,6 @@ func TestLintOffline(t *testing.T) {
 				r.Modules[0].VulnerableAt = ""
 				r.Modules[0].Packages[0].SkipFix = ""
 			}),
-			want:         []string{"missing skip_fix and vulnerable_at"},
 			wantNumLints: 1,
 		},
 		{
@@ -345,7 +327,6 @@ func TestLintOffline(t *testing.T) {
 					{Fixed: "1.2.1"},
 				}
 			}),
-			want:         []string{"vulnerable_at version 2.0.0 is not inside vulnerable range"},
 			wantNumLints: 1,
 		},
 		{
@@ -356,7 +337,6 @@ func TestLintOffline(t *testing.T) {
 					{Version: "1.2.1", Type: "unknown"},
 				}
 			}),
-			want:         []string{"version issue: 1 unsupported version(s)"},
 			wantNumLints: 1,
 		},
 		{
@@ -366,7 +346,6 @@ func TestLintOffline(t *testing.T) {
 				r.Modules[0].Module = "example.com/module"
 				r.Modules[0].Packages[0].Package = "example.com/package"
 			}),
-			want:         []string{"module must be a prefix of package"},
 			wantNumLints: 1,
 		},
 		{
@@ -376,7 +355,6 @@ func TestLintOffline(t *testing.T) {
 				r.Modules[0].Module = "invalid."
 				r.Modules[0].Packages[0].Package = "invalid."
 			}),
-			want:         []string{"malformed import path"},
 			wantNumLints: 1,
 		},
 		{
@@ -385,7 +363,6 @@ func TestLintOffline(t *testing.T) {
 			report: validStdReport(func(r *Report) {
 				r.Modules[0].Packages[0].Package = ""
 			}),
-			want:         []string{"missing package"},
 			wantNumLints: 1,
 		},
 		{
@@ -394,7 +371,6 @@ func TestLintOffline(t *testing.T) {
 			report: validStdReport(func(r *Report) {
 				r.Modules[0].Packages = nil
 			}),
-			want:         []string{"missing package"},
 			wantNumLints: 1,
 		},
 		{
@@ -404,7 +380,6 @@ func TestLintOffline(t *testing.T) {
 				r.Modules[0].Module = "std"
 				r.Modules[0].Packages[0].Package = "cmd/go"
 			}),
-			want:         []string{`should be in module "cmd", not "std"`},
 			wantNumLints: 1,
 		},
 		{
@@ -416,7 +391,6 @@ func TestLintOffline(t *testing.T) {
 					{Fixed: "1.2.1"}, {Fixed: "1.3.2"},
 				}
 			}),
-			want:         []string{"introduced and fixed versions must alternate"},
 			wantNumLints: 1,
 		},
 		{
@@ -430,7 +404,6 @@ func TestLintOffline(t *testing.T) {
 					},
 				}
 			}),
-			want:         []string{`range events must be in strictly ascending order (found 1.3.0>=1.2.1)`},
 			wantNumLints: 1,
 		},
 		{
@@ -443,10 +416,6 @@ func TestLintOffline(t *testing.T) {
 					{Fixed: "1.2.1"}, {Fixed: "1.3.2"},
 				}
 			}),
-			want: []string{
-				"introduced and fixed versions must alternate",
-				"missing skip_fix and vulnerable_at",
-			},
 			wantNumLints: 2,
 		},
 		{
@@ -459,7 +428,6 @@ func TestLintOffline(t *testing.T) {
 					},
 				}
 			}),
-			want:         []string{`invalid or non-canonical semver version (found 1.3.X)`},
 			wantNumLints: 1,
 		},
 		{
@@ -468,7 +436,6 @@ func TestLintOffline(t *testing.T) {
 			report: validReport(func(r *Report) {
 				r.CVEs = []string{"CVE.1234.5678"}
 			}),
-			want:         []string{"malformed cve identifier"},
 			wantNumLints: 1,
 		},
 		{
@@ -477,7 +444,6 @@ func TestLintOffline(t *testing.T) {
 			report: validReport(func(r *Report) {
 				r.GHSAs = []string{"GHSA-123"}
 			}),
-			want:         []string{"GHSA-123 is not a valid GHSA"},
 			wantNumLints: 1,
 		},
 		{
@@ -498,7 +464,6 @@ func TestLintOffline(t *testing.T) {
 					// missing fields
 				}
 			}),
-			want:         []string{"cve_metadata.id is required", "cve_metadata.cwe is required"},
 			wantNumLints: 2,
 		},
 		{
@@ -511,7 +476,6 @@ func TestLintOffline(t *testing.T) {
 					CWE: "TODO",
 				}
 			}),
-			want:         []string{"malformed cve_metadata.id identifier", "cve_metadata.cwe contains a TODO"},
 			wantNumLints: 2,
 		},
 		{
@@ -523,7 +487,6 @@ func TestLintOffline(t *testing.T) {
 					URL:  "http://go.dev/",
 				})
 			}),
-			want:         []string{"not a valid reference type"},
 			wantNumLints: 1,
 		},
 		{
@@ -538,7 +501,6 @@ func TestLintOffline(t *testing.T) {
 					URL:  "http://go.dev/b",
 				})
 			}),
-			want:         []string{"at most one advisory link"},
 			wantNumLints: 1,
 		},
 		{
@@ -564,11 +526,6 @@ func TestLintOffline(t *testing.T) {
 					URL:  "https://github.com/advisories/GHSA-0000-0000-0001", // ok
 				})
 			}),
-			want: []string{
-				"redundant non-advisory reference to CVE-0000-0000",
-				"redundant non-advisory reference to CVE-0000-0001",
-				"redundant non-advisory reference to GHSA-0000-0000-0000",
-			},
 			wantNumLints: 3,
 		},
 		{
@@ -582,11 +539,6 @@ func TestLintOffline(t *testing.T) {
 					{Type: osv.ReferenceTypeWeb, URL: "https://groups.google.com/forum/#!/golang-announce/12345/1/"},
 				}
 			}),
-			want: []string{
-				`"https://github.com/golang/go/issues/12345" should be "https://go.dev/issue/12345"`,
-				`"https://golang.org/xxx" should be "https://go.dev/xxx"`,
-				`"https://github.com/golang/go/commit/12345" should be "https://go.googlesource.com/+/12345"`,
-				`"https://groups.google.com/forum/#!/golang-announce/12345/1/" should be "https://groups.google.com/g/golang-announce/c/12345/m/1/"`},
 			wantNumLints: 4,
 		},
 		{
@@ -602,17 +554,6 @@ func TestLintOffline(t *testing.T) {
 					// no announce link
 				}
 			}),
-			want: []string{
-				// Standard library specific errors.
-				"advisory reference should not be set",
-				"fix reference should match",
-				"report reference should match",
-				"references should contain an announcement link",
-				"web references should only contain announcement links",
-				// Unfixed link errors.
-				`"https://github.com/golang/go/commit/12345" should be "https://go.googlesource.com/+/12345"`,
-				`"https://github.com/golang/go/issues/12345" should be "https://go.dev/issue/12345"`,
-			},
 			wantNumLints: 8,
 		},
 		{
@@ -623,11 +564,6 @@ func TestLintOffline(t *testing.T) {
 					// no links
 				}
 			}),
-			want: []string{
-				"references should contain at least one report",
-				"references should contain at least one fix",
-				"references should contain an announcement link",
-			},
 			wantNumLints: 3,
 		},
 		{
@@ -641,9 +577,6 @@ func TestLintOffline(t *testing.T) {
 					},
 				}
 			}),
-			want: []string{
-				`"go.dev/cl/12345" is not a valid URL`,
-			},
 			wantNumLints: 1,
 		},
 		{
@@ -655,11 +588,6 @@ func TestLintOffline(t *testing.T) {
 				r.CVEs = nil
 				r.GHSAs = nil
 			}),
-			want: []string{
-				"not a valid excluded reason",
-				"no modules",
-				"excluded report must have at least one associated CVE or GHSA",
-			},
 			wantNumLints: 3,
 		},
 		{
@@ -675,10 +603,6 @@ func TestLintOffline(t *testing.T) {
 					"GO-1990-0001",        // ok
 				}
 			}),
-			want: []string{
-				"not-an-id is not a recognized identifier",
-				"CVE-0000-1111 is also listed among aliases",
-			},
 			wantNumLints: 2,
 		},
 		{
@@ -837,48 +761,6 @@ func reportToBytes(report *Report) ([]byte, error) {
 		return nil, err
 	}
 	return []byte(ys + "\n"), nil
-}
-
-func checkLints(t *testing.T, got, want []string) {
-	var missing []string
-	for _, w := range want {
-		found := false
-		for _, g := range got {
-			if strings.Contains(g, w) {
-				found = true
-				continue
-			}
-		}
-		if !found {
-			missing = append(missing, w)
-		}
-	}
-	if len(missing) > 0 {
-		t.Errorf("missing expected lint errors in report:\n"+
-			"got:  %q\n"+
-			"want: %q\n", got, missing)
-	}
-
-	// Check for unexpected lint errors if there are no missing ones.
-	if len(missing) == 0 {
-		var unexpected []string
-		for _, g := range got {
-			found := false
-			for _, w := range want {
-				if strings.Contains(g, w) {
-					found = true
-					continue
-				}
-			}
-			if !found {
-				unexpected = append(unexpected, g)
-			}
-		}
-		if len(unexpected) > 0 {
-			t.Errorf("unexpected lint errors in report:\n"+
-				"got:  %q\n", unexpected)
-		}
-	}
 }
 
 func TestCheckFilename(t *testing.T) {
