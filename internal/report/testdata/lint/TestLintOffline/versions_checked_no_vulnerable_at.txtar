@@ -22,5 +22,5 @@ references:
     - report: https://go.dev/issue/12345
 
 -- golden --
-std: missing skip_fix and vulnerable_at: "net/http"
-std: version issue: introduced and fixed versions must alternate
+modules[0] "std": packages[0] "net/http": at least one of vulnerable_at and skip_fix must be set
+modules[0] "std": versions: introduced and fixed versions must alternate

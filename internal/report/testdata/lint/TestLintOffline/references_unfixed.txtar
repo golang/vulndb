@@ -23,7 +23,7 @@ references:
     - web: https://groups.google.com/forum/#!/golang-announce/12345/1/
 
 -- golden --
-unfixed url: "https://github.com/golang/go/commit/12345" should be "https://go.googlesource.com/+/12345"
-unfixed url: "https://github.com/golang/go/issues/12345" should be "https://go.dev/issue/12345"
-unfixed url: "https://golang.org/xxx" should be "https://go.dev/xxx"
-unfixed url: "https://groups.google.com/forum/#!/golang-announce/12345/1/" should be "https://groups.google.com/g/golang-announce/c/12345/m/1/"
+references[0] "https://github.com/golang/go/commit/12345": should be "https://go.googlesource.com/+/12345" (can be auto-fixed)
+references[1] "https://github.com/golang/go/issues/12345": should be "https://go.dev/issue/12345" (can be auto-fixed)
+references[2] "https://golang.org/xxx": should be "https://go.dev/xxx" (can be auto-fixed)
+references[3] "https://groups.google.com/forum/#!/golang-announce/12345/1/": should be "https://groups.google.com/g/golang-announce/c/12345/m/1/" (can be auto-fixed)

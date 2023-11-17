@@ -22,11 +22,11 @@ references:
     - web: https://go.dev/
 
 -- golden --
-unfixed url: "https://github.com/golang/go/commit/12345" should be "https://go.googlesource.com/+/12345"
-unfixed url: "https://github.com/golang/go/issues/12345" should be "https://go.dev/issue/12345"
-"http://www.example.com": advisory reference should not be set for first-party issues
-"https://go-review.googlesource.com/c/go/+/12345": fix reference should match "https://go.dev/cl/\\d+" or "https://go.googlesource.com/[^/]+/\\+/([^/]+)"
-"https://github.com/golang/go/commit/12345": fix reference should match "https://go.dev/cl/\\d+" or "https://go.googlesource.com/[^/]+/\\+/([^/]+)"
-"https://github.com/golang/go/issues/12345": report reference should match "https://go.dev/issue/\\d+"
-"https://go.dev/": web references should only contain announcement links matching "https://groups.google.com/g/golang-(announce|dev|nuts)/c/([^/]+)"
-references should contain an announcement link matching "https://groups.google.com/g/golang-(announce|dev|nuts)/c/([^/]+)"
+references[0] "http://www.example.com": "http://www.example.com": advisory reference must not be set for first-party issues
+references[1] "https://go-review.googlesource.com/c/go/+/12345": "https://go-review.googlesource.com/c/go/+/12345": fix reference must match "https://go.dev/cl/\\d+" or "https://go.googlesource.com/[^/]+/\\+/([^/]+)"
+references[2] "https://github.com/golang/go/commit/12345": "https://github.com/golang/go/commit/12345": fix reference must match "https://go.dev/cl/\\d+" or "https://go.googlesource.com/[^/]+/\\+/([^/]+)"
+references[2] "https://github.com/golang/go/commit/12345": should be "https://go.googlesource.com/+/12345" (can be auto-fixed)
+references[3] "https://github.com/golang/go/issues/12345": "https://github.com/golang/go/issues/12345": report reference must match regex "https://go.dev/issue/\\d+"
+references[3] "https://github.com/golang/go/issues/12345": should be "https://go.dev/issue/12345" (can be auto-fixed)
+references[4] "https://go.dev/": "https://go.dev/": web reference must match regex "https://groups.google.com/g/golang-(announce|dev|nuts)/c/([^/]+)"
+references: must contain an announcement link matching regex "https://groups.google.com/g/golang-(announce|dev|nuts)/c/([^/]+)"

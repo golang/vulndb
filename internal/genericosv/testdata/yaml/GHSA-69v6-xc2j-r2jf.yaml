@@ -40,6 +40,6 @@ references:
     - fix: https://github.com/ethereum/go-ethereum/commit/295693759e5ded05fec0b2fb39359965b60da785
     - web: https://blog.ethereum.org/2020/11/12/geth_security_release/
 notes:
-    - lint: 'github.com/ethereum/go-ethereum: missing skip_fix and vulnerable_at: "github.com/ethereum/go-ethereum/core/vm"'
-    - lint: 'github.com/ethereum/go-ethereum: version 1.19.7 does not exist'
-    - lint: references should contain at most one advisory link
+    - lint: 'modules[1] "github.com/ethereum/go-ethereum": packages[0] "github.com/ethereum/go-ethereum/core/vm": at least one of vulnerable_at and skip_fix must be set'
+    - lint: 'modules[1] "github.com/ethereum/go-ethereum": version 1.19.7 does not exist'
+    - lint: 'references: too many advisories (found 2, want <=1)'

@@ -15,6 +15,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
 	"golang.org/x/tools/txtar"
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/proxy"
@@ -831,9 +832,19 @@ func TestLintAsNotes(t *testing.T) {
 
 	want, got := []*Note{
 		{Body: "a note added by a human", Type: NoteTypeNone}, // preserved
-		{Body: "missing summary", Type: NoteTypeLint},
+		{Body: "summary: missing", Type: NoteTypeLint},
 		{Body: "proxy client is nil; cannot perform all lint checks", Type: NoteTypeLint}}, report.Notes
-	if diff := cmp.Diff(want, got); diff != "" {
+	if diff := cmp.Diff(want, got,
+		// ignore order
+		cmpopts.SortSlices(
+			func(a, b *Note) bool {
+				if a.Type < b.Type {
+					return true
+				} else if a.Type > b.Type {
+					return false
+				}
+				return a.Body < b.Body
+			})); diff != "" {
 		t.Errorf("mismatch (-want, +got):\n%s", diff)
 	}
 }

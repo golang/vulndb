@@ -55,7 +55,7 @@ references:
     - web: https://bugzilla.redhat.com/show_bug.cgi?id=1954376
     - web: https://snyk.io/vuln/SNYK-GOLANG-GITHUBCOMSATORIGOUUID-72488
 notes:
-    - lint: 'github.com/apptainer/sif: 2 versions do not exist: 1.2.1-0.20180103161547-0ef6afb2f6cd, 1.2.1-0.20180404165556-75cca531ea76'
-    - lint: 'github.com/satori/go.uuid: vulnerable_at version 1.2.0 is not inside vulnerable range'
-    - lint: references should contain at most one advisory link
-    - lint: summary should begin with a capital letter
+    - lint: 'modules[0] "github.com/apptainer/sif": 2 versions do not exist: 1.2.1-0.20180103161547-0ef6afb2f6cd, 1.2.1-0.20180404165556-75cca531ea76'
+    - lint: 'modules[1] "github.com/satori/go.uuid": vulnerable_at: 1.2.0 is not inside vulnerable range'
+    - lint: 'references: too many advisories (found 2, want <=1)'
+    - lint: 'summary: must begin with a capital letter'
