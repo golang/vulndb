@@ -1,0 +1,15 @@
+Copyright 2023 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+
+Test: TestLintOffline/valid_excluded
+Description: No lints are generated for valid excluded reports.
+
+-- data/excluded/GO-0000-0000.yaml --
+id: GO-0000-0000
+excluded: NOT_GO_CODE
+cves:
+    - CVE-2022-1234545
+
+-- golden --
+

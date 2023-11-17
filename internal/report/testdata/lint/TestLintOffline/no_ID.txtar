@@ -1,0 +1,20 @@
+Copyright 2023 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+
+Test: TestLintOffline/no_ID
+Description: All reports must have an ID.
+
+-- data/reports/NO-GO-ID.yaml --
+modules:
+    - module: golang.org/x/net
+      vulnerable_at: 1.2.3
+      packages:
+        - package: golang.org/x/net/http2
+summary: A summary
+description: description
+cves:
+    - CVE-1234-0000
+
+-- golden --
+missing ID

@@ -1,0 +1,25 @@
+Copyright 2023 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+
+Test: TestLintOffline/vulnerable_at_out_of_range
+Description: Field module.vulnerable_at must be inside the vulnerable version range for the module.
+
+-- data/reports/GO-0000-0000.yaml --
+id: GO-0000-0000
+modules:
+    - module: std
+      versions:
+        - fixed: 1.2.1
+      vulnerable_at: 2.0.0
+      packages:
+        - package: net/http
+summary: A summary
+description: description
+references:
+    - fix: https://go.dev/cl/12345
+    - web: https://groups.google.com/g/golang-announce/c/12345
+    - report: https://go.dev/issue/12345
+
+-- golden --
+std: vulnerable_at version 2.0.0 is not inside vulnerable range

@@ -1,0 +1,21 @@
+Copyright 2023 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+
+Test: TestLintOffline/references_missing_stdlib
+Description: Standard library reports must contain at least one report, fix, and announcement link.
+
+-- data/reports/GO-0000-0000.yaml --
+id: GO-0000-0000
+modules:
+    - module: std
+      vulnerable_at: 1.2.3
+      packages:
+        - package: net/http
+summary: A summary
+description: description
+
+-- golden --
+references should contain at least one fix
+references should contain at least one report
+references should contain an announcement link matching "https://groups.google.com/g/golang-(announce|dev|nuts)/c/([^/]+)"

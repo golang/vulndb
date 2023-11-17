@@ -1,0 +1,21 @@
+Copyright 2023 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+
+Test: TestLintOffline/module_package_prefix
+Description: In third party reports, module names must be prefixes of package names.
+
+-- data/reports/GO-0000-0000.yaml --
+id: GO-0000-0000
+modules:
+    - module: example.com/module
+      vulnerable_at: 1.2.3
+      packages:
+        - package: example.com/package
+summary: A summary
+description: description
+cves:
+    - CVE-1234-0000
+
+-- golden --
+example.com/module: module must be a prefix of package

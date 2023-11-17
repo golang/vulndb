@@ -1,0 +1,28 @@
+Copyright 2023 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+
+Test: TestLintOffline/bad_related
+Description: The related field must not contain duplicate or invalid IDs.
+
+-- data/reports/GO-0000-0000.yaml --
+id: GO-0000-0000
+modules:
+    - module: golang.org/x/net
+      vulnerable_at: 1.2.3
+      packages:
+        - package: golang.org/x/net/http2
+summary: A summary
+description: description
+cves:
+    - CVE-0000-1111
+related:
+    - not-an-id
+    - CVE-0000-1111
+    - CVE-0000-1112
+    - GHSA-0000-0000-0000
+    - GO-1990-0001
+
+-- golden --
+related: not-an-id is not a recognized identifier (CVE, GHSA or Go ID)
+related: identifier CVE-0000-1111 is also listed among aliases

@@ -1,0 +1,16 @@
+Copyright 2023 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+
+Test: TestLintOffline/no_modules
+Description: All reports (except excluded reports marked NOT_GO_CODE) must have at least one module.
+
+-- data/reports/GO-0000-0000.yaml --
+id: GO-0000-0000
+summary: A summary
+description: description
+cves:
+    - CVE-1234-0000
+
+-- golden --
+no modules

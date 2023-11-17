@@ -1,0 +1,23 @@
+Copyright 2023 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+
+Test: TestLintOffline/cve_metadata_bad_fields
+Description: Field cve_metadata must contain valid entries for ID and CWE.
+
+-- data/reports/GO-0000-0000.yaml --
+id: GO-0000-0000
+modules:
+    - module: golang.org/x/net
+      vulnerable_at: 1.2.3
+      packages:
+        - package: golang.org/x/net/http2
+summary: A summary
+description: description
+cve_metadata:
+    id: CVE.0000.1111
+    cwe: TODO
+
+-- golden --
+malformed cve_metadata.id identifier
+cve_metadata.cwe contains a TODO

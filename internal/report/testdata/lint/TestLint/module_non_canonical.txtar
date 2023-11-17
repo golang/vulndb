@@ -1,0 +1,25 @@
+Copyright 2023 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+
+Test: TestLint/module_non_canonical
+Description: Module names must be canonical.
+
+-- data/reports/GO-0000-0000.yaml --
+id: GO-0000-0000
+modules:
+    - module: golang.org/x/net
+      vulnerable_at: 1.2.3
+      packages:
+        - package: golang.org/x/net/http2
+    - module: github.com/golang/vuln
+      versions:
+        - introduced: 0.1.0
+summary: A summary
+description: description
+cves:
+    - CVE-1234-0000
+
+-- golden --
+github.com/golang/vuln: module is not canonical at 1 version(s):
+0.1.0 (canonical:golang.org/x/vuln)

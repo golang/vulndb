@@ -1,0 +1,32 @@
+Copyright 2023 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+
+Test: TestLintOffline/references_incorrect_stdlib
+Description: Standard library reports must contain references matching a specific format.
+
+-- data/reports/GO-0000-0000.yaml --
+id: GO-0000-0000
+modules:
+    - module: std
+      vulnerable_at: 1.2.3
+      packages:
+        - package: net/http
+summary: A summary
+description: description
+references:
+    - advisory: http://www.example.com
+    - fix: https://go-review.googlesource.com/c/go/+/12345
+    - fix: https://github.com/golang/go/commit/12345
+    - report: https://github.com/golang/go/issues/12345
+    - web: https://go.dev/
+
+-- golden --
+unfixed url: "https://github.com/golang/go/commit/12345" should be "https://go.googlesource.com/+/12345"
+unfixed url: "https://github.com/golang/go/issues/12345" should be "https://go.dev/issue/12345"
+"http://www.example.com": advisory reference should not be set for first-party issues
+"https://go-review.googlesource.com/c/go/+/12345": fix reference should match "https://go.dev/cl/\\d+" or "https://go.googlesource.com/[^/]+/\\+/([^/]+)"
+"https://github.com/golang/go/commit/12345": fix reference should match "https://go.dev/cl/\\d+" or "https://go.googlesource.com/[^/]+/\\+/([^/]+)"
+"https://github.com/golang/go/issues/12345": report reference should match "https://go.dev/issue/\\d+"
+"https://go.dev/": web references should only contain announcement links matching "https://groups.google.com/g/golang-(announce|dev|nuts)/c/([^/]+)"
+references should contain an announcement link matching "https://groups.google.com/g/golang-(announce|dev|nuts)/c/([^/]+)"

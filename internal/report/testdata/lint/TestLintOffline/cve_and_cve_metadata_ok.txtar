@@ -1,0 +1,24 @@
+Copyright 2023 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+
+Test: TestLintOffline/cve_and_cve_metadata_ok
+Description: It is OK to set both cves and cve_metadata.
+
+-- data/reports/GO-0000-0000.yaml --
+id: GO-0000-0000
+modules:
+    - module: golang.org/x/net
+      vulnerable_at: 1.2.3
+      packages:
+        - package: golang.org/x/net/http2
+summary: A summary
+description: description
+cves:
+    - CVE-0000-1111
+cve_metadata:
+    id: CVE-0000-1111
+    cwe: 'CWE XXX: A CWE description'
+
+-- golden --
+

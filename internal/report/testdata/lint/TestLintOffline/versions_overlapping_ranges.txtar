@@ -1,0 +1,26 @@
+Copyright 2023 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+
+Test: TestLintOffline/versions_overlapping_ranges
+Description: Version ranges must not overlap.
+
+-- data/reports/GO-0000-0000.yaml --
+id: GO-0000-0000
+modules:
+    - module: std
+      versions:
+        - fixed: 1.2.1
+        - fixed: 1.3.2
+      vulnerable_at: 1.2.3
+      packages:
+        - package: net/http
+summary: A summary
+description: description
+references:
+    - fix: https://go.dev/cl/12345
+    - web: https://groups.google.com/g/golang-announce/c/12345
+    - report: https://go.dev/issue/12345
+
+-- golden --
+std: version issue: introduced and fixed versions must alternate

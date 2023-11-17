@@ -38,7 +38,7 @@ func TestWriteTxtar(t *testing.T) {
 	}
 
 	want := &txtar.Archive{
-		Comment: []byte(addCopyright(comment)),
+		Comment: []byte(addBoilerplate(currentYear(), comment)),
 		Files:   files,
 	}
 

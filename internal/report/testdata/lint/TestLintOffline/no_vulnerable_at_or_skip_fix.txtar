@@ -1,0 +1,20 @@
+Copyright 2023 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+
+Test: TestLintOffline/no_vulnerable_at_or_skip_fix
+Description: At least one of module.vulnerable_at and module.package.skip_fix must be set.
+
+-- data/reports/GO-0000-0000.yaml --
+id: GO-0000-0000
+modules:
+    - module: golang.org/x/net
+      packages:
+        - package: golang.org/x/net/http2
+summary: A summary
+description: description
+cves:
+    - CVE-1234-0000
+
+-- golden --
+golang.org/x/net: missing skip_fix and vulnerable_at: "golang.org/x/net/http2"

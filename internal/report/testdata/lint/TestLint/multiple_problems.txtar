@@ -1,0 +1,27 @@
+Copyright 2023 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+
+Test: TestLint/multiple_problems
+Description: A test for a report with multiple module-version issues at once.
+
+-- data/reports/GO-0000-0000.yaml --
+id: GO-0000-0000
+modules:
+    - module: golang.org/x/net
+      vulnerable_at: 1.2.3
+      packages:
+        - package: golang.org/x/net/http2
+    - module: github.com/golang/vuln
+      versions:
+        - introduced: 0.1.0
+          fixed: 0.2.5
+        - introduced: 0.2.6
+summary: A summary
+description: description
+cves:
+    - CVE-1234-0000
+
+-- golden --
+github.com/golang/vuln: 2 versions do not exist: 0.2.5, 0.2.6 and module is not canonical at 1 version(s):
+0.1.0 (canonical:golang.org/x/vuln)

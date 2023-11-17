@@ -1,0 +1,21 @@
+Copyright 2023 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+
+Test: TestLintOffline/no_package_path
+Description: All packages must have a path.
+
+-- data/reports/GO-0000-0000.yaml --
+id: GO-0000-0000
+modules:
+    - module: golang.org/x/net
+      vulnerable_at: 1.2.3
+      packages:
+        - {}
+summary: A summary
+description: description
+cves:
+    - CVE-1234-0000
+
+-- golden --
+golang.org/x/net: missing package
