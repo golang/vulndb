@@ -10,7 +10,11 @@ id: GO-0000-0000
 modules:
     - module: std
       vulnerable_at: 1.2.3
-summary: A summary
+      packages:
+        - package: net/http
+    - module: std
+      vulnerable_at: 1.0.0
+summary: A summary of the problem with net/http
 description: description
 references:
     - fix: https://go.dev/cl/12345
@@ -18,4 +22,4 @@ references:
     - report: https://go.dev/issue/12345
 
 -- golden --
-modules[0] "std": no packages
+modules[1] "std": no packages

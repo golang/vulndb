@@ -11,8 +11,12 @@ modules:
     - module: std
       vulnerable_at: 1.2.3
       packages:
+        - package: net/http
+    - module: std
+      vulnerable_at: 1.0.0
+      packages:
         - package: cmd/go
-summary: A summary
+summary: A summary of the problem with net/http
 description: description
 references:
     - fix: https://go.dev/cl/12345
@@ -20,4 +24,4 @@ references:
     - report: https://go.dev/issue/12345
 
 -- golden --
-modules[0] "std": packages[0] "cmd/go": must be in module cmd
+modules[1] "std": packages[0] "cmd/go": must be in module cmd

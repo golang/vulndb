@@ -8,13 +8,15 @@ Description: Every module must have a path.
 -- data/reports/GO-0000-0000.yaml --
 id: GO-0000-0000
 modules:
-    - vulnerable_at: 1.2.3
+    - module: golang.org/x/net
+      vulnerable_at: 1.2.3
       packages:
         - package: golang.org/x/net/http2
-summary: A summary
+    - {}
+summary: A summary of the issue in golang.org/x/net
 description: description
 cves:
     - CVE-1234-0000
 
 -- golden --
-modules[0]: no module name
+modules[1]: no module name

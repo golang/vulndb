@@ -8,14 +8,18 @@ Description: In third party reports, package paths must pass validity checks in 
 -- data/reports/GO-0000-0000.yaml --
 id: GO-0000-0000
 modules:
-    - module: invalid.
+    - module: golang.org/x/net
       vulnerable_at: 1.2.3
       packages:
+        - package: golang.org/x/net/http2
+    - module: invalid.
+      vulnerable_at: 1.0.0
+      packages:
         - package: invalid.
-summary: A summary
+summary: A summary of the issue in golang.org/x/net
 description: description
 cves:
     - CVE-1234-0000
 
 -- golden --
-modules[0] "invalid.": packages[0] "invalid.": malformed import path "invalid.": trailing dot in path element
+modules[1] "invalid.": packages[0] "invalid.": malformed import path "invalid.": trailing dot in path element

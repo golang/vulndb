@@ -50,7 +50,7 @@ func validReport(f func(r *Report)) Report {
 			}},
 		}},
 		Description: "description",
-		Summary:     "A summary",
+		Summary:     "A summary of the issue in golang.org/x/net",
 		CVEs:        []string{"CVE-1234-0000"},
 	}
 	f(&r)
@@ -68,7 +68,7 @@ func validStdReport(f func(r *Report)) Report {
 			}},
 		}},
 		Description: "description",
-		Summary:     "A summary",
+		Summary:     "A summary of the problem with net/http",
 		References:  validStdLibReferences,
 	}
 	f(&r)
@@ -202,7 +202,9 @@ func TestLintOffline(t *testing.T) {
 			name: "no_module_path",
 			desc: "Every module must have a path.",
 			report: validReport(func(r *Report) {
-				r.Modules[0].Module = ""
+				r.Modules = append(r.Modules, &Module{
+					// no path
+				})
 			}),
 			wantNumLints: 1,
 		},
@@ -272,7 +274,7 @@ func TestLintOffline(t *testing.T) {
 			name: "summary_too_long",
 			desc: "The summary must be 100 characters or less.",
 			report: validReport(func(r *Report) {
-				r.Summary = "This summary is too long; it needs to be shortened to less than 101 characters to pass the lint check"
+				r.Summary = "This summary of golang.org/x/net is too long; it needs to be shortened to less than 101 characters to pass the lint check"
 			}),
 			wantNumLints: 1,
 		},
@@ -280,7 +282,7 @@ func TestLintOffline(t *testing.T) {
 			name: "summary_period",
 			desc: "The summary should not end in a period. It should be a phrase, not a sentence.",
 			report: validReport(func(r *Report) {
-				r.Summary = "This summary is a sentence, not a phrase."
+				r.Summary = "This summary of golang.org/x/net is a sentence, not a phrase."
 			}),
 			wantNumLints: 1,
 		},
@@ -288,7 +290,10 @@ func TestLintOffline(t *testing.T) {
 			name: "no_package_path",
 			desc: "All packages must have a path.",
 			report: validReport(func(r *Report) {
-				r.Modules[0].Packages[0].Package = ""
+				r.Modules[0].Packages = append(r.Modules[0].Packages,
+					&Package{
+						// No package path.
+					})
 			}),
 			wantNumLints: 1,
 		},
@@ -344,8 +349,13 @@ func TestLintOffline(t *testing.T) {
 			name: "module_package_prefix",
 			desc: "In third party reports, module names must be prefixes of package names.",
 			report: validReport(func(r *Report) {
-				r.Modules[0].Module = "example.com/module"
-				r.Modules[0].Packages[0].Package = "example.com/package"
+				r.Modules = append(r.Modules, &Module{
+					Module:       "example.com/module",
+					VulnerableAt: "1.0.0",
+					Packages: []*Package{{
+						Package: "example.com/package",
+					}},
+				})
 			}),
 			wantNumLints: 1,
 		},
@@ -353,8 +363,12 @@ func TestLintOffline(t *testing.T) {
 			name: "invalid_package_path",
 			desc: "In third party reports, package paths must pass validity checks in x/mod/module.CheckImportPath.",
 			report: validReport(func(r *Report) {
-				r.Modules[0].Module = "invalid."
-				r.Modules[0].Packages[0].Package = "invalid."
+				r.Modules = append(r.Modules, &Module{
+					Module:       "invalid.",
+					VulnerableAt: "1.0.0",
+					Packages: []*Package{{
+						Package: "invalid.",
+					}}})
 			}),
 			wantNumLints: 1,
 		},
@@ -370,7 +384,13 @@ func TestLintOffline(t *testing.T) {
 			name: "no_package_stdlib",
 			desc: "In standard library reports, all modules must contain at least one package.",
 			report: validStdReport(func(r *Report) {
-				r.Modules[0].Packages = nil
+				r.Modules = append(r.Modules,
+					&Module{
+						Module:       "std",
+						VulnerableAt: "1.0.0",
+						// No packages.
+					},
+				)
 			}),
 			wantNumLints: 1,
 		},
@@ -378,8 +398,13 @@ func TestLintOffline(t *testing.T) {
 			name: "wrong_module_cmd",
 			desc: "Packages beginning with 'cmd' should be in the 'cmd' module.",
 			report: validStdReport(func(r *Report) {
-				r.Modules[0].Module = "std"
-				r.Modules[0].Packages[0].Package = "cmd/go"
+				r.Modules = append(r.Modules, &Module{
+					Module:       "std",
+					VulnerableAt: "1.0.0",
+					Packages: []*Package{{
+						Package: "cmd/go",
+					}},
+				})
 			}),
 			wantNumLints: 1,
 		},
