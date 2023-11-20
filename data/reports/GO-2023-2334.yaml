@@ -1,0 +1,31 @@
+id: GO-2023-2334
+modules:
+    - module: github.com/go-jose/go-jose/v3
+      versions:
+        - fixed: 3.0.1
+      vulnerable_at: 3.0.0
+      packages:
+        - package: github.com/go-jose/go-jose/v3
+          symbols:
+            - symmetricKeyCipher.decryptKey
+          derived_symbols:
+            - JSONWebEncryption.Decrypt
+            - JSONWebEncryption.DecryptMulti
+    - module: github.com/square/go-jose
+      vulnerable_at: 2.6.0+incompatible
+      packages:
+        - package: github.com/square/go-jose
+          symbols:
+            - symmetricKeyCipher.decryptKey
+          derived_symbols:
+            - JSONWebEncryption.Decrypt
+            - JSONWebEncryption.DecryptMulti
+summary: Decryption of malicious PBES2 JWE objects can consume unbounded system resources
+description: |-
+    The go-jose package is subject to a "billion hashes attack" causing
+    denial-of-service when decrypting JWE inputs. This occurs when an attacker can
+    provide a PBES2 encrypted JWE blob with a very large p2c value that, when
+    decrypted, produces a denial-of-service.
+references:
+    - fix: https://github.com/go-jose/go-jose/commit/65351c27657d58960c2e6c9fbb2b00f818e50568
+    - report: https://github.com/go-jose/go-jose/issues/64

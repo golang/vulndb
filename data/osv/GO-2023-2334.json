@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-2334",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "summary": "Decryption of malicious PBES2 JWE objects can consume unbounded system resources",
+  "details": "The go-jose package is subject to a \"billion hashes attack\" causing denial-of-service when decrypting JWE inputs. This occurs when an attacker can provide a PBES2 encrypted JWE blob with a very large p2c value that, when decrypted, produces a denial-of-service.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/go-jose/go-jose/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.0.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/go-jose/go-jose/v3",
+            "symbols": [
+              "JSONWebEncryption.Decrypt",
+              "JSONWebEncryption.DecryptMulti",
+              "symmetricKeyCipher.decryptKey"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/square/go-jose",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/square/go-jose",
+            "symbols": [
+              "JSONWebEncryption.Decrypt",
+              "JSONWebEncryption.DecryptMulti",
+              "symmetricKeyCipher.decryptKey"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/go-jose/go-jose/commit/65351c27657d58960c2e6c9fbb2b00f818e50568"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/go-jose/go-jose/issues/64"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-2334"
+  }
+}
