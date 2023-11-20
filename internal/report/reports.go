@@ -5,7 +5,7 @@
 package report
 
 import (
-	"path"
+	"path/filepath"
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/object"
@@ -18,11 +18,15 @@ import (
 var (
 	// YAMLDir is the name of the directory in the vulndb repo that
 	// contains reports.
-	YAMLDir = "data/reports"
+	YAMLDir = filepath.Join(dataFolder, reportsFolder)
 
 	// ExcludedDir is the name of the directory in the vulndb repo that
 	// contains excluded reports.
-	ExcludedDir = "data/excluded"
+	ExcludedDir = filepath.Join(dataFolder, excludedFolder)
+)
+
+const (
+	dataFolder, reportsFolder, excludedFolder = "data", "reports", "excluded"
 )
 
 // All returns all the reports in the repo, indexed by issue and by filename.
@@ -130,6 +134,6 @@ func Aliases(repo *git.Repository) (_ []string, err error) {
 }
 
 func isYAMLReport(f *object.File) bool {
-	dir, ext := path.Dir(f.Name), path.Ext(f.Name)
+	dir, ext := filepath.Dir(f.Name), filepath.Ext(f.Name)
 	return (dir == YAMLDir || dir == ExcludedDir) && ext == ".yaml"
 }

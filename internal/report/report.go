@@ -367,14 +367,17 @@ func ReadAndLint(filename string, pc *proxy.Client) (r *Report, err error) {
 }
 
 func (r *Report) YAMLFilename() (string, error) {
-	dir := YAMLDir
-	if r.Excluded != "" {
-		dir = ExcludedDir
-	}
 	if r.ID == "" {
 		return "", errors.New("report has no ID")
 	}
-	return filepath.Join(dir, r.ID+".yaml"), nil
+	return filepath.Join(dataFolder, r.folder(), r.ID+".yaml"), nil
+}
+
+func (r *Report) folder() string {
+	if r.IsExcluded() {
+		return excludedFolder
+	}
+	return reportsFolder
 }
 
 // Write writes r to filename in YAML format.

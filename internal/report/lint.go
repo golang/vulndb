@@ -332,12 +332,12 @@ func (r *Report) CheckFilename(filename string) (err error) {
 	dir := filepath.Base(filepath.Dir(filename)) // innermost folder
 	excluded := r.IsExcluded()
 
-	if excluded && dir != "excluded" {
-		return fmt.Errorf("%w (want %s, found %s)", errWrongDir, "excluded", dir)
+	if excluded && dir != excludedFolder {
+		return fmt.Errorf("%w (want %s, found %s)", errWrongDir, excludedFolder, dir)
 	}
 
-	if !excluded && dir != "reports" {
-		return fmt.Errorf("%w (want %s, found %s)", errWrongDir, "reports", dir)
+	if !excluded && dir != reportsFolder {
+		return fmt.Errorf("%w (want %s, found %s)", errWrongDir, reportsFolder, dir)
 	}
 
 	wantID := GoID(filename)
