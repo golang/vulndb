@@ -8,7 +8,7 @@ modules:
       vulnerable_at: 1.20.4
       packages:
         - package: cmd/go
-summary: Improper sanitization of LDFLAGS in go command with cgo in cmd/go
+summary: Improper handling of non-optional LDFLAGS in go command with cgo in cmd/go
 description: |-
     The go command may execute arbitrary code at build time when using cgo. This may
     occur when running "go get" on a malicious module, or when running any other

@@ -23,10 +23,10 @@ modules:
           symbols:
             - requestInfo.toCurl
           skip_fix: 'TODO: revisit this reason (module does not contain package k8s.io/kubernetes/staging/src/k8s.io/client-go/transport)'
-summary: Unauthorized credential disclosure in k8s.io/kubernetes and k8s.io/client-go
+summary: Unauthorized credential disclosure via debug logs in k8s.io/kubernetes and k8s.io/client-go
 description: |-
     Authorization tokens may be inappropriately logged if the verbosity level is set
-    to a debug level.
+    to a debug level. This is due to an incomplete fix for CVE-2019-11250.
 published: 2021-04-14T20:04:52Z
 cves:
     - CVE-2020-8565

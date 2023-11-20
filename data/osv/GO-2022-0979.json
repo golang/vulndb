@@ -7,7 +7,7 @@
     "CVE-2022-3346",
     "GHSA-87mm-qxm5-cp3f"
   ],
-  "summary": "Incorrect DNSSEC validation in github.com/peterzen/goresolver",
+  "summary": "Incorrect DNSSEC validation due to unchecked owner names in github.com/peterzen/goresolver",
   "details": "DNSSEC validation is not performed correctly. An attacker can cause this package to report successful validation for invalid, attacker-controlled records.\n\nThe owner name of RRSIG RRs is not validated, permitting an attacker to present the RRSIG for an attacker-controlled domain in a response for any other domain.",
   "affected": [
     {

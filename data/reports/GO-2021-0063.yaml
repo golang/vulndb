@@ -10,7 +10,7 @@ modules:
             - serverHandler.handleMsg
           derived_symbols:
             - PrivateLightServerAPI.Benchmark
-summary: Panic in github.com/ethereum/go-ethereum
+summary: Nil pointer dereference via malicious RPC message in github.com/ethereum/go-ethereum
 description: |-
     Due to a nil pointer dereference, a maliciously crafted RPC message can cause a
     panic. If handling RPC messages from untrusted clients, this may be used as a

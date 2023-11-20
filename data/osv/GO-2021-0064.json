@@ -7,8 +7,8 @@
     "CVE-2020-8565",
     "GHSA-8cfg-vx93-jvxw"
   ],
-  "summary": "Unauthorized credential disclosure in k8s.io/kubernetes and k8s.io/client-go",
-  "details": "Authorization tokens may be inappropriately logged if the verbosity level is set to a debug level.",
+  "summary": "Unauthorized credential disclosure via debug logs in k8s.io/kubernetes and k8s.io/client-go",
+  "details": "Authorization tokens may be inappropriately logged if the verbosity level is set to a debug level. This is due to an incomplete fix for CVE-2019-11250.",
   "affected": [
     {
       "package": {

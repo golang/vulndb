@@ -7,8 +7,8 @@
     "CVE-2019-11939",
     "GHSA-w3r9-r9w7-8h48"
   ],
-  "summary": "Denial of service in github.com/facebook/fbthrift",
-  "details": "Thirft Servers preallocate memory for the declared size of messages before checking the actual size of the message. This allows a malicious user to send messages that declare that they are significantly larger than they actually are, allowing them to force the server to allocate significant amounts of memory. This can be used as a denial of service vector.",
+  "summary": "Denial of service via malicious message size declaration in github.com/facebook/fbthrift",
+  "details": "Thrift Servers preallocate memory for the declared size of messages before checking the actual size of the message. This allows a malicious user to send messages that declare that they are significantly larger than they actually are, allowing them to force the server to allocate significant amounts of memory. This can be used as a denial of service vector.",
   "affected": [
     {
       "package": {

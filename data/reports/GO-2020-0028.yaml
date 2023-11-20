@@ -12,7 +12,7 @@ modules:
             - NewRR
             - ParseZone
             - ReadRR
-summary: Denial of service in github.com/miekg/dns
+summary: Denial of service via malformed zone file in github.com/miekg/dns
 description: |-
     Due to a nil pointer dereference, parsing a malformed zone file containing TA
     records may cause a panic. If parsing user supplied input, this may be used as a
