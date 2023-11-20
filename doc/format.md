@@ -98,6 +98,8 @@ type `string`
 The version at which the vulnerable symbols were obtained. Ideally, this
 is the version just prior to the fix.
 
+In many cases, this can be inferred automatically via `vulnreport fix`.
+
 ### `module.vulnerable_at_requires`
 
 type `[]string`
@@ -181,6 +183,9 @@ type `string`
 A short (<=100 characters) textual description of the vulnerability,
 usually of the form "PROBLEM in MODULE(s)", e.g:
 `summary: "Man-in-the-middle attack in golang.org/x/crypto/ssh`.
+
+To allow for easy visual differentiation, each report must have a unique
+summary.
 
 ## `description`
 
@@ -398,6 +403,10 @@ Valid values are:
   vulnerability entirely superseded by the report for A.
 * `NOT_A_VULNERABILITY`: While a CVE or GHSA has been assigned,
   there is no known vulnerability associated with it.
+* `LEGACY_FALSE_POSITIVE`: This is the label used for excluded reports
+  that were marked as false positive in the initial triage process (in 2020),
+  before we stored excluded reports in the repo. This label must not be used
+  for any new reports.
 
 ## Example Reports
 
