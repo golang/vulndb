@@ -1,0 +1,21 @@
+Copyright 2023 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+
+Test: TestLintOffline/summary_no_path
+Description: The summary must contain a module or package path listed in the report.
+
+-- data/reports/GO-0000-0000.yaml --
+id: GO-0000-0000
+modules:
+    - module: golang.org/x/net
+      vulnerable_at: 1.2.3
+      packages:
+        - package: golang.org/x/net/http2
+summary: This summary doesn't have a path
+description: description
+cves:
+    - CVE-1234-0000
+
+-- golden --
+summary: must contain an affected module or package path (e.g. "golang.org/x/net")

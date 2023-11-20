@@ -286,6 +286,8 @@ func (s *Summary) lint(l *linter, r *Report) {
 	}
 	if hasTODO(summary) {
 		l.Error(hasTODOErr)
+		// No need to keep linting, as this is likely a placeholder value.
+		return
 	}
 	if ln := len(summary); ln > 100 {
 		l.Errorf("too long (found %d characters, want <=100)", ln)
@@ -301,6 +303,60 @@ func (s *Summary) lint(l *linter, r *Report) {
 			l.Error("must begin with a capital letter")
 		}
 	}
+
+	// Summary must contain one of the listed module or package
+	// paths. (Except in the "std" module, where a specific package
+	// must be mentioned).
+	// If there are no such paths listed in the report at all,
+	// another lint will complain, so reduce noise by not erroring here.
+	if paths := r.nonStdPaths(); len(paths) > 0 {
+		if ok := containsPath(l, summary, paths); !ok {
+			l.Errorf("must contain an affected module or package path (e.g. %q)", paths[0])
+		}
+	}
+}
+
+// containsPath returns whether the summary contains one of
+// the paths in paths.
+// As a special case, if the summary contains a word that contains a "/"
+// and is a prefix of a path, the function returns true. This gives us a
+// workaround for reports that affect a lot of modules and/or have very long
+// module paths.
+func containsPath(l *linter, summary string, paths []string) bool {
+	if len(paths) == 0 {
+		return false
+	}
+
+	for _, possiblePath := range strings.Fields(summary) {
+		possiblePath := strings.TrimRight(possiblePath, ":,.")
+		for _, path := range paths {
+			if possiblePath == path {
+				return true
+			}
+			if strings.Contains(possiblePath, "/") &&
+				strings.HasPrefix(path, possiblePath) {
+				return true
+			}
+		}
+	}
+
+	return false
+}
+
+// nonStdPaths returns all module and package paths (except "std")
+// mentioned in the report.
+func (r *Report) nonStdPaths() (paths []string) {
+	for _, m := range r.Modules {
+		if m.Module != "" && m.Module != stdlib.ModulePath {
+			paths = append(paths, m.Module)
+		}
+		for _, p := range m.Packages {
+			if p.Package != "" {
+				paths = append(paths, p.Package)
+			}
+		}
+	}
+	return paths
 }
 
 func (r *Report) IsExcluded() bool {

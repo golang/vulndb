@@ -287,6 +287,30 @@ func TestLintOffline(t *testing.T) {
 			wantNumLints: 1,
 		},
 		{
+			name: "summary_no_path",
+			desc: "The summary must contain a module or package path listed in the report.",
+			report: validReport(func(r *Report) {
+				r.Summary = "This summary doesn't have a path"
+			}),
+			wantNumLints: 1,
+		},
+		{
+			name: "summary_path_prefix",
+			desc: "Summary may contain a prefix of a module or package path that is mentioned at least twice in a report. This is a workaround for reports that affect many modules.",
+			report: validReport(func(r *Report) {
+				r.Modules = append(r.Modules, &Module{
+					Module:       "example.com/module/example/v2",
+					VulnerableAt: "1.0.0",
+				})
+				r.Modules = append(r.Modules, &Module{
+					Module:       "example.com/module/example/v3",
+					VulnerableAt: "1.0.0",
+				})
+				r.Summary = "This summary is about example.com/module/example"
+			}),
+			// No lints.
+		},
+		{
 			name: "no_package_path",
 			desc: "All packages must have a path.",
 			report: validReport(func(r *Report) {

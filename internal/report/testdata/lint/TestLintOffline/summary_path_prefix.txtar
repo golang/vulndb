@@ -1,0 +1,25 @@
+Copyright 2023 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+
+Test: TestLintOffline/summary_path_prefix
+Description: Summary may contain a prefix of a module or package path that is mentioned at least twice in a report. This is a workaround for reports that affect many modules.
+
+-- data/reports/GO-0000-0000.yaml --
+id: GO-0000-0000
+modules:
+    - module: golang.org/x/net
+      vulnerable_at: 1.2.3
+      packages:
+        - package: golang.org/x/net/http2
+    - module: example.com/module/example/v2
+      vulnerable_at: 1.0.0
+    - module: example.com/module/example/v3
+      vulnerable_at: 1.0.0
+summary: This summary is about example.com/module/example
+description: description
+cves:
+    - CVE-1234-0000
+
+-- golden --
+
