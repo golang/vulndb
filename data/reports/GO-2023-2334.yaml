@@ -20,7 +20,8 @@ modules:
           derived_symbols:
             - JSONWebEncryption.Decrypt
             - JSONWebEncryption.DecryptMulti
-summary: Decryption of malicious PBES2 JWE objects can consume unbounded system resources
+summary: |
+    Denial of service via decryption of malicious PBES2 JWE objects in github.com/go-jose/go-jose/v3
 description: |-
     The go-jose package is subject to a "billion hashes attack" causing
     denial-of-service when decrypting JWE inputs. This occurs when an attacker can

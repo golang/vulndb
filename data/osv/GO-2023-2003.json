@@ -6,7 +6,7 @@
   "aliases": [
     "GHSA-8c37-7qx3-4c4p"
   ],
-  "summary": "Blst fails to perform group signature validation",
+  "summary": "Group signature validation bypass in github.com/supranational/blst",
   "details": "When complemented with a check for infinity, blst skips performing a signature group-check. Formally speaking, infinity is the identity element of the elliptic curve group and as such it is a member of the group, so the group-check should be performed. The fix performs the check even in the presence of infinity.",
   "affected": [
     {
