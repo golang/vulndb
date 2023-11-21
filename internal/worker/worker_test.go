@@ -33,7 +33,7 @@ import (
 	"golang.org/x/vulndb/internal/worker/store"
 )
 
-const testRepoPath = "../cvelistrepo/testdata/basic.txtar"
+const testRepoPath = "testdata/basic.txtar"
 
 var realProxy = flag.Bool("proxy", false, "if true, contact the real module proxy and update expected responses")
 
