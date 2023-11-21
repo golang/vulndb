@@ -114,11 +114,7 @@ func updateTxtar(ctx context.Context, txtarFile, url string, ref plumbing.Refere
 }
 
 func TestFiles(t *testing.T) {
-	repo, err := gitrepo.ReadTxtarRepo(v4txtar, time.Now())
-	if err != nil {
-		t.Fatal(err)
-	}
-	commit, err := headCommit(repo)
+	repo, commit, err := open(v4txtar)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -140,6 +136,63 @@ func TestFiles(t *testing.T) {
 	if diff := cmp.Diff(want, got, cmp.AllowUnexported(File{}), opt); diff != "" {
 		t.Errorf("mismatch (-want, +got):\n%s", diff)
 	}
+}
+
+func TestFetchCVE(t *testing.T) {
+	ctx := context.Background()
+	repo, _, err := open(v4txtar)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	for _, id := range cveIDs {
+		t.Run(id, func(t *testing.T) {
+			cve, err := FetchCVE(ctx, repo, id)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if got, want := cve.Metadata.ID, id; got != want {
+				t.Errorf("FetchCVE(%s).Metadata.ID = %s, want %s", id, got, want)
+			}
+		})
+	}
+}
+
+func TestParseCVE(t *testing.T) {
+	repo, commit, err := open(v4txtar)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	files, err := Files(repo, commit)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	for _, file := range files {
+		t.Run(file.Filename, func(t *testing.T) {
+			cve, err := ParseCVE(repo, file)
+			if err != nil {
+				t.Fatal(err)
+			}
+			want := cveschema5.FindCVE(file.Filename)
+			if got := cve.Metadata.ID; got != want {
+				t.Errorf("ParseCVE(%s).Metadata.ID = %s, want %s", file.Filename, got, want)
+			}
+		})
+	}
+}
+
+func open(file string) (*git.Repository, *object.Commit, error) {
+	repo, err := gitrepo.ReadTxtarRepo(v4txtar, time.Now())
+	if err != nil {
+		return nil, nil, err
+	}
+	commit, err := headCommit(repo)
+	if err != nil {
+		return nil, nil, err
+	}
+	return repo, commit, nil
 }
 
 // headCommit returns the commit at the repo HEAD.
