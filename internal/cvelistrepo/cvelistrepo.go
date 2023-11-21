@@ -115,45 +115,43 @@ func blobReader(repo *git.Repository, hash plumbing.Hash) (io.Reader, error) {
 
 // FetchCVE fetches the CVE file for cveID from the CVElist repo and returns
 // the parsed info.
-func FetchCVE(ctx context.Context, repo *git.Repository, cveID string) (_ *cveschema.CVE, err error) {
+func FetchCVE(ctx context.Context, repo *git.Repository, cveID string, cve *cveschema.CVE) (err error) {
 	defer derrors.Wrap(&err, "FetchCVE(repo, commit, %s)", cveID)
 	ref, err := repo.Reference(plumbing.HEAD, true)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	ch := ref.Hash()
 	commit, err := repo.CommitObject(ch)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	files, err := Files(repo, commit)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	for _, f := range files {
 		if strings.Contains(f.Filename, cveID) {
-			cve, err := ParseCVE(repo, f)
-			if err != nil {
-				return nil, err
+			if err := ParseCVE(repo, f, cve); err != nil {
+				return err
 			}
-			return cve, nil
+			return nil
 		}
 	}
-	return nil, fmt.Errorf("not found")
+	return fmt.Errorf("%s not found", cveID)
 }
 
 // ParseCVE parses the CVE file f into a CVE.
-func ParseCVE(repo *git.Repository, f File) (*cveschema.CVE, error) {
+func ParseCVE(repo *git.Repository, f File, cve *cveschema.CVE) error {
 	// Read CVE from repo.
 	r, err := blobReader(repo, f.BlobHash)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	cve := &cveschema.CVE{}
 	if err := json.NewDecoder(r).Decode(cve); err != nil {
-		return nil, err
+		return err
 	}
-	return cve, nil
+	return nil
 }
 
 func (f *File) ReadAll(repo *git.Repository) ([]byte, error) {

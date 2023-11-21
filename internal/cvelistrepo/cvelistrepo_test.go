@@ -19,6 +19,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"golang.org/x/tools/txtar"
+	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/test"
@@ -147,8 +148,8 @@ func TestFetchCVE(t *testing.T) {
 
 	for _, id := range cveIDs {
 		t.Run(id, func(t *testing.T) {
-			cve, err := FetchCVE(ctx, repo, id)
-			if err != nil {
+			cve := &cveschema.CVE{}
+			if err := FetchCVE(ctx, repo, id, cve); err != nil {
 				t.Fatal(err)
 			}
 			if got, want := cve.Metadata.ID, id; got != want {
@@ -171,8 +172,8 @@ func TestParseCVE(t *testing.T) {
 
 	for _, file := range files {
 		t.Run(file.Filename, func(t *testing.T) {
-			cve, err := ParseCVE(repo, file)
-			if err != nil {
+			cve := &cveschema.CVE{}
+			if err := ParseCVE(repo, file, cve); err != nil {
 				t.Fatal(err)
 			}
 			want := cveschema5.FindCVE(file.Filename)

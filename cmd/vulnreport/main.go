@@ -29,6 +29,7 @@ import (
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
 	"golang.org/x/vulndb/internal/cvelistrepo"
+	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/database"
 	"golang.org/x/vulndb/internal/derrors"
@@ -532,8 +533,8 @@ func reportFromAlias(ctx context.Context, id, modulePath, alias string, cfg *cre
 		}
 		r = ghsa.ToReport(id, cfg.proxyClient)
 	case cveschema5.IsCVE(alias):
-		cve, err := cvelistrepo.FetchCVE(ctx, loadCVERepo(ctx), alias)
-		if err != nil {
+		cve := &cveschema.CVE{}
+		if err := cvelistrepo.FetchCVE(ctx, loadCVERepo(ctx), alias, cve); err != nil {
 			return nil, err
 		}
 		r = report.CVEToReport(cve, modulePath, cfg.proxyClient)
