@@ -72,3 +72,11 @@ func TestRead(t *testing.T) {
 		t.Errorf("Read(%s) = %v\n want %v", f, got, want)
 	}
 }
+
+func TestFindCVE(t *testing.T) {
+	s := "something/CVE-1999-0004.json"
+	got, want := FindCVE(s), "CVE-1999-0004"
+	if got != want {
+		t.Errorf("FindCVE(%s) = %s, want %s", s, got, want)
+	}
+}

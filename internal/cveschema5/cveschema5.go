@@ -135,10 +135,17 @@ func ReadForPublish(filename string) (cveID string, toPublish *Containers, err e
 	return record.Metadata.ID, &record.Containers, nil
 }
 
-const Regex = `CVE-\d{4}-\d{4,}`
+const RegexStr = `CVE-\d{4}-\d{4,}`
 
-var cveRegex = regexp.MustCompile(`^` + Regex + `$`)
+var (
+	Regex       = regexp.MustCompile(RegexStr)
+	RegexStrict = regexp.MustCompile(`^` + RegexStr + `$`)
+)
 
 func IsCVE(s string) bool {
-	return cveRegex.MatchString(s)
+	return RegexStrict.MatchString(s)
+}
+
+func FindCVE(s string) string {
+	return Regex.FindString(s)
 }

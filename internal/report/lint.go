@@ -192,9 +192,9 @@ var (
 	issueRegex    = regexp.MustCompile(`https://go.dev/issue/\d+`)
 	announceRegex = regexp.MustCompile(`https://groups.google.com/g/golang-(announce|dev|nuts)/c/([^/]+)`)
 
-	nistRegex     = regexp.MustCompile(`^https://nvd.nist.gov/vuln/detail/(` + cveschema5.Regex + `)$`)
+	nistRegex     = regexp.MustCompile(`^https://nvd.nist.gov/vuln/detail/(` + cveschema5.RegexStr + `)$`)
 	ghsaLinkRegex = regexp.MustCompile(`^https://github.com/.*/(` + ghsa.Regex + `)$`)
-	mitreRegex    = regexp.MustCompile(`^https://cve.mitre.org/.*(` + cveschema5.Regex + `)$`)
+	mitreRegex    = regexp.MustCompile(`^https://cve.mitre.org/.*(` + cveschema5.RegexStr + `)$`)
 )
 
 // Checks that the "links" section of a Report for a package in the

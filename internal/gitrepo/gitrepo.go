@@ -29,10 +29,15 @@ func Clone(ctx context.Context, repoURL string) (repo *git.Repository, err error
 	ctx = event.Start(ctx, "gitrepo.Clone")
 	defer event.End(ctx)
 
-	log.Infof(ctx, "Cloning repo %q at HEAD", repoURL)
+	return CloneAt(ctx, repoURL, plumbing.HEAD)
+}
+
+// Clone returns a bare repo by cloning the repo at repoURL at the given ref.
+func CloneAt(ctx context.Context, repoURL string, ref plumbing.ReferenceName) (repo *git.Repository, err error) {
+	log.Infof(ctx, "Cloning repo %q at %s", repoURL, ref)
 	return git.Clone(memory.NewStorage(), nil, &git.CloneOptions{
 		URL:           repoURL,
-		ReferenceName: plumbing.HEAD,
+		ReferenceName: ref,
 		SingleBranch:  true,
 		Depth:         1,
 		Tags:          git.NoTags,
