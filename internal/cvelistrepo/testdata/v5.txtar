@@ -1,0 +1,634 @@
+Copyright 2023 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+
+Repo in the shape of "https://github.com/CVEProject/cvelistV5".
+Updated with real data 2023-11-20T19:00:00-05:00.
+Auto-generated; do not edit directly.
+
+-- README.md --
+ignore me please
+
+-- cves/2021/0xxx/CVE-2021-0001.json --
+{
+    "containers": {
+        "cna": {
+            "affected": [
+                {
+                    "product": "Intel(R) IPP",
+                    "vendor": "n/a",
+                    "versions": [
+                        {
+                            "status": "affected",
+                            "version": "before version 2020 update 1"
+                        }
+                    ]
+                }
+            ],
+            "descriptions": [
+                {
+                    "lang": "en",
+                    "value": "Observable timing discrepancy in Intel(R) IPP before version 2020 update 1 may allow authorized user to potentially enable information disclosure via local access."
+                }
+            ],
+            "problemTypes": [
+                {
+                    "descriptions": [
+                        {
+                            "description": "information disclosure",
+                            "lang": "en",
+                            "type": "text"
+                        }
+                    ]
+                }
+            ],
+            "providerMetadata": {
+                "dateUpdated": "2021-06-09T19:01:55",
+                "orgId": "6dda929c-bb53-4a77-a76d-48e79601a1ce",
+                "shortName": "intel"
+            },
+            "references": [
+                {
+                    "tags": [
+                        "x_refsource_MISC"
+                    ],
+                    "url": "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00477.html"
+                }
+            ],
+            "x_legacyV4Record": {
+                "CVE_data_meta": {
+                    "ASSIGNER": "secure@intel.com",
+                    "ID": "CVE-2021-0001",
+                    "STATE": "PUBLIC"
+                },
+                "affects": {
+                    "vendor": {
+                        "vendor_data": [
+                            {
+                                "product": {
+                                    "product_data": [
+                                        {
+                                            "product_name": "Intel(R) IPP",
+                                            "version": {
+                                                "version_data": [
+                                                    {
+                                                        "version_value": "before version 2020 update 1"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                "vendor_name": "n/a"
+                            }
+                        ]
+                    }
+                },
+                "data_format": "MITRE",
+                "data_type": "CVE",
+                "data_version": "4.0",
+                "description": {
+                    "description_data": [
+                        {
+                            "lang": "eng",
+                            "value": "Observable timing discrepancy in Intel(R) IPP before version 2020 update 1 may allow authorized user to potentially enable information disclosure via local access."
+                        }
+                    ]
+                },
+                "problemtype": {
+                    "problemtype_data": [
+                        {
+                            "description": [
+                                {
+                                    "lang": "eng",
+                                    "value": "information disclosure"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "references": {
+                    "reference_data": [
+                        {
+                            "name": "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00477.html",
+                            "refsource": "MISC",
+                            "url": "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00477.html"
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "cveMetadata": {
+        "assignerOrgId": "6dda929c-bb53-4a77-a76d-48e79601a1ce",
+        "assignerShortName": "intel",
+        "cveId": "CVE-2021-0001",
+        "datePublished": "2021-06-09T19:01:55",
+        "dateReserved": "2020-10-22T00:00:00",
+        "dateUpdated": "2021-06-09T19:01:55",
+        "state": "PUBLISHED"
+    },
+    "dataType": "CVE_RECORD",
+    "dataVersion": "5.0"
+}
+-- cves/2021/0xxx/CVE-2021-0010.json --
+{
+    "dataType": "CVE_RECORD",
+    "dataVersion": "5.0",
+    "cveMetadata": {
+        "state": "REJECTED",
+        "cveId": "CVE-2021-0010",
+        "assignerOrgId": "6dda929c-bb53-4a77-a76d-48e79601a1ce",
+        "assignerShortName": "intel",
+        "dateUpdated": "2023-05-16T00:00:00",
+        "dateRejected": "2023-05-16T00:00:00",
+        "dateReserved": "2020-10-22T00:00:00"
+    },
+    "containers": {
+        "cna": {
+            "providerMetadata": {
+                "orgId": "6dda929c-bb53-4a77-a76d-48e79601a1ce",
+                "shortName": "intel",
+                "dateUpdated": "2023-05-16T00:00:00"
+            },
+            "rejectedReasons": [
+                {
+                    "lang": "en",
+                    "value": "DO NOT USE THIS CANDIDATE NUMBER. ConsultIDs: none. Reason: This candidate was in a CNA pool that was not assigned to any issues during 2021. Notes: none."
+                }
+            ]
+        }
+    }
+}
+-- cves/2021/1xxx/CVE-2021-1384.json --
+{
+    "containers": {
+        "cna": {
+            "affected": [
+                {
+                    "product": "Cisco IOS XE Software ",
+                    "vendor": "Cisco",
+                    "versions": [
+                        {
+                            "status": "affected",
+                            "version": "n/a"
+                        }
+                    ]
+                }
+            ],
+            "datePublic": "2021-03-24T00:00:00",
+            "descriptions": [
+                {
+                    "lang": "en",
+                    "value": "A vulnerability in Cisco IOx application hosting environment of Cisco IOS XE Software could allow an authenticated, remote attacker to inject commands into the underlying operating system as the root user. This vulnerability is due to incomplete validation of fields in the application packages loaded onto IOx. An attacker could exploit this vulnerability by creating a crafted application .tar file and loading it onto the device. A successful exploit could allow the attacker to perform command injection into the underlying operating system as the root user."
+                }
+            ],
+            "exploits": [
+                {
+                    "lang": "en",
+                    "value": "The Cisco Product Security Incident Response Team (PSIRT) is not aware of any public announcements or malicious use of the vulnerability that is described in this advisory. "
+                }
+            ],
+            "metrics": [
+                {
+                    "cvssV3_1": {
+                        "attackComplexity": "LOW",
+                        "attackVector": "NETWORK",
+                        "availabilityImpact": "NONE",
+                        "baseScore": 6.5,
+                        "baseSeverity": "MEDIUM",
+                        "confidentialityImpact": "HIGH",
+                        "integrityImpact": "HIGH",
+                        "privilegesRequired": "HIGH",
+                        "scope": "UNCHANGED",
+                        "userInteraction": "NONE",
+                        "vectorString": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:N",
+                        "version": "3.1"
+                    }
+                }
+            ],
+            "problemTypes": [
+                {
+                    "descriptions": [
+                        {
+                            "cweId": "CWE-77",
+                            "description": "CWE-77",
+                            "lang": "en",
+                            "type": "CWE"
+                        }
+                    ]
+                }
+            ],
+            "providerMetadata": {
+                "dateUpdated": "2022-04-22T19:37:18",
+                "orgId": "d1c1063e-7a18-46af-9102-31f8928bc633",
+                "shortName": "cisco"
+            },
+            "references": [
+                {
+                    "name": "20210324 Cisco IOx for IOS XE Software Command Injection Vulnerability",
+                    "tags": [
+                        "vendor-advisory",
+                        "x_refsource_CISCO"
+                    ],
+                    "url": "https://tools.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-iox-cmdinj-RkSURGHG"
+                },
+                {
+                    "tags": [
+                        "x_refsource_MISC"
+                    ],
+                    "url": "https://github.com/orangecertcc/security-research/security/advisories/GHSA-h332-fj6p-2232"
+                }
+            ],
+            "source": {
+                "advisory": "cisco-sa-iox-cmdinj-RkSURGHG",
+                "defect": [
+                    [
+                        "CSCvw64798"
+                    ]
+                ],
+                "discovery": "INTERNAL"
+            },
+            "title": "Cisco IOx for IOS XE Software Command Injection Vulnerability",
+            "x_legacyV4Record": {
+                "CVE_data_meta": {
+                    "ASSIGNER": "psirt@cisco.com",
+                    "DATE_PUBLIC": "2021-03-24T16:00:00",
+                    "ID": "CVE-2021-1384",
+                    "STATE": "PUBLIC",
+                    "TITLE": "Cisco IOx for IOS XE Software Command Injection Vulnerability"
+                },
+                "affects": {
+                    "vendor": {
+                        "vendor_data": [
+                            {
+                                "product": {
+                                    "product_data": [
+                                        {
+                                            "product_name": "Cisco IOS XE Software ",
+                                            "version": {
+                                                "version_data": [
+                                                    {
+                                                        "version_value": "n/a"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                "vendor_name": "Cisco"
+                            }
+                        ]
+                    }
+                },
+                "data_format": "MITRE",
+                "data_type": "CVE",
+                "data_version": "4.0",
+                "description": {
+                    "description_data": [
+                        {
+                            "lang": "eng",
+                            "value": "A vulnerability in Cisco IOx application hosting environment of Cisco IOS XE Software could allow an authenticated, remote attacker to inject commands into the underlying operating system as the root user. This vulnerability is due to incomplete validation of fields in the application packages loaded onto IOx. An attacker could exploit this vulnerability by creating a crafted application .tar file and loading it onto the device. A successful exploit could allow the attacker to perform command injection into the underlying operating system as the root user."
+                        }
+                    ]
+                },
+                "exploit": [
+                    {
+                        "lang": "en",
+                        "value": "The Cisco Product Security Incident Response Team (PSIRT) is not aware of any public announcements or malicious use of the vulnerability that is described in this advisory. "
+                    }
+                ],
+                "impact": {
+                    "cvss": {
+                        "baseScore": "6.5",
+                        "vectorString": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:N ",
+                        "version": "3.0"
+                    }
+                },
+                "problemtype": {
+                    "problemtype_data": [
+                        {
+                            "description": [
+                                {
+                                    "lang": "eng",
+                                    "value": "CWE-77"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "references": {
+                    "reference_data": [
+                        {
+                            "name": "20210324 Cisco IOx for IOS XE Software Command Injection Vulnerability",
+                            "refsource": "CISCO",
+                            "url": "https://tools.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-iox-cmdinj-RkSURGHG"
+                        },
+                        {
+                            "name": "https://github.com/orangecertcc/security-research/security/advisories/GHSA-h332-fj6p-2232",
+                            "refsource": "MISC",
+                            "url": "https://github.com/orangecertcc/security-research/security/advisories/GHSA-h332-fj6p-2232"
+                        }
+                    ]
+                },
+                "source": {
+                    "advisory": "cisco-sa-iox-cmdinj-RkSURGHG",
+                    "defect": [
+                        [
+                            "CSCvw64798"
+                        ]
+                    ],
+                    "discovery": "INTERNAL"
+                }
+            }
+        }
+    },
+    "cveMetadata": {
+        "assignerOrgId": "d1c1063e-7a18-46af-9102-31f8928bc633",
+        "assignerShortName": "cisco",
+        "cveId": "CVE-2021-1384",
+        "datePublished": "2021-03-24T00:00:00",
+        "dateReserved": "2020-11-13T00:00:00",
+        "dateUpdated": "2022-04-22T19:37:18",
+        "state": "PUBLISHED"
+    },
+    "dataType": "CVE_RECORD",
+    "dataVersion": "5.0"
+}
+-- cves/2020/9xxx/CVE-2020-9283.json --
+{
+    "dataType": "CVE_RECORD",
+    "dataVersion": "5.0",
+    "cveMetadata": {
+        "state": "PUBLISHED",
+        "cveId": "CVE-2020-9283",
+        "assignerOrgId": "8254265b-2729-46b6-b9e3-3dfca2d5bfca",
+        "assignerShortName": "mitre",
+        "dateUpdated": "2023-06-16T00:00:00",
+        "dateReserved": "2020-02-19T00:00:00",
+        "datePublished": "2020-02-20T00:00:00"
+    },
+    "containers": {
+        "cna": {
+            "providerMetadata": {
+                "orgId": "8254265b-2729-46b6-b9e3-3dfca2d5bfca",
+                "shortName": "mitre",
+                "dateUpdated": "2023-06-16T00:00:00"
+            },
+            "descriptions": [
+                {
+                    "lang": "en",
+                    "value": "golang.org/x/crypto before v0.0.0-20200220183623-bac4c82f6975 for Go allows a panic during signature verification in the golang.org/x/crypto/ssh package. A client can attack an SSH server that accepts public keys. Also, a server can attack any SSH client."
+                }
+            ],
+            "affected": [
+                {
+                    "vendor": "n/a",
+                    "product": "n/a",
+                    "versions": [
+                        {
+                            "version": "n/a",
+                            "status": "affected"
+                        }
+                    ]
+                }
+            ],
+            "references": [
+                {
+                    "url": "https://groups.google.com/forum/#%21topic/golang-announce/3L45YRc91SY"
+                },
+                {
+                    "url": "http://packetstormsecurity.com/files/156480/Go-SSH-0.0.2-Denial-Of-Service.html"
+                },
+                {
+                    "name": "[debian-lts-announce] 20201007 [SECURITY] [DLA 2402-1] golang-go.crypto security update",
+                    "tags": [
+                        "mailing-list"
+                    ],
+                    "url": "https://lists.debian.org/debian-lts-announce/2020/10/msg00014.html"
+                },
+                {
+                    "name": "[debian-lts-announce] 20201116 [SECURITY] [DLA 2453-1] restic security update",
+                    "tags": [
+                        "mailing-list"
+                    ],
+                    "url": "https://lists.debian.org/debian-lts-announce/2020/11/msg00027.html"
+                },
+                {
+                    "name": "[debian-lts-announce] 20201118 [SECURITY] [DLA 2455-1] packer security update",
+                    "tags": [
+                        "mailing-list"
+                    ],
+                    "url": "https://lists.debian.org/debian-lts-announce/2020/11/msg00031.html"
+                },
+                {
+                    "name": "[debian-lts-announce] 20230616 [SECURITY] [DLA 3455-1] golang-go.crypto security update",
+                    "tags": [
+                        "mailing-list"
+                    ],
+                    "url": "https://lists.debian.org/debian-lts-announce/2023/06/msg00017.html"
+                }
+            ],
+            "problemTypes": [
+                {
+                    "descriptions": [
+                        {
+                            "type": "text",
+                            "lang": "en",
+                            "description": "n/a"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
+-- cves/2022/39xxx/CVE-2022-39213.json --
+{
+    "containers": {
+        "cna": {
+            "affected": [
+                {
+                    "product": "go-cvss",
+                    "vendor": "pandatix",
+                    "versions": [
+                        {
+                            "status": "affected",
+                            "version": ">= 0.2.0, < 0.4.0"
+                        }
+                    ]
+                }
+            ],
+            "descriptions": [
+                {
+                    "lang": "en",
+                    "value": "go-cvss is a Go module to manipulate Common Vulnerability Scoring System (CVSS). In affected versions when a full CVSS v2.0 vector string is parsed using `ParseVector`, an Out-of-Bounds Read is possible due to a lack of tests. The Go module will then panic. The problem is patched in tag `v0.4.0`, by the commit `d9d478ff0c13b8b09ace030db9262f3c2fe031f4`. Users are advised to upgrade. Users unable to upgrade may avoid this issue by parsing only CVSS v2.0 vector strings that do not have all attributes defined (e.g. `AV:N/AC:L/Au:N/C:P/I:P/A:C/E:U/RL:OF/RC:C/CDP:MH/TD:H/CR:M/IR:M/AR:M`). As stated in [SECURITY.md](https://github.com/pandatix/go-cvss/blob/master/SECURITY.md), the CPE v2.3 to refer to this Go module is `cpe:2.3:a:pandatix:go_cvss:*:*:*:*:*:*:*:*`. The entry has already been requested to the NVD CPE dictionary."
+                }
+            ],
+            "metrics": [
+                {
+                    "cvssV3_1": {
+                        "attackComplexity": "LOW",
+                        "attackVector": "NETWORK",
+                        "availabilityImpact": "HIGH",
+                        "baseScore": 7.5,
+                        "baseSeverity": "HIGH",
+                        "confidentialityImpact": "NONE",
+                        "integrityImpact": "NONE",
+                        "privilegesRequired": "NONE",
+                        "scope": "UNCHANGED",
+                        "userInteraction": "NONE",
+                        "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                        "version": "3.1"
+                    }
+                }
+            ],
+            "problemTypes": [
+                {
+                    "descriptions": [
+                        {
+                            "cweId": "CWE-125",
+                            "description": "CWE-125: Out-of-bounds Read",
+                            "lang": "en",
+                            "type": "CWE"
+                        }
+                    ]
+                }
+            ],
+            "providerMetadata": {
+                "dateUpdated": "2022-09-15T21:45:12",
+                "orgId": "a0819718-46f1-4df5-94e2-005712e83aaa",
+                "shortName": "GitHub_M"
+            },
+            "references": [
+                {
+                    "tags": [
+                        "x_refsource_CONFIRM"
+                    ],
+                    "url": "https://github.com/pandatix/go-cvss/security/advisories/GHSA-xhmf-mmv2-4hhx"
+                },
+                {
+                    "tags": [
+                        "x_refsource_MISC"
+                    ],
+                    "url": "https://github.com/pandatix/go-cvss/commit/d9d478ff0c13b8b09ace030db9262f3c2fe031f4"
+                },
+                {
+                    "tags": [
+                        "x_refsource_MISC"
+                    ],
+                    "url": "https://github.com/pandatix/go-cvss/blob/master/SECURITY.md"
+                }
+            ],
+            "source": {
+                "advisory": "GHSA-xhmf-mmv2-4hhx",
+                "discovery": "UNKNOWN"
+            },
+            "title": "Out-of-bounds Read in go-cvss",
+            "x_legacyV4Record": {
+                "CVE_data_meta": {
+                    "ASSIGNER": "security-advisories@github.com",
+                    "ID": "CVE-2022-39213",
+                    "STATE": "PUBLIC",
+                    "TITLE": "Out-of-bounds Read in go-cvss"
+                },
+                "affects": {
+                    "vendor": {
+                        "vendor_data": [
+                            {
+                                "product": {
+                                    "product_data": [
+                                        {
+                                            "product_name": "go-cvss",
+                                            "version": {
+                                                "version_data": [
+                                                    {
+                                                        "version_value": ">= 0.2.0, < 0.4.0"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                "vendor_name": "pandatix"
+                            }
+                        ]
+                    }
+                },
+                "data_format": "MITRE",
+                "data_type": "CVE",
+                "data_version": "4.0",
+                "description": {
+                    "description_data": [
+                        {
+                            "lang": "eng",
+                            "value": "go-cvss is a Go module to manipulate Common Vulnerability Scoring System (CVSS). In affected versions when a full CVSS v2.0 vector string is parsed using `ParseVector`, an Out-of-Bounds Read is possible due to a lack of tests. The Go module will then panic. The problem is patched in tag `v0.4.0`, by the commit `d9d478ff0c13b8b09ace030db9262f3c2fe031f4`. Users are advised to upgrade. Users unable to upgrade may avoid this issue by parsing only CVSS v2.0 vector strings that do not have all attributes defined (e.g. `AV:N/AC:L/Au:N/C:P/I:P/A:C/E:U/RL:OF/RC:C/CDP:MH/TD:H/CR:M/IR:M/AR:M`). As stated in [SECURITY.md](https://github.com/pandatix/go-cvss/blob/master/SECURITY.md), the CPE v2.3 to refer to this Go module is `cpe:2.3:a:pandatix:go_cvss:*:*:*:*:*:*:*:*`. The entry has already been requested to the NVD CPE dictionary."
+                        }
+                    ]
+                },
+                "impact": {
+                    "cvss": {
+                        "attackComplexity": "LOW",
+                        "attackVector": "NETWORK",
+                        "availabilityImpact": "HIGH",
+                        "baseScore": 7.5,
+                        "baseSeverity": "HIGH",
+                        "confidentialityImpact": "NONE",
+                        "integrityImpact": "NONE",
+                        "privilegesRequired": "NONE",
+                        "scope": "UNCHANGED",
+                        "userInteraction": "NONE",
+                        "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                        "version": "3.1"
+                    }
+                },
+                "problemtype": {
+                    "problemtype_data": [
+                        {
+                            "description": [
+                                {
+                                    "lang": "eng",
+                                    "value": "CWE-125: Out-of-bounds Read"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "references": {
+                    "reference_data": [
+                        {
+                            "name": "https://github.com/pandatix/go-cvss/security/advisories/GHSA-xhmf-mmv2-4hhx",
+                            "refsource": "CONFIRM",
+                            "url": "https://github.com/pandatix/go-cvss/security/advisories/GHSA-xhmf-mmv2-4hhx"
+                        },
+                        {
+                            "name": "https://github.com/pandatix/go-cvss/commit/d9d478ff0c13b8b09ace030db9262f3c2fe031f4",
+                            "refsource": "MISC",
+                            "url": "https://github.com/pandatix/go-cvss/commit/d9d478ff0c13b8b09ace030db9262f3c2fe031f4"
+                        },
+                        {
+                            "name": "https://github.com/pandatix/go-cvss/blob/master/SECURITY.md",
+                            "refsource": "MISC",
+                            "url": "https://github.com/pandatix/go-cvss/blob/master/SECURITY.md"
+                        }
+                    ]
+                },
+                "source": {
+                    "advisory": "GHSA-xhmf-mmv2-4hhx",
+                    "discovery": "UNKNOWN"
+                }
+            }
+        }
+    },
+    "cveMetadata": {
+        "assignerOrgId": "a0819718-46f1-4df5-94e2-005712e83aaa",
+        "assignerShortName": "GitHub_M",
+        "cveId": "CVE-2022-39213",
+        "datePublished": "2022-09-15T21:45:12",
+        "dateReserved": "2022-09-02T00:00:00",
+        "dateUpdated": "2022-09-15T21:45:12",
+        "state": "PUBLISHED"
+    },
+    "dataType": "CVE_RECORD",
+    "dataVersion": "5.0"
+}

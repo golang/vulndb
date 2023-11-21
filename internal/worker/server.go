@@ -236,7 +236,7 @@ type indexPage struct {
 func (s *Server) indexPage(w http.ResponseWriter, r *http.Request) error {
 
 	var page = indexPage{
-		CVEListRepoURL: cvelistrepo.URL,
+		CVEListRepoURL: cvelistrepo.URLv4,
 		Namespace:      s.cfg.Namespace,
 	}
 
@@ -312,7 +312,7 @@ func (s *Server) doUpdate(r *http.Request) (err error) {
 		}
 	}
 	force := (r.FormValue("force") == "true")
-	err = UpdateCVEsAtCommit(r.Context(), cvelistrepo.URL, "HEAD", s.cfg.Store, pkgsiteURL, force)
+	err = UpdateCVEsAtCommit(r.Context(), cvelistrepo.URLv4, "HEAD", s.cfg.Store, pkgsiteURL, force)
 	if cerr := new(CheckUpdateError); errors.As(err, &cerr) {
 		return &serverError{
 			status: http.StatusPreconditionFailed,

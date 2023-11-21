@@ -24,8 +24,11 @@ import (
 	"golang.org/x/vulndb/internal/derrors"
 )
 
-// URL is the URL of the cvelist repo.
-const URL = "https://github.com/CVEProject/cvelist"
+// URLs of the CVE project list repos.
+const (
+	URLv4 = "https://github.com/CVEProject/cvelist"
+	URLv5 = "https://github.com/CVEProject/cvelistV5"
+)
 
 // A File is a file in the cvelist repo that contains a CVE.
 type File struct {

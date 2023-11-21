@@ -191,7 +191,7 @@ func listCVEsCommand(ctx context.Context, triageState string) error {
 }
 
 func updateCommand(ctx context.Context, commitHash string) error {
-	repoPath := cvelistrepo.URL
+	repoPath := cvelistrepo.URLv4
 	if *localRepoPath != "" {
 		repoPath = *localRepoPath
 	}

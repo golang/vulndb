@@ -290,7 +290,7 @@ func newCVEBody(sr storeRecord, allReports map[string]*report.Report, pc *proxy.
 
 	fmt.Fprintf(&intro, `References:
 - NIST: https://nvd.nist.gov/vuln/detail/%s
-- JSON: %s/tree/%s/%s`, cr.ID, cvelistrepo.URL, cr.CommitHash, cr.Path)
+- JSON: %s/tree/%s/%s`, cr.ID, cvelistrepo.URLv4, cr.CommitHash, cr.Path)
 	for _, ref := range r.References {
 		fmt.Fprintf(&intro, "\n- %v: %v", strings.ToLower(string(ref.Type)), ref.URL)
 	}

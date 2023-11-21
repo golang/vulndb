@@ -28,6 +28,7 @@ var update = flag.Bool("update", false, "update the .txtar files with real CVE d
 
 var (
 	v4txtar = "testdata/v4.txtar"
+	v5txtar = "testdata/v5.txtar"
 	cveIDs  = []string{
 		"CVE-2021-0001",
 		"CVE-2021-0010",
@@ -41,7 +42,10 @@ func TestMain(m *testing.M) {
 	flag.Parse()
 	if *update {
 		ctx := context.Background()
-		if err := updateTxtar(ctx, v4txtar, URL, plumbing.HEAD, cveIDs); err != nil {
+		if err := updateTxtar(ctx, v4txtar, URLv4, plumbing.HEAD, cveIDs); err != nil {
+			fail(err)
+		}
+		if err := updateTxtar(ctx, v5txtar, URLv5, plumbing.Main, cveIDs); err != nil {
 			fail(err)
 		}
 	}

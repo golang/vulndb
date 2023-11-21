@@ -285,7 +285,7 @@ func loadCVERepo(ctx context.Context) *git.Repository {
 	// Loading the CVE git repo takes a while, so do it on demand only.
 	once.Do(func() {
 		infolog.Println("cloning CVE repo (this takes a while)")
-		repoPath := cvelistrepo.URL
+		repoPath := cvelistrepo.URLv4
 		if *localRepoPath != "" {
 			repoPath = *localRepoPath
 		}
