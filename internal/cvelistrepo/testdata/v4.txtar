@@ -1,5 +1,10 @@
-Repo in the shape of github.com/CVEProject/cvelist, with
-some actual data.
+Copyright 2023 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+
+Repo in the shape of "https://github.com/CVEProject/cvelist".
+Updated with real data 2023-11-20T19:00:00-05:00.
+Auto-generated; do not edit directly.
 
 -- README.md --
 ignore me please
@@ -55,11 +60,6 @@ ignore me please
                 "refsource": "MISC",
                 "name": "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00477.html",
                 "url": "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00477.html"
-            },
-            {
-                "refsource": "*added for testing*",
-                "name": "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00477.html",
-                "url": "https://golang.org/x/mod"
             }
         ]
     },
@@ -80,43 +80,107 @@ ignore me please
     "CVE_data_meta": {
         "ID": "CVE-2021-0010",
         "ASSIGNER": "cve@mitre.org",
-        "STATE": "RESERVED"
+        "STATE": "REJECT"
     },
     "description": {
         "description_data": [
             {
                 "lang": "eng",
-                "value": "** RESERVED ** This candidate has been reserved by an organization or individual that will use it when announcing a new security problem. When the candidate has been publicized, the details for this candidate will be provided."
+                "value": "** REJECT ** DO NOT USE THIS CANDIDATE NUMBER. ConsultIDs: none. Reason: This candidate was in a CNA pool that was not assigned to any issues during 2021. Notes: none."
             }
         ]
     }
 }
 -- 2021/1xxx/CVE-2021-1384.json --
 {
-    "data_type": "CVE",
-    "data_format": "MITRE",
-    "data_version": "4.0",
     "CVE_data_meta": {
+        "ASSIGNER": "psirt@cisco.com",
+        "DATE_PUBLIC": "2021-03-24T16:00:00",
         "ID": "CVE-2021-1384",
-        "ASSIGNER": "cve@mitre.org",
-        "STATE": "REJECT"
+        "STATE": "PUBLIC",
+        "TITLE": "Cisco IOx for IOS XE Software Command Injection Vulnerability"
     },
-    "references": {
-        "reference_data": [
-            {
-                "refsource": "*added for testing*",
-                "name": "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00477.html",
-                "url": "https://golang.org/x/sync"
-            }
-        ]
+    "affects": {
+        "vendor": {
+            "vendor_data": [
+                {
+                    "product": {
+                        "product_data": [
+                            {
+                                "product_name": "Cisco IOS XE Software ",
+                                "version": {
+                                    "version_data": [
+                                        {
+                                            "version_value": "n/a"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "vendor_name": "Cisco"
+                }
+            ]
+        }
     },
+    "data_format": "MITRE",
+    "data_type": "CVE",
+    "data_version": "4.0",
     "description": {
         "description_data": [
             {
                 "lang": "eng",
-                "value": "** REJECT ** DO NOT USE THIS CANDIDATE NUMBER. ConsultIDs: none. Reason: This candidate was withdrawn by its CNA. Further investigation showed that it was not a security issue. Notes: none."
+                "value": "A vulnerability in Cisco IOx application hosting environment of Cisco IOS XE Software could allow an authenticated, remote attacker to inject commands into the underlying operating system as the root user. This vulnerability is due to incomplete validation of fields in the application packages loaded onto IOx. An attacker could exploit this vulnerability by creating a crafted application .tar file and loading it onto the device. A successful exploit could allow the attacker to perform command injection into the underlying operating system as the root user."
             }
         ]
+    },
+    "exploit": [
+        {
+            "lang": "eng",
+            "value": "The Cisco Product Security Incident Response Team (PSIRT) is not aware of any public announcements or malicious use of the vulnerability that is described in this advisory. "
+        }
+    ],
+    "impact": {
+        "cvss": {
+            "baseScore": "6.5",
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:N ",
+            "version": "3.0"
+        }
+    },
+    "problemtype": {
+        "problemtype_data": [
+            {
+                "description": [
+                    {
+                        "lang": "eng",
+                        "value": "CWE-77"
+                    }
+                ]
+            }
+        ]
+    },
+    "references": {
+        "reference_data": [
+            {
+                "name": "20210324 Cisco IOx for IOS XE Software Command Injection Vulnerability",
+                "refsource": "CISCO",
+                "url": "https://tools.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-iox-cmdinj-RkSURGHG"
+            },
+            {
+                "refsource": "MISC",
+                "name": "https://github.com/orangecertcc/security-research/security/advisories/GHSA-h332-fj6p-2232",
+                "url": "https://github.com/orangecertcc/security-research/security/advisories/GHSA-h332-fj6p-2232"
+            }
+        ]
+    },
+    "source": {
+        "advisory": "cisco-sa-iox-cmdinj-RkSURGHG",
+        "defect": [
+            [
+                "CSCvw64798"
+            ]
+        ],
+        "discovery": "INTERNAL"
     }
 }
 -- 2020/9xxx/CVE-2020-9283.json --
@@ -180,9 +244,29 @@ ignore me please
                 "url": "https://groups.google.com/forum/#!topic/golang-announce/3L45YRc91SY"
             },
             {
-                "refsource": "*added for testing*",
-                "name": "https://groups.google.com/forum/#!topic/golang-announce/3L45YRc91SY",
-                "url": "https://golang.org/x/crypto"
+                "refsource": "MISC",
+                "name": "http://packetstormsecurity.com/files/156480/Go-SSH-0.0.2-Denial-Of-Service.html",
+                "url": "http://packetstormsecurity.com/files/156480/Go-SSH-0.0.2-Denial-Of-Service.html"
+            },
+            {
+                "refsource": "MLIST",
+                "name": "[debian-lts-announce] 20201007 [SECURITY] [DLA 2402-1] golang-go.crypto security update",
+                "url": "https://lists.debian.org/debian-lts-announce/2020/10/msg00014.html"
+            },
+            {
+                "refsource": "MLIST",
+                "name": "[debian-lts-announce] 20201116 [SECURITY] [DLA 2453-1] restic security update",
+                "url": "https://lists.debian.org/debian-lts-announce/2020/11/msg00027.html"
+            },
+            {
+                "refsource": "MLIST",
+                "name": "[debian-lts-announce] 20201118 [SECURITY] [DLA 2455-1] packer security update",
+                "url": "https://lists.debian.org/debian-lts-announce/2020/11/msg00031.html"
+            },
+            {
+                "refsource": "MLIST",
+                "name": "[debian-lts-announce] 20230616 [SECURITY] [DLA 3455-1] golang-go.crypto security update",
+                "url": "https://lists.debian.org/debian-lts-announce/2023/06/msg00017.html"
             }
         ]
     }
@@ -273,11 +357,6 @@ ignore me please
                 "name": "https://github.com/pandatix/go-cvss/blob/master/SECURITY.md",
                 "refsource": "MISC",
                 "url": "https://github.com/pandatix/go-cvss/blob/master/SECURITY.md"
-            },
-            {
-                "name": "https://bitbucket.org/foo/bar/baz",
-                "refsource": "*added for testing*",
-                "url": "https://bitbucket.org/foo/bar/baz"
             }
         ]
     },

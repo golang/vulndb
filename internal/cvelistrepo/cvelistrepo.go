@@ -152,3 +152,11 @@ func ParseCVE(repo *git.Repository, f File) (*cveschema.CVE, error) {
 	}
 	return cve, nil
 }
+
+func (f *File) ReadAll(repo *git.Repository) ([]byte, error) {
+	r, err := blobReader(repo, f.BlobHash)
+	if err != nil {
+		return nil, err
+	}
+	return io.ReadAll(r)
+}
