@@ -20,7 +20,6 @@ import (
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/filemode"
 	"github.com/go-git/go-git/v5/plumbing/object"
-	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/derrors"
 )
 
@@ -113,9 +112,11 @@ func blobReader(repo *git.Repository, hash plumbing.Hash) (io.Reader, error) {
 	return blob.Reader()
 }
 
+type CVE any
+
 // FetchCVE fetches the CVE file for cveID from the CVElist repo and returns
 // the parsed info.
-func FetchCVE(ctx context.Context, repo *git.Repository, cveID string, cve *cveschema.CVE) (err error) {
+func FetchCVE(ctx context.Context, repo *git.Repository, cveID string, cve CVE) (err error) {
 	defer derrors.Wrap(&err, "FetchCVE(repo, commit, %s)", cveID)
 	ref, err := repo.Reference(plumbing.HEAD, true)
 	if err != nil {
@@ -132,7 +133,7 @@ func FetchCVE(ctx context.Context, repo *git.Repository, cveID string, cve *cves
 	}
 	for _, f := range files {
 		if strings.Contains(f.Filename, cveID) {
-			if err := ParseCVE(repo, f, cve); err != nil {
+			if err := Parse(repo, f, cve); err != nil {
 				return err
 			}
 			return nil
@@ -141,17 +142,16 @@ func FetchCVE(ctx context.Context, repo *git.Repository, cveID string, cve *cves
 	return fmt.Errorf("%s not found", cveID)
 }
 
-// ParseCVE parses the CVE file f into a CVE.
-func ParseCVE(repo *git.Repository, f File, cve *cveschema.CVE) error {
-	// Read CVE from repo.
-	r, err := blobReader(repo, f.BlobHash)
+// Parse unmarshals the contents of f into v.
+func Parse(repo *git.Repository, f File, v any) error {
+	b, err := f.ReadAll(repo)
 	if err != nil {
 		return err
 	}
-	if err := json.NewDecoder(r).Decode(cve); err != nil {
-		return err
+	if len(b) == 0 {
+		return fmt.Errorf("%s is empty", f.Filename)
 	}
-	return nil
+	return json.Unmarshal(b, v)
 }
 
 func (f *File) ReadAll(repo *git.Repository) ([]byte, error) {

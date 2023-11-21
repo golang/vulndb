@@ -279,7 +279,7 @@ func (u *cveUpdater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx stor
 	defer derrors.Wrap(&err, "handleCVE(%s)", f.Filename)
 
 	cve := &cveschema.CVE{}
-	if err := cvelistrepo.ParseCVE(u.repo, f, cve); err != nil {
+	if err := cvelistrepo.Parse(u.repo, f, cve); err != nil {
 		return nil, false, err
 	}
 	var result *triageResult
