@@ -97,6 +97,34 @@ func Root(repo *git.Repository) (root *object.Tree, err error) {
 	return repo.TreeObject(commit.TreeHash)
 }
 
+// TxtarRepoAndHead reads a txtar repo into a single-commit repository,
+// and returns the repo and its head commit.
+// Intended for testing.
+func TxtarRepoAndHead(file string) (*git.Repository, *object.Commit, error) {
+	repo, err := ReadTxtarRepo(file, time.Now())
+	if err != nil {
+		return nil, nil, err
+	}
+	commit, err := HeadCommit(repo)
+	if err != nil {
+		return nil, nil, err
+	}
+	return repo, commit, nil
+}
+
+// HeadCommit returns the commit at the repo HEAD.
+func HeadCommit(repo *git.Repository) (*object.Commit, error) {
+	h, err := HeadHash(repo)
+	if err != nil {
+		return nil, err
+	}
+	commit, err := repo.CommitObject(h)
+	if err != nil {
+		return nil, err
+	}
+	return commit, nil
+}
+
 // ReadTxtarRepo converts a txtar file to a single-commit
 // repo. It is intended for testing.
 func ReadTxtarRepo(filename string, now time.Time) (_ *git.Repository, err error) {

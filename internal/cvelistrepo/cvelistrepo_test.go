@@ -13,9 +13,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
-	"github.com/go-git/go-git/v5/plumbing/object"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"golang.org/x/tools/txtar"
@@ -64,7 +62,7 @@ func updateTxtar(ctx context.Context, txtarFile, url string, ref plumbing.Refere
 		return err
 	}
 
-	commit, err := headCommit(repo)
+	commit, err := gitrepo.HeadCommit(repo)
 	if err != nil {
 		return err
 	}
@@ -144,7 +142,7 @@ func TestFiles(t *testing.T) {
 		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
-			repo, commit, err := open(tc.txtarFile)
+			repo, commit, err := gitrepo.TxtarRepoAndHead(tc.txtarFile)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -181,7 +179,7 @@ func TestFetchCVE(t *testing.T) {
 	} {
 		t.Run(tc.name, func(t *testing.T) {
 			ctx := context.Background()
-			repo, _, err := open(tc.txtarFile)
+			repo, _, err := gitrepo.TxtarRepoAndHead(tc.txtarFile)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -230,7 +228,7 @@ func TestParse(t *testing.T) {
 		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
-			repo, commit, err := open(tc.txtarFile)
+			repo, commit, err := gitrepo.TxtarRepoAndHead(tc.txtarFile)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -255,29 +253,4 @@ func TestParse(t *testing.T) {
 			}
 		})
 	}
-}
-
-func open(file string) (*git.Repository, *object.Commit, error) {
-	repo, err := gitrepo.ReadTxtarRepo(file, time.Now())
-	if err != nil {
-		return nil, nil, err
-	}
-	commit, err := headCommit(repo)
-	if err != nil {
-		return nil, nil, err
-	}
-	return repo, commit, nil
-}
-
-// headCommit returns the commit at the repo HEAD.
-func headCommit(repo *git.Repository) (*object.Commit, error) {
-	h, err := gitrepo.HeadHash(repo)
-	if err != nil {
-		return nil, err
-	}
-	commit, err := repo.CommitObject(h)
-	if err != nil {
-		return nil, err
-	}
-	return commit, nil
 }
