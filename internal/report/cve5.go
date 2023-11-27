@@ -65,12 +65,7 @@ func (r *Report) ToCVE5() (_ *cveschema5.CVERecord, err error) {
 	}
 
 	for _, m := range r.Modules {
-		versions := versionRangeToVersionRange(m.Versions)
-		defaultStatus := cveschema5.StatusUnaffected
-		if len(versions) == 0 {
-			// If there are no recorded versions affected, we assume all versions are affected.
-			defaultStatus = cveschema5.StatusAffected
-		}
+		versions, defaultStatus := versionRangeToVersionRange(m.Versions)
 		for _, p := range m.Packages {
 			affected := cveschema5.Affected{
 				Vendor:        vendor(m.Module),
@@ -121,22 +116,60 @@ func (r *Report) CVEFilename() string {
 	return filepath.Join(cve5Dir, r.ID+".json")
 }
 
-func versionRangeToVersionRange(versions []VersionRange) []cveschema5.VersionRange {
+const (
+	typeSemver  = "semver"
+	versionZero = "0"
+)
+
+func versionRangeToVersionRange(versions []VersionRange) ([]cveschema5.VersionRange, cveschema5.VersionStatus) {
+	if len(versions) == 0 {
+		// If there are no recorded versions affected, we assume all versions are affected.
+		return nil, cveschema5.StatusAffected
+	}
+
 	var cveVRs []cveschema5.VersionRange
+
+	// If there is no final fixed version, then the default status is
+	// "affected" and we express the versions in terms of which ranges
+	// are *unaffected*. This is due to the fact that the CVE schema
+	// does not allow us to express a range as "version X.X.X and above are affected".
+	if versions[len(versions)-1].Fixed == "" {
+		current := &cveschema5.VersionRange{}
+		for _, vr := range versions {
+			if vr.Introduced != "" {
+				if current.Introduced == "" {
+					current.Introduced = versionZero
+				}
+				current.Fixed = cveschema5.Version(vr.Introduced)
+				current.Status = cveschema5.StatusUnaffected
+				current.VersionType = typeSemver
+				cveVRs = append(cveVRs, *current)
+				current = &cveschema5.VersionRange{}
+			}
+			if vr.Fixed != "" {
+				current.Introduced = cveschema5.Version(vr.Fixed)
+			}
+		}
+		return cveVRs, cveschema5.StatusAffected
+	}
+
+	// Otherwise, express the version ranges normally as affected ranges,
+	// with a default status of "unaffected".
 	for _, vr := range versions {
 		cveVR := cveschema5.VersionRange{
 			Status:      cveschema5.StatusAffected,
-			VersionType: "semver",
+			VersionType: typeSemver,
 		}
 		if vr.Introduced != "" {
 			cveVR.Introduced = cveschema5.Version(vr.Introduced)
 		} else {
-			cveVR.Introduced = "0"
+			cveVR.Introduced = versionZero
 		}
 		if vr.Fixed != "" {
 			cveVR.Fixed = cveschema5.Version(vr.Fixed)
 		}
 		cveVRs = append(cveVRs, cveVR)
 	}
-	return cveVRs
+
+	return cveVRs, cveschema5.StatusUnaffected
 }

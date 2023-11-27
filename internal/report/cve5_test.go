@@ -6,6 +6,7 @@ package report
 
 import (
 	"path/filepath"
+	"reflect"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -280,5 +281,167 @@ func TestCVEFilename(t *testing.T) {
 	r := &Report{ID: "GO-1999-0001"}
 	if got := r.CVEFilename(); got != want {
 		t.Errorf("got %s, want %s", got, want)
+	}
+}
+
+func TestVersionRangeToVersionRange(t *testing.T) {
+	tests := []struct {
+		name        string
+		versions    []VersionRange
+		wantRange   []cveschema5.VersionRange
+		wantDefault cveschema5.VersionStatus
+	}{
+		{
+			name:        "nil",
+			versions:    nil,
+			wantRange:   nil,
+			wantDefault: cveschema5.StatusAffected,
+		},
+		{
+			name:        "empty",
+			versions:    []VersionRange{},
+			wantRange:   nil,
+			wantDefault: cveschema5.StatusAffected,
+		},
+		{
+			name: "basic",
+			versions: []VersionRange{
+				{
+					Introduced: "1.0.0",
+					Fixed:      "1.0.1",
+				},
+				{
+					Introduced: "1.2.0",
+					Fixed:      "1.2.3",
+				},
+			},
+			wantRange: []cveschema5.VersionRange{
+				{
+					Introduced:  "1.0.0",
+					Fixed:       "1.0.1",
+					Status:      cveschema5.StatusAffected,
+					VersionType: typeSemver,
+				},
+				{
+					Introduced:  "1.2.0",
+					Fixed:       "1.2.3",
+					Status:      cveschema5.StatusAffected,
+					VersionType: typeSemver,
+				},
+			},
+			wantDefault: cveschema5.StatusUnaffected,
+		},
+		{
+			name: "no initial introduced",
+			versions: []VersionRange{
+				{
+					Fixed: "1.0.1",
+				},
+				{
+					Introduced: "1.2.0",
+					Fixed:      "1.2.3",
+				},
+			},
+			wantRange: []cveschema5.VersionRange{
+				{
+					Introduced:  "0",
+					Fixed:       "1.0.1",
+					Status:      cveschema5.StatusAffected,
+					VersionType: typeSemver,
+				},
+				{
+					Introduced:  "1.2.0",
+					Fixed:       "1.2.3",
+					Status:      cveschema5.StatusAffected,
+					VersionType: typeSemver,
+				},
+			},
+			wantDefault: cveschema5.StatusUnaffected,
+		},
+		{
+			name: "no fix",
+			versions: []VersionRange{
+				{
+					Introduced: "1.0.0",
+				},
+			},
+			wantRange: []cveschema5.VersionRange{
+				{
+					Introduced:  "0",
+					Fixed:       "1.0.0",
+					Status:      cveschema5.StatusUnaffected,
+					VersionType: typeSemver,
+				},
+			},
+			wantDefault: cveschema5.StatusAffected,
+		},
+		{
+			name: "no final fix",
+			versions: []VersionRange{
+				{
+					Introduced: "1.0.0",
+					Fixed:      "1.0.3",
+				},
+				{
+					Introduced: "1.1.0",
+				},
+			},
+			wantRange: []cveschema5.VersionRange{
+				{
+					Introduced:  "0",
+					Fixed:       "1.0.0",
+					Status:      cveschema5.StatusUnaffected,
+					VersionType: typeSemver,
+				},
+				{
+					Introduced:  "1.0.3",
+					Fixed:       "1.1.0",
+					Status:      cveschema5.StatusUnaffected,
+					VersionType: typeSemver,
+				},
+			},
+			wantDefault: cveschema5.StatusAffected,
+		},
+		{
+			name: "no initial introduced and no final fix",
+			versions: []VersionRange{
+				{
+					Fixed: "1.0.3",
+				},
+				{
+					Introduced: "1.0.5",
+					Fixed:      "1.0.7",
+				},
+				{
+					Introduced: "1.1.0",
+				},
+			},
+			wantRange: []cveschema5.VersionRange{
+				{
+					Introduced:  "1.0.3",
+					Fixed:       "1.0.5",
+					Status:      cveschema5.StatusUnaffected,
+					VersionType: typeSemver,
+				},
+				{
+					Introduced:  "1.0.7",
+					Fixed:       "1.1.0",
+					Status:      cveschema5.StatusUnaffected,
+					VersionType: typeSemver,
+				},
+			},
+			wantDefault: cveschema5.StatusAffected,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotRange, gotStatus := versionRangeToVersionRange(tt.versions)
+			if !reflect.DeepEqual(gotRange, tt.wantRange) {
+				t.Errorf("versionRangeToVersionRange() got version range = %v, want %v", gotRange, tt.wantRange)
+			}
+			if !reflect.DeepEqual(gotStatus, tt.wantDefault) {
+				t.Errorf("versionRangeToVersionRange() got default status = %v, want %v", gotStatus, tt.wantDefault)
+			}
+		})
 	}
 }
