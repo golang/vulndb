@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-2328",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-45286"
+  ],
+  "summary": "HTTP request body disclosure in github.com/go-resty/resty/v2",
+  "details": "A race condition in go-resty can result in HTTP request body disclosure across requests.\n\nThis condition can be triggered by calling sync.Pool.Put with the same *bytes.Buffer more than once, when request retries are enabled and a retry occurs. The call to sync.Pool.Get will then return a bytes.Buffer that hasn't had bytes.Buffer.Reset called on it. This dirty buffer will contain the HTTP request body from an unrelated request, and go-resty will append the current HTTP request body to it, sending two bodies in one request.\n\nThe sync.Pool in question is defined at package level scope, so a completely unrelated server could receive the request body.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/go-resty/resty/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.10.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/go-resty/resty/v2",
+            "symbols": [
+              "Backoff",
+              "Request.Delete",
+              "Request.Execute",
+              "Request.Get",
+              "Request.Head",
+              "Request.Options",
+              "Request.Patch",
+              "Request.Post",
+              "Request.Put",
+              "Request.Send",
+              "handleRequestBody"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://github.com/go-resty/resty/issues/743"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/go-resty/resty/issues/739"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/go-resty/resty/pull/745"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Logan Attwood (@lattwood)"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-2328"
+  }
+}
