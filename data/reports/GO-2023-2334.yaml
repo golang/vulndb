@@ -26,6 +26,8 @@ description: |-
     denial-of-service when decrypting JWE inputs. This occurs when an attacker can
     provide a PBES2 encrypted JWE blob with a very large p2c value that, when
     decrypted, produces a denial-of-service.
+ghsas:
+    - GHSA-2c7c-3mj9-8fqh
 references:
     - fix: https://github.com/go-jose/go-jose/commit/65351c27657d58960c2e6c9fbb2b00f818e50568
     - report: https://github.com/go-jose/go-jose/issues/64

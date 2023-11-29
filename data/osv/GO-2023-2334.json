@@ -3,6 +3,9 @@
   "id": "GO-2023-2334",
   "modified": "0001-01-01T00:00:00Z",
   "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-2c7c-3mj9-8fqh"
+  ],
   "summary": "Decryption of malicious PBES2 JWE objects can consume unbounded system resources",
   "details": "The go-jose package is subject to a \"billion hashes attack\" causing denial-of-service when decrypting JWE inputs. This occurs when an attacker can provide a PBES2 encrypted JWE blob with a very large p2c value that, when decrypted, produces a denial-of-service.",
   "affected": [
