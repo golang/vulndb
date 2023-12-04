@@ -270,7 +270,7 @@ func newCVEBody(sr storeRecord, allReports map[string]*report.Report, pc *proxy.
 	if cr.CVE.Metadata.ID == "" {
 		cr.CVE.Metadata.ID = cr.ID
 	}
-	r := report.CVEToReport(cr.CVE, cr.Module, pc)
+	r := report.CVEToReport(cr.CVE, "GO-ID-PENDING", cr.Module, pc)
 	r.Description = ""
 	out, err := r.ToString()
 	if err != nil {

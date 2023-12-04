@@ -32,7 +32,13 @@ func removeNewlines(s string) string {
 }
 
 // CVEToReport creates a Report struct from a given CVE and modulePath.
-func CVEToReport(c *cveschema.CVE, modulePath string, pc *proxy.Client) *Report {
+func CVEToReport(c *cveschema.CVE, id, modulePath string, pc *proxy.Client) *Report {
+	r := cveToReport(c, id, modulePath)
+	r.Fix(pc)
+	return r
+}
+
+func cveToReport(c *cveschema.CVE, id, modulePath string) *Report {
 	var description Description
 	for _, d := range c.Description.Data {
 		description += Description(d.Value + "\n")
@@ -63,6 +69,7 @@ func CVEToReport(c *cveschema.CVE, modulePath string, pc *proxy.Client) *Report 
 		pkgPath = modulePath
 	}
 	r := &Report{
+		ID: id,
 		Modules: []*Module{{
 			Module: modulePath,
 			Packages: []*Package{{
@@ -84,6 +91,5 @@ func CVEToReport(c *cveschema.CVE, modulePath string, pc *proxy.Client) *Report 
 	} else {
 		r.CVEs = []string{c.Metadata.ID}
 	}
-	r.Fix(pc)
 	return r
 }

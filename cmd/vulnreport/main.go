@@ -537,7 +537,7 @@ func reportFromAlias(ctx context.Context, id, modulePath, alias string, cfg *cre
 		if err := cvelistrepo.FetchCVE(ctx, loadCVERepo(ctx), alias, cve); err != nil {
 			return nil, err
 		}
-		r = report.CVEToReport(cve, modulePath, cfg.proxyClient)
+		r = report.CVEToReport(cve, id, modulePath, cfg.proxyClient)
 	default:
 		r = &report.Report{}
 	}
