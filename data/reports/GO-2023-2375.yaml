@@ -1,0 +1,40 @@
+id: GO-2023-2375
+modules:
+    - module: std
+      versions:
+        - fixed: 1.20.0
+      vulnerable_at: 1.19.0
+      packages:
+        - package: crypto/tls
+          symbols:
+            - rsaKeyAgreement.processClientKeyExchange
+            - rsaKeyAgreement.generateClientKeyExchange
+          derived_symbols:
+            - Conn.Handshake
+            - Conn.HandshakeContext
+            - Conn.Read
+            - Conn.Write
+            - Dial
+            - DialWithDialer
+            - Dialer.Dial
+            - Dialer.DialContext
+summary: |-
+    Before Go 1.20, the RSA based key exchange methods in crypto/tls may exhibit a
+    timing side channel
+description: |-
+    Before Go 1.20, the RSA based TLS key exchanges used the math/big library, which
+    is not constant time. RSA blinding was applied to prevent timing attacks, but
+    analysis shows this may not have been fully effective. In particular it appears
+    as if the removal of PKCS#1 padding may leak timing information, which in turn
+    could be used to recover session key bits.
+
+    In Go 1.20, the crypto/tls library switched to a fully constant time RSA
+    implementation, which we do not believe exhibits any timing side channels.
+references:
+    - report: https://go.dev/issue/20654
+    - fix: https://go.dev/cl/326012/26
+    - web: https://groups.google.com/g/golang-announce/c/QMK8IQALDvA
+    - article: https://people.redhat.com/~hkario/marvin/
+cve_metadata:
+    id: CVE-2023-45287
+    cwe: 'CWE-208: Observable Timing Discrepancy'
