@@ -20,16 +20,13 @@ import (
 	"runtime/pprof"
 	"strconv"
 	"strings"
-	"sync"
 	"time"
 
-	"github.com/go-git/go-git/v5"
 	"github.com/google/go-cmp/cmp"
 	"golang.org/x/exp/constraints"
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
-	"golang.org/x/vulndb/internal/cvelistrepo"
-	"golang.org/x/vulndb/internal/cveschema"
+	"golang.org/x/vulndb/internal/cveclient"
 	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/database"
 	"golang.org/x/vulndb/internal/derrors"
@@ -45,18 +42,17 @@ import (
 )
 
 var (
-	localRepoPath = flag.String("local-cve-repo", "", "path to local repo, instead of cloning remote")
-	issueRepo     = flag.String("issue-repo", "github.com/golang/vulndb", "repo to create issues in")
-	githubToken   = flag.String("ghtoken", "", "GitHub access token (default: value of VULN_GITHUB_ACCESS_TOKEN)")
-	skipSymbols   = flag.Bool("skip-symbols", false, "for lint and fix, don't load package for symbols checks")
-	skipAlias     = flag.Bool("skip-alias", false, "for fix, skip adding new GHSAs and CVEs")
-	graphQL       = flag.Bool("graphql", false, "for create, fetch GHSAs from the Github GraphQL API instead of the OSV database")
-	preferCVE     = flag.Bool("cve", false, "for create, prefer CVEs over GHSAs as canonical source")
-	updateIssue   = flag.Bool("up", false, "for commit, create a CL that updates (doesn't fix) the tracking bug")
-	closedOk      = flag.Bool("closed-ok", false, "for create & create-excluded, allow closed issues to be created")
-	cpuprofile    = flag.String("cpuprofile", "", "write cpuprofile to file")
-	quiet         = flag.Bool("q", false, "quiet mode (suppress info logs)")
-	force         = flag.Bool("f", false, "for fix, force Fix to run even if there are no lint errors")
+	issueRepo   = flag.String("issue-repo", "github.com/golang/vulndb", "repo to create issues in")
+	githubToken = flag.String("ghtoken", "", "GitHub access token (default: value of VULN_GITHUB_ACCESS_TOKEN)")
+	skipSymbols = flag.Bool("skip-symbols", false, "for lint and fix, don't load package for symbols checks")
+	skipAlias   = flag.Bool("skip-alias", false, "for fix, skip adding new GHSAs and CVEs")
+	graphQL     = flag.Bool("graphql", false, "for create, fetch GHSAs from the Github GraphQL API instead of the OSV database")
+	preferCVE   = flag.Bool("cve", false, "for create, prefer CVEs over GHSAs as canonical source")
+	updateIssue = flag.Bool("up", false, "for commit, create a CL that updates (doesn't fix) the tracking bug")
+	closedOk    = flag.Bool("closed-ok", false, "for create & create-excluded, allow closed issues to be created")
+	cpuprofile  = flag.String("cpuprofile", "", "write cpuprofile to file")
+	quiet       = flag.Bool("q", false, "quiet mode (suppress info logs)")
+	force       = flag.Bool("f", false, "for fix, force Fix to run even if there are no lint errors")
 )
 
 var (
@@ -275,28 +271,6 @@ type createCfg struct {
 	existingByFile  map[string]*report.Report
 	existingByIssue map[int]*report.Report
 	allowClosed     bool
-}
-
-var (
-	once    sync.Once
-	cveRepo *git.Repository
-)
-
-func loadCVERepo(ctx context.Context) *git.Repository {
-	// Loading the CVE git repo takes a while, so do it on demand only.
-	once.Do(func() {
-		infolog.Println("cloning CVE repo (this takes a while)")
-		repoPath := cvelistrepo.URLv4
-		if *localRepoPath != "" {
-			repoPath = *localRepoPath
-		}
-		var err error
-		cveRepo, err = gitrepo.CloneOrOpen(ctx, repoPath)
-		if err != nil {
-			log.Fatal(err)
-		}
-	})
-	return cveRepo
 }
 
 func setupCreate(ctx context.Context, args []string) ([]int, *createCfg, error) {
@@ -518,31 +492,45 @@ func pickBestAlias(aliases []string, preferCVE bool) (_ string, ok bool) {
 // For now, it prefers the first GHSA in the list, followed by the first CVE in the list
 // (if no GHSA is present). If no GHSAs or CVEs are present, it returns a new empty Report.
 func reportFromAlias(ctx context.Context, id, modulePath, alias string, cfg *createCfg) (*report.Report, error) {
-	var r *report.Report
 	switch {
 	case ghsa.IsGHSA(alias) && *graphQL:
 		ghsa, err := cfg.ghsaClient.FetchGHSA(ctx, alias)
 		if err != nil {
 			return nil, err
 		}
-		r = report.GHSAToReport(ghsa, modulePath, cfg.proxyClient)
+		r := report.GHSAToReport(ghsa, modulePath, cfg.proxyClient)
+		r.ID = id
+		return r, nil
 	case ghsa.IsGHSA(alias):
 		ghsa, err := genericosv.Fetch(alias)
 		if err != nil {
 			return nil, err
 		}
-		r = ghsa.ToReport(id, cfg.proxyClient)
+		return ghsa.ToReport(id, cfg.proxyClient), nil
 	case cveschema5.IsCVE(alias):
-		cve := &cveschema.CVE{}
-		if err := cvelistrepo.FetchCVE(ctx, loadCVERepo(ctx), alias, cve); err != nil {
-			return nil, err
+		cve, err := cveclient.Fetch(alias)
+		if err != nil {
+			// If a CVE is not found, it is most likely a CVE we reserved but haven't
+			// published yet.
+			infolog.Printf("no published record found for %s, creating basic report", alias)
+			return basicReport(id, modulePath), nil
 		}
-		r = report.CVEToReport(cve, id, modulePath, cfg.proxyClient)
-	default:
-		r = &report.Report{}
+		return report.CVE5ToReport(cve, id, modulePath, cfg.proxyClient), nil
 	}
-	r.ID = id
-	return r, nil
+
+	infolog.Printf("alias %s is not a CVE or GHSA, creating basic report", alias)
+	return basicReport(id, modulePath), nil
+}
+
+func basicReport(id, modulePath string) *report.Report {
+	return &report.Report{
+		ID: id,
+		Modules: []*report.Module{
+			{
+				Module: modulePath,
+			},
+		},
+	}
 }
 
 type parsedIssue struct {
