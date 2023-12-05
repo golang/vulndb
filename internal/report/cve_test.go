@@ -8,6 +8,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"io/fs"
 	"os"
 	"path/filepath"
 	"testing"
@@ -72,6 +73,64 @@ func TestCVEToReport(t *testing.T) {
 	if err := run(t, v4txtar, newV4, toReportV4); err != nil {
 		t.Fatal(err)
 	}
+}
+
+func TestCVE5ToReport(t *testing.T) {
+	newV5 := func() cvelistrepo.CVE {
+		return new(cveschema5.CVERecord)
+	}
+	toReportV5 := func(cve cvelistrepo.CVE, modulePath string) *Report {
+		return cve5ToReport(cve.(*cveschema5.CVERecord), placeholderID, modulePath)
+	}
+	if err := run(t, v5txtar, newV5, toReportV5); err != nil {
+		t.Fatal(err)
+	}
+}
+
+// Check that the created report is the same for v4 and v5.
+// This is a transitional test that will be removed once we are OK
+// with divergence between v4 and v5, or if we remove support for v4 entirely.
+func TestV4V5Equivalence(t *testing.T) {
+	if err := filepath.WalkDir(filepath.Join(testdata, "TestCVE5ToReport"), func(path string, d fs.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+		if d.IsDir() {
+			return nil
+		}
+
+		fname := filepath.Base(path)
+		t.Run(fname, func(t *testing.T) {
+			v5b, err := findCVEFile(path)
+			if err != nil {
+				t.Fatal(err)
+			}
+			v4file := filepath.Join(testdata, "TestCVEToReport", fname)
+			v4b, err := findCVEFile(v4file)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if diff := cmp.Diff(v4b, v5b); diff != "" {
+				t.Errorf("mismatch (-v4, +v5):\n%s", diff)
+			}
+		})
+		return nil
+	}); err != nil {
+		t.Fatal(err)
+	}
+}
+
+func findCVEFile(tf string) (*txtar.File, error) {
+	ar, err := txtar.ParseFile(tf)
+	if err != nil {
+		return nil, err
+	}
+	for _, af := range ar.Files {
+		if cveschema5.IsCVE(af.Name) {
+			return &af, nil
+		}
+	}
+	return nil, fmt.Errorf("%s: cve archive file not found", tf)
 }
 
 func run(t *testing.T, txtarFile string, newCVE func() cvelistrepo.CVE, toReport func(cvelistrepo.CVE, string) *Report) error {

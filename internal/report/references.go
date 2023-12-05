@@ -5,6 +5,7 @@
 package report
 
 import (
+	"net/url"
 	"strings"
 
 	"golang.org/x/vulndb/internal/osv"
@@ -26,18 +27,23 @@ func isAdvisory(url string) bool {
 
 // referenceFromUrl creates a new Reference from a url
 // with Type inferred from the contents of the url.
-func referenceFromUrl(url string) *Reference {
+func referenceFromUrl(u string) *Reference {
+	unescaped, err := url.PathUnescape(u)
+	if err != nil {
+		// Ignore error and use original.
+		unescaped = u
+	}
 	typ := osv.ReferenceTypeWeb
 	switch {
-	case isFix(url):
+	case isFix(unescaped):
 		typ = osv.ReferenceTypeFix
-	case isIssue(url):
+	case isIssue(unescaped):
 		typ = osv.ReferenceTypeReport
-	case isAdvisory(url):
+	case isAdvisory(unescaped):
 		typ = osv.ReferenceTypeAdvisory
 	}
 	return &Reference{
 		Type: typ,
-		URL:  url,
+		URL:  unescaped,
 	}
 }

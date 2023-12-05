@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"golang.org/x/vulndb/internal/cveschema"
+	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/stdlib"
 )
@@ -80,16 +81,88 @@ func cveToReport(c *cveschema.CVE, id, modulePath string) *Report {
 		Credits:     credits,
 		References:  refs,
 	}
+	r.addCVE(c.Metadata.ID, modulePath)
+	return r
+}
+
+func (r *Report) addCVE(cveID, modulePath string) {
 	// New standard library and x/ repo CVEs are likely maintained by
 	// the Go CNA.
 	if stdlib.IsStdModule(modulePath) || stdlib.IsCmdModule(modulePath) ||
 		stdlib.IsXModule(modulePath) {
 		r.CVEMetadata = &CVEMeta{
-			ID:  c.Metadata.ID,
+			ID:  cveID,
 			CWE: "TODO",
 		}
 	} else {
-		r.CVEs = []string{c.Metadata.ID}
+		r.CVEs = append(r.CVEs, cveID)
 	}
+}
+
+func CVE5ToReport(c *cveschema5.CVERecord, id, modulePath string, pc *proxy.Client) *Report {
+	r := cve5ToReport(c, id, modulePath)
+	r.Fix(pc)
+	return r
+}
+
+func cve5ToReport(c *cveschema5.CVERecord, id, modulePath string) *Report {
+	cna := c.Containers.CNAContainer
+
+	var description Description
+	for _, d := range cna.Descriptions {
+		if d.Lang == "en" {
+			description += Description(d.Value + "\n")
+		}
+	}
+
+	var credits []string
+	for _, c := range cna.Credits {
+		credits = append(credits, c.Value)
+	}
+
+	var refs []*Reference
+	for _, ref := range c.Containers.CNAContainer.References {
+		refs = append(refs, referenceFromUrl(ref.URL))
+	}
+
+	// For now, use the first product name as the package path.
+	// TODO(tatianabradley): Make this more sophisticated, to consider
+	// all the blocks in cna.Affected, versions, etc.
+	var pkgPath string
+	if affected := cna.Affected; len(affected) > 0 {
+		pkgPath = affected[0].Product
+	}
+	if stdlib.Contains(modulePath) {
+		pkgPath = modulePath
+		modulePath = stdlib.ModulePath
+	}
+	if modulePath == "" {
+		modulePath = "TODO"
+	}
+	if pkgPath == "" {
+		pkgPath = modulePath
+	}
+	modules := []*Module{
+		{
+			Module:   modulePath,
+			Versions: nil,
+			Packages: []*Package{
+				{
+					Package: pkgPath,
+				},
+			},
+		},
+	}
+
+	r := &Report{
+		ID:      id,
+		Modules: modules,
+		// TODO(tatianabradley): Add CVE title as summary.
+		Description: description,
+		Credits:     credits,
+		References:  refs,
+	}
+
+	r.addCVE(c.Metadata.ID, modulePath)
 	return r
 }
