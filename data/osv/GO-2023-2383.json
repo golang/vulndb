@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-2383",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-45285"
+  ],
+  "summary": "Command 'go get' may unexpectedly fallback to insecure git in cmd/go",
+  "details": "Using go get to fetch a module with the \".git\" suffix may unexpectedly fallback to the insecure \"git://\" protocol if the module is unavailable via the secure \"https://\" and \"git+ssh://\" protocols, even if GOINSECURE is not set for said module. This only affects users who are not using the module proxy and are fetching modules directly (i.e. GOPROXY=off).",
+  "affected": [
+    {
+      "package": {
+        "name": "toolchain",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.20.12"
+            },
+            {
+              "introduced": "1.21.0-0"
+            },
+            {
+              "fixed": "1.21.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "cmd/go"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-dev/c/6ypN5EjibjM/m/KmLVYH_uAgAJ"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/63845"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/540257"
+    }
+  ],
+  "credits": [
+    {
+      "name": "David Leadbeater"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-2383"
+  }
+}
