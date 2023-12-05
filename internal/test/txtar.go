@@ -23,7 +23,7 @@ func WriteTxtar(filename string, files []txtar.File, comment string) error {
 			Comment: []byte(addCopyright(comment)),
 			Files:   files,
 		},
-	), os.ModePerm); err != nil {
+	), 0666); err != nil {
 		return err
 	}
 

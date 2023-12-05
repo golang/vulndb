@@ -1,0 +1,492 @@
+Copyright 2023 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+
+Repo in the shape of "https://github.com/CVEProject/cvelistV5".
+Updated with real data 2023-12-05T19:00:00-05:00.
+Auto-generated; do not edit directly.
+
+-- README.md --
+ignore me please
+
+-- cves/2022/39xxx/CVE-2022-39213.json --
+{
+    "containers": {
+        "cna": {
+            "affected": [
+                {
+                    "product": "go-cvss",
+                    "vendor": "pandatix",
+                    "versions": [
+                        {
+                            "status": "affected",
+                            "version": ">= 0.2.0, < 0.4.0"
+                        }
+                    ]
+                }
+            ],
+            "descriptions": [
+                {
+                    "lang": "en",
+                    "value": "go-cvss is a Go module to manipulate Common Vulnerability Scoring System (CVSS). In affected versions when a full CVSS v2.0 vector string is parsed using `ParseVector`, an Out-of-Bounds Read is possible due to a lack of tests. The Go module will then panic. The problem is patched in tag `v0.4.0`, by the commit `d9d478ff0c13b8b09ace030db9262f3c2fe031f4`. Users are advised to upgrade. Users unable to upgrade may avoid this issue by parsing only CVSS v2.0 vector strings that do not have all attributes defined (e.g. `AV:N/AC:L/Au:N/C:P/I:P/A:C/E:U/RL:OF/RC:C/CDP:MH/TD:H/CR:M/IR:M/AR:M`). As stated in [SECURITY.md](https://github.com/pandatix/go-cvss/blob/master/SECURITY.md), the CPE v2.3 to refer to this Go module is `cpe:2.3:a:pandatix:go_cvss:*:*:*:*:*:*:*:*`. The entry has already been requested to the NVD CPE dictionary."
+                }
+            ],
+            "metrics": [
+                {
+                    "cvssV3_1": {
+                        "attackComplexity": "LOW",
+                        "attackVector": "NETWORK",
+                        "availabilityImpact": "HIGH",
+                        "baseScore": 7.5,
+                        "baseSeverity": "HIGH",
+                        "confidentialityImpact": "NONE",
+                        "integrityImpact": "NONE",
+                        "privilegesRequired": "NONE",
+                        "scope": "UNCHANGED",
+                        "userInteraction": "NONE",
+                        "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                        "version": "3.1"
+                    }
+                }
+            ],
+            "problemTypes": [
+                {
+                    "descriptions": [
+                        {
+                            "cweId": "CWE-125",
+                            "description": "CWE-125: Out-of-bounds Read",
+                            "lang": "en",
+                            "type": "CWE"
+                        }
+                    ]
+                }
+            ],
+            "providerMetadata": {
+                "dateUpdated": "2022-09-15T21:45:12",
+                "orgId": "a0819718-46f1-4df5-94e2-005712e83aaa",
+                "shortName": "GitHub_M"
+            },
+            "references": [
+                {
+                    "tags": [
+                        "x_refsource_CONFIRM"
+                    ],
+                    "url": "https://github.com/pandatix/go-cvss/security/advisories/GHSA-xhmf-mmv2-4hhx"
+                },
+                {
+                    "tags": [
+                        "x_refsource_MISC"
+                    ],
+                    "url": "https://github.com/pandatix/go-cvss/commit/d9d478ff0c13b8b09ace030db9262f3c2fe031f4"
+                },
+                {
+                    "tags": [
+                        "x_refsource_MISC"
+                    ],
+                    "url": "https://github.com/pandatix/go-cvss/blob/master/SECURITY.md"
+                }
+            ],
+            "source": {
+                "advisory": "GHSA-xhmf-mmv2-4hhx",
+                "discovery": "UNKNOWN"
+            },
+            "title": "Out-of-bounds Read in go-cvss",
+            "x_legacyV4Record": {
+                "CVE_data_meta": {
+                    "ASSIGNER": "security-advisories@github.com",
+                    "ID": "CVE-2022-39213",
+                    "STATE": "PUBLIC",
+                    "TITLE": "Out-of-bounds Read in go-cvss"
+                },
+                "affects": {
+                    "vendor": {
+                        "vendor_data": [
+                            {
+                                "product": {
+                                    "product_data": [
+                                        {
+                                            "product_name": "go-cvss",
+                                            "version": {
+                                                "version_data": [
+                                                    {
+                                                        "version_value": ">= 0.2.0, < 0.4.0"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                "vendor_name": "pandatix"
+                            }
+                        ]
+                    }
+                },
+                "data_format": "MITRE",
+                "data_type": "CVE",
+                "data_version": "4.0",
+                "description": {
+                    "description_data": [
+                        {
+                            "lang": "eng",
+                            "value": "go-cvss is a Go module to manipulate Common Vulnerability Scoring System (CVSS). In affected versions when a full CVSS v2.0 vector string is parsed using `ParseVector`, an Out-of-Bounds Read is possible due to a lack of tests. The Go module will then panic. The problem is patched in tag `v0.4.0`, by the commit `d9d478ff0c13b8b09ace030db9262f3c2fe031f4`. Users are advised to upgrade. Users unable to upgrade may avoid this issue by parsing only CVSS v2.0 vector strings that do not have all attributes defined (e.g. `AV:N/AC:L/Au:N/C:P/I:P/A:C/E:U/RL:OF/RC:C/CDP:MH/TD:H/CR:M/IR:M/AR:M`). As stated in [SECURITY.md](https://github.com/pandatix/go-cvss/blob/master/SECURITY.md), the CPE v2.3 to refer to this Go module is `cpe:2.3:a:pandatix:go_cvss:*:*:*:*:*:*:*:*`. The entry has already been requested to the NVD CPE dictionary."
+                        }
+                    ]
+                },
+                "impact": {
+                    "cvss": {
+                        "attackComplexity": "LOW",
+                        "attackVector": "NETWORK",
+                        "availabilityImpact": "HIGH",
+                        "baseScore": 7.5,
+                        "baseSeverity": "HIGH",
+                        "confidentialityImpact": "NONE",
+                        "integrityImpact": "NONE",
+                        "privilegesRequired": "NONE",
+                        "scope": "UNCHANGED",
+                        "userInteraction": "NONE",
+                        "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                        "version": "3.1"
+                    }
+                },
+                "problemtype": {
+                    "problemtype_data": [
+                        {
+                            "description": [
+                                {
+                                    "lang": "eng",
+                                    "value": "CWE-125: Out-of-bounds Read"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "references": {
+                    "reference_data": [
+                        {
+                            "name": "https://github.com/pandatix/go-cvss/security/advisories/GHSA-xhmf-mmv2-4hhx",
+                            "refsource": "CONFIRM",
+                            "url": "https://github.com/pandatix/go-cvss/security/advisories/GHSA-xhmf-mmv2-4hhx"
+                        },
+                        {
+                            "name": "https://github.com/pandatix/go-cvss/commit/d9d478ff0c13b8b09ace030db9262f3c2fe031f4",
+                            "refsource": "MISC",
+                            "url": "https://github.com/pandatix/go-cvss/commit/d9d478ff0c13b8b09ace030db9262f3c2fe031f4"
+                        },
+                        {
+                            "name": "https://github.com/pandatix/go-cvss/blob/master/SECURITY.md",
+                            "refsource": "MISC",
+                            "url": "https://github.com/pandatix/go-cvss/blob/master/SECURITY.md"
+                        }
+                    ]
+                },
+                "source": {
+                    "advisory": "GHSA-xhmf-mmv2-4hhx",
+                    "discovery": "UNKNOWN"
+                }
+            }
+        }
+    },
+    "cveMetadata": {
+        "assignerOrgId": "a0819718-46f1-4df5-94e2-005712e83aaa",
+        "assignerShortName": "GitHub_M",
+        "cveId": "CVE-2022-39213",
+        "datePublished": "2022-09-15T21:45:12",
+        "dateReserved": "2022-09-02T00:00:00",
+        "dateUpdated": "2022-09-15T21:45:12",
+        "state": "PUBLISHED"
+    },
+    "dataType": "CVE_RECORD",
+    "dataVersion": "5.0"
+}
+-- cves/2023/44xxx/CVE-2023-44378.json --
+{
+    "dataType": "CVE_RECORD",
+    "dataVersion": "5.0",
+    "cveMetadata": {
+        "cveId": "CVE-2023-44378",
+        "assignerOrgId": "a0819718-46f1-4df5-94e2-005712e83aaa",
+        "state": "PUBLISHED",
+        "assignerShortName": "GitHub_M",
+        "dateReserved": "2023-09-28T17:56:32.612Z",
+        "datePublished": "2023-10-09T13:33:54.973Z",
+        "dateUpdated": "2023-10-09T13:33:54.973Z"
+    },
+    "containers": {
+        "cna": {
+            "title": "gnark vulnerable to unsoundness in variable comparison/non-unique binary decomposition",
+            "problemTypes": [
+                {
+                    "descriptions": [
+                        {
+                            "cweId": "CWE-191",
+                            "lang": "en",
+                            "description": "CWE-191: Integer Underflow (Wrap or Wraparound)",
+                            "type": "CWE"
+                        }
+                    ]
+                },
+                {
+                    "descriptions": [
+                        {
+                            "cweId": "CWE-697",
+                            "lang": "en",
+                            "description": "CWE-697: Incorrect Comparison",
+                            "type": "CWE"
+                        }
+                    ]
+                }
+            ],
+            "metrics": [
+                {
+                    "cvssV3_1": {
+                        "attackComplexity": "LOW",
+                        "attackVector": "LOCAL",
+                        "availabilityImpact": "NONE",
+                        "baseScore": 7.1,
+                        "baseSeverity": "HIGH",
+                        "confidentialityImpact": "NONE",
+                        "integrityImpact": "HIGH",
+                        "privilegesRequired": "NONE",
+                        "scope": "CHANGED",
+                        "userInteraction": "NONE",
+                        "vectorString": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:C/C:N/I:H/A:N",
+                        "version": "3.1"
+                    }
+                }
+            ],
+            "references": [
+                {
+                    "name": "https://github.com/Consensys/gnark/security/advisories/GHSA-498w-5j49-vqjg",
+                    "tags": [
+                        "x_refsource_CONFIRM"
+                    ],
+                    "url": "https://github.com/Consensys/gnark/security/advisories/GHSA-498w-5j49-vqjg"
+                },
+                {
+                    "name": "https://github.com/zkopru-network/zkopru/issues/116",
+                    "tags": [
+                        "x_refsource_MISC"
+                    ],
+                    "url": "https://github.com/zkopru-network/zkopru/issues/116"
+                },
+                {
+                    "name": "https://github.com/Consensys/gnark/commit/59a4087261a6c73f13e80d695c17b398c3d0934f",
+                    "tags": [
+                        "x_refsource_MISC"
+                    ],
+                    "url": "https://github.com/Consensys/gnark/commit/59a4087261a6c73f13e80d695c17b398c3d0934f"
+                }
+            ],
+            "affected": [
+                {
+                    "vendor": "Consensys",
+                    "product": "gnark",
+                    "versions": [
+                        {
+                            "version": "< 0.9.0",
+                            "status": "affected"
+                        }
+                    ]
+                }
+            ],
+            "providerMetadata": {
+                "orgId": "a0819718-46f1-4df5-94e2-005712e83aaa",
+                "shortName": "GitHub_M",
+                "dateUpdated": "2023-10-09T13:33:54.973Z"
+            },
+            "descriptions": [
+                {
+                    "lang": "en",
+                    "value": "gnark is a zk-SNARK library that offers a high-level API to design circuits. Prior to version 0.9.0, for some in-circuit values, it is possible to construct two valid decomposition to bits. In addition to the canonical decomposition of `a`, for small values there exists a second decomposition for `a+r` (where `r` is the modulus the values are being reduced by). The second decomposition was possible due to overflowing the field where the values are defined. Upgrading to version 0.9.0 should fix the issue without needing to change the calls to value comparison methods."
+                }
+            ],
+            "source": {
+                "advisory": "GHSA-498w-5j49-vqjg",
+                "discovery": "UNKNOWN"
+            }
+        }
+    }
+}
+-- cves/2023/45xxx/CVE-2023-45141.json --
+{
+    "dataType": "CVE_RECORD",
+    "dataVersion": "5.0",
+    "cveMetadata": {
+        "cveId": "CVE-2023-45141",
+        "assignerOrgId": "a0819718-46f1-4df5-94e2-005712e83aaa",
+        "state": "PUBLISHED",
+        "assignerShortName": "GitHub_M",
+        "dateReserved": "2023-10-04T16:02:46.329Z",
+        "datePublished": "2023-10-16T20:48:55.590Z",
+        "dateUpdated": "2023-10-16T20:48:55.590Z"
+    },
+    "containers": {
+        "cna": {
+            "title": "CSRF Token Validation Vulnerability in fiber",
+            "problemTypes": [
+                {
+                    "descriptions": [
+                        {
+                            "cweId": "CWE-352",
+                            "lang": "en",
+                            "description": "CWE-352: Cross-Site Request Forgery (CSRF)",
+                            "type": "CWE"
+                        }
+                    ]
+                },
+                {
+                    "descriptions": [
+                        {
+                            "cweId": "CWE-565",
+                            "lang": "en",
+                            "description": "CWE-565: Reliance on Cookies without Validation and Integrity Checking",
+                            "type": "CWE"
+                        }
+                    ]
+                }
+            ],
+            "metrics": [
+                {
+                    "cvssV3_1": {
+                        "attackComplexity": "LOW",
+                        "attackVector": "NETWORK",
+                        "availabilityImpact": "LOW",
+                        "baseScore": 8.6,
+                        "baseSeverity": "HIGH",
+                        "confidentialityImpact": "LOW",
+                        "integrityImpact": "HIGH",
+                        "privilegesRequired": "NONE",
+                        "scope": "UNCHANGED",
+                        "userInteraction": "NONE",
+                        "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:H/A:L",
+                        "version": "3.1"
+                    }
+                }
+            ],
+            "references": [
+                {
+                    "name": "https://github.com/gofiber/fiber/security/advisories/GHSA-mv73-f69x-444p",
+                    "tags": [
+                        "x_refsource_CONFIRM"
+                    ],
+                    "url": "https://github.com/gofiber/fiber/security/advisories/GHSA-mv73-f69x-444p"
+                }
+            ],
+            "affected": [
+                {
+                    "vendor": "gofiber",
+                    "product": "fiber",
+                    "versions": [
+                        {
+                            "version": "< 2.50.0",
+                            "status": "affected"
+                        }
+                    ]
+                }
+            ],
+            "providerMetadata": {
+                "orgId": "a0819718-46f1-4df5-94e2-005712e83aaa",
+                "shortName": "GitHub_M",
+                "dateUpdated": "2023-10-16T20:48:55.590Z"
+            },
+            "descriptions": [
+                {
+                    "lang": "en",
+                    "value": "Fiber is an express inspired web framework written in Go. A Cross-Site Request Forgery (CSRF) vulnerability has been identified in the application, which allows an attacker to obtain tokens and forge malicious requests on behalf of a user. This can lead to unauthorized actions being taken on the user's behalf, potentially compromising the security and integrity of the application. The vulnerability is caused by improper validation and enforcement of CSRF tokens within the application. This vulnerability has been addressed in version 2.50.0 and users are advised to upgrade. Users should take additional security measures like captchas or Two-Factor Authentication (2FA) and set Session cookies with SameSite=Lax or SameSite=Secure, and the Secure and HttpOnly attributes."
+                }
+            ],
+            "source": {
+                "advisory": "GHSA-mv73-f69x-444p",
+                "discovery": "UNKNOWN"
+            }
+        }
+    }
+}
+-- cves/2020/9xxx/CVE-2020-9283.json --
+{
+    "dataType": "CVE_RECORD",
+    "dataVersion": "5.0",
+    "cveMetadata": {
+        "state": "PUBLISHED",
+        "cveId": "CVE-2020-9283",
+        "assignerOrgId": "8254265b-2729-46b6-b9e3-3dfca2d5bfca",
+        "assignerShortName": "mitre",
+        "dateUpdated": "2023-06-16T00:00:00",
+        "dateReserved": "2020-02-19T00:00:00",
+        "datePublished": "2020-02-20T00:00:00"
+    },
+    "containers": {
+        "cna": {
+            "providerMetadata": {
+                "orgId": "8254265b-2729-46b6-b9e3-3dfca2d5bfca",
+                "shortName": "mitre",
+                "dateUpdated": "2023-06-16T00:00:00"
+            },
+            "descriptions": [
+                {
+                    "lang": "en",
+                    "value": "golang.org/x/crypto before v0.0.0-20200220183623-bac4c82f6975 for Go allows a panic during signature verification in the golang.org/x/crypto/ssh package. A client can attack an SSH server that accepts public keys. Also, a server can attack any SSH client."
+                }
+            ],
+            "affected": [
+                {
+                    "vendor": "n/a",
+                    "product": "n/a",
+                    "versions": [
+                        {
+                            "version": "n/a",
+                            "status": "affected"
+                        }
+                    ]
+                }
+            ],
+            "references": [
+                {
+                    "url": "https://groups.google.com/forum/#%21topic/golang-announce/3L45YRc91SY"
+                },
+                {
+                    "url": "http://packetstormsecurity.com/files/156480/Go-SSH-0.0.2-Denial-Of-Service.html"
+                },
+                {
+                    "name": "[debian-lts-announce] 20201007 [SECURITY] [DLA 2402-1] golang-go.crypto security update",
+                    "tags": [
+                        "mailing-list"
+                    ],
+                    "url": "https://lists.debian.org/debian-lts-announce/2020/10/msg00014.html"
+                },
+                {
+                    "name": "[debian-lts-announce] 20201116 [SECURITY] [DLA 2453-1] restic security update",
+                    "tags": [
+                        "mailing-list"
+                    ],
+                    "url": "https://lists.debian.org/debian-lts-announce/2020/11/msg00027.html"
+                },
+                {
+                    "name": "[debian-lts-announce] 20201118 [SECURITY] [DLA 2455-1] packer security update",
+                    "tags": [
+                        "mailing-list"
+                    ],
+                    "url": "https://lists.debian.org/debian-lts-announce/2020/11/msg00031.html"
+                },
+                {
+                    "name": "[debian-lts-announce] 20230616 [SECURITY] [DLA 3455-1] golang-go.crypto security update",
+                    "tags": [
+                        "mailing-list"
+                    ],
+                    "url": "https://lists.debian.org/debian-lts-announce/2023/06/msg00017.html"
+                }
+            ],
+            "problemTypes": [
+                {
+                    "descriptions": [
+                        {
+                            "type": "text",
+                            "lang": "en",
+                            "description": "n/a"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
