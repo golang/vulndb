@@ -34,6 +34,33 @@ modules:
             - fromFS
           derived_symbols:
             - FromFS
+    - module: std
+      versions:
+        - introduced: 1.20.11
+          fixed: 1.20.12
+        - introduced: 1.21.4
+          fixed: 1.21.5
+      vulnerable_at: 1.21.4
+      packages:
+        - package: path/filepath
+          goos:
+            - windows
+          symbols:
+            - volumeNameLen
+          derived_symbols:
+            - Abs
+            - Base
+            - Clean
+            - Dir
+            - EvalSymlinks
+            - Glob
+            - IsLocal
+            - Join
+            - Rel
+            - Split
+            - VolumeName
+            - Walk
+            - WalkDir
 summary: Insecure parsing of Windows paths with a \??\ prefix in path/filepath
 description: |-
     The filepath package does not recognize paths with a \??\ prefix as special.
@@ -52,10 +79,18 @@ description: |-
 
     In addition, with fix, IsAbs now correctly reports paths beginning with \??\ as
     absolute, and VolumeName correctly reports the \??\ prefix as a volume name.
+
+    UPDATE: Go 1.20.11 and Go 1.21.4 inadvertently changed the definition of the
+    volume name in Windows paths starting with \?, resulting in
+    filepath.Clean(\?\c:) returning \?\c: rather than \?\c:\ (among other effects).
+    The previous behavior has been restored.
 references:
     - report: https://go.dev/issue/63713
     - fix: https://go.dev/cl/540277
     - web: https://groups.google.com/g/golang-announce/c/4tU8LZfBFkY
+    - report: https://go.dev/issue/64028
+    - fix: https://go.dev/cl/541175
+    - web: https://groups.google.com/g/golang-dev/c/6ypN5EjibjM/m/KmLVYH_uAgAJ
 cve_metadata:
     id: CVE-2023-45283
     cwe: 'CWE-41: Improper Resolution of Path Equivalence'
