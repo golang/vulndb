@@ -5,6 +5,7 @@
 package report
 
 import (
+	"fmt"
 	"regexp"
 	"strings"
 
@@ -12,6 +13,7 @@ import (
 	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/stdlib"
+	"golang.org/x/vulndb/internal/version"
 )
 
 func vendor(modulePath string) string {
@@ -133,38 +135,9 @@ func cve5ToReport(c *cveschema5.CVERecord, id, modulePath string) *Report {
 		refs = append(refs, referenceFromUrl(ref.URL))
 	}
 
-	// For now, use the first product name as the package path.
-	// TODO(tatianabradley): Make this more sophisticated, to consider
-	// all the blocks in cna.Affected, versions, etc.
-	var pkgPath string
-	if affected := cna.Affected; len(affected) > 0 {
-		pkgPath = affected[0].Product
-	}
-	if stdlib.Contains(modulePath) {
-		pkgPath = modulePath
-		modulePath = stdlib.ModulePath
-	}
-	if modulePath == "" {
-		modulePath = "TODO"
-	}
-	if pkgPath == "" {
-		pkgPath = modulePath
-	}
-	modules := []*Module{
-		{
-			Module:   modulePath,
-			Versions: nil,
-			Packages: []*Package{
-				{
-					Package: pkgPath,
-				},
-			},
-		},
-	}
-
 	r := &Report{
 		ID:          id,
-		Modules:     modules,
+		Modules:     affectedToModules(cna.Affected, modulePath),
 		Summary:     Summary(cna.Title),
 		Description: description,
 		Credits:     credits,
@@ -184,4 +157,130 @@ func getCWE5(c *cveschema5.CNAPublishedContainer) string {
 
 func isGoCNA5(c *cveschema5.CNAPublishedContainer) bool {
 	return c.ProviderMetadata.OrgID == GoOrgUUID
+}
+
+func affectedToModules(as []cveschema5.Affected, modulePath string) []*Module {
+	// Use a placeholder module if there is no information on
+	// modules/packages in the CVE.
+	if len(as) == 0 {
+		return []*Module{{
+			Module: modulePath,
+		}}
+	}
+
+	var modules []*Module
+	for _, a := range as {
+		modules = append(modules, affectedToModule(&a, modulePath))
+	}
+
+	return modules
+}
+
+func affectedToModule(a *cveschema5.Affected, modulePath string) *Module {
+	var pkgPath string
+	isSet := func(s string) bool {
+		const na = "n/a"
+		return s != "" && s != na
+	}
+	switch {
+	case isSet(a.PackageName):
+		pkgPath = a.PackageName
+	case isSet(a.Product):
+		pkgPath = a.Product
+	case isSet(a.Vendor):
+		pkgPath = a.Vendor
+	default:
+		pkgPath = modulePath
+	}
+
+	// If the package path is just a suffix of the modulePath,
+	// it is probably not useful.
+	if strings.HasSuffix(modulePath, pkgPath) {
+		pkgPath = modulePath
+	}
+
+	if stdlib.Contains(pkgPath) {
+		if strings.HasPrefix(pkgPath, stdlib.ToolchainModulePath) {
+			modulePath = stdlib.ToolchainModulePath
+		} else {
+			modulePath = stdlib.ModulePath
+		}
+	}
+
+	var symbols []string
+	for _, s := range a.ProgramRoutines {
+		symbols = append(symbols, s.Name)
+	}
+
+	vs, uvs := convertVersions(a.Versions, a.DefaultStatus)
+
+	return &Module{
+		Module:              modulePath,
+		Versions:            vs,
+		UnsupportedVersions: uvs,
+		Packages: []*Package{
+			{
+				Package: pkgPath,
+				Symbols: symbols,
+				GOOS:    a.Platforms,
+			},
+		},
+	}
+}
+
+func convertVersions(vrs []cveschema5.VersionRange, defaultStatus cveschema5.VersionStatus) (vs []VersionRange, uvs []UnsupportedVersion) {
+	for _, vr := range vrs {
+		// Version ranges starting with "n/a" don't have any meaningful data.
+		if vr.Introduced == "n/a" {
+			continue
+		}
+		v, ok := toVersionRange(&vr, defaultStatus)
+		if ok {
+			vs = append(vs, *v)
+			continue
+		}
+		uvs = append(uvs, toUnsupported(&vr, defaultStatus))
+	}
+	return vs, uvs
+}
+
+func toVersionRange(cvr *cveschema5.VersionRange, defaultStatus cveschema5.VersionStatus) (*VersionRange, bool) {
+	// For now, we only support version ranges that are easy to convert to our format.
+	if cvr.VersionType != typeSemver ||
+		cvr.LessThanOrEqual != "" ||
+		!version.IsValid(string(cvr.Introduced)) ||
+		!version.IsValid(string(cvr.Fixed)) ||
+		cvr.Status != cveschema5.StatusAffected ||
+		defaultStatus != cveschema5.StatusUnaffected {
+		return nil, false
+	}
+
+	introduced := string(cvr.Introduced)
+	if introduced == "0" {
+		introduced = ""
+	}
+
+	return &VersionRange{
+		Introduced: introduced,
+		Fixed:      string(cvr.Fixed),
+	}, true
+}
+
+func toUnsupported(cvr *cveschema5.VersionRange, defaultStatus cveschema5.VersionStatus) UnsupportedVersion {
+	var version string
+	switch {
+	case cvr.Fixed != "":
+		version = fmt.Sprintf("%s from %s before %s", cvr.Status, cvr.Introduced, cvr.Fixed)
+	case cvr.LessThanOrEqual != "":
+		version = fmt.Sprintf("%s from %s to %s", cvr.Status, cvr.Introduced, cvr.Fixed)
+	default:
+		version = fmt.Sprintf("%s at %s", cvr.Status, cvr.Introduced)
+	}
+	if defaultStatus != "" {
+		version = fmt.Sprintf("%s (default: %s)", version, defaultStatus)
+	}
+	return UnsupportedVersion{
+		Version: version,
+		Type:    "cve_version_range",
+	}
 }

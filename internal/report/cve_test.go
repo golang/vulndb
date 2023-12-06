@@ -104,10 +104,12 @@ func TestCVE5ToReport(t *testing.T) {
 	}
 }
 
-// Check that the created report is the same for v4 and v5.
-// This is a transitional test that will be removed once we are OK
-// with divergence between v4 and v5, or if we remove support for v4 entirely.
 func TestV4V5Equivalence(t *testing.T) {
+	// Skip, but leave the test in case it is needed in the course of
+	// the transition.
+	// TODO(tatianabradley): Delete this test once we have completed the
+	// transition to V5.
+	t.Skip("V4 and V5 are no longer required to be equivalent.")
 	if err := filepath.WalkDir(filepath.Join(testdata, "TestCVE5ToReport"), func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
 			return err

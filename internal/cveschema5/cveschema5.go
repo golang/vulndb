@@ -95,6 +95,9 @@ type VersionRange struct {
 	Fixed       Version       `json:"lessThan"`
 	Status      VersionStatus `json:"status"`
 	VersionType string        `json:"versionType"`
+
+	// Not used in Go CVEs, but supported in the schema.
+	LessThanOrEqual Version `json:"lessThanOrEqual,omitempty"`
 }
 
 type VersionStatus string
