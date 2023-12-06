@@ -14,7 +14,9 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
 	"golang.org/x/exp/maps"
+	"golang.org/x/exp/slices"
 	"golang.org/x/tools/txtar"
 	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/cveschema"
@@ -34,10 +36,24 @@ var (
 	v4txtar  = filepath.Join(testdata, "v4.txtar")
 	v5txtar  = filepath.Join(testdata, "v5.txtar")
 	testCVEs = map[string]string{
+		// First-party CVEs not assigned by the Go CNA.
+		// (These were created before Go was a CNA).
 		"CVE-2020-9283":  "golang.org/x/crypto",
+		"CVE-2021-27919": "archive/zip",
+		"CVE-2021-3115":  "cmd/go",
+
+		// Third party CVEs, assigned by other CNAs.
 		"CVE-2022-39213": "github.com/pandatix/go-cvss",
 		"CVE-2023-44378": "github.com/Consensys/gnark",
 		"CVE-2023-45141": "github.com/gofiber/fiber",
+
+		// First-party CVEs, assigned by the Go CNA.
+		"CVE-2023-29407": "golang.org/x/image",
+		"CVE-2023-45283": "path/filepath",
+		"CVE-2023-45285": "cmd/go",
+
+		// A third-party CVE assigned by the Go CNA.
+		"CVE-2023-45286": "github.com/go-resty/resty/v2",
 	}
 )
 
@@ -46,6 +62,7 @@ func TestMain(m *testing.M) {
 	if *updateTxtarRepos {
 		ctx := context.Background()
 		ids := maps.Keys(testCVEs)
+		slices.Sort(ids)
 		if err := cvelistrepo.WriteTxtarRepo(ctx, cvelistrepo.URLv4, v4txtar, ids); err != nil {
 			fail(err)
 		}
@@ -101,16 +118,21 @@ func TestV4V5Equivalence(t *testing.T) {
 
 		fname := filepath.Base(path)
 		t.Run(fname, func(t *testing.T) {
-			v5b, err := findCVEFile(path)
+			v5f, v5report, err := findCVEFile(path)
 			if err != nil {
 				t.Fatal(err)
 			}
 			v4file := filepath.Join(testdata, "TestCVEToReport", fname)
-			v4b, err := findCVEFile(v4file)
+			v4f, v4report, err := findCVEFile(v4file)
 			if err != nil {
 				t.Fatal(err)
 			}
-			if diff := cmp.Diff(v4b, v5b); diff != "" {
+			if v5f != v4f {
+				t.Errorf("archive filename mismatch: v4=%s, v5=%s", v4f, v5f)
+			}
+			if diff := cmp.Diff(v4report, v5report,
+				// Ignore credits because these are not handled properly in v4.
+				cmpopts.IgnoreFields(Report{}, "Credits")); diff != "" {
 				t.Errorf("mismatch (-v4, +v5):\n%s", diff)
 			}
 		})
@@ -120,17 +142,21 @@ func TestV4V5Equivalence(t *testing.T) {
 	}
 }
 
-func findCVEFile(tf string) (*txtar.File, error) {
+func findCVEFile(tf string) (string, *Report, error) {
 	ar, err := txtar.ParseFile(tf)
 	if err != nil {
-		return nil, err
+		return "", nil, err
 	}
 	for _, af := range ar.Files {
 		if cveschema5.IsCVE(af.Name) {
-			return &af, nil
+			var r Report
+			if err := yaml.Unmarshal(af.Data, &r); err != nil {
+				return "", nil, err
+			}
+			return af.Name, &r, nil
 		}
 	}
-	return nil, fmt.Errorf("%s: cve archive file not found", tf)
+	return "", nil, fmt.Errorf("%s: cve archive file not found", tf)
 }
 
 func run(t *testing.T, txtarFile string, newCVE func() cvelistrepo.CVE, toReport func(cvelistrepo.CVE, string) *Report) error {

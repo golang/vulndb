@@ -9,6 +9,425 @@ Auto-generated; do not edit directly.
 -- README.md --
 ignore me please
 
+-- cves/2020/9xxx/CVE-2020-9283.json --
+{
+    "dataType": "CVE_RECORD",
+    "dataVersion": "5.0",
+    "cveMetadata": {
+        "state": "PUBLISHED",
+        "cveId": "CVE-2020-9283",
+        "assignerOrgId": "8254265b-2729-46b6-b9e3-3dfca2d5bfca",
+        "assignerShortName": "mitre",
+        "dateUpdated": "2023-06-16T00:00:00",
+        "dateReserved": "2020-02-19T00:00:00",
+        "datePublished": "2020-02-20T00:00:00"
+    },
+    "containers": {
+        "cna": {
+            "providerMetadata": {
+                "orgId": "8254265b-2729-46b6-b9e3-3dfca2d5bfca",
+                "shortName": "mitre",
+                "dateUpdated": "2023-06-16T00:00:00"
+            },
+            "descriptions": [
+                {
+                    "lang": "en",
+                    "value": "golang.org/x/crypto before v0.0.0-20200220183623-bac4c82f6975 for Go allows a panic during signature verification in the golang.org/x/crypto/ssh package. A client can attack an SSH server that accepts public keys. Also, a server can attack any SSH client."
+                }
+            ],
+            "affected": [
+                {
+                    "vendor": "n/a",
+                    "product": "n/a",
+                    "versions": [
+                        {
+                            "version": "n/a",
+                            "status": "affected"
+                        }
+                    ]
+                }
+            ],
+            "references": [
+                {
+                    "url": "https://groups.google.com/forum/#%21topic/golang-announce/3L45YRc91SY"
+                },
+                {
+                    "url": "http://packetstormsecurity.com/files/156480/Go-SSH-0.0.2-Denial-Of-Service.html"
+                },
+                {
+                    "name": "[debian-lts-announce] 20201007 [SECURITY] [DLA 2402-1] golang-go.crypto security update",
+                    "tags": [
+                        "mailing-list"
+                    ],
+                    "url": "https://lists.debian.org/debian-lts-announce/2020/10/msg00014.html"
+                },
+                {
+                    "name": "[debian-lts-announce] 20201116 [SECURITY] [DLA 2453-1] restic security update",
+                    "tags": [
+                        "mailing-list"
+                    ],
+                    "url": "https://lists.debian.org/debian-lts-announce/2020/11/msg00027.html"
+                },
+                {
+                    "name": "[debian-lts-announce] 20201118 [SECURITY] [DLA 2455-1] packer security update",
+                    "tags": [
+                        "mailing-list"
+                    ],
+                    "url": "https://lists.debian.org/debian-lts-announce/2020/11/msg00031.html"
+                },
+                {
+                    "name": "[debian-lts-announce] 20230616 [SECURITY] [DLA 3455-1] golang-go.crypto security update",
+                    "tags": [
+                        "mailing-list"
+                    ],
+                    "url": "https://lists.debian.org/debian-lts-announce/2023/06/msg00017.html"
+                }
+            ],
+            "problemTypes": [
+                {
+                    "descriptions": [
+                        {
+                            "type": "text",
+                            "lang": "en",
+                            "description": "n/a"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
+-- cves/2021/27xxx/CVE-2021-27919.json --
+{
+    "containers": {
+        "cna": {
+            "affected": [
+                {
+                    "product": "n/a",
+                    "vendor": "n/a",
+                    "versions": [
+                        {
+                            "status": "affected",
+                            "version": "n/a"
+                        }
+                    ]
+                }
+            ],
+            "descriptions": [
+                {
+                    "lang": "en",
+                    "value": "archive/zip in Go 1.16.x before 1.16.1 allows attackers to cause a denial of service (panic) upon attempted use of the Reader.Open API for a ZIP archive in which ../ occurs at the beginning of any filename."
+                }
+            ],
+            "problemTypes": [
+                {
+                    "descriptions": [
+                        {
+                            "description": "n/a",
+                            "lang": "en",
+                            "type": "text"
+                        }
+                    ]
+                }
+            ],
+            "providerMetadata": {
+                "dateUpdated": "2022-08-04T15:11:53",
+                "orgId": "8254265b-2729-46b6-b9e3-3dfca2d5bfca",
+                "shortName": "mitre"
+            },
+            "references": [
+                {
+                    "tags": [
+                        "x_refsource_MISC"
+                    ],
+                    "url": "https://groups.google.com/g/golang-announce/c/MfiLYjG-RAw"
+                },
+                {
+                    "name": "FEDORA-2021-6a3024b3fd",
+                    "tags": [
+                        "vendor-advisory",
+                        "x_refsource_FEDORA"
+                    ],
+                    "url": "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/2MU47VKTNXX33ZDLTI2ORRUY3KLJKU6G/"
+                },
+                {
+                    "name": "FEDORA-2021-e71b05ba7b",
+                    "tags": [
+                        "vendor-advisory",
+                        "x_refsource_FEDORA"
+                    ],
+                    "url": "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/HM7U5JNS5WU66Q3S26PFIU2ITB2ATTQ4/"
+                },
+                {
+                    "name": "GLSA-202208-02",
+                    "tags": [
+                        "vendor-advisory",
+                        "x_refsource_GENTOO"
+                    ],
+                    "url": "https://security.gentoo.org/glsa/202208-02"
+                }
+            ],
+            "x_legacyV4Record": {
+                "CVE_data_meta": {
+                    "ASSIGNER": "cve@mitre.org",
+                    "ID": "CVE-2021-27919",
+                    "STATE": "PUBLIC"
+                },
+                "affects": {
+                    "vendor": {
+                        "vendor_data": [
+                            {
+                                "product": {
+                                    "product_data": [
+                                        {
+                                            "product_name": "n/a",
+                                            "version": {
+                                                "version_data": [
+                                                    {
+                                                        "version_value": "n/a"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                "vendor_name": "n/a"
+                            }
+                        ]
+                    }
+                },
+                "data_format": "MITRE",
+                "data_type": "CVE",
+                "data_version": "4.0",
+                "description": {
+                    "description_data": [
+                        {
+                            "lang": "eng",
+                            "value": "archive/zip in Go 1.16.x before 1.16.1 allows attackers to cause a denial of service (panic) upon attempted use of the Reader.Open API for a ZIP archive in which ../ occurs at the beginning of any filename."
+                        }
+                    ]
+                },
+                "problemtype": {
+                    "problemtype_data": [
+                        {
+                            "description": [
+                                {
+                                    "lang": "eng",
+                                    "value": "n/a"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "references": {
+                    "reference_data": [
+                        {
+                            "name": "https://groups.google.com/g/golang-announce/c/MfiLYjG-RAw",
+                            "refsource": "MISC",
+                            "url": "https://groups.google.com/g/golang-announce/c/MfiLYjG-RAw"
+                        },
+                        {
+                            "name": "FEDORA-2021-6a3024b3fd",
+                            "refsource": "FEDORA",
+                            "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/2MU47VKTNXX33ZDLTI2ORRUY3KLJKU6G/"
+                        },
+                        {
+                            "name": "FEDORA-2021-e71b05ba7b",
+                            "refsource": "FEDORA",
+                            "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/HM7U5JNS5WU66Q3S26PFIU2ITB2ATTQ4/"
+                        },
+                        {
+                            "name": "GLSA-202208-02",
+                            "refsource": "GENTOO",
+                            "url": "https://security.gentoo.org/glsa/202208-02"
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "cveMetadata": {
+        "assignerOrgId": "8254265b-2729-46b6-b9e3-3dfca2d5bfca",
+        "assignerShortName": "mitre",
+        "cveId": "CVE-2021-27919",
+        "datePublished": "2021-03-11T00:00:13",
+        "dateReserved": "2021-03-03T00:00:00",
+        "dateUpdated": "2022-08-04T15:11:53",
+        "state": "PUBLISHED"
+    },
+    "dataType": "CVE_RECORD",
+    "dataVersion": "5.0"
+}
+-- cves/2021/3xxx/CVE-2021-3115.json --
+{
+    "containers": {
+        "cna": {
+            "affected": [
+                {
+                    "product": "n/a",
+                    "vendor": "n/a",
+                    "versions": [
+                        {
+                            "status": "affected",
+                            "version": "n/a"
+                        }
+                    ]
+                }
+            ],
+            "descriptions": [
+                {
+                    "lang": "en",
+                    "value": "Go before 1.14.14 and 1.15.x before 1.15.7 on Windows is vulnerable to Command Injection and remote code execution when using the \"go get\" command to fetch modules that make use of cgo (for example, cgo can execute a gcc program from an untrusted download)."
+                }
+            ],
+            "problemTypes": [
+                {
+                    "descriptions": [
+                        {
+                            "description": "n/a",
+                            "lang": "en",
+                            "type": "text"
+                        }
+                    ]
+                }
+            ],
+            "providerMetadata": {
+                "dateUpdated": "2022-08-04T15:09:52",
+                "orgId": "8254265b-2729-46b6-b9e3-3dfca2d5bfca",
+                "shortName": "mitre"
+            },
+            "references": [
+                {
+                    "tags": [
+                        "x_refsource_CONFIRM"
+                    ],
+                    "url": "https://groups.google.com/g/golang-announce/c/mperVMGa98w"
+                },
+                {
+                    "tags": [
+                        "x_refsource_CONFIRM"
+                    ],
+                    "url": "https://blog.golang.org/path-security"
+                },
+                {
+                    "name": "FEDORA-2021-e435a8bb88",
+                    "tags": [
+                        "vendor-advisory",
+                        "x_refsource_FEDORA"
+                    ],
+                    "url": "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/YWAYJGXWC232SG3UR3TR574E6BP3OSQQ/"
+                },
+                {
+                    "tags": [
+                        "x_refsource_CONFIRM"
+                    ],
+                    "url": "https://security.netapp.com/advisory/ntap-20210219-0001/"
+                },
+                {
+                    "name": "GLSA-202208-02",
+                    "tags": [
+                        "vendor-advisory",
+                        "x_refsource_GENTOO"
+                    ],
+                    "url": "https://security.gentoo.org/glsa/202208-02"
+                }
+            ],
+            "x_legacyV4Record": {
+                "CVE_data_meta": {
+                    "ASSIGNER": "cve@mitre.org",
+                    "ID": "CVE-2021-3115",
+                    "STATE": "PUBLIC"
+                },
+                "affects": {
+                    "vendor": {
+                        "vendor_data": [
+                            {
+                                "product": {
+                                    "product_data": [
+                                        {
+                                            "product_name": "n/a",
+                                            "version": {
+                                                "version_data": [
+                                                    {
+                                                        "version_value": "n/a"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                "vendor_name": "n/a"
+                            }
+                        ]
+                    }
+                },
+                "data_format": "MITRE",
+                "data_type": "CVE",
+                "data_version": "4.0",
+                "description": {
+                    "description_data": [
+                        {
+                            "lang": "eng",
+                            "value": "Go before 1.14.14 and 1.15.x before 1.15.7 on Windows is vulnerable to Command Injection and remote code execution when using the \"go get\" command to fetch modules that make use of cgo (for example, cgo can execute a gcc program from an untrusted download)."
+                        }
+                    ]
+                },
+                "problemtype": {
+                    "problemtype_data": [
+                        {
+                            "description": [
+                                {
+                                    "lang": "eng",
+                                    "value": "n/a"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "references": {
+                    "reference_data": [
+                        {
+                            "name": "https://groups.google.com/g/golang-announce/c/mperVMGa98w",
+                            "refsource": "CONFIRM",
+                            "url": "https://groups.google.com/g/golang-announce/c/mperVMGa98w"
+                        },
+                        {
+                            "name": "https://blog.golang.org/path-security",
+                            "refsource": "CONFIRM",
+                            "url": "https://blog.golang.org/path-security"
+                        },
+                        {
+                            "name": "FEDORA-2021-e435a8bb88",
+                            "refsource": "FEDORA",
+                            "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/YWAYJGXWC232SG3UR3TR574E6BP3OSQQ/"
+                        },
+                        {
+                            "name": "https://security.netapp.com/advisory/ntap-20210219-0001/",
+                            "refsource": "CONFIRM",
+                            "url": "https://security.netapp.com/advisory/ntap-20210219-0001/"
+                        },
+                        {
+                            "name": "GLSA-202208-02",
+                            "refsource": "GENTOO",
+                            "url": "https://security.gentoo.org/glsa/202208-02"
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "cveMetadata": {
+        "assignerOrgId": "8254265b-2729-46b6-b9e3-3dfca2d5bfca",
+        "assignerShortName": "mitre",
+        "cveId": "CVE-2021-3115",
+        "datePublished": "2021-01-26T02:14:51",
+        "dateReserved": "2021-01-11T00:00:00",
+        "dateUpdated": "2022-08-04T15:09:52",
+        "state": "PUBLISHED"
+    },
+    "dataType": "CVE_RECORD",
+    "dataVersion": "5.0"
+}
 -- cves/2022/39xxx/CVE-2022-39213.json --
 {
     "containers": {
@@ -197,6 +616,103 @@ ignore me please
     },
     "dataType": "CVE_RECORD",
     "dataVersion": "5.0"
+}
+-- cves/2023/29xxx/CVE-2023-29407.json --
+{
+    "dataType": "CVE_RECORD",
+    "dataVersion": "5.0",
+    "cveMetadata": {
+        "cveId": "CVE-2023-29407",
+        "assignerOrgId": "1bb62c36-49e3-4200-9d77-64a1400537cc",
+        "state": "PUBLISHED",
+        "assignerShortName": "Go",
+        "dateReserved": "2023-04-05T19:36:35.043Z",
+        "datePublished": "2023-08-02T19:52:53.482Z",
+        "dateUpdated": "2023-08-02T19:52:53.482Z"
+    },
+    "containers": {
+        "cna": {
+            "providerMetadata": {
+                "orgId": "1bb62c36-49e3-4200-9d77-64a1400537cc",
+                "shortName": "Go",
+                "dateUpdated": "2023-08-02T19:52:53.482Z"
+            },
+            "title": "Excessive CPU consumption when decoding 0-height images in golang.org/x/image/tiff",
+            "descriptions": [
+                {
+                    "lang": "en",
+                    "value": "A maliciously-crafted image can cause excessive CPU consumption in decoding. A tiled image with a height of 0 and a very large width can cause excessive CPU consumption, despite the image size (width * height) appearing to be zero."
+                }
+            ],
+            "affected": [
+                {
+                    "vendor": "golang.org/x/image",
+                    "product": "golang.org/x/image/tiff",
+                    "collectionURL": "https://pkg.go.dev",
+                    "packageName": "golang.org/x/image/tiff",
+                    "versions": [
+                        {
+                            "version": "0",
+                            "lessThan": "0.10.0",
+                            "status": "affected",
+                            "versionType": "semver"
+                        }
+                    ],
+                    "programRoutines": [
+                        {
+                            "name": "newDecoder"
+                        },
+                        {
+                            "name": "Decode"
+                        },
+                        {
+                            "name": "DecodeConfig"
+                        }
+                    ],
+                    "defaultStatus": "unaffected"
+                }
+            ],
+            "problemTypes": [
+                {
+                    "descriptions": [
+                        {
+                            "lang": "en",
+                            "description": "CWE-834: Excessive Iteration"
+                        }
+                    ]
+                }
+            ],
+            "references": [
+                {
+                    "url": "https://go.dev/issue/61581"
+                },
+                {
+                    "url": "https://go.dev/cl/514897"
+                },
+                {
+                    "url": "https://pkg.go.dev/vuln/GO-2023-1990"
+                },
+                {
+                    "url": "https://security.netapp.com/advisory/ntap-20230831-0009/"
+                },
+                {
+                    "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/KO54NBDUJXKAZNGCFOEYL2LKK2RQP6K6/"
+                },
+                {
+                    "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/XWH6Q7NVM4MV3GWFEU4PA67AWZHVFJQ2/"
+                },
+                {
+                    "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/XZTEP6JYILRBNDTNWTEQ5D4QUUVQBESK/"
+                }
+            ],
+            "credits": [
+                {
+                    "lang": "en",
+                    "value": "Philippe Antoine (Catena cyber)"
+                }
+            ]
+        }
+    }
 }
 -- cves/2023/44xxx/CVE-2023-44378.json --
 {
@@ -402,89 +918,435 @@ ignore me please
         }
     }
 }
--- cves/2020/9xxx/CVE-2020-9283.json --
+-- cves/2023/45xxx/CVE-2023-45283.json --
 {
     "dataType": "CVE_RECORD",
     "dataVersion": "5.0",
     "cveMetadata": {
+        "cveId": "CVE-2023-45283",
+        "assignerOrgId": "1bb62c36-49e3-4200-9d77-64a1400537cc",
         "state": "PUBLISHED",
-        "cveId": "CVE-2020-9283",
-        "assignerOrgId": "8254265b-2729-46b6-b9e3-3dfca2d5bfca",
-        "assignerShortName": "mitre",
-        "dateUpdated": "2023-06-16T00:00:00",
-        "dateReserved": "2020-02-19T00:00:00",
-        "datePublished": "2020-02-20T00:00:00"
+        "assignerShortName": "Go",
+        "dateReserved": "2023-10-06T17:06:26.220Z",
+        "datePublished": "2023-11-09T16:30:12.395Z",
+        "dateUpdated": "2023-12-06T16:27:23.552Z"
     },
     "containers": {
         "cna": {
             "providerMetadata": {
-                "orgId": "8254265b-2729-46b6-b9e3-3dfca2d5bfca",
-                "shortName": "mitre",
-                "dateUpdated": "2023-06-16T00:00:00"
+                "orgId": "1bb62c36-49e3-4200-9d77-64a1400537cc",
+                "shortName": "Go",
+                "dateUpdated": "2023-12-06T16:27:23.552Z"
             },
+            "title": "Insecure parsing of Windows paths with a \\??\\ prefix in path/filepath",
             "descriptions": [
                 {
                     "lang": "en",
-                    "value": "golang.org/x/crypto before v0.0.0-20200220183623-bac4c82f6975 for Go allows a panic during signature verification in the golang.org/x/crypto/ssh package. A client can attack an SSH server that accepts public keys. Also, a server can attack any SSH client."
+                    "value": "The filepath package does not recognize paths with a \\??\\ prefix as special. On Windows, a path beginning with \\??\\ is a Root Local Device path equivalent to a path beginning with \\\\?\\. Paths with a \\??\\ prefix may be used to access arbitrary locations on the system. For example, the path \\??\\c:\\x is equivalent to the more common path c:\\x. Before fix, Clean could convert a rooted path such as \\a\\..\\??\\b into the root local device path \\??\\b. Clean will now convert this to .\\??\\b. Similarly, Join(\\, ??, b) could convert a seemingly innocent sequence of path elements into the root local device path \\??\\b. Join will now convert this to \\.\\??\\b. In addition, with fix, IsAbs now correctly reports paths beginning with \\??\\ as absolute, and VolumeName correctly reports the \\??\\ prefix as a volume name. UPDATE: Go 1.20.11 and Go 1.21.4 inadvertently changed the definition of the volume name in Windows paths starting with \\?, resulting in filepath.Clean(\\?\\c:) returning \\?\\c: rather than \\?\\c:\\ (among other effects). The previous behavior has been restored."
                 }
             ],
             "affected": [
                 {
-                    "vendor": "n/a",
-                    "product": "n/a",
+                    "vendor": "Go standard library",
+                    "product": "path/filepath",
+                    "collectionURL": "https://pkg.go.dev",
+                    "packageName": "path/filepath",
                     "versions": [
                         {
-                            "version": "n/a",
-                            "status": "affected"
+                            "version": "0",
+                            "lessThan": "1.20.11",
+                            "status": "affected",
+                            "versionType": "semver"
+                        },
+                        {
+                            "version": "1.21.0-0",
+                            "lessThan": "1.21.4",
+                            "status": "affected",
+                            "versionType": "semver"
                         }
-                    ]
-                }
-            ],
-            "references": [
-                {
-                    "url": "https://groups.google.com/forum/#%21topic/golang-announce/3L45YRc91SY"
-                },
-                {
-                    "url": "http://packetstormsecurity.com/files/156480/Go-SSH-0.0.2-Denial-Of-Service.html"
-                },
-                {
-                    "name": "[debian-lts-announce] 20201007 [SECURITY] [DLA 2402-1] golang-go.crypto security update",
-                    "tags": [
-                        "mailing-list"
                     ],
-                    "url": "https://lists.debian.org/debian-lts-announce/2020/10/msg00014.html"
+                    "platforms": [
+                        "windows"
+                    ],
+                    "programRoutines": [
+                        {
+                            "name": "Clean"
+                        },
+                        {
+                            "name": "volumeNameLen"
+                        },
+                        {
+                            "name": "join"
+                        },
+                        {
+                            "name": "Abs"
+                        },
+                        {
+                            "name": "Base"
+                        },
+                        {
+                            "name": "Dir"
+                        },
+                        {
+                            "name": "EvalSymlinks"
+                        },
+                        {
+                            "name": "Glob"
+                        },
+                        {
+                            "name": "IsLocal"
+                        },
+                        {
+                            "name": "Join"
+                        },
+                        {
+                            "name": "Rel"
+                        },
+                        {
+                            "name": "Split"
+                        },
+                        {
+                            "name": "VolumeName"
+                        },
+                        {
+                            "name": "Walk"
+                        },
+                        {
+                            "name": "WalkDir"
+                        }
+                    ],
+                    "defaultStatus": "unaffected"
                 },
                 {
-                    "name": "[debian-lts-announce] 20201116 [SECURITY] [DLA 2453-1] restic security update",
-                    "tags": [
-                        "mailing-list"
+                    "vendor": "Go standard library",
+                    "product": "internal/safefilepath",
+                    "collectionURL": "https://pkg.go.dev",
+                    "packageName": "internal/safefilepath",
+                    "versions": [
+                        {
+                            "version": "0",
+                            "lessThan": "1.20.11",
+                            "status": "affected",
+                            "versionType": "semver"
+                        },
+                        {
+                            "version": "1.21.0-0",
+                            "lessThan": "1.21.4",
+                            "status": "affected",
+                            "versionType": "semver"
+                        }
                     ],
-                    "url": "https://lists.debian.org/debian-lts-announce/2020/11/msg00027.html"
+                    "platforms": [
+                        "windows"
+                    ],
+                    "programRoutines": [
+                        {
+                            "name": "fromFS"
+                        },
+                        {
+                            "name": "FromFS"
+                        }
+                    ],
+                    "defaultStatus": "unaffected"
                 },
                 {
-                    "name": "[debian-lts-announce] 20201118 [SECURITY] [DLA 2455-1] packer security update",
-                    "tags": [
-                        "mailing-list"
+                    "vendor": "Go standard library",
+                    "product": "path/filepath",
+                    "collectionURL": "https://pkg.go.dev",
+                    "packageName": "path/filepath",
+                    "versions": [
+                        {
+                            "version": "1.20.11",
+                            "lessThan": "1.20.12",
+                            "status": "affected",
+                            "versionType": "semver"
+                        },
+                        {
+                            "version": "1.21.4",
+                            "lessThan": "1.21.5",
+                            "status": "affected",
+                            "versionType": "semver"
+                        }
                     ],
-                    "url": "https://lists.debian.org/debian-lts-announce/2020/11/msg00031.html"
-                },
-                {
-                    "name": "[debian-lts-announce] 20230616 [SECURITY] [DLA 3455-1] golang-go.crypto security update",
-                    "tags": [
-                        "mailing-list"
+                    "platforms": [
+                        "windows"
                     ],
-                    "url": "https://lists.debian.org/debian-lts-announce/2023/06/msg00017.html"
+                    "programRoutines": [
+                        {
+                            "name": "volumeNameLen"
+                        },
+                        {
+                            "name": "Abs"
+                        },
+                        {
+                            "name": "Base"
+                        },
+                        {
+                            "name": "Clean"
+                        },
+                        {
+                            "name": "Dir"
+                        },
+                        {
+                            "name": "EvalSymlinks"
+                        },
+                        {
+                            "name": "Glob"
+                        },
+                        {
+                            "name": "IsLocal"
+                        },
+                        {
+                            "name": "Join"
+                        },
+                        {
+                            "name": "Rel"
+                        },
+                        {
+                            "name": "Split"
+                        },
+                        {
+                            "name": "VolumeName"
+                        },
+                        {
+                            "name": "Walk"
+                        },
+                        {
+                            "name": "WalkDir"
+                        }
+                    ],
+                    "defaultStatus": "unaffected"
                 }
             ],
             "problemTypes": [
                 {
                     "descriptions": [
                         {
-                            "type": "text",
                             "lang": "en",
-                            "description": "n/a"
+                            "description": "CWE-41: Improper Resolution of Path Equivalence"
                         }
                     ]
+                }
+            ],
+            "references": [
+                {
+                    "url": "https://go.dev/issue/63713"
+                },
+                {
+                    "url": "https://go.dev/cl/540277"
+                },
+                {
+                    "url": "https://groups.google.com/g/golang-announce/c/4tU8LZfBFkY"
+                },
+                {
+                    "url": "https://go.dev/issue/64028"
+                },
+                {
+                    "url": "https://go.dev/cl/541175"
+                },
+                {
+                    "url": "https://groups.google.com/g/golang-dev/c/6ypN5EjibjM/m/KmLVYH_uAgAJ"
+                },
+                {
+                    "url": "https://pkg.go.dev/vuln/GO-2023-2185"
+                },
+                {
+                    "url": "http://www.openwall.com/lists/oss-security/2023/12/05/2"
+                }
+            ]
+        }
+    }
+}
+-- cves/2023/45xxx/CVE-2023-45285.json --
+{
+    "dataType": "CVE_RECORD",
+    "dataVersion": "5.0",
+    "cveMetadata": {
+        "cveId": "CVE-2023-45285",
+        "assignerOrgId": "1bb62c36-49e3-4200-9d77-64a1400537cc",
+        "state": "PUBLISHED",
+        "assignerShortName": "Go",
+        "dateReserved": "2023-10-06T17:06:26.220Z",
+        "datePublished": "2023-12-06T16:27:55.521Z",
+        "dateUpdated": "2023-12-06T16:27:55.521Z"
+    },
+    "containers": {
+        "cna": {
+            "providerMetadata": {
+                "orgId": "1bb62c36-49e3-4200-9d77-64a1400537cc",
+                "shortName": "Go",
+                "dateUpdated": "2023-12-06T16:27:55.521Z"
+            },
+            "title": "Command 'go get' may unexpectedly fallback to insecure git in cmd/go",
+            "descriptions": [
+                {
+                    "lang": "en",
+                    "value": "Using go get to fetch a module with the \".git\" suffix may unexpectedly fallback to the insecure \"git://\" protocol if the module is unavailable via the secure \"https://\" and \"git+ssh://\" protocols, even if GOINSECURE is not set for said module. This only affects users who are not using the module proxy and are fetching modules directly (i.e. GOPROXY=off)."
+                }
+            ],
+            "affected": [
+                {
+                    "vendor": "Go toolchain",
+                    "product": "cmd/go",
+                    "collectionURL": "https://pkg.go.dev",
+                    "packageName": "cmd/go",
+                    "versions": [
+                        {
+                            "version": "0",
+                            "lessThan": "1.20.12",
+                            "status": "affected",
+                            "versionType": "semver"
+                        },
+                        {
+                            "version": "1.21.0-0",
+                            "lessThan": "1.21.5",
+                            "status": "affected",
+                            "versionType": "semver"
+                        }
+                    ],
+                    "defaultStatus": "unaffected"
+                }
+            ],
+            "problemTypes": [
+                {
+                    "descriptions": [
+                        {
+                            "lang": "en",
+                            "description": "CWE-636: Not Failing Securely ('Failing Open')"
+                        }
+                    ]
+                }
+            ],
+            "references": [
+                {
+                    "url": "https://groups.google.com/g/golang-dev/c/6ypN5EjibjM/m/KmLVYH_uAgAJ"
+                },
+                {
+                    "url": "https://go.dev/issue/63845"
+                },
+                {
+                    "url": "https://go.dev/cl/540257"
+                },
+                {
+                    "url": "https://pkg.go.dev/vuln/GO-2023-2383"
+                }
+            ],
+            "credits": [
+                {
+                    "lang": "en",
+                    "value": "David Leadbeater"
+                }
+            ]
+        }
+    }
+}
+-- cves/2023/45xxx/CVE-2023-45286.json --
+{
+    "dataType": "CVE_RECORD",
+    "dataVersion": "5.0",
+    "cveMetadata": {
+        "cveId": "CVE-2023-45286",
+        "assignerOrgId": "1bb62c36-49e3-4200-9d77-64a1400537cc",
+        "state": "PUBLISHED",
+        "assignerShortName": "Go",
+        "dateReserved": "2023-10-06T17:06:26.221Z",
+        "datePublished": "2023-11-28T16:31:21.078Z",
+        "dateUpdated": "2023-11-28T16:31:21.078Z"
+    },
+    "containers": {
+        "cna": {
+            "providerMetadata": {
+                "orgId": "1bb62c36-49e3-4200-9d77-64a1400537cc",
+                "shortName": "Go",
+                "dateUpdated": "2023-11-28T16:31:21.078Z"
+            },
+            "title": "HTTP request body disclosure in github.com/go-resty/resty/v2",
+            "descriptions": [
+                {
+                    "lang": "en",
+                    "value": "A race condition in go-resty can result in HTTP request body disclosure across requests. This condition can be triggered by calling sync.Pool.Put with the same *bytes.Buffer more than once, when request retries are enabled and a retry occurs. The call to sync.Pool.Get will then return a bytes.Buffer that hasn't had bytes.Buffer.Reset called on it. This dirty buffer will contain the HTTP request body from an unrelated request, and go-resty will append the current HTTP request body to it, sending two bodies in one request. The sync.Pool in question is defined at package level scope, so a completely unrelated server could receive the request body."
+                }
+            ],
+            "affected": [
+                {
+                    "vendor": "github.com/go-resty/resty/v2",
+                    "product": "github.com/go-resty/resty/v2",
+                    "collectionURL": "https://pkg.go.dev",
+                    "packageName": "github.com/go-resty/resty/v2",
+                    "versions": [
+                        {
+                            "version": "0",
+                            "lessThan": "2.10.0",
+                            "status": "unaffected",
+                            "versionType": "semver"
+                        }
+                    ],
+                    "programRoutines": [
+                        {
+                            "name": "handleRequestBody"
+                        },
+                        {
+                            "name": "Backoff"
+                        },
+                        {
+                            "name": "Request.Delete"
+                        },
+                        {
+                            "name": "Request.Execute"
+                        },
+                        {
+                            "name": "Request.Get"
+                        },
+                        {
+                            "name": "Request.Head"
+                        },
+                        {
+                            "name": "Request.Options"
+                        },
+                        {
+                            "name": "Request.Patch"
+                        },
+                        {
+                            "name": "Request.Post"
+                        },
+                        {
+                            "name": "Request.Put"
+                        },
+                        {
+                            "name": "Request.Send"
+                        }
+                    ],
+                    "defaultStatus": "affected"
+                }
+            ],
+            "problemTypes": [
+                {
+                    "descriptions": [
+                        {
+                            "lang": "en",
+                            "description": "CWE-200: Exposure of Sensitive Information to an Unauthorized Actor"
+                        }
+                    ]
+                }
+            ],
+            "references": [
+                {
+                    "url": "https://github.com/go-resty/resty/issues/743"
+                },
+                {
+                    "url": "https://github.com/go-resty/resty/issues/739"
+                },
+                {
+                    "url": "https://github.com/go-resty/resty/pull/745"
+                },
+                {
+                    "url": "https://pkg.go.dev/vuln/GO-2023-2328"
+                }
+            ],
+            "credits": [
+                {
+                    "lang": "en",
+                    "value": "Logan Attwood (@lattwood)"
                 }
             ]
         }
