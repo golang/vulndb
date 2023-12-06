@@ -131,8 +131,8 @@ func TestV4V5Equivalence(t *testing.T) {
 				t.Errorf("archive filename mismatch: v4=%s, v5=%s", v4f, v5f)
 			}
 			if diff := cmp.Diff(v4report, v5report,
-				// Ignore credits because these are not handled properly in v4.
-				cmpopts.IgnoreFields(Report{}, "Credits")); diff != "" {
+				// Ignore credits and summary because these are not handled properly in v4.
+				cmpopts.IgnoreFields(Report{}, "Credits", "Summary")); diff != "" {
 				t.Errorf("mismatch (-v4, +v5):\n%s", diff)
 			}
 		})

@@ -155,9 +155,9 @@ func cve5ToReport(c *cveschema5.CVERecord, id, modulePath string) *Report {
 	}
 
 	r := &Report{
-		ID:      id,
-		Modules: modules,
-		// TODO(tatianabradley): Add CVE title as summary.
+		ID:          id,
+		Modules:     modules,
+		Summary:     Summary(cna.Title),
 		Description: description,
 		Credits:     credits,
 		References:  refs,
