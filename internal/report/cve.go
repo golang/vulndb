@@ -81,22 +81,30 @@ func cveToReport(c *cveschema.CVE, id, modulePath string) *Report {
 		Credits:     credits,
 		References:  refs,
 	}
-	r.addCVE(c.Metadata.ID, modulePath)
+	r.addCVE(c.Metadata.ID, getCWE(c), isGoCNA(c))
 	return r
 }
 
-func (r *Report) addCVE(cveID, modulePath string) {
-	// New standard library and x/ repo CVEs are likely maintained by
-	// the Go CNA.
-	if stdlib.IsStdModule(modulePath) || stdlib.IsCmdModule(modulePath) ||
-		stdlib.IsXModule(modulePath) {
+func getCWE(c *cveschema.CVE) string {
+	if len(c.ProblemType.Data) == 0 || len(c.ProblemType.Data[0].Description) == 0 {
+		return ""
+	}
+	return c.ProblemType.Data[0].Description[0].Value
+}
+
+func isGoCNA(c *cveschema.CVE) bool {
+	return c.Assigner == "security@golang.org"
+}
+
+func (r *Report) addCVE(cveID, cwe string, isGoCNA bool) {
+	if isGoCNA {
 		r.CVEMetadata = &CVEMeta{
 			ID:  cveID,
-			CWE: "TODO",
+			CWE: cwe,
 		}
-	} else {
-		r.CVEs = append(r.CVEs, cveID)
+		return
 	}
+	r.CVEs = append(r.CVEs, cveID)
 }
 
 func CVE5ToReport(c *cveschema5.CVERecord, id, modulePath string, pc *proxy.Client) *Report {
@@ -163,6 +171,17 @@ func cve5ToReport(c *cveschema5.CVERecord, id, modulePath string) *Report {
 		References:  refs,
 	}
 
-	r.addCVE(c.Metadata.ID, modulePath)
+	r.addCVE(c.Metadata.ID, getCWE5(&cna), isGoCNA5(&cna))
 	return r
+}
+
+func getCWE5(c *cveschema5.CNAPublishedContainer) string {
+	if len(c.ProblemTypes) == 0 || len(c.ProblemTypes[0].Descriptions) == 0 {
+		return ""
+	}
+	return c.ProblemTypes[0].Descriptions[0].Description
+}
+
+func isGoCNA5(c *cveschema5.CNAPublishedContainer) bool {
+	return c.ProviderMetadata.OrgID == GoOrgUUID
 }
