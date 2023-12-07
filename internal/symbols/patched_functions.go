@@ -364,17 +364,27 @@ func astSymbolName(f *ast.FuncDecl) string {
 		return "" // sanity
 	}
 
+	// unpackIdent assumes e is of the form id or id[...]
+	// and then returns id. Otherwise, returns "".
+	unpackIdent := func(e ast.Expr) string {
+		switch xv := e.(type) {
+		case *ast.Ident:
+			return xv.Name
+		case *ast.IndexExpr:
+			if si, ok := xv.X.(*ast.Ident); ok {
+				return si.Name
+			}
+		}
+		return ""
+	}
+
+	// supported receiver type snames are id, *id, id[...], and *id[...].
 	t := ""
 	switch xv := field.Type.(type) {
 	case *ast.StarExpr:
-		if si, ok := xv.X.(*ast.Ident); ok {
-			t = si.Name
-		}
-	case *ast.Ident:
-		t = xv.Name
-	case *ast.IndexExpr:
-		// TODO(#63535): cover index instructions stemming from generics
-		return ""
+		t = unpackIdent(xv.X)
+	case *ast.Ident, *ast.IndexExpr:
+		t = unpackIdent(xv)
 	default:
 		panic(fmt.Sprintf("astSymbolName: unexpected receiver type: %v\n", reflect.TypeOf(field.Type)))
 	}

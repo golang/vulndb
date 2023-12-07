@@ -16,15 +16,14 @@ import (
 
 	"golang.org/x/exp/slices"
 	"golang.org/x/tools/go/packages"
-	"golang.org/x/tools/go/ssa"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/osvutils"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/version"
 )
 
-// Exported returns a set of vulnerable symbols exported
-// by a package p from the module m.
+// Exported returns a set of vulnerable symbols, in the vuln
+// db format, exported by a package p from the module m.
 func Exported(m *report.Module, p *report.Package, errlog *log.Logger) (_ []string, err error) {
 	defer derrors.Wrap(&err, "Exported(%q, %q)", m.Module, p.Package)
 
@@ -175,22 +174,8 @@ func exportedFunctions(pkg *packages.Package, m *report.Module) (_ map[string]bo
 	names := map[string]bool{}
 	for _, e := range entries {
 		if pkgPath(e) == pkg.PkgPath {
-			names[ssaSymbolName(e)] = true
+			names[dbFuncName(e)] = true
 		}
 	}
 	return names, nil
-}
-
-func ssaSymbolName(fn *ssa.Function) string {
-	recv := fn.Signature.Recv()
-	if recv == nil {
-		return fn.Name()
-	}
-	recvType := recv.Type().String()
-	// Remove package path from type.
-	i := strings.LastIndexByte(recvType, '.')
-	if i < 0 {
-		return recvType + "." + fn.Name()
-	}
-	return recvType[i+1:] + "." + fn.Name()
 }

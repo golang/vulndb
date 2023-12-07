@@ -198,6 +198,14 @@ func (a A) Do() {}
 
 type B struct {}
 func (b *B) Do() {}
+
+type C[T any] struct {
+	t T
+}
+func (c C[T]) Do() {}
+func (c *C[T]) Bar() {}
+
+func Go[X any]() {}
 `
 	fset := token.NewFileSet() // positions are relative to fset
 	f, err := parser.ParseFile(fset, "src.go", src, 0)
@@ -212,7 +220,7 @@ func (b *B) Do() {}
 		}
 	}
 	sort.Strings(got)
-	want := []string{"A.Do", "B.Do", "Foo"}
+	want := []string{"A.Do", "B.Do", "C.Bar", "C.Do", "Foo", "Go"}
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("(-got, want+):\n%s", diff)
 	}
