@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-2386",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-45292"
+  ],
+  "summary": "Captcha verification bypass in github.com/mojocn/base64Captcha",
+  "details": "When using the default implementation of Verify to check a Captcha, verification can be bypassed.\n\nFor example, if the first parameter is a non-existent id, the second parameter is an empty string, and the third parameter is true, the function will always consider the Captcha to be correct.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mojocn/base64Captcha",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/mojocn/base64Captcha",
+            "symbols": [
+              "memoryStore.Verify"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://github.com/mojocn/base64Captcha/issues/120"
+    }
+  ],
+  "credits": [
+    {
+      "name": "@cangkuai"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-2386"
+  }
+}
