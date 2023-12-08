@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-2380",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-49292",
+    "GHSA-8j98-cjfr-qx3h"
+  ],
+  "summary": "Private key recovery via invalid curve point in github.com/ecies/go/v2",
+  "details": "An attacker may be able to recover private keys due to a bug in the ECDH function.\n\nThe library does not check whether the provided public key is on the curve, which means that an attacker can create a public key that is not on the curve and use it to recover the private key.\n\nA workaround is to manually check that the public key is valid by calling the IsOnCurve function from the secp256k1 libraries.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/ecies/go/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.0.8"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/ecies/go/v2",
+            "symbols": [
+              "Decrypt",
+              "Encrypt",
+              "PrivateKey.ECDH",
+              "PrivateKey.Encapsulate",
+              "PublicKey.Decapsulate"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/ecies/go/security/advisories/GHSA-8j98-cjfr-qx3h"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/ecies/go/commit/c6e775163866d6ea5233eb8ec8530a9122101ebd"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/ashutosh1206/Crypton/blob/master/Diffie-Hellman-Key-Exchange/Attack-Invalid-Curve-Point/README.md"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-2380"
+  }
+}
