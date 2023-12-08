@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-2379",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-49290",
+    "GHSA-7f9x-gw85-8grf"
+  ],
+  "summary": "Denial of service due to malicious parameters in github.com/lestrrat-go/jwx",
+  "details": "The JWE key management algorithms based on PBKDF2 require a JOSE Header Parameter called p2c (PBES2 Count). This parameter dictates the number of PBKDF2 iterations needed to derive a CEK wrapping key. Its purpose is to intentionally slow down the key derivation function, making password brute-force and dictionary attacks more resource-intensive. However, if an attacker sets the p2c parameter in JWE to a very large number, it can cause excessive computational consumption.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/lestrrat-go/jwx",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.2.27"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/lestrrat-go/jwx/jwe",
+            "symbols": [
+              "Decrypt"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/lestrrat-go/jwx/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.0.18"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/lestrrat-go/jwx/v2/jwe",
+            "symbols": [
+              "Decrypt",
+              "decryptCtx.decryptContent"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/lestrrat-go/jwx/security/advisories/GHSA-7f9x-gw85-8grf"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/lestrrat-go/jwx/commit/64f2a229b8e18605f47361d292b526bdc4aee01c"
+    }
+  ],
+  "credits": [
+    {
+      "name": "@P3ngu1nW"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-2379"
+  }
+}
