@@ -18,7 +18,7 @@ modules:
         - package: golang.org/x/sys/unix
           symbols:
             - Faccessat
-          derived_symbols:
+          excluded_symbols:
             - Access
 summary: Incorrect privilege reporting in syscall and golang.org/x/sys/unix
 description: |-
