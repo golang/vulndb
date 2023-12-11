@@ -65,6 +65,12 @@ type Package struct {
 	// Additional vulnerable symbols, computed from Symbols via static analysis
 	// or other technique.
 	DerivedSymbols []string `yaml:"derived_symbols,omitempty"`
+	// Symbols that may be considered vulnerable by automated tools,
+	// but have been determined (by a human) to actually not be vulnerable.
+	// For now, this field is respected only by the tool that finds derived
+	// symbols, but is not published to OSV or elsewhere (so, for example,
+	// govulncheck cannot consume it).
+	ExcludedSymbols []string `yaml:"excluded_symbols,omitempty"`
 	// Reason the package is already considered fixed and should not be automatically updated.
 	SkipFix string `yaml:"skip_fix,omitempty"`
 }

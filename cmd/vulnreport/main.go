@@ -827,6 +827,8 @@ func checkReportSymbols(r *report.Report) error {
 			if err != nil {
 				return fmt.Errorf("package %s: %w", p.Package, err)
 			}
+			// Remove any derived symbols that were marked as excluded by a human.
+			syms = removeExcluded(syms, p.ExcludedSymbols)
 			if !cmp.Equal(syms, p.DerivedSymbols) {
 				p.DerivedSymbols = syms
 				infolog.Printf("%s: updated derived symbols for package %s\n", r.ID, p.Package)
@@ -835,6 +837,21 @@ func checkReportSymbols(r *report.Report) error {
 	}
 
 	return nil
+}
+
+func removeExcluded(syms, excluded []string) []string {
+	if len(excluded) == 0 {
+		return syms
+	}
+	var newSyms []string
+	for _, d := range syms {
+		if slices.Contains(excluded, d) {
+			infolog.Printf("removed excluded symbol %s\n", d)
+			continue
+		}
+		newSyms = append(newSyms, d)
+	}
+	return newSyms
 }
 
 func osvCmd(_ context.Context, filename string, pc *proxy.Client) (err error) {
