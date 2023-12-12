@@ -11,13 +11,13 @@ modules:
             - PeerState.MarshalJSON
 summary: Deadlock in github.com/cometbft/cometbft/consensus
 description: |-
-    An internal modification to the way PeerState is serialized to JSON introduced
-    a deadlock when the new function MarshalJSON is called.
+    An internal modification to the way PeerState is serialized to JSON introduced a
+    deadlock when the new function MarshalJSON is called.
 
-    This function can be called in two ways. The first is via logs, by setting
-    the consensus logging module to "debug" level (which should not happen in
-    production), and setting the log output format to JSON. The second is via
-    RPC dump_consensus_state.
+    This function can be called in two ways. The first is via logs, by setting the
+    consensus logging module to "debug" level (which should not happen in
+    production), and setting the log output format to JSON. The second is via RPC
+    dump_consensus_state.
 cves:
     - CVE-2023-34450
 ghsas:

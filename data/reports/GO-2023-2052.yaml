@@ -10,7 +10,9 @@ modules:
             - Ctx.isLocalHost
           derived_symbols:
             - Ctx.IsFromLocal
-summary: IsFromLocal local address check can be circumvented in github.com/gofiber/fiber/v2
+summary: |-
+    IsFromLocal local address check can be circumvented in
+    github.com/gofiber/fiber/v2
 description: |-
     The Ctx.IsFromLocal function can incorrectly report a request as being sent from
     localhost when the request contains an X-Forwarded-For header containing a

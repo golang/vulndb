@@ -15,9 +15,9 @@ summary: Denial of service via OOM in github.com/cometbft/cometbft
 description: |-
     A bug in the CometBFT middleware causes the mempool's two data structures to
     fall out of sync. This can lead to duplicate transactions that cannot be
-    removed, even after they are committed in a block. The only way to remove
-    the transaction is to restart the node. This can be exploited by an attacker
-    to bring down a node by repeatedly submitting duplicate transactions.
+    removed, even after they are committed in a block. The only way to remove the
+    transaction is to restart the node. This can be exploited by an attacker to
+    bring down a node by repeatedly submitting duplicate transactions.
 cves:
     - CVE-2023-34451
 ghsas:

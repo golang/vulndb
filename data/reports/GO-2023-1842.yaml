@@ -9,7 +9,9 @@ modules:
       packages:
         - package: cmd/go
         - package: cmd/cgo
-summary: Improper sanitization of LDFLAGS with embedded spaces in go command with cgo in cmd/go
+summary: |-
+    Improper sanitization of LDFLAGS with embedded spaces in go command with cgo in
+    cmd/go
 description: |-
     The go command may execute arbitrary code at build time when using cgo. This may
     occur when running "go get" on a malicious module, or when running any other

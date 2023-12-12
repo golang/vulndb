@@ -12,12 +12,11 @@ modules:
             - IsLocal
 summary: Incorrect detection of reserved device names on Windows in path/filepath
 description: |-
-    On Windows, The IsLocal function does not correctly detect reserved device
-    names in some cases.
+    On Windows, The IsLocal function does not correctly detect reserved device names
+    in some cases.
 
-    Reserved names followed by spaces, such as "COM1 ", and
-    reserved names "COM" and "LPT" followed by superscript 1, 2, or 3, are
-    incorrectly reported as local.
+    Reserved names followed by spaces, such as "COM1 ", and reserved names "COM" and
+    "LPT" followed by superscript 1, 2, or 3, are incorrectly reported as local.
 
     With fix, IsLocal now correctly reports these names as non-local.
 references:
