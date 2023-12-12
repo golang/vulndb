@@ -39,7 +39,7 @@ description: |-
     If an "accounts" block is defined, in simple deployment scenarios this is often
     used only to enable client access to the system account. When the only account
     added is the system account "$SYS", the nats-server would create an implicit
-    user in "$G" and set it as the `no_auth_user` account, enabling the same
+    user in "$G" and set it as the "no_auth_user" account, enabling the same
     "without authentication" logic as without any rules.
 
     This preserved the ability to connect simply, and then add one authenticated
@@ -50,7 +50,7 @@ description: |-
     without administrators seeing that authentication has been disabled.
 
     In the fixed versions, using an "authorization" block will inhibit the implicit
-    creation of a "$G" user and setting it as the `no_auth_user` target. In unfixed
+    creation of a "$G" user and setting it as the "no_auth_user" target. In unfixed
     versions, just creating a second account, with no users, will also inhibit this
     behavior.
 cves:

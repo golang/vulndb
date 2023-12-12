@@ -20,12 +20,12 @@ description: |-
     message is visible when a user attempts to create or update an Application via
     the Argo CD API (and therefor the UI or CLI).
 
-    The user must have `applications, create` or `applications, update` RBAC access
+    The user must have "applications, create" or "applications, update" RBAC access
     to reach the code which may produce the error. The user is not guaranteed to be
     able to trigger the error message. They may attempt to spam the API with
     requests to trigger a rate limit error from the upstream repository.
 
-    If the user has `repositories, update` access, they may edit an existing
+    If the user has "repositories, update" access, they may edit an existing
     repository to introduce a URL typo or otherwise force an error message.
 cves:
     - CVE-2023-25163

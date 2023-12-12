@@ -29,7 +29,7 @@ description: |-
     attack when handling requests with non-standard HTTP methods.
 
     In order to be affected, an instrumented software must use any of the
-    promhttp.InstrumentHandler* middleware except `RequestsInFlight`; not filter any
+    promhttp.InstrumentHandler* middleware except RequestsInFlight; not filter any
     specific methods (e.g GET) before middleware; pass a metric with a "method"
     label name to a middleware; and not have any firewall/LB/proxy that filters away
     requests with unknown "method".

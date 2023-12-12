@@ -23,7 +23,7 @@ description: |-
     An attacker can send HTTP/2 requests, cancel them, and send subsequent requests.
     This is valid by the HTTP/2 protocol, but would cause the gRPC-Go server to
     launch more concurrent method handlers than the configured maximum stream limit,
-    `grpc.MaxConcurrentStreams`. This results in a denial of service due to resource
+    grpc.MaxConcurrentStreams. This results in a denial of service due to resource
     consumption.
 ghsas:
     - GHSA-m425-mq94-257g
