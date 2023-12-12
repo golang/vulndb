@@ -267,6 +267,7 @@ func (r *Report) lintReferences(l *linter) {
 func (d *Description) lint(l *linter, r *Report) {
 	desc := d.String()
 
+	checkNoMarkdown(l, desc)
 	r.lintLineLength(l, desc)
 	if !r.IsExcluded() && desc == "" {
 		if r.CVEMetadata != nil {
@@ -289,6 +290,7 @@ func (s *Summary) lint(l *linter, r *Report) {
 		// No need to keep linting, as this is likely a placeholder value.
 		return
 	}
+	checkNoMarkdown(l, summary)
 	if ln := len(summary); ln > 100 {
 		l.Errorf("too long (found %d characters, want <=100)", ln)
 	}
@@ -568,4 +570,21 @@ var hasTODOErr = "contains a TODO"
 
 func hasTODO(s string) bool {
 	return strings.Contains(s, "TODO")
+}
+
+// Regular expressions for markdown-style elements that shouldn't
+// be in our descriptions/summaries.
+var (
+	backtickRE = regexp.MustCompile("(`.*`)")
+	linkRE     = regexp.MustCompile(`(\[.*\]\(.*\))`)
+	headingRE  = regexp.MustCompile(`(#+ )`)
+)
+
+func checkNoMarkdown(l *linter, s string) {
+	for _, re := range []*regexp.Regexp{backtickRE, linkRE, headingRE} {
+		matches := re.FindStringSubmatch(s)
+		if len(matches) > 0 {
+			l.Errorf("possible markdown formatting (found %s)", matches[1])
+		}
+	}
 }

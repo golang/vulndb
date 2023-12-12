@@ -675,6 +675,17 @@ func TestLintOffline(t *testing.T) {
 			report: validExcludedReport(noop),
 			// No lints.
 		},
+		{
+			name: "markdown",
+			desc: "Descriptions and summaries should not contain Markdown formatting.",
+			report: validReport(
+				func(r *Report) {
+					r.Summary += " in function `Hello`"
+					r.Description = "# Problem\nMore info [here](https://example.com)"
+				},
+			),
+			wantNumLints: 3,
+		},
 	} {
 		test := test
 		t.Run(test.name, func(t *testing.T) {

@@ -1,0 +1,25 @@
+Copyright 2023 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+
+Test: TestLintOffline/markdown
+Description: Descriptions and summaries should not contain Markdown formatting.
+
+-- data/reports/GO-0000-0000.yaml --
+id: GO-0000-0000
+modules:
+    - module: golang.org/x/net
+      vulnerable_at: 1.2.3
+      packages:
+        - package: golang.org/x/net/http2
+summary: A summary of the issue in golang.org/x/net in function `Hello`
+description: |-
+    # Problem
+    More info [here](https://example.com)
+cves:
+    - CVE-1234-0000
+
+-- golden --
+summary: possible markdown formatting (found `Hello`)
+description: possible markdown formatting (found [here](https://example.com))
+description: possible markdown formatting (found # )
