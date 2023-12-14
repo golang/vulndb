@@ -1,0 +1,37 @@
+id: GO-2023-2400
+modules:
+    - module: github.com/sap/cloud-security-client-go
+      versions:
+        - fixed: 0.17.0
+      vulnerable_at: 0.16.0
+      packages:
+        - package: github.com/sap/cloud-security-client-go/auth
+          symbols:
+            - matchesDomain
+          derived_symbols:
+            - Middleware.Authenticate
+            - Middleware.AuthenticateWithProofOfPossession
+        - package: github.com/sap/cloud-security-client-go/oidcclient
+          symbols:
+            - OIDCTenant.getJWKsFromServer
+            - OIDCTenant.performDiscovery
+          derived_symbols:
+            - NewOIDCTenant
+            - OIDCTenant.GetJWKs
+        - package: github.com/sap/cloud-security-client-go/tokenclient
+          symbols:
+            - TokenFlows.ClientCredentials
+summary: Escalation of privileges in github.com/sap/cloud-security-client-go
+description: |-
+    An unauthenticated attacker can obtain arbitrary permissions
+    within the application under certain conditions.
+cves:
+    - CVE-2023-50424
+ghsas:
+    - GHSA-m8rw-rcpq-2vp2
+references:
+    - web: https://me.sap.com/notes/3411067
+    - web: https://www.sap.com/documents/2022/02/fa865ea4-167e-0010-bca6-c68f7e60039b.html
+    - web: https://blogs.sap.com/2023/12/12/unveiling-critical-security-updates-sap-btp-security-note-3411067/
+    - advisory: https://github.com/SAP/cloud-security-services-integration-library/security/advisories/GHSA-59c9-pxq8-9c73
+    - fix: https://github.com/SAP/cloud-security-client-go/commit/2e3bd63e152e09f267316a1071034eb5d4b7f498
