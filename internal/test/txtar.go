@@ -85,3 +85,16 @@ func CheckComment(wantComment, got string) error {
 
 	return nil
 }
+
+// FindFile returns the first "file" with the given filename in the
+// txtar archive, or an error if none is found.
+//
+// Intended for testing.
+func FindFile(ar *txtar.Archive, filename string) (*txtar.File, error) {
+	for _, f := range ar.Files {
+		if f.Name == filename {
+			return &f, nil
+		}
+	}
+	return nil, fmt.Errorf("%s not found", filename)
+}
