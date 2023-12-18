@@ -28,6 +28,7 @@ import (
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/observe"
+	"golang.org/x/vulndb/internal/pkgsite"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/worker/log"
@@ -36,7 +37,7 @@ import (
 
 // UpdateCVEsAtCommit performs an update on the store using the given commit.
 // Unless force is true, it checks that the update makes sense before doing it.
-func UpdateCVEsAtCommit(ctx context.Context, repoPath, commitHashString string, st store.Store, pkgsiteURL string, force bool) (err error) {
+func UpdateCVEsAtCommit(ctx context.Context, repoPath, commitHashString string, st store.Store, pc *pkgsite.Client, force bool) (err error) {
 	defer derrors.Wrap(&err, "RunCommitUpdate(%q, %q, force=%t)", repoPath, commitHashString, force)
 
 	log.Infof(ctx, "updating false positives")
@@ -76,7 +77,7 @@ func UpdateCVEsAtCommit(ctx context.Context, repoPath, commitHashString string, 
 		return err
 	}
 	u := newCVEUpdater(repo, commit, st, knownVulnIDs, func(cve *cveschema.CVE) (*cveutils.TriageResult, error) {
-		return cveutils.TriageCVE(ctx, cve, pkgsiteURL)
+		return cveutils.TriageCVE(ctx, cve, pc)
 	})
 	_, err = u.update(ctx)
 	return err

@@ -15,6 +15,7 @@ import (
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/ghsa"
+	"golang.org/x/vulndb/internal/pkgsite"
 	"golang.org/x/vulndb/internal/stdlib"
 	"golang.org/x/vulndb/internal/worker/log"
 )
@@ -36,11 +37,11 @@ var stdlibReferenceDataKeywords = []string{
 const unknownPath = "Path is unknown"
 
 // TriageCVE reports whether the CVE refers to a Go module.
-func TriageCVE(ctx context.Context, c *cveschema.CVE, pkgsiteURL string) (_ *TriageResult, err error) {
+func TriageCVE(ctx context.Context, c *cveschema.CVE, pc *pkgsite.Client) (_ *TriageResult, err error) {
 	defer derrors.Wrap(&err, "triageCVE(%q)", c.ID)
 	switch c.DataVersion {
 	case "4.0":
-		return triageV4CVE(ctx, c, pkgsiteURL)
+		return triageV4CVE(ctx, c, pc)
 	default:
 		// TODO(https://golang.org/issue/49289): Add support for v5.0.
 		return nil, fmt.Errorf("CVE %q has DataVersion %q: %w", c.ID, c.DataVersion, errCVEVersionUnsupported)
@@ -79,8 +80,8 @@ var notGoModules = map[string]bool{
 }
 
 // triageV4CVE triages a CVE following schema v4.0 and returns the result.
-func triageV4CVE(ctx context.Context, c *cveschema.CVE, pkgsiteURL string) (result *TriageResult, err error) {
-	defer derrors.Wrap(&err, "triageV4CVE(ctx, %q, %q)", c.ID, pkgsiteURL)
+func triageV4CVE(ctx context.Context, c *cveschema.CVE, pc *pkgsite.Client) (result *TriageResult, err error) {
+	defer derrors.Wrap(&err, "triageV4CVE(ctx, %q, %q)", c.ID, pc.URL())
 	defer func() {
 		if err != nil {
 			return
@@ -127,12 +128,12 @@ func triageV4CVE(ctx context.Context, c *cveschema.CVE, pkgsiteURL string) (resu
 			if notGoModules[mp] {
 				continue
 			}
-			known, err := knownToPkgsite(ctx, pkgsiteURL, mp)
+			known, err := pc.Known(ctx, mp)
 			if err != nil {
 				return nil, err
 			}
 			if known {
-				u := pkgsiteURL + "/" + mp
+				u := pc.URL() + "/" + mp
 				return &TriageResult{
 					ModulePath: mp,
 					Reason:     fmt.Sprintf("Reference data URL %q contains path %q; %q returned a status 200", r.URL, mp, u),

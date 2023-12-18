@@ -21,10 +21,10 @@ import (
 	"time"
 
 	"golang.org/x/vulndb/internal/cvelistrepo"
-	"golang.org/x/vulndb/internal/cveutils"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
+	"golang.org/x/vulndb/internal/pkgsite"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/worker"
@@ -195,12 +195,15 @@ func updateCommand(ctx context.Context, commitHash string) error {
 	if *localRepoPath != "" {
 		repoPath = *localRepoPath
 	}
+	pc := pkgsite.Default()
 	if *knownModuleFile != "" {
-		if err := populateKnownModules(*knownModuleFile); err != nil {
+		known, err := readKnownModules(*knownModuleFile)
+		if err != nil {
 			return err
 		}
+		pc.SetKnownModules(known)
 	}
-	err := worker.UpdateCVEsAtCommit(ctx, repoPath, commitHash, cfg.Store, pkgsiteURL, *force)
+	err := worker.UpdateCVEsAtCommit(ctx, repoPath, commitHash, cfg.Store, pc, *force)
 	if cerr := new(worker.CheckUpdateError); errors.As(err, &cerr) {
 		return fmt.Errorf("%w; use -force to override", cerr)
 	}
@@ -219,10 +222,10 @@ func updateCommand(ctx context.Context, commitHash string) error {
 	return err
 }
 
-func populateKnownModules(filename string) error {
+func readKnownModules(filename string) ([]string, error) {
 	f, err := os.Open(filename)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	defer f.Close()
 
@@ -236,11 +239,10 @@ func populateKnownModules(filename string) error {
 		mods = append(mods, line)
 	}
 	if err := scan.Err(); err != nil {
-		return err
+		return nil, err
 	}
-	cveutils.SetKnownModules(mods)
-	fmt.Printf("set %d known modules\n", len(mods))
-	return nil
+	fmt.Printf("%d known modules\n", len(mods))
+	return mods, nil
 }
 
 func createIssuesCommand(ctx context.Context) error {

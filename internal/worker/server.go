@@ -29,6 +29,7 @@ import (
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/observe"
+	"golang.org/x/vulndb/internal/pkgsite"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/worker/log"
@@ -307,7 +308,7 @@ func (s *Server) doUpdate(r *http.Request) (err error) {
 		}
 	}
 	force := (r.FormValue("force") == "true")
-	err = UpdateCVEsAtCommit(r.Context(), cvelistrepo.URLv4, "HEAD", s.cfg.Store, pkgsiteURL, force)
+	err = UpdateCVEsAtCommit(r.Context(), cvelistrepo.URLv4, "HEAD", s.cfg.Store, pkgsite.Default(), force)
 	if cerr := new(CheckUpdateError); errors.As(err, &cerr) {
 		return &serverError{
 			status: http.StatusPreconditionFailed,

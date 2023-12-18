@@ -15,6 +15,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"golang.org/x/vulndb/internal/cveschema"
+	"golang.org/x/vulndb/internal/pkgsite"
 	"golang.org/x/vulndb/internal/stdlib"
 )
 
@@ -22,43 +23,54 @@ var usePkgsite = flag.Bool("pkgsite", false, "use pkg.go.dev for tests")
 
 func TestTriageV4CVE(t *testing.T) {
 	ctx := context.Background()
-	url := GetPkgsiteURL(t, *usePkgsite)
+	cf, err := pkgsite.CacheFile(t)
+	if err != nil {
+		t.Fatal(err)
+	}
+	pc, err := pkgsite.TestClient(t, *usePkgsite, cf)
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	for _, test := range []struct {
 		name string
+		desc string
 		in   *cveschema.CVE
 		want *TriageResult
 	}{
 		{
-			"repo path is unknown Go standard library",
-			&cveschema.CVE{
+			name: "unknown_std",
+			desc: "repo path is unknown Go standard library",
+			in: &cveschema.CVE{
 				References: cveschema.References{
 					Data: []cveschema.Reference{
 						{URL: "https://groups.google.com/forum/#!topic/golang-nuts/1234"},
 					},
 				},
 			},
-			&TriageResult{
+			want: &TriageResult{
 				ModulePath: stdlib.ModulePath,
 			},
 		},
 		{
-			"pkg.go.dev URL is Go standard library package",
-			&cveschema.CVE{
+			name: "std",
+			desc: "pkg.go.dev URL is Go standard library package",
+			in: &cveschema.CVE{
 				References: cveschema.References{
 					Data: []cveschema.Reference{
 						{URL: "https://pkg.go.dev/net/http"},
 					},
 				},
 			},
-			&TriageResult{
+			want: &TriageResult{
 				ModulePath:  stdlib.ModulePath,
 				PackagePath: "net/http",
 			},
 		},
 		{
-			"repo path is is valid golang.org module path",
-			&cveschema.CVE{
+			name: "repo_golang_org",
+			desc: "repo path is is valid golang.org module path",
+			in: &cveschema.CVE{
 				References: cveschema.References{
 					Data: []cveschema.Reference{
 						{URL: "https://groups.google.com/forum/#!topic/golang-nuts/1234"},
@@ -66,89 +78,95 @@ func TestTriageV4CVE(t *testing.T) {
 					},
 				},
 			},
-			&TriageResult{
+			want: &TriageResult{
 				ModulePath: "golang.org/x/mod",
 			},
 		},
 		{
-			"pkg.go.dev URL is is valid golang.org module path",
-			&cveschema.CVE{
+			name: "pkg_golang_org",
+			desc: "pkg.go.dev URL is is valid golang.org module path",
+			in: &cveschema.CVE{
 				References: cveschema.References{
 					Data: []cveschema.Reference{
 						{URL: "https://pkg.go.dev/golang.org/x/mod"},
 					},
 				},
 			},
-			&TriageResult{
+			want: &TriageResult{
 				ModulePath: "golang.org/x/mod",
 			},
 		},
 		{
-			"contains golang.org/pkg URL",
-			&cveschema.CVE{
+			name: "golang_org_pkg",
+			desc: "contains golang.org/pkg URL",
+			in: &cveschema.CVE{
 				References: cveschema.References{
 					Data: []cveschema.Reference{
 						{URL: "https://golang.org/pkg/net/http"},
 					},
 				},
 			},
-			&TriageResult{
+			want: &TriageResult{
 				ModulePath:  stdlib.ModulePath,
 				PackagePath: "net/http",
 			},
 		},
 		{
-			"contains github.com but not on pkg.go.dev",
-			&cveschema.CVE{
+			name: "github_only",
+			desc: "contains github.com but not on pkg.go.dev",
+			in: &cveschema.CVE{
 				References: cveschema.References{
 					Data: []cveschema.Reference{
 						{URL: "https://github.com/something/something/404"},
 					},
 				},
 			},
-			nil,
+			want: nil,
 		},
 		{
-			"contains longer module path",
-			&cveschema.CVE{
+			name: "long_path",
+			desc: "contains longer module path",
+			in: &cveschema.CVE{
 				References: cveschema.References{
 					Data: []cveschema.Reference{
 						{URL: "https://golang.org/x/exp/event"},
 					},
 				},
 			},
-			&TriageResult{
+			want: &TriageResult{
 				ModulePath: "golang.org/x/exp/event",
 			},
 		},
 		{
-			"repo path is not a module",
-			&cveschema.CVE{
+			name: "not_module",
+			desc: "repo path is not a module",
+			in: &cveschema.CVE{
 				References: cveschema.References{
 					Data: []cveschema.Reference{
 						{URL: "https://bitbucket.org/foo/bar"},
 					},
 				},
 			},
-			nil,
+			want: nil,
 		},
 		{
-			"contains snyk.io URL containing GOLANG",
-			&cveschema.CVE{
+			name: "golang_snyk",
+			desc: "contains snyk.io URL containing GOLANG",
+			in: &cveschema.CVE{
 				References: cveschema.References{
 					Data: []cveschema.Reference{
 						{URL: "https://snyk.io/vuln/SNYK-GOLANG-12345"},
 					},
 				},
 			},
-			&TriageResult{
+			want: &TriageResult{
 				ModulePath: unknownPath,
 			},
 		},
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			test.in.DataVersion = "4.0"
-			got, err := TriageCVE(ctx, test.in, url)
+			got, err := TriageCVE(ctx, test.in, pc)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -156,31 +174,6 @@ func TestTriageV4CVE(t *testing.T) {
 				cmp.AllowUnexported(TriageResult{}),
 				cmpopts.IgnoreFields(TriageResult{}, "Reason")); diff != "" {
 				t.Errorf("mismatch (-want, +got):\n%s", diff)
-			}
-		})
-	}
-}
-
-func TestKnownToPkgsite(t *testing.T) {
-	ctx := context.Background()
-
-	const validModule = "golang.org/x/mod"
-	url := GetPkgsiteURL(t, *usePkgsite)
-
-	for _, test := range []struct {
-		in   string
-		want bool
-	}{
-		{validModule, true},
-		{"github.com/something/something", false},
-	} {
-		t.Run(test.in, func(t *testing.T) {
-			got, err := knownToPkgsite(ctx, url, test.in)
-			if err != nil {
-				t.Fatal(err)
-			}
-			if got != test.want {
-				t.Errorf("%s: got %t, want %t", test.in, got, test.want)
 			}
 		})
 	}

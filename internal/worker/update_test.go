@@ -22,6 +22,7 @@ import (
 	"golang.org/x/vulndb/internal/cveutils"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
+	"golang.org/x/vulndb/internal/pkgsite"
 	"golang.org/x/vulndb/internal/worker/store"
 )
 
@@ -94,9 +95,16 @@ func TestDoUpdate(t *testing.T) {
 		t.Fatal(err)
 	}
 	commit := headCommit(t, repo)
-	purl := cveutils.GetPkgsiteURL(t, *usePkgsite)
+	cf, err := pkgsite.CacheFile(t)
+	if err != nil {
+		t.Fatal(err)
+	}
+	pc, err := pkgsite.TestClient(t, *usePkgsite, cf)
+	if err != nil {
+		t.Fatal(err)
+	}
 	needsIssue := func(cve *cveschema.CVE) (*cveutils.TriageResult, error) {
-		return cveutils.TriageCVE(ctx, cve, purl)
+		return cveutils.TriageCVE(ctx, cve, pc)
 	}
 
 	commitHash := commit.Hash.String()
@@ -134,10 +142,7 @@ func TestDoUpdate(t *testing.T) {
 	rs[3].TriageState = store.TriageStateHasVuln
 
 	rs[4].TriageState = store.TriageStateNeedsIssue
-	rs[4].Module = "bitbucket.org/foo/bar/baz"
-	if *usePkgsite {
-		rs[4].Module = "github.com/pandatix/go-cvss"
-	}
+	rs[4].Module = "github.com/pandatix/go-cvss"
 	rs[4].CVE = cves[4]
 
 	for _, test := range []struct {
