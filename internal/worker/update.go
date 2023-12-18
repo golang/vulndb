@@ -16,6 +16,7 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/object"
 	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/cveschema"
+	"golang.org/x/vulndb/internal/cveutils"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/observe"
@@ -26,7 +27,7 @@ import (
 // A triageFunc triages a CVE: it decides whether an issue needs to be filed.
 // If so, it returns a non-empty string indicating the possibly
 // affected module.
-type triageFunc func(*cveschema.CVE) (*triageResult, error)
+type triageFunc func(*cveschema.CVE) (*cveutils.TriageResult, error)
 
 // A cveUpdater performs an update operation on the DB.
 type cveUpdater struct {
@@ -260,7 +261,7 @@ func (u *cveUpdater) updateBatch(ctx context.Context, batch []cvelistrepo.File) 
 // worker has already handled, and returns the appropriate triage state
 // based on this.
 func checkForAliases(cve *cveschema.CVE, tx store.Transaction) (store.TriageState, error) {
-	for _, ghsaID := range getAliasGHSAs(cve) {
+	for _, ghsaID := range cveutils.GetAliasGHSAs(cve) {
 		ghsa, err := tx.GetGHSARecord(ghsaID)
 		if err != nil {
 			return "", err
@@ -282,7 +283,7 @@ func (u *cveUpdater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx stor
 	if err := cvelistrepo.Parse(u.repo, f, cve); err != nil {
 		return nil, false, err
 	}
-	var result *triageResult
+	var result *cveutils.TriageResult
 	if cve.State == cveschema.StatePublic && !u.knownIDs[cve.ID] {
 		c := cve
 		// If a false positive has changed, we only care about
@@ -309,9 +310,9 @@ func (u *cveUpdater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx stor
 				return nil, false, err
 			}
 			cr.TriageState = triageState
-			cr.Module = result.modulePath
-			cr.Package = result.packagePath
-			cr.TriageStateReason = result.reason
+			cr.Module = result.ModulePath
+			cr.Package = result.PackagePath
+			cr.TriageStateReason = result.Reason
 			cr.CVE = cve
 		case u.knownIDs[cve.ID]:
 			cr.TriageState = store.TriageStateHasVuln
@@ -332,9 +333,9 @@ func (u *cveUpdater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx stor
 		if result != nil {
 			// Didn't need an issue before, does now.
 			mod.TriageState = store.TriageStateNeedsIssue
-			mod.Module = result.modulePath
-			mod.Package = result.packagePath
-			mod.TriageStateReason = result.reason
+			mod.Module = result.ModulePath
+			mod.Package = result.PackagePath
+			mod.TriageStateReason = result.Reason
 			mod.CVE = cve
 		}
 		// Else don't change the triage state, but we still want
@@ -355,7 +356,7 @@ func (u *cveUpdater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx stor
 		mod.TriageState = store.TriageStateUpdatedSinceIssueCreation
 		var mp string
 		if result != nil {
-			mp = result.modulePath
+			mp = result.ModulePath
 		}
 		mod.TriageStateReason = fmt.Sprintf("CVE changed; affected module = %q", mp)
 	case store.TriageStateAlias:

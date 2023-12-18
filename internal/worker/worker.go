@@ -22,6 +22,7 @@ import (
 	"golang.org/x/time/rate"
 	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/cveschema"
+	"golang.org/x/vulndb/internal/cveutils"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
@@ -74,8 +75,8 @@ func UpdateCVEsAtCommit(ctx context.Context, repoPath, commitHashString string, 
 	if err != nil {
 		return err
 	}
-	u := newCVEUpdater(repo, commit, st, knownVulnIDs, func(cve *cveschema.CVE) (*triageResult, error) {
-		return TriageCVE(ctx, cve, pkgsiteURL)
+	u := newCVEUpdater(repo, commit, st, knownVulnIDs, func(cve *cveschema.CVE) (*cveutils.TriageResult, error) {
+		return cveutils.TriageCVE(ctx, cve, pkgsiteURL)
 	})
 	_, err = u.update(ctx)
 	return err

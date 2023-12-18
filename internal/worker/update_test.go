@@ -9,6 +9,7 @@ package worker
 
 import (
 	"context"
+	"flag"
 	"testing"
 	"time"
 
@@ -18,10 +19,13 @@ import (
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/cveschema"
+	"golang.org/x/vulndb/internal/cveutils"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/worker/store"
 )
+
+var usePkgsite = flag.Bool("pkgsite", false, "use pkg.go.dev for tests")
 
 const clearString = "**CLEAR**"
 
@@ -90,9 +94,9 @@ func TestDoUpdate(t *testing.T) {
 		t.Fatal(err)
 	}
 	commit := headCommit(t, repo)
-	purl := getPkgsiteURL(t)
-	needsIssue := func(cve *cveschema.CVE) (*triageResult, error) {
-		return TriageCVE(ctx, cve, purl)
+	purl := cveutils.GetPkgsiteURL(t, *usePkgsite)
+	needsIssue := func(cve *cveschema.CVE) (*cveutils.TriageResult, error) {
+		return cveutils.TriageCVE(ctx, cve, purl)
 	}
 
 	commitHash := commit.Hash.String()

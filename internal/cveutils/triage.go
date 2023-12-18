@@ -2,20 +2,16 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package worker
+package cveutils
 
 import (
 	"context"
 	"errors"
 	"fmt"
-	"net/http"
 	"net/url"
 	"regexp"
-	"strconv"
 	"strings"
-	"time"
 
-	"golang.org/x/time/rate"
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/ghsa"
@@ -40,7 +36,7 @@ var stdlibReferenceDataKeywords = []string{
 const unknownPath = "Path is unknown"
 
 // TriageCVE reports whether the CVE refers to a Go module.
-func TriageCVE(ctx context.Context, c *cveschema.CVE, pkgsiteURL string) (_ *triageResult, err error) {
+func TriageCVE(ctx context.Context, c *cveschema.CVE, pkgsiteURL string) (_ *TriageResult, err error) {
 	defer derrors.Wrap(&err, "triageCVE(%q)", c.ID)
 	switch c.DataVersion {
 	case "4.0":
@@ -51,10 +47,10 @@ func TriageCVE(ctx context.Context, c *cveschema.CVE, pkgsiteURL string) (_ *tri
 	}
 }
 
-type triageResult struct {
-	modulePath  string
-	packagePath string
-	reason      string
+type TriageResult struct {
+	ModulePath  string
+	PackagePath string
+	Reason      string
 }
 
 // gopkgHosts are hostnames for popular Go package websites.
@@ -83,7 +79,7 @@ var notGoModules = map[string]bool{
 }
 
 // triageV4CVE triages a CVE following schema v4.0 and returns the result.
-func triageV4CVE(ctx context.Context, c *cveschema.CVE, pkgsiteURL string) (result *triageResult, err error) {
+func triageV4CVE(ctx context.Context, c *cveschema.CVE, pkgsiteURL string) (result *TriageResult, err error) {
 	defer derrors.Wrap(&err, "triageV4CVE(ctx, %q, %q)", c.ID, pkgsiteURL)
 	defer func() {
 		if err != nil {
@@ -94,7 +90,7 @@ func triageV4CVE(ctx context.Context, c *cveschema.CVE, pkgsiteURL string) (resu
 			log.Debugf(ctx, "%s: not Go vuln", msg)
 			return
 		}
-		log.Debugf(ctx, "%s: is Go vuln:\n%s", msg, result.reason)
+		log.Debugf(ctx, "%s: is Go vuln:\n%s", msg, result.Reason)
 	}()
 	for _, r := range c.References.Data {
 		if r.URL == "" {
@@ -106,24 +102,24 @@ func triageV4CVE(ctx context.Context, c *cveschema.CVE, pkgsiteURL string) (resu
 		}
 		if strings.Contains(r.URL, "golang.org/pkg") {
 			mp := strings.TrimPrefix(refURL.Path, "/pkg/")
-			return &triageResult{
-				packagePath: mp,
-				modulePath:  stdlib.ModulePath,
-				reason:      fmt.Sprintf("Reference data URL %q contains path %q", r.URL, mp),
+			return &TriageResult{
+				PackagePath: mp,
+				ModulePath:  stdlib.ModulePath,
+				Reason:      fmt.Sprintf("Reference data URL %q contains path %q", r.URL, mp),
 			}, nil
 		}
 		if gopkgHosts[refURL.Host] {
 			mp := strings.TrimPrefix(refURL.Path, "/")
 			if stdlib.Contains(mp) {
-				return &triageResult{
-					packagePath: mp,
-					modulePath:  stdlib.ModulePath,
-					reason:      fmt.Sprintf("Reference data URL %q contains path %q", r.URL, mp),
+				return &TriageResult{
+					PackagePath: mp,
+					ModulePath:  stdlib.ModulePath,
+					Reason:      fmt.Sprintf("Reference data URL %q contains path %q", r.URL, mp),
 				}, nil
 			}
-			return &triageResult{
-				modulePath: mp,
-				reason:     fmt.Sprintf("Reference data URL %q contains path %q", r.URL, mp),
+			return &TriageResult{
+				ModulePath: mp,
+				Reason:     fmt.Sprintf("Reference data URL %q contains path %q", r.URL, mp),
 			}, nil
 		}
 		modpaths := candidateModulePaths(refURL.Host + refURL.Path)
@@ -137,9 +133,9 @@ func triageV4CVE(ctx context.Context, c *cveschema.CVE, pkgsiteURL string) (resu
 			}
 			if known {
 				u := pkgsiteURL + "/" + mp
-				return &triageResult{
-					modulePath: mp,
-					reason:     fmt.Sprintf("Reference data URL %q contains path %q; %q returned a status 200", r.URL, mp, u),
+				return &TriageResult{
+					ModulePath: mp,
+					Reason:     fmt.Sprintf("Reference data URL %q contains path %q; %q returned a status 200", r.URL, mp, u),
 				}, nil
 			}
 		}
@@ -151,9 +147,9 @@ func triageV4CVE(ctx context.Context, c *cveschema.CVE, pkgsiteURL string) (resu
 		// Example CVE containing snyk.io URL:
 		// https://github.com/CVEProject/cvelist/blob/899bba20d62eb73e04d1841a5ff04cd6225e1618/2020/7xxx/CVE-2020-7668.json#L52.
 		if strings.Contains(r.URL, snykIdentifier) {
-			return &triageResult{
-				modulePath: unknownPath,
-				reason:     fmt.Sprintf("Reference data URL %q contains %q", r.URL, snykIdentifier),
+			return &TriageResult{
+				ModulePath: unknownPath,
+				Reason:     fmt.Sprintf("Reference data URL %q contains %q", r.URL, snykIdentifier),
 			}, nil
 		}
 
@@ -161,9 +157,9 @@ func triageV4CVE(ctx context.Context, c *cveschema.CVE, pkgsiteURL string) (resu
 		// project.
 		for _, k := range stdlibReferenceDataKeywords {
 			if strings.Contains(r.URL, k) {
-				return &triageResult{
-					modulePath: stdlib.ModulePath,
-					reason:     fmt.Sprintf("Reference data URL %q contains %q", r.URL, k),
+				return &TriageResult{
+					ModulePath: stdlib.ModulePath,
+					Reason:     fmt.Sprintf("Reference data URL %q contains %q", r.URL, k),
 				}, nil
 			}
 		}
@@ -173,69 +169,10 @@ func triageV4CVE(ctx context.Context, c *cveschema.CVE, pkgsiteURL string) (resu
 
 var ghsaRegex = regexp.MustCompile(ghsa.Regex)
 
-func getAliasGHSAs(c *cveschema.CVE) []string {
+func GetAliasGHSAs(c *cveschema.CVE) []string {
 	var ghsas []string
 	for _, r := range c.References.Data {
 		ghsas = append(ghsas, ghsaRegex.FindAllString(r.URL, 1)...)
 	}
 	return ghsas
-}
-
-// Limit pkgsite requests to this many per second.
-const pkgsiteQPS = 5
-
-var (
-	// The limiter used to throttle pkgsite requests.
-	// The second argument to rate.NewLimiter is the burst, which
-	// basically lets you exceed the rate briefly.
-	pkgsiteRateLimiter = rate.NewLimiter(rate.Every(time.Duration(1000/float64(pkgsiteQPS))*time.Millisecond), 3)
-
-	// Cache of module paths already seen.
-	seenModulePath = map[string]bool{}
-	// Does seenModulePath contain all known modules?
-	cacheComplete = false
-)
-
-// SetKnownModules provides a list of all known modules,
-// so that no requests need to be made to pkg.go.dev.
-func SetKnownModules(mods []string) {
-	for _, m := range mods {
-		seenModulePath[m] = true
-	}
-	cacheComplete = true
-}
-
-// knownToPkgsite reports whether pkgsite knows that modulePath actually refers
-// to a module.
-func knownToPkgsite(ctx context.Context, baseURL, modulePath string) (bool, error) {
-	// If we've seen it before, no need to call.
-	if b, ok := seenModulePath[modulePath]; ok {
-		return b, nil
-	}
-	if cacheComplete {
-		return false, nil
-	}
-	// Pause to maintain a max QPS.
-	if err := pkgsiteRateLimiter.Wait(ctx); err != nil {
-		return false, err
-	}
-	start := time.Now()
-
-	url := baseURL + "/mod/" + modulePath
-	res, err := http.Head(url)
-	var status string
-	if err == nil {
-		status = strconv.Quote(res.Status)
-	}
-	log.With(
-		"latency", time.Since(start),
-		"status", status,
-		"error", err,
-	).Debugf(ctx, "checked if %s is known to pkgsite at HEAD", url)
-	if err != nil {
-		return false, err
-	}
-	known := res.StatusCode == http.StatusOK
-	seenModulePath[modulePath] = known
-	return known, nil
 }

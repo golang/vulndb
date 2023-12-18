@@ -5,14 +5,11 @@
 //go:build go1.17
 // +build go1.17
 
-package worker
+package cveutils
 
 import (
 	"context"
 	"flag"
-	"net/http"
-	"net/http/httptest"
-	"strings"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -25,12 +22,12 @@ var usePkgsite = flag.Bool("pkgsite", false, "use pkg.go.dev for tests")
 
 func TestTriageV4CVE(t *testing.T) {
 	ctx := context.Background()
-	url := getPkgsiteURL(t)
+	url := GetPkgsiteURL(t, *usePkgsite)
 
 	for _, test := range []struct {
 		name string
 		in   *cveschema.CVE
-		want *triageResult
+		want *TriageResult
 	}{
 		{
 			"repo path is unknown Go standard library",
@@ -41,8 +38,8 @@ func TestTriageV4CVE(t *testing.T) {
 					},
 				},
 			},
-			&triageResult{
-				modulePath: stdlib.ModulePath,
+			&TriageResult{
+				ModulePath: stdlib.ModulePath,
 			},
 		},
 		{
@@ -54,9 +51,9 @@ func TestTriageV4CVE(t *testing.T) {
 					},
 				},
 			},
-			&triageResult{
-				modulePath:  stdlib.ModulePath,
-				packagePath: "net/http",
+			&TriageResult{
+				ModulePath:  stdlib.ModulePath,
+				PackagePath: "net/http",
 			},
 		},
 		{
@@ -69,8 +66,8 @@ func TestTriageV4CVE(t *testing.T) {
 					},
 				},
 			},
-			&triageResult{
-				modulePath: "golang.org/x/mod",
+			&TriageResult{
+				ModulePath: "golang.org/x/mod",
 			},
 		},
 		{
@@ -82,8 +79,8 @@ func TestTriageV4CVE(t *testing.T) {
 					},
 				},
 			},
-			&triageResult{
-				modulePath: "golang.org/x/mod",
+			&TriageResult{
+				ModulePath: "golang.org/x/mod",
 			},
 		},
 		{
@@ -95,9 +92,9 @@ func TestTriageV4CVE(t *testing.T) {
 					},
 				},
 			},
-			&triageResult{
-				modulePath:  stdlib.ModulePath,
-				packagePath: "net/http",
+			&TriageResult{
+				ModulePath:  stdlib.ModulePath,
+				PackagePath: "net/http",
 			},
 		},
 		{
@@ -120,8 +117,8 @@ func TestTriageV4CVE(t *testing.T) {
 					},
 				},
 			},
-			&triageResult{
-				modulePath: "golang.org/x/exp/event",
+			&TriageResult{
+				ModulePath: "golang.org/x/exp/event",
 			},
 		},
 		{
@@ -144,8 +141,8 @@ func TestTriageV4CVE(t *testing.T) {
 					},
 				},
 			},
-			&triageResult{
-				modulePath: unknownPath,
+			&TriageResult{
+				ModulePath: unknownPath,
 			},
 		},
 	} {
@@ -156,8 +153,8 @@ func TestTriageV4CVE(t *testing.T) {
 				t.Fatal(err)
 			}
 			if diff := cmp.Diff(test.want, got,
-				cmp.AllowUnexported(triageResult{}),
-				cmpopts.IgnoreFields(triageResult{}, "reason")); diff != "" {
+				cmp.AllowUnexported(TriageResult{}),
+				cmpopts.IgnoreFields(TriageResult{}, "Reason")); diff != "" {
 				t.Errorf("mismatch (-want, +got):\n%s", diff)
 			}
 		})
@@ -168,7 +165,7 @@ func TestKnownToPkgsite(t *testing.T) {
 	ctx := context.Background()
 
 	const validModule = "golang.org/x/mod"
-	url := getPkgsiteURL(t)
+	url := GetPkgsiteURL(t, *usePkgsite)
 
 	for _, test := range []struct {
 		in   string
@@ -199,25 +196,7 @@ func TestGetAliasGHSAs(t *testing.T) {
 		},
 	}
 	want := "GHSA-xxxx-yyyy-0000"
-	if got := getAliasGHSAs(cve); got[0] != want {
+	if got := GetAliasGHSAs(cve); got[0] != want {
 		t.Errorf("getAliasGHSAs: got %s, want %s", got, want)
 	}
-}
-
-// getPkgsiteURL returns a URL to either a fake server or the real pkg.go.dev,
-// depending on the usePkgsite flag.
-func getPkgsiteURL(t *testing.T) string {
-	if *usePkgsite {
-		return pkgsiteURL
-	}
-	// Start a test server that recognizes anything from golang.org and bitbucket.org/foo/bar/baz.
-	s := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		modulePath := strings.TrimPrefix(r.URL.Path, "/mod/")
-		if !strings.HasPrefix(modulePath, "golang.org/") &&
-			!strings.HasPrefix(modulePath, "bitbucket.org/foo/bar/baz") {
-			http.Error(w, "unknown", http.StatusNotFound)
-		}
-	}))
-	t.Cleanup(s.Close)
-	return s.URL
 }

@@ -21,6 +21,7 @@ import (
 	"time"
 
 	"golang.org/x/vulndb/internal/cvelistrepo"
+	"golang.org/x/vulndb/internal/cveutils"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
@@ -237,7 +238,7 @@ func populateKnownModules(filename string) error {
 	if err := scan.Err(); err != nil {
 		return err
 	}
-	worker.SetKnownModules(mods)
+	cveutils.SetKnownModules(mods)
 	fmt.Printf("set %d known modules\n", len(mods))
 	return nil
 }
