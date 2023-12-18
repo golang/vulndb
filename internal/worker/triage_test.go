@@ -116,12 +116,12 @@ func TestTriageV4CVE(t *testing.T) {
 			&cveschema.CVE{
 				References: cveschema.References{
 					Data: []cveschema.Reference{
-						{URL: "https://bitbucket.org/foo/bar/baz/v2"},
+						{URL: "https://golang.org/x/exp/event"},
 					},
 				},
 			},
 			&triageResult{
-				modulePath: "bitbucket.org/foo/bar/baz/v2",
+				modulePath: "golang.org/x/exp/event",
 			},
 		},
 		{
