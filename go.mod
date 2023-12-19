@@ -17,24 +17,24 @@ require (
 	github.com/google/go-github/v41 v41.0.0
 	github.com/google/osv-scanner v1.3.5
 	github.com/google/safehtml v0.1.0
-	github.com/jba/templatecheck v0.6.0
+	github.com/jba/templatecheck v0.7.0
 	github.com/lib/pq v1.10.9
-	github.com/shurcooL/githubv4 v0.0.0-20220115235240-a14260e6f8a2
+	github.com/shurcooL/githubv4 v0.0.0-20231126234147-1cffa1f02456
 	go.opentelemetry.io/otel v1.21.0
 	go.opentelemetry.io/otel/sdk v1.21.0
-	go.opentelemetry.io/otel/sdk/metric v1.19.0
+	go.opentelemetry.io/otel/sdk/metric v1.21.0
 	golang.org/x/exp v0.0.0-20231219180239-dc181d75b848
 	golang.org/x/exp/event v0.0.0-20231219180239-dc181d75b848
 	golang.org/x/mod v0.14.0
 	golang.org/x/oauth2 v0.15.0
 	golang.org/x/sync v0.5.0
 	golang.org/x/time v0.5.0
-	golang.org/x/tools v0.16.0
-	google.golang.org/api v0.152.0
-	google.golang.org/grpc v1.60.0
+	golang.org/x/tools v0.16.1
+	google.golang.org/api v0.154.0
+	google.golang.org/grpc v1.60.1
 	gopkg.in/yaml.v3 v3.0.1
-	honnef.co/go/tools v0.4.3
-	mvdan.cc/unparam v0.0.0-20230312165513-e84e2d14e3b8
+	honnef.co/go/tools v0.4.6
+	mvdan.cc/unparam v0.0.0-20230917202934-3ee2d22f45fb
 )
 
 require (
@@ -53,6 +53,7 @@ require (
 	github.com/acomagu/bufpipe v1.0.4 // indirect
 	github.com/cloudflare/circl v1.3.3 // indirect
 	github.com/emirpasic/gods v1.18.1 // indirect
+	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376 // indirect
 	github.com/go-logr/logr v1.3.0 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
@@ -71,6 +72,8 @@ require (
 	github.com/skeema/knownhosts v1.1.1 // indirect
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
 	go.opencensus.io v0.24.0 // indirect
+	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.46.1 // indirect
+	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.46.1 // indirect
 	go.opentelemetry.io/otel/metric v1.21.0 // indirect
 	go.opentelemetry.io/otel/trace v1.21.0 // indirect
 	golang.org/x/crypto v0.16.0 // indirect
