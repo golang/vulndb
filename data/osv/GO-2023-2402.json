@@ -4,7 +4,8 @@
   "modified": "0001-01-01T00:00:00Z",
   "published": "0001-01-01T00:00:00Z",
   "aliases": [
-    "CVE-2023-48795"
+    "CVE-2023-48795",
+    "GHSA-45x7-px36-x8w8"
   ],
   "summary": "Man-in-the-middle attacker can compromise integrity of secure channel in golang.org/x/crypto",
   "details": "A protocol weakness allows a MITM attacker to compromise the integrity of the secure channel before it is established, allowing the attacker to prevent transmission of a number of messages immediately after the secure channel is established without either side being aware.\n\nThe impact of this attack is relatively limited, as it does not compromise confidentiality of the channel. Notably this attack would allow an attacker to prevent the transmission of the SSH2_MSG_EXT_INFO message, disabling a handful of newer security features.\n\nThis protocol weakness was also fixed in OpenSSH 9.6.",
