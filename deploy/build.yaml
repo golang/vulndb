@@ -1,6 +1,6 @@
 steps:
   - id: Lock
-    name: golang:1.19.2
+    name: golang:1.21.5
     entrypoint: bash
     args:
       - -ec
@@ -23,7 +23,7 @@ steps:
         fi
 
   - id: Test
-    name: golang:1.19.2
+    name: golang:1.21.5
     entrypoint: bash
     args:
       - -ec
@@ -37,17 +37,17 @@ steps:
       - gsutil -q -m cp -r gs://go-vulndb /workspace
 
   - id: GenerateLegacy
-    name: golang:1.19.2
+    name: golang:1.21.5
     entrypoint: bash
     args: ["-ec", "go run ./cmd/gendb -out /workspace/legacydb -legacy"]
 
   - id: Generate
-    name: golang:1.19.2
+    name: golang:1.21.5
     entrypoint: bash
     args: ["-ec", "go run ./cmd/gendb -out /workspace/db"]
 
   - id: PreValidate
-    name: golang:1.19.2
+    name: golang:1.21.5
     entrypoint: bash
     args:
       - -ec
@@ -66,6 +66,6 @@ steps:
       - mkdir /workspace/deployed && gsutil -q -m cp -r gs://go-vulndb /workspace/deployed
 
   - id: PostValidate
-    name: golang:1.19.2
+    name: golang:1.12.5
     entrypoint: bash
     args: ["-ec", "go run ./cmd/checkdb -v1 -legacy /workspace/deployed/go-vulndb"]

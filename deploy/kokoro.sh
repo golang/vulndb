@@ -26,6 +26,6 @@ gsutil -q -m cp -r gs://go-vulndb/* old-db
 docker run --rm \
   -v $PWD:/vulndb \
   -w /vulndb \
-  golang:1.17.3 \
+  golang:1.21.5 \
   /bin/bash -c 'go run ./cmd/gendb -repo /vulndb -out new-db &&
                 go run ./cmd/dbdiff old-db new-db'
