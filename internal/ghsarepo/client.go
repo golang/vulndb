@@ -78,6 +78,9 @@ func NewClientFromRepo(repo *git.Repository) (*Client, error) {
 		if !affectsGo(&advisory) {
 			return nil
 		}
+		if !advisory.Withdrawn.IsZero() {
+			return nil
+		}
 		c.byID[advisory.ID] = &advisory
 		for _, alias := range advisory.Aliases {
 			c.byAlias[alias] = append(c.byAlias[alias], &advisory)

@@ -15,7 +15,7 @@ require (
 	github.com/google/generative-ai-go v0.5.0
 	github.com/google/go-cmp v0.6.0
 	github.com/google/go-github/v41 v41.0.0
-	github.com/google/osv-scanner v1.3.4
+	github.com/google/osv-scanner v1.3.5
 	github.com/google/safehtml v0.1.0
 	github.com/jba/templatecheck v0.6.0
 	github.com/lib/pq v1.10.9
@@ -46,7 +46,7 @@ require (
 	cloud.google.com/go/longrunning v0.5.4 // indirect
 	cloud.google.com/go/monitoring v1.16.3 // indirect
 	cloud.google.com/go/trace v1.10.4 // indirect
-	github.com/BurntSushi/toml v1.3.0 // indirect
+	github.com/BurntSushi/toml v1.3.2 // indirect
 	github.com/GoogleCloudPlatform/opentelemetry-operations-go/internal/resourcemapping v0.45.0 // indirect
 	github.com/Microsoft/go-winio v0.5.2 // indirect
 	github.com/ProtonMail/go-crypto v0.0.0-20230518184743-7afd39499903 // indirect
