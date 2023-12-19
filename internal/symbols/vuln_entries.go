@@ -44,7 +44,7 @@ func vulnEntries(pkgs []*packages.Package, m *report.Module) ([]*ssa.Function, e
 
 	// Identify vulnerable functions/methods in the call graph and
 	// compute the backwards reachable entries.
-	entryNodes := vulnReachingEntries(cg, vulnFuncs(cg, m), entries)
+	entryNodes := vulnReachingEntries(vulnFuncs(cg, m), entries)
 	var vres []*ssa.Function
 	for _, n := range entryNodes {
 		vres = append(vres, n.Func)
@@ -80,9 +80,9 @@ func vulnFuncs(cg *callgraph.Graph, m *report.Module) []*callgraph.Node {
 	return vfs
 }
 
-// vulnReachingEntries returns call graph nodes of cg corresponding to allEntries
+// vulnReachingEntries returns call graph nodes corresponding to allEntries
 // that are backwards reachable from sinks.
-func vulnReachingEntries(cg *callgraph.Graph, sinks []*callgraph.Node, allEntries []*ssa.Function) []*callgraph.Node {
+func vulnReachingEntries(sinks []*callgraph.Node, allEntries []*ssa.Function) []*callgraph.Node {
 	allEs := make(map[*ssa.Function]bool)
 	for _, e := range allEntries {
 		allEs[e] = true

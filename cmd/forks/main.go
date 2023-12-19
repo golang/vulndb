@@ -55,7 +55,7 @@ type Score struct {
 	Score  int // 0 - 10
 }
 
-func run(ctx context.Context) error {
+func run(_ context.Context) error {
 	if flag.NArg() == 0 {
 		flag.Usage()
 		return nil

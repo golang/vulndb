@@ -312,7 +312,7 @@ func (s *Summary) lint(l *linter, r *Report) {
 	// If there are no such paths listed in the report at all,
 	// another lint will complain, so reduce noise by not erroring here.
 	if paths := r.nonStdPaths(); len(paths) > 0 {
-		if ok := containsPath(l, summary, paths); !ok {
+		if ok := containsPath(summary, paths); !ok {
 			l.Errorf("must contain an affected module or package path (e.g. %q)", paths[0])
 		}
 	}
@@ -324,7 +324,7 @@ func (s *Summary) lint(l *linter, r *Report) {
 // and is a prefix of a path, the function returns true. This gives us a
 // workaround for reports that affect a lot of modules and/or have very long
 // module paths.
-func containsPath(l *linter, summary string, paths []string) bool {
+func containsPath(summary string, paths []string) bool {
 	if len(paths) == 0 {
 		return false
 	}

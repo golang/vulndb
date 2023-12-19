@@ -402,8 +402,7 @@ only update now if this warning is spurious (i.e., the records were deleted on p
 		return false
 	}
 
-	cveFile := fmt.Sprintf("data/cve/%s.json", goID)
-	if err := addMissing(yamlReportFile, cveFile, deleted); err != nil {
+	if err := addMissing(yamlReportFile, deleted); err != nil {
 		fmt.Println("ERROR: could not add missing refs: ", err)
 		return false
 	}
@@ -412,7 +411,7 @@ only update now if this warning is spurious (i.e., the records were deleted on p
 	return true
 }
 
-func addMissing(yamlFile, cveFile string, missing []string) error {
+func addMissing(yamlFile string, missing []string) error {
 	r, err := report.Read(yamlFile)
 	if err != nil {
 		return err
