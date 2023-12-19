@@ -17,6 +17,7 @@ import (
 	texporter "github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/trace"
 	gcppropagator "github.com/GoogleCloudPlatform/opentelemetry-operations-go/propagator"
 	"go.opentelemetry.io/otel/propagation"
+	sdkmetric "go.opentelemetry.io/otel/sdk/metric"
 	sdktrace "go.opentelemetry.io/otel/sdk/trace"
 	eotel "golang.org/x/exp/event/otel"
 )
@@ -47,14 +48,15 @@ func NewObserver(ctx context.Context, projectID, serverName string) (_ *Observer
 	if err != nil {
 		return nil, err
 	}
-	// Create exporter (collector embedded with the exporter).
-	controller, err := mexporter.NewExportPipeline([]mexporter.Option{
-		mexporter.WithProjectID(projectID),
-	})
+	// Create exporter.
+	mex, err := mexporter.New(mexporter.WithProjectID(projectID))
 	if err != nil {
 		return nil, err
 	}
-
+	// Initialize a MeterProvider with that periodically exports to the GCP exporter.
+	provider := sdkmetric.NewMeterProvider(
+		sdkmetric.WithReader(sdkmetric.NewPeriodicReader(mex)),
+	)
 	tp := sdktrace.NewTracerProvider(
 		// Enable tracing if there is no incoming request, or if the incoming
 		// request is sampled.
@@ -64,13 +66,13 @@ func NewObserver(ctx context.Context, projectID, serverName string) (_ *Observer
 		ctx:            ctx,
 		tracerProvider: tp,
 		traceHandler:   eotel.NewTraceHandler(tp.Tracer(serverName)),
-		metricHandler:  eotel.NewMetricHandler(controller.Meter(serverName)),
+		metricHandler:  eotel.NewMetricHandler(provider.Meter(serverName)),
 		// The propagator extracts incoming trace IDs so that we can connect our trace spans
 		// to the incoming ones constructed by Cloud Run.
 		propagator: propagation.NewCompositeTextMapPropagator(
+			gcppropagator.CloudTraceOneWayPropagator{},
 			propagation.TraceContext{},
-			propagation.Baggage{},
-			gcppropagator.New()),
+			propagation.Baggage{}),
 	}, nil
 }
 

@@ -5,14 +5,19 @@
 package palmapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"reflect"
 	"strings"
 	"testing"
+
+	"github.com/google/generative-ai-go/genai"
+	"google.golang.org/api/option"
 )
 
 func TestGenerateText(t *testing.T) {
@@ -144,4 +149,24 @@ const testAPIKey = "TEST-API-KEY"
 
 func getTestAPIKey() (string, error) {
 	return testAPIKey, nil
+}
+
+func TestGemini(t *testing.T) {
+	t.SkipNow()
+	ctx := context.Background()
+	client, err := genai.NewClient(ctx, option.WithAPIKey(os.Getenv("GEMINI_API_KEY")))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer client.Close()
+	m := client.GenerativeModel("gemini-pro")
+	res, err := m.GenerateContent(ctx, genai.Text("something"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	data, err := json.MarshalIndent(res, "", "    ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	fmt.Printf("%s\n", data)
 }
