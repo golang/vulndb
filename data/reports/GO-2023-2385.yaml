@@ -1,0 +1,120 @@
+id: GO-2023-2385
+modules:
+    - module: github.com/pubnub/go
+      vulnerable_at: 4.10.0+incompatible
+      packages:
+        - package: github.com/pubnub/go/utils
+          symbols:
+            - EncryptString
+            - DecryptString
+            - EncryptFile
+            - DecryptFile
+            - generateIV
+            - unpadPKCS7
+            - padWithPKCS7
+            - EncryptCipherKey
+            - aesCipher
+          derived_symbols:
+            - SerializeAndEncrypt
+            - SerializeEncryptAndSerialize
+          excluded_symbols:
+            - TestComplexClassDecryption
+            - TestComplexClassEncryption
+    - module: github.com/pubnub/go/v5
+      vulnerable_at: 5.0.3
+      packages:
+        - package: github.com/pubnub/go/v5/utils
+          symbols:
+            - EncryptString
+            - DecryptString
+            - EncryptFile
+            - DecryptFile
+            - generateIV
+            - unpadPKCS7
+            - padWithPKCS7
+            - EncryptCipherKey
+            - aesCipher
+          derived_symbols:
+            - SerializeAndEncrypt
+            - SerializeEncryptAndSerialize
+          excluded_symbols:
+            - TestComplexClassDecryption
+            - TestComplexClassEncryption
+    - module: github.com/pubnub/go/v6
+      vulnerable_at: 6.1.0
+      packages:
+        - package: github.com/pubnub/go/v6/utils
+          symbols:
+            - EncryptString
+            - DecryptString
+            - EncryptFile
+            - DecryptFile
+            - generateIV
+            - unpadPKCS7
+            - padWithPKCS7
+            - EncryptCipherKey
+            - aesCipher
+          derived_symbols:
+            - SerializeAndEncrypt
+            - SerializeEncryptAndSerialize
+          excluded_symbols:
+            - TestComplexClassDecryption
+            - TestComplexClassEncryption
+    - module: github.com/pubnub/go/v7
+      vulnerable_at: 7.1.2
+      packages:
+        - package: github.com/pubnub/go/v7/utils
+          symbols:
+            - EncryptString
+            - DecryptString
+            - EncryptFile
+            - DecryptFile
+            - generateIV
+            - unpadPKCS7
+            - padWithPKCS7
+            - EncryptCipherKey
+            - aesCipher
+          derived_symbols:
+            - SerializeAndEncrypt
+            - SerializeEncryptAndSerialize
+          excluded_symbols:
+            - TestComplexClassDecryption
+            - TestComplexClassEncryption
+    - module: github.com/pubnub/go/v7
+      versions:
+        - introduced: 7.2.0
+      vulnerable_at: 7.2.0
+      packages:
+        - package: github.com/pubnub/go/v7/crypto
+          symbols:
+            - NewLegacyCryptor
+            - legacyCryptor.Encrypt
+            - legacyCryptor.Decrypt
+            - legacyCryptor.EncryptStream
+            - legacyCryptor.DecryptStream
+            - EncryptCipherKey
+            - legacyAesCipher
+          derived_symbols:
+            - NewAesCbcCryptoModule
+            - NewLegacyCryptoModule
+            - defaultExtendedCryptor.DecryptStream
+            - defaultExtendedCryptor.EncryptStream
+            - module.Decrypt
+            - module.DecryptStream
+            - module.Encrypt
+            - module.EncryptStream
+summary: Insufficient entropy in AES-256-CBC in github.com/pubnub/go
+description: |-
+    There is insufficient entropy in the implementation of the AES-256-CBC
+    cryptographic algorithm. The provided encrypt functions are less secure when hex
+    encoding and trimming are applied, leaving half of the bits in the key always
+    the same for every encoded message or file.
+
+    Users are encouraged to migrate to the new crypto package introduced in v7.2.0.
+cves:
+    - CVE-2023-26154
+ghsas:
+    - GHSA-5844-q3fc-56rh
+references:
+    - advisory: https://github.com/advisories/GHSA-5844-q3fc-56rh
+    - fix: https://github.com/pubnub/go/commit/428517fef5b901db7275d9f5a75eda89a4c28e08
