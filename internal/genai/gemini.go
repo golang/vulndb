@@ -6,7 +6,6 @@ package genai
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"os"
 
@@ -35,7 +34,7 @@ const (
 func NewGeminiClient(ctx context.Context) (*GeminiClient, error) {
 	key := os.Getenv(geminiAPIKeyEnv)
 	if key == "" {
-		return nil, fmt.Errorf("%s must be set", geminiAPIKeyEnv)
+		return nil, fmt.Errorf("Gemini API key (env var %s) not set. If you already have a key for the legacy PaLM API, you can use the same key for Gemini. Otherwise, you can get an API key at https://makersuite.google.com/app/apikey", geminiAPIKeyEnv)
 	}
 	client, err := gemini.NewClient(ctx, option.WithAPIKey(key))
 	if err != nil {
@@ -51,10 +50,6 @@ func (c *GeminiClient) GenerateText(ctx context.Context, prompt string) ([]strin
 	response, err := c.model.GenerateContent(ctx, gemini.Text(prompt))
 	if err != nil {
 		return nil, err
-	}
-	b, err := json.Marshal(response)
-	if err == nil {
-		fmt.Println(string(b))
 	}
 	var candidates []string
 	for _, c := range response.Candidates {

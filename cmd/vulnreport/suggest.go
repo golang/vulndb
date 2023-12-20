@@ -17,16 +17,27 @@ import (
 var (
 	interactive    = flag.Bool("i", false, "for suggest, interactive mode")
 	numSuggestions = flag.Int("n", 4, "for suggest, the number of suggestions to attempt to generate (max is 8)")
+	palm           = flag.Bool("palm", false, "use the legacy PaLM API instead of the Gemini API")
 )
 
 func suggest(ctx context.Context, filename string) (err error) {
 	defer derrors.Wrap(&err, "suggest(%q)", filename)
 
-	c := genai.NewDefaultPaLMClient()
-
 	r, err := report.Read(filename)
 	if err != nil {
 		return err
+	}
+
+	var c genai.Client
+	if *palm {
+		infolog.Print("contacting the PaLM API...")
+		c = genai.NewDefaultPaLMClient()
+	} else {
+		infolog.Print("contacting the Gemini API... (set flag -palm to use legacy PaLM API instead)")
+		c, err = genai.NewGeminiClient(ctx)
+		if err != nil {
+			return err
+		}
 	}
 
 	suggestions, err := genai.Suggest(ctx, c, &genai.Input{
@@ -34,7 +45,7 @@ func suggest(ctx context.Context, filename string) (err error) {
 		Description: r.Description.String(),
 	})
 	if err != nil {
-		return fmt.Errorf("PaLM API error: %s", err)
+		return fmt.Errorf("GenAI API error: %s", err)
 	}
 	if len(suggestions) > *numSuggestions {
 		suggestions = suggestions[:*numSuggestions]
