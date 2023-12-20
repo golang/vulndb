@@ -17,7 +17,21 @@ import (
 // addMissingAliases uses the existing aliases in a report to find
 // any missing aliases, and adds them to the report.
 func addMissingAliases(ctx context.Context, r *report.Report, gc *ghsa.Client) (added int) {
-	return r.AddAliases(allAliases(ctx, r.Aliases(), gc))
+	all := allAliases(ctx, r.Aliases(), gc)
+	// If we have manually marked an identifier as "related", but
+	// not actually an alias, don't override this decision.
+	if len(r.Related) > 0 {
+		all = removeRelated(all, r.Related)
+	}
+	return r.AddAliases(all)
+}
+
+func removeRelated(all, related []string) []string {
+	// This is an uncommon operation, operating on short string slices,
+	// so it doesn't need to be optimized.
+	return slices.DeleteFunc(all, func(s string) bool {
+		return slices.Contains(related, s)
+	})
 }
 
 // allAliases returns a list of all aliases associated with the given knownAliases,
