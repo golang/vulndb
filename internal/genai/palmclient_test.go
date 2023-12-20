@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package palmapi
+package genai
 
 import (
 	"context"
@@ -16,7 +16,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/google/generative-ai-go/genai"
+	gemini "github.com/google/generative-ai-go/genai"
 	"google.golang.org/api/option"
 )
 
@@ -98,7 +98,7 @@ func TestGenerateTextError(t *testing.T) {
 	}
 }
 
-func testClient(endpoint, prompt string, response *GenerateTextResponse) (c *Client, cleanup func(), err error) {
+func testClient(endpoint, prompt string, response *GenerateTextResponse) (c *PaLMClient, cleanup func(), err error) {
 	rBytes, err := json.Marshal(response)
 	if err != nil {
 		return nil, nil, err
@@ -135,7 +135,7 @@ func testClient(endpoint, prompt string, response *GenerateTextResponse) (c *Cli
 	return NewClient(s.Client(), s.URL, getTestAPIKey), func() { s.Close() }, nil
 }
 
-func testClientErr(endpoint, prompt string, errMsg string) (c *Client, cleanup func(), err error) {
+func testClientErr(endpoint, prompt string, errMsg string) (c *PaLMClient, cleanup func(), err error) {
 	handler := func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		errJSON := fmt.Sprintf(`{"error":{"message":"%s"}}`, errMsg)
@@ -154,13 +154,13 @@ func getTestAPIKey() (string, error) {
 func TestGemini(t *testing.T) {
 	t.SkipNow()
 	ctx := context.Background()
-	client, err := genai.NewClient(ctx, option.WithAPIKey(os.Getenv("GEMINI_API_KEY")))
+	client, err := gemini.NewClient(ctx, option.WithAPIKey(os.Getenv("GEMINI_API_KEY")))
 	if err != nil {
 		t.Fatal(err)
 	}
 	defer client.Close()
 	m := client.GenerativeModel("gemini-pro")
-	res, err := m.GenerateContent(ctx, genai.Text("something"))
+	res, err := m.GenerateContent(ctx, gemini.Text("something"))
 	if err != nil {
 		t.Fatal(err)
 	}

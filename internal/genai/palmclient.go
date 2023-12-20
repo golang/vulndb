@@ -2,9 +2,9 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package palmapi provides a client and utilities for interacting with
-// the PaLM API (https://developers.generativeai.google/guide/palm_api_overview).
-package palmapi
+// Package genai provides a client and utilities for interacting with
+// Google's generative AI libraries.
+package genai
 
 import (
 	"bytes"
@@ -15,15 +15,15 @@ import (
 	"os"
 )
 
-type Client struct {
+type PaLMClient struct {
 	c         *http.Client
 	url       string
 	getAPIKey func() (string, error)
 }
 
-// NewDefaultClient returns a new default client for the PaLM API that reads
+// NewDefaultPaLMClient returns a new default client for the PaLM API that reads
 // an API key from the environment variable "PALM_API_KEY".
-func NewDefaultClient() *Client {
+func NewDefaultPaLMClient() *PaLMClient {
 	const (
 		defaultURL = `https://generativelanguage.googleapis.com`
 		apiKeyEnv  = "PALM_API_KEY"
@@ -37,8 +37,8 @@ func NewDefaultClient() *Client {
 	})
 }
 
-func NewClient(httpClient *http.Client, url string, getAPIKey func() (string, error)) *Client {
-	return &Client{
+func NewClient(httpClient *http.Client, url string, getAPIKey func() (string, error)) *PaLMClient {
+	return &PaLMClient{
 		c:         httpClient,
 		url:       url,
 		getAPIKey: getAPIKey}
@@ -49,7 +49,7 @@ const textBisonModel = "/v1beta3/models/text-bison-001"
 
 // GenerateText is a wrapper for the PaLM API "generateText" endpoint.
 // See https://developers.generativeai.google/api/rest/generativelanguage/models/generateText.
-func (c *Client) GenerateText(prompt string) (*GenerateTextResponse, error) {
+func (c *PaLMClient) GenerateText(prompt string) (*GenerateTextResponse, error) {
 	reqBody, err := toRequestBody(prompt)
 	if err != nil {
 		return nil, err

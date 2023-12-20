@@ -10,7 +10,7 @@ import (
 	"fmt"
 
 	"golang.org/x/vulndb/internal/derrors"
-	"golang.org/x/vulndb/internal/palmapi"
+	"golang.org/x/vulndb/internal/genai"
 	"golang.org/x/vulndb/internal/report"
 )
 
@@ -22,14 +22,14 @@ var (
 func suggest(_ context.Context, filename string) (err error) {
 	defer derrors.Wrap(&err, "suggest(%q)", filename)
 
-	c := palmapi.NewDefaultClient()
+	c := genai.NewDefaultPaLMClient()
 
 	r, err := report.Read(filename)
 	if err != nil {
 		return err
 	}
 
-	suggestions, err := c.Suggest(&palmapi.Input{
+	suggestions, err := c.Suggest(&genai.Input{
 		Module:      r.Modules[0].Module,
 		Description: r.Description.String(),
 	})

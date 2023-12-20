@@ -17,17 +17,17 @@ import (
 	"strings"
 
 	"golang.org/x/exp/maps"
+	"golang.org/x/vulndb/internal/genai"
 	"golang.org/x/vulndb/internal/genericosv"
 	"golang.org/x/vulndb/internal/ghsarepo"
 	"golang.org/x/vulndb/internal/gitrepo"
-	"golang.org/x/vulndb/internal/palmapi"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/stdlib"
 )
 
 var (
 	localGHSA = flag.String("lg", os.Getenv("LOCAL_GHSA_DB"), "path to local GHSA repo, instead of cloning remote")
-	outFolder = flag.String("out", filepath.Join("internal", "palmapi"), "folder to write files to")
+	outFolder = flag.String("out", filepath.Join("internal", "genai"), "folder to write files to")
 )
 
 func main() {
@@ -120,18 +120,18 @@ func isFirstParty(r *report.Report) bool {
 	return false
 }
 
-func toExamples(vs []*vuln) (palmapi.Examples, error) {
-	var es palmapi.Examples
+func toExamples(vs []*vuln) (genai.Examples, error) {
+	var es genai.Examples
 	for _, v := range vs {
 		if v.r == nil || v.ghsa == nil {
 			return nil, errors.New("invalid example")
 		}
-		ex := &palmapi.Example{
-			Input: palmapi.Input{
+		ex := &genai.Example{
+			Input: genai.Input{
 				Module:      v.r.Modules[0].Module,
 				Description: v.ghsa.Details,
 			},
-			Suggestion: palmapi.Suggestion{
+			Suggestion: genai.Suggestion{
 				Summary:     removeNewlines(v.r.Summary.String()),
 				Description: removeNewlines(v.r.Description.String()),
 			},

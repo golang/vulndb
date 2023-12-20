@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package palmapi
+package genai
 
 import (
 	"encoding/json"
@@ -28,12 +28,13 @@ type Suggestion struct {
 	Description string
 }
 
-// Suggest uses the PaLM API to generate suggestions for vulnerability
+// Suggest uses generative AI to generate suggestions for vulnerability
 // reports based on the input.
+//
 // This function must be called from the root of the vulndb repo,
 // as it accesses a specific file to read examples.
-func (c *Client) Suggest(in *Input) ([]*Suggestion, error) {
-	examples, err := readFile(filepath.Join("internal", "palmapi", dataFolder, jsonFile))
+func (c *PaLMClient) Suggest(in *Input) ([]*Suggestion, error) {
+	examples, err := readFile(filepath.Join("internal", "genai", dataFolder, jsonFile))
 	if err != nil {
 		return nil, err
 	}
@@ -44,7 +45,7 @@ func (c *Client) Suggest(in *Input) ([]*Suggestion, error) {
 	return c.suggest(prompt)
 }
 
-func (c *Client) suggest(prompt string) ([]*Suggestion, error) {
+func (c *PaLMClient) suggest(prompt string) ([]*Suggestion, error) {
 	response, err := c.GenerateText(prompt)
 	if err != nil {
 		return nil, err
