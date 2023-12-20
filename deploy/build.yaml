@@ -69,3 +69,5 @@ steps:
     name: golang:1.12.5
     entrypoint: bash
     args: ["-ec", "go run ./cmd/checkdb -v1 -legacy /workspace/deployed/go-vulndb"]
+    env:
+      - 'GOPROXY=https://proxy.golang.org'
