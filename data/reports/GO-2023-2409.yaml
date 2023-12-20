@@ -1,0 +1,29 @@
+id: GO-2023-2409
+modules:
+    - module: github.com/dvsekhvalnov/jose2go
+      versions:
+        - fixed: 1.5.1-0.20231206184617-48ba0b76bc88
+      vulnerable_at: 1.5.0
+      packages:
+        - package: github.com/dvsekhvalnov/jose2go
+          symbols:
+            - Pbse2HmacAesKW.WrapNewKey
+            - Pbse2HmacAesKW.Unwrap
+            - encrypt
+            - decrypt
+          derived_symbols:
+            - Compress
+            - Decode
+            - DecodeBytes
+            - Encrypt
+            - EncryptBytes
+summary: Denial of service when decrypting attack controlled input in github.com/dvsekhvalnov/jose2go
+description: |-
+    An attacker controlled input of a PBES2 encrypted JWE blob can have a very
+    large p2c value that, when decrypted, produces a denial-of-service.
+credits:
+    - '@mschwager'
+references:
+    - web: https://github.com/dvsekhvalnov/jose2go/issues/31
+    - web: https://www.blackhat.com/us-23/briefings/schedule/#three-new-attacks-against-json-web-tokens-31695
+    - fix: https://github.com/dvsekhvalnov/jose2go/commit/a4584e9dd7128608fedbc67892eba9697f0d5317
