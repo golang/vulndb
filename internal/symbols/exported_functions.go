@@ -60,6 +60,16 @@ func Exported(m *report.Module, p *report.Package, errlog *log.Logger) (_ []stri
 				return nil, err
 			}
 		}
+		// TODO: This is the logical place to update the vulnerable module to locally
+		// use a different version of a module when necessary for .
+		// Example: data/reports/GO-2023-2399.yaml
+		//   go mod edit -require github.com/hashicorp/vault@1.15.3
+		// which requires
+		//   go get github.com/hashicorp/vault/sdk@v0.10.2
+		// to locally derive symbols.
+		// It may potentially make sense to extend yaml report format with
+		// these if this is a recurring problem.
+
 		// Create a package that imports the package we're interested in.
 		var content bytes.Buffer
 		fmt.Fprintf(&content, "package p\n")

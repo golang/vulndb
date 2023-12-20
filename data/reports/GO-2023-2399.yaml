@@ -1,0 +1,61 @@
+id: GO-2023-2399
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - introduced: 1.12.0
+          fixed: 1.13.12
+        - introduced: 1.14.0
+          fixed: 1.14.8
+        - introduced: 1.15.0
+          fixed: 1.15.4
+      vulnerable_at: 1.15.3
+      packages:
+        - package: github.com/hashicorp/vault/helper/forwarding
+          symbols:
+            - GenerateForwardedRequest
+          derived_symbols:
+            - GenerateForwardedHTTPRequest
+        - package: github.com/hashicorp/vault/http
+          symbols:
+            - handler
+            - wrapGenericHandler
+            - parseJSONRequest
+            - parseFormRequest
+            - rateLimitQuotaWrapping
+          derived_symbols:
+            - HandlerAnchor.Handler
+            - TestServer
+            - TestServerWithListener
+            - TestServerWithListenerAndProperties
+          skip_fix: 'TODO: module github.com/hashicorp/vault must be updated with go get github.com/hashicorp/vault/sdk@v0.10.2 to reproduce.'
+        - package: github.com/hashicorp/vault/vault
+          symbols:
+            - Core.DetermineRoleFromLoginRequestFromBytes
+            - Core.DetermineRoleFromLoginRequest
+            - SystemBackend.handleStorageRaftSnapshotWrite
+          derived_symbols:
+            - Core.ForwardRequest
+            - Core.HandleRequest
+            - NewSystemBackend
+            - NewTestCluster
+            - TestCluster.InitCores
+            - TestCoreUnsealed
+            - TestCoreUnsealedRaw
+            - TestCoreUnsealedWithConfig
+            - TestCoreUnsealedWithMetrics
+            - TestCoreWithCustomResponseHeaderAndUI
+          skip_fix: 'TODO: module github.com/hashicorp/vault must be updated with go get github.com/hashicorp/vault/sdk@v0.10.2 to reproduce.'
+summary: Denial of service via memory exhaustion in github.com/hashicorp/vault
+description: |-
+    Unauthenticated and authenticated HTTP requests from a client
+    will be attempted to be mapped to memory.
+    Large requests may result in the exhaustion of available
+    memory on the host, which may cause crashes and denial of service.
+cves:
+    - CVE-2023-6337
+ghsas:
+    - GHSA-6p62-6cg9-f5f5
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-6337
+    - web: https://discuss.hashicorp.com/t/hcsec-2023-34-vault-vulnerable-to-denial-of-service-through-memory-exhaustion-when-handling-large-http-requests/60741
+    - fix: https://github.com/hashicorp/vault/pull/24354
