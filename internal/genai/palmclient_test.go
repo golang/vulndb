@@ -5,19 +5,14 @@
 package genai
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 	"net/http/httptest"
-	"os"
 	"reflect"
 	"strings"
 	"testing"
-
-	gemini "github.com/google/generative-ai-go/genai"
-	"google.golang.org/api/option"
 )
 
 func TestGenerateText(t *testing.T) {
@@ -60,7 +55,7 @@ func TestGenerateText(t *testing.T) {
 				t.Fatal(err)
 			}
 			t.Cleanup(cleanup)
-			got, err := c.GenerateText(tt.prompt)
+			got, err := c.generateText(tt.prompt)
 			if err != nil {
 				t.Fatalf("GenerateText() error = %v", err)
 			}
@@ -90,7 +85,7 @@ func TestGenerateTextError(t *testing.T) {
 				t.Fatal(err)
 			}
 			t.Cleanup(cleanup)
-			_, err = c.GenerateText(tt.prompt)
+			_, err = c.generateText(tt.prompt)
 			if !strings.Contains(err.Error(), tt.wantErr) {
 				t.Fatalf("GenerateText() error = %v; want error containing %q", err, tt.wantErr)
 			}
@@ -149,24 +144,4 @@ const testAPIKey = "TEST-API-KEY"
 
 func getTestAPIKey() (string, error) {
 	return testAPIKey, nil
-}
-
-func TestGemini(t *testing.T) {
-	t.SkipNow()
-	ctx := context.Background()
-	client, err := gemini.NewClient(ctx, option.WithAPIKey(os.Getenv("GEMINI_API_KEY")))
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer client.Close()
-	m := client.GenerativeModel("gemini-pro")
-	res, err := m.GenerateContent(ctx, gemini.Text("something"))
-	if err != nil {
-		t.Fatal(err)
-	}
-	data, err := json.MarshalIndent(res, "", "    ")
-	if err != nil {
-		t.Fatal(err)
-	}
-	fmt.Printf("%s\n", data)
 }

@@ -19,7 +19,7 @@ var (
 	numSuggestions = flag.Int("n", 4, "for suggest, the number of suggestions to attempt to generate (max is 8)")
 )
 
-func suggest(_ context.Context, filename string) (err error) {
+func suggest(ctx context.Context, filename string) (err error) {
 	defer derrors.Wrap(&err, "suggest(%q)", filename)
 
 	c := genai.NewDefaultPaLMClient()
@@ -29,7 +29,7 @@ func suggest(_ context.Context, filename string) (err error) {
 		return err
 	}
 
-	suggestions, err := c.Suggest(&genai.Input{
+	suggestions, err := genai.Suggest(ctx, c, &genai.Input{
 		Module:      r.Modules[0].Module,
 		Description: r.Description.String(),
 	})

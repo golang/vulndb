@@ -134,11 +134,13 @@ func readFile(filename string) (Examples, error) {
 	return examples, nil
 }
 
+var placeholderInput = &Input{
+	Module:      "INPUT MODULE",
+	Description: "INPUT DESCRIPTION",
+}
+
 func (es Examples) placeholderPrompt() (string, error) {
-	return defaultPrompt(&Input{
-		Module:      "INPUT MODULE",
-		Description: "INPUT DESCRIPTION",
-	}, es)
+	return newPrompt(placeholderInput, defaultPreamble, es, defaultMaxExamples)
 }
 
 func (es Examples) writePrompt(w io.Writer) error {

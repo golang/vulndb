@@ -8,6 +8,7 @@ package genai
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -47,9 +48,9 @@ func NewClient(httpClient *http.Client, url string, getAPIKey func() (string, er
 const generateTextEndpoint = "generateText"
 const textBisonModel = "/v1beta3/models/text-bison-001"
 
-// GenerateText is a wrapper for the PaLM API "generateText" endpoint.
+// generateText is a wrapper for the PaLM API "generateText" endpoint.
 // See https://developers.generativeai.google/api/rest/generativelanguage/models/generateText.
-func (c *PaLMClient) GenerateText(prompt string) (*GenerateTextResponse, error) {
+func (c *PaLMClient) generateText(prompt string) (*GenerateTextResponse, error) {
 	reqBody, err := toRequestBody(prompt)
 	if err != nil {
 		return nil, err
@@ -71,6 +72,18 @@ func (c *PaLMClient) GenerateText(prompt string) (*GenerateTextResponse, error) 
 		return nil, err
 	}
 	return parseGenerateTextResponse(resp.Body)
+}
+
+func (c *PaLMClient) GenerateText(_ context.Context, prompt string) ([]string, error) {
+	response, err := c.generateText(prompt)
+	if err != nil {
+		return nil, err
+	}
+	candidates := make([]string, len(response.Candidates))
+	for i, c := range response.Candidates {
+		candidates[i] = c.Output
+	}
+	return candidates, nil
 }
 
 func getErrMsg(r io.Reader) (string, error) {
