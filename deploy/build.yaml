@@ -66,8 +66,8 @@ steps:
       - mkdir /workspace/deployed && gsutil -q -m cp -r gs://go-vulndb /workspace/deployed
 
   - id: PostValidate
-    name: golang:1.12.5
+    name: golang:1.19.2
     entrypoint: bash
-    args: ["-ec", "go env && go run ./cmd/checkdb -v1 -legacy /workspace/deployed/go-vulndb"]
+    args: ["-ec", "go run ./cmd/checkdb -v1 -legacy /workspace/deployed/go-vulndb"]
     env:
       - 'GOPROXY=https://proxy.golang.org'
