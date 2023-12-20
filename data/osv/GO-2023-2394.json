@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-2394",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-50463",
+    "GHSA-rxg9-hgq7-8pwx"
+  ],
+  "summary": "Spoofed source IP address in github.com/shift72/caddy-geo-ip",
+  "details": "The caddy-geo-ip (aka GeoIP) middleware for Caddy 2 allows attackers to spoof their source IP address via an X-Forwarded-For header, which may bypass a protection mechanism (trusted_proxy directive in reverse_proxy or IP address range restrictions).",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/shift72/caddy-geo-ip",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/shift72/caddy-geo-ip"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-50463"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/shift72/caddy-geo-ip/issues/4"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-2394"
+  }
+}
