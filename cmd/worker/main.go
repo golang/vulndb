@@ -20,7 +20,6 @@ import (
 	"text/tabwriter"
 	"time"
 
-	"golang.org/x/exp/event"
 	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
@@ -88,8 +87,8 @@ func main() {
 		dieWithUsage("%v", err)
 	}
 
-	ctx := event.WithExporter(context.Background(),
-		event.NewExporter(log.NewLineHandler(os.Stderr), nil))
+	ctx := context.Background()
+
 	if img := os.Getenv("DOCKER_IMAGE"); img != "" {
 		log.Infof(ctx, "running in docker image %s", img)
 	}

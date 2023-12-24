@@ -8,11 +8,12 @@ package observe
 
 import (
 	"context"
+	"golang.org/x/exp/slog"
 	"net/http"
 	"strings"
 
-	"golang.org/x/exp/event"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/worker/log"
 
 	mexporter "github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/metric"
 	texporter "github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/trace"
@@ -25,17 +26,13 @@ import (
 	tnoop "go.opentelemetry.io/otel/trace/noop"
 )
 
-// An Observer handles tracing and metrics exporting.
+// An Observer handles tracing, logging and metrics exporting.
 type Observer struct {
 	ctx            context.Context
 	tracerProvider *sdktrace.TracerProvider
 	tracer         trace.Tracer
 	propagator     propagation.TextMapPropagator
-
-	// LogHandlerFunc is invoked in [Observer.Observe] to obtain an
-	// [event.Handler] for logging to be added to the [event.Exporter] in
-	// addition to the tracing and metrics handlers.
-	LogHandlerFunc func(*http.Request) event.Handler
+	baseLogger     *slog.Logger
 }
 
 // NewObserver creates an Observer.
@@ -77,38 +74,26 @@ func NewObserver(ctx context.Context, projectID, serverName string) (_ *Observer
 			gcppropagator.CloudTraceOneWayPropagator{},
 			propagation.TraceContext{},
 			propagation.Baggage{}),
+		baseLogger: slog.New(log.NewGoogleCloudHandler(slog.LevelDebug)),
 	}, nil
 }
 
 type key struct{}
 
+const (
+	traceIDHeader = "X-Cloud-Trace-Context"
+	gcpTraceKey   = "logging.googleapis.com/trace"
+)
+
 // Observe adds metrics and tracing to an http.Handler.
 func (o *Observer) Observe(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		var otherHandler event.Handler
-		if o.LogHandlerFunc != nil {
-			otherHandler = o.LogHandlerFunc(r)
-		}
-		exporter := event.NewExporter(eventHandler{o, otherHandler}, nil)
-		ctx := event.WithExporter(r.Context(), exporter)
+		ctx := log.NewContext(r.Context(), o.baseLogger.With(gcpTraceKey, r.Header.Get(traceIDHeader)))
 		ctx = o.propagator.Extract(ctx, propagation.HeaderCarrier(r.Header))
 		ctx = context.WithValue(ctx, key{}, o)
 		defer o.tracerProvider.ForceFlush(o.ctx)
 		h.ServeHTTP(w, r.WithContext(ctx))
 	})
-}
-
-type eventHandler struct {
-	o  *Observer
-	eh event.Handler
-}
-
-// Event implements event.Handler.
-func (h eventHandler) Event(ctx context.Context, ev *event.Event) context.Context {
-	if h.eh != nil {
-		return h.eh.Event(ctx, ev)
-	}
-	return ctx
 }
 
 func Start(ctx context.Context, name string) (context.Context, trace.Span) {

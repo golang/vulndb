@@ -13,7 +13,6 @@ import (
 	"fmt"
 	"math"
 	"net/http"
-	"os"
 	"sort"
 	"strings"
 	"testing"
@@ -21,7 +20,6 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
-	"golang.org/x/exp/event"
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
@@ -29,7 +27,6 @@ import (
 	"golang.org/x/vulndb/internal/issues/githubtest"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
-	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"
 )
 
@@ -97,8 +94,7 @@ func TestCheckUpdate(t *testing.T) {
 }
 
 func TestCreateIssues(t *testing.T) {
-	ctx := event.WithExporter(context.Background(),
-		event.NewExporter(log.NewLineHandler(os.Stderr), nil))
+	ctx := context.Background()
 	mstore := store.NewMemStore()
 
 	ic, mux := githubtest.Setup(ctx, t, &issues.Config{
@@ -391,8 +387,7 @@ func day(year, month, day int) time.Time {
 }
 
 func TestUpdateGHSAs(t *testing.T) {
-	ctx := event.WithExporter(context.Background(),
-		event.NewExporter(log.NewLineHandler(os.Stderr), nil))
+	ctx := context.Background()
 	sas := []*ghsa.SecurityAdvisory{
 		{
 			ID:        "g1",

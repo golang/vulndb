@@ -22,7 +22,6 @@ import (
 	"cloud.google.com/go/errorreporting"
 	"github.com/google/safehtml/template"
 	"github.com/jba/metrics"
-	"golang.org/x/exp/event"
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/derrors"
@@ -52,8 +51,6 @@ type Server struct {
 	observer      *observe.Observer
 }
 
-const traceIDHeader = "X-Cloud-Trace-Context"
-
 func NewServer(ctx context.Context, cfg Config) (_ *Server, err error) {
 	defer derrors.Wrap(&err, "NewServer(%q)", cfg.Namespace)
 
@@ -66,11 +63,6 @@ func NewServer(ctx context.Context, cfg Config) (_ *Server, err error) {
 	// This function will be called for each request.
 	// It lets us install a log handler that knows about the request's
 	// trace ID.
-	s.observer.LogHandlerFunc = func(r *http.Request) event.Handler {
-		traceID := r.Header.Get(traceIDHeader)
-		return log.NewGCPJSONHandler(os.Stderr, traceID)
-	}
-
 	if cfg.UseErrorReporting {
 		reportingClient, err := errorreporting.NewClient(ctx, cfg.Project, errorreporting.Config{
 			ServiceName: serviceID,
