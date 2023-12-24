@@ -14,11 +14,11 @@ import (
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/object"
-	"golang.org/x/exp/event"
 	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/ghsa"
+	"golang.org/x/vulndb/internal/observe"
 	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"
 )
@@ -69,8 +69,8 @@ func (u *cveUpdater) update(ctx context.Context) (ur *store.CommitUpdateRecord, 
 	// transaction can do, so the CVE files in the repo are processed in
 	// batches, one transaction per batch.
 	defer derrors.Wrap(&err, "cveUpdater.update(%s)", u.commit.Hash)
-	ctx = event.Start(ctx, "cveUpdater.update")
-	defer event.End(ctx)
+	ctx, span := observe.Start(ctx, "cveUpdater.update")
+	defer span.End()
 
 	defer func() {
 		if err == nil {
@@ -476,8 +476,8 @@ func triageNewGHSA(sa *ghsa.SecurityAdvisory, tx store.Transaction) (store.Triag
 
 func updateGHSAs(ctx context.Context, listSAs GHSAListFunc, since time.Time, st store.Store) (stats UpdateGHSAStats, err error) {
 	defer derrors.Wrap(&err, "updateGHSAs(%s)", since)
-	ctx = event.Start(ctx, "updateGHSAs")
-	defer event.End(ctx)
+	ctx, span := observe.Start(ctx, "updateGHSAs")
+	defer span.End()
 
 	defer func() {
 		if err == nil {

@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 // Package observe provides metric and tracing support for Go servers.
-// It uses OpenTelemetry and the golang.org/x/exp/events package.
+// It uses OpenTelemetry.
 package observe
 
 import (
@@ -21,14 +21,15 @@ import (
 	"go.opentelemetry.io/otel/propagation"
 	"go.opentelemetry.io/otel/sdk/instrumentation"
 	sdktrace "go.opentelemetry.io/otel/sdk/trace"
-	eotel "golang.org/x/exp/event/otel"
+	"go.opentelemetry.io/otel/trace"
+	tnoop "go.opentelemetry.io/otel/trace/noop"
 )
 
 // An Observer handles tracing and metrics exporting.
 type Observer struct {
 	ctx            context.Context
 	tracerProvider *sdktrace.TracerProvider
-	traceHandler   *eotel.TraceHandler
+	tracer         trace.Tracer
 	propagator     propagation.TextMapPropagator
 
 	// LogHandlerFunc is invoked in [Observer.Observe] to obtain an
@@ -49,6 +50,12 @@ func NewObserver(ctx context.Context, projectID, serverName string) (_ *Observer
 	if err != nil {
 		return nil, err
 	}
+	tp := sdktrace.NewTracerProvider(
+		// Enable tracing if there is no incoming request, or if the incoming
+		// request is sampled.
+		sdktrace.WithSampler(sdktrace.ParentBased(sdktrace.AlwaysSample())),
+		sdktrace.WithBatcher(exporter))
+
 	// Create exporter.
 	mex, err := mexporter.New(mexporter.WithProjectID(projectID))
 	if err != nil {
@@ -60,15 +67,10 @@ func NewObserver(ctx context.Context, projectID, serverName string) (_ *Observer
 		return !strings.HasPrefix(name, "runtime/")
 	})
 
-	tp := sdktrace.NewTracerProvider(
-		// Enable tracing if there is no incoming request, or if the incoming
-		// request is sampled.
-		sdktrace.WithSampler(sdktrace.ParentBased(sdktrace.AlwaysSample())),
-		sdktrace.WithBatcher(exporter))
 	return &Observer{
 		ctx:            ctx,
 		tracerProvider: tp,
-		traceHandler:   eotel.NewTraceHandler(tp.Tracer(serverName)),
+		tracer:         tp.Tracer(serverName),
 		// The propagator extracts incoming trace IDs so that we can connect our trace spans
 		// to the incoming ones constructed by Cloud Run.
 		propagator: propagation.NewCompositeTextMapPropagator(
@@ -77,6 +79,8 @@ func NewObserver(ctx context.Context, projectID, serverName string) (_ *Observer
 			propagation.Baggage{}),
 	}, nil
 }
+
+type key struct{}
 
 // Observe adds metrics and tracing to an http.Handler.
 func (o *Observer) Observe(h http.Handler) http.Handler {
@@ -88,6 +92,7 @@ func (o *Observer) Observe(h http.Handler) http.Handler {
 		exporter := event.NewExporter(eventHandler{o, otherHandler}, nil)
 		ctx := event.WithExporter(r.Context(), exporter)
 		ctx = o.propagator.Extract(ctx, propagation.HeaderCarrier(r.Header))
+		ctx = context.WithValue(ctx, key{}, o)
 		defer o.tracerProvider.ForceFlush(o.ctx)
 		h.ServeHTTP(w, r.WithContext(ctx))
 	})
@@ -101,7 +106,14 @@ type eventHandler struct {
 // Event implements event.Handler.
 func (h eventHandler) Event(ctx context.Context, ev *event.Event) context.Context {
 	if h.eh != nil {
-		ctx = h.eh.Event(ctx, ev)
+		return h.eh.Event(ctx, ev)
 	}
-	return h.o.traceHandler.Event(ctx, ev)
+	return ctx
+}
+
+func Start(ctx context.Context, name string) (context.Context, trace.Span) {
+	if obs, ok := ctx.Value(key{}).(*Observer); ok {
+		return obs.tracer.Start(ctx, name)
+	}
+	return ctx, tnoop.Span{}
 }

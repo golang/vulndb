@@ -17,17 +17,17 @@ import (
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"
 	"github.com/go-git/go-git/v5/storage/memory"
-	"golang.org/x/exp/event"
 	"golang.org/x/tools/txtar"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/observe"
 	"golang.org/x/vulndb/internal/worker/log"
 )
 
 // Clone returns a bare repo by cloning the repo at repoURL.
 func Clone(ctx context.Context, repoURL string) (repo *git.Repository, err error) {
 	defer derrors.Wrap(&err, "gitrepo.Clone(%q)", repoURL)
-	ctx = event.Start(ctx, "gitrepo.Clone")
-	defer event.End(ctx)
+	ctx, span := observe.Start(ctx, "gitrepo.Clone")
+	defer span.End()
 
 	return CloneAt(ctx, repoURL, plumbing.HEAD)
 }
@@ -47,8 +47,8 @@ func CloneAt(ctx context.Context, repoURL string, ref plumbing.ReferenceName) (r
 // PlainClone returns a (non-bare) repo with its history by cloning the repo at repoURL.
 func PlainClone(ctx context.Context, dir, repoURL string) (repo *git.Repository, err error) {
 	defer derrors.Wrap(&err, "gitrepo.PlainClone(%q)", repoURL)
-	ctx = event.Start(ctx, "gitrepo.PlainClone")
-	defer event.End(ctx)
+	ctx, span := observe.Start(ctx, "gitrepo.PlainClone")
+	defer span.End()
 
 	log.Infof(ctx, "Plain cloning repo %q at HEAD", repoURL)
 	return git.PlainCloneContext(ctx, dir, false, &git.CloneOptions{
@@ -63,8 +63,8 @@ func PlainClone(ctx context.Context, dir, repoURL string) (repo *git.Repository,
 // Open returns a repo by opening the repo at the local path dirpath.
 func Open(ctx context.Context, dirpath string) (repo *git.Repository, err error) {
 	defer derrors.Wrap(&err, "gitrepo.Open(%q)", dirpath)
-	ctx = event.Start(ctx, "gitrepo.Open")
-	defer event.End(ctx)
+	ctx, span := observe.Start(ctx, "gitrepo.Open")
+	defer span.End()
 
 	log.Infof(ctx, "Opening repo at %q", dirpath)
 	repo, err = git.PlainOpen(dirpath)

@@ -17,7 +17,6 @@ import (
 
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"
-	"golang.org/x/exp/event"
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
 	"golang.org/x/time/rate"
@@ -27,6 +26,7 @@ import (
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
+	"golang.org/x/vulndb/internal/observe"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/worker/log"
@@ -85,8 +85,8 @@ func UpdateCVEsAtCommit(ctx context.Context, repoPath, commitHashString string, 
 // It verifies that there is not an update currently in progress,
 // and it makes sure that the update is to a more recent commit.
 func checkCVEUpdate(ctx context.Context, commit *object.Commit, st store.Store) error {
-	ctx = event.Start(ctx, "checkUpdate")
-	defer event.End(ctx)
+	ctx, span := observe.Start(ctx, "checkUpdate")
+	defer span.End()
 
 	urs, err := st.ListCommitUpdateRecords(ctx, 1)
 	if err != nil {
@@ -175,8 +175,8 @@ var issueRateLimiter = rate.NewLimiter(rate.Every(time.Duration(1000/float64(iss
 // CreateIssues creates issues on the x/vulndb issue tracker for allReports.
 func CreateIssues(ctx context.Context, st store.Store, client *issues.Client, pc *proxy.Client, allReports map[string]*report.Report, limit int) (err error) {
 	defer derrors.Wrap(&err, "CreateIssues(destination: %s)", client.Destination())
-	ctx = event.Start(ctx, "CreateIssues")
-	defer event.End(ctx)
+	ctx, span := observe.Start(ctx, "CreateIssues")
+	defer span.End()
 
 	if err := createCVEIssues(ctx, st, client, pc, allReports, limit); err != nil {
 		return err
