@@ -9,6 +9,7 @@ package observe
 import (
 	"context"
 	"net/http"
+	"strings"
 
 	"golang.org/x/exp/event"
 	"golang.org/x/vulndb/internal/derrors"
@@ -16,8 +17,9 @@ import (
 	mexporter "github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/metric"
 	texporter "github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/trace"
 	gcppropagator "github.com/GoogleCloudPlatform/opentelemetry-operations-go/propagator"
+	"github.com/jba/metrics/otel"
 	"go.opentelemetry.io/otel/propagation"
-	sdkmetric "go.opentelemetry.io/otel/sdk/metric"
+	"go.opentelemetry.io/otel/sdk/instrumentation"
 	sdktrace "go.opentelemetry.io/otel/sdk/trace"
 	eotel "golang.org/x/exp/event/otel"
 )
@@ -27,7 +29,6 @@ type Observer struct {
 	ctx            context.Context
 	tracerProvider *sdktrace.TracerProvider
 	traceHandler   *eotel.TraceHandler
-	metricHandler  *eotel.MetricHandler
 	propagator     propagation.TextMapPropagator
 
 	// LogHandlerFunc is invoked in [Observer.Observe] to obtain an
@@ -53,10 +54,12 @@ func NewObserver(ctx context.Context, projectID, serverName string) (_ *Observer
 	if err != nil {
 		return nil, err
 	}
-	// Initialize a MeterProvider with that periodically exports to the GCP exporter.
-	provider := sdkmetric.NewMeterProvider(
-		sdkmetric.WithReader(sdkmetric.NewPeriodicReader(mex)),
-	)
+	// Export all registered metrics except the runtime metrics.
+	scope := instrumentation.Scope{Name: "vulndb/worker"}
+	otel.Export(scope, mex, 0, func(name string) bool {
+		return !strings.HasPrefix(name, "runtime/")
+	})
+
 	tp := sdktrace.NewTracerProvider(
 		// Enable tracing if there is no incoming request, or if the incoming
 		// request is sampled.
@@ -66,7 +69,6 @@ func NewObserver(ctx context.Context, projectID, serverName string) (_ *Observer
 		ctx:            ctx,
 		tracerProvider: tp,
 		traceHandler:   eotel.NewTraceHandler(tp.Tracer(serverName)),
-		metricHandler:  eotel.NewMetricHandler(provider.Meter(serverName)),
 		// The propagator extracts incoming trace IDs so that we can connect our trace spans
 		// to the incoming ones constructed by Cloud Run.
 		propagator: propagation.NewCompositeTextMapPropagator(
@@ -101,6 +103,5 @@ func (h eventHandler) Event(ctx context.Context, ev *event.Event) context.Contex
 	if h.eh != nil {
 		ctx = h.eh.Event(ctx, ev)
 	}
-	ctx = h.o.traceHandler.Event(ctx, ev)
-	return h.o.metricHandler.Event(ctx, ev)
+	return h.o.traceHandler.Event(ctx, ev)
 }

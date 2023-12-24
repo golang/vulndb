@@ -21,6 +21,7 @@ import (
 
 	"cloud.google.com/go/errorreporting"
 	"github.com/google/safehtml/template"
+	"github.com/jba/metrics"
 	"golang.org/x/exp/event"
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/vulndb/internal/cvelistrepo"
@@ -286,9 +287,11 @@ func (s *Server) indexPage(w http.ResponseWriter, r *http.Request) error {
 	return renderPage(r.Context(), w, page, s.indexTemplate)
 }
 
-const metricNamespace = "vulndb/worker"
+type UpdateOutcome struct {
+	Success bool
+}
 
-var updateCounter = event.NewCounter("updates", &event.MetricOptions{Namespace: metricNamespace})
+var updateCounters = metrics.NewCounterGroup[int64, UpdateOutcome]("updates", "calls to handleUpdate")
 
 func (s *Server) handleUpdate(w http.ResponseWriter, r *http.Request) error {
 	err := s.doUpdate(r)
@@ -301,7 +304,7 @@ func (s *Server) handleUpdate(w http.ResponseWriter, r *http.Request) error {
 func (s *Server) doUpdate(r *http.Request) (err error) {
 	defer func() {
 		success := err == nil
-		updateCounter.Record(r.Context(), 1, event.Bool("success", success))
+		updateCounters.At(UpdateOutcome{success}).Add(1)
 		log.Debugf(r.Context(), "recorded one /update operation in counter (success=%t)", success)
 	}()
 
