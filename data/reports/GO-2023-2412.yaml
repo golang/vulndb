@@ -1,0 +1,22 @@
+id: GO-2023-2412
+modules:
+    - module: github.com/containerd/containerd
+      versions:
+        - fixed: 1.6.26
+        - introduced: 1.7.0
+          fixed: 1.7.11
+      vulnerable_at: 1.7.10
+      packages:
+        - package: github.com/containerd/containerd/contrib/apparmor
+          symbols:
+            - generate
+          derived_symbols:
+            - DumpDefaultProfile
+            - LoadDefaultProfile
+summary: RAPL accessibility in github.com/containerd/containerd
+ghsas:
+    - GHSA-7ww5-4wqc-m92c
+references:
+    - advisory: https://github.com/containerd/containerd/security/advisories/GHSA-7ww5-4wqc-m92c
+    - fix: https://github.com/containerd/containerd/commit/67d356cb3095f3e8f8ad7d36f9a733fea1e7e28c
+    - fix: https://github.com/containerd/containerd/commit/746b910f05855c8bfdb4415a1c0f958b234910e5
