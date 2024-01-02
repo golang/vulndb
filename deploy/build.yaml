@@ -66,7 +66,7 @@ steps:
       - mkdir /workspace/deployed && gsutil -q -m cp -r gs://go-vulndb /workspace/deployed
 
   - id: PostValidate
-    name: golang:1.19.2
+    name: golang:1.20.12
     entrypoint: bash
     args: ["-ec", "go run ./cmd/checkdb -v1 -legacy /workspace/deployed/go-vulndb"]
     env:
