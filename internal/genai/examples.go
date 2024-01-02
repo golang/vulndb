@@ -28,7 +28,7 @@ type Example struct {
 
 const (
 	dataFolder = "data"
-	promptFile = "prompt.txt"
+	promptFile = "example_prompt.txt"
 	csvFile    = "examples.csv"
 	jsonFile   = "examples.json"
 )

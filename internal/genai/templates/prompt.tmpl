@@ -1,0 +1,6 @@
+{{ .Preamble }}
+{{ range .Examples }}
+input: {{ .Input | toJSON }}
+output: {{ .Suggestion | toJSON }}{{ end }}
+input: {{ .Input | toJSON }}
+output:
