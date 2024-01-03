@@ -1,0 +1,21 @@
+id: GO-2023-2413
+modules:
+    - module: github.com/elastic/beats/v7
+      versions:
+        - fixed: 7.17.16
+      vulnerable_at: 7.17.15
+      packages:
+        - package: github.com/elastic/beats/v7/libbeat/processors/script/javascript
+          symbols:
+            - session.runProcessFunc
+          derived_symbols:
+            - jsProcessor.Run
+summary: Sensitive information logged in github.com/elastic/beats/v7
+cves:
+    - CVE-2023-49922
+ghsas:
+    - GHSA-hj4r-2c9c-29h3
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-49922
+    - fix: https://github.com/elastic/beats/commit/9bd7de84ab9c31bb4e1c0a348a7b7c26817a0996
+    - web: https://discuss.elastic.co/t/beats-and-elastic-agent-8-11-3-7-17-16-security-update-esa-2023-30/349180
