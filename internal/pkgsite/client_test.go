@@ -43,3 +43,38 @@ func TestKnown(t *testing.T) {
 		})
 	}
 }
+
+func TestKnownParallel(t *testing.T) {
+	ctx := context.Background()
+	cf, err := CacheFile(t)
+	if err != nil {
+		t.Fatal(err)
+	}
+	pc, err := TestClient(t, *usePkgsite, cf)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	for _, test := range []struct {
+		name string
+		in   string
+		want bool
+	}{
+		{name: "valid", in: "golang.org/x/mod", want: true},
+		{name: "invalid", in: "github.com/something/something", want: false},
+	} {
+		test := test
+		t.Run(test.name, func(t *testing.T) {
+			t.Parallel()
+
+			got, err := pc.Known(ctx, test.in)
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if got != test.want {
+				t.Errorf("%s: got %t, want %t", test.in, got, test.want)
+			}
+		})
+	}
+}

@@ -15,6 +15,7 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+	"sync"
 	"testing"
 	"time"
 
@@ -23,11 +24,8 @@ import (
 )
 
 type Client struct {
-	url string
-	// Cache of module paths already seen.
-	seen map[string]bool
-	// Does seen contain all known modules?
-	cacheComplete bool
+	url   string
+	cache *cache
 }
 
 func Default() *Client {
@@ -36,17 +34,13 @@ func Default() *Client {
 
 func New(url string) *Client {
 	return &Client{
-		url:           url,
-		seen:          make(map[string]bool),
-		cacheComplete: false,
+		url:   url,
+		cache: newCache(),
 	}
 }
 
 func (pc *Client) SetKnownModules(known []string) {
-	for _, km := range known {
-		pc.seen[km] = true
-	}
-	pc.cacheComplete = true
+	pc.cache.setKnownModules(known)
 }
 
 // Limit pkgsite requests to this many per second.
@@ -64,13 +58,11 @@ var pkgsiteURL = "https://pkg.go.dev"
 // Known reports whether pkgsite knows that modulePath actually refers
 // to a module.
 func (pc *Client) Known(ctx context.Context, modulePath string) (bool, error) {
-	// If we've seen it before, no need to call.
-	if b, ok := pc.seen[modulePath]; ok {
-		return b, nil
+	found, ok := pc.cache.lookup(modulePath)
+	if ok {
+		return found, nil
 	}
-	if pc.cacheComplete {
-		return false, nil
-	}
+
 	// Pause to maintain a max QPS.
 	if err := pkgsiteRateLimiter.Wait(ctx); err != nil {
 		return false, err
@@ -92,7 +84,7 @@ func (pc *Client) Known(ctx context.Context, modulePath string) (bool, error) {
 		return false, err
 	}
 	known := res.StatusCode == http.StatusOK
-	pc.seen[modulePath] = known
+	pc.cache.add(modulePath, known)
 	return known, nil
 }
 
@@ -115,7 +107,10 @@ func readKnown(r io.Reader) (map[string]bool, error) {
 	return seen, nil
 }
 
-func (c *Client) writeKnown(w io.Writer) error {
+func (c *cache) writeKnown(w io.Writer) error {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
 	b, err := json.MarshalIndent(c.seen, "", "   ")
 	if err != nil {
 		return err
@@ -164,7 +159,7 @@ func TestClient(t *testing.T, useRealPkgsite bool, rw io.ReadWriter) (*Client, e
 	if useRealPkgsite {
 		c := Default()
 		t.Cleanup(func() {
-			err := c.writeKnown(rw)
+			err := c.cache.writeKnown(rw)
 			if err != nil {
 				t.Error(err)
 			}
@@ -183,4 +178,55 @@ func TestClient(t *testing.T, useRealPkgsite bool, rw io.ReadWriter) (*Client, e
 	}))
 	t.Cleanup(s.Close)
 	return New(s.URL), nil
+}
+
+type cache struct {
+	mu sync.Mutex
+	// Module paths already seen.
+	seen map[string]bool
+	// Does the cache contain all known modules?
+	complete bool
+}
+
+func newCache() *cache {
+	return &cache{
+		seen:     make(map[string]bool),
+		complete: false,
+	}
+}
+
+func (c *cache) setKnownModules(known []string) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
+	for _, km := range known {
+		c.seen[km] = true
+	}
+	c.complete = true
+}
+
+func (c *cache) lookup(modulePath string) (known bool, ok bool) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
+	// In the cache.
+	if known, ok := c.seen[modulePath]; ok {
+		return known, true
+	}
+
+	// Not in the cache, but the cache is complete, so this
+	// module is not known.
+	if c.complete {
+		return false, true
+	}
+
+	// We can't make a statement about this module.
+	return false, false
+}
+
+func (c *cache) add(modulePath string, known bool) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
+	c.seen[modulePath] = known
 }
