@@ -61,9 +61,6 @@ func NewServer(ctx context.Context, cfg Config) (_ *Server, err error) {
 	if err != nil {
 		return nil, err
 	}
-	// This function will be called for each request.
-	// It lets us install a log handler that knows about the request's
-	// trace ID.
 	if cfg.UseErrorReporting {
 		reportingClient, err := errorreporting.NewClient(ctx, cfg.Project, errorreporting.Config{
 			ServiceName: serviceID,
