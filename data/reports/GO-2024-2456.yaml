@@ -1,0 +1,157 @@
+id: GO-2024-2456
+modules:
+    - module: gopkg.in/src-d/go-git.v4
+      versions:
+        - introduced: 4.7.1
+      vulnerable_at: 4.13.1
+    - module: github.com/go-git/go-git/v5
+      versions:
+        - introduced: 5.0.0
+          fixed: 5.11.0
+      vulnerable_at: 5.10.1
+      packages:
+        - package: github.com/go-git/go-git/v5
+          symbols:
+            - checkFastForwardUpdate
+            - isFastForward
+            - InitWithOptions
+            - Repository.CreateTag
+            - Worktree.PullContext
+            - Worktree.createBranch
+            - Worktree.checkoutFileSymlink
+          derived_symbols:
+            - AddOptions.Validate
+            - Blame
+            - BlameResult.String
+            - Clone
+            - CloneContext
+            - CommitOptions.Validate
+            - CreateTagOptions.Validate
+            - GrepOptions.Validate
+            - GrepResult.String
+            - Init
+            - NoMatchingRefSpecError.Error
+            - Open
+            - PlainClone
+            - PlainCloneContext
+            - PlainInit
+            - PlainInitWithOptions
+            - PlainOpen
+            - PlainOpenWithOptions
+            - Remote.Fetch
+            - Remote.FetchContext
+            - Remote.List
+            - Remote.ListContext
+            - Remote.Push
+            - Remote.PushContext
+            - Remote.String
+            - Repository.BlobObject
+            - Repository.BlobObjects
+            - Repository.Branch
+            - Repository.Branches
+            - Repository.CommitObject
+            - Repository.CommitObjects
+            - Repository.Config
+            - Repository.ConfigScoped
+            - Repository.CreateBranch
+            - Repository.CreateRemote
+            - Repository.CreateRemoteAnonymous
+            - Repository.DeleteBranch
+            - Repository.DeleteObject
+            - Repository.DeleteRemote
+            - Repository.DeleteTag
+            - Repository.Fetch
+            - Repository.FetchContext
+            - Repository.Grep
+            - Repository.Head
+            - Repository.Log
+            - Repository.Notes
+            - Repository.Object
+            - Repository.Objects
+            - Repository.Prune
+            - Repository.Push
+            - Repository.PushContext
+            - Repository.Reference
+            - Repository.References
+            - Repository.Remote
+            - Repository.Remotes
+            - Repository.RepackObjects
+            - Repository.ResolveRevision
+            - Repository.SetConfig
+            - Repository.Tag
+            - Repository.TagObject
+            - Repository.TagObjects
+            - Repository.Tags
+            - Repository.TreeObject
+            - Repository.TreeObjects
+            - ResetOptions.Validate
+            - Status.String
+            - Submodule.Init
+            - Submodule.Repository
+            - Submodule.Status
+            - Submodule.Update
+            - Submodule.UpdateContext
+            - SubmoduleStatus.String
+            - Submodules.Init
+            - Submodules.Status
+            - Submodules.Update
+            - Submodules.UpdateContext
+            - SubmodulesStatus.String
+            - Worktree.Add
+            - Worktree.AddGlob
+            - Worktree.AddWithOptions
+            - Worktree.Checkout
+            - Worktree.Clean
+            - Worktree.Commit
+            - Worktree.Grep
+            - Worktree.Move
+            - Worktree.Pull
+            - Worktree.Remove
+            - Worktree.RemoveGlob
+            - Worktree.Reset
+            - Worktree.ResetSparsely
+            - Worktree.Status
+            - Worktree.Submodule
+            - Worktree.Submodules
+            - buildTreeHelper.BuildTree
+        - package: github.com/go-git/go-git/v5/config
+          symbols:
+            - RemoteConfig.Validate
+            - Branch.Validate
+          derived_symbols:
+            - Config.Unmarshal
+            - Config.Validate
+            - LoadConfig
+            - ReadConfig
+        - package: github.com/go-git/go-git/v5/plumbing/object
+          symbols:
+            - getFileStatsFromFilePatches
+          derived_symbols:
+            - Commit.Stats
+            - Commit.StatsContext
+            - Patch.Stats
+        - package: github.com/go-git/go-git/v5/storage/filesystem
+          symbols:
+            - NewStorageWithOptions
+          derived_symbols:
+            - ConfigStorage.Config
+            - ConfigStorage.SetConfig
+            - ModuleStorage.Module
+            - NewStorage
+            - ObjectStorage.EncodedObject
+        - package: github.com/go-git/go-git/v5/storage/filesystem/dotgit
+          symbols:
+            - DotGit.Alternates
+summary: |-
+    Path traversal and RCE in github.com/go-git/go-git/v5 and
+    gopkg.in/src-d/go-git.v4
+cves:
+    - CVE-2023-49569
+ghsas:
+    - GHSA-449p-3h89-pw88
+credits:
+    - Ionut Lalu
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-49569
+notes:
+    - Symbols were obtained by looking at every change between 5.10.1 and 5.11.0.

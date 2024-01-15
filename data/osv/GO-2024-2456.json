@@ -1,0 +1,211 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2456",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-49569",
+    "GHSA-449p-3h89-pw88"
+  ],
+  "summary": "Path traversal and RCE in github.com/go-git/go-git/v5 and gopkg.in/src-d/go-git.v4",
+  "details": "Path traversal and RCE in github.com/go-git/go-git/v5 and gopkg.in/src-d/go-git.v4",
+  "affected": [
+    {
+      "package": {
+        "name": "gopkg.in/src-d/go-git.v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "4.7.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/go-git/go-git/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "5.0.0"
+            },
+            {
+              "fixed": "5.11.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/go-git/go-git/v5",
+            "symbols": [
+              "AddOptions.Validate",
+              "Blame",
+              "BlameResult.String",
+              "Clone",
+              "CloneContext",
+              "CommitOptions.Validate",
+              "CreateTagOptions.Validate",
+              "GrepOptions.Validate",
+              "GrepResult.String",
+              "Init",
+              "InitWithOptions",
+              "NoMatchingRefSpecError.Error",
+              "Open",
+              "PlainClone",
+              "PlainCloneContext",
+              "PlainInit",
+              "PlainInitWithOptions",
+              "PlainOpen",
+              "PlainOpenWithOptions",
+              "Remote.Fetch",
+              "Remote.FetchContext",
+              "Remote.List",
+              "Remote.ListContext",
+              "Remote.Push",
+              "Remote.PushContext",
+              "Remote.String",
+              "Repository.BlobObject",
+              "Repository.BlobObjects",
+              "Repository.Branch",
+              "Repository.Branches",
+              "Repository.CommitObject",
+              "Repository.CommitObjects",
+              "Repository.Config",
+              "Repository.ConfigScoped",
+              "Repository.CreateBranch",
+              "Repository.CreateRemote",
+              "Repository.CreateRemoteAnonymous",
+              "Repository.CreateTag",
+              "Repository.DeleteBranch",
+              "Repository.DeleteObject",
+              "Repository.DeleteRemote",
+              "Repository.DeleteTag",
+              "Repository.Fetch",
+              "Repository.FetchContext",
+              "Repository.Grep",
+              "Repository.Head",
+              "Repository.Log",
+              "Repository.Notes",
+              "Repository.Object",
+              "Repository.Objects",
+              "Repository.Prune",
+              "Repository.Push",
+              "Repository.PushContext",
+              "Repository.Reference",
+              "Repository.References",
+              "Repository.Remote",
+              "Repository.Remotes",
+              "Repository.RepackObjects",
+              "Repository.ResolveRevision",
+              "Repository.SetConfig",
+              "Repository.Tag",
+              "Repository.TagObject",
+              "Repository.TagObjects",
+              "Repository.Tags",
+              "Repository.TreeObject",
+              "Repository.TreeObjects",
+              "ResetOptions.Validate",
+              "Status.String",
+              "Submodule.Init",
+              "Submodule.Repository",
+              "Submodule.Status",
+              "Submodule.Update",
+              "Submodule.UpdateContext",
+              "SubmoduleStatus.String",
+              "Submodules.Init",
+              "Submodules.Status",
+              "Submodules.Update",
+              "Submodules.UpdateContext",
+              "SubmodulesStatus.String",
+              "Worktree.Add",
+              "Worktree.AddGlob",
+              "Worktree.AddWithOptions",
+              "Worktree.Checkout",
+              "Worktree.Clean",
+              "Worktree.Commit",
+              "Worktree.Grep",
+              "Worktree.Move",
+              "Worktree.Pull",
+              "Worktree.PullContext",
+              "Worktree.Remove",
+              "Worktree.RemoveGlob",
+              "Worktree.Reset",
+              "Worktree.ResetSparsely",
+              "Worktree.Status",
+              "Worktree.Submodule",
+              "Worktree.Submodules",
+              "Worktree.checkoutFileSymlink",
+              "Worktree.createBranch",
+              "buildTreeHelper.BuildTree",
+              "checkFastForwardUpdate",
+              "isFastForward"
+            ]
+          },
+          {
+            "path": "github.com/go-git/go-git/v5/config",
+            "symbols": [
+              "Branch.Validate",
+              "Config.Unmarshal",
+              "Config.Validate",
+              "LoadConfig",
+              "ReadConfig",
+              "RemoteConfig.Validate"
+            ]
+          },
+          {
+            "path": "github.com/go-git/go-git/v5/plumbing/object",
+            "symbols": [
+              "Commit.Stats",
+              "Commit.StatsContext",
+              "Patch.Stats",
+              "getFileStatsFromFilePatches"
+            ]
+          },
+          {
+            "path": "github.com/go-git/go-git/v5/storage/filesystem",
+            "symbols": [
+              "ConfigStorage.Config",
+              "ConfigStorage.SetConfig",
+              "ModuleStorage.Module",
+              "NewStorage",
+              "NewStorageWithOptions",
+              "ObjectStorage.EncodedObject"
+            ]
+          },
+          {
+            "path": "github.com/go-git/go-git/v5/storage/filesystem/dotgit",
+            "symbols": [
+              "DotGit.Alternates"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-49569"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Ionut Lalu"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2456"
+  }
+}
