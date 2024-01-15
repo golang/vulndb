@@ -216,3 +216,11 @@ Commonly missing packages include:
 
 - libgpgme-dev
 - libdevmapper-dev
+
+### "awaiting analysis"
+
+When the NIST page says "AWAITING ANALYSIS", write the report; don't wait for them
+to finish their analysis. "Awaiting analysis" just means that NVD hasn't yet looked
+at the vulnerability and assigned a severity score/CWE etc. Since we don't care about
+those pieces of information, we can ignore that banner and just create a report if
+the vulnerability is in scope for our database.
