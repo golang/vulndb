@@ -1,0 +1,30 @@
+id: GO-2024-2454
+modules:
+    - module: github.com/lestrrat-go/jwx
+      versions:
+        - introduced: 1.0.8
+      vulnerable_at: 1.2.28
+      packages:
+        - package: github.com/lestrrat-go/jwx/jws
+          symbols:
+            - Message.UnmarshalJSON
+    - module: github.com/lestrrat-go/jwx/v2
+      versions:
+        - fixed: 2.0.19
+      vulnerable_at: 2.0.18
+      packages:
+        - package: github.com/lestrrat-go/jwx/v2/jws
+          symbols:
+            - Message.UnmarshalJSON
+summary: Panic due to nil pointer dereference in github.com/lestrrat-go/jwx/v2
+cves:
+    - CVE-2024-21664
+ghsas:
+    - GHSA-pvcr-v8j8-j5q3
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-21664
+    - fix: https://github.com/lestrrat-go/jwx/commit/0e8802ce6842625845d651456493e7c87625601f
+    - fix: https://github.com/lestrrat-go/jwx/commit/d69a721931a5c48b9850a42404f18e143704adcd
+notes:
+    - This report covers issues 2454, for v2, and 2455, for v1.
+    - The earliest v1 version with the vulnerable symbol is v1.0.8.

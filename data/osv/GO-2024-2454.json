@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2454",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-21664",
+    "GHSA-pvcr-v8j8-j5q3"
+  ],
+  "summary": "Panic due to nil pointer dereference in github.com/lestrrat-go/jwx/v2",
+  "details": "Panic due to nil pointer dereference in github.com/lestrrat-go/jwx/v2",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/lestrrat-go/jwx",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.0.8"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/lestrrat-go/jwx/jws",
+            "symbols": [
+              "Message.UnmarshalJSON"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/lestrrat-go/jwx/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.0.19"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/lestrrat-go/jwx/v2/jws",
+            "symbols": [
+              "Message.UnmarshalJSON"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-21664"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/lestrrat-go/jwx/commit/0e8802ce6842625845d651456493e7c87625601f"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/lestrrat-go/jwx/commit/d69a721931a5c48b9850a42404f18e143704adcd"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2454"
+  }
+}
