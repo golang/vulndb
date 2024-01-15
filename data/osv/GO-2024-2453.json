@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2453",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-9763-4f94-gfch"
+  ],
+  "summary": "Timing side channel in github.com/cloudflare/circl",
+  "details": "Timing side channel in github.com/cloudflare/circl",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cloudflare/circl",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.3.7"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cloudflare/circl/pke/kyber/internal/common",
+            "symbols": [
+              "Poly.CompressTo"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cloudflare/circl/security/advisories/GHSA-9763-4f94-gfch"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cloudflare/circl/commit/75ef91e8a2f438e6ce2b6e620d236add8be1887d"
+    },
+    {
+      "type": "WEB",
+      "url": "https://kyberslash.cr.yp.to/"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2453"
+  }
+}
