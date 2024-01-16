@@ -1,0 +1,28 @@
+id: GO-2024-2459
+modules:
+    - module: github.com/quic-go/quic-go
+      versions:
+        - fixed: 0.37.7
+        - introduced: 0.38.0
+          fixed: 0.38.2
+        - introduced: 0.39.0
+          fixed: 0.39.4
+        - introduced: 0.40.0
+          fixed: 0.40.1
+      vulnerable_at: 0.40.0
+summary: Denial of service via path validation in github.com/quic-go/quic-go
+cves:
+    - CVE-2023-49295
+ghsas:
+    - GHSA-ppxx-5m9h-6vxf
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-49295
+    - fix: https://github.com/quic-go/quic-go/commit/17fc98c2d81dbe685c19702dc694a9d606ac56dc
+    - fix: https://github.com/quic-go/quic-go/commit/21609ddfeff93668c7625a85eb09f1541fdad965
+    - fix: https://github.com/quic-go/quic-go/commit/3a9c18bcd27a01c551ac9bf8bd2b4bded77c189a
+    - fix: https://github.com/quic-go/quic-go/commit/554d543b50b917369fb1394cc5396d928166cf49
+    - fix: https://github.com/quic-go/quic-go/commit/6cc3d58935426191296171a6c0d1ee965e10534e
+    - fix: https://github.com/quic-go/quic-go/commit/9aaefe19fc3dc8c8917cc87e6128bb56d9e9e6cc
+    - fix: https://github.com/quic-go/quic-go/commit/a0ffa757499913f7be69aa78f573a6aee3430ae4
+    - fix: https://github.com/quic-go/quic-go/commit/d7aa627ebde91cf799ada2a07443faa9b1e5abb8
+    - web: https://seemann.io/posts/2023-12-18-exploiting-quics-path-validation/

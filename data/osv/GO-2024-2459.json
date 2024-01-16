@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2459",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-49295",
+    "GHSA-ppxx-5m9h-6vxf"
+  ],
+  "summary": "Denial of service via path validation in github.com/quic-go/quic-go",
+  "details": "Denial of service via path validation in github.com/quic-go/quic-go",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/quic-go/quic-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.37.7"
+            },
+            {
+              "introduced": "0.38.0"
+            },
+            {
+              "fixed": "0.38.2"
+            },
+            {
+              "introduced": "0.39.0"
+            },
+            {
+              "fixed": "0.39.4"
+            },
+            {
+              "introduced": "0.40.0"
+            },
+            {
+              "fixed": "0.40.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-49295"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/quic-go/quic-go/commit/17fc98c2d81dbe685c19702dc694a9d606ac56dc"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/quic-go/quic-go/commit/21609ddfeff93668c7625a85eb09f1541fdad965"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/quic-go/quic-go/commit/3a9c18bcd27a01c551ac9bf8bd2b4bded77c189a"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/quic-go/quic-go/commit/554d543b50b917369fb1394cc5396d928166cf49"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/quic-go/quic-go/commit/6cc3d58935426191296171a6c0d1ee965e10534e"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/quic-go/quic-go/commit/9aaefe19fc3dc8c8917cc87e6128bb56d9e9e6cc"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/quic-go/quic-go/commit/a0ffa757499913f7be69aa78f573a6aee3430ae4"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/quic-go/quic-go/commit/d7aa627ebde91cf799ada2a07443faa9b1e5abb8"
+    },
+    {
+      "type": "WEB",
+      "url": "https://seemann.io/posts/2023-12-18-exploiting-quics-path-validation/"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2459"
+  }
+}
