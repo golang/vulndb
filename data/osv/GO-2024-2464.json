@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2464",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-22197",
+    "GHSA-pxmr-q2x3-9x9m"
+  ],
+  "summary": "Remote command execution in github.com/0xJacky/Nginx-UI",
+  "details": "Remote command execution in github.com/0xJacky/Nginx-UI",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/0xJacky/Nginx-UI",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.9.10-0.20231219184941-827e76c46e63"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/0xJacky/Nginx-UI/api/system",
+            "symbols": [
+              "GetSettings",
+              "SaveSettings"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/0xJacky/nginx-ui/commit/827e76c46e63c52114a62a899f61313039c754e3"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-pxmr-q2x3-9x9m"
+    }
+  ],
+  "credits": [
+    {
+      "name": "@jorgectf"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2464"
+  }
+}

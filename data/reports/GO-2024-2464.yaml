@@ -1,0 +1,21 @@
+id: GO-2024-2464
+modules:
+    - module: github.com/0xJacky/Nginx-UI
+      versions:
+        - fixed: 1.9.10-0.20231219184941-827e76c46e63
+      vulnerable_at: 1.9.10-0.20231219042952-0a9e23daf406
+      packages:
+        - package: github.com/0xJacky/Nginx-UI/api/system
+          symbols:
+            - GetSettings
+            - SaveSettings
+summary: Remote command execution in github.com/0xJacky/Nginx-UI
+cves:
+    - CVE-2024-22197
+ghsas:
+    - GHSA-pxmr-q2x3-9x9m
+credits:
+    - '@jorgectf'
+references:
+    - fix: https://github.com/0xJacky/nginx-ui/commit/827e76c46e63c52114a62a899f61313039c754e3
+    - advisory: https://github.com/advisories/GHSA-pxmr-q2x3-9x9m
