@@ -1,0 +1,22 @@
+id: GO-2024-2461
+modules:
+    - module: github.com/gofiber/template/django/v3
+      versions:
+        - fixed: 3.1.9
+      vulnerable_at: 3.1.8
+      packages:
+        - package: github.com/gofiber/template/django/v3
+          symbols:
+            - New
+            - NewFileSystem
+            - NewPathForwardingFileSystem
+            - Engine.Load
+            - Engine.Render
+summary: Cross-site scripting in github.com/gofiber/template/django/v3
+cves:
+    - CVE-2024-22199
+ghsas:
+    - GHSA-4mq2-gc4j-cmw6
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-22199
+    - fix: https://github.com/gofiber/template/commit/28cff3ac4d4c117ab25b5396954676d624b6cb46

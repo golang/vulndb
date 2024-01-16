@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2461",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-22199",
+    "GHSA-4mq2-gc4j-cmw6"
+  ],
+  "summary": "Cross-site scripting in github.com/gofiber/template/django/v3",
+  "details": "Cross-site scripting in github.com/gofiber/template/django/v3",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gofiber/template/django/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.1.9"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/gofiber/template/django/v3",
+            "symbols": [
+              "Engine.Load",
+              "Engine.Render",
+              "New",
+              "NewFileSystem",
+              "NewPathForwardingFileSystem"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-22199"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gofiber/template/commit/28cff3ac4d4c117ab25b5396954676d624b6cb46"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2461"
+  }
+}
