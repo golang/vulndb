@@ -1,0 +1,21 @@
+id: GO-2024-2469
+modules:
+    - module: github.com/kudelskisecurity/crystals-go
+      versions:
+        - fixed: 0.0.0-20240116172146-2a6ca2d4e64d
+      vulnerable_at: 0.0.0-20240110153620-c06ce985b2b8
+      packages:
+        - package: github.com/kudelskisecurity/crystals-go/crystals-kyber
+          symbols:
+            - Kyber.Decrypt
+            - Kyber.Encaps
+            - Kyber.Decaps
+summary: Kyberslash timing attack possible in github.com/kudelskisecurity/crystals-go
+ghsas:
+    - GHSA-f6jh-hvg2-9525
+references:
+    - advisory: https://github.com/kudelskisecurity/crystals-go/security/advisories/GHSA-f6jh-hvg2-9525
+    - article: https://kyberslash.cr.yp.to/faq
+    - fix: https://github.com/kudelskisecurity/crystals-go/pull/20
+    - fix: https://github.com/kudelskisecurity/crystals-go/pull/21
+    - report: https://github.com/kudelskisecurity/crystals-go/issues/19
