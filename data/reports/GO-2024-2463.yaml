@@ -1,0 +1,23 @@
+id: GO-2024-2463
+modules:
+    - module: github.com/0xJacky/Nginx-UI
+      versions:
+        - fixed: 1.9.10-0.20231219195202-ec93ab05a3ec
+      vulnerable_at: 1.9.10-0.20231219184941-827e76c46e63
+      packages:
+        - package: github.com/0xJacky/Nginx-UI/api/cosy
+          symbols:
+            - Ctx.SortOrder
+        - package: github.com/0xJacky/Nginx-UI/model
+          symbols:
+            - OrderAndPaginate
+summary: SQL injection in github.com/0xJacky/Nginx-UI
+cves:
+    - CVE-2024-22196
+ghsas:
+    - GHSA-h374-mm57-879c
+credits:
+    - '@jorgectf'
+references:
+    - advisory: https://github.com/advisories/GHSA-h374-mm57-879c
+    - fix: https://github.com/0xJacky/nginx-ui/commit/ec93ab05a3ecbb6bcf464d9dca48d74452df8a5b
