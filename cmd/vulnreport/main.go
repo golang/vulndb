@@ -319,8 +319,14 @@ func createReport(ctx context.Context, cfg *createCfg, iss *issues.Issue) (r *re
 			return nil, err
 		}
 	} else {
-		infolog.Printf("no alias found, creating empty report %s", parsed.id)
-		r = &report.Report{ID: parsed.id}
+		infolog.Printf("no alias found, creating basic report for %s", parsed.id)
+		r = &report.Report{
+			ID: parsed.id,
+			Modules: []*report.Module{
+				{
+					Module: parsed.modulePath,
+				},
+			}}
 	}
 
 	if parsed.excluded != "" {
@@ -366,7 +372,12 @@ func create(ctx context.Context, issueNumber int, cfg *createCfg) (err error) {
 	}
 
 	outlog.Println(filename)
-	infolog.Print(xref(filename, r, cfg.existingByFile))
+
+	xrefs := xref(filename, r, cfg.existingByFile)
+	if len(xrefs) != 0 {
+		infolog.Printf("found cross-references:\n%s", xrefs)
+	}
+
 	return nil
 }
 
@@ -569,20 +580,20 @@ func parseGithubIssue(iss *issues.Issue, pc *proxy.Client, allowClosed bool) (*p
 		switch {
 		case p == "x/vulndb:":
 			continue
-		case strings.HasSuffix(p, ":"):
+		case cveschema5.IsCVE(p) || ghsa.IsGHSA(p):
+			parsed.aliases = append(parsed.aliases, strings.TrimSuffix(p, ","))
+		case strings.HasSuffix(p, ":") || strings.Contains(p, "/"):
 			// Remove backslashes.
 			parsed.modulePath = strings.ReplaceAll(strings.TrimSuffix(p, ":"), "\"", "")
 			// Find the underlying module if this is a package path.
 			if module, err := pc.FindModule(parsed.modulePath); err == nil { // no error
 				parsed.modulePath = module
 			}
-		case cveschema5.IsCVE(p) || ghsa.IsGHSA(p):
-			parsed.aliases = append(parsed.aliases, strings.TrimSuffix(p, ","))
 		}
 	}
 
 	if len(parsed.aliases) == 0 {
-		return nil, fmt.Errorf("%q has no CVE or GHSA IDs", iss.Title)
+		infolog.Printf("%q has no CVE or GHSA IDs\n", iss.Title)
 	}
 
 	return parsed, nil
