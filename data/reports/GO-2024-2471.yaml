@@ -1,0 +1,25 @@
+id: GO-2024-2471
+modules:
+    - module: github.com/cometbft/cometbft
+      versions:
+        - introduced: 0.38.0
+          fixed: 0.38.3
+      vulnerable_at: 0.38.2
+      packages:
+        - package: github.com/cometbft/cometbft/types
+          symbols:
+            - ConsensusParams.ValidateUpdate
+summary: Chain halt panic in github.com/cometbft/cometbft
+description: |-
+    A vulnerability in CometBFT’s validation logic for VoteExtensionsEnableHeight
+    can result in a chain halt when triggered through a governance parameter change
+    proposal on an ABCI2 Application Chain. If a parameter change proposal including
+    a VoteExtensionsEnableHeight modification is passed, nodes running the affected
+    versions may panic, halting the network.
+ghsas:
+    - GHSA-qr8r-m495-7hc4
+credits:
+    - '@dongsam'
+references:
+    - advisory: https://github.com/cometbft/cometbft/security/advisories/GHSA-qr8r-m495-7hc4
+    - fix: https://github.com/cometbft/cometbft/commit/5fbc97378b94b0945febe9549399e7c9c5df13ed

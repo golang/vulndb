@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2471",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-qr8r-m495-7hc4"
+  ],
+  "summary": "Chain halt panic in github.com/cometbft/cometbft",
+  "details": "A vulnerability in CometBFT’s validation logic for VoteExtensionsEnableHeight can result in a chain halt when triggered through a governance parameter change proposal on an ABCI2 Application Chain. If a parameter change proposal including a VoteExtensionsEnableHeight modification is passed, nodes running the affected versions may panic, halting the network.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cometbft/cometbft",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.38.0"
+            },
+            {
+              "fixed": "0.38.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cometbft/cometbft/types",
+            "symbols": [
+              "ConsensusParams.ValidateUpdate"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cometbft/cometbft/security/advisories/GHSA-qr8r-m495-7hc4"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cometbft/cometbft/commit/5fbc97378b94b0945febe9549399e7c9c5df13ed"
+    }
+  ],
+  "credits": [
+    {
+      "name": "@dongsam"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2471"
+  }
+}
