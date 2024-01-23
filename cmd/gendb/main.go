@@ -19,6 +19,7 @@ import (
 var (
 	repoDir = flag.String("repo", ".", "Directory containing vulndb repo")
 	jsonDir = flag.String("out", "out", "Directory to write JSON database to")
+	zipFile = flag.String("zip", "", "if provided, file to write zipped database to (for v1 database only)")
 	indent  = flag.Bool("indent", false, "Indent JSON for debugging")
 	legacy  = flag.Bool("legacy", false, "if true, generate in the legacy schema")
 )
@@ -41,6 +42,11 @@ func main() {
 		}
 		if err := d.Write(*jsonDir); err != nil {
 			log.Fatal(err)
+		}
+		if *zipFile != "" {
+			if err := d.WriteZip(*zipFile); err != nil {
+				log.Fatal(err)
+			}
 		}
 	}
 }

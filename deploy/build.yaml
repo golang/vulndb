@@ -44,7 +44,7 @@ steps:
   - id: Generate
     name: golang:1.21.5
     entrypoint: bash
-    args: ["-ec", "go run ./cmd/gendb -out /workspace/db"]
+    args: ["-ec", "go run ./cmd/gendb -out /workspace/db -zip /workspace/db/vulndb.zip"]
 
   - id: PreValidate
     name: golang:1.21.5
