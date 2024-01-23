@@ -88,7 +88,7 @@ func (d *Database) checkNoUnexpectedFiles(dbPath string) error {
 		case f.IsDir():
 			return nil
 		// Skip files in the v1 spec.
-		case ext == ".gz" || dbv1.IsIndexEndpoint(fname):
+		case ext == ".gz" || ext == ".zip" || dbv1.IsIndexEndpoint(fname):
 			return nil
 		// In the top-level directory, web files and index files are OK.
 		case dir == dbPath && isIndexOrWebFile(fname, ext):
