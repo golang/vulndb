@@ -37,7 +37,7 @@ import (
 //
 // If the commit has more than one parent, an error is returned.
 func Patched(module, repoURL, commitHash string, errlog *log.Logger) (_ map[string][]string, err error) {
-	defer derrors.Wrap(&err, "Patched(%s ,%s, %s)", module, repoURL, commitHash)
+	defer derrors.Wrap(&err, "Patched(%s, %s, %s)", module, repoURL, commitHash)
 
 	repoRoot, err := os.MkdirTemp("", commitHash)
 	if err != nil {
