@@ -36,11 +36,6 @@ steps:
       - -ec
       - gsutil -q -m cp -r gs://go-vulndb /workspace
 
-  - id: GenerateLegacy
-    name: golang:1.21.5
-    entrypoint: bash
-    args: ["-ec", "go run ./cmd/gendb -out /workspace/legacydb -legacy"]
-
   - id: Generate
     name: golang:1.21.5
     entrypoint: bash
@@ -51,7 +46,7 @@ steps:
     entrypoint: bash
     args:
       - -ec
-      - go run ./cmd/checkdeploy -new /workspace/db -existing /workspace/go-vulndb -legacy /workspace/legacydb
+      - go run ./cmd/checkdeploy -new /workspace/db -existing /workspace/go-vulndb
 
   - id: Deploy
     name: gcr.io/cloud-builders/gsutil
@@ -68,6 +63,6 @@ steps:
   - id: PostValidate
     name: golang:1.20.12
     entrypoint: bash
-    args: ["-ec", "go run ./cmd/checkdb -v1 -legacy /workspace/deployed/go-vulndb"]
+    args: ["-ec", "go run ./cmd/checkdb -v1 /workspace/deployed/go-vulndb"]
     env:
       - 'GOPROXY=https://proxy.golang.org'
