@@ -12,7 +12,6 @@ import (
 	"log"
 
 	db "golang.org/x/vulndb/internal/database"
-	"golang.org/x/vulndb/internal/database/legacydb"
 	"golang.org/x/vulndb/internal/gitrepo"
 )
 
@@ -21,7 +20,6 @@ var (
 	jsonDir = flag.String("out", "out", "Directory to write JSON database to")
 	zipFile = flag.String("zip", "", "if provided, file to write zipped database to (for v1 database only)")
 	indent  = flag.Bool("indent", false, "Indent JSON for debugging")
-	legacy  = flag.Bool("legacy", false, "if true, generate in the legacy schema")
 )
 
 func main() {
@@ -31,22 +29,16 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	if *legacy {
-		if err := legacydb.Generate(ctx, repo, *jsonDir, *indent); err != nil {
+	d, err := db.FromRepo(ctx, repo)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := d.Write(*jsonDir); err != nil {
+		log.Fatal(err)
+	}
+	if *zipFile != "" {
+		if err := d.WriteZip(*zipFile); err != nil {
 			log.Fatal(err)
-		}
-	} else {
-		d, err := db.FromRepo(ctx, repo)
-		if err != nil {
-			log.Fatal(err)
-		}
-		if err := d.Write(*jsonDir); err != nil {
-			log.Fatal(err)
-		}
-		if *zipFile != "" {
-			if err := d.WriteZip(*zipFile); err != nil {
-				log.Fatal(err)
-			}
 		}
 	}
 }
