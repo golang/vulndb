@@ -1,0 +1,31 @@
+id: GO-2024-2451
+modules:
+    - module: github.com/bincyber/go-sqlcrypter
+      versions:
+        - introduced: 0.1.0
+      vulnerable_at: 0.1.0
+      packages:
+        - package: github.com/bincyber/go-sqlcrypter/providers/aesgcm
+          symbols:
+            - New
+        - package: github.com/bincyber/go-sqlcrypter/providers/awskms
+          symbols:
+            - New
+summary: IV collision in github.com/bincyber/go-sqlcrypter
+description: |-
+    There is a risk of an IV collision using the awskms or aesgcm provider. NIST SP
+    800-38D section 8.3 states that it is unsafe to encrypt more than 2^32
+    plaintexts under the same key when using a random IV. The limit could easily be
+    reached given the use case of database column encryption. Ciphertexts are likely
+    to be persisted and stored together. IV collision could enable an attacker with
+    access to the ciphertexts to decrypt all messages encrypted with the affected
+    key.
+
+    The aesgcm provider cannot be fixed without a breaking change, so users should
+    not encrypt more than 2^32 values with any key. The awskms package can be fixed
+    without a breaking change by switching to a counter-based IV.
+credits:
+    - '@takeyourhatoff'
+references:
+    - report: https://github.com/bincyber/go-sqlcrypter/issues/127
+    - web: https://github.com/bincyber/go-sqlcrypter/pull/128
