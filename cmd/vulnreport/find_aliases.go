@@ -101,3 +101,27 @@ func aliasesForCVE(ctx context.Context, cve string, gc *ghsa.Client) (aliases []
 	}
 	return aliases, nil
 }
+
+// pickBestAlias returns the "best" alias in the list.
+// By default, it prefers the first GHSA in the list, followed by the first CVE in the list
+// (if no GHSA is present).
+// If "preferCVE" is true, it prefers CVEs instead.
+// If no GHSAs or CVEs are present, it returns ("", false).
+func pickBestAlias(aliases []string, preferCVE bool) (_ string, ok bool) {
+	firstChoice := ghsa.IsGHSA
+	secondChoice := cveschema5.IsCVE
+	if preferCVE {
+		firstChoice, secondChoice = secondChoice, firstChoice
+	}
+	for _, alias := range aliases {
+		if firstChoice(alias) {
+			return alias, true
+		}
+	}
+	for _, alias := range aliases {
+		if secondChoice(alias) {
+			return alias, true
+		}
+	}
+	return "", false
+}
