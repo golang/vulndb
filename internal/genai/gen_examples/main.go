@@ -3,7 +3,8 @@
 // license that can be found in the LICENSE file.
 
 // Command gen_examples generates and stores examples
-// that can be used to create prompts / training inputs for the PaLM API.
+// that can be used to create prompts / training inputs for Google's
+// Generative AI APIs.
 package main
 
 import (
