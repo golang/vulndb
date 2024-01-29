@@ -10,12 +10,12 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"io"
 	"log"
 	"os"
 	"path/filepath"
 	"runtime/pprof"
 
+	vlog "golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/proxy"
@@ -28,18 +28,8 @@ var (
 	quiet       = flag.Bool("q", false, "quiet mode (suppress info logs)")
 )
 
-var (
-	infolog *log.Logger
-	outlog  *log.Logger
-	warnlog *log.Logger
-	errlog  *log.Logger
-)
-
 func init() {
-	infolog = log.New(os.Stdout, "info: ", 0)
-	outlog = log.New(os.Stdout, "", 0)
-	warnlog = log.New(os.Stderr, "WARNING: ", 0)
-	errlog = log.New(os.Stderr, "ERROR: ", 0)
+	vlog.Init(*quiet)
 }
 
 func main() {
@@ -68,10 +58,6 @@ func main() {
 
 	if *githubToken == "" {
 		*githubToken = os.Getenv("VULN_GITHUB_ACCESS_TOKEN")
-	}
-
-	if *quiet {
-		infolog = log.New(io.Discard, "", 0)
 	}
 
 	var (
@@ -114,7 +100,7 @@ func main() {
 			// instead of filenames.
 			for _, githubID := range githubIDs {
 				if err := create(ctx, githubID, cfg); err != nil {
-					errlog.Println(err)
+					vlog.Err(err)
 				}
 			}
 		}
@@ -163,8 +149,8 @@ func main() {
 			if err != nil {
 				return err
 			}
-			outlog.Println(name)
-			outlog.Println(xref(name, r, existingByFile))
+			vlog.Out(name)
+			vlog.Out(xref(name, r, existingByFile))
 			return nil
 		}
 	default:
@@ -176,11 +162,11 @@ func main() {
 	for _, arg := range args {
 		arg, err := argToFilename(arg)
 		if err != nil {
-			errlog.Println(err)
+			vlog.Err(err)
 			continue
 		}
 		if err := cmdFunc(ctx, arg); err != nil {
-			errlog.Println(err)
+			vlog.Err(err)
 		}
 	}
 }

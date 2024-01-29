@@ -7,8 +7,6 @@ import (
 	"go/ast"
 	"go/parser"
 	"go/token"
-	"log"
-	"os"
 	"path/filepath"
 	"sort"
 	"testing"
@@ -47,8 +45,9 @@ func TestPatchedSymbols(t *testing.T) {
 		if err != nil {
 			t.Error(err)
 		}
-
-		got := toMap(patchedSymbols(oldSyms, newSyms, log.New(os.Stderr, "ERROR: ", 0)))
+		// logs are not important for this test
+		discardLog := func(string, ...any) {}
+		got := toMap(patchedSymbols(oldSyms, newSyms, discardLog))
 		if diff := cmp.Diff(got, tc.want); diff != "" {
 			t.Errorf("(-got, want+):\n%s", diff)
 		}

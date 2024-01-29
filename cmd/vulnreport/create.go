@@ -12,6 +12,7 @@ import (
 	"strconv"
 	"strings"
 
+	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/cveclient"
 	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/derrors"
@@ -51,11 +52,11 @@ func create(ctx context.Context, issueNumber int, cfg *createCfg) (err error) {
 		return err
 	}
 
-	outlog.Println(filename)
+	log.Out(filename)
 
 	xrefs := xref(filename, r, cfg.existingByFile)
 	if len(xrefs) != 0 {
-		infolog.Printf("found cross-references:\n%s", xrefs)
+		log.Infof("found cross-references:\n%s", xrefs)
 	}
 
 	return nil
@@ -75,7 +76,7 @@ func createExcluded(ctx context.Context, cfg *createCfg) (err error) {
 		if err != nil {
 			return err
 		}
-		infolog.Printf("found %d issues with label %s\n", len(tempIssues), label)
+		log.Infof("found %d issues with label %s\n", len(tempIssues), label)
 		isses = append(isses, tempIssues...)
 	}
 
@@ -83,13 +84,13 @@ func createExcluded(ctx context.Context, cfg *createCfg) (err error) {
 	for _, iss := range isses {
 		// Don't create a report for an issue that already has a report.
 		if _, ok := cfg.existingByIssue[iss.Number]; ok {
-			infolog.Printf("skipped issue %d which already has a report\n", iss.Number)
+			log.Infof("skipped issue %d which already has a report\n", iss.Number)
 			continue
 		}
 
 		r, err := createReport(ctx, cfg, iss)
 		if err != nil {
-			errlog.Printf("skipped issue %d: %v\n", iss.Number, err)
+			log.Errf("skipped issue %d: %v\n", iss.Number, err)
 			continue
 		}
 
@@ -103,11 +104,11 @@ func createExcluded(ctx context.Context, cfg *createCfg) (err error) {
 
 	skipped := len(isses) - len(created)
 	if skipped > 0 {
-		infolog.Printf("skipped %d issue(s)\n", skipped)
+		log.Infof("skipped %d issue(s)\n", skipped)
 	}
 
 	if len(created) == 0 {
-		infolog.Printf("no files to commit, exiting")
+		log.Infof("no files to commit, exiting")
 		return nil
 	}
 
@@ -219,13 +220,13 @@ func createReport(ctx context.Context, cfg *createCfg, iss *issues.Issue) (r *re
 
 	aliases := allAliases(ctx, parsed.aliases, cfg.ghsaClient)
 	if alias, ok := pickBestAlias(aliases, *preferCVE); ok {
-		infolog.Printf("creating report %s based on %s (picked from [%s])", parsed.id, alias, strings.Join(aliases, ", "))
+		log.Infof("creating report %s based on %s (picked from [%s])", parsed.id, alias, strings.Join(aliases, ", "))
 		r, err = reportFromAlias(ctx, parsed.id, parsed.modulePath, alias, cfg)
 		if err != nil {
 			return nil, err
 		}
 	} else {
-		infolog.Printf("no alias found, creating basic report for %s", parsed.id)
+		log.Infof("no alias found, creating basic report for %s", parsed.id)
 		r = &report.Report{
 			ID: parsed.id,
 			Modules: []*report.Module{
@@ -258,11 +259,11 @@ func createReport(ctx context.Context, cfg *createCfg, iss *issues.Issue) (r *re
 	if cfg.aiClient != nil {
 		suggestions, err := suggest(ctx, cfg.aiClient, r, 1)
 		if err != nil {
-			warnlog.Printf("failed to get AI-generated suggestions for %s: %v\n", r.ID, err)
+			log.Warnf("failed to get AI-generated suggestions for %s: %v\n", r.ID, err)
 		} else if len(suggestions) == 0 {
-			warnlog.Printf("failed to get AI-generated suggestions for %s (none generated)\n", r.ID)
+			log.Warnf("failed to get AI-generated suggestions for %s (none generated)\n", r.ID)
 		} else {
-			infolog.Printf("applying AI-generated suggestion for %s", r.ID)
+			log.Infof("applying AI-generated suggestion for %s", r.ID)
 			applySuggestion(r, suggestions[0])
 		}
 	}
@@ -313,7 +314,7 @@ func parseGithubIssue(iss *issues.Issue, pc *proxy.Client, allowClosed bool) (*p
 	}
 
 	if len(parsed.aliases) == 0 {
-		infolog.Printf("%q has no CVE or GHSA IDs\n", iss.Title)
+		log.Infof("%q has no CVE or GHSA IDs\n", iss.Title)
 	}
 
 	return parsed, nil
@@ -373,13 +374,13 @@ func reportFromAlias(ctx context.Context, id, modulePath, alias string, cfg *cre
 		if err != nil {
 			// If a CVE is not found, it is most likely a CVE we reserved but haven't
 			// published yet.
-			infolog.Printf("no published record found for %s, creating basic report", alias)
+			log.Infof("no published record found for %s, creating basic report", alias)
 			return basicReport(id, modulePath), nil
 		}
 		return report.CVE5ToReport(cve, id, modulePath, cfg.proxyClient), nil
 	}
 
-	infolog.Printf("alias %s is not a CVE or GHSA, creating basic report", alias)
+	log.Infof("alias %s is not a CVE or GHSA, creating basic report", alias)
 	return basicReport(id, modulePath), nil
 }
 

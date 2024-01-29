@@ -7,6 +7,7 @@ package main
 import (
 	"context"
 
+	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
@@ -14,7 +15,7 @@ import (
 
 func lint(_ context.Context, filename string, pc *proxy.Client) (err error) {
 	defer derrors.Wrap(&err, "lint(%q)", filename)
-	infolog.Printf("lint %s\n", filename)
+	log.Infof("lint %s\n", filename)
 
 	_, err = report.ReadAndLint(filename, pc)
 	return err

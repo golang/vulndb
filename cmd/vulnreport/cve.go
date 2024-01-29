@@ -7,6 +7,7 @@ package main
 import (
 	"context"
 
+	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/database"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/report"
@@ -22,7 +23,7 @@ func cveCmd(_ context.Context, filename string) (err error) {
 		if err := writeCVE(r); err != nil {
 			return err
 		}
-		outlog.Println(r.CVEFilename())
+		log.Out(r.CVEFilename())
 	}
 	return nil
 }

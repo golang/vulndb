@@ -14,6 +14,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"golang.org/x/exp/slices"
+	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/osvutils"
@@ -30,7 +31,7 @@ var (
 
 func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client, pc *proxy.Client, force bool) (err error) {
 	defer derrors.Wrap(&err, "fix(%q)", filename)
-	infolog.Printf("fix %s\n", filename)
+	log.Infof("fix %s\n", filename)
 
 	r, err := report.Read(filename)
 	if err != nil {
@@ -44,7 +45,7 @@ func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client, pc *prox
 	// report even if a fatal error occurs somewhere.
 	defer func() {
 		if err := r.Write(filename); err != nil {
-			errlog.Println(err)
+			log.Err(err)
 		}
 	}()
 
@@ -52,19 +53,19 @@ func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client, pc *prox
 		r.Fix(pc)
 	}
 	if lints := r.Lint(pc); len(lints) > 0 {
-		warnlog.Printf("%s still has lint errors after fix:\n\t- %s", filename, strings.Join(lints, "\n\t- "))
+		log.Warnf("%s still has lint errors after fix:\n\t- %s", filename, strings.Join(lints, "\n\t- "))
 	}
 
 	if !*skipSymbols {
-		infolog.Printf("%s: checking packages and symbols (use -skip-symbols to skip this)", r.ID)
+		log.Infof("%s: checking packages and symbols (use -skip-symbols to skip this)", r.ID)
 		if err := checkReportSymbols(r); err != nil {
 			return err
 		}
 	}
 	if !*skipAlias {
-		infolog.Printf("%s: checking for missing GHSAs and CVEs (use -skip-alias to skip this)", r.ID)
+		log.Infof("%s: checking for missing GHSAs and CVEs (use -skip-alias to skip this)", r.ID)
 		if added := addMissingAliases(ctx, r, ghsaClient); added > 0 {
-			infolog.Printf("%s: added %d missing aliases", r.ID, added)
+			log.Infof("%s: added %d missing aliases", r.ID, added)
 		}
 	}
 
@@ -85,7 +86,7 @@ func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client, pc *prox
 
 func checkReportSymbols(r *report.Report) error {
 	if r.IsExcluded() {
-		infolog.Printf("%s is excluded, skipping symbol checks\n", r.ID)
+		log.Infof("%s is excluded, skipping symbol checks\n", r.ID)
 		return nil
 	}
 	for _, m := range r.Modules {
@@ -100,20 +101,20 @@ func checkReportSymbols(r *report.Report) error {
 				return err
 			}
 			if ver == "" || !affected {
-				warnlog.Printf("%s: current Go version %q is not in a vulnerable range, skipping symbol checks for module %s\n", r.ID, gover, m.Module)
+				log.Warnf("%s: current Go version %q is not in a vulnerable range, skipping symbol checks for module %s\n", r.ID, gover, m.Module)
 				continue
 			}
 			if ver != m.VulnerableAt {
-				warnlog.Printf("%s: current Go version %q does not match vulnerable_at version (%s) for module %s\n", r.ID, ver, m.VulnerableAt, m.Module)
+				log.Warnf("%s: current Go version %q does not match vulnerable_at version (%s) for module %s\n", r.ID, ver, m.VulnerableAt, m.Module)
 			}
 		}
 
 		for _, p := range m.Packages {
 			if p.SkipFix != "" {
-				infolog.Printf("%s: skipping symbol checks for package %s (reason: %q)\n", r.ID, p.Package, p.SkipFix)
+				log.Infof("%s: skipping symbol checks for package %s (reason: %q)\n", r.ID, p.Package, p.SkipFix)
 				continue
 			}
-			syms, err := symbols.Exported(m, p, errlog)
+			syms, err := symbols.Exported(m, p, log.Errf, log.Err)
 			if err != nil {
 				return fmt.Errorf("package %s: %w", p.Package, err)
 			}
@@ -121,7 +122,7 @@ func checkReportSymbols(r *report.Report) error {
 			syms = removeExcluded(syms, p.ExcludedSymbols)
 			if !cmp.Equal(syms, p.DerivedSymbols) {
 				p.DerivedSymbols = syms
-				infolog.Printf("%s: updated derived symbols for package %s\n", r.ID, p.Package)
+				log.Infof("%s: updated derived symbols for package %s\n", r.ID, p.Package)
 			}
 		}
 	}
@@ -136,7 +137,7 @@ func removeExcluded(syms, excluded []string) []string {
 	var newSyms []string
 	for _, d := range syms {
 		if slices.Contains(excluded, d) {
-			infolog.Printf("removed excluded symbol %s\n", d)
+			log.Infof("removed excluded symbol %s\n", d)
 			continue
 		}
 		newSyms = append(newSyms, d)

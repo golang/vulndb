@@ -9,6 +9,7 @@ import (
 	"flag"
 	"fmt"
 
+	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/genai"
 	"golang.org/x/vulndb/internal/report"
@@ -27,7 +28,7 @@ func suggestCmd(ctx context.Context, filename string) (err error) {
 		return err
 	}
 
-	infolog.Print("contacting the Gemini API...")
+	log.Info("contacting the Gemini API...")
 	c, err := genai.NewGeminiClient(ctx)
 	if err != nil {
 		return err
@@ -39,10 +40,10 @@ func suggestCmd(ctx context.Context, filename string) (err error) {
 	}
 	found := len(suggestions)
 
-	outlog.Printf("== AI-generated suggestions for report %s ==\n", r.ID)
+	log.Outf("== AI-generated suggestions for report %s ==\n", r.ID)
 
 	for i, s := range suggestions {
-		outlog.Printf("\nSuggestion %d/%d\nsummary: %s\ndescription: %s\n",
+		log.Outf("\nSuggestion %d/%d\nsummary: %s\ndescription: %s\n",
 			i+1, found, s.Summary, s.Description)
 
 		// In interactive mode, allow user to accept the suggestion,
@@ -51,9 +52,9 @@ func suggestCmd(ctx context.Context, filename string) (err error) {
 		// instead of upfront.
 		if *interactive {
 			if i == found-1 {
-				outlog.Printf("\naccept or quit? (a=accept/Q=quit) ")
+				log.Outf("\naccept or quit? (a=accept/Q=quit) ")
 			} else {
-				outlog.Printf("\naccept, see next suggestion, or quit? (a=accept/n=next/Q=quit) ")
+				log.Outf("\naccept, see next suggestion, or quit? (a=accept/n=next/Q=quit) ")
 			}
 
 			var choice string
@@ -64,7 +65,7 @@ func suggestCmd(ctx context.Context, filename string) (err error) {
 			case "a":
 				applySuggestion(r, s)
 				if err := r.Write(filename); err != nil {
-					errlog.Println(err)
+					log.Err(err)
 				}
 				return nil
 			case "n":

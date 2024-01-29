@@ -8,6 +8,7 @@ import (
 	"context"
 	"time"
 
+	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/database"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/proxy"
@@ -25,7 +26,7 @@ func osvCmd(_ context.Context, filename string, pc *proxy.Client) (err error) {
 		if err := writeOSV(r); err != nil {
 			return err
 		}
-		outlog.Println(r.OSVFilename())
+		log.Out(r.OSVFilename())
 	}
 	return nil
 }

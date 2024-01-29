@@ -8,7 +8,6 @@ import (
 	"bytes"
 	"fmt"
 	"go/types"
-	"log"
 	"os"
 	"os/exec"
 	"sort"
@@ -24,7 +23,7 @@ import (
 
 // Exported returns a set of vulnerable symbols, in the vuln
 // db format, exported by a package p from the module m.
-func Exported(m *report.Module, p *report.Package, errlog *log.Logger) (_ []string, err error) {
+func Exported(m *report.Module, p *report.Package, errf logf, errln logln) (_ []string, err error) {
 	defer derrors.Wrap(&err, "Exported(%q, %q)", m.Module, p.Package)
 
 	cleanup, err := changeToTempDir()
@@ -37,7 +36,7 @@ func Exported(m *report.Module, p *report.Package, errlog *log.Logger) (_ []stri
 		cmd := exec.Command(name, arg...)
 		out, err := cmd.CombinedOutput()
 		if err != nil {
-			errlog.Println(string(out))
+			errln(string(out))
 		}
 		return err
 	}
@@ -116,17 +115,17 @@ func Exported(m *report.Module, p *report.Package, errlog *log.Logger) (_ []stri
 		if typ, method, ok := strings.Cut(sym, "."); ok {
 			n, ok := pkg.Types.Scope().Lookup(typ).(*types.TypeName)
 			if !ok {
-				errlog.Printf("package %s: %v: type not found\n", p.Package, typ)
+				errf("package %s: %v: type not found\n", p.Package, typ)
 				continue
 			}
 			m, _, _ := types.LookupFieldOrMethod(n.Type(), true, pkg.Types, method)
 			if m == nil {
-				errlog.Printf("package %s: %v: method not found\n", p.Package, sym)
+				errf("package %s: %v: method not found\n", p.Package, sym)
 			}
 		} else {
 			_, ok := pkg.Types.Scope().Lookup(typ).(*types.Func)
 			if !ok {
-				errlog.Printf("package %s: %v: func not found\n", p.Package, typ)
+				errf("package %s: %v: func not found\n", p.Package, typ)
 			}
 		}
 	}
@@ -153,6 +152,11 @@ func Exported(m *report.Module, p *report.Package, errlog *log.Logger) (_ []stri
 	sort.Strings(newslice)
 	return newslice, nil
 }
+
+// TODO(tatianabradley): Refactor functions that use these to return
+// info needed to construct logs instead of logging directly.
+type logf func(format string, v ...any)
+type logln func(v ...any)
 
 // exportedFunctions returns a set of vulnerable functions exported
 // by a packages from the module.

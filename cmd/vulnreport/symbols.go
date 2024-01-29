@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/report"
@@ -18,7 +19,7 @@ import (
 
 func findSymbols(_ context.Context, filename string) (err error) {
 	defer derrors.Wrap(&err, "findSymbols(%q)", filename)
-	infolog.Printf("symbols %s\n", filename)
+	log.Infof("symbols %s\n", filename)
 
 	r, err := report.Read(filename)
 	if err != nil {
@@ -46,9 +47,9 @@ func findSymbols(_ context.Context, filename string) (err error) {
 		for i, fixLink := range defaultFixes {
 			fixHash := filepath.Base(fixLink)
 			fixRepo := strings.TrimSuffix(fixLink, "/commit/"+fixHash)
-			pkgsToSymbols, err := symbols.Patched(mod.Module, fixRepo, fixHash, errlog)
+			pkgsToSymbols, err := symbols.Patched(mod.Module, fixRepo, fixHash, log.Errf)
 			if err != nil {
-				errlog.Print(err)
+				log.Err(err)
 				continue
 			}
 			packages := mod.AllPackages()

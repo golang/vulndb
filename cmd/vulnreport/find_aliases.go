@@ -9,6 +9,7 @@ import (
 	"fmt"
 
 	"golang.org/x/exp/slices"
+	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/report"
@@ -68,7 +69,7 @@ func aliasesBFS(ctx context.Context, knownAliases []string,
 		all = append(all, alias)
 		aliases, err := aliasesFor(ctx, alias)
 		if err != nil {
-			errlog.Printf(err.Error())
+			log.Err(err)
 			continue
 		}
 		queue = append(queue, aliases...)
