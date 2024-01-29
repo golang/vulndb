@@ -75,6 +75,7 @@ func main() {
 		fmt.Fprintf(flag.CommandLine.Output(), "usage: vulnreport [cmd] [filename.yaml]\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  create [githubIssueNumber]: creates a new vulnerability YAML report\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  create-excluded: creates and commits all open github issues marked as excluded\n")
+		fmt.Fprintf(flag.CommandLine.Output(), "  symbols filename.yaml: finds and populates possible vulnerable symbols for a given report\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  lint filename.yaml ...: lints vulnerability YAML reports\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  cve filename.yaml ...: creates and saves CVE 5.0 record from the provided YAML reports\n")
 		fmt.Fprintf(flag.CommandLine.Output(), "  fix filename.yaml ...: fixes and reformats YAML reports\n")
@@ -161,6 +162,8 @@ func main() {
 		cmdFunc = func(ctx context.Context, name string) error { return cveCmd(ctx, name) }
 	case "fix":
 		cmdFunc = func(ctx context.Context, name string) error { return fix(ctx, name, ghsaClient, pc, *force) }
+	case "symbols":
+		cmdFunc = func(ctx context.Context, name string) error { return findSymbols(ctx, name) }
 	case "osv":
 		cmdFunc = func(ctx context.Context, name string) error { return osvCmd(ctx, name, pc) }
 	case "set-dates":
@@ -739,6 +742,77 @@ func addReferenceTODOs(r *report.Report) {
 			r.References = append(r.References, todo)
 		}
 	}
+}
+
+func findSymbols(_ context.Context, filename string) (err error) {
+	defer derrors.Wrap(&err, "findSymbols(%q)", filename)
+	infolog.Printf("findSymbols %s\n", filename)
+	r, err := report.Read(filename)
+	if err != nil {
+		return err
+	}
+	var defaultFixes []string
+
+	for _, ref := range r.References {
+		if ref.Type == osv.ReferenceTypeFix {
+			if filepath.Base(filepath.Dir(ref.URL)) == "commit" {
+				defaultFixes = append(defaultFixes, ref.URL)
+			}
+		}
+	}
+	if len(defaultFixes) == 0 {
+		return fmt.Errorf("no commit fix links found")
+	}
+
+	for _, mod := range r.Modules {
+		hasFixLink := mod.FixLink != ""
+		if hasFixLink {
+			defaultFixes = append(defaultFixes, mod.FixLink)
+		}
+		numFixedSymbols := make([]int, len(defaultFixes))
+		for i, fixLink := range defaultFixes {
+			fixHash := filepath.Base(fixLink)
+			fixRepo := strings.TrimSuffix(fixLink, "/commit/"+fixHash)
+			pkgsToSymbols, err := symbols.Patched(mod.Module, fixRepo, fixHash, errlog)
+			if err != nil {
+				errlog.Print(err)
+				continue
+			}
+			packages := mod.AllPackages()
+			for pkg, symbols := range pkgsToSymbols {
+				if _, exists := packages[pkg]; exists {
+					packages[pkg].Symbols = append(packages[pkg].Symbols, symbols...)
+				} else {
+					mod.Packages = append(mod.Packages, &report.Package{
+						Package: pkg,
+						Symbols: symbols,
+					})
+				}
+				numFixedSymbols[i] += len(symbols)
+			}
+		}
+		// if the module's link field wasn't already populated, populate it with
+		// the link that results in the most symbols
+		if hasFixLink {
+			defaultFixes = defaultFixes[:len(defaultFixes)-1]
+		} else {
+			mod.FixLink = defaultFixes[indexMax(numFixedSymbols)]
+		}
+	}
+	return r.Write(filename)
+}
+
+// indexMax takes a slice of nonempty ints and returns the index of the maximum value
+func indexMax(s []int) (index int) {
+	maxVal := s[0]
+	index = 0
+	for i, val := range s {
+		if val > maxVal {
+			maxVal = val
+			index = i
+		}
+	}
+	return index
 }
 
 func lint(_ context.Context, filename string, pc *proxy.Client) (err error) {

@@ -54,6 +54,9 @@ type Module struct {
 	// It is rare that we need to specify this.
 	VulnerableAtRequires []string   `yaml:"vulnerable_at_requires,omitempty"`
 	Packages             []*Package `yaml:",omitempty"`
+	// Used to automatically determine vulnerable symbols for a given module.
+	// Will be auto-populated from the reports "fix" link if none is specified.
+	FixLink string `yaml:"fix_link,omitempty"`
 }
 
 type Package struct {
@@ -256,6 +259,15 @@ func (r *Report) AllCVEs() []string {
 		all = append(all, goCVE)
 	}
 	return all
+}
+
+// AllPkgs returns all affected packages in a given module.
+func (m *Module) AllPackages() map[string]*Package {
+	pkgs := make(map[string]*Package)
+	for _, pkg := range m.Packages {
+		pkgs[pkg.Package] = pkg
+	}
+	return pkgs
 }
 
 // Aliases returns all aliases (e.g., CVEs, GHSAs) for a report.
