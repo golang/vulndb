@@ -128,7 +128,7 @@ func main() {
 	case "lint":
 		cmdFunc = func(ctx context.Context, name string) error { return lint(ctx, name, pc) }
 	case "suggest":
-		cmdFunc = func(ctx context.Context, name string) error { return suggest(ctx, name) }
+		cmdFunc = func(ctx context.Context, name string) error { return suggestCmd(ctx, name) }
 	case "commit":
 		cmdFunc = func(ctx context.Context, name string) error { return commit(ctx, name, ghsaClient, pc, *force) }
 	case "cve":

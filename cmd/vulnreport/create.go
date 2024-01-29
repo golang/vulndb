@@ -15,6 +15,7 @@ import (
 	"golang.org/x/vulndb/internal/cveclient"
 	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/genai"
 	"golang.org/x/vulndb/internal/genericosv"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
@@ -29,6 +30,7 @@ var (
 	closedOk  = flag.Bool("closed-ok", false, "for create & create-excluded, allow closed issues to be created")
 	graphQL   = flag.Bool("graphql", false, "for create, fetch GHSAs from the Github GraphQL API instead of the OSV database")
 	issueRepo = flag.String("issue-repo", "github.com/golang/vulndb", "for create, repo locate Github issues")
+	useAI     = flag.Bool("ai", false, "for create, use AI to write draft summary and description when creating report")
 )
 
 func create(ctx context.Context, issueNumber int, cfg *createCfg) (err error) {
@@ -126,6 +128,7 @@ type createCfg struct {
 	existingByFile  map[string]*report.Report
 	existingByIssue map[int]*report.Report
 	allowClosed     bool
+	aiClient        *genai.GeminiClient
 }
 
 func setupCreate(ctx context.Context, args []string) ([]int, *createCfg, error) {
@@ -148,6 +151,13 @@ func setupCreate(ctx context.Context, args []string) ([]int, *createCfg, error) 
 	if err != nil {
 		return nil, nil, err
 	}
+	var aiClient *genai.GeminiClient
+	if *useAI {
+		aiClient, err = genai.NewGeminiClient(ctx)
+		if err != nil {
+			return nil, nil, err
+		}
+	}
 	return githubIDs, &createCfg{
 		issuesClient:    issues.NewClient(ctx, &issues.Config{Owner: owner, Repo: repoName, Token: *githubToken}),
 		ghsaClient:      ghsa.NewClient(ctx, *githubToken),
@@ -155,6 +165,7 @@ func setupCreate(ctx context.Context, args []string) ([]int, *createCfg, error) 
 		existingByFile:  existingByFile,
 		existingByIssue: existingByIssue,
 		allowClosed:     *closedOk,
+		aiClient:        aiClient,
 	}, nil
 }
 
@@ -243,6 +254,18 @@ func createReport(ctx context.Context, cfg *createCfg, iss *issues.Issue) (r *re
 
 	// Find any additional aliases referenced by the source aliases.
 	addMissingAliases(ctx, r, cfg.ghsaClient)
+
+	if cfg.aiClient != nil {
+		suggestions, err := suggest(ctx, cfg.aiClient, r, 1)
+		if err != nil {
+			warnlog.Printf("failed to get AI-generated suggestions for %s: %v\n", r.ID, err)
+		} else if len(suggestions) == 0 {
+			warnlog.Printf("failed to get AI-generated suggestions for %s (none generated)\n", r.ID)
+		} else {
+			infolog.Printf("applying AI-generated suggestion for %s", r.ID)
+			applySuggestion(r, suggestions[0])
+		}
+	}
 
 	addTODOs(r)
 	return r, nil

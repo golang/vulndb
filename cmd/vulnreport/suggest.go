@@ -20,7 +20,7 @@ var (
 	palm           = flag.Bool("palm", false, "use the legacy PaLM API instead of the Gemini API")
 )
 
-func suggest(ctx context.Context, filename string) (err error) {
+func suggestCmd(ctx context.Context, filename string) (err error) {
 	defer derrors.Wrap(&err, "suggest(%q)", filename)
 
 	r, err := report.Read(filename)
@@ -40,21 +40,11 @@ func suggest(ctx context.Context, filename string) (err error) {
 		}
 	}
 
-	suggestions, err := genai.Suggest(ctx, c, &genai.Input{
-		Module:      r.Modules[0].Module,
-		Description: r.Description.String(),
-	})
+	suggestions, err := suggest(ctx, c, r, *numSuggestions)
 	if err != nil {
-		return fmt.Errorf("GenAI API error: %s", err)
+		return err
 	}
-	if len(suggestions) > *numSuggestions {
-		suggestions = suggestions[:*numSuggestions]
-	}
-
 	found := len(suggestions)
-	if found == 0 {
-		return fmt.Errorf("could not generate any valid suggestions for report %s (try again?)", r.ID)
-	}
 
 	outlog.Printf("== AI-generated suggestions for report %s ==\n", r.ID)
 
@@ -77,8 +67,7 @@ func suggest(ctx context.Context, filename string) (err error) {
 			}
 			switch choice {
 			case "a":
-				r.Summary = report.Summary(s.Summary)
-				r.Description = report.Description(s.Description)
+				applySuggestion(r, s)
 				if err := r.Write(filename); err != nil {
 					errlog.Println(err)
 				}
@@ -92,4 +81,30 @@ func suggest(ctx context.Context, filename string) (err error) {
 	}
 
 	return nil
+}
+
+func suggest(ctx context.Context, c genai.Client, r *report.Report, max int) (suggestions []*genai.Suggestion, err error) {
+	suggestions, err = genai.Suggest(ctx, c, &genai.Input{
+		Module:      r.Modules[0].Module,
+		Description: r.Description.String(),
+	})
+	if err != nil {
+		return nil, fmt.Errorf("GenAI API error: %s", err)
+	}
+	if len(suggestions) > max {
+		suggestions = suggestions[:max]
+	}
+
+	found := len(suggestions)
+	if found == 0 {
+		return nil, fmt.Errorf("could not generate any valid suggestions for report %s (try again?)", r.ID)
+	}
+
+	return suggestions, nil
+}
+
+func applySuggestion(r *report.Report, s *genai.Suggestion) {
+	r.Summary = report.Summary(s.Summary)
+	r.Description = report.Description(s.Description)
+	r.Fix(nil)
 }
