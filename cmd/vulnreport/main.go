@@ -16,6 +16,7 @@ import (
 	"runtime/pprof"
 
 	vlog "golang.org/x/vulndb/cmd/vulnreport/log"
+	"golang.org/x/vulndb/internal/genai"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/proxy"
@@ -135,6 +136,17 @@ func main() {
 			log.Fatal(err)
 		}
 		cmdFunc = func(ctx context.Context, name string) error { return setDates(ctx, name, commitDates) }
+	case "unexclude":
+		var ac *genai.GeminiClient
+		var err error
+		if *useAI {
+			ac, err = genai.NewGeminiClient(ctx)
+			if err != nil {
+				log.Fatal(err)
+			}
+			defer ac.Close()
+		}
+		cmdFunc = func(ctx context.Context, name string) error { return unexclude(ctx, name, ghsaClient, pc, ac) }
 	case "xref":
 		repo, err := gitrepo.Open(ctx, ".")
 		if err != nil {

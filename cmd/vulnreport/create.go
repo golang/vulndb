@@ -218,22 +218,10 @@ func createReport(ctx context.Context, cfg *createCfg, iss *issues.Issue) (r *re
 		return nil, err
 	}
 
-	aliases := allAliases(ctx, parsed.aliases, cfg.ghsaClient)
-	if alias, ok := pickBestAlias(aliases, *preferCVE); ok {
-		log.Infof("creating report %s based on %s (picked from [%s])", parsed.id, alias, strings.Join(aliases, ", "))
-		r, err = reportFromAlias(ctx, parsed.id, parsed.modulePath, alias, cfg)
-		if err != nil {
-			return nil, err
-		}
-	} else {
-		log.Infof("no alias found, creating basic report for %s", parsed.id)
-		r = &report.Report{
-			ID: parsed.id,
-			Modules: []*report.Module{
-				{
-					Module: parsed.modulePath,
-				},
-			}}
+	r, err = reportFromAliases(ctx, parsed.id, parsed.modulePath, parsed.aliases,
+		cfg.proxyClient, cfg.ghsaClient, cfg.aiClient)
+	if err != nil {
+		return nil, err
 	}
 
 	if parsed.excluded != "" {
@@ -250,14 +238,38 @@ func createReport(ctx context.Context, cfg *createCfg, iss *issues.Issue) (r *re
 		}
 	}
 
+	addTODOs(r)
+	return r, nil
+}
+
+func reportFromAliases(ctx context.Context, id, modulePath string, aliases []string,
+	pc *proxy.Client, gc *ghsa.Client, ac *genai.GeminiClient) (r *report.Report, err error) {
+	aliases = allAliases(ctx, aliases, gc)
+	if alias, ok := pickBestAlias(aliases, *preferCVE); ok {
+		log.Infof("creating report %s based on %s (picked from [%s])", id, alias, strings.Join(aliases, ", "))
+		r, err = reportFromAlias(ctx, id, modulePath, alias, pc, gc)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		log.Infof("no alias found, creating basic report for %s", id)
+		r = &report.Report{
+			ID: id,
+			Modules: []*report.Module{
+				{
+					Module: modulePath,
+				},
+			}}
+	}
+
 	// Ensure all source aliases are added to the report.
 	r.AddAliases(aliases)
 
 	// Find any additional aliases referenced by the source aliases.
-	addMissingAliases(ctx, r, cfg.ghsaClient)
+	addMissingAliases(ctx, r, gc)
 
-	if cfg.aiClient != nil {
-		suggestions, err := suggest(ctx, cfg.aiClient, r, 1)
+	if ac != nil {
+		suggestions, err := suggest(ctx, ac, r, 1)
 		if err != nil {
 			log.Warnf("failed to get AI-generated suggestions for %s: %v\n", r.ID, err)
 		} else if len(suggestions) == 0 {
@@ -268,7 +280,6 @@ func createReport(ctx context.Context, cfg *createCfg, iss *issues.Issue) (r *re
 		}
 	}
 
-	addTODOs(r)
 	return r, nil
 }
 
@@ -353,14 +364,14 @@ Adds excluded reports:
 // reportFromBestAlias returns a new report created from the "best" alias in the list.
 // For now, it prefers the first GHSA in the list, followed by the first CVE in the list
 // (if no GHSA is present). If no GHSAs or CVEs are present, it returns a new empty Report.
-func reportFromAlias(ctx context.Context, id, modulePath, alias string, cfg *createCfg) (*report.Report, error) {
+func reportFromAlias(ctx context.Context, id, modulePath, alias string, pc *proxy.Client, gc *ghsa.Client) (*report.Report, error) {
 	switch {
 	case ghsa.IsGHSA(alias) && *graphQL:
-		ghsa, err := cfg.ghsaClient.FetchGHSA(ctx, alias)
+		ghsa, err := gc.FetchGHSA(ctx, alias)
 		if err != nil {
 			return nil, err
 		}
-		r := report.GHSAToReport(ghsa, modulePath, cfg.proxyClient)
+		r := report.GHSAToReport(ghsa, modulePath, pc)
 		r.ID = id
 		return r, nil
 	case ghsa.IsGHSA(alias):
@@ -368,7 +379,7 @@ func reportFromAlias(ctx context.Context, id, modulePath, alias string, cfg *cre
 		if err != nil {
 			return nil, err
 		}
-		return ghsa.ToReport(id, cfg.proxyClient), nil
+		return ghsa.ToReport(id, pc), nil
 	case cveschema5.IsCVE(alias):
 		cve, err := cveclient.Fetch(alias)
 		if err != nil {
@@ -377,7 +388,7 @@ func reportFromAlias(ctx context.Context, id, modulePath, alias string, cfg *cre
 			log.Infof("no published record found for %s, creating basic report", alias)
 			return basicReport(id, modulePath), nil
 		}
-		return report.CVE5ToReport(cve, id, modulePath, cfg.proxyClient), nil
+		return report.CVE5ToReport(cve, id, modulePath, pc), nil
 	}
 
 	log.Infof("alias %s is not a CVE or GHSA, creating basic report", alias)
