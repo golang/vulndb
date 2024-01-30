@@ -5,9 +5,6 @@
 
 set -e
 
-# Deploy legacy database files.
-gsutil -q -m cp -r /workspace/legacydb/* gs://go-vulndb
-
 # Deploy v1 database files.
 gsutil -m cp -r /workspace/db/* gs://go-vulndb
 
