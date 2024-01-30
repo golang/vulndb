@@ -19,6 +19,7 @@ import (
 	"strings"
 
 	"golang.org/x/vulndb/internal"
+	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
@@ -35,9 +36,12 @@ var (
 func main() {
 	ctx := context.Background()
 	flag.Usage = func() {
-		fmt.Fprintf(flag.CommandLine.Output(), "usage: issue [cmd] [filename]\n")
-		fmt.Fprintf(flag.CommandLine.Output(), "	triage: [filename]\n")
-		fmt.Fprintf(flag.CommandLine.Output(), "	excluded: [filename]\n")
+		fmt.Fprintf(flag.CommandLine.Output(), "usage: issue [cmd] [filename | cves]\n")
+		fmt.Fprintf(flag.CommandLine.Output(), "	triage [filename]: create issues to triage on the tracker for the aliases listed in the file\n")
+		fmt.Fprintf(flag.CommandLine.Output(), "	excluded [filename]: create excluded issues on the tracker for the aliases listed in the file\n")
+		fmt.Fprintf(flag.CommandLine.Output(), "	placeholder [cve(s)]: create a placeholder issue on the tracker for the given CVE(s)\n")
+		fmt.Fprintf(flag.CommandLine.Output(), "\n")
+		fmt.Fprintf(flag.CommandLine.Output(), "Flags:\n")
 		flag.PrintDefaults()
 	}
 	flag.Parse()
@@ -59,6 +63,8 @@ func main() {
 		err = createIssueToTriage(ctx, c, ghsaClient, pc, filename)
 	case "excluded":
 		err = createExcluded(ctx, c, ghsaClient, pc, filename)
+	case "placeholder":
+		err = createPlaceholder(ctx, c, flag.Args()[1:])
 	default:
 		err = fmt.Errorf("unsupported command: %q", cmd)
 	}
@@ -87,6 +93,21 @@ func createExcluded(ctx context.Context, c *issues.Client, ghsaClient *ghsa.Clie
 	}
 	for _, r := range records {
 		if err := constructIssue(ctx, c, ghsaClient, pc, r.identifier, []string{r.category.ToLabel()}); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func createPlaceholder(ctx context.Context, c *issues.Client, args []string) error {
+	for _, arg := range args {
+		if !cveschema5.IsCVE(arg) {
+			return fmt.Errorf("%q is not a CVE", arg)
+		}
+		aliases := []string{arg}
+		packages := []string{"<placeholder>"}
+		bodies := []string{fmt.Sprintf("This is a placeholder issue for %q.", arg)}
+		if err := publishIssue(ctx, c, packages, aliases, bodies, []string{}); err != nil {
 			return err
 		}
 	}
@@ -143,9 +164,14 @@ func constructIssue(ctx context.Context, c *issues.Client, ghsaClient *ghsa.Clie
 		}
 		bodies = append(bodies, body)
 	}
-	sort.Strings(ids)
+	return publishIssue(ctx, c, []string{pkgPath}, ids, bodies, labels)
+}
+
+func publishIssue(ctx context.Context, c *issues.Client, packages, aliases, bodies, labels []string) error {
+	sort.Strings(aliases)
 	iss := &issues.Issue{
-		Title:  fmt.Sprintf("x/vulndb: potential Go vuln in %s: %s", pkgPath, strings.Join(ids, ", ")),
+		Title: fmt.Sprintf("x/vulndb: potential Go vuln in %s: %s", strings.Join(packages, ", "),
+			strings.Join(aliases, ", ")),
 		Body:   strings.Join(bodies, "\n\n----------\n\n"),
 		Labels: labels,
 	}
@@ -153,7 +179,7 @@ func constructIssue(ctx context.Context, c *issues.Client, ghsaClient *ghsa.Clie
 	if err != nil {
 		return err
 	}
-	fmt.Printf("created https://github.com/golang/vulndb/issues/%d (%s)\n", issNum, strings.Join(ids, ", "))
+	fmt.Printf("published issue https://%s/issues/%d (%s)\n", *issueRepo, issNum, strings.Join(aliases, ", "))
 	return nil
 }
 
