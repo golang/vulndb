@@ -8,10 +8,37 @@ import (
 	"context"
 	"fmt"
 
-	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/report"
 )
+
+type setDates struct {
+	dates map[string]gitrepo.Dates
+
+	filenameParser
+}
+
+func (setDates) name() string { return "set-dates" }
+
+func (setDates) usage() (string, string) {
+	const desc = "sets PublishDate of YAML reports"
+	return filenameArgs, desc
+}
+
+func (sd *setDates) setup(ctx context.Context) error {
+	repo, err := gitrepo.Open(ctx, ".")
+	if err != nil {
+		return err
+	}
+	dates, err := gitrepo.AllCommitDates(repo, gitrepo.MainReference, report.YAMLDir)
+	if err != nil {
+		return err
+	}
+	sd.dates = dates
+	return nil
+}
+
+func (sd *setDates) close() error { return nil }
 
 // setDates sets the PublishedDate of the report at filename to the oldest
 // commit date in the repo that contains that file. (It may someday also set a
@@ -29,9 +56,7 @@ import (
 // date can. Always using the git history as the source of truth for the
 // last-modified date avoids confusion if the report YAML and the git history
 // disagree.
-func setDates(_ context.Context, filename string, dates map[string]gitrepo.Dates) (err error) {
-	defer derrors.Wrap(&err, "setDates(%q)", filename)
-
+func (sd *setDates) run(ctx context.Context, filename string) (err error) {
 	r, err := report.Read(filename)
 	if err != nil {
 		return err
@@ -39,7 +64,7 @@ func setDates(_ context.Context, filename string, dates map[string]gitrepo.Dates
 	if !r.Published.IsZero() {
 		return nil
 	}
-	d, ok := dates[filename]
+	d, ok := sd.dates[filename]
 	if !ok {
 		return fmt.Errorf("can't find git repo commit dates for %q", filename)
 	}

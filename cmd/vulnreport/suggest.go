@@ -10,7 +10,6 @@ import (
 	"fmt"
 
 	"golang.org/x/vulndb/cmd/vulnreport/log"
-	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/genai"
 	"golang.org/x/vulndb/internal/report"
 )
@@ -20,21 +19,43 @@ var (
 	numSuggestions = flag.Int("n", 1, "for suggest, the number of suggestions to generate (>1 can be slow)")
 )
 
-func suggestCmd(ctx context.Context, filename string) (err error) {
-	defer derrors.Wrap(&err, "suggest(%q)", filename)
+type suggest struct {
+	ac *genai.GeminiClient
 
+	filenameParser
+}
+
+func (suggest) name() string { return "suggest" }
+
+func (suggest) usage() (string, string) {
+	const desc = "(EXPERIMENTAL) use AI to suggest summary and description for YAML reports"
+	return filenameArgs, desc
+}
+
+func (s *suggest) setup(ctx context.Context) error {
+	ac, err := genai.NewGeminiClient(ctx)
+	if err != nil {
+		return err
+	}
+	s.ac = ac
+	return nil
+}
+
+func (s *suggest) close() error {
+	if s.ac == nil {
+		return nil
+	}
+	return s.ac.Close()
+}
+
+func (s *suggest) run(ctx context.Context, filename string) (err error) {
 	r, err := report.Read(filename)
 	if err != nil {
 		return err
 	}
 
 	log.Info("contacting the Gemini API...")
-	c, err := genai.NewGeminiClient(ctx)
-	if err != nil {
-		return err
-	}
-
-	suggestions, err := suggest(ctx, c, r, *numSuggestions)
+	suggestions, err := suggestions(ctx, s.ac, r, *numSuggestions)
 	if err != nil {
 		return err
 	}
@@ -79,7 +100,7 @@ func suggestCmd(ctx context.Context, filename string) (err error) {
 	return nil
 }
 
-func suggest(ctx context.Context, c genai.Client, r *report.Report, max int) (suggestions []*genai.Suggestion, err error) {
+func suggestions(ctx context.Context, c genai.Client, r *report.Report, max int) (suggestions []*genai.Suggestion, err error) {
 	attempts := 0
 	maxAttempts := max + 2
 	for len(suggestions) < max && attempts < maxAttempts {

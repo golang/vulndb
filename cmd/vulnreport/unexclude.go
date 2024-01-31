@@ -9,19 +9,51 @@ import (
 	"os"
 
 	"golang.org/x/vulndb/cmd/vulnreport/log"
-	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/genai"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
 )
 
+type unexclude struct {
+	gc *ghsa.Client
+	pc *proxy.Client
+	ac *genai.GeminiClient
+
+	filenameParser
+}
+
+func (unexclude) name() string { return "unexclude" }
+
+func (unexclude) usage() (string, string) {
+	const desc = "converts excluded YAML reports to regular YAML reports"
+	return filenameArgs, desc
+}
+
+func (u *unexclude) setup(ctx context.Context) error {
+	u.gc = ghsa.NewClient(ctx, *githubToken)
+	u.pc = proxy.NewDefaultClient()
+
+	if *useAI {
+		ac, err := genai.NewGeminiClient(ctx)
+		if err != nil {
+			return err
+		}
+		u.ac = ac
+	}
+
+	return nil
+}
+
+func (u *unexclude) close() error {
+	if u.ac != nil {
+		return u.ac.Close()
+	}
+	return nil
+}
+
 // unexclude converts an excluded report into a regular report.
-func unexclude(ctx context.Context, filename string, gc *ghsa.Client, pc *proxy.Client, ac *genai.GeminiClient) (err error) {
-	defer derrors.Wrap(&err, "unexclude(%s)", filename)
-
-	log.Infof("unexclude %s", filename)
-
+func (u *unexclude) run(ctx context.Context, filename string) (err error) {
 	r, err := report.Read(filename)
 	if err != nil {
 		return err
@@ -49,7 +81,7 @@ func unexclude(ctx context.Context, filename string, gc *ghsa.Client, pc *proxy.
 	if len(r.Modules) > 0 {
 		modulePath = r.Modules[0].Module
 	}
-	newR, err := reportFromAliases(ctx, id, modulePath, aliases, pc, gc, ac)
+	newR, err := reportFromAliases(ctx, id, modulePath, aliases, u.pc, u.gc, u.ac)
 	if err != nil {
 		return err
 	}

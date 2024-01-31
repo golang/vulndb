@@ -11,7 +11,6 @@ import (
 	"strings"
 
 	"golang.org/x/exp/slices"
-	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
@@ -21,16 +20,36 @@ var (
 	updateIssue = flag.Bool("up", false, "for commit, create a CL that updates (doesn't fix) the tracking bug")
 )
 
-func commit(ctx context.Context, filename string, ghsaClient *ghsa.Client, pc *proxy.Client, force bool) (err error) {
-	defer derrors.Wrap(&err, "commit(%q)", filename)
+type commit struct {
+	pc *proxy.Client
+	gc *ghsa.Client
 
+	filenameParser
+}
+
+func (commit) name() string { return "commit" }
+
+func (commit) usage() (string, string) {
+	const desc = "creates new commits for YAML reports"
+	return filenameArgs, desc
+}
+
+func (c *commit) setup(ctx context.Context) error {
+	c.pc = proxy.NewDefaultClient()
+	c.gc = ghsa.NewClient(ctx, *githubToken)
+	return nil
+}
+
+func (c *commit) close() error { return nil }
+
+func (c *commit) run(ctx context.Context, filename string) (err error) {
 	// Clean up the report file and lint the result.
 	// Stop if there any problems.
-	if err := fix(ctx, filename, ghsaClient, pc, force); err != nil {
+	r, err := report.ReadAndLint(filename, c.pc)
+	if err != nil {
 		return err
 	}
-	r, err := report.ReadAndLint(filename, pc)
-	if err != nil {
+	if err := fixReport(ctx, r, filename, c.pc, c.gc); err != nil {
 		return err
 	}
 	if hasUnaddressedTodos(r) {

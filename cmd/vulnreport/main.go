@@ -12,15 +12,10 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"path/filepath"
 	"runtime/pprof"
+	"text/tabwriter"
 
 	vlog "golang.org/x/vulndb/cmd/vulnreport/log"
-	"golang.org/x/vulndb/internal/genai"
-	"golang.org/x/vulndb/internal/ghsa"
-	"golang.org/x/vulndb/internal/gitrepo"
-	"golang.org/x/vulndb/internal/proxy"
-	"golang.org/x/vulndb/internal/report"
 )
 
 var (
@@ -31,25 +26,40 @@ var (
 
 func init() {
 	vlog.Init(*quiet)
+	out := flag.CommandLine.Output()
+	flag.Usage = func() {
+		fmt.Fprintf(out, "usage: vulnreport [flags] [cmd] [args]\n\n")
+		tw := tabwriter.NewWriter(out, 2, 4, 2, ' ', 0)
+		for _, command := range commands {
+			argUsage, desc := command.usage()
+			fmt.Fprintf(tw, "  %s\t%s\t%s\n", command.name(), argUsage, desc)
+		}
+		tw.Flush()
+		fmt.Fprint(out, "\nsupported flags:\n\n")
+		flag.PrintDefaults()
+	}
+}
+
+// The subcommands supported by vulnreport.
+// To add a new command, implement the command interface and
+// add the command to this list.
+var commands = map[string]command{
+	"create":          &create{},
+	"create-excluded": &createExcluded{},
+	"commit":          &commit{},
+	"cve":             &cveCmd{},
+	"fix":             &fix{},
+	"lint":            &lint{},
+	"set-dates":       &setDates{},
+	"suggest":         &suggest{},
+	"symbols":         &symbolsCmd{},
+	"osv":             &osvCmd{},
+	"unexclude":       &unexclude{},
+	"xref":            &xref{},
 }
 
 func main() {
 	ctx := context.Background()
-	flag.Usage = func() {
-		fmt.Fprintf(flag.CommandLine.Output(), "usage: vulnreport [cmd] [filename.yaml]\n")
-		fmt.Fprintf(flag.CommandLine.Output(), "  create [githubIssueNumber]: creates a new vulnerability YAML report\n")
-		fmt.Fprintf(flag.CommandLine.Output(), "  create-excluded: creates and commits all open github issues marked as excluded\n")
-		fmt.Fprintf(flag.CommandLine.Output(), "  symbols filename.yaml: finds and populates possible vulnerable symbols for a given report\n")
-		fmt.Fprintf(flag.CommandLine.Output(), "  lint filename.yaml ...: lints vulnerability YAML reports\n")
-		fmt.Fprintf(flag.CommandLine.Output(), "  cve filename.yaml ...: creates and saves CVE 5.0 record from the provided YAML reports\n")
-		fmt.Fprintf(flag.CommandLine.Output(), "  fix filename.yaml ...: fixes and reformats YAML reports\n")
-		fmt.Fprintf(flag.CommandLine.Output(), "  osv filename.yaml ...: converts YAML reports to OSV JSON and writes to data/osv\n")
-		fmt.Fprintf(flag.CommandLine.Output(), "  set-dates filename.yaml ...: sets PublishDate of YAML reports\n")
-		fmt.Fprintf(flag.CommandLine.Output(), "  suggest filename.yaml ...: (EXPERIMENTAL) use AI to suggest summary and description for YAML reports\n")
-		fmt.Fprintf(flag.CommandLine.Output(), "  commit filename.yaml ...: creates new commits for YAML reports\n")
-		fmt.Fprintf(flag.CommandLine.Output(), "  xref filename.yaml ...: prints cross references for YAML reports\n")
-		flag.PrintDefaults()
-	}
 
 	flag.Parse()
 	if flag.NArg() < 1 {
@@ -59,18 +69,6 @@ func main() {
 
 	if *githubToken == "" {
 		*githubToken = os.Getenv("VULN_GITHUB_ACCESS_TOKEN")
-	}
-
-	var (
-		args []string
-		cmd  = flag.Arg(0)
-	)
-	if cmd != "create-excluded" {
-		if flag.NArg() < 2 {
-			flag.Usage()
-			log.Fatal("not enough arguments")
-		}
-		args = flag.Args()[1:]
 	}
 
 	// Start CPU profiler.
@@ -83,117 +81,16 @@ func main() {
 		defer pprof.StopCPUProfile()
 	}
 
-	// setupCreate clones the CVEList repo and can be very slow,
-	// so commands that require this functionality are separated from other
-	// commands.
-	if cmd == "create-excluded" || cmd == "create" {
-		githubIDs, cfg, err := setupCreate(ctx, args)
-		if err != nil {
-			log.Fatal(err)
-		}
-		switch cmd {
-		case "create-excluded":
-			if err = createExcluded(ctx, cfg); err != nil {
-				log.Fatal(err)
-			}
-		case "create":
-			// Unlike commands below, create operates on github issue IDs
-			// instead of filenames.
-			for _, githubID := range githubIDs {
-				if err := create(ctx, githubID, cfg); err != nil {
-					vlog.Err(err)
-				}
-			}
-		}
-		return
-	}
+	cmdName := flag.Arg(0)
+	args := flag.Args()[1:]
 
-	ghsaClient := ghsa.NewClient(ctx, *githubToken)
-	pc := proxy.NewDefaultClient()
-	var cmdFunc func(context.Context, string) error
-	switch cmd {
-	case "lint":
-		cmdFunc = func(ctx context.Context, name string) error { return lint(ctx, name, pc) }
-	case "suggest":
-		cmdFunc = func(ctx context.Context, name string) error { return suggestCmd(ctx, name) }
-	case "commit":
-		cmdFunc = func(ctx context.Context, name string) error { return commit(ctx, name, ghsaClient, pc, *force) }
-	case "cve":
-		cmdFunc = func(ctx context.Context, name string) error { return cveCmd(ctx, name) }
-	case "fix":
-		cmdFunc = func(ctx context.Context, name string) error { return fix(ctx, name, ghsaClient, pc, *force) }
-	case "symbols":
-		cmdFunc = func(ctx context.Context, name string) error { return findSymbols(ctx, name) }
-	case "osv":
-		cmdFunc = func(ctx context.Context, name string) error { return osvCmd(ctx, name, pc) }
-	case "set-dates":
-		repo, err := gitrepo.Open(ctx, ".")
-		if err != nil {
-			log.Fatal(err)
-		}
-		commitDates, err := gitrepo.AllCommitDates(repo, gitrepo.MainReference, report.YAMLDir)
-		if err != nil {
-			log.Fatal(err)
-		}
-		cmdFunc = func(ctx context.Context, name string) error { return setDates(ctx, name, commitDates) }
-	case "unexclude":
-		var ac *genai.GeminiClient
-		var err error
-		if *useAI {
-			ac, err = genai.NewGeminiClient(ctx)
-			if err != nil {
-				log.Fatal(err)
-			}
-			defer ac.Close()
-		}
-		cmdFunc = func(ctx context.Context, name string) error { return unexclude(ctx, name, ghsaClient, pc, ac) }
-	case "xref":
-		repo, err := gitrepo.Open(ctx, ".")
-		if err != nil {
-			log.Fatal(err)
-		}
-		_, existingByFile, err := report.All(repo)
-		if err != nil {
-			log.Fatal(err)
-		}
-		cmdFunc = func(ctx context.Context, name string) error {
-			r, err := report.Read(name)
-			if err != nil {
-				return err
-			}
-			vlog.Out(name)
-			vlog.Out(xref(name, r, existingByFile))
-			return nil
-		}
-	default:
+	cmd, ok := commands[cmdName]
+	if !ok {
 		flag.Usage()
-		log.Fatalf("unsupported command: %q", cmd)
+		log.Fatalf("unsupported command: %q", cmdName)
 	}
 
-	// Run the command on each argument.
-	for _, arg := range args {
-		arg, err := argToFilename(arg)
-		if err != nil {
-			vlog.Err(err)
-			continue
-		}
-		if err := cmdFunc(ctx, arg); err != nil {
-			vlog.Err(err)
-		}
+	if err := run(ctx, cmd, args); err != nil {
+		log.Fatalf("%s: %s", cmdName, err)
 	}
-}
-
-func argToFilename(arg string) (string, error) {
-	if _, err := os.Stat(arg); err != nil {
-		// If arg isn't a file, see if it might be an issue ID
-		// with an existing report.
-		for _, padding := range []string{"", "0", "00", "000"} {
-			m, _ := filepath.Glob("data/*/GO-*-" + padding + arg + ".yaml")
-			if len(m) == 1 {
-				return m[0], nil
-			}
-		}
-		return "", fmt.Errorf("%s is not a valid filename or issue ID with existing report: %w", arg, err)
-	}
-	return arg, nil
 }

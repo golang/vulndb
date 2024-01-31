@@ -10,15 +10,32 @@ import (
 
 	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/database"
-	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
 )
 
-func osvCmd(_ context.Context, filename string, pc *proxy.Client) (err error) {
-	defer derrors.Wrap(&err, "osv(%q)", filename)
+type osvCmd struct {
+	pc *proxy.Client
 
-	r, err := report.ReadAndLint(filename, pc)
+	filenameParser
+}
+
+func (osvCmd) name() string { return "osv" }
+
+func (osvCmd) usage() (string, string) {
+	const desc = "converts YAML reports to OSV JSON and writes to data/osv"
+	return filenameArgs, desc
+}
+
+func (o *osvCmd) setup(ctx context.Context) error {
+	o.pc = proxy.NewDefaultClient()
+	return nil
+}
+
+func (o *osvCmd) close() error { return nil }
+
+func (o *osvCmd) run(ctx context.Context, filename string) (err error) {
+	r, err := report.ReadAndLint(filename, o.pc)
 	if err != nil {
 		return err
 	}

@@ -11,16 +11,25 @@ import (
 	"strings"
 
 	"golang.org/x/vulndb/cmd/vulnreport/log"
-	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/symbols"
 )
 
-func findSymbols(_ context.Context, filename string) (err error) {
-	defer derrors.Wrap(&err, "findSymbols(%q)", filename)
-	log.Infof("symbols %s\n", filename)
+type symbolsCmd struct{ filenameParser }
 
+func (symbolsCmd) name() string { return "symbols" }
+
+func (symbolsCmd) usage() (string, string) {
+	const desc = "finds and populates possible vulnerable symbols for a given report"
+	return filenameArgs, desc
+}
+
+func (s *symbolsCmd) setup(ctx context.Context) error { return nil }
+
+func (s *symbolsCmd) close() error { return nil }
+
+func (s *symbolsCmd) run(ctx context.Context, filename string) (err error) {
 	r, err := report.Read(filename)
 	if err != nil {
 		return err

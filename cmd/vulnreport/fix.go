@@ -15,7 +15,6 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"golang.org/x/exp/slices"
 	"golang.org/x/vulndb/cmd/vulnreport/log"
-	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/osvutils"
 	"golang.org/x/vulndb/internal/proxy"
@@ -29,14 +28,38 @@ var (
 	skipSymbols = flag.Bool("skip-symbols", false, "for lint and fix, don't load package for symbols checks")
 )
 
-func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client, pc *proxy.Client, force bool) (err error) {
-	defer derrors.Wrap(&err, "fix(%q)", filename)
-	log.Infof("fix %s\n", filename)
+type fix struct {
+	pc *proxy.Client
+	gc *ghsa.Client
 
+	filenameParser
+}
+
+func (fix) name() string { return "fix" }
+
+func (fix) usage() (string, string) {
+	const desc = "fix a YAML report"
+	return filenameArgs, desc
+}
+
+func (f *fix) setup(ctx context.Context) error {
+	f.pc = proxy.NewDefaultClient()
+	f.gc = ghsa.NewClient(ctx, *githubToken)
+	return nil
+}
+
+func (*fix) close() error { return nil }
+
+func (f *fix) run(ctx context.Context, filename string) (err error) {
 	r, err := report.Read(filename)
 	if err != nil {
 		return err
 	}
+
+	return fixReport(ctx, r, filename, f.pc, f.gc)
+}
+
+func fixReport(ctx context.Context, r *report.Report, filename string, pc *proxy.Client, gc *ghsa.Client) error {
 	if err := r.CheckFilename(filename); err != nil {
 		return err
 	}
@@ -49,7 +72,7 @@ func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client, pc *prox
 		}
 	}()
 
-	if lints := r.Lint(pc); force || len(lints) > 0 {
+	if lints := r.Lint(pc); *force || len(lints) > 0 {
 		r.Fix(pc)
 	}
 	if lints := r.Lint(pc); len(lints) > 0 {
@@ -64,7 +87,7 @@ func fix(ctx context.Context, filename string, ghsaClient *ghsa.Client, pc *prox
 	}
 	if !*skipAlias {
 		log.Infof("%s: checking for missing GHSAs and CVEs (use -skip-alias to skip this)", r.ID)
-		if added := addMissingAliases(ctx, r, ghsaClient); added > 0 {
+		if added := addMissingAliases(ctx, r, gc); added > 0 {
 			log.Infof("%s: added %d missing aliases", r.ID, added)
 		}
 	}

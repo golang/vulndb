@@ -9,12 +9,25 @@ import (
 
 	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/database"
-	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/report"
 )
 
-func cveCmd(_ context.Context, filename string) (err error) {
-	defer derrors.Wrap(&err, "cve(%q)", filename)
+type cveCmd struct{ filenameParser }
+
+func (cveCmd) name() string { return "cve" }
+
+func (cveCmd) usage() (string, string) {
+	const desc = "creates and saves CVE 5.0 record from the provided YAML reports"
+	return filenameArgs, desc
+}
+
+func (c *cveCmd) setup(ctx context.Context) error {
+	return nil
+}
+
+func (c *cveCmd) close() error { return nil }
+
+func (c *cveCmd) run(ctx context.Context, filename string) (err error) {
 	r, err := report.Read(filename)
 	if err != nil {
 		return err

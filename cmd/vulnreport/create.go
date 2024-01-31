@@ -15,7 +15,6 @@ import (
 	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/cveclient"
 	"golang.org/x/vulndb/internal/cveschema5"
-	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/genai"
 	"golang.org/x/vulndb/internal/genericosv"
 	"golang.org/x/vulndb/internal/ghsa"
@@ -34,18 +33,74 @@ var (
 	useAI     = flag.Bool("ai", false, "for create, use AI to write draft summary and description when creating report")
 )
 
-func create(ctx context.Context, issueNumber int, cfg *createCfg) (err error) {
-	defer derrors.Wrap(&err, "create(%d)", issueNumber)
-	// Get GitHub issue.
-	iss, err := cfg.issuesClient.Issue(ctx, issueNumber)
+type create struct {
+	gc              *ghsa.Client
+	ic              *issues.Client
+	pc              *proxy.Client
+	ac              *genai.GeminiClient
+	existingByFile  map[string]*report.Report
+	existingByIssue map[int]*report.Report
+	allowClosed     bool
+}
+
+func (create) name() string { return "create" }
+
+func (create) usage() (string, string) {
+	const desc = "creates a new vulnerability YAML report"
+	return ghIssueArgs, desc
+}
+
+func (c *create) setup(ctx context.Context) error {
+	if *githubToken == "" {
+		return fmt.Errorf("githubToken must be provided")
+	}
+	localRepo, err := gitrepo.Open(ctx, ".")
+	if err != nil {
+		return err
+	}
+	existingByIssue, existingByFile, err := report.All(localRepo)
+	if err != nil {
+		return err
+	}
+	owner, repoName, err := gitrepo.ParseGitHubRepo(*issueRepo)
+	if err != nil {
+		return err
+	}
+	var aiClient *genai.GeminiClient
+	if *useAI {
+		aiClient, err = genai.NewGeminiClient(ctx)
+		if err != nil {
+			return err
+		}
+	}
+	c.ic = issues.NewClient(ctx, &issues.Config{Owner: owner, Repo: repoName, Token: *githubToken})
+	c.gc = ghsa.NewClient(ctx, *githubToken)
+	c.pc = proxy.NewDefaultClient()
+	c.existingByFile = existingByFile
+	c.existingByIssue = existingByIssue
+	c.allowClosed = *closedOk
+	c.ac = aiClient
+	return nil
+}
+
+func (*create) close() error { return nil }
+
+func (cfg *create) run(ctx context.Context, issueNumber string) (err error) {
+	n, err := strconv.Atoi(issueNumber)
+	if err != nil {
+		return err
+	}
+	iss, err := cfg.ic.Issue(ctx, n)
 	if err != nil {
 		return err
 	}
 
-	r, err := createReport(ctx, cfg, iss)
+	r, err := createReport(ctx, iss, cfg.pc, cfg.gc, cfg.ac, cfg.allowClosed)
 	if err != nil {
 		return err
 	}
+
+	addTODOs(r)
 
 	filename, err := writeReport(r)
 	if err != nil {
@@ -54,7 +109,7 @@ func create(ctx context.Context, issueNumber int, cfg *createCfg) (err error) {
 
 	log.Out(filename)
 
-	xrefs := xref(filename, r, cfg.existingByFile)
+	xrefs := xrefInner(filename, r, cfg.existingByFile)
 	if len(xrefs) != 0 {
 		log.Infof("found cross-references:\n%s", xrefs)
 	}
@@ -62,116 +117,12 @@ func create(ctx context.Context, issueNumber int, cfg *createCfg) (err error) {
 	return nil
 }
 
-func createExcluded(ctx context.Context, cfg *createCfg) (err error) {
-	defer derrors.Wrap(&err, "createExcluded()")
-	isses := []*issues.Issue{}
-	stateOption := "open"
-	if cfg.allowClosed {
-		stateOption = "all"
-	}
-	for _, er := range report.ExcludedReasons {
-		label := er.ToLabel()
-		tempIssues, err :=
-			cfg.issuesClient.Issues(ctx, issues.IssuesOptions{Labels: []string{label}, State: stateOption})
-		if err != nil {
-			return err
-		}
-		log.Infof("found %d issues with label %s\n", len(tempIssues), label)
-		isses = append(isses, tempIssues...)
+func (c *create) parseArgs(ctx context.Context, args []string) ([]string, error) {
+	if len(args) == 0 {
+		return nil, fmt.Errorf("no arguments provided")
 	}
 
-	var created []string
-	for _, iss := range isses {
-		// Don't create a report for an issue that already has a report.
-		if _, ok := cfg.existingByIssue[iss.Number]; ok {
-			log.Infof("skipped issue %d which already has a report\n", iss.Number)
-			continue
-		}
-
-		r, err := createReport(ctx, cfg, iss)
-		if err != nil {
-			log.Errf("skipped issue %d: %v\n", iss.Number, err)
-			continue
-		}
-
-		filename, err := writeReport(r)
-		if err != nil {
-			return err
-		}
-
-		created = append(created, filename)
-	}
-
-	skipped := len(isses) - len(created)
-	if skipped > 0 {
-		log.Infof("skipped %d issue(s)\n", skipped)
-	}
-
-	if len(created) == 0 {
-		log.Infof("no files to commit, exiting")
-		return nil
-	}
-
-	msg, err := excludedCommitMsg(created)
-	if err != nil {
-		return err
-	}
-	if err := gitAdd(created...); err != nil {
-		return err
-	}
-	return gitCommit(msg, created...)
-}
-
-type createCfg struct {
-	ghsaClient      *ghsa.Client
-	issuesClient    *issues.Client
-	proxyClient     *proxy.Client
-	existingByFile  map[string]*report.Report
-	existingByIssue map[int]*report.Report
-	allowClosed     bool
-	aiClient        *genai.GeminiClient
-}
-
-func setupCreate(ctx context.Context, args []string) ([]int, *createCfg, error) {
-	if *githubToken == "" {
-		return nil, nil, fmt.Errorf("githubToken must be provided")
-	}
-	localRepo, err := gitrepo.Open(ctx, ".")
-	if err != nil {
-		return nil, nil, err
-	}
-	existingByIssue, existingByFile, err := report.All(localRepo)
-	if err != nil {
-		return nil, nil, err
-	}
-	githubIDs, err := parseArgsToGithubIDs(args, existingByIssue)
-	if err != nil {
-		return nil, nil, err
-	}
-	owner, repoName, err := gitrepo.ParseGitHubRepo(*issueRepo)
-	if err != nil {
-		return nil, nil, err
-	}
-	var aiClient *genai.GeminiClient
-	if *useAI {
-		aiClient, err = genai.NewGeminiClient(ctx)
-		if err != nil {
-			return nil, nil, err
-		}
-	}
-	return githubIDs, &createCfg{
-		issuesClient:    issues.NewClient(ctx, &issues.Config{Owner: owner, Repo: repoName, Token: *githubToken}),
-		ghsaClient:      ghsa.NewClient(ctx, *githubToken),
-		proxyClient:     proxy.NewDefaultClient(),
-		existingByFile:  existingByFile,
-		existingByIssue: existingByIssue,
-		allowClosed:     *closedOk,
-		aiClient:        aiClient,
-	}, nil
-}
-
-func parseArgsToGithubIDs(args []string, existingByIssue map[int]*report.Report) ([]int, error) {
-	var githubIDs []int
+	var githubIDs []string
 	parseGithubID := func(s string) (int, error) {
 		id, err := strconv.Atoi(s)
 		if err != nil {
@@ -181,11 +132,11 @@ func parseArgsToGithubIDs(args []string, existingByIssue map[int]*report.Report)
 	}
 	for _, arg := range args {
 		if !strings.Contains(arg, "-") {
-			id, err := parseGithubID(arg)
+			_, err := parseGithubID(arg)
 			if err != nil {
 				return nil, err
 			}
-			githubIDs = append(githubIDs, id)
+			githubIDs = append(githubIDs, arg)
 			continue
 		}
 		from, to, _ := strings.Cut(arg, "-")
@@ -201,25 +152,23 @@ func parseArgsToGithubIDs(args []string, existingByIssue map[int]*report.Report)
 			return nil, fmt.Errorf("%v > %v", fromID, toID)
 		}
 		for id := fromID; id <= toID; id++ {
-			if existingByIssue[id] != nil {
+			if c.existingByIssue[id] != nil {
 				continue
 			}
-			githubIDs = append(githubIDs, id)
+			githubIDs = append(githubIDs, strconv.Itoa(id))
 		}
 	}
 	return githubIDs, nil
 }
 
-func createReport(ctx context.Context, cfg *createCfg, iss *issues.Issue) (r *report.Report, err error) {
-	defer derrors.Wrap(&err, "createReport(%d)", iss.Number)
-
-	parsed, err := parseGithubIssue(iss, cfg.proxyClient, cfg.allowClosed)
+func createReport(ctx context.Context, iss *issues.Issue, pc *proxy.Client, gc *ghsa.Client, ac *genai.GeminiClient, allowClosed bool) (r *report.Report, err error) {
+	parsed, err := parseGithubIssue(iss, pc, allowClosed)
 	if err != nil {
 		return nil, err
 	}
 
 	r, err = reportFromAliases(ctx, parsed.id, parsed.modulePath, parsed.aliases,
-		cfg.proxyClient, cfg.ghsaClient, cfg.aiClient)
+		pc, gc, ac)
 	if err != nil {
 		return nil, err
 	}
@@ -237,8 +186,6 @@ func createReport(ctx context.Context, cfg *createCfg, iss *issues.Issue) (r *re
 			GHSAs:    r.GHSAs,
 		}
 	}
-
-	addTODOs(r)
 	return r, nil
 }
 
@@ -269,7 +216,7 @@ func reportFromAliases(ctx context.Context, id, modulePath string, aliases []str
 	addMissingAliases(ctx, r, gc)
 
 	if ac != nil {
-		suggestions, err := suggest(ctx, ac, r, 1)
+		suggestions, err := suggestions(ctx, ac, r, 1)
 		if err != nil {
 			log.Warnf("failed to get AI-generated suggestions for %s: %v\n", r.ID, err)
 		} else if len(suggestions) == 0 {
@@ -336,29 +283,6 @@ type parsedIssue struct {
 	modulePath string
 	aliases    []string
 	excluded   report.ExcludedReason
-}
-
-func excludedCommitMsg(fs []string) (string, error) {
-	var issNums []string
-	for _, f := range fs {
-		_, _, iss, err := report.ParseFilepath(f)
-		if err != nil {
-			return "", err
-		}
-		issNums = append(issNums, fmt.Sprintf("Fixes golang/vulndb#%d", iss))
-	}
-
-	return fmt.Sprintf(
-		`%s: batch add %d excluded reports
-
-Adds excluded reports:
-	- %s
-
-%s`,
-		report.ExcludedDir,
-		len(fs),
-		strings.Join(fs, "\n\t- "),
-		strings.Join(issNums, "\n")), nil
 }
 
 // reportFromBestAlias returns a new report created from the "best" alias in the list.

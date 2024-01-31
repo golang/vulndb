@@ -7,16 +7,31 @@ package main
 import (
 	"context"
 
-	"golang.org/x/vulndb/cmd/vulnreport/log"
-	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
 )
 
-func lint(_ context.Context, filename string, pc *proxy.Client) (err error) {
-	defer derrors.Wrap(&err, "lint(%q)", filename)
-	log.Infof("lint %s\n", filename)
+type lint struct {
+	pc *proxy.Client
 
-	_, err = report.ReadAndLint(filename, pc)
+	filenameParser
+}
+
+func (lint) name() string { return "lint" }
+
+func (lint) usage() (string, string) {
+	const desc = "lints vulnerability YAML reports"
+	return filenameArgs, desc
+}
+
+func (l *lint) setup(ctx context.Context) error {
+	l.pc = proxy.NewDefaultClient()
+	return nil
+}
+
+func (l *lint) close() error { return nil }
+
+func (l *lint) run(ctx context.Context, filename string) (err error) {
+	_, err = report.ReadAndLint(filename, l.pc)
 	return err
 }
