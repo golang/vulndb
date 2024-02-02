@@ -23,14 +23,16 @@ import (
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
+	"golang.org/x/vulndb/internal/symbols"
 )
 
 var (
-	preferCVE = flag.Bool("cve", false, "for create, prefer CVEs over GHSAs as canonical source")
-	closedOk  = flag.Bool("closed-ok", false, "for create & create-excluded, allow closed issues to be created")
-	graphQL   = flag.Bool("graphql", false, "for create, fetch GHSAs from the Github GraphQL API instead of the OSV database")
-	issueRepo = flag.String("issue-repo", "github.com/golang/vulndb", "for create, repo locate Github issues")
-	useAI     = flag.Bool("ai", false, "for create, use AI to write draft summary and description when creating report")
+	preferCVE       = flag.Bool("cve", false, "for create, prefer CVEs over GHSAs as canonical source")
+	closedOk        = flag.Bool("closed-ok", false, "for create & create-excluded, allow closed issues to be created")
+	graphQL         = flag.Bool("graphql", false, "for create, fetch GHSAs from the Github GraphQL API instead of the OSV database")
+	issueRepo       = flag.String("issue-repo", "github.com/golang/vulndb", "for create, repo locate Github issues")
+	useAI           = flag.Bool("ai", false, "for create, use AI to write draft summary and description when creating report")
+	populateSymbols = flag.Bool("symbols", false, "for create, attempt to auto-populate symbols")
 )
 
 type create struct {
@@ -224,6 +226,12 @@ func reportFromAliases(ctx context.Context, id, modulePath string, aliases []str
 		} else {
 			log.Infof("applying AI-generated suggestion for %s", r.ID)
 			applySuggestion(r, suggestions[0])
+		}
+	}
+
+	if *populateSymbols {
+		if err := symbols.Populate(r, log.Err); err != nil {
+			log.Warnf("could not auto-populate symbols: %s", err)
 		}
 	}
 
