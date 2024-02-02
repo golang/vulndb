@@ -45,9 +45,11 @@ func TestPatchedSymbols(t *testing.T) {
 		if err != nil {
 			t.Error(err)
 		}
-		// logs are not important for this test
-		discardLog := func(string, ...any) {}
-		got := toMap(patchedSymbols(oldSyms, newSyms, discardLog))
+		patched, err := patchedSymbols(oldSyms, newSyms)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := toMap(patched)
 		if diff := cmp.Diff(got, tc.want); diff != "" {
 			t.Errorf("(-got, want+):\n%s", diff)
 		}

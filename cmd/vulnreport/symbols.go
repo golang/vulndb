@@ -56,7 +56,7 @@ func (s *symbolsCmd) run(ctx context.Context, filename string) (err error) {
 		for i, fixLink := range defaultFixes {
 			fixHash := filepath.Base(fixLink)
 			fixRepo := strings.TrimSuffix(fixLink, "/commit/"+fixHash)
-			pkgsToSymbols, err := symbols.Patched(mod.Module, fixRepo, fixHash, log.Errf)
+			pkgsToSymbols, err := symbols.Patched(mod.Module, fixRepo, fixHash)
 			if err != nil {
 				log.Err(err)
 				continue
