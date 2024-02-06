@@ -15,12 +15,14 @@ import (
 
 func TestPopulate(t *testing.T) {
 	for _, tc := range []struct {
-		name  string
-		input *report.Report
-		want  *report.Report
+		name   string
+		update bool
+		input  *report.Report
+		want   *report.Report
 	}{
 		{
-			name: "basic",
+			name:   "basic",
+			update: true,
 			input: &report.Report{
 				Modules: []*report.Module{{
 					Module: "example.com/module",
@@ -48,7 +50,45 @@ func TestPopulate(t *testing.T) {
 			},
 		},
 		{
-			name: "multiple_fixes",
+			name:   "multiple_fixes",
+			update: false,
+			input: &report.Report{
+				Modules: []*report.Module{{
+					Module: "example.com/module",
+				}},
+				References: []*report.Reference{
+					{
+						Type: osv.ReferenceTypeFix,
+						URL:  "https://example.com/module/commit/1234",
+					},
+					{
+						Type: osv.ReferenceTypeFix,
+						URL:  "https://example.com/module/commit/5678",
+					},
+				},
+			},
+			want: &report.Report{
+				Modules: []*report.Module{{
+					Module: "example.com/module",
+					Packages: []*report.Package{{
+						Package: "example.com/module/package",
+						Symbols: []string{"symbol1", "symbol2", "symbol3"},
+					}},
+				}},
+				References: []*report.Reference{
+					{
+						Type: osv.ReferenceTypeFix,
+						URL:  "https://example.com/module/commit/1234",
+					},
+					{
+						Type: osv.ReferenceTypeFix,
+						URL:  "https://example.com/module/commit/5678",
+					},
+				},
+			},
+		}, {
+			name:   "multiple_fixes_update",
+			update: true,
 			input: &report.Report{
 				Modules: []*report.Module{{
 					Module: "example.com/module",
@@ -89,7 +129,7 @@ func TestPopulate(t *testing.T) {
 		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
-			if err := populate(tc.input, patchedFake); err != nil {
+			if err := populate(tc.input, tc.update, patchedFake); err != nil {
 				t.Fatal(err)
 			}
 			got := tc.input

@@ -16,11 +16,11 @@ import (
 
 // Populate attempts to populate the report with symbols derived
 // from the patch link(s) in the report.
-func Populate(r *report.Report) error {
-	return populate(r, Patched)
+func Populate(r *report.Report, update bool) error {
+	return populate(r, update, Patched)
 }
 
-func populate(r *report.Report, patched func(string, string, string) (map[string][]string, error)) error {
+func populate(r *report.Report, update bool, patched func(string, string, string) (map[string][]string, error)) error {
 	var errs []error
 	for _, mod := range r.Modules {
 		hasFixLink := len(mod.FixLinks) >= 0
@@ -36,7 +36,7 @@ func populate(r *report.Report, patched func(string, string, string) (map[string
 
 		foundSymbols := false
 		for _, fixLink := range fixLinks {
-			found, err := populateFromFixLink(fixLink, mod, patched)
+			found, err := populateFromFixLink(fixLink, mod, update, patched)
 			if err != nil {
 				errs = append(errs, err)
 			}
@@ -46,7 +46,7 @@ func populate(r *report.Report, patched func(string, string, string) (map[string
 			errs = append(errs, fmt.Errorf("no vulnerable symbols found for module %s", mod.Module))
 		}
 		// Sort fix links for testing/deterministic output
-		if !hasFixLink {
+		if !hasFixLink && update {
 			slices.Sort(mod.FixLinks)
 		}
 	}
@@ -56,7 +56,7 @@ func populate(r *report.Report, patched func(string, string, string) (map[string
 
 // populateFromFixLink takes a fixLink and a module and returns true if any symbols
 // are found for the given fix/module pair.
-func populateFromFixLink(fixLink string, m *report.Module, patched func(string, string, string) (map[string][]string, error)) (foundSymbols bool, err error) {
+func populateFromFixLink(fixLink string, m *report.Module, update bool, patched func(string, string, string) (map[string][]string, error)) (foundSymbols bool, err error) {
 	fixHash := filepath.Base(fixLink)
 	fixRepo := strings.TrimSuffix(fixLink, "/commit/"+fixHash)
 	pkgsToSymbols, err := patched(m.Module, fixRepo, fixHash)
@@ -80,7 +80,7 @@ func populateFromFixLink(fixLink string, m *report.Module, patched func(string, 
 			})
 		}
 	}
-	if foundSymbols {
+	if update && foundSymbols {
 		m.FixLinks = append(m.FixLinks, fixLink)
 	}
 	return foundSymbols, nil

@@ -54,8 +54,9 @@ type Module struct {
 	// It is rare that we need to specify this.
 	VulnerableAtRequires []string   `yaml:"vulnerable_at_requires,omitempty"`
 	Packages             []*Package `yaml:",omitempty"`
-	// Used to automatically determine vulnerable symbols for a given module.
-	// Will be auto-populated from the reports "fix" link if none is specified.
+	// Used to determine vulnerable symbols for a given module. If not populated,
+	// the fix links found in the report's References field will be used.
+	// Only auto-added if the -update flag is passed to vulnreport.
 	FixLinks []string `yaml:"fix_links,omitempty"`
 }
 
