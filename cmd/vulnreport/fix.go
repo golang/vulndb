@@ -137,7 +137,7 @@ func checkReportSymbols(r *report.Report) error {
 				log.Infof("%s: skipping symbol checks for package %s (reason: %q)\n", r.ID, p.Package, p.SkipFix)
 				continue
 			}
-			syms, err := symbols.Exported(m, p, log.Errf, log.Err)
+			syms, err := symbols.Exported(m, p)
 			if err != nil {
 				return fmt.Errorf("package %s: %w", p.Package, err)
 			}

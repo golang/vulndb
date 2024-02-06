@@ -230,7 +230,7 @@ func reportFromAliases(ctx context.Context, id, modulePath string, aliases []str
 	}
 
 	if *populateSymbols {
-		if err := symbols.Populate(r, log.Err); err != nil {
+		if err := symbols.Populate(r); err != nil {
 			log.Warnf("could not auto-populate symbols: %s", err)
 		}
 	}

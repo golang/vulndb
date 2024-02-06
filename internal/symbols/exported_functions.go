@@ -6,6 +6,7 @@ package symbols
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"go/types"
 	"os"
@@ -23,7 +24,7 @@ import (
 
 // Exported returns a set of vulnerable symbols, in the vuln
 // db format, exported by a package p from the module m.
-func Exported(m *report.Module, p *report.Package, errf logf, errln logln) (_ []string, err error) {
+func Exported(m *report.Module, p *report.Package) (_ []string, err error) {
 	defer derrors.Wrap(&err, "Exported(%q, %q)", m.Module, p.Package)
 
 	cleanup, err := changeToTempDir()
@@ -36,9 +37,9 @@ func Exported(m *report.Module, p *report.Package, errf logf, errln logln) (_ []
 		cmd := exec.Command(name, arg...)
 		out, err := cmd.CombinedOutput()
 		if err != nil {
-			errln(string(out))
+			return fmt.Errorf("%s: %v\nout:\n%s", name, err, string(out))
 		}
-		return err
+		return nil
 	}
 
 	// This procedure was developed through trial and error finding a way
@@ -111,23 +112,8 @@ func Exported(m *report.Module, p *report.Package, errf logf, errln logln) (_ []
 	// Check to see that all symbols actually exist in the package.
 	// This should perhaps be a lint check, but lint doesn't
 	// load/typecheck packages at the moment, so do it here for now.
-	for _, sym := range p.Symbols {
-		if typ, method, ok := strings.Cut(sym, "."); ok {
-			n, ok := pkg.Types.Scope().Lookup(typ).(*types.TypeName)
-			if !ok {
-				errf("package %s: %v: type not found\n", p.Package, typ)
-				continue
-			}
-			m, _, _ := types.LookupFieldOrMethod(n.Type(), true, pkg.Types, method)
-			if m == nil {
-				errf("package %s: %v: method not found\n", p.Package, sym)
-			}
-		} else {
-			_, ok := pkg.Types.Scope().Lookup(typ).(*types.Func)
-			if !ok {
-				errf("package %s: %v: func not found\n", p.Package, typ)
-			}
-		}
+	if err := checkSymbols(pkg, p.Symbols); err != nil {
+		return nil, fmt.Errorf("invalid symbol(s):\n%w", err)
 	}
 
 	newsyms, err := exportedFunctions(pkg, m)
@@ -153,10 +139,28 @@ func Exported(m *report.Module, p *report.Package, errf logf, errln logln) (_ []
 	return newslice, nil
 }
 
-// TODO(tatianabradley): Refactor functions that use these to return
-// info needed to construct logs instead of logging directly.
-type logf func(format string, v ...any)
-type logln func(v ...any)
+func checkSymbols(pkg *packages.Package, symbols []string) error {
+	var errs []error
+	for _, sym := range symbols {
+		if typ, method, ok := strings.Cut(sym, "."); ok {
+			n, ok := pkg.Types.Scope().Lookup(typ).(*types.TypeName)
+			if !ok {
+				errs = append(errs, fmt.Errorf("%v: type not found", typ))
+				continue
+			}
+			m, _, _ := types.LookupFieldOrMethod(n.Type(), true, pkg.Types, method)
+			if m == nil {
+				errs = append(errs, fmt.Errorf("%v: method not found", sym))
+			}
+		} else {
+			_, ok := pkg.Types.Scope().Lookup(typ).(*types.Func)
+			if !ok {
+				errs = append(errs, fmt.Errorf("%v: func not found", typ))
+			}
+		}
+	}
+	return errors.Join(errs...)
+}
 
 // exportedFunctions returns a set of vulnerable functions exported
 // by a packages from the module.

@@ -7,7 +7,6 @@ package main
 import (
 	"context"
 
-	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/symbols"
 )
@@ -31,7 +30,7 @@ func (s *symbolsCmd) run(ctx context.Context, filename string) (err error) {
 		return err
 	}
 
-	if err = symbols.Populate(r, log.Err); err != nil {
+	if err = symbols.Populate(r); err != nil {
 		return err
 	}
 

@@ -5,6 +5,7 @@
 package symbols
 
 import (
+	"errors"
 	"fmt"
 	"path/filepath"
 	"strings"
@@ -15,11 +16,11 @@ import (
 
 // Populate attempts to populate the report with symbols derived
 // from the patch link(s) in the report.
-func Populate(r *report.Report, errln logln) error {
-	return populate(r, Patched, errln)
+func Populate(r *report.Report) error {
+	return populate(r, Patched)
 }
 
-func populate(r *report.Report, patched func(string, string, string) (map[string][]string, error), errln logln) error {
+func populate(r *report.Report, patched func(string, string, string) (map[string][]string, error)) error {
 	var defaultFixes []string
 
 	for _, ref := range r.References {
@@ -32,7 +33,7 @@ func populate(r *report.Report, patched func(string, string, string) (map[string
 	if len(defaultFixes) == 0 {
 		return fmt.Errorf("no commit fix links found")
 	}
-
+	var errs []error
 	for _, mod := range r.Modules {
 		hasFixLink := mod.FixLink != ""
 		if hasFixLink {
@@ -44,7 +45,7 @@ func populate(r *report.Report, patched func(string, string, string) (map[string
 			fixRepo := strings.TrimSuffix(fixLink, "/commit/"+fixHash)
 			pkgsToSymbols, err := patched(mod.Module, fixRepo, fixHash)
 			if err != nil {
-				errln(err)
+				errs = append(errs, err)
 				continue
 			}
 			packages := mod.AllPackages()
@@ -69,7 +70,7 @@ func populate(r *report.Report, patched func(string, string, string) (map[string
 		}
 	}
 
-	return nil
+	return errors.Join(errs...)
 }
 
 // indexMax takes a slice of nonempty ints and returns the index of the maximum value

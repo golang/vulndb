@@ -89,8 +89,7 @@ func TestPopulate(t *testing.T) {
 		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
-			discardLog := func(...any) {}
-			if err := populate(tc.input, patchedFake, discardLog); err != nil {
+			if err := populate(tc.input, patchedFake); err != nil {
 				t.Fatal(err)
 			}
 			got := tc.input
