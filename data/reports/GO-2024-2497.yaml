@@ -1,0 +1,51 @@
+id: GO-2024-2497
+modules:
+    - module: github.com/moby/buildkit
+      versions:
+        - fixed: 0.12.5
+      vulnerable_at: 0.12.4
+      packages:
+        - package: github.com/moby/buildkit/solver/llbsolver
+          symbols:
+            - llbBridge.Exec
+            - llbBridge.Run
+            - ValidateEntitlements
+            - Solver.Solve
+            - provenanceBridge.Solve
+        - package: github.com/moby/buildkit/frontend/gateway/forwarder
+          symbols:
+            - BridgeClient.NewContainer
+            - LLBBridgeToGatewayClient
+            - GatewayForwarder.Solve
+        - package: github.com/moby/buildkit/cmd/buildkitd
+          symbols:
+            - newController
+        - package: github.com/moby/buildkit/frontend/gateway/container
+          symbols:
+            - NewContainer
+        - package: github.com/moby/buildkit/frontend/gateway
+          symbols:
+            - serveLLBBridgeForwarder
+            - newBridgeForwarder
+            - gatewayFrontend.Solve
+            - NewBridgeForwarder
+            - llbBridgeForwarder.NewContainer
+      fix_link: https://github.com/moby/buildkit/commit/5026d95aa3336e97cfe46e3764f52d08bac7a10e
+summary: Privilege escalation in github.com/moby/buildkit
+description: |-
+    BuildKit provides APIs for running interactive containers based on built images.
+    It was possible to use these APIs to ask BuildKit to run a container with
+    elevated privileges. Normally, running such containers is only allowed if
+    special security.insecure entitlement is enabled both by buildkitd
+    configuration and allowed by the user initializing the build request.
+cves:
+    - CVE-2024-23653
+ghsas:
+    - GHSA-wr6v-9f75-vh2g
+credits:
+    - '@rmcnamara-snyk'
+references:
+    - fix: https://github.com/moby/buildkit/pull/4602
+    - fix: https://github.com/moby/buildkit/commit/92cc595cfb12891d4b3ae476e067c74250e4b71e
+    - fix: https://github.com/moby/buildkit/commit/5026d95aa3336e97cfe46e3764f52d08bac7a10e
+    - web: https://github.com/moby/buildkit/releases/tag/v0.12.5
