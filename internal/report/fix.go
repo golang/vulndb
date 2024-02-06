@@ -17,12 +17,13 @@ import (
 )
 
 func (r *Report) Fix(pc *proxy.Client) {
-	for _, ref := range r.References {
-		ref.URL = fixURL(ref.URL)
-	}
 	for _, m := range r.Modules {
 		m.FixVersions(pc)
 	}
+	r.FixText()
+}
+
+func (r *Report) FixText() {
 	fixLines := func(sp *string) {
 		*sp = fixLineLength(*sp, maxLineLength)
 	}
@@ -30,6 +31,9 @@ func (r *Report) Fix(pc *proxy.Client) {
 	fixLines((*string)(&r.Description))
 	if r.CVEMetadata != nil {
 		fixLines(&r.CVEMetadata.Description)
+	}
+	for _, ref := range r.References {
+		ref.URL = fixURL(ref.URL)
 	}
 }
 

@@ -130,5 +130,5 @@ func suggestions(ctx context.Context, c genai.Client, r *report.Report, max int)
 func applySuggestion(r *report.Report, s *genai.Suggestion) {
 	r.Summary = report.Summary(s.Summary)
 	r.Description = report.Description(s.Description)
-	r.Fix(nil)
+	r.FixText()
 }
