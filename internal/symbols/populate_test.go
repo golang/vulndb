@@ -37,7 +37,7 @@ func TestPopulate(t *testing.T) {
 						Package: "example.com/module/package",
 						Symbols: []string{"symbol1", "symbol2"},
 					}},
-					FixLink: "https://example.com/module/commit/1234",
+					FixLinks: []string{"https://example.com/module/commit/1234"},
 				}},
 				References: []*report.Reference{
 					{
@@ -70,10 +70,10 @@ func TestPopulate(t *testing.T) {
 					Packages: []*report.Package{{
 						Package: "example.com/module/package",
 						// We don't yet dedupe the symbols.
-						Symbols: []string{"symbol1", "symbol2", "symbol1", "symbol2", "symbol3"},
+						Symbols: []string{"symbol1", "symbol2", "symbol3"},
 					}},
-					// This commit is picked because it results in the most symbols.
-					FixLink: "https://example.com/module/commit/5678",
+					// Both links are added because they both contain vulnerable symbols
+					FixLinks: []string{"https://example.com/module/commit/1234", "https://example.com/module/commit/5678"},
 				}},
 				References: []*report.Reference{
 					{

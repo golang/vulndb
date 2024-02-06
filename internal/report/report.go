@@ -56,7 +56,7 @@ type Module struct {
 	Packages             []*Package `yaml:",omitempty"`
 	// Used to automatically determine vulnerable symbols for a given module.
 	// Will be auto-populated from the reports "fix" link if none is specified.
-	FixLink string `yaml:"fix_link,omitempty"`
+	FixLinks []string `yaml:"fix_links,omitempty"`
 }
 
 type Package struct {
@@ -268,6 +268,18 @@ func (m *Module) AllPackages() map[string]*Package {
 		pkgs[pkg.Package] = pkg
 	}
 	return pkgs
+}
+
+// CommitLinks returns all commit fix links in report.References
+func (r *Report) CommitLinks() (links []string) {
+	for _, ref := range r.References {
+		if ref.Type == osv.ReferenceTypeFix {
+			if strings.Contains(ref.URL, "commit") {
+				links = append(links, ref.URL)
+			}
+		}
+	}
+	return links
 }
 
 // Aliases returns all aliases (e.g., CVEs, GHSAs) for a report.

@@ -10,7 +10,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"golang.org/x/vulndb/internal/osv"
+	"golang.org/x/exp/slices"
 	"golang.org/x/vulndb/internal/report"
 )
 
@@ -21,67 +21,67 @@ func Populate(r *report.Report) error {
 }
 
 func populate(r *report.Report, patched func(string, string, string) (map[string][]string, error)) error {
-	var defaultFixes []string
-
-	for _, ref := range r.References {
-		if ref.Type == osv.ReferenceTypeFix {
-			if filepath.Base(filepath.Dir(ref.URL)) == "commit" {
-				defaultFixes = append(defaultFixes, ref.URL)
-			}
-		}
-	}
-	if len(defaultFixes) == 0 {
-		return fmt.Errorf("no commit fix links found")
-	}
 	var errs []error
 	for _, mod := range r.Modules {
-		hasFixLink := mod.FixLink != ""
-		if hasFixLink {
-			defaultFixes = append(defaultFixes, mod.FixLink)
-		}
-		numFixedSymbols := make([]int, len(defaultFixes))
-		for i, fixLink := range defaultFixes {
-			fixHash := filepath.Base(fixLink)
-			fixRepo := strings.TrimSuffix(fixLink, "/commit/"+fixHash)
-			pkgsToSymbols, err := patched(mod.Module, fixRepo, fixHash)
-			if err != nil {
-				errs = append(errs, err)
+		hasFixLink := len(mod.FixLinks) >= 0
+		fixLinks := mod.FixLinks
+		if len(fixLinks) == 0 {
+			c := r.CommitLinks()
+			if len(c) == 0 {
+				errs = append(errs, fmt.Errorf("no commit fix links found for module %s", mod.Module))
 				continue
 			}
-			packages := mod.AllPackages()
-			for pkg, symbols := range pkgsToSymbols {
-				if _, exists := packages[pkg]; exists {
-					packages[pkg].Symbols = append(packages[pkg].Symbols, symbols...)
-				} else {
-					mod.Packages = append(mod.Packages, &report.Package{
-						Package: pkg,
-						Symbols: symbols,
-					})
-				}
-				numFixedSymbols[i] += len(symbols)
-			}
+			fixLinks = c
 		}
-		// if the module's link field wasn't already populated, populate it with
-		// the link that results in the most symbols
-		if hasFixLink {
-			defaultFixes = defaultFixes[:len(defaultFixes)-1]
-		} else {
-			mod.FixLink = defaultFixes[indexMax(numFixedSymbols)]
+
+		foundSymbols := false
+		for _, fixLink := range fixLinks {
+			found, err := populateFromFixLink(fixLink, mod, patched)
+			if err != nil {
+				errs = append(errs, err)
+			}
+			foundSymbols = foundSymbols || found
+		}
+		if !foundSymbols && fixLinks != nil {
+			errs = append(errs, fmt.Errorf("no vulnerable symbols found for module %s", mod.Module))
+		}
+		// Sort fix links for testing/deterministic output
+		if !hasFixLink {
+			slices.Sort(mod.FixLinks)
 		}
 	}
 
 	return errors.Join(errs...)
 }
 
-// indexMax takes a slice of nonempty ints and returns the index of the maximum value
-func indexMax(s []int) (index int) {
-	maxVal := s[0]
-	index = 0
-	for i, val := range s {
-		if val > maxVal {
-			maxVal = val
-			index = i
+// populateFromFixLink takes a fixLink and a module and returns true if any symbols
+// are found for the given fix/module pair.
+func populateFromFixLink(fixLink string, m *report.Module, patched func(string, string, string) (map[string][]string, error)) (foundSymbols bool, err error) {
+	fixHash := filepath.Base(fixLink)
+	fixRepo := strings.TrimSuffix(fixLink, "/commit/"+fixHash)
+	pkgsToSymbols, err := patched(m.Module, fixRepo, fixHash)
+	if err != nil {
+		return false, err
+	}
+	modPkgs := m.AllPackages()
+	for pkg, symbols := range pkgsToSymbols {
+		foundSymbols = true
+		if modPkg, exists := modPkgs[pkg]; exists {
+			// Ensure there are no duplicate symbols
+			for _, s := range symbols {
+				if !slices.Contains(modPkg.Symbols, s) {
+					modPkg.Symbols = append(modPkg.Symbols, s)
+				}
+			}
+		} else {
+			m.Packages = append(m.Packages, &report.Package{
+				Package: pkg,
+				Symbols: symbols,
+			})
 		}
 	}
-	return index
+	if foundSymbols {
+		m.FixLinks = append(m.FixLinks, fixLink)
+	}
+	return foundSymbols, nil
 }
