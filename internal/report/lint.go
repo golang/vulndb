@@ -219,17 +219,14 @@ func (ref *Reference) lint(l *linter, r *Report) {
 }
 
 func (r *Report) lintReferences(l *linter) {
-	advisoryCount := 0
 	for i, ref := range r.References {
 		rl := l.Group(name("references", i, ref.URL))
 		ref.lint(rl, r)
-		if ref.Type == osv.ReferenceTypeAdvisory {
-			advisoryCount++
-		}
 	}
 
 	// Find missing references.
 	rl := l.Group("references")
+	advisoryCount := r.countAdvisories()
 	if advisoryCount > 1 {
 		rl.Errorf("too many advisories (found %d, want <=1)", advisoryCount)
 	}
@@ -258,10 +255,25 @@ func (r *Report) lintReferences(l *linter) {
 				rl.Errorf("must contain an announcement link matching regex %q", announceRegex)
 			}
 		}
-		if advisoryCount == 0 && r.Description == "" && r.CVEMetadata == nil {
+		if r.missingAdvisory(advisoryCount) {
 			rl.Error("missing advisory (required because report has no description)")
 		}
 	}
+}
+
+func (r *Report) countAdvisories() int {
+	advisoryCount := 0
+	for _, ref := range r.References {
+		if ref.Type == osv.ReferenceTypeAdvisory {
+			advisoryCount++
+		}
+	}
+	return advisoryCount
+}
+
+func (r *Report) missingAdvisory(advisoryCount int) bool {
+	return !r.IsExcluded() && !r.IsFirstParty() &&
+		advisoryCount == 0 && r.Description == "" && r.CVEMetadata == nil
 }
 
 func (d *Description) lint(l *linter, r *Report) {
@@ -417,15 +429,19 @@ func (r *Report) LintAsNotes(pc *proxy.Client) bool {
 	if lints := r.Lint(pc); len(lints) > 0 {
 		slices.Sort(lints)
 		for _, lint := range lints {
-			r.Notes = append(r.Notes, &Note{
-				Body: lint,
-				Type: NoteTypeLint,
-			})
+			r.AddNote(NoteTypeLint, lint)
 		}
 		return true
 	}
 
 	return false
+}
+
+func (r *Report) AddNote(t NoteType, format string, v ...any) {
+	r.Notes = append(r.Notes, &Note{
+		Body: fmt.Sprintf(format, v...),
+		Type: t,
+	})
 }
 
 // LintOffline performs all lint checks that don't require a network connection.

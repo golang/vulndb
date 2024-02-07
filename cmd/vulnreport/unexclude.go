@@ -89,6 +89,11 @@ func (u *unexclude) run(ctx context.Context, filename string) (err error) {
 	// Remove description because this is a "basic" report.
 	newR.Description = ""
 
+	r.Fix(u.pc)
+	if hasLints := newR.LintAsNotes(u.pc); hasLints {
+		log.Warnf("unexcluded report %s has lint errors that need to be fixed manually", filename)
+	}
+
 	if err := os.Remove(filename); err != nil {
 		log.Errf("could not remove excluded report: %v", err)
 	}

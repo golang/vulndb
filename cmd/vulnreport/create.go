@@ -220,9 +220,8 @@ func reportFromAliases(ctx context.Context, id, modulePath string, aliases []str
 	if ac != nil {
 		suggestions, err := suggestions(ctx, ac, r, 1)
 		if err != nil {
+			r.AddNote(report.NoteTypeCreate, "failed to get AI-generated suggestions")
 			log.Warnf("failed to get AI-generated suggestions for %s: %v\n", r.ID, err)
-		} else if len(suggestions) == 0 {
-			log.Warnf("failed to get AI-generated suggestions for %s (none generated)\n", r.ID)
 		} else {
 			log.Infof("applying AI-generated suggestion for %s", r.ID)
 			applySuggestion(r, suggestions[0])
@@ -230,8 +229,14 @@ func reportFromAliases(ctx context.Context, id, modulePath string, aliases []str
 	}
 
 	if *populateSymbols {
+		log.Infof("attempting to auto-populate symbols for %s (this may take a while...)", r.ID)
 		if err := symbols.Populate(r); err != nil {
+			r.AddNote(report.NoteTypeCreate, "failed to auto-populate symbols")
 			log.Warnf("could not auto-populate symbols: %s", err)
+		} else {
+			if err := checkReportSymbols(r); err != nil {
+				log.Warnf("auto-populated symbols have error(s): %s", err)
+			}
 		}
 	}
 

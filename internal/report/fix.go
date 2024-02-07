@@ -12,6 +12,7 @@ import (
 	"strings"
 
 	"golang.org/x/exp/slices"
+	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/version"
 )
@@ -21,6 +22,7 @@ func (r *Report) Fix(pc *proxy.Client) {
 		m.FixVersions(pc)
 	}
 	r.FixText()
+	r.FixReferences()
 }
 
 func (r *Report) FixText() {
@@ -32,8 +34,24 @@ func (r *Report) FixText() {
 	if r.CVEMetadata != nil {
 		fixLines(&r.CVEMetadata.Description)
 	}
+}
+
+func (r *Report) FixReferences() {
 	for _, ref := range r.References {
 		ref.URL = fixURL(ref.URL)
+	}
+	if r.missingAdvisory(r.countAdvisories()) {
+		r.addAdvisory()
+	}
+}
+
+func (r *Report) addAdvisory() {
+	// For now, only add an advisory if there is a CVE.
+	if len(r.CVEs) > 0 {
+		r.References = append(r.References, &Reference{
+			Type: osv.ReferenceTypeAdvisory,
+			URL:  fmt.Sprintf("%s%s", NISTPrefix, r.CVEs[0]),
+		})
 	}
 }
 
