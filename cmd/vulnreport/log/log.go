@@ -5,58 +5,117 @@
 package log
 
 import (
+	"fmt"
 	"io"
 	"os"
 
 	"log"
+
+	"golang.org/x/vulndb/cmd/vulnreport/color"
 )
+
+func SetQuiet() {
+	loggers[infoLvl] = log.New(io.Discard, "", 0)
+}
+
+func RemoveColor() {
+	for lvl := range loggers {
+		loggers[lvl].SetPrefix(metas[lvl].prefix)
+	}
+	colorize = false
+}
+
+const (
+	infoLvl int = iota
+	outLvl
+	warnLvl
+	errLvl
+)
+
+func defaultLoggers() []*log.Logger {
+	ls := make([]*log.Logger, len(metas))
+	for lvl, lm := range metas {
+		ls[lvl] = log.New(lm.w, lm.color+lm.prefix, 0)
+	}
+	return ls
+}
 
 var (
-	infolog *log.Logger
-	outlog  *log.Logger
-	warnlog *log.Logger
-	errlog  *log.Logger
+	loggers = defaultLoggers()
+
+	// Whether to display colors in logs.
+	colorize bool = true
+
+	metas = []*metadata{
+		infoLvl: {
+			prefix: "info: ",
+			color:  color.Faint,
+			w:      os.Stderr,
+		},
+		outLvl: {
+			prefix: "",
+			color:  color.Reset,
+			w:      os.Stdout,
+		},
+		warnLvl: {
+			prefix: "WARNING: ",
+			color:  color.YellowHi,
+			w:      os.Stderr,
+		},
+		errLvl: {
+			prefix: "ERROR: ",
+			color:  color.RedHi,
+			w:      os.Stderr,
+		},
+	}
 )
 
-func Init(quiet bool) {
-	if quiet {
-		infolog = log.New(io.Discard, "", 0)
-	} else {
-		infolog = log.New(os.Stderr, "info: ", 0)
+type metadata struct {
+	prefix string
+	color  string
+	w      io.Writer
+}
+
+func printf(lvl int, format string, v ...any) {
+	println(lvl, fmt.Sprintf(format, v...))
+}
+
+func println(lvl int, v ...any) {
+	l := loggers[lvl]
+	l.Println(v...)
+	if colorize {
+		fmt.Fprint(l.Writer(), color.Reset)
 	}
-	outlog = log.New(os.Stdout, "", 0)
-	warnlog = log.New(os.Stderr, "WARNING: ", 0)
-	errlog = log.New(os.Stderr, "ERROR: ", 0)
 }
 
 func Infof(format string, v ...any) {
-	infolog.Printf(format, v...)
+	printf(infoLvl, format, v...)
 }
 
 func Outf(format string, v ...any) {
-	outlog.Printf(format, v...)
+	printf(outLvl, format, v...)
 }
 
 func Warnf(format string, v ...any) {
-	warnlog.Printf(format, v...)
+	printf(warnLvl, format, v...)
 }
 
 func Errf(format string, v ...any) {
-	errlog.Printf(format, v...)
+	printf(errLvl, format, v...)
 }
 
 func Info(v ...any) {
-	infolog.Println(v...)
+	println(infoLvl, v...)
 }
 
 func Out(v ...any) {
-	outlog.Println(v...)
+	println(outLvl, v...)
 }
 
 func Warn(v ...any) {
-	warnlog.Println(v...)
+	println(warnLvl, v...)
 }
 
 func Err(v ...any) {
-	errlog.Println(v...)
+	println(errLvl, v...)
 }

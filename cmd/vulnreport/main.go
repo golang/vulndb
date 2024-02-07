@@ -22,10 +22,10 @@ var (
 	githubToken = flag.String("ghtoken", "", "GitHub access token (default: value of VULN_GITHUB_ACCESS_TOKEN)")
 	cpuprofile  = flag.String("cpuprofile", "", "write cpuprofile to this file")
 	quiet       = flag.Bool("q", false, "quiet mode (suppress info logs)")
+	colorize    = flag.Bool("color", os.Getenv("NO_COLOR") == "", "show colors in logs")
 )
 
 func init() {
-	vlog.Init(*quiet)
 	out := flag.CommandLine.Output()
 	flag.Usage = func() {
 		fmt.Fprintf(out, "usage: vulnreport [flags] [cmd] [args]\n\n")
@@ -65,6 +65,13 @@ func main() {
 	if flag.NArg() < 1 {
 		flag.Usage()
 		log.Fatal("subcommand required")
+	}
+
+	if *quiet {
+		vlog.SetQuiet()
+	}
+	if !*colorize {
+		vlog.RemoveColor()
 	}
 
 	if *githubToken == "" {
