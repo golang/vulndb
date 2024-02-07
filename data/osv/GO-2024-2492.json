@@ -1,0 +1,135 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2492",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-23650",
+    "GHSA-9p26-698r-w4hx"
+  ],
+  "summary": "Panic in github.com/moby/buildkit",
+  "details": "A malicious BuildKit client or frontend could craft a request that could lead to a BuildKit daemon crashing with a panic.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/moby/buildkit",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.12.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/moby/buildkit/solver/llbsolver",
+            "symbols": [
+              "Solver.Solve",
+              "llbBridge.loadResult",
+              "loadSourcePolicy"
+            ]
+          },
+          {
+            "path": "github.com/moby/buildkit/sourcepolicy",
+            "symbols": [
+              "match"
+            ]
+          },
+          {
+            "path": "github.com/moby/buildkit/control",
+            "symbols": [
+              "Controller.Solve"
+            ]
+          },
+          {
+            "path": "github.com/moby/buildkit/frontend/gateway/client",
+            "symbols": [
+              "AttestationFromPB"
+            ]
+          },
+          {
+            "path": "github.com/moby/buildkit/frontend/gateway",
+            "symbols": [
+              "llbBridgeForwarder.Solve",
+              "llbBridgeForwarder.Warn"
+            ]
+          },
+          {
+            "path": "github.com/moby/buildkit/util/tracing/transform",
+            "symbols": [
+              "Attributes",
+              "Spans",
+              "arrayValues",
+              "boolArray",
+              "doubleArray",
+              "intArray",
+              "links",
+              "spanEvents",
+              "statusCode",
+              "stringArray"
+            ]
+          },
+          {
+            "path": "github.com/moby/buildkit/exporter/containerimage/exptypes",
+            "symbols": [
+              "ParsePlatforms"
+            ]
+          },
+          {
+            "path": "github.com/moby/buildkit/exporter/containerimage",
+            "symbols": [
+              "patchImageConfig"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/moby/buildkit/pull/4601"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/moby/buildkit/commit/e1924dc32da35bfb0bfdbb9d0fc7bca25e552330"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/moby/buildkit/commit/7718bd5c3dc8fc5cd246a30cc41766e7a53c043c"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/moby/buildkit/commit/96663dd35bf3787d7efb1ee7fd9ac7fe533582ae"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/moby/buildkit/commit/481d9c45f473c58537f39694a38d7995cc656987"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/moby/buildkit/commit/83edaef59d545b93e2750f1f85675a3764593fee"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/moby/buildkit/releases/tag/v0.12.5"
+    }
+  ],
+  "credits": [
+    {
+      "name": "@cpuguy83"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2492"
+  }
+}

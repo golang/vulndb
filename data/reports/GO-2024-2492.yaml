@@ -1,0 +1,62 @@
+id: GO-2024-2492
+modules:
+    - module: github.com/moby/buildkit
+      versions:
+        - fixed: 0.12.5
+      vulnerable_at: 0.12.4
+      packages:
+        - package: github.com/moby/buildkit/solver/llbsolver
+          symbols:
+            - Solver.Solve
+            - llbBridge.loadResult
+            - loadSourcePolicy
+        - package: github.com/moby/buildkit/sourcepolicy
+          symbols:
+            - match
+        - package: github.com/moby/buildkit/control
+          symbols:
+            - Controller.Solve
+        - package: github.com/moby/buildkit/frontend/gateway/client
+          symbols:
+            - AttestationFromPB
+        - package: github.com/moby/buildkit/frontend/gateway
+          symbols:
+            - llbBridgeForwarder.Warn
+            - llbBridgeForwarder.Solve
+        - package: github.com/moby/buildkit/util/tracing/transform
+          symbols:
+            - spanEvents
+            - doubleArray
+            - arrayValues
+            - stringArray
+            - Attributes
+            - intArray
+            - links
+            - statusCode
+            - Spans
+            - boolArray
+        - package: github.com/moby/buildkit/exporter/containerimage/exptypes
+          symbols:
+            - ParsePlatforms
+        - package: github.com/moby/buildkit/exporter/containerimage
+          symbols:
+            - patchImageConfig
+      fix_link: https://github.com/moby/buildkit/commit/7718bd5c3dc8fc5cd246a30cc41766e7a53c043c
+summary: Panic in github.com/moby/buildkit
+description: |-
+    A malicious BuildKit client or frontend could craft a request that
+    could lead to a BuildKit daemon crashing with a panic.
+cves:
+    - CVE-2024-23650
+ghsas:
+    - GHSA-9p26-698r-w4hx
+credits:
+    - '@cpuguy83'
+references:
+    - fix: https://github.com/moby/buildkit/pull/4601
+    - fix: https://github.com/moby/buildkit/commit/e1924dc32da35bfb0bfdbb9d0fc7bca25e552330
+    - fix: https://github.com/moby/buildkit/commit/7718bd5c3dc8fc5cd246a30cc41766e7a53c043c
+    - fix: https://github.com/moby/buildkit/commit/96663dd35bf3787d7efb1ee7fd9ac7fe533582ae
+    - fix: https://github.com/moby/buildkit/commit/481d9c45f473c58537f39694a38d7995cc656987
+    - fix: https://github.com/moby/buildkit/commit/83edaef59d545b93e2750f1f85675a3764593fee
+    - web: https://github.com/moby/buildkit/releases/tag/v0.12.5
