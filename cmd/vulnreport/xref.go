@@ -18,7 +18,7 @@ import (
 )
 
 type xref struct {
-	existingByFile map[string]*report.Report
+	rc *report.Client
 
 	filenameParser
 }
@@ -35,11 +35,11 @@ func (x *xref) setup(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	_, existingByFile, err := report.All(repo)
+	rc, err := report.NewClient(repo)
 	if err != nil {
 		return err
 	}
-	x.existingByFile = existingByFile
+	x.rc = rc
 	return nil
 }
 
@@ -53,21 +53,22 @@ func (x *xref) run(ctx context.Context, filename string) (err error) {
 		return err
 	}
 	vlog.Out(filename)
-	vlog.Out(xrefInner(filename, r, x.existingByFile))
+	vlog.Out(xrefInner(filename, r, x.rc))
 	return nil
 }
 
-func xrefInner(filename string, r *report.Report, existingByFile map[string]*report.Report) string {
+func xrefInner(filename string, r *report.Report, rc *report.Client) string {
 	out := &strings.Builder{}
-	matches := report.XRef(r, existingByFile)
+	matches := rc.XRef(r)
 	delete(matches, filename)
 	// This sorts as CVEs, GHSAs, and then modules.
 	for _, fname := range sorted(maps.Keys(matches)) {
 		for _, id := range sorted(matches[fname]) {
 			fmt.Fprintf(out, "%v appears in %v", id, fname)
-			e := existingByFile[fname].Excluded
-			if e != "" {
-				fmt.Fprintf(out, "  %v", e)
+			if r, ok := rc.Report(fname); ok {
+				if r.IsExcluded() {
+					fmt.Fprintf(out, "  %v", r.Excluded)
+				}
 			}
 			fmt.Fprintf(out, "\n")
 		}

@@ -23,12 +23,12 @@ import (
 var dry = flag.Bool("dry", false, "for create-excluded, do not commit files")
 
 type createExcluded struct {
-	gc              *ghsa.Client
-	ic              *issues.Client
-	pc              *proxy.Client
-	ac              *genai.GeminiClient
-	existingByIssue map[int]*report.Report
-	allowClosed     bool
+	gc          *ghsa.Client
+	ic          *issues.Client
+	pc          *proxy.Client
+	ac          *genai.GeminiClient
+	rc          *report.Client
+	allowClosed bool
 
 	isses   map[string]*issues.Issue
 	created []string
@@ -76,7 +76,7 @@ func (c *createExcluded) setup(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	existingByIssue, _, err := report.All(localRepo)
+	rc, err := report.NewClient(localRepo)
 	if err != nil {
 		return err
 	}
@@ -95,7 +95,7 @@ func (c *createExcluded) setup(ctx context.Context) error {
 	c.ic = issues.NewClient(ctx, &issues.Config{Owner: owner, Repo: repoName, Token: *githubToken})
 	c.gc = ghsa.NewClient(ctx, *githubToken)
 	c.pc = proxy.NewDefaultClient()
-	c.existingByIssue = existingByIssue
+	c.rc = rc
 	c.allowClosed = *closedOk
 	c.ac = aiClient
 	c.isses = make(map[string]*issues.Issue)
@@ -122,7 +122,7 @@ func (c *createExcluded) parseArgs(ctx context.Context, args []string) (issNums 
 		log.Infof("found %d issues with label %s\n", len(is), label)
 
 		for _, iss := range is {
-			if _, ok := c.existingByIssue[iss.Number]; ok {
+			if c.rc.HasReport(iss.Number) {
 				log.Infof("skipping issue %d which already has a report\n", iss.Number)
 				continue
 			}

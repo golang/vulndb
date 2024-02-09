@@ -17,7 +17,6 @@ import (
 	"regexp"
 	"strings"
 
-	"golang.org/x/exp/maps"
 	"golang.org/x/vulndb/internal/genai"
 	"golang.org/x/vulndb/internal/genericosv"
 	"golang.org/x/vulndb/internal/ghsarepo"
@@ -36,11 +35,11 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	byIssue, _, err := report.All(localRepo)
+	rc, err := report.NewClient(localRepo)
 	if err != nil {
 		log.Fatal(err)
 	}
-	reports := maps.Values(byIssue)
+	reports := rc.List()
 
 	var c *ghsarepo.Client
 	if *localGHSA != "" {

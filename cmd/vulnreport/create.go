@@ -36,13 +36,12 @@ var (
 )
 
 type create struct {
-	gc              *ghsa.Client
-	ic              *issues.Client
-	pc              *proxy.Client
-	ac              *genai.GeminiClient
-	existingByFile  map[string]*report.Report
-	existingByIssue map[int]*report.Report
-	allowClosed     bool
+	gc          *ghsa.Client
+	ic          *issues.Client
+	pc          *proxy.Client
+	ac          *genai.GeminiClient
+	rc          *report.Client
+	allowClosed bool
 }
 
 func (create) name() string { return "create" }
@@ -60,7 +59,7 @@ func (c *create) setup(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	existingByIssue, existingByFile, err := report.All(localRepo)
+	rc, err := report.NewClient(localRepo)
 	if err != nil {
 		return err
 	}
@@ -78,8 +77,7 @@ func (c *create) setup(ctx context.Context) error {
 	c.ic = issues.NewClient(ctx, &issues.Config{Owner: owner, Repo: repoName, Token: *githubToken})
 	c.gc = ghsa.NewClient(ctx, *githubToken)
 	c.pc = proxy.NewDefaultClient()
-	c.existingByFile = existingByFile
-	c.existingByIssue = existingByIssue
+	c.rc = rc
 	c.allowClosed = *closedOk
 	c.ac = aiClient
 	return nil
@@ -87,17 +85,17 @@ func (c *create) setup(ctx context.Context) error {
 
 func (*create) close() error { return nil }
 
-func (cfg *create) run(ctx context.Context, issueNumber string) (err error) {
+func (c *create) run(ctx context.Context, issueNumber string) (err error) {
 	n, err := strconv.Atoi(issueNumber)
 	if err != nil {
 		return err
 	}
-	iss, err := cfg.ic.Issue(ctx, n)
+	iss, err := c.ic.Issue(ctx, n)
 	if err != nil {
 		return err
 	}
 
-	r, err := createReport(ctx, iss, cfg.pc, cfg.gc, cfg.ac, cfg.allowClosed)
+	r, err := createReport(ctx, iss, c.pc, c.gc, c.ac, c.allowClosed)
 	if err != nil {
 		return err
 	}
@@ -111,7 +109,7 @@ func (cfg *create) run(ctx context.Context, issueNumber string) (err error) {
 
 	log.Out(filename)
 
-	xrefs := xrefInner(filename, r, cfg.existingByFile)
+	xrefs := xrefInner(filename, r, c.rc)
 	if len(xrefs) != 0 {
 		log.Infof("found cross-references:\n%s", xrefs)
 	}
@@ -154,7 +152,7 @@ func (c *create) parseArgs(ctx context.Context, args []string) ([]string, error)
 			return nil, fmt.Errorf("%v > %v", fromID, toID)
 		}
 		for id := fromID; id <= toID; id++ {
-			if c.existingByIssue[id] != nil {
+			if c.rc.HasReport(id) {
 				continue
 			}
 			githubIDs = append(githubIDs, strconv.Itoa(id))

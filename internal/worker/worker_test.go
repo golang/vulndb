@@ -192,8 +192,14 @@ func TestCreateIssues(t *testing.T) {
 	createGHSARecords(t, mstore, grs)
 
 	// Add an existing report with GHSA "g5".
-	allReports := map[string]*report.Report{"data/reports/GO-1999-0001": {GHSAs: []string{"g5"}}}
-	if err := CreateIssues(ctx, mstore, ic, pc, allReports, 0); err != nil {
+	rc, err := report.NewTestClient(map[string]*report.Report{
+		"data/reports/GO-1999-0001.yaml": {GHSAs: []string{"g5"}},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if err := CreateIssues(ctx, mstore, ic, pc, rc, 0); err != nil {
 		t.Fatal(err)
 	}
 
@@ -260,7 +266,13 @@ func TestNewCVEBody(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	got, err := newCVEBody(r, map[string]*report.Report{"data/reports/GO-9999-0002.yaml": rep}, pc)
+	rc, err := report.NewTestClient(map[string]*report.Report{
+		"data/reports/GO-9999-0002.yaml": rep,
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	got, err := newCVEBody(r, rc, pc)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -320,7 +332,13 @@ func TestCreateGHSABody(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	got, err := CreateGHSABody(r.GHSA, map[string]*report.Report{"data/excluded/GO-9999-0001.yaml": rep}, pc)
+	rc, err := report.NewTestClient(map[string]*report.Report{
+		"data/excluded/GO-9999-0001.yaml": rep,
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	got, err := CreateGHSABody(r.GHSA, rc, pc)
 	if err != nil {
 		t.Fatal(err)
 	}

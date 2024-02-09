@@ -203,7 +203,13 @@ func updateCommand(ctx context.Context, commitHash string) error {
 		}
 		pc.SetKnownModules(known)
 	}
-	err := worker.UpdateCVEsAtCommit(ctx, repoPath, commitHash, cfg.Store, pc, *force)
+
+	rc, err := report.NewDefaultClient(ctx)
+	if err != nil {
+		return err
+	}
+
+	err = worker.UpdateCVEsAtCommit(ctx, repoPath, commitHash, cfg.Store, pc, rc, *force)
 	if cerr := new(worker.CheckUpdateError); errors.As(err, &cerr) {
 		return fmt.Errorf("%w; use -force to override", cerr)
 	}
@@ -257,16 +263,12 @@ func createIssuesCommand(ctx context.Context) error {
 		return err
 	}
 	client := issues.NewClient(ctx, &issues.Config{Owner: owner, Repo: repoName, Token: cfg.GitHubAccessToken})
-	repo, err := gitrepo.Clone(ctx, "https://github.com/golang/vulndb")
-	if err != nil {
-		return err
-	}
-	_, allReports, err := report.All(repo)
+	rc, err := report.NewDefaultClient(ctx)
 	if err != nil {
 		return err
 	}
 	pc := proxy.NewDefaultClient()
-	return worker.CreateIssues(ctx, cfg.Store, client, pc, allReports, *limit)
+	return worker.CreateIssues(ctx, cfg.Store, client, pc, rc, *limit)
 }
 
 func showCommand(ctx context.Context, ids []string) error {

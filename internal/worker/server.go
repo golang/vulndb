@@ -49,6 +49,7 @@ type Server struct {
 	issueClient   *issues.Client
 	ghsaClient    *ghsa.Client
 	proxyClient   *proxy.Client
+	reportClient  *report.Client
 	observer      *observe.Observer
 }
 
@@ -91,6 +92,12 @@ func NewServer(ctx context.Context, cfg Config) (_ *Server, err error) {
 	}
 
 	s.proxyClient = proxy.NewDefaultClient()
+
+	rc, err := report.NewDefaultClient(ctx)
+	if err != nil {
+		return nil, err
+	}
+	s.reportClient = rc
 
 	s.indexTemplate, err = parseTemplate(staticPath, template.TrustedSourceFromConstant("index.tmpl"))
 	if err != nil {
@@ -305,7 +312,13 @@ func (s *Server) doUpdate(r *http.Request) (err error) {
 		}
 	}
 	force := (r.FormValue("force") == "true")
-	err = UpdateCVEsAtCommit(r.Context(), cvelistrepo.URLv4, "HEAD", s.cfg.Store, pkgsite.Default(), force)
+
+	rc, err := report.NewDefaultClient(r.Context())
+	if err != nil {
+		return err
+	}
+
+	err = UpdateCVEsAtCommit(r.Context(), cvelistrepo.URLv4, "HEAD", s.cfg.Store, pkgsite.Default(), rc, force)
 	if cerr := new(CheckUpdateError); errors.As(err, &cerr) {
 		return &serverError{
 			status: http.StatusPreconditionFailed,
@@ -349,15 +362,7 @@ func (s *Server) handleIssues(w http.ResponseWriter, r *http.Request) error {
 		}
 	}
 	log.With("limit", limit).Infof(r.Context(), "creating issues")
-	repo, err := gitrepo.Clone(r.Context(), "https://github.com/golang/vulndb")
-	if err != nil {
-		return err
-	}
-	_, allReports, err := report.All(repo)
-	if err != nil {
-		return err
-	}
-	return CreateIssues(r.Context(), s.cfg.Store, s.issueClient, s.proxyClient, allReports, limit)
+	return CreateIssues(r.Context(), s.cfg.Store, s.issueClient, s.proxyClient, s.reportClient, limit)
 }
 
 var updateAndIssuesInProgress atomic.Value

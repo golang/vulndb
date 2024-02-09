@@ -37,7 +37,7 @@ import (
 
 // UpdateCVEsAtCommit performs an update on the store using the given commit.
 // Unless force is true, it checks that the update makes sense before doing it.
-func UpdateCVEsAtCommit(ctx context.Context, repoPath, commitHashString string, st store.Store, pc *pkgsite.Client, force bool) (err error) {
+func UpdateCVEsAtCommit(ctx context.Context, repoPath, commitHashString string, st store.Store, pc *pkgsite.Client, rc *report.Client, force bool) (err error) {
 	defer derrors.Wrap(&err, "RunCommitUpdate(%q, %q, force=%t)", repoPath, commitHashString, force)
 
 	log.Infof(ctx, "updating false positives")
@@ -68,14 +68,7 @@ func UpdateCVEsAtCommit(ctx context.Context, repoPath, commitHashString string, 
 			return err
 		}
 	}
-	vulndb, err := gitrepo.Clone(ctx, "https://github.com/golang/vulndb")
-	if err != nil {
-		return err
-	}
-	knownVulnIDs, err := report.Aliases(vulndb)
-	if err != nil {
-		return err
-	}
+	knownVulnIDs := rc.Aliases()
 	u := newCVEUpdater(repo, commit, st, knownVulnIDs, func(cve *cveschema.CVE) (*cveutils.TriageResult, error) {
 		return cveutils.TriageCVE(ctx, cve, pc)
 	})
@@ -175,20 +168,20 @@ const issueQPS = 1
 var issueRateLimiter = rate.NewLimiter(rate.Every(time.Duration(1000/float64(issueQPS))*time.Millisecond), 1)
 
 // CreateIssues creates issues on the x/vulndb issue tracker for allReports.
-func CreateIssues(ctx context.Context, st store.Store, client *issues.Client, pc *proxy.Client, allReports map[string]*report.Report, limit int) (err error) {
+func CreateIssues(ctx context.Context, st store.Store, client *issues.Client, pc *proxy.Client, rc *report.Client, limit int) (err error) {
 	defer derrors.Wrap(&err, "CreateIssues(destination: %s)", client.Destination())
 	ctx, span := observe.Start(ctx, "CreateIssues")
 	defer span.End()
 
-	if err := createCVEIssues(ctx, st, client, pc, allReports, limit); err != nil {
+	if err := createCVEIssues(ctx, st, client, pc, rc, limit); err != nil {
 		return err
 	}
-	return createGHSAIssues(ctx, st, client, pc, allReports, limit)
+	return createGHSAIssues(ctx, st, client, pc, rc, limit)
 }
 
 // xref returns cross-references for a report: Information about other reports
 // for the same CVE, GHSA, or module.
-func xref(r *report.Report, allReports map[string]*report.Report) string {
+func xref(r *report.Report, rc *report.Client) string {
 	out := &strings.Builder{}
 	sorted := func(s []string) []string {
 		s = slices.Clone(s)
@@ -197,7 +190,7 @@ func xref(r *report.Report, allReports map[string]*report.Report) string {
 	}
 
 	fmt.Fprint(out, "Cross references:\n")
-	matches := report.XRef(r, allReports)
+	matches := rc.XRef(r)
 	for _, fname := range sorted(maps.Keys(matches)) {
 		for _, match := range sorted(matches[fname]) {
 			// Getting issue number from file name
@@ -210,9 +203,10 @@ func xref(r *report.Report, allReports map[string]*report.Report) string {
 			}
 
 			fmt.Fprintf(out, "- %v appears in issue #%v", match, appearsIn)
-			e := allReports[fname].Excluded
-			if e != "" {
-				fmt.Fprintf(out, "  %v", e)
+			if r, ok := rc.Report(fname); ok {
+				if r.IsExcluded() {
+					fmt.Fprintf(out, "  %v", r.Excluded)
+				}
 			}
 			fmt.Fprintf(out, "\n")
 		}
@@ -223,7 +217,7 @@ func xref(r *report.Report, allReports map[string]*report.Report) string {
 	return out.String()
 }
 
-func createCVEIssues(ctx context.Context, st store.Store, client *issues.Client, pc *proxy.Client, allReports map[string]*report.Report, limit int) (err error) {
+func createCVEIssues(ctx context.Context, st store.Store, client *issues.Client, pc *proxy.Client, rc *report.Client, limit int) (err error) {
 	defer derrors.Wrap(&err, "createCVEIssues(destination: %s)", client.Destination())
 
 	needsIssue, err := st.ListCVERecordsWithTriageState(ctx, store.TriageStateNeedsIssue)
@@ -237,7 +231,7 @@ func createCVEIssues(ctx context.Context, st store.Store, client *issues.Client,
 		if limit > 0 && numCreated >= limit {
 			break
 		}
-		ref, err := createIssue(ctx, cr, client, pc, allReports)
+		ref, err := createIssue(ctx, cr, client, pc, rc)
 		if err != nil {
 			return err
 		}
@@ -263,7 +257,7 @@ func createCVEIssues(ctx context.Context, st store.Store, client *issues.Client,
 	return nil
 }
 
-func newCVEBody(sr storeRecord, allReports map[string]*report.Report, pc *proxy.Client) (string, error) {
+func newCVEBody(sr storeRecord, rc *report.Client, pc *proxy.Client) (string, error) {
 	cr := sr.(*store.CVERecord)
 	var b strings.Builder
 	if cr.CVE == nil {
@@ -297,7 +291,7 @@ func newCVEBody(sr storeRecord, allReports map[string]*report.Report, pc *proxy.
 		fmt.Fprintf(&intro, "\n- %v: %v", strings.ToLower(string(ref.Type)), ref.URL)
 	}
 	fmt.Fprintf(&intro, "\n- Imported by: https://pkg.go.dev/%s?tab=importedby", cr.Module)
-	fmt.Fprintf(&intro, "\n\n%s", xref(r, allReports))
+	fmt.Fprintf(&intro, "\n\n%s", xref(r, rc))
 	if err := issueTemplate.Execute(&b, issueTemplateData{
 		Intro:  intro.String(),
 		Report: out,
@@ -308,7 +302,7 @@ func newCVEBody(sr storeRecord, allReports map[string]*report.Report, pc *proxy.
 	return b.String(), nil
 }
 
-func createGHSAIssues(ctx context.Context, st store.Store, client *issues.Client, pc *proxy.Client, allReports map[string]*report.Report, limit int) (err error) {
+func createGHSAIssues(ctx context.Context, st store.Store, client *issues.Client, pc *proxy.Client, rc *report.Client, limit int) (err error) {
 	defer derrors.Wrap(&err, "createGHSAIssues(destination: %s)", client.Destination())
 
 	sas, err := getGHSARecords(ctx, st)
@@ -331,7 +325,7 @@ func createGHSAIssues(ctx context.Context, st store.Store, client *issues.Client
 		}
 		// TODO(https://github.com/golang/go/issues/54049): Move this
 		// check to the triage step of the worker.
-		if isDuplicate(gr.GHSA, pc, allReports) {
+		if isDuplicate(gr.GHSA, pc, rc) {
 			// Update the GHSARecord in the DB to reflect that the GHSA
 			// already has an advisory.
 			if err = st.RunTransaction(ctx, func(ctx context.Context, tx store.Transaction) error {
@@ -347,7 +341,7 @@ func createGHSAIssues(ctx context.Context, st store.Store, client *issues.Client
 			// Do not create an issue.
 			continue
 		}
-		ref, err := createIssue(ctx, gr, client, pc, allReports)
+		ref, err := createIssue(ctx, gr, client, pc, rc)
 		if err != nil {
 			return err
 		}
@@ -371,9 +365,9 @@ func createGHSAIssues(ctx context.Context, st store.Store, client *issues.Client
 	return nil
 }
 
-func isDuplicate(sa *ghsa.SecurityAdvisory, pc *proxy.Client, allReports map[string]*report.Report) bool {
+func isDuplicate(sa *ghsa.SecurityAdvisory, pc *proxy.Client, rc *report.Client) bool {
 	r := report.GHSAToReport(sa, "", pc)
-	for _, aliases := range report.XRef(r, allReports) {
+	for _, aliases := range rc.XRef(r) {
 		if slices.Contains(aliases, sa.ID) {
 			return true
 		}
@@ -381,7 +375,7 @@ func isDuplicate(sa *ghsa.SecurityAdvisory, pc *proxy.Client, allReports map[str
 	return false
 }
 
-func CreateGHSABody(sa *ghsa.SecurityAdvisory, allReports map[string]*report.Report, pc *proxy.Client) (body string, err error) {
+func CreateGHSABody(sa *ghsa.SecurityAdvisory, rc *report.Client, pc *proxy.Client) (body string, err error) {
 	r := report.GHSAToReport(sa, "", pc)
 	r.Description = ""
 	rs, err := r.ToString()
@@ -393,7 +387,7 @@ func CreateGHSABody(sa *ghsa.SecurityAdvisory, allReports map[string]*report.Rep
 		"In GitHub Security Advisory [%s](%s), there is a vulnerability in the following Go packages or modules:",
 		sa.ID, sa.Permalink)
 	intro += "\n\n" + vulnTable(sa.Vulns)
-	intro += "\n\n" + xref(r, allReports)
+	intro += "\n\n" + xref(r, rc)
 	if err := issueTemplate.Execute(&b, issueTemplateData{
 		Intro:  intro,
 		Report: rs,
@@ -422,7 +416,7 @@ type storeRecord interface {
 	GetIssueCreatedAt() time.Time
 }
 
-func createIssue(ctx context.Context, r storeRecord, client *issues.Client, pc *proxy.Client, allReports map[string]*report.Report) (ref string, err error) {
+func createIssue(ctx context.Context, r storeRecord, client *issues.Client, pc *proxy.Client, rc *report.Client) (ref string, err error) {
 	id := r.GetID()
 	defer derrors.Wrap(&err, "createIssue(%s)", id)
 
@@ -438,9 +432,9 @@ func createIssue(ctx context.Context, r storeRecord, client *issues.Client, pc *
 	var body string
 	switch v := r.(type) {
 	case *store.GHSARecord:
-		body, err = CreateGHSABody(v.GHSA, allReports, pc)
+		body, err = CreateGHSABody(v.GHSA, rc, pc)
 	case *store.CVERecord:
-		body, err = newCVEBody(v, allReports, pc)
+		body, err = newCVEBody(v, rc, pc)
 	default:
 		log.With("ID", id).Errorf(ctx, "%s: record has unexpected type %T; skipping: %v", id, v, err)
 		return "", nil

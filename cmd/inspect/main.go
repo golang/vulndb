@@ -37,32 +37,30 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	byIssue, _, err := report.All(localRepo)
+	rc, err := report.NewClient(localRepo)
 	if err != nil {
 		log.Fatal(err)
 	}
-	reports := maps.Values(byIssue)
 
-	var c *ghsarepo.Client
+	var gc *ghsarepo.Client
 	if *localGHSA != "" {
 		repo, err := gitrepo.Open(context.Background(), *localGHSA)
 		if err != nil {
 			log.Fatal(err)
 		}
-		c, err = ghsarepo.NewClientFromRepo(repo)
+		gc, err = ghsarepo.NewClientFromRepo(repo)
 		if err != nil {
 			log.Fatal(err)
 		}
 	} else {
 		log.Println("cloning remote GHSA repo (use -local-ghsa to speed this up)...")
-		c, err = ghsarepo.NewClient()
+		gc, err = ghsarepo.NewClient()
 		if err != nil {
 			log.Fatal(err)
 		}
 	}
 
-	ghsas := c.List()
-	overall, byYear := summarize(ghsas, reports)
+	overall, byYear := summarize(gc.List(), rc.List())
 
 	display(overall, byYear)
 	if *detail {

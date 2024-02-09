@@ -146,11 +146,7 @@ func constructIssue(ctx context.Context, c *issues.Client, ghsaClient *ghsa.Clie
 		ids    []string
 		bodies []string
 	)
-	repo, err := gitrepo.Clone(ctx, "https://github.com/golang/vulndb")
-	if err != nil {
-		return err
-	}
-	_, allReports, err := report.All(repo)
+	rc, err := report.NewDefaultClient(ctx)
 	if err != nil {
 		return err
 	}
@@ -158,7 +154,7 @@ func constructIssue(ctx context.Context, c *issues.Client, ghsaClient *ghsa.Clie
 		for _, id := range sa.Identifiers {
 			ids = append(ids, id.Value)
 		}
-		body, err := worker.CreateGHSABody(sa, allReports, pc)
+		body, err := worker.CreateGHSABody(sa, rc, pc)
 		if err != nil {
 			return err
 		}

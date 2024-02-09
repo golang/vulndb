@@ -5,24 +5,29 @@ Repo for testing reports.All(), semi in the shape of
 github.com/golang/vulndb
 
 -- data/reports/GO-9999-0001.yaml --
+id: GO-9999-0001
 modules:
   - module: std
 cve_metadata:
   id: CVE-9999-0001
 
 -- data/excluded/GO-9999-0002.yaml --
+id: GO-9999-0002
 modules:
   - module: example.com/fake/module
 cve_metadata:
     id: CVE-9999-0002
+excluded: EFFECTIVELY_PRIVATE
 
 -- data/reports/GO-9999-0004.yaml --
+id: GO-9999-0004
 modules:
   - module: example.com/another/module
 ghsas:
   - GHSA-9999-abcd-efgh
 
 -- data/reports/GO-9999-0005.yaml --
+id: GO-9999-0005
 modules:
   - module: example.com/adiff/module
 cves:
