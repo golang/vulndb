@@ -1,0 +1,32 @@
+id: GO-2024-2493
+modules:
+    - module: github.com/moby/buildkit
+      versions:
+        - fixed: 0.12.5
+      vulnerable_at: 0.12.4
+      packages:
+        - package: github.com/moby/buildkit/executor/oci
+          symbols:
+            - submounts.cleanup
+            - submounts.subMount
+            - sub
+        - package: github.com/moby/buildkit/snapshot
+          symbols:
+            - LocalMounterWithMounts
+            - localMounter.Mount
+            - LocalMounter
+      fix_links:
+        - https://github.com/moby/buildkit/commit/f781267af1acb688e94740e1fdc22c1bf587d7fd
+summary: Host system file access in github.com/moby/buildkit
+description: |-
+    Two malicious build steps running in parallel sharing the same cache
+    mounts with subpaths could cause a race condition that can lead to files from
+    the host system being accessible to the build container.
+cves:
+    - CVE-2024-23651
+ghsas:
+    - GHSA-m3r6-h7wv-7xxv
+credits:
+    - '@rmcnamara-snyk'
+references:
+    - fix: https://github.com/moby/buildkit/pull/4604
