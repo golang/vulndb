@@ -1,0 +1,35 @@
+id: GO-2024-2482
+modules:
+    - module: github.com/goreleaser/goreleaser
+      versions:
+        - introduced: 1.23.0
+          fixed: 1.24.0
+      vulnerable_at: 1.23.0
+      packages:
+        - package: github.com/goreleaser/goreleaser/internal/shell
+          symbols:
+            - Run
+        - package: github.com/goreleaser/goreleaser/internal/pipe/sbom
+          symbols:
+            - catalogArtifact
+          derived_symbols:
+            - Pipe.Run
+        - package: github.com/goreleaser/goreleaser/internal/exec
+          symbols:
+            - executeCommand
+          derived_symbols:
+            - Execute
+      fix_links:
+        - https://github.com/goreleaser/goreleaser/commit/d5b6a533ca1dc3366983d5d31ee2d2b6232b83c0
+summary: Information leak in github.com/goreleaser/goreleaser
+description: Secret values can be printed to the --debug log when using a a custom publisher.
+cves:
+    - CVE-2024-23840
+ghsas:
+    - GHSA-h3q2-8whx-c29h
+credits:
+    - '@andreaangiolillo'
+    - '@caarlos0'
+references:
+    - advisory: https://github.com/goreleaser/goreleaser/security/advisories/GHSA-h3q2-8whx-c29h
+    - fix: https://github.com/goreleaser/goreleaser/commit/d5b6a533ca1dc3366983d5d31ee2d2b6232b83c0
