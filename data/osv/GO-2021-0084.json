@@ -5,7 +5,9 @@
   "published": "2021-04-14T20:04:52Z",
   "aliases": [
     "CVE-2019-16354",
-    "GHSA-f6px-w8rh-7r89"
+    "CVE-2019-16355",
+    "GHSA-f6px-w8rh-7r89",
+    "GHSA-hf4p-4j9r-3cvx"
   ],
   "summary": "Incorrect permissions for critical resource in github.com/astaxie/beego",
   "details": "Session data is stored using permissive permissions, allowing local users with filesystem access to read arbitrary data.",
@@ -23,7 +25,7 @@
               "introduced": "0"
             },
             {
-              "fixed": "1.12.2-0.20200613154013-bac2b31afecc"
+              "fixed": "1.12.2"
             }
           ]
         }
@@ -34,7 +36,10 @@
             "path": "github.com/astaxie/beego/session",
             "symbols": [
               "FileProvider.SessionRead",
-              "FileProvider.SessionRegenerate"
+              "FileProvider.SessionRegenerate",
+              "Manager.GetSessionStore",
+              "Manager.SessionRegenerateID",
+              "Manager.SessionStart"
             ]
           }
         ]

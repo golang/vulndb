@@ -2,13 +2,19 @@ id: GO-2021-0084
 modules:
     - module: github.com/astaxie/beego
       versions:
-        - fixed: 1.12.2-0.20200613154013-bac2b31afecc
-      vulnerable_at: 1.12.2-0.20200610083815-4ad699b7b813
+        - fixed: 1.12.2
+      vulnerable_at: 1.12.1
       packages:
         - package: github.com/astaxie/beego/session
           symbols:
             - FileProvider.SessionRead
             - FileProvider.SessionRegenerate
+          derived_symbols:
+            - Manager.GetSessionStore
+            - Manager.SessionRegenerateID
+            - Manager.SessionStart
+      fix_links:
+        - https://github.com/beego/beego/commit/f99cbe0fa40936f2f8dd28e70620c559b6e5e2fd
 summary: Incorrect permissions for critical resource in github.com/astaxie/beego
 description: |-
     Session data is stored using permissive permissions, allowing local users with
@@ -16,8 +22,10 @@ description: |-
 published: 2021-04-14T20:04:52Z
 cves:
     - CVE-2019-16354
+    - CVE-2019-16355
 ghsas:
     - GHSA-f6px-w8rh-7r89
+    - GHSA-hf4p-4j9r-3cvx
 credits:
     - '@nicowaisman'
 references:
