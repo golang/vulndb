@@ -1,0 +1,28 @@
+id: GO-2024-2490
+modules:
+    - module: github.com/anchore/stereoscope
+      versions:
+        - fixed: 0.0.1
+      vulnerable_at: 0.0.0-20240118133533-eb656fc71793
+      packages:
+        - package: github.com/anchore/stereoscope/pkg/file
+          symbols:
+            - UntarToDirectory
+      fix_links:
+        - https://github.com/anchore/stereoscope/commit/09dacab4d9ee65ee8bc7af8ebf4aa7b5aaa36204
+summary: Path traversal in github.com/anchore/stereoscope
+description: |-
+    It is possible to craft an OCI tar archive that, when stereoscope
+    attempts to unarchive the contents, will result in writing to paths outside of
+    the unarchive temporary directory.
+cves:
+    - CVE-2024-24579
+ghsas:
+    - GHSA-hpxr-w9w7-g4gv
+credits:
+    - '@wagoodman'
+    - '@joshbressers'
+    - '@nurmi'
+references:
+    - advisory: https://github.com/anchore/stereoscope/security/advisories/GHSA-hpxr-w9w7-g4gv
+    - fix: https://github.com/anchore/stereoscope/commit/09dacab4d9ee65ee8bc7af8ebf4aa7b5aaa36204
