@@ -1,0 +1,35 @@
+id: GO-2024-2534
+modules:
+    - module: github.com/rancher/apiserver
+      versions:
+        - fixed: 0.0.0-20240207153957-4fd7d821d952
+      vulnerable_at: 0.0.0-20240206174200-14e7493da5d3
+      packages:
+        - package: github.com/rancher/apiserver/pkg/writer
+          symbols:
+            - HTMLResponseWriter.write
+          derived_symbols:
+            - HTMLResponseWriter.Write
+            - HTMLResponseWriter.WriteList
+        - package: github.com/rancher/apiserver/pkg/urlbuilder
+          symbols:
+            - ParseRequestURL
+          derived_symbols:
+            - New
+            - NewPrefixed
+summary: Unauthenticated cross-site scripting in github.com/rancher/apiserver
+cves:
+    - CVE-2023-32192
+ghsas:
+    - GHSA-833m-37f7-jq55
+credits:
+    - diego95root
+    - kujalamathias
+references:
+    - advisory: https://github.com/rancher/apiserver/security/advisories/GHSA-833m-37f7-jq55
+    - fix: https://github.com/rancher/apiserver/commit/4df268e250f625fa323349062636496e0aeff4e4
+    - fix: https://github.com/rancher/apiserver/commit/4e102cf0d07b1af3d10d82c3e5a751a869b8a6c7
+    - fix: https://github.com/rancher/apiserver/commit/4fd7d821d952510bfe38c9d4a3e2a65157f50525
+    - fix: https://github.com/rancher/apiserver/commit/69b3c2b56f3fa5a421889c533dada8cd08783cda
+    - fix: https://github.com/rancher/apiserver/commit/97a10a30200cb851afd8ee85ee6b2295c4b6e5ee
+    - fix: https://github.com/rancher/apiserver/commit/a3b9e3721c1b558ee63aec9594e37c223a5c8437
