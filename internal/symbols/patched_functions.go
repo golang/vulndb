@@ -21,7 +21,9 @@ import (
 	"strings"
 
 	"github.com/go-git/go-git/v5"
+	"github.com/go-git/go-git/v5/config"
 	"github.com/go-git/go-git/v5/plumbing"
+	"github.com/go-git/go-git/v5/plumbing/object"
 	"golang.org/x/mod/modfile"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/gitrepo"
@@ -58,7 +60,7 @@ func Patched(module, repoURL, commitHash string) (_ map[string][]string, err err
 	}
 
 	hash := plumbing.NewHash(commitHash)
-	commit, err := repo.CommitObject(hash)
+	commit, err := findCommit(repo, w, hash)
 	if err != nil {
 		return nil, err
 	}
@@ -99,6 +101,46 @@ func Patched(module, repoURL, commitHash string) (_ map[string][]string, err err
 		pkgSyms[sym.pkg] = append(pkgSyms[sym.pkg], sym.symbol)
 	}
 	return pkgSyms, nil
+}
+
+// findCommit attempts to find a commit with hash in repo's w work tree.
+// If it cannot find the fix at the current branch, it tries to identify
+// the commit at all remote branches. Once it finds a commit, it returns
+// the commit object and keeps the work tree at the corresponding branch.
+func findCommit(repo *git.Repository, w *git.Worktree, hash plumbing.Hash) (*object.Commit, error) {
+	commit, err := repo.CommitObject(hash)
+	if err == nil {
+		return commit, nil
+	}
+
+	err = repo.Fetch(&git.FetchOptions{
+		RefSpecs: []config.RefSpec{"refs/*:refs/*", "HEAD:refs/heads/HEAD"},
+	})
+	if err != nil {
+		return nil, fmt.Errorf("commit not on current branch, failed to fetch remote branches: %v", err)
+	}
+
+	remote, err := repo.Remote("origin")
+	if err != nil {
+		return nil, fmt.Errorf("commit not on current branch, failed to find remote origin: %v", err)
+	}
+
+	refList, err := remote.List(&git.ListOptions{})
+	if err != nil {
+		return nil, fmt.Errorf("commit not on current branch, failed to list remote branches: %v", err)
+	}
+
+	for _, ref := range refList {
+		err := w.Checkout(&git.CheckoutOptions{Branch: ref.Name(), Force: true})
+		if err != nil {
+			continue
+		}
+		commit, err := repo.CommitObject(hash)
+		if err == nil {
+			return commit, nil
+		}
+	}
+	return nil, fmt.Errorf("failed to find the commit %v on %d remote branches", hash, len(refList))
 }
 
 // patchedSymbols returns symbol indices in oldSymbols that either 1) cannot
