@@ -1,0 +1,31 @@
+id: GO-2024-2536
+modules:
+    - module: github.com/rancher/norman
+      versions:
+        - fixed: 0.0.0-20240207153100-3bb70b772b52
+      vulnerable_at: 0.0.0-20240131191507-a182097c0229
+      packages:
+        - package: github.com/rancher/norman/urlbuilder
+          symbols:
+            - GetHost
+            - ParseRequestURL
+          derived_symbols:
+            - New
+        - package: github.com/rancher/norman/api/writer
+          symbols:
+            - HTMLResponseWriter.Write
+summary: Cross-site scripting in public API in github.com/rancher/norman
+cves:
+    - CVE-2023-32193
+ghsas:
+    - GHSA-r8f4-hv23-6qp6
+credits:
+    - diego95root
+    - kujalamathias
+references:
+    - advisory: https://github.com/rancher/norman/security/advisories/GHSA-r8f4-hv23-6qp6
+    - fix: https://github.com/rancher/norman/commit/3bb70b772b52297feac64f5fdeb1b13c06c37e39
+    - fix: https://github.com/rancher/norman/commit/7b2b467995e6dfab6d4a5dee8dffc15033ae8269
+    - fix: https://github.com/rancher/norman/commit/a6a6cf5696088c32002953d36b75bdcc84f2399e
+    - fix: https://github.com/rancher/norman/commit/bd13c653293b9b5e0b37e8a6ccd1c3277f4623ed
+    - fix: https://github.com/rancher/norman/commit/cb54924f25c7666511a913cd41834299ef22dba4
