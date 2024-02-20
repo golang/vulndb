@@ -23,6 +23,7 @@ type Issue struct {
 	Title     string
 	Body      string
 	State     string
+	Assignee  string
 	Labels    []string
 	CreatedAt time.Time
 }
@@ -125,6 +126,9 @@ func convertGithubIssueToIssue(ghIss *github.Issue) *Issue {
 	}
 	if ghIss.State != nil {
 		iss.State = *ghIss.State
+	}
+	if ghIss.Assignee != nil {
+		iss.Assignee = ghIss.Assignee.GetLogin()
 	}
 	if ghIss.Labels != nil {
 		iss.Labels = make([]string, len(ghIss.Labels))

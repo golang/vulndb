@@ -8,6 +8,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"os"
 	"strconv"
 	"strings"
 
@@ -20,7 +21,10 @@ import (
 	"golang.org/x/vulndb/internal/report"
 )
 
-var dry = flag.Bool("dry", false, "for create-excluded, do not commit files")
+var (
+	dry  = flag.Bool("dry", false, "for create-excluded, do not commit files")
+	user = flag.String("user", "", "for create-excluded, only consider issues assigned to the given user")
+)
 
 type createExcluded struct {
 	gc          *ghsa.Client
@@ -29,6 +33,7 @@ type createExcluded struct {
 	ac          *genai.GeminiClient
 	rc          *report.Client
 	allowClosed bool
+	assignee    string
 
 	isses   map[string]*issues.Issue
 	created []string
@@ -100,6 +105,12 @@ func (c *createExcluded) setup(ctx context.Context) error {
 	c.ac = aiClient
 	c.isses = make(map[string]*issues.Issue)
 
+	user := *user
+	if user == "" {
+		user = os.Getenv("GITHUB_USER")
+	}
+	c.assignee = user
+
 	return nil
 }
 
@@ -124,6 +135,11 @@ func (c *createExcluded) parseArgs(ctx context.Context, args []string) (issNums 
 		for _, iss := range is {
 			if c.rc.HasReport(iss.Number) {
 				log.Infof("skipping issue %d which already has a report", iss.Number)
+				continue
+			}
+
+			if c.assignee != "" && iss.Assignee != c.assignee {
+				log.Infof("skipping issue %d (assigned to %s, not %s)", iss.Number, iss.Assignee, c.assignee)
 				continue
 			}
 
