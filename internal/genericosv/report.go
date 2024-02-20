@@ -410,6 +410,7 @@ func convertRef(ref osvschema.Reference) *report.Reference {
 // Deletes:
 //   - "package"-type references
 //   - Go advisory references (these are redundant for us)
+//   - all advisories except the "best" one (if applicable)
 //
 // Changes:
 //   - reference type to "advisory" for GHSA and CVE links.
@@ -418,22 +419,132 @@ func convertRef(ref osvschema.Reference) *report.Reference {
 //   - reference type to "report" for Github issues in one of
 //     the affected modules
 func fixRefs(r *report.Report) {
+	re := newRE(r)
+
+	for _, ref := range r.References {
+		switch re.Type(ref.URL) {
+		case urlTypeAdvisory:
+			ref.Type = osv.ReferenceTypeAdvisory
+		case urlTypeIssue:
+			ref.Type = osv.ReferenceTypeReport
+		case urlTypeFix:
+			ref.Type = osv.ReferenceTypeFix
+		}
+	}
+
+	bestAdvisory, found := re.bestAdvisory(r.References)
+	isUnnecessaryAdvisory := func(ref *report.Reference) bool {
+		return found && ref.Type == osv.ReferenceTypeAdvisory && ref.URL != bestAdvisory
+	}
+
 	r.References = slices.DeleteFunc(r.References, func(ref *report.Reference) bool {
 		return ref.Type == osv.ReferenceTypePackage ||
-			goAdvisory.MatchString(ref.URL)
+			goAdvisory.MatchString(ref.URL) ||
+			isUnnecessaryAdvisory(ref)
 	})
 
 	if len(r.References) == 0 {
 		r.References = nil
-		return
+	}
+}
+
+// bestAdvisory returns the URL of the "best" advisory in the references,
+// or ("", false) if none can be found.
+// Repository-level GHSAs are considered the best, followed by regular
+// GHSAs, followed by CVEs.
+// For now, if there are advisories mentioning two or more
+// aliases of the same type, we don't try to determine which is best.
+// (For example, if there are two advisories, referencing GHSA-1 and GHSA-2, we leave it
+// to the triager to pick the best one.)
+func (re *reportRE) bestAdvisory(refs []*report.Reference) (string, bool) {
+	bestAdvisory := ""
+	bestType := advisoryTypeUnknown
+	ghsas, cves := make(map[string]bool), make(map[string]bool)
+	for _, ref := range refs {
+		if ref.Type != osv.ReferenceTypeAdvisory {
+			continue
+		}
+		t, alias := re.AdvisoryType(ref.URL)
+		if t > bestType {
+			bestAdvisory = ref.URL
+			bestType = t
+		}
+
+		if ghsa.IsGHSA(alias) {
+			ghsas[alias] = true
+		} else if cveschema5.IsCVE(alias) {
+			cves[alias] = true
+		}
 	}
 
+	if len(ghsas) > 1 || len(cves) > 1 {
+		return "", false
+	}
+
+	return bestAdvisory, bestAdvisory != ""
+}
+
+type urlType int
+
+const (
+	urlTypeUnknown urlType = iota
+	urlTypeIssue
+	urlTypeFix
+	urlTypeAdvisory
+)
+
+func (re *reportRE) Type(url string) urlType {
+	switch {
+	case re.ghsa.MatchString(url):
+		return urlTypeAdvisory
+	case re.ghsaRepo.MatchString(url):
+		return urlTypeAdvisory
+	case re.cve.MatchString(url):
+		return urlTypeAdvisory
+	case re.issue.MatchString(url):
+		return urlTypeIssue
+	case re.fix.MatchString(url):
+		return urlTypeFix
+	}
+	return urlTypeUnknown
+}
+
+type advisoryType int
+
+// Advisory link types in ascending order of (likely) quality.
+// In general, repo-level GHSAs tend to be the best because
+// they are more likely to be directly created by a maintainer.
+const (
+	advisoryTypeUnknown advisoryType = iota
+	advisoryTypeCVE
+	advisoryTypeGHSA
+	advisoryTypeGHSARepo
+)
+
+func (re *reportRE) AdvisoryType(url string) (t advisoryType, alias string) {
+	if m := re.ghsa.FindStringSubmatch(url); len(m) == 2 {
+		return advisoryTypeGHSA, m[1]
+	}
+
+	if m := re.ghsaRepo.FindStringSubmatch(url); len(m) == 2 {
+		return advisoryTypeGHSARepo, m[1]
+	}
+
+	if m := re.cve.FindStringSubmatch(url); len(m) == 2 {
+		return advisoryTypeCVE, m[1]
+	}
+
+	return advisoryTypeUnknown, ""
+}
+
+type reportRE struct {
+	ghsa, ghsaRepo, cve, issue, fix *regexp.Regexp
+}
+
+func newRE(r *report.Report) *reportRE {
 	oneOfRE := func(s []string) string {
 		return `(` + strings.Join(s, "|") + `)`
 	}
-
-	ghsaAdvisory := regexp.MustCompile(`^https://github.com/.*advisories/(` + oneOfRE(r.GHSAs) + `)$`)
-	cveAdvisory := regexp.MustCompile(`^https://nvd.nist.gov/vuln/detail/(` + oneOfRE(r.CVEs) + `)$`)
 
 	// For now, this will not attempt to fix reference types for
 	// modules whose canonical names are different from their github path.
@@ -442,19 +553,13 @@ func fixRefs(r *report.Report) {
 		modulePaths = append(modulePaths, m.Module)
 	}
 	moduleRE := oneOfRE(modulePaths)
-	issue := regexp.MustCompile(`https://` + moduleRE + `/issue(s?)/.*$`)
-	fix := regexp.MustCompile(`https://` + moduleRE + `/(commit(s?)|pull)/.*$`)
 
-	for _, ref := range r.References {
-		switch {
-		case ghsaAdvisory.MatchString(ref.URL) ||
-			cveAdvisory.MatchString(ref.URL):
-			ref.Type = osv.ReferenceTypeAdvisory
-		case issue.MatchString(ref.URL):
-			ref.Type = osv.ReferenceTypeReport
-		case fix.MatchString(ref.URL):
-			ref.Type = osv.ReferenceTypeFix
-		}
+	return &reportRE{
+		ghsa:     regexp.MustCompile(`^https://github.com/advisories/` + oneOfRE(r.GHSAs) + `$`),
+		ghsaRepo: regexp.MustCompile(`^https://github.com/.+/advisories/` + oneOfRE(r.GHSAs) + `$`),
+		cve:      regexp.MustCompile(`^https://nvd.nist.gov/vuln/detail/` + oneOfRE(r.CVEs) + `$`),
+		issue:    regexp.MustCompile(`https://` + moduleRE + `/issue(s?)/.*$`),
+		fix:      regexp.MustCompile(`https://` + moduleRE + `/(commit(s?)|pull)/.*$`),
 	}
 }
 

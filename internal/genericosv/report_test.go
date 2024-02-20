@@ -367,17 +367,41 @@ func TestFixRefs(t *testing.T) {
 		in, want []*report.Reference
 	}{
 		{
-			// GHSA and CVE references are converted to advisory type
-			name: "to_advisory",
+			// GHSA references are converted to advisory type
+			name: "to_advisory_ghsa",
 			in: []*report.Reference{
 				{
-					URL:  "https://github.com/example/module/security/advisories/GHSA-xxxx-yyyy-zzz",
+					URL:  "https://github.com/example/module/security/advisories/GHSA-xxxx-yyyy-zzzz",
 					Type: osv.ReferenceTypeWeb,
 				},
 				{
-					URL:  "https://github.com/advisories/GHSA-1234-5678-9101",
+					URL:  "https://github.com/advisories/GHSA-gggg-hhhh-ffff",
 					Type: osv.ReferenceTypeWeb,
 				},
+				{
+					URL:  "https://github.com/other/module/security/advisories/GHSA-xxxx-yyyy-zzzz",
+					Type: osv.ReferenceTypeWeb,
+				},
+			},
+			want: []*report.Reference{
+				{
+					URL:  "https://github.com/example/module/security/advisories/GHSA-xxxx-yyyy-zzzz",
+					Type: osv.ReferenceTypeAdvisory,
+				},
+				{
+					URL:  "https://github.com/advisories/GHSA-gggg-hhhh-ffff",
+					Type: osv.ReferenceTypeAdvisory,
+				},
+				{
+					URL:  "https://github.com/other/module/security/advisories/GHSA-xxxx-yyyy-zzzz",
+					Type: osv.ReferenceTypeAdvisory, // different module OK, because GHSA matches
+				},
+			},
+		},
+		{
+			// CVE references are converted to advisory type
+			name: "to_advisory_cve",
+			in: []*report.Reference{
 				{
 					URL:  "https://nvd.nist.gov/vuln/detail/CVE-1999-0001",
 					Type: osv.ReferenceTypeWeb,
@@ -386,20 +410,8 @@ func TestFixRefs(t *testing.T) {
 					URL:  "https://nvd.nist.gov/vuln/detail/CVE-1999-2222",
 					Type: osv.ReferenceTypeWeb,
 				},
-				{
-					URL:  "https://github.com/other/module/security/advisories/GHSA-xxxx-yyyy-zzz",
-					Type: osv.ReferenceTypeWeb,
-				},
 			},
 			want: []*report.Reference{
-				{
-					URL:  "https://github.com/example/module/security/advisories/GHSA-xxxx-yyyy-zzz",
-					Type: osv.ReferenceTypeAdvisory,
-				},
-				{
-					URL:  "https://github.com/advisories/GHSA-1234-5678-9101",
-					Type: osv.ReferenceTypeAdvisory,
-				},
 				{
 					URL:  "https://nvd.nist.gov/vuln/detail/CVE-1999-0001",
 					Type: osv.ReferenceTypeAdvisory,
@@ -408,9 +420,25 @@ func TestFixRefs(t *testing.T) {
 					URL:  "https://nvd.nist.gov/vuln/detail/CVE-1999-2222",
 					Type: osv.ReferenceTypeWeb, // different CVE, keep "web" type
 				},
+			},
+		},
+		{
+			// CVE references are removed if GHSA is present
+			name: "remove_cve",
+			in: []*report.Reference{
 				{
-					URL:  "https://github.com/other/module/security/advisories/GHSA-xxxx-yyyy-zzz",
-					Type: osv.ReferenceTypeAdvisory, // different module OK, because GHSA matches
+					URL:  "https://github.com/advisories/GHSA-gggg-hhhh-ffff",
+					Type: osv.ReferenceTypeWeb,
+				},
+				{
+					URL:  "https://nvd.nist.gov/vuln/detail/CVE-1999-0001",
+					Type: osv.ReferenceTypeWeb,
+				},
+			},
+			want: []*report.Reference{
+				{
+					URL:  "https://github.com/advisories/GHSA-gggg-hhhh-ffff",
+					Type: osv.ReferenceTypeAdvisory,
 				},
 			},
 		},
@@ -494,7 +522,7 @@ func TestFixRefs(t *testing.T) {
 						Module: "github.com/module/module",
 					},
 				},
-				GHSAs:      []string{"GHSA-xxxx-yyyy-zzz", "GHSA-1234-5678-9101"},
+				GHSAs:      []string{"GHSA-xxxx-yyyy-zzzz", "GHSA-gggg-hhhh-ffff"},
 				CVEs:       []string{"CVE-1999-0001", "CVE-1999-0002"},
 				References: tc.in,
 			}
