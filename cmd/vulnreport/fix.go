@@ -109,7 +109,7 @@ func fixReport(ctx context.Context, r *report.Report, filename string, pc *proxy
 
 func checkReportSymbols(r *report.Report) error {
 	if r.IsExcluded() {
-		log.Infof("%s is excluded, skipping symbol checks\n", r.ID)
+		log.Infof("%s is excluded, skipping symbol checks", r.ID)
 		return nil
 	}
 	for _, m := range r.Modules {
@@ -124,17 +124,17 @@ func checkReportSymbols(r *report.Report) error {
 				return err
 			}
 			if ver == "" || !affected {
-				log.Warnf("%s: current Go version %q is not in a vulnerable range, skipping symbol checks for module %s\n", r.ID, gover, m.Module)
+				log.Warnf("%s: current Go version %q is not in a vulnerable range, skipping symbol checks for module %s", r.ID, gover, m.Module)
 				continue
 			}
 			if ver != m.VulnerableAt {
-				log.Warnf("%s: current Go version %q does not match vulnerable_at version (%s) for module %s\n", r.ID, ver, m.VulnerableAt, m.Module)
+				log.Warnf("%s: current Go version %q does not match vulnerable_at version (%s) for module %s", r.ID, ver, m.VulnerableAt, m.Module)
 			}
 		}
 
 		for _, p := range m.Packages {
 			if p.SkipFix != "" {
-				log.Infof("%s: skipping symbol checks for package %s (reason: %q)\n", r.ID, p.Package, p.SkipFix)
+				log.Infof("%s: skipping symbol checks for package %s (reason: %q)", r.ID, p.Package, p.SkipFix)
 				continue
 			}
 			syms, err := symbols.Exported(m, p)
@@ -145,7 +145,7 @@ func checkReportSymbols(r *report.Report) error {
 			syms = removeExcluded(syms, p.ExcludedSymbols)
 			if !cmp.Equal(syms, p.DerivedSymbols) {
 				p.DerivedSymbols = syms
-				log.Infof("%s: updated derived symbols for package %s\n", r.ID, p.Package)
+				log.Infof("%s: updated derived symbols for package %s", r.ID, p.Package)
 			}
 		}
 	}
@@ -160,7 +160,7 @@ func removeExcluded(syms, excluded []string) []string {
 	var newSyms []string
 	for _, d := range syms {
 		if slices.Contains(excluded, d) {
-			log.Infof("removed excluded symbol %s\n", d)
+			log.Infof("removed excluded symbol %s", d)
 			continue
 		}
 		newSyms = append(newSyms, d)

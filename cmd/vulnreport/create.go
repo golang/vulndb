@@ -219,7 +219,7 @@ func reportFromAliases(ctx context.Context, id, modulePath string, aliases []str
 		suggestions, err := suggestions(ctx, ac, r, 1)
 		if err != nil {
 			r.AddNote(report.NoteTypeCreate, "failed to get AI-generated suggestions")
-			log.Warnf("failed to get AI-generated suggestions for %s: %v\n", r.ID, err)
+			log.Warnf("failed to get AI-generated suggestions for %s: %v", r.ID, err)
 		} else {
 			log.Infof("applying AI-generated suggestion for %s", r.ID)
 			applySuggestion(r, suggestions[0])

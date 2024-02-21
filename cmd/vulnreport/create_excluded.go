@@ -44,7 +44,7 @@ func (createExcluded) usage() (string, string) {
 func (c *createExcluded) close() error {
 	skipped := len(c.isses) - len(c.created)
 	if skipped > 0 {
-		log.Infof("skipped %d issue(s)\n", skipped)
+		log.Infof("skipped %d issue(s)", skipped)
 	}
 
 	if len(c.created) == 0 {
@@ -119,11 +119,11 @@ func (c *createExcluded) parseArgs(ctx context.Context, args []string) (issNums 
 		if err != nil {
 			return nil, err
 		}
-		log.Infof("found %d issues with label %s\n", len(is), label)
+		log.Infof("found %d issues with label %s", len(is), label)
 
 		for _, iss := range is {
 			if c.rc.HasReport(iss.Number) {
-				log.Infof("skipping issue %d which already has a report\n", iss.Number)
+				log.Infof("skipping issue %d which already has a report", iss.Number)
 				continue
 			}
 
