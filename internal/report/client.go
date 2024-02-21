@@ -34,7 +34,7 @@ const (
 type Client struct {
 	byFile  map[string]*Report
 	byIssue map[int]*Report
-	aliases []string
+	byAlias map[string][]*Report
 }
 
 // NewClient returns a Client for accessing the reports in
@@ -45,7 +45,6 @@ func NewClient(repo *git.Repository) (*Client, error) {
 	if err := c.addReports(repo); err != nil {
 		return nil, err
 	}
-	c.sort()
 	return c, nil
 }
 
@@ -71,7 +70,6 @@ func NewTestClient(filesToReports map[string]*Report) (*Client, error) {
 			return nil, err
 		}
 	}
-	c.sort()
 	return c, nil
 }
 
@@ -119,22 +117,28 @@ func (c *Client) Report(filename string) (r *Report, ok bool) {
 
 // HasReport returns whether the Github issue id has
 // a corresponding report in vulndb.
-func (c *Client) HasReport(id int) (found bool) {
-	_, found = c.byIssue[id]
+func (c *Client) HasReport(githubID int) (found bool) {
+	_, found = c.byIssue[githubID]
 	return
 }
 
-// Aliases returns a sorted list of all aliases (CVEs and GHSAs) in vulndb,
-// including those in the excluded directory.
-func (c *Client) Aliases() []string {
-	return c.aliases
+// ReportsByAlias returns a list of reports in vulndb with the given
+// alias.
+func (c *Client) ReportsByAlias(alias string) []*Report {
+	return c.byAlias[alias]
+}
+
+// AliasHasReport returns whether the given alias exists in vulndb.
+func (c *Client) AliasHasReport(alias string) bool {
+	_, ok := c.byAlias[alias]
+	return ok
 }
 
 func newClient() *Client {
 	return &Client{
 		byIssue: make(map[int]*Report),
 		byFile:  make(map[string]*Report),
-		aliases: make([]string, 0),
+		byAlias: make(map[string][]*Report),
 	}
 }
 
@@ -167,10 +171,6 @@ func isYAMLReport(f *object.File) bool {
 	return (dir == YAMLDir || dir == ExcludedDir) && ext == ".yaml"
 }
 
-func (c *Client) sort() {
-	slices.Sort(c.aliases)
-}
-
 func (c *Client) addReport(filename string, r *Report) error {
 	_, _, iss, err := ParseFilepath(filename)
 	if err != nil {
@@ -179,7 +179,9 @@ func (c *Client) addReport(filename string, r *Report) error {
 
 	c.byFile[filename] = r
 	c.byIssue[iss] = r
-	c.aliases = append(c.aliases, r.Aliases()...)
+	for _, alias := range r.Aliases() {
+		c.byAlias[alias] = append(c.byAlias[alias], r)
+	}
 
 	return nil
 }

@@ -68,8 +68,7 @@ func UpdateCVEsAtCommit(ctx context.Context, repoPath, commitHashString string, 
 			return err
 		}
 	}
-	knownVulnIDs := rc.Aliases()
-	u := newCVEUpdater(repo, commit, st, knownVulnIDs, func(cve *cveschema.CVE) (*cveutils.TriageResult, error) {
+	u := newCVEUpdater(repo, commit, st, rc, func(cve *cveschema.CVE) (*cveutils.TriageResult, error) {
 		return cveutils.TriageCVE(ctx, cve, pc)
 	})
 	_, err = u.update(ctx)

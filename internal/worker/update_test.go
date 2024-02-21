@@ -23,6 +23,7 @@ import (
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/pkgsite"
+	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/worker/store"
 )
 
@@ -103,12 +104,17 @@ func TestDoUpdate(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	rc, err := report.NewTestClient(map[string]*report.Report{
+		"data/reports/GO-1999-0001.yaml": {CVEs: []string{"CVE-2020-9283"}},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
 	needsIssue := func(cve *cveschema.CVE) (*cveutils.TriageResult, error) {
 		return cveutils.TriageCVE(ctx, cve, pc)
 	}
 
 	commitHash := commit.Hash.String()
-	knownVulns := []string{"CVE-2020-9283"}
 
 	paths := []string{
 		"2021/0xxx/CVE-2021-0001.json",
@@ -309,7 +315,7 @@ func TestDoUpdate(t *testing.T) {
 			mstore := store.NewMemStore()
 			createCVERecords(t, mstore, test.curCVEs)
 			createGHSARecords(t, mstore, test.curGHSAs)
-			if _, err := newCVEUpdater(repo, commit, mstore, knownVulns, needsIssue).update(ctx); err != nil {
+			if _, err := newCVEUpdater(repo, commit, mstore, rc, needsIssue).update(ctx); err != nil {
 				t.Fatal(err)
 			}
 			got := mstore.CVERecords()

@@ -20,6 +20,7 @@ import (
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/observe"
+	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"
 )
@@ -34,7 +35,7 @@ type cveUpdater struct {
 	repo           *git.Repository
 	commit         *object.Commit
 	st             store.Store
-	knownIDs       map[string]bool
+	rc             *report.Client
 	affectedModule triageFunc
 }
 
@@ -46,16 +47,13 @@ type updateStats struct {
 // newCVEUpdater creates an updater for updating the store with information from
 // the repo commit.
 // needsIssue determines whether a CVE needs an issue to be filed for it.
-func newCVEUpdater(repo *git.Repository, commit *object.Commit, st store.Store, knownVulnIDs []string, needsIssue triageFunc) *cveUpdater {
+func newCVEUpdater(repo *git.Repository, commit *object.Commit, st store.Store, rc *report.Client, needsIssue triageFunc) *cveUpdater {
 	u := &cveUpdater{
 		repo:           repo,
 		commit:         commit,
 		st:             st,
-		knownIDs:       map[string]bool{},
+		rc:             rc,
 		affectedModule: needsIssue,
-	}
-	for _, k := range knownVulnIDs {
-		u.knownIDs[k] = true
 	}
 	return u
 }
@@ -284,7 +282,7 @@ func (u *cveUpdater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx stor
 		return nil, false, err
 	}
 	var result *cveutils.TriageResult
-	if cve.State == cveschema.StatePublic && !u.knownIDs[cve.ID] {
+	if cve.State == cveschema.StatePublic && !u.rc.AliasHasReport(cve.ID) {
 		c := cve
 		// If a false positive has changed, we only care about
 		// whether new reference URLs refer to a Go module.
@@ -314,7 +312,7 @@ func (u *cveUpdater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx stor
 			cr.Package = result.PackagePath
 			cr.TriageStateReason = result.Reason
 			cr.CVE = cve
-		case u.knownIDs[cve.ID]:
+		case u.rc.AliasHasReport(cve.ID):
 			cr.TriageState = store.TriageStateHasVuln
 		default:
 			cr.TriageState = store.TriageStateNoActionNeeded

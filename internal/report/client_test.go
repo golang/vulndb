@@ -148,7 +148,7 @@ func TestXRef(t *testing.T) {
 	}
 }
 
-func TestAliases(t *testing.T) {
+func TestReportsByAliases(t *testing.T) {
 	repo, err := gitrepo.ReadTxtarRepo(txtarFile, time.Now())
 	if err != nil {
 		t.Fatal(err)
@@ -158,15 +158,30 @@ func TestAliases(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	got := rc.Aliases()
-
-	want := []string{"CVE-9999-0001",
-		"CVE-9999-0002",
-		"CVE-9999-0005",
-		"GHSA-9999-abcd-efgh"}
+	got := rc.ReportsByAlias("CVE-9999-0001")
+	want := []*Report{&r1}
 
 	if diff := cmp.Diff(want, got); diff != "" {
-		t.Errorf("Aliases() mismatch (-want, +got): %s", diff)
+		t.Errorf("ReportsByAliases() mismatch (-want, +got): %s", diff)
+	}
+}
+
+func TestAliasHasReport(t *testing.T) {
+	repo, err := gitrepo.ReadTxtarRepo(txtarFile, time.Now())
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	rc, err := NewClient(repo)
+	if err != nil {
+		t.Fatal(err)
+	}
+	id := "CVE-9999-0001"
+	got := rc.AliasHasReport("CVE-9999-0001")
+	want := true
+
+	if got != want {
+		t.Errorf("AliasHasReport(%s) = %t, want %t", id, got, want)
 	}
 }
 
