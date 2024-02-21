@@ -167,6 +167,9 @@ func (c *Client) Issues(ctx context.Context, opts IssuesOptions) (_ []*Issue, er
 			return nil, err
 		}
 		for _, giss := range pageIssues {
+			if giss.IsPullRequest() {
+				continue
+			}
 			issues = append(issues, convertGithubIssueToIssue(giss))
 		}
 		if resp.NextPage == 0 {

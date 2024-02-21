@@ -90,6 +90,12 @@ func (c *create) run(ctx context.Context, issueNumber string) (err error) {
 	if err != nil {
 		return err
 	}
+
+	if c.rc.HasReport(n) {
+		log.Infof("issue #%d already has a report, skipping", n)
+		return nil
+	}
+
 	iss, err := c.ic.Issue(ctx, n)
 	if err != nil {
 		return err
@@ -121,7 +127,10 @@ func (c *create) parseArgs(ctx context.Context, args []string) ([]string, error)
 	if len(args) == 0 {
 		return nil, fmt.Errorf("no arguments provided")
 	}
+	return argsToIDs(args)
+}
 
+func argsToIDs(args []string) ([]string, error) {
 	var githubIDs []string
 	parseGithubID := func(s string) (int, error) {
 		id, err := strconv.Atoi(s)
@@ -152,9 +161,6 @@ func (c *create) parseArgs(ctx context.Context, args []string) ([]string, error)
 			return nil, fmt.Errorf("%v > %v", fromID, toID)
 		}
 		for id := fromID; id <= toID; id++ {
-			if c.rc.HasReport(id) {
-				continue
-			}
 			githubIDs = append(githubIDs, strconv.Itoa(id))
 		}
 	}
@@ -165,6 +171,10 @@ func createReport(ctx context.Context, iss *issues.Issue, pc *proxy.Client, gc *
 	parsed, err := parseGithubIssue(iss, pc, allowClosed)
 	if err != nil {
 		return nil, err
+	}
+
+	if len(parsed.aliases) == 0 {
+		log.Infof("#%d (%q) has no CVE or GHSA IDs", iss.Number, iss.Title)
 	}
 
 	r, err = reportFromAliases(ctx, parsed.id, parsed.modulePath, parsed.aliases,
@@ -280,10 +290,6 @@ func parseGithubIssue(iss *issues.Issue, pc *proxy.Client, allowClosed bool) (*p
 				parsed.modulePath = module
 			}
 		}
-	}
-
-	if len(parsed.aliases) == 0 {
-		log.Infof("%q has no CVE or GHSA IDs\n", iss.Title)
 	}
 
 	return parsed, nil
