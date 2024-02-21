@@ -63,6 +63,6 @@ steps:
   - id: PostValidate
     name: golang:1.20.12
     entrypoint: bash
-    args: ["-ec", "go run ./cmd/checkdb -v1 /workspace/deployed/go-vulndb"]
+    args: ["-ec", "go run ./cmd/checkdb /workspace/deployed/go-vulndb"]
     env:
       - 'GOPROXY=https://proxy.golang.org'
