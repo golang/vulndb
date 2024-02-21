@@ -14,7 +14,6 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
-	"strings"
 	"sync"
 	"testing"
 	"time"
@@ -55,10 +54,14 @@ var (
 
 var pkgsiteURL = "https://pkg.go.dev"
 
-// Known reports whether pkgsite knows that modulePath actually refers
+// KnownModule reports whether pkgsite knows that modulePath actually refers
 // to a module.
-func (pc *Client) Known(ctx context.Context, modulePath string) (bool, error) {
-	found, ok := pc.cache.lookup(modulePath)
+func (pc *Client) KnownModule(ctx context.Context, path string) (bool, error) {
+	return pc.lookupEndpoint(ctx, moduleEndpoint(path))
+}
+
+func (pc *Client) lookupEndpoint(ctx context.Context, endpoint string) (bool, error) {
+	found, ok := pc.cache.lookup(endpoint)
 	if ok {
 		return found, nil
 	}
@@ -67,10 +70,9 @@ func (pc *Client) Known(ctx context.Context, modulePath string) (bool, error) {
 	if err := pkgsiteRateLimiter.Wait(ctx); err != nil {
 		return false, err
 	}
-	start := time.Now()
 
-	url := pc.url + "/mod/" + modulePath
-	res, err := http.Head(url)
+	start := time.Now()
+	res, err := http.Head(pc.url + endpoint)
 	var status string
 	if err == nil {
 		status = strconv.Quote(res.Status)
@@ -79,12 +81,13 @@ func (pc *Client) Known(ctx context.Context, modulePath string) (bool, error) {
 		"latency", time.Since(start),
 		"status", status,
 		"error", err,
-	).Debugf(ctx, "checked if %s is known to pkgsite at HEAD", url)
+	).Debugf(ctx, "checked if %s is known to pkgsite", endpoint)
 	if err != nil {
 		return false, err
 	}
+
 	known := res.StatusCode == http.StatusOK
-	pc.cache.add(modulePath, known)
+	pc.cache.add(endpoint, known)
 	return known, nil
 }
 
@@ -171,8 +174,7 @@ func TestClient(t *testing.T, useRealPkgsite bool, rw io.ReadWriter) (*Client, e
 		return nil, fmt.Errorf("could not read known modules: %w", err)
 	}
 	s := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		modulePath := strings.TrimPrefix(r.URL.Path, "/mod/")
-		if !known[modulePath] {
+		if !known[r.URL.Path] {
 			http.Error(w, "unknown", http.StatusNotFound)
 		}
 	}))
@@ -182,9 +184,9 @@ func TestClient(t *testing.T, useRealPkgsite bool, rw io.ReadWriter) (*Client, e
 
 type cache struct {
 	mu sync.Mutex
-	// Module paths already seen.
+	// Endpoints already seen.
 	seen map[string]bool
-	// Does the cache contain all known modules?
+	// Does the cache contain all known endpoints
 	complete bool
 }
 
@@ -200,33 +202,37 @@ func (c *cache) setKnownModules(known []string) {
 	defer c.mu.Unlock()
 
 	for _, km := range known {
-		c.seen[km] = true
+		c.seen[moduleEndpoint(km)] = true
 	}
 	c.complete = true
 }
 
-func (c *cache) lookup(modulePath string) (known bool, ok bool) {
+func moduleEndpoint(path string) string {
+	return "/mod/" + path
+}
+
+func (c *cache) lookup(endpoint string) (known bool, ok bool) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
 	// In the cache.
-	if known, ok := c.seen[modulePath]; ok {
+	if known, ok := c.seen[endpoint]; ok {
 		return known, true
 	}
 
 	// Not in the cache, but the cache is complete, so this
-	// module is not known.
+	// endpoint is not known.
 	if c.complete {
 		return false, true
 	}
 
-	// We can't make a statement about this module.
+	// We can't make a statement about this endpoint.
 	return false, false
 }
 
-func (c *cache) add(modulePath string, known bool) {
+func (c *cache) add(endpoint string, known bool) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
-	c.seen[modulePath] = known
+	c.seen[endpoint] = known
 }

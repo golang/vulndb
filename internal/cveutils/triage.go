@@ -128,7 +128,7 @@ func triageV4CVE(ctx context.Context, c *cveschema.CVE, pc *pkgsite.Client) (res
 			if notGoModules[mp] {
 				continue
 			}
-			known, err := pc.Known(ctx, mp)
+			known, err := pc.KnownModule(ctx, mp)
 			if err != nil {
 				return nil, err
 			}

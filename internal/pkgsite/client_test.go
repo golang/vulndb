@@ -33,7 +33,7 @@ func TestKnown(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			got, err := pc.Known(ctx, test.in)
+			got, err := pc.KnownModule(ctx, test.in)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -67,7 +67,7 @@ func TestKnownParallel(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			t.Parallel()
 
-			got, err := pc.Known(ctx, test.in)
+			got, err := pc.KnownModule(ctx, test.in)
 			if err != nil {
 				t.Fatal(err)
 			}
