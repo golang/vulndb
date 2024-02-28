@@ -1,0 +1,35 @@
+id: GO-2024-2538
+modules:
+    - module: github.com/hashicorp/nomad
+      versions:
+        - introduced: 1.5.13
+          fixed: 1.5.14
+        - introduced: 1.6.0
+          fixed: 1.6.7
+        - introduced: 1.7.3
+          fixed: 1.7.4
+      vulnerable_at: 1.7.3
+      packages:
+        - package: github.com/hashicorp/nomad/helper/escapingfs
+          symbols:
+            - pathEscapesBaseViaSymlink
+          derived_symbols:
+            - PathEscapesAllocDir
+        - package: github.com/hashicorp/nomad/client/allocwatcher
+          symbols:
+            - remotePrevAlloc.streamAllocDir
+            - remotePrevAlloc.migrateAllocDir
+          derived_symbols:
+            - remotePrevAlloc.Migrate
+summary: Symlink attack in github.com/hashicorp/nomad
+cves:
+    - CVE-2024-1329
+ghsas:
+    - GHSA-c866-8gpw-p3mv
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-1329
+    - report: https://github.com/hashicorp/nomad/issues/19888
+    - fix: https://github.com/hashicorp/nomad/commit/b3209cbc6921e703b0e9984ce70c10b378665834
+    - fix: https://github.com/hashicorp/nomad/commit/d1721c7a6fc1833778086603f818a822a34f445a
+    - fix: https://github.com/hashicorp/nomad/commit/de55da677a21ac7572c0f4a8cd9abd5473c47a70
+    - web: https://discuss.hashicorp.com/t/hcsec-2024-03-nomad-vulnerable-to-arbitrary-write-through-symlink-attack
