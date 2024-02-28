@@ -1,0 +1,23 @@
+id: GO-2022-0427
+modules:
+    - module: github.com/swaggo/http-swagger
+      versions:
+        - fixed: 1.2.6
+      vulnerable_at: 1.2.5
+      packages:
+        - package: github.com/swaggo/http-swagger
+summary: Unprotected file upload in github.com/swaggo/http-swagger
+description: |-
+    The httpSwagger package's HTTP handler provides WebDAV read/write access to an
+    in-memory filesystem. An attacker can exploit this to cause memory exhaustion by
+    uploading many files, XSS attacks by uploading malicious files, or other
+    unexpected behaviors.
+cves:
+    - CVE-2022-24863
+    - CVE-2024-25712
+ghsas:
+    - GHSA-xg75-q3q5-cqmv
+references:
+    - web: https://cosmosofcyberspace.github.io/improper_http_method_leads_to_xss/poc.html
+    - fix: https://github.com/swaggo/http-swagger/pull/62
+    - report: https://github.com/swaggo/http-swagger/issues/61
