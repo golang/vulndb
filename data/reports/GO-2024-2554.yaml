@@ -1,0 +1,35 @@
+id: GO-2024-2554
+modules:
+    - module: helm.sh/helm/v3
+      versions:
+        - fixed: 3.14.1
+      vulnerable_at: 3.14.0
+      packages:
+        - package: helm.sh/helm/v3/pkg/chart
+          symbols:
+            - Metadata.Validate
+          derived_symbols:
+            - Chart.Validate
+        - package: helm.sh/helm/v3/pkg/chartutil
+          symbols:
+            - SaveDir
+            - writeTarContents
+          derived_symbols:
+            - CreateFrom
+            - Save
+        - package: helm.sh/helm/v3/pkg/lint/rules
+          symbols:
+            - validateChartName
+          derived_symbols:
+            - Chartfile
+            - Dependencies
+            - Templates
+            - TemplatesWithKubeVersion
+summary: Path traversal in helm.sh/helm/v3
+cves:
+    - CVE-2024-25620
+ghsas:
+    - GHSA-v53g-5gjp-272r
+references:
+    - advisory: https://github.com/helm/helm/security/advisories/GHSA-v53g-5gjp-272r
+    - fix: https://github.com/helm/helm/commit/0d0f91d1ce277b2c8766cdc4c7aa04dbafbf2503
