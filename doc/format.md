@@ -103,6 +103,22 @@ A non-Go version range can be used to specify versions used by
 module maintainers that do not conform to [Go's module
 version conventions](https://go.dev/doc/modules/version-numbers).
 
+An example is data/reports/GO-2024-2539.yaml, whose vulnerable versions
+are listed as:
+
+```yaml
+versions:
+  - fixed: 1.1.2-0.20230830170046-f4cf4c6de017
+non_go_versions:
+  - fixed: 4.0.0-rc2
+vulnerable_at: 1.1.2-0.20230829214939-57856e474934
+```
+
+The [GHSA](https://github.com/advisories/GHSA-4fp6-574p-fc35) for this report
+lists a fixed version, `4.0.0-rc2`, which is not known to the module proxy.
+To encode this, we list that version as a "non-Go" version, and put the
+pseudo-version corresponding to the fix commit in the regular `versions` section.
+
 ### `module.vulnerable_at`
 
 type `string`

@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2539",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-23319",
+    "GHSA-4fp6-574p-fc35"
+  ],
+  "summary": "Cross-site request forgery via logout button in github.com/mattermost/mattermost-plugin-jira",
+  "details": "Cross-site request forgery via logout button in github.com/mattermost/mattermost-plugin-jira",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-plugin-jira",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.1.2-0.20230830170046-f4cf4c6de017"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/mattermost/mattermost-plugin-jira/server",
+            "symbols": [
+              "Plugin.httpOAuth1aDisconnect",
+              "Plugin.initializeRouter"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-23319"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/mattermost/mattermost-plugin-jira/commit/f4cf4c6de017ef6aa4428d393b78f418dd84cd8e"
+    },
+    {
+      "type": "WEB",
+      "url": "https://mattermost.com/security-updates"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2539"
+  }
+}
