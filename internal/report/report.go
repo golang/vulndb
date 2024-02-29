@@ -39,6 +39,9 @@ type UnsupportedVersion struct {
 type Module struct {
 	Module   string         `yaml:",omitempty"`
 	Versions []VersionRange `yaml:",omitempty"`
+	// Versions that are not known to the module proxy, but
+	// that may be useful to display to humans.
+	NonGoVersions []VersionRange `yaml:"non_go_versions,omitempty"`
 	// Version types that exist in OSV, but we don't support.
 	// These may be added when automatically creating a report,
 	// but must be deleted in order to pass lint checks.

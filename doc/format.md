@@ -91,6 +91,18 @@ The version at which the vulnerability was fixed.
 If this field is omitted, it is assumed that every version since the
 `introduced` version is vulnerable.
 
+### `module.non_go_versions`
+
+type `string`
+
+(Optional - used only in special cases, usually for binary reports.)
+
+The non-Go version range(s) at which the package is vulnerable.
+
+A non-Go version range can be used to specify versions used by
+module maintainers that do not conform to [Go's module
+version conventions](https://go.dev/doc/modules/version-numbers).
+
 ### `module.vulnerable_at`
 
 type `string`
