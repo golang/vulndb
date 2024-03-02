@@ -1,0 +1,26 @@
+id: GO-2024-2584
+modules:
+    - module: github.com/cosmos/cosmos-sdk
+      versions:
+        - fixed: 0.47.10
+        - introduced: 0.50.0
+      vulnerable_at: 0.47.9
+      packages:
+        - package: github.com/cosmos/cosmos-sdk/x/auth/vesting
+          symbols:
+            - msgServer.CreatePeriodicVestingAccount
+        - package: github.com/cosmos/cosmos-sdk/x/staking/keeper
+          symbols:
+            - Keeper.SlashRedelegation
+          derived_symbols:
+            - Keeper.Slash
+            - Keeper.SlashWithInfractionReason
+summary: Slashing evasion in github.com/cosmos/cosmos-sdk
+ghsas:
+    - GHSA-86h5-xcpx-cfqc
+references:
+    - advisory: https://github.com/cosmos/cosmos-sdk/security/advisories/GHSA-86h5-xcpx-cfqc
+    - fix: https://github.com/cosmos/cosmos-sdk/commit/7dbed2fc0c3ed7c285645e21cb1037d8810372ae
+    - fix: https://github.com/cosmos/cosmos-sdk/commit/d1b5b0c5ae2c51206cc1849e09e4d59986742cc3
+notes:
+    - The GHSA says that 0.50.5 is a fixed version, but it currently doesn't exist.
