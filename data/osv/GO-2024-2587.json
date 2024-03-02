@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2587",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-45786",
+    "GHSA-6p5q-h963-pwwf"
+  ],
+  "summary": "SQL injection in github.com/apache/age/drivers/golang",
+  "details": "SQL injection in github.com/apache/age/drivers/golang",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/apache/age/drivers/golang",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/apache/age/drivers/golang/age",
+            "symbols": [
+              "AgeTx.ExecCypher",
+              "AgeTx.ExecCypherMap",
+              "ExecCypher",
+              "ExecCypherMap"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-45786"
+    },
+    {
+      "type": "WEB",
+      "url": "https://lists.apache.org/thread/of8x0gt5d2vfrm5ksxw55bwn2849ck1w"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2587"
+  }
+}

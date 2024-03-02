@@ -1,0 +1,21 @@
+id: GO-2024-2587
+modules:
+    - module: github.com/apache/age/drivers/golang
+      vulnerable_at: 0.0.0-20240221054422-3b2b394eb669
+      packages:
+        - package: github.com/apache/age/drivers/golang/age
+          symbols:
+            - ExecCypher
+            - ExecCypherMap
+            - AgeTx.ExecCypher
+            - AgeTx.ExecCypherMap
+summary: SQL injection in github.com/apache/age/drivers/golang
+cves:
+    - CVE-2022-45786
+ghsas:
+    - GHSA-6p5q-h963-pwwf
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-45786
+    - web: https://lists.apache.org/thread/of8x0gt5d2vfrm5ksxw55bwn2849ck1w
+notes:
+    - Symbols determined manually from description of vulnerability.
