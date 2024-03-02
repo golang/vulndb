@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2583",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-x5r5-2qrx-rqj8"
+  ],
+  "summary": "Encryption bypass in github.com/edgelesssys/marblerun",
+  "details": "Encryption bypass in github.com/edgelesssys/marblerun",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/edgelesssys/marblerun",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.4.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/edgelesssys/marblerun/marble/premain",
+            "symbols": [
+              "ActivateRPC",
+              "GramineActivate",
+              "PreMain",
+              "PreMainEgo",
+              "PreMainEx",
+              "PreMainMock"
+            ]
+          },
+          {
+            "path": "github.com/edgelesssys/marblerun/coordinator/core",
+            "symbols": [
+              "Core.Activate",
+              "Core.setTTLSConfig"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/edgelesssys/marblerun/security/advisories/GHSA-x5r5-2qrx-rqj8"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/edgelesssys/marblerun/commit/0330ced092253613a07abe7b330ff6ac6fc6e9c6"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/edgelesssys/marblerun/commit/e5bcfe32883d22f3d87ffc9400f9fdb5ecbe3200"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/edgelesssys/marblerun/releases/tag/v1.4.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2583"
+  }
+}
