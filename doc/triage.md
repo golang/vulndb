@@ -85,35 +85,58 @@ The issue can be closed without further action.
    Store the token in a file, e.g., `~/.github-token`, and run:
    ``export VULN_GITHUB_ACCESS_TOKEN=`cat ~/.github-token` `` (you can also store
    this command in a `~/.bashrc` file or similar).
-3. From the repo root, run `go install ./cmd/vulnreport` to install the latest version of vulnreport tool.
+3. (To use experimental generative AI features) Get a
+   [Gemini API key](https://aistudio.google.com/app/apikey).
 
-### Add a new report (label `NeedsReport`)
+   As above, you can store the token in a file like `~/.gemini-api-key` and use
+   the environment variable `GEMINI_API_KEY`.
+4. From the repo root, run `go install ./cmd/vulnreport` to install the latest
+   version of vulnreport tool.
+
+### Add a new standard report (label `NeedsReport`)
 
 1. Sync your git repo, re-install the vulnreport tool, and create a fresh branch.
 2. From the repo root, run `vulnreport create <GitHub issue number>`.
-   The `vulnreport` tool will create a YAML report template for the CVE or GHSA at the
-   specified GitHub issue number. This command works for both regular reports
-   and excluded reports. It also accepts multiple Github issue numbers (space
-   separated), and Github issue ranges (e.g., `1000-1010`).
+   The `vulnreport` tool will create a YAML report template for the CVE or GHSA
+   at the specified GitHub issue number.
+
+   Tips for the `vulnreport create` command:
+      - This command works for both regular reports and excluded reports, with
+        no flags or configuration needed.
+      - The command accepts multiple Github issue numbers (space separated),
+        and Github issue ranges (e.g., `vulnreport create 99 1000-1010` would
+        create reports for issue #99 and all issues from #1000 to #1010,
+        skipping any that are closed, do not exist, or already have reports.)
+      - Use the `-ai` flag to automatically populate a (first-draft)
+        AI-generated summary and description. (See
+        [Experimental Features](#experimental-features)).
+      - Use the `-symbols` flag to attempt to automatically populate vulnerable
+        symbols. (See [Experimental Features](#experimental-features)).
+      - By default, the `create` command attempts to find a GHSA for the
+        vulnerability and pull it from osv.dev. If this is not working, use
+        the `-cve` flag to use the CVE (rather than the GHSA) as the default
+        source, or the `-graphql` flag to pull GHSAs directly from Github's
+        GraphQL API.
 3. Edit the report file template, following the guidance in [doc/format.md](format.md).
    A few tips:
    - If a person or organization is given credit in the CVE or GHSA, add the
-      name to the "credit" field. Otherwise, delete the field.
-   - In the "vulnerable_at" field, put the highest version just before the
+      name(s) to the `credits` field. Otherwise, delete the field.
+   - In the `vulnerable_at` field, put the highest version just before the
       vuln is fixed. The pkgsite versions page can help with the list of
       versions. The GitHub UI also makes it easy to list tags (click "Code",
       then the dropdown that shows the current branch, then "Tags"). Walk the
       versions backwards from the fixed one to find the highest that doesn't
       contain the fix. (It might not be the immediately preceding version.)
-   - Add vulnerable functions to the "symbols" list by reading the CVE,
-      the fixing CLs, and the code at the vulnerable version you chose above.
+   - If the vulnerable functions cannot be auto-populated, add vulnerable
+     functions to the `symbols` list by reading the CVE, the fixing CLs, and the
+     code at the vulnerable version you chose above.
 4. From the repo root, run `vulnreport fix <GitHub issue number>`.
    This will lint the report, add exported symbols, and convert the YAML to OSV.
 5. Once any errors are fixed, run `vulnreport commit <GitHub issue number>`.
-   This will create a git commit containing the new files with a standard commit message.
-   Commits are to the local git repository. The `vulnreport commit` command
-   also accepts multiple space-separated issue numbers, and will create a separate commit for
-   each report.
+   This will create a git commit containing the new files with a standard commit
+   message. Commits are to the local git repository. The `vulnreport commit`
+   command also accepts multiple space-separated issue numbers, and will create
+   a separate commit for each report.
 6. Send the commit for review and approval. See the Go
    [contribution guide](https://go.dev/doc/contribute) for sending a change on
    Gerrit.
@@ -131,7 +154,7 @@ The issue can be closed without further action.
    to be created manually with `vulnreport create <Github issue number>`.
    (see steps 2-4 above for more information).
    Additionally, `create-excluded` will automatically create a single commit for
-   all successful reports.
+   all successful reports. To skip this auto-commit step, use the `-dry` flag.
 3. Send the commit for review and approval. See the Go
    [contribution guide](https://go.dev/doc/contribute) for sending a change on
    Gerrit.
@@ -142,6 +165,9 @@ Sometimes an issue describes a vulnerability that we already have a report for.
 The worker doesn't always detect this automatically, so it is a good idea to
 grep the `/data` directory of this repo for the module path and read the
 report to see if the vulns are the same.
+
+**NEW:** The command `vulnreport duplicates` (with no args) can find likely
+duplicates on the issue tracker.
 
 If the issue is indeed a duplicate:
 
@@ -195,6 +221,23 @@ than create a new issue.
 
 The command `vulnreport -up commit NNN` can be used to create a more sensible
 commit message when committing an updated report.
+
+## Experimental features
+
+### AI-generated summary and description
+
+The command `vulnreport suggest <Github issue number>` uses Gemini to
+create AI-generated summaries and descriptions for a report. The `-i`
+(interactive) flag gives the option of applying the suggestions directly
+to the YAML file.
+
+### Automatic symbol population
+
+The command `vulnreport symbols <Github issue number>` uses the commit
+link(s) in the report to find a list of possibly vulnerable functions
+(functions that were present in the parent commit and were changed by
+the patch). Currently, this command cannot handle pull requests or
+commits with multiple parents.
 
 ## Frequent issues during triage
 
