@@ -1,0 +1,29 @@
+id: GO-2024-2611
+modules:
+    - module: google.golang.org/protobuf
+      versions:
+        - fixed: 1.33.0
+      vulnerable_at: 1.32.0
+      packages:
+        - package: google.golang.org/protobuf/encoding/protojson
+          symbols:
+            - UnmarshalOptions.unmarshal
+          derived_symbols:
+            - Unmarshal
+            - UnmarshalOptions.Unmarshal
+        - package: google.golang.org/protobuf/internal/encoding/json
+          symbols:
+            - Decoder.Read
+          derived_symbols:
+            - Decoder.Peek
+summary: Infinite loop in JSON unmarshaling in google.golang.org/protobuf
+description: |-
+    The protojson.Unmarshal function can enter an infinite loop when unmarshaling
+    certain forms of invalid JSON. This condition can occur when unmarshaling into a
+    message which contains a google.protobuf.Any value, or when the
+    UnmarshalOptions.DiscardUnknown option is set.
+references:
+    - fix: https://go.dev/cl/569356
+cve_metadata:
+    id: CVE-2024-24786
+    cwe: 'CWE-1286: Improper Validation of Syntactic Correctness of Input'
