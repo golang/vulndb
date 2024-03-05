@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2599",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-45290"
+  ],
+  "summary": "Memory exhaustion in multipart form parsing in net/textproto and net/http",
+  "details": "When parsing a multipart form (either explicitly with Request.ParseMultipartForm or implicitly with Request.FormValue, Request.PostFormValue, or Request.FormFile), limits on the total size of the parsed form were not applied to the memory consumed while reading a single form line. This permits a maliciously crafted input containing very long lines to cause allocation of arbitrarily large amounts of memory, potentially leading to memory exhaustion.\n\nWith fix, the ParseMultipartForm function now correctly limits the maximum size of form lines.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.21.8"
+            },
+            {
+              "introduced": "1.22.0-0"
+            },
+            {
+              "fixed": "1.22.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "net/textproto",
+            "symbols": [
+              "Reader.ReadCodeLine",
+              "Reader.ReadContinuedLine",
+              "Reader.ReadContinuedLineBytes",
+              "Reader.ReadDotLines",
+              "Reader.ReadLine",
+              "Reader.ReadLineBytes",
+              "Reader.ReadMIMEHeader",
+              "Reader.ReadResponse",
+              "Reader.readContinuedLineSlice",
+              "Reader.readLineSlice"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/65383"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/569341"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/5pwGVUPoMbg"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Bartek Nowotarski"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2599"
+  }
+}

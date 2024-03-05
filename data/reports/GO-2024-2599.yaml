@@ -1,0 +1,42 @@
+id: GO-2024-2599
+modules:
+    - module: std
+      versions:
+        - fixed: 1.21.8
+        - introduced: 1.22.0-0
+          fixed: 1.22.1
+      vulnerable_at: 1.22.0
+      packages:
+        - package: net/textproto
+          symbols:
+            - Reader.readLineSlice
+            - Reader.readContinuedLineSlice
+          derived_symbols:
+            - Reader.ReadCodeLine
+            - Reader.ReadContinuedLine
+            - Reader.ReadContinuedLineBytes
+            - Reader.ReadDotLines
+            - Reader.ReadLine
+            - Reader.ReadLineBytes
+            - Reader.ReadMIMEHeader
+            - Reader.ReadResponse
+summary: Memory exhaustion in multipart form parsing in net/textproto and net/http
+description: |-
+    When parsing a multipart form (either explicitly with Request.ParseMultipartForm
+    or implicitly with Request.FormValue, Request.PostFormValue, or
+    Request.FormFile), limits on the total size of the parsed form were not applied
+    to the memory consumed while reading a single form line. This permits a
+    maliciously crafted input containing very long lines to cause allocation of
+    arbitrarily large amounts of memory, potentially leading to memory exhaustion.
+
+    With fix, the ParseMultipartForm function now correctly limits the maximum size
+    of form lines.
+credits:
+    - Bartek Nowotarski
+references:
+    - report: https://go.dev/issue/65383
+    - fix: https://go.dev/cl/569341
+    - web: https://groups.google.com/g/golang-announce/c/5pwGVUPoMbg
+cve_metadata:
+    id: CVE-2023-45290
+    cwe: 'CWE-400: Uncontrolled Resource Consumption'
