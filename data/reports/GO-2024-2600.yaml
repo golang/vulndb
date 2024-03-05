@@ -1,0 +1,49 @@
+id: GO-2024-2600
+modules:
+    - module: std
+      versions:
+        - fixed: 1.21.8
+        - introduced: 1.22.0-0
+          fixed: 1.22.1
+      vulnerable_at: 1.22.0
+      packages:
+        - package: net/http
+          symbols:
+            - isDomainOrSubdomain
+          derived_symbols:
+            - Client.Do
+            - Client.Get
+            - Client.Head
+            - Client.Post
+            - Client.PostForm
+            - Get
+            - Head
+            - Post
+            - PostForm
+        - package: net/http/cookiejar
+          symbols:
+            - isIP
+          derived_symbols:
+            - Jar.Cookies
+            - Jar.SetCookies
+summary: |-
+    Incorrect forwarding of sensitive headers and cookies on HTTP redirect in
+    net/http
+description: |-
+    When following an HTTP redirect to a domain which is not a subdomain match or
+    exact match of the initial domain, an http.Client does not forward sensitive
+    headers such as "Authorization" or "Cookie". For example, a redirect from
+    foo.com to www.foo.com will forward the Authorization header, but a redirect to
+    bar.com will not.
+
+    A maliciously crafted HTTP redirect could cause sensitive headers to be
+    unexpectedly forwarded.
+credits:
+    - Juho Nurminen of Mattermost
+references:
+    - report: https://go.dev/issue/65065
+    - fix: https://go.dev/cl/569340
+    - web: https://groups.google.com/g/golang-announce/c/5pwGVUPoMbg
+cve_metadata:
+    id: CVE-2023-45289
+    cwe: 'CWE-212: Improper Removal of Sensitive Information Before Storage or Transfer'
