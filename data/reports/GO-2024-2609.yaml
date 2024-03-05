@@ -1,0 +1,37 @@
+id: GO-2024-2609
+modules:
+    - module: std
+      versions:
+        - fixed: 1.21.8
+        - introduced: 1.22.0-0
+          fixed: 1.22.1
+      vulnerable_at: 1.22.0
+      packages:
+        - package: net/mail
+          symbols:
+            - addrParser.consumeGroupList
+            - addrParser.consumePhrase
+            - isAtext
+          derived_symbols:
+            - Address.String
+            - AddressParser.Parse
+            - AddressParser.ParseList
+            - Header.AddressList
+            - ParseAddress
+            - ParseAddressList
+summary: Comments in display names are incorrectly handled in net/mail
+description: |-
+    The ParseAddressList function incorrectly handles comments (text within
+    parentheses) within display names. Since this is a misalignment with conforming
+    address parsers, it can result in different trust decisions being made by
+    programs using different parsers.
+credits:
+    - Juho Nurminen of Mattermost
+    - Slonser (https://github.com/Slonser)
+references:
+    - report: https://go.dev/issue/65083
+    - fix: https://go.dev/cl/555596
+    - web: https://groups.google.com/g/golang-announce/c/5pwGVUPoMbg
+cve_metadata:
+    id: CVE-2024-24784
+    cwe: 'CWE-150: Improper Neutralization of Escape, Meta, or Control Sequences'
