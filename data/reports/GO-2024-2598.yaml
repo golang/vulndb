@@ -1,0 +1,33 @@
+id: GO-2024-2598
+modules:
+    - module: std
+      versions:
+        - fixed: 1.21.8
+        - introduced: 1.22.0-0
+          fixed: 1.22.1
+      vulnerable_at: 1.22.0
+      packages:
+        - package: crypto/x509
+          symbols:
+            - Certificate.buildChains
+          derived_symbols:
+            - Certificate.Verify
+summary: |-
+    Verify panics on certificates with an unknown public key algorithm in
+    crypto/x509
+description: |-
+    Verifying a certificate chain which contains a certificate with an unknown
+    public key algorithm will cause Certificate.Verify to panic.
+
+    This affects all crypto/tls clients, and servers that set Config.ClientAuth to
+    VerifyClientCertIfGiven or RequireAndVerifyClientCert. The default behavior is
+    for TLS servers to not verify client certificates.
+credits:
+    - John Howard (Google)
+references:
+    - report: https://go.dev/issue/65390
+    - fix: https://go.dev/cl/569339
+    - web: https://groups.google.com/g/golang-announce/c/5pwGVUPoMbg
+cve_metadata:
+    id: CVE-2024-24783
+    cwe: 'CWE-476: NULL Pointer Dereference'

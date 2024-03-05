@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2598",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-24783"
+  ],
+  "summary": "Verify panics on certificates with an unknown public key algorithm in crypto/x509",
+  "details": "Verifying a certificate chain which contains a certificate with an unknown public key algorithm will cause Certificate.Verify to panic.\n\nThis affects all crypto/tls clients, and servers that set Config.ClientAuth to VerifyClientCertIfGiven or RequireAndVerifyClientCert. The default behavior is for TLS servers to not verify client certificates.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.21.8"
+            },
+            {
+              "introduced": "1.22.0-0"
+            },
+            {
+              "fixed": "1.22.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "crypto/x509",
+            "symbols": [
+              "Certificate.Verify",
+              "Certificate.buildChains"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/65390"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/569339"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/5pwGVUPoMbg"
+    }
+  ],
+  "credits": [
+    {
+      "name": "John Howard (Google)"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2598"
+  }
+}
