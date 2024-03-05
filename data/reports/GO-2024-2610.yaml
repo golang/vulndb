@@ -1,0 +1,33 @@
+id: GO-2024-2610
+modules:
+    - module: std
+      versions:
+        - fixed: 1.21.8
+        - introduced: 1.22.0-0
+          fixed: 1.22.1
+      vulnerable_at: 1.22.0
+      packages:
+        - package: html/template
+          symbols:
+            - jsValEscaper
+            - escaper.commit
+          derived_symbols:
+            - Template.Execute
+            - Template.ExecuteTemplate
+summary: |-
+    Errors returned from JSON marshaling may break template escaping in
+    html/template
+description: |-
+    If errors returned from MarshalJSON methods contain user controlled data, they
+    may be used to break the contextual auto-escaping behavior of the html/template
+    package, allowing for subsequent actions to inject unexpected content into
+    templates.
+credits:
+    - RyotaK (https://ryotak.net)
+references:
+    - report: https://go.dev/issue/65697
+    - fix: https://go.dev/cl/564196
+    - web: https://groups.google.com/g/golang-announce/c/5pwGVUPoMbg
+cve_metadata:
+    id: CVE-2024-24785
+    cwe: 'CWE-150: Improper Neutralization of Escape, Meta, or Control Sequences'
