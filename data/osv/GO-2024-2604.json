@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2604",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-27302",
+    "GHSA-fgxv-gw55-r5fq"
+  ],
+  "summary": "CORS Filter bypass in github.com/zeromicro/go-zero",
+  "details": "The CORS Filter feature in go-zero allows users to specify an array of domains allowed in the CORS policy. However, the isOriginAllowed function uses strings.HasSuffix to check the origin, which can lead to a bypass via a domain like \"evil-victim.com\". This vulnerability is capable of breaking CORS policy and thus allowing any page to make requests and retrieve data on behalf of other users.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/zeromicro/go-zero",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.4.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/zeromicro/go-zero/rest/internal/cors",
+            "symbols": [
+              "isOriginAllowed"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/zeromicro/go-zero/security/advisories/GHSA-fgxv-gw55-r5fq"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/zeromicro/go-zero/commit/d9d79e930dff6218a873f4f02115df61c38b15db"
+    }
+  ],
+  "credits": [
+    {
+      "name": "cokeBeer"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2604"
+  }
+}
