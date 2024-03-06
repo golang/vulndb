@@ -717,11 +717,16 @@ const golden = "golden"
 
 func updateAndCheckGolden(t *testing.T, test *lintTC, lints []string) {
 	if *updateGolden {
+		if errs := checkGoldenFile(t, test, lints); len(errs) == 0 {
+			return
+		}
 		if err := updateGoldenFile(t, test, lints); err != nil {
 			t.Error(err)
 		}
 	}
-	checkGoldenFile(t, test, lints)
+	for _, err := range checkGoldenFile(t, test, lints) {
+		t.Error(err)
+	}
 }
 
 func updateGoldenFile(t *testing.T, tc *lintTC, lints []string) error {
@@ -752,25 +757,25 @@ func updateGoldenFile(t *testing.T, tc *lintTC, lints []string) error {
 	}, newComment(t, tc))
 }
 
-func checkGoldenFile(t *testing.T, tc *lintTC, lints []string) {
+func checkGoldenFile(t *testing.T, tc *lintTC, lints []string) []error {
 	t.Helper()
 
 	fpath := goldenFilename(t)
 
 	if _, err := os.Stat(fpath); err != nil {
-		t.Errorf("golden file %s does not exist (re-run test with -update flag)", fpath)
-		return
+		return []error{fmt.Errorf("golden file %s does not exist (re-run test with -update flag)", fpath)}
 	}
 
 	ar, err := txtar.ParseFile(fpath)
 	if err != nil {
-		t.Error(err)
-		return
+		return []error{err}
 	}
+
+	var errs []error
 
 	wantComment, gotComment := newComment(t, tc), string(ar.Comment)
 	if err := test.CheckComment(wantComment, gotComment); err != nil {
-		t.Error(err)
+		errs = append(errs, err)
 	}
 
 	// Check that all expected files are present and have the correct contents.
@@ -782,7 +787,7 @@ func checkGoldenFile(t *testing.T, tc *lintTC, lints []string) {
 			want := f.Data
 			got := lintsToBytes(lints)
 			if diff := cmp.Diff(want, got); diff != "" {
-				t.Errorf("%s: %s: mismatch (-want, +got):\n%s", fpath, af, diff)
+				errs = append(errs, fmt.Errorf("%s: %s: mismatch (-want, +got):\n%s", fpath, af, diff))
 			}
 			foundGolden = true
 		case af == reportFile:
@@ -793,19 +798,20 @@ func checkGoldenFile(t *testing.T, tc *lintTC, lints []string) {
 				continue
 			}
 			if diff := cmp.Diff(want, got); diff != "" {
-				t.Errorf("%s: %s: mismatch (-want, +got):\n%s", fpath, af, diff)
+				errs = append(errs, fmt.Errorf("%s: %s: mismatch (-want, +got):\n%s", fpath, af, diff))
 			}
 			foundReport = true
 		default:
-			t.Errorf("%s: unexpected archive file %s, expected one of (%q, %q)", fpath, af, reportFile, golden)
+			errs = append(errs, fmt.Errorf("%s: unexpected archive file %s, expected one of (%q, %q)", fpath, af, reportFile, golden))
 		}
 	}
 	if !foundReport {
-		t.Errorf("%s: no report found (want archive file %q)", fpath, reportFile)
+		errs = append(errs, fmt.Errorf("%s: no report found (want archive file %q)", fpath, reportFile))
 	}
 	if !foundGolden {
-		t.Errorf("%s: no golden found (want archive file %q)", fpath, golden)
+		errs = append(errs, fmt.Errorf("%s: no golden found (want archive file %q)", fpath, golden))
 	}
+	return errs
 }
 
 func testYAMLFilename(r *Report) string {
