@@ -6,23 +6,22 @@ package main
 
 import (
 	"context"
-	"flag"
 	"fmt"
+	"path/filepath"
 	"strings"
 
+	"github.com/go-git/go-git/v5"
 	"golang.org/x/exp/slices"
 	"golang.org/x/vulndb/internal/ghsa"
+	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
 )
 
-var (
-	updateIssue = flag.Bool("up", false, "for commit, create a CL that updates (doesn't fix) the tracking bug")
-)
-
 type commit struct {
-	pc *proxy.Client
-	gc *ghsa.Client
+	pc   *proxy.Client
+	gc   *ghsa.Client
+	repo *git.Repository
 
 	filenameParser
 }
@@ -37,6 +36,12 @@ func (commit) usage() (string, string) {
 func (c *commit) setup(ctx context.Context) error {
 	c.pc = proxy.NewDefaultClient()
 	c.gc = ghsa.NewClient(ctx, *githubToken)
+
+	repo, err := gitrepo.Open(ctx, ".")
+	if err != nil {
+		return err
+	}
+	c.repo = repo
 	return nil
 }
 
@@ -57,21 +62,84 @@ func (c *commit) run(ctx context.Context, filename string) (err error) {
 		return fmt.Errorf("file %q has unaddressed %q fields", filename, "TODO:")
 	}
 
-	// Add all the files related to this report.
+	// Stage all the files related to this report.
 	glob := fmt.Sprintf("*%s*", r.ID)
 	if err := gitAdd(glob); err != nil {
 		return err
 	}
 
-	// Commit the files, allowing the user to edit the default commit message.
-	msg, err := newCommitMsg(r)
+	reportAction, issueAction, err := actionPhrases(c.repo, r)
 	if err != nil {
 		return err
 	}
+
+	msg, err := newCommitMsg(r, reportAction, issueAction)
+	if err != nil {
+		return err
+	}
+
+	// Commit the files, allowing the user to edit the default commit message.
 	return gitCommit(msg, glob)
 }
 
-func newCommitMsg(r *report.Report) (string, error) {
+// actionPhrases determines the action phrases to use to describe what is happening
+// in the commit, based on the status of the git staging area.
+func actionPhrases(repo *git.Repository, r *report.Report) (reportAction, issueAction string, _ error) {
+	const (
+		updateIssueAction = "Updates"
+		fixIssueAction    = "Fixes"
+
+		addReportAction       = "add"
+		deleteReportAction    = "delete"
+		unexcludeReportAction = "unexclude"
+		updateReportAction    = "update"
+	)
+
+	w, err := repo.Worktree()
+	if err != nil {
+		return "", "", err
+	}
+
+	status, err := w.Status()
+	if err != nil {
+		return "", "", err
+	}
+
+	fname, err := r.YAMLFilename()
+	if err != nil {
+		return "", "", err
+	}
+	stat := status.File(fname).Staging
+	switch stat {
+	case git.Deleted:
+		if r.IsExcluded() {
+			// It's theoretically OK to just delete an excluded report,
+			// because they aren't published anywhere.
+			return deleteReportAction, updateIssueAction, nil
+		}
+		// It's not OK to delete a regular report. These can be withdrawn but not deleted.
+		return "", "", fmt.Errorf("cannot delete regular report %s (use withdrawn field instead)", fname)
+	case git.Added:
+		switch {
+		case status.File(filepath.Join(report.ExcludedDir, r.ID+".yaml")).Staging == git.Deleted:
+			// If a corresponding excluded report is being deleted,
+			// this is an unexclude action.
+			return unexcludeReportAction, updateIssueAction, nil
+		case r.CVEMetadata != nil:
+			// Update instead of fixing the issue because we still need
+			// to manually publish the CVE record after submitting the CL.
+			return addReportAction, updateIssueAction, nil
+		default:
+			return addReportAction, fixIssueAction, nil
+		}
+	case git.Modified:
+		return updateReportAction, updateIssueAction, nil
+	}
+
+	return "", "", fmt.Errorf("internal error: could not determine actions for %s", r.ID)
+}
+
+func newCommitMsg(r *report.Report, reportAction, issueAction string) (string, error) {
 	f, err := r.YAMLFilename()
 	if err != nil {
 		return "", err
@@ -82,21 +150,9 @@ func newCommitMsg(r *report.Report) (string, error) {
 		return "", err
 	}
 
-	issueAction := "Fixes"
-	fileAction := "add"
-	if *updateIssue {
-		fileAction = "update"
-		issueAction = "Updates"
-	}
-	// For now, we need to manually publish the CVE record so the issue
-	// should not be auto-closed on add.
-	if r.CVEMetadata != nil {
-		issueAction = "Updates"
-	}
-
 	return fmt.Sprintf(
 		"%s: %s %s\n\nAliases: %s\n\n%s golang/vulndb#%d",
-		folder, fileAction, filename, strings.Join(r.Aliases(), ", "),
+		folder, reportAction, filename, strings.Join(r.Aliases(), ", "),
 		issueAction, issueID), nil
 }
 
