@@ -57,17 +57,9 @@ func (c *commit) run(ctx context.Context, filename string) (err error) {
 		return fmt.Errorf("file %q has unaddressed %q fields", filename, "TODO:")
 	}
 
-	// Find all derived files (OSV and CVE).
-	files := []string{filename}
-	if r.Excluded == "" {
-		files = append(files, r.OSVFilename())
-	}
-	if r.CVEMetadata != nil {
-		files = append(files, r.CVEFilename())
-	}
-
-	// Add the files to git.
-	if err := gitAdd(files...); err != nil {
+	// Add all the files related to this report.
+	glob := fmt.Sprintf("*%s*", r.ID)
+	if err := gitAdd(glob); err != nil {
 		return err
 	}
 
@@ -76,7 +68,7 @@ func (c *commit) run(ctx context.Context, filename string) (err error) {
 	if err != nil {
 		return err
 	}
-	return gitCommit(msg, files...)
+	return gitCommit(msg, glob)
 }
 
 func newCommitMsg(r *report.Report) (string, error) {
