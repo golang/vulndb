@@ -1,0 +1,29 @@
+Copyright 2024 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+
+Test: TestLintOffline/runtime_package_with_symbols
+Description: In standard library reports, the runtime package must not contain any symbols.
+
+-- data/reports/GO-0000-0000.yaml --
+id: GO-0000-0000
+modules:
+    - module: std
+      vulnerable_at: 1.2.3
+      packages:
+        - package: net/http
+    - module: std
+      vulnerable_at: 1.0.0
+      packages:
+        - package: runtime
+          symbols:
+            - foo
+summary: A summary of the problem with net/http
+description: description
+references:
+    - fix: https://go.dev/cl/12345
+    - web: https://groups.google.com/g/golang-announce/c/12345
+    - report: https://go.dev/issue/12345
+
+-- golden --
+modules[1] "std": packages[0] "runtime": runtime package must have no symbols (found 1)

@@ -419,6 +419,23 @@ func TestLintOffline(t *testing.T) {
 			wantNumLints: 1,
 		},
 		{
+			name: "runtime_package_with_symbols",
+			desc: "In standard library reports, the runtime package must not contain any symbols.",
+			report: validStdReport(func(r *Report) {
+				r.Modules = append(r.Modules,
+					&Module{
+						Module:       "std",
+						VulnerableAt: "1.0.0",
+						Packages: []*Package{{
+							Package: "runtime",
+							Symbols: []string{"foo"},
+						}},
+					},
+				)
+			}),
+			wantNumLints: 1,
+		},
+		{
 			name: "wrong_module_cmd",
 			desc: "Packages beginning with 'cmd' should be in the 'cmd' module.",
 			report: validStdReport(func(r *Report) {

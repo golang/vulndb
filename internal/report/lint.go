@@ -507,10 +507,15 @@ func (p *Package) lint(l *linter, m *Module, r *Report) {
 			if !strings.HasPrefix(p.Package, m.Module) {
 				l.Error("module must be a prefix of package")
 			}
-		} else if strings.HasPrefix(p.Package, stdlib.ToolchainModulePath) {
+		} else {
+			if p.Package == "runtime" && len(p.Symbols) != 0 {
+				l.Errorf("runtime package must have no symbols (found %d)", len(p.Symbols))
+			}
 			// As a special case, check for "cmd/" packages that are
 			// mistakenly placed in the "std" module.
-			l.Error("must be in module cmd")
+			if strings.HasPrefix(p.Package, stdlib.ToolchainModulePath) {
+				l.Error("must be in module cmd")
+			}
 		}
 
 		if !m.IsFirstParty() {
