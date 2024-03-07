@@ -10,17 +10,11 @@ modules:
         - package: runtime
           goos:
             - windows
-          symbols:
-            - loadOptionalSyscalls
-            - osinit
-            - syscall_loadsystemlibrary
-          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
         - package: syscall
           goos:
             - windows
           symbols:
             - LoadDLL
-          skip_fix: 'TODO: revisit this reason (fix appears to not work with Go <1.18)'
 summary: DLL injection on Windows in runtime and syscall
 description: |-
     Go on Windows misused certain LoadLibrary functionality, leading to DLL
