@@ -1,0 +1,226 @@
+id: GO-2024-2606
+modules:
+    - module: github.com/jackc/pgproto3/v2
+      versions:
+        - fixed: 2.3.3
+      vulnerable_at: 2.3.2
+      packages:
+        - package: github.com/jackc/pgproto3/v2
+          symbols:
+            - CloseComplete.Encode
+            - AuthenticationSASLFinal.Encode
+            - Terminate.Encode
+            - NotificationResponse.Encode
+            - AuthenticationGSSContinue.Encode
+            - DataRow.Encode
+            - CopyInResponse.Encode
+            - FunctionCall.Encode
+            - BackendKeyData.Encode
+            - Query.Encode
+            - CancelRequest.Encode
+            - ParameterStatus.Encode
+            - BindComplete.Encode
+            - CopyBothResponse.Encode
+            - CopyData.Encode
+            - CopyOutResponse.Encode
+            - AuthenticationGSS.Encode
+            - Parse.Encode
+            - PasswordMessage.Encode
+            - AuthenticationCleartextPassword.Encode
+            - ErrorResponse.Encode
+            - SASLInitialResponse.Encode
+            - Execute.Encode
+            - FunctionCallResponse.Encode
+            - ReadyForQuery.Encode
+            - AuthenticationOk.Encode
+            - SSLRequest.Encode
+            - CopyDone.Encode
+            - AuthenticationMD5Password.Encode
+            - ParseComplete.Encode
+            - EmptyQueryResponse.Encode
+            - CommandComplete.Encode
+            - AuthenticationSASL.Encode
+            - NoData.Encode
+            - Flush.Encode
+            - GSSEncRequest.Encode
+            - StartupMessage.Encode
+            - Backend.Send
+            - GSSResponse.Encode
+            - CopyFail.Encode
+            - Bind.Encode
+            - AuthenticationSASLContinue.Encode
+            - NoticeResponse.Encode
+            - SASLResponse.Encode
+            - Frontend.Send
+            - Sync.Encode
+            - ErrorResponse.marshalBinary
+            - RowDescription.Encode
+            - Close.Encode
+            - ParameterDescription.Encode
+            - PortalSuspended.Encode
+            - Describe.Encode
+        - package: github.com/jackc/pgproto3/v2/example/pgfortune
+          symbols:
+            - PgFortuneBackend.handleStartup
+            - PgFortuneBackend.Run
+          derived_symbols:
+            - main
+      fix_links:
+        - https://github.com/jackc/pgproto3/commit/945c2126f6db8f3bea7eeebe307c01fe92bca007
+    - module: github.com/jackc/pgx/v4
+      versions:
+        - fixed: 4.18.2
+      vulnerable_at: 4.18.1
+      packages:
+        - package: github.com/jackc/pgx/v4/internal/sanitize
+          symbols:
+            - Query.Sanitize
+          derived_symbols:
+            - SanitizeSQL
+      fix_links:
+        - https://github.com/jackc/pgx/commit/f94eb0e2f96782042c96801b5ac448f44f0a81df,
+    - module: github.com/jackc/pgx/v5
+      versions:
+        - introduced: 5.0.0
+          fixed: 5.5.4
+      vulnerable_at: 5.5.3
+      packages:
+        - package: github.com/jackc/pgx/v5/internal/sanitize
+          symbols:
+            - Query.Sanitize
+          derived_symbols:
+            - SanitizeSQL
+        - package: github.com/jackc/pgx/v5/pgproto3
+          symbols:
+            - Frontend.SendSync
+            - Backend.Flush
+            - Frontend.SendDescribe
+            - Parse.Encode
+            - CopyBothResponse.Encode
+            - CopyOutResponse.Encode
+            - GSSResponse.Encode
+            - DataRow.Encode
+            - EmptyQueryResponse.Encode
+            - PortalSuspended.Encode
+            - Close.Encode
+            - SASLInitialResponse.Encode
+            - ReadyForQuery.Encode
+            - Query.Encode
+            - CopyFail.Encode
+            - ParameterDescription.Encode
+            - NoData.Encode
+            - SSLRequest.Encode
+            - AuthenticationMD5Password.Encode
+            - Flush.Encode
+            - StartupMessage.Encode
+            - Frontend.SendParse
+            - CloseComplete.Encode
+            - Backend.Send
+            - CopyInResponse.Encode
+            - GSSEncRequest.Encode
+            - Frontend.Send
+            - Describe.Encode
+            - AuthenticationOk.Encode
+            - FunctionCallResponse.Encode
+            - Bind.Encode
+            - Frontend.SendClose
+            - Terminate.Encode
+            - Frontend.SendExecute
+            - Sync.Encode
+            - Execute.Encode
+            - AuthenticationGSSContinue.Encode
+            - FunctionCall.Encode
+            - CancelRequest.Encode
+            - AuthenticationSASLFinal.Encode
+            - BackendKeyData.Encode
+            - Frontend.Flush
+            - NoticeResponse.Encode
+            - AuthenticationSASL.Encode
+            - Frontend.SendBind
+            - AuthenticationSASLContinue.Encode
+            - BindComplete.Encode
+            - PasswordMessage.Encode
+            - NotificationResponse.Encode
+            - ErrorResponse.Encode
+            - CopyData.Encode
+            - ErrorResponse.marshalBinary
+            - Frontend.SendQuery
+            - ParameterStatus.Encode
+            - AuthenticationCleartextPassword.Encode
+            - AuthenticationGSS.Encode
+            - RowDescription.Encode
+            - CopyDone.Encode
+            - CommandComplete.Encode
+            - SASLResponse.Encode
+            - ParseComplete.Encode
+          derived_symbols:
+            - Frontend.SendUnbufferedEncodedCopyData
+        - package: github.com/jackc/pgx/v5/pgconn
+          symbols:
+            - Batch.ExecParams
+            - PgConn.ExecBatch
+            - Batch.ExecPrepared
+          derived_symbols:
+            - Connect
+            - ConnectConfig
+            - ConnectWithOptions
+            - MultiResultReader.Close
+            - MultiResultReader.NextResult
+            - MultiResultReader.ReadAll
+            - PgConn.CheckConn
+            - PgConn.Close
+            - PgConn.CopyFrom
+            - PgConn.CopyTo
+            - PgConn.Deallocate
+            - PgConn.Exec
+            - PgConn.ExecParams
+            - PgConn.ExecPrepared
+            - PgConn.Ping
+            - PgConn.Prepare
+            - PgConn.ReceiveMessage
+            - PgConn.SyncConn
+            - PgConn.WaitForNotification
+            - Pipeline.Close
+            - Pipeline.Flush
+            - Pipeline.GetResults
+            - Pipeline.SendDeallocate
+            - Pipeline.SendPrepare
+            - Pipeline.SendQueryParams
+            - Pipeline.SendQueryPrepared
+            - Pipeline.Sync
+            - ResultReader.Close
+            - ResultReader.NextRow
+            - ResultReader.Read
+            - ValidateConnectTargetSessionAttrsPreferStandby
+            - ValidateConnectTargetSessionAttrsPrimary
+            - ValidateConnectTargetSessionAttrsReadOnly
+            - ValidateConnectTargetSessionAttrsReadWrite
+            - ValidateConnectTargetSessionAttrsStandby
+        - package: github.com/jackc/pgx/v5/pgproto3/example/pgfortune
+          symbols:
+            - PgFortuneBackend.handleStartup
+            - PgFortuneBackend.Run
+          derived_symbols:
+            - main
+      fix_links:
+        - https://github.com/jackc/pgx/commit/c543134753a0c5d22881c12404025724cb05ffd8
+        - https://github.com/jackc/pgx/commit/adbb38f298c76e283ffc7c7a3f571036fea47fd4
+summary: SQL injection in github.com/jackc/pgproto3 and github.com/jackc/pgx
+description: |-
+    An integer overflow in the calculated message size of a query or bind message
+    could allow a single large message to be sent as multiple messages under the
+    attacker's control. This could lead to SQL injection if an attacker can cause a
+    single query or bind message to exceed 4 GB in size.
+cves:
+    - CVE-2024-27304
+ghsas:
+    - GHSA-mrww-27vc-gghv
+    - GHSA-7jwh-3vrq-q3m8
+credits:
+    - paul-gerste-sonarsource
+references:
+    - advisory: https://github.com/jackc/pgx/security/advisories/GHSA-mrww-27vc-gghv
+    - fix: https://github.com/jackc/pgproto3/commit/945c2126f6db8f3bea7eeebe307c01fe92bca007
+    - fix: https://github.com/jackc/pgx/commit/adbb38f298c76e283ffc7c7a3f571036fea47fd4
+    - fix: https://github.com/jackc/pgx/commit/c543134753a0c5d22881c12404025724cb05ffd8
+    - fix: https://github.com/jackc/pgx/commit/f94eb0e2f96782042c96801b5ac448f44f0a81df

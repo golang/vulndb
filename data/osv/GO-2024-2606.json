@@ -1,0 +1,311 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2606",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-27304",
+    "GHSA-mrww-27vc-gghv",
+    "GHSA-7jwh-3vrq-q3m8"
+  ],
+  "summary": "SQL injection in github.com/jackc/pgproto3 and github.com/jackc/pgx",
+  "details": "An integer overflow in the calculated message size of a query or bind message could allow a single large message to be sent as multiple messages under the attacker's control. This could lead to SQL injection if an attacker can cause a single query or bind message to exceed 4 GB in size.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/jackc/pgproto3/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.3.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/jackc/pgproto3/v2",
+            "symbols": [
+              "AuthenticationCleartextPassword.Encode",
+              "AuthenticationGSS.Encode",
+              "AuthenticationGSSContinue.Encode",
+              "AuthenticationMD5Password.Encode",
+              "AuthenticationOk.Encode",
+              "AuthenticationSASL.Encode",
+              "AuthenticationSASLContinue.Encode",
+              "AuthenticationSASLFinal.Encode",
+              "Backend.Send",
+              "BackendKeyData.Encode",
+              "Bind.Encode",
+              "BindComplete.Encode",
+              "CancelRequest.Encode",
+              "Close.Encode",
+              "CloseComplete.Encode",
+              "CommandComplete.Encode",
+              "CopyBothResponse.Encode",
+              "CopyData.Encode",
+              "CopyDone.Encode",
+              "CopyFail.Encode",
+              "CopyInResponse.Encode",
+              "CopyOutResponse.Encode",
+              "DataRow.Encode",
+              "Describe.Encode",
+              "EmptyQueryResponse.Encode",
+              "ErrorResponse.Encode",
+              "ErrorResponse.marshalBinary",
+              "Execute.Encode",
+              "Flush.Encode",
+              "Frontend.Send",
+              "FunctionCall.Encode",
+              "FunctionCallResponse.Encode",
+              "GSSEncRequest.Encode",
+              "GSSResponse.Encode",
+              "NoData.Encode",
+              "NoticeResponse.Encode",
+              "NotificationResponse.Encode",
+              "ParameterDescription.Encode",
+              "ParameterStatus.Encode",
+              "Parse.Encode",
+              "ParseComplete.Encode",
+              "PasswordMessage.Encode",
+              "PortalSuspended.Encode",
+              "Query.Encode",
+              "ReadyForQuery.Encode",
+              "RowDescription.Encode",
+              "SASLInitialResponse.Encode",
+              "SASLResponse.Encode",
+              "SSLRequest.Encode",
+              "StartupMessage.Encode",
+              "Sync.Encode",
+              "Terminate.Encode"
+            ]
+          },
+          {
+            "path": "github.com/jackc/pgproto3/v2/example/pgfortune",
+            "symbols": [
+              "PgFortuneBackend.Run",
+              "PgFortuneBackend.handleStartup",
+              "main"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/jackc/pgx/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.18.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/jackc/pgx/v4/internal/sanitize",
+            "symbols": [
+              "Query.Sanitize",
+              "SanitizeSQL"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/jackc/pgx/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "5.0.0"
+            },
+            {
+              "fixed": "5.5.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/jackc/pgx/v5/internal/sanitize",
+            "symbols": [
+              "Query.Sanitize",
+              "SanitizeSQL"
+            ]
+          },
+          {
+            "path": "github.com/jackc/pgx/v5/pgproto3",
+            "symbols": [
+              "AuthenticationCleartextPassword.Encode",
+              "AuthenticationGSS.Encode",
+              "AuthenticationGSSContinue.Encode",
+              "AuthenticationMD5Password.Encode",
+              "AuthenticationOk.Encode",
+              "AuthenticationSASL.Encode",
+              "AuthenticationSASLContinue.Encode",
+              "AuthenticationSASLFinal.Encode",
+              "Backend.Flush",
+              "Backend.Send",
+              "BackendKeyData.Encode",
+              "Bind.Encode",
+              "BindComplete.Encode",
+              "CancelRequest.Encode",
+              "Close.Encode",
+              "CloseComplete.Encode",
+              "CommandComplete.Encode",
+              "CopyBothResponse.Encode",
+              "CopyData.Encode",
+              "CopyDone.Encode",
+              "CopyFail.Encode",
+              "CopyInResponse.Encode",
+              "CopyOutResponse.Encode",
+              "DataRow.Encode",
+              "Describe.Encode",
+              "EmptyQueryResponse.Encode",
+              "ErrorResponse.Encode",
+              "ErrorResponse.marshalBinary",
+              "Execute.Encode",
+              "Flush.Encode",
+              "Frontend.Flush",
+              "Frontend.Send",
+              "Frontend.SendBind",
+              "Frontend.SendClose",
+              "Frontend.SendDescribe",
+              "Frontend.SendExecute",
+              "Frontend.SendParse",
+              "Frontend.SendQuery",
+              "Frontend.SendSync",
+              "Frontend.SendUnbufferedEncodedCopyData",
+              "FunctionCall.Encode",
+              "FunctionCallResponse.Encode",
+              "GSSEncRequest.Encode",
+              "GSSResponse.Encode",
+              "NoData.Encode",
+              "NoticeResponse.Encode",
+              "NotificationResponse.Encode",
+              "ParameterDescription.Encode",
+              "ParameterStatus.Encode",
+              "Parse.Encode",
+              "ParseComplete.Encode",
+              "PasswordMessage.Encode",
+              "PortalSuspended.Encode",
+              "Query.Encode",
+              "ReadyForQuery.Encode",
+              "RowDescription.Encode",
+              "SASLInitialResponse.Encode",
+              "SASLResponse.Encode",
+              "SSLRequest.Encode",
+              "StartupMessage.Encode",
+              "Sync.Encode",
+              "Terminate.Encode"
+            ]
+          },
+          {
+            "path": "github.com/jackc/pgx/v5/pgconn",
+            "symbols": [
+              "Batch.ExecParams",
+              "Batch.ExecPrepared",
+              "Connect",
+              "ConnectConfig",
+              "ConnectWithOptions",
+              "MultiResultReader.Close",
+              "MultiResultReader.NextResult",
+              "MultiResultReader.ReadAll",
+              "PgConn.CheckConn",
+              "PgConn.Close",
+              "PgConn.CopyFrom",
+              "PgConn.CopyTo",
+              "PgConn.Deallocate",
+              "PgConn.Exec",
+              "PgConn.ExecBatch",
+              "PgConn.ExecParams",
+              "PgConn.ExecPrepared",
+              "PgConn.Ping",
+              "PgConn.Prepare",
+              "PgConn.ReceiveMessage",
+              "PgConn.SyncConn",
+              "PgConn.WaitForNotification",
+              "Pipeline.Close",
+              "Pipeline.Flush",
+              "Pipeline.GetResults",
+              "Pipeline.SendDeallocate",
+              "Pipeline.SendPrepare",
+              "Pipeline.SendQueryParams",
+              "Pipeline.SendQueryPrepared",
+              "Pipeline.Sync",
+              "ResultReader.Close",
+              "ResultReader.NextRow",
+              "ResultReader.Read",
+              "ValidateConnectTargetSessionAttrsPreferStandby",
+              "ValidateConnectTargetSessionAttrsPrimary",
+              "ValidateConnectTargetSessionAttrsReadOnly",
+              "ValidateConnectTargetSessionAttrsReadWrite",
+              "ValidateConnectTargetSessionAttrsStandby"
+            ]
+          },
+          {
+            "path": "github.com/jackc/pgx/v5/pgproto3/example/pgfortune",
+            "symbols": [
+              "PgFortuneBackend.Run",
+              "PgFortuneBackend.handleStartup",
+              "main"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/jackc/pgx/security/advisories/GHSA-mrww-27vc-gghv"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/jackc/pgproto3/commit/945c2126f6db8f3bea7eeebe307c01fe92bca007"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/jackc/pgx/commit/adbb38f298c76e283ffc7c7a3f571036fea47fd4"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/jackc/pgx/commit/c543134753a0c5d22881c12404025724cb05ffd8"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/jackc/pgx/commit/f94eb0e2f96782042c96801b5ac448f44f0a81df"
+    }
+  ],
+  "credits": [
+    {
+      "name": "paul-gerste-sonarsource"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2606"
+  }
+}
