@@ -1,0 +1,116 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2602",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-27918",
+    "GHSA-7cc2-r658-7xpf"
+  ],
+  "summary": "Incorrect email domain verification in github.com/coder/coder",
+  "details": "A vulnerability in Coder's OIDC authentication could allow an attacker to bypass the CODER_OIDC_EMAIL_DOMAIN verification and create an account with an email not in the allowlist. Deployments are only affected if the OIDC provider allows users to create accounts on the provider (such as public providers like google.com). During OIDC registration, the user's email was improperly validated against the allowed CODER_OIDC_EMAIL_DOMAINs.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/coder/coder",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/coder/coder/coderd",
+            "symbols": [
+              "API.New",
+              "Api.userOIDC"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/coder/coder/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.6.1"
+            },
+            {
+              "introduced": "2.7.0"
+            },
+            {
+              "fixed": "2.7.3"
+            },
+            {
+              "introduced": "2.8.0"
+            },
+            {
+              "fixed": "2.8.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/coder/coder/v2/coderd",
+            "symbols": [
+              "Api.New",
+              "Api.userOIDC"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/coder/coder/security/advisories/GHSA-7cc2-r658-7xpf"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/coder/coder/commit/1171ce7add017481d28441575024209ac160ecb0"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/coder/coder/commit/2ba84911f8b02605e5958d5e4a2fe3979ec50b31"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/coder/coder/commit/2d37eb42e7db656e343fe1f36de5ab1a1a62f4fb"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/coder/coder/commit/4439a920e454a82565e445e4376c669e3b89591c"
+    }
+  ],
+  "credits": [
+    {
+      "name": "arcz"
+    },
+    {
+      "name": "maxammann"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2602"
+  }
+}
