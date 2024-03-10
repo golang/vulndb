@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2613",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-27288",
+    "GHSA-26w3-q4j8-4xjp"
+  ],
+  "summary": "Unauthorized Console access in github.com/1Panel-dev/1Panel",
+  "details": "If the user attempts to access a secure entry point and intercepts with Burp, they can get access to the console page. This access does not return data nor allow modification operations.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/1Panel-dev/1Panel",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.10.1-lts"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/1Panel-dev/1Panel/security/advisories/GHSA-26w3-q4j8-4xjp"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/1Panel-dev/1Panel/releases/tag/v1.10.1-lts"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/1Panel-dev/1Panel/pull/4014"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2613"
+  }
+}

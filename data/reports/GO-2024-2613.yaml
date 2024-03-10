@@ -1,0 +1,19 @@
+id: GO-2024-2613
+modules:
+    - module: github.com/1Panel-dev/1Panel
+      versions:
+        - fixed: 1.10.1-lts
+      vulnerable_at: 1.9.6
+summary: Unauthorized Console access in github.com/1Panel-dev/1Panel
+description: |-
+    If the user attempts to access a secure entry point and intercepts with Burp,
+    they can get access to the console page. This access does not return data nor
+    allow modification operations.
+cves:
+    - CVE-2024-27288
+ghsas:
+    - GHSA-26w3-q4j8-4xjp
+references:
+    - advisory: https://github.com/1Panel-dev/1Panel/security/advisories/GHSA-26w3-q4j8-4xjp
+    - web: https://github.com/1Panel-dev/1Panel/releases/tag/v1.10.1-lts
+    - fix: https://github.com/1Panel-dev/1Panel/pull/4014
