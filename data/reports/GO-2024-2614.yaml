@@ -1,0 +1,27 @@
+id: GO-2024-2614
+modules:
+    - module: github.com/IceWhaleTech/CasaOS-UserService
+      versions:
+        - introduced: 0.4.4-3-alpha1
+          fixed: 0.4.7
+      vulnerable_at: 0.4.6-alpha3
+      packages:
+        - package: github.com/IceWhaleTech/CasaOS-UserService/route/v1
+          symbols:
+            - PostUserLogin
+summary: Password brute force attack in github.com/IceWhaleTech/CasaOS-UserService
+description: |-
+    The CasaOS web application does not have protection against password brute force
+    attacks. An attacker can use a password brute force attack to find and gain full
+    access to the server. This vulnerability allows attackers to get super
+    user-level access over the server.
+cves:
+    - CVE-2024-24767
+ghsas:
+    - GHSA-c69x-5xmw-v44x
+credits:
+    - DrDark1999
+references:
+    - advisory: https://github.com/IceWhaleTech/CasaOS-UserService/security/advisories/GHSA-c69x-5xmw-v44x
+    - fix: https://github.com/IceWhaleTech/CasaOS-UserService/commit/62006f61b55951048dbace4ebd9e483274838699
+    - web: https://github.com/IceWhaleTech/CasaOS-UserService/releases/tag/v0.4.7
