@@ -1,0 +1,29 @@
+id: GO-2024-2615
+modules:
+    - module: github.com/IceWhaleTech/CasaOS-UserService
+      versions:
+        - introduced: 0.4.4-3-alpha1
+          fixed: 0.4.7
+      vulnerable_at: 0.4.6-alpha3
+      packages:
+        - package: github.com/IceWhaleTech/CasaOS-UserService/route/v1
+          symbols:
+            - PutUserInfo
+            - PostUserLogin
+summary: Username enumeration in github.com/IceWhaleTech/CasaOS-UserService
+description: |-
+    CasaOS-UserService is vulnerable to a username enumeration issue, when an
+    attacker can enumerate the CasaOS username using the application response. If
+    the username is incorrect, the application gives the error 'User does not
+    exist'. If the password is incorrect, the application gives the error 'Invalid
+    password'.
+cves:
+    - CVE-2024-24766
+ghsas:
+    - GHSA-c967-2652-gfjm
+credits:
+    - DrDark1999
+references:
+    - advisory: https://github.com/IceWhaleTech/CasaOS-UserService/security/advisories/GHSA-c967-2652-gfjm
+    - fix: https://github.com/IceWhaleTech/CasaOS-UserService/commit/c75063d7ca5800948e9c09c0a6efe9809b5d39f7
+    - web: https://github.com/IceWhaleTech/CasaOS-UserService/releases/tag/v0.4.7
