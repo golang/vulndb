@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2618",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-28110",
+    "GHSA-5pf6-2qwx-pxm2"
+  ],
+  "summary": "Authentication token leak in github.com/cloudevents/sdk-go/v2",
+  "details": "Using cloudevents.WithRoundTripper to create a cloudevents.Client with an authenticated http.RoundTripper causes the go-sdk to leak credentials to arbitrary endpoints. When the transport is populated with an authenticated transport, http.DefaultClient is modified with the authenticated transport and will start to send Authorization tokens to any endpoint it is used to contact.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cloudevents/sdk-go/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.15.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cloudevents/sdk-go/v2/protocol/http",
+            "symbols": [
+              "New"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cloudevents/sdk-go/security/advisories/GHSA-5pf6-2qwx-pxm2"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cloudevents/sdk-go/commit/de2f28370b0d2a0f64f92c0c6139fa4b8a7c3851"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/cloudevents/sdk-go/blob/67e389964131d55d65cd14b4eb32d57a47312695/v2/protocol/http/protocol.go#L104-L110"
+    }
+  ],
+  "credits": [
+    {
+      "name": "mattmoor"
+    },
+    {
+      "name": "tcnghia"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2618"
+  }
+}
