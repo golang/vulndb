@@ -1,0 +1,28 @@
+id: GO-2024-2616
+modules:
+    - module: github.com/IceWhaleTech/CasaOS-UserService
+      versions:
+        - fixed: 0.4.7
+      vulnerable_at: 0.4.6-alpha3
+      packages:
+        - package: github.com/IceWhaleTech/CasaOS-UserService/route/v1
+          symbols:
+            - GetUserImage
+summary: |-
+    Path traversal and user privilege escalation in
+    github.com/IceWhaleTech/CasaOS-UserService
+description: |-
+    The UserService API contains a path traversal vulnerability that allows an
+    attacker to obtain any file on the system, including the user database and
+    system configuration. This can lead to privilege escalation and compromise of
+    the system.
+cves:
+    - CVE-2024-24765
+ghsas:
+    - GHSA-h5gf-cmm8-cg7c
+credits:
+    - Cp0204
+references:
+    - advisory: https://github.com/IceWhaleTech/CasaOS-UserService/security/advisories/GHSA-h5gf-cmm8-cg7c
+    - fix: https://github.com/IceWhaleTech/CasaOS-UserService/commit/3f4558e23c0a9958f9a0e20aabc64aa8fd51840e
+    - web: https://github.com/IceWhaleTech/CasaOS-UserService/releases/tag/v0.4.7
