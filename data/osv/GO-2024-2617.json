@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2617",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-2048",
+    "GHSA-r3w7-mfpm-c2vw"
+  ],
+  "summary": "Authentication bypass in github.com/hashicorp/vault",
+  "details": "The TLS certificate authentication method incorrectly validates client certificates when configured with a non-CA certificate as a trusted certificate. When configured this way, attackers may be able to craft a certificate that can be used to bypass authentication.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hashicorp/vault",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.14.10"
+            },
+            {
+              "introduced": "1.15.0"
+            },
+            {
+              "fixed": "1.15.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-2048"
+    },
+    {
+      "type": "WEB",
+      "url": "https://discuss.hashicorp.com/t/hcsec-2024-05-vault-cert-auth-method-did-not-correctly-validate-non-ca-certificates/63382"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2617"
+  }
+}

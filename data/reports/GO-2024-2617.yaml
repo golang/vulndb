@@ -1,0 +1,21 @@
+id: GO-2024-2617
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - fixed: 1.14.10
+        - introduced: 1.15.0
+          fixed: 1.15.5
+      vulnerable_at: 1.15.4
+summary: Authentication bypass in github.com/hashicorp/vault
+description: |-
+    The TLS certificate authentication method incorrectly validates client
+    certificates when configured with a non-CA certificate as a trusted certificate.
+    When configured this way, attackers may be able to craft a certificate that can
+    be used to bypass authentication.
+cves:
+    - CVE-2024-2048
+ghsas:
+    - GHSA-r3w7-mfpm-c2vw
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-2048
+    - web: https://discuss.hashicorp.com/t/hcsec-2024-05-vault-cert-auth-method-did-not-correctly-validate-non-ca-certificates/63382
