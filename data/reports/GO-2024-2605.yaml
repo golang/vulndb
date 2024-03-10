@@ -1,0 +1,27 @@
+id: GO-2024-2605
+modules:
+    - module: github.com/jackc/pgx/v4
+      versions:
+        - fixed: 4.18.2
+      vulnerable_at: 4.18.1
+      packages:
+        - package: github.com/jackc/pgx/v4/internal/sanitize
+          symbols:
+            - Query.Sanitize
+          derived_symbols:
+            - SanitizeSQL
+summary: SQL injection in github.com/jackc/pgx/v4
+description: |-
+    SQL injection is possible when the database uses the non-default simple
+    protocol, a minus sign directly precedes a numeric placeholder followed by a
+    string placeholder on the same line, and both parameter values are
+    user-controlled.
+cves:
+    - CVE-2024-27289
+ghsas:
+    - GHSA-m7wr-2xf7-cm9p
+credits:
+    - paul-gerste-sonarsource
+references:
+    - advisory: https://github.com/jackc/pgx/security/advisories/GHSA-m7wr-2xf7-cm9p
+    - fix: https://github.com/jackc/pgx/commit/f94eb0e2f96782042c96801b5ac448f44f0a81df
