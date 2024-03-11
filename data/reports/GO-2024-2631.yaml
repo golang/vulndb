@@ -1,0 +1,60 @@
+id: GO-2024-2631
+modules:
+    - module: github.com/go-jose/go-jose/v4
+      versions:
+        - fixed: 4.0.1
+      vulnerable_at: 4.0.0
+      packages:
+        - package: github.com/go-jose/go-jose/v4
+          symbols:
+            - inflate
+          derived_symbols:
+            - JSONWebEncryption.Decrypt
+            - JSONWebEncryption.DecryptMulti
+    - module: github.com/go-jose/go-jose/v3
+      versions:
+        - fixed: 3.0.3
+      vulnerable_at: 3.0.2
+      packages:
+        - package: github.com/go-jose/go-jose/v3
+          symbols:
+            - inflate
+          derived_symbols:
+            - JSONWebEncryption.Decrypt
+            - JSONWebEncryption.DecryptMulti
+    - module: gopkg.in/go-jose/go-jose.v2
+      versions:
+        - fixed: 2.6.3
+      vulnerable_at: 2.6.2
+      packages:
+        - package: gopkg.in/go-jose/go-jose.v2
+          symbols:
+            - inflate
+          derived_symbols:
+            - JSONWebEncryption.Decrypt
+            - JSONWebEncryption.DecryptMulti
+    - module: gopkg.in/square/go-jose.v2
+      vulnerable_at: 2.6.0
+      packages:
+        - package: gopkg.in/square/go-jose.v2
+          symbols:
+            - inflate
+          derived_symbols:
+            - JSONWebEncryption.Decrypt
+            - JSONWebEncryption.DecryptMulti
+summary: Decompression bomb vulnerability in github.com/go-jose/go-jose
+description: |-
+    An attacker could send a JWE containing compressed data that used large amounts
+    of memory and CPU when decompressed by Decrypt or DecryptMulti.
+cves:
+    - CVE-2024-28180
+ghsas:
+    - GHSA-c5q2-7r4c-mv6g
+credits:
+    - zer0yu
+    - chenjj
+references:
+    - advisory: https://github.com/go-jose/go-jose/security/advisories/GHSA-c5q2-7r4c-mv6g
+    - fix: https://github.com/go-jose/go-jose/commit/0dd4dd541c665fb292d664f77604ba694726f298
+    - fix: https://github.com/go-jose/go-jose/commit/add6a284ea0f844fd6628cba637be5451fe4b28a
+    - fix: https://github.com/go-jose/go-jose/commit/f4c051a0653d78199a053892f7619ebf96339502
