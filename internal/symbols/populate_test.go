@@ -5,9 +5,11 @@
 package symbols
 
 import (
+	"context"
 	"fmt"
 	"testing"
 
+	"github.com/go-git/go-git/v5"
 	"github.com/google/go-cmp/cmp"
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/report"
@@ -127,9 +129,29 @@ func TestPopulate(t *testing.T) {
 				},
 			},
 		},
+		{
+			name:   "has fix link",
+			update: false,
+			input: &report.Report{
+				Modules: []*report.Module{{
+					Module:   "example.com/module",
+					FixLinks: []string{"https://example.com/module/commit/1234", "https://example.com/module/commit/5678"},
+				}},
+			},
+			want: &report.Report{
+				Modules: []*report.Module{{
+					Module: "example.com/module",
+					Packages: []*report.Package{{
+						Package: "example.com/module/package",
+						Symbols: []string{"symbol1", "symbol2", "symbol3"},
+					}},
+					FixLinks: []string{"https://example.com/module/commit/1234", "https://example.com/module/commit/5678"},
+				}},
+			},
+		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
-			if err := populate(tc.input, tc.update, patchedFake); err != nil {
+			if err := populate(tc.input, tc.update, mockClone, patchedFake); err != nil {
 				t.Fatal(err)
 			}
 			got := tc.input
@@ -140,16 +162,20 @@ func TestPopulate(t *testing.T) {
 	}
 }
 
-func patchedFake(module string, repo string, hash string) (map[string][]string, error) {
-	if module == "example.com/module" && repo == "https://example.com/module" && hash == "1234" {
+func patchedFake(module string, hash string, repo *repository) (map[string][]string, error) {
+	if module == "example.com/module" && repo.url == "https://example.com/module" && hash == "1234" {
 		return map[string][]string{
 			"example.com/module/package": {"symbol1", "symbol2"},
 		}, nil
 	}
-	if module == "example.com/module" && repo == "https://example.com/module" && hash == "5678" {
+	if module == "example.com/module" && repo.url == "https://example.com/module" && hash == "5678" {
 		return map[string][]string{
 			"example.com/module/package": {"symbol1", "symbol2", "symbol3"},
 		}, nil
 	}
-	return nil, fmt.Errorf("unrecognized inputs: module=%s,repo=%s,hash=%s", module, repo, hash)
+	return nil, fmt.Errorf("unrecognized inputs: module=%s,repo=%s,hash=%s", module, repo.url, hash)
+}
+
+func mockClone(ctx context.Context, dir, repoURL string) (repo *git.Repository, err error) {
+	return nil, err
 }

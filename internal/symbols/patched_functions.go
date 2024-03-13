@@ -6,7 +6,6 @@ package symbols
 
 import (
 	"bytes"
-	"context"
 	"errors"
 	"fmt"
 	"go/ast"
@@ -26,38 +25,24 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/object"
 	"golang.org/x/mod/modfile"
 	"golang.org/x/vulndb/internal/derrors"
-	"golang.org/x/vulndb/internal/gitrepo"
 )
 
 // Patched returns symbols of module patched in commit identified
-// by commitHash. repoURL is URL of the git repository containing
-// the module.
+// by commitHash. r is the git repository containing the module.
 //
 // Patched returns a map from package import paths to symbols
 // patched in the package. Test packages and symbols are omitted.
 //
 // If the commit has more than one parent, an error is returned.
-func Patched(module, repoURL, commitHash string) (_ map[string][]string, err error) {
-	defer derrors.Wrap(&err, "Patched(%s, %s, %s)", module, repoURL, commitHash)
-
-	repoRoot, err := os.MkdirTemp("", commitHash)
-	if err != nil {
-		return nil, err
-	}
-	defer func() {
-		_ = os.RemoveAll(repoRoot)
-	}()
-
-	ctx := context.Background()
-	repo, err := gitrepo.PlainClone(ctx, repoRoot, repoURL)
-	if err != nil {
-		return nil, err
-	}
-
+func Patched(module, commitHash string, r *repository) (_ map[string][]string, err error) {
+	defer derrors.Wrap(&err, "Patched(%s, %s, %s)", module, r.url, commitHash)
+	repo := r.repo
 	w, err := repo.Worktree()
 	if err != nil {
 		return nil, err
 	}
+
+	defer resetWorktree(r.repo, w)
 
 	hash := plumbing.NewHash(commitHash)
 	commit, err := findCommit(repo, w, hash)
@@ -78,7 +63,7 @@ func Patched(module, repoURL, commitHash string) (_ map[string][]string, err err
 		return nil, err
 	}
 
-	newSymbols, err := moduleSymbols(repoRoot, module)
+	newSymbols, err := moduleSymbols(r.root, module)
 	if err != nil {
 		return nil, err
 	}
@@ -87,7 +72,7 @@ func Patched(module, repoURL, commitHash string) (_ map[string][]string, err err
 		return nil, err
 	}
 
-	oldSymbols, err := moduleSymbols(repoRoot, module)
+	oldSymbols, err := moduleSymbols(r.root, module)
 	if err != nil {
 		return nil, err
 	}
@@ -101,6 +86,14 @@ func Patched(module, repoURL, commitHash string) (_ map[string][]string, err err
 		pkgSyms[sym.pkg] = append(pkgSyms[sym.pkg], sym.symbol)
 	}
 	return pkgSyms, nil
+}
+
+// resetWorktree takes a repository and its worktree and resets it to MAIN/MASTER@HEAD
+func resetWorktree(r *git.Repository, w *git.Worktree) {
+	r.Fetch(&git.FetchOptions{})
+	w.Reset(&git.ResetOptions{
+		Mode: git.HardReset,
+	})
 }
 
 // findCommit attempts to find a commit with hash in repo's w work tree.
