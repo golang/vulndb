@@ -18,6 +18,7 @@ import (
 )
 
 func (r *Report) Fix(pc *proxy.Client) {
+	expandGitCommits(r)
 	for _, m := range r.Modules {
 		m.FixVersions(pc)
 	}

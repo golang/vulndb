@@ -60,6 +60,16 @@ func PlainClone(ctx context.Context, dir, repoURL string) (repo *git.Repository,
 	})
 }
 
+// PlainCloneWith returns a (non-bare) repo with its history by cloning the repo with the given options opt.
+func PlainCloneWith(ctx context.Context, dir string, opts *git.CloneOptions) (repo *git.Repository, err error) {
+	defer derrors.Wrap(&err, "gitrepo.PlainCloneWith(%q)", opts.URL)
+	ctx, span := observe.Start(ctx, "gitrepo.PlainCloneWith")
+	defer span.End()
+
+	log.Infof(ctx, "Plain cloning repo %q at HEAD with options", opts.URL)
+	return git.PlainCloneContext(ctx, dir, false, opts)
+}
+
 // Open returns a repo by opening the repo at the local path dirpath.
 func Open(ctx context.Context, dirpath string) (repo *git.Repository, err error) {
 	defer derrors.Wrap(&err, "gitrepo.Open(%q)", dirpath)
