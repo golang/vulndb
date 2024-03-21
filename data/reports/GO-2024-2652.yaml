@@ -1,0 +1,43 @@
+id: GO-2024-2652
+modules:
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - fixed: 2.8.13
+        - introduced: 2.9.0
+          fixed: 2.9.9
+        - introduced: 2.10.0
+          fixed: 2.10.4
+      vulnerable_at: 2.10.3
+      packages:
+        - package: github.com/argoproj/argo-cd/v2/util/session
+          symbols:
+            - SessionManager.updateFailureCount
+            - getMaximumCacheSize
+          derived_symbols:
+            - SessionManager.VerifyUsernamePassword
+summary: Brute force protection bypass in github.com/argoproj/argo-cd/v2
+description: |-
+    An attacker can effectively bypass the rate limit and brute force protections in
+    Argo CD by exploiting the application's weak cache-based mechanism. The
+    application's brute force protection relies on a cache mechanism that tracks
+    login attempts for each user. An attacker can overflow this cache by bombarding
+    it with login attempts for different users, thereby pushing out the admin
+    account's failed attempts and effectively resetting the rate limit for that
+    account.
+cves:
+    - CVE-2024-21662
+    - CVE-2024-21652
+ghsas:
+    - GHSA-2vgg-9h6w-m454
+    - GHSA-x32m-mvfj-52xv
+credits:
+    - '@nadava669'
+    - '@pasha-codefresh'
+    - '@crenshaw-dev'
+    - '@todaywasawesome'
+    - '@jannfis'
+references:
+    - fix: https://github.com/argoproj/argo-cd/commit/17b0df1168a4c535f6f37e95f25ed7cd81e1fa4d
+    - fix: https://github.com/argoproj/argo-cd/commit/6e181d72b31522f886a2afa029d5b26d7912ec7b
+    - fix: https://github.com/argoproj/argo-cd/commit/cebb6538f7944c87ca2fecb5d17f8baacc431456
+    - web: https://argo-cd.readthedocs.io/en/stable/security_considerations/#cve-2020-8827-insufficient-anti-automationanti-brute-force

@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2652",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-21662",
+    "CVE-2024-21652",
+    "GHSA-2vgg-9h6w-m454",
+    "GHSA-x32m-mvfj-52xv"
+  ],
+  "summary": "Brute force protection bypass in github.com/argoproj/argo-cd/v2",
+  "details": "An attacker can effectively bypass the rate limit and brute force protections in Argo CD by exploiting the application's weak cache-based mechanism. The application's brute force protection relies on a cache mechanism that tracks login attempts for each user. An attacker can overflow this cache by bombarding it with login attempts for different users, thereby pushing out the admin account's failed attempts and effectively resetting the rate limit for that account.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-cd/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.8.13"
+            },
+            {
+              "introduced": "2.9.0"
+            },
+            {
+              "fixed": "2.9.9"
+            },
+            {
+              "introduced": "2.10.0"
+            },
+            {
+              "fixed": "2.10.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/argoproj/argo-cd/v2/util/session",
+            "symbols": [
+              "SessionManager.VerifyUsernamePassword",
+              "SessionManager.updateFailureCount",
+              "getMaximumCacheSize"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-cd/commit/17b0df1168a4c535f6f37e95f25ed7cd81e1fa4d"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-cd/commit/6e181d72b31522f886a2afa029d5b26d7912ec7b"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-cd/commit/cebb6538f7944c87ca2fecb5d17f8baacc431456"
+    },
+    {
+      "type": "WEB",
+      "url": "https://argo-cd.readthedocs.io/en/stable/security_considerations/#cve-2020-8827-insufficient-anti-automationanti-brute-force"
+    }
+  ],
+  "credits": [
+    {
+      "name": "@nadava669"
+    },
+    {
+      "name": "@pasha-codefresh"
+    },
+    {
+      "name": "@crenshaw-dev"
+    },
+    {
+      "name": "@todaywasawesome"
+    },
+    {
+      "name": "@jannfis"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2652"
+  }
+}
