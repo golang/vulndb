@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2643",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-50726",
+    "GHSA-g623-jcgg-mhmm"
+  ],
+  "summary": "Bypass manifest during application creation in github.com/argoproj/argo-cd/v2",
+  "details": "An improper validation bug allows users who have create privileges to sync a local manifest during application creation. This allows for bypassing the restriction that the manifests come from some approved git/Helm/OCI source.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-cd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.2.0-rc1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/argoproj/argo-cd/server/application",
+            "symbols": [
+              "Server.Create"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-cd/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.0.0"
+            },
+            {
+              "fixed": "2.8.12"
+            },
+            {
+              "introduced": "2.9.0"
+            },
+            {
+              "fixed": "2.9.8"
+            },
+            {
+              "introduced": "2.10.0"
+            },
+            {
+              "fixed": "2.10.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/argoproj/argo-cd/v2/server/application",
+            "symbols": [
+              "Server.Create"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-cd/commit/3b8f673f06c2d228e01cbc830e5cb57cef008978"
+    },
+    {
+      "type": "WEB",
+      "url": "https://argo-cd.readthedocs.io/en/latest/operator-manual/rbac"
+    }
+  ],
+  "credits": [
+    {
+      "name": "@crenshaw-dev"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2643"
+  }
+}
