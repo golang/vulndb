@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2654",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-21661",
+    "GHSA-6v85-wr92-q4p7"
+  ],
+  "summary": "Denial of service in github.com/argoproj/argo-cd/v2",
+  "details": "Application may crash due to concurrent writes, leading to a denial of service. An attacker can crash the application continuously, making it impossible for legitimate users to access the service. Authentication is not required in the attack.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-cd/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.8.13"
+            },
+            {
+              "introduced": "2.9.0"
+            },
+            {
+              "fixed": "2.9.9"
+            },
+            {
+              "introduced": "2.10.0"
+            },
+            {
+              "fixed": "2.10.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/argoproj/argo-cd/v2/server/application",
+            "symbols": [
+              "NewHandler",
+              "newTerminalSession"
+            ]
+          },
+          {
+            "path": "github.com/argoproj/argo-cd/v2/util/session",
+            "symbols": [
+              "SessionManager.VerifyUsernamePassword",
+              "SessionManager.getFailureCount",
+              "SessionManager.updateFailureCount",
+              "expireOldFailedAttempts"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-cd/commit/2a22e19e06aaf6a1e734443043310a66c234e345"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-cd/commit/5bbb51ab423f273dda74ab956469843d2db2e208"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-cd/commit/ce04dc5c6f6e92033221ec6d96b74403b065ca8b"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/argoproj/argo-cd/blob/54601c8fd30b86a4c4b7eb449956264372c8bde0/util/session/sessionmanager.go#L302-L311"
+    }
+  ],
+  "credits": [
+    {
+      "name": "@nadava669"
+    },
+    {
+      "name": "@todaywasawesome"
+    },
+    {
+      "name": "@crenshaw-dev"
+    },
+    {
+      "name": "@jannfis"
+    },
+    {
+      "name": "@pasha-codefresh"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2654"
+  }
+}
