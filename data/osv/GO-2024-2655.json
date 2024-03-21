@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2655",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-28855",
+    "GHSA-hfrg-4jwr-jfpj"
+  ],
+  "summary": "XSS in github.com/zitadel/zitadel",
+  "details": "The Login UI did not sanitize input parameters. An attacker could create a malicious link, where injected code would be rendered as part of the login screen.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/zitadel/zitadel",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.80.0-v2.20.0.20240312162750-5908b97e7c22"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/zitadel/zitadel/internal/renderer"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/zitadel/zitadel/security/advisories/GHSA-hfrg-4jwr-jfpj"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/zitadel/zitadel/commit/07ec2efa9dc62f7a6c3a58c112b2879d24bc3e3c"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Daniel Philipp (OWT) and Thomas Wickham (Synopsis)"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2655"
+  }
+}

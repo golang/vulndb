@@ -1,0 +1,39 @@
+id: GO-2024-2655
+modules:
+    - module: github.com/zitadel/zitadel
+      versions:
+        - fixed: 1.80.0-v2.20.0.20240312162750-5908b97e7c22
+      non_go_versions:
+        - fixed: 2.41.15
+        - introduced: 2.42.0
+          fixed: 2.42.15
+        - introduced: 2.43.0
+          fixed: 2.43.9
+        - introduced: 2.44.0
+          fixed: 2.44.3
+        - introduced: 2.45.0
+          fixed: 2.45.1
+        - introduced: 2.46.0
+          fixed: 2.46.1
+        - introduced: 2.47.0
+          fixed: 2.47.4
+      vulnerable_at: 1.80.0-v2.20
+      packages:
+        - package: github.com/zitadel/zitadel/internal/renderer
+          skip_fix: Uses replacement directives.
+summary: XSS in github.com/zitadel/zitadel
+description: |-
+    The Login UI did not sanitize input parameters. An attacker could create a
+    malicious link, where injected code would be rendered as part of the login
+    screen.
+cves:
+    - CVE-2024-28855
+ghsas:
+    - GHSA-hfrg-4jwr-jfpj
+credits:
+    - Daniel Philipp (OWT) and Thomas Wickham (Synopsis)
+references:
+    - advisory: https://github.com/zitadel/zitadel/security/advisories/GHSA-hfrg-4jwr-jfpj
+    - fix: https://github.com/zitadel/zitadel/commit/07ec2efa9dc62f7a6c3a58c112b2879d24bc3e3c
+notes:
+    - 1.80.0-v2.20.0.20240312162750-5908b97e7c22 corresponds to 2.47.4. We are using this as a timestamp.
