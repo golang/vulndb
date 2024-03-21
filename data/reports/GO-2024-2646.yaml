@@ -1,0 +1,39 @@
+id: GO-2024-2646
+modules:
+    - module: github.com/argoproj/argo-cd
+      versions:
+        - introduced: 1.0.0
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - introduced: 2.0.0
+          fixed: 2.8.12
+        - introduced: 2.9.0
+          fixed: 2.9.8
+        - introduced: 2.10.0
+          fixed: 2.10.3
+      vulnerable_at: 2.10.2
+summary: |-
+    Cross-site scripting on application summary component in
+    github.com/argoproj/argo-cd/v2
+description: |-
+    Due to the improper URL protocols filtering of links specified in the
+    link.argocd.argoproj.io annotations in the application summary component, an
+    attacker can achieve cross-site scripting with elevated permissions. A malicious
+    user to inject a javascript: link in the UI. When clicked by a victim user, the
+    script will execute with the victim's permissions (up to and including admin).
+    This vulnerability allows an attacker to perform arbitrary actions on behalf of
+    the victim via the API, such as creating, modifying, and deleting Kubernetes
+    resources.
+cves:
+    - CVE-2024-28175
+ghsas:
+    - GHSA-jwv5-8mqv-g387
+credits:
+    - '@Ry0taK, @agaudreault, and @crenshaw-dev'
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-jwv5-8mqv-g387
+    - fix: https://github.com/argoproj/argo-cd/commit/479b5544b57dc9ef767d49f7003f39602c480b71
+notes:
+    - create: found alias BIT-argo-cd-2024-28175 that is not a GHSA or CVE
+    - Fix is in typescript code.
