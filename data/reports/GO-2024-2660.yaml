@@ -1,0 +1,85 @@
+id: GO-2024-2660
+modules:
+    - module: github.com/golang-fips/openssl/v2
+      versions:
+        - fixed: 2.0.1
+      vulnerable_at: 2.0.0
+      packages:
+        - package: github.com/golang-fips/openssl/v2
+          symbols:
+            - newCipherCtx
+            - setupEVP
+          derived_symbols:
+            - DecryptRSANoPadding
+            - DecryptRSAOAEP
+            - DecryptRSAPKCS1
+            - EncryptRSANoPadding
+            - EncryptRSAOAEP
+            - EncryptRSAPKCS1
+            - NewGCMTLS
+            - NewGCMTLS13
+            - NewRC4Cipher
+            - SignMarshalECDSA
+            - SignRSAPKCS1v15
+            - SignRSAPSS
+            - VerifyECDSA
+            - VerifyRSAPKCS1v15
+            - VerifyRSAPSS
+            - aesCipher.Decrypt
+            - aesCipher.Encrypt
+            - aesCipher.NewCBCDecrypter
+            - aesCipher.NewCBCEncrypter
+            - aesCipher.NewCTR
+            - aesCipher.NewGCM
+            - aesCipher.NewGCMTLS
+            - aesCipher.NewGCMTLS13
+            - desCipher.Decrypt
+            - desCipher.Encrypt
+            - desCipher.NewCBCDecrypter
+            - desCipher.NewCBCEncrypter
+            - desCipherWithoutCBC.Decrypt
+            - desCipherWithoutCBC.Encrypt
+            - noGCM.Decrypt
+            - noGCM.Encrypt
+    - module: github.com/microsoft/go-crypto-openssl
+      versions:
+        - fixed: 0.2.9
+      vulnerable_at: 0.2.8
+      packages:
+        - package: github.com/microsoft/go-crypto-openssl/openssl
+          symbols:
+            - setupEVP
+          derived_symbols:
+            - DecryptRSANoPadding
+            - DecryptRSAOAEP
+            - DecryptRSAOAEPWithMGF1Hash
+            - DecryptRSAPKCS1
+            - EncryptRSANoPadding
+            - EncryptRSAOAEP
+            - EncryptRSAOAEPWithMGF1Hash
+            - EncryptRSAPKCS1
+            - SignMarshalECDSA
+            - SignRSAPKCS1v15
+            - SignRSAPSS
+            - VerifyECDSA
+            - VerifyRSAPKCS1v15
+            - VerifyRSAPSS
+summary: |-
+    Memory leak in github.com/golang-fips/openssl/v2 and
+    github.com/microsoft/go-crypto-openssl
+description: |-
+    Using crafted public RSA keys can cause a small memory leak when encrypting and
+    verifying payloads. This can be gradually leveraged into a denial of service
+    attack.
+cves:
+    - CVE-2024-1394
+ghsas:
+    - GHSA-78hx-gp6g-7mj6
+credits:
+    - '@qmuntal and @r3kumar'
+references:
+    - fix: https://github.com/golang-fips/openssl/commit/85d31d0d257ce842c8a1e63c4d230ae850348136
+    - fix: https://github.com/microsoft/go-crypto-openssl/commit/104fe7f6912788d2ad44602f77a0a0a62f1f259f
+notes:
+    - github.com/golang-fips/go is patches to go standard compiler and library.
+    - github.com/microsoft/go is a clone of the go standard compiler and library. This is outside of what vulncheck can handle.

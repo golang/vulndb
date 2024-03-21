@@ -1,0 +1,136 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2660",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-1394",
+    "GHSA-78hx-gp6g-7mj6"
+  ],
+  "summary": "Memory leak in github.com/golang-fips/openssl/v2 and github.com/microsoft/go-crypto-openssl",
+  "details": "Using crafted public RSA keys can cause a small memory leak when encrypting and verifying payloads. This can be gradually leveraged into a denial of service attack.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/golang-fips/openssl/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.0.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/golang-fips/openssl/v2",
+            "symbols": [
+              "DecryptRSANoPadding",
+              "DecryptRSAOAEP",
+              "DecryptRSAPKCS1",
+              "EncryptRSANoPadding",
+              "EncryptRSAOAEP",
+              "EncryptRSAPKCS1",
+              "NewGCMTLS",
+              "NewGCMTLS13",
+              "NewRC4Cipher",
+              "SignMarshalECDSA",
+              "SignRSAPKCS1v15",
+              "SignRSAPSS",
+              "VerifyECDSA",
+              "VerifyRSAPKCS1v15",
+              "VerifyRSAPSS",
+              "aesCipher.Decrypt",
+              "aesCipher.Encrypt",
+              "aesCipher.NewCBCDecrypter",
+              "aesCipher.NewCBCEncrypter",
+              "aesCipher.NewCTR",
+              "aesCipher.NewGCM",
+              "aesCipher.NewGCMTLS",
+              "aesCipher.NewGCMTLS13",
+              "desCipher.Decrypt",
+              "desCipher.Encrypt",
+              "desCipher.NewCBCDecrypter",
+              "desCipher.NewCBCEncrypter",
+              "desCipherWithoutCBC.Decrypt",
+              "desCipherWithoutCBC.Encrypt",
+              "newCipherCtx",
+              "noGCM.Decrypt",
+              "noGCM.Encrypt",
+              "setupEVP"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/microsoft/go-crypto-openssl",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.2.9"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/microsoft/go-crypto-openssl/openssl",
+            "symbols": [
+              "DecryptRSANoPadding",
+              "DecryptRSAOAEP",
+              "DecryptRSAOAEPWithMGF1Hash",
+              "DecryptRSAPKCS1",
+              "EncryptRSANoPadding",
+              "EncryptRSAOAEP",
+              "EncryptRSAOAEPWithMGF1Hash",
+              "EncryptRSAPKCS1",
+              "SignMarshalECDSA",
+              "SignRSAPKCS1v15",
+              "SignRSAPSS",
+              "VerifyECDSA",
+              "VerifyRSAPKCS1v15",
+              "VerifyRSAPSS",
+              "setupEVP"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/golang-fips/openssl/commit/85d31d0d257ce842c8a1e63c4d230ae850348136"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/microsoft/go-crypto-openssl/commit/104fe7f6912788d2ad44602f77a0a0a62f1f259f"
+    }
+  ],
+  "credits": [
+    {
+      "name": "@qmuntal and @r3kumar"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2660"
+  }
+}
