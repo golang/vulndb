@@ -1,0 +1,26 @@
+id: GO-2024-2653
+modules:
+    - module: github.com/cilium/cilium
+      versions:
+        - introduced: 1.13.9
+          fixed: 1.13.13
+        - introduced: 1.14.0
+          fixed: 1.14.8
+        - introduced: 1.15.0
+          fixed: 1.15.2
+      vulnerable_at: 1.15.1
+summary: HTTP policy bypass in github.com/cilium/cilium
+description: |-
+    Cilium's HTTP policies are not consistently applied to all traffic in the scope
+    of the policies, leading to HTTP traffic being incorrectly and intermittently
+    forwarded when it should be dropped.
+cves:
+    - CVE-2024-28248
+ghsas:
+    - GHSA-68mj-9pjq-mc85
+credits:
+    - '@romikps'
+    - '@sayboras'
+    - '@jrajahalme'
+references:
+    - web: https://docs.cilium.io/en/stable/security/policy/language/#http

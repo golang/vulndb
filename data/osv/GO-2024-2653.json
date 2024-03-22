@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2653",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-28248",
+    "GHSA-68mj-9pjq-mc85"
+  ],
+  "summary": "HTTP policy bypass in github.com/cilium/cilium",
+  "details": "Cilium's HTTP policies are not consistently applied to all traffic in the scope of the policies, leading to HTTP traffic being incorrectly and intermittently forwarded when it should be dropped.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cilium/cilium",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.13.9"
+            },
+            {
+              "fixed": "1.13.13"
+            },
+            {
+              "introduced": "1.14.0"
+            },
+            {
+              "fixed": "1.14.8"
+            },
+            {
+              "introduced": "1.15.0"
+            },
+            {
+              "fixed": "1.15.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://docs.cilium.io/en/stable/security/policy/language/#http"
+    }
+  ],
+  "credits": [
+    {
+      "name": "@romikps"
+    },
+    {
+      "name": "@sayboras"
+    },
+    {
+      "name": "@jrajahalme"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2653"
+  }
+}
