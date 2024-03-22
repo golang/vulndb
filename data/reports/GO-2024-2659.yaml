@@ -1,0 +1,32 @@
+id: GO-2024-2659
+modules:
+    - module: github.com/docker/docker
+      versions:
+        - introduced: 25.0.0+incompatible
+          fixed: 25.0.5+incompatible
+        - introduced: 26.0.0-rc1+incompatible
+          fixed: 26.0.0-rc3+incompatible
+      vulnerable_at: 26.0.0-rc1+incompatible
+summary: Data exfiltration from internal networks in github.com/docker/docker
+description: |-
+    dockerd forwards DNS requests to the host loopback device, bypassing the
+    container network namespace's normal routing semantics, networks marked as
+    'internal' can unexpectedly forward DNS requests to an external nameserver. By
+    registering a domain for which they control the authoritative nameservers, an
+    attacker could arrange for a compromised container to exfiltrate data by
+    encoding it in DNS queries that will eventually be answered by their
+    nameservers.
+cves:
+    - CVE-2024-29018
+ghsas:
+    - GHSA-mq39-4gv4-mvpx
+credits:
+    - '@robmry'
+    - '@akerouanton'
+    - '@neersighted'
+    - '@gabriellavengeo'
+references:
+    - advisory: https://github.com/moby/moby/security/advisories/GHSA-mq39-4gv4-mvpx
+    - web: https://github.com/moby/moby/pull/46609
+notes:
+    - 23.0.11 is not yet released. It can be added as a fix once it is.
