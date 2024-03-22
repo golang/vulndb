@@ -1,0 +1,27 @@
+id: GO-2024-2656
+modules:
+    - module: github.com/cilium/cilium
+      versions:
+        - fixed: 1.13.13
+        - introduced: 1.14.0
+          fixed: 1.14.8
+        - introduced: 1.15.0
+          fixed: 1.15.2
+      vulnerable_at: 1.15.1
+summary: Unencrypted traffic between nodes in github.com/cilium/cilium
+description: |-
+    In Cilium clusters with IPsec enabled and traffic matching Layer 7 policies,
+    traffic that should be IPsec-encrypted between a node's Envoy proxy and pods on
+    other nodes is sent unencrypted, and traffic that should be IPsec-encrypted
+    between a node's DNS proxy and pods on other nodes is sent unencrypted.
+cves:
+    - CVE-2024-28249
+ghsas:
+    - GHSA-j89h-qrvr-xc36
+credits:
+    - '@jschwinger233'
+    - '@julianwiedmann'
+    - '@giorio94'
+    - '@jrajahalme'
+references:
+    - advisory: https://github.com/cilium/cilium/security/advisories/GHSA-j89h-qrvr-xc36
