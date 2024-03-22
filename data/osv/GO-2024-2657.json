@@ -7,7 +7,7 @@
     "CVE-2024-28250",
     "GHSA-v6q2-4qr3-5cw6"
   ],
-  "summary": "Unencrypted traffic between nodes in github.com/cilium/cilium",
+  "summary": "Unencrypted traffic between nodes with WireGuard in github.com/cilium/cilium",
   "details": "In Cilium clusters with WireGuard enabled and traffic matching Layer 7 policies: traffic that should be WireGuard-encrypted is sent unencrypted between a node's Envoy proxy and pods on other nodes, and traffic that should be WireGuard-encrypted is sent unencrypted between a node's DNS proxy and pods on other nodes.",
   "affected": [
     {

@@ -7,7 +7,7 @@
     "CVE-2024-28249",
     "GHSA-j89h-qrvr-xc36"
   ],
-  "summary": "Unencrypted traffic between nodes in github.com/cilium/cilium",
+  "summary": "Unencrypted traffic between nodes with IPsec in github.com/cilium/cilium",
   "details": "In Cilium clusters with IPsec enabled and traffic matching Layer 7 policies, traffic that should be IPsec-encrypted between a node's Envoy proxy and pods on other nodes is sent unencrypted, and traffic that should be IPsec-encrypted between a node's DNS proxy and pods on other nodes is sent unencrypted.",
   "affected": [
     {
