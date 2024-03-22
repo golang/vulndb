@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2661",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2019-19499",
+    "GHSA-4pwp-cx67-5cpx"
+  ],
+  "summary": "Arbitrary file read in github.com/grafana/grafana",
+  "details": "An authenticated attacker that has privileges to modify the data source configurations can read arbitrary files.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/grafana/grafana",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/grafana/grafana/pull/20192"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/grafana/grafana/blob/master/CHANGELOG.md#644-2019-11-06"
+    },
+    {
+      "type": "WEB",
+      "url": "https://security.netapp.com/advisory/ntap-20200918-0003"
+    },
+    {
+      "type": "WEB",
+      "url": "https://swarm.ptsecurity.com/grafana-6-4-3-arbitrary-file-read"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2661"
+  }
+}

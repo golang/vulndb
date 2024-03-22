@@ -1,0 +1,18 @@
+id: GO-2024-2661
+modules:
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - fixed: 6.4.4
+summary: Arbitrary file read in github.com/grafana/grafana
+description: |-
+    An authenticated attacker that has privileges to modify the data source
+    configurations can read arbitrary files.
+cves:
+    - CVE-2019-19499
+ghsas:
+    - GHSA-4pwp-cx67-5cpx
+references:
+    - fix: https://github.com/grafana/grafana/pull/20192
+    - web: https://github.com/grafana/grafana/blob/master/CHANGELOG.md#644-2019-11-06
+    - web: https://security.netapp.com/advisory/ntap-20200918-0003
+    - web: https://swarm.ptsecurity.com/grafana-6-4-3-arbitrary-file-read
