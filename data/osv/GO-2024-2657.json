@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2657",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-28250",
+    "GHSA-v6q2-4qr3-5cw6"
+  ],
+  "summary": "Unencrypted traffic between nodes in github.com/cilium/cilium",
+  "details": "In Cilium clusters with WireGuard enabled and traffic matching Layer 7 policies: traffic that should be WireGuard-encrypted is sent unencrypted between a node's Envoy proxy and pods on other nodes, and traffic that should be WireGuard-encrypted is sent unencrypted between a node's DNS proxy and pods on other nodes.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cilium/cilium",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.14.0"
+            },
+            {
+              "fixed": "1.14.8"
+            },
+            {
+              "introduced": "1.15.0"
+            },
+            {
+              "fixed": "1.15.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cilium/cilium/security/advisories/GHSA-v6q2-4qr3-5cw6"
+    }
+  ],
+  "credits": [
+    {
+      "name": "@brb"
+    },
+    {
+      "name": "@giorio94"
+    },
+    {
+      "name": "@gandro"
+    },
+    {
+      "name": "@jschwinger233"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2657"
+  }
+}

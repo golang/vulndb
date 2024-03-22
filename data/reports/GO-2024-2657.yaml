@@ -1,0 +1,27 @@
+id: GO-2024-2657
+modules:
+    - module: github.com/cilium/cilium
+      versions:
+        - introduced: 1.14.0
+          fixed: 1.14.8
+        - introduced: 1.15.0
+          fixed: 1.15.2
+      vulnerable_at: 1.15.1
+summary: Unencrypted traffic between nodes in github.com/cilium/cilium
+description: |-
+    In Cilium clusters with WireGuard enabled and traffic matching Layer 7 policies:
+    traffic that should be WireGuard-encrypted is sent unencrypted between a node's
+    Envoy proxy and pods on other nodes, and traffic that should be
+    WireGuard-encrypted is sent unencrypted between a node's DNS proxy and pods on
+    other nodes.
+cves:
+    - CVE-2024-28250
+ghsas:
+    - GHSA-v6q2-4qr3-5cw6
+credits:
+    - '@brb'
+    - '@giorio94'
+    - '@gandro'
+    - '@jschwinger233'
+references:
+    - advisory: https://github.com/cilium/cilium/security/advisories/GHSA-v6q2-4qr3-5cw6
