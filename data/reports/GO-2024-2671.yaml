@@ -1,0 +1,101 @@
+id: GO-2024-2671
+modules:
+    - module: github.com/hashicorp/nomad
+      versions:
+        - introduced: 0.11.0
+          fixed: 1.4.11
+        - introduced: 1.5.0
+          fixed: 1.5.7
+      vulnerable_at: 1.4.10
+      packages:
+        - package: github.com/hashicorp/nomad/acl
+          symbols:
+            - ACL.AllowVariableSearch
+        - package: github.com/hashicorp/nomad/nomad
+          symbols:
+            - sufficientSearchPerms
+            - filteredSearchContexts
+            - getEnterpriseFuzzyResourceIter
+          derived_symbols:
+            - ACL.GetPolicies
+            - ACL.GetPolicy
+            - ACL.GetRoleByID
+            - ACL.GetRoleByName
+            - ACL.GetRolesByID
+            - ACL.GetToken
+            - ACL.GetTokens
+            - ACL.ListPolicies
+            - ACL.ListRoles
+            - ACL.ListTokens
+            - Alloc.GetAlloc
+            - Alloc.GetAllocs
+            - Alloc.GetServiceRegistrations
+            - Alloc.List
+            - CSIPlugin.Get
+            - CSIPlugin.List
+            - CSIVolume.Get
+            - CSIVolume.List
+            - Deployment.Allocations
+            - Deployment.GetDeployment
+            - Deployment.List
+            - Eval.Allocations
+            - Eval.Count
+            - Eval.GetEval
+            - Eval.List
+            - Job.Allocations
+            - Job.Deployments
+            - Job.Dispatch
+            - Job.Evaluations
+            - Job.GetJob
+            - Job.GetJobVersions
+            - Job.GetServiceRegistrations
+            - Job.LatestDeployment
+            - Job.List
+            - Job.Plan
+            - Job.ScaleStatus
+            - Job.Summary
+            - Keyring.Get
+            - Keyring.List
+            - Namespace.GetNamespace
+            - Namespace.GetNamespaces
+            - Namespace.ListNamespaces
+            - NewServer
+            - NewWorker
+            - Node.GetAllocs
+            - Node.GetClientAllocs
+            - Node.GetNode
+            - Node.List
+            - PeriodicDispatch.SetEnabled
+            - Scaling.GetPolicy
+            - Scaling.ListPolicies
+            - Search.FuzzySearch
+            - Search.PrefixSearch
+            - Server.Reload
+            - Server.RunningChildren
+            - Server.SetSchedulerWorkerConfig
+            - ServiceRegistration.GetService
+            - ServiceRegistration.List
+            - TestACLServer
+            - TestServer
+            - TestServerErr
+            - Variables.List
+            - Variables.Read
+            - Worker.Start
+            - nomadFSM.Apply
+            - nomadFSM.Restore
+            - nomadFSM.RestoreWithFilter
+summary: CSI plugin names disclosure in github.com/hashicorp/nomad
+description: |-
+    A vulnerability was identified in Nomad such that the search HTTP API
+    can reveal names of available CSI plugins to unauthenticated users or
+    users without the plugin:read policy. This vulnerability affects Nomad
+    since 0.11.0 and was fixed in 1.4.11 and 1.5.7.
+cves:
+    - CVE-2023-3300
+ghsas:
+    - GHSA-v5fm-hr72-27hx
+credits:
+    - anonymous4ACL24
+references:
+    - fix: https://github.com/hashicorp/nomad/commit/a8789d3872bbf1b1f420f28b0f7ad8532a41d5e3
+    - web: https://discuss.hashicorp.com/t/hcsec-2023-22-nomad-search-api-leaks-information-about-csi-plugins/56272
