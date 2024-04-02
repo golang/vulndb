@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2668",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-28232",
+    "GHSA-hcw2-2r9c-gc6p"
+  ],
+  "summary": "Login username enumeration in github.com/IceWhaleTech/CasaOS-UserService",
+  "details": "The Casa OS Login page has a username enumeration vulnerability in the login page that was patched in Casa OS v0.4.7. The issue exists because the application response differs depending on whether the username or password is incorrect, allowing an attacker to enumerate usernames by observing the application response. For example, if the username is incorrect, the application returns \"User does not exist\" with return code \"10006\", while if the password is incorrect, it returns \"User does not exist or password is invalid\" with return code \"10013\". This allows an attacker to determine if a username exists without knowing the password.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/IceWhaleTech/CasaOS-UserService",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.4.8"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/IceWhaleTech/CasaOS-UserService/route/v1",
+            "symbols": [
+              "PostUserLogin"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/IceWhaleTech/CasaOS-UserService/security/advisories/GHSA-hcw2-2r9c-gc6p"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/IceWhaleTech/CasaOS-UserService/commit/dd927fe1c805e53790f73cfe10c7a4ded3bc5bdb"
+    }
+  ],
+  "credits": [
+    {
+      "name": "DrDark1999"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2668"
+  }
+}
