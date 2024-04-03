@@ -1,0 +1,308 @@
+id: GO-2024-2687
+modules:
+    - module: std
+      versions:
+        - fixed: 1.21.9
+        - introduced: 1.22.0-0
+          fixed: 1.22.2
+      vulnerable_at: 1.22.1
+      packages:
+        - package: net/http
+          symbols:
+            - http2Framer.readMetaFrame
+          derived_symbols:
+            - CanonicalHeaderKey
+            - Client.CloseIdleConnections
+            - Client.Do
+            - Client.Get
+            - Client.Head
+            - Client.Post
+            - Client.PostForm
+            - Cookie.String
+            - Cookie.Valid
+            - Dir.Open
+            - Error
+            - Get
+            - HandlerFunc.ServeHTTP
+            - Head
+            - Header.Add
+            - Header.Del
+            - Header.Get
+            - Header.Set
+            - Header.Values
+            - Header.Write
+            - Header.WriteSubset
+            - ListenAndServe
+            - ListenAndServeTLS
+            - NewRequest
+            - NewRequestWithContext
+            - NotFound
+            - ParseTime
+            - Post
+            - PostForm
+            - ProxyFromEnvironment
+            - ReadRequest
+            - ReadResponse
+            - Redirect
+            - Request.AddCookie
+            - Request.BasicAuth
+            - Request.FormFile
+            - Request.FormValue
+            - Request.MultipartReader
+            - Request.ParseForm
+            - Request.ParseMultipartForm
+            - Request.PostFormValue
+            - Request.Referer
+            - Request.SetBasicAuth
+            - Request.UserAgent
+            - Request.Write
+            - Request.WriteProxy
+            - Response.Cookies
+            - Response.Location
+            - Response.Write
+            - ResponseController.EnableFullDuplex
+            - ResponseController.Flush
+            - ResponseController.Hijack
+            - ResponseController.SetReadDeadline
+            - ResponseController.SetWriteDeadline
+            - Serve
+            - ServeContent
+            - ServeFile
+            - ServeMux.ServeHTTP
+            - ServeTLS
+            - Server.Close
+            - Server.ListenAndServe
+            - Server.ListenAndServeTLS
+            - Server.Serve
+            - Server.ServeTLS
+            - Server.SetKeepAlivesEnabled
+            - Server.Shutdown
+            - SetCookie
+            - Transport.CancelRequest
+            - Transport.Clone
+            - Transport.CloseIdleConnections
+            - Transport.RoundTrip
+            - body.Close
+            - body.Read
+            - bodyEOFSignal.Close
+            - bodyEOFSignal.Read
+            - bodyLocked.Read
+            - bufioFlushWriter.Write
+            - cancelTimerBody.Close
+            - cancelTimerBody.Read
+            - checkConnErrorWriter.Write
+            - chunkWriter.Write
+            - connReader.Read
+            - connectMethodKey.String
+            - expectContinueReader.Close
+            - expectContinueReader.Read
+            - extraHeader.Write
+            - fileHandler.ServeHTTP
+            - fileTransport.RoundTrip
+            - globalOptionsHandler.ServeHTTP
+            - gzipReader.Close
+            - gzipReader.Read
+            - http2ClientConn.Close
+            - http2ClientConn.Ping
+            - http2ClientConn.RoundTrip
+            - http2ClientConn.Shutdown
+            - http2ConnectionError.Error
+            - http2ErrCode.String
+            - http2FrameHeader.String
+            - http2FrameType.String
+            - http2FrameWriteRequest.String
+            - http2Framer.ReadFrame
+            - http2Framer.WriteContinuation
+            - http2Framer.WriteData
+            - http2Framer.WriteDataPadded
+            - http2Framer.WriteGoAway
+            - http2Framer.WriteHeaders
+            - http2Framer.WritePing
+            - http2Framer.WritePriority
+            - http2Framer.WritePushPromise
+            - http2Framer.WriteRSTStream
+            - http2Framer.WriteRawFrame
+            - http2Framer.WriteSettings
+            - http2Framer.WriteSettingsAck
+            - http2Framer.WriteWindowUpdate
+            - http2GoAwayError.Error
+            - http2Server.ServeConn
+            - http2Setting.String
+            - http2SettingID.String
+            - http2SettingsFrame.ForeachSetting
+            - http2StreamError.Error
+            - http2Transport.CloseIdleConnections
+            - http2Transport.NewClientConn
+            - http2Transport.RoundTrip
+            - http2Transport.RoundTripOpt
+            - http2bufferedWriter.Flush
+            - http2bufferedWriter.Write
+            - http2chunkWriter.Write
+            - http2clientConnPool.GetClientConn
+            - http2connError.Error
+            - http2dataBuffer.Read
+            - http2duplicatePseudoHeaderError.Error
+            - http2gzipReader.Close
+            - http2gzipReader.Read
+            - http2headerFieldNameError.Error
+            - http2headerFieldValueError.Error
+            - http2noDialClientConnPool.GetClientConn
+            - http2noDialH2RoundTripper.RoundTrip
+            - http2pipe.Read
+            - http2priorityWriteScheduler.CloseStream
+            - http2priorityWriteScheduler.OpenStream
+            - http2pseudoHeaderError.Error
+            - http2requestBody.Close
+            - http2requestBody.Read
+            - http2responseWriter.Flush
+            - http2responseWriter.FlushError
+            - http2responseWriter.Push
+            - http2responseWriter.SetReadDeadline
+            - http2responseWriter.SetWriteDeadline
+            - http2responseWriter.Write
+            - http2responseWriter.WriteHeader
+            - http2responseWriter.WriteString
+            - http2roundRobinWriteScheduler.OpenStream
+            - http2serverConn.CloseConn
+            - http2serverConn.Flush
+            - http2stickyErrWriter.Write
+            - http2transportResponseBody.Close
+            - http2transportResponseBody.Read
+            - http2writeData.String
+            - initALPNRequest.ServeHTTP
+            - loggingConn.Close
+            - loggingConn.Read
+            - loggingConn.Write
+            - maxBytesReader.Close
+            - maxBytesReader.Read
+            - onceCloseListener.Close
+            - persistConn.Read
+            - persistConnWriter.ReadFrom
+            - persistConnWriter.Write
+            - populateResponse.Write
+            - populateResponse.WriteHeader
+            - readTrackingBody.Close
+            - readTrackingBody.Read
+            - readWriteCloserBody.Read
+            - redirectHandler.ServeHTTP
+            - response.Flush
+            - response.FlushError
+            - response.Hijack
+            - response.ReadFrom
+            - response.Write
+            - response.WriteHeader
+            - response.WriteString
+            - serverHandler.ServeHTTP
+            - socksDialer.DialWithConn
+            - socksUsernamePassword.Authenticate
+            - stringWriter.WriteString
+            - timeoutHandler.ServeHTTP
+            - timeoutWriter.Write
+            - timeoutWriter.WriteHeader
+            - transportReadFromServerError.Error
+    - module: golang.org/x/net
+      versions:
+        - fixed: 0.23.0
+      vulnerable_at: 0.22.0
+      packages:
+        - package: golang.org/x/net/http2
+          symbols:
+            - Framer.readMetaFrame
+          derived_symbols:
+            - ClientConn.Close
+            - ClientConn.Ping
+            - ClientConn.RoundTrip
+            - ClientConn.Shutdown
+            - ConfigureServer
+            - ConfigureTransport
+            - ConfigureTransports
+            - ConnectionError.Error
+            - ErrCode.String
+            - FrameHeader.String
+            - FrameType.String
+            - FrameWriteRequest.String
+            - Framer.ReadFrame
+            - Framer.WriteContinuation
+            - Framer.WriteData
+            - Framer.WriteDataPadded
+            - Framer.WriteGoAway
+            - Framer.WriteHeaders
+            - Framer.WritePing
+            - Framer.WritePriority
+            - Framer.WritePushPromise
+            - Framer.WriteRSTStream
+            - Framer.WriteRawFrame
+            - Framer.WriteSettings
+            - Framer.WriteSettingsAck
+            - Framer.WriteWindowUpdate
+            - GoAwayError.Error
+            - ReadFrameHeader
+            - Server.ServeConn
+            - Setting.String
+            - SettingID.String
+            - SettingsFrame.ForeachSetting
+            - StreamError.Error
+            - Transport.CloseIdleConnections
+            - Transport.NewClientConn
+            - Transport.RoundTrip
+            - Transport.RoundTripOpt
+            - bufferedWriter.Flush
+            - bufferedWriter.Write
+            - chunkWriter.Write
+            - clientConnPool.GetClientConn
+            - connError.Error
+            - dataBuffer.Read
+            - duplicatePseudoHeaderError.Error
+            - gzipReader.Close
+            - gzipReader.Read
+            - headerFieldNameError.Error
+            - headerFieldValueError.Error
+            - noDialClientConnPool.GetClientConn
+            - noDialH2RoundTripper.RoundTrip
+            - pipe.Read
+            - priorityWriteScheduler.CloseStream
+            - priorityWriteScheduler.OpenStream
+            - pseudoHeaderError.Error
+            - requestBody.Close
+            - requestBody.Read
+            - responseWriter.Flush
+            - responseWriter.FlushError
+            - responseWriter.Push
+            - responseWriter.SetReadDeadline
+            - responseWriter.SetWriteDeadline
+            - responseWriter.Write
+            - responseWriter.WriteHeader
+            - responseWriter.WriteString
+            - roundRobinWriteScheduler.OpenStream
+            - serverConn.CloseConn
+            - serverConn.Flush
+            - stickyErrWriter.Write
+            - transportResponseBody.Close
+            - transportResponseBody.Read
+            - writeData.String
+summary: HTTP/2 CONTINUATION flood in net/http
+description: |-
+    An attacker may cause an HTTP/2 endpoint to read arbitrary amounts of header
+    data by sending an excessive number of CONTINUATION frames.
+
+    Maintaining HPACK state requires parsing and processing all HEADERS and
+    CONTINUATION frames on a connection. When a request's headers exceed
+    MaxHeaderBytes, no memory is allocated to store the excess headers, but they are
+    still parsed.
+
+    This permits an attacker to cause an HTTP/2 endpoint to read arbitrary amounts
+    of header data, all associated with a request which is going to be rejected.
+    These headers can include Huffman-encoded data which is significantly more
+    expensive for the receiver to decode than for an attacker to send.
+
+    The fix sets a limit on the amount of excess header frames we will process
+    before closing a connection.
+credits:
+    - Bartek Nowotarski (https://nowotarski.info/)
+references:
+    - report: https://go.dev/issue/65051
+    - fix: https://go.dev/cl/576155
+    - web: https://groups.google.com/g/golang-announce/c/YgW0sx8mN3M
+cve_metadata:
+    id: CVE-2023-45288
+    cwe: 'CWE-400: Uncontrolled Resource Consumption'
