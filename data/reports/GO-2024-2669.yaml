@@ -1,0 +1,22 @@
+id: GO-2024-2669
+modules:
+    - module: github.com/hashicorp/nomad
+      versions:
+        - introduced: 1.2.11
+          fixed: 1.4.11
+        - introduced: 1.5.0
+          fixed: 1.5.7
+      vulnerable_at: 1.5.6
+summary: API token secret ID leak to Sentinel in github.com/hashicorp/nomad
+description: |-
+    A vulnerability exists in Nomad where the API caller's ACL token secret
+    ID is exposed to Sentinel policies.
+cves:
+    - CVE-2023-3299
+ghsas:
+    - GHSA-9jfx-84v9-2rr2
+credits:
+    - anonymous4ACL24
+references:
+    - report: https://github.com/hashicorp/nomad/issues/17907
+    - web: https://discuss.hashicorp.com/t/hcsec-2023-21-nomad-caller-acl-tokens-secret-id-is-exposed-to-sentinel/56271
