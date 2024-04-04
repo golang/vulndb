@@ -10,16 +10,15 @@ modules:
             - PostUserLogin
 summary: Login username enumeration in github.com/IceWhaleTech/CasaOS-UserService
 description: |-
-    The Casa OS Login page has a username enumeration vulnerability in the
-    login page that was patched in Casa OS v0.4.7. The issue exists because
-    the application response differs depending on whether the username or
-    password is incorrect, allowing an attacker to enumerate usernames by
-    observing the application response. For example, if the username is
-    incorrect, the application returns "User does not exist" with return
-    code "10006", while if the password is incorrect, it returns
-    "User does not exist or password is invalid" with return code "10013".
-    This allows an attacker to determine if a username exists without knowing
-    the password.
+    The Casa OS Login page has a username enumeration vulnerability in the login
+    page that was patched in Casa OS v0.4.7. The issue exists because the
+    application response differs depending on whether the username or password is
+    incorrect, allowing an attacker to enumerate usernames by observing the
+    application response. For example, if the username is incorrect, the application
+    returns "User does not exist" with return code "10006", while if the password is
+    incorrect, it returns "User does not exist or password is invalid" with return
+    code "10013". This allows an attacker to determine if a username exists without
+    knowing the password.
 cves:
     - CVE-2024-28232
 ghsas:

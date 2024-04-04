@@ -23,11 +23,11 @@ modules:
 summary: Incorrect email domain verification in github.com/coder/coder
 description: |-
     A vulnerability in Coder's OIDC authentication could allow an attacker to bypass
-    the CODER_OIDC_EMAIL_DOMAIN verification and create an account with an email
-    not in the allowlist. Deployments are only affected if the OIDC provider allows
+    the CODER_OIDC_EMAIL_DOMAIN verification and create an account with an email not
+    in the allowlist. Deployments are only affected if the OIDC provider allows
     users to create accounts on the provider (such as public providers like
-    google.com). During OIDC registration, the user's email was improperly
-    validated against the allowed CODER_OIDC_EMAIL_DOMAINs.
+    google.com). During OIDC registration, the user's email was improperly validated
+    against the allowed CODER_OIDC_EMAIL_DOMAINs.
 cves:
     - CVE-2024-27918
 ghsas:

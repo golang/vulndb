@@ -8,13 +8,13 @@ modules:
         - package: github.com/moby/buildkit/executor
           symbols:
             - MountStubsCleaner
-      fix_links: 
+      fix_links:
         - https://github.com/moby/buildkit/commit/00fe637d43aba66f0937f5bdf4b9fc96991794fd
 summary: Host system modification in github.com/moby/buildkit
 description: |-
-    A malicious BuildKit frontend or Dockerfile using RUN --mount could trick
-    the feature that removes empty files created for the mountpoints into
-    removing a file outside the container, from the host system.
+    A malicious BuildKit frontend or Dockerfile using RUN --mount could trick the
+    feature that removes empty files created for the mountpoints into removing a
+    file outside the container, from the host system.
 cves:
     - CVE-2024-23652
 ghsas:

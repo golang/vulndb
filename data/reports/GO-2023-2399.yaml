@@ -47,9 +47,8 @@ modules:
           skip_fix: 'TODO: module github.com/hashicorp/vault must be updated with go get github.com/hashicorp/vault/sdk@v0.10.2 to reproduce.'
 summary: Denial of service via memory exhaustion in github.com/hashicorp/vault
 description: |-
-    Unauthenticated and authenticated HTTP requests from a client
-    will be attempted to be mapped to memory.
-    Large requests may result in the exhaustion of available
+    Unauthenticated and authenticated HTTP requests from a client will be attempted
+    to be mapped to memory. Large requests may result in the exhaustion of available
     memory on the host, which may cause crashes and denial of service.
 cves:
     - CVE-2023-6337
