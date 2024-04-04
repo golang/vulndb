@@ -1,0 +1,22 @@
+id: GO-2024-2670
+modules:
+    - module: github.com/hashicorp/nomad
+      versions:
+        - introduced: 0.7.0
+          fixed: 1.4.11
+        - introduced: 1.5.0
+          fixed: 1.5.6
+      vulnerable_at: 1.5.5
+summary: ACL security vulnerability in github.com/hashicorp/nomad
+description: |-
+    An ACL policy using a block without label can be applied to unexpected resources
+    in Nomad, a distributed, highly available scheduler designed for effortless
+    operations and management of applications.
+cves:
+    - CVE-2023-3072
+ghsas:
+    - GHSA-rpvr-38xv-xvxq
+credits:
+    - anonymous4ACL24
+references:
+    - web: https://discuss.hashicorp.com/t/hcsec-2023-20-nomad-acl-policies-without-label-are-applied-to-unexpected-resources/56270
