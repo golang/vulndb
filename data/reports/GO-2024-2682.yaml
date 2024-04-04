@@ -1,0 +1,74 @@
+id: GO-2024-2682
+modules:
+    - module: github.com/quic-go/quic-go
+      versions:
+        - fixed: 0.42.0
+      vulnerable_at: 0.41.0
+      packages:
+        - package: github.com/quic-go/quic-go
+          symbols:
+            - framerI.QueueControlFrame
+            - connection.run
+          derived_symbols:
+            - Dial
+            - DialAddr
+            - DialAddrEarly
+            - DialEarly
+            - Listen
+            - ListenAddr
+            - ListenAddrEarly
+            - ListenEarly
+            - Transport.Dial
+            - Transport.DialEarly
+            - Transport.Listen
+            - Transport.ListenEarly
+            - connIDGenerator.Retire
+            - connIDGenerator.SetMaxActiveConnIDs
+            - connIDManager.Add
+            - connIDManager.Get
+            - connection.AcceptStream
+            - connection.AcceptUniStream
+            - connection.OpenStream
+            - connection.OpenStreamSync
+            - connection.OpenUniStream
+            - connection.OpenUniStreamSync
+            - framerI.AppendStreamFrames
+            - packetPacker.AppendPacket
+            - packetPacker.MaybePackProbePacket
+            - packetPacker.PackAckOnlyPacket
+            - packetPacker.PackApplicationClose
+            - packetPacker.PackCoalescedPacket
+            - packetPacker.PackConnectionClose
+            - packetPacker.PackMTUProbePacket
+            - receiveStream.CancelRead
+            - receiveStream.CloseRemote
+            - receiveStream.Read
+            - sendStream.CancelWrite
+            - streamsMap.AcceptStream
+            - streamsMap.AcceptUniStream
+            - streamsMap.DeleteStream
+            - streamsMap.HandleMaxStreamsFrame
+            - streamsMap.OpenStream
+            - streamsMap.OpenStreamSync
+            - streamsMap.OpenUniStream
+            - streamsMap.OpenUniStreamSync
+            - streamsMap.UpdateLimits
+            - windowUpdateQueue.QueueAll
+summary: Denial of service via connection starvation in github.com/quic-go/quic-go
+description: |-
+    An attacker can cause its peer to run out of memory by sending a large number of
+    NEW_CONNECTION_ID frames that retire old connection IDs. The receiver is
+    supposed to respond to each retirement frame with a RETIRE_CONNECTION_ID frame.
+    The attacker can prevent the receiver from sending out (the vast majority of)
+    these RETIRE_CONNECTION_ID frames by collapsing the peers congestion window (by
+    selectively acknowledging received packets) and by manipulating the peer's RTT
+    estimate.
+cves:
+    - CVE-2024-22189
+ghsas:
+    - GHSA-c33x-xqrf-c478
+credits:
+    - marten-seemann
+references:
+    - fix: https://github.com/quic-go/quic-go/commit/4a99b816ae3ab03ae5449d15aac45147c85ed47a
+    - web: https://seemann.io/posts/2024-03-19-exploiting-quics-connection-id-management
