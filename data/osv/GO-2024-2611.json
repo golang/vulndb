@@ -4,7 +4,8 @@
   "modified": "0001-01-01T00:00:00Z",
   "published": "0001-01-01T00:00:00Z",
   "aliases": [
-    "CVE-2024-24786"
+    "CVE-2024-24786",
+    "GHSA-8r3f-844c-mc37"
   ],
   "summary": "Infinite loop in JSON unmarshaling in google.golang.org/protobuf",
   "details": "The protojson.Unmarshal function can enter an infinite loop when unmarshaling certain forms of invalid JSON. This condition can occur when unmarshaling into a message which contains a google.protobuf.Any value, or when the UnmarshalOptions.DiscardUnknown option is set.",
