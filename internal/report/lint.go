@@ -25,6 +25,10 @@ import (
 )
 
 func (m *Module) checkModVersions(pc *proxy.Client) error {
+	if ok := pc.ModuleExists(m.Module); !ok {
+		return fmt.Errorf("module %s not known to proxy", m.Module)
+	}
+
 	var notFound []string
 	var nonCanonical []string
 	for _, vr := range m.Versions {
@@ -272,8 +276,8 @@ func (r *Report) countAdvisories() int {
 }
 
 func (r *Report) missingAdvisory(advisoryCount int) bool {
-	return !r.IsExcluded() && !r.IsFirstParty() &&
-		advisoryCount == 0 && r.Description == "" && r.CVEMetadata == nil
+	return !r.IsExcluded() && r.Description == "" && !r.IsFirstParty() &&
+		advisoryCount == 0 && r.CVEMetadata == nil
 }
 
 func (d *Description) lint(l *linter, r *Report) {
@@ -309,13 +313,8 @@ func (s *Summary) lint(l *linter, r *Report) {
 	if strings.HasSuffix(summary, ".") {
 		l.Error("must not end in a period (should be a phrase, not a sentence)")
 	}
-	for i, r := range summary {
-		if i != 0 {
-			break
-		}
-		if !unicode.IsUpper(r) {
-			l.Error("must begin with a capital letter")
-		}
+	if !startsWithUpper(summary) {
+		l.Error("must begin with a capital letter")
 	}
 
 	// Summary must contain one of the listed module or package
@@ -328,6 +327,18 @@ func (s *Summary) lint(l *linter, r *Report) {
 			l.Errorf("must contain an affected module or package path (e.g. %q)", paths[0])
 		}
 	}
+}
+
+func startsWithUpper(s string) bool {
+	for i, r := range s {
+		if i != 0 {
+			return true
+		}
+		if !unicode.IsUpper(r) {
+			return false
+		}
+	}
+	return false
 }
 
 // containsPath returns whether the summary contains one of
@@ -482,7 +493,7 @@ func (m *Module) lint(l *linter, r *Report, pc *proxy.Client) {
 		l.Error("no module name")
 	}
 
-	if !m.IsFirstParty() && pc != nil {
+	if !r.IsExcluded() && !m.IsFirstParty() && pc != nil {
 		if err := m.checkModVersions(pc); err != nil {
 			l.Error(err)
 		}
