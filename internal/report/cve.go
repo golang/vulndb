@@ -250,8 +250,33 @@ func convertVersions(vrs []cveschema5.VersionRange, defaultStatus cveschema5.Ver
 	return vs, uvs
 }
 
+var (
+	// Regex for matching version strings like "<= X, < Y".
+	introducedFixedRE = regexp.MustCompile(`^>= (.+), < (.+)$`)
+	// Regex for matching version strings like "< Y".
+	fixedRE = regexp.MustCompile(`^< (.+)$`)
+)
+
 func toVersionRange(cvr *cveschema5.VersionRange, defaultStatus cveschema5.VersionStatus) (*VersionRange, bool) {
-	// For now, we only support version ranges that are easy to convert to our format.
+	// Handle special cases where the info is not quite correctly encoded but
+	// we can still figure out the intent.
+
+	// Case one: introduced version is of the form "<= X, < Y".
+	if m := introducedFixedRE.FindStringSubmatch(string(cvr.Introduced)); len(m) == 3 {
+		return &VersionRange{
+			Introduced: m[1],
+			Fixed:      m[2],
+		}, true
+	}
+
+	// Case two: introduced version is of the form "< Y".
+	if m := fixedRE.FindStringSubmatch(string(cvr.Introduced)); len(m) == 2 {
+		return &VersionRange{
+			Fixed: m[1],
+		}, true
+	}
+
+	// For now, don't attempt to fix any other messed up cases.
 	if cvr.VersionType != typeSemver ||
 		cvr.LessThanOrEqual != "" ||
 		!version.IsValid(string(cvr.Introduced)) ||
