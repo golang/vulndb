@@ -1,0 +1,34 @@
+id: GO-2024-2683
+modules:
+    - module: github.com/hashicorp/consul
+      versions:
+        - introduced: 1.8.1
+          fixed: 1.11.9
+        - introduced: 1.12.0
+          fixed: 1.12.5
+        - introduced: 1.13.0
+          fixed: 1.13.2
+      vulnerable_at: 1.13.1
+      packages:
+        - package: github.com/hashicorp/consul/agent/consul
+          symbols:
+            - jwtAuthorizer.Authorize
+          derived_symbols:
+            - AutoConfig.InitialConfiguration
+summary: |-
+    Improper handling of node names in JWT claims assertions in
+    github.com/hashicorp/consul
+description: |-
+    HashiCorp Consul does not properly validate the node or segment names prior to
+    interpolation and usage in JWT claim assertions with the auto config RPC.
+cves:
+    - CVE-2021-41803
+ghsas:
+    - GHSA-hr3v-8cp3-68rf
+credits:
+    - anonymous4ACL24
+references:
+    - web: https://discuss.hashicorp.com/t/hcsec-2022-19-consul-auto-config-jwt-authorization-missing-input-validation/44627
+    - fix: https://github.com/hashicorp/consul/pull/14577/commits/2c881259ce10e308ff03afc968c4165998fd7fee
+notes:
+    - create: found alias BIT-consul-2021-41803 that is not a GHSA or CVE

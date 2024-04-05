@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2683",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-41803",
+    "GHSA-hr3v-8cp3-68rf"
+  ],
+  "summary": "Improper handling of node names in JWT claims assertions in github.com/hashicorp/consul",
+  "details": "HashiCorp Consul does not properly validate the node or segment names prior to interpolation and usage in JWT claim assertions with the auto config RPC.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hashicorp/consul",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.8.1"
+            },
+            {
+              "fixed": "1.11.9"
+            },
+            {
+              "introduced": "1.12.0"
+            },
+            {
+              "fixed": "1.12.5"
+            },
+            {
+              "introduced": "1.13.0"
+            },
+            {
+              "fixed": "1.13.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/hashicorp/consul/agent/consul",
+            "symbols": [
+              "AutoConfig.InitialConfiguration",
+              "jwtAuthorizer.Authorize"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://discuss.hashicorp.com/t/hcsec-2022-19-consul-auto-config-jwt-authorization-missing-input-validation/44627"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hashicorp/consul/pull/14577/commits/2c881259ce10e308ff03afc968c4165998fd7fee"
+    }
+  ],
+  "credits": [
+    {
+      "name": "anonymous4ACL24"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2683"
+  }
+}
