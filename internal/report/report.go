@@ -217,6 +217,10 @@ type Report struct {
 	// the above CVEs.
 	GHSAs []string `yaml:",omitempty"`
 
+	// Aliases from other databases that we don't (yet) know about.
+	// Not published to OSV.
+	UnknownAliases []string `yaml:"unknown_aliases,omitempty"`
+
 	// Related is a list of identifiers (e.g. CVEs or GHSAs)
 	// that are related to, but are not direct aliases of, this report.
 	Related []string `yaml:",omitempty"`

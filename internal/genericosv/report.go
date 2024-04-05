@@ -36,7 +36,7 @@ func (osv *Entry) ToReport(goID string, pc *proxy.Client) *report.Report {
 		case ghsa.IsGHSA(alias):
 			r.GHSAs = append(r.GHSAs, alias)
 		default:
-			r.AddNote(report.NoteTypeCreate, "found alias %s that is not a GHSA or CVE", alias)
+			r.UnknownAliases = append(r.UnknownAliases, alias)
 		}
 	}
 	addAlias(osv.ID)
