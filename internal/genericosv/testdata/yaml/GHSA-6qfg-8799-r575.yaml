@@ -16,7 +16,7 @@ modules:
       vulnerable_at: 1.16.0-rc.2
       packages:
         - package: k8s.io/kubernetes/pkg/kubectl/cmd/cp
-summary: Symlink Attack
+summary: Symlink Attack in github.com/kubernetes/kubernetes
 description: |-
     The Kubernetes kubectl cp command in versions 1.1-1.12, and versions prior to
     1.13.11, 1.14.7, and 1.15.4 allows a combination of two symlinks provided by tar
@@ -33,5 +33,3 @@ references:
     - report: https://github.com/kubernetes/kubernetes/issues/87773
     - fix: https://github.com/kubernetes/kubernetes/pull/82143
     - web: https://groups.google.com/d/msg/kubernetes-announce/YYtEFdFimZ4/nZnOezZuBgAJ
-notes:
-    - lint: 'summary: must contain an affected module or package path (e.g. "github.com/kubernetes/kubernetes")'

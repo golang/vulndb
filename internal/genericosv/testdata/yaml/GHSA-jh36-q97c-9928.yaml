@@ -11,7 +11,7 @@ modules:
         - introduced: 1.25.0
           fixed: 1.25.4
       vulnerable_at: 1.25.4-rc.0
-summary: Kubernetes vulnerable to validation bypass
+summary: Kubernetes vulnerable to validation bypass in k8s.io/kubernetes
 description: |-
     Users may have access to secure endpoints in the control plane network.
     Kubernetes clusters are only affected if an untrusted user can modify Node
@@ -31,5 +31,3 @@ references:
     - web: https://github.com/kubernetes/kubernetes/issues/113757
     - web: https://groups.google.com/g/kubernetes-security-announce/c/VyPOxF7CIbA
     - web: https://security.netapp.com/advisory/ntap-20230505-0007/
-notes:
-    - lint: 'summary: must contain an affected module or package path (e.g. "k8s.io/kubernetes")'

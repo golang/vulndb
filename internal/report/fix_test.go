@@ -49,6 +49,7 @@ func TestFix(t *testing.T) {
 		},
 	}
 	want := Report{
+		Summary: "Vulnerability in golang.org/x/vulndb",
 		Modules: []*Module{
 			{
 				Module: "std",

@@ -12,7 +12,7 @@ modules:
       versions:
         - introduced: 6.3.0
           fixed: 7.1.6
-summary: Mattermost vulnerable to information disclosure
+summary: Mattermost vulnerable to information disclosure in github.com/mattermost/mattermost-server
 description: |-
     Mattermost allows an attacker to request a preview of an existing message when
     creating a new message via the createPost API call, disclosing the contents of
@@ -27,4 +27,3 @@ references:
 notes:
     - lint: 'modules[0] "github.com/mattermost/mattermost-server": 6 versions do not exist: 7.1.0, 7.1.6, 7.7.0, 7.7.2, 7.8.0, 7.8.1'
     - lint: 'modules[1] "github.com/mattermost/mattermost-server/v6": version 7.1.6 does not exist'
-    - lint: 'summary: must contain an affected module or package path (e.g. "github.com/mattermost/mattermost-server")'

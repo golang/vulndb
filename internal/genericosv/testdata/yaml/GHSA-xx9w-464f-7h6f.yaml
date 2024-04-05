@@ -8,7 +8,7 @@ modules:
           fixed: 2.4.3+incompatible
         - introduced: 2.5.0+incompatible
           fixed: 2.5.2+incompatible
-summary: Harbor fails to validate the user permissions when updating a robot account
+summary: Harbor fails to validate the user permissions when updating a robot account in github.com/goharbor/harbor
 description: |-
     ### Impact Harbor fails to validate the user permissions when updating a robot
     account that belongs to a project that the authenticated user doesn’t have
@@ -44,4 +44,4 @@ references:
 notes:
     - lint: 'description: possible markdown formatting (found ### )'
     - lint: 'modules[0] "github.com/goharbor/harbor": version 1.0.0 does not exist'
-    - lint: 'summary: must contain an affected module or package path (e.g. "github.com/goharbor/harbor")'
+    - lint: 'summary: too long (found 105 characters, want <=100)'

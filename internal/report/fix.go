@@ -35,6 +35,28 @@ func (r *Report) FixText() {
 	if r.CVEMetadata != nil {
 		fixLines(&r.CVEMetadata.Description)
 	}
+
+	r.fixSummary()
+}
+
+func (r *Report) fixSummary() {
+	summary := r.Summary.String()
+
+	// If there is no summary, create a basic one.
+	if summary == "" {
+		if aliases := r.Aliases(); len(aliases) != 0 {
+			summary = aliases[0]
+		} else {
+			summary = "Vulnerability"
+		}
+	}
+
+	// Add a path if one exists and is needed.
+	if paths := r.nonStdPaths(); len(paths) > 0 && !containsPath(summary, paths) {
+		summary = fmt.Sprintf("%s in %s", summary, paths[0])
+	}
+
+	r.Summary = Summary(summary)
 }
 
 func (r *Report) FixReferences() {

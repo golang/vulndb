@@ -19,7 +19,7 @@ modules:
       vulnerable_at: 2.0.2
 summary: |-
     HashiCorp go-getter unsafe downloads could lead to asymmetric resource
-    exhaustion
+    exhaustion in github.com/hashicorp/go-getter
 description: |-
     HashiCorp go-getter through 2.0.2 does not safely perform downloads. Asymmetric
     resource exhaustion could occur when go-getter processed malicious HTTP
@@ -39,4 +39,4 @@ references:
     - web: https://discuss.hashicorp.com/t/hcsec-2022-13-multiple-vulnerabilities-in-go-getter-library/39930
     - web: https://github.com/hashicorp/go-getter/releases
 notes:
-    - lint: 'summary: must contain an affected module or package path (e.g. "github.com/hashicorp/go-getter")'
+    - lint: 'summary: too long (found 115 characters, want <=100)'

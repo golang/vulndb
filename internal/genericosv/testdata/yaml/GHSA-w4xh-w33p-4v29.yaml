@@ -8,7 +8,7 @@ modules:
         - fixed: 2.1.1-0.20170519163204-f913f5f9c7c6
       packages:
         - package: github.com/git-lfs/git-lfs/lfsapi
-summary: GitHub Git LFS Improper Input Validation vulnerability
+summary: GitHub Git LFS Improper Input Validation vulnerability in github.com/git-lfs/git-lfs
 description: |-
     GitHub Git LFS before 2.1.1 allows remote attackers to execute arbitrary
     commands via an ssh URL with an initial dash character in the hostname, located
@@ -32,4 +32,3 @@ notes:
     - lint: 'modules[0] "github.com/git-lfs/git-lfs": version 2.1.1-0.20170519163204-f913f5f9c7c6 does not exist'
     - lint: 'modules[1] "github.com/git-lfs/git-lfs": packages[0] "github.com/git-lfs/git-lfs/lfsapi": at least one of vulnerable_at and skip_fix must be set'
     - lint: 'modules[1] "github.com/git-lfs/git-lfs": version 2.1.1-0.20170519163204-f913f5f9c7c6 does not exist'
-    - lint: 'summary: must contain an affected module or package path (e.g. "github.com/git-lfs/git-lfs")'

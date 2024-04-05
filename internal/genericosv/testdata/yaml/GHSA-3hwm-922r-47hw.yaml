@@ -3,7 +3,7 @@ modules:
     - module: atomys.codes/stud42
       versions:
         - fixed: 0.23.0
-summary: Stud42 vulnerable to denial of service
+summary: Stud42 vulnerable to denial of service in atomys.codes/stud42
 description: |-
     A security vulnerability has been identified in the GraphQL parser used by the
     API of s42.app. An attacker can overload the parser and cause the API pod to
@@ -22,4 +22,3 @@ references:
     - web: https://github.com/42Atomys/stud42/commit/a70bfc72fba721917bf681d72a58093fb9deee17
 notes:
     - lint: 'modules[0] "atomys.codes/stud42": version 0.23.0 does not exist'
-    - lint: 'summary: must contain an affected module or package path (e.g. "atomys.codes/stud42")'

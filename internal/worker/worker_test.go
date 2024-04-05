@@ -299,6 +299,7 @@ modules:
     - module: a.Module
       packages:
         - package: a.Module
+summary: ID1 in a.Module
 cves:
     - ID1
 
@@ -361,6 +362,7 @@ modules:
         - fixed: 1.2.3
       packages:
         - package: aPackage
+summary: G1 in aPackage
 ghsas:
     - G1
 

@@ -6,7 +6,7 @@ modules:
       vulnerable_at: 1.3.0
       packages:
         - package: github.com/cloudflare/cfrpki/cmd/octorpki
-summary: Infinite certificate chain depth results in OctoRPKI running forever
+summary: Infinite certificate chain depth results in OctoRPKI running forever in github.com/cloudflare/cfrpki
 description: |-
     OctoRPKI does not limit the depth of a certificate chain, allowing for a CA to
     create children in an ad-hoc fashion, thereby making tree traversal never end.
@@ -25,4 +25,3 @@ references:
     - web: https://www.debian.org/security/2022/dsa-5041
 notes:
     - lint: 'description: possible markdown formatting (found ## )'
-    - lint: 'summary: must contain an affected module or package path (e.g. "github.com/cloudflare/cfrpki")'
