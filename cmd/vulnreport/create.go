@@ -11,6 +11,7 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+	"time"
 
 	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/cveclient"
@@ -210,13 +211,7 @@ func reportFromAliases(ctx context.Context, id, modulePath string, aliases []str
 		}
 	} else {
 		log.Infof("no alias found, creating basic report for %s", id)
-		r = &report.Report{
-			ID: id,
-			Modules: []*report.Module{
-				{
-					Module: modulePath,
-				},
-			}}
+		r = basicReport(id, modulePath)
 	}
 
 	// Ensure all source aliases are added to the report.
@@ -246,6 +241,11 @@ func reportFromAliases(ctx context.Context, id, modulePath string, aliases []str
 				log.Warnf("auto-populated symbols have error(s): %s", err)
 			}
 		}
+	}
+
+	if r.Source != nil {
+		now := time.Now()
+		r.Source.Created = &now
 	}
 
 	return r, nil
@@ -343,6 +343,9 @@ func basicReport(id, modulePath string) *report.Report {
 			{
 				Module: modulePath,
 			},
+		},
+		Source: &report.Source{
+			ID: report.SourceGoTeam,
 		},
 	}
 }

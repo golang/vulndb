@@ -302,6 +302,8 @@ modules:
 summary: ID1 in a.Module
 cves:
     - ID1
+source:
+    id: ID1
 
 ` + "```"
 	if diff := cmp.Diff(unindent(want), got); diff != "" {
@@ -365,6 +367,8 @@ modules:
 summary: G1 in aPackage
 ghsas:
     - G1
+source:
+    id: G1
 
 ` + "```"
 

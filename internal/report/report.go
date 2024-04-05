@@ -238,6 +238,20 @@ type Report struct {
 	// creating the report, outstanding issues, or anything else worth
 	// mentioning.
 	Notes []*Note `yaml:",omitempty"`
+
+	// Metadata about how this report was generated.
+	// Not published to OSV.
+	Source *Source `yaml:",omitempty"`
+}
+
+const SourceGoTeam = "go-security-team"
+
+type Source struct {
+	// The ID (GHSA or CVE) of the original source of this report.
+	// If created by a human, this is "go-security-team".
+	ID string `yaml:",omitempty"`
+	// The time the original auto-generated report was created.
+	Created *time.Time `yaml:",omitempty"`
 }
 
 type Summary string

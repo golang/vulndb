@@ -82,6 +82,9 @@ func cveToReport(c *cveschema.CVE, id, modulePath string) *Report {
 		Description: description,
 		Credits:     credits,
 		References:  refs,
+		Source: &Source{
+			ID: c.Metadata.ID,
+		},
 	}
 	r.addCVE(c.Metadata.ID, getCWE(c), isGoCNA(c))
 	return r
@@ -142,6 +145,9 @@ func cve5ToReport(c *cveschema5.CVERecord, id, modulePath string) *Report {
 		Description: description,
 		Credits:     credits,
 		References:  refs,
+		Source: &Source{
+			ID: c.Metadata.ID,
+		},
 	}
 
 	r.addCVE(c.Metadata.ID, getCWE5(&cna), isGoCNA5(&cna))

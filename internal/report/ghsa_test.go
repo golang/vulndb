@@ -58,6 +58,7 @@ func TestGHSAToReport(t *testing.T) {
 				GHSAs:       []string{"G1"},
 				CVEs:        []string{"C1"},
 				References:  []*Reference{{Type: "REPORT", URL: "https://github.com/permalink/to/issue/12345"}},
+				Source:      &Source{ID: "G1_blah"},
 			},
 		},
 		{
@@ -78,6 +79,7 @@ func TestGHSAToReport(t *testing.T) {
 				GHSAs:       []string{"G1"},
 				CVEs:        []string{"C1"},
 				References:  []*Reference{{Type: "REPORT", URL: "https://github.com/permalink/to/issue/12345"}},
+				Source:      &Source{ID: "G1_blah"},
 			},
 		},
 	} {
