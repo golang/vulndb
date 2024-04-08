@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2667",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-29893",
+    "GHSA-jhwx-mhww-rgc3"
+  ],
+  "summary": "Out of memory crash from malicious Helm registry in github.com/argoproj/argo-cd/v2",
+  "details": "Out of memory crash from malicious Helm registry in github.com/argoproj/argo-cd/v2",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-cd/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.4.0"
+            },
+            {
+              "fixed": "2.8.14"
+            },
+            {
+              "introduced": "2.9.0"
+            },
+            {
+              "fixed": "2.9.10"
+            },
+            {
+              "introduced": "2.10.0"
+            },
+            {
+              "fixed": "2.10.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/argoproj/argo-cd/security/advisories/GHSA-jhwx-mhww-rgc3"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2667"
+  }
+}

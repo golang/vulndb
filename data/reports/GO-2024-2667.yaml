@@ -1,0 +1,18 @@
+id: GO-2024-2667
+modules:
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - introduced: 2.4.0
+          fixed: 2.8.14
+        - introduced: 2.9.0
+          fixed: 2.9.10
+        - introduced: 2.10.0
+          fixed: 2.10.5
+      vulnerable_at: 2.10.4
+summary: Out of memory crash from malicious Helm registry in github.com/argoproj/argo-cd/v2
+cves:
+    - CVE-2024-29893
+ghsas:
+    - GHSA-jhwx-mhww-rgc3
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-jhwx-mhww-rgc3
