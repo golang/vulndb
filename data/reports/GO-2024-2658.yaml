@@ -20,8 +20,16 @@ cves:
     - CVE-2024-1753
 ghsas:
     - GHSA-pmf3-c36m-g5cf
+related:
+    - GHSA-874v-pj72-92f3
 credits:
     - '@rmcnamara-snyk'
 references:
     - fix: https://github.com/containers/buildah/commit/9de9c20ff368beb84b84fe660773d352519dc1c5
     - report: https://bugzilla.redhat.com/show_bug.cgi?id=2265513
+notes:
+    - |
+      GHSA-874v-pj72-92f3 is a DEPENDENT_VULNERABILITY
+      of this report, but the GHSA database considers it an
+      alias of CVE-2024-1753. Adding the GHSA as "related"
+      prevents our tooling from adding it to the aliases field.
