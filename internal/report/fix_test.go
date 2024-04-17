@@ -8,6 +8,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/proxy"
 )
 
@@ -52,6 +53,13 @@ func TestFix(t *testing.T) {
 		Summary: "Vulnerability in golang.org/x/vulndb",
 		Modules: []*Module{
 			{
+				Module: "golang.org/x/vulndb",
+				Versions: []VersionRange{{
+					Introduced: "0.0.0-20230522180520-0cbf4ffdb4e7",
+				}},
+				VulnerableAt: "0.0.0-20230522180520-0cbf4ffdb4e7",
+			},
+			{
 				Module: "std",
 				Versions: []VersionRange{
 					{
@@ -67,13 +75,6 @@ func TestFix(t *testing.T) {
 					},
 				},
 				VulnerableAt: "1.20.0",
-			},
-			{
-				Module: "golang.org/x/vulndb",
-				Versions: []VersionRange{{
-					Introduced: "0.0.0-20230522180520-0cbf4ffdb4e7",
-				}},
-				VulnerableAt: "0.0.0-20230522180520-0cbf4ffdb4e7",
 			},
 		},
 		Description: "A long form description of the problem that will be broken up into multiple\nlines so it is more readable.",
@@ -218,6 +219,377 @@ func TestGuessVulnerableAt(t *testing.T) {
 			}
 			if got != tc.want {
 				t.Errorf("guessVulnerableAt() = %q, want %s", got, tc.want)
+			}
+		})
+	}
+}
+
+// To update proxy responses:
+// go test ./internal/report/... -proxy -run TestFixModules
+func TestFixModules(t *testing.T) {
+	for _, tc := range []struct {
+		name string
+		desc string
+		in   []*Module
+		want []*Module
+	}{
+		{
+			name: "ok",
+			desc: "module is already OK",
+			in: []*Module{{
+				Module: "github.com/influxdata/influxdb",
+				Versions: []VersionRange{
+					{
+						Introduced: "0.3.2",
+						Fixed:      "1.7.6",
+					}},
+				VulnerableAt: "1.7.5",
+			}},
+			want: []*Module{{
+				Module: "github.com/influxdata/influxdb",
+				Versions: []VersionRange{
+					{
+						Introduced: "0.3.2",
+						Fixed:      "1.7.6",
+					}},
+				VulnerableAt: "1.7.5",
+			}},
+		},
+		{
+			name: "import_path",
+			desc: "find module from import path",
+			in: []*Module{{
+				Module: "github.com/influxdata/influxdb/services/httpd",
+				Versions: []VersionRange{
+					{
+						Introduced: "0.3.2",
+						Fixed:      "1.7.6",
+					},
+				},
+			}},
+			want: []*Module{{
+				Module: "github.com/influxdata/influxdb",
+				Versions: []VersionRange{
+					{
+						Introduced: "0.3.2",
+						Fixed:      "1.7.6",
+					},
+				},
+				Packages: []*Package{
+					{
+						Package: "github.com/influxdata/influxdb/services/httpd",
+					},
+				},
+				VulnerableAt: "1.7.5",
+			}},
+		},
+		{
+			name: "major_version",
+			desc: "correct major version of module path",
+			in: []*Module{{
+				Module: "github.com/nats-io/nats-server",
+				Versions: []VersionRange{
+					{
+						Introduced: "2.2.0",
+						Fixed:      "2.8.3",
+					},
+				},
+			}},
+			want: []*Module{{
+				Module: "github.com/nats-io/nats-server/v2",
+				Versions: []VersionRange{
+					{
+						Introduced: "2.2.0",
+						Fixed:      "2.8.3",
+					},
+				},
+				VulnerableAt: "2.8.2",
+			}},
+		},
+		{
+			name: "canonicalize",
+			desc: "canonicalize module path",
+			in: []*Module{{
+				Module: "github.com/golang/vulndb",
+				Versions: []VersionRange{
+					{
+						Fixed: "0.0.0-20230712151357-4fee11d0f8f9",
+					},
+				},
+			}},
+			want: []*Module{{
+				Module: "golang.org/x/vulndb",
+				Versions: []VersionRange{
+					{
+						Fixed: "0.0.0-20230712151357-4fee11d0f8f9",
+					},
+				},
+			}},
+		},
+		{
+			name: "add_incompatible",
+			desc: "add +incompatible",
+			in: []*Module{{
+				Module: "github.com/docker/docker",
+				Versions: []VersionRange{
+					{
+						Fixed: "23.0.0",
+					},
+				},
+			}},
+			want: []*Module{{
+				Module: "github.com/docker/docker",
+				Versions: []VersionRange{
+					{
+						Fixed: "23.0.0+incompatible",
+					},
+				},
+				VulnerableAt: "23.0.0-rc.4+incompatible",
+			}},
+		},
+		{
+			name: "merge_modules",
+			desc: "merge modules that are the same except for versions",
+			in: []*Module{{
+				Module: "github.com/hashicorp/go-getter/v2",
+				Versions: []VersionRange{
+					{
+						Introduced: "2.0.0",
+						Fixed:      "2.0.2",
+					},
+				},
+			},
+				{
+					Module: "github.com/hashicorp/go-getter/v2",
+					Versions: []VersionRange{
+						{
+							Introduced: "2.1.0",
+							Fixed:      "2.1.1",
+						},
+					},
+				},
+			},
+			want: []*Module{{
+				Module: "github.com/hashicorp/go-getter/v2",
+				Versions: []VersionRange{
+					{
+						Introduced: "2.0.0",
+						Fixed:      "2.0.2",
+					},
+					{
+						Introduced: "2.1.0",
+						Fixed:      "2.1.1",
+					},
+				},
+				VulnerableAt: "2.1.0",
+			}},
+		},
+	} {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+			pc, err := proxy.NewTestClient(t, *realProxy)
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			r := &Report{Modules: tc.in}
+			r.FixModules(pc)
+			got := r.Modules
+
+			if diff := cmp.Diff(tc.want, got); diff != "" {
+				t.Errorf("%s: FixModules() mismatch (-want +got)\n%s", tc.desc, diff)
+			}
+		})
+	}
+}
+
+func TestFixReferences(t *testing.T) {
+	for _, tc := range []struct {
+		name     string
+		in, want []*Reference
+	}{
+		{
+			// GHSA references are converted to advisory type
+			name: "to_advisory_ghsa",
+			in: []*Reference{
+				{
+					URL:  "https://github.com/example/module/security/advisories/GHSA-xxxx-yyyy-zzzz",
+					Type: osv.ReferenceTypeWeb,
+				},
+				{
+					URL:  "https://github.com/advisories/GHSA-gggg-hhhh-ffff",
+					Type: osv.ReferenceTypeWeb,
+				},
+				{
+					URL:  "https://github.com/other/module/security/advisories/GHSA-xxxx-yyyy-zzzz",
+					Type: osv.ReferenceTypeWeb,
+				},
+			},
+			want: []*Reference{
+				{
+					URL:  "https://github.com/example/module/security/advisories/GHSA-xxxx-yyyy-zzzz",
+					Type: osv.ReferenceTypeAdvisory,
+				},
+				{
+					URL:  "https://github.com/advisories/GHSA-gggg-hhhh-ffff",
+					Type: osv.ReferenceTypeAdvisory,
+				},
+				{
+					URL:  "https://github.com/other/module/security/advisories/GHSA-xxxx-yyyy-zzzz",
+					Type: osv.ReferenceTypeAdvisory, // different module OK, because GHSA matches
+				},
+			},
+		},
+		{
+			// CVE references are converted to advisory type
+			name: "to_advisory_cve",
+			in: []*Reference{
+				{
+					URL:  "https://nvd.nist.gov/vuln/detail/CVE-1999-0001",
+					Type: osv.ReferenceTypeWeb,
+				},
+				{
+					URL:  "https://nvd.nist.gov/vuln/detail/CVE-1999-2222",
+					Type: osv.ReferenceTypeWeb,
+				},
+			},
+			want: []*Reference{
+				{
+					URL:  "https://nvd.nist.gov/vuln/detail/CVE-1999-0001",
+					Type: osv.ReferenceTypeAdvisory,
+				},
+				{
+					URL:  "https://nvd.nist.gov/vuln/detail/CVE-1999-2222",
+					Type: osv.ReferenceTypeWeb, // different CVE, keep "web" type
+				},
+			},
+		},
+		{
+			// CVE references are removed if GHSA is present
+			name: "remove_cve",
+			in: []*Reference{
+				{
+					URL:  "https://github.com/advisories/GHSA-gggg-hhhh-ffff",
+					Type: osv.ReferenceTypeWeb,
+				},
+				{
+					URL:  "https://nvd.nist.gov/vuln/detail/CVE-1999-0001",
+					Type: osv.ReferenceTypeWeb,
+				},
+			},
+			want: []*Reference{
+				{
+					URL:  "https://github.com/advisories/GHSA-gggg-hhhh-ffff",
+					Type: osv.ReferenceTypeAdvisory,
+				},
+			},
+		},
+		{
+			name: "to_fix_or_report",
+			in: []*Reference{
+				{
+					URL:  "https://github.com/example/module/pull/123",
+					Type: osv.ReferenceTypeWeb,
+				},
+				{
+					URL:  "https://github.com/example/module/commit/123",
+					Type: osv.ReferenceTypeWeb,
+				},
+				{
+					URL:  "https://github.com/module/module/issues/123",
+					Type: osv.ReferenceTypeWeb,
+				},
+				{
+					URL:  "https://github.com/example/module/issue/123",
+					Type: osv.ReferenceTypeWeb,
+				},
+				{
+					URL:  "https://github.com/different/module/issue/123",
+					Type: osv.ReferenceTypeWeb,
+				},
+				{
+					URL:  "https://github.com/advisories/GHSA-gggg-hhhh-ffff",
+					Type: osv.ReferenceTypeAdvisory,
+				},
+			},
+			want: []*Reference{
+				{
+					URL:  "https://github.com/example/module/pull/123",
+					Type: osv.ReferenceTypeFix,
+				},
+				{
+					URL:  "https://github.com/example/module/commit/123",
+					Type: osv.ReferenceTypeFix,
+				},
+				{
+					URL:  "https://github.com/module/module/issues/123",
+					Type: osv.ReferenceTypeReport,
+				},
+				{
+					URL:  "https://github.com/example/module/issue/123",
+					Type: osv.ReferenceTypeReport,
+				},
+				{
+					URL:  "https://github.com/different/module/issue/123",
+					Type: osv.ReferenceTypeWeb, // different module, keep web type
+				},
+				{
+					URL:  "https://github.com/advisories/GHSA-gggg-hhhh-ffff",
+					Type: osv.ReferenceTypeAdvisory,
+				},
+			},
+		},
+		{
+			// package references and go advisory references are deleted
+			name: "delete",
+			in: []*Reference{
+				{
+					URL:  "https://pkg.go.dev/vuln/GO-0000-0000",
+					Type: osv.ReferenceTypeWeb,
+				},
+				{
+					URL:  "https://github.com/anything",
+					Type: osv.ReferenceTypePackage,
+				},
+				{
+					URL:  "https://example.com",
+					Type: osv.ReferenceTypePackage,
+				},
+				{
+					URL:  "https://github.com/advisories/GHSA-gggg-hhhh-ffff",
+					Type: osv.ReferenceTypeAdvisory,
+				},
+			},
+			want: []*Reference{
+				{
+					URL:  "https://github.com/advisories/GHSA-gggg-hhhh-ffff",
+					Type: osv.ReferenceTypeAdvisory,
+				},
+			},
+		},
+	} {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			r := &Report{
+				Modules: []*Module{
+					{
+						Module: "github.com/example/module",
+					},
+					{
+						Module: "github.com/module/module",
+					},
+				},
+				GHSAs:      []string{"GHSA-xxxx-yyyy-zzzz", "GHSA-gggg-hhhh-ffff"},
+				CVEs:       []string{"CVE-1999-0001", "CVE-1999-0002"},
+				References: tc.in,
+			}
+			r.FixReferences()
+			got := r.References
+			if diff := cmp.Diff(tc.want, got); diff != "" {
+				t.Errorf("FixReferences() mismatch (-want +got)\n%s", diff)
 			}
 		})
 	}

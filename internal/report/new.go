@@ -20,11 +20,18 @@ type Source interface {
 	// SourceID returns the ID of the source.
 	// For example, the GHSA or CVE id.
 	SourceID() string
-	ToReport(goID string, modulePath string, pc *proxy.Client) *Report
+	ToReport(modulePath string) *Report
 }
 
 func New(src Source, goID string, modulePath string, pc *proxy.Client) *Report {
-	return src.ToReport(goID, modulePath, pc)
+	r := src.ToReport(modulePath)
+	r.ID = goID
+	r.SourceMeta = &SourceMeta{
+		ID: src.SourceID(),
+	}
+
+	r.Fix(pc)
+	return r
 }
 
 type Fetcher interface {
@@ -41,8 +48,8 @@ func ToCVE5(c *cveschema5.CVERecord) Source {
 	return &cve5{CVERecord: c}
 }
 
-func (c *cve5) ToReport(goID, modulePath string, pc *proxy.Client) *Report {
-	return cve5ToReport(c.CVERecord, goID, modulePath, pc)
+func (c *cve5) ToReport(modulePath string) *Report {
+	return cve5ToReport(c.CVERecord, modulePath)
 }
 
 func (c *cve5) SourceID() string {
@@ -77,8 +84,8 @@ func ToCVE4(c *cveschema.CVE) Source {
 	return &cve4{CVE: c}
 }
 
-func (c *cve4) ToReport(goID, modulePath string, pc *proxy.Client) *Report {
-	return cveToReport(c.CVE, goID, modulePath, pc)
+func (c *cve4) ToReport(modulePath string) *Report {
+	return cveToReport(c.CVE, modulePath)
 }
 
 func (c *cve4) SourceID() string {
@@ -102,10 +109,8 @@ func ToLegacyGHSA(g *ghsa.SecurityAdvisory) Source {
 	}
 }
 
-func (g *legacyGHSA) ToReport(goID, modulePath string, pc *proxy.Client) *Report {
-	r := ghsaToReport(g.SecurityAdvisory, modulePath, pc)
-	r.ID = goID
-	return r
+func (g *legacyGHSA) ToReport(modulePath string) *Report {
+	return ghsaToReport(g.SecurityAdvisory, modulePath)
 }
 
 func (g *legacyGHSA) SourceID() string {
@@ -144,16 +149,12 @@ func Original() Source {
 	return &original{}
 }
 
-func (original) ToReport(goID, modulePath string, _ *proxy.Client) *Report {
+func (original) ToReport(modulePath string) *Report {
 	return &Report{
-		ID: goID,
 		Modules: []*Module{
 			{
 				Module: modulePath,
 			},
-		},
-		SourceMeta: &SourceMeta{
-			ID: sourceGoTeam,
 		},
 	}
 }

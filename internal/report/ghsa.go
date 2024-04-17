@@ -9,17 +9,13 @@ import (
 	"strings"
 
 	"golang.org/x/vulndb/internal/ghsa"
-	"golang.org/x/vulndb/internal/proxy"
 )
 
 // ghsaToReport creates a Report struct from a given GHSA SecurityAdvisory and modulePath.
-func ghsaToReport(sa *ghsa.SecurityAdvisory, modulePath string, pc *proxy.Client) *Report {
+func ghsaToReport(sa *ghsa.SecurityAdvisory, modulePath string) *Report {
 	r := &Report{
 		Summary:     Summary(sa.Summary),
 		Description: Description(sa.Description),
-		SourceMeta: &SourceMeta{
-			ID: sa.ID,
-		},
 	}
 	var cves, ghsas []string
 	for _, id := range sa.Identifiers {
@@ -48,7 +44,6 @@ func ghsaToReport(sa *ghsa.SecurityAdvisory, modulePath string, pc *proxy.Client
 		}
 		r.Modules = append(r.Modules, m)
 	}
-	r.Fix(pc)
 	return r
 }
 

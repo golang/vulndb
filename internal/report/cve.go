@@ -11,7 +11,6 @@ import (
 
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/cveschema5"
-	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/stdlib"
 	"golang.org/x/vulndb/internal/version"
 )
@@ -35,7 +34,7 @@ func removeNewlines(s string) string {
 }
 
 // cveToReport creates a Report struct from a given CVE and modulePath.
-func cveToReport(c *cveschema.CVE, id, modulePath string, pc *proxy.Client) *Report {
+func cveToReport(c *cveschema.CVE, modulePath string) *Report {
 	var description Description
 	for _, d := range c.Description.Data {
 		description += Description(d.Value + "\n")
@@ -66,7 +65,6 @@ func cveToReport(c *cveschema.CVE, id, modulePath string, pc *proxy.Client) *Rep
 		pkgPath = modulePath
 	}
 	r := &Report{
-		ID: id,
 		Modules: []*Module{{
 			Module: modulePath,
 			Packages: []*Package{{
@@ -76,13 +74,8 @@ func cveToReport(c *cveschema.CVE, id, modulePath string, pc *proxy.Client) *Rep
 		Description: description,
 		Credits:     credits,
 		References:  refs,
-		SourceMeta: &SourceMeta{
-			ID: c.Metadata.ID,
-		},
 	}
 	r.addCVE(c.Metadata.ID, getCWE(c), isGoCNA(c))
-
-	r.Fix(pc)
 	return r
 }
 
@@ -108,7 +101,7 @@ func (r *Report) addCVE(cveID, cwe string, isGoCNA bool) {
 	r.CVEs = append(r.CVEs, cveID)
 }
 
-func cve5ToReport(c *cveschema5.CVERecord, id, modulePath string, pc *proxy.Client) *Report {
+func cve5ToReport(c *cveschema5.CVERecord, modulePath string) *Report {
 	cna := c.Containers.CNAContainer
 
 	var description Description
@@ -129,19 +122,14 @@ func cve5ToReport(c *cveschema5.CVERecord, id, modulePath string, pc *proxy.Clie
 	}
 
 	r := &Report{
-		ID:          id,
 		Modules:     affectedToModules(cna.Affected, modulePath),
 		Summary:     Summary(cna.Title),
 		Description: description,
 		Credits:     credits,
 		References:  refs,
-		SourceMeta: &SourceMeta{
-			ID: c.Metadata.ID,
-		},
 	}
 
 	r.addCVE(c.Metadata.ID, getCWE5(&cna), isGoCNA5(&cna))
-	r.Fix(pc)
 	return r
 }
 

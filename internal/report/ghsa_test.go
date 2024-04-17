@@ -63,20 +63,24 @@ func TestGHSAToReport(t *testing.T) {
 			},
 		},
 		{
-			name:   "empty module uses package as module",
+			name:   "empty module attempts to find module from package",
 			module: "",
 			want: &Report{
 				ID: placeholderID,
 				Modules: []*Module{{
-					Module: "golang.org/x/tools/go/packages",
+					Module: "golang.org/x/tools",
 					Versions: []VersionRange{
 						{Fixed: "0.9.0"},
 					},
+					VulnerableAt: "0.8.0",
 					Packages: []*Package{{
 						Package: "golang.org/x/tools/go/packages",
-					}},
+					},
+						{
+							Package: "golang.org/x/tools/go/packages",
+						}},
 				}},
-				Summary:     "C1 in golang.org/x/tools/go/packages",
+				Summary:     "C1 in golang.org/x/tools",
 				Description: "a description",
 				GHSAs:       []string{"G1"},
 				CVEs:        []string{"C1"},
