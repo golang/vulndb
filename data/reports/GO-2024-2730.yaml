@@ -1,0 +1,37 @@
+id: GO-2024-2730
+modules:
+    - module: github.com/gorilla/sessions
+      vulnerable_at: 1.2.2
+      packages:
+        - package: github.com/gorilla/sessions
+          symbols:
+            - FilesystemStore.save
+            - FilesystemStore.load
+            - FilesystemStore.erase
+          derived_symbols:
+            - CookieStore.Get
+            - FilesystemStore.Get
+            - FilesystemStore.New
+            - FilesystemStore.Save
+            - Registry.Get
+            - Registry.Save
+            - Save
+            - Session.Save
+summary: Directory traversal in FilesystemStore in github.com/gorilla/sessions
+description: |-
+    FilesystemStore does not sanitize the Session.ID value,
+    making it vulnerable to directory traversal attacks.
+    If an attacker has control over the contents of the session ID,
+    this can be exploited to write to arbitrary files in the
+    filesystem.
+
+    Programs which do not set session IDs explicitly,
+    or which only set session IDs that will not be
+    interpreted by the filesystem, are not vulnerable.
+related:
+    - CVE-2024-3400
+references:
+    - fix: https://github.com/gorilla/sessions/pull/274
+source:
+    id: go-security-team
+    created: 2024-04-17T07:45:30.470362-07:00

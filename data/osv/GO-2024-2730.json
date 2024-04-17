@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2730",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "related": [
+    "CVE-2024-3400"
+  ],
+  "summary": "Directory traversal in FilesystemStore in github.com/gorilla/sessions",
+  "details": "FilesystemStore does not sanitize the Session.ID value, making it vulnerable to directory traversal attacks. If an attacker has control over the contents of the session ID, this can be exploited to write to arbitrary files in the filesystem.\n\nPrograms which do not set session IDs explicitly, or which only set session IDs that will not be interpreted by the filesystem, are not vulnerable.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gorilla/sessions",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/gorilla/sessions",
+            "symbols": [
+              "CookieStore.Get",
+              "FilesystemStore.Get",
+              "FilesystemStore.New",
+              "FilesystemStore.Save",
+              "FilesystemStore.erase",
+              "FilesystemStore.load",
+              "FilesystemStore.save",
+              "Registry.Get",
+              "Registry.Save",
+              "Save",
+              "Session.Save"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/gorilla/sessions/pull/274"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2730"
+  }
+}
