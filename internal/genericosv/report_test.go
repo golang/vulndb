@@ -49,13 +49,13 @@ func TestToReport(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			osv := Entry{}
-			if err := report.UnmarshalFromFile(path, &osv); err != nil {
+			osv := &Entry{}
+			if err := report.UnmarshalFromFile(path, osv); err != nil {
 				t.Fatal(err)
 			}
 
-			modulePath := "" // ignored by ToReport
-			got := osv.ToReport("GO-TEST-ID", modulePath, pc)
+			modulePath := "" // ignored
+			got := report.New(osv, "GO-TEST-ID", modulePath, pc)
 			// Keep record of what lints would apply to each generated report.
 			got.LintAsNotes(pc)
 

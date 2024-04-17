@@ -256,6 +256,8 @@ func createCVEIssues(ctx context.Context, st store.Store, client *issues.Client,
 	return nil
 }
 
+const pendingID = "GO-ID-PENDING"
+
 func newCVEBody(sr storeRecord, rc *report.Client, pc *proxy.Client) (string, error) {
 	cr := sr.(*store.CVERecord)
 	var b strings.Builder
@@ -265,7 +267,7 @@ func newCVEBody(sr storeRecord, rc *report.Client, pc *proxy.Client) (string, er
 	if cr.CVE.Metadata.ID == "" {
 		cr.CVE.Metadata.ID = cr.ID
 	}
-	r := report.CVEToReport(cr.CVE, "GO-ID-PENDING", cr.Module, pc)
+	r := report.New(report.ToCVE4(cr.CVE), pendingID, cr.Module, pc)
 	r.Description = ""
 	out, err := r.ToString()
 	if err != nil {
@@ -365,7 +367,7 @@ func createGHSAIssues(ctx context.Context, st store.Store, client *issues.Client
 }
 
 func isDuplicate(sa *ghsa.SecurityAdvisory, pc *proxy.Client, rc *report.Client) bool {
-	r := report.GHSAToReport(sa, "", pc)
+	r := report.New(report.ToLegacyGHSA(sa), pendingID, "", pc)
 	for _, aliases := range rc.XRef(r) {
 		if slices.Contains(aliases, sa.ID) {
 			return true
@@ -375,7 +377,7 @@ func isDuplicate(sa *ghsa.SecurityAdvisory, pc *proxy.Client, rc *report.Client)
 }
 
 func CreateGHSABody(sa *ghsa.SecurityAdvisory, rc *report.Client, pc *proxy.Client) (body string, err error) {
-	r := report.GHSAToReport(sa, "", pc)
+	r := report.New(report.ToLegacyGHSA(sa), pendingID, "", pc)
 	r.Description = ""
 	rs, err := r.ToString()
 	if err != nil {

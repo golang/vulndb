@@ -34,8 +34,8 @@ func removeNewlines(s string) string {
 	return newlines.ReplaceAllString(strings.TrimSpace(s), " ")
 }
 
-// CVEToReport creates a Report struct from a given CVE and modulePath.
-func CVEToReport(c *cveschema.CVE, id, modulePath string, pc *proxy.Client) *Report {
+// cveToReport creates a Report struct from a given CVE and modulePath.
+func cveToReport(c *cveschema.CVE, id, modulePath string, pc *proxy.Client) *Report {
 	var description Description
 	for _, d := range c.Description.Data {
 		description += Description(d.Value + "\n")
@@ -108,7 +108,7 @@ func (r *Report) addCVE(cveID, cwe string, isGoCNA bool) {
 	r.CVEs = append(r.CVEs, cveID)
 }
 
-func CVE5ToReport(c *cveschema5.CVERecord, id, modulePath string, pc *proxy.Client) *Report {
+func cve5ToReport(c *cveschema5.CVERecord, id, modulePath string, pc *proxy.Client) *Report {
 	cna := c.Containers.CNAContainer
 
 	var description Description

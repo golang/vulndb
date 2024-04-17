@@ -358,6 +358,7 @@ Cross references:
 See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) for instructions on how to triage this report.
 
 ` + "```" + `
+id: GO-ID-PENDING
 modules:
     - module: aPackage
       versions:

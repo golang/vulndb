@@ -37,8 +37,12 @@ type cve5 struct {
 
 var _ Source = &cve5{}
 
+func ToCVE5(c *cveschema5.CVERecord) Source {
+	return &cve5{CVERecord: c}
+}
+
 func (c *cve5) ToReport(goID, modulePath string, pc *proxy.Client) *Report {
-	return CVE5ToReport(c.CVERecord, goID, modulePath, pc)
+	return cve5ToReport(c.CVERecord, goID, modulePath, pc)
 }
 
 func (c *cve5) SourceID() string {
@@ -63,13 +67,18 @@ func (_ *cve5Fetcher) Fetch(ctx context.Context, id string) (Source, error) {
 //
 // Note: Fetch is not implemented for CVE4, as it is a legacy format
 // which will be phased out soon.
-type cve4 cveschema.CVE
+type cve4 struct {
+	*cveschema.CVE
+}
 
 var _ Source = &cve4{}
 
+func ToCVE4(c *cveschema.CVE) Source {
+	return &cve4{CVE: c}
+}
+
 func (c *cve4) ToReport(goID, modulePath string, pc *proxy.Client) *Report {
-	cve := cveschema.CVE(*c)
-	return CVEToReport(&cve, goID, modulePath, pc)
+	return cveToReport(c.CVE, goID, modulePath, pc)
 }
 
 func (c *cve4) SourceID() string {
@@ -87,8 +96,14 @@ type legacyGHSA struct {
 
 var _ Source = &legacyGHSA{}
 
+func ToLegacyGHSA(g *ghsa.SecurityAdvisory) Source {
+	return &legacyGHSA{
+		SecurityAdvisory: g,
+	}
+}
+
 func (g *legacyGHSA) ToReport(goID, modulePath string, pc *proxy.Client) *Report {
-	r := GHSAToReport(g.SecurityAdvisory, modulePath, pc)
+	r := ghsaToReport(g.SecurityAdvisory, modulePath, pc)
 	r.ID = goID
 	return r
 }

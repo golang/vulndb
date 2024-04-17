@@ -12,8 +12,8 @@ import (
 	"golang.org/x/vulndb/internal/proxy"
 )
 
-// GHSAToReport creates a Report struct from a given GHSA SecurityAdvisory and modulePath.
-func GHSAToReport(sa *ghsa.SecurityAdvisory, modulePath string, pc *proxy.Client) *Report {
+// ghsaToReport creates a Report struct from a given GHSA SecurityAdvisory and modulePath.
+func ghsaToReport(sa *ghsa.SecurityAdvisory, modulePath string, pc *proxy.Client) *Report {
 	r := &Report{
 		Summary:     Summary(sa.Summary),
 		Description: Description(sa.Description),
