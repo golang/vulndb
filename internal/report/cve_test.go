@@ -22,6 +22,7 @@ import (
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/gitrepo"
+	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/test"
 	"gopkg.in/yaml.v3"
 )
@@ -81,11 +82,16 @@ func fail(err error) {
 const placeholderID = "PLACEHOLDER-ID"
 
 func TestCVEToReport(t *testing.T) {
+	pc, err := proxy.NewTestClient(t, *realProxy)
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	newV4 := func() cvelistrepo.CVE {
 		return new(cveschema.CVE)
 	}
 	toReportV4 := func(cve cvelistrepo.CVE, modulePath string) *Report {
-		return cveToReport(cve.(*cveschema.CVE), placeholderID, modulePath)
+		return CVEToReport(cve.(*cveschema.CVE), placeholderID, modulePath, pc)
 	}
 	if err := run(t, v4txtar, newV4, toReportV4); err != nil {
 		t.Fatal(err)
@@ -93,11 +99,16 @@ func TestCVEToReport(t *testing.T) {
 }
 
 func TestCVE5ToReport(t *testing.T) {
+	pc, err := proxy.NewTestClient(t, *realProxy)
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	newV5 := func() cvelistrepo.CVE {
 		return new(cveschema5.CVERecord)
 	}
 	toReportV5 := func(cve cvelistrepo.CVE, modulePath string) *Report {
-		return cve5ToReport(cve.(*cveschema5.CVERecord), placeholderID, modulePath)
+		return CVE5ToReport(cve.(*cveschema5.CVERecord), placeholderID, modulePath, pc)
 	}
 	if err := run(t, v5txtar, newV5, toReportV5); err != nil {
 		t.Fatal(err)

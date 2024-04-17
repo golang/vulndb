@@ -36,12 +36,6 @@ func removeNewlines(s string) string {
 
 // CVEToReport creates a Report struct from a given CVE and modulePath.
 func CVEToReport(c *cveschema.CVE, id, modulePath string, pc *proxy.Client) *Report {
-	r := cveToReport(c, id, modulePath)
-	r.Fix(pc)
-	return r
-}
-
-func cveToReport(c *cveschema.CVE, id, modulePath string) *Report {
 	var description Description
 	for _, d := range c.Description.Data {
 		description += Description(d.Value + "\n")
@@ -87,6 +81,8 @@ func cveToReport(c *cveschema.CVE, id, modulePath string) *Report {
 		},
 	}
 	r.addCVE(c.Metadata.ID, getCWE(c), isGoCNA(c))
+
+	r.Fix(pc)
 	return r
 }
 
@@ -113,12 +109,6 @@ func (r *Report) addCVE(cveID, cwe string, isGoCNA bool) {
 }
 
 func CVE5ToReport(c *cveschema5.CVERecord, id, modulePath string, pc *proxy.Client) *Report {
-	r := cve5ToReport(c, id, modulePath)
-	r.Fix(pc)
-	return r
-}
-
-func cve5ToReport(c *cveschema5.CVERecord, id, modulePath string) *Report {
 	cna := c.Containers.CNAContainer
 
 	var description Description
@@ -151,6 +141,7 @@ func cve5ToReport(c *cveschema5.CVERecord, id, modulePath string) *Report {
 	}
 
 	r.addCVE(c.Metadata.ID, getCWE5(&cna), isGoCNA5(&cna))
+	r.Fix(pc)
 	return r
 }
 
