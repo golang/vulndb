@@ -22,13 +22,15 @@ import (
 	"golang.org/x/vulndb/internal/version"
 )
 
+var _ report.Source = &Entry{}
+
 // ToReport converts OSV into a Go Report with the given ID.
-func (osv *Entry) ToReport(goID string, pc *proxy.Client) *report.Report {
+func (osv *Entry) ToReport(goID string, _ string, pc *proxy.Client) *report.Report {
 	r := &report.Report{
 		ID:          goID,
 		Summary:     report.Summary(osv.Summary),
 		Description: report.Description(osv.Details),
-		Source: &report.Source{
+		SourceMeta: &report.SourceMeta{
 			ID: osv.ID,
 		},
 	}
@@ -58,6 +60,10 @@ func (osv *Entry) ToReport(goID string, pc *proxy.Client) *report.Report {
 
 	r.Fix(pc)
 	return r
+}
+
+func (osv *Entry) SourceID() string {
+	return osv.ID
 }
 
 func affectedToModules(as []osvschema.Affected, pc *proxy.Client) []*report.Module {

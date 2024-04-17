@@ -81,10 +81,7 @@ func (u *unexclude) run(ctx context.Context, filename string) (err error) {
 	if len(r.Modules) > 0 {
 		modulePath = r.Modules[0].Module
 	}
-	newR, err := reportFromAliases(ctx, id, modulePath, aliases, u.pc, u.gc, u.ac)
-	if err != nil {
-		return err
-	}
+	newR := reportFromAliases(ctx, id, modulePath, aliases, u.pc, u.gc, u.ac)
 
 	// Remove description because this is a "basic" report.
 	newR.Description = ""

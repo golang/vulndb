@@ -241,12 +241,12 @@ type Report struct {
 
 	// Metadata about how this report was generated.
 	// Not published to OSV.
-	Source *Source `yaml:",omitempty"`
+	SourceMeta *SourceMeta `yaml:"source,omitempty"`
 }
 
-const SourceGoTeam = "go-security-team"
+const sourceGoTeam = "go-security-team"
 
-type Source struct {
+type SourceMeta struct {
 	// The ID (GHSA or CVE) of the original source of this report.
 	// If created by a human, this is "go-security-team".
 	ID string `yaml:",omitempty"`

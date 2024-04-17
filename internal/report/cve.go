@@ -82,7 +82,7 @@ func cveToReport(c *cveschema.CVE, id, modulePath string) *Report {
 		Description: description,
 		Credits:     credits,
 		References:  refs,
-		Source: &Source{
+		SourceMeta: &SourceMeta{
 			ID: c.Metadata.ID,
 		},
 	}
@@ -145,7 +145,7 @@ func cve5ToReport(c *cveschema5.CVERecord, id, modulePath string) *Report {
 		Description: description,
 		Credits:     credits,
 		References:  refs,
-		Source: &Source{
+		SourceMeta: &SourceMeta{
 			ID: c.Metadata.ID,
 		},
 	}

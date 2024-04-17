@@ -17,7 +17,7 @@ func GHSAToReport(sa *ghsa.SecurityAdvisory, modulePath string, pc *proxy.Client
 	r := &Report{
 		Summary:     Summary(sa.Summary),
 		Description: Description(sa.Description),
-		Source: &Source{
+		SourceMeta: &SourceMeta{
 			ID: sa.ID,
 		},
 	}

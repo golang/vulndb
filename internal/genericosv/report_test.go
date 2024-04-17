@@ -54,7 +54,8 @@ func TestToReport(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			got := osv.ToReport("GO-TEST-ID", pc)
+			modulePath := "" // ignored by ToReport
+			got := osv.ToReport("GO-TEST-ID", modulePath, pc)
 			// Keep record of what lints would apply to each generated report.
 			got.LintAsNotes(pc)
 

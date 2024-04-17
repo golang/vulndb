@@ -14,7 +14,6 @@ import (
 	"time"
 
 	"golang.org/x/vulndb/cmd/vulnreport/log"
-	"golang.org/x/vulndb/internal/cveclient"
 	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/genai"
 	"golang.org/x/vulndb/internal/genericosv"
@@ -178,11 +177,8 @@ func createReport(ctx context.Context, iss *issues.Issue, pc *proxy.Client, gc *
 		log.Infof("#%d (%q) has no CVE or GHSA IDs", iss.Number, iss.Title)
 	}
 
-	r, err = reportFromAliases(ctx, parsed.id, parsed.modulePath, parsed.aliases,
+	r = reportFromAliases(ctx, parsed.id, parsed.modulePath, parsed.aliases,
 		pc, gc, ac)
-	if err != nil {
-		return nil, err
-	}
 
 	if parsed.excluded != "" {
 		r = &report.Report{
@@ -200,19 +196,45 @@ func createReport(ctx context.Context, iss *issues.Issue, pc *proxy.Client, gc *
 	return r, nil
 }
 
+func fetch(ctx context.Context, alias string, gc *ghsa.Client) report.Source {
+	var f report.Fetcher
+	switch {
+	case ghsa.IsGHSA(alias):
+		if *graphQL {
+			f = report.LegacyGHSAFetcher(gc)
+		} else {
+			f = genericosv.NewFetcher()
+		}
+	case cveschema5.IsCVE(alias):
+		f = report.CVE5Fetcher()
+	default:
+		log.Warnf("alias %s is not supported, creating basic report", alias)
+		return report.Original()
+	}
+
+	src, err := f.Fetch(ctx, alias)
+	if err != nil {
+		log.Warnf("could not fetch %s (err = %q), creating basic report", alias, err)
+		return report.Original()
+	}
+
+	return src
+}
+
 func reportFromAliases(ctx context.Context, id, modulePath string, aliases []string,
-	pc *proxy.Client, gc *ghsa.Client, ac *genai.GeminiClient) (r *report.Report, err error) {
+	pc *proxy.Client, gc *ghsa.Client, ac *genai.GeminiClient) *report.Report {
+
+	var src report.Source
 	aliases = allAliases(ctx, aliases, gc)
 	if alias, ok := pickBestAlias(aliases, *preferCVE); ok {
 		log.Infof("creating report %s based on %s (picked from [%s])", id, alias, strings.Join(aliases, ", "))
-		r, err = reportFromAlias(ctx, id, modulePath, alias, pc, gc)
-		if err != nil {
-			return nil, err
-		}
+		src = fetch(ctx, alias, gc)
 	} else {
-		log.Infof("no alias found, creating basic report for %s", id)
-		r = basicReport(id, modulePath)
+		log.Info("no alias found, creating basic report")
+		src = report.Original()
 	}
+
+	r := report.New(src, id, modulePath, pc)
 
 	// Ensure all source aliases are added to the report.
 	r.AddAliases(aliases)
@@ -243,12 +265,12 @@ func reportFromAliases(ctx context.Context, id, modulePath string, aliases []str
 		}
 	}
 
-	if r.Source != nil {
+	if r.SourceMeta != nil {
 		now := time.Now()
-		r.Source.Created = &now
+		r.SourceMeta.Created = &now
 	}
 
-	return r, nil
+	return r
 }
 
 func parseGithubIssue(iss *issues.Issue, pc *proxy.Client, allowClosed bool) (*parsedIssue, error) {
@@ -300,54 +322,6 @@ type parsedIssue struct {
 	modulePath string
 	aliases    []string
 	excluded   report.ExcludedReason
-}
-
-// reportFromBestAlias returns a new report created from the "best" alias in the list.
-// For now, it prefers the first GHSA in the list, followed by the first CVE in the list
-// (if no GHSA is present). If no GHSAs or CVEs are present, it returns a new empty Report.
-func reportFromAlias(ctx context.Context, id, modulePath, alias string, pc *proxy.Client, gc *ghsa.Client) (*report.Report, error) {
-	switch {
-	case ghsa.IsGHSA(alias) && *graphQL:
-		ghsa, err := gc.FetchGHSA(ctx, alias)
-		if err != nil {
-			return nil, err
-		}
-		r := report.GHSAToReport(ghsa, modulePath, pc)
-		r.ID = id
-		return r, nil
-	case ghsa.IsGHSA(alias):
-		ghsa, err := genericosv.Fetch(alias)
-		if err != nil {
-			return nil, err
-		}
-		return ghsa.ToReport(id, pc), nil
-	case cveschema5.IsCVE(alias):
-		cve, err := cveclient.Fetch(alias)
-		if err != nil {
-			// If a CVE is not found, it is most likely a CVE we reserved but haven't
-			// published yet.
-			log.Infof("no published record found for %s, creating basic report", alias)
-			return basicReport(id, modulePath), nil
-		}
-		return report.CVE5ToReport(cve, id, modulePath, pc), nil
-	}
-
-	log.Infof("alias %s is not a CVE or GHSA, creating basic report", alias)
-	return basicReport(id, modulePath), nil
-}
-
-func basicReport(id, modulePath string) *report.Report {
-	return &report.Report{
-		ID: id,
-		Modules: []*report.Module{
-			{
-				Module: modulePath,
-			},
-		},
-		Source: &report.Source{
-			ID: report.SourceGoTeam,
-		},
-	}
 }
 
 const todo = "TODO: "
