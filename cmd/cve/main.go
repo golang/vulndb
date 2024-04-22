@@ -23,6 +23,7 @@ import (
 	"golang.org/x/vulndb/internal/cveclient"
 	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/database"
+	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/report"
 )
 
@@ -200,7 +201,7 @@ func validateID(id string) (string, error) {
 	if id == "" {
 		return "", errors.New("CVE ID must be provided")
 	}
-	if !cveschema5.IsCVE(id) {
+	if !idstr.IsCVE(id) {
 		return "", fmt.Errorf("%q is not a valid CVE ID", id)
 	}
 	return id, nil

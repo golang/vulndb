@@ -8,7 +8,6 @@ package ghsa
 import (
 	"context"
 	"fmt"
-	"regexp"
 	"time"
 
 	"github.com/shurcooL/githubv4"
@@ -256,12 +255,4 @@ func (c *Client) FetchGHSA(ctx context.Context, ghsaID string) (_ *SecurityAdvis
 		return nil, err
 	}
 	return query.SA.securityAdvisory()
-}
-
-const Regex = `GHSA-[^-]{4}-[^-]{4}-[^-]{4}`
-
-var ghsaStrict = regexp.MustCompile(`^` + Regex + `$`)
-
-func IsGHSA(s string) bool {
-	return ghsaStrict.MatchString(s)
 }

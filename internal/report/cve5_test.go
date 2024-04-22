@@ -10,7 +10,9 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/cveschema5"
+	"golang.org/x/vulndb/internal/proxy"
 )
 
 var (
@@ -443,5 +445,23 @@ func TestVersionRangeToVersionRange(t *testing.T) {
 				t.Errorf("versionRangeToVersionRange() got default status = %v, want %v", gotStatus, tt.wantDefault)
 			}
 		})
+	}
+}
+
+func TestCVE5ToReport(t *testing.T) {
+	pc, err := proxy.NewTestClient(t, *realProxy)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	newV5 := func() cvelistrepo.CVE {
+		return new(cveschema5.CVERecord)
+	}
+	toReportV5 := func(cve cvelistrepo.CVE, modulePath string) *Report {
+		return New(ToCVE5(cve.(*cveschema5.CVERecord)), pc,
+			WithModulePath(modulePath))
+	}
+	if err := run(t, v5txtar, newV5, toReportV5); err != nil {
+		t.Fatal(err)
 	}
 }

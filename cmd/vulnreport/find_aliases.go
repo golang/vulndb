@@ -10,8 +10,8 @@ import (
 
 	"golang.org/x/exp/slices"
 	"golang.org/x/vulndb/cmd/vulnreport/log"
-	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/ghsa"
+	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/report"
 )
 
@@ -40,9 +40,9 @@ func removeRelated(all, related []string) []string {
 func allAliases(ctx context.Context, knownAliases []string, gc *ghsa.Client) []string {
 	aliasesFor := func(ctx context.Context, alias string) ([]string, error) {
 		switch {
-		case ghsa.IsGHSA(alias):
+		case idstr.IsGHSA(alias):
 			return aliasesForGHSA(ctx, alias, gc)
-		case cveschema5.IsCVE(alias):
+		case idstr.IsCVE(alias):
 			return aliasesForCVE(ctx, alias, gc)
 		default:
 			return nil, fmt.Errorf("unsupported alias %s", alias)
@@ -109,8 +109,8 @@ func aliasesForCVE(ctx context.Context, cve string, gc *ghsa.Client) (aliases []
 // If "preferCVE" is true, it prefers CVEs instead.
 // If no GHSAs or CVEs are present, it returns ("", false).
 func pickBestAlias(aliases []string, preferCVE bool) (_ string, ok bool) {
-	firstChoice := ghsa.IsGHSA
-	secondChoice := cveschema5.IsCVE
+	firstChoice := idstr.IsGHSA
+	secondChoice := idstr.IsCVE
 	if preferCVE {
 		firstChoice, secondChoice = secondChoice, firstChoice
 	}

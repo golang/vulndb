@@ -10,12 +10,10 @@ package osvutils
 import (
 	"errors"
 	"fmt"
-	"regexp"
 	"strings"
 
-	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/derrors"
-	"golang.org/x/vulndb/internal/ghsa"
+	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/version"
 )
@@ -71,8 +69,6 @@ var (
 	errNoIntroducedOrFixed    = errors.New("introduced or fixed must be set")
 	errBothIntroducedAndFixed = errors.New("introduced and fixed cannot both be set in same event")
 	errInvalidSemver          = errors.New("invalid or non-canonical semver version")
-
-	pkgsiteLinkRegex = regexp.MustCompile(`^https://pkg.go.dev/vuln/GO-\d{4}-\d{4,}$`)
 )
 
 func validate(e *osv.Entry, checkTimestamps bool) (err error) {
@@ -111,7 +107,7 @@ func validate(e *osv.Entry, checkTimestamps bool) (err error) {
 		}
 	}
 	for _, alias := range e.Aliases {
-		if !ghsa.IsGHSA(alias) && !cveschema5.IsCVE(alias) {
+		if !idstr.IsAliasType(alias) {
 			return fmt.Errorf("%w (found alias %s)", errInvalidAlias, alias)
 		}
 	}
@@ -250,7 +246,7 @@ func validateEcosystemSpecific(es *osv.EcosystemSpecific, module string) error {
 }
 
 func validateDatabaseSpecific(d *osv.DatabaseSpecific) error {
-	if !pkgsiteLinkRegex.MatchString(d.URL) {
+	if !idstr.IsGoAdvisory(d.URL) {
 		return fmt.Errorf("%w (found URL %q)", errInvalidPkgsiteURL, d.URL)
 	}
 	return nil

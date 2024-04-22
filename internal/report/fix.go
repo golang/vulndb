@@ -14,8 +14,7 @@ import (
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
 	"golang.org/x/mod/module"
-	"golang.org/x/vulndb/internal/cveschema5"
-	"golang.org/x/vulndb/internal/ghsa"
+	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/osvutils"
 	"golang.org/x/vulndb/internal/proxy"
@@ -572,10 +571,6 @@ func first(vrs []VersionRange) string {
 	return ""
 }
 
-var (
-	goAdvisory = regexp.MustCompile(`^https://pkg.go.dev/vuln/.*$`)
-)
-
 // FixReferences deletes some unneeded references, and attempts to fix reference types.
 // Modifies r.
 //
@@ -615,7 +610,7 @@ func (r *Report) FixReferences() {
 
 	r.References = slices.DeleteFunc(r.References, func(ref *Reference) bool {
 		return ref.Type == osv.ReferenceTypePackage ||
-			goAdvisory.MatchString(ref.URL) ||
+			idstr.IsGoAdvisory(ref.URL) ||
 			isUnnecessaryAdvisory(ref)
 	})
 
@@ -660,9 +655,9 @@ func (re *reportRE) bestAdvisory(refs []*Reference) (string, bool) {
 			bestType = t
 		}
 
-		if ghsa.IsGHSA(alias) {
+		if idstr.IsGHSA(alias) {
 			ghsas[alias] = true
-		} else if cveschema5.IsCVE(alias) {
+		} else if idstr.IsCVE(alias) {
 			cves[alias] = true
 		}
 	}

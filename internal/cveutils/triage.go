@@ -9,12 +9,11 @@ import (
 	"errors"
 	"fmt"
 	"net/url"
-	"regexp"
 	"strings"
 
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/derrors"
-	"golang.org/x/vulndb/internal/ghsa"
+	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/pkgsite"
 	"golang.org/x/vulndb/internal/stdlib"
 	"golang.org/x/vulndb/internal/worker/log"
@@ -168,12 +167,12 @@ func triageV4CVE(ctx context.Context, c *cveschema.CVE, pc *pkgsite.Client) (res
 	return nil, nil
 }
 
-var ghsaRegex = regexp.MustCompile(ghsa.Regex)
-
 func GetAliasGHSAs(c *cveschema.CVE) []string {
 	var ghsas []string
 	for _, r := range c.References.Data {
-		ghsas = append(ghsas, ghsaRegex.FindAllString(r.URL, 1)...)
+		if ghsa := idstr.FindGHSA(r.URL); ghsa != "" {
+			ghsas = append(ghsas, ghsa)
+		}
 	}
 	return ghsas
 }

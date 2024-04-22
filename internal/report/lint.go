@@ -15,9 +15,8 @@ import (
 
 	"golang.org/x/exp/slices"
 	"golang.org/x/mod/module"
-	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/derrors"
-	"golang.org/x/vulndb/internal/ghsa"
+	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/osvutils"
 	"golang.org/x/vulndb/internal/proxy"
@@ -92,7 +91,7 @@ func (m *Module) lintVersions(l *linter) {
 
 func (r *Report) lintCVEs(l *linter) {
 	for i, cve := range r.CVEs {
-		if !cveschema5.IsCVE(cve) {
+		if !idstr.IsCVE(cve) {
 			l.Group(name("cves", i, cve)).Error("malformed cve identifier")
 		}
 	}
@@ -100,7 +99,7 @@ func (r *Report) lintCVEs(l *linter) {
 
 func (r *Report) lintGHSAs(l *linter) {
 	for i, g := range r.GHSAs {
-		if !ghsa.IsGHSA(g) {
+		if !idstr.IsGHSA(g) {
 			l.Group(name("ghsas", i, g)).Errorf("%s is not a valid GHSA", g)
 		}
 	}
@@ -128,20 +127,10 @@ func (r *Report) lintRelated(l *linter) {
 		if slices.Contains(aliases, related) {
 			rl.Error("also listed among aliases")
 		}
-		if !isIdentifier(related) {
+		if !idstr.IsIdentifier(related) {
 			rl.Error("not a recognized identifier (CVE, GHSA or Go ID)")
 		}
 	}
-}
-
-func isIdentifier(id string) bool {
-	return cveschema5.IsCVE(id) || ghsa.IsGHSA(id) || IsGoID(id)
-}
-
-var goIDregexp = regexp.MustCompile(`^GO-\d{4}-\d{4,}$`)
-
-func IsGoID(s string) bool {
-	return goIDregexp.MatchString(s)
 }
 
 const maxLineLength = 80
@@ -165,10 +154,6 @@ var (
 	commitRegex   = regexp.MustCompile(`https://go.googlesource.com/[^/]+/\+/([^/]+)`)
 	issueRegex    = regexp.MustCompile(`https://go.dev/issue/\d+`)
 	announceRegex = regexp.MustCompile(`https://groups.google.com/g/golang-(announce|dev|nuts)/c/([^/]+)`)
-
-	nistRegex     = regexp.MustCompile(`^https://nvd.nist.gov/vuln/detail/(` + cveschema5.RegexStr + `)$`)
-	ghsaLinkRegex = regexp.MustCompile(`^https://github.com/.*/(` + ghsa.Regex + `)$`)
-	mitreRegex    = regexp.MustCompile(`^https://cve.mitre.org/.*(` + cveschema5.RegexStr + `)$`)
 )
 
 func (ref *Reference) lint(l *linter, r *Report) {
@@ -211,7 +196,7 @@ func (ref *Reference) lint(l *linter, r *Report) {
 		//
 		// A reference to a CVE/GHSA that appears in the CVEs/GHSAs
 		// aliases is redundant.
-		for _, re := range []*regexp.Regexp{nistRegex, mitreRegex, ghsaLinkRegex} {
+		for _, re := range []*regexp.Regexp{idstr.NISTLink, idstr.MITRELink, idstr.GHSALink} {
 			if m := re.FindStringSubmatch(ref.URL); len(m) > 0 {
 				id := m[1]
 				if slices.Contains(r.CVEs, id) || slices.Contains(r.GHSAs, id) {
@@ -585,7 +570,7 @@ func (m *CVEMeta) lint(l *linter, r *Report) {
 	il := l.Group("id")
 	if m.ID == "" {
 		il.Error(missing)
-	} else if !cveschema5.IsCVE(m.ID) {
+	} else if !idstr.IsCVE(m.ID) {
 		il.Error("not a valid CVE")
 	}
 

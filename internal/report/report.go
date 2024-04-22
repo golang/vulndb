@@ -18,9 +18,8 @@ import (
 	"time"
 
 	"golang.org/x/exp/slices"
-	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/derrors"
-	"golang.org/x/vulndb/internal/ghsa"
+	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/proxy"
 	"gopkg.in/yaml.v3"
@@ -321,9 +320,9 @@ func (r *Report) AddAliases(aliases []string) (added int) {
 		switch {
 		case original[alias]:
 			continue
-		case ghsa.IsGHSA(alias):
+		case idstr.IsGHSA(alias):
 			r.GHSAs = append(r.GHSAs, alias)
-		case cveschema5.IsCVE(alias):
+		case idstr.IsCVE(alias):
 			r.CVEs = append(r.CVEs, alias)
 		default:
 			continue // skip aliases that are not CVEs or GHSAs

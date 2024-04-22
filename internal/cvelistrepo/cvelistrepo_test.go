@@ -16,6 +16,7 @@ import (
 	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/gitrepo"
+	"golang.org/x/vulndb/internal/idstr"
 )
 
 var update = flag.Bool("update", false, "update the .txtar files with real CVE data (this takes a while)")
@@ -183,7 +184,7 @@ func TestParse(t *testing.T) {
 					if err := Parse(repo, file, cve); err != nil {
 						t.Fatal(err)
 					}
-					want := cveschema5.FindCVE(file.Filename)
+					want := idstr.FindCVE(file.Filename)
 					if got := cveID(cve); got != want {
 						t.Errorf("ParseCVE(%s) ID = %s, want %s", file.Filename, got, want)
 						t.Log(cve)

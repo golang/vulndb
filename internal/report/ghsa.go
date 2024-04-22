@@ -5,11 +5,57 @@
 package report
 
 import (
+	"context"
 	"fmt"
 	"strings"
 
 	"golang.org/x/vulndb/internal/ghsa"
 )
+
+// legacyGHSA is a wrapper for a GHSA in the format retrievable
+// via the Github GraphQL API.
+//
+// We are planning to phase this out in favor of the Github OSV format,
+// but some of our processes still rely on this format.
+type legacyGHSA struct {
+	*ghsa.SecurityAdvisory
+}
+
+var _ Source = &legacyGHSA{}
+
+func ToLegacyGHSA(g *ghsa.SecurityAdvisory) Source {
+	return &legacyGHSA{
+		SecurityAdvisory: g,
+	}
+}
+
+func (g *legacyGHSA) ToReport(modulePath string) *Report {
+	return ghsaToReport(g.SecurityAdvisory, modulePath)
+}
+
+func (g *legacyGHSA) SourceID() string {
+	return g.ID
+}
+
+type legacyGHSAFetcher struct {
+	*ghsa.Client
+}
+
+func LegacyGHSAFetcher(c *ghsa.Client) Fetcher {
+	return &legacyGHSAFetcher{
+		Client: c,
+	}
+}
+
+func (g *legacyGHSAFetcher) Fetch(ctx context.Context, id string) (Source, error) {
+	fetched, err := g.FetchGHSA(ctx, id)
+	if err != nil {
+		return nil, err
+	}
+	return &legacyGHSA{
+		SecurityAdvisory: fetched,
+	}, err
+}
 
 // ghsaToReport creates a Report struct from a given GHSA SecurityAdvisory and modulePath.
 func ghsaToReport(sa *ghsa.SecurityAdvisory, modulePath string) *Report {

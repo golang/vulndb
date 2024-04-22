@@ -5,15 +5,34 @@
 package report
 
 import (
-	"fmt"
 	"regexp"
 	"strings"
 
 	"golang.org/x/vulndb/internal/cveschema"
-	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/stdlib"
-	"golang.org/x/vulndb/internal/version"
 )
+
+// cve4 is a wrapper for a CVE in CVE JSON 4.0 (legacy) format.
+//
+// Note: Fetch is not implemented for CVE4, as it is a legacy format
+// which will be phased out soon.
+type cve4 struct {
+	*cveschema.CVE
+}
+
+var _ Source = &cve4{}
+
+func ToCVE4(c *cveschema.CVE) Source {
+	return &cve4{CVE: c}
+}
+
+func (c *cve4) ToReport(modulePath string) *Report {
+	return cveToReport(c.CVE, modulePath)
+}
+
+func (c *cve4) SourceID() string {
+	return c.ID
+}
 
 func vendor(modulePath string) string {
 	switch modulePath {
@@ -99,198 +118,4 @@ func (r *Report) addCVE(cveID, cwe string, isGoCNA bool) {
 		return
 	}
 	r.CVEs = append(r.CVEs, cveID)
-}
-
-func cve5ToReport(c *cveschema5.CVERecord, modulePath string) *Report {
-	cna := c.Containers.CNAContainer
-
-	var description Description
-	for _, d := range cna.Descriptions {
-		if d.Lang == "en" {
-			description += Description(d.Value + "\n")
-		}
-	}
-
-	var credits []string
-	for _, c := range cna.Credits {
-		credits = append(credits, c.Value)
-	}
-
-	var refs []*Reference
-	for _, ref := range c.Containers.CNAContainer.References {
-		refs = append(refs, referenceFromUrl(ref.URL))
-	}
-
-	r := &Report{
-		Modules:     affectedToModules(cna.Affected, modulePath),
-		Summary:     Summary(cna.Title),
-		Description: description,
-		Credits:     credits,
-		References:  refs,
-	}
-
-	r.addCVE(c.Metadata.ID, getCWE5(&cna), isGoCNA5(&cna))
-	return r
-}
-
-func getCWE5(c *cveschema5.CNAPublishedContainer) string {
-	if len(c.ProblemTypes) == 0 || len(c.ProblemTypes[0].Descriptions) == 0 {
-		return ""
-	}
-	return c.ProblemTypes[0].Descriptions[0].Description
-}
-
-func isGoCNA5(c *cveschema5.CNAPublishedContainer) bool {
-	return c.ProviderMetadata.OrgID == GoOrgUUID
-}
-
-func affectedToModules(as []cveschema5.Affected, modulePath string) []*Module {
-	// Use a placeholder module if there is no information on
-	// modules/packages in the CVE.
-	if len(as) == 0 {
-		return []*Module{{
-			Module: modulePath,
-		}}
-	}
-
-	var modules []*Module
-	for _, a := range as {
-		modules = append(modules, affectedToModule(&a, modulePath))
-	}
-
-	return modules
-}
-
-func affectedToModule(a *cveschema5.Affected, modulePath string) *Module {
-	var pkgPath string
-	isSet := func(s string) bool {
-		const na = "n/a"
-		return s != "" && s != na
-	}
-	switch {
-	case isSet(a.PackageName):
-		pkgPath = a.PackageName
-	case isSet(a.Product):
-		pkgPath = a.Product
-	case isSet(a.Vendor):
-		pkgPath = a.Vendor
-	default:
-		pkgPath = modulePath
-	}
-
-	// If the package path is just a suffix of the modulePath,
-	// it is probably not useful.
-	if strings.HasSuffix(modulePath, pkgPath) {
-		pkgPath = modulePath
-	}
-
-	if stdlib.Contains(pkgPath) {
-		if strings.HasPrefix(pkgPath, stdlib.ToolchainModulePath) {
-			modulePath = stdlib.ToolchainModulePath
-		} else {
-			modulePath = stdlib.ModulePath
-		}
-	}
-
-	var symbols []string
-	for _, s := range a.ProgramRoutines {
-		symbols = append(symbols, s.Name)
-	}
-
-	vs, uvs := convertVersions(a.Versions, a.DefaultStatus)
-
-	return &Module{
-		Module:              modulePath,
-		Versions:            vs,
-		UnsupportedVersions: uvs,
-		Packages: []*Package{
-			{
-				Package: pkgPath,
-				Symbols: symbols,
-				GOOS:    a.Platforms,
-			},
-		},
-	}
-}
-
-func convertVersions(vrs []cveschema5.VersionRange, defaultStatus cveschema5.VersionStatus) (vs []VersionRange, uvs []UnsupportedVersion) {
-	for _, vr := range vrs {
-		// Version ranges starting with "n/a" don't have any meaningful data.
-		if vr.Introduced == "n/a" {
-			continue
-		}
-		v, ok := toVersionRange(&vr, defaultStatus)
-		if ok {
-			vs = append(vs, *v)
-			continue
-		}
-		uvs = append(uvs, toUnsupported(&vr, defaultStatus))
-	}
-	return vs, uvs
-}
-
-var (
-	// Regex for matching version strings like "<= X, < Y".
-	introducedFixedRE = regexp.MustCompile(`^>= (.+), < (.+)$`)
-	// Regex for matching version strings like "< Y".
-	fixedRE = regexp.MustCompile(`^< (.+)$`)
-)
-
-func toVersionRange(cvr *cveschema5.VersionRange, defaultStatus cveschema5.VersionStatus) (*VersionRange, bool) {
-	// Handle special cases where the info is not quite correctly encoded but
-	// we can still figure out the intent.
-
-	// Case one: introduced version is of the form "<= X, < Y".
-	if m := introducedFixedRE.FindStringSubmatch(string(cvr.Introduced)); len(m) == 3 {
-		return &VersionRange{
-			Introduced: m[1],
-			Fixed:      m[2],
-		}, true
-	}
-
-	// Case two: introduced version is of the form "< Y".
-	if m := fixedRE.FindStringSubmatch(string(cvr.Introduced)); len(m) == 2 {
-		return &VersionRange{
-			Fixed: m[1],
-		}, true
-	}
-
-	// For now, don't attempt to fix any other messed up cases.
-	if cvr.VersionType != typeSemver ||
-		cvr.LessThanOrEqual != "" ||
-		!version.IsValid(string(cvr.Introduced)) ||
-		!version.IsValid(string(cvr.Fixed)) ||
-		cvr.Status != cveschema5.StatusAffected ||
-		defaultStatus != cveschema5.StatusUnaffected {
-		return nil, false
-	}
-
-	introduced := string(cvr.Introduced)
-	if introduced == "0" {
-		introduced = ""
-	}
-
-	return &VersionRange{
-		Introduced: introduced,
-		Fixed:      string(cvr.Fixed),
-	}, true
-}
-
-func toUnsupported(cvr *cveschema5.VersionRange, defaultStatus cveschema5.VersionStatus) UnsupportedVersion {
-	var version string
-	switch {
-	case cvr.Fixed != "":
-		version = fmt.Sprintf("%s from %s before %s", cvr.Status, cvr.Introduced, cvr.Fixed)
-	case cvr.LessThanOrEqual != "":
-		version = fmt.Sprintf("%s from %s to %s", cvr.Status, cvr.Introduced, cvr.Fixed)
-	default:
-		version = fmt.Sprintf("%s at %s", cvr.Status, cvr.Introduced)
-	}
-	if defaultStatus != "" {
-		version = fmt.Sprintf("%s (default: %s)", version, defaultStatus)
-	}
-	return UnsupportedVersion{
-		Version: version,
-		Type:    "cve_version_range",
-	}
 }

@@ -20,8 +20,8 @@ import (
 	"golang.org/x/tools/txtar"
 	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/cveschema"
-	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/gitrepo"
+	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/test"
 	"gopkg.in/yaml.v3"
@@ -96,24 +96,6 @@ func TestCVEToReport(t *testing.T) {
 	}
 }
 
-func TestCVE5ToReport(t *testing.T) {
-	pc, err := proxy.NewTestClient(t, *realProxy)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	newV5 := func() cvelistrepo.CVE {
-		return new(cveschema5.CVERecord)
-	}
-	toReportV5 := func(cve cvelistrepo.CVE, modulePath string) *Report {
-		return New(ToCVE5(cve.(*cveschema5.CVERecord)), pc,
-			WithModulePath(modulePath))
-	}
-	if err := run(t, v5txtar, newV5, toReportV5); err != nil {
-		t.Fatal(err)
-	}
-}
-
 func TestV4V5Equivalence(t *testing.T) {
 	// Skip, but leave the test in case it is needed in the course of
 	// the transition.
@@ -160,7 +142,7 @@ func findCVEFile(tf string) (string, *Report, error) {
 		return "", nil, err
 	}
 	for _, af := range ar.Files {
-		if cveschema5.IsCVE(af.Name) {
+		if idstr.IsCVE(af.Name) {
 			var r Report
 			if err := yaml.Unmarshal(af.Data, &r); err != nil {
 				return "", nil, err
@@ -188,7 +170,7 @@ func run(t *testing.T, txtarFile string, newCVE func() cvelistrepo.CVE, toReport
 	}
 
 	for _, file := range files {
-		id := cveschema5.FindCVE(file.Filename)
+		id := idstr.FindCVE(file.Filename)
 		t.Run(id, func(t *testing.T) {
 			cve := newCVE()
 			if err := cvelistrepo.Parse(repo, file, cve); err != nil {

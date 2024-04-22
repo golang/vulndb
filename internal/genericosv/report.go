@@ -9,8 +9,7 @@ import (
 	"strings"
 
 	osvschema "github.com/google/osv-scanner/pkg/models"
-	"golang.org/x/vulndb/internal/cveschema5"
-	"golang.org/x/vulndb/internal/ghsa"
+	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/report"
 )
@@ -25,9 +24,9 @@ func (osv *Entry) ToReport(string) *report.Report {
 	}
 	addAlias := func(alias string) {
 		switch {
-		case cveschema5.IsCVE(alias):
+		case idstr.IsCVE(alias):
 			r.CVEs = append(r.CVEs, alias)
-		case ghsa.IsGHSA(alias):
+		case idstr.IsGHSA(alias):
 			r.GHSAs = append(r.GHSAs, alias)
 		default:
 			r.UnknownAliases = append(r.UnknownAliases, alias)

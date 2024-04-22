@@ -14,11 +14,11 @@ import (
 	"time"
 
 	"golang.org/x/vulndb/cmd/vulnreport/log"
-	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/genai"
 	"golang.org/x/vulndb/internal/genericosv"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
+	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/proxy"
@@ -207,13 +207,13 @@ func createReport(ctx context.Context, iss *issues.Issue, pc *proxy.Client, gc *
 func fetch(ctx context.Context, alias string, gc *ghsa.Client) report.Source {
 	var f report.Fetcher
 	switch {
-	case ghsa.IsGHSA(alias):
+	case idstr.IsGHSA(alias):
 		if *graphQL {
 			f = report.LegacyGHSAFetcher(gc)
 		} else {
 			f = genericosv.NewFetcher()
 		}
-	case cveschema5.IsCVE(alias):
+	case idstr.IsCVE(alias):
 		f = report.CVE5Fetcher()
 	default:
 		log.Warnf("alias %s is not supported, creating basic report", alias)
@@ -305,7 +305,7 @@ func parseGithubIssue(iss *issues.Issue, pc *proxy.Client) (*parsedIssue, error)
 		switch {
 		case p == "x/vulndb:":
 			continue
-		case cveschema5.IsCVE(p) || ghsa.IsGHSA(p):
+		case idstr.IsAliasType(p):
 			parsed.aliases = append(parsed.aliases, strings.TrimSuffix(p, ","))
 		case strings.HasSuffix(p, ":") || strings.Contains(p, "/"):
 			// Remove backslashes.

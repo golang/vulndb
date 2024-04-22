@@ -12,8 +12,8 @@ import (
 
 	"github.com/go-git/go-git/v5/plumbing"
 	"golang.org/x/tools/txtar"
-	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/gitrepo"
+	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/test"
 )
 
@@ -49,7 +49,7 @@ func WriteTxtarRepo(ctx context.Context, url string, filename string, cveIDs []s
 	idToFile := make(map[string]*File)
 	for _, f := range files {
 		f := f
-		id := cveschema5.FindCVE(f.Filename)
+		id := idstr.FindCVE(f.Filename)
 		if id != "" {
 			if _, ok := idToFile[id]; ok {
 				return fmt.Errorf("found duplicate record files for %s", id)

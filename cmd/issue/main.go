@@ -19,9 +19,9 @@ import (
 	"strings"
 
 	"golang.org/x/vulndb/internal"
-	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
+	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
@@ -101,7 +101,7 @@ func createExcluded(ctx context.Context, c *issues.Client, ghsaClient *ghsa.Clie
 
 func createPlaceholder(ctx context.Context, c *issues.Client, args []string) error {
 	for _, arg := range args {
-		if !cveschema5.IsCVE(arg) {
+		if !idstr.IsCVE(arg) {
 			return fmt.Errorf("%q is not a CVE", arg)
 		}
 		aliases := []string{arg}
