@@ -7,6 +7,16 @@
     "CVE-2023-25173",
     "GHSA-hmfx-3pcx-653p"
   ],
+  "related": [
+    "GHSA-4wjj-jwc9-2x96",
+    "GHSA-fjm8-m7m6-2fjp",
+    "GHSA-phjr-8j92-w5v7",
+    "GHSA-rc4r-wh2q-q6c4",
+    "CVE-2022-2989",
+    "CVE-2022-2990",
+    "CVE-2022-2995",
+    "CVE-2022-36109"
+  ],
   "summary": "Privilege escalation via supplementary groups in github.com/containerd/containerd",
   "details": "Supplementary groups are not set up properly inside a container. If an attacker has direct access to a container and manipulates their supplementary group access, they may be able to use supplementary group access to bypass primary group restrictions in some cases and potentially escalate privileges in the container. Uses of the containerd client library may also have improperly setup supplementary groups.",
   "affected": [
