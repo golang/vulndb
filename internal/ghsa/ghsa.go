@@ -106,13 +106,17 @@ func (sa *gqlSecurityAdvisory) securityAdvisory() (*SecurityAdvisory, error) {
 	if sa.Vulnerabilities.PageInfo.HasNextPage {
 		return nil, fmt.Errorf("%s has more than 100 vulns", sa.GhsaID)
 	}
+	var permalink string
+	if sa.Permalink.URL != nil {
+		permalink = sa.Permalink.URL.String()
+	}
 	s := &SecurityAdvisory{
 		ID:          sa.GhsaID,
 		Identifiers: sa.Identifiers,
 		Summary:     sa.Summary,
 		Description: sa.Description,
 		Origin:      sa.Origin,
-		Permalink:   sa.Permalink.URL.String(),
+		Permalink:   permalink,
 		References:  sa.References,
 		PublishedAt: sa.PublishedAt,
 		UpdatedAt:   sa.UpdatedAt,
