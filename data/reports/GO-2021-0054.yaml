@@ -9,7 +9,12 @@ modules:
           symbols:
             - unwrap
           derived_symbols:
+            - Get
+            - GetBytes
+            - GetMany
+            - GetManyBytes
             - Result.ForEach
+            - Result.Get
 summary: Panic due to improper input validation in ForEach in github.com/tidwall/gjson
 description: |-
     Due to improper bounds checking, maliciously crafted JSON objects can cause an

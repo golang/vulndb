@@ -9,6 +9,8 @@ modules:
         - package: k8s.io/kube-state-metrics/internal/store
           symbols:
             - kubeAnnotationsToPrometheusLabels
+          derived_symbols:
+            - Builder.Build
 summary: Exposure of sensitive information in k8s.io/kube-state-metrics
 description: |-
     Exposing annotations as metrics can leak secrets.

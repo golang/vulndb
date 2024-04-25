@@ -12,6 +12,10 @@ modules:
         - package: github.com/weaviate/weaviate/adapters/handlers/rest
           symbols:
             - handleUnbatchedGraphQLRequest
+          derived_symbols:
+            - Server.ConfigureAPI
+            - Server.Serve
+            - Server.SetAPI
 summary: Denial of service vulnerability in github.com/weaviate/weaviate
 description: |-
     A type conversion issue in Weaviate may allow a remote attack that would cause a
