@@ -1,0 +1,21 @@
+id: GO-2024-2744
+modules:
+    - module: github.com/authelia/authelia/v4
+      versions:
+        - introduced: 4.37.0
+          fixed: 4.38.0
+      vulnerable_at: 4.37.5
+summary: Access control change may take longer than expected in github.com/authelia/authelia/v4
+description: |-
+    If the file authentication backend is being used, the ewatch option is set
+    to true, the refresh interval is configured to a non-disabled value, and an
+    administrator changes a user's groups, then that user may be able to access
+    resources that their previous groups had access to.
+ghsas:
+    - GHSA-x883-2vmg-xwf7
+references:
+    - advisory: https://github.com/authelia/authelia/security/advisories/GHSA-x883-2vmg-xwf7
+    - web: https://github.com/authelia/authelia/blob/v4.37.5/internal/handlers/handler_verify.go#L376-L394
+source:
+    id: GHSA-x883-2vmg-xwf7
+    created: 2024-04-22T14:02:49.727107-04:00
