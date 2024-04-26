@@ -272,9 +272,11 @@ func TestLintOffline(t *testing.T) {
 		},
 		{
 			name: "summary_too_long",
-			desc: "The summary must be 100 characters or less.",
+			desc: fmt.Sprintf("The summary must be %d characters or less.", summaryMaxLen),
 			report: validReport(func(r *Report) {
-				r.Summary = "This summary of golang.org/x/net is too long; it needs to be shortened to less than 101 characters to pass the lint check"
+				r.Summary = Summary(
+					fmt.Sprintf("This summary of golang.org/x/net is too long and probably has unnecessary detail; it needs to be shortened to %d or fewer characters to pass the lint check", summaryMaxLen),
+				)
 			}),
 			wantNumLints: 1,
 		},

@@ -292,6 +292,8 @@ func (d *Description) lint(l *linter, r *Report) {
 	}
 }
 
+const summaryMaxLen = 125
+
 func (s *Summary) lint(l *linter, r *Report) {
 	summary := s.String()
 	if !r.IsExcluded() && len(summary) == 0 {
@@ -307,8 +309,8 @@ func (s *Summary) lint(l *linter, r *Report) {
 		return
 	}
 	checkNoMarkdown(l, summary)
-	if ln := len(summary); ln > 100 {
-		l.Errorf("too long (found %d characters, want <=100)", ln)
+	if ln := len(summary); ln > summaryMaxLen {
+		l.Errorf("too long (found %d characters, want <=%d)", ln, summaryMaxLen)
 	}
 	if strings.HasSuffix(summary, ".") {
 		l.Error("must not end in a period (should be a phrase, not a sentence)")

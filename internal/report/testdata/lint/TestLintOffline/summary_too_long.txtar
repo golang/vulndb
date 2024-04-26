@@ -1,9 +1,9 @@
-Copyright 2023 The Go Authors. All rights reserved.
+Copyright 2024 The Go Authors. All rights reserved.
 Use of this source code is governed by a BSD-style
 license that can be found in the LICENSE file.
 
 Test: TestLintOffline/summary_too_long
-Description: The summary must be 100 characters or less.
+Description: The summary must be 125 characters or less.
 
 -- data/reports/GO-0000-0000.yaml --
 id: GO-0000-0000
@@ -12,10 +12,10 @@ modules:
       vulnerable_at: 1.2.3
       packages:
         - package: golang.org/x/net/http2
-summary: This summary of golang.org/x/net is too long; it needs to be shortened to less than 101 characters to pass the lint check
+summary: This summary of golang.org/x/net is too long and probably has unnecessary detail; it needs to be shortened to 125 or fewer characters to pass the lint check
 description: description
 cves:
     - CVE-1234-0000
 
 -- golden --
-summary: too long (found 121 characters, want <=100)
+summary: too long (found 156 characters, want <=125)
