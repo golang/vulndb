@@ -2,8 +2,8 @@ Copyright 2024 The Go Authors. All rights reserved.
 Use of this source code is governed by a BSD-style
 license that can be found in the LICENSE file.
 
-Test: TestLintOffline/no_review_status
-Description: Regular (non-excluded) reports must have a review status.
+Test: TestLintOffline/summary_ok_unreviewed
+Description: Summary does not need to conform to style guide for unreviewed reports.
 
 -- data/reports/GO-0000-0000.yaml --
 id: GO-0000-0000
@@ -12,12 +12,13 @@ modules:
       vulnerable_at: 1.2.3
       packages:
         - package: golang.org/x/net/http2
-summary: A summary of the issue in golang.org/x/net
+summary: this summary doesn't conform to our `style` guide, but its ok because this is an unreviewed report.
 description: description
 cves:
     - CVE-1234-0000
 references:
     - advisory: https://nvd.nist.gov/vuln/detail/CVE-1234-0000
+review_status: UNREVIEWED
 
 -- golden --
-review_status missing or invalid (must be one of [UNREVIEWED, REVIEWED])
+

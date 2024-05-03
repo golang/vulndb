@@ -582,9 +582,10 @@ func TestFixReferences(t *testing.T) {
 						Module: "github.com/module/module",
 					},
 				},
-				GHSAs:      []string{"GHSA-xxxx-yyyy-zzzz", "GHSA-gggg-hhhh-ffff"},
-				CVEs:       []string{"CVE-1999-0001", "CVE-1999-0002"},
-				References: tc.in,
+				GHSAs:        []string{"GHSA-xxxx-yyyy-zzzz", "GHSA-gggg-hhhh-ffff"},
+				CVEs:         []string{"CVE-1999-0001", "CVE-1999-0002"},
+				References:   tc.in,
+				ReviewStatus: Reviewed,
 			}
 			r.FixReferences()
 			got := r.References

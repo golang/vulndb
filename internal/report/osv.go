@@ -15,6 +15,7 @@ import (
 
 	"golang.org/x/exp/maps"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/stdlib"
 )
@@ -64,7 +65,7 @@ func (r *Report) ToOSV(lastModified time.Time) osv.Entry {
 		Credits:       credits,
 		SchemaVersion: SchemaVersion,
 		DatabaseSpecific: &osv.DatabaseSpecific{
-			URL:          GoAdvisory(r.ID),
+			URL:          idstr.GoAdvisory(r.ID),
 			ReviewStatus: osv.ReviewStatus(r.ReviewStatus),
 		},
 	}

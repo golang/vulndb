@@ -248,7 +248,7 @@ func TestCreateIssues(t *testing.T) {
 func TestNewCVEBody(t *testing.T) {
 	r := &store.CVERecord{
 		ID:     "ID1",
-		Module: "a.Module",
+		Module: "golang.org/x/vulndb",
 		CVE: &cve4.CVE{
 			Description: cve4.Description{
 				Data: []cve4.LangString{{
@@ -260,7 +260,7 @@ func TestNewCVEBody(t *testing.T) {
 	}
 
 	rep := &report.Report{
-		Modules: []*report.Module{{Module: "a.Module"}},
+		Modules: []*report.Module{{Module: "golang.org/x/vulndb"}},
 		CVEs:    []string{"ID1"},
 		GHSAs:   []string{},
 	}
@@ -280,7 +280,7 @@ func TestNewCVEBody(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	want := `ID1 references [a.Module](https://a.Module), which may be a Go module.
+	want := `ID1 references [golang.org/x/vulndb](https://golang.org/x/vulndb), which may be a Go module.
 
 Description:
 a description
@@ -288,11 +288,11 @@ a description
 References:
 - NIST: https://nvd.nist.gov/vuln/detail/ID1
 - JSON: https://github.com/CVEProject/cvelist/tree//
-- Imported by: https://pkg.go.dev/a.Module?tab=importedby
+- Imported by: https://pkg.go.dev/golang.org/x/vulndb?tab=importedby
 
 Cross references:
 - ID1 appears in issue #2
-- Module a.Module appears in issue #2
+- Module golang.org/x/vulndb appears in issue #2
 
 
 See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) for instructions on how to triage this report.
@@ -300,10 +300,11 @@ See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) 
 ` + "```" + `
 id: GO-ID-PENDING
 modules:
-    - module: a.Module
+    - module: golang.org/x/vulndb
+      vulnerable_at: 0.0.0-20240515211212-610562879ffa
       packages:
-        - package: a.Module
-summary: ID1 in a.Module
+        - package: golang.org/x/vulndb
+summary: ID1 in golang.org/x/vulndb
 cves:
     - ID1
 source:
@@ -325,9 +326,9 @@ func TestCreateGHSABody(t *testing.T) {
 			Permalink:   "https://github.com/permalink/to/G1",
 			Description: "a description",
 			Vulns: []*ghsa.Vuln{{
-				Package:                "aPackage",
-				EarliestFixedVersion:   "1.2.3",
-				VulnerableVersionRange: "< 1.2.3",
+				Package:                "golang.org/x/tools",
+				EarliestFixedVersion:   "0.21.0",
+				VulnerableVersionRange: "< 0.21.0",
 			}},
 		},
 	}
@@ -355,7 +356,7 @@ func TestCreateGHSABody(t *testing.T) {
 
 | Unit | Fixed | Vulnerable Ranges |
 | - | - | - |
-| [aPackage](https://pkg.go.dev/aPackage) | 1.2.3 | < 1.2.3 |
+| [golang.org/x/tools](https://pkg.go.dev/golang.org/x/tools) | 0.21.0 | < 0.21.0 |
 
 Cross references:
 - G1 appears in issue #1  EXCLUDED
@@ -366,12 +367,13 @@ See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) 
 ` + "```" + `
 id: GO-ID-PENDING
 modules:
-    - module: aPackage
+    - module: golang.org/x/tools
       versions:
-        - fixed: 1.2.3
+        - fixed: 0.21.0
+      vulnerable_at: 0.20.0
       packages:
-        - package: aPackage
-summary: G1 in aPackage
+        - package: golang.org/x/tools
+summary: G1 in golang.org/x/tools
 ghsas:
     - G1
 source:

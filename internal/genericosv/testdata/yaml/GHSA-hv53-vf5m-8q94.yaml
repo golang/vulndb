@@ -1,8 +1,9 @@
 id: GO-ID-PENDING
 modules:
     - module: github.com/personnummer/go
-      versions:
+      non_go_versions:
         - fixed: 3.0.1
+      vulnerable_at: 1.1.0
 summary: personnummer/go vulnerable to Improper Input Validation in github.com/personnummer/go
 description: |-
     This vulnerability was reported to the personnummer team in June 2020. The slow
@@ -55,8 +56,6 @@ references:
 notes:
     - lint: 'description: possible markdown formatting (found ### )'
     - lint: 'description: possible markdown formatting (found [C#](https://github.com/advisories/GHSA-qv8q-v995-72gr))'
-    - lint: 'modules[0] "github.com/personnummer/go": version 3.0.1 does not exist'
-    - lint: 'summary: must begin with a capital letter'
 source:
     id: GHSA-hv53-vf5m-8q94
     created: 1999-01-01T00:00:00Z

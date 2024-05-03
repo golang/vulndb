@@ -11,6 +11,7 @@ import (
 	"strings"
 
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/stdlib"
 	"golang.org/x/vulndb/internal/version"
@@ -86,7 +87,7 @@ func FromReport(r *report.Report) (_ *CVERecord, err error) {
 		c.References = append(c.References, Reference{URL: ref.URL})
 	}
 	c.References = append(c.References, Reference{
-		URL: report.GoAdvisory(r.ID),
+		URL: idstr.GoAdvisory(r.ID),
 	})
 	for _, ref := range r.CVEMetadata.References {
 		c.References = append(c.References, Reference{URL: ref})
@@ -262,7 +263,7 @@ func affectedToModule(a *Affected, modulePath string) *report.Module {
 		pkgPath = modulePath
 	}
 
-	if stdlib.Contains(pkgPath) {
+	if stdlib.Contains(modulePath) && stdlib.Contains(pkgPath) {
 		if strings.HasPrefix(pkgPath, stdlib.ToolchainModulePath) {
 			modulePath = stdlib.ToolchainModulePath
 		} else {
@@ -270,24 +271,29 @@ func affectedToModule(a *Affected, modulePath string) *report.Module {
 		}
 	}
 
-	var symbols []string
-	for _, s := range a.ProgramRoutines {
-		symbols = append(symbols, s.Name)
-	}
-
 	vs, uvs := convertVersions(a.Versions, a.DefaultStatus)
 
-	return &report.Module{
-		Module:              modulePath,
-		Versions:            vs,
-		UnsupportedVersions: uvs,
-		Packages: []*report.Package{
+	// Add a package if we have any meaningful package-level data.
+	var pkgs []*report.Package
+	if pkgPath != modulePath || len(a.ProgramRoutines) != 0 || len(a.Platforms) != 0 {
+		var symbols []string
+		for _, s := range a.ProgramRoutines {
+			symbols = append(symbols, s.Name)
+		}
+		pkgs = []*report.Package{
 			{
 				Package: pkgPath,
 				Symbols: symbols,
 				GOOS:    a.Platforms,
 			},
-		},
+		}
+	}
+
+	return &report.Module{
+		Module:              modulePath,
+		Versions:            vs,
+		UnsupportedVersions: uvs,
+		Packages:            pkgs,
 	}
 }
 
@@ -315,11 +321,13 @@ var (
 )
 
 func toVersionRange(cvr *VersionRange, defaultStatus VersionStatus) (*report.VersionRange, bool) {
+	intro, fixed := version.TrimPrefix(string(cvr.Introduced)), version.TrimPrefix(string(cvr.Fixed))
+
 	// Handle special cases where the info is not quite correctly encoded but
 	// we can still figure out the intent.
 
 	// Case one: introduced version is of the form "<= X, < Y".
-	if m := introducedFixedRE.FindStringSubmatch(string(cvr.Introduced)); len(m) == 3 {
+	if m := introducedFixedRE.FindStringSubmatch(intro); len(m) == 3 {
 		return &report.VersionRange{
 			Introduced: m[1],
 			Fixed:      m[2],
@@ -327,7 +335,7 @@ func toVersionRange(cvr *VersionRange, defaultStatus VersionStatus) (*report.Ver
 	}
 
 	// Case two: introduced version is of the form "< Y".
-	if m := fixedRE.FindStringSubmatch(string(cvr.Introduced)); len(m) == 2 {
+	if m := fixedRE.FindStringSubmatch(intro); len(m) == 2 {
 		return &report.VersionRange{
 			Fixed: m[1],
 		}, true
@@ -336,21 +344,20 @@ func toVersionRange(cvr *VersionRange, defaultStatus VersionStatus) (*report.Ver
 	// For now, don't attempt to fix any other messed up cases.
 	if cvr.VersionType != typeSemver ||
 		cvr.LessThanOrEqual != "" ||
-		!version.IsValid(string(cvr.Introduced)) ||
-		!version.IsValid(string(cvr.Fixed)) ||
+		!version.IsValid(intro) ||
+		!version.IsValid(fixed) ||
 		cvr.Status != StatusAffected ||
 		defaultStatus != StatusUnaffected {
 		return nil, false
 	}
 
-	introduced := string(cvr.Introduced)
-	if introduced == "0" {
-		introduced = ""
+	if intro == "0" {
+		intro = ""
 	}
 
 	return &report.VersionRange{
-		Introduced: introduced,
-		Fixed:      string(cvr.Fixed),
+		Introduced: intro,
+		Fixed:      fixed,
 	}, true
 }
 
@@ -360,7 +367,7 @@ func toUnsupported(cvr *VersionRange, defaultStatus VersionStatus) report.Unsupp
 	case cvr.Fixed != "":
 		version = fmt.Sprintf("%s from %s before %s", cvr.Status, cvr.Introduced, cvr.Fixed)
 	case cvr.LessThanOrEqual != "":
-		version = fmt.Sprintf("%s from %s to %s", cvr.Status, cvr.Introduced, cvr.Fixed)
+		version = fmt.Sprintf("%s from %s to %s", cvr.Status, cvr.Introduced, cvr.LessThanOrEqual)
 	default:
 		version = fmt.Sprintf("%s at %s", cvr.Status, cvr.Introduced)
 	}

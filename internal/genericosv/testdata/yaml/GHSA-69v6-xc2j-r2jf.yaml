@@ -1,15 +1,16 @@
 id: GO-ID-PENDING
 modules:
     - module: github.com/ethereum/go-ethereum
+      non_go_versions:
+        - fixed: 1.19.7
+      vulnerable_at: 1.14.3
+      packages:
+        - package: github.com/ethereum/go-ethereum/core/vm
+    - module: github.com/ethereum/go-ethereum
       versions:
         - introduced: 1.9.7
           fixed: 1.9.17
       vulnerable_at: 1.9.16
-    - module: github.com/ethereum/go-ethereum
-      versions:
-        - fixed: 1.19.7
-      packages:
-        - package: github.com/ethereum/go-ethereum/core/vm
 summary: Shallow copy bug in geth in github.com/ethereum/go-ethereum
 description: |-
     ### Impact This is a Consensus vulnerability, which can be used to cause a
@@ -36,14 +37,13 @@ ghsas:
     - GHSA-69v6-xc2j-r2jf
 references:
     - advisory: https://github.com/ethereum/go-ethereum/security/advisories/GHSA-69v6-xc2j-r2jf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-26241
     - fix: https://github.com/ethereum/go-ethereum/commit/295693759e5ded05fec0b2fb39359965b60da785
     - web: https://blog.ethereum.org/2020/11/12/geth_security_release/
 notes:
     - lint: 'description: possible markdown formatting (found ### )'
     - lint: 'description: possible markdown formatting (found [go-ethereum](https://github.com/ethereum/go-ethereum))'
     - lint: 'description: possible markdown formatting (found `dataCopy` (at `0x00...04`)'
-    - lint: 'modules[1] "github.com/ethereum/go-ethereum": packages[0] "github.com/ethereum/go-ethereum/core/vm": at least one of vulnerable_at and skip_fix must be set'
-    - lint: 'modules[1] "github.com/ethereum/go-ethereum": version 1.19.7 does not exist'
 source:
     id: GHSA-69v6-xc2j-r2jf
     created: 1999-01-01T00:00:00Z

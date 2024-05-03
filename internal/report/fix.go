@@ -22,6 +22,7 @@ import (
 )
 
 func (r *Report) Fix(pc *proxy.Client) {
+	r.deleteNotes(NoteTypeFix)
 	expandGitCommits(r)
 	r.FixModules(pc)
 	r.FixText()
@@ -88,7 +89,15 @@ func (m *Module) FixVersions(pc *proxy.Client) {
 
 	m.Versions = fixVersionRanges(m.Versions)
 
-	m.fixVulnerableAt(pc)
+	if !m.IsFirstParty() {
+		// If none of the versions in the "versions" list exist,
+		// move them to the "non_go_versions" section.
+		notFound, _ := m.classifyVersions(pc)
+		if len(notFound) == lenVR(m.Versions) {
+			m.NonGoVersions = append(m.NonGoVersions, m.Versions...)
+			m.Versions = nil
+		}
+	}
 }
 
 func fixVersionRanges(vrs []VersionRange) []VersionRange {
@@ -131,19 +140,36 @@ func fixVersionRanges(vrs []VersionRange) []VersionRange {
 	return vrs
 }
 
-func (m *Module) fixVulnerableAt(pc *proxy.Client) {
+func lenVR(vr []VersionRange) int {
+	n := 0
+	for _, v := range vr {
+		if v.Introduced != "" {
+			n++
+		}
+		if v.Fixed != "" {
+			n++
+		}
+	}
+	return n
+}
+
+func (m *Module) fixVulnerableAt(pc *proxy.Client) error {
 	if m.VulnerableAt != "" {
-		return
+		return nil
+	}
+	if m.IsFirstParty() {
+		return fmt.Errorf("not implemented for std/cmd")
 	}
 	// Don't attempt to guess if the given version ranges don't make sense.
 	if err := m.checkModVersions(pc); err != nil {
-		return
+		return err
 	}
 	v, err := m.guessVulnerableAt(pc)
 	if err != nil {
-		return
+		return err
 	}
 	m.VulnerableAt = v
+	return nil
 }
 
 // guessVulnerableAt attempts to find a vulnerable_at
@@ -155,10 +181,11 @@ func (m *Module) guessVulnerableAt(pc *proxy.Client) (v string, err error) {
 		return "", errors.New("cannot auto-guess vulnerable_at for first-party modules")
 	}
 
-	// Find the last fixed version, assuming the version ranges are sorted.
-	fixed := ""
+	// Find the last fixed and introduced version, assuming the version ranges are sorted.
+	var introduced, fixed string
 	if len(m.Versions) > 0 {
-		fixed = m.Versions[len(m.Versions)-1].Fixed
+		last := m.Versions[len(m.Versions)-1]
+		introduced, fixed = last.Introduced, last.Fixed
 	}
 
 	// If there is no fix, find the latest version of the module.
@@ -187,11 +214,14 @@ func (m *Module) guessVulnerableAt(pc *proxy.Client) (v string, err error) {
 	}
 	for i := len(vs) - 1; i >= 0; i-- {
 		if version.Before(vs[i], fixed) {
-			return vs[i], nil
+			// Make sure the version is >= the latest introduced version.
+			if introduced == "" || !version.Before(vs[i], introduced) {
+				return vs[i], nil
+			}
 		}
 	}
 
-	return "", errors.New("could not find tagged version less than fixed")
+	return "", errors.New("could not find tagged version between introduced and fixed")
 }
 
 // fixLineLength returns a copy of s with all lines trimmed to <=n characters
@@ -281,6 +311,9 @@ func (r *Report) FixModules(pc *proxy.Client) {
 	// Fix the versions *after* the modules have been merged.
 	for _, m := range r.Modules {
 		m.FixVersions(pc)
+		if err := m.fixVulnerableAt(pc); err != nil {
+			r.AddNote(NoteTypeFix, "%s: could not add vulnerable_at: %v", m.Module, err)
+		}
 	}
 
 	sortModules(r.Modules)
@@ -470,17 +503,11 @@ func addIncompatible(m *Module, pc *proxy.Client) {
 func sortModules(ms []*Module) {
 	sort.SliceStable(ms, func(i, j int) bool {
 		m1, m2 := ms[i], ms[j]
-		// Break ties by lowest affected version, assuming the version list is sorted.
-		if m1.Module == m2.Module {
-			vr1, vr2 := m1.Versions, m2.Versions
-			if len(vr1) == 0 {
-				return true
-			} else if len(vr2) == 0 {
-				return false
-			}
 
-			v1, v2 := first(vr1), first(vr2)
-			if v1 == v2 {
+		// Break ties by versions, assuming the version list is sorted.
+		// If needed, further break ties by packages.
+		if m1.Module == m2.Module {
+			byPackage := func(m1, m2 *Module) bool {
 				pkgs1, pkgs2 := m1.Packages, m2.Packages
 				if len(pkgs1) == 0 {
 					return true
@@ -490,8 +517,23 @@ func sortModules(ms []*Module) {
 				return pkgs1[0].Package < pkgs2[0].Package
 			}
 
+			vr1, vr2 := m1.Versions, m2.Versions
+			if len(vr1) == 0 && len(vr2) == 0 {
+				return byPackage(m1, m2)
+			} else if len(vr1) == 0 {
+				return true
+			} else if len(vr2) == 0 {
+				return false
+			}
+
+			v1, v2 := first(vr1), first(vr2)
+			if v1 == v2 {
+				return byPackage(m1, m2)
+			}
+
 			return version.Before(v1, v2)
 		}
+
 		return m1.Module < m2.Module
 	})
 }
@@ -589,33 +631,43 @@ func (r *Report) FixReferences() {
 	for _, ref := range r.References {
 		ref.URL = fixURL(ref.URL)
 	}
+	r.References = slices.DeleteFunc(r.References, func(ref *Reference) bool {
+		return ref.Type == osv.ReferenceTypePackage ||
+			idstr.IsGoAdvisory(ref.URL)
+	})
 
 	re := newRE(r)
 
+	aliases := r.Aliases()
 	for _, ref := range r.References {
-		switch re.Type(ref.URL) {
+		switch re.Type(ref.URL, aliases) {
 		case urlTypeAdvisory:
 			ref.Type = osv.ReferenceTypeAdvisory
 		case urlTypeIssue:
 			ref.Type = osv.ReferenceTypeReport
 		case urlTypeFix:
 			ref.Type = osv.ReferenceTypeFix
+		case urlTypeWeb:
+			ref.Type = osv.ReferenceTypeWeb
 		}
 	}
 
-	bestAdvisory, found := re.bestAdvisory(r.References)
-	isUnnecessaryAdvisory := func(ref *Reference) bool {
-		return found && ref.Type == osv.ReferenceTypeAdvisory && ref.URL != bestAdvisory
+	// If this is a reviewed report, attempt to find the "best" advisory and delete others.
+	if r.IsReviewed() {
+		if bestAdvisory := bestAdvisory(r.References, r.Aliases()); bestAdvisory != "" {
+			isNotBest := func(ref *Reference) bool {
+				return ref.Type == osv.ReferenceTypeAdvisory && ref.URL != bestAdvisory
+			}
+			r.References = slices.DeleteFunc(r.References, isNotBest)
+		}
 	}
 
-	r.References = slices.DeleteFunc(r.References, func(ref *Reference) bool {
-		return ref.Type == osv.ReferenceTypePackage ||
-			idstr.IsGoAdvisory(ref.URL) ||
-			isUnnecessaryAdvisory(ref)
-	})
-
-	if r.missingAdvisory(r.countAdvisories()) {
-		r.addAdvisory()
+	if r.countAdvisories() == 0 && r.needsAdvisory() {
+		if r.hasExternalSource() {
+			r.addSourceAdvisory()
+		} else if as := r.Aliases(); len(as) > 0 {
+			r.addAdvisory(as[0])
+		}
 	}
 
 	if len(r.References) == 0 {
@@ -623,13 +675,30 @@ func (r *Report) FixReferences() {
 	}
 }
 
-func (r *Report) addAdvisory() {
-	// For now, only add an advisory if there is a CVE.
-	if len(r.CVEs) > 0 {
+func (r *Report) hasExternalSource() bool {
+	return r.SourceMeta != nil && idstr.IsIdentifier(r.SourceMeta.ID)
+}
+
+func (r *Report) addAdvisory(id string) {
+	if link := idstr.AdvisoryLink(id); link != "" {
 		r.References = append(r.References, &Reference{
 			Type: osv.ReferenceTypeAdvisory,
-			URL:  fmt.Sprintf("%s%s", NISTPrefix, r.CVEs[0]),
+			URL:  link,
 		})
+	}
+}
+
+func (r *Report) addSourceAdvisory() {
+	srcID := r.SourceMeta.ID
+	found := false
+	for _, ref := range r.References {
+		if idstr.FindID(ref.URL) == srcID {
+			found = true
+			break
+		}
+	}
+	if !found {
+		r.addAdvisory(srcID)
 	}
 }
 
@@ -641,7 +710,7 @@ func (r *Report) addAdvisory() {
 // aliases of the same type, we don't try to determine which is best.
 // (For example, if there are two advisories, referencing GHSA-1 and GHSA-2, we leave it
 // to the triager to pick the best one.)
-func (re *reportRE) bestAdvisory(refs []*Reference) (string, bool) {
+func bestAdvisory(refs []*Reference, aliases []string) string {
 	bestAdvisory := ""
 	bestType := advisoryTypeUnknown
 	ghsas, cves := make(map[string]bool), make(map[string]bool)
@@ -649,8 +718,11 @@ func (re *reportRE) bestAdvisory(refs []*Reference) (string, bool) {
 		if ref.Type != osv.ReferenceTypeAdvisory {
 			continue
 		}
-		t, alias := re.AdvisoryType(ref.URL)
-		if t > bestType {
+		alias, ok := idstr.IsAdvisoryForOneOf(ref.URL, aliases)
+		if !ok {
+			continue
+		}
+		if t := advisoryTypeOf(ref.URL); t > bestType {
 			bestAdvisory = ref.URL
 			bestType = t
 		}
@@ -663,10 +735,10 @@ func (re *reportRE) bestAdvisory(refs []*Reference) (string, bool) {
 	}
 
 	if len(ghsas) > 1 || len(cves) > 1 {
-		return "", false
+		return ""
 	}
 
-	return bestAdvisory, bestAdvisory != ""
+	return bestAdvisory
 }
 
 type urlType int
@@ -676,21 +748,25 @@ const (
 	urlTypeIssue
 	urlTypeFix
 	urlTypeAdvisory
+	urlTypeWeb
 )
 
-func (re *reportRE) Type(url string) urlType {
+func (re *reportRE) Type(url string, aliases []string) urlType {
+	if _, ok := idstr.IsAdvisoryForOneOf(url, aliases); ok {
+		return urlTypeAdvisory
+	} else if idstr.IsAdvisory(url) {
+		// URLs that point to other vulns should not be considered
+		// advisories for this vuln.
+		return urlTypeWeb
+	}
+
 	switch {
-	case re.ghsa.MatchString(url):
-		return urlTypeAdvisory
-	case re.ghsaRepo.MatchString(url):
-		return urlTypeAdvisory
-	case re.cve.MatchString(url):
-		return urlTypeAdvisory
 	case re.issue.MatchString(url):
 		return urlTypeIssue
 	case re.fix.MatchString(url):
 		return urlTypeFix
 	}
+
 	return urlTypeUnknown
 }
 
@@ -706,24 +782,20 @@ const (
 	advisoryTypeGHSARepo
 )
 
-func (re *reportRE) AdvisoryType(url string) (t advisoryType, alias string) {
-	if m := re.ghsa.FindStringSubmatch(url); len(m) == 2 {
-		return advisoryTypeGHSA, m[1]
+func advisoryTypeOf(url string) advisoryType {
+	switch {
+	case idstr.IsCVELink(url):
+		return advisoryTypeCVE
+	case idstr.IsGHSAGlobalLink(url):
+		return advisoryTypeGHSA
+	case idstr.IsGHSARepoLink(url):
+		return advisoryTypeGHSARepo
 	}
-
-	if m := re.ghsaRepo.FindStringSubmatch(url); len(m) == 2 {
-		return advisoryTypeGHSARepo, m[1]
-	}
-
-	if m := re.cve.FindStringSubmatch(url); len(m) == 2 {
-		return advisoryTypeCVE, m[1]
-	}
-
-	return advisoryTypeUnknown, ""
+	return advisoryTypeUnknown
 }
 
 type reportRE struct {
-	ghsa, ghsaRepo, cve, issue, fix *regexp.Regexp
+	issue, fix *regexp.Regexp
 }
 
 func newRE(r *Report) *reportRE {
@@ -740,10 +812,7 @@ func newRE(r *Report) *reportRE {
 	moduleRE := oneOfRE(modulePaths)
 
 	return &reportRE{
-		ghsa:     regexp.MustCompile(`^https://github.com/advisories/` + oneOfRE(r.GHSAs) + `$`),
-		ghsaRepo: regexp.MustCompile(`^https://github.com/.+/advisories/` + oneOfRE(r.GHSAs) + `$`),
-		cve:      regexp.MustCompile(`^https://nvd.nist.gov/vuln/detail/` + oneOfRE(r.CVEs) + `$`),
-		issue:    regexp.MustCompile(`https://` + moduleRE + `/issue(s?)/.*$`),
-		fix:      regexp.MustCompile(`https://` + moduleRE + `/(commit(s?)|pull)/.*$`),
+		issue: regexp.MustCompile(`^https://` + moduleRE + `/issue(s?)/.*$`),
+		fix:   regexp.MustCompile(`^https://` + moduleRE + `/(commit(s?)|pull)/.*$`),
 	}
 }

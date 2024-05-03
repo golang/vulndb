@@ -33,6 +33,10 @@ func New(src Source, pc *proxy.Client, opts ...NewOption) *Report {
 	r.SourceMeta.Created = &cfg.Created
 	r.ReviewStatus = cfg.ReviewStatus
 
+	if r.hasExternalSource() {
+		r.addSourceAdvisory()
+	}
+
 	r.Fix(pc)
 	return r
 }

@@ -39,11 +39,15 @@ func FindCVE(s string) string {
 const goIDStr = `GO-\d{4}-\d{4,}`
 
 var (
-	_, goIDStrict = re(goIDStr)
+	goRE, goIDStrict = re(goIDStr)
 )
 
 func IsGoID(s string) bool {
 	return goIDStrict.MatchString(s)
+}
+
+func findGoID(s string) string {
+	return goRE.FindString(s)
 }
 
 func re(s string) (*regexp.Regexp, *regexp.Regexp) {
@@ -54,6 +58,19 @@ func re(s string) (*regexp.Regexp, *regexp.Regexp) {
 // (currently, either a GHSA, CVE, or Go ID).
 func IsIdentifier(id string) bool {
 	return IsAliasType(id) || IsGoID(id)
+}
+
+func FindID(s string) string {
+	if cve := FindCVE(s); cve != "" {
+		return cve
+	}
+	if ghsa := FindGHSA(s); ghsa != "" {
+		return ghsa
+	}
+	if gid := findGoID(s); gid != "" {
+		return gid
+	}
+	return ""
 }
 
 // IsAliasType returns whether the given ID is a recognized alias type

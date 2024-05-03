@@ -1,14 +1,14 @@
 id: GO-ID-PENDING
 modules:
     - module: github.com/apptainer/sif
-      versions:
+      non_go_versions:
         - introduced: 1.2.1-0.20180103161547-0ef6afb2f6cd
           fixed: 1.2.1-0.20180404165556-75cca531ea76
+      vulnerable_at: 1.7.0
     - module: github.com/satori/go.uuid
       versions:
         - introduced: 1.2.1-0.20180103161547-0ef6afb2f6cd
           fixed: 1.2.1-0.20180404165556-75cca531ea76
-      vulnerable_at: 1.2.0
 summary: github.com/satori/go.uuid has Predictable SIF UUID Identifiers
 description: |-
     ### Impact
@@ -48,17 +48,16 @@ ghsas:
     - GHSA-33m6-q9v5-62r7
 references:
     - advisory: https://github.com/hpcng/sif/security/advisories/GHSA-33m6-q9v5-62r7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-3538
     - report: https://github.com/satori/go.uuid/issues/73
     - fix: https://github.com/satori/go.uuid/pull/75
     - fix: https://github.com/satori/go.uuid/commit/75cca531ea763666bc46e531da3b4c3b95f64557
     - web: https://bugzilla.redhat.com/show_bug.cgi?id=1954376
     - web: https://snyk.io/vuln/SNYK-GOLANG-GITHUBCOMSATORIGOUUID-72488
 notes:
+    - fix: 'github.com/satori/go.uuid: could not add vulnerable_at: could not find tagged version between introduced and fixed'
     - lint: 'description: possible markdown formatting (found ### )'
     - lint: 'description: possible markdown formatting (found `github.com/satori/go.uuid`)'
-    - lint: 'modules[0] "github.com/apptainer/sif": 2 versions do not exist: 1.2.1-0.20180103161547-0ef6afb2f6cd, 1.2.1-0.20180404165556-75cca531ea76'
-    - lint: 'modules[1] "github.com/satori/go.uuid": vulnerable_at: 1.2.0 is not inside vulnerable range'
-    - lint: 'summary: must begin with a capital letter'
 source:
     id: GHSA-33m6-q9v5-62r7
     created: 1999-01-01T00:00:00Z

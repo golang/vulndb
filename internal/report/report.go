@@ -374,20 +374,10 @@ func (r *Report) AddAliases(aliases []string) (added int) {
 	return added
 }
 
-const (
-	NISTPrefix    = "https://nvd.nist.gov/vuln/detail/"
-	ghsaURLPrefix = "https://github.com/advisories/"
-	goURLPrefix   = "https://pkg.go.dev/vuln/"
-)
-
 // GoID returns the Go ID from the given filename, assuming the filename
 // is of the form "*/<goID>.<ext>".
 func GoID(filename string) string {
 	return strings.TrimSuffix(filepath.Base(filename), filepath.Ext(filename))
-}
-
-func GoAdvisory(id string) string {
-	return fmt.Sprintf("%s%s", goURLPrefix, id)
 }
 
 // AllSymbols returns both original and derived symbols.

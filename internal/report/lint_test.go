@@ -17,6 +17,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"golang.org/x/tools/txtar"
+	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/test"
@@ -221,6 +222,15 @@ func TestLintOffline(t *testing.T) {
 			wantNumLints: 1,
 		},
 		{
+			name: "no_advisory_unreviewed",
+			desc: "Unreviewed reports must have an advisory link.",
+			report: validReport(func(r *Report) {
+				r.ReviewStatus = Unreviewed
+				r.References = nil
+			}),
+			wantNumLints: 1,
+		},
+		{
 			name: "no_description_ok",
 			desc: "Reports with no description are OK if they have an advisory.",
 			report: validReport(func(r *Report) {
@@ -270,6 +280,13 @@ func TestLintOffline(t *testing.T) {
 			desc: "Regular (non-excluded) reports must have a review status.",
 			report: validReport(func(r *Report) {
 				r.ReviewStatus = 0
+				// add an advisory to avoid the "no advisory" lint error
+				r.References = []*Reference{
+					{
+						URL:  idstr.AdvisoryLink("CVE-1234-0000"),
+						Type: osv.ReferenceTypeAdvisory,
+					},
+				}
 			}),
 			wantNumLints: 1,
 		},
@@ -320,6 +337,22 @@ func TestLintOffline(t *testing.T) {
 					VulnerableAt: "1.0.0",
 				})
 				r.Summary = "This summary is about example.com/module/example"
+			}),
+			// No lints.
+		},
+		{
+			name: "summary_ok_unreviewed",
+			desc: "Summary does not need to conform to style guide for unreviewed reports.",
+			report: validReport(func(r *Report) {
+				r.ReviewStatus = Unreviewed
+				// add an advisory to avoid the "no advisory" lint error
+				r.References = []*Reference{
+					{
+						URL:  idstr.AdvisoryLink("CVE-1234-0000"),
+						Type: osv.ReferenceTypeAdvisory,
+					},
+				}
+				r.Summary = "this summary doesn't conform to our `style` guide, but its ok because this is an unreviewed report."
 			}),
 			// No lints.
 		},

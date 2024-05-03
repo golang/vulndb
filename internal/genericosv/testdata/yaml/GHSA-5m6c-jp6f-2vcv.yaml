@@ -1,9 +1,10 @@
 id: GO-ID-PENDING
 modules:
     - module: github.com/oauth2-proxy/oauth2-proxy
-      versions:
+      non_go_versions:
         - introduced: 5.1.1
           fixed: 6.0.0
+      vulnerable_at: 3.2.0+incompatible
 summary: Open Redirect in OAuth2 Proxy in github.com/oauth2-proxy/oauth2-proxy
 description: |-
     ### Impact As users can provide a redirect address for the proxy to send the
@@ -17,11 +18,11 @@ ghsas:
     - GHSA-5m6c-jp6f-2vcv
 references:
     - advisory: https://github.com/oauth2-proxy/oauth2-proxy/security/advisories/GHSA-5m6c-jp6f-2vcv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-4037
     - fix: https://github.com/oauth2-proxy/oauth2-proxy/commit/ee5662e0f5001d76ec76562bb605abbd07c266a2
     - web: https://github.com/oauth2-proxy/oauth2-proxy/releases/tag/v6.0.0
 notes:
     - lint: 'description: possible markdown formatting (found ### )'
-    - lint: 'modules[0] "github.com/oauth2-proxy/oauth2-proxy": 2 versions do not exist: 5.1.1, 6.0.0'
 source:
     id: GHSA-5m6c-jp6f-2vcv
     created: 1999-01-01T00:00:00Z

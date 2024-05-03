@@ -33,7 +33,8 @@ func Populate(r *report.Report, update bool) error {
 }
 
 func populate(r *report.Report, update bool, clone func(context.Context, string, string) (*git.Repository, error), patched func(string, string, *repository) (map[string][]string, error)) error {
-	reportFixRepos, errs := getFixRepos(r.CommitLinks(), clone)
+	commits := r.CommitLinks()
+	reportFixRepos, errs := getFixRepos(commits, clone)
 	for _, mod := range r.Modules {
 		hasFixLinks := len(mod.FixLinks) > 0
 		fixRepos := reportFixRepos
@@ -42,11 +43,15 @@ func populate(r *report.Report, update bool, clone func(context.Context, string,
 			if len(ers) != 0 {
 				errs = append(errs, ers...)
 			}
-			if len(frs) == 0 {
-				errs = append(errs, fmt.Errorf("no working repos found for %s", mod.Module))
-				continue
-			}
 			fixRepos = frs
+		} else if len(commits) == 0 {
+			errs = append(errs, fmt.Errorf("no commits found for %s", mod.Module))
+			continue
+		}
+
+		if len(fixRepos) == 0 {
+			errs = append(errs, fmt.Errorf("no working repos found for %s", mod.Module))
+			continue
 		}
 
 		foundSymbols := false

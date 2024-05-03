@@ -1,12 +1,13 @@
 id: GO-ID-PENDING
 modules:
     - module: github.com/concourse/concourse
-      versions:
+      non_go_versions:
         - fixed: 5.2.8
         - introduced: 5.3.0
           fixed: 5.5.10
         - introduced: 5.6.0
           fixed: 5.8.1
+      vulnerable_at: 4.2.3+incompatible
       packages:
         - package: github.com/concourse/concourse/skymarshal/skyserver
 summary: Open Redirect in github.com/concourse/concourse
@@ -24,9 +25,7 @@ references:
     - fix: https://github.com/concourse/concourse/pull/5350/commits/38cb4cc025e5ed28764b4adc363a0bbf41f3c7cb
     - web: https://github.com/concourse/concourse/blob/release/5.2.x/release-notes/v5.2.8.md
     - web: https://pivotal.io/security/cve-2018-15798
-notes:
-    - lint: 'modules[0] "github.com/concourse/concourse": 5 versions do not exist: 5.2.8, 5.3.0, 5.5.10, 5.6.0, 5.8.1'
-    - lint: 'modules[0] "github.com/concourse/concourse": packages[0] "github.com/concourse/concourse/skymarshal/skyserver": at least one of vulnerable_at and skip_fix must be set'
+    - advisory: https://github.com/advisories/GHSA-9689-rx4v-cqgc
 source:
     id: GHSA-9689-rx4v-cqgc
     created: 1999-01-01T00:00:00Z

@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"strings"
 
+	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/osv"
 )
 
@@ -19,10 +20,6 @@ func isFix(url string) bool {
 
 func isIssue(url string) bool {
 	return strings.Contains(url, "/issue/") || strings.Contains(url, "/issues/")
-}
-
-func isAdvisory(url string) bool {
-	return strings.Contains(url, "/advisories/")
 }
 
 // ReferenceFromUrl creates a new Reference from a url
@@ -39,7 +36,7 @@ func ReferenceFromUrl(u string) *Reference {
 		typ = osv.ReferenceTypeFix
 	case isIssue(unescaped):
 		typ = osv.ReferenceTypeReport
-	case isAdvisory(unescaped):
+	case idstr.IsAdvisory(unescaped):
 		typ = osv.ReferenceTypeAdvisory
 	}
 	return &Reference{

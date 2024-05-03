@@ -28,23 +28,8 @@ func (m *Module) checkModVersions(pc *proxy.Client) error {
 		return fmt.Errorf("module %s not known to proxy", m.Module)
 	}
 
-	var notFound []string
-	var nonCanonical []string
-	for _, vr := range m.Versions {
-		for _, v := range []string{vr.Introduced, vr.Fixed} {
-			if v == "" {
-				continue
-			}
-			c, err := pc.CanonicalModulePath(m.Module, v)
-			if err != nil {
-				notFound = append(notFound, v)
-				continue
-			}
-			if c != m.Module {
-				nonCanonical = append(nonCanonical, fmt.Sprintf("%s (canonical:%s)", v, c))
-			}
-		}
-	}
+	notFound, nonCanonical := m.classifyVersions(pc)
+
 	var sb strings.Builder
 	nf, nc := len(notFound), len(nonCanonical)
 	if nf > 0 {
@@ -66,13 +51,28 @@ func (m *Module) checkModVersions(pc *proxy.Client) error {
 	return nil
 }
 
+func (m *Module) classifyVersions(pc *proxy.Client) (notFound, nonCanonical []string) {
+	for _, vr := range m.Versions {
+		for _, v := range []string{vr.Introduced, vr.Fixed} {
+			if v == "" {
+				continue
+			}
+			c, err := pc.CanonicalModulePath(m.Module, v)
+			if err != nil {
+				notFound = append(notFound, v)
+				continue
+			}
+			if c != m.Module {
+				nonCanonical = append(nonCanonical, fmt.Sprintf("%s (canonical:%s)", v, c))
+			}
+		}
+	}
+	return notFound, nonCanonical
+}
+
 var missing = "missing"
 
 func (m *Module) lintVersions(l *linter) {
-	if u := len(m.UnsupportedVersions); u > 0 {
-		l.Group("unsupported_versions").Errorf("found %d (want none)", u)
-	}
-
 	vl := l.Group("versions")
 	ranges := AffectedRanges(m.Versions)
 	if v := m.VulnerableAt; v != "" {
@@ -196,15 +196,14 @@ func (ref *Reference) lint(l *linter, r *Report) {
 		//
 		// A reference to a CVE/GHSA that appears in the CVEs/GHSAs
 		// aliases is redundant.
-		for _, re := range []*regexp.Regexp{idstr.NISTLink, idstr.MITRELink, idstr.GHSALink} {
-			if m := re.FindStringSubmatch(ref.URL); len(m) > 0 {
-				id := m[1]
-				if slices.Contains(r.CVEs, id) || slices.Contains(r.GHSAs, id) {
-					l.Errorf("redundant non-advisory reference to %v", id)
-				}
-			}
+		if id, ok := idstr.IsAdvisoryForOneOf(ref.URL, r.Aliases()); ok {
+			l.Errorf("redundant non-advisory reference to %v", id)
 		}
 	}
+}
+
+func (r *Report) IsReviewed() bool {
+	return r.ReviewStatus == Reviewed
 }
 
 func (r *Report) lintReferences(l *linter) {
@@ -213,39 +212,39 @@ func (r *Report) lintReferences(l *linter) {
 		ref.lint(rl, r)
 	}
 
-	// Find missing references.
 	rl := l.Group("references")
-	advisoryCount := r.countAdvisories()
-	if advisoryCount > 1 {
-		rl.Errorf("too many advisories (found %d, want <=1)", advisoryCount)
+
+	// Check advisory count.
+	switch c := r.countAdvisories(); {
+	case c == 0 && r.needsAdvisory():
+		rl.Errorf("missing advisory (required because report has no description or is %v)", Unreviewed)
+	case c > 1 && r.IsReviewed():
+		rl.Errorf("too many advisories (found %d, want <=1)", c)
 	}
-	if !r.IsExcluded() {
-		if r.IsFirstParty() {
-			var hasFixLink, hasReportLink, hasAnnounceLink bool
-			for _, ref := range r.References {
-				switch ref.Type {
-				case osv.ReferenceTypeFix:
-					hasFixLink = true
-				case osv.ReferenceTypeReport:
-					hasReportLink = true
-				case osv.ReferenceTypeWeb:
-					if announceRegex.MatchString(ref.URL) {
-						hasAnnounceLink = true
-					}
+
+	// First-party reports have stricter requirements for references.
+	if !r.IsExcluded() && r.IsFirstParty() {
+		var hasFixLink, hasReportLink, hasAnnounceLink bool
+		for _, ref := range r.References {
+			switch ref.Type {
+			case osv.ReferenceTypeFix:
+				hasFixLink = true
+			case osv.ReferenceTypeReport:
+				hasReportLink = true
+			case osv.ReferenceTypeWeb:
+				if announceRegex.MatchString(ref.URL) {
+					hasAnnounceLink = true
 				}
 			}
-			if !hasFixLink {
-				rl.Error("must contain at least one fix")
-			}
-			if !hasReportLink {
-				rl.Error("must contain at least one report")
-			}
-			if !hasAnnounceLink {
-				rl.Errorf("must contain an announcement link matching regex %q", announceRegex)
-			}
 		}
-		if r.missingAdvisory(advisoryCount) {
-			rl.Error("missing advisory (required because report has no description)")
+		if !hasFixLink {
+			rl.Error("must contain at least one fix")
+		}
+		if !hasReportLink {
+			rl.Error("must contain at least one report")
+		}
+		if !hasAnnounceLink {
+			rl.Errorf("must contain an announcement link matching regex %q", announceRegex)
 		}
 	}
 }
@@ -270,9 +269,14 @@ func (r *Report) countAdvisories() int {
 	return advisoryCount
 }
 
-func (r *Report) missingAdvisory(advisoryCount int) bool {
-	return !r.IsExcluded() && r.Description == "" && !r.IsFirstParty() &&
-		advisoryCount == 0 && r.CVEMetadata == nil
+func (r *Report) needsAdvisory() bool {
+	switch {
+	case r.IsExcluded(), r.CVEMetadata != nil, r.IsFirstParty():
+		return false
+	case r.Description == "", !r.IsReviewed():
+		return true
+	}
+	return false
 }
 
 func (d *Description) lint(l *linter, r *Report) {
@@ -291,11 +295,11 @@ const summaryMaxLen = 125
 
 func (s *Summary) lint(l *linter, r *Report) {
 	summary := s.String()
-	if !r.IsExcluded() && len(summary) == 0 {
-		l.Error(missing)
-	}
-	// Nothing to lint.
 	if len(summary) == 0 {
+		if !r.IsExcluded() {
+			l.Error(missing)
+		}
+		// Nothing else to lint.
 		return
 	}
 	if hasTODO(summary) {
@@ -303,6 +307,12 @@ func (s *Summary) lint(l *linter, r *Report) {
 		// No need to keep linting, as this is likely a placeholder value.
 		return
 	}
+
+	// Non-reviewed reports don't need to meet strict requirements.
+	if !r.IsReviewed() {
+		return
+	}
+
 	checkNoMarkdown(l, summary)
 	if ln := len(summary); ln > summaryMaxLen {
 		l.Errorf("too long (found %d characters, want <=%d)", ln, summaryMaxLen)
@@ -430,9 +440,7 @@ func (r *Report) Lint(pc *proxy.Client) []string {
 // Removes any pre-existing lint notes.
 // Returns true if any lints were found.
 func (r *Report) LintAsNotes(pc *proxy.Client) bool {
-	r.Notes = slices.DeleteFunc(r.Notes, func(n *Note) bool {
-		return n.Type == NoteTypeLint
-	})
+	r.deleteNotes(NoteTypeLint)
 
 	if lints := r.Lint(pc); len(lints) > 0 {
 		slices.Sort(lints)
@@ -443,6 +451,12 @@ func (r *Report) LintAsNotes(pc *proxy.Client) bool {
 	}
 
 	return false
+}
+
+func (r *Report) deleteNotes(t NoteType) {
+	r.Notes = slices.DeleteFunc(r.Notes, func(n *Note) bool {
+		return n.Type == t
+	})
 }
 
 func (r *Report) AddNote(t NoteType, format string, v ...any) {
@@ -507,6 +521,12 @@ func (m *Module) lint(l *linter, r *Report, pc *proxy.Client) {
 
 	for i, p := range m.Packages {
 		p.lint(l.Group(name("packages", i, p.Package)), m, r)
+	}
+
+	if r.IsReviewed() {
+		if u := len(m.UnsupportedVersions); u > 0 {
+			l.Group("unsupported_versions").Errorf("found %d (want none)", u)
+		}
 	}
 
 	m.lintVersions(l)
