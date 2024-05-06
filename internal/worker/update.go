@@ -277,8 +277,8 @@ func checkForAliases(cve *cveschema.CVE, tx store.Transaction) (store.TriageStat
 func (u *cveUpdater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx store.Transaction) (record *store.CVERecord, add bool, err error) {
 	defer derrors.Wrap(&err, "handleCVE(%s)", f.Filename)
 
-	cve := &cveschema.CVE{}
-	if err := cvelistrepo.Parse(u.repo, f, cve); err != nil {
+	cve, err := cvelistrepo.Parse[*cveschema.CVE](u.repo, f)
+	if err != nil {
 		return nil, false, err
 	}
 	var result *cveutils.TriageResult

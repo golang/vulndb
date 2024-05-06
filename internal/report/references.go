@@ -25,9 +25,9 @@ func isAdvisory(url string) bool {
 	return strings.Contains(url, "/advisories/")
 }
 
-// referenceFromUrl creates a new Reference from a url
+// ReferenceFromUrl creates a new Reference from a url
 // with Type inferred from the contents of the url.
-func referenceFromUrl(u string) *Reference {
+func ReferenceFromUrl(u string) *Reference {
 	unescaped, err := url.PathUnescape(u)
 	if err != nil {
 		// Ignore error and use original.

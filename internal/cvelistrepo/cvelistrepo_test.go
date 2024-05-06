@@ -17,6 +17,7 @@ import (
 	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/idstr"
+	"golang.org/x/vulndb/internal/report"
 )
 
 var update = flag.Bool("update", false, "update the .txtar files with real CVE data (this takes a while)")
@@ -37,10 +38,10 @@ func TestMain(m *testing.M) {
 	flag.Parse()
 	if *update {
 		ctx := context.Background()
-		if err := WriteTxtarRepo(ctx, URLv4, v4txtar, cveIDs); err != nil {
+		if err := writeTxtarRepo(ctx, URLv4, v4txtar, cveIDs); err != nil {
 			fail(err)
 		}
-		if err := WriteTxtarRepo(ctx, URLv5, v5txtar, cveIDs); err != nil {
+		if err := writeTxtarRepo(ctx, URLv5, v5txtar, cveIDs); err != nil {
 			fail(err)
 		}
 	}
@@ -101,96 +102,61 @@ func TestFiles(t *testing.T) {
 }
 
 func TestFetchCVE(t *testing.T) {
-	for _, tc := range []struct {
-		name      string
-		txtarFile string
-		newCVE    func() CVE
-	}{
-		{
-			name:      "v4",
-			txtarFile: v4txtar,
-			newCVE:    func() CVE { return new(cveschema.CVE) },
-		},
-		{
-			name:      "v5",
-			txtarFile: v5txtar,
-			newCVE:    func() CVE { return new(cveschema5.CVERecord) },
-		},
-	} {
-		t.Run(tc.name, func(t *testing.T) {
-			ctx := context.Background()
-			repo, _, err := gitrepo.TxtarRepoAndHead(tc.txtarFile)
-			if err != nil {
-				t.Fatal(err)
-			}
-
-			for _, id := range cveIDs {
-				t.Run(id, func(t *testing.T) {
-					cve := tc.newCVE()
-					if err := FetchCVE(ctx, repo, id, cve); err != nil {
-						t.Fatal(err)
-					}
-					if got, want := cveID(cve), id; got != want {
-						t.Errorf("FetchCVE(%s) ID = %s, want %s", id, got, want)
-					}
-				})
-			}
-		})
-	}
+	testFetchCVE[*cveschema.CVE](t, "v4", v4txtar)
+	testFetchCVE[*cveschema5.CVERecord](t, "v5", v5txtar)
 }
 
-func cveID(cve CVE) string {
-	switch c := cve.(type) {
-	case *cveschema5.CVERecord:
-		return c.Metadata.ID
-	case *cveschema.CVE:
-		return c.Metadata.ID
-	default:
-		return "invalid"
-	}
+func testFetchCVE[S report.Source](t *testing.T, name, txtarFile string) {
+	t.Run(name, func(t *testing.T) {
+		ctx := context.Background()
+		repo, _, err := gitrepo.TxtarRepoAndHead(txtarFile)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		for _, id := range cveIDs {
+			t.Run(id, func(t *testing.T) {
+				cve, err := FetchCVE[S](ctx, repo, id)
+				if err != nil {
+					t.Fatal(err)
+				}
+				if got, want := cve.SourceID(), id; got != want {
+					t.Errorf("FetchCVE(%s) ID = %s, want %s", id, got, want)
+				}
+			})
+		}
+	})
 }
 
 func TestParse(t *testing.T) {
-	for _, tc := range []struct {
-		name      string
-		txtarFile string
-		newCVE    func() CVE
-	}{
-		{
-			name:      "v4",
-			txtarFile: v4txtar,
-			newCVE:    func() CVE { return new(cveschema.CVE) },
-		},
-		{
-			name:      "v5",
-			txtarFile: v5txtar,
-			newCVE:    func() CVE { return new(cveschema5.CVERecord) },
-		},
-	} {
-		t.Run(tc.name, func(t *testing.T) {
-			repo, commit, err := gitrepo.TxtarRepoAndHead(tc.txtarFile)
-			if err != nil {
-				t.Fatal(err)
-			}
+	testParse[*cveschema.CVE](t, "v4", v4txtar)
+	testParse[*cveschema5.CVERecord](t, "v5", v5txtar)
+}
 
-			files, err := Files(repo, commit)
-			if err != nil {
-				t.Fatal(err)
-			}
+func testParse[S report.Source](t *testing.T, name, txtarFile string) {
+	t.Run(name, func(t *testing.T) {
+		repo, commit, err := gitrepo.TxtarRepoAndHead(txtarFile)
+		if err != nil {
+			t.Fatal(err)
+		}
 
-			for _, file := range files {
-				t.Run(file.Filename, func(t *testing.T) {
-					cve := tc.newCVE()
-					if err := Parse(repo, file, cve); err != nil {
-						t.Fatal(err)
-					}
-					want := idstr.FindCVE(file.Filename)
-					if got := cveID(cve); got != want {
-						t.Errorf("ParseCVE(%s) ID = %s, want %s", file.Filename, got, want)
-						t.Log(cve)
-					}
-				})
-			}
-		})
-	}
+		files, err := Files(repo, commit)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		for _, file := range files {
+			t.Run(file.Filename, func(t *testing.T) {
+				cve, err := Parse[S](repo, file)
+				if err != nil {
+					t.Fatal(err)
+				}
+				want := idstr.FindCVE(file.Filename)
+				if got := cve.SourceID(); got != want {
+					t.Errorf("ParseCVE(%s) ID = %s, want %s", file.Filename, got, want)
+					t.Log(cve)
+				}
+			})
+		}
+	})
 }

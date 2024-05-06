@@ -23,6 +23,7 @@ import (
 )
 
 var (
+	update    = flag.Bool("update", false, "update golden files")
 	realProxy = flag.Bool("proxy", false, "if true, contact the real module proxy and update expected responses")
 )
 
@@ -718,7 +719,7 @@ func TestLintOffline(t *testing.T) {
 const golden = "golden"
 
 func updateAndCheckGolden(t *testing.T, test *lintTC, lints []string) {
-	if *updateGolden {
+	if *update {
 		if errs := checkGoldenFile(t, test, lints); len(errs) == 0 {
 			return
 		}

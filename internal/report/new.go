@@ -75,11 +75,11 @@ type cfg struct {
 	GoID       string
 }
 
-const pendingID = "GO-ID-PENDING"
+const PendingID = "GO-ID-PENDING"
 
 func newCfg(opts []NewOption) *cfg {
 	h := &cfg{
-		GoID: pendingID,
+		GoID: PendingID,
 	}
 	for _, opt := range opts {
 		opt(h)

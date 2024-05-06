@@ -1,0 +1,30 @@
+# Copyright 2022 The Go Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+id: std-report
+modules:
+  - module: std
+    versions:
+      - fixed: 1.17.11
+      - introduced: 1.18.0
+        fixed: 1.18.3
+    packages:
+      - package: crypto/rand
+        goos:
+          - windows
+        symbols:
+          - TestSymbol
+description: |
+    On Windows, TestSymbol will hang indefinitely if passed a large buffer.
+cve_metadata:
+  id: CVE-9999-0001
+  cwe: "CWE-835: Loop with Unreachable Exit Condition ('Infinite Loop')"
+  description: |
+      A description
+credits:
+  - A Credit
+references:
+  - fix: https://go.dev/cl/12345
+  - fix: https://go.googlesource.com/go/+/abcde
+  - report: https://go.dev/issue/12345
+  - web: https://groups.google.com/g/golang-announce/c/abcdef

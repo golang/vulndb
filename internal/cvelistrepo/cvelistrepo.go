@@ -112,46 +112,52 @@ func blobReader(repo *git.Repository, hash plumbing.Hash) (io.Reader, error) {
 	return blob.Reader()
 }
 
-type CVE any
-
 // FetchCVE fetches the CVE file for cveID from the CVElist repo and returns
 // the parsed info.
-func FetchCVE(ctx context.Context, repo *git.Repository, cveID string, cve CVE) (err error) {
+func FetchCVE[T any](ctx context.Context, repo *git.Repository, cveID string) (_ T, err error) {
 	defer derrors.Wrap(&err, "FetchCVE(repo, commit, %s)", cveID)
+	var zero T
+
 	ref, err := repo.Reference(plumbing.HEAD, true)
 	if err != nil {
-		return err
+		return zero, err
 	}
 	ch := ref.Hash()
 	commit, err := repo.CommitObject(ch)
 	if err != nil {
-		return err
+		return zero, err
 	}
 	files, err := Files(repo, commit)
 	if err != nil {
-		return err
+		return zero, err
 	}
 	for _, f := range files {
 		if strings.Contains(f.Filename, cveID) {
-			if err := Parse(repo, f, cve); err != nil {
-				return err
+			cve, err := Parse[T](repo, f)
+			if err != nil {
+				return zero, err
 			}
-			return nil
+			return cve, nil
 		}
 	}
-	return fmt.Errorf("%s not found", cveID)
+	return zero, fmt.Errorf("%s not found", cveID)
 }
 
-// Parse unmarshals the contents of f into v.
-func Parse(repo *git.Repository, f File, v any) error {
+// Parse unmarshals the contents of f.
+func Parse[T any](repo *git.Repository, f File) (T, error) {
+	var zero T
 	b, err := f.ReadAll(repo)
 	if err != nil {
-		return err
+		return zero, err
 	}
 	if len(b) == 0 {
-		return fmt.Errorf("%s is empty", f.Filename)
+		return zero, fmt.Errorf("%s is empty", f.Filename)
 	}
-	return json.Unmarshal(b, v)
+	v := new(T)
+	if err := json.Unmarshal(b, v); err != nil {
+		return zero, err
+	}
+	return *v, nil
 }
 
 func (f *File) ReadAll(repo *git.Repository) ([]byte, error) {

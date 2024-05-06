@@ -22,6 +22,7 @@ import (
 	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/proxy"
+	"golang.org/x/vulndb/internal/stdlib"
 	"gopkg.in/yaml.v3"
 )
 
@@ -418,6 +419,10 @@ func (r *Report) YAMLFilename() (string, error) {
 	return filepath.Join(dataFolder, r.folder(), r.ID+".yaml"), nil
 }
 
+func (r *Report) CVEFilename() string {
+	return filepath.Join(cve5Dir, r.ID+".json")
+}
+
 func (r *Report) folder() string {
 	if r.IsExcluded() {
 		return excludedFolder
@@ -455,4 +460,33 @@ func (r *Report) encode(w io.Writer) error {
 	defer e.Close()
 	e.SetIndent(4)
 	return e.Encode(r)
+}
+
+func Vendor(modulePath string) string {
+	switch modulePath {
+	case stdlib.ModulePath:
+		return "Go standard library"
+	case stdlib.ToolchainModulePath:
+		return "Go toolchain"
+	default:
+		return modulePath
+	}
+}
+
+func (r *Report) AddCVE(cveID, cwe string, isGoCNA bool) {
+	if isGoCNA {
+		r.CVEMetadata = &CVEMeta{
+			ID:  cveID,
+			CWE: cwe,
+		}
+		return
+	}
+	r.CVEs = append(r.CVEs, cveID)
+}
+
+// RemoveNewlines removes leading and trailing space characters and
+// replaces inner newlines with spaces.
+func RemoveNewlines(s string) string {
+	newlines := regexp.MustCompile(`\n+`)
+	return newlines.ReplaceAllString(strings.TrimSpace(s), " ")
 }

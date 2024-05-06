@@ -135,7 +135,7 @@ func TestLintReports(t *testing.T) {
 				}
 			}
 			if r.CVEMetadata != nil {
-				generated, err := r.ToCVE5()
+				generated, err := cveschema5.FromReport(r)
 				if err != nil {
 					t.Fatal(err)
 				}

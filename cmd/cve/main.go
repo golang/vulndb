@@ -421,7 +421,7 @@ func addMissing(yamlFile string, missing []string) error {
 	if err := r.Write(yamlFile); err != nil {
 		return err
 	}
-	cve, err := r.ToCVE5()
+	cve, err := cveschema5.FromReport(r)
 	if err != nil {
 		return err
 	}

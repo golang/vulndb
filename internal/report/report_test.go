@@ -162,3 +162,11 @@ func TestAddAliases(t *testing.T) {
 		})
 	}
 }
+
+func TestCVEFilename(t *testing.T) {
+	want := filepath.FromSlash("data/cve/v5/GO-1999-0001.json")
+	r := &Report{ID: "GO-1999-0001"}
+	if got := r.CVEFilename(); got != want {
+		t.Errorf("got %s, want %s", got, want)
+	}
+}

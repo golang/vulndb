@@ -24,6 +24,8 @@ var (
 	// ExcludedDir is the name of the directory in the vulndb repo that
 	// contains excluded reports.
 	ExcludedDir = filepath.Join(dataFolder, excludedFolder)
+
+	cve5Dir = filepath.Join(dataFolder, "cve", "v5")
 )
 
 const (
