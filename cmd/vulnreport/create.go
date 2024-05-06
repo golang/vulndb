@@ -14,7 +14,7 @@ import (
 	"time"
 
 	"golang.org/x/vulndb/cmd/vulnreport/log"
-	"golang.org/x/vulndb/internal/cveclient"
+	"golang.org/x/vulndb/internal/cve5"
 	"golang.org/x/vulndb/internal/genai"
 	"golang.org/x/vulndb/internal/genericosv"
 	"golang.org/x/vulndb/internal/ghsa"
@@ -215,7 +215,7 @@ func fetch(ctx context.Context, alias string, gc *ghsa.Client) report.Source {
 			f = genericosv.NewFetcher()
 		}
 	case idstr.IsCVE(alias):
-		f = cveclient.NewFetcher()
+		f = cve5.NewFetcher()
 	default:
 		log.Warnf("alias %s is not supported, creating basic report", alias)
 		return report.Original()

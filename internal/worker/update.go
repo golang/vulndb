@@ -14,8 +14,8 @@ import (
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/object"
+	"golang.org/x/vulndb/internal/cve4"
 	"golang.org/x/vulndb/internal/cvelistrepo"
-	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/cveutils"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/ghsa"
@@ -28,7 +28,7 @@ import (
 // A triageFunc triages a CVE: it decides whether an issue needs to be filed.
 // If so, it returns a non-empty string indicating the possibly
 // affected module.
-type triageFunc func(*cveschema.CVE) (*cveutils.TriageResult, error)
+type triageFunc func(*cve4.CVE) (*cveutils.TriageResult, error)
 
 // A cveUpdater performs an update operation on the DB.
 type cveUpdater struct {
@@ -258,7 +258,7 @@ func (u *cveUpdater) updateBatch(ctx context.Context, batch []cvelistrepo.File) 
 // checkForAliases determines if this CVE has an alias GHSA that the
 // worker has already handled, and returns the appropriate triage state
 // based on this.
-func checkForAliases(cve *cveschema.CVE, tx store.Transaction) (store.TriageState, error) {
+func checkForAliases(cve *cve4.CVE, tx store.Transaction) (store.TriageState, error) {
 	for _, ghsaID := range cveutils.GetAliasGHSAs(cve) {
 		ghsa, err := tx.GetGHSARecord(ghsaID)
 		if err != nil {
@@ -277,12 +277,12 @@ func checkForAliases(cve *cveschema.CVE, tx store.Transaction) (store.TriageStat
 func (u *cveUpdater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx store.Transaction) (record *store.CVERecord, add bool, err error) {
 	defer derrors.Wrap(&err, "handleCVE(%s)", f.Filename)
 
-	cve, err := cvelistrepo.Parse[*cveschema.CVE](u.repo, f)
+	cve, err := cvelistrepo.Parse[*cve4.CVE](u.repo, f)
 	if err != nil {
 		return nil, false, err
 	}
 	var result *cveutils.TriageResult
-	if cve.State == cveschema.StatePublic && !u.rc.AliasHasReport(cve.ID) {
+	if cve.State == cve4.StatePublic && !u.rc.AliasHasReport(cve.ID) {
 		c := cve
 		// If a false positive has changed, we only care about
 		// whether new reference URLs refer to a Go module.
@@ -377,13 +377,13 @@ func (u *cveUpdater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx stor
 }
 
 // copyRemoving returns a copy of cve with any reference that has a given URL removed.
-func copyRemoving(cve *cveschema.CVE, refURLs []string) *cveschema.CVE {
+func copyRemoving(cve *cve4.CVE, refURLs []string) *cve4.CVE {
 	remove := map[string]bool{}
 	for _, u := range refURLs {
 		remove[u] = true
 	}
 	c := *cve
-	var rs []cveschema.Reference
+	var rs []cve4.Reference
 	for _, r := range cve.References.Data {
 		if !remove[r.URL] {
 			rs = append(rs, r)

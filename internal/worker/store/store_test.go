@@ -12,7 +12,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
-	"golang.org/x/vulndb/internal/cveschema"
+	"golang.org/x/vulndb/internal/cve4"
 	"golang.org/x/vulndb/internal/ghsa"
 )
 
@@ -160,11 +160,11 @@ func testCVEs(t *testing.T, s Store) {
 	diff(t, crs[0], got)
 
 	// Change the state and the commit hash.
-	got.CVEState = cveschema.StateRejected
+	got.CVEState = cve4.StateRejected
 	got.CommitHash = "999"
 	set(got)
 	want := *crs[0]
-	want.CVEState = cveschema.StateRejected
+	want.CVEState = cve4.StateRejected
 	want.CommitHash = "999"
 	diff(t, &want, got)
 

@@ -17,8 +17,8 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/object"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
+	"golang.org/x/vulndb/internal/cve4"
 	"golang.org/x/vulndb/internal/cvelistrepo"
-	"golang.org/x/vulndb/internal/cveschema"
 	"golang.org/x/vulndb/internal/cveutils"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
@@ -31,7 +31,7 @@ var usePkgsite = flag.Bool("pkgsite", false, "use pkg.go.dev for tests")
 
 const clearString = "**CLEAR**"
 
-var clearCVE = &cveschema.CVE{}
+var clearCVE = &cve4.CVE{}
 
 func modify(r, m *store.CVERecord) *store.CVERecord {
 	modString := func(p *string, s string) {
@@ -110,7 +110,7 @@ func TestDoUpdate(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	needsIssue := func(cve *cveschema.CVE) (*cveutils.TriageResult, error) {
+	needsIssue := func(cve *cve4.CVE) (*cveutils.TriageResult, error) {
 		return cveutils.TriageCVE(ctx, cve, pc)
 	}
 
@@ -125,7 +125,7 @@ func TestDoUpdate(t *testing.T) {
 	}
 
 	var (
-		cves       []*cveschema.CVE
+		cves       []*cve4.CVE
 		blobHashes []string
 	)
 	for _, p := range paths {
@@ -191,7 +191,7 @@ func TestDoUpdate(t *testing.T) {
 				modify(rs[0], &store.CVERecord{
 					History: []*store.CVERecordSnapshot{{
 						CommitHash:  commitHash,
-						CVEState:    cveschema.StatePublic,
+						CVEState:    cve4.StatePublic,
 						TriageState: store.TriageStateNoActionNeeded,
 					}},
 				}),
@@ -200,7 +200,7 @@ func TestDoUpdate(t *testing.T) {
 					CVE:    clearCVE,
 					History: []*store.CVERecordSnapshot{{
 						CommitHash:  commitHash,
-						CVEState:    cveschema.StateReserved,
+						CVEState:    cve4.StateReserved,
 						TriageState: store.TriageStateNeedsIssue,
 					}},
 				}),
@@ -228,7 +228,7 @@ func TestDoUpdate(t *testing.T) {
 					TriageStateReason: `CVE changed; affected module = "golang.org/x/mod"`,
 					History: []*store.CVERecordSnapshot{{
 						CommitHash:  commitHash,
-						CVEState:    cveschema.StatePublic,
+						CVEState:    cve4.StatePublic,
 						TriageState: store.TriageStateIssueCreated,
 					}},
 				}),
@@ -390,7 +390,7 @@ func TestGroupFilesByDirectory(t *testing.T) {
 	}
 }
 
-func readCVE(t *testing.T, repo *git.Repository, commit *object.Commit, path string) (*cveschema.CVE, string) {
+func readCVE(t *testing.T, repo *git.Repository, commit *object.Commit, path string) (*cve4.CVE, string) {
 	cve, blobHash, err := ReadCVEAtPath(commit, path)
 	if err != nil {
 		t.Fatal(err)

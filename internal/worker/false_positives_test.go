@@ -13,7 +13,7 @@ import (
 	"time"
 
 	"github.com/google/go-cmp/cmp"
-	"golang.org/x/vulndb/internal/cveschema"
+	"golang.org/x/vulndb/internal/cve4"
 	"golang.org/x/vulndb/internal/worker/store"
 )
 
@@ -31,7 +31,7 @@ func TestUpdateFalsePositives(t *testing.T) {
 			CommitHash:        "xyz",
 			CommitTime:        time.Date(2021, time.March, 1, 0, 0, 0, 0, time.UTC),
 			BlobHash:          "3d87891317ff107037bc0145194ab72df1890411",
-			CVEState:          cveschema.StatePublic,
+			CVEState:          cve4.StatePublic,
 			TriageState:       store.TriageStateNeedsIssue,
 			TriageStateReason: "will be replaced",
 		},
@@ -42,7 +42,7 @@ func TestUpdateFalsePositives(t *testing.T) {
 			BlobHash:    "9133c3be68ef84771bad74ec8770e1efff7bf0de",
 			CommitHash:  commitHash,
 			CommitTime:  commitTime,
-			CVEState:    cveschema.StatePublic,
+			CVEState:    cve4.StatePublic,
 			TriageState: store.TriageStateNoActionNeeded,
 			ReferenceURLs: []string{
 				"https://github.com/etcd-io/etcd/security/advisories/GHSA-chh6-ppwq-jh92",
@@ -62,7 +62,7 @@ func TestUpdateFalsePositives(t *testing.T) {
 			CommitHash:  commitHash,
 			CommitTime:  commitTime,
 			BlobHash:    "ac9f59c6700576b5936dc014ce265ee0c9a41097",
-			CVEState:    cveschema.StatePublic,
+			CVEState:    cve4.StatePublic,
 			TriageState: store.TriageStateFalsePositive,
 			ReferenceURLs: []string{
 				"http://www.ibm.com/support/docview.wss?uid=swg21975358",
@@ -76,7 +76,7 @@ func TestUpdateFalsePositives(t *testing.T) {
 			CommitHash:        commitHash,
 			CommitTime:        commitTime,
 			BlobHash:          "3d87891317ff107037bc0145194ab72df1890411",
-			CVEState:          cveschema.StatePublic,
+			CVEState:          cve4.StatePublic,
 			TriageState:       store.TriageStateHasVuln,
 			TriageStateReason: "GO-2020-0005",
 		},
@@ -86,7 +86,7 @@ func TestUpdateFalsePositives(t *testing.T) {
 			BlobHash:    "9133c3be68ef84771bad74ec8770e1efff7bf0de",
 			CommitHash:  commitHash,
 			CommitTime:  commitTime,
-			CVEState:    cveschema.StatePublic,
+			CVEState:    cve4.StatePublic,
 			TriageState: store.TriageStateNoActionNeeded,
 			ReferenceURLs: []string{
 				"https://github.com/etcd-io/etcd/security/advisories/GHSA-chh6-ppwq-jh92",

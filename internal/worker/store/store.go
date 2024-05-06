@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/go-git/go-git/v5/plumbing/object"
-	"golang.org/x/vulndb/internal/cveschema"
+	"golang.org/x/vulndb/internal/cve4"
 	"golang.org/x/vulndb/internal/ghsa"
 )
 
@@ -43,7 +43,7 @@ type CVERecord struct {
 	Package string
 
 	// CVE is a copy of the CVE, for the NeedsIssue triage state.
-	CVE *cveschema.CVE
+	CVE *cve4.CVE
 
 	// ReferenceURLs is a list of the URLs in the CVE references,
 	// for the FalsePositive triage state.
@@ -123,7 +123,7 @@ func (s TriageState) Validate() error {
 }
 
 // NewCVERecord creates a CVERecord from a CVE, its path and its blob hash.
-func NewCVERecord(cve *cveschema.CVE, path, blobHash string, commit *object.Commit) *CVERecord {
+func NewCVERecord(cve *cve4.CVE, path, blobHash string, commit *object.Commit) *CVERecord {
 	return &CVERecord{
 		ID:         cve.ID,
 		CVEState:   cve.State,

@@ -8,7 +8,7 @@ import (
 	"context"
 
 	"golang.org/x/vulndb/cmd/vulnreport/log"
-	"golang.org/x/vulndb/internal/cveschema5"
+	"golang.org/x/vulndb/internal/cve5"
 	"golang.org/x/vulndb/internal/database"
 	"golang.org/x/vulndb/internal/report"
 )
@@ -45,7 +45,7 @@ func (c *cveCmd) run(ctx context.Context, filename string) (err error) {
 // writeCVE converts a report to JSON CVE5 record and writes it to
 // data/cve/v5.
 func writeCVE(r *report.Report) error {
-	cve, err := cveschema5.FromReport(r)
+	cve, err := cve5.FromReport(r)
 	if err != nil {
 		return err
 	}

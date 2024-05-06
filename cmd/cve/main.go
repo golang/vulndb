@@ -20,8 +20,7 @@ import (
 	"time"
 
 	"github.com/google/go-cmp/cmp"
-	"golang.org/x/vulndb/internal/cveclient"
-	"golang.org/x/vulndb/internal/cveschema5"
+	"golang.org/x/vulndb/internal/cve5"
 	"golang.org/x/vulndb/internal/database"
 	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/report"
@@ -74,7 +73,7 @@ func main() {
 		logFatalUsageErr("cve", fmt.Errorf("must provide subcommand"))
 	}
 
-	c := cveclient.New(*cfgFromFlags())
+	c := cve5.NewClient(*cfgFromFlags())
 
 	cmd := flag.Arg(0)
 	switch cmd {
@@ -85,11 +84,11 @@ func main() {
 		if year == 0 {
 			year = currentYear()
 		}
-		mode := cveclient.SequentialRequest
+		mode := cve5.SequentialRequest
 		if !*reserveSequential {
-			mode = cveclient.NonsequentialRequest
+			mode = cve5.NonsequentialRequest
 		}
-		if err := reserve(c, cveclient.ReserveOptions{
+		if err := reserve(c, cve5.ReserveOptions{
 			NumIDs: *reserveN,
 			Year:   year,
 			Mode:   mode,
@@ -139,9 +138,9 @@ func main() {
 		}
 	case "list":
 		// TODO(http://go.dev/issues/53258): allow time-based filters via flags.
-		var filters *cveclient.ListOptions
+		var filters *cve5.ListOptions
 		if *listState != "" || *year != 0 {
-			filters = new(cveclient.ListOptions)
+			filters = new(cve5.ListOptions)
 			state, err := validateState(*listState)
 			if err != nil {
 				logFatalUsageErr("cve list", err)
@@ -167,7 +166,7 @@ func currentYear() int {
 	return year
 }
 
-func cfgFromFlags() *cveclient.Config {
+func cfgFromFlags() *cve5.Config {
 	if *test {
 		if *testApiKey == "" {
 			logFatalUsageErr("cve", errors.New("the test CVE API key (flag -test-key or env var TEST_CVE_API_KEY) must be set in test env"))
@@ -175,8 +174,8 @@ func cfgFromFlags() *cveclient.Config {
 		if *testApiUser == "" {
 			logFatalUsageErr("cve", errors.New("the test CVE API user (flag -test-user or env var TEST_CVE_API_USER) must be set in test env"))
 		}
-		return &cveclient.Config{
-			Endpoint: cveclient.TestEndpoint,
+		return &cve5.Config{
+			Endpoint: cve5.TestEndpoint,
 			Key:      *testApiKey,
 			Org:      *apiOrg,
 			User:     *testApiUser,
@@ -189,8 +188,8 @@ func cfgFromFlags() *cveclient.Config {
 	if *apiUser == "" {
 		logFatalUsageErr("cve", errors.New("the CVE API user (flag -user or env var CVE_API_USER) must be set in prod env"))
 	}
-	return &cveclient.Config{
-		Endpoint: cveclient.ProdEndpoint,
+	return &cve5.Config{
+		Endpoint: cve5.ProdEndpoint,
 		Key:      *apiKey,
 		Org:      *apiOrg,
 		User:     *apiUser,
@@ -209,14 +208,14 @@ func validateID(id string) (string, error) {
 
 var stateRegex = regexp.MustCompile(`^(RESERVED|PUBLISHED|REJECTED)$`)
 
-func validateState(state string) (string, error) {
+func validateState(state string) (cve5.State, error) {
 	if state != "" && !stateRegex.MatchString(state) {
 		return "", fmt.Errorf("state must match regex %v", stateRegex)
 	}
-	return state, nil
+	return cve5.State(state), nil
 }
 
-func reserve(c *cveclient.Client, opts cveclient.ReserveOptions) error {
+func reserve(c *cve5.Client, opts cve5.ReserveOptions) error {
 	cves, err := c.ReserveIDs(opts)
 	if err != nil {
 		return err
@@ -230,7 +229,7 @@ func reserve(c *cveclient.Client, opts cveclient.ReserveOptions) error {
 	return nil
 }
 
-func quota(c *cveclient.Client) error {
+func quota(c *cve5.Client) error {
 	quota, err := c.RetrieveQuota()
 	if err != nil {
 		return err
@@ -239,7 +238,7 @@ func quota(c *cveclient.Client) error {
 	return nil
 }
 
-func lookupOrg(c *cveclient.Client) error {
+func lookupOrg(c *cve5.Client) error {
 	org, err := c.RetrieveOrg()
 	if err != nil {
 		return err
@@ -248,7 +247,7 @@ func lookupOrg(c *cveclient.Client) error {
 	return nil
 }
 
-func lookupID(c *cveclient.Client, id string) error {
+func lookupID(c *cve5.Client, id string) error {
 	assigned, err := c.RetrieveID(id)
 	if err != nil {
 		return err
@@ -268,7 +267,7 @@ func toJSON(v any) string {
 	return string(s)
 }
 
-func lookupRecord(c *cveclient.Client, id string) error {
+func lookupRecord(c *cve5.Client, id string) error {
 	record, err := c.RetrieveRecord(id)
 	if err != nil {
 		return err
@@ -296,12 +295,12 @@ func argToFilename(arg string) (string, error) {
 	return arg, nil
 }
 
-func publish(c *cveclient.Client, filename string) (err error) {
+func publish(c *cve5.Client, filename string) (err error) {
 	if !strings.HasSuffix(filename, ".json") {
 		return errors.New("filename must end in '.json'")
 	}
 
-	cveID, toPublish, err := cveschema5.ReadForPublish(filename)
+	cveID, toPublish, err := cve5.ReadForPublish(filename)
 	if err != nil {
 		return err
 	}
@@ -313,11 +312,11 @@ func publish(c *cveclient.Client, filename string) (err error) {
 	}
 
 	var (
-		publishFunc func(string, *cveschema5.Containers) (*cveschema5.CVERecord, error)
+		publishFunc func(string, *cve5.Containers) (*cve5.CVERecord, error)
 		action      string
 	)
 	switch state := assigned.State; state {
-	case cveschema5.StatePublished:
+	case cve5.StatePublished:
 		existing, err := c.RetrieveRecord(cveID)
 		if err != nil {
 			return err
@@ -329,7 +328,7 @@ func publish(c *cveclient.Client, filename string) (err error) {
 			// to make sure we don't accidentally delete them.
 			if updated := handleDeleted(existing, toPublish, filename); updated {
 				// If we updated the CVE, check if any changes remain.
-				_, toPublish, err = cveschema5.ReadForPublish(filename)
+				_, toPublish, err = cve5.ReadForPublish(filename)
 				if err != nil {
 					return err
 				}
@@ -345,7 +344,7 @@ func publish(c *cveclient.Client, filename string) (err error) {
 		}
 		publishFunc = c.UpdateRecord
 		action = "update"
-	case cveschema5.StateReserved:
+	case cve5.StateReserved:
 		fmt.Printf("publish would create new record for %s\n", cveID)
 		publishFunc = c.CreateRecord
 		action = "create"
@@ -371,7 +370,7 @@ func publish(c *cveclient.Client, filename string) (err error) {
 	return nil
 }
 
-func handleDeleted(existing *cveschema5.CVERecord, toPublish *cveschema5.Containers, filename string) bool {
+func handleDeleted(existing *cve5.CVERecord, toPublish *cve5.Containers, filename string) bool {
 	deleted := findDeleted(existing.Containers.CNAContainer.References, toPublish.CNAContainer.References)
 	if len(deleted) == 0 {
 		return false
@@ -421,7 +420,7 @@ func addMissing(yamlFile string, missing []string) error {
 	if err := r.Write(yamlFile); err != nil {
 		return err
 	}
-	cve, err := cveschema5.FromReport(r)
+	cve, err := cve5.FromReport(r)
 	if err != nil {
 		return err
 	}
@@ -429,7 +428,7 @@ func addMissing(yamlFile string, missing []string) error {
 }
 
 // findDeleted returns a list of URLs in oldRefs that are not in newRefs.
-func findDeleted(oldRefs []cveschema5.Reference, newRefs []cveschema5.Reference) (deleted []string) {
+func findDeleted(oldRefs []cve5.Reference, newRefs []cve5.Reference) (deleted []string) {
 	m := make(map[string]bool)
 	for _, r := range newRefs {
 		m[r.URL] = true
@@ -442,7 +441,7 @@ func findDeleted(oldRefs []cveschema5.Reference, newRefs []cveschema5.Reference)
 	return deleted
 }
 
-func list(c *cveclient.Client, lf *cveclient.ListOptions) error {
+func list(c *cve5.Client, lf *cve5.ListOptions) error {
 	cves, err := c.ListOrgCVEs(lf)
 	if err != nil {
 		return err

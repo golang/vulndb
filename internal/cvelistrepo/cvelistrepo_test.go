@@ -13,8 +13,8 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
-	"golang.org/x/vulndb/internal/cveschema"
-	"golang.org/x/vulndb/internal/cveschema5"
+	"golang.org/x/vulndb/internal/cve4"
+	"golang.org/x/vulndb/internal/cve5"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/report"
@@ -102,8 +102,8 @@ func TestFiles(t *testing.T) {
 }
 
 func TestFetchCVE(t *testing.T) {
-	testFetchCVE[*cveschema.CVE](t, "v4", v4txtar)
-	testFetchCVE[*cveschema5.CVERecord](t, "v5", v5txtar)
+	testFetchCVE[*cve4.CVE](t, "v4", v4txtar)
+	testFetchCVE[*cve5.CVERecord](t, "v5", v5txtar)
 }
 
 func testFetchCVE[S report.Source](t *testing.T, name, txtarFile string) {
@@ -129,8 +129,8 @@ func testFetchCVE[S report.Source](t *testing.T, name, txtarFile string) {
 }
 
 func TestParse(t *testing.T) {
-	testParse[*cveschema.CVE](t, "v4", v4txtar)
-	testParse[*cveschema5.CVERecord](t, "v5", v5txtar)
+	testParse[*cve4.CVE](t, "v4", v4txtar)
+	testParse[*cve5.CVERecord](t, "v5", v5txtar)
 }
 
 func testParse[S report.Source](t *testing.T, name, txtarFile string) {

@@ -14,7 +14,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
-	"golang.org/x/vulndb/internal/cveschema"
+	"golang.org/x/vulndb/internal/cve4"
 	"golang.org/x/vulndb/internal/pkgsite"
 	"golang.org/x/vulndb/internal/stdlib"
 )
@@ -35,15 +35,15 @@ func TestTriageV4CVE(t *testing.T) {
 	for _, test := range []struct {
 		name string
 		desc string
-		in   *cveschema.CVE
+		in   *cve4.CVE
 		want *TriageResult
 	}{
 		{
 			name: "unknown_std",
 			desc: "repo path is unknown Go standard library",
-			in: &cveschema.CVE{
-				References: cveschema.References{
-					Data: []cveschema.Reference{
+			in: &cve4.CVE{
+				References: cve4.References{
+					Data: []cve4.Reference{
 						{URL: "https://groups.google.com/forum/#!topic/golang-nuts/1234"},
 					},
 				},
@@ -55,9 +55,9 @@ func TestTriageV4CVE(t *testing.T) {
 		{
 			name: "std",
 			desc: "pkg.go.dev URL is Go standard library package",
-			in: &cveschema.CVE{
-				References: cveschema.References{
-					Data: []cveschema.Reference{
+			in: &cve4.CVE{
+				References: cve4.References{
+					Data: []cve4.Reference{
 						{URL: "https://pkg.go.dev/net/http"},
 					},
 				},
@@ -70,9 +70,9 @@ func TestTriageV4CVE(t *testing.T) {
 		{
 			name: "repo_golang_org",
 			desc: "repo path is is valid golang.org module path",
-			in: &cveschema.CVE{
-				References: cveschema.References{
-					Data: []cveschema.Reference{
+			in: &cve4.CVE{
+				References: cve4.References{
+					Data: []cve4.Reference{
 						{URL: "https://groups.google.com/forum/#!topic/golang-nuts/1234"},
 						{URL: "https://golang.org/x/mod"},
 					},
@@ -85,9 +85,9 @@ func TestTriageV4CVE(t *testing.T) {
 		{
 			name: "pkg_golang_org",
 			desc: "pkg.go.dev URL is is valid golang.org module path",
-			in: &cveschema.CVE{
-				References: cveschema.References{
-					Data: []cveschema.Reference{
+			in: &cve4.CVE{
+				References: cve4.References{
+					Data: []cve4.Reference{
 						{URL: "https://pkg.go.dev/golang.org/x/mod"},
 					},
 				},
@@ -99,9 +99,9 @@ func TestTriageV4CVE(t *testing.T) {
 		{
 			name: "golang_org_pkg",
 			desc: "contains golang.org/pkg URL",
-			in: &cveschema.CVE{
-				References: cveschema.References{
-					Data: []cveschema.Reference{
+			in: &cve4.CVE{
+				References: cve4.References{
+					Data: []cve4.Reference{
 						{URL: "https://golang.org/pkg/net/http"},
 					},
 				},
@@ -114,9 +114,9 @@ func TestTriageV4CVE(t *testing.T) {
 		{
 			name: "github_only",
 			desc: "contains github.com but not on pkg.go.dev",
-			in: &cveschema.CVE{
-				References: cveschema.References{
-					Data: []cveschema.Reference{
+			in: &cve4.CVE{
+				References: cve4.References{
+					Data: []cve4.Reference{
 						{URL: "https://github.com/something/something/404"},
 					},
 				},
@@ -126,9 +126,9 @@ func TestTriageV4CVE(t *testing.T) {
 		{
 			name: "long_path",
 			desc: "contains longer module path",
-			in: &cveschema.CVE{
-				References: cveschema.References{
-					Data: []cveschema.Reference{
+			in: &cve4.CVE{
+				References: cve4.References{
+					Data: []cve4.Reference{
 						{URL: "https://golang.org/x/exp/event"},
 					},
 				},
@@ -140,9 +140,9 @@ func TestTriageV4CVE(t *testing.T) {
 		{
 			name: "not_module",
 			desc: "repo path is not a module",
-			in: &cveschema.CVE{
-				References: cveschema.References{
-					Data: []cveschema.Reference{
+			in: &cve4.CVE{
+				References: cve4.References{
+					Data: []cve4.Reference{
 						{URL: "https://bitbucket.org/foo/bar"},
 					},
 				},
@@ -152,9 +152,9 @@ func TestTriageV4CVE(t *testing.T) {
 		{
 			name: "golang_snyk",
 			desc: "contains snyk.io URL containing GOLANG",
-			in: &cveschema.CVE{
-				References: cveschema.References{
-					Data: []cveschema.Reference{
+			in: &cve4.CVE{
+				References: cve4.References{
+					Data: []cve4.Reference{
 						{URL: "https://snyk.io/vuln/SNYK-GOLANG-12345"},
 					},
 				},
@@ -180,9 +180,9 @@ func TestTriageV4CVE(t *testing.T) {
 }
 
 func TestGetAliasGHSAs(t *testing.T) {
-	cve := &cveschema.CVE{
-		References: cveschema.References{
-			Data: []cveschema.Reference{
+	cve := &cve4.CVE{
+		References: cve4.References{
+			Data: []cve4.Reference{
 				{URL: "https://github.com/hello/security/advisories/GHSA-xxxx-yyyy-0000"},
 				{URL: "some/url"},
 			},

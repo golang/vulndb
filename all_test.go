@@ -20,7 +20,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
-	"golang.org/x/vulndb/internal/cveschema5"
+	"golang.org/x/vulndb/internal/cve5"
 	"golang.org/x/vulndb/internal/osvutils"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
@@ -135,12 +135,12 @@ func TestLintReports(t *testing.T) {
 				}
 			}
 			if r.CVEMetadata != nil {
-				generated, err := cveschema5.FromReport(r)
+				generated, err := cve5.FromReport(r)
 				if err != nil {
 					t.Fatal(err)
 				}
 				cvePath := r.CVEFilename()
-				current, err := cveschema5.Read(cvePath)
+				current, err := cve5.Read(cvePath)
 				if err != nil {
 					t.Fatal(err)
 				}

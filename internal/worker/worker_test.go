@@ -20,7 +20,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
-	"golang.org/x/vulndb/internal/cveschema"
+	"golang.org/x/vulndb/internal/cve4"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
@@ -126,8 +126,8 @@ func TestCreateIssues(t *testing.T) {
 			CommitHash: "ch",
 			CommitTime: ctime,
 			Path:       "path1",
-			CVE: &cveschema.CVE{
-				Metadata: cveschema.Metadata{
+			CVE: &cve4.CVE{
+				Metadata: cve4.Metadata{
 					ID: "ID1",
 				},
 			},
@@ -245,9 +245,9 @@ func TestNewCVEBody(t *testing.T) {
 	r := &store.CVERecord{
 		ID:     "ID1",
 		Module: "a.Module",
-		CVE: &cveschema.CVE{
-			Description: cveschema.Description{
-				Data: []cveschema.LangString{{
+		CVE: &cve4.CVE{
+			Description: cve4.Description{
+				Data: []cve4.LangString{{
 					Lang:  "eng",
 					Value: "a description",
 				}},

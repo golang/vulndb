@@ -2,9 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package cveclient implements a client for interacting with MITRE CVE
-// Services API as described at https://cveawg.mitre.org/api-docs/openapi.json.
-package cveclient
+package cve5
 
 import (
 	"bytes"
@@ -16,8 +14,6 @@ import (
 	"strconv"
 	"strings"
 	"time"
-
-	"golang.org/x/vulndb/internal/cveschema5"
 )
 
 const (
@@ -34,7 +30,8 @@ const (
 	TestWebURL = "https://test.cve.org"
 )
 
-// Client is a MITRE CVE Services API client.
+// Client is a MITRE CVE Services API client,
+// as described at https://cveawg.mitre.org/api-docs/openapi.json.
 type Client struct {
 	Config
 	c *http.Client
@@ -63,19 +60,19 @@ type Config struct {
 	User string
 }
 
-// New returns an initialized client configured via cfg.
-func New(cfg Config) *Client {
+// NewClient returns an initialized client configured via cfg.
+func NewClient(cfg Config) *Client {
 	return &Client{cfg, http.DefaultClient}
 }
 
 // AssignedCVE contains information about an assigned CVE.
 type AssignedCVE struct {
-	ID          string           `json:"cve_id"`
-	Year        string           `json:"cve_year"`
-	State       cveschema5.State `json:"state"`
-	CNA         string           `json:"owning_cna"`
-	Reserved    time.Time        `json:"reserved"`
-	RequestedBy RequestedBy      `json:"requested_by"`
+	ID          string      `json:"cve_id"`
+	Year        string      `json:"cve_year"`
+	State       State       `json:"state"`
+	CNA         string      `json:"owning_cna"`
+	Reserved    time.Time   `json:"reserved"`
+	RequestedBy RequestedBy `json:"requested_by"`
 }
 
 // RequestedBy indicates the requesting user and organization for a CVE.
@@ -199,7 +196,7 @@ func (c *Client) RetrieveID(id string) (cve *AssignedCVE, err error) {
 }
 
 // RetrieveRecord requests a CVE record.
-func (c *Client) RetrieveRecord(id string) (cve *cveschema5.CVERecord, err error) {
+func (c *Client) RetrieveRecord(id string) (cve *CVERecord, err error) {
 	err = c.queryAPI(http.MethodGet, c.requestURL(cveTarget, id), nil, &cve)
 	return
 }
@@ -209,13 +206,13 @@ func (c *Client) cveRecordEndpoint(cveID string) string {
 }
 
 type recordRequestBody struct {
-	CNAContainer cveschema5.CNAPublishedContainer `json:"cnaContainer"`
+	CNAContainer CNAPublishedContainer `json:"cnaContainer"`
 }
 type createResponse struct {
-	Created cveschema5.CVERecord `json:"created"`
+	Created CVERecord `json:"created"`
 }
 
-func (c *Client) CreateRecord(id string, record *cveschema5.Containers) (*cveschema5.CVERecord, error) {
+func (c *Client) CreateRecord(id string, record *Containers) (*CVERecord, error) {
 	requestBody := recordRequestBody{
 		CNAContainer: record.CNAContainer,
 	}
@@ -228,10 +225,10 @@ func (c *Client) CreateRecord(id string, record *cveschema5.Containers) (*cvesch
 }
 
 type updateResponse struct {
-	Updated cveschema5.CVERecord `json:"updated"`
+	Updated CVERecord `json:"updated"`
 }
 
-func (c *Client) UpdateRecord(id string, record *cveschema5.Containers) (*cveschema5.CVERecord, error) {
+func (c *Client) UpdateRecord(id string, record *Containers) (*CVERecord, error) {
 	requestBody := recordRequestBody{
 		CNAContainer: record.CNAContainer,
 	}
@@ -258,7 +255,7 @@ func (c *Client) RetrieveOrg() (org *Org, err error) {
 // ListOptions contains filters to be used when requesting a list of
 // assigned CVEs.
 type ListOptions struct {
-	State          string
+	State          State
 	Year           int
 	ReservedBefore *time.Time
 	ReservedAfter  *time.Time
@@ -295,7 +292,7 @@ func (o *ListOptions) urlParams() url.Values {
 		return params
 	}
 	if o.State != "" {
-		params.Set("state", o.State)
+		params.Set("state", string(o.State))
 	}
 	if o.Year != 0 {
 		params.Set("cve_id_year", strconv.Itoa(o.Year))

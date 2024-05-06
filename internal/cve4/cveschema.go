@@ -2,9 +2,9 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package cveschema contains the schema for a CVE, as derived from
+// package cve4 contains the schema for a CVE, as derived from
 // https://github.com/CVEProject/automation-working-group/tree/master/cve_json_schema.
-package cveschema
+package cve4
 
 import (
 	"bytes"
@@ -246,7 +246,7 @@ var nullBytes = []byte("null")
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (c *CVE) UnmarshalJSON(data []byte) (err error) {
-	defer derrors.Wrap(&err, "cveschema.CVE.UnmarshalJSON")
+	defer derrors.Wrap(&err, "cve4.CVE.UnmarshalJSON")
 	if bytes.Equal(data, nullBytes) {
 		return nil
 	}

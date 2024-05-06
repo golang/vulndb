@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package cveclient
+package cve5
 
 import (
 	"encoding/json"
@@ -15,9 +15,6 @@ import (
 	"strings"
 	"testing"
 	"time"
-
-	"golang.org/x/vulndb/internal/cveschema"
-	"golang.org/x/vulndb/internal/cveschema5"
 )
 
 const (
@@ -29,10 +26,10 @@ const (
 )
 
 var (
-	defaultTestCVE  = newTestCVE(defaultTestCVEID, cveschema.StateReserved, "2022")
+	defaultTestCVE  = newTestCVE(defaultTestCVEID, StateReserved, "2022")
 	defaultTestCVEs = AssignedCVEList{
 		defaultTestCVE,
-		newTestCVE("CVE-2022-0001", cveschema.StateReserved, "2022")}
+		newTestCVE("CVE-2022-0001", StateReserved, "2022")}
 
 	defaultTestQuota = &Quota{
 		Quota:     10,
@@ -46,15 +43,15 @@ var (
 	}
 )
 
-func readTestData(t *testing.T, filename string) *cveschema5.CVERecord {
-	record, err := cveschema5.Read(fmt.Sprintf("../cveschema5/testdata/%s", filename))
+func readTestData(t *testing.T, filename string) *CVERecord {
+	record, err := Read(fmt.Sprintf("../cve5/testdata/%s", filename))
 	if err != nil {
 		t.Fatalf("could not read test data from file %s: %v", filename, err)
 	}
 	return record
 }
 
-var defaultTestCVERecord = func(t *testing.T) *cveschema5.CVERecord {
+var defaultTestCVERecord = func(t *testing.T) *CVERecord {
 	return readTestData(t, "basic-example.json")
 }
 
@@ -65,7 +62,7 @@ var (
 	testTime1992 = time.Date(1992, 1, 1, 0, 0, 0, 0, time.UTC)
 )
 
-func newTestCVE(id string, state cveschema5.State, year string) AssignedCVE {
+func newTestCVE(id string, state State, year string) AssignedCVE {
 	return AssignedCVE{
 		ID:       id,
 		Year:     year,
@@ -81,7 +78,7 @@ func newTestCVE(id string, state cveschema5.State, year string) AssignedCVE {
 
 func newTestClientAndServer(handler http.HandlerFunc) (*Client, *httptest.Server) {
 	s := httptest.NewServer(handler)
-	c := New(Config{
+	c := NewClient(Config{
 		Endpoint: s.URL,
 		Key:      testApiKey,
 		Org:      testApiOrg,
@@ -421,7 +418,7 @@ func TestCreateListOrgCVEsRequest(t *testing.T) {
 	}{
 		{
 			opts: ListOptions{
-				State:          cveschema.StateReserved,
+				State:          StateReserved,
 				Year:           2000,
 				ReservedBefore: &testTime2022,
 				ReservedAfter:  &testTime1999,
@@ -433,7 +430,7 @@ func TestCreateListOrgCVEsRequest(t *testing.T) {
 		},
 		{
 			opts: ListOptions{
-				State:          cveschema.StateRejected,
+				State:          StateRejected,
 				Year:           1999,
 				ReservedBefore: &testTime1999,
 				ReservedAfter:  &testTime2000,
@@ -441,15 +438,15 @@ func TestCreateListOrgCVEsRequest(t *testing.T) {
 				ModifiedAfter:  &testTime2022,
 			},
 			page:       1,
-			wantParams: "cve_id_year=1999&page=1&state=REJECT&time_modified.gt=2022-01-01T00%3A00%3A00Z&time_modified.lt=1992-01-01T00%3A00%3A00Z&time_reserved.gt=2000-01-01T00%3A00%3A00Z&time_reserved.lt=1999-01-01T00%3A00%3A00Z",
+			wantParams: "cve_id_year=1999&page=1&state=REJECTED&time_modified.gt=2022-01-01T00%3A00%3A00Z&time_modified.lt=1992-01-01T00%3A00%3A00Z&time_reserved.gt=2000-01-01T00%3A00%3A00Z&time_reserved.lt=1999-01-01T00%3A00%3A00Z",
 		},
 		{
 			opts: ListOptions{
-				State: cveschema.StatePublic,
+				State: StatePublished,
 				Year:  2000,
 			},
 			page:       2,
-			wantParams: "cve_id_year=2000&page=2&state=PUBLIC",
+			wantParams: "cve_id_year=2000&page=2&state=PUBLISHED",
 		},
 	}
 	for _, test := range tests {
@@ -468,7 +465,7 @@ func TestCreateListOrgCVEsRequest(t *testing.T) {
 }
 
 func TestListOrgCVEsMultiPage(t *testing.T) {
-	extraCVE := newTestCVE("CVE-2000-1234", cveschema.StateReserved, "2000")
+	extraCVE := newTestCVE("CVE-2000-1234", StateReserved, "2000")
 	mockResponses := []any{
 		listOrgCVEsResponse{
 			CurrentPage: 0,

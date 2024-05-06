@@ -49,14 +49,14 @@ func TestList(t *testing.T) {
 			name:     "since=earliest",
 			since:    jan2,
 			deltaLog: simple,
-			want:     []string{cve2, cve3, cve4, cve5},
+			want:     []string{testCVE2, testCVE3, testCVE4, testCVE5},
 		},
 		{
 			// cve1 and and cve2 don't make the cutoff.
 			name:     "latest>since>earliest",
 			since:    jan3,
 			deltaLog: simple,
-			want:     []string{cve3, cve4, cve5},
+			want:     []string{testCVE3, testCVE4, testCVE5},
 		},
 		{
 			name:     "real log",
@@ -148,11 +148,11 @@ const (
 	jan2     = "2000-01-02T00:00:00.000Z"
 	jan1     = "2000-01-01T00:00:00.000Z"
 
-	cve5 = "CVE-2000-0005"
-	cve4 = "CVE-2000-0004"
-	cve3 = "CVE-2000-0003"
-	cve2 = "CVE-2000-0002"
-	cve1 = "CVE-2000-0001"
+	testCVE5 = "CVE-2000-0005"
+	testCVE4 = "CVE-2000-0004"
+	testCVE3 = "CVE-2000-0003"
+	testCVE2 = "CVE-2000-0002"
+	testCVE1 = "CVE-2000-0001"
 )
 
 // simpleDeltaLog returns a delta log with fake data for testing.
@@ -162,13 +162,13 @@ func simpleDeltaLog() []byte {
 			FetchTime: jan6,
 			New: []*cveMeta{
 				{
-					ID:      cve5,
+					ID:      testCVE5,
 					Updated: jan5Noon,
 				},
 			},
 			Updated: []*cveMeta{
 				{
-					ID:      cve4,
+					ID:      testCVE4,
 					Updated: jan4Noon,
 				},
 			},
@@ -177,13 +177,13 @@ func simpleDeltaLog() []byte {
 			FetchTime: jan4,
 			New: []*cveMeta{
 				{
-					ID:      cve4,
+					ID:      testCVE4,
 					Updated: jan4,
 				},
 			},
 			Updated: []*cveMeta{
 				{
-					ID:      cve3,
+					ID:      testCVE3,
 					Updated: jan3Noon,
 				},
 				// It's possible for the "updated" time to be before
@@ -191,7 +191,7 @@ func simpleDeltaLog() []byte {
 				// the way "fetch" and "updated" are calculated.
 				// See the comment on the cveMeta.Updated for more info.
 				{
-					ID:      cve1,
+					ID:      testCVE1,
 					Updated: jan1,
 				},
 			},
@@ -200,7 +200,7 @@ func simpleDeltaLog() []byte {
 			FetchTime: jan2,
 			New: []*cveMeta{
 				{
-					ID:      cve2,
+					ID:      testCVE2,
 					Updated: jan2,
 				},
 			},

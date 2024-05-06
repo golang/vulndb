@@ -8,18 +8,18 @@ import (
 	"encoding/json"
 
 	"github.com/go-git/go-git/v5/plumbing/object"
-	"golang.org/x/vulndb/internal/cveschema"
+	"golang.org/x/vulndb/internal/cve4"
 	"golang.org/x/vulndb/internal/derrors"
 )
 
 // ReadCVEAtPath reads file at path in commit, and JSON-decodes it into a CVE.
-func ReadCVEAtPath(commit *object.Commit, path string) (_ *cveschema.CVE, blobHash string, err error) {
+func ReadCVEAtPath(commit *object.Commit, path string) (_ *cve4.CVE, blobHash string, err error) {
 	defer derrors.Wrap(&err, "readCVEAtPath(%q)", path)
 	file, err := commit.File(path)
 	if err != nil {
 		return nil, "", err
 	}
-	var cve cveschema.CVE
+	var cve cve4.CVE
 	r, err := file.Reader()
 	if err != nil {
 		return nil, "", err

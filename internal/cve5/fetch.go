@@ -2,20 +2,19 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package cveclient
+package cve5
 
 import (
 	"context"
 
-	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/report"
 )
 
 // Fetch returns the CVE record associated with the ID.
 // It is intended one-off (non-batch) requests, and
 // is much faster than cvelistrepo.FetchCVE.
-func Fetch(id string) (*cveschema5.CVERecord, error) {
-	c := New(Config{
+func Fetch(id string) (*CVERecord, error) {
+	c := NewClient(Config{
 		Endpoint: ProdEndpoint,
 	})
 	return c.RetrieveRecord(id)

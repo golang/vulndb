@@ -11,7 +11,7 @@ import (
 	"net/url"
 	"strings"
 
-	"golang.org/x/vulndb/internal/cveschema"
+	"golang.org/x/vulndb/internal/cve4"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/pkgsite"
@@ -36,7 +36,7 @@ var stdlibReferenceDataKeywords = []string{
 const unknownPath = "Path is unknown"
 
 // TriageCVE reports whether the CVE refers to a Go module.
-func TriageCVE(ctx context.Context, c *cveschema.CVE, pc *pkgsite.Client) (_ *TriageResult, err error) {
+func TriageCVE(ctx context.Context, c *cve4.CVE, pc *pkgsite.Client) (_ *TriageResult, err error) {
 	defer derrors.Wrap(&err, "triageCVE(%q)", c.ID)
 	switch c.DataVersion {
 	case "4.0":
@@ -79,7 +79,7 @@ var notGoModules = map[string]bool{
 }
 
 // triageV4CVE triages a CVE following schema v4.0 and returns the result.
-func triageV4CVE(ctx context.Context, c *cveschema.CVE, pc *pkgsite.Client) (result *TriageResult, err error) {
+func triageV4CVE(ctx context.Context, c *cve4.CVE, pc *pkgsite.Client) (result *TriageResult, err error) {
 	defer derrors.Wrap(&err, "triageV4CVE(ctx, %q, %q)", c.ID, pc.URL())
 	defer func() {
 		if err != nil {
@@ -167,7 +167,7 @@ func triageV4CVE(ctx context.Context, c *cveschema.CVE, pc *pkgsite.Client) (res
 	return nil, nil
 }
 
-func GetAliasGHSAs(c *cveschema.CVE) []string {
+func GetAliasGHSAs(c *cve4.CVE) []string {
 	var ghsas []string
 	for _, r := range c.References.Data {
 		if ghsa := idstr.FindGHSA(r.URL); ghsa != "" {

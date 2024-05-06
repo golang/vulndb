@@ -2,13 +2,13 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package cveschema5 contains the schema for a CVE Record in CVE JSON 5.0
+// package cve5 contains the schema for a CVE Record in CVE JSON 5.0
 // format. The package implements a subset of the schema needed to
 // publish reports for the vulnerability database.
 //
 // https://github.com/CVEProject/cve-schema/blob/master/schema/v5.0/CVE_JSON_5.0_schema.json
 // contains the full JSON schema and documentation for each field.
-package cveschema5
+package cve5
 
 import (
 	"encoding/json"
