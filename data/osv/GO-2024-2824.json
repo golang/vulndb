@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2824",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-24788"
+  ],
+  "summary": "Malformed DNS message can cause infinite loop in net",
+  "details": "A malformed DNS message in response to a query can cause the Lookup functions to get stuck in an infinite loop.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.21.10"
+            },
+            {
+              "introduced": "1.22.0-0"
+            },
+            {
+              "fixed": "1.22.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "net",
+            "symbols": [
+              "Dial",
+              "DialTimeout",
+              "Dialer.Dial",
+              "Dialer.DialContext",
+              "Listen",
+              "ListenConfig.Listen",
+              "ListenConfig.ListenPacket",
+              "ListenPacket",
+              "LookupAddr",
+              "LookupCNAME",
+              "LookupHost",
+              "LookupIP",
+              "LookupMX",
+              "LookupNS",
+              "LookupSRV",
+              "LookupTXT",
+              "ResolveIPAddr",
+              "ResolveTCPAddr",
+              "ResolveUDPAddr",
+              "Resolver.LookupAddr",
+              "Resolver.LookupCNAME",
+              "Resolver.LookupHost",
+              "Resolver.LookupIP",
+              "Resolver.LookupIPAddr",
+              "Resolver.LookupMX",
+              "Resolver.LookupNS",
+              "Resolver.LookupNetIP",
+              "Resolver.LookupSRV",
+              "Resolver.LookupTXT",
+              "extractExtendedRCode"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/66754"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/578375"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/wkkO4P9stm0"
+    }
+  ],
+  "credits": [
+    {
+      "name": "@long-name-let-people-remember-you"
+    },
+    {
+      "name": "Mateusz Poliwczak"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2824"
+  }
+}

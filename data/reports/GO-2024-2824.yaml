@@ -1,0 +1,59 @@
+id: GO-2024-2824
+modules:
+    - module: std
+      versions:
+        - fixed: 1.21.10
+        - introduced: 1.22.0-0
+          fixed: 1.22.3
+      vulnerable_at: 1.22.2
+      packages:
+        - package: net
+          symbols:
+            - extractExtendedRCode
+          derived_symbols:
+            - Dial
+            - DialTimeout
+            - Dialer.Dial
+            - Dialer.DialContext
+            - Listen
+            - ListenConfig.Listen
+            - ListenConfig.ListenPacket
+            - ListenPacket
+            - LookupAddr
+            - LookupCNAME
+            - LookupHost
+            - LookupIP
+            - LookupMX
+            - LookupNS
+            - LookupSRV
+            - LookupTXT
+            - ResolveIPAddr
+            - ResolveTCPAddr
+            - ResolveUDPAddr
+            - Resolver.LookupAddr
+            - Resolver.LookupCNAME
+            - Resolver.LookupHost
+            - Resolver.LookupIP
+            - Resolver.LookupIPAddr
+            - Resolver.LookupMX
+            - Resolver.LookupNS
+            - Resolver.LookupNetIP
+            - Resolver.LookupSRV
+            - Resolver.LookupTXT
+summary: Malformed DNS message can cause infinite loop in net
+description: |-
+    A malformed DNS message in response to a query can cause the Lookup functions to
+    get stuck in an infinite loop.
+credits:
+    - '@long-name-let-people-remember-you'
+    - Mateusz Poliwczak
+references:
+    - report: https://go.dev/issue/66754
+    - fix: https://go.dev/cl/578375
+    - web: https://groups.google.com/g/golang-announce/c/wkkO4P9stm0
+cve_metadata:
+    id: CVE-2024-24788
+    cwe: 'CWE 400: Uncontrolled Resource Consumption'
+source:
+    id: go-security-team
+    created: 2024-05-07T16:56:31.886878-04:00
