@@ -30,9 +30,7 @@ func New(src Source, pc *proxy.Client, opts ...NewOption) *Report {
 	r.SourceMeta = &SourceMeta{
 		ID: src.SourceID(),
 	}
-	if !cfg.Created.IsZero() {
-		r.SourceMeta.Created = &cfg.Created
-	}
+	r.SourceMeta.Created = &cfg.Created
 
 	r.Fix(pc)
 	return r
@@ -79,7 +77,8 @@ const PendingID = "GO-ID-PENDING"
 
 func newCfg(opts []NewOption) *cfg {
 	h := &cfg{
-		GoID: PendingID,
+		GoID:    PendingID,
+		Created: time.Now(),
 	}
 	for _, opt := range opts {
 		opt(h)

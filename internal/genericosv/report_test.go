@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/google/go-cmp/cmp"
 	"golang.org/x/vulndb/internal/proxy"
@@ -25,6 +26,7 @@ var (
 	testdataDir = "testdata"
 	testOSVDir  = filepath.Join(testdataDir, "osv")
 	testYAMLDir = filepath.Join(testdataDir, "yaml")
+	testTime    = time.Date(1999, 1, 1, 0, 0, 0, 0, time.UTC)
 )
 
 // To update test cases to reflect new expected behavior
@@ -52,7 +54,7 @@ func TestToReport(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			got := report.New(osv, pc)
+			got := report.New(osv, pc, report.WithCreated(testTime))
 			// Keep record of what lints would apply to each generated report.
 			got.LintAsNotes(pc)
 

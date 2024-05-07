@@ -18,6 +18,8 @@ var (
 	realProxy = flag.Bool("proxy", false, "if true, contact the real module proxy and update expected responses")
 )
 
+var testTime = time.Date(1999, 1, 1, 0, 0, 0, 0, time.UTC)
+
 func TestGHSAToReport(t *testing.T) {
 	updatedTime := time.Date(2022, 01, 01, 01, 01, 00, 00, time.UTC)
 	sa := &SecurityAdvisory{
@@ -64,7 +66,10 @@ func TestGHSAToReport(t *testing.T) {
 				GHSAs:       []string{"G1"},
 				CVEs:        []string{"C1"},
 				References:  []*report.Reference{{Type: "REPORT", URL: "https://github.com/permalink/to/issue/12345"}},
-				SourceMeta:  &report.SourceMeta{ID: "G1_blah"},
+				SourceMeta: &report.SourceMeta{
+					ID:      "G1_blah",
+					Created: &testTime,
+				},
 			},
 		},
 		{
@@ -90,13 +95,17 @@ func TestGHSAToReport(t *testing.T) {
 				GHSAs:       []string{"G1"},
 				CVEs:        []string{"C1"},
 				References:  []*report.Reference{{Type: "REPORT", URL: "https://github.com/permalink/to/issue/12345"}},
-				SourceMeta:  &report.SourceMeta{ID: "G1_blah"},
+				SourceMeta: &report.SourceMeta{
+					ID:      "G1_blah",
+					Created: &testTime,
+				},
 			},
 		},
 	} {
 		test := test
 		t.Run(test.name, func(t *testing.T) {
-			got := report.New(sa, pc, report.WithModulePath(test.module))
+			got := report.New(sa, pc, report.WithModulePath(test.module),
+				report.WithCreated(testTime))
 			if diff := cmp.Diff(*got, *test.want); diff != "" {
 				t.Errorf("mismatch (-want, +got):\n%s", diff)
 			}

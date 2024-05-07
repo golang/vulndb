@@ -32,7 +32,11 @@ import (
 
 const testRepoPath = "testdata/basic.txtar"
 
-var realProxy = flag.Bool("proxy", false, "if true, contact the real module proxy and update expected responses")
+var (
+	realProxy = flag.Bool("proxy", false, "if true, contact the real module proxy and update expected responses")
+
+	testTime = time.Date(1999, 1, 1, 0, 0, 0, 0, time.UTC)
+)
 
 func TestCheckUpdate(t *testing.T) {
 	ctx := context.Background()
@@ -272,7 +276,7 @@ func TestNewCVEBody(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	got, err := newCVEBody(r, rc, pc)
+	got, err := newCVEBody(r, rc, pc, testTime)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -304,6 +308,7 @@ cves:
     - ID1
 source:
     id: ID1
+    created: 1999-01-01T00:00:00Z
 
 ` + "```"
 	if diff := cmp.Diff(unindent(want), got); diff != "" {
@@ -341,7 +346,7 @@ func TestCreateGHSABody(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	got, err := CreateGHSABody(r.GHSA, rc, pc)
+	got, err := CreateGHSABody(r.GHSA, rc, pc, testTime)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -370,6 +375,7 @@ ghsas:
     - G1
 source:
     id: G1
+    created: 1999-01-01T00:00:00Z
 
 ` + "```"
 

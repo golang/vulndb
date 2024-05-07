@@ -49,6 +49,7 @@ var (
 		// A third-party CVE assigned by the Go CNA.
 		"CVE-2023-45286": "github.com/go-resty/resty/v2",
 	}
+	testTime = time.Date(1999, 1, 1, 0, 0, 0, 0, time.UTC)
 )
 
 func UpdateTxtar(ctx context.Context, t *testing.T, url string) {
@@ -93,7 +94,8 @@ func TestToReport[S report.Source](t *testing.T, update, realProxy bool) error {
 				t.Fatalf("%s not found in testCVEs", id)
 			}
 
-			r := report.New(cve, pc, report.WithModulePath(mp))
+			r := report.New(cve, pc, report.WithModulePath(mp),
+				report.WithCreated(testTime))
 			b, err := yaml.Marshal(r)
 			if err != nil {
 				t.Fatal(err)

@@ -11,7 +11,6 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
-	"time"
 
 	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/cve5"
@@ -247,7 +246,6 @@ func reportFromAliases(ctx context.Context, id, modulePath string, aliases []str
 		report.WithGoID(id),
 		report.WithModulePath(modulePath),
 		report.WithAliases(aliases),
-		report.WithCreated(time.Now()),
 	)
 
 	// Find any additional aliases referenced by the source aliases.

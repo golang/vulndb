@@ -256,7 +256,7 @@ func createCVEIssues(ctx context.Context, st store.Store, client *issues.Client,
 	return nil
 }
 
-func newCVEBody(sr storeRecord, rc *report.Client, pc *proxy.Client) (string, error) {
+func newCVEBody(sr storeRecord, rc *report.Client, pc *proxy.Client, now time.Time) (string, error) {
 	cr := sr.(*store.CVERecord)
 	var b strings.Builder
 	if cr.CVE == nil {
@@ -265,7 +265,9 @@ func newCVEBody(sr storeRecord, rc *report.Client, pc *proxy.Client) (string, er
 	if cr.CVE.Metadata.ID == "" {
 		cr.CVE.Metadata.ID = cr.ID
 	}
-	r := report.New(cr.CVE, pc, report.WithModulePath(cr.Module))
+	r := report.New(cr.CVE, pc,
+		report.WithModulePath(cr.Module),
+		report.WithCreated(now))
 	r.Description = ""
 	out, err := r.ToString()
 	if err != nil {
@@ -374,8 +376,8 @@ func isDuplicate(sa *ghsa.SecurityAdvisory, pc *proxy.Client, rc *report.Client)
 	return false
 }
 
-func CreateGHSABody(sa *ghsa.SecurityAdvisory, rc *report.Client, pc *proxy.Client) (body string, err error) {
-	r := report.New(sa, pc)
+func CreateGHSABody(sa *ghsa.SecurityAdvisory, rc *report.Client, pc *proxy.Client, now time.Time) (body string, err error) {
+	r := report.New(sa, pc, report.WithCreated(now))
 	r.Description = ""
 	rs, err := r.ToString()
 	if err != nil {
@@ -429,11 +431,12 @@ func createIssue(ctx context.Context, r storeRecord, client *issues.Client, pc *
 	}
 
 	var body string
+	now := time.Now()
 	switch v := r.(type) {
 	case *store.GHSARecord:
-		body, err = CreateGHSABody(v.GHSA, rc, pc)
+		body, err = CreateGHSABody(v.GHSA, rc, pc, now)
 	case *store.CVERecord:
-		body, err = newCVEBody(v, rc, pc)
+		body, err = newCVEBody(v, rc, pc, now)
 	default:
 		log.With("ID", id).Errorf(ctx, "%s: record has unexpected type %T; skipping: %v", id, v, err)
 		return "", nil
