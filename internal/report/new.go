@@ -6,6 +6,7 @@ package report
 
 import (
 	"context"
+	"time"
 
 	"golang.org/x/vulndb/internal/cveclient"
 	"golang.org/x/vulndb/internal/cveschema"
@@ -23,11 +24,18 @@ type Source interface {
 	ToReport(modulePath string) *Report
 }
 
-func New(src Source, goID string, modulePath string, pc *proxy.Client) *Report {
-	r := src.ToReport(modulePath)
-	r.ID = goID
+func New(src Source, pc *proxy.Client, opts ...NewOption) *Report {
+	cfg := newCfg(opts)
+
+	r := src.ToReport(cfg.ModulePath)
+	r.ID = cfg.GoID
+	r.AddAliases(cfg.Aliases)
+
 	r.SourceMeta = &SourceMeta{
 		ID: src.SourceID(),
+	}
+	if !cfg.Created.IsZero() {
+		r.SourceMeta.Created = &cfg.Created
 	}
 
 	r.Fix(pc)
@@ -36,6 +44,51 @@ func New(src Source, goID string, modulePath string, pc *proxy.Client) *Report {
 
 type Fetcher interface {
 	Fetch(ctx context.Context, id string) (Source, error)
+}
+
+type NewOption func(*cfg)
+
+func WithModulePath(path string) NewOption {
+	return func(h *cfg) {
+		h.ModulePath = path
+	}
+}
+
+func WithAliases(aliases []string) NewOption {
+	return func(h *cfg) {
+		h.Aliases = aliases
+	}
+}
+
+func WithCreated(created time.Time) NewOption {
+	return func(h *cfg) {
+		h.Created = created
+	}
+}
+
+func WithGoID(id string) NewOption {
+	return func(h *cfg) {
+		h.GoID = id
+	}
+}
+
+type cfg struct {
+	ModulePath string
+	Aliases    []string
+	Created    time.Time
+	GoID       string
+}
+
+const pendingID = "GO-ID-PENDING"
+
+func newCfg(opts []NewOption) *cfg {
+	h := &cfg{
+		GoID: pendingID,
+	}
+	for _, opt := range opts {
+		opt(h)
+	}
+	return h
 }
 
 type cve5 struct {

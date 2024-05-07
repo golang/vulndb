@@ -234,10 +234,12 @@ func reportFromAliases(ctx context.Context, id, modulePath string, aliases []str
 		src = report.Original()
 	}
 
-	r := report.New(src, id, modulePath, pc)
-
-	// Ensure all source aliases are added to the report.
-	r.AddAliases(aliases)
+	r := report.New(src, pc,
+		report.WithGoID(id),
+		report.WithModulePath(modulePath),
+		report.WithAliases(aliases),
+		report.WithCreated(time.Now()),
+	)
 
 	// Find any additional aliases referenced by the source aliases.
 	addMissingAliases(ctx, r, gc)
@@ -263,11 +265,6 @@ func reportFromAliases(ctx context.Context, id, modulePath string, aliases []str
 				log.Warnf("auto-populated symbols have error(s): %s", err)
 			}
 		}
-	}
-
-	if r.SourceMeta != nil {
-		now := time.Now()
-		r.SourceMeta.Created = &now
 	}
 
 	return r

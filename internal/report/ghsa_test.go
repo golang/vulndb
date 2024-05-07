@@ -43,7 +43,7 @@ func TestGHSAToReport(t *testing.T) {
 			name:   "module provided",
 			module: "golang.org/x/tools",
 			want: &Report{
-				ID: placeholderID,
+				ID: pendingID,
 				Modules: []*Module{{
 					Module:       "golang.org/x/tools",
 					VulnerableAt: "0.8.0",
@@ -66,7 +66,7 @@ func TestGHSAToReport(t *testing.T) {
 			name:   "empty module attempts to find module from package",
 			module: "",
 			want: &Report{
-				ID: placeholderID,
+				ID: pendingID,
 				Modules: []*Module{{
 					Module: "golang.org/x/tools",
 					Versions: []VersionRange{
@@ -91,7 +91,7 @@ func TestGHSAToReport(t *testing.T) {
 	} {
 		test := test
 		t.Run(test.name, func(t *testing.T) {
-			got := New(ToLegacyGHSA(sa), placeholderID, test.module, pc)
+			got := New(ToLegacyGHSA(sa), pc, WithModulePath(test.module))
 			if diff := cmp.Diff(*got, *test.want); diff != "" {
 				t.Errorf("mismatch (-want, +got):\n%s", diff)
 			}

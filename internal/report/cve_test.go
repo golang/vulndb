@@ -79,8 +79,6 @@ func fail(err error) {
 	os.Exit(1)
 }
 
-const placeholderID = "PLACEHOLDER-ID"
-
 func TestCVEToReport(t *testing.T) {
 	pc, err := proxy.NewTestClient(t, *realProxy)
 	if err != nil {
@@ -91,7 +89,7 @@ func TestCVEToReport(t *testing.T) {
 		return new(cveschema.CVE)
 	}
 	toReportV4 := func(cve cvelistrepo.CVE, modulePath string) *Report {
-		return New(ToCVE4(cve.(*cveschema.CVE)), placeholderID, modulePath, pc)
+		return New(ToCVE4(cve.(*cveschema.CVE)), pc, WithModulePath(modulePath))
 	}
 	if err := run(t, v4txtar, newV4, toReportV4); err != nil {
 		t.Fatal(err)
@@ -108,7 +106,8 @@ func TestCVE5ToReport(t *testing.T) {
 		return new(cveschema5.CVERecord)
 	}
 	toReportV5 := func(cve cvelistrepo.CVE, modulePath string) *Report {
-		return New(ToCVE5(cve.(*cveschema5.CVERecord)), placeholderID, modulePath, pc)
+		return New(ToCVE5(cve.(*cveschema5.CVERecord)), pc,
+			WithModulePath(modulePath))
 	}
 	if err := run(t, v5txtar, newV5, toReportV5); err != nil {
 		t.Fatal(err)
