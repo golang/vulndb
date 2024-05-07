@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2825",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-24787"
+  ],
+  "summary": "Arbitrary code execution during build on Darwin in cmd/go",
+  "details": "On Darwin, building a Go module which contains CGO can trigger arbitrary code execution when using the Apple version of ld, due to usage of the -lto_library flag in a \"#cgo LDFLAGS\" directive.",
+  "affected": [
+    {
+      "package": {
+        "name": "toolchain",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.21.10"
+            },
+            {
+              "introduced": "1.22.0-0"
+            },
+            {
+              "fixed": "1.22.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "cmd/go",
+            "goos": [
+              "darwin"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/67119"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/583815"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/wkkO4P9stm0"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Juho Forsén (Mattermost)"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2825"
+  }
+}

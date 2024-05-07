@@ -1,0 +1,29 @@
+id: GO-2024-2825
+modules:
+    - module: cmd
+      versions:
+        - fixed: 1.21.10
+        - introduced: 1.22.0-0
+          fixed: 1.22.3
+      vulnerable_at: 1.22.2
+      packages:
+        - package: cmd/go
+          goos:
+            - darwin
+summary: Arbitrary code execution during build on Darwin in cmd/go
+description: |-
+    On Darwin, building a Go module which contains CGO can trigger arbitrary code
+    execution when using the Apple version of ld, due to usage of the -lto_library
+    flag in a "#cgo LDFLAGS" directive.
+credits:
+    - Juho Forsén (Mattermost)
+references:
+    - report: https://go.dev/issue/67119
+    - fix: https://go.dev/cl/583815
+    - web: https://groups.google.com/g/golang-announce/c/wkkO4P9stm0
+cve_metadata:
+    id: CVE-2024-24787
+    cwe: 'CWE 74: Improper Neutralization of Special Elements in Output Used by a Downstream Component (''Injection'')'
+source:
+    id: go-security-team
+    created: 2024-05-07T16:50:09.179876-04:00
