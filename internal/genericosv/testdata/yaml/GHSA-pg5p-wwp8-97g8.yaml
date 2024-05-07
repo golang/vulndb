@@ -3,15 +3,23 @@ modules:
     - module: github.com/cilium/cilium
       versions:
         - introduced: 1.7.0
-        - introduced: 1.11.0
-          fixed: 1.11.16
-        - introduced: 1.12.0
-          fixed: 1.12.9
-        - introduced: 1.13.0
-          fixed: 1.13.2
       unsupported_versions:
         - version: 1.10.0
           type: last_affected
+    - module: github.com/cilium/cilium
+      versions:
+        - introduced: 1.11.0
+          fixed: 1.11.16
+      vulnerable_at: 1.11.15
+    - module: github.com/cilium/cilium
+      versions:
+        - introduced: 1.12.0
+          fixed: 1.12.9
+      vulnerable_at: 1.12.8
+    - module: github.com/cilium/cilium
+      versions:
+        - introduced: 1.13.0
+          fixed: 1.13.2
       vulnerable_at: 1.13.1
 summary: Debug mode leaks confidential data in Cilium in github.com/cilium/cilium
 description: |-
@@ -60,9 +68,9 @@ ghsas:
 references:
     - advisory: https://github.com/cilium/cilium/security/advisories/GHSA-pg5p-wwp8-97g8
 notes:
+    - fix: 'module merge error: could not merge versions of module github.com/cilium/cilium: introduced and fixed versions must alternate'
     - lint: 'description: possible markdown formatting (found ### )'
     - lint: 'description: possible markdown formatting (found [Slack](https://docs.cilium.io/en/latest/community/community/#slack))'
     - lint: 'modules[0] "github.com/cilium/cilium": unsupported_versions: found 1 (want none)'
-    - lint: 'modules[0] "github.com/cilium/cilium": versions: introduced and fixed versions must alternate'
 source:
     id: GHSA-pg5p-wwp8-97g8

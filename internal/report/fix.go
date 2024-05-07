@@ -17,6 +17,7 @@ import (
 	"golang.org/x/vulndb/internal/cveschema5"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/osv"
+	"golang.org/x/vulndb/internal/osvutils"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/version"
 )
@@ -86,9 +87,15 @@ func (m *Module) FixVersions(pc *proxy.Client) {
 	}
 	m.VulnerableAt = fixVersion(m.VulnerableAt)
 
-	sort.SliceStable(m.Versions, func(i, j int) bool {
-		intro, fixed := m.Versions[i].Introduced, m.Versions[i].Fixed
-		intro2, fixed2 := m.Versions[j].Introduced, m.Versions[j].Fixed
+	m.Versions = fixVersionRanges(m.Versions)
+
+	m.fixVulnerableAt(pc)
+}
+
+func fixVersionRanges(vrs []VersionRange) []VersionRange {
+	sort.SliceStable(vrs, func(i, j int) bool {
+		intro, fixed := vrs[i].Introduced, vrs[i].Fixed
+		intro2, fixed2 := vrs[j].Introduced, vrs[j].Fixed
 		switch {
 		case intro != "" && intro2 != "":
 			return version.Before(intro, intro2)
@@ -104,25 +111,25 @@ func (m *Module) FixVersions(pc *proxy.Client) {
 	})
 
 	// Remove duplicate version ranges.
-	m.Versions = slices.Compact(m.Versions)
+	vrs = slices.Compact(vrs)
 
 	// Collect together version ranges that don't need to be separate,
 	// e.g:
 	// [ {Introduced: 1.1.0}, {Fixed: 1.2.0} ] becomes
 	// [ {Introduced: 1.1.0, Fixed: 1.2.0} ].
-	for i := 0; i < len(m.Versions); i++ {
+	for i := 0; i < len(vrs); i++ {
 		if i != 0 {
-			current, prev := m.Versions[i], m.Versions[i-1]
+			current, prev := vrs[i], vrs[i-1]
 			if (prev.Introduced != "" && prev.Fixed == "") &&
 				(current.Introduced == "" && current.Fixed != "") {
-				m.Versions[i-1].Fixed = current.Fixed
-				m.Versions = append(m.Versions[:i], m.Versions[i+1:]...)
+				vrs[i-1].Fixed = current.Fixed
+				vrs = append(vrs[:i], vrs[i+1:]...)
 				i--
 			}
 		}
 	}
 
-	m.fixVulnerableAt(pc)
+	return vrs
 }
 
 func (m *Module) fixVulnerableAt(pc *proxy.Client) {
@@ -265,7 +272,12 @@ func (r *Report) FixModules(pc *proxy.Client) {
 		canonicalize(m, pc)
 	}
 
-	r.Modules = merge(r.Modules)
+	merged, err := merge(r.Modules)
+	if err != nil {
+		r.AddNote(NoteTypeFix, "module merge error: %s", err)
+	} else {
+		r.Modules = merged
+	}
 
 	// Fix the versions *after* the modules have been merged.
 	for _, m := range r.Modules {
@@ -487,7 +499,7 @@ func sortModules(ms []*Module) {
 
 // merge merges all modules with the same module & package info
 // (but possibly different versions) into one.
-func merge(ms []*Module) []*Module {
+func merge(ms []*Module) ([]*Module, error) {
 	type compMod struct {
 		path     string
 		packages string // sorted, comma separated list of package names
@@ -504,15 +516,19 @@ func merge(ms []*Module) []*Module {
 		}
 	}
 
-	merge := func(m1, m2 *Module) *Module {
-		// only run if m1 and m2 are same except versions
-		// deletes vulnerable_at if set
+	// only run if m1 and m2 are same except versions
+	// deletes vulnerable_at if set
+	merge := func(m1, m2 *Module) (*Module, error) {
+		versions, err := mergeVersionRanges(m1.Versions, m2.Versions)
+		if err != nil {
+			return nil, fmt.Errorf("could not merge versions of module %s: %w", m1.Module, err)
+		}
 		return &Module{
 			Module:              m1.Module,
-			Versions:            append(m1.Versions, m2.Versions...),
+			Versions:            versions,
 			UnsupportedVersions: append(m1.UnsupportedVersions, m2.UnsupportedVersions...),
 			Packages:            m1.Packages,
-		}
+		}, nil
 	}
 
 	modules := make(map[compMod]*Module)
@@ -522,11 +538,27 @@ func merge(ms []*Module) []*Module {
 		if !ok {
 			modules[c] = m
 		} else {
-			modules[c] = merge(mod, m)
+			merged, err := merge(mod, m)
+			if err != nil {
+				// For now, bail out if any module can't be merged.
+				// This could be improved by continuing to try even if
+				// some merges fail.
+				return nil, err
+			}
+			modules[c] = merged
 		}
 	}
 
-	return maps.Values(modules)
+	return maps.Values(modules), nil
+}
+
+func mergeVersionRanges(v1 []VersionRange, v2 []VersionRange) ([]VersionRange, error) {
+	v := append(v1, v2...)
+	v = fixVersionRanges(v)
+	if err := osvutils.ValidateRanges(AffectedRanges(v)); err != nil {
+		return nil, err
+	}
+	return v, nil
 }
 
 func first(vrs []VersionRange) string {
