@@ -1,0 +1,32 @@
+id: GO-2024-2821
+modules:
+    - module: github.com/stacklok/minder
+      versions:
+        - fixed: 0.0.48
+      vulnerable_at: 0.0.47
+      packages:
+        - package: github.com/stacklok/minder/internal/controlplane
+          symbols:
+            - Server.HandleGitHubWebHook
+            - Server.StartHTTPServer
+summary: Denial of Service from untrusted requests in github.com/stacklok/minder
+description: |-
+    HandleGithubWebhook is susceptible to a denial of service attack from an
+    untrusted HTTP request. An untrusted request can cause the server to allocate
+    large amounts of memory resulting in a denial of service.
+cves:
+    - CVE-2024-34084
+ghsas:
+    - GHSA-9c5w-9q3f-3hv7
+credits:
+    - '@AdamKorcz and @DavidKorczynski'
+references:
+    - advisory: https://github.com/stacklok/minder/security/advisories/GHSA-9c5w-9q3f-3hv7
+    - fix: https://github.com/stacklok/minder/commit/3e5a527d2f1b535159206161d1d519602c75bd0d
+    - web: https://github.com/stacklok/minder/blob/ee66f6c0763212503c898cfefb65ce1450c7f5ac/internal/controlplane/handlers_githubwebhooks.go#L213-L218
+    - web: https://github.com/stacklok/minder/blob/ee66f6c0763212503c898cfefb65ce1450c7f5ac/internal/controlplane/handlers_githubwebhooks.go#L337-L342
+    - web: https://github.com/stacklok/minder/blob/ee66f6c0763212503c898cfefb65ce1450c7f5ac/internal/controlplane/handlers_githubwebhooks.go#L367-L377
+    - web: https://github.com/stacklok/minder/blob/ee66f6c0763212503c898cfefb65ce1450c7f5ac/internal/controlplane/handlers_githubwebhooks_test.go#L278-L283
+source:
+    id: GHSA-9c5w-9q3f-3hv7
+    created: 2024-05-08T14:06:25.679756-07:00

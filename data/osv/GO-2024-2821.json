@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2821",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-34084",
+    "GHSA-9c5w-9q3f-3hv7"
+  ],
+  "summary": "Denial of Service from untrusted requests in github.com/stacklok/minder",
+  "details": "HandleGithubWebhook is susceptible to a denial of service attack from an untrusted HTTP request. An untrusted request can cause the server to allocate large amounts of memory resulting in a denial of service.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/stacklok/minder",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.48"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/stacklok/minder/internal/controlplane",
+            "symbols": [
+              "Server.HandleGitHubWebHook",
+              "Server.StartHTTPServer"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/stacklok/minder/security/advisories/GHSA-9c5w-9q3f-3hv7"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/stacklok/minder/commit/3e5a527d2f1b535159206161d1d519602c75bd0d"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/stacklok/minder/blob/ee66f6c0763212503c898cfefb65ce1450c7f5ac/internal/controlplane/handlers_githubwebhooks.go#L213-L218"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/stacklok/minder/blob/ee66f6c0763212503c898cfefb65ce1450c7f5ac/internal/controlplane/handlers_githubwebhooks.go#L337-L342"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/stacklok/minder/blob/ee66f6c0763212503c898cfefb65ce1450c7f5ac/internal/controlplane/handlers_githubwebhooks.go#L367-L377"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/stacklok/minder/blob/ee66f6c0763212503c898cfefb65ce1450c7f5ac/internal/controlplane/handlers_githubwebhooks_test.go#L278-L283"
+    }
+  ],
+  "credits": [
+    {
+      "name": "@AdamKorcz and @DavidKorczynski"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2821"
+  }
+}
