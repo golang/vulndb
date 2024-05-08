@@ -1,0 +1,22 @@
+id: GO-2024-2819
+modules:
+    - module: github.com/ethereum/go-ethereum
+      versions:
+        - fixed: 1.13.15
+      vulnerable_at: 1.13.14
+summary: Denial of Service in github.com/ethereum/go-ethereum
+description: |-
+    A vulnerable node can be made to consume very large amounts of memory when
+    handling specially crafted p2p messages sent from an attacker node. This can
+    result in a denial of service as the node runs out of memory.
+cves:
+    - CVE-2024-32972
+ghsas:
+    - GHSA-4xc9-8hmq-j652
+credits:
+    - DongHan Kim
+references:
+    - advisory: https://github.com/advisories/GHSA-4xc9-8hmq-j652
+source:
+    id: GHSA-4xc9-8hmq-j652
+    created: 2024-05-08T13:36:16.906049-07:00

@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2819",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-32972",
+    "GHSA-4xc9-8hmq-j652"
+  ],
+  "summary": "Denial of Service in github.com/ethereum/go-ethereum",
+  "details": "A vulnerable node can be made to consume very large amounts of memory when handling specially crafted p2p messages sent from an attacker node. This can result in a denial of service as the node runs out of memory.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/ethereum/go-ethereum",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.13.15"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-4xc9-8hmq-j652"
+    }
+  ],
+  "credits": [
+    {
+      "name": "DongHan Kim"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2819"
+  }
+}
