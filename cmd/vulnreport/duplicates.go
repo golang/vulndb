@@ -108,7 +108,12 @@ func (d *duplicates) run(ctx context.Context, issNum string) (err error) {
 		}
 	}
 
-	parsed, err := parseGithubIssue(iss, d.pc, false)
+	if iss.HasLabel(labelDuplicate) {
+		log.Infof("issue #%d is already marked duplicate, skipping", iss.Number)
+		return
+	}
+
+	parsed, err := parseGithubIssue(iss, d.pc)
 	if err != nil {
 		return err
 	}
@@ -129,6 +134,12 @@ func (d *duplicates) run(ctx context.Context, issNum string) (err error) {
 				fname, err := r.YAMLFilename()
 				if err != nil {
 					fname = r.ID
+				}
+				// Skip the report if it corresponds to the issue number.
+				// (This happens when there is an unsubmitted report for the issue).
+				_, _, in, _ := report.ParseFilepath(fname)
+				if in == iss.Number {
+					continue
 				}
 				xrefs = append(xrefs, fname)
 			}

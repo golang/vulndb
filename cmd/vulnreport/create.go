@@ -168,7 +168,15 @@ func argsToIDs(args []string) ([]string, error) {
 }
 
 func createReport(ctx context.Context, iss *issues.Issue, pc *proxy.Client, gc *ghsa.Client, ac *genai.GeminiClient, allowClosed bool) (r *report.Report, err error) {
-	parsed, err := parseGithubIssue(iss, pc, allowClosed)
+	if iss.HasLabel(labelDuplicate) {
+		return nil, fmt.Errorf("duplicate issue")
+	}
+
+	if !allowClosed && iss.State == "closed" {
+		return nil, errors.New("issue is closed")
+	}
+
+	parsed, err := parseGithubIssue(iss, pc)
 	if err != nil {
 		return nil, err
 	}
@@ -270,16 +278,17 @@ func reportFromAliases(ctx context.Context, id, modulePath string, aliases []str
 	return r
 }
 
-func parseGithubIssue(iss *issues.Issue, pc *proxy.Client, allowClosed bool) (*parsedIssue, error) {
+const (
+	labelDuplicate = "duplicate"
+	labelDirect    = "Direct External Report"
+)
+
+func parseGithubIssue(iss *issues.Issue, pc *proxy.Client) (*parsedIssue, error) {
 	parsed := &parsedIssue{
 		id: iss.NewGoID(),
 	}
 
-	if !allowClosed && iss.State == "closed" {
-		return nil, errors.New("issue is closed")
-	}
-
-	// Parse labels for excluded and duplicate issues.
+	// Find any excluded labels.
 	for _, label := range iss.Labels {
 		if reason, ok := report.FromLabel(label); ok {
 			if parsed.excluded == "" {
@@ -287,9 +296,6 @@ func parseGithubIssue(iss *issues.Issue, pc *proxy.Client, allowClosed bool) (*p
 			} else {
 				return nil, fmt.Errorf("issue has multiple excluded reasons")
 			}
-		}
-		if label == "duplicate" {
-			return nil, fmt.Errorf("duplicate issue")
 		}
 	}
 

@@ -10,6 +10,7 @@ import (
 	"context"
 	"fmt"
 	"net/url"
+	"slices"
 	"time"
 
 	"github.com/google/go-github/v41/github"
@@ -211,4 +212,8 @@ func (iss *Issue) NewGoID() string {
 		year = iss.CreatedAt.Year()
 	}
 	return fmt.Sprintf("GO-%04d-%04d", year, iss.Number)
+}
+
+func (iss *Issue) HasLabel(label string) bool {
+	return slices.Contains(iss.Labels, label)
 }
