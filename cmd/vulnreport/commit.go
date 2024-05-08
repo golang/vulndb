@@ -6,23 +6,30 @@ package main
 
 import (
 	"context"
+	"flag"
 	"fmt"
 	"path/filepath"
 	"strings"
 
 	"github.com/go-git/go-git/v5"
-	"golang.org/x/exp/slices"
-	"golang.org/x/vulndb/internal/ghsa"
+	"golang.org/x/exp/maps"
+	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/gitrepo"
-	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
 )
 
-type commit struct {
-	pc   *proxy.Client
-	gc   *ghsa.Client
-	repo *git.Repository
+var (
+	// Note: It would be probably be ideal if -dry did not stage
+	// the files, but the logic to determine the commit message
+	// currently depends on the status of the staging area.
+	dry = flag.Bool("dry", false, "for commit & create-excluded, stage but do not commit files")
+)
 
+// TODO(tatianabradley): add support for a "-batch" flag that
+// commits multiple reports at once.
+type commit struct {
+	*committer
+	*fixer
 	filenameParser
 }
 
@@ -34,9 +41,33 @@ func (commit) usage() (string, string) {
 }
 
 func (c *commit) setup(ctx context.Context) error {
-	c.pc = proxy.NewDefaultClient()
-	c.gc = ghsa.NewClient(ctx, *githubToken)
+	c.committer = new(committer)
+	c.fixer = new(fixer)
+	return setupAll(ctx, c.committer, c.fixer)
+}
 
+func (c *commit) close() error { return nil }
+
+func (c *commit) run(ctx context.Context, filename string) (err error) {
+	r, err := report.ReadStrict(filename)
+	if err != nil {
+		return err
+	}
+
+	// Clean up the report file and ensure derived files are up-to-date.
+	// Stop if there any problems.
+	if err := c.fixAndWriteAll(ctx, r); err != nil {
+		return err
+	}
+
+	return c.commit(r)
+}
+
+type committer struct {
+	repo *git.Repository
+}
+
+func (c *committer) setup(ctx context.Context) error {
 	repo, err := gitrepo.Open(ctx, ".")
 	if err != nil {
 		return err
@@ -45,46 +76,48 @@ func (c *commit) setup(ctx context.Context) error {
 	return nil
 }
 
-func (c *commit) close() error { return nil }
+func (c *committer) commit(reports ...*report.Report) error {
+	if len(reports) == 0 {
+		log.Infof("no files to commit, exiting")
+		return nil
+	}
 
-func (c *commit) run(ctx context.Context, filename string) (err error) {
-	// Clean up the report file and lint the result.
-	// Stop if there any problems.
-	r, err := report.ReadAndLint(filename, c.pc)
+	var globs []string
+	for _, r := range reports {
+		globs = append(globs, fmt.Sprintf("*%s*", r.ID))
+	}
+
+	// Stage all the files.
+	if err := gitAdd(globs...); err != nil {
+		return err
+	}
+
+	w, err := c.repo.Worktree()
 	if err != nil {
 		return err
 	}
-	if err := fixReport(ctx, r, filename, c.pc, c.gc); err != nil {
-		return err
-	}
-	if hasUnaddressedTodos(r) {
-		// Check after fix() as it can add new TODOs.
-		return fmt.Errorf("file %q has unaddressed %q fields", filename, "TODO:")
-	}
-
-	// Stage all the files related to this report.
-	glob := fmt.Sprintf("*%s*", r.ID)
-	if err := gitAdd(glob); err != nil {
-		return err
-	}
-
-	reportAction, issueAction, err := actionPhrases(c.repo, r)
+	status, err := w.Status()
 	if err != nil {
 		return err
 	}
 
-	msg, err := newCommitMsg(r, reportAction, issueAction)
+	msg, err := newCommitMessage(status, reports)
 	if err != nil {
 		return err
+	}
+
+	if *dry {
+		log.Outf("would commit with message:\n\n%s", msg)
+		return nil
 	}
 
 	// Commit the files, allowing the user to edit the default commit message.
-	return gitCommit(msg, glob)
+	return gitCommit(msg, globs...)
 }
 
 // actionPhrases determines the action phrases to use to describe what is happening
 // in the commit, based on the status of the git staging area.
-func actionPhrases(repo *git.Repository, r *report.Report) (reportAction, issueAction string, _ error) {
+func actionPhrases(status git.Status, r *report.Report) (reportAction, issueAction string, _ error) {
 	const (
 		updateIssueAction = "Updates"
 		fixIssueAction    = "Fixes"
@@ -94,16 +127,6 @@ func actionPhrases(repo *git.Repository, r *report.Report) (reportAction, issueA
 		unexcludeReportAction = "unexclude"
 		updateReportAction    = "update"
 	)
-
-	w, err := repo.Worktree()
-	if err != nil {
-		return "", "", err
-	}
-
-	status, err := w.Status()
-	if err != nil {
-		return "", "", err
-	}
 
 	fname, err := r.YAMLFilename()
 	if err != nil {
@@ -119,7 +142,7 @@ func actionPhrases(repo *git.Repository, r *report.Report) (reportAction, issueA
 		}
 		// It's not OK to delete a regular report. These can be withdrawn but not deleted.
 		return "", "", fmt.Errorf("cannot delete regular report %s (use withdrawn field instead)", fname)
-	case git.Added:
+	case git.Added, git.Untracked:
 		switch {
 		case status.File(filepath.Join(report.ExcludedDir, r.ID+".yaml")).Staging == git.Deleted:
 			// If a corresponding excluded report is being deleted,
@@ -134,65 +157,62 @@ func actionPhrases(repo *git.Repository, r *report.Report) (reportAction, issueA
 		}
 	case git.Modified:
 		return updateReportAction, updateIssueAction, nil
+	default:
+		return "", "", fmt.Errorf("internal error: could not determine actions for %s (stat: %v)", r.ID, stat)
 	}
-
-	return "", "", fmt.Errorf("internal error: could not determine actions for %s", r.ID)
 }
 
-func newCommitMsg(r *report.Report, reportAction, issueAction string) (string, error) {
-	f, err := r.YAMLFilename()
-	if err != nil {
-		return "", err
+func newCommitMessage(status git.Status, reports []*report.Report) (string, error) {
+	actions := make(map[string][]*report.Report)
+	issueActions := make(map[string][]*report.Report)
+	for _, r := range reports {
+		reportAction, issueAction, err := actionPhrases(status, r)
+		if err != nil {
+			return "", err
+		}
+		actions[reportAction] = append(actions[reportAction], r)
+		issueActions[issueAction] = append(issueActions[issueAction], r)
 	}
 
-	folder, filename, issueID, err := report.ParseFilepath(f)
-	if err != nil {
-		return "", err
+	b := new(strings.Builder)
+	var titleSegments, bodySegments, issueSegments []string
+	for action, rs := range actions {
+		reportDesc := fmt.Sprintf("%d reports", len(rs))
+		if len(rs) == 1 {
+			reportDesc = rs[0].ID
+		}
+		titleSegments = append(titleSegments, fmt.Sprintf("%s %s", action, reportDesc))
 	}
 
-	return fmt.Sprintf(
-		"%s: %s %s\n\nAliases: %s\n\n%s golang/vulndb#%d",
-		folder, reportAction, filename, strings.Join(r.Aliases(), ", "),
-		issueAction, issueID), nil
+	folders := make(map[string]bool)
+	for issueAction, rs := range issueActions {
+		for _, r := range rs {
+			f, err := r.YAMLFilename()
+			if err != nil {
+				return "", err
+			}
+
+			folder, _, issueID, err := report.ParseFilepath(f)
+			if err != nil {
+				return "", err
+			}
+
+			folders[folder] = true
+			bodySegments = append(bodySegments, f)
+			issueSegments = append(issueSegments, fmt.Sprintf("%s golang/vulndb#%d", issueAction, issueID))
+		}
+	}
+
+	// title
+	b.WriteString(fmt.Sprintf("%s: %s\n", strings.Join(maps.Keys(folders), ","), strings.Join(titleSegments, ", ")))
+
+	// body
+	b.WriteString(fmt.Sprintf("%s%s\n\n", listItem, strings.Join(bodySegments, listItem)))
+
+	// issues
+	b.WriteString(strings.Join(issueSegments, "\n"))
+
+	return b.String(), nil
 }
 
-// hasUnaddressedTodos returns true if report has any unaddressed todos in the
-// report, i.e. starts with "TODO:".
-func hasUnaddressedTodos(r *report.Report) bool {
-	is := func(s string) bool { return strings.HasPrefix(s, "TODO:") }
-	any := func(ss []string) bool { return slices.IndexFunc(ss, is) >= 0 }
-
-	if is(string(r.Excluded)) {
-		return true
-	}
-	for _, m := range r.Modules {
-		if is(m.Module) {
-			return true
-		}
-		for _, v := range m.Versions {
-			if is(string(v.Introduced)) {
-				return true
-			}
-			if is(string(v.Fixed)) {
-				return true
-			}
-		}
-		if is(string(m.VulnerableAt)) {
-			return true
-		}
-		for _, p := range m.Packages {
-			if is(p.Package) || is(p.SkipFix) || any(p.Symbols) || any(p.DerivedSymbols) {
-				return true
-			}
-		}
-	}
-	for _, ref := range r.References {
-		if is(ref.URL) {
-			return true
-		}
-	}
-	if any(r.CVEs) || any(r.GHSAs) {
-		return true
-	}
-	return is(r.Summary.String()) || is(r.Description.String()) || any(r.Credits)
-}
+const listItem = "\n  - "

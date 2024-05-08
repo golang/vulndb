@@ -10,15 +10,29 @@ import (
 
 	"golang.org/x/exp/slices"
 	"golang.org/x/vulndb/cmd/vulnreport/log"
+	"golang.org/x/vulndb/internal/cve5"
+	"golang.org/x/vulndb/internal/genericosv"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/report"
 )
 
+type aliasFinder struct {
+	gc *ghsa.Client
+}
+
+func (af *aliasFinder) setup(ctx context.Context) error {
+	if *githubToken == "" {
+		return fmt.Errorf("githubToken must be provided")
+	}
+	af.gc = ghsa.NewClient(ctx, *githubToken)
+	return nil
+}
+
 // addMissingAliases uses the existing aliases in a report to find
 // any missing aliases, and adds them to the report.
-func addMissingAliases(ctx context.Context, r *report.Report, gc *ghsa.Client) (added int) {
-	all := allAliases(ctx, r.Aliases(), gc)
+func (af *aliasFinder) addMissingAliases(ctx context.Context, r *report.Report) (added int) {
+	all := af.allAliases(ctx, r.Aliases())
 	// If we have manually marked an identifier as "related", but
 	// not actually an alias, don't override this decision.
 	if len(r.Related) > 0 {
@@ -37,13 +51,13 @@ func removeRelated(all, related []string) []string {
 
 // allAliases returns a list of all aliases associated with the given knownAliases,
 // (including the knownAliases themselves).
-func allAliases(ctx context.Context, knownAliases []string, gc *ghsa.Client) []string {
+func (a *aliasFinder) allAliases(ctx context.Context, knownAliases []string) []string {
 	aliasesFor := func(ctx context.Context, alias string) ([]string, error) {
 		switch {
 		case idstr.IsGHSA(alias):
-			return aliasesForGHSA(ctx, alias, gc)
+			return aliasesForGHSA(ctx, alias, a.gc)
 		case idstr.IsCVE(alias):
-			return aliasesForCVE(ctx, alias, gc)
+			return aliasesForCVE(ctx, alias, a.gc)
 		default:
 			return nil, fmt.Errorf("unsupported alias %s", alias)
 		}
@@ -82,7 +96,7 @@ func aliasesBFS(ctx context.Context, knownAliases []string,
 func aliasesForGHSA(ctx context.Context, alias string, gc *ghsa.Client) (aliases []string, err error) {
 	sa, err := gc.FetchGHSA(ctx, alias)
 	if err != nil {
-		return nil, fmt.Errorf("could not fetch GHSA record for %s", alias)
+		return nil, fmt.Errorf("aliasesForGHSA(%s): could not fetch GHSA record from GraphQL API", alias)
 	}
 	for _, id := range sa.Identifiers {
 		if id.Type == "CVE" || id.Type == "GHSA" {
@@ -95,7 +109,7 @@ func aliasesForGHSA(ctx context.Context, alias string, gc *ghsa.Client) (aliases
 func aliasesForCVE(ctx context.Context, cve string, gc *ghsa.Client) (aliases []string, err error) {
 	sas, err := gc.ListForCVE(ctx, cve)
 	if err != nil {
-		return nil, fmt.Errorf("could not find GHSAs for CVE %s", cve)
+		return nil, fmt.Errorf("aliasesForCVE(%s): could not find GHSAs from GraphQL API", cve)
 	}
 	for _, sa := range sas {
 		aliases = append(aliases, sa.ID)
@@ -103,26 +117,55 @@ func aliasesForCVE(ctx context.Context, cve string, gc *ghsa.Client) (aliases []
 	return aliases, nil
 }
 
-// pickBestAlias returns the "best" alias in the list.
+// sourceFromBestAlias returns a report source fetched from the "best" alias in the list.
 // By default, it prefers the first GHSA in the list, followed by the first CVE in the list
 // (if no GHSA is present).
 // If "preferCVE" is true, it prefers CVEs instead.
-// If no GHSAs or CVEs are present, it returns ("", false).
-func pickBestAlias(aliases []string, preferCVE bool) (_ string, ok bool) {
+func (af *aliasFinder) sourceFromBestAlias(ctx context.Context, aliases []string, preferCVE bool) (report.Source, bool) {
 	firstChoice := idstr.IsGHSA
 	secondChoice := idstr.IsCVE
 	if preferCVE {
 		firstChoice, secondChoice = secondChoice, firstChoice
 	}
-	for _, alias := range aliases {
-		if firstChoice(alias) {
-			return alias, true
+
+	find := func(f func(string) bool) (report.Source, bool) {
+		for _, alias := range aliases {
+			if f(alias) {
+				src, err := af.fetch(ctx, alias)
+				if err != nil {
+					continue
+				}
+				return src, true
+			}
 		}
+		return nil, false
 	}
-	for _, alias := range aliases {
-		if secondChoice(alias) {
-			return alias, true
+
+	if src, found := find(firstChoice); found {
+		return src, true
+	}
+
+	if src, found := find(secondChoice); found {
+		return src, true
+	}
+
+	return report.Original(), false
+}
+
+func (a *aliasFinder) fetch(ctx context.Context, alias string) (report.Source, error) {
+	var f report.Fetcher
+	switch {
+	case idstr.IsGHSA(alias):
+		if *graphQL {
+			f = a.gc
+		} else {
+			f = genericosv.NewFetcher()
 		}
+	case idstr.IsCVE(alias):
+		f = cve5.NewFetcher()
+	default:
+		return nil, fmt.Errorf("alias %s is not supported", alias)
 	}
-	return "", false
+
+	return f.Fetch(ctx, alias)
 }

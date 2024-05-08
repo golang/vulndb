@@ -20,8 +20,7 @@ var (
 )
 
 type suggest struct {
-	ac *genai.GeminiClient
-
+	*suggester
 	filenameParser
 }
 
@@ -33,19 +32,8 @@ func (suggest) usage() (string, string) {
 }
 
 func (s *suggest) setup(ctx context.Context) error {
-	ac, err := genai.NewGeminiClient(ctx)
-	if err != nil {
-		return err
-	}
-	s.ac = ac
-	return nil
-}
-
-func (s *suggest) close() error {
-	if s.ac == nil {
-		return nil
-	}
-	return s.ac.Close()
+	s.suggester = new(suggester)
+	return setupAll(ctx, s.suggester)
 }
 
 func (s *suggest) run(ctx context.Context, filename string) (err error) {
@@ -55,7 +43,7 @@ func (s *suggest) run(ctx context.Context, filename string) (err error) {
 	}
 
 	log.Info("contacting the Gemini API...")
-	suggestions, err := suggestions(ctx, s.ac, r, *numSuggestions)
+	suggestions, err := s.suggest(ctx, r, *numSuggestions)
 	if err != nil {
 		return err
 	}
@@ -100,11 +88,35 @@ func (s *suggest) run(ctx context.Context, filename string) (err error) {
 	return nil
 }
 
-func suggestions(ctx context.Context, c genai.Client, r *report.Report, max int) (suggestions []*genai.Suggestion, err error) {
+type suggester struct {
+	ac *genai.GeminiClient
+}
+
+func (s *suggester) setup(ctx context.Context) error {
+	if s == nil {
+		return nil
+	}
+
+	ac, err := genai.NewGeminiClient(ctx)
+	if err != nil {
+		return err
+	}
+	s.ac = ac
+	return nil
+}
+
+func (s *suggester) close() error {
+	if s != nil && s.ac != nil {
+		return s.ac.Close()
+	}
+	return nil
+}
+
+func (s *suggester) suggest(ctx context.Context, r *report.Report, max int) (suggestions []*genai.Suggestion, err error) {
 	attempts := 0
 	maxAttempts := max + 2
 	for len(suggestions) < max && attempts < maxAttempts {
-		s, err := genai.Suggest(ctx, c, &genai.Input{
+		s, err := genai.Suggest(ctx, s.ac, &genai.Input{
 			Module:      r.Modules[0].Module,
 			Description: r.Description.String(),
 		})

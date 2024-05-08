@@ -6,37 +6,17 @@ package main
 
 import (
 	"context"
-	"flag"
+	"errors"
 	"fmt"
-	"os"
-	"strconv"
-	"strings"
 
-	"golang.org/x/vulndb/cmd/vulnreport/log"
-	"golang.org/x/vulndb/internal/genai"
-	"golang.org/x/vulndb/internal/ghsa"
-	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
-	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
 )
 
-var (
-	dry  = flag.Bool("dry", false, "for create-excluded, do not commit files")
-	user = flag.String("user", "", "for create-excluded, only consider issues assigned to the given user")
-)
-
 type createExcluded struct {
-	gc          *ghsa.Client
-	ic          *issues.Client
-	pc          *proxy.Client
-	ac          *genai.GeminiClient
-	rc          *report.Client
-	allowClosed bool
-	assignee    string
-
-	isses   map[string]*issues.Issue
-	created []string
+	*creator
+	*committer
+	*issueParser
 }
 
 func (createExcluded) name() string { return "create-excluded" }
@@ -46,151 +26,54 @@ func (createExcluded) usage() (string, string) {
 	return "", desc
 }
 
-func (c *createExcluded) close() error {
-	skipped := len(c.isses) - len(c.created)
-	if skipped > 0 {
-		log.Infof("skipped %d issue(s)", skipped)
-	}
+func (c *createExcluded) close() (err error) {
+	defer func() {
+		if cerr := closeAll(c.issueParser, c.creator); cerr != nil {
+			err = errors.Join(err, cerr)
+		}
+	}()
 
-	if len(c.created) == 0 {
-		log.Infof("no files to commit, exiting")
-		return nil
-	}
-
-	msg, err := excludedCommitMsg(c.created)
-	if err != nil {
-		return err
-	}
-
-	if *dry {
-		log.Outf("create-excluded would commit files:\n\n\t%s\n\nwith message:\n\n%s", strings.Join(c.created, "\n\t"), msg)
-		return nil
-	}
-
-	if err := gitAdd(c.created...); err != nil {
-		return err
-	}
-	return gitCommit(msg, c.created...)
+	err = c.commit(c.created...)
+	return err
 }
 
 func (c *createExcluded) setup(ctx context.Context) error {
-	if *githubToken == "" {
-		return fmt.Errorf("githubToken must be provided")
-	}
-	localRepo, err := gitrepo.Open(ctx, ".")
-	if err != nil {
-		return err
-	}
-	rc, err := report.NewClient(localRepo)
-	if err != nil {
-		return err
-	}
-	owner, repoName, err := gitrepo.ParseGitHubRepo(*issueRepo)
-	if err != nil {
-		return err
-	}
-	var aiClient *genai.GeminiClient
-	if *useAI {
-		aiClient, err = genai.NewGeminiClient(ctx)
-		if err != nil {
-			return err
-		}
-	}
-
-	c.ic = issues.NewClient(ctx, &issues.Config{Owner: owner, Repo: repoName, Token: *githubToken})
-	c.gc = ghsa.NewClient(ctx, *githubToken)
-	c.pc = proxy.NewDefaultClient()
-	c.rc = rc
-	c.allowClosed = *closedOk
-	c.ac = aiClient
-	c.isses = make(map[string]*issues.Issue)
-
-	user := *user
-	if user == "" {
-		user = os.Getenv("GITHUB_USER")
-	}
-	c.assignee = user
-
-	return nil
-}
-
-func (c *createExcluded) parseArgs(ctx context.Context, args []string) (issNums []string, err error) {
-	if len(args) > 0 {
-		return nil, fmt.Errorf("expected no arguments")
-	}
-
-	stateOption := "open"
-	if c.allowClosed {
-		stateOption = "all"
-	}
-
-	for _, er := range report.ExcludedReasons {
-		label := er.ToLabel()
-		is, err := c.ic.Issues(ctx, issues.IssuesOptions{Labels: []string{label}, State: stateOption})
-		if err != nil {
-			return nil, err
-		}
-		log.Infof("found %d issues with label %s", len(is), label)
-
-		for _, iss := range is {
-			if c.rc.HasReport(iss.Number) {
-				log.Infof("skipping issue %d which already has a report", iss.Number)
-				continue
-			}
-
-			if c.assignee != "" && iss.Assignee != c.assignee {
-				log.Infof("skipping issue %d (assigned to %s, not %s)", iss.Number, iss.Assignee, c.assignee)
-				continue
-			}
-
-			n := strconv.Itoa(iss.Number)
-			c.isses[n] = iss
-			issNums = append(issNums, n)
-		}
-	}
-
-	return issNums, nil
+	c.creator = new(creator)
+	c.committer = new(committer)
+	c.issueParser = new(issueParser)
+	return setupAll(ctx, c.creator, c.committer, c.issueParser)
 }
 
 func (c *createExcluded) run(ctx context.Context, issNum string) (err error) {
-	iss, ok := c.isses[issNum]
-	if !ok {
-		return fmt.Errorf("BUG: could not find issue %s (this should have been populated in parseArgs)", issNum)
-	}
-
-	r, err := createReport(ctx, iss, c.pc, c.gc, c.ac, c.allowClosed)
+	iss, err := c.lookup(ctx, issNum)
 	if err != nil {
 		return err
 	}
 
-	filename, err := writeReport(r)
-	if err != nil {
-		return err
+	if c.skip(iss, c.skipReason) {
+		return nil
 	}
 
-	c.created = append(c.created, filename)
-	return nil
+	return c.reportFromIssue(ctx, iss)
 }
 
-func excludedCommitMsg(fs []string) (string, error) {
-	var issNums []string
-	for _, f := range fs {
-		_, _, iss, err := report.ParseFilepath(f)
-		if err != nil {
-			return "", err
-		}
-		issNums = append(issNums, fmt.Sprintf("Fixes golang/vulndb#%d", iss))
+func (c *createExcluded) skipReason(iss *issues.Issue) string {
+	if !isExcluded(iss) {
+		return "not excluded"
 	}
 
-	return fmt.Sprintf(
-		`%s: batch add %d excluded reports
+	if c.assignee != "" && iss.Assignee != c.assignee {
+		return fmt.Sprintf("assigned to %s, not %s", iss.Assignee, c.assignee)
+	}
 
-Adds excluded reports:
-	- %s
+	return c.creator.skipReason(iss)
+}
 
-%s`,
-		report.ExcludedDir,
-		len(fs),
-		strings.Join(fs, "\n\t- "),
-		strings.Join(issNums, "\n")), nil
+func isExcluded(iss *issues.Issue) bool {
+	for _, er := range report.ExcludedReasons {
+		if iss.HasLabel(er.ToLabel()) {
+			return true
+		}
+	}
+	return false
 }

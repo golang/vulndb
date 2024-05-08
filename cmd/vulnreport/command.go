@@ -6,6 +6,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -34,11 +35,15 @@ type command interface {
 }
 
 // run executes the given command on the given raw arguments.
-func run(ctx context.Context, c command, args []string) error {
+func run(ctx context.Context, c command, args []string) (err error) {
 	if err := c.setup(ctx); err != nil {
 		return err
 	}
-	defer c.close()
+	defer func() {
+		if cerr := c.close(); cerr != nil {
+			err = errors.Join(err, cerr)
+		}
+	}()
 
 	inputs, err := c.parseArgs(ctx, args)
 	if err != nil {
@@ -49,6 +54,33 @@ func run(ctx context.Context, c command, args []string) error {
 		log.Infof("%s %v", c.name(), input)
 		if err := c.run(ctx, input); err != nil {
 			log.Errf("%s: %s", c.name(), err)
+		}
+	}
+
+	return nil
+}
+
+type setuper interface {
+	setup(context.Context) error
+}
+
+func setupAll(ctx context.Context, fs ...setuper) error {
+	for _, f := range fs {
+		if err := f.setup(ctx); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+type closer interface {
+	close() error
+}
+
+func closeAll(cs ...closer) error {
+	for _, c := range cs {
+		if err := c.close(); err != nil {
+			return err
 		}
 	}
 	return nil

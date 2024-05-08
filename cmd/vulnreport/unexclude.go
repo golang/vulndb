@@ -6,20 +6,14 @@ package main
 
 import (
 	"context"
-	"os"
+	"fmt"
 
 	"golang.org/x/vulndb/cmd/vulnreport/log"
-	"golang.org/x/vulndb/internal/genai"
-	"golang.org/x/vulndb/internal/ghsa"
-	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
 )
 
 type unexclude struct {
-	gc *ghsa.Client
-	pc *proxy.Client
-	ac *genai.GeminiClient
-
+	*creator
 	filenameParser
 }
 
@@ -31,79 +25,53 @@ func (unexclude) usage() (string, string) {
 }
 
 func (u *unexclude) setup(ctx context.Context) error {
-	u.gc = ghsa.NewClient(ctx, *githubToken)
-	u.pc = proxy.NewDefaultClient()
-
-	if *useAI {
-		ac, err := genai.NewGeminiClient(ctx)
-		if err != nil {
-			return err
-		}
-		u.ac = ac
-	}
-
-	return nil
+	u.creator = new(creator)
+	return setupAll(ctx, u.creator)
 }
 
-func (u *unexclude) close() error {
-	if u.ac != nil {
-		return u.ac.Close()
+func (u *unexclude) skipReason(r *report.Report) string {
+	if !r.IsExcluded() {
+		return "not excluded"
 	}
-	return nil
+
+	// Usually, we only unexclude reports that are effectively private or not importable.
+	if ex := r.Excluded; ex != "EFFECTIVELY_PRIVATE" && ex != "NOT_IMPORTABLE" {
+		if *force {
+			log.Warnf("report %s is excluded for reason %q, but -f was specified, continuing", r.ID, ex)
+			return ""
+		}
+		return fmt.Sprintf("excluded = %s; use -f to force", ex)
+	}
+
+	return ""
 }
 
 // unexclude converts an excluded report into a regular report.
 func (u *unexclude) run(ctx context.Context, filename string) (err error) {
-	r, err := report.Read(filename)
+	oldR, err := report.ReadStrict(filename)
 	if err != nil {
 		return err
 	}
 
-	if !r.IsExcluded() {
-		log.Infof("report %s is not excluded, can't unexclude", r.ID)
+	if reason := u.skipReason(oldR); reason != "" {
+		log.Infof("skipping %s (%s)", filename, reason)
 		return nil
 	}
 
-	// Usually, we only unexclude reports that are effectively private or not importable.
-	if r.Excluded != "EFFECTIVELY_PRIVATE" && r.Excluded != "NOT_IMPORTABLE" {
-		if *force {
-			log.Warnf("report %s is excluded for reason %q, but -f was specified, continuing", r.ID, r.Excluded)
-		} else {
-			log.Infof("report %s is excluded for reason %q - we don't unexclude these report types (use -f to force)", r.ID, r.Excluded)
-			return nil
-		}
-	}
-
-	log.Infof("creating regular report based on excluded report %s", filename)
-	aliases := r.Aliases()
-	id := r.ID
 	var modulePath string
-	if len(r.Modules) > 0 {
-		modulePath = r.Modules[0].Module
+	if len(oldR.Modules) > 0 {
+		modulePath = oldR.Modules[0].Module
 	}
-	newR := reportFromAliases(ctx, id, modulePath, aliases, u.pc, u.gc, u.ac)
 
-	// Remove description because this is a "basic" report.
-	newR.Description = ""
-
-	newR.Fix(u.pc)
-	hasLints := newR.LintAsNotes(u.pc)
-
-	if err := os.Remove(filename); err != nil {
-		log.Errf("could not remove excluded report: %v", err)
-	}
-	log.Infof("removed excluded report %s", filename)
-
-	newFilename, err := writeReport(newR)
-	if err != nil {
+	if err := u.reportFromMeta(ctx, &reportMeta{
+		id:         oldR.ID,
+		modulePath: modulePath,
+		aliases:    oldR.Aliases(),
+		unreviewed: true,
+	}); err != nil {
 		return err
 	}
 
-	if hasLints {
-		log.Warnf("unexcluded report %s has lint errors that need to be fixed manually", newFilename)
-	}
-
-	log.Out(newFilename)
-
+	remove(filename)
 	return nil
 }

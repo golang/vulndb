@@ -18,8 +18,7 @@ import (
 )
 
 type xref struct {
-	rc *report.Client
-
+	*xrefer
 	filenameParser
 }
 
@@ -31,16 +30,8 @@ func (xref) usage() (string, string) {
 }
 
 func (x *xref) setup(ctx context.Context) error {
-	repo, err := gitrepo.Open(ctx, ".")
-	if err != nil {
-		return err
-	}
-	rc, err := report.NewClient(repo)
-	if err != nil {
-		return err
-	}
-	x.rc = rc
-	return nil
+	x.xrefer = new(xrefer)
+	return setupAll(ctx, x.xrefer)
 }
 
 func (x *xref) close() error { return nil }
@@ -53,27 +44,51 @@ func (x *xref) run(ctx context.Context, filename string) (err error) {
 		return err
 	}
 	vlog.Out(filename)
-	vlog.Out(xrefInner(filename, r, x.rc))
+	xrefs, err := x.xref(r)
+	if err != nil {
+		return err
+	}
+	vlog.Out(xrefs)
 	return nil
 }
 
-func xrefInner(filename string, r *report.Report, rc *report.Client) string {
+func (x *xrefer) setup(ctx context.Context) error {
+	localRepo, err := gitrepo.Open(ctx, ".")
+	if err != nil {
+		return err
+	}
+	rc, err := report.NewClient(localRepo)
+	if err != nil {
+		return err
+	}
+	x.rc = rc
+	return nil
+}
+
+type xrefer struct {
+	rc *report.Client
+}
+
+func (x *xrefer) xref(r *report.Report) (string, error) {
 	out := &strings.Builder{}
-	matches := rc.XRef(r)
+	matches := x.rc.XRef(r)
+	filename, err := r.YAMLFilename()
+	if err != nil {
+		return "", err
+	}
 	delete(matches, filename)
 	// This sorts as CVEs, GHSAs, and then modules.
 	for _, fname := range sorted(maps.Keys(matches)) {
 		for _, id := range sorted(matches[fname]) {
-			fmt.Fprintf(out, "%v appears in %v", id, fname)
-			if r, ok := rc.Report(fname); ok {
+			fmt.Fprintf(out, "\n%v appears in %v", id, fname)
+			if r, ok := x.rc.Report(fname); ok {
 				if r.IsExcluded() {
 					fmt.Fprintf(out, "  %v", r.Excluded)
 				}
 			}
-			fmt.Fprintf(out, "\n")
 		}
 	}
-	return out.String()
+	return out.String(), nil
 }
 
 func sorted[E constraints.Ordered](s []E) []E {
