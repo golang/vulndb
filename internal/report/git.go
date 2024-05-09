@@ -126,6 +126,11 @@ func gitNameToCommits(dir string, repoURL string, names []string) (_ map[string]
 	}
 
 	resolveName := func(name string) (string, bool) {
+		// commit hash?
+		if c, err := repo.CommitObject(plumbing.NewHash(name)); err == nil {
+			return c.Hash.String(), true
+		}
+
 		// branch name?
 		if b, err := repo.Branch(name); err == nil {
 			if ref, err := repo.Reference(b.Merge, true); err == nil {
