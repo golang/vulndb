@@ -1,0 +1,30 @@
+id: GO-2024-2822
+modules:
+    - module: github.com/tiagorlampert/CHAOS
+      versions:
+        - fixed: 0.0.0-20220716132853-b47438d36e3a
+      vulnerable_at: 0.0.0-20220408031238-8963de253a5b
+      packages:
+        - package: github.com/tiagorlampert/CHAOS/services
+          symbols:
+            - clientService.BuildClient
+        - package: github.com/tiagorlampert/CHAOS/delivery/http
+          symbols:
+            - httpController.generateBinaryPostHandler
+summary: Arbitrary code execution in github.com/tiagorlampert/CHAOS
+description: A remote attacker can execute arbitrary commands via crafted HTTP requests.
+cves:
+    - CVE-2024-30850
+    - CVE-2024-33434
+ghsas:
+    - GHSA-p3j6-f45h-hw5f
+    - GHSA-xfjj-f699-rc79
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-33434
+    - fix: https://github.com/tiagorlampert/CHAOS/pull/95
+    - fix: https://github.com/tiagorlampert/CHAOS/commit/1b451cf62582295b7225caf5a7b506f0bad56f6b
+    - fix: https://github.com/tiagorlampert/CHAOS/commit/24c9e109b5be34df7b2bce8368eae669c481ed5e
+    - web: https://gist.github.com/slimwang/d1ec6645ba9012a551ea436679244496
+source:
+    id: GHSA-xfjj-f699-rc79
+    created: 2024-05-08T20:07:33.796429-07:00

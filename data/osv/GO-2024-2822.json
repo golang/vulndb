@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2822",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-30850",
+    "CVE-2024-33434",
+    "GHSA-p3j6-f45h-hw5f",
+    "GHSA-xfjj-f699-rc79"
+  ],
+  "summary": "Arbitrary code execution in github.com/tiagorlampert/CHAOS",
+  "details": "A remote attacker can execute arbitrary commands via crafted HTTP requests.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/tiagorlampert/CHAOS",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20220716132853-b47438d36e3a"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/tiagorlampert/CHAOS/services",
+            "symbols": [
+              "clientService.BuildClient"
+            ]
+          },
+          {
+            "path": "github.com/tiagorlampert/CHAOS/delivery/http",
+            "symbols": [
+              "httpController.generateBinaryPostHandler"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-33434"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/tiagorlampert/CHAOS/pull/95"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/tiagorlampert/CHAOS/commit/1b451cf62582295b7225caf5a7b506f0bad56f6b"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/tiagorlampert/CHAOS/commit/24c9e109b5be34df7b2bce8368eae669c481ed5e"
+    },
+    {
+      "type": "WEB",
+      "url": "https://gist.github.com/slimwang/d1ec6645ba9012a551ea436679244496"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2822"
+  }
+}
