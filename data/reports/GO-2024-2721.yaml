@@ -1,0 +1,24 @@
+id: GO-2024-2721
+modules:
+    - module: github.com/tiagorlampert/CHAOS
+      vulnerable_at: 0.0.0-20221223015212-7d5b20ad7e58
+      packages:
+        - package: github.com/tiagorlampert/CHAOS/presentation/http
+          symbols:
+            - httpController.sendCommandHandler
+          derived_symbols:
+            - NewServer
+summary: Cross site scripting in github.com/tiagorlampert/CHAOS
+description: |-
+    A malicious actor may be able to extract a JWT token via malicious "/command"
+    request. This is a form of cross site scripting (XSS).
+cves:
+    - CVE-2024-31839
+ghsas:
+    - GHSA-c5rv-hjjc-jv7m
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-31839
+    - web: https://blog.chebuya.com/posts/remote-code-execution-on-chaos-rat-via-spoofed-agents
+source:
+    id: GHSA-c5rv-hjjc-jv7m
+    created: 2024-05-08T22:48:36.09641-07:00

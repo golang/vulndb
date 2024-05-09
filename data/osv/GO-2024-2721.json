@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2721",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-31839",
+    "GHSA-c5rv-hjjc-jv7m"
+  ],
+  "summary": "Cross site scripting in github.com/tiagorlampert/CHAOS",
+  "details": "A malicious actor may be able to extract a JWT token via malicious \"/command\" request. This is a form of cross site scripting (XSS).",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/tiagorlampert/CHAOS",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/tiagorlampert/CHAOS/presentation/http",
+            "symbols": [
+              "NewServer",
+              "httpController.sendCommandHandler"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-31839"
+    },
+    {
+      "type": "WEB",
+      "url": "https://blog.chebuya.com/posts/remote-code-execution-on-chaos-rat-via-spoofed-agents"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2721"
+  }
+}
