@@ -1,0 +1,43 @@
+id: GO-2024-2800
+modules:
+    - module: github.com/hashicorp/go-getter
+      versions:
+        - introduced: 1.5.9
+          fixed: 1.7.4
+      vulnerable_at: 1.7.3
+      packages:
+        - package: github.com/hashicorp/go-getter
+          symbols:
+            - GitGetter.clone
+            - findRemoteDefaultBranch
+          derived_symbols:
+            - Client.ChecksumFromFile
+            - Client.Get
+            - FolderStorage.Get
+            - Get
+            - GetAny
+            - GetFile
+            - GitGetter.Get
+            - GitGetter.GetFile
+            - HttpGetter.Get
+summary: Argument injection when fetching remote default Git branches in github.com/hashicorp/go-getter
+description: |-
+    When go-getter is performing a Git operation, go-getter will try to clone the
+    given repository. If a Git reference is not passed along with the Git url,
+    go-getter will then try to check the remote repository's HEAD reference of its
+    default branch by passing arguments to the Git binary on the host it is
+    executing on.
+
+    An attacker may format a Git URL in order to inject additional Git arguments to
+    the Git call.
+cves:
+    - CVE-2024-3817
+ghsas:
+    - GHSA-q64h-39hv-4cf7
+references:
+    - advisory: https://github.com/advisories/GHSA-q64h-39hv-4cf7
+    - fix: https://github.com/hashicorp/go-getter/commit/268c11cae8cf0d9374783e06572679796abe9ce9
+    - web: https://discuss.hashicorp.com/t/hcsec-2024-09-hashicorp-go-getter-vulnerable-to-argument-injection-when-fetching-remote-default-git-branches/66040
+source:
+    id: GHSA-q64h-39hv-4cf7
+    created: 2024-05-10T15:59:32.195034-04:00
