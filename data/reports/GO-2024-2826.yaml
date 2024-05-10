@@ -1,0 +1,138 @@
+id: GO-2024-2826
+modules:
+    - module: vitess.io/vitess
+      versions:
+        - fixed: 0.17.7
+        - introduced: 0.18.0
+          fixed: 0.18.5
+        - introduced: 0.19.0
+          fixed: 0.19.4
+      non_go_versions:
+        - fixed: 17.0.7
+        - introduced: 18.0.0
+          fixed: 18.0.5
+        - introduced: 19.0.0
+          fixed: 19.0.4
+      vulnerable_at: 0.19.0
+      packages:
+        - package: vitess.io/vitess/go/mysql/collations/charset
+          symbols:
+            - convertSlow
+            - Validate
+          derived_symbols:
+            - Convert
+            - ConvertFromBinary
+            - ConvertFromUTF8
+        - package: vitess.io/vitess/go/mysql/collations/charset/unicode
+          symbols:
+            - Charset_utf16be.EncodeRune
+            - Charset_utf16be.DecodeRune
+            - Charset_ucs2.DecodeRune
+            - Charset_utf32.EncodeRune
+        - package: vitess.io/vitess/go/vt/vtgate/evalengine
+          symbols:
+            - assembler.Fn_REGEXP_REPLACE_slow
+            - IntroducerExpr.eval
+            - astCompiler.translateIntroducerExpr
+          derived_symbols:
+            - Add
+            - AggregateEvalTypes
+            - CoerceTo
+            - CoerceTypes
+            - Column.Format
+            - Column.FormatFast
+            - Comparison.ApplyTinyWeights
+            - Comparison.Compare
+            - Comparison.Less
+            - Comparison.More
+            - Comparison.Sort
+            - Comparison.SortResult
+            - CompiledExpr.Format
+            - CompiledExpr.FormatFast
+            - Divide
+            - EvalResult.MustBoolean
+            - EvalResult.String
+            - EvalResult.ToBoolean
+            - EvalResult.ToBooleanStrict
+            - EvalResult.TupleValues
+            - EvalResult.Value
+            - ExpressionEnv.Evaluate
+            - ExpressionEnv.EvaluateVM
+            - FieldResolver.Column
+            - Literal.Format
+            - Literal.FormatFast
+            - Merger.Init
+            - Merger.Pop
+            - Merger.Push
+            - Multiply
+            - NewLiteralBinaryFromBit
+            - NewLiteralDateFromBytes
+            - NewLiteralDatetimeFromBytes
+            - NewLiteralDecimalFromBytes
+            - NewLiteralFloatFromBytes
+            - NewLiteralIntegralFromBytes
+            - NewLiteralTimeFromBytes
+            - NullSafeAdd
+            - NullsafeCompare
+            - NullsafeHashcode
+            - NullsafeHashcode128
+            - OrderByParams.Compare
+            - OrderByParams.String
+            - Sorter.Push
+            - Sorter.Sorted
+            - Subtract
+            - Translate
+            - TupleBindVariable.Format
+            - TupleBindVariable.FormatFast
+            - TupleExpr.Format
+            - TupleExpr.FormatFast
+            - UnsupportedCollationError.Error
+            - UntypedExpr.Compile
+            - UntypedExpr.Format
+            - UntypedExpr.FormatFast
+            - WeightString
+            - aggregationDecimal.Add
+            - aggregationDecimal.Max
+            - aggregationDecimal.Min
+            - aggregationFloat.Add
+            - aggregationFloat.Max
+            - aggregationFloat.Min
+            - aggregationInt.Add
+            - aggregationInt.Max
+            - aggregationInt.Min
+            - aggregationMinMax.Max
+            - aggregationMinMax.Min
+            - aggregationSumAny.Add
+            - aggregationSumCount.Add
+            - aggregationUint.Add
+            - aggregationUint.Max
+            - aggregationUint.Min
+            - argError.Error
+            - assembler.Fn_JSON_KEYS
+            - assembler.PushLiteral
+            - errJSONType.Error
+            - evalBytes.Hash
+summary: |-
+    Denial of service attack by triggering unbounded memory usage in
+    vitess.io/vitess
+description: |-
+    When executing a query, the vtgate will go into an endless
+    loop that also keeps consuming memory and eventually will OOM.
+    This causes a denial of service.
+cves:
+    - CVE-2024-32886
+ghsas:
+    - GHSA-649x-hxfx-57j2
+credits:
+    - '@dbussink, @mattrobenolt, and @vmg'
+references:
+    - advisory: https://github.com/vitessio/vitess/security/advisories/GHSA-649x-hxfx-57j2
+    - fix: https://github.com/vitessio/vitess/commit/2fd5ba1dbf6e9b32fdfdaf869d130066b1b5c0df
+    - fix: https://github.com/vitessio/vitess/commit/9df4b66550e46b5d7079e21ed0e1b0f49f92b055
+    - fix: https://github.com/vitessio/vitess/commit/c46dc5b6a4329a10589ca928392218d96031ac8d
+    - fix: https://github.com/vitessio/vitess/commit/d438adf7e34a6cf00fe441db80842ec669a99202
+    - web: https://github.com/vitessio/vitess/blob/8f6cfaaa643a08dc111395a75a2d250ee746cfa8/go/mysql/collations/charset/convert.go#L73-L79
+    - web: https://github.com/vitessio/vitess/blob/8f6cfaaa643a08dc111395a75a2d250ee746cfa8/go/mysql/collations/charset/unicode/utf16.go#L69-L71
+source:
+    id: GHSA-649x-hxfx-57j2
+    created: 2024-05-10T11:07:07.249403-07:00
