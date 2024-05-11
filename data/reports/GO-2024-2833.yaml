@@ -1,0 +1,25 @@
+id: GO-2024-2833
+modules:
+    - module: github.com/octo-sts/app
+      versions:
+        - fixed: 0.1.0
+      vulnerable_at: 0.0.0-20240502160256-1fc549c0973c
+      packages:
+        - package: github.com/octo-sts/app/pkg/provider
+          symbols:
+            - Get
+summary: Denial of service in github.com/octo-sts/app
+description: |-
+    Excessively large requests can be processed, consuming a
+    large amount of resources. This could potentially lead to
+    a denial of service.
+cves:
+    - CVE-2024-34079
+credits:
+    - '@enj'
+references:
+    - advisory: https://github.com/octo-sts/app/security/advisories/GHSA-75r6-6jg8-pfcq
+    - fix: https://github.com/octo-sts/app/commit/74ba874c017cf973edd6711144cf4399a9fcff57
+source:
+    id: CVE-2024-34079
+    created: 2024-05-11T07:37:36.149537-07:00
