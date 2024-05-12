@@ -1,0 +1,193 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2831",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-34360",
+    "GHSA-jcqq-g64v-gcm7"
+  ],
+  "summary": "ATX protocol validation problem in github.com/spacemeshos/go-spacemesh",
+  "details": "Nodes can publish ATXs which reference the incorrect previous ATX of the Smesher that created the ATX. ATXs are expected to form a single chain from the newest to the first ATX ever published by an identity. Allowing Smeshers to reference an earlier (but not the latest) ATX as previous breaks this protocol rule.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/spacemeshos/api/release/go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.37.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/spacemeshos/api/release/go/spacemesh/v1"
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/spacemeshos/go-spacemesh",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.5.2-hotfix1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/spacemeshos/go-spacemesh/activation",
+            "symbols": [
+              "Handler.HandleGossipAtx",
+              "Handler.SyntacticallyValidateDeps",
+              "Handler.processATX",
+              "Handler.storeAtx"
+            ]
+          },
+          {
+            "path": "github.com/spacemeshos/go-spacemesh/events",
+            "symbols": [
+              "CloseEventReporter",
+              "EmitAtxPublished",
+              "EmitBeacon",
+              "EmitEligibilities",
+              "EmitInitComplete",
+              "EmitInitFailure",
+              "EmitInitStart",
+              "EmitInvalidPostProof",
+              "EmitOwnMalfeasanceProof",
+              "EmitPoetWaitProof",
+              "EmitPoetWaitRound",
+              "EmitPostComplete",
+              "EmitPostFailure",
+              "EmitPostServiceStarted",
+              "EmitPostServiceStopped",
+              "EmitPostStart",
+              "EmitProposal",
+              "InitializeReporter",
+              "LayerUpdate.Field",
+              "ReportAccountUpdate",
+              "ReportError",
+              "ReportLayerUpdate",
+              "ReportMalfeasance",
+              "ReportNewActivation",
+              "ReportNewTx",
+              "ReportNodeStatusUpdate",
+              "ReportProposal",
+              "ReportResult",
+              "ReportRewardReceived",
+              "ReportTxWithValidity",
+              "SubcribeProposals",
+              "Subscribe",
+              "SubscribeAccount",
+              "SubscribeActivations",
+              "SubscribeErrors",
+              "SubscribeLayers",
+              "SubscribeMalfeasance",
+              "SubscribeMatched",
+              "SubscribeRewards",
+              "SubscribeStatus",
+              "SubscribeToLayers",
+              "SubscribeTxs",
+              "SubscribeUserEvents",
+              "ToMalfeasancePB"
+            ]
+          },
+          {
+            "path": "github.com/spacemeshos/go-spacemesh/malfeasance",
+            "symbols": [
+              "Handler.HandleSyncedMalfeasanceProof",
+              "Validate"
+            ]
+          },
+          {
+            "path": "github.com/spacemeshos/go-spacemesh/malfeasance/wire",
+            "symbols": [
+              "AtxProof.DecodeScale",
+              "AtxProof.MarshalLogObject",
+              "AtxProofMsg.DecodeScale",
+              "AtxProofMsg.SignedBytes",
+              "BallotProof.DecodeScale",
+              "BallotProof.MarshalLogObject",
+              "BallotProofMsg.DecodeScale",
+              "BallotProofMsg.SignedBytes",
+              "HareMetadata.DecodeScale",
+              "HareMetadata.ToBytes",
+              "HareProof.DecodeScale",
+              "HareProof.MarshalLogObject",
+              "HareProofMsg.DecodeScale",
+              "HareProofMsg.SignedBytes",
+              "InvalidPostIndexProof.DecodeScale",
+              "InvalidPostIndexProof.EncodeScale",
+              "MalfeasanceGossip.DecodeScale",
+              "MalfeasanceGossip.EncodeScale",
+              "MalfeasanceInfo",
+              "MalfeasanceProof.DecodeScale",
+              "MalfeasanceProof.EncodeScale",
+              "MalfeasanceProof.MarshalLogObject",
+              "Proof.DecodeScale",
+              "Proof.EncodeScale"
+            ]
+          },
+          {
+            "path": "github.com/spacemeshos/go-spacemesh/node",
+            "symbols": [
+              "App.setupDBs",
+              "App.verifyDB"
+            ]
+          },
+          {
+            "path": "github.com/spacemeshos/go-spacemesh/sql/atxs",
+            "symbols": [
+              "Add",
+              "AddGettingNonce",
+              "IterateIDsByEpoch"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/spacemeshos/go-spacemesh/security/advisories/GHSA-jcqq-g64v-gcm7"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/spacemeshos/api/commit/1d5bd972bbe225d024c3e0ae5214ddb6b481716e"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/spacemeshos/go-spacemesh/commit/9aff88d54be809ac43d60e8a8b4d65359c356b87"
+    },
+    {
+      "type": "WEB",
+      "url": "https://spacemesh.io/blog/spacemesh-white-paper-1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2831"
+  }
+}
