@@ -1,0 +1,24 @@
+id: GO-2024-2830
+modules:
+    - module: github.com/1Panel-dev/1Panel
+      versions:
+        - fixed: 1.10.3-lts
+      vulnerable_at: 1.10.2-lts
+      packages:
+        - package: github.com/1Panel-dev/1Panel/backend/utils/cmd
+          symbols:
+            - CheckIllegal
+summary: Arbitrary file write in github.com/1Panel-dev/1Panel
+description: A maliciously crafted packet can write to an arbitrary file.
+cves:
+    - CVE-2024-34352
+ghsas:
+    - GHSA-f8ch-w75v-c847
+credits:
+    - '@an5er'
+references:
+    - advisory: https://github.com/1Panel-dev/1Panel/security/advisories/GHSA-f8ch-w75v-c847
+    - fix: https://github.com/1Panel-dev/1Panel/commit/e037b69f52799e110af8e98f39a3627ad0285ea6
+source:
+    id: GHSA-f8ch-w75v-c847
+    created: 2024-05-11T15:38:11.046626-07:00
