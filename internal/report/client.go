@@ -34,9 +34,10 @@ const (
 
 // Client is a client for accessing vulndb reports from a git repository.
 type Client struct {
-	byFile  map[string]*Report
-	byIssue map[int]*Report
-	byAlias map[string][]*Report
+	byFile   map[string]*Report
+	byIssue  map[int]*Report
+	byAlias  map[string][]*Report
+	byModule map[string][]*Report
 }
 
 // NewClient returns a Client for accessing the reports in
@@ -130,6 +131,12 @@ func (c *Client) ReportsByAlias(alias string) []*Report {
 	return c.byAlias[alias]
 }
 
+// ReportsByModule returns a list of reports in vulndb with the given
+// module.
+func (c *Client) ReportsByModule(module string) []*Report {
+	return c.byModule[module]
+}
+
 // AliasHasReport returns whether the given alias exists in vulndb.
 func (c *Client) AliasHasReport(alias string) bool {
 	_, ok := c.byAlias[alias]
@@ -138,9 +145,10 @@ func (c *Client) AliasHasReport(alias string) bool {
 
 func newClient() *Client {
 	return &Client{
-		byIssue: make(map[int]*Report),
-		byFile:  make(map[string]*Report),
-		byAlias: make(map[string][]*Report),
+		byIssue:  make(map[int]*Report),
+		byFile:   make(map[string]*Report),
+		byAlias:  make(map[string][]*Report),
+		byModule: make(map[string][]*Report),
 	}
 }
 
@@ -183,6 +191,9 @@ func (c *Client) addReport(filename string, r *Report) error {
 	c.byIssue[iss] = r
 	for _, alias := range r.Aliases() {
 		c.byAlias[alias] = append(c.byAlias[alias], r)
+	}
+	for _, m := range r.Modules {
+		c.byModule[m.Module] = append(c.byModule[m.Module], r)
 	}
 
 	return nil

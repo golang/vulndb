@@ -146,6 +146,16 @@ func vv(ver string) string {
 	return "v" + ver
 }
 
+// CanonicalAtLatest finds the canonical module path for the given module path
+// at the latest version.
+func (c *Client) CanonicalAtLatest(path string) (_ string, err error) {
+	v, err := c.Latest(path)
+	if err != nil {
+		return "", nil
+	}
+	return c.CanonicalModulePath(path, v)
+}
+
 func (c *Client) CanonicalModulePath(path, version string) (_ string, err error) {
 	b, err := c.mod(path, version)
 	if err != nil {

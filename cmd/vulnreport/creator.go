@@ -64,6 +64,14 @@ func (x *xrefer) skipReason(iss *issues.Issue) string {
 		return "suggested edit"
 	}
 
+	if iss.HasLabel(labelPossibleDuplicate) {
+		return "possible duplicate"
+	}
+
+	if iss.HasLabel(labelPossiblyNotGo) {
+		return "possibly not Go"
+	}
+
 	if x.rc.HasReport(iss.Number) {
 		return "already has report"
 	}
@@ -168,9 +176,12 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) error {
 }
 
 const (
-	labelDuplicate     = "duplicate"
-	labelDirect        = "Direct External Report"
-	labelSuggestedEdit = "Suggested Edit"
+	labelDuplicate         = "duplicate"
+	labelDirect            = "Direct External Report"
+	labelSuggestedEdit     = "Suggested Edit"
+	labelHighPriority      = "high priority"
+	labelPossibleDuplicate = "possible duplicate"
+	labelPossiblyNotGo     = "possibly not Go"
 )
 
 func excludedReason(iss *issues.Issue) report.ExcludedReason {

@@ -204,6 +204,19 @@ func (c *Client) CreateIssue(ctx context.Context, iss *Issue) (number int, err e
 	return giss.GetNumber(), nil
 }
 
+func (c *Client) AddLabels(ctx context.Context, issNum int, labels []string) (err error) {
+	defer derrors.Wrap(&err, "AddLabels(%d, %s)", issNum, labels)
+
+	req := &github.IssueRequest{
+		Labels: &labels,
+	}
+	_, _, err = c.GitHub.Issues.Edit(ctx, c.Owner, c.Repo, issNum, req)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // NewGoID creates a Go advisory ID based on the issue number
 // and time of issue creation.
 func (iss *Issue) NewGoID() string {

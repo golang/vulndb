@@ -63,3 +63,13 @@ func (l *linter) readLinted(filename string) (*report.Report, error) {
 	}
 	return r, nil
 }
+
+func (l *linter) canonicalModule(mp string) string {
+	if module, err := l.pc.FindModule(mp); err == nil { // no error
+		mp = module
+	}
+	if module, err := l.pc.CanonicalAtLatest(mp); err == nil { // no error
+		mp = module
+	}
+	return mp
+}

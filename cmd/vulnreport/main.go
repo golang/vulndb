@@ -48,7 +48,8 @@ var commands = map[string]command{
 	"create-excluded": &createExcluded{},
 	"commit":          &commit{},
 	"cve":             &cveCmd{},
-	"duplicates":      &duplicates{},
+	"duplicates":      &triage{}, // deprecated
+	"triage":          &triage{},
 	"fix":             &fix{},
 	"lint":            &lint{},
 	"set-dates":       &setDates{},
