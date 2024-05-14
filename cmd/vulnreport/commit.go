@@ -22,15 +22,16 @@ var (
 	// Note: It would be probably be ideal if -dry did not stage
 	// the files, but the logic to determine the commit message
 	// currently depends on the status of the staging area.
-	dry = flag.Bool("dry", false, "for commit & create-excluded, stage but do not commit files")
+	dry   = flag.Bool("dry", false, "for commit & create-excluded, stage but do not commit files")
+	batch = flag.Bool("batch", false, "for commit, create a single commit for all reports")
 )
 
-// TODO(tatianabradley): add support for a "-batch" flag that
-// commits multiple reports at once.
 type commit struct {
 	*committer
 	*fixer
 	filenameParser
+
+	toCommit []*report.Report
 }
 
 func (commit) name() string { return "commit" }
@@ -46,7 +47,12 @@ func (c *commit) setup(ctx context.Context) error {
 	return setupAll(ctx, c.committer, c.fixer)
 }
 
-func (c *commit) close() error { return nil }
+func (c *commit) close() error {
+	if len(c.toCommit) > 0 {
+		return c.commit(c.toCommit...)
+	}
+	return nil
+}
 
 func (c *commit) run(ctx context.Context, filename string) (err error) {
 	r, err := report.ReadStrict(filename)
@@ -58,6 +64,11 @@ func (c *commit) run(ctx context.Context, filename string) (err error) {
 	// Stop if there any problems.
 	if err := c.fixAndWriteAll(ctx, r); err != nil {
 		return err
+	}
+
+	if *batch {
+		c.toCommit = append(c.toCommit, r)
+		return nil
 	}
 
 	return c.commit(r)
