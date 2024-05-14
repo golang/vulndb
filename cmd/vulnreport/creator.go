@@ -150,6 +150,7 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) error {
 		}
 	case meta.unreviewed:
 		r.Description = ""
+		r.ReviewStatus = report.Reviewed
 		addNotes := true
 		if fixed := c.fix(ctx, r, addNotes); fixed {
 			if err := writeDerived(r); err != nil {
@@ -159,6 +160,7 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) error {
 	default:
 		// Regular, full-length reports.
 		addTODOs(r)
+		r.ReviewStatus = report.Unreviewed
 		xrefs, err := c.xref(r)
 		if err != nil {
 			log.Warnf("could not get cross-references: %s", err)

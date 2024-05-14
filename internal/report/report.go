@@ -241,6 +241,42 @@ type Report struct {
 	// Metadata about how this report was generated.
 	// Not published to OSV.
 	SourceMeta *SourceMeta `yaml:"source,omitempty"`
+
+	ReviewStatus ReviewStatus `yaml:"review_status,omitempty"`
+}
+
+// This wrapper is needed so we can define YAML functions on this type.
+// (The OSV package must not import third-party packages so it can be easily
+// copied across repos).
+type ReviewStatus osv.ReviewStatus
+
+const (
+	Reviewed   = ReviewStatus(osv.ReviewStatusReviewed)
+	Unreviewed = ReviewStatus(osv.ReviewStatusUnreviewed)
+)
+
+func (r ReviewStatus) String() string {
+	return osv.ReviewStatus(r).String()
+}
+
+func (r ReviewStatus) MarshalYAML() (any, error) {
+	or := osv.ReviewStatus(r)
+	if !or.IsValid() {
+		return nil, fmt.Errorf("MarshalYAML: unrecognized review status: %s", r)
+	}
+	return or.String(), nil
+}
+
+func (r *ReviewStatus) UnmarshalYAML(node *yaml.Node) error {
+	if node.Kind == yaml.ScalarNode {
+		v := node.Value
+		if rs, ok := osv.ToReviewStatus(v); ok {
+			*r = ReviewStatus(rs)
+			return nil
+		}
+		return fmt.Errorf("UnmarshalYAML: unrecognized review status: %s", v)
+	}
+	return fmt.Errorf("UnmarshalYAML: incorrect node type %v", node.Kind)
 }
 
 const sourceGoTeam = "go-security-team"

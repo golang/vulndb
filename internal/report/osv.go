@@ -54,16 +54,19 @@ func (r *Report) ToOSV(lastModified time.Time) osv.Entry {
 	}
 
 	entry := osv.Entry{
-		ID:               r.ID,
-		Published:        osv.Time{Time: r.Published},
-		Modified:         osv.Time{Time: lastModified},
-		Withdrawn:        withdrawn,
-		Related:          r.Related,
-		Summary:          toParagraphs(r.Summary.String()),
-		Details:          toParagraphs(details.String()),
-		Credits:          credits,
-		SchemaVersion:    SchemaVersion,
-		DatabaseSpecific: &osv.DatabaseSpecific{URL: GoAdvisory(r.ID)},
+		ID:            r.ID,
+		Published:     osv.Time{Time: r.Published},
+		Modified:      osv.Time{Time: lastModified},
+		Withdrawn:     withdrawn,
+		Related:       r.Related,
+		Summary:       toParagraphs(r.Summary.String()),
+		Details:       toParagraphs(details.String()),
+		Credits:       credits,
+		SchemaVersion: SchemaVersion,
+		DatabaseSpecific: &osv.DatabaseSpecific{
+			URL:          GoAdvisory(r.ID),
+			ReviewStatus: osv.ReviewStatus(r.ReviewStatus),
+		},
 	}
 
 	for _, m := range r.Modules {
