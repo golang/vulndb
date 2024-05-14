@@ -52,6 +52,15 @@ func (c *creator) skipReason(iss *issues.Issue) string {
 		return fmt.Sprintf("assignee = %q, not %q", iss.Assignee, c.assignee)
 	}
 
+	if *unreviewed {
+		if iss.HasLabel(labelDirect) {
+			return "should not create unreviewed report for direct report"
+		}
+		if iss.HasLabel(labelHighPriority) {
+			return "should not create unreviewed report for high priority issue"
+		}
+	}
+
 	return c.xrefer.skipReason(iss)
 }
 
@@ -85,6 +94,7 @@ func (c *creator) reportFromIssue(ctx context.Context, iss *issues.Issue) error 
 		excluded:   excludedReason(iss),
 		modulePath: modulePath(iss),
 		aliases:    aliases(iss),
+		unreviewed: *unreviewed,
 	})
 }
 
