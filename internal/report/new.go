@@ -31,6 +31,7 @@ func New(src Source, pc *proxy.Client, opts ...NewOption) *Report {
 		ID: src.SourceID(),
 	}
 	r.SourceMeta.Created = &cfg.Created
+	r.ReviewStatus = cfg.ReviewStatus
 
 	r.Fix(pc)
 	return r
@@ -66,19 +67,27 @@ func WithGoID(id string) NewOption {
 	}
 }
 
+func WithReviewStatus(status ReviewStatus) NewOption {
+	return func(h *cfg) {
+		h.ReviewStatus = status
+	}
+}
+
 type cfg struct {
-	ModulePath string
-	Aliases    []string
-	Created    time.Time
-	GoID       string
+	ModulePath   string
+	Aliases      []string
+	Created      time.Time
+	GoID         string
+	ReviewStatus ReviewStatus
 }
 
 const PendingID = "GO-ID-PENDING"
 
 func newCfg(opts []NewOption) *cfg {
 	h := &cfg{
-		GoID:    PendingID,
-		Created: time.Now(),
+		GoID:         PendingID,
+		Created:      time.Now(),
+		ReviewStatus: Unreviewed,
 	}
 	for _, opt := range opts {
 		opt(h)

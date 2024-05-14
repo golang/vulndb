@@ -70,6 +70,7 @@ func TestGHSAToReport(t *testing.T) {
 					ID:      "G1_blah",
 					Created: &testTime,
 				},
+				ReviewStatus: report.Unreviewed,
 			},
 		},
 		{
@@ -99,6 +100,7 @@ func TestGHSAToReport(t *testing.T) {
 					ID:      "G1_blah",
 					Created: &testTime,
 				},
+				ReviewStatus: report.Unreviewed,
 			},
 		},
 	} {

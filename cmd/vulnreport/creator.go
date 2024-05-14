@@ -103,10 +103,16 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) error {
 		log.Info("no suitable alias found, creating basic report")
 	}
 
+	status := report.Reviewed
+	if meta.unreviewed {
+		status = report.Unreviewed
+	}
+
 	r := report.New(src, c.pc,
 		report.WithGoID(meta.id),
 		report.WithModulePath(meta.modulePath),
 		report.WithAliases(aliases),
+		report.WithReviewStatus(status),
 	)
 
 	// Find any additional aliases referenced by the source aliases.
@@ -150,7 +156,6 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) error {
 		}
 	case meta.unreviewed:
 		r.Description = ""
-		r.ReviewStatus = report.Reviewed
 		addNotes := true
 		if fixed := c.fix(ctx, r, addNotes); fixed {
 			if err := writeDerived(r); err != nil {
@@ -160,7 +165,6 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) error {
 	default:
 		// Regular, full-length reports.
 		addTODOs(r)
-		r.ReviewStatus = report.Unreviewed
 		xrefs, err := c.xref(r)
 		if err != nil {
 			log.Warnf("could not get cross-references: %s", err)

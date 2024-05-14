@@ -309,6 +309,7 @@ cves:
 source:
     id: ID1
     created: 1999-01-01T00:00:00Z
+review_status: UNREVIEWED
 
 ` + "```"
 	if diff := cmp.Diff(unindent(want), got); diff != "" {
@@ -376,6 +377,7 @@ ghsas:
 source:
     id: G1
     created: 1999-01-01T00:00:00Z
+review_status: UNREVIEWED
 
 ` + "```"
 
