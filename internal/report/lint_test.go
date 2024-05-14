@@ -50,9 +50,10 @@ func validReport(f func(r *Report)) Report {
 				Package: "golang.org/x/net/http2",
 			}},
 		}},
-		Description: "description",
-		Summary:     "A summary of the issue in golang.org/x/net",
-		CVEs:        []string{"CVE-1234-0000"},
+		Description:  "description",
+		Summary:      "A summary of the issue in golang.org/x/net",
+		CVEs:         []string{"CVE-1234-0000"},
+		ReviewStatus: Reviewed,
 	}
 	f(&r)
 	return r
@@ -68,9 +69,10 @@ func validStdReport(f func(r *Report)) Report {
 				Package: "net/http",
 			}},
 		}},
-		Description: "description",
-		Summary:     "A summary of the problem with net/http",
-		References:  validStdLibReferences,
+		Description:  "description",
+		Summary:      "A summary of the problem with net/http",
+		References:   validStdLibReferences,
+		ReviewStatus: Reviewed,
 	}
 	f(&r)
 	return r
@@ -260,6 +262,14 @@ func TestLintOffline(t *testing.T) {
 			desc: "Regular (non-excluded) reports must have a summary.",
 			report: validReport(func(r *Report) {
 				r.Summary = ""
+			}),
+			wantNumLints: 1,
+		},
+		{
+			name: "no_review_status",
+			desc: "Regular (non-excluded) reports must have a review status.",
+			report: validReport(func(r *Report) {
+				r.ReviewStatus = 0
 			}),
 			wantNumLints: 1,
 		},

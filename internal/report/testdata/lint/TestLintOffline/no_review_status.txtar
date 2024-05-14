@@ -2,8 +2,8 @@ Copyright 2024 The Go Authors. All rights reserved.
 Use of this source code is governed by a BSD-style
 license that can be found in the LICENSE file.
 
-Test: TestLintOffline/no_package_path
-Description: All packages must have a path.
+Test: TestLintOffline/no_review_status
+Description: Regular (non-excluded) reports must have a review status.
 
 -- data/reports/GO-0000-0000.yaml --
 id: GO-0000-0000
@@ -12,12 +12,10 @@ modules:
       vulnerable_at: 1.2.3
       packages:
         - package: golang.org/x/net/http2
-        - {}
 summary: A summary of the issue in golang.org/x/net
 description: description
 cves:
     - CVE-1234-0000
-review_status: REVIEWED
 
 -- golden --
-modules[0] "golang.org/x/net": packages[1]: no package name
+review_status missing or invalid (must be one of [UNREVIEWED, REVIEWED])

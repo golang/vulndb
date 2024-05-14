@@ -250,6 +250,16 @@ func (r *Report) lintReferences(l *linter) {
 	}
 }
 
+func (r *Report) lintReviewStatus(l *linter) {
+	if r.IsExcluded() {
+		return
+	}
+
+	if r.ReviewStatus == 0 || !osv.ReviewStatus(r.ReviewStatus).IsValid() {
+		l.Errorf("review_status missing or invalid (must be one of [%s])", strings.Join(osv.ReviewStatusValues(), ", "))
+	}
+}
+
 func (r *Report) countAdvisories() int {
 	advisoryCount := 0
 	for _, ref := range r.References {
@@ -471,7 +481,7 @@ func (r *Report) lint(pc *proxy.Client) []string {
 	r.lintRelated(l)
 
 	r.lintReferences(l)
-
+	r.lintReviewStatus(l)
 	return l.Errors()
 }
 
