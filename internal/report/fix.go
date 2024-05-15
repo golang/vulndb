@@ -670,6 +670,13 @@ func (r *Report) FixReferences() {
 		}
 	}
 
+	slices.SortFunc(r.References, func(a *Reference, b *Reference) int {
+		if a.Type == b.Type {
+			return strings.Compare(a.URL, b.URL)
+		}
+		return strings.Compare(string(a.Type), string(b.Type))
+	})
+
 	if len(r.References) == 0 {
 		r.References = nil
 	}

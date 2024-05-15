@@ -414,11 +414,11 @@ func TestFixReferences(t *testing.T) {
 			name: "to_advisory_ghsa",
 			in: []*Reference{
 				{
-					URL:  "https://github.com/example/module/security/advisories/GHSA-xxxx-yyyy-zzzz",
+					URL:  "https://github.com/advisories/GHSA-gggg-hhhh-ffff",
 					Type: osv.ReferenceTypeWeb,
 				},
 				{
-					URL:  "https://github.com/advisories/GHSA-gggg-hhhh-ffff",
+					URL:  "https://github.com/example/module/security/advisories/GHSA-xxxx-yyyy-zzzz",
 					Type: osv.ReferenceTypeWeb,
 				},
 				{
@@ -428,11 +428,11 @@ func TestFixReferences(t *testing.T) {
 			},
 			want: []*Reference{
 				{
-					URL:  "https://github.com/example/module/security/advisories/GHSA-xxxx-yyyy-zzzz",
+					URL:  "https://github.com/advisories/GHSA-gggg-hhhh-ffff",
 					Type: osv.ReferenceTypeAdvisory,
 				},
 				{
-					URL:  "https://github.com/advisories/GHSA-gggg-hhhh-ffff",
+					URL:  "https://github.com/example/module/security/advisories/GHSA-xxxx-yyyy-zzzz",
 					Type: osv.ReferenceTypeAdvisory,
 				},
 				{
@@ -489,54 +489,54 @@ func TestFixReferences(t *testing.T) {
 			name: "to_fix_or_report",
 			in: []*Reference{
 				{
-					URL:  "https://github.com/example/module/pull/123",
-					Type: osv.ReferenceTypeWeb,
+					URL:  "https://github.com/advisories/GHSA-gggg-hhhh-ffff",
+					Type: osv.ReferenceTypeAdvisory,
 				},
 				{
 					URL:  "https://github.com/example/module/commit/123",
 					Type: osv.ReferenceTypeWeb,
 				},
 				{
-					URL:  "https://github.com/module/module/issues/123",
+					URL:  "https://github.com/example/module/pull/123",
 					Type: osv.ReferenceTypeWeb,
 				},
 				{
 					URL:  "https://github.com/example/module/issue/123",
+					Type: osv.ReferenceTypeWeb,
+				},
+				{
+					URL:  "https://github.com/module/module/issues/123",
 					Type: osv.ReferenceTypeWeb,
 				},
 				{
 					URL:  "https://github.com/different/module/issue/123",
 					Type: osv.ReferenceTypeWeb,
 				},
-				{
-					URL:  "https://github.com/advisories/GHSA-gggg-hhhh-ffff",
-					Type: osv.ReferenceTypeAdvisory,
-				},
 			},
 			want: []*Reference{
 				{
-					URL:  "https://github.com/example/module/pull/123",
-					Type: osv.ReferenceTypeFix,
+					URL:  "https://github.com/advisories/GHSA-gggg-hhhh-ffff",
+					Type: osv.ReferenceTypeAdvisory,
 				},
 				{
 					URL:  "https://github.com/example/module/commit/123",
 					Type: osv.ReferenceTypeFix,
 				},
 				{
-					URL:  "https://github.com/module/module/issues/123",
-					Type: osv.ReferenceTypeReport,
+					URL:  "https://github.com/example/module/pull/123",
+					Type: osv.ReferenceTypeFix,
 				},
 				{
 					URL:  "https://github.com/example/module/issue/123",
+					Type: osv.ReferenceTypeReport,
+				},
+				{
+					URL:  "https://github.com/module/module/issues/123",
 					Type: osv.ReferenceTypeReport,
 				},
 				{
 					URL:  "https://github.com/different/module/issue/123",
 					Type: osv.ReferenceTypeWeb, // different module, keep web type
-				},
-				{
-					URL:  "https://github.com/advisories/GHSA-gggg-hhhh-ffff",
-					Type: osv.ReferenceTypeAdvisory,
 				},
 			},
 		},
