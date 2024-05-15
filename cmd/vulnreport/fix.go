@@ -104,15 +104,6 @@ func (f *fixer) fix(ctx context.Context, r *report.Report, addNotes bool) (fixed
 		}
 	}
 
-	// TODO(tatianabradley): this should be a lint check instead.
-	if hasUnaddressedTodos(r) {
-		log.Warnf("%s has unaddressed %q fields", r.ID, "TODO:")
-		if addNotes {
-			r.AddNote(report.NoteTypeFix, "%s has unaddressed %q fields", r.ID, "TODO:")
-		}
-		fixed = false
-	}
-
 	// Check for remaining lint errors.
 	if addNotes {
 		if r.LintAsNotes(f.pc) {
@@ -127,47 +118,6 @@ func (f *fixer) fix(ctx context.Context, r *report.Report, addNotes bool) (fixed
 	}
 
 	return fixed
-}
-
-// hasUnaddressedTodos returns true if report has any unaddressed todos in the
-// report, i.e. starts with "TODO:".
-func hasUnaddressedTodos(r *report.Report) bool {
-	is := func(s string) bool { return strings.HasPrefix(s, "TODO:") }
-	any := func(ss []string) bool { return slices.IndexFunc(ss, is) >= 0 }
-
-	if is(string(r.Excluded)) {
-		return true
-	}
-	for _, m := range r.Modules {
-		if is(m.Module) {
-			return true
-		}
-		for _, v := range m.Versions {
-			if is(string(v.Introduced)) {
-				return true
-			}
-			if is(string(v.Fixed)) {
-				return true
-			}
-		}
-		if is(string(m.VulnerableAt)) {
-			return true
-		}
-		for _, p := range m.Packages {
-			if is(p.Package) || is(p.SkipFix) || any(p.Symbols) || any(p.DerivedSymbols) {
-				return true
-			}
-		}
-	}
-	for _, ref := range r.References {
-		if is(ref.URL) {
-			return true
-		}
-	}
-	if any(r.CVEs) || any(r.GHSAs) {
-		return true
-	}
-	return is(r.Summary.String()) || is(r.Description.String()) || any(r.Credits)
 }
 
 func checkReportSymbols(r *report.Report) error {

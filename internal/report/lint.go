@@ -482,6 +482,11 @@ func (r *Report) lint(pc *proxy.Client) []string {
 
 	r.lintReferences(l)
 	r.lintReviewStatus(l)
+
+	if r.hasTODOs() {
+		l.Error("contains one or more TODOs")
+	}
+
 	return l.Errors()
 }
 
@@ -616,4 +621,44 @@ func checkNoMarkdown(l *linter, s string) {
 			l.Errorf("possible markdown formatting (found %s)", matches[1])
 		}
 	}
+}
+
+func (r *Report) hasTODOs() bool {
+	is := hasTODO
+	any := func(ss []string) bool { return slices.IndexFunc(ss, is) >= 0 }
+
+	if is(string(r.Excluded)) {
+		return true
+	}
+	for _, m := range r.Modules {
+		if is(m.Module) {
+			return true
+		}
+		for _, v := range m.Versions {
+			if is(string(v.Introduced)) {
+				return true
+			}
+			if is(string(v.Fixed)) {
+				return true
+			}
+		}
+		if is(string(m.VulnerableAt)) {
+			return true
+		}
+		for _, p := range m.Packages {
+			// don't check p.SkipFix, this may contain TODOs for historical reasons
+			if is(p.Package) || any(p.Symbols) || any(p.DerivedSymbols) {
+				return true
+			}
+		}
+	}
+	for _, ref := range r.References {
+		if is(ref.URL) {
+			return true
+		}
+	}
+	if any(r.CVEs) || any(r.GHSAs) {
+		return true
+	}
+	return is(r.Description.String()) || any(r.Credits)
 }
