@@ -1,0 +1,130 @@
+id: GO-2024-2842
+modules:
+    - module: github.com/containers/image/v5
+      versions:
+        - fixed: 5.30.1
+      vulnerable_at: 5.30.0
+      packages:
+        - package: github.com/containers/image/v5/copy
+          symbols:
+            - copier.createProgressBar
+            - imageCopier.copyConfig
+            - imageCopier.copyLayer
+          derived_symbols:
+            - Image
+        - package: github.com/containers/image/v5/directory
+          symbols:
+            - dirImageDestination.PutBlobWithOptions
+            - dirImageDestination.TryReusingBlobWithOptions
+            - dirImageDestination.PutManifest
+            - dirImageDestination.PutSignaturesWithFormat
+            - dirImageSource.GetManifest
+            - dirImageSource.GetBlob
+            - dirImageSource.GetSignaturesWithFormat
+          derived_symbols:
+            - dirReference.NewImage
+        - package: github.com/containers/image/v5/docker
+          symbols:
+            - dockerClient.fetchManifest
+            - dockerClient.getBlob
+            - dockerClient.getSigstoreAttachmentManifest
+            - dockerClient.getExtensionsSignatures
+            - sigstoreAttachmentTag
+            - GetRepositoryTags
+            - dockerImageDestination.blobExists
+            - dockerImageDestination.PutManifest
+            - dockerImageDestination.putSignaturesToLookaside
+            - dockerImageDestination.putSignaturesToSigstoreAttachments
+            - dockerImageSource.GetManifest
+            - dockerImageSource.GetBlobAt
+            - dockerImageSource.getSignaturesFromLookaside
+            - deleteImage
+            - lookasideStorageURL
+          derived_symbols:
+            - Image.GetRepositoryTags
+            - dockerImageDestination.PutBlobWithOptions
+            - dockerImageDestination.PutSignaturesWithFormat
+            - dockerImageDestination.TryReusingBlobWithOptions
+            - dockerImageSource.GetBlob
+            - dockerImageSource.GetSignaturesWithFormat
+            - dockerReference.DeleteImage
+            - dockerReference.NewImage
+            - dockerReference.NewImageSource
+        - package: github.com/containers/image/v5/docker/internal/tarfile
+          symbols:
+            - Destination.PutBlobWithOptions
+            - Writer.ensureSingleLegacyLayerLocked
+            - Writer.writeLegacyMetadataLocked
+            - Writer.ensureManifestItemLocked
+            - Writer.configPath
+            - Writer.physicalLayerPath
+          derived_symbols:
+            - Destination.PutManifest
+        - package: github.com/containers/image/v5/openshift
+          symbols:
+            - openshiftImageSource.GetSignaturesWithFormat
+          derived_symbols:
+            - openshiftImageDestination.PutBlobWithOptions
+            - openshiftImageDestination.PutManifest
+            - openshiftImageDestination.TryReusingBlobWithOptions
+            - openshiftImageSource.GetBlob
+            - openshiftImageSource.GetManifest
+            - openshiftReference.NewImage
+        - package: github.com/containers/image/v5/ostree
+          symbols:
+            - ostreeImageDestination.TryReusingBlobWithOptions
+            - ostreeImageDestination.Commit
+            - ostreeImageSource.GetBlob
+          skip_fix: contains build constraints
+        - package: github.com/containers/image/v5/pkg/blobcache
+          symbols:
+            - BlobCache.blobPath
+            - BlobCache.findBlob
+            - blobCacheDestination.saveStream
+          derived_symbols:
+            - BlobCache.HasBlob
+            - BlobCache.NewImage
+            - blobCacheDestination.PutBlobWithOptions
+            - blobCacheDestination.PutManifest
+            - blobCacheDestination.TryReusingBlobWithOptions
+            - blobCacheSource.GetBlob
+            - blobCacheSource.GetBlobAt
+            - blobCacheSource.GetManifest
+            - blobCacheSource.LayerInfosForCopy
+        - package: github.com/containers/image/v5/storage
+          symbols:
+            - storageImageDestination.tryReusingBlobAsPending
+            - manifestBigDataKey
+            - signatureBigDataKey
+          derived_symbols:
+            - ResolveReference
+            - storageImageDestination.Commit
+            - storageImageDestination.PutBlobWithOptions
+            - storageImageDestination.TryReusingBlobWithOptions
+            - storageImageSource.GetManifest
+            - storageImageSource.GetSignaturesWithFormat
+            - storageImageSource.LayerInfosForCopy
+            - storageReference.DeleteImage
+            - storageReference.NewImage
+            - storageReference.NewImageSource
+            - storageTransport.GetImage
+            - storageTransport.GetStoreImage
+summary: Unexpected authenticated registry accesses in github.com/containers/image/v5
+description: |-
+    An attacker may trigger unexpected authenticated registry accesses on behalf of
+    a victim user, causing resource exhaustion, local path traversal, and other
+    attacks.
+cves:
+    - CVE-2024-3727
+ghsas:
+    - GHSA-6wvf-f2vw-3425
+references:
+    - advisory: https://github.com/advisories/GHSA-6wvf-f2vw-3425
+    - fix: https://github.com/containers/image/commit/132678b47bae29c710589012668cb85859d88385
+    - web: https://access.redhat.com/security/cve/CVE-2024-3727
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2274767
+    - web: https://github.com/containers/image/releases/tag/v5.30.1
+source:
+    id: GHSA-6wvf-f2vw-3425
+    created: 2024-05-17T14:13:29.295109-04:00
+review_status: REVIEWED
