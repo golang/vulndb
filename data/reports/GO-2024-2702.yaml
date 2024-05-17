@@ -1,0 +1,30 @@
+id: GO-2024-2702
+modules:
+    - module: github.com/flipped-aurora/gin-vue-admin/server
+      versions:
+        - fixed: 0.0.0-20240409100909-b1b7427c6ea6
+      vulnerable_at: 0.0.0-20240407133540-7bc7c3051067
+      packages:
+        - package: github.com/flipped-aurora/gin-vue-admin/server/api/v1/system
+          symbols:
+            - AutoCodeApi.AutoPlug
+summary: Code injection vulnerability in github.com/flipped-aurora/gin-vue-admin/server
+description: |-
+    Gin-vue-admin has a code injection vulnerability in the backend. In the Plugin
+    System -> Plugin Template feature, an attacker can perform directory traversal
+    by manipulating the 'plugName' parameter. They can create specific folders such
+    as 'api', 'config', 'global', 'model', 'router', 'service', and 'main.go'
+    function within the specified traversal directory. Moreover, the Go files within
+    these folders can have arbitrary code inserted based on a specific PoC
+    parameter.
+cves:
+    - CVE-2024-31457
+ghsas:
+    - GHSA-gv3w-m57p-3wc4
+references:
+    - advisory: https://github.com/flipped-aurora/gin-vue-admin/security/advisories/GHSA-gv3w-m57p-3wc4
+    - fix: https://github.com/flipped-aurora/gin-vue-admin/commit/b1b7427c6ea6c7a027fa188c6be557f3795e732b
+source:
+    id: GHSA-gv3w-m57p-3wc4
+    created: 2024-05-17T14:58:48.32303-04:00
+review_status: REVIEWED
