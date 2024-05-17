@@ -1,0 +1,72 @@
+id: GO-2024-2694
+modules:
+    - module: github.com/cosmos/ibc-go
+      vulnerable_at: 1.5.0
+    - module: github.com/cosmos/ibc-go/v2
+      vulnerable_at: 2.5.0
+    - module: github.com/cosmos/ibc-go/v3
+      vulnerable_at: 3.4.0
+    - module: github.com/cosmos/ibc-go/v4
+      versions:
+        - fixed: 4.6.0
+      vulnerable_at: 4.5.1
+      packages:
+        - package: github.com/cosmos/ibc-go/v4/modules/core/keeper
+          symbols:
+            - Keeper.Timeout
+            - Keeper.TimeoutOnClose
+          skip_fix: does not build without replace directives
+    - module: github.com/cosmos/ibc-go/v5
+      versions:
+        - fixed: 5.4.0
+      vulnerable_at: 5.3.2
+      packages:
+        - package: github.com/cosmos/ibc-go/v5/modules/core/keeper
+          symbols:
+            - Keeper.Timeout
+            - Keeper.TimeoutOnClose
+          skip_fix: does not build without replace directives
+    - module: github.com/cosmos/ibc-go/v6
+      versions:
+        - fixed: 6.3.0
+      vulnerable_at: 6.2.2
+      packages:
+        - package: github.com/cosmos/ibc-go/v6/modules/core/keeper
+          symbols:
+            - Keeper.Timeout
+            - Keeper.TimeoutOnClose
+          skip_fix: does not build without replace directives
+    - module: github.com/cosmos/ibc-go/v7
+      versions:
+        - fixed: 7.4.0
+      vulnerable_at: 7.3.2
+      packages:
+        - package: github.com/cosmos/ibc-go/v7/modules/core/keeper
+          symbols:
+            - Keeper.Timeout
+            - Keeper.TimeoutOnClose
+    - module: github.com/cosmos/ibc-go/v8
+      versions:
+        - fixed: 8.2.0
+      vulnerable_at: 8.1.1
+      packages:
+        - package: github.com/cosmos/ibc-go/v8/modules/core/keeper
+          symbols:
+            - Keeper.Timeout
+            - Keeper.TimeoutOnClose
+summary: |-
+    Potential Reentrancy using Timeout Callbacks in ibc-hooks in
+    github.com/cosmos/ibc-go
+ghsas:
+    - GHSA-j496-crgh-34mx
+references:
+    - advisory: https://github.com/cosmos/ibc-go/security/advisories/GHSA-j496-crgh-34mx
+    - fix: https://github.com/cosmos/ibc-go/commit/04275aa77644dec97fb91b749d963c992591b7f7
+    - fix: https://github.com/cosmos/ibc-go/commit/278fa89f192af04af32d82fd5ef41f84f82edd97
+    - fix: https://github.com/cosmos/ibc-go/commit/5e2e9ebc2f67df324028dd36a1837ffcc8e6b0dd
+    - fix: https://github.com/cosmos/ibc-go/commit/a0185df3953070ba5ebcb66735925449d1dbe729
+    - fix: https://github.com/cosmos/ibc-go/commit/e78b3a2b9c9ce80a67d6b1c2b7f9abcb225cc219
+source:
+    id: GHSA-j496-crgh-34mx
+    created: 2024-05-17T15:08:00.659618-04:00
+review_status: REVIEWED

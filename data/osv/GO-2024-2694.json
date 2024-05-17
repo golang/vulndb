@@ -1,0 +1,244 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2694",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-j496-crgh-34mx"
+  ],
+  "summary": "Potential Reentrancy using Timeout Callbacks in ibc-hooks in github.com/cosmos/ibc-go",
+  "details": "Potential Reentrancy using Timeout Callbacks in ibc-hooks in github.com/cosmos/ibc-go",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cosmos/ibc-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/cosmos/ibc-go/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/cosmos/ibc-go/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/cosmos/ibc-go/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.6.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cosmos/ibc-go/v4/modules/core/keeper",
+            "symbols": [
+              "Keeper.Timeout",
+              "Keeper.TimeoutOnClose"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/cosmos/ibc-go/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.4.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cosmos/ibc-go/v5/modules/core/keeper",
+            "symbols": [
+              "Keeper.Timeout",
+              "Keeper.TimeoutOnClose"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/cosmos/ibc-go/v6",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "6.3.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cosmos/ibc-go/v6/modules/core/keeper",
+            "symbols": [
+              "Keeper.Timeout",
+              "Keeper.TimeoutOnClose"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/cosmos/ibc-go/v7",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "7.4.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cosmos/ibc-go/v7/modules/core/keeper",
+            "symbols": [
+              "Keeper.Timeout",
+              "Keeper.TimeoutOnClose"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/cosmos/ibc-go/v8",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "8.2.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cosmos/ibc-go/v8/modules/core/keeper",
+            "symbols": [
+              "Keeper.Timeout",
+              "Keeper.TimeoutOnClose"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cosmos/ibc-go/security/advisories/GHSA-j496-crgh-34mx"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cosmos/ibc-go/commit/04275aa77644dec97fb91b749d963c992591b7f7"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cosmos/ibc-go/commit/278fa89f192af04af32d82fd5ef41f84f82edd97"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cosmos/ibc-go/commit/5e2e9ebc2f67df324028dd36a1837ffcc8e6b0dd"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cosmos/ibc-go/commit/a0185df3953070ba5ebcb66735925449d1dbe729"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cosmos/ibc-go/commit/e78b3a2b9c9ce80a67d6b1c2b7f9abcb225cc219"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2694",
+    "review_status": "REVIEWED"
+  }
+}
