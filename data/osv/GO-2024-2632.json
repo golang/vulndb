@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2632",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-28122",
+    "GHSA-hj3v-m684-v259"
+  ],
+  "summary": "JWX vulnerable to a denial of service attack using compressed JWE message in github.com/lestrrat-go/jwx",
+  "details": "An attacker with a trusted public key may cause a Denial-of-Service (DoS) condition by crafting a malicious JSON Web Encryption (JWE) token with an exceptionally high compression ratio. When this token is processed by the recipient, it results in significant memory allocation and processing time during decompression.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/lestrrat-go/jwx",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.2.29"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/lestrrat-go/jwx/jwe",
+            "symbols": [
+              "Decrypt",
+              "Message.Decrypt",
+              "uncompress"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/lestrrat-go/jwx/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.0.21"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/lestrrat-go/jwx/v2/jwe",
+            "symbols": [
+              "Decrypt",
+              "Settings",
+              "decryptCtx.decryptContent",
+              "uncompress"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/lestrrat-go/jwx/security/advisories/GHSA-hj3v-m684-v259"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/lestrrat-go/jwx/commit/d01027d74c7376d66037a10f4f64af9af26a7e34"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/lestrrat-go/jwx/commit/d43f2ceb7f0c13714dfe8854d6439766e86faa76"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/lestrrat-go/jwx/releases/tag/v1.2.29"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/lestrrat-go/jwx/releases/tag/v2.0.21"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2632",
+    "review_status": "REVIEWED"
+  }
+}
