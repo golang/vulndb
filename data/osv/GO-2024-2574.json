@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2574",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-25124",
+    "GHSA-fmg4-x8pw-hjhg"
+  ],
+  "summary": "Insecure CORS Configuration allowing wildcard origin with credentials in github.com/gofiber/fiber/v2",
+  "details": "The CORS middleware allows for insecure configurations that could potentially expose the application to multiple CORS-related vulnerabilities. Specifically, it allows setting the Access-Control-Allow-Origin header to a wildcard (\"*\") while also having the Access-Control-Allow-Credentials set to true, which goes against recommended security best practices.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gofiber/fiber/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.52.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/gofiber/fiber/v2/middleware/cors",
+            "symbols": [
+              "New",
+              "matchSubdomain"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/gofiber/fiber/security/advisories/GHSA-fmg4-x8pw-hjhg"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gofiber/fiber/commit/f0cd3b44b086544a37886232d0530601f2406c23"
+    },
+    {
+      "type": "WEB",
+      "url": "http://blog.portswigger.net/2016/10/exploiting-cors-misconfigurations-for.html"
+    },
+    {
+      "type": "WEB",
+      "url": "https://codeql.github.com/codeql-query-help/javascript/js-cors-misconfiguration-for-credentials"
+    },
+    {
+      "type": "WEB",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS/Errors/CORSNotSupportingCredentials"
+    },
+    {
+      "type": "WEB",
+      "url": "https://fetch.spec.whatwg.org/#cors-protocol-and-credentials"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/gofiber/fiber/releases/tag/v2.52.1"
+    },
+    {
+      "type": "WEB",
+      "url": "https://saturncloud.io/blog/cors-cannot-use-wildcard-in-accesscontrolalloworigin-when-credentials-flag-is-true"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2574",
+    "review_status": "REVIEWED"
+  }
+}

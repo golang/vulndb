@@ -1,0 +1,37 @@
+id: GO-2024-2574
+modules:
+    - module: github.com/gofiber/fiber/v2
+      versions:
+        - fixed: 2.52.1
+      vulnerable_at: 2.52.0
+      packages:
+        - package: github.com/gofiber/fiber/v2/middleware/cors
+          symbols:
+            - New
+            - matchSubdomain
+summary: |-
+    Insecure CORS Configuration allowing wildcard origin with credentials in
+    github.com/gofiber/fiber/v2
+description: |-
+    The CORS middleware allows for insecure configurations that could potentially
+    expose the application to multiple CORS-related vulnerabilities. Specifically,
+    it allows setting the Access-Control-Allow-Origin header to a wildcard ("*")
+    while also having the Access-Control-Allow-Credentials set to true, which goes
+    against recommended security best practices.
+cves:
+    - CVE-2024-25124
+ghsas:
+    - GHSA-fmg4-x8pw-hjhg
+references:
+    - advisory: https://github.com/gofiber/fiber/security/advisories/GHSA-fmg4-x8pw-hjhg
+    - fix: https://github.com/gofiber/fiber/commit/f0cd3b44b086544a37886232d0530601f2406c23
+    - web: http://blog.portswigger.net/2016/10/exploiting-cors-misconfigurations-for.html
+    - web: https://codeql.github.com/codeql-query-help/javascript/js-cors-misconfiguration-for-credentials
+    - web: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS/Errors/CORSNotSupportingCredentials
+    - web: https://fetch.spec.whatwg.org/#cors-protocol-and-credentials
+    - web: https://github.com/gofiber/fiber/releases/tag/v2.52.1
+    - web: https://saturncloud.io/blog/cors-cannot-use-wildcard-in-accesscontrolalloworigin-when-credentials-flag-is-true
+source:
+    id: GHSA-fmg4-x8pw-hjhg
+    created: 2024-05-17T15:29:50.096863-04:00
+review_status: REVIEWED
