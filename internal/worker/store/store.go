@@ -14,6 +14,7 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/object"
 	"golang.org/x/vulndb/internal/cve4"
 	"golang.org/x/vulndb/internal/ghsa"
+	"golang.org/x/vulndb/internal/report"
 )
 
 // A CVERecord contains information about a CVE.
@@ -65,6 +66,7 @@ type CVERecord struct {
 
 func (r *CVERecord) GetID() string                { return r.ID }
 func (r *CVERecord) GetUnit() string              { return r.Module }
+func (r *CVERecord) GetSource() report.Source     { return r.CVE }
 func (r *CVERecord) GetIssueReference() string    { return r.IssueReference }
 func (r *CVERecord) GetIssueCreatedAt() time.Time { return r.IssueCreatedAt }
 
@@ -198,6 +200,7 @@ type GHSARecord struct {
 
 func (r *GHSARecord) GetID() string                { return r.GHSA.ID }
 func (r *GHSARecord) GetUnit() string              { return r.GHSA.Vulns[0].Package }
+func (r *GHSARecord) GetSource() report.Source     { return r.GHSA }
 func (r *GHSARecord) GetIssueReference() string    { return r.IssueReference }
 func (r *GHSARecord) GetIssueCreatedAt() time.Time { return r.IssueCreatedAt }
 

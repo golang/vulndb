@@ -10,6 +10,7 @@ package worker
 import (
 	"context"
 	"fmt"
+	"reflect"
 	"strconv"
 	"strings"
 	"text/template"
@@ -21,11 +22,11 @@ import (
 	"golang.org/x/exp/slices"
 	"golang.org/x/time/rate"
 	"golang.org/x/vulndb/internal/cve4"
-	"golang.org/x/vulndb/internal/cvelistrepo"
 	"golang.org/x/vulndb/internal/cveutils"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
+	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/observe"
 	"golang.org/x/vulndb/internal/pkgsite"
@@ -187,7 +188,6 @@ func xref(r *report.Report, rc *report.Client) string {
 		return s
 	}
 
-	fmt.Fprint(out, "Cross references:\n")
 	matches := rc.XRef(r)
 	for _, fname := range sorted(maps.Keys(matches)) {
 		for _, match := range sorted(matches[fname]) {
@@ -253,53 +253,6 @@ func createCVEIssues(ctx context.Context, st store.Store, client *issues.Client,
 	}
 	log.With("limit", limit).Infof(ctx, "createCVEIssues done: %d created", numCreated)
 	return nil
-}
-
-func newCVEBody(sr storeRecord, rc *report.Client, pc *proxy.Client, now time.Time) (string, error) {
-	cr := sr.(*store.CVERecord)
-	var b strings.Builder
-	if cr.CVE == nil {
-		return "", fmt.Errorf("cannot create body for CVERecord with nil CVE")
-	}
-	if cr.CVE.Metadata.ID == "" {
-		cr.CVE.Metadata.ID = cr.ID
-	}
-	r := report.New(cr.CVE, pc,
-		report.WithModulePath(cr.Module),
-		report.WithCreated(now))
-	r.Description = ""
-	out, err := r.ToString()
-	if err != nil {
-		return "", err
-	}
-
-	var intro strings.Builder
-	fmt.Fprintf(&intro,
-		"%s references [%s](https://%s), which may be a Go module.\n\n",
-		cr.ID, cr.Module, cr.Module)
-
-	description := "N/A"
-	if len(cr.CVE.Description.Data) > 0 {
-		description = cr.CVE.Description.Data[0].Value
-	}
-	fmt.Fprintf(&intro, "Description:\n%s\n\n", description)
-
-	fmt.Fprintf(&intro, `References:
-- NIST: https://nvd.nist.gov/vuln/detail/%s
-- JSON: %s/tree/%s/%s`, cr.ID, cvelistrepo.URLv4, cr.CommitHash, cr.Path)
-	for _, ref := range r.References {
-		fmt.Fprintf(&intro, "\n- %v: %v", strings.ToLower(string(ref.Type)), ref.URL)
-	}
-	fmt.Fprintf(&intro, "\n- Imported by: https://pkg.go.dev/%s?tab=importedby", cr.Module)
-	fmt.Fprintf(&intro, "\n\n%s", xref(r, rc))
-	if err := issueTemplate.Execute(&b, issueTemplateData{
-		Intro:  intro.String(),
-		Report: out,
-		Pre:    "```",
-	}); err != nil {
-		return "", err
-	}
-	return b.String(), nil
 }
 
 func createGHSAIssues(ctx context.Context, st store.Store, client *issues.Client, pc *proxy.Client, rc *report.Client, limit int) (err error) {
@@ -375,42 +328,36 @@ func isDuplicate(sa *ghsa.SecurityAdvisory, pc *proxy.Client, rc *report.Client)
 	return false
 }
 
-func CreateGHSABody(sa *ghsa.SecurityAdvisory, rc *report.Client, pc *proxy.Client, now time.Time) (body string, err error) {
-	r := report.New(sa, pc, report.WithCreated(now))
+func NewIssueBody(r *report.Report, rc *report.Client) (body string, err error) {
+	// Truncate the description if it is too long.
+	desc := string(r.Description)
+	if len(desc) > 600 {
+		desc = desc[:600] + "..."
+	}
+
 	r.Description = ""
 	rs, err := r.ToString()
 	if err != nil {
 		return "", err
 	}
 	var b strings.Builder
-	intro := fmt.Sprintf(
-		"In GitHub Security Advisory [%s](%s), there is a vulnerability in the following Go packages or modules:",
-		sa.ID, sa.Permalink)
-	intro += "\n\n" + vulnTable(sa.Vulns)
-	intro += "\n\n" + xref(r, rc)
 	if err := issueTemplate.Execute(&b, issueTemplateData{
-		Intro:  intro,
-		Report: rs,
-		Pre:    "```",
+		SourceID:     r.SourceMeta.ID,
+		AdvisoryLink: idstr.AdvisoryLink(r.SourceMeta.ID),
+		Description:  desc,
+		Xrefs:        xref(r, rc),
+		Report:       r,
+		ReportStr:    rs,
+		Pre:          "```",
 	}); err != nil {
 		return "", err
 	}
 	return b.String(), nil
 }
 
-func vulnTable(vs []*ghsa.Vuln) string {
-	var b strings.Builder
-	fmt.Fprintf(&b, "| Unit | Fixed | Vulnerable Ranges |\n")
-	fmt.Fprintf(&b, "| - | - | - |\n")
-	for _, v := range vs {
-		fmt.Fprintf(&b, "| [%s](https://pkg.go.dev/%[1]s) | %s | %s |",
-			v.Package, v.EarliestFixedVersion, v.VulnerableVersionRange)
-	}
-	return b.String()
-}
-
 type storeRecord interface {
 	GetID() string
+	GetSource() report.Source
 	GetUnit() string
 	GetIssueReference() string
 	GetIssueCreatedAt() time.Time
@@ -429,17 +376,15 @@ func createIssue(ctx context.Context, r storeRecord, client *issues.Client, pc *
 		return "", nil
 	}
 
-	var body string
-	now := time.Now()
-	switch v := r.(type) {
-	case *store.GHSARecord:
-		body, err = CreateGHSABody(v.GHSA, rc, pc, now)
-	case *store.CVERecord:
-		body, err = newCVEBody(v, rc, pc, now)
-	default:
-		log.With("ID", id).Errorf(ctx, "%s: record has unexpected type %T; skipping: %v", id, v, err)
+	src := r.GetSource()
+	if src == nil || reflect.ValueOf(src).IsNil() {
+		log.With("ID", id).Errorf(ctx, "%s: triage state is NeedsIssue but source record is nil; skipping: %v", id, err)
 		return "", nil
 	}
+
+	rep := report.New(src, pc,
+		report.WithModulePath(r.GetUnit()))
+	body, err := NewIssueBody(rep, rc)
 	if err != nil {
 		log.With("ID", id).Errorf(ctx, "%s: triage state is NeedsIssue but could not generate body; skipping: %v", id, err)
 		return "", nil
@@ -492,19 +437,33 @@ func yearLabel(cve string) string {
 }
 
 type issueTemplateData struct {
-	Intro  string
-	Report string
-	Pre    string // markdown string for a <pre> block
-	*store.CVERecord
+	*report.Report
+	SourceID     string
+	AdvisoryLink string
+	Description  string
+	Xrefs        string
+	ReportStr    string
+	Pre          string // markdown string for a <pre> block
 }
 
-var issueTemplate = template.Must(template.New("issue").Parse(`
-{{- .Intro}}
+var issueTemplate = template.Must(template.New("issue").Parse(`Advisory [{{.SourceID}}]({{.AdvisoryLink}}) references a vulnerability in the following Go modules:
 
+| Module |
+| - |{{range .Modules}}
+| [{{.Module}}](https://pkg.go.dev/{{.Module}}) |{{end}}
+
+Description:
+{{.Description}}
+
+References:{{range .References}}
+- {{.Type}}: {{.URL}}{{end}}
+
+Cross references:
+{{.Xrefs}}
 See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) for instructions on how to triage this report.
 
-{{if (and .Pre .Report) -}}
+{{if (and .Pre .ReportStr) -}}
 {{.Pre}}
-{{.Report}}
+{{.ReportStr}}
 {{.Pre}}
 {{- end}}`))

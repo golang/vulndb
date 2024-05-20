@@ -246,10 +246,13 @@ func TestCreateIssues(t *testing.T) {
 }
 
 func TestNewCVEBody(t *testing.T) {
-	r := &store.CVERecord{
-		ID:     "ID1",
+	cr := &store.CVERecord{
+		ID:     "CVE-2000-0001",
 		Module: "golang.org/x/vulndb",
 		CVE: &cve4.CVE{
+			Metadata: cve4.Metadata{
+				ID: "CVE-2000-0001",
+			},
 			Description: cve4.Description{
 				Data: []cve4.LangString{{
 					Lang:  "eng",
@@ -259,9 +262,9 @@ func TestNewCVEBody(t *testing.T) {
 		},
 	}
 
-	rep := &report.Report{
+	xrefReport := &report.Report{
 		Modules: []*report.Module{{Module: "golang.org/x/vulndb"}},
-		CVEs:    []string{"ID1"},
+		CVEs:    []string{"CVE-2000-0001"},
 		GHSAs:   []string{},
 	}
 
@@ -270,30 +273,34 @@ func TestNewCVEBody(t *testing.T) {
 		t.Fatal(err)
 	}
 
+	r := report.New(cr.CVE, pc, report.WithCreated(testTime), report.WithModulePath(cr.Module))
+
 	rc, err := report.NewTestClient(map[string]*report.Report{
-		"data/reports/GO-9999-0002.yaml": rep,
+		"data/reports/GO-9999-0002.yaml": xrefReport,
 	})
 	if err != nil {
 		t.Fatal(err)
 	}
-	got, err := newCVEBody(r, rc, pc, testTime)
+
+	got, err := NewIssueBody(r, rc)
 	if err != nil {
 		t.Fatal(err)
 	}
-	want := `ID1 references [golang.org/x/vulndb](https://golang.org/x/vulndb), which may be a Go module.
+	want := `Advisory [CVE-2000-0001](https://nvd.nist.gov/vuln/detail/CVE-2000-0001) references a vulnerability in the following Go modules:
+
+| Module |
+| - |
+| [golang.org/x/vulndb](https://pkg.go.dev/golang.org/x/vulndb) |
 
 Description:
 a description
 
 References:
-- NIST: https://nvd.nist.gov/vuln/detail/ID1
-- JSON: https://github.com/CVEProject/cvelist/tree//
-- Imported by: https://pkg.go.dev/golang.org/x/vulndb?tab=importedby
+- ADVISORY: https://nvd.nist.gov/vuln/detail/CVE-2000-0001
 
 Cross references:
-- ID1 appears in issue #2
+- CVE-2000-0001 appears in issue #2
 - Module golang.org/x/vulndb appears in issue #2
-
 
 See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) for instructions on how to triage this report.
 
@@ -304,11 +311,13 @@ modules:
       vulnerable_at: 0.0.0-20240515211212-610562879ffa
       packages:
         - package: golang.org/x/vulndb
-summary: ID1 in golang.org/x/vulndb
+summary: CVE-2000-0001 in golang.org/x/vulndb
 cves:
-    - ID1
+    - CVE-2000-0001
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2000-0001
 source:
-    id: ID1
+    id: CVE-2000-0001
     created: 1999-01-01T00:00:00Z
 review_status: UNREVIEWED
 
@@ -319,22 +328,24 @@ review_status: UNREVIEWED
 }
 
 func TestCreateGHSABody(t *testing.T) {
-	r := &store.GHSARecord{
+	gr := &store.GHSARecord{
 		GHSA: &ghsa.SecurityAdvisory{
-			ID:          "G1",
-			Identifiers: []ghsa.Identifier{{Type: "GHSA", Value: "G1"}},
-			Permalink:   "https://github.com/permalink/to/G1",
+			ID:          "GHSA-xxxx-yyyy-zzzz",
+			Identifiers: []ghsa.Identifier{{Type: "GHSA", Value: "GHSA-xxxx-yyyy-zzzz"}},
 			Description: "a description",
 			Vulns: []*ghsa.Vuln{{
 				Package:                "golang.org/x/tools",
 				EarliestFixedVersion:   "0.21.0",
 				VulnerableVersionRange: "< 0.21.0",
 			}},
+			References: []ghsa.Reference{
+				{URL: "https://example.com/commit/12345"},
+			},
 		},
 	}
 	rep := &report.Report{
 		Excluded: "EXCLUDED",
-		GHSAs:    []string{"G1"},
+		GHSAs:    []string{"GHSA-xxxx-yyyy-zzzz"},
 	}
 
 	pc, err := proxy.NewTestClient(t, *realProxy)
@@ -348,19 +359,27 @@ func TestCreateGHSABody(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	got, err := CreateGHSABody(r.GHSA, rc, pc, testTime)
+
+	r := report.New(gr.GHSA, pc, report.WithCreated(testTime))
+	got, err := NewIssueBody(r, rc)
 	if err != nil {
 		t.Fatal(err)
 	}
-	want := `In GitHub Security Advisory [G1](https://github.com/permalink/to/G1), there is a vulnerability in the following Go packages or modules:
+	want := `Advisory [GHSA-xxxx-yyyy-zzzz](https://github.com/advisories/GHSA-xxxx-yyyy-zzzz) references a vulnerability in the following Go modules:
 
-| Unit | Fixed | Vulnerable Ranges |
-| - | - | - |
-| [golang.org/x/tools](https://pkg.go.dev/golang.org/x/tools) | 0.21.0 | < 0.21.0 |
+| Module |
+| - |
+| [golang.org/x/tools](https://pkg.go.dev/golang.org/x/tools) |
+
+Description:
+a description
+
+References:
+- ADVISORY: https://github.com/advisories/GHSA-xxxx-yyyy-zzzz
+- FIX: https://example.com/commit/12345
 
 Cross references:
-- G1 appears in issue #1  EXCLUDED
-
+- GHSA-xxxx-yyyy-zzzz appears in issue #1  EXCLUDED
 
 See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) for instructions on how to triage this report.
 
@@ -373,11 +392,14 @@ modules:
       vulnerable_at: 0.20.0
       packages:
         - package: golang.org/x/tools
-summary: G1 in golang.org/x/tools
+summary: GHSA-xxxx-yyyy-zzzz in golang.org/x/tools
 ghsas:
-    - G1
+    - GHSA-xxxx-yyyy-zzzz
+references:
+    - advisory: https://github.com/advisories/GHSA-xxxx-yyyy-zzzz
+    - fix: https://example.com/commit/12345
 source:
-    id: G1
+    id: GHSA-xxxx-yyyy-zzzz
     created: 1999-01-01T00:00:00Z
 review_status: UNREVIEWED
 

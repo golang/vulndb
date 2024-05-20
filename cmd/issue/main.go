@@ -17,7 +17,6 @@ import (
 	"os"
 	"sort"
 	"strings"
-	"time"
 
 	"golang.org/x/vulndb/internal"
 	"golang.org/x/vulndb/internal/ghsa"
@@ -155,7 +154,8 @@ func constructIssue(ctx context.Context, c *issues.Client, ghsaClient *ghsa.Clie
 		for _, id := range sa.Identifiers {
 			ids = append(ids, id.Value)
 		}
-		body, err := worker.CreateGHSABody(sa, rc, pc, time.Now())
+		r := report.New(sa, pc)
+		body, err := worker.NewIssueBody(r, rc)
 		if err != nil {
 			return err
 		}
