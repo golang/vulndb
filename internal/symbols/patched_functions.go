@@ -422,13 +422,15 @@ func astSymbolName(f *ast.FuncDecl) string {
 		return ""
 	}
 
-	// supported receiver type snames are id, *id, id[...], and *id[...].
+	// supported receiver type names are id, *id, id[...], and *id[...].
 	t := ""
 	switch xv := field.Type.(type) {
 	case *ast.StarExpr:
 		t = unpackIdent(xv.X)
 	case *ast.Ident, *ast.IndexExpr:
 		t = unpackIdent(xv)
+	case *ast.IndexListExpr:
+		t = unpackIdent(xv.X)
 	default:
 		panic(fmt.Sprintf("astSymbolName: unexpected receiver type: %v\n", reflect.TypeOf(field.Type)))
 	}
