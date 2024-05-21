@@ -236,15 +236,15 @@ func createCVEIssues(ctx context.Context, st store.Store, client *issues.Client,
 
 		// Update the CVE4Record in the DB with issue information.
 		err = st.RunTransaction(ctx, func(ctx context.Context, tx store.Transaction) error {
-			rs, err := tx.GetCVE4Records(cr.ID, cr.ID)
+			r, err := tx.GetRecord(cr.ID)
 			if err != nil {
 				return err
 			}
-			cr := rs[0]
+			cr := r.(*store.CVE4Record)
 			cr.TriageState = store.TriageStateIssueCreated
 			cr.IssueReference = ref
 			cr.IssueCreatedAt = time.Now()
-			return tx.SetCVE4Record(cr)
+			return tx.SetRecord(cr)
 		})
 		if err != nil {
 			return err
@@ -282,12 +282,13 @@ func createGHSAIssues(ctx context.Context, st store.Store, client *issues.Client
 			// Update the LegacyGHSARecord in the DB to reflect that the GHSA
 			// already has an advisory.
 			if err = st.RunTransaction(ctx, func(ctx context.Context, tx store.Transaction) error {
-				r, err := tx.GetLegacyGHSARecord(gr.GetID())
+				r, err := tx.GetRecord(gr.GetID())
 				if err != nil {
 					return err
 				}
-				r.TriageState = store.TriageStateHasVuln
-				return tx.SetLegacyGHSARecord(r)
+				g := r.(*store.LegacyGHSARecord)
+				g.TriageState = store.TriageStateHasVuln
+				return tx.SetRecord(g)
 			}); err != nil {
 				return err
 			}
@@ -300,14 +301,16 @@ func createGHSAIssues(ctx context.Context, st store.Store, client *issues.Client
 		}
 		// Update the LegacyGHSARecord in the DB with issue information.
 		err = st.RunTransaction(ctx, func(ctx context.Context, tx store.Transaction) error {
-			r, err := tx.GetLegacyGHSARecord(gr.GetID())
+			r, err := tx.GetRecord(gr.GetID())
 			if err != nil {
 				return err
 			}
-			r.TriageState = store.TriageStateIssueCreated
-			r.IssueReference = ref
-			r.IssueCreatedAt = time.Now()
-			return tx.SetLegacyGHSARecord(r)
+
+			g := r.(*store.LegacyGHSARecord)
+			g.TriageState = store.TriageStateIssueCreated
+			g.IssueReference = ref
+			g.IssueCreatedAt = time.Now()
+			return tx.SetRecord(g)
 		})
 		if err != nil {
 			return err
@@ -355,15 +358,7 @@ func NewIssueBody(r *report.Report, rc *report.Client) (body string, err error) 
 	return b.String(), nil
 }
 
-type storeRecord interface {
-	GetID() string
-	GetSource() report.Source
-	GetUnit() string
-	GetIssueReference() string
-	GetIssueCreatedAt() time.Time
-}
-
-func createIssue(ctx context.Context, r storeRecord, client *issues.Client, pc *proxy.Client, rc *report.Client) (ref string, err error) {
+func createIssue(ctx context.Context, r store.Record, client *issues.Client, pc *proxy.Client, rc *report.Client) (ref string, err error) {
 	id := r.GetID()
 	defer derrors.Wrap(&err, "createIssue(%s)", id)
 

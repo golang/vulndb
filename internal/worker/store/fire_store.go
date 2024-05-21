@@ -13,6 +13,8 @@ import (
 
 	"cloud.google.com/go/firestore"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/idstr"
+	"golang.org/x/vulndb/internal/report"
 	"google.golang.org/api/iterator"
 	"google.golang.org/api/option"
 	"google.golang.org/grpc/codes"
@@ -104,19 +106,16 @@ func (fs *FireStore) SetCommitUpdateRecord(ctx context.Context, r *CommitUpdateR
 	return err
 }
 
-// GetCVE4Record implements store.GetCVE4Record.
-func (fs *FireStore) GetCVE4Record(ctx context.Context, id string) (_ *CVE4Record, err error) {
-	defer derrors.Wrap(&err, "FireStore.GetCVE4Record(%q)", id)
+// GetRecord implements store.GetRecord.
+func (fs *FireStore) GetRecord(ctx context.Context, id string) (_ Record, err error) {
+	defer derrors.Wrap(&err, "FireStore.GetRecord(%q)", id)
 
-	docsnap, err := fs.cve4RecordRef(id).Get(ctx)
+	docsnap, err := fs.recordRef(id).Get(ctx)
 	if status.Code(err) == codes.NotFound {
 		return nil, nil
 	}
-	var cr CVE4Record
-	if err := docsnap.DataTo(&cr); err != nil {
-		return nil, err
-	}
-	return &cr, nil
+
+	return docsnapToRecord(docsnap)
 }
 
 // ListCommitUpdateRecords implements Store.ListCommitUpdateRecords.
@@ -271,14 +270,15 @@ func (fs *FireStore) RunTransaction(ctx context.Context, f func(context.Context,
 		})
 }
 
-// cve4RecordRef returns a DocumentRef to the CVE4Record with id.
-func (fs *FireStore) cve4RecordRef(id string) *firestore.DocumentRef {
-	return fs.nsDoc.Collection(cve4Collection).Doc(id)
-}
-
-// legacyGHSARecordRef returns a DocumentRef to the LegacyGHSARecord with id.
-func (fs *FireStore) legacyGHSARecordRef(id string) *firestore.DocumentRef {
-	return fs.nsDoc.Collection(legacyGHSACollection).Doc(id)
+func (fs *FireStore) recordRef(id string) *firestore.DocumentRef {
+	var collection string
+	switch {
+	case idstr.IsGHSA(id):
+		collection = legacyGHSACollection
+	case idstr.IsCVE(id):
+		collection = cve4Collection
+	}
+	return fs.nsDoc.Collection(collection).Doc(id)
 }
 
 // fsTransaction implements Transaction
@@ -287,24 +287,15 @@ type fsTransaction struct {
 	t *firestore.Transaction
 }
 
-// CreateCVE4Record implements Transaction.CreateCVE4Record.
-func (tx *fsTransaction) CreateCVE4Record(r *CVE4Record) (err error) {
-	defer derrors.Wrap(&err, "fsTransaction.CreateCVE4Record(%s)", r.ID)
+// SetRecord implements Transaction.SetRecord.
+func (tx *fsTransaction) SetRecord(r Record) (err error) {
+	defer derrors.Wrap(&err, "fsTransaction.SetRecord(%s)", r.GetID())
 
 	if err := r.Validate(); err != nil {
 		return err
 	}
-	return tx.t.Create(tx.s.cve4RecordRef(r.ID), r)
-}
 
-// SetCVE4Record implements Transaction.SetCVE4Record.
-func (tx *fsTransaction) SetCVE4Record(r *CVE4Record) (err error) {
-	defer derrors.Wrap(&err, "fsTransaction.SetCVE4Record(%s)", r.ID)
-
-	if err := r.Validate(); err != nil {
-		return err
-	}
-	return tx.t.Set(tx.s.cve4RecordRef(r.ID), r)
+	return tx.t.Set(tx.s.recordRef(r.GetID()), r)
 }
 
 // GetCVE4Records implements Transaction.GetCVE4Records.
@@ -335,33 +326,56 @@ func docsnapsToCVE4Records(docsnaps []*firestore.DocumentSnapshot) ([]*CVE4Recor
 	return crs, nil
 }
 
-// CreateLegacyGHSARecord implements Transaction.CreateLegacyGHSARecord.
-func (tx *fsTransaction) CreateLegacyGHSARecord(r *LegacyGHSARecord) (err error) {
-	defer derrors.Wrap(&err, "fsTransaction.CreateGHSARecord(%s)", r.GHSA.ID)
-
-	return tx.t.Create(tx.s.legacyGHSARecordRef(r.GHSA.ID), r)
+type Record interface {
+	GetID() string
+	GetSource() report.Source
+	GetUnit() string
+	GetIssueReference() string
+	GetIssueCreatedAt() time.Time
+	GetTriageState() TriageState
+	Validate() error
 }
 
-// SetLegacyGHSARecord implements Transaction.SetLegacyGHSARecord.
-func (tx *fsTransaction) SetLegacyGHSARecord(r *LegacyGHSARecord) (err error) {
-	defer derrors.Wrap(&err, "fsTransaction.SetGHSARecord(%s)", r.GHSA.ID)
+func (tx *fsTransaction) CreateRecord(r Record) (err error) {
+	defer derrors.Wrap(&err, "fsTransaction.CreateRecord(%s)", r.GetID())
 
-	return tx.t.Set(tx.s.legacyGHSARecordRef(r.GHSA.ID), r)
+	if err := r.Validate(); err != nil {
+		return err
+	}
+
+	return tx.t.Create(tx.s.recordRef(r.GetID()), r)
 }
 
-// GetLegacyGHSARecord implements Transaction.GetLegacyGHSARecord.
-func (tx *fsTransaction) GetLegacyGHSARecord(id string) (_ *LegacyGHSARecord, err error) {
-	defer derrors.Wrap(&err, "fsTransaction.GetGHSARecord(%s)", id)
+// GetRecord implements Transaction.GetRecord.
+func (tx *fsTransaction) GetRecord(id string) (_ Record, err error) {
+	defer derrors.Wrap(&err, "fsTransaction.GetRecord(%s)", id)
 
-	docsnap, err := tx.t.Get(tx.s.legacyGHSARecordRef(id))
+	docsnap, err := tx.t.Get(tx.s.recordRef(id))
 	if status.Code(err) == codes.NotFound {
 		return nil, nil
 	}
-	var gr LegacyGHSARecord
-	if err := docsnap.DataTo(&gr); err != nil {
+
+	return docsnapToRecord(docsnap)
+}
+
+func docsnapToRecord(docsnap *firestore.DocumentSnapshot) (Record, error) {
+	id := docsnap.Ref.ID
+
+	var r Record
+	switch {
+	case idstr.IsGHSA(id):
+		r = new(LegacyGHSARecord)
+	case idstr.IsCVE(id):
+		r = new(CVE4Record)
+	default:
+		return nil, fmt.Errorf("id %s is not a CVE or GHSA id", id)
+	}
+
+	if err := docsnap.DataTo(r); err != nil {
 		return nil, err
 	}
-	return &gr, nil
+
+	return r, nil
 }
 
 // GetLegacyGHSARecords implements Transaction.GetLegacyGHSARecords.

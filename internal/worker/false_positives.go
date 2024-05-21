@@ -33,12 +33,12 @@ func updateFalsePositives(ctx context.Context, st store.Store) (err error) {
 				old := oldRecords[i]
 				var err error
 				if old == nil {
-					err = tx.CreateCVE4Record(cr)
+					err = tx.CreateRecord(cr)
 				} else if old.CommitHash != cr.CommitHash && !old.CommitTime.IsZero() && old.CommitTime.Before(cr.CommitTime) {
 					// If the false positive data is more recent than what is in
 					// the store, then update the DB. But ignore records whose
 					// commit time hasn't been populated.
-					err = tx.SetCVE4Record(cr)
+					err = tx.SetRecord(cr)
 				}
 				if err != nil {
 					return err

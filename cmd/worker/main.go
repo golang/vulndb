@@ -273,7 +273,7 @@ func createIssuesCommand(ctx context.Context) error {
 
 func showCommand(ctx context.Context, ids []string) error {
 	for _, id := range ids {
-		r, err := cfg.Store.GetCVE4Record(ctx, id)
+		r, err := cfg.Store.GetRecord(ctx, id)
 		if err != nil {
 			return err
 		}

@@ -12,7 +12,6 @@ import (
 	"errors"
 	"flag"
 	"testing"
-	"time"
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/object"
@@ -76,13 +75,12 @@ func modify(r, m *store.CVE4Record) *store.CVE4Record {
 
 func TestNewCVE4Record(t *testing.T) {
 	// Check that NewCVE4Record with a TriageState gives a valid CVE4Record.
-	repo, err := gitrepo.ReadTxtarRepo(testRepoPath, time.Now())
+	_, commit, err := gitrepo.TxtarRepoAndHead(testRepoPath)
 	if err != nil {
 		t.Fatal(err)
 	}
-	commit := headCommit(t, repo)
 	pathname := "2021/0xxx/CVE-2021-0001.json"
-	cve, bh := readCVE4(t, repo, commit, pathname)
+	cve, bh := readCVE4(t, commit, pathname)
 	cr := store.NewCVE4Record(cve, pathname, bh, commit)
 	cr.TriageState = store.TriageStateNeedsIssue
 	if err := cr.Validate(); err != nil {
@@ -92,11 +90,10 @@ func TestNewCVE4Record(t *testing.T) {
 
 func TestDoUpdate(t *testing.T) {
 	ctx := context.Background()
-	repo, err := gitrepo.ReadTxtarRepo(testRepoPath, time.Now())
+	repo, commit, err := gitrepo.TxtarRepoAndHead(testRepoPath)
 	if err != nil {
 		t.Fatal(err)
 	}
-	commit := headCommit(t, repo)
 	cf, err := pkgsite.CacheFile(t)
 	if err != nil {
 		t.Fatal(err)
@@ -130,7 +127,7 @@ func TestDoUpdate(t *testing.T) {
 		blobHashes []string
 	)
 	for _, p := range paths {
-		cve, bh := readCVE4(t, repo, commit, p)
+		cve, bh := readCVE4(t, commit, p)
 		cves = append(cves, cve)
 		blobHashes = append(blobHashes, bh)
 	}
@@ -553,7 +550,7 @@ func TestGroupFilesByDirectory(t *testing.T) {
 	}
 }
 
-func readCVE4(t *testing.T, repo *git.Repository, commit *object.Commit, path string) (*cve4.CVE, string) {
+func readCVE4(t *testing.T, commit *object.Commit, path string) (*cve4.CVE, string) {
 	cve, blobHash, err := ReadCVEAtPath(commit, path)
 	if err != nil {
 		t.Fatal(err)
@@ -565,7 +562,7 @@ func createCVE4Records(t *testing.T, s store.Store, crs []*store.CVE4Record) {
 	err := s.RunTransaction(context.Background(), func(ctx context.Context, tx store.Transaction) error {
 		for _, cr := range crs {
 			copy := *cr
-			if err := tx.CreateCVE4Record(&copy); err != nil {
+			if err := tx.CreateRecord(&copy); err != nil {
 				return err
 			}
 		}
@@ -580,7 +577,7 @@ func createLegacyGHSARecords(t *testing.T, s store.Store, grs []*store.LegacyGHS
 	err := s.RunTransaction(context.Background(), func(ctx context.Context, tx store.Transaction) error {
 		for _, gr := range grs {
 			copy := *gr
-			if err := tx.CreateLegacyGHSARecord(&copy); err != nil {
+			if err := tx.CreateRecord(&copy); err != nil {
 				return err
 			}
 		}

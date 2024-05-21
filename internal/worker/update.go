@@ -230,13 +230,13 @@ func (u *cveUpdater) updateBatch(ctx context.Context, batch []cvelistrepo.File) 
 		}
 		// Add/modify the records.
 		for _, r := range toAdd {
-			if err := tx.CreateCVE4Record(r); err != nil {
+			if err := tx.CreateRecord(r); err != nil {
 				return err
 			}
 			numAdds++
 		}
 		for _, r := range toModify {
-			if err := tx.SetCVE4Record(r); err != nil {
+			if err := tx.SetRecord(r); err != nil {
 				return err
 			}
 			numMods++
@@ -255,12 +255,12 @@ func (u *cveUpdater) updateBatch(ctx context.Context, batch []cvelistrepo.File) 
 // based on this.
 func checkForAliases(cve *cve4.CVE, tx store.Transaction) (store.TriageState, error) {
 	for _, ghsaID := range cveutils.GetAliasGHSAs(cve) {
-		ghsa, err := tx.GetLegacyGHSARecord(ghsaID)
+		ghsa, err := tx.GetRecord(ghsaID)
 		if err != nil {
 			return "", err
 		}
 		if ghsa != nil {
-			return getTriageStateFromAlias(ghsa.TriageState), nil
+			return getTriageStateFromAlias(ghsa.GetTriageState()), nil
 		}
 	}
 	return store.TriageStateNeedsIssue, nil
@@ -541,13 +541,13 @@ func updateGHSAs(ctx context.Context, listSAs GHSAListFunc, since time.Time, st 
 		}
 
 		for _, r := range toAdd {
-			if err := tx.CreateLegacyGHSARecord(r); err != nil {
+			if err := tx.CreateRecord(r); err != nil {
 				return err
 			}
 			numAdded++
 		}
 		for _, r := range toUpdate {
-			if err := tx.SetLegacyGHSARecord(r); err != nil {
+			if err := tx.SetRecord(r); err != nil {
 				return err
 			}
 			numModified++

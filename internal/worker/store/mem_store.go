@@ -12,6 +12,8 @@ import (
 	"sort"
 	"sync"
 	"time"
+
+	"golang.org/x/vulndb/internal/idstr"
 )
 
 // MemStore is an in-memory implementation of Store, for testing.
@@ -83,8 +85,14 @@ func (ms *MemStore) ListCommitUpdateRecords(_ context.Context, limit int) ([]*Co
 }
 
 // GetCVE4Record implements store.GetCVE4Record.
-func (ms *MemStore) GetCVE4Record(ctx context.Context, id string) (*CVE4Record, error) {
-	return ms.cve4Records[id], nil
+func (ms *MemStore) GetRecord(_ context.Context, id string) (Record, error) {
+	switch {
+	case idstr.IsGHSA(id):
+		return ms.legacyGHSARecords[id], nil
+	case idstr.IsCVE(id):
+		return ms.cve4Records[id], nil
+	}
+	return nil, fmt.Errorf("%s is not a CVE or GHSA id", id)
 }
 
 // ListCVE4RecordsWithTriageState implements Store.ListCVE4RecordsWithTriageState.
@@ -159,24 +167,28 @@ type memTransaction struct {
 	ms *MemStore
 }
 
-// CreateCVE4Record implements Transaction.CreateCVE4Record.
-func (tx *memTransaction) CreateCVE4Record(r *CVE4Record) error {
-	if err := r.Validate(); err != nil {
-		return err
-	}
-	tx.ms.cve4Records[r.ID] = r
-	return nil
-}
-
 // SetCVE4Record implements Transaction.SetCVE4Record.
-func (tx *memTransaction) SetCVE4Record(r *CVE4Record) error {
+func (tx *memTransaction) SetRecord(r Record) error {
 	if err := r.Validate(); err != nil {
 		return err
 	}
-	if tx.ms.cve4Records[r.ID] == nil {
-		return fmt.Errorf("CVE4Record with ID %q not found", r.ID)
+
+	id := r.GetID()
+	switch v := r.(type) {
+	case *LegacyGHSARecord:
+		if _, ok := tx.ms.legacyGHSARecords[id]; !ok {
+			return fmt.Errorf("LegacyGHSARecord %s does not exist", id)
+		}
+		tx.ms.legacyGHSARecords[id] = v
+	case *CVE4Record:
+		if tx.ms.cve4Records[id] == nil {
+			return fmt.Errorf("CVE4Record with ID %q not found", id)
+		}
+		tx.ms.cve4Records[id] = v
+	default:
+		return fmt.Errorf("unrecognized record type %T", r)
 	}
-	tx.ms.cve4Records[r.ID] = r
+
 	return nil
 }
 
@@ -196,28 +208,44 @@ func (tx *memTransaction) GetCVE4Records(startID, endID string) ([]*CVE4Record, 
 	return crs, nil
 }
 
-// CreateLegacyGHSARecord implements Transaction.CreateLegacyGHSARecord.
-func (tx *memTransaction) CreateLegacyGHSARecord(r *LegacyGHSARecord) error {
-	if _, ok := tx.ms.legacyGHSARecords[r.GHSA.ID]; ok {
-		return fmt.Errorf("LegacyGHSARecord %s already exists", r.GHSA.ID)
+// CreateRecord implements Transaction.CreateRecord.
+func (tx *memTransaction) CreateRecord(r Record) error {
+	if err := r.Validate(); err != nil {
+		return err
 	}
-	tx.ms.legacyGHSARecords[r.GHSA.ID] = r
-	return nil
-}
 
-// SetLegacyGHSARecord implements Transaction.SetLegacyGHSARecord.
-func (tx *memTransaction) SetLegacyGHSARecord(r *LegacyGHSARecord) error {
-	if _, ok := tx.ms.legacyGHSARecords[r.GHSA.ID]; !ok {
-		return fmt.Errorf("LegacyGHSARecord %s does not exist", r.GHSA.ID)
+	id := r.GetID()
+	switch v := r.(type) {
+	case *LegacyGHSARecord:
+		if _, ok := tx.ms.legacyGHSARecords[id]; ok {
+			return fmt.Errorf("LegacyGHSARecord %s already exists", id)
+		}
+		tx.ms.legacyGHSARecords[id] = v
+		return nil
+	case *CVE4Record:
+		if _, ok := tx.ms.cve4Records[id]; ok {
+			return fmt.Errorf("CVE4Record %s already exists", id)
+		}
+		tx.ms.cve4Records[id] = v
+		return nil
+	default:
+		return fmt.Errorf("unrecognized record type %T", r)
 	}
-	tx.ms.legacyGHSARecords[r.GHSA.ID] = r
-	return nil
 }
 
 // GetLegacyGHSARecord implements Transaction.GetLegacyGHSARecord.
-func (tx *memTransaction) GetLegacyGHSARecord(id string) (*LegacyGHSARecord, error) {
-	if r, ok := tx.ms.legacyGHSARecords[id]; ok {
-		return r, nil
+func (tx *memTransaction) GetRecord(id string) (Record, error) {
+	switch {
+	case idstr.IsGHSA(id):
+		if r, ok := tx.ms.legacyGHSARecords[id]; ok {
+			return r, nil
+		}
+	case idstr.IsCVE(id):
+		if r, ok := tx.ms.cve4Records[id]; ok {
+			return r, nil
+		}
+	default:
+		return nil, fmt.Errorf("id %s is not a CVE or GHSA id", id)
 	}
 	return nil, nil
 }

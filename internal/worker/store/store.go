@@ -69,6 +69,7 @@ func (r *CVE4Record) GetUnit() string              { return r.Module }
 func (r *CVE4Record) GetSource() report.Source     { return r.CVE }
 func (r *CVE4Record) GetIssueReference() string    { return r.IssueReference }
 func (r *CVE4Record) GetIssueCreatedAt() time.Time { return r.IssueCreatedAt }
+func (r *CVE4Record) GetTriageState() TriageState  { return r.TriageState }
 
 // Validate returns an error if the CVE4Record is not valid.
 func (r *CVE4Record) Validate() error {
@@ -203,6 +204,8 @@ func (r *LegacyGHSARecord) GetUnit() string              { return r.GHSA.Vulns[0
 func (r *LegacyGHSARecord) GetSource() report.Source     { return r.GHSA }
 func (r *LegacyGHSARecord) GetIssueReference() string    { return r.IssueReference }
 func (r *LegacyGHSARecord) GetIssueCreatedAt() time.Time { return r.IssueCreatedAt }
+func (r *LegacyGHSARecord) GetTriageState() TriageState  { return r.TriageState }
+func (r *LegacyGHSARecord) Validate() error              { return nil }
 
 // A ModuleScanRecord holds information about a vulnerability scan of a module.
 type ModuleScanRecord struct {
@@ -246,10 +249,10 @@ type Store interface {
 	// least recent.
 	ListCommitUpdateRecords(ctx context.Context, limit int) ([]*CommitUpdateRecord, error)
 
-	// GetCVE4Record returns the CVE4Record with the given id. If not found, it returns (nil, nil).
-	GetCVE4Record(ctx context.Context, id string) (*CVE4Record, error)
+	// GetRecord returns the Record with the given id. If not found, it returns (nil, nil).
+	GetRecord(ctx context.Context, id string) (Record, error)
 
-	// ListCVE4RecordsWithTriageState returns all CVER4ecords with the given triage state,
+	// ListCVE4RecordsWithTriageState returns all CVE4Records with the given triage state,
 	// ordered by ID.
 	ListCVE4RecordsWithTriageState(ctx context.Context, ts TriageState) ([]*CVE4Record, error)
 
@@ -278,29 +281,21 @@ type Store interface {
 
 // Transaction supports store operations that run inside a transaction.
 type Transaction interface {
-	// CreateCVE4Record creates a new CVE4Record. It is an error if one with the same ID
-	// already exists.
-	CreateCVE4Record(*CVE4Record) error
+	// CreateRecord creates a new record.
+	// It is an error if one with the same ID already exists.
+	CreateRecord(Record) error
 
-	// SetCVE4Record sets the CVE record in the database. It is
-	// an error if no such record exists.
-	SetCVE4Record(r *CVE4Record) error
+	// SetRecord sets the record in the database.
+	// It is an error if no such record exists.
+	SetRecord(Record) error
 
-	// GetCVE4Records retrieves CVE4Records for all CVE IDs between startID and
+	// GetRecord returns a single record by ID.
+	// If not found, it returns (nil, nil).
+	GetRecord(id string) (Record, error)
+
+	// GetRecords retrieves records for all CVE IDs between startID and
 	// endID, inclusive.
 	GetCVE4Records(startID, endID string) ([]*CVE4Record, error)
-
-	// CreateLegacyGHSARecord creates a new LegacyGHSARecord. It is an error if one with the same ID
-	// already exists.
-	CreateLegacyGHSARecord(*LegacyGHSARecord) error
-
-	// SetLegacyGHSARecord sets the GHSA record in the database. It is
-	// an error if no such record exists.
-	SetLegacyGHSARecord(*LegacyGHSARecord) error
-
-	// GetLegacyGHSARecord returns a single LegacyGHSARecord by GHSA ID.
-	// If not found, it returns (nil, nil).
-	GetLegacyGHSARecord(id string) (*LegacyGHSARecord, error)
 
 	// GetLegacyGHSARecords returns all the GHSARecords in the database.
 	GetLegacyGHSARecords() ([]*LegacyGHSARecord, error)

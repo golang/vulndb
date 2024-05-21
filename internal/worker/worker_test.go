@@ -97,6 +97,10 @@ func TestCheckUpdate(t *testing.T) {
 	}
 }
 
+var (
+	ghsa1, ghsa2, ghsa3, ghsa4, ghsa5, ghsa6 = "GHSA-xxxx-yyyy-1111", "GHSA-xxxx-yyyy-2222", "GHSA-xxxx-yyyy-3333", "GHSA-xxxx-yyyy-4444", "GHSA-xxxx-yyyy-5555", "GHSA-xxxx-yyyy-6666"
+)
+
 func TestCreateIssues(t *testing.T) {
 	ctx := context.Background()
 	mstore := store.NewMemStore()
@@ -125,20 +129,20 @@ func TestCreateIssues(t *testing.T) {
 
 	crs := []*store.CVE4Record{
 		{
-			ID:         "ID1",
+			ID:         "CVE-2000-0001",
 			BlobHash:   "bh1",
 			CommitHash: "ch",
 			CommitTime: ctime,
 			Path:       "path1",
 			CVE: &cve4.CVE{
 				Metadata: cve4.Metadata{
-					ID: "ID1",
+					ID: "CVE-2000-0001",
 				},
 			},
 			TriageState: store.TriageStateNeedsIssue,
 		},
 		{
-			ID:          "ID2",
+			ID:          "CVE-2000-0002",
 			BlobHash:    "bh2",
 			CommitHash:  "ch",
 			CommitTime:  ctime,
@@ -146,7 +150,7 @@ func TestCreateIssues(t *testing.T) {
 			TriageState: store.TriageStateNoActionNeeded,
 		},
 		{
-			ID:          "ID3",
+			ID:          "CVE-2000-0003",
 			BlobHash:    "bh3",
 			CommitHash:  "ch",
 			CommitTime:  ctime,
@@ -158,37 +162,37 @@ func TestCreateIssues(t *testing.T) {
 	grs := []*store.LegacyGHSARecord{
 		{
 			GHSA: &ghsa.SecurityAdvisory{
-				ID:    "g1",
+				ID:    ghsa1,
 				Vulns: []*ghsa.Vuln{{Package: "p1"}},
 			},
 			TriageState: store.TriageStateNeedsIssue,
 		},
 		{
 			GHSA: &ghsa.SecurityAdvisory{
-				ID:    "g2",
+				ID:    ghsa2,
 				Vulns: []*ghsa.Vuln{{Package: "p2"}},
 			},
 			TriageState: store.TriageStateNoActionNeeded,
 		},
 		{
 			GHSA: &ghsa.SecurityAdvisory{
-				ID:    "g3",
+				ID:    ghsa3,
 				Vulns: []*ghsa.Vuln{{Package: "p3"}},
 			},
 			TriageState: store.TriageStateIssueCreated,
 		},
 		{
 			GHSA: &ghsa.SecurityAdvisory{
-				ID:    "g4",
+				ID:    ghsa4,
 				Vulns: []*ghsa.Vuln{{Package: "p4"}},
 			},
 			TriageState: store.TriageStateAlias,
 		},
 		{
 			GHSA: &ghsa.SecurityAdvisory{
-				ID:          "g5",
+				ID:          ghsa5,
 				Vulns:       []*ghsa.Vuln{{Package: "p1"}},
-				Identifiers: []ghsa.Identifier{{Type: "GHSA", Value: "g5"}},
+				Identifiers: []ghsa.Identifier{{Type: "GHSA", Value: ghsa5}},
 			},
 			TriageState: store.TriageStateNeedsIssue,
 		},
@@ -197,7 +201,7 @@ func TestCreateIssues(t *testing.T) {
 
 	// Add an existing report with GHSA "g5".
 	rc, err := report.NewTestClient(map[string]*report.Report{
-		"data/reports/GO-1999-0001.yaml": {GHSAs: []string{"g5"}},
+		"data/reports/GO-1999-0001.yaml": {GHSAs: []string{ghsa5}},
 	})
 	if err != nil {
 		t.Fatal(err)
@@ -447,24 +451,24 @@ func TestUpdateGHSAs(t *testing.T) {
 	ctx := context.Background()
 	sas := []*ghsa.SecurityAdvisory{
 		{
-			ID:        "g1",
+			ID:        ghsa1,
 			UpdatedAt: day(2021, 10, 1),
 		},
 		{
-			ID:        "g2",
+			ID:        ghsa2,
 			UpdatedAt: day(2021, 11, 1),
 		},
 		{
-			ID:        "g3",
+			ID:        ghsa3,
 			UpdatedAt: day(2021, 12, 1),
 		},
 		{
-			ID:          "g4",
+			ID:          ghsa4,
 			Identifiers: []ghsa.Identifier{{Type: "CVE", Value: "CVE-2000-1111"}},
 			UpdatedAt:   day(2021, 12, 1),
 		},
 		{
-			ID:          "g5",
+			ID:          ghsa5,
 			Identifiers: []ghsa.Identifier{{Type: "CVE", Value: "CVE-2000-2222"}},
 			UpdatedAt:   day(2021, 12, 1),
 		},
@@ -532,7 +536,7 @@ func TestUpdateGHSAs(t *testing.T) {
 	}
 	want[0].GHSA = sas[0]
 	sas = append(sas, &ghsa.SecurityAdvisory{
-		ID:        "g6",
+		ID:        ghsa6,
 		UpdatedAt: day(2021, 12, 2),
 	})
 	listSAs = fakeListFunc(sas)

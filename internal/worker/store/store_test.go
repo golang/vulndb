@@ -150,13 +150,14 @@ func testCVEs(t *testing.T, s Store) {
 
 	set := func(r *CVE4Record) *CVE4Record {
 		must(s.RunTransaction(ctx, func(ctx context.Context, tx Transaction) error {
-			return tx.SetCVE4Record(r)
+			return tx.SetRecord(r)
 		}))(t)
-		return must1(s.GetCVE4Record(ctx, r.ID))(t)
+		return must1(s.GetRecord(ctx, r.ID))(t).(*CVE4Record)
 	}
 
 	// Make sure the first record is the same that we created.
-	got := must1(s.GetCVE4Record(ctx, id1))(t)
+	r := must1(s.GetRecord(ctx, id1))(t)
+	got := r.(*CVE4Record)
 	diff(t, crs[0], got)
 
 	// Change the state and the commit hash.
@@ -187,22 +188,26 @@ func testDirHashes(t *testing.T, s Store) {
 	}
 }
 
+var (
+	ghsa1, ghsa2, ghsa3, ghsa4, ghsa5 = "GHSA-xxxx-yyyy-1111", "GHSA-xxxx-yyyy-2222", "GHSA-xxxx-yyyy-3333", "GHSA-xxxx-yyyy-4444", "GHSA-xxxx-yyyy-5555"
+)
+
 func testGHSAs(t *testing.T, s Store) {
 	ctx := context.Background()
 	// Create two records.
 	gs := []*LegacyGHSARecord{
 		{
-			GHSA:        &ghsa.SecurityAdvisory{ID: "g1", Summary: "one"},
+			GHSA:        &ghsa.SecurityAdvisory{ID: ghsa1, Summary: "one"},
 			TriageState: TriageStateNeedsIssue,
 		},
 		{
-			GHSA:        &ghsa.SecurityAdvisory{ID: "g2", Summary: "two"},
+			GHSA:        &ghsa.SecurityAdvisory{ID: ghsa2, Summary: "two"},
 			TriageState: TriageStateNeedsIssue,
 		},
 	}
 	must(s.RunTransaction(ctx, func(ctx context.Context, tx Transaction) error {
 		for _, g := range gs {
-			if err := tx.CreateLegacyGHSARecord(g); err != nil {
+			if err := tx.CreateRecord(g); err != nil {
 				return err
 			}
 		}
@@ -211,7 +216,7 @@ func testGHSAs(t *testing.T, s Store) {
 	// Modify one of them.
 	gs[1].TriageState = TriageStateIssueCreated
 	must(s.RunTransaction(ctx, func(ctx context.Context, tx Transaction) error {
-		return tx.SetLegacyGHSARecord(gs[1])
+		return tx.SetRecord(gs[1])
 	}))(t)
 	// Retrieve and compare.
 	var got []*LegacyGHSARecord
@@ -231,9 +236,12 @@ func testGHSAs(t *testing.T, s Store) {
 	// Retrieve one record by GHSA ID.
 	var got0 *LegacyGHSARecord
 	must(s.RunTransaction(ctx, func(ctx context.Context, tx Transaction) error {
-		var err error
-		got0, err = tx.GetLegacyGHSARecord(gs[0].GetID())
-		return err
+		r, err := tx.GetRecord(gs[0].GetID())
+		if err != nil {
+			return err
+		}
+		got0 = r.(*LegacyGHSARecord)
+		return nil
 	}))(t)
 	if got, want := got0, gs[0]; !cmp.Equal(got, want) {
 		t.Errorf("got %+v, want %+v", got, want)
@@ -294,7 +302,7 @@ func testModuleScanRecords(t *testing.T, s Store) {
 func createCVE4Records(t *testing.T, ctx context.Context, s Store, crs []*CVE4Record) {
 	must(s.RunTransaction(ctx, func(ctx context.Context, tx Transaction) error {
 		for _, cr := range crs {
-			if err := tx.CreateCVE4Record(cr); err != nil {
+			if err := tx.CreateRecord(cr); err != nil {
 				return err
 			}
 		}
