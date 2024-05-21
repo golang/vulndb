@@ -201,16 +201,16 @@ func (u *cveUpdater) updateBatch(ctx context.Context, batch []cvelistrepo.File) 
 		// Read information about the existing state in the store that's
 		// relevant to this batch. Since the entries are sorted, we can read
 		// a range of IDS.
-		crs, err := tx.GetCVERecords(startID, endID)
+		crs, err := tx.GetCVE4Records(startID, endID)
 		if err != nil {
 			return err
 		}
-		idToRecord := map[string]*store.CVERecord{}
+		idToRecord := map[string]*store.CVE4Record{}
 		for _, cr := range crs {
 			idToRecord[cr.ID] = cr
 		}
 		// Determine what needs to be added and modified.
-		var toAdd, toModify []*store.CVERecord
+		var toAdd, toModify []*store.CVE4Record
 		for _, f := range batch {
 			id := idFromFilename(f.Filename)
 			old := idToRecord[id]
@@ -230,13 +230,13 @@ func (u *cveUpdater) updateBatch(ctx context.Context, batch []cvelistrepo.File) 
 		}
 		// Add/modify the records.
 		for _, r := range toAdd {
-			if err := tx.CreateCVERecord(r); err != nil {
+			if err := tx.CreateCVE4Record(r); err != nil {
 				return err
 			}
 			numAdds++
 		}
 		for _, r := range toModify {
-			if err := tx.SetCVERecord(r); err != nil {
+			if err := tx.SetCVE4Record(r); err != nil {
 				return err
 			}
 			numMods++
@@ -255,7 +255,7 @@ func (u *cveUpdater) updateBatch(ctx context.Context, batch []cvelistrepo.File) 
 // based on this.
 func checkForAliases(cve *cve4.CVE, tx store.Transaction) (store.TriageState, error) {
 	for _, ghsaID := range cveutils.GetAliasGHSAs(cve) {
-		ghsa, err := tx.GetGHSARecord(ghsaID)
+		ghsa, err := tx.GetLegacyGHSARecord(ghsaID)
 		if err != nil {
 			return "", err
 		}
@@ -269,7 +269,7 @@ func checkForAliases(cve *cve4.CVE, tx store.Transaction) (store.TriageState, er
 // handleCVE determines how to change the store for a single CVE.
 // It returns the record, and a bool indicating whether to add or modify
 // the record.
-func (u *cveUpdater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx store.Transaction) (record *store.CVERecord, add bool, err error) {
+func (u *cveUpdater) handleCVE(f cvelistrepo.File, old *store.CVE4Record, tx store.Transaction) (record *store.CVE4Record, add bool, err error) {
 	defer derrors.Wrap(&err, "handleCVE(%s)", f.Filename)
 
 	cve, err := cvelistrepo.Parse[*cve4.CVE](u.repo, f)
@@ -295,7 +295,7 @@ func (u *cveUpdater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx stor
 	pathname := path.Join(f.DirPath, f.Filename)
 	// If the CVE is not in the database, add it.
 	if old == nil {
-		cr := store.NewCVERecord(cve, pathname, f.BlobHash.String(), u.commit)
+		cr := store.NewCVE4Record(cve, pathname, f.BlobHash.String(), u.commit)
 		switch {
 		case result != nil:
 			triageState, err := checkForAliases(cve, tx)
@@ -362,7 +362,7 @@ func (u *cveUpdater) handleCVE(f cvelistrepo.File, old *store.CVERecord, tx stor
 	}
 	// If the triage state changed, add the old state to the history at the beginning.
 	if old.TriageState != mod.TriageState {
-		mod.History = append([]*store.CVERecordSnapshot{old.Snapshot()}, mod.History...)
+		mod.History = append([]*store.CVE4RecordSnapshot{old.Snapshot()}, mod.History...)
 	}
 	if mod.TriageState == store.TriageStateNeedsIssue && mod.CVE == nil {
 		return nil, false, errors.New("needs issue but CVE is nil")
@@ -454,7 +454,7 @@ func triageNewGHSA(sa *ghsa.SecurityAdvisory, tx store.Transaction) (store.Triag
 	for _, alias := range sa.Identifiers {
 		if alias.Type == "CVE" {
 			cveID := alias.Value
-			cves, err := tx.GetCVERecords(cveID, cveID)
+			cves, err := tx.GetCVE4Records(cveID, cveID)
 			if err != nil {
 				return store.TriageStateNeedsIssue, err
 			}
@@ -496,18 +496,18 @@ func updateGHSAs(ctx context.Context, listSAs GHSAListFunc, since time.Time, st 
 		numAdded = 0
 		numModified = 0
 		// Read the existing GHSA records from the store.
-		sars, err := tx.GetGHSARecords()
+		sars, err := tx.GetLegacyGHSARecords()
 		if err != nil {
 			return err
 		}
-		ghsaIDToRecord := map[string]*store.GHSARecord{}
+		ghsaIDToRecord := map[string]*store.LegacyGHSARecord{}
 		for _, r := range sars {
 			ghsaIDToRecord[r.GHSA.ID] = r
 		}
 
 		// Determine what needs to be added and modified.
-		var toAdd []*store.GHSARecord
-		var toUpdate []*store.GHSARecord
+		var toAdd []*store.LegacyGHSARecord
+		var toUpdate []*store.LegacyGHSARecord
 		for _, sa := range sas {
 			old := ghsaIDToRecord[sa.ID]
 			if old == nil {
@@ -518,7 +518,7 @@ func updateGHSAs(ctx context.Context, listSAs GHSAListFunc, since time.Time, st 
 					return err
 				}
 				log.Debugf(ctx, "Triage state for new %s: %s", sa.ID, triageState)
-				toAdd = append(toAdd, &store.GHSARecord{
+				toAdd = append(toAdd, &store.LegacyGHSARecord{
 					GHSA:        sa,
 					TriageState: triageState,
 				})
@@ -541,13 +541,13 @@ func updateGHSAs(ctx context.Context, listSAs GHSAListFunc, since time.Time, st 
 		}
 
 		for _, r := range toAdd {
-			if err := tx.CreateGHSARecord(r); err != nil {
+			if err := tx.CreateLegacyGHSARecord(r); err != nil {
 				return err
 			}
 			numAdded++
 		}
 		for _, r := range toUpdate {
-			if err := tx.SetGHSARecord(r); err != nil {
+			if err := tx.SetLegacyGHSARecord(r); err != nil {
 				return err
 			}
 			numModified++

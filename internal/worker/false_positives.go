@@ -25,7 +25,7 @@ func updateFalsePositives(ctx context.Context, st store.Store) (err error) {
 		}
 		batch := falsePositives[i:j]
 		err := st.RunTransaction(ctx, func(ctx context.Context, tx store.Transaction) error {
-			oldRecords, err := readCVERecords(tx, batch)
+			oldRecords, err := readCVE4Records(tx, batch)
 			if err != nil {
 				return err
 			}
@@ -33,12 +33,12 @@ func updateFalsePositives(ctx context.Context, st store.Store) (err error) {
 				old := oldRecords[i]
 				var err error
 				if old == nil {
-					err = tx.CreateCVERecord(cr)
+					err = tx.CreateCVE4Record(cr)
 				} else if old.CommitHash != cr.CommitHash && !old.CommitTime.IsZero() && old.CommitTime.Before(cr.CommitTime) {
 					// If the false positive data is more recent than what is in
 					// the store, then update the DB. But ignore records whose
 					// commit time hasn't been populated.
-					err = tx.SetCVERecord(cr)
+					err = tx.SetCVE4Record(cr)
 				}
 				if err != nil {
 					return err
@@ -53,14 +53,14 @@ func updateFalsePositives(ctx context.Context, st store.Store) (err error) {
 	return nil
 }
 
-func readCVERecords(tx store.Transaction, crs []*store.CVERecord) ([]*store.CVERecord, error) {
-	var olds []*store.CVERecord
+func readCVE4Records(tx store.Transaction, crs []*store.CVE4Record) ([]*store.CVE4Record, error) {
+	var olds []*store.CVE4Record
 	for _, cr := range crs {
-		dbcrs, err := tx.GetCVERecords(cr.ID, cr.ID)
+		dbcrs, err := tx.GetCVE4Records(cr.ID, cr.ID)
 		if err != nil {
 			return nil, err
 		}
-		var old *store.CVERecord
+		var old *store.CVE4Record
 		if len(dbcrs) > 0 {
 			old = dbcrs[0]
 		}

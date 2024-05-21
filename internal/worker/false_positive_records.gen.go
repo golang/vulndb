@@ -12,7 +12,7 @@ import (
 	"golang.org/x/vulndb/internal/worker/store"
 )
 
-var falsePositives = []*store.CVERecord{
+var falsePositives = []*store.CVE4Record{
 	{
 		ID:          "CVE-2013-2124",
 		Path:        "2013/2xxx/CVE-2013-2124.json",

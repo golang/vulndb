@@ -98,7 +98,7 @@ func testCVEs(t *testing.T, s Store) {
 		return time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.UTC)
 	}
 
-	crs := []*CVERecord{
+	crs := []*CVE4Record{
 		{
 			ID:          id1,
 			Path:        "1905/" + id1 + ".json",
@@ -128,11 +128,11 @@ func testCVEs(t *testing.T, s Store) {
 		},
 	}
 
-	getCVERecords := func(startID, endID string) []*CVERecord {
-		var got []*CVERecord
+	getCVE4Records := func(startID, endID string) []*CVE4Record {
+		var got []*CVE4Record
 		err := s.RunTransaction(ctx, func(ctx context.Context, tx Transaction) error {
 			var err error
-			got, err = tx.GetCVERecords(startID, endID)
+			got, err = tx.GetCVE4Records(startID, endID)
 			return err
 		})
 		if err != nil {
@@ -141,22 +141,22 @@ func testCVEs(t *testing.T, s Store) {
 		return got
 	}
 
-	createCVERecords(t, ctx, s, crs)
+	createCVE4Records(t, ctx, s, crs)
 
-	diff(t, crs[:1], getCVERecords(id1, id1))
-	diff(t, crs[1:], getCVERecords(id2, id3))
+	diff(t, crs[:1], getCVE4Records(id1, id1))
+	diff(t, crs[1:], getCVE4Records(id2, id3))
 
-	// Test SetCVERecord.
+	// Test SetCVE4Record.
 
-	set := func(r *CVERecord) *CVERecord {
+	set := func(r *CVE4Record) *CVE4Record {
 		must(s.RunTransaction(ctx, func(ctx context.Context, tx Transaction) error {
-			return tx.SetCVERecord(r)
+			return tx.SetCVE4Record(r)
 		}))(t)
-		return must1(s.GetCVERecord(ctx, r.ID))(t)
+		return must1(s.GetCVE4Record(ctx, r.ID))(t)
 	}
 
 	// Make sure the first record is the same that we created.
-	got := must1(s.GetCVERecord(ctx, id1))(t)
+	got := must1(s.GetCVE4Record(ctx, id1))(t)
 	diff(t, crs[0], got)
 
 	// Change the state and the commit hash.
@@ -168,7 +168,7 @@ func testCVEs(t *testing.T, s Store) {
 	want.CommitHash = "999"
 	diff(t, &want, got)
 
-	gotNoAction := must1(s.ListCVERecordsWithTriageState(ctx, TriageStateNoActionNeeded))(t)
+	gotNoAction := must1(s.ListCVE4RecordsWithTriageState(ctx, TriageStateNoActionNeeded))(t)
 	diff(t, crs[1:], gotNoAction)
 }
 
@@ -190,7 +190,7 @@ func testDirHashes(t *testing.T, s Store) {
 func testGHSAs(t *testing.T, s Store) {
 	ctx := context.Background()
 	// Create two records.
-	gs := []*GHSARecord{
+	gs := []*LegacyGHSARecord{
 		{
 			GHSA:        &ghsa.SecurityAdvisory{ID: "g1", Summary: "one"},
 			TriageState: TriageStateNeedsIssue,
@@ -202,7 +202,7 @@ func testGHSAs(t *testing.T, s Store) {
 	}
 	must(s.RunTransaction(ctx, func(ctx context.Context, tx Transaction) error {
 		for _, g := range gs {
-			if err := tx.CreateGHSARecord(g); err != nil {
+			if err := tx.CreateLegacyGHSARecord(g); err != nil {
 				return err
 			}
 		}
@@ -211,13 +211,13 @@ func testGHSAs(t *testing.T, s Store) {
 	// Modify one of them.
 	gs[1].TriageState = TriageStateIssueCreated
 	must(s.RunTransaction(ctx, func(ctx context.Context, tx Transaction) error {
-		return tx.SetGHSARecord(gs[1])
+		return tx.SetLegacyGHSARecord(gs[1])
 	}))(t)
 	// Retrieve and compare.
-	var got []*GHSARecord
+	var got []*LegacyGHSARecord
 	must(s.RunTransaction(ctx, func(ctx context.Context, tx Transaction) error {
 		var err error
-		got, err = tx.GetGHSARecords()
+		got, err = tx.GetLegacyGHSARecords()
 		return err
 	}))(t)
 	if len(got) != len(gs) {
@@ -229,10 +229,10 @@ func testGHSAs(t *testing.T, s Store) {
 	}
 
 	// Retrieve one record by GHSA ID.
-	var got0 *GHSARecord
+	var got0 *LegacyGHSARecord
 	must(s.RunTransaction(ctx, func(ctx context.Context, tx Transaction) error {
 		var err error
-		got0, err = tx.GetGHSARecord(gs[0].GetID())
+		got0, err = tx.GetLegacyGHSARecord(gs[0].GetID())
 		return err
 	}))(t)
 	if got, want := got0, gs[0]; !cmp.Equal(got, want) {
@@ -291,10 +291,10 @@ func testModuleScanRecords(t *testing.T, s Store) {
 	}
 }
 
-func createCVERecords(t *testing.T, ctx context.Context, s Store, crs []*CVERecord) {
+func createCVE4Records(t *testing.T, ctx context.Context, s Store, crs []*CVE4Record) {
 	must(s.RunTransaction(ctx, func(ctx context.Context, tx Transaction) error {
 		for _, cr := range crs {
-			if err := tx.CreateCVERecord(cr); err != nil {
+			if err := tx.CreateCVE4Record(cr); err != nil {
 				return err
 			}
 		}

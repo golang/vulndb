@@ -123,7 +123,7 @@ func TestCreateIssues(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	crs := []*store.CVERecord{
+	crs := []*store.CVE4Record{
 		{
 			ID:         "ID1",
 			BlobHash:   "bh1",
@@ -154,8 +154,8 @@ func TestCreateIssues(t *testing.T) {
 			TriageState: store.TriageStateIssueCreated,
 		},
 	}
-	createCVERecords(t, mstore, crs)
-	grs := []*store.GHSARecord{
+	createCVE4Records(t, mstore, crs)
+	grs := []*store.LegacyGHSARecord{
 		{
 			GHSA: &ghsa.SecurityAdvisory{
 				ID:    "g1",
@@ -193,7 +193,7 @@ func TestCreateIssues(t *testing.T) {
 			TriageState: store.TriageStateNeedsIssue,
 		},
 	}
-	createGHSARecords(t, mstore, grs)
+	createLegacyGHSARecords(t, mstore, grs)
 
 	// Add an existing report with GHSA "g5".
 	rc, err := report.NewTestClient(map[string]*report.Report{
@@ -207,26 +207,26 @@ func TestCreateIssues(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	var wantCVERecords []*store.CVERecord
+	var wantCVE4Records []*store.CVE4Record
 	for _, r := range crs {
 		copy := *r
-		wantCVERecords = append(wantCVERecords, &copy)
+		wantCVE4Records = append(wantCVE4Records, &copy)
 	}
-	wantCVERecords[0].TriageState = store.TriageStateIssueCreated
-	wantCVERecords[0].IssueReference = "https://github.com/test-owner/test-repo/issues/1"
+	wantCVE4Records[0].TriageState = store.TriageStateIssueCreated
+	wantCVE4Records[0].IssueReference = "https://github.com/test-owner/test-repo/issues/1"
 
-	gotCVERecs := mstore.CVERecords()
-	if len(gotCVERecs) != len(wantCVERecords) {
-		t.Fatalf("wrong number of records: got %d, want %d", len(gotCVERecs), len(wantCVERecords))
+	gotCVERecs := mstore.CVE4Records()
+	if len(gotCVERecs) != len(wantCVE4Records) {
+		t.Fatalf("wrong number of records: got %d, want %d", len(gotCVERecs), len(wantCVE4Records))
 	}
-	for _, want := range wantCVERecords {
+	for _, want := range wantCVE4Records {
 		got := gotCVERecs[want.ID]
-		if !cmp.Equal(got, want, cmpopts.IgnoreFields(store.CVERecord{}, "IssueCreatedAt")) {
+		if !cmp.Equal(got, want, cmpopts.IgnoreFields(store.CVE4Record{}, "IssueCreatedAt")) {
 			t.Errorf("\ngot  %+v\nwant %+v", got, want)
 		}
 	}
 
-	var wantGHSARecs []*store.GHSARecord
+	var wantGHSARecs []*store.LegacyGHSARecord
 	for _, r := range grs {
 		copy := *r
 		wantGHSARecs = append(wantGHSARecs, &copy)
@@ -240,13 +240,13 @@ func TestCreateIssues(t *testing.T) {
 	gotGHSARecs := getGHSARecordsSorted(t, mstore)
 	fmt.Printf("%+v\n", gotGHSARecs[0])
 	if diff := cmp.Diff(wantGHSARecs, gotGHSARecs,
-		cmpopts.IgnoreFields(store.GHSARecord{}, "IssueCreatedAt")); diff != "" {
+		cmpopts.IgnoreFields(store.LegacyGHSARecord{}, "IssueCreatedAt")); diff != "" {
 		t.Errorf("mismatch (-want, +got):\n%s", diff)
 	}
 }
 
 func TestNewCVEBody(t *testing.T) {
-	cr := &store.CVERecord{
+	cr := &store.CVE4Record{
 		ID:     "CVE-2000-0001",
 		Module: "golang.org/x/vulndb",
 		CVE: &cve4.CVE{
@@ -328,7 +328,7 @@ review_status: UNREVIEWED
 }
 
 func TestCreateGHSABody(t *testing.T) {
-	gr := &store.GHSARecord{
+	gr := &store.LegacyGHSARecord{
 		GHSA: &ghsa.SecurityAdvisory{
 			ID:          "GHSA-xxxx-yyyy-zzzz",
 			Identifiers: []ghsa.Identifier{{Type: "GHSA", Value: "GHSA-xxxx-yyyy-zzzz"}},
@@ -472,7 +472,7 @@ func TestUpdateGHSAs(t *testing.T) {
 
 	mstore := store.NewMemStore()
 	listSAs := fakeListFunc(sas)
-	updateAndCheck := func(wantStats UpdateGHSAStats, wantRecords []*store.GHSARecord) {
+	updateAndCheck := func(wantStats UpdateGHSAStats, wantRecords []*store.LegacyGHSARecord) {
 		t.Helper()
 		gotStats, err := UpdateGHSAs(ctx, listSAs, mstore)
 		if err != nil {
@@ -489,7 +489,7 @@ func TestUpdateGHSAs(t *testing.T) {
 
 	// Add some existing CVE records.
 	ctime := time.Date(2020, 1, 2, 0, 0, 0, 0, time.UTC)
-	crs := []*store.CVERecord{
+	crs := []*store.CVE4Record{
 		{
 			ID:          "CVE-2000-1111",
 			BlobHash:    "bh1",
@@ -507,19 +507,19 @@ func TestUpdateGHSAs(t *testing.T) {
 			TriageState: store.TriageStateIssueCreated,
 		},
 	}
-	createCVERecords(t, mstore, crs)
+	createCVE4Records(t, mstore, crs)
 
 	// First four SAs entered with NeedsIssue.
-	var want []*store.GHSARecord
+	var want []*store.LegacyGHSARecord
 	for _, sa := range sas[:4] {
-		want = append(want, &store.GHSARecord{
+		want = append(want, &store.LegacyGHSARecord{
 			GHSA:        sa,
 			TriageState: store.TriageStateNeedsIssue,
 		})
 	}
 	// SA "g5" entered with Alias state because it is an alias of
 	// "CVE-2000-2222" which already has an issue.
-	want = append(want, &store.GHSARecord{
+	want = append(want, &store.LegacyGHSARecord{
 		GHSA:        sas[4],
 		TriageState: store.TriageStateAlias,
 	})
@@ -536,7 +536,7 @@ func TestUpdateGHSAs(t *testing.T) {
 		UpdatedAt: day(2021, 12, 2),
 	})
 	listSAs = fakeListFunc(sas)
-	want = append(want, &store.GHSARecord{
+	want = append(want, &store.LegacyGHSARecord{
 		GHSA:        sas[len(sas)-1],
 		TriageState: store.TriageStateNeedsIssue,
 	})
@@ -546,7 +546,7 @@ func TestUpdateGHSAs(t *testing.T) {
 
 }
 
-func getGHSARecordsSorted(t *testing.T, st store.Store) []*store.GHSARecord {
+func getGHSARecordsSorted(t *testing.T, st store.Store) []*store.LegacyGHSARecord {
 	t.Helper()
 	rs, err := getGHSARecords(context.Background(), st)
 	if err != nil {

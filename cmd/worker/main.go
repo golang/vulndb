@@ -174,7 +174,7 @@ func listCVEsCommand(ctx context.Context, triageState string) error {
 	if err := ts.Validate(); err != nil {
 		return err
 	}
-	crs, err := cfg.Store.ListCVERecordsWithTriageState(ctx, ts)
+	crs, err := cfg.Store.ListCVE4RecordsWithTriageState(ctx, ts)
 	if err != nil {
 		return err
 	}
@@ -273,7 +273,7 @@ func createIssuesCommand(ctx context.Context) error {
 
 func showCommand(ctx context.Context, ids []string) error {
 	for _, id := range ids {
-		r, err := cfg.Store.GetCVERecord(ctx, id)
+		r, err := cfg.Store.GetCVE4Record(ctx, id)
 		if err != nil {
 			return err
 		}

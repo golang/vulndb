@@ -16,12 +16,12 @@ import (
 
 // MemStore is an in-memory implementation of Store, for testing.
 type MemStore struct {
-	mu             sync.Mutex
-	cveRecords     map[string]*CVERecord
-	updateRecords  map[string]*CommitUpdateRecord
-	dirHashes      map[string]string
-	ghsaRecords    map[string]*GHSARecord
-	modScanRecords []*ModuleScanRecord
+	mu                sync.Mutex
+	cve4Records       map[string]*CVE4Record
+	updateRecords     map[string]*CommitUpdateRecord
+	dirHashes         map[string]string
+	legacyGHSARecords map[string]*LegacyGHSARecord
+	modScanRecords    []*ModuleScanRecord
 }
 
 // NewMemStore creates a new, empty MemStore.
@@ -33,17 +33,17 @@ func NewMemStore() *MemStore {
 
 // Clear removes all data from the MemStore.
 func (ms *MemStore) Clear(context.Context) error {
-	ms.cveRecords = map[string]*CVERecord{}
+	ms.cve4Records = map[string]*CVE4Record{}
 	ms.updateRecords = map[string]*CommitUpdateRecord{}
 	ms.dirHashes = map[string]string{}
-	ms.ghsaRecords = map[string]*GHSARecord{}
+	ms.legacyGHSARecords = map[string]*LegacyGHSARecord{}
 	ms.modScanRecords = nil
 	return nil
 }
 
-// CVERecords return all the CVERecords of the store.
-func (ms *MemStore) CVERecords() map[string]*CVERecord {
-	return ms.cveRecords
+// CVE4Records return all the CVE4Records of the store.
+func (ms *MemStore) CVE4Records() map[string]*CVE4Record {
+	return ms.cve4Records
 }
 
 // CreateCommitUpdateRecord implements Store.CreateCommitUpdateRecord.
@@ -82,15 +82,15 @@ func (ms *MemStore) ListCommitUpdateRecords(_ context.Context, limit int) ([]*Co
 	return urs, nil
 }
 
-// GetCVERecord implements store.GetCVERecord.
-func (ms *MemStore) GetCVERecord(ctx context.Context, id string) (*CVERecord, error) {
-	return ms.cveRecords[id], nil
+// GetCVE4Record implements store.GetCVE4Record.
+func (ms *MemStore) GetCVE4Record(ctx context.Context, id string) (*CVE4Record, error) {
+	return ms.cve4Records[id], nil
 }
 
-// ListCVERecordsWithTriageState implements Store.ListCVERecordsWithTriageState.
-func (ms *MemStore) ListCVERecordsWithTriageState(_ context.Context, ts TriageState) ([]*CVERecord, error) {
-	var crs []*CVERecord
-	for _, r := range ms.cveRecords {
+// ListCVE4RecordsWithTriageState implements Store.ListCVE4RecordsWithTriageState.
+func (ms *MemStore) ListCVE4RecordsWithTriageState(_ context.Context, ts TriageState) ([]*CVE4Record, error) {
+	var crs []*CVE4Record
+	for _, r := range ms.cve4Records {
 		if r.TriageState == ts {
 			crs = append(crs, r)
 		}
@@ -159,31 +159,31 @@ type memTransaction struct {
 	ms *MemStore
 }
 
-// CreateCVERecord implements Transaction.CreateCVERecord.
-func (tx *memTransaction) CreateCVERecord(r *CVERecord) error {
+// CreateCVE4Record implements Transaction.CreateCVE4Record.
+func (tx *memTransaction) CreateCVE4Record(r *CVE4Record) error {
 	if err := r.Validate(); err != nil {
 		return err
 	}
-	tx.ms.cveRecords[r.ID] = r
+	tx.ms.cve4Records[r.ID] = r
 	return nil
 }
 
-// SetCVERecord implements Transaction.SetCVERecord.
-func (tx *memTransaction) SetCVERecord(r *CVERecord) error {
+// SetCVE4Record implements Transaction.SetCVE4Record.
+func (tx *memTransaction) SetCVE4Record(r *CVE4Record) error {
 	if err := r.Validate(); err != nil {
 		return err
 	}
-	if tx.ms.cveRecords[r.ID] == nil {
-		return fmt.Errorf("CVERecord with ID %q not found", r.ID)
+	if tx.ms.cve4Records[r.ID] == nil {
+		return fmt.Errorf("CVE4Record with ID %q not found", r.ID)
 	}
-	tx.ms.cveRecords[r.ID] = r
+	tx.ms.cve4Records[r.ID] = r
 	return nil
 }
 
-// GetCVERecords implements Transaction.GetCVERecords.
-func (tx *memTransaction) GetCVERecords(startID, endID string) ([]*CVERecord, error) {
-	var crs []*CVERecord
-	for id, r := range tx.ms.cveRecords {
+// GetCVE4Records implements Transaction.GetCVE4Records.
+func (tx *memTransaction) GetCVE4Records(startID, endID string) ([]*CVE4Record, error) {
+	var crs []*CVE4Record
+	for id, r := range tx.ms.cve4Records {
 		if id >= startID && id <= endID {
 			c := *r
 			crs = append(crs, &c)
@@ -196,36 +196,36 @@ func (tx *memTransaction) GetCVERecords(startID, endID string) ([]*CVERecord, er
 	return crs, nil
 }
 
-// CreateGHSARecord implements Transaction.CreateGHSARecord.
-func (tx *memTransaction) CreateGHSARecord(r *GHSARecord) error {
-	if _, ok := tx.ms.ghsaRecords[r.GHSA.ID]; ok {
-		return fmt.Errorf("GHSARecord %s already exists", r.GHSA.ID)
+// CreateLegacyGHSARecord implements Transaction.CreateLegacyGHSARecord.
+func (tx *memTransaction) CreateLegacyGHSARecord(r *LegacyGHSARecord) error {
+	if _, ok := tx.ms.legacyGHSARecords[r.GHSA.ID]; ok {
+		return fmt.Errorf("LegacyGHSARecord %s already exists", r.GHSA.ID)
 	}
-	tx.ms.ghsaRecords[r.GHSA.ID] = r
+	tx.ms.legacyGHSARecords[r.GHSA.ID] = r
 	return nil
 }
 
-// SetGHSARecord implements Transaction.SetGHSARecord.
-func (tx *memTransaction) SetGHSARecord(r *GHSARecord) error {
-	if _, ok := tx.ms.ghsaRecords[r.GHSA.ID]; !ok {
-		return fmt.Errorf("GHSARecord %s does not exist", r.GHSA.ID)
+// SetLegacyGHSARecord implements Transaction.SetLegacyGHSARecord.
+func (tx *memTransaction) SetLegacyGHSARecord(r *LegacyGHSARecord) error {
+	if _, ok := tx.ms.legacyGHSARecords[r.GHSA.ID]; !ok {
+		return fmt.Errorf("LegacyGHSARecord %s does not exist", r.GHSA.ID)
 	}
-	tx.ms.ghsaRecords[r.GHSA.ID] = r
+	tx.ms.legacyGHSARecords[r.GHSA.ID] = r
 	return nil
 }
 
-// GetGHSARecord implements Transaction.GetGHSARecord.
-func (tx *memTransaction) GetGHSARecord(id string) (*GHSARecord, error) {
-	if r, ok := tx.ms.ghsaRecords[id]; ok {
+// GetLegacyGHSARecord implements Transaction.GetLegacyGHSARecord.
+func (tx *memTransaction) GetLegacyGHSARecord(id string) (*LegacyGHSARecord, error) {
+	if r, ok := tx.ms.legacyGHSARecords[id]; ok {
 		return r, nil
 	}
 	return nil, nil
 }
 
-// GetGHSARecords implements Transaction.GetGHSARecords.
-func (tx *memTransaction) GetGHSARecords() ([]*GHSARecord, error) {
-	var recs []*GHSARecord
-	for _, r := range tx.ms.ghsaRecords {
+// GetLegacyGHSARecords implements Transaction.GetLegacyGHSARecords.
+func (tx *memTransaction) GetLegacyGHSARecords() ([]*LegacyGHSARecord, error) {
+	var recs []*LegacyGHSARecord
+	for _, r := range tx.ms.legacyGHSARecords {
 		recs = append(recs, r)
 	}
 	return recs, nil

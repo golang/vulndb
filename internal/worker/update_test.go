@@ -34,7 +34,7 @@ const clearString = "**CLEAR**"
 
 var clearCVE = &cve4.CVE{}
 
-func modify(r, m *store.CVERecord) *store.CVERecord {
+func modify(r, m *store.CVE4Record) *store.CVE4Record {
 	modString := func(p *string, s string) {
 		if s == clearString {
 			*p = ""
@@ -74,16 +74,16 @@ func modify(r, m *store.CVERecord) *store.CVERecord {
 	return &c
 }
 
-func TestNewCVERecord(t *testing.T) {
-	// Check that NewCVERecord with a TriageState gives a valid CVERecord.
+func TestNewCVE4Record(t *testing.T) {
+	// Check that NewCVE4Record with a TriageState gives a valid CVE4Record.
 	repo, err := gitrepo.ReadTxtarRepo(testRepoPath, time.Now())
 	if err != nil {
 		t.Fatal(err)
 	}
 	commit := headCommit(t, repo)
 	pathname := "2021/0xxx/CVE-2021-0001.json"
-	cve, bh := readCVE(t, repo, commit, pathname)
-	cr := store.NewCVERecord(cve, pathname, bh, commit)
+	cve, bh := readCVE4(t, repo, commit, pathname)
+	cr := store.NewCVE4Record(cve, pathname, bh, commit)
 	cr.TriageState = store.TriageStateNeedsIssue
 	if err := cr.Validate(); err != nil {
 		t.Fatal(err)
@@ -130,14 +130,14 @@ func TestDoUpdate(t *testing.T) {
 		blobHashes []string
 	)
 	for _, p := range paths {
-		cve, bh := readCVE(t, repo, commit, p)
+		cve, bh := readCVE4(t, repo, commit, p)
 		cves = append(cves, cve)
 		blobHashes = append(blobHashes, bh)
 	}
-	// Expected CVERecords after the above CVEs are added to an empty DB.
-	var rs []*store.CVERecord
+	// Expected CVE4Records after the above CVEs are added to an empty DB.
+	var rs []*store.CVE4Record
 	for i := 0; i < len(cves); i++ {
-		r := store.NewCVERecord(cves[i], paths[i], blobHashes[i], commit)
+		r := store.NewCVE4Record(cves[i], paths[i], blobHashes[i], commit)
 		rs = append(rs, r)
 	}
 	rs[0].TriageState = store.TriageStateNeedsIssue // a public CVE, has a golang.org path
@@ -154,9 +154,9 @@ func TestDoUpdate(t *testing.T) {
 
 	for _, test := range []struct {
 		name       string
-		curCVEs    []*store.CVERecord        // current state of CVEs collection
-		curGHSAs   []*store.GHSARecord       // current state of GHSAs collection
-		want       []*store.CVERecord        // expected state of CVEs collection after update
+		curCVEs    []*store.CVE4Record       // current state of CVEs collection
+		curGHSAs   []*store.LegacyGHSARecord // current state of GHSAs collection
+		want       []*store.CVE4Record       // expected state of CVEs collection after update
 		wantUpdate *store.CommitUpdateRecord // expected update record
 	}{
 		{
@@ -181,36 +181,36 @@ func TestDoUpdate(t *testing.T) {
 		},
 		{
 			name: "pre-issue changes",
-			curCVEs: []*store.CVERecord{
+			curCVEs: []*store.CVE4Record{
 				// NoActionNeeded -> NeedsIssue
-				modify(rs[0], &store.CVERecord{
+				modify(rs[0], &store.CVE4Record{
 					BlobHash:    "x", // if we don't use a different blob hash, no update will happen
 					TriageState: store.TriageStateNoActionNeeded,
 				}),
 				// NeedsIssue -> NoActionNeeded
-				modify(rs[1], &store.CVERecord{
+				modify(rs[1], &store.CVE4Record{
 					BlobHash:    "x",
 					TriageState: store.TriageStateNeedsIssue,
 					Module:      "something",
 					CVE:         cves[1],
 				}),
 				// NoActionNeeded, triage state stays the same but other fields change.
-				modify(rs[2], &store.CVERecord{
+				modify(rs[2], &store.CVE4Record{
 					TriageState: store.TriageStateNoActionNeeded,
 				}),
 			},
-			want: []*store.CVERecord{
-				modify(rs[0], &store.CVERecord{
-					History: []*store.CVERecordSnapshot{{
+			want: []*store.CVE4Record{
+				modify(rs[0], &store.CVE4Record{
+					History: []*store.CVE4RecordSnapshot{{
 						CommitHash:  commitHash,
 						CVEState:    cve4.StatePublic,
 						TriageState: store.TriageStateNoActionNeeded,
 					}},
 				}),
-				modify(rs[1], &store.CVERecord{
+				modify(rs[1], &store.CVE4Record{
 					Module: clearString,
 					CVE:    clearCVE,
-					History: []*store.CVERecordSnapshot{{
+					History: []*store.CVE4RecordSnapshot{{
 						CommitHash:  commitHash,
 						CVEState:    cve4.StateReserved,
 						TriageState: store.TriageStateNeedsIssue,
@@ -229,28 +229,28 @@ func TestDoUpdate(t *testing.T) {
 		},
 		{
 			name: "post-issue changes",
-			curCVEs: []*store.CVERecord{
+			curCVEs: []*store.CVE4Record{
 				// IssueCreated -> Updated
-				modify(rs[0], &store.CVERecord{
+				modify(rs[0], &store.CVE4Record{
 					BlobHash:    "x",
 					TriageState: store.TriageStateIssueCreated,
 				}),
-				modify(rs[1], &store.CVERecord{
+				modify(rs[1], &store.CVE4Record{
 					BlobHash:    "x",
 					TriageState: store.TriageStateUpdatedSinceIssueCreation,
 				}),
 			},
-			want: []*store.CVERecord{
-				modify(rs[0], &store.CVERecord{
+			want: []*store.CVE4Record{
+				modify(rs[0], &store.CVE4Record{
 					TriageState:       store.TriageStateUpdatedSinceIssueCreation,
 					TriageStateReason: `CVE changed; affected module = "golang.org/x/mod"`,
-					History: []*store.CVERecordSnapshot{{
+					History: []*store.CVE4RecordSnapshot{{
 						CommitHash:  commitHash,
 						CVEState:    cve4.StatePublic,
 						TriageState: store.TriageStateIssueCreated,
 					}},
 				}),
-				modify(rs[1], &store.CVERecord{
+				modify(rs[1], &store.CVE4Record{
 					TriageState:       store.TriageStateUpdatedSinceIssueCreation,
 					TriageStateReason: `CVE changed; affected module = ""`,
 				}),
@@ -267,9 +267,9 @@ func TestDoUpdate(t *testing.T) {
 		},
 		{
 			name: "false positive no Go URLs",
-			curCVEs: []*store.CVERecord{
+			curCVEs: []*store.CVE4Record{
 				// FalsePositive; no change
-				modify(rs[0], &store.CVERecord{
+				modify(rs[0], &store.CVE4Record{
 					BlobHash:    "x",
 					TriageState: store.TriageStateFalsePositive,
 					ReferenceURLs: []string{
@@ -278,8 +278,8 @@ func TestDoUpdate(t *testing.T) {
 					},
 				}),
 			},
-			want: []*store.CVERecord{
-				modify(rs[0], &store.CVERecord{
+			want: []*store.CVE4Record{
+				modify(rs[0], &store.CVE4Record{
 					TriageState: store.TriageStateFalsePositive,
 					ReferenceURLs: []string{
 						"https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00477.html",
@@ -297,9 +297,9 @@ func TestDoUpdate(t *testing.T) {
 		},
 		{
 			name: "false positive new Go URLs",
-			curCVEs: []*store.CVERecord{
+			curCVEs: []*store.CVE4Record{
 				// FalsePositive; no change
-				modify(rs[0], &store.CVERecord{
+				modify(rs[0], &store.CVE4Record{
 					BlobHash:    "x",
 					TriageState: store.TriageStateFalsePositive,
 					ReferenceURLs: []string{
@@ -307,12 +307,12 @@ func TestDoUpdate(t *testing.T) {
 					},
 				}),
 			},
-			want: []*store.CVERecord{
-				modify(rs[0], &store.CVERecord{
+			want: []*store.CVE4Record{
+				modify(rs[0], &store.CVE4Record{
 					ReferenceURLs: []string{
 						"https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00477.html",
 					},
-					History: []*store.CVERecordSnapshot{{
+					History: []*store.CVE4RecordSnapshot{{
 						CommitHash:  commitHash,
 						CVEState:    "PUBLIC",
 						TriageState: "FalsePositive",
@@ -329,9 +329,9 @@ func TestDoUpdate(t *testing.T) {
 		},
 		{
 			name: "alias already created",
-			curCVEs: []*store.CVERecord{rs[0],
+			curCVEs: []*store.CVE4Record{rs[0],
 				rs[1], rs[2], rs[3]},
-			curGHSAs: []*store.GHSARecord{
+			curGHSAs: []*store.LegacyGHSARecord{
 				{
 					GHSA: &ghsa.SecurityAdvisory{
 						ID: "GHSA-xhmf-mmv2-4hhx",
@@ -339,9 +339,9 @@ func TestDoUpdate(t *testing.T) {
 					TriageState: store.TriageStateIssueCreated,
 				},
 			},
-			want: []*store.CVERecord{
+			want: []*store.CVE4Record{
 				rs[0],
-				rs[1], rs[2], rs[3], modify(rs[4], &store.CVERecord{
+				rs[1], rs[2], rs[3], modify(rs[4], &store.CVE4Record{
 					TriageState: store.TriageStateAlias,
 				}),
 			},
@@ -354,19 +354,17 @@ func TestDoUpdate(t *testing.T) {
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			mstore := store.NewMemStore()
-			createCVERecords(t, mstore, test.curCVEs)
-			createGHSARecords(t, mstore, test.curGHSAs)
-			if err := newCVEUpdater(repo, commit, mstore, rc, needsIssue).update(ctx); err != nil {
-				t.Fatal(err)
-			}
-			got := mstore.CVERecords()
-			want := map[string]*store.CVERecord{}
+			createCVE4Records(t, mstore, test.curCVEs)
+			createLegacyGHSARecords(t, mstore, test.curGHSAs)
+			newCVEUpdater(repo, commit, mstore, rc, needsIssue).update(ctx)
+			got := mstore.CVE4Records()
+			want := map[string]*store.CVE4Record{}
 			for _, cr := range test.want {
 				want[cr.ID] = cr
 			}
 			if diff := cmp.Diff(want, got,
-				cmpopts.IgnoreFields(store.CVERecord{}, "TriageStateReason"),
-				cmpopts.IgnoreFields(store.CVERecordSnapshot{}, "TriageStateReason")); diff != "" {
+				cmpopts.IgnoreFields(store.CVE4Record{}, "TriageStateReason"),
+				cmpopts.IgnoreFields(store.CVE4RecordSnapshot{}, "TriageStateReason")); diff != "" {
 				t.Errorf("mismatch (-want, +got):\n%s", diff)
 			}
 			gotUpdates, err := mstore.ListCommitUpdateRecords(ctx, -1)
@@ -555,7 +553,7 @@ func TestGroupFilesByDirectory(t *testing.T) {
 	}
 }
 
-func readCVE(t *testing.T, repo *git.Repository, commit *object.Commit, path string) (*cve4.CVE, string) {
+func readCVE4(t *testing.T, repo *git.Repository, commit *object.Commit, path string) (*cve4.CVE, string) {
 	cve, blobHash, err := ReadCVEAtPath(commit, path)
 	if err != nil {
 		t.Fatal(err)
@@ -563,11 +561,11 @@ func readCVE(t *testing.T, repo *git.Repository, commit *object.Commit, path str
 	return cve, blobHash
 }
 
-func createCVERecords(t *testing.T, s store.Store, crs []*store.CVERecord) {
+func createCVE4Records(t *testing.T, s store.Store, crs []*store.CVE4Record) {
 	err := s.RunTransaction(context.Background(), func(ctx context.Context, tx store.Transaction) error {
 		for _, cr := range crs {
 			copy := *cr
-			if err := tx.CreateCVERecord(&copy); err != nil {
+			if err := tx.CreateCVE4Record(&copy); err != nil {
 				return err
 			}
 		}
@@ -578,11 +576,11 @@ func createCVERecords(t *testing.T, s store.Store, crs []*store.CVERecord) {
 	}
 }
 
-func createGHSARecords(t *testing.T, s store.Store, grs []*store.GHSARecord) {
+func createLegacyGHSARecords(t *testing.T, s store.Store, grs []*store.LegacyGHSARecord) {
 	err := s.RunTransaction(context.Background(), func(ctx context.Context, tx store.Transaction) error {
 		for _, gr := range grs {
 			copy := *gr
-			if err := tx.CreateGHSARecord(&copy); err != nil {
+			if err := tx.CreateLegacyGHSARecord(&copy); err != nil {
 				return err
 			}
 		}

@@ -275,7 +275,7 @@ func run(repoPath string) error {
 	if err != nil {
 		return err
 	}
-	crs, err := buildCVERecords(repo)
+	crs, err := buildCVE4Records(repo)
 	if err != nil {
 		return err
 	}
@@ -290,8 +290,8 @@ func run(repoPath string) error {
 	return os.WriteFile("false_positive_records.gen.go", src, 0644)
 }
 
-func buildCVERecords(repo *git.Repository) ([]*store.CVERecord, error) {
-	var crs []*store.CVERecord
+func buildCVE4Records(repo *git.Repository) ([]*store.CVE4Record, error) {
+	var crs []*store.CVE4Record
 	for _, spec := range falsePositiveIDs {
 		commit, err := repo.CommitObject(plumbing.NewHash(spec.commit))
 		if err != nil {
@@ -306,7 +306,7 @@ func buildCVERecords(repo *git.Repository) ([]*store.CVERecord, error) {
 			if cve.ID != id {
 				return nil, fmt.Errorf("ID at path %s is %s", path, cve.ID)
 			}
-			cr := store.NewCVERecord(cve, path, blobHash, commit)
+			cr := store.NewCVE4Record(cve, path, blobHash, commit)
 			cr.CommitHash = spec.commit
 			if reportID := coveredIDs[id]; reportID != "" {
 				cr.TriageState = store.TriageStateHasVuln

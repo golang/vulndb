@@ -145,11 +145,11 @@ func UpdateGHSAs(ctx context.Context, list GHSAListFunc, st store.Store) (_ Upda
 	return updateGHSAs(ctx, list, since, st)
 }
 
-func getGHSARecords(ctx context.Context, st store.Store) ([]*store.GHSARecord, error) {
-	var rs []*store.GHSARecord
+func getGHSARecords(ctx context.Context, st store.Store) ([]*store.LegacyGHSARecord, error) {
+	var rs []*store.LegacyGHSARecord
 	err := st.RunTransaction(ctx, func(ctx context.Context, tx store.Transaction) error {
 		var err error
-		rs, err = tx.GetGHSARecords()
+		rs, err = tx.GetLegacyGHSARecords()
 		return err
 	})
 	if err != nil {
@@ -218,7 +218,7 @@ func xref(r *report.Report, rc *report.Client) string {
 func createCVEIssues(ctx context.Context, st store.Store, client *issues.Client, pc *proxy.Client, rc *report.Client, limit int) (err error) {
 	defer derrors.Wrap(&err, "createCVEIssues(destination: %s)", client.Destination())
 
-	needsIssue, err := st.ListCVERecordsWithTriageState(ctx, store.TriageStateNeedsIssue)
+	needsIssue, err := st.ListCVE4RecordsWithTriageState(ctx, store.TriageStateNeedsIssue)
 	if err != nil {
 		return err
 	}
@@ -234,9 +234,9 @@ func createCVEIssues(ctx context.Context, st store.Store, client *issues.Client,
 			return err
 		}
 
-		// Update the CVERecord in the DB with issue information.
+		// Update the CVE4Record in the DB with issue information.
 		err = st.RunTransaction(ctx, func(ctx context.Context, tx store.Transaction) error {
-			rs, err := tx.GetCVERecords(cr.ID, cr.ID)
+			rs, err := tx.GetCVE4Records(cr.ID, cr.ID)
 			if err != nil {
 				return err
 			}
@@ -244,7 +244,7 @@ func createCVEIssues(ctx context.Context, st store.Store, client *issues.Client,
 			cr.TriageState = store.TriageStateIssueCreated
 			cr.IssueReference = ref
 			cr.IssueCreatedAt = time.Now()
-			return tx.SetCVERecord(cr)
+			return tx.SetCVE4Record(cr)
 		})
 		if err != nil {
 			return err
@@ -262,7 +262,7 @@ func createGHSAIssues(ctx context.Context, st store.Store, client *issues.Client
 	if err != nil {
 		return err
 	}
-	var needsIssue []*store.GHSARecord
+	var needsIssue []*store.LegacyGHSARecord
 	for _, sa := range sas {
 		if sa.TriageState == store.TriageStateNeedsIssue {
 			needsIssue = append(needsIssue, sa)
@@ -279,15 +279,15 @@ func createGHSAIssues(ctx context.Context, st store.Store, client *issues.Client
 		// TODO(https://github.com/golang/go/issues/54049): Move this
 		// check to the triage step of the worker.
 		if isDuplicate(gr.GHSA, pc, rc) {
-			// Update the GHSARecord in the DB to reflect that the GHSA
+			// Update the LegacyGHSARecord in the DB to reflect that the GHSA
 			// already has an advisory.
 			if err = st.RunTransaction(ctx, func(ctx context.Context, tx store.Transaction) error {
-				r, err := tx.GetGHSARecord(gr.GetID())
+				r, err := tx.GetLegacyGHSARecord(gr.GetID())
 				if err != nil {
 					return err
 				}
 				r.TriageState = store.TriageStateHasVuln
-				return tx.SetGHSARecord(r)
+				return tx.SetLegacyGHSARecord(r)
 			}); err != nil {
 				return err
 			}
@@ -298,16 +298,16 @@ func createGHSAIssues(ctx context.Context, st store.Store, client *issues.Client
 		if err != nil {
 			return err
 		}
-		// Update the GHSARecord in the DB with issue information.
+		// Update the LegacyGHSARecord in the DB with issue information.
 		err = st.RunTransaction(ctx, func(ctx context.Context, tx store.Transaction) error {
-			r, err := tx.GetGHSARecord(gr.GetID())
+			r, err := tx.GetLegacyGHSARecord(gr.GetID())
 			if err != nil {
 				return err
 			}
 			r.TriageState = store.TriageStateIssueCreated
 			r.IssueReference = ref
 			r.IssueCreatedAt = time.Now()
-			return tx.SetGHSARecord(r)
+			return tx.SetLegacyGHSARecord(r)
 		})
 		if err != nil {
 			return err

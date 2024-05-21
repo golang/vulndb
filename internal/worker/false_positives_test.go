@@ -22,7 +22,7 @@ func TestUpdateFalsePositives(t *testing.T) {
 	commitTime := time.Date(2021, time.April, 12, 23, 0, 56, 0, time.UTC)
 
 	mstore := store.NewMemStore()
-	createCVERecords(t, mstore, []*store.CVERecord{
+	createCVE4Records(t, mstore, []*store.CVE4Record{
 		// This DB record is older than the matching false positive record
 		// embedded in the program, so it will be updated.
 		{
@@ -53,8 +53,8 @@ func TestUpdateFalsePositives(t *testing.T) {
 	if err := updateFalsePositives(context.Background(), mstore); err != nil {
 		t.Fatal(err)
 	}
-	got := mstore.CVERecords()
-	for _, want := range []*store.CVERecord{
+	got := mstore.CVE4Records()
+	for _, want := range []*store.CVE4Record{
 		{
 			// Doesn't exist in DB.
 			ID:          "CVE-2016-0216",

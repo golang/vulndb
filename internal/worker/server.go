@@ -226,8 +226,8 @@ type indexPage struct {
 	CVEListRepoURL   string
 	Namespace        string
 	Updates          []*store.CommitUpdateRecord
-	CVEsNeedingIssue []*store.CVERecord
-	CVEsUpdatedSince []*store.CVERecord
+	CVEsNeedingIssue []*store.CVE4Record
+	CVEsUpdatedSince []*store.CVE4Record
 	ModuleScans      []*store.ModuleScanRecord
 }
 
@@ -265,12 +265,12 @@ func (s *Server) indexPage(w http.ResponseWriter, r *http.Request) error {
 	})
 	g.Go(func() error {
 		var err error
-		page.CVEsNeedingIssue, err = s.cfg.Store.ListCVERecordsWithTriageState(ctx, store.TriageStateNeedsIssue)
+		page.CVEsNeedingIssue, err = s.cfg.Store.ListCVE4RecordsWithTriageState(ctx, store.TriageStateNeedsIssue)
 		return err
 	})
 	g.Go(func() error {
 		var err error
-		page.CVEsUpdatedSince, err = s.cfg.Store.ListCVERecordsWithTriageState(ctx, store.TriageStateUpdatedSinceIssueCreation)
+		page.CVEsUpdatedSince, err = s.cfg.Store.ListCVE4RecordsWithTriageState(ctx, store.TriageStateUpdatedSinceIssueCreation)
 		return err
 	})
 	g.Go(func() error {
