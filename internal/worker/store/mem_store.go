@@ -23,7 +23,6 @@ type MemStore struct {
 	updateRecords     map[string]*CommitUpdateRecord
 	dirHashes         map[string]string
 	legacyGHSARecords map[string]*LegacyGHSARecord
-	modScanRecords    []*ModuleScanRecord
 }
 
 // NewMemStore creates a new, empty MemStore.
@@ -39,7 +38,6 @@ func (ms *MemStore) Clear(context.Context) error {
 	ms.updateRecords = map[string]*CommitUpdateRecord{}
 	ms.dirHashes = map[string]string{}
 	ms.legacyGHSARecords = map[string]*LegacyGHSARecord{}
-	ms.modScanRecords = nil
 	return nil
 }
 
@@ -107,39 +105,6 @@ func (ms *MemStore) ListCVE4RecordsWithTriageState(_ context.Context, ts TriageS
 		return crs[i].ID < crs[j].ID
 	})
 	return crs, nil
-}
-
-// CreateModuleScanRecord implements Store.CreateModuleScanRecord.
-func (ms *MemStore) CreateModuleScanRecord(_ context.Context, r *ModuleScanRecord) error {
-	if err := r.Validate(); err != nil {
-		return err
-	}
-	ms.modScanRecords = append(ms.modScanRecords, r)
-	return nil
-}
-
-// GetModuleScanRecord implements store.GetModuleScanRecord.
-func (ms *MemStore) GetModuleScanRecord(_ context.Context, path, version string, dbTime time.Time) (*ModuleScanRecord, error) {
-	var m *ModuleScanRecord
-	for _, r := range ms.modScanRecords {
-		if r.Path == path && r.Version == version && r.DBTime.Equal(dbTime) {
-			if m == nil || m.FinishedAt.Before(r.FinishedAt) {
-				m = r
-			}
-		}
-	}
-	return m, nil
-}
-
-// ListModuleScanRecords implements Store.ListModuleScanRecords.
-func (ms *MemStore) ListModuleScanRecords(ctx context.Context, limit int) ([]*ModuleScanRecord, error) {
-	rs := make([]*ModuleScanRecord, len(ms.modScanRecords))
-	copy(rs, ms.modScanRecords)
-	sort.Slice(rs, func(i, j int) bool { return rs[i].FinishedAt.After(rs[j].FinishedAt) })
-	if limit == 0 || limit >= len(rs) {
-		return rs, nil
-	}
-	return rs[:limit], nil
 }
 
 // GetDirectoryHash implements Transaction.GetDirectoryHash.

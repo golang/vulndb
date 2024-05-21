@@ -228,7 +228,6 @@ type indexPage struct {
 	Updates          []*store.CommitUpdateRecord
 	CVEsNeedingIssue []*store.CVE4Record
 	CVEsUpdatedSince []*store.CVE4Record
-	ModuleScans      []*store.ModuleScanRecord
 }
 
 func (s *Server) indexPage(w http.ResponseWriter, r *http.Request) error {
@@ -271,11 +270,6 @@ func (s *Server) indexPage(w http.ResponseWriter, r *http.Request) error {
 	g.Go(func() error {
 		var err error
 		page.CVEsUpdatedSince, err = s.cfg.Store.ListCVE4RecordsWithTriageState(ctx, store.TriageStateUpdatedSinceIssueCreation)
-		return err
-	})
-	g.Go(func() error {
-		var err error
-		page.ModuleScans, err = s.cfg.Store.ListModuleScanRecords(ctx, 300)
 		return err
 	})
 	if err := g.Wait(); err != nil {

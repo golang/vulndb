@@ -35,7 +35,6 @@ import (
 // - CommitUpdates for CommitUpdateRecords
 // - DirHashes for directory hashes
 // - GHSAs for LegacyGHSARecords.
-// - ModuleScans for ModuleScanRecords.
 type FireStore struct {
 	namespace string
 	client    *firestore.Client
@@ -48,7 +47,6 @@ const (
 	cve4Collection       = "CVEs"
 	dirHashCollection    = "DirHashes"
 	legacyGHSACollection = "GHSAs"
-	modScanCollection    = "ModuleScans"
 )
 
 // NewFireStore creates a new FireStore, backed by a client to Firestore. Since
@@ -158,68 +156,6 @@ func (fs *FireStore) ListCVE4RecordsWithTriageState(ctx context.Context, ts Tria
 		return nil, err
 	}
 	return docsnapsToCVE4Records(docsnaps)
-}
-
-// CreateModuleScanRecord implements Store.CreateModuleScanRecord.
-func (fs *FireStore) CreateModuleScanRecord(ctx context.Context, r *ModuleScanRecord) (err error) {
-	defer derrors.Wrap(&err, "FireStore.CreateModuleScanRecord")
-
-	if err := r.Validate(); err != nil {
-		return err
-	}
-	docref := fs.nsDoc.Collection(modScanCollection).NewDoc()
-	_, err = docref.Create(ctx, r)
-	return err
-}
-
-// GetModuleScanRecord implements store.GetModuleScanRecord.
-func (fs *FireStore) GetModuleScanRecord(ctx context.Context, path, version string, dbTime time.Time) (_ *ModuleScanRecord, err error) {
-	defer derrors.Wrap(&err, "FireStore.GetModuleScanRecord(%s, %s, %s)", path, version, dbTime)
-
-	// There may be several, but we only need one; take the most recent.
-	q := fs.nsDoc.Collection(modScanCollection).
-		Where("Path", "==", path).
-		Where("Version", "==", version).
-		Where("DBTime", "==", dbTime).
-		OrderBy("FinishedAt", firestore.Desc)
-	docsnaps, err := q.Documents(ctx).GetAll()
-	if err != nil {
-		return nil, err
-	}
-	if len(docsnaps) == 0 {
-		return nil, nil
-	}
-
-	var r ModuleScanRecord
-	if err := docsnaps[0].DataTo(&r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-// ListModuleScanRecords implements Store.ListModuleScanRecords.
-func (fs *FireStore) ListModuleScanRecords(ctx context.Context, limit int) (_ []*ModuleScanRecord, err error) {
-	defer derrors.Wrap(&err, "FireStore.ListModuleScanRecords(%d)", limit)
-
-	q := fs.nsDoc.Collection(modScanCollection).OrderBy("FinishedAt", firestore.Desc)
-	if limit > 0 {
-		q = q.Limit(limit)
-	}
-	var rs []*ModuleScanRecord
-	iter := q.Documents(ctx)
-	defer iter.Stop()
-	err = apply(iter, func(ds *firestore.DocumentSnapshot) error {
-		var r ModuleScanRecord
-		if err := ds.DataTo(&r); err != nil {
-			return err
-		}
-		rs = append(rs, &r)
-		return nil
-	})
-	if err != nil {
-		return nil, err
-	}
-	return rs, nil
 }
 
 // dirHashRef returns a DocumentRef for the directory dir.

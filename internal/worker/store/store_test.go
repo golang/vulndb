@@ -48,9 +48,6 @@ func testStore(t *testing.T, s Store) {
 	t.Run("GHSAs", func(t *testing.T) {
 		testGHSAs(t, s)
 	})
-	t.Run("ModuleScanRecords", func(t *testing.T) {
-		testModuleScanRecords(t, s)
-	})
 }
 
 func testUpdates(t *testing.T, s Store) {
@@ -245,57 +242,6 @@ func testGHSAs(t *testing.T, s Store) {
 	}))(t)
 	if got, want := got0, gs[0]; !cmp.Equal(got, want) {
 		t.Errorf("got %+v, want %+v", got, want)
-	}
-}
-
-func testModuleScanRecords(t *testing.T, s Store) {
-	ctx := context.Background()
-	tm := time.Date(2020, time.January, 1, 0, 0, 0, 0, time.UTC)
-	rs := []*ModuleScanRecord{
-		{
-			Path:       "m1",
-			Version:    "v1.2.3",
-			DBTime:     tm,
-			FinishedAt: tm,
-		},
-		{
-			Path:       "m1",
-			Version:    "v1.2.3",
-			DBTime:     tm,
-			FinishedAt: tm.Add(time.Hour),
-		},
-		{
-			Path:       "m2",
-			Version:    "v1.2.3",
-			DBTime:     tm,
-			FinishedAt: tm.Add(time.Hour * 2),
-		},
-	}
-	for _, r := range rs {
-		must(s.CreateModuleScanRecord(ctx, r))(t)
-	}
-
-	// GetModuleScanRecord
-	got := must1(s.GetModuleScanRecord(ctx, "m1", "v1.2.3", tm))(t)
-	// Expect the most recent.
-	if want := rs[1]; !cmp.Equal(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
-	}
-	// Non-existent record.
-	got, err := s.GetModuleScanRecord(ctx, "m1", "v1.2.3", tm.Add(time.Second))
-	if got != nil || err != nil {
-		t.Errorf("got (%v, %v), want (nil, nil)", got, err)
-	}
-
-	// ListModuleScanRecords
-	got2 := must1(s.ListModuleScanRecords(ctx, 0))(t)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	want := []*ModuleScanRecord{rs[2], rs[1], rs[0]}
-	if !cmp.Equal(got2, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got2, want)
 	}
 }
 
