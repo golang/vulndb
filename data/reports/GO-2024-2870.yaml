@@ -1,0 +1,38 @@
+id: GO-2024-2870
+modules:
+    - module: github.com/aquasecurity/trivy
+      versions:
+        - fixed: 0.51.2
+      vulnerable_at: 0.51.1
+      packages:
+        - package: github.com/aquasecurity/trivy/pkg/fanal/image/registry/azure
+        - package: github.com/aquasecurity/trivy/pkg/fanal/image/registry/ecr
+          symbols:
+            - ECR.CheckOptions
+        - package: github.com/aquasecurity/trivy/pkg/fanal/image/registry/google
+          symbols:
+            - Registry.CheckOptions
+summary: Credential leakage in github.com/aquasecurity/trivy
+description: |-
+    A malicious registry can cause Trivy to leak credentials for legitimate
+    registries such as AWS Elastic Container Registry (ECR), Google Cloud
+    Artifact/Container Registry, or Azure Container Registry (ACR) if the registry
+    is scanned from directly using Trivy. These tokens can then be used to push/pull
+    images from those registries to which the identity/user running Trivy has
+    access. This vulnerability only applies when scanning container images directly
+    from a registry. If you use Docker, containerd or other runtime to pull images
+    locally and scan them with Trivy, you are not affected. To enforce this
+    behavior, you can use the --image-src flag to select which sources you trust.
+cves:
+    - CVE-2024-35192
+ghsas:
+    - GHSA-xcq4-m2r3-cmrj
+credits:
+    - '@lyoung-confluent'
+references:
+    - advisory: https://github.com/aquasecurity/trivy/security/advisories/GHSA-xcq4-m2r3-cmrj
+    - fix: https://github.com/aquasecurity/trivy/commit/e7f14f729de259551203f313e57d2d9d3aa2ff87
+source:
+    id: GHSA-xcq4-m2r3-cmrj
+    created: 2024-05-22T14:41:45.135631743Z
+review_status: REVIEWED
