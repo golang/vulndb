@@ -1,0 +1,37 @@
+id: GO-2024-2874
+modules:
+    - module: github.com/cosmos/ibc-go
+    - module: github.com/cosmos/ibc-go/v2
+    - module: github.com/cosmos/ibc-go/v3
+    - module: github.com/cosmos/ibc-go/v4
+    - module: github.com/cosmos/ibc-go/v5
+    - module: github.com/cosmos/ibc-go/v6
+    - module: github.com/cosmos/ibc-go/v7
+      versions:
+        - fixed: 7.0.1
+      vulnerable_at: 7.0.1-wasm-client
+      packages:
+        - package: github.com/cosmos/ibc-go/v7/modules/core/04-channel/keeper
+          symbols:
+            - Keeper.UnreceivedPackets
+summary: |-
+    Inter-Blockchain Communication (IBC) protocol "Huckleberry" vulnerability in
+    github.com/cosmos/ibc-go
+description: |-
+    The ibc-go module is affected by the Inter-Blockchain Communication (IBC)
+    protocol "Huckleberry" vulnerability. The vulnerability allowed an attacker to
+    send arbitrary transactions onto target chains and trigger arbitrary state
+    transitions, including but not limited to, theft of funds. It was possible to
+    exploit this vulnerability in specific situations involving relaying packets in
+    which the source chain is also the final destination chain. Affected networks
+    are those that allow for fee grant capabilities and use a native Relayer (e.g.,
+    Osmosis and Juno).
+ghsas:
+    - GHSA-qjcv-rx3v-7mvj
+references:
+    - fix: https://github.com/cosmos/ibc-go/commit/c77f80f812940fe3b93980d13a5cdd6980e907cc
+    - report: https://github.com/cosmos/ibc-go/issues/1532
+source:
+    id: GHSA-qjcv-rx3v-7mvj
+    created: 2024-05-22T16:53:22.072180612Z
+review_status: REVIEWED
