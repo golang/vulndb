@@ -399,6 +399,43 @@ OSV and CVE records, so it does not need to be polished.
 It can be used to document decisions made when creating the report,
 outstanding issues, or anything else worth mentioning.
 
+## `source`
+
+**required** for new reports
+
+Auto-generated metadata indicating the source of this report.
+
+### `source.id`
+
+type `string`
+
+The CVE or GHSA ID of the vulnerability used to generate this report.
+For original reports, this is "go-security-team".
+
+### `source.created`
+
+type `string`
+
+The timestamp at which the report was generated based on the indicated source.
+
+## `review_status`
+
+type `string`
+
+**required**
+
+The status of this report, either UNREVIEWED or REVIEWED.
+
+Unreviewed reports are generally auto-generated or nearly so. Their
+details have not been verified and no attempt has been made to determine
+packages or symbols. These reports must have an advisory link.
+
+Reviewed reports are reports for which we have made a good faith effort
+to determine correct affected versions, packages, and symbols. (In some
+cases it is not possible to determine all of these, which is OK). Descriptions
+are optional, except for reports affecting the Go standard library, toolchain
+or x/ repos.
+
 ## `excluded`
 
 type `string`
