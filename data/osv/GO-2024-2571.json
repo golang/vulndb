@@ -6,12 +6,12 @@
   "aliases": [
     "GHSA-2557-x9mg-76w8"
   ],
-  "summary": "Vesting account creation on blocked address in cosmossdk.io/x/auth",
-  "details": "Vesting account creation on blocked address in cosmossdk.io/x/auth",
+  "summary": "Invalid block proposal in github.com/cosmos/cosmos-sdk",
+  "details": "Invalid block proposal in github.com/cosmos/cosmos-sdk",
   "affected": [
     {
       "package": {
-        "name": "cosmossdk.io/x/auth",
+        "name": "github.com/cosmos/cosmos-sdk",
         "ecosystem": "Go"
       },
       "ranges": [
@@ -20,11 +20,31 @@
           "events": [
             {
               "introduced": "0"
+            },
+            {
+              "fixed": "0.47.9"
+            },
+            {
+              "introduced": "0.50.0"
+            },
+            {
+              "fixed": "0.50.4"
             }
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cosmos/cosmos-sdk/baseapp",
+            "symbols": [
+              "DefaultProposalHandler.PrepareProposalHandler",
+              "NewBaseApp",
+              "NewDefaultProposalHandler"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
@@ -34,7 +54,7 @@
     },
     {
       "type": "FIX",
-      "url": "https://github.com/cosmos/cosmos-sdk/commit/c05850241e2d615721e3492d15fee4e1deec082b"
+      "url": "https://github.com/cosmos/cosmos-sdk/commit/fe32bcc1d65412c9b5737672956f0638c729ab7d"
     },
     {
       "type": "WEB",
@@ -47,11 +67,11 @@
   ],
   "credits": [
     {
-      "name": "@dongsam and @sushiwushi"
+      "name": "@gitferry, @SebastianElvis, and @vitsalis"
     }
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2024-2571",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }

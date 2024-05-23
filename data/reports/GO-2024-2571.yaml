@@ -1,17 +1,29 @@
 id: GO-2024-2571
 modules:
-    - module: cosmossdk.io/x/auth
-summary: Vesting account creation on blocked address in cosmossdk.io/x/auth
+    - module: github.com/cosmos/cosmos-sdk
+      versions:
+        - fixed: 0.47.9
+        - introduced: 0.50.0
+          fixed: 0.50.4
+      vulnerable_at: 0.50.3
+      packages:
+        - package: github.com/cosmos/cosmos-sdk/baseapp
+          symbols:
+            - NewDefaultProposalHandler
+            - DefaultProposalHandler.PrepareProposalHandler
+          derived_symbols:
+            - NewBaseApp
+summary: Invalid block proposal in github.com/cosmos/cosmos-sdk
 ghsas:
     - GHSA-2557-x9mg-76w8
 credits:
-    - '@dongsam and @sushiwushi'
+    - '@gitferry, @SebastianElvis, and @vitsalis'
 references:
     - advisory: https://github.com/advisories/GHSA-2557-x9mg-76w8
-    - fix: https://github.com/cosmos/cosmos-sdk/commit/c05850241e2d615721e3492d15fee4e1deec082b
+    - fix: https://github.com/cosmos/cosmos-sdk/commit/fe32bcc1d65412c9b5737672956f0638c729ab7d
     - web: https://github.com/cosmos/cosmos-sdk/releases/tag/v0.47.9
     - web: https://github.com/cosmos/cosmos-sdk/releases/tag/v0.50.4
 source:
     id: GHSA-2557-x9mg-76w8
     created: 2024-05-20T20:16:52.629560977Z
-review_status: UNREVIEWED
+review_status: REVIEWED
