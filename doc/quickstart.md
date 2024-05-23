@@ -49,18 +49,13 @@ the label is correct.
 
 ### Add standard reports
 
-1. Issues marked `high priority` need a REVIEWED report, and issues without a priority label need an UNREVIEWED report.
-   * To create a reviewed report for issue #NNN, run:
+1. Issues marked `high priority` need a REVIEWED report, and issues without a priority label need an UNREVIEWED report. To create a report for issue #NNN, run:
 
-      ```bash
-      $ vulnreport create NNN
-      ```
+   ```bash
+   $ vulnreport create NNN
+   ```
 
-   * To create an unreviewed report for issue #NNN, run:
-
-      ```bash
-      $ vulnreport -unreviewed create NNN
-      ```
+   The command knows whether to create a reviewed or unreviewed report based on the issue's label. (To override this decision, use flag `-status=UNREVIEWED` or `-status=REVIEWED`.)
 
 2. Edit the report if needed. For reviewed reports, this follows the standard process. For unreviewed reports, only edit the report if it has lint/fix errors (which will be populated in the notes section).
 3. Fix the report and add derived files:

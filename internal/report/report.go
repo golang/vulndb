@@ -259,6 +259,13 @@ func (r ReviewStatus) String() string {
 	return osv.ReviewStatus(r).String()
 }
 
+func ToReviewStatus(s string) (ReviewStatus, bool) {
+	if rs, ok := osv.ToReviewStatus(s); ok {
+		return ReviewStatus(rs), true
+	}
+	return 0, false
+}
+
 func (r ReviewStatus) MarshalYAML() (any, error) {
 	or := osv.ReviewStatus(r)
 	if !or.IsValid() {
@@ -270,8 +277,8 @@ func (r ReviewStatus) MarshalYAML() (any, error) {
 func (r *ReviewStatus) UnmarshalYAML(node *yaml.Node) error {
 	if node.Kind == yaml.ScalarNode {
 		v := node.Value
-		if rs, ok := osv.ToReviewStatus(v); ok {
-			*r = ReviewStatus(rs)
+		if rs, ok := ToReviewStatus(v); ok {
+			*r = rs
 			return nil
 		}
 		return fmt.Errorf("UnmarshalYAML: unrecognized review status: %s", v)

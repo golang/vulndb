@@ -64,10 +64,10 @@ func (u *unexclude) run(ctx context.Context, filename string) (err error) {
 	}
 
 	if err := u.reportFromMeta(ctx, &reportMeta{
-		id:         oldR.ID,
-		modulePath: modulePath,
-		aliases:    oldR.Aliases(),
-		unreviewed: true,
+		id:           oldR.ID,
+		modulePath:   modulePath,
+		aliases:      oldR.Aliases(),
+		reviewStatus: report.Unreviewed,
 	}); err != nil {
 		return err
 	}

@@ -108,7 +108,7 @@ func createPlaceholder(ctx context.Context, c *issues.Client, args []string) err
 		aliases := []string{arg}
 		packages := []string{"<placeholder>"}
 		bodies := []string{fmt.Sprintf("This is a placeholder issue for %q.", arg)}
-		if err := publishIssue(ctx, c, packages, aliases, bodies, []string{}); err != nil {
+		if err := publishIssue(ctx, c, packages, aliases, bodies, []string{"first party"}); err != nil {
 			return err
 		}
 	}

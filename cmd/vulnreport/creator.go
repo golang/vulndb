@@ -22,6 +22,10 @@ type creator struct {
 	assignee string
 	created  []*report.Report
 
+	// If non-zero, use this review status
+	// instead of the default for new reports.
+	reviewStatus report.ReviewStatus
+
 	*fixer
 	*xrefer
 	*suggester
@@ -33,6 +37,12 @@ func (c *creator) setup(ctx context.Context) (err error) {
 		user = os.Getenv("GITHUB_USER")
 	}
 	c.assignee = user
+
+	rs, ok := report.ToReviewStatus(*reviewStatus)
+	if !ok {
+		return fmt.Errorf("invalid -status=%s", rs)
+	}
+	c.reviewStatus = rs
 
 	c.fixer = new(fixer)
 	c.xrefer = new(xrefer)
@@ -50,15 +60,6 @@ func (c *creator) close() error {
 func (c *creator) skipReason(iss *issues.Issue) string {
 	if c.assignee != "" && iss.Assignee != c.assignee {
 		return fmt.Sprintf("assignee = %q, not %q", iss.Assignee, c.assignee)
-	}
-
-	if *unreviewed {
-		if iss.HasLabel(labelDirect) {
-			return "should not create unreviewed report for direct report"
-		}
-		if iss.HasLabel(labelHighPriority) {
-			return "should not create unreviewed report for high priority issue"
-		}
 	}
 
 	return c.xrefer.skipReason(iss)
@@ -90,12 +91,34 @@ func (x *xrefer) skipReason(iss *issues.Issue) string {
 
 func (c *creator) reportFromIssue(ctx context.Context, iss *issues.Issue) error {
 	return c.reportFromMeta(ctx, &reportMeta{
-		id:         iss.NewGoID(),
-		excluded:   excludedReason(iss),
-		modulePath: modulePath(iss),
-		aliases:    aliases(iss),
-		unreviewed: *unreviewed,
+		id:           iss.NewGoID(),
+		excluded:     excludedReason(iss),
+		modulePath:   modulePath(iss),
+		aliases:      aliases(iss),
+		reviewStatus: reviewStatusOf(iss, c.reviewStatus),
 	})
+}
+
+func reviewStatusOf(iss *issues.Issue, reviewStatus report.ReviewStatus) report.ReviewStatus {
+	d := defaultReviewStatus(iss)
+	// If a valid review status is provided, it overrides the priority label.
+	if reviewStatus != 0 {
+		if d != reviewStatus {
+			log.Warnf("issue %d should be %s based on label(s) but this was overridden with the -status=%s flag", iss.Number, d, reviewStatus)
+		}
+		return reviewStatus
+	}
+	return d
+}
+
+func defaultReviewStatus(iss *issues.Issue) report.ReviewStatus {
+	if iss.HasLabel(labelHighPriority) ||
+		iss.HasLabel(labelDirect) ||
+		iss.HasLabel(labelFirstParty) {
+		return report.Reviewed
+	}
+
+	return report.Unreviewed
 }
 
 func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) error {
@@ -113,16 +136,11 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) error {
 		log.Info("no suitable alias found, creating basic report")
 	}
 
-	status := report.Reviewed
-	if meta.unreviewed {
-		status = report.Unreviewed
-	}
-
 	r := report.New(src, c.pc,
 		report.WithGoID(meta.id),
 		report.WithModulePath(meta.modulePath),
 		report.WithAliases(aliases),
-		report.WithReviewStatus(status),
+		report.WithReviewStatus(meta.reviewStatus),
 	)
 
 	// Find any additional aliases referenced by the source aliases.
@@ -164,7 +182,7 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) error {
 			CVEs:     r.CVEs,
 			GHSAs:    r.GHSAs,
 		}
-	case meta.unreviewed:
+	case meta.reviewStatus == report.Unreviewed:
 		r.Description = ""
 		addNotes := true
 		if fixed := c.fix(ctx, r, addNotes); fixed {
@@ -197,6 +215,7 @@ const (
 	labelSuggestedEdit     = "Suggested Edit"
 	labelTriaged           = "triaged"
 	labelHighPriority      = "high priority"
+	labelFirstParty        = "first party"
 	labelPossibleDuplicate = "possible duplicate"
 	labelPossiblyNotGo     = "possibly not Go"
 )
@@ -235,11 +254,11 @@ func aliases(iss *issues.Issue) (aliases []string) {
 // Data that can be combined with a source vulnerability
 // to create a new report.
 type reportMeta struct {
-	id         string
-	modulePath string
-	aliases    []string
-	excluded   report.ExcludedReason
-	unreviewed bool // create basic report with no TODOs and no description
+	id           string
+	modulePath   string
+	aliases      []string
+	excluded     report.ExcludedReason
+	reviewStatus report.ReviewStatus
 }
 
 const todo = "TODO: "
