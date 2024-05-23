@@ -1,5 +1,7 @@
 # Handling Go Vulnerability Reports
 
+NOTE: This document is somewhat outdated but still contains some valuable background / context. A newer [quickstart guide](quickstart.md) is in progress.
+
 This document explains how we handle vulnerability issue triage in the
 [x/vulndb issue tracker](http://github.com/golang/vulndb/issues).
 
