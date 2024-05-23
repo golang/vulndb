@@ -77,6 +77,10 @@ func (t *triage) skipReason(iss *issues.Issue) string {
 		return "direct external report"
 	}
 
+	if !*force && iss.HasLabel(labelTriaged) {
+		return "already triaged (use -f to force re-triage)"
+	}
+
 	return t.xrefer.skipReason(iss)
 }
 
@@ -102,12 +106,12 @@ type priorityResult struct {
 }
 
 func (t *triage) triage(ctx context.Context, iss *issues.Issue) {
-	var labels []string
+	labels := []string{labelTriaged}
 	defer func() {
-		if len(labels) != 0 {
-			if err := t.ic.AddLabels(ctx, iss.Number, labels); err != nil {
-				log.Warnf("could not auto-add label(s) for issue #%d", iss.Number)
-			}
+		if *dry {
+			log.Infof("would add labels: [%s]", strings.Join(labels, ", "))
+		} else if err := t.ic.AddLabels(ctx, iss.Number, labels); err != nil {
+			log.Warnf("could not auto-add label(s) for issue #%d", iss.Number)
 		}
 	}()
 

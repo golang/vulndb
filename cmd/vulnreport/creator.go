@@ -195,6 +195,7 @@ const (
 	labelDuplicate         = "duplicate"
 	labelDirect            = "Direct External Report"
 	labelSuggestedEdit     = "Suggested Edit"
+	labelTriaged           = "triaged"
 	labelHighPriority      = "high priority"
 	labelPossibleDuplicate = "possible duplicate"
 	labelPossiblyNotGo     = "possibly not Go"
