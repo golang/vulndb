@@ -1,0 +1,23 @@
+id: GO-2024-2879
+modules:
+    - module: github.com/dapr/dapr
+      versions:
+        - introduced: 1.13.0
+          fixed: 1.13.3
+      vulnerable_at: 1.13.2
+summary: Dapr API Token Exposure in github.com/dapr/dapr
+cves:
+    - CVE-2024-35223
+ghsas:
+    - GHSA-284c-x8m7-9w5h
+references:
+    - advisory: https://github.com/dapr/dapr/security/advisories/GHSA-284c-x8m7-9w5h
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-35223
+    - fix: https://github.com/dapr/dapr/commit/e0591e43d0cdfd30a2f2960dce5d9892dc98bc2c
+    - fix: https://github.com/dapr/dapr/pull/7404
+    - report: https://github.com/dapr/dapr/issues/7344
+    - web: https://github.com/dapr/dapr/releases/tag/v1.13.3
+source:
+    id: GHSA-284c-x8m7-9w5h
+    created: 2024-05-24T19:47:17.904676322Z
+review_status: UNREVIEWED

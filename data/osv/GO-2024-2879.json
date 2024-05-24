@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2879",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-35223",
+    "GHSA-284c-x8m7-9w5h"
+  ],
+  "summary": "Dapr API Token Exposure in github.com/dapr/dapr",
+  "details": "Dapr API Token Exposure in github.com/dapr/dapr",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/dapr/dapr",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.13.0"
+            },
+            {
+              "fixed": "1.13.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/dapr/dapr/security/advisories/GHSA-284c-x8m7-9w5h"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-35223"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/dapr/dapr/commit/e0591e43d0cdfd30a2f2960dce5d9892dc98bc2c"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/dapr/dapr/pull/7404"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/dapr/dapr/issues/7344"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dapr/dapr/releases/tag/v1.13.3"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2879",
+    "review_status": "UNREVIEWED"
+  }
+}
