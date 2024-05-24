@@ -8,6 +8,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"net/http"
 	"regexp"
 	"runtime"
 	"strings"
@@ -82,6 +83,14 @@ func (f *fixer) fixAndWriteAll(ctx context.Context, r *report.Report) error {
 func (f *fixer) fix(ctx context.Context, r *report.Report, addNotes bool) (fixed bool) {
 	fixed = true
 
+	fixErr := func(f string, v ...any) {
+		log.Errf(r.ID+": "+f, v...)
+		if addNotes {
+			r.AddNote(report.NoteTypeFix, f, v...)
+		}
+		fixed = false
+	}
+
 	if lints := r.Lint(f.pc); *force || len(lints) > 0 {
 		r.Fix(f.pc)
 	}
@@ -89,11 +98,7 @@ func (f *fixer) fix(ctx context.Context, r *report.Report, addNotes bool) (fixed
 	if !*skipSymbols {
 		log.Infof("%s: checking packages and symbols (use -skip-symbols to skip this)", r.ID)
 		if err := checkReportSymbols(r); err != nil {
-			log.Errf("%s: package or symbol error: %s", r.ID, err)
-			if addNotes {
-				r.AddNote(report.NoteTypeFix, "package or symbol error: %s", err)
-			}
-			fixed = false
+			fixErr("package or symbol error: %s", err)
 		}
 	}
 
@@ -103,6 +108,10 @@ func (f *fixer) fix(ctx context.Context, r *report.Report, addNotes bool) (fixed
 			log.Infof("%s: added %d missing aliases", r.ID, added)
 		}
 	}
+
+	// For now, this is a fix check instead of a lint.
+	log.Infof("%s: checking that all references are reachable", r.ID)
+	checkRefs(r.References, fixErr)
 
 	// Check for remaining lint errors.
 	if addNotes {
@@ -118,6 +127,27 @@ func (f *fixer) fix(ctx context.Context, r *report.Report, addNotes bool) (fixed
 	}
 
 	return fixed
+}
+
+func checkRefs(refs []*report.Reference, fixErr func(f string, v ...any)) {
+	for _, r := range refs {
+		resp, err := http.Head(r.URL)
+		if err != nil {
+			fixErr("%q may not exist: %v", r.URL, err)
+			continue
+		}
+		defer resp.Body.Close()
+
+		// For now, only error on status 404, which is unambiguously a problem.
+		// An experiment to error on all non-200 status codes brought up some
+		// ambiguous cases where the link is still viewable in a browser, e.g.:
+		// - 429 Too Many Requests (https://vuldb.com/)
+		// - 503 Service Unavailable (http://blog.recurity-labs.com/2017-08-10/scm-vulns):
+		// - 403 Forbidden (https://www.sap.com/documents/2022/02/fa865ea4-167e-0010-bca6-c68f7e60039b.html)
+		if resp.StatusCode == http.StatusNotFound {
+			fixErr("%q may not exist: HTTP GET returned status %s", r.URL, resp.Status)
+		}
+	}
 }
 
 func checkReportSymbols(r *report.Report) error {
