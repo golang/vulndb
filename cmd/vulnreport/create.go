@@ -16,7 +16,7 @@ var (
 	useAI           = flag.Bool("ai", false, "for create, use AI to write draft summary and description when creating report")
 	populateSymbols = flag.Bool("symbols", false, "for create, attempt to auto-populate symbols")
 	user            = flag.String("user", "", "for create & create-excluded, only consider issues assigned to the given user")
-	reviewStatus    = flag.String("status", "", "for create, use this review status (REVIEWED or UNREVIEWED) instead of default based on label")
+	reviewStatus    = flag.String("status", "", "for create, use this review status (REVIEWED or UNREVIEWED) instead of default based on label; for commit, only commit reports with this status")
 )
 
 type create struct {

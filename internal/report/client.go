@@ -159,7 +159,7 @@ func (c *Client) addReports(repo *git.Repository) error {
 	}
 
 	return root.Files().ForEach(func(f *object.File) error {
-		if !isYAMLReport(f) {
+		if !IsYAMLReport(f.Name) {
 			return nil
 		}
 
@@ -176,8 +176,8 @@ func (c *Client) addReports(repo *git.Repository) error {
 	})
 }
 
-func isYAMLReport(f *object.File) bool {
-	dir, ext := filepath.Dir(f.Name), filepath.Ext(f.Name)
+func IsYAMLReport(fname string) bool {
+	dir, ext := filepath.Dir(fname), filepath.Ext(fname)
 	return (dir == YAMLDir || dir == ExcludedDir) && ext == ".yaml"
 }
 

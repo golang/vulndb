@@ -32,6 +32,8 @@ type commit struct {
 	filenameParser
 
 	toCommit []*report.Report
+	// only commit reports with this review status
+	reviewStatus report.ReviewStatus
 }
 
 func (commit) name() string { return "commit" }
@@ -44,7 +46,38 @@ func (commit) usage() (string, string) {
 func (c *commit) setup(ctx context.Context) error {
 	c.committer = new(committer)
 	c.fixer = new(fixer)
+
+	rs, ok := report.ToReviewStatus(*reviewStatus)
+	if !ok {
+		return fmt.Errorf("invalid -status=%s", rs)
+	}
+	c.reviewStatus = rs
+
 	return setupAll(ctx, c.committer, c.fixer)
+}
+
+func (c *commit) parseArgs(ctx context.Context, args []string) (filenames []string, _ error) {
+	if len(args) != 0 {
+		return c.filenameParser.parseArgs(ctx, args)
+	}
+
+	// With no arguments, operate on all the changed/added YAML files.
+	statusMap, err := c.gitStatus()
+	if err != nil {
+		return nil, err
+	}
+
+	for fname, status := range statusMap {
+		if report.IsYAMLReport(fname) && status.Worktree != git.Deleted {
+			filenames = append(filenames, fname)
+		}
+	}
+
+	if len(filenames) == 0 {
+		return nil, fmt.Errorf("no arguments provided, and no added/changed YAML files found")
+	}
+
+	return filenames, nil
 }
 
 func (c *commit) close() error {
@@ -58,6 +91,13 @@ func (c *commit) run(ctx context.Context, filename string) (err error) {
 	r, err := report.ReadStrict(filename)
 	if err != nil {
 		return err
+	}
+
+	// If the -status=<REVIEW_STATUS> flag is specified, skip reports
+	// with a different status.
+	if c.reviewStatus != 0 && r.ReviewStatus != c.reviewStatus {
+		log.Infof("skipping %s which has review status %s", r.ID, r.ReviewStatus)
+		return nil
 	}
 
 	// Clean up the report file and ensure derived files are up-to-date.
@@ -87,6 +127,14 @@ func (c *committer) setup(ctx context.Context) error {
 	return nil
 }
 
+func (c *committer) gitStatus() (git.Status, error) {
+	w, err := c.repo.Worktree()
+	if err != nil {
+		return nil, err
+	}
+	return w.Status()
+}
+
 func (c *committer) commit(reports ...*report.Report) error {
 	if len(reports) == 0 {
 		log.Infof("no files to commit, exiting")
@@ -103,11 +151,7 @@ func (c *committer) commit(reports ...*report.Report) error {
 		return err
 	}
 
-	w, err := c.repo.Worktree()
-	if err != nil {
-		return err
-	}
-	status, err := w.Status()
+	status, err := c.gitStatus()
 	if err != nil {
 		return err
 	}
