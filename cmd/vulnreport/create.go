@@ -7,6 +7,8 @@ package main
 import (
 	"context"
 	"flag"
+
+	"golang.org/x/vulndb/internal/issues"
 )
 
 var (
@@ -38,18 +40,10 @@ func (c *create) setup(ctx context.Context) error {
 }
 
 func (c *create) close() error {
-	return closeAll(c.issueParser, c.creator)
+	return closeAll(c.creator)
 }
 
-func (c *create) run(ctx context.Context, issueNumber string) (err error) {
-	iss, err := c.lookup(ctx, issueNumber)
-	if err != nil {
-		return err
-	}
-
-	if c.skip(iss, c.skipReason) {
-		return nil
-	}
-
+func (c *create) run(ctx context.Context, input any) error {
+	iss := input.(*issues.Issue)
 	return c.reportFromIssue(ctx, iss)
 }

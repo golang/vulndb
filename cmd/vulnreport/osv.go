@@ -11,6 +11,7 @@ import (
 type osvCmd struct {
 	*linter
 	filenameParser
+	noSkip
 }
 
 func (osvCmd) name() string { return "osv" }
@@ -27,10 +28,10 @@ func (o *osvCmd) setup(ctx context.Context) error {
 
 func (o *osvCmd) close() error { return nil }
 
-func (o *osvCmd) run(ctx context.Context, filename string) error {
-	r, err := o.readLinted(filename)
-	if err != nil {
+func (c *osvCmd) run(_ context.Context, input any) error {
+	r := input.(*yamlReport)
+	if err := c.lint(r); err != nil {
 		return err
 	}
-	return writeOSV(r)
+	return r.writeOSV()
 }

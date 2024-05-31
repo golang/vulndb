@@ -39,7 +39,7 @@ func (*triage) usage() (string, string) {
 
 func (t *triage) close() error {
 	log.Outf("triaged %d issues:%s%s",
-		len(t.isses), listItem, strings.Join(toStrings(t.stats), listItem))
+		len(t.stats[statTriaged]), listItem, strings.Join(toStrings(t.stats[:len(t.stats)-1]), listItem))
 	// Print the command to create all high priority reports.
 	if len(t.stats[statHighPriority]) > 0 {
 		log.Outf("helpful commands:\n  $ vulnreport create %s", t.stats[statHighPriority].issNums())
@@ -72,29 +72,22 @@ func (t *triage) setup(ctx context.Context) error {
 	return setupAll(ctx, t.fixer, t.issueParser, t.xrefer)
 }
 
-func (t *triage) skipReason(iss *issues.Issue) string {
+func (t *triage) skip(input any) string {
+	iss := input.(*issues.Issue)
+
 	if iss.HasLabel(labelDirect) {
 		return "direct external report"
 	}
 
 	if !*force && iss.HasLabel(labelTriaged) {
-		return "already triaged (use -f to force re-triage)"
+		return "already triaged; use -f to force re-triage"
 	}
 
-	return t.xrefer.skipReason(iss)
+	return skip(iss, t.xrefer)
 }
 
-func (t *triage) run(ctx context.Context, issNum string) (err error) {
-	iss, err := t.lookup(ctx, issNum)
-	if err != nil {
-		return err
-	}
-
-	if reason := t.skipReason(iss); reason != "" {
-		t.addStat(iss, statSkipped, reason)
-		return nil
-	}
-
+func (t *triage) run(ctx context.Context, input any) (err error) {
+	iss := input.(*issues.Issue)
 	t.triage(ctx, iss)
 	return nil
 }
@@ -109,10 +102,11 @@ func (t *triage) triage(ctx context.Context, iss *issues.Issue) {
 	labels := []string{labelTriaged}
 	defer func() {
 		if *dry {
-			log.Infof("would add labels: [%s]", strings.Join(labels, ", "))
+			log.Infof("issue #%d: would add labels: [%s]", iss.Number, strings.Join(labels, ", "))
 		} else if err := t.ic.AddLabels(ctx, iss.Number, labels); err != nil {
-			log.Warnf("could not auto-add label(s) for issue #%d", iss.Number)
+			log.Warnf("issue #%d: could not auto-add label(s) ", iss.Number)
 		}
+		t.addStat(iss, statTriaged, "")
 	}()
 
 	xrefs := t.findDuplicates(ctx, iss)
@@ -200,7 +194,7 @@ func (t *triage) findDuplicates(ctx context.Context, iss *issues.Issue) map[stri
 	aliases := aliases(iss)
 
 	if len(aliases) == 0 {
-		log.Infof("skipping duplicate search for issue #%d (no aliases found)", iss.Number)
+		log.Infof("issue #%d: skipping duplicate search (no aliases found)", iss.Number)
 		return nil
 	}
 
@@ -252,7 +246,10 @@ func (t *triage) addStat(iss *issues.Issue, stat int, reason string) {
 
 	var lg func(string, ...any)
 	switch stat {
-	case statLowPriority, statSkipped:
+	case statTriaged:
+		// no-op
+		lg = func(string, ...any) {}
+	case statLowPriority:
 		lg = log.Infof
 	case statHighPriority, statDuplicate, statNotGo:
 		lg = log.Outf
@@ -270,19 +267,20 @@ const (
 	statHighPriority = iota
 	statLowPriority
 	statUnknownPriority
-	statSkipped
 
 	statDuplicate
 	statNotGo
+
+	statTriaged
 )
 
 var statNames = []string{
 	statHighPriority:    "high priority",
 	statLowPriority:     "low priority",
 	statUnknownPriority: "unknown priority",
-	statSkipped:         "skipped",
 	statDuplicate:       "likely duplicate",
 	statNotGo:           "possibly not Go",
+	statTriaged:         "triaged",
 }
 
 type issuesList []*issues.Issue

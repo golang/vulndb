@@ -30,6 +30,7 @@ var (
 type fix struct {
 	*fixer
 	filenameParser
+	noSkip
 }
 
 func (fix) name() string { return "fix" }
@@ -46,11 +47,8 @@ func (f *fix) setup(ctx context.Context) error {
 
 func (*fix) close() error { return nil }
 
-func (f *fix) run(ctx context.Context, filename string) (err error) {
-	r, err := report.ReadStrict(filename)
-	if err != nil {
-		return err
-	}
+func (f *fix) run(ctx context.Context, input any) error {
+	r := input.(*yamlReport)
 	return f.fixAndWriteAll(ctx, r)
 }
 
@@ -65,22 +63,22 @@ func (f *fixer) setup(ctx context.Context) error {
 	return setupAll(ctx, f.linter, f.aliasFinder)
 }
 
-func (f *fixer) fixAndWriteAll(ctx context.Context, r *report.Report) error {
+func (f *fixer) fixAndWriteAll(ctx context.Context, r *yamlReport) error {
 	fixed := f.fix(ctx, r, false)
 
 	// fix may have partially succeeded, so write the report no matter what.
-	if err := writeReport(r); err != nil {
+	if err := r.write(); err != nil {
 		return err
 	}
 
 	if fixed {
-		return writeDerived(r)
+		return r.writeDerived()
 	}
 
 	return fmt.Errorf("%s: could not fix all errors; requires manual review", r.ID)
 }
 
-func (f *fixer) fix(ctx context.Context, r *report.Report, addNotes bool) (fixed bool) {
+func (f *fixer) fix(ctx context.Context, r *yamlReport, addNotes bool) (fixed bool) {
 	fixed = true
 
 	fixErr := func(f string, v ...any) {
@@ -97,14 +95,14 @@ func (f *fixer) fix(ctx context.Context, r *report.Report, addNotes bool) (fixed
 
 	if !*skipSymbols {
 		log.Infof("%s: checking packages and symbols (use -skip-symbols to skip this)", r.ID)
-		if err := checkReportSymbols(r); err != nil {
+		if err := r.checkSymbols(); err != nil {
 			fixErr("package or symbol error: %s", err)
 		}
 	}
 
 	if !*skipAlias {
 		log.Infof("%s: checking for missing GHSAs and CVEs (use -skip-alias to skip this)", r.ID)
-		if added := f.addMissingAliases(ctx, r); added > 0 {
+		if added := r.addMissingAliases(ctx, f.aliasFinder); added > 0 {
 			log.Infof("%s: added %d missing aliases", r.ID, added)
 		}
 	}
@@ -116,12 +114,12 @@ func (f *fixer) fix(ctx context.Context, r *report.Report, addNotes bool) (fixed
 	// Check for remaining lint errors.
 	if addNotes {
 		if r.LintAsNotes(f.pc) {
-			log.Warnf("%s still has lint errors after fix", r.ID)
+			log.Warnf("%s: still has lint errors after fix", r.ID)
 			fixed = false
 		}
 	} else {
 		if lints := r.Lint(f.pc); len(lints) > 0 {
-			log.Warnf("%s still has lint errors after fix:\n\t- %s", r.ID, strings.Join(lints, "\n\t- "))
+			log.Warnf("%s: still has lint errors after fix:\n\t- %s", r.ID, strings.Join(lints, "\n\t- "))
 			fixed = false
 		}
 	}
@@ -150,9 +148,9 @@ func checkRefs(refs []*report.Reference, fixErr func(f string, v ...any)) {
 	}
 }
 
-func checkReportSymbols(r *report.Report) error {
+func (r *yamlReport) checkSymbols() error {
 	if r.IsExcluded() {
-		log.Infof("%s is excluded, skipping symbol checks", r.ID)
+		log.Infof("%s: excluded, skipping symbol checks", r.ID)
 		return nil
 	}
 	for _, m := range r.Modules {
@@ -185,7 +183,7 @@ func checkReportSymbols(r *report.Report) error {
 				return fmt.Errorf("package %s: %w", p.Package, err)
 			}
 			// Remove any derived symbols that were marked as excluded by a human.
-			syms = removeExcluded(syms, p.ExcludedSymbols)
+			syms = removeExcluded(r.ID, syms, p.ExcludedSymbols)
 			if !cmp.Equal(syms, p.DerivedSymbols) {
 				p.DerivedSymbols = syms
 				log.Infof("%s: updated derived symbols for package %s", r.ID, p.Package)
@@ -196,14 +194,14 @@ func checkReportSymbols(r *report.Report) error {
 	return nil
 }
 
-func removeExcluded(syms, excluded []string) []string {
+func removeExcluded(id string, syms, excluded []string) []string {
 	if len(excluded) == 0 {
 		return syms
 	}
 	var newSyms []string
 	for _, d := range syms {
 		if slices.Contains(excluded, d) {
-			log.Infof("removed excluded symbol %s", d)
+			log.Infof("%s: removed excluded symbol %s", id, d)
 			continue
 		}
 		newSyms = append(newSyms, d)

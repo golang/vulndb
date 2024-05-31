@@ -11,6 +11,7 @@ import (
 type cveCmd struct {
 	*linter
 	filenameParser
+	noSkip
 }
 
 func (cveCmd) name() string { return "cve" }
@@ -27,10 +28,10 @@ func (c *cveCmd) setup(ctx context.Context) error {
 
 func (c *cveCmd) close() error { return nil }
 
-func (c *cveCmd) run(ctx context.Context, filename string) (err error) {
-	r, err := c.readLinted(filename)
-	if err != nil {
+func (c *cveCmd) run(_ context.Context, input any) error {
+	r := input.(*yamlReport)
+	if err := c.lint(r); err != nil {
 		return err
 	}
-	return writeCVE(r)
+	return r.writeCVE()
 }

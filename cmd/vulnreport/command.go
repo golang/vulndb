@@ -12,6 +12,8 @@ import (
 	"path/filepath"
 
 	"golang.org/x/vulndb/cmd/vulnreport/log"
+	"golang.org/x/vulndb/internal/issues"
+	"golang.org/x/vulndb/internal/report"
 )
 
 // command represents a subcommand of vulnreport.
@@ -27,11 +29,13 @@ type command interface {
 	// This function need not be one-to-one: there may be more
 	// inputs than args or vice-versa.
 	parseArgs(_ context.Context, args []string) (inputs []string, _ error)
-	// run executes the subcommand on the given input.
-	run(_ context.Context, input string) error
+	lookup(context.Context, string) (any, error)
+	skip(any) string
+	run(context.Context, any) error
 	// close cleans up state and/or completes tasks that should occur
 	// after run is called on all inputs.
 	close() error
+	inputType() string
 }
 
 // run executes the given command on the given raw arguments.
@@ -39,10 +43,13 @@ func run(ctx context.Context, c command, args []string) (err error) {
 	if err := c.setup(ctx); err != nil {
 		return err
 	}
+
+	stats := &counter{}
 	defer func() {
 		if cerr := c.close(); cerr != nil {
 			err = errors.Join(err, cerr)
 		}
+		log.Infof("%s: processed %d %s(s) (success=%d; skip=%d; error=%d)", c.name(), stats.total(), c.inputType(), stats.succeeded, stats.skipped, stats.errored)
 	}()
 
 	inputs, err := c.parseArgs(ctx, args)
@@ -50,14 +57,54 @@ func run(ctx context.Context, c command, args []string) (err error) {
 		return err
 	}
 
+	log.Infof("%s: operating on %d %s(s)", c.name(), len(inputs), c.inputType())
+
 	for _, input := range inputs {
-		log.Infof("%s %v", c.name(), input)
-		if err := c.run(ctx, input); err != nil {
-			log.Errf("%s: %s", c.name(), err)
+		in, err := c.lookup(ctx, input)
+		if err != nil {
+			stats.errored++
+			log.Errf("%s: lookup %s failed: %s", c.name(), input, err)
+			continue
 		}
+
+		if reason := c.skip(in); reason != "" {
+			stats.skipped++
+			log.Infof("%s: skipping %s (%s)", c.name(), toString(in), reason)
+			continue
+		}
+
+		log.Infof("%s %s", c.name(), input)
+		if err := c.run(ctx, in); err != nil {
+			stats.errored++
+			log.Errf("%s: %s", c.name(), err)
+			continue
+		}
+
+		stats.succeeded++
 	}
 
 	return nil
+}
+
+type counter struct {
+	skipped   int
+	succeeded int
+	errored   int
+}
+
+func (c *counter) total() int {
+	return c.skipped + c.succeeded + c.errored
+}
+
+func toString(in any) string {
+	switch v := in.(type) {
+	case *yamlReport:
+		return fmt.Sprintf("report %s", v.Report.ID)
+	case *issues.Issue:
+		return fmt.Sprintf("issue #%d", v.Number)
+	default:
+		return fmt.Sprintf("%v", v)
+	}
 }
 
 type setuper interface {
@@ -95,6 +142,10 @@ const (
 // interface, and can be used by commands that operate on YAML filenames.
 type filenameParser bool
 
+func (filenameParser) inputType() string {
+	return "report"
+}
+
 func (filenameParser) parseArgs(_ context.Context, args []string) (filenames []string, _ error) {
 	if len(args) == 0 {
 		return nil, fmt.Errorf("no arguments provided")
@@ -123,4 +174,23 @@ func argToFilename(arg string) (string, error) {
 		return "", fmt.Errorf("%s is not a valid filename or issue ID with existing report: %w", arg, err)
 	}
 	return arg, nil
+}
+
+func (filenameParser) lookup(_ context.Context, filename string) (any, error) {
+	r, err := report.ReadStrict(filename)
+	if err != nil {
+		return nil, err
+	}
+	return &yamlReport{Report: r, filename: filename}, nil
+}
+
+type noSkip bool
+
+func (noSkip) skip(any) string {
+	return ""
+}
+
+type yamlReport struct {
+	*report.Report
+	filename string
 }

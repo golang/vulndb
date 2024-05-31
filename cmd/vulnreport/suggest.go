@@ -22,6 +22,7 @@ var (
 type suggest struct {
 	*suggester
 	filenameParser
+	noSkip
 }
 
 func (suggest) name() string { return "suggest" }
@@ -36,11 +37,8 @@ func (s *suggest) setup(ctx context.Context) error {
 	return setupAll(ctx, s.suggester)
 }
 
-func (s *suggest) run(ctx context.Context, filename string) (err error) {
-	r, err := report.Read(filename)
-	if err != nil {
-		return err
-	}
+func (s *suggest) run(ctx context.Context, input any) (err error) {
+	r := input.(*yamlReport)
 
 	log.Info("contacting the Gemini API...")
 	suggestions, err := s.suggest(ctx, r, *numSuggestions)
@@ -72,8 +70,8 @@ func (s *suggest) run(ctx context.Context, filename string) (err error) {
 			}
 			switch choice {
 			case "a":
-				applySuggestion(r, s)
-				if err := r.Write(filename); err != nil {
+				r.applySuggestion(s)
+				if err := r.write(); err != nil {
 					log.Err(err)
 				}
 				return nil
@@ -112,7 +110,7 @@ func (s *suggester) close() error {
 	return nil
 }
 
-func (s *suggester) suggest(ctx context.Context, r *report.Report, max int) (suggestions []*genai.Suggestion, err error) {
+func (s *suggester) suggest(ctx context.Context, r *yamlReport, max int) (suggestions []*genai.Suggestion, err error) {
 	attempts := 0
 	maxAttempts := max + 2
 	for len(suggestions) < max && attempts < maxAttempts {
@@ -139,7 +137,7 @@ func (s *suggester) suggest(ctx context.Context, r *report.Report, max int) (sug
 	return suggestions, nil
 }
 
-func applySuggestion(r *report.Report, s *genai.Suggestion) {
+func (r *yamlReport) applySuggestion(s *genai.Suggestion) {
 	r.Summary = report.Summary(s.Summary)
 	r.Description = report.Description(s.Description)
 	r.FixText()

@@ -20,6 +20,7 @@ import (
 type xref struct {
 	*xrefer
 	filenameParser
+	noSkip
 }
 
 func (xref) name() string { return "xref" }
@@ -36,14 +37,12 @@ func (x *xref) setup(ctx context.Context) error {
 
 func (x *xref) close() error { return nil }
 
-// run returns cross-references for a report: Information about other reports
+// xref returns cross-references for a report: Information about other reports
 // for the same CVE, GHSA, or module.
-func (x *xref) run(ctx context.Context, filename string) (err error) {
-	r, err := report.Read(filename)
-	if err != nil {
-		return err
-	}
-	vlog.Out(filename)
+func (x *xref) run(ctx context.Context, input any) (err error) {
+	r := input.(*yamlReport)
+
+	vlog.Out(r.filename)
 	xrefs, err := x.xref(r)
 	if err != nil {
 		return err
@@ -69,14 +68,10 @@ type xrefer struct {
 	rc *report.Client
 }
 
-func (x *xrefer) xref(r *report.Report) (string, error) {
+func (x *xrefer) xref(r *yamlReport) (string, error) {
 	out := &strings.Builder{}
-	matches := x.rc.XRef(r)
-	filename, err := r.YAMLFilename()
-	if err != nil {
-		return "", err
-	}
-	delete(matches, filename)
+	matches := x.rc.XRef(r.Report)
+	delete(matches, r.filename)
 	// This sorts as CVEs, GHSAs, and then modules.
 	for _, fname := range sorted(maps.Keys(matches)) {
 		for _, id := range sorted(matches[fname]) {

@@ -16,6 +16,7 @@ type setDates struct {
 	dates map[string]gitrepo.Dates
 
 	filenameParser
+	noSkip
 }
 
 func (setDates) name() string { return "set-dates" }
@@ -56,18 +57,16 @@ func (sd *setDates) close() error { return nil }
 // date can. Always using the git history as the source of truth for the
 // last-modified date avoids confusion if the report YAML and the git history
 // disagree.
-func (sd *setDates) run(ctx context.Context, filename string) (err error) {
-	r, err := report.Read(filename)
-	if err != nil {
-		return err
-	}
+func (sd *setDates) run(ctx context.Context, input any) (err error) {
+	r := input.(*yamlReport)
+
 	if !r.Published.IsZero() {
 		return nil
 	}
-	d, ok := sd.dates[filename]
+	d, ok := sd.dates[r.filename]
 	if !ok {
-		return fmt.Errorf("can't find git repo commit dates for %q", filename)
+		return fmt.Errorf("can't find git repo commit dates for %q", r.filename)
 	}
 	r.Published = d.Oldest
-	return r.Write(filename)
+	return r.write()
 }

@@ -31,7 +31,7 @@ func (af *aliasFinder) setup(ctx context.Context) error {
 
 // addMissingAliases uses the existing aliases in a report to find
 // any missing aliases, and adds them to the report.
-func (af *aliasFinder) addMissingAliases(ctx context.Context, r *report.Report) (added int) {
+func (r *yamlReport) addMissingAliases(ctx context.Context, af *aliasFinder) (added int) {
 	all := af.allAliases(ctx, r.Aliases())
 	// If we have manually marked an identifier as "related", but
 	// not actually an alias, don't override this decision.

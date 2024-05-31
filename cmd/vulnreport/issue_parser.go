@@ -10,7 +10,6 @@ import (
 	"strconv"
 	"strings"
 
-	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
 )
@@ -18,12 +17,15 @@ import (
 // issueParser implements the "parseArgs" function of the command
 // interface, and can be used by commands that operate on Github issues.
 type issueParser struct {
-	ic      *issues.Client
-	isses   map[string]*issues.Issue
-	skipped []string
+	ic    *issues.Client
+	isses map[string]*issues.Issue
 }
 
 const issueStateOpen = "open"
+
+func (*issueParser) inputType() string {
+	return "issue"
+}
 
 func (ip *issueParser) parseArgs(ctx context.Context, args []string) (issNums []string, _ error) {
 	if len(args) > 0 {
@@ -35,7 +37,6 @@ func (ip *issueParser) parseArgs(ctx context.Context, args []string) (issNums []
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("no arguments provided - operating on %d open issues", len(is))
 
 	for _, iss := range is {
 		n := strconv.Itoa(iss.Number)
@@ -59,7 +60,7 @@ func (ip *issueParser) setup(ctx context.Context) error {
 	return nil
 }
 
-func (ip *issueParser) lookup(ctx context.Context, issNum string) (*issues.Issue, error) {
+func (ip *issueParser) lookup(ctx context.Context, issNum string) (any, error) {
 	iss, ok := ip.isses[issNum]
 	if !ok {
 		n, err := strconv.Atoi(issNum)
@@ -75,22 +76,6 @@ func (ip *issueParser) lookup(ctx context.Context, issNum string) (*issues.Issue
 	}
 
 	return iss, nil
-}
-
-func (ip *issueParser) skip(iss *issues.Issue, skipReason func(*issues.Issue) string) bool {
-	if reason := skipReason(iss); reason != "" {
-		log.Infof("skipping issue #%d (%s)", iss.Number, reason)
-		ip.skipped = append(ip.skipped, fmt.Sprint(iss.Number))
-		return true
-	}
-	return false
-}
-
-func (ip *issueParser) close() error {
-	if len(ip.skipped) > 0 {
-		log.Infof("processed %d issue(s); skipped %d issue(s)", len(ip.isses), len(ip.skipped))
-	}
-	return nil
 }
 
 func argsToIDs(args []string) ([]string, error) {

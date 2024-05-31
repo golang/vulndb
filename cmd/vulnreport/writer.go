@@ -5,27 +5,21 @@
 package main
 
 import (
-	"os"
 	"time"
 
 	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/cve5"
 	"golang.org/x/vulndb/internal/database"
-	"golang.org/x/vulndb/internal/report"
 )
 
-func writeReport(r *report.Report) error {
-	fname, err := r.YAMLFilename()
-	if err != nil {
+func (r *yamlReport) write() error {
+	if err := r.Write(r.filename); err != nil {
 		return err
 	}
-	if err := r.Write(fname); err != nil {
-		return err
-	}
-	return ok(fname)
+	return ok(r.filename)
 }
 
-func writeOSV(r *report.Report) error {
+func (r *yamlReport) writeOSV() error {
 	if r.IsExcluded() {
 		return nil
 	}
@@ -33,23 +27,23 @@ func writeOSV(r *report.Report) error {
 	return writeJSON(r.OSVFilename(), r.ToOSV(time.Time{}))
 }
 
-func writeCVE(r *report.Report) error {
+func (r *yamlReport) writeCVE() error {
 	if r.CVEMetadata == nil {
 		return nil
 	}
 
-	cve, err := cve5.FromReport(r)
+	cve, err := cve5.FromReport(r.Report)
 	if err != nil {
 		return err
 	}
 	return writeJSON(r.CVEFilename(), cve)
 }
 
-func writeDerived(r *report.Report) error {
-	if err := writeOSV(r); err != nil {
+func (r *yamlReport) writeDerived() error {
+	if err := r.writeOSV(); err != nil {
 		return err
 	}
-	return writeCVE(r)
+	return r.writeCVE()
 }
 
 func writeJSON(fname string, v any) error {
@@ -62,11 +56,4 @@ func writeJSON(fname string, v any) error {
 func ok(fname string) error {
 	log.Out(fname)
 	return nil
-}
-
-func remove(fname string) {
-	if err := os.Remove(fname); err != nil {
-		log.Errf("could not remove %s: %v", fname, err)
-	}
-	log.Infof("removed %s", fname)
 }

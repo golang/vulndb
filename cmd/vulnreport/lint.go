@@ -10,12 +10,12 @@ import (
 	"strings"
 
 	"golang.org/x/vulndb/internal/proxy"
-	"golang.org/x/vulndb/internal/report"
 )
 
 type lint struct {
 	*linter
 	filenameParser
+	noSkip
 }
 
 func (lint) name() string { return "lint" }
@@ -32,9 +32,9 @@ func (l *lint) setup(ctx context.Context) error {
 
 func (l *lint) close() error { return nil }
 
-func (l *lint) run(ctx context.Context, filename string) (err error) {
-	_, err = l.readLinted(filename)
-	return err
+func (l *lint) run(_ context.Context, input any) error {
+	r := input.(*yamlReport)
+	return l.lint(r)
 }
 
 type linter struct {
@@ -46,22 +46,11 @@ func (l *linter) setup(_ context.Context) error {
 	return nil
 }
 
-func (l *linter) lint(r *report.Report) error {
+func (l *linter) lint(r *yamlReport) error {
 	if lints := r.Lint(l.pc); len(lints) > 0 {
 		return fmt.Errorf("%v has %d lint warnings:%s%s", r.ID, len(lints), listItem, strings.Join(lints, listItem))
 	}
 	return nil
-}
-
-func (l *linter) readLinted(filename string) (*report.Report, error) {
-	r, err := report.ReadStrict(filename)
-	if err != nil {
-		return nil, err
-	}
-	if err := l.lint(r); err != nil {
-		return nil, err
-	}
-	return r, nil
 }
 
 func (l *linter) canonicalModule(mp string) string {

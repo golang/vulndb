@@ -7,6 +7,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"os"
 
 	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/report"
@@ -29,7 +30,13 @@ func (u *unexclude) setup(ctx context.Context) error {
 	return setupAll(ctx, u.creator)
 }
 
-func (u *unexclude) skipReason(r *report.Report) string {
+func (u *unexclude) close() error {
+	return closeAll(u.creator)
+}
+
+func (u *unexclude) skip(input any) string {
+	r := input.(*yamlReport)
+
 	if !r.IsExcluded() {
 		return "not excluded"
 	}
@@ -37,7 +44,7 @@ func (u *unexclude) skipReason(r *report.Report) string {
 	// Usually, we only unexclude reports that are effectively private or not importable.
 	if ex := r.Excluded; ex != "EFFECTIVELY_PRIVATE" && ex != "NOT_IMPORTABLE" {
 		if *force {
-			log.Warnf("report %s is excluded for reason %q, but -f was specified, continuing", r.ID, ex)
+			log.Warnf("%s: excluded for reason %q, but -f was specified, continuing", r.ID, ex)
 			return ""
 		}
 		return fmt.Sprintf("excluded = %s; use -f to force", ex)
@@ -47,16 +54,8 @@ func (u *unexclude) skipReason(r *report.Report) string {
 }
 
 // unexclude converts an excluded report into a regular report.
-func (u *unexclude) run(ctx context.Context, filename string) (err error) {
-	oldR, err := report.ReadStrict(filename)
-	if err != nil {
-		return err
-	}
-
-	if reason := u.skipReason(oldR); reason != "" {
-		log.Infof("skipping %s (%s)", filename, reason)
-		return nil
-	}
+func (u *unexclude) run(ctx context.Context, input any) (err error) {
+	oldR := input.(*yamlReport)
 
 	var modulePath string
 	if len(oldR.Modules) > 0 {
@@ -72,6 +71,14 @@ func (u *unexclude) run(ctx context.Context, filename string) (err error) {
 		return err
 	}
 
-	remove(filename)
+	remove(oldR)
 	return nil
+}
+
+func remove(r *yamlReport) {
+	if err := os.Remove(r.filename); err != nil {
+		log.Errf("%s: could not remove file %s: %v", r.ID, r.filename, err)
+		return
+	}
+	log.Infof("%s: removed %s", r.ID, r.filename)
 }

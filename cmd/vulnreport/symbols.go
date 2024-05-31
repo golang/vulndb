@@ -8,7 +8,6 @@ import (
 	"context"
 	"flag"
 
-	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/symbols"
 )
 
@@ -16,7 +15,10 @@ var (
 	update = flag.Bool("update", false, "for symbols, populate the FixLinks field for each module")
 )
 
-type symbolsCmd struct{ filenameParser }
+type symbolsCmd struct {
+	filenameParser
+	noSkip
+}
 
 func (symbolsCmd) name() string { return "symbols" }
 
@@ -29,15 +31,12 @@ func (s *symbolsCmd) setup(ctx context.Context) error { return nil }
 
 func (s *symbolsCmd) close() error { return nil }
 
-func (s *symbolsCmd) run(ctx context.Context, filename string) (err error) {
-	r, err := report.Read(filename)
-	if err != nil {
+func (s *symbolsCmd) run(ctx context.Context, input any) (err error) {
+	r := input.(*yamlReport)
+
+	if err = symbols.Populate(r.Report, *update); err != nil {
 		return err
 	}
 
-	if err = symbols.Populate(r, *update); err != nil {
-		return err
-	}
-
-	return r.Write(filename)
+	return r.write()
 }

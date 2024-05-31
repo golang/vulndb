@@ -31,7 +31,7 @@ type commit struct {
 	*fixer
 	filenameParser
 
-	toCommit []*report.Report
+	toCommit []*yamlReport
 	// only commit reports with this review status
 	reviewStatus report.ReviewStatus
 }
@@ -87,18 +87,24 @@ func (c *commit) close() error {
 	return nil
 }
 
-func (c *commit) run(ctx context.Context, filename string) (err error) {
-	r, err := report.ReadStrict(filename)
-	if err != nil {
-		return err
+func (c *commit) skip(input any) string {
+	r := input.(*yamlReport)
+
+	if c.reviewStatus == 0 {
+		return ""
 	}
 
 	// If the -status=<REVIEW_STATUS> flag is specified, skip reports
 	// with a different status.
-	if c.reviewStatus != 0 && r.ReviewStatus != c.reviewStatus {
-		log.Infof("skipping %s which has review status %s", r.ID, r.ReviewStatus)
-		return nil
+	if r.ReviewStatus != c.reviewStatus {
+		return fmt.Sprintf("review status is %s", r.ReviewStatus)
 	}
+
+	return ""
+}
+
+func (c *commit) run(ctx context.Context, input any) error {
+	r := input.(*yamlReport)
 
 	// Clean up the report file and ensure derived files are up-to-date.
 	// Stop if there any problems.
@@ -135,12 +141,7 @@ func (c *committer) gitStatus() (git.Status, error) {
 	return w.Status()
 }
 
-func (c *committer) commit(reports ...*report.Report) error {
-	if len(reports) == 0 {
-		log.Infof("no files to commit, exiting")
-		return nil
-	}
-
+func (c *committer) commit(reports ...*yamlReport) error {
 	var globs []string
 	for _, r := range reports {
 		globs = append(globs, fmt.Sprintf("*%s*", r.ID))
@@ -172,7 +173,7 @@ func (c *committer) commit(reports ...*report.Report) error {
 
 // actionPhrases determines the action phrases to use to describe what is happening
 // in the commit, based on the status of the git staging area.
-func actionPhrases(status git.Status, r *report.Report) (reportAction, issueAction string, _ error) {
+func actionPhrases(status git.Status, r *yamlReport) (reportAction, issueAction string, _ error) {
 	const (
 		updateIssueAction = "Updates"
 		fixIssueAction    = "Fixes"
@@ -183,11 +184,7 @@ func actionPhrases(status git.Status, r *report.Report) (reportAction, issueActi
 		updateReportAction    = "update"
 	)
 
-	fname, err := r.YAMLFilename()
-	if err != nil {
-		return "", "", err
-	}
-	stat := status.File(fname).Staging
+	stat := status.File(r.filename).Staging
 	switch stat {
 	case git.Deleted:
 		if r.IsExcluded() {
@@ -196,7 +193,7 @@ func actionPhrases(status git.Status, r *report.Report) (reportAction, issueActi
 			return deleteReportAction, updateIssueAction, nil
 		}
 		// It's not OK to delete a regular report. These can be withdrawn but not deleted.
-		return "", "", fmt.Errorf("cannot delete regular report %s (use withdrawn field instead)", fname)
+		return "", "", fmt.Errorf("cannot delete regular report %s (use withdrawn field instead)", r.filename)
 	case git.Added, git.Untracked:
 		switch {
 		case status.File(filepath.Join(report.ExcludedDir, r.ID+".yaml")).Staging == git.Deleted:
@@ -217,9 +214,9 @@ func actionPhrases(status git.Status, r *report.Report) (reportAction, issueActi
 	}
 }
 
-func newCommitMessage(status git.Status, reports []*report.Report) (string, error) {
-	actions := make(map[string][]*report.Report)
-	issueActions := make(map[string][]*report.Report)
+func newCommitMessage(status git.Status, reports []*yamlReport) (string, error) {
+	actions := make(map[string][]*yamlReport)
+	issueActions := make(map[string][]*yamlReport)
 	for _, r := range reports {
 		reportAction, issueAction, err := actionPhrases(status, r)
 		if err != nil {
@@ -242,18 +239,13 @@ func newCommitMessage(status git.Status, reports []*report.Report) (string, erro
 	folders := make(map[string]bool)
 	for issueAction, rs := range issueActions {
 		for _, r := range rs {
-			f, err := r.YAMLFilename()
-			if err != nil {
-				return "", err
-			}
-
-			folder, _, issueID, err := report.ParseFilepath(f)
+			folder, _, issueID, err := report.ParseFilepath(r.filename)
 			if err != nil {
 				return "", err
 			}
 
 			folders[folder] = true
-			bodySegments = append(bodySegments, f)
+			bodySegments = append(bodySegments, r.filename)
 			issueSegments = append(issueSegments, fmt.Sprintf("%s golang/vulndb#%d", issueAction, issueID))
 		}
 	}

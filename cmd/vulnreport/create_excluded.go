@@ -28,7 +28,7 @@ func (createExcluded) usage() (string, string) {
 
 func (c *createExcluded) close() (err error) {
 	defer func() {
-		if cerr := closeAll(c.issueParser, c.creator); cerr != nil {
+		if cerr := closeAll(c.creator); cerr != nil {
 			err = errors.Join(err, cerr)
 		}
 	}()
@@ -44,20 +44,14 @@ func (c *createExcluded) setup(ctx context.Context) error {
 	return setupAll(ctx, c.creator, c.committer, c.issueParser)
 }
 
-func (c *createExcluded) run(ctx context.Context, issNum string) (err error) {
-	iss, err := c.lookup(ctx, issNum)
-	if err != nil {
-		return err
-	}
-
-	if c.skip(iss, c.skipReason) {
-		return nil
-	}
-
+func (c *createExcluded) run(ctx context.Context, input any) (err error) {
+	iss := input.(*issues.Issue)
 	return c.reportFromIssue(ctx, iss)
 }
 
-func (c *createExcluded) skipReason(iss *issues.Issue) string {
+func (c *createExcluded) skip(input any) string {
+	iss := input.(*issues.Issue)
+
 	if !isExcluded(iss) {
 		return "not excluded"
 	}
@@ -66,7 +60,7 @@ func (c *createExcluded) skipReason(iss *issues.Issue) string {
 		return fmt.Sprintf("assigned to %s, not %s", iss.Assignee, c.assignee)
 	}
 
-	return c.creator.skipReason(iss)
+	return c.creator.skip(iss)
 }
 
 func isExcluded(iss *issues.Issue) bool {

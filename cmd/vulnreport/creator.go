@@ -20,7 +20,7 @@ import (
 
 type creator struct {
 	assignee string
-	created  []*report.Report
+	created  []*yamlReport
 
 	// If non-zero, use this review status
 	// instead of the default for new reports.
@@ -52,20 +52,17 @@ func (c *creator) setup(ctx context.Context) (err error) {
 	return setupAll(ctx, c.fixer, c.xrefer, c.suggester)
 }
 
-func (c *creator) close() error {
-	log.Infof("created %d reports", len(c.created))
-	return c.suggester.close()
-}
+func (c *creator) skip(input any) string {
+	iss := input.(*issues.Issue)
 
-func (c *creator) skipReason(iss *issues.Issue) string {
 	if c.assignee != "" && iss.Assignee != c.assignee {
 		return fmt.Sprintf("assignee = %q, not %q", iss.Assignee, c.assignee)
 	}
 
-	return c.xrefer.skipReason(iss)
+	return skip(iss, c.xrefer)
 }
 
-func (x *xrefer) skipReason(iss *issues.Issue) string {
+func skip(iss *issues.Issue, x *xrefer) string {
 	if iss.HasLabel(labelDuplicate) {
 		return "duplicate issue"
 	}
@@ -104,7 +101,7 @@ func reviewStatusOf(iss *issues.Issue, reviewStatus report.ReviewStatus) report.
 	// If a valid review status is provided, it overrides the priority label.
 	if reviewStatus != 0 {
 		if d != reviewStatus {
-			log.Warnf("issue %d should be %s based on label(s) but this was overridden with the -status=%s flag", iss.Number, d, reviewStatus)
+			log.Warnf("issue #%d: should be %s based on label(s) but this was overridden with the -status=%s flag", iss.Number, d, reviewStatus)
 		}
 		return reviewStatus
 	}
@@ -131,47 +128,52 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) error {
 	aliases := c.allAliases(ctx, meta.aliases)
 	src, ok := c.sourceFromBestAlias(ctx, aliases, *preferCVE)
 	if ok {
-		log.Infof("creating report %s based on %s (picked from [%s])", meta.id, src.SourceID(), strings.Join(aliases, ", "))
+		log.Infof("%s: picked %s as best source alias (from [%s])", meta.id, src.SourceID(), strings.Join(aliases, ", "))
 	} else {
-		log.Info("no suitable alias found, creating basic report")
+		log.Infof("%s: no suitable alias found, creating basic report", meta.id)
 	}
 
-	r := report.New(src, c.pc,
+	raw := report.New(src, c.pc,
 		report.WithGoID(meta.id),
 		report.WithModulePath(meta.modulePath),
 		report.WithAliases(aliases),
 		report.WithReviewStatus(meta.reviewStatus),
 	)
+	fname, err := raw.YAMLFilename()
+	if err != nil {
+		return err
+	}
+	r := &yamlReport{Report: raw, filename: fname}
 
 	// Find any additional aliases referenced by the source aliases.
-	c.addMissingAliases(ctx, r)
+	r.addMissingAliases(ctx, c.aliasFinder)
 
 	if c.suggester != nil {
 		suggestions, err := c.suggest(ctx, r, 1)
 		if err != nil {
 			r.AddNote(report.NoteTypeCreate, "failed to get AI-generated suggestions")
-			log.Warnf("failed to get AI-generated suggestions for %s: %v", r.ID, err)
+			log.Warnf("%s: failed to get AI-generated suggestions: %v", r.ID, err)
 		} else {
-			log.Infof("applying AI-generated suggestion for %s", r.ID)
-			applySuggestion(r, suggestions[0])
+			log.Infof("%s: applying AI-generated suggestion", r.ID)
+			r.applySuggestion(suggestions[0])
 		}
 	}
 
 	if *populateSymbols {
-		log.Infof("attempting to auto-populate symbols for %s (this may take a while...)", r.ID)
-		if err := symbols.Populate(r, false); err != nil {
+		log.Infof("%s: attempting to auto-populate symbols (this may take a while...)", r.ID)
+		if err := symbols.Populate(r.Report, false); err != nil {
 			r.AddNote(report.NoteTypeCreate, "failed to auto-populate symbols")
-			log.Warnf("could not auto-populate symbols: %s", err)
+			log.Warnf("%s: could not auto-populate symbols: %s", r.ID, err)
 		} else {
-			if err := checkReportSymbols(r); err != nil {
-				log.Warnf("auto-populated symbols have error(s): %s", err)
+			if err := r.checkSymbols(); err != nil {
+				log.Warnf("%s: auto-populated symbols have error(s): %s", r.ID, err)
 			}
 		}
 	}
 
 	switch {
 	case meta.excluded != "":
-		r = &report.Report{
+		r.Report = &report.Report{
 			ID: meta.id,
 			Modules: []*report.Module{
 				{
@@ -186,7 +188,7 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) error {
 		r.Description = ""
 		addNotes := true
 		if fixed := c.fix(ctx, r, addNotes); fixed {
-			if err := writeDerived(r); err != nil {
+			if err := r.writeDerived(); err != nil {
 				return err
 			}
 		}
@@ -195,13 +197,13 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) error {
 		addTODOs(r)
 		xrefs, err := c.xref(r)
 		if err != nil {
-			log.Warnf("could not get cross-references: %s", err)
+			log.Warnf("%s: could not get cross-references: %s", r.ID, err)
 		} else if len(xrefs) != 0 {
-			log.Infof("found cross-references: %s", xrefs)
+			log.Infof("%s: found cross-references: %s", r.ID, xrefs)
 		}
 	}
 
-	if err := writeReport(r); err != nil {
+	if err := r.write(); err != nil {
 		return err
 	}
 
@@ -264,7 +266,7 @@ type reportMeta struct {
 const todo = "TODO: "
 
 // addTODOs adds "TODO" comments to unfilled fields of r.
-func addTODOs(r *report.Report) {
+func addTODOs(r *yamlReport) {
 	if r.Excluded != "" {
 		return
 	}
@@ -319,7 +321,7 @@ func addTODOs(r *report.Report) {
 
 // addReferenceTODOs adds a TODO for each important reference type not
 // already present in the report.
-func addReferenceTODOs(r *report.Report) {
+func addReferenceTODOs(r *yamlReport) {
 	todos := []*report.Reference{
 		{Type: osv.ReferenceTypeAdvisory, URL: "TODO: canonical security advisory"},
 		{Type: osv.ReferenceTypeReport, URL: "TODO: issue tracker link"},
