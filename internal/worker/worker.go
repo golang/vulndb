@@ -71,8 +71,7 @@ func UpdateCVEsAtCommit(ctx context.Context, repoPath, commitHashString string, 
 	u := newCVEUpdater(repo, commit, st, rc, func(cve *cve4.CVE) (*cveutils.TriageResult, error) {
 		return cveutils.TriageCVE(ctx, cve, pc)
 	})
-	_, err = u.update(ctx)
-	return err
+	return u.update(ctx)
 }
 
 // checkCVEUpdate performs sanity checks on a potential update.

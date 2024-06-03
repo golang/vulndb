@@ -60,7 +60,7 @@ func newCVEUpdater(repo *git.Repository, commit *object.Commit, st store.Store, 
 
 // update updates the DB to match the repo at the given commit.
 // It also triages new or changed issues.
-func (u *cveUpdater) update(ctx context.Context) (ur *store.CommitUpdateRecord, err error) {
+func (u *cveUpdater) update(ctx context.Context) (err error) {
 	// We want the action of reading the old DB record, updating it and
 	// writing it back to be atomic. It would be too expensive to do that one
 	// record at a time. Ideally we'd process the whole repo commit in one
@@ -71,18 +71,6 @@ func (u *cveUpdater) update(ctx context.Context) (ur *store.CommitUpdateRecord, 
 	ctx, span := observe.Start(ctx, "cveUpdater.update")
 	defer span.End()
 
-	defer func() {
-		if err == nil {
-			var nAdded, nModified int64
-			if ur != nil {
-				nAdded = int64(ur.NumAdded)
-				nModified = int64(ur.NumModified)
-			}
-			log.Infof(ctx, "CVE Firestore update succeeded on CVE list repo hash=%s: added %d, modified %d",
-				u.commit.Hash, nAdded, nModified)
-		}
-	}()
-
 	log.Infof(ctx, "CVE Firestore update starting on CVE list repo hash=%s", u.commit.Hash)
 
 	// Get all the CVE files.
@@ -91,38 +79,49 @@ func (u *cveUpdater) update(ctx context.Context) (ur *store.CommitUpdateRecord, 
 	// each file individually.
 	files, err := cvelistrepo.Files(u.repo, u.commit)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	// Process files in the same directory together, so we can easily skip
 	// the entire directory if it hasn't changed.
 	filesByDir, err := groupFilesByDirectory(files)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	// Create a new CommitUpdateRecord to describe this run of doUpdate.
-	ur = &store.CommitUpdateRecord{
+	ur := &store.CommitUpdateRecord{
 		StartedAt:  time.Now(),
 		CommitHash: u.commit.Hash.String(),
 		CommitTime: u.commit.Committer.When,
 		NumTotal:   len(files),
 	}
 	if err := u.st.CreateCommitUpdateRecord(ctx, ur); err != nil {
-		return ur, err
+		return err
 	}
+
+	defer func() {
+		ur.EndedAt = time.Now()
+		if err != nil {
+			ur.Error = err.Error()
+			if err2 := u.st.SetCommitUpdateRecord(ctx, ur); err2 != nil {
+				err = fmt.Errorf("update failed with %w, could not set update record: %w", err, err2)
+			}
+			return
+		}
+		if err = u.st.SetCommitUpdateRecord(ctx, ur); err != nil {
+			err = fmt.Errorf("update succeeded, but could not set update record: %w", err)
+		}
+		log.Infof(ctx, "CVE Firestore update succeeded on CVE list repo hash=%s: added %d, modified %d",
+			u.commit.Hash, ur.NumAdded, ur.NumModified)
+	}()
 
 	var skippedDirs []string
 	// Log a message every this many skipped directories.
 	const logSkippedEvery = 40
 	for _, dirFiles := range filesByDir {
 		stats, err := u.updateDirectory(ctx, dirFiles)
-		// Change the CommitUpdateRecord in the Store to reflect the results of the directory update.
 		if err != nil {
-			ur.Error = err.Error()
-			if err2 := u.st.SetCommitUpdateRecord(ctx, ur); err2 != nil {
-				return ur, fmt.Errorf("update failed with %w, could not set update record: %w", err, err2)
-			}
-			return ur, err
+			return err
 		}
 		if stats.skipped {
 			skippedDirs = append(skippedDirs, dirFiles[0].DirPath)
@@ -135,12 +134,8 @@ func (u *cveUpdater) update(ctx context.Context) (ur *store.CommitUpdateRecord, 
 		ur.NumProcessed += stats.numProcessed
 		ur.NumAdded += stats.numAdded
 		ur.NumModified += stats.numModified
-		if err := u.st.SetCommitUpdateRecord(ctx, ur); err != nil {
-			return ur, err
-		}
 	}
-	ur.EndedAt = time.Now()
-	return ur, u.st.SetCommitUpdateRecord(ctx, ur)
+	return nil
 }
 
 // Firestore supports a maximum of 500 writes per transaction.

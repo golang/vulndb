@@ -356,7 +356,7 @@ func TestDoUpdate(t *testing.T) {
 			mstore := store.NewMemStore()
 			createCVERecords(t, mstore, test.curCVEs)
 			createGHSARecords(t, mstore, test.curGHSAs)
-			if _, err := newCVEUpdater(repo, commit, mstore, rc, needsIssue).update(ctx); err != nil {
+			if err := newCVEUpdater(repo, commit, mstore, rc, needsIssue).update(ctx); err != nil {
 				t.Fatal(err)
 			}
 			got := mstore.CVERecords()
@@ -435,7 +435,7 @@ func TestDoUpdateError(t *testing.T) {
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			mstore := newErrStore(test.errOnRunTransaction, test.errOnSetCommitUpdate)
-			_, err := newCVEUpdater(repo, commit, mstore, rc, needsIssue).update(ctx)
+			err := newCVEUpdater(repo, commit, mstore, rc, needsIssue).update(ctx)
 			for _, wantErr := range test.wantErrs {
 				if !errors.Is(err, wantErr) {
 					t.Fatalf("newCVEUpdater: want err = %v, got %v", wantErr, err)
@@ -455,8 +455,8 @@ func TestDoUpdateError(t *testing.T) {
 			}
 
 			if test.wantValidUpdateRecord {
-				if !got.EndedAt.IsZero() {
-					t.Error("CommitUpdateRecord.EndedAt is non-zero, want zero")
+				if got.EndedAt.IsZero() {
+					t.Error("CommitUpdateRecord.EndedAt is zero, want non-zero")
 				}
 				if got.Error == "" {
 					t.Error("CommitUpdateRecord.Error is empty, want an error")
