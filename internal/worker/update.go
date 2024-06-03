@@ -120,7 +120,7 @@ func (u *cveUpdater) update(ctx context.Context) (ur *store.CommitUpdateRecord, 
 		if err != nil {
 			ur.Error = err.Error()
 			if err2 := u.st.SetCommitUpdateRecord(ctx, ur); err2 != nil {
-				return ur, fmt.Errorf("update failed with %w, could not set update record: %v", err, err2)
+				return ur, fmt.Errorf("update failed with %w, could not set update record: %w", err, err2)
 			}
 			return ur, err
 		}

@@ -9,6 +9,7 @@ package worker
 
 import (
 	"context"
+	"errors"
 	"flag"
 	"testing"
 	"time"
@@ -152,20 +153,31 @@ func TestDoUpdate(t *testing.T) {
 	rs[4].CVE = cves[4]
 
 	for _, test := range []struct {
-		name     string
-		curCVEs  []*store.CVERecord  // current state of CVEs collection
-		curGHSAs []*store.GHSARecord // current state of GHSAs collection
-		want     []*store.CVERecord  // expected state of CVEs collection after update
+		name       string
+		curCVEs    []*store.CVERecord        // current state of CVEs collection
+		curGHSAs   []*store.GHSARecord       // current state of GHSAs collection
+		want       []*store.CVERecord        // expected state of CVEs collection after update
+		wantUpdate *store.CommitUpdateRecord // expected update record
 	}{
 		{
 			name:    "empty",
 			curCVEs: nil,
 			want:    rs,
+			wantUpdate: &store.CommitUpdateRecord{
+				NumTotal:     5,
+				NumProcessed: 5,
+				NumAdded:     5,
+			},
 		},
 		{
 			name:    "no change",
 			curCVEs: rs,
 			want:    rs,
+			wantUpdate: &store.CommitUpdateRecord{
+				NumTotal:     5,
+				NumProcessed: 5,
+				NumAdded:     0,
+			},
 		},
 		{
 			name: "pre-issue changes",
@@ -208,6 +220,12 @@ func TestDoUpdate(t *testing.T) {
 				rs[3],
 				rs[4],
 			},
+			wantUpdate: &store.CommitUpdateRecord{
+				NumTotal:     5,
+				NumProcessed: 5,
+				NumAdded:     2,
+				NumModified:  2,
+			},
 		},
 		{
 			name: "post-issue changes",
@@ -240,6 +258,12 @@ func TestDoUpdate(t *testing.T) {
 				rs[3],
 				rs[4],
 			},
+			wantUpdate: &store.CommitUpdateRecord{
+				NumTotal:     5,
+				NumProcessed: 5,
+				NumAdded:     3,
+				NumModified:  2,
+			},
 		},
 		{
 			name: "false positive no Go URLs",
@@ -263,6 +287,12 @@ func TestDoUpdate(t *testing.T) {
 					},
 				}),
 				rs[1], rs[2], rs[3], rs[4],
+			},
+			wantUpdate: &store.CommitUpdateRecord{
+				NumTotal:     5,
+				NumProcessed: 5,
+				NumAdded:     4,
+				NumModified:  1,
 			},
 		},
 		{
@@ -290,6 +320,12 @@ func TestDoUpdate(t *testing.T) {
 				}),
 				rs[1], rs[2], rs[3], rs[4],
 			},
+			wantUpdate: &store.CommitUpdateRecord{
+				NumTotal:     5,
+				NumProcessed: 5,
+				NumAdded:     4,
+				NumModified:  1,
+			},
 		},
 		{
 			name: "alias already created",
@@ -308,6 +344,11 @@ func TestDoUpdate(t *testing.T) {
 				rs[1], rs[2], rs[3], modify(rs[4], &store.CVERecord{
 					TriageState: store.TriageStateAlias,
 				}),
+			},
+			wantUpdate: &store.CommitUpdateRecord{
+				NumTotal:     5,
+				NumProcessed: 5,
+				NumAdded:     1,
 			},
 		},
 	} {
@@ -328,8 +369,132 @@ func TestDoUpdate(t *testing.T) {
 				cmpopts.IgnoreFields(store.CVERecordSnapshot{}, "TriageStateReason")); diff != "" {
 				t.Errorf("mismatch (-want, +got):\n%s", diff)
 			}
+			gotUpdates, err := mstore.ListCommitUpdateRecords(ctx, -1)
+			if err != nil {
+				t.Fatal(err)
+			}
+			wantUpdates := []*store.CommitUpdateRecord{test.wantUpdate}
+			if diff := cmp.Diff(wantUpdates, gotUpdates,
+				cmpopts.IgnoreFields(store.CommitUpdateRecord{}, "ID",
+					"StartedAt", "EndedAt", "CommitHash", "CommitTime",
+					"UpdatedAt")); diff != "" {
+				t.Errorf("updates mismatch (-want, +got):\n%s", diff)
+			}
+			if len(gotUpdates) > 0 {
+				got := gotUpdates[0]
+				if got.StartedAt.IsZero() {
+					t.Error("CommitUpdateRecord.StartedAt is zero, want non-zero")
+				}
+				if got.EndedAt.IsZero() {
+					t.Error("CommitUpdateRecord.EndedAt is zero, want non-zero")
+				}
+				if got.Error != "" {
+					t.Errorf("CommitUpdateRecord.Error = %s, want no error", got.Error)
+				}
+			}
 		})
 	}
+}
+
+func TestDoUpdateError(t *testing.T) {
+	ctx := context.Background()
+	repo, commit, err := gitrepo.TxtarRepoAndHead(testRepoPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	rc, err := report.NewTestClient(nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	needsIssue := func(cve *cve4.CVE) (*cveutils.TriageResult, error) { return nil, nil }
+
+	for _, test := range []struct {
+		name                                      string
+		errOnRunTransaction, errOnSetCommitUpdate bool
+		wantErrs                                  []error
+		// whether to expect a meaningful update record
+		wantValidUpdateRecord bool
+	}{
+		{
+			name:                  "transaction error",
+			errOnRunTransaction:   true,
+			wantErrs:              []error{transactionErr},
+			wantValidUpdateRecord: true,
+		},
+		{
+			name:                 "commit error",
+			errOnSetCommitUpdate: true,
+			wantErrs:             []error{commitUpdateErr},
+		},
+		{
+			name:                 "transaction and commit error",
+			errOnRunTransaction:  true,
+			errOnSetCommitUpdate: true,
+			wantErrs:             []error{transactionErr, commitUpdateErr},
+		},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			mstore := newErrStore(test.errOnRunTransaction, test.errOnSetCommitUpdate)
+			_, err := newCVEUpdater(repo, commit, mstore, rc, needsIssue).update(ctx)
+			for _, wantErr := range test.wantErrs {
+				if !errors.Is(err, wantErr) {
+					t.Fatalf("newCVEUpdater: want err = %v, got %v", wantErr, err)
+				}
+			}
+
+			gotUpdates, err := mstore.ListCommitUpdateRecords(ctx, -1)
+			if err != nil {
+				t.Fatalf("ListCommitUpdateRecords = %s", err)
+			}
+			if len(gotUpdates) == 0 {
+				t.Fatalf("no update record created")
+			}
+			got := gotUpdates[0]
+			if got.StartedAt.IsZero() {
+				t.Error("CommitUpdateRecord.StartedAt is zero, want non-zero")
+			}
+
+			if test.wantValidUpdateRecord {
+				if !got.EndedAt.IsZero() {
+					t.Error("CommitUpdateRecord.EndedAt is non-zero, want zero")
+				}
+				if got.Error == "" {
+					t.Error("CommitUpdateRecord.Error is empty, want an error")
+				}
+			}
+		})
+	}
+}
+
+type transactionErrStore struct {
+	*store.MemStore
+	errOnRunTransaction, errOnSetCommitUpdate bool
+}
+
+func newErrStore(errOnRunTransaction, errOnSetCommitUpdate bool) *transactionErrStore {
+	return &transactionErrStore{
+		MemStore:             store.NewMemStore(),
+		errOnRunTransaction:  errOnRunTransaction,
+		errOnSetCommitUpdate: errOnSetCommitUpdate,
+	}
+}
+
+var transactionErr = errors.New("transaction error occurred")
+
+func (s *transactionErrStore) RunTransaction(ctx context.Context, f func(context.Context, store.Transaction) error) error {
+	if s.errOnRunTransaction {
+		return transactionErr
+	}
+	return s.MemStore.RunTransaction(ctx, f)
+}
+
+var commitUpdateErr = errors.New("commit update occurred")
+
+func (s *transactionErrStore) SetCommitUpdateRecord(ctx context.Context, ur *store.CommitUpdateRecord) error {
+	if s.errOnSetCommitUpdate {
+		return commitUpdateErr
+	}
+	return s.MemStore.SetCommitUpdateRecord(ctx, ur)
 }
 
 func TestGroupFilesByDirectory(t *testing.T) {
