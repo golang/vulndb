@@ -14,7 +14,6 @@ import (
 var (
 	preferCVE       = flag.Bool("cve", false, "for create, prefer CVEs over GHSAs as canonical source")
 	graphQL         = flag.Bool("graphql", false, "for create, fetch GHSAs from the Github GraphQL API instead of the OSV database")
-	issueRepo       = flag.String("issue-repo", "github.com/golang/vulndb", "for create, repo locate Github issues")
 	useAI           = flag.Bool("ai", false, "for create, use AI to write draft summary and description when creating report")
 	populateSymbols = flag.Bool("symbols", false, "for create, attempt to auto-populate symbols")
 	user            = flag.String("user", "", "for create & create-excluded, only consider issues assigned to the given user")
@@ -33,10 +32,10 @@ func (create) usage() (string, string) {
 	return ghIssueArgs, desc
 }
 
-func (c *create) setup(ctx context.Context) error {
+func (c *create) setup(ctx context.Context, env environment) error {
 	c.creator = new(creator)
 	c.issueParser = new(issueParser)
-	return setupAll(ctx, c.creator, c.issueParser)
+	return setupAll(ctx, env, c.creator, c.issueParser)
 }
 
 func (c *create) close() error {

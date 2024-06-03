@@ -21,7 +21,8 @@ var (
 
 type suggest struct {
 	*suggester
-	filenameParser
+	*filenameParser
+	*fileWriter
 	noSkip
 }
 
@@ -32,9 +33,11 @@ func (suggest) usage() (string, string) {
 	return filenameArgs, desc
 }
 
-func (s *suggest) setup(ctx context.Context) error {
+func (s *suggest) setup(ctx context.Context, env environment) error {
 	s.suggester = new(suggester)
-	return setupAll(ctx, s.suggester)
+	s.filenameParser = new(filenameParser)
+	s.fileWriter = new(fileWriter)
+	return setupAll(ctx, env, s.suggester, s.filenameParser, s.fileWriter)
 }
 
 func (s *suggest) run(ctx context.Context, input any) (err error) {
@@ -49,9 +52,9 @@ func (s *suggest) run(ctx context.Context, input any) (err error) {
 
 	log.Outf("== AI-generated suggestions for report %s ==\n", r.ID)
 
-	for i, s := range suggestions {
+	for i, sugg := range suggestions {
 		log.Outf("\nSuggestion %d/%d\nsummary: %s\ndescription: %s\n",
-			i+1, found, s.Summary, s.Description)
+			i+1, found, sugg.Summary, sugg.Description)
 
 		// In interactive mode, allow user to accept the suggestion,
 		// see the next one, or quit.
@@ -70,8 +73,8 @@ func (s *suggest) run(ctx context.Context, input any) (err error) {
 			}
 			switch choice {
 			case "a":
-				r.applySuggestion(s)
-				if err := r.write(); err != nil {
+				r.applySuggestion(sugg)
+				if err := s.write(r); err != nil {
 					log.Err(err)
 				}
 				return nil
@@ -90,7 +93,7 @@ type suggester struct {
 	ac *genai.GeminiClient
 }
 
-func (s *suggester) setup(ctx context.Context) error {
+func (s *suggester) setup(ctx context.Context, _ environment) error {
 	if s == nil {
 		return nil
 	}

@@ -1,0 +1,14 @@
+Copyright 2024 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+
+Expected output of test TestLint/found_lints
+command: "vulnreport lint 4"
+
+-- out --
+-- logs --
+info: lint: operating on 1 report(s)
+info: lint data/reports/GO-9999-0004.yaml
+ERROR: lint: GO-9999-0004 has 1 lint warnings:
+  - references: missing advisory (required because report has no description or is UNREVIEWED)
+info: lint: processed 1 report(s) (success=0; skip=0; error=1)

@@ -15,7 +15,7 @@ import (
 
 type unexclude struct {
 	*creator
-	filenameParser
+	*filenameParser
 }
 
 func (unexclude) name() string { return "unexclude" }
@@ -25,9 +25,10 @@ func (unexclude) usage() (string, string) {
 	return filenameArgs, desc
 }
 
-func (u *unexclude) setup(ctx context.Context) error {
+func (u *unexclude) setup(ctx context.Context, env environment) error {
 	u.creator = new(creator)
-	return setupAll(ctx, u.creator)
+	u.filenameParser = new(filenameParser)
+	return setupAll(ctx, env, u.creator, u.filenameParser)
 }
 
 func (u *unexclude) close() error {

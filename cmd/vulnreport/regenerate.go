@@ -25,9 +25,9 @@ func (regenerate) usage() (string, string) {
 	return filenameArgs, desc
 }
 
-func (u *regenerate) setup(ctx context.Context) error {
+func (u *regenerate) setup(ctx context.Context, env environment) error {
 	u.creator = new(creator)
-	return setupAll(ctx, u.creator)
+	return setupAll(ctx, env, u.creator)
 }
 
 func (u *regenerate) close() error {

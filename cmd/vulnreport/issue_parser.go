@@ -10,14 +10,13 @@ import (
 	"strconv"
 	"strings"
 
-	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
 )
 
 // issueParser implements the "parseArgs" function of the command
 // interface, and can be used by commands that operate on Github issues.
 type issueParser struct {
-	ic    *issues.Client
+	ic    issueClient
 	isses map[string]*issues.Issue
 }
 
@@ -47,15 +46,12 @@ func (ip *issueParser) parseArgs(ctx context.Context, args []string) (issNums []
 	return issNums, nil
 }
 
-func (ip *issueParser) setup(ctx context.Context) error {
-	if *githubToken == "" {
-		return fmt.Errorf("githubToken must be provided")
-	}
-	owner, repoName, err := gitrepo.ParseGitHubRepo(*issueRepo)
+func (ip *issueParser) setup(ctx context.Context, env environment) error {
+	ic, err := env.IssueClient(ctx)
 	if err != nil {
 		return err
 	}
-	ip.ic = issues.NewClient(ctx, &issues.Config{Owner: owner, Repo: repoName, Token: *githubToken})
+	ip.ic = ic
 	ip.isses = make(map[string]*issues.Issue)
 	return nil
 }

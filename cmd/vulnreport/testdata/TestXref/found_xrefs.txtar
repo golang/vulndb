@@ -1,0 +1,14 @@
+Copyright 2024 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+
+Expected output of test TestXref/found_xrefs
+command: "vulnreport xref 4"
+
+-- out --
+xrefs for data/reports/GO-9999-0004.yaml:
+Module golang.org/x/tools appears in data/reports/GO-9999-0005.yaml
+-- logs --
+info: xref: operating on 1 report(s)
+info: xref data/reports/GO-9999-0004.yaml
+info: xref: processed 1 report(s) (success=1; skip=0; error=0)

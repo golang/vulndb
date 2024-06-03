@@ -10,6 +10,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"io/fs"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -418,6 +419,10 @@ func Read(filename string) (_ *Report, err error) {
 		return nil, err
 	}
 	defer f.Close()
+	return decodeStrict(f)
+}
+
+func decodeStrict(f io.Reader) (*Report, error) {
 	d := yaml.NewDecoder(f)
 	// Require that all fields in the file are in the struct.
 	// This corresponds to v2's UnmarshalStrict.
@@ -429,8 +434,8 @@ func Read(filename string) (_ *Report, err error) {
 	return &r, nil
 }
 
-func ReadStrict(filename string) (*Report, error) {
-	r, err := Read(filename)
+func ReadStrict(fsys fs.FS, filename string) (*Report, error) {
+	r, err := readFS(fsys, filename)
 	if err != nil {
 		return nil, err
 	}
@@ -438,6 +443,15 @@ func ReadStrict(filename string) (*Report, error) {
 		return nil, err
 	}
 	return r, nil
+}
+
+func readFS(fsys fs.FS, filename string) (*Report, error) {
+	f, err := fsys.Open(filename)
+	if err != nil {
+		return nil, err
+	}
+	defer f.Close()
+	return decodeStrict(f)
 }
 
 func (r *Report) YAMLFilename() (string, error) {
@@ -466,7 +480,7 @@ func (r *Report) Write(filename string) (err error) {
 	if err != nil {
 		return err
 	}
-	err = r.encode(f)
+	err = r.Encode(f)
 	err2 := f.Close()
 	if err == nil {
 		err = err2
@@ -477,13 +491,13 @@ func (r *Report) Write(filename string) (err error) {
 // ToString encodes r to a YAML string.
 func (r *Report) ToString() (string, error) {
 	var b strings.Builder
-	if err := r.encode(&b); err != nil {
+	if err := r.Encode(&b); err != nil {
 		return "", err
 	}
 	return b.String(), nil
 }
 
-func (r *Report) encode(w io.Writer) error {
+func (r *Report) Encode(w io.Writer) error {
 	e := yaml.NewEncoder(w)
 	defer e.Close()
 	e.SetIndent(4)

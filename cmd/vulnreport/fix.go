@@ -29,7 +29,7 @@ var (
 
 type fix struct {
 	*fixer
-	filenameParser
+	*filenameParser
 	noSkip
 }
 
@@ -40,9 +40,10 @@ func (fix) usage() (string, string) {
 	return filenameArgs, desc
 }
 
-func (f *fix) setup(ctx context.Context) error {
+func (f *fix) setup(ctx context.Context, env environment) error {
 	f.fixer = new(fixer)
-	return setupAll(ctx, f.fixer)
+	f.filenameParser = new(filenameParser)
+	return setupAll(ctx, env, f.fixer, f.filenameParser)
 }
 
 func (*fix) close() error { return nil }
@@ -55,24 +56,26 @@ func (f *fix) run(ctx context.Context, input any) error {
 type fixer struct {
 	*linter
 	*aliasFinder
+	*fileWriter
 }
 
-func (f *fixer) setup(ctx context.Context) error {
+func (f *fixer) setup(ctx context.Context, env environment) error {
 	f.linter = new(linter)
 	f.aliasFinder = new(aliasFinder)
-	return setupAll(ctx, f.linter, f.aliasFinder)
+	f.fileWriter = new(fileWriter)
+	return setupAll(ctx, env, f.linter, f.aliasFinder, f.fileWriter)
 }
 
 func (f *fixer) fixAndWriteAll(ctx context.Context, r *yamlReport) error {
 	fixed := f.fix(ctx, r, false)
 
 	// fix may have partially succeeded, so write the report no matter what.
-	if err := r.write(); err != nil {
+	if err := f.write(r); err != nil {
 		return err
 	}
 
 	if fixed {
-		return r.writeDerived()
+		return f.writeDerived(r)
 	}
 
 	return fmt.Errorf("%s: could not fix all errors; requires manual review", r.ID)

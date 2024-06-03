@@ -290,7 +290,7 @@ func argToFilename(arg string) (string, error) {
 				return m[0], nil
 			}
 		}
-		return "", fmt.Errorf("%s is not a valid filename or issue ID with existing record", arg)
+		return "", fmt.Errorf("could not parse argument %q: not a valid filename or issue ID with existing record", arg)
 	}
 	return arg, nil
 }

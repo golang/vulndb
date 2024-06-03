@@ -16,7 +16,8 @@ var (
 )
 
 type symbolsCmd struct {
-	filenameParser
+	*filenameParser
+	*fileWriter
 	noSkip
 }
 
@@ -27,9 +28,13 @@ func (symbolsCmd) usage() (string, string) {
 	return filenameArgs, desc
 }
 
-func (s *symbolsCmd) setup(ctx context.Context) error { return nil }
+func (s *symbolsCmd) setup(ctx context.Context, env environment) error {
+	s.filenameParser = new(filenameParser)
+	s.fileWriter = new(fileWriter)
+	return setupAll(ctx, env, s.filenameParser, s.fileWriter)
+}
 
-func (s *symbolsCmd) close() error { return nil }
+func (*symbolsCmd) close() error { return nil }
 
 func (s *symbolsCmd) run(ctx context.Context, input any) (err error) {
 	r := input.(*yamlReport)
@@ -38,5 +43,5 @@ func (s *symbolsCmd) run(ctx context.Context, input any) (err error) {
 		return err
 	}
 
-	return r.write()
+	return s.write(r)
 }

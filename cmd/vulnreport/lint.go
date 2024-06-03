@@ -14,7 +14,7 @@ import (
 
 type lint struct {
 	*linter
-	filenameParser
+	*filenameParser
 	noSkip
 }
 
@@ -25,9 +25,10 @@ func (lint) usage() (string, string) {
 	return filenameArgs, desc
 }
 
-func (l *lint) setup(ctx context.Context) error {
+func (l *lint) setup(ctx context.Context, env environment) error {
 	l.linter = new(linter)
-	return setupAll(ctx, l.linter)
+	l.filenameParser = new(filenameParser)
+	return setupAll(ctx, env, l.linter, l.filenameParser)
 }
 
 func (l *lint) close() error { return nil }
@@ -41,8 +42,8 @@ type linter struct {
 	pc *proxy.Client
 }
 
-func (l *linter) setup(_ context.Context) error {
-	l.pc = proxy.NewDefaultClient()
+func (l *linter) setup(_ context.Context, env environment) error {
+	l.pc = env.ProxyClient()
 	return nil
 }
 

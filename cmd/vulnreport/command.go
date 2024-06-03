@@ -8,8 +8,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"os"
-	"path/filepath"
+	"io/fs"
 
 	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/issues"
@@ -22,8 +21,7 @@ type command interface {
 	name() string
 	// usage outputs strings indicating how to use the subcommand.
 	usage() (args string, desc string)
-	// setup populates any state needed to run the subcommand.
-	setup(context.Context) error
+	setuper
 	// parseArgs takes in the raw args passed to the command line,
 	// and converts them to a representation understood by "run".
 	// This function need not be one-to-one: there may be more
@@ -39,8 +37,8 @@ type command interface {
 }
 
 // run executes the given command on the given raw arguments.
-func run(ctx context.Context, c command, args []string) (err error) {
-	if err := c.setup(ctx); err != nil {
+func run(ctx context.Context, c command, args []string, env environment) (err error) {
+	if err := c.setup(ctx, env); err != nil {
 		return err
 	}
 
@@ -49,7 +47,12 @@ func run(ctx context.Context, c command, args []string) (err error) {
 		if cerr := c.close(); cerr != nil {
 			err = errors.Join(err, cerr)
 		}
-		log.Infof("%s: processed %d %s(s) (success=%d; skip=%d; error=%d)", c.name(), stats.total(), c.inputType(), stats.succeeded, stats.skipped, stats.errored)
+		if total := stats.total(); total > 0 {
+			log.Infof("%s: processed %d %s(s) (success=%d; skip=%d; error=%d)", c.name(), total, c.inputType(), stats.succeeded, stats.skipped, stats.errored)
+		}
+		if stats.errored > 0 {
+			err = errors.Join(err, fmt.Errorf("errored on %d inputs", stats.errored))
+		}
 	}()
 
 	inputs, err := c.parseArgs(ctx, args)
@@ -79,7 +82,6 @@ func run(ctx context.Context, c command, args []string) (err error) {
 			log.Errf("%s: %s", c.name(), err)
 			continue
 		}
-
 		stats.succeeded++
 	}
 
@@ -108,12 +110,13 @@ func toString(in any) string {
 }
 
 type setuper interface {
-	setup(context.Context) error
+	// setup populates state needed to run a command.
+	setup(context.Context, environment) error
 }
 
-func setupAll(ctx context.Context, fs ...setuper) error {
+func setupAll(ctx context.Context, env environment, fs ...setuper) error {
 	for _, f := range fs {
-		if err := f.setup(ctx); err != nil {
+		if err := f.setup(ctx, env); err != nil {
 			return err
 		}
 	}
@@ -140,44 +143,56 @@ const (
 
 // filenameParser implements the "parseArgs" function of the command
 // interface, and can be used by commands that operate on YAML filenames.
-type filenameParser bool
+type filenameParser struct {
+	fsys fs.FS
+}
 
-func (filenameParser) inputType() string {
+func (f *filenameParser) setup(_ context.Context, env environment) error {
+	f.fsys = env.ReportFS()
+	return nil
+}
+
+func (*filenameParser) inputType() string {
 	return "report"
 }
 
-func (filenameParser) parseArgs(_ context.Context, args []string) (filenames []string, _ error) {
+func (f *filenameParser) parseArgs(_ context.Context, args []string) (filenames []string, allErrs error) {
 	if len(args) == 0 {
 		return nil, fmt.Errorf("no arguments provided")
 	}
 	for _, arg := range args {
-		fname, err := argToFilename(arg)
+		fname, err := argToFilename(arg, f.fsys)
 		if err != nil {
 			log.Err(err)
 			continue
 		}
 		filenames = append(filenames, fname)
 	}
+
+	if len(filenames) == 0 {
+		return nil, fmt.Errorf("could not parse any valid filenames from arguments")
+	}
+
 	return filenames, nil
 }
 
-func argToFilename(arg string) (string, error) {
-	if _, err := os.Stat(arg); err != nil {
+func argToFilename(arg string, fsys fs.FS) (string, error) {
+	if _, err := fs.Stat(fsys, arg); err != nil {
 		// If arg isn't a file, see if it might be an issue ID
 		// with an existing report.
 		for _, padding := range []string{"", "0", "00", "000"} {
-			m, _ := filepath.Glob("data/*/GO-*-" + padding + arg + ".yaml")
+			m, _ := fs.Glob(fsys, "data/*/GO-*-"+padding+arg+".yaml")
 			if len(m) == 1 {
 				return m[0], nil
 			}
 		}
-		return "", fmt.Errorf("%s is not a valid filename or issue ID with existing report: %w", arg, err)
+		return "", fmt.Errorf("could not parse argument %q: not a valid filename or issue ID with existing report: %w", arg, err)
 	}
 	return arg, nil
 }
 
-func (filenameParser) lookup(_ context.Context, filename string) (any, error) {
-	r, err := report.ReadStrict(filename)
+func (f *filenameParser) lookup(_ context.Context, filename string) (any, error) {
+	r, err := report.ReadStrict(f.fsys, filename)
 	if err != nil {
 		return nil, err
 	}

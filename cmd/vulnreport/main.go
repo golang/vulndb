@@ -23,6 +23,8 @@ var (
 	cpuprofile  = flag.String("cpuprofile", "", "write cpuprofile to this file")
 	quiet       = flag.Bool("q", false, "quiet mode (suppress info logs)")
 	colorize    = flag.Bool("color", os.Getenv("NO_COLOR") == "", "show colors in logs")
+	issueRepo   = flag.String("issue-repo", "github.com/golang/vulndb", "repo to locate Github issues")
+	reportRepo  = flag.String("local-repo", ".", "local path to repo to locate YAML reports")
 )
 
 func init() {
@@ -48,7 +50,6 @@ var commands = map[string]command{
 	"create-excluded": &createExcluded{},
 	"commit":          &commit{},
 	"cve":             &cveCmd{},
-	"duplicates":      &triage{}, // deprecated
 	"triage":          &triage{},
 	"fix":             &fix{},
 	"lint":            &lint{},
@@ -100,7 +101,7 @@ func main() {
 		log.Fatalf("unsupported command: %q", cmdName)
 	}
 
-	if err := run(ctx, cmd, args); err != nil {
+	if err := run(ctx, cmd, args, defaultEnv()); err != nil {
 		log.Fatalf("%s: %s", cmdName, err)
 	}
 }

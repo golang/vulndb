@@ -37,11 +37,11 @@ func (c *createExcluded) close() (err error) {
 	return err
 }
 
-func (c *createExcluded) setup(ctx context.Context) error {
+func (c *createExcluded) setup(ctx context.Context, env environment) error {
 	c.creator = new(creator)
 	c.committer = new(committer)
 	c.issueParser = new(issueParser)
-	return setupAll(ctx, c.creator, c.committer, c.issueParser)
+	return setupAll(ctx, env, c.creator, c.committer, c.issueParser)
 }
 
 func (c *createExcluded) run(ctx context.Context, input any) (err error) {

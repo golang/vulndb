@@ -8,6 +8,7 @@ import (
 	"context"
 	_ "embed"
 	"fmt"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"sync"
@@ -53,19 +54,19 @@ func toStrings(stats []issuesList) (strs []string) {
 	return strs
 }
 
-func (t *triage) setup(ctx context.Context) error {
+func (t *triage) setup(ctx context.Context, env environment) error {
 	t.aliasesToIssues = make(map[string][]int)
 	t.stats = make([]issuesList, len(statNames))
-	m, err := priority.LoadModuleMap()
+	m, err := env.ModuleMap()
 	if err != nil {
-		return nil
+		return err
 	}
 	t.modulesToImports = m
 
 	t.fixer = new(fixer)
 	t.issueParser = new(issueParser)
 	t.xrefer = new(xrefer)
-	return setupAll(ctx, t.fixer, t.issueParser, t.xrefer)
+	return setupAll(ctx, env, t.fixer, t.issueParser, t.xrefer)
 }
 
 func (t *triage) skip(input any) string {
@@ -113,7 +114,9 @@ func (t *triage) triage(ctx context.Context, iss *issues.Issue) {
 	if len(xrefs) != 0 {
 		var strs []string
 		for ref, aliases := range xrefs {
-			strs = append(strs, fmt.Sprintf("#%d shares alias(es) %s with %s", iss.Number, strings.Join(aliases, ", "), ref))
+			strs = append(strs, fmt.Sprintf("#%d shares alias(es) %s with %s", iss.Number,
+				strings.Join(aliases, ", "),
+				filepath.ToSlash(ref)))
 		}
 		t.addStat(iss, statDuplicate, strings.Join(strs, listItem))
 		labels = append(labels, labelPossibleDuplicate)

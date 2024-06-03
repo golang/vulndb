@@ -1,0 +1,44 @@
+# Copyright 2024 The Go Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
+-- data/reports/GO-9999-0001.yaml --
+id: GO-9999-0001
+modules:
+  - module: golang.org/x/vulndb
+summary: A problem with golang.org/x/vulndb
+description: A description of the issue
+review_status: REVIEWED
+
+-- data/reports/GO-9999-0004.yaml --
+id: GO-9999-0004
+modules:
+  - module: golang.org/x/tools
+summary: A problem with golang.org/x/tools
+ghsas:
+  - GHSA-9999-abcd-efgh
+review_status: UNREVIEWED
+
+-- data/reports/GO-9999-0005.yaml --
+id: GO-9999-0005
+modules:
+  - module: golang.org/x/tools
+cves:
+  - CVE-9999-0005
+review_status: REVIEWED
+
+-- data/excluded/GO-9999-0002.yaml --
+id: GO-9999-0002
+modules:
+  - module: golang.org/x/vulndb
+cve_metadata:
+    id: CVE-9999-0002
+excluded: EFFECTIVELY_PRIVATE
+
+-- data/excluded/GO-9999-0003.yaml --
+id: GO-9999-0003
+modules:
+  - module: collectd.org
+cve_metadata:
+    id: CVE-9999-0003
+excluded: NOT_GO_CODE

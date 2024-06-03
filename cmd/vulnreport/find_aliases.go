@@ -9,23 +9,26 @@ import (
 	"fmt"
 
 	"golang.org/x/exp/slices"
+	"golang.org/x/tools/txtar"
 	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/cve5"
 	"golang.org/x/vulndb/internal/genericosv"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/report"
+	"gopkg.in/yaml.v3"
 )
 
 type aliasFinder struct {
-	gc *ghsa.Client
+	gc ghsaClient
 }
 
-func (af *aliasFinder) setup(ctx context.Context) error {
-	if *githubToken == "" {
-		return fmt.Errorf("githubToken must be provided")
+func (af *aliasFinder) setup(ctx context.Context, env environment) error {
+	gc, err := env.GHSAClient(ctx)
+	if err != nil {
+		return err
 	}
-	af.gc = ghsa.NewClient(ctx, *githubToken)
+	af.gc = gc
 	return nil
 }
 
@@ -59,7 +62,7 @@ func (a *aliasFinder) allAliases(ctx context.Context, knownAliases []string) []s
 		case idstr.IsCVE(alias):
 			return aliasesForCVE(ctx, alias, a.gc)
 		default:
-			return nil, fmt.Errorf("unsupported alias %s", alias)
+			return nil, fmt.Errorf("allAliases(): unsupported alias %s", alias)
 		}
 	}
 	return aliasesBFS(ctx, knownAliases, aliasesFor)
@@ -93,7 +96,7 @@ func aliasesBFS(ctx context.Context, knownAliases []string,
 	return slices.Compact(all)
 }
 
-func aliasesForGHSA(ctx context.Context, alias string, gc *ghsa.Client) (aliases []string, err error) {
+func aliasesForGHSA(ctx context.Context, alias string, gc ghsaClient) (aliases []string, err error) {
 	sa, err := gc.FetchGHSA(ctx, alias)
 	if err != nil {
 		return nil, fmt.Errorf("aliasesForGHSA(%s): could not fetch GHSA record from GraphQL API", alias)
@@ -106,7 +109,7 @@ func aliasesForGHSA(ctx context.Context, alias string, gc *ghsa.Client) (aliases
 	return aliases, nil
 }
 
-func aliasesForCVE(ctx context.Context, cve string, gc *ghsa.Client) (aliases []string, err error) {
+func aliasesForCVE(ctx context.Context, cve string, gc ghsaClient) (aliases []string, err error) {
 	sas, err := gc.ListForCVE(ctx, cve)
 	if err != nil {
 		return nil, fmt.Errorf("aliasesForCVE(%s): could not find GHSAs from GraphQL API", cve)
@@ -157,7 +160,8 @@ func (a *aliasFinder) fetch(ctx context.Context, alias string) (report.Source, e
 	switch {
 	case idstr.IsGHSA(alias):
 		if *graphQL {
-			f = a.gc
+			// Doesn't work for test environment yet.
+			f = a.gc.(*ghsa.Client)
 		} else {
 			f = genericosv.NewFetcher()
 		}
@@ -168,4 +172,49 @@ func (a *aliasFinder) fetch(ctx context.Context, alias string) (report.Source, e
 	}
 
 	return f.Fetch(ctx, alias)
+}
+
+type ghsaClient interface {
+	FetchGHSA(context.Context, string) (*ghsa.SecurityAdvisory, error)
+	ListForCVE(context.Context, string) ([]*ghsa.SecurityAdvisory, error)
+}
+
+type memGC struct {
+	ghsas map[string]ghsa.SecurityAdvisory
+}
+
+func newMemGC(archive string) (*memGC, error) {
+	ar, err := txtar.ParseFile(archive)
+	if err != nil {
+		return nil, err
+	}
+	m := &memGC{
+		ghsas: make(map[string]ghsa.SecurityAdvisory),
+	}
+	for _, f := range ar.Files {
+		var g ghsa.SecurityAdvisory
+		if err := yaml.Unmarshal(f.Data, &g); err != nil {
+			return nil, err
+		}
+		m.ghsas[f.Name] = g
+	}
+	return m, nil
+}
+
+func (m *memGC) FetchGHSA(_ context.Context, id string) (*ghsa.SecurityAdvisory, error) {
+	if sa, ok := m.ghsas[id]; ok {
+		return &sa, nil
+	}
+	return nil, fmt.Errorf("%s not found", id)
+}
+
+func (m *memGC) ListForCVE(_ context.Context, cid string) (result []*ghsa.SecurityAdvisory, _ error) {
+	for _, sa := range m.ghsas {
+		for _, id := range sa.Identifiers {
+			if id.Type == "CVE" || id.Value == cid {
+				result = append(result, &sa)
+			}
+		}
+	}
+	return result, nil
 }

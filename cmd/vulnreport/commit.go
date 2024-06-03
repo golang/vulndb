@@ -14,7 +14,6 @@ import (
 	"github.com/go-git/go-git/v5"
 	"golang.org/x/exp/maps"
 	"golang.org/x/vulndb/cmd/vulnreport/log"
-	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/report"
 )
 
@@ -29,7 +28,7 @@ var (
 type commit struct {
 	*committer
 	*fixer
-	filenameParser
+	*filenameParser
 
 	toCommit []*yamlReport
 	// only commit reports with this review status
@@ -43,9 +42,10 @@ func (commit) usage() (string, string) {
 	return filenameArgs, desc
 }
 
-func (c *commit) setup(ctx context.Context) error {
+func (c *commit) setup(ctx context.Context, env environment) error {
 	c.committer = new(committer)
 	c.fixer = new(fixer)
+	c.filenameParser = new(filenameParser)
 
 	rs, ok := report.ToReviewStatus(*reviewStatus)
 	if !ok {
@@ -53,7 +53,7 @@ func (c *commit) setup(ctx context.Context) error {
 	}
 	c.reviewStatus = rs
 
-	return setupAll(ctx, c.committer, c.fixer)
+	return setupAll(ctx, env, c.committer, c.fixer, c.filenameParser)
 }
 
 func (c *commit) parseArgs(ctx context.Context, args []string) (filenames []string, _ error) {
@@ -124,8 +124,8 @@ type committer struct {
 	repo *git.Repository
 }
 
-func (c *committer) setup(ctx context.Context) error {
-	repo, err := gitrepo.Open(ctx, ".")
+func (c *committer) setup(ctx context.Context, env environment) error {
+	repo, err := env.ReportRepo(ctx)
 	if err != nil {
 		return err
 	}

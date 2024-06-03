@@ -33,7 +33,7 @@ type creator struct {
 	*suggester
 }
 
-func (c *creator) setup(ctx context.Context) (err error) {
+func (c *creator) setup(ctx context.Context, env environment) (err error) {
 	user := *user
 	if user == "" {
 		user = os.Getenv("GITHUB_USER")
@@ -51,7 +51,7 @@ func (c *creator) setup(ctx context.Context) (err error) {
 	if *useAI {
 		c.suggester = new(suggester)
 	}
-	return setupAll(ctx, c.fixer, c.xrefer, c.suggester)
+	return setupAll(ctx, env, c.fixer, c.xrefer, c.suggester)
 }
 
 func (c *creator) skip(input any) string {
@@ -235,7 +235,7 @@ func (r *yamlReport) removeUnreachableRefs() {
 
 func (c *creator) write(ctx context.Context, r *yamlReport) error {
 	if r.IsReviewed() || r.IsExcluded() {
-		if err := r.write(); err != nil {
+		if err := c.fileWriter.write(r); err != nil {
 			return err
 		}
 	} else { // unreviewed

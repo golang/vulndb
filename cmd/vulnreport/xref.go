@@ -12,14 +12,13 @@ import (
 	"golang.org/x/exp/constraints"
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
-	vlog "golang.org/x/vulndb/cmd/vulnreport/log"
-	"golang.org/x/vulndb/internal/gitrepo"
+	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/report"
 )
 
 type xref struct {
 	*xrefer
-	filenameParser
+	*filenameParser
 	noSkip
 }
 
@@ -30,9 +29,10 @@ func (xref) usage() (string, string) {
 	return filenameArgs, desc
 }
 
-func (x *xref) setup(ctx context.Context) error {
+func (x *xref) setup(ctx context.Context, env environment) error {
 	x.xrefer = new(xrefer)
-	return setupAll(ctx, x.xrefer)
+	x.filenameParser = new(filenameParser)
+	return setupAll(ctx, env, x.xrefer, x.filenameParser)
 }
 
 func (x *xref) close() error { return nil }
@@ -41,17 +41,22 @@ func (x *xref) close() error { return nil }
 // for the same CVE, GHSA, or module.
 func (x *xref) run(ctx context.Context, input any) (err error) {
 	r := input.(*yamlReport)
-	vlog.Out(r.Filename)
-	vlog.Out(x.xref(r))
+
+	if xrefs := x.xref(r); len(xrefs) > 0 {
+		log.Outf("xrefs for %s:%s", r.Filename, xrefs)
+	} else {
+		log.Infof("%s: no xrefs found", r.Filename)
+	}
+
 	return nil
 }
 
-func (x *xrefer) setup(ctx context.Context) error {
-	localRepo, err := gitrepo.Open(ctx, ".")
+func (x *xrefer) setup(ctx context.Context, env environment) (err error) {
+	repo, err := env.ReportRepo(ctx)
 	if err != nil {
 		return err
 	}
-	rc, err := report.NewClient(localRepo)
+	rc, err := report.NewClient(repo)
 	if err != nil {
 		return err
 	}

@@ -25,6 +25,19 @@ func RemoveColor() {
 	colorize = false
 }
 
+func Discard() {
+	for lvl := range loggers {
+		loggers[lvl].SetOutput(io.Discard)
+	}
+}
+
+func WriteTo(out io.Writer, log io.Writer) {
+	for lvl := range loggers {
+		loggers[lvl].SetOutput(log)
+	}
+	loggers[outLvl].SetOutput(out)
+}
+
 const (
 	infoLvl int = iota
 	outLvl

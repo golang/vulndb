@@ -5,29 +5,44 @@
 package main
 
 import (
+	"bytes"
+	"context"
+	"encoding/json"
+	"os"
+	"path/filepath"
 	"time"
 
 	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/cve5"
-	"golang.org/x/vulndb/internal/database"
 )
 
-func (r *yamlReport) write() error {
-	if err := r.Write(r.Filename); err != nil {
+type fileWriter struct{ wfs }
+
+func (f *fileWriter) setup(_ context.Context, env environment) error {
+	f.wfs = env.WFS()
+	return nil
+}
+
+func (f *fileWriter) write(r *yamlReport) error {
+	w := bytes.NewBuffer(make([]byte, 0))
+	if err := r.Encode(w); err != nil {
+		return err
+	}
+	if err := f.WriteFile(r.Filename, w.Bytes()); err != nil {
 		return err
 	}
 	return ok(r.Filename)
 }
 
-func (r *yamlReport) writeOSV() error {
+func (f *fileWriter) writeOSV(r *yamlReport) error {
 	if r.IsExcluded() {
 		return nil
 	}
 
-	return writeJSON(r.OSVFilename(), r.ToOSV(time.Time{}))
+	return writeJSON(f, r.OSVFilename(), r.ToOSV(time.Time{}))
 }
 
-func (r *yamlReport) writeCVE() error {
+func (f *fileWriter) writeCVE(r *yamlReport) error {
 	if r.CVEMetadata == nil {
 		return nil
 	}
@@ -36,24 +51,39 @@ func (r *yamlReport) writeCVE() error {
 	if err != nil {
 		return err
 	}
-	return writeJSON(r.CVEFilename(), cve)
+	return writeJSON(f, r.CVEFilename(), cve)
 }
 
-func (r *yamlReport) writeDerived() error {
-	if err := r.writeOSV(); err != nil {
+func (f *fileWriter) writeDerived(r *yamlReport) error {
+	if err := f.writeOSV(r); err != nil {
 		return err
 	}
-	return r.writeCVE()
+	return f.writeCVE(r)
 }
 
-func writeJSON(fname string, v any) error {
-	if err := database.WriteJSON(fname, v, true); err != nil {
+func writeJSON(wfs wfs, fname string, v any) error {
+	j, err := json.MarshalIndent(v, "", "  ")
+	if err != nil {
+		return err
+	}
+	if err := wfs.WriteFile(fname, j); err != nil {
 		return err
 	}
 	return ok(fname)
 }
 
 func ok(fname string) error {
-	log.Out(fname)
+	log.Out(filepath.ToSlash(fname))
 	return nil
+}
+
+// a simple representation of a writeable file system
+type wfs interface {
+	WriteFile(string, []byte) error
+}
+
+type defaultWFS struct{}
+
+func (defaultWFS) WriteFile(filename string, b []byte) error {
+	return os.WriteFile(filename, b, 0644)
 }

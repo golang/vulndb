@@ -7,12 +7,15 @@ package main
 import (
 	"context"
 	"fmt"
+	"strings"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	"golang.org/x/vulndb/cmd/vulnreport/log"
 )
 
 func TestAliasesBFS(t *testing.T) {
+	log.Discard()
 	tests := []struct {
 		knownAliases []string
 		aliasesFor   func(ctx context.Context, alias string) ([]string, error)
@@ -23,58 +26,58 @@ func TestAliasesBFS(t *testing.T) {
 			aliasesFor: func(ctx context.Context, alias string) ([]string, error) {
 				switch alias {
 				case "CVE-2023-0001":
-					return []string{"GHSA-1234567890"}, nil
+					return []string{"GHSA-xxxx-yyyy-zzzz"}, nil
 				default:
-					return nil, fmt.Errorf("unsupported alias %s", alias)
+					return nil, errBadAlias(t, alias)
 				}
 			},
-			want: []string{"CVE-2023-0001", "GHSA-1234567890"},
+			want: []string{"CVE-2023-0001", "GHSA-xxxx-yyyy-zzzz"},
 		},
 		{
-			knownAliases: []string{"CVE-2023-0001", "GHSA-1234567890"},
+			knownAliases: []string{"CVE-2023-0001", "GHSA-xxxx-yyyy-zzzz"},
 			aliasesFor: func(ctx context.Context, alias string) ([]string, error) {
 				switch alias {
 				case "CVE-2023-0001":
-					return []string{"GHSA-1234567890"}, nil
-				case "GHSA-1234567890":
+					return []string{"GHSA-xxxx-yyyy-zzzz"}, nil
+				case "GHSA-xxxx-yyyy-zzzz":
 					return []string{"CVE-2023-0001"}, nil
 				default:
-					return nil, fmt.Errorf("unsupported alias %s", alias)
+					return nil, errBadAlias(t, alias)
 				}
 			},
-			want: []string{"CVE-2023-0001", "GHSA-1234567890"},
+			want: []string{"CVE-2023-0001", "GHSA-xxxx-yyyy-zzzz"},
 		},
 		{
-			knownAliases: []string{"CVE-2023-0001", "GHSA-1234567890"},
+			knownAliases: []string{"CVE-2023-0001", "GHSA-xxxx-yyyy-zzzz"},
 			aliasesFor: func(ctx context.Context, alias string) ([]string, error) {
 				switch alias {
 				case "CVE-2023-0001":
-					return []string{"GHSA-1234567890", "CVE-2023-0002"}, nil
-				case "GHSA-1234567890":
+					return []string{"GHSA-xxxx-yyyy-zzzz", "CVE-2023-0002"}, nil
+				case "GHSA-xxxx-yyyy-zzzz":
 					return []string{"CVE-2023-0001", "CVE-2023-0002"}, nil
 				case "CVE-2023-0002":
-					return []string{"CVE-2023-0001", "GHSA-1234567890"}, nil
+					return []string{"CVE-2023-0001", "GHSA-xxxx-yyyy-zzzz"}, nil
 				default:
-					return nil, fmt.Errorf("unsupported alias %s", alias)
+					return nil, errBadAlias(t, alias)
 				}
 			},
-			want: []string{"CVE-2023-0001", "CVE-2023-0002", "GHSA-1234567890"},
+			want: []string{"CVE-2023-0001", "CVE-2023-0002", "GHSA-xxxx-yyyy-zzzz"},
 		},
 		{
 			knownAliases: []string{"CVE-2023-0001"},
 			aliasesFor: func(ctx context.Context, alias string) ([]string, error) {
 				switch alias {
 				case "CVE-2023-0001":
-					return []string{"GHSA-1234567890"}, nil
-				case "GHSA-1234567890":
+					return []string{"GHSA-xxxx-yyyy-zzzz"}, nil
+				case "GHSA-xxxx-yyyy-zzzz":
 					return []string{"CVE-2023-0002"}, nil
 				case "CVE-2023-0002":
-					return []string{"GHSA-1234567890"}, nil
+					return []string{"GHSA-xxxx-yyyy-zzzz"}, nil
 				default:
-					return nil, fmt.Errorf("unsupported alias %s", alias)
+					return nil, errBadAlias(t, alias)
 				}
 			},
-			want: []string{"CVE-2023-0001", "CVE-2023-0002", "GHSA-1234567890"},
+			want: []string{"CVE-2023-0001", "CVE-2023-0002", "GHSA-xxxx-yyyy-zzzz"},
 		},
 		{
 			knownAliases: []string{},
@@ -86,9 +89,17 @@ func TestAliasesBFS(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		got := aliasesBFS(context.Background(), test.knownAliases, test.aliasesFor)
-		if diff := cmp.Diff(test.want, got); diff != "" {
-			t.Errorf("aliasesBFS(%v) = %v, want %v", test.knownAliases, got, test.want)
-		}
+		t.Run(strings.Join(test.knownAliases, ","), func(t *testing.T) {
+			got := aliasesBFS(context.Background(), test.knownAliases, test.aliasesFor)
+			if diff := cmp.Diff(test.want, got); diff != "" {
+				t.Errorf("aliasesBFS(%v) = %v, want %v", test.knownAliases, got, test.want)
+			}
+		})
 	}
+}
+
+func errBadAlias(t *testing.T, alias string) error {
+	t.Helper()
+	t.Logf("alias %s not found", alias)
+	return fmt.Errorf("bad alias %s", alias)
 }

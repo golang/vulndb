@@ -10,7 +10,8 @@ import (
 
 type cveCmd struct {
 	*linter
-	filenameParser
+	*filenameParser
+	*fileWriter
 	noSkip
 }
 
@@ -21,9 +22,11 @@ func (cveCmd) usage() (string, string) {
 	return filenameArgs, desc
 }
 
-func (c *cveCmd) setup(ctx context.Context) error {
+func (c *cveCmd) setup(ctx context.Context, env environment) error {
 	c.linter = new(linter)
-	return setupAll(ctx, c.linter)
+	c.filenameParser = new(filenameParser)
+	c.fileWriter = new(fileWriter)
+	return setupAll(ctx, env, c.linter, c.filenameParser, c.fileWriter)
 }
 
 func (c *cveCmd) close() error { return nil }
@@ -33,5 +36,5 @@ func (c *cveCmd) run(_ context.Context, input any) error {
 	if err := c.lint(r); err != nil {
 		return err
 	}
-	return r.writeCVE()
+	return c.writeCVE(r)
 }

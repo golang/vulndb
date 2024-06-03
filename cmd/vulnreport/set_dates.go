@@ -15,7 +15,8 @@ import (
 type setDates struct {
 	dates map[string]gitrepo.Dates
 
-	filenameParser
+	*filenameParser
+	*fileWriter
 	noSkip
 }
 
@@ -26,8 +27,8 @@ func (setDates) usage() (string, string) {
 	return filenameArgs, desc
 }
 
-func (sd *setDates) setup(ctx context.Context) error {
-	repo, err := gitrepo.Open(ctx, ".")
+func (sd *setDates) setup(ctx context.Context, env environment) error {
+	repo, err := env.ReportRepo(ctx)
 	if err != nil {
 		return err
 	}
@@ -36,7 +37,9 @@ func (sd *setDates) setup(ctx context.Context) error {
 		return err
 	}
 	sd.dates = dates
-	return nil
+	sd.filenameParser = new(filenameParser)
+	sd.fileWriter = new(fileWriter)
+	return setupAll(ctx, env, sd.filenameParser, sd.fileWriter)
 }
 
 func (sd *setDates) close() error { return nil }
@@ -68,5 +71,5 @@ func (sd *setDates) run(ctx context.Context, input any) (err error) {
 		return fmt.Errorf("can't find git repo commit dates for %q", r.Filename)
 	}
 	r.Published = d.Oldest
-	return r.write()
+	return sd.write(r)
 }

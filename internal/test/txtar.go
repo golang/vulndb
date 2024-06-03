@@ -7,10 +7,12 @@ package test
 import (
 	"errors"
 	"fmt"
+	"io/fs"
 	"os"
 	"path/filepath"
 	"regexp"
 	"strconv"
+	"testing/fstest"
 	"time"
 
 	"github.com/google/go-cmp/cmp"
@@ -97,4 +99,16 @@ func FindFile(ar *txtar.Archive, filename string) (*txtar.File, error) {
 		}
 	}
 	return nil, fmt.Errorf("%s not found", filename)
+}
+
+func ReadTxtarFS(filename string) (fs.FS, error) {
+	a, err := txtar.ParseFile(filename)
+	if err != nil {
+		return nil, err
+	}
+	m := make(fstest.MapFS)
+	for _, a := range a.Files {
+		m[a.Name] = &fstest.MapFile{Data: a.Data}
+	}
+	return m, nil
 }
