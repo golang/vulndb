@@ -195,10 +195,7 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) error {
 	default:
 		// Regular, full-length reports.
 		addTODOs(r)
-		xrefs, err := c.xref(r)
-		if err != nil {
-			log.Warnf("%s: could not get cross-references: %s", r.ID, err)
-		} else if len(xrefs) != 0 {
+		if xrefs := c.xref(r); len(xrefs) != 0 {
 			log.Infof("%s: found cross-references: %s", r.ID, xrefs)
 		}
 	}

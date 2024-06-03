@@ -41,13 +41,8 @@ func (x *xref) close() error { return nil }
 // for the same CVE, GHSA, or module.
 func (x *xref) run(ctx context.Context, input any) (err error) {
 	r := input.(*yamlReport)
-
 	vlog.Out(r.filename)
-	xrefs, err := x.xref(r)
-	if err != nil {
-		return err
-	}
-	vlog.Out(xrefs)
+	vlog.Out(x.xref(r))
 	return nil
 }
 
@@ -68,7 +63,7 @@ type xrefer struct {
 	rc *report.Client
 }
 
-func (x *xrefer) xref(r *yamlReport) (string, error) {
+func (x *xrefer) xref(r *yamlReport) string {
 	out := &strings.Builder{}
 	matches := x.rc.XRef(r.Report)
 	delete(matches, r.filename)
@@ -83,7 +78,7 @@ func (x *xrefer) xref(r *yamlReport) (string, error) {
 			}
 		}
 	}
-	return out.String(), nil
+	return out.String()
 }
 
 func (x *xrefer) xrefCount(mp string) (excluded, regular, notGoCode int) {
