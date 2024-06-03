@@ -1,0 +1,32 @@
+id: GO-2024-2746
+modules:
+    - module: k8s.io/kubernetes
+      versions:
+        - fixed: 1.27.13
+        - introduced: 1.28.0
+          fixed: 1.28.9
+        - introduced: 1.29.0
+          fixed: 1.29.4
+      vulnerable_at: 1.29.3
+summary: |-
+    Kubernetes allows bypassing mountable secrets policy imposed by the
+    ServiceAccount admission plugin in k8s.io/kubernetes
+cves:
+    - CVE-2024-3177
+ghsas:
+    - GHSA-pxhw-596r-rwq5
+references:
+    - advisory: https://github.com/advisories/GHSA-pxhw-596r-rwq5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-3177
+    - web: http://www.openwall.com/lists/oss-security/2024/04/16/4
+    - web: https://github.com/kubernetes/kubernetes/commit/7c861b1ecad97e1ab9332c970c9294a72065111a
+    - web: https://github.com/kubernetes/kubernetes/commit/a619ca3fd3ee3c222d9df784622020de398076d2
+    - web: https://github.com/kubernetes/kubernetes/commit/f9fb6cf52a769a599a45e700375115c2ecc86e9b
+    - web: https://github.com/kubernetes/kubernetes/issues/124336
+    - web: https://groups.google.com/g/kubernetes-security-announce/c/JxjHf7fkVd8/m/oVCzypyOAQAJ
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/QRYFHIQ6XRKRYBI2F5UESH67BJBQXUPT
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/WL54MTLGMTBZZO5PYGEGEBERTMADC4WC
+source:
+    id: GHSA-pxhw-596r-rwq5
+    created: 2024-05-17T16:12:44.610818-04:00
+review_status: UNREVIEWED

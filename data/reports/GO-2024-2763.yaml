@@ -1,0 +1,23 @@
+id: GO-2024-2763
+modules:
+    - module: github.com/heketi/heketi
+      versions:
+        - fixed: 5.0.1+incompatible
+      vulnerable_at: 5.0.0+incompatible
+summary: Heketi Arbitrary Code Execution in github.com/heketi/heketi
+cves:
+    - CVE-2017-15103
+ghsas:
+    - GHSA-6g56-v9qg-jp92
+references:
+    - advisory: https://github.com/advisories/GHSA-6g56-v9qg-jp92
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-15103
+    - fix: https://github.com/heketi/heketi/commit/787bae461b23003a4daa4d1d639016a754cf6b00
+    - web: https://access.redhat.com/errata/RHSA-2017:3481
+    - web: https://access.redhat.com/security/cve/CVE-2017-15103
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=1510147
+    - web: https://github.com/heketi/heketi/releases/tag/v5.0.1
+source:
+    id: GHSA-6g56-v9qg-jp92
+    created: 2024-05-17T16:12:01.544224-04:00
+review_status: UNREVIEWED

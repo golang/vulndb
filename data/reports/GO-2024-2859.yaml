@@ -1,0 +1,20 @@
+id: GO-2024-2859
+modules:
+    - module: github.com/fluxcd/source-controller
+      versions:
+        - fixed: 1.2.5
+      vulnerable_at: 1.2.4
+summary: source-controller leaks Azure Storage SAS token into logs in github.com/fluxcd/source-controller
+cves:
+    - CVE-2024-31216
+ghsas:
+    - GHSA-v554-xwgw-hc3w
+references:
+    - advisory: https://github.com/fluxcd/source-controller/security/advisories/GHSA-v554-xwgw-hc3w
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-31216
+    - fix: https://github.com/fluxcd/source-controller/commit/915d1a072a4f37dd460ba33079dc094aa6e72fa9
+    - fix: https://github.com/fluxcd/source-controller/pull/1430
+source:
+    id: GHSA-v554-xwgw-hc3w
+    created: 2024-05-17T16:08:47.429447-04:00
+review_status: UNREVIEWED

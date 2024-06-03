@@ -1,0 +1,26 @@
+id: GO-2024-2791
+modules:
+    - module: github.com/cri-o/cri-o
+      versions:
+        - fixed: 1.27.6
+        - introduced: 1.28.0
+          fixed: 1.28.6
+        - introduced: 1.29.0
+          fixed: 1.29.4
+      vulnerable_at: 1.29.3
+summary: CRI-O vulnerable to an arbitrary systemd property injection in github.com/cri-o/cri-o
+cves:
+    - CVE-2024-3154
+ghsas:
+    - GHSA-2cgq-h8xw-2v5j
+references:
+    - advisory: https://github.com/cri-o/cri-o/security/advisories/GHSA-2cgq-h8xw-2v5j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-3154
+    - web: https://access.redhat.com/security/cve/CVE-2024-3154
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2272532
+    - web: https://github.com/opencontainers/runc/pull/4217
+    - web: https://github.com/opencontainers/runtime-spec/blob/main/features.md#unsafe-annotations-in-configjson
+source:
+    id: GHSA-2cgq-h8xw-2v5j
+    created: 2024-05-17T16:10:42.126408-04:00
+review_status: UNREVIEWED

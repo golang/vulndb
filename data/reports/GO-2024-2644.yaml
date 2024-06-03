@@ -1,0 +1,20 @@
+id: GO-2024-2644
+modules:
+    - module: github.com/fluid-cloudnative/fluid
+      versions:
+        - fixed: 0.9.3
+      vulnerable_at: 0.9.2
+summary: Fluid vulnerable to OS Command Injection for Fluid Users with JuicefsRuntime in github.com/fluid-cloudnative/fluid
+cves:
+    - CVE-2023-51699
+ghsas:
+    - GHSA-wx8q-4gm9-rj2g
+references:
+    - advisory: https://github.com/fluid-cloudnative/fluid/security/advisories/GHSA-wx8q-4gm9-rj2g
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-51699
+    - fix: https://github.com/fluid-cloudnative/fluid/commit/02b7cd8b79a26092df95d625664994bda485c722
+    - fix: https://github.com/fluid-cloudnative/fluid/commit/e0184cff8790ad000c3e8943392c7f544fad7d66
+source:
+    id: GHSA-wx8q-4gm9-rj2g
+    created: 2024-05-17T16:14:37.080903-04:00
+review_status: UNREVIEWED

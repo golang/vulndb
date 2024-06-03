@@ -1,0 +1,24 @@
+id: GO-2024-2704
+modules:
+    - module: github.com/hashicorp/consul
+      versions:
+        - introduced: 1.16.0
+          fixed: 1.16.1
+      vulnerable_at: 1.16.0
+summary: |-
+    Consul JWT Auth in L7 Intentions Allow for Mismatched Service Identity and JWT
+    Providers in github.com/hashicorp/consul
+cves:
+    - CVE-2023-3518
+ghsas:
+    - GHSA-9rhf-q362-77mx
+unknown_aliases:
+    - BIT-consul-2023-3518
+references:
+    - advisory: https://github.com/advisories/GHSA-9rhf-q362-77mx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-3518
+    - web: https://discuss.hashicorp.com/t/hcsec-2023-25-consul-jwt-auth-in-l7-intentions-allow-for-mismatched-service-identity-and-jwt-providers/57004
+source:
+    id: GHSA-9rhf-q362-77mx
+    created: 2024-05-17T16:13:44.520242-04:00
+review_status: UNREVIEWED

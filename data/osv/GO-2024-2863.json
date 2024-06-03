@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2863",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-35183",
+    "GHSA-8fg7-hp93-qhvr"
+  ],
+  "summary": "wolfictl leaks GitHub tokens to remote non-GitHub git servers in github.com/wolfi-dev/wolfictl",
+  "details": "wolfictl leaks GitHub tokens to remote non-GitHub git servers in github.com/wolfi-dev/wolfictl",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/wolfi-dev/wolfictl",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.16.10"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/wolfi-dev/wolfictl/security/advisories/GHSA-8fg7-hp93-qhvr"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-35183"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/wolfi-dev/wolfictl/commit/0d06e1578300327c212dda26a5ab31d09352b9d0"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/wolfi-dev/wolfictl/commit/403e93569f46766b4e26e06cf9cd0cae5ee0c2a2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/wolfi-dev/wolfictl/blob/488b53823350caa706de3f01ec0eded9350c7da7/pkg/update/update.go#L143"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/wolfi-dev/wolfictl/blob/4dd6c95abb4bc0f9306350a8601057bd7a92bded/pkg/update/deps/cleanup.go#L49"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/wolfi-dev/wolfictl/blob/6d99909f7b1aa23f732d84dad054b02a61f530e6/pkg/git/git.go#L22"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2863",
+    "review_status": "UNREVIEWED"
+  }
+}

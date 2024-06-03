@@ -1,0 +1,23 @@
+id: GO-2024-2853
+modules:
+    - module: github.com/tg123/sshpiper
+      versions:
+        - introduced: 1.0.50
+          fixed: 1.3.0
+      vulnerable_at: 1.2.8
+summary: |-
+    sshpiper's enabling of proxy protocol without proper feature flagging allows
+    faking source address in github.com/tg123/sshpiper
+cves:
+    - CVE-2024-35175
+ghsas:
+    - GHSA-4w53-6jvp-gg52
+references:
+    - advisory: https://github.com/tg123/sshpiper/security/advisories/GHSA-4w53-6jvp-gg52
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-35175
+    - fix: https://github.com/tg123/sshpiper/commit/2ddd69876a1e1119059debc59fe869cb4e754430
+    - fix: https://github.com/tg123/sshpiper/commit/70fb830dca26bea7ced772ce5d834a3e88ae7f53
+source:
+    id: GHSA-4w53-6jvp-gg52
+    created: 2024-05-17T16:09:07.811118-04:00
+review_status: UNREVIEWED

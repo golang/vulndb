@@ -1,0 +1,19 @@
+id: GO-2024-2703
+modules:
+    - module: github.com/kopia/kopia
+      versions:
+        - fixed: 0.16.0
+      vulnerable_at: 0.15.0
+summary: |-
+    Kopia: Storage connection credentials written to console on "repository status"
+    CLI command with JSON output in github.com/kopia/kopia
+ghsas:
+    - GHSA-j5vm-7qcc-2wwg
+references:
+    - advisory: https://github.com/kopia/kopia/security/advisories/GHSA-j5vm-7qcc-2wwg
+    - fix: https://github.com/kopia/kopia/commit/1d6f852cd6534f4bea978cbdc85c583803d79f77
+    - fix: https://github.com/kopia/kopia/pull/3589
+source:
+    id: GHSA-j5vm-7qcc-2wwg
+    created: 2024-05-17T16:13:46.760398-04:00
+review_status: UNREVIEWED

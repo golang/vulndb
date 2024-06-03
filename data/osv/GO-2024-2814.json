@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2814",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-34066",
+    "GHSA-gqmf-jqgv-v8fw"
+  ],
+  "summary": "Pterodactyl Wings vulnerable to Arbitrary File Write/Read in github.com/pterodactyl/wings",
+  "details": "Pterodactyl Wings vulnerable to Arbitrary File Write/Read in github.com/pterodactyl/wings",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/pterodactyl/wings",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.11.12"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/pterodactyl/wings/security/advisories/GHSA-gqmf-jqgv-v8fw"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-34066"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/pterodactyl/wings/commit/5415f8ae07f533623bd8169836dd7e0b933964de"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2814",
+    "review_status": "UNREVIEWED"
+  }
+}

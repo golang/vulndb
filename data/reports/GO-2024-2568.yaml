@@ -1,0 +1,20 @@
+id: GO-2024-2568
+modules:
+    - module: github.com/cilium/cilium
+      versions:
+        - fixed: 1.14.7
+      vulnerable_at: 1.14.6
+summary: Unencrypted ingress/health traffic when using Wireguard transparent encryption in github.com/cilium/cilium
+cves:
+    - CVE-2024-25630
+ghsas:
+    - GHSA-7496-fgv9-xw82
+references:
+    - advisory: https://github.com/cilium/cilium/security/advisories/GHSA-7496-fgv9-xw82
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-25630
+    - web: https://docs.cilium.io/en/stable/security/network/encryption-wireguard/#encryption-wg
+    - web: https://github.com/cilium/cilium/releases/tag/v1.14.7
+source:
+    id: GHSA-7496-fgv9-xw82
+    created: 2024-05-17T16:15:20.303526-04:00
+review_status: UNREVIEWED

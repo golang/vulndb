@@ -1,0 +1,20 @@
+id: GO-2024-2836
+modules:
+    - module: github.com/cea-hpc/sshproxy
+      versions:
+        - fixed: 1.6.3
+      vulnerable_at: 1.6.2
+summary: sshproxy vulnerable to SSH option injection in github.com/cea-hpc/sshproxy
+cves:
+    - CVE-2024-34713
+ghsas:
+    - GHSA-jmqp-37m5-49wh
+references:
+    - advisory: https://github.com/cea-hpc/sshproxy/security/advisories/GHSA-jmqp-37m5-49wh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-34713
+    - fix: https://github.com/cea-hpc/sshproxy/commit/3b8bccc874dc4ca2c80c956cad65722abb46f0b9
+    - fix: https://github.com/cea-hpc/sshproxy/commit/f7eabd05d5f0f951e160293692327cad9a7d9580
+source:
+    id: GHSA-jmqp-37m5-49wh
+    created: 2024-05-17T16:09:33.514363-04:00
+review_status: UNREVIEWED

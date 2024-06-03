@@ -1,0 +1,21 @@
+id: GO-2024-2569
+modules:
+    - module: github.com/cilium/cilium
+      versions:
+        - fixed: 1.14.7
+      vulnerable_at: 1.14.6
+summary: Unencrypted traffic between pods when using Wireguard and an external kvstore in github.com/cilium/cilium
+cves:
+    - CVE-2024-25631
+ghsas:
+    - GHSA-x989-52fc-4vr4
+references:
+    - advisory: https://github.com/cilium/cilium/security/advisories/GHSA-x989-52fc-4vr4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-25631
+    - web: https://docs.cilium.io/en/stable/installation/k8s-install-external-etcd/#when-do-i-need-to-use-a-kvstore
+    - web: https://docs.cilium.io/en/stable/security/network/encryption-wireguard/#encryption-wg
+    - web: https://github.com/cilium/cilium/releases/tag/v1.14.7
+source:
+    id: GHSA-x989-52fc-4vr4
+    created: 2024-05-17T16:15:17.501208-04:00
+review_status: UNREVIEWED

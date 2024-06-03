@@ -1,0 +1,23 @@
+id: GO-2024-2765
+modules:
+    - module: kubevirt.io/kubevirt
+      versions:
+        - fixed: 0.26.0
+      vulnerable_at: 0.26.0-rc.0
+summary: Permissions bypass in KubeVirt in kubevirt.io/kubevirt
+cves:
+    - CVE-2020-1701
+ghsas:
+    - GHSA-849r-8wvp-4wwg
+references:
+    - advisory: https://github.com/advisories/GHSA-849r-8wvp-4wwg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-1701
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=1792092
+    - web: https://github.com/kubevirt/containerized-data-importer/pull/1098
+    - web: https://github.com/kubevirt/kubevirt/commit/9efa8d7388d4fe1c698c6980aa7122c06bd141be
+    - web: https://github.com/kubevirt/kubevirt/issues/2967
+    - web: https://github.com/kubevirt/kubevirt/pull/3001
+source:
+    id: GHSA-849r-8wvp-4wwg
+    created: 2024-05-17T16:11:56.381692-04:00
+review_status: UNREVIEWED

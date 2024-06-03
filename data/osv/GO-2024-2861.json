@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2861",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-3744",
+    "GHSA-qjqg-4wg7-957h"
+  ],
+  "summary": "azure-file-csi-driver leaks service account tokens in the logs in sigs.k8s.io/azurefile-csi-driver",
+  "details": "azure-file-csi-driver leaks service account tokens in the logs in sigs.k8s.io/azurefile-csi-driver",
+  "affected": [
+    {
+      "package": {
+        "name": "sigs.k8s.io/azurefile-csi-driver",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.29.4"
+            },
+            {
+              "introduced": "1.30.0"
+            },
+            {
+              "fixed": "1.30.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-qjqg-4wg7-957h"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-3744"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubernetes-sigs/azurefile-csi-driver/commit/a1b7446de942136419f07394efeef804523f87ae"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubernetes-sigs/azurefile-csi-driver/commit/e11ff3dc2c03894cde692213308f9991e7bbd5bf"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubernetes/kubernetes/issues/124759"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/kubernetes-security-announce/c/hcgZE2MQo1A/m/Y4C6q-CYAgAJ"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2861",
+    "review_status": "UNREVIEWED"
+  }
+}

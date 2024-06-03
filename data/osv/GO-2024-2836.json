@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2836",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-34713",
+    "GHSA-jmqp-37m5-49wh"
+  ],
+  "summary": "sshproxy vulnerable to SSH option injection in github.com/cea-hpc/sshproxy",
+  "details": "sshproxy vulnerable to SSH option injection in github.com/cea-hpc/sshproxy",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cea-hpc/sshproxy",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.6.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cea-hpc/sshproxy/security/advisories/GHSA-jmqp-37m5-49wh"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-34713"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cea-hpc/sshproxy/commit/3b8bccc874dc4ca2c80c956cad65722abb46f0b9"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cea-hpc/sshproxy/commit/f7eabd05d5f0f951e160293692327cad9a7d9580"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2836",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,27 @@
+id: GO-2024-2792
+modules:
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - fixed: 2.8.17
+        - introduced: 2.9.0
+          fixed: 2.9.13
+        - introduced: 2.10.0
+          fixed: 2.10.8
+      vulnerable_at: 2.10.7
+summary: |-
+    Argo CD vulnerable to a Denial of Service via malicious jqPathExpressions in
+    ignoreDifferences in github.com/argoproj/argo-cd/v2
+cves:
+    - CVE-2024-32476
+ghsas:
+    - GHSA-9m6p-x4h2-6frq
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-9m6p-x4h2-6frq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-32476
+    - web: https://github.com/argoproj/argo-cd/commit/7893979a1e78d59cedd0ba790ded24e30bb40657
+    - web: https://github.com/argoproj/argo-cd/commit/9e5cc5a26ff0920a01816231d59fdb5eae032b5a
+    - web: https://github.com/argoproj/argo-cd/commit/e2df7315fb7d96652186bf7435773a27be330cac
+source:
+    id: GHSA-9m6p-x4h2-6frq
+    created: 2024-05-17T16:10:38.953722-04:00
+review_status: UNREVIEWED

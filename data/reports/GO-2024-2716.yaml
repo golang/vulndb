@@ -1,0 +1,22 @@
+id: GO-2024-2716
+modules:
+    - module: github.com/authzed/spicedb
+      versions:
+        - fixed: 1.30.1
+      vulnerable_at: 1.30.0
+summary: |-
+    SpiceDB: LookupSubjects may return partial results if a specific kind of
+    relation is used in github.com/authzed/spicedb
+cves:
+    - CVE-2024-32001
+ghsas:
+    - GHSA-j85q-46hg-36p2
+references:
+    - advisory: https://github.com/authzed/spicedb/security/advisories/GHSA-j85q-46hg-36p2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-32001
+    - fix: https://github.com/authzed/spicedb/commit/a244ed1edfaf2382711dccdb699971ec97190c7b
+    - web: https://github.com/authzed/spicedb/releases/tag/v1.30.1
+source:
+    id: GHSA-j85q-46hg-36p2
+    created: 2024-05-17T16:13:26.196238-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,26 @@
+id: GO-2024-2689
+modules:
+    - module: go.temporal.io/server
+      versions:
+        - fixed: 1.20.5
+        - introduced: 1.21.0
+          fixed: 1.21.6
+        - introduced: 1.22.0-rc1
+          fixed: 1.22.7
+      vulnerable_at: 1.22.6
+summary: Temporal Server Denial of Service in go.temporal.io/server
+cves:
+    - CVE-2024-2689
+ghsas:
+    - GHSA-wmxc-v39r-p9wf
+references:
+    - advisory: https://github.com/advisories/GHSA-wmxc-v39r-p9wf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-2689
+    - web: https://github.com/temporalio/temporal/commit/2099dfd945accbf794404c3b8d990d109de19f06
+    - web: https://github.com/temporalio/temporal/commit/679e3dc2ca8bd39e02c760f686cc8807f817bbfd
+    - web: https://github.com/temporalio/temporal/commit/f1fab97129f964dcca17d1f7c344f38666d1ee5f
+    - web: https://github.com/temporalio/temporal/releases
+source:
+    id: GHSA-wmxc-v39r-p9wf
+    created: 2024-05-17T16:14:10.920801-04:00
+review_status: UNREVIEWED

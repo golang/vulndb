@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2642",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-27102",
+    "GHSA-494h-9924-xww9"
+  ],
+  "summary": "Pterodactyl Wings vulnerable to improper isolation of server file access in github.com/pterodactyl/wings",
+  "details": "Pterodactyl Wings vulnerable to improper isolation of server file access in github.com/pterodactyl/wings",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/pterodactyl/wings",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.11.9"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/pterodactyl/wings/security/advisories/GHSA-494h-9924-xww9"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-27102"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/pterodactyl/wings/commit/d1c0ca526007113a0f74f56eba99511b4e989287"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2642",
+    "review_status": "UNREVIEWED"
+  }
+}

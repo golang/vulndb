@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2692",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-3250",
+    "GHSA-4685-2x5r-65pj"
+  ],
+  "summary": "Pebble service manager's file pull API allows access by any user in github.com/canonical/pebble",
+  "details": "Pebble service manager's file pull API allows access by any user in github.com/canonical/pebble",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/canonical/pebble",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.1.1"
+            },
+            {
+              "introduced": "1.2.0"
+            },
+            {
+              "fixed": "1.4.2"
+            },
+            {
+              "introduced": "1.5.0"
+            },
+            {
+              "fixed": "1.7.3"
+            },
+            {
+              "introduced": "1.8.0"
+            },
+            {
+              "fixed": "1.10.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/canonical/pebble/security/advisories/GHSA-4685-2x5r-65pj"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-3250"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2024-3250"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/pebble/commit/4ca343d3889533143477e21c63867f2f3c3b5645"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/pebble/commit/a5f6f062a11ea156697b854264385ff7e1985fd8"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/pebble/commit/b8abd1ff0090f3e0749e81eb1fc3ea16ba95f514"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/pebble/commit/cd326225b9b0be067da7d8858e2c912078cbbbd5"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/pebble/pull/406"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2692",
+    "review_status": "UNREVIEWED"
+  }
+}

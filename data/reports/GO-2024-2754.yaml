@@ -1,0 +1,29 @@
+id: GO-2024-2754
+modules:
+    - module: k8s.io/kubernetes
+      versions:
+        - fixed: 1.17.13
+        - introduced: 1.18.0
+          fixed: 1.18.10
+        - introduced: 1.19.0
+          fixed: 1.19.3
+      vulnerable_at: 1.19.3-rc.0
+summary: Sensitive Information leak via Log File in Kubernetes in k8s.io/kubernetes
+cves:
+    - CVE-2020-8566
+ghsas:
+    - GHSA-5x96-j797-5qqw
+references:
+    - advisory: https://github.com/advisories/GHSA-5x96-j797-5qqw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-8566
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=1886640
+    - web: https://github.com/kubernetes/kubernetes/issues/95624
+    - web: https://github.com/kubernetes/kubernetes/pull/95245
+    - web: https://github.com/kubernetes/kubernetes/pull/95245/commits/e91ec4fad3366d2dee020919f7c2a0d7b52fd3ea
+    - web: https://groups.google.com/g/kubernetes-announce/c/ScdmyORnPDk
+    - web: https://groups.google.com/g/kubernetes-security-discuss/c/vm-HcrFUOCs/m/36utxAM5CwAJ
+    - web: https://security.netapp.com/advisory/ntap-20210122-0006
+source:
+    id: GHSA-5x96-j797-5qqw
+    created: 2024-05-17T16:12:22.166508-04:00
+review_status: UNREVIEWED
