@@ -139,6 +139,21 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) error {
 		report.WithAliases(aliases),
 		report.WithReviewStatus(meta.reviewStatus),
 	)
+
+	if meta.excluded != "" {
+		raw = &report.Report{
+			ID: meta.id,
+			Modules: []*report.Module{
+				{
+					Module: meta.modulePath,
+				},
+			},
+			Excluded: meta.excluded,
+			CVEs:     raw.CVEs,
+			GHSAs:    raw.GHSAs,
+		}
+	}
+
 	fname, err := raw.YAMLFilename()
 	if err != nil {
 		return err
@@ -173,17 +188,7 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) error {
 
 	switch {
 	case meta.excluded != "":
-		r.Report = &report.Report{
-			ID: meta.id,
-			Modules: []*report.Module{
-				{
-					Module: meta.modulePath,
-				},
-			},
-			Excluded: meta.excluded,
-			CVEs:     r.CVEs,
-			GHSAs:    r.GHSAs,
-		}
+		// nothing
 	case meta.reviewStatus == report.Unreviewed:
 		r.Description = ""
 		addNotes := true
