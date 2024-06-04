@@ -259,6 +259,15 @@ func (r *Report) lintReviewStatus(l *linter) {
 	}
 }
 
+func (r *Report) lintSource(l *linter) {
+	if r.SourceMeta == nil {
+		return
+	}
+	if !r.IsReviewed() && r.SourceMeta.ID == sourceGoTeam {
+		l.Errorf("source: if id=%s, report must be %s", sourceGoTeam, Reviewed)
+	}
+}
+
 func (r *Report) countAdvisories() int {
 	advisoryCount := 0
 	for _, ref := range r.References {
@@ -496,6 +505,7 @@ func (r *Report) lint(pc *proxy.Client) []string {
 
 	r.lintReferences(l)
 	r.lintReviewStatus(l)
+	r.lintSource(l)
 
 	if r.hasTODOs() {
 		l.Error("contains one or more TODOs")
