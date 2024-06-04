@@ -1,0 +1,36 @@
+id: GO-2024-2887
+modules:
+    - module: std
+      versions:
+        - fixed: 1.21.11
+        - introduced: 1.22.0-0
+          fixed: 1.22.4
+      vulnerable_at: 1.22.3
+      packages:
+        - package: net/netip
+          symbols:
+            - Addr.IsLoopback
+            - Addr.IsMulticast
+            - Addr.IsInterfaceLocalMulticast
+            - Addr.IsLinkLocalMulticast
+            - Addr.IsGlobalUnicast
+            - Addr.IsPrivate
+summary: Unexpected behavior from Is methods for IPv4-mapped IPv6 addresses in net/netip
+description: |-
+    The various Is methods (IsPrivate, IsLoopback, etc) did not work as expected for
+    IPv4-mapped IPv6 addresses, returning false for addresses which would return
+    true in their traditional IPv4 forms.
+credits:
+    - Enze Wang of Alioth (@zer0yu)
+    - Jianjun Chen of Zhongguancun Lab (@chenjj)
+references:
+    - fix: https://go.dev/cl/590316
+    - report: https://go.dev/issue/67680
+    - web: https://groups.google.com/g/golang-announce/c/XbxouI9gY7k/m/TuoGEhxIEwAJ
+cve_metadata:
+    id: CVE-2024-24790
+    cwe: 'CWE-180: Incorrect Behavior Order: Validate Before Canonicalize'
+source:
+    id: go-security-team
+    created: 2024-06-04T17:58:12.283051-04:00
+review_status: REVIEWED

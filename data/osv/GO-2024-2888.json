@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2888",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-24789"
+  ],
+  "summary": "Mishandling of corrupt central directory record in archive/zip",
+  "details": "The archive/zip package's handling of certain types of invalid zip files differs from the behavior of most zip implementations. This misalignment could be exploited to create an zip file with contents that vary depending on the implementation reading the file. The archive/zip package now rejects files containing these errors.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.21.11"
+            },
+            {
+              "introduced": "1.22.0-0"
+            },
+            {
+              "fixed": "1.22.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "archive/zip",
+            "symbols": [
+              "NewReader",
+              "OpenReader",
+              "findSignatureInBlock"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/585397"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/66869"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/XbxouI9gY7k/m/TuoGEhxIEwAJ"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Yufan You (@ouuan)"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2888",
+    "review_status": "REVIEWED"
+  }
+}

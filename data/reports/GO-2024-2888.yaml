@@ -1,0 +1,35 @@
+id: GO-2024-2888
+modules:
+    - module: std
+      versions:
+        - fixed: 1.21.11
+        - introduced: 1.22.0-0
+          fixed: 1.22.4
+      vulnerable_at: 1.22.3
+      packages:
+        - package: archive/zip
+          symbols:
+            - findSignatureInBlock
+          derived_symbols:
+            - NewReader
+            - OpenReader
+summary: Mishandling of corrupt central directory record in archive/zip
+description: |-
+    The archive/zip package's handling of certain types of invalid zip files differs
+    from the behavior of most zip implementations. This misalignment could be
+    exploited to create an zip file with contents that vary depending on the
+    implementation reading the file. The archive/zip package now rejects files
+    containing these errors.
+credits:
+    - Yufan You (@ouuan)
+references:
+    - fix: https://go.dev/cl/585397
+    - report: https://go.dev/issue/66869
+    - web: https://groups.google.com/g/golang-announce/c/XbxouI9gY7k/m/TuoGEhxIEwAJ
+cve_metadata:
+    id: CVE-2024-24789
+    cwe: 'CWE-390: Detection of Error Condition Without Action'
+source:
+    id: go-security-team
+    created: 2024-06-04T17:58:11.150789-04:00
+review_status: REVIEWED
