@@ -1,0 +1,21 @@
+id: GO-2024-2849
+modules:
+    - module: github.com/dotmesh-io/dotmesh
+      unsupported_versions:
+        - version: 0.8.1
+          type: last_affected
+      vulnerable_at: 0.0.0-20200428140901-6bdf6885808f
+summary: dotmesh arbitrary file read and/or write in github.com/dotmesh-io/dotmesh
+cves:
+    - CVE-2020-26312
+ghsas:
+    - GHSA-hf54-fq2m-p9v6
+references:
+    - advisory: https://github.com/advisories/GHSA-hf54-fq2m-p9v6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-26312
+    - advisory: https://securitylab.github.com/advisories/GHSL-2020-254-zipslip-dotmesh
+    - web: https://github.com/dotmesh-io/dotmesh/blob/master/pkg/archiver/tar.go#L255
+source:
+    id: GHSA-hf54-fq2m-p9v6
+    created: 2024-06-04T14:27:24.630281-04:00
+review_status: UNREVIEWED

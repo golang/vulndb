@@ -1,0 +1,25 @@
+id: GO-2024-2855
+modules:
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - introduced: 7.0.0
+          fixed: 8.5.14
+        - introduced: 9.0.0
+          fixed: 9.1.8
+      vulnerable_at: 5.4.5+incompatible
+summary: Grafana Plugin signature bypass in github.com/grafana/grafana
+cves:
+    - CVE-2022-31123
+ghsas:
+    - GHSA-rhxj-gh46-jvw8
+unknown_aliases:
+    - BIT-grafana-2022-31123
+references:
+    - advisory: https://github.com/grafana/grafana/security/advisories/GHSA-rhxj-gh46-jvw8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-31123
+    - web: https://github.com/grafana/grafana/releases/tag/v9.1.8
+    - web: https://security.netapp.com/advisory/ntap-20221124-0002
+source:
+    id: GHSA-rhxj-gh46-jvw8
+    created: 2024-06-04T14:27:06.393242-04:00
+review_status: UNREVIEWED

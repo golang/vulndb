@@ -1,0 +1,28 @@
+id: GO-2024-2851
+modules:
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - introduced: 7.0.0
+          fixed: 8.5.14
+        - introduced: 9.0.0
+          fixed: 9.1.8
+      vulnerable_at: 5.4.5+incompatible
+summary: |-
+    Grafana Data source and plugin proxy endpoints leaking authentication tokens to
+    some destination plugins in github.com/grafana/grafana
+cves:
+    - CVE-2022-31130
+ghsas:
+    - GHSA-jv32-5578-pxjc
+unknown_aliases:
+    - BIT-grafana-2022-31130
+references:
+    - advisory: https://github.com/grafana/grafana/security/advisories/GHSA-jv32-5578-pxjc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-31130
+    - fix: https://github.com/grafana/grafana/commit/4dd56e4dabce10007bf4ba1059bf54178c35b177
+    - fix: https://github.com/grafana/grafana/commit/9da278c044ba605eb5a1886c48df9a2cb0d3885f
+    - web: https://github.com/grafana/grafana/releases/tag/v9.1.8
+source:
+    id: GHSA-jv32-5578-pxjc
+    created: 2024-06-04T14:27:17.106354-04:00
+review_status: UNREVIEWED

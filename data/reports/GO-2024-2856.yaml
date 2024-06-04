@@ -1,0 +1,22 @@
+id: GO-2024-2856
+modules:
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - introduced: 9.2.0
+          fixed: 9.2.4
+      vulnerable_at: 5.4.5+incompatible
+summary: Grafana Race condition allowing privilege escalation in github.com/grafana/grafana
+cves:
+    - CVE-2022-39328
+ghsas:
+    - GHSA-vqc4-mpj8-jxch
+unknown_aliases:
+    - BIT-grafana-2022-39328
+references:
+    - advisory: https://github.com/grafana/grafana/security/advisories/GHSA-vqc4-mpj8-jxch
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-39328
+    - web: https://security.netapp.com/advisory/ntap-20221215-0003
+source:
+    id: GHSA-vqc4-mpj8-jxch
+    created: 2024-06-04T14:27:03.429541-04:00
+review_status: UNREVIEWED

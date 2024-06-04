@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2877",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-31989",
+    "GHSA-9766-5277-j5hr"
+  ],
+  "summary": "ArgoCD Vulnerable to Use of Risky or Missing Cryptographic Algorithms in Redis Cache in github.com/argoproj/argo-cd",
+  "details": "ArgoCD Vulnerable to Use of Risky or Missing Cryptographic Algorithms in Redis Cache in github.com/argoproj/argo-cd",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-cd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-cd/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.8.19"
+            },
+            {
+              "introduced": "2.9.0-rc1"
+            },
+            {
+              "fixed": "2.9.15"
+            },
+            {
+              "introduced": "2.10.0-rc1"
+            },
+            {
+              "fixed": "2.10.10"
+            },
+            {
+              "introduced": "2.11.0-rc1"
+            },
+            {
+              "fixed": "2.11.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/argoproj/argo-cd/security/advisories/GHSA-9766-5277-j5hr"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-31989"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-cd/commit/2de0ceade243039c120c28374016c04ff9590d1d"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-cd/commit/35a7d6c7fa1534aceba763d6a68697f36c12e678"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-cd/commit/4e2fe302c3352a0012ecbe7f03476b0e07f7fc6c"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-cd/commit/53570cbd143bced49d4376d6e31bd9c7bd2659ff"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-cd/commit/6ef7b62a0f67e74b4aac2aee31c98ae49dd95d12"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-cd/commit/9552034a80070a93a161bfa330359585f3b85f07"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-cd/commit/bdd889d43969ba738ddd15e1f674d27964048994"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-cd/commit/f1a449e83ee73f8f14d441563b6a31b504f8d8b0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2877",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,30 @@
+id: GO-2024-2880
+modules:
+    - module: github.com/traefik/traefik
+      unsupported_versions:
+        - version: 1.7.34
+          type: last_affected
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.3
+      vulnerable_at: 2.11.2
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - fixed: 3.0.1
+      vulnerable_at: 3.0.0
+summary: |-
+    Traefik vulnerable to GO issue allowing malformed DNS message to cause infinite
+    loop in github.com/traefik/traefik
+ghsas:
+    - GHSA-f7cq-5v43-8pwp
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-f7cq-5v43-8pwp
+    - web: https://github.com/advisories/GHSA-5fq7-4mxc-535h
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.3
+    - web: https://github.com/traefik/traefik/releases/tag/v3.0.1
+    - web: https://www.cve.org/CVERecord?id=CVE-2024-24788
+source:
+    id: GHSA-f7cq-5v43-8pwp
+    created: 2024-06-04T14:25:41.535025-04:00
+review_status: UNREVIEWED

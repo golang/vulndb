@@ -1,0 +1,24 @@
+id: GO-2024-2843
+modules:
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - introduced: 8.0.0
+          fixed: 8.5.15
+        - introduced: 9.0.0
+          fixed: 9.2.4
+      vulnerable_at: 5.4.5+incompatible
+summary: Grafana Email addresses and usernames can not be trusted in github.com/grafana/grafana
+cves:
+    - CVE-2022-39306
+ghsas:
+    - GHSA-2x6g-h2hg-rq84
+unknown_aliases:
+    - BIT-grafana-2022-39306
+references:
+    - advisory: https://github.com/grafana/grafana/security/advisories/GHSA-2x6g-h2hg-rq84
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-39306
+    - web: https://security.netapp.com/advisory/ntap-20221215-0004
+source:
+    id: GHSA-2x6g-h2hg-rq84
+    created: 2024-06-04T14:27:39.956482-04:00
+review_status: UNREVIEWED

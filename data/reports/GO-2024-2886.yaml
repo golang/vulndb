@@ -1,0 +1,25 @@
+id: GO-2024-2886
+modules:
+    - module: github.com/minio/minio
+      versions:
+        - fixed: 0.0.0-20240527191746-e0fe7cc39172
+summary: MinIO information disclosure vulnerability in github.com/minio/minio
+cves:
+    - CVE-2024-36107
+ghsas:
+    - GHSA-95fr-cm4m-q5p9
+unknown_aliases:
+    - BIT-minio-2024-36107
+references:
+    - advisory: https://github.com/minio/minio/security/advisories/GHSA-95fr-cm4m-q5p9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-36107
+    - fix: https://github.com/minio/minio/commit/e0fe7cc391724fc5baa85b45508f425020fe4272
+    - fix: https://github.com/minio/minio/pull/19810
+    - web: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Modified-Since
+    - web: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Unmodified-Since
+notes:
+    - fix: 'github.com/minio/minio: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-95fr-cm4m-q5p9
+    created: 2024-06-04T14:25:29.395595-04:00
+review_status: UNREVIEWED

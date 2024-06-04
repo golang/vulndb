@@ -1,0 +1,26 @@
+id: GO-2024-2867
+modules:
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - fixed: 8.5.16
+        - introduced: 9.0.0
+          fixed: 9.2.8
+      vulnerable_at: 5.4.5+incompatible
+summary: Grafana Spoofing originalUrl of snapshots in github.com/grafana/grafana
+cves:
+    - CVE-2022-39324
+ghsas:
+    - GHSA-4724-7jwc-3fpw
+unknown_aliases:
+    - BIT-grafana-2022-39324
+references:
+    - advisory: https://github.com/grafana/grafana/security/advisories/GHSA-4724-7jwc-3fpw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-39324
+    - fix: https://github.com/grafana/grafana/commit/239888f22983010576bb3a9135a7294e88c0c74a
+    - fix: https://github.com/grafana/grafana/commit/d7dcea71ea763780dc286792a0afd560bff2985c
+    - fix: https://github.com/grafana/grafana/pull/60232
+    - fix: https://github.com/grafana/grafana/pull/60256
+source:
+    id: GHSA-4724-7jwc-3fpw
+    created: 2024-06-04T14:26:30.813921-04:00
+review_status: UNREVIEWED

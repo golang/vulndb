@@ -1,0 +1,21 @@
+id: GO-2024-2872
+modules:
+    - module: github.com/bincyber/go-sqlcrypter
+      versions:
+        - introduced: 0.1.0
+      unsupported_versions:
+        - version: 0.2.0
+          type: last_affected
+      vulnerable_at: 0.2.0
+summary: github.com/bincyber/go-sqlcrypter vulnerable to IV collision
+ghsas:
+    - GHSA-2j6r-9vv4-6gf5
+references:
+    - advisory: https://github.com/advisories/GHSA-2j6r-9vv4-6gf5
+    - fix: https://github.com/bincyber/go-sqlcrypter/commit/96c73cd2b8fd15c9da9b3eafe62c9a040f6537e8
+    - fix: https://github.com/bincyber/go-sqlcrypter/pull/128
+    - report: https://github.com/bincyber/go-sqlcrypter/issues/127
+source:
+    id: GHSA-2j6r-9vv4-6gf5
+    created: 2024-06-04T14:26:24.203316-04:00
+review_status: UNREVIEWED

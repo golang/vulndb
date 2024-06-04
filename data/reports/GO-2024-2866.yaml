@@ -1,0 +1,27 @@
+id: GO-2024-2866
+modules:
+    - module: github.com/submariner-io/submariner-operator
+      versions:
+        - fixed: 0.16.4
+        - introduced: 0.17.0
+      unsupported_versions:
+        - version: 0.18.0-m3
+          type: last_affected
+      vulnerable_at: 0.17.1
+summary: Submariner Operator sets unnecessary RBAC permissions in helm charts in github.com/submariner-io/submariner-operator
+cves:
+    - CVE-2024-5042
+ghsas:
+    - GHSA-2rhx-qhxp-5jpw
+references:
+    - advisory: https://github.com/advisories/GHSA-2rhx-qhxp-5jpw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-5042
+    - fix: https://github.com/submariner-io/submariner-operator/commit/b27a04c4270e53cbff6ff8ac6245db10c204bcab
+    - fix: https://github.com/submariner-io/submariner-operator/pull/3040
+    - report: https://github.com/submariner-io/submariner-operator/issues/3041
+    - web: https://access.redhat.com/security/cve/CVE-2024-5042
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2280921
+source:
+    id: GHSA-2rhx-qhxp-5jpw
+    created: 2024-06-04T14:26:43.671356-04:00
+review_status: UNREVIEWED

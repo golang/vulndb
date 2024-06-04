@@ -1,0 +1,22 @@
+id: GO-2024-2811
+modules:
+    - module: github.com/piraeusdatastore/piraeus-operator/v2
+      unsupported_versions:
+        - version: 2.5.0
+          type: last_affected
+      vulnerable_at: 2.5.1
+summary: piraeus-operator allows attacker to impersonate service account in github.com/piraeusdatastore/piraeus-operator/v2
+cves:
+    - CVE-2024-33398
+ghsas:
+    - GHSA-6fg2-hvj9-832f
+references:
+    - advisory: https://github.com/advisories/GHSA-6fg2-hvj9-832f
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-33398
+    - web: https://gist.github.com/HouqiyuA/d0c11fae5ba4789946ae33175d0f9edb
+    - web: https://github.com/HouqiyuA/k8s-rbac-poc
+    - web: https://piraeus.io
+source:
+    id: GHSA-6fg2-hvj9-832f
+    created: 2024-06-04T14:27:50.695127-04:00
+review_status: UNREVIEWED

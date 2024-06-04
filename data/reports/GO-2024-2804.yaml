@@ -1,0 +1,33 @@
+id: GO-2024-2804
+modules:
+    - module: github.com/zitadel/zitadel
+      non_go_versions:
+        - fixed: 2.45.7
+        - introduced: 2.47.0
+          fixed: 2.47.10
+        - introduced: 2.48.0
+          fixed: 2.48.5
+        - introduced: 2.49.0
+          fixed: 2.49.5
+        - introduced: 2.50.0
+          fixed: 2.50.3
+      vulnerable_at: 1.87.5
+summary: Zitadel exposing internal database user name and host information in github.com/zitadel/zitadel
+cves:
+    - CVE-2024-32967
+ghsas:
+    - GHSA-q5qj-x2h5-3945
+references:
+    - advisory: https://github.com/zitadel/zitadel/security/advisories/GHSA-q5qj-x2h5-3945
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-32967
+    - fix: https://github.com/zitadel/zitadel/commit/b918603b576d156a08b90917c14c2d019c82ffc6
+    - web: https://github.com/zitadel/zitadel/releases/tag/v2.45.7
+    - web: https://github.com/zitadel/zitadel/releases/tag/v2.46.7
+    - web: https://github.com/zitadel/zitadel/releases/tag/v2.47.10
+    - web: https://github.com/zitadel/zitadel/releases/tag/v2.48.5
+    - web: https://github.com/zitadel/zitadel/releases/tag/v2.49.5
+    - web: https://github.com/zitadel/zitadel/releases/tag/v2.50.3
+source:
+    id: GHSA-q5qj-x2h5-3945
+    created: 2024-06-04T14:29:03.147386-04:00
+review_status: UNREVIEWED

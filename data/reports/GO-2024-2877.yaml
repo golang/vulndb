@@ -1,0 +1,41 @@
+id: GO-2024-2877
+modules:
+    - module: github.com/argoproj/argo-cd
+      unsupported_versions:
+        - version: 1.8.7
+          type: last_affected
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - fixed: 2.8.19
+        - introduced: 2.9.0-rc1
+          fixed: 2.9.15
+        - introduced: 2.10.0-rc1
+          fixed: 2.10.10
+        - introduced: 2.11.0-rc1
+          fixed: 2.11.1
+      vulnerable_at: 2.11.0
+summary: |-
+    ArgoCD Vulnerable to Use of Risky or Missing Cryptographic Algorithms in Redis
+    Cache in github.com/argoproj/argo-cd
+cves:
+    - CVE-2024-31989
+ghsas:
+    - GHSA-9766-5277-j5hr
+unknown_aliases:
+    - BIT-argo-cd-2024-31989
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-9766-5277-j5hr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-31989
+    - fix: https://github.com/argoproj/argo-cd/commit/2de0ceade243039c120c28374016c04ff9590d1d
+    - fix: https://github.com/argoproj/argo-cd/commit/35a7d6c7fa1534aceba763d6a68697f36c12e678
+    - fix: https://github.com/argoproj/argo-cd/commit/4e2fe302c3352a0012ecbe7f03476b0e07f7fc6c
+    - fix: https://github.com/argoproj/argo-cd/commit/53570cbd143bced49d4376d6e31bd9c7bd2659ff
+    - fix: https://github.com/argoproj/argo-cd/commit/6ef7b62a0f67e74b4aac2aee31c98ae49dd95d12
+    - fix: https://github.com/argoproj/argo-cd/commit/9552034a80070a93a161bfa330359585f3b85f07
+    - fix: https://github.com/argoproj/argo-cd/commit/bdd889d43969ba738ddd15e1f674d27964048994
+    - fix: https://github.com/argoproj/argo-cd/commit/f1a449e83ee73f8f14d441563b6a31b504f8d8b0
+source:
+    id: GHSA-9766-5277-j5hr
+    created: 2024-06-04T14:25:44.461912-04:00
+review_status: UNREVIEWED

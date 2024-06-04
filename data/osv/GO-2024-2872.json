@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2872",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-2j6r-9vv4-6gf5"
+  ],
+  "summary": "github.com/bincyber/go-sqlcrypter vulnerable to IV collision",
+  "details": "github.com/bincyber/go-sqlcrypter vulnerable to IV collision",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/bincyber/go-sqlcrypter",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.1.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-2j6r-9vv4-6gf5"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/bincyber/go-sqlcrypter/commit/96c73cd2b8fd15c9da9b3eafe62c9a040f6537e8"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/bincyber/go-sqlcrypter/pull/128"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/bincyber/go-sqlcrypter/issues/127"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2872",
+    "review_status": "UNREVIEWED"
+  }
+}
