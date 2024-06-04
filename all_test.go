@@ -112,11 +112,14 @@ func TestLintReports(t *testing.T) {
 					aliases[alias] = filename
 				}
 			}
-			if summary := r.Summary.String(); summary != "" {
-				if report, ok := summaries[summary]; ok {
-					t.Errorf("report %s shares duplicate summary %q with report %s", filename, summary, report)
-				} else {
-					summaries[summary] = filename
+			// Ensure that each reviewed report has a unique summary.
+			if r.IsReviewed() {
+				if summary := r.Summary.String(); summary != "" {
+					if report, ok := summaries[summary]; ok {
+						t.Errorf("report %s shares duplicate summary %q with report %s", filename, summary, report)
+					} else {
+						summaries[summary] = filename
+					}
 				}
 			}
 			// Check that a correct OSV file was generated for each YAML report.
