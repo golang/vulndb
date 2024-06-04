@@ -1,0 +1,31 @@
+id: GO-2024-2750
+modules:
+    - module: github.com/Azure/secrets-store-csi-driver-provider-azure
+      non_go_versions:
+        - fixed: 0.0.10
+      vulnerable_at: 1.5.2
+    - module: github.com/GoogleCloudPlatform/secrets-store-csi-driver-provider-gcp
+      versions:
+        - fixed: 0.2.0
+      vulnerable_at: 0.1.0
+    - module: github.com/hashicorp/vault-csi-provider
+      non_go_versions:
+        - fixed: 0.0.6
+      vulnerable_at: 1.4.2
+summary: Kubernetes Secrets Store CSI Driver plugins arbitrary file write in github.com/Azure/secrets-store-csi-driver-provider-azure
+cves:
+    - CVE-2020-8567
+ghsas:
+    - GHSA-2v35-wj4r-rcmv
+references:
+    - advisory: https://github.com/advisories/GHSA-2v35-wj4r-rcmv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-8567
+    - fix: https://github.com/Azure/secrets-store-csi-driver-provider-azure/pull/298
+    - fix: https://github.com/GoogleCloudPlatform/secrets-store-csi-driver-provider-gcp/pull/74
+    - web: https://github.com/hashicorp/secrets-store-csi-driver-provider-vault/pull/50
+    - web: https://github.com/kubernetes-sigs/secrets-store-csi-driver/issues/384
+    - web: https://groups.google.com/g/kubernetes-secrets-store-csi-driver/c/BI2qisiNXHY
+source:
+    id: GHSA-2v35-wj4r-rcmv
+    created: 2024-06-04T15:29:24.764705-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,30 @@
+id: GO-2024-2798
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 8.1.0+incompatible
+          fixed: 8.1.12+incompatible
+        - introduced: 9.4.0+incompatible
+          fixed: 9.4.5+incompatible
+        - introduced: 9.5.0+incompatible
+          fixed: 9.5.3+incompatible
+        - introduced: 9.6.0-rc1+incompatible
+          fixed: 9.6.1+incompatible
+      vulnerable_at: 9.6.1-rc3+incompatible
+summary: Mattermost fails to limit the number of active sessions in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2024-4183
+ghsas:
+    - GHSA-wj37-mpq9-xrcm
+references:
+    - advisory: https://github.com/advisories/GHSA-wj37-mpq9-xrcm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-4183
+    - web: https://github.com/mattermost/mattermost/commit/86920d641760552c5aafa5e1d14c93bd30039bc4
+    - web: https://github.com/mattermost/mattermost/commit/9d81eee979aee93374bff8ba6714d805e12ffb03
+    - web: https://github.com/mattermost/mattermost/commit/b45c3dac4c160992a1ce757ade968e8f5ec506c1
+    - web: https://github.com/mattermost/mattermost/commit/bc699e6789cf3ba1544235087897699aaa639e7d
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-wj37-mpq9-xrcm
+    created: 2024-06-04T15:26:28.930861-04:00
+review_status: UNREVIEWED

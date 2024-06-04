@@ -1,0 +1,31 @@
+id: GO-2024-2722
+modules:
+    - module: github.com/traefik/traefik
+      non_go_versions:
+        - fixed: 2.11.2
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.2
+      vulnerable_at: 2.11.1
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - introduced: 3.0.0-beta3
+          fixed: 3.0.0-rc5
+      vulnerable_at: 3.0.0-rc4
+summary: Traefik vulnerable to denial of service with Content-length header in github.com/traefik/traefik
+cves:
+    - CVE-2024-28869
+ghsas:
+    - GHSA-4vwx-54mw-vqfw
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-4vwx-54mw-vqfw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-28869
+    - fix: https://github.com/traefik/traefik/commit/240b83b77351dfd8cadb91c305b84e9d22e0f9c6
+    - web: https://doc.traefik.io/traefik/routing/entrypoints/#respondingtimeouts
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.2
+    - web: https://github.com/traefik/traefik/releases/tag/v3.0.0-rc5
+source:
+    id: GHSA-4vwx-54mw-vqfw
+    created: 2024-06-04T15:30:27.097335-04:00
+review_status: UNREVIEWED

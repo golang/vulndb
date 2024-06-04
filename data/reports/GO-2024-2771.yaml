@@ -1,0 +1,22 @@
+id: GO-2024-2771
+modules:
+    - module: github.com/rancher/rancher
+      non_go_versions:
+        - introduced: 2.5.0
+          fixed: 2.5.10
+      vulnerable_at: 1.6.30
+summary: |-
+    Rancher's Steve API Component Improper authorization check allows privilege
+    escalation in github.com/rancher/rancher
+cves:
+    - CVE-2021-36776
+ghsas:
+    - GHSA-gvh9-xgrq-r8hw
+references:
+    - advisory: https://github.com/advisories/GHSA-gvh9-xgrq-r8hw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-36776
+    - web: https://bugzilla.suse.com/show_bug.cgi?id=1189413
+source:
+    id: GHSA-gvh9-xgrq-r8hw
+    created: 2024-06-04T15:28:43.930948-04:00
+review_status: UNREVIEWED

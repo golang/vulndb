@@ -1,0 +1,30 @@
+id: GO-2024-2795
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 8.1.0+incompatible
+          fixed: 8.1.12+incompatible
+        - introduced: 9.4.0+incompatible
+          fixed: 9.4.5+incompatible
+        - introduced: 9.5.0+incompatible
+          fixed: 9.5.3+incompatible
+        - introduced: 9.6.0-rc1+incompatible
+          fixed: 9.6.1+incompatible
+      vulnerable_at: 9.6.1-rc3+incompatible
+summary: Mattermost crashes web clients via a malformed custom status in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2024-4182
+ghsas:
+    - GHSA-8f99-g2pj-x8w3
+references:
+    - advisory: https://github.com/advisories/GHSA-8f99-g2pj-x8w3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-4182
+    - web: https://github.com/mattermost/mattermost/commit/41333a0babf565453d89287549bec1e546e75ce7
+    - web: https://github.com/mattermost/mattermost/commit/6cbab0f7ece104681f73dd12c75d9f22d567125e
+    - web: https://github.com/mattermost/mattermost/commit/a99dadd80c57d376185ca06f8f70919a6f135bc6
+    - web: https://github.com/mattermost/mattermost/commit/f84f8ed65f6a5faba974426424b684635455a527
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-8f99-g2pj-x8w3
+    created: 2024-06-04T15:27:08.837695-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2734",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-30257",
+    "GHSA-6m9h-2pr2-9j8f"
+  ],
+  "summary": "1Panel's password verification is suspected to have a timing attack vulnerability in github.com/1Panel-dev/1Panel",
+  "details": "1Panel's password verification is suspected to have a timing attack vulnerability in github.com/1Panel-dev/1Panel",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/1Panel-dev/1Panel",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/1Panel-dev/1Panel/security/advisories/GHSA-6m9h-2pr2-9j8f"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-30257"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/1Panel-dev/1Panel/blob/dev/backend/app/service/auth.go#L81C5-L81C26"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2734",
+    "review_status": "UNREVIEWED"
+  }
+}

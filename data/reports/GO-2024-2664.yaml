@@ -1,0 +1,37 @@
+id: GO-2024-2664
+modules:
+    - module: github.com/zitadel/zitadel
+      non_go_versions:
+        - fixed: 2.42.17
+        - introduced: 2.43.0
+          fixed: 2.43.11
+        - introduced: 2.44.0
+          fixed: 2.44.7
+        - introduced: 2.45.0
+          fixed: 2.45.5
+        - introduced: 2.46.0
+          fixed: 2.46.5
+        - introduced: 2.47.0
+          fixed: 2.47.8
+        - introduced: 2.48.0
+          fixed: 2.48.3
+      vulnerable_at: 1.87.5
+summary: ZITADEL's actions can overload reserved claims in github.com/zitadel/zitadel
+cves:
+    - CVE-2024-29892
+ghsas:
+    - GHSA-gp8g-f42f-95q2
+references:
+    - advisory: https://github.com/zitadel/zitadel/security/advisories/GHSA-gp8g-f42f-95q2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-29892
+    - web: https://github.com/zitadel/zitadel/releases/tag/v2.42.17
+    - web: https://github.com/zitadel/zitadel/releases/tag/v2.43.11
+    - web: https://github.com/zitadel/zitadel/releases/tag/v2.44.7
+    - web: https://github.com/zitadel/zitadel/releases/tag/v2.45.5
+    - web: https://github.com/zitadel/zitadel/releases/tag/v2.46.5
+    - web: https://github.com/zitadel/zitadel/releases/tag/v2.47.8
+    - web: https://github.com/zitadel/zitadel/releases/tag/v2.48.3
+source:
+    id: GHSA-gp8g-f42f-95q2
+    created: 2024-06-04T15:37:24.2634-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,30 @@
+id: GO-2024-2797
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 8.1.0+incompatible
+          fixed: 8.1.12+incompatible
+        - introduced: 9.4.0+incompatible
+          fixed: 9.4.5+incompatible
+        - introduced: 9.5.0+incompatible
+          fixed: 9.5.3+incompatible
+        - introduced: 9.6.0-rc1+incompatible
+          fixed: 9.6.1+incompatible
+      vulnerable_at: 9.6.1-rc3+incompatible
+summary: Mattermost's detailed error messages reveal the full file path in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2024-32046
+ghsas:
+    - GHSA-vx97-8q8q-qgq5
+references:
+    - advisory: https://github.com/advisories/GHSA-vx97-8q8q-qgq5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-32046
+    - web: https://github.com/mattermost/mattermost/commit/2a48b5b3428cae494452125401e4f72780543ac8
+    - web: https://github.com/mattermost/mattermost/commit/93738756ff79777c6e340c8de63a7b4b0f881d27
+    - web: https://github.com/mattermost/mattermost/commit/aa222c66b799c12e32eeb8eae6f555bf6140375b
+    - web: https://github.com/mattermost/mattermost/commit/c84c25b20c8b8726a2f126ae9370a72498096172
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-vx97-8q8q-qgq5
+    created: 2024-06-04T15:26:55.734035-04:00
+review_status: UNREVIEWED

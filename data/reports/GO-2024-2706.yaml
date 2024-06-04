@@ -1,0 +1,30 @@
+id: GO-2024-2706
+modules:
+    - module: github.com/mattermost/mattermost/server/v8
+      non_go_versions:
+        - introduced: 8.1.0
+          fixed: 8.1.11
+        - introduced: 9.3.0
+          fixed: 9.3.3
+        - introduced: 9.4.0
+          fixed: 9.4.4
+        - introduced: 9.5.0
+          fixed: 9.5.2
+      vulnerable_at: 8.0.0-20240604182354-aa5b8bf54904
+summary: Mattermost Server Improper Access Control in github.com/mattermost/mattermost/server/v8
+cves:
+    - CVE-2024-29221
+ghsas:
+    - GHSA-w67v-ph4x-f48q
+references:
+    - advisory: https://github.com/advisories/GHSA-w67v-ph4x-f48q
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-29221
+    - web: https://github.com/mattermost/mattermost/commit/0dc03fbc6e3c9afb14137e72ab3fa6f5a0125b9c
+    - web: https://github.com/mattermost/mattermost/commit/5cce9fed7363386afebd81a58fb5fab7d2729c8f
+    - web: https://github.com/mattermost/mattermost/commit/a5784f34ba6592c6454b8742f24af9d06279e347
+    - web: https://github.com/mattermost/mattermost/commit/dd3fe2991a70a41790d6bef5d31afc5957525f3c
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-w67v-ph4x-f48q
+    created: 2024-06-04T15:30:58.381022-04:00
+review_status: UNREVIEWED

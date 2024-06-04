@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2795",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-4182",
+    "GHSA-8f99-g2pj-x8w3"
+  ],
+  "summary": "Mattermost crashes web clients via a malformed custom status in github.com/mattermost/mattermost-server",
+  "details": "Mattermost crashes web clients via a malformed custom status in github.com/mattermost/mattermost-server",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "8.1.0+incompatible"
+            },
+            {
+              "fixed": "8.1.12+incompatible"
+            },
+            {
+              "introduced": "9.4.0+incompatible"
+            },
+            {
+              "fixed": "9.4.5+incompatible"
+            },
+            {
+              "introduced": "9.5.0+incompatible"
+            },
+            {
+              "fixed": "9.5.3+incompatible"
+            },
+            {
+              "introduced": "9.6.0-rc1+incompatible"
+            },
+            {
+              "fixed": "9.6.1+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-8f99-g2pj-x8w3"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-4182"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/41333a0babf565453d89287549bec1e546e75ce7"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/6cbab0f7ece104681f73dd12c75d9f22d567125e"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/a99dadd80c57d376185ca06f8f70919a6f135bc6"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/f84f8ed65f6a5faba974426424b684635455a527"
+    },
+    {
+      "type": "WEB",
+      "url": "https://mattermost.com/security-updates"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2795",
+    "review_status": "UNREVIEWED"
+  }
+}

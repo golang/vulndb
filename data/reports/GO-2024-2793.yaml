@@ -1,0 +1,24 @@
+id: GO-2024-2793
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 8.1.0+incompatible
+          fixed: 8.1.12+incompatible
+        - introduced: 9.5.0+incompatible
+          fixed: 9.5.3+incompatible
+      vulnerable_at: 9.5.3-rc3+incompatible
+summary: Mattermost allows team admins to promote guests to team admins in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2024-4195
+ghsas:
+    - GHSA-5fh7-7mw7-mmx5
+references:
+    - advisory: https://github.com/advisories/GHSA-5fh7-7mw7-mmx5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-4195
+    - web: https://github.com/mattermost/mattermost/commit/1e3497e0595bb4f9908c94dd9d4685d48556b7e8
+    - web: https://github.com/mattermost/mattermost/commit/f0872dd4e4ba34f061aa6982a71c7c29532aac2e
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-5fh7-7mw7-mmx5
+    created: 2024-06-04T15:27:22.651742-04:00
+review_status: UNREVIEWED

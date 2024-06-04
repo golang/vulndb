@@ -1,0 +1,27 @@
+id: GO-2024-2794
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 8.1.0+incompatible
+          fixed: 8.1.12+incompatible
+        - introduced: 9.5.0+incompatible
+          fixed: 9.5.3+incompatible
+        - introduced: 9.6.0-rc1+incompatible
+          fixed: 9.6.1+incompatible
+      vulnerable_at: 9.6.1-rc3+incompatible
+summary: Mattermost fails to fully validate role changes in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2024-4198
+ghsas:
+    - GHSA-5qx9-9ffj-5r8f
+references:
+    - advisory: https://github.com/advisories/GHSA-5qx9-9ffj-5r8f
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-4198
+    - web: https://github.com/mattermost/mattermost/commit/3d6d8a7c1f7105558fe266a1b379859a4dba4e9b
+    - web: https://github.com/mattermost/mattermost/commit/408ce4a82bb55ce27801f7044d9b3b49e82c47ed
+    - web: https://github.com/mattermost/mattermost/commit/fba5b8e348feada9b21290369c3598ccd5c04424
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-5qx9-9ffj-5r8f
+    created: 2024-06-04T15:27:15.679327-04:00
+review_status: UNREVIEWED

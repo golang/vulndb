@@ -1,0 +1,21 @@
+id: GO-2024-2688
+modules:
+    - module: kubevirt.io/kubevirt
+      unsupported_versions:
+        - version: 1.2.0
+          type: last_affected
+      vulnerable_at: 1.2.1
+summary: KubeVirt NULL pointer dereference flaw in kubevirt.io/kubevirt
+cves:
+    - CVE-2024-31420
+ghsas:
+    - GHSA-vjhf-6xfr-5p9g
+references:
+    - advisory: https://github.com/advisories/GHSA-vjhf-6xfr-5p9g
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-31420
+    - web: https://access.redhat.com/security/cve/CVE-2024-31420
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2272951
+source:
+    id: GHSA-vjhf-6xfr-5p9g
+    created: 2024-06-04T15:36:43.938217-04:00
+review_status: UNREVIEWED

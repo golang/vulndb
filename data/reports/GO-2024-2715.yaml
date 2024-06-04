@@ -1,0 +1,64 @@
+id: GO-2024-2715
+modules:
+    - module: github.com/evmos/evmos/v16
+      non_go_versions:
+        - fixed: 17.0.0
+      vulnerable_at: 16.0.4
+    - module: github.com/evmos/evmos/v5
+      unsupported_versions:
+        - version: 5.0.0
+          type: last_affected
+      vulnerable_at: 5.0.1
+    - module: github.com/evmos/evmos/v6
+      unsupported_versions:
+        - version: 6.0.4
+          type: last_affected
+      vulnerable_at: 6.0.4
+    - module: github.com/evmos/evmos/v7
+      unsupported_versions:
+        - version: 7.0.0
+          type: last_affected
+      vulnerable_at: 7.0.0
+    - module: github.com/tharsis/evmos
+      unsupported_versions:
+        - version: 1.1.3
+          type: last_affected
+      vulnerable_at: 1.1.3
+    - module: github.com/tharsis/evmos/v2
+      unsupported_versions:
+        - version: 2.0.2
+          type: last_affected
+      vulnerable_at: 2.0.2
+    - module: github.com/tharsis/evmos/v3
+      unsupported_versions:
+        - version: 3.0.3
+          type: last_affected
+      vulnerable_at: 3.0.3
+    - module: github.com/tharsis/evmos/v4
+      unsupported_versions:
+        - version: 4.0.2
+          type: last_affected
+      vulnerable_at: 4.0.2
+    - module: github.com/tharsis/evmos/v5
+      unsupported_versions:
+        - version: 5.0.1
+          type: last_affected
+      vulnerable_at: 5.0.1
+summary: |-
+    Evmos transaction execution not accounting for all state transition after
+    interaction with precompiles in github.com/evmos/evmos/v16
+cves:
+    - CVE-2024-32644
+ghsas:
+    - GHSA-3fp5-2xwh-fxm6
+references:
+    - advisory: https://github.com/evmos/evmos/security/advisories/GHSA-3fp5-2xwh-fxm6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-32644
+    - web: https://github.com/evmos/evmos/blob/b196a522ba4951890b40992e9f97aa610f8b5f9c/x/evm/statedb/state_object.go#L53-L68
+    - web: https://github.com/evmos/evmos/blob/b196a522ba4951890b40992e9f97aa610f8b5f9c/x/evm/statedb/statedb.go#L33-L55
+    - web: https://github.com/evmos/evmos/blob/b196a522ba4951890b40992e9f97aa610f8b5f9c/x/evm/statedb/statedb.go#L460-L465
+    - web: https://github.com/evmos/evmos/commit/08982b5ee726b97bc50eaf58d1914829648b6a5f
+source:
+    id: GHSA-3fp5-2xwh-fxm6
+    created: 2024-06-04T15:30:44.062102-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,18 @@
+id: GO-2024-2808
+modules:
+    - module: github.com/firebase/firebase-tools
+      unsupported_versions:
+        - version: 'affected from 0 to 13.6.0 (default: unaffected)'
+          type: cve_version_range
+      vulnerable_at: 13.10.2+incompatible
+summary: CSRF in firebase-tools emulator suite in github.com/firebase/firebase-tools
+cves:
+    - CVE-2024-4128
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-4128
+    - fix: https://github.com/firebase/firebase-tools/commit/068a2b08dc308c7ab4b569617f5fc8821237e3a0
+    - fix: https://github.com/firebase/firebase-tools/pull/6944
+source:
+    id: CVE-2024-4128
+    created: 2024-06-04T15:26:12.991483-04:00
+review_status: UNREVIEWED

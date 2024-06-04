@@ -1,0 +1,29 @@
+id: GO-2024-2718
+modules:
+    - module: github.com/sigstore/cosign
+      unsupported_versions:
+        - version: 2.2.3
+          type: last_affected
+      vulnerable_at: 1.13.6
+    - module: github.com/sigstore/cosign/v2
+      versions:
+        - fixed: 2.2.4
+      vulnerable_at: 2.2.3
+summary: Cosign malicious attachments can cause system-wide denial of service in github.com/sigstore/cosign
+cves:
+    - CVE-2024-29902
+ghsas:
+    - GHSA-88jx-383q-w4qc
+unknown_aliases:
+    - BIT-cosign-2024-29902
+references:
+    - advisory: https://github.com/sigstore/cosign/security/advisories/GHSA-88jx-383q-w4qc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-29902
+    - fix: https://github.com/sigstore/cosign/commit/629f5f8fa672973503edde75f84dcd984637629e
+    - web: https://github.com/google/go-containerregistry/blob/a0658aa1d0cc7a7f1bcc4a3af9155335b6943f40/pkg/v1/remote/layer.go#L36-L40
+    - web: https://github.com/sigstore/cosign/blob/9bc3ee309bf35d2f6e17f5d23f231a3d8bf580bc/pkg/oci/remote/remote.go#L228-L239
+    - web: https://github.com/sigstore/cosign/releases/tag/v2.2.4
+source:
+    id: GHSA-88jx-383q-w4qc
+    created: 2024-06-04T15:30:35.477807-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,17 @@
+id: GO-2024-2799
+modules:
+    - module: github.com/mcu-tools/mcuboot
+      unsupported_versions:
+        - version: affected at <= 1.11.0
+          type: cve_version_range
+      vulnerable_at: 1.10.0
+summary: MCUboot Injection attack of unprotected TLV values in github.com/mcu-tools/mcuboot
+cves:
+    - CVE-2024-32883
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-32883
+    - web: https://github.com/mcu-tools/mcuboot/security/advisories/GHSA-m59c-q9gq-rh2j
+source:
+    id: CVE-2024-32883
+    created: 2024-06-04T15:26:24.569-04:00
+review_status: UNREVIEWED

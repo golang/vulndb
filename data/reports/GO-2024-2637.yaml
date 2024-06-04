@@ -1,0 +1,22 @@
+id: GO-2024-2637
+modules:
+    - module: github.com/zitadel/zitadel
+      non_go_versions:
+        - fixed: 2.44.3
+        - introduced: 2.45.0
+          fixed: 2.45.1
+      vulnerable_at: 1.87.5
+summary: Account Takeover via Session Fixation in Zitadel [Bypassing MFA] in github.com/zitadel/zitadel
+cves:
+    - CVE-2024-28197
+ghsas:
+    - GHSA-mq4x-r2w3-j7mr
+references:
+    - advisory: https://github.com/zitadel/zitadel/security/advisories/GHSA-mq4x-r2w3-j7mr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-28197
+    - fix: https://github.com/zitadel/zitadel/commit/d4c553b75a214e41299af010ef4b26174a0f802c
+    - fix: https://github.com/zitadel/zitadel/commit/e82cb51eb819c6cdba8123c9c34c5739b46b29eb
+source:
+    id: GHSA-mq4x-r2w3-j7mr
+    created: 2024-06-04T15:37:28.977324-04:00
+review_status: UNREVIEWED

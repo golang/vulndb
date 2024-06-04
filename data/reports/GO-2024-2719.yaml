@@ -1,0 +1,29 @@
+id: GO-2024-2719
+modules:
+    - module: github.com/sigstore/cosign
+      unsupported_versions:
+        - version: 2.2.3
+          type: last_affected
+      vulnerable_at: 1.13.6
+    - module: github.com/sigstore/cosign/v2
+      versions:
+        - fixed: 2.2.4
+      vulnerable_at: 2.2.3
+summary: Cosign malicious artifacts can cause machine-wide DoS in github.com/sigstore/cosign
+cves:
+    - CVE-2024-29903
+ghsas:
+    - GHSA-95pr-fxf5-86gv
+unknown_aliases:
+    - BIT-cosign-2024-29903
+references:
+    - advisory: https://github.com/sigstore/cosign/security/advisories/GHSA-95pr-fxf5-86gv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-29903
+    - fix: https://github.com/sigstore/cosign/commit/629f5f8fa672973503edde75f84dcd984637629e
+    - web: https://github.com/sigstore/cosign/blob/14795db16417579fac0c00c11e166868d7976b61/pkg/cosign/verify.go#L948-L955
+    - web: https://github.com/sigstore/cosign/blob/286a98a4a99c1b2f32f84b0d560e324100312280/pkg/oci/remote/signatures.go#L56-L70
+    - web: https://github.com/sigstore/cosign/releases/tag/v2.2.4
+source:
+    id: GHSA-95pr-fxf5-86gv
+    created: 2024-06-04T15:30:30.49846-04:00
+review_status: UNREVIEWED

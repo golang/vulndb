@@ -1,0 +1,18 @@
+id: GO-2024-2875
+modules:
+    - module: github.com/requarks/wiki
+      unsupported_versions:
+        - version: affected at <= 2.5.302
+          type: cve_version_range
+      vulnerable_at: 2.5.303+incompatible
+summary: Wiki.js Stored XSS through Client Side Template Injection in github.com/requarks/wiki
+cves:
+    - CVE-2024-34710
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-34710
+    - fix: https://github.com/requarks/wiki/commit/1238d614e1599fefadd4614ee4b5797a087f50ac
+    - web: https://github.com/requarks/wiki/security/advisories/GHSA-xjcj-p2qv-q3rf
+source:
+    id: CVE-2024-34710
+    created: 2024-06-04T15:25:57.702499-04:00
+review_status: UNREVIEWED

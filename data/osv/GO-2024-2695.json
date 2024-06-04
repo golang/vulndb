@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2695",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-28949",
+    "GHSA-mcw6-3256-64gg"
+  ],
+  "summary": "Mattermost Server doesn't limit the number of user preferences in github.com/mattermost/mattermost/server/v8",
+  "details": "Mattermost Server doesn't limit the number of user preferences in github.com/mattermost/mattermost/server/v8",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost/server/v8",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-mcw6-3256-64gg"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-28949"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/11a21f4da352a472a09de3b8e125514750a6619a"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/362b7d29d35c00fe80721d3d47442a4f3168eb2b"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/5632d6b4ff6d019a21bb8ddd037d4a931cd85ae2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/88f9285173dc4cb35fa19a8b8604e098a567f704"
+    },
+    {
+      "type": "WEB",
+      "url": "https://mattermost.com/security-updates"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2695",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,20 @@
+id: GO-2024-2717
+modules:
+    - module: github.com/go-skynet/LocalAI
+      non_go_versions:
+        - fixed: 2.10.0
+      vulnerable_at: 1.40.0
+summary: LocalAI Command Injection in audioToWav in github.com/go-skynet/LocalAI
+cves:
+    - CVE-2024-2029
+ghsas:
+    - GHSA-wx43-g55g-2jf4
+references:
+    - advisory: https://github.com/advisories/GHSA-wx43-g55g-2jf4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-2029
+    - web: https://github.com/mudler/localai/commit/31a4c9c9d3abc58de2bdc5305419181c8b33eb1c
+    - web: https://huntr.com/bounties/e092528a-ce3b-4e66-9b98-3f56d6b276b0
+source:
+    id: GHSA-wx43-g55g-2jf4
+    created: 2024-06-04T15:30:38.950992-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,30 @@
+id: GO-2024-2695
+modules:
+    - module: github.com/mattermost/mattermost/server/v8
+      non_go_versions:
+        - introduced: 8.1.0
+          fixed: 8.1.11
+        - introduced: 9.3.0
+          fixed: 9.3.3
+        - introduced: 9.4.0
+          fixed: 9.4.4
+        - introduced: 9.5.0
+          fixed: 9.5.2
+      vulnerable_at: 8.0.0-20240604182354-aa5b8bf54904
+summary: Mattermost Server doesn't limit the number of user preferences in github.com/mattermost/mattermost/server/v8
+cves:
+    - CVE-2024-28949
+ghsas:
+    - GHSA-mcw6-3256-64gg
+references:
+    - advisory: https://github.com/advisories/GHSA-mcw6-3256-64gg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-28949
+    - web: https://github.com/mattermost/mattermost/commit/11a21f4da352a472a09de3b8e125514750a6619a
+    - web: https://github.com/mattermost/mattermost/commit/362b7d29d35c00fe80721d3d47442a4f3168eb2b
+    - web: https://github.com/mattermost/mattermost/commit/5632d6b4ff6d019a21bb8ddd037d4a931cd85ae2
+    - web: https://github.com/mattermost/mattermost/commit/88f9285173dc4cb35fa19a8b8604e098a567f704
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-mcw6-3256-64gg
+    created: 2024-06-04T15:36:36.807487-04:00
+review_status: UNREVIEWED

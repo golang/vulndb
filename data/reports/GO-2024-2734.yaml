@@ -1,0 +1,21 @@
+id: GO-2024-2734
+modules:
+    - module: github.com/1Panel-dev/1Panel
+      non_go_versions:
+        - fixed: 1.10.3
+      vulnerable_at: 1.9.6
+summary: |-
+    1Panel's password verification is suspected to have a timing attack
+    vulnerability in github.com/1Panel-dev/1Panel
+cves:
+    - CVE-2024-30257
+ghsas:
+    - GHSA-6m9h-2pr2-9j8f
+references:
+    - advisory: https://github.com/1Panel-dev/1Panel/security/advisories/GHSA-6m9h-2pr2-9j8f
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-30257
+    - web: https://github.com/1Panel-dev/1Panel/blob/dev/backend/app/service/auth.go#L81C5-L81C26
+source:
+    id: GHSA-6m9h-2pr2-9j8f
+    created: 2024-06-04T15:30:09.964726-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,20 @@
+id: GO-2024-2737
+modules:
+    - module: github.com/docker/docker
+      versions:
+        - introduced: 26.0.0+incompatible
+          fixed: 26.0.2+incompatible
+      vulnerable_at: 26.0.1+incompatible
+summary: IPv6 enabled on IPv4-only network interfaces in github.com/docker/docker
+cves:
+    - CVE-2024-32473
+ghsas:
+    - GHSA-x84c-p2g9-rqv9
+references:
+    - advisory: https://github.com/moby/moby/security/advisories/GHSA-x84c-p2g9-rqv9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-32473
+    - web: https://github.com/moby/moby/commit/7cef0d9cd1cf221d8c0b7b7aeda69552649e0642
+source:
+    id: GHSA-x84c-p2g9-rqv9
+    created: 2024-06-04T15:30:04.899272-04:00
+review_status: UNREVIEWED

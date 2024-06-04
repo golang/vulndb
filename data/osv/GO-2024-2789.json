@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2789",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-1139",
+    "GHSA-x5m7-63c6-fx79"
+  ],
+  "summary": "Cluster Monitoring Operator contains a credentials leak in github.com/openshift/cluster-monitoring-operator",
+  "details": "Cluster Monitoring Operator contains a credentials leak in github.com/openshift/cluster-monitoring-operator",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/openshift/cluster-monitoring-operator",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-x5m7-63c6-fx79"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-1139"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openshift/cluster-monitoring-operator/commit/1cfbe9ffafe1e43f8f87a451b72fddf5d76fa4e3"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openshift/cluster-monitoring-operator/pull/1747"
+    },
+    {
+      "type": "WEB",
+      "url": "https://access.redhat.com/errata/RHSA-2024:1887"
+    },
+    {
+      "type": "WEB",
+      "url": "https://access.redhat.com/errata/RHSA-2024:1891"
+    },
+    {
+      "type": "WEB",
+      "url": "https://access.redhat.com/errata/RHSA-2024:2047"
+    },
+    {
+      "type": "WEB",
+      "url": "https://access.redhat.com/errata/RHSA-2024:2782"
+    },
+    {
+      "type": "WEB",
+      "url": "https://access.redhat.com/security/cve/CVE-2024-1139"
+    },
+    {
+      "type": "WEB",
+      "url": "https://bugzilla.redhat.com/show_bug.cgi?id=2262158"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/openshift/cluster-monitoring-operator/blob/d45a3335c2bbada0948adef9fcba55c4e14fa1d7/pkg/manifests/manifests.go#L3135"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2789",
+    "review_status": "UNREVIEWED"
+  }
+}

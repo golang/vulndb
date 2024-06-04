@@ -1,0 +1,25 @@
+id: GO-2024-2760
+modules:
+    - module: github.com/rancher/rancher
+      non_go_versions:
+        - fixed: 2.4.18
+        - introduced: 2.5.0
+          fixed: 2.5.12
+        - introduced: 2.6.0
+          fixed: 2.6.3
+      vulnerable_at: 1.6.30
+summary: |-
+    Rancher's Failure to delete orphaned role bindings does not revoke project level
+    access from group based authentication in github.com/rancher/rancher
+cves:
+    - CVE-2021-36775
+ghsas:
+    - GHSA-28g7-896h-695v
+references:
+    - advisory: https://github.com/rancher/rancher/security/advisories/GHSA-28g7-896h-695v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-36775
+    - web: https://bugzilla.suse.com/show_bug.cgi?id=1189120
+source:
+    id: GHSA-28g7-896h-695v
+    created: 2024-06-04T15:29:05.58925-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2718",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-29902",
+    "GHSA-88jx-383q-w4qc"
+  ],
+  "summary": "Cosign malicious attachments can cause system-wide denial of service in github.com/sigstore/cosign",
+  "details": "Cosign malicious attachments can cause system-wide denial of service in github.com/sigstore/cosign",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/sigstore/cosign",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/sigstore/cosign/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.2.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/sigstore/cosign/security/advisories/GHSA-88jx-383q-w4qc"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-29902"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/sigstore/cosign/commit/629f5f8fa672973503edde75f84dcd984637629e"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/google/go-containerregistry/blob/a0658aa1d0cc7a7f1bcc4a3af9155335b6943f40/pkg/v1/remote/layer.go#L36-L40"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/sigstore/cosign/blob/9bc3ee309bf35d2f6e17f5d23f231a3d8bf580bc/pkg/oci/remote/remote.go#L228-L239"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/sigstore/cosign/releases/tag/v2.2.4"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2718",
+    "review_status": "UNREVIEWED"
+  }
+}

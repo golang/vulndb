@@ -1,0 +1,28 @@
+id: GO-2024-2796
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 8.1.0+incompatible
+          fixed: 8.1.12+incompatible
+        - introduced: 9.5.0+incompatible
+          fixed: 9.5.3+incompatible
+        - introduced: 9.6.0-rc1+incompatible
+          fixed: 9.6.1+incompatible
+      vulnerable_at: 9.6.1-rc3+incompatible
+summary: Mattermost fails to limit the size of a request path in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2024-22091
+ghsas:
+    - GHSA-p2wq-4ggp-45f3
+references:
+    - advisory: https://github.com/advisories/GHSA-p2wq-4ggp-45f3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-22091
+    - web: https://github.com/mattermost/mattermost/commit/13049d8b16b195f98246dff4812b5f64c1e5a627
+    - web: https://github.com/mattermost/mattermost/commit/49e7c477246e31c7a0bd85c1043599121755b260
+    - web: https://github.com/mattermost/mattermost/commit/54478f2ccbc6c4f110706966adfe0db2c16a566c
+    - web: https://github.com/mattermost/mattermost/commit/f6d320017549ec66efb5fdd4bc10b66ab36abb70
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-p2wq-4ggp-45f3
+    created: 2024-06-04T15:27:02.38708-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,21 @@
+id: GO-2024-2635
+modules:
+    - module: github.com/mattermost/mattermost/server/v8
+      non_go_versions:
+        - fixed: 8.1.9
+        - introduced: 9.0.0
+          fixed: 9.4.0
+      vulnerable_at: 8.0.0-20240604182354-aa5b8bf54904
+summary: Mattermost incorrectly allows access individual posts in github.com/mattermost/mattermost/server/v8
+cves:
+    - CVE-2024-1952
+ghsas:
+    - GHSA-r4fm-g65h-cr54
+references:
+    - advisory: https://github.com/advisories/GHSA-r4fm-g65h-cr54
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-1952
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-r4fm-g65h-cr54
+    created: 2024-06-04T15:37:32.558224-04:00
+review_status: UNREVIEWED
