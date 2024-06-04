@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2755",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-8563",
+    "GHSA-5xfg-wv98-264m"
+  ],
+  "summary": "Sensitive Information leak via Log File in Kubernetes in k8s.io/kubernetes",
+  "details": "Sensitive Information leak via Log File in Kubernetes in k8s.io/kubernetes",
+  "affected": [
+    {
+      "package": {
+        "name": "k8s.io/kubernetes",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.19.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-5xfg-wv98-264m"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2020-8563"
+    },
+    {
+      "type": "WEB",
+      "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1886635"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubernetes/kubernetes/issues/95621"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubernetes/kubernetes/pull/95236"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubernetes/kubernetes/pull/95236/commits/247f6dd09299bc7893c1e0affea11c0255025b96"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/kubernetes-announce/c/ScdmyORnPDk"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/kubernetes-security-discuss/c/vm-HcrFUOCs/m/36utxAM5CwAJ"
+    },
+    {
+      "type": "WEB",
+      "url": "https://security.netapp.com/advisory/ntap-20210122-0006"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2755",
+    "review_status": "UNREVIEWED"
+  }
+}

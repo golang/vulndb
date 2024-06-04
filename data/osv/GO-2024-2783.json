@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2783",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-3800",
+    "GHSA-rwcf-gq22-ph83"
+  ],
+  "summary": "IBAX go-ibax vulnerable to SQL injection in github.com/IBAX-io/go-ibax",
+  "details": "IBAX go-ibax vulnerable to SQL injection in github.com/IBAX-io/go-ibax",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/IBAX-io/go-ibax",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.4.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-rwcf-gq22-ph83"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-3800"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/IBAX-io/go-ibax/commit/b0183d8e550836dc50282ee74ff421ee41b25a37"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/IBAX-io/go-ibax/issues/2061"
+    },
+    {
+      "type": "WEB",
+      "url": "https://vuldb.com/?id.212636"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2783",
+    "review_status": "UNREVIEWED"
+  }
+}
