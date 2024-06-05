@@ -292,7 +292,8 @@ type SourceMeta struct {
 	// The ID (GHSA or CVE) of the original source of this report.
 	// If created by a human, this is "go-security-team".
 	ID string `yaml:",omitempty"`
-	// The time the original auto-generated report was created.
+	// The time the auto-generated report was created (or re-generated
+	// from source).
 	Created *time.Time `yaml:",omitempty"`
 }
 

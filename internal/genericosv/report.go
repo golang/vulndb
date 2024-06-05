@@ -28,6 +28,8 @@ func (osv *Entry) ToReport(string) *report.Report {
 			r.CVEs = append(r.CVEs, alias)
 		case idstr.IsGHSA(alias):
 			r.GHSAs = append(r.GHSAs, alias)
+		case idstr.IsGoID(alias):
+			// ignore Go IDs
 		default:
 			r.UnknownAliases = append(r.UnknownAliases, alias)
 		}

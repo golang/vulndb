@@ -1,11 +1,14 @@
 id: GO-2024-2572
 modules:
-    - module: cosmossdk.io/x/auth
-summary: Vesting account creation on blocked address in cosmossdk.io/x/auth
+    - module: github.com/cosmos/cosmos-sdk
+      versions:
+        - fixed: 0.47.9
+        - introduced: 0.50.0
+          fixed: 0.50.4
+      vulnerable_at: 0.50.3
+summary: 'ASA-2024-003: Missing `BlockedAddressed` Validation in Vesting Module in github.com/cosmos/cosmos-sdk'
 ghsas:
     - GHSA-4j93-fm92-rp4m
-credits:
-    - '@dongsam and @sushiwushi'
 references:
     - advisory: https://github.com/cosmos/cosmos-sdk/security/advisories/GHSA-4j93-fm92-rp4m
     - fix: https://github.com/cosmos/cosmos-sdk/commit/c05850241e2d615721e3492d15fee4e1deec082b
@@ -13,5 +16,5 @@ references:
     - web: https://github.com/cosmos/cosmos-sdk/releases/tag/v0.50.4
 source:
     id: GHSA-4j93-fm92-rp4m
-    created: 2024-05-23T14:19:15.000264121Z
+    created: 2024-06-05T13:39:14.736542-04:00
 review_status: UNREVIEWED

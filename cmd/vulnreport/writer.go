@@ -13,10 +13,10 @@ import (
 )
 
 func (r *yamlReport) write() error {
-	if err := r.Write(r.filename); err != nil {
+	if err := r.Write(r.Filename); err != nil {
 		return err
 	}
-	return ok(r.filename)
+	return ok(r.Filename)
 }
 
 func (r *yamlReport) writeOSV() error {

@@ -87,13 +87,17 @@ func skip(iss *issues.Issue, x *xrefer) string {
 }
 
 func (c *creator) reportFromIssue(ctx context.Context, iss *issues.Issue) error {
-	return c.reportFromMeta(ctx, &reportMeta{
+	r, err := c.reportFromMeta(ctx, &reportMeta{
 		id:           iss.NewGoID(),
 		excluded:     excludedReason(iss),
 		modulePath:   modulePath(iss),
 		aliases:      aliases(iss),
 		reviewStatus: reviewStatusOf(iss, c.reviewStatus),
 	})
+	if err != nil {
+		return err
+	}
+	return c.write(ctx, r)
 }
 
 func reviewStatusOf(iss *issues.Issue, reviewStatus report.ReviewStatus) report.ReviewStatus {
@@ -118,7 +122,7 @@ func defaultReviewStatus(iss *issues.Issue) report.ReviewStatus {
 	return report.Unreviewed
 }
 
-func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) error {
+func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) (*yamlReport, error) {
 	// Find the underlying module if the "module" provided is actually a package path.
 	if module, err := c.pc.FindModule(meta.modulePath); err == nil { // no error
 		meta.modulePath = module
@@ -156,9 +160,9 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) error {
 
 	fname, err := raw.YAMLFilename()
 	if err != nil {
-		return err
+		return nil, err
 	}
-	r := &yamlReport{Report: raw, filename: fname}
+	r := &yamlReport{Report: raw, Filename: fname}
 
 	// Find any additional aliases referenced by the source aliases.
 	r.addMissingAliases(ctx, c.aliasFinder)
@@ -192,11 +196,7 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) error {
 	case meta.reviewStatus == report.Unreviewed:
 		r.Description = ""
 		addNotes := true
-		if fixed := c.fix(ctx, r, addNotes); fixed {
-			if err := r.writeDerived(); err != nil {
-				return err
-			}
-		}
+		_ = c.fix(ctx, r, addNotes)
 	default:
 		// Regular, full-length reports.
 		addTODOs(r)
@@ -204,11 +204,19 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) error {
 			log.Infof("%s: found cross-references: %s", r.ID, xrefs)
 		}
 	}
+	return r, nil
+}
 
-	if err := r.write(); err != nil {
-		return err
+func (c *creator) write(ctx context.Context, r *yamlReport) error {
+	if r.IsReviewed() || r.IsExcluded() {
+		if err := r.write(); err != nil {
+			return err
+		}
+	} else { // unreviewed
+		if err := c.fixAndWriteAll(ctx, r); err != nil {
+			return err
+		}
 	}
-
 	c.created = append(c.created, r)
 	return nil
 }

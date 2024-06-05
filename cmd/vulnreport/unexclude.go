@@ -62,12 +62,16 @@ func (u *unexclude) run(ctx context.Context, input any) (err error) {
 		modulePath = oldR.Modules[0].Module
 	}
 
-	if err := u.reportFromMeta(ctx, &reportMeta{
+	r, err := u.reportFromMeta(ctx, &reportMeta{
 		id:           oldR.ID,
 		modulePath:   modulePath,
 		aliases:      oldR.Aliases(),
 		reviewStatus: report.Unreviewed,
-	}); err != nil {
+	})
+	if err != nil {
+		return err
+	}
+	if err := u.write(ctx, r); err != nil {
 		return err
 	}
 
@@ -76,9 +80,9 @@ func (u *unexclude) run(ctx context.Context, input any) (err error) {
 }
 
 func remove(r *yamlReport) {
-	if err := os.Remove(r.filename); err != nil {
-		log.Errf("%s: could not remove file %s: %v", r.ID, r.filename, err)
+	if err := os.Remove(r.Filename); err != nil {
+		log.Errf("%s: could not remove file %s: %v", r.ID, r.Filename, err)
 		return
 	}
-	log.Infof("%s: removed %s", r.ID, r.filename)
+	log.Infof("%s: removed %s", r.ID, r.Filename)
 }

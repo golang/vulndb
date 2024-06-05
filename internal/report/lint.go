@@ -202,6 +202,13 @@ func (ref *Reference) lint(l *linter, r *Report) {
 	}
 }
 
+// IsOriginal returns whether the source of this report is
+// definitely the Go security team. (Many older reports do not have this
+// metadata so other heuristics would have to be used).
+func (r *Report) IsOriginal() bool {
+	return r.SourceMeta != nil && r.SourceMeta.ID == sourceGoTeam
+}
+
 func (r *Report) IsReviewed() bool {
 	return r.ReviewStatus == Reviewed
 }

@@ -63,9 +63,9 @@ func (sd *setDates) run(ctx context.Context, input any) (err error) {
 	if !r.Published.IsZero() {
 		return nil
 	}
-	d, ok := sd.dates[r.filename]
+	d, ok := sd.dates[r.Filename]
 	if !ok {
-		return fmt.Errorf("can't find git repo commit dates for %q", r.filename)
+		return fmt.Errorf("can't find git repo commit dates for %q", r.Filename)
 	}
 	r.Published = d.Oldest
 	return r.write()

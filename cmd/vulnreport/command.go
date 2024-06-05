@@ -181,7 +181,7 @@ func (filenameParser) lookup(_ context.Context, filename string) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &yamlReport{Report: r, filename: filename}, nil
+	return &yamlReport{Report: r, Filename: filename}, nil
 }
 
 type noSkip bool
@@ -192,5 +192,5 @@ func (noSkip) skip(any) string {
 
 type yamlReport struct {
 	*report.Report
-	filename string
+	Filename string
 }

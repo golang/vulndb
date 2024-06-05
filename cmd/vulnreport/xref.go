@@ -41,7 +41,7 @@ func (x *xref) close() error { return nil }
 // for the same CVE, GHSA, or module.
 func (x *xref) run(ctx context.Context, input any) (err error) {
 	r := input.(*yamlReport)
-	vlog.Out(r.filename)
+	vlog.Out(r.Filename)
 	vlog.Out(x.xref(r))
 	return nil
 }
@@ -66,7 +66,7 @@ type xrefer struct {
 func (x *xrefer) xref(r *yamlReport) string {
 	out := &strings.Builder{}
 	matches := x.rc.XRef(r.Report)
-	delete(matches, r.filename)
+	delete(matches, r.Filename)
 	// This sorts as CVEs, GHSAs, and then modules.
 	for _, fname := range sorted(maps.Keys(matches)) {
 		for _, id := range sorted(matches[fname]) {

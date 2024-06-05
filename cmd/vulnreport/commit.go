@@ -184,7 +184,7 @@ func actionPhrases(status git.Status, r *yamlReport) (reportAction, issueAction 
 		updateReportAction    = "update"
 	)
 
-	stat := status.File(r.filename).Staging
+	stat := status.File(r.Filename).Staging
 	switch stat {
 	case git.Deleted:
 		if r.IsExcluded() {
@@ -193,7 +193,7 @@ func actionPhrases(status git.Status, r *yamlReport) (reportAction, issueAction 
 			return deleteReportAction, updateIssueAction, nil
 		}
 		// It's not OK to delete a regular report. These can be withdrawn but not deleted.
-		return "", "", fmt.Errorf("cannot delete regular report %s (use withdrawn field instead)", r.filename)
+		return "", "", fmt.Errorf("cannot delete regular report %s (use withdrawn field instead)", r.Filename)
 	case git.Added, git.Untracked:
 		switch {
 		case status.File(filepath.Join(report.ExcludedDir, r.ID+".yaml")).Staging == git.Deleted:
@@ -239,13 +239,13 @@ func newCommitMessage(status git.Status, reports []*yamlReport) (string, error) 
 	folders := make(map[string]bool)
 	for issueAction, rs := range issueActions {
 		for _, r := range rs {
-			folder, _, issueID, err := report.ParseFilepath(r.filename)
+			folder, _, issueID, err := report.ParseFilepath(r.Filename)
 			if err != nil {
 				return "", err
 			}
 
 			folders[folder] = true
-			bodySegments = append(bodySegments, r.filename)
+			bodySegments = append(bodySegments, r.Filename)
 			issueSegments = append(issueSegments, fmt.Sprintf("%s golang/vulndb#%d", issueAction, issueID))
 		}
 	}
