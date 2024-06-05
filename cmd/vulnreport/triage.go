@@ -15,6 +15,7 @@ import (
 	"strings"
 	"sync"
 
+	"golang.org/x/exp/slices"
 	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/issues"
 )
@@ -79,6 +80,10 @@ func (t *triage) skip(input any) string {
 		return "direct external report"
 	}
 
+	if isExcluded(iss) {
+		return "excluded"
+	}
+
 	if !*force && iss.HasLabel(labelTriaged) {
 		return "already triaged; use -f to force re-triage"
 	}
@@ -101,10 +106,16 @@ type priorityResult struct {
 func (t *triage) triage(ctx context.Context, iss *issues.Issue) {
 	labels := []string{labelTriaged}
 	defer func() {
+		// Preserve any existing labels.
+		labels = append(labels, iss.Labels...)
+		slices.Sort(labels)
+		labels = slices.Compact(labels)
 		if *dry {
-			log.Infof("issue #%d: would add labels: [%s]", iss.Number, strings.Join(labels, ", "))
-		} else if err := t.ic.AddLabels(ctx, iss.Number, labels); err != nil {
-			log.Warnf("issue #%d: could not auto-add label(s) ", iss.Number)
+			log.Infof("issue #%d: would set labels: [%s]", iss.Number, strings.Join(labels, ", "))
+		} else {
+			if err := t.ic.SetLabels(ctx, iss.Number, labels); err != nil {
+				log.Warnf("issue #%d: could not auto-set label(s) %s", iss.Number, labels)
+			}
 		}
 		t.addStat(iss, statTriaged, "")
 	}()
