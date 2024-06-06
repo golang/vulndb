@@ -40,6 +40,12 @@ var (
 		"CVE-2022-39213": "github.com/pandatix/go-cvss",
 		"CVE-2023-44378": "github.com/Consensys/gnark",
 		"CVE-2023-45141": "github.com/gofiber/fiber",
+		"CVE-2024-2056":  "github.com/gvalkov/tailon",
+		"CVE-2024-33522": "github.com/projectcalico/calico",
+
+		// A third-party non-Go CVE that was miscategorized
+		// as applying to "github.com/amlweems/xzbot".
+		"CVE-2024-3094": "github.com/amlweems/xzbot",
 
 		// First-party CVEs, assigned by the Go CNA.
 		"CVE-2023-29407": "golang.org/x/image",
