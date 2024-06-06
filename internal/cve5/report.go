@@ -263,6 +263,12 @@ func affectedToModule(a *Affected, modulePath string) *report.Module {
 		pkgPath = modulePath
 	}
 
+	// If the package path doesn't have any slashes, it probably
+	// is not useful.
+	if !strings.Contains(pkgPath, "/") {
+		pkgPath = modulePath
+	}
+
 	if stdlib.Contains(modulePath) && stdlib.Contains(pkgPath) {
 		if strings.HasPrefix(pkgPath, stdlib.ToolchainModulePath) {
 			modulePath = stdlib.ToolchainModulePath
