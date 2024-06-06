@@ -5,11 +5,8 @@
 package main
 
 import (
-	"bytes"
-	"compress/gzip"
 	"context"
 	_ "embed"
-	"encoding/csv"
 	"fmt"
 	"strconv"
 	"strings"
@@ -17,6 +14,7 @@ import (
 
 	"golang.org/x/exp/slices"
 	"golang.org/x/vulndb/cmd/vulnreport/log"
+	"golang.org/x/vulndb/cmd/vulnreport/priority"
 	"golang.org/x/vulndb/internal/issues"
 )
 
@@ -55,15 +53,12 @@ func toStrings(stats []issuesList) (strs []string) {
 	return strs
 }
 
-//go:embed data/importers.csv.gz
-var importers []byte
-
 func (t *triage) setup(ctx context.Context) error {
 	t.aliasesToIssues = make(map[string][]int)
 	t.stats = make([]issuesList, len(statNames))
-	m, err := gzCSVToMap(importers)
+	m, err := priority.LoadModuleMap()
 	if err != nil {
-		return err
+		return nil
 	}
 	t.modulesToImports = m
 
@@ -97,12 +92,6 @@ func (t *triage) run(ctx context.Context, input any) (err error) {
 	return nil
 }
 
-type priorityResult struct {
-	priority       int
-	priorityReason string
-	notGo          bool
-}
-
 func (t *triage) triage(ctx context.Context, iss *issues.Issue) {
 	labels := []string{labelTriaged}
 	defer func() {
@@ -130,75 +119,31 @@ func (t *triage) triage(ctx context.Context, iss *issues.Issue) {
 		labels = append(labels, labelPossibleDuplicate)
 	}
 
-	tr := t.priorityOf(iss)
-	t.addStat(iss, tr.priority, tr.priorityReason)
+	mp := t.canonicalModule(modulePath(iss))
+	tr := priority.Analyze(mp, t.rc.ReportsByModule(mp), t.modulesToImports)
+	t.addStat(iss, toStat(tr.Priority), tr.Reason)
 
-	if tr.notGo {
-		t.addStat(iss, statNotGo, "more than 20 percent of reports with this module are NOT_GO_CODE")
+	if tr.NotGo {
+		t.addStat(iss, statNotGo, tr.NotGoReason)
 		labels = append(labels, labelPossiblyNotGo)
 	}
 
-	if tr.priority == statHighPriority {
+	if tr.Priority == priority.High {
 		labels = append(labels, labelHighPriority)
 	}
 }
 
-func (t *triage) priorityOf(iss *issues.Issue) *priorityResult {
-	const highPriority = 100
-
-	mp := t.canonicalModule(modulePath(iss))
-	excluded, regular, notGoCode := t.xrefCount(mp)
-	// more than 20% of reports are labeled not Go
-	possiblyNotGo := excluded != 0 && (float32(notGoCode)/float32(excluded+regular))*100 > 20
-
-	importers, ok := t.modulesToImports[mp]
-	if !ok {
-		return &priorityResult{
-			priority:       statUnknownPriority,
-			notGo:          possiblyNotGo,
-			priorityReason: fmt.Sprintf("module %s not found", mp),
-		}
+func toStat(p priority.Priority) int {
+	switch p {
+	case priority.Unknown:
+		return statUnknownPriority
+	case priority.Low:
+		return statLowPriority
+	case priority.High:
+		return statHighPriority
+	default:
+		panic(fmt.Sprintf("unknown priority %d", p))
 	}
-
-	priority := statLowPriority
-	reason := fmt.Sprintf("%s has %d importers and %d regular vs %d excluded reports", mp, importers, regular, excluded)
-
-	if importers >= highPriority && regular >= excluded {
-		priority = statHighPriority
-	}
-
-	return &priorityResult{
-		priority:       priority,
-		notGo:          possiblyNotGo,
-		priorityReason: reason,
-	}
-}
-
-func gzCSVToMap(b []byte) (map[string]int, error) {
-	gzr, err := gzip.NewReader(bytes.NewReader(b))
-	if err != nil {
-		return nil, err
-	}
-
-	reader := csv.NewReader(gzr)
-	records, err := reader.ReadAll()
-	if err != nil {
-		return nil, err
-	}
-
-	m := make(map[string]int)
-	for _, record := range records[1:] {
-		if len(record) != 2 {
-			continue
-		}
-		n, err := strconv.Atoi(record[1])
-		if err != nil {
-			continue
-		}
-		m[record[0]] = n
-	}
-
-	return m, nil
 }
 
 func (t *triage) findDuplicates(ctx context.Context, iss *issues.Issue) map[string][]string {

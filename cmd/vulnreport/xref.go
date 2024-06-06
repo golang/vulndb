@@ -81,20 +81,6 @@ func (x *xrefer) xref(r *yamlReport) string {
 	return out.String()
 }
 
-func (x *xrefer) xrefCount(mp string) (excluded, regular, notGoCode int) {
-	for _, r := range x.rc.ReportsByModule(mp) {
-		if r.IsExcluded() {
-			if r.Excluded == "NOT_GO_CODE" {
-				notGoCode++
-			}
-			excluded++
-		} else {
-			regular++
-		}
-	}
-	return excluded, regular, notGoCode
-}
-
 func sorted[E constraints.Ordered](s []E) []E {
 	s = slices.Clone(s)
 	slices.Sort(s)
