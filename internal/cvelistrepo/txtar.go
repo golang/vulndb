@@ -102,6 +102,8 @@ func TestToReport[S report.Source](t *testing.T, update, realProxy bool) error {
 
 			r := report.New(cve, pc, report.WithModulePath(mp),
 				report.WithCreated(testTime))
+			// Keep record of what lints would apply to each generated report.
+			r.LintAsNotes(pc)
 			b, err := yaml.Marshal(r)
 			if err != nil {
 				t.Fatal(err)
