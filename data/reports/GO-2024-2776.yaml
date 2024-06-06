@@ -1,0 +1,25 @@
+id: GO-2024-2776
+modules:
+    - module: github.com/apache/trafficcontrol
+      versions:
+        - introduced: 5.1.0+incompatible
+          fixed: 5.1.4+incompatible
+        - introduced: 6.0.0+incompatible
+          fixed: 6.0.1+incompatible
+      vulnerable_at: 6.0.0+incompatible
+summary: Apache Traffic Control Traffic Ops Vulnerable to LDAP Injection in github.com/apache/trafficcontrol
+cves:
+    - CVE-2021-43350
+ghsas:
+    - GHSA-mg2c-rc36-p594
+references:
+    - advisory: https://github.com/advisories/GHSA-mg2c-rc36-p594
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-43350
+    - web: http://www.openwall.com/lists/oss-security/2021/11/11/3
+    - web: http://www.openwall.com/lists/oss-security/2021/11/11/4
+    - web: http://www.openwall.com/lists/oss-security/2021/11/17/1
+    - web: https://trafficcontrol.apache.org/security
+source:
+    id: GHSA-mg2c-rc36-p594
+    created: 2024-06-06T16:13:56.758827-04:00
+review_status: UNREVIEWED
