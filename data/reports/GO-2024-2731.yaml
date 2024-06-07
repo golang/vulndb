@@ -1,0 +1,18 @@
+id: GO-2024-2731
+modules:
+    - module: github.com/evmos/evmos/v13
+      unsupported_versions:
+        - version: 13.0.2
+          type: last_affected
+      vulnerable_at: 13.0.2
+summary: Evmos vulnerable to unauthorized account creation with vesting module in github.com/evmos/evmos/v13
+ghsas:
+    - GHSA-m99c-q26r-m7m7
+references:
+    - advisory: https://github.com/evmos/evmos/security/advisories/GHSA-m99c-q26r-m7m7
+notes:
+    - create failed to de-duplicate module info; this was done manually
+source:
+    id: GHSA-m99c-q26r-m7m7
+    created: 2024-06-07T11:18:32.691578-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,26 @@
+id: GO-2024-2780
+modules:
+    - module: k8s.io/kubernetes
+      versions:
+        - introduced: 1.13.0
+          fixed: 1.13.7
+        - introduced: 1.14.0
+          fixed: 1.14.3
+      vulnerable_at: 1.14.3-beta.0
+summary: Kubelet Incorrect Privilege Assignment in k8s.io/kubernetes
+cves:
+    - CVE-2019-11245
+ghsas:
+    - GHSA-r76g-g87f-vw8f
+references:
+    - advisory: https://github.com/advisories/GHSA-r76g-g87f-vw8f
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2019-11245
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=1715726
+    - web: https://github.com/kubernetes/kubernetes/issues/78308
+    - web: https://github.com/kubernetes/kubernetes/pull/76665
+    - web: https://github.com/kubernetes/kubernetes/pull/76665/commits/26e3c8674e66f0d10170d34f5445f0aed207387f
+    - web: https://security.netapp.com/advisory/ntap-20190919-0003
+source:
+    id: GHSA-r76g-g87f-vw8f
+    created: 2024-06-07T11:26:55.945196-04:00
+review_status: UNREVIEWED

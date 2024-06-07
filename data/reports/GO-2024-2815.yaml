@@ -1,0 +1,26 @@
+id: GO-2024-2815
+modules:
+    - module: github.com/pterodactyl/wings
+      versions:
+        - fixed: 1.11.12
+      vulnerable_at: 1.11.11
+summary: |-
+    Pterodactyl Wings vulnerable to Server-Side Request Forgery during remote file
+    pull in github.com/pterodactyl/wings
+cves:
+    - CVE-2024-34068
+ghsas:
+    - GHSA-qq22-jj8x-4wwv
+related:
+    - GHSA-6rg3-8h8x-5xfv
+references:
+    - advisory: https://github.com/pterodactyl/wings/security/advisories/GHSA-qq22-jj8x-4wwv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-34068
+    - fix: https://github.com/pterodactyl/wings/commit/c152e36101aba45d8868a9a0eeb890995e8934b8
+    - web: https://github.com/pterodactyl/wings/security/advisories/GHSA-6rg3-8h8x-5xfv
+notes:
+    - manually moved GHSA-6rg3-8h8x-5xfv to related section
+source:
+    id: GHSA-qq22-jj8x-4wwv
+    created: 2024-06-06T16:12:49.051564-04:00
+review_status: UNREVIEWED

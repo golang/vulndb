@@ -1,0 +1,30 @@
+id: GO-2024-2753
+modules:
+    - module: k8s.io/kubernetes
+      versions:
+        - introduced: 1.1.0
+          fixed: 1.16.13
+        - introduced: 1.17.0
+          fixed: 1.17.9
+        - introduced: 1.18.0
+          fixed: 1.18.6
+      vulnerable_at: 1.18.6-rc.0
+summary: Denial of service in Kubernetes in k8s.io/kubernetes
+cves:
+    - CVE-2020-8557
+ghsas:
+    - GHSA-55qj-gj3x-jq9r
+references:
+    - advisory: https://github.com/advisories/GHSA-55qj-gj3x-jq9r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-8557
+    - web: https://github.com/kubernetes/kubernetes/commit/530f199b6e07cdaab32361e39709ac45f3fdc446
+    - web: https://github.com/kubernetes/kubernetes/commit/68750fefd3df76b7b008ef7b18e8acd18d5c2f2e
+    - web: https://github.com/kubernetes/kubernetes/commit/7fd849cffa2f93061fbcb0a6ae4efd0539b1e981
+    - web: https://github.com/kubernetes/kubernetes/issues/93032
+    - web: https://github.com/kubernetes/kubernetes/pull/92921
+    - web: https://groups.google.com/g/kubernetes-security-announce/c/cB_JUsYEKyY/m/vVSO61AhBwAJ
+    - web: https://security.netapp.com/advisory/ntap-20200821-0002
+source:
+    id: GHSA-55qj-gj3x-jq9r
+    created: 2024-06-07T11:23:44.913991-04:00
+review_status: UNREVIEWED

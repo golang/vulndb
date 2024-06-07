@@ -1,0 +1,27 @@
+id: GO-2024-2768
+modules:
+    - module: github.com/rancher/rancher
+      versions:
+        - introduced: 2.0.0+incompatible
+      non_go_versions:
+        - fixed: 2.4.16
+        - introduced: 2.5.0
+          fixed: 2.5.9
+summary: |-
+    Rancher does not properly specify ApiGroup when creating Kubernetes RBAC
+    resources in github.com/rancher/rancher
+cves:
+    - CVE-2021-25318
+ghsas:
+    - GHSA-f9xf-jq4j-vqw4
+references:
+    - advisory: https://github.com/advisories/GHSA-f9xf-jq4j-vqw4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-25318
+    - report: https://github.com/rancher/rancher/issues/33590
+    - web: https://bugzilla.suse.com/show_bug.cgi?id=1184913
+notes:
+    - non_go_versions specified manually
+source:
+    id: GHSA-f9xf-jq4j-vqw4
+    created: 2024-06-06T16:14:13.300683-04:00
+review_status: UNREVIEWED

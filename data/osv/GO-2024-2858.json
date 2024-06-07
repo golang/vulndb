@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2858",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-39201",
+    "GHSA-x744-mm8v-vpgr"
+  ],
+  "summary": "Grafana Data source and plugin proxy endpoints could leak the authentication cookie to some destination plugins in github.com/grafana/grafana",
+  "details": "Grafana Data source and plugin proxy endpoints could leak the authentication cookie to some destination plugins in github.com/grafana/grafana",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/grafana/grafana",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "5.0.0-beta1+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/grafana/grafana/security/advisories/GHSA-x744-mm8v-vpgr"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-39201"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/grafana/grafana/commit/b571acc1dc130a33f24742c1f93b93216da6cf57"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/grafana/grafana/commit/c658816f5229d17f877579250c07799d3bbaebc9"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/grafana/grafana/releases/tag/v9.1.8"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2858",
+    "review_status": "UNREVIEWED"
+  }
+}

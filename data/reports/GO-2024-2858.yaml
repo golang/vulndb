@@ -1,0 +1,30 @@
+id: GO-2024-2858
+modules:
+    - module: github.com/grafana/grafana
+      versions:
+        - introduced: 5.0.0-beta1+incompatible
+      non_go_versions:
+        - fixed: 8.5.14
+        - introduced: 9.0.0
+          fixed: 9.1.8
+summary: |-
+    Grafana Data source and plugin proxy endpoints could leak the authentication
+    cookie to some destination plugins in github.com/grafana/grafana
+cves:
+    - CVE-2022-39201
+ghsas:
+    - GHSA-x744-mm8v-vpgr
+unknown_aliases:
+    - BIT-grafana-2022-39201
+references:
+    - advisory: https://github.com/grafana/grafana/security/advisories/GHSA-x744-mm8v-vpgr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-39201
+    - fix: https://github.com/grafana/grafana/commit/b571acc1dc130a33f24742c1f93b93216da6cf57
+    - fix: https://github.com/grafana/grafana/commit/c658816f5229d17f877579250c07799d3bbaebc9
+    - web: https://github.com/grafana/grafana/releases/tag/v9.1.8
+notes:
+    - non_go_versions specified manually
+source:
+    id: GHSA-x744-mm8v-vpgr
+    created: 2024-06-06T16:12:42.067791-04:00
+review_status: UNREVIEWED

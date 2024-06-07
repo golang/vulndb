@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2768",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-25318",
+    "GHSA-f9xf-jq4j-vqw4"
+  ],
+  "summary": "Rancher does not properly specify ApiGroup when creating Kubernetes RBAC resources in github.com/rancher/rancher",
+  "details": "Rancher does not properly specify ApiGroup when creating Kubernetes RBAC resources in github.com/rancher/rancher",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/rancher/rancher",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.0.0+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-f9xf-jq4j-vqw4"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-25318"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/rancher/rancher/issues/33590"
+    },
+    {
+      "type": "WEB",
+      "url": "https://bugzilla.suse.com/show_bug.cgi?id=1184913"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2768",
+    "review_status": "UNREVIEWED"
+  }
+}

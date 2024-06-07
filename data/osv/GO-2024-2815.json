@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2815",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-34068",
+    "GHSA-qq22-jj8x-4wwv"
+  ],
+  "related": [
+    "GHSA-6rg3-8h8x-5xfv"
+  ],
+  "summary": "Pterodactyl Wings vulnerable to Server-Side Request Forgery during remote file pull in github.com/pterodactyl/wings",
+  "details": "Pterodactyl Wings vulnerable to Server-Side Request Forgery during remote file pull in github.com/pterodactyl/wings",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/pterodactyl/wings",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.11.12"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/pterodactyl/wings/security/advisories/GHSA-qq22-jj8x-4wwv"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-34068"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/pterodactyl/wings/commit/c152e36101aba45d8868a9a0eeb890995e8934b8"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/pterodactyl/wings/security/advisories/GHSA-6rg3-8h8x-5xfv"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2815",
+    "review_status": "UNREVIEWED"
+  }
+}
