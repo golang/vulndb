@@ -43,13 +43,13 @@ func (pc *Client) SetKnownModules(known []string) {
 }
 
 // Limit pkgsite requests to this many per second.
-const pkgsiteQPS = 5
+const pkgsiteQPS = 20
 
 var (
 	// The limiter used to throttle pkgsite requests.
 	// The second argument to rate.NewLimiter is the burst, which
 	// basically lets you exceed the rate briefly.
-	pkgsiteRateLimiter = rate.NewLimiter(rate.Every(time.Duration(1000/float64(pkgsiteQPS))*time.Millisecond), 3)
+	pkgsiteRateLimiter = rate.NewLimiter(rate.Every(1*time.Second/pkgsiteQPS), 3)
 )
 
 var pkgsiteURL = "https://pkg.go.dev"
