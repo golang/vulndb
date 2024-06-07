@@ -7,9 +7,11 @@ package main
 import (
 	"context"
 	"fmt"
+	"net/http"
 	"os"
 	"strings"
 
+	"golang.org/x/exp/slices"
 	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/issues"
@@ -196,6 +198,13 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) (*yamlRe
 	case meta.reviewStatus == report.Unreviewed:
 		r.Description = ""
 		addNotes := true
+		// Package-level data is often wrong/incomplete, which could lead
+		// to false negatives, so remove it for unreviewed reports.
+		// TODO(tatianabradley): instead of removing all package-level data,
+		// consider doing a surface-level check such as making sure packages are
+		// known to pkgsite, but skip symbol-level checks.
+		r.removePackages()
+		r.removeUnreachableRefs()
 		_ = c.fix(ctx, r, addNotes)
 	default:
 		// Regular, full-length reports.
@@ -205,6 +214,23 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) (*yamlRe
 		}
 	}
 	return r, nil
+}
+
+func (r *yamlReport) removePackages() {
+	for _, m := range r.Report.Modules {
+		m.Packages = nil
+	}
+}
+
+func (r *yamlReport) removeUnreachableRefs() {
+	r.Report.References = slices.DeleteFunc(r.Report.References, func(r *report.Reference) bool {
+		resp, err := http.Head(r.URL)
+		if err != nil {
+			return true
+		}
+		defer resp.Body.Close()
+		return resp.StatusCode == http.StatusNotFound
+	})
 }
 
 func (c *creator) write(ctx context.Context, r *yamlReport) error {
