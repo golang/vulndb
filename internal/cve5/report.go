@@ -8,10 +8,12 @@ import (
 	"errors"
 	"fmt"
 	"regexp"
+	"slices"
 	"strings"
 
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/idstr"
+	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/stdlib"
 	"golang.org/x/vulndb/internal/version"
@@ -197,7 +199,7 @@ func cve5ToReport(c *CVERecord, modulePath string) *report.Report {
 
 	var refs []*report.Reference
 	for _, ref := range c.Containers.CNAContainer.References {
-		refs = append(refs, report.ReferenceFromUrl(ref.URL))
+		refs = append(refs, convertRef(ref))
 	}
 
 	r := &report.Report{
@@ -210,6 +212,95 @@ func cve5ToReport(c *CVERecord, modulePath string) *report.Report {
 
 	r.AddCVE(c.Metadata.ID, getCWE5(&cna), isGoCNA5(&cna))
 	return r
+}
+
+func convertRef(ref Reference) *report.Reference {
+	if t := typeFromTags(ref.Tags); t != osv.ReferenceTypeWeb {
+		return &report.Reference{
+			Type: t,
+			URL:  ref.URL,
+		}
+	}
+	return report.ReferenceFromUrl(ref.URL)
+}
+
+const (
+	refTagIssue          = "issue-tracking"
+	refTagMailingList    = "mailing-list"
+	refTagPatch          = "patch"
+	refTagReleaseNotes   = "release-notes"
+	refTag3PAdvisory     = "third-party-advisory"
+	refTagVendorAdvisory = "vendor-advisory"
+	refTagVdbEntry       = "vdb-entry"
+	refTagMedia          = "media-coverage"
+	refTagTechnical      = "technical-description"
+	refTagRelated        = "related"
+	refTagGovt           = "government resource"
+	refTagMitigation     = "mitigation"
+	// uncategorized:
+	// "broken-link"
+	// "customer-entitlement"
+	// "not-applicable"
+	// "permissions-required"
+	// "product"
+	// "signature"
+)
+
+func tagToType(tag string) osv.ReferenceType {
+	switch tag {
+	case refTagVendorAdvisory:
+		return osv.ReferenceTypeAdvisory
+	case refTagIssue:
+		return osv.ReferenceTypeReport
+	case refTagPatch:
+		return osv.ReferenceTypeFix
+	}
+	return defaultType
+}
+
+var order = []osv.ReferenceType{
+	osv.ReferenceTypeAdvisory,
+	osv.ReferenceTypeFix,
+	osv.ReferenceTypeReport,
+	osv.ReferenceTypeWeb,
+}
+
+var defaultType = osv.ReferenceTypeWeb
+
+func bestType(types []osv.ReferenceType) osv.ReferenceType {
+	if len(types) == 0 {
+		return defaultType
+	} else if len(types) == 1 {
+		return types[0]
+	}
+
+	slices.SortStableFunc(types, func(a, b osv.ReferenceType) int {
+		if a == b {
+			return 0
+		}
+		for _, t := range order {
+			if a == t {
+				return -1
+			}
+			if b == t {
+				return 1
+			}
+		}
+		return 0
+	})
+
+	return types[0]
+}
+
+func typeFromTags(tags []string) osv.ReferenceType {
+	var types []osv.ReferenceType
+	for _, tag := range tags {
+		if t := tagToType(tag); t != "" {
+			types = append(types, t)
+		}
+	}
+	return bestType(types)
+
 }
 
 func getCWE5(c *CNAPublishedContainer) string {

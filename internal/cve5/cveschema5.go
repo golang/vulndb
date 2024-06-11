@@ -81,7 +81,8 @@ type ProblemTypeDescription struct {
 }
 
 type Reference struct {
-	URL string `json:"url"`
+	URL  string   `json:"url"`
+	Tags []string `json:"tags"`
 }
 
 type Credit struct {
