@@ -19,6 +19,14 @@ func (c *CVE) SourceID() string {
 	return c.ID
 }
 
+func (c *CVE) ReferenceURLs() []string {
+	var result []string
+	for _, r := range c.References.Data {
+		result = append(result, r.URL)
+	}
+	return result
+}
+
 // cveToReport creates a Report struct from a given CVE and modulePath.
 func cveToReport(c *CVE, modulePath string) *report.Report {
 	var description report.Description

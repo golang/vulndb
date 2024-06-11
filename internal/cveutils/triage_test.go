@@ -15,6 +15,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"golang.org/x/vulndb/internal/cve4"
+	"golang.org/x/vulndb/internal/cve5"
 	"golang.org/x/vulndb/internal/pkgsite"
 	"golang.org/x/vulndb/internal/stdlib"
 )
@@ -35,7 +36,7 @@ func TestTriageV4CVE(t *testing.T) {
 	for _, test := range []struct {
 		name string
 		desc string
-		in   *cve4.CVE
+		in   CVE
 		want *TriageResult
 	}{
 		{
@@ -165,7 +166,179 @@ func TestTriageV4CVE(t *testing.T) {
 		},
 	} {
 		t.Run(test.name, func(t *testing.T) {
-			test.in.DataVersion = "4.0"
+			got, err := TriageCVE(ctx, test.in, pc)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if diff := cmp.Diff(test.want, got,
+				cmp.AllowUnexported(TriageResult{}),
+				cmpopts.IgnoreFields(TriageResult{}, "Reason")); diff != "" {
+				t.Errorf("mismatch (-want, +got):\n%s", diff)
+			}
+		})
+	}
+}
+
+func TestTriageV5CVE(t *testing.T) {
+	ctx := context.Background()
+	cf, err := pkgsite.CacheFile(t)
+	if err != nil {
+		t.Fatal(err)
+	}
+	pc, err := pkgsite.TestClient(t, *usePkgsite, cf)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	for _, test := range []struct {
+		name string
+		desc string
+		in   CVE
+		want *TriageResult
+	}{
+		{
+			name: "unknown_std",
+			desc: "repo path is unknown Go standard library",
+			in: &cve5.CVERecord{
+				Containers: cve5.Containers{
+					CNAContainer: cve5.CNAPublishedContainer{
+						References: []cve5.Reference{
+							{URL: "https://groups.google.com/forum/#!topic/golang-nuts/1234"},
+						},
+					},
+				},
+			},
+			want: &TriageResult{
+				ModulePath: stdlib.ModulePath,
+			},
+		},
+		{
+			name: "std",
+			desc: "pkg.go.dev URL is Go standard library package",
+			in: &cve5.CVERecord{
+				Containers: cve5.Containers{
+					CNAContainer: cve5.CNAPublishedContainer{
+						References: []cve5.Reference{
+							{URL: "https://pkg.go.dev/net/http"},
+						},
+					},
+				},
+			},
+			want: &TriageResult{
+				ModulePath:  stdlib.ModulePath,
+				PackagePath: "net/http",
+			},
+		},
+		{
+			name: "repo_golang_org",
+			desc: "repo path is is valid golang.org module path",
+			in: &cve5.CVERecord{
+				Containers: cve5.Containers{
+					CNAContainer: cve5.CNAPublishedContainer{
+						References: []cve5.Reference{
+							{URL: "https://groups.google.com/forum/#!topic/golang-nuts/1234"},
+							{URL: "https://golang.org/x/mod"},
+						},
+					},
+				},
+			},
+			want: &TriageResult{
+				ModulePath: "golang.org/x/mod",
+			},
+		},
+		{
+			name: "pkg_golang_org",
+			desc: "pkg.go.dev URL is is valid golang.org module path",
+			in: &cve5.CVERecord{
+				Containers: cve5.Containers{
+					CNAContainer: cve5.CNAPublishedContainer{
+						References: []cve5.Reference{
+							{URL: "https://pkg.go.dev/golang.org/x/mod"},
+						},
+					},
+				},
+			},
+			want: &TriageResult{
+				ModulePath: "golang.org/x/mod",
+			},
+		},
+		{
+			name: "golang_org_pkg",
+			desc: "contains golang.org/pkg URL",
+			in: &cve5.CVERecord{
+				Containers: cve5.Containers{
+					CNAContainer: cve5.CNAPublishedContainer{
+						References: []cve5.Reference{
+							{URL: "https://golang.org/pkg/net/http"},
+						},
+					},
+				},
+			},
+			want: &TriageResult{
+				ModulePath:  stdlib.ModulePath,
+				PackagePath: "net/http",
+			},
+		},
+		{
+			in: &cve5.CVERecord{
+				Containers: cve5.Containers{
+					CNAContainer: cve5.CNAPublishedContainer{
+						References: []cve5.Reference{
+							{URL: "https://github.com/something/something/404"},
+						},
+					},
+				},
+			},
+			want: nil,
+		},
+		{
+			name: "long_path",
+			desc: "contains longer module path",
+			in: &cve5.CVERecord{
+				Containers: cve5.Containers{
+					CNAContainer: cve5.CNAPublishedContainer{
+						References: []cve5.Reference{
+							{URL: "https://golang.org/x/exp/event"},
+						},
+					},
+				},
+			},
+			want: &TriageResult{
+				ModulePath: "golang.org/x/exp/event",
+			},
+		},
+		{
+			name: "not_module",
+			desc: "repo path is not a module",
+			in: &cve5.CVERecord{
+				Containers: cve5.Containers{
+					CNAContainer: cve5.CNAPublishedContainer{
+						References: []cve5.Reference{
+							{URL: "https://bitbucket.org/foo/bar"},
+						},
+					},
+				},
+			},
+			want: nil,
+		},
+		{
+			name: "golang_snyk",
+			desc: "contains snyk.io URL containing GOLANG",
+			in: &cve5.CVERecord{
+				Containers: cve5.Containers{
+					CNAContainer: cve5.CNAPublishedContainer{
+						References: []cve5.Reference{
+							{URL: "https://snyk.io/vuln/SNYK-GOLANG-12345"},
+						},
+					},
+				},
+			},
+			want: &TriageResult{
+				ModulePath: unknownPath,
+			},
+		},
+	} {
+		t.Run(test.name, func(t *testing.T) {
 			got, err := TriageCVE(ctx, test.in, pc)
 			if err != nil {
 				t.Fatal(err)

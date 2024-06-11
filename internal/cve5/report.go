@@ -182,6 +182,14 @@ func (c *CVERecord) SourceID() string {
 	return c.Metadata.ID
 }
 
+func (c *CVERecord) ReferenceURLs() []string {
+	var result []string
+	for _, r := range c.Containers.CNAContainer.References {
+		result = append(result, r.URL)
+	}
+	return result
+}
+
 func cve5ToReport(c *CVERecord, modulePath string) *report.Report {
 	cna := c.Containers.CNAContainer
 
