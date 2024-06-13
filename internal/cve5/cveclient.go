@@ -152,6 +152,27 @@ func (c *Client) createReserveIDsRequest(opts ReserveOptions) (*http.Request, er
 	return req, err
 }
 
+type rejectReason struct {
+	Container container `json:"cnaContainer"`
+}
+
+type container struct {
+	Reasons []Description `json:"rejectedReasons"`
+}
+
+func (c *Client) Reject(id, reason string) error {
+	reqBody := rejectReason{
+		Container: container{
+			Reasons: []Description{{
+				Lang:  "en",
+				Value: reason,
+			}},
+		},
+	}
+	var resp CVERecord
+	return c.queryAPI(http.MethodPost, c.requestURL(cveTarget, id, rejectTarget), reqBody, &resp)
+}
+
 type reserveIDsResponse struct {
 	CVEs AssignedCVEList `json:"cve_ids"`
 }
@@ -422,11 +443,12 @@ func (c *Client) sendRequest(req *http.Request, checkStatus func(int) bool, resu
 }
 
 var (
-	cveTarget   = "cve"
-	cveIDTarget = "cve-id"
-	orgTarget   = "org"
-	quotaTarget = "id_quota"
-	cnaTarget   = "cna"
+	cveTarget    = "cve"
+	cveIDTarget  = "cve-id"
+	orgTarget    = "org"
+	quotaTarget  = "id_quota"
+	cnaTarget    = "cna"
+	rejectTarget = "reject"
 )
 
 func (c *Client) requestURL(targets ...string) string {

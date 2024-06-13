@@ -62,6 +62,7 @@ func main() {
 		fmt.Fprintf(out, formatCmd, "quota", "outputs the CVE ID quota of the authenticated organization")
 		fmt.Fprintf(out, formatCmd, "id {cve-id}", "outputs details on an assigned CVE ID (CVE-YYYY-NNNN)")
 		fmt.Fprintf(out, formatCmd, "record {cve-id}", "outputs the record associated with a CVE ID (CVE-YYYY-NNNN)")
+		fmt.Fprintf(out, formatCmd, "reject {cve-id}", "rejects the CVE ID (CVE-YYYY-NNNN) - for CVEs that have been reserved but are no longer needed")
 		fmt.Fprintf(out, formatCmd, "publish [{filename} | {issue ID}]", "publishes or updates a CVE Record from a YAML/JSON file or issue ID")
 		fmt.Fprintf(out, formatCmd, "org", "outputs details on the authenticated organization")
 		fmt.Fprintf(out, formatCmd, "[-year] [-state] list", "lists all CVE IDs for an organization")
@@ -114,6 +115,22 @@ func main() {
 		}
 		if err := lookupRecord(c, id); err != nil {
 			log.Fatalf("cve record: could not retrieve CVE record due to error:\n  %v", err)
+		}
+	case "reject":
+		args := flag.Args()[1:]
+		if len(args) == 0 {
+			logFatalUsageErr("cve reject", errors.New("must provide CVE ID"))
+		}
+		for _, arg := range args {
+			if !idstr.IsCVE(arg) {
+				log.Printf("%s is not a CVE id; skipping", arg)
+				continue
+			}
+			if err := c.Reject(arg, "reserved but not needed"); err != nil {
+				log.Printf("cve reject: could not reject CVE due to error:\n %v", err)
+			} else {
+				log.Printf("success: rejected CVE %s", arg)
+			}
 		}
 	case "publish":
 		args := flag.Args()[1:]
