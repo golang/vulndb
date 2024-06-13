@@ -65,6 +65,10 @@ func (c *creator) skip(input any) string {
 }
 
 func skip(iss *issues.Issue, x *xrefer) string {
+	if iss.HasLabel(labelOutOfScope) {
+		return "out of scope"
+	}
+
 	if iss.HasLabel(labelDuplicate) {
 		return "duplicate issue"
 	}
@@ -256,6 +260,7 @@ const (
 	labelFirstParty        = "first party"
 	labelPossibleDuplicate = "possible duplicate"
 	labelPossiblyNotGo     = "possibly not Go"
+	labelOutOfScope        = "excluded: OUT_OF_SCOPE"
 )
 
 func excludedReason(iss *issues.Issue) report.ExcludedReason {
