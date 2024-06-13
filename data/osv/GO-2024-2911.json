@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2911",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-87m9-rv8p-rgmg"
+  ],
+  "summary": "go-grpc-compression has a zstd decompression bombing vulnerability in github.com/mostynb/go-grpc-compression",
+  "details": "go-grpc-compression has a zstd decompression bombing vulnerability in github.com/mostynb/go-grpc-compression",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mostynb/go-grpc-compression",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.1.4"
+            },
+            {
+              "fixed": "1.2.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/mostynb/go-grpc-compression/security/advisories/GHSA-87m9-rv8p-rgmg"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/mostynb/go-grpc-compression/commit/629c44d3acb9624993cc7de629f47d72109e2ce5"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2911",
+    "review_status": "UNREVIEWED"
+  }
+}

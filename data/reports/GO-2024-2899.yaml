@@ -1,0 +1,19 @@
+id: GO-2024-2899
+modules:
+    - module: chainguard.dev/apko
+      versions:
+        - fixed: 0.14.5
+      vulnerable_at: 0.14.4
+summary: apko Exposure of HTTP basic auth credentials in log output in chainguard.dev/apko
+cves:
+    - CVE-2024-36127
+ghsas:
+    - GHSA-v6mg-7f7p-qmqp
+references:
+    - advisory: https://github.com/chainguard-dev/apko/security/advisories/GHSA-v6mg-7f7p-qmqp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-36127
+    - web: https://github.com/chainguard-dev/apko/commit/2c0533e4d52e83031a04f6a83ec63fc2a11eff01
+source:
+    id: GHSA-v6mg-7f7p-qmqp
+    created: 2024-06-13T12:07:02.08859-04:00
+review_status: UNREVIEWED

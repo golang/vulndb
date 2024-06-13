@@ -1,0 +1,22 @@
+id: GO-2024-2916
+modules:
+    - module: github.com/goharbor/harbor
+      versions:
+        - fixed: 2.8.6+incompatible
+        - introduced: 2.9.0+incompatible
+          fixed: 2.9.4+incompatible
+        - introduced: 2.10.0+incompatible
+          fixed: 2.10.2+incompatible
+      vulnerable_at: 2.10.2-rc1+incompatible
+summary: SQL Injection in Harbor scan log API in github.com/goharbor/harbor
+cves:
+    - CVE-2024-22261
+ghsas:
+    - GHSA-vw63-824v-qf2j
+references:
+    - advisory: https://github.com/goharbor/harbor/security/advisories/GHSA-vw63-824v-qf2j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-22261
+source:
+    id: GHSA-vw63-824v-qf2j
+    created: 2024-06-13T12:05:42.621716-04:00
+review_status: UNREVIEWED

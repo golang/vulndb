@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2900",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-36129",
+    "GHSA-c74f-6mfw-mm4v"
+  ],
+  "summary": "Denial of Service via Zip/Decompression Bomb sent over HTTP or gRPC in go.opentelemetry.io/collector/config/configgrpc",
+  "details": "Denial of Service via Zip/Decompression Bomb sent over HTTP or gRPC in go.opentelemetry.io/collector/config/configgrpc",
+  "affected": [
+    {
+      "package": {
+        "name": "go.opentelemetry.io/collector/config/configgrpc",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.102.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "go.opentelemetry.io/collector/config/confighttp",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.102.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/open-telemetry/opentelemetry-collector/security/advisories/GHSA-c74f-6mfw-mm4v"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-36129"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/open-telemetry/opentelemetry-collector/pull/10289"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/open-telemetry/opentelemetry-collector/pull/10323"
+    },
+    {
+      "type": "WEB",
+      "url": "https://opentelemetry.io/blog/2024/cve-2024-36129"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2900",
+    "review_status": "UNREVIEWED"
+  }
+}

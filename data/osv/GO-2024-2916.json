@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2916",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-22261",
+    "GHSA-vw63-824v-qf2j"
+  ],
+  "summary": "SQL Injection in Harbor scan log API in github.com/goharbor/harbor",
+  "details": "SQL Injection in Harbor scan log API in github.com/goharbor/harbor",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/goharbor/harbor",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.8.6+incompatible"
+            },
+            {
+              "introduced": "2.9.0+incompatible"
+            },
+            {
+              "fixed": "2.9.4+incompatible"
+            },
+            {
+              "introduced": "2.10.0+incompatible"
+            },
+            {
+              "fixed": "2.10.2+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/goharbor/harbor/security/advisories/GHSA-vw63-824v-qf2j"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-22261"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2916",
+    "review_status": "UNREVIEWED"
+  }
+}

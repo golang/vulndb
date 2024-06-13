@@ -1,0 +1,22 @@
+id: GO-2024-2911
+modules:
+    - module: github.com/mostynb/go-grpc-compression
+      versions:
+        - introduced: 1.1.4
+          fixed: 1.2.3
+      vulnerable_at: 1.2.2
+summary: go-grpc-compression has a zstd decompression bombing vulnerability in github.com/mostynb/go-grpc-compression
+ghsas:
+    - GHSA-87m9-rv8p-rgmg
+unknown_aliases:
+    - CGA-5mr6-pxmv-g3rf
+    - CGA-9p94-3p48-x4p9
+    - CGA-jj45-rqfh-mhq4
+    - CGA-vxwm-jjvq-32cx
+references:
+    - advisory: https://github.com/mostynb/go-grpc-compression/security/advisories/GHSA-87m9-rv8p-rgmg
+    - fix: https://github.com/mostynb/go-grpc-compression/commit/629c44d3acb9624993cc7de629f47d72109e2ce5
+source:
+    id: GHSA-87m9-rv8p-rgmg
+    created: 2024-06-13T12:05:58.801446-04:00
+review_status: UNREVIEWED

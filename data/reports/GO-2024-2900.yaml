@@ -1,0 +1,27 @@
+id: GO-2024-2900
+modules:
+    - module: go.opentelemetry.io/collector/config/configgrpc
+      versions:
+        - fixed: 0.102.1
+      vulnerable_at: 0.102.0
+    - module: go.opentelemetry.io/collector/config/confighttp
+      versions:
+        - fixed: 0.102.0
+      vulnerable_at: 0.101.0
+summary: Denial of Service via Zip/Decompression Bomb sent over HTTP or gRPC in go.opentelemetry.io/collector/config/configgrpc
+cves:
+    - CVE-2024-36129
+ghsas:
+    - GHSA-c74f-6mfw-mm4v
+unknown_aliases:
+    - CGA-c8pv-52m7-2mhm
+references:
+    - advisory: https://github.com/open-telemetry/opentelemetry-collector/security/advisories/GHSA-c74f-6mfw-mm4v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-36129
+    - web: https://github.com/open-telemetry/opentelemetry-collector/pull/10289
+    - web: https://github.com/open-telemetry/opentelemetry-collector/pull/10323
+    - web: https://opentelemetry.io/blog/2024/cve-2024-36129
+source:
+    id: GHSA-c74f-6mfw-mm4v
+    created: 2024-06-13T12:06:56.750875-04:00
+review_status: UNREVIEWED
