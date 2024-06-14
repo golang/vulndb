@@ -105,12 +105,16 @@ func TestLintReports(t *testing.T) {
 			if len(lints) > 0 {
 				t.Errorf(strings.Join(lints, "\n"))
 			}
+			duplicates := make(map[string][]string)
 			for _, alias := range r.Aliases() {
 				if report, ok := aliases[alias]; ok {
-					t.Errorf("report %s shares duplicate alias %s with report %s", filename, alias, report)
+					duplicates[report] = append(duplicates[report], alias)
 				} else {
 					aliases[alias] = filename
 				}
+			}
+			for report, aliases := range duplicates {
+				t.Errorf("report %s shares duplicate alias(es) %s with report %s", filename, aliases, report)
 			}
 			// Ensure that each reviewed report has a unique summary.
 			if r.IsReviewed() {
