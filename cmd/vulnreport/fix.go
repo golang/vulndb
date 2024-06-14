@@ -23,6 +23,7 @@ import (
 
 var (
 	force       = flag.Bool("f", false, "for fix, force Fix to run even if there are no lint errors")
+	skipChecks  = flag.Bool("skip-checks", false, "for fix, skip all checks except lint")
 	skipAlias   = flag.Bool("skip-alias", false, "for fix, skip adding new GHSAs and CVEs")
 	skipSymbols = flag.Bool("skip-symbols", false, "for lint and fix, don't load package for symbols checks")
 )
@@ -84,16 +85,43 @@ func (f *fixer) fixAndWriteAll(ctx context.Context, r *yamlReport) error {
 func (f *fixer) fix(ctx context.Context, r *yamlReport, addNotes bool) (fixed bool) {
 	fixed = true
 
+	if lints := r.Lint(f.pc); *force || len(lints) > 0 {
+		r.Fix(f.pc)
+	}
+
+	if !*skipChecks {
+		if ok := f.allChecks(ctx, r, addNotes); !ok {
+			fixed = false
+		}
+	}
+
+	// Check for remaining lint errors.
+	if addNotes {
+		if r.LintAsNotes(f.pc) {
+			log.Warnf("%s: still has lint errors after fix", r.ID)
+			fixed = false
+		}
+	} else {
+		if lints := r.Lint(f.pc); len(lints) > 0 {
+			log.Warnf("%s: still has lint errors after fix:\n\t- %s", r.ID, strings.Join(lints, "\n\t- "))
+			fixed = false
+		}
+	}
+
+	return fixed
+}
+
+// allChecks runs additional checks/fixes that are slow and require a network connection.
+// Unlike lint checks which cannot be bypassed, these *should* pass before submit,
+// but it is possible to bypass them if needed with the "-skip-checks" flag.
+func (f *fixer) allChecks(ctx context.Context, r *yamlReport, addNotes bool) (ok bool) {
+	ok = true
 	fixErr := func(f string, v ...any) {
 		log.Errf(r.ID+": "+f, v...)
 		if addNotes {
 			r.AddNote(report.NoteTypeFix, f, v...)
 		}
-		fixed = false
-	}
-
-	if lints := r.Lint(f.pc); *force || len(lints) > 0 {
-		r.Fix(f.pc)
+		ok = false
 	}
 
 	if !*skipSymbols {
@@ -114,20 +142,7 @@ func (f *fixer) fix(ctx context.Context, r *yamlReport, addNotes bool) (fixed bo
 	log.Infof("%s: checking that all references are reachable", r.ID)
 	checkRefs(r.References, fixErr)
 
-	// Check for remaining lint errors.
-	if addNotes {
-		if r.LintAsNotes(f.pc) {
-			log.Warnf("%s: still has lint errors after fix", r.ID)
-			fixed = false
-		}
-	} else {
-		if lints := r.Lint(f.pc); len(lints) > 0 {
-			log.Warnf("%s: still has lint errors after fix:\n\t- %s", r.ID, strings.Join(lints, "\n\t- "))
-			fixed = false
-		}
-	}
-
-	return fixed
+	return ok
 }
 
 func checkRefs(refs []*report.Reference, fixErr func(f string, v ...any)) {

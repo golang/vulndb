@@ -5,10 +5,13 @@
 package main
 
 import (
+	"cmp"
 	"context"
+	"errors"
 	"flag"
 	"fmt"
 	"path/filepath"
+	"slices"
 	"strings"
 
 	"github.com/go-git/go-git/v5"
@@ -22,7 +25,7 @@ var (
 	// the files, but the logic to determine the commit message
 	// currently depends on the status of the staging area.
 	dry   = flag.Bool("dry", false, "for commit & create-excluded, stage but do not commit files")
-	batch = flag.Bool("batch", false, "for commit, create a single commit for all reports")
+	batch = flag.Int("batch", 0, "for commit, create batched commits of the specified size")
 )
 
 type commit struct {
@@ -80,11 +83,21 @@ func (c *commit) parseArgs(ctx context.Context, args []string) (filenames []stri
 	return filenames, nil
 }
 
-func (c *commit) close() error {
-	if len(c.toCommit) > 0 {
-		return c.commit(c.toCommit...)
+func (c *commit) close() (err error) {
+	if len(c.toCommit) != 0 {
+		batchSize := *batch
+		slices.SortFunc(c.toCommit, func(a, b *yamlReport) int {
+			return cmp.Compare(a.ID, b.ID)
+		})
+		for start := 0; start < len(c.toCommit); start += batchSize {
+			end := min(start+batchSize, len(c.toCommit))
+			log.Infof("committing batch %s-%s", c.toCommit[start].ID, c.toCommit[end-1].ID)
+			if cerr := c.commit(c.toCommit[start:end]...); err != nil {
+				err = errors.Join(err, cerr)
+			}
+		}
 	}
-	return nil
+	return err
 }
 
 func (c *commit) skip(input any) string {
@@ -112,7 +125,7 @@ func (c *commit) run(ctx context.Context, input any) error {
 		return err
 	}
 
-	if *batch {
+	if *batch > 0 {
 		c.toCommit = append(c.toCommit, r)
 		return nil
 	}

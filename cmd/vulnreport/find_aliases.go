@@ -86,7 +86,7 @@ func aliasesBFS(ctx context.Context, knownAliases []string,
 		all = append(all, alias)
 		aliases, err := aliasesFor(ctx, alias)
 		if err != nil {
-			log.Err(err)
+			log.Warn(err)
 			continue
 		}
 		queue = append(queue, aliases...)
