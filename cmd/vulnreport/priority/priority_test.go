@@ -21,6 +21,10 @@ var (
 	reviewed2 = &report.Report{
 		ReviewStatus: report.Reviewed,
 	}
+	reviewedBinary = &report.Report{
+		ReviewStatus: report.Reviewed,
+		Unexcluded:   "NOT_IMPORTABLE",
+	}
 	unreviewed1 = &report.Report{
 		ReviewStatus: report.Unreviewed,
 	}
@@ -32,6 +36,10 @@ var (
 	}
 	binary3 = &report.Report{
 		Excluded: "LEGACY_FALSE_POSITIVE",
+	}
+	unreviewedBinary = &report.Report{
+		ReviewStatus: report.Unreviewed,
+		Unexcluded:   "NOT_IMPORTABLE",
 	}
 	notAVuln1 = &report.Report{
 		Excluded: "NOT_A_VULNERABILITY",
@@ -75,7 +83,7 @@ func TestAnalyze(t *testing.T) {
 			modulesToImports: map[string]int{"example.com/module": 100},
 			want: &Result{
 				Priority: High,
-				Reason:   "example.com/module has 100 importers (>= 100) and as many reviewed (0) as likely-binary excluded reports (0)",
+				Reason:   "example.com/module has 100 importers (>= 100) and as many reviewed (0) as likely-binary reports (0)",
 			},
 		},
 		{
@@ -85,7 +93,7 @@ func TestAnalyze(t *testing.T) {
 			modulesToImports: map[string]int{"example.com/module": 101},
 			want: &Result{
 				Priority: High,
-				Reason:   "example.com/module has 101 importers (>= 100) and more reviewed (2) than likely-binary excluded reports (1)",
+				Reason:   "example.com/module has 101 importers (>= 100) and more reviewed (2) than likely-binary reports (1)",
 			},
 		},
 		{
@@ -99,7 +107,21 @@ func TestAnalyze(t *testing.T) {
 			modulesToImports: map[string]int{"example.com/module": 101},
 			want: &Result{
 				Priority: Low,
-				Reason:   "example.com/module has 101 importers (>= 100) but fewer reviewed (1) than likely-binary excluded reports (3)",
+				Reason:   "example.com/module has 101 importers (>= 100) but fewer reviewed (1) than likely-binary reports (3)",
+			},
+		},
+		{
+			name:   "unexcluded unreviewed considered binaries",
+			module: "example.com/module",
+			reportsForModule: []*report.Report{
+				reviewed1, reviewedBinary, // reviewed
+				binary1, binary2, unreviewedBinary, // binary
+				unreviewed1, notAVuln1, dependent1, // ignored
+			},
+			modulesToImports: map[string]int{"example.com/module": 101},
+			want: &Result{
+				Priority: Low,
+				Reason:   "example.com/module has 101 importers (>= 100) but fewer reviewed (2) than likely-binary reports (3)",
 			},
 		},
 		{

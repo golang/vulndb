@@ -69,14 +69,16 @@ func priority(mp string, importers int, sc map[reportState]int) (priority Priori
 	}
 
 	if importers >= highPriority {
+		rev := sc[reviewed]
+		binary := sc[excludedBinary] + sc[unreviewedUnexcluded]
 		getReason := func(conj1, conj2 string) string {
-			return fmt.Sprintf("%s %s reviewed (%d) %s likely-binary excluded reports (%d)",
-				importersStr(">="), conj1, sc[reviewed], conj2, sc[excludedBinary])
+			return fmt.Sprintf("%s %s reviewed (%d) %s likely-binary reports (%d)",
+				importersStr(">="), conj1, rev, conj2, binary)
 		}
 
-		if sc[reviewed] > sc[excludedBinary] {
+		if rev > binary {
 			return High, getReason("and more", "than")
-		} else if sc[reviewed] == sc[excludedBinary] {
+		} else if rev == binary {
 			return High, getReason("and as many", "as")
 		}
 
@@ -98,39 +100,48 @@ type reportState int
 const (
 	unknownReportState reportState = iota
 	reviewed
-	unreviewed
+	unreviewedStandard
+	unreviewedUnexcluded
 	excludedBinary
 	excludedNotGo
 	excludedOther
 )
 
+func state(r *report.Report) reportState {
+	if r.IsExcluded() {
+		switch e := r.Excluded; e {
+		case "NOT_GO_CODE":
+			return excludedNotGo
+		case "EFFECTIVELY_PRIVATE", "NOT_IMPORTABLE", "LEGACY_FALSE_POSITIVE":
+			return excludedBinary
+		case "NOT_A_VULNERABILITY", "DEPENDENT_VULNERABILITY":
+			return excludedOther
+		default:
+			return unknownReportState
+		}
+	}
+
+	switch rs := r.ReviewStatus; rs {
+	case report.Reviewed:
+		return reviewed
+	case report.Unreviewed:
+		if r.Unexcluded != "" {
+			return unreviewedUnexcluded
+		}
+		return unreviewedStandard
+	}
+
+	return unknownReportState
+}
+
 func stateCounts(rs []*report.Report) map[reportState]int {
 	counts := make(map[reportState]int)
 	for _, r := range rs {
-		var state reportState
-		switch {
-		case r.IsExcluded():
-			switch e := r.Excluded; e {
-			case "NOT_GO_CODE":
-				state = excludedNotGo
-			case "EFFECTIVELY_PRIVATE", "NOT_IMPORTABLE", "LEGACY_FALSE_POSITIVE":
-				state = excludedBinary
-			case "NOT_A_VULNERABILITY", "DEPENDENT_VULNERABILITY":
-				state = excludedOther
-			default:
-				panic("unknown excluded reason " + e)
-			}
-		default:
-			switch rs := r.ReviewStatus; rs {
-			case report.Reviewed:
-				state = reviewed
-			case report.Unreviewed:
-				state = unreviewed
-			default:
-				panic("unknown review status " + rs.String())
-			}
+		st := state(r)
+		if st == unknownReportState {
+			panic("could not determine report state for " + r.ID)
 		}
-		counts[state]++
+		counts[st]++
 	}
 	return counts
 }
