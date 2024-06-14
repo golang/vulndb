@@ -72,6 +72,7 @@ func (u *unexclude) run(ctx context.Context, input any) (err error) {
 	if err != nil {
 		return err
 	}
+	r.Unexcluded = oldR.Excluded
 	if err := u.write(ctx, r); err != nil {
 		return err
 	}

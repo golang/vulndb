@@ -244,6 +244,10 @@ type Report struct {
 	SourceMeta *SourceMeta `yaml:"source,omitempty"`
 
 	ReviewStatus ReviewStatus `yaml:"review_status,omitempty"`
+
+	// (For unexcluded reports) The reason this report was previously
+	// excluded. Not published to OSV.
+	Unexcluded ExcludedReason `yaml:"unexcluded,omitempty"`
 }
 
 // This wrapper is needed so we can define YAML functions on this type.
