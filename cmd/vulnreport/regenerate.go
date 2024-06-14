@@ -15,7 +15,7 @@ import (
 
 type regenerate struct {
 	*creator
-	filenameParser
+	*filenameParser
 }
 
 func (regenerate) name() string { return "regen" }
@@ -27,7 +27,8 @@ func (regenerate) usage() (string, string) {
 
 func (u *regenerate) setup(ctx context.Context, env environment) error {
 	u.creator = new(creator)
-	return setupAll(ctx, env, u.creator)
+	u.filenameParser = new(filenameParser)
+	return setupAll(ctx, env, u.creator, u.filenameParser)
 }
 
 func (u *regenerate) close() error {
