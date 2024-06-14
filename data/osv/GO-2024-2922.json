@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2922",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-37307",
+    "GHSA-wh78-7948-358j"
+  ],
+  "summary": "Cilium leaks sensitive information in cilium-bugtool in github.com/cilium/cilium",
+  "details": "Cilium leaks sensitive information in cilium-bugtool in github.com/cilium/cilium",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cilium/cilium",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.13.0"
+            },
+            {
+              "fixed": "1.13.17"
+            },
+            {
+              "introduced": "1.14.0"
+            },
+            {
+              "fixed": "1.14.12"
+            },
+            {
+              "introduced": "1.15.0"
+            },
+            {
+              "fixed": "1.15.6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cilium/cilium/security/advisories/GHSA-wh78-7948-358j"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-37307"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cilium/cilium/commit/0191b1ebcfdd61cefd06da0315a0e7d504167407"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cilium/cilium/commit/224e288a5bf40d0bb0f16c9413693b319633431a"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cilium/cilium/commit/9299c0fd0024e33397cffc666ff851e82af28741"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cilium/cilium/commit/958d7b77274bf2c272d8cdfd812631d644250653"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cilium/cilium/commit/9eb25ba40391a9b035d7e66401b862818f4aac4b"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cilium/cilium/commit/bf9a1ae1b2d2b2c9cca329d7aa96aa4858032a61"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2922",
+    "review_status": "UNREVIEWED"
+  }
+}
