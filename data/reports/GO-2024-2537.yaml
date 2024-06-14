@@ -1,0 +1,23 @@
+id: GO-2024-2537
+modules:
+    - module: github.com/rancher/rancher
+      non_go_versions:
+        - introduced: 2.6.0
+          fixed: 2.6.14
+        - introduced: 2.7.0
+          fixed: 2.7.10
+        - introduced: 2.8.0
+          fixed: 2.8.2
+      vulnerable_at: 1.6.30
+summary: Rancher 'Audit Log' leaks sensitive information in github.com/rancher/rancher
+cves:
+    - CVE-2023-22649
+ghsas:
+    - GHSA-xfj7-qf8w-2gcr
+references:
+    - advisory: https://github.com/rancher/rancher/security/advisories/GHSA-xfj7-qf8w-2gcr
+source:
+    id: GHSA-xfj7-qf8w-2gcr
+    created: 2024-06-14T11:40:59.93657-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

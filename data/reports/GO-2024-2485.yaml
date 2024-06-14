@@ -1,0 +1,25 @@
+id: GO-2024-2485
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - introduced: 0.11.0
+          fixed: 1.3.4
+      vulnerable_at: 1.3.3
+summary: HashiCorp Vault Improper Privilege Management in github.com/hashicorp/vault
+cves:
+    - CVE-2020-10661
+ghsas:
+    - GHSA-j6vv-vv26-rh7c
+unknown_aliases:
+    - BIT-vault-2020-10661
+references:
+    - advisory: https://github.com/advisories/GHSA-j6vv-vv26-rh7c
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-10661
+    - fix: https://github.com/hashicorp/vault/commit/18485ee9d4352ac8e8396c580b5941ccf8e5b31a
+    - web: https://github.com/hashicorp/vault/blob/master/CHANGELOG.md#134-march-19th-2020
+    - web: https://www.hashicorp.com/blog/category/vault
+source:
+    id: GHSA-j6vv-vv26-rh7c
+    created: 2024-06-14T11:37:17.728135-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

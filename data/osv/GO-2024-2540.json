@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2540",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-24774",
+    "GHSA-qr8f-cjw7-838m"
+  ],
+  "summary": "Mattermost Jira Plugin does not properly check security levels in github.com/mattermost/mattermost-plugin-jira",
+  "details": "Mattermost Jira Plugin does not properly check security levels in github.com/mattermost/mattermost-plugin-jira",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-plugin-jira",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-qr8f-cjw7-838m"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-24774"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/mattermost/mattermost-plugin-jira/commit/5f5e084d169bf6b82d5c46a7a7eb033e1a01c6de"
+    },
+    {
+      "type": "WEB",
+      "url": "https://mattermost.com/security-updates"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2540",
+    "review_status": "UNREVIEWED"
+  }
+}

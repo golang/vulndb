@@ -1,0 +1,23 @@
+id: GO-2024-2564
+modules:
+    - module: github.com/greenpau/caddy-security
+      unsupported_versions:
+        - version: 1.1.23
+          type: last_affected
+      vulnerable_at: 1.1.29
+summary: Improper Validation of Array Index in github.com/greenpau/caddy-security
+cves:
+    - CVE-2024-21493
+ghsas:
+    - GHSA-8h95-jcp5-pjpr
+references:
+    - advisory: https://github.com/advisories/GHSA-8h95-jcp5-pjpr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-21493
+    - report: https://github.com/greenpau/caddy-security/issues/263
+    - web: https://blog.trailofbits.com/2023/09/18/security-flaws-in-an-sso-plugin-for-caddy
+    - web: https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMGREENPAUCADDYSECURITY-5961078
+source:
+    id: GHSA-8h95-jcp5-pjpr
+    created: 2024-06-14T11:42:16.399855-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

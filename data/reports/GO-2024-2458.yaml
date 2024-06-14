@@ -1,0 +1,30 @@
+id: GO-2024-2458
+modules:
+    - module: github.com/cri-o/cri-o
+      versions:
+        - fixed: 1.27.3
+        - introduced: 1.28.0
+          fixed: 1.28.3
+        - introduced: 1.29.0
+          fixed: 1.29.1
+      vulnerable_at: 1.29.0
+summary: CRI-O's pods can break out of resource confinement on cgroupv2 in github.com/cri-o/cri-o
+cves:
+    - CVE-2023-6476
+ghsas:
+    - GHSA-p4rx-7wvg-fwrc
+references:
+    - advisory: https://github.com/cri-o/cri-o/security/advisories/GHSA-p4rx-7wvg-fwrc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-6476
+    - fix: https://github.com/cri-o/cri-o/commit/75effcb1a25851a736e82dba1f7d8cee93ee159e
+    - fix: https://github.com/cri-o/cri-o/pull/4479
+    - web: https://access.redhat.com/errata/RHSA-2024:0195
+    - web: https://access.redhat.com/errata/RHSA-2024:0207
+    - web: https://access.redhat.com/security/cve/CVE-2023-6476
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2253994
+    - web: https://github.com/cri-o/cri-o/blob/main/pkg/config/workloads.go#L103-L107
+source:
+    id: GHSA-p4rx-7wvg-fwrc
+    created: 2024-06-14T11:36:01.32545-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

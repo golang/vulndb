@@ -1,0 +1,25 @@
+id: GO-2024-2509
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - introduced: 1.6.0
+          fixed: 1.6.2
+      vulnerable_at: 1.6.1
+summary: Improper Authentication in HashiCorp Vault in github.com/hashicorp/vault
+cves:
+    - CVE-2021-3282
+ghsas:
+    - GHSA-rq95-xf66-j689
+unknown_aliases:
+    - BIT-vault-2021-3282
+references:
+    - advisory: https://github.com/advisories/GHSA-rq95-xf66-j689
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-3282
+    - fix: https://github.com/hashicorp/vault/commit/09f9068e22f762da123160233518b440e00bdb3b
+    - web: https://discuss.hashicorp.com/t/hcsec-2021-04-vault-enterprise-s-dr-secondaries-allowed-raft-peer-removal-without-authentication/20337
+    - web: https://security.gentoo.org/glsa/202207-01
+source:
+    id: GHSA-rq95-xf66-j689
+    created: 2024-06-14T11:38:45.419225-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

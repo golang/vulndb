@@ -1,0 +1,23 @@
+id: GO-2024-2516
+modules:
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - fixed: 7.0.0
+      vulnerable_at: 5.4.5+incompatible
+summary: Grafana XSS via a column style in github.com/grafana/grafana
+cves:
+    - CVE-2018-18624
+ghsas:
+    - GHSA-9hv8-4frf-cprf
+references:
+    - advisory: https://github.com/advisories/GHSA-9hv8-4frf-cprf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2018-18624
+    - fix: https://github.com/grafana/grafana/commit/0284747c88eb9435899006d26ffaf65f89dec88e
+    - fix: https://github.com/grafana/grafana/pull/11813
+    - fix: https://github.com/grafana/grafana/pull/23816
+    - web: https://security.netapp.com/advisory/ntap-20200608-0008
+source:
+    id: GHSA-9hv8-4frf-cprf
+    created: 2024-06-14T11:39:35.057497-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

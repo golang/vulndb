@@ -1,0 +1,23 @@
+id: GO-2024-2472
+modules:
+    - module: github.com/notaryproject/notation
+      unsupported_versions:
+        - version: 1.0.0
+          type: last_affected
+      vulnerable_at: 1.1.1
+summary: |-
+    Go package github.com/notaryproject/notation configured with permissive trust
+    policies potentially susceptible to rollback attack from compromised registry
+cves:
+    - CVE-2024-23332
+ghsas:
+    - GHSA-57wx-m636-g3g8
+references:
+    - advisory: https://github.com/notaryproject/specifications/security/advisories/GHSA-57wx-m636-g3g8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-23332
+    - web: https://github.com/notaryproject/specifications/commit/cdabdd1042de2999c685fa5d422a785ded9c983a
+source:
+    id: GHSA-57wx-m636-g3g8
+    created: 2024-06-14T11:36:23.175793-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

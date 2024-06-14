@@ -1,0 +1,28 @@
+id: GO-2024-2513
+modules:
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - fixed: 7.2.1
+      vulnerable_at: 5.4.5+incompatible
+summary: Grafana information disclosure in github.com/grafana/grafana
+cves:
+    - CVE-2020-12458
+ghsas:
+    - GHSA-3jq7-8ph8-63xm
+unknown_aliases:
+    - BIT-grafana-2020-12458
+references:
+    - advisory: https://github.com/advisories/GHSA-3jq7-8ph8-63xm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-12458
+    - fix: https://github.com/grafana/grafana/commit/102448040d5132460e3b0013e03ebedec0677e00
+    - report: https://github.com/grafana/grafana/issues/8283
+    - web: https://access.redhat.com/security/cve/CVE-2020-12458
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=1827765
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/CTQCKJZZYXMCSHJFZZ3YXEO5NUBANGZS
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/WEBCIEVSYIDDCA7FTRS2IFUOYLIQU34A
+    - web: https://security.netapp.com/advisory/ntap-20200518-0001
+source:
+    id: GHSA-3jq7-8ph8-63xm
+    created: 2024-06-14T11:39:09.292022-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

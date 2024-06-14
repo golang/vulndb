@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2511",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-0831",
+    "GHSA-vgh3-mwxq-rcp8"
+  ],
+  "summary": "Hashicorp Vault may expose sensitive log information in github.com/hashicorp/vault",
+  "details": "Hashicorp Vault may expose sensitive log information in github.com/hashicorp/vault",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hashicorp/vault",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.15.0"
+            },
+            {
+              "fixed": "1.15.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-vgh3-mwxq-rcp8"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-0831"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hashicorp/vault/commit/2a72f2a8a5b57de88c22a2a94c4a5f08c6f3770b"
+    },
+    {
+      "type": "WEB",
+      "url": "https://developer.hashicorp.com/vault/docs/upgrading/upgrade-to-1.15.x#audit-devices-could-log-raw-data-despite-configuration"
+    },
+    {
+      "type": "WEB",
+      "url": "https://discuss.hashicorp.com/t/hcsec-2024-01-vault-may-expose-sensitive-information-when-configuring-an-audit-log-device/62311"
+    },
+    {
+      "type": "WEB",
+      "url": "https://security.netapp.com/advisory/ntap-20240223-0005"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2511",
+    "review_status": "UNREVIEWED"
+  }
+}

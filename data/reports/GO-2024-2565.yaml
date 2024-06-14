@@ -1,0 +1,24 @@
+id: GO-2024-2565
+modules:
+    - module: github.com/greenpau/caddy-security
+      unsupported_versions:
+        - version: 1.0.42
+          type: last_affected
+      vulnerable_at: 1.1.29
+summary: Use of Insufficiently Random Values in github.com/greenpau/caddy-security
+cves:
+    - CVE-2024-21495
+ghsas:
+    - GHSA-c7vf-m394-m4x4
+references:
+    - advisory: https://github.com/advisories/GHSA-c7vf-m394-m4x4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-21495
+    - report: https://github.com/greenpau/caddy-security/issues/265
+    - web: https://blog.trailofbits.com/2023/09/18/security-flaws-in-an-sso-plugin-for-caddy
+    - web: https://github.com/greenpau/go-authcrunch/commit/ecd3725baf2683eb1519bb3c81ae41085fbf7dc2
+    - web: https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMGREENPAUCADDYSECURITY-6248275
+source:
+    id: GHSA-c7vf-m394-m4x4
+    created: 2024-06-14T11:42:21.52675-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

@@ -1,0 +1,22 @@
+id: GO-2024-2479
+modules:
+    - module: goauthentik.io
+      non_go_versions:
+        - fixed: 2023.8.7
+        - introduced: 2023.10.0
+          fixed: 2023.10.7
+      vulnerable_at: 0.0.0-20240614153308-6e98c9a6a9f4
+summary: Authentik vulnerable to PKCE downgrade attack in goauthentik.io
+cves:
+    - CVE-2024-23647
+ghsas:
+    - GHSA-mrx3-gxjx-hjqj
+references:
+    - advisory: https://github.com/goauthentik/authentik/security/advisories/GHSA-mrx3-gxjx-hjqj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-23647
+    - web: https://github.com/goauthentik/authentik/commit/38e04ae12720e5d81b4f7ac77997eb8d1275d31a
+source:
+    id: GHSA-mrx3-gxjx-hjqj
+    created: 2024-06-14T11:36:48.687986-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

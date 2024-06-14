@@ -1,0 +1,21 @@
+id: GO-2024-2531
+modules:
+    - module: github.com/1Panel-dev/1Panel
+      versions:
+        - fixed: 1.9.6
+      vulnerable_at: 1.9.5
+summary: 1Panel set-cookie is missing the Secure keyword in github.com/1Panel-dev/1Panel
+cves:
+    - CVE-2024-24768
+ghsas:
+    - GHSA-9xfw-jjq2-7v8h
+references:
+    - advisory: https://github.com/1Panel-dev/1Panel/security/advisories/GHSA-9xfw-jjq2-7v8h
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-24768
+    - fix: https://github.com/1Panel-dev/1Panel/commit/1169648162c4b9b48e0b4aa508f9dea4d6bc50d5
+    - fix: https://github.com/1Panel-dev/1Panel/pull/3817
+source:
+    id: GHSA-9xfw-jjq2-7v8h
+    created: 2024-06-14T11:40:41.579857-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

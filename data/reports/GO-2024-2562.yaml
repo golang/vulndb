@@ -1,0 +1,23 @@
+id: GO-2024-2562
+modules:
+    - module: github.com/greenpau/caddy-security
+      unsupported_versions:
+        - version: 1.1.23
+          type: last_affected
+      vulnerable_at: 1.1.29
+summary: Improper Neutralization of HTTP Headers in github.com/greenpau/caddy-security
+cves:
+    - CVE-2024-21499
+ghsas:
+    - GHSA-r969-783f-6jqr
+references:
+    - advisory: https://github.com/advisories/GHSA-r969-783f-6jqr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-21499
+    - report: https://github.com/greenpau/caddy-security/issues/270
+    - web: https://blog.trailofbits.com/2023/09/18/security-flaws-in-an-sso-plugin-for-caddy
+    - web: https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMGREENPAUCADDYSECURITY-6249863
+source:
+    id: GHSA-r969-783f-6jqr
+    created: 2024-06-14T11:42:07.479664-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

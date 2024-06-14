@@ -1,0 +1,22 @@
+id: GO-2024-2510
+modules:
+    - module: github.com/grafana/grafana
+      versions:
+        - fixed: 5.2.0-beta1+incompatible
+      vulnerable_at: 5.1.5+incompatible
+summary: Grafana Cross-site Scripting (XSS) in github.com/grafana/grafana
+cves:
+    - CVE-2018-12099
+ghsas:
+    - GHSA-v5gq-qvjq-8p53
+references:
+    - advisory: https://github.com/advisories/GHSA-v5gq-qvjq-8p53
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2018-12099
+    - fix: https://github.com/grafana/grafana/pull/11813
+    - web: https://github.com/grafana/grafana/releases/tag/v5.2.0-beta1
+    - web: https://security.netapp.com/advisory/ntap-20190416-0004
+source:
+    id: GHSA-v5gq-qvjq-8p53
+    created: 2024-06-14T11:38:50.241825-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

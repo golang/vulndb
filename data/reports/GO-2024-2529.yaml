@@ -1,0 +1,22 @@
+id: GO-2024-2529
+modules:
+    - module: go.etcd.io/etcd
+      vulnerable_at: 2.3.8+incompatible
+    - module: go.etcd.io/etcd/v3
+      non_go_versions:
+        - fixed: 3.3.23
+        - introduced: 3.4.0-rc.0
+        - fixed: 3.4.10
+      vulnerable_at: 3.5.14
+summary: |-
+    Etcd embed auto compaction retention negative value causing a compaction loop or
+    a crash in go.etcd.io/etcd
+ghsas:
+    - GHSA-pm3m-32r3-7mfh
+references:
+    - advisory: https://github.com/etcd-io/etcd/security/advisories/GHSA-pm3m-32r3-7mfh
+source:
+    id: GHSA-pm3m-32r3-7mfh
+    created: 2024-06-26T16:10:36.366486-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

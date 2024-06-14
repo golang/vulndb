@@ -1,0 +1,26 @@
+id: GO-2024-2499
+modules:
+    - module: github.com/minio/minio
+      versions:
+        - fixed: 0.0.0-20240131185645-0ae4915a9391
+summary: |-
+    Minio unsafe default: Access keys inherit `admin` of root user, allowing
+    privilege escalation in github.com/minio/minio
+cves:
+    - CVE-2024-24747
+ghsas:
+    - GHSA-xx8w-mq23-29g4
+unknown_aliases:
+    - BIT-minio-2024-24747
+references:
+    - advisory: https://github.com/minio/minio/security/advisories/GHSA-xx8w-mq23-29g4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-24747
+    - fix: https://github.com/minio/minio/commit/0ae4915a9391ef4b3ec80f5fcdcf24ee6884e776
+    - web: https://github.com/minio/minio/releases/tag/RELEASE.2024-01-31T20-20-33Z
+notes:
+    - fix: 'github.com/minio/minio: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-xx8w-mq23-29g4
+    created: 2024-06-14T11:38:05.147981-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

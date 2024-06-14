@@ -1,0 +1,25 @@
+id: GO-2024-2563
+modules:
+    - module: github.com/greenpau/caddy-security
+      unsupported_versions:
+        - version: 1.1.23
+          type: last_affected
+      vulnerable_at: 1.1.29
+summary: |-
+    Improper Restriction of Excessive Authentication Attempts in
+    github.com/greenpau/caddy-security
+cves:
+    - CVE-2024-21500
+ghsas:
+    - GHSA-vfph-hjfv-cpv2
+references:
+    - advisory: https://github.com/advisories/GHSA-vfph-hjfv-cpv2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-21500
+    - report: https://github.com/greenpau/caddy-security/issues/271
+    - web: https://blog.trailofbits.com/2023/09/18/security-flaws-in-an-sso-plugin-for-caddy
+    - web: https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMGREENPAUCADDYSECURITY-6249864
+source:
+    id: GHSA-vfph-hjfv-cpv2
+    created: 2024-06-14T11:42:12.085045-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

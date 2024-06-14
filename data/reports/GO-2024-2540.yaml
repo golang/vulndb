@@ -1,0 +1,23 @@
+id: GO-2024-2540
+modules:
+    - module: github.com/mattermost/mattermost-plugin-jira
+      non_go_versions:
+        - fixed: 4.0.0-rc1
+      vulnerable_at: 1.1.1
+summary: Mattermost Jira Plugin does not properly check security levels in github.com/mattermost/mattermost-plugin-jira
+cves:
+    - CVE-2024-24774
+ghsas:
+    - GHSA-qr8f-cjw7-838m
+unknown_aliases:
+    - BIT-mattermost-2024-24774
+references:
+    - advisory: https://github.com/advisories/GHSA-qr8f-cjw7-838m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-24774
+    - fix: https://github.com/mattermost/mattermost-plugin-jira/commit/5f5e084d169bf6b82d5c46a7a7eb033e1a01c6de
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-qr8f-cjw7-838m
+    created: 2024-06-14T11:41:03.591421-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

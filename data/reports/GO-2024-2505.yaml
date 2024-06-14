@@ -1,0 +1,31 @@
+id: GO-2024-2505
+modules:
+    - module: github.com/hashicorp/consul
+      versions:
+        - introduced: 1.2.0
+          fixed: 1.6.10
+        - introduced: 1.7.0
+          fixed: 1.7.10
+        - introduced: 1.8.0
+          fixed: 1.8.6
+      vulnerable_at: 1.8.5
+summary: Privilege Escalation in HashiCorp Consul in github.com/hashicorp/consul
+cves:
+    - CVE-2020-28053
+ghsas:
+    - GHSA-6m72-467w-94rh
+unknown_aliases:
+    - BIT-consul-2020-28053
+references:
+    - advisory: https://github.com/advisories/GHSA-6m72-467w-94rh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-28053
+    - fix: https://github.com/hashicorp/consul/commit/ff5215d882ac51b49c2647aac46b42aa9c890ce3
+    - fix: https://github.com/hashicorp/consul/pull/9240
+    - web: https://github.com/hashicorp/consul/blob/master/CHANGELOG.md#186-november-19-2020
+    - web: https://security.gentoo.org/glsa/202208-09
+    - web: https://www.hashicorp.com/blog/category/consul
+source:
+    id: GHSA-6m72-467w-94rh
+    created: 2024-06-14T11:38:32.702692-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

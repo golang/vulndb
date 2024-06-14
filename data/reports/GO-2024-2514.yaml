@@ -1,0 +1,26 @@
+id: GO-2024-2514
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - introduced: 1.0.0
+          fixed: 1.5.4
+      vulnerable_at: 1.5.3
+summary: Token leases could outlive their TTL in HashiCorp Vault in github.com/hashicorp/vault
+cves:
+    - CVE-2020-25816
+ghsas:
+    - GHSA-57gg-cj55-q5g2
+unknown_aliases:
+    - BIT-vault-2020-25816
+references:
+    - advisory: https://github.com/advisories/GHSA-57gg-cj55-q5g2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-25816
+    - fix: https://github.com/hashicorp/vault/pull/10020/commits/f192878110fe93eb13da914b2bee28caa7866a29
+    - web: https://github.com/hashicorp/vault/blob/master/CHANGELOG.md#147
+    - web: https://github.com/hashicorp/vault/blob/master/CHANGELOG.md#154
+    - web: https://www.hashicorp.com/blog/category/vault
+source:
+    id: GHSA-57gg-cj55-q5g2
+    created: 2024-06-14T11:39:20.73164-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

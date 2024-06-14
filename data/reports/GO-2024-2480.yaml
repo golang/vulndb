@@ -1,0 +1,22 @@
+id: GO-2024-2480
+modules:
+    - module: github.com/0xJacky/Nginx-UI
+      non_go_versions:
+        - fixed: 2.0.0-beta.12
+      vulnerable_at: 1.9.9
+summary: |-
+    Nginx-UI vulnerable to authenticated RCE through injecting into the application
+    config via CRLF in github.com/0xJacky/Nginx-UI
+cves:
+    - CVE-2024-23828
+ghsas:
+    - GHSA-qcjq-7f7v-pvc8
+references:
+    - advisory: https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-qcjq-7f7v-pvc8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-23828
+    - web: https://github.com/0xJacky/nginx-ui/commit/d70e37c8575e25b3da7203ff06da5e16c77a42d1
+source:
+    id: GHSA-qcjq-7f7v-pvc8
+    created: 2024-06-14T11:36:54.518439-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

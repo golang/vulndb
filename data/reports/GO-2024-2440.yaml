@@ -1,0 +1,27 @@
+id: GO-2024-2440
+modules:
+    - module: github.com/buildkite/elastic-ci-stack-for-aws
+      vulnerable_at: 4.5.0+incompatible
+    - module: github.com/buildkite/elastic-ci-stack-for-aws/v5
+      vulnerable_at: 5.22.5
+    - module: github.com/buildkite/elastic-ci-stack-for-aws/v6
+      versions:
+        - fixed: 6.7.1
+      vulnerable_at: 6.7.0
+summary: |-
+    Buildkite Elastic CI for AWS time-of-check-time-of-use race condition
+    vulnerability in github.com/buildkite/elastic-ci-stack-for-aws
+cves:
+    - CVE-2023-43741
+ghsas:
+    - GHSA-r5hg-349q-mg2q
+references:
+    - advisory: https://github.com/advisories/GHSA-r5hg-349q-mg2q
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-43741
+    - fix: https://github.com/buildkite/elastic-ci-stack-for-aws/commit/edad0b158ea10a6647bb1c84629d93f5c3d8770e
+    - web: https://github.com/atredispartners/advisories/blob/master/ATREDIS-2023-0003.md
+source:
+    id: GHSA-r5hg-349q-mg2q
+    created: 2024-06-26T16:12:24.457895-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

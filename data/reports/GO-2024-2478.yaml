@@ -1,0 +1,24 @@
+id: GO-2024-2478
+modules:
+    - module: blitiri.com.ar/go/chasquid
+      versions:
+        - fixed: 1.13.0
+      vulnerable_at: 1.11.1
+summary: |-
+    chasquid HTTP Request/Response Smuggling vulnerability in
+    github.com/albertito/chasquid in blitiri.com.ar/go/chasquid
+cves:
+    - CVE-2023-52354
+ghsas:
+    - GHSA-g4x3-mfpj-f335
+references:
+    - advisory: https://github.com/advisories/GHSA-g4x3-mfpj-f335
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-52354
+    - fix: https://github.com/albertito/chasquid/commit/a996106eeebe81a292ecba838c7503cac7493e74
+    - report: https://github.com/albertito/chasquid/issues/47
+    - web: https://blitiri.com.ar/p/chasquid/relnotes/#113-2023-12-24
+source:
+    id: GHSA-g4x3-mfpj-f335
+    created: 2024-06-26T16:14:26.250749-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

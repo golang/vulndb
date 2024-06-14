@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2508",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-35177",
+    "GHSA-rpgp-9hmg-j25x"
+  ],
+  "summary": "Enumeration of users in HashiCorp Vault in github.com/hashicorp/vault",
+  "details": "Enumeration of users in HashiCorp Vault in github.com/hashicorp/vault",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hashicorp/vault",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.5.0"
+            },
+            {
+              "fixed": "1.5.6"
+            },
+            {
+              "introduced": "1.6.0"
+            },
+            {
+              "fixed": "1.6.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-rpgp-9hmg-j25x"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2020-35177"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hashicorp/vault/pull/10537"
+    },
+    {
+      "type": "WEB",
+      "url": "https://discuss.hashicorp.com/t/hcsec-2020-25-vault-s-ldap-auth-method-allows-user-enumeration/18984"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/hashicorp/vault/blob/master/CHANGELOG.md#161"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2508",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,23 @@
+id: GO-2024-2560
+modules:
+    - module: github.com/greenpau/caddy-security
+      unsupported_versions:
+        - version: 1.1.23
+          type: last_affected
+      vulnerable_at: 1.1.29
+summary: Open Redirect in github.com/greenpau/caddy-security
+cves:
+    - CVE-2024-21497
+ghsas:
+    - GHSA-8hp3-rmr7-xh88
+references:
+    - advisory: https://github.com/advisories/GHSA-8hp3-rmr7-xh88
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-21497
+    - report: https://github.com/greenpau/caddy-security/issues/268
+    - web: https://blog.trailofbits.com/2023/09/18/security-flaws-in-an-sso-plugin-for-caddy
+    - web: https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMGREENPAUCADDYSECURITY-6249861
+source:
+    id: GHSA-8hp3-rmr7-xh88
+    created: 2024-06-14T11:41:57.639653-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

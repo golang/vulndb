@@ -1,0 +1,26 @@
+id: GO-2024-2476
+modules:
+    - module: github.com/dexidp/dex
+      non_go_versions:
+        - introduced: 2.37.0
+          fixed: 2.38.0
+      vulnerable_at: 0.6.1
+summary: |-
+    Dex discarding TLSconfig and always serves deprecated TLS 1.0/1.1 and insecure
+    ciphers in github.com/dexidp/dex
+cves:
+    - CVE-2024-23656
+ghsas:
+    - GHSA-gr79-9v6v-gc9r
+references:
+    - advisory: https://github.com/dexidp/dex/security/advisories/GHSA-gr79-9v6v-gc9r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-23656
+    - fix: https://github.com/dexidp/dex/commit/5bbdb4420254ba73b9c4df4775fe7bdacf233b17
+    - fix: https://github.com/dexidp/dex/pull/2964
+    - report: https://github.com/dexidp/dex/issues/2848
+    - web: https://github.com/dexidp/dex/blob/70d7a2c7c1bb2646b1a540e49616cbc39622fb83/cmd/dex/serve.go#L425
+source:
+    id: GHSA-gr79-9v6v-gc9r
+    created: 2024-06-14T11:36:28.742125-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

@@ -1,0 +1,25 @@
+id: GO-2024-2535
+modules:
+    - module: github.com/rancher/rancher
+      non_go_versions:
+        - introduced: 2.6.0
+          fixed: 2.6.14
+        - introduced: 2.7.0
+          fixed: 2.7.10
+        - introduced: 2.8.0
+          fixed: 2.8.2
+      vulnerable_at: 1.6.30
+summary: |-
+    Rancher permissions on 'namespaces' in any API group grants 'edit' permissions
+    on namespaces in 'core' in github.com/rancher/rancher
+cves:
+    - CVE-2023-32194
+ghsas:
+    - GHSA-c85r-fwc7-45vc
+references:
+    - advisory: https://github.com/rancher/rancher/security/advisories/GHSA-c85r-fwc7-45vc
+source:
+    id: GHSA-c85r-fwc7-45vc
+    created: 2024-06-14T11:40:51.774851-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

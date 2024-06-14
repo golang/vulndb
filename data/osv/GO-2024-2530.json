@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2530",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-vjg6-93fv-qv64"
+  ],
+  "summary": "Etcd auth Inaccurate logging of authentication attempts for users with CN-based auth only in go.etcd.io/etcd",
+  "details": "Etcd auth Inaccurate logging of authentication attempts for users with CN-based auth only in go.etcd.io/etcd",
+  "affected": [
+    {
+      "package": {
+        "name": "go.etcd.io/etcd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "go.etcd.io/etcd/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/etcd-io/etcd/security/advisories/GHSA-vjg6-93fv-qv64"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2530",
+    "review_status": "UNREVIEWED"
+  }
+}

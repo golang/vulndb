@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2477",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-23820",
+    "GHSA-rxpw-85vw-fx87"
+  ],
+  "summary": "OpenFGA denial of service in github.com/openfga/openfga",
+  "details": "OpenFGA denial of service in github.com/openfga/openfga",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/openfga/openfga",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.4.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/openfga/openfga/security/advisories/GHSA-rxpw-85vw-fx87"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-23820"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openfga/openfga/commit/908ac85c8b7769c8042cca31886df8db01976c39"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/openfga/openfga/releases/tag/v1.4.3"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2477",
+    "review_status": "UNREVIEWED"
+  }
+}

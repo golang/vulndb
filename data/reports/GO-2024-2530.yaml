@@ -1,0 +1,22 @@
+id: GO-2024-2530
+modules:
+    - module: go.etcd.io/etcd
+      vulnerable_at: 2.3.8+incompatible
+    - module: go.etcd.io/etcd/v3
+      non_go_versions:
+        - fixed: 3.3.23
+        - introduced: 3.4.0-rc.0
+        - fixed: 3.4.10
+      vulnerable_at: 3.5.14
+summary: |-
+    Etcd auth Inaccurate logging of authentication attempts for users with CN-based
+    auth only in go.etcd.io/etcd
+ghsas:
+    - GHSA-vjg6-93fv-qv64
+references:
+    - advisory: https://github.com/etcd-io/etcd/security/advisories/GHSA-vjg6-93fv-qv64
+source:
+    id: GHSA-vjg6-93fv-qv64
+    created: 2024-06-26T16:05:38.246759-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

@@ -1,0 +1,20 @@
+id: GO-2024-2441
+modules:
+    - module: github.com/karmada-io/karmada
+      versions:
+        - fixed: 1.8.0
+      vulnerable_at: 1.8.0-preview2
+summary: The DES/3DES cipher was used as part of the TLS protocol by installation tools in github.com/karmada-io/karmada
+ghsas:
+    - GHSA-7xg2-83f8-39mr
+references:
+    - advisory: https://github.com/karmada-io/karmada/security/advisories/GHSA-7xg2-83f8-39mr
+    - fix: https://github.com/karmada-io/karmada/commit/98e655fc552b2987c3f2d2a061007889ce8be536
+    - fix: https://github.com/karmada-io/karmada/commit/c3c376605403e07ca0ed2dc39c9e0f3c38f8e29d
+    - report: https://github.com/karmada-io/karmada/issues/4191
+    - web: https://go.dev/issue/41476
+source:
+    id: GHSA-7xg2-83f8-39mr
+    created: 2024-06-14T11:34:57.66072-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

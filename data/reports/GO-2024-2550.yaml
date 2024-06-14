@@ -1,0 +1,22 @@
+id: GO-2024-2550
+modules:
+    - module: github.com/mongodb/mongo-tools
+      non_go_versions:
+        - introduced: 100.0.0
+          fixed: 100.2.0
+      vulnerable_at: 0.0.0-20240614142727-3a6386047711
+summary: MongoDB Tools Improper Certificate Validation vulnerability in github.com/mongodb/mongo-tools
+cves:
+    - CVE-2020-7924
+ghsas:
+    - GHSA-6cwm-wm82-hgrw
+references:
+    - advisory: https://github.com/advisories/GHSA-6cwm-wm82-hgrw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-7924
+    - fix: https://github.com/mongodb/mongo-tools/commit/8c1800b5155084f954a39a1f2f259efac3bb86de
+    - web: https://jira.mongodb.org/browse/TOOLS-2587
+source:
+    id: GHSA-6cwm-wm82-hgrw
+    created: 2024-06-14T11:41:26.128315-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

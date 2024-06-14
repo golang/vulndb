@@ -1,0 +1,23 @@
+id: GO-2024-2558
+modules:
+    - module: github.com/greenpau/caddy-security
+      unsupported_versions:
+        - version: 1.1.23
+          type: last_affected
+      vulnerable_at: 1.1.29
+summary: Authentication Bypass by Spoofing in github.com/greenpau/caddy-security
+cves:
+    - CVE-2024-21494
+ghsas:
+    - GHSA-vj36-3ccr-6563
+references:
+    - advisory: https://github.com/advisories/GHSA-vj36-3ccr-6563
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-21494
+    - report: https://github.com/greenpau/caddy-security/issues/266
+    - web: https://blog.trailofbits.com/2023/09/18/security-flaws-in-an-sso-plugin-for-caddy
+    - web: https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMGREENPAUCADDYSECURITY-6249859
+source:
+    id: GHSA-vj36-3ccr-6563
+    created: 2024-06-14T11:41:47.937414-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

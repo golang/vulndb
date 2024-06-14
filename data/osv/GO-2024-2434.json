@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2434",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-46742",
+    "GHSA-vwch-g97w-hfg2"
+  ],
+  "summary": "CubeFS leaks users key in logs in github.com/cubefs/cubefs",
+  "details": "CubeFS leaks users key in logs in github.com/cubefs/cubefs",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cubefs/cubefs",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cubefs/cubefs/security/advisories/GHSA-vwch-g97w-hfg2"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-46742"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cubefs/cubefs/commit/8dccce6ac8dff3db44d7e9074094c7303a5ff5dd"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2434",
+    "review_status": "UNREVIEWED"
+  }
+}

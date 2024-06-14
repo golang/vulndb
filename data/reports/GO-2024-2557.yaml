@@ -1,0 +1,23 @@
+id: GO-2024-2557
+modules:
+    - module: github.com/greenpau/caddy-security
+      unsupported_versions:
+        - version: 1.1.23
+          type: last_affected
+      vulnerable_at: 1.1.29
+summary: Insufficient Session Expiration in github.com/greenpau/caddy-security
+cves:
+    - CVE-2024-21492
+ghsas:
+    - GHSA-vp66-gf7w-9m4x
+references:
+    - advisory: https://github.com/advisories/GHSA-vp66-gf7w-9m4x
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-21492
+    - report: https://github.com/greenpau/caddy-security/issues/272
+    - web: https://blog.trailofbits.com/2023/09/18/security-flaws-in-an-sso-plugin-for-caddy
+    - web: https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMGREENPAUCADDYSECURITY-5920787
+source:
+    id: GHSA-vp66-gf7w-9m4x
+    created: 2024-06-14T11:41:43.266028-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

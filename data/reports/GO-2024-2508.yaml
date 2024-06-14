@@ -1,0 +1,27 @@
+id: GO-2024-2508
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - introduced: 1.5.0
+          fixed: 1.5.6
+        - introduced: 1.6.0
+          fixed: 1.6.1
+      vulnerable_at: 1.6.0
+summary: Enumeration of users in HashiCorp Vault in github.com/hashicorp/vault
+cves:
+    - CVE-2020-35177
+ghsas:
+    - GHSA-rpgp-9hmg-j25x
+unknown_aliases:
+    - BIT-vault-2020-35177
+references:
+    - advisory: https://github.com/advisories/GHSA-rpgp-9hmg-j25x
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-35177
+    - fix: https://github.com/hashicorp/vault/pull/10537
+    - web: https://discuss.hashicorp.com/t/hcsec-2020-25-vault-s-ldap-auth-method-allows-user-enumeration/18984
+    - web: https://github.com/hashicorp/vault/blob/master/CHANGELOG.md#161
+source:
+    id: GHSA-rpgp-9hmg-j25x
+    created: 2024-06-14T11:38:39.105424-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

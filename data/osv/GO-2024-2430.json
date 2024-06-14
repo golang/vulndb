@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2430",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-46738",
+    "GHSA-qc6v-g3xw-grmx"
+  ],
+  "summary": "Authenticated users can crash the CubeFS servers with maliciously crafted requests in github.com/cubefs/cubefs",
+  "details": "Authenticated users can crash the CubeFS servers with maliciously crafted requests in github.com/cubefs/cubefs",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cubefs/cubefs",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cubefs/cubefs/security/advisories/GHSA-qc6v-g3xw-grmx"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-46738"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cubefs/cubefs/commit/dd46c24873c8f3df48d0a598b704ef9bd24b1ec1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2430",
+    "review_status": "UNREVIEWED"
+  }
+}

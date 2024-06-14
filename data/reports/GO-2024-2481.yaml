@@ -1,0 +1,24 @@
+id: GO-2024-2481
+modules:
+    - module: github.com/0xJacky/Nginx-UI
+      non_go_versions:
+        - fixed: 2.0.0-beta.12
+      vulnerable_at: 1.9.9
+summary: |-
+    Nginx-UI vulnerable to arbitrary file write through the Import Certificate
+    feature in github.com/0xJacky/Nginx-UI
+cves:
+    - CVE-2024-23827
+ghsas:
+    - GHSA-xvq9-4vpv-227m
+references:
+    - advisory: https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-xvq9-4vpv-227m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-23827
+    - web: https://github.com/0xJacky/nginx-ui/blob/f20d97a9fdc2a83809498b35b6abc0239ec7fdda/api/certificate/certificate.go#L72
+    - web: https://github.com/0xJacky/nginx-ui/blob/f20d97a9fdc2a83809498b35b6abc0239ec7fdda/internal/cert/write_file.go#L15
+    - web: https://github.com/0xJacky/nginx-ui/commit/8581bdd3c6f49ab345b773517ba9173fa7fc6199
+source:
+    id: GHSA-xvq9-4vpv-227m
+    created: 2024-06-14T11:37:04.445587-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

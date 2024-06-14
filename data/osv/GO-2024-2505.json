@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2505",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-28053",
+    "GHSA-6m72-467w-94rh"
+  ],
+  "summary": "Privilege Escalation in HashiCorp Consul in github.com/hashicorp/consul",
+  "details": "Privilege Escalation in HashiCorp Consul in github.com/hashicorp/consul",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hashicorp/consul",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.2.0"
+            },
+            {
+              "fixed": "1.6.10"
+            },
+            {
+              "introduced": "1.7.0"
+            },
+            {
+              "fixed": "1.7.10"
+            },
+            {
+              "introduced": "1.8.0"
+            },
+            {
+              "fixed": "1.8.6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-6m72-467w-94rh"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2020-28053"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hashicorp/consul/commit/ff5215d882ac51b49c2647aac46b42aa9c890ce3"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hashicorp/consul/pull/9240"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/hashicorp/consul/blob/master/CHANGELOG.md#186-november-19-2020"
+    },
+    {
+      "type": "WEB",
+      "url": "https://security.gentoo.org/glsa/202208-09"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.hashicorp.com/blog/category/consul"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2505",
+    "review_status": "UNREVIEWED"
+  }
+}

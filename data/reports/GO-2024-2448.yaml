@@ -1,0 +1,34 @@
+id: GO-2024-2448
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 8.1.7+incompatible
+      vulnerable_at: 8.1.7-rc3+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      non_go_versions:
+        - fixed: 8.1.7
+      vulnerable_at: 8.0.0-20240626184126-817e18414e41
+summary: |-
+    Mattermost notified all users in the channel when using WebSockets to respond
+    individually in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2023-48732
+ghsas:
+    - GHSA-q7rx-w656-fwmv
+unknown_aliases:
+    - BIT-mattermost-2023-48732
+    - CGA-jhcr-g7wj-9vq2
+references:
+    - advisory: https://github.com/advisories/GHSA-q7rx-w656-fwmv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-48732
+    - web: https://github.com/mattermost/mattermost/commit/851515be222160bee0a495c0d411056b19ed4111
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-q7rx-w656-fwmv
+    created: 2024-06-26T16:10:54.767283-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

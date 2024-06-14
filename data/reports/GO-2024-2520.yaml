@@ -1,0 +1,24 @@
+id: GO-2024-2520
+modules:
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - fixed: 7.1.0-beta1
+      vulnerable_at: 5.4.5+incompatible
+summary: Grafana XSS via a query alias for the ElasticSearch datasource in github.com/grafana/grafana
+cves:
+    - CVE-2020-24303
+ghsas:
+    - GHSA-mvpr-q6rh-8vrp
+unknown_aliases:
+    - BIT-grafana-2020-24303
+references:
+    - advisory: https://github.com/advisories/GHSA-mvpr-q6rh-8vrp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-24303
+    - fix: https://github.com/grafana/grafana/pull/25401
+    - web: https://github.com/grafana/grafana/blob/master/CHANGELOG.md#710-beta-1-2020-07-01
+    - web: https://security.netapp.com/advisory/ntap-20201123-0002
+source:
+    id: GHSA-mvpr-q6rh-8vrp
+    created: 2024-06-14T11:39:55.698815-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

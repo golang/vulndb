@@ -1,0 +1,18 @@
+id: GO-2024-2527
+modules:
+    - module: go.etcd.io/etcd/client/pkg/v3
+      non_go_versions:
+        - fixed: 3.3.23
+        - introduced: 3.4.0-rc.0
+          fixed: 3.4.10
+      vulnerable_at: 3.5.14
+summary: Etcd pkg Insecure ciphers are allowed by default in go.etcd.io/etcd/client/pkg/v3
+ghsas:
+    - GHSA-5x4g-q5rc-36jp
+references:
+    - advisory: https://github.com/etcd-io/etcd/security/advisories/GHSA-5x4g-q5rc-36jp
+source:
+    id: GHSA-5x4g-q5rc-36jp
+    created: 2024-06-14T11:40:23.789526-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

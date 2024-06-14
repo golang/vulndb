@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2428",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-5044",
+    "GHSA-fp9f-44c2-cw27"
+  ],
+  "summary": "Ingress-nginx code injection via nginx.ingress.kubernetes.io/permanent-redirect annotation in k8s.io/ingress-nginx",
+  "details": "Ingress-nginx code injection via nginx.ingress.kubernetes.io/permanent-redirect annotation in k8s.io/ingress-nginx",
+  "affected": [
+    {
+      "package": {
+        "name": "k8s.io/ingress-nginx",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-fp9f-44c2-cw27"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-5044"
+    },
+    {
+      "type": "WEB",
+      "url": "http://www.openwall.com/lists/oss-security/2023/10/25/3"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubernetes/ingress-nginx/issues/10572"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/kubernetes-security-announce/c/ukuYYvRNel0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://security.netapp.com/advisory/ntap-20240307-0012"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2428",
+    "review_status": "UNREVIEWED"
+  }
+}
