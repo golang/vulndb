@@ -16,8 +16,9 @@ import (
 // issueParser implements the "parseArgs" function of the command
 // interface, and can be used by commands that operate on Github issues.
 type issueParser struct {
-	ic    issueClient
-	isses map[string]*issues.Issue
+	ic        issueClient
+	toProcess map[string]*issues.Issue
+	open      []*issues.Issue
 }
 
 const issueStateOpen = "open"
@@ -26,20 +27,31 @@ func (*issueParser) inputType() string {
 	return "issue"
 }
 
+func (ip *issueParser) openIssues(ctx context.Context) ([]*issues.Issue, error) {
+	if ip.open == nil {
+		open, err := ip.ic.Issues(ctx, issues.IssuesOptions{State: issueStateOpen})
+		if err != nil {
+			return nil, err
+		}
+		ip.open = open
+	}
+	return ip.open, nil
+}
+
 func (ip *issueParser) parseArgs(ctx context.Context, args []string) (issNums []string, _ error) {
 	if len(args) > 0 {
 		return argsToIDs(args)
 	}
 
 	// If no arguments are provided, operate on all open issues.
-	is, err := ip.ic.Issues(ctx, issues.IssuesOptions{State: issueStateOpen})
+	open, err := ip.openIssues(ctx)
 	if err != nil {
 		return nil, err
 	}
 
-	for _, iss := range is {
+	for _, iss := range open {
 		n := strconv.Itoa(iss.Number)
-		ip.isses[n] = iss
+		ip.toProcess[n] = iss
 		issNums = append(issNums, n)
 	}
 
@@ -52,12 +64,12 @@ func (ip *issueParser) setup(ctx context.Context, env environment) error {
 		return err
 	}
 	ip.ic = ic
-	ip.isses = make(map[string]*issues.Issue)
+	ip.toProcess = make(map[string]*issues.Issue)
 	return nil
 }
 
 func (ip *issueParser) lookup(ctx context.Context, issNum string) (any, error) {
-	iss, ok := ip.isses[issNum]
+	iss, ok := ip.toProcess[issNum]
 	if !ok {
 		n, err := strconv.Atoi(issNum)
 		if err != nil {
@@ -67,7 +79,7 @@ func (ip *issueParser) lookup(ctx context.Context, issNum string) (any, error) {
 		if err != nil {
 			return nil, err
 		}
-		ip.isses[issNum] = iss
+		ip.toProcess[issNum] = iss
 		return iss, nil
 	}
 

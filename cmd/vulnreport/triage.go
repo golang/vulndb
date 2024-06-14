@@ -63,10 +63,25 @@ func (t *triage) setup(ctx context.Context, env environment) error {
 	}
 	t.modulesToImports = m
 
-	t.fixer = new(fixer)
 	t.issueParser = new(issueParser)
+	t.fixer = new(fixer)
 	t.xrefer = new(xrefer)
-	return setupAll(ctx, env, t.fixer, t.issueParser, t.xrefer)
+	if err := setupAll(ctx, env, t.issueParser, t.fixer, t.xrefer); err != nil {
+		return err
+	}
+
+	log.Info("creating alias map for open issues")
+	open, err := t.openIssues(ctx)
+	if err != nil {
+		return err
+	}
+	for _, iss := range open {
+		aliases := t.aliases(ctx, iss)
+		for _, a := range aliases {
+			t.addAlias(a, iss.Number)
+		}
+	}
+	return nil
 }
 
 func (t *triage) skip(input any) string {
@@ -149,15 +164,21 @@ func toStat(p priority.Priority) int {
 	}
 }
 
-func (t *triage) findDuplicates(ctx context.Context, iss *issues.Issue) map[string][]string {
+func (t *triage) aliases(ctx context.Context, iss *issues.Issue) []string {
 	aliases := aliases(iss)
+	if len(aliases) == 0 {
+		return nil
+	}
+	return t.allAliases(ctx, aliases)
+}
 
+func (t *triage) findDuplicates(ctx context.Context, iss *issues.Issue) map[string][]string {
+	aliases := t.aliases(ctx, iss)
 	if len(aliases) == 0 {
 		log.Infof("issue #%d: skipping duplicate search (no aliases found)", iss.Number)
 		return nil
 	}
 
-	aliases = t.allAliases(ctx, aliases)
 	xrefs := make(map[string][]string)
 	for _, a := range aliases {
 		// Find existing reports with this alias.
@@ -171,15 +192,14 @@ func (t *triage) findDuplicates(ctx context.Context, iss *issues.Issue) map[stri
 			}
 		}
 
-		// Find other issues with this alias.
-		// Note: this currently only operates on other issues that have
-		// been seen by the triage command, not all issues on the tracker.
-		for _, issNum := range t.lookupAlias(a) {
-			ref := t.ic.Reference(issNum)
+		// Find other open issues with this alias.
+		for _, dup := range t.lookupAlias(a) {
+			if iss.Number == dup {
+				continue
+			}
+			ref := t.ic.Reference(dup)
 			xrefs[ref] = append(xrefs[ref], a)
 		}
-
-		t.addAlias(a, iss.Number)
 	}
 
 	return xrefs
