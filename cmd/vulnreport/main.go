@@ -54,6 +54,7 @@ var commands = map[string]command{
 	"fix":             &fix{},
 	"lint":            &lint{},
 	"regen":           &regenerate{},
+	"review":          &review{},
 	"set-dates":       &setDates{},
 	"suggest":         &suggest{},
 	"symbols":         &symbolsCmd{},
