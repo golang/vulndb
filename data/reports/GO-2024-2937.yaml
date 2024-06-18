@@ -1,0 +1,30 @@
+id: GO-2024-2937
+modules:
+    - module: golang.org/x/image
+      versions:
+        - fixed: 0.18.0
+      vulnerable_at: 0.17.0
+      packages:
+        - package: golang.org/x/image/tiff
+          symbols:
+            - decoder.decode
+          derived_symbols:
+            - Decode
+summary: Panic when parsing invalid palette-color images in golang.org/x/image
+description: |-
+    Parsing a corrupt or malicious image with invalid color indices can cause a
+    panic.
+related:
+    - CVE-2023-36308
+credits:
+    - John Wright <jsw@google.com>
+references:
+    - fix: https://go.dev/cl/588115
+    - report: https://go.dev/issue/67624
+cve_metadata:
+    id: CVE-2024-24792
+    cwe: 'CWE-125: Out-of-bounds Read'
+source:
+    id: go-security-team
+    created: 2024-06-18T13:47:44.577511-07:00
+review_status: REVIEWED
