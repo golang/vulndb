@@ -51,7 +51,7 @@ func (*fix) close() error { return nil }
 
 func (f *fix) run(ctx context.Context, input any) error {
 	r := input.(*yamlReport)
-	return f.fixAndWriteAll(ctx, r)
+	return f.fixAndWriteAll(ctx, r, false)
 }
 
 type fixer struct {
@@ -67,8 +67,8 @@ func (f *fixer) setup(ctx context.Context, env environment) error {
 	return setupAll(ctx, env, f.linter, f.aliasFinder, f.fileWriter)
 }
 
-func (f *fixer) fixAndWriteAll(ctx context.Context, r *yamlReport) error {
-	fixed := f.fix(ctx, r, false)
+func (f *fixer) fixAndWriteAll(ctx context.Context, r *yamlReport, addNotes bool) error {
+	fixed := f.fix(ctx, r, addNotes)
 
 	// fix may have partially succeeded, so write the report no matter what.
 	if err := f.write(r); err != nil {

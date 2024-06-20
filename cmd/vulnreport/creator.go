@@ -201,7 +201,6 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) (*yamlRe
 		// nothing
 	case meta.reviewStatus == report.Unreviewed:
 		r.Description = ""
-		addNotes := true
 		// Package-level data is often wrong/incomplete, which could lead
 		// to false negatives, so remove it for unreviewed reports.
 		// TODO(tatianabradley): instead of removing all package-level data,
@@ -209,7 +208,6 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) (*yamlRe
 		// known to pkgsite, but skip symbol-level checks.
 		r.removePackages()
 		r.removeUnreachableRefs()
-		_ = c.fix(ctx, r, addNotes)
 	default:
 		// Regular, full-length reports.
 		addTODOs(r)
@@ -243,7 +241,8 @@ func (c *creator) write(ctx context.Context, r *yamlReport) error {
 			return err
 		}
 	} else { // unreviewed
-		if err := c.fixAndWriteAll(ctx, r); err != nil {
+		addNotes := true
+		if err := c.fixAndWriteAll(ctx, r, addNotes); err != nil {
 			return err
 		}
 	}

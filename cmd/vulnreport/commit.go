@@ -121,7 +121,7 @@ func (c *commit) run(ctx context.Context, input any) error {
 
 	// Clean up the report file and ensure derived files are up-to-date.
 	// Stop if there any problems.
-	if err := c.fixAndWriteAll(ctx, r); err != nil {
+	if err := c.fixAndWriteAll(ctx, r, false); err != nil {
 		return err
 	}
 
