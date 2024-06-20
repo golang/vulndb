@@ -13,14 +13,11 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/google/osv-scanner/pkg/models"
 	"golang.org/x/vulndb/internal/report"
 )
 
 // Entry is a a generic OSV entry, not specialized for Go.
-type Entry models.Vulnerability
-
-var EcosystemGo = models.EcosystemGo
+type Entry Vulnerability
 
 func NewFetcher() report.Fetcher {
 	return &client{http.DefaultClient, "https://api.osv.dev/v1"}

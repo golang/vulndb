@@ -15,7 +15,6 @@ require (
 	github.com/google/generative-ai-go v0.5.0
 	github.com/google/go-cmp v0.6.0
 	github.com/google/go-github/v41 v41.0.0
-	github.com/google/osv-scanner v1.3.5
 	github.com/google/safehtml v0.1.0
 	github.com/jba/metrics v0.1.1
 	github.com/jba/metrics/otel v0.1.1

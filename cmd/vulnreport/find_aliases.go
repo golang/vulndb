@@ -136,6 +136,7 @@ func (af *aliasFinder) sourceFromBestAlias(ctx context.Context, aliases []string
 			if f(alias) {
 				src, err := af.fetch(ctx, alias)
 				if err != nil {
+					log.Warnf("could not fetch record for preferred alias %s: %v", alias, err)
 					continue
 				}
 				return src, true

@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"strings"
 
-	osvschema "github.com/google/osv-scanner/pkg/models"
 	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/report"
@@ -53,10 +52,10 @@ func (osv *Entry) SourceID() string {
 	return osv.ID
 }
 
-func affectedToModules(as []osvschema.Affected) []*report.Module {
+func affectedToModules(as []Affected) []*report.Module {
 	var modules []*report.Module
 	for _, a := range as {
-		if a.Package.Ecosystem != osvschema.EcosystemGo {
+		if a.Package.Ecosystem != EcosystemGo {
 			continue
 		}
 
@@ -70,7 +69,7 @@ func affectedToModules(as []osvschema.Affected) []*report.Module {
 	return modules
 }
 
-func convertVersions(rs []osvschema.Range) ([]report.VersionRange, []report.UnsupportedVersion) {
+func convertVersions(rs []Range) ([]report.VersionRange, []report.UnsupportedVersion) {
 	var vrs []report.VersionRange
 	var uvs []report.UnsupportedVersion
 	for _, r := range rs {
@@ -107,14 +106,14 @@ func convertVersions(rs []osvschema.Range) ([]report.VersionRange, []report.Unsu
 	return vrs, uvs
 }
 
-func convertRef(ref osvschema.Reference) *report.Reference {
+func convertRef(ref Reference) *report.Reference {
 	return &report.Reference{
 		Type: osv.ReferenceType(ref.Type),
 		URL:  ref.URL,
 	}
 }
 
-func convertCredits(cs []osvschema.Credit) []string {
+func convertCredits(cs []Credit) []string {
 	var credits []string
 	for _, c := range cs {
 		credit := c.Name
