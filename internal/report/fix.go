@@ -697,16 +697,13 @@ func (r *Report) addAdvisory(id string) {
 
 func (r *Report) addSourceAdvisory() {
 	srcID := r.SourceMeta.ID
-	found := false
 	for _, ref := range r.References {
-		if idstr.FindID(ref.URL) == srcID {
-			found = true
-			break
+		if idstr.IsAdvisoryFor(ref.URL, srcID) {
+			ref.Type = osv.ReferenceTypeAdvisory
+			return
 		}
 	}
-	if !found {
-		r.addAdvisory(srcID)
-	}
+	r.addAdvisory(srcID)
 }
 
 // bestAdvisory returns the URL of the "best" advisory in the references,

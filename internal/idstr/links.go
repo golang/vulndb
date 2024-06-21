@@ -48,6 +48,11 @@ func IsAdvisory(u string) bool {
 	return false
 }
 
+func IsAdvisoryFor(u, alias string) bool {
+	_, is := IsAdvisoryForOneOf(u, []string{alias})
+	return is
+}
+
 func IsAdvisoryForOneOf(u string, aliases []string) (string, bool) {
 	for _, prefix := range advisoryPrefixes {
 		re := strictRE(prefix, aliases...)
