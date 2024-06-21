@@ -62,99 +62,68 @@ func (r *Report) fixSummary() {
 	r.Summary = Summary(summary)
 }
 
+func (v *Version) commitHashToVersion(modulePath string, pc *proxy.Client) {
+	if v == nil {
+		return
+	}
+
+	vv := v.Version
+	if version.IsCommitHash(vv) {
+		if c, err := pc.CanonicalModuleVersion(modulePath, vv); err == nil { // no error
+			v.Version = c
+		}
+	}
+}
+
 // FixVersions replaces each version with its canonical form (if possible),
 // sorts version ranges, and collects version ranges into a compact form.
 func (m *Module) FixVersions(pc *proxy.Client) {
-	fixVersion := func(v string) string {
-		if v == "" {
-			return ""
-		}
-		if version.IsCommitHash(v) {
-			if c, err := pc.CanonicalModuleVersion(m.Module, v); err == nil { // no error
-				v = c
-			}
-		}
-		v = version.TrimPrefix(v)
-		if version.IsValid(v) {
-			v = version.Canonical(v)
-		}
-		return v
+	for _, v := range m.Versions {
+		v.commitHashToVersion(m.Module, pc)
 	}
+	m.VulnerableAt.commitHashToVersion(m.Module, pc)
 
-	for i, vr := range m.Versions {
-		m.Versions[i].Introduced = fixVersion(vr.Introduced)
-		m.Versions[i].Fixed = fixVersion(vr.Fixed)
-	}
-	m.VulnerableAt = fixVersion(m.VulnerableAt)
+	m.Versions.fix()
+	m.VulnerableAt.fix()
 
-	m.Versions = fixVersionRanges(m.Versions)
-
-	if !m.IsFirstParty() {
+	if pc != nil && !m.IsFirstParty() {
 		// If none of the versions in the "versions" list exist,
 		// move them to the "non_go_versions" section.
 		notFound, _ := m.classifyVersions(pc)
-		if len(notFound) == lenVR(m.Versions) {
+		if len(notFound) == len(m.Versions) {
 			m.NonGoVersions = append(m.NonGoVersions, m.Versions...)
 			m.Versions = nil
 		}
 	}
 }
 
-func fixVersionRanges(vrs []VersionRange) []VersionRange {
-	sort.SliceStable(vrs, func(i, j int) bool {
-		intro, fixed := vrs[i].Introduced, vrs[i].Fixed
-		intro2, fixed2 := vrs[j].Introduced, vrs[j].Fixed
-		switch {
-		case intro != "" && intro2 != "":
-			return version.Before(intro, intro2)
-		case intro != "" && fixed2 != "":
-			return version.Before(intro, fixed2)
-		case fixed != "" && intro2 != "":
-			return version.Before(fixed, intro2)
-		case fixed != "" && fixed2 != "":
-			return version.Before(fixed, fixed2)
-		default:
-			return false
-		}
-	})
-
-	// Remove duplicate version ranges.
-	vrs = slices.Compact(vrs)
-
-	// Collect together version ranges that don't need to be separate,
-	// e.g:
-	// [ {Introduced: 1.1.0}, {Fixed: 1.2.0} ] becomes
-	// [ {Introduced: 1.1.0, Fixed: 1.2.0} ].
-	for i := 0; i < len(vrs); i++ {
-		if i != 0 {
-			current, prev := vrs[i], vrs[i-1]
-			if (prev.Introduced != "" && prev.Fixed == "") &&
-				(current.Introduced == "" && current.Fixed != "") {
-				vrs[i-1].Fixed = current.Fixed
-				vrs = append(vrs[:i], vrs[i+1:]...)
-				i--
-			}
-		}
+func (v *Version) fix() {
+	if v == nil {
+		return
 	}
-
-	return vrs
+	vv := version.TrimPrefix(v.Version)
+	if version.IsValid(vv) {
+		vv = version.Canonical(vv)
+	}
+	v.Version = vv
 }
 
-func lenVR(vr []VersionRange) int {
-	n := 0
-	for _, v := range vr {
-		if v.Introduced != "" {
-			n++
-		}
-		if v.Fixed != "" {
-			n++
-		}
+func (vs *Versions) fix() {
+	for i := range *vs {
+		(*vs)[i].fix()
 	}
-	return n
+	sort.SliceStable(*vs, func(i, j int) bool {
+		return version.Before((*vs)[i].Version, (*vs)[j].Version)
+	})
+	// Remove duplicates.
+	*vs = slices.Compact(*vs)
+	*vs = slices.CompactFunc(*vs, func(a, b *Version) bool {
+		return a.Type == b.Type && a.Version == b.Version
+	})
 }
 
 func (m *Module) fixVulnerableAt(pc *proxy.Client) error {
-	if m.VulnerableAt != "" {
+	if m.VulnerableAt != nil {
 		return nil
 	}
 	if m.IsFirstParty() {
@@ -168,7 +137,7 @@ func (m *Module) fixVulnerableAt(pc *proxy.Client) error {
 	if err != nil {
 		return err
 	}
-	m.VulnerableAt = v
+	m.VulnerableAt = VulnerableAt(v)
 	return nil
 }
 
@@ -182,14 +151,26 @@ func (m *Module) guessVulnerableAt(pc *proxy.Client) (v string, err error) {
 	}
 
 	// Find the last fixed and introduced version, assuming the version ranges are sorted.
-	var introduced, fixed string
+	var introduced, fixed *Version
 	if len(m.Versions) > 0 {
 		last := m.Versions[len(m.Versions)-1]
-		introduced, fixed = last.Introduced, last.Fixed
+		if last.IsFixed() {
+			fixed = last
+		} else {
+			introduced = last
+		}
+		if len(m.Versions) > 1 {
+			penultimate := m.Versions[len(m.Versions)-2]
+			if penultimate.IsFixed() {
+				fixed = penultimate
+			} else if penultimate.IsIntroduced() {
+				introduced = penultimate
+			}
+		}
 	}
 
 	// If there is no fix, find the latest version of the module.
-	if fixed == "" {
+	if fixed == nil {
 		latest, err := pc.Latest(m.Module)
 		if err != nil || latest == "" {
 			return "", fmt.Errorf("no fix, but could not find latest version from proxy: %s", err)
@@ -200,10 +181,10 @@ func (m *Module) guessVulnerableAt(pc *proxy.Client) (v string, err error) {
 
 	// If the latest fixed version is a 0.0.0 pseudo-version, or not a valid version,
 	// don't attempt to determine the vulnerable_at version.
-	if !version.IsValid(fixed) {
+	if !version.IsValid(fixed.Version) {
 		return "", errors.New("cannot auto-guess when fixed version is invalid")
 	}
-	if strings.HasPrefix(fixed, "0.0.0-") {
+	if strings.HasPrefix(fixed.Version, "0.0.0-") {
 		return "", errors.New("cannot auto-guess when fixed version is 0.0.0 pseudo-version")
 	}
 
@@ -213,9 +194,9 @@ func (m *Module) guessVulnerableAt(pc *proxy.Client) (v string, err error) {
 		return "", fmt.Errorf("could not find versions from proxy: %s", err)
 	}
 	for i := len(vs) - 1; i >= 0; i-- {
-		if version.Before(vs[i], fixed) {
+		if version.Before(vs[i], fixed.Version) {
 			// Make sure the version is >= the latest introduced version.
-			if introduced == "" || !version.Before(vs[i], introduced) {
+			if introduced == nil || !version.Before(vs[i], introduced.Version) {
 				return vs[i], nil
 			}
 		}
@@ -355,7 +336,7 @@ func fixMajorVersion(m *Module, pc *proxy.Client) (ok bool) {
 	// information.
 	hasIntroduced := func(m *Module) bool {
 		for _, vr := range m.Versions {
-			if vr.Introduced != "" {
+			if vr.IsIntroduced() {
 				return true
 			}
 		}
@@ -401,17 +382,15 @@ func major(v string) string {
 // to all versions in the version range, or ("", false) if not all versions
 // have the same major version.
 // Returns ("", true) if the major version is 0 or 1.
-func commonMajor(vs []VersionRange) (_ string, ok bool) {
-	maj := major(first(vs))
-	for _, vr := range vs {
-		for _, v := range []string{vr.Introduced, vr.Fixed} {
-			if v == "" {
-				continue
-			}
-			current := major(v)
-			if current != maj {
-				return "", false
-			}
+func commonMajor(vs Versions) (_ string, ok bool) {
+	if len(vs) == 0 {
+		return "", true
+	}
+	maj := major(vs[0].Version)
+	for _, v := range vs {
+		current := major(v.Version)
+		if current != maj {
+			return "", false
 		}
 	}
 	if maj == v0v1 {
@@ -448,23 +427,22 @@ func canonicalize(m *Module, pc *proxy.Client) {
 }
 
 func commonCanonical(m *Module, pc *proxy.Client) (string, error) {
-	canonical, err := pc.CanonicalModulePath(m.Module, first(m.Versions))
+	if len(m.Versions) == 0 {
+		return m.Module, nil
+	}
+
+	canonical, err := pc.CanonicalModulePath(m.Module, m.Versions[0].Version)
 	if err != nil {
 		return "", err
 	}
 
-	for _, vr := range m.Versions {
-		for _, v := range []string{vr.Introduced, vr.Fixed} {
-			if v == "" {
-				continue
-			}
-			current, err := pc.CanonicalModulePath(m.Module, v)
-			if err != nil {
-				return "", err
-			}
-			if current != canonical {
-				return "", fmt.Errorf("inconsistent canonical module paths: %s and %s", canonical, current)
-			}
+	for _, v := range m.Versions {
+		current, err := pc.CanonicalModulePath(m.Module, v.Version)
+		if err != nil {
+			return "", err
+		}
+		if current != canonical {
+			return "", fmt.Errorf("inconsistent canonical module paths: %s and %s", canonical, current)
 		}
 	}
 	return canonical, nil
@@ -475,28 +453,23 @@ func commonCanonical(m *Module, pc *proxy.Client) (string, error) {
 // TODO(https://go.dev/issue/61769): Consider making this work for
 // non-canonical versions too (example: GHSA-w4xh-w33p-4v29).
 func addIncompatible(m *Module, pc *proxy.Client) {
-	tryAdd := func(v string) (string, bool) {
+	tryAdd := func(v string) string {
 		if v == "" {
-			return "", false
+			return v
 		}
 		if major(v) == v0v1 {
-			return "", false // +incompatible does not apply for major versions < 2
+			return v // +incompatible does not apply for major versions < 2
 		}
 		if pc.ModuleExistsAtTaggedVersion(m.Module, v) {
-			return "", false // module@version is already OK
+			return v // module@version is already OK
 		}
 		if vi := v + "+incompatible"; pc.ModuleExistsAtTaggedVersion(m.Module, vi) {
-			return vi, true
+			return vi
 		}
-		return "", false // module@version+incompatible doesn't exist
+		return v // module@version+incompatible doesn't exist
 	}
-	for i, vr := range m.Versions {
-		if vi, ok := tryAdd(vr.Introduced); ok {
-			m.Versions[i].Introduced = vi
-		}
-		if vi, ok := tryAdd(vr.Fixed); ok {
-			m.Versions[i].Fixed = vi
-		}
+	for i, v := range m.Versions {
+		m.Versions[i].Version = tryAdd(v.Version)
 	}
 }
 
@@ -526,12 +499,12 @@ func sortModules(ms []*Module) {
 				return false
 			}
 
-			v1, v2 := first(vr1), first(vr2)
-			if v1 == v2 {
+			v1, v2 := vr1[0], vr2[0]
+			if v1.Version == v2.Version {
 				return byPackage(m1, m2)
 			}
 
-			return version.Before(v1, v2)
+			return version.Before(v1.Version, v2.Version)
 		}
 
 		return m1.Module < m2.Module
@@ -560,14 +533,15 @@ func merge(ms []*Module) ([]*Module, error) {
 	// only run if m1 and m2 are same except versions
 	// deletes vulnerable_at if set
 	merge := func(m1, m2 *Module) (*Module, error) {
-		versions, err := mergeVersionRanges(m1.Versions, m2.Versions)
+		merged, err := m1.Versions.merge(m2.Versions)
 		if err != nil {
 			return nil, fmt.Errorf("could not merge versions of module %s: %w", m1.Module, err)
 		}
 		return &Module{
 			Module:              m1.Module,
-			Versions:            versions,
+			Versions:            merged,
 			UnsupportedVersions: append(m1.UnsupportedVersions, m2.UnsupportedVersions...),
+			NonGoVersions:       append(m1.NonGoVersions, m2.NonGoVersions...),
 			Packages:            m1.Packages,
 		}, nil
 	}
@@ -593,24 +567,17 @@ func merge(ms []*Module) ([]*Module, error) {
 	return maps.Values(modules), nil
 }
 
-func mergeVersionRanges(v1 []VersionRange, v2 []VersionRange) ([]VersionRange, error) {
-	v := append(v1, v2...)
-	v = fixVersionRanges(v)
-	if err := osvutils.ValidateRanges(AffectedRanges(v)); err != nil {
+func (v Versions) merge(v2 Versions) (merged Versions, _ error) {
+	merged = append(slices.Clone(v), v2...)
+	merged.fix()
+	ranges, err := AffectedRanges(merged)
+	if err != nil {
 		return nil, err
 	}
-	return v, nil
-}
-
-func first(vrs []VersionRange) string {
-	for _, vr := range vrs {
-		for _, v := range []string{vr.Introduced, vr.Fixed} {
-			if v != "" {
-				return v
-			}
-		}
+	if err := osvutils.ValidateRanges(ranges); err != nil {
+		return nil, err
 	}
-	return ""
+	return merged, nil
 }
 
 // FixReferences deletes some unneeded references, and attempts to fix reference types.

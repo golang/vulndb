@@ -320,13 +320,13 @@ func addTODOs(r *yamlReport) {
 			m.Module = todo + "affected module path"
 		}
 		if len(m.Versions) == 0 {
-			m.Versions = []report.VersionRange{{
-				Introduced: todo + "introduced version (blank if unknown)",
-				Fixed:      todo + "fixed version",
-			}}
+			m.Versions = report.Versions{
+				report.Introduced(todo + "introduced version (blank if unknown)"),
+				report.Fixed(todo + "fixed version"),
+			}
 		}
-		if m.VulnerableAt == "" {
-			m.VulnerableAt = todo + "a version at which the package is vulnerable"
+		if m.VulnerableAt == nil {
+			m.VulnerableAt = report.VulnerableAt(todo + "a version at which the package is vulnerable")
 		}
 		if len(m.Packages) == 0 {
 			m.Packages = []*report.Package{

@@ -6,6 +6,7 @@ package report
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -33,7 +34,7 @@ var (
 // ToOSV creates an osv.Entry for a report.
 // lastModified is the time the report should be considered to have
 // been most recently modified.
-func (r *Report) ToOSV(lastModified time.Time) osv.Entry {
+func (r *Report) ToOSV(lastModified time.Time) (osv.Entry, error) {
 	var credits []osv.Credit
 	for _, credit := range r.Credits {
 		credits = append(credits, osv.Credit{
@@ -71,7 +72,11 @@ func (r *Report) ToOSV(lastModified time.Time) osv.Entry {
 	}
 
 	for _, m := range r.Modules {
-		entry.Affected = append(entry.Affected, toAffected(m))
+		affected, err := toAffected(m)
+		if err != nil {
+			return osv.Entry{}, err
+		}
+		entry.Affected = append(entry.Affected, affected)
 	}
 	for _, ref := range r.References {
 		entry.References = append(entry.References, osv.Reference{
@@ -80,7 +85,7 @@ func (r *Report) ToOSV(lastModified time.Time) osv.Entry {
 		})
 	}
 	entry.Aliases = r.Aliases()
-	return entry
+	return entry, nil
 }
 
 func (r *Report) OSVFilename() string {
@@ -116,20 +121,30 @@ func ModulesForEntry(entry osv.Entry) []string {
 	return maps.Keys(mods)
 }
 
-func AffectedRanges(versions []VersionRange) []osv.Range {
+func (v *Version) ToRangeEvent() (osv.RangeEvent, error) {
+	switch t := v.Type; t {
+	case VersionTypeFixed:
+		return osv.RangeEvent{Fixed: v.Version}, nil
+	case VersionTypeIntroduced:
+		return osv.RangeEvent{Introduced: v.Version}, nil
+	default:
+		return osv.RangeEvent{}, fmt.Errorf("version type %s not supported for osv.RangeEvent", t)
+	}
+}
+
+func AffectedRanges(versions Versions) ([]osv.Range, error) {
 	a := osv.Range{Type: osv.RangeTypeSemver}
-	if len(versions) == 0 || versions[0].Introduced == "" {
+	if len(versions) == 0 || !versions[0].IsIntroduced() {
 		a.Events = append(a.Events, osv.RangeEvent{Introduced: "0"})
 	}
 	for _, v := range versions {
-		if v.Introduced != "" {
-			a.Events = append(a.Events, osv.RangeEvent{Introduced: v.Introduced})
+		re, err := v.ToRangeEvent()
+		if err != nil {
+			return nil, err
 		}
-		if v.Fixed != "" {
-			a.Events = append(a.Events, osv.RangeEvent{Fixed: v.Fixed})
-		}
+		a.Events = append(a.Events, re)
 	}
-	return []osv.Range{a}
+	return []osv.Range{a}, nil
 }
 
 var (
@@ -184,7 +199,7 @@ func toOSVPackages(pkgs []*Package) (imps []osv.Package) {
 	return imps
 }
 
-func toAffected(m *Module) osv.Affected {
+func toAffected(m *Module) (osv.Affected, error) {
 	name := m.Module
 	switch name {
 	case stdlib.ModulePath:
@@ -192,14 +207,18 @@ func toAffected(m *Module) osv.Affected {
 	case stdlib.ToolchainModulePath:
 		name = osv.GoCmdModulePath
 	}
+	ranges, err := AffectedRanges(m.Versions)
+	if err != nil {
+		return osv.Affected{}, err
+	}
 	return osv.Affected{
 		Module: osv.Module{
 			Path:      name,
 			Ecosystem: osv.GoEcosystem,
 		},
-		Ranges: AffectedRanges(m.Versions),
+		Ranges: ranges,
 		EcosystemSpecific: &osv.EcosystemSpecific{
 			Packages: toOSVPackages(m.Packages),
 		},
-	}
+	}, nil
 }

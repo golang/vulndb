@@ -67,7 +67,7 @@ func FromReport(r *report.Report) (_ *CVERecord, err error) {
 	}
 
 	for _, m := range r.Modules {
-		versions, defaultStatus := versionRangeToVersionRange(m.Versions)
+		versions, defaultStatus := versionsToVersionRanges(m.Versions)
 		for _, p := range m.Packages {
 			affected := Affected{
 				Vendor:        report.Vendor(m.Module),
@@ -119,57 +119,65 @@ const (
 	versionZero = "0"
 )
 
-func versionRangeToVersionRange(versions []report.VersionRange) ([]VersionRange, VersionStatus) {
-	if len(versions) == 0 {
+func versionsToVersionRanges(vs report.Versions) ([]VersionRange, VersionStatus) {
+	if len(vs) == 0 {
 		// If there are no recorded versions affected, we assume all versions are affected.
 		return nil, StatusAffected
 	}
 
-	var cveVRs []VersionRange
+	var vrs []VersionRange
 
 	// If there is no final fixed version, then the default status is
 	// "affected" and we express the versions in terms of which ranges
 	// are *unaffected*. This is due to the fact that the CVE schema
 	// does not allow us to express a range as "version X.X.X and above are affected".
-	if versions[len(versions)-1].Fixed == "" {
+	if vs[len(vs)-1].Type != report.VersionTypeFixed {
 		current := &VersionRange{}
-		for _, vr := range versions {
-			if vr.Introduced != "" {
+		for _, vr := range vs {
+			if vr.IsIntroduced() {
 				if current.Introduced == "" {
 					current.Introduced = versionZero
 				}
-				current.Fixed = Version(vr.Introduced)
+				current.Fixed = Version(vr.Version)
 				current.Status = StatusUnaffected
 				current.VersionType = typeSemver
-				cveVRs = append(cveVRs, *current)
+				vrs = append(vrs, *current)
 				current = &VersionRange{}
-			}
-			if vr.Fixed != "" {
-				current.Introduced = Version(vr.Fixed)
+			} else if vr.IsFixed() {
+				current.Introduced = Version(vr.Version)
 			}
 		}
-		return cveVRs, StatusAffected
+		return vrs, StatusAffected
 	}
 
 	// Otherwise, express the version ranges normally as affected ranges,
 	// with a default status of "unaffected".
-	for _, vr := range versions {
-		cveVR := VersionRange{
-			Status:      StatusAffected,
-			VersionType: typeSemver,
+	var current *VersionRange
+	for _, vr := range vs {
+		if vr.IsIntroduced() {
+			if current == nil {
+				current = &VersionRange{
+					Status:      StatusAffected,
+					VersionType: typeSemver,
+					Introduced:  Version(vr.Version),
+				}
+			}
 		}
-		if vr.Introduced != "" {
-			cveVR.Introduced = Version(vr.Introduced)
-		} else {
-			cveVR.Introduced = versionZero
+		if vr.IsFixed() {
+			if current == nil {
+				current = &VersionRange{
+					Status:      StatusAffected,
+					VersionType: typeSemver,
+					Introduced:  versionZero,
+				}
+			}
+			current.Fixed = Version(vr.Version)
+			vrs = append(vrs, *current)
+			current = nil
 		}
-		if vr.Fixed != "" {
-			cveVR.Fixed = Version(vr.Fixed)
-		}
-		cveVRs = append(cveVRs, cveVR)
 	}
 
-	return cveVRs, StatusUnaffected
+	return vrs, StatusUnaffected
 }
 
 var _ report.Source = &CVERecord{}
@@ -402,15 +410,15 @@ func affectedToModule(a *Affected, modulePath string) *report.Module {
 	}
 }
 
-func convertVersions(vrs []VersionRange, defaultStatus VersionStatus) (vs []report.VersionRange, uvs []report.UnsupportedVersion) {
+func convertVersions(vrs []VersionRange, defaultStatus VersionStatus) (vs report.Versions, uvs report.Versions) {
 	for _, vr := range vrs {
 		// Version ranges starting with "n/a" don't have any meaningful data.
 		if vr.Introduced == "n/a" {
 			continue
 		}
-		v, ok := toVersionRange(&vr, defaultStatus)
+		v, ok := toVersions(&vr, defaultStatus)
 		if ok {
-			vs = append(vs, *v)
+			vs = append(vs, v...)
 			continue
 		}
 		uvs = append(uvs, toUnsupported(&vr, defaultStatus))
@@ -425,7 +433,7 @@ var (
 	fixedRE = regexp.MustCompile(`^< (.+)$`)
 )
 
-func toVersionRange(cvr *VersionRange, defaultStatus VersionStatus) (*report.VersionRange, bool) {
+func toVersions(cvr *VersionRange, defaultStatus VersionStatus) (report.Versions, bool) {
 	intro, fixed := version.TrimPrefix(string(cvr.Introduced)), version.TrimPrefix(string(cvr.Fixed))
 
 	// Handle special cases where the info is not quite correctly encoded but
@@ -433,16 +441,16 @@ func toVersionRange(cvr *VersionRange, defaultStatus VersionStatus) (*report.Ver
 
 	// Case one: introduced version is of the form "<= X, < Y".
 	if m := introducedFixedRE.FindStringSubmatch(intro); len(m) == 3 {
-		return &report.VersionRange{
-			Introduced: m[1],
-			Fixed:      m[2],
+		return report.Versions{
+			report.Introduced(m[1]),
+			report.Fixed(m[2]),
 		}, true
 	}
 
 	// Case two: introduced version is of the form "< Y".
 	if m := fixedRE.FindStringSubmatch(intro); len(m) == 2 {
-		return &report.VersionRange{
-			Fixed: m[1],
+		return report.Versions{
+			report.Fixed(m[1]),
 		}, true
 	}
 
@@ -457,16 +465,17 @@ func toVersionRange(cvr *VersionRange, defaultStatus VersionStatus) (*report.Ver
 	}
 
 	if intro == "0" {
-		intro = ""
+		return report.Versions{
+			report.Fixed(fixed),
+		}, true
 	}
 
-	return &report.VersionRange{
-		Introduced: intro,
-		Fixed:      fixed,
+	return report.Versions{
+		report.Introduced(intro), report.Fixed(fixed),
 	}, true
 }
 
-func toUnsupported(cvr *VersionRange, defaultStatus VersionStatus) report.UnsupportedVersion {
+func toUnsupported(cvr *VersionRange, defaultStatus VersionStatus) *report.Version {
 	var version string
 	switch {
 	case cvr.Fixed != "":
@@ -479,7 +488,7 @@ func toUnsupported(cvr *VersionRange, defaultStatus VersionStatus) report.Unsupp
 	if defaultStatus != "" {
 		version = fmt.Sprintf("%s (default: %s)", version, defaultStatus)
 	}
-	return report.UnsupportedVersion{
+	return &report.Version{
 		Version: version,
 		Type:    "cve_version_range",
 	}

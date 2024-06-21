@@ -128,7 +128,10 @@ func TestLintReports(t *testing.T) {
 			}
 			// Check that a correct OSV file was generated for each YAML report.
 			if r.Excluded == "" {
-				generated := r.ToOSV(time.Time{})
+				generated, err := r.ToOSV(time.Time{})
+				if err != nil {
+					t.Fatal(err)
+				}
 				osvFilename := r.OSVFilename()
 				current, err := report.ReadOSV(osvFilename)
 				if err != nil {

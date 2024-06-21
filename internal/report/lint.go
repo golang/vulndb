@@ -53,18 +53,14 @@ func (m *Module) checkModVersions(pc *proxy.Client) error {
 
 func (m *Module) classifyVersions(pc *proxy.Client) (notFound, nonCanonical []string) {
 	for _, vr := range m.Versions {
-		for _, v := range []string{vr.Introduced, vr.Fixed} {
-			if v == "" {
-				continue
-			}
-			c, err := pc.CanonicalModulePath(m.Module, v)
-			if err != nil {
-				notFound = append(notFound, v)
-				continue
-			}
-			if c != m.Module {
-				nonCanonical = append(nonCanonical, fmt.Sprintf("%s (canonical:%s)", v, c))
-			}
+		v := vr.Version
+		c, err := pc.CanonicalModulePath(m.Module, v)
+		if err != nil {
+			notFound = append(notFound, v)
+			continue
+		}
+		if c != m.Module {
+			nonCanonical = append(nonCanonical, fmt.Sprintf("%s (canonical:%s)", v, c))
 		}
 	}
 	return notFound, nonCanonical
@@ -74,13 +70,16 @@ var missing = "missing"
 
 func (m *Module) lintVersions(l *linter) {
 	vl := l.Group("versions")
-	ranges := AffectedRanges(m.Versions)
-	if v := m.VulnerableAt; v != "" {
-		affected, err := osvutils.AffectsSemver(ranges, v)
+	ranges, err := AffectedRanges(m.Versions)
+	if err != nil {
+		vl.Errorf("invalid version(s): %s", err)
+	}
+	if v := m.VulnerableAt; v != nil {
+		affected, err := osvutils.AffectsSemver(ranges, v.Version)
 		if err != nil {
 			vl.Error(err)
 		} else if !affected {
-			l.Group("vulnerable_at").Errorf("%s is not inside vulnerable range", v)
+			l.Group("vulnerable_at").Errorf("%s is not inside vulnerable range", v.Version)
 		}
 	} else {
 		if err := osvutils.ValidateRanges(ranges); err != nil {
@@ -576,7 +575,7 @@ func (p *Package) lint(l *linter, m *Module, r *Report) {
 	}
 
 	if !r.IsExcluded() {
-		if m.VulnerableAt == "" && p.SkipFix == "" {
+		if m.VulnerableAt == nil && p.SkipFix == "" {
 			l.Error("at least one of vulnerable_at and skip_fix must be set")
 		}
 	}
@@ -672,14 +671,11 @@ func (r *Report) hasTODOs() bool {
 			return true
 		}
 		for _, v := range m.Versions {
-			if is(string(v.Introduced)) {
-				return true
-			}
-			if is(string(v.Fixed)) {
+			if is(v.Version) {
 				return true
 			}
 		}
-		if is(string(m.VulnerableAt)) {
+		if m.VulnerableAt != nil && is(m.VulnerableAt.Version) {
 			return true
 		}
 		for _, p := range m.Packages {

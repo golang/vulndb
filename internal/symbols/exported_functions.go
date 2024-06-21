@@ -51,8 +51,11 @@ func Exported(m *report.Module, p *report.Package) (_ []string, err error) {
 		return nil, err
 	}
 	if !m.IsFirstParty() {
+		if m.VulnerableAt == nil {
+			return nil, fmt.Errorf("vulnerable_at is not set")
+		}
 		// Require the module we're interested in at the vulnerable_at version.
-		if err := run("go", "mod", "edit", "-require", m.Module+"@v"+m.VulnerableAt); err != nil {
+		if err := run("go", "mod", "edit", "-require", m.Module+"@v"+m.VulnerableAt.Version); err != nil {
 			return nil, err
 		}
 		for _, req := range m.VulnerableAtRequires {
@@ -169,7 +172,11 @@ func exportedFunctions(pkg *packages.Package, m *report.Module) (_ map[string]bo
 
 	if pkg.Module != nil {
 		v := version.TrimPrefix(pkg.Module.Version)
-		affected, err := osvutils.AffectsSemver(report.AffectedRanges(m.Versions), v)
+		rs, err := report.AffectedRanges(m.Versions)
+		if err != nil {
+			return nil, err
+		}
+		affected, err := osvutils.AffectsSemver(rs, v)
 		if err != nil {
 			return nil, err
 		}

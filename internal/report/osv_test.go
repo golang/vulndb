@@ -20,10 +20,11 @@ func TestToOSV(t *testing.T) {
 		Modules: []*Module{
 			{
 				Module: "example.com/vulnerable/v2",
-				Versions: []VersionRange{
-					{Fixed: "2.1.1"},
-					{Introduced: "2.3.4", Fixed: "2.3.5"},
-					{Introduced: "2.5.0"},
+				Versions: Versions{
+					Fixed("2.1.1"),
+					Introduced("2.3.4"),
+					Fixed("2.3.5"),
+					Introduced("2.5.0"),
 				},
 				Packages: []*Package{
 					{
@@ -36,10 +37,11 @@ func TestToOSV(t *testing.T) {
 				},
 			}, {
 				Module: "vanity.host/vulnerable",
-				Versions: []VersionRange{
-					{Fixed: "2.1.1"},
-					{Introduced: "2.3.4", Fixed: "2.3.5"},
-					{Introduced: "2.5.0"},
+				Versions: Versions{
+					Fixed("2.1.1"),
+					Introduced("2.3.4"),
+					Fixed("2.3.5"),
+					Introduced("2.5.0"),
 				},
 				Packages: []*Package{
 					{
@@ -51,8 +53,8 @@ func TestToOSV(t *testing.T) {
 				},
 			}, {
 				Module: "example.com/also-vulnerable",
-				Versions: []VersionRange{
-					{Fixed: "2.1.1"},
+				Versions: Versions{
+					Fixed("2.1.1"),
 				},
 				Packages: []*Package{
 					{
@@ -204,7 +206,10 @@ func TestToOSV(t *testing.T) {
 		DatabaseSpecific: &osv.DatabaseSpecific{URL: "https://pkg.go.dev/vuln/GO-1991-0001"},
 	}
 
-	gotEntry := r.ToOSV(time.Time{})
+	gotEntry, err := r.ToOSV(time.Time{})
+	if err != nil {
+		t.Fatal(err)
+	}
 	if diff := cmp.Diff(wantEntry, gotEntry, cmp.Comparer(func(a, b time.Time) bool { return a.Equal(b) })); diff != "" {
 		t.Errorf("ToOSV() mismatch (-want +got):\n%s", diff)
 	}
@@ -219,11 +224,9 @@ func TestOSVFilename(t *testing.T) {
 }
 
 func TestAffectedRanges(t *testing.T) {
-	in := []VersionRange{
-		{
-			Introduced: "1.16.0",
-			Fixed:      "1.17.0",
-		},
+	in := Versions{
+		Introduced("1.16.0"),
+		Fixed("1.17.0"),
 	}
 	expected := []osv.Range{
 		{
@@ -239,7 +242,10 @@ func TestAffectedRanges(t *testing.T) {
 		},
 	}
 
-	out := AffectedRanges(in)
+	out, err := AffectedRanges(in)
+	if err != nil {
+		t.Fatal(err)
+	}
 	if !reflect.DeepEqual(out, expected) {
 		t.Fatalf("unexpected output: got %#v, want %#v", out, expected)
 	}

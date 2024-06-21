@@ -53,9 +53,9 @@ func TestGHSAToReport(t *testing.T) {
 				ID: report.PendingID,
 				Modules: []*report.Module{{
 					Module:       "golang.org/x/tools",
-					VulnerableAt: "0.8.0",
-					Versions: []report.VersionRange{
-						{Fixed: "0.9.0"},
+					VulnerableAt: report.VulnerableAt("0.8.0"),
+					Versions: report.Versions{
+						report.Fixed("0.9.0"),
 					},
 					Packages: []*report.Package{{
 						Package: "golang.org/x/tools/go/packages",
@@ -80,10 +80,10 @@ func TestGHSAToReport(t *testing.T) {
 				ID: report.PendingID,
 				Modules: []*report.Module{{
 					Module: "golang.org/x/tools",
-					Versions: []report.VersionRange{
-						{Fixed: "0.9.0"},
+					Versions: report.Versions{
+						report.Fixed("0.9.0"),
 					},
-					VulnerableAt: "0.8.0",
+					VulnerableAt: report.VulnerableAt("0.8.0"),
 					Packages: []*report.Package{{
 						Package: "golang.org/x/tools/go/packages",
 					},
@@ -140,21 +140,21 @@ func TestVersions(t *testing.T) {
 	for _, test := range []struct {
 		earliestFixed string
 		vulnRange     string
-		intro, fixed  string
+		want          report.Versions
 	}{
-		{"1.0.0", "< 1.0.0", "", "1.0.0"},
-		{"", "<= 1.4.2", "", ""},
-		{"1.1.3", ">= 1.1.0, < 1.1.3", "1.1.0", "1.1.3"},
+		{"1.0.0", "< 1.0.0", report.Versions{report.Fixed("1.0.0")}},
+		{"", "<= 1.4.2", nil},
+		{
+			"1.1.3", ">= 1.1.0, < 1.1.3",
+			report.Versions{report.Introduced("1.1.0"), report.Fixed("1.1.3")},
+		},
 		{
 			"1.2.3", "<= 2.3.4",
-			`TODO (earliest fixed "1.2.3", vuln range "<= 2.3.4")`, "",
+			report.Versions{report.Introduced(`TODO (earliest fixed "1.2.3", vuln range "<= 2.3.4")`)},
 		},
 	} {
 		got := versions(test.earliestFixed, test.vulnRange)
-		want := []report.VersionRange{{
-			Introduced: test.intro,
-			Fixed:      test.fixed,
-		}}
+		want := test.want
 		if !cmp.Equal(got, want) {
 			t.Errorf("%q, %q:\ngot  %+v\nwant %+v",
 				test.earliestFixed, test.vulnRange, got, want)

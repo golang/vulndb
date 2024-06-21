@@ -26,33 +26,23 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-type VersionRange struct {
-	Introduced string `yaml:"introduced,omitempty"`
-	Fixed      string `yaml:"fixed,omitempty"`
-}
-
-type UnsupportedVersion struct {
-	Version string `yaml:",omitempty"`
-	Type    string `yaml:",omitempty"`
-}
-
 type Module struct {
-	Module   string         `yaml:",omitempty"`
-	Versions []VersionRange `yaml:",omitempty"`
+	Module   string   `yaml:",omitempty"`
+	Versions Versions `yaml:",omitempty"`
 	// Versions that are not known to the module proxy, but
 	// that may be useful to display to humans.
-	NonGoVersions []VersionRange `yaml:"non_go_versions,omitempty"`
+	NonGoVersions Versions `yaml:"non_go_versions,omitempty"`
 	// Version types that exist in OSV, but we don't support.
 	// These may be added when automatically creating a report,
 	// but must be deleted in order to pass lint checks.
-	UnsupportedVersions []UnsupportedVersion `yaml:"unsupported_versions,omitempty"`
+	UnsupportedVersions Versions `yaml:"unsupported_versions,omitempty"`
 	// Known-vulnerable version, to use when performing static analysis or
 	// other techniques on a vulnerable version of the package.
 	//
 	// In general, we want to use the most recent vulnerable version of
 	// the package. Determining this programmatically is difficult, especially
 	// for packages without tagged versions, so we specify it manually here.
-	VulnerableAt string `yaml:"vulnerable_at,omitempty"`
+	VulnerableAt *Version `yaml:"vulnerable_at,omitempty"`
 	// Additional list of module@version to require when performing static analysis.
 	// It is rare that we need to specify this.
 	VulnerableAtRequires []string   `yaml:"vulnerable_at_requires,omitempty"`
@@ -61,6 +51,116 @@ type Module struct {
 	// the fix links found in the report's References field will be used.
 	// Only auto-added if the -update flag is passed to vulnreport.
 	FixLinks []string `yaml:"fix_links,omitempty"`
+}
+
+type Version struct {
+	Version string      `yaml:",omitempty"`
+	Type    VersionType `yaml:",omitempty"`
+}
+
+type VersionType string
+
+const (
+	VersionTypeIntroduced   = "introduced"
+	VersionTypeFixed        = "fixed"
+	VersionTypeVulnerableAt = "vulnerable_at"
+)
+
+func Introduced(v string) *Version {
+	return &Version{Version: v, Type: VersionTypeIntroduced}
+}
+
+func Fixed(v string) *Version {
+	return &Version{Version: v, Type: VersionTypeFixed}
+}
+
+type VulnerableAtVersion Version
+
+func VulnerableAt(v string) *Version {
+	return &Version{Version: v, Type: VersionTypeVulnerableAt}
+}
+
+func (v *Version) IsIntroduced() bool {
+	return v.Type == VersionTypeIntroduced
+}
+
+func (v *Version) IsFixed() bool {
+	return v.Type == VersionTypeFixed
+}
+
+func (v *Version) MarshalYAML() (any, error) {
+	return v.Version, nil
+}
+
+func (v *Version) UnmarshalYAML(n *yaml.Node) error {
+	if n.Kind != yaml.ScalarNode {
+		return fmt.Errorf("line %d: report.Version must be a scalar node", n.Line)
+	}
+	v.Type = VersionTypeVulnerableAt
+	v.Version = n.Value
+	return nil
+}
+
+type Versions []*Version
+
+func (vs Versions) MarshalYAML() (any, error) {
+	result := make([]map[string]string, len(vs))
+	for i, v := range vs {
+		result[i] = map[string]string{
+			strings.ToLower(string(v.Type)): v.Version,
+		}
+	}
+	return result, nil
+}
+
+func (vs *Versions) UnmarshalYAML(n *yaml.Node) error {
+	if n.Kind != yaml.SequenceNode {
+		return &yaml.TypeError{Errors: []string{
+			fmt.Sprintf("line %d: report.Versions must be a sequence node (got %#v)", n.Line, n),
+		}}
+	}
+
+	*vs = make(Versions, 0)
+	for _, vn := range n.Content {
+		// Support the old way of encoding introduced/fixed versions.
+		if vn.Kind == yaml.MappingNode && len(vn.Content) == 4 {
+			// Format is
+			//  	- introduced: v.v.v
+			//        fixed: v.v.v
+			if VersionType(vn.Content[0].Value) == VersionTypeIntroduced {
+				*vs = append(*vs, &Version{
+					Type:    VersionType(vn.Content[0].Value),
+					Version: vn.Content[1].Value,
+				},
+					&Version{
+						Type:    VersionType(vn.Content[2].Value),
+						Version: vn.Content[3].Value,
+					},
+				)
+				continue
+			}
+
+			// Format is
+			//  	- version: v.v.v
+			//        type: t
+			*vs = append(*vs, &Version{
+				Type:    VersionType(vn.Content[3].Value),
+				Version: vn.Content[1].Value,
+			})
+			continue
+		}
+		if vn.Kind != yaml.MappingNode || len(vn.Content) != 2 || vn.Content[0].Kind != yaml.ScalarNode || vn.Content[1].Kind != yaml.ScalarNode {
+			return &yaml.TypeError{Errors: []string{
+				fmt.Sprintf("line %d: report.Version must contain a mapping with one value (got %#v)", vn.Line, vn),
+			}}
+		}
+		*vs = append(*vs, &Version{
+			Type:    VersionType(vn.Content[0].Value),
+			Version: vn.Content[1].Value,
+		})
+	}
+
+	return nil
 }
 
 type Package struct {

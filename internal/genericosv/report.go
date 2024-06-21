@@ -69,26 +69,24 @@ func affectedToModules(as []Affected) []*report.Module {
 	return modules
 }
 
-func convertVersions(rs []Range) ([]report.VersionRange, []report.UnsupportedVersion) {
-	var vrs []report.VersionRange
-	var uvs []report.UnsupportedVersion
+func convertVersions(rs []Range) (vs report.Versions, unsupported report.Versions) {
 	for _, r := range rs {
 		for _, e := range r.Events {
 			if e.Introduced != "" || e.Fixed != "" {
-				var vr report.VersionRange
+				var vr *report.Version
 				switch {
 				case e.Introduced == "0":
 					continue
 				case e.Introduced != "":
-					vr.Introduced = e.Introduced
+					vr = report.Introduced(e.Introduced)
 				case e.Fixed != "":
-					vr.Fixed = e.Fixed
+					vr = report.Fixed(e.Fixed)
 				}
-				vrs = append(vrs, vr)
+				vs = append(vs, vr)
 				continue
 			}
 
-			var uv report.UnsupportedVersion
+			uv := new(report.Version)
 			switch {
 			case e.LastAffected != "":
 				uv.Version = e.LastAffected
@@ -100,10 +98,10 @@ func convertVersions(rs []Range) ([]report.VersionRange, []report.UnsupportedVer
 				uv.Version = fmt.Sprint(e)
 				uv.Type = "unknown"
 			}
-			uvs = append(uvs, uv)
+			unsupported = append(unsupported, uv)
 		}
 	}
-	return vrs, uvs
+	return vs, unsupported
 }
 
 func convertRef(ref Reference) *report.Reference {

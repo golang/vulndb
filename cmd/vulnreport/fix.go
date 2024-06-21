@@ -178,7 +178,11 @@ func (r *yamlReport) checkSymbols() error {
 			// If some symbol is in the std library at a different version,
 			// we may derive the wrong symbols for this package and other.
 			// In this case, skip updating DerivedSymbols.
-			affected, err := osvutils.AffectsSemver(report.AffectedRanges(m.Versions), ver)
+			ranges, err := report.AffectedRanges(m.Versions)
+			if err != nil {
+				return err
+			}
+			affected, err := osvutils.AffectsSemver(ranges, ver)
 			if err != nil {
 				return err
 			}
@@ -186,7 +190,7 @@ func (r *yamlReport) checkSymbols() error {
 				log.Warnf("%s: current Go version %q is not in a vulnerable range, skipping symbol checks for module %s", r.ID, gover, m.Module)
 				continue
 			}
-			if ver != m.VulnerableAt {
+			if m.VulnerableAt == nil || ver != m.VulnerableAt.Version {
 				log.Warnf("%s: current Go version %q does not match vulnerable_at version (%s) for module %s", r.ID, ver, m.VulnerableAt, m.Module)
 			}
 		}

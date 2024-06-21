@@ -46,7 +46,7 @@ func validReport(f func(r *Report)) Report {
 		ID: "GO-0000-0000",
 		Modules: []*Module{{
 			Module:       "golang.org/x/net",
-			VulnerableAt: "1.2.3",
+			VulnerableAt: VulnerableAt("1.2.3"),
 			Packages: []*Package{{
 				Package: "golang.org/x/net/http2",
 			}},
@@ -65,7 +65,7 @@ func validStdReport(f func(r *Report)) Report {
 		ID: "GO-0000-0000",
 		Modules: []*Module{{
 			Module:       "std",
-			VulnerableAt: "1.2.3",
+			VulnerableAt: VulnerableAt("1.2.3"),
 			Packages: []*Package{{
 				Package: "net/http",
 			}},
@@ -102,10 +102,8 @@ func TestLint(t *testing.T) {
 			report: validReport(func(r *Report) {
 				r.Modules = append(r.Modules, &Module{
 					Module: "golang.org/x/net",
-					Versions: []VersionRange{
-						{
-							Introduced: "0.2.0",
-						},
+					Versions: Versions{
+						Introduced("0.2.0"),
 					}})
 			}),
 			pc: pc,
@@ -117,10 +115,8 @@ func TestLint(t *testing.T) {
 			report: validReport(func(r *Report) {
 				r.Modules = append(r.Modules, &Module{
 					Module: "golang.org/x/net",
-					Versions: []VersionRange{
-						{
-							Introduced: "0.2.5", // does not exist
-						},
+					Versions: Versions{
+						Introduced("0.2.5"), // does not exist
 					}})
 			}),
 			pc:           pc,
@@ -132,10 +128,9 @@ func TestLint(t *testing.T) {
 			report: validReport(func(r *Report) {
 				r.Modules = append(r.Modules, &Module{
 					Module: "github.com/golang/vuln",
-					Versions: []VersionRange{
-						{
-							Introduced: "0.1.0",
-						},
+					Versions: Versions{
+
+						Introduced("0.1.0"),
 					}})
 			}),
 			pc:           pc,
@@ -147,14 +142,10 @@ func TestLint(t *testing.T) {
 			report: validReport(func(r *Report) {
 				r.Modules = append(r.Modules, &Module{
 					Module: "github.com/golang/vuln",
-					Versions: []VersionRange{
-						{
-							Introduced: "0.1.0",
-							Fixed:      "0.2.5", // does not exist
-						},
-						{
-							Introduced: "0.2.6", // does not exist
-						},
+					Versions: Versions{
+						Introduced("0.1.0"),
+						Fixed("0.2.5"),      // does not exist
+						Introduced("0.2.6"), // does not exist
 					}})
 			}),
 			pc:           pc,
@@ -330,11 +321,11 @@ func TestLintOffline(t *testing.T) {
 			report: validReport(func(r *Report) {
 				r.Modules = append(r.Modules, &Module{
 					Module:       "example.com/module/example/v2",
-					VulnerableAt: "1.0.0",
+					VulnerableAt: VulnerableAt("1.0.0"),
 				})
 				r.Modules = append(r.Modules, &Module{
 					Module:       "example.com/module/example/v3",
-					VulnerableAt: "1.0.0",
+					VulnerableAt: VulnerableAt("1.0.0"),
 				})
 				r.Summary = "This summary is about example.com/module/example"
 			}),
@@ -371,7 +362,7 @@ func TestLintOffline(t *testing.T) {
 			name: "no_vulnerable_at_or_skip_fix",
 			desc: "At least one of module.vulnerable_at and module.package.skip_fix must be set.",
 			report: validReport(func(r *Report) {
-				r.Modules[0].VulnerableAt = ""
+				r.Modules[0].VulnerableAt = nil
 				r.Modules[0].Packages[0].SkipFix = ""
 			}),
 			wantNumLints: 1,
@@ -380,7 +371,7 @@ func TestLintOffline(t *testing.T) {
 			name: "skip_fix_ok",
 			desc: "The vulnerable_at field can be blank if skip_fix is set.",
 			report: validReport(func(r *Report) {
-				r.Modules[0].VulnerableAt = ""
+				r.Modules[0].VulnerableAt = nil
 				r.Modules[0].Packages[0].SkipFix = "a reason"
 			}),
 			// No lints.
@@ -389,7 +380,7 @@ func TestLintOffline(t *testing.T) {
 			name: "vulnerable_at_and_skip_fix_ok",
 			desc: "It is OK to set both module.vulnerable_at and module.package.skip_fix.",
 			report: validReport(func(r *Report) {
-				r.Modules[0].VulnerableAt = "1.2.3"
+				r.Modules[0].VulnerableAt = VulnerableAt("1.2.3")
 				r.Modules[0].Packages[0].SkipFix = "a reason"
 			}),
 			// No lints.
@@ -398,9 +389,9 @@ func TestLintOffline(t *testing.T) {
 			name: "vulnerable_at_out_of_range",
 			desc: "Field module.vulnerable_at must be inside the vulnerable version range for the module.",
 			report: validStdReport(func(r *Report) {
-				r.Modules[0].VulnerableAt = "2.0.0"
-				r.Modules[0].Versions = []VersionRange{
-					{Fixed: "1.2.1"},
+				r.Modules[0].VulnerableAt = VulnerableAt("2.0.0")
+				r.Modules[0].Versions = Versions{
+					Fixed("1.2.1"),
 				}
 			}),
 			wantNumLints: 1,
@@ -409,7 +400,7 @@ func TestLintOffline(t *testing.T) {
 			name: "unsupported_versions",
 			desc: "The unsupported_versions field should never be set.",
 			report: validStdReport(func(r *Report) {
-				r.Modules[0].UnsupportedVersions = []UnsupportedVersion{
+				r.Modules[0].UnsupportedVersions = Versions{
 					{Version: "1.2.1", Type: "unknown"},
 				}
 			}),
@@ -421,7 +412,7 @@ func TestLintOffline(t *testing.T) {
 			report: validReport(func(r *Report) {
 				r.Modules = append(r.Modules, &Module{
 					Module:       "example.com/module",
-					VulnerableAt: "1.0.0",
+					VulnerableAt: VulnerableAt("1.0.0"),
 					Packages: []*Package{{
 						Package: "example.com/package",
 					}},
@@ -435,7 +426,7 @@ func TestLintOffline(t *testing.T) {
 			report: validReport(func(r *Report) {
 				r.Modules = append(r.Modules, &Module{
 					Module:       "invalid.",
-					VulnerableAt: "1.0.0",
+					VulnerableAt: VulnerableAt("1.0.0"),
 					Packages: []*Package{{
 						Package: "invalid.",
 					}}})
@@ -457,7 +448,7 @@ func TestLintOffline(t *testing.T) {
 				r.Modules = append(r.Modules,
 					&Module{
 						Module:       "std",
-						VulnerableAt: "1.0.0",
+						VulnerableAt: VulnerableAt("1.0.0"),
 						// No packages.
 					},
 				)
@@ -471,7 +462,7 @@ func TestLintOffline(t *testing.T) {
 				r.Modules = append(r.Modules,
 					&Module{
 						Module:       "std",
-						VulnerableAt: "1.0.0",
+						VulnerableAt: VulnerableAt("1.0.0"),
 						Packages: []*Package{{
 							Package: "runtime",
 							Symbols: []string{"foo"},
@@ -487,7 +478,7 @@ func TestLintOffline(t *testing.T) {
 			report: validStdReport(func(r *Report) {
 				r.Modules = append(r.Modules, &Module{
 					Module:       "std",
-					VulnerableAt: "1.0.0",
+					VulnerableAt: VulnerableAt("1.0.0"),
 					Packages: []*Package{{
 						Package: "cmd/go",
 					}},
@@ -499,9 +490,9 @@ func TestLintOffline(t *testing.T) {
 			name: "versions_overlapping_ranges",
 			desc: "Version ranges must not overlap.",
 			report: validStdReport(func(r *Report) {
-				r.Modules[0].Versions = []VersionRange{
+				r.Modules[0].Versions = Versions{
 					// Two fixed versions in a row with no introduced.
-					{Fixed: "1.2.1"}, {Fixed: "1.3.2"},
+					Fixed("1.2.1"), Fixed("1.3.2"),
 				}
 			}),
 			wantNumLints: 1,
@@ -510,11 +501,10 @@ func TestLintOffline(t *testing.T) {
 			name: "versions_fixed_before_introduced",
 			desc: "Within a version range, the fixed version must come before the introduced version.",
 			report: validStdReport(func(r *Report) {
-				r.Modules[0].Versions = []VersionRange{
-					{
-						Introduced: "1.3.0",
-						Fixed:      "1.2.1",
-					},
+				r.Modules[0].Versions = Versions{
+
+					Introduced("1.3.0"),
+					Fixed("1.2.1"),
 				}
 			}),
 			wantNumLints: 1,
@@ -523,10 +513,10 @@ func TestLintOffline(t *testing.T) {
 			name: "versions_checked_no_vulnerable_at",
 			desc: "Version checks still apply if vulnerable_at is not set.",
 			report: validStdReport(func(r *Report) {
-				r.Modules[0].VulnerableAt = ""
-				r.Modules[0].Versions = []VersionRange{
+				r.Modules[0].VulnerableAt = nil
+				r.Modules[0].Versions = Versions{
 					// Two fixed versions in a row with no introduced.
-					{Fixed: "1.2.1"}, {Fixed: "1.3.2"},
+					Fixed("1.2.1"), Fixed("1.3.2"),
 				}
 			}),
 			wantNumLints: 2,
@@ -535,10 +525,8 @@ func TestLintOffline(t *testing.T) {
 			name: "invalid_semver",
 			desc: "All versions must be valid, unprefixed, semver",
 			report: validStdReport(func(r *Report) {
-				r.Modules[0].Versions = []VersionRange{
-					{
-						Introduced: "1.3.X",
-					},
+				r.Modules[0].Versions = Versions{
+					Introduced("1.3.X"),
 				}
 			}),
 			wantNumLints: 1,
@@ -724,11 +712,10 @@ func TestLintOffline(t *testing.T) {
 			report: validReport(func(r *Report) {
 				r.Modules = append(r.Modules, &Module{
 					Module: "golang.org/x/net",
-					Versions: []VersionRange{
-						{
-							Introduced: "0.2.5", // does not exist
-						},
-					}})
+					Versions: Versions{
+						Introduced("0.2.5"), // does not exist
+					},
+				})
 			}),
 			// No lints: in offline mode, versions aren't checked.
 		},

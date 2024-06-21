@@ -17,29 +17,21 @@ func TestFix(t *testing.T) {
 		Modules: []*Module{
 			{
 				Module: "std",
-				Versions: []VersionRange{
-					{
-						Introduced: "go1.20",
-					},
-					{
-						Fixed: "go1.20.1",
-					},
-					{
-						Introduced: "go1.19",
-						Fixed:      "go1.19.5",
-					},
-					{
-						Fixed: "go1.18.5",
-					},
+				Versions: Versions{
+					Introduced("go1.20"),
+					Fixed("go1.20.1"),
+					Introduced("go1.19"),
+					Fixed("go1.19.5"),
+					Fixed("go1.18.5"),
 				},
-				VulnerableAt: "go1.20",
+				VulnerableAt: VulnerableAt("go1.20"),
 			},
 			{
 				Module: "golang.org/x/vulndb",
-				Versions: []VersionRange{{
-					Introduced: "0cbf4ffdb4e70fce663ec8d59198745b04e7801b",
-				}},
-				VulnerableAt: "0cbf4ffdb4e70fce663ec8d59198745b04e7801b",
+				Versions: Versions{
+					Introduced("0cbf4ffdb4e70fce663ec8d59198745b04e7801b"),
+				},
+				VulnerableAt: VulnerableAt("0cbf4ffdb4e70fce663ec8d59198745b04e7801b"),
 			},
 		},
 		Description: "A long form description of the problem that will be broken up into multiple lines so it is more readable.",
@@ -54,27 +46,21 @@ func TestFix(t *testing.T) {
 		Modules: []*Module{
 			{
 				Module: "golang.org/x/vulndb",
-				Versions: []VersionRange{{
-					Introduced: "0.0.0-20230522180520-0cbf4ffdb4e7",
-				}},
-				VulnerableAt: "0.0.0-20230522180520-0cbf4ffdb4e7",
+				Versions: Versions{
+					Introduced("0.0.0-20230522180520-0cbf4ffdb4e7"),
+				},
+				VulnerableAt: VulnerableAt("0.0.0-20230522180520-0cbf4ffdb4e7"),
 			},
 			{
 				Module: "std",
-				Versions: []VersionRange{
-					{
-						Fixed: "1.18.5",
-					},
-					{
-						Introduced: "1.19.0",
-						Fixed:      "1.19.5",
-					},
-					{
-						Introduced: "1.20.0",
-						Fixed:      "1.20.1",
-					},
+				Versions: Versions{
+					Fixed("1.18.5"),
+					Introduced("1.19.0"),
+					Fixed("1.19.5"),
+					Introduced("1.20.0"),
+					Fixed("1.20.1"),
 				},
-				VulnerableAt: "1.20.0",
+				VulnerableAt: VulnerableAt("1.20.0"),
 			},
 		},
 		Description: "A long form description of the problem that will be broken up into multiple\nlines so it is more readable.",
@@ -203,10 +189,9 @@ func TestGuessVulnerableAt(t *testing.T) {
 			name: "has fix",
 			m: &Module{
 				Module: "golang.org/x/tools",
-				Versions: []VersionRange{
-					{
-						Fixed: "0.1.8",
-					},
+				Versions: Versions{
+
+					Fixed("0.1.8"),
 				},
 			},
 			want: "0.1.7",
@@ -238,21 +223,19 @@ func TestFixModules(t *testing.T) {
 			desc: "module is already OK",
 			in: []*Module{{
 				Module: "github.com/influxdata/influxdb",
-				Versions: []VersionRange{
-					{
-						Introduced: "0.3.2",
-						Fixed:      "1.7.6",
-					}},
-				VulnerableAt: "1.7.5",
+				Versions: Versions{
+					Introduced("0.3.2"),
+					Fixed("1.7.6"),
+				},
+				VulnerableAt: VulnerableAt("1.7.5"),
 			}},
 			want: []*Module{{
 				Module: "github.com/influxdata/influxdb",
-				Versions: []VersionRange{
-					{
-						Introduced: "0.3.2",
-						Fixed:      "1.7.6",
-					}},
-				VulnerableAt: "1.7.5",
+				Versions: Versions{
+					Introduced("0.3.2"),
+					Fixed("1.7.6"),
+				},
+				VulnerableAt: VulnerableAt("1.7.5"),
 			}},
 		},
 		{
@@ -260,27 +243,23 @@ func TestFixModules(t *testing.T) {
 			desc: "find module from import path",
 			in: []*Module{{
 				Module: "github.com/influxdata/influxdb/services/httpd",
-				Versions: []VersionRange{
-					{
-						Introduced: "0.3.2",
-						Fixed:      "1.7.6",
-					},
+				Versions: Versions{
+					Introduced("0.3.2"),
+					Fixed("1.7.6"),
 				},
 			}},
 			want: []*Module{{
 				Module: "github.com/influxdata/influxdb",
-				Versions: []VersionRange{
-					{
-						Introduced: "0.3.2",
-						Fixed:      "1.7.6",
-					},
+				Versions: Versions{
+					Introduced("0.3.2"),
+					Fixed("1.7.6"),
 				},
 				Packages: []*Package{
 					{
 						Package: "github.com/influxdata/influxdb/services/httpd",
 					},
 				},
-				VulnerableAt: "1.7.5",
+				VulnerableAt: VulnerableAt("1.7.5"),
 			}},
 		},
 		{
@@ -288,22 +267,18 @@ func TestFixModules(t *testing.T) {
 			desc: "correct major version of module path",
 			in: []*Module{{
 				Module: "github.com/nats-io/nats-server",
-				Versions: []VersionRange{
-					{
-						Introduced: "2.2.0",
-						Fixed:      "2.8.3",
-					},
+				Versions: Versions{
+					Introduced("2.2.0"),
+					Fixed("2.8.3"),
 				},
 			}},
 			want: []*Module{{
 				Module: "github.com/nats-io/nats-server/v2",
-				Versions: []VersionRange{
-					{
-						Introduced: "2.2.0",
-						Fixed:      "2.8.3",
-					},
+				Versions: Versions{
+					Introduced("2.2.0"),
+					Fixed("2.8.3"),
 				},
-				VulnerableAt: "2.8.2",
+				VulnerableAt: VulnerableAt("2.8.2"),
 			}},
 		},
 		{
@@ -311,18 +286,14 @@ func TestFixModules(t *testing.T) {
 			desc: "canonicalize module path",
 			in: []*Module{{
 				Module: "github.com/golang/vulndb",
-				Versions: []VersionRange{
-					{
-						Fixed: "0.0.0-20230712151357-4fee11d0f8f9",
-					},
+				Versions: Versions{
+					Fixed("0.0.0-20230712151357-4fee11d0f8f9"),
 				},
 			}},
 			want: []*Module{{
 				Module: "golang.org/x/vulndb",
-				Versions: []VersionRange{
-					{
-						Fixed: "0.0.0-20230712151357-4fee11d0f8f9",
-					},
+				Versions: Versions{
+					Fixed("0.0.0-20230712151357-4fee11d0f8f9"),
 				},
 			}},
 		},
@@ -331,20 +302,16 @@ func TestFixModules(t *testing.T) {
 			desc: "add +incompatible",
 			in: []*Module{{
 				Module: "github.com/docker/docker",
-				Versions: []VersionRange{
-					{
-						Fixed: "23.0.0",
-					},
+				Versions: Versions{
+					Fixed("23.0.0"),
 				},
 			}},
 			want: []*Module{{
 				Module: "github.com/docker/docker",
-				Versions: []VersionRange{
-					{
-						Fixed: "23.0.0+incompatible",
-					},
+				Versions: Versions{
+					Fixed("23.0.0+incompatible"),
 				},
-				VulnerableAt: "23.0.0-rc.4+incompatible",
+				VulnerableAt: VulnerableAt("23.0.0-rc.4+incompatible"),
 			}},
 		},
 		{
@@ -352,36 +319,28 @@ func TestFixModules(t *testing.T) {
 			desc: "merge modules that are the same except for versions",
 			in: []*Module{{
 				Module: "github.com/hashicorp/go-getter/v2",
-				Versions: []VersionRange{
-					{
-						Introduced: "2.0.0",
-						Fixed:      "2.0.2",
-					},
+				Versions: Versions{
+					Introduced("2.0.0"),
+					Fixed("2.0.2"),
 				},
 			},
 				{
 					Module: "github.com/hashicorp/go-getter/v2",
-					Versions: []VersionRange{
-						{
-							Introduced: "2.1.0",
-							Fixed:      "2.1.1",
-						},
+					Versions: Versions{
+						Introduced("2.1.0"),
+						Fixed("2.1.1"),
 					},
 				},
 			},
 			want: []*Module{{
 				Module: "github.com/hashicorp/go-getter/v2",
-				Versions: []VersionRange{
-					{
-						Introduced: "2.0.0",
-						Fixed:      "2.0.2",
-					},
-					{
-						Introduced: "2.1.0",
-						Fixed:      "2.1.1",
-					},
+				Versions: Versions{
+					Introduced("2.0.0"),
+					Fixed("2.0.2"),
+					Introduced("2.1.0"),
+					Fixed("2.1.1"),
 				},
-				VulnerableAt: "2.1.0",
+				VulnerableAt: VulnerableAt("2.1.0"),
 			}},
 		},
 	} {

@@ -24,17 +24,19 @@ import (
 func expandGitCommits(r *Report) {
 	// Find repos in versions to expand
 	repos := make(map[string][]string) // url -> names
-	perVersion := func(v string) {
-		if b, a, f := cutRepoUrl(v); f {
+	perVersion := func(v *Version) {
+		if v == nil {
+			return
+		}
+		if b, a, f := cutRepoUrl(v.Version); f {
 			repos[b] = append(repos[b], a)
 		}
 	}
 	for _, m := range r.Modules {
-		for _, vr := range m.Versions {
-			perVersion(vr.Introduced)
-			perVersion(vr.Fixed)
+		for _, v := range m.Versions {
+			perVersion(v)
 		}
-		perVersion(m.VulnerableAt)
+		perVersion((*Version)(m.VulnerableAt))
 	}
 
 	if len(repos) == 0 { // no repos to expand
@@ -71,18 +73,16 @@ func expandGitCommits(r *Report) {
 	}
 
 	// Replace all.
-	replaceVersion := func(v string) string {
-		if r, ok := replacements[v]; ok {
-			return r
+	replaceVersion := func(v *Version) {
+		if r, ok := replacements[v.Version]; ok {
+			v.Version = r
 		}
-		return v
 	}
-	for i, m := range r.Modules {
-		for j, vr := range m.Versions {
-			m.Versions[j].Introduced = replaceVersion(vr.Introduced)
-			m.Versions[j].Fixed = replaceVersion(vr.Fixed)
+	for _, m := range r.Modules {
+		for _, v := range m.Versions {
+			replaceVersion(v)
 		}
-		r.Modules[i].VulnerableAt = replaceVersion(m.VulnerableAt)
+		replaceVersion(m.VulnerableAt)
 	}
 }
 

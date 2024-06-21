@@ -39,7 +39,12 @@ func (f *fileWriter) writeOSV(r *yamlReport) error {
 		return nil
 	}
 
-	return writeJSON(f, r.OSVFilename(), r.ToOSV(time.Time{}))
+	entry, err := r.ToOSV(time.Time{})
+	if err != nil {
+		return err
+	}
+
+	return writeJSON(f, r.OSVFilename(), entry)
 }
 
 func (f *fileWriter) writeCVE(r *yamlReport) error {

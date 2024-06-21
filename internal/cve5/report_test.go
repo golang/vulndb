@@ -287,7 +287,7 @@ func TestFromReport(t *testing.T) {
 func TestVersionRangeToVersionRange(t *testing.T) {
 	tests := []struct {
 		name        string
-		versions    []report.VersionRange
+		versions    report.Versions
 		wantRange   []VersionRange
 		wantDefault VersionStatus
 	}{
@@ -299,21 +299,17 @@ func TestVersionRangeToVersionRange(t *testing.T) {
 		},
 		{
 			name:        "empty",
-			versions:    []report.VersionRange{},
+			versions:    report.Versions{},
 			wantRange:   nil,
 			wantDefault: StatusAffected,
 		},
 		{
 			name: "basic",
-			versions: []report.VersionRange{
-				{
-					Introduced: "1.0.0",
-					Fixed:      "1.0.1",
-				},
-				{
-					Introduced: "1.2.0",
-					Fixed:      "1.2.3",
-				},
+			versions: report.Versions{
+				report.Introduced("1.0.0"),
+				report.Fixed("1.0.1"),
+				report.Introduced("1.2.0"),
+				report.Fixed("1.2.3"),
 			},
 			wantRange: []VersionRange{
 				{
@@ -333,14 +329,10 @@ func TestVersionRangeToVersionRange(t *testing.T) {
 		},
 		{
 			name: "no initial introduced",
-			versions: []report.VersionRange{
-				{
-					Fixed: "1.0.1",
-				},
-				{
-					Introduced: "1.2.0",
-					Fixed:      "1.2.3",
-				},
+			versions: report.Versions{
+				report.Fixed("1.0.1"),
+				report.Introduced("1.2.0"),
+				report.Fixed("1.2.3"),
 			},
 			wantRange: []VersionRange{
 				{
@@ -360,10 +352,8 @@ func TestVersionRangeToVersionRange(t *testing.T) {
 		},
 		{
 			name: "no fix",
-			versions: []report.VersionRange{
-				{
-					Introduced: "1.0.0",
-				},
+			versions: report.Versions{
+				report.Introduced("1.0.0"),
 			},
 			wantRange: []VersionRange{
 				{
@@ -377,14 +367,10 @@ func TestVersionRangeToVersionRange(t *testing.T) {
 		},
 		{
 			name: "no final fix",
-			versions: []report.VersionRange{
-				{
-					Introduced: "1.0.0",
-					Fixed:      "1.0.3",
-				},
-				{
-					Introduced: "1.1.0",
-				},
+			versions: report.Versions{
+				report.Introduced("1.0.0"),
+				report.Fixed("1.0.3"),
+				report.Introduced("1.1.0"),
 			},
 			wantRange: []VersionRange{
 				{
@@ -404,17 +390,11 @@ func TestVersionRangeToVersionRange(t *testing.T) {
 		},
 		{
 			name: "no initial introduced and no final fix",
-			versions: []report.VersionRange{
-				{
-					Fixed: "1.0.3",
-				},
-				{
-					Introduced: "1.0.5",
-					Fixed:      "1.0.7",
-				},
-				{
-					Introduced: "1.1.0",
-				},
+			versions: report.Versions{
+				report.Fixed("1.0.3"),
+				report.Introduced("1.0.5"),
+				report.Fixed("1.0.7"),
+				report.Introduced("1.1.0"),
 			},
 			wantRange: []VersionRange{
 				{
@@ -435,7 +415,7 @@ func TestVersionRangeToVersionRange(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotRange, gotStatus := versionRangeToVersionRange(tt.versions)
+			gotRange, gotStatus := versionsToVersionRanges(tt.versions)
 			if !reflect.DeepEqual(gotRange, tt.wantRange) {
 				t.Errorf("versionRangeToVersionRange() got version range = %v, want %v", gotRange, tt.wantRange)
 			}

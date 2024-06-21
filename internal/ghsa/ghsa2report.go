@@ -70,14 +70,14 @@ func ghsaToReport(sa *SecurityAdvisory, modulePath string) *report.Report {
 //
 // If the vulnRange cannot be parsed, or the earliestFixed and vulnRange are
 // incompatible, populate the relevant fields with a TODO for a human to handle.
-func versions(earliestFixed, vulnRange string) []report.VersionRange {
+func versions(earliestFixed, vulnRange string) report.Versions {
 	// Don't try to be fully general here. Handle the common cases (which, as of
 	// March 2022, are the only cases), and let a person handle the others.
 	items, err := parseVulnRange(vulnRange)
 	if err != nil {
-		return []report.VersionRange{{
-			Introduced: fmt.Sprintf("TODO (got error %q)", err),
-		}}
+		return report.Versions{
+			report.Introduced(fmt.Sprintf("TODO (got error %q)", err)),
+		}
 	}
 
 	var intro, fixed string
@@ -108,7 +108,14 @@ func versions(earliestFixed, vulnRange string) []report.VersionRange {
 		intro = ""
 	}
 
-	return []report.VersionRange{{Introduced: intro, Fixed: fixed}}
+	var result report.Versions
+	if intro != "" {
+		result = append(result, report.Introduced(intro))
+	}
+	if fixed != "" {
+		result = append(result, report.Fixed(fixed))
+	}
+	return result
 }
 
 type vulnRangeItem struct {
