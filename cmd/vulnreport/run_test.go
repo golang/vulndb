@@ -24,6 +24,7 @@ import (
 	"golang.org/x/vulndb/internal/test"
 )
 
+// go test ./cmd/vulnreport -update-test -proxy
 var (
 	testUpdate = flag.Bool("update-test", false, "(for test) whether to update test files")
 	realProxy  = flag.Bool("proxy", false, "(for test) whether to use real proxy")

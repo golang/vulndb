@@ -267,10 +267,17 @@ func (c *Client) FindModule(path string) (modPath string, err error) {
 	return "", errNoModuleFound
 }
 
-// ModuleExists returns true if path is a recognized module.
+// ModuleExists returns true if path is a recognized module
+// with at least one associated version.
 func (c *Client) ModuleExists(path string) bool {
-	_, err := c.list(path)
-	return err == nil
+	_, err := c.latest(path)
+	if err != nil {
+		// If latest doesn't work, fall back to checking
+		// if list succeeds and is non-empty.
+		b, err := c.list(path)
+		return err == nil && len(b) != 0
+	}
+	return true
 }
 
 // A simple in-memory cache that never expires.
