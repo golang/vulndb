@@ -3,9 +3,10 @@ modules:
     - module: github.com/argoproj/argo-cd
       versions:
         - introduced: 0.4.0
-        - fixed: 2.2.11
+      vulnerable_at: 1.8.6
     - module: github.com/argoproj/argo-cd/v2
       versions:
+        - fixed: 2.2.11
         - introduced: 2.3.0
         - fixed: 2.3.6
         - introduced: 2.4.0
@@ -128,11 +129,9 @@ references:
     - web: https://github.com/argoproj/argo-cd/releases/tag/v2.3.6
     - web: https://github.com/argoproj/argo-cd/releases/tag/v2.4.5
 notes:
-    - fix: 'github.com/argoproj/argo-cd: could not add vulnerable_at: version 2.2.11 does not exist'
     - lint: 'description: possible markdown formatting (found ### )'
     - lint: 'description: possible markdown formatting (found [discussions](https://github.com/argoproj/argo-cd/discussions))'
     - lint: 'description: possible markdown formatting (found `--dex-server`)'
-    - lint: 'modules[0] "github.com/argoproj/argo-cd": version 2.2.11 does not exist'
 source:
     id: GHSA-7943-82jg-wmw5
     created: 1999-01-01T00:00:00Z

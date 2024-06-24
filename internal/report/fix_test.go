@@ -5,6 +5,7 @@
 package report
 
 import (
+	"errors"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -49,7 +50,7 @@ func TestFix(t *testing.T) {
 				Versions: Versions{
 					Introduced("0.0.0-20230522180520-0cbf4ffdb4e7"),
 				},
-				VulnerableAt: VulnerableAt("0.0.0-20230522180520-0cbf4ffdb4e7"),
+				VulnerableAt: VulnerableAt("0.0.0-20240626230022-4408037c1739"),
 			},
 			{
 				Module: "std",
@@ -183,7 +184,7 @@ func TestGuessVulnerableAt(t *testing.T) {
 			m: &Module{
 				Module: "golang.org/x/tools",
 			},
-			want: "0.12.0", // latest
+			want: "0.22.0", // latest
 		},
 		{
 			name: "has fix",
@@ -213,10 +214,11 @@ func TestGuessVulnerableAt(t *testing.T) {
 // go test ./internal/report/... -proxy -run TestFixModules
 func TestFixModules(t *testing.T) {
 	for _, tc := range []struct {
-		name string
-		desc string
-		in   []*Module
-		want []*Module
+		name    string
+		desc    string
+		in      []*Module
+		want    []*Module
+		wantErr error
 	}{
 		{
 			name: "ok",
@@ -235,6 +237,18 @@ func TestFixModules(t *testing.T) {
 					Introduced("0.3.2"),
 					Fixed("1.7.6"),
 				},
+				VulnerableAt: VulnerableAt("1.7.5"),
+			}},
+		},
+		{
+			name: "ok_no_versions",
+			desc: "module is already OK but has no versions",
+			in: []*Module{{
+				Module:       "github.com/influxdata/influxdb",
+				VulnerableAt: VulnerableAt("1.7.5"),
+			}},
+			want: []*Module{{
+				Module:       "github.com/influxdata/influxdb",
 				VulnerableAt: VulnerableAt("1.7.5"),
 			}},
 		},
@@ -264,7 +278,7 @@ func TestFixModules(t *testing.T) {
 		},
 		{
 			name: "major_version",
-			desc: "correct major version of module path",
+			desc: "correct major version of module path and backfill previous modules",
 			in: []*Module{{
 				Module: "github.com/nats-io/nats-server",
 				Versions: Versions{
@@ -272,14 +286,20 @@ func TestFixModules(t *testing.T) {
 					Fixed("2.8.3"),
 				},
 			}},
-			want: []*Module{{
-				Module: "github.com/nats-io/nats-server/v2",
-				Versions: Versions{
-					Introduced("2.2.0"),
-					Fixed("2.8.3"),
+			want: []*Module{
+				{
+					// Assumed to be vulnerable because it is a previous major version.
+					Module:       "github.com/nats-io/nats-server",
+					VulnerableAt: VulnerableAt("1.4.1"),
 				},
-				VulnerableAt: VulnerableAt("2.8.2"),
-			}},
+				{
+					Module: "github.com/nats-io/nats-server/v2",
+					Versions: Versions{
+						Introduced("2.2.0"),
+						Fixed("2.8.3"),
+					},
+					VulnerableAt: VulnerableAt("2.8.2"),
+				}},
 		},
 		{
 			name: "canonicalize",
@@ -296,6 +316,7 @@ func TestFixModules(t *testing.T) {
 					Fixed("0.0.0-20230712151357-4fee11d0f8f9"),
 				},
 			}},
+			wantErr: errZeroPseudo,
 		},
 		{
 			name: "add_incompatible",
@@ -316,14 +337,27 @@ func TestFixModules(t *testing.T) {
 		},
 		{
 			name: "merge_modules",
-			desc: "merge modules that are the same except for versions",
-			in: []*Module{{
-				Module: "github.com/hashicorp/go-getter/v2",
-				Versions: Versions{
-					Introduced("2.0.0"),
-					Fixed("2.0.2"),
+			desc: "merge modules that are the same (except for versions)",
+			in: []*Module{
+				{
+					Module: "github.com/hashicorp/go-getter",
+					UnsupportedVersions: Versions{
+						{Version: "1.0.1", Type: "unknown"},
+					},
 				},
-			},
+				{
+					Module: "github.com/hashicorp/go-getter",
+					UnsupportedVersions: Versions{
+						{Version: "1.0.1", Type: "unknown"},
+					},
+				},
+				{
+					Module: "github.com/hashicorp/go-getter/v2",
+					Versions: Versions{
+						Introduced("2.0.0"),
+						Fixed("2.0.2"),
+					},
+				},
 				{
 					Module: "github.com/hashicorp/go-getter/v2",
 					Versions: Versions{
@@ -332,16 +366,217 @@ func TestFixModules(t *testing.T) {
 					},
 				},
 			},
-			want: []*Module{{
+			want: []*Module{
+				{
+					Module: "github.com/hashicorp/go-getter",
+					UnsupportedVersions: Versions{
+						{Version: "1.0.1", Type: "unknown"},
+					},
+					VulnerableAt: VulnerableAt("1.7.5"),
+				},
+				{
+					Module: "github.com/hashicorp/go-getter/v2",
+					Versions: Versions{
+						Introduced("2.0.0"),
+						Fixed("2.0.2"),
+						Introduced("2.1.0"),
+						Fixed("2.1.1"),
+					},
+					VulnerableAt: VulnerableAt("2.1.0"),
+				}},
+		},
+		{
+			name: "split_major",
+			desc: "split versions list by major version",
+			in: []*Module{{
 				Module: "github.com/hashicorp/go-getter/v2",
 				Versions: Versions{
-					Introduced("2.0.0"),
+					Introduced("1.0.1"),
 					Fixed("2.0.2"),
-					Introduced("2.1.0"),
-					Fixed("2.1.1"),
 				},
-				VulnerableAt: VulnerableAt("2.1.0"),
 			}},
+			want: []*Module{
+				{
+					Module: "github.com/hashicorp/go-getter",
+					Versions: Versions{
+						Introduced("1.0.1"),
+					},
+					VulnerableAt: VulnerableAt("1.7.5"),
+				},
+				{
+					Module: "github.com/hashicorp/go-getter/v2",
+					Versions: Versions{
+						Fixed("2.0.2"),
+					},
+					VulnerableAt: VulnerableAt("2.0.1"),
+				},
+			},
+		},
+		{
+			name: "bad_versions",
+			desc: "bad versions are placed in the correct major version slot",
+			in: []*Module{{
+				Module: "github.com/hashicorp/go-getter/v2",
+				Versions: Versions{
+					Introduced("1.6.3"),   // version doesn't exist but major does
+					Introduced("2.0.300"), // version doesn't exist but major does
+					Fixed("2.0.2"),
+					Introduced("15.0.3"), // major version doesn't exist
+				},
+				UnsupportedVersions: Versions{
+					&Version{Type: "unknown", Version: "1.0.3"},
+					&Version{Type: "unknown", Version: "2.0.1"},
+					&Version{Type: "unknown", Version: "15.0.3"},
+				},
+			}},
+			want: []*Module{
+				{
+					Module: "github.com/hashicorp/go-getter",
+					NonGoVersions: Versions{
+						Introduced("1.6.3"),
+						Introduced("15.0.3"), // placed in v1 section because major version doesn't exist
+					},
+					UnsupportedVersions: Versions{
+						&Version{Type: "unknown", Version: "1.0.3"},
+						&Version{Type: "unknown", Version: "15.0.3"}, // placed in v1 section because major version doesn't exist
+					},
+					VulnerableAt: VulnerableAt("1.7.5"),
+				},
+				{
+					Module: "github.com/hashicorp/go-getter/v2",
+					Versions: Versions{
+						Fixed("2.0.2"),
+					},
+					NonGoVersions: Versions{
+						Introduced("2.0.300"), // version doesn't exist but major version does
+					},
+					UnsupportedVersions: Versions{
+						&Version{Type: "unknown", Version: "2.0.1"},
+					},
+					VulnerableAt: VulnerableAt("2.0.1"),
+				},
+			},
+		},
+		{
+			name: "mattermost",
+			desc: "special case: replace mattermost/server with mattermost-server for v1",
+			in: []*Module{{
+				Module: "github.com/mattermost/mattermost/server",
+			}},
+			want: []*Module{
+				{
+					Module:       "github.com/mattermost/mattermost-server",
+					VulnerableAt: VulnerableAt("9.9.1+incompatible"),
+				},
+			},
+		},
+		{
+			name: "preserve_major",
+			desc: "preserve original major version even if it has no associated versions",
+			in: []*Module{{
+				Module: "github.com/mattermost/mattermost/server/v8",
+				Versions: Versions{
+					Introduced("1.1.0"), // not associated with v8
+				},
+			}},
+			want: []*Module{
+				{
+					Module: "github.com/mattermost/mattermost-server",
+					Versions: Versions{
+						Introduced("1.1.0"),
+					},
+					VulnerableAt: VulnerableAt("9.9.1+incompatible"),
+				},
+				{
+					// Assumed vulnerable.
+					Module:       "github.com/mattermost/mattermost-server/v5",
+					VulnerableAt: VulnerableAt("5.39.3"),
+				},
+				{
+					// Assumed vulnerable.
+					Module:       "github.com/mattermost/mattermost-server/v6",
+					VulnerableAt: VulnerableAt("6.7.2"),
+				},
+				{
+					// Preserved because it was mentioned in original report.
+					Module:       "github.com/mattermost/mattermost/server/v8",
+					VulnerableAt: VulnerableAt("8.0.0-20240627132757-e85d34163c94"),
+				},
+			},
+		},
+		{
+			name: "sort_major",
+			desc: "modules are sorted by module, then major version",
+			in: []*Module{{
+				Module: "github.com/hashicorp/go-getter/v2",
+			},
+				{
+					Module: "github.com/hashicorp/go-getter",
+				},
+				{
+					Module: "github.com/evmos/evmos/v11",
+				},
+				{
+					Module: "github.com/evmos/evmos/v9",
+				},
+				{
+					Module: "github.com/evmos/evmos/v10",
+				},
+			},
+			want: []*Module{
+				{
+					Module:       "github.com/evmos/evmos",
+					VulnerableAt: VulnerableAt("1.1.3"),
+				},
+				{
+					Module:       "github.com/evmos/evmos/v2",
+					VulnerableAt: VulnerableAt("2.0.2"),
+				},
+				{
+					Module:       "github.com/evmos/evmos/v3",
+					VulnerableAt: VulnerableAt("3.0.3"),
+				},
+				{
+					Module:       "github.com/evmos/evmos/v4",
+					VulnerableAt: VulnerableAt("4.0.2"),
+				},
+				{
+					Module:       "github.com/evmos/evmos/v5",
+					VulnerableAt: VulnerableAt("5.0.1"),
+				},
+				{
+					Module:       "github.com/evmos/evmos/v6",
+					VulnerableAt: VulnerableAt("6.0.4"),
+				},
+				{
+					Module:       "github.com/evmos/evmos/v7",
+					VulnerableAt: VulnerableAt("7.0.0"),
+				},
+				{
+					Module:       "github.com/evmos/evmos/v8",
+					VulnerableAt: VulnerableAt("8.2.3"),
+				},
+				{
+					Module:       "github.com/evmos/evmos/v9",
+					VulnerableAt: VulnerableAt("9.1.0"),
+				},
+				{
+					Module:       "github.com/evmos/evmos/v10",
+					VulnerableAt: VulnerableAt("10.0.1"),
+				},
+				{
+					Module:       "github.com/evmos/evmos/v11",
+					VulnerableAt: VulnerableAt("11.0.2"),
+				},
+				{
+					Module:       "github.com/hashicorp/go-getter",
+					VulnerableAt: VulnerableAt("1.7.5"),
+				},
+				{
+					Module:       "github.com/hashicorp/go-getter/v2",
+					VulnerableAt: VulnerableAt("2.2.2"),
+				},
+			},
 		},
 	} {
 		tc := tc
@@ -353,7 +588,9 @@ func TestFixModules(t *testing.T) {
 			}
 
 			r := &Report{Modules: tc.in}
-			r.FixModules(pc)
+			if err := r.FixModules(pc); !errors.Is(err, tc.wantErr) {
+				t.Fatal(err)
+			}
 			got := r.Modules
 
 			if diff := cmp.Diff(tc.want, got); diff != "" {

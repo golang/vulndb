@@ -3,9 +3,10 @@ modules:
     - module: github.com/argoproj/argo-cd
       versions:
         - introduced: 0.11.0
-        - fixed: 2.9.17
+      vulnerable_at: 1.8.6
     - module: github.com/argoproj/argo-cd/v2
       versions:
+        - fixed: 2.9.17
         - introduced: 2.10.0
         - fixed: 2.10.12
         - introduced: 2.11.0
@@ -63,11 +64,9 @@ references:
     - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-36106
     - fix: https://github.com/argoproj/argo-cd/commit/c2647055c261a550e5da075793260f6524e65ad9
 notes:
-    - fix: 'github.com/argoproj/argo-cd: could not add vulnerable_at: version 2.9.17 does not exist'
     - lint: 'description: possible markdown formatting (found ### )'
     - lint: 'description: possible markdown formatting (found [discussions](https://github.com/argoproj/argo-cd/discussions))'
     - lint: 'description: possible markdown formatting (found ```)'
-    - lint: 'modules[0] "github.com/argoproj/argo-cd": version 2.9.17 does not exist'
 source:
     id: GHSA-3cqf-953p-h5cp
     created: 1999-01-01T00:00:00Z

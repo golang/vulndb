@@ -3,6 +3,7 @@ modules:
     - module: github.com/sylabs/singularity
       versions:
         - introduced: 3.0.0+incompatible
+      non_go_versions:
         - fixed: 3.6.0
 summary: Execution Control List (ECL) Is Insecure in Singularity in github.com/sylabs/singularity
 description: |-
@@ -68,11 +69,10 @@ references:
     - web: http://lists.opensuse.org/opensuse-security-announce/2020-09/msg00053.html
     - web: https://medium.com/sylabs
 notes:
-    - fix: 'github.com/sylabs/singularity: could not add vulnerable_at: version 3.6.0 does not exist'
+    - fix: 'github.com/sylabs/singularity: could not add vulnerable_at: latest version (0.0.0-20230731083700-61a3083f0c3c) is before last introduced version'
     - lint: 'description: possible markdown formatting (found ### )'
     - lint: 'description: possible markdown formatting (found [Singularity Slack Channel](https://bit.ly/2m0g3lX))'
     - lint: 'description: possible markdown formatting (found `legacyinsecure`)'
-    - lint: 'modules[0] "github.com/sylabs/singularity": version 3.6.0 does not exist'
 source:
     id: GHSA-pmfr-63c2-jr5c
     created: 1999-01-01T00:00:00Z

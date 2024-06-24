@@ -1,9 +1,11 @@
 id: GO-ID-PENDING
 modules:
     - module: github.com/drakkan/sftpgo
-      non_go_versions:
-        - fixed: 2.3.5
       vulnerable_at: 1.2.2
+    - module: github.com/drakkan/sftpgo/v2
+      versions:
+        - fixed: 2.3.5
+      vulnerable_at: 2.3.4
 summary: SFTPGo WebClient vulnerable to Cross-site Scripting in github.com/drakkan/sftpgo
 description: |-
     ### Impact Cross-site scripting (XSS) vulnerabilities have been reported to

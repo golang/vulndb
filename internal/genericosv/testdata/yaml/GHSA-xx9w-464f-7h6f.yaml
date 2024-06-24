@@ -2,12 +2,14 @@ id: GO-ID-PENDING
 modules:
     - module: github.com/goharbor/harbor
       versions:
-        - introduced: 1.0.0
         - fixed: 1.10.13
         - introduced: 2.0.0+incompatible
         - fixed: 2.4.3+incompatible
         - introduced: 2.5.0+incompatible
         - fixed: 2.5.2+incompatible
+      non_go_versions:
+        - introduced: 1.0.0
+      vulnerable_at: 2.5.2-rc1+incompatible
 summary: Harbor fails to validate the user permissions when updating a robot account in github.com/goharbor/harbor
 description: |-
     ### Impact Harbor fails to validate the user permissions when updating a robot
@@ -42,9 +44,7 @@ ghsas:
 references:
     - advisory: https://github.com/goharbor/harbor/security/advisories/GHSA-xx9w-464f-7h6f
 notes:
-    - fix: 'github.com/goharbor/harbor: could not add vulnerable_at: version 1.0.0 does not exist'
     - lint: 'description: possible markdown formatting (found ### )'
-    - lint: 'modules[0] "github.com/goharbor/harbor": version 1.0.0 does not exist'
 source:
     id: GHSA-xx9w-464f-7h6f
     created: 1999-01-01T00:00:00Z

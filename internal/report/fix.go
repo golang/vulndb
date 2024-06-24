@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"regexp"
 	"sort"
+	"strconv"
 	"strings"
 
 	"golang.org/x/exp/maps"
@@ -18,13 +19,14 @@ import (
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/osvutils"
 	"golang.org/x/vulndb/internal/proxy"
+	"golang.org/x/vulndb/internal/stdlib"
 	"golang.org/x/vulndb/internal/version"
 )
 
 func (r *Report) Fix(pc *proxy.Client) {
 	r.deleteNotes(NoteTypeFix)
 	expandGitCommits(r)
-	r.FixModules(pc)
+	_ = r.FixModules(pc)
 	r.FixText()
 	r.FixReferences()
 }
@@ -76,7 +78,7 @@ func (v *Version) commitHashToVersion(modulePath string, pc *proxy.Client) {
 }
 
 // FixVersions replaces each version with its canonical form (if possible),
-// sorts version ranges, and collects version ranges into a compact form.
+// sorts version ranges, and moves versions to their proper spot.
 func (m *Module) FixVersions(pc *proxy.Client) {
 	for _, v := range m.Versions {
 		v.commitHashToVersion(m.Module, pc)
@@ -84,15 +86,14 @@ func (m *Module) FixVersions(pc *proxy.Client) {
 	m.VulnerableAt.commitHashToVersion(m.Module, pc)
 
 	m.Versions.fix()
+	m.UnsupportedVersions.fix()
 	m.VulnerableAt.fix()
 
 	if pc != nil && !m.IsFirstParty() {
-		// If none of the versions in the "versions" list exist,
-		// move them to the "non_go_versions" section.
-		notFound, _ := m.classifyVersions(pc)
-		if len(notFound) == len(m.Versions) {
-			m.NonGoVersions = append(m.NonGoVersions, m.Versions...)
-			m.Versions = nil
+		found, notFound, _ := m.classifyVersions(pc)
+		if len(notFound) != 0 {
+			m.Versions = found
+			m.NonGoVersions = append(m.NonGoVersions, notFound...)
 		}
 	}
 }
@@ -141,6 +142,28 @@ func (m *Module) fixVulnerableAt(pc *proxy.Client) error {
 	return nil
 }
 
+var errZeroPseudo = errors.New("cannot auto-guess when fixed version is 0.0.0 pseudo-version")
+
+// Find the latest fixed and introduced version, assuming the version
+// ranges are sorted and valid.
+func (vs Versions) latestVersions() (introduced, fixed *Version) {
+	if len(vs) == 0 {
+		return
+	}
+	last := vs[len(vs)-1]
+	if last.IsIntroduced() {
+		introduced = last
+		return
+	}
+	fixed = last
+	if len(vs) > 1 {
+		if penultimate := vs[len(vs)-2]; penultimate.IsIntroduced() {
+			introduced = penultimate
+		}
+	}
+	return
+}
+
 // guessVulnerableAt attempts to find a vulnerable_at
 // version using the module proxy, assuming that the version ranges
 // have already been validated.
@@ -150,32 +173,17 @@ func (m *Module) guessVulnerableAt(pc *proxy.Client) (v string, err error) {
 		return "", errors.New("cannot auto-guess vulnerable_at for first-party modules")
 	}
 
-	// Find the last fixed and introduced version, assuming the version ranges are sorted.
-	var introduced, fixed *Version
-	if len(m.Versions) > 0 {
-		last := m.Versions[len(m.Versions)-1]
-		if last.IsFixed() {
-			fixed = last
-		} else {
-			introduced = last
-		}
-		if len(m.Versions) > 1 {
-			penultimate := m.Versions[len(m.Versions)-2]
-			if penultimate.IsFixed() {
-				fixed = penultimate
-			} else if penultimate.IsIntroduced() {
-				introduced = penultimate
-			}
-		}
-	}
+	introduced, fixed := m.Versions.latestVersions()
 
-	// If there is no fix, find the latest version of the module.
+	// If there is no latest fix, find the latest version of the module.
 	if fixed == nil {
 		latest, err := pc.Latest(m.Module)
 		if err != nil || latest == "" {
 			return "", fmt.Errorf("no fix, but could not find latest version from proxy: %s", err)
 		}
-
+		if introduced != nil && version.Before(latest, introduced.Version) {
+			return "", fmt.Errorf("latest version (%s) is before last introduced version", latest)
+		}
 		return latest, nil
 	}
 
@@ -185,7 +193,7 @@ func (m *Module) guessVulnerableAt(pc *proxy.Client) (v string, err error) {
 		return "", errors.New("cannot auto-guess when fixed version is invalid")
 	}
 	if strings.HasPrefix(fixed.Version, "0.0.0-") {
-		return "", errors.New("cannot auto-guess when fixed version is 0.0.0 pseudo-version")
+		return "", errZeroPseudo
 	}
 
 	// Otherwise, find the version right before the fixed version.
@@ -273,20 +281,27 @@ func fixURL(u string) string {
 	return u
 }
 
-func (r *Report) FixModules(pc *proxy.Client) {
+func (r *Report) FixModules(pc *proxy.Client) (errs error) {
+	var fixed []*Module
 	for _, m := range r.Modules {
+		m.Module = transform(m.Module)
 		extractImportPath(m, pc)
-		if ok := fixMajorVersion(m, pc); !ok {
-			addIncompatible(m, pc)
-		}
-		canonicalize(m, pc)
+		fixed = append(fixed, m.splitByMajor(pc)...)
 	}
+	r.Modules = fixed
 
-	merged, err := merge(r.Modules)
+	merged, err := merge(fixed)
 	if err != nil {
 		r.AddNote(NoteTypeFix, "module merge error: %s", err)
+		errs = errors.Join(errs, err)
 	} else {
 		r.Modules = merged
+	}
+
+	// For unreviewed reports, assume that all major versions
+	// up to the highest mentioned are affected at all versions.
+	if !r.IsReviewed() {
+		r.addMissingMajors(pc)
 	}
 
 	// Fix the versions *after* the modules have been merged.
@@ -294,10 +309,12 @@ func (r *Report) FixModules(pc *proxy.Client) {
 		m.FixVersions(pc)
 		if err := m.fixVulnerableAt(pc); err != nil {
 			r.AddNote(NoteTypeFix, "%s: could not add vulnerable_at: %v", m.Module, err)
+			errs = errors.Join(errs, err)
 		}
 	}
 
 	sortModules(r.Modules)
+	return errs
 }
 
 // extractImportPath checks if the module m's "module" path is actually
@@ -317,51 +334,212 @@ func extractImportPath(m *Module, pc *proxy.Client) {
 	m.Packages = append(m.Packages, &Package{Package: path})
 }
 
-// fixMajorVersion corrects the major version prefix of the module
-// path if possible.
-// Returns true if the major version was already correct or could be
-// fixed.
-// For now, it gives up if it encounters various problems and
-// special cases (see comments inline).
-func fixMajorVersion(m *Module, pc *proxy.Client) (ok bool) {
-	if strings.HasPrefix(m.Module, "gopkg.in/") {
-		return false // don't attempt to fix gopkg.in modules
+func (m *Module) hasVersions() bool {
+	return len(m.Versions) != 0 || len(m.NonGoVersions) != 0 || len(m.UnsupportedVersions) != 0
+}
+
+type majorInfo struct {
+	base string
+	high int
+	all  map[int]bool
+}
+
+func majorToInt(maj string) (int, bool) {
+	if maj == "" {
+		return 0, true
 	}
-	// If there is no "introduced" version, don't attempt to fix
-	// major version.
-	// Example: example.com/module is fixed at 2.2.2. This likely means
-	// that example.com/module is vulnerable at all versions and
-	// example.com/module/v2 is vulnerable up to 2.2.2.
-	// Changing example.com/module to example.com/module/v2 would lose
-	// information.
-	hasIntroduced := func(m *Module) bool {
-		for _, vr := range m.Versions {
-			if vr.IsIntroduced() {
-				return true
+	i, err := strconv.Atoi(strings.TrimPrefix(maj, "/v"))
+	if err != nil {
+		return 0, false
+	}
+	return i, true
+}
+
+func intToMajor(i int) string {
+	if i == 0 {
+		return v0v1
+	}
+	return fmt.Sprintf("v%d", i)
+}
+
+func (r *Report) addMissingMajors(pc *proxy.Client) {
+	// Map from module v1 path to set of all listed major versions.
+	majorMap := make(map[string]*majorInfo)
+	for _, m := range r.Modules {
+		base, pathMajor, ok := module.SplitPathVersion(m.Module)
+		if !ok { // couldn't parse module path, skip
+			continue
+		}
+		i, ok := majorToInt(pathMajor)
+		if !ok { // invalid major version, skip
+			continue
+		}
+		v1Mod := modulePath(base, v0v1)
+		if majorMap[v1Mod] == nil {
+			majorMap[v1Mod] = &majorInfo{
+				base: base,
+				all:  make(map[int]bool),
 			}
 		}
-		return false
+		if i > majorMap[v1Mod].high {
+			majorMap[v1Mod].high = i
+		}
+		majorMap[v1Mod].all[i] = true
 	}
-	if !hasIntroduced(m) {
-		return false
+
+	for _, mi := range majorMap {
+		for i := 0; i < mi.high; i++ {
+			if mi.all[i] {
+				continue
+			}
+			mod := modulePath(mi.base, intToMajor(i))
+			if !pc.ModuleExists(mod) {
+				continue
+			}
+			r.Modules = append(r.Modules, &Module{
+				Module: mod,
+			})
+		}
 	}
-	wantMajor, ok := commonMajor(m.Versions)
-	if !ok { // inconsistent major version, don't attempt to fix
-		return false
+}
+
+func (m *Module) splitByMajor(pc *proxy.Client) (modules []*Module) {
+	if stdlib.IsCmdModule(m.Module) || stdlib.IsStdModule(m.Module) || // no major versions for stdlib
+		!m.hasVersions() || // no versions -> no need to split
+		strings.HasPrefix(m.Module, "gopkg.in/") { // for now, don't attempt to split gopkg.in modules
+		return []*Module{m}
 	}
-	prefix, major, ok := module.SplitPathVersion(m.Module)
+
+	base, _, ok := module.SplitPathVersion(m.Module)
 	if !ok { // couldn't parse module path, don't attempt to fix
-		return false
+		return []*Module{m}
 	}
-	if major == wantMajor {
-		return true // nothing to do
+	v1Mod := modulePath(base, v0v1)
+	rawMajorMap := m.byMajor()
+	validated := make(map[string]*allVersions)
+
+	for maj, av := range rawMajorMap {
+		mod := modulePath(base, maj)
+		// If the module at the major version doesn't exist, add the
+		// version to the v1 module.
+		if mod == v1Mod || !pc.ModuleExists(mod) {
+			if validated[v1Mod] == nil {
+				validated[v1Mod] = new(allVersions)
+			}
+			validated[v1Mod].add(av)
+			continue
+		}
+		validated[mod] = av
 	}
-	fixed := prefix + wantMajor
-	if !pc.ModuleExists(fixed) {
-		return false // attempted fixed module doesn't exist, give up
+
+	// Ensure that the original module mentioned is preserved,
+	// if it exists, even if there are now no versions associated
+	// with it.
+	original := m.Module
+	if _, ok := validated[original]; !ok {
+		if pc.ModuleExists(original) {
+			validated[original] = &allVersions{}
+		}
 	}
-	m.Module = fixed
-	return true
+
+	for mod, av := range validated {
+		mc := m.copy()
+		mc.Module = mod
+		mc.Versions = av.standard
+		mc.UnsupportedVersions = av.unsupported
+		mc.NonGoVersions = av.nonGo
+		mc.VulnerableAt = nil // needs to be re-generated
+		if mod == v1Mod {
+			addIncompatible(mc, pc)
+		}
+		canonicalize(mc, pc)
+		modules = append(modules, mc)
+	}
+
+	return modules
+}
+
+var transforms = map[string]string{
+	"github.com/mattermost/mattermost/server":    "github.com/mattermost/mattermost-server",
+	"github.com/mattermost/mattermost/server/v5": "github.com/mattermost/mattermost-server/v5",
+	"github.com/mattermost/mattermost/server/v6": "github.com/mattermost/mattermost-server/v6",
+}
+
+func transform(m string) string {
+	if t, ok := transforms[m]; ok {
+		return t
+	}
+	return m
+}
+
+func modulePath(prefix, pathMajor string) string {
+	raw := func(prefix, pathMajor string) string {
+		if pathMajor == v0v1 {
+			return prefix
+		}
+		return prefix + "/" + pathMajor
+	}
+	return transform(raw(prefix, pathMajor))
+}
+
+func (m *Module) copy() *Module {
+	return &Module{
+		Module:               m.Module,
+		Versions:             m.Versions.copy(),
+		NonGoVersions:        m.NonGoVersions.copy(),
+		UnsupportedVersions:  m.UnsupportedVersions.copy(),
+		VulnerableAt:         m.VulnerableAt.copy(),
+		VulnerableAtRequires: slices.Clone(m.VulnerableAtRequires),
+		Packages:             copyPackages(m.Packages),
+		FixLinks:             slices.Clone(m.FixLinks),
+	}
+}
+
+func (vs Versions) copy() Versions {
+	if vs == nil {
+		return nil
+	}
+	vsc := make(Versions, len(vs))
+	for i, v := range vs {
+		vsc[i] = v.copy()
+	}
+	return vsc
+}
+
+func (v *Version) copy() *Version {
+	if v == nil {
+		return nil
+	}
+	return &Version{
+		Type:    v.Type,
+		Version: v.Version,
+	}
+}
+
+func copyPackages(ps []*Package) []*Package {
+	if ps == nil {
+		return nil
+	}
+	psc := make([]*Package, len(ps))
+	for i, p := range ps {
+		psc[i] = p.copy()
+	}
+	return psc
+}
+
+func (p *Package) copy() *Package {
+	if p == nil {
+		return nil
+	}
+	return &Package{
+		Package:         p.Package,
+		GOOS:            slices.Clone(p.GOOS),
+		GOARCH:          slices.Clone(p.GOARCH),
+		Symbols:         slices.Clone(p.Symbols),
+		DerivedSymbols:  slices.Clone(p.DerivedSymbols),
+		ExcludedSymbols: slices.Clone(p.ExcludedSymbols),
+		SkipFix:         p.SkipFix,
+	}
 }
 
 const (
@@ -378,25 +556,41 @@ func major(v string) string {
 	return m
 }
 
-// commonMajor returns the major version path suffix (e.g. "/v2") common
-// to all versions in the version range, or ("", false) if not all versions
-// have the same major version.
-// Returns ("", true) if the major version is 0 or 1.
-func commonMajor(vs Versions) (_ string, ok bool) {
-	if len(vs) == 0 {
-		return "", true
+type allVersions struct {
+	standard, unsupported, nonGo Versions
+}
+
+func (a *allVersions) add(b *allVersions) {
+	if b == nil {
+		return
 	}
-	maj := major(vs[0].Version)
-	for _, v := range vs {
-		current := major(v.Version)
-		if current != maj {
-			return "", false
+	a.standard = append(a.standard, b.standard...)
+	a.unsupported = append(a.unsupported, b.unsupported...)
+	a.nonGo = append(a.nonGo, b.nonGo...)
+}
+
+func (m *Module) byMajor() map[string]*allVersions {
+	mp := make(map[string]*allVersions)
+	getMajor := func(v *Version) string {
+		maj := major(v.Version)
+		if mp[maj] == nil {
+			mp[maj] = new(allVersions)
 		}
+		return maj
 	}
-	if maj == v0v1 {
-		return "", true
+	for _, v := range m.Versions {
+		maj := getMajor(v)
+		mp[maj].standard = append(mp[maj].standard, v)
 	}
-	return "/" + maj, true
+	for _, v := range m.UnsupportedVersions {
+		maj := getMajor(v)
+		mp[maj].unsupported = append(mp[maj].unsupported, v)
+	}
+	for _, v := range m.NonGoVersions {
+		maj := getMajor(v)
+		mp[maj].nonGo = append(mp[maj].nonGo, v)
+	}
+	return mp
 }
 
 // canonicalize attempts to canonicalize the module path,
@@ -507,7 +701,23 @@ func sortModules(ms []*Module) {
 			return version.Before(v1.Version, v2.Version)
 		}
 
-		return m1.Module < m2.Module
+		// Sort by module base name then major version.
+		base1, major1, ok1 := module.SplitPathVersion(m1.Module)
+		base2, major2, ok2 := module.SplitPathVersion(m2.Module)
+		if !ok1 || !ok2 {
+			return m1.Module < m2.Module
+		}
+
+		if base1 == base2 {
+			i1, ok1 := majorToInt(major1)
+			i2, ok2 := majorToInt(major2)
+			if ok1 && ok2 {
+				return i1 < i2
+			}
+			return major1 < major2
+		}
+
+		return base1 < base2
 	})
 }
 
@@ -533,15 +743,15 @@ func merge(ms []*Module) ([]*Module, error) {
 	// only run if m1 and m2 are same except versions
 	// deletes vulnerable_at if set
 	merge := func(m1, m2 *Module) (*Module, error) {
-		merged, err := m1.Versions.merge(m2.Versions)
+		merged, err := m1.Versions.mergeStrict(m2.Versions)
 		if err != nil {
 			return nil, fmt.Errorf("could not merge versions of module %s: %w", m1.Module, err)
 		}
 		return &Module{
 			Module:              m1.Module,
 			Versions:            merged,
-			UnsupportedVersions: append(m1.UnsupportedVersions, m2.UnsupportedVersions...),
-			NonGoVersions:       append(m1.NonGoVersions, m2.NonGoVersions...),
+			UnsupportedVersions: m1.UnsupportedVersions.merge(m2.UnsupportedVersions),
+			NonGoVersions:       m1.NonGoVersions.merge(m2.NonGoVersions),
 			Packages:            m1.Packages,
 		}, nil
 	}
@@ -567,9 +777,14 @@ func merge(ms []*Module) ([]*Module, error) {
 	return maps.Values(modules), nil
 }
 
-func (v Versions) merge(v2 Versions) (merged Versions, _ error) {
-	merged = append(slices.Clone(v), v2...)
+func (v Versions) merge(v2 Versions) Versions {
+	merged := append(slices.Clone(v), v2...)
 	merged.fix()
+	return merged
+}
+
+func (v Versions) mergeStrict(v2 Versions) (merged Versions, _ error) {
+	merged = v.merge(v2)
 	ranges, err := AffectedRanges(merged)
 	if err != nil {
 		return nil, err

@@ -1,10 +1,32 @@
 id: GO-ID-PENDING
 modules:
+    - module: github.com/evmos/evmos
+      vulnerable_at: 1.1.3
+    - module: github.com/evmos/evmos/v2
+      vulnerable_at: 2.0.2
+    - module: github.com/evmos/evmos/v3
+      vulnerable_at: 3.0.3
+    - module: github.com/evmos/evmos/v4
+      vulnerable_at: 4.0.2
+    - module: github.com/evmos/evmos/v5
+      vulnerable_at: 5.0.1
+    - module: github.com/evmos/evmos/v6
+      vulnerable_at: 6.0.4
+    - module: github.com/evmos/evmos/v7
+      vulnerable_at: 7.0.0
+    - module: github.com/evmos/evmos/v8
+      vulnerable_at: 8.2.3
+    - module: github.com/evmos/evmos/v9
+      vulnerable_at: 9.1.0
+    - module: github.com/evmos/evmos/v10
+      vulnerable_at: 10.0.1
     - module: github.com/evmos/evmos/v11
-      non_go_versions:
-        - fixed: 12.0.0
       vulnerable_at: 11.0.2
-summary: Evmos vulnerable to DOS and transaction fee expropriation through Authz exploit in github.com/evmos/evmos/v11
+    - module: github.com/evmos/evmos/v12
+      versions:
+        - fixed: 12.0.0
+      vulnerable_at: 12.0.0-rc4
+summary: Evmos vulnerable to DOS and transaction fee expropriation through Authz exploit in github.com/evmos/evmos
 description: |-
     ## Impact _What kind of vulnerability is it? Who is impacted?_
 

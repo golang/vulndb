@@ -28,7 +28,7 @@ func (m *Module) checkModVersions(pc *proxy.Client) error {
 		return fmt.Errorf("module %s not known to proxy", m.Module)
 	}
 
-	notFound, nonCanonical := m.classifyVersions(pc)
+	_, notFound, nonCanonical := m.classifyVersions(pc)
 
 	var sb strings.Builder
 	nf, nc := len(notFound), len(nonCanonical)
@@ -36,7 +36,7 @@ func (m *Module) checkModVersions(pc *proxy.Client) error {
 		if nf == 1 {
 			sb.WriteString(fmt.Sprintf("version %s does not exist", notFound[0]))
 		} else {
-			sb.WriteString(fmt.Sprintf("%d versions do not exist: %s", nf, strings.Join(notFound, ", ")))
+			sb.WriteString(fmt.Sprintf("%d versions do not exist: %s", nf, notFound))
 		}
 	}
 	if nc > 0 {
@@ -51,19 +51,28 @@ func (m *Module) checkModVersions(pc *proxy.Client) error {
 	return nil
 }
 
-func (m *Module) classifyVersions(pc *proxy.Client) (notFound, nonCanonical []string) {
+func (vs Versions) String() string {
+	var s []string
+	for _, v := range vs {
+		s = append(s, v.Version)
+	}
+	return strings.Join(s, ", ")
+}
+
+func (m *Module) classifyVersions(pc *proxy.Client) (found, notFound Versions, nonCanonical []string) {
 	for _, vr := range m.Versions {
 		v := vr.Version
 		c, err := pc.CanonicalModulePath(m.Module, v)
 		if err != nil {
-			notFound = append(notFound, v)
+			notFound = append(notFound, vr)
 			continue
 		}
+		found = append(found, vr)
 		if c != m.Module {
 			nonCanonical = append(nonCanonical, fmt.Sprintf("%s (canonical:%s)", v, c))
 		}
 	}
-	return notFound, nonCanonical
+	return found, notFound, nonCanonical
 }
 
 var missing = "missing"
