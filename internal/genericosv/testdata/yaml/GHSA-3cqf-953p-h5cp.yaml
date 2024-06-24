@@ -1,0 +1,74 @@
+id: GO-ID-PENDING
+modules:
+    - module: github.com/argoproj/argo-cd
+      versions:
+        - introduced: 0.11.0
+        - fixed: 2.9.17
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - introduced: 2.10.0
+        - fixed: 2.10.12
+        - introduced: 2.11.0
+        - fixed: 2.11.3
+      vulnerable_at: 2.11.2
+summary: Argo-cd authenticated users can enumerate clusters by name in github.com/argoproj/argo-cd
+description: |-
+    ### Impact It’s possible for authenticated users to enumerate clusters by name
+    by inspecting error messages:
+
+    ``` $ curl -k 'https://localhost:8080/api/v1/clusters/in-cluster?id.type=name'
+    -H "Authorization: Bearer $token" {"error":"permission denied: clusters, get, ,
+    sub: alice, iat: 2022-11-04T20:25:44Z","code":7,"message":"permission denied:
+    clusters, get, , sub: alice, iat: 2022-11-04T20:25:44Z"}⏎
+
+    $ curl -k 'https://localhost:8080/api/v1/clusters/does-not-exist?id.type=name'
+    -H "Authorizati on: Bearer $token" {"error":"permission
+    denied","code":7,"message":"permission denied"} ```
+
+    It’s also possible to enumerate the names of projects with project-scoped
+    clusters if you know the names of the clusters. ``` curl -k
+    'https://localhost:8080/api/v1/clusters/in-cluster-project?id.type=name' -H
+    "Authorization: Bearer $token" {"error":"permission denied: clusters, get,
+    default/, sub: alice, iat: 2022-11-04T20:25:44Z","code":7,"message":"permission
+    denied: clusters, get, default/, sub: alice, iat: 2022-11-04T20:25:44Z"}
+
+    curl -k 'https://localhost:8080/api/v1/clusters/does-not-exist?id.type=name' -H
+    "Authorization: Bearer $token" {"error":"permission
+    denied","code":7,"message":"permission denied"} ```
+
+    ### Patches A patch for this vulnerability has been released in the following
+    Argo CD versions:
+
+    v2.11.3 v2.10.12 v2.9.17
+
+    ### For more information If you have any questions or comments about this
+    advisory:
+
+    Open an issue in [the Argo CD issue
+    tracker](https://github.com/argoproj/argo-cd/issues) or
+    [discussions](https://github.com/argoproj/argo-cd/discussions) Join us on
+    [Slack](https://argoproj.github.io/community/join-slack) in channel #argo-cd
+
+    Credits This vulnerability was found & reported by @crenshaw-dev (Michael
+    Crenshaw)
+
+    The Argo team would like to thank these contributors for their responsible
+    disclosure and constructive communications during the resolve of this issue
+cves:
+    - CVE-2024-36106
+ghsas:
+    - GHSA-3cqf-953p-h5cp
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-3cqf-953p-h5cp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-36106
+    - fix: https://github.com/argoproj/argo-cd/commit/c2647055c261a550e5da075793260f6524e65ad9
+notes:
+    - fix: 'github.com/argoproj/argo-cd: could not add vulnerable_at: version 2.9.17 does not exist'
+    - lint: 'description: possible markdown formatting (found ### )'
+    - lint: 'description: possible markdown formatting (found [discussions](https://github.com/argoproj/argo-cd/discussions))'
+    - lint: 'description: possible markdown formatting (found ```)'
+    - lint: 'modules[0] "github.com/argoproj/argo-cd": version 2.9.17 does not exist'
+source:
+    id: GHSA-3cqf-953p-h5cp
+    created: 1999-01-01T00:00:00Z
+review_status: UNREVIEWED
