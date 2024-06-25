@@ -1,0 +1,38 @@
+id: GO-2024-2947
+modules:
+    - module: github.com/hashicorp/go-retryablehttp
+      versions:
+        - fixed: 0.7.7
+      vulnerable_at: 0.7.6
+      packages:
+        - package: github.com/hashicorp/go-retryablehttp
+          symbols:
+            - Client.Do
+          derived_symbols:
+            - Client.Get
+            - Client.Head
+            - Client.Post
+            - Client.PostForm
+            - Get
+            - Head
+            - Post
+            - PostForm
+            - RoundTripper.RoundTrip
+summary: |-
+    Leak of sensitive information to log files in
+    github.com/hashicorp/go-retryablehttp
+description: |-
+    URLs were not sanitized when writing them to log files. This could lead to
+    writing sensitive HTTP basic auth credentials to the log file.
+cves:
+    - CVE-2024-6104
+ghsas:
+    - GHSA-v6v8-xj6m-xwqh
+references:
+    - advisory: https://github.com/advisories/GHSA-v6v8-xj6m-xwqh
+    - fix: https://github.com/hashicorp/go-retryablehttp/commit/a99f07beb3c5faaa0a283617e6eb6bcf25f5049a
+    - web: https://discuss.hashicorp.com/t/hcsec-2024-12-go-retryablehttp-can-leak-basic-auth-credentials-to-log-files/68027
+source:
+    id: GHSA-v6v8-xj6m-xwqh
+    created: 2024-06-25T10:14:42.391443-07:00
+review_status: REVIEWED
