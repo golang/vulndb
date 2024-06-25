@@ -59,8 +59,11 @@ func (u *regenerate) skip(input any) string {
 func (u *regenerate) run(ctx context.Context, input any) (err error) {
 	oldR := input.(*yamlReport)
 
-	if len(oldR.Notes) > 0 {
-		log.Warnf("%s: has notes, which may indicate the report was edited", oldR.ID)
+	for _, note := range oldR.Notes {
+		// A note with no type was added by a human.
+		if note.Type == report.NoteTypeNone {
+			log.Warnf("%s may have been manually edited: %s", oldR.ID, note.Body)
+		}
 	}
 
 	var modulePath string
@@ -77,6 +80,8 @@ func (u *regenerate) run(ctx context.Context, input any) (err error) {
 	if err != nil {
 		return err
 	}
+
+	r.Unexcluded = oldR.Unexcluded
 
 	if !cmp.Equal(r, oldR,
 		cmpopts.IgnoreFields(report.SourceMeta{}, "Created"),
