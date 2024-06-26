@@ -155,7 +155,7 @@ func constructIssue(ctx context.Context, c *issues.Client, ghsaClient *ghsa.Clie
 			ids = append(ids, id.Value)
 		}
 		r := report.New(sa, pc)
-		body, err := worker.NewIssueBody(r, rc)
+		body, err := worker.NewIssueBody(r, sa.Description, rc)
 		if err != nil {
 			return err
 		}

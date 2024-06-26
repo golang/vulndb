@@ -286,7 +286,7 @@ func TestNewCVEBody(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	got, err := NewIssueBody(r, rc)
+	got, err := NewIssueBody(r, cr.GetDescription(), rc)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -313,8 +313,6 @@ id: GO-ID-PENDING
 modules:
     - module: golang.org/x/vulndb
       vulnerable_at: 0.0.0-20240515211212-610562879ffa
-      packages:
-        - package: golang.org/x/vulndb
 summary: CVE-2000-0001 in golang.org/x/vulndb
 cves:
     - CVE-2000-0001
@@ -365,7 +363,7 @@ func TestCreateGHSABody(t *testing.T) {
 	}
 
 	r := report.New(gr.GHSA, pc, report.WithCreated(testTime))
-	got, err := NewIssueBody(r, rc)
+	got, err := NewIssueBody(r, gr.GetDescription(), rc)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -394,8 +392,6 @@ modules:
       versions:
         - fixed: 0.21.0
       vulnerable_at: 0.20.0
-      packages:
-        - package: golang.org/x/tools
 summary: GHSA-xxxx-yyyy-zzzz in golang.org/x/tools
 ghsas:
     - GHSA-xxxx-yyyy-zzzz

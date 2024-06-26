@@ -4,17 +4,7 @@ modules:
       versions:
         - fixed: 1.4.0
       vulnerable_at: 1.3.0
-      packages:
-        - package: github.com/cloudflare/cfrpki/cmd/octorpki
 summary: Infinite certificate chain depth results in OctoRPKI running forever in github.com/cloudflare/cfrpki
-description: |-
-    OctoRPKI does not limit the depth of a certificate chain, allowing for a CA to
-    create children in an ad-hoc fashion, thereby making tree traversal never end.
-
-    ## Patches
-
-    ## For more information If you have any questions or comments about this
-    advisory email us at security@cloudflare.com
 cves:
     - CVE-2021-3908
 ghsas:
@@ -24,8 +14,6 @@ references:
     - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-3908
     - web: https://github.com/cloudflare/cfrpki/releases/tag/v1.4.0
     - web: https://www.debian.org/security/2022/dsa-5041
-notes:
-    - lint: 'description: possible markdown formatting (found ## )'
 source:
     id: GHSA-g5gj-9ggf-9vmq
     created: 1999-01-01T00:00:00Z

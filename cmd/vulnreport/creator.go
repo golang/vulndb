@@ -200,13 +200,6 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) (*yamlRe
 	case meta.excluded != "":
 		// nothing
 	case meta.reviewStatus == report.Unreviewed:
-		r.Description = ""
-		// Package-level data is often wrong/incomplete, which could lead
-		// to false negatives, so remove it for unreviewed reports.
-		// TODO(tatianabradley): instead of removing all package-level data,
-		// consider doing a surface-level check such as making sure packages are
-		// known to pkgsite, but skip symbol-level checks.
-		r.removePackages()
 		r.removeUnreachableRefs()
 	default:
 		// Regular, full-length reports.
@@ -216,12 +209,6 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) (*yamlRe
 		}
 	}
 	return r, nil
-}
-
-func (r *yamlReport) removePackages() {
-	for _, m := range r.Report.Modules {
-		m.Packages = nil
-	}
 }
 
 func (r *yamlReport) removeUnreachableRefs() {

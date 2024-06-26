@@ -23,15 +23,17 @@ modules:
     - module: github.com/evmos/evmos/v11
       vulnerable_at: 11.0.2
     - module: github.com/evmos/evmos/v12
-      versions:
-        - fixed: 12.0.0
-      vulnerable_at: 12.0.0-rc4
-summary: Evmos vulnerable to DOS and transaction fee expropriation through Authz exploit in github.com/evmos/evmos
+      vulnerable_at: 12.1.6
+    - module: github.com/evmos/evmos/v13
+      unsupported_versions:
+        - last_affected: 13.0.2
+      vulnerable_at: 13.0.2
+summary: Evmos vulnerable to unauthorized account creation with vesting module in github.com/evmos/evmos
 ghsas:
-    - GHSA-v6rw-hhgg-wc4x
+    - GHSA-m99c-q26r-m7m7
 references:
-    - advisory: https://github.com/evmos/evmos/security/advisories/GHSA-v6rw-hhgg-wc4x
+    - advisory: https://github.com/evmos/evmos/security/advisories/GHSA-m99c-q26r-m7m7
 source:
-    id: GHSA-v6rw-hhgg-wc4x
+    id: GHSA-m99c-q26r-m7m7
     created: 1999-01-01T00:00:00Z
 review_status: UNREVIEWED

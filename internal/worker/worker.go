@@ -331,14 +331,12 @@ func isDuplicate(sa *ghsa.SecurityAdvisory, pc *proxy.Client, rc *report.Client)
 	return false
 }
 
-func NewIssueBody(r *report.Report, rc *report.Client) (body string, err error) {
+func NewIssueBody(r *report.Report, desc string, rc *report.Client) (body string, err error) {
 	// Truncate the description if it is too long.
-	desc := string(r.Description)
 	if len(desc) > 600 {
 		desc = desc[:600] + "..."
 	}
 
-	r.Description = ""
 	rs, err := r.ToString()
 	if err != nil {
 		return "", err
@@ -379,7 +377,7 @@ func createIssue(ctx context.Context, r store.Record, client *issues.Client, pc 
 
 	rep := report.New(src, pc,
 		report.WithModulePath(r.GetUnit()))
-	body, err := NewIssueBody(rep, rc)
+	body, err := NewIssueBody(rep, r.GetDescription(), rc)
 	if err != nil {
 		log.With("ID", id).Errorf(ctx, "%s: triage state is NeedsIssue but could not generate body; skipping: %v", id, err)
 		return "", nil

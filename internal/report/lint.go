@@ -484,10 +484,17 @@ func (r *Report) deleteNotes(t NoteType) {
 }
 
 func (r *Report) AddNote(t NoteType, format string, v ...any) {
-	r.Notes = append(r.Notes, &Note{
+	n := &Note{
 		Body: fmt.Sprintf(format, v...),
 		Type: t,
-	})
+	}
+	// Don't add the same note twice.
+	for _, nn := range r.Notes {
+		if nn.Type == n.Type && nn.Body == n.Body {
+			return
+		}
+	}
+	r.Notes = append(r.Notes, n)
 }
 
 // LintOffline performs all lint checks that don't require a network connection.

@@ -42,13 +42,15 @@ func TestGHSAToReport(t *testing.T) {
 	}
 
 	for _, test := range []struct {
-		name   string
-		module string
-		want   *report.Report
+		name         string
+		module       string
+		reviewStatus report.ReviewStatus
+		want         *report.Report
 	}{
 		{
-			name:   "module provided",
-			module: "golang.org/x/tools",
+			name:         "module provided",
+			module:       "golang.org/x/tools",
+			reviewStatus: report.Reviewed,
 			want: &report.Report{
 				ID: report.PendingID,
 				Modules: []*report.Module{{
@@ -70,12 +72,13 @@ func TestGHSAToReport(t *testing.T) {
 					ID:      "G1_blah",
 					Created: &testTime,
 				},
-				ReviewStatus: report.Unreviewed,
+				ReviewStatus: report.Reviewed,
 			},
 		},
 		{
-			name:   "empty module attempts to find module from package",
-			module: "",
+			name:         "empty module attempts to find module from package",
+			module:       "",
+			reviewStatus: report.Reviewed,
 			want: &report.Report{
 				ID: report.PendingID,
 				Modules: []*report.Module{{
@@ -100,14 +103,14 @@ func TestGHSAToReport(t *testing.T) {
 					ID:      "G1_blah",
 					Created: &testTime,
 				},
-				ReviewStatus: report.Unreviewed,
+				ReviewStatus: report.Reviewed,
 			},
 		},
 	} {
 		test := test
 		t.Run(test.name, func(t *testing.T) {
 			got := report.New(sa, pc, report.WithModulePath(test.module),
-				report.WithCreated(testTime))
+				report.WithCreated(testTime), report.WithReviewStatus(test.reviewStatus))
 			if diff := cmp.Diff(*got, *test.want); diff != "" {
 				t.Errorf("mismatch (-want, +got):\n%s", diff)
 			}

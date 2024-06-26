@@ -38,7 +38,32 @@ func New(src Source, pc *proxy.Client, opts ...NewOption) *Report {
 	}
 
 	r.Fix(pc)
+
+	if r.ReviewStatus == Unreviewed {
+		r.Description = ""
+		// Package-level data is often wrong/incomplete, which could lead
+		// to false negatives, so remove it for unreviewed reports.
+		// TODO(tatianabradley): instead of removing all package-level data,
+		// consider doing a surface-level check such as making sure packages are
+		// known to pkgsite.
+		r.removePackages(pc)
+	}
+
 	return r
+}
+
+func (r *Report) removePackages(pc *proxy.Client) {
+	removed := false
+	for _, m := range r.Modules {
+		if !m.IsFirstParty() && len(m.Packages) != 0 {
+			m.Packages = nil
+			removed = true
+		}
+	}
+	// If any packages were removed, we may need to merge some modules.
+	if removed {
+		_ = r.FixModules(pc)
+	}
 }
 
 type Fetcher interface {

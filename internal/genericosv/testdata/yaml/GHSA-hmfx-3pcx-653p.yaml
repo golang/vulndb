@@ -7,54 +7,6 @@ modules:
         - fixed: 1.6.18
       vulnerable_at: 1.6.17
 summary: Supplementary groups are not set up properly in github.com/containerd/containerd
-description: |-
-    ### Impact
-
-    A bug was found in containerd where supplementary groups are not set up properly
-    inside a container. If an attacker has direct access to a container and
-    manipulates their supplementary group access, they may be able to use
-    supplementary group access to bypass primary group restrictions in some cases,
-    potentially gaining access to sensitive information or gaining the ability to
-    execute code in that container.
-
-    Downstream applications that use the containerd client library may be affected
-    as well.
-
-    ### Patches This bug has been fixed in containerd v1.6.18 and v.1.5.18. Users
-    should update to these versions and recreate containers to resolve this issue.
-    Users who rely on a downstream application that uses containerd's client library
-    should check that application for a separate advisory and instructions.
-
-    ### Workarounds
-
-    Ensure that the `"USER $USERNAME"` Dockerfile instruction is not used. Instead,
-    set the container entrypoint to a value similar to `ENTRYPOINT ["su", "-",
-    "user"]` to allow `su` to properly set up supplementary groups.
-
-    ### References
-
-    -
-    https://www.benthamsgaze.org/2022/08/22/vulnerability-in-linux-containers-investigation-and-mitigation/
-    - Docker/Moby: CVE-2022-36109, fixed in Docker 20.10.18
-    - CRI-O: CVE-2022-2995, fixed in CRI-O 1.25.0
-    - Podman: CVE-2022-2989, fixed in Podman 3.0.1 and 4.2.0
-    - Buildah: CVE-2022-2990, fixed in Buildah 1.27.1
-
-    Note that CVE IDs apply to a particular implementation, even if an issue is
-    common.
-
-    ### For more information
-
-    If you have any questions or comments about this advisory:
-
-    * Open an issue in
-    [containerd](https://github.com/containerd/containerd/issues/new/choose)
-    * Email us at [security@containerd.io](mailto:security@containerd.io)
-
-    To report a security issue in containerd:
-    * [Report a new
-    vulnerability](https://github.com/containerd/containerd/security/advisories/new)
-    * Email us at [security@containerd.io](mailto:security@containerd.io)
 cves:
     - CVE-2023-25173
 ghsas:
@@ -70,10 +22,6 @@ references:
     - web: https://github.com/containerd/containerd/releases/tag/v1.6.18
     - web: https://github.com/moby/moby/security/advisories/GHSA-rc4r-wh2q-q6c4
     - web: https://www.benthamsgaze.org/2022/08/22/vulnerability-in-linux-containers-investigation-and-mitigation/
-notes:
-    - lint: 'description: possible markdown formatting (found ### )'
-    - lint: 'description: possible markdown formatting (found [containerd](https://github.com/containerd/containerd/issues/new/choose))'
-    - lint: 'description: possible markdown formatting (found `"USER $USERNAME"`)'
 source:
     id: GHSA-hmfx-3pcx-653p
     created: 1999-01-01T00:00:00Z

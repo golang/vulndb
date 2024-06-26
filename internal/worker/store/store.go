@@ -64,8 +64,14 @@ type CVE4Record struct {
 	History []*CVE4RecordSnapshot
 }
 
-func (r *CVE4Record) GetID() string                { return r.ID }
-func (r *CVE4Record) GetUnit() string              { return r.Module }
+func (r *CVE4Record) GetID() string   { return r.ID }
+func (r *CVE4Record) GetUnit() string { return r.Module }
+func (r *CVE4Record) GetDescription() string {
+	if r.CVE == nil || len(r.CVE.Description.Data) == 0 {
+		return ""
+	}
+	return r.CVE.Description.Data[0].Value
+}
 func (r *CVE4Record) GetSource() report.Source     { return r.CVE }
 func (r *CVE4Record) GetIssueReference() string    { return r.IssueReference }
 func (r *CVE4Record) GetIssueCreatedAt() time.Time { return r.IssueCreatedAt }
@@ -201,6 +207,7 @@ type LegacyGHSARecord struct {
 
 func (r *LegacyGHSARecord) GetID() string                { return r.GHSA.ID }
 func (r *LegacyGHSARecord) GetUnit() string              { return r.GHSA.Vulns[0].Package }
+func (r *LegacyGHSARecord) GetDescription() string       { return r.GHSA.Description }
 func (r *LegacyGHSARecord) GetSource() report.Source     { return r.GHSA }
 func (r *LegacyGHSARecord) GetIssueReference() string    { return r.IssueReference }
 func (r *LegacyGHSARecord) GetIssueCreatedAt() time.Time { return r.IssueCreatedAt }

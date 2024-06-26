@@ -266,6 +266,7 @@ type Record interface {
 	GetID() string
 	GetSource() report.Source
 	GetUnit() string
+	GetDescription() string
 	GetIssueReference() string
 	GetIssueCreatedAt() time.Time
 	GetTriageState() TriageState
