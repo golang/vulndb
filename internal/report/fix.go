@@ -59,7 +59,17 @@ func (r *Report) fixSummary() {
 		summary = fmt.Sprintf("%s in %s", summary, paths[0])
 	}
 
-	r.Summary = Summary(summary)
+	r.Summary = Summary(fixSpelling(summary))
+}
+
+// Hard-coded list of words we've had problems with in the past.
+var replacer = strings.NewReplacer(
+	"expropiation", "expropriation",
+	"Constallation", "Constellation",
+)
+
+func fixSpelling(s string) string {
+	return replacer.Replace(s)
 }
 
 func (v *Version) commitHashToVersion(modulePath string, pc *proxy.Client) {
