@@ -1,0 +1,41 @@
+id: GO-2024-2948
+modules:
+    - module: github.com/hashicorp/go-getter
+      versions:
+        - fixed: 1.7.5
+      vulnerable_at: 1.7.4
+      packages:
+        - package: github.com/hashicorp/go-getter
+          symbols:
+            - GitGetter.clone
+            - findRemoteDefaultBranch
+          derived_symbols:
+            - Client.ChecksumFromFile
+            - Client.Get
+            - FolderStorage.Get
+            - Get
+            - GetAny
+            - GetFile
+            - GitGetter.Get
+            - GitGetter.GetFile
+            - HttpGetter.Get
+summary: Code Execution on Git update in github.com/hashicorp/go-getter
+description: |-
+    A crafted request can execute Git update on an existing maliciously modified Git
+    Configuration. This can potentially lead to arbitrary code execution. When
+    performing a Git operation, the library will try to clone the given repository
+    to a specified destination. Cloning initializes a git config in the provided
+    destination. An attacker may alter the Git config after the cloning step to set
+    an arbitrary Git configuration to achieve code execution.
+cves:
+    - CVE-2024-6257
+ghsas:
+    - GHSA-xfhp-jf8p-mh5w
+references:
+    - advisory: https://github.com/advisories/GHSA-xfhp-jf8p-mh5w
+    - fix: https://github.com/hashicorp/go-getter/commit/268c11cae8cf0d9374783e06572679796abe9ce9
+    - web: https://discuss.hashicorp.com/t/hcsec-2024-13-hashicorp-go-getter-vulnerable-to-code-execution-on-git-update-via-git-config-manipulation/68081
+source:
+    id: GHSA-xfhp-jf8p-mh5w
+    created: 2024-06-26T13:09:53.132489-07:00
+review_status: REVIEWED

@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2948",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-6257",
+    "GHSA-xfhp-jf8p-mh5w"
+  ],
+  "summary": "Code Execution on Git update in github.com/hashicorp/go-getter",
+  "details": "A crafted request can execute Git update on an existing maliciously modified Git Configuration. This can potentially lead to arbitrary code execution. When performing a Git operation, the library will try to clone the given repository to a specified destination. Cloning initializes a git config in the provided destination. An attacker may alter the Git config after the cloning step to set an arbitrary Git configuration to achieve code execution.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hashicorp/go-getter",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.7.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/hashicorp/go-getter",
+            "symbols": [
+              "Client.ChecksumFromFile",
+              "Client.Get",
+              "FolderStorage.Get",
+              "Get",
+              "GetAny",
+              "GetFile",
+              "GitGetter.Get",
+              "GitGetter.GetFile",
+              "GitGetter.clone",
+              "HttpGetter.Get",
+              "findRemoteDefaultBranch"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-xfhp-jf8p-mh5w"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hashicorp/go-getter/commit/268c11cae8cf0d9374783e06572679796abe9ce9"
+    },
+    {
+      "type": "WEB",
+      "url": "https://discuss.hashicorp.com/t/hcsec-2024-13-hashicorp-go-getter-vulnerable-to-code-execution-on-git-update-via-git-config-manipulation/68081"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2948",
+    "review_status": "REVIEWED"
+  }
+}
