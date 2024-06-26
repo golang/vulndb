@@ -1,10 +1,12 @@
 id: GO-2024-2575
 modules:
+    - module: helm.sh/helm
+      vulnerable_at: 2.17.0+incompatible
     - module: helm.sh/helm/v3
       versions:
         - fixed: 3.14.2
       vulnerable_at: 3.14.1
-summary: Helm's Missing YAML Content Leads To Panic in helm.sh/helm/v3
+summary: Helm's Missing YAML Content Leads To Panic in helm.sh/helm
 cves:
     - CVE-2024-26147
 ghsas:
@@ -17,5 +19,5 @@ references:
     - web: https://github.com/helm/helm/commit/bb4cc9125503a923afb7988f3eb478722a8580af
 source:
     id: GHSA-r53h-jv2g-vpx6
-    created: 2024-05-17T16:15:14.868015-04:00
+    created: 2024-06-26T13:57:18.093508-04:00
 review_status: UNREVIEWED

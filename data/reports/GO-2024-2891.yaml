@@ -1,63 +1,58 @@
 id: GO-2024-2891
 modules:
-    - module: github.com/evmos/evmos/v10
-      non_go_versions:
-        - fixed: 18.0.0
-      vulnerable_at: 10.0.1
-    - module: github.com/evmos/evmos/v11
-      non_go_versions:
-        - fixed: 18.0.0
-      vulnerable_at: 11.0.2
-    - module: github.com/evmos/evmos/v12
-      non_go_versions:
-        - fixed: 18.0.0
-      vulnerable_at: 12.1.6
-    - module: github.com/evmos/evmos/v13
-      non_go_versions:
-        - fixed: 18.0.0
-      vulnerable_at: 13.0.2
-    - module: github.com/evmos/evmos/v14
-      non_go_versions:
-        - fixed: 18.0.0
-      vulnerable_at: 14.1.0
-    - module: github.com/evmos/evmos/v15
-      non_go_versions:
-        - fixed: 18.0.0
-      vulnerable_at: 15.0.0
-    - module: github.com/evmos/evmos/v16
-      non_go_versions:
-        - fixed: 18.0.0
-      vulnerable_at: 16.0.4
-    - module: github.com/evmos/evmos/v17
-      non_go_versions:
-        - fixed: 18.0.0
-      vulnerable_at: 17.0.1
+    - module: github.com/evmos/evmos
+      vulnerable_at: 1.1.3
+    - module: github.com/evmos/evmos/v2
+      vulnerable_at: 2.0.2
+    - module: github.com/evmos/evmos/v3
+      vulnerable_at: 3.0.3
+    - module: github.com/evmos/evmos/v4
+      vulnerable_at: 4.0.2
+    - module: github.com/evmos/evmos/v5
+      vulnerable_at: 5.0.1
     - module: github.com/evmos/evmos/v6
-      non_go_versions:
-        - fixed: 18.0.0
       vulnerable_at: 6.0.4
     - module: github.com/evmos/evmos/v7
-      non_go_versions:
-        - fixed: 18.0.0
       vulnerable_at: 7.0.0
     - module: github.com/evmos/evmos/v8
-      non_go_versions:
-        - fixed: 18.0.0
       vulnerable_at: 8.2.3
     - module: github.com/evmos/evmos/v9
-      non_go_versions:
-        - fixed: 18.0.0
       vulnerable_at: 9.1.0
-summary: evmos allows transferring unvested tokens after delegations in github.com/evmos/evmos/v10
+    - module: github.com/evmos/evmos/v10
+      vulnerable_at: 10.0.1
+    - module: github.com/evmos/evmos/v11
+      vulnerable_at: 11.0.2
+    - module: github.com/evmos/evmos/v12
+      vulnerable_at: 12.1.6
+    - module: github.com/evmos/evmos/v13
+      vulnerable_at: 13.0.2
+    - module: github.com/evmos/evmos/v14
+      vulnerable_at: 14.1.0
+    - module: github.com/evmos/evmos/v15
+      vulnerable_at: 15.0.0
+    - module: github.com/evmos/evmos/v16
+      vulnerable_at: 16.0.4
+    - module: github.com/evmos/evmos/v17
+      vulnerable_at: 17.0.1
+    - module: github.com/evmos/evmos/v18
+      versions:
+        - fixed: 18.0.0
+summary: evmos allows transferring unvested tokens after delegations in github.com/evmos/evmos
 cves:
     - CVE-2024-32873
 ghsas:
     - GHSA-pxv8-qhrh-jc7v
+related:
+    - CVE-2024-37158
+    - CVE-2024-37159
 references:
     - advisory: https://github.com/evmos/evmos/security/advisories/GHSA-pxv8-qhrh-jc7v
     - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-32873
-    - web: https://github.com/evmos/evmos/commit/b2a09ca66613d8b04decd3f2dcba8e1e77709dcb
+    - fix: https://github.com/evmos/evmos/commit/b2a09ca66613d8b04decd3f2dcba8e1e77709dcb
+notes:
+    - fix: 'github.com/evmos/evmos/v18: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+    - manually moved CVE-2024-37158 and CVE-2024-37159 to related section
 source:
     id: GHSA-pxv8-qhrh-jc7v
-    created: 2024-06-13T12:07:11.734638-04:00
+    created: 2024-06-26T14:08:33.882317-04:00
 review_status: UNREVIEWED

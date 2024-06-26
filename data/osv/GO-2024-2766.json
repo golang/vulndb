@@ -7,9 +7,26 @@
     "CVE-2020-14370",
     "GHSA-c3wv-qmjj-45r6"
   ],
-  "summary": "Information disclosure in podman in github.com/containers/libpod/v2",
-  "details": "Information disclosure in podman in github.com/containers/libpod/v2",
+  "summary": "Information disclosure in podman in github.com/containers/libpod",
+  "details": "Information disclosure in podman in github.com/containers/libpod",
   "affected": [
+    {
+      "package": {
+        "name": "github.com/containers/libpod",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
     {
       "package": {
         "name": "github.com/containers/libpod/v2",

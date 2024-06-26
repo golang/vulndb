@@ -7,9 +7,26 @@
     "CVE-2024-26147",
     "GHSA-r53h-jv2g-vpx6"
   ],
-  "summary": "Helm's Missing YAML Content Leads To Panic in helm.sh/helm/v3",
-  "details": "Helm's Missing YAML Content Leads To Panic in helm.sh/helm/v3",
+  "summary": "Helm's Missing YAML Content Leads To Panic in helm.sh/helm",
+  "details": "Helm's Missing YAML Content Leads To Panic in helm.sh/helm",
   "affected": [
+    {
+      "package": {
+        "name": "helm.sh/helm",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
     {
       "package": {
         "name": "helm.sh/helm/v3",

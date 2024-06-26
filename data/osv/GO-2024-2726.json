@@ -6,9 +6,26 @@
   "aliases": [
     "GHSA-7f4j-64p6-5h5v"
   ],
-  "summary": "Traefik affected by HTTP/2 CONTINUATION flood in net/http in github.com/traefik/traefik/v2",
-  "details": "Traefik affected by HTTP/2 CONTINUATION flood in net/http in github.com/traefik/traefik/v2",
+  "summary": "Traefik affected by HTTP/2 CONTINUATION flood in net/http in github.com/traefik/traefik",
+  "details": "Traefik affected by HTTP/2 CONTINUATION flood in net/http in github.com/traefik/traefik",
   "affected": [
+    {
+      "package": {
+        "name": "github.com/traefik/traefik",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
     {
       "package": {
         "name": "github.com/traefik/traefik/v2",

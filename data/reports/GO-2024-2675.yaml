@@ -1,10 +1,12 @@
 id: GO-2024-2675
 modules:
+    - module: github.com/temporalio/ui-server
+      vulnerable_at: 0.15.1
     - module: github.com/temporalio/ui-server/v2
       versions:
         - fixed: 2.25.0
       vulnerable_at: 2.24.0
-summary: Temporal UI Server cross-site scripting vulnerability in github.com/temporalio/ui-server/v2
+summary: Temporal UI Server cross-site scripting vulnerability in github.com/temporalio/ui-server
 cves:
     - CVE-2024-2435
 ghsas:
@@ -15,5 +17,5 @@ references:
     - web: https://github.com/temporalio/ui-server/releases/tag/v2.25.0
 source:
     id: GHSA-8f25-w7qj-r7hc
-    created: 2024-05-17T16:14:23.676744-04:00
+    created: 2024-06-26T13:58:51.59593-04:00
 review_status: UNREVIEWED

@@ -7,9 +7,43 @@
     "CVE-2024-27920",
     "GHSA-w5wx-6g2r-r78q"
   ],
-  "summary": "Nuclei allows unsigned code template execution through workflows in github.com/projectdiscovery/nuclei/v3",
-  "details": "Nuclei allows unsigned code template execution through workflows in github.com/projectdiscovery/nuclei/v3",
+  "summary": "Nuclei allows unsigned code template execution through workflows in github.com/projectdiscovery/nuclei",
+  "details": "Nuclei allows unsigned code template execution through workflows in github.com/projectdiscovery/nuclei",
   "affected": [
+    {
+      "package": {
+        "name": "github.com/projectdiscovery/nuclei",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/projectdiscovery/nuclei/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
     {
       "package": {
         "name": "github.com/projectdiscovery/nuclei/v3",
@@ -41,6 +75,14 @@
       "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-27920"
     },
     {
+      "type": "FIX",
+      "url": "https://github.com/projectdiscovery/nuclei/commit/e86f38299765b82ad724fdb701557e0eaff3884d"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/projectdiscovery/nuclei/pull/4822"
+    },
+    {
       "type": "WEB",
       "url": "https://docs.projectdiscovery.io/templates/protocols/code"
     },
@@ -51,14 +93,6 @@
     {
       "type": "WEB",
       "url": "https://docs.projectdiscovery.io/templates/workflows/overview"
-    },
-    {
-      "type": "WEB",
-      "url": "https://github.com/projectdiscovery/nuclei/commit/e86f38299765b82ad724fdb701557e0eaff3884d"
-    },
-    {
-      "type": "WEB",
-      "url": "https://github.com/projectdiscovery/nuclei/pull/4822"
     }
   ],
   "database_specific": {

@@ -1,10 +1,12 @@
 id: GO-2024-2766
 modules:
+    - module: github.com/containers/libpod
+      vulnerable_at: 1.9.3
     - module: github.com/containers/libpod/v2
       versions:
         - fixed: 2.0.5
       vulnerable_at: 2.0.4
-summary: Information disclosure in podman in github.com/containers/libpod/v2
+summary: Information disclosure in podman in github.com/containers/libpod
 cves:
     - CVE-2020-14370
 ghsas:
@@ -19,5 +21,5 @@ references:
     - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/Z4Y2FSGQWP4AFT5AZ6UBN6RKHVXUBRFV
 source:
     id: GHSA-c3wv-qmjj-45r6
-    created: 2024-05-17T16:11:53.682052-04:00
+    created: 2024-06-26T14:03:17.391801-04:00
 review_status: UNREVIEWED

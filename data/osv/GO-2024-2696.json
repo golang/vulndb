@@ -7,9 +7,75 @@
     "CVE-2024-2447",
     "GHSA-wp43-vprh-c3w5"
   ],
-  "summary": "Mattermost fails to authenticate the source of certain types of post actions in github.com/mattermost/mattermost/server/v8",
-  "details": "Mattermost fails to authenticate the source of certain types of post actions in github.com/mattermost/mattermost/server/v8",
+  "summary": "Mattermost fails to authenticate the source of certain types of post actions in github.com/mattermost/mattermost-server",
+  "details": "Mattermost fails to authenticate the source of certain types of post actions in github.com/mattermost/mattermost-server",
   "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "9.3.0+incompatible"
+            },
+            {
+              "fixed": "9.3.3+incompatible"
+            },
+            {
+              "introduced": "9.4.0+incompatible"
+            },
+            {
+              "fixed": "9.4.4+incompatible"
+            },
+            {
+              "introduced": "9.5.0+incompatible"
+            },
+            {
+              "fixed": "9.5.2+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v6",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
     {
       "package": {
         "name": "github.com/mattermost/mattermost/server/v8",

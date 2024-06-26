@@ -7,9 +7,26 @@
     "CVE-2024-37152",
     "GHSA-87p9-x75h-p4j2"
   ],
-  "summary": "Unauthenticated Access to sensitive settings in Argo CD in github.com/argoproj/argo-cd/v2",
-  "details": "Unauthenticated Access to sensitive settings in Argo CD in github.com/argoproj/argo-cd/v2",
+  "summary": "Unauthenticated Access to sensitive settings in Argo CD in github.com/argoproj/argo-cd",
+  "details": "Unauthenticated Access to sensitive settings in Argo CD in github.com/argoproj/argo-cd",
   "affected": [
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-cd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
     {
       "package": {
         "name": "github.com/argoproj/argo-cd/v2",
@@ -53,7 +70,7 @@
       "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-37152"
     },
     {
-      "type": "WEB",
+      "type": "FIX",
       "url": "https://github.com/argoproj/argo-cd/commit/256d90178b11b04bc8174d08d7b663a2a7b1771b"
     }
   ],

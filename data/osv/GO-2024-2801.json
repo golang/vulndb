@@ -4,10 +4,11 @@
   "modified": "0001-01-01T00:00:00Z",
   "published": "0001-01-01T00:00:00Z",
   "aliases": [
-    "CVE-2024-33522"
+    "CVE-2024-33522",
+    "GHSA-6362-gv4m-53ww"
   ],
-  "summary": "Privilege escalation in Calico CNI install binary in github.com/projectcalico/calico",
-  "details": "Privilege escalation in Calico CNI install binary in github.com/projectcalico/calico",
+  "summary": "Calico privilege escalation vulnerability in github.com/projectcalico/calico",
+  "details": "Calico privilege escalation vulnerability in github.com/projectcalico/calico",
   "affected": [
     {
       "package": {
@@ -20,15 +21,6 @@
           "events": [
             {
               "introduced": "0"
-            },
-            {
-              "fixed": "3.17.4+incompatible"
-            },
-            {
-              "introduced": "3.18.0+incompatible"
-            },
-            {
-              "fixed": "3.18.2+incompatible"
             }
           ]
         }
@@ -37,6 +29,10 @@
     }
   ],
   "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-6362-gv4m-53ww"
+    },
     {
       "type": "ADVISORY",
       "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-33522"
@@ -55,24 +51,7 @@
     },
     {
       "type": "WEB",
-      "url": "https://www.tigera.io/security-bulletins-tta-2024-001/"
-    }
-  ],
-  "credits": [
-    {
-      "name": "Christopher Alonso (Github: @latortuga71)"
-    },
-    {
-      "name": "Anthony Tam"
-    },
-    {
-      "name": "Behnam Shobiri"
-    },
-    {
-      "name": "Pedro Coutinho"
-    },
-    {
-      "name": "Matt Dupre"
+      "url": "https://www.tigera.io/security-bulletins-tta-2024-001"
     }
   ],
   "database_specific": {

@@ -7,9 +7,75 @@
     "CVE-2024-28949",
     "GHSA-mcw6-3256-64gg"
   ],
-  "summary": "Mattermost Server doesn't limit the number of user preferences in github.com/mattermost/mattermost/server/v8",
-  "details": "Mattermost Server doesn't limit the number of user preferences in github.com/mattermost/mattermost/server/v8",
+  "summary": "Mattermost Server doesn't limit the number of user preferences in github.com/mattermost/mattermost-server",
+  "details": "Mattermost Server doesn't limit the number of user preferences in github.com/mattermost/mattermost-server",
   "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "9.3.0+incompatible"
+            },
+            {
+              "fixed": "9.3.3+incompatible"
+            },
+            {
+              "introduced": "9.4.0+incompatible"
+            },
+            {
+              "fixed": "9.4.4+incompatible"
+            },
+            {
+              "introduced": "9.5.0+incompatible"
+            },
+            {
+              "fixed": "9.5.2+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v6",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
     {
       "package": {
         "name": "github.com/mattermost/mattermost/server/v8",

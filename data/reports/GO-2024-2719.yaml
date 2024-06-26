@@ -1,13 +1,12 @@
 id: GO-2024-2719
 modules:
     - module: github.com/sigstore/cosign
-      unsupported_versions:
-        - version: 2.2.3
-          type: last_affected
       vulnerable_at: 1.13.6
     - module: github.com/sigstore/cosign/v2
       versions:
         - fixed: 2.2.4
+      unsupported_versions:
+        - last_affected: 2.2.3
       vulnerable_at: 2.2.3
 summary: Cosign malicious artifacts can cause machine-wide DoS in github.com/sigstore/cosign
 cves:
@@ -25,5 +24,5 @@ references:
     - web: https://github.com/sigstore/cosign/releases/tag/v2.2.4
 source:
     id: GHSA-95pr-fxf5-86gv
-    created: 2024-06-04T15:30:30.49846-04:00
+    created: 2024-06-26T14:00:49.329229-04:00
 review_status: UNREVIEWED

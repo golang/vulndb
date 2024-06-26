@@ -1,15 +1,14 @@
 id: GO-2024-2698
 modules:
+    - module: github.com/mholt/archiver
+      vulnerable_at: 2.1.0+incompatible
     - module: github.com/mholt/archiver/v3
       non_go_versions:
         - introduced: 3.0.0
       unsupported_versions:
-        - version: 3.5.1
-          type: last_affected
-        - version: 3.5.1
-          type: last_affected
+        - last_affected: 3.5.1
       vulnerable_at: 3.5.1
-summary: Archiver Path Traversal vulnerability in github.com/mholt/archiver/v3
+summary: Archiver Path Traversal vulnerability in github.com/mholt/archiver
 cves:
     - CVE-2024-0406
 ghsas:
@@ -21,5 +20,5 @@ references:
     - web: https://bugzilla.redhat.com/show_bug.cgi?id=2257749
 source:
     id: GHSA-rhh4-rh7c-7r5v
-    created: 2024-06-04T15:31:11.733743-04:00
+    created: 2024-06-26T13:59:57.78635-04:00
 review_status: UNREVIEWED

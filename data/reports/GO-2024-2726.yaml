@@ -1,5 +1,7 @@
 id: GO-2024-2726
 modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
     - module: github.com/traefik/traefik/v2
       versions:
         - fixed: 2.11.2
@@ -7,9 +9,9 @@ modules:
     - module: github.com/traefik/traefik/v3
       versions:
         - introduced: 3.0.0-rc1
-          fixed: 3.0.0-rc5
+        - fixed: 3.0.0-rc5
       vulnerable_at: 3.0.0-rc4
-summary: Traefik affected by HTTP/2 CONTINUATION flood in net/http in github.com/traefik/traefik/v2
+summary: Traefik affected by HTTP/2 CONTINUATION flood in net/http in github.com/traefik/traefik
 ghsas:
     - GHSA-7f4j-64p6-5h5v
 references:
@@ -18,5 +20,5 @@ references:
     - web: https://github.com/traefik/traefik/releases/tag/v3.0.0-rc5
 source:
     id: GHSA-7f4j-64p6-5h5v
-    created: 2024-06-04T15:30:24.379964-04:00
+    created: 2024-06-26T14:01:00.948687-04:00
 review_status: UNREVIEWED

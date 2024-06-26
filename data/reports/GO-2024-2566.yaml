@@ -1,23 +1,31 @@
 id: GO-2024-2566
 modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 9.0.0+incompatible
+        - fixed: 9.3.0+incompatible
+      vulnerable_at: 9.3.0-rc2+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
     - module: github.com/mattermost/mattermost/server/v8
       non_go_versions:
         - fixed: 8.1.8
-        - introduced: 9.0.0
-          fixed: 9.3.0
-      vulnerable_at: 8.0.0-20240604182354-aa5b8bf54904
-summary: Mattermost fails to check the required permissions in github.com/mattermost/mattermost/server/v8
+      vulnerable_at: 8.0.0-20240626145722-59998b0b8473
+summary: Mattermost fails to check the required permissions in github.com/mattermost/mattermost-server
 cves:
     - CVE-2024-24776
 ghsas:
     - GHSA-r833-w756-h5p2
 unknown_aliases:
     - BIT-mattermost-2024-24776
+    - CGA-x56p-7vj3-wq3q
 references:
     - advisory: https://github.com/advisories/GHSA-r833-w756-h5p2
     - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-24776
     - web: https://mattermost.com/security-updates
 source:
     id: GHSA-r833-w756-h5p2
-    created: 2024-06-04T15:37:50.838664-04:00
+    created: 2024-06-26T13:56:26.587346-04:00
 review_status: UNREVIEWED

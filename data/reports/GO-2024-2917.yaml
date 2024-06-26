@@ -1,8 +1,6 @@
 id: GO-2024-2917
 modules:
     - module: github.com/traefik/traefik
-      non_go_versions:
-        - fixed: 2.11.4
       vulnerable_at: 1.7.34
     - module: github.com/traefik/traefik/v2
       versions:
@@ -11,7 +9,7 @@ modules:
     - module: github.com/traefik/traefik/v3
       versions:
         - introduced: 3.0.0-beta3
-          fixed: 3.0.2
+        - fixed: 3.0.2
       vulnerable_at: 3.0.1
 summary: Traefik has unexpected behavior with IPv4-mapped IPv6 addresses in github.com/traefik/traefik
 ghsas:
@@ -26,5 +24,5 @@ references:
     - web: https://www.cve.org/CVERecord?id=CVE-2024-24790
 source:
     id: GHSA-7jmw-8259-q9jx
-    created: 2024-06-13T12:05:39.804547-04:00
+    created: 2024-06-26T14:09:27.817173-04:00
 review_status: UNREVIEWED

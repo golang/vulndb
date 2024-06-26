@@ -7,9 +7,26 @@
     "CVE-2024-33398",
     "GHSA-6fg2-hvj9-832f"
   ],
-  "summary": "piraeus-operator allows attacker to impersonate service account in github.com/piraeusdatastore/piraeus-operator/v2",
-  "details": "piraeus-operator allows attacker to impersonate service account in github.com/piraeusdatastore/piraeus-operator/v2",
+  "summary": "piraeus-operator allows attacker to impersonate service account in github.com/piraeusdatastore/piraeus-operator",
+  "details": "piraeus-operator allows attacker to impersonate service account in github.com/piraeusdatastore/piraeus-operator",
   "affected": [
+    {
+      "package": {
+        "name": "github.com/piraeusdatastore/piraeus-operator",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
     {
       "package": {
         "name": "github.com/piraeusdatastore/piraeus-operator/v2",

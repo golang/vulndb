@@ -1,20 +1,22 @@
 id: GO-2024-2850
 modules:
+    - module: github.com/nats-io/nats-server
+      vulnerable_at: 1.4.1
     - module: github.com/nats-io/nats-server/v2
       versions:
         - fixed: 2.2.3
       vulnerable_at: 2.2.2
-summary: NATS server TLS missing ciphersuite settings when CLI flags used in github.com/nats-io/nats-server/v2
+summary: NATS server TLS missing ciphersuite settings when CLI flags used in github.com/nats-io/nats-server
 cves:
     - CVE-2021-32026
 ghsas:
     - GHSA-jj54-5q2m-q7pj
 references:
     - advisory: https://github.com/nats-io/nats-server/security/advisories/GHSA-jj54-5q2m-q7pj
+    - fix: https://github.com/nats-io/nats-server/commit/ffccc2e1bd7aa2466bd9e631e976bfd7ca46f225
     - web: https://advisories.nats.io
     - web: https://advisories.nats.io/CVE/CVE-2021-32026.txt
-    - web: https://github.com/nats-io/nats-server/commit/ffccc2e1bd7aa2466bd9e631e976bfd7ca46f225
 source:
     id: GHSA-jj54-5q2m-q7pj
-    created: 2024-06-04T14:27:20.945678-04:00
+    created: 2024-06-26T14:06:56.187996-04:00
 review_status: UNREVIEWED

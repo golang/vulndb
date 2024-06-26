@@ -1,11 +1,15 @@
 id: GO-2024-2645
 modules:
+    - module: github.com/projectdiscovery/nuclei
+      vulnerable_at: 1.1.7
+    - module: github.com/projectdiscovery/nuclei/v2
+      vulnerable_at: 2.9.15
     - module: github.com/projectdiscovery/nuclei/v3
       versions:
         - introduced: 3.0.0
-          fixed: 3.2.0
+        - fixed: 3.2.0
       vulnerable_at: 3.1.10
-summary: Nuclei allows unsigned code template execution through workflows in github.com/projectdiscovery/nuclei/v3
+summary: Nuclei allows unsigned code template execution through workflows in github.com/projectdiscovery/nuclei
 cves:
     - CVE-2024-27920
 ghsas:
@@ -13,12 +17,12 @@ ghsas:
 references:
     - advisory: https://github.com/projectdiscovery/nuclei/security/advisories/GHSA-w5wx-6g2r-r78q
     - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-27920
+    - fix: https://github.com/projectdiscovery/nuclei/commit/e86f38299765b82ad724fdb701557e0eaff3884d
+    - fix: https://github.com/projectdiscovery/nuclei/pull/4822
     - web: https://docs.projectdiscovery.io/templates/protocols/code
     - web: https://docs.projectdiscovery.io/templates/reference/template-signing
     - web: https://docs.projectdiscovery.io/templates/workflows/overview
-    - web: https://github.com/projectdiscovery/nuclei/commit/e86f38299765b82ad724fdb701557e0eaff3884d
-    - web: https://github.com/projectdiscovery/nuclei/pull/4822
 source:
     id: GHSA-w5wx-6g2r-r78q
-    created: 2024-05-17T16:14:34.657915-04:00
+    created: 2024-06-26T13:58:33.793233-04:00
 review_status: UNREVIEWED

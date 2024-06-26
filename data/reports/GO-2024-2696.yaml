@@ -1,17 +1,24 @@
 id: GO-2024-2696
 modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 9.3.0+incompatible
+        - fixed: 9.3.3+incompatible
+        - introduced: 9.4.0+incompatible
+        - fixed: 9.4.4+incompatible
+        - introduced: 9.5.0+incompatible
+        - fixed: 9.5.2+incompatible
+      vulnerable_at: 9.5.1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
     - module: github.com/mattermost/mattermost/server/v8
       non_go_versions:
         - introduced: 8.1.0
-          fixed: 8.1.11
-        - introduced: 9.3.0
-          fixed: 9.3.3
-        - introduced: 9.4.0
-          fixed: 9.4.4
-        - introduced: 9.5.0
-          fixed: 9.5.2
-      vulnerable_at: 8.0.0-20240604182354-aa5b8bf54904
-summary: Mattermost fails to authenticate the source of certain types of post actions in github.com/mattermost/mattermost/server/v8
+        - fixed: 8.1.11
+      vulnerable_at: 8.0.0-20240626145722-59998b0b8473
+summary: Mattermost fails to authenticate the source of certain types of post actions in github.com/mattermost/mattermost-server
 cves:
     - CVE-2024-2447
 ghsas:
@@ -22,5 +29,5 @@ references:
     - web: https://mattermost.com/security-updates
 source:
     id: GHSA-wp43-vprh-c3w5
-    created: 2024-06-04T15:36:33.196481-04:00
+    created: 2024-06-26T13:59:50.842034-04:00
 review_status: UNREVIEWED

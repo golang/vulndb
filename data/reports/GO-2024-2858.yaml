@@ -6,7 +6,8 @@ modules:
       non_go_versions:
         - fixed: 8.5.14
         - introduced: 9.0.0
-          fixed: 9.1.8
+        - fixed: 9.1.8
+      vulnerable_at: 5.4.5+incompatible
 summary: |-
     Grafana Data source and plugin proxy endpoints could leak the authentication
     cookie to some destination plugins in github.com/grafana/grafana
@@ -22,9 +23,7 @@ references:
     - fix: https://github.com/grafana/grafana/commit/b571acc1dc130a33f24742c1f93b93216da6cf57
     - fix: https://github.com/grafana/grafana/commit/c658816f5229d17f877579250c07799d3bbaebc9
     - web: https://github.com/grafana/grafana/releases/tag/v9.1.8
-notes:
-    - non_go_versions specified manually
 source:
     id: GHSA-x744-mm8v-vpgr
-    created: 2024-06-06T16:12:42.067791-04:00
+    created: 2024-06-26T14:07:24.577803-04:00
 review_status: UNREVIEWED

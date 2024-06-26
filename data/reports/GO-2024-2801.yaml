@@ -1,36 +1,27 @@
 id: GO-2024-2801
 modules:
     - module: github.com/projectcalico/calico
-      versions:
-        - fixed: 3.17.4+incompatible
-        - introduced: 3.18.0+incompatible
-          fixed: 3.18.2+incompatible
       non_go_versions:
-        - introduced: 3.19.0-1.0
-          fixed: 3.19.0-2.0
-      unsupported_versions:
-        - version: 'unaffected at v3.28.0 (default: unaffected)'
-          type: cve_version_range
-summary: |-
-    Privilege escalation in Calico CNI install binary in
-    github.com/projectcalico/calico
+        - fixed: 3.26.5
+        - introduced: 3.27.0
+        - fixed: 3.27.3
+      vulnerable_at: 2.6.12+incompatible
+summary: Calico privilege escalation vulnerability in github.com/projectcalico/calico
 cves:
     - CVE-2024-33522
-credits:
-    - 'Christopher Alonso (Github: @latortuga71)'
-    - Anthony Tam
-    - Behnam Shobiri
-    - Pedro Coutinho
-    - Matt Dupre
+ghsas:
+    - GHSA-6362-gv4m-53ww
+unknown_aliases:
+    - CGA-c9f6-83fw-wmpv
+    - CGA-vw5m-65r5-hgf5
 references:
+    - advisory: https://github.com/advisories/GHSA-6362-gv4m-53ww
     - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-33522
     - fix: https://github.com/projectcalico/calico/pull/8447
     - fix: https://github.com/projectcalico/calico/pull/8517
     - report: https://github.com/projectcalico/calico/issues/7981
-    - web: https://www.tigera.io/security-bulletins-tta-2024-001/
-notes:
-    - non_go_versions specified manually
+    - web: https://www.tigera.io/security-bulletins-tta-2024-001
 source:
-    id: CVE-2024-33522
-    created: 2024-06-06T16:12:54.919781-04:00
+    id: GHSA-6362-gv4m-53ww
+    created: 2024-06-26T14:05:52.596558-04:00
 review_status: UNREVIEWED

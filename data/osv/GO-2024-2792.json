@@ -7,9 +7,26 @@
     "CVE-2024-32476",
     "GHSA-9m6p-x4h2-6frq"
   ],
-  "summary": "Argo CD vulnerable to a Denial of Service via malicious jqPathExpressions in ignoreDifferences in github.com/argoproj/argo-cd/v2",
-  "details": "Argo CD vulnerable to a Denial of Service via malicious jqPathExpressions in ignoreDifferences in github.com/argoproj/argo-cd/v2",
+  "summary": "Argo CD vulnerable to a Denial of Service via malicious jqPathExpressions in ignoreDifferences in github.com/argoproj/argo-cd",
+  "details": "Argo CD vulnerable to a Denial of Service via malicious jqPathExpressions in ignoreDifferences in github.com/argoproj/argo-cd",
   "affected": [
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-cd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
     {
       "package": {
         "name": "github.com/argoproj/argo-cd/v2",
@@ -53,15 +70,15 @@
       "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-32476"
     },
     {
-      "type": "WEB",
+      "type": "FIX",
       "url": "https://github.com/argoproj/argo-cd/commit/7893979a1e78d59cedd0ba790ded24e30bb40657"
     },
     {
-      "type": "WEB",
+      "type": "FIX",
       "url": "https://github.com/argoproj/argo-cd/commit/9e5cc5a26ff0920a01816231d59fdb5eae032b5a"
     },
     {
-      "type": "WEB",
+      "type": "FIX",
       "url": "https://github.com/argoproj/argo-cd/commit/e2df7315fb7d96652186bf7435773a27be330cac"
     }
   ],

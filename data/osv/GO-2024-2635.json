@@ -7,9 +7,63 @@
     "CVE-2024-1952",
     "GHSA-r4fm-g65h-cr54"
   ],
-  "summary": "Mattermost incorrectly allows access individual posts in github.com/mattermost/mattermost/server/v8",
-  "details": "Mattermost incorrectly allows access individual posts in github.com/mattermost/mattermost/server/v8",
+  "summary": "Mattermost incorrectly allows access individual posts in github.com/mattermost/mattermost-server",
+  "details": "Mattermost incorrectly allows access individual posts in github.com/mattermost/mattermost-server",
   "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "9.0.0+incompatible"
+            },
+            {
+              "fixed": "9.4.0+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v6",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
     {
       "package": {
         "name": "github.com/mattermost/mattermost/server/v8",
