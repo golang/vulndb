@@ -1,0 +1,36 @@
+id: GO-2023-2331
+modules:
+    - module: go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc
+      versions:
+        - fixed: 0.46.0
+      vulnerable_at: 0.45.0
+      packages:
+        - package: go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc
+          symbols:
+            - StreamClientInterceptor
+            - UnaryClientInterceptor
+            - UnaryServerInterceptor
+            - spanInfo
+            - StreamServerInterceptor
+summary: |-
+    Denial of service in
+    go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc
+description: |-
+    The grpc Unary Server Interceptor created by the otelgrpc package added the
+    labels net.peer.sock.addr and net.peer.sock.port with unbounded cardinality.
+    This can lead to the server's potential memory exhaustion when many malicious
+    requests are sent. This leads to a denial-of-service.
+cves:
+    - CVE-2023-47108
+ghsas:
+    - GHSA-8pgv-569h-w5rw
+references:
+    - advisory: https://github.com/open-telemetry/opentelemetry-go-contrib/security/advisories/GHSA-8pgv-569h-w5rw
+    - fix: https://github.com/open-telemetry/opentelemetry-go-contrib/commit/b44dfc9092b157625a5815cb437583cee663333b
+    - fix: https://github.com/open-telemetry/opentelemetry-go-contrib/pull/4322
+    - web: https://pkg.go.dev/go.opentelemetry.io/otel/metric/noop#NewMeterProvider
+source:
+    id: GHSA-8pgv-569h-w5rw
+    created: 2024-06-26T17:06:54.775224-07:00
+review_status: REVIEWED
+unexcluded: DEPENDENT_VULNERABILITY
