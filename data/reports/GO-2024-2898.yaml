@@ -1,0 +1,29 @@
+id: GO-2024-2898
+modules:
+    - module: github.com/argoproj/argo-cd
+      versions:
+        - introduced: 0.11.0
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - fixed: 2.9.17
+        - introduced: 2.10.0
+        - fixed: 2.10.12
+        - introduced: 2.11.0
+        - fixed: 2.11.3
+      vulnerable_at: 2.11.2
+summary: Argo-cd authenticated users can enumerate clusters by name in github.com/argoproj/argo-cd
+cves:
+    - CVE-2024-36106
+ghsas:
+    - GHSA-3cqf-953p-h5cp
+unknown_aliases:
+    - BIT-argo-cd-2024-36106
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-3cqf-953p-h5cp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-36106
+    - fix: https://github.com/argoproj/argo-cd/commit/c2647055c261a550e5da075793260f6524e65ad9
+source:
+    id: GHSA-3cqf-953p-h5cp
+    created: 2024-06-27T15:55:03.407268-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,20 @@
+id: GO-2024-2938
+modules:
+    - module: github.com/go-skynet/LocalAI
+      non_go_versions:
+        - fixed: 2.16.0
+      vulnerable_at: 1.40.0
+summary: LocalAI path traversal vulnerability in github.com/go-skynet/LocalAI
+cves:
+    - CVE-2024-5182
+ghsas:
+    - GHSA-cpcx-r2gq-x893
+references:
+    - advisory: https://github.com/advisories/GHSA-cpcx-r2gq-x893
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-5182
+    - web: https://github.com/mudler/localai/commit/1a3dedece06cab1acc3332055d285ac540a47f0e
+    - web: https://huntr.com/bounties/f7a87f29-c22a-48e8-9fce-b6d5a273e545
+source:
+    id: GHSA-cpcx-r2gq-x893
+    created: 2024-06-27T15:53:50.719644-04:00
+review_status: UNREVIEWED

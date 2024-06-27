@@ -1,0 +1,22 @@
+id: GO-2024-2931
+modules:
+    - module: github.com/rancher/rancher
+      non_go_versions:
+        - introduced: 2.7.0
+        - fixed: 2.7.14
+        - introduced: 2.8.0
+        - fixed: 2.8.5
+      vulnerable_at: 1.6.30
+summary: |-
+    Rancher does not automatically clean up a user deleted or disabled from the
+    configured Authentication Provider in github.com/rancher/rancher
+cves:
+    - CVE-2023-22650
+ghsas:
+    - GHSA-9ghh-mmcq-8phc
+references:
+    - advisory: https://github.com/rancher/rancher/security/advisories/GHSA-9ghh-mmcq-8phc
+source:
+    id: GHSA-9ghh-mmcq-8phc
+    created: 2024-06-27T15:54:12.45213-04:00
+review_status: UNREVIEWED

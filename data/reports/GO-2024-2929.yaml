@@ -1,0 +1,20 @@
+id: GO-2024-2929
+modules:
+    - module: github.com/rancher/rancher
+      non_go_versions:
+        - introduced: 2.7.0
+        - fixed: 2.7.14
+        - introduced: 2.8.0
+        - fixed: 2.8.5
+      vulnerable_at: 1.6.30
+summary: Rancher's External RoleTemplates can lead to privilege escalation in github.com/rancher/rancher
+cves:
+    - CVE-2023-32196
+ghsas:
+    - GHSA-64jq-m7rq-768h
+references:
+    - advisory: https://github.com/rancher/rancher/security/advisories/GHSA-64jq-m7rq-768h
+source:
+    id: GHSA-64jq-m7rq-768h
+    created: 2024-06-27T15:54:17.748688-04:00
+review_status: UNREVIEWED

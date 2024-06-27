@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2940",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-37897",
+    "GHSA-hw5f-6wvv-xcrh"
+  ],
+  "summary": "SFTPGo has insufficient access control for password reset in github.com/drakkan/sftpgo",
+  "details": "SFTPGo has insufficient access control for password reset in github.com/drakkan/sftpgo",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/drakkan/sftpgo",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/drakkan/sftpgo/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.2.0"
+            },
+            {
+              "fixed": "2.6.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/drakkan/sftpgo/security/advisories/GHSA-hw5f-6wvv-xcrh"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-37897"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/drakkan/sftpgo/commit/1f8ac8bfe16100b0484d6c91e1e8361687324423"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/drakkan/sftpgo/commit/3462bba3f41cbc75486474991b9e3ac1b5f1e583"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/drakkan/sftpgo/releases/tag/v2.6.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2940",
+    "review_status": "UNREVIEWED"
+  }
+}

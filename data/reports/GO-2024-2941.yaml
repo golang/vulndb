@@ -1,0 +1,27 @@
+id: GO-2024-2941
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.5
+      vulnerable_at: 2.11.4
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - fixed: 3.0.3
+      vulnerable_at: 3.0.2
+summary: 'ACME DNS: Azure Identity Libraries Elevation of Privilege Vulnerability in github.com/traefik/traefik'
+ghsas:
+    - GHSA-rvj4-q8q5-8grf
+unknown_aliases:
+    - CGA-p2qq-w8qw-6vjp
+    - CGA-r7v2-xp2f-mjxf
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-rvj4-q8q5-8grf
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.5
+    - web: https://github.com/traefik/traefik/releases/tag/v3.0.3
+    - web: https://nvd.nist.gov/vuln/detail/CVE-2024-35255
+source:
+    id: GHSA-rvj4-q8q5-8grf
+    created: 2024-06-27T15:53:39.605336-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,20 @@
+id: GO-2024-2932
+modules:
+    - module: github.com/rancher/rancher
+      non_go_versions:
+        - introduced: 2.7.0
+        - fixed: 2.7.14
+        - introduced: 2.8.0
+        - fixed: 2.8.5
+      vulnerable_at: 1.6.30
+summary: Rancher's RKE1 Encryption Config kept in plain-text within cluster AppliedSpec in github.com/rancher/rancher
+cves:
+    - CVE-2024-22032
+ghsas:
+    - GHSA-q6c7-56cq-g2wm
+references:
+    - advisory: https://github.com/rancher/rancher/security/advisories/GHSA-q6c7-56cq-g2wm
+source:
+    id: GHSA-q6c7-56cq-g2wm
+    created: 2024-06-27T15:54:05.57143-04:00
+review_status: UNREVIEWED
