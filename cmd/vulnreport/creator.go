@@ -148,6 +148,7 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) (*yamlRe
 		report.WithModulePath(meta.modulePath),
 		report.WithAliases(aliases),
 		report.WithReviewStatus(meta.reviewStatus),
+		report.WithUnexcluded(meta.unexcluded),
 	)
 
 	if meta.excluded != "" {
@@ -283,11 +284,11 @@ func aliases(iss *issues.Issue) (aliases []string) {
 // Data that can be combined with a source vulnerability
 // to create a new report.
 type reportMeta struct {
-	id           string
-	modulePath   string
-	aliases      []string
-	excluded     report.ExcludedReason
-	reviewStatus report.ReviewStatus
+	id                   string
+	modulePath           string
+	aliases              []string
+	excluded, unexcluded report.ExcludedReason
+	reviewStatus         report.ReviewStatus
 }
 
 const todo = "TODO: "

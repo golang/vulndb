@@ -32,6 +32,7 @@ func New(src Source, pc *proxy.Client, opts ...NewOption) *Report {
 	}
 	r.SourceMeta.Created = &cfg.Created
 	r.ReviewStatus = cfg.ReviewStatus
+	r.Unexcluded = cfg.Unexcluded
 
 	if r.hasExternalSource() {
 		r.addSourceAdvisory()
@@ -102,12 +103,19 @@ func WithReviewStatus(status ReviewStatus) NewOption {
 	}
 }
 
+func WithUnexcluded(reason ExcludedReason) NewOption {
+	return func(h *cfg) {
+		h.Unexcluded = reason
+	}
+}
+
 type cfg struct {
 	ModulePath   string
 	Aliases      []string
 	Created      time.Time
 	GoID         string
 	ReviewStatus ReviewStatus
+	Unexcluded   ExcludedReason
 }
 
 const PendingID = "GO-ID-PENDING"

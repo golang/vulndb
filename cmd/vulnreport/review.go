@@ -47,19 +47,10 @@ func (u *review) skip(input any) string {
 }
 
 func (u *review) run(ctx context.Context, input any) (err error) {
-	oldR := input.(*yamlReport)
+	meta := input.(*yamlReport).meta()
+	meta.reviewStatus = report.Reviewed
 
-	var modulePath string
-	if len(oldR.Modules) > 0 {
-		modulePath = oldR.Modules[0].Module
-	}
-
-	r, err := u.reportFromMeta(ctx, &reportMeta{
-		id:           oldR.ID,
-		modulePath:   modulePath,
-		aliases:      oldR.Aliases(),
-		reviewStatus: report.Reviewed,
-	})
+	r, err := u.reportFromMeta(ctx, meta)
 	if err != nil {
 		return err
 	}

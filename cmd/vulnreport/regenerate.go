@@ -66,22 +66,10 @@ func (u *regenerate) run(ctx context.Context, input any) (err error) {
 		}
 	}
 
-	var modulePath string
-	if len(oldR.Modules) > 0 {
-		modulePath = oldR.Modules[0].Module
-	}
-
-	r, err := u.reportFromMeta(ctx, &reportMeta{
-		id:           oldR.ID,
-		modulePath:   modulePath,
-		aliases:      oldR.Aliases(),
-		reviewStatus: oldR.ReviewStatus,
-	})
+	r, err := u.reportFromMeta(ctx, oldR.meta())
 	if err != nil {
 		return err
 	}
-
-	r.Unexcluded = oldR.Unexcluded
 
 	if !cmp.Equal(r, oldR,
 		cmpopts.IgnoreFields(report.SourceMeta{}, "Created"),
@@ -94,4 +82,19 @@ func (u *regenerate) run(ctx context.Context, input any) (err error) {
 	}
 
 	return nil
+}
+
+func (r *yamlReport) meta() *reportMeta {
+	var modulePath string
+	if len(r.Modules) > 0 {
+		modulePath = r.Modules[0].Module
+	}
+
+	return &reportMeta{
+		id:           r.ID,
+		modulePath:   modulePath,
+		aliases:      r.Aliases(),
+		reviewStatus: r.ReviewStatus,
+		unexcluded:   r.Unexcluded,
+	}
 }
