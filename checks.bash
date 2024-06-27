@@ -84,7 +84,8 @@ check_misspell() {
   # exceptions:
   # "github.com/unknwon/cae" - OK
   # "github.com/julz/importas" - OK
-  runcmd misspell -i "unknwon,importas"  -error .
+  # Ignore testdata files and the spelling.go file (which contains a list of replacements)
+  runcmd find . -type f | grep -v -e "spelling.go" -e "/testdata" | xargs misspell -i "unknwon,importas" -error
 }
 
 check_data_osv() {

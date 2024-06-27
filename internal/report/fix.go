@@ -62,16 +62,6 @@ func (r *Report) fixSummary() {
 	r.Summary = Summary(fixSpelling(summary))
 }
 
-// Hard-coded list of words we've had problems with in the past.
-var replacer = strings.NewReplacer(
-	"expropiation", "expropriation",
-	"Constallation", "Constellation",
-)
-
-func fixSpelling(s string) string {
-	return replacer.Replace(s)
-}
-
 func (v *Version) commitHashToVersion(modulePath string, pc *proxy.Client) {
 	if v == nil {
 		return
