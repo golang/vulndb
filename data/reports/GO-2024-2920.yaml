@@ -1,0 +1,50 @@
+id: GO-2024-2920
+modules:
+    - module: github.com/vektah/gqlparser
+      vulnerable_at: 1.3.1
+      packages:
+        - package: github.com/vektah/gqlparser/parser
+          symbols:
+            - parser.parseDirectives
+          derived_symbols:
+            - ParseQuery
+            - ParseSchema
+            - ParseSchemas
+    - module: github.com/vektah/gqlparser/v2
+      versions:
+        - fixed: 2.5.14
+      vulnerable_at: 2.5.13
+      packages:
+        - package: github.com/vektah/gqlparser/v2/parser
+          symbols:
+            - parser.parseDirectives
+          derived_symbols:
+            - ParseQuery
+            - ParseSchema
+            - ParseSchemas
+summary: Denial of service vulnerability via the parseDirectives function in github.com/vektah/gqlparser
+description: |-
+    An issue in vektah gqlparser open-source-library allows a remote
+    attacker to cause a denial of service via a crafted script to the
+    parseDirectives function.
+cves:
+    - CVE-2023-49559
+ghsas:
+    - GHSA-2hmf-46v7-v6fx
+unknown_aliases:
+    - CGA-28jv-3vhj-mh4f
+    - CGA-f2h6-vhfv-9wfh
+    - CGA-pq49-565p-4jxc
+    - CGA-qxv7-23p6-xhwj
+    - CGA-r238-8h2v-2g64
+    - CGA-vq2h-9hfx-rqr4
+references:
+    - advisory: https://github.com/advisories/GHSA-2hmf-46v7-v6fx
+    - fix: https://github.com/vektah/gqlparser/commit/36a3658873bf5a107f42488dfc392949cdd02977
+    - web: https://gist.github.com/uvzz/d3ed9d4532be16ec1040a2cf3dfec8d1
+    - web: https://github.com/99designs/gqlgen/issues/3118
+    - web: https://github.com/vektah/gqlparser/blob/master/parser/query.go#L316
+source:
+    id: GHSA-2hmf-46v7-v6fx
+    created: 2024-07-01T13:30:21.392218-04:00
+review_status: REVIEWED

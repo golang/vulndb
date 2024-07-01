@@ -1,0 +1,191 @@
+id: GO-2024-2936
+modules:
+    - module: github.com/pocketbase/pocketbase
+      versions:
+        - fixed: 0.22.14
+      vulnerable_at: 0.22.14-rc
+      packages:
+        - package: github.com/pocketbase/pocketbase/apis
+          symbols:
+            - RecordAuthResponse
+            - recordAuthApi.authWithPassword
+            - recordAuthApi.authWithOAuth2
+          derived_symbols:
+            - EnrichRecord
+            - EnrichRecords
+            - Serve
+        - package: github.com/pocketbase/pocketbase/models
+          symbols:
+            - Record.getNormalizeDataValueForDB
+            - Record.Get
+            - Record.Set
+          derived_symbols:
+            - NewRecordFromNullStringMap
+            - NewRecordsFromNullStringMaps
+            - Record.CleanCopy
+            - Record.ColumnValueMap
+            - Record.Email
+            - Record.EmailVisibility
+            - Record.FindFileFieldByFile
+            - Record.GetBool
+            - Record.GetDateTime
+            - Record.GetFloat
+            - Record.GetInt
+            - Record.GetString
+            - Record.GetStringSlice
+            - Record.GetTime
+            - Record.LastResetSentAt
+            - Record.LastVerificationSentAt
+            - Record.Load
+            - Record.MarshalJSON
+            - Record.OriginalCopy
+            - Record.PasswordHash
+            - Record.PublicExport
+            - Record.RefreshTokenKey
+            - Record.ReplaceModifers
+            - Record.SetEmail
+            - Record.SetEmailVisibility
+            - Record.SetLastResetSentAt
+            - Record.SetLastVerificationSentAt
+            - Record.SetPassword
+            - Record.SetTokenKey
+            - Record.SetUsername
+            - Record.SetVerified
+            - Record.TokenKey
+            - Record.UnknownData
+            - Record.UnmarshalJSON
+            - Record.UnmarshalJSONField
+            - Record.Username
+            - Record.ValidatePassword
+            - Record.Verified
+        - package: github.com/pocketbase/pocketbase/models/schema
+          symbols:
+            - AuthFieldNames
+        - package: github.com/pocketbase/pocketbase/daos
+          symbols:
+            - Dao.SyncRecordTableSchema
+          derived_symbols:
+            - Dao.CanAccessRecord
+            - Dao.CreateViewSchema
+            - Dao.Delete
+            - Dao.DeleteAdmin
+            - Dao.DeleteCollection
+            - Dao.DeleteExternalAuth
+            - Dao.DeleteOldLogs
+            - Dao.DeleteParam
+            - Dao.DeleteRecord
+            - Dao.DeleteTable
+            - Dao.DeleteView
+            - Dao.ExpandRecord
+            - Dao.ExpandRecords
+            - Dao.FindAdminByEmail
+            - Dao.FindAdminById
+            - Dao.FindAdminByToken
+            - Dao.FindAllExternalAuthsByRecord
+            - Dao.FindAuthRecordByEmail
+            - Dao.FindAuthRecordByToken
+            - Dao.FindAuthRecordByUsername
+            - Dao.FindById
+            - Dao.FindCollectionByNameOrId
+            - Dao.FindCollectionReferences
+            - Dao.FindCollectionsByType
+            - Dao.FindExternalAuthByRecordAndProvider
+            - Dao.FindFirstExternalAuthByExpr
+            - Dao.FindFirstRecordByData
+            - Dao.FindFirstRecordByFilter
+            - Dao.FindLogById
+            - Dao.FindParamByKey
+            - Dao.FindRecordById
+            - Dao.FindRecordByViewFile
+            - Dao.FindRecordsByExpr
+            - Dao.FindRecordsByFilter
+            - Dao.FindRecordsByIds
+            - Dao.FindSettings
+            - Dao.HasTable
+            - Dao.ImportCollections
+            - Dao.IsAdminEmailUnique
+            - Dao.IsCollectionNameUnique
+            - Dao.IsRecordValueUnique
+            - Dao.LogsStats
+            - Dao.RecordQuery
+            - Dao.RunInTransaction
+            - Dao.Save
+            - Dao.SaveAdmin
+            - Dao.SaveCollection
+            - Dao.SaveExternalAuth
+            - Dao.SaveLog
+            - Dao.SaveParam
+            - Dao.SaveRecord
+            - Dao.SaveSettings
+            - Dao.SaveView
+            - Dao.SuggestUniqueAuthRecordUsername
+            - Dao.TableColumns
+            - Dao.TableIndexes
+            - Dao.TableInfo
+            - Dao.TotalAdmins
+            - Dao.Vacuum
+        - package: github.com/pocketbase/pocketbase/forms
+          symbols:
+            - RecordOAuth2Login.submit
+          derived_symbols:
+            - AdminLogin.Submit
+            - AdminLogin.Validate
+            - AdminPasswordResetConfirm.Submit
+            - AdminPasswordResetConfirm.Validate
+            - AdminPasswordResetRequest.Submit
+            - AdminPasswordResetRequest.Validate
+            - AdminUpsert.Submit
+            - AdminUpsert.Validate
+            - AppleClientSecretCreate.Submit
+            - AppleClientSecretCreate.Validate
+            - BackupCreate.Submit
+            - BackupCreate.Validate
+            - BackupUpload.Submit
+            - BackupUpload.Validate
+            - CollectionUpsert.Submit
+            - CollectionUpsert.Validate
+            - CollectionsImport.Submit
+            - CollectionsImport.Validate
+            - NewRecordUpsert
+            - RealtimeSubscribe.Validate
+            - RecordEmailChangeConfirm.Submit
+            - RecordEmailChangeConfirm.Validate
+            - RecordEmailChangeRequest.Submit
+            - RecordEmailChangeRequest.Validate
+            - RecordOAuth2Login.Submit
+            - RecordOAuth2Login.Validate
+            - RecordPasswordLogin.Submit
+            - RecordPasswordLogin.Validate
+            - RecordPasswordResetConfirm.Submit
+            - RecordPasswordResetConfirm.Validate
+            - RecordPasswordResetRequest.Submit
+            - RecordPasswordResetRequest.Validate
+            - RecordUpsert.DrySubmit
+            - RecordUpsert.LoadData
+            - RecordUpsert.LoadRequest
+            - RecordUpsert.Submit
+            - RecordUpsert.Validate
+            - RecordUpsert.ValidateAndFill
+            - RecordVerificationConfirm.Submit
+            - RecordVerificationConfirm.Validate
+            - RecordVerificationRequest.Submit
+            - RecordVerificationRequest.Validate
+            - SettingsUpsert.Submit
+            - SettingsUpsert.Validate
+            - TestEmailSend.Submit
+            - TestEmailSend.Validate
+            - TestS3Filesystem.Submit
+            - TestS3Filesystem.Validate
+summary: PocketBase performs password auth and OAuth2 unverified email linking in github.com/pocketbase/pocketbase
+cves:
+    - CVE-2024-38351
+ghsas:
+    - GHSA-m93w-4fxv-r35v
+references:
+    - advisory: https://github.com/pocketbase/pocketbase/security/advisories/GHSA-m93w-4fxv-r35v
+    - fix: https://github.com/pocketbase/pocketbase/commit/58ace5d5e7b9b979490019cf8d1b88491e5daec5
+    - web: https://github.com/pocketbase/pocketbase/discussions/4355
+source:
+    id: GHSA-m93w-4fxv-r35v
+    created: 2024-07-01T13:30:10.970751-04:00
+review_status: REVIEWED

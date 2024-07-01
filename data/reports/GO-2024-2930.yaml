@@ -1,0 +1,87 @@
+id: GO-2024-2930
+modules:
+    - module: github.com/rancher/rke
+      versions:
+        - introduced: 1.4.18
+        - fixed: 1.4.19
+        - introduced: 1.5.9
+        - fixed: 1.5.10
+      vulnerable_at: 1.5.10-rc.1
+      packages:
+        - package: github.com/rancher/rke/k8s
+          symbols:
+            - UpdateSecret
+            - GetSecretsList
+            - GetSecret
+            - GetSystemSecret
+        - package: github.com/rancher/rke/cluster
+          symbols:
+            - SaveFullStateToKubernetes
+            - RebuildState
+            - GetK8sVersion
+            - Cluster.GetStateFileFromConfigMap
+            - Cluster.StoreAddonConfigMap
+            - FullState.WriteStateFile
+            - buildFreshState
+            - ReadStateFile
+            - GetStateFromKubernetes
+          derived_symbols:
+            - Cluster.CheckClusterPorts
+            - Cluster.CleanDeadLogs
+            - Cluster.CleanupNodes
+            - Cluster.ClusterRemove
+            - Cluster.DeployControlPlane
+            - Cluster.DeployRestoreCerts
+            - Cluster.DeployStateFile
+            - Cluster.DeployWorkerPlane
+            - Cluster.DisableSecretsEncryption
+            - Cluster.PrePullK8sImages
+            - Cluster.ReconcileDesiredStateEncryptionConfig
+            - Cluster.RewriteSecrets
+            - Cluster.RotateEncryptionKey
+            - Cluster.RunSELinuxCheck
+            - Cluster.SetUpHosts
+            - Cluster.SyncLabelsAndTaints
+            - Cluster.TunnelHosts
+            - Cluster.UpdateClusterCurrentState
+            - Cluster.UpgradeControlPlane
+            - Cluster.UpgradeWorkerPlane
+            - ConfigureCluster
+            - GetClusterCertsFromKubernetes
+            - RebuildKubeconfig
+            - ReconcileCluster
+            - ReconcileEncryptionProviderConfig
+            - RestartClusterPods
+        - package: github.com/rancher/rke/cmd
+          symbols:
+            - ClusterUp
+            - getStateFile
+            - saveClusterState
+          derived_symbols:
+            - ClusterInit
+            - ClusterRemove
+            - RestoreEtcdSnapshot
+            - RestoreEtcdSnapshotFromCli
+            - RetrieveClusterStateConfigMap
+            - RotateEncryptionKey
+            - SnapshotRemoveFromEtcdHosts
+            - SnapshotSaveEtcdHosts
+            - SnapshotSaveEtcdHostsFromCli
+summary: RKE credentials are stored in the RKE1 Cluster state ConfigMap in github.com/rancher/rke
+description: |-
+    When RKE provisions a cluster, it stores the cluster state in a configmap called
+    "full-cluster-state" inside the "kube-system" namespace of the cluster itself.
+    This cluster state object contains information used to set up the K8s cluster,
+    which may include sensitive data.
+cves:
+    - CVE-2023-32191
+ghsas:
+    - GHSA-6gr4-52w6-vmqx
+references:
+    - advisory: https://github.com/rancher/rke/security/advisories/GHSA-6gr4-52w6-vmqx
+    - fix: https://github.com/rancher/rke/commit/cf49199481a1891909acb1384eed73a5c987d5bd
+    - fix: https://github.com/rancher/rke/commit/f7485b8dce376db0fc15a7c3ceb3de7029c8d0cf
+source:
+    id: GHSA-6gr4-52w6-vmqx
+    created: 2024-07-01T13:30:12.796528-04:00
+review_status: REVIEWED

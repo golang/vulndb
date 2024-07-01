@@ -1,0 +1,30 @@
+id: GO-2024-2921
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - introduced: 0.11.0
+        - fixed: 1.16.3
+        - introduced: 1.17.0-rc1
+        - fixed: 1.17.0
+      non_go_versions:
+        - fixed: 1.15.9
+      vulnerable_at: 1.17.0-rc1
+summary: |-
+    HashiCorp Vault Incorrectly Validated JSON Web Tokens (JWT) Audience Claims in
+    github.com/hashicorp/vault
+cves:
+    - CVE-2024-5798
+ghsas:
+    - GHSA-32cj-5wx4-gq8p
+unknown_aliases:
+    - BIT-vault-2024-5798
+references:
+    - advisory: https://github.com/advisories/GHSA-32cj-5wx4-gq8p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-5798
+    - web: https://discuss.hashicorp.com/t/hcsec-2024-11-vault-incorrectly-validated-json-web-tokens-jwt-audience-claims/67770
+notes:
+    - manually removed 'introduced: 1.16.0-rc1' to fix overlapping versions
+source:
+    id: GHSA-32cj-5wx4-gq8p
+    created: 2024-07-01T13:30:14.94375-04:00
+review_status: UNREVIEWED

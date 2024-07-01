@@ -1,0 +1,24 @@
+id: GO-2024-2943
+modules:
+    - module: github.com/lightningnetwork/lnd
+      versions:
+        - fixed: 0.17.0-beta
+      vulnerable_at: 0.16.4-beta.rc1
+summary: |-
+    Lightning Network Daemon (LND)'s onion processing logic leads to a denial of
+    service in github.com/lightningnetwork/lnd
+cves:
+    - CVE-2024-38359
+ghsas:
+    - GHSA-9gxx-58q6-42p7
+references:
+    - advisory: https://github.com/lightningnetwork/lnd/security/advisories/GHSA-9gxx-58q6-42p7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-38359
+    - web: https://delvingbitcoin.org/t/dos-disclosure-lnd-onion-bomb/979
+    - web: https://github.com/lightningnetwork/lnd/releases/tag/v0.17.0-beta
+    - web: https://lightning.network
+    - web: https://morehouse.github.io/lightning/lnd-onion-bomb
+source:
+    id: GHSA-9gxx-58q6-42p7
+    created: 2024-07-01T14:09:09.810773-04:00
+review_status: UNREVIEWED
