@@ -40,7 +40,16 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "k8s.io/kubernetes/plugin/pkg/admission/serviceaccount",
+            "symbols": [
+              "Plugin.limitSecretReferences"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
@@ -49,24 +58,8 @@
       "url": "https://github.com/advisories/GHSA-pxhw-596r-rwq5"
     },
     {
-      "type": "ADVISORY",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-3177"
-    },
-    {
-      "type": "WEB",
-      "url": "http://www.openwall.com/lists/oss-security/2024/04/16/4"
-    },
-    {
-      "type": "WEB",
+      "type": "FIX",
       "url": "https://github.com/kubernetes/kubernetes/commit/7c861b1ecad97e1ab9332c970c9294a72065111a"
-    },
-    {
-      "type": "WEB",
-      "url": "https://github.com/kubernetes/kubernetes/commit/a619ca3fd3ee3c222d9df784622020de398076d2"
-    },
-    {
-      "type": "WEB",
-      "url": "https://github.com/kubernetes/kubernetes/commit/f9fb6cf52a769a599a45e700375115c2ecc86e9b"
     },
     {
       "type": "WEB",
@@ -75,18 +68,10 @@
     {
       "type": "WEB",
       "url": "https://groups.google.com/g/kubernetes-security-announce/c/JxjHf7fkVd8/m/oVCzypyOAQAJ"
-    },
-    {
-      "type": "WEB",
-      "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/QRYFHIQ6XRKRYBI2F5UESH67BJBQXUPT"
-    },
-    {
-      "type": "WEB",
-      "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/WL54MTLGMTBZZO5PYGEGEBERTMADC4WC"
     }
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2024-2746",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }
