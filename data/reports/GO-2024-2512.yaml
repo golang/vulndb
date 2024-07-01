@@ -6,6 +6,63 @@ modules:
         - introduced: 25.0.0+incompatible
         - fixed: 25.0.2+incompatible
       vulnerable_at: 25.0.1+incompatible
+      packages:
+        - package: github.com/docker/docker/builder/dockerfile
+          skip_fix: fix error due to incompatible version
+        - package: github.com/docker/docker/daemon/containerd
+          symbols:
+            - localCache.GetCache
+            - imageCache.GetCache
+            - isMatch
+          skip_fix: fix error due to incompatible version
+        - package: github.com/docker/docker/daemon/images
+          symbols:
+            - ImageService.CreateImage
+            - ImageService.CommitImage
+          skip_fix: fix error due to incompatible version
+        - package: github.com/docker/docker/image
+          symbols:
+            - store.SetBuiltLocally
+            - store.IsBuiltLocally
+          skip_fix: fix error due to incompatible version
+        - package: github.com/docker/docker/image/cache
+          symbols:
+            - LocalImageCache.GetCache
+            - ImageCache.GetCache
+            - getLocalCachedImage
+            - compare
+          skip_fix: fix error due to incompatible version
+    - module: github.com/moby/moby
+      versions:
+        - fixed: 24.0.9+incompatible
+        - introduced: 25.0.0+incompatible
+        - fixed: 25.0.2+incompatible
+      packages:
+        - package: github.com/moby/moby/builder/dockerfile
+          skip_fix: fix error due to incompatible version
+        - package: github.com/moby/moby/daemon/containerd
+          symbols:
+            - localCache.GetCache
+            - imageCache.GetCache
+            - isMatch
+          skip_fix: fix error due to incompatible version
+        - package: github.com/moby/moby/daemon/images
+          symbols:
+            - ImageService.CreateImage
+            - ImageService.CommitImage
+          skip_fix: fix error due to incompatible version
+        - package: github.com/moby/moby/image
+          symbols:
+            - store.SetBuiltLocally
+            - store.IsBuiltLocally
+          skip_fix: fix error due to incompatible version
+        - package: github.com/moby/moby/image/cache
+          symbols:
+            - LocalImageCache.GetCache
+            - ImageCache.GetCache
+            - getLocalCachedImage
+            - compare
+          skip_fix: fix error due to incompatible version
 summary: Classic builder cache poisoning in github.com/docker/docker
 cves:
     - CVE-2024-24557
@@ -13,11 +70,11 @@ ghsas:
     - GHSA-xw73-rw38-6vjc
 references:
     - advisory: https://github.com/moby/moby/security/advisories/GHSA-xw73-rw38-6vjc
-    - web: https://github.com/moby/moby/commit/3e230cfdcc989dc524882f6579f9e0dac77400ae
-    - web: https://github.com/moby/moby/commit/fca702de7f71362c8d103073c7e4a1d0a467fadd
-    - web: https://github.com/moby/moby/commit/fce6e0ca9bc000888de3daa157af14fa41fcd0ff
+    - fix: https://github.com/moby/moby/commit/3e230cfdcc989dc524882f6579f9e0dac77400ae
+    - fix: https://github.com/moby/moby/commit/fca702de7f71362c8d103073c7e4a1d0a467fadd
+    - fix: https://github.com/moby/moby/commit/fce6e0ca9bc000888de3daa157af14fa41fcd0ff
 source:
     id: GHSA-xw73-rw38-6vjc
-    created: 2024-06-26T16:09:36.799744-04:00
-review_status: UNREVIEWED
+    created: 2024-07-01T15:02:00.395966-04:00
+review_status: REVIEWED
 unexcluded: EFFECTIVELY_PRIVATE

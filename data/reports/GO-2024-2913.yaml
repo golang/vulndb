@@ -4,19 +4,29 @@ modules:
       versions:
         - fixed: 20.10.9+incompatible
       vulnerable_at: 20.10.8+incompatible
-summary: '`docker cp` allows unexpected chmod of host files in Moby Docker Engine in github.com/docker/docker'
+      packages:
+        - package: github.com/docker/docker/pkg/chrootarchive
+          symbols:
+            - untarHandler
+          skip_fix: fix error due to incompatible versions
+    - module: github.com/moby/moby
+      versions:
+        - fixed: 20.10.9+incompatible
+      vulnerable_at: 20.10.8+incompatible
+      packages:
+        - package: github.com/moby/moby/pkg/chrootarchive
+          symbols:
+            - untarHandler
+          skip_fix: fix error due to incompatible versions
+summary: Unexpected chmod of host files via 'docker cp' in Moby Docker Engine in github.com/docker/docker
 cves:
     - CVE-2021-41089
 ghsas:
     - GHSA-v994-f8vw-g7j4
 references:
     - advisory: https://github.com/moby/moby/security/advisories/GHSA-v994-f8vw-g7j4
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-41089
-    - web: https://cert-portal.siemens.com/productcert/pdf/ssa-222547.pdf
-    - web: https://github.com/moby/moby/commit/bce32e5c93be4caf1a592582155b9cb837fc129a
-    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/B5Q6G6I4W5COQE25QMC7FJY3I3PAYFBB
-    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/ZNFADTCHHYWVM6W4NJ6CB4FNFM2VMBIB
+    - fix: https://github.com/moby/moby/commit/bce32e5c93be4caf1a592582155b9cb837fc129a
 source:
     id: GHSA-v994-f8vw-g7j4
-    created: 2024-06-13T12:05:51.631402-04:00
-review_status: UNREVIEWED
+    created: 2024-07-01T14:35:32.733244-04:00
+review_status: REVIEWED

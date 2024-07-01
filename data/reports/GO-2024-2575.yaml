@@ -1,23 +1,41 @@
 id: GO-2024-2575
 modules:
-    - module: helm.sh/helm
-      vulnerable_at: 2.17.0+incompatible
     - module: helm.sh/helm/v3
       versions:
         - fixed: 3.14.2
       vulnerable_at: 3.14.1
-summary: Helm's Missing YAML Content Leads To Panic in helm.sh/helm
+      packages:
+        - package: helm.sh/helm/v3/pkg/plugin
+          symbols:
+            - validatePluginData
+          derived_symbols:
+            - FindPlugins
+            - LoadAll
+            - LoadDir
+        - package: helm.sh/helm/v3/pkg/repo
+          symbols:
+            - loadIndex
+          derived_symbols:
+            - ChartRepository.DownloadIndexFile
+            - ChartRepository.Load
+            - FindChartInAuthAndTLSAndPassRepoURL
+            - FindChartInAuthAndTLSRepoURL
+            - FindChartInAuthRepoURL
+            - FindChartInRepoURL
+            - LoadIndexFile
+summary: Helm's Missing YAML Content Leads To Panic in helm.sh/helm/v3
 cves:
     - CVE-2024-26147
 ghsas:
     - GHSA-r53h-jv2g-vpx6
 unknown_aliases:
     - BIT-helm-2024-26147
+credits:
+    - Jakub Ciolek at AlphaSense
 references:
     - advisory: https://github.com/helm/helm/security/advisories/GHSA-r53h-jv2g-vpx6
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-26147
-    - web: https://github.com/helm/helm/commit/bb4cc9125503a923afb7988f3eb478722a8580af
+    - fix: https://github.com/helm/helm/commit/bb4cc9125503a923afb7988f3eb478722a8580af
 source:
     id: GHSA-r53h-jv2g-vpx6
-    created: 2024-06-26T13:57:18.093508-04:00
-review_status: UNREVIEWED
+    created: 2024-07-01T14:57:47.79335-04:00
+review_status: REVIEWED

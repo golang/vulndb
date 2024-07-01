@@ -6,12 +6,35 @@
   "aliases": [
     "GHSA-xmmx-7jpf-fx42"
   ],
+  "related": [
+    "CVE-2021-41190"
+  ],
   "summary": "Moby (Docker Engine) is vulnerable to Ambiguous OCI manifest parsing in github.com/docker/docker",
   "details": "Moby (Docker Engine) is vulnerable to Ambiguous OCI manifest parsing in github.com/docker/docker",
   "affected": [
     {
       "package": {
         "name": "github.com/docker/docker",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "20.10.11+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/moby/moby",
         "ecosystem": "Go"
       },
       "ranges": [
@@ -38,6 +61,6 @@
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2024-2914",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }

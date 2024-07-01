@@ -7,26 +7,9 @@
     "CVE-2024-26147",
     "GHSA-r53h-jv2g-vpx6"
   ],
-  "summary": "Helm's Missing YAML Content Leads To Panic in helm.sh/helm",
-  "details": "Helm's Missing YAML Content Leads To Panic in helm.sh/helm",
+  "summary": "Helm's Missing YAML Content Leads To Panic in helm.sh/helm/v3",
+  "details": "Helm's Missing YAML Content Leads To Panic in helm.sh/helm/v3",
   "affected": [
-    {
-      "package": {
-        "name": "helm.sh/helm",
-        "ecosystem": "Go"
-      },
-      "ranges": [
-        {
-          "type": "SEMVER",
-          "events": [
-            {
-              "introduced": "0"
-            }
-          ]
-        }
-      ],
-      "ecosystem_specific": {}
-    },
     {
       "package": {
         "name": "helm.sh/helm/v3",
@@ -45,7 +28,32 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "helm.sh/helm/v3/pkg/plugin",
+            "symbols": [
+              "FindPlugins",
+              "LoadAll",
+              "LoadDir",
+              "validatePluginData"
+            ]
+          },
+          {
+            "path": "helm.sh/helm/v3/pkg/repo",
+            "symbols": [
+              "ChartRepository.DownloadIndexFile",
+              "ChartRepository.Load",
+              "FindChartInAuthAndTLSAndPassRepoURL",
+              "FindChartInAuthAndTLSRepoURL",
+              "FindChartInAuthRepoURL",
+              "FindChartInRepoURL",
+              "LoadIndexFile",
+              "loadIndex"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
@@ -54,16 +62,17 @@
       "url": "https://github.com/helm/helm/security/advisories/GHSA-r53h-jv2g-vpx6"
     },
     {
-      "type": "ADVISORY",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-26147"
-    },
-    {
-      "type": "WEB",
+      "type": "FIX",
       "url": "https://github.com/helm/helm/commit/bb4cc9125503a923afb7988f3eb478722a8580af"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Jakub Ciolek at AlphaSense"
     }
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2024-2575",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }

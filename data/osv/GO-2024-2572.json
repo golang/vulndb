@@ -6,8 +6,8 @@
   "aliases": [
     "GHSA-4j93-fm92-rp4m"
   ],
-  "summary": "ASA-2024-003: Missing `BlockedAddressed` Validation in Vesting Module in github.com/cosmos/cosmos-sdk",
-  "details": "ASA-2024-003: Missing `BlockedAddressed` Validation in Vesting Module in github.com/cosmos/cosmos-sdk",
+  "summary": "Missing BlockedAddressed Validation in Vesting Module in github.com/cosmos/cosmos-sdk",
+  "details": "Missing BlockedAddressed Validation in Vesting Module in github.com/cosmos/cosmos-sdk",
   "affected": [
     {
       "package": {
@@ -33,7 +33,16 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cosmos/cosmos-sdk/x/auth/vesting",
+            "symbols": [
+              "msgServer.CreatePeriodicVestingAccount"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
@@ -56,6 +65,6 @@
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2024-2572",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }

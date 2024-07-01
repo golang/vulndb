@@ -6,8 +6,8 @@
   "aliases": [
     "GHSA-c9cp-9c75-9v8c"
   ],
-  "summary": "containerd started with non-empty inheritable Linux process capabilities in github.com/containerd/containerd",
-  "details": "containerd started with non-empty inheritable Linux process capabilities in github.com/containerd/containerd",
+  "summary": "Containers started with non-empty inheritable Linux process capabilities in github.com/containerd/containerd",
+  "details": "Containers started with non-empty inheritable Linux process capabilities in github.com/containerd/containerd",
   "affected": [
     {
       "package": {
@@ -33,17 +33,37 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/containerd/containerd/oci",
+            "symbols": [
+              "ApplyOpts",
+              "GenerateSpec",
+              "GenerateSpecWithPlatform",
+              "WithAddedCapabilities",
+              "WithAmbientCapabilities",
+              "WithCapabilities",
+              "WithDroppedCapabilities",
+              "populateDefaultUnixSpec"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
     {
       "type": "ADVISORY",
       "url": "https://github.com/containerd/containerd/security/advisories/GHSA-c9cp-9c75-9v8c"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/containerd/containerd/commit/e9af808591ee1468f9b0ad6a0d41fdf93ee0c1bc"
     }
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2024-2846",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }

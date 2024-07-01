@@ -4,14 +4,27 @@ modules:
       versions:
         - fixed: 1.5.11
         - introduced: 1.6.0
-          fixed: 1.6.2
+        - fixed: 1.6.2
       vulnerable_at: 1.6.1
-summary: containerd started with non-empty inheritable Linux process capabilities in github.com/containerd/containerd
+      packages:
+        - package: github.com/containerd/containerd/oci
+          symbols:
+            - WithDroppedCapabilities
+            - WithAddedCapabilities
+            - WithAmbientCapabilities
+            - WithCapabilities
+            - populateDefaultUnixSpec
+          derived_symbols:
+            - ApplyOpts
+            - GenerateSpec
+            - GenerateSpecWithPlatform
+summary: Containers started with non-empty inheritable Linux process capabilities in github.com/containerd/containerd
 ghsas:
     - GHSA-c9cp-9c75-9v8c
 references:
     - advisory: https://github.com/containerd/containerd/security/advisories/GHSA-c9cp-9c75-9v8c
+    - fix: https://github.com/containerd/containerd/commit/e9af808591ee1468f9b0ad6a0d41fdf93ee0c1bc
 source:
     id: GHSA-c9cp-9c75-9v8c
-    created: 2024-05-17T16:09:26.822128-04:00
-review_status: UNREVIEWED
+    created: 2024-07-01T14:50:25.651568-04:00
+review_status: REVIEWED

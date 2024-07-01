@@ -34,7 +34,107 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/docker/docker/builder/dockerfile"
+          },
+          {
+            "path": "github.com/docker/docker/daemon/containerd",
+            "symbols": [
+              "imageCache.GetCache",
+              "isMatch",
+              "localCache.GetCache"
+            ]
+          },
+          {
+            "path": "github.com/docker/docker/daemon/images",
+            "symbols": [
+              "ImageService.CommitImage",
+              "ImageService.CreateImage"
+            ]
+          },
+          {
+            "path": "github.com/docker/docker/image",
+            "symbols": [
+              "store.IsBuiltLocally",
+              "store.SetBuiltLocally"
+            ]
+          },
+          {
+            "path": "github.com/docker/docker/image/cache",
+            "symbols": [
+              "ImageCache.GetCache",
+              "LocalImageCache.GetCache",
+              "compare",
+              "getLocalCachedImage"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/moby/moby",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "24.0.9+incompatible"
+            },
+            {
+              "introduced": "25.0.0+incompatible"
+            },
+            {
+              "fixed": "25.0.2+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/moby/moby/builder/dockerfile"
+          },
+          {
+            "path": "github.com/moby/moby/daemon/containerd",
+            "symbols": [
+              "imageCache.GetCache",
+              "isMatch",
+              "localCache.GetCache"
+            ]
+          },
+          {
+            "path": "github.com/moby/moby/daemon/images",
+            "symbols": [
+              "ImageService.CommitImage",
+              "ImageService.CreateImage"
+            ]
+          },
+          {
+            "path": "github.com/moby/moby/image",
+            "symbols": [
+              "store.IsBuiltLocally",
+              "store.SetBuiltLocally"
+            ]
+          },
+          {
+            "path": "github.com/moby/moby/image/cache",
+            "symbols": [
+              "ImageCache.GetCache",
+              "LocalImageCache.GetCache",
+              "compare",
+              "getLocalCachedImage"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
@@ -43,20 +143,20 @@
       "url": "https://github.com/moby/moby/security/advisories/GHSA-xw73-rw38-6vjc"
     },
     {
-      "type": "WEB",
+      "type": "FIX",
       "url": "https://github.com/moby/moby/commit/3e230cfdcc989dc524882f6579f9e0dac77400ae"
     },
     {
-      "type": "WEB",
+      "type": "FIX",
       "url": "https://github.com/moby/moby/commit/fca702de7f71362c8d103073c7e4a1d0a467fadd"
     },
     {
-      "type": "WEB",
+      "type": "FIX",
       "url": "https://github.com/moby/moby/commit/fce6e0ca9bc000888de3daa157af14fa41fcd0ff"
     }
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2024-2512",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }
