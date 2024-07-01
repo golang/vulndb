@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2912",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-41092",
+    "GHSA-99pg-grm5-qq3v"
+  ],
+  "summary": "Docker CLI leaks private registry credentials to registry-1.docker.io in github.com/docker/cli",
+  "details": "Docker CLI leaks private registry credentials to registry-1.docker.io in github.com/docker/cli",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/docker/cli",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "20.10.9+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/docker/cli/command",
+            "symbols": [
+              "GetDefaultAuthConfig",
+              "RegistryAuthenticationPrivilegedFunc"
+            ]
+          },
+          {
+            "path": "github.com/docker/cli/command/registry",
+            "symbols": [
+              "runLogin"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/docker/cli/security/advisories/GHSA-99pg-grm5-qq3v"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/docker/cli/commit/893e52cf4ba4b048d72e99748e0f86b2767c6c6b"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2912",
+    "review_status": "REVIEWED"
+  }
+}

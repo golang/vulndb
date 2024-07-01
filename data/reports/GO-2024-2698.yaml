@@ -3,22 +3,25 @@ modules:
     - module: github.com/mholt/archiver
       vulnerable_at: 2.1.0+incompatible
     - module: github.com/mholt/archiver/v3
-      non_go_versions:
-        - introduced: 3.0.0
-      unsupported_versions:
-        - last_affected: 3.5.1
       vulnerable_at: 3.5.1
 summary: Archiver Path Traversal vulnerability in github.com/mholt/archiver
+description: |-
+    A flaw was discovered in the mholt/archiver package. This flaw allows an
+    attacker to create a specially crafted tar file, which, when unpacked, may allow
+    access to restricted files or directories. This issue can allow the creation or
+    overwriting of files with the user's or application's privileges using the
+    library.
 cves:
     - CVE-2024-0406
 ghsas:
     - GHSA-rhh4-rh7c-7r5v
 references:
     - advisory: https://github.com/advisories/GHSA-rhh4-rh7c-7r5v
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-0406
     - web: https://access.redhat.com/security/cve/CVE-2024-0406
     - web: https://bugzilla.redhat.com/show_bug.cgi?id=2257749
+notes:
+    - no known fix
 source:
     id: GHSA-rhh4-rh7c-7r5v
-    created: 2024-06-26T13:59:57.78635-04:00
-review_status: UNREVIEWED
+    created: 2024-07-01T16:15:06.574303-04:00
+review_status: REVIEWED

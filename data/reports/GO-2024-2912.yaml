@@ -1,0 +1,30 @@
+id: GO-2024-2912
+modules:
+    - module: github.com/docker/cli
+      versions:
+        - fixed: 20.10.9+incompatible
+      vulnerable_at: 20.10.8+incompatible
+      packages:
+        - package: github.com/docker/cli/command
+          symbols:
+            - RegistryAuthenticationPrivilegedFunc
+            - GetDefaultAuthConfig
+          skip_fix: fix error due to incompatible version
+        - package: github.com/docker/cli/command/registry
+          symbols:
+            - runLogin
+          skip_fix: fix error due to incompatible version
+summary: Docker CLI leaks private registry credentials to registry-1.docker.io in github.com/docker/cli
+cves:
+    - CVE-2021-41092
+ghsas:
+    - GHSA-99pg-grm5-qq3v
+unknown_aliases:
+    - CGA-f849-gq83-8362
+references:
+    - advisory: https://github.com/docker/cli/security/advisories/GHSA-99pg-grm5-qq3v
+    - fix: https://github.com/docker/cli/commit/893e52cf4ba4b048d72e99748e0f86b2767c6c6b
+source:
+    id: GHSA-99pg-grm5-qq3v
+    created: 2024-07-01T16:01:00.847043-04:00
+review_status: REVIEWED

@@ -7,8 +7,8 @@
     "CVE-2024-21626",
     "GHSA-xr7r-f8xq-vfvv"
   ],
-  "summary": "runc vulnerable to container breakout through process.cwd trickery and leaked fds in github.com/opencontainers/runc",
-  "details": "runc vulnerable to container breakout through process.cwd trickery and leaked fds in github.com/opencontainers/runc",
+  "summary": "Container breakout through process.cwd trickery and leaked fds in github.com/opencontainers/runc",
+  "details": "Container breakout through process.cwd trickery and leaked fds in github.com/opencontainers/runc",
   "affected": [
     {
       "package": {
@@ -28,7 +28,33 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/opencontainers/runc/libcontainer/utils",
+            "symbols": [
+              "CloseExecFrom"
+            ]
+          },
+          {
+            "path": "github.com/opencontainers/runc/libcontainer/cgroups",
+            "symbols": [
+              "openFile",
+              "prepareOpenat2"
+            ]
+          },
+          {
+            "path": "github.com/opencontainers/runc/libcontainer",
+            "symbols": [
+              "Container.start",
+              "Init",
+              "finalizeNamespace",
+              "linuxSetnsInit.Init",
+              "linuxStandardInit.Init"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
@@ -37,44 +63,27 @@
       "url": "https://github.com/opencontainers/runc/security/advisories/GHSA-xr7r-f8xq-vfvv"
     },
     {
-      "type": "ADVISORY",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-21626"
-    },
-    {
       "type": "FIX",
       "url": "https://github.com/opencontainers/runc/commit/02120488a4c0fc487d1ed2867e901eeed7ce8ecf"
     },
     {
       "type": "WEB",
       "url": "http://packetstormsecurity.com/files/176993/runc-1.1.11-File-Descriptor-Leak-Privilege-Escalation.html"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Rory McNamara from Snyk"
     },
     {
-      "type": "WEB",
-      "url": "http://www.openwall.com/lists/oss-security/2024/02/01/1"
+      "name": "@lifubang from acmcoder"
     },
     {
-      "type": "WEB",
-      "url": "http://www.openwall.com/lists/oss-security/2024/02/02/3"
-    },
-    {
-      "type": "WEB",
-      "url": "https://github.com/opencontainers/runc/releases/tag/v1.1.12"
-    },
-    {
-      "type": "WEB",
-      "url": "https://lists.debian.org/debian-lts-announce/2024/02/msg00005.html"
-    },
-    {
-      "type": "WEB",
-      "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/2NLXNE23Q5ESQUAI22Z7A63JX2WMPJ2J"
-    },
-    {
-      "type": "WEB",
-      "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/SYMO3BANINS6RGFQFKPRG4FIOJ7GWYTL"
+      "name": "Aleksa Sarai from SUSE"
     }
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2024-2491",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }

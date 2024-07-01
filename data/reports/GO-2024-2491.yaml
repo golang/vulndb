@@ -3,28 +3,43 @@ modules:
     - module: github.com/opencontainers/runc
       versions:
         - introduced: 1.0.0-rc93
-          fixed: 1.1.12
+        - fixed: 1.1.12
       vulnerable_at: 1.1.11
+      packages:
+        - package: github.com/opencontainers/runc/libcontainer/utils
+          symbols:
+            - CloseExecFrom
+          skip_fix: cgo related fix error
+        - package: github.com/opencontainers/runc/libcontainer/cgroups
+          symbols:
+            - openFile
+            - prepareOpenat2
+          skip_fix: cgo related fix error
+        - package: github.com/opencontainers/runc/libcontainer
+          symbols:
+            - Container.start
+            - linuxSetnsInit.Init
+            - linuxStandardInit.Init
+            - Init
+            - finalizeNamespace
+          skip_fix: cgo related fix error
 summary: |-
-    runc vulnerable to container breakout through process.cwd trickery and leaked
+    Container breakout through process.cwd trickery and leaked
     fds in github.com/opencontainers/runc
 cves:
     - CVE-2024-21626
 ghsas:
     - GHSA-xr7r-f8xq-vfvv
+credits:
+    - Rory McNamara from Snyk
+    - '@lifubang from acmcoder'
+    - Aleksa Sarai from SUSE
 references:
     - advisory: https://github.com/opencontainers/runc/security/advisories/GHSA-xr7r-f8xq-vfvv
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-21626
     - fix: https://github.com/opencontainers/runc/commit/02120488a4c0fc487d1ed2867e901eeed7ce8ecf
     - web: http://packetstormsecurity.com/files/176993/runc-1.1.11-File-Descriptor-Leak-Privilege-Escalation.html
-    - web: http://www.openwall.com/lists/oss-security/2024/02/01/1
-    - web: http://www.openwall.com/lists/oss-security/2024/02/02/3
-    - web: https://github.com/opencontainers/runc/releases/tag/v1.1.12
-    - web: https://lists.debian.org/debian-lts-announce/2024/02/msg00005.html
-    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/2NLXNE23Q5ESQUAI22Z7A63JX2WMPJ2J
-    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/SYMO3BANINS6RGFQFKPRG4FIOJ7GWYTL
 source:
     id: GHSA-xr7r-f8xq-vfvv
-    created: 2024-06-14T11:37:42.756616-04:00
-review_status: UNREVIEWED
+    created: 2024-07-01T16:15:02.647859-04:00
+review_status: REVIEWED
 unexcluded: EFFECTIVELY_PRIVATE

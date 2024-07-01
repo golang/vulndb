@@ -4,20 +4,35 @@ modules:
       versions:
         - fixed: 1.11.2
       vulnerable_at: 1.11.1
+      packages:
+        - package: github.com/coredns/coredns/plugin/cache
+          symbols:
+            - Cache.ServeDNS
+            - Cache.getIgnoreTTL
+            - Cache.exists
+            - key
+            - hash
+            - newPrefetchResponseWriter
+            - ResponseWriter.WriteMsg
+          derived_symbols:
+            - verifyStaleResponseWriter.WriteMsg
 summary: CoreDNS may return invalid cache entries in github.com/coredns/coredns
+description: |-
+    A flaw was found in coredns. This issue could lead to invalid cache entries
+    returning due to incorrectly implemented caching.
 cves:
     - CVE-2024-0874
 ghsas:
     - GHSA-m9w6-wp3h-vq8g
 references:
     - advisory: https://github.com/advisories/GHSA-m9w6-wp3h-vq8g
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-0874
     - fix: https://github.com/coredns/coredns/commit/997c7f953962d47c242273f0e41398fdfb5b0151
     - fix: https://github.com/coredns/coredns/pull/6354
     - report: https://github.com/coredns/coredns/issues/6186
+    - web: https://access.redhat.com/errata/RHSA-2024:0041
     - web: https://access.redhat.com/security/cve/CVE-2024-0874
     - web: https://bugzilla.redhat.com/show_bug.cgi?id=2219234
 source:
     id: GHSA-m9w6-wp3h-vq8g
-    created: 2024-05-17T16:10:54.00605-04:00
-review_status: UNREVIEWED
+    created: 2024-07-01T16:15:04.682445-04:00
+review_status: REVIEWED

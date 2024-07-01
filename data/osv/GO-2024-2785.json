@@ -8,7 +8,7 @@
     "GHSA-m9w6-wp3h-vq8g"
   ],
   "summary": "CoreDNS may return invalid cache entries in github.com/coredns/coredns",
-  "details": "CoreDNS may return invalid cache entries in github.com/coredns/coredns",
+  "details": "A flaw was found in coredns. This issue could lead to invalid cache entries returning due to incorrectly implemented caching.",
   "affected": [
     {
       "package": {
@@ -28,17 +28,29 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/coredns/coredns/plugin/cache",
+            "symbols": [
+              "Cache.ServeDNS",
+              "Cache.exists",
+              "Cache.getIgnoreTTL",
+              "ResponseWriter.WriteMsg",
+              "hash",
+              "key",
+              "newPrefetchResponseWriter",
+              "verifyStaleResponseWriter.WriteMsg"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
     {
       "type": "ADVISORY",
       "url": "https://github.com/advisories/GHSA-m9w6-wp3h-vq8g"
-    },
-    {
-      "type": "ADVISORY",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-0874"
     },
     {
       "type": "FIX",
@@ -54,6 +66,10 @@
     },
     {
       "type": "WEB",
+      "url": "https://access.redhat.com/errata/RHSA-2024:0041"
+    },
+    {
+      "type": "WEB",
       "url": "https://access.redhat.com/security/cve/CVE-2024-0874"
     },
     {
@@ -63,6 +79,6 @@
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2024-2785",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }

@@ -1,0 +1,47 @@
+id: GO-2024-2918
+modules:
+    - module: github.com/Azure/azure-sdk-for-go/sdk/azidentity
+      versions:
+        - fixed: 1.6.0
+      vulnerable_at: 1.6.0-beta.4
+      packages:
+        - package: github.com/Azure/azure-sdk-for-go/sdk/azidentity
+          symbols:
+            - managedIdentityClient.createServiceFabricAuthRequest
+            - managedIdentityClient.createIMDSAuthRequest
+            - managedIdentityClient.createAzureMLAuthRequest
+            - managedIdentityClient.createAccessToken
+            - managedIdentityClient.createCloudShellAuthRequest
+            - newManagedIdentityClient
+            - managedIdentityClient.createAppServiceAuthRequest
+            - managedIdentityClient.getAzureArcSecretKey
+            - managedIdentityClient.authenticate
+            - managedIdentityClient.createAzureArcAuthRequest
+          derived_symbols:
+            - AzurePipelinesCredential.GetToken
+            - ChainedTokenCredential.GetToken
+            - ClientAssertionCredential.GetToken
+            - ClientCertificateCredential.GetToken
+            - ClientSecretCredential.GetToken
+            - DefaultAzureCredential.GetToken
+            - EnvironmentCredential.GetToken
+            - ManagedIdentityCredential.GetToken
+            - NewDefaultAzureCredential
+            - NewManagedIdentityCredential
+            - OnBehalfOfCredential.GetToken
+            - WorkloadIdentityCredential.GetToken
+            - confidentialClient.GetToken
+summary: Azure Identity Libraries Elevation of Privilege Vulnerability in github.com/Azure/azure-sdk-for-go/sdk/azidentity
+cves:
+    - CVE-2024-35255
+ghsas:
+    - GHSA-m5vv-6r4h-3vj9
+references:
+    - advisory: https://github.com/advisories/GHSA-m5vv-6r4h-3vj9
+    - fix: https://github.com/Azure/azure-sdk-for-go/commit/50774cd9709905523136fb05e8c85a50e8984499
+    - web: https://github.com/AzureAD/microsoft-authentication-library-for-dotnet/issues/4806#issuecomment-2178960340
+    - web: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-35255
+source:
+    id: GHSA-m5vv-6r4h-3vj9
+    created: 2024-07-01T16:01:15.242669-04:00
+review_status: REVIEWED
