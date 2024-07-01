@@ -37,3 +37,11 @@ func (t *Time) UnmarshalJSON(data []byte) error {
 	t.Time = time.UTC()
 	return nil
 }
+
+func (t Time) MarshalYAML() (interface{}, error) {
+	if !t.IsZero() {
+		return t.UTC().Format(time.RFC3339), nil
+	}
+
+	return t, nil
+}

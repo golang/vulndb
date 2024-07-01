@@ -131,16 +131,11 @@ func (r *Report) ToOSV(lastModified time.Time) (osv.Entry, error) {
 		})
 	}
 
-	var withdrawn *osv.Time
-	if r.Withdrawn != nil {
-		withdrawn = &osv.Time{Time: *r.Withdrawn}
-	}
-
 	entry := osv.Entry{
 		ID:            r.ID,
 		Published:     osv.Time{Time: r.Published},
 		Modified:      osv.Time{Time: lastModified},
-		Withdrawn:     withdrawn,
+		Withdrawn:     r.Withdrawn,
 		Related:       r.Related,
 		Summary:       toParagraphs(r.Summary.String()),
 		Credits:       credits,

@@ -308,7 +308,7 @@ type Report struct {
 	// assigning a CVE ID ourselves, use CVEMetadata.Description instead.
 	Description Description `yaml:",omitempty"`
 	Published   time.Time   `yaml:",omitempty"`
-	Withdrawn   *time.Time  `yaml:",omitempty"`
+	Withdrawn   *osv.Time   `yaml:",omitempty"`
 
 	// CVE are CVE IDs for existing CVEs.
 	// If we are assigning a CVE ID ourselves, use CVEMetadata.ID instead.

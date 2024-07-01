@@ -60,6 +60,7 @@ var commands = map[string]command{
 	"symbols":         &symbolsCmd{},
 	"osv":             &osvCmd{},
 	"unexclude":       &unexclude{},
+	"withdraw":        &withdraw{},
 	"xref":            &xref{},
 }
 
