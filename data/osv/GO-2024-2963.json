@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2963",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-24791"
+  ],
+  "summary": "Denial of service due to improper 100-continue handling in net/http",
+  "details": "The net/http HTTP/1.1 client mishandled the case where a server responds to a request with an \"Expect: 100-continue\" header with a non-informational (200 or higher) status. This mishandling could leave a client connection in an invalid state, where the next request sent on the connection will fail.\n\nAn attacker sending a request to a net/http/httputil.ReverseProxy proxy can exploit this mishandling to cause a denial of service by sending \"Expect: 100-continue\" requests which elicit a non-informational response from the backend. Each such request leaves the proxy with an invalid connection, and causes one subsequent request using that connection to fail.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.21.12"
+            },
+            {
+              "introduced": "1.22.0-0"
+            },
+            {
+              "fixed": "1.22.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "net/http",
+            "symbols": [
+              "Client.CloseIdleConnections",
+              "Client.Do",
+              "Client.Get",
+              "Client.Head",
+              "Client.Post",
+              "Client.PostForm",
+              "Get",
+              "Head",
+              "Post",
+              "PostForm",
+              "Transport.CancelRequest",
+              "Transport.CloseIdleConnections",
+              "Transport.RoundTrip",
+              "persistConn.readResponse"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/591255"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/67555"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-dev/c/t0rK-qHBqzY/m/6MMoAZkMAgAJ"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Geoff Franks"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2963",
+    "review_status": "REVIEWED"
+  }
+}
