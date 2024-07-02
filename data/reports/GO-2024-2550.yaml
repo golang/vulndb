@@ -1,22 +1,44 @@
 id: GO-2024-2550
 modules:
     - module: github.com/mongodb/mongo-tools
+      versions:
+        - fixed: 0.0.0-20200819165540-8c1800b51550
       non_go_versions:
+        - introduced: 3.6.5
+        - fixed: 3.6.21
+        - introduced: 4.0.0
+        - fixed: 4.0.21
+        - introduced: 4.2.0
+        - fixed: 4.2.11
         - introduced: 100.0.0
-          fixed: 100.2.0
-      vulnerable_at: 0.0.0-20240614142727-3a6386047711
-summary: MongoDB Tools Improper Certificate Validation vulnerability in github.com/mongodb/mongo-tools
+        - fixed: 100.2.0
+      vulnerable_at: 0.0.0-20200817142019-cd4a54b5540f
+summary: |-
+    MongoDB Tools Improper Certificate Validation vulnerability in
+    github.com/mongodb/mongo-tools
+description: |-
+    Usage of specific command line parameter in MongoDB Tools which was originally
+    intended to just skip hostname checks, may result in MongoDB skipping all
+    certificate validation. This may result in accepting invalid certificates.
+
+    NOTE: this module uses its own versioning scheme that is not fully
+    compatible with standard Go module versioning, so the affected versions in this
+    report may differ from the versions listed in other advisories.
+
+    According to the advisory, the affected versions are as follows: MongoDB Inc.
+    MongoDB Database Tools 3.6 versions later than 3.6.5; 3.6 versions prior to
+    3.6.21; 4.0 versions prior to 4.0.21; 4.2 versions prior to 4.2.11; 100 versions
+    prior to 100.2.0. MongoDB Inc. Mongomirror 0 versions later than 0.6.0.
 cves:
     - CVE-2020-7924
 ghsas:
     - GHSA-6cwm-wm82-hgrw
 references:
     - advisory: https://github.com/advisories/GHSA-6cwm-wm82-hgrw
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-7924
     - fix: https://github.com/mongodb/mongo-tools/commit/8c1800b5155084f954a39a1f2f259efac3bb86de
     - web: https://jira.mongodb.org/browse/TOOLS-2587
 source:
     id: GHSA-6cwm-wm82-hgrw
-    created: 2024-06-14T11:41:26.128315-04:00
-review_status: UNREVIEWED
+    created: 2024-07-02T16:16:40.677572-04:00
+review_status: REVIEWED
 unexcluded: NOT_IMPORTABLE
