@@ -107,6 +107,10 @@ func display(overall *summary, byYear map[int]*summary) {
 	headings()
 	data("Go reports", 0, func(s *summary) int { return s.reports })
 	data("Regular reports", 1, func(s *summary) int { return s.regular })
+	for _, rs := range []report.ReviewStatus{report.Reviewed, report.Unreviewed} {
+		data(rs.String(), 2, func(s *summary) int { return s.regularByReview[rs] })
+	}
+	data("Withdrawn reports", 1, func(s *summary) int { return s.withdrawn })
 	data("Excluded reports", 1, func(s *summary) int { return s.excluded })
 	for _, er := range report.ExcludedReasons {
 		data(string(er), 2, func(s *summary) int { return s.excludedByReason[er] })
@@ -138,15 +142,17 @@ func displayGHSAs(ghsas []string) {
 }
 
 type summary struct {
-	reports, regular, excluded, noGHSA, firstParty int
-	ghsas                                          int
-	ghsasNotInVDB                                  []string
-	excludedByReason                               map[report.ExcludedReason]int
+	reports, regular, withdrawn, excluded, noGHSA, firstParty int
+	ghsas                                                     int
+	ghsasNotInVDB                                             []string
+	excludedByReason                                          map[report.ExcludedReason]int
+	regularByReview                                           map[report.ReviewStatus]int
 }
 
 func newSummary() *summary {
 	return &summary{
 		excludedByReason: make(map[report.ExcludedReason]int),
+		regularByReview:  make(map[report.ReviewStatus]int),
 	}
 }
 
@@ -179,9 +185,15 @@ func summarize(ghsas []*genericosv.Entry, reports []*report.Report) (*summary, m
 
 			yearSummary.excluded++
 			yearSummary.excludedByReason[r.Excluded]++
+		} else if r.Withdrawn != nil {
+			overall.withdrawn++
+			yearSummary.withdrawn++
 		} else {
 			overall.regular++
 			yearSummary.regular++
+
+			overall.regularByReview[r.ReviewStatus]++
+			yearSummary.regularByReview[r.ReviewStatus]++
 		}
 
 		if len(r.GHSAs) == 0 && r.CVEMetadata == nil {
