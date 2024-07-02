@@ -1,0 +1,36 @@
+id: GO-2024-2955
+modules:
+    - module: github.com/gin-contrib/cors
+      versions:
+        - fixed: 1.6.0
+      vulnerable_at: 1.5.0
+      packages:
+        - package: github.com/gin-contrib/cors
+          symbols:
+            - Config.parseWildcardRules
+          derived_symbols:
+            - Default
+            - New
+summary: Gin mishandles a wildcard in the origin string in github.com/gin-contrib/cors
+description: |-
+    Gin-Gonic CORS middleware mishandles a wildcard at the end of an origin string.
+    Examples: https://example.community/* is accepted by the origin string
+    https://example.com/* and http://localhost.example.com/* is accepted by the
+    origin string http://localhost/* .
+cves:
+    - CVE-2019-25211
+ghsas:
+    - GHSA-869c-j7wc-8jqv
+credits:
+    - '@maxshine'
+references:
+    - advisory: https://github.com/advisories/GHSA-869c-j7wc-8jqv
+    - fix: https://github.com/gin-contrib/cors/commit/27b723a473efd80d5a498fa9f5933c80204c850d
+    - fix: https://github.com/gin-contrib/cors/pull/106
+    - fix: https://github.com/gin-contrib/cors/pull/57
+    - web: https://github.com/gin-contrib/cors/compare/v1.5.0...v1.6.0
+    - web: https://github.com/gin-contrib/cors/releases/tag/v1.6.0
+source:
+    id: GHSA-869c-j7wc-8jqv
+    created: 2024-07-02T10:00:03.105364-07:00
+review_status: REVIEWED
