@@ -31,6 +31,95 @@ var (
 	SchemaVersion = "1.3.1"
 )
 
+func (r *Report) nonGoExplanation() string {
+	const nonGoExplanation = `NOTE: The source advisory for this report
+contains additional versions that could not be automatically mapped to standard
+Go module versions.
+
+(If this is causing false-positive reports from vulnerability scanners,
+please suggest an edit to the report.)
+
+The additional affected modules and versions are: `
+	vs := r.nonGoVersionsStr()
+	if vs != "" {
+		return fmt.Sprintf("%s%s", nonGoExplanation, vs)
+	}
+	return ""
+}
+
+func (r *Report) nonGoVersionsStr() string {
+	var vs []string
+	for _, m := range r.Modules {
+		if s := m.NonGoVersions.verboseString(); s != "" {
+			vs = append(vs, fmt.Sprintf("%s %s.", m.Module, s))
+		}
+	}
+	return strings.Join(vs, "; ")
+}
+
+func (v Versions) verboseString() string {
+	if len(v) == 0 {
+		return ""
+	}
+
+	pairs := v.collectRangePairs()
+	var vs []string
+	for _, p := range pairs {
+		var s string
+		if p.intro == "" && p.fixed == "" {
+			// If neither field is set, the vuln applies to all versions.
+			// Leave it blank, the template will render it properly.
+			s = ""
+		} else if p.intro == "" {
+			s = "before " + p.fixed
+		} else if p.fixed == "" {
+			s = p.intro + " and later"
+		} else {
+			s = "from " + p.intro + " before " + p.fixed
+		}
+		vs = append(vs, s)
+	}
+
+	return strings.Join(vs, ", ")
+}
+
+// A pair is like an osv.Range, but each pair is a self-contained 2-tuple
+// (introduced version, fixed version).
+type pair struct {
+	intro, fixed string
+}
+
+func (vs Versions) collectRangePairs() []pair {
+	var (
+		ps []pair
+		p  pair
+	)
+	prefix := "v"
+	for _, v := range vs {
+		if v.IsIntroduced() {
+			// We expected Introduced and Fixed to alternate, but if
+			// p.intro != "", then they don't.
+			// Keep going in that case, ignoring the first Introduced.
+			p.intro = v.Version
+			if p.intro == "0" {
+				p.intro = ""
+			}
+			if p.intro != "" {
+				p.intro = prefix + p.intro
+			}
+		}
+		if v.IsFixed() {
+			p.fixed = v.Version
+			if p.fixed != "" {
+				p.fixed = prefix + p.fixed
+			}
+			ps = append(ps, p)
+			p = pair{}
+		}
+	}
+	return ps
+}
+
 // ToOSV creates an osv.Entry for a report.
 // lastModified is the time the report should be considered to have
 // been most recently modified.
@@ -47,14 +136,6 @@ func (r *Report) ToOSV(lastModified time.Time) (osv.Entry, error) {
 		withdrawn = &osv.Time{Time: *r.Withdrawn}
 	}
 
-	// If the report has no description, use the summary for now.
-	// TODO(https://go.dev/issues/61201): Remove this once pkgsite and
-	// govulncheck can robustly display summaries in place of details.
-	details := r.Description
-	if details == "" {
-		details = Description(r.Summary)
-	}
-
 	entry := osv.Entry{
 		ID:            r.ID,
 		Published:     osv.Time{Time: r.Published},
@@ -62,7 +143,6 @@ func (r *Report) ToOSV(lastModified time.Time) (osv.Entry, error) {
 		Withdrawn:     withdrawn,
 		Related:       r.Related,
 		Summary:       toParagraphs(r.Summary.String()),
-		Details:       toParagraphs(details.String()),
 		Credits:       credits,
 		SchemaVersion: SchemaVersion,
 		DatabaseSpecific: &osv.DatabaseSpecific{
@@ -71,12 +151,16 @@ func (r *Report) ToOSV(lastModified time.Time) (osv.Entry, error) {
 		},
 	}
 
+	hasNonGoVersions := false
 	for _, m := range r.Modules {
 		affected, err := toAffected(m)
 		if err != nil {
 			return osv.Entry{}, err
 		}
 		entry.Affected = append(entry.Affected, affected)
+		if len(m.NonGoVersions) != 0 {
+			hasNonGoVersions = true
+		}
 	}
 	for _, ref := range r.References {
 		entry.References = append(entry.References, osv.Reference{
@@ -85,6 +169,24 @@ func (r *Report) ToOSV(lastModified time.Time) (osv.Entry, error) {
 		})
 	}
 	entry.Aliases = r.Aliases()
+
+	// If the report has no description, use the summary for now.
+	// TODO(https://go.dev/issues/61201): Remove this once pkgsite and
+	// govulncheck can robustly display summaries in place of details.
+	details := r.Description.String()
+	if details == "" {
+		details = r.Summary.String()
+	}
+
+	// Add an explanation about non-Go versions if applicable.
+	if hasNonGoVersions && !r.IsReviewed() {
+		if !strings.HasSuffix(details, ".") {
+			details = fmt.Sprintf("%s.", details)
+		}
+		details = fmt.Sprintf("%s\n\n%s", details, r.nonGoExplanation())
+	}
+	entry.Details = toParagraphs(details)
+
 	return entry, nil
 }
 
