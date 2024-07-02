@@ -1,0 +1,30 @@
+id: GO-2024-2958
+modules:
+    - module: github.com/gorilla/schema
+      versions:
+        - fixed: 1.4.1
+      vulnerable_at: 1.4.0
+      packages:
+        - package: github.com/gorilla/schema
+          symbols:
+            - NewDecoder
+            - Decoder.decode
+          derived_symbols:
+            - Decoder.Decode
+summary: Potential memory exhaustion attack due to sparse slice deserialization in github.com/gorilla/schema
+cves:
+    - CVE-2024-37298
+ghsas:
+    - GHSA-3669-72x9-r9p3
+unknown_aliases:
+    - CGA-qch5-pg6h-qrrg
+credits:
+    - '@AlexVasiluta'
+references:
+    - advisory: https://github.com/gorilla/schema/security/advisories/GHSA-3669-72x9-r9p3
+    - fix: https://github.com/gorilla/schema/commit/cd59f2f12cbdfa9c06aa63e425d1fe4a806967ff
+    - web: https://github.com/gorilla/schema/blob/main/decoder.go#L223
+source:
+    id: GHSA-3669-72x9-r9p3
+    created: 2024-07-02T11:03:24.924951-04:00
+review_status: REVIEWED

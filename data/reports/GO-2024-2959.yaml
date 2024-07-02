@@ -1,0 +1,25 @@
+id: GO-2024-2959
+modules:
+    - module: github.com/gofiber/fiber
+      vulnerable_at: 1.14.6
+    - module: github.com/gofiber/fiber/v2
+      versions:
+        - fixed: 2.52.5
+      vulnerable_at: 2.52.4
+      packages:
+        - package: github.com/gofiber/fiber/v2/middleware/session
+          symbols:
+            - Store.Get
+            - Store.responseCookies
+summary: Session Middleware Token Injection Vulnerability in github.com/gofiber/fiber
+cves:
+    - CVE-2024-38513
+ghsas:
+    - GHSA-98j2-3j3p-fw2v
+references:
+    - advisory: https://github.com/gofiber/fiber/security/advisories/GHSA-98j2-3j3p-fw2v
+    - fix: https://github.com/gofiber/fiber/commit/7926e5bf4da03e54f62d27d53229d35b264cba8e
+source:
+    id: GHSA-98j2-3j3p-fw2v
+    created: 2024-07-02T11:03:15.390979-04:00
+review_status: REVIEWED

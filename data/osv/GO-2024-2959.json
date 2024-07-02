@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2959",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-38513",
+    "GHSA-98j2-3j3p-fw2v"
+  ],
+  "summary": "Session Middleware Token Injection Vulnerability in github.com/gofiber/fiber",
+  "details": "Session Middleware Token Injection Vulnerability in github.com/gofiber/fiber",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gofiber/fiber",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/gofiber/fiber/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.52.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/gofiber/fiber/v2/middleware/session",
+            "symbols": [
+              "Store.Get",
+              "Store.responseCookies"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/gofiber/fiber/security/advisories/GHSA-98j2-3j3p-fw2v"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gofiber/fiber/commit/7926e5bf4da03e54f62d27d53229d35b264cba8e"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2959",
+    "review_status": "REVIEWED"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2958",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-37298",
+    "GHSA-3669-72x9-r9p3"
+  ],
+  "summary": "Potential memory exhaustion attack due to sparse slice deserialization in github.com/gorilla/schema",
+  "details": "Potential memory exhaustion attack due to sparse slice deserialization in github.com/gorilla/schema",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gorilla/schema",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.4.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/gorilla/schema",
+            "symbols": [
+              "Decoder.Decode",
+              "Decoder.decode",
+              "NewDecoder"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/gorilla/schema/security/advisories/GHSA-3669-72x9-r9p3"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gorilla/schema/commit/cd59f2f12cbdfa9c06aa63e425d1fe4a806967ff"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/gorilla/schema/blob/main/decoder.go#L223"
+    }
+  ],
+  "credits": [
+    {
+      "name": "@AlexVasiluta"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2958",
+    "review_status": "REVIEWED"
+  }
+}
