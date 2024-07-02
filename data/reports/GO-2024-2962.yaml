@@ -1,0 +1,32 @@
+id: GO-2024-2962
+modules:
+    - module: cmd
+      versions:
+        - fixed: 1.21.0-0
+      vulnerable_at: 1.20.14
+      packages:
+        - package: cmd/go
+summary: Output of "go env" does not sanitize values in cmd/go
+description: |-
+    Command go env is documented as outputting a shell script containing the Go
+    environment. However, go env doesn't sanitize values, so executing its output as
+    a shell script can cause various bad bahaviors, including executing arbitrary
+    commands or inserting new environment variables.
+
+    This issue is relatively minor because, in general, if an attacker can set
+    arbitrary environment variables on a system, they have better attack vectors
+    than making "go env" print them out.
+credits:
+    - Hunter Wittenborn (https://hunterwittenborn.com/)
+references:
+    - fix: https://go.dev/cl/488375
+    - fix: https://go.dev/cl/493535
+    - report: https://go.dev/issue/58508
+    - web: https://groups.google.com/g/golang-dev/c/ixHOFpSbajE/m/8EjlbKVWAwAJ
+cve_metadata:
+    id: CVE-2023-24531
+    cwe: 'CWE-138: Improper Neutralization of Special Elements'
+source:
+    id: go-security-team
+    created: 2024-07-02T12:32:20.378304-04:00
+review_status: REVIEWED

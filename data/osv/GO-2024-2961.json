@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2961",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-30636"
+  ],
+  "summary": "Limited directory traversal vulnerability on Windows in golang.org/x/crypto",
+  "details": "httpTokenCacheKey uses path.Base to extract the expected HTTP-01 token value to lookup in the DirCache implementation. On Windows, path.Base acts differently to filepath.Base, since Windows uses a different path separator (\\ vs. /), allowing a user to provide a relative path, i.e. .well-known/acme-challenge/..\\..\\asd becomes ..\\..\\asd. The extracted path is then suffixed with +http-01, joined with the cache directory, and opened.\n\nSince the controlled path is suffixed with +http-01 before opening, the impact of this is significantly limited, since it only allows reading arbitrary files on the system if and only if they have this suffix.",
+  "affected": [
+    {
+      "package": {
+        "name": "golang.org/x/crypto",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20220525230936-793ad666bf5e"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "golang.org/x/crypto/acme/autocert",
+            "goos": [
+              "windows"
+            ],
+            "symbols": [
+              "DirCache.Delete",
+              "DirCache.Get",
+              "DirCache.Put",
+              "HostWhitelist",
+              "Manager.GetCertificate",
+              "Manager.Listener",
+              "NewListener",
+              "listener.Accept",
+              "listener.Close"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/408694"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/53082"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Juho Nurminen of Mattermost"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2961",
+    "review_status": "REVIEWED"
+  }
+}

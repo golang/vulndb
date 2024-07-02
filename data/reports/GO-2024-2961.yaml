@@ -1,0 +1,45 @@
+id: GO-2024-2961
+modules:
+    - module: golang.org/x/crypto
+      versions:
+        - fixed: 0.0.0-20220525230936-793ad666bf5e
+      vulnerable_at: 0.0.0-20220518034528-6f7dac969898
+      packages:
+        - package: golang.org/x/crypto/acme/autocert
+          goos:
+            - windows
+          symbols:
+            - DirCache.Get
+            - DirCache.Put
+            - DirCache.Delete
+          derived_symbols:
+            - HostWhitelist
+            - Manager.GetCertificate
+            - Manager.Listener
+            - NewListener
+            - listener.Accept
+            - listener.Close
+summary: Limited directory traversal vulnerability on Windows in golang.org/x/crypto
+description: |-
+    httpTokenCacheKey uses path.Base to extract the expected HTTP-01 token value to
+    lookup in the DirCache implementation. On Windows, path.Base acts differently to
+    filepath.Base, since Windows uses a different path separator (\ vs. /), allowing
+    a user to provide a relative path, i.e. .well-known/acme-challenge/..\..\asd
+    becomes ..\..\asd. The extracted path is then suffixed with +http-01, joined
+    with the cache directory, and opened.
+
+    Since the controlled path is suffixed with +http-01 before opening, the impact
+    of this is significantly limited, since it only allows reading arbitrary files
+    on the system if and only if they have this suffix.
+credits:
+    - Juho Nurminen of Mattermost
+references:
+    - fix: https://go.dev/cl/408694
+    - report: https://go.dev/issue/53082
+cve_metadata:
+    id: CVE-2022-30636
+    cwe: 'CWE 22: Improper Limitation of a Pathname to a Restricted Directory (''Path Traversal'')'
+source:
+    id: go-security-team
+    created: 2024-07-02T12:55:35.249465-04:00
+review_status: REVIEWED
