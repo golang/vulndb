@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2883",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "summary": "Denial of service via malicious preflight requests in github.com/rs/cors",
+  "details": "Middleware causes a prohibitive amount of heap allocations when processing malicious preflight requests that include a Access-Control-Request-Headers (ACRH) header whose value contains many commas. This behavior can be abused by attackers to produce undue load on the middleware/server as an attempt to cause a denial of service.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/rs/cors",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.9.0"
+            },
+            {
+              "fixed": "1.11.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/rs/cors",
+            "symbols": [
+              "AllowAll",
+              "Cors.HandlerFunc",
+              "Cors.ServeHTTP",
+              "Cors.areHeadersAllowed",
+              "Cors.handlePreflight",
+              "Default",
+              "New",
+              "splitHeaderValues"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/rs/cors/pull/171"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/rs/cors/issues/170"
+    }
+  ],
+  "credits": [
+    {
+      "name": "@jub0bs"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2883",
+    "review_status": "REVIEWED"
+  }
+}
