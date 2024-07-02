@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2951",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-hg58-rf2h-6rr7"
+  ],
+  "summary": "Denial of service when syncing with a malicious peer in github.com/cometbft/cometbft",
+  "details": "A malicious peer can cause a syncing node to panic during blocksync. The syncing node may enter into a catastrophic invalid syncing state or get stuck in blocksync mode, never switching to consensus. Nodes that are vulnerable to this state may experience a Denial of Service condition in which syncing will not work as expected when joining a network as a client.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cometbft/cometbft",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.37.0"
+            },
+            {
+              "fixed": "0.37.7"
+            },
+            {
+              "introduced": "0.38.0"
+            },
+            {
+              "fixed": "0.38.8"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cometbft/cometbft/blocksync",
+            "symbols": [
+              "BlockPool.OnStart",
+              "BlockPool.RedoRequest",
+              "BlockPool.RemovePeerAndRedoAllPeerRequests",
+              "BlockPool.SetPeerRange",
+              "BlockPool.removeTimedoutPeers",
+              "NewBlockPool",
+              "NewReactor",
+              "Reactor.OnStart",
+              "Reactor.Receive",
+              "Reactor.SwitchToBlockSync"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cometbft/cometbft/security/advisories/GHSA-hg58-rf2h-6rr7"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cometbft/cometbft/commit/07866e11139127e415bd0339ac377b6e6a845533"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cometbft/cometbft/commit/8ba2e4f52d5e626e019501ba6420cc86d5de7857"
+    }
+  ],
+  "credits": [
+    {
+      "name": "unknown_feature"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2951",
+    "review_status": "REVIEWED"
+  }
+}

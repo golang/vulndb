@@ -1,0 +1,44 @@
+id: GO-2024-2951
+modules:
+    - module: github.com/cometbft/cometbft
+      versions:
+        - introduced: 0.37.0
+        - fixed: 0.37.7
+        - introduced: 0.38.0
+        - fixed: 0.38.8
+      vulnerable_at: 0.38.7
+      packages:
+        - package: github.com/cometbft/cometbft/blocksync
+          symbols:
+            - NewBlockPool
+            - BlockPool.removeTimedoutPeers
+            - BlockPool.RemovePeerAndRedoAllPeerRequests
+            - BlockPool.SetPeerRange
+          derived_symbols:
+            - BlockPool.OnStart
+            - BlockPool.RedoRequest
+            - NewReactor
+            - Reactor.OnStart
+            - Reactor.Receive
+            - Reactor.SwitchToBlockSync
+summary: |-
+    Denial of service when syncing with a malicious peer in
+    github.com/cometbft/cometbft
+description: |-
+    A malicious peer can cause a syncing node to panic during blocksync. The syncing
+    node may enter into a catastrophic invalid syncing state or get stuck in
+    blocksync mode, never switching to consensus. Nodes that are vulnerable to this
+    state may experience a Denial of Service condition in which syncing will not
+    work as expected when joining a network as a client.
+ghsas:
+    - GHSA-hg58-rf2h-6rr7
+credits:
+    - unknown_feature
+references:
+    - advisory: https://github.com/cometbft/cometbft/security/advisories/GHSA-hg58-rf2h-6rr7
+    - fix: https://github.com/cometbft/cometbft/commit/07866e11139127e415bd0339ac377b6e6a845533
+    - fix: https://github.com/cometbft/cometbft/commit/8ba2e4f52d5e626e019501ba6420cc86d5de7857
+source:
+    id: GHSA-hg58-rf2h-6rr7
+    created: 2024-07-02T10:14:20.718028-07:00
+review_status: REVIEWED
