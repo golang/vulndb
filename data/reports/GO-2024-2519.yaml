@@ -1,0 +1,30 @@
+id: GO-2024-2519
+modules:
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - introduced: 6.0.0
+        - fixed: 7.2.1
+      vulnerable_at: 5.4.5+incompatible
+summary: Grafana world readable configuration files in github.com/grafana/grafana
+cves:
+    - CVE-2020-12459
+ghsas:
+    - GHSA-m25m-5778-fm22
+unknown_aliases:
+    - BIT-grafana-2020-12459
+references:
+    - advisory: https://github.com/advisories/GHSA-m25m-5778-fm22
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-12459
+    - fix: https://github.com/grafana/grafana/commit/102448040d5132460e3b0013e03ebedec0677e00
+    - report: https://github.com/grafana/grafana/issues/8283
+    - web: https://access.redhat.com/security/cve/CVE-2020-12459
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=1827765
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=1829724
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/CTQCKJZZYXMCSHJFZZ3YXEO5NUBANGZS
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/WEBCIEVSYIDDCA7FTRS2IFUOYLIQU34A
+    - web: https://security.netapp.com/advisory/ntap-20200518-0004
+    - web: https://src.fedoraproject.org/rpms/grafana/c/fab93d67363eb0a9678d9faf160cc88237f26277
+source:
+    id: GHSA-m25m-5778-fm22
+    created: 2024-07-02T11:58:25.857462-04:00
+review_status: UNREVIEWED
