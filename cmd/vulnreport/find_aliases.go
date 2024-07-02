@@ -124,14 +124,14 @@ func aliasesForCVE(ctx context.Context, cve string, gc ghsaClient) (aliases []st
 // By default, it prefers the first GHSA in the list, followed by the first CVE in the list
 // (if no GHSA is present).
 // If "preferCVE" is true, it prefers CVEs instead.
-func (af *aliasFinder) sourceFromBestAlias(ctx context.Context, aliases []string, preferCVE bool) (report.Source, bool) {
+func (af *aliasFinder) sourceFromBestAlias(ctx context.Context, aliases []string, preferCVE bool) report.Source {
 	firstChoice := idstr.IsGHSA
 	secondChoice := idstr.IsCVE
 	if preferCVE {
 		firstChoice, secondChoice = secondChoice, firstChoice
 	}
 
-	find := func(f func(string) bool) (report.Source, bool) {
+	find := func(f func(string) bool) report.Source {
 		for _, alias := range aliases {
 			if f(alias) {
 				src, err := af.fetch(ctx, alias)
@@ -139,21 +139,16 @@ func (af *aliasFinder) sourceFromBestAlias(ctx context.Context, aliases []string
 					log.Warnf("could not fetch record for preferred alias %s: %v", alias, err)
 					continue
 				}
-				return src, true
+				return src
 			}
 		}
-		return nil, false
+		return nil
 	}
 
-	if src, found := find(firstChoice); found {
-		return src, true
+	if src := find(firstChoice); src != nil {
+		return src
 	}
-
-	if src, found := find(secondChoice); found {
-		return src, true
-	}
-
-	return report.Original(), false
+	return find(secondChoice)
 }
 
 func (a *aliasFinder) fetch(ctx context.Context, alias string) (report.Source, error) {

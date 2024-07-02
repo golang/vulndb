@@ -105,11 +105,20 @@ func (c *creator) reportFromIssue(ctx context.Context, iss *issues.Issue) error 
 		modulePath:   modulePath(iss),
 		aliases:      aliases(iss),
 		reviewStatus: reviewStatusOf(iss, c.reviewStatus),
+		originalCVE:  originalCVE(iss),
 	})
 	if err != nil {
 		return err
 	}
 	return c.write(ctx, r)
+}
+
+func originalCVE(iss *issues.Issue) string {
+	aliases := aliases(iss)
+	if iss.HasLabel(labelFirstParty) && len(aliases) == 1 && idstr.IsCVE(aliases[0]) {
+		return aliases[0]
+	}
+	return ""
 }
 
 func reviewStatusOf(iss *issues.Issue, reviewStatus report.ReviewStatus) report.ReviewStatus {
@@ -134,25 +143,33 @@ func defaultReviewStatus(iss *issues.Issue) report.ReviewStatus {
 	return report.Unreviewed
 }
 
+func (c *creator) metaToSource(ctx context.Context, meta *reportMeta) report.Source {
+	if cveID := meta.originalCVE; cveID != "" {
+		log.Infof("%s: creating original report for Go-CNA-assigned %s", meta.id, cveID)
+		return report.OriginalCVE(cveID)
+	}
+
+	if src := c.sourceFromBestAlias(ctx, meta.aliases, *preferCVE); src != nil {
+		log.Infof("%s: picked %s as best source alias (from [%s])", meta.id, src.SourceID(),
+			strings.Join(meta.aliases, ", "))
+		return src
+	}
+
+	log.Infof("%s: no suitable alias found, creating basic report", meta.id)
+	return report.Original()
+}
+
 func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) (*yamlReport, error) {
 	// Find the underlying module if the "module" provided is actually a package path.
 	if module, err := c.pc.FindModule(meta.modulePath); err == nil { // no error
 		meta.modulePath = module
 	}
+	meta.aliases = c.allAliases(ctx, meta.aliases)
 
-	var src report.Source
-	aliases := c.allAliases(ctx, meta.aliases)
-	src, ok := c.sourceFromBestAlias(ctx, aliases, *preferCVE)
-	if ok {
-		log.Infof("%s: picked %s as best source alias (from [%s])", meta.id, src.SourceID(), strings.Join(aliases, ", "))
-	} else {
-		log.Infof("%s: no suitable alias found, creating basic report", meta.id)
-	}
-
-	raw := report.New(src, c.pc,
+	raw := report.New(c.metaToSource(ctx, meta), c.pc,
 		report.WithGoID(meta.id),
 		report.WithModulePath(meta.modulePath),
-		report.WithAliases(aliases),
+		report.WithAliases(meta.aliases),
 		report.WithReviewStatus(meta.reviewStatus),
 		report.WithUnexcluded(meta.unexcluded),
 	)
@@ -296,6 +313,7 @@ type reportMeta struct {
 	aliases              []string
 	excluded, unexcluded report.ExcludedReason
 	reviewStatus         report.ReviewStatus
+	originalCVE          string
 }
 
 const todo = "TODO: "
@@ -348,8 +366,11 @@ func addTODOs(r *yamlReport) {
 	if len(r.Credits) == 0 {
 		r.Credits = []string{todo + "who discovered/reported this vulnerability (optional)"}
 	}
-	if len(r.CVEs) == 0 {
+	if r.CVEMetadata == nil && len(r.CVEs) == 0 {
 		r.CVEs = []string{todo + "CVE id(s) for this vulnerability"}
+	}
+	if r.CVEMetadata != nil && r.CVEMetadata.CWE == "" {
+		r.CVEMetadata.CWE = todo + "CWE ID"
 	}
 	addReferenceTODOs(r)
 }

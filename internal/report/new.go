@@ -136,7 +136,9 @@ func newCfg(opts []NewOption) *cfg {
 //
 // This is used for standard library & toolchain reports, or in cases where the
 // source report cannot be retrieved automatically.
-type original struct{}
+type original struct {
+	cveID string // the Go-CNA-assigned CVE for this report, if applicable
+}
 
 var _ Source = &original{}
 
@@ -144,13 +146,22 @@ func Original() Source {
 	return &original{}
 }
 
-func (original) ToReport(modulePath string) *Report {
+func OriginalCVE(cveID string) Source {
+	return &original{cveID: cveID}
+}
+
+func (o *original) ToReport(modulePath string) *Report {
+	var cveMeta *CVEMeta
+	if o.cveID != "" {
+		cveMeta = &CVEMeta{ID: o.cveID}
+	}
 	return &Report{
 		Modules: []*Module{
 			{
 				Module: modulePath,
 			},
 		},
+		CVEMetadata: cveMeta,
 	}
 }
 
