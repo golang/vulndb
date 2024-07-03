@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2965",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-39315"
+  ],
+  "summary": "Pomerium exposed OAuth2 access and ID tokens in user info endpoint response in github.com/pomerium/pomerium",
+  "details": "Pomerium exposed OAuth2 access and ID tokens in user info endpoint response in github.com/pomerium/pomerium",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/pomerium/pomerium",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.26.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-39315"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/pomerium/pomerium/commit/4c7c4320afb2ced70ba19b46de1ac4383f3daa48"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/pomerium/pomerium/security/advisories/GHSA-rrqr-7w59-637v"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2965",
+    "review_status": "UNREVIEWED"
+  }
+}

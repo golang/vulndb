@@ -1,0 +1,17 @@
+id: GO-2024-2965
+modules:
+    - module: github.com/pomerium/pomerium
+      versions:
+        - fixed: 0.26.1
+      vulnerable_at: 0.26.0
+summary: Pomerium exposed OAuth2 access and ID tokens in user info endpoint response in github.com/pomerium/pomerium
+cves:
+    - CVE-2024-39315
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-39315
+    - fix: https://github.com/pomerium/pomerium/commit/4c7c4320afb2ced70ba19b46de1ac4383f3daa48
+    - web: https://github.com/pomerium/pomerium/security/advisories/GHSA-rrqr-7w59-637v
+source:
+    id: CVE-2024-39315
+    created: 2024-07-03T11:41:11.749711-04:00
+review_status: UNREVIEWED
