@@ -1,0 +1,32 @@
+id: GO-2024-2973
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.6
+      vulnerable_at: 2.11.5
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - introduced: 3.0.0-beta3
+        - fixed: 3.0.4
+        - introduced: 3.1.0-rc1
+        - fixed: 3.1.0-rc3
+      vulnerable_at: 3.1.0-rc2
+summary: |-
+    Bypassing IP allow-lists in traefik via HTTP/3 early data requests in QUIC 0-RTT
+    handshakes in github.com/traefik/traefik
+cves:
+    - CVE-2024-39321
+ghsas:
+    - GHSA-gxrv-wf35-62w9
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-gxrv-wf35-62w9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-39321
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.6
+    - web: https://github.com/traefik/traefik/releases/tag/v3.0.4
+    - web: https://github.com/traefik/traefik/releases/tag/v3.1.0-rc3
+source:
+    id: GHSA-gxrv-wf35-62w9
+    created: 2024-07-08T13:23:57.045256-04:00
+review_status: UNREVIEWED

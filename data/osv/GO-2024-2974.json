@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2974",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-39696"
+  ],
+  "summary": "Evmos vulnerable to exploit of smart contract account and vesting in github.com/evmos/evmos",
+  "details": "Evmos vulnerable to exploit of smart contract account and vesting in github.com/evmos/evmos.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/evmos/evmos before v19.0.0.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/evmos/evmos",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "19.0.0"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-39696"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/evmos/evmos/commit/0a620e176617a835ac697eea494afea09185dfaf"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/evmos/evmos/security/advisories/GHSA-q6hg-6m9x-5g9c"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2974",
+    "review_status": "UNREVIEWED"
+  }
+}

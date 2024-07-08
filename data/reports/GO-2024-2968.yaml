@@ -1,0 +1,32 @@
+id: GO-2024-2968
+modules:
+    - module: github.com/zitadel/zitadel
+      non_go_versions:
+        - introduced: 2.0.0
+        - fixed: 2.53.8
+        - introduced: 2.54.0
+        - fixed: 2.54.5
+        - introduced: 2.55.0
+        - fixed: 2.55.1
+      vulnerable_at: 1.87.5
+summary: ZITADEL Vulnerable to Session Information Leakage in github.com/zitadel/zitadel
+cves:
+    - CVE-2024-39683
+ghsas:
+    - GHSA-cvw9-c57h-3397
+references:
+    - advisory: https://github.com/zitadel/zitadel/security/advisories/GHSA-cvw9-c57h-3397
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-39683
+    - fix: https://github.com/zitadel/zitadel/commit/4a262e42abac2208b02fefaf68ba1a5121649f04
+    - fix: https://github.com/zitadel/zitadel/commit/c2093ce01507ca8fc811609ff5d391693360c3da
+    - fix: https://github.com/zitadel/zitadel/commit/d04f208486a418a45b884b9ca8433e5ad9790d73
+    - fix: https://github.com/zitadel/zitadel/pull/8231
+    - report: https://github.com/zitadel/zitadel/issues/8213
+    - web: https://discord.com/channels/927474939156643850/1254096852937347153
+    - web: https://github.com/zitadel/zitadel/releases/tag/v2.53.8
+    - web: https://github.com/zitadel/zitadel/releases/tag/v2.54.5
+    - web: https://github.com/zitadel/zitadel/releases/tag/v2.55.1
+source:
+    id: GHSA-cvw9-c57h-3397
+    created: 2024-07-08T13:24:14.455414-04:00
+review_status: UNREVIEWED
