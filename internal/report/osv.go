@@ -234,12 +234,29 @@ func (v *Version) ToRangeEvent() (osv.RangeEvent, error) {
 	}
 }
 
-func AffectedRanges(versions Versions) ([]osv.Range, error) {
-	a := osv.Range{Type: osv.RangeTypeSemver}
-	if len(versions) == 0 || !versions[0].IsIntroduced() {
-		a.Events = append(a.Events, osv.RangeEvent{Introduced: "0"})
+var zeroEvent = osv.RangeEvent{Introduced: "0"}
+
+func (vs Versions) ToSemverRanges() ([]osv.Range, error) {
+	t := osv.RangeTypeSemver
+	a, err := vs.ToRangesWithType(t)
+	if err != nil {
+		return nil, err
+	} else if a == nil {
+		return []osv.Range{{Type: t, Events: []osv.RangeEvent{zeroEvent}}}, nil
 	}
-	for _, v := range versions {
+	return a, nil
+}
+
+func (vs Versions) ToRangesWithType(t osv.RangeType) ([]osv.Range, error) {
+	if len(vs) == 0 {
+		return nil, nil
+	}
+
+	a := osv.Range{Type: t}
+	if !vs[0].IsIntroduced() {
+		a.Events = append(a.Events, zeroEvent)
+	}
+	for _, v := range vs {
 		re, err := v.ToRangeEvent()
 		if err != nil {
 			return nil, err
@@ -309,7 +326,11 @@ func toAffected(m *Module) (osv.Affected, error) {
 	case stdlib.ToolchainModulePath:
 		name = osv.GoCmdModulePath
 	}
-	ranges, err := AffectedRanges(m.Versions)
+	ranges, err := m.Versions.ToSemverRanges()
+	if err != nil {
+		return osv.Affected{}, err
+	}
+	customRanges, err := m.NonGoVersions.ToRangesWithType(osv.RangeTypeEcosystem)
 	if err != nil {
 		return osv.Affected{}, err
 	}
@@ -320,7 +341,8 @@ func toAffected(m *Module) (osv.Affected, error) {
 		},
 		Ranges: ranges,
 		EcosystemSpecific: &osv.EcosystemSpecific{
-			Packages: toOSVPackages(m.Packages),
+			Packages:     toOSVPackages(m.Packages),
+			CustomRanges: customRanges,
 		},
 	}, nil
 }

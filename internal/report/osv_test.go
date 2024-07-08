@@ -223,7 +223,7 @@ func TestOSVFilename(t *testing.T) {
 	}
 }
 
-func TestAffectedRanges(t *testing.T) {
+func TestToSemverRanges(t *testing.T) {
 	in := Versions{
 		Introduced("1.16.0"),
 		Fixed("1.17.0"),
@@ -242,7 +242,7 @@ func TestAffectedRanges(t *testing.T) {
 		},
 	}
 
-	out, err := AffectedRanges(in)
+	out, err := in.ToSemverRanges()
 	if err != nil {
 		t.Fatal(err)
 	}

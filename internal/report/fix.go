@@ -785,7 +785,7 @@ func (v Versions) merge(v2 Versions) Versions {
 
 func (v Versions) mergeStrict(v2 Versions) (merged Versions, _ error) {
 	merged = v.merge(v2)
-	ranges, err := AffectedRanges(merged)
+	ranges, err := merged.ToSemverRanges()
 	if err != nil {
 		return nil, err
 	}

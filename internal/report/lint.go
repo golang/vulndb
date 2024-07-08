@@ -79,7 +79,7 @@ var missing = "missing"
 
 func (m *Module) lintVersions(l *linter) {
 	vl := l.Group("versions")
-	ranges, err := AffectedRanges(m.Versions)
+	ranges, err := m.Versions.ToSemverRanges()
 	if err != nil {
 		vl.Errorf("invalid version(s): %s", err)
 	}

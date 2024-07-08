@@ -172,7 +172,7 @@ func exportedFunctions(pkg *packages.Package, m *report.Module) (_ map[string]bo
 
 	if pkg.Module != nil {
 		v := version.TrimPrefix(pkg.Module.Version)
-		rs, err := report.AffectedRanges(m.Versions)
+		rs, err := m.Versions.ToSemverRanges()
 		if err != nil {
 			return nil, err
 		}

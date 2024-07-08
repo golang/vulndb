@@ -178,7 +178,7 @@ func (r *yamlReport) checkSymbols() error {
 			// If some symbol is in the std library at a different version,
 			// we may derive the wrong symbols for this package and other.
 			// In this case, skip updating DerivedSymbols.
-			ranges, err := report.AffectedRanges(m.Versions)
+			ranges, err := m.Versions.ToSemverRanges()
 			if err != nil {
 				return err
 			}

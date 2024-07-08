@@ -18,14 +18,23 @@ package osv
 // defines the interpretation of the RangeEvent object's Introduced
 // and Fixed fields.
 //
-// In this implementation, only the "SEMVER" type is supported.
+// In this implementation, only the "SEMVER" type is allowed for
+// standard ranges.
+// However, the "ECOSYSTEM" type is acceptable for the
+// "ecosystem_specific.custom_ranges" field.
 //
 // See https://ossf.github.io/osv-schema/#affectedrangestype-field.
 type RangeType string
 
-// RangeTypeSemver indicates a semantic version as defined by
-// SemVer 2.0.0, with no leading "v" prefix.
-const RangeTypeSemver RangeType = "SEMVER"
+const (
+	// RangeTypeSemver indicates a semantic version as defined by
+	// SemVer 2.0.0, with no leading "v" prefix.
+	RangeTypeSemver RangeType = "SEMVER"
+	// RangeTypeEcosystem indicates arbitrary, uninterpreted strings
+	// specific to the package ecosystem, which does not necessarilty
+	// conform to SemVer 2.0's version ordering.
+	RangeTypeEcosystem RangeType = "ECOSYSTEM"
+)
 
 // Ecosystem identifies the overall library ecosystem.
 // In this implementation, only the "Go" ecosystem is supported.
@@ -146,7 +155,7 @@ type Affected struct {
 	// The affected Go module. Required.
 	// Note that this field is called "package" in the OSV specification.
 	Module Module `json:"package"`
-	// The module version ranges affected by the vulnerability.
+	// The Go module version ranges affected by the vulnerability.
 	Ranges []Range `json:"ranges,omitempty"`
 	// Details on the affected packages and symbols within the module.
 	EcosystemSpecific *EcosystemSpecific `json:"ecosystem_specific,omitempty"`
@@ -179,6 +188,12 @@ type Package struct {
 type EcosystemSpecific struct {
 	// Packages is the list of affected packages within the module.
 	Packages []Package `json:"imports,omitempty"`
+	// CustomRanges are the version ranges affected by the vulnerability
+	// which are not compatible with Go module version numbering
+	// (https://go.dev/doc/modules/version-numbers).
+	// These ranges may be displayed but are generally not consumable
+	// by tools like govulncheck which expect standard Go module versions.
+	CustomRanges []Range `json:"custom_ranges,omitempty"`
 }
 
 // Entry represents a vulnerability in the Go OSV format, documented
