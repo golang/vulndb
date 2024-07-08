@@ -77,6 +77,12 @@ func skip(iss *issues.Issue, x *xrefer) string {
 		return "suggested edit"
 	}
 
+	// indicates that there is already a report for this
+	// vuln but the report needs to be updated
+	if iss.HasLabel(labelNeedsAlias) {
+		return "existing report needs alias"
+	}
+
 	if iss.HasLabel(labelPossibleDuplicate) {
 		return "possible duplicate"
 	}
@@ -242,6 +248,7 @@ const (
 	labelDuplicate         = "duplicate"
 	labelDirect            = "Direct External Report"
 	labelSuggestedEdit     = "Suggested Edit"
+	labelNeedsAlias        = "NeedsAlias"
 	labelTriaged           = "triaged"
 	labelHighPriority      = "high priority"
 	labelFirstParty        = "first party"
