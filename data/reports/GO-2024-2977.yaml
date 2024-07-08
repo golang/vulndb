@@ -1,0 +1,31 @@
+id: GO-2024-2977
+modules:
+    - module: github.com/google/nftables
+      versions:
+        - introduced: 0.1.0
+        - fixed: 0.2.0
+      vulnerable_at: 0.1.0
+      packages:
+        - package: github.com/google/nftables
+          symbols:
+            - Conn.AddSet
+          skip_fix: 'errors of the form ''undefined: unix.*'''
+summary: IP addresses were encoded in the wrong byte order in github.com/google/nftables
+description: |-
+    IP addresses were encoded in the wrong byte order, resulting in an nftables
+    configuration which did not work as intended (might block or not block the
+    desired addresses).
+cves:
+    - CVE-2024-6284
+ghsas:
+    - GHSA-qjvf-8748-9w7h
+references:
+    - advisory: https://github.com/advisories/GHSA-qjvf-8748-9w7h
+    - fix: https://github.com/google/nftables/commit/b1f901b05510bed05c232c5049f68d1511b56a19
+    - report: https://github.com/google/nftables/issues/225
+    - web: https://bugs.launchpad.net/ubuntu/+source/crowdsec-firewall-bouncer/+bug/2069596
+    - web: https://github.com/crowdsecurity/cs-firewall-bouncer/issues/368
+source:
+    id: GHSA-qjvf-8748-9w7h
+    created: 2024-07-08T13:23:25.436858-04:00
+review_status: REVIEWED

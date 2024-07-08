@@ -1,0 +1,27 @@
+id: GO-2024-2978
+modules:
+    - module: google.golang.org/grpc
+      versions:
+        - introduced: 1.64.0
+        - fixed: 1.64.1
+      vulnerable_at: 1.64.0
+      packages:
+        - package: google.golang.org/grpc/metadata
+          symbols:
+            - MD.String
+summary: |-
+    Private tokens could appear in logs if context containing gRPC metadata is
+    logged in google.golang.org/grpc
+description: |
+    If applications print or log a context containing gRPC metadata, the
+    output will contain all the metadata, which may include private
+    information. This represents a potential PII concern.
+ghsas:
+    - GHSA-xr7q-jx4m-x55m
+references:
+    - advisory: https://github.com/grpc/grpc-go/security/advisories/GHSA-xr7q-jx4m-x55m
+    - fix: https://github.com/grpc/grpc-go/commit/ab292411ddc0f3b7a7786754d1fe05264c3021eb
+source:
+    id: GHSA-xr7q-jx4m-x55m
+    created: 2024-07-08T13:23:23.725948-04:00
+review_status: REVIEWED
