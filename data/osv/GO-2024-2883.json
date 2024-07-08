@@ -3,6 +3,9 @@
   "id": "GO-2024-2883",
   "modified": "0001-01-01T00:00:00Z",
   "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-mh55-gqvf-xfwm"
+  ],
   "summary": "Denial of service via malicious preflight requests in github.com/rs/cors",
   "details": "Middleware causes a prohibitive amount of heap allocations when processing malicious preflight requests that include a Access-Control-Request-Headers (ACRH) header whose value contains many commas. This behavior can be abused by attackers to produce undue load on the middleware/server as an attempt to cause a denial of service.",
   "affected": [
