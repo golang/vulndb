@@ -16,6 +16,8 @@ import (
 	"golang.org/x/exp/slices"
 )
 
+const deltaLogURL = "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/deltaLog.json"
+
 // List returns the ids for all CVEs added or updated in the
 // cvelistV5 repo at or after the given 'since' time.
 //
@@ -23,8 +25,13 @@ import (
 // the CVEs are pulled from a log maintained by the CVE program
 // which only contains updates from the past month.
 func List(since time.Time) ([]string, error) {
-	const deltaLogURL = "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/deltaLog.json"
 	return list(http.DefaultClient, deltaLogURL, since)
+}
+
+// Latest returns the ids of all CVEs that were added or updated
+// in the past month, according to the latest version of the "delta log".
+func Latest() ([]string, error) {
+	return latest(http.DefaultClient, deltaLogURL)
 }
 
 type deltaLog []*updateMeta
@@ -90,6 +97,31 @@ func list(c *http.Client, url string, since time.Time) ([]string, error) {
 			if updated.Before(since) {
 				continue
 			}
+			cves = append(cves, c.ID)
+		}
+	}
+
+	// Remove any duplicates.
+	slices.Sort(cves)
+	cves = slices.Compact(cves)
+
+	return cves, nil
+}
+
+func latest(c *http.Client, url string) ([]string, error) {
+	b, err := fetch(c, url)
+	if err != nil {
+		return nil, err
+	}
+
+	var dl deltaLog
+	if err := json.Unmarshal(b, &dl); err != nil {
+		return nil, err
+	}
+
+	var cves []string
+	for _, um := range dl {
+		for _, c := range um.cves() {
 			cves = append(cves, c.ID)
 		}
 	}
