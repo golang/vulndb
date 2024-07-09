@@ -21,11 +21,11 @@ import (
 	"golang.org/x/exp/maps"
 	"golang.org/x/tools/txtar"
 	"golang.org/x/vulndb/cmd/vulnreport/log"
-	"golang.org/x/vulndb/cmd/vulnreport/priority"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/pkgsite"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/test"
+	"golang.org/x/vulndb/internal/triage/priority"
 )
 
 // go test ./cmd/vulnreport -update-test -proxy -pkgsite

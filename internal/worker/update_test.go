@@ -19,11 +19,11 @@ import (
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"golang.org/x/vulndb/internal/cve4"
 	"golang.org/x/vulndb/internal/cvelistrepo"
-	"golang.org/x/vulndb/internal/cveutils"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/pkgsite"
 	"golang.org/x/vulndb/internal/report"
+	"golang.org/x/vulndb/internal/triage"
 	"golang.org/x/vulndb/internal/worker/store"
 )
 
@@ -104,8 +104,8 @@ func TestDoUpdate(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	needsIssue := func(cve *cve4.CVE) (*cveutils.TriageResult, error) {
-		return cveutils.TriageCVE(ctx, cve, pc)
+	needsIssue := func(cve *cve4.CVE) (*triage.Result, error) {
+		return triage.RefersToGoModule(ctx, cve, pc)
 	}
 
 	commitHash := commit.Hash.String()
@@ -399,7 +399,7 @@ func TestDoUpdateError(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	needsIssue := func(cve *cve4.CVE) (*cveutils.TriageResult, error) { return nil, nil }
+	needsIssue := func(cve *cve4.CVE) (*triage.Result, error) { return nil, nil }
 
 	for _, test := range []struct {
 		name                                      string

@@ -13,12 +13,12 @@ import (
 
 	"golang.org/x/exp/slices"
 	"golang.org/x/vulndb/cmd/vulnreport/log"
-	"golang.org/x/vulndb/cmd/vulnreport/priority"
 	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/symbols"
+	"golang.org/x/vulndb/internal/triage/priority"
 )
 
 type creator struct {

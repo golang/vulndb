@@ -11,8 +11,8 @@ import (
 	"golang.org/x/exp/constraints"
 	"golang.org/x/exp/slices"
 	"golang.org/x/vulndb/cmd/vulnreport/log"
-	"golang.org/x/vulndb/cmd/vulnreport/priority"
 	"golang.org/x/vulndb/internal/report"
+	"golang.org/x/vulndb/internal/triage/priority"
 )
 
 type xref struct {

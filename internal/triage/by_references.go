@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package cveutils
+package triage
 
 import (
 	"context"
@@ -31,13 +31,13 @@ var stdlibReferenceDataKeywords = []string{
 
 const unknownPath = "Path is unknown"
 
-// TriageCVE reports whether the CVE refers to a Go module.
-func TriageCVE(ctx context.Context, c CVE, pc *pkgsite.Client) (_ *TriageResult, err error) {
-	defer derrors.Wrap(&err, "cveutils.TriageCVE(%q)", c.SourceID())
-	return triageCVE(ctx, c, pc)
+// RefersToGoModule reports whether the vuln refers to a Go module or package in its references.
+func RefersToGoModule(ctx context.Context, v Vuln, pc *pkgsite.Client) (_ *Result, err error) {
+	defer derrors.Wrap(&err, "triage.RefersToGoModule(%q)", v.SourceID())
+	return refersToGoModule(ctx, v, pc)
 }
 
-type TriageResult struct {
+type Result struct {
 	ModulePath  string
 	PackagePath string
 	Reason      string
@@ -68,25 +68,24 @@ var notGoModules = map[string]bool{
 	"github.com/gravitational/teleport":   true,
 }
 
-type CVE interface {
+type Vuln interface {
 	SourceID() string
 	ReferenceURLs() []string
 }
 
-// triageCVE triages a CVE and returns the result.
-func triageCVE(ctx context.Context, c CVE, pc *pkgsite.Client) (result *TriageResult, err error) {
+func refersToGoModule(ctx context.Context, v Vuln, pc *pkgsite.Client) (result *Result, err error) {
 	defer func() {
 		if err != nil {
 			return
 		}
-		msg := fmt.Sprintf("Triage result for %s", c.SourceID())
+		msg := fmt.Sprintf("Triage result for %s", v.SourceID())
 		if result == nil {
 			log.Debugf(ctx, "%s: not Go vuln", msg)
 			return
 		}
 		log.Debugf(ctx, "%s: is Go vuln:\n%s", msg, result.Reason)
 	}()
-	for _, rurl := range c.ReferenceURLs() {
+	for _, rurl := range v.ReferenceURLs() {
 		if rurl == "" {
 			continue
 		}
@@ -96,7 +95,7 @@ func triageCVE(ctx context.Context, c CVE, pc *pkgsite.Client) (result *TriageRe
 		}
 		if strings.Contains(rurl, "golang.org/pkg") {
 			mp := strings.TrimPrefix(refURL.Path, "/pkg/")
-			return &TriageResult{
+			return &Result{
 				PackagePath: mp,
 				ModulePath:  stdlib.ModulePath,
 				Reason:      fmt.Sprintf("Reference data URL %q contains path %q", rurl, mp),
@@ -105,13 +104,13 @@ func triageCVE(ctx context.Context, c CVE, pc *pkgsite.Client) (result *TriageRe
 		if gopkgHosts[refURL.Host] {
 			mp := strings.TrimPrefix(refURL.Path, "/")
 			if stdlib.Contains(mp) {
-				return &TriageResult{
+				return &Result{
 					PackagePath: mp,
 					ModulePath:  stdlib.ModulePath,
 					Reason:      fmt.Sprintf("Reference data URL %q contains path %q", rurl, mp),
 				}, nil
 			}
-			return &TriageResult{
+			return &Result{
 				ModulePath: mp,
 				Reason:     fmt.Sprintf("Reference data URL %q contains path %q", rurl, mp),
 			}, nil
@@ -127,7 +126,7 @@ func triageCVE(ctx context.Context, c CVE, pc *pkgsite.Client) (result *TriageRe
 			}
 			if known {
 				u := pc.URL() + "/" + mp
-				return &TriageResult{
+				return &Result{
 					ModulePath: mp,
 					Reason:     fmt.Sprintf("Reference data URL %q contains path %q; %q returned a status 200", rurl, mp, u),
 				}, nil
@@ -137,11 +136,11 @@ func triageCVE(ctx context.Context, c CVE, pc *pkgsite.Client) (result *TriageRe
 
 	// We didn't find a Go package or module path in the reference data. Check
 	// secondary heuristics to see if this is a Go related CVE.
-	for _, rurl := range c.ReferenceURLs() {
+	for _, rurl := range v.ReferenceURLs() {
 		// Example CVE containing snyk.io URL:
 		// https://github.com/CVEProject/cvelist/blob/899bba20d62eb73e04d1841a5ff04cd6225e1618/2020/7xxx/CVE-2020-7668.json#L52.
 		if strings.Contains(rurl, snykIdentifier) {
-			return &TriageResult{
+			return &Result{
 				ModulePath: unknownPath,
 				Reason:     fmt.Sprintf("Reference data URL %q contains %q", rurl, snykIdentifier),
 			}, nil
@@ -151,7 +150,7 @@ func triageCVE(ctx context.Context, c CVE, pc *pkgsite.Client) (result *TriageRe
 		// project.
 		for _, k := range stdlibReferenceDataKeywords {
 			if strings.Contains(rurl, k) {
-				return &TriageResult{
+				return &Result{
 					ModulePath: stdlib.ModulePath,
 					Reason:     fmt.Sprintf("Reference data URL %q contains %q", rurl, k),
 				}, nil
@@ -161,9 +160,11 @@ func triageCVE(ctx context.Context, c CVE, pc *pkgsite.Client) (result *TriageRe
 	return nil, nil
 }
 
-func GetAliasGHSAs(c CVE) []string {
+// AliasGHSAs returns the list of GHSAs that are possibly aliases for this
+// vuln, based on the references.
+func AliasGHSAs(v Vuln) []string {
 	var ghsas []string
-	for _, rurl := range c.ReferenceURLs() {
+	for _, rurl := range v.ReferenceURLs() {
 		if ghsa := idstr.FindGHSA(rurl); ghsa != "" {
 			ghsas = append(ghsas, ghsa)
 		}

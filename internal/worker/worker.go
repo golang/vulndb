@@ -20,7 +20,6 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/object"
 	"golang.org/x/time/rate"
 	"golang.org/x/vulndb/internal/cve4"
-	"golang.org/x/vulndb/internal/cveutils"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
@@ -30,6 +29,7 @@ import (
 	"golang.org/x/vulndb/internal/pkgsite"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
+	"golang.org/x/vulndb/internal/triage"
 	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"
 )
@@ -67,8 +67,8 @@ func UpdateCVEsAtCommit(ctx context.Context, repoPath, commitHashString string, 
 			return err
 		}
 	}
-	u := newCVEUpdater(repo, commit, st, rc, func(cve *cve4.CVE) (*cveutils.TriageResult, error) {
-		return cveutils.TriageCVE(ctx, cve, pc)
+	u := newCVEUpdater(repo, commit, st, rc, func(cve *cve4.CVE) (*triage.Result, error) {
+		return triage.RefersToGoModule(ctx, cve, pc)
 	})
 	return u.update(ctx)
 }

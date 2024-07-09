@@ -11,12 +11,12 @@ import (
 	"os"
 
 	"github.com/go-git/go-git/v5"
-	"golang.org/x/vulndb/cmd/vulnreport/priority"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/pkgsite"
 	"golang.org/x/vulndb/internal/proxy"
+	"golang.org/x/vulndb/internal/triage/priority"
 )
 
 // environment stores fakes/mocks of external dependencies for testing.

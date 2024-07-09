@@ -6,7 +6,7 @@
 // code used by vulnreport triage.
 // Prints the priority result for the given module(s).
 // Can be used for experimentation / debugging.
-// Usage: $ go run ./cmd/vulnreport/priority/priority <module_path>
+// Usage: $ go run ./cmd/priority <module_path>
 package main
 
 import (
@@ -15,8 +15,8 @@ import (
 	"os"
 
 	vlog "golang.org/x/vulndb/cmd/vulnreport/log"
-	"golang.org/x/vulndb/cmd/vulnreport/priority"
 	"golang.org/x/vulndb/internal/report"
+	"golang.org/x/vulndb/internal/triage/priority"
 )
 
 func main() {

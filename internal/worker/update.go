@@ -16,12 +16,12 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/object"
 	"golang.org/x/vulndb/internal/cve4"
 	"golang.org/x/vulndb/internal/cvelistrepo"
-	"golang.org/x/vulndb/internal/cveutils"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/observe"
 	"golang.org/x/vulndb/internal/report"
+	"golang.org/x/vulndb/internal/triage"
 	"golang.org/x/vulndb/internal/worker/log"
 	"golang.org/x/vulndb/internal/worker/store"
 )
@@ -29,7 +29,7 @@ import (
 // A triageFunc triages a CVE: it decides whether an issue needs to be filed.
 // If so, it returns a non-empty string indicating the possibly
 // affected module.
-type triageFunc func(*cve4.CVE) (*cveutils.TriageResult, error)
+type triageFunc func(*cve4.CVE) (*triage.Result, error)
 
 // A cveUpdater performs an update operation on the DB.
 type cveUpdater struct {
@@ -255,7 +255,7 @@ func (u *cveUpdater) updateBatch(ctx context.Context, batch []cvelistrepo.File) 
 // worker has already handled, and returns the appropriate triage state
 // based on this.
 func checkForAliases(cve *cve4.CVE, tx store.Transaction) (store.TriageState, error) {
-	for _, ghsaID := range cveutils.GetAliasGHSAs(cve) {
+	for _, ghsaID := range triage.AliasGHSAs(cve) {
 		ghsa, err := tx.GetRecord(ghsaID)
 		if err != nil {
 			return "", err
@@ -277,7 +277,7 @@ func (u *cveUpdater) handleCVE(f cvelistrepo.File, old *store.CVE4Record, tx sto
 	if err != nil {
 		return nil, false, err
 	}
-	var result *cveutils.TriageResult
+	var result *triage.Result
 	if cve.State == cve4.StatePublic && !u.rc.AliasHasReport(cve.ID) {
 		c := cve
 		// If a false positive has changed, we only care about
