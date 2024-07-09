@@ -3,16 +3,15 @@
   "id": "GO-2024-2527",
   "modified": "0001-01-01T00:00:00Z",
   "published": "0001-01-01T00:00:00Z",
-  "withdrawn": "2024-07-01T15:21:57Z",
   "aliases": [
     "GHSA-5x4g-q5rc-36jp"
   ],
-  "summary": "WITHDRAWN: Etcd pkg Insecure ciphers are allowed by default in go.etcd.io/etcd/client/pkg/v3",
-  "details": "(This report has been withdrawn with reason: \"too many false positives\"). .\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: go.etcd.io/etcd/client/pkg/v3 before v3.3.23, from v3.4.0-rc.0 before v3.4.10.",
+  "summary": "Insecure ciphers are allowed by default in go.etcd.io/etcd",
+  "details": "The TLS ciphers list supported by etcd contains insecure cipher suites. Users may specify that an insecure cipher is used via “--cipher-suites” flag. A list of secure suites is used by default.",
   "affected": [
     {
       "package": {
-        "name": "go.etcd.io/etcd/client/pkg/v3",
+        "name": "go.etcd.io/etcd",
         "ecosystem": "Go"
       },
       "ranges": [
@@ -21,26 +20,28 @@
           "events": [
             {
               "introduced": "0"
+            },
+            {
+              "fixed": "0.5.0-alpha.5.0.20221102000833-1f054980bc27"
             }
           ]
         }
       ],
       "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "go.etcd.io/etcd/pkg/tlsutil"
+          }
+        ],
         "custom_ranges": [
           {
             "type": "ECOSYSTEM",
             "events": [
               {
-                "introduced": "0"
+                "introduced": "3.2.22"
               },
               {
-                "fixed": "3.3.23"
-              },
-              {
-                "introduced": "3.4.0-rc.0"
-              },
-              {
-                "fixed": "3.4.10"
+                "fixed": "3.4.22"
               }
             ]
           }
@@ -56,6 +57,6 @@
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2024-2527",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }

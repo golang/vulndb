@@ -1,14 +1,19 @@
 id: GO-2024-2527
 modules:
-    - module: go.etcd.io/etcd/client/pkg/v3
+    - module: go.etcd.io/etcd
+      versions:
+        - fixed: 0.5.0-alpha.5.0.20221102000833-1f054980bc27
       non_go_versions:
-        - fixed: 3.3.23
-        - introduced: 3.4.0-rc.0
-        - fixed: 3.4.10
-      vulnerable_at: 3.5.14
-summary: 'WITHDRAWN: Etcd pkg Insecure ciphers are allowed by default in go.etcd.io/etcd/client/pkg/v3'
-description: '(This report has been withdrawn with reason: "too many false positives"). '
-withdrawn: 2024-07-01T15:21:57Z
+        - introduced: 3.2.22
+        - fixed: 3.4.22
+      vulnerable_at: 0.5.0-alpha.5.0.20220915004622-85b640cee793
+      packages:
+        - package: go.etcd.io/etcd/pkg/tlsutil
+summary: Insecure ciphers are allowed by default in go.etcd.io/etcd
+description: |-
+    The TLS ciphers list supported by etcd contains insecure cipher suites. Users
+    may specify that an insecure cipher is used via “--cipher-suites” flag. A
+    list of secure suites is used by default.
 ghsas:
     - GHSA-5x4g-q5rc-36jp
 references:
@@ -16,5 +21,5 @@ references:
 source:
     id: GHSA-5x4g-q5rc-36jp
     created: 2024-06-14T11:40:23.789526-04:00
-review_status: UNREVIEWED
+review_status: REVIEWED
 unexcluded: EFFECTIVELY_PRIVATE
