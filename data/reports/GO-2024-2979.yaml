@@ -1,0 +1,25 @@
+id: GO-2024-2979
+modules:
+    - module: zotregistry.dev/zot
+      non_go_versions:
+        - fixed: 2.1.0
+      vulnerable_at: 1.4.3
+    - module: zotregistry.io/zot
+      non_go_versions:
+        - fixed: 2.1.0
+      vulnerable_at: 1.4.3
+summary: |-
+    Cache driver GetBlob() allows read access to any blob without access control
+    check in zotregistry.dev/zot
+cves:
+    - CVE-2024-39897
+ghsas:
+    - GHSA-55r9-5mx9-qq7r
+references:
+    - advisory: https://github.com/project-zot/zot/security/advisories/GHSA-55r9-5mx9-qq7r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-39897
+    - web: https://github.com/project-zot/zot/commit/aaee0220e46bdadd12115ac67c19f9d3153eb1df
+source:
+    id: GHSA-55r9-5mx9-qq7r
+    created: 2024-07-10T14:10:22.351360194Z
+review_status: UNREVIEWED
