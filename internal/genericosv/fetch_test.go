@@ -5,6 +5,7 @@
 package genericosv
 
 import (
+	"context"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -12,7 +13,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 )
 
-func newTestClient(expectedEndpoint, fakeResponse string) *client {
+func newTestClient(expectedEndpoint, fakeResponse string) *osvDevClient {
 	handler := func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet &&
 			r.URL.Path == "/"+expectedEndpoint {
@@ -22,12 +23,13 @@ func newTestClient(expectedEndpoint, fakeResponse string) *client {
 		w.WriteHeader(http.StatusBadRequest)
 	}
 	s := httptest.NewServer(http.HandlerFunc(handler))
-	return &client{s.Client(), s.URL}
+	return &osvDevClient{s.Client(), s.URL}
 }
 
 func TestFetch(t *testing.T) {
-	c := newTestClient("vulns/ID-123", `{"id":"ID-123"}`)
-	got, err := c.fetch("ID-123")
+	ctx := context.Background()
+	c := newTestClient("ID-123", `{"id":"ID-123"}`)
+	got, err := c.Fetch(ctx, "ID-123")
 	if err != nil {
 		t.Fatal(err)
 	}

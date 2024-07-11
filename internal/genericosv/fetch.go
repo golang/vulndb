@@ -12,6 +12,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"time"
 
 	"golang.org/x/vulndb/internal/report"
 )
@@ -20,41 +21,86 @@ import (
 type Entry Vulnerability
 
 func NewFetcher() report.Fetcher {
-	return &client{http.DefaultClient, "https://api.osv.dev/v1"}
+	return &osvDevClient{http.DefaultClient, osvDevAPI}
 }
 
-// Fetch returns the OSV entry from the osv.dev API for the
-// given ID.
-func (c *client) Fetch(_ context.Context, id string) (report.Source, error) {
-	return c.fetch(id)
+func NewGHSAFetcher() report.Fetcher {
+	return &githubClient{http.DefaultClient, githubAPI}
 }
 
-type client struct {
+const (
+	osvDevAPI = "https://api.osv.dev/v1/vulns"
+	githubAPI = "https://api.github.com/advisories"
+)
+
+// Fetch returns the OSV entry from the osv.dev API for the given ID.
+func (c *osvDevClient) Fetch(_ context.Context, id string) (report.Source, error) {
+	url := fmt.Sprintf("%s/%s", c.url, id)
+	return get[Entry](c.Client, url)
+}
+
+type githubClient struct {
 	*http.Client
 	url string
 }
 
-func (c *client) fetch(id string) (*Entry, error) {
-	url := fmt.Sprintf("%s/vulns/%s", c.url, id)
-	req, err := http.NewRequest(http.MethodGet, url, nil)
+// Fetch returns the OSV entry directly from the Github advisory repo
+// (https://github.com/github/advisory-database).
+//
+// This unfortunately requires two HTTP requests, the first to figure
+// out the published date of the GHSA, and the second to fetch the OSV.
+//
+// This is because the direct Github API returns a non-OSV format,
+// and the OSV files are available in a Github repo whose directory
+// structure is determined by the published year and month of each GHSA.
+func (c *githubClient) Fetch(_ context.Context, id string) (report.Source, error) {
+	url := fmt.Sprintf("%s/%s", c.url, id)
+	sa, err := get[struct {
+		Published *time.Time `json:"published_at,omitempty"`
+	}](c.Client, url)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := c.Do(req)
+	if sa.Published == nil {
+		return nil, fmt.Errorf("could not determine direct URL for GHSA OSV (need published date)")
+	}
+	githubURL := toGithubURL(id, sa.Published)
+	return get[Entry](c.Client, githubURL)
+}
+
+func toGithubURL(id string, published *time.Time) string {
+	const base = "https://raw.githubusercontent.com/github/advisory-database/main/advisories/github-reviewed"
+	year := published.Year()
+	month := published.Month()
+	return fmt.Sprintf("%s/%d/%02d/%s/%s.json", base, year, month, id, id)
+}
+
+type osvDevClient struct {
+	*http.Client
+	url string
+}
+
+func get[T any](cli *http.Client, url string) (*T, error) {
+	var zero *T
+	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
-		return nil, err
+		return zero, err
+	}
+	resp, err := cli.Do(req)
+	if err != nil {
+		return zero, err
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("HTTP GET %s returned unexpected status code %d", url, resp.StatusCode)
+		return zero, fmt.Errorf("HTTP GET %s returned unexpected status code %d", url, resp.StatusCode)
 	}
-	var osv Entry
+	v := new(T)
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return nil, err
+		return zero, err
 	}
-	if err := json.Unmarshal(body, &osv); err != nil {
-		return nil, err
+	if err := json.Unmarshal(body, v); err != nil {
+		return zero, err
 	}
-	return &osv, nil
+	return v, nil
 }

@@ -159,7 +159,7 @@ func (a *aliasFinder) fetch(ctx context.Context, alias string) (report.Source, e
 			// Doesn't work for test environment yet.
 			f = a.gc.(*ghsa.Client)
 		} else {
-			f = genericosv.NewFetcher()
+			f = genericosv.NewGHSAFetcher()
 		}
 	case idstr.IsCVE(alias):
 		f = cve5.NewFetcher()
