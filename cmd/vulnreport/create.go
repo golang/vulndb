@@ -13,7 +13,6 @@ import (
 
 var (
 	preferCVE       = flag.Bool("cve", false, "for create, prefer CVEs over GHSAs as canonical source")
-	graphQL         = flag.Bool("graphql", false, "for create, fetch GHSAs from the Github GraphQL API instead of the OSV database")
 	useAI           = flag.Bool("ai", false, "for create, use AI to write draft summary and description when creating report")
 	populateSymbols = flag.Bool("symbols", false, "for create, attempt to auto-populate symbols")
 	user            = flag.String("user", "", "for create & create-excluded, only consider issues assigned to the given user")

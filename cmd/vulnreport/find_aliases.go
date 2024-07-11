@@ -155,12 +155,7 @@ func (a *aliasFinder) fetch(ctx context.Context, alias string) (report.Source, e
 	var f report.Fetcher
 	switch {
 	case idstr.IsGHSA(alias):
-		if *graphQL {
-			// Doesn't work for test environment yet.
-			f = a.gc.(*ghsa.Client)
-		} else {
-			f = genericosv.NewGHSAFetcher()
-		}
+		f = genericosv.NewGHSAFetcher()
 	case idstr.IsCVE(alias):
 		f = cve5.NewFetcher()
 	default:
