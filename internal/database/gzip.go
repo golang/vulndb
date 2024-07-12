@@ -7,7 +7,7 @@ package database
 import (
 	"bytes"
 	"compress/gzip"
-	"io/ioutil"
+	"io"
 	"os"
 )
 
@@ -48,5 +48,5 @@ func readGzipped(filename string) ([]byte, error) {
 	}
 	defer r.Close()
 
-	return ioutil.ReadAll(r)
+	return io.ReadAll(r)
 }

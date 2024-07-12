@@ -7,7 +7,6 @@
 package cvelistrepo
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -110,37 +109,6 @@ func blobReader(repo *git.Repository, hash plumbing.Hash) (io.Reader, error) {
 		return nil, err
 	}
 	return blob.Reader()
-}
-
-// FetchCVE fetches the CVE file for cveID from the CVElist repo and returns
-// the parsed info.
-func FetchCVE[T any](ctx context.Context, repo *git.Repository, cveID string) (_ T, err error) {
-	defer derrors.Wrap(&err, "FetchCVE(repo, commit, %s)", cveID)
-	var zero T
-
-	ref, err := repo.Reference(plumbing.HEAD, true)
-	if err != nil {
-		return zero, err
-	}
-	ch := ref.Hash()
-	commit, err := repo.CommitObject(ch)
-	if err != nil {
-		return zero, err
-	}
-	files, err := Files(repo, commit)
-	if err != nil {
-		return zero, err
-	}
-	for _, f := range files {
-		if strings.Contains(f.Filename, cveID) {
-			cve, err := Parse[T](repo, f)
-			if err != nil {
-				return zero, err
-			}
-			return cve, nil
-		}
-	}
-	return zero, fmt.Errorf("%s not found", cveID)
 }
 
 // Parse unmarshals the contents of f.

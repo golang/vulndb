@@ -11,8 +11,7 @@ import (
 )
 
 // Fetch returns the CVE record associated with the ID.
-// It is intended one-off (non-batch) requests, and
-// is much faster than cvelistrepo.FetchCVE.
+// It is intended one-off (non-batch) requests.
 func Fetch(id string) (*CVERecord, error) {
 	c := NewClient(Config{
 		Endpoint: ProdEndpoint,

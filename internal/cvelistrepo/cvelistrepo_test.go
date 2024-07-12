@@ -101,33 +101,6 @@ func TestFiles(t *testing.T) {
 	}
 }
 
-func TestFetchCVE(t *testing.T) {
-	testFetchCVE[*cve4.CVE](t, "v4", v4txtar)
-	testFetchCVE[*cve5.CVERecord](t, "v5", v5txtar)
-}
-
-func testFetchCVE[S report.Source](t *testing.T, name, txtarFile string) {
-	t.Run(name, func(t *testing.T) {
-		ctx := context.Background()
-		repo, _, err := gitrepo.TxtarRepoAndHead(txtarFile)
-		if err != nil {
-			t.Fatal(err)
-		}
-
-		for _, id := range cveIDs {
-			t.Run(id, func(t *testing.T) {
-				cve, err := FetchCVE[S](ctx, repo, id)
-				if err != nil {
-					t.Fatal(err)
-				}
-				if got, want := cve.SourceID(), id; got != want {
-					t.Errorf("FetchCVE(%s) ID = %s, want %s", id, got, want)
-				}
-			})
-		}
-	})
-}
-
 func TestParse(t *testing.T) {
 	testParse[*cve4.CVE](t, "v4", v4txtar)
 	testParse[*cve5.CVERecord](t, "v5", v5txtar)

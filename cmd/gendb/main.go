@@ -19,7 +19,6 @@ var (
 	repoDir = flag.String("repo", ".", "Directory containing vulndb repo")
 	jsonDir = flag.String("out", "out", "Directory to write JSON database to")
 	zipFile = flag.String("zip", "", "if provided, file to write zipped database to (for v1 database only)")
-	indent  = flag.Bool("indent", false, "Indent JSON for debugging")
 )
 
 func main() {

@@ -90,8 +90,8 @@ func Patched(module, commitHash string, r *repository) (_ map[string][]string, e
 
 // resetWorktree takes a repository and its worktree and resets it to MAIN/MASTER@HEAD
 func resetWorktree(r *git.Repository, w *git.Worktree) {
-	r.Fetch(&git.FetchOptions{})
-	w.Reset(&git.ResetOptions{
+	_ = r.Fetch(&git.FetchOptions{})
+	_ = w.Reset(&git.ResetOptions{
 		Mode: git.HardReset,
 	})
 }

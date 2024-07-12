@@ -116,11 +116,6 @@ func (c *CheckUpdateError) Error() string {
 	return c.msg
 }
 
-const (
-	vulnDBBucket = "go-vulndb"
-	vulnDBURL    = "https://storage.googleapis.com/" + vulnDBBucket
-)
-
 // GHSAListFunc is the type of a function that lists GitHub security advisories.
 type GHSAListFunc func(_ context.Context, since time.Time) ([]*ghsa.SecurityAdvisory, error)
 

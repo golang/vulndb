@@ -349,7 +349,9 @@ func TestDoUpdate(t *testing.T) {
 			mstore := store.NewMemStore()
 			createCVE4Records(t, mstore, test.curCVEs)
 			createLegacyGHSARecords(t, mstore, test.curGHSAs)
-			newCVEUpdater(repo, commit, mstore, rc, needsIssue).update(ctx)
+			if err := newCVEUpdater(repo, commit, mstore, rc, needsIssue).update(ctx); err != nil {
+				t.Fatal(err)
+			}
 			got := mstore.CVE4Records()
 			want := map[string]*store.CVE4Record{}
 			for _, cr := range test.want {

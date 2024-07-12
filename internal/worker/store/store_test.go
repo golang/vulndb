@@ -186,7 +186,7 @@ func testDirHashes(t *testing.T, s Store) {
 }
 
 var (
-	ghsa1, ghsa2, ghsa3, ghsa4, ghsa5 = "GHSA-xxxx-yyyy-1111", "GHSA-xxxx-yyyy-2222", "GHSA-xxxx-yyyy-3333", "GHSA-xxxx-yyyy-4444", "GHSA-xxxx-yyyy-5555"
+	ghsa1, ghsa2 = "GHSA-xxxx-yyyy-1111", "GHSA-xxxx-yyyy-2222"
 )
 
 func testGHSAs(t *testing.T, s Store) {

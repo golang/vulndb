@@ -6,7 +6,6 @@ package cveutils
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"net/url"
 	"strings"
@@ -17,8 +16,6 @@ import (
 	"golang.org/x/vulndb/internal/stdlib"
 	"golang.org/x/vulndb/internal/worker/log"
 )
-
-var errCVEVersionUnsupported = errors.New("unsupported CVE version")
 
 // stdlibReferenceDataKeywords are words found in the reference data URL that
 // indicate the CVE is about the standard library or a Go x-repo owned by the

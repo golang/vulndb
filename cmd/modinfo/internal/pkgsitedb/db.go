@@ -12,7 +12,6 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	"regexp"
 
 	secretmanager "cloud.google.com/go/secretmanager/apiv1"
 	smpb "cloud.google.com/go/secretmanager/apiv1/secretmanagerpb"
@@ -86,12 +85,6 @@ func QueryModule(ctx context.Context, db *sql.DB, modulePath string) (*Module, e
 		return nil, err
 	}
 	return m, nil
-}
-
-var passwordRegexp = regexp.MustCompile(`password=\S+`)
-
-func redactPassword(dbinfo string) string {
-	return passwordRegexp.ReplaceAllLiteralString(dbinfo, "password=REDACTED")
 }
 
 // getSecret retrieves a secret from the GCP Secret Manager.
