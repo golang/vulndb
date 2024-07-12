@@ -1,0 +1,20 @@
+id: GO-2024-2981
+modules:
+    - module: github.com/openclarity/kubeclarity/backend
+      versions:
+        - fixed: 0.0.0-20240711173334-1d1178840703
+summary: SQL Injection in the KubeClarity REST API in github.com/openclarity/kubeclarity/backend
+cves:
+    - CVE-2024-39909
+ghsas:
+    - GHSA-5248-h45p-9pgw
+references:
+    - advisory: https://github.com/openclarity/kubeclarity/security/advisories/GHSA-5248-h45p-9pgw
+    - web: https://github.com/openclarity/kubeclarity/blob/main/backend/pkg/database/id_view.go#L79
+    - web: https://github.com/openclarity/kubeclarity/commit/1d1178840703a72d9082b7fc4aea0a3326c5d294
+notes:
+    - fix: 'github.com/openclarity/kubeclarity/backend: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-5248-h45p-9pgw
+    created: 2024-07-12T16:33:34.102123356Z
+review_status: UNREVIEWED

@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2982",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-6468",
+    "GHSA-2qmw-pvf7-4mw6"
+  ],
+  "summary": "Hashicorp Vault vulnerable to Improper Check or Handling of Exceptional Conditions in github.com/hashicorp/vault",
+  "details": "Hashicorp Vault vulnerable to Improper Check or Handling of Exceptional Conditions in github.com/hashicorp/vault.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/hashicorp/vault before v1.15.12.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hashicorp/vault",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.16.0-rc1"
+            },
+            {
+              "fixed": "1.16.3"
+            },
+            {
+              "introduced": "1.17.0-rc1"
+            },
+            {
+              "fixed": "1.17.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "1.15.12"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-2qmw-pvf7-4mw6"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-6468"
+    },
+    {
+      "type": "WEB",
+      "url": "https://discuss.hashicorp.com/t/hcsec-2024-14-vault-vulnerable-to-denial-of-service-when-setting-a-proxy-protocol-behavior/68518"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2982",
+    "review_status": "UNREVIEWED"
+  }
+}
