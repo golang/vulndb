@@ -104,3 +104,16 @@ func get[T any](cli *http.Client, url string) (*T, error) {
 	}
 	return v, nil
 }
+
+func (e *Entry) AffectsGo() bool {
+	for _, a := range e.Affected {
+		if a.Package.Ecosystem == EcosystemGo {
+			return true
+		}
+	}
+	return false
+}
+
+func (e *Entry) IsWithdrawn() bool {
+	return !e.Withdrawn.IsZero()
+}

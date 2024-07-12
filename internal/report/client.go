@@ -54,11 +54,12 @@ func NewClient(repo *git.Repository) (*Client, error) {
 	return c, nil
 }
 
+const VulndbURL = "https://github.com/golang/vulndb"
+
 // NewDefaultClient returns a Client that reads reports from
 // https://github.com/golang/vulndb.
 func NewDefaultClient(ctx context.Context) (*Client, error) {
-	const url = "https://github.com/golang/vulndb"
-	vulndb, err := gitrepo.Clone(ctx, url)
+	vulndb, err := gitrepo.Clone(ctx, VulndbURL)
 	if err != nil {
 		return nil, err
 	}

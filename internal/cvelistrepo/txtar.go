@@ -89,9 +89,9 @@ func TestToReport[S report.Source](t *testing.T, update, realProxy bool) error {
 	}
 
 	for _, file := range files {
-		id := idstr.FindCVE(file.Filename)
+		id := file.ID()
 		t.Run(id, func(t *testing.T) {
-			cve, err := Parse[S](repo, file)
+			cve, _, err := gitrepo.Parse[S](repo, &file)
 			if err != nil {
 				t.Fatalf("Parse(%s)=%s", id, err)
 			}

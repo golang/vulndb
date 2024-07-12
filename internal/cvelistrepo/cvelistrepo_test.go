@@ -120,7 +120,7 @@ func testParse[S report.Source](t *testing.T, name, txtarFile string) {
 
 		for _, file := range files {
 			t.Run(file.Filename, func(t *testing.T) {
-				cve, err := Parse[S](repo, file)
+				cve, _, err := gitrepo.Parse[S](repo, &file)
 				if err != nil {
 					t.Fatal(err)
 				}

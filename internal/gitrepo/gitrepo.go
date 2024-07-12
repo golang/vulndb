@@ -7,6 +7,7 @@ package gitrepo
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 	"strings"
@@ -95,15 +96,15 @@ func CloneOrOpen(ctx context.Context, repoPath string) (*git.Repository, error) 
 
 // Root returns the root tree of the repo at HEAD.
 func Root(repo *git.Repository) (root *object.Tree, err error) {
-	refName := plumbing.HEAD
-	ref, err := repo.Reference(refName, true)
+	head, err := HeadCommit(repo)
 	if err != nil {
 		return nil, err
 	}
-	commit, err := repo.CommitObject(ref.Hash())
-	if err != nil {
-		return nil, err
-	}
+	return RootAt(repo, head)
+}
+
+// Root returns the root tree of the repo at the given commit.
+func RootAt(repo *git.Repository, commit *object.Commit) (root *object.Tree, err error) {
 	return repo.TreeObject(commit.TreeHash)
 }
 
@@ -298,4 +299,38 @@ func AllCommitDates(repo *git.Repository, refName ReferenceName, prefix string) 
 		commit = parentCommit
 	}
 	return dates, nil
+}
+
+func ReadAll(repo *git.Repository, hash plumbing.Hash) ([]byte, error) {
+	blob, err := repo.BlobObject(hash)
+	if err != nil {
+		return nil, err
+	}
+	r, err := blob.Reader()
+	if err != nil {
+		return nil, err
+	}
+	return io.ReadAll(r)
+}
+
+type File interface {
+	Name() string
+	ReadAll(*git.Repository) ([]byte, error)
+}
+
+// Parse unmarshals the contents of f.
+func Parse[T any](repo *git.Repository, f File) (_ T, raw []byte, _ error) {
+	var zero T
+	b, err := f.ReadAll(repo)
+	if err != nil {
+		return zero, nil, err
+	}
+	if len(b) == 0 {
+		return zero, nil, fmt.Errorf("%s is empty", f.Name())
+	}
+	v := new(T)
+	if err := json.Unmarshal(b, v); err != nil {
+		return zero, nil, err
+	}
+	return *v, b, nil
 }

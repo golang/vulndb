@@ -7,9 +7,7 @@
 package cvelistrepo
 
 import (
-	"encoding/json"
 	"fmt"
-	"io"
 	"path"
 	"sort"
 	"strconv"
@@ -20,6 +18,8 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/filemode"
 	"github.com/go-git/go-git/v5/plumbing/object"
 	"golang.org/x/vulndb/internal/derrors"
+	"golang.org/x/vulndb/internal/gitrepo"
+	"golang.org/x/vulndb/internal/idstr"
 )
 
 // URLs of the CVE project list repos.
@@ -102,36 +102,14 @@ func isCVEFilename(name string) bool {
 	return strings.HasPrefix(name, "CVE-") && path.Ext(name) == ".json"
 }
 
-// blobReader returns a reader to the blob with the given hash.
-func blobReader(repo *git.Repository, hash plumbing.Hash) (io.Reader, error) {
-	blob, err := repo.BlobObject(hash)
-	if err != nil {
-		return nil, err
-	}
-	return blob.Reader()
+func (f *File) ID() string {
+	return idstr.FindCVE(f.Filename)
 }
 
-// Parse unmarshals the contents of f.
-func Parse[T any](repo *git.Repository, f File) (T, error) {
-	var zero T
-	b, err := f.ReadAll(repo)
-	if err != nil {
-		return zero, err
-	}
-	if len(b) == 0 {
-		return zero, fmt.Errorf("%s is empty", f.Filename)
-	}
-	v := new(T)
-	if err := json.Unmarshal(b, v); err != nil {
-		return zero, err
-	}
-	return *v, nil
+func (f *File) Name() string {
+	return f.Filename
 }
 
 func (f *File) ReadAll(repo *git.Repository) ([]byte, error) {
-	r, err := blobReader(repo, f.BlobHash)
-	if err != nil {
-		return nil, err
-	}
-	return io.ReadAll(r)
+	return gitrepo.ReadAll(repo, f.BlobHash)
 }

@@ -19,6 +19,7 @@ import (
 	"golang.org/x/vulndb/internal/cveutils"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/ghsa"
+	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/observe"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/worker/log"
@@ -272,7 +273,7 @@ func checkForAliases(cve *cve4.CVE, tx store.Transaction) (store.TriageState, er
 func (u *cveUpdater) handleCVE(f cvelistrepo.File, old *store.CVE4Record, tx store.Transaction) (record *store.CVE4Record, add bool, err error) {
 	defer derrors.Wrap(&err, "handleCVE(%s)", f.Filename)
 
-	cve, err := cvelistrepo.Parse[*cve4.CVE](u.repo, f)
+	cve, _, err := gitrepo.Parse[*cve4.CVE](u.repo, &f)
 	if err != nil {
 		return nil, false, err
 	}

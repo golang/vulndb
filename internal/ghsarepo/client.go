@@ -14,7 +14,6 @@ import (
 	"encoding/json"
 
 	"github.com/go-git/go-git/v5"
-	"github.com/go-git/go-git/v5/plumbing/object"
 	"github.com/go-git/go-git/v5/storage/memory"
 	"golang.org/x/exp/maps"
 	"golang.org/x/vulndb/internal/genericosv"
@@ -26,12 +25,15 @@ type Client struct {
 	byAlias map[string][]*genericosv.Entry
 }
 
+const URL = "https://github.com/github/advisory-database"
+const DirectURLPrefix = "https://raw.githubusercontent.com/github/advisory-database/main/advisories/github-reviewed"
+
 // NewClient returns a client to read from the GHSA database.
 // It clones the Git repo at https://github.com/github/advisory-database,
 // which can take around ~20 seconds.
 func NewClient() (*Client, error) {
 	repo, err := git.Clone(memory.NewStorage(), nil, &git.CloneOptions{
-		URL:           "https://github.com/github/advisory-database",
+		URL:           URL,
 		ReferenceName: "refs/heads/main",
 		SingleBranch:  true,
 		Depth:         1,
@@ -48,16 +50,11 @@ func NewClient() (*Client, error) {
 // in the given repo, which must follow the structure of
 // https://github.com/github/advisory-database.
 func NewClientFromRepo(repo *git.Repository) (*Client, error) {
-	const reviewed = "advisories/github-reviewed"
-	root, err := gitrepo.Root(repo)
+	hc, err := gitrepo.HeadCommit(repo)
 	if err != nil {
 		return nil, err
 	}
-	e, err := root.FindEntry(reviewed)
-	if err != nil {
-		return nil, err
-	}
-	tree, err := repo.TreeObject(e.Hash)
+	files, err := Files(repo, hc)
 	if err != nil {
 		return nil, err
 	}
@@ -66,48 +63,39 @@ func NewClientFromRepo(repo *git.Repository) (*Client, error) {
 		byID:    make(map[string]*genericosv.Entry),
 		byAlias: make(map[string][]*genericosv.Entry),
 	}
-	if err := tree.Files().ForEach(func(f *object.File) error {
-		contents, err := f.Contents()
-		if err != nil {
-			return err
-		}
+
+	for _, f := range files {
 		var advisory genericosv.Entry
-		if err := json.Unmarshal([]byte(contents), &advisory); err != nil {
-			return err
+		b, err := f.ReadAll(repo)
+		if err != nil {
+			return nil, err
 		}
-		if !affectsGo(&advisory) {
-			return nil
+		if err := json.Unmarshal(b, &advisory); err != nil {
+			return nil, err
 		}
-		if !advisory.Withdrawn.IsZero() {
-			return nil
+		if !advisory.AffectsGo() {
+			continue
+		}
+		if advisory.IsWithdrawn() {
+			continue
 		}
 		c.byID[advisory.ID] = &advisory
 		for _, alias := range advisory.Aliases {
 			c.byAlias[alias] = append(c.byAlias[alias], &advisory)
 		}
-		return nil
-	}); err != nil {
-		return nil, err
 	}
 
 	return c, nil
 }
 
-func affectsGo(osv *genericosv.Entry) bool {
-	for _, a := range osv.Affected {
-		if a.Package.Ecosystem == genericosv.EcosystemGo {
-			return true
-		}
-	}
-	return false
-}
-
-// IDs returns all the GHSA IDs in the GHSA database.
+// IDs returns all the GHSA IDs in the GHSA database
+// that affect Go and are not withdrawn.
 func (c *Client) IDs() []string {
 	return maps.Keys(c.byID)
 }
 
-// List returns all the genericosv.Entry entries in the GHSA database.
+// List returns all the genericosv.Entry entries in the GHSA database
+// that affect Go and are not withdrawn.
 func (c *Client) List() []*genericosv.Entry {
 	return maps.Values(c.byID)
 }
