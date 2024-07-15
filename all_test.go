@@ -8,6 +8,7 @@
 package main
 
 import (
+	"context"
 	"errors"
 	"os"
 	"os/exec"
@@ -20,7 +21,9 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
+	"golang.org/x/vulndb/cmd/vulnreport/priority"
 	"golang.org/x/vulndb/internal/cve5"
+	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/osvutils"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
@@ -87,8 +90,19 @@ func TestLintReports(t *testing.T) {
 		}
 	}
 
-	// Map from aliases (CVEs/GHSAS) to report paths, used to check for duplicate aliases.
-	aliases := make(map[string]string)
+	vulndb, err := gitrepo.Open(context.Background(), ".")
+	if err != nil {
+		t.Fatal(err)
+	}
+	rc, err := report.NewClient(vulndb)
+	if err != nil {
+		t.Fatal(err)
+	}
+	modulesToImports, err := priority.LoadModuleMap()
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	// Map from summaries to report paths, used to check for duplicate summaries.
 	summaries := make(map[string]string)
 	sort.Strings(reports)
@@ -107,14 +121,14 @@ func TestLintReports(t *testing.T) {
 			}
 			duplicates := make(map[string][]string)
 			for _, alias := range r.Aliases() {
-				if report, ok := aliases[alias]; ok {
-					duplicates[report] = append(duplicates[report], alias)
-				} else {
-					aliases[alias] = filename
+				for _, r2 := range rc.ReportsByAlias(alias) {
+					if r2.ID != r.ID {
+						duplicates[r2.ID] = append(duplicates[r2.ID], alias)
+					}
 				}
 			}
-			for report, aliases := range duplicates {
-				t.Errorf("report %s shares duplicate alias(es) %s with report %s", filename, aliases, report)
+			for r2, aliases := range duplicates {
+				t.Errorf("report %s shares duplicate alias(es) %s with report %s", filename, aliases, r2)
 			}
 			// Ensure that each reviewed report has a unique summary.
 			if r.IsReviewed() {
@@ -124,6 +138,16 @@ func TestLintReports(t *testing.T) {
 					} else {
 						summaries[summary] = filename
 					}
+				}
+			}
+			// Ensure that no unreviewed reports are high priority.
+			// This can happen because the initial quick triage algorithm
+			// doesn't know about all affected modules - just the one
+			// listed in the Github issue.
+			if r.IsUnreviewed() {
+				pr, _ := priority.AnalyzeReport(r, rc, modulesToImports)
+				if pr.Priority == priority.High {
+					t.Errorf("UNREVIEWED report %s is high priority (should be REVIEWED) - reason: %s", filename, pr.Reason)
 				}
 			}
 			// Check that a correct OSV file was generated for each YAML report.

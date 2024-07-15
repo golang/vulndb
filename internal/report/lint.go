@@ -221,6 +221,10 @@ func (r *Report) IsReviewed() bool {
 	return r.ReviewStatus == Reviewed
 }
 
+func (r *Report) IsUnreviewed() bool {
+	return !r.IsReviewed() && !r.IsExcluded()
+}
+
 func (r *Report) lintReferences(l *linter) {
 	for i, ref := range r.References {
 		rl := l.Group(name("references", i, ref.URL))
@@ -278,7 +282,7 @@ func (r *Report) lintSource(l *linter) {
 	if r.SourceMeta == nil {
 		return
 	}
-	if !r.IsReviewed() && r.SourceMeta.ID == sourceGoTeam {
+	if r.IsUnreviewed() && r.SourceMeta.ID == sourceGoTeam {
 		l.Errorf("source: if id=%s, report must be %s", sourceGoTeam, Reviewed)
 	}
 }
@@ -297,7 +301,7 @@ func (r *Report) needsAdvisory() bool {
 	switch {
 	case r.IsExcluded(), r.CVEMetadata != nil, r.IsFirstParty():
 		return false
-	case r.Description == "", !r.IsReviewed():
+	case r.Description == "", r.IsUnreviewed():
 		return true
 	}
 	return false
@@ -333,7 +337,7 @@ func (s *Summary) lint(l *linter, r *Report) {
 	}
 
 	// Non-reviewed reports don't need to meet strict requirements.
-	if !r.IsReviewed() {
+	if r.IsUnreviewed() {
 		return
 	}
 

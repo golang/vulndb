@@ -56,6 +56,7 @@ func TestAnalyze(t *testing.T) {
 		reportsForModule []*report.Report
 		modulesToImports map[string]int
 		want             *Result
+		wantNotGo        *NotGoResult
 	}{
 		{
 			name:             "unknown priority",
@@ -130,18 +131,22 @@ func TestAnalyze(t *testing.T) {
 			reportsForModule: []*report.Report{notGo1, reviewed1, binary1, unreviewed1},
 			modulesToImports: map[string]int{"example.com/module": 99},
 			want: &Result{
-				Priority:    Low,
-				Reason:      "example.com/module has 99 importers (< 100)",
-				NotGo:       true,
-				NotGoReason: "more than 20 percent of reports (1 of 4) with this module are NOT_GO_CODE",
+				Priority: Low,
+				Reason:   "example.com/module has 99 importers (< 100)",
+			},
+			wantNotGo: &NotGoResult{
+				Reason: "more than 20 percent of reports (1 of 4) with this module are NOT_GO_CODE",
 			},
 		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
-			got := Analyze(tc.module, tc.reportsForModule, tc.modulesToImports)
+			got, gotNotGo := Analyze(tc.module, tc.reportsForModule, tc.modulesToImports)
 			want := tc.want
 			if diff := cmp.Diff(want, got); diff != "" {
-				t.Errorf("mismatch (-want, +got):\n%s", diff)
+				t.Errorf("result mismatch (-want, +got):\n%s", diff)
+			}
+			if diff := cmp.Diff(tc.wantNotGo, gotNotGo); diff != "" {
+				t.Errorf("not go mismatch (-want, +got):\n%s", diff)
 			}
 		})
 	}

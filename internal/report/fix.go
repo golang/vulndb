@@ -300,7 +300,7 @@ func (r *Report) FixModules(pc *proxy.Client) (errs error) {
 
 	// For unreviewed reports, assume that all major versions
 	// up to the highest mentioned are affected at all versions.
-	if !r.IsReviewed() {
+	if r.IsUnreviewed() {
 		r.addMissingMajors(pc)
 	}
 

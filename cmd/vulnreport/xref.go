@@ -13,6 +13,7 @@ import (
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
 	"golang.org/x/vulndb/cmd/vulnreport/log"
+	"golang.org/x/vulndb/cmd/vulnreport/priority"
 	"golang.org/x/vulndb/internal/report"
 )
 
@@ -37,15 +38,21 @@ func (x *xref) setup(ctx context.Context, env environment) error {
 
 func (x *xref) close() error { return nil }
 
-// xref returns cross-references for a report: Information about other reports
-// for the same CVE, GHSA, or module.
+// xref returns cross-references for a report (information about other reports
+// for the same CVE, GHSA, or module), and the priority of a report.
 func (x *xref) run(ctx context.Context, input any) (err error) {
 	r := input.(*yamlReport)
 
 	if xrefs := x.xref(r); len(xrefs) > 0 {
-		log.Outf("xrefs for %s:%s", r.Filename, xrefs)
+		log.Outf("%s: found xrefs:%s", r.Filename, xrefs)
 	} else {
 		log.Infof("%s: no xrefs found", r.Filename)
+	}
+
+	pr, notGo := x.reportPriority(r.Report)
+	log.Outf("%s priority is %s\n - %s", r.ID, pr.Priority, pr.Reason)
+	if notGo != nil {
+		log.Outf("%s is likely not Go\n - %s", r.ID, notGo.Reason)
 	}
 
 	return nil
@@ -61,11 +68,19 @@ func (x *xrefer) setup(ctx context.Context, env environment) (err error) {
 		return err
 	}
 	x.rc = rc
+
+	mm, err := env.ModuleMap()
+	if err != nil {
+		return err
+	}
+	x.moduleMap = mm
+
 	return nil
 }
 
 type xrefer struct {
-	rc *report.Client
+	rc        *report.Client
+	moduleMap map[string]int
 }
 
 func (x *xrefer) xref(r *yamlReport) string {
@@ -84,6 +99,14 @@ func (x *xrefer) xref(r *yamlReport) string {
 		}
 	}
 	return out.String()
+}
+
+func (x *xrefer) modulePriority(modulePath string) (*priority.Result, *priority.NotGoResult) {
+	return priority.Analyze(modulePath, x.rc.ReportsByModule(modulePath), x.moduleMap)
+}
+
+func (x *xrefer) reportPriority(r *report.Report) (*priority.Result, *priority.NotGoResult) {
+	return priority.AnalyzeReport(r, x.rc, x.moduleMap)
 }
 
 func sorted[E constraints.Ordered](s []E) []E {

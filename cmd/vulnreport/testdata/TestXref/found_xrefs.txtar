@@ -6,8 +6,10 @@ Expected output of test TestXref/found_xrefs
 command: "vulnreport xref 4"
 
 -- out --
-xrefs for data/reports/GO-9999-0004.yaml:
+data/reports/GO-9999-0004.yaml: found xrefs:
 Module golang.org/x/tools appears in data/reports/GO-9999-0005.yaml
+GO-9999-0004 priority is low
+ - golang.org/x/tools has 50 importers (< 100)
 -- logs --
 info: xref: operating on 1 report(s)
 info: xref data/reports/GO-9999-0004.yaml

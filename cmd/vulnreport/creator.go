@@ -13,6 +13,7 @@ import (
 
 	"golang.org/x/exp/slices"
 	"golang.org/x/vulndb/cmd/vulnreport/log"
+	"golang.org/x/vulndb/cmd/vulnreport/priority"
 	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/issues"
 	"golang.org/x/vulndb/internal/osv"
@@ -159,20 +160,23 @@ func (c *creator) metaToSource(ctx context.Context, meta *reportMeta) report.Sou
 	return report.Original()
 }
 
-func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) (*yamlReport, error) {
-	// Find the underlying module if the "module" provided is actually a package path.
-	if module, err := c.pc.FindModule(meta.modulePath); err == nil { // no error
-		meta.modulePath = module
-	}
-	meta.aliases = c.allAliases(ctx, meta.aliases)
-
-	raw := report.New(c.metaToSource(ctx, meta), c.pc,
+func (c *creator) rawReport(ctx context.Context, meta *reportMeta) *report.Report {
+	return report.New(c.metaToSource(ctx, meta), c.pc,
 		report.WithGoID(meta.id),
 		report.WithModulePath(meta.modulePath),
 		report.WithAliases(meta.aliases),
 		report.WithReviewStatus(meta.reviewStatus),
 		report.WithUnexcluded(meta.unexcluded),
 	)
+}
+
+func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) (*yamlReport, error) {
+	// Find the underlying module if the "module" provided is actually a package path.
+	if module, err := c.pc.FindModule(meta.modulePath); err == nil { // no error
+		meta.modulePath = module
+	}
+	meta.aliases = c.allAliases(ctx, meta.aliases)
+	raw := c.rawReport(ctx, meta)
 
 	if meta.excluded != "" {
 		raw = &report.Report{
@@ -185,6 +189,18 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) (*yamlRe
 			Excluded: meta.excluded,
 			CVEs:     raw.CVEs,
 			GHSAs:    raw.GHSAs,
+		}
+	}
+
+	// The initial quick triage algorithm doesn't know about all
+	// affected modules, so double check the priority after the
+	// report is created.
+	if raw.IsUnreviewed() {
+		pr, _ := c.reportPriority(raw)
+		if pr.Priority == priority.High {
+			log.Warnf("%s: re-generating; vuln is high priority and should be REVIEWED; reason: %s", raw.ID, pr.Reason)
+			meta.reviewStatus = report.Reviewed
+			raw = c.rawReport(ctx, meta)
 		}
 	}
 
@@ -221,9 +237,9 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) (*yamlRe
 	}
 
 	switch {
-	case meta.excluded != "":
+	case raw.IsExcluded():
 		// nothing
-	case meta.reviewStatus == report.Unreviewed:
+	case raw.IsUnreviewed():
 		r.removeUnreachableRefs()
 	default:
 		// Regular, full-length reports.

@@ -24,10 +24,9 @@ type triage struct {
 	*issueParser
 	*fixer
 
-	mu               sync.Mutex // protects aliasesToIssues and stats
-	aliasesToIssues  map[string][]int
-	modulesToImports map[string]int
-	stats            []issuesList
+	mu              sync.Mutex // protects aliasesToIssues and stats
+	aliasesToIssues map[string][]int
+	stats           []issuesList
 }
 
 func (*triage) name() string { return "triage" }
@@ -57,11 +56,6 @@ func toStrings(stats []issuesList) (strs []string) {
 func (t *triage) setup(ctx context.Context, env environment) error {
 	t.aliasesToIssues = make(map[string][]int)
 	t.stats = make([]issuesList, len(statNames))
-	m, err := env.ModuleMap()
-	if err != nil {
-		return err
-	}
-	t.modulesToImports = m
 
 	t.issueParser = new(issueParser)
 	t.fixer = new(fixer)
@@ -138,15 +132,15 @@ func (t *triage) triage(ctx context.Context, iss *issues.Issue) {
 	}
 
 	mp := t.canonicalModule(modulePath(iss))
-	tr := priority.Analyze(mp, t.rc.ReportsByModule(mp), t.modulesToImports)
-	t.addStat(iss, toStat(tr.Priority), tr.Reason)
+	pr, notGo := t.modulePriority(mp)
+	t.addStat(iss, toStat(pr.Priority), pr.Reason)
 
-	if tr.NotGo {
-		t.addStat(iss, statNotGo, tr.NotGoReason)
+	if notGo != nil {
+		t.addStat(iss, statNotGo, notGo.Reason)
 		labels = append(labels, labelPossiblyNotGo)
 	}
 
-	if tr.Priority == priority.High {
+	if pr.Priority == priority.High {
 		labels = append(labels, labelHighPriority)
 	}
 }

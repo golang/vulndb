@@ -174,7 +174,7 @@ func (r *Report) ToOSV(lastModified time.Time) (osv.Entry, error) {
 	}
 
 	// Add an explanation about non-Go versions if applicable.
-	if hasNonGoVersions && !r.IsReviewed() {
+	if hasNonGoVersions && r.IsUnreviewed() {
 		if !strings.HasSuffix(details, ".") {
 			details = fmt.Sprintf("%s.", details)
 		}

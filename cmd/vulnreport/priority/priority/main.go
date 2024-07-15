@@ -38,10 +38,10 @@ func main() {
 	}
 
 	for _, arg := range args {
-		pr := priority.Analyze(arg, rc.ReportsByModule(arg), ms)
+		pr, notGo := priority.Analyze(arg, rc.ReportsByModule(arg), ms)
 		vlog.Outf("%s:\npriority = %s\n%s", arg, pr.Priority, pr.Reason)
-		if pr.NotGo {
-			vlog.Outf("%s is likely not Go because %s", arg, pr.NotGoReason)
+		if notGo != nil {
+			vlog.Outf("%s is likely not Go because %s", arg, notGo.Reason)
 		}
 	}
 }

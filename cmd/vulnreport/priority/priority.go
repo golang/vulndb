@@ -7,15 +7,18 @@ package priority
 
 import (
 	"fmt"
+	"strings"
 
 	"golang.org/x/vulndb/internal/report"
 )
 
 type Result struct {
-	Priority    Priority
-	Reason      string
-	NotGo       bool
-	NotGoReason string
+	Priority Priority
+	Reason   string
+}
+
+type NotGoResult struct {
+	Reason string
 }
 
 type Priority int
@@ -39,30 +42,66 @@ const (
 	High
 )
 
-func Analyze(mp string, reportsForModule []*report.Report, modulesToImports map[string]int) *Result {
-	sc := stateCounts(reportsForModule)
-
-	notGo, notGoReason := isPossiblyNotGo(len(reportsForModule), sc)
-	importers, ok := modulesToImports[mp]
-	if !ok {
-		return &Result{
-			Priority:    Unknown,
-			Reason:      fmt.Sprintf("module %s not found", mp),
-			NotGo:       notGo,
-			NotGoReason: notGoReason,
+// AnalyzeReport returns the results for a report as a whole:
+//   - priority is the priority of its highest-priority module
+//   - not Go if all modules are not Go
+func AnalyzeReport(r *report.Report, rc *report.Client, modulesToImports map[string]int) (*Result, *NotGoResult) {
+	var overall Priority
+	var reasons []string
+	var notGoReasons []string
+	for _, m := range r.Modules {
+		mp := m.Module
+		result, notGo := Analyze(mp, rc.ReportsByModule(mp), modulesToImports)
+		if result.Priority > overall {
+			overall = result.Priority
+		}
+		reasons = append(reasons, result.Reason)
+		if notGo != nil {
+			notGoReasons = append(notGoReasons, notGo.Reason)
 		}
 	}
 
-	priority, reason := priority(mp, importers, sc)
-	return &Result{
-		Priority:    priority,
-		Reason:      reason,
-		NotGo:       notGo,
-		NotGoReason: notGoReason,
+	result := &Result{
+		Priority: overall, Reason: strings.Join(reasons, "; "),
 	}
+
+	// If all modules are not Go, the report is not Go.
+	if len(notGoReasons) == len(r.Modules) {
+		return result, &NotGoResult{Reason: strings.Join(notGoReasons, "; ")}
+	}
+
+	return result, nil
 }
 
-func priority(mp string, importers int, sc map[reportState]int) (priority Priority, reason string) {
+func Analyze(mp string, reportsForModule []*report.Report, modulesToImports map[string]int) (*Result, *NotGoResult) {
+	sc := stateCounts(reportsForModule)
+
+	notGo := isPossiblyNotGo(len(reportsForModule), sc)
+	importers, ok := modulesToImports[mp]
+	if !ok {
+		return &Result{
+			Priority: Unknown,
+			Reason:   fmt.Sprintf("module %s not found", mp),
+		}, notGo
+	}
+
+	return priority(mp, importers, sc), notGo
+}
+
+// override takes precedence over all other metrics in determining
+// a module's priority.
+var override map[string]Priority = map[string]Priority{
+	// argo-cd is primarily a binary and usually has correct version
+	// information without intervention.
+	"github.com/argoproj/argo-cd":    Low,
+	"github.com/argoproj/argo-cd/v2": Low,
+}
+
+func priority(mp string, importers int, sc map[reportState]int) *Result {
+	if pr, ok := override[mp]; ok {
+		return &Result{pr, fmt.Sprintf("%s is in the override list (priority=%s)", mp, pr)}
+	}
+
 	const highPriority = 100
 	importersStr := func(comp string) string {
 		return fmt.Sprintf("%s has %d importers (%s %d)", mp, importers, comp, highPriority)
@@ -77,22 +116,24 @@ func priority(mp string, importers int, sc map[reportState]int) (priority Priori
 		}
 
 		if rev > binary {
-			return High, getReason("and more", "than")
+			return &Result{High, getReason("and more", "than")}
 		} else if rev == binary {
-			return High, getReason("and as many", "as")
+			return &Result{High, getReason("and as many", "as")}
 		}
 
-		return Low, getReason("but fewer", "than")
+		return &Result{Low, getReason("but fewer", "than")}
 	}
 
-	return Low, importersStr("<")
+	return &Result{Low, importersStr("<")}
 }
 
-func isPossiblyNotGo(numReports int, sc map[reportState]int) (bool, string) {
+func isPossiblyNotGo(numReports int, sc map[reportState]int) *NotGoResult {
 	if (float32(sc[excludedNotGo])/float32(numReports))*100 > 20 {
-		return true, fmt.Sprintf("more than 20 percent of reports (%d of %d) with this module are NOT_GO_CODE", sc[excludedNotGo], numReports)
+		return &NotGoResult{
+			Reason: fmt.Sprintf("more than 20 percent of reports (%d of %d) with this module are NOT_GO_CODE", sc[excludedNotGo], numReports),
+		}
 	}
-	return false, ""
+	return nil
 }
 
 type reportState int
