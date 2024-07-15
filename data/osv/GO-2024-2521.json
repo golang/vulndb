@@ -7,9 +7,48 @@
     "CVE-2019-14271",
     "GHSA-v2cv-wwxq-qq97"
   ],
-  "summary": "Moby Docker cp broken with debian containers in github.com/moby/moby",
-  "details": "Moby Docker cp broken with debian containers in github.com/moby/moby.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/moby/moby from v19.03.0 before v19.03.1.",
+  "summary": "Moby Docker cp broken with debian containers in github.com/docker/docker",
+  "details": "In Docker 19.03.x before 19.03.1 linked against the GNU C Library (aka glibc), code injection can occur when the nsswitch facility dynamically loads a library inside a chroot that contains the contents of the container.",
   "affected": [
+    {
+      "package": {
+        "name": "github.com/docker/docker",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "20.10.0-beta1+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/docker/docker/pkg/chrootarchive"
+          }
+        ],
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "19.03.0"
+              },
+              {
+                "fixed": "19.03.1"
+              }
+            ]
+          }
+        ]
+      }
+    },
     {
       "package": {
         "name": "github.com/moby/moby",
@@ -21,11 +60,19 @@
           "events": [
             {
               "introduced": "0"
+            },
+            {
+              "fixed": "20.10.0-beta1+incompatible"
             }
           ]
         }
       ],
       "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/moby/moby/pkg/chrootarchive"
+          }
+        ],
         "custom_ranges": [
           {
             "type": "ECOSYSTEM",
@@ -48,10 +95,6 @@
       "url": "https://github.com/advisories/GHSA-v2cv-wwxq-qq97"
     },
     {
-      "type": "ADVISORY",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2019-14271"
-    },
-    {
       "type": "FIX",
       "url": "https://github.com/moby/moby/commit/11e48badcb67554b3d795241855028f28d244545"
     },
@@ -66,30 +109,10 @@
     {
       "type": "REPORT",
       "url": "https://github.com/moby/moby/issues/39449"
-    },
-    {
-      "type": "WEB",
-      "url": "http://lists.opensuse.org/opensuse-security-announce/2019-08/msg00084.html"
-    },
-    {
-      "type": "WEB",
-      "url": "https://docs.docker.com/engine/release-notes"
-    },
-    {
-      "type": "WEB",
-      "url": "https://seclists.org/bugtraq/2019/Sep/21"
-    },
-    {
-      "type": "WEB",
-      "url": "https://security.netapp.com/advisory/ntap-20190828-0003"
-    },
-    {
-      "type": "WEB",
-      "url": "https://www.debian.org/security/2019/dsa-4521"
     }
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2024-2521",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }
