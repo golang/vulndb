@@ -4,26 +4,40 @@ modules:
       versions:
         - fixed: 0.102.1
       vulnerable_at: 0.102.0
+      packages:
+        - package: go.opentelemetry.io/collector/config/configgrpc
+          symbols:
+            - getGRPCCompressionName
+          derived_symbols:
+            - ClientConfig.ToClientConn
     - module: go.opentelemetry.io/collector/config/confighttp
       versions:
         - fixed: 0.102.0
       vulnerable_at: 0.101.0
-summary: Denial of Service via Zip/Decompression Bomb sent over HTTP or gRPC in go.opentelemetry.io/collector/config/configgrpc
+      packages:
+        - package: go.opentelemetry.io/collector/config/confighttp
+          symbols:
+            - httpContentDecompressor
+            - decompressor.ServeHTTP
+            - ServerConfig.ToServer
+          derived_symbols:
+            - clientInfoHandler.ServeHTTP
+summary: |-
+    Denial of Service via Zip/Decompression Bomb sent over HTTP or gRPC in
+    go.opentelemetry.io/collector/config/configgrpc
+description: |-
+    An unsafe decompression vulnerability allows unauthenticated attackers to crash
+    the collector via excessive memory consumption.
 cves:
     - CVE-2024-36129
 ghsas:
     - GHSA-c74f-6mfw-mm4v
-unknown_aliases:
-    - CGA-6j3r-jg3v-43qf
-    - CGA-c8pv-52m7-2mhm
-    - CGA-f48r-hvmp-wx9g
 references:
     - advisory: https://github.com/open-telemetry/opentelemetry-collector/security/advisories/GHSA-c74f-6mfw-mm4v
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-36129
-    - web: https://github.com/open-telemetry/opentelemetry-collector/pull/10289
-    - web: https://github.com/open-telemetry/opentelemetry-collector/pull/10323
+    - fix: https://github.com/open-telemetry/opentelemetry-collector/pull/10289
+    - fix: https://github.com/open-telemetry/opentelemetry-collector/pull/10323
     - web: https://opentelemetry.io/blog/2024/cve-2024-36129
 source:
     id: GHSA-c74f-6mfw-mm4v
-    created: 2024-06-26T14:08:43.597373-04:00
-review_status: UNREVIEWED
+    created: 2024-07-16T10:53:58.646682-04:00
+review_status: REVIEWED

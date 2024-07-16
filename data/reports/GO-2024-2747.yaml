@@ -3,20 +3,21 @@ modules:
     - module: github.com/gohugoio/hugo
       versions:
         - introduced: 0.123.0
-          fixed: 0.125.3
+        - fixed: 0.125.3
       vulnerable_at: 0.125.2
-summary: Hugo Markdown titles do not escaped in internal render hooks in github.com/gohugoio/hugo
+      packages:
+        - package: github.com/gohugoio/hugo/hugolib
+summary: Hugo Markdown titles are not escaped in internal render hooks in github.com/gohugoio/hugo
 cves:
     - CVE-2024-32875
 ghsas:
     - GHSA-ppf8-hhpp-f5hj
 references:
     - advisory: https://github.com/gohugoio/hugo/security/advisories/GHSA-ppf8-hhpp-f5hj
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-32875
     - fix: https://github.com/gohugoio/hugo/commit/15a4b9b33715887001f6eff30721d41c0d4cfdd1
     - web: https://github.com/gohugoio/hugo/releases/tag/v0.125.3
     - web: https://gohugo.io/getting-started/configuration-markup/#renderhooksimageenabledefault
 source:
     id: GHSA-ppf8-hhpp-f5hj
-    created: 2024-05-17T16:12:42.192064-04:00
-review_status: UNREVIEWED
+    created: 2024-07-16T11:10:41.124714-04:00
+review_status: REVIEWED

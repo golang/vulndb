@@ -8,7 +8,7 @@
     "GHSA-c74f-6mfw-mm4v"
   ],
   "summary": "Denial of Service via Zip/Decompression Bomb sent over HTTP or gRPC in go.opentelemetry.io/collector/config/configgrpc",
-  "details": "Denial of Service via Zip/Decompression Bomb sent over HTTP or gRPC in go.opentelemetry.io/collector/config/configgrpc",
+  "details": "An unsafe decompression vulnerability allows unauthenticated attackers to crash the collector via excessive memory consumption.",
   "affected": [
     {
       "package": {
@@ -28,7 +28,17 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "go.opentelemetry.io/collector/config/configgrpc",
+            "symbols": [
+              "ClientConfig.ToClientConn",
+              "getGRPCCompressionName"
+            ]
+          }
+        ]
+      }
     },
     {
       "package": {
@@ -48,7 +58,19 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "go.opentelemetry.io/collector/config/confighttp",
+            "symbols": [
+              "ServerConfig.ToServer",
+              "clientInfoHandler.ServeHTTP",
+              "decompressor.ServeHTTP",
+              "httpContentDecompressor"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
@@ -57,15 +79,11 @@
       "url": "https://github.com/open-telemetry/opentelemetry-collector/security/advisories/GHSA-c74f-6mfw-mm4v"
     },
     {
-      "type": "ADVISORY",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-36129"
-    },
-    {
-      "type": "WEB",
+      "type": "FIX",
       "url": "https://github.com/open-telemetry/opentelemetry-collector/pull/10289"
     },
     {
-      "type": "WEB",
+      "type": "FIX",
       "url": "https://github.com/open-telemetry/opentelemetry-collector/pull/10323"
     },
     {
@@ -75,6 +93,6 @@
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2024-2900",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }
