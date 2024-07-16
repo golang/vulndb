@@ -29,11 +29,8 @@ type memIC struct {
 	is map[int]issues.Issue
 }
 
-func newMemIC(archive string) (*memIC, error) {
-	ar, err := txtar.ParseFile(archive)
-	if err != nil {
-		return nil, err
-	}
+func newMemIC(archive []byte) (*memIC, error) {
+	ar := txtar.Parse(archive)
 	m := &memIC{
 		is: make(map[int]issues.Issue),
 	}

@@ -138,13 +138,18 @@ func HeadCommit(repo *git.Repository) (*object.Commit, error) {
 // ReadTxtarRepo converts a txtar file to a single-commit
 // repo. It is intended for testing.
 func ReadTxtarRepo(filename string, now time.Time) (_ *git.Repository, err error) {
-	defer derrors.Wrap(&err, "readTxtarRepo(%q)", filename)
+	defer derrors.Wrap(&err, "ReadTxtarRepo(%q)", filename)
 
-	mfs := memfs.New()
 	ar, err := txtar.ParseFile(filename)
 	if err != nil {
 		return nil, err
 	}
+
+	return FromTxtarArchive(ar, now)
+}
+
+func FromTxtarArchive(ar *txtar.Archive, now time.Time) (_ *git.Repository, err error) {
+	mfs := memfs.New()
 	for _, f := range ar.Files {
 		file, err := mfs.Create(f.Name)
 		if err != nil {

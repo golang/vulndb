@@ -7,6 +7,7 @@ package main
 import (
 	"bytes"
 	"context"
+	_ "embed"
 	"flag"
 	"fmt"
 	"io/fs"
@@ -48,52 +49,59 @@ func (m *memWFS) WriteFile(fname string, b []byte) error {
 	m.written[fname] = b
 	return nil
 }
-
 func testFilename(t *testing.T) string {
 	return filepath.Join("testdata", t.Name()+".txtar")
 }
 
-// TODO(tatianabradley): embed these test files.
-const (
-	testRepoFile     = "testdata/repo.txtar"
-	testIssueTracker = "testdata/issue_tracker.txtar"
-	testLegacyGHSAs  = "testdata/legacy_ghsas.txtar"
-	testModuleMap    = "testdata/modules.csv"
+var (
+	//go:embed testdata/repo.txtar
+	testRepo []byte
+	//go:embed testdata/issue_tracker.txtar
+	testIssueTracker []byte
+	//go:embed testdata/legacy_ghsas.txtar
+	testLegacyGHSAs []byte
+	//go:embed testdata/modules.csv
+	testModuleMap []byte
 )
 
 // runTest runs the command on the test case in the default test environment.
 func runTest(t *testing.T, cmd command, tc *testCase) {
 	runTestWithEnv(t, cmd, tc, func(t *testing.T) (*environment, error) {
-		return newTestEnv(t, testRepoFile, testIssueTracker, testLegacyGHSAs, testModuleMap)
+		return newDefaultTestEnv(t)
 	})
 }
 
 var testTime = time.Date(2022, 1, 1, 0, 0, 0, 0, time.UTC)
 
-func newTestEnv(t *testing.T, reportRepoFile, issueTracker, legacyGHSAs, testModuleMap string) (*environment, error) {
+func newDefaultTestEnv(t *testing.T) (*environment, error) {
 	t.Helper()
 
-	repo, err := gitrepo.ReadTxtarRepo(reportRepoFile, testTime)
+	ar := txtar.Parse(testRepo)
+	repo, err := gitrepo.FromTxtarArchive(ar, testTime)
 	if err != nil {
 		return nil, err
 	}
-	fsys, err := test.ReadTxtarFS(reportRepoFile)
+	fsys, err := test.TxtarArchiveToFS(ar)
 	if err != nil {
 		return nil, err
 	}
+
 	pc, err := proxy.NewTestClient(t, *realProxy)
 	if err != nil {
 		return nil, err
 	}
-	ic, err := newMemIC(issueTracker)
+
+	ic, err := newMemIC(testIssueTracker)
 	if err != nil {
 		return nil, err
 	}
-	gc, err := newMemGC(legacyGHSAs)
+
+	gc, err := newMemGC(testLegacyGHSAs)
 	if err != nil {
 		return nil, err
 	}
-	mm, err := priority.CSVToMap(testModuleMap)
+
+	mm, err := priority.CSVToMap(bytes.NewReader(testModuleMap))
 	if err != nil {
 		return nil, err
 	}

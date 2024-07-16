@@ -174,11 +174,8 @@ type memGC struct {
 	ghsas map[string]ghsa.SecurityAdvisory
 }
 
-func newMemGC(archive string) (*memGC, error) {
-	ar, err := txtar.ParseFile(archive)
-	if err != nil {
-		return nil, err
-	}
+func newMemGC(archive []byte) (*memGC, error) {
+	ar := txtar.Parse(archive)
 	m := &memGC{
 		ghsas: make(map[string]ghsa.SecurityAdvisory),
 	}

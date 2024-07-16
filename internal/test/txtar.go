@@ -102,12 +102,16 @@ func FindFile(ar *txtar.Archive, filename string) (*txtar.File, error) {
 }
 
 func ReadTxtarFS(filename string) (fs.FS, error) {
-	a, err := txtar.ParseFile(filename)
+	ar, err := txtar.ParseFile(filename)
 	if err != nil {
 		return nil, err
 	}
+	return TxtarArchiveToFS(ar)
+}
+
+func TxtarArchiveToFS(ar *txtar.Archive) (fs.FS, error) {
 	m := make(fstest.MapFS)
-	for _, a := range a.Files {
+	for _, a := range ar.Files {
 		m[a.Name] = &fstest.MapFile{Data: a.Data}
 	}
 	return m, nil

@@ -10,7 +10,6 @@ import (
 	_ "embed"
 	"encoding/csv"
 	"io"
-	"os"
 	"strconv"
 )
 
@@ -26,10 +25,10 @@ func gzCSVToMap(b []byte) (map[string]int, error) {
 	if err != nil {
 		return nil, err
 	}
-	return csvToMap(gzr)
+	return CSVToMap(gzr)
 }
 
-func csvToMap(r io.Reader) (map[string]int, error) {
+func CSVToMap(r io.Reader) (map[string]int, error) {
 	reader := csv.NewReader(r)
 	records, err := reader.ReadAll()
 	if err != nil {
@@ -49,13 +48,4 @@ func csvToMap(r io.Reader) (map[string]int, error) {
 	}
 
 	return m, nil
-}
-
-func CSVToMap(fname string) (map[string]int, error) {
-	r, err := os.Open(fname)
-	if err != nil {
-		return nil, err
-	}
-	defer r.Close()
-	return csvToMap(r)
 }
