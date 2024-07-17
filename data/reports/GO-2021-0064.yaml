@@ -14,15 +14,6 @@ modules:
             - debuggingRoundTripper.RoundTrip
             - impersonatingRoundTripper.RoundTrip
             - userAgentRoundTripper.RoundTrip
-    - module: k8s.io/kubernetes
-      versions:
-        - fixed: 1.20.0-alpha.2
-      vulnerable_at: 1.20.0-alpha.1
-      packages:
-        - package: k8s.io/kubernetes/staging/src/k8s.io/client-go/transport
-          symbols:
-            - requestInfo.toCurl
-          skip_fix: 'TODO: revisit this reason (module does not contain package k8s.io/kubernetes/staging/src/k8s.io/client-go/transport)'
 summary: |-
     Unauthorized credential disclosure via debug logs in k8s.io/kubernetes and
     k8s.io/client-go

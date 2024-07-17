@@ -13,15 +13,6 @@ modules:
             - bearerAuthRoundTripper.RoundTrip
             - impersonatingRoundTripper.RoundTrip
             - userAgentRoundTripper.RoundTrip
-    - module: k8s.io/kubernetes
-      versions:
-        - fixed: 1.16.0-beta.1
-      vulnerable_at: 1.16.0-beta.0
-      packages:
-        - package: k8s.io/kubernetes/staging/src/k8s.io/client-go/transport
-          symbols:
-            - debuggingRoundTripper.RoundTrip
-          skip_fix: 'TODO: revisit this reason (module does not contain package k8s.io/kubernetes/staging/src/k8s.io/client-go/transport)'
 summary: Unauthorized credential disclosure in k8s.io/kubernetes and k8s.io/client-go
 description: |-
     Authorization tokens may be inappropriately logged if the verbosity level is set

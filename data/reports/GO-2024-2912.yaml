@@ -5,12 +5,12 @@ modules:
         - fixed: 20.10.9+incompatible
       vulnerable_at: 20.10.8+incompatible
       packages:
-        - package: github.com/docker/cli/command
+        - package: github.com/docker/cli/cli/command
           symbols:
             - RegistryAuthenticationPrivilegedFunc
             - GetDefaultAuthConfig
           skip_fix: fix error due to incompatible version
-        - package: github.com/docker/cli/command/registry
+        - package: github.com/docker/cli/cli/command/registry
           symbols:
             - runLogin
           skip_fix: fix error due to incompatible version
