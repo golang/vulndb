@@ -302,11 +302,15 @@ a description
 References:
 - ADVISORY: https://nvd.nist.gov/vuln/detail/CVE-2000-0001
 
-Cross references:
-- CVE-2000-0001 appears in issue #2
-- Module golang.org/x/vulndb appears in issue #2
+!! Possible duplicate report !!
+- CVE-2000-0001 appears in 1 other report(s):
+  - data/reports/GO-9999-0002.yaml    (https://github.com/golang/vulndb#2)
 
-See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) for instructions on how to triage this report.
+Cross references:
+- golang.org/x/vulndb appears in 1 other report(s):
+  - data/reports/GO-9999-0002.yaml    (https://github.com/golang/vulndb#2)
+
+See [doc/quickstart.md](https://github.com/golang/vulndb/blob/master/doc/quickstart.md) for instructions on how to triage this report.
 
 ` + "```" + `
 id: GO-ID-PENDING
@@ -326,6 +330,7 @@ review_status: UNREVIEWED
 ` + "```"
 	if diff := cmp.Diff(unindent(want), got); diff != "" {
 		t.Errorf("mismatch (-want, +got):\n%s", diff)
+		t.Errorf("got: %s", got)
 	}
 }
 
@@ -380,10 +385,11 @@ References:
 - ADVISORY: https://github.com/advisories/GHSA-xxxx-yyyy-zzzz
 - FIX: https://example.com/commit/12345
 
-Cross references:
-- GHSA-xxxx-yyyy-zzzz appears in issue #1  EXCLUDED
+!! Possible duplicate report !!
+- GHSA-xxxx-yyyy-zzzz appears in 1 other report(s):
+  - data/excluded/GO-9999-0001.yaml    (https://github.com/golang/vulndb#1)    EXCLUDED
 
-See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) for instructions on how to triage this report.
+See [doc/quickstart.md](https://github.com/golang/vulndb/blob/master/doc/quickstart.md) for instructions on how to triage this report.
 
 ` + "```" + `
 id: GO-ID-PENDING

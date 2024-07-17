@@ -7,10 +7,8 @@ package main
 import (
 	"context"
 	"fmt"
-	"strings"
 
 	"golang.org/x/exp/constraints"
-	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
 	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/cmd/vulnreport/priority"
@@ -44,13 +42,13 @@ func (x *xref) run(ctx context.Context, input any) (err error) {
 	r := input.(*yamlReport)
 
 	if xrefs := x.xref(r); len(xrefs) > 0 {
-		log.Outf("%s: found xrefs:%s", r.Filename, xrefs)
+		log.Out(xrefs)
 	} else {
 		log.Infof("%s: no xrefs found", r.Filename)
 	}
 
 	pr, notGo := x.reportPriority(r.Report)
-	log.Outf("%s priority is %s\n - %s", r.ID, pr.Priority, pr.Reason)
+	log.Outf("%s: priority is %s\n - %s", r.ID, pr.Priority, pr.Reason)
 	if notGo != nil {
 		log.Outf("%s is likely not Go\n - %s", r.ID, notGo.Reason)
 	}
@@ -84,21 +82,9 @@ type xrefer struct {
 }
 
 func (x *xrefer) xref(r *yamlReport) string {
-	out := &strings.Builder{}
-	matches := x.rc.XRef(r.Report)
-	delete(matches, r.Filename)
-	// This sorts as CVEs, GHSAs, and then modules.
-	for _, fname := range sorted(maps.Keys(matches)) {
-		for _, id := range sorted(matches[fname]) {
-			fmt.Fprintf(out, "\n%v appears in %v", id, fname)
-			if r, ok := x.rc.Report(fname); ok {
-				if r.IsExcluded() {
-					fmt.Fprintf(out, "  %v", r.Excluded)
-				}
-			}
-		}
-	}
-	return out.String()
+	aliasTitle := fmt.Sprintf("%s: found possible duplicates", r.ID)
+	moduleTitle := fmt.Sprintf("%s: found module xrefs", r.ID)
+	return x.rc.XRef(r.Report).ToString(aliasTitle, moduleTitle, "")
 }
 
 func (x *xrefer) modulePriority(modulePath string) (*priority.Result, *priority.NotGoResult) {

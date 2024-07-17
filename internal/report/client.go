@@ -6,7 +6,10 @@ package report
 
 import (
 	"context"
+	"fmt"
+	"io"
 	"path/filepath"
+	"strings"
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/object"
@@ -36,8 +39,8 @@ const (
 type Client struct {
 	byFile   map[string]*Report
 	byIssue  map[int]*Report
-	byAlias  map[string][]*Report
-	byModule map[string][]*Report
+	byAlias  map[string][]*File
+	byModule map[string][]*File
 }
 
 // NewClient returns a Client for accessing the reports in
@@ -82,33 +85,91 @@ func (c *Client) List() []*Report {
 	return maps.Values(c.byFile)
 }
 
-// XRef returns cross-references for a report.
-// The output, matches, is a map from filenames to aliases (CVE & GHSA IDs)
-// and modules (excluding std and cmd).
-func (c *Client) XRef(r *Report) (matches map[string][]string) {
-	mods := make(map[string]bool)
-	for _, m := range r.Modules {
-		if mod := m.Module; mod != "" && mod != "std" && mod != "cmd" {
-			mods[m.Module] = true
+type Xrefs struct {
+	// map from aliases to files
+	Aliases map[string][]*File
+	// map from modules to files
+	Modules map[string][]*File
+}
+
+func fprintMap(out io.Writer, m map[string][]*File) {
+	sortedKeys := func(m map[string][]*File) []string {
+		s := slices.Clone(maps.Keys(m))
+		slices.Sort(s)
+		return s
+	}
+
+	for _, k := range sortedKeys(m) {
+		fs := m[k]
+		fmt.Fprintf(out, "- %s appears in %d other report(s):\n", k, len(fs))
+		for _, f := range fs {
+			fmt.Fprintf(out, "  - %s    (https://github.com/golang/vulndb#%d)", f.Filename, f.IssNum)
+			if f.Report.IsExcluded() {
+				fmt.Fprintf(out, "    %v", f.Report.Excluded)
+			}
+			fmt.Fprintf(out, "\n")
+		}
+	}
+}
+
+func (xs *Xrefs) ToString(aliasTitle, moduleTitle, noneMessage string) string {
+	if len(xs.Modules) == 0 && len(xs.Aliases) == 0 {
+		return noneMessage
+	}
+
+	out := &strings.Builder{}
+
+	if len(xs.Aliases) != 0 {
+		fmt.Fprint(out, aliasTitle+"\n")
+		fprintMap(out, xs.Aliases)
+		if len(xs.Modules) != 0 {
+			fmt.Fprintf(out, "\n")
 		}
 	}
 
-	// matches is a map from filename -> alias/module
-	matches = make(map[string][]string)
-	for fname, rr := range c.byFile {
-		for _, alias := range rr.Aliases() {
-			if slices.Contains(r.Aliases(), alias) {
-				matches[fname] = append(matches[fname], alias)
+	if len(xs.Modules) != 0 {
+		fmt.Fprint(out, moduleTitle+"\n")
+		fprintMap(out, xs.Modules)
+	}
+
+	return out.String()
+}
+
+type File struct {
+	Filename string
+	IssNum   int
+	*Report
+}
+
+// XRef returns cross-references for a report.
+func (c *Client) XRef(r *Report) *Xrefs {
+	x := &Xrefs{
+		Aliases: make(map[string][]*File),
+		Modules: make(map[string][]*File),
+	}
+
+	for _, alias := range r.Aliases() {
+		for _, f := range c.byAlias[alias] {
+			if r.ID == f.Report.ID {
+				continue
 			}
-		}
-		for _, m := range rr.Modules {
-			if mods[m.Module] {
-				k := "Module " + m.Module
-				matches[fname] = append(matches[fname], k)
-			}
+			x.Aliases[alias] = append(x.Aliases[alias], f)
 		}
 	}
-	return matches
+
+	for _, m := range r.Modules {
+		if m.IsFirstParty() {
+			continue
+		}
+		for _, f := range c.byModule[m.Module] {
+			if r.ID == f.Report.ID {
+				continue
+			}
+			x.Modules[m.Module] = append(x.Modules[m.Module], f)
+		}
+	}
+
+	return x
 }
 
 // Report returns the report with the given filename in vulndb, or
@@ -128,13 +189,21 @@ func (c *Client) HasReport(githubID int) (found bool) {
 // ReportsByAlias returns a list of reports in vulndb with the given
 // alias.
 func (c *Client) ReportsByAlias(alias string) []*Report {
-	return c.byAlias[alias]
+	var rs []*Report
+	for _, f := range c.byAlias[alias] {
+		rs = append(rs, f.Report)
+	}
+	return rs
 }
 
 // ReportsByModule returns a list of reports in vulndb with the given
 // module.
 func (c *Client) ReportsByModule(module string) []*Report {
-	return c.byModule[module]
+	var rs []*Report
+	for _, f := range c.byModule[module] {
+		rs = append(rs, f.Report)
+	}
+	return rs
 }
 
 // AliasHasReport returns whether the given alias exists in vulndb.
@@ -147,8 +216,8 @@ func newClient() *Client {
 	return &Client{
 		byIssue:  make(map[int]*Report),
 		byFile:   make(map[string]*Report),
-		byAlias:  make(map[string][]*Report),
-		byModule: make(map[string][]*Report),
+		byAlias:  make(map[string][]*File),
+		byModule: make(map[string][]*File),
 	}
 }
 
@@ -187,13 +256,19 @@ func (c *Client) addReport(filename string, r *Report) error {
 		return err
 	}
 
+	f := &File{
+		Filename: filename,
+		IssNum:   iss,
+		Report:   r,
+	}
+
 	c.byFile[filename] = r
 	c.byIssue[iss] = r
 	for _, alias := range r.Aliases() {
-		c.byAlias[alias] = append(c.byAlias[alias], r)
+		c.byAlias[alias] = append(c.byAlias[alias], f)
 	}
 	for _, m := range r.Modules {
-		c.byModule[m.Module] = append(c.byModule[m.Module], r)
+		c.byModule[m.Module] = append(c.byModule[m.Module], f)
 	}
 
 	return nil

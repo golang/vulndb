@@ -18,8 +18,6 @@ import (
 
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"
-	"golang.org/x/exp/maps"
-	"golang.org/x/exp/slices"
 	"golang.org/x/time/rate"
 	"golang.org/x/vulndb/internal/cve4"
 	"golang.org/x/vulndb/internal/cveutils"
@@ -181,38 +179,9 @@ func CreateIssues(ctx context.Context, st store.Store, client *issues.Client, pc
 // xref returns cross-references for a report: Information about other reports
 // for the same CVE, GHSA, or module.
 func xref(r *report.Report, rc *report.Client) string {
-	out := &strings.Builder{}
-	sorted := func(s []string) []string {
-		s = slices.Clone(s)
-		slices.Sort(s)
-		return s
-	}
-
-	matches := rc.XRef(r)
-	for _, fname := range sorted(maps.Keys(matches)) {
-		for _, match := range sorted(matches[fname]) {
-			// Getting issue number from file name
-			var appearsIn string
-			_, _, issueNum, err := report.ParseFilepath(fname)
-			if err != nil {
-				appearsIn = fmt.Sprintf("%s (unable to convert file name to issue number, %v)", fname, err)
-			} else {
-				appearsIn = strconv.Itoa(issueNum)
-			}
-
-			fmt.Fprintf(out, "- %v appears in issue #%v", match, appearsIn)
-			if r, ok := rc.Report(fname); ok {
-				if r.IsExcluded() {
-					fmt.Fprintf(out, "  %v", r.Excluded)
-				}
-			}
-			fmt.Fprintf(out, "\n")
-		}
-	}
-	if len(matches) == 0 {
-		fmt.Fprint(out, "No existing reports found with this module or alias.")
-	}
-	return out.String()
+	aliasTitle, moduleTitle, noneMessage := "!! Possible duplicate report !!",
+		"Cross references:", "No existing reports found with this module or alias."
+	return rc.XRef(r).ToString(aliasTitle, moduleTitle, noneMessage)
 }
 
 func createCVEIssues(ctx context.Context, st store.Store, client *issues.Client, pc *proxy.Client, rc *report.Client, limit int) (err error) {
@@ -323,8 +292,8 @@ func createGHSAIssues(ctx context.Context, st store.Store, client *issues.Client
 
 func isDuplicate(sa *ghsa.SecurityAdvisory, pc *proxy.Client, rc *report.Client) bool {
 	r := report.New(sa, pc)
-	for _, aliases := range rc.XRef(r) {
-		if slices.Contains(aliases, sa.ID) {
+	for alias := range rc.XRef(r).Aliases {
+		if sa.ID == alias {
 			return true
 		}
 	}
@@ -451,9 +420,8 @@ Description:
 References:{{range .References}}
 - {{.Type}}: {{.URL}}{{end}}
 
-Cross references:
 {{.Xrefs}}
-See [doc/triage.md](https://github.com/golang/vulndb/blob/master/doc/triage.md) for instructions on how to triage this report.
+See [doc/quickstart.md](https://github.com/golang/vulndb/blob/master/doc/quickstart.md) for instructions on how to triage this report.
 
 {{if (and .Pre .ReportStr) -}}
 {{.Pre}}

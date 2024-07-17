@@ -42,7 +42,6 @@ var (
 		Modules: []*Module{
 			{Module: "example.com/another/module"},
 		},
-
 		GHSAs: []string{
 			"GHSA-9999-abcd-efgh",
 		},
@@ -54,6 +53,14 @@ var (
 			{Module: "example.com/adiff/module"},
 		},
 		CVEs: []string{"CVE-9999-0005"},
+	}
+	fname6 = "data/reports/GO-9999-0006.yaml"
+	r6     = Report{
+		ID: "GO-9999-0006",
+		Modules: []*Module{
+			{Module: "example.com/another/module"},
+		},
+		GHSAs: []string{"GHSA-9999-abcd-efgh"},
 	}
 
 	txtarFile = filepath.Join("testdata", "repo.txtar")
@@ -71,7 +78,7 @@ func TestList(t *testing.T) {
 	}
 
 	got := rc.List()
-	want := []*Report{&r1, &r2, &r4, &r5}
+	want := []*Report{&r1, &r2, &r4, &r5, &r6}
 	byID := func(a, b *Report) bool { return a.ID < b.ID }
 	if diff := cmp.Diff(got, want, cmpopts.SortSlices(byID)); diff != "" {
 		t.Errorf("mismatch (-got, +want): %s", diff)
@@ -91,6 +98,7 @@ func TestXRef(t *testing.T) {
 	tests := []struct {
 		name        string
 		r           *Report
+		wantXrefs   *Xrefs
 		wantMatches map[string][]string
 	}{
 		{
@@ -103,7 +111,10 @@ func TestXRef(t *testing.T) {
 					ID: "CVE-9999-0003",
 				},
 			},
-			wantMatches: map[string][]string{},
+			wantXrefs: &Xrefs{
+				Aliases: map[string][]*File{},
+				Modules: map[string][]*File{},
+			},
 		},
 		{
 			name: "Ignores std lib modules",
@@ -113,7 +124,10 @@ func TestXRef(t *testing.T) {
 				},
 				CVEs: []string{"CVE-9999-0003"},
 			},
-			wantMatches: map[string][]string{},
+			wantXrefs: &Xrefs{
+				Aliases: map[string][]*File{},
+				Modules: map[string][]*File{},
+			},
 		},
 		{
 			name: "Match on CVE (ignores std module)",
@@ -123,26 +137,37 @@ func TestXRef(t *testing.T) {
 				},
 				CVEs: []string{"CVE-9999-0001"},
 			},
-			wantMatches: map[string][]string{
-				fname1: {"CVE-9999-0001"},
+			wantXrefs: &Xrefs{
+				Aliases: map[string][]*File{
+					"CVE-9999-0001": {
+						{Filename: fname1, IssNum: 1, Report: &r1},
+					},
+				},
+				Modules: map[string][]*File{},
 			},
 		},
 		{
 			name: "Match on GHSA & module",
 			r:    &r4,
-			wantMatches: map[string][]string{
-				fname4: {
-					"GHSA-9999-abcd-efgh",
-					"Module example.com/another/module",
+			wantXrefs: &Xrefs{
+				Aliases: map[string][]*File{
+					"GHSA-9999-abcd-efgh": {
+						{Filename: fname6, IssNum: 6, Report: &r6},
+					},
+				},
+				Modules: map[string][]*File{
+					"example.com/another/module": {
+						{Filename: fname6, IssNum: 6, Report: &r6},
+					},
 				},
 			},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotMatches := rc.XRef(tt.r)
-			if diff := cmp.Diff(gotMatches, tt.wantMatches); diff != "" {
-				t.Errorf("XRef(): matches mismatch (-got, +want): %s", diff)
+			got := rc.XRef(tt.r)
+			if diff := cmp.Diff(got, tt.wantXrefs); diff != "" {
+				t.Errorf("XRef(): mismatch (-got, +want): %s", diff)
 			}
 		})
 	}
@@ -198,14 +223,19 @@ func TestNewClient(t *testing.T) {
 	}
 
 	files := map[string]*Report{
-		fname1: &r1, fname2: &r2, fname4: &r4, fname5: &r5,
+		fname1: &r1, fname2: &r2, fname4: &r4, fname5: &r5, fname6: &r6,
 	}
 	tc, err := NewTestClient(files)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if diff := cmp.Diff(c, tc, cmp.AllowUnexported(Client{})); diff != "" {
+	less := func(f1, f2 *File) bool {
+		return f1.ID < f2.ID
+	}
+
+	if diff := cmp.Diff(c, tc, cmp.AllowUnexported(Client{}),
+		cmpopts.SortSlices(less)); diff != "" {
 		t.Errorf("NewClient() / NewTestClient() mismatch (-New, +NewTest): %s", diff)
 	}
 }
