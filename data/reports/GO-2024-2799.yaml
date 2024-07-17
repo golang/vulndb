@@ -2,8 +2,7 @@ id: GO-2024-2799
 modules:
     - module: github.com/mcu-tools/mcuboot
       unsupported_versions:
-        - version: affected at <= 1.11.0
-          type: cve_version_range
+        - cve_version_range: affected at <= 1.11.0
       vulnerable_at: 1.10.0
 summary: MCUboot Injection attack of unprotected TLV values in github.com/mcu-tools/mcuboot
 cves:

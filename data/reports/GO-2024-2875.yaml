@@ -2,8 +2,7 @@ id: GO-2024-2875
 modules:
     - module: github.com/requarks/wiki
       unsupported_versions:
-        - version: affected at <= 2.5.302
-          type: cve_version_range
+        - cve_version_range: affected at <= 2.5.302
       vulnerable_at: 2.5.303+incompatible
 summary: Wiki.js Stored XSS through Client Side Template Injection in github.com/requarks/wiki
 cves:

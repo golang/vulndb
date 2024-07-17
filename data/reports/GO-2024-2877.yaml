@@ -2,18 +2,17 @@ id: GO-2024-2877
 modules:
     - module: github.com/argoproj/argo-cd
       unsupported_versions:
-        - version: 1.8.7
-          type: last_affected
+        - last_affected: 1.8.7
       vulnerable_at: 1.8.6
     - module: github.com/argoproj/argo-cd/v2
       versions:
         - fixed: 2.8.19
         - introduced: 2.9.0-rc1
-          fixed: 2.9.15
+        - fixed: 2.9.15
         - introduced: 2.10.0-rc1
-          fixed: 2.10.10
+        - fixed: 2.10.10
         - introduced: 2.11.0-rc1
-          fixed: 2.11.1
+        - fixed: 2.11.1
       vulnerable_at: 2.11.0
 summary: |-
     ArgoCD Vulnerable to Use of Risky or Missing Cryptographic Algorithms in Redis
