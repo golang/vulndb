@@ -39,26 +39,26 @@ func (l *lint) run(_ context.Context, input any) error {
 }
 
 type linter struct {
-	pc *proxy.Client
+	pxc *proxy.Client
 }
 
 func (l *linter) setup(_ context.Context, env environment) error {
-	l.pc = env.ProxyClient()
+	l.pxc = env.ProxyClient()
 	return nil
 }
 
 func (l *linter) lint(r *yamlReport) error {
-	if lints := r.Lint(l.pc); len(lints) > 0 {
+	if lints := r.Lint(l.pxc); len(lints) > 0 {
 		return fmt.Errorf("%v has %d lint warnings:%s%s", r.ID, len(lints), listItem, strings.Join(lints, listItem))
 	}
 	return nil
 }
 
 func (l *linter) canonicalModule(mp string) string {
-	if module, err := l.pc.FindModule(mp); err == nil { // no error
+	if module, err := l.pxc.FindModule(mp); err == nil { // no error
 		mp = module
 	}
-	if module, err := l.pc.CanonicalAtLatest(mp); err == nil { // no error
+	if module, err := l.pxc.CanonicalAtLatest(mp); err == nil { // no error
 		mp = module
 	}
 	return mp

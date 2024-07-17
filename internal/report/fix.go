@@ -538,7 +538,7 @@ func (p *Package) copy() *Package {
 		Symbols:         slices.Clone(p.Symbols),
 		DerivedSymbols:  slices.Clone(p.DerivedSymbols),
 		ExcludedSymbols: slices.Clone(p.ExcludedSymbols),
-		SkipFix:         p.SkipFix,
+		SkipFixSymbols:  p.SkipFixSymbols,
 	}
 }
 

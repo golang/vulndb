@@ -21,14 +21,16 @@ import (
 	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/cmd/vulnreport/priority"
 	"golang.org/x/vulndb/internal/gitrepo"
+	"golang.org/x/vulndb/internal/pkgsite"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/test"
 )
 
-// go test ./cmd/vulnreport -update-test -proxy
+// go test ./cmd/vulnreport -update-test -proxy -pkgsite
 var (
 	testUpdate = flag.Bool("update-test", false, "(for test) whether to update test files")
 	realProxy  = flag.Bool("proxy", false, "(for test) whether to use real proxy")
+	usePkgsite = flag.Bool("pkgsite", false, "(for test) whether to use real pkgsite")
 )
 
 type testCase struct {
@@ -91,7 +93,12 @@ func newDefaultTestEnv(t *testing.T) (*environment, error) {
 		return nil, err
 	}
 
-	pc, err := proxy.NewTestClient(t, *realProxy)
+	pxc, err := proxy.NewTestClient(t, *realProxy)
+	if err != nil {
+		return nil, err
+	}
+
+	pkc, err := pkgsite.TestClient(t, *usePkgsite)
 	if err != nil {
 		return nil, err
 	}
@@ -113,7 +120,8 @@ func newDefaultTestEnv(t *testing.T) (*environment, error) {
 	return &environment{
 		reportRepo: repo,
 		reportFS:   fsys,
-		pc:         pc,
+		pxc:        pxc,
+		pkc:        pkc,
 		wfs:        newInMemoryWFS(),
 		ic:         ic,
 		gc:         gc,

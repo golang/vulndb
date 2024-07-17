@@ -19,6 +19,7 @@ import (
 	"time"
 
 	"golang.org/x/time/rate"
+	"golang.org/x/vulndb/internal/stdlib"
 	"golang.org/x/vulndb/internal/worker/log"
 )
 
@@ -54,10 +55,20 @@ var (
 
 var pkgsiteURL = "https://pkg.go.dev"
 
-// KnownModule reports whether pkgsite knows that modulePath actually refers
-// to a module.
+// KnownModule reports whether pkgsite knows that path actually refers
+// to a module or package path.
 func (pc *Client) KnownModule(ctx context.Context, path string) (bool, error) {
 	return pc.lookupEndpoint(ctx, moduleEndpoint(path))
+}
+
+// KnownAtVersion reports whether pkgsite knows that the path exists at the given
+// bare version.
+func (pc *Client) KnownAtVersion(ctx context.Context, path, version string) (bool, error) {
+	prefix := "v"
+	if stdlib.Contains(path) {
+		prefix = "go"
+	}
+	return pc.lookupEndpoint(ctx, "/"+path+"@"+prefix+version)
 }
 
 func (pc *Client) lookupEndpoint(ctx context.Context, endpoint string) (bool, error) {
@@ -122,11 +133,11 @@ func (c *cache) writeKnown(w io.Writer) error {
 	return err
 }
 
-// CacheFile returns a default cache file that can be used as an input
-// to TestClient.
+// cacheFile returns a default cache file that can be used as an input
+// to testClient.
 //
 // For testing.
-func CacheFile(t *testing.T) (*os.File, error) {
+func cacheFile(t *testing.T) (*os.File, error) {
 	filename := filepath.Join("testdata", "pkgsite", t.Name()+".json")
 	if err := os.MkdirAll(filepath.Dir(filename), 0755); err != nil {
 		return nil, err
@@ -158,7 +169,15 @@ func CacheFile(t *testing.T) (*os.File, error) {
 // a fake server or the real pkg.go.dev, depending on the useRealPkgsite value.
 //
 // For testing.
-func TestClient(t *testing.T, useRealPkgsite bool, rw io.ReadWriter) (*Client, error) {
+func TestClient(t *testing.T, useRealPkgsite bool) (*Client, error) {
+	cf, err := cacheFile(t)
+	if err != nil {
+		return nil, err
+	}
+	return testClient(t, useRealPkgsite, cf)
+}
+
+func testClient(t *testing.T, useRealPkgsite bool, rw io.ReadWriter) (*Client, error) {
 	if useRealPkgsite {
 		c := Default()
 		t.Cleanup(func() {

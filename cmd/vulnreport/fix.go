@@ -17,15 +17,18 @@ import (
 	"golang.org/x/exp/slices"
 	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/osvutils"
+	"golang.org/x/vulndb/internal/pkgsite"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/symbols"
 )
 
 var (
-	force       = flag.Bool("f", false, "for fix, force Fix to run even if there are no lint errors")
-	skipChecks  = flag.Bool("skip-checks", false, "for fix, skip all checks except lint")
-	skipAlias   = flag.Bool("skip-alias", false, "for fix, skip adding new GHSAs and CVEs")
-	skipSymbols = flag.Bool("skip-symbols", false, "for lint and fix, don't load package for symbols checks")
+	force        = flag.Bool("f", false, "for fix, force Fix to run even if there are no lint errors")
+	skipChecks   = flag.Bool("skip-checks", false, "for fix, skip all checks except lint")
+	skipAlias    = flag.Bool("skip-alias", false, "for fix, skip adding new GHSAs and CVEs")
+	skipSymbols  = flag.Bool("skip-symbols", false, "for fix, don't load package for symbols checks")
+	skipPackages = flag.Bool("skip-packages", false, "for fix, don't check if packages exist")
+	skipRefs     = flag.Bool("skip-refs", false, "for fix, don't check if references exist")
 )
 
 type fix struct {
@@ -58,9 +61,12 @@ type fixer struct {
 	*linter
 	*aliasFinder
 	*fileWriter
+
+	pkc *pkgsite.Client
 }
 
 func (f *fixer) setup(ctx context.Context, env environment) error {
+	f.pkc = env.PkgsiteClient()
 	f.linter = new(linter)
 	f.aliasFinder = new(aliasFinder)
 	f.fileWriter = new(fileWriter)
@@ -85,8 +91,8 @@ func (f *fixer) fixAndWriteAll(ctx context.Context, r *yamlReport, addNotes bool
 func (f *fixer) fix(ctx context.Context, r *yamlReport, addNotes bool) (fixed bool) {
 	fixed = true
 
-	if lints := r.Lint(f.pc); *force || len(lints) > 0 {
-		r.Fix(f.pc)
+	if lints := r.Lint(f.pxc); *force || len(lints) > 0 {
+		r.Fix(f.pxc)
 	}
 
 	if !*skipChecks {
@@ -97,12 +103,12 @@ func (f *fixer) fix(ctx context.Context, r *yamlReport, addNotes bool) (fixed bo
 
 	// Check for remaining lint errors.
 	if addNotes {
-		if r.LintAsNotes(f.pc) {
+		if r.LintAsNotes(f.pxc) {
 			log.Warnf("%s: still has lint errors after fix", r.ID)
 			fixed = false
 		}
 	} else {
-		if lints := r.Lint(f.pc); len(lints) > 0 {
+		if lints := r.Lint(f.pxc); len(lints) > 0 {
 			log.Warnf("%s: still has lint errors after fix:\n\t- %s", r.ID, strings.Join(lints, "\n\t- "))
 			fixed = false
 		}
@@ -124,10 +130,17 @@ func (f *fixer) allChecks(ctx context.Context, r *yamlReport, addNotes bool) (ok
 		ok = false
 	}
 
+	if !*skipPackages {
+		log.Infof("%s: checking that all packages exist", r.ID)
+		if err := r.CheckPackages(ctx, f.pkc); err != nil {
+			fixErr("package error: %s", err)
+		}
+	}
+
 	if !*skipSymbols {
-		log.Infof("%s: checking packages and symbols (use -skip-symbols to skip this)", r.ID)
+		log.Infof("%s: checking symbols (use -skip-symbols to skip this)", r.ID)
 		if err := r.checkSymbols(); err != nil {
-			fixErr("package or symbol error: %s", err)
+			fixErr("symbol error: %s", err)
 		}
 	}
 
@@ -138,9 +151,11 @@ func (f *fixer) allChecks(ctx context.Context, r *yamlReport, addNotes bool) (ok
 		}
 	}
 
-	// For now, this is a fix check instead of a lint.
-	log.Infof("%s: checking that all references are reachable", r.ID)
-	checkRefs(r.References, fixErr)
+	if !*skipRefs {
+		// For now, this is a fix check instead of a lint.
+		log.Infof("%s: checking that all references are reachable", r.ID)
+		checkRefs(r.References, fixErr)
+	}
 
 	return ok
 }
@@ -171,7 +186,16 @@ func (r *yamlReport) checkSymbols() error {
 		log.Infof("%s: excluded, skipping symbol checks", r.ID)
 		return nil
 	}
+	if len(r.Modules) == 0 {
+		log.Infof("%s: no modules, skipping symbol checks", r.ID)
+		return nil
+	}
 	for _, m := range r.Modules {
+		if len(m.Packages) == 0 {
+			log.Infof("%s: module %s has no packages, skipping symbol checks", r.ID, m.Module)
+			return nil
+		}
+
 		if m.IsFirstParty() {
 			gover := runtime.Version()
 			ver := semverForGoVersion(gover)
@@ -196,8 +220,16 @@ func (r *yamlReport) checkSymbols() error {
 		}
 
 		for _, p := range m.Packages {
-			if p.SkipFix != "" {
-				log.Infof("%s: skipping symbol checks for package %s (reason: %q)", r.ID, p.Package, p.SkipFix)
+			if len(p.AllSymbols()) == 0 && p.SkipFixSymbols != "" {
+				log.Warnf("%s: skip_fix not needed", r.Filename)
+				continue
+			}
+			if len(p.AllSymbols()) == 0 {
+				log.Infof("%s: skipping symbol checks for package %s (no symbols)", r.ID, p.Package)
+				continue
+			}
+			if p.SkipFixSymbols != "" {
+				log.Infof("%s: skipping symbol checks for package %s (reason: %q)", r.ID, p.Package, p.SkipFixSymbols)
 				continue
 			}
 			syms, err := symbols.Exported(m, p)

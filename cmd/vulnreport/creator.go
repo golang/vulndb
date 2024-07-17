@@ -161,7 +161,7 @@ func (c *creator) metaToSource(ctx context.Context, meta *reportMeta) report.Sou
 }
 
 func (c *creator) rawReport(ctx context.Context, meta *reportMeta) *report.Report {
-	return report.New(c.metaToSource(ctx, meta), c.pc,
+	return report.New(c.metaToSource(ctx, meta), c.pxc,
 		report.WithGoID(meta.id),
 		report.WithModulePath(meta.modulePath),
 		report.WithAliases(meta.aliases),
@@ -172,7 +172,7 @@ func (c *creator) rawReport(ctx context.Context, meta *reportMeta) *report.Repor
 
 func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) (*yamlReport, error) {
 	// Find the underlying module if the "module" provided is actually a package path.
-	if module, err := c.pc.FindModule(meta.modulePath); err == nil { // no error
+	if module, err := c.pxc.FindModule(meta.modulePath); err == nil { // no error
 		meta.modulePath = module
 	}
 	meta.aliases = c.allAliases(ctx, meta.aliases)

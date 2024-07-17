@@ -15,6 +15,7 @@ import (
 	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/issues"
+	"golang.org/x/vulndb/internal/pkgsite"
 	"golang.org/x/vulndb/internal/proxy"
 )
 
@@ -22,7 +23,8 @@ import (
 type environment struct {
 	reportRepo *git.Repository
 	reportFS   fs.FS
-	pc         *proxy.Client
+	pxc        *proxy.Client
+	pkc        *pkgsite.Client
 	wfs        wfs
 	ic         issueClient
 	gc         ghsaClient
@@ -50,11 +52,19 @@ func (e *environment) ReportFS() fs.FS {
 }
 
 func (e *environment) ProxyClient() *proxy.Client {
-	if v := e.pc; v != nil {
+	if v := e.pxc; v != nil {
 		return v
 	}
 
 	return proxy.NewDefaultClient()
+}
+
+func (e *environment) PkgsiteClient() *pkgsite.Client {
+	if v := e.pkc; v != nil {
+		return v
+	}
+
+	return pkgsite.Default()
 }
 
 func (e *environment) WFS() wfs {

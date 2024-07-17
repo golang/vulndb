@@ -24,11 +24,7 @@ var usePkgsite = flag.Bool("pkgsite", false, "use pkg.go.dev for tests")
 
 func TestTriageV4CVE(t *testing.T) {
 	ctx := context.Background()
-	cf, err := pkgsite.CacheFile(t)
-	if err != nil {
-		t.Fatal(err)
-	}
-	pc, err := pkgsite.TestClient(t, *usePkgsite, cf)
+	pc, err := pkgsite.TestClient(t, *usePkgsite)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -181,11 +177,7 @@ func TestTriageV4CVE(t *testing.T) {
 
 func TestTriageV5CVE(t *testing.T) {
 	ctx := context.Background()
-	cf, err := pkgsite.CacheFile(t)
-	if err != nil {
-		t.Fatal(err)
-	}
-	pc, err := pkgsite.TestClient(t, *usePkgsite, cf)
+	pc, err := pkgsite.TestClient(t, *usePkgsite)
 	if err != nil {
 		t.Fatal(err)
 	}

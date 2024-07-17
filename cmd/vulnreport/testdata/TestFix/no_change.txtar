@@ -11,7 +11,9 @@ data/osv/GO-9999-0001.json
 -- logs --
 info: fix: operating on 1 report(s)
 info: fix data/reports/GO-9999-0001.yaml
-info: GO-9999-0001: checking packages and symbols (use -skip-symbols to skip this)
+info: GO-9999-0001: checking that all packages exist
+info: GO-9999-0001: checking symbols (use -skip-symbols to skip this)
+info: GO-9999-0001: skipping symbol checks for package golang.org/x/vulndb/cmd/vulnreport (no symbols)
 info: GO-9999-0001: checking for missing GHSAs and CVEs (use -skip-alias to skip this)
 info: GO-9999-0001: checking that all references are reachable
 info: fix: processed 1 report(s) (success=1; skip=0; error=0)
@@ -19,6 +21,9 @@ info: fix: processed 1 report(s) (success=1; skip=0; error=0)
 id: GO-9999-0001
 modules:
     - module: golang.org/x/vulndb
+      vulnerable_at: 0.0.0-20240716161253-dd7900b89e20
+      packages:
+        - package: golang.org/x/vulndb/cmd/vulnreport
 summary: A problem with golang.org/x/vulndb
 description: A description of the issue
 review_status: REVIEWED
@@ -46,7 +51,13 @@ review_status: REVIEWED
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "golang.org/x/vulndb/cmd/vulnreport"
+          }
+        ]
+      }
     }
   ],
   "database_specific": {

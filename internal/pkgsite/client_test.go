@@ -24,11 +24,7 @@ func TestKnown(t *testing.T) {
 		{name: "invalid", in: "github.com/something/something", want: false},
 	} {
 		t.Run(test.name, func(t *testing.T) {
-			cf, err := CacheFile(t)
-			if err != nil {
-				t.Fatal(err)
-			}
-			pc, err := TestClient(t, *usePkgsite, cf)
+			pc, err := TestClient(t, *usePkgsite)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -46,11 +42,7 @@ func TestKnown(t *testing.T) {
 
 func TestKnownParallel(t *testing.T) {
 	ctx := context.Background()
-	cf, err := CacheFile(t)
-	if err != nil {
-		t.Fatal(err)
-	}
-	pc, err := TestClient(t, *usePkgsite, cf)
+	pc, err := TestClient(t, *usePkgsite)
 	if err != nil {
 		t.Fatal(err)
 	}

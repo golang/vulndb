@@ -178,8 +178,9 @@ type Package struct {
 	// symbols, but is not published to OSV or elsewhere (so, for example,
 	// govulncheck cannot consume it).
 	ExcludedSymbols []string `yaml:"excluded_symbols,omitempty"`
-	// Reason the package is already considered fixed and should not be automatically updated.
-	SkipFix string `yaml:"skip_fix,omitempty"`
+	// Reason the package's symbols are already considered fixed and should not
+	// be checked or automatically updated.
+	SkipFixSymbols string `yaml:"skip_fix,omitempty"`
 }
 
 type CVEMeta struct {

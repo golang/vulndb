@@ -595,7 +595,7 @@ func (p *Package) lint(l *linter, m *Module, r *Report) {
 	}
 
 	if !r.IsExcluded() {
-		if m.VulnerableAt == nil && p.SkipFix == "" {
+		if m.VulnerableAt == nil && p.SkipFixSymbols == "" {
 			l.Error("at least one of vulnerable_at and skip_fix must be set")
 		}
 	}

@@ -94,11 +94,7 @@ func TestDoUpdate(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	cf, err := pkgsite.CacheFile(t)
-	if err != nil {
-		t.Fatal(err)
-	}
-	pc, err := pkgsite.TestClient(t, *usePkgsite, cf)
+	pc, err := pkgsite.TestClient(t, *usePkgsite)
 	if err != nil {
 		t.Fatal(err)
 	}

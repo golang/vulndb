@@ -363,7 +363,7 @@ func TestLintOffline(t *testing.T) {
 			desc: "At least one of module.vulnerable_at and module.package.skip_fix must be set.",
 			report: validReport(func(r *Report) {
 				r.Modules[0].VulnerableAt = nil
-				r.Modules[0].Packages[0].SkipFix = ""
+				r.Modules[0].Packages[0].SkipFixSymbols = ""
 			}),
 			wantNumLints: 1,
 		},
@@ -372,7 +372,7 @@ func TestLintOffline(t *testing.T) {
 			desc: "The vulnerable_at field can be blank if skip_fix is set.",
 			report: validReport(func(r *Report) {
 				r.Modules[0].VulnerableAt = nil
-				r.Modules[0].Packages[0].SkipFix = "a reason"
+				r.Modules[0].Packages[0].SkipFixSymbols = "a reason"
 			}),
 			// No lints.
 		},
@@ -381,7 +381,7 @@ func TestLintOffline(t *testing.T) {
 			desc: "It is OK to set both module.vulnerable_at and module.package.skip_fix.",
 			report: validReport(func(r *Report) {
 				r.Modules[0].VulnerableAt = VulnerableAt("1.2.3")
-				r.Modules[0].Packages[0].SkipFix = "a reason"
+				r.Modules[0].Packages[0].SkipFixSymbols = "a reason"
 			}),
 			// No lints.
 		},
