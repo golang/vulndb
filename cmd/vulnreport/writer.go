@@ -28,10 +28,11 @@ func (f *fileWriter) write(r *yamlReport) error {
 	if err := r.Encode(w); err != nil {
 		return err
 	}
-	if err := f.WriteFile(r.Filename, w.Bytes()); err != nil {
+	modified, err := f.WriteFile(r.Filename, w.Bytes())
+	if err != nil {
 		return err
 	}
-	return ok(r.Filename)
+	return ok(r.Filename, modified)
 }
 
 func (f *fileWriter) writeOSV(r *yamlReport) error {
@@ -71,24 +72,33 @@ func writeJSON(wfs wfs, fname string, v any) error {
 	if err != nil {
 		return err
 	}
-	if err := wfs.WriteFile(fname, j); err != nil {
+	modified, err := wfs.WriteFile(fname, j)
+	if err != nil {
 		return err
 	}
-	return ok(fname)
+	return ok(fname, modified)
 }
 
-func ok(fname string) error {
-	log.Out(filepath.ToSlash(fname))
+func ok(fname string, modified bool) error {
+	if modified {
+		log.Out(filepath.ToSlash(fname))
+	}
 	return nil
 }
 
 // a simple representation of a writeable file system
 type wfs interface {
-	WriteFile(string, []byte) error
+	WriteFile(string, []byte) (bool, error)
 }
 
 type defaultWFS struct{}
 
-func (defaultWFS) WriteFile(filename string, b []byte) error {
-	return os.WriteFile(filename, b, 0644)
+var _ wfs = &defaultWFS{}
+
+func (defaultWFS) WriteFile(filename string, b []byte) (bool, error) {
+	// writing the file would not change its contents
+	if existing, err := os.ReadFile(filename); err == nil && bytes.Equal(existing, b) {
+		return false, nil
+	}
+	return true, os.WriteFile(filename, b, 0644)
 }

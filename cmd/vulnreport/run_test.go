@@ -45,9 +45,14 @@ func newInMemoryWFS() *memWFS {
 	return &memWFS{written: make(map[string][]byte)}
 }
 
-func (m *memWFS) WriteFile(fname string, b []byte) error {
+var _ wfs = &memWFS{}
+
+func (m *memWFS) WriteFile(fname string, b []byte) (bool, error) {
+	if bytes.Equal(m.written[fname], b) {
+		return false, nil
+	}
 	m.written[fname] = b
-	return nil
+	return true, nil
 }
 func testFilename(t *testing.T) string {
 	return filepath.Join("testdata", t.Name()+".txtar")
