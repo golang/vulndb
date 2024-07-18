@@ -5,6 +5,7 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 
@@ -172,19 +173,31 @@ type ghsaClient interface {
 
 type memGC struct {
 	ghsas map[string]ghsa.SecurityAdvisory
+	byCVE map[string][]*ghsa.SecurityAdvisory
 }
 
 func newMemGC(archive []byte) (*memGC, error) {
 	ar := txtar.Parse(archive)
 	m := &memGC{
 		ghsas: make(map[string]ghsa.SecurityAdvisory),
+		byCVE: make(map[string][]*ghsa.SecurityAdvisory),
 	}
 	for _, f := range ar.Files {
 		var g ghsa.SecurityAdvisory
-		if err := yaml.Unmarshal(f.Data, &g); err != nil {
+		d := yaml.NewDecoder(bytes.NewBuffer(f.Data))
+		d.KnownFields(true)
+		if err := d.Decode(&g); err != nil {
 			return nil, err
 		}
+		if f.Name != g.ID {
+			return nil, fmt.Errorf("filename (%s) != ID (%s)", f.Name, g.ID)
+		}
 		m.ghsas[f.Name] = g
+		for _, id := range g.Identifiers {
+			if id.Type == "CVE" {
+				m.byCVE[id.Value] = append(m.byCVE[id.Value], &g)
+			}
+		}
 	}
 	return m, nil
 }
@@ -197,12 +210,5 @@ func (m *memGC) FetchGHSA(_ context.Context, id string) (*ghsa.SecurityAdvisory,
 }
 
 func (m *memGC) ListForCVE(_ context.Context, cid string) (result []*ghsa.SecurityAdvisory, _ error) {
-	for _, sa := range m.ghsas {
-		for _, id := range sa.Identifiers {
-			if id.Type == "CVE" || id.Value == cid {
-				result = append(result, &sa)
-			}
-		}
-	}
-	return result, nil
+	return m.byCVE[cid], nil
 }

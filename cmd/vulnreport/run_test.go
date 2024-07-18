@@ -12,11 +12,13 @@ import (
 	"fmt"
 	"io/fs"
 	"path/filepath"
+	"slices"
 	"strings"
 	"testing"
 	"time"
 
 	"github.com/google/go-cmp/cmp"
+	"golang.org/x/exp/maps"
 	"golang.org/x/tools/txtar"
 	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/cmd/vulnreport/priority"
@@ -206,8 +208,10 @@ func writeGolden(t *testing.T, g *golden, comment string, written map[string][]b
 		{Name: "out", Data: g.out},
 		{Name: "logs", Data: g.logs},
 	}
-	for fname, b := range written {
-		files = append(files, txtar.File{Name: fname, Data: b})
+	sortedFilenames := maps.Keys(written)
+	slices.Sort(sortedFilenames)
+	for _, fname := range sortedFilenames {
+		files = append(files, txtar.File{Name: fname, Data: written[fname]})
 	}
 
 	return test.WriteTxtar(testFilename(t), files, comment)

@@ -55,10 +55,10 @@ func (l *linter) lint(r *yamlReport) error {
 }
 
 func (l *linter) canonicalModule(mp string) string {
-	if module, err := l.pxc.FindModule(mp); err == nil { // no error
+	if module, err := l.pxc.FindModule(mp); module != "" && err == nil { // no error
 		mp = module
 	}
-	if module, err := l.pxc.CanonicalAtLatest(mp); err == nil { // no error
+	if module, err := l.pxc.CanonicalAtLatest(mp); module != "" && err == nil { // no error
 		mp = module
 	}
 	return mp

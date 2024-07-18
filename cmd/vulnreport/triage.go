@@ -27,6 +27,9 @@ type triage struct {
 	mu              sync.Mutex // protects aliasesToIssues and stats
 	aliasesToIssues map[string][]int
 	stats           []issuesList
+
+	// issues that have already been marked as duplicate
+	duplicates map[int]bool
 }
 
 func (*triage) name() string { return "triage" }
@@ -65,6 +68,7 @@ func (t *triage) setup(ctx context.Context, env environment) error {
 	}
 
 	log.Info("creating alias map for open issues")
+	t.duplicates = make(map[int]bool)
 	open, err := t.openIssues(ctx)
 	if err != nil {
 		return err
@@ -73,6 +77,9 @@ func (t *triage) setup(ctx context.Context, env environment) error {
 		aliases := t.aliases(ctx, iss)
 		for _, a := range aliases {
 			t.addAlias(a, iss.Number)
+		}
+		if iss.HasLabel(labelPossibleDuplicate) || iss.HasLabel(labelDuplicate) {
+			t.duplicates[iss.Number] = true
 		}
 	}
 	return nil
@@ -127,6 +134,7 @@ func (t *triage) triage(ctx context.Context, iss *issues.Issue) {
 				strings.Join(aliases, ", "),
 				filepath.ToSlash(ref)))
 		}
+		slices.Sort(strs)
 		t.addStat(iss, statDuplicate, strings.Join(strs, listItem))
 		labels = append(labels, labelPossibleDuplicate)
 	}
@@ -191,8 +199,14 @@ func (t *triage) findDuplicates(ctx context.Context, iss *issues.Issue) map[stri
 			if iss.Number == dup {
 				continue
 			}
+			// If the other issue is already marked as a duplicate,
+			// we don't need to mark this one.
+			if t.duplicates[dup] {
+				continue
+			}
 			ref := t.ic.Reference(dup)
 			xrefs[ref] = append(xrefs[ref], a)
+			t.duplicates[iss.Number] = true
 		}
 	}
 
