@@ -1,0 +1,24 @@
+id: GO-2024-2989
+modules:
+    - module: github.com/projectdiscovery/nuclei
+      vulnerable_at: 1.1.7
+    - module: github.com/projectdiscovery/nuclei/v2
+      vulnerable_at: 2.9.15
+    - module: github.com/projectdiscovery/nuclei/v3
+      versions:
+        - fixed: 3.3.0
+      vulnerable_at: 3.2.9
+summary: |-
+    projectdiscovery/nuclei allows unsigned code template execution through
+    workflows in github.com/projectdiscovery/nuclei
+cves:
+    - CVE-2024-40641
+ghsas:
+    - GHSA-c3q9-c27p-cw9h
+references:
+    - advisory: https://github.com/projectdiscovery/nuclei/security/advisories/GHSA-c3q9-c27p-cw9h
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-40641
+source:
+    id: GHSA-c3q9-c27p-cw9h
+    created: 2024-07-18T16:18:07.953998-04:00
+review_status: UNREVIEWED

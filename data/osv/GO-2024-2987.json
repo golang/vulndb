@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2987",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-6535",
+    "GHSA-w799-v85j-88pg"
+  ],
+  "summary": "Skupper uses a static cookie secret for the openshift oauth-proxy in github.com/skupperproject/skupper",
+  "details": "Skupper uses a static cookie secret for the openshift oauth-proxy in github.com/skupperproject/skupper",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/skupperproject/skupper",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20240703184342-c26bce4079ff"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-w799-v85j-88pg"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-6535"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/skupperproject/skupper/commit/d2cb3782e807853694ee66b6e3d4a1917485eb71"
+    },
+    {
+      "type": "WEB",
+      "url": "https://access.redhat.com/security/cve/CVE-2024-6535"
+    },
+    {
+      "type": "WEB",
+      "url": "https://bugzilla.redhat.com/show_bug.cgi?id=2296024"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2987",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,19 @@
+id: GO-2024-2990
+modules:
+    - module: github.com/1Panel-dev/1Panel
+      non_go_versions:
+        - fixed: 1.10.12-tls
+      vulnerable_at: 1.9.6
+summary: 1Panel has an SQL injection issue related to the orderBy clause in github.com/1Panel-dev/1Panel
+cves:
+    - CVE-2024-39907
+ghsas:
+    - GHSA-5grx-v727-qmq6
+references:
+    - advisory: https://github.com/1Panel-dev/1Panel/security/advisories/GHSA-5grx-v727-qmq6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-39907
+    - fix: https://github.com/1Panel-dev/1Panel/commit/ff549a47937c1314e6ee08453a1d2128242440cd
+source:
+    id: GHSA-5grx-v727-qmq6
+    created: 2024-07-18T16:18:04.925699-04:00
+review_status: UNREVIEWED
