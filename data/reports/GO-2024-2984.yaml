@@ -1,0 +1,25 @@
+id: GO-2024-2984
+modules:
+    - module: github.com/linkerd/linkerd2
+      versions:
+        - fixed: 0.5.1-0.20240614165515-35fb2d6d11ef
+      non_go_versions:
+        - fixed: edge-24.6.2
+      vulnerable_at: 0.5.0
+      packages:
+        - package: github.com/linkerd/linkerd2/pkg/inject
+          symbols:
+            - applyAnnotationOverrides
+          skip_fix: error related to incompatible versions
+summary: Linkerd potential access to the shutdown endpoint in github.com/linkerd/linkerd2
+cves:
+    - CVE-2024-40632
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-40632
+    - fix: https://github.com/linkerd/linkerd2/commit/35fb2d6d11ef6520ae516dd717790529f85224fa
+    - web: https://github.com/linkerd/linkerd2-proxy/blob/46957de49f25fd4661af7b7c52659148f4d6dd27/linkerd/app/admin/src/server.rs
+    - web: https://github.com/linkerd/linkerd2/security/advisories/GHSA-6v94-gj6x-jqj7
+source:
+    id: CVE-2024-40632
+    created: 2024-07-18T16:27:08.173878-04:00
+review_status: REVIEWED
