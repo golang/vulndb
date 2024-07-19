@@ -42,6 +42,7 @@ var (
 		"CVE-2023-45141": "github.com/gofiber/fiber",
 		"CVE-2024-2056":  "github.com/gvalkov/tailon",
 		"CVE-2024-33522": "github.com/projectcalico/calico",
+		"CVE-2024-21527": "github.com/gotenberg/gotenberg",
 
 		// A third-party non-Go CVE that was miscategorized
 		// as applying to "github.com/amlweems/xzbot".
