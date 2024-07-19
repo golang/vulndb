@@ -1,0 +1,25 @@
+id: GO-2024-2993
+modules:
+    - module: github.com/bishopfox/sliver
+      versions:
+        - introduced: 1.5.40
+      unsupported_versions:
+        - last_affected: 1.6.0-dev
+      vulnerable_at: 1.5.42
+summary: Sliver Allows Authenticated Operator-to-Server Remote Code Execution in github.com/bishopfox/sliver
+cves:
+    - CVE-2024-41111
+ghsas:
+    - GHSA-hc5w-gxxr-w8x8
+references:
+    - advisory: https://github.com/BishopFox/sliver/security/advisories/GHSA-hc5w-gxxr-w8x8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-41111
+    - web: https://github.com/BishopFox/sliver/commit/0deaee625d14c6f05f63c86e5c3b7ae623a1138f
+    - web: https://github.com/BishopFox/sliver/commit/5016fb8d7cdff38c79e22e8293e58300f8d3bd57
+    - web: https://github.com/BishopFox/sliver/issues/65
+    - web: https://github.com/BishopFox/sliver/pull/1281
+    - web: https://sliver.sh/docs?name=Multi-player+Mode
+source:
+    id: GHSA-hc5w-gxxr-w8x8
+    created: 2024-07-19T12:19:31.469236-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,27 @@
+id: GO-2024-2997
+modules:
+    - module: github.com/gitpod-io/gitpod
+      unsupported_versions:
+        - cve_version_range: affected from 0 before 0.1.5-main-gha.27122
+        - cve_version_range: affected from 0 before main-gha.27122
+      vulnerable_at: 0.10.0
+summary: CVE-2024-21583 in github.com/gitpod-io/gitpod
+cves:
+    - CVE-2024-21583
+credits:
+    - Elliot Ward (Snyk Security Research)
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-21583
+    - fix: https://github.com/gitpod-io/gitpod/commit/da1053e1013f27a56e6d3533aa251dbd241d0155
+    - fix: https://github.com/gitpod-io/gitpod/pull/19973
+    - web: https://app.safebase.io/portal/71ccd717-aa2d-4a1e-942e-c768d37e9e0c/preview?product=[…]942e-c768d37e9e0c&tcuUid=1d505bda-9a38-4ca5-8724-052e6337f34d
+    - web: https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMGITPODIOGITPODCOMPONENTSSERVERGOPKGLIB-7452074
+    - web: https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMGITPODIOGITPODCOMPONENTSWSPROXYPKGPROXY-7452075
+    - web: https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMGITPODIOGITPODINSTALLINSTALLERPKGCOMPONENTSAUTH-7452076
+    - web: https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMGITPODIOGITPODINSTALLINSTALLERPKGCOMPONENTSPUBLICAPISERVER-7452077
+    - web: https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMGITPODIOGITPODINSTALLINSTALLERPKGCOMPONENTSSERVER-7452078
+    - web: https://security.snyk.io/vuln/SNYK-JS-GITPODGITPODPROTOCOL-7452079
+source:
+    id: CVE-2024-21583
+    created: 2024-07-19T12:19:11.388693-04:00
+review_status: UNREVIEWED

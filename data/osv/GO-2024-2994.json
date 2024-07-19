@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2994",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-5321",
+    "GHSA-82m2-cv7p-4m75"
+  ],
+  "summary": "Kubernetes sets incorrect permissions on Windows containers logs in k8s.io/kubernetes",
+  "details": "Kubernetes sets incorrect permissions on Windows containers logs in k8s.io/kubernetes",
+  "affected": [
+    {
+      "package": {
+        "name": "k8s.io/kubernetes",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.27.16"
+            },
+            {
+              "introduced": "1.28.0"
+            },
+            {
+              "fixed": "1.28.12"
+            },
+            {
+              "introduced": "1.29.0"
+            },
+            {
+              "fixed": "1.29.7"
+            },
+            {
+              "introduced": "1.30.0"
+            },
+            {
+              "fixed": "1.30.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-82m2-cv7p-4m75"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-5321"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubernetes/kubernetes/commit/23660a78ae462a6c8c75ac7ffd9af97550dda1aa"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubernetes/kubernetes/commit/84beb2915fa28ae477fe0676be8ba94ccd2b811a"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubernetes/kubernetes/commit/90589b8f63d28bcd3db89749950ebc48ed07c190"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubernetes/kubernetes/commit/de2033033b1d202ecaaa79d41861a075df8b49c1"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubernetes/kubernetes/issues/126161"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/kubernetes-security-announce/c/81c0BHkKNt0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2994",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,30 @@
+id: GO-2024-2994
+modules:
+    - module: k8s.io/kubernetes
+      versions:
+        - fixed: 1.27.16
+        - introduced: 1.28.0
+        - fixed: 1.28.12
+        - introduced: 1.29.0
+        - fixed: 1.29.7
+        - introduced: 1.30.0
+        - fixed: 1.30.3
+      vulnerable_at: 1.30.2
+summary: Kubernetes sets incorrect permissions on Windows containers logs in k8s.io/kubernetes
+cves:
+    - CVE-2024-5321
+ghsas:
+    - GHSA-82m2-cv7p-4m75
+references:
+    - advisory: https://github.com/advisories/GHSA-82m2-cv7p-4m75
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-5321
+    - web: https://github.com/kubernetes/kubernetes/commit/23660a78ae462a6c8c75ac7ffd9af97550dda1aa
+    - web: https://github.com/kubernetes/kubernetes/commit/84beb2915fa28ae477fe0676be8ba94ccd2b811a
+    - web: https://github.com/kubernetes/kubernetes/commit/90589b8f63d28bcd3db89749950ebc48ed07c190
+    - web: https://github.com/kubernetes/kubernetes/commit/de2033033b1d202ecaaa79d41861a075df8b49c1
+    - web: https://github.com/kubernetes/kubernetes/issues/126161
+    - web: https://groups.google.com/g/kubernetes-security-announce/c/81c0BHkKNt0
+source:
+    id: GHSA-82m2-cv7p-4m75
+    created: 2024-07-19T12:19:24.247679-04:00
+review_status: UNREVIEWED
