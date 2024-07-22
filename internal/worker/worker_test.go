@@ -304,11 +304,11 @@ References:
 
 !! Possible duplicate report !!
 - CVE-2000-0001 appears in 1 other report(s):
-  - data/reports/GO-9999-0002.yaml    (https://github.com/golang/vulndb#2)
+  - data/reports/GO-9999-0002.yaml    (https://github.com/golang/vulndb/issues/2)
 
 Cross references:
 - golang.org/x/vulndb appears in 1 other report(s):
-  - data/reports/GO-9999-0002.yaml    (https://github.com/golang/vulndb#2)
+  - data/reports/GO-9999-0002.yaml    (https://github.com/golang/vulndb/issues/2)
 
 See [doc/quickstart.md](https://github.com/golang/vulndb/blob/master/doc/quickstart.md) for instructions on how to triage this report.
 
@@ -387,7 +387,7 @@ References:
 
 !! Possible duplicate report !!
 - GHSA-xxxx-yyyy-zzzz appears in 1 other report(s):
-  - data/excluded/GO-9999-0001.yaml    (https://github.com/golang/vulndb#1)    EXCLUDED
+  - data/excluded/GO-9999-0001.yaml    (https://github.com/golang/vulndb/issues/1)    EXCLUDED
 
 See [doc/quickstart.md](https://github.com/golang/vulndb/blob/master/doc/quickstart.md) for instructions on how to triage this report.
 

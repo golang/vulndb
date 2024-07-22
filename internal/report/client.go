@@ -103,7 +103,7 @@ func fprintMap(out io.Writer, m map[string][]*File) {
 		fs := m[k]
 		fmt.Fprintf(out, "- %s appears in %d other report(s):\n", k, len(fs))
 		for _, f := range fs {
-			fmt.Fprintf(out, "  - %s    (https://github.com/golang/vulndb#%d)", f.Filename, f.IssNum)
+			fmt.Fprintf(out, "  - %s    (https://github.com/golang/vulndb/issues/%d)", f.Filename, f.IssNum)
 			if f.Report.IsExcluded() {
 				fmt.Fprintf(out, "    %v", f.Report.Excluded)
 			}
