@@ -1,9 +1,12 @@
 # Handling Go Vulnerability Reports
 
-NOTE: This document is somewhat outdated but still contains some valuable background / context. A newer [quickstart guide](quickstart.md) is in progress.
-
 This document explains how we handle vulnerability issue triage in the
 [x/vulndb issue tracker](http://github.com/golang/vulndb/issues).
+
+Other useful docs:
+ - [Quickstart](quickstart.md)
+ - [Report format reference](format.md)
+ - [Vulnreport reference](vulnreport.md)
 
 ## Reports
 
@@ -13,52 +16,56 @@ YAML file in the data/reports or data/excluded directory.
 For a detailed explanation of the report format and style guide, see
 [doc/format.md](format.md).
 
-## Issue States
+## Issue types
+
+There are 4 types of issues on our tracker:
+
+1. CVEs/GHSAs created automatically by the worker
+2. Direct external reports from community members
+3. Suggested edits from community members
+4. Placeholder issues for first-party reports
+
+The vast majority of issues are of the first type, and this document focuses on handling these.
+
+## Issue states
 
 Any open issue should be in one of the following states:
 
-- New (no label)
-- Needs investigation
-- Needs report
-- Excluded
-- Out of scope
+- new (no label)
+- triaged
+   - standard priority (no additional label)
+   - high priority
+   - possible duplicate
+   - possibly not Go
+- excluded
+- needs-review
+- out of scope
 
 Maintainers of the Go vulndb move issues from one state to another.
 The intent behind these explicit states is to describe the (minimum)
 next steps required to bring the issue to resolution.
 
-### New (untriaged)
+### new (untriaged)
 
 The issue has been filed by the vulndb worker or an external reporter.
 
 The issue will have the title: `x/vulndb: potential Go vuln in <module/package>: <CVE ID and or GHSA ID>`.
 
-To transition from this state, do one of the following:
+Use the `vulnreport triage` command to triage the issue.
 
-- Label the issue as `NeedsInvestigation`, and discuss the issue with the team.
-- Label the issue as `excluded: REASON`, and use the `vulnreport create-excluded` command
-  to create a CL.
-- Label the issue as `NeedsReport`, and use the `vulnreport` tool to assist in creating a CL.
-- Label the issue as `excluded: OUT_OF_SCOPE` and close the issue.
-- Label the issue as `duplicate` and close the issue.
+### triaged
 
-### Needs Investigation
+Label: `triaged`
 
-Label: `NeedsInvestigation`
+The issue has been auto-triaged.
 
-This state is used when it is not clear how to proceed. (Otherwise, an
-issue can move straight to one of the other states.)
+The states are:
+  - `high priority`: the issue needs a REVIEWED report
+  - standard priority (no label): the issue needs an UNREVIEWED report
+  - `possible duplicate`: we need to check if the issue is a duplicate
+  - `possibly not Go`: we need to check if the issue does not affect Go code
 
-Make a plan to discuss the issue with the team to determine a course of action.
-
-### Needs Report
-
-Label: `NeedsReport`
-
-The issue has been confirmed to be an in-scope Go vulnerability, and a report
-needs to be added to `data/reports`.
-
-### Excluded
+### excluded
 
 Label: `excluded: REASON` where REASON is one of the possible
 [excluded reasons](https://go.dev/security/vuln/database#excluded-reports).
@@ -66,7 +73,24 @@ Label: `excluded: REASON` where REASON is one of the possible
 The issue represents a reported vulnerability, but is not in scope for the
 main `data/reports` folder. An "excluded" report needs to be added to `data/excluded`.
 
-### Out-of-scope
+NOTE: Some excluded reasons are being phased out. The only ones that should
+be used for new reports are `NOT_GO_CODE`, `NOT_A_VULNERABILITY` and
+`DEPENDENT_VULNERABILITY`.
+
+`NOT_A_VULNERABILITY` and `DEPENDENT_VULNERABILITY` are OK to assign if
+they *obviously* apply to a vulnerability, but it is also OK to simply
+create an unreviewed report if you are not sure.
+
+These can be created using the `vulnreport create-excluded` command.
+
+### needs-review
+
+Label: `needs-review`
+
+The issue already has an UNREVIEWED report but it should be REVIEWED
+using the `vulnreport review` command.
+
+### out-of-scope
 
 Label: `excluded: OUT_OF_SCOPE` or `duplicate`.
 
@@ -95,7 +119,7 @@ The issue can be closed without further action.
 4. From the repo root, run `go install ./cmd/vulnreport` to install the latest
    version of vulnreport tool.
 
-### Add a new standard report (label `NeedsReport`)
+### Add a new standard report (label `triaged`)
 
 1. Sync your git repo, re-install the vulnreport tool, and create a fresh branch.
 2. From the repo root, run `vulnreport create <GitHub issue number>`.
@@ -103,8 +127,8 @@ The issue can be closed without further action.
    at the specified GitHub issue number.
 
    Tips for the `vulnreport create` command:
-      - This command works for both regular reports and excluded reports, with
-        no flags or configuration needed.
+      - This command works for both regular (reviewed and unreviewed) reports
+        and excluded reports, with no flags or configuration needed.
       - The command accepts multiple Github issue numbers (space separated),
         and Github issue ranges (e.g., `vulnreport create 99 1000-1010` would
         create reports for issue #99 and all issues from #1000 to #1010,
@@ -117,8 +141,7 @@ The issue can be closed without further action.
       - By default, the `create` command attempts to find a GHSA for the
         vulnerability and pull it from osv.dev. If this is not working, use
         the `-cve` flag to use the CVE (rather than the GHSA) as the default
-        source, or the `-graphql` flag to pull GHSAs directly from Github's
-        GraphQL API.
+        source.
 3. Edit the report file template, following the guidance in [doc/format.md](format.md).
    A few tips:
    - If a person or organization is given credit in the CVE or GHSA, add the
@@ -164,12 +187,7 @@ The issue can be closed without further action.
 ## Handling duplicates
 
 Sometimes an issue describes a vulnerability that we already have a report for.
-The worker doesn't always detect this automatically, so it is a good idea to
-grep the `/data` directory of this repo for the module path and read the
-report to see if the vulns are the same.
-
-**NEW:** The command `vulnreport duplicates` (with no args) can find likely
-duplicates on the issue tracker.
+The worker doesn't always detect this automatically.
 
 If the issue is indeed a duplicate:
 
