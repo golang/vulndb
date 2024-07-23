@@ -431,7 +431,15 @@ var (
 )
 
 func toVersions(cvr *VersionRange, defaultStatus VersionStatus) (report.Versions, bool) {
+	if cvr == nil {
+		return nil, true
+	}
+
 	intro, fixed := version.TrimPrefix(string(cvr.Introduced)), version.TrimPrefix(string(cvr.Fixed))
+
+	if intro == "" && fixed == "" {
+		return nil, true
+	}
 
 	// Handle special cases where the info is not quite correctly encoded but
 	// we can still figure out the intent.
@@ -451,13 +459,13 @@ func toVersions(cvr *VersionRange, defaultStatus VersionStatus) (report.Versions
 		}, true
 	}
 
-	// For now, don't attempt to fix any other messed up cases.
+	// For now, don't attempt to fix any other cases we don't understand.
 	if cvr.VersionType != typeSemver ||
 		cvr.LessThanOrEqual != "" ||
 		!version.IsValid(intro) ||
 		!version.IsValid(fixed) ||
 		cvr.Status != StatusAffected ||
-		defaultStatus != StatusUnaffected {
+		defaultStatus == StatusAffected {
 		return nil, false
 	}
 

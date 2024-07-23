@@ -426,6 +426,113 @@ func TestVersionRangeToVersionRange(t *testing.T) {
 	}
 }
 
+func TestToVersions(t *testing.T) {
+	tests := []struct {
+		name          string
+		versions      *VersionRange
+		defaultStatus VersionStatus
+		want          report.Versions
+		wantOK        bool
+	}{
+		{
+			name:     "nil",
+			versions: nil,
+			want:     nil,
+			wantOK:   true,
+		},
+		{
+			name:     "empty",
+			versions: &VersionRange{},
+			want:     nil,
+			wantOK:   true,
+		},
+		{
+			name: "basic",
+			versions: &VersionRange{
+				Introduced:  "1.0.0",
+				Fixed:       "1.0.1",
+				Status:      StatusAffected,
+				VersionType: typeSemver,
+			},
+			defaultStatus: StatusUnaffected,
+			want: report.Versions{
+				report.Introduced("1.0.0"),
+				report.Fixed("1.0.1"),
+			},
+			wantOK: true,
+		},
+		{
+			name: "assume default status unaffected if unset",
+			versions: &VersionRange{
+				Introduced:  "1.0.0",
+				Fixed:       "1.0.1",
+				Status:      StatusAffected,
+				VersionType: typeSemver,
+			},
+			// no defaultStatus
+			want: report.Versions{
+				report.Introduced("1.0.0"),
+				report.Fixed("1.0.1"),
+			},
+			wantOK: true,
+		},
+		{
+			name: "introduced encodes both versions",
+			versions: &VersionRange{
+				Introduced:  ">= 1.0.0, < 1.0.1",
+				Status:      StatusAffected,
+				VersionType: typeSemver,
+			},
+			defaultStatus: StatusUnaffected,
+			want: report.Versions{
+				report.Introduced("1.0.0"),
+				report.Fixed("1.0.1"),
+			},
+			wantOK: true,
+		},
+		{
+			name: "introduced encodes fixed",
+			versions: &VersionRange{
+				Introduced:  "< 1.0.1",
+				Status:      StatusAffected,
+				VersionType: typeSemver,
+			},
+			defaultStatus: StatusUnaffected,
+			want: report.Versions{
+				report.Fixed("1.0.1"),
+			},
+			wantOK: true,
+		},
+		{
+			name: "v prefix ok",
+			versions: &VersionRange{
+				Introduced:  "v1.0.0",
+				Fixed:       "v1.0.1",
+				Status:      StatusAffected,
+				VersionType: typeSemver,
+			},
+			defaultStatus: StatusUnaffected,
+			want: report.Versions{
+				report.Introduced("1.0.0"),
+				report.Fixed("1.0.1"),
+			},
+			wantOK: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, gotOK := toVersions(tt.versions, tt.defaultStatus)
+			if tt.wantOK != gotOK {
+				t.Errorf("toVersions ok=%t, want=%t", gotOK, tt.wantOK)
+			}
+			want := tt.want
+			if diff := cmp.Diff(want, got); diff != "" {
+				t.Errorf("toVersions mismatch (-want, +got):\n%s", diff)
+			}
+		})
+	}
+}
+
 func TestToReport(t *testing.T) {
 	if *updateTxtarRepo {
 		cvelistrepo.UpdateTxtar(context.Background(), t, cvelistrepo.URLv5)
