@@ -10,13 +10,14 @@ import (
 
 	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/osv"
+	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
 )
 
 var _ report.Source = &Entry{}
 
 // ToReport converts OSV into a Go Report with the given ID.
-func (osv *Entry) ToReport(string) *report.Report {
+func (osv *Entry) ToReport(*proxy.Client, string) *report.Report {
 	r := &report.Report{
 		Summary:     report.Summary(osv.Summary),
 		Description: report.Description(osv.Details),

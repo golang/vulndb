@@ -17,13 +17,13 @@ type Source interface {
 	// SourceID returns the ID of the source.
 	// For example, the GHSA or CVE id.
 	SourceID() string
-	ToReport(modulePath string) *Report
+	ToReport(pxc *proxy.Client, modulePath string) *Report
 }
 
 func New(src Source, pc *proxy.Client, opts ...NewOption) *Report {
 	cfg := newCfg(opts)
 
-	r := src.ToReport(cfg.ModulePath)
+	r := src.ToReport(pc, cfg.ModulePath)
 	r.ID = cfg.GoID
 	r.AddAliases(cfg.Aliases)
 
@@ -150,7 +150,7 @@ func OriginalCVE(cveID string) Source {
 	return &original{cveID: cveID}
 }
 
-func (o *original) ToReport(modulePath string) *Report {
+func (o *original) ToReport(_ *proxy.Client, modulePath string) *Report {
 	var cveMeta *CVEMeta
 	if o.cveID != "" {
 		cveMeta = &CVEMeta{ID: o.cveID}

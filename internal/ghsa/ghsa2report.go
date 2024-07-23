@@ -9,12 +9,13 @@ import (
 	"fmt"
 	"strings"
 
+	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
 )
 
 var _ report.Source = &SecurityAdvisory{}
 
-func (sa *SecurityAdvisory) ToReport(modulePath string) *report.Report {
+func (sa *SecurityAdvisory) ToReport(_ *proxy.Client, modulePath string) *report.Report {
 	return ghsaToReport(sa, modulePath)
 }
 

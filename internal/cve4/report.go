@@ -5,13 +5,14 @@
 package cve4
 
 import (
+	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/stdlib"
 )
 
 var _ report.Source = &CVE{}
 
-func (c *CVE) ToReport(modulePath string) *report.Report {
+func (c *CVE) ToReport(_ *proxy.Client, modulePath string) *report.Report {
 	return cveToReport(c, modulePath)
 }
 

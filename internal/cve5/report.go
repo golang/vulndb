@@ -14,6 +14,7 @@ import (
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/osv"
+	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/stdlib"
 	"golang.org/x/vulndb/internal/version"
@@ -182,8 +183,8 @@ func versionsToVersionRanges(vs report.Versions) ([]VersionRange, VersionStatus)
 
 var _ report.Source = &CVERecord{}
 
-func (c *CVERecord) ToReport(modulePath string) *report.Report {
-	return cve5ToReport(c, modulePath)
+func (c *CVERecord) ToReport(pxc *proxy.Client, modulePath string) *report.Report {
+	return cve5ToReport(c, pxc, modulePath)
 }
 
 func (c *CVERecord) SourceID() string {
@@ -198,7 +199,7 @@ func (c *CVERecord) ReferenceURLs() []string {
 	return result
 }
 
-func cve5ToReport(c *CVERecord, modulePath string) *report.Report {
+func cve5ToReport(c *CVERecord, pxc *proxy.Client, modulePath string) *report.Report {
 	cna := c.Containers.CNAContainer
 
 	var description report.Description
@@ -219,7 +220,7 @@ func cve5ToReport(c *CVERecord, modulePath string) *report.Report {
 	}
 
 	r := &report.Report{
-		Modules:     affectedToModules(cna.Affected, modulePath),
+		Modules:     affectedToModules(cna.Affected, pxc, modulePath),
 		Summary:     report.Summary(cna.Title),
 		Description: description,
 		Credits:     credits,
@@ -330,24 +331,24 @@ func isGoCNA5(c *CNAPublishedContainer) bool {
 	return c.ProviderMetadata.OrgID == GoOrgUUID
 }
 
-func affectedToModules(as []Affected, modulePath string) []*report.Module {
+func affectedToModules(as []Affected, pxc *proxy.Client, fallbackModule string) []*report.Module {
 	// Use a placeholder module if there is no information on
 	// modules/packages in the CVE.
 	if len(as) == 0 {
 		return []*report.Module{{
-			Module: modulePath,
+			Module: fallbackModule,
 		}}
 	}
 
 	var modules []*report.Module
 	for _, a := range as {
-		modules = append(modules, affectedToModule(&a, modulePath))
+		modules = append(modules, affectedToModule(&a, pxc, fallbackModule))
 	}
 
 	return modules
 }
 
-func affectedToModule(a *Affected, modulePath string) *report.Module {
+func affectedToModule(a *Affected, pxc *proxy.Client, fallbackModule string) *report.Module {
 	var pkgPath string
 	isSet := func(s string) bool {
 		const na = "n/a"
@@ -361,27 +362,23 @@ func affectedToModule(a *Affected, modulePath string) *report.Module {
 	case isSet(a.Vendor):
 		pkgPath = a.Vendor
 	default:
-		pkgPath = modulePath
+		pkgPath = fallbackModule
 	}
 
-	// If the package path is just a suffix of the modulePath,
-	// it is probably not useful.
-	if strings.HasSuffix(modulePath, pkgPath) {
-		pkgPath = modulePath
-	}
-
-	// If the package path doesn't have any slashes, it probably
-	// is not useful.
-	if !strings.Contains(pkgPath, "/") {
-		pkgPath = modulePath
-	}
-
+	modulePath := fallbackModule
 	if stdlib.Contains(modulePath) && stdlib.Contains(pkgPath) {
+		// Standard library and toolchain
 		if strings.HasPrefix(pkgPath, stdlib.ToolchainModulePath) {
 			modulePath = stdlib.ToolchainModulePath
 		} else {
 			modulePath = stdlib.ModulePath
 		}
+	} else if mp, err := pxc.FindModule(pkgPath); mp != "" && err == nil { // no error
+		// Recognized third-party package path
+		modulePath = mp
+	} else {
+		// Unrecognized third-party package path
+		pkgPath = fallbackModule
 	}
 
 	vs, uvs := convertVersions(a.Versions, a.DefaultStatus)
