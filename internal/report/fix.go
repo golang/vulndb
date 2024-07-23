@@ -58,10 +58,18 @@ func (r *Report) fixSummary() {
 
 	// Add a path if one exists and is needed.
 	if paths := r.nonStdPaths(); len(paths) > 0 && !containsPath(summary, paths) {
-		summary = fmt.Sprintf("%s in %s", summary, paths[0])
+		summary = fmt.Sprintf("%s in %s", summary, stripMajor(paths[0]))
 	}
 
 	r.Summary = Summary(fixSpelling(summary))
+}
+
+func stripMajor(path string) string {
+	base, _, ok := module.SplitPathVersion(path)
+	if !ok {
+		return path
+	}
+	return base
 }
 
 func (v *Version) commitHashToVersion(modulePath string, pc *proxy.Client) {
