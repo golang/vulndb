@@ -1,0 +1,49 @@
+id: GO-ID-PENDING
+modules:
+    - module: github.com/ethereum/go-ethereum
+      non_go_versions:
+        - fixed: 1.19.7
+      vulnerable_at: 1.14.5
+      packages:
+        - package: github.com/ethereum/go-ethereum/core/vm
+    - module: github.com/ethereum/go-ethereum
+      versions:
+        - introduced: 1.9.7
+        - fixed: 1.9.17
+      vulnerable_at: 1.9.16
+summary: Shallow copy bug in geth in github.com/ethereum/go-ethereum
+description: |-
+    ### Impact This is a Consensus vulnerability, which can be used to cause a
+    chain-split where vulnerable nodes reject the canonical chain.
+
+    Geth’s pre-compiled `dataCopy` (at `0x00...04`) contract did a shallow copy on
+    invocation. An attacker could deploy a contract that
+
+    - writes `X` to an EVM memory region `R`,
+    - calls `0x00..04` with `R` as an argument,
+    - overwrites `R` to `Y`,
+    - and finally invokes the `RETURNDATACOPY` opcode.
+
+    When this contract is invoked, a consensus-compliant node would push `X` on the
+    EVM stack, whereas Geth would push `Y`.
+
+    ### For more information If you have any questions or comments about this
+    advisory:
+    * Open an issue in [go-ethereum](https://github.com/ethereum/go-ethereum)
+    * Email us at [security@ethereum.org](mailto:security@ethereum.org)
+cves:
+    - CVE-2020-26241
+ghsas:
+    - GHSA-69v6-xc2j-r2jf
+references:
+    - advisory: https://github.com/ethereum/go-ethereum/security/advisories/GHSA-69v6-xc2j-r2jf
+    - fix: https://github.com/ethereum/go-ethereum/commit/295693759e5ded05fec0b2fb39359965b60da785
+    - web: https://blog.ethereum.org/2020/11/12/geth_security_release/
+notes:
+    - lint: 'description: possible markdown formatting (found ### )'
+    - lint: 'description: possible markdown formatting (found [go-ethereum](https://github.com/ethereum/go-ethereum))'
+    - lint: 'description: possible markdown formatting (found `dataCopy` (at `0x00...04`)'
+source:
+    id: GHSA-69v6-xc2j-r2jf
+    created: 1999-01-01T00:00:00Z
+review_status: REVIEWED

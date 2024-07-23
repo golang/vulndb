@@ -1,0 +1,65 @@
+id: GO-ID-PENDING
+modules:
+    - module: github.com/personnummer/go
+      vulnerable_at: 1.1.0
+    - module: github.com/personnummer/go/v3
+      non_go_versions:
+        - fixed: 3.0.1
+      vulnerable_at: 3.1.2
+summary: personnummer/go vulnerable to Improper Input Validation in github.com/personnummer/go
+description: |-
+    This vulnerability was reported to the personnummer team in June 2020. The slow
+    response was due to locked ownership of some of the affected packages, which
+    caused delays to update packages prior to disclosure.
+
+    The vulnerability is determined to be low severity.
+
+    ### Impact
+
+    This vulnerability impacts users who rely on the for last digits of personnummer
+    to be a _real_ personnummer.
+
+    ### Patches
+
+    The issue have been patched in all repositories. The following versions should
+    be updated to as soon as possible:
+
+    [C#](https://github.com/advisories/GHSA-qv8q-v995-72gr) 3.0.2 D 3.0.1
+    [Dart](https://github.com/advisories/GHSA-4xh4-v2pq-jvhm) 3.0.3 Elixir 3.0.0
+    [Go](https://github.com/advisories/GHSA-hv53-vf5m-8q94) 3.0.1
+    [Java](https://github.com/advisories/GHSA-q3vw-4jx3-rrr2) 3.3.0
+    [JavaScript](https://github.com/advisories/GHSA-vpgc-7h78-gx8f) 3.1.0 Kotlin
+    1.1.0 Lua 3.0.1 [PHP](https://github.com/advisories/GHSA-2p6g-gjp8-ggg9) 3.0.2
+    Perl 3.0.0 [Python](https://github.com/advisories/GHSA-rxq3-5249-8hgg) 3.0.2
+    [Ruby](https://github.com/advisories/GHSA-vp9c-fpxx-744v) 3.0.1
+    [Rust](https://github.com/advisories/GHSA-28r9-pq4c-wp3c) 3.0.0 Scala 3.0.1
+    Swift 1.0.1
+
+    If you are using any of the earlier packages, please update to latest.
+
+    ### Workarounds
+
+    The issue arrieses from the regular expression allowing the first three digits
+    in the last four digits of the personnummer to be 000, which is invalid. To
+    mitigate this without upgrading, a check on the last four digits can be made to
+    make sure it's not 000x.
+
+    ### For more information
+
+    If you have any questions or comments about this advisory:
+    * Open an issue in [Personnummer
+    Meta](https://github.com/personnummer/meta/issues)
+    * Email us at [Personnummer Email](mailto:security@personnummer.dev)
+ghsas:
+    - GHSA-hv53-vf5m-8q94
+references:
+    - advisory: https://github.com/personnummer/go/security/advisories/GHSA-hv53-vf5m-8q94
+    - web: https://pkg.go.dev/github.com/personnummer/go
+notes:
+    - lint: 'description: possible markdown formatting (found ### )'
+    - lint: 'description: possible markdown formatting (found [C#](https://github.com/advisories/GHSA-qv8q-v995-72gr))'
+    - lint: 'summary: must begin with a capital letter'
+source:
+    id: GHSA-hv53-vf5m-8q94
+    created: 1999-01-01T00:00:00Z
+review_status: REVIEWED

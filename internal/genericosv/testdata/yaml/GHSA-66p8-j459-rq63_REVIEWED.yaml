@@ -1,0 +1,52 @@
+id: GO-ID-PENDING
+modules:
+    - module: github.com/pterodactyl/wings
+      versions:
+        - fixed: 1.7.4
+        - introduced: 1.11.0
+        - fixed: 1.11.4
+      vulnerable_at: 1.11.3
+summary: |-
+    Pterodactyl Wings contains UNIX Symbolic Link (Symlink) Following resulting in
+    deletion of files and directories on the host system in github.com/pterodactyl/wings
+description: |-
+    ### Impact
+
+    This vulnerability impacts anyone running the affected versions of Wings. The
+    vulnerability can be used to delete files and directories recursively on the
+    host system. This vulnerability can be combined with
+    [`GHSA-p8r3-83r8-jwj5`](https://github.com/pterodactyl/wings/security/advisories/GHSA-p8r3-83r8-jwj5)
+    to overwrite files on the host system.
+
+    In order to use this exploit, an attacker must have an existing "server"
+    allocated and controlled by Wings. Information on how the exploitation of this
+    vulnerability works will be released on February 24th, 2023 in North America.
+
+    ### Patches
+
+    This vulnerability has been resolved in version `v1.11.4` of Wings, and has been
+    back-ported to the 1.7 release series in `v1.7.4`.
+
+    Anyone running `v1.11.x` should upgrade to `v1.11.4` and anyone running `v1.7.x`
+    should upgrade to `v1.7.4`.
+
+    ### Workarounds
+
+    None at this time.
+cves:
+    - CVE-2023-25168
+ghsas:
+    - GHSA-66p8-j459-rq63
+references:
+    - advisory: https://github.com/pterodactyl/wings/security/advisories/GHSA-66p8-j459-rq63
+    - fix: https://github.com/pterodactyl/wings/commit/429ac62dba22997a278bc709df5ac00a5a25d83d
+    - web: https://github.com/pterodactyl/wings/security/advisories/GHSA-p8r3-83r8-jwj5
+notes:
+    - lint: 'description: possible markdown formatting (found ### )'
+    - lint: 'description: possible markdown formatting (found [`GHSA-p8r3-83r8-jwj5`](https://github.com/pterodactyl/wings/security/advisories/GHSA-p8r3-83r8-jwj5))'
+    - lint: 'description: possible markdown formatting (found `GHSA-p8r3-83r8-jwj5`)'
+    - lint: 'summary: too long (found 163 characters, want <=125)'
+source:
+    id: GHSA-66p8-j459-rq63
+    created: 1999-01-01T00:00:00Z
+review_status: REVIEWED

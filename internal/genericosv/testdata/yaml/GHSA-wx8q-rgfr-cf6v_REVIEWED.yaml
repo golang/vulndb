@@ -1,0 +1,34 @@
+id: GO-ID-PENDING
+modules:
+    - module: github.com/google/exposure-notifications-verification-server
+      versions:
+        - fixed: 1.1.2
+      vulnerable_at: 1.1.1
+summary: |-
+    Insufficient Granularity of Access Control in
+    github.com/google/exposure-notifications-verification-server
+description: |-
+    ### Impact Users or API keys with permission to expire verification codes could
+    have expired codes that belonged to another realm if they guessed the UUID.
+
+    ### Patches v1.1.2+
+
+    ### Workarounds There are no workarounds, and there are no indications this has
+    been exploited in the wild. Verification codes can only be expired by providing
+    their 64-bit UUID, and verification codes are already valid for a very short
+    period of time (thus the UUID rotates frequently).
+
+    ### For more information Contact exposure-notifications-feedback@google.com
+cves:
+    - CVE-2021-22565
+ghsas:
+    - GHSA-wx8q-rgfr-cf6v
+references:
+    - advisory: https://github.com/google/exposure-notifications-verification-server/security/advisories/GHSA-wx8q-rgfr-cf6v
+    - web: https://github.com/google/exposure-notifications-verification-server/releases/tag/v1.1.2
+notes:
+    - lint: 'description: possible markdown formatting (found ### )'
+source:
+    id: GHSA-wx8q-rgfr-cf6v
+    created: 1999-01-01T00:00:00Z
+review_status: REVIEWED

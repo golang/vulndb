@@ -1,0 +1,36 @@
+id: GO-ID-PENDING
+modules:
+    - module: github.com/pterodactyl/wings
+      versions:
+        - introduced: 1.2.0
+        - fixed: 1.2.1
+      vulnerable_at: 1.2.0
+summary: |-
+    Unchecked hostname resolution could allow access to local network resources by
+    users outside the local network in github.com/pterodactyl/wings
+description: |-
+    ### Impact A newly implemented route allowing users to download files from
+    remote endpoints was not properly verifying the destination hostname for user
+    provided URLs. This would allow malicious users to potentially access resources
+    on local networks that would otherwise be inaccessible.
+
+    This vulnerability requires valid authentication credentials and is therefore
+    **not exploitable by unauthenticated users**. If you are running an instance for
+    yourself or other trusted individuals this impact is unlikely to be of major
+    concern to you. However, you should still upgrade for security sake.
+
+    ### Patches Users should upgrade to the latest version of Wings.
+
+    ### Workarounds There is no workaround available that does not involve modifying
+    Panel or Wings code.
+ghsas:
+    - GHSA-6rg3-8h8x-5xfv
+references:
+    - advisory: https://github.com/pterodactyl/wings/security/advisories/GHSA-6rg3-8h8x-5xfv
+notes:
+    - lint: 'description: possible markdown formatting (found ### )'
+    - lint: 'summary: too long (found 142 characters, want <=125)'
+source:
+    id: GHSA-6rg3-8h8x-5xfv
+    created: 1999-01-01T00:00:00Z
+review_status: REVIEWED

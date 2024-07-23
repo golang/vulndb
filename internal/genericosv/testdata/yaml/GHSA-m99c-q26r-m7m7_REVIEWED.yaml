@@ -1,0 +1,54 @@
+id: GO-ID-PENDING
+modules:
+    - module: github.com/evmos/evmos/v13
+      unsupported_versions:
+        - last_affected: 13.0.2
+      vulnerable_at: 13.0.2
+    - module: github.com/evmos/evmos/v13
+      unsupported_versions:
+        - last_affected: 13.0.2
+      vulnerable_at: 13.0.2
+      packages:
+        - package: github.com/evmos/evmos/v13/x/vesting
+summary: Evmos vulnerable to unauthorized account creation with vesting module in github.com/evmos/evmos/v13
+description: |-
+    ### Impact _What kind of vulnerability is it? Who is impacted?_
+
+    Using the vesting module, a malicious attacker can create a new vesting account
+    at a given address, before a contract is created on that address.
+
+    Addresses of smart contracts deployed to the EVM are deterministic. Therefore,
+    it would be possible for an attacker to front-run a contract creation and create
+    a vesting account at that address. When an address has been initialized without
+    any contract code deployed to it, it will not be possible to upload any
+    afterwards. In the described attack, this would mean that a malicious actor
+    could prevent smart contracts from being deployed correctly.
+
+    In order to remediate this, an alternative user flow is being implemented for
+    the vesting module:
+    - only the account receiving the vesting funds will be able to create such an
+    account by calling the `CreateClawbackVestingAccount` method and defining a
+    funder address
+    - vesting and lockup periods can then be created by that funder address using
+    `FundClawbackAccount`
+
+    ### Patches _Has the problem been patched? What versions should users upgrade
+    to?_
+
+    ### Workarounds _Is there a way for users to fix or remediate the vulnerability
+    without upgrading?_
+
+    ### References _Are there any links users can visit to find out more?_
+ghsas:
+    - GHSA-m99c-q26r-m7m7
+references:
+    - advisory: https://github.com/evmos/evmos/security/advisories/GHSA-m99c-q26r-m7m7
+notes:
+    - lint: 'description: possible markdown formatting (found ### )'
+    - lint: 'description: possible markdown formatting (found `CreateClawbackVestingAccount`)'
+    - lint: 'modules[0] "github.com/evmos/evmos/v13": unsupported_versions: found 1 (want none)'
+    - lint: 'modules[1] "github.com/evmos/evmos/v13": unsupported_versions: found 1 (want none)'
+source:
+    id: GHSA-m99c-q26r-m7m7
+    created: 1999-01-01T00:00:00Z
+review_status: REVIEWED

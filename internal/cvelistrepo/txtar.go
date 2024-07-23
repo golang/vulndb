@@ -101,24 +101,30 @@ func TestToReport[S report.Source](t *testing.T, update, realProxy bool) error {
 				t.Fatalf("%s not found in testCVEs", id)
 			}
 
-			r := report.New(cve, pc, report.WithModulePath(mp),
-				report.WithCreated(testTime))
-			// Keep record of what lints would apply to each generated report.
-			r.LintAsNotes(pc)
-			b, err := yaml.Marshal(r)
-			if err != nil {
-				t.Fatal(err)
+			var want []txtar.File
+			for _, rs := range []report.ReviewStatus{report.Unreviewed, report.Reviewed} {
+				r := report.New(cve, pc,
+					report.WithModulePath(mp),
+					report.WithCreated(testTime),
+					report.WithReviewStatus(rs),
+				)
+				// Keep record of what lints would apply to each generated report.
+				r.LintAsNotes(pc)
+				b, err := yaml.Marshal(r)
+				if err != nil {
+					t.Fatal(err)
+				}
+				want = append(want,
+					txtar.File{
+						Name: id + "_" + rs.String(),
+						Data: b,
+					})
 			}
 
 			tf := filepath.Join(testdata, t.Name()+".txtar")
 
 			if update {
-				if err := test.WriteTxtar(tf, []txtar.File{
-					{
-						Name: id,
-						Data: b,
-					},
-				}, fmt.Sprintf("Expected output of %s.", t.Name())); err != nil {
+				if err := test.WriteTxtar(tf, want, fmt.Sprintf("Expected output of %s.", t.Name())); err != nil {
 					t.Fatal(err)
 				}
 			}
@@ -128,15 +134,9 @@ func TestToReport[S report.Source](t *testing.T, update, realProxy bool) error {
 				t.Fatal(err)
 			}
 
-			for _, af := range ar.Files {
-				if af.Name != id {
-					t.Errorf("unexpected archive file %s", af.Name)
-					continue
-				}
-				want, got := string(b), string(af.Data)
-				if diff := cmp.Diff(want, got); diff != "" {
-					t.Errorf("%s content mismatch (-want, +got):\n%s", af.Name, diff)
-				}
+			got := ar.Files
+			if diff := cmp.Diff(want, got); diff != "" {
+				t.Errorf("content mismatch (-want, +got):\n%s", diff)
 			}
 		})
 	}

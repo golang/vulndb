@@ -1,0 +1,76 @@
+id: GO-ID-PENDING
+modules:
+    - module: github.com/concourse/concourse
+      non_go_versions:
+        - introduced: 6.3.0
+        - fixed: 6.3.1
+        - introduced: 6.4.0
+        - fixed: 6.4.1
+      vulnerable_at: 4.2.3+incompatible
+    - module: github.com/concourse/dex
+      non_go_versions:
+        - introduced: 6.3.0
+        - fixed: 6.3.1
+        - introduced: 6.4.0
+        - fixed: 6.4.1
+      vulnerable_at: 1.8.0
+summary: |-
+    GitLab auth uses full name instead of username as user ID, allowing
+    impersonation in github.com/concourse/concourse
+description: |-
+    ### Impact
+
+    Installations which use the GitLab auth connector are vulnerable to identity
+    spoofing by way of configuring a GitLab account with the same full name as
+    another GitLab user who is granted access to a Concourse team by having their
+    full name listed under `users` in the team configuration or given to the
+    `--gitlab-user` flag.
+
+    See the [GitLab auth docs](https://concourse-ci.org/gitlab-auth.html) for
+    details.
+
+    Concourse installations which do not configure the GitLab auth connector are not
+    affected.
+
+    ### Patches
+
+    Concourse [v6.3.1](https://github.com/concourse/concourse/releases/tag/v6.3.1)
+    and [v6.4.1](https://github.com/concourse/concourse/releases/tag/v6.4.1) were
+    both released with a fix on August 4th, 2020.
+
+    Both versions change the GitLab connector to use the username, rather than the
+    full name. This was always the intent, and the previous behavior was originally
+    reported as a bug (concourse/dex#7) prior to being reported as a security issue.
+
+    Any Concourse teams which configure GitLab users will have to switch each user
+    from their full name to their username upon upgrading to these versions.
+
+    ### Workarounds
+
+    GitLab groups do not have this vulnerability, so GitLab users may be moved into
+    groups which are then configured in the Concourse team.
+
+    ### References
+
+    * concourse/dex#12: PR with the fix
+
+    ### For more information
+
+    If you have any questions or comments about this advisory, you may reach us
+    privately at
+    [concourseteam+security@gmail.com](mailto:concourseteam+security@gmail.com).
+cves:
+    - CVE-2020-5415
+ghsas:
+    - GHSA-627p-rr78-99rj
+references:
+    - advisory: https://github.com/concourse/concourse/security/advisories/GHSA-627p-rr78-99rj
+    - web: https://tanzu.vmware.com/security/cve-2020-5415
+notes:
+    - lint: 'description: possible markdown formatting (found ### )'
+    - lint: 'description: possible markdown formatting (found [GitLab auth docs](https://concourse-ci.org/gitlab-auth.html))'
+    - lint: 'description: possible markdown formatting (found `users`)'
+source:
+    id: GHSA-627p-rr78-99rj
+    created: 1999-01-01T00:00:00Z
+review_status: REVIEWED

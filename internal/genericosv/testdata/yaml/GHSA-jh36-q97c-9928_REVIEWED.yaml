@@ -1,0 +1,37 @@
+id: GO-ID-PENDING
+modules:
+    - module: k8s.io/kubernetes
+      versions:
+        - introduced: 1.22.0
+        - fixed: 1.22.16
+        - introduced: 1.23.0
+        - fixed: 1.23.14
+        - introduced: 1.24.0
+        - fixed: 1.24.8
+        - introduced: 1.25.0
+        - fixed: 1.25.4
+      vulnerable_at: 1.25.4-rc.0
+summary: Kubernetes vulnerable to validation bypass in k8s.io/kubernetes
+description: |-
+    Users may have access to secure endpoints in the control plane network.
+    Kubernetes clusters are only affected if an untrusted user can modify Node
+    objects and send proxy requests to them. Kubernetes supports node proxying,
+    which allows clients of kube-apiserver to access endpoints of a Kubelet to
+    establish connections to Pods, retrieve container logs, and more. While
+    Kubernetes already validates the proxying address for Nodes, a bug in
+    kube-apiserver made it possible to bypass this validation. Bypassing this
+    validation could allow authenticated requests destined for Nodes to to the API
+    server's private network.
+cves:
+    - CVE-2022-3294
+ghsas:
+    - GHSA-jh36-q97c-9928
+references:
+    - advisory: https://github.com/advisories/GHSA-jh36-q97c-9928
+    - web: https://github.com/kubernetes/kubernetes/issues/113757
+    - web: https://groups.google.com/g/kubernetes-security-announce/c/VyPOxF7CIbA
+    - web: https://security.netapp.com/advisory/ntap-20230505-0007/
+source:
+    id: GHSA-jh36-q97c-9928
+    created: 1999-01-01T00:00:00Z
+review_status: REVIEWED

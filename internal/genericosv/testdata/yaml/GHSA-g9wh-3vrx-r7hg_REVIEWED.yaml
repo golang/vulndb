@@ -1,0 +1,30 @@
+id: GO-ID-PENDING
+modules:
+    - module: github.com/cloudflare/cfrpki
+      versions:
+        - fixed: 1.4.0
+      vulnerable_at: 1.3.0
+summary: OctoRPKI crashes when processing GZIP bomb returned via malicious repository in github.com/cloudflare/cfrpki
+description: |-
+    OctoRPKI tries to load the entire contents of a repository in memory, and in the
+    case of a GZIP bomb, unzip it in memory, making it possible to create a
+    repository that makes OctoRPKI run out of memory (and thus crash).
+
+    ## Patches
+
+    ## For more information If you have any questions or comments about this
+    advisory email us at security@cloudflare.com
+cves:
+    - CVE-2021-3912
+ghsas:
+    - GHSA-g9wh-3vrx-r7hg
+references:
+    - advisory: https://github.com/cloudflare/cfrpki/security/advisories/GHSA-g9wh-3vrx-r7hg
+    - fix: https://github.com/cloudflare/cfrpki/commit/648658b1b176a747b52645989cfddc73a81eacad
+    - web: https://www.debian.org/security/2022/dsa-5041
+notes:
+    - lint: 'description: possible markdown formatting (found ## )'
+source:
+    id: GHSA-g9wh-3vrx-r7hg
+    created: 1999-01-01T00:00:00Z
+review_status: REVIEWED

@@ -1,0 +1,44 @@
+id: GO-ID-PENDING
+modules:
+    - module: github.com/pomerium/pomerium
+      versions:
+        - introduced: 0.10.0
+        - fixed: 0.13.4
+      vulnerable_at: 0.13.3
+    - module: github.com/pomerium/pomerium
+      versions:
+        - introduced: 0.10.0
+        - fixed: 0.13.4
+      vulnerable_at: 0.13.3
+      packages:
+        - package: github.com/pomerium/pomerium/authenticate
+summary: pomerium_signature is not verified in middleware in github.com/pomerium/pomerium
+description: |-
+    ### Impact Some API endpoints under /.pomerium/ do not verify parameters with
+    pomerium_signature. This could allow modifying parameters intended to be trusted
+    to Pomerium.
+
+    The issue mainly affects routes responsible for sign in/out, but does not
+    introduce an authentication bypass.
+
+    ### Patches Patched in v0.13.4
+
+    ### For more information If you have any questions or comments about this
+    advisory
+    * Open an issue in [pomerium](http://github.com/pomerium/pomerium)
+    * Email us at [security@pomerium.com](mailto:security@pomerium.com)
+cves:
+    - CVE-2021-29652
+ghsas:
+    - GHSA-fv82-r8qv-ch4v
+references:
+    - advisory: https://github.com/pomerium/pomerium/security/advisories/GHSA-fv82-r8qv-ch4v
+    - fix: https://github.com/pomerium/pomerium/pull/2048
+notes:
+    - lint: 'description: possible markdown formatting (found ### )'
+    - lint: 'description: possible markdown formatting (found [pomerium](http://github.com/pomerium/pomerium))'
+    - lint: 'summary: must begin with a capital letter'
+source:
+    id: GHSA-fv82-r8qv-ch4v
+    created: 1999-01-01T00:00:00Z
+review_status: REVIEWED

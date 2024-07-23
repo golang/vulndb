@@ -1,0 +1,37 @@
+id: GO-ID-PENDING
+modules:
+    - module: github.com/git-lfs/git-lfs
+      non_go_versions:
+        - fixed: 2.1.1-0.20170519163204-f913f5f9c7c6
+      vulnerable_at: 1.5.6
+    - module: github.com/git-lfs/git-lfs
+      non_go_versions:
+        - fixed: 2.1.1-0.20170519163204-f913f5f9c7c6
+      vulnerable_at: 1.5.6
+      packages:
+        - package: github.com/git-lfs/git-lfs/lfsapi
+summary: GitHub Git LFS Improper Input Validation vulnerability in github.com/git-lfs/git-lfs
+description: |-
+    GitHub Git LFS before 2.1.1 allows remote attackers to execute arbitrary
+    commands via an ssh URL with an initial dash character in the hostname, located
+    on a `url =` line in a `.lfsconfig` file within a repository.
+cves:
+    - CVE-2017-17831
+ghsas:
+    - GHSA-w4xh-w33p-4v29
+references:
+    - advisory: https://github.com/advisories/GHSA-w4xh-w33p-4v29
+    - fix: https://github.com/git-lfs/git-lfs/commit/f913f5f9c7c6d1301785fdf9884a2942d59cdf19
+    - fix: https://github.com/git-lfs/git-lfs/pull/2241
+    - fix: https://github.com/git-lfs/git-lfs/pull/2242
+    - web: http://blog.recurity-labs.com/2017-08-10/scm-vulns
+    - web: http://www.securityfocus.com/bid/102926
+    - web: https://confluence.atlassian.com/sourcetreekb/sourcetree-security-advisory-2018-01-24-942834324.html
+    - web: https://github.com/git-lfs/git-lfs/releases/tag/v2.1.1
+    - web: https://web.archive.org/web/20200227131639/http://www.securityfocus.com/bid/102926
+notes:
+    - lint: 'description: possible markdown formatting (found `url =` line in a `.lfsconfig`)'
+source:
+    id: GHSA-w4xh-w33p-4v29
+    created: 1999-01-01T00:00:00Z
+review_status: REVIEWED

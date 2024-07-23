@@ -54,22 +54,23 @@ func TestToReport(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			got := report.New(osv, pc, report.WithCreated(testTime))
-			// Keep record of what lints would apply to each generated report.
-			got.LintAsNotes(pc)
-
-			yamlFile := filepath.Join(testYAMLDir, ghsaID+".yaml")
-			if *update {
-				if err := got.Write(yamlFile); err != nil {
+			for _, rs := range []report.ReviewStatus{report.Unreviewed, report.Reviewed} {
+				got := report.New(osv, pc, report.WithCreated(testTime), report.WithReviewStatus(rs))
+				// Keep record of what lints would apply to each generated report.
+				got.LintAsNotes(pc)
+				yamlFile := filepath.Join(testYAMLDir, ghsaID+"_"+rs.String()+".yaml")
+				if *update {
+					if err := got.Write(yamlFile); err != nil {
+						t.Fatal(err)
+					}
+				}
+				want, err := report.Read(yamlFile)
+				if err != nil {
 					t.Fatal(err)
 				}
-			}
-			want, err := report.Read(yamlFile)
-			if err != nil {
-				t.Fatal(err)
-			}
-			if diff := cmp.Diff(want, got); diff != "" {
-				t.Errorf("ToReport() mismatch (-want +got)\n%s", diff)
+				if diff := cmp.Diff(want, got); diff != "" {
+					t.Errorf("ToReport() mismatch (-want +got)\n%s", diff)
+				}
 			}
 		})
 		return nil

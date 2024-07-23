@@ -1,0 +1,36 @@
+id: GO-ID-PENDING
+modules:
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - introduced: 8.1.0
+        - fixed: 8.5.21
+        - introduced: 9.0.0
+        - fixed: 9.2.13
+        - introduced: 9.3.0
+        - fixed: 9.3.8
+      vulnerable_at: 5.4.5+incompatible
+summary: Grafana vulnerable to Cross-site Scripting in github.com/grafana/grafana
+description: |-
+    Grafana is an open-source platform for monitoring and observability. Starting
+    with the 8.1 branch, Grafana had a stored XSS vulnerability affecting the core
+    plugin GeoMap. The stored XSS vulnerability was possible due to map attributions
+    weren't properly sanitized and allowed arbitrary JavaScript to be executed in
+    the context of the currently authorized user of the Grafana instance. An
+    attacker needs to have the Editor role in order to change a panel to include a
+    map attribution containing JavaScript. This means that vertical privilege
+    escalation is possible, where a user with Editor role can change to a known
+    password for a user having Admin role if the user with Admin role executes
+    malicious JavaScript viewing a dashboard. Users may upgrade to version 8.5.21,
+    9.2.13 and 9.3.8 to receive a fix.
+cves:
+    - CVE-2023-0507
+ghsas:
+    - GHSA-hjv9-hm2f-rpcj
+references:
+    - advisory: https://github.com/advisories/GHSA-hjv9-hm2f-rpcj
+    - web: https://grafana.com/security/security-advisories/cve-2023-0507/
+    - web: https://security.netapp.com/advisory/ntap-20230413-0001/
+source:
+    id: GHSA-hjv9-hm2f-rpcj
+    created: 1999-01-01T00:00:00Z
+review_status: REVIEWED
