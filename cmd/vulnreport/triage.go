@@ -120,7 +120,7 @@ func (t *triage) triage(ctx context.Context, iss *issues.Issue) {
 			log.Infof("issue #%d: would set labels: [%s]", iss.Number, strings.Join(labels, ", "))
 		} else {
 			if err := t.ic.SetLabels(ctx, iss.Number, labels); err != nil {
-				log.Warnf("issue #%d: could not auto-set label(s) %s", iss.Number, labels)
+				log.Warnf("issue #%d: could not auto-set label(s) %s\n\t%v", iss.Number, labels, err)
 			}
 		}
 		t.addStat(iss, statTriaged, "")
