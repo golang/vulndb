@@ -1,17 +1,56 @@
 id: GO-2024-2974
 modules:
     - module: github.com/evmos/evmos
-      non_go_versions:
-        - fixed: 19.0.0
       vulnerable_at: 1.1.3
+    - module: github.com/evmos/evmos/v2
+      vulnerable_at: 2.0.2
+    - module: github.com/evmos/evmos/v3
+      vulnerable_at: 3.0.3
+    - module: github.com/evmos/evmos/v4
+      vulnerable_at: 4.0.2
+    - module: github.com/evmos/evmos/v5
+      vulnerable_at: 5.0.1
+    - module: github.com/evmos/evmos/v6
+      vulnerable_at: 6.0.4
+    - module: github.com/evmos/evmos/v7
+      vulnerable_at: 7.0.0
+    - module: github.com/evmos/evmos/v8
+      vulnerable_at: 8.2.3
+    - module: github.com/evmos/evmos/v9
+      vulnerable_at: 9.1.0
+    - module: github.com/evmos/evmos/v10
+      vulnerable_at: 10.0.1
+    - module: github.com/evmos/evmos/v11
+      vulnerable_at: 11.0.2
+    - module: github.com/evmos/evmos/v12
+      vulnerable_at: 12.1.6
+    - module: github.com/evmos/evmos/v13
+      vulnerable_at: 13.0.2
+    - module: github.com/evmos/evmos/v14
+      vulnerable_at: 14.1.0
+    - module: github.com/evmos/evmos/v15
+      vulnerable_at: 15.0.0
+    - module: github.com/evmos/evmos/v16
+      vulnerable_at: 16.0.4
+    - module: github.com/evmos/evmos/v17
+      vulnerable_at: 17.0.1
+    - module: github.com/evmos/evmos/v18
+      vulnerable_at: 18.1.0
+    - module: github.com/evmos/evmos/v19
+      versions:
+        - fixed: 19.0.0
 summary: Evmos vulnerable to exploit of smart contract account and vesting in github.com/evmos/evmos
 cves:
     - CVE-2024-39696
+ghsas:
+    - GHSA-q6hg-6m9x-5g9c
 references:
+    - advisory: https://github.com/evmos/evmos/security/advisories/GHSA-q6hg-6m9x-5g9c
     - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-39696
     - fix: https://github.com/evmos/evmos/commit/0a620e176617a835ac697eea494afea09185dfaf
-    - web: https://github.com/evmos/evmos/security/advisories/GHSA-q6hg-6m9x-5g9c
+notes:
+    - fix: 'github.com/evmos/evmos/v19: could not add vulnerable_at: could not find tagged version between introduced and fixed'
 source:
-    id: CVE-2024-39696
-    created: 2024-07-08T13:23:28.697883-04:00
+    id: GHSA-q6hg-6m9x-5g9c
+    created: 2024-07-26T12:35:54.562341-04:00
 review_status: UNREVIEWED
