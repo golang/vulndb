@@ -52,20 +52,80 @@ var gopkgHosts = map[string]bool{
 const snykIdentifier = "snyk.io/vuln/SNYK-GOLANG"
 
 // nonGoModules are paths that return a 200 on pkg.go.dev, but do not contain
-// Go code. However, these libraries often have CVEs that are false positive for
-// a Go vuln.
+// meaningful Go code. However, these libraries often have CVEs that are
+// false positive for a Go vuln.
 var notGoModules = map[string]bool{
-	"github.com/channelcat/sanic":            true, // python library
-	"github.com/rapid7/metasploit-framework": true, // ruby library
-	"github.com/tensorflow/tensorflow":       true, // python library
-	"gitweb.gentoo.org/repo/gentoo.git":      true, // ebuild
-	"qpid.apache.org":                        true, // C, python, & Java library
+	"github.com/channelcat/sanic":                    true, // python library
+	"github.com/rapid7/metasploit-framework":         true, // ruby library
+	"github.com/tensorflow/tensorflow":               true, // python library
+	"gitweb.gentoo.org/repo/gentoo.git":              true, // ebuild
+	"qpid.apache.org":                                true, // C, python, & Java library
+	"github.com/apache/airflow":                      true, // python
+	"github.com/pyca/cryptography":                   true, // python
+	"github.com/louislam/uptime-kuma":                true, // javscript
+	"gitlab.nic.cz/knot/knot-resolver":               true, // C
+	"github.com/ceph/ceph":                           true, // C
+	"github.com/swoole/swoole-src":                   true, // php
+	"git.sheetjs.com/sheetjs/sheetjs":                true, // javascript, typescript
+	"github.com/glpi-project/glpi-agent":             true, // perl
+	"gitlab.com/graphviz/graphviz":                   true, // C++
+	"github.com/humhub/humhub":                       true, // php
+	"github.com/TokTok/c-toxcore":                    true, // C
+	"github.com/chamilo/chamilo-lms":                 true, // php
+	"github.com/NationalSecurityAgency/ghidra":       true,
+	"github.com/gongfuxiang/shopxo":                  true, // php
+	"github.com/lemire/simdcomp":                     true, // C
+	"github.com/Requarks/wiki":                       true, // nodejs
+	"github.com/requarks/wiki":                       true, // nodejs
+	"github.com/tendenci/tendenci":                   true, // python
+	"github.com/ansible/ansible":                     true, // python
+	"github.com/openshift/origin-server":             true, // ruby
+	"github.com/jqueryfiletree/jqueryfiletree":       true, // javascript
+	"github.com/liblouis/liblouis":                   true, // C
+	"github.com/afaqurk/linux-dash":                  true, // javascript
+	"github.com/erxes/erxes":                         true, // typescript
+	"github.com/kvz/locutus":                         true, // javascript
+	"github.com/locutusjs/locutus":                   true, // javascript
+	"git.kernel.org/pub/scm/git/git.git":             true, // C
+	"github.com/Alluxio/alluxio":                     true, // multiple (not Go)
+	"github.com/DFIRKuiper/Kuiper":                   true, // python
+	"github.com/JuliaLang/julia":                     true, // julia
+	"github.com/apache/skywalking":                   true, // java
+	"github.com/aptos-labs/aptos-core":               true, // rust
+	"github.com/arangodb/arangodb":                   true, // C
+	"github.com/bentoml/bentoml":                     true, // python
+	"github.com/garden-io/garden":                    true, // typescript
+	"github.com/git/git":                             true, // C
+	"github.com/github/codeql-action":                true, // javascript
+	"github.com/google/oss-fuzz":                     true, // python and typescript
+	"github.com/grpc/grpc":                           true, // C
+	"github.com/hyperledger/aries-cloudagent-python": true, // python
+	"github.com/istio/envoy":                         true, // C++
+	"github.com/libp2p/js-libp2p":                    true, // javascript
+	"github.com/mozilla-mobile/mozilla-vpn-client":   true, // C
+	"github.com/occlum/occlum":                       true, // C
+	"github.com/openshift/origin-aggregated-logging": true, // multiple (not Go)
+	"github.com/pygments/pygments":                   true, // python
+	"github.com/raydac/netbeans-mmd-plugin":          true, // java
+	"github.com/remarshal-project/remarshal":         true, // python
+	"github.com/seancfoley/IPAddress":                true, // java
+	"github.com/snapcore/snapcraft":                  true, // python
+	"github.com/sourcegraph/cody":                    true, // typescript
+	"github.com/unbit/uwsgi":                         true, // C++ and python
+	"github.com/wkeyuan/DWSurvey":                    true, // java
 
 	// vulnerability in tool, not importable package
 	"github.com/grafana/grafana":          true,
 	"github.com/sourcegraph/sourcegraph":  true,
 	"gitlab.com/gitlab-org/gitlab-runner": true,
 	"github.com/gravitational/teleport":   true,
+
+	// not relevant for vulndb
+	"github.com/drewxa/summer-tasks":          true, // hobby project
+	"github.com/iamckn/eques":                 true, // exploit examples
+	"github.com/offensive-security/exploitdb": true, // database, not a library or binary
+	"github.com/1d8/publications":             true, // database
+
 }
 
 type Vuln interface {
