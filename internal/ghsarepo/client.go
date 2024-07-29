@@ -11,6 +11,7 @@
 package ghsarepo
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-git/go-git/v5"
@@ -28,10 +29,10 @@ type Client struct {
 const URL = "https://github.com/github/advisory-database"
 const DirectURLPrefix = "https://raw.githubusercontent.com/github/advisory-database/main/advisories/github-reviewed"
 
-// NewClient returns a client to read from the GHSA database.
+// NewDefaultClient returns a client to read from the GHSA database.
 // It clones the Git repo at https://github.com/github/advisory-database,
 // which can take around ~20 seconds.
-func NewClient() (*Client, error) {
+func NewDefaultClient() (*Client, error) {
 	repo, err := git.Clone(memory.NewStorage(), nil, &git.CloneOptions{
 		URL:           URL,
 		ReferenceName: "refs/heads/main",
@@ -43,13 +44,21 @@ func NewClient() (*Client, error) {
 	if err != nil {
 		return nil, err
 	}
-	return NewClientFromRepo(repo)
+	return NewClient(repo)
+}
+
+func NewLocalClient(ctx context.Context, path string) (*Client, error) {
+	repo, err := gitrepo.Open(ctx, path)
+	if err != nil {
+		return nil, err
+	}
+	return NewClient(repo)
 }
 
 // NewClient returns a client that reads from the GHSA database
 // in the given repo, which must follow the structure of
 // https://github.com/github/advisory-database.
-func NewClientFromRepo(repo *git.Repository) (*Client, error) {
+func NewClient(repo *git.Repository) (*Client, error) {
 	hc, err := gitrepo.HeadCommit(repo)
 	if err != nil {
 		return nil, err

@@ -19,7 +19,7 @@ func TestClientReal(t *testing.T) {
 	if !*integration {
 		t.Skipf("-integration flag not set")
 	}
-	c, err := NewClient()
+	c, err := NewDefaultClient()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -122,5 +122,5 @@ func newTestClient() (*Client, error) {
 	if err != nil {
 		return nil, err
 	}
-	return NewClientFromRepo(repo)
+	return NewClient(repo)
 }

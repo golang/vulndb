@@ -20,7 +20,6 @@ import (
 	"golang.org/x/vulndb/internal/genai"
 	"golang.org/x/vulndb/internal/genericosv"
 	"golang.org/x/vulndb/internal/ghsarepo"
-	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/stdlib"
 )
@@ -31,11 +30,8 @@ var (
 )
 
 func main() {
-	localRepo, err := gitrepo.Open(context.Background(), ".")
-	if err != nil {
-		log.Fatal(err)
-	}
-	rc, err := report.NewClient(localRepo)
+	ctx := context.Background()
+	rc, err := report.NewLocalClient(ctx, ".")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -43,17 +39,13 @@ func main() {
 
 	var c *ghsarepo.Client
 	if *localGHSA != "" {
-		repo, err := gitrepo.Open(context.Background(), *localGHSA)
-		if err != nil {
-			log.Fatal(err)
-		}
-		c, err = ghsarepo.NewClientFromRepo(repo)
+		c, err = ghsarepo.NewLocalClient(ctx, *localGHSA)
 		if err != nil {
 			log.Fatal(err)
 		}
 	} else {
 		log.Println("cloning remote GHSA repo (use -lg=path/to/local/ghsa/repo to speed this up)...")
-		c, err = ghsarepo.NewClient()
+		c, err = ghsarepo.NewDefaultClient()
 		if err != nil {
 			log.Fatal(err)
 		}

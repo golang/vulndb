@@ -54,6 +54,14 @@ func NewClient(repo *git.Repository) (*Client, error) {
 	return c, nil
 }
 
+func NewLocalClient(ctx context.Context, path string) (*Client, error) {
+	repo, err := gitrepo.Open(ctx, path)
+	if err != nil {
+		return nil, err
+	}
+	return NewClient(repo)
+}
+
 const VulndbURL = "https://github.com/golang/vulndb"
 
 // NewDefaultClient returns a Client that reads reports from

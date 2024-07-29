@@ -22,7 +22,6 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"golang.org/x/vulndb/internal/cve5"
-	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/osvutils"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/report"
@@ -90,11 +89,8 @@ func TestLintReports(t *testing.T) {
 		}
 	}
 
-	vulndb, err := gitrepo.Open(context.Background(), ".")
-	if err != nil {
-		t.Fatal(err)
-	}
-	rc, err := report.NewClient(vulndb)
+	ctx := context.Background()
+	rc, err := report.NewLocalClient(ctx, ".")
 	if err != nil {
 		t.Fatal(err)
 	}
