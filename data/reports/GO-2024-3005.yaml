@@ -1,0 +1,93 @@
+id: GO-2024-3005
+modules:
+    - module: github.com/moby/moby
+      versions:
+        - introduced: 20.10.0+incompatible
+        - fixed: 25.0.6+incompatible
+        - introduced: 26.0.0+incompatible
+        - fixed: 26.1.5+incompatible
+        - introduced: 27.0.0+incompatible
+        - fixed: 27.1.1+incompatible
+      non_go_versions:
+        - introduced: 19.0.0
+        - fixed: 19.03.16
+        - introduced: 23.0.0
+        - fixed: 23.0.15
+        - introduced: 24.0.0
+        - fixed: 24.0.10
+        - introduced: 20.0.0
+        - fixed: 20.10.28
+        - introduced: 25.0.0
+        - fixed: 25.0.6
+        - introduced: 26.0.0
+        - fixed: 26.0.3
+        - introduced: 26.1.0
+        - fixed: 26.1.15
+        - introduced: 27.0.0
+        - fixed: 27.0.4
+        - introduced: 27.1.0
+        - fixed: 27.1.1
+      vulnerable_at: 27.1.0+incompatible
+      packages:
+        - package: github.com/moby/moby/pkg/authorization
+          symbols:
+            - Ctx.AuthZRequest
+            - sendBody
+          derived_symbols:
+            - Ctx.AuthZResponse
+    - module: github.com/docker/docker
+      versions:
+        - introduced: 20.10.0+incompatible
+        - fixed: 25.0.6+incompatible
+        - introduced: 26.0.0+incompatible
+        - fixed: 26.1.5+incompatible
+        - introduced: 27.0.0+incompatible
+        - fixed: 27.1.1+incompatible
+      non_go_versions:
+        - introduced: 19.0.0
+        - fixed: 19.03.16
+        - introduced: 23.0.0
+        - fixed: 23.0.15
+        - introduced: 24.0.0
+        - fixed: 24.0.10
+        - introduced: 20.0.0
+        - fixed: 20.10.28
+        - introduced: 25.0.0
+        - fixed: 25.0.6
+        - introduced: 26.0.0
+        - fixed: 26.0.3
+        - introduced: 26.1.0
+        - fixed: 26.1.15
+        - introduced: 27.0.0
+        - fixed: 27.0.4
+        - introduced: 27.1.0
+        - fixed: 27.1.1
+      vulnerable_at: 27.1.0+incompatible
+      packages:
+        - package: github.com/docker/docker/pkg/authorization
+          symbols:
+            - Ctx.AuthZRequest
+            - sendBody
+          derived_symbols:
+            - Ctx.AuthZResponse
+summary: Moby authz zero length regression in github.com/moby/moby
+cves:
+    - CVE-2024-41110
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-41110
+    - fix: https://github.com/moby/moby/commit/411e817ddf710ff8e08fa193da80cb78af708191
+    - fix: https://github.com/moby/moby/commit/42f40b1d6dd7562342f832b9cd2adf9e668eeb76
+    - fix: https://github.com/moby/moby/commit/65cc597cea28cdc25bea3b8a86384b4251872919
+    - fix: https://github.com/moby/moby/commit/852759a7df454cbf88db4e954c919becd48faa9b
+    - fix: https://github.com/moby/moby/commit/a31260625655cff9ae226b51757915e275e304b0
+    - fix: https://github.com/moby/moby/commit/a79fabbfe84117696a19671f4aa88b82d0f64fc1
+    - fix: https://github.com/moby/moby/commit/ae160b4edddb72ef4bd71f66b975a1a1cc434f00
+    - fix: https://github.com/moby/moby/commit/ae2b3666c517c96cbc2adf1af5591a6b00d4ec0f
+    - fix: https://github.com/moby/moby/commit/cc13f952511154a2866bddbb7dddebfe9e83b801
+    - fix: https://github.com/moby/moby/commit/fc274cd2ff4cf3b48c91697fb327dd1fb95588fb
+    - web: https://github.com/moby/moby/security/advisories/GHSA-v23v-6jw2-98fq
+    - web: https://www.docker.com/blog/docker-security-advisory-docker-engine-authz-plugin
+source:
+    id: CVE-2024-41110
+    created: 2024-07-29T10:49:08.963064-04:00
+review_status: REVIEWED
