@@ -158,6 +158,18 @@ func TestLint(t *testing.T) {
 			pc:           nil,
 			wantNumLints: 1,
 		},
+		{
+			name: "bad_module_skip_lint",
+			desc: "Module does not exist but skip lint is set.",
+			report: validReport(func(r *Report) {
+				r.Modules = append(r.Modules, &Module{
+					Module:   "golang.org/x/doesnotexist",
+					SkipLint: true,
+				})
+			}),
+			pc: pc,
+			// No lints.
+		},
 	} {
 		test := test
 		t.Run(test.name, func(t *testing.T) {

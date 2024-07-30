@@ -51,6 +51,10 @@ type Module struct {
 	// the fix links found in the report's References field will be used.
 	// Only auto-added if the -update flag is passed to vulnreport.
 	FixLinks []string `yaml:"fix_links,omitempty"`
+	// Do not lint this module.
+	// Only for use in exceptional circumstances, such as when a malicious
+	// module has been deleted from the proxy entirely.
+	SkipLint bool `yaml:"skip_lint,omitempty"`
 }
 
 type Version struct {

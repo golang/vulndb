@@ -541,6 +541,10 @@ func (r *Report) lint(pc *proxy.Client) []string {
 }
 
 func (m *Module) lint(l *linter, r *Report, pc *proxy.Client) {
+	if m.SkipLint {
+		return
+	}
+
 	if m.Module == "" {
 		l.Error("no module name")
 	}
