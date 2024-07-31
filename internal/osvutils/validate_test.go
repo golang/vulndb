@@ -170,13 +170,6 @@ func TestValidate(t *testing.T) {
 				wantErr: errNoAffected,
 			},
 			{
-				name: "no references",
-				entry: testEntry(func(e *osv.Entry) {
-					e.References = nil
-				}),
-				wantErr: errNoReferences,
-			},
-			{
 				name: "no database specific",
 				entry: testEntry(func(e *osv.Entry) {
 					e.DatabaseSpecific = nil

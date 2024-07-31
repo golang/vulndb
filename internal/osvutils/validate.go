@@ -49,7 +49,6 @@ var (
 	errNoSummary           = errors.New("summary field is empty")
 	errNoDetails           = errors.New("details field is empty")
 	errNoAffected          = errors.New("affected field is empty")
-	errNoReferences        = errors.New("references field is empty")
 	errNoDatabaseSpecific  = errors.New("database_specific field is empty")
 	errNoModule            = errors.New("affected field missing module path")
 	errNotGoEcosystem      = errors.New("affected ecosystem is not Go")
@@ -95,8 +94,6 @@ func validate(e *osv.Entry, checkTimestamps bool) (err error) {
 		return errNoDetails
 	case len(e.Affected) == 0:
 		return errNoAffected
-	case len(e.References) == 0:
-		return errNoReferences
 	case e.DatabaseSpecific == nil:
 		return errNoDatabaseSpecific
 	}
