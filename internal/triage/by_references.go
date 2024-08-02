@@ -38,9 +38,9 @@ func RefersToGoModule(ctx context.Context, v Vuln, pc *pkgsite.Client) (_ *Resul
 }
 
 type Result struct {
-	ModulePath  string
-	PackagePath string
-	Reason      string
+	ModulePath  string `yaml:"module_path"`
+	PackagePath string `yaml:"package_path"`
+	Reason      string `yaml:"reason"`
 }
 
 // gopkgHosts are hostnames for popular Go package websites.

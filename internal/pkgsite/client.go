@@ -29,7 +29,7 @@ type Client struct {
 }
 
 func Default() *Client {
-	return New(pkgsiteURL)
+	return New(URL)
 }
 
 func New(url string) *Client {
@@ -53,7 +53,7 @@ var (
 	pkgsiteRateLimiter = rate.NewLimiter(rate.Every(1*time.Second/pkgsiteQPS), 3)
 )
 
-var pkgsiteURL = "https://pkg.go.dev"
+var URL = "https://pkg.go.dev"
 
 // KnownModule reports whether pkgsite knows that path actually refers
 // to a module or package path.

@@ -535,7 +535,9 @@ func TestToVersions(t *testing.T) {
 
 func TestToReport(t *testing.T) {
 	if *updateTxtarRepo {
-		cvelistrepo.UpdateTxtar(context.Background(), t, cvelistrepo.URLv5)
+		if err := cvelistrepo.UpdateTxtar(context.Background(), cvelistrepo.URLv5, cvelistrepo.TestCVEs); err != nil {
+			t.Fatal(err)
+		}
 	}
 
 	if err := cvelistrepo.TestToReport[*CVERecord](t, *update, *realProxy); err != nil {

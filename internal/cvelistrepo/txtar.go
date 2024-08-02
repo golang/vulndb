@@ -29,7 +29,11 @@ import (
 var (
 	txtarRepo = filepath.Join(testdata, "cvelist.txtar")
 	testdata  = filepath.Join("testdata", "cve")
-	testCVEs  = map[string]string{
+	testTime  = time.Date(1999, 1, 1, 0, 0, 0, 0, time.UTC)
+)
+
+var (
+	TestCVEsToModules = map[string]string{
 		// First-party CVEs not assigned by the Go CNA.
 		// (These were created before Go was a CNA).
 		"CVE-2020-9283":  "golang.org/x/crypto",
@@ -43,6 +47,7 @@ var (
 		"CVE-2024-2056":  "github.com/gvalkov/tailon",
 		"CVE-2024-33522": "github.com/projectcalico/calico",
 		"CVE-2024-21527": "github.com/gotenberg/gotenberg",
+		"CVE-2020-7668":  "github.com/unknwon/cae/tz",
 
 		// A third-party non-Go CVE that was miscategorized
 		// as applying to "github.com/amlweems/xzbot".
@@ -56,23 +61,15 @@ var (
 		// A third-party CVE assigned by the Go CNA.
 		"CVE-2023-45286": "github.com/go-resty/resty/v2",
 	}
-	testTime = time.Date(1999, 1, 1, 0, 0, 0, 0, time.UTC)
+	TestCVEs = maps.Keys(TestCVEsToModules)
 )
 
-func UpdateTxtar(ctx context.Context, t *testing.T, url string) {
-	ids := maps.Keys(testCVEs)
+func UpdateTxtar(ctx context.Context, url string, ids []string) error {
 	slices.Sort(ids)
-	if err := writeTxtarRepo(ctx, url, txtarRepo, ids); err != nil {
-		t.Fatal(err)
-	}
+	return writeTxtarRepo(ctx, url, txtarRepo, ids)
 }
 
-func TestToReport[S report.Source](t *testing.T, update, realProxy bool) error {
-	pc, err := proxy.NewTestClient(t, realProxy)
-	if err != nil {
-		t.Fatal(err)
-	}
-
+func RunTest[S report.Source](t *testing.T, update bool, wantFunc func(*testing.T, S) ([]txtar.File, error)) error {
 	if update {
 		if err := os.RemoveAll(filepath.Join(testdata, t.Name())); err != nil {
 			t.Fatal(err)
@@ -91,37 +88,16 @@ func TestToReport[S report.Source](t *testing.T, update, realProxy bool) error {
 	for _, file := range files {
 		id := file.ID()
 		t.Run(id, func(t *testing.T) {
+			tf := filepath.Join(testdata, t.Name()+".txtar")
 			cve, _, err := gitrepo.Parse[S](repo, &file)
 			if err != nil {
 				t.Fatalf("Parse(%s)=%s", id, err)
 			}
 
-			mp, ok := testCVEs[id]
-			if !ok {
-				t.Fatalf("%s not found in testCVEs", id)
+			want, err := wantFunc(t, cve)
+			if err != nil {
+				t.Fatal(err)
 			}
-
-			var want []txtar.File
-			for _, rs := range []report.ReviewStatus{report.Unreviewed, report.Reviewed} {
-				r := report.New(cve, pc,
-					report.WithModulePath(mp),
-					report.WithCreated(testTime),
-					report.WithReviewStatus(rs),
-				)
-				// Keep record of what lints would apply to each generated report.
-				r.LintAsNotes(pc)
-				b, err := yaml.Marshal(r)
-				if err != nil {
-					t.Fatal(err)
-				}
-				want = append(want,
-					txtar.File{
-						Name: id + "_" + rs.String(),
-						Data: b,
-					})
-			}
-
-			tf := filepath.Join(testdata, t.Name()+".txtar")
 
 			if update {
 				if err := test.WriteTxtar(tf, want, fmt.Sprintf("Expected output of %s.", t.Name())); err != nil {
@@ -142,6 +118,45 @@ func TestToReport[S report.Source](t *testing.T, update, realProxy bool) error {
 	}
 
 	return nil
+}
+
+func TestToReport[S report.Source](t *testing.T, update, realProxy bool) error {
+	pc, err := proxy.NewTestClient(t, realProxy)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	wantFunc := func(t *testing.T, cve S) ([]txtar.File, error) {
+		id := cve.SourceID()
+		mp, ok := TestCVEsToModules[id]
+		if !ok {
+			t.Fatalf("%s not found in testCVEs", id)
+		}
+
+		var want []txtar.File
+		for _, rs := range []report.ReviewStatus{report.Unreviewed, report.Reviewed} {
+			r := report.New(cve, pc,
+				report.WithModulePath(mp),
+				report.WithCreated(testTime),
+				report.WithReviewStatus(rs),
+			)
+			// Keep record of what lints would apply to each generated report.
+			r.LintAsNotes(pc)
+			b, err := yaml.Marshal(r)
+			if err != nil {
+				return nil, err
+			}
+			want = append(want,
+				txtar.File{
+					Name: id + "_" + rs.String(),
+					Data: b,
+				})
+		}
+
+		return want, nil
+	}
+
+	return RunTest[S](t, update, wantFunc)
 }
 
 // writeTxtarRepo downloads the given CVEs from the CVE list (v4 or v5) in url,

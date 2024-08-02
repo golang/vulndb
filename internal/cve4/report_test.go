@@ -20,7 +20,9 @@ var (
 
 func TestToReport(t *testing.T) {
 	if *updateTxtarRepo {
-		cvelistrepo.UpdateTxtar(context.Background(), t, cvelistrepo.URLv4)
+		if err := cvelistrepo.UpdateTxtar(context.Background(), cvelistrepo.URLv4, cvelistrepo.TestCVEs); err != nil {
+			t.Fatal(err)
+		}
 	}
 
 	if err := cvelistrepo.TestToReport[*CVE](t, *update, *realProxy); err != nil {
