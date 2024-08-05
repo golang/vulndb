@@ -1,0 +1,31 @@
+id: GO-2024-3006
+modules:
+    - module: github.com/argoproj/argo-cd
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - introduced: 2.6.0
+        - fixed: 2.9.21
+        - introduced: 2.10.0
+        - fixed: 2.10.16
+        - introduced: 2.11.0
+        - fixed: 2.11.7
+      vulnerable_at: 2.11.6
+summary: |-
+    The Argo CD web terminal session does not handle the revocation of user
+    permissions properly in github.com/argoproj/argo-cd
+cves:
+    - CVE-2024-41666
+ghsas:
+    - GHSA-v8wx-v5jq-qhhw
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-v8wx-v5jq-qhhw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-41666
+    - fix: https://github.com/argoproj/argo-cd/commit/05edb2a9ca48f0f10608c1b49fbb0cf7164f6476
+    - fix: https://github.com/argoproj/argo-cd/commit/e96f32d233504101ddac028a5bf8117433d333d6
+    - fix: https://github.com/argoproj/argo-cd/commit/ef535230d8bd8ad7b18aab1ea1063e9751d348c4
+    - web: https://drive.google.com/file/d/1Fynj5Sho8Lf8CETqsNXZyPKlTDdmgJuN/view?usp=sharing
+source:
+    id: GHSA-v8wx-v5jq-qhhw
+    created: 2024-08-05T17:08:58.351784-04:00
+review_status: UNREVIEWED

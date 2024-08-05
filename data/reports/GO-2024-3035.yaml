@@ -1,0 +1,23 @@
+id: GO-2024-3035
+modules:
+    - module: github.com/mickael-kerjean/filestash
+      unsupported_versions:
+        - last_affected: 0.4.0
+      vulnerable_at: 0.2.1
+summary: |-
+    Filestash skips TLS certificate verification process when sending out email
+    verification codes in github.com/mickael-kerjean/filestash
+cves:
+    - CVE-2024-41256
+ghsas:
+    - GHSA-mpvx-whpp-99xj
+references:
+    - advisory: https://github.com/advisories/GHSA-mpvx-whpp-99xj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-41256
+    - report: https://github.com/mickael-kerjean/filestash/issues/709
+    - web: https://gist.github.com/nyxfqq/a6da3fe6128b978ea1aaa5df639d5f98
+    - web: https://github.com/mickael-kerjean/filestash/blob/master/server/model/share.go#L132
+source:
+    id: GHSA-mpvx-whpp-99xj
+    created: 2024-08-05T17:04:13.404592-04:00
+review_status: UNREVIEWED

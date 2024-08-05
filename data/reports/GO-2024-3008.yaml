@@ -1,0 +1,20 @@
+id: GO-2024-3008
+modules:
+    - module: github.com/snapcore/snapd
+      non_go_versions:
+        - fixed: 2.62.0
+      vulnerable_at: 0.0.0-20240805194628-fbfd72574d7f
+summary: snapd failed to properly check the file type when extracting a snap in github.com/snapcore/snapd
+cves:
+    - CVE-2024-29068
+ghsas:
+    - GHSA-64jh-cjwc-w8q6
+references:
+    - advisory: https://github.com/advisories/GHSA-64jh-cjwc-w8q6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-29068
+    - fix: https://github.com/snapcore/snapd/commit/b66fee81606a1c05f965a876ccbaf44174194063
+    - fix: https://github.com/snapcore/snapd/pull/13682
+source:
+    id: GHSA-64jh-cjwc-w8q6
+    created: 2024-08-05T17:08:49.231373-04:00
+review_status: UNREVIEWED

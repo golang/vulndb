@@ -1,0 +1,27 @@
+id: GO-2024-3040
+modules:
+    - module: github.com/juju/juju
+      non_go_versions:
+        - fixed: 2.9.50
+        - introduced: 3.0.0
+        - fixed: 3.1.9
+        - introduced: 3.2.0
+        - fixed: 3.3.6
+        - introduced: 3.4.0
+        - fixed: 3.4.5
+        - introduced: 3.5.0
+        - fixed: 3.5.3
+      vulnerable_at: 0.0.0-20240805113408-a5b7f6ec8204
+summary: |-
+    Juju's unprivileged user running on charm node can leak any secret or relation
+    data accessible to the local charm in github.com/juju/juju
+ghsas:
+    - GHSA-6vjm-54vp-mxhx
+references:
+    - advisory: https://github.com/juju/juju/security/advisories/GHSA-6vjm-54vp-mxhx
+    - fix: https://github.com/juju/juju/commit/da929676853092a29ddf8d589468cf85ba3efaf2
+    - web: https://nvd.nist.gov/vuln/detail/CVE-2024-6984
+source:
+    id: GHSA-6vjm-54vp-mxhx
+    created: 2024-08-05T17:03:46.855203-04:00
+review_status: UNREVIEWED

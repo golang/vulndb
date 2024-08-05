@@ -1,0 +1,23 @@
+id: GO-2024-2999
+modules:
+    - module: go.woodpecker-ci.org/woodpecker
+      vulnerable_at: 1.0.5
+    - module: go.woodpecker-ci.org/woodpecker/v2
+      versions:
+        - fixed: 2.7.0
+      vulnerable_at: 2.6.1
+summary: Woodpecker's custom workspace allow to overwrite plugin entrypoint executable in go.woodpecker-ci.org/woodpecker
+cves:
+    - CVE-2024-41121
+ghsas:
+    - GHSA-xw35-rrcp-g7xm
+references:
+    - advisory: https://github.com/woodpecker-ci/woodpecker/security/advisories/GHSA-xw35-rrcp-g7xm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-41121
+    - web: https://github.com/woodpecker-ci/woodpecker/commit/764329ed1dbc47c4a517ccc749e3feb34059fac8
+    - web: https://github.com/woodpecker-ci/woodpecker/issues/3924
+    - web: https://github.com/woodpecker-ci/woodpecker/pull/3933
+source:
+    id: GHSA-xw35-rrcp-g7xm
+    created: 2024-08-05T17:09:12.333415-04:00
+review_status: UNREVIEWED

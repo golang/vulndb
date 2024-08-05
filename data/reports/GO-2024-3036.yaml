@@ -1,0 +1,19 @@
+id: GO-2024-3036
+modules:
+    - module: github.com/cortexproject/cortex
+      unsupported_versions:
+        - last_affected: 0.42.1
+      vulnerable_at: 1.17.1
+summary: cortex establishes TLS connections with `InsecureSkipVerify` set to `true` in github.com/cortexproject/cortex
+cves:
+    - CVE-2024-41265
+ghsas:
+    - GHSA-vw7g-3cc7-7rmh
+references:
+    - advisory: https://github.com/advisories/GHSA-vw7g-3cc7-7rmh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-41265
+    - web: https://gist.github.com/nyxfqq/1a8237f3f9cf793c6433f08b17d1593c
+source:
+    id: GHSA-vw7g-3cc7-7rmh
+    created: 2024-08-05T17:04:09.711017-04:00
+review_status: UNREVIEWED

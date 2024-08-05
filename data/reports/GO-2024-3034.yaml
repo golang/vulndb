@@ -1,0 +1,22 @@
+id: GO-2024-3034
+modules:
+    - module: volcano.sh/volcano
+      versions:
+        - fixed: 1.10.0-alpha.0
+      vulnerable_at: 1.9.0
+summary: Volcano has insecure permissions in volcano.sh/volcano
+cves:
+    - CVE-2024-36533
+ghsas:
+    - GHSA-5g3x-8g2v-r8x8
+references:
+    - advisory: https://github.com/advisories/GHSA-5g3x-8g2v-r8x8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-36533
+    - web: https://gist.github.com/HouqiyuA/a0e05a26ecc80bd970ac4649faecc930
+    - web: https://github.com/volcano-sh/volcano/commit/55963f71c76cb85cea1cdb9582ea7d58cfbedcf8
+    - web: https://github.com/volcano-sh/volcano/issues/3446
+    - web: https://github.com/volcano-sh/volcano/pull/3449
+source:
+    id: GHSA-5g3x-8g2v-r8x8
+    created: 2024-08-05T17:04:17.277192-04:00
+review_status: UNREVIEWED

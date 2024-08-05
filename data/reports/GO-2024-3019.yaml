@@ -1,0 +1,19 @@
+id: GO-2024-3019
+modules:
+    - module: github.com/charmbracelet/soft-serve
+      versions:
+        - fixed: 0.7.5
+      vulnerable_at: 0.7.4
+summary: soft-serve vulnerable to arbitrary code execution by crafting git-lfs requests in github.com/charmbracelet/soft-serve
+cves:
+    - CVE-2024-41956
+ghsas:
+    - GHSA-m445-w3xr-vp2f
+references:
+    - advisory: https://github.com/charmbracelet/soft-serve/security/advisories/GHSA-m445-w3xr-vp2f
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-41956
+    - fix: https://github.com/charmbracelet/soft-serve/commit/4daebdd422a6ba8c04162d023f8be355a8fe3184
+source:
+    id: GHSA-m445-w3xr-vp2f
+    created: 2024-08-05T17:07:56.236805-04:00
+review_status: UNREVIEWED

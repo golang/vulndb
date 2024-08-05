@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-2998",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-41122",
+    "GHSA-3wf2-2pq4-4rvc"
+  ],
+  "summary": "Woodpecker's custom environment variables allow to alter execution flow of plugins in go.woodpecker-ci.org/woodpecker",
+  "details": "Woodpecker's custom environment variables allow to alter execution flow of plugins in go.woodpecker-ci.org/woodpecker",
+  "affected": [
+    {
+      "package": {
+        "name": "go.woodpecker-ci.org/woodpecker",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "go.woodpecker-ci.org/woodpecker/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.7.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/woodpecker-ci/woodpecker/security/advisories/GHSA-3wf2-2pq4-4rvc"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-41122"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/woodpecker-ci/woodpecker/commit/8aa3e5ec82c92eca3279e4be68625111eeedf1c4"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/woodpecker-ci/woodpecker/issues/3929"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/woodpecker-ci/woodpecker/pull/3909"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/woodpecker-ci/woodpecker/pull/3934"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-2998",
+    "review_status": "UNREVIEWED"
+  }
+}

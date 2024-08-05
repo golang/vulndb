@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3028",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-39274",
+    "GHSA-cmc8-222c-vqp9"
+  ],
+  "summary": "Mattermost failed to properly validate that the channel that comes from the sync message is a shared channel in github.com/mattermost/mattermost-server",
+  "details": "Mattermost failed to properly validate that the channel that comes from the sync message is a shared channel in github.com/mattermost/mattermost-server",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "9.5.0+incompatible"
+            },
+            {
+              "fixed": "9.5.7+incompatible"
+            },
+            {
+              "introduced": "9.7.0+incompatible"
+            },
+            {
+              "fixed": "9.7.6+incompatible"
+            },
+            {
+              "introduced": "9.8.0+incompatible"
+            },
+            {
+              "fixed": "9.8.2+incompatible"
+            },
+            {
+              "introduced": "9.9.0+incompatible"
+            },
+            {
+              "fixed": "9.9.1+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v6",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost/server/v8",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-cmc8-222c-vqp9"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-39274"
+    },
+    {
+      "type": "WEB",
+      "url": "https://mattermost.com/security-updates"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3028",
+    "review_status": "UNREVIEWED"
+  }
+}

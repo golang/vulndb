@@ -1,0 +1,22 @@
+id: GO-2024-3013
+modules:
+    - module: github.com/goharbor/harbor
+      versions:
+        - fixed: 2.9.5+incompatible
+        - introduced: 2.10.0+incompatible
+        - fixed: 2.10.3+incompatible
+      vulnerable_at: 2.10.3-rc1+incompatible
+summary: |-
+    Harbor fails to validate the user permissions when updating project
+    configurations in github.com/goharbor/harbor
+cves:
+    - CVE-2024-22278
+ghsas:
+    - GHSA-hw28-333w-qxp3
+references:
+    - advisory: https://github.com/goharbor/harbor/security/advisories/GHSA-hw28-333w-qxp3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-22278
+source:
+    id: GHSA-hw28-333w-qxp3
+    created: 2024-08-05T17:08:24.646034-04:00
+review_status: UNREVIEWED

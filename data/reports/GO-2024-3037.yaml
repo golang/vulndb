@@ -1,0 +1,19 @@
+id: GO-2024-3037
+modules:
+    - module: github.com/elastic/apm-server
+      non_go_versions:
+        - fixed: 8.14.0
+      vulnerable_at: 6.8.23+incompatible
+summary: APM Server vulnerable to Insertion of Sensitive Information into Log File in github.com/elastic/apm-server
+cves:
+    - CVE-2024-37286
+ghsas:
+    - GHSA-f6cj-4h3g-hwq4
+references:
+    - advisory: https://github.com/advisories/GHSA-f6cj-4h3g-hwq4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-37286
+    - web: https://discuss.elastic.co/t/apm-server-8-14-0-security-update-esa-2024-19/364289
+source:
+    id: GHSA-f6cj-4h3g-hwq4
+    created: 2024-08-05T17:04:01.938116-04:00
+review_status: UNREVIEWED

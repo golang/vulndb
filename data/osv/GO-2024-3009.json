@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3009",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-29069",
+    "GHSA-69p6-gp5x-j269"
+  ],
+  "summary": "snapd failed to properly check the destination of symbolic links when extracting a snap in github.com/snapcore/snapd",
+  "details": "snapd failed to properly check the destination of symbolic links when extracting a snap in github.com/snapcore/snapd.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/snapcore/snapd before v2.62.0.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/snapcore/snapd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "2.62.0"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-69p6-gp5x-j269"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-29069"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/snapcore/snapd/commit/b66fee81606a1c05f965a876ccbaf44174194063"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/snapcore/snapd/pull/13682"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3009",
+    "review_status": "UNREVIEWED"
+  }
+}

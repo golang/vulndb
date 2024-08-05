@@ -1,0 +1,23 @@
+id: GO-2024-3033
+modules:
+    - module: github.com/mickael-kerjean/filestash
+      unsupported_versions:
+        - last_affected: 0.4.0
+      vulnerable_at: 0.2.1
+summary: |-
+    Filestash configured to skip TLS certificate verification when using the FTPS
+    protocol in github.com/mickael-kerjean/filestash
+cves:
+    - CVE-2024-41255
+ghsas:
+    - GHSA-4jmm-c6jw-g796
+references:
+    - advisory: https://github.com/advisories/GHSA-4jmm-c6jw-g796
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-41255
+    - report: https://github.com/mickael-kerjean/filestash/issues/710
+    - web: https://gist.github.com/nyxfqq/c367f2ca9448810924dcf0f1af30b441
+    - web: https://github.com/mickael-kerjean/filestash/blob/master/server/plugin/plg_backend_ftp/index.go#L108
+source:
+    id: GHSA-4jmm-c6jw-g796
+    created: 2024-08-05T17:04:22.707645-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,41 @@
+id: GO-2024-3014
+modules:
+    - module: github.com/zitadel/zitadel
+      non_go_versions:
+        - introduced: 2.53.0
+        - fixed: 2.53.9
+        - introduced: 2.54.0
+        - fixed: 2.54.8
+        - introduced: 2.55.0
+        - fixed: 2.55.5
+        - introduced: 2.56.0
+        - fixed: 2.56.2
+        - introduced: 2.57.0
+        - fixed: 2.57.1
+        - introduced: 2.58.0
+        - fixed: 2.58.1
+      vulnerable_at: 1.87.5
+summary: ZITADEL "ignoring unknown usernames" vulnerability in github.com/zitadel/zitadel
+cves:
+    - CVE-2024-41952
+ghsas:
+    - GHSA-567v-6hmg-6qg7
+references:
+    - advisory: https://github.com/zitadel/zitadel/security/advisories/GHSA-567v-6hmg-6qg7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-41952
+    - fix: https://github.com/zitadel/zitadel/commit/0ab0c645ef914298c343fa39cccb1290aba48bf6
+    - fix: https://github.com/zitadel/zitadel/commit/3c7d12834e32426416235b9e3374be0f4b9380b8
+    - fix: https://github.com/zitadel/zitadel/commit/5c2526c98aafd1ba206be2fa4291b1d24c384f6d
+    - fix: https://github.com/zitadel/zitadel/commit/8565d24fd8df5bd35294313cfbfcc2e15aea20e9
+    - fix: https://github.com/zitadel/zitadel/commit/b0e71a81ef39667ce2a149ce037c1ca0edbe059d
+    - fix: https://github.com/zitadel/zitadel/commit/fc1d415b8db5b8d481bb65206ce3fc944c0eecea
+    - web: https://github.com/zitadel/zitadel/releases/tag/v2.53.9
+    - web: https://github.com/zitadel/zitadel/releases/tag/v2.54.8
+    - web: https://github.com/zitadel/zitadel/releases/tag/v2.55.5
+    - web: https://github.com/zitadel/zitadel/releases/tag/v2.56.2
+    - web: https://github.com/zitadel/zitadel/releases/tag/v2.57.1
+    - web: https://github.com/zitadel/zitadel/releases/tag/v2.58.1
+source:
+    id: GHSA-567v-6hmg-6qg7
+    created: 2024-08-05T17:08:19.186753-04:00
+review_status: UNREVIEWED

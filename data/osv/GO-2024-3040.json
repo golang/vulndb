@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3040",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-6vjm-54vp-mxhx"
+  ],
+  "summary": "Juju's unprivileged user running on charm node can leak any secret or relation data accessible to the local charm in github.com/juju/juju",
+  "details": "Juju's unprivileged user running on charm node can leak any secret or relation data accessible to the local charm in github.com/juju/juju.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/juju/juju before v2.9.50, from v3.0.0 before v3.1.9, from v3.2.0 before v3.3.6, from v3.4.0 before v3.4.5, from v3.5.0 before v3.5.3.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/juju/juju",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "2.9.50"
+              },
+              {
+                "introduced": "3.0.0"
+              },
+              {
+                "fixed": "3.1.9"
+              },
+              {
+                "introduced": "3.2.0"
+              },
+              {
+                "fixed": "3.3.6"
+              },
+              {
+                "introduced": "3.4.0"
+              },
+              {
+                "fixed": "3.4.5"
+              },
+              {
+                "introduced": "3.5.0"
+              },
+              {
+                "fixed": "3.5.3"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/juju/juju/security/advisories/GHSA-6vjm-54vp-mxhx"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/juju/juju/commit/da929676853092a29ddf8d589468cf85ba3efaf2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-6984"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3040",
+    "review_status": "UNREVIEWED"
+  }
+}

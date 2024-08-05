@@ -1,0 +1,33 @@
+id: GO-2024-3002
+modules:
+    - module: github.com/argoproj/argo-cd
+      versions:
+        - introduced: 1.0.0
+      unsupported_versions:
+        - last_affected: 1.8.7
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - fixed: 2.9.20
+        - introduced: 2.10.0
+        - fixed: 2.10.15
+        - introduced: 2.11.0
+        - fixed: 2.11.6
+      vulnerable_at: 2.11.5
+summary: |-
+    Argo CD Unauthenticated Denial of Service (DoS) Vulnerability via /api/webhook
+    Endpoint in github.com/argoproj/argo-cd
+cves:
+    - CVE-2024-40634
+ghsas:
+    - GHSA-jmvp-698c-4x3w
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-jmvp-698c-4x3w
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-40634
+    - fix: https://github.com/argoproj/argo-cd/commit/46c0c0b64deaab1ece70cb701030b76668ad0cdc
+    - fix: https://github.com/argoproj/argo-cd/commit/540e3a57b90eb3655db54793332fac86bcc38b36
+    - fix: https://github.com/argoproj/argo-cd/commit/d881ee78949e23160a0b280bb159e4d3d625a4df
+source:
+    id: GHSA-jmvp-698c-4x3w
+    created: 2024-08-05T17:09:07.387443-04:00
+review_status: UNREVIEWED

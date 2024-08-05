@@ -1,0 +1,34 @@
+id: GO-2024-3028
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 9.5.0+incompatible
+        - fixed: 9.5.7+incompatible
+        - introduced: 9.7.0+incompatible
+        - fixed: 9.7.6+incompatible
+        - introduced: 9.8.0+incompatible
+        - fixed: 9.8.2+incompatible
+        - introduced: 9.9.0+incompatible
+        - fixed: 9.9.1+incompatible
+      vulnerable_at: 9.9.1-rc4+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      vulnerable_at: 8.0.0-20240805103309-f2907454960e
+summary: |-
+    Mattermost failed to properly validate that the channel that comes from the
+    sync message is a shared channel in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2024-39274
+ghsas:
+    - GHSA-cmc8-222c-vqp9
+references:
+    - advisory: https://github.com/advisories/GHSA-cmc8-222c-vqp9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-39274
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-cmc8-222c-vqp9
+    created: 2024-08-05T17:07:25.169198-04:00
+review_status: UNREVIEWED

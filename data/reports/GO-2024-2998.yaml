@@ -1,0 +1,26 @@
+id: GO-2024-2998
+modules:
+    - module: go.woodpecker-ci.org/woodpecker
+      vulnerable_at: 1.0.5
+    - module: go.woodpecker-ci.org/woodpecker/v2
+      versions:
+        - fixed: 2.7.0
+      vulnerable_at: 2.6.1
+summary: |-
+    Woodpecker's custom environment variables allow to alter execution flow of
+    plugins in go.woodpecker-ci.org/woodpecker
+cves:
+    - CVE-2024-41122
+ghsas:
+    - GHSA-3wf2-2pq4-4rvc
+references:
+    - advisory: https://github.com/woodpecker-ci/woodpecker/security/advisories/GHSA-3wf2-2pq4-4rvc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-41122
+    - web: https://github.com/woodpecker-ci/woodpecker/commit/8aa3e5ec82c92eca3279e4be68625111eeedf1c4
+    - web: https://github.com/woodpecker-ci/woodpecker/issues/3929
+    - web: https://github.com/woodpecker-ci/woodpecker/pull/3909
+    - web: https://github.com/woodpecker-ci/woodpecker/pull/3934
+source:
+    id: GHSA-3wf2-2pq4-4rvc
+    created: 2024-08-05T17:09:17.300383-04:00
+review_status: UNREVIEWED

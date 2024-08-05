@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3036",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-41265",
+    "GHSA-vw7g-3cc7-7rmh"
+  ],
+  "summary": "cortex establishes TLS connections with `InsecureSkipVerify` set to `true` in github.com/cortexproject/cortex",
+  "details": "cortex establishes TLS connections with `InsecureSkipVerify` set to `true` in github.com/cortexproject/cortex",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cortexproject/cortex",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-vw7g-3cc7-7rmh"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-41265"
+    },
+    {
+      "type": "WEB",
+      "url": "https://gist.github.com/nyxfqq/1a8237f3f9cf793c6433f08b17d1593c"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3036",
+    "review_status": "UNREVIEWED"
+  }
+}

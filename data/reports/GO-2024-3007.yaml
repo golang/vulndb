@@ -1,0 +1,21 @@
+id: GO-2024-3007
+modules:
+    - module: github.com/snapcore/snapd
+      non_go_versions:
+        - fixed: 2.62.0
+      vulnerable_at: 0.0.0-20240805194628-fbfd72574d7f
+summary: snapd failed to restrict writes to the $HOME/bin path in github.com/snapcore/snapd
+cves:
+    - CVE-2024-1724
+ghsas:
+    - GHSA-4mh8-9689-38vr
+references:
+    - advisory: https://github.com/advisories/GHSA-4mh8-9689-38vr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-1724
+    - fix: https://github.com/snapcore/snapd/commit/aa191f97713de8dc3ce3ac818539f0b976eb8ef6
+    - fix: https://github.com/snapcore/snapd/pull/13689
+    - web: https://gld.mcphail.uk/posts/explaining-cve-2024-1724
+source:
+    id: GHSA-4mh8-9689-38vr
+    created: 2024-08-05T17:08:53.18368-04:00
+review_status: UNREVIEWED

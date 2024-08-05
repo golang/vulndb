@@ -1,0 +1,19 @@
+id: GO-2024-3039
+modules:
+    - module: github.com/kubean-io/kubean
+      versions:
+        - fixed: 0.18.0
+      vulnerable_at: 0.17.5
+summary: Kubean vulnerable to cluster-level privilege escalation in github.com/kubean-io/kubean
+cves:
+    - CVE-2024-41820
+ghsas:
+    - GHSA-3wfj-3x8q-hrpg
+references:
+    - advisory: https://github.com/kubean-io/kubean/security/advisories/GHSA-3wfj-3x8q-hrpg
+    - fix: https://github.com/kubean-io/kubean/commit/167e97329e4a27ba2f456d2846d39af20e1af7ef
+    - report: https://github.com/kubean-io/kubean/issues/1326
+source:
+    id: GHSA-3wfj-3x8q-hrpg
+    created: 2024-08-05T17:03:57.263844-04:00
+review_status: UNREVIEWED
