@@ -1,0 +1,34 @@
+id: GO-2024-3024
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 9.5.0+incompatible
+        - fixed: 9.5.7+incompatible
+        - introduced: 9.7.0+incompatible
+        - fixed: 9.7.6+incompatible
+        - introduced: 9.8.0+incompatible
+        - fixed: 9.8.2+incompatible
+        - introduced: 9.9.0+incompatible
+        - fixed: 9.9.1+incompatible
+      vulnerable_at: 9.9.1-rc4+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      vulnerable_at: 8.0.0-20240806200347-2e004bb7bc12
+summary: |-
+    Mattermost allows a user on a remote to set their remote username prop to an
+    arbitrary string in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2024-39839
+ghsas:
+    - GHSA-vg6q-84p8-qvqh
+references:
+    - advisory: https://github.com/advisories/GHSA-vg6q-84p8-qvqh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-39839
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-vg6q-84p8-qvqh
+    created: 2024-08-06T18:29:12.337065-04:00
+review_status: UNREVIEWED

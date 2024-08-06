@@ -1,0 +1,21 @@
+id: GO-2024-3046
+modules:
+    - module: github.com/usememos/memos
+      versions:
+        - fixed: 0.22.0
+      vulnerable_at: 0.21.1
+summary: memos vulnerable to Server-Side Request Forgery in /api/resource in github.com/usememos/memos
+cves:
+    - CVE-2024-29030
+ghsas:
+    - GHSA-65fm-2jgr-j7qq
+references:
+    - advisory: https://github.com/advisories/GHSA-65fm-2jgr-j7qq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-29030
+    - advisory: https://securitylab.github.com/advisories/GHSL-2023-154_GHSL-2023-156_memos
+    - fix: https://github.com/usememos/memos/commit/bbd206e8930281eb040cc8c549641455892b9eb5
+    - web: https://github.com/usememos/memos/blob/06dbd8731161245444f4b50f4f9ed267f7c3cf63/api/v1/resource.go#L83
+source:
+    id: GHSA-65fm-2jgr-j7qq
+    created: 2024-08-06T18:28:43.77042-04:00
+review_status: UNREVIEWED

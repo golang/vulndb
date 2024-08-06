@@ -1,0 +1,27 @@
+id: GO-2024-3044
+modules:
+    - module: go.thethings.network/lorawan-stack
+    - module: go.thethings.network/lorawan-stack/v3
+      versions:
+        - fixed: 3.24.1
+      vulnerable_at: 3.24.0
+summary: lorawan-stack Open Redirect vulnerability in go.thethings.network/lorawan-stack
+cves:
+    - CVE-2023-26494
+ghsas:
+    - GHSA-5fwq-9x7j-2qpg
+references:
+    - advisory: https://github.com/advisories/GHSA-5fwq-9x7j-2qpg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-26494
+    - advisory: https://securitylab.github.com/advisories/GHSL-2022-138_lorawan-stack
+    - web: https://github.com/TheThingsNetwork/lorawan-stack/blob/ecdef730f176c02f7c9afce98b0457ae64de5bfc/pkg/webui/account/views/login/index.js#L90-L90
+    - web: https://github.com/TheThingsNetwork/lorawan-stack/blob/ecdef730f176c02f7c9afce98b0457ae64de5bfc/pkg/webui/account/views/token-login/index.js#L74-L74
+    - web: https://github.com/TheThingsNetwork/lorawan-stack/commit/f06776028bdb3994847fc6067613dc61a2b3559e
+    - web: https://github.com/TheThingsNetwork/lorawan-stack/releases/tag/v3.24.1
+    - web: https://securitylab.github.com/advisories
+notes:
+    - fix: 'go.thethings.network/lorawan-stack: could not add vulnerable_at: no fix, but could not find latest version from proxy: HTTP GET /go.thethings.network/lorawan-stack/@latest returned status 404 Not Found'
+source:
+    id: GHSA-5fwq-9x7j-2qpg
+    created: 2024-08-06T18:28:50.814007-04:00
+review_status: UNREVIEWED

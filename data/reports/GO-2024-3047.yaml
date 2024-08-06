@@ -1,0 +1,20 @@
+id: GO-2024-3047
+modules:
+    - module: github.com/usememos/memos
+      versions:
+        - fixed: 0.16.1
+      vulnerable_at: 0.16.0
+summary: memos vulnerable to Server-Side Request Forgery in /o/get/httpmeta in github.com/usememos/memos
+cves:
+    - CVE-2024-29028
+ghsas:
+    - GHSA-6fcf-g3mp-xj2x
+references:
+    - advisory: https://github.com/advisories/GHSA-6fcf-g3mp-xj2x
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-29028
+    - advisory: https://securitylab.github.com/advisories/GHSL-2023-154_GHSL-2023-156_memos
+    - fix: https://github.com/usememos/memos/commit/6ffc09d86a1302c384ef085aa70c7bddb3ce7ba9
+source:
+    id: GHSA-6fcf-g3mp-xj2x
+    created: 2024-08-06T18:28:40.01408-04:00
+review_status: UNREVIEWED

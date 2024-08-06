@@ -1,0 +1,23 @@
+id: GO-2024-3051
+modules:
+    - module: github.com/layer5io/meshery
+      non_go_versions:
+        - fixed: 0.7.22
+      vulnerable_at: 0.7.18
+summary: Meshery SQL Injection vulnerability in github.com/layer5io/meshery
+cves:
+    - CVE-2024-35182
+ghsas:
+    - GHSA-h7cm-jvpp-69xf
+references:
+    - advisory: https://github.com/advisories/GHSA-h7cm-jvpp-69xf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-35182
+    - advisory: https://securitylab.github.com/advisories/GHSL-2024-013_GHSL-2024-014_Meshery
+    - web: https://github.com/meshery/meshery/blob/b331f45c9083d7abf6b90105072b04cd22473de7/server/handlers/events_streamer.go#L52
+    - web: https://github.com/meshery/meshery/blob/b331f45c9083d7abf6b90105072b04cd22473de7/server/models/events_persister.go#L47
+    - web: https://github.com/meshery/meshery/commit/b55f6064d0c6a965aee38f30281f99da7dc4420c
+    - web: https://github.com/meshery/meshery/pull/10280
+source:
+    id: GHSA-h7cm-jvpp-69xf
+    created: 2024-08-06T18:28:25.776074-04:00
+review_status: UNREVIEWED
