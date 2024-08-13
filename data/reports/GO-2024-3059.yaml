@@ -1,0 +1,17 @@
+id: GO-2024-3059
+modules:
+    - module: github.com/CosmWasm/wasmd
+      versions:
+        - fixed: 0.52.0
+      vulnerable_at: 0.51.0
+summary: CosmWasm wasmd has large address count in ValidateBasic in github.com/CosmWasm/wasmd
+ghsas:
+    - GHSA-m3rh-cvr5-x6q4
+references:
+    - advisory: https://github.com/CosmWasm/wasmd/security/advisories/GHSA-m3rh-cvr5-x6q4
+    - fix: https://github.com/CosmWasm/wasmd/commit/76c0c061c9cb6b142163883e46c26d99384dc443
+    - web: https://github.com/CosmWasm/advisories/blob/main/CWAs/CWA-2024-003.md
+source:
+    id: GHSA-m3rh-cvr5-x6q4
+    created: 2024-08-13T16:01:32.501447-04:00
+review_status: UNREVIEWED

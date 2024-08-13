@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3063",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-42480",
+    "GHSA-6r4j-4rjc-8vw5"
+  ],
+  "summary": "RBAC Roles for `etcd` created by Kamaji are not disjunct in github.com/clastix/kamaji",
+  "details": "RBAC Roles for `etcd` created by Kamaji are not disjunct in github.com/clastix/kamaji",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/clastix/kamaji",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/clastix/kamaji/security/advisories/GHSA-6r4j-4rjc-8vw5"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-42480"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/clastix/kamaji/commit/1731e8c2ed5148b125ecfbdf091ee177bd44f3db"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/clastix/kamaji/blob/8cdc6191242f80d120c46b166e2102d27568225a/internal/datastore/etcd.go#L19-L24"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3063",
+    "review_status": "UNREVIEWED"
+  }
+}

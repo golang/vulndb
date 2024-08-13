@@ -1,0 +1,22 @@
+id: GO-2024-3064
+modules:
+    - module: github.com/apache/incubator-answer
+      versions:
+        - fixed: 1.3.6
+      vulnerable_at: 1.3.6-RC1
+summary: |-
+    Apache Answer: The link to reset the user's password will remain valid after
+    sending a new link in github.com/apache/incubator-answer
+cves:
+    - CVE-2024-41890
+ghsas:
+    - GHSA-gvpv-r32v-9737
+references:
+    - advisory: https://github.com/advisories/GHSA-gvpv-r32v-9737
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-41890
+    - fix: https://github.com/apache/incubator-answer/commit/2820efc454f5808974dce0aa99aac106be3f727b
+    - web: https://lists.apache.org/thread/j7c080xj31x8rvz1pyk2h47rdd9pwbv9
+source:
+    id: GHSA-gvpv-r32v-9737
+    created: 2024-08-13T16:01:21.6681-04:00
+review_status: UNREVIEWED
