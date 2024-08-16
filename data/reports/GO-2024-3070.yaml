@@ -1,16 +1,20 @@
 id: GO-2024-3070
 modules:
     - module: github.com/stashapp/stash
-      vulnerable_at: 0.26.2
-summary: CVE-2024-32231 in github.com/stashapp/stash
+      versions:
+        - fixed: 0.26.0
+      vulnerable_at: 0.25.1
+summary: SQL injection in github.com/stashapp/stash
 cves:
     - CVE-2024-32231
+ghsas:
+    - GHSA-75jf-52jg-qqh4
 references:
+    - advisory: https://github.com/advisories/GHSA-75jf-52jg-qqh4
     - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-32231
+    - fix: https://github.com/stashapp/stash/commit/89553864f5fa92beaa37a12e489064b1358d9880
     - fix: https://github.com/stashapp/stash/pull/4865
-    - web: https://github.com/stashapp
-    - web: https://github.com/stashapp/stash
 source:
-    id: CVE-2024-32231
-    created: 2024-08-16T11:20:42.574239-04:00
+    id: GHSA-75jf-52jg-qqh4
+    created: 2024-08-16T17:05:15.978263-04:00
 review_status: UNREVIEWED

@@ -8,7 +8,7 @@
     "GHSA-hc5w-gxxr-w8x8"
   ],
   "summary": "Sliver Allows Authenticated Operator-to-Server Remote Code Execution in github.com/bishopfox/sliver",
-  "details": "Sliver Allows Authenticated Operator-to-Server Remote Code Execution in github.com/bishopfox/sliver",
+  "details": "Sliver Allows Authenticated Operator-to-Server Remote Code Execution in github.com/bishopfox/sliver.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/bishopfox/sliver before v1.6.0.",
   "affected": [
     {
       "package": {
@@ -25,7 +25,21 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "1.6.0"
+              }
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
@@ -44,6 +58,10 @@
     {
       "type": "WEB",
       "url": "https://github.com/BishopFox/sliver/commit/5016fb8d7cdff38c79e22e8293e58300f8d3bd57"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/BishopFox/sliver/commit/d8ff64222dc69d931197d0bbae3fba11dbe17533"
     },
     {
       "type": "WEB",

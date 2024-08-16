@@ -2,7 +2,7 @@ id: GO-2024-2982
 modules:
     - module: github.com/hashicorp/vault
       versions:
-        - introduced: 1.16.0-rc1
+        - introduced: 1.10.0
         - fixed: 1.16.3
         - introduced: 1.17.0-rc1
         - fixed: 1.17.2
@@ -20,7 +20,9 @@ references:
     - advisory: https://github.com/advisories/GHSA-2qmw-pvf7-4mw6
     - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-6468
     - web: https://discuss.hashicorp.com/t/hcsec-2024-14-vault-vulnerable-to-denial-of-service-when-setting-a-proxy-protocol-behavior/68518
+notes:
+    - manually removed 'introduced: 1.16.0-rc1' to fix overlapping versions
 source:
     id: GHSA-2qmw-pvf7-4mw6
-    created: 2024-07-12T16:33:28.734714977Z
+    created: 2024-08-16T16:55:26.033129-04:00
 review_status: UNREVIEWED

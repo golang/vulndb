@@ -1,10 +1,21 @@
 id: GO-2024-2997
 modules:
     - module: github.com/gitpod-io/gitpod
-      unsupported_versions:
-        - cve_version_range: affected from 0 before 0.1.5-main-gha.27122
-        - cve_version_range: affected from 0 before main-gha.27122
+      non_go_versions:
+        - fixed: 0.1.5-main-gha.27122
       vulnerable_at: 0.10.0
+    - module: github.com/gitpod-io/gitpod/components/server/go
+      unsupported_versions:
+        - cve_version_range: affected from 0 before main-gha.27122
+      vulnerable_at: 0.0.0-20240816160918-43bcbc7f8f04
+    - module: github.com/gitpod-io/gitpod/components/ws-proxy
+      unsupported_versions:
+        - cve_version_range: affected from 0 before main-gha.27122
+      vulnerable_at: 0.0.0-20240816160918-43bcbc7f8f04
+    - module: github.com/gitpod-io/gitpod/install/installer
+      unsupported_versions:
+        - cve_version_range: affected from 0 before main-gha.27122
+      vulnerable_at: 0.0.0-20240816160918-43bcbc7f8f04
 summary: CVE-2024-21583 in github.com/gitpod-io/gitpod
 cves:
     - CVE-2024-21583
@@ -23,5 +34,5 @@ references:
     - web: https://security.snyk.io/vuln/SNYK-JS-GITPODGITPODPROTOCOL-7452079
 source:
     id: CVE-2024-21583
-    created: 2024-07-19T12:19:11.388693-04:00
+    created: 2024-08-16T16:57:56.243289-04:00
 review_status: UNREVIEWED
