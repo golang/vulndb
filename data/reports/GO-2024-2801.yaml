@@ -1,19 +1,17 @@
 id: GO-2024-2801
 modules:
     - module: github.com/projectcalico/calico
+      vulnerable_at: 2.6.12+incompatible
+    - module: github.com/projectcalico/calico/v3
       non_go_versions:
         - fixed: 3.26.5
         - introduced: 3.27.0
         - fixed: 3.27.3
-      vulnerable_at: 2.6.12+incompatible
 summary: Calico privilege escalation vulnerability in github.com/projectcalico/calico
 cves:
     - CVE-2024-33522
 ghsas:
     - GHSA-6362-gv4m-53ww
-unknown_aliases:
-    - CGA-c9f6-83fw-wmpv
-    - CGA-vw5m-65r5-hgf5
 references:
     - advisory: https://github.com/advisories/GHSA-6362-gv4m-53ww
     - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-33522
@@ -21,7 +19,9 @@ references:
     - fix: https://github.com/projectcalico/calico/pull/8517
     - report: https://github.com/projectcalico/calico/issues/7981
     - web: https://www.tigera.io/security-bulletins-tta-2024-001
+notes:
+    - fix: 'github.com/projectcalico/calico/v3: could not add vulnerable_at: no fix, but could not find latest version from proxy: HTTP GET /github.com/projectcalico/calico/v3/@latest returned status 404 Not Found'
 source:
     id: GHSA-6362-gv4m-53ww
-    created: 2024-06-26T14:05:52.596558-04:00
+    created: 2024-08-16T16:48:33.062406-04:00
 review_status: UNREVIEWED

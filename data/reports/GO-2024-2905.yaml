@@ -1,11 +1,20 @@
 id: GO-2024-2905
 modules:
     - module: github.com/openshift/telemeter
+      unsupported_versions:
+        - cve_version_range: 'unaffected from v4.13.0-202407081338.p0.g0634a6d.assembly.stream.el8 before * (default: affected)'
+        - cve_version_range: 'unaffected from v4.14.0-202407021509.p0.g1f72681.assembly.stream.el8 before * (default: affected)'
+        - cve_version_range: 'unaffected from v4.15.0-202406200537.p0.g14489f7.assembly.stream.el9 before * (default: affected)'
+        - cve_version_range: 'unaffected from v4.16.0-202406200537.p0.gc1ecd10.assembly.stream.el9 before * (default: affected)'
       vulnerable_at: 3.11.0+incompatible
 summary: 'Openshift/telemeter: iss check during jwt authentication can be bypassed in github.com/openshift/telemeter'
 cves:
     - CVE-2024-5037
 references:
+    - advisory: https://access.redhat.com/errata/RHSA-2024:4151
+    - advisory: https://access.redhat.com/errata/RHSA-2024:4156
+    - advisory: https://access.redhat.com/errata/RHSA-2024:4329
+    - advisory: https://access.redhat.com/errata/RHSA-2024:4484
     - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-5037
     - fix: https://github.com/kubernetes/kubernetes/pull/123540
     - report: https://bugzilla.redhat.com/show_bug.cgi?id=2272339
@@ -13,5 +22,5 @@ references:
     - web: https://github.com/openshift/telemeter/blob/a9417a6062c3a31ed78c06ea3a0613a52f2029b2/pkg/authorize/jwt/client_authorizer.go#L78
 source:
     id: CVE-2024-5037
-    created: 2024-06-27T15:54:56.792975-04:00
+    created: 2024-08-16T16:51:51.162764-04:00
 review_status: UNREVIEWED
