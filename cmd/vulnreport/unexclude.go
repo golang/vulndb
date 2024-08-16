@@ -72,6 +72,10 @@ func (u *unexclude) run(ctx context.Context, input any) (err error) {
 	if err != nil {
 		return err
 	}
+	if r.Withdrawn != nil {
+		_, _, issNum, _ := report.ParseFilepath(oldR.Filename)
+		return fmt.Errorf("unexcluded report should not be created for withdrawn vulnerability; delete excluded report %s and mark issue #%d as excluded:OUT_OF_SCOPE instead", oldR.Filename, issNum)
+	}
 	r.Unexcluded = oldR.Excluded
 	if err := u.write(ctx, r); err != nil {
 		return err

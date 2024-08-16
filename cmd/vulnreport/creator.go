@@ -95,7 +95,7 @@ func skip(iss *issues.Issue, x *xrefer) string {
 	return ""
 }
 
-func (c *creator) reportFromIssue(ctx context.Context, iss *issues.Issue) error {
+func (c *creator) newReportFromIssue(ctx context.Context, iss *issues.Issue) error {
 	r, err := c.reportFromMeta(ctx, &reportMeta{
 		id:           iss.NewGoID(),
 		excluded:     excludedReason(iss),
@@ -106,6 +106,9 @@ func (c *creator) reportFromIssue(ctx context.Context, iss *issues.Issue) error 
 	})
 	if err != nil {
 		return err
+	}
+	if r.Withdrawn != nil {
+		return fmt.Errorf("new report should not be created for withdrawn vulnerability; close issue #%d as excluded:OUT_OF_SCOPE instead", iss.Number)
 	}
 	return c.write(ctx, r)
 }

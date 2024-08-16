@@ -17,10 +17,10 @@ import (
 var _ report.Source = &Entry{}
 
 // ToReport converts OSV into a Go Report with the given ID.
-func (osv *Entry) ToReport(*proxy.Client, string) *report.Report {
+func (e *Entry) ToReport(*proxy.Client, string) *report.Report {
 	r := &report.Report{
-		Summary:     report.Summary(osv.Summary),
-		Description: report.Description(osv.Details),
+		Summary:     report.Summary(e.Summary),
+		Description: report.Description(e.Details),
 	}
 	addAlias := func(alias string) {
 		switch {
@@ -34,18 +34,23 @@ func (osv *Entry) ToReport(*proxy.Client, string) *report.Report {
 			r.UnknownAliases = append(r.UnknownAliases, alias)
 		}
 	}
-	addAlias(osv.ID)
-	for _, alias := range osv.Aliases {
+	addAlias(e.ID)
+	for _, alias := range e.Aliases {
 		addAlias(alias)
 	}
 
-	r.Modules = affectedToModules(osv.Affected)
+	r.Modules = affectedToModules(e.Affected)
 
-	for _, ref := range osv.References {
+	for _, ref := range e.References {
 		r.References = append(r.References, convertRef(ref))
 	}
 
-	r.Credits = convertCredits(osv.Credits)
+	r.Credits = convertCredits(e.Credits)
+
+	if e.IsWithdrawn() {
+		r.Withdrawn = &osv.Time{Time: e.Withdrawn}
+	}
+
 	return r
 }
 
