@@ -14,6 +14,7 @@ import (
 	"net/http"
 	"time"
 
+	"golang.org/x/vulndb/internal/ghsa"
 	"golang.org/x/vulndb/internal/report"
 )
 
@@ -24,8 +25,8 @@ func NewFetcher() report.Fetcher {
 	return &osvDevClient{http.DefaultClient, osvDevAPI}
 }
 
-func NewGHSAFetcher() report.Fetcher {
-	return &githubClient{http.DefaultClient, githubAPI}
+func NewGHSAFetcher(gc ghsaClient) report.Fetcher {
+	return &githubClient{Client: http.DefaultClient, gc: gc, url: githubAPI}
 }
 
 const (
@@ -42,6 +43,8 @@ func (c *osvDevClient) Fetch(_ context.Context, id string) (report.Source, error
 type githubClient struct {
 	*http.Client
 	url string
+
+	gc ghsaClient
 }
 
 // Fetch returns the OSV entry directly from the Github advisory repo
@@ -53,22 +56,24 @@ type githubClient struct {
 // This is because the direct Github API returns a non-OSV format,
 // and the OSV files are available in a Github repo whose directory
 // structure is determined by the published year and month of each GHSA.
-func (c *githubClient) Fetch(_ context.Context, id string) (report.Source, error) {
-	url := fmt.Sprintf("%s/%s", c.url, id)
-	sa, err := get[struct {
-		Published *time.Time `json:"published_at,omitempty"`
-	}](c.Client, url)
+func (c *githubClient) Fetch(ctx context.Context, id string) (report.Source, error) {
+	sa, err := c.gc.FetchGHSA(ctx, id)
 	if err != nil {
 		return nil, err
 	}
-	if sa.Published == nil {
+	pub := sa.PublishedAt
+	if pub.IsZero() {
 		return nil, fmt.Errorf("could not determine direct URL for GHSA OSV (need published date)")
 	}
-	githubURL := toGithubURL(id, sa.Published)
+	githubURL := toGithubURL(id, pub)
 	return get[Entry](c.Client, githubURL)
 }
 
-func toGithubURL(id string, published *time.Time) string {
+type ghsaClient interface {
+	FetchGHSA(context.Context, string) (*ghsa.SecurityAdvisory, error)
+}
+
+func toGithubURL(id string, published time.Time) string {
 	const base = "https://raw.githubusercontent.com/github/advisory-database/main/advisories/github-reviewed"
 	year := published.Year()
 	month := published.Month()

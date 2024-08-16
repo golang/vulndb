@@ -156,7 +156,7 @@ func (a *aliasFinder) fetch(ctx context.Context, alias string) (report.Source, e
 	var f report.Fetcher
 	switch {
 	case idstr.IsGHSA(alias):
-		f = genericosv.NewGHSAFetcher()
+		f = genericosv.NewGHSAFetcher(a.gc)
 	case idstr.IsCVE(alias):
 		f = cve5.NewFetcher()
 	default:
