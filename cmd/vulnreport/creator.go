@@ -84,10 +84,6 @@ func skip(iss *issues.Issue, x *xrefer) string {
 		return "existing report needs alias"
 	}
 
-	if iss.HasLabel(labelPossibleDuplicate) {
-		return "possible duplicate"
-	}
-
 	if iss.HasLabel(labelPossiblyNotGo) {
 		return "possibly not Go"
 	}
@@ -278,16 +274,15 @@ func (c *creator) write(ctx context.Context, r *yamlReport) error {
 }
 
 const (
-	labelDuplicate         = "duplicate"
-	labelDirect            = "Direct External Report"
-	labelSuggestedEdit     = "Suggested Edit"
-	labelNeedsAlias        = "NeedsAlias"
-	labelTriaged           = "triaged"
-	labelHighPriority      = "high priority"
-	labelFirstParty        = "first party"
-	labelPossibleDuplicate = "possible duplicate"
-	labelPossiblyNotGo     = "possibly not Go"
-	labelOutOfScope        = "excluded: OUT_OF_SCOPE"
+	labelDuplicate     = "duplicate"
+	labelDirect        = "Direct External Report"
+	labelSuggestedEdit = "Suggested Edit"
+	labelNeedsAlias    = "NeedsAlias"
+	labelTriaged       = "triaged"
+	labelHighPriority  = "high priority"
+	labelFirstParty    = "first party"
+	labelPossiblyNotGo = "possibly not Go"
+	labelOutOfScope    = "excluded: OUT_OF_SCOPE"
 )
 
 func excludedReason(iss *issues.Issue) report.ExcludedReason {

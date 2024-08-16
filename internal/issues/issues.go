@@ -205,7 +205,7 @@ func (c *Client) CreateIssue(ctx context.Context, iss *Issue) (number int, err e
 }
 
 func (c *Client) SetLabels(ctx context.Context, issNum int, labels []string) (err error) {
-	defer derrors.Wrap(&err, "AddLabels(%d, %s)", issNum, labels)
+	defer derrors.Wrap(&err, "SetLabels(%d, %s)", issNum, labels)
 
 	req := &github.IssueRequest{
 		Labels: &labels,
@@ -213,6 +213,21 @@ func (c *Client) SetLabels(ctx context.Context, issNum int, labels []string) (er
 	_, _, err = c.GitHub.Issues.Edit(ctx, c.Owner, c.Repo, issNum, req)
 	if err != nil {
 		return err
+	}
+	return nil
+}
+
+func (c *Client) AddComments(ctx context.Context, issNum int, comments []string) (err error) {
+	defer derrors.Wrap(&err, "AddComments(%d, %s)", issNum, comments)
+
+	for _, comment := range comments {
+		req := &github.IssueComment{
+			Body: &comment,
+		}
+		_, _, err = c.GitHub.Issues.CreateComment(ctx, c.Owner, c.Repo, issNum, req)
+		if err != nil {
+			return err
+		}
 	}
 	return nil
 }

@@ -18,7 +18,7 @@ $ vulnreport triage
 This command looks at all untriaged issues to find and label:
 
 * High-priority issues (label: `high priority`) - issues that affect modules with >= 100 importers
-* Possible duplicates (label: `possible duplicate`) - issues
+* Possible duplicates (label: `duplicate`) - issues
 that may be duplicates of another issue because they share a CVE/GHSA
 * Possibly not Go (label: `possibly Not Go`) - issues that possibly do not affect Go at all. This is applied to modules
 for which more than 20% of current reports are marked `excluded: NOT_GO_CODE`.

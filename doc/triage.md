@@ -35,7 +35,7 @@ Any open issue should be in one of the following states:
 - triaged
    - standard priority (no additional label)
    - high priority
-   - possible duplicate
+   - duplicate
    - possibly not Go
 - excluded
 - needs-review
@@ -62,7 +62,7 @@ The issue has been auto-triaged.
 The states are:
   - `high priority`: the issue needs a REVIEWED report
   - standard priority (no label): the issue needs an UNREVIEWED report
-  - `possible duplicate`: we need to check if the issue is a duplicate
+  - `duplicate`: we need to double-check if the issue is a duplicate
   - `possibly not Go`: we need to check if the issue does not affect Go code
 
 ### excluded

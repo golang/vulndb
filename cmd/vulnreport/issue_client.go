@@ -12,6 +12,7 @@ import (
 
 	"golang.org/x/exp/maps"
 	"golang.org/x/tools/txtar"
+	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/issues"
 	"gopkg.in/yaml.v3"
 )
@@ -20,6 +21,7 @@ type issueClient interface {
 	Issues(context.Context, issues.IssuesOptions) ([]*issues.Issue, error)
 	Issue(context.Context, int) (*issues.Issue, error)
 	SetLabels(context.Context, int, []string) error
+	AddComments(context.Context, int, []string) error
 	Reference(int) string
 }
 
@@ -72,6 +74,18 @@ func (m *memIC) SetLabels(_ context.Context, n int, labels []string) error {
 	if iss, ok := m.is[n]; ok {
 		iss.Labels = labels
 		m.is[n] = iss
+		return nil
+	}
+
+	return fmt.Errorf("issue %d not found", n)
+}
+
+func (m *memIC) AddComments(_ context.Context, n int, comments []string) error {
+	if iss, ok := m.is[n]; ok {
+		for _, comment := range comments {
+			// TODO(tatianabradley): Store this instead of just printing it out.
+			log.Outf("posted comment to issue %d: %s", iss.Number, comment)
+		}
 		return nil
 	}
 

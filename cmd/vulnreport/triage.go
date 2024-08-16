@@ -16,6 +16,7 @@ import (
 	"golang.org/x/exp/slices"
 	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/issues"
+	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/triage/priority"
 )
 
@@ -78,7 +79,7 @@ func (t *triage) setup(ctx context.Context, env environment) error {
 		for _, a := range aliases {
 			t.addAlias(a, iss.Number)
 		}
-		if iss.HasLabel(labelPossibleDuplicate) || iss.HasLabel(labelDuplicate) {
+		if iss.HasLabel(labelDuplicate) {
 			t.duplicates[iss.Number] = true
 		}
 	}
@@ -111,32 +112,27 @@ func (t *triage) run(ctx context.Context, input any) (err error) {
 
 func (t *triage) triage(ctx context.Context, iss *issues.Issue) {
 	labels := []string{labelTriaged}
+	comments := []string{}
 	defer func() {
-		// Preserve any existing labels.
-		labels = append(labels, iss.Labels...)
-		slices.Sort(labels)
-		labels = slices.Compact(labels)
-		if *dry {
-			log.Infof("issue #%d: would set labels: [%s]", iss.Number, strings.Join(labels, ", "))
-		} else {
-			if err := t.ic.SetLabels(ctx, iss.Number, labels); err != nil {
-				log.Warnf("issue #%d: could not auto-set label(s) %s\n\t%v", iss.Number, labels, err)
-			}
-		}
+		t.editIssue(ctx, iss, labels, comments)
 		t.addStat(iss, statTriaged, "")
 	}()
 
-	xrefs := t.findDuplicates(ctx, iss)
-	if len(xrefs) != 0 {
+	dupes := t.findDuplicates(ctx, iss)
+	if len(dupes) != 0 {
 		var strs []string
-		for ref, aliases := range xrefs {
+		for d, aliases := range dupes {
+			ref := t.ic.Reference(d.iss)
+			if d.fname != "" {
+				ref = filepath.ToSlash(d.fname)
+			}
 			strs = append(strs, fmt.Sprintf("#%d shares alias(es) %s with %s", iss.Number,
-				strings.Join(aliases, ", "),
-				filepath.ToSlash(ref)))
+				strings.Join(aliases, ", "), ref))
+			comments = append(comments, fmt.Sprintf("Duplicate of #%d", d.iss))
 		}
 		slices.Sort(strs)
 		t.addStat(iss, statDuplicate, strings.Join(strs, listItem))
-		labels = append(labels, labelPossibleDuplicate)
+		labels = append(labels, labelDuplicate)
 	}
 
 	mp := t.canonicalModule(modulePath(iss))
@@ -150,6 +146,38 @@ func (t *triage) triage(ctx context.Context, iss *issues.Issue) {
 
 	if pr.Priority == priority.High {
 		labels = append(labels, labelHighPriority)
+	}
+}
+
+func (t *triage) editIssue(ctx context.Context, iss *issues.Issue, labels, comments []string) {
+	// Preserve any existing labels.
+	labels = append(labels, iss.Labels...)
+
+	// Sort and de-duplicate.
+	slices.Sort(labels)
+	labels = slices.Compact(labels)
+	slices.Sort(comments)
+	comments = slices.Compact(comments)
+
+	if *dry {
+		if len(labels) != 0 {
+			log.Infof("issue #%d: would set labels: [%s]", iss.Number, strings.Join(labels, ", "))
+		}
+		if len(comments) != 0 {
+			log.Infof("issue #%d: would add comments: [%s]", iss.Number, strings.Join(comments, ", "))
+		}
+		return
+	}
+
+	if err := t.ic.SetLabels(ctx, iss.Number, labels); err != nil {
+		log.Warnf("issue #%d: could not auto-set label(s) %s\n\t%v", iss.Number, labels, err)
+	}
+
+	// TODO(tatianabradley): Read existing comments to ensure we aren't
+	// posting the same comment twice.
+	// (This requires an extra Github API request.)
+	if err := t.ic.AddComments(ctx, iss.Number, comments); err != nil {
+		log.Warnf("issue #%d: could not add comment(s) %s\n\t%v", iss.Number, comments, err)
 	}
 }
 
@@ -174,43 +202,65 @@ func (t *triage) aliases(ctx context.Context, iss *issues.Issue) []string {
 	return t.allAliases(ctx, aliases)
 }
 
-func (t *triage) findDuplicates(ctx context.Context, iss *issues.Issue) map[string][]string {
+type vuln struct {
+	// The issue number for this vulnerability.
+	iss int
+	// The filename of the report for this issue.
+	fname string
+}
+
+// findDuplicates returns a map of duplicate issues to the aliases
+// that they share with the given issue.
+func (t *triage) findDuplicates(ctx context.Context, iss *issues.Issue) map[vuln][]string {
 	aliases := t.aliases(ctx, iss)
 	if len(aliases) == 0 {
 		log.Infof("issue #%d: skipping duplicate search (no aliases found)", iss.Number)
 		return nil
 	}
 
-	xrefs := make(map[string][]string)
+	duplicates := make(map[vuln][]string)
 	for _, a := range aliases {
 		// Find existing reports with this alias.
 		if reports := t.rc.ReportsByAlias(a); len(reports) != 0 {
 			for _, r := range reports {
 				fname, err := r.YAMLFilename()
 				if err != nil {
-					fname = r.ID
+					log.Warnf("could not get filename of duplicate report: %s", err)
+					continue
 				}
-				xrefs[fname] = append(xrefs[fname], a)
+				_, _, iss, err := report.ParseFilepath(fname)
+				if err != nil {
+					log.Warnf("could not parse duplicate report: %s", err)
+					continue
+				}
+				d := vuln{
+					iss:   iss,
+					fname: fname,
+				}
+				duplicates[d] = append(duplicates[d], a)
 			}
 		}
 
 		// Find other open issues with this alias.
-		for _, dup := range t.lookupAlias(a) {
-			if iss.Number == dup {
+		for _, issNum := range t.lookupAlias(a) {
+			if iss.Number == issNum {
 				continue
 			}
 			// If the other issue is already marked as a duplicate,
 			// we don't need to mark this one.
-			if t.duplicates[dup] {
+			if t.duplicates[issNum] {
 				continue
 			}
-			ref := t.ic.Reference(dup)
-			xrefs[ref] = append(xrefs[ref], a)
+			d := vuln{
+				iss: issNum,
+				// no report yet
+			}
+			duplicates[d] = append(duplicates[d], a)
 			t.duplicates[iss.Number] = true
 		}
 	}
 
-	return xrefs
+	return duplicates
 }
 
 func (t *triage) lookupAlias(a string) []int {

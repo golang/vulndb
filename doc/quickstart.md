@@ -33,11 +33,11 @@ Other useful docs:
 
 ### Check for duplicates and not Go code
 
-1.  For all reports marked `possible duplicate`, determine if
-the label is correct.
+1.  For all reports marked `duplicate`, quickly double-check if the label is correct (it usually is).
 
-   * If correct: replace the `possible duplicate` label with the `duplicate` label, add a comment exactly of the form "Duplicate of #NNN" where #NNN is number of the issue this is a duplicate of, and close the issue.
-   * If incorrect: remove the `possible duplicate` label and ensure the `triaged` label is present.
+   * If correct: close the issue.
+   * If incorrect: remove the `duplicate` label, delete the duplicate comment, and ensure the
+   `triaged` label is present.
 
 2. For all reports marked `possibly not Go`, determine if the label is correct by investigating the report to see if the vulnerability affects Go code.
 
