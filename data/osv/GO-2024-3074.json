@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3074",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-42486",
+    "GHSA-vwf8-q6fw-4wcm"
+  ],
+  "summary": "Cilium leaks information via incorrect ReferenceGrant update logic in Gateway API in github.com/cilium/cilium",
+  "details": "Cilium leaks information via incorrect ReferenceGrant update logic in Gateway API in github.com/cilium/cilium",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cilium/cilium",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.15.0"
+            },
+            {
+              "fixed": "1.15.8"
+            },
+            {
+              "introduced": "1.16.0"
+            },
+            {
+              "fixed": "1.16.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cilium/cilium/security/advisories/GHSA-vwf8-q6fw-4wcm"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-42486"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cilium/cilium/commit/414a96b53d51ef6e6645c44426e26bc8e7c7c059"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cilium/cilium/commit/92c110e58a7be6586819dd51fb0f6ee1ec4be8f8"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cilium/cilium/commit/ed3dfa0aab8b80f7e841a6d49d2a990ac2dca053"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cilium/cilium/pull/34032"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3074",
+    "review_status": "UNREVIEWED"
+  }
+}

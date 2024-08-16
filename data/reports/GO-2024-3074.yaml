@@ -1,0 +1,27 @@
+id: GO-2024-3074
+modules:
+    - module: github.com/cilium/cilium
+      versions:
+        - introduced: 1.15.0
+        - fixed: 1.15.8
+        - introduced: 1.16.0
+        - fixed: 1.16.1
+      vulnerable_at: 1.16.0
+summary: |-
+    Cilium leaks information via incorrect ReferenceGrant update logic in Gateway
+    API in github.com/cilium/cilium
+cves:
+    - CVE-2024-42486
+ghsas:
+    - GHSA-vwf8-q6fw-4wcm
+references:
+    - advisory: https://github.com/cilium/cilium/security/advisories/GHSA-vwf8-q6fw-4wcm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-42486
+    - fix: https://github.com/cilium/cilium/commit/414a96b53d51ef6e6645c44426e26bc8e7c7c059
+    - fix: https://github.com/cilium/cilium/commit/92c110e58a7be6586819dd51fb0f6ee1ec4be8f8
+    - fix: https://github.com/cilium/cilium/commit/ed3dfa0aab8b80f7e841a6d49d2a990ac2dca053
+    - fix: https://github.com/cilium/cilium/pull/34032
+source:
+    id: GHSA-vwf8-q6fw-4wcm
+    created: 2024-08-16T17:24:49.080621-04:00
+review_status: UNREVIEWED

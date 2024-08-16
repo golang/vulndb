@@ -1,0 +1,23 @@
+id: GO-2024-3075
+modules:
+    - module: github.com/kubernetes/ingress-nginx
+      non_go_versions:
+        - fixed: 1.11.2
+      unsupported_versions:
+        - cve_version_range: 'unaffected at 1.11.2 (default: unknown)'
+      vulnerable_at: 1.0.0-alpha.1
+summary: CVE-2024-7646 in github.com/kubernetes/ingress-nginx
+cves:
+    - CVE-2024-7646
+credits:
+    - André Storfjord Kristiansen
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-7646
+    - fix: https://github.com/kubernetes/ingress-nginx/pull/11719
+    - fix: https://github.com/kubernetes/ingress-nginx/pull/11721
+    - report: https://github.com/kubernetes/kubernetes/issues/126744
+    - web: https://groups.google.com/g/kubernetes-security-announce/c/a1__cKjWkfA
+source:
+    id: CVE-2024-7646
+    created: 2024-08-16T17:24:43.246938-04:00
+review_status: UNREVIEWED
