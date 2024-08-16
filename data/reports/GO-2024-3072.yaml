@@ -1,0 +1,22 @@
+id: GO-2024-3072
+modules:
+    - module: github.com/cilium/cilium
+      versions:
+        - fixed: 1.14.14
+        - introduced: 1.15.0
+        - fixed: 1.15.8
+      vulnerable_at: 1.15.7
+summary: Policy bypass for Host Firewall policy due to race condition in Cilium agent in github.com/cilium/cilium
+cves:
+    - CVE-2024-42488
+ghsas:
+    - GHSA-q7w8-72mr-vpgw
+references:
+    - advisory: https://github.com/cilium/cilium/security/advisories/GHSA-q7w8-72mr-vpgw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-42488
+    - fix: https://github.com/cilium/cilium/commit/aa44dd148a9be95e07782e4f990e61678ef0abf8
+    - fix: https://github.com/cilium/cilium/pull/33511
+source:
+    id: GHSA-q7w8-72mr-vpgw
+    created: 2024-08-16T11:20:32.523735-04:00
+review_status: UNREVIEWED

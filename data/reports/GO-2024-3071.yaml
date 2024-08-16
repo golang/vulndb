@@ -1,0 +1,25 @@
+id: GO-2024-3071
+modules:
+    - module: github.com/cilium/cilium
+      versions:
+        - introduced: 1.15.0
+        - fixed: 1.15.8
+        - introduced: 1.16.0
+        - fixed: 1.16.1
+      vulnerable_at: 1.16.0
+summary: Gateway API route matching order contradicts specification in github.com/cilium/cilium
+cves:
+    - CVE-2024-42487
+ghsas:
+    - GHSA-qcm3-7879-xcww
+references:
+    - advisory: https://github.com/cilium/cilium/security/advisories/GHSA-qcm3-7879-xcww
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-42487
+    - fix: https://github.com/cilium/cilium/commit/a3510fe4a92305822aa1a5e08cb6d6c873c8699a
+    - fix: https://github.com/cilium/cilium/commit/d88772b9c29e370becbc4547cada6711d51edcde
+    - fix: https://github.com/cilium/cilium/commit/fe42273566a943a0f3174c87b23a195c856b51d6
+    - fix: https://github.com/cilium/cilium/pull/34109
+source:
+    id: GHSA-qcm3-7879-xcww
+    created: 2024-08-16T11:20:36.928722-04:00
+review_status: UNREVIEWED
