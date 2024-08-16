@@ -3,7 +3,7 @@ modules:
     - module: github.com/mattermost/mattermost-server
       non_go_versions:
         - fixed: 7.8.10
-      vulnerable_at: 9.9.0+incompatible
+      vulnerable_at: 9.11.0+incompatible
     - module: github.com/mattermost/mattermost-server/v5
       vulnerable_at: 5.39.3
     - module: github.com/mattermost/mattermost-server/v6
@@ -11,21 +11,18 @@ modules:
     - module: github.com/mattermost/mattermost/server/v8
       non_go_versions:
         - fixed: 8.1.1
-      vulnerable_at: 8.0.0-20240626184126-817e18414e41
+      vulnerable_at: 8.0.0-20240816093336-e666f7ccfc35
 summary: Mattermost viewing archived public channels permissions vulnerability in github.com/mattermost/mattermost-server
 cves:
     - CVE-2023-47858
 ghsas:
     - GHSA-w88v-pjr8-cmv2
-unknown_aliases:
-    - BIT-mattermost-2023-47858
-    - CGA-4m9j-264v-7mr3
 references:
     - advisory: https://github.com/advisories/GHSA-w88v-pjr8-cmv2
     - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-47858
     - web: https://mattermost.com/security-updates
 source:
     id: GHSA-w88v-pjr8-cmv2
-    created: 2024-06-26T16:13:37.899374-04:00
+    created: 2024-08-16T15:59:27.824124-04:00
 review_status: UNREVIEWED
 unexcluded: EFFECTIVELY_PRIVATE

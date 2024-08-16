@@ -1,7 +1,7 @@
 id: GO-2024-2446
 modules:
     - module: github.com/mattermost/mattermost-server
-      vulnerable_at: 9.9.0+incompatible
+      vulnerable_at: 9.11.0+incompatible
     - module: github.com/mattermost/mattermost-server/v5
       vulnerable_at: 5.39.3
     - module: github.com/mattermost/mattermost-server/v6
@@ -9,21 +9,18 @@ modules:
     - module: github.com/mattermost/mattermost/server/v8
       non_go_versions:
         - fixed: 8.1.7
-      vulnerable_at: 8.0.0-20240626184126-817e18414e41
+      vulnerable_at: 8.0.0-20240816093336-e666f7ccfc35
 summary: Mattermost Cross-site Scripting vulnerability in github.com/mattermost/mattermost-server
 cves:
     - CVE-2023-7113
 ghsas:
     - GHSA-h3gq-j7p9-x3p4
-unknown_aliases:
-    - BIT-mattermost-2023-7113
-    - CGA-pcxv-43r4-92mm
 references:
     - advisory: https://github.com/advisories/GHSA-h3gq-j7p9-x3p4
     - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-7113
     - web: https://mattermost.com/security-updates
 source:
     id: GHSA-h3gq-j7p9-x3p4
-    created: 2024-06-26T16:12:13.229043-04:00
+    created: 2024-08-16T15:59:00.341654-04:00
 review_status: UNREVIEWED
 unexcluded: EFFECTIVELY_PRIVATE

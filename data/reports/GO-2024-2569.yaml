@@ -2,6 +2,7 @@ id: GO-2024-2569
 modules:
     - module: github.com/cilium/cilium
       versions:
+        - introduced: 1.14.0
         - fixed: 1.14.7
       vulnerable_at: 1.14.6
 summary: Unencrypted traffic between pods when using Wireguard and an external kvstore in github.com/cilium/cilium
@@ -9,11 +10,6 @@ cves:
     - CVE-2024-25631
 ghsas:
     - GHSA-x989-52fc-4vr4
-unknown_aliases:
-    - BIT-cilium-2024-25631
-    - BIT-cilium-operator-2024-25631
-    - BIT-hubble-2024-25631
-    - BIT-hubble-relay-2024-25631
 references:
     - advisory: https://github.com/cilium/cilium/security/advisories/GHSA-x989-52fc-4vr4
     - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-25631
@@ -22,5 +18,5 @@ references:
     - web: https://github.com/cilium/cilium/releases/tag/v1.14.7
 source:
     id: GHSA-x989-52fc-4vr4
-    created: 2024-06-05T13:39:10.852421-04:00
+    created: 2024-08-16T16:24:24.054247-04:00
 review_status: UNREVIEWED
