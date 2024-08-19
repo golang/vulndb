@@ -1,0 +1,23 @@
+id: GO-2024-3068
+modules:
+    - module: github.com/cosmos/gaia/v14
+      versions:
+        - introduced: 14.2.0
+    - module: github.com/cosmos/gaia/v15
+    - module: github.com/cosmos/gaia/v16
+    - module: github.com/cosmos/gaia/v17
+      versions:
+        - fixed: 17.3.0
+summary: |
+    Missing check for the height of cryptographic equivocation evidence
+    in github.com/cosmos/gaia
+ghsas:
+    - GHSA-83qr-9v2h-qxp4
+references:
+    - advisory: https://github.com/advisories/GHSA-83qr-9v2h-qxp4
+notes:
+    - Even though it exists via the UI, the GHSA could not be downloaded from the Github API, so this report was manually created in the style of UNREVIEWED reports.
+source:
+    id: GHSA-83qr-9v2h-qxp4
+    created: 2024-08-19T10:38:23.527392-04:00
+review_status: UNREVIEWED

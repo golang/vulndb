@@ -1,0 +1,31 @@
+id: GO-2024-3073
+modules:
+    - module: github.com/hashicorp/nomad
+      versions:
+        - introduced: 0.6.1
+        - fixed: 1.8.3
+      non_go_versions:
+        - introduced: 0.6.1
+        - fixed: 1.6.14
+        - introduced: 1.7.0
+        - fixed: 1.7.11
+        - introduced: 1.8.0
+        - fixed: 1.8.3
+      vulnerable_at: 1.8.2
+summary: |-
+    Nomad Vulnerable to Allocation Directory Escape On Non-Existing File Paths
+    Through Archive Unpacking in github.com/hashicorp/nomad
+cves:
+    - CVE-2024-7625
+ghsas:
+    - GHSA-25qx-vfw2-fw8r
+references:
+    - advisory: https://github.com/advisories/GHSA-25qx-vfw2-fw8r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-7625
+    - web: https://discuss.hashicorp.com/t/hcsec-2024-17-nomad-vulnerable-to-allocation-directory-escape-on-non-existing-file-paths-through-archive-unpacking/69293
+notes:
+    - manually fixed ranges (1.6.14 and 1.7.11 don't exist)
+source:
+    id: GHSA-25qx-vfw2-fw8r
+    created: 2024-08-16T17:24:53.360481-04:00
+review_status: UNREVIEWED

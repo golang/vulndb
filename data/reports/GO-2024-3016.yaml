@@ -1,0 +1,87 @@
+id: GO-2024-3016
+modules:
+    - module: github.com/beego/beego/v2
+      versions:
+        - fixed: 2.2.1
+      vulnerable_at: 2.2.0
+      packages:
+        - package: github.com/beego/beego/v2/core/logs
+          symbols:
+            - SMTPWriter.sendMail
+            - newSMTPWriter
+          derived_symbols:
+            - AccessLog
+            - Alert
+            - Async
+            - BeeLogger.Alert
+            - BeeLogger.Async
+            - BeeLogger.Close
+            - BeeLogger.Critical
+            - BeeLogger.Debug
+            - BeeLogger.DelLogger
+            - BeeLogger.Emergency
+            - BeeLogger.Error
+            - BeeLogger.Flush
+            - BeeLogger.Info
+            - BeeLogger.Informational
+            - BeeLogger.Notice
+            - BeeLogger.Reset
+            - BeeLogger.SetLogger
+            - BeeLogger.Trace
+            - BeeLogger.Warn
+            - BeeLogger.Warning
+            - BeeLogger.Write
+            - ColorByMethod
+            - ColorByStatus
+            - Critical
+            - Debug
+            - Emergency
+            - Error
+            - GetLogger
+            - Info
+            - Informational
+            - JLWriter.Format
+            - JLWriter.Init
+            - JLWriter.WriteMsg
+            - LogMsg.OldStyleFormat
+            - NewLogger
+            - Notice
+            - PatternLogFormatter.Format
+            - PatternLogFormatter.ToString
+            - Reset
+            - SLACKWriter.Format
+            - SLACKWriter.Init
+            - SLACKWriter.WriteMsg
+            - SMTPWriter.Format
+            - SMTPWriter.Init
+            - SMTPWriter.WriteMsg
+            - SetLogger
+            - Trace
+            - Warn
+            - Warning
+            - connWriter.Format
+            - connWriter.Init
+            - connWriter.WriteMsg
+            - consoleWriter.Format
+            - consoleWriter.Init
+            - consoleWriter.WriteMsg
+            - fileLogWriter.Format
+            - fileLogWriter.Init
+            - fileLogWriter.WriteMsg
+            - multiFileLogWriter.Format
+            - multiFileLogWriter.Init
+            - multiFileLogWriter.WriteMsg
+summary: Beego privilege escalation vulnerability via sendMail in github.com/beego/beego/v2
+cves:
+    - CVE-2024-40464
+ghsas:
+    - GHSA-r6qh-j42j-pw64
+references:
+    - advisory: https://github.com/advisories/GHSA-r6qh-j42j-pw64
+    - web: https://gist.github.com/nyxfqq/b53b0148b9aa040de63f58a68fd11445
+    - fix: https://github.com/beego/beego/commit/8f89e12e6cafb106d5c201dbc3b2a338bfde74e2
+    - web: https://github.com/beego/beego/security/advisories/GHSA-6g9p-wv47-4fxq
+source:
+    id: GHSA-r6qh-j42j-pw64
+    created: 2024-08-16T17:25:07.740308-04:00
+review_status: REVIEWED

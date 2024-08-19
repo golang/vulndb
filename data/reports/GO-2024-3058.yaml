@@ -1,0 +1,27 @@
+id: GO-2024-3058
+modules:
+    - module: github.com/appleboy/gorush
+      versions:
+        - fixed: 1.18.5
+      vulnerable_at: 1.18.4
+      packages:
+        - package: github.com/appleboy/gorush/router
+          symbols:
+            - RunHTTPServer
+summary: Gorush uses deprecated TLS versions in github.com/appleboy/gorush
+description: |-
+    An issue in the RunHTTPServer function in Gorush allows attackers to intercept
+    and manipulate data due to the use of a deprecated TLS version.
+cves:
+    - CVE-2024-41270
+ghsas:
+    - GHSA-p3pf-mff8-3h47
+references:
+    - advisory: https://github.com/advisories/GHSA-p3pf-mff8-3h47
+    - fix: https://github.com/appleboy/gorush/commit/067cb597e485e40b790a267187bf7f00730b1c4b
+    - report: https://github.com/appleboy/gorush/issues/792
+    - web: https://gist.github.com/nyxfqq/cfae38fada582a0f576d154be1aeb1fc
+source:
+    id: GHSA-p3pf-mff8-3h47
+    created: 2024-08-16T17:25:03.501057-04:00
+review_status: REVIEWED

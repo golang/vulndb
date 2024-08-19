@@ -1,0 +1,127 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3016",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-40464",
+    "GHSA-r6qh-j42j-pw64"
+  ],
+  "summary": "Beego privilege escalation vulnerability via sendMail in github.com/beego/beego/v2",
+  "details": "Beego privilege escalation vulnerability via sendMail in github.com/beego/beego/v2",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/beego/beego/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.2.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/beego/beego/v2/core/logs",
+            "symbols": [
+              "AccessLog",
+              "Alert",
+              "Async",
+              "BeeLogger.Alert",
+              "BeeLogger.Async",
+              "BeeLogger.Close",
+              "BeeLogger.Critical",
+              "BeeLogger.Debug",
+              "BeeLogger.DelLogger",
+              "BeeLogger.Emergency",
+              "BeeLogger.Error",
+              "BeeLogger.Flush",
+              "BeeLogger.Info",
+              "BeeLogger.Informational",
+              "BeeLogger.Notice",
+              "BeeLogger.Reset",
+              "BeeLogger.SetLogger",
+              "BeeLogger.Trace",
+              "BeeLogger.Warn",
+              "BeeLogger.Warning",
+              "BeeLogger.Write",
+              "ColorByMethod",
+              "ColorByStatus",
+              "Critical",
+              "Debug",
+              "Emergency",
+              "Error",
+              "GetLogger",
+              "Info",
+              "Informational",
+              "JLWriter.Format",
+              "JLWriter.Init",
+              "JLWriter.WriteMsg",
+              "LogMsg.OldStyleFormat",
+              "NewLogger",
+              "Notice",
+              "PatternLogFormatter.Format",
+              "PatternLogFormatter.ToString",
+              "Reset",
+              "SLACKWriter.Format",
+              "SLACKWriter.Init",
+              "SLACKWriter.WriteMsg",
+              "SMTPWriter.Format",
+              "SMTPWriter.Init",
+              "SMTPWriter.WriteMsg",
+              "SMTPWriter.sendMail",
+              "SetLogger",
+              "Trace",
+              "Warn",
+              "Warning",
+              "connWriter.Format",
+              "connWriter.Init",
+              "connWriter.WriteMsg",
+              "consoleWriter.Format",
+              "consoleWriter.Init",
+              "consoleWriter.WriteMsg",
+              "fileLogWriter.Format",
+              "fileLogWriter.Init",
+              "fileLogWriter.WriteMsg",
+              "multiFileLogWriter.Format",
+              "multiFileLogWriter.Init",
+              "multiFileLogWriter.WriteMsg",
+              "newSMTPWriter"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-r6qh-j42j-pw64"
+    },
+    {
+      "type": "WEB",
+      "url": "https://gist.github.com/nyxfqq/b53b0148b9aa040de63f58a68fd11445"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/beego/beego/commit/8f89e12e6cafb106d5c201dbc3b2a338bfde74e2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/beego/beego/security/advisories/GHSA-6g9p-wv47-4fxq"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3016",
+    "review_status": "REVIEWED"
+  }
+}
