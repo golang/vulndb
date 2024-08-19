@@ -13,7 +13,7 @@ import (
 	"strconv"
 )
 
-//go:embed data/importers.csv.gz
+//go:embed data/importers-*.csv.gz
 var importers []byte
 
 func LoadModuleMap() (map[string]int, error) {
