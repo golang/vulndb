@@ -66,3 +66,16 @@ steps:
     args: ["-ec", "go run ./cmd/checkdb /workspace/deployed/go-vulndb"]
     env:
       - 'GOPROXY=https://proxy.golang.org'
+
+  - id: PublishCVEs
+    name: golang:1.23.0
+    entrypoint: bash
+    args: ["-ec", "go run ./cmd/cve -key $$CVE_API_USER -user $$CVE_API_USER publish-all"]
+    secretEnv: ['CVE_API_USER', 'CVE_API_KEY']
+
+availableSecrets:
+  secretManager:
+  - versionName: ${_CVE_API_KEY}
+    env: 'CVE_API_KEY'
+  - versionName: ${_CVE_API_USER}
+    env: 'CVE_API_USER'

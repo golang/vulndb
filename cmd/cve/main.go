@@ -12,6 +12,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"io/fs"
 	"log"
 	"os"
 	"path/filepath"
@@ -21,9 +22,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"golang.org/x/vulndb/internal/cve5"
-	"golang.org/x/vulndb/internal/database"
 	"golang.org/x/vulndb/internal/idstr"
-	"golang.org/x/vulndb/internal/report"
 )
 
 var (
@@ -63,7 +62,8 @@ func main() {
 		fmt.Fprintf(out, formatCmd, "id {cve-id}", "outputs details on an assigned CVE ID (CVE-YYYY-NNNN)")
 		fmt.Fprintf(out, formatCmd, "record {cve-id}", "outputs the record associated with a CVE ID (CVE-YYYY-NNNN)")
 		fmt.Fprintf(out, formatCmd, "reject {cve-id}", "rejects the CVE ID (CVE-YYYY-NNNN) - for CVEs that have been reserved but are no longer needed")
-		fmt.Fprintf(out, formatCmd, "publish [{filename} | {issue ID}]", "publishes or updates a CVE Record from a YAML/JSON file or issue ID")
+		fmt.Fprintf(out, formatCmd, "publish [{filename} | {issue ID}]", "publishes or updates a CVE Record from a YAML/JSON file or issue ID (interactive)")
+		fmt.Fprintf(out, formatCmd, "publish-all", "publishes all modified CVE JSON records in the data/cve/v5 directory (non-interactive)")
 		fmt.Fprintf(out, formatCmd, "org", "outputs details on the authenticated organization")
 		fmt.Fprintf(out, formatCmd, "[-year] [-state] list", "lists all CVE IDs for an organization")
 		flag.PrintDefaults()
@@ -145,9 +145,18 @@ func main() {
 			if !strings.HasSuffix(filename, ".json") && !strings.HasSuffix(filename, ".yaml") {
 				logFatalUsageErr("cve publish", errors.New("filename must end in '.json' or '.yaml'"))
 			}
-			if err := publish(c, filename); err != nil {
+			interactive := true
+			if err := publish(c, filename, interactive); err != nil {
 				log.Printf("cve publish: could not publish CVE record due to error:\n %v", err)
 			}
+		}
+	case "publish-all":
+		args := flag.Args()[1:]
+		if len(args) != 0 {
+			logFatalUsageErr("cve publish-all", errors.New("takes no args"))
+		}
+		if err := publishAll(c); err != nil {
+			log.Printf("cve publish-all: %v", err)
 		}
 	case "org":
 		if err := lookupOrg(c); err != nil {
@@ -312,7 +321,20 @@ func argToFilename(arg string) (string, error) {
 	return arg, nil
 }
 
-func publish(c *cve5.Client, filename string) (err error) {
+func publishAll(c *cve5.Client) error {
+	const dir = "data/cve/v5"
+	return filepath.WalkDir(dir, func(path string, d fs.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+		if d.IsDir() {
+			return nil
+		}
+		return publish(c, path, false)
+	})
+}
+
+func publish(c *cve5.Client, filename string, interactive bool) (err error) {
 	if !strings.HasSuffix(filename, ".json") {
 		return errors.New("filename must end in '.json'")
 	}
@@ -341,20 +363,6 @@ func publish(c *cve5.Client, filename string) (err error) {
 		fmt.Printf("%s is published at %s\n", cveID, c.WebURL(cveID))
 		if diff := cmp.Diff(existing.Containers, *toPublish); diff != "" {
 			fmt.Printf("publish would update record with diff (-existing, +new):\n%s\n", diff)
-			// The CVE program sometimes adds references to CVEs, so we need
-			// to make sure we don't accidentally delete them.
-			if updated := handleDeleted(existing, toPublish, filename); updated {
-				// If we updated the CVE, check if any changes remain.
-				_, toPublish, err = cve5.ReadForPublish(filename)
-				if err != nil {
-					return err
-				}
-				if diff := cmp.Diff(existing.Containers, *toPublish); diff == "" {
-					fmt.Println("after adding missing refs, updating record would now have no effect")
-					return nil
-				}
-				fmt.Printf("after adding missing refs, publish would now update record with diff (-existing, +new):\n%s\n", diff)
-			}
 		} else {
 			fmt.Println("updating record would have no effect, skipping")
 			return nil
@@ -369,12 +377,14 @@ func publish(c *cve5.Client, filename string) (err error) {
 		return fmt.Errorf("publishing a %s record is not supported", state)
 	}
 
-	reader := bufio.NewReader(os.Stdin)
-	fmt.Printf("%s record for %s? (y/N)\n", action, cveID)
-	text, _ := reader.ReadString('\n')
-	if text != "y\n" {
-		fmt.Printf("exiting without %sing record\n", strings.TrimSuffix(action, "e"))
-		return nil
+	if interactive {
+		reader := bufio.NewReader(os.Stdin)
+		fmt.Printf("%s record for %s? (y/N)\n", action, cveID)
+		text, _ := reader.ReadString('\n')
+		if text != "y\n" {
+			fmt.Printf("exiting without %sing record\n", strings.TrimSuffix(action, "e"))
+			return nil
+		}
 	}
 
 	_, err = publishFunc(cveID, toPublish)
@@ -385,77 +395,6 @@ func publish(c *cve5.Client, filename string) (err error) {
 	fmt.Printf("successfully %sd record for %s at %s\n", action, cveID, c.WebURL(cveID))
 
 	return nil
-}
-
-func handleDeleted(existing *cve5.CVERecord, toPublish *cve5.Containers, filename string) bool {
-	deleted := findDeleted(existing.Containers.CNAContainer.References, toPublish.CNAContainer.References)
-	if len(deleted) == 0 {
-		return false
-	}
-	goID := strings.TrimSuffix(filepath.Base(filename), filepath.Ext(filename))
-	yamlReportFile := fmt.Sprintf("data/reports/%s.yaml", goID)
-	// To preserve an externally-added reference, add it to
-	// cve_metadata.references. An example is GO-2022-0476.
-	// This warning may be spurious if a reference is deleted from
-	// a YAML report - in this case it should be ignored.
-	fmt.Printf(
-		`!! WARNING !!
-updating record would delete %[1]d reference(s) that may have been added by the CVE program;
-to preserve these references, add references to %[2]s and run "vulnreport fix %[2]s":
-
-cve_metadata:
-    ...
-    references:
-        ...
-        - %[3]s
-
-only update now if this warning is spurious (i.e., the records were deleted on purpose)
-`, len(deleted), yamlReportFile, strings.Join(deleted, "\n        - "))
-
-	reader := bufio.NewReader(os.Stdin)
-	fmt.Printf("try to auto-add missing refs? (y/N)\n")
-	text, _ := reader.ReadString('\n')
-	if text != "y\n" {
-		return false
-	}
-
-	if err := addMissing(yamlReportFile, deleted); err != nil {
-		fmt.Println("ERROR: could not add missing refs: ", err)
-		return false
-	}
-
-	fmt.Printf("successfully added %d missing refs\n", len(deleted))
-	return true
-}
-
-func addMissing(yamlFile string, missing []string) error {
-	r, err := report.Read(yamlFile)
-	if err != nil {
-		return err
-	}
-	r.CVEMetadata.References = append(r.CVEMetadata.References, missing...)
-	if err := r.Write(yamlFile); err != nil {
-		return err
-	}
-	cve, err := cve5.FromReport(r)
-	if err != nil {
-		return err
-	}
-	return database.WriteJSON(r.CVEFilename(), cve, true)
-}
-
-// findDeleted returns a list of URLs in oldRefs that are not in newRefs.
-func findDeleted(oldRefs []cve5.Reference, newRefs []cve5.Reference) (deleted []string) {
-	m := make(map[string]bool)
-	for _, r := range newRefs {
-		m[r.URL] = true
-	}
-	for _, r := range oldRefs {
-		if !m[r.URL] {
-			deleted = append(deleted, r.URL)
-		}
-	}
-	return deleted
 }
 
 func list(c *cve5.Client, lf *cve5.ListOptions) error {
