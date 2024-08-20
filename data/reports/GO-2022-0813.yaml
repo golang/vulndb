@@ -1,0 +1,22 @@
+id: GO-2022-0813
+modules:
+    - module: github.com/cosmos/ethermint
+      versions:
+        - fixed: 0.4.1
+      vulnerable_at: 0.4.0
+summary: Authentication bypass by capture-replay in github.com/cosmos/ethermint
+cves:
+    - CVE-2021-25834
+ghsas:
+    - GHSA-93p5-8fqw-wjx3
+references:
+    - advisory: https://github.com/advisories/GHSA-93p5-8fqw-wjx3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-25834
+    - fix: https://github.com/cosmos/ethermint/commit/d7bdbd7488644f0aaeee5cdcdc119c863f199f72
+    - report: https://github.com/cosmos/ethermint/issues/686
+    - web: https://github.com/cosmos/ethermint/releases/tag/v0.4.1
+source:
+    id: GHSA-93p5-8fqw-wjx3
+    created: 2024-08-20T14:19:13.52527-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

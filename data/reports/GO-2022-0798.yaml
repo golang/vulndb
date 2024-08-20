@@ -1,0 +1,22 @@
+id: GO-2022-0798
+modules:
+    - module: github.com/google/exposure-notifications-verification-server
+      versions:
+        - fixed: 0.23.1
+      vulnerable_at: 0.23.0
+summary: Privilege escalation in rbac in github.com/google/exposure-notifications-verification-server
+cves:
+    - CVE-2021-22538
+ghsas:
+    - GHSA-5v95-v8c8-3rh6
+references:
+    - advisory: https://github.com/google/exposure-notifications-verification-server/security/advisories/GHSA-5v95-v8c8-3rh6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-22538
+    - fix: https://github.com/google/exposure-notifications-verification-server/commit/eb8cf40b12dbe79304f1133c06fb73419383cd95
+    - web: https://github.com/google/exposure-notifications-verification-server/releases/tag/v0.23.1
+    - web: https://github.com/google/exposure-notifications-verification-server/releases/tag/v0.24.0
+source:
+    id: GHSA-5v95-v8c8-3rh6
+    created: 2024-08-20T14:16:25.380773-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

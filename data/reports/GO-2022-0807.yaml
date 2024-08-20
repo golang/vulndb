@@ -1,0 +1,23 @@
+id: GO-2022-0807
+modules:
+    - module: github.com/lightningnetwork/lnd
+      versions:
+        - fixed: 0.7.1-beta
+      vulnerable_at: 0.7.0-beta-rc3
+summary: Improper Access Control in Lightning Network Daemon in github.com/lightningnetwork/lnd
+cves:
+    - CVE-2019-12999
+ghsas:
+    - GHSA-78hj-86cr-6j2v
+references:
+    - advisory: https://github.com/advisories/GHSA-78hj-86cr-6j2v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2019-12999
+    - fix: https://github.com/lightningnetwork/lnd/commits/master
+    - web: https://github.com/lightninglabs/chanleakcheck
+    - web: https://github.com/lightningnetwork/lnd/releases/tag/v0.7.0-beta
+    - web: https://lists.linuxfoundation.org/pipermail/lightning-dev/2019-September/002174.html
+source:
+    id: GHSA-78hj-86cr-6j2v
+    created: 2024-08-20T14:18:10.969183-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

@@ -1,0 +1,22 @@
+id: GO-2022-0821
+modules:
+    - module: github.com/hashicorp/nomad
+      versions:
+        - fixed: 0.10.3
+      vulnerable_at: 0.10.2
+summary: Improper Certificate Validation in HashiCorp Nomad in github.com/hashicorp/nomad
+cves:
+    - CVE-2020-7956
+ghsas:
+    - GHSA-cj2h-ww36-v932
+references:
+    - advisory: https://github.com/advisories/GHSA-cj2h-ww36-v932
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-7956
+    - fix: https://github.com/hashicorp/nomad/pull/7023
+    - report: https://github.com/hashicorp/nomad/issues/7003
+    - web: https://www.hashicorp.com/blog/category/nomad
+source:
+    id: GHSA-cj2h-ww36-v932
+    created: 2024-08-20T14:19:44.370549-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

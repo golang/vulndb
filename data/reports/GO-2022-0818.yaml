@@ -1,0 +1,27 @@
+id: GO-2022-0818
+modules:
+    - module: github.com/goharbor/harbor
+      versions:
+        - introduced: 1.7.0
+        - fixed: 1.9.0-rc1
+      vulnerable_at: 1.8.6
+summary: Missing Authorization in Harbor in github.com/goharbor/harbor
+cves:
+    - CVE-2019-16097
+ghsas:
+    - GHSA-9wvh-ff5f-xjpj
+references:
+    - advisory: https://github.com/advisories/GHSA-9wvh-ff5f-xjpj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2019-16097
+    - fix: https://github.com/goharbor/harbor/commit/b6db8a8a106259ec9a2c48be8a380cb3b37cf517
+    - web: http://www.vmware.com/security/advisories/VMSA-2019-0015.html
+    - web: https://github.com/goharbor/harbor/compare/v1.8.2...v1.9.0-rc1
+    - web: https://github.com/goharbor/harbor/releases/tag/v1.7.6
+    - web: https://github.com/goharbor/harbor/releases/tag/v1.8.3
+    - web: https://github.com/ianxtianxt/CVE-2019-16097
+    - web: https://unit42.paloaltonetworks.com/critical-vulnerability-in-harbor-enables-privilege-escalation-from-zero-to-admin-cve-2019-16097
+source:
+    id: GHSA-9wvh-ff5f-xjpj
+    created: 2024-08-20T14:19:35.024023-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

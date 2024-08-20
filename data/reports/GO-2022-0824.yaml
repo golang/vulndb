@@ -1,0 +1,22 @@
+id: GO-2022-0824
+modules:
+    - module: github.com/hashicorp/vault-ssh-helper
+      versions:
+        - fixed: 0.2.0
+      vulnerable_at: 0.1.6
+summary: Improper Input Validation in vault-ssh-helper in github.com/hashicorp/vault-ssh-helper
+cves:
+    - CVE-2020-24359
+ghsas:
+    - GHSA-f9fq-vjvh-779p
+references:
+    - advisory: https://github.com/advisories/GHSA-f9fq-vjvh-779p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-24359
+    - fix: https://github.com/hashicorp/vault-ssh-helper/commit/83effd08cbcbe4b993d776bd9b39465cd9e4603f
+    - web: https://github.com/hashicorp/vault-ssh-helper/blob/master/CHANGELOG.md#020-august-19-2020
+    - web: https://github.com/hashicorp/vault-ssh-helper/releases
+source:
+    id: GHSA-f9fq-vjvh-779p
+    created: 2024-08-20T14:19:58.203408-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

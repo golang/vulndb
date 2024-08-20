@@ -1,0 +1,24 @@
+id: GO-2022-0803
+modules:
+    - module: github.com/containerd/containerd
+      versions:
+        - fixed: 1.2.14
+      vulnerable_at: 1.2.13
+summary: containerd v1.2.x can be coerced into leaking credentials during image pull in github.com/containerd/containerd
+cves:
+    - CVE-2020-15157
+ghsas:
+    - GHSA-742w-89gc-8m9c
+references:
+    - advisory: https://github.com/containerd/containerd/security/advisories/GHSA-742w-89gc-8m9c
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-15157
+    - fix: https://github.com/containerd/containerd/commit/1ead8d9deb3b175bf40413b8c47b3d19c2262726
+    - web: https://github.com/containerd/containerd/releases/tag/v1.2.14
+    - web: https://usn.ubuntu.com/4589-1
+    - web: https://usn.ubuntu.com/4589-2
+    - web: https://www.debian.org/security/2021/dsa-4865
+source:
+    id: GHSA-742w-89gc-8m9c
+    created: 2024-08-20T14:17:29.924976-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

@@ -1,0 +1,25 @@
+id: GO-2022-0808
+modules:
+    - module: github.com/containous/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/containous/traefik/v2
+      versions:
+        - fixed: 2.1.4
+      vulnerable_at: 2.1.3
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+summary: Improper Certificate Handling in github.com/containous/traefik
+cves:
+    - CVE-2020-9321
+ghsas:
+    - GHSA-7h6j-2268-fhcm
+references:
+    - advisory: https://github.com/advisories/GHSA-7h6j-2268-fhcm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-9321
+    - fix: https://github.com/traefik/traefik/pull/6281
+    - web: https://github.com/traefik/traefik/releases/tag/v2.1.4
+source:
+    id: GHSA-7h6j-2268-fhcm
+    created: 2024-08-20T14:18:15.586932-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

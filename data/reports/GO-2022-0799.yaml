@@ -1,0 +1,24 @@
+id: GO-2022-0799
+modules:
+    - module: github.com/mholt/archiver
+      versions:
+        - fixed: 2.1.0+incompatible
+      vulnerable_at: 2.0.0+incompatible
+summary: Arbitrary File Write via Archive Extraction in mholt/archiver in github.com/mholt/archiver
+cves:
+    - CVE-2018-1002207
+ghsas:
+    - GHSA-5wmg-j84w-4jj4
+references:
+    - advisory: https://github.com/advisories/GHSA-5wmg-j84w-4jj4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2018-1002207
+    - fix: https://github.com/mholt/archiver/commit/e4ef56d48eb029648b0e895bb0b6a393ef0829c3
+    - fix: https://github.com/mholt/archiver/pull/65
+    - web: https://github.com/snyk/zip-slip-vulnerability
+    - web: https://snyk.io/research/zip-slip-vulnerability
+    - web: https://snyk.io/vuln/SNYK-GOLANG-GITHUBCOMMHOLTARCHIVERCMDARCHIVER-50071
+source:
+    id: GHSA-5wmg-j84w-4jj4
+    created: 2024-08-20T14:16:29.011996-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

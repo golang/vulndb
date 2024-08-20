@@ -1,0 +1,22 @@
+id: GO-2022-0814
+modules:
+    - module: github.com/ethereum/go-ethereum
+      versions:
+        - fixed: 1.8.14
+      vulnerable_at: 1.8.13
+summary: Go Ethereum Denial of Service in github.com/ethereum/go-ethereum
+cves:
+    - CVE-2018-19184
+ghsas:
+    - GHSA-9h4h-8w5p-f28w
+references:
+    - advisory: https://github.com/advisories/GHSA-9h4h-8w5p-f28w
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2018-19184
+    - fix: https://github.com/ethereum/go-ethereum/commit/83e2761c3a13524bd5d6597ac08994488cf872ef
+    - fix: https://github.com/ethereum/go-ethereum/commit/fb9f7261ec51e38eedb454594fc19f00de1a6834
+    - report: https://github.com/ethereum/go-ethereum/issues/18069
+source:
+    id: GHSA-9h4h-8w5p-f28w
+    created: 2024-08-20T14:19:17.754602-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

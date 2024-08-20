@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2022-0799",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2018-1002207",
+    "GHSA-5wmg-j84w-4jj4"
+  ],
+  "summary": "Arbitrary File Write via Archive Extraction in mholt/archiver in github.com/mholt/archiver",
+  "details": "Arbitrary File Write via Archive Extraction in mholt/archiver in github.com/mholt/archiver",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mholt/archiver",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.1.0+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-5wmg-j84w-4jj4"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2018-1002207"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/mholt/archiver/commit/e4ef56d48eb029648b0e895bb0b6a393ef0829c3"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/mholt/archiver/pull/65"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/snyk/zip-slip-vulnerability"
+    },
+    {
+      "type": "WEB",
+      "url": "https://snyk.io/research/zip-slip-vulnerability"
+    },
+    {
+      "type": "WEB",
+      "url": "https://snyk.io/vuln/SNYK-GOLANG-GITHUBCOMMHOLTARCHIVERCMDARCHIVER-50071"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2022-0799",
+    "review_status": "UNREVIEWED"
+  }
+}

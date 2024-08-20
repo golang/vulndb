@@ -1,0 +1,25 @@
+id: GO-2022-0805
+modules:
+    - module: github.com/u-root/u-root
+      versions:
+        - fixed: 0.9.0
+      vulnerable_at: 0.8.0
+summary: |-
+    github.com/u-root/u-root/pkg/tarutil Arbitrary File Write via Archive Extraction
+    (Zip Slip) in github.com/u-root/u-root
+cves:
+    - CVE-2020-7669
+ghsas:
+    - GHSA-75qf-wgfj-v652
+references:
+    - advisory: https://github.com/advisories/GHSA-75qf-wgfj-v652
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-7669
+    - fix: https://github.com/u-root/u-root/pull/1817
+    - fix: https://github.com/u-root/u-root/pull/2344
+    - report: https://github.com/u-root/u-root/issues/2449
+    - web: https://snyk.io/vuln/SNYK-GOLANG-GITHUBCOMUROOTUROOTPKGTARUTIL-570428
+source:
+    id: GHSA-75qf-wgfj-v652
+    created: 2024-08-20T14:18:00.419942-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

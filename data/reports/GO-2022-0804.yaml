@@ -1,0 +1,24 @@
+id: GO-2022-0804
+modules:
+    - module: github.com/hashicorp/vault-plugin-secrets-gcp
+      versions:
+        - fixed: 0.6.2
+      vulnerable_at: 0.6.1
+summary: Improper Input Validation in HashiCorp Vault in github.com/hashicorp/vault-plugin-secrets-gcp
+cves:
+    - CVE-2020-12757
+ghsas:
+    - GHSA-75pc-qvwc-jf3g
+references:
+    - advisory: https://github.com/advisories/GHSA-75pc-qvwc-jf3g
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-12757
+    - fix: https://github.com/hashicorp/vault-plugin-secrets-gcp/commit/e43d20870c50f7428dead1411debcec075b35fb4
+    - fix: https://github.com/hashicorp/vault-plugin-secrets-gcp/pull/85
+    - web: https://github.com/hashicorp/vault/blob/master/CHANGELOG.md
+    - web: https://github.com/hashicorp/vault/blob/master/CHANGELOG.md#142-may-21st-2020
+    - web: https://www.hashicorp.com/blog/category/vault
+source:
+    id: GHSA-75pc-qvwc-jf3g
+    created: 2024-08-20T14:17:54.158905-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE
