@@ -1,0 +1,19 @@
+id: GO-2022-0389
+modules:
+    - module: github.com/pterodactyl/wings
+      versions:
+        - introduced: 1.2.0
+        - fixed: 1.2.1
+      vulnerable_at: 1.2.0
+summary: |-
+    Unchecked hostname resolution could allow access to local network resources by
+    users outside the local network in github.com/pterodactyl/wings
+ghsas:
+    - GHSA-6rg3-8h8x-5xfv
+references:
+    - advisory: https://github.com/pterodactyl/wings/security/advisories/GHSA-6rg3-8h8x-5xfv
+source:
+    id: GHSA-6rg3-8h8x-5xfv
+    created: 2024-08-20T13:53:04.584245-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

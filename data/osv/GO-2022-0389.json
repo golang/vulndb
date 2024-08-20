@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2022-0389",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-6rg3-8h8x-5xfv"
+  ],
+  "summary": "Unchecked hostname resolution could allow access to local network resources by users outside the local network in github.com/pterodactyl/wings",
+  "details": "Unchecked hostname resolution could allow access to local network resources by users outside the local network in github.com/pterodactyl/wings",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/pterodactyl/wings",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.2.0"
+            },
+            {
+              "fixed": "1.2.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/pterodactyl/wings/security/advisories/GHSA-6rg3-8h8x-5xfv"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2022-0389",
+    "review_status": "UNREVIEWED"
+  }
+}

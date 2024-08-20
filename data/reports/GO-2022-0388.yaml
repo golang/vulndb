@@ -1,0 +1,23 @@
+id: GO-2022-0388
+modules:
+    - module: github.com/argoproj/argo-workflows
+      vulnerable_at: 0.4.7
+    - module: github.com/argoproj/argo-workflows/v2
+      vulnerable_at: 2.12.13
+    - module: github.com/argoproj/argo-workflows/v3
+      versions:
+        - introduced: 3.0.0
+        - fixed: 3.0.9
+        - introduced: 3.1.0
+        - fixed: 3.1.6
+      vulnerable_at: 3.1.5
+summary: Argo Server TLS requests could be forged by attacker with network access in github.com/argoproj/argo-workflows
+ghsas:
+    - GHSA-6c73-2v8x-qpvm
+references:
+    - advisory: https://github.com/argoproj/argo-workflows/security/advisories/GHSA-6c73-2v8x-qpvm
+source:
+    id: GHSA-6c73-2v8x-qpvm
+    created: 2024-08-20T13:53:00.141889-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

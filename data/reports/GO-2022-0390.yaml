@@ -1,0 +1,43 @@
+id: GO-2022-0390
+modules:
+    - module: github.com/docker/docker
+      versions:
+        - fixed: 20.10.14+incompatible
+      vulnerable_at: 20.10.13+incompatible
+    - module: github.com/moby/moby
+      versions:
+        - fixed: 20.10.14+incompatible
+      vulnerable_at: 20.10.13+incompatible
+summary: |-
+    Moby (Docker Engine) started with non-empty inheritable Linux process
+    capabilities in github.com/docker/docker
+cves:
+    - CVE-2022-24769
+ghsas:
+    - GHSA-2mm7-x5h6-5pvq
+references:
+    - advisory: https://github.com/moby/moby/security/advisories/GHSA-2mm7-x5h6-5pvq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-24769
+    - fix: https://github.com/moby/moby/commit/2bbc786e4c59761d722d2d1518cd0a32829bc07f
+    - fix: https://github.com/moby/moby/commit/7f375bcff41ce672cd61e9a31f3eeb2966e3dbe1
+    - web: http://www.openwall.com/lists/oss-security/2022/05/12/1
+    - web: https://github.com/moby/moby/releases/tag/v20.10.14
+    - web: https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/6PMQKCAPK2AR3DCYITJYMMNBEGQBGLCC
+    - web: https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/A5AFKOQ5CE3CEIULWW4FLQKHFFU6FSYG
+    - web: https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/A5FQJ3MLFSEKQYCFPFZIKYGBXPZUJFVY
+    - web: https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/FPOJUJZXGMIVKRS4QR75F6OIXNQ6LDBL
+    - web: https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/HIMAHZ6AUIKN7AX26KHZYBXVECIOVWBH
+    - web: https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/HQCVS7WBFSTKJFNX5PGDRARMTOFWV2O7
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/6PMQKCAPK2AR3DCYITJYMMNBEGQBGLCC
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/A5AFKOQ5CE3CEIULWW4FLQKHFFU6FSYG
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/A5FQJ3MLFSEKQYCFPFZIKYGBXPZUJFVY
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/FPOJUJZXGMIVKRS4QR75F6OIXNQ6LDBL
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/HIMAHZ6AUIKN7AX26KHZYBXVECIOVWBH
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/HQCVS7WBFSTKJFNX5PGDRARMTOFWV2O7
+    - web: https://security.gentoo.org/glsa/202401-31
+    - web: https://www.debian.org/security/2022/dsa-5162
+source:
+    id: GHSA-2mm7-x5h6-5pvq
+    created: 2024-08-20T13:53:06.37257-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

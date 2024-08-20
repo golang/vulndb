@@ -1,0 +1,22 @@
+id: GO-2022-0369
+modules:
+    - module: gogs.io/gogs
+      versions:
+        - fixed: 0.12.5
+      vulnerable_at: 0.12.5-rc.1
+summary: Gogs vulnerable to improper PAM authorization handling in gogs.io/gogs
+cves:
+    - CVE-2022-0871
+ghsas:
+    - GHSA-gw5h-h6hj-f56g
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-gw5h-h6hj-f56g
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-0871
+    - web: https://github.com/gogs/gogs/commit/64102be2c90e1b47dbdd379873ba76c80d4b0e78
+    - web: https://github.com/gogs/gogs/issues/6810
+    - web: https://huntr.dev/bounties/ea82cfc9-b55c-41fe-ae58-0d0e0bd7ab62
+source:
+    id: GHSA-gw5h-h6hj-f56g
+    created: 2024-08-20T13:56:06.770601-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

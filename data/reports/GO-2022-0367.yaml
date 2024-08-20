@@ -1,0 +1,17 @@
+id: GO-2022-0367
+modules:
+    - module: github.com/keep-network/keep-ecdsa
+      versions:
+        - fixed: 1.8.1
+      vulnerable_at: 1.8.0
+summary: Incorrect validation of parties IDs leaks secret keys in Secret-sharing scheme in github.com/keep-network/keep-ecdsa
+ghsas:
+    - GHSA-gp6j-vx54-5pmf
+references:
+    - advisory: https://github.com/keep-network/keep-ecdsa/security/advisories/GHSA-gp6j-vx54-5pmf
+    - web: https://github.com/keep-network/keep-ecdsa/releases/tag/v1.8.1
+source:
+    id: GHSA-gp6j-vx54-5pmf
+    created: 2024-08-20T13:52:42.80807-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

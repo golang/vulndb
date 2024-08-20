@@ -1,0 +1,18 @@
+id: GO-2022-0387
+modules:
+    - module: github.com/argoproj/argo-cd
+      versions:
+        - fixed: 1.7.14
+        - introduced: 1.8.0
+        - fixed: 1.8.7
+      vulnerable_at: 1.8.6
+summary: Helm OCI credentials leaked into Argo CD logs in github.com/argoproj/argo-cd
+ghsas:
+    - GHSA-6w87-g839-9wv7
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-6w87-g839-9wv7
+source:
+    id: GHSA-6w87-g839-9wv7
+    created: 2024-08-20T13:52:59.098008-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

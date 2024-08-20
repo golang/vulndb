@@ -1,0 +1,25 @@
+id: GO-2022-0405
+modules:
+    - module: github.com/argoproj/argo-workflows
+      vulnerable_at: 0.4.7
+    - module: github.com/argoproj/argo-workflows/v2
+      vulnerable_at: 2.12.13
+    - module: github.com/argoproj/argo-workflows/v3
+      versions:
+        - introduced: 3.0.0
+        - fixed: 3.0.9
+        - introduced: 3.1.0
+        - fixed: 3.1.6
+      vulnerable_at: 3.1.5
+summary: |-
+    Potential privilege escalation on Kubernetes >= v1.19 when the Argo Sever is run
+    with `--auth-mode=client` in github.com/argoproj/argo-workflows
+ghsas:
+    - GHSA-prqf-xr2j-xf65
+references:
+    - advisory: https://github.com/argoproj/argo-workflows/security/advisories/GHSA-prqf-xr2j-xf65
+source:
+    id: GHSA-prqf-xr2j-xf65
+    created: 2024-08-20T13:53:43.396058-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

@@ -1,0 +1,16 @@
+id: GO-2022-0374
+modules:
+    - module: github.com/foxcpp/maddy
+      versions:
+        - fixed: 0.5.1
+      vulnerable_at: 0.5.0
+summary: S3 storage write is not aborted on errors leading to unbounded memory usage in github.com/foxcpp/maddy
+ghsas:
+    - GHSA-m6m5-pp4g-fcc8
+references:
+    - advisory: https://github.com/foxcpp/maddy/security/advisories/GHSA-m6m5-pp4g-fcc8
+source:
+    id: GHSA-m6m5-pp4g-fcc8
+    created: 2024-08-20T13:52:53.474132-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE
