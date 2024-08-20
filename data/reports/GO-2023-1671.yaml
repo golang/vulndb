@@ -1,0 +1,25 @@
+id: GO-2023-1671
+modules:
+    - module: tailscale.com
+      versions:
+        - introduced: 1.34.0
+        - fixed: 1.38.2
+      vulnerable_at: 1.38.1
+summary: |-
+    Non-interactive Tailscale SSH sessions on FreeBSD may use the effective group ID
+    of the tailscaled process in tailscale.com
+cves:
+    - CVE-2023-28436
+ghsas:
+    - GHSA-vfgq-g5x8-g595
+references:
+    - advisory: https://github.com/tailscale/tailscale/security/advisories/GHSA-vfgq-g5x8-g595
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-28436
+    - web: https://github.com/tailscale/tailscale/commit/d00c046b723dff6e3775d7d35f891403ac21a47d
+    - web: https://github.com/tailscale/tailscale/releases/tag/v1.38.2
+    - web: https://tailscale.com/security-bulletins/#ts-2023-003
+source:
+    id: GHSA-vfgq-g5x8-g595
+    created: 2024-08-20T11:39:07.016065-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

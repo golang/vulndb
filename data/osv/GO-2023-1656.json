@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1656",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-1535",
+    "GHSA-83qr-c7m9-wmgw"
+  ],
+  "summary": "Answer vulnerable to Stored Cross-site Scripting in github.com/answerdev/answer",
+  "details": "Answer vulnerable to Stored Cross-site Scripting in github.com/answerdev/answer",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/answerdev/answer",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.0.7"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-83qr-c7m9-wmgw"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-1535"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/answerdev/answer/commit/c3743bad4f2a69f69f8f1e1e5b4b6524fc03da25"
+    },
+    {
+      "type": "WEB",
+      "url": "https://huntr.dev/bounties/4d4b0caa-6d8c-4574-ae7e-e9ef5e2e1a40"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1656",
+    "review_status": "UNREVIEWED"
+  }
+}

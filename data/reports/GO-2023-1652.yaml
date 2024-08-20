@@ -1,0 +1,22 @@
+id: GO-2023-1652
+modules:
+    - module: github.com/cloudflare/cloudflared
+      versions:
+        - fixed: 0.0.0-20230313153246-f686da832f85
+summary: cloudflared's Installer has Local Privilege Escalation Vulnerability in github.com/cloudflare/cloudflared
+cves:
+    - CVE-2023-1314
+ghsas:
+    - GHSA-7mjv-x3jf-545x
+references:
+    - advisory: https://github.com/cloudflare/cloudflared/security/advisories/GHSA-7mjv-x3jf-545x
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-1314
+    - fix: https://github.com/cloudflare/cloudflared/commit/9c15f31d003bebfbe6467c2b42972df3e7c9b886
+    - web: https://github.com/cloudflare/cloudflared/releases
+notes:
+    - fix: 'github.com/cloudflare/cloudflared: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-7mjv-x3jf-545x
+    created: 2024-08-20T11:37:52.854605-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

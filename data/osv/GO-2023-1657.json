@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1657",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-1539",
+    "GHSA-g44v-6qfm-f6ch"
+  ],
+  "summary": "Answer has Guessable CAPTCHA in github.com/answerdev/answer",
+  "details": "Answer has Guessable CAPTCHA in github.com/answerdev/answer",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/answerdev/answer",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.0.6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-g44v-6qfm-f6ch"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-1539"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/answerdev/answer/commit/813ad0b9894673b1bdd489a2e9ab60a44fe990af"
+    },
+    {
+      "type": "WEB",
+      "url": "https://huntr.dev/bounties/b4df67f4-14ea-4051-97d4-26690c979a28"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1657",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,25 @@
+id: GO-2023-1651
+modules:
+    - module: github.com/imgproxy/imgproxy
+      vulnerable_at: 1.1.8
+    - module: github.com/imgproxy/imgproxy/v2
+      vulnerable_at: 2.17.0
+    - module: github.com/imgproxy/imgproxy/v3
+      versions:
+        - fixed: 3.14.0
+      vulnerable_at: 3.13.2
+summary: imgproxy Cross-site Scripting vulnerability in github.com/imgproxy/imgproxy
+cves:
+    - CVE-2023-1496
+ghsas:
+    - GHSA-ch9g-x9j7-rcgp
+references:
+    - advisory: https://github.com/advisories/GHSA-ch9g-x9j7-rcgp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-1496
+    - fix: https://github.com/imgproxy/imgproxy/commit/62f8d08a93d301285dcd1dabcc7ba10c6c65b689
+    - web: https://huntr.dev/bounties/de603972-935a-401a-96fb-17ddadd282b2
+source:
+    id: GHSA-ch9g-x9j7-rcgp
+    created: 2024-08-20T11:37:47.736414-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

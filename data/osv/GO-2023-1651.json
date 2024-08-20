@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1651",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-1496",
+    "GHSA-ch9g-x9j7-rcgp"
+  ],
+  "summary": "imgproxy Cross-site Scripting vulnerability in github.com/imgproxy/imgproxy",
+  "details": "imgproxy Cross-site Scripting vulnerability in github.com/imgproxy/imgproxy",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/imgproxy/imgproxy",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/imgproxy/imgproxy/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/imgproxy/imgproxy/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.14.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-ch9g-x9j7-rcgp"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-1496"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/imgproxy/imgproxy/commit/62f8d08a93d301285dcd1dabcc7ba10c6c65b689"
+    },
+    {
+      "type": "WEB",
+      "url": "https://huntr.dev/bounties/de603972-935a-401a-96fb-17ddadd282b2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1651",
+    "review_status": "UNREVIEWED"
+  }
+}

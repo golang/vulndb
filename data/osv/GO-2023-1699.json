@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1699",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-28840",
+    "GHSA-232p-vwff-86mp"
+  ],
+  "summary": "Docker Swarm encrypted overlay network may be unauthenticated in github.com/docker/docker",
+  "details": "Docker Swarm encrypted overlay network may be unauthenticated in github.com/docker/docker",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/docker/docker",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.12.0"
+            },
+            {
+              "fixed": "20.10.24+incompatible"
+            },
+            {
+              "introduced": "23.0.0+incompatible"
+            },
+            {
+              "fixed": "23.0.3+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/moby/moby/security/advisories/GHSA-232p-vwff-86mp"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-28840"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/moby/libnetwork/security/advisories/GHSA-gvm4-2qqg-m333"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/moby/moby/issues/43382"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/moby/moby/pull/45118"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/moby/moby/security/advisories/GHSA-33pg-m6jh-5237"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/moby/moby/security/advisories/GHSA-6wrf-mxfj-pf5p"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/moby/moby/security/advisories/GHSA-vwm3-crmr-xfxw"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1699",
+    "review_status": "UNREVIEWED"
+  }
+}

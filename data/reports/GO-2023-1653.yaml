@@ -1,0 +1,22 @@
+id: GO-2023-1653
+modules:
+    - module: github.com/cilium/cilium-cli
+      versions:
+        - fixed: 0.13.2
+      vulnerable_at: 0.13.1
+summary: '`cilium-cli` disables etcd authorization for clustermesh clusters in github.com/cilium/cilium-cli'
+cves:
+    - CVE-2023-28114
+ghsas:
+    - GHSA-6f27-3p6c-p5jc
+references:
+    - advisory: https://github.com/cilium/cilium-cli/security/advisories/GHSA-6f27-3p6c-p5jc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-28114
+    - fix: https://github.com/cilium/cilium-cli/commit/fb1427025764e1eebc4a7710d902c4f22cae2610
+    - web: https://artifacthub.io/packages/helm/cilium/cilium
+    - web: https://github.com/cilium/cilium-cli/releases/tag/v0.13.2
+source:
+    id: GHSA-6f27-3p6c-p5jc
+    created: 2024-08-20T11:37:56.863902-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE
