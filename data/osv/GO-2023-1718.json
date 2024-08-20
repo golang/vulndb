@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1718",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-1974",
+    "GHSA-8jg3-rx43-3fv4"
+  ],
+  "summary": "Answer vulnerable to Exposure of Sensitive Information Through Metadata in github.com/answerdev/answer",
+  "details": "Answer vulnerable to Exposure of Sensitive Information Through Metadata in github.com/answerdev/answer",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/answerdev/answer",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.0.8"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-8jg3-rx43-3fv4"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-1974"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/answerdev/answer/commit/ac3f2f047ee00b4edaea7530e570ab67ff87cd6a"
+    },
+    {
+      "type": "WEB",
+      "url": "https://huntr.dev/bounties/852781c6-9cc8-4d25-9336-bf3cb8ee3439"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1718",
+    "review_status": "UNREVIEWED"
+  }
+}

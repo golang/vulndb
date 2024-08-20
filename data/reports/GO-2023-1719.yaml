@@ -1,0 +1,21 @@
+id: GO-2023-1719
+modules:
+    - module: github.com/answerdev/answer
+      versions:
+        - fixed: 1.0.6
+      vulnerable_at: 1.0.5
+summary: Answer vulnerable to account takeover because password reset links do not expire in github.com/answerdev/answer
+cves:
+    - CVE-2023-1976
+ghsas:
+    - GHSA-j97g-77fj-9c4p
+references:
+    - advisory: https://github.com/advisories/GHSA-j97g-77fj-9c4p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-1976
+    - fix: https://github.com/answerdev/answer/commit/813ad0b9894673b1bdd489a2e9ab60a44fe990af
+    - web: https://huntr.dev/bounties/469bcabf-b315-4750-b63c-82ac86d153de
+source:
+    id: GHSA-j97g-77fj-9c4p
+    created: 2024-08-20T11:42:04.214397-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

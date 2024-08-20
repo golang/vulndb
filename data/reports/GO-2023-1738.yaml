@@ -1,0 +1,34 @@
+id: GO-2023-1738
+modules:
+    - module: github.com/apptainer/apptainer
+      versions:
+        - fixed: 1.1.8
+      vulnerable_at: 1.1.7
+summary: Unpatched extfs vulnerabilities are exploitable through suid-mode Apptainer in github.com/apptainer/apptainer
+cves:
+    - CVE-2023-30549
+ghsas:
+    - GHSA-j4rf-7357-f4cg
+references:
+    - advisory: https://github.com/apptainer/apptainer/security/advisories/GHSA-j4rf-7357-f4cg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-30549
+    - fix: https://github.com/apptainer/apptainer/commit/5a4964f5ba9c8d89a0e353b97f51fd607670a9f7
+    - web: https://access.redhat.com/security/cve/cve-2022-1184
+    - web: https://github.com/apptainer/apptainer/releases/tag/v1.1.8
+    - web: https://github.com/torvalds/linux/commit/2220eaf90992c11d888fe771055d4de3303
+    - web: https://github.com/torvalds/linux/commit/4f04351888a83e595571de672e0a4a8b74f
+    - web: https://github.com/torvalds/linux/commit/61a1d87a324ad5e3ed27c6699dfc93218fcf3201
+    - web: https://github.com/torvalds/linux/commit/65f8ea4cd57dbd46ea13b41dc8bac03176b04233
+    - web: https://lwn.net/Articles/932136
+    - web: https://lwn.net/Articles/932137
+    - web: https://nvd.nist.gov/vuln/detail/CVE-2022-1184
+    - web: https://security-tracker.debian.org/tracker/CVE-2022-1184
+    - web: https://security.gentoo.org/glsa/202311-13
+    - web: https://sylabs.io/2023/04/response-to-cve-2023-30549
+    - web: https://ubuntu.com/security/CVE-2022-1184
+    - web: https://www.suse.com/security/cve/CVE-2022-1184.html
+source:
+    id: GHSA-j4rf-7357-f4cg
+    created: 2024-08-20T11:42:53.04748-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

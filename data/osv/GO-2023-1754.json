@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1754",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-30551",
+    "GHSA-2h5h-59f5-c5x9"
+  ],
+  "summary": "Rekor's compressed archives can result in OOM conditions in github.com/sigstore/rekor",
+  "details": "Rekor's compressed archives can result in OOM conditions in github.com/sigstore/rekor",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/sigstore/rekor",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.1.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/sigstore/rekor/security/advisories/GHSA-2h5h-59f5-c5x9"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-30551"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/sigstore/rekor/commit/cf42ace82667025fe128f7a50cf6b4cdff51cc48"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/sigstore/rekor/releases/tag/v1.1.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1754",
+    "review_status": "UNREVIEWED"
+  }
+}

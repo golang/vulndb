@@ -1,0 +1,23 @@
+id: GO-2023-1723
+modules:
+    - module: github.com/authzed/spicedb
+      versions:
+        - fixed: 1.19.1
+      vulnerable_at: 1.19.0
+summary: |-
+    SpiceDB binding metrics port to untrusted networks and can leak command-line
+    flags in github.com/authzed/spicedb
+cves:
+    - CVE-2023-29193
+ghsas:
+    - GHSA-cjr9-mr35-7xh6
+references:
+    - advisory: https://github.com/authzed/spicedb/security/advisories/GHSA-cjr9-mr35-7xh6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-29193
+    - fix: https://github.com/authzed/spicedb/commit/9bbd7d76b6eaba33fe0236014f9b175d21232999
+    - web: https://github.com/authzed/spicedb/releases/tag/v1.19.1
+source:
+    id: GHSA-cjr9-mr35-7xh6
+    created: 2024-08-20T11:42:22.226813-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

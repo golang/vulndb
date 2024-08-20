@@ -1,0 +1,21 @@
+id: GO-2023-1754
+modules:
+    - module: github.com/sigstore/rekor
+      versions:
+        - fixed: 1.1.1
+      vulnerable_at: 1.1.0
+summary: Rekor's compressed archives can result in OOM conditions in github.com/sigstore/rekor
+cves:
+    - CVE-2023-30551
+ghsas:
+    - GHSA-2h5h-59f5-c5x9
+references:
+    - advisory: https://github.com/sigstore/rekor/security/advisories/GHSA-2h5h-59f5-c5x9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-30551
+    - fix: https://github.com/sigstore/rekor/commit/cf42ace82667025fe128f7a50cf6b4cdff51cc48
+    - web: https://github.com/sigstore/rekor/releases/tag/v1.1.1
+source:
+    id: GHSA-2h5h-59f5-c5x9
+    created: 2024-08-20T11:43:17.943724-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

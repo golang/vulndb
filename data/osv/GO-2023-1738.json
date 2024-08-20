@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1738",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-30549",
+    "GHSA-j4rf-7357-f4cg"
+  ],
+  "summary": "Unpatched extfs vulnerabilities are exploitable through suid-mode Apptainer in github.com/apptainer/apptainer",
+  "details": "Unpatched extfs vulnerabilities are exploitable through suid-mode Apptainer in github.com/apptainer/apptainer",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/apptainer/apptainer",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.1.8"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/apptainer/apptainer/security/advisories/GHSA-j4rf-7357-f4cg"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-30549"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/apptainer/apptainer/commit/5a4964f5ba9c8d89a0e353b97f51fd607670a9f7"
+    },
+    {
+      "type": "WEB",
+      "url": "https://access.redhat.com/security/cve/cve-2022-1184"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/apptainer/apptainer/releases/tag/v1.1.8"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/torvalds/linux/commit/2220eaf90992c11d888fe771055d4de3303"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/torvalds/linux/commit/4f04351888a83e595571de672e0a4a8b74f"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/torvalds/linux/commit/61a1d87a324ad5e3ed27c6699dfc93218fcf3201"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/torvalds/linux/commit/65f8ea4cd57dbd46ea13b41dc8bac03176b04233"
+    },
+    {
+      "type": "WEB",
+      "url": "https://lwn.net/Articles/932136"
+    },
+    {
+      "type": "WEB",
+      "url": "https://lwn.net/Articles/932137"
+    },
+    {
+      "type": "WEB",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-1184"
+    },
+    {
+      "type": "WEB",
+      "url": "https://security-tracker.debian.org/tracker/CVE-2022-1184"
+    },
+    {
+      "type": "WEB",
+      "url": "https://security.gentoo.org/glsa/202311-13"
+    },
+    {
+      "type": "WEB",
+      "url": "https://sylabs.io/2023/04/response-to-cve-2023-30549"
+    },
+    {
+      "type": "WEB",
+      "url": "https://ubuntu.com/security/CVE-2022-1184"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.suse.com/security/cve/CVE-2022-1184.html"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1738",
+    "review_status": "UNREVIEWED"
+  }
+}

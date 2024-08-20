@@ -1,0 +1,25 @@
+id: GO-2023-1763
+modules:
+    - module: github.com/fluid-cloudnative/fluid
+      versions:
+        - introduced: 0.7.0
+        - fixed: 0.8.6
+      vulnerable_at: 0.8.5
+summary: |-
+    On a compromised node, the fluid-csi service account can be used to modify node
+    specs in github.com/fluid-cloudnative/fluid
+cves:
+    - CVE-2023-30840
+ghsas:
+    - GHSA-93xx-cvmc-9w3v
+references:
+    - advisory: https://github.com/fluid-cloudnative/fluid/security/advisories/GHSA-93xx-cvmc-9w3v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-30840
+    - fix: https://github.com/fluid-cloudnative/fluid/commit/77c8110a3d1ec077ae2bce6bd88d296505db1550
+    - fix: https://github.com/fluid-cloudnative/fluid/commit/91c05c32db131997b5ca065e869c9918a125c149
+    - web: https://github.com/fluid-cloudnative/fluid/releases/tag/v0.8.6
+source:
+    id: GHSA-93xx-cvmc-9w3v
+    created: 2024-08-20T11:43:28.797374-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

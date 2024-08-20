@@ -1,0 +1,26 @@
+id: GO-2023-1701
+modules:
+    - module: github.com/docker/docker
+      versions:
+        - introduced: 1.12.0
+        - fixed: 20.10.24+incompatible
+        - introduced: 23.0.0+incompatible
+        - fixed: 23.0.3+incompatible
+      vulnerable_at: 23.0.2+incompatible
+summary: Docker Swarm encrypted overlay network with a single endpoint is unauthenticated in github.com/docker/docker
+cves:
+    - CVE-2023-28842
+ghsas:
+    - GHSA-6wrf-mxfj-pf5p
+references:
+    - advisory: https://github.com/moby/moby/security/advisories/GHSA-6wrf-mxfj-pf5p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-28842
+    - web: https://github.com/moby/libnetwork/security/advisories/GHSA-gvm4-2qqg-m333
+    - web: https://github.com/moby/moby/security/advisories/GHSA-232p-vwff-86mp
+    - web: https://github.com/moby/moby/security/advisories/GHSA-33pg-m6jh-5237
+    - web: https://github.com/moby/moby/security/advisories/GHSA-vwm3-crmr-xfxw
+source:
+    id: GHSA-6wrf-mxfj-pf5p
+    created: 2024-08-20T11:40:24.363584-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

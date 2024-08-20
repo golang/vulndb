@@ -1,0 +1,26 @@
+id: GO-2023-1761
+modules:
+    - module: github.com/imgproxy/imgproxy
+      vulnerable_at: 1.1.8
+    - module: github.com/imgproxy/imgproxy/v2
+      vulnerable_at: 2.17.0
+    - module: github.com/imgproxy/imgproxy/v3
+      versions:
+        - fixed: 3.15.0
+      vulnerable_at: 3.14.0
+summary: imgproxy is vulnerable to Server-Side Request Forgery in github.com/imgproxy/imgproxy
+cves:
+    - CVE-2023-30019
+ghsas:
+    - GHSA-9x7h-ggc3-xg47
+references:
+    - advisory: https://github.com/advisories/GHSA-9x7h-ggc3-xg47
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-30019
+    - fix: https://github.com/imgproxy/imgproxy/commit/1a9768a2c682e88820064aa3d9a05ea234ff3cc4
+    - web: https://breakandpray.com/cve-2023-30019-ssrf-in-imgproxy
+    - web: https://github.com/imgproxy/imgproxy/blob/ee9e8f0cb101ec22318caffd552a23cc0548d5ce/imagedata/download.go#L142
+source:
+    id: GHSA-9x7h-ggc3-xg47
+    created: 2024-08-20T11:43:23.974913-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

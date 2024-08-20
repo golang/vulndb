@@ -1,0 +1,25 @@
+id: GO-2023-1708
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - fixed: 1.11.9
+        - introduced: 1.12.0
+        - fixed: 1.12.5
+        - introduced: 1.13.0
+        - fixed: 1.13.1
+      vulnerable_at: 1.13.0
+summary: HashiCorp Vault's PKI mount vulnerable to denial of service in github.com/hashicorp/vault
+cves:
+    - CVE-2023-0665
+ghsas:
+    - GHSA-hwc3-3qh6-r4gg
+references:
+    - advisory: https://github.com/advisories/GHSA-hwc3-3qh6-r4gg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-0665
+    - web: https://discuss.hashicorp.com/t/hcsec-2023-11-vault-s-pki-issuer-endpoint-did-not-correctly-authorize-access-to-issuer-metadata/52079/1
+    - web: https://security.netapp.com/advisory/ntap-20230526-0008
+source:
+    id: GHSA-hwc3-3qh6-r4gg
+    created: 2024-08-20T11:40:35.310478-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE
