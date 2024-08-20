@@ -1,0 +1,26 @@
+id: GO-2023-2066
+modules:
+    - module: github.com/nats-io/nats-server
+      vulnerable_at: 1.4.1
+    - module: github.com/nats-io/nats-server/v2
+      versions:
+        - introduced: 2.2.0
+        - fixed: 2.7.4
+      vulnerable_at: 2.7.3
+summary: |-
+    NATS nats-server allows directory traversal via unintended path to a management
+    action in github.com/nats-io/nats-server
+cves:
+    - CVE-2022-28357
+ghsas:
+    - GHSA-vpjc-4jcv-jc29
+references:
+    - advisory: https://github.com/advisories/GHSA-vpjc-4jcv-jc29
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-28357
+    - web: https://advisories.nats.io/CVE/CVE-2022-28357.txt
+    - web: https://github.com/nats-io/nats-server/releases/tag/v2.7.4
+source:
+    id: GHSA-vpjc-4jcv-jc29
+    created: 2024-08-20T12:03:05.602459-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

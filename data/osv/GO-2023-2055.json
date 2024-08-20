@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-2055",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-4782",
+    "GHSA-h626-pv66-hhm7"
+  ],
+  "summary": "Terraform allows arbitrary file write during the `init` operation in github.com/hashicorp/terraform",
+  "details": "Terraform allows arbitrary file write during the `init` operation in github.com/hashicorp/terraform",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hashicorp/terraform",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.0.8"
+            },
+            {
+              "fixed": "1.5.7"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-h626-pv66-hhm7"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-4782"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hashicorp/terraform/commit/0f2314fb62193c4be94328cc026fcb7ec1e9b893"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hashicorp/terraform/pull/33745"
+    },
+    {
+      "type": "WEB",
+      "url": "https://discuss.hashicorp.com/t/hcsec-2023-27-terraform-allows-arbitrary-file-write-during-init-operation/58082"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/hashicorp/terraform/releases/tag/v1.5.7"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-2055",
+    "review_status": "UNREVIEWED"
+  }
+}

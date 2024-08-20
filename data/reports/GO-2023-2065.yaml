@@ -1,0 +1,21 @@
+id: GO-2023-2065
+modules:
+    - module: github.com/usememos/memos
+      versions:
+        - fixed: 0.15.1
+      vulnerable_at: 0.15.0
+summary: Cross-Site Request Forgery (CSRF) in usememos/memos in github.com/usememos/memos
+cves:
+    - CVE-2023-5036
+ghsas:
+    - GHSA-2g7r-9xq5-c6hv
+references:
+    - advisory: https://github.com/advisories/GHSA-2g7r-9xq5-c6hv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-5036
+    - fix: https://github.com/usememos/memos/commit/97b434722cf0abe3cfcad5ac9e3d520233bf1536
+    - web: https://huntr.dev/bounties/46881df7-eb41-4ce2-a78f-82de9bc4fc2d
+source:
+    id: GHSA-2g7r-9xq5-c6hv
+    created: 2024-08-20T12:03:00.939648-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

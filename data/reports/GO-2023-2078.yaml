@@ -1,0 +1,24 @@
+id: GO-2023-2078
+modules:
+    - module: github.com/cilium/cilium
+      versions:
+        - fixed: 1.12.14
+        - introduced: 1.13.0
+        - fixed: 1.13.7
+        - introduced: 1.14.0
+        - fixed: 1.14.2
+      vulnerable_at: 1.14.1
+summary: Kubernetes users may update Pod labels to bypass network policy in github.com/cilium/cilium
+cves:
+    - CVE-2023-39347
+ghsas:
+    - GHSA-gj2r-phwg-6rww
+references:
+    - advisory: https://github.com/cilium/cilium/security/advisories/GHSA-gj2r-phwg-6rww
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-39347
+    - web: https://docs.cilium.io/en/latest/security/threat-model/#kubernetes-api-server-attacker
+source:
+    id: GHSA-gj2r-phwg-6rww
+    created: 2024-08-20T12:04:43.187999-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

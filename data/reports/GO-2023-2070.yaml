@@ -1,0 +1,30 @@
+id: GO-2023-2070
+modules:
+    - module: github.com/schollz/croc
+      vulnerable_at: 2.2.0+incompatible
+    - module: github.com/schollz/croc/v6
+      vulnerable_at: 6.4.11
+    - module: github.com/schollz/croc/v8
+      vulnerable_at: 8.6.12
+    - module: github.com/schollz/croc/v9
+      versions:
+        - fixed: 9.6.16
+      vulnerable_at: 9.6.15
+summary: Croc requires senders to provide local IP addresses in cleartext in github.com/schollz/croc
+cves:
+    - CVE-2023-43618
+ghsas:
+    - GHSA-7mp6-929p-pqhj
+references:
+    - advisory: https://github.com/advisories/GHSA-7mp6-929p-pqhj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-43618
+    - fix: https://github.com/schollz/croc/commit/6f5f16aa1c16b1ec6f31fec35be15de466d9701b
+    - fix: https://github.com/schollz/croc/pull/700
+    - report: https://github.com/schollz/croc/issues/597
+    - web: http://www.openwall.com/lists/oss-security/2023/09/21/5
+    - web: https://www.openwall.com/lists/oss-security/2023/09/08/2
+source:
+    id: GHSA-7mp6-929p-pqhj
+    created: 2024-08-20T12:04:05.359237-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

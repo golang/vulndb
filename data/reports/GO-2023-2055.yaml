@@ -1,0 +1,24 @@
+id: GO-2023-2055
+modules:
+    - module: github.com/hashicorp/terraform
+      versions:
+        - introduced: 1.0.8
+        - fixed: 1.5.7
+      vulnerable_at: 1.5.6
+summary: Terraform allows arbitrary file write during the `init` operation in github.com/hashicorp/terraform
+cves:
+    - CVE-2023-4782
+ghsas:
+    - GHSA-h626-pv66-hhm7
+references:
+    - advisory: https://github.com/advisories/GHSA-h626-pv66-hhm7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-4782
+    - fix: https://github.com/hashicorp/terraform/commit/0f2314fb62193c4be94328cc026fcb7ec1e9b893
+    - fix: https://github.com/hashicorp/terraform/pull/33745
+    - web: https://discuss.hashicorp.com/t/hcsec-2023-27-terraform-allows-arbitrary-file-write-during-init-operation/58082
+    - web: https://github.com/hashicorp/terraform/releases/tag/v1.5.7
+source:
+    id: GHSA-h626-pv66-hhm7
+    created: 2024-08-20T12:02:18.090883-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

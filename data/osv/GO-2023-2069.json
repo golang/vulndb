@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-2069",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-43621",
+    "GHSA-7g3v-4ggr-xvjf"
+  ],
+  "summary": "Croc may expose secret to local users in github.com/schollz/croc",
+  "details": "Croc may expose secret to local users in github.com/schollz/croc",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/schollz/croc",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/schollz/croc/v6",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/schollz/croc/v8",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/schollz/croc/v9",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "9.6.16"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-7g3v-4ggr-xvjf"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-43621"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/schollz/croc/commit/863dabb93a271f41b3431c4384357e1856a69533"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/schollz/croc/pull/701"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/schollz/croc/issues/598"
+    },
+    {
+      "type": "WEB",
+      "url": "http://www.openwall.com/lists/oss-security/2023/09/21/5"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.openwall.com/lists/oss-security/2023/09/08/2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-2069",
+    "review_status": "UNREVIEWED"
+  }
+}

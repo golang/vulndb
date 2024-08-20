@@ -1,0 +1,22 @@
+id: GO-2023-2088
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - fixed: 1.13.0
+      vulnerable_at: 1.13.0-rc1
+summary: |-
+    Hashicorp Vault Incorrect Permission Assignment for Critical Resource
+    vulnerability in github.com/hashicorp/vault
+cves:
+    - CVE-2023-5077
+ghsas:
+    - GHSA-86c6-3g63-5w64
+references:
+    - advisory: https://github.com/advisories/GHSA-86c6-3g63-5w64
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-5077
+    - web: https://discuss.hashicorp.com/t/hcsec-2023-30-vault-s-google-cloud-secrets-engine-removed-existing-iam-conditions-when-creating-updating-rolesets/58654
+source:
+    id: GHSA-86c6-3g63-5w64
+    created: 2024-08-20T12:06:08.266115-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

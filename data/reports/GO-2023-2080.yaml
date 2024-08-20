@@ -1,0 +1,25 @@
+id: GO-2023-2080
+modules:
+    - module: github.com/cilium/cilium
+      versions:
+        - fixed: 1.12.14
+        - introduced: 1.13.0
+        - fixed: 1.13.7
+        - introduced: 1.14.0
+        - fixed: 1.14.2
+      vulnerable_at: 1.14.1
+summary: Cilium vulnerable to bypass of namespace restrictions in CiliumNetworkPolicy in github.com/cilium/cilium
+cves:
+    - CVE-2023-41333
+ghsas:
+    - GHSA-4xp2-w642-7mcx
+references:
+    - advisory: https://github.com/cilium/cilium/security/advisories/GHSA-4xp2-w642-7mcx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-41333
+    - fix: https://github.com/cilium/cilium/pull/28007
+    - web: https://docs.cilium.io/en/stable/security/threat-model/#kubernetes-api-server-attacker
+source:
+    id: GHSA-4xp2-w642-7mcx
+    created: 2024-08-20T12:04:52.090381-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

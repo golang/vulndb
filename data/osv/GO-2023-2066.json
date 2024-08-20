@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-2066",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-28357",
+    "GHSA-vpjc-4jcv-jc29"
+  ],
+  "summary": "NATS nats-server allows directory traversal via unintended path to a management action in github.com/nats-io/nats-server",
+  "details": "NATS nats-server allows directory traversal via unintended path to a management action in github.com/nats-io/nats-server",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/nats-io/nats-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/nats-io/nats-server/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.2.0"
+            },
+            {
+              "fixed": "2.7.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-vpjc-4jcv-jc29"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-28357"
+    },
+    {
+      "type": "WEB",
+      "url": "https://advisories.nats.io/CVE/CVE-2022-28357.txt"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/nats-io/nats-server/releases/tag/v2.7.4"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-2066",
+    "review_status": "UNREVIEWED"
+  }
+}

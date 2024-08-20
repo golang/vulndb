@@ -1,0 +1,24 @@
+id: GO-2023-2075
+modules:
+    - module: github.com/kiali/kiali
+      versions:
+        - fixed: 1.57.4
+      vulnerable_at: 1.57.3
+summary: Kiali content spoofing vulnerability in github.com/kiali/kiali
+cves:
+    - CVE-2022-3962
+ghsas:
+    - GHSA-6f4m-j56w-55c3
+references:
+    - advisory: https://github.com/advisories/GHSA-6f4m-j56w-55c3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-3962
+    - fix: https://github.com/kiali/kiali/commit/aab7694f850f04d7fd875fac5f720a93ccdf01ad
+    - web: https://access.redhat.com/errata/RHSA-2023:0542
+    - web: https://access.redhat.com/security/cve/CVE-2022-3962
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2148661
+    - web: https://issues.redhat.com/browse/OSSM-2251?attachmentViewMode=list
+source:
+    id: GHSA-6f4m-j56w-55c3
+    created: 2024-08-20T12:04:25.196276-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

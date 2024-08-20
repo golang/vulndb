@@ -1,0 +1,32 @@
+id: GO-2023-2068
+modules:
+    - module: github.com/schollz/croc
+      vulnerable_at: 2.2.0+incompatible
+    - module: github.com/schollz/croc/v6
+      vulnerable_at: 6.4.11
+    - module: github.com/schollz/croc/v8
+      vulnerable_at: 8.6.12
+    - module: github.com/schollz/croc/v9
+      versions:
+        - fixed: 9.6.16
+      vulnerable_at: 9.6.15
+summary: |-
+    Croc sender may place ANSI or CSI escape sequences in filename to attach
+    receiver's terminal device in github.com/schollz/croc
+cves:
+    - CVE-2023-43620
+ghsas:
+    - GHSA-364c-vvqx-446c
+references:
+    - advisory: https://github.com/advisories/GHSA-364c-vvqx-446c
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-43620
+    - fix: https://github.com/schollz/croc/commit/3f12f75fae2e844c555ec01eeba0b8474938e93a
+    - fix: https://github.com/schollz/croc/pull/697
+    - report: https://github.com/schollz/croc/issues/595
+    - web: http://www.openwall.com/lists/oss-security/2023/09/21/5
+    - web: https://www.openwall.com/lists/oss-security/2023/09/08/2
+source:
+    id: GHSA-364c-vvqx-446c
+    created: 2024-08-20T12:03:13.458247-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

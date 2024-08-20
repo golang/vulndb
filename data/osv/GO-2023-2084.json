@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-2084",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-43645",
+    "GHSA-2hm9-h873-pgqh"
+  ],
+  "summary": "OpenFGA Vulnerable to DoS from circular relationship definitions in github.com/openfga/openfga",
+  "details": "OpenFGA Vulnerable to DoS from circular relationship definitions in github.com/openfga/openfga",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/openfga/openfga",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.3.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/openfga/openfga/security/advisories/GHSA-2hm9-h873-pgqh"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-43645"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openfga/openfga/commit/725296025fd81227c89525808652c6acd4a605f6"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-2084",
+    "review_status": "UNREVIEWED"
+  }
+}
