@@ -1,0 +1,21 @@
+id: GO-2022-1225
+modules:
+    - module: github.com/usememos/memos
+      versions:
+        - fixed: 0.9.0
+      vulnerable_at: 0.8.3
+summary: usememos/memos vulnerable to stored Cross-site Scripting in github.com/usememos/memos
+cves:
+    - CVE-2022-4691
+ghsas:
+    - GHSA-97rc-mm5j-f6rj
+references:
+    - advisory: https://github.com/advisories/GHSA-97rc-mm5j-f6rj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-4691
+    - fix: https://github.com/usememos/memos/commit/c07b4a57caa89905e54b800f4d8fb720bbf5bf82
+    - web: https://huntr.dev/bounties/459b55c1-22f5-4556-9cda-9b86aa91582f
+source:
+    id: GHSA-97rc-mm5j-f6rj
+    created: 2024-08-20T14:55:10.864325-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

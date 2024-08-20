@@ -1,0 +1,21 @@
+id: GO-2022-1220
+modules:
+    - module: github.com/usememos/memos
+      versions:
+        - fixed: 0.9.1
+      vulnerable_at: 0.9.0
+summary: usememos/memos may leak user information to an authenticated user in github.com/usememos/memos
+cves:
+    - CVE-2022-4734
+ghsas:
+    - GHSA-j593-h5v3-45x6
+references:
+    - advisory: https://github.com/advisories/GHSA-j593-h5v3-45x6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-4734
+    - fix: https://github.com/usememos/memos/commit/05b41804e33a34102f1f75bb2d69195dda6a1210
+    - web: https://huntr.dev/bounties/4b4421dc-73af-4dec-884c-836f9732cb5b
+source:
+    id: GHSA-j593-h5v3-45x6
+    created: 2024-08-20T14:55:06.675303-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE
