@@ -1,0 +1,24 @@
+id: GO-2022-0906
+modules:
+    - module: github.com/TykTechnologies/tyk-identity-broker
+      versions:
+        - fixed: 1.1.1
+      vulnerable_at: 1.1.0
+summary: Authentication Bypass in tyk-identity-broker in github.com/TykTechnologies/tyk-identity-broker
+cves:
+    - CVE-2021-23365
+ghsas:
+    - GHSA-599h-8wpj-75xj
+references:
+    - advisory: https://github.com/advisories/GHSA-599h-8wpj-75xj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-23365
+    - fix: https://github.com/TykTechnologies/tyk-identity-broker/commit/243092965b0f93a95a14cb882b5b9a3df61dd5c0
+    - fix: https://github.com/TykTechnologies/tyk-identity-broker/commit/46f70420e0911e4e8b638575e29d394c227c75d0
+    - fix: https://github.com/TykTechnologies/tyk-identity-broker/pull/147
+    - web: https://github.com/TykTechnologies/tyk-identity-broker/releases/tag/v1.1.1
+    - web: https://snyk.io/vuln/SNYK-GOLANG-GITHUBCOMTYKTECHNOLOGIESTYKIDENTITYBROKER-1089720
+source:
+    id: GHSA-599h-8wpj-75xj
+    created: 2024-08-20T14:28:40.033284-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

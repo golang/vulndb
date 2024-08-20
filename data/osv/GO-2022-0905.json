@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2022-0905",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-21405",
+    "GHSA-4g52-pqcj-phvh"
+  ],
+  "summary": "BLS Signature \"Malleability\" in github.com/filecoin-project/lotus",
+  "details": "BLS Signature \"Malleability\" in github.com/filecoin-project/lotus",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/filecoin-project/lotus",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.5.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/filecoin-project/lotus/security/advisories/GHSA-4g52-pqcj-phvh"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-21405"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/filecoin-project/lotus/pull/5393"
+    },
+    {
+      "type": "WEB",
+      "url": "https://gist.github.com/wadeAlexC/2490d522e81a796af9efcad1686e6754"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2022-0905",
+    "review_status": "UNREVIEWED"
+  }
+}

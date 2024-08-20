@@ -1,0 +1,22 @@
+id: GO-2022-0888
+modules:
+    - module: github.com/syncthing/syncthing
+      versions:
+        - fixed: 1.15.0
+      vulnerable_at: 1.15.0-rc.6
+summary: Crash due to malformed relay protocol message in github.com/syncthing/syncthing
+cves:
+    - CVE-2021-21404
+ghsas:
+    - GHSA-x462-89pf-6r5h
+references:
+    - advisory: https://github.com/syncthing/syncthing/security/advisories/GHSA-x462-89pf-6r5h
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-21404
+    - fix: https://github.com/syncthing/syncthing/commit/fb4fdaf4c0a79c22cad000c42ac1394e3ccb6a97
+    - web: https://github.com/syncthing/syncthing/releases/tag/v1.15.0
+    - web: https://pkg.go.dev/github.com/syncthing/syncthing
+source:
+    id: GHSA-x462-89pf-6r5h
+    created: 2024-08-20T14:27:23.486788-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

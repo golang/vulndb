@@ -1,0 +1,23 @@
+id: GO-2022-0892
+modules:
+    - module: github.com/argoproj/argo-cd
+      versions:
+        - fixed: 1.5.1
+      vulnerable_at: 1.5.0
+summary: Improper Restriction of Excessive Authentication Attempts in Argo API in github.com/argoproj/argo-cd
+cves:
+    - CVE-2020-8827
+ghsas:
+    - GHSA-xcqr-9h24-vrgw
+references:
+    - advisory: https://github.com/advisories/GHSA-xcqr-9h24-vrgw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-8827
+    - fix: https://github.com/argoproj/argo-cd/commit/35a7350b7444bcaf53ee0bb11b9d8e3ae4b717a1
+    - fix: https://github.com/argoproj/argo-cd/pull/3369
+    - fix: https://github.com/argoproj/argo-cd/pull/3404
+    - web: https://github.com/argoproj/argo/releases
+source:
+    id: GHSA-xcqr-9h24-vrgw
+    created: 2024-08-20T14:27:38.772652-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

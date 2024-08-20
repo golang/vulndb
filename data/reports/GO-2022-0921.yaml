@@ -1,0 +1,28 @@
+id: GO-2022-0921
+modules:
+    - module: github.com/containerd/containerd
+      versions:
+        - fixed: 1.4.8
+        - introduced: 1.5.0
+        - fixed: 1.5.4
+      vulnerable_at: 1.5.3
+summary: Archive package allows chmod of file outside of unpack target directory in github.com/containerd/containerd
+cves:
+    - CVE-2021-32760
+ghsas:
+    - GHSA-c72p-9xmj-rx3w
+references:
+    - advisory: https://github.com/containerd/containerd/security/advisories/GHSA-c72p-9xmj-rx3w
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-32760
+    - fix: https://github.com/containerd/containerd/commit/22e9a70c71eff6507be71955947a611f2ed91e6c
+    - fix: https://github.com/containerd/containerd/commit/7ad08c69e09ee4930a48dbf2aab3cd612458617f
+    - web: https://github.com/containerd/containerd/releases/tag/v1.4.8
+    - web: https://github.com/containerd/containerd/releases/tag/v1.5.4
+    - web: https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/DDMNDPJJTP3J5GOEDB66F6MGXUTRG3Y3
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/DDMNDPJJTP3J5GOEDB66F6MGXUTRG3Y3
+    - web: https://security.gentoo.org/glsa/202401-31
+source:
+    id: GHSA-c72p-9xmj-rx3w
+    created: 2024-08-20T14:30:41.699693-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

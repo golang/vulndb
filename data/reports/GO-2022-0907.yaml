@@ -1,0 +1,30 @@
+id: GO-2022-0907
+modules:
+    - module: k8s.io/kubernetes
+      versions:
+        - fixed: 1.18.18
+        - introduced: 1.19.0
+        - fixed: 1.19.10
+        - introduced: 1.20.0
+        - fixed: 1.20.6
+      vulnerable_at: 1.20.6-rc.0
+summary: Access Restriction Bypass in kube-apiserver in k8s.io/kubernetes
+cves:
+    - CVE-2021-25735
+ghsas:
+    - GHSA-g42g-737j-qx6j
+references:
+    - advisory: https://github.com/advisories/GHSA-g42g-737j-qx6j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-25735
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=1937562
+    - web: https://github.com/kubernetes/kubernetes/commit/00e81db174ef7aca497be5f42d87e46d14df2a90
+    - web: https://github.com/kubernetes/kubernetes/issues/100096
+    - web: https://github.com/kubernetes/kubernetes/pull/99946
+    - web: https://groups.google.com/g/kubernetes-security-announce/c/FKAGqT4jx9Y
+    - web: https://pkg.go.dev/k8s.io/kubernetes@v1.23.5/cmd/kube-apiserver
+    - web: https://sysdig.com/blog/cve-2021-25735-kubernetes-admission-bypass
+source:
+    id: GHSA-g42g-737j-qx6j
+    created: 2024-08-20T14:28:47.166417-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

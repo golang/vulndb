@@ -1,0 +1,23 @@
+id: GO-2022-0894
+modules:
+    - module: github.com/hashicorp/consul
+      versions:
+        - fixed: 1.10.1
+      vulnerable_at: 1.10.1-beta1
+summary: Hashicorp Consul Missing SSL Certificate Validation in github.com/hashicorp/consul
+cves:
+    - CVE-2021-32574
+ghsas:
+    - GHSA-25gf-8qrr-g78r
+references:
+    - advisory: https://github.com/advisories/GHSA-25gf-8qrr-g78r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-32574
+    - web: https://discuss.hashicorp.com/t/hcsec-2021-17-consul-s-envoy-tls-configuration-did-not-validate-destination-service-subject-alternative-names/26856
+    - web: https://github.com/hashicorp/consul/releases/tag/v1.10.1
+    - web: https://security.gentoo.org/glsa/202208-09
+    - web: https://www.hashicorp.com/blog/category/consul
+source:
+    id: GHSA-25gf-8qrr-g78r
+    created: 2024-08-20T14:27:50.634232-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

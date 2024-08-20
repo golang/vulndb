@@ -1,0 +1,21 @@
+id: GO-2022-0887
+modules:
+    - module: github.com/go-ldap/ldap
+      versions:
+        - fixed: 2.5.0+incompatible
+      vulnerable_at: 2.4.1+incompatible
+summary: Access Restriction Bypass in go-ldap in github.com/go-ldap/ldap
+cves:
+    - CVE-2017-14623
+ghsas:
+    - GHSA-x27w-qxhg-343v
+references:
+    - advisory: https://github.com/advisories/GHSA-x27w-qxhg-343v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-14623
+    - fix: https://github.com/go-ldap/ldap/commit/95ede1266b237bf8e9aa5dce0b3250e51bfefe66
+    - fix: https://github.com/go-ldap/ldap/pull/126
+source:
+    id: GHSA-x27w-qxhg-343v
+    created: 2024-08-20T14:27:16.422482-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

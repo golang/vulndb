@@ -1,0 +1,30 @@
+id: GO-2022-0914
+modules:
+    - module: github.com/opencontainers/runc
+      versions:
+        - fixed: 1.0.0-rc95
+      vulnerable_at: 1.0.0-rc94
+summary: |-
+    mount destinations can be swapped via symlink-exchange to cause mounts outside
+    the rootfs in github.com/opencontainers/runc
+cves:
+    - CVE-2021-30465
+ghsas:
+    - GHSA-c3xm-pvg7-gh7r
+references:
+    - advisory: https://github.com/opencontainers/runc/security/advisories/GHSA-c3xm-pvg7-gh7r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-30465
+    - fix: https://github.com/opencontainers/runc/commit/0ca91f44f1664da834bc61115a849b56d22f595f
+    - web: http://www.openwall.com/lists/oss-security/2021/05/19/2
+    - web: https://bugzilla.opensuse.org/show_bug.cgi?id=1185405
+    - web: https://github.com/opencontainers/runc/releases
+    - web: https://lists.debian.org/debian-lts-announce/2023/03/msg00023.html
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/35ZW6NBZSBH5PWIT7JU4HXOXGFVDCOHH
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/4HOARVIT47RULTTFWAU7XBG4WY6TDDHV
+    - web: https://security.gentoo.org/glsa/202107-26
+    - web: https://security.netapp.com/advisory/ntap-20210708-0003
+source:
+    id: GHSA-c3xm-pvg7-gh7r
+    created: 2024-08-20T14:29:55.083436-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

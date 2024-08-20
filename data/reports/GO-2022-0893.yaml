@@ -1,0 +1,24 @@
+id: GO-2022-0893
+modules:
+    - module: github.com/kubernetes/kubernetes
+      versions:
+        - fixed: 1.2.0-alpha.6
+      vulnerable_at: 1.2.0-alpha.5
+summary: Access Restriction Bypass in kubernetes in github.com/kubernetes/kubernetes
+cves:
+    - CVE-2016-1905
+ghsas:
+    - GHSA-xx8c-m748-xr4j
+references:
+    - advisory: https://github.com/advisories/GHSA-xx8c-m748-xr4j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2016-1905
+    - report: https://github.com/kubernetes/kubernetes/issues/19479
+    - web: https://access.redhat.com/errata/RHSA-2016:0070
+    - web: https://access.redhat.com/errata/RHSA-2016:0351
+    - web: https://access.redhat.com/security/cve/CVE-2016-1905
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=1297910
+source:
+    id: GHSA-xx8c-m748-xr4j
+    created: 2024-08-20T14:27:43.897027-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

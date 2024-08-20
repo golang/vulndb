@@ -1,0 +1,21 @@
+id: GO-2022-0905
+modules:
+    - module: github.com/filecoin-project/lotus
+      versions:
+        - fixed: 1.5.0
+      vulnerable_at: 1.5.0-rc2
+summary: BLS Signature "Malleability" in github.com/filecoin-project/lotus
+cves:
+    - CVE-2021-21405
+ghsas:
+    - GHSA-4g52-pqcj-phvh
+references:
+    - advisory: https://github.com/filecoin-project/lotus/security/advisories/GHSA-4g52-pqcj-phvh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-21405
+    - fix: https://github.com/filecoin-project/lotus/pull/5393
+    - web: https://gist.github.com/wadeAlexC/2490d522e81a796af9efcad1686e6754
+source:
+    id: GHSA-4g52-pqcj-phvh
+    created: 2024-08-20T14:28:35.422481-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE
