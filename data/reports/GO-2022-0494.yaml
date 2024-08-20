@@ -1,0 +1,22 @@
+id: GO-2022-0494
+modules:
+    - module: github.com/zalando/skipper
+      versions:
+        - fixed: 0.13.218
+      vulnerable_at: 0.13.217
+summary: Query predicate bypass in Zalando Skipper in github.com/zalando/skipper
+cves:
+    - CVE-2022-34296
+ghsas:
+    - GHSA-qx2j-85q5-ffp8
+references:
+    - advisory: https://github.com/advisories/GHSA-qx2j-85q5-ffp8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-34296
+    - fix: https://github.com/zalando/skipper/commit/998a658ce5a68a336a98f4e63e4371e200860dfc
+    - fix: https://github.com/zalando/skipper/pull/2028
+    - web: https://github.com/zalando/skipper/releases/tag/v0.13.218
+source:
+    id: GHSA-qx2j-85q5-ffp8
+    created: 2024-08-20T14:01:00.258355-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

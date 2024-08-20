@@ -1,0 +1,32 @@
+id: GO-2022-0499
+modules:
+    - module: github.com/argoproj/argo-cd
+      versions:
+        - introduced: 1.3.0
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - fixed: 2.1.16
+        - introduced: 2.2.0
+        - fixed: 2.2.10
+        - introduced: 2.3.0
+        - fixed: 2.3.5
+        - introduced: 2.4.0
+        - fixed: 2.4.1
+      vulnerable_at: 2.4.0
+summary: |-
+    Symlink following allows leaking out-of-bounds YAML files from Argo CD
+    repo-server in github.com/argoproj/argo-cd
+cves:
+    - CVE-2022-31036
+ghsas:
+    - GHSA-q4w5-4gq2-98vm
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-q4w5-4gq2-98vm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-31036
+    - fix: https://github.com/argoproj/argo-cd/commit/04c305396458508a31d03d44afea07b1c620d7cd
+source:
+    id: GHSA-q4w5-4gq2-98vm
+    created: 2024-08-20T14:01:17.28123-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

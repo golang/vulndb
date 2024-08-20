@@ -1,0 +1,25 @@
+id: GO-2022-0501
+modules:
+    - module: github.com/kubeedge/kubeedge
+      versions:
+        - fixed: 1.9.3
+        - introduced: 1.10.0
+        - fixed: 1.10.1
+      vulnerable_at: 1.10.0
+summary: |-
+    CloudCore CSI Driver: Malicious response from KubeEdge can crash CSI Driver
+    controller server in github.com/kubeedge/kubeedge
+cves:
+    - CVE-2022-31077
+ghsas:
+    - GHSA-x938-fvfw-7jh5
+references:
+    - advisory: https://github.com/kubeedge/kubeedge/security/advisories/GHSA-x938-fvfw-7jh5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-31077
+    - fix: https://github.com/kubeedge/kubeedge/pull/3899
+    - fix: https://github.com/kubeedge/kubeedge/pull/3899/commits/5d60ae9eabd6b6b7afe38758e19bbe8137664701
+source:
+    id: GHSA-x938-fvfw-7jh5
+    created: 2024-08-20T14:01:24.514983-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

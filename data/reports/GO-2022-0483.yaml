@@ -1,0 +1,22 @@
+id: GO-2022-0483
+modules:
+    - module: gogs.io/gogs
+      versions:
+        - fixed: 0.12.9
+      vulnerable_at: 0.12.9-rc.1
+summary: Cross-site Scripting vulnerability in repository issue list in Gogs in gogs.io/gogs
+cves:
+    - CVE-2022-31038
+ghsas:
+    - GHSA-xq4v-vrp9-vcf2
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-xq4v-vrp9-vcf2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-31038
+    - web: https://github.com/gogs/gogs/commit/155cae1de8916fc3fde78f350763034b7422caee
+    - web: https://github.com/gogs/gogs/pull/7009
+    - web: https://github.com/gogs/gogs/releases/tag/v0.12.9
+source:
+    id: GHSA-xq4v-vrp9-vcf2
+    created: 2024-08-20T14:00:31.527047-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

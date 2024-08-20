@@ -1,0 +1,22 @@
+id: GO-2022-0490
+modules:
+    - module: github.com/argoproj/argo-events
+      versions:
+        - fixed: 1.7.1
+      vulnerable_at: 1.7.0
+summary: Uses of deprecated API can be used to cause DoS in user-facing endpoints in github.com/argoproj/argo-events
+cves:
+    - CVE-2022-31054
+ghsas:
+    - GHSA-5q86-62xr-3r57
+references:
+    - advisory: https://github.com/argoproj/argo-events/security/advisories/GHSA-5q86-62xr-3r57
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-31054
+    - fix: https://github.com/argoproj/argo-events/commit/eaabcb6d65022fc34a0cc9ea7f00681abd326b35
+    - fix: https://github.com/argoproj/argo-events/pull/1966
+    - report: https://github.com/argoproj/argo-events/issues/1946
+source:
+    id: GHSA-5q86-62xr-3r57
+    created: 2024-08-20T14:00:43.850007-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2022-0480",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-1708",
+    "GHSA-fcm2-6c3h-pg6j"
+  ],
+  "summary": "Node DOS by way of memory exhaustion through ExecSync request in CRI-O in github.com/cri-o/cri-o",
+  "details": "Node DOS by way of memory exhaustion through ExecSync request in CRI-O in github.com/cri-o/cri-o",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cri-o/cri-o",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.22.5"
+            },
+            {
+              "introduced": "1.23.0"
+            },
+            {
+              "fixed": "1.23.3"
+            },
+            {
+              "introduced": "1.24.0"
+            },
+            {
+              "fixed": "1.24.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cri-o/cri-o/security/advisories/GHSA-fcm2-6c3h-pg6j"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-1708"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cri-o/cri-o/commit/f032cf649ecc7e0c46718bd9e7814bfb317cb544"
+    },
+    {
+      "type": "WEB",
+      "url": "https://bugzilla.redhat.com/show_bug.cgi?id=2085361"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2022-0480",
+    "review_status": "UNREVIEWED"
+  }
+}

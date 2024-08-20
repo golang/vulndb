@@ -1,0 +1,25 @@
+id: GO-2022-0480
+modules:
+    - module: github.com/cri-o/cri-o
+      versions:
+        - fixed: 1.22.5
+        - introduced: 1.23.0
+        - fixed: 1.23.3
+        - introduced: 1.24.0
+        - fixed: 1.24.1
+      vulnerable_at: 1.24.0
+summary: Node DOS by way of memory exhaustion through ExecSync request in CRI-O in github.com/cri-o/cri-o
+cves:
+    - CVE-2022-1708
+ghsas:
+    - GHSA-fcm2-6c3h-pg6j
+references:
+    - advisory: https://github.com/cri-o/cri-o/security/advisories/GHSA-fcm2-6c3h-pg6j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-1708
+    - fix: https://github.com/cri-o/cri-o/commit/f032cf649ecc7e0c46718bd9e7814bfb317cb544
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2085361
+source:
+    id: GHSA-fcm2-6c3h-pg6j
+    created: 2024-08-20T14:00:14.037331-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

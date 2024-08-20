@@ -1,0 +1,31 @@
+id: GO-2022-0491
+modules:
+    - module: github.com/edgexfoundry/app-functions-sdk-go
+      vulnerable_at: 1.3.1
+    - module: github.com/edgexfoundry/app-functions-sdk-go/v2
+      versions:
+        - fixed: 2.1.1
+      vulnerable_at: 2.1.1-dev.4
+    - module: github.com/edgexfoundry/device-sdk-go
+      vulnerable_at: 1.4.0
+    - module: github.com/edgexfoundry/device-sdk-go/v2
+      versions:
+        - fixed: 2.1.1
+      vulnerable_at: 2.1.1-dev.3
+summary: |-
+    Configuration API in EdgeXFoundry 2.1.0 and earlier exposes message bus
+    credentials to local unauthenticated users in github.com/edgexfoundry/app-functions-sdk-go
+cves:
+    - CVE-2022-31066
+ghsas:
+    - GHSA-g63h-q855-vp3q
+references:
+    - advisory: https://github.com/edgexfoundry/edgex-go/security/advisories/GHSA-g63h-q855-vp3q
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-31066
+    - fix: https://github.com/edgexfoundry/device-sdk-go/pull/1161
+    - web: https://github.com/edgexfoundry/edgex-go/pull/4016
+source:
+    id: GHSA-g63h-q855-vp3q
+    created: 2024-08-20T14:00:52.239812-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

@@ -1,0 +1,30 @@
+id: GO-2022-0497
+modules:
+    - module: github.com/argoproj/argo-cd
+      versions:
+        - introduced: 0.11.0
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - fixed: 2.1.16
+        - introduced: 2.2.0
+        - fixed: 2.2.10
+        - introduced: 2.3.0
+        - fixed: 2.3.5
+        - introduced: 2.4.0
+        - fixed: 2.4.1
+      vulnerable_at: 2.4.0
+summary: Insecure entropy in Argo CD's PKCE/Oauth2/OIDC params in github.com/argoproj/argo-cd
+cves:
+    - CVE-2022-31034
+ghsas:
+    - GHSA-2m7h-86qq-fp4v
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-2m7h-86qq-fp4v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-31034
+    - fix: https://github.com/argoproj/argo-cd/commit/17f7f4f462bdb233e1b9b36f67099f41052d8cb0
+source:
+    id: GHSA-2m7h-86qq-fp4v
+    created: 2024-08-20T14:01:08.952699-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

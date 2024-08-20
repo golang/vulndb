@@ -1,0 +1,23 @@
+id: GO-2022-0505
+modules:
+    - module: github.com/openshift/origin
+      versions:
+        - fixed: 1.0.0
+summary: Insecure cookies in Openshift Origin in github.com/openshift/origin
+cves:
+    - CVE-2015-3207
+ghsas:
+    - GHSA-rqph-25q9-9jhp
+references:
+    - advisory: https://github.com/advisories/GHSA-rqph-25q9-9jhp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2015-3207
+    - fix: https://github.com/openshift/origin/pull/2261
+    - fix: https://github.com/openshift/origin/pull/2291
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=1221882
+notes:
+    - fix: 'github.com/openshift/origin: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-rqph-25q9-9jhp
+    created: 2024-08-20T14:01:30.994655-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

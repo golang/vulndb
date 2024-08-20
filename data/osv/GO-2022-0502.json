@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2022-0502",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-31098",
+    "GHSA-xggc-qprg-x6mw"
+  ],
+  "summary": "Weave GitOps leaked cluster credentials into logs on connection errors in github.com/weaveworks/weave-gitops",
+  "details": "Weave GitOps leaked cluster credentials into logs on connection errors in github.com/weaveworks/weave-gitops",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/weaveworks/weave-gitops",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.8.1-rc.6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/weaveworks/weave-gitops/security/advisories/GHSA-xggc-qprg-x6mw"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-31098"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/weaveworks/weave-gitops/commit/567356f471353fb5c676c77f5abc2a04631d50ca"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2022-0502",
+    "review_status": "UNREVIEWED"
+  }
+}

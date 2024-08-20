@@ -1,0 +1,26 @@
+id: GO-2022-0457
+modules:
+    - module: github.com/cilium/cilium
+      versions:
+        - fixed: 1.9.16
+        - introduced: 1.10.0
+        - fixed: 1.10.11
+        - introduced: 1.11.0
+        - fixed: 1.11.5
+      vulnerable_at: 1.11.4
+summary: Access to Unix domain socket can lead to privileges escalation in Cilium in github.com/cilium/cilium
+cves:
+    - CVE-2022-29178
+ghsas:
+    - GHSA-6p8v-8cq8-v2r3
+references:
+    - advisory: https://github.com/cilium/cilium/security/advisories/GHSA-6p8v-8cq8-v2r3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-29178
+    - web: https://github.com/cilium/cilium/releases/tag/v1.10.11
+    - web: https://github.com/cilium/cilium/releases/tag/v1.11.5
+    - web: https://github.com/cilium/cilium/releases/tag/v1.9.16
+source:
+    id: GHSA-6p8v-8cq8-v2r3
+    created: 2024-08-20T13:58:00.169841-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

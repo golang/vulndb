@@ -1,0 +1,19 @@
+id: GO-2022-0496
+modules:
+    - module: github.com/cloudflare/cfrpki
+      versions:
+        - fixed: 1.4.3
+      vulnerable_at: 1.4.2
+summary: Path traversal mitigation bypass in OctoRPKI in github.com/cloudflare/cfrpki
+ghsas:
+    - GHSA-3jhm-87m6-x959
+references:
+    - advisory: https://github.com/cloudflare/cfrpki/security/advisories/GHSA-3jhm-87m6-x959
+    - web: https://github.com/cloudflare/cfrpki/releases/tag/v1.4.3
+    - web: https://github.com/cloudflare/cfrpki/security/advisories/GHSA-cqh2-vc2f-q4fh
+    - web: https://nvd.nist.gov/vuln/detail/CVE-2021-3907
+source:
+    id: GHSA-3jhm-87m6-x959
+    created: 2024-08-20T14:01:06.921541-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE
