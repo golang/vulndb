@@ -1,0 +1,20 @@
+id: GO-2022-0989
+modules:
+    - module: github.com/matrix-org/dendrite
+      versions:
+        - fixed: 0.9.8
+      vulnerable_at: 0.9.7
+summary: Dendrite signature checks not applied to some retrieved missing events in github.com/matrix-org/dendrite
+cves:
+    - CVE-2022-39200
+ghsas:
+    - GHSA-pfw4-xjgm-267c
+references:
+    - advisory: https://github.com/matrix-org/dendrite/security/advisories/GHSA-pfw4-xjgm-267c
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-39200
+    - fix: https://github.com/matrix-org/dendrite/commit/2792d0490f3771488bad346981b8c26479a872c3
+source:
+    id: GHSA-pfw4-xjgm-267c
+    created: 2024-08-20T14:45:17.279207-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

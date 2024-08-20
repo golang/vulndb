@@ -1,0 +1,23 @@
+id: GO-2022-0995
+modules:
+    - module: github.com/talos-systems/talos
+      versions:
+        - fixed: 1.2.2
+      vulnerable_at: 1.2.1
+summary: |-
+    Talos worker join token can be used to get elevated access level to the Talos
+    API in github.com/talos-systems/talos
+cves:
+    - CVE-2022-36103
+ghsas:
+    - GHSA-7hgc-php5-77qq
+references:
+    - advisory: https://github.com/siderolabs/talos/security/advisories/GHSA-7hgc-php5-77qq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-36103
+    - web: https://github.com/siderolabs/talos/commit/9eaf33f3f274e746ca1b442c0a1a0dae0cec088f
+    - web: https://github.com/siderolabs/talos/releases/tag/v1.2.2
+source:
+    id: GHSA-7hgc-php5-77qq
+    created: 2024-08-20T14:45:21.082481-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

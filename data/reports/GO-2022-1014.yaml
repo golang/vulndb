@@ -1,0 +1,24 @@
+id: GO-2022-1014
+modules:
+    - module: github.com/cri-o/cri-o
+      versions:
+        - fixed: 1.25.0
+      vulnerable_at: 1.24.6
+summary: |-
+    CRI-O incorrect handling of supplementary groups may lead to sensitive
+    information disclosure in github.com/cri-o/cri-o
+cves:
+    - CVE-2022-2995
+ghsas:
+    - GHSA-phjr-8j92-w5v7
+references:
+    - advisory: https://github.com/advisories/GHSA-phjr-8j92-w5v7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-2995
+    - fix: https://github.com/cri-o/cri-o/commit/db3b399a8d7dabf7f073db73894bee98311d7909
+    - fix: https://github.com/cri-o/cri-o/pull/6159
+    - web: https://www.benthamsgaze.org/2022/08/22/vulnerability-in-linux-containers-investigation-and-mitigation
+source:
+    id: GHSA-phjr-8j92-w5v7
+    created: 2024-08-20T14:46:14.810052-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

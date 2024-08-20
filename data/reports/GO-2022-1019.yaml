@@ -1,0 +1,19 @@
+id: GO-2022-1019
+modules:
+    - module: github.com/treeverse/lakefs
+      versions:
+        - fixed: 0.82.0
+      vulnerable_at: 0.80.2
+summary: |-
+    lakeFS vulnerable to authenticated users deleting files they are not authorized
+    to delete in github.com/treeverse/lakefs
+ghsas:
+    - GHSA-28q9-9c3g-v3f9
+references:
+    - advisory: https://github.com/treeverse/lakeFS/security/advisories/GHSA-28q9-9c3g-v3f9
+    - web: https://github.com/treeverse/lakeFS/commit/81182bf9c0cf57f3cec3c893cf739b2069305e37
+source:
+    id: GHSA-28q9-9c3g-v3f9
+    created: 2024-08-20T14:46:48.759595-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

@@ -1,0 +1,29 @@
+id: GO-2022-1029
+modules:
+    - module: github.com/hashicorp/consul
+      versions:
+        - fixed: 1.11.9
+        - introduced: 1.12.0
+        - fixed: 1.12.5
+        - introduced: 1.13.0
+        - fixed: 1.13.2
+      vulnerable_at: 1.13.1
+summary: HashiCorp Consul vulnerable to authorization bypass in github.com/hashicorp/consul
+cves:
+    - CVE-2022-40716
+ghsas:
+    - GHSA-m69r-9g56-7mv8
+references:
+    - advisory: https://github.com/advisories/GHSA-m69r-9g56-7mv8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-40716
+    - fix: https://github.com/hashicorp/consul/commit/8f6fb4f6fe9488b8ec37da71ac503081d7d3760b
+    - fix: https://github.com/hashicorp/consul/pull/14579
+    - web: https://discuss.hashicorp.com
+    - web: https://discuss.hashicorp.com/t/hcsec-2022-20-consul-service-mesh-intention-bypass-with-malicious-certificate-signing-request/44628
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/LYZOKMMVX4SIEHPJW3SJUQGMO5YZCPHC
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/ZTE4ITXXPIWZEQ4HYQCB6N6GZIMWXDAI
+source:
+    id: GHSA-m69r-9g56-7mv8
+    created: 2024-08-20T14:47:49.133088-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

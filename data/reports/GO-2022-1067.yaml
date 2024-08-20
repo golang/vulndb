@@ -1,0 +1,22 @@
+id: GO-2022-1067
+modules:
+    - module: github.com/brokercap/Bifrost
+      versions:
+        - fixed: 1.8.7-release
+      vulnerable_at: 1.8.6-release
+summary: |-
+    Bifrost vulnerable to authentication check flaw that leads to authentication
+    bypass in github.com/brokercap/Bifrost
+cves:
+    - CVE-2022-39267
+ghsas:
+    - GHSA-mxrx-fg8p-5p5j
+references:
+    - advisory: https://github.com/brokercap/Bifrost/security/advisories/GHSA-mxrx-fg8p-5p5j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-39267
+    - fix: https://github.com/brokercap/Bifrost/commit/63da5c8eb7eb21639ea7ac199fe10b5e07b03a8a
+source:
+    id: GHSA-mxrx-fg8p-5p5j
+    created: 2024-08-20T14:49:36.853901-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

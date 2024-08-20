@@ -1,0 +1,23 @@
+id: GO-2022-1006
+modules:
+    - module: github.com/casdoor/casdoor
+      versions:
+        - fixed: 1.103.1
+      vulnerable_at: 1.103.0
+summary: Casdoor arbitrary file write vulnerability in github.com/casdoor/casdoor
+cves:
+    - CVE-2022-38638
+ghsas:
+    - GHSA-9vm3-r8gq-cr6x
+references:
+    - advisory: https://github.com/advisories/GHSA-9vm3-r8gq-cr6x
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-38638
+    - fix: https://github.com/casdoor/casdoor/commit/411d76798d73446fff4a0244f0475f1ea8bf42dc
+    - report: https://github.com/casdoor/casdoor/issues/1035
+    - report: https://github.com/casdoor/casdoor/issues/1063
+    - web: https://github.com/casdoor/casdoor/releases/tag/v1.103.1
+source:
+    id: GHSA-9vm3-r8gq-cr6x
+    created: 2024-08-20T14:45:31.309472-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

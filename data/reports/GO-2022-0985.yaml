@@ -1,0 +1,25 @@
+id: GO-2022-0985
+modules:
+    - module: github.com/docker/docker
+      versions:
+        - fixed: 20.10.18+incompatible
+      vulnerable_at: 20.10.17+incompatible
+summary: |-
+    Docker supplementary group permissions not set up properly, allowing attackers
+    to bypass primary group restrictions in github.com/docker/docker
+cves:
+    - CVE-2022-36109
+ghsas:
+    - GHSA-rc4r-wh2q-q6c4
+references:
+    - advisory: https://github.com/moby/moby/security/advisories/GHSA-rc4r-wh2q-q6c4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-36109
+    - web: https://github.com/moby/moby/commit/de7af816e76a7fd3fbf06bffa6832959289fba32
+    - web: https://github.com/moby/moby/releases/tag/v20.10.18
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/O7JL2QA3RB732MLJ3RMUXB3IB7AA22YU
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/RQQ4E3JBXVR3VK5FIZVJ3QS2TAOOXXTQ
+source:
+    id: GHSA-rc4r-wh2q-q6c4
+    created: 2024-08-20T14:44:57.127362-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

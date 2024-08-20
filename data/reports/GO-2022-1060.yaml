@@ -1,0 +1,23 @@
+id: GO-2022-1060
+modules:
+    - module: gogs.io/gogs
+      versions:
+        - introduced: 0.6.5
+      unsupported_versions:
+        - last_affected: 0.12.10
+      vulnerable_at: 0.13.0
+summary: Gogs vulnerable to Cross-site Scripting in gogs.io/gogs
+cves:
+    - CVE-2022-32174
+ghsas:
+    - GHSA-mcjj-2fvq-mc3r
+references:
+    - advisory: https://github.com/advisories/GHSA-mcjj-2fvq-mc3r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-32174
+    - web: https://github.com/gogs/gogs/blob/v0.12.10/public/js/gogs.js#L263
+    - web: https://www.mend.io/vulnerability-database/CVE-2022-32174
+source:
+    id: GHSA-mcjj-2fvq-mc3r
+    created: 2024-08-20T14:49:14.091264-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

@@ -1,0 +1,28 @@
+id: GO-2022-1021
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - introduced: 1.8.0
+        - fixed: 1.9.9
+        - introduced: 1.10.0
+        - fixed: 1.10.6
+        - introduced: 1.11.0
+        - fixed: 1.11.3
+      vulnerable_at: 1.11.2
+summary: HashiCorp Vault vulnerable to incorrect metadata access in github.com/hashicorp/vault
+cves:
+    - CVE-2022-40186
+ghsas:
+    - GHSA-7cgv-v83v-rr87
+references:
+    - advisory: https://github.com/advisories/GHSA-7cgv-v83v-rr87
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-40186
+    - web: https://discuss.hashicorp.com
+    - web: https://discuss.hashicorp.com/t/hcsec-2022-18-vault-entity-alias-metadata-may-leak-between-aliases-with-the-same-name-assigned-to-the-same-entity/44550
+    - web: https://github.com/hashicorp/vault
+    - web: https://security.netapp.com/advisory/ntap-20221111-0008
+source:
+    id: GHSA-7cgv-v83v-rr87
+    created: 2024-08-20T14:47:07.13343-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

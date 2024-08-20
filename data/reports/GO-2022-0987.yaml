@@ -1,0 +1,23 @@
+id: GO-2022-0987
+modules:
+    - module: github.com/gophish/gophish
+      versions:
+        - fixed: 0.12.0
+      vulnerable_at: 0.11.0
+summary: Gophish before 0.12.0 vulnerable to Open Redirect in github.com/gophish/gophish
+cves:
+    - CVE-2022-25295
+ghsas:
+    - GHSA-hvw3-p9px-gpc9
+references:
+    - advisory: https://github.com/advisories/GHSA-hvw3-p9px-gpc9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-25295
+    - fix: https://github.com/gophish/gophish/commit/2a452bda89ffdb85f929fa78290bce1f456881dc
+    - fix: https://github.com/gophish/gophish/pull/2262
+    - web: https://github.com/gophish/gophish/releases/tag/v0.12.0
+    - web: https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMGOPHISHGOPHISH-2404177
+source:
+    id: GHSA-hvw3-p9px-gpc9
+    created: 2024-08-20T14:45:11.381625-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

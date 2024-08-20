@@ -1,0 +1,26 @@
+id: GO-2022-1032
+modules:
+    - module: github.com/cloudflare/goflow
+      vulnerable_at: 2.1.0+incompatible
+    - module: github.com/cloudflare/goflow/v3
+      versions:
+        - fixed: 3.4.4
+      vulnerable_at: 3.4.3
+summary: |-
+    Cloudflare GoFlow vulnerable to a Denial of Service in the sflow packet handling
+    package in github.com/cloudflare/goflow
+cves:
+    - CVE-2022-2529
+ghsas:
+    - GHSA-9rpw-2h95-666c
+references:
+    - advisory: https://github.com/cloudflare/goflow/security/advisories/GHSA-9rpw-2h95-666c
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-2529
+    - fix: https://github.com/cloudflare/goflow/commit/2b94619a6204443e3ca1769f4e459f9f57039c51
+    - fix: https://github.com/cloudflare/goflow/commit/c829ccd2c0aafdc9b886b20bf6f28095607f4998
+    - web: https://github.com/cloudflare/goflow/releases/tag/v3.4.4
+source:
+    id: GHSA-9rpw-2h95-666c
+    created: 2024-08-20T14:48:01.457144-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

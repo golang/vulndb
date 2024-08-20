@@ -1,0 +1,20 @@
+id: GO-2022-1066
+modules:
+    - module: github.com/cheqd/cheqd-node
+      versions:
+        - fixed: 0.6.9
+      vulnerable_at: 0.6.8
+summary: |-
+    Potential inter-blockchain communication (IBC) protocol compromise via
+    "Dragonberry" vulnerability in cheqd in github.com/cheqd/cheqd-node
+ghsas:
+    - GHSA-j92c-mmf7-j5x5
+references:
+    - advisory: https://github.com/cheqd/cheqd-node/security/advisories/GHSA-j92c-mmf7-j5x5
+    - web: https://forum.cosmos.network/t/ibc-security-advisory-dragonberry/7702/1
+    - web: https://github.com/cosmos/cosmos-sdk/releases/tag/v0.45.9
+source:
+    id: GHSA-j92c-mmf7-j5x5
+    created: 2024-08-20T14:49:34.431692-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

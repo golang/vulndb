@@ -1,0 +1,23 @@
+id: GO-2022-1062
+modules:
+    - module: github.com/hashicorp/nomad
+      versions:
+        - fixed: 1.2.13
+        - introduced: 1.3.0
+        - fixed: 1.3.6
+      vulnerable_at: 1.3.5
+summary: Nomad Panics On Job Submission With Bad Artifact Stanza Source URL in github.com/hashicorp/nomad
+cves:
+    - CVE-2022-41606
+ghsas:
+    - GHSA-7v3g-4878-5qrf
+references:
+    - advisory: https://github.com/advisories/GHSA-7v3g-4878-5qrf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-41606
+    - web: https://discuss.hashicorp.com
+    - web: https://discuss.hashicorp.com/t/hcsec-2022-22-nomad-panics-on-job-submission-with-bad-artifact-stanza-source-url/45420
+source:
+    id: GHSA-7v3g-4878-5qrf
+    created: 2024-08-20T14:49:26.16813-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE
