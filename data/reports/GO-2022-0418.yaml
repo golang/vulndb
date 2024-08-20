@@ -1,0 +1,20 @@
+id: GO-2022-0418
+modules:
+    - module: github.com/ipfs/go-ipfs
+      versions:
+        - introduced: 0.11.0
+        - fixed: 0.12.1
+      vulnerable_at: 0.12.0
+summary: Opened exploitable ports in default docker-compose.yaml in go-ipfs in github.com/ipfs/go-ipfs
+ghsas:
+    - GHSA-fx5p-f64h-93xc
+references:
+    - advisory: https://github.com/ipfs/go-ipfs/security/advisories/GHSA-fx5p-f64h-93xc
+    - fix: https://github.com/ipfs/go-ipfs/commit/816a128aaf963d72c4930852ce32b9a4e31924a1
+    - fix: https://github.com/ipfs/go-ipfs/pull/8773
+    - web: https://github.com/ipfs/go-ipfs/releases/tag/v0.12.1
+source:
+    id: GHSA-fx5p-f64h-93xc
+    created: 2024-08-20T13:54:08.056591-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

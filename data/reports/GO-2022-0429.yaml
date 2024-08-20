@@ -1,0 +1,20 @@
+id: GO-2022-0429
+modules:
+    - module: github.com/stripe/smokescreen
+      versions:
+        - fixed: 0.0.3
+      vulnerable_at: 0.0.2
+summary: Smokescreen SSRF via deny list bypass in github.com/stripe/smokescreen
+cves:
+    - CVE-2022-24825
+ghsas:
+    - GHSA-gcj7-j438-hjj2
+references:
+    - advisory: https://github.com/stripe/smokescreen/security/advisories/GHSA-gcj7-j438-hjj2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-24825
+    - fix: https://github.com/stripe/smokescreen/commit/fafb6ae48c6c40aa011d87b61306abc48db8797b
+source:
+    id: GHSA-gcj7-j438-hjj2
+    created: 2024-08-20T13:56:31.823392-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

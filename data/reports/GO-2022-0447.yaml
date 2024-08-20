@@ -1,0 +1,25 @@
+id: GO-2022-0447
+modules:
+    - module: github.com/fluxcd/flux2
+      versions:
+        - fixed: 0.29.0
+      vulnerable_at: 0.28.5
+    - module: github.com/fluxcd/kustomize-controller
+      versions:
+        - fixed: 0.24.0
+      vulnerable_at: 0.23.0
+summary: Improper path handling in kustomization files allows path traversal in github.com/fluxcd/flux2
+cves:
+    - CVE-2022-24877
+ghsas:
+    - GHSA-j77r-2fxf-5jrw
+references:
+    - advisory: https://github.com/fluxcd/flux2/security/advisories/GHSA-j77r-2fxf-5jrw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-24877
+    - fix: https://github.com/fluxcd/kustomize-controller/commit/f4528fb25d611da94e491346bea056d5c5c3611f
+    - web: https://github.com/fluxcd/pkg/commit/0ec014baf417fd3879d366a45503a548b9267d2a
+source:
+    id: GHSA-j77r-2fxf-5jrw
+    created: 2024-08-20T13:57:18.284097-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

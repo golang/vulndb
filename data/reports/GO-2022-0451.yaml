@@ -1,0 +1,22 @@
+id: GO-2022-0451
+modules:
+    - module: github.com/coreos/ignition
+      vulnerable_at: 0.35.0
+    - module: github.com/coreos/ignition/v2
+      versions:
+        - fixed: 2.14.0
+      vulnerable_at: 2.13.0
+summary: Ignition config accessible to unprivileged software on VMware in github.com/coreos/ignition
+cves:
+    - CVE-2022-1706
+ghsas:
+    - GHSA-hj57-j5cw-2mwp
+references:
+    - advisory: https://github.com/coreos/ignition/security/advisories/GHSA-hj57-j5cw-2mwp
+    - fix: https://github.com/coreos/ignition/pull/1350
+    - report: https://github.com/coreos/ignition/issues/1300
+source:
+    id: GHSA-hj57-j5cw-2mwp
+    created: 2024-08-20T13:57:34.481069-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

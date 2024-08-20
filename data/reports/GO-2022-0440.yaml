@@ -1,0 +1,22 @@
+id: GO-2022-0440
+modules:
+    - module: github.com/woodpecker-ci/woodpecker
+      versions:
+        - fixed: 0.15.1
+      vulnerable_at: 0.15.0
+summary: Woodpecker allows cross-site scripting (XSS) via build logs in github.com/woodpecker-ci/woodpecker
+cves:
+    - CVE-2022-29947
+ghsas:
+    - GHSA-vmp5-c5hp-6c65
+references:
+    - advisory: https://github.com/advisories/GHSA-vmp5-c5hp-6c65
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-29947
+    - fix: https://github.com/woodpecker-ci/woodpecker/pull/879
+    - web: https://github.com/woodpecker-ci/woodpecker
+    - web: https://github.com/woodpecker-ci/woodpecker/releases/tag/v0.15.1
+source:
+    id: GHSA-vmp5-c5hp-6c65
+    created: 2024-08-20T13:56:52.364284-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

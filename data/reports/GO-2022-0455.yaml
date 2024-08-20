@@ -1,0 +1,28 @@
+id: GO-2022-0455
+modules:
+    - module: github.com/argoproj/argo-cd
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - fixed: 2.1.15
+        - introduced: 2.2.0
+        - fixed: 2.2.9
+        - introduced: 2.3.0
+        - fixed: 2.3.4
+      vulnerable_at: 2.3.3
+summary: Argo CD will blindly trust JWT claims if anonymous access is enabled in github.com/argoproj/argo-cd
+cves:
+    - CVE-2022-29165
+ghsas:
+    - GHSA-r642-gv9p-2wjj
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-r642-gv9p-2wjj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-29165
+    - web: https://github.com/argoproj/argo-cd/releases/tag/v2.1.15
+    - web: https://github.com/argoproj/argo-cd/releases/tag/v2.2.9
+    - web: https://github.com/argoproj/argo-cd/releases/tag/v2.3.4
+source:
+    id: GHSA-r642-gv9p-2wjj
+    created: 2024-08-20T13:57:53.210022-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

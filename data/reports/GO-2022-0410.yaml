@@ -1,0 +1,18 @@
+id: GO-2022-0410
+modules:
+    - module: go.mozilla.org/sops
+      vulnerable_at: 0.0.0-20190912205235-14a22d7a7060
+    - module: go.mozilla.org/sops/v3
+      versions:
+        - fixed: 3.7.1
+      vulnerable_at: 3.7.0
+summary: Local directory executable lookup in sops (Windows-only) in go.mozilla.org/sops
+ghsas:
+    - GHSA-x5c7-x7m2-rhmf
+references:
+    - advisory: https://github.com/mozilla/sops/security/advisories/GHSA-x5c7-x7m2-rhmf
+source:
+    id: GHSA-x5c7-x7m2-rhmf
+    created: 2024-08-20T13:53:49.792541-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

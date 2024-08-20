@@ -1,0 +1,21 @@
+id: GO-2022-0442
+modules:
+    - module: code.gitea.io/gitea
+      versions:
+        - fixed: 1.16.4
+      vulnerable_at: 1.16.3
+summary: Arbitrary file deletion in gitea in code.gitea.io/gitea
+cves:
+    - CVE-2022-27313
+ghsas:
+    - GHSA-g7p7-x6w7-w6qg
+references:
+    - advisory: https://github.com/advisories/GHSA-g7p7-x6w7-w6qg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-27313
+    - web: https://github.com/go-gitea/gitea/pull/19072
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.16.4
+source:
+    id: GHSA-g7p7-x6w7-w6qg
+    created: 2024-08-20T13:57:01.317518-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

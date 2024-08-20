@@ -1,0 +1,25 @@
+id: GO-2022-0452
+modules:
+    - module: github.com/opencontainers/runc
+      versions:
+        - fixed: 1.1.2
+      vulnerable_at: 1.1.1
+summary: Default inheritable capabilities for linux container should be empty in github.com/opencontainers/runc
+cves:
+    - CVE-2022-29162
+ghsas:
+    - GHSA-f3fp-gc8g-vw66
+references:
+    - advisory: https://github.com/opencontainers/runc/security/advisories/GHSA-f3fp-gc8g-vw66
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-29162
+    - fix: https://github.com/opencontainers/runc/commit/d04de3a9b72d7a2455c1885fc75eb36d02cd17b5
+    - web: https://github.com/opencontainers/runc/releases/tag/v1.1.2
+    - web: https://lists.debian.org/debian-lts-announce/2023/03/msg00023.html
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/AVPZBV7ISA7QKRPTC7ZXWKMIQI2HZEBB
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/D77CKD3AXPMU4PMQIQI5Q74SI4JATNND
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/GPQU4YC4AAY54JDXGDQHJEYKSXXG5T2Y
+source:
+    id: GHSA-f3fp-gc8g-vw66
+    created: 2024-08-20T13:57:38.585931-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

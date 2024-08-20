@@ -1,0 +1,19 @@
+id: GO-2022-0424
+modules:
+    - module: github.com/github/git-sizer
+      versions:
+        - fixed: 1.4.0
+      vulnerable_at: 1.3.0
+summary: |-
+    On Windows, `git-sizer` might run a `git` executable within the repository being
+    analyzed in github.com/github/git-sizer
+ghsas:
+    - GHSA-57q7-rxqq-7vgp
+references:
+    - advisory: https://github.com/github/git-sizer/security/advisories/GHSA-57q7-rxqq-7vgp
+    - fix: https://github.com/github/git-sizer/commit/38400d6ddd79325e956b00ff584cfcc8dd96d536
+source:
+    id: GHSA-57q7-rxqq-7vgp
+    created: 2024-08-20T13:54:22.068739-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

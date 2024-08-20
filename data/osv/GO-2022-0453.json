@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2022-0453",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-24904",
+    "GHSA-6gcg-hp2x-q54h"
+  ],
+  "summary": "Symlink following allows leaking out-of-bound manifests and JSON files from Argo CD repo-server in github.com/argoproj/argo-cd",
+  "details": "Symlink following allows leaking out-of-bound manifests and JSON files from Argo CD repo-server in github.com/argoproj/argo-cd",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-cd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-cd/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.1.15"
+            },
+            {
+              "introduced": "2.2.0"
+            },
+            {
+              "fixed": "2.2.9"
+            },
+            {
+              "introduced": "2.3.0"
+            },
+            {
+              "fixed": "2.3.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/argoproj/argo-cd/security/advisories/GHSA-6gcg-hp2x-q54h"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-24904"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-cd/commit/5e767a4b9e30983330c0fdec322192281a90eb84"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-cd/commit/7357cfdb58a560de70a0538c6e3bef6fe39505ea"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-cd/commit/d36d95dc9f71ec61c1a93794f81ece6d61a0d943"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/argoproj/argo-cd/releases/tag/v2.1.15"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/argoproj/argo-cd/releases/tag/v2.2.9"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/argoproj/argo-cd/releases/tag/v2.3.4"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2022-0453",
+    "review_status": "UNREVIEWED"
+  }
+}
