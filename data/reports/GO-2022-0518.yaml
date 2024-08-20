@@ -1,0 +1,29 @@
+id: GO-2022-0518
+modules:
+    - module: github.com/argoproj/argo-cd
+      versions:
+        - introduced: 0.4.0
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - fixed: 2.2.11
+        - introduced: 2.3.0
+        - fixed: 2.3.6
+        - introduced: 2.4.0
+        - fixed: 2.4.5
+      vulnerable_at: 2.4.4
+summary: Argo CD certificate verification is skipped for connections to OIDC providers in github.com/argoproj/argo-cd
+cves:
+    - CVE-2022-31105
+ghsas:
+    - GHSA-7943-82jg-wmw5
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-7943-82jg-wmw5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-31105
+    - web: https://github.com/argoproj/argo-cd/releases/tag/v2.3.6
+    - web: https://github.com/argoproj/argo-cd/releases/tag/v2.4.5
+source:
+    id: GHSA-7943-82jg-wmw5
+    created: 2024-08-20T14:02:15.698222-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

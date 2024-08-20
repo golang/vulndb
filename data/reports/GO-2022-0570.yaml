@@ -1,0 +1,22 @@
+id: GO-2022-0570
+modules:
+    - module: gogs.io/gogs
+      versions:
+        - fixed: 0.12.9
+      vulnerable_at: 0.12.9-rc.1
+summary: Path Traversal in file editor on Windows in Gogs in gogs.io/gogs
+cves:
+    - CVE-2022-1992
+ghsas:
+    - GHSA-994f-7g86-qr56
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-994f-7g86-qr56
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-1992
+    - web: https://github.com/gogs/gogs/blob/f36eeedbf89328ee70cc3a2e239f6314f9021f58/conf/app.ini#L127-L129
+    - web: https://github.com/gogs/gogs/commit/2ca014250fbf0bba94c914d9e43b1f6d8eca3bb0
+    - web: https://huntr.dev/bounties/2e8cdc57-a9cf-46ae-9088-87f09e6c90ab
+source:
+    id: GHSA-994f-7g86-qr56
+    created: 2024-08-20T14:04:44.449409-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

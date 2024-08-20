@@ -1,0 +1,30 @@
+id: GO-2022-0559
+modules:
+    - module: github.com/hashicorp/consul
+      versions:
+        - fixed: 1.8.15
+        - introduced: 1.9.0
+        - fixed: 1.9.9
+        - introduced: 1.10.1
+        - fixed: 1.10.2
+      vulnerable_at: 1.10.1
+summary: |-
+    HashiCorp Consul and Consul Enterprise 1.10.1 Txn.Apply endpoint allowed
+    services to register proxies for other services, enabling access to service
+    traffic. in github.com/hashicorp/consul
+cves:
+    - CVE-2021-38698
+ghsas:
+    - GHSA-6hw5-6gcx-phmw
+references:
+    - advisory: https://github.com/advisories/GHSA-6hw5-6gcx-phmw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-38698
+    - fix: https://github.com/hashicorp/consul/pull/10824
+    - web: https://discuss.hashicorp.com/t/hcsec-2021-24-consul-missing-authorization-check-on-txn-apply-endpoint/29026
+    - web: https://security.gentoo.org/glsa/202208-09
+    - web: https://www.hashicorp.com/blog/category/consul
+source:
+    id: GHSA-6hw5-6gcx-phmw
+    created: 2024-08-20T14:04:08.33236-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

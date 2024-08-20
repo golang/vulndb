@@ -1,0 +1,28 @@
+id: GO-2022-0517
+modules:
+    - module: github.com/argoproj/argo-cd
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - introduced: 2.3.0
+        - fixed: 2.3.6
+        - introduced: 2.4.0
+        - fixed: 2.4.5
+      vulnerable_at: 2.4.4
+summary: Argo CD SSO users vulnerable to Cross-site Scripting in github.com/argoproj/argo-cd
+cves:
+    - CVE-2022-31102
+ghsas:
+    - GHSA-pmjg-52h9-72qv
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-pmjg-52h9-72qv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-31102
+    - fix: https://github.com/argoproj/argo-cd/commit/3800a1e49d1d5a00a6692fee83396a37a6abe89a
+    - fix: https://github.com/argoproj/argo-cd/commit/8d5119b1e3038a2c1d8b651cb242525e9e734c4c
+    - web: https://github.com/argoproj/argo-cd/releases/tag/v2.3.6
+    - web: https://github.com/argoproj/argo-cd/releases/tag/v2.4.5
+source:
+    id: GHSA-pmjg-52h9-72qv
+    created: 2024-08-20T14:02:10.709772-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

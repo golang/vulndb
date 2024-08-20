@@ -1,0 +1,26 @@
+id: GO-2022-0547
+modules:
+    - module: sigs.k8s.io/aws-iam-authenticator
+      versions:
+        - fixed: 0.5.9
+      vulnerable_at: 0.5.8
+summary: |-
+    aws-iam-authenticator allow-listed IAM identity may be able to modify their
+    username, escalate privileges before v0.5.9 in sigs.k8s.io/aws-iam-authenticator
+cves:
+    - CVE-2022-2385
+ghsas:
+    - GHSA-pp3f-98qg-5g75
+references:
+    - advisory: https://github.com/advisories/GHSA-pp3f-98qg-5g75
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-2385
+    - web: https://github.com/kubernetes-sigs/aws-iam-authenticator/commit/029d1dcf2ec8d662d9b1c21260bb197404bc8218
+    - web: https://github.com/kubernetes-sigs/aws-iam-authenticator/issues/472
+    - web: https://github.com/kubernetes-sigs/aws-iam-authenticator/pull/469
+    - web: https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/tag/v0.5.9
+    - web: https://groups.google.com/a/kubernetes.io/g/dev/c/EMxHpU-1ZYs
+source:
+    id: GHSA-pp3f-98qg-5g75
+    created: 2024-08-20T14:02:47.101293-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

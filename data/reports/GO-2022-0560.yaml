@@ -1,0 +1,27 @@
+id: GO-2022-0560
+modules:
+    - module: github.com/hashicorp/nomad
+      versions:
+        - introduced: 0.9.0
+        - fixed: 1.0.18
+        - introduced: 1.1.0
+        - fixed: 1.1.12
+        - introduced: 1.2.0
+        - fixed: 1.2.6
+      vulnerable_at: 1.2.5
+summary: Nomad Spread Job Stanza May Trigger Panic in Servers in github.com/hashicorp/nomad
+cves:
+    - CVE-2022-24684
+ghsas:
+    - GHSA-6jm6-cmcp-fqjq
+references:
+    - advisory: https://github.com/advisories/GHSA-6jm6-cmcp-fqjq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-24684
+    - web: https://discuss.hashicorp.com/t/hcsec-2022-04-nomad-spread-job-stanza-may-trigger-panic-in-servers
+    - web: https://discuss.hashicorp.com/t/hcsec-2022-04-nomad-spread-job-stanza-may-trigger-panic-in-servers/35562
+    - web: https://security.netapp.com/advisory/ntap-20220318-0008
+source:
+    id: GHSA-6jm6-cmcp-fqjq
+    created: 2024-08-20T14:04:15.437511-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

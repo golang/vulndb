@@ -1,0 +1,22 @@
+id: GO-2022-0562
+modules:
+    - module: gogs.io/gogs
+      versions:
+        - fixed: 0.12.9
+      vulnerable_at: 0.12.9-rc.1
+summary: Path Traversal in Git HTTP endpoints in Gogs in gogs.io/gogs
+cves:
+    - CVE-2022-1993
+ghsas:
+    - GHSA-6vcc-v9vw-g2x5
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-6vcc-v9vw-g2x5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-1993
+    - web: https://github.com/gogs/gogs/commit/9bf748b6c4c9a17d3aa77f6b9abcfae65451febf
+    - web: https://github.com/gogs/gogs/issues/7002
+    - web: https://huntr.dev/bounties/22f9c074-cf60-4c67-b5c4-72fdf312609d
+source:
+    id: GHSA-6vcc-v9vw-g2x5
+    created: 2024-08-20T14:04:23.558566-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

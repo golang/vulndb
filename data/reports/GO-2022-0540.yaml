@@ -1,0 +1,30 @@
+id: GO-2022-0540
+modules:
+    - module: github.com/mattermost/mattermost-server
+      vulnerable_at: 9.11.0+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      versions:
+        - fixed: 6.3.9
+        - introduced: 6.4.0
+        - fixed: 6.5.2
+        - introduced: 6.6.0
+        - fixed: 6.6.2
+        - introduced: 6.7.0
+        - fixed: 6.7.1
+      vulnerable_at: 6.7.0
+summary: Mattermost users could access some sensitive information via API call in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2022-2401
+ghsas:
+    - GHSA-7ggc-5r84-xf54
+references:
+    - advisory: https://github.com/advisories/GHSA-7ggc-5r84-xf54
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-2401
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-7ggc-5r84-xf54
+    created: 2024-08-20T14:02:19.352638-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

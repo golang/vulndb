@@ -1,0 +1,39 @@
+id: GO-2022-0516
+modules:
+    - module: github.com/argoproj/argo-cd
+      versions:
+        - introduced: 0.5.0
+      unsupported_versions:
+        - last_affected: 1.8.7
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - fixed: 2.1.14
+        - introduced: 2.2.0
+        - fixed: 2.2.8
+        - introduced: 2.3.0
+        - fixed: 2.3.2
+      vulnerable_at: 2.3.1
+summary: |-
+    Argo CD improper access control bug can allow malicious user to escalate
+    privileges to admin level in github.com/argoproj/argo-cd
+cves:
+    - CVE-2022-1025
+ghsas:
+    - GHSA-96jv-vj39-x4j6
+references:
+    - advisory: https://github.com/advisories/GHSA-96jv-vj39-x4j6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-1025
+    - fix: https://github.com/argoproj/argo-cd/commit/af03b291d4b7e9d3ce9a6580ae9c8141af0e05cf
+    - web: https://access.redhat.com/errata/RHSA-2022:1039
+    - web: https://access.redhat.com/errata/RHSA-2022:1040
+    - web: https://access.redhat.com/errata/RHSA-2022:1041
+    - web: https://access.redhat.com/errata/RHSA-2022:1042
+    - web: https://access.redhat.com/security/cve/CVE-2022-1025
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2064682
+    - web: https://github.com/argoproj/argo-cd/security/advisories/GHSA-2f5v-8r3f-8pww
+source:
+    id: GHSA-96jv-vj39-x4j6
+    created: 2024-08-20T14:02:04.095506-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE
