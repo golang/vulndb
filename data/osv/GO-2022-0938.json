@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2022-0938",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-41103",
+    "GHSA-c2h3-6mxw-7mvq"
+  ],
+  "summary": "Insufficiently restricted permissions on plugin directories in github.com/containerd/containerd",
+  "details": "Insufficiently restricted permissions on plugin directories in github.com/containerd/containerd",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/containerd/containerd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.4.11"
+            },
+            {
+              "introduced": "1.5.0"
+            },
+            {
+              "fixed": "1.5.7"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/containerd/containerd/security/advisories/GHSA-c2h3-6mxw-7mvq"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-41103"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/containerd/containerd/commit/5b46e404f6b9f661a205e28d59c982d3634148f8"
+    },
+    {
+      "type": "WEB",
+      "url": "https://cert-portal.siemens.com/productcert/pdf/ssa-222547.pdf"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/containerd/containerd/releases/tag/v1.4.11"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/containerd/containerd/releases/tag/v1.5.7"
+    },
+    {
+      "type": "WEB",
+      "url": "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/B5Q6G6I4W5COQE25QMC7FJY3I3PAYFBB"
+    },
+    {
+      "type": "WEB",
+      "url": "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/ZNFADTCHHYWVM6W4NJ6CB4FNFM2VMBIB"
+    },
+    {
+      "type": "WEB",
+      "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/B5Q6G6I4W5COQE25QMC7FJY3I3PAYFBB"
+    },
+    {
+      "type": "WEB",
+      "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/ZNFADTCHHYWVM6W4NJ6CB4FNFM2VMBIB"
+    },
+    {
+      "type": "WEB",
+      "url": "https://security.gentoo.org/glsa/202401-31"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.debian.org/security/2021/dsa-5002"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2022-0938",
+    "review_status": "UNREVIEWED"
+  }
+}

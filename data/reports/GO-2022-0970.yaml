@@ -1,0 +1,21 @@
+id: GO-2022-0970
+modules:
+    - module: github.com/ElrondNetwork/elrond-go
+      versions:
+        - fixed: 1.3.34
+      vulnerable_at: 1.3.33
+summary: elrond-go MultiESDTNFTTransfer call on a SC address with missing function name in github.com/ElrondNetwork/elrond-go
+cves:
+    - CVE-2022-36058
+ghsas:
+    - GHSA-qf7j-25g9-r63f
+references:
+    - advisory: https://github.com/ElrondNetwork/elrond-go/security/advisories/GHSA-qf7j-25g9-r63f
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-36058
+    - fix: https://github.com/ElrondNetwork/elrond-go/commit/cb487fd7be2a2077638eb34ae771a73630c870c7
+    - web: https://github.com/ElrondNetwork/elrond-go/blob/8e402fa6d7e91e779980122d3798b2bf50892945/integrationTests/vm/txsFee/asyncESDT_test.go#L402
+source:
+    id: GHSA-qf7j-25g9-r63f
+    created: 2024-08-20T14:34:42.989469-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

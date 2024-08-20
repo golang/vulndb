@@ -1,0 +1,31 @@
+id: GO-2022-0938
+modules:
+    - module: github.com/containerd/containerd
+      versions:
+        - fixed: 1.4.11
+        - introduced: 1.5.0
+        - fixed: 1.5.7
+      vulnerable_at: 1.5.6
+summary: Insufficiently restricted permissions on plugin directories in github.com/containerd/containerd
+cves:
+    - CVE-2021-41103
+ghsas:
+    - GHSA-c2h3-6mxw-7mvq
+references:
+    - advisory: https://github.com/containerd/containerd/security/advisories/GHSA-c2h3-6mxw-7mvq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-41103
+    - fix: https://github.com/containerd/containerd/commit/5b46e404f6b9f661a205e28d59c982d3634148f8
+    - web: https://cert-portal.siemens.com/productcert/pdf/ssa-222547.pdf
+    - web: https://github.com/containerd/containerd/releases/tag/v1.4.11
+    - web: https://github.com/containerd/containerd/releases/tag/v1.5.7
+    - web: https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/B5Q6G6I4W5COQE25QMC7FJY3I3PAYFBB
+    - web: https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/ZNFADTCHHYWVM6W4NJ6CB4FNFM2VMBIB
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/B5Q6G6I4W5COQE25QMC7FJY3I3PAYFBB
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/ZNFADTCHHYWVM6W4NJ6CB4FNFM2VMBIB
+    - web: https://security.gentoo.org/glsa/202401-31
+    - web: https://www.debian.org/security/2021/dsa-5002
+source:
+    id: GHSA-c2h3-6mxw-7mvq
+    created: 2024-08-20T14:32:37.245655-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

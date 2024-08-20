@@ -1,0 +1,25 @@
+id: GO-2022-0959
+modules:
+    - module: github.com/cilium/cilium
+      versions:
+        - fixed: 1.10.14
+        - introduced: 1.11.0
+        - fixed: 1.11.8
+        - introduced: 1.12.0
+        - fixed: 1.12.1
+      vulnerable_at: 1.12.0
+summary: |-
+    Network Policies & (Clusterwide) Cilium Network Policies with namespace label
+    selectors may unexpectedly select pods with maliciously crafted labels in github.com/cilium/cilium
+ghsas:
+    - GHSA-pfhr-pccp-hwmh
+references:
+    - advisory: https://github.com/cilium/cilium/security/advisories/GHSA-pfhr-pccp-hwmh
+    - web: https://github.com/cilium/cilium/releases/tag/v1.10.14
+    - web: https://github.com/cilium/cilium/releases/tag/v1.11.8
+    - web: https://github.com/cilium/cilium/releases/tag/v1.12.1
+source:
+    id: GHSA-pfhr-pccp-hwmh
+    created: 2024-08-20T14:34:13.516787-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

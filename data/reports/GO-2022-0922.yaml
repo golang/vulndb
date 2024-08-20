@@ -1,0 +1,31 @@
+id: GO-2022-0922
+modules:
+    - module: github.com/projectcontour/contour
+      versions:
+        - fixed: 1.14.2
+        - introduced: 1.15.0
+        - fixed: 1.15.2
+        - introduced: 1.16.0
+        - fixed: 1.16.1
+        - introduced: 1.17.0
+        - fixed: 1.17.1
+      vulnerable_at: 1.17.0
+summary: ExternalName Services can be used to gain access to Envoy's admin interface in github.com/projectcontour/contour
+cves:
+    - CVE-2021-32783
+ghsas:
+    - GHSA-5ph6-qq5x-7jwc
+references:
+    - advisory: https://github.com/projectcontour/contour/security/advisories/GHSA-5ph6-qq5x-7jwc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-32783
+    - fix: https://github.com/projectcontour/contour/commit/5f3e6d0ab1d48e64bae46400c85c490b200393a3
+    - fix: https://github.com/projectcontour/contour/commit/b53a5c4fd927f4ea2c6cf02f1359d8e28bef852e
+    - web: https://github.com/projectcontour/contour/releases/tag/v1.14.2
+    - web: https://github.com/projectcontour/contour/releases/tag/v1.15.2
+    - web: https://github.com/projectcontour/contour/releases/tag/v1.16.1
+    - web: https://github.com/projectcontour/contour/releases/tag/v1.17.1
+source:
+    id: GHSA-5ph6-qq5x-7jwc
+    created: 2024-08-20T14:30:47.852978-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

@@ -1,0 +1,25 @@
+id: GO-2022-0923
+modules:
+    - module: github.com/traefik/traefik
+      unsupported_versions:
+        - last_affected: 1.7.30
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.4.13
+      vulnerable_at: 2.4.12
+summary: Header dropping in traefik in github.com/traefik/traefik
+cves:
+    - CVE-2021-32813
+ghsas:
+    - GHSA-m697-4v8f-55qg
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-m697-4v8f-55qg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-32813
+    - fix: https://github.com/traefik/traefik/pull/8319/commits/cbaf86a93014a969b8accf39301932c17d0d73f9
+    - web: https://github.com/traefik/traefik/releases/tag/v2.4.13
+source:
+    id: GHSA-m697-4v8f-55qg
+    created: 2024-08-20T14:30:55.257226-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

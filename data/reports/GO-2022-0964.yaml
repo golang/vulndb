@@ -1,0 +1,23 @@
+id: GO-2022-0964
+modules:
+    - module: github.com/drakkan/sftpgo
+      vulnerable_at: 1.2.2
+    - module: github.com/drakkan/sftpgo/v2
+      versions:
+        - introduced: 2.2.0
+        - fixed: 2.3.4
+      vulnerable_at: 2.3.3
+summary: SFTPGo vulnerable to recovery codes abuse in github.com/drakkan/sftpgo
+cves:
+    - CVE-2022-36071
+ghsas:
+    - GHSA-54qx-8p8w-xhg8
+references:
+    - advisory: https://github.com/drakkan/sftpgo/security/advisories/GHSA-54qx-8p8w-xhg8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-36071
+    - report: https://github.com/drakkan/sftpgo/issues/965
+source:
+    id: GHSA-54qx-8p8w-xhg8
+    created: 2024-08-20T14:34:39.312929-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

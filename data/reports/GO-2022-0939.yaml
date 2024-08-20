@@ -1,0 +1,23 @@
+id: GO-2022-0939
+modules:
+    - module: github.com/StevenWeathers/thunderdome-planning-poker
+      versions:
+        - fixed: 1.16.3
+      vulnerable_at: 1.16.2
+summary: |-
+    Improper Neutralization of Special Elements used in an LDAP Query in
+    stevenweathers/thunderdome-planning-poker in github.com/StevenWeathers/thunderdome-planning-poker
+cves:
+    - CVE-2021-41232
+ghsas:
+    - GHSA-26cm-qrc6-mfgj
+references:
+    - advisory: https://github.com/StevenWeathers/thunderdome-planning-poker/security/advisories/GHSA-26cm-qrc6-mfgj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-41232
+    - fix: https://github.com/StevenWeathers/thunderdome-planning-poker/commit/f1524d01e8a0f2d6c3db5461c742456c692dd8c1
+    - web: https://github.com/github/securitylab/issues/464#issuecomment-957094994
+source:
+    id: GHSA-26cm-qrc6-mfgj
+    created: 2024-08-20T14:32:46.8317-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

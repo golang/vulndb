@@ -1,0 +1,21 @@
+id: GO-2022-0971
+modules:
+    - module: github.com/ElrondNetwork/elrond-go
+      versions:
+        - fixed: 1.3.35
+      vulnerable_at: 1.3.34
+summary: Elrond-go has improper initialization in github.com/ElrondNetwork/elrond-go
+cves:
+    - CVE-2022-36061
+ghsas:
+    - GHSA-mv8x-668m-53fg
+references:
+    - advisory: https://github.com/ElrondNetwork/elrond-go/security/advisories/GHSA-mv8x-668m-53fg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-36061
+    - web: https://github.com/ElrondNetwork/elrond-go/blob/8e402fa6d7e91e779980122d3798b2bf50892945/integrationTests/vm/txsFee/asyncESDT_test.go#L452
+    - web: https://github.com/ElrondNetwork/elrond-go/releases/tag/v1.3.35
+source:
+    id: GHSA-mv8x-668m-53fg
+    created: 2024-08-20T14:34:47.274095-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

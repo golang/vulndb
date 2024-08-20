@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2022-0937",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-41088",
+    "GHSA-fpv6-f8jw-rc3r"
+  ],
+  "summary": "Elvish vulnerable to remote code execution via the web UI backend in github.com/elves/elvish",
+  "details": "Elvish vulnerable to remote code execution via the web UI backend in github.com/elves/elvish",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/elves/elvish",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.14.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/elves/elvish/security/advisories/GHSA-fpv6-f8jw-rc3r"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-41088"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/elves/elvish/commit/ccc2750037bbbfafe9c1b7a78eadd3bd16e81fe5"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2022-0937",
+    "review_status": "UNREVIEWED"
+  }
+}

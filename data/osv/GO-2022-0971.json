@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2022-0971",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-36061",
+    "GHSA-mv8x-668m-53fg"
+  ],
+  "summary": "Elrond-go has improper initialization in github.com/ElrondNetwork/elrond-go",
+  "details": "Elrond-go has improper initialization in github.com/ElrondNetwork/elrond-go",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/ElrondNetwork/elrond-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.3.35"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/ElrondNetwork/elrond-go/security/advisories/GHSA-mv8x-668m-53fg"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-36061"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/ElrondNetwork/elrond-go/blob/8e402fa6d7e91e779980122d3798b2bf50892945/integrationTests/vm/txsFee/asyncESDT_test.go#L452"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/ElrondNetwork/elrond-go/releases/tag/v1.3.35"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2022-0971",
+    "review_status": "UNREVIEWED"
+  }
+}

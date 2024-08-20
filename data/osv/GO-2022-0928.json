@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2022-0928",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-37914",
+    "GHSA-h563-xh25-x54q"
+  ],
+  "summary": "Workflow re-write vulnerability using input parameter in github.com/argoproj/argo-workflows",
+  "details": "Workflow re-write vulnerability using input parameter in github.com/argoproj/argo-workflows",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-workflows",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-workflows/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-workflows/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "3.1.0"
+            },
+            {
+              "fixed": "3.1.6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/argoproj/argo-workflows/security/advisories/GHSA-h563-xh25-x54q"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-37914"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-workflows/commit/2a2ecc916925642fd8cb1efd026588e6828f82e1"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-workflows/pull/6285"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-workflows/pull/6442"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/argoproj/argo-workflows/issues/6441"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2022-0928",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,28 @@
+id: GO-2022-0928
+modules:
+    - module: github.com/argoproj/argo-workflows
+      vulnerable_at: 0.4.7
+    - module: github.com/argoproj/argo-workflows/v2
+      vulnerable_at: 2.12.13
+    - module: github.com/argoproj/argo-workflows/v3
+      versions:
+        - introduced: 3.1.0
+        - fixed: 3.1.6
+      vulnerable_at: 3.1.5
+summary: Workflow re-write vulnerability using input parameter in github.com/argoproj/argo-workflows
+cves:
+    - CVE-2021-37914
+ghsas:
+    - GHSA-h563-xh25-x54q
+references:
+    - advisory: https://github.com/argoproj/argo-workflows/security/advisories/GHSA-h563-xh25-x54q
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-37914
+    - fix: https://github.com/argoproj/argo-workflows/commit/2a2ecc916925642fd8cb1efd026588e6828f82e1
+    - fix: https://github.com/argoproj/argo-workflows/pull/6285
+    - fix: https://github.com/argoproj/argo-workflows/pull/6442
+    - report: https://github.com/argoproj/argo-workflows/issues/6441
+source:
+    id: GHSA-h563-xh25-x54q
+    created: 2024-08-20T14:31:25.530183-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE
