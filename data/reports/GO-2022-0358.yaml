@@ -1,0 +1,27 @@
+id: GO-2022-0358
+modules:
+    - module: github.com/argoproj/argo-cd
+      versions:
+        - introduced: 1.5.0
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - fixed: 2.1.11
+        - introduced: 2.2.0
+        - fixed: 2.2.6
+        - introduced: 2.3.0-rc1
+        - fixed: 2.3.0
+      vulnerable_at: 2.3.0-rc5
+summary: Path traversal allows leaking out-of-bound files from Argo CD repo-server in github.com/argoproj/argo-cd
+cves:
+    - CVE-2022-24731
+ghsas:
+    - GHSA-h6h5-6fmq-rh28
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-h6h5-6fmq-rh28
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-24731
+source:
+    id: GHSA-h6h5-6fmq-rh28
+    created: 2024-08-20T13:52:28.582837-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

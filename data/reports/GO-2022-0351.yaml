@@ -1,0 +1,33 @@
+id: GO-2022-0351
+modules:
+    - module: github.com/nats-io/nats-server
+      vulnerable_at: 1.4.1
+    - module: github.com/nats-io/nats-server/v2
+      versions:
+        - introduced: 2.2.0
+        - fixed: 2.7.4
+      vulnerable_at: 2.7.3
+    - module: github.com/nats-io/nats-streaming-server
+      versions:
+        - introduced: 0.15.0
+        - fixed: 0.24.3
+      vulnerable_at: 0.24.2
+summary: Arbitrary file write in nats-server in github.com/nats-io/nats-server
+cves:
+    - CVE-2022-26652
+ghsas:
+    - GHSA-6h3m-36w8-hv68
+references:
+    - advisory: https://github.com/nats-io/nats-server/security/advisories/GHSA-6h3m-36w8-hv68
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-26652
+    - fix: https://github.com/nats-io/nats-server/pull/2917
+    - web: http://www.openwall.com/lists/oss-security/2022/03/10/1
+    - web: https://advisories.nats.io/CVE/CVE-2022-26652.txt
+    - web: https://github.com/nats-io/nats-server/releases
+    - web: https://github.com/nats-io/nats-server/releases/tag/v2.7.4
+    - web: https://github.com/nats-io/nats-streaming-server/releases/tag/v0.24.3
+source:
+    id: GHSA-6h3m-36w8-hv68
+    created: 2024-08-20T13:51:51.27187-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

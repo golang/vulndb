@@ -1,0 +1,24 @@
+id: GO-2022-0360
+modules:
+    - module: github.com/containerd/containerd
+      versions:
+        - fixed: 1.4.12
+        - introduced: 1.5.0
+        - fixed: 1.5.8
+      vulnerable_at: 1.5.7
+summary: Ambiguous OCI manifest parsing in github.com/containerd/containerd
+ghsas:
+    - GHSA-5j5w-g665-5m35
+references:
+    - advisory: https://github.com/containerd/containerd/security/advisories/GHSA-5j5w-g665-5m35
+    - fix: https://github.com/containerd/containerd/commit/26c76a3014e71af5ad2f396ec76e0e0ecc8e25a3
+    - fix: https://github.com/containerd/containerd/commit/db00065a969a983ceb0a409833f93f705f284ea4
+    - web: https://github.com/containerd/containerd/releases/tag/v1.4.12
+    - web: https://github.com/containerd/containerd/releases/tag/v1.5.8
+    - web: https://github.com/opencontainers/distribution-spec/security/advisories/GHSA-mc8v-mgrf-8f4m
+    - web: https://github.com/opencontainers/image-spec/security/advisories/GHSA-77vh-xpmg-72qh
+source:
+    id: GHSA-5j5w-g665-5m35
+    created: 2024-08-20T13:52:36.418055-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

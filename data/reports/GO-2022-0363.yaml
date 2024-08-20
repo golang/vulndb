@@ -1,0 +1,27 @@
+id: GO-2022-0363
+modules:
+    - module: github.com/cri-o/cri-o
+      versions:
+        - introduced: 1.18.0
+        - fixed: 1.19.5
+        - introduced: 1.20.0
+        - fixed: 1.20.6
+        - introduced: 1.21.0
+        - fixed: 1.21.5
+        - introduced: 1.22.0
+        - fixed: 1.22.2
+        - introduced: 1.23.0
+        - fixed: 1.23.1
+      vulnerable_at: 1.23.0
+summary: |-
+    Sysctls applied to containers with host IPC or host network namespaces can
+    affect the host in github.com/cri-o/cri-o
+ghsas:
+    - GHSA-w2j5-3rcx-vx7x
+references:
+    - advisory: https://github.com/cri-o/cri-o/security/advisories/GHSA-w2j5-3rcx-vx7x
+source:
+    id: GHSA-w2j5-3rcx-vx7x
+    created: 2024-08-20T13:52:39.376599-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2022-0325",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-23632",
+    "GHSA-hrhx-6h34-j5hc"
+  ],
+  "summary": "Skip the router TLS configuration when the host header is an FQDN in github.com/traefik/traefik",
+  "details": "Skip the router TLS configuration when the host header is an FQDN in github.com/traefik/traefik",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/traefik/traefik",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/traefik/traefik/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.6.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/traefik/traefik/security/advisories/GHSA-hrhx-6h34-j5hc"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-23632"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/traefik/traefik/pull/8764"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/traefik/traefik/releases/tag/v2.6.1"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.oracle.com/security-alerts/cpujul2022.html"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2022-0325",
+    "review_status": "UNREVIEWED"
+  }
+}

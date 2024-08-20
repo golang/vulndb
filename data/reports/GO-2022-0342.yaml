@@ -1,0 +1,25 @@
+id: GO-2022-0342
+modules:
+    - module: github.com/grafana/grafana
+      versions:
+        - fixed: 6.0.0-beta1+incompatible
+      vulnerable_at: 5.4.5+incompatible
+summary: Grafana XSS in Dashboard Text Panel in github.com/grafana/grafana
+cves:
+    - CVE-2018-18623
+ghsas:
+    - GHSA-cmq2-j8v8-2q44
+references:
+    - advisory: https://github.com/advisories/GHSA-cmq2-j8v8-2q44
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2018-18623
+    - fix: https://github.com/grafana/grafana/pull/11813
+    - fix: https://github.com/grafana/grafana/pull/14984
+    - report: https://github.com/grafana/grafana/issues/15293
+    - report: https://github.com/grafana/grafana/issues/4117
+    - web: https://github.com/grafana/grafana/releases/tag/v6.0.0
+    - web: https://security.netapp.com/advisory/ntap-20200608-0008
+source:
+    id: GHSA-cmq2-j8v8-2q44
+    created: 2024-08-20T13:51:20.259382-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

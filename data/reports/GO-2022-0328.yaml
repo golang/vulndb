@@ -1,0 +1,24 @@
+id: GO-2022-0328
+modules:
+    - module: github.com/gravitl/netmaker
+      versions:
+        - fixed: 0.8.5
+        - introduced: 0.9.0
+        - fixed: 0.9.4
+      vulnerable_at: 0.9.3
+summary: Use of Hard-coded Cryptographic Key in Netmaker in github.com/gravitl/netmaker
+cves:
+    - CVE-2022-23650
+ghsas:
+    - GHSA-86f3-hf24-76q4
+references:
+    - advisory: https://github.com/gravitl/netmaker/security/advisories/GHSA-86f3-hf24-76q4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-23650
+    - fix: https://github.com/gravitl/netmaker/commit/3d4f44ecfe8be4ca38920556ba3b90502ffb4fee
+    - fix: https://github.com/gravitl/netmaker/commit/e9bce264719f88c30e252ecc754d08f422f4c080
+    - fix: https://github.com/gravitl/netmaker/pull/781/commits/1bec97c662670dfdab804343fc42ae4b1d050a87
+source:
+    id: GHSA-86f3-hf24-76q4
+    created: 2024-08-20T13:50:48.592886-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

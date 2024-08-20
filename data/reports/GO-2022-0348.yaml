@@ -1,0 +1,23 @@
+id: GO-2022-0348
+modules:
+    - module: github.com/tharsis/evmos
+      vulnerable_at: 1.1.3
+    - module: github.com/tharsis/evmos/v2
+      versions:
+        - fixed: 2.0.1
+      vulnerable_at: 2.0.0
+summary: Account compromise in Evmos in github.com/tharsis/evmos
+cves:
+    - CVE-2022-24738
+ghsas:
+    - GHSA-5jgq-x857-p8xw
+references:
+    - advisory: https://github.com/tharsis/evmos/security/advisories/GHSA-5jgq-x857-p8xw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-24738
+    - fix: https://github.com/tharsis/evmos/commit/28870258d4ee9f1b8aeef5eba891681f89348f71
+    - web: https://github.com/tharsis/evmos/releases/tag/v2.0.1
+source:
+    id: GHSA-5jgq-x857-p8xw
+    created: 2024-08-20T13:51:41.873564-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

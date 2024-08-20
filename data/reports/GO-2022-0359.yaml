@@ -1,0 +1,31 @@
+id: GO-2022-0359
+modules:
+    - module: github.com/argoproj/argo-cd
+      versions:
+        - introduced: 0.5.0
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - fixed: 2.1.14
+        - introduced: 2.2.0
+        - fixed: 2.2.8
+        - introduced: 2.3.0
+        - fixed: 2.3.2
+      vulnerable_at: 2.3.1
+summary: Improper access control allows admin privilege escalation in Argo CD in github.com/argoproj/argo-cd
+cves:
+    - CVE-2022-24768
+ghsas:
+    - GHSA-2f5v-8r3f-8pww
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-2f5v-8r3f-8pww
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-24768
+    - fix: https://github.com/argoproj/argo-cd/commit/af03b291d4b7e9d3ce9a6580ae9c8141af0e05cf
+    - web: https://github.com/argoproj/argo-cd/releases/tag/v2.1.14
+    - web: https://github.com/argoproj/argo-cd/releases/tag/v2.2.8
+    - web: https://github.com/argoproj/argo-cd/releases/tag/v2.3.2
+source:
+    id: GHSA-2f5v-8r3f-8pww
+    created: 2024-08-20T13:52:32.111048-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

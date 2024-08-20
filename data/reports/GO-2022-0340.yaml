@@ -1,0 +1,22 @@
+id: GO-2022-0340
+modules:
+    - module: github.com/google/fscrypt
+      versions:
+        - fixed: 0.3.3
+      vulnerable_at: 0.3.2
+summary: User login denial of service in github.com/google/fscrypt
+cves:
+    - CVE-2022-25327
+ghsas:
+    - GHSA-8vwm-8vj8-rqjf
+    - GHSA-p93v-m2r2-4387
+references:
+    - advisory: https://github.com/advisories/GHSA-8vwm-8vj8-rqjf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-25327
+    - fix: https://github.com/google/fscrypt/commit/91aa3ebf42032ca783c41f9ec25d885875f66ddb
+    - fix: https://github.com/google/fscrypt/pull/346
+source:
+    id: GHSA-8vwm-8vj8-rqjf
+    created: 2024-08-20T13:51:15.275593-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE
