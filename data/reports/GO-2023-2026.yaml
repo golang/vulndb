@@ -1,0 +1,24 @@
+id: GO-2023-2026
+modules:
+    - module: github.com/IceWhaleTech/CasaOS
+      versions:
+        - fixed: 0.4.4
+      vulnerable_at: 0.4.4-alpha9
+summary: CasaOS Command Injection vulnerability in github.com/IceWhaleTech/CasaOS
+cves:
+    - CVE-2023-37469
+ghsas:
+    - GHSA-92vc-4fcw-g68q
+references:
+    - advisory: https://github.com/advisories/GHSA-92vc-4fcw-g68q
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-37469
+    - advisory: https://securitylab.github.com/advisories/GHSL-2022-119_CasaOS
+    - fix: https://github.com/IceWhaleTech/CasaOS/commit/af440eac5563644854ff33f72041e52d3fd1f47c
+    - web: https://github.com/IceWhaleTech/CasaOS/blob/96e92842357230098c771bc41fd3baf46189b859/route/v1/samba.go#L121
+    - web: https://github.com/IceWhaleTech/CasaOS/blob/96e92842357230098c771bc41fd3baf46189b859/service/connections.go#L58
+    - web: https://github.com/IceWhaleTech/CasaOS/releases/tag/v0.4.4
+source:
+    id: GHSA-92vc-4fcw-g68q
+    created: 2024-08-20T12:01:18.388905-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

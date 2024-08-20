@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-2049",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-40029",
+    "GHSA-fwr2-64vr-xv9m"
+  ],
+  "summary": "Argo CD cluster secret might leak in cluster details page in github.com/argoproj/argo-cd",
+  "details": "Argo CD cluster secret might leak in cluster details page in github.com/argoproj/argo-cd",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-cd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-cd/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.2.0"
+            },
+            {
+              "fixed": "2.6.15"
+            },
+            {
+              "introduced": "2.7.0"
+            },
+            {
+              "fixed": "2.7.14"
+            },
+            {
+              "introduced": "2.8.0"
+            },
+            {
+              "fixed": "2.8.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/argoproj/argo-cd/security/advisories/GHSA-fwr2-64vr-xv9m"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-40029"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-cd/commit/44e52c4ae76e6da1343bdd54e57a822d93549f28"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-cd/commit/4b2e5b06bff2ffd8ed1970654ddd8e55fc4a41c4"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-cd/commit/7122b83fc346ec2729227405a2f9c2aa84b0bf80"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-cd/pull/7139"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/argoproj/argo-cd/releases/tag/v2.6.15"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/argoproj/argo-cd/releases/tag/v2.7.14"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/argoproj/argo-cd/releases/tag/v2.8.3"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-2049",
+    "review_status": "UNREVIEWED"
+  }
+}

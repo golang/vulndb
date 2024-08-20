@@ -1,0 +1,21 @@
+id: GO-2023-2036
+modules:
+    - module: github.com/usememos/memos
+      versions:
+        - fixed: 0.13.2
+      vulnerable_at: 0.13.1
+summary: usememos/memos vulnerable to privilege escalation in github.com/usememos/memos
+cves:
+    - CVE-2023-4697
+ghsas:
+    - GHSA-5j6p-59cj-j6cp
+references:
+    - advisory: https://github.com/advisories/GHSA-5j6p-59cj-j6cp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-4697
+    - fix: https://github.com/usememos/memos/commit/c9aa2eeb9852047e4f41915eb30726bd25f07ecd
+    - web: https://huntr.dev/bounties/3ff3325a-1dcb-4da7-894d-81a9cf726d81
+source:
+    id: GHSA-5j6p-59cj-j6cp
+    created: 2024-08-20T12:01:41.983265-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

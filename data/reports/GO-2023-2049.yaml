@@ -1,0 +1,33 @@
+id: GO-2023-2049
+modules:
+    - module: github.com/argoproj/argo-cd
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - introduced: 2.2.0
+        - fixed: 2.6.15
+        - introduced: 2.7.0
+        - fixed: 2.7.14
+        - introduced: 2.8.0
+        - fixed: 2.8.3
+      vulnerable_at: 2.8.2
+summary: Argo CD cluster secret might leak in cluster details page in github.com/argoproj/argo-cd
+cves:
+    - CVE-2023-40029
+ghsas:
+    - GHSA-fwr2-64vr-xv9m
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-fwr2-64vr-xv9m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-40029
+    - fix: https://github.com/argoproj/argo-cd/commit/44e52c4ae76e6da1343bdd54e57a822d93549f28
+    - fix: https://github.com/argoproj/argo-cd/commit/4b2e5b06bff2ffd8ed1970654ddd8e55fc4a41c4
+    - fix: https://github.com/argoproj/argo-cd/commit/7122b83fc346ec2729227405a2f9c2aa84b0bf80
+    - fix: https://github.com/argoproj/argo-cd/pull/7139
+    - web: https://github.com/argoproj/argo-cd/releases/tag/v2.6.15
+    - web: https://github.com/argoproj/argo-cd/releases/tag/v2.7.14
+    - web: https://github.com/argoproj/argo-cd/releases/tag/v2.8.3
+source:
+    id: GHSA-fwr2-64vr-xv9m
+    created: 2024-08-20T12:01:56.261188-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

@@ -1,0 +1,24 @@
+id: GO-2023-2014
+modules:
+    - module: github.com/woodpecker-ci/woodpecker
+      versions:
+        - introduced: 1.0.0
+        - fixed: 1.0.2
+      vulnerable_at: 1.0.1
+summary: Woodpecker does not validate webhook before changing any data in github.com/woodpecker-ci/woodpecker
+cves:
+    - CVE-2023-40034
+ghsas:
+    - GHSA-4gcf-5m39-98mc
+references:
+    - advisory: https://github.com/woodpecker-ci/woodpecker/security/advisories/GHSA-4gcf-5m39-98mc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-40034
+    - fix: https://github.com/woodpecker-ci/woodpecker/commit/6e4c2f84cc84661d58cf1c0e5c421a46070bb105
+    - fix: https://github.com/woodpecker-ci/woodpecker/pull/2221
+    - fix: https://github.com/woodpecker-ci/woodpecker/pull/2222
+    - web: https://github.com/woodpecker-ci/woodpecker/releases/tag/v1.0.2
+source:
+    id: GHSA-4gcf-5m39-98mc
+    created: 2024-08-20T12:00:52.020402-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

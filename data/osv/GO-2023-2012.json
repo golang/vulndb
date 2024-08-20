@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-2012",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-9phh-r37v-34wh"
+  ],
+  "summary": "lakeFS vulnerable to Arbitrary JavaScript Injection via Direct Link to HTML Files in github.com/treeverse/lakefs",
+  "details": "lakeFS vulnerable to Arbitrary JavaScript Injection via Direct Link to HTML Files in github.com/treeverse/lakefs",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/treeverse/lakefs",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.106.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/treeverse/lakeFS/security/advisories/GHSA-9phh-r37v-34wh"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/treeverse/lakeFS/commit/2b2a9fa156ad80b0aac043e17533b546b1800603"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/treeverse/lakeFS/releases/tag/v0.106.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-2012",
+    "review_status": "UNREVIEWED"
+  }
+}

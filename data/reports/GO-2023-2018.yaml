@@ -1,0 +1,27 @@
+id: GO-2023-2018
+modules:
+    - module: github.com/argoproj/argo-cd
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - introduced: 2.6.0
+        - fixed: 2.6.14
+        - introduced: 2.7.0
+        - fixed: 2.7.12
+        - introduced: 2.8.0
+        - fixed: 2.8.1
+      vulnerable_at: 2.8.0
+summary: Argo CD web terminal session doesn't expire in github.com/argoproj/argo-cd
+cves:
+    - CVE-2023-40025
+ghsas:
+    - GHSA-c8xw-vjgf-94hr
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-c8xw-vjgf-94hr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-40025
+    - fix: https://github.com/argoproj/argo-cd/commit/e047efa8f9518c54d00d2e4493b64bc4dba98478
+source:
+    id: GHSA-c8xw-vjgf-94hr
+    created: 2024-08-20T12:00:58.713869-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

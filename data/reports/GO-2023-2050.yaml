@@ -1,0 +1,31 @@
+id: GO-2023-2050
+modules:
+    - module: github.com/argoproj/argo-cd
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - introduced: 2.4.0
+        - fixed: 2.6.15
+        - introduced: 2.7.0
+        - fixed: 2.7.14
+        - introduced: 2.8.0
+        - fixed: 2.8.3
+      vulnerable_at: 2.8.2
+summary: Argo CD repo-server Denial of Service vulnerability in github.com/argoproj/argo-cd
+cves:
+    - CVE-2023-40584
+ghsas:
+    - GHSA-g687-f2gx-6wm8
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-g687-f2gx-6wm8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-40584
+    - fix: https://github.com/argoproj/argo-cd/commit/1391ba72149655e4884d357586d3201f15bc92dc
+    - fix: https://github.com/argoproj/argo-cd/commit/b8f92c4ff226346624f43de3f25d81dac6386674
+    - web: https://github.com/argoproj/argo-cd/releases/tag/v2.6.15
+    - web: https://github.com/argoproj/argo-cd/releases/tag/v2.7.14
+    - web: https://github.com/argoproj/argo-cd/releases/tag/v2.8.3
+source:
+    id: GHSA-g687-f2gx-6wm8
+    created: 2024-08-20T12:02:05.099188-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-2022",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-32077",
+    "GHSA-8x8h-hcq8-jwwx"
+  ],
+  "summary": "Netmaker has Hardcoded DNS Secret Key in github.com/gravitl/netmaker",
+  "details": "Netmaker has Hardcoded DNS Secret Key in github.com/gravitl/netmaker",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gravitl/netmaker",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.17.1"
+            },
+            {
+              "introduced": "0.18.0"
+            },
+            {
+              "fixed": "0.18.6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/gravitl/netmaker/security/advisories/GHSA-8x8h-hcq8-jwwx"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-32077"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gravitl/netmaker/commit/1621c27c1d176b639e9768b2acad7693e387fd51"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gravitl/netmaker/commit/9362c39a9a822f0e07361aa7c77af2610597e657"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gravitl/netmaker/pull/2170"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-2022",
+    "review_status": "UNREVIEWED"
+  }
+}

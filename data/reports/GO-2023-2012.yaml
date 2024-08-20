@@ -1,0 +1,20 @@
+id: GO-2023-2012
+modules:
+    - module: github.com/treeverse/lakefs
+      versions:
+        - fixed: 0.106.0
+      vulnerable_at: 0.105.0
+summary: |-
+    lakeFS vulnerable to Arbitrary JavaScript Injection via Direct Link to HTML
+    Files in github.com/treeverse/lakefs
+ghsas:
+    - GHSA-9phh-r37v-34wh
+references:
+    - advisory: https://github.com/treeverse/lakeFS/security/advisories/GHSA-9phh-r37v-34wh
+    - web: https://github.com/treeverse/lakeFS/commit/2b2a9fa156ad80b0aac043e17533b546b1800603
+    - web: https://github.com/treeverse/lakeFS/releases/tag/v0.106.0
+source:
+    id: GHSA-9phh-r37v-34wh
+    created: 2024-08-20T12:00:46.026862-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE
