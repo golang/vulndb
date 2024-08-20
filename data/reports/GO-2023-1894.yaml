@@ -1,0 +1,22 @@
+id: GO-2023-1894
+modules:
+    - module: code.gitea.io/gitea
+      versions:
+        - fixed: 1.19.4
+      vulnerable_at: 1.19.3
+summary: code.gitea.io/gitea Open Redirect vulnerability
+cves:
+    - CVE-2023-3515
+ghsas:
+    - GHSA-cf6v-9j57-v6r6
+references:
+    - advisory: https://github.com/advisories/GHSA-cf6v-9j57-v6r6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-3515
+    - web: https://github.com/go-gitea/gitea/commit/9aaaf980f0ba15611f30568bd67bce3ec12954e2
+    - web: https://huntr.dev/bounties/e335cd18-bc4d-4585-adb7-426c817ed053
+    - web: https://security.gentoo.org/glsa/202312-13
+source:
+    id: GHSA-cf6v-9j57-v6r6
+    created: 2024-08-20T11:50:48.12686-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

@@ -1,0 +1,22 @@
+id: GO-2023-1879
+modules:
+    - module: go.temporal.io/server
+      versions:
+        - fixed: 1.20.0
+      vulnerable_at: 1.19.1
+summary: |-
+    Temporal Server vulnerable to Incorrect Authorization and Insecure Default
+    Initialization of Resource in go.temporal.io/server
+cves:
+    - CVE-2023-3485
+ghsas:
+    - GHSA-gm2g-2xr9-pxxj
+references:
+    - advisory: https://github.com/advisories/GHSA-gm2g-2xr9-pxxj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-3485
+    - web: https://github.com/temporalio/temporal/releases/tag/v1.20.0
+source:
+    id: GHSA-gm2g-2xr9-pxxj
+    created: 2024-08-20T11:50:07.315396-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

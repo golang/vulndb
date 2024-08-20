@@ -1,0 +1,22 @@
+id: GO-2023-1871
+modules:
+    - module: github.com/authzed/spicedb
+      versions:
+        - introduced: 1.22.0
+        - fixed: 1.22.2
+      vulnerable_at: 1.22.1
+summary: SpiceDB's LookupResources may return partial results in github.com/authzed/spicedb
+cves:
+    - CVE-2023-35930
+ghsas:
+    - GHSA-m54h-5x5f-5m6r
+references:
+    - advisory: https://github.com/authzed/spicedb/security/advisories/GHSA-m54h-5x5f-5m6r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-35930
+    - fix: https://github.com/authzed/spicedb/pull/1397
+    - web: https://github.com/authzed/spicedb/releases/tag/v1.22.2
+source:
+    id: GHSA-m54h-5x5f-5m6r
+    created: 2024-08-20T11:49:43.551816-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

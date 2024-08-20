@@ -1,0 +1,23 @@
+id: GO-2023-1899
+modules:
+    - module: github.com/hashicorp/nomad
+      versions:
+        - introduced: 1.4.0
+        - fixed: 1.4.6
+        - introduced: 1.5.0
+        - fixed: 1.5.1
+      vulnerable_at: 1.5.0
+summary: Hashicorp Nomad ACLs Cannot Deny Access to Workload’s Own Variables in github.com/hashicorp/nomad
+cves:
+    - CVE-2023-1296
+ghsas:
+    - GHSA-hhvx-8755-4cvw
+references:
+    - advisory: https://github.com/advisories/GHSA-hhvx-8755-4cvw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-1296
+    - web: https://discuss.hashicorp.com/t/hcsec-2023-09-nomad-acls-can-not-deny-access-to-workloads-own-variables/51390
+source:
+    id: GHSA-hhvx-8755-4cvw
+    created: 2024-08-20T11:51:06.530403-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

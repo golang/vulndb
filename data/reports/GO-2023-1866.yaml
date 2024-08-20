@@ -1,0 +1,31 @@
+id: GO-2023-1866
+modules:
+    - module: github.com/bishopfox/sliver
+      versions:
+        - introduced: 1.5.0
+        - fixed: 1.5.40
+      vulnerable_at: 1.5.39
+summary: |-
+    Silver vulnerable to MitM attack against implants due to a cryptography
+    vulnerability in github.com/bishopfox/sliver
+cves:
+    - CVE-2023-34758
+    - CVE-2023-35170
+ghsas:
+    - GHSA-8jxm-xp43-qh3q
+references:
+    - advisory: https://github.com/BishopFox/sliver/security/advisories/GHSA-8jxm-xp43-qh3q
+    - advisory: https://github.com/advisories/GHSA-8jxm-xp43-qh3q
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-34758
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-35170
+    - web: https://github.com/BishopFox/sliver/blob/master/implant/sliver/cryptography/crypto.go
+    - web: https://github.com/BishopFox/sliver/blob/master/implant/sliver/cryptography/implant.go
+    - web: https://github.com/BishopFox/sliver/commit/2d1ea6192cac2ff9d6450b2d96043fdbf8561516
+    - web: https://github.com/BishopFox/sliver/releases/tag/v1.5.40
+    - web: https://github.com/tangent65536/Slivjacker
+    - web: https://www.chtsecurity.com/news/04f41dcc-1851-463c-93bc-551323ad8091
+source:
+    id: GHSA-8jxm-xp43-qh3q
+    created: 2024-08-20T11:49:30.556879-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

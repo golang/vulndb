@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1901",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-37264",
+    "GHSA-w2h3-vvvq-3m53"
+  ],
+  "summary": "Pipelines do not validate child UIDs in github.com/tektoncd/pipeline",
+  "details": "Pipelines do not validate child UIDs in github.com/tektoncd/pipeline",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/tektoncd/pipeline",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.35.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/tektoncd/pipeline/security/advisories/GHSA-w2h3-vvvq-3m53"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-37264"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/tektoncd/pipeline/blob/2d38f5fa840291395178422d34b36b1bc739e2a2/pkg/reconciler/pipelinerun/pipelinerun.go#L1358-L1372"
+    },
+    {
+      "type": "WEB",
+      "url": "https://pkg.go.dev/github.com/tektoncd/pipeline/pkg/apis/pipeline/v1beta1#ChildStatusReference"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1901",
+    "review_status": "UNREVIEWED"
+  }
+}

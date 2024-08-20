@@ -1,0 +1,23 @@
+id: GO-2023-1901
+modules:
+    - module: github.com/tektoncd/pipeline
+      versions:
+        - introduced: 0.35.0
+      unsupported_versions:
+        - last_affected: 0.52.0
+      vulnerable_at: 0.62.1
+summary: Pipelines do not validate child UIDs in github.com/tektoncd/pipeline
+cves:
+    - CVE-2023-37264
+ghsas:
+    - GHSA-w2h3-vvvq-3m53
+references:
+    - advisory: https://github.com/tektoncd/pipeline/security/advisories/GHSA-w2h3-vvvq-3m53
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-37264
+    - web: https://github.com/tektoncd/pipeline/blob/2d38f5fa840291395178422d34b36b1bc739e2a2/pkg/reconciler/pipelinerun/pipelinerun.go#L1358-L1372
+    - web: https://pkg.go.dev/github.com/tektoncd/pipeline/pkg/apis/pipeline/v1beta1#ChildStatusReference
+source:
+    id: GHSA-w2h3-vvvq-3m53
+    created: 2024-08-20T11:51:13.001039-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

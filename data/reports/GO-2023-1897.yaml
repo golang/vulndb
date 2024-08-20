@@ -1,0 +1,24 @@
+id: GO-2023-1897
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - fixed: 1.9.10
+        - introduced: 1.10.0
+        - fixed: 1.10.7
+        - introduced: 1.11.0
+        - fixed: 1.11.4
+      vulnerable_at: 1.11.3
+summary: HashiCorp Vault's revocation list not respected in github.com/hashicorp/vault
+cves:
+    - CVE-2022-41316
+ghsas:
+    - GHSA-9mh8-9j64-443f
+references:
+    - advisory: https://github.com/advisories/GHSA-9mh8-9j64-443f
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-41316
+    - web: https://discuss.hashicorp.com/t/hcsec-2022-24-vaults-tls-cert-auth-method-only-loaded-crl-after-first-request/45483
+source:
+    id: GHSA-9mh8-9j64-443f
+    created: 2024-08-20T11:50:59.867143-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

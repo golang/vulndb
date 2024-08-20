@@ -1,0 +1,23 @@
+id: GO-2023-1898
+modules:
+    - module: github.com/hashicorp/boundary
+      versions:
+        - introduced: 0.10.0
+        - fixed: 0.12.0
+      vulnerable_at: 0.11.2
+summary: |-
+    HashiCorp Boundary Workers Store Rotated Credentials in Plaintext Even When Key
+    Management Service Configured in github.com/hashicorp/boundary
+cves:
+    - CVE-2023-0690
+ghsas:
+    - GHSA-9vrm-v9xv-x3xr
+references:
+    - advisory: https://github.com/advisories/GHSA-9vrm-v9xv-x3xr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-0690
+    - web: https://discuss.hashicorp.com/t/hcsec-2023-03-boundary-workers-store-rotated-credentials-in-plaintext-even-when-key-management-service-configured/49907
+source:
+    id: GHSA-9vrm-v9xv-x3xr
+    created: 2024-08-20T11:51:03.555065-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

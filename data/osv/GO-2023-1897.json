@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1897",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-41316",
+    "GHSA-9mh8-9j64-443f"
+  ],
+  "summary": "HashiCorp Vault's revocation list not respected in github.com/hashicorp/vault",
+  "details": "HashiCorp Vault's revocation list not respected in github.com/hashicorp/vault",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hashicorp/vault",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.9.10"
+            },
+            {
+              "introduced": "1.10.0"
+            },
+            {
+              "fixed": "1.10.7"
+            },
+            {
+              "introduced": "1.11.0"
+            },
+            {
+              "fixed": "1.11.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-9mh8-9j64-443f"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-41316"
+    },
+    {
+      "type": "WEB",
+      "url": "https://discuss.hashicorp.com/t/hcsec-2022-24-vaults-tls-cert-auth-method-only-loaded-crl-after-first-request/45483"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1897",
+    "review_status": "UNREVIEWED"
+  }
+}
