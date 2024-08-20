@@ -1,0 +1,30 @@
+id: GO-2022-0577
+modules:
+    - module: github.com/hashicorp/nomad
+      versions:
+        - introduced: 1.0.0
+        - fixed: 1.0.17
+        - introduced: 1.1.0
+        - fixed: 1.1.12
+        - introduced: 1.2.0
+        - fixed: 1.2.6
+      vulnerable_at: 1.2.5
+summary: |-
+    HashiCorp Nomad vulnerable to Allocation of Resources Without Limits or
+    Throttling in github.com/hashicorp/nomad
+cves:
+    - CVE-2022-24685
+ghsas:
+    - GHSA-3382-r9q8-4hfg
+references:
+    - advisory: https://github.com/advisories/GHSA-3382-r9q8-4hfg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-24685
+    - web: https://discuss.hashicorp.com
+    - web: https://discuss.hashicorp.com/t/hcsec-2022-03-nomad-malformed-job-parsing-results-in-excessive-cpu-usage
+    - web: https://discuss.hashicorp.com/t/hcsec-2022-03-nomad-malformed-job-parsing-results-in-excessive-cpu-usage/35561
+    - web: https://security.netapp.com/advisory/ntap-20220331-0007
+source:
+    id: GHSA-3382-r9q8-4hfg
+    created: 2024-08-20T14:04:58.138987-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

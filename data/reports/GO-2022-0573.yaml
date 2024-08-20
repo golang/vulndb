@@ -1,0 +1,25 @@
+id: GO-2022-0573
+modules:
+    - module: github.com/hashicorp/nomad
+      versions:
+        - fixed: 1.0.14
+        - introduced: 1.1.0
+        - fixed: 1.1.8
+        - introduced: 1.2.0
+        - fixed: 1.2.1
+      vulnerable_at: 1.2.0
+summary: Improper Authentication in HashiCorp Nomad in github.com/hashicorp/nomad
+cves:
+    - CVE-2021-43415
+ghsas:
+    - GHSA-2jhh-5xm2-j4gf
+references:
+    - advisory: https://github.com/advisories/GHSA-2jhh-5xm2-j4gf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-43415
+    - web: https://discuss.hashicorp.com/t/hcsec-2021-31-nomad-qemu-task-driver-allowed-paths-bypass-with-job-args/32288
+    - web: https://www.hashicorp.com/blog/category/nomad
+source:
+    id: GHSA-2jhh-5xm2-j4gf
+    created: 2024-08-20T14:04:51.260737-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

@@ -1,0 +1,29 @@
+id: GO-2022-0600
+modules:
+    - module: github.com/hashicorp/nomad
+      versions:
+        - introduced: 0.3.0
+        - fixed: 1.0.18
+        - introduced: 1.1.0
+        - fixed: 1.1.12
+        - introduced: 1.2.0
+        - fixed: 1.2.6
+      vulnerable_at: 1.2.5
+summary: HashiCorp Nomad Artifact Download Race Condition in github.com/hashicorp/nomad
+cves:
+    - CVE-2022-24686
+ghsas:
+    - GHSA-gwmc-6795-qghj
+references:
+    - advisory: https://github.com/advisories/GHSA-gwmc-6795-qghj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-24686
+    - report: https://github.com/hashicorp/nomad/issues/12036
+    - web: https://discuss.hashicorp.com
+    - web: https://discuss.hashicorp.com/t/hcsec-2022-01-nomad-artifact-download-race-condition/35559
+    - web: https://github.com/hashicorp/nomad/releases/tag/v1.2.6
+    - web: https://security.netapp.com/advisory/ntap-20220318-0008
+source:
+    id: GHSA-gwmc-6795-qghj
+    created: 2024-08-20T14:06:29.984852-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

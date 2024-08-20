@@ -1,0 +1,25 @@
+id: GO-2022-0590
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - introduced: 1.10.0
+        - fixed: 1.10.3
+      vulnerable_at: 1.10.2
+summary: HashiCorp Vault improper configuration of multi factor authentication in github.com/hashicorp/vault
+cves:
+    - CVE-2022-30689
+ghsas:
+    - GHSA-c5wc-v287-82pc
+references:
+    - advisory: https://github.com/advisories/GHSA-c5wc-v287-82pc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-30689
+    - fix: https://github.com/hashicorp/vault/commit/15baea5fa3e71c837c33b8bcbd8f06e0fbbc110d
+    - web: https://discuss.hashicorp.com
+    - web: https://github.com/hashicorp/vault
+    - web: https://security.gentoo.org/glsa/202207-01
+    - web: https://security.netapp.com/advisory/ntap-20220629-0006
+source:
+    id: GHSA-c5wc-v287-82pc
+    created: 2024-08-20T14:05:53.149021-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

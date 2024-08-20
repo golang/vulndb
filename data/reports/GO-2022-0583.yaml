@@ -1,0 +1,21 @@
+id: GO-2022-0583
+modules:
+    - module: gogs.io/gogs
+      versions:
+        - fixed: 0.12.8
+      vulnerable_at: 0.12.8-rc.1
+summary: Server-Side Request Forgery in gogs webhook in gogs.io/gogs
+cves:
+    - CVE-2022-1285
+ghsas:
+    - GHSA-w689-557m-2cvq
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-w689-557m-2cvq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-1285
+    - web: https://github.com/gogs/gogs/commit/7885f454a4946c4bbec1b4f8c603b5eea7429c7f
+    - web: https://huntr.dev/bounties/da1fbd6e-7a02-458e-9c2e-6d226c47046d
+source:
+    id: GHSA-w689-557m-2cvq
+    created: 2024-08-20T14:05:22.255595-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

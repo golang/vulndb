@@ -1,0 +1,25 @@
+id: GO-2022-0576
+modules:
+    - module: github.com/mattermost/mattermost-server
+      vulnerable_at: 9.11.0+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      versions:
+        - introduced: 6.4.0
+        - fixed: 6.5.0
+      vulnerable_at: 6.4.3
+summary: Insecure plugin handling in Mattermost in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2022-1384
+ghsas:
+    - GHSA-32rp-q37p-jg6w
+references:
+    - advisory: https://github.com/advisories/GHSA-32rp-q37p-jg6w
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-1384
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-32rp-q37p-jg6w
+    created: 2024-08-20T14:04:54.58755-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

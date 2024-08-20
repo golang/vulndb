@@ -1,0 +1,30 @@
+id: GO-2022-0584
+modules:
+    - module: github.com/hashicorp/nomad
+      versions:
+        - introduced: 0.9.2
+        - fixed: 1.0.18
+        - introduced: 1.1.0
+        - fixed: 1.1.12
+        - introduced: 1.2.0
+        - fixed: 1.2.6
+      vulnerable_at: 1.2.5
+summary: Arbitrary file reads in HashiCorp Nomad in github.com/hashicorp/nomad
+cves:
+    - CVE-2022-24683
+ghsas:
+    - GHSA-wmrx-57hm-mw7r
+references:
+    - advisory: https://github.com/advisories/GHSA-wmrx-57hm-mw7r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-24683
+    - fix: https://github.com/hashicorp/nomad/commit/1aa46c3796e924b72eb45a7f02dae32df0c1179c
+    - fix: https://github.com/hashicorp/nomad/commit/b3c0e6a7a53d624003698b48b6c59739552c3721
+    - fix: https://github.com/hashicorp/nomad/commit/fcb3a5d016a3dfcc63efcdb567373735a0703279
+    - web: https://discuss.hashicorp.com
+    - web: https://discuss.hashicorp.com/t/hcsec-2022-02-nomad-alloc-filesystem-and-container-escape/35560
+    - web: https://security.netapp.com/advisory/ntap-20220318-0008
+source:
+    id: GHSA-wmrx-57hm-mw7r
+    created: 2024-08-20T14:05:26.753203-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE
