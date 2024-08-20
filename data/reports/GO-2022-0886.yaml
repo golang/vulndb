@@ -1,0 +1,28 @@
+id: GO-2022-0886
+modules:
+    - module: k8s.io/kubernetes
+      versions:
+        - introduced: 1.9.0
+        - fixed: 1.9.10
+        - introduced: 1.10.0
+        - fixed: 1.10.6
+        - introduced: 1.11.0
+        - fixed: 1.11.2
+      vulnerable_at: 1.11.2-beta.0
+summary: Kubernetes Arbitrary Command Injection in k8s.io/kubernetes
+cves:
+    - CVE-2018-1002101
+ghsas:
+    - GHSA-wqwf-x5cj-rg56
+references:
+    - advisory: https://github.com/advisories/GHSA-wqwf-x5cj-rg56
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2018-1002101
+    - web: https://github.com/kubernetes/kubernetes/commit/d65039c56ce4de5f2efdc38aa1284eeb95f89169
+    - web: https://github.com/kubernetes/kubernetes/issues/65750
+    - web: https://github.com/kubernetes/kubernetes/pull/65751
+    - web: https://security.netapp.com/advisory/ntap-20190416-0008
+source:
+    id: GHSA-wqwf-x5cj-rg56
+    created: 2024-08-20T14:27:11.817514-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

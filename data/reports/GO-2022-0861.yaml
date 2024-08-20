@@ -1,0 +1,26 @@
+id: GO-2022-0861
+modules:
+    - module: github.com/hashicorp/consul
+      versions:
+        - introduced: 1.6.0-beta1
+        - fixed: 1.6.6
+        - introduced: 1.7.0
+        - fixed: 1.7.4
+      vulnerable_at: 1.7.3
+summary: Denial of Service (DoS) in HashiCorp Consul in github.com/hashicorp/consul
+cves:
+    - CVE-2020-12758
+ghsas:
+    - GHSA-q2qr-3c2p-9235
+references:
+    - advisory: https://github.com/advisories/GHSA-q2qr-3c2p-9235
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-12758
+    - fix: https://github.com/hashicorp/consul/commit/69b44fb9424cfdc05f1b7243876ab10d236ef1fc
+    - fix: https://github.com/hashicorp/consul/pull/7783
+    - web: https://github.com/hashicorp/consul/blob/v1.6.6/CHANGELOG.md
+    - web: https://github.com/hashicorp/consul/blob/v1.7.4/CHANGELOG.md
+source:
+    id: GHSA-q2qr-3c2p-9235
+    created: 2024-08-20T14:24:54.694794-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

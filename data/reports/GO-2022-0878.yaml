@@ -1,0 +1,22 @@
+id: GO-2022-0878
+modules:
+    - module: github.com/rclone/rclone
+      versions:
+        - fixed: 1.53.3
+      vulnerable_at: 1.53.2
+summary: Use of Cryptographically Weak Pseudo-Random Number Generator in Rclone in github.com/rclone/rclone
+cves:
+    - CVE-2020-28924
+ghsas:
+    - GHSA-rmw5-xpg9-jr29
+references:
+    - advisory: https://github.com/advisories/GHSA-rmw5-xpg9-jr29
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-28924
+    - report: https://github.com/rclone/rclone/issues/4783
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/UJIFT24Q6EFXLQZ24AER2QGFFZLMIPCD
+    - web: https://security.gentoo.org/glsa/202107-14
+source:
+    id: GHSA-rmw5-xpg9-jr29
+    created: 2024-08-20T14:26:23.049648-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

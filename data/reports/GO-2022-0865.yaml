@@ -1,0 +1,23 @@
+id: GO-2022-0865
+modules:
+    - module: github.com/goharbor/harbor
+      versions:
+        - fixed: 2.0.3+incompatible
+      vulnerable_at: 2.0.3-rc1+incompatible
+summary: Authenticated users can exploit an enumeration vulnerability in Harbor in github.com/goharbor/harbor
+cves:
+    - CVE-2020-13794
+ghsas:
+    - GHSA-q9p8-33wc-h432
+references:
+    - advisory: https://github.com/goharbor/harbor/security/advisories/GHSA-q9p8-33wc-h432
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-13794
+    - web: https://github.com/goharbor/harbor/releases
+    - web: https://github.com/goharbor/harbor/releases/tag/v2.0.3
+    - web: https://github.com/goharbor/harbor/releases/tag/v2.1.0
+    - web: https://www.cybereagle.io/blog/cve-2020-13794
+source:
+    id: GHSA-q9p8-33wc-h432
+    created: 2024-08-20T14:25:11.211281-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

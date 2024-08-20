@@ -1,0 +1,26 @@
+id: GO-2022-0859
+modules:
+    - module: github.com/hashicorp/consul
+      versions:
+        - introduced: 1.6.0-beta1
+        - fixed: 1.6.6
+        - introduced: 1.7.0
+        - fixed: 1.7.4
+      vulnerable_at: 1.7.3
+summary: Improper Input Validation in HashiCorp Consul in github.com/hashicorp/consul
+cves:
+    - CVE-2020-13170
+ghsas:
+    - GHSA-p2j5-3f4c-224r
+references:
+    - advisory: https://github.com/advisories/GHSA-p2j5-3f4c-224r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-13170
+    - fix: https://github.com/hashicorp/consul/commit/242994a016a181d6c62a5bb83189716ad13d4216
+    - fix: https://github.com/hashicorp/consul/pull/8068
+    - web: https://github.com/hashicorp/consul/blob/v1.6.6/CHANGELOG.md
+    - web: https://github.com/hashicorp/consul/blob/v1.7.4/CHANGELOG.md
+source:
+    id: GHSA-p2j5-3f4c-224r
+    created: 2024-08-20T14:23:29.505839-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

@@ -1,0 +1,25 @@
+id: GO-2022-0875
+modules:
+    - module: github.com/openshift/origin
+      versions:
+        - fixed: 1.0.6
+      vulnerable_at: 1.0.5
+summary: Denial of Service in OpenShift Origin in github.com/openshift/origin
+cves:
+    - CVE-2015-5250
+ghsas:
+    - GHSA-rf3m-mhv7-x39f
+references:
+    - advisory: https://github.com/advisories/GHSA-rf3m-mhv7-x39f
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2015-5250
+    - fix: https://github.com/openshift/origin/commit/dace5075e31b74703e944b6b3ebe8836be8d1b9a
+    - report: https://github.com/openshift/origin/issues/4374
+    - web: https://access.redhat.com/errata/RHSA-2015:1736
+    - web: https://access.redhat.com/security/cve/CVE-2015-5250
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=1259867
+    - web: https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2015-5250
+source:
+    id: GHSA-rf3m-mhv7-x39f
+    created: 2024-08-20T14:26:09.776371-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

@@ -1,0 +1,26 @@
+id: GO-2022-0883
+modules:
+    - module: github.com/goharbor/harbor
+      versions:
+        - introduced: 1.7.0
+        - fixed: 1.8.6
+        - introduced: 1.9.0
+        - fixed: 1.9.3
+      vulnerable_at: 1.9.3-rc1
+summary: SQL Injection in Cloud Native Computing Foundation Harbor in github.com/goharbor/harbor
+cves:
+    - CVE-2019-19026
+ghsas:
+    - GHSA-rh89-vvrg-fg64
+    - GHSA-w4x5-jqq4-qc8x
+references:
+    - advisory: https://github.com/advisories/GHSA-w4x5-jqq4-qc8x
+    - advisory: https://github.com/goharbor/harbor/security/advisories/GHSA-rh89-vvrg-fg64
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2019-19026
+    - web: https://github.com/goharbor/harbor/security/advisories
+    - web: https://tanzu.vmware.com/security/cve-2019-19026
+source:
+    id: GHSA-w4x5-jqq4-qc8x
+    created: 2024-08-20T14:26:47.18078-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

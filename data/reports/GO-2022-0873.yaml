@@ -1,0 +1,21 @@
+id: GO-2022-0873
+modules:
+    - module: github.com/ipfs/go-ipfs
+      versions:
+        - fixed: 0.8.0
+      vulnerable_at: 0.8.0-rc2
+summary: Control character injection in console output in github.com/ipfs/go-ipfs
+cves:
+    - CVE-2020-26283
+ghsas:
+    - GHSA-r4gv-vj59-cccm
+references:
+    - advisory: https://github.com/ipfs/go-ipfs/security/advisories/GHSA-r4gv-vj59-cccm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-26283
+    - fix: https://github.com/ipfs/go-ipfs/commit/fb0a9acd2d8288bd1028c3219a420de62a09683a
+    - fix: https://github.com/ipfs/go-ipfs/pull/7831
+source:
+    id: GHSA-r4gv-vj59-cccm
+    created: 2024-08-20T14:26:00.60014-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

@@ -1,0 +1,28 @@
+id: GO-2022-0857
+modules:
+    - module: github.com/kubernetes/kubernetes
+      versions:
+        - fixed: 1.2.0
+      vulnerable_at: 1.2.0-beta.1
+summary: Information Exposure in Kubernetes in github.com/kubernetes/kubernetes
+cves:
+    - CVE-2015-7528
+ghsas:
+    - GHSA-mqf3-28j7-3mj6
+references:
+    - advisory: https://github.com/advisories/GHSA-mqf3-28j7-3mj6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2015-7528
+    - fix: https://github.com/kubernetes/kubernetes/commit/afd56495a1052a3387b81df1786a8d0f51bc8671
+    - fix: https://github.com/kubernetes/kubernetes/pull/17886
+    - web: https://access.redhat.com/errata/RHSA-2015:2544
+    - web: https://access.redhat.com/errata/RHSA-2015:2615
+    - web: https://access.redhat.com/security/cve/CVE-2015-7528
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=1286745
+    - web: https://github.com/kubernetes/kubernetes/releases/tag/v1.2.0-alpha.5
+    - web: https://github.com/openshift/origin/pull/6113
+    - web: https://rhn.redhat.com/errata/RHSA-2015-2615.html
+source:
+    id: GHSA-mqf3-28j7-3mj6
+    created: 2024-08-20T14:23:15.504133-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2022-0859",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-13170",
+    "GHSA-p2j5-3f4c-224r"
+  ],
+  "summary": "Improper Input Validation in HashiCorp Consul in github.com/hashicorp/consul",
+  "details": "Improper Input Validation in HashiCorp Consul in github.com/hashicorp/consul",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hashicorp/consul",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.6.0-beta1"
+            },
+            {
+              "fixed": "1.6.6"
+            },
+            {
+              "introduced": "1.7.0"
+            },
+            {
+              "fixed": "1.7.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-p2j5-3f4c-224r"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2020-13170"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hashicorp/consul/commit/242994a016a181d6c62a5bb83189716ad13d4216"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hashicorp/consul/pull/8068"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/hashicorp/consul/blob/v1.6.6/CHANGELOG.md"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/hashicorp/consul/blob/v1.7.4/CHANGELOG.md"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2022-0859",
+    "review_status": "UNREVIEWED"
+  }
+}
