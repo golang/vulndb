@@ -1,0 +1,26 @@
+id: GO-2023-1785
+modules:
+    - module: github.com/cilium/cilium
+      versions:
+        - fixed: 1.11.16
+        - introduced: 1.12.0
+        - fixed: 1.12.9
+        - introduced: 1.13.0
+        - fixed: 1.13.2
+      vulnerable_at: 1.13.1
+summary: Potential HTTP policy bypass when using header rules in Cilium in github.com/cilium/cilium
+cves:
+    - CVE-2023-30851
+ghsas:
+    - GHSA-2h44-x2wx-49f4
+references:
+    - advisory: https://github.com/cilium/cilium/security/advisories/GHSA-2h44-x2wx-49f4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-30851
+    - web: https://github.com/cilium/cilium/releases/tag/v1.11.16
+    - web: https://github.com/cilium/cilium/releases/tag/v1.12.9
+    - web: https://github.com/cilium/cilium/releases/tag/v1.13.2
+source:
+    id: GHSA-2h44-x2wx-49f4
+    created: 2024-08-20T11:44:35.135175-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

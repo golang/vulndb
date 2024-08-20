@@ -1,0 +1,23 @@
+id: GO-2023-1803
+modules:
+    - module: github.com/lima-vm/lima
+      versions:
+        - fixed: 0.16.0
+      vulnerable_at: 0.15.1
+summary: |-
+    In Lima, a malicious disk image could read a single file on the host filesystem
+    as a qcow2/vmdk backing file in github.com/lima-vm/lima
+cves:
+    - CVE-2023-32684
+ghsas:
+    - GHSA-f7qw-jj9c-rpq9
+references:
+    - advisory: https://github.com/lima-vm/lima/security/advisories/GHSA-f7qw-jj9c-rpq9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-32684
+    - fix: https://github.com/lima-vm/lima/commit/01dbd4d9cabe692afa4517be3995771f0ebb38a5
+    - web: https://github.com/lima-vm/lima/releases/tag/v0.16.0
+source:
+    id: GHSA-f7qw-jj9c-rpq9
+    created: 2024-08-20T11:45:10.547247-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

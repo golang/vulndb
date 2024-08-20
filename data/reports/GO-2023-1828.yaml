@@ -1,0 +1,23 @@
+id: GO-2023-1828
+modules:
+    - module: github.com/hashicorp/consul
+      versions:
+        - introduced: 1.15.0
+        - fixed: 1.15.3
+      vulnerable_at: 1.15.2
+summary: |-
+    Hashicorp Consul allows user with service:write permissions to patch remote
+    proxy instances in github.com/hashicorp/consul
+cves:
+    - CVE-2023-2816
+ghsas:
+    - GHSA-rqjq-ww83-wv5c
+references:
+    - advisory: https://github.com/advisories/GHSA-rqjq-ww83-wv5c
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-2816
+    - web: https://discuss.hashicorp.com/t/hcsec-2023-16-consul-envoy-extension-downstream-proxy-configuration-by-upstream-service-owner/54525
+source:
+    id: GHSA-rqjq-ww83-wv5c
+    created: 2024-08-20T11:46:59.371377-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

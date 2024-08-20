@@ -1,0 +1,21 @@
+id: GO-2023-1853
+modules:
+    - module: github.com/hashicorp/consul
+      versions:
+        - fixed: 1.4.4
+      vulnerable_at: 1.4.3
+summary: HashiCorp Consul vulnerable to Origin Validation Error in github.com/hashicorp/consul
+cves:
+    - CVE-2019-9764
+ghsas:
+    - GHSA-q7fx-wm2p-qfj8
+references:
+    - advisory: https://github.com/advisories/GHSA-q7fx-wm2p-qfj8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2019-9764
+    - fix: https://github.com/hashicorp/consul/commit/7e11dd82aa8dae505b7307adcb68c9d3194b3b40
+    - report: https://github.com/hashicorp/consul/issues/5519
+source:
+    id: GHSA-q7fx-wm2p-qfj8
+    created: 2024-08-20T11:47:48.522611-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

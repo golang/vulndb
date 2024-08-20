@@ -1,0 +1,20 @@
+id: GO-2023-1806
+modules:
+    - module: github.com/multiversx/mx-chain-go
+      versions:
+        - fixed: 1.4.16
+      vulnerable_at: 1.4.15
+summary: mx-chain-go does not treat invalid transaction with wrong username correctly in github.com/multiversx/mx-chain-go
+cves:
+    - CVE-2023-33964
+ghsas:
+    - GHSA-7xpv-4pm9-xch2
+references:
+    - advisory: https://github.com/multiversx/mx-chain-go/security/advisories/GHSA-7xpv-4pm9-xch2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-33964
+    - fix: https://github.com/multiversx/mx-chain-go/commit/97295471465f4b5f79e51b32f8b7111f8d921606
+source:
+    id: GHSA-7xpv-4pm9-xch2
+    created: 2024-08-20T11:45:21.553083-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

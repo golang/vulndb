@@ -1,0 +1,23 @@
+id: GO-2023-1852
+modules:
+    - module: github.com/hashicorp/consul
+      versions:
+        - introduced: 1.4.0
+        - fixed: 1.5.1
+      vulnerable_at: 1.5.0
+summary: HashiCorp Consul Incorrect Access Control vulnerability in github.com/hashicorp/consul
+cves:
+    - CVE-2019-12291
+ghsas:
+    - GHSA-h65h-v7fw-4p38
+references:
+    - advisory: https://github.com/advisories/GHSA-h65h-v7fw-4p38
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2019-12291
+    - fix: https://github.com/hashicorp/consul/commit/36ebca1fd0129278487c6570449bc8cc03987890
+    - report: https://github.com/hashicorp/consul/issues/5888
+    - web: https://www.hashicorp.com/blog/category/consul
+source:
+    id: GHSA-h65h-v7fw-4p38
+    created: 2024-08-20T11:47:44.57167-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

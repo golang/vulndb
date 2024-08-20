@@ -1,0 +1,26 @@
+id: GO-2023-1851
+modules:
+    - module: github.com/hashicorp/consul
+      versions:
+        - fixed: 1.7.14
+        - introduced: 1.8.0
+        - fixed: 1.8.10
+        - introduced: 1.9.0
+        - fixed: 1.9.5
+      vulnerable_at: 1.9.4
+summary: HashiCorp Consul Cross-site Scripting vulnerability in github.com/hashicorp/consul
+cves:
+    - CVE-2020-25864
+ghsas:
+    - GHSA-8xmx-h8rq-h94j
+references:
+    - advisory: https://github.com/advisories/GHSA-8xmx-h8rq-h94j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-25864
+    - web: https://discuss.hashicorp.com/t/hcsec-2021-07-consul-api-kv-endpoint-vulnerable-to-cross-site-scripting/23368
+    - web: https://security.gentoo.org/glsa/202208-09
+    - web: https://www.hashicorp.com/blog/category/consul
+source:
+    id: GHSA-8xmx-h8rq-h94j
+    created: 2024-08-20T11:47:31.956758-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

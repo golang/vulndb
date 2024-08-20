@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1850",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2018-19653",
+    "GHSA-4qvx-qq5w-695p"
+  ],
+  "summary": "HashiCorp Consul can use cleartext agent-to-agent RPC communication in github.com/hashicorp/consul",
+  "details": "HashiCorp Consul can use cleartext agent-to-agent RPC communication in github.com/hashicorp/consul",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hashicorp/consul",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.5.1"
+            },
+            {
+              "fixed": "1.4.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-4qvx-qq5w-695p"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2018-19653"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hashicorp/consul/commit/b64e8b262f80397eab4f39c6ae7e14683cb9f55c"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hashicorp/consul/pull/5069"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/forum/#!topic/consul-tool/7TCw06oio0I"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1850",
+    "review_status": "UNREVIEWED"
+  }
+}

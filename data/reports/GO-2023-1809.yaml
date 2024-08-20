@@ -1,0 +1,25 @@
+id: GO-2023-1809
+modules:
+    - module: github.com/pydio/cells
+      vulnerable_at: 3.0.9+incompatible
+    - module: github.com/pydio/cells/v4
+      versions:
+        - fixed: 4.2.1
+      vulnerable_at: 4.2.1-rc1
+summary: go package pydio cells vulnerable to cross-site scripting in github.com/pydio/cells
+cves:
+    - CVE-2023-2981
+ghsas:
+    - GHSA-wmfc-g86p-fjvr
+references:
+    - advisory: https://github.com/advisories/GHSA-wmfc-g86p-fjvr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-2981
+    - web: https://popalltheshells.medium.com/multiple-cves-affecting-pydio-cells-4-2-0-321e7e4712be
+    - web: https://pydio.com/en/community/releases/pydio-cells/pydio-cells-enterprise-421
+    - web: https://vuldb.com/?ctiid.230213
+    - web: https://vuldb.com/?id.230213
+source:
+    id: GHSA-wmfc-g86p-fjvr
+    created: 2024-08-20T11:46:12.227471-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

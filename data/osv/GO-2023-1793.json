@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1793",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-2878",
+    "GHSA-g82w-58jf-gcxx"
+  ],
+  "summary": "secrets-store-csi-driver discloses service account tokens in logs in sigs.k8s.io/secrets-store-csi-driver",
+  "details": "secrets-store-csi-driver discloses service account tokens in logs in sigs.k8s.io/secrets-store-csi-driver",
+  "affected": [
+    {
+      "package": {
+        "name": "sigs.k8s.io/secrets-store-csi-driver",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.3.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/kubernetes-sigs/secrets-store-csi-driver/security/advisories/GHSA-g82w-58jf-gcxx"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-2878"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubernetes-sigs/secrets-store-csi-driver/releases/tag/v1.3.3"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubernetes/kubernetes/issues/118419"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/kubernetes-security-announce/c/5K8ghQHBDdQ/m/Udee6YUgAAAJ"
+    },
+    {
+      "type": "WEB",
+      "url": "https://security.netapp.com/advisory/ntap-20230814-0003"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1793",
+    "review_status": "UNREVIEWED"
+  }
+}

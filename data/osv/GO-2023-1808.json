@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1808",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-2978",
+    "GHSA-mv7x-27pc-8c96"
+  ],
+  "summary": "Go package pydio/cells vulnerable to authorization bypass in github.com/pydio/cells",
+  "details": "Go package pydio/cells vulnerable to authorization bypass in github.com/pydio/cells",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/pydio/cells",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/pydio/cells/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.2.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-mv7x-27pc-8c96"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-2978"
+    },
+    {
+      "type": "WEB",
+      "url": "https://popalltheshells.medium.com/multiple-cves-affecting-pydio-cells-4-2-0-321e7e4712be"
+    },
+    {
+      "type": "WEB",
+      "url": "https://pydio.com/en/community/releases/pydio-cells/pydio-cells-enterprise-421"
+    },
+    {
+      "type": "WEB",
+      "url": "https://vuldb.com/?ctiid.230210"
+    },
+    {
+      "type": "WEB",
+      "url": "https://vuldb.com/?id.230210"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1808",
+    "review_status": "UNREVIEWED"
+  }
+}

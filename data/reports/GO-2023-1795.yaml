@@ -1,0 +1,20 @@
+id: GO-2023-1795
+modules:
+    - module: github.com/sigstore/rekor
+      versions:
+        - fixed: 1.2.0
+      vulnerable_at: 1.1.1
+summary: malformed proposed intoto entries can cause a panic in github.com/sigstore/rekor
+cves:
+    - CVE-2023-33199
+ghsas:
+    - GHSA-frqx-jfcm-6jjr
+references:
+    - advisory: https://github.com/sigstore/rekor/security/advisories/GHSA-frqx-jfcm-6jjr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-33199
+    - fix: https://github.com/sigstore/rekor/commit/140c5add105179e5ffd9e3e114fd1b6b93aebbd4
+source:
+    id: GHSA-frqx-jfcm-6jjr
+    created: 2024-08-20T11:44:54.895733-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

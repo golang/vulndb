@@ -1,0 +1,25 @@
+id: GO-2023-1808
+modules:
+    - module: github.com/pydio/cells
+      vulnerable_at: 3.0.9+incompatible
+    - module: github.com/pydio/cells/v4
+      versions:
+        - fixed: 4.2.1
+      vulnerable_at: 4.2.1-rc1
+summary: Go package pydio/cells vulnerable to authorization bypass in github.com/pydio/cells
+cves:
+    - CVE-2023-2978
+ghsas:
+    - GHSA-mv7x-27pc-8c96
+references:
+    - advisory: https://github.com/advisories/GHSA-mv7x-27pc-8c96
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-2978
+    - web: https://popalltheshells.medium.com/multiple-cves-affecting-pydio-cells-4-2-0-321e7e4712be
+    - web: https://pydio.com/en/community/releases/pydio-cells/pydio-cells-enterprise-421
+    - web: https://vuldb.com/?ctiid.230210
+    - web: https://vuldb.com/?id.230210
+source:
+    id: GHSA-mv7x-27pc-8c96
+    created: 2024-08-20T11:45:35.608509-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

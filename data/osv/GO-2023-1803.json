@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1803",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-32684",
+    "GHSA-f7qw-jj9c-rpq9"
+  ],
+  "summary": "In Lima, a malicious disk image could read a single file on the host filesystem as a qcow2/vmdk backing file in github.com/lima-vm/lima",
+  "details": "In Lima, a malicious disk image could read a single file on the host filesystem as a qcow2/vmdk backing file in github.com/lima-vm/lima",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/lima-vm/lima",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.16.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/lima-vm/lima/security/advisories/GHSA-f7qw-jj9c-rpq9"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-32684"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/lima-vm/lima/commit/01dbd4d9cabe692afa4517be3995771f0ebb38a5"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/lima-vm/lima/releases/tag/v0.16.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1803",
+    "review_status": "UNREVIEWED"
+  }
+}

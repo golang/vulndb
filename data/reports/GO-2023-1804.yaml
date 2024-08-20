@@ -1,0 +1,18 @@
+id: GO-2023-1804
+modules:
+    - module: github.com/kyverno/kyverno
+      versions:
+        - fixed: 1.9.5
+      vulnerable_at: 1.9.4
+summary: Kyverno vulnerable due to usage of insecure cipher in github.com/kyverno/kyverno
+ghsas:
+    - GHSA-hgv6-w7r3-w4qw
+references:
+    - advisory: https://github.com/kyverno/kyverno/security/advisories/GHSA-hgv6-w7r3-w4qw
+    - fix: https://github.com/kyverno/kyverno/pull/7308
+    - web: https://github.com/kyverno/kyverno/releases/tag/v1.9.5
+source:
+    id: GHSA-hgv6-w7r3-w4qw
+    created: 2024-08-20T11:45:14.537311-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

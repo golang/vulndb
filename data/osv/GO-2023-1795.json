@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1795",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-33199",
+    "GHSA-frqx-jfcm-6jjr"
+  ],
+  "summary": "malformed proposed intoto entries can cause a panic in github.com/sigstore/rekor",
+  "details": "malformed proposed intoto entries can cause a panic in github.com/sigstore/rekor",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/sigstore/rekor",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.2.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/sigstore/rekor/security/advisories/GHSA-frqx-jfcm-6jjr"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-33199"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/sigstore/rekor/commit/140c5add105179e5ffd9e3e114fd1b6b93aebbd4"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1795",
+    "review_status": "UNREVIEWED"
+  }
+}

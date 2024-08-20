@@ -1,0 +1,23 @@
+id: GO-2023-1793
+modules:
+    - module: sigs.k8s.io/secrets-store-csi-driver
+      versions:
+        - fixed: 1.3.3
+      vulnerable_at: 1.3.2
+summary: secrets-store-csi-driver discloses service account tokens in logs in sigs.k8s.io/secrets-store-csi-driver
+cves:
+    - CVE-2023-2878
+ghsas:
+    - GHSA-g82w-58jf-gcxx
+references:
+    - advisory: https://github.com/kubernetes-sigs/secrets-store-csi-driver/security/advisories/GHSA-g82w-58jf-gcxx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-2878
+    - web: https://github.com/kubernetes-sigs/secrets-store-csi-driver/releases/tag/v1.3.3
+    - web: https://github.com/kubernetes/kubernetes/issues/118419
+    - web: https://groups.google.com/g/kubernetes-security-announce/c/5K8ghQHBDdQ/m/Udee6YUgAAAJ
+    - web: https://security.netapp.com/advisory/ntap-20230814-0003
+source:
+    id: GHSA-g82w-58jf-gcxx
+    created: 2024-08-20T11:44:50.069883-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE
