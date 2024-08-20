@@ -1,0 +1,21 @@
+id: GO-2022-0771
+modules:
+    - module: github.com/ethereum/go-ethereum
+      versions:
+        - introduced: 1.9.7
+        - fixed: 1.9.17
+      vulnerable_at: 1.9.16
+summary: Shallow copy bug in geth in github.com/ethereum/go-ethereum
+cves:
+    - CVE-2020-26241
+ghsas:
+    - GHSA-69v6-xc2j-r2jf
+references:
+    - advisory: https://github.com/ethereum/go-ethereum/security/advisories/GHSA-69v6-xc2j-r2jf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-26241
+    - fix: https://github.com/ethereum/go-ethereum/commit/295693759e5ded05fec0b2fb39359965b60da785
+source:
+    id: GHSA-69v6-xc2j-r2jf
+    created: 2024-08-20T14:13:27.935055-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

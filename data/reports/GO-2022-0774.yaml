@@ -1,0 +1,24 @@
+id: GO-2022-0774
+modules:
+    - module: github.com/containous/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/containous/traefik/v2
+      versions:
+        - fixed: 2.2.2
+      vulnerable_at: 2.2.1
+summary: Improper Authentication in github.com/containous/traefik
+cves:
+    - CVE-2019-20894
+ghsas:
+    - GHSA-q9mp-79cp-9g8j
+references:
+    - advisory: https://github.com/advisories/GHSA-q9mp-79cp-9g8j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2019-20894
+    - fix: https://github.com/containous/traefik/commit/2b353971696717e980521b0e4baa1eba66c8d2bf
+    - fix: https://github.com/containous/traefik/pull/7008
+    - report: https://github.com/containous/traefik/issues/5312
+source:
+    id: GHSA-q9mp-79cp-9g8j
+    created: 2024-08-20T14:13:37.881941-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

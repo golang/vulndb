@@ -1,0 +1,20 @@
+id: GO-2022-0783
+modules:
+    - module: github.com/pomerium/pomerium
+      versions:
+        - fixed: 0.13.4
+      vulnerable_at: 0.13.3
+summary: JWT leak via Open Redirect in Programmatic access in github.com/pomerium/pomerium
+cves:
+    - CVE-2021-29651
+ghsas:
+    - GHSA-35vc-w93w-75c2
+references:
+    - advisory: https://github.com/pomerium/pomerium/security/advisories/GHSA-35vc-w93w-75c2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-29651
+    - fix: https://github.com/pomerium/pomerium/pull/2049
+source:
+    id: GHSA-35vc-w93w-75c2
+    created: 2024-08-20T14:14:29.036484-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

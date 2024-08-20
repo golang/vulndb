@@ -1,0 +1,22 @@
+id: GO-2022-0787
+modules:
+    - module: github.com/datacharmer/dbdeployer
+      versions:
+        - fixed: 1.58.2
+      vulnerable_at: 1.58.1
+summary: |-
+    Symbolic links in an unpacking routine may enable attackers to read and/or write
+    to arbitrary locations in dbdeployer in github.com/datacharmer/dbdeployer
+cves:
+    - CVE-2020-26277
+ghsas:
+    - GHSA-47wr-426j-fr82
+references:
+    - advisory: https://github.com/datacharmer/dbdeployer/security/advisories/GHSA-47wr-426j-fr82
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-26277
+    - fix: https://github.com/datacharmer/dbdeployer/commit/548e256c1de2f99746e861454e7714ec6bc9bb10
+source:
+    id: GHSA-47wr-426j-fr82
+    created: 2024-08-20T14:14:48.994064-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

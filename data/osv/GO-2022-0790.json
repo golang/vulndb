@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2022-0790",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-21291",
+    "GHSA-4mf2-f3wh-gvf2"
+  ],
+  "summary": "Subdomain checking of whitelisted domains could allow unintended redirects in oauth2-proxy in github.com/oauth2-proxy/oauth2-proxy",
+  "details": "Subdomain checking of whitelisted domains could allow unintended redirects in oauth2-proxy in github.com/oauth2-proxy/oauth2-proxy",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/oauth2-proxy/oauth2-proxy",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/oauth2-proxy/oauth2-proxy/v7",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "7.0.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/oauth2-proxy/oauth2-proxy/security/advisories/GHSA-4mf2-f3wh-gvf2"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-21291"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/oauth2-proxy/oauth2-proxy/commit/780ae4f3c99b579cb2ea9845121caebb6192f725"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/oauth2-proxy/oauth2-proxy/releases/tag/v7.0.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://pkg.go.dev/github.com/oauth2-proxy/oauth2-proxy/v7"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2022-0790",
+    "review_status": "UNREVIEWED"
+  }
+}

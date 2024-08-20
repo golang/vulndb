@@ -1,0 +1,42 @@
+id: GO-2022-0792
+modules:
+    - module: github.com/kubernetes/kubernetes
+      versions:
+        - fixed: 1.10.11
+        - introduced: 1.11.0
+        - fixed: 1.11.5
+        - introduced: 1.12.0
+        - fixed: 1.12.3
+      vulnerable_at: 1.12.3-beta.0
+summary: Privilege Escalation in Kubernetes in github.com/kubernetes/kubernetes
+cves:
+    - CVE-2018-1002105
+ghsas:
+    - GHSA-579h-mv94-g4gp
+references:
+    - advisory: https://github.com/advisories/GHSA-579h-mv94-g4gp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2018-1002105
+    - fix: https://github.com/kubernetes/kubernetes/commit/2257c1ecbe3c0cf71dd50b82752ae189c94ec905
+    - report: https://github.com/kubernetes/kubernetes/issues/71411
+    - web: https://access.redhat.com/errata/RHSA-2018:3537
+    - web: https://access.redhat.com/errata/RHSA-2018:3549
+    - web: https://access.redhat.com/errata/RHSA-2018:3551
+    - web: https://access.redhat.com/errata/RHSA-2018:3598
+    - web: https://access.redhat.com/errata/RHSA-2018:3624
+    - web: https://access.redhat.com/errata/RHSA-2018:3752
+    - web: https://access.redhat.com/errata/RHSA-2018:3754
+    - web: https://github.com/evict/poc_CVE-2018-1002105
+    - web: https://groups.google.com/forum/#!topic/kubernetes-announce/GVllWCg6L88
+    - web: https://lists.opensuse.org/opensuse-security-announce/2020-04/msg00041.html
+    - web: https://security.netapp.com/advisory/ntap-20190416-0001
+    - web: https://www.coalfire.com/The-Coalfire-Blog/December-2018/Kubernetes-Vulnerability-What-You-Can-Should-Do
+    - web: https://www.exploit-db.com/exploits/46052
+    - web: https://www.exploit-db.com/exploits/46053
+    - web: https://www.openwall.com/lists/oss-security/2019/06/28/2
+    - web: https://www.openwall.com/lists/oss-security/2019/07/06/3
+    - web: https://www.openwall.com/lists/oss-security/2019/07/06/4
+source:
+    id: GHSA-579h-mv94-g4gp
+    created: 2024-08-20T14:15:38.624032-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

@@ -1,0 +1,25 @@
+id: GO-2022-0780
+modules:
+    - module: github.com/influxdata/influxdb
+      versions:
+        - fixed: 1.7.6
+      vulnerable_at: 1.7.5
+summary: Improper Authentication in InfluxDB in github.com/influxdata/influxdb
+cves:
+    - CVE-2019-20933
+ghsas:
+    - GHSA-2rmp-fw5r-j5qv
+references:
+    - advisory: https://github.com/advisories/GHSA-2rmp-fw5r-j5qv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2019-20933
+    - fix: https://github.com/influxdata/influxdb/commit/761b557315ff9c1642cf3b0e5797cd3d983a24c0
+    - report: https://github.com/influxdata/influxdb/issues/12927
+    - web: https://github.com/influxdata/influxdb/compare/v1.7.5...v1.7.6
+    - web: https://github.com/ticarpi/jwt_tool/blob/a6ca3e0524a204b5add070bc6874cb4e7e5a9864/jwt_tool.py#L1368
+    - web: https://lists.debian.org/debian-lts-announce/2020/12/msg00030.html
+    - web: https://www.debian.org/security/2021/dsa-4823
+source:
+    id: GHSA-2rmp-fw5r-j5qv
+    created: 2024-08-20T14:14:08.349257-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

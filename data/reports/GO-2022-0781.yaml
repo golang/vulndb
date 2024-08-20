@@ -1,0 +1,24 @@
+id: GO-2022-0781
+modules:
+    - module: github.com/goharbor/harbor
+      versions:
+        - introduced: 1.8.0
+        - fixed: 2.0.1+incompatible
+      vulnerable_at: 2.0.1-rc1+incompatible
+summary: |-
+    Harbor is vulnerable to a limited Server-Side Request Forgery (SSRF)
+    (CVE-2020-13788) in github.com/goharbor/harbor
+cves:
+    - CVE-2020-13788
+ghsas:
+    - GHSA-33p6-fx42-7rf5
+references:
+    - advisory: https://github.com/goharbor/harbor/security/advisories/GHSA-33p6-fx42-7rf5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-13788
+    - web: https://github.com/goharbor/harbor/releases
+    - web: https://www.youtube.com/watch?v=v8Isqy4yR3Q
+source:
+    id: GHSA-33p6-fx42-7rf5
+    created: 2024-08-20T14:14:14.581865-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

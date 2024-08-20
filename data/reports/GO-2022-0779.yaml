@@ -1,0 +1,21 @@
+id: GO-2022-0779
+modules:
+    - module: github.com/ipfs/go-ipfs
+      versions:
+        - fixed: 0.8.0
+      vulnerable_at: 0.8.0-rc2
+summary: Path traversal in github.com/ipfs/go-ipfs
+cves:
+    - CVE-2020-26279
+ghsas:
+    - GHSA-27pv-q55r-222g
+references:
+    - advisory: https://github.com/ipfs/go-ipfs/security/advisories/GHSA-27pv-q55r-222g
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-26279
+    - fix: https://github.com/ipfs/go-ipfs/commit/b7ddba7fe47dee5b1760b8ffe897908417e577b2
+    - web: https://github.com/whyrusleeping/tar-utils/commit/20a61371de5b51380bbdb0c7935b30b0625ac227
+source:
+    id: GHSA-27pv-q55r-222g
+    created: 2024-08-20T14:14:03.827129-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

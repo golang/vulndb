@@ -1,0 +1,22 @@
+id: GO-2022-0794
+modules:
+    - module: github.com/weaveworks/weave
+      versions:
+        - fixed: 2.6.3+incompatible
+      vulnerable_at: 2.6.2+incompatible
+summary: |-
+    Weave Net clusters susceptible to MitM attacks via IPv6 rogue router
+    advertisements in github.com/weaveworks/weave
+cves:
+    - CVE-2020-11091
+ghsas:
+    - GHSA-59qg-grp7-5r73
+references:
+    - advisory: https://github.com/weaveworks/weave/security/advisories/GHSA-59qg-grp7-5r73
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-11091
+    - fix: https://github.com/weaveworks/weave/commit/15f21f1899060f7716c70a8555a084e836f39a60
+source:
+    id: GHSA-59qg-grp7-5r73
+    created: 2024-08-20T14:15:56.288204-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE
