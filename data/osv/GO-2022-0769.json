@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2022-0769",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-12118",
+    "GHSA-399h-cmvp-qgx5"
+  ],
+  "summary": "Incorrect Default Permissions in Binance tss-lib in github.com/binance-chain/tss-lib",
+  "details": "Incorrect Default Permissions in Binance tss-lib in github.com/binance-chain/tss-lib",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/binance-chain/tss-lib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.2.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-399h-cmvp-qgx5"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2020-12118"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/binance-chain/tss-lib/pull/89"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/binance-chain/tss-lib/pull/89/commits/7b7c17e90504d5dad94b938e84fec690bb1ec311"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/binance-chain/tss-lib/releases/tag/v1.2.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2022-0769",
+    "review_status": "UNREVIEWED"
+  }
+}

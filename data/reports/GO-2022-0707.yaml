@@ -1,0 +1,26 @@
+id: GO-2022-0707
+modules:
+    - module: github.com/grafana/grafana
+      versions:
+        - fixed: 4.6.4+incompatible
+        - introduced: 5.0.0+incompatible
+        - fixed: 5.2.3+incompatible
+      vulnerable_at: 5.2.2+incompatible
+summary: Grafana Authentication Bypass in github.com/grafana/grafana
+cves:
+    - CVE-2018-15727
+ghsas:
+    - GHSA-rgjg-66cx-5x9m
+references:
+    - advisory: https://github.com/advisories/GHSA-rgjg-66cx-5x9m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2018-15727
+    - fix: https://github.com/grafana/grafana/commit/7baecf0d0deae0d865e45cf03e082bc0db3f28c3
+    - fix: https://github.com/grafana/grafana/commit/df83bf10a225811927644bdf6265fa80bdea9137
+    - web: https://access.redhat.com/errata/RHSA-2018:3829
+    - web: https://access.redhat.com/errata/RHSA-2019:0019
+    - web: https://grafana.com/blog/2018/08/29/grafana-5.2.3-and-4.6.4-released-with-important-security-fix
+source:
+    id: GHSA-rgjg-66cx-5x9m
+    created: 2024-08-20T14:11:43.323091-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

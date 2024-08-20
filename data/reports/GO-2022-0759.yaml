@@ -1,0 +1,21 @@
+id: GO-2022-0759
+modules:
+    - module: github.com/sigstore/policy-controller
+      versions:
+        - fixed: 0.2.1
+      vulnerable_at: 0.2.0
+summary: PolicyController before 0.2.1 may bypass attestation verification in github.com/sigstore/policy-controller
+cves:
+    - CVE-2022-35930
+ghsas:
+    - GHSA-739f-hw6h-7wq8
+references:
+    - advisory: https://github.com/sigstore/policy-controller/security/advisories/GHSA-739f-hw6h-7wq8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-35930
+    - fix: https://github.com/sigstore/policy-controller/commit/e852af36fb7d42678b21d7e97503c25bd1fd05c8
+    - web: https://github.com/sigstore/policy-controller/releases/tag/v0.2.1
+source:
+    id: GHSA-739f-hw6h-7wq8
+    created: 2024-08-20T14:13:08.15275-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

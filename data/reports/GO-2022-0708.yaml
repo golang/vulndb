@@ -1,0 +1,25 @@
+id: GO-2022-0708
+modules:
+    - module: github.com/docker/docker
+      versions:
+        - fixed: 1.6.1
+      vulnerable_at: 1.6.0
+summary: Arbitrary File Override in Docker Engine in github.com/docker/docker
+cves:
+    - CVE-2015-3631
+ghsas:
+    - GHSA-v4h8-794j-g8mm
+references:
+    - advisory: https://github.com/advisories/GHSA-v4h8-794j-g8mm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2015-3631
+    - web: http://lists.opensuse.org/opensuse-updates/2015-05/msg00023.html
+    - web: http://packetstormsecurity.com/files/131835/Docker-Privilege-Escalation-Information-Disclosure.html
+    - web: http://seclists.org/fulldisclosure/2015/May/28
+    - web: https://github.com/moby/moby/compare/769acfec2928c47a35da5357d854145b1036448d...b6a9dc399be31c531e3753104e10d74760ed75a2
+    - web: https://groups.google.com/forum/#%21searchin/docker-user/1.6.1/docker-user/47GZrihtr-4/nwgeOOFLexIJ
+    - web: https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2015-3631
+source:
+    id: GHSA-v4h8-794j-g8mm
+    created: 2024-08-20T14:11:53.977935-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

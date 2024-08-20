@@ -1,0 +1,24 @@
+id: GO-2022-0644
+modules:
+    - module: github.com/rancher/rancher
+      versions:
+        - introduced: 2.0.0+incompatible
+        - fixed: 2.1.6+incompatible
+      vulnerable_at: 2.1.6-rc5+incompatible
+summary: Access Control Bypass in github.com/rancher/rancher
+cves:
+    - CVE-2018-20321
+ghsas:
+    - GHSA-9qq2-xhmc-h9qr
+references:
+    - advisory: https://github.com/advisories/GHSA-9qq2-xhmc-h9qr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2018-20321
+    - fix: https://github.com/rancher/rancher/commit/6ea187fcc2309d5a7a14ed47de5688bf6573f448
+    - web: https://forums.rancher.com/c/announcements
+    - web: https://github.com/rancher/rancher/releases/tag/v2.1.6
+    - web: https://rancher.com/blog/2019/2019-01-29-explaining-security-vulnerabilities-addressed-in-rancher-v2-1-6-and-v2-0-11
+source:
+    id: GHSA-9qq2-xhmc-h9qr
+    created: 2024-08-20T14:10:40.707798-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

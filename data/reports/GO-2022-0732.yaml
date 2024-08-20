@@ -1,0 +1,26 @@
+id: GO-2022-0732
+modules:
+    - module: github.com/hashicorp/nomad
+      versions:
+        - introduced: 0.2.0
+        - fixed: 1.1.14
+        - introduced: 1.2.0
+        - fixed: 1.2.8
+        - introduced: 1.3.0
+        - fixed: 1.3.1
+      vulnerable_at: 1.3.0
+summary: Privilege escalation in Hashicorp Nomad in github.com/hashicorp/nomad
+cves:
+    - CVE-2022-30324
+ghsas:
+    - GHSA-526x-rm7j-v389
+references:
+    - advisory: https://github.com/advisories/GHSA-526x-rm7j-v389
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-30324
+    - web: https://discuss.hashicorp.com
+    - web: https://discuss.hashicorp.com/t/hcsec-2022-14-nomad-impacted-by-go-getter-vulnerabilities/39932
+source:
+    id: GHSA-526x-rm7j-v389
+    created: 2024-08-20T14:12:02.941817-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

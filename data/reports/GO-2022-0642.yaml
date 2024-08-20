@@ -1,0 +1,26 @@
+id: GO-2022-0642
+modules:
+    - module: gogs.io/gogs
+      versions:
+        - introduced: 0.3.1
+        - fixed: 0.5.8
+      vulnerable_at: 0.5.5
+summary: Cross-site Scripting in Gogs in gogs.io/gogs
+cves:
+    - CVE-2014-8683
+ghsas:
+    - GHSA-9hx4-qm7h-x84j
+references:
+    - advisory: https://github.com/advisories/GHSA-9hx4-qm7h-x84j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2014-8683
+    - web: https://exchange.xforce.ibmcloud.com/vulnerabilities/98693
+    - web: https://github.com/gogits/gogs/commit/3abc41cccab2486012b46305827433ad6f5deade
+    - web: https://github.com/gogits/gogs/releases/tag/v0.5.8
+    - web: https://packetstormsecurity.com/files/129118/Gogs-Markdown-Renderer-Cross-Site-Scripting.html
+    - web: https://seclists.org/fulldisclosure/2014/Nov/31
+    - web: https://seclists.org/fulldisclosure/2014/Nov/34
+source:
+    id: GHSA-9hx4-qm7h-x84j
+    created: 2024-08-20T14:10:34.399207-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

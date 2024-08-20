@@ -1,0 +1,28 @@
+id: GO-2022-0770
+modules:
+    - module: github.com/hashicorp/nomad
+      versions:
+        - introduced: 0.9.0
+        - fixed: 0.10.8
+        - introduced: 0.11.0-beta1
+        - fixed: 0.11.7
+        - introduced: 0.12.0-beta1
+        - fixed: 0.12.8
+      vulnerable_at: 0.12.7
+summary: Path Traversal in HashiCorp Nomad in github.com/hashicorp/nomad
+cves:
+    - CVE-2020-28348
+ghsas:
+    - GHSA-5x92-p4p5-33c4
+references:
+    - advisory: https://github.com/advisories/GHSA-5x92-p4p5-33c4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-28348
+    - fix: https://github.com/hashicorp/nomad/pull/9321
+    - report: https://github.com/hashicorp/nomad/issues/9303
+    - web: https://discuss.hashicorp.com/t/nomad-0-12-8-0-11-7-and-0-10-8-released/17491
+    - web: https://github.com/hashicorp/nomad/blob/master/CHANGELOG.md#0128-november-10-2020
+source:
+    id: GHSA-5x92-p4p5-33c4
+    created: 2024-08-20T14:13:23.199122-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

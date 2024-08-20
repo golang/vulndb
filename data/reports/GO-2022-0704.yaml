@@ -1,0 +1,25 @@
+id: GO-2022-0704
+modules:
+    - module: github.com/goharbor/harbor
+      versions:
+        - introduced: 1.7.0
+        - fixed: 1.10.3
+        - introduced: 2.0.0+incompatible
+        - fixed: 2.0.1+incompatible
+      vulnerable_at: 2.0.1-rc1+incompatible
+summary: |-
+    Unauthenticated users can exploit an enumeration vulnerability in Harbor
+    (CVE-2019-19030) in github.com/goharbor/harbor
+cves:
+    - CVE-2019-19030
+ghsas:
+    - GHSA-q9x4-q76f-5h5j
+references:
+    - advisory: https://github.com/goharbor/harbor/security/advisories/GHSA-q9x4-q76f-5h5j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2019-19030
+    - web: https://github.com/goharbor/harbor
+source:
+    id: GHSA-q9x4-q76f-5h5j
+    created: 2024-08-20T14:11:31.878951-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

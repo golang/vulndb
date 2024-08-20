@@ -1,0 +1,23 @@
+id: GO-2022-0749
+modules:
+    - module: gogs.io/gogs
+      versions:
+        - fixed: 0.12.8
+      vulnerable_at: 0.12.8-rc.1
+summary: OS Command Injection in gogs in gogs.io/gogs
+cves:
+    - CVE-2022-1884
+ghsas:
+    - GHSA-958j-443g-7mm7
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-958j-443g-7mm7
+    - web: https://github.com/gogs/gogs/blob/f36eeedbf89328ee70cc3a2e239f6314f9021f58/conf/app.ini#L127-L129
+    - web: https://github.com/gogs/gogs/issues/6968
+    - web: https://github.com/gogs/gogs/pull/6970
+    - web: https://github.com/gogs/gogs/releases/tag/v0.12.8
+    - web: https://www.huntr.dev/bounties/9cd4e7b7-0979-4e5e-9a1c-388b58dea76b
+source:
+    id: GHSA-958j-443g-7mm7
+    created: 2024-08-20T14:12:06.699893-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

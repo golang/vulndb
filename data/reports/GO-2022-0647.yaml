@@ -1,0 +1,26 @@
+id: GO-2022-0647
+modules:
+    - module: github.com/docker/docker
+      versions:
+        - introduced: 1.6.0
+        - fixed: 1.6.1
+      vulnerable_at: 1.6.0
+summary: Arbitrary File Write in Libcontainer in github.com/docker/docker
+cves:
+    - CVE-2015-3629
+ghsas:
+    - GHSA-g44j-7vp3-68cv
+references:
+    - advisory: https://github.com/advisories/GHSA-g44j-7vp3-68cv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2015-3629
+    - fix: https://github.com/docker/docker/commit/d5ebb60bddbabea0439213501f4f6ed494b23cba
+    - web: http://lists.opensuse.org/opensuse-updates/2015-05/msg00023.html
+    - web: http://packetstormsecurity.com/files/131835/Docker-Privilege-Escalation-Information-Disclosure.html
+    - web: http://seclists.org/fulldisclosure/2015/May/28
+    - web: https://groups.google.com/forum/#%21searchin/docker-user/1.6.1/docker-user/47GZrihtr-4/nwgeOOFLexIJ
+    - web: https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2015-3629
+source:
+    id: GHSA-g44j-7vp3-68cv
+    created: 2024-08-20T14:10:58.964356-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

@@ -1,0 +1,23 @@
+id: GO-2022-0709
+modules:
+    - module: github.com/hashicorp/nomad
+      versions:
+        - fixed: 0.12.12
+        - introduced: 1.0.0
+        - fixed: 1.0.5
+      vulnerable_at: 1.0.4
+summary: Improper network isolation in Hashicorp Nomad in github.com/hashicorp/nomad
+cves:
+    - CVE-2021-32575
+ghsas:
+    - GHSA-vf6q-9f2f-mwhv
+references:
+    - advisory: https://github.com/advisories/GHSA-vf6q-9f2f-mwhv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-32575
+    - web: https://discuss.hashicorp.com/t/hcsec-2021-14-nomad-bridge-networking-mode-allows-arp-spoofing-from-other-bridged-tasks-on-same-node/24296
+    - web: https://www.hashicorp.com/blog/category/nomad
+source:
+    id: GHSA-vf6q-9f2f-mwhv
+    created: 2024-08-20T14:11:59.026609-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE
