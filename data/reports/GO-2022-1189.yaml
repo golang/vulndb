@@ -1,0 +1,24 @@
+id: GO-2022-1189
+modules:
+    - module: github.com/usememos/memos
+      versions:
+        - fixed: 0.9.0
+      vulnerable_at: 0.8.3
+summary: usememos/memos vulnerable to stored cross-site scripting (XSS) in github.com/usememos/memos
+cves:
+    - CVE-2022-4690
+ghsas:
+    - GHSA-c8jh-vcjh-fx2w
+references:
+    - advisory: https://github.com/advisories/GHSA-c8jh-vcjh-fx2w
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-4690
+    - fix: https://github.com/usememos/memos/commit/65cc19c12efa392f792f6bb154b4838547e0af5e
+    - fix: https://github.com/usememos/memos/commit/c07b4a57caa89905e54b800f4d8fb720bbf5bf82
+    - fix: https://github.com/usememos/memos/pull/833
+    - web: https://github.com/usememos/memos
+    - web: https://huntr.dev/bounties/7e1be91d-3b13-4300-8af2-9bd9665ec335
+source:
+    id: GHSA-c8jh-vcjh-fx2w
+    created: 2024-08-20T14:53:42.498059-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

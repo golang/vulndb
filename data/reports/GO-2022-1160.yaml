@@ -1,0 +1,21 @@
+id: GO-2022-1160
+modules:
+    - module: github.com/aws/amazon-cloudwatch-agent
+      versions:
+        - fixed: 1.247355.0
+      vulnerable_at: 1.247354.0
+summary: Amazon CloudWatch Agent for Windows has Privilege Escalation Vector in github.com/aws/amazon-cloudwatch-agent
+cves:
+    - CVE-2022-23511
+ghsas:
+    - GHSA-j8x2-2m5w-j939
+references:
+    - advisory: https://github.com/aws/amazon-cloudwatch-agent/security/advisories/GHSA-j8x2-2m5w-j939
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-23511
+    - fix: https://github.com/aws/amazon-cloudwatch-agent/commit/6119858864c317ff26f41f576c169148d1250837
+    - fix: https://github.com/aws/amazon-cloudwatch-agent/commit/6119858864c317ff26f41f576c169148d1250837#diff-76ed074a9305c04054cdebb9e9aad2d818052b07091de1f20cad0bbac34ffb52
+source:
+    id: GHSA-j8x2-2m5w-j939
+    created: 2024-08-20T14:52:59.251423-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

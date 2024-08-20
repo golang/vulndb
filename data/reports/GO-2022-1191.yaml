@@ -1,0 +1,22 @@
+id: GO-2022-1191
+modules:
+    - module: github.com/usememos/memos
+      versions:
+        - fixed: 0.9.0
+      vulnerable_at: 0.8.3
+summary: usememos/memos vulnerable to account takeover due to improper access control in github.com/usememos/memos
+cves:
+    - CVE-2022-4689
+ghsas:
+    - GHSA-w57v-6xp4-rm2v
+references:
+    - advisory: https://github.com/advisories/GHSA-w57v-6xp4-rm2v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-4689
+    - fix: https://github.com/usememos/memos/commit/dca35bde877aab6e64ef51b52e590b5d48f692f9
+    - fix: https://github.com/usememos/memos/pull/831
+    - web: https://huntr.dev/bounties/a78c4326-6e7b-47fe-aa82-461e5c12a4e3
+source:
+    id: GHSA-w57v-6xp4-rm2v
+    created: 2024-08-20T14:53:51.990446-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

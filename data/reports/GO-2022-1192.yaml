@@ -1,0 +1,21 @@
+id: GO-2022-1192
+modules:
+    - module: github.com/usememos/memos
+      versions:
+        - fixed: 0.9.0
+      vulnerable_at: 0.8.3
+summary: usememos/memos missing Secure cookie attribute in github.com/usememos/memos
+cves:
+    - CVE-2022-4683
+ghsas:
+    - GHSA-qcw2-492v-57xj
+references:
+    - advisory: https://github.com/advisories/GHSA-qcw2-492v-57xj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-4683
+    - fix: https://github.com/usememos/memos/commit/7efa749c6628c75b19a912ca170529f5c293bb2e
+    - web: https://huntr.dev/bounties/84973f6b-739a-4d7e-8757-fc58cbbaf6ef
+source:
+    id: GHSA-qcw2-492v-57xj
+    created: 2024-08-20T14:53:56.364729-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

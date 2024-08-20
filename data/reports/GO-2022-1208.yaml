@@ -1,0 +1,25 @@
+id: GO-2022-1208
+modules:
+    - module: github.com/gotify/server
+      vulnerable_at: 1.2.1
+    - module: github.com/gotify/server/v2
+      versions:
+        - fixed: 2.2.2
+      vulnerable_at: 2.2.1
+summary: |-
+    gotify/server vulnerable to Cross-site Scripting in the application image file
+    upload in github.com/gotify/server
+cves:
+    - CVE-2022-46181
+ghsas:
+    - GHSA-xv6x-456v-24xh
+references:
+    - advisory: https://github.com/gotify/server/security/advisories/GHSA-xv6x-456v-24xh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-46181
+    - fix: https://github.com/gotify/server/pull/534
+    - fix: https://github.com/gotify/server/pull/535
+source:
+    id: GHSA-xv6x-456v-24xh
+    created: 2024-08-20T14:54:17.668824-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

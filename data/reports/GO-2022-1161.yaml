@@ -1,0 +1,23 @@
+id: GO-2022-1161
+modules:
+    - module: github.com/alist-org/alist
+      vulnerable_at: 1.0.6
+    - module: github.com/alist-org/alist/v3
+      versions:
+        - fixed: 3.5.1
+      vulnerable_at: 3.4.0
+summary: AList vulnerable to Improper Preservation of Permissions in github.com/alist-org/alist
+cves:
+    - CVE-2022-45968
+ghsas:
+    - GHSA-4gjr-vgfx-9qvw
+references:
+    - advisory: https://github.com/advisories/GHSA-4gjr-vgfx-9qvw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-45968
+    - fix: https://github.com/alist-org/alist/commit/85e1350af82e1759ca6580895e48ab969eb566cf
+    - report: https://github.com/alist-org/alist/issues/2444
+source:
+    id: GHSA-4gjr-vgfx-9qvw
+    created: 2024-08-20T14:53:02.97972-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

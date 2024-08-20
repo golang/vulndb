@@ -1,0 +1,22 @@
+id: GO-2022-1164
+modules:
+    - module: github.com/csaf-poc/csaf_distribution
+      versions:
+        - fixed: 0.8.2
+      vulnerable_at: 0.8.1
+summary: csaf-poc/csaf_distribution Cross-site Scripting vulnerability in github.com/csaf-poc/csaf_distribution
+cves:
+    - CVE-2022-43996
+ghsas:
+    - GHSA-xxfx-w2rw-gh63
+references:
+    - advisory: https://github.com/advisories/GHSA-xxfx-w2rw-gh63
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-43996
+    - fix: https://github.com/csaf-poc/csaf_distribution/commit/17f22855ee8d4270dd17ff748c30ed7304846fdc
+    - web: https://github.com/csaf-poc/csaf_distribution/releases/tag/v0.8.2
+    - web: https://wid.cert-bund.de/.well-known/csaf/white/2022/bsi-2022-0003.json
+source:
+    id: GHSA-xxfx-w2rw-gh63
+    created: 2024-08-20T14:53:09.415665-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

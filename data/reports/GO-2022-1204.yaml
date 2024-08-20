@@ -1,0 +1,21 @@
+id: GO-2022-1204
+modules:
+    - module: github.com/fkie-cad/yapscan
+      versions:
+        - introduced: 0.18.0
+        - fixed: 0.19.1
+      vulnerable_at: 0.19.0
+summary: Yapscan's report receiver server vulnerable to path traversal and log injection in github.com/fkie-cad/yapscan
+ghsas:
+    - GHSA-9h6h-9g78-86f7
+references:
+    - advisory: https://github.com/fkie-cad/yapscan/security/advisories/GHSA-9h6h-9g78-86f7
+    - fix: https://github.com/fkie-cad/yapscan/commit/a75a20b50be673b96b1d42187b97f8cfe60728df
+    - fix: https://github.com/fkie-cad/yapscan/commit/fef9a33ceb66f6b929839f7eaf393b629681bc5d
+    - report: https://github.com/fkie-cad/yapscan/issues/35
+    - web: https://github.com/fkie-cad/yapscan/releases/tag/v0.19.1
+source:
+    id: GHSA-9h6h-9g78-86f7
+    created: 2024-08-20T14:54:03.71442-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

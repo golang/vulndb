@@ -1,0 +1,21 @@
+id: GO-2022-1181
+modules:
+    - module: github.com/Azure/aad-pod-identity
+      versions:
+        - fixed: 1.8.13
+      vulnerable_at: 1.8.12
+summary: AAD Pod Identity obtaining token with backslash in github.com/Azure/aad-pod-identity
+cves:
+    - CVE-2022-23551
+ghsas:
+    - GHSA-p82q-rxpm-hjpc
+references:
+    - advisory: https://github.com/Azure/aad-pod-identity/security/advisories/GHSA-p82q-rxpm-hjpc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-23551
+    - fix: https://github.com/Azure/aad-pod-identity/commit/7e01970391bde6c360d077066ca17d059204cb5d
+    - web: https://github.com/Azure/aad-pod-identity/releases/tag/v1.8.13
+source:
+    id: GHSA-p82q-rxpm-hjpc
+    created: 2024-08-20T14:53:27.835686-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

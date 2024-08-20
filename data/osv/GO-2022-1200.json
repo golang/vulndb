@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2022-1200",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-46173",
+    "GHSA-p228-4mrh-ww7r"
+  ],
+  "summary": "Elrond-GO processing: fallback search of SCRs when not found in the main cache in github.com/ElrondNetwork/elrond-go",
+  "details": "Elrond-GO processing: fallback search of SCRs when not found in the main cache in github.com/ElrondNetwork/elrond-go",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/ElrondNetwork/elrond-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.3.50"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/ElrondNetwork/elrond-go/security/advisories/GHSA-p228-4mrh-ww7r"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-46173"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/ElrondNetwork/elrond-go/commit/39d7ddcb08bb34217dab6daef7cd9d287fb8cab3"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/ElrondNetwork/elrond-go/pull/4718"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2022-1200",
+    "review_status": "UNREVIEWED"
+  }
+}

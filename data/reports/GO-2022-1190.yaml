@@ -1,0 +1,21 @@
+id: GO-2022-1190
+modules:
+    - module: github.com/usememos/memos
+      versions:
+        - fixed: 0.9.0
+      vulnerable_at: 0.8.3
+summary: usememos/memos vulnerable to improper authorization in github.com/usememos/memos
+cves:
+    - CVE-2022-4688
+ghsas:
+    - GHSA-vwg4-846x-f94v
+references:
+    - advisory: https://github.com/advisories/GHSA-vwg4-846x-f94v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-4688
+    - fix: https://github.com/usememos/memos/commit/dca35bde877aab6e64ef51b52e590b5d48f692f9
+    - web: https://huntr.dev/bounties/23856e7e-94ff-4dee-97d0-0cd47e9b8ff6
+source:
+    id: GHSA-vwg4-846x-f94v
+    created: 2024-08-20T14:53:47.737998-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

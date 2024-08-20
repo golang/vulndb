@@ -1,0 +1,23 @@
+id: GO-2022-1171
+modules:
+    - module: github.com/alist-org/alist
+      vulnerable_at: 1.0.6
+    - module: github.com/alist-org/alist/v3
+      versions:
+        - fixed: 3.6.0
+      vulnerable_at: 3.5.1
+summary: Alist vulnerable to Path Traversal in github.com/alist-org/alist
+cves:
+    - CVE-2022-45969
+ghsas:
+    - GHSA-pmg2-rph8-p8r6
+references:
+    - advisory: https://github.com/advisories/GHSA-pmg2-rph8-p8r6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-45969
+    - fix: https://github.com/alist-org/alist/commit/b5bf5f43253175b55fa2cb511fea601e677d2d83
+    - report: https://github.com/alist-org/alist/issues/2449
+source:
+    id: GHSA-pmg2-rph8-p8r6
+    created: 2024-08-20T14:53:15.290117-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

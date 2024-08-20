@@ -1,0 +1,21 @@
+id: GO-2022-1205
+modules:
+    - module: github.com/usememos/memos
+      versions:
+        - fixed: 0.9.0
+      vulnerable_at: 0.8.3
+summary: usememos/memos vulnerable to improper access control in github.com/usememos/memos
+cves:
+    - CVE-2022-4685
+ghsas:
+    - GHSA-9v48-2h5x-fvpm
+references:
+    - advisory: https://github.com/advisories/GHSA-9v48-2h5x-fvpm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-4685
+    - fix: https://github.com/usememos/memos/commit/dca35bde877aab6e64ef51b52e590b5d48f692f9
+    - web: https://huntr.dev/bounties/015dbf52-8924-4aad-86d7-892cb61157af
+source:
+    id: GHSA-9v48-2h5x-fvpm
+    created: 2024-08-20T14:54:06.426535-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE
