@@ -1,0 +1,26 @@
+id: GO-2022-0638
+modules:
+    - module: github.com/docker/docker
+      versions:
+        - introduced: 1.6.0
+        - fixed: 1.6.1
+      vulnerable_at: 1.6.0
+summary: Information Exposure in Docker Engine in github.com/docker/docker
+cves:
+    - CVE-2015-3630
+ghsas:
+    - GHSA-8fvr-5rqf-3wwh
+references:
+    - advisory: https://github.com/advisories/GHSA-8fvr-5rqf-3wwh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2015-3630
+    - web: https://github.com/moby/moby/commit/545b440a80f676a506e5837678dd4c4f65e78660
+    - web: https://groups.google.com/forum/#%21searchin/docker-user/1.6.1/docker-user/47GZrihtr-4/nwgeOOFLexIJ
+    - web: https://lists.opensuse.org/opensuse-updates/2015-05/msg00023.html
+    - web: https://packetstormsecurity.com/files/131835/Docker-Privilege-Escalation-Information-Disclosure.html
+    - web: https://seclists.org/fulldisclosure/2015/May/28
+    - web: https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2015-3630
+source:
+    id: GHSA-8fvr-5rqf-3wwh
+    created: 2024-08-20T14:10:13.47594-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

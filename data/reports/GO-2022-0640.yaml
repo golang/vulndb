@@ -1,0 +1,23 @@
+id: GO-2022-0640
+modules:
+    - module: github.com/docker/docker
+      versions:
+        - fixed: 1.3.3
+      vulnerable_at: 1.3.2
+summary: Arbitrary Code Execution in github.com/docker/docker
+cves:
+    - CVE-2014-9357
+ghsas:
+    - GHSA-997c-fj8j-rq5h
+references:
+    - advisory: https://github.com/advisories/GHSA-997c-fj8j-rq5h
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2014-9357
+    - web: https://github.com/docker/docker/compare/aef842e7dfb534aba22c3c911de525ce9ac12b72...313a1b7620910e47d888f8b0a6a5eb06ad9c1ff2
+    - web: https://groups.google.com/forum/#%21msg/docker-user/nFAz-B-n4Bw/0wr3wvLsnUwJ
+    - web: https://groups.google.com/g/docker-user/c/nFAz-B-n4Bw/m/0wr3wvLsnUwJ
+    - web: https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-9357
+source:
+    id: GHSA-997c-fj8j-rq5h
+    created: 2024-08-20T14:10:23.139654-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

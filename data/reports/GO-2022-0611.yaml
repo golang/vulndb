@@ -1,0 +1,24 @@
+id: GO-2022-0611
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - introduced: 0.11.0
+        - fixed: 1.7.6
+        - introduced: 1.8.0
+        - fixed: 1.8.5
+      vulnerable_at: 1.8.4
+summary: HashiCorp Vault Incorrect Permission Assignment for Critical Resource in github.com/hashicorp/vault
+cves:
+    - CVE-2021-43998
+ghsas:
+    - GHSA-pfmw-vj74-ph8g
+references:
+    - advisory: https://github.com/advisories/GHSA-pfmw-vj74-ph8g
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-43998
+    - web: https://discuss.hashicorp.com/t/hcsec-2021-30-vaults-templated-acl-policies-matched-first-created-alias-per-entity-and-auth-backend/32132
+    - web: https://security.gentoo.org/glsa/202207-01
+source:
+    id: GHSA-pfmw-vj74-ph8g
+    created: 2024-08-20T14:07:30.148099-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

@@ -1,0 +1,27 @@
+id: GO-2022-0623
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - introduced: 0.10.0
+        - fixed: 1.5.9
+        - introduced: 1.6.0
+        - fixed: 1.6.5
+        - introduced: 1.7.0
+        - fixed: 1.7.2
+      vulnerable_at: 1.7.1
+summary: Invalid session token expiration in github.com/hashicorp/vault
+cves:
+    - CVE-2021-32923
+ghsas:
+    - GHSA-38j9-7pp9-2hjw
+references:
+    - advisory: https://github.com/advisories/GHSA-38j9-7pp9-2hjw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-32923
+    - web: https://discuss.hashicorp.com/t/hcsec-2021-15-vault-renewed-nearly-expired-leases-with-incorrect-non-expiring-ttls/24603
+    - web: https://security.gentoo.org/glsa/202207-01
+    - web: https://www.hashicorp.com/blog/category/vault
+source:
+    id: GHSA-38j9-7pp9-2hjw
+    created: 2024-08-20T14:08:18.853021-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

@@ -1,0 +1,25 @@
+id: GO-2022-0620
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - introduced: 1.4.0
+        - fixed: 1.8.0
+      vulnerable_at: 1.8.0-rc2
+summary: |-
+    HashiCorp Vault underlying database had excessively broad filesystem permissions
+    from v1.4.0 until v1.8.0 in github.com/hashicorp/vault
+cves:
+    - CVE-2021-38553
+ghsas:
+    - GHSA-23fq-q7hc-993r
+references:
+    - advisory: https://github.com/advisories/GHSA-23fq-q7hc-993r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-38553
+    - web: https://discuss.hashicorp.com/t/hcsec-2021-20-vault-s-integrated-storage-backend-database-file-may-have-excessively-broad-permissions/28168
+    - web: https://github.com/hashicorp/vault
+    - web: https://security.gentoo.org/glsa/202207-01
+source:
+    id: GHSA-23fq-q7hc-993r
+    created: 2024-08-20T14:08:11.221905-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

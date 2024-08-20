@@ -1,0 +1,23 @@
+id: GO-2022-0618
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - fixed: 1.7.5
+        - introduced: 1.8.0
+        - fixed: 1.8.4
+      vulnerable_at: 1.8.3
+summary: Hashicorp Vault Privilege Escalation Vulnerability in github.com/hashicorp/vault
+cves:
+    - CVE-2021-41802
+ghsas:
+    - GHSA-qv95-g3gm-x542
+references:
+    - advisory: https://github.com/advisories/GHSA-qv95-g3gm-x542
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-41802
+    - web: https://discuss.hashicorp.com/t/hcsec-2021-27-vault-merging-multiple-entity-aliases-for-the-same-mount-may-allow-privilege-escalation
+    - web: https://security.gentoo.org/glsa/202207-01
+source:
+    id: GHSA-qv95-g3gm-x542
+    created: 2024-08-20T14:08:07.229698-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

@@ -1,0 +1,25 @@
+id: GO-2022-0626
+modules:
+    - module: github.com/kiali/kiali
+      versions:
+        - introduced: 0.4.0
+        - fixed: 1.15.1
+      vulnerable_at: 1.15.0
+summary: Insufficient Session Expiration in Kiali in github.com/kiali/kiali
+cves:
+    - CVE-2020-1762
+ghsas:
+    - GHSA-465w-gg5p-85c9
+references:
+    - advisory: https://github.com/advisories/GHSA-465w-gg5p-85c9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-1762
+    - fix: https://github.com/kiali/kiali/commit/93f5cd0b6698e8fe8772afb8f35816f6c086aef1
+    - fix: https://github.com/kiali/kiali/commit/c91a0949683976f621cca213c1193831d63b381c
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=1810387
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2020-1762
+    - web: https://kiali.io/news/security-bulletins/kiali-security-001
+source:
+    id: GHSA-465w-gg5p-85c9
+    created: 2024-08-20T14:09:10.561986-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

@@ -1,0 +1,22 @@
+id: GO-2022-0622
+modules:
+    - module: github.com/hashicorp/nomad
+      versions:
+        - fixed: 0.12.10
+        - introduced: 1.0.0
+        - fixed: 1.0.3
+      vulnerable_at: 1.0.2
+summary: Improper Privilege Management in HashiCorp Nomad in github.com/hashicorp/nomad
+cves:
+    - CVE-2021-3283
+ghsas:
+    - GHSA-35qp-xq9f-2rjx
+references:
+    - advisory: https://github.com/advisories/GHSA-35qp-xq9f-2rjx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-3283
+    - web: https://discuss.hashicorp.com/t/hcsec-2021-01-nomad-s-exec-and-java-task-drivers-did-not-isolate-processes/20332
+source:
+    id: GHSA-35qp-xq9f-2rjx
+    created: 2024-08-20T14:08:15.152317-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

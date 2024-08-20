@@ -1,0 +1,24 @@
+id: GO-2022-0612
+modules:
+    - module: code.gitea.io/gitea
+      versions:
+        - fixed: 1.16.9
+      vulnerable_at: 1.16.8
+summary: Stored Cross-site Scripting in gitea in code.gitea.io/gitea
+cves:
+    - CVE-2022-1928
+ghsas:
+    - GHSA-ph3w-2843-72mx
+references:
+    - advisory: https://github.com/advisories/GHSA-ph3w-2843-72mx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-1928
+    - web: https://github.com/go-gitea/gitea
+    - web: https://github.com/go-gitea/gitea/commit/65e0688a5c9dacad50e71024b7529fdf0e3c2e9c
+    - web: https://github.com/go-gitea/gitea/pull/19825
+    - web: https://huntr.dev/bounties/6336ec42-5c4d-4f61-ae38-2bb539f433d2
+    - web: https://security.gentoo.org/glsa/202210-14
+source:
+    id: GHSA-ph3w-2843-72mx
+    created: 2024-08-20T14:07:34.444446-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

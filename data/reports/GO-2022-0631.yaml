@@ -1,0 +1,27 @@
+id: GO-2022-0631
+modules:
+    - module: github.com/kiali/kiali
+      versions:
+        - fixed: 1.15.1
+      vulnerable_at: 1.15.0
+summary: Hard coded cryptographic key in Kiali in github.com/kiali/kiali
+cves:
+    - CVE-2020-1764
+ghsas:
+    - GHSA-64rh-r86q-75ff
+references:
+    - advisory: https://github.com/advisories/GHSA-64rh-r86q-75ff
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-1764
+    - fix: https://github.com/kiali/kiali/commit/93f5cd0b6698e8fe8772afb8f35816f6c086aef1
+    - fix: https://github.com/kiali/kiali/commit/ac7bd6c7ddb2e01356e21d360dd1c718a90706ad
+    - fix: https://github.com/kiali/kiali/commit/ce48af57113c805a25179aaab1a0fac2fb93653f
+    - fix: https://github.com/kiali/kiali/commit/faed1f5f90efae3df9fd6fb793f00ccc242b3a96
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=1810383
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2020-1764
+    - web: https://github.com/jpts/cve-2020-1764-poc
+    - web: https://kiali.io/news/security-bulletins/kiali-security-001
+source:
+    id: GHSA-64rh-r86q-75ff
+    created: 2024-08-20T14:09:38.353246-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

@@ -1,0 +1,23 @@
+id: GO-2022-0641
+modules:
+    - module: github.com/containers/libpod
+      versions:
+        - fixed: 1.7.0
+      vulnerable_at: 1.7.0-rc2
+summary: Improper Authorization in github.com/containers/libpod
+cves:
+    - CVE-2021-20188
+ghsas:
+    - GHSA-9h63-7qf6-mv6r
+references:
+    - advisory: https://github.com/advisories/GHSA-9h63-7qf6-mv6r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-20188
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=1915734
+    - web: https://github.com/containers/podman/commit/2c7b579fe7328dc6db48bdaf60d0ddd9136b1e24
+    - web: https://github.com/containers/podman/commit/c8bd4746151e6ae37d49c4688f2f64e03db429fc
+    - web: https://github.com/containers/podman/commit/dcf3c742b1ac4d641d66810113f3d17441a412f4
+source:
+    id: GHSA-9h63-7qf6-mv6r
+    created: 2024-08-20T14:10:27.616295-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

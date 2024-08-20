@@ -1,0 +1,31 @@
+id: GO-2022-0616
+modules:
+    - module: github.com/mattermost/mattermost-server
+      vulnerable_at: 9.11.0+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      versions:
+        - fixed: 5.37.9
+      vulnerable_at: 5.37.8
+    - module: github.com/mattermost/mattermost-server/v6
+      versions:
+        - introduced: 6.0.0
+        - fixed: 6.2.5
+        - introduced: 6.3.0
+        - fixed: 6.3.5
+        - introduced: 6.4.0
+        - fixed: 6.4.2
+      vulnerable_at: 6.4.1
+summary: Improper Privilege Management in Mattermost in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2022-1332
+ghsas:
+    - GHSA-qggc-pj29-j27m
+references:
+    - advisory: https://github.com/advisories/GHSA-qggc-pj29-j27m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-1332
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-qggc-pj29-j27m
+    created: 2024-08-20T14:07:57.241395-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

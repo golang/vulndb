@@ -1,0 +1,27 @@
+id: GO-2022-0632
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - fixed: 1.6.6
+        - introduced: 1.7.0
+        - fixed: 1.7.4
+      vulnerable_at: 1.7.3
+summary: |-
+    Improper Removal of Sensitive Information Before Storage or Transfer in
+    HashiCorp Vault in github.com/hashicorp/vault
+cves:
+    - CVE-2021-38554
+ghsas:
+    - GHSA-6239-28c2-9mrm
+references:
+    - advisory: https://github.com/advisories/GHSA-6239-28c2-9mrm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-38554
+    - web: https://discuss.hashicorp.com/t/hcsec-2021-19-vault-s-ui-cached-user-viewed-secrets-between-shared-browser-sessions/28166
+    - web: https://github.com/hashicorp/vault/releases/tag/v1.6.6
+    - web: https://github.com/hashicorp/vault/releases/tag/v1.7.4
+    - web: https://security.gentoo.org/glsa/202207-01
+source:
+    id: GHSA-6239-28c2-9mrm
+    created: 2024-08-20T14:09:47.277074-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

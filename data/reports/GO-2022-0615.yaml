@@ -1,0 +1,32 @@
+id: GO-2022-0615
+modules:
+    - module: github.com/hashicorp/consul
+      versions:
+        - fixed: 1.9.17
+        - introduced: 1.10.0
+        - fixed: 1.10.10
+        - introduced: 1.11.0
+        - fixed: 1.11.5
+      vulnerable_at: 1.11.4
+summary: |-
+    Hashicorp Consul HTTP health check endpoints returning an HTTP redirect may be
+    abused as SSRF vector in github.com/hashicorp/consul
+cves:
+    - CVE-2022-29153
+ghsas:
+    - GHSA-q6h7-4qgw-2j9p
+references:
+    - advisory: https://github.com/advisories/GHSA-q6h7-4qgw-2j9p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-29153
+    - web: https://discuss.hashicorp.com
+    - web: https://discuss.hashicorp.com/t/hcsec-2022-10-consul-s-http-health-check-may-allow-server-side-request-forgery
+    - web: https://discuss.hashicorp.com/t/hcsec-2022-10-consul-s-http-health-check-may-allow-server-side-request-forgery/38393
+    - web: https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/RBODKZL7HQE5XXS3SA2VIDVL4LAA5RWH
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/RBODKZL7HQE5XXS3SA2VIDVL4LAA5RWH
+    - web: https://security.gentoo.org/glsa/202208-09
+    - web: https://security.netapp.com/advisory/ntap-20220602-0005
+source:
+    id: GHSA-q6h7-4qgw-2j9p
+    created: 2024-08-20T14:07:51.728517-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

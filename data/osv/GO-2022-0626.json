@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2022-0626",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-1762",
+    "GHSA-465w-gg5p-85c9"
+  ],
+  "summary": "Insufficient Session Expiration in Kiali in github.com/kiali/kiali",
+  "details": "Insufficient Session Expiration in Kiali in github.com/kiali/kiali",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/kiali/kiali",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.4.0"
+            },
+            {
+              "fixed": "1.15.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-465w-gg5p-85c9"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2020-1762"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kiali/kiali/commit/93f5cd0b6698e8fe8772afb8f35816f6c086aef1"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kiali/kiali/commit/c91a0949683976f621cca213c1193831d63b381c"
+    },
+    {
+      "type": "WEB",
+      "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1810387"
+    },
+    {
+      "type": "WEB",
+      "url": "https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2020-1762"
+    },
+    {
+      "type": "WEB",
+      "url": "https://kiali.io/news/security-bulletins/kiali-security-001"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2022-0626",
+    "review_status": "UNREVIEWED"
+  }
+}

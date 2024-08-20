@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2022-0632",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-38554",
+    "GHSA-6239-28c2-9mrm"
+  ],
+  "summary": "Improper Removal of Sensitive Information Before Storage or Transfer in HashiCorp Vault in github.com/hashicorp/vault",
+  "details": "Improper Removal of Sensitive Information Before Storage or Transfer in HashiCorp Vault in github.com/hashicorp/vault",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hashicorp/vault",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.6.6"
+            },
+            {
+              "introduced": "1.7.0"
+            },
+            {
+              "fixed": "1.7.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-6239-28c2-9mrm"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-38554"
+    },
+    {
+      "type": "WEB",
+      "url": "https://discuss.hashicorp.com/t/hcsec-2021-19-vault-s-ui-cached-user-viewed-secrets-between-shared-browser-sessions/28166"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/hashicorp/vault/releases/tag/v1.6.6"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/hashicorp/vault/releases/tag/v1.7.4"
+    },
+    {
+      "type": "WEB",
+      "url": "https://security.gentoo.org/glsa/202207-01"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2022-0632",
+    "review_status": "UNREVIEWED"
+  }
+}

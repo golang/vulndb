@@ -1,0 +1,24 @@
+id: GO-2022-0634
+modules:
+    - module: github.com/hashicorp/nomad
+      versions:
+        - fixed: 0.9.5
+      vulnerable_at: 0.9.4
+summary: Hashicorp Nomad Information Exposure Through Environmental Variables in github.com/hashicorp/nomad
+cves:
+    - CVE-2019-14802
+ghsas:
+    - GHSA-6hv3-7c34-4hx8
+references:
+    - advisory: https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-14802
+    - advisory: https://github.com/advisories/GHSA-6hv3-7c34-4hx8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2019-14802
+    - fix: https://github.com/hashicorp/nomad/commit/e8238305ef0b9ef37be3efd86a8d34bfbed5f63f
+    - fix: https://github.com/hashicorp/nomad/pull/6055
+    - web: https://github.com/hashicorp/nomad/releases/tag/v0.9.5
+    - web: https://www.hashicorp.com/blog/category/nomad
+source:
+    id: GHSA-6hv3-7c34-4hx8
+    created: 2024-08-20T14:09:59.334132-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

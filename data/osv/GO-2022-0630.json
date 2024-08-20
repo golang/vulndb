@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2022-0630",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2014-6407",
+    "GHSA-5qgp-p5jc-w2rm"
+  ],
+  "summary": "Arbitrary Code Execution in Docker in github.com/docker/docker",
+  "details": "Arbitrary Code Execution in Docker in github.com/docker/docker",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/docker/docker",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.3.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-5qgp-p5jc-w2rm"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2014-6407"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/docker/docker/commit/3ac6394b8082d4700483d52fbfe54914be537d9e"
+    },
+    {
+      "type": "WEB",
+      "url": "https://lists.fedoraproject.org/pipermail/package-announce/2014-December/145154.html"
+    },
+    {
+      "type": "WEB",
+      "url": "https://lists.opensuse.org/opensuse-security-announce/2014-12/msg00009.html"
+    },
+    {
+      "type": "WEB",
+      "url": "https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-6407"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.openwall.com/lists/oss-security/2014/11/24/5"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2022-0630",
+    "review_status": "UNREVIEWED"
+  }
+}
