@@ -1,0 +1,27 @@
+id: GO-2022-0304
+modules:
+    - module: github.com/argoproj/argo-cd
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - fixed: 2.1.9
+        - introduced: 2.2.0
+        - fixed: 2.2.4
+      vulnerable_at: 2.2.3
+summary: Path traversal and dereference of symlinks in Argo CD in github.com/argoproj/argo-cd
+cves:
+    - CVE-2022-24348
+ghsas:
+    - GHSA-63qx-x74g-jcr7
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-63qx-x74g-jcr7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-24348
+    - fix: https://github.com/argoproj/argo-cd/commit/78c2084f0febd159039ff785ddc2bd4ba1cecf88
+    - web: https://apiiro.com/blog/malicious-kubernetes-helm-charts-can-be-used-to-steal-sensitive-information-from-argo-cd-deployments
+    - web: https://github.com/argoproj/argo-cd/releases/tag/v2.1.9
+    - web: https://github.com/argoproj/argo-cd/releases/tag/v2.2.4
+source:
+    id: GHSA-63qx-x74g-jcr7
+    created: 2024-08-20T12:56:49.601119-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

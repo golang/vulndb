@@ -1,0 +1,19 @@
+id: GO-2022-0260
+modules:
+    - module: github.com/fluxcd/kustomize-controller
+      versions:
+        - fixed: 0.15.0
+      vulnerable_at: 0.14.1
+summary: Privilege escalation to cluster admin on multi-tenant environments in github.com/fluxcd/kustomize-controller
+cves:
+    - CVE-2021-41254
+ghsas:
+    - GHSA-35rf-v2jv-gfg7
+references:
+    - advisory: https://github.com/fluxcd/kustomize-controller/security/advisories/GHSA-35rf-v2jv-gfg7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-41254
+source:
+    id: GHSA-35rf-v2jv-gfg7
+    created: 2024-08-20T12:54:02.780064-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

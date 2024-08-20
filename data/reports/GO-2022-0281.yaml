@@ -1,0 +1,28 @@
+id: GO-2022-0281
+modules:
+    - module: github.com/containers/podman
+      vulnerable_at: 1.9.3
+    - module: github.com/containers/podman/v2
+      vulnerable_at: 2.2.1
+    - module: github.com/containers/podman/v3
+      versions:
+        - fixed: 3.4.3
+      vulnerable_at: 3.4.2
+summary: |-
+    Exposure of Sensitive Information to an Unauthorized Actor and Origin Validation
+    Error in podman in github.com/containers/podman
+cves:
+    - CVE-2021-4024
+ghsas:
+    - GHSA-3cf2-x423-x582
+references:
+    - advisory: https://github.com/advisories/GHSA-3cf2-x423-x582
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-4024
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2026675,
+    - web: https://github.com/containers/podman/releases/tag/v3.4.3
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/QFFVJ6S3ZRMPDYB7KYAWEMDHXFZYQPU3
+source:
+    id: GHSA-3cf2-x423-x582
+    created: 2024-08-20T12:55:24.303654-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

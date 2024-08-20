@@ -1,0 +1,20 @@
+id: GO-2022-0261
+modules:
+    - module: github.com/minio/console
+      versions:
+        - fixed: 0.12.3
+      vulnerable_at: 0.12.2
+summary: Authentication bypass issue in the Operator Console in github.com/minio/console
+cves:
+    - CVE-2021-41266
+ghsas:
+    - GHSA-4999-659w-mq36
+references:
+    - advisory: https://github.com/minio/console/security/advisories/GHSA-4999-659w-mq36
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-41266
+    - fix: https://github.com/minio/console/pull/1217
+source:
+    id: GHSA-4999-659w-mq36
+    created: 2024-08-20T12:54:05.540954-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

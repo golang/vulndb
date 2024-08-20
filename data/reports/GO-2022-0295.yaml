@@ -1,0 +1,23 @@
+id: GO-2022-0295
+modules:
+    - module: github.com/authzed/spicedb
+      versions:
+        - introduced: 1.3.0
+        - fixed: 1.4.0
+      vulnerable_at: 1.3.0
+summary: Lookup operations do not take into account wildcards in SpiceDB in github.com/authzed/spicedb
+cves:
+    - CVE-2022-21646
+ghsas:
+    - GHSA-7p8f-8hjm-wm92
+references:
+    - advisory: https://github.com/authzed/spicedb/security/advisories/GHSA-7p8f-8hjm-wm92
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-21646
+    - fix: https://github.com/authzed/spicedb/commit/15bba2e2d2a4bda336a37a7fe8ef8a35028cd970
+    - report: https://github.com/authzed/spicedb/issues/358
+    - web: https://github.com/authzed/spicedb/releases/tag/v1.4.0
+source:
+    id: GHSA-7p8f-8hjm-wm92
+    created: 2024-08-20T12:56:13.496889-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

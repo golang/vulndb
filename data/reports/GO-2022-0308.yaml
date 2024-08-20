@@ -1,0 +1,22 @@
+id: GO-2022-0308
+modules:
+    - module: github.com/go-gitea/gitea
+      versions:
+        - fixed: 1.7.0
+      vulnerable_at: 1.7.0-rc3
+summary: Gitea displaying raw OpenID error in UI in github.com/go-gitea/gitea
+cves:
+    - CVE-2021-45325
+ghsas:
+    - GHSA-8h8p-x289-vvqr
+references:
+    - advisory: https://github.com/advisories/GHSA-8h8p-x289-vvqr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-45325
+    - fix: https://github.com/go-gitea/gitea/pull/5705
+    - fix: https://github.com/go-gitea/gitea/pull/5712
+    - web: https://blog.gitea.io/2019/01/gitea-1.7.0-is-released
+source:
+    id: GHSA-8h8p-x289-vvqr
+    created: 2024-08-20T12:57:09.790238-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

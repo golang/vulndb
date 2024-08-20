@@ -1,0 +1,25 @@
+id: GO-2022-0278
+modules:
+    - module: github.com/containerd/containerd
+      versions:
+        - introduced: 1.5.0
+        - fixed: 1.5.9
+      vulnerable_at: 1.5.8
+summary: Unprivileged pod using `hostPath` can side-step active LSM when it is SELinux in github.com/containerd/containerd
+cves:
+    - CVE-2021-43816
+ghsas:
+    - GHSA-mvff-h3cj-wj9c
+references:
+    - advisory: https://github.com/containerd/containerd/security/advisories/GHSA-mvff-h3cj-wj9c
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-43816
+    - fix: https://github.com/containerd/containerd/commit/a731039238c62be081eb8c31525b988415745eea
+    - report: https://github.com/containerd/containerd/issues/6194
+    - web: https://github.com/dweomer/containerd/commit/f7f08f0e34fb97392b0d382e58916d6865100299
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/GD5GH7NMK5VJMA2Y5CYB5O5GTPYMWMLX
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/MPDIZMI7ZPERSZE2XO265UCK5IWM7CID
+source:
+    id: GHSA-mvff-h3cj-wj9c
+    created: 2024-08-20T12:54:59.121124-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

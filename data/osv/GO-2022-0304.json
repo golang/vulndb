@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2022-0304",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-24348",
+    "GHSA-63qx-x74g-jcr7"
+  ],
+  "summary": "Path traversal and dereference of symlinks in Argo CD in github.com/argoproj/argo-cd",
+  "details": "Path traversal and dereference of symlinks in Argo CD in github.com/argoproj/argo-cd",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-cd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-cd/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.1.9"
+            },
+            {
+              "introduced": "2.2.0"
+            },
+            {
+              "fixed": "2.2.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/argoproj/argo-cd/security/advisories/GHSA-63qx-x74g-jcr7"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-24348"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-cd/commit/78c2084f0febd159039ff785ddc2bd4ba1cecf88"
+    },
+    {
+      "type": "WEB",
+      "url": "https://apiiro.com/blog/malicious-kubernetes-helm-charts-can-be-used-to-steal-sensitive-information-from-argo-cd-deployments"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/argoproj/argo-cd/releases/tag/v2.1.9"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/argoproj/argo-cd/releases/tag/v2.2.4"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2022-0304",
+    "review_status": "UNREVIEWED"
+  }
+}

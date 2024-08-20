@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2022-0281",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2021-4024",
+    "GHSA-3cf2-x423-x582"
+  ],
+  "summary": "Exposure of Sensitive Information to an Unauthorized Actor and Origin Validation Error in podman in github.com/containers/podman",
+  "details": "Exposure of Sensitive Information to an Unauthorized Actor and Origin Validation Error in podman in github.com/containers/podman",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/containers/podman",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/containers/podman/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/containers/podman/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.4.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-3cf2-x423-x582"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-4024"
+    },
+    {
+      "type": "WEB",
+      "url": "https://bugzilla.redhat.com/show_bug.cgi?id=2026675,"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/containers/podman/releases/tag/v3.4.3"
+    },
+    {
+      "type": "WEB",
+      "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/QFFVJ6S3ZRMPDYB7KYAWEMDHXFZYQPU3"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2022-0281",
+    "review_status": "UNREVIEWED"
+  }
+}

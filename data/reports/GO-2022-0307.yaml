@@ -1,0 +1,29 @@
+id: GO-2022-0307
+modules:
+    - module: github.com/nats-io/nats-server
+      vulnerable_at: 1.4.1
+    - module: github.com/nats-io/nats-server/v2
+      versions:
+        - introduced: 2.0.0
+        - fixed: 2.7.2
+      vulnerable_at: 2.7.1
+    - module: github.com/nats-io/nats-streaming-server
+      versions:
+        - introduced: 0.15.0
+        - fixed: 0.24.1
+      vulnerable_at: 0.24.0
+summary: Incorrect Authorization in NATS nats-server in github.com/nats-io/nats-server
+cves:
+    - CVE-2022-24450
+ghsas:
+    - GHSA-g6w6-r76c-28j7
+references:
+    - advisory: https://github.com/nats-io/nats-server/security/advisories/GHSA-g6w6-r76c-28j7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-24450
+    - web: https://advisories.nats.io/CVE/CVE-2022-24450.txt
+    - web: https://github.com/nats-io/nats-server/releases/tag/v2.7.2
+source:
+    id: GHSA-g6w6-r76c-28j7
+    created: 2024-08-20T12:57:06.090056-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

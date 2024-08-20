@@ -1,0 +1,22 @@
+id: GO-2022-0250
+modules:
+    - module: github.com/cloudflare/cfrpki
+      versions:
+        - fixed: 1.4.0
+      vulnerable_at: 1.3.0
+summary: Infinite open connection causes OctoRPKI to hang forever in github.com/cloudflare/cfrpki
+cves:
+    - CVE-2021-3909
+ghsas:
+    - GHSA-8cvr-4rrf-f244
+references:
+    - advisory: https://github.com/cloudflare/cfrpki/security/advisories/GHSA-8cvr-4rrf-f244
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-3909
+    - web: https://github.com/cloudflare/cfrpki/releases/tag/v1.4.0
+    - web: https://www.debian.org/security/2021/dsa-5033
+    - web: https://www.debian.org/security/2022/dsa-5041
+source:
+    id: GHSA-8cvr-4rrf-f244
+    created: 2024-08-20T12:53:47.261004-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE
