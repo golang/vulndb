@@ -1,0 +1,21 @@
+id: GO-2022-0845
+modules:
+    - module: github.com/cloudflare/cloudflared
+      versions:
+        - fixed: 0.0.0-20200820025921-9323844ea773
+summary: Local Privilege Escalation in cloudflared in github.com/cloudflare/cloudflared
+cves:
+    - CVE-2020-24356
+ghsas:
+    - GHSA-hgwp-4vp4-qmm2
+references:
+    - advisory: https://github.com/cloudflare/cloudflared/security/advisories/GHSA-hgwp-4vp4-qmm2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-24356
+    - fix: https://github.com/cloudflare/cloudflared/commit/9323844ea773b1444460fa09295ab8c01a88d97e
+notes:
+    - fix: 'github.com/cloudflare/cloudflared: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-hgwp-4vp4-qmm2
+    created: 2024-08-20T14:22:08.021469-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

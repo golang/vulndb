@@ -1,0 +1,23 @@
+id: GO-2022-0833
+modules:
+    - module: github.com/appc/docker2aci
+      versions:
+        - fixed: 0.13.0
+      vulnerable_at: 0.12.3
+summary: Denial of Service in docker2aci in github.com/appc/docker2aci
+cves:
+    - CVE-2016-8579
+ghsas:
+    - GHSA-gfh2-7jg5-653p
+references:
+    - advisory: https://github.com/advisories/GHSA-gfh2-7jg5-653p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2016-8579
+    - fix: https://github.com/appc/docker2aci/pull/204/commits/54331ec7020e102935c31096f336d31f6400064f
+    - report: https://github.com/appc/docker2aci/issues/203
+    - web: https://github.com/appc/docker2aci/releases/tag/v0.13.0
+    - web: https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2016-8579
+source:
+    id: GHSA-gfh2-7jg5-653p
+    created: 2024-08-20T14:20:41.795862-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

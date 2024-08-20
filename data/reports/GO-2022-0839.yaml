@@ -1,0 +1,23 @@
+id: GO-2022-0839
+modules:
+    - module: github.com/hashicorp/terraform
+      versions:
+        - fixed: 0.12.17
+      vulnerable_at: 0.12.16
+summary: Use of a Broken or Risky Cryptographic Algorithm in Terraform in github.com/hashicorp/terraform
+cves:
+    - CVE-2019-19316
+ghsas:
+    - GHSA-4rvg-555h-r626
+    - GHSA-h3p9-wrgx-82cm
+references:
+    - advisory: https://github.com/advisories/GHSA-h3p9-wrgx-82cm
+    - advisory: https://github.com/hashicorp/terraform/security/advisories/GHSA-4rvg-555h-r626
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2019-19316
+    - fix: https://github.com/hashicorp/terraform/commit/6db3cf8e5b4cfb2a3cd1d99a813b50b2d5d363bb
+    - report: https://github.com/hashicorp/terraform/issues/23493
+source:
+    id: GHSA-h3p9-wrgx-82cm
+    created: 2024-08-20T14:21:38.537569-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

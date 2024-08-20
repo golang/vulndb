@@ -1,0 +1,22 @@
+id: GO-2022-0838
+modules:
+    - module: github.com/go-vela/compiler
+      versions:
+        - fixed: 0.6.1
+      vulnerable_at: 0.6.0
+summary: Exposure of server configuration in github.com/go-vela/server in github.com/go-vela/compiler
+cves:
+    - CVE-2020-26294
+ghsas:
+    - GHSA-gv2h-gf8m-r68j
+references:
+    - advisory: https://github.com/go-vela/compiler/security/advisories/GHSA-gv2h-gf8m-r68j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-26294
+    - fix: https://github.com/go-vela/compiler/commit/f1ace5f8a05c95c4d02264556e38a959ee2d9bda
+    - web: https://github.com/helm/helm/blob/6297c021cbda1483d8c08a8ec6f4a99e38be7302/pkg/engine/funcs.go#L46-L47
+    - web: https://pkg.go.dev/github.com/go-vela/compiler/compiler
+source:
+    id: GHSA-gv2h-gf8m-r68j
+    created: 2024-08-20T14:21:34.520349-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

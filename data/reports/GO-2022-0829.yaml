@@ -1,0 +1,18 @@
+id: GO-2022-0829
+modules:
+    - module: github.com/crypto-org-chain/cronos
+      versions:
+        - fixed: 0.8.0
+      vulnerable_at: 0.8.0-gravity-alpha3-patch
+summary: Cronos vulnerable to DoS through unintended Contract Selfdestruct in github.com/crypto-org-chain/cronos
+ghsas:
+    - GHSA-gwj5-wp6r-5q9f
+references:
+    - advisory: https://github.com/crypto-org-chain/cronos/security/advisories/GHSA-gwj5-wp6r-5q9f
+    - fix: https://github.com/crypto-org-chain/cronos/commit/2f2cc88b501b47149690fdef05afbbbe5bc116c9
+    - web: https://nvd.nist.gov/vuln/detail/CVE-2022-35936
+source:
+    id: GHSA-gwj5-wp6r-5q9f
+    created: 2024-08-20T14:20:21.879812-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

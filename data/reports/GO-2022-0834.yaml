@@ -1,0 +1,23 @@
+id: GO-2022-0834
+modules:
+    - module: github.com/jaegertracing/jaeger
+      versions:
+        - fixed: 1.18.1
+      vulnerable_at: 1.18.0
+summary: Information Exposure in jaeger in github.com/jaegertracing/jaeger
+cves:
+    - CVE-2020-10750
+ghsas:
+    - GHSA-gh32-pc56-4c96
+references:
+    - advisory: https://github.com/advisories/GHSA-gh32-pc56-4c96
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-10750
+    - fix: https://github.com/jaegertracing/jaeger/commit/360c38bec3f9718ebba7ddbf0b409b05995f3ace
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=1838401
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2020-10750
+    - web: https://github.com/jaegertracing/jaeger/releases/tag/v1.18.1
+source:
+    id: GHSA-gh32-pc56-4c96
+    created: 2024-08-20T14:20:46.652672-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

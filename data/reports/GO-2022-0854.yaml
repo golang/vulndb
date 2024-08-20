@@ -1,0 +1,27 @@
+id: GO-2022-0854
+modules:
+    - module: github.com/openshift/origin
+      versions:
+        - fixed: 1.1.1
+      vulnerable_at: 1.0.8
+summary: Authorization bypass in Openshift in github.com/openshift/origin
+cves:
+    - CVE-2016-1906
+ghsas:
+    - GHSA-m3fm-h5jp-q79p
+references:
+    - advisory: https://github.com/advisories/GHSA-m3fm-h5jp-q79p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2016-1906
+    - fix: https://github.com/openshift/origin/commit/d95ec085f03ecf10e8c424a4f0340ddb38891406
+    - fix: https://github.com/openshift/origin/pull/6576
+    - report: https://github.com/openshift/origin/issues/6556
+    - web: https://access.redhat.com/errata/RHSA-2016:0070
+    - web: https://access.redhat.com/errata/RHSA-2016:0351
+    - web: https://access.redhat.com/security/cve/CVE-2016-1906
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=1297916
+    - web: https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2016-1906
+source:
+    id: GHSA-m3fm-h5jp-q79p
+    created: 2024-08-20T14:22:57.858293-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

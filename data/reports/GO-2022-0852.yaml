@@ -1,0 +1,26 @@
+id: GO-2022-0852
+modules:
+    - module: github.com/nats-io/nats-server
+      vulnerable_at: 1.4.1
+    - module: github.com/nats-io/nats-server/v2
+      versions:
+        - fixed: 2.2.0
+      vulnerable_at: 2.1.9
+summary: Integer Overflow or Wraparound in NATS Server in github.com/nats-io/nats-server
+cves:
+    - CVE-2019-13126
+ghsas:
+    - GHSA-jp4j-47f9-2vc3
+references:
+    - advisory: https://github.com/advisories/GHSA-jp4j-47f9-2vc3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2019-13126
+    - fix: https://github.com/nats-io/nats-server/commit/07ef71ff98f45f8c2711be4aeaf484610d891dda
+    - fix: https://github.com/nats-io/nats-server/commits/master
+    - fix: https://github.com/nats-io/nats-server/pull/1053
+    - fix: https://github.com/nats-io/nats-server/pull/1441
+    - web: https://www.twistlock.com/labs-blog/finding-dos-vulnerability-nats-go-fuzz-cve-2019-13126
+source:
+    id: GHSA-jp4j-47f9-2vc3
+    created: 2024-08-20T14:22:47.912336-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

@@ -1,0 +1,27 @@
+id: GO-2022-0847
+modules:
+    - module: github.com/hashicorp/consul
+      versions:
+        - introduced: 1.6.0
+        - fixed: 1.6.6
+        - introduced: 1.7.0
+        - fixed: 1.7.4
+      vulnerable_at: 1.7.3
+summary: Incorrect Permission Assignment for Critical Resource in Hashicorp Consul in github.com/hashicorp/consul
+cves:
+    - CVE-2020-12797
+ghsas:
+    - GHSA-hwqm-x785-qh8p
+references:
+    - advisory: https://github.com/advisories/GHSA-hwqm-x785-qh8p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-12797
+    - fix: https://github.com/hashicorp/consul/commit/98eea08d3ba1b220a14cf6eedf3b6b07ae2795d7
+    - fix: https://github.com/hashicorp/consul/pull/8047
+    - report: https://github.com/hashicorp/consul/issues/5606
+    - web: https://github.com/hashicorp/consul/blob/v1.6.6/CHANGELOG.md
+    - web: https://github.com/hashicorp/consul/blob/v1.7.4/CHANGELOG.md
+source:
+    id: GHSA-hwqm-x785-qh8p
+    created: 2024-08-20T14:22:16.678333-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

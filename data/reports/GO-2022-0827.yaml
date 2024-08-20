@@ -1,0 +1,21 @@
+id: GO-2022-0827
+modules:
+    - module: github.com/pomerium/pomerium
+      versions:
+        - introduced: 0.10.0
+        - fixed: 0.13.4
+      vulnerable_at: 0.13.3
+summary: pomerium_signature is not verified in middleware in github.com/pomerium/pomerium
+cves:
+    - CVE-2021-29652
+ghsas:
+    - GHSA-fv82-r8qv-ch4v
+references:
+    - advisory: https://github.com/pomerium/pomerium/security/advisories/GHSA-fv82-r8qv-ch4v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-29652
+    - fix: https://github.com/pomerium/pomerium/pull/2048
+source:
+    id: GHSA-fv82-r8qv-ch4v
+    created: 2024-08-20T14:20:08.47577-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

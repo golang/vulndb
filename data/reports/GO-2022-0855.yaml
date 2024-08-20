@@ -1,0 +1,26 @@
+id: GO-2022-0855
+modules:
+    - module: github.com/nats-io/nats-server
+      vulnerable_at: 1.4.1
+    - module: github.com/nats-io/nats-server/v2
+      versions:
+        - fixed: 2.2.0
+      vulnerable_at: 2.1.9
+summary: Denial of service in github.com/nats-io/nats-server/server in github.com/nats-io/nats-server
+cves:
+    - CVE-2020-28466
+ghsas:
+    - GHSA-m4jx-6526-vvhm
+references:
+    - advisory: https://github.com/advisories/GHSA-m4jx-6526-vvhm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-28466
+    - fix: https://github.com/nats-io/nats-server/pull/1731
+    - fix: https://github.com/nats-io/nats-server/pull/1731/commits/2e3c22672936f4980d343fb1d328b38919e74796
+    - web: http://www.openwall.com/lists/oss-security/2021/03/16/1
+    - web: http://www.openwall.com/lists/oss-security/2021/03/16/2
+    - web: https://snyk.io/vuln/SNYK-GOLANG-GITHUBCOMNATSIONATSSERVERSERVER-1042967
+source:
+    id: GHSA-m4jx-6526-vvhm
+    created: 2024-08-20T14:23:05.522146-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

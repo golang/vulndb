@@ -1,0 +1,22 @@
+id: GO-2022-0840
+modules:
+    - module: github.com/hashicorp/nomad
+      versions:
+        - fixed: 0.10.3
+      vulnerable_at: 0.10.2
+summary: Allocation of Resources Without Limits or Throttling in HashiCorp Nomad in github.com/hashicorp/nomad
+cves:
+    - CVE-2020-7218
+ghsas:
+    - GHSA-h43v-26r7-7j4c
+references:
+    - advisory: https://github.com/advisories/GHSA-h43v-26r7-7j4c
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-7218
+    - fix: https://github.com/hashicorp/nomad/pull/7022
+    - report: https://github.com/hashicorp/nomad/issues/7002
+    - web: https://www.hashicorp.com/blog/category/nomad
+source:
+    id: GHSA-h43v-26r7-7j4c
+    created: 2024-08-20T14:21:42.391924-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE
