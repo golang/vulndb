@@ -1,0 +1,20 @@
+id: GO-2023-2340
+modules:
+    - module: github.com/kyverno/kyverno
+      versions:
+        - fixed: 1.10.5
+      vulnerable_at: 1.10.4
+summary: Attacker can cause Kyverno user to unintentionally consume insecure image in github.com/kyverno/kyverno
+cves:
+    - CVE-2023-47630
+ghsas:
+    - GHSA-3hfq-cx9j-923w
+references:
+    - advisory: https://github.com/kyverno/kyverno/security/advisories/GHSA-3hfq-cx9j-923w
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-47630
+    - web: https://github.com/kyverno/kyverno/releases/tag/v1.11.0
+source:
+    id: GHSA-3hfq-cx9j-923w
+    created: 2024-08-20T12:15:58.763259-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

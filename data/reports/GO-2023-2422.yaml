@@ -1,0 +1,24 @@
+id: GO-2023-2422
+modules:
+    - module: github.com/deis/workflow-manager
+      versions:
+        - fixed: 2.3.3+incompatible
+      vulnerable_at: 2.3.2+incompatible
+summary: Deis Workflow Manager race condition vulnerability in github.com/deis/workflow-manager
+cves:
+    - CVE-2016-15036
+ghsas:
+    - GHSA-jpfp-xq3p-4h3r
+references:
+    - advisory: https://github.com/advisories/GHSA-jpfp-xq3p-4h3r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2016-15036
+    - fix: https://github.com/deis/workflow-manager/commit/31fe3bccbdde134a185752e53380330d16053f7f
+    - fix: https://github.com/deis/workflow-manager/pull/94
+    - web: https://github.com/deis/workflow-manager/releases/tag/v2.3.3
+    - web: https://vuldb.com/?ctiid.248847
+    - web: https://vuldb.com/?id.248847
+source:
+    id: GHSA-jpfp-xq3p-4h3r
+    created: 2024-08-20T12:22:41.208519-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

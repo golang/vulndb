@@ -1,0 +1,28 @@
+id: GO-2023-2376
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.10.6
+      vulnerable_at: 2.10.5
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - fixed: 3.0.0-beta5
+      vulnerable_at: 3.0.0-beta4
+summary: Traefik incorrectly processes fragment in the URL, leads to Authorization Bypass in github.com/traefik/traefik
+cves:
+    - CVE-2023-47106
+ghsas:
+    - GHSA-fvhj-4qfh-q2hm
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-fvhj-4qfh-q2hm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-47106
+    - web: https://datatracker.ietf.org/doc/html/rfc7230#section-5.3.1
+    - web: https://github.com/traefik/traefik/releases/tag/v2.10.6
+    - web: https://github.com/traefik/traefik/releases/tag/v3.0.0-beta5
+source:
+    id: GHSA-fvhj-4qfh-q2hm
+    created: 2024-08-20T12:20:31.685662-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

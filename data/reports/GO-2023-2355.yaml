@@ -1,0 +1,24 @@
+id: GO-2023-2355
+modules:
+    - module: knative.dev/serving
+      versions:
+        - fixed: 0.39.0
+      vulnerable_at: 0.38.6
+summary: |-
+    Knative Serving vulnerable to attacker-controlled pod causing denial of service
+    of autoscaler in knative.dev/serving
+cves:
+    - CVE-2023-48713
+ghsas:
+    - GHSA-qmvj-4qr9-v547
+references:
+    - advisory: https://github.com/knative/serving/security/advisories/GHSA-qmvj-4qr9-v547
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-48713
+    - web: https://github.com/knative/serving/commit/012ee2509231b80b7842139bfabc30516d3026ca
+    - web: https://github.com/knative/serving/commit/101f814112b9ca0767f457e7e616b46205551cf1
+    - web: https://github.com/knative/serving/commit/fff40ef7bac9be8380ec3d1c70fc15b57093382a
+source:
+    id: GHSA-qmvj-4qr9-v547
+    created: 2024-08-20T12:19:28.431383-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

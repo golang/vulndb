@@ -1,0 +1,27 @@
+id: GO-2023-2377
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.10.6
+      vulnerable_at: 2.10.5
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - fixed: 3.0.0-beta5
+      vulnerable_at: 3.0.0-beta4
+summary: Traefik docker container using 100% CPU in github.com/traefik/traefik
+cves:
+    - CVE-2023-47633
+ghsas:
+    - GHSA-6fwg-jrfw-ff7p
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-6fwg-jrfw-ff7p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-47633
+    - web: https://github.com/traefik/traefik/releases/tag/v2.10.6
+    - web: https://github.com/traefik/traefik/releases/tag/v3.0.0-beta5
+source:
+    id: GHSA-6fwg-jrfw-ff7p
+    created: 2024-08-20T12:20:35.798219-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

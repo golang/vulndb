@@ -1,0 +1,20 @@
+id: GO-2023-2351
+modules:
+    - module: github.com/projectcapsule/capsule-proxy
+      versions:
+        - fixed: 0.4.6
+      vulnerable_at: 0.4.5
+summary: Capsule Proxy Authentication bypass using an empty token in github.com/projectcapsule/capsule-proxy
+cves:
+    - CVE-2023-48312
+ghsas:
+    - GHSA-fpvw-6m5v-hqfp
+references:
+    - advisory: https://github.com/projectcapsule/capsule-proxy/security/advisories/GHSA-fpvw-6m5v-hqfp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-48312
+    - fix: https://github.com/projectcapsule/capsule-proxy/commit/472404f7006a4152e4eec76dee07324dd1e6e823
+source:
+    id: GHSA-fpvw-6m5v-hqfp
+    created: 2024-08-20T12:17:25.847809-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

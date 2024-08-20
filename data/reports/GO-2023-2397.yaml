@@ -1,0 +1,18 @@
+id: GO-2023-2397
+modules:
+    - module: github.com/treeverse/lakefs
+      versions:
+        - fixed: 1.3.1
+      vulnerable_at: 1.3.0
+summary: |-
+    User with permission to write actions can impersonate another user when auth
+    token is configured in environment variable in github.com/treeverse/lakefs
+ghsas:
+    - GHSA-26hr-q2wp-rvc5
+references:
+    - advisory: https://github.com/treeverse/lakeFS/security/advisories/GHSA-26hr-q2wp-rvc5
+source:
+    id: GHSA-26hr-q2wp-rvc5
+    created: 2024-08-20T12:22:26.133654-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

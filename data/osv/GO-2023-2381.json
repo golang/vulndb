@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-2381",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-47124",
+    "GHSA-8g85-whqh-cr2f"
+  ],
+  "summary": "Traefik vulnerable to potential DDoS via ACME HTTPChallenge in github.com/traefik/traefik",
+  "details": "Traefik vulnerable to potential DDoS via ACME HTTPChallenge in github.com/traefik/traefik",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/traefik/traefik",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/traefik/traefik/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.10.6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/traefik/traefik/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.0.0-beta5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/traefik/traefik/security/advisories/GHSA-8g85-whqh-cr2f"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-47124"
+    },
+    {
+      "type": "WEB",
+      "url": "https://doc.traefik.io/traefik/https/acme/#dnschallenge"
+    },
+    {
+      "type": "WEB",
+      "url": "https://doc.traefik.io/traefik/https/acme/#httpchallenge"
+    },
+    {
+      "type": "WEB",
+      "url": "https://doc.traefik.io/traefik/https/acme/#tlschallenge"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/traefik/traefik/releases/tag/v2.10.6"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/traefik/traefik/releases/tag/v3.0.0-beta5"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.cloudflare.com/learning/ddos/ddos-attack-tools/slowloris"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-2381",
+    "review_status": "UNREVIEWED"
+  }
+}

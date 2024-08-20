@@ -1,0 +1,22 @@
+id: GO-2023-2388
+modules:
+    - module: knative.dev/eventing-github
+      versions:
+        - fixed: 0.39.1
+      vulnerable_at: 0.39.0
+summary: |-
+    eventing-github vulnerable to denial of service caused by improper enforcement
+    of the timeout on individual read operations in knative.dev/eventing-github
+ghsas:
+    - GHSA-v7hc-87jc-qrrr
+references:
+    - advisory: https://github.com/knative-extensions/eventing-github/security/advisories/GHSA-v7hc-87jc-qrrr
+    - web: https://github.com/knative-extensions/eventing-github/commit/ea5cb8b25fc3410dde45ce2eb95454e4cfe77c40
+    - web: https://github.com/knative-extensions/eventing-github/pull/442
+    - web: https://github.com/knative-extensions/eventing-github/pull/446
+    - web: https://github.com/knative-extensions/eventing-github/pull/447
+source:
+    id: GHSA-v7hc-87jc-qrrr
+    created: 2024-08-20T12:20:42.735687-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

@@ -1,0 +1,36 @@
+id: GO-2023-2341
+modules:
+    - module: k8s.io/kubernetes
+      versions:
+        - fixed: 1.25.16
+        - introduced: 1.26.0
+        - fixed: 1.26.11
+        - introduced: 1.27.0
+        - fixed: 1.27.8
+        - introduced: 1.28.0
+        - fixed: 1.28.4
+      vulnerable_at: 1.28.3
+summary: Kubernetes Improper Input Validation vulnerability in k8s.io/kubernetes
+cves:
+    - CVE-2023-5528
+ghsas:
+    - GHSA-hq6q-c2x6-hmch
+references:
+    - advisory: https://github.com/advisories/GHSA-hq6q-c2x6-hmch
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-5528
+    - web: https://github.com/kubernetes/kubernetes/issues/121879
+    - web: https://github.com/kubernetes/kubernetes/pull/121881
+    - web: https://github.com/kubernetes/kubernetes/pull/121882
+    - web: https://github.com/kubernetes/kubernetes/pull/121883
+    - web: https://github.com/kubernetes/kubernetes/pull/121884
+    - web: https://github.com/kubernetes/kubernetes/pull/121885
+    - web: https://groups.google.com/g/kubernetes-security-announce/c/SL_d4NR8pzA
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/3JH444PWZBINXLLFV7XLIJIZJHSK6UEZ
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/4XZIX727JIKF5RQW7RVVBLWXBCDIBJA7
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/7MPGMITSZXUCAVO7Q75675SOLXC2XXU4
+    - web: https://security.netapp.com/advisory/ntap-20240119-0009
+source:
+    id: GHSA-hq6q-c2x6-hmch
+    created: 2024-08-20T12:16:02.633001-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE
