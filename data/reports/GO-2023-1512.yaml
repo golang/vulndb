@@ -1,0 +1,26 @@
+id: GO-2023-1512
+modules:
+    - module: github.com/argoproj/argo-cd
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - introduced: 2.5.0-rc1
+        - fixed: 2.5.8
+        - introduced: 2.6.0-rc4
+        - fixed: 2.6.0-rc5
+      vulnerable_at: 2.6.0-rc4
+summary: |-
+    Controller reconciles apps outside configured namespaces when sharding is
+    enabled in github.com/argoproj/argo-cd
+cves:
+    - CVE-2023-22736
+ghsas:
+    - GHSA-6p4m-hw2h-6gmw
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-6p4m-hw2h-6gmw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-22736
+source:
+    id: GHSA-6p4m-hw2h-6gmw
+    created: 2024-08-20T11:30:16.206192-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

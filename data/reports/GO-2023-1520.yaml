@@ -1,0 +1,29 @@
+id: GO-2023-1520
+modules:
+    - module: github.com/argoproj/argo-cd
+      versions:
+        - introduced: 1.8.2
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - fixed: 2.3.14
+        - introduced: 2.4.0
+        - fixed: 2.4.20
+        - introduced: 2.5.0
+        - fixed: 2.5.8
+        - introduced: 2.6.0-rc1
+        - fixed: 2.6.0-rc5
+      vulnerable_at: 2.6.0-rc4
+summary: JWT audience claim is not verified in github.com/argoproj/argo-cd
+cves:
+    - CVE-2023-22482
+ghsas:
+    - GHSA-q9hr-j4rf-8fjc
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-q9hr-j4rf-8fjc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-22482
+source:
+    id: GHSA-q9hr-j4rf-8fjc
+    created: 2024-08-20T11:30:39.456082-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

@@ -1,0 +1,20 @@
+id: GO-2023-1524
+modules:
+    - module: fortio.org/proxy
+      versions:
+        - introduced: 1.5.0
+        - fixed: 1.6.1
+      vulnerable_at: 1.6.0
+summary: |-
+    Initial debug-host handler implementation could leak information and facilitate
+    denial of service in fortio.org/proxy
+ghsas:
+    - GHSA-x477-fq37-q5wr
+references:
+    - advisory: https://github.com/fortio/proxy/security/advisories/GHSA-x477-fq37-q5wr
+    - web: https://github.com/fortio/proxy/pull/38
+source:
+    id: GHSA-x477-fq37-q5wr
+    created: 2024-08-20T11:30:42.587992-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

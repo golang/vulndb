@@ -1,0 +1,21 @@
+id: GO-2023-1553
+modules:
+    - module: github.com/answerdev/answer
+      versions:
+        - fixed: 1.0.4
+      vulnerable_at: 1.0.3
+summary: Answer vulnerable to Race Condition in github.com/answerdev/answer
+cves:
+    - CVE-2023-0739
+ghsas:
+    - GHSA-qx34-47fc-vv79
+references:
+    - advisory: https://github.com/advisories/GHSA-qx34-47fc-vv79
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-0739
+    - fix: https://github.com/answerdev/answer/commit/1ee34b884b905d14d4db457563176b77a974b992
+    - web: https://huntr.dev/bounties/93d7fac9-50be-4624-9096-45b89fbfd4ae
+source:
+    id: GHSA-qx34-47fc-vv79
+    created: 2024-08-20T11:31:26.368766-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

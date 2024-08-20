@@ -1,0 +1,22 @@
+id: GO-2023-1543
+modules:
+    - module: github.com/nothub/mrpack-install
+      versions:
+        - fixed: 0.16.3
+      vulnerable_at: 0.16.2
+summary: mrpack-install vulnerable to path traversal with dependency in github.com/nothub/mrpack-install
+cves:
+    - CVE-2023-25307
+ghsas:
+    - GHSA-r887-gfxh-m9rr
+references:
+    - advisory: https://github.com/nothub/mrpack-install/security/advisories/GHSA-r887-gfxh-m9rr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-25307
+    - fix: https://github.com/nothub/mrpack-install/commit/a1f424b6a616d2de95228781eef3b92b9769f23c
+    - web: https://github.com/nothub/mrpack-install/releases/tag/v0.16.3
+    - web: https://quiltmc.org/en/blog/2023-02-04-five-installer-vulnerabilities
+source:
+    id: GHSA-r887-gfxh-m9rr
+    created: 2024-08-20T11:31:00.285248-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1544",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2020-1726",
+    "GHSA-vmhj-p9hw-vgrf"
+  ],
+  "summary": "Podman has Files or Directories Accessible to External Parties in github.com/containers/libpod",
+  "details": "Podman has Files or Directories Accessible to External Parties in github.com/containers/libpod",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/containers/libpod",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.6.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/containers/libpod/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.0.6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-vmhj-p9hw-vgrf"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2020-1726"
+    },
+    {
+      "type": "WEB",
+      "url": "http://lists.opensuse.org/opensuse-security-announce/2020-09/msg00097.html"
+    },
+    {
+      "type": "WEB",
+      "url": "http://lists.opensuse.org/opensuse-security-announce/2020-09/msg00103.html"
+    },
+    {
+      "type": "WEB",
+      "url": "https://access.redhat.com/errata/RHSA-2020:0680"
+    },
+    {
+      "type": "WEB",
+      "url": "https://access.redhat.com/errata/RHSA-2020:1650"
+    },
+    {
+      "type": "WEB",
+      "url": "https://access.redhat.com/security/cve/CVE-2020-1726"
+    },
+    {
+      "type": "WEB",
+      "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1801152"
+    },
+    {
+      "type": "WEB",
+      "url": "https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2020-1726"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/containers/podman/commit/c140ecdc9b416ab4efd4d21d14acd63b6adbdd42"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1544",
+    "review_status": "UNREVIEWED"
+  }
+}

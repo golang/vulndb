@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1542",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-25152",
+    "GHSA-p8r3-83r8-jwj5"
+  ],
+  "summary": "Pterodactyl Wings contains UNIX Symbolic Link (Symlink) Following in github.com/pterodactyl/wings",
+  "details": "Pterodactyl Wings contains UNIX Symbolic Link (Symlink) Following in github.com/pterodactyl/wings",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/pterodactyl/wings",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.7.3"
+            },
+            {
+              "introduced": "1.11.0"
+            },
+            {
+              "fixed": "1.11.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/pterodactyl/wings/security/advisories/GHSA-p8r3-83r8-jwj5"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-25152"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/pterodactyl/wings/commit/dac9685298c3c1c49b3109fa4241aa88272b9f14"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/pterodactyl/wings/releases/tag/v1.11.3"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/pterodactyl/wings/releases/tag/v1.7.3"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1542",
+    "review_status": "UNREVIEWED"
+  }
+}

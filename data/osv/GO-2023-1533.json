@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1533",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-24827",
+    "GHSA-jp7v-3587-2956"
+  ],
+  "summary": "Credential disclosure in syft when SYFT_ATTEST_PASSWORD environment variable set in github.com/anchore/syft",
+  "details": "Credential disclosure in syft when SYFT_ATTEST_PASSWORD environment variable set in github.com/anchore/syft",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/anchore/syft",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.69.0"
+            },
+            {
+              "fixed": "0.70.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/anchore/syft/security/advisories/GHSA-jp7v-3587-2956"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-24827"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/anchore/syft/commit/9995950c70e849f9921919faffbfcf46401f71f3"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1533",
+    "review_status": "UNREVIEWED"
+  }
+}

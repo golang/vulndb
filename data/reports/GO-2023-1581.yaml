@@ -1,0 +1,25 @@
+id: GO-2023-1581
+modules:
+    - module: github.com/hashicorp/nomad
+      versions:
+        - introduced: 1.2.15
+        - fixed: 1.2.16
+        - introduced: 1.3.0
+        - fixed: 1.3.9
+        - introduced: 1.4.0
+        - fixed: 1.4.4
+      vulnerable_at: 1.4.4-changelog
+summary: Uncontrolled Resource Consumption in Hashicorp Nomad in github.com/hashicorp/nomad
+cves:
+    - CVE-2023-0821
+ghsas:
+    - GHSA-w479-w22g-cffh
+references:
+    - advisory: https://github.com/advisories/GHSA-w479-w22g-cffh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-0821
+    - web: https://discuss.hashicorp.com/t/hcsec-2023-05-nomad-client-vulnerable-to-decompression-bombs-in-artifact-block/50292
+source:
+    id: GHSA-w479-w22g-cffh
+    created: 2024-08-20T11:31:49.087624-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1553",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-0739",
+    "GHSA-qx34-47fc-vv79"
+  ],
+  "summary": "Answer vulnerable to Race Condition in github.com/answerdev/answer",
+  "details": "Answer vulnerable to Race Condition in github.com/answerdev/answer",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/answerdev/answer",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.0.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-qx34-47fc-vv79"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-0739"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/answerdev/answer/commit/1ee34b884b905d14d4db457563176b77a974b992"
+    },
+    {
+      "type": "WEB",
+      "url": "https://huntr.dev/bounties/93d7fac9-50be-4624-9096-45b89fbfd4ae"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1553",
+    "review_status": "UNREVIEWED"
+  }
+}

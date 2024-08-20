@@ -1,0 +1,31 @@
+id: GO-2023-1544
+modules:
+    - module: github.com/containers/libpod
+      versions:
+        - introduced: 1.6.0
+      vulnerable_at: 1.9.3
+    - module: github.com/containers/libpod/v2
+      versions:
+        - fixed: 2.0.6
+      vulnerable_at: 2.0.6-rc1
+summary: Podman has Files or Directories Accessible to External Parties in github.com/containers/libpod
+cves:
+    - CVE-2020-1726
+ghsas:
+    - GHSA-vmhj-p9hw-vgrf
+references:
+    - advisory: https://github.com/advisories/GHSA-vmhj-p9hw-vgrf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-1726
+    - web: http://lists.opensuse.org/opensuse-security-announce/2020-09/msg00097.html
+    - web: http://lists.opensuse.org/opensuse-security-announce/2020-09/msg00103.html
+    - web: https://access.redhat.com/errata/RHSA-2020:0680
+    - web: https://access.redhat.com/errata/RHSA-2020:1650
+    - web: https://access.redhat.com/security/cve/CVE-2020-1726
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=1801152
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2020-1726
+    - web: https://github.com/containers/podman/commit/c140ecdc9b416ab4efd4d21d14acd63b6adbdd42
+source:
+    id: GHSA-vmhj-p9hw-vgrf
+    created: 2024-08-20T11:31:04.124668-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

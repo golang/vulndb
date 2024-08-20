@@ -1,0 +1,31 @@
+id: GO-2023-1577
+modules:
+    - module: github.com/argoproj/argo-cd
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - introduced: 2.3.0
+        - fixed: 2.3.17
+        - introduced: 2.4.0
+        - fixed: 2.4.23
+        - introduced: 2.5.0
+        - fixed: 2.5.11
+        - introduced: 2.6.0
+        - fixed: 2.6.2
+      vulnerable_at: 2.6.1
+summary: |-
+    Users with any cluster secret update access may update out-of-bounds cluster
+    secrets in github.com/argoproj/argo-cd
+cves:
+    - CVE-2023-23947
+ghsas:
+    - GHSA-3jfq-742w-xg8j
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-3jfq-742w-xg8j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-23947
+    - fix: https://github.com/argoproj/argo-cd/commit/fbb0b99b1ac3361b253052bd30259fa43a520945
+source:
+    id: GHSA-3jfq-742w-xg8j
+    created: 2024-08-20T11:31:44.976314-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

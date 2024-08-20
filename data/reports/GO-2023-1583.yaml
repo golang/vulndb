@@ -1,0 +1,19 @@
+id: GO-2023-1583
+modules:
+    - module: github.com/edgelesssys/constellation
+      vulnerable_at: 0.0.0
+    - module: github.com/edgelesssys/constellation/v2
+      versions:
+        - fixed: 2.5.2
+      vulnerable_at: 2.5.1
+summary: User data in TPM attestation vulnerable to MITM in github.com/edgelesssys/constellation
+ghsas:
+    - GHSA-r2h5-3hgw-8j34
+references:
+    - advisory: https://github.com/edgelesssys/constellation/security/advisories/GHSA-r2h5-3hgw-8j34
+    - web: https://github.com/edgelesssys/constellation/releases/tag/v2.5.2
+source:
+    id: GHSA-r2h5-3hgw-8j34
+    created: 2024-08-20T11:31:58.407225-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE
