@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1945",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2019-8336",
+    "GHSA-fhm8-cxcv-pwvc"
+  ],
+  "summary": "HashiCorp Consul Access Restriction Bypass in github.com/hashicorp/consul",
+  "details": "HashiCorp Consul Access Restriction Bypass in github.com/hashicorp/consul",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hashicorp/consul",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.4.0"
+            },
+            {
+              "fixed": "1.4.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-fhm8-cxcv-pwvc"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2019-8336"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hashicorp/consul/commit/90040f8bffb311e6cd8599273e95b607175e311f"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/hashicorp/consul/issues/5423"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/hashicorp/consul/blob/003370ded024096cd89fb2aa2bc15293c23b9707/agent/consul/leader.go#L405"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1945",
+    "review_status": "UNREVIEWED"
+  }
+}

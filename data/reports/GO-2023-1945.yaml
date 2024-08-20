@@ -1,0 +1,23 @@
+id: GO-2023-1945
+modules:
+    - module: github.com/hashicorp/consul
+      versions:
+        - introduced: 1.4.0
+        - fixed: 1.4.3
+      vulnerable_at: 1.4.2
+summary: HashiCorp Consul Access Restriction Bypass in github.com/hashicorp/consul
+cves:
+    - CVE-2019-8336
+ghsas:
+    - GHSA-fhm8-cxcv-pwvc
+references:
+    - advisory: https://github.com/advisories/GHSA-fhm8-cxcv-pwvc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2019-8336
+    - fix: https://github.com/hashicorp/consul/commit/90040f8bffb311e6cd8599273e95b607175e311f
+    - report: https://github.com/hashicorp/consul/issues/5423
+    - web: https://github.com/hashicorp/consul/blob/003370ded024096cd89fb2aa2bc15293c23b9707/agent/consul/leader.go#L405
+source:
+    id: GHSA-fhm8-cxcv-pwvc
+    created: 2024-08-20T11:53:53.606819-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

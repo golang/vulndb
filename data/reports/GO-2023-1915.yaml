@@ -1,0 +1,25 @@
+id: GO-2023-1915
+modules:
+    - module: github.com/containernetworking/plugins
+      versions:
+        - fixed: 0.8.6
+      vulnerable_at: 0.8.5
+summary: containernetworking/plugins vulnerable to MitM attacks in github.com/containernetworking/plugins
+cves:
+    - CVE-2020-10749
+ghsas:
+    - GHSA-fx6x-h9g4-56f8
+references:
+    - advisory: https://github.com/advisories/GHSA-fx6x-h9g4-56f8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-10749
+    - web: http://lists.opensuse.org/opensuse-security-announce/2020-07/msg00063.html
+    - web: http://lists.opensuse.org/opensuse-security-announce/2020-07/msg00065.html
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2020-10749
+    - web: https://github.com/containernetworking/plugins/releases/tag/v0.8.6
+    - web: https://groups.google.com/forum/#!topic/kubernetes-security-announce/BMb_6ICCfp8
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/DV3HCDZYUTPPVDUMTZXDKK6IUO3JMGJC
+source:
+    id: GHSA-fx6x-h9g4-56f8
+    created: 2024-08-20T11:51:41.44601-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

@@ -1,0 +1,21 @@
+id: GO-2023-1932
+modules:
+    - module: github.com/IceWhaleTech/CasaOS-Gateway
+      versions:
+        - fixed: 0.4.4
+      vulnerable_at: 0.4.4-alpha1
+summary: CasaOS Gateway vulnerable to incorrect identification of source IP addresses in github.com/IceWhaleTech/CasaOS-Gateway
+cves:
+    - CVE-2023-37265
+ghsas:
+    - GHSA-vjh7-5r6x-xh6g
+references:
+    - advisory: https://github.com/IceWhaleTech/CasaOS-Gateway/security/advisories/GHSA-vjh7-5r6x-xh6g
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-37265
+    - fix: https://github.com/IceWhaleTech/CasaOS-Gateway/commit/391dd7f0f239020c46bf057cfa25f82031fc15f7
+    - web: https://www.sonarsource.com/blog/security-vulnerabilities-in-casaos
+source:
+    id: GHSA-vjh7-5r6x-xh6g
+    created: 2024-08-20T11:52:36.502787-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

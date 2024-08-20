@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1919",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2019-12452",
+    "GHSA-r3fq-cmmw-cpmm"
+  ],
+  "summary": "Containous Traefik Exposes Password Hashes in github.com/traefik/traefik",
+  "details": "Containous Traefik Exposes Password Hashes in github.com/traefik/traefik",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/traefik/traefik",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.7.0"
+            },
+            {
+              "fixed": "1.7.12"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-r3fq-cmmw-cpmm"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2019-12452"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/traefik/traefik/commit/a169fec2e08e391d24b509c00fcf011656c1395c"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/containous/traefik/issues/4917"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/containous/traefik/pull/4918"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1919",
+    "review_status": "UNREVIEWED"
+  }
+}

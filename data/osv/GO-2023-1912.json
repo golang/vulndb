@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1912",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-34458",
+    "GHSA-j494-7x2v-vvvp"
+  ],
+  "summary": "mx-chain-go's relayed transactions always increment nonce in github.com/multiversx/mx-chain-go",
+  "details": "mx-chain-go's relayed transactions always increment nonce in github.com/multiversx/mx-chain-go",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/multiversx/mx-chain-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.4.17"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/multiversx/mx-chain-go/security/advisories/GHSA-j494-7x2v-vvvp"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-34458"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/multiversx/mx-chain-go/commit/babdb144f1316ab6176bf3dbd7d4621120414d43"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/multiversx/mx-chain-go/blob/babdb144f1316ab6176bf3dbd7d4621120414d43/integrationTests/vm/txsFee/relayedMoveBalance_test.go#LL165C14-L165C14"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/multiversx/mx-chain-go/releases/tag/v1.4.17"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1912",
+    "review_status": "UNREVIEWED"
+  }
+}

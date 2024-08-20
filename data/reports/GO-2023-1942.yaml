@@ -1,0 +1,32 @@
+id: GO-2023-1942
+modules:
+    - module: github.com/containers/libpod
+      versions:
+        - fixed: 1.6.0
+      vulnerable_at: 1.6.0-rc2
+    - module: github.com/containers/podman
+      vulnerable_at: 1.9.3
+    - module: github.com/containers/podman/v2
+      vulnerable_at: 2.2.1
+    - module: github.com/containers/podman/v3
+      vulnerable_at: 3.4.7
+    - module: github.com/containers/podman/v4
+      vulnerable_at: 4.9.5
+summary: Podman Symlink Vulnerability in github.com/containers/libpod
+cves:
+    - CVE-2019-18466
+ghsas:
+    - GHSA-r34v-gqmw-qvgj
+references:
+    - advisory: https://github.com/advisories/GHSA-r34v-gqmw-qvgj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2019-18466
+    - fix: https://github.com/containers/libpod/commit/5c09c4d2947a759724f9d5aef6bac04317e03f7e
+    - report: https://github.com/containers/libpod/issues/3829
+    - web: https://access.redhat.com/errata/RHSA-2019:4269
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=1744588
+    - web: https://github.com/containers/libpod/compare/v1.5.1...v1.6.0
+source:
+    id: GHSA-r34v-gqmw-qvgj
+    created: 2024-08-20T11:53:22.86758-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

@@ -1,0 +1,25 @@
+id: GO-2023-1939
+modules:
+    - module: github.com/mattermost/mattermost
+      vulnerable_at: 9.11.0+incompatible
+    - module: github.com/mattermost/mattermost-server
+      vulnerable_at: 9.11.0+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      versions:
+        - fixed: 5.20.0
+      vulnerable_at: 5.20.0-rc5
+summary: Mattermost Server Sensitive Data Exposure in github.com/mattermost/mattermost
+cves:
+    - CVE-2020-14457
+ghsas:
+    - GHSA-j2h2-cvwh-cr64
+references:
+    - advisory: https://github.com/advisories/GHSA-j2h2-cvwh-cr64
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-14457
+    - fix: https://github.com/mattermost/mattermost/pull/13848
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-j2h2-cvwh-cr64
+    created: 2024-08-20T11:53:03.083865-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

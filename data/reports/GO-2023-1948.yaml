@@ -1,0 +1,21 @@
+id: GO-2023-1948
+modules:
+    - module: helm.sh/helm
+      versions:
+        - introduced: 2.0.0+incompatible
+        - fixed: 2.12.2+incompatible
+      vulnerable_at: 2.12.1+incompatible
+summary: Helm Path Traversal in helm.sh/helm
+cves:
+    - CVE-2019-1000008
+ghsas:
+    - GHSA-xrxm-mvqm-r553
+references:
+    - advisory: https://github.com/advisories/GHSA-xrxm-mvqm-r553
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2019-1000008
+    - web: https://helm.sh/blog/helm-security-notice-2019/index.html
+source:
+    id: GHSA-xrxm-mvqm-r553
+    created: 2024-08-20T11:54:16.769975-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

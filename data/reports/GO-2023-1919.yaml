@@ -1,0 +1,23 @@
+id: GO-2023-1919
+modules:
+    - module: github.com/traefik/traefik
+      versions:
+        - introduced: 1.7.0
+        - fixed: 1.7.12
+      vulnerable_at: 1.7.11
+summary: Containous Traefik Exposes Password Hashes in github.com/traefik/traefik
+cves:
+    - CVE-2019-12452
+ghsas:
+    - GHSA-r3fq-cmmw-cpmm
+references:
+    - advisory: https://github.com/advisories/GHSA-r3fq-cmmw-cpmm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2019-12452
+    - fix: https://github.com/traefik/traefik/commit/a169fec2e08e391d24b509c00fcf011656c1395c
+    - web: https://github.com/containous/traefik/issues/4917
+    - web: https://github.com/containous/traefik/pull/4918
+source:
+    id: GHSA-r3fq-cmmw-cpmm
+    created: 2024-08-20T11:51:57.232804-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

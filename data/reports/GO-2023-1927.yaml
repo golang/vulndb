@@ -1,0 +1,24 @@
+id: GO-2023-1927
+modules:
+    - module: github.com/containers/podman
+      versions:
+        - fixed: 1.4.0
+      vulnerable_at: 1.3.2
+summary: Podman Path Traversal Vulnerability leads to arbitrary file read/write in github.com/containers/podman
+cves:
+    - CVE-2019-10152
+ghsas:
+    - GHSA-rh5f-2w6r-q7vj
+references:
+    - advisory: https://github.com/advisories/GHSA-rh5f-2w6r-q7vj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2019-10152
+    - web: http://lists.opensuse.org/opensuse-security-announce/2019-09/msg00001.html
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2019-10152
+    - web: https://github.com/containers/libpod/blob/master/RELEASE_NOTES.md#140
+    - web: https://github.com/containers/libpod/issues/3211
+    - web: https://github.com/containers/libpod/pull/3214
+source:
+    id: GHSA-rh5f-2w6r-q7vj
+    created: 2024-08-20T11:52:16.867762-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

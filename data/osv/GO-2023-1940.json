@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1940",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-37477",
+    "GHSA-p9xf-74xh-mhw5"
+  ],
+  "summary": "1Panel command injection vulnerability in Firewall ip functionality in github.com/1Panel-dev/1Panel",
+  "details": "1Panel command injection vulnerability in Firewall ip functionality in github.com/1Panel-dev/1Panel",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/1Panel-dev/1Panel",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.4.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/1Panel-dev/1Panel/security/advisories/GHSA-p9xf-74xh-mhw5"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-37477"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/1Panel-dev/1Panel/commit/e17b80cff4975ee343568ff526b62319f499005d"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/1Panel-dev/1Panel/releases/tag/v1.4.3"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1940",
+    "review_status": "UNREVIEWED"
+  }
+}

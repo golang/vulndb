@@ -1,0 +1,22 @@
+id: GO-2023-1912
+modules:
+    - module: github.com/multiversx/mx-chain-go
+      versions:
+        - fixed: 1.4.17
+      vulnerable_at: 1.4.16
+summary: mx-chain-go's relayed transactions always increment nonce in github.com/multiversx/mx-chain-go
+cves:
+    - CVE-2023-34458
+ghsas:
+    - GHSA-j494-7x2v-vvvp
+references:
+    - advisory: https://github.com/multiversx/mx-chain-go/security/advisories/GHSA-j494-7x2v-vvvp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-34458
+    - fix: https://github.com/multiversx/mx-chain-go/commit/babdb144f1316ab6176bf3dbd7d4621120414d43
+    - web: https://github.com/multiversx/mx-chain-go/blob/babdb144f1316ab6176bf3dbd7d4621120414d43/integrationTests/vm/txsFee/relayedMoveBalance_test.go#LL165C14-L165C14
+    - web: https://github.com/multiversx/mx-chain-go/releases/tag/v1.4.17
+source:
+    id: GHSA-j494-7x2v-vvvp
+    created: 2024-08-20T11:51:37.102036-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

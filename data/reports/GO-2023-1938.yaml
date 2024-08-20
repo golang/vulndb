@@ -1,0 +1,21 @@
+id: GO-2023-1938
+modules:
+    - module: helm.sh/helm
+      versions:
+        - introduced: 2.0.0+incompatible
+        - fixed: 2.15.2+incompatible
+      vulnerable_at: 2.15.1+incompatible
+summary: Helm Unsafe Link Following in helm.sh/helm
+cves:
+    - CVE-2019-18658
+ghsas:
+    - GHSA-p5pc-m4q7-7qm9
+references:
+    - advisory: https://github.com/advisories/GHSA-p5pc-m4q7-7qm9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2019-18658
+    - web: https://helm.sh/blog/2019-10-30-helm-symlink-security-notice
+source:
+    id: GHSA-p5pc-m4q7-7qm9
+    created: 2024-08-20T11:52:54.483939-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

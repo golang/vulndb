@@ -1,0 +1,22 @@
+id: GO-2023-1924
+modules:
+    - module: github.com/b3log/wide
+      versions:
+        - fixed: 1.6.0
+summary: b3log Wide unauthenticated file access in github.com/b3log/wide
+cves:
+    - CVE-2019-13915
+ghsas:
+    - GHSA-6452-jr93-r5qm
+references:
+    - advisory: https://github.com/advisories/GHSA-6452-jr93-r5qm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2019-13915
+    - web: https://sca.analysiscenter.veracode.com/vulnerability-database/security/arbitrary-file-reads-and-writes/go/sid-20862
+    - web: https://web.archive.org/web/20190522035724/https://github.com/b3log/wide
+notes:
+    - fix: 'github.com/b3log/wide: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-6452-jr93-r5qm
+    created: 2024-08-20T11:52:06.175521-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE
