@@ -1,0 +1,22 @@
+id: GO-2022-1120
+modules:
+    - module: tailscale.com
+      versions:
+        - fixed: 1.32.3
+      vulnerable_at: 1.32.2
+summary: Tailscale Windows daemon is vulnerable to RCE via CSRF in tailscale.com
+cves:
+    - CVE-2022-41924
+ghsas:
+    - GHSA-vqp6-rc3h-83cp
+references:
+    - advisory: https://github.com/tailscale/tailscale/security/advisories/GHSA-vqp6-rc3h-83cp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-41924
+    - web: https://emily.id.au/tailscale
+    - web: https://github.com/tailscale/tailscale/releases/tag/v1.32.3
+    - web: https://tailscale.com/security-bulletins/#ts-2022-004
+source:
+    id: GHSA-vqp6-rc3h-83cp
+    created: 2024-08-20T14:51:53.348084-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

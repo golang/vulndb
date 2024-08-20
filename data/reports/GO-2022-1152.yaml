@@ -1,0 +1,24 @@
+id: GO-2022-1152
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.9.6
+      vulnerable_at: 2.9.5
+summary: Traefik routes exposed with an empty TLSOption in github.com/traefik/traefik
+cves:
+    - CVE-2022-46153
+ghsas:
+    - GHSA-468w-8x39-gj5v
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-468w-8x39-gj5v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-46153
+    - fix: https://github.com/traefik/traefik/commit/7e3fe48b80083b41e9ff82a474a36484cabc701a
+    - web: https://doc.traefik.io/traefik/v2.9/https/tls/#tls-options
+    - web: https://github.com/traefik/traefik/releases/tag/v2.9.6
+source:
+    id: GHSA-468w-8x39-gj5v
+    created: 2024-08-20T14:52:47.217778-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

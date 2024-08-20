@@ -1,0 +1,22 @@
+id: GO-2022-1105
+modules:
+    - module: github.com/hashicorp/nomad
+      versions:
+        - introduced: 1.4.0
+        - fixed: 1.4.2
+      vulnerable_at: 1.4.1
+summary: HashiCorp Nomad vulnerable to non-sensitive metadata exposure in github.com/hashicorp/nomad
+cves:
+    - CVE-2022-3866
+ghsas:
+    - GHSA-7wg4-8m5p-hrfg
+references:
+    - advisory: https://github.com/advisories/GHSA-7wg4-8m5p-hrfg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-3866
+    - fix: https://github.com/hashicorp/nomad/commit/3b24f26603e2b116ba324101afa8a7e3a7a769a5
+    - web: https://discuss.hashicorp.com/t/hcsec-2022-25-nomad-s-workload-identity-token-can-list-non-sensitive-metadata-for-nomad-paths/46167
+source:
+    id: GHSA-7wg4-8m5p-hrfg
+    created: 2024-08-20T14:51:00.01973-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

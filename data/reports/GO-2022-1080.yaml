@@ -1,0 +1,21 @@
+id: GO-2022-1080
+modules:
+    - module: github.com/openfga/openfga
+      versions:
+        - fixed: 0.2.4
+      vulnerable_at: 0.2.3
+summary: OpenFGA Authorization Bypass via tupleset wildcard in github.com/openfga/openfga
+cves:
+    - CVE-2022-39341
+ghsas:
+    - GHSA-vj4m-83m8-xpw5
+references:
+    - advisory: https://github.com/openfga/openfga/security/advisories/GHSA-vj4m-83m8-xpw5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-39341
+    - fix: https://github.com/openfga/openfga/commit/b466769cc100b2065047786578718d313f52695b
+    - web: https://github.com/openfga/openfga/releases/tag/v0.2.4
+source:
+    id: GHSA-vj4m-83m8-xpw5
+    created: 2024-08-20T14:50:03.767074-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

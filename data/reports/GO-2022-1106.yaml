@@ -1,0 +1,22 @@
+id: GO-2022-1106
+modules:
+    - module: github.com/hashicorp/nomad
+      versions:
+        - introduced: 1.4.0
+        - fixed: 1.4.2
+      vulnerable_at: 1.4.1
+summary: HashiCorp Nomad vulnerable to Insufficient Session Expiration in github.com/hashicorp/nomad
+cves:
+    - CVE-2022-3867
+ghsas:
+    - GHSA-9fmc-5fq4-5jwh
+references:
+    - advisory: https://github.com/advisories/GHSA-9fmc-5fq4-5jwh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-3867
+    - fix: https://github.com/hashicorp/nomad/commit/dd6a4634a9652197fe4182e830f9a737d0ae1216
+    - web: https://discuss.hashicorp.com/t/hcsec-2022-26-nomad-s-event-stream-subscriber-using-acl-token-with-ttl-receive-updates-until-garbage-collected/46168
+source:
+    id: GHSA-9fmc-5fq4-5jwh
+    created: 2024-08-20T14:51:04.273381-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

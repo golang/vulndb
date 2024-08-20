@@ -1,0 +1,22 @@
+id: GO-2022-1138
+modules:
+    - module: github.com/owncast/owncast
+      versions:
+        - fixed: 0.0.13
+      vulnerable_at: 0.0.12
+summary: owncast is vulnerable to SQL Injection in github.com/owncast/owncast
+cves:
+    - CVE-2022-3751
+ghsas:
+    - GHSA-cvh4-cjc9-84qm
+references:
+    - advisory: https://github.com/advisories/GHSA-cvh4-cjc9-84qm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-3751
+    - fix: https://github.com/owncast/owncast/commit/23b6e5868d5501726c27a3fabbecf49000968591
+    - fix: https://github.com/owncast/owncast/pull/2257
+    - web: https://huntr.dev/bounties/a04cff99-5d53-45e5-a882-771b0fad62c9
+source:
+    id: GHSA-cvh4-cjc9-84qm
+    created: 2024-08-20T14:52:25.271495-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

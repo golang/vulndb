@@ -1,0 +1,20 @@
+id: GO-2022-1089
+modules:
+    - module: github.com/cloudflare/cfrpki
+      versions:
+        - fixed: 1.4.4
+      vulnerable_at: 1.4.3
+summary: OctoRPKI crashes when max iterations is reached in github.com/cloudflare/cfrpki
+cves:
+    - CVE-2022-3616
+ghsas:
+    - GHSA-pmw9-567p-68pc
+references:
+    - advisory: https://github.com/cloudflare/cfrpki/security/advisories/GHSA-pmw9-567p-68pc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-3616
+    - fix: https://github.com/cloudflare/cfrpki/commit/5f64bcd13477b29cd7ddff6fff3c65dfac3423ca
+source:
+    id: GHSA-pmw9-567p-68pc
+    created: 2024-08-20T14:50:18.18861-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

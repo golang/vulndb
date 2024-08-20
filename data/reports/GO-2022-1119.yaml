@@ -1,0 +1,21 @@
+id: GO-2022-1119
+modules:
+    - module: tailscale.com
+      versions:
+        - fixed: 1.32.3
+      vulnerable_at: 1.32.2
+summary: Tailscale daemon is vulnerable to information disclosure via CSRF in tailscale.com
+cves:
+    - CVE-2022-41925
+ghsas:
+    - GHSA-qccm-wmcq-pwr6
+references:
+    - advisory: https://github.com/tailscale/tailscale/security/advisories/GHSA-qccm-wmcq-pwr6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-41925
+    - web: https://emily.id.au/tailscale
+    - web: https://tailscale.com/security-bulletins/#ts-2022-005
+source:
+    id: GHSA-qccm-wmcq-pwr6
+    created: 2024-08-20T14:51:46.588275-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

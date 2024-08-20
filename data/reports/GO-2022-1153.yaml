@@ -1,0 +1,22 @@
+id: GO-2022-1153
+modules:
+    - module: github.com/casdoor/casdoor
+      versions:
+        - fixed: 1.126.1
+      vulnerable_at: 1.126.0
+summary: Casdoor arbitrary file deletion vulnerability via uploadFile function in github.com/casdoor/casdoor
+cves:
+    - CVE-2022-44942
+ghsas:
+    - GHSA-f93f-55c2-8c89
+references:
+    - advisory: https://github.com/advisories/GHSA-f93f-55c2-8c89
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-44942
+    - fix: https://github.com/casdoor/casdoor/pull/1174
+    - report: https://github.com/casdoor/casdoor/issues/1171
+    - web: https://github.com/casdoor/casdoor/releases/tag/v1.126.1
+source:
+    id: GHSA-f93f-55c2-8c89
+    created: 2024-08-20T14:52:51.45871-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

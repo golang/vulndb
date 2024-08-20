@@ -1,0 +1,19 @@
+id: GO-2022-1107
+modules:
+    - module: github.com/docker/docker
+      versions:
+        - fixed: 20.10.20+incompatible
+      vulnerable_at: 20.10.19+incompatible
+summary: Container build can leak any path on the host into the container in github.com/docker/docker
+ghsas:
+    - GHSA-vp35-85q5-9f25
+references:
+    - advisory: https://github.com/moby/moby/security/advisories/GHSA-vp35-85q5-9f25
+    - web: https://github.blog/2022-10-17-git-security-vulnerabilities-announced
+    - web: https://github.com/moby/moby/releases/tag/v20.10.20
+    - web: https://lore.kernel.org/git/xmqq4jw1uku5.fsf@gitster.g/T/#u
+source:
+    id: GHSA-vp35-85q5-9f25
+    created: 2024-08-20T14:51:07.179938-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

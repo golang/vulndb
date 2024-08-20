@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2022-1100",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2022-39395",
+    "GHSA-2w78-ffv6-p46w",
+    "GHSA-5m7g-pj8w-7593",
+    "GHSA-xf39-98m2-889v"
+  ],
+  "summary": "Vela Insecure Defaults in github.com/go-vela/server",
+  "details": "Vela Insecure Defaults in github.com/go-vela/server",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/go-vela/server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.16.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/go-vela/worker",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.16.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/go-vela/server/security/advisories/GHSA-5m7g-pj8w-7593"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/go-vela/ui/security/advisories/GHSA-xf39-98m2-889v"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/go-vela/worker/security/advisories/GHSA-2w78-ffv6-p46w"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-39395"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/go-vela/server/commit/05558ee99d70f7d6f83bed7c8f78ac0b35fa26f4"
+    },
+    {
+      "type": "WEB",
+      "url": "https://docs.docker.com/engine/security/#docker-daemon-attack-surface"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-vela/server/releases/tag/v0.16.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-vela/ui/releases/tag/v0.17.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-vela/worker/releases/tag/v0.16.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://go-vela.github.io/docs/installation/server/reference/#vela_repo_allowlist"
+    },
+    {
+      "type": "WEB",
+      "url": "https://go-vela.github.io/docs/installation/worker/reference/#vela_runtime_privileged_images"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2022-1100",
+    "review_status": "UNREVIEWED"
+  }
+}

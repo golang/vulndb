@@ -1,0 +1,26 @@
+id: GO-2022-1132
+modules:
+    - module: github.com/grafana/synthetic-monitoring-agent
+      versions:
+        - fixed: 0.12.0
+      vulnerable_at: 0.11.2
+summary: |-
+    Grafana's default installation of `synthetic-monitoring-agent` exposes sensitive
+    information in github.com/grafana/synthetic-monitoring-agent
+cves:
+    - CVE-2022-46156
+ghsas:
+    - GHSA-9j4f-f249-q5w8
+references:
+    - advisory: https://github.com/grafana/synthetic-monitoring-agent/security/advisories/GHSA-9j4f-f249-q5w8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-46156
+    - fix: https://github.com/grafana/synthetic-monitoring-agent/commit/d8dc7f9c1c641881cbcf0a09e178b90ebf0f0228
+    - fix: https://github.com/grafana/synthetic-monitoring-agent/pull/373
+    - fix: https://github.com/grafana/synthetic-monitoring-agent/pull/374
+    - fix: https://github.com/grafana/synthetic-monitoring-agent/pull/375
+    - web: https://github.com/grafana/synthetic-monitoring-agent/releases/tag/v0.12.0
+source:
+    id: CVE-2022-46156
+    created: 2024-08-20T14:52:09.127665-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

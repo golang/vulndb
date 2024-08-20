@@ -1,0 +1,34 @@
+id: GO-2022-1100
+modules:
+    - module: github.com/go-vela/server
+      versions:
+        - fixed: 0.16.0
+      vulnerable_at: 0.15.1
+    - module: github.com/go-vela/worker
+      versions:
+        - fixed: 0.16.0
+      vulnerable_at: 0.15.1
+summary: Vela Insecure Defaults in github.com/go-vela/server
+cves:
+    - CVE-2022-39395
+ghsas:
+    - GHSA-2w78-ffv6-p46w
+    - GHSA-5m7g-pj8w-7593
+    - GHSA-xf39-98m2-889v
+references:
+    - advisory: https://github.com/go-vela/server/security/advisories/GHSA-5m7g-pj8w-7593
+    - advisory: https://github.com/go-vela/ui/security/advisories/GHSA-xf39-98m2-889v
+    - advisory: https://github.com/go-vela/worker/security/advisories/GHSA-2w78-ffv6-p46w
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-39395
+    - fix: https://github.com/go-vela/server/commit/05558ee99d70f7d6f83bed7c8f78ac0b35fa26f4
+    - web: https://docs.docker.com/engine/security/#docker-daemon-attack-surface
+    - web: https://github.com/go-vela/server/releases/tag/v0.16.0
+    - web: https://github.com/go-vela/ui/releases/tag/v0.17.0
+    - web: https://github.com/go-vela/worker/releases/tag/v0.16.0
+    - web: https://go-vela.github.io/docs/installation/server/reference/#vela_repo_allowlist
+    - web: https://go-vela.github.io/docs/installation/worker/reference/#vela_runtime_privileged_images
+source:
+    id: GHSA-5m7g-pj8w-7593
+    created: 2024-08-20T14:50:42.518769-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

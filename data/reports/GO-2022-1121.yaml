@@ -1,0 +1,22 @@
+id: GO-2022-1121
+modules:
+    - module: github.com/hashicorp/consul
+      versions:
+        - introduced: 1.13.0
+        - fixed: 1.14.0
+      vulnerable_at: 1.14.0-beta1
+summary: Missing Authorization in HashiCorp Consul in github.com/hashicorp/consul
+cves:
+    - CVE-2022-3920
+ghsas:
+    - GHSA-gw2g-hhc9-wgjh
+references:
+    - advisory: https://github.com/advisories/GHSA-gw2g-hhc9-wgjh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-3920
+    - fix: https://github.com/hashicorp/consul/commit/706866fa0016b0aa302679f9c648859050d19b2e
+    - web: https://discuss.hashicorp.com/t/hcsec-2022-28-consul-cluster-peering-leaks-imported-nodes-services-information/46946
+source:
+    id: GHSA-gw2g-hhc9-wgjh
+    created: 2024-08-20T14:51:57.243895-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

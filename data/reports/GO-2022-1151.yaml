@@ -1,0 +1,28 @@
+id: GO-2022-1151
+modules:
+    - module: github.com/containers/podman
+      vulnerable_at: 1.9.3
+    - module: github.com/containers/podman/v2
+      vulnerable_at: 2.2.1
+    - module: github.com/containers/podman/v3
+      vulnerable_at: 3.4.7
+    - module: github.com/containers/podman/v4
+      versions:
+        - fixed: 4.5.0
+      vulnerable_at: 4.5.0-rc2
+summary: Buildah (as part of Podman) vulnerable to Link Following in github.com/containers/podman
+cves:
+    - CVE-2022-4122
+ghsas:
+    - GHSA-4crw-w8pw-2hmf
+references:
+    - advisory: https://github.com/advisories/GHSA-4crw-w8pw-2hmf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-4122
+    - fix: https://github.com/containers/podman/commit/c8eeab21cf0a4f670be0cd399dd06fd5d4e06dfe
+    - fix: https://github.com/containers/podman/pull/16315
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2144983
+source:
+    id: GHSA-4crw-w8pw-2hmf
+    created: 2024-08-20T14:52:40.084542-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

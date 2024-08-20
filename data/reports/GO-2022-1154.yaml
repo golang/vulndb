@@ -1,0 +1,23 @@
+id: GO-2022-1154
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.9.6
+      vulnerable_at: 2.9.5
+summary: Traefik may display authorization header in the debug logs in github.com/traefik/traefik
+cves:
+    - CVE-2022-23469
+ghsas:
+    - GHSA-h2ph-vhm7-g4hp
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-h2ph-vhm7-g4hp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-23469
+    - fix: https://github.com/traefik/traefik/pull/9574
+    - web: https://github.com/traefik/traefik/releases/tag/v2.9.6
+source:
+    id: GHSA-h2ph-vhm7-g4hp
+    created: 2024-08-20T14:52:55.59995-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE
