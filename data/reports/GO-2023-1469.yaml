@@ -1,0 +1,21 @@
+id: GO-2023-1469
+modules:
+    - module: github.com/usememos/memos
+      versions:
+        - fixed: 0.10.0
+      vulnerable_at: 0.9.1
+summary: usememos/memos vulnerable to stored Cross-site Scripting in github.com/usememos/memos
+cves:
+    - CVE-2023-0110
+ghsas:
+    - GHSA-x22v-qgm2-7qc7
+references:
+    - advisory: https://github.com/advisories/GHSA-x22v-qgm2-7qc7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-0110
+    - fix: https://github.com/usememos/memos/commit/46c13a4b7f675b92d297df6dabb4441f13c7cd9c
+    - web: https://huntr.dev/bounties/6e4a1961-dbca-46f6-ae21-c25a621e54a7
+source:
+    id: GHSA-x22v-qgm2-7qc7
+    created: 2024-08-20T11:29:00.960908-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

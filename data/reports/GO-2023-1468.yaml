@@ -1,0 +1,24 @@
+id: GO-2023-1468
+modules:
+    - module: github.com/KubeOperator/kubepi
+      versions:
+        - fixed: 1.6.4
+      vulnerable_at: 1.6.3
+summary: |-
+    KubePi session fixation attack allows an attacker to hijack a legitimate user
+    session. in github.com/KubeOperator/kubepi
+cves:
+    - CVE-2023-22479
+ghsas:
+    - GHSA-v4w5-r2xc-7f8h
+references:
+    - advisory: https://github.com/1Panel-dev/KubePi/security/advisories/GHSA-v4w5-r2xc-7f8h
+    - advisory: https://github.com/KubeOperator/KubePi/security/advisories/GHSA-v4w5-r2xc-7f8h
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-22479
+    - web: https://github.com/KubeOperator/KubePi/commit/1e9c550356c1a425a742480efcf743d373e98dcb
+    - web: https://github.com/KubeOperator/KubePi/releases/tag/v1.6.4
+source:
+    id: GHSA-v4w5-r2xc-7f8h
+    created: 2024-08-20T11:28:56.950332-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

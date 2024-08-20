@@ -1,0 +1,26 @@
+id: GO-2023-1504
+modules:
+    - module: github.com/nektos/act
+      versions:
+        - fixed: 0.2.40
+      vulnerable_at: 0.2.39
+summary: act vulnerable to arbitrary file upload in artifact server in github.com/nektos/act
+cves:
+    - CVE-2023-22726
+ghsas:
+    - GHSA-pc99-qmg4-rcff
+references:
+    - advisory: https://github.com/nektos/act/security/advisories/GHSA-pc99-qmg4-rcff
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-22726
+    - advisory: https://securitylab.github.com/advisories/GHSL-2023-004_act
+    - fix: https://github.com/nektos/act/commit/63ae215071f94569d910964bdee866d91d6e3a10
+    - report: https://github.com/nektos/act/issues/1553
+    - web: https://github.com/nektos/act/blob/master/pkg/artifacts/server.go#L65
+    - web: https://github.com/nektos/act/blob/v0.2.35/pkg/artifacts/server.go#L245
+    - web: https://github.com/nektos/act/blob/v0.2.35/pkg/artifacts/server.go#LL103C2-L103C2
+    - web: https://github.com/nektos/act/releases/tag/v0.2.40
+source:
+    id: GHSA-pc99-qmg4-rcff
+    created: 2024-08-20T11:29:54.889428-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

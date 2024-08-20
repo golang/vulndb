@@ -1,0 +1,21 @@
+id: GO-2023-1471
+modules:
+    - module: github.com/gotify/server
+      vulnerable_at: 1.2.1
+    - module: github.com/gotify/server/v2
+      versions:
+        - fixed: 2.2.3
+      vulnerable_at: 2.2.2
+summary: Reflected XSS in Gotify's /docs via import of outdated Swagger UI in github.com/gotify/server
+ghsas:
+    - GHSA-3244-8mff-w398
+references:
+    - advisory: https://github.com/gotify/server/security/advisories/GHSA-3244-8mff-w398
+    - fix: https://github.com/gotify/server/pull/541
+    - web: https://research.securitum.com/mutation-xss-via-mathml-mutation-dompurify-2-0-17-bypass
+    - web: https://www.vidocsecurity.com/blog/hacking-swagger-ui-from-xss-to-account-takeovers
+source:
+    id: GHSA-3244-8mff-w398
+    created: 2024-08-20T11:29:03.980447-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

@@ -1,0 +1,21 @@
+id: GO-2023-1377
+modules:
+    - module: github.com/weaveworks/weave-gitops
+      versions:
+        - fixed: 0.12.0
+      vulnerable_at: 0.11.0
+summary: GitOps Run allows for Kubernetes workload injection in github.com/weaveworks/weave-gitops
+cves:
+    - CVE-2022-23508
+ghsas:
+    - GHSA-wr3c-g326-486c
+references:
+    - advisory: https://github.com/weaveworks/weave-gitops/security/advisories/GHSA-wr3c-g326-486c
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-23508
+    - fix: https://github.com/weaveworks/weave-gitops/pull/3102/commits/966823bbda8c539a4661e2a4f8607c9307ba6225
+    - fix: https://github.com/weaveworks/weave-gitops/pull/3114/commits/75268c4d2c8f7e4db22c63d76b451ba6545d117f
+source:
+    id: GHSA-wr3c-g326-486c
+    created: 2024-08-20T11:28:29.197979-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

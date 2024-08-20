@@ -1,0 +1,24 @@
+id: GO-2023-1283
+modules:
+    - module: github.com/KubeOperator/kubepi
+      versions:
+        - fixed: 1.6.3
+      vulnerable_at: 1.6.2
+summary: |-
+    KubePi allows malicious actor to login with a forged JWT token via Hardcoded
+    Jwtsigkeys in github.com/KubeOperator/kubepi
+cves:
+    - CVE-2023-22463
+ghsas:
+    - GHSA-vjhf-8vqx-vqpq
+references:
+    - advisory: https://github.com/KubeOperator/KubePi/security/advisories/GHSA-vjhf-8vqx-vqpq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-22463
+    - web: https://github.com/KubeOperator/KubePi/blob/da784f5532ea2495b92708cacb32703bff3a45a3/internal/api/v1/session/session.go#L35
+    - web: https://github.com/KubeOperator/KubePi/commit/3be58b8df5bc05d2343c30371dd5fcf6a9fbbf8b
+    - web: https://github.com/KubeOperator/KubePi/releases/tag/v1.6.3
+source:
+    id: GHSA-vjhf-8vqx-vqpq
+    created: 2024-08-20T11:27:50.362607-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

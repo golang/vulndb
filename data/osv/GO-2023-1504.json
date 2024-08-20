@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2023-1504",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-22726",
+    "GHSA-pc99-qmg4-rcff"
+  ],
+  "summary": "act vulnerable to arbitrary file upload in artifact server in github.com/nektos/act",
+  "details": "act vulnerable to arbitrary file upload in artifact server in github.com/nektos/act",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/nektos/act",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.2.40"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/nektos/act/security/advisories/GHSA-pc99-qmg4-rcff"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-22726"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://securitylab.github.com/advisories/GHSL-2023-004_act"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/nektos/act/commit/63ae215071f94569d910964bdee866d91d6e3a10"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/nektos/act/issues/1553"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/nektos/act/blob/master/pkg/artifacts/server.go#L65"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/nektos/act/blob/v0.2.35/pkg/artifacts/server.go#L245"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/nektos/act/blob/v0.2.35/pkg/artifacts/server.go#LL103C2-L103C2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/nektos/act/releases/tag/v0.2.40"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2023-1504",
+    "review_status": "UNREVIEWED"
+  }
+}
