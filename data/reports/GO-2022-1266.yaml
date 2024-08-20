@@ -1,0 +1,23 @@
+id: GO-2022-1266
+modules:
+    - module: github.com/usememos/memos
+      versions:
+        - fixed: 0.9.1
+      vulnerable_at: 0.9.0
+summary: |-
+    usememos/memos vulnerable to Improper Verification of Source of a Communication
+    Channel in github.com/usememos/memos
+cves:
+    - CVE-2022-4848
+ghsas:
+    - GHSA-vh43-cc6x-prpr
+references:
+    - advisory: https://github.com/advisories/GHSA-vh43-cc6x-prpr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-4848
+    - fix: https://github.com/usememos/memos/commit/c9bb2b785dc5852655405d5c9ab127a2d5aa3948
+    - web: https://huntr.dev/bounties/25de88cc-8d0d-41a1-b069-9ef1327770bc
+source:
+    id: GHSA-vh43-cc6x-prpr
+    created: 2024-08-20T14:56:30.374308-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE
