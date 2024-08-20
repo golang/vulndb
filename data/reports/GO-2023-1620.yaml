@@ -1,0 +1,21 @@
+id: GO-2023-1620
+modules:
+    - module: github.com/answerdev/answer
+      versions:
+        - fixed: 1.0.6
+      vulnerable_at: 1.0.5
+summary: Answer vulnerable to Cross-site Scripting in github.com/answerdev/answer
+cves:
+    - CVE-2023-1239
+ghsas:
+    - GHSA-vxhr-p2vp-7gf8
+references:
+    - advisory: https://github.com/advisories/GHSA-vxhr-p2vp-7gf8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-1239
+    - fix: https://github.com/answerdev/answer/commit/9870ed87fb24ed468aaf1e169c2d028e0f375106
+    - web: https://huntr.dev/bounties/3a22c609-d2d8-4613-815d-58f5990b8bd8
+source:
+    id: GHSA-vxhr-p2vp-7gf8
+    created: 2024-08-20T11:35:37.708515-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

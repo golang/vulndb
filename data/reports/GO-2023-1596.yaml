@@ -1,0 +1,23 @@
+id: GO-2023-1596
+modules:
+    - module: gogs.io/gogs
+      versions:
+        - fixed: 0.12.11
+      vulnerable_at: 0.12.11-rc.1
+summary: Gogs OS Command Injection vulnerability in gogs.io/gogs
+cves:
+    - CVE-2022-2024
+ghsas:
+    - GHSA-pfvh-p8qp-9ww9
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-pfvh-p8qp-9ww9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2022-2024
+    - web: https://github.com/gogs/gogs/blob/f36eeedbf89328ee70cc3a2e239f6314f9021f58/conf/app.ini#L127-L129
+    - web: https://github.com/gogs/gogs/commit/15d0d6a94be0098a8227b6b95bdf2daed105ec41
+    - web: https://github.com/gogs/gogs/issues/7030
+    - web: https://huntr.dev/bounties/18cf9256-23ab-4098-a769-85f8da130f97
+source:
+    id: GHSA-pfvh-p8qp-9ww9
+    created: 2024-08-20T11:32:20.33039-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

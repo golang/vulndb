@@ -1,0 +1,24 @@
+id: GO-2023-1590
+modules:
+    - module: github.com/gopistolet/gopistolet
+      versions:
+        - fixed: 0.0.0-20210418093520-a5395f728f8d
+summary: GoPistolet vulnerable to Improper Resource Shutdown or Release in github.com/gopistolet/gopistolet
+cves:
+    - CVE-2015-10085
+ghsas:
+    - GHSA-wr8h-w969-36m8
+references:
+    - advisory: https://github.com/advisories/GHSA-wr8h-w969-36m8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2015-10085
+    - fix: https://github.com/gopistolet/gopistolet/commit/b91aa4674d460993765884e8463c70e6d886bc90
+    - fix: https://github.com/gopistolet/gopistolet/pull/27
+    - web: https://vuldb.com/?ctiid.221506
+    - web: https://vuldb.com/?id.221506
+notes:
+    - fix: 'github.com/gopistolet/gopistolet: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-wr8h-w969-36m8
+    created: 2024-08-20T11:32:00.231537-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

@@ -1,0 +1,26 @@
+id: GO-2023-1639
+modules:
+    - module: github.com/hashicorp/consul
+      versions:
+        - introduced: 1.14.0
+        - fixed: 1.14.5
+      vulnerable_at: 1.14.4
+summary: |-
+    Consul Server Panic when Ingress and API Gateways Configured with Peering
+    Connections in github.com/hashicorp/consul
+cves:
+    - CVE-2023-0845
+ghsas:
+    - GHSA-wj6x-hcc2-f32j
+references:
+    - advisory: https://github.com/advisories/GHSA-wj6x-hcc2-f32j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-0845
+    - web: https://discuss.hashicorp.com/t/hcsec-2023-06-consul-server-panic-when-ingress-and-api-gateways-configured-with-peering-connections/51197
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/LYZOKMMVX4SIEHPJW3SJUQGMO5YZCPHC
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/XNF4OLYZRQE75EB5TW5N42FSXHBXGWFE
+    - web: https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/ZTE4ITXXPIWZEQ4HYQCB6N6GZIMWXDAI
+source:
+    id: GHSA-wj6x-hcc2-f32j
+    created: 2024-08-20T11:37:04.853408-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE
