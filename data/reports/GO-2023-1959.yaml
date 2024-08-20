@@ -1,0 +1,23 @@
+id: GO-2023-1959
+modules:
+    - module: k8s.io/kubernetes
+      versions:
+        - introduced: 1.5.0
+        - fixed: 1.9.6
+      vulnerable_at: 1.9.6-beta.0
+summary: Kubernetes arbitrary file overwrite in k8s.io/kubernetes
+cves:
+    - CVE-2018-1002100
+ghsas:
+    - GHSA-2jq6-ffph-p4h8
+references:
+    - advisory: https://github.com/advisories/GHSA-2jq6-ffph-p4h8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2018-1002100
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=1564305
+    - web: https://github.com/kubernetes/kubernetes/issues/61297
+    - web: https://hansmi.ch/articles/2018-04-openshift-s2i-security
+source:
+    id: GHSA-2jq6-ffph-p4h8
+    created: 2024-08-20T11:54:48.602404-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

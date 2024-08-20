@@ -1,0 +1,23 @@
+id: GO-2023-1993
+modules:
+    - module: helm.sh/helm
+      versions:
+        - fixed: 2.7.2+incompatible
+      vulnerable_at: 2.7.1+incompatible
+summary: Helm Improper Certificate Validation in helm.sh/helm
+cves:
+    - CVE-2019-1010275
+ghsas:
+    - GHSA-x6r5-vxfg-gq3v
+references:
+    - advisory: https://github.com/advisories/GHSA-x6r5-vxfg-gq3v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2019-1010275
+    - web: https://github.com/helm/helm/commit/1096813bf9a425e2aa4ac755b6c991b626dfab50
+    - web: https://github.com/helm/helm/pull/3152
+    - web: https://github.com/helm/helm/pull/3152/files/1096813bf9a425e2aa4ac755b6c991b626dfab50
+    - web: https://github.com/helm/helm/releases/tag/v2.7.2
+source:
+    id: GHSA-x6r5-vxfg-gq3v
+    created: 2024-08-20T11:59:38.015923-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

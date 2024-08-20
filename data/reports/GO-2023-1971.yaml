@@ -1,0 +1,29 @@
+id: GO-2023-1971
+modules:
+    - module: code.gitea.io/gitea
+      versions:
+        - fixed: 1.16.0-rc1
+      vulnerable_at: 1.16.0-dev
+    - module: gogs.io/gogs
+      versions:
+        - fixed: 0.12.0
+      vulnerable_at: 0.11.91
+summary: Gogs and Gitea SSRF Vulnerability in code.gitea.io/gitea
+cves:
+    - CVE-2018-15192
+ghsas:
+    - GHSA-fg3x-rwq9-74cw
+references:
+    - advisory: https://github.com/advisories/GHSA-fg3x-rwq9-74cw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2018-15192
+    - web: https://github.com/go-gitea/gitea/commit/599ff1c054e436daa4dc3f049aa8661d9c2395f9
+    - web: https://github.com/go-gitea/gitea/issues/4624
+    - web: https://github.com/go-gitea/gitea/pull/17482
+    - web: https://github.com/gogs/gogs/commit/22717a1c064511cf37c46af5e650baf7184cf25b
+    - web: https://github.com/gogs/gogs/issues/5366
+    - web: https://github.com/gogs/gogs/pull/6002
+source:
+    id: GHSA-fg3x-rwq9-74cw
+    created: 2024-08-20T11:57:23.890576-04:00
+review_status: UNREVIEWED
+unexcluded: NOT_IMPORTABLE

@@ -1,0 +1,21 @@
+id: GO-2023-1995
+modules:
+    - module: github.com/answerdev/answer
+      versions:
+        - fixed: 1.1.1
+      vulnerable_at: 1.1.0
+summary: Answer has Race Condition within a Thread in github.com/answerdev/answer
+cves:
+    - CVE-2023-4127
+ghsas:
+    - GHSA-52h8-c876-989c
+references:
+    - advisory: https://github.com/advisories/GHSA-52h8-c876-989c
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-4127
+    - fix: https://github.com/answerdev/answer/commit/47661dc8a356ce6aa7793f1bd950399292180182
+    - web: https://huntr.dev/bounties/cf7d19e3-1318-4c77-8366-d8d04a0b41ba
+source:
+    id: GHSA-52h8-c876-989c
+    created: 2024-08-20T11:59:50.487927-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

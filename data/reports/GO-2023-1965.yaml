@@ -1,0 +1,22 @@
+id: GO-2023-1965
+modules:
+    - module: github.com/apptainer/apptainer
+      versions:
+        - introduced: 1.2.0
+        - fixed: 1.2.1
+      vulnerable_at: 1.2.0
+summary: Ineffective privileges drop when requesting container network in github.com/apptainer/apptainer
+cves:
+    - CVE-2023-38496
+ghsas:
+    - GHSA-mmx5-32m4-wxvx
+references:
+    - advisory: https://github.com/apptainer/apptainer/security/advisories/GHSA-mmx5-32m4-wxvx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-38496
+    - fix: https://github.com/apptainer/apptainer/pull/1523
+    - fix: https://github.com/apptainer/apptainer/pull/1578
+source:
+    id: GHSA-mmx5-32m4-wxvx
+    created: 2024-08-20T11:57:14.509753-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE
