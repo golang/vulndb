@@ -1,0 +1,40 @@
+id: GO-2023-2170
+modules:
+    - module: k8s.io/kubernetes
+      versions:
+        - fixed: 1.24.17
+        - introduced: 1.25.0
+        - fixed: 1.25.13
+        - introduced: 1.26.0
+        - fixed: 1.26.8
+        - introduced: 1.27.0
+        - fixed: 1.27.5
+        - introduced: 1.28.0
+        - fixed: 1.28.1
+      vulnerable_at: 1.28.0
+summary: Kubernetes privilege escalation vulnerability in k8s.io/kubernetes
+cves:
+    - CVE-2023-3955
+ghsas:
+    - GHSA-q78c-gwqw-jcmc
+references:
+    - advisory: https://github.com/advisories/GHSA-q78c-gwqw-jcmc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-3955
+    - web: https://github.com/kubernetes/kubernetes/commit/38c97fa67ed35f36e730856728c9e3807f63546a
+    - web: https://github.com/kubernetes/kubernetes/commit/50334505cd27cbe7cf71865388f25a00e29b2596
+    - web: https://github.com/kubernetes/kubernetes/commit/7da6d72c05dffb3b87e62e2bc8c3228ea12ba1b9
+    - web: https://github.com/kubernetes/kubernetes/commit/b7547e28f898af37aa2f1107a49111f963250fe6
+    - web: https://github.com/kubernetes/kubernetes/commit/c4e17abb04728e3a3f9bb26e727b0f978df20ec9
+    - web: https://github.com/kubernetes/kubernetes/issues/119595
+    - web: https://github.com/kubernetes/kubernetes/pull/120128
+    - web: https://github.com/kubernetes/kubernetes/pull/120134
+    - web: https://github.com/kubernetes/kubernetes/pull/120135
+    - web: https://github.com/kubernetes/kubernetes/pull/120136
+    - web: https://github.com/kubernetes/kubernetes/pull/120137
+    - web: https://github.com/kubernetes/kubernetes/pull/120138
+    - web: https://groups.google.com/g/kubernetes-security-announce/c/JrX4bb7d83E
+source:
+    id: GHSA-q78c-gwqw-jcmc
+    created: 2024-08-20T12:12:15.292286-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

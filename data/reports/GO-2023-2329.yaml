@@ -1,0 +1,25 @@
+id: GO-2023-2329
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - fixed: 1.13.10
+        - introduced: 1.14.0
+        - fixed: 1.14.6
+        - introduced: 1.15.0
+        - fixed: 1.15.2
+      vulnerable_at: 1.15.1
+summary: HashiCorp Vault Missing Release of Memory after Effective Lifetime vulnerability in github.com/hashicorp/vault
+cves:
+    - CVE-2023-5954
+ghsas:
+    - GHSA-4qhc-v8r6-8vwm
+references:
+    - advisory: https://github.com/advisories/GHSA-4qhc-v8r6-8vwm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-5954
+    - web: https://discuss.hashicorp.com/t/hcsec-2023-33-vault-requests-triggering-policy-checks-may-lead-to-unbounded-memory-consumption/59926
+    - web: https://security.netapp.com/advisory/ntap-20231227-0001
+source:
+    id: GHSA-4qhc-v8r6-8vwm
+    created: 2024-08-20T12:14:37.491622-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

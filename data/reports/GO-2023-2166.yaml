@@ -1,0 +1,20 @@
+id: GO-2023-2166
+modules:
+    - module: github.com/authzed/spicedb
+      versions:
+        - fixed: 1.27.0-rc1
+      vulnerable_at: 1.26.0
+summary: SpiceDB leaks information in log files when URI cannot be parsed in github.com/authzed/spicedb
+cves:
+    - CVE-2023-46255
+ghsas:
+    - GHSA-jg7w-cxjv-98c2
+references:
+    - advisory: https://github.com/authzed/spicedb/security/advisories/GHSA-jg7w-cxjv-98c2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-46255
+    - fix: https://github.com/authzed/spicedb/commit/ae50421b80f895e4c98d999b18e06b6f1e6f1cf8
+source:
+    id: GHSA-jg7w-cxjv-98c2
+    created: 2024-08-20T12:12:09.030844-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

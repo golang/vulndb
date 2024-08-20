@@ -1,0 +1,24 @@
+id: GO-2023-2188
+modules:
+    - module: github.com/slsa-framework/slsa-verifier
+      unsupported_versions:
+        - last_affected: 1.4.1
+      vulnerable_at: 1.4.1
+    - module: github.com/slsa-framework/slsa-verifier/v2
+      versions:
+        - fixed: 2.4.1-rc.0
+      vulnerable_at: 2.4.0
+summary: slsa-verifier vulnerable to mproper validation of npm's publish attestations in github.com/slsa-framework/slsa-verifier
+ghsas:
+    - GHSA-r2xv-vpr2-42m9
+references:
+    - advisory: https://github.com/slsa-framework/slsa-verifier/security/advisories/GHSA-r2xv-vpr2-42m9
+    - fix: https://github.com/slsa-framework/slsa-verifier/commit/f6ae402f458b347d2c414f1d053fc1f8257888d0
+    - fix: https://github.com/slsa-framework/slsa-verifier/pull/705
+    - web: https://github.com/npm/attestation/tree/main/specs/publish/v0.1
+    - web: https://openssf.slack.com/archives/C03PDLFET5W/p1695330038983179
+source:
+    id: GHSA-r2xv-vpr2-42m9
+    created: 2024-08-20T12:14:33.24565-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

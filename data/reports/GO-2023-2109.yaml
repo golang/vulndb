@@ -1,0 +1,27 @@
+id: GO-2023-2109
+modules:
+    - module: github.com/goharbor/harbor
+      versions:
+        - fixed: 1.10.18
+        - introduced: 2.0.0+incompatible
+        - fixed: 2.7.3+incompatible
+        - introduced: 2.8.0+incompatible
+        - fixed: 2.8.3+incompatible
+      vulnerable_at: 2.8.3-rc1+incompatible
+summary: Harbor timing attack risk in github.com/goharbor/harbor
+cves:
+    - CVE-2023-20902
+ghsas:
+    - GHSA-mq6f-5xh5-hgcf
+references:
+    - advisory: https://github.com/goharbor/harbor/security/advisories/GHSA-mq6f-5xh5-hgcf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-20902
+    - web: https://github.com/goharbor/harbor/blob/aaea068cceb4063ab89313d9785f2b40f35b0d63/src/jobservice/api/authenticator.go#L69-L69
+    - web: https://github.com/goharbor/harbor/releases/tag/v1.10.18
+    - web: https://github.com/goharbor/harbor/releases/tag/v2.7.3
+    - web: https://github.com/goharbor/harbor/releases/tag/v2.8.3
+source:
+    id: GHSA-mq6f-5xh5-hgcf
+    created: 2024-08-20T12:07:00.93262-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

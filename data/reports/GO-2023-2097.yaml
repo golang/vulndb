@@ -1,0 +1,24 @@
+id: GO-2023-2097
+modules:
+    - module: github.com/charmbracelet/soft-serve
+      versions:
+        - fixed: 0.6.2
+      vulnerable_at: 0.6.1
+summary: |-
+    Soft Serve Public Key Authentication Bypass Vulnerability when
+    Keyboard-Interactive SSH Authentication is Enabled in github.com/charmbracelet/soft-serve
+cves:
+    - CVE-2023-43809
+ghsas:
+    - GHSA-mc97-99j4-vm2v
+references:
+    - advisory: https://github.com/charmbracelet/soft-serve/security/advisories/GHSA-mc97-99j4-vm2v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-43809
+    - fix: https://github.com/charmbracelet/soft-serve/commit/407c4ec72d1006cee1ff8c1775e5bcc091c2bc89
+    - report: https://github.com/charmbracelet/soft-serve/issues/389
+    - web: https://github.com/charmbracelet/soft-serve/releases/tag/v0.6.2
+source:
+    id: GHSA-mc97-99j4-vm2v
+    created: 2024-08-20T12:06:29.937361-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

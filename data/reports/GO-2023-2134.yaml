@@ -1,0 +1,22 @@
+id: GO-2023-2134
+modules:
+    - module: github.com/artifacthub/hub
+      versions:
+        - fixed: 1.16.0
+      vulnerable_at: 1.15.0
+summary: Artifact Hub allows unsafe rego built-in in github.com/artifacthub/hub
+cves:
+    - CVE-2023-45822
+ghsas:
+    - GHSA-9pc8-m4vp-ggvf
+references:
+    - advisory: https://github.com/artifacthub/hub/security/advisories/GHSA-9pc8-m4vp-ggvf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-45822
+    - web: https://artifacthub.io/packages/helm/artifact-hub/artifact-hub?modal=changelog&version=1.16.0
+    - web: https://www.openpolicyagent.org
+    - web: https://www.openpolicyagent.org/docs/latest/#rego
+source:
+    id: GHSA-9pc8-m4vp-ggvf
+    created: 2024-08-20T12:07:53.798395-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

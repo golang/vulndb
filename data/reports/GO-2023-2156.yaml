@@ -1,0 +1,24 @@
+id: GO-2023-2156
+modules:
+    - module: github.com/cosmos/ibc-apps/middleware/packet-forward-middleware/v4
+      versions:
+        - fixed: 4.1.1
+      vulnerable_at: 4.1.0
+    - module: github.com/cosmos/ibc-apps/middleware/packet-forward-middleware/v5
+      versions:
+        - fixed: 5.2.1
+      vulnerable_at: 5.2.0
+    - module: github.com/cosmos/ibc-apps/middleware/packet-forward-middleware/v6
+      versions:
+        - fixed: 6.1.1
+      vulnerable_at: 6.1.0
+summary: Cosmos packet-forward-middleware vulnerable to chain-halt in github.com/cosmos/ibc-apps/middleware/packet-forward-middleware
+ghsas:
+    - GHSA-w6rp-vxj2-fjhr
+references:
+    - advisory: https://github.com/cosmos/ibc-apps/security/advisories/GHSA-w6rp-vxj2-fjhr
+source:
+    id: GHSA-w6rp-vxj2-fjhr
+    created: 2024-08-20T12:08:59.301016-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

@@ -1,0 +1,23 @@
+id: GO-2023-2125
+modules:
+    - module: k8s.io/kops
+      versions:
+        - fixed: 1.25.4
+        - introduced: 1.26.0
+        - fixed: 1.26.2
+      vulnerable_at: 1.26.1
+summary: kOps privilege escalation vulnerability in k8s.io/kops
+cves:
+    - CVE-2023-1943
+ghsas:
+    - GHSA-8gwj-m6vh-2g6j
+references:
+    - advisory: https://github.com/advisories/GHSA-8gwj-m6vh-2g6j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-1943
+    - web: https://github.com/kubernetes/kops/issues/15539
+    - web: https://groups.google.com/g/kubernetes-security-announce/c/yrCE1x89oaU
+source:
+    id: GHSA-8gwj-m6vh-2g6j
+    created: 2024-08-20T12:07:41.540093-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

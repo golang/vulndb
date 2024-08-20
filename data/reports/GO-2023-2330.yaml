@@ -1,0 +1,41 @@
+id: GO-2023-2330
+modules:
+    - module: k8s.io/kubernetes
+      versions:
+        - fixed: 1.24.17
+        - introduced: 1.25.0
+        - fixed: 1.25.13
+        - introduced: 1.26.0
+        - fixed: 1.26.8
+        - introduced: 1.27.0
+        - fixed: 1.27.5
+        - introduced: 1.28.0
+        - fixed: 1.28.1
+      vulnerable_at: 1.28.0
+summary: Kubernetes privilege escalation vulnerability in k8s.io/kubernetes
+cves:
+    - CVE-2023-3676
+ghsas:
+    - GHSA-7fxm-f474-hf8w
+references:
+    - advisory: https://github.com/advisories/GHSA-7fxm-f474-hf8w
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-3676
+    - web: https://github.com/kubernetes/kubernetes/commit/073f9ea33a93ddaecdc2e829150fb715f6387399
+    - web: https://github.com/kubernetes/kubernetes/commit/39cc101c7855341c651a943b9836b50fbace8a6b
+    - web: https://github.com/kubernetes/kubernetes/commit/74b617310c24ca84c2ec90c3858af745d65b5226
+    - web: https://github.com/kubernetes/kubernetes/commit/890483394221c8f22e88c48f86cd4eaf4de65fd6
+    - web: https://github.com/kubernetes/kubernetes/commit/a53faf5e17ed0b0771a605c6401ba4cbf297b59a
+    - web: https://github.com/kubernetes/kubernetes/issues/119339
+    - web: https://github.com/kubernetes/kubernetes/pull/120127
+    - web: https://github.com/kubernetes/kubernetes/pull/120129
+    - web: https://github.com/kubernetes/kubernetes/pull/120130
+    - web: https://github.com/kubernetes/kubernetes/pull/120131
+    - web: https://github.com/kubernetes/kubernetes/pull/120132
+    - web: https://github.com/kubernetes/kubernetes/pull/120133
+    - web: https://groups.google.com/g/kubernetes-security-announce/c/d_fvHZ9a5zc
+    - web: https://security.netapp.com/advisory/ntap-20231130-0007
+source:
+    id: GHSA-7fxm-f474-hf8w
+    created: 2024-08-20T12:14:41.740115-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE

@@ -1,0 +1,24 @@
+id: GO-2023-2336
+modules:
+    - module: github.com/kyverno/kyverno
+      versions:
+        - introduced: 1.5.0-rc1.0.20230601080528-80d139bb5d1d
+        - fixed: 1.5.0-rc1.0.20230918070231-fec2992e3f9f
+summary: Denial of service from malicious image manifest in kyverno in github.com/kyverno/kyverno
+cves:
+    - CVE-2023-42814
+ghsas:
+    - GHSA-9g37-h7p2-2c6r
+references:
+    - advisory: https://github.com/kyverno/kyverno/security/advisories/GHSA-9g37-h7p2-2c6r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-42814
+    - fix: https://github.com/kyverno/kyverno/commit/80d139bb5d1d9d7e907abe851b97dc73821a5be2
+    - fix: https://github.com/kyverno/kyverno/commit/fec2992e3f9fcd6b9c62267522c09b182e7df73b
+    - fix: https://github.com/kyverno/kyverno/pull/8428
+notes:
+    - fix: 'github.com/kyverno/kyverno: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: CVE-2023-42814
+    created: 2024-08-20T12:15:36.878666-04:00
+review_status: UNREVIEWED
+unexcluded: EFFECTIVELY_PRIVATE
