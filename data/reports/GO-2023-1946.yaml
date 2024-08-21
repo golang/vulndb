@@ -2,16 +2,10 @@ id: GO-2023-1946
 modules:
     - module: k8s.io/kubernetes
       versions:
-        - introduced: 1.11.0
+        - introduced: 1.0.0
         - fixed: 1.11.8
-      vulnerable_at: 1.11.8-beta.0
-    - module: k8s.io/kubernetes
-      versions:
         - introduced: 1.12.0
         - fixed: 1.12.6
-      vulnerable_at: 1.12.6-beta.0
-    - module: k8s.io/kubernetes
-      versions:
         - introduced: 1.13.0
         - fixed: 1.13.4
       vulnerable_at: 1.13.4-beta.0
@@ -30,7 +24,7 @@ references:
     - web: https://security.netapp.com/advisory/ntap-20190416-0002
     - web: https://web.archive.org/web/20210125011246/https://www.securityfocus.com/bid/107290
 notes:
-    - manually removed block containing introduced 1.0.0 and last affected because it was incorrectly flagging the entire module as vulnerable
+    - manually collapsed/merged versions
 source:
     id: GHSA-q4rr-64r9-fwgf
     created: 2024-08-20T11:53:57.834032-04:00

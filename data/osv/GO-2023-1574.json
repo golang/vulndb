@@ -30,6 +30,12 @@
           "type": "SEMVER",
           "events": [
             {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.5.18"
+            },
+            {
               "introduced": "1.6.0"
             },
             {
@@ -61,47 +67,6 @@
           }
         ]
       }
-    },
-    {
-      "package": {
-        "name": "github.com/containerd/containerd",
-        "ecosystem": "Go"
-      },
-      "ranges": [
-        {
-          "type": "SEMVER",
-          "events": [
-            {
-              "introduced": "0"
-            },
-            {
-              "fixed": "1.5.18"
-            }
-          ]
-        }
-      ],
-      "ecosystem_specific": {
-        "imports": [
-          {
-            "path": "github.com/containerd/containerd/oci",
-            "symbols": [
-              "WithAdditionalGIDs",
-              "WithUIDGID",
-              "WithUser",
-              "WithUserID",
-              "WithUsername"
-            ]
-          },
-          {
-            "path": "github.com/containerd/containerd/pkg/cri/server",
-            "symbols": [
-              "criService.CreateContainer",
-              "criService.containerSpecOpts",
-              "instrumentedService.CreateContainer"
-            ]
-          }
-        ]
-      }
     }
   ],
   "references": [
@@ -110,8 +75,8 @@
       "url": "https://github.com/containerd/containerd/security/advisories/GHSA-hmfx-3pcx-653p"
     },
     {
-      "type": "WEB",
-      "url": "https://github.com/moby/moby/security/advisories/GHSA-rc4r-wh2q-q6c4"
+      "type": "ARTICLE",
+      "url": "https://www.benthamsgaze.org/2022/08/22/vulnerability-in-linux-containers-investigation-and-mitigation/"
     },
     {
       "type": "FIX",
@@ -130,8 +95,8 @@
       "url": "https://github.com/advisories/GHSA-phjr-8j92-w5v7"
     },
     {
-      "type": "ARTICLE",
-      "url": "https://www.benthamsgaze.org/2022/08/22/vulnerability-in-linux-containers-investigation-and-mitigation/"
+      "type": "WEB",
+      "url": "https://github.com/moby/moby/security/advisories/GHSA-rc4r-wh2q-q6c4"
     }
   ],
   "database_specific": {

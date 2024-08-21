@@ -3,19 +3,11 @@ modules:
     - module: github.com/rancher/rancher
       versions:
         - introduced: 2.0.0+incompatible
-      unsupported_versions:
-        - last_affected: 2.0.13
-    - module: github.com/rancher/rancher
-      versions:
-        - introduced: 2.1.0+incompatible
-      unsupported_versions:
-        - last_affected: 2.1.8
-    - module: github.com/rancher/rancher
-      versions:
-        - introduced: 2.2.0+incompatible
         - fixed: 2.2.2+incompatible
       vulnerable_at: 2.2.2-rc9+incompatible
-summary: Rancher Recreates Default User With Known Password Despite Deletion in github.com/rancher/rancher
+summary: |-
+    Rancher Recreates Default User With Known Password Despite Deletion in
+    github.com/rancher/rancher
 cves:
     - CVE-2019-11202
 ghsas:
@@ -25,8 +17,7 @@ references:
     - advisory: https://nvd.nist.gov/vuln/detail/CVE-2019-11202
     - web: https://forums.rancher.com/t/rancher-release-v2-2-2-addresses-rancher-cve-2019-11202-and-stability-issues/13977
 notes:
-    - fix: 'module merge error: could not merge versions of module github.com/rancher/rancher: introduced and fixed versions must alternate'
-    - fix: 'github.com/rancher/rancher: could not add vulnerable_at: latest version (1.6.30) is before last introduced version'
+    - manually merged/collapsed versions
 source:
     id: GHSA-xh8x-j8h3-m5ph
     created: 2024-06-26T14:04:33.525939-04:00

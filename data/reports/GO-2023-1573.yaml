@@ -2,18 +2,10 @@ id: GO-2023-1573
 modules:
     - module: github.com/containerd/containerd
       versions:
+        - fixed: 1.5.18
         - introduced: 1.6.0
         - fixed: 1.6.18
-      vulnerable_at: 1.6.0
-      packages:
-        - package: github.com/containerd/containerd/images/archive
-          symbols:
-            - onUntarJSON
-            - ImportIndex
-    - module: github.com/containerd/containerd
-      versions:
-        - fixed: 1.5.18
-      vulnerable_at: 1.5.17
+      vulnerable_at: 1.6.17
       packages:
         - package: github.com/containerd/containerd/images/archive
           symbols:

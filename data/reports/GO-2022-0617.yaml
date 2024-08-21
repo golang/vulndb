@@ -2,24 +2,6 @@ id: GO-2022-0617
 modules:
     - module: k8s.io/kubernetes
       unsupported_versions:
-        - last_affected: 1.18.19
-      vulnerable_at: 1.31.0
-    - module: k8s.io/kubernetes
-      versions:
-        - introduced: 1.19.0
-      unsupported_versions:
-        - last_affected: 1.19.11
-      vulnerable_at: 1.31.0
-    - module: k8s.io/kubernetes
-      versions:
-        - introduced: 1.20.0
-      unsupported_versions:
-        - last_affected: 1.20.7
-      vulnerable_at: 1.31.0
-    - module: k8s.io/kubernetes
-      versions:
-        - introduced: 1.21.0
-      unsupported_versions:
         - last_affected: 1.21.1
       vulnerable_at: 1.31.0
 summary: |-
@@ -42,7 +24,7 @@ references:
     - web: https://groups.google.com/g/kubernetes-security-announce/c/-MFX60_wdOY
     - web: https://security.netapp.com/advisory/ntap-20220225-0002
 notes:
-    - fix: 'module merge error: could not merge versions of module k8s.io/kubernetes: introduced and fixed versions must alternate'
+    - manually collapsed version ranges
 source:
     id: GHSA-qh36-44jv-c8xj
     created: 2024-08-20T14:08:01.48392-04:00
