@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3076",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-43379",
+    "GHSA-3r74-v83p-f4f4"
+  ],
+  "summary": "Trufflehog vulnerable to Blind SSRF in some Detectors in github.com/trufflesecurity/trufflehog",
+  "details": "Trufflehog vulnerable to Blind SSRF in some Detectors in github.com/trufflesecurity/trufflehog",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/trufflesecurity/trufflehog",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/trufflesecurity/trufflehog/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.81.9"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/trufflesecurity/trufflehog/security/advisories/GHSA-3r74-v83p-f4f4"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-43379"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/trufflesecurity/trufflehog/commit/fe5624c70923355128868cffd647b6e2cfe11443"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3076",
+    "review_status": "UNREVIEWED"
+  }
+}

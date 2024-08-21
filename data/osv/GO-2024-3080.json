@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3080",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-43403",
+    "GHSA-h27c-6xm3-mcqp"
+  ],
+  "summary": "Kanister vulnerable to cluster-level privilege escalation in github.com/kanisterio/kanister",
+  "details": "Kanister vulnerable to cluster-level privilege escalation in github.com/kanisterio/kanister",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/kanisterio/kanister",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/kanisterio/kanister/security/advisories/GHSA-h27c-6xm3-mcqp"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kanisterio/kanister/blob/master/helm/kanister-operator/templates/rbac.yaml#L49"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kanisterio/kanister/wiki/2023%E2%80%9024-Community-Meeting-Notes"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3080",
+    "review_status": "UNREVIEWED"
+  }
+}

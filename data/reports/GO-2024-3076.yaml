@@ -1,0 +1,21 @@
+id: GO-2024-3076
+modules:
+    - module: github.com/trufflesecurity/trufflehog
+      vulnerable_at: 0.0.0-20220127183845-e9ac138996e7
+    - module: github.com/trufflesecurity/trufflehog/v3
+      versions:
+        - fixed: 3.81.9
+      vulnerable_at: 3.81.8
+summary: Trufflehog vulnerable to Blind SSRF in some Detectors in github.com/trufflesecurity/trufflehog
+cves:
+    - CVE-2024-43379
+ghsas:
+    - GHSA-3r74-v83p-f4f4
+references:
+    - advisory: https://github.com/trufflesecurity/trufflehog/security/advisories/GHSA-3r74-v83p-f4f4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-43379
+    - fix: https://github.com/trufflesecurity/trufflehog/commit/fe5624c70923355128868cffd647b6e2cfe11443
+source:
+    id: GHSA-3r74-v83p-f4f4
+    created: 2024-08-21T10:26:13.043304-04:00
+review_status: UNREVIEWED

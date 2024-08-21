@@ -1,0 +1,19 @@
+id: GO-2024-3080
+modules:
+    - module: github.com/kanisterio/kanister
+      unsupported_versions:
+        - last_affected: 0.0.0-20240820151504-314b65d5d9ab
+      vulnerable_at: 0.0.0-20240821082249-c3c3bc982ba3
+summary: Kanister vulnerable to cluster-level privilege escalation in github.com/kanisterio/kanister
+cves:
+    - CVE-2024-43403
+ghsas:
+    - GHSA-h27c-6xm3-mcqp
+references:
+    - advisory: https://github.com/kanisterio/kanister/security/advisories/GHSA-h27c-6xm3-mcqp
+    - web: https://github.com/kanisterio/kanister/blob/master/helm/kanister-operator/templates/rbac.yaml#L49
+    - web: https://github.com/kanisterio/kanister/wiki/2023%E2%80%9024-Community-Meeting-Notes
+source:
+    id: GHSA-h27c-6xm3-mcqp
+    created: 2024-08-21T10:25:44.475692-04:00
+review_status: UNREVIEWED
