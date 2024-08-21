@@ -2,12 +2,6 @@ id: GO-2023-1946
 modules:
     - module: k8s.io/kubernetes
       versions:
-        - introduced: 1.0.0
-      unsupported_versions:
-        - last_affected: 1.10.0
-      vulnerable_at: 1.31.0
-    - module: k8s.io/kubernetes
-      versions:
         - introduced: 1.11.0
         - fixed: 1.11.8
       vulnerable_at: 1.11.8-beta.0
@@ -36,7 +30,7 @@ references:
     - web: https://security.netapp.com/advisory/ntap-20190416-0002
     - web: https://web.archive.org/web/20210125011246/https://www.securityfocus.com/bid/107290
 notes:
-    - fix: 'module merge error: could not merge versions of module k8s.io/kubernetes: introduced and fixed versions must alternate'
+    - manually removed block containing introduced 1.0.0 and last affected because it was incorrectly flagging the entire module as vulnerable
 source:
     id: GHSA-q4rr-64r9-fwgf
     created: 2024-08-20T11:53:57.834032-04:00
