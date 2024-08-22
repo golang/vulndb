@@ -456,7 +456,9 @@ func (m *Module) splitByMajor(pc *proxy.Client) (modules []*Module) {
 		mc.Versions = av.standard
 		mc.UnsupportedVersions = av.unsupported
 		mc.NonGoVersions = av.nonGo
-		mc.VulnerableAt = nil // needs to be re-generated
+		if !inVulnerableRange(mc.Versions, mc.VulnerableAt) {
+			mc.VulnerableAt = nil // needs to be re-generated
+		}
 		if mod == v1Mod {
 			addIncompatible(mc, pc)
 		}
@@ -465,6 +467,23 @@ func (m *Module) splitByMajor(pc *proxy.Client) (modules []*Module) {
 	}
 
 	return modules
+}
+
+func inVulnerableRange(vs Versions, v *Version) bool {
+	if v == nil {
+		return false
+	}
+
+	rs, err := vs.ToSemverRanges()
+	if err != nil {
+		return false
+	}
+	affected, err := osvutils.AffectsSemver(rs, v.Version)
+	if err != nil {
+		return false
+	}
+
+	return affected
 }
 
 var transforms = map[string]string{
