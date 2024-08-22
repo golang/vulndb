@@ -64,6 +64,14 @@ func (m *Module) classifyVersions(pc *proxy.Client) (found, notFound Versions, n
 		v := vr.Version
 		c, err := pc.CanonicalModulePath(m.Module, v)
 		if err != nil {
+			// Workaround for a bug(?) in which the proxy
+			// returns 404 for the .mod endpoint for a version
+			// that shows up in list.
+			if pc.ModuleExistsAtTaggedVersion(m.Module, v) {
+				found = append(found, vr)
+				continue
+			}
+
 			notFound = append(notFound, vr)
 			continue
 		}
