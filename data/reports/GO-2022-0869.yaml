@@ -6,9 +6,7 @@ modules:
         - introduced: 1.8.0
         - fixed: 1.8.6
       vulnerable_at: 1.8.5
-    - module: github.com/argoproj/argo-cd/v2
-      vulnerable_at: 2.12.1
-summary: Possible XSS when using SSO with the CLI in github.com/argoproj/argo-cd/v2
+summary: Possible XSS when using SSO with the CLI in github.com/argoproj/argo-cd
 cves:
     - CVE-2021-23347
 ghsas:
@@ -18,6 +16,8 @@ references:
     - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-23347
     - fix: https://github.com/argoproj/argo-cd/pull/5563
     - web: https://snyk.io/vuln/SNYK-GOLANG-GITHUBCOMARGOPROJARGOCDCMD-1078291
+notes:
+    - manually removed major version /v2
 source:
     id: GHSA-qq5v-f4c3-395c
     created: 2024-08-20T14:25:38.44588-04:00
