@@ -13,7 +13,7 @@ import (
 
 var (
 	notGo1 = &report.Report{
-		Excluded: "NOT_GO_CODE",
+		Excluded: report.ExcludedNotGoCode,
 	}
 	reviewed1 = &report.Report{
 		ReviewStatus: report.Reviewed,
@@ -23,29 +23,29 @@ var (
 	}
 	reviewedBinary = &report.Report{
 		ReviewStatus: report.Reviewed,
-		Unexcluded:   "NOT_IMPORTABLE",
+		Unexcluded:   report.ExcludedNotImportable,
 	}
 	unreviewed1 = &report.Report{
 		ReviewStatus: report.Unreviewed,
 	}
 	binary1 = &report.Report{
-		Excluded: "NOT_IMPORTABLE",
+		Excluded: report.ExcludedNotImportable,
 	}
 	binary2 = &report.Report{
-		Excluded: "EFFECTIVELY_PRIVATE",
+		Excluded: report.ExcludedEffectivelyPrivate,
 	}
 	binary3 = &report.Report{
-		Excluded: "LEGACY_FALSE_POSITIVE",
+		Excluded: report.ExcludedLegacyFalsePositive,
 	}
 	unreviewedBinary = &report.Report{
 		ReviewStatus: report.Unreviewed,
-		Unexcluded:   "NOT_IMPORTABLE",
+		Unexcluded:   report.ExcludedNotImportable,
 	}
 	notAVuln1 = &report.Report{
-		Excluded: "NOT_A_VULNERABILITY",
+		Excluded: report.ExcludedNotAVulnerability,
 	}
 	dependent1 = &report.Report{
-		Excluded: "DEPENDENT_VULNERABILITY",
+		Excluded: report.ExcludedDependentVulnerabilty,
 	}
 )
 

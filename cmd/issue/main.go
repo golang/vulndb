@@ -92,7 +92,7 @@ func createExcluded(ctx context.Context, c *issues.Client, ghsaClient *ghsa.Clie
 		return err
 	}
 	for _, r := range records {
-		if err := constructIssue(ctx, c, ghsaClient, pc, r.identifier, []string{r.category.ToLabel()}); err != nil {
+		if err := constructIssue(ctx, c, ghsaClient, pc, r.identifier, []string{r.label}); err != nil {
 			return err
 		}
 	}
@@ -182,7 +182,7 @@ func publishIssue(ctx context.Context, c *issues.Client, packages, aliases, bodi
 
 type record struct {
 	identifier string
-	category   report.ExcludedReason
+	label      string
 }
 
 func parseAliases(filename string) (aliases []string, err error) {
@@ -204,8 +204,12 @@ func parseExcluded(filename string) (records []*record, err error) {
 		if len(parts) != 2 {
 			return nil, fmt.Errorf("wrong number of fields on line %d: %q", i, line)
 		}
+		er, ok := report.ToExcludedType(parts[0])
+		if !ok {
+			return nil, fmt.Errorf("%s is not a valid excluded reason", parts[0])
+		}
 		r := &record{
-			category:   report.ExcludedReason(parts[0]),
+			label:      er.ToLabel(),
 			identifier: parts[1],
 		}
 		records = append(records, r)

@@ -614,7 +614,7 @@ func (p *Package) lint(l *linter, m *Module, r *Report) {
 }
 
 func (r *Report) lintModules(l *linter, pc *proxy.Client) {
-	if r.Excluded != "NOT_GO_CODE" && len(r.Modules) == 0 {
+	if r.Excluded != ExcludedNotGoCode && len(r.Modules) == 0 {
 		l.Group("modules").Error(missing)
 	}
 
@@ -636,12 +636,12 @@ func (m *Module) IsFirstParty() bool {
 	return stdlib.IsStdModule(m.Module) || stdlib.IsCmdModule(m.Module)
 }
 
-func (e *ExcludedReason) lint(l *linter) {
+func (e *ExcludedType) lint(l *linter) {
 	if e == nil || *e == "" {
 		return
 	}
-	if !slices.Contains(ExcludedReasons, *e) {
-		l.Errorf("excluded reason (%q) is not a valid excluded reason (accepted: %v)", *e, ExcludedReasons)
+	if !e.IsValid() {
+		l.Errorf("excluded reason (%q) is not a valid excluded reason (accepted: %v)", *e, ExcludedTypes)
 	}
 }
 

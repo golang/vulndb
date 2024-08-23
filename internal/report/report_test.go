@@ -60,7 +60,7 @@ func TestYAMLFilename(t *testing.T) {
 		},
 		{
 			name: "excluded",
-			r:    &Report{ID: "GO-1999-0002", Excluded: "NOT_IMPORTABLE"},
+			r:    &Report{ID: "GO-1999-0002", Excluded: ExcludedNotImportable},
 			want: "data/excluded/GO-1999-0002.yaml",
 		},
 	}
@@ -76,9 +76,8 @@ func TestYAMLFilename(t *testing.T) {
 }
 
 func TestToFromLabel(t *testing.T) {
-	str := "EFFECTIVELY_PRIVATE"
 	label := "excluded: EFFECTIVELY_PRIVATE"
-	er := ExcludedReason(str)
+	er := ExcludedEffectivelyPrivate
 	if got, want := er.ToLabel(), label; got != want {
 		t.Errorf("(%s).ToLabel = %s, want %s", er, got, want)
 	}

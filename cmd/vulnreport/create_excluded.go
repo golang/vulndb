@@ -64,7 +64,7 @@ func (c *createExcluded) skip(input any) string {
 }
 
 func isExcluded(iss *issues.Issue) bool {
-	for _, er := range report.ExcludedReasons {
+	for _, er := range report.ExcludedTypes {
 		if iss.HasLabel(er.ToLabel()) {
 			return true
 		}

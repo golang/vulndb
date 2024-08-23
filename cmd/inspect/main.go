@@ -105,8 +105,8 @@ func display(overall *summary, byYear map[int]*summary) {
 	}
 	data("Withdrawn reports", 1, func(s *summary) int { return s.withdrawn })
 	data("Excluded reports", 1, func(s *summary) int { return s.excluded })
-	for _, er := range report.ExcludedReasons {
-		data(string(er), 2, func(s *summary) int { return s.excludedByReason[er] })
+	for _, er := range report.ExcludedTypes {
+		data(string(er), 2, func(s *summary) int { return s.excludedByType[er] })
 	}
 	data("Reports with no GHSA (+)", 1, func(s *summary) int { return s.noGHSA })
 	data("Stdlib, toolchain and x/ reports", 1, func(s *summary) int { return s.firstParty })
@@ -138,14 +138,14 @@ type summary struct {
 	reports, regular, withdrawn, excluded, noGHSA, firstParty int
 	ghsas                                                     int
 	ghsasNotInVDB                                             []string
-	excludedByReason                                          map[report.ExcludedReason]int
+	excludedByType                                            map[report.ExcludedType]int
 	regularByReview                                           map[report.ReviewStatus]int
 }
 
 func newSummary() *summary {
 	return &summary{
-		excludedByReason: make(map[report.ExcludedReason]int),
-		regularByReview:  make(map[report.ReviewStatus]int),
+		excludedByType:  make(map[report.ExcludedType]int),
+		regularByReview: make(map[report.ReviewStatus]int),
 	}
 }
 
@@ -174,10 +174,10 @@ func summarize(ghsas []*genericosv.Entry, reports []*report.Report) (*summary, m
 
 		if r.IsExcluded() {
 			overall.excluded++
-			overall.excludedByReason[r.Excluded]++
+			overall.excludedByType[r.Excluded]++
 
 			yearSummary.excluded++
-			yearSummary.excludedByReason[r.Excluded]++
+			yearSummary.excludedByType[r.Excluded]++
 		} else if r.Withdrawn != nil {
 			overall.withdrawn++
 			yearSummary.withdrawn++

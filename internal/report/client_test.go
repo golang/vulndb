@@ -34,7 +34,7 @@ var (
 		CVEMetadata: &CVEMeta{
 			ID: "CVE-9999-0002",
 		},
-		Excluded: "EFFECTIVELY_PRIVATE",
+		Excluded: ExcludedEffectivelyPrivate,
 	}
 	fname4 = "data/reports/GO-9999-0004.yaml"
 	r4     = Report{

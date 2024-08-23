@@ -43,7 +43,8 @@ func (u *unexclude) skip(input any) string {
 	}
 
 	// Usually, we only unexclude reports that are effectively private or not importable.
-	if ex := r.Excluded; ex != "EFFECTIVELY_PRIVATE" && ex != "NOT_IMPORTABLE" {
+	if ex := r.Excluded; ex != report.ExcludedEffectivelyPrivate &&
+		ex != report.ExcludedNotImportable {
 		if *force {
 			log.Warnf("%s: excluded for reason %q, but -f was specified, continuing", r.ID, ex)
 			return ""

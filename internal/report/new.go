@@ -103,7 +103,7 @@ func WithReviewStatus(status ReviewStatus) NewOption {
 	}
 }
 
-func WithUnexcluded(reason ExcludedReason) NewOption {
+func WithUnexcluded(reason ExcludedType) NewOption {
 	return func(h *cfg) {
 		h.Unexcluded = reason
 	}
@@ -115,7 +115,7 @@ type cfg struct {
 	Created      time.Time
 	GoID         string
 	ReviewStatus ReviewStatus
-	Unexcluded   ExcludedReason
+	Unexcluded   ExcludedType
 }
 
 const PendingID = "GO-ID-PENDING"

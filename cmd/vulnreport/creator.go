@@ -288,7 +288,7 @@ const (
 	labelOutOfScope    = "excluded: OUT_OF_SCOPE"
 )
 
-func excludedReason(iss *issues.Issue) report.ExcludedReason {
+func excludedReason(iss *issues.Issue) report.ExcludedType {
 	for _, label := range iss.Labels {
 		if reason, ok := report.FromLabel(label); ok {
 			return reason
@@ -325,7 +325,7 @@ type reportMeta struct {
 	id                   string
 	modulePath           string
 	aliases              []string
-	excluded, unexcluded report.ExcludedReason
+	excluded, unexcluded report.ExcludedType
 	reviewStatus         report.ReviewStatus
 	originalCVE          string
 }

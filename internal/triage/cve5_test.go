@@ -152,7 +152,7 @@ func pickRandomCVEs(ctx context.Context, n int) ([]string, []string, error) {
 Categorize:
 	for _, f := range files {
 		for _, r := range rc.ReportsByAlias(f.ID()) {
-			if r.Excluded != "NOT_GO_CODE" {
+			if r.Excluded != report.ExcludedNotGoCode {
 				goCVEs = append(goCVEs, f.ID())
 				continue Categorize
 			}

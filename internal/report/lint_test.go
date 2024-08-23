@@ -82,7 +82,7 @@ func validStdReport(f func(r *Report)) Report {
 func validExcludedReport(f func(r *Report)) Report {
 	r := Report{
 		ID:       "GO-0000-0000",
-		Excluded: "NOT_GO_CODE",
+		Excluded: ExcludedNotGoCode,
 		CVEs:     []string{"CVE-2022-1234545"},
 	}
 	f(&r)

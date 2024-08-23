@@ -198,35 +198,56 @@ type CVEMeta struct {
 	References []string `yaml:",omitempty"`
 }
 
-// ExcludedReason is the reason a report is excluded from the database.
+// ExcludedType is the reason a report is excluded from the database.
 //
-// It must be one of the values in ExcludedReasons.
-type ExcludedReason string
+// It must be one of the values in ExcludedTypes.
+type ExcludedType string
 
-// ExcludedReasons are the set of reasons a report may be excluded from the database.
+const (
+	ExcludedNotImportable         ExcludedType = "NOT_IMPORTABLE"
+	ExcludedNotGoCode             ExcludedType = "NOT_GO_CODE"
+	ExcludedNotAVulnerability     ExcludedType = "NOT_A_VULNERABILITY"
+	ExcludedEffectivelyPrivate    ExcludedType = "EFFECTIVELY_PRIVATE"
+	ExcludedDependentVulnerabilty ExcludedType = "DEPENDENT_VULNERABILITY"
+	ExcludedLegacyFalsePositive   ExcludedType = "LEGACY_FALSE_POSITIVE"
+)
+
+// ExcludedTypes are the set of reasons a report may be excluded from the database.
 // These are described in detail at
 // https://go.googlesource.com/vulndb/+/refs/heads/master/doc/format.md.
-var ExcludedReasons = []ExcludedReason{
-	"NOT_IMPORTABLE",
-	"NOT_GO_CODE",
-	"NOT_A_VULNERABILITY",
-	"EFFECTIVELY_PRIVATE",
-	"DEPENDENT_VULNERABILITY",
-	"LEGACY_FALSE_POSITIVE",
+var ExcludedTypes = []ExcludedType{
+	ExcludedNotImportable,
+	ExcludedNotGoCode,
+	ExcludedNotAVulnerability,
+	ExcludedEffectivelyPrivate,
+	ExcludedDependentVulnerabilty,
+	ExcludedLegacyFalsePositive,
+}
+
+func (e *ExcludedType) IsValid() bool {
+	return slices.Contains(ExcludedTypes, *e)
+}
+
+func ToExcludedType(s string) (ExcludedType, bool) {
+	e := ExcludedType(s)
+	if !e.IsValid() {
+		return "", false
+	}
+	return e, true
 }
 
 const excludedLabelPrefix = "excluded: "
 
-func (er ExcludedReason) ToLabel() string {
-	return fmt.Sprintf("%s%s", excludedLabelPrefix, string(er))
+func (e ExcludedType) ToLabel() string {
+	return fmt.Sprintf("%s%s", excludedLabelPrefix, string(e))
 }
 
-func FromLabel(label string) (ExcludedReason, bool) {
+func FromLabel(label string) (ExcludedType, bool) {
 	pre, er, ok := strings.Cut(label, excludedLabelPrefix)
-	if pre != "" {
+	if pre != "" || !ok {
 		return "", false
 	}
-	return ExcludedReason(er), ok
+	return ToExcludedType(er)
 }
 
 // A Reference is a link to some external resource.
@@ -302,7 +323,7 @@ type Report struct {
 	ID string `yaml:",omitempty"`
 
 	// Excluded indicates an excluded report.
-	Excluded ExcludedReason `yaml:",omitempty"`
+	Excluded ExcludedType `yaml:",omitempty"`
 
 	Modules []*Module `yaml:",omitempty"`
 
@@ -352,7 +373,7 @@ type Report struct {
 
 	// (For unexcluded reports) The reason this report was previously
 	// excluded. Not published to OSV.
-	Unexcluded ExcludedReason `yaml:"unexcluded,omitempty"`
+	Unexcluded ExcludedType `yaml:"unexcluded,omitempty"`
 }
 
 // This wrapper is needed so we can define YAML functions on this type.

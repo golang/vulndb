@@ -151,11 +151,14 @@ const (
 func state(r *report.Report) reportState {
 	if r.IsExcluded() {
 		switch e := r.Excluded; e {
-		case "NOT_GO_CODE":
+		case report.ExcludedNotGoCode:
 			return excludedNotGo
-		case "EFFECTIVELY_PRIVATE", "NOT_IMPORTABLE", "LEGACY_FALSE_POSITIVE":
+		case report.ExcludedEffectivelyPrivate,
+			report.ExcludedNotImportable,
+			report.ExcludedLegacyFalsePositive:
 			return excludedBinary
-		case "NOT_A_VULNERABILITY", "DEPENDENT_VULNERABILITY":
+		case report.ExcludedNotAVulnerability,
+			report.ExcludedDependentVulnerabilty:
 			return excludedOther
 		default:
 			return unknownReportState
