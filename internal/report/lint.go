@@ -530,7 +530,7 @@ func (r *Report) lint(pc *proxy.Client) []string {
 	r.CVEMetadata.lint(l.Group("cve_metadata"), r)
 
 	if r.IsExcluded() && len(r.Aliases()) == 0 {
-		l.Group("cves,ghsas").Error()
+		l.Group("cves,ghsas").Error(missing)
 	}
 
 	r.lintCVEs(l)

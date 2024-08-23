@@ -55,6 +55,10 @@ func (u *unexclude) skip(input any) string {
 	return ""
 }
 
+func withdrawnGuidance(id string, issNum int) string {
+	return fmt.Sprintf("classify report %s as %s and mark issue #%d as %s", id, report.ExcludedWithdrawn, issNum, report.ExcludedWithdrawn.ToLabel())
+}
+
 // unexclude converts an excluded report into a regular report.
 func (u *unexclude) run(ctx context.Context, input any) (err error) {
 	oldR := input.(*yamlReport)
@@ -75,7 +79,7 @@ func (u *unexclude) run(ctx context.Context, input any) (err error) {
 	}
 	if r.Withdrawn != nil {
 		_, _, issNum, _ := report.ParseFilepath(oldR.Filename)
-		return fmt.Errorf("unexcluded report should not be created for withdrawn vulnerability; delete excluded report %s and mark issue #%d as excluded:OUT_OF_SCOPE instead", oldR.Filename, issNum)
+		return fmt.Errorf("unexcluded report should not be created for withdrawn vulnerability; %s", withdrawnGuidance(oldR.Filename, issNum))
 	}
 	r.Unexcluded = oldR.Excluded
 	if err := u.write(ctx, r); err != nil {

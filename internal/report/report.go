@@ -210,6 +210,7 @@ const (
 	ExcludedEffectivelyPrivate    ExcludedType = "EFFECTIVELY_PRIVATE"
 	ExcludedDependentVulnerabilty ExcludedType = "DEPENDENT_VULNERABILITY"
 	ExcludedLegacyFalsePositive   ExcludedType = "LEGACY_FALSE_POSITIVE"
+	ExcludedWithdrawn             ExcludedType = "WITHDRAWN"
 )
 
 // ExcludedTypes are the set of reasons a report may be excluded from the database.
@@ -222,6 +223,7 @@ var ExcludedTypes = []ExcludedType{
 	ExcludedEffectivelyPrivate,
 	ExcludedDependentVulnerabilty,
 	ExcludedLegacyFalsePositive,
+	ExcludedWithdrawn,
 }
 
 func (e *ExcludedType) IsValid() bool {

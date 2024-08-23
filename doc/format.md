@@ -468,6 +468,9 @@ Valid values are:
   vulnerability entirely superseded by the report for A.
 * `NOT_A_VULNERABILITY`: While a CVE or GHSA has been assigned,
   there is no known vulnerability associated with it.
+* `WITHDRAWN`: The source report for this vulnerability was withdrawn
+  before a report was published in vulndb. (If a source report is withdrawn
+  after a report is published, we withdraw the report too).
 * `LEGACY_FALSE_POSITIVE`: This is the label used for excluded reports
   that were marked as false positive in the initial triage process (in 2020),
   before we stored excluded reports in the repo. This label must not be used
