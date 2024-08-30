@@ -158,7 +158,8 @@ func state(r *report.Report) reportState {
 			report.ExcludedLegacyFalsePositive:
 			return excludedBinary
 		case report.ExcludedNotAVulnerability,
-			report.ExcludedDependentVulnerabilty:
+			report.ExcludedDependentVulnerabilty,
+			report.ExcludedWithdrawn:
 			return excludedOther
 		default:
 			return unknownReportState
