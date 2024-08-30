@@ -1,0 +1,22 @@
+id: GO-2024-3103
+modules:
+    - module: github.com/hwameistor/hwameistor
+      versions:
+        - fixed: 0.14.6
+      vulnerable_at: 0.14.5
+summary: Hwameistor Potential Permission Leakage of Cluster Level in github.com/hwameistor/hwameistor
+cves:
+    - CVE-2024-45054
+ghsas:
+    - GHSA-mgwr-h7mv-fh29
+references:
+    - advisory: https://github.com/hwameistor/hwameistor/security/advisories/GHSA-mgwr-h7mv-fh29
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-45054
+    - fix: https://github.com/hwameistor/hwameistor/commit/edf4cebed73cadd230bf97eab65c5311f2858450
+    - report: https://github.com/hwameistor/hwameistor/issues/1457
+    - report: https://github.com/hwameistor/hwameistor/issues/1460
+    - web: https://github.com/hwameistor/hwameistor/blob/main/helm/hwameistor/templates/clusterrole.yaml
+source:
+    id: GHSA-mgwr-h7mv-fh29
+    created: 2024-08-30T11:49:56.278746-04:00
+review_status: UNREVIEWED

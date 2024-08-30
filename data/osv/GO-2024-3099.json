@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3099",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-45244",
+    "GHSA-48gg-32q2-4r6m"
+  ],
+  "summary": "Hyperledger Fabric does not verify request has a timestamp within the expected time window in github.com/hyperledger/fabric",
+  "details": "Hyperledger Fabric does not verify request has a timestamp within the expected time window in github.com/hyperledger/fabric",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hyperledger/fabric",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-48gg-32q2-4r6m"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-45244"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hyperledger/fabric/commit/155457a6624b3c74b22e5729c35c8499bfe952cd"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3099",
+    "review_status": "UNREVIEWED"
+  }
+}

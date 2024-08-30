@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3085",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-42490",
+    "GHSA-qxqc-27pr-wgc8"
+  ],
+  "summary": "GoAuthentik vulnerable to Insufficient Authorization for several API endpoints in goauthentik.io",
+  "details": "GoAuthentik vulnerable to Insufficient Authorization for several API endpoints in goauthentik.io.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: goauthentik.io before v2024.4.4, from v2024.6.0-rc1 before v2024.6.4.",
+  "affected": [
+    {
+      "package": {
+        "name": "goauthentik.io",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "2024.4.4"
+              },
+              {
+                "introduced": "2024.6.0-rc1"
+              },
+              {
+                "fixed": "2024.6.4"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/goauthentik/authentik/security/advisories/GHSA-qxqc-27pr-wgc8"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-42490"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/goauthentik/authentik/commit/19318d4c00bb02c4ec3c4f8f15ac2e1dbe8d846c"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/goauthentik/authentik/commit/359b343f51524342a5ca03828e7c975a1d654b11"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3085",
+    "review_status": "UNREVIEWED"
+  }
+}

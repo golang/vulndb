@@ -1,0 +1,20 @@
+id: GO-2024-3086
+modules:
+    - module: github.com/casdoor/casdoor
+      unsupported_versions:
+        - last_affected: 1.577.0
+      vulnerable_at: 1.685.0
+summary: Casdoor has reflected XSS in QrCodePage.js (GHSL-2024-036) in github.com/casdoor/casdoor
+cves:
+    - CVE-2024-41658
+ghsas:
+    - GHSA-gv2p-4mvg-g32h
+references:
+    - advisory: https://github.com/advisories/GHSA-gv2p-4mvg-g32h
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-41658
+    - advisory: https://securitylab.github.com/advisories/GHSL-2024-035_GHSL-2024-036_casdoor
+    - web: https://github.com/casdoor/casdoor/blob/v1.577.0/web/src/QrCodePage.js
+source:
+    id: GHSA-gv2p-4mvg-g32h
+    created: 2024-08-30T11:54:45.361649-04:00
+review_status: UNREVIEWED

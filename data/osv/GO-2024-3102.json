@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3102",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-45043",
+    "GHSA-prf6-xjxh-p698"
+  ],
+  "summary": "OpenTelemetry Collector module AWS Firehose Receiver Authentication Bypass Vulnerability in github.com/open-telemetry/opentelemetry-collector-contrib/receiver/awsfirehosereceiver",
+  "details": "OpenTelemetry Collector module AWS Firehose Receiver Authentication Bypass Vulnerability in github.com/open-telemetry/opentelemetry-collector-contrib/receiver/awsfirehosereceiver",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/awsfirehosereceiver",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.49.0"
+            },
+            {
+              "fixed": "0.108.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/open-telemetry/opentelemetry-collector-contrib/security/advisories/GHSA-prf6-xjxh-p698"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-45043"
+    },
+    {
+      "type": "WEB",
+      "url": "https://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-http"
+    },
+    {
+      "type": "WEB",
+      "url": "https://docs.aws.amazon.com/firehose/latest/dev/httpdeliveryrequestresponse.html"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/open-telemetry/opentelemetry-collector#alpha"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/open-telemetry/opentelemetry-collector-contrib/commit/371bf6afbd7cfa3253fa1674f5444064e86ef0ac"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/open-telemetry/opentelemetry-collector-contrib/pull/34847"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/awsfirehosereceiver"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/open-telemetry/opentelemetry-collector-releases/pull/74"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/open-telemetry/opentelemetry-collector-releases/releases/tag/v0.108.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/open-telemetry/opentelemetry-collector-releases/tree/main/distributions/otelcol-contrib"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3102",
+    "review_status": "UNREVIEWED"
+  }
+}

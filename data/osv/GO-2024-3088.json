@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3088",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-41659",
+    "GHSA-p4fx-qf2h-jpmj"
+  ],
+  "summary": "memos CORS Misconfiguration in server.go (GHSL-2024-034) in github.com/usememos/memos",
+  "details": "memos CORS Misconfiguration in server.go (GHSL-2024-034) in github.com/usememos/memos",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/usememos/memos",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.21.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-p4fx-qf2h-jpmj"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-41659"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://securitylab.github.com/advisories/GHSL-2024-034_memos"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/usememos/memos/commit/8101a5e0b162044c16385bee4f12a4a653d050b9"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/usememos/memos/blob/v0.20.1/server/server.go#L163"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3088",
+    "review_status": "UNREVIEWED"
+  }
+}

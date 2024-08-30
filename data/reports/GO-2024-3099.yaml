@@ -1,0 +1,21 @@
+id: GO-2024-3099
+modules:
+    - module: github.com/hyperledger/fabric
+      unsupported_versions:
+        - last_affected: 2.5.9
+      vulnerable_at: 1.4.12
+summary: |-
+    Hyperledger Fabric does not verify request has a timestamp within the expected
+    time window in github.com/hyperledger/fabric
+cves:
+    - CVE-2024-45244
+ghsas:
+    - GHSA-48gg-32q2-4r6m
+references:
+    - advisory: https://github.com/advisories/GHSA-48gg-32q2-4r6m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-45244
+    - fix: https://github.com/hyperledger/fabric/commit/155457a6624b3c74b22e5729c35c8499bfe952cd
+source:
+    id: GHSA-48gg-32q2-4r6m
+    created: 2024-08-30T11:50:13.440878-04:00
+review_status: UNREVIEWED

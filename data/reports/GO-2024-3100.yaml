@@ -1,0 +1,20 @@
+id: GO-2024-3100
+modules:
+    - module: github.com/jpillora/chisel
+      versions:
+        - fixed: 1.10.0
+      vulnerable_at: 1.9.1
+summary: Chisel's AUTH environment variable not respected in server entrypoint in github.com/jpillora/chisel
+cves:
+    - CVE-2024-43798
+ghsas:
+    - GHSA-38jh-8h67-m7mj
+references:
+    - advisory: https://github.com/jpillora/chisel/security/advisories/GHSA-38jh-8h67-m7mj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-43798
+    - web: https://github.com/jpillora/chisel/blob/3de177432cd23db58e57f376b62ad497cc10840f/main.go#L138
+    - web: https://github.com/jpillora/chisel/blob/3de177432cd23db58e57f376b62ad497cc10840f/main.go#L452
+source:
+    id: GHSA-38jh-8h67-m7mj
+    created: 2024-08-30T11:50:09.347626-04:00
+review_status: UNREVIEWED

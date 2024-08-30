@@ -1,0 +1,22 @@
+id: GO-2024-3085
+modules:
+    - module: goauthentik.io
+      non_go_versions:
+        - fixed: 2024.4.4
+        - introduced: 2024.6.0-rc1
+        - fixed: 2024.6.4
+      vulnerable_at: 0.0.0-20240830143927-1003c79d8cc6
+summary: GoAuthentik vulnerable to Insufficient Authorization for several API endpoints in goauthentik.io
+cves:
+    - CVE-2024-42490
+ghsas:
+    - GHSA-qxqc-27pr-wgc8
+references:
+    - advisory: https://github.com/goauthentik/authentik/security/advisories/GHSA-qxqc-27pr-wgc8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-42490
+    - web: https://github.com/goauthentik/authentik/commit/19318d4c00bb02c4ec3c4f8f15ac2e1dbe8d846c
+    - web: https://github.com/goauthentik/authentik/commit/359b343f51524342a5ca03828e7c975a1d654b11
+source:
+    id: GHSA-qxqc-27pr-wgc8
+    created: 2024-08-30T11:54:49.614232-04:00
+review_status: UNREVIEWED
