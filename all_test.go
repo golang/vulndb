@@ -113,7 +113,7 @@ func TestLintReports(t *testing.T) {
 			}
 			lints := lint(r)
 			if len(lints) > 0 {
-				t.Errorf(strings.Join(lints, "\n"))
+				t.Error(strings.Join(lints, "\n"))
 			}
 			duplicates := make(map[string][]string)
 			for _, alias := range r.Aliases() {

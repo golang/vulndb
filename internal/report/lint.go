@@ -481,7 +481,7 @@ func (r *Report) LintAsNotes(pc *proxy.Client) bool {
 	if lints := r.Lint(pc); len(lints) > 0 {
 		slices.Sort(lints)
 		for _, lint := range lints {
-			r.AddNote(NoteTypeLint, lint)
+			r.AddNote(NoteTypeLint, "%s", lint)
 		}
 		return true
 	}

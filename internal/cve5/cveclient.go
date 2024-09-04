@@ -7,6 +7,7 @@ package cve5
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -496,5 +497,5 @@ func extractError(resp *http.Response) error {
 		errMsg = fmt.Sprintf("%s\n  %s: %s", errMsg, detail.InstancePath, detail.Message)
 	}
 
-	return fmt.Errorf(errMsg)
+	return errors.New(errMsg)
 }

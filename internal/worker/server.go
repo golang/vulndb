@@ -153,7 +153,7 @@ func (s *Server) serveError(ctx context.Context, w http.ResponseWriter, _ *http.
 		serr = &serverError{status: http.StatusInternalServerError, err: err}
 	}
 	if serr.status == http.StatusInternalServerError {
-		log.Errorf(ctx, serr.err.Error())
+		log.Errorf(ctx, "%s", serr.err.Error())
 	} else {
 		log.Errorf(ctx, "returning %d (%s) for error %v", serr.status, http.StatusText(serr.status), err)
 	}
