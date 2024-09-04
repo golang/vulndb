@@ -3,9 +3,8 @@ modules:
     - module: github.com/hashicorp/vault
       versions:
         - introduced: 1.8.0
-      unsupported_versions:
-        - last_affected: 1.8.4
-      vulnerable_at: 1.17.3
+        - fixed: 1.8.5
+      vulnerable_at: 1.8.4
 summary: Incorrect Privilege Assignment in HashiCorp Vault in github.com/hashicorp/vault
 cves:
     - CVE-2021-42135
@@ -16,6 +15,11 @@ references:
     - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-42135
     - web: https://discuss.hashicorp.com/t/hcsec-2021-28-vaults-google-cloud-secrets-engine-policies-with-globs-may-provide-additional-privileges-in-vault-1-8-0-onwards
     - web: https://github.com/hashicorp/vault/blob/main/CHANGELOG.md#180
+notes:
+    - |
+      manually changed 'last_affected: 1.8.4' to 'fixed: 1.8.5'. The fix appears to be
+      only a documentation clarification; but this is an old enough vulnerability that
+      the new documentation should have had enough time to reach users.
 source:
     id: GHSA-362v-wg5p-64w2
     created: 2024-08-20T14:05:02.493104-04:00
