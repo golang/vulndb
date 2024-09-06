@@ -1,0 +1,32 @@
+id: GO-2024-3105
+modules:
+    - module: std
+      versions:
+        - fixed: 1.22.7
+        - introduced: 1.23.0-0
+        - fixed: 1.23.1
+      vulnerable_at: 1.23.0
+      packages:
+        - package: go/parser
+          symbols:
+            - parser.parseLiteralValue
+          derived_symbols:
+            - ParseDir
+            - ParseExpr
+            - ParseExprFrom
+            - ParseFile
+summary: Stack exhaustion in all Parse functions in go/parser
+description: |-
+    Calling any of the Parse functions on Go source code which contains deeply
+    nested literals can cause a panic due to stack exhaustion.
+references:
+    - fix: https://go.dev/cl/611238
+    - report: https://go.dev/issue/69138
+    - web: https://groups.google.com/g/golang-dev/c/S9POB9NCTdk
+cve_metadata:
+    id: CVE-2024-34155
+    cwe: 'CWE-674: Uncontrolled Recursion'
+source:
+    id: go-security-team
+    created: 2024-09-06T13:02:50.706292-04:00
+review_status: REVIEWED

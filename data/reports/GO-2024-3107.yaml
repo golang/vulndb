@@ -1,0 +1,30 @@
+id: GO-2024-3107
+modules:
+    - module: std
+      versions:
+        - fixed: 1.22.7
+        - introduced: 1.23.0-0
+        - fixed: 1.23.1
+      vulnerable_at: 1.23.0
+      packages:
+        - package: go/build/constraint
+          symbols:
+            - parsePlusBuildExpr
+            - exprParser.not
+          derived_symbols:
+            - Parse
+summary: Stack exhaustion in Parse in go/build/constraint
+description: |-
+    Calling Parse on a "// +build" build tag line with deeply nested expressions can
+    cause a panic due to stack exhaustion.
+references:
+    - fix: https://go.dev/cl/611240
+    - report: https://go.dev/issue/69141
+    - web: https://groups.google.com/g/golang-dev/c/S9POB9NCTdk
+cve_metadata:
+    id: CVE-2024-34158
+    cwe: 'CWE-674: Uncontrolled Recursion'
+source:
+    id: go-security-team
+    created: 2024-09-06T13:02:17.963747-04:00
+review_status: REVIEWED

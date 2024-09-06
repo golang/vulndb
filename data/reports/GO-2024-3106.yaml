@@ -1,0 +1,34 @@
+id: GO-2024-3106
+modules:
+    - module: std
+      versions:
+        - fixed: 1.22.7
+        - introduced: 1.23.0-0
+        - fixed: 1.23.1
+      vulnerable_at: 1.23.0
+      packages:
+        - package: encoding/gob
+          symbols:
+            - Decoder.decIgnoreOpFor
+          derived_symbols:
+            - Decoder.Decode
+            - Decoder.DecodeValue
+summary: Stack exhaustion in Decoder.Decode in encoding/gob
+description: |-
+    Calling Decoder.Decode on a message which contains deeply nested structures can
+    cause a panic due to stack exhaustion. This is a follow-up to CVE-2022-30635.
+related:
+    - CVE-2022-30635
+credits:
+    - Md Sakib Anwar of The Ohio State University (anwar.40@osu.edu)
+references:
+    - fix: https://go.dev/cl/611239
+    - report: https://go.dev/issue/69139
+    - web: https://groups.google.com/g/golang-dev/c/S9POB9NCTdk
+cve_metadata:
+    id: CVE-2024-34156
+    cwe: 'CWE-674: Uncontrolled Recursion'
+source:
+    id: go-security-team
+    created: 2024-09-06T13:02:49.363237-04:00
+review_status: REVIEWED
