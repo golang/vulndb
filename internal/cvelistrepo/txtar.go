@@ -48,6 +48,7 @@ var (
 		"CVE-2024-33522": "github.com/projectcalico/calico",
 		"CVE-2024-21527": "github.com/gotenberg/gotenberg",
 		"CVE-2020-7668":  "github.com/unknwon/cae/tz",
+		"CVE-2024-21583": "github.com/gitpod-io/gitpod",
 
 		// A third-party non-Go CVE that was miscategorized
 		// as applying to "github.com/amlweems/xzbot".
