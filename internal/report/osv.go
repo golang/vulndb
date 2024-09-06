@@ -19,6 +19,7 @@ import (
 	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/stdlib"
+	"golang.org/x/vulndb/internal/version"
 )
 
 var (
@@ -51,10 +52,10 @@ func (r *Report) nonGoVersionsStr() string {
 	var vs []string
 	for _, m := range r.Modules {
 		if s := m.NonGoVersions.verboseString(); s != "" {
-			vs = append(vs, fmt.Sprintf("%s %s.", m.Module, s))
+			vs = append(vs, fmt.Sprintf("%s %s", m.Module, s))
 		}
 	}
-	return strings.Join(vs, "; ")
+	return strings.Join(vs, "; ") + "."
 }
 
 func (v Versions) verboseString() string {
@@ -94,7 +95,13 @@ func (vs Versions) collectRangePairs() []pair {
 		ps []pair
 		p  pair
 	)
-	prefix := "v"
+	addPrefix := func(s *string) {
+		const semverPrefix = "v"
+		if *s != "" && version.IsValid(*s) {
+			*s = semverPrefix + *s
+		}
+	}
+
 	for _, v := range vs {
 		if v.IsIntroduced() {
 			// We expected Introduced and Fixed to alternate, but if
@@ -104,15 +111,11 @@ func (vs Versions) collectRangePairs() []pair {
 			if p.intro == "0" {
 				p.intro = ""
 			}
-			if p.intro != "" {
-				p.intro = prefix + p.intro
-			}
+			addPrefix(&p.intro)
 		}
 		if v.IsFixed() {
 			p.fixed = v.Version
-			if p.fixed != "" {
-				p.fixed = prefix + p.fixed
-			}
+			addPrefix(&p.fixed)
 			ps = append(ps, p)
 			p = pair{}
 		}
