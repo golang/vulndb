@@ -462,8 +462,6 @@ func toVersions(cvr *VersionRange, defaultStatus VersionStatus) (report.Versions
 	// For now, don't attempt to fix any other cases we don't understand.
 	if cvr.VersionType != typeSemver ||
 		cvr.LessThanOrEqual != "" ||
-		!version.IsValid(intro) ||
-		!version.IsValid(fixed) ||
 		cvr.Status != StatusAffected ||
 		defaultStatus == StatusAffected {
 		return nil, false
