@@ -5,7 +5,6 @@
 package report
 
 import (
-	"net/url"
 	"strings"
 
 	"golang.org/x/vulndb/internal/idstr"
@@ -25,22 +24,17 @@ func isIssue(url string) bool {
 // ReferenceFromUrl creates a new Reference from a url
 // with Type inferred from the contents of the url.
 func ReferenceFromUrl(u string) *Reference {
-	unescaped, err := url.PathUnescape(u)
-	if err != nil {
-		// Ignore error and use original.
-		unescaped = u
-	}
 	typ := osv.ReferenceTypeWeb
 	switch {
-	case isFix(unescaped):
+	case isFix(u):
 		typ = osv.ReferenceTypeFix
-	case isIssue(unescaped):
+	case isIssue(u):
 		typ = osv.ReferenceTypeReport
-	case idstr.IsAdvisory(unescaped):
+	case idstr.IsAdvisory(u):
 		typ = osv.ReferenceTypeAdvisory
 	}
 	return &Reference{
 		Type: typ,
-		URL:  unescaped,
+		URL:  u,
 	}
 }
