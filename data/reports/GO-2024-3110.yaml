@@ -1,0 +1,24 @@
+id: GO-2024-3110
+modules:
+    - module: github.com/opencontainers/runc
+      versions:
+        - fixed: 1.1.14
+        - introduced: 1.2.0-rc.1
+        - fixed: 1.2.0-rc.3
+      vulnerable_at: 1.2.0-rc.2
+summary: runc can be confused to create empty files/directories on the host in github.com/opencontainers/runc
+cves:
+    - CVE-2024-45310
+ghsas:
+    - GHSA-jfvp-7x6p-h2pv
+references:
+    - advisory: https://github.com/opencontainers/runc/security/advisories/GHSA-jfvp-7x6p-h2pv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-45310
+    - fix: https://github.com/opencontainers/runc/commit/63c2908164f3a1daea455bf5bcd8d363d70328c7
+    - fix: https://github.com/opencontainers/runc/commit/8781993968fd964ac723ff5f360b6f259e809a3e
+    - fix: https://github.com/opencontainers/runc/commit/f0b652ea61ff6750a8fcc69865d45a7abf37accf
+    - fix: https://github.com/opencontainers/runc/pull/4359
+source:
+    id: GHSA-jfvp-7x6p-h2pv
+    created: 2024-09-06T13:02:07.367932-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,20 @@
+id: GO-2024-3113
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - introduced: 1.17.3
+        - fixed: 1.17.5
+      vulnerable_at: 1.17.4
+summary: Vault Leaks Client Token and Token Accessor in Audit Devices in github.com/hashicorp/vault
+cves:
+    - CVE-2024-8365
+ghsas:
+    - GHSA-jjxf-26c9-77gm
+references:
+    - advisory: https://github.com/advisories/GHSA-jjxf-26c9-77gm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-8365
+    - web: https://discuss.hashicorp.com/t/hcsec-2024-18-vault-leaks-client-token-and-token-accessor-in-audit-devices
+source:
+    id: GHSA-jjxf-26c9-77gm
+    created: 2024-09-06T13:02:00.111841-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,24 @@
+id: GO-2024-3114
+modules:
+    - module: github.com/projectdiscovery/nuclei
+      vulnerable_at: 1.1.7
+    - module: github.com/projectdiscovery/nuclei/v2
+      vulnerable_at: 2.9.15
+    - module: github.com/projectdiscovery/nuclei/v3
+      versions:
+        - introduced: 3.0.0
+        - fixed: 3.3.2
+      vulnerable_at: 3.3.1
+summary: Nuclei Template Signature Verification Bypass in github.com/projectdiscovery/nuclei
+cves:
+    - CVE-2024-43405
+ghsas:
+    - GHSA-7h5p-mmpp-hgmm
+references:
+    - advisory: https://github.com/projectdiscovery/nuclei/security/advisories/GHSA-7h5p-mmpp-hgmm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-43405
+    - fix: https://github.com/projectdiscovery/nuclei/commit/0da993afe6d41b4b1b814e8fad23a2acba13c60a
+source:
+    id: GHSA-7h5p-mmpp-hgmm
+    created: 2024-09-06T13:01:56.268493-04:00
+review_status: UNREVIEWED

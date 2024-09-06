@@ -1,0 +1,26 @@
+id: GO-2024-3121
+modules:
+    - module: github.com/cosmos/interchain-security
+      vulnerable_at: 1.2.1
+    - module: github.com/cosmos/interchain-security/v2
+      vulnerable_at: 2.0.0
+    - module: github.com/cosmos/interchain-security/v3
+      vulnerable_at: 3.3.0
+    - module: github.com/cosmos/interchain-security/v4
+      vulnerable_at: 4.4.1
+    - module: github.com/cosmos/interchain-security/v5
+      versions:
+        - introduced: 5.1.0
+        - fixed: 5.2.0
+      vulnerable_at: 5.1.1
+summary: |-
+    Interchain Security: The signers of ICS messages do not need to match the
+    provider address in github.com/cosmos/interchain-security
+ghsas:
+    - GHSA-7q74-g774-7x3g
+references:
+    - advisory: https://github.com/cosmos/interchain-security/security/advisories/GHSA-7q74-g774-7x3g
+source:
+    id: GHSA-7q74-g774-7x3g
+    created: 2024-09-06T13:01:39.11078-04:00
+review_status: UNREVIEWED

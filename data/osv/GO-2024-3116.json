@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3116",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-45395",
+    "GHSA-cq38-jh5f-37mq"
+  ],
+  "summary": "sigstore-go has an unbounded loop over untrusted input can lead to endless data attack in github.com/sigstore/sigstore-go",
+  "details": "sigstore-go has an unbounded loop over untrusted input can lead to endless data attack in github.com/sigstore/sigstore-go",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/sigstore/sigstore-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.6.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/sigstore/sigstore-go/security/advisories/GHSA-cq38-jh5f-37mq"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-45395"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/sigstore/sigstore-go/commit/01e70e89e58226286d7977b4dba43b6be472b12c"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/sigstore/sigstore-go/blob/725e508ed4933e6f5b5206e32af4bbe76f587b54/pkg/verify/signature.go#L183-L193"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/sigstore/sigstore-go/blob/725e508ed4933e6f5b5206e32af4bbe76f587b54/pkg/verify/tlog.go#L74-L178"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/sigstore/sigstore-go/blob/725e508ed4933e6f5b5206e32af4bbe76f587b54/pkg/verify/tsa.go#L59-L68"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3116",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,22 @@
+id: GO-2024-3118
+modules:
+    - module: github.com/windmill-labs/windmill
+      unsupported_versions:
+        - cve_version_range: affected at 1.380.0
+      vulnerable_at: 1.391.0
+summary: Windmill HTTP Request users.rs excessive authentication in github.com/windmill-labs/windmill
+cves:
+    - CVE-2024-8462
+credits:
+    - DeepCove (VulDB User)
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-8462
+    - fix: https://github.com/windmill-labs/windmill/commit/acfe7786152f036f2476f93ab5536571514fa9e3
+    - fix: https://github.com/windmill-labs/windmill/releases/tag/v1.390.1
+    - web: https://vuldb.com/?ctiid.276630
+    - web: https://vuldb.com/?id.276630
+    - web: https://vuldb.com/?submit.401826
+source:
+    id: CVE-2024-8462
+    created: 2024-09-06T13:01:44.98059-04:00
+review_status: UNREVIEWED

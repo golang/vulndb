@@ -1,0 +1,24 @@
+id: GO-2024-3116
+modules:
+    - module: github.com/sigstore/sigstore-go
+      versions:
+        - fixed: 0.6.1
+      vulnerable_at: 0.6.0
+summary: |-
+    sigstore-go has an unbounded loop over untrusted input can lead to endless data
+    attack in github.com/sigstore/sigstore-go
+cves:
+    - CVE-2024-45395
+ghsas:
+    - GHSA-cq38-jh5f-37mq
+references:
+    - advisory: https://github.com/sigstore/sigstore-go/security/advisories/GHSA-cq38-jh5f-37mq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-45395
+    - fix: https://github.com/sigstore/sigstore-go/commit/01e70e89e58226286d7977b4dba43b6be472b12c
+    - web: https://github.com/sigstore/sigstore-go/blob/725e508ed4933e6f5b5206e32af4bbe76f587b54/pkg/verify/signature.go#L183-L193
+    - web: https://github.com/sigstore/sigstore-go/blob/725e508ed4933e6f5b5206e32af4bbe76f587b54/pkg/verify/tlog.go#L74-L178
+    - web: https://github.com/sigstore/sigstore-go/blob/725e508ed4933e6f5b5206e32af4bbe76f587b54/pkg/verify/tsa.go#L59-L68
+source:
+    id: GHSA-cq38-jh5f-37mq
+    created: 2024-09-06T13:01:51.708549-04:00
+review_status: UNREVIEWED
