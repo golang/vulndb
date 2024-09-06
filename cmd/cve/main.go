@@ -156,7 +156,7 @@ func main() {
 			logFatalUsageErr("cve publish-all", errors.New("takes no args"))
 		}
 		if err := publishAll(c); err != nil {
-			log.Printf("cve publish-all: %v", err)
+			log.Fatalf("cve publish-all: %v", err)
 		}
 	case "org":
 		if err := lookupOrg(c); err != nil {
