@@ -1,6 +1,6 @@
 steps:
   - id: Lock
-    name: golang:1.21.5
+    name: golang:1.23.0
     entrypoint: bash
     args:
       - -ec
@@ -23,7 +23,7 @@ steps:
         fi
 
   - id: Test
-    name: golang:1.21.5
+    name: golang:1.23.0
     entrypoint: bash
     args:
       - -ec
@@ -37,12 +37,12 @@ steps:
       - gsutil -q -m cp -r gs://go-vulndb /workspace
 
   - id: Generate
-    name: golang:1.21.5
+    name: golang:1.23.0
     entrypoint: bash
     args: ["-ec", "go run ./cmd/gendb -out /workspace/db -zip /workspace/db/vulndb.zip"]
 
   - id: PreValidate
-    name: golang:1.21.5
+    name: golang:1.23.0
     entrypoint: bash
     args:
       - -ec
@@ -61,7 +61,7 @@ steps:
       - mkdir /workspace/deployed && gsutil -q -m cp -r gs://go-vulndb /workspace/deployed
 
   - id: PostValidate
-    name: golang:1.20.12
+    name: golang:1.23.0
     entrypoint: bash
     args: ["-ec", "go run ./cmd/checkdb /workspace/deployed/go-vulndb"]
     env:
@@ -70,7 +70,13 @@ steps:
   - id: PublishCVEs
     name: golang:1.23.0
     entrypoint: bash
-    args: ["-ec", "go run ./cmd/cve -key $$CVE_API_USER -user $$CVE_API_USER publish-all"]
+    args:
+     - -ec
+     - |
+       # Ensure we have valid credentials before attempting publish.
+       go run ./cmd/cve -key $$CVE_API_KEY -user $$CVE_API_USER quota
+       # Publish or update any CVE records that have changed.
+       go run ./cmd/cve -key $$CVE_API_KEY -user $$CVE_API_USER publish-all
     secretEnv: ['CVE_API_USER', 'CVE_API_KEY']
 
 availableSecrets:
@@ -79,3 +85,6 @@ availableSecrets:
     env: 'CVE_API_KEY'
   - versionName: ${_CVE_API_USER}
     env: 'CVE_API_USER'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
