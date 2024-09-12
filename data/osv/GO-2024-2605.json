@@ -12,6 +12,33 @@
   "affected": [
     {
       "package": {
+        "name": "github.com/jackc/pgx",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/jackc/pgx/internal/sanitize",
+            "symbols": [
+              "Query.Sanitize",
+              "SanitizeSQL"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
         "name": "github.com/jackc/pgx/v4",
         "ecosystem": "Go"
       },
