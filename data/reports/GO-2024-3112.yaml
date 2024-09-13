@@ -1,0 +1,247 @@
+id: GO-2024-3112
+modules:
+    - module: github.com/cometbft/cometbft
+      versions:
+        - introduced: 0.37.0
+        - fixed: 0.37.11
+        - introduced: 0.38.0
+        - fixed: 0.38.12
+      non_go_versions:
+        - introduced: 0.34.0
+        - fixed: 0.34.34
+      vulnerable_at: 0.38.11
+      packages:
+        - package: github.com/cometbft/cometbft/light
+          symbols:
+            - Client.initializeWithTrustOptions
+            - Client.findNewPrimary
+            - Client.compareFirstHeaderWithWitnesses
+            - Client.detectDivergence
+            - Client.compareNewHeaderWithWitness
+          derived_symbols:
+            - Client.TrustedLightBlock
+            - Client.Update
+            - Client.VerifyHeader
+            - Client.VerifyLightBlockAtHeight
+            - ErrInvalidHeader.Error
+            - ErrNewValSetCantBeTrusted.Error
+            - ErrOldHeaderExpired.Error
+            - ErrVerificationFailed.Error
+            - NewClient
+            - NewClientFromTrustedStore
+            - NewHTTPClient
+            - NewHTTPClientFromTrustedStore
+            - TrustOptions.ValidateBasic
+            - ValidateTrustLevel
+            - Verify
+            - VerifyAdjacent
+            - VerifyBackwards
+            - VerifyNonAdjacent
+            - errBadWitness.Error
+            - errConflictingHeaders.Error
+        - package: github.com/cometbft/cometbft/types
+          symbols:
+            - ValidatorSet.ValidateBasic
+            - ValidatorSet.findProposer
+          derived_symbols:
+            - ABCIParams.VoteExtensionsEnabled
+            - Block.Hash
+            - Block.HashesTo
+            - Block.MakePartSet
+            - Block.Size
+            - Block.String
+            - Block.StringIndented
+            - Block.StringShort
+            - Block.ToProto
+            - Block.ValidateBasic
+            - BlockFromProto
+            - BlockID.Key
+            - BlockID.String
+            - BlockID.ValidateBasic
+            - BlockIDFromProto
+            - BlockMeta.ValidateBasic
+            - BlockMetaFromProto
+            - BlockMetaFromTrustedProto
+            - CanonicalTime
+            - CanonicalizeBlockID
+            - CanonicalizeProposal
+            - CanonicalizeVote
+            - Commit.GetVote
+            - Commit.Hash
+            - Commit.StringIndented
+            - Commit.ToVoteSet
+            - Commit.ValidateBasic
+            - Commit.VoteSignBytes
+            - CommitFromProto
+            - CommitSig.BlockID
+            - CommitSig.FromProto
+            - CommitSig.String
+            - CommitSig.ValidateBasic
+            - ConsensusParams.ValidateBasic
+            - ConsensusParams.ValidateUpdate
+            - Data.StringIndented
+            - DuplicateVoteEvidence.Bytes
+            - DuplicateVoteEvidence.Hash
+            - DuplicateVoteEvidence.String
+            - DuplicateVoteEvidence.ValidateBasic
+            - DuplicateVoteEvidenceFromProto
+            - ErrEvidenceOverflow.Error
+            - ErrInvalidCommitHeight.Error
+            - ErrInvalidCommitSignatures.Error
+            - ErrInvalidEvidence.Error
+            - ErrNotEnoughVotingPowerSigned.Error
+            - ErrVoteConflictingVotes.Error
+            - ErrVoteExtensionInvalid.Error
+            - EventBus.OnStart
+            - EventBus.OnStop
+            - EventBus.PublishEventNewBlock
+            - EventBus.PublishEventNewBlockEvents
+            - EventBus.PublishEventTx
+            - EventQueryTxFor
+            - EvidenceData.ByteSize
+            - EvidenceData.FromProto
+            - EvidenceData.Hash
+            - EvidenceData.StringIndented
+            - EvidenceData.ToProto
+            - EvidenceFromProto
+            - EvidenceList.Has
+            - EvidenceList.Hash
+            - EvidenceList.String
+            - EvidenceToProto
+            - ExtendedCommit.EnsureExtensions
+            - ExtendedCommit.GetByIndex
+            - ExtendedCommit.GetExtendedVote
+            - ExtendedCommit.ToExtendedVoteSet
+            - ExtendedCommit.ValidateBasic
+            - ExtendedCommitFromProto
+            - ExtendedCommitSig.EnsureExtension
+            - ExtendedCommitSig.FromProto
+            - ExtendedCommitSig.String
+            - ExtendedCommitSig.ValidateBasic
+            - GenesisDoc.SaveAs
+            - GenesisDoc.ValidateAndComplete
+            - GenesisDoc.ValidatorHash
+            - GenesisDocFromFile
+            - GenesisDocFromJSON
+            - Header.Hash
+            - Header.StringIndented
+            - Header.ValidateBasic
+            - HeaderFromProto
+            - LightBlock.String
+            - LightBlock.StringIndented
+            - LightBlock.ToProto
+            - LightBlock.ValidateBasic
+            - LightBlockFromProto
+            - LightClientAttackEvidence.Bytes
+            - LightClientAttackEvidence.Hash
+            - LightClientAttackEvidence.String
+            - LightClientAttackEvidence.ToProto
+            - LightClientAttackEvidence.ValidateBasic
+            - LightClientAttackEvidenceFromProto
+            - MakeBlock
+            - MakeExtCommit
+            - MakeVote
+            - MakeVoteNoError
+            - MaxDataBytes
+            - MaxDataBytesNoEvidence
+            - MockPV.SignProposal
+            - MockPV.SignVote
+            - MockPV.String
+            - NewBlockMeta
+            - NewDuplicateVoteEvidence
+            - NewErroringMockPV
+            - NewMockDuplicateVoteEvidence
+            - NewMockDuplicateVoteEvidenceWithValidator
+            - NewMockPV
+            - NewValidatorSet
+            - Part.String
+            - Part.StringIndented
+            - Part.ValidateBasic
+            - PartFromProto
+            - PartSet.AddPart
+            - PartSet.MarshalJSON
+            - PartSet.StringShort
+            - PartSetHeader.String
+            - PartSetHeader.ValidateBasic
+            - PartSetHeaderFromProto
+            - Proposal.String
+            - Proposal.ValidateBasic
+            - ProposalFromProto
+            - ProposalSignBytes
+            - QueryForEvent
+            - RandValidator
+            - RandValidatorSet
+            - SignAndCheckVote
+            - SignedHeader.String
+            - SignedHeader.StringIndented
+            - SignedHeader.ValidateBasic
+            - SignedHeaderFromProto
+            - Tx.String
+            - TxProof.Validate
+            - TxProofFromProto
+            - Txs.Validate
+            - ValidateHash
+            - Validator.Bytes
+            - Validator.String
+            - Validator.ToProto
+            - Validator.ValidateBasic
+            - ValidatorFromProto
+            - ValidatorListString
+            - ValidatorSet.CopyIncrementProposerPriority
+            - ValidatorSet.GetProposer
+            - ValidatorSet.Hash
+            - ValidatorSet.IncrementProposerPriority
+            - ValidatorSet.Iterate
+            - ValidatorSet.String
+            - ValidatorSet.StringIndented
+            - ValidatorSet.ToProto
+            - ValidatorSet.TotalVotingPower
+            - ValidatorSet.UpdateWithChangeSet
+            - ValidatorSet.VerifyCommit
+            - ValidatorSet.VerifyCommitLight
+            - ValidatorSet.VerifyCommitLightAllSignatures
+            - ValidatorSet.VerifyCommitLightTrusting
+            - ValidatorSet.VerifyCommitLightTrustingAllSignatures
+            - ValidatorSetFromExistingValidators
+            - ValidatorSetFromProto
+            - VerifyCommit
+            - VerifyCommitLight
+            - VerifyCommitLightAllSignatures
+            - VerifyCommitLightTrusting
+            - VerifyCommitLightTrustingAllSignatures
+            - Vote.CommitSig
+            - Vote.ExtendedCommitSig
+            - Vote.String
+            - Vote.ValidateBasic
+            - Vote.Verify
+            - Vote.VerifyExtension
+            - Vote.VerifyVoteAndExtension
+            - VoteExtensionSignBytes
+            - VoteFromProto
+            - VoteSet.AddVote
+            - VoteSet.BitArrayByBlockID
+            - VoteSet.BitArrayString
+            - VoteSet.HasAll
+            - VoteSet.HasTwoThirdsAny
+            - VoteSet.LogString
+            - VoteSet.MakeExtendedCommit
+            - VoteSet.MarshalJSON
+            - VoteSet.SetPeerMaj23
+            - VoteSet.String
+            - VoteSet.StringIndented
+            - VoteSet.StringShort
+            - VoteSet.VoteStrings
+            - VoteSignBytes
+summary: |-
+    CometBFT's state syncing validator from malicious node may lead to a chain split
+    github.com/cometbft/cometbft
+ghsas:
+    - GHSA-g5xx-c4hv-9ccc
+references:
+    - advisory: https://github.com/cometbft/cometbft/security/advisories/GHSA-g5xx-c4hv-9ccc
+    - fix: https://github.com/cometbft/cometbft/commit/3937e00a339ee6b861d75997b4f6c87d867b74f2
+    - fix: https://github.com/cometbft/cometbft/commit/52c00a537f8f56ed94b4a5c8af6e3fecff468b55
+source:
+    id: GHSA-g5xx-c4hv-9ccc
+    created: 2024-09-13T15:12:52.592831-04:00
+review_status: REVIEWED
