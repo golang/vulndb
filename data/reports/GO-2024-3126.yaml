@@ -1,0 +1,22 @@
+id: GO-2024-3126
+modules:
+    - module: github.com/external-secrets/external-secrets
+      versions:
+        - fixed: 0.10.2
+      vulnerable_at: 0.10.1
+summary: External Secrets Operator vulnerable to privilege escalation in github.com/external-secrets/external-secrets
+cves:
+    - CVE-2024-45041
+ghsas:
+    - GHSA-qwgc-rr35-h4x9
+references:
+    - advisory: https://github.com/external-secrets/external-secrets/security/advisories/GHSA-qwgc-rr35-h4x9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-45041
+    - fix: https://github.com/external-secrets/external-secrets/commit/0368b9806f660fa6bc52cbbf3c6ccdb27c58bb35
+    - fix: https://github.com/external-secrets/external-secrets/commit/428a452fd2ad45935312f2c2c0d40bc37ce6e67c
+    - web: https://github.com/external-secrets/external-secrets/blob/main/deploy/charts/external-secrets/templates/cert-controller-rbac.yaml#L27
+    - web: https://github.com/external-secrets/external-secrets/blob/main/deploy/charts/external-secrets/templates/cert-controller-rbac.yaml#L49
+source:
+    id: GHSA-qwgc-rr35-h4x9
+    created: 2024-09-13T15:11:43.360475-04:00
+review_status: UNREVIEWED
