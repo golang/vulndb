@@ -1,0 +1,144 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3098",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-45258",
+    "GHSA-cj55-gc7m-wvcq"
+  ],
+  "summary": "The req library may send an unintended request when a malformed URL is provided in github.com/imroc/req",
+  "details": "The req library is a widely used HTTP library in Go. However, it does not handle malformed URLs effectively. As a result, after parsing a malformed URL, the library may send HTTP requests to unexpected destinations, potentially leading to security vulnerabilities or unintended behavior in applications relying on this library for handling HTTP requests.\n\nDespite developers potentially utilizing the net/url library to parse malformed URLs and implement blocklists to prevent HTTP requests to listed URLs, inconsistencies exist between how the net/url and req libraries parse URLs. These discrepancies can lead to the failure of defensive strategies, resulting in potential security threats such as Server-Side Request Forgery (SSRF) and Remote Code Execution (RCE).",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/imroc/req",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/imroc/req"
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/imroc/req/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/imroc/req/v2"
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/imroc/req/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.43.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/imroc/req/v3",
+            "symbols": [
+              "Delete",
+              "Get",
+              "Head",
+              "HttpRoundTripFunc.RoundTrip",
+              "MustDelete",
+              "MustGet",
+              "MustHead",
+              "MustOptions",
+              "MustPatch",
+              "MustPost",
+              "MustPut",
+              "Options",
+              "ParallelDownload.Do",
+              "Patch",
+              "Post",
+              "Put",
+              "Request.Delete",
+              "Request.Do",
+              "Request.Get",
+              "Request.Head",
+              "Request.MustDelete",
+              "Request.MustGet",
+              "Request.MustHead",
+              "Request.MustOptions",
+              "Request.MustPatch",
+              "Request.MustPost",
+              "Request.MustPut",
+              "Request.Options",
+              "Request.Patch",
+              "Request.Post",
+              "Request.Put",
+              "Request.Send",
+              "Transport.CancelRequest",
+              "Transport.CloseIdleConnections",
+              "Transport.RoundTrip",
+              "cleanHost",
+              "persistConn.writeRequest",
+              "roundTripImpl.RoundTrip"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-cj55-gc7m-wvcq"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/imroc/req/commit/04e3ece5b380ecad9da3551c449f1b8a9aa76d3d"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/imroc/req/compare/v3.43.3...v3.43.4"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3098",
+    "review_status": "REVIEWED"
+  }
+}

@@ -1,0 +1,84 @@
+id: GO-2024-3098
+modules:
+    - module: github.com/imroc/req
+      vulnerable_at: 0.3.2
+      packages:
+        - package: github.com/imroc/req
+    - module: github.com/imroc/req/v2
+      vulnerable_at: 2.1.0
+      packages:
+        - package: github.com/imroc/req/v2
+    - module: github.com/imroc/req/v3
+      versions:
+        - fixed: 3.43.4
+      vulnerable_at: 3.43.3
+      packages:
+        - package: github.com/imroc/req/v3
+          symbols:
+            - cleanHost
+            - persistConn.writeRequest
+          derived_symbols:
+            - Delete
+            - Get
+            - Head
+            - HttpRoundTripFunc.RoundTrip
+            - MustDelete
+            - MustGet
+            - MustHead
+            - MustOptions
+            - MustPatch
+            - MustPost
+            - MustPut
+            - Options
+            - ParallelDownload.Do
+            - Patch
+            - Post
+            - Put
+            - Request.Delete
+            - Request.Do
+            - Request.Get
+            - Request.Head
+            - Request.MustDelete
+            - Request.MustGet
+            - Request.MustHead
+            - Request.MustOptions
+            - Request.MustPatch
+            - Request.MustPost
+            - Request.MustPut
+            - Request.Options
+            - Request.Patch
+            - Request.Post
+            - Request.Put
+            - Request.Send
+            - Transport.CancelRequest
+            - Transport.CloseIdleConnections
+            - Transport.RoundTrip
+            - roundTripImpl.RoundTrip
+summary: |-
+    The req library may send an unintended request when a malformed URL is provided
+    in github.com/imroc/req
+description: |-
+    The req library is a widely used HTTP library in Go. However, it does not handle
+    malformed URLs effectively. As a result, after parsing a malformed URL, the
+    library may send HTTP requests to unexpected destinations, potentially leading
+    to security vulnerabilities or unintended behavior in applications relying on
+    this library for handling HTTP requests.
+
+    Despite developers potentially utilizing the net/url library to parse malformed
+    URLs and implement blocklists to prevent HTTP requests to listed URLs,
+    inconsistencies exist between how the net/url and req libraries parse URLs.
+    These discrepancies can lead to the failure of defensive strategies, resulting
+    in potential security threats such as Server-Side Request Forgery (SSRF) and
+    Remote Code Execution (RCE).
+cves:
+    - CVE-2024-45258
+ghsas:
+    - GHSA-cj55-gc7m-wvcq
+references:
+    - advisory: https://github.com/advisories/GHSA-cj55-gc7m-wvcq
+    - fix: https://github.com/imroc/req/commit/04e3ece5b380ecad9da3551c449f1b8a9aa76d3d
+    - web: https://github.com/imroc/req/compare/v3.43.3...v3.43.4
+source:
+    id: GHSA-cj55-gc7m-wvcq
+    created: 2024-09-13T15:12:56.781299-04:00
+review_status: REVIEWED
