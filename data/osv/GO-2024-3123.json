@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3123",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-45040",
+    "GHSA-9xcg-3q8v-7fq6"
+  ],
+  "summary": "Commitments to private witnesses in Groth16 as implemented break zero-knowledge property in github.com/consensys/gnark",
+  "details": "Commitments to private witnesses in Groth16 as implemented break zero-knowledge property in github.com/consensys/gnark",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/consensys/gnark",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.11.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/consensys/gnark/constraint/solver",
+            "symbols": [
+              "RegisterHint"
+            ]
+          },
+          {
+            "path": "github.com/consensys/gnark/frontend/cs/r1cs",
+            "symbols": [
+              "builder.Commit"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/Consensys/gnark/security/advisories/GHSA-9xcg-3q8v-7fq6"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/Consensys/gnark/commit/afda68a38acca37becb8ba6d8982d03fee9559a0"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/Consensys/gnark/pull/1245"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3123",
+    "review_status": "REVIEWED"
+  }
+}

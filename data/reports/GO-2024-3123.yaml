@@ -1,0 +1,28 @@
+id: GO-2024-3123
+modules:
+    - module: github.com/consensys/gnark
+      versions:
+        - fixed: 0.11.0
+      vulnerable_at: 0.10.0
+      packages:
+        - package: github.com/consensys/gnark/constraint/solver
+          symbols:
+            - RegisterHint
+        - package: github.com/consensys/gnark/frontend/cs/r1cs
+          symbols:
+            - builder.Commit
+summary: |-
+    Commitments to private witnesses in Groth16 as implemented break
+    zero-knowledge property in github.com/consensys/gnark
+cves:
+    - CVE-2024-45040
+ghsas:
+    - GHSA-9xcg-3q8v-7fq6
+references:
+    - advisory: https://github.com/Consensys/gnark/security/advisories/GHSA-9xcg-3q8v-7fq6
+    - fix: https://github.com/Consensys/gnark/commit/afda68a38acca37becb8ba6d8982d03fee9559a0
+    - fix: https://github.com/Consensys/gnark/pull/1245
+source:
+    id: GHSA-9xcg-3q8v-7fq6
+    created: 2024-09-13T15:12:43.387235-04:00
+review_status: REVIEWED
