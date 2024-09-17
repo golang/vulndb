@@ -1,0 +1,31 @@
+id: GO-2024-3124
+modules:
+    - module: github.com/osrg/gobgp/v3
+      versions:
+        - fixed: 3.20.0
+      vulnerable_at: 3.19.0
+      packages:
+        - package: github.com/osrg/gobgp/v3/pkg/packet/bgp
+          symbols:
+            - ValidateAttribute
+            - ValidateUpdateMsg
+        - package: github.com/osrg/gobgp/v3/pkg/server
+          symbols:
+            - fsmHandler.recvMessageWithError
+          derived_symbols:
+            - BgpServer.Serve
+summary: Buffer Overflow vulnerability in osrg gobgp in github.com/osrg/gobgp
+description: |-
+    Buffer Overflow vulnerability allows a remote attacker to cause a denial of
+    service via an fsm error handling function.
+cves:
+    - CVE-2023-46565
+ghsas:
+    - GHSA-6rqv-5cg7-m4x3
+references:
+    - fix: https://github.com/osrg/gobgp/commit/419c50dfac578daa4d11256904d0dc182f1a9b22
+    - report: https://github.com/osrg/gobgp/issues/2725
+source:
+    id: GHSA-6rqv-5cg7-m4x3
+    created: 2024-09-17T13:41:34.353150637Z
+review_status: REVIEWED

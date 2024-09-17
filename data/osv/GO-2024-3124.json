@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3124",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-46565",
+    "GHSA-6rqv-5cg7-m4x3"
+  ],
+  "summary": "Buffer Overflow vulnerability in osrg gobgp in github.com/osrg/gobgp",
+  "details": "Buffer Overflow vulnerability allows a remote attacker to cause a denial of service via an fsm error handling function.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/osrg/gobgp/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.20.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/osrg/gobgp/v3/pkg/packet/bgp",
+            "symbols": [
+              "ValidateAttribute",
+              "ValidateUpdateMsg"
+            ]
+          },
+          {
+            "path": "github.com/osrg/gobgp/v3/pkg/server",
+            "symbols": [
+              "BgpServer.Serve",
+              "fsmHandler.recvMessageWithError"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/osrg/gobgp/commit/419c50dfac578daa4d11256904d0dc182f1a9b22"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/osrg/gobgp/issues/2725"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3124",
+    "review_status": "REVIEWED"
+  }
+}
