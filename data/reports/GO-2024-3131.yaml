@@ -1,0 +1,22 @@
+id: GO-2024-3131
+modules:
+    - module: github.com/authzed/spicedb
+      versions:
+        - fixed: 1.35.3
+      vulnerable_at: 1.35.2
+summary: |-
+    SpiceDB having multiple caveats on resources of the same type may improperly
+    result in no permission in github.com/authzed/spicedb
+cves:
+    - CVE-2024-46989
+ghsas:
+    - GHSA-jhg6-6qrx-38mr
+references:
+    - advisory: https://github.com/authzed/spicedb/security/advisories/GHSA-jhg6-6qrx-38mr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-46989
+    - fix: https://github.com/authzed/spicedb/commit/20855de75812bcbc975efebe7f76abf47c0f3edb
+    - fix: https://github.com/authzed/spicedb/commit/d4ef8e1dbce1eafaf25847f4c0f09738820f5bf2
+source:
+    id: GHSA-jhg6-6qrx-38mr
+    created: 2024-09-19T14:00:51.264726572Z
+review_status: UNREVIEWED
