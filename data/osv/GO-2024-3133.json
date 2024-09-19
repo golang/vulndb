@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3133",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-47105",
+    "GHSA-723h-x37g-f8qm"
+  ],
+  "summary": "Chaosblade vulnerable to OS command execution in github.com/chaosblade-io/chaosblade",
+  "details": "Chaosblade vulnerable to OS command execution in github.com/chaosblade-io/chaosblade",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/chaosblade-io/chaosblade",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.0.3"
+            },
+            {
+              "fixed": "1.7.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-723h-x37g-f8qm"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-47105"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/chaosblade-io/chaosblade/commit/6bc73c31e14ea2b1bfc30f359e1fe952859d9adc"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/chaosblade-io/chaosblade/blob/0a07380c9899febb2b544132783b376b44226cca/exec/os/executor.go#L68"
+    },
+    {
+      "type": "WEB",
+      "url": "https://narrow-oatmeal-0c0.notion.site/ChaosBlade-Remote-Command-Execution-CVE-2023-47105-4f5459046488436caaec2bced6ff26d7"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3133",
+    "review_status": "UNREVIEWED"
+  }
+}

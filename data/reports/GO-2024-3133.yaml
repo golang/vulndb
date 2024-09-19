@@ -1,0 +1,22 @@
+id: GO-2024-3133
+modules:
+    - module: github.com/chaosblade-io/chaosblade
+      versions:
+        - introduced: 0.0.3
+        - fixed: 1.7.4
+      vulnerable_at: 1.7.3
+summary: Chaosblade vulnerable to OS command execution in github.com/chaosblade-io/chaosblade
+cves:
+    - CVE-2023-47105
+ghsas:
+    - GHSA-723h-x37g-f8qm
+references:
+    - advisory: https://github.com/advisories/GHSA-723h-x37g-f8qm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-47105
+    - fix: https://github.com/chaosblade-io/chaosblade/commit/6bc73c31e14ea2b1bfc30f359e1fe952859d9adc
+    - web: https://github.com/chaosblade-io/chaosblade/blob/0a07380c9899febb2b544132783b376b44226cca/exec/os/executor.go#L68
+    - web: https://narrow-oatmeal-0c0.notion.site/ChaosBlade-Remote-Command-Execution-CVE-2023-47105-4f5459046488436caaec2bced6ff26d7
+source:
+    id: GHSA-723h-x37g-f8qm
+    created: 2024-09-19T14:00:56.130757669Z
+review_status: UNREVIEWED
