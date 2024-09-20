@@ -1,0 +1,42 @@
+id: GO-2024-3141
+modules:
+    - module: github.com/open-policy-agent/opa
+      versions:
+        - fixed: 0.68.0
+      vulnerable_at: 0.67.1
+      packages:
+        - package: github.com/open-policy-agent/opa/loader
+          goos:
+            - windows
+          symbols:
+            - GetBundleDirectoryLoaderFS
+            - allRec
+            - fileLoader.AsBundle
+          derived_symbols:
+            - All
+            - AllRegos
+            - AsBundle
+            - Filtered
+            - FilteredPaths
+            - FilteredPathsFS
+            - GetBundleDirectoryLoader
+            - GetBundleDirectoryLoaderWithFilter
+            - fileLoader.All
+            - fileLoader.Filtered
+summary: OPA for Windows has an SMB force-authentication vulnerability in github.com/open-policy-agent/opa
+description: |-
+    OPA for Windows has an SMB force-authentication vulnerability. Due to
+    improper input validation, it allows a user to pass an arbitrary SMB
+    share instead of a Rego file as an argument to OPA CLI or to one of
+    the OPA Go library’s functions.
+cves:
+    - CVE-2024-8260
+ghsas:
+    - GHSA-c77r-fh37-x2px
+references:
+    - fix: https://github.com/open-policy-agent/opa/commit/10f4d553e6bb6ae9c69611ecdd9a77dda857070e
+    - web: https://www.tenable.com/security/research/tra-2024-36
+source:
+    id: GHSA-c77r-fh37-x2px
+    created: 2024-09-20T14:18:00.328371534Z
+review_status: REVIEWED
