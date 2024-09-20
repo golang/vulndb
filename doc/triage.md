@@ -169,6 +169,16 @@ The issue can be closed without further action.
    `vulnreport fix <GitHub issue number>` before re-mailing to update the OSV
    and make sure the report is still valid.
 
+### Add a new not-Go-code report (label `possibly not Go`)
+
+1. Remove the `possibly not Go` label
+2. Check if the issue affects Go code
+3. If not
+   - Add `excluded: NOT_GO_CODE` label
+   - Add excluded report (see next section)
+4. If yes
+   - Create a new standard report (see previous section)
+
 ### Batch add excluded reports (label `excluded: REASON`)
 
 1. Sync your git repo, re-install the vulnreport tool, and create a fresh branch.
