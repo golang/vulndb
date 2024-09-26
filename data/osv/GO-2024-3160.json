@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3160",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-45042",
+    "GHSA-wc43-73w7-x2f5"
+  ],
+  "summary": "Ory Kratos's setting required_aal `highest_available` does not properly respect code + mfa credentials in github.com/ory/kratos",
+  "details": "Ory Kratos's setting required_aal `highest_available` does not properly respect code + mfa credentials in github.com/ory/kratos",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/ory/kratos",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.3.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/ory/kratos/security/advisories/GHSA-wc43-73w7-x2f5"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3160",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3136",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-27584",
+    "GHSA-hpc8-7wpm-889w"
+  ],
+  "summary": "Dragonfly2 has hard coded cyptographic key in d7y.io/dragonfly",
+  "details": "Dragonfly2 has hard coded cyptographic key in d7y.io/dragonfly",
+  "affected": [
+    {
+      "package": {
+        "name": "d7y.io/dragonfly/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.1.0-beta.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/dragonflyoss/Dragonfly2/security/advisories/GHSA-hpc8-7wpm-889w"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-27584"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dragonflyoss/Dragonfly2/commit/e9da69dc4048bf2a18a671be94616d85e3429433"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dragonflyoss/Dragonfly2/releases/tag/v2.0.9"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3136",
+    "review_status": "UNREVIEWED"
+  }
+}

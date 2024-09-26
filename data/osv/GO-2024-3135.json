@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3135",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-45410",
+    "GHSA-62c8-mh53-4cqv"
+  ],
+  "summary": "HTTP client can manipulate custom HTTP headers that are added by Traefik in github.com/traefik/traefik",
+  "details": "HTTP client can manipulate custom HTTP headers that are added by Traefik in github.com/traefik/traefik",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/traefik/traefik",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/traefik/traefik/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.11.9"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/traefik/traefik/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "3.0.0-beta3"
+            },
+            {
+              "fixed": "3.1.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/traefik/traefik/security/advisories/GHSA-62c8-mh53-4cqv"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-45410"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/traefik/traefik/commit/584144100524277829f26219baaab29a53b8134f"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/traefik/traefik/releases/tag/v2.11.9"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/traefik/traefik/releases/tag/v3.1.3"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3135",
+    "review_status": "UNREVIEWED"
+  }
+}

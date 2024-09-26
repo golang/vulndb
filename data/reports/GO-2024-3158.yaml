@@ -1,0 +1,20 @@
+id: GO-2024-3158
+modules:
+    - module: github.com/apache/incubator-answer
+      versions:
+        - fixed: 1.4.0
+      vulnerable_at: 1.4.0-RC1
+summary: 'Apache Answer: Avatar URL leaked user email addresses in github.com/apache/incubator-answer'
+cves:
+    - CVE-2024-40761
+ghsas:
+    - GHSA-48cr-j2cx-mcr8
+references:
+    - advisory: https://github.com/advisories/GHSA-48cr-j2cx-mcr8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-40761
+    - fix: https://github.com/apache/incubator-answer/commit/c3a17046c6c3be1cec16ba49d07d9f7742b7260f
+    - web: https://lists.apache.org/thread/mmrhsfy16qwrw0pkv0p9kj40vy3sg08x
+source:
+    id: GHSA-48cr-j2cx-mcr8
+    created: 2024-09-26T14:13:23.434349-04:00
+review_status: UNREVIEWED
