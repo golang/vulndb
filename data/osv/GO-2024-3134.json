@@ -8,7 +8,7 @@
     "GHSA-h92q-fgpp-qhrq"
   ],
   "summary": "CoreDNS Cache Poisoning via a birthday attack in github.com/coredns/coredns",
-  "details": "CoreDNS Cache Poisoning via a birthday attack in github.com/coredns/coredns",
+  "details": "CoreDNS enables attackers to achieve DNS cache poisoning and inject fake responses via a birthday attack.",
   "affected": [
     {
       "package": {
@@ -21,11 +21,23 @@
           "events": [
             {
               "introduced": "0"
+            },
+            {
+              "fixed": "1.11.0"
             }
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/coredns/coredns/plugin/pkg/proxy",
+            "symbols": [
+              "Proxy.Connect"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
@@ -34,8 +46,8 @@
       "url": "https://github.com/advisories/GHSA-h92q-fgpp-qhrq"
     },
     {
-      "type": "ADVISORY",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-30464"
+      "type": "FIX",
+      "url": "https://github.com/coredns/coredns/commit/604a902e2c7e0317aecaa3666124079c75a31573"
     },
     {
       "type": "WEB",
@@ -44,6 +56,6 @@
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2024-3134",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }

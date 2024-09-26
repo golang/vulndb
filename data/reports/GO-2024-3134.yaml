@@ -1,19 +1,26 @@
 id: GO-2024-3134
 modules:
     - module: github.com/coredns/coredns
-      unsupported_versions:
-        - last_affected: 1.10.1
-      vulnerable_at: 1.11.3
+      versions:
+        - fixed: 1.11.0
+      vulnerable_at: 1.10.1
+      packages:
+        - package: github.com/coredns/coredns/plugin/pkg/proxy
+          symbols:
+            - Proxy.Connect
 summary: CoreDNS Cache Poisoning via a birthday attack in github.com/coredns/coredns
+description: |-
+    CoreDNS enables attackers to achieve DNS cache poisoning and inject fake
+    responses via a birthday attack.
 cves:
     - CVE-2023-30464
 ghsas:
     - GHSA-h92q-fgpp-qhrq
 references:
     - advisory: https://github.com/advisories/GHSA-h92q-fgpp-qhrq
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-30464
+    - fix: https://github.com/coredns/coredns/commit/604a902e2c7e0317aecaa3666124079c75a31573
     - web: https://gist.github.com/idealeer/e41c7fb3b661d4262d0b6f21e12168ba
 source:
     id: GHSA-h92q-fgpp-qhrq
-    created: 2024-09-19T14:01:01.383066775Z
-review_status: UNREVIEWED
+    created: 2024-09-26T13:39:52.381917-04:00
+review_status: REVIEWED
