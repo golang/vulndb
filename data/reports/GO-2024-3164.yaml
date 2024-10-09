@@ -1,0 +1,31 @@
+id: GO-2024-3164
+modules:
+    - module: github.com/mattermost/mattermost-server
+      vulnerable_at: 10.1.1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20240806094731-69a8b3df0f9f
+summary: |-
+    Mattermost fails to strip `embeds` from `metadata` when broadcasting `posted`
+    events in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2024-47003
+ghsas:
+    - GHSA-59hf-mpf8-pqjh
+references:
+    - advisory: https://github.com/advisories/GHSA-59hf-mpf8-pqjh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-47003
+    - fix: https://github.com/mattermost/mattermost/commit/69a8b3df0f9fd3a7a5b792ec678b6191618d039b
+    - fix: https://github.com/mattermost/mattermost/pull/27763
+    - web: https://github.com/c0rydoras/cves/tree/main/CVE-2024-47003
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-59hf-mpf8-pqjh
+    created: 2024-10-08T10:58:17.659129-04:00
+review_status: UNREVIEWED
