@@ -1,0 +1,24 @@
+id: GO-2024-3161
+modules:
+    - module: github.com/rancher/rancher
+      non_go_versions:
+        - introduced: 2.7.0
+        - fixed: 2.7.15
+        - introduced: 2.8.0
+        - fixed: 2.8.8
+        - introduced: 2.9.0
+        - fixed: 2.9.2
+      vulnerable_at: 1.6.30
+summary: Rancher agents can be hijacked by taking over the Rancher Server URL in github.com/rancher/rancher
+cves:
+    - CVE-2024-22030
+ghsas:
+    - GHSA-h4h5-9833-v2p4
+references:
+    - advisory: https://github.com/rancher/rancher/security/advisories/GHSA-h4h5-9833-v2p4
+    - web: https://github.com/rancherlabs/support-tools/tree/master/windows-agent-strict-verify
+    - web: https://ranchermanager.docs.rancher.com/getting-started/installation-and-upgrade/installation-references/tls-settings
+source:
+    id: GHSA-h4h5-9833-v2p4
+    created: 2024-10-08T11:00:07.819692-04:00
+review_status: UNREVIEWED

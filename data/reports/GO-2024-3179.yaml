@@ -1,0 +1,22 @@
+id: GO-2024-3179
+modules:
+    - module: github.com/pomerium/pomerium
+      versions:
+        - fixed: 0.27.1
+      vulnerable_at: 0.27.0
+summary: |-
+    Pomerium service account access token may grant unintended access to databroker
+    API in github.com/pomerium/pomerium
+cves:
+    - CVE-2024-47616
+ghsas:
+    - GHSA-r7rh-jww5-5fjr
+references:
+    - advisory: https://github.com/pomerium/pomerium/security/advisories/GHSA-r7rh-jww5-5fjr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-47616
+    - fix: https://github.com/pomerium/pomerium/commit/e018cf0fc0979d2abe25ff705db019feb7523444
+    - web: https://github.com/pomerium/pomerium/releases/tag/v0.27.1
+source:
+    id: GHSA-r7rh-jww5-5fjr
+    created: 2024-10-08T10:54:22.040469-04:00
+review_status: UNREVIEWED

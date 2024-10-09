@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3161",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-22030",
+    "GHSA-h4h5-9833-v2p4"
+  ],
+  "summary": "Rancher agents can be hijacked by taking over the Rancher Server URL in github.com/rancher/rancher",
+  "details": "Rancher agents can be hijacked by taking over the Rancher Server URL in github.com/rancher/rancher.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/rancher/rancher from v2.7.0 before v2.7.15, from v2.8.0 before v2.8.8, from v2.9.0 before v2.9.2.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/rancher/rancher",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "2.7.0"
+              },
+              {
+                "fixed": "2.7.15"
+              },
+              {
+                "introduced": "2.8.0"
+              },
+              {
+                "fixed": "2.8.8"
+              },
+              {
+                "introduced": "2.9.0"
+              },
+              {
+                "fixed": "2.9.2"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/rancher/rancher/security/advisories/GHSA-h4h5-9833-v2p4"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rancherlabs/support-tools/tree/master/windows-agent-strict-verify"
+    },
+    {
+      "type": "WEB",
+      "url": "https://ranchermanager.docs.rancher.com/getting-started/installation-and-upgrade/installation-references/tls-settings"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3161",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,27 @@
+id: GO-2024-3168
+modules:
+    - module: github.com/grafana/alloy
+      versions:
+        - fixed: 1.3.4
+        - introduced: 1.4.0-rc.0
+        - fixed: 1.4.1
+      vulnerable_at: 1.4.0
+summary: Grafana Alloy on Windows has Unquoted Search Path or Element vulnerability in github.com/grafana/alloy
+cves:
+    - CVE-2024-8975
+ghsas:
+    - GHSA-chqx-36rm-rf8h
+references:
+    - advisory: https://github.com/advisories/GHSA-chqx-36rm-rf8h
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-8975
+    - fix: https://github.com/grafana/alloy/commit/88e779887690954c009503598a3f4bf563cb6596
+    - fix: https://github.com/grafana/alloy/commit/f14249012fd970d3fd73604e6fff9b6c7990a9bb
+    - web: https://github.com/grafana/alloy/releases/tag/v1.3.4
+    - web: https://github.com/grafana/alloy/releases/tag/v1.4.0
+    - web: https://github.com/grafana/alloy/releases/tag/v1.4.1
+    - web: https://grafana.com/blog/2024/09/25/grafana-alloy-and-grafana-agent-flow-security-release-high-severity-fix-for-cve-2024-8975-and-cve-2024-8996
+    - web: https://grafana.com/security/security-advisories/cve-2024-8975
+source:
+    id: GHSA-chqx-36rm-rf8h
+    created: 2024-10-08T10:57:59.230434-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,22 @@
+id: GO-2024-3162
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - introduced: 1.7.7
+        - fixed: 1.17.6
+      vulnerable_at: 1.17.5
+summary: |-
+    Vault SSH Secrets Engine Configuration Did Not Restrict Valid Principals By
+    Default in github.com/hashicorp/vault
+cves:
+    - CVE-2024-7594
+ghsas:
+    - GHSA-jg74-mwgw-v6x3
+references:
+    - advisory: https://github.com/advisories/GHSA-jg74-mwgw-v6x3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-7594
+    - web: https://discuss.hashicorp.com/t/hcsec-2024-20-vault-ssh-secrets-engine-configuration-did-not-restrict-valid-principals-by-default/70251
+source:
+    id: GHSA-jg74-mwgw-v6x3
+    created: 2024-10-08T11:00:03.066641-04:00
+review_status: UNREVIEWED

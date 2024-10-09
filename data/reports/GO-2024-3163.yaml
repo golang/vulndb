@@ -1,0 +1,17 @@
+id: GO-2024-3163
+modules:
+    - module: github.com/amir20/dozzle
+      non_go_versions:
+        - fixed: 8.5.3
+      vulnerable_at: 1.29.0
+summary: Dozzle uses unsafe hash for passwords in github.com/amir20/dozzle
+cves:
+    - CVE-2024-47182
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-47182
+    - fix: https://github.com/amir20/dozzle/commit/de79f03aa3dbe5bb1e154a7e8d3dccbd229f3ea3
+    - web: https://github.com/amir20/dozzle/security/advisories/GHSA-w7qr-q9fh-fj35
+source:
+    id: CVE-2024-47182
+    created: 2024-10-08T10:59:53.97116-04:00
+review_status: UNREVIEWED

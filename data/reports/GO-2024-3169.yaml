@@ -1,0 +1,32 @@
+id: GO-2024-3169
+modules:
+    - module: github.com/containers/buildah
+      unsupported_versions:
+        - last_affected: 1.37.3
+      vulnerable_at: 1.37.4
+    - module: github.com/containers/podman
+      vulnerable_at: 1.9.3
+    - module: github.com/containers/podman/v2
+      vulnerable_at: 2.2.1
+    - module: github.com/containers/podman/v3
+      vulnerable_at: 3.4.7
+    - module: github.com/containers/podman/v4
+      vulnerable_at: 4.9.5
+    - module: github.com/containers/podman/v5
+      unsupported_versions:
+        - last_affected: 5.2.3
+      vulnerable_at: 5.2.4
+summary: Improper Input Validation in Buildah and Podman in github.com/containers/buildah
+cves:
+    - CVE-2024-9407
+ghsas:
+    - GHSA-fhqq-8f65-5xfc
+references:
+    - advisory: https://github.com/advisories/GHSA-fhqq-8f65-5xfc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-9407
+    - web: https://access.redhat.com/security/cve/CVE-2024-9407
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2315887
+source:
+    id: GHSA-fhqq-8f65-5xfc
+    created: 2024-10-08T10:57:52.867555-04:00
+review_status: UNREVIEWED

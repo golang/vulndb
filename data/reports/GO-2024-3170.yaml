@@ -1,0 +1,25 @@
+id: GO-2024-3170
+modules:
+    - module: github.com/grafana/agent
+      versions:
+        - fixed: 0.43.3
+      vulnerable_at: 0.43.2
+summary: |-
+    Grafana Agent (Flow mode) on Windows has Unquoted Search Path or Element
+    vulnerability in github.com/grafana/agent
+cves:
+    - CVE-2024-8996
+ghsas:
+    - GHSA-m5gv-m5f9-wgv4
+references:
+    - advisory: https://github.com/advisories/GHSA-m5gv-m5f9-wgv4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-8996
+    - fix: https://github.com/grafana/agent/commit/91bab2c05906938d3f8e1e3c61a863f037985299
+    - web: https://github.com/grafana/agent/releases/tag/v0.43.2
+    - web: https://github.com/grafana/agent/releases/tag/v0.43.3
+    - web: https://grafana.com/blog/2024/09/25/grafana-alloy-and-grafana-agent-flow-security-release-high-severity-fix-for-cve-2024-8975-and-cve-2024-8996
+    - web: https://grafana.com/security/security-advisories/cve-2024-8996
+source:
+    id: GHSA-m5gv-m5f9-wgv4
+    created: 2024-10-08T10:57:47.066929-04:00
+review_status: UNREVIEWED

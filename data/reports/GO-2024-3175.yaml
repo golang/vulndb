@@ -1,0 +1,20 @@
+id: GO-2024-3175
+modules:
+    - module: github.com/juju/juju
+      non_go_versions:
+        - fixed: 0.0.0-20240829052008-43f0fc59790d
+      vulnerable_at: 0.0.0-20241008120523-919931217918
+summary: Vulnerable juju introspection abstract UNIX domain socket in github.com/juju/juju
+cves:
+    - CVE-2024-8038
+ghsas:
+    - GHSA-xwgj-vpm9-q2rq
+references:
+    - advisory: https://github.com/juju/juju/security/advisories/GHSA-xwgj-vpm9-q2rq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-8038
+    - fix: https://github.com/juju/juju/commit/43f0fc59790d220a457d4d305f484f62be556d3b
+    - web: https://github.com/juju/juju/blob/725800953aaa29dbeda4f806097bf838e61644dd/worker/introspection/worker.go#L125
+source:
+    id: GHSA-xwgj-vpm9-q2rq
+    created: 2024-10-08T10:54:30.860927-04:00
+review_status: UNREVIEWED

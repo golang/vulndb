@@ -1,0 +1,22 @@
+id: GO-2024-3172
+modules:
+    - module: github.com/portainer/portainer
+      non_go_versions:
+        - fixed: 2.20.2
+      vulnerable_at: 0.10.1
+summary: Portainer improperly uses an encryption algorithm in the AesEncrypt function in github.com/portainer/portainer
+cves:
+    - CVE-2024-33662
+ghsas:
+    - GHSA-9mjw-79r6-c9m8
+references:
+    - advisory: https://github.com/advisories/GHSA-9mjw-79r6-c9m8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-33662
+    - report: https://github.com/portainer/portainer/issues/11737
+    - web: https://github.com/portainer/portainer/compare/2.20.1...2.20.2
+    - web: https://github.com/search?q=repo%3Aportainer%2Fportainer+EE-6764&type=pullrequests
+    - web: https://www.portainer.io
+source:
+    id: GHSA-9mjw-79r6-c9m8
+    created: 2024-10-08T10:56:56.076983-04:00
+review_status: UNREVIEWED

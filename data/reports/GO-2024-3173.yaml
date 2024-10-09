@@ -1,0 +1,20 @@
+id: GO-2024-3173
+modules:
+    - module: github.com/juju/juju
+      versions:
+        - fixed: 0.0.0-20240826044107-ecd7e2d0e986
+summary: JUJU_CONTEXT_ID is a predictable authentication secret in github.com/juju/juju
+cves:
+    - CVE-2024-7558
+ghsas:
+    - GHSA-mh98-763h-m9v4
+references:
+    - advisory: https://github.com/juju/juju/security/advisories/GHSA-mh98-763h-m9v4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-7558
+    - fix: https://github.com/juju/juju/commit/ecd7e2d0e9867576b9da04871e22232f06fa0cc7
+notes:
+    - fix: 'github.com/juju/juju: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-mh98-763h-m9v4
+    created: 2024-10-08T10:56:11.849364-04:00
+review_status: UNREVIEWED

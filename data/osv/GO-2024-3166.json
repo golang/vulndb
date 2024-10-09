@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3166",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-47534",
+    "GHSA-4f8r-qqr9-fq8j"
+  ],
+  "summary": "Incorrect delegation lookups can make go-tuf download the wrong artifact in github.com/theupdateframework/go-tuf",
+  "details": "Incorrect delegation lookups can make go-tuf download the wrong artifact in github.com/theupdateframework/go-tuf",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/theupdateframework/go-tuf",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/theupdateframework/go-tuf/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.0.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/theupdateframework/go-tuf/security/advisories/GHSA-4f8r-qqr9-fq8j"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-47534"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/theupdateframework/go-tuf/commit/f36420caba9edbfdfd64f95a9554c0836d9cf819"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/theupdateframework/go-tuf/blob/f95222bdd22d2ac4e5b8ed6fe912b645e213c3b5/metadata/metadata.go#L565-L580"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/theupdateframework/tuf-conformance/pull/115"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3166",
+    "review_status": "UNREVIEWED"
+  }
+}
