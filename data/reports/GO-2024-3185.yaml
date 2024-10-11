@@ -1,0 +1,18 @@
+id: GO-2024-3185
+modules:
+    - module: github.com/ssoready/ssoready
+      unsupported_versions:
+        - cve_version_range: affected at commits prior to 7f92a06
+      vulnerable_at: 0.0.0-20241009160555-27958e3f242c
+summary: XML Signature Bypass via differential XML parsing in ssoready in github.com/ssoready/ssoready
+cves:
+    - CVE-2024-47832
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-47832
+    - fix: https://github.com/ssoready/ssoready/commit/7f92a0630439972fcbefa8c7eafe8c144bd89915
+    - web: https://github.com/ssoready/ssoready/security/advisories/GHSA-j2hr-q93x-gxvh
+    - web: https://ssoready.com/docs/self-hosting/self-hosting-sso-ready
+source:
+    id: CVE-2024-47832
+    created: 2024-10-11T10:16:19.821918-04:00
+review_status: UNREVIEWED

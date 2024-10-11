@@ -1,0 +1,22 @@
+id: GO-2024-3190
+modules:
+    - module: github.com/alist-org/alist
+      vulnerable_at: 1.0.6
+    - module: github.com/alist-org/alist/v3
+      versions:
+        - fixed: 3.29.0
+      vulnerable_at: 3.28.0
+summary: Alist reflected Cross-Site Scripting vulnerability in github.com/alist-org/alist
+cves:
+    - CVE-2024-47067
+ghsas:
+    - GHSA-8pph-gfhp-w226
+references:
+    - advisory: https://github.com/advisories/GHSA-8pph-gfhp-w226
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-47067
+    - advisory: https://securitylab.github.com/advisories/GHSL-2023-220_Alist
+    - fix: https://github.com/alist-org/alist/commit/6100647310594868e931f3de1188ddd8bde93b78
+source:
+    id: GHSA-8pph-gfhp-w226
+    created: 2024-10-11T10:15:55.235968-04:00
+review_status: UNREVIEWED

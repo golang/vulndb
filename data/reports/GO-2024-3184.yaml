@@ -1,0 +1,23 @@
+id: GO-2024-3184
+modules:
+    - module: github.com/AdguardTeam/AdGuardHome
+      versions:
+        - fixed: 0.107.53
+      vulnerable_at: 0.107.52
+summary: Adguard Home arbitrary file read vulnerability in github.com/AdguardTeam/AdGuardHome
+cves:
+    - CVE-2024-36814
+ghsas:
+    - GHSA-9cp9-8gw2-8v7m
+references:
+    - advisory: https://github.com/advisories/GHSA-9cp9-8gw2-8v7m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-36814
+    - fix: https://github.com/AdguardTeam/AdGuardHome/commit/e8fd4b187287a562cbe9018999e5ea576b4c7d68
+    - web: https://github.com/AdguardTeam/AdGuardHome/blob/7c002e1a99b9b4e4a40e8c66851eda33e666d52d/internal/filtering/http.go#L23C1-L51C2
+    - web: https://github.com/AdguardTeam/AdGuardHome/releases/tag/v0.107.53
+    - web: https://github.com/itz-d0dgy
+    - web: https://happy-little-accidents.pages.dev/posts/CVE-2024-36814
+source:
+    id: GHSA-9cp9-8gw2-8v7m
+    created: 2024-10-11T10:16:23.951474-04:00
+review_status: UNREVIEWED
