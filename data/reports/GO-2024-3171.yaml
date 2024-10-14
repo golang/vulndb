@@ -1,0 +1,23 @@
+id: GO-2024-3171
+modules:
+    - module: github.com/containers/common
+      versions:
+        - fixed: 0.60.4
+      vulnerable_at: 0.60.3
+summary: Link Following in github.com/containers/common
+cves:
+    - CVE-2024-9341
+ghsas:
+    - GHSA-mc76-5925-c5p6
+references:
+    - advisory: https://github.com/advisories/GHSA-mc76-5925-c5p6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-9341
+    - fix: https://github.com/containers/common/commit/e7db06585c32e1a782c1d9aa3b71ccd708f5e23f
+    - web: https://access.redhat.com/security/cve/CVE-2024-9341
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2315691
+    - web: https://github.com/containers/common/blob/384f77532f67afc8a73d8e0c4adb0d195df57714/pkg/subscriptions/subscriptions.go#L169
+    - web: https://github.com/containers/common/blob/384f77532f67afc8a73d8e0c4adb0d195df57714/pkg/subscriptions/subscriptions.go#L349
+source:
+    id: GHSA-mc76-5925-c5p6
+    created: 2024-10-11T13:24:14.982923-04:00
+review_status: UNREVIEWED

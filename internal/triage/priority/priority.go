@@ -95,6 +95,8 @@ var override map[string]Priority = map[string]Priority{
 	// information without intervention.
 	"github.com/argoproj/argo-cd":    Low,
 	"github.com/argoproj/argo-cd/v2": Low,
+	// For #3171
+	"github.com/containers/common": Low,
 }
 
 func priority(mp string, importers int, sc map[reportState]int) *Result {
