@@ -1,0 +1,48 @@
+id: GO-2024-3189
+modules:
+    - module: github.com/btcsuite/btcd
+      non_go_versions:
+        - introduced: 0.10.0
+        - fixed: 0.24.2-beta.rc1
+      vulnerable_at: 0.24.0
+      packages:
+        - package: github.com/btcsuite/btcd/txscript
+          symbols:
+            - opcodeCheckMultiSig
+            - taprootSigVerifier.Verify
+            - opcodeCodeSeparator
+            - baseSegwitSigVerifier.Verify
+            - baseSigVerifier.Verify
+            - removeOpcodeByData
+            - opcodeCheckSig
+            - VerifyTaprootKeySpend
+            - opcodeCheckSigAdd
+            - baseTapscriptSigVerifier.Verify
+          derived_symbols:
+            - Engine.Execute
+            - Engine.Step
+summary: Consensus failure in github.com/btcsuite/btcd
+description: |-
+    The btcd Bitcoin client (versions 0.10 to 0.24) did not correctly re-implement
+    Bitcoin Core's 'FindAndDelete()' functionality, causing discrepancies in the
+    validation of Bitcoin blocks. This can lead to a chain split (accepting an
+    invalid block) or Denial of Service (DoS) attacks (rejecting a valid block). An
+    attacker can trigger this vulnerability by constructing a 'standard' Bitcoin
+    transaction that exhibits different behaviors in 'FindAndDelete()' and
+    'removeOpcodeByData()'.
+cves:
+    - CVE-2024-38365
+ghsas:
+    - GHSA-27vh-h6mc-q6g8
+credits:
+    - darosior
+    - dergoegge
+references:
+    - advisory: https://github.com/btcsuite/btcd/security/advisories/GHSA-27vh-h6mc-q6g8
+    - fix: https://github.com/btcsuite/btcd/commit/04469e600e7d4a58881e2e5447d19024e49800f5
+    - web: https://delvingbitcoin.org/t/cve-2024-38365-public-disclosure-btcd-findanddelete-bug/1184
+    - web: https://github.com/btcsuite/btcd/releases/tag/v0.24.2
+source:
+    id: GHSA-27vh-h6mc-q6g8
+    created: 2024-10-14T16:05:08.379064-04:00
+review_status: REVIEWED
