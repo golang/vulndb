@@ -1,0 +1,22 @@
+id: GO-2024-3200
+modules:
+    - module: github.com/authzed/spicedb
+      versions:
+        - introduced: 1.35.0
+        - fixed: 1.37.1
+      vulnerable_at: 1.37.0
+summary: |-
+    SpiceDB calls to LookupResources using LookupResources2 with caveats may return
+    context is missing when it is not in github.com/authzed/spicedb
+cves:
+    - CVE-2024-48909
+ghsas:
+    - GHSA-3c32-4hq9-6wgj
+references:
+    - advisory: https://github.com/authzed/spicedb/security/advisories/GHSA-3c32-4hq9-6wgj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-48909
+    - fix: https://github.com/authzed/spicedb/commit/2f3cf77a7fcfcb478ef5a480a245842c96ac8853
+source:
+    id: GHSA-3c32-4hq9-6wgj
+    created: 2024-10-15T10:53:37.859295-04:00
+review_status: UNREVIEWED

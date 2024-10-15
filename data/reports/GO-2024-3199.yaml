@@ -1,0 +1,21 @@
+id: GO-2024-3199
+modules:
+    - module: github.com/landlock-lsm/go-landlock
+      versions:
+        - fixed: 0.0.0-20241013234402-fb3ad845df46
+      non_go_versions:
+        - introduced: 0.0.0-20240109
+summary: |-
+    Go-Landlock in best-effort mode did not restrict TCP bind and connect operations
+    correctly in github.com/landlock-lsm/go-landlock
+ghsas:
+    - GHSA-vv6c-69r6-chg9
+references:
+    - advisory: https://github.com/landlock-lsm/go-landlock/security/advisories/GHSA-vv6c-69r6-chg9
+    - fix: https://github.com/landlock-lsm/go-landlock/commit/fb3ad845df462d013f9c8a965c496617c6a5778b
+notes:
+    - fix: 'github.com/landlock-lsm/go-landlock: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-vv6c-69r6-chg9
+    created: 2024-10-15T10:53:40.707635-04:00
+review_status: UNREVIEWED

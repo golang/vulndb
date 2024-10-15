@@ -1,0 +1,22 @@
+id: GO-2024-3201
+modules:
+    - module: github.com/neuvector/neuvector
+      versions:
+        - fixed: 0.0.0-20231003121714-be746957ee7c
+summary: |-
+    JWT token compromise can allow malicious actions including Remote Code Execution
+    (RCE) in github.com/neuvector/neuvector
+cves:
+    - CVE-2023-22644
+credits:
+    - Dejan Zelic at Offensive Security
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-22644
+    - web: https://bugzilla.suse.com/show_bug.cgi?id=CVE-2023-32188
+    - web: https://github.com/neuvector/neuvector/security/advisories/GHSA-622h-h2p8-743x
+notes:
+    - fix: 'github.com/neuvector/neuvector: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: CVE-2023-22644
+    created: 2024-10-15T10:53:28.719-04:00
+review_status: UNREVIEWED

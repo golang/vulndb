@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3200",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-48909",
+    "GHSA-3c32-4hq9-6wgj"
+  ],
+  "summary": "SpiceDB calls to LookupResources using LookupResources2 with caveats may return context is missing when it is not in github.com/authzed/spicedb",
+  "details": "SpiceDB calls to LookupResources using LookupResources2 with caveats may return context is missing when it is not in github.com/authzed/spicedb",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/authzed/spicedb",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.35.0"
+            },
+            {
+              "fixed": "1.37.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/authzed/spicedb/security/advisories/GHSA-3c32-4hq9-6wgj"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-48909"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/authzed/spicedb/commit/2f3cf77a7fcfcb478ef5a480a245842c96ac8853"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3200",
+    "review_status": "UNREVIEWED"
+  }
+}
