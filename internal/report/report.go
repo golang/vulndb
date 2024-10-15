@@ -372,6 +372,9 @@ type Report struct {
 	SourceMeta *SourceMeta `yaml:"source,omitempty"`
 
 	ReviewStatus ReviewStatus `yaml:"review_status,omitempty"`
+	// Allow this report to be UNREVIEWED regardless of it's modules'
+	// priorities.
+	UnreviewedOK bool `yaml:"unreviewed_ok,omitempty"`
 
 	// (For unexcluded reports) The reason this report was previously
 	// excluded. Not published to OSV.

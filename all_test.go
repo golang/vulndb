@@ -140,7 +140,7 @@ func TestLintReports(t *testing.T) {
 			// This can happen because the initial quick triage algorithm
 			// doesn't know about all affected modules - just the one
 			// listed in the Github issue.
-			if r.IsUnreviewed() {
+			if r.IsUnreviewed() && !r.UnreviewedOK {
 				pr, _ := priority.AnalyzeReport(r, rc, modulesToImports)
 				if pr.Priority == priority.High {
 					t.Errorf("UNREVIEWED report %s is high priority (should be REVIEWED) - reason: %s", filename, pr.Reason)
