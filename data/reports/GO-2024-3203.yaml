@@ -1,0 +1,24 @@
+id: GO-2024-3203
+modules:
+    - module: github.com/kubernetes-sigs/image-builder
+      versions:
+        - fixed: 0.1.38
+      vulnerable_at: 0.1.37
+summary: |-
+    VM images built with Image Builder and Proxmox provider use default credentials
+    in github.com/kubernetes-sigs/image-builder
+cves:
+    - CVE-2024-9486
+credits:
+    - Nicolai Rybnikar @rybnico from Rybnikar Enterprises GmbH.
+references:
+    - advisory: https://github.com/kubernetes/kubernetes/issues/128006
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-9486
+    - fix: https://github.com/kubernetes-sigs/image-builder/pull/1595
+    - web: https://groups.google.com/g/kubernetes-security-announce/c/UKJG-oZogfA/m/Lu1hcnHmAQAJ
+notes:
+    - manually fixed versions (intent was clear but our tooling couldn't handle the specific case)
+source:
+    id: CVE-2024-9486
+    created: 2024-10-17T11:19:36.712539-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,24 @@
+id: GO-2024-3204
+modules:
+    - module: github.com/kubernetes-sigs/image-builder
+      versions:
+        - fixed: 0.1.38
+      vulnerable_at: 0.1.37
+summary: |-
+    VM images built with Image Builder with some providers use default credentials
+    during builds in github.com/kubernetes-sigs/image-builder
+cves:
+    - CVE-2024-9594
+credits:
+    - Nicolai Rybnikar @rybnico from Rybnikar Enterprises GmbH.
+references:
+    - advisory: https://github.com/kubernetes/kubernetes/issues/128007
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-9594
+    - fix: https://github.com/kubernetes-sigs/image-builder/pull/1596
+    - web: https://groups.google.com/g/kubernetes-security-announce/c/UKJG-oZogfA/m/Lu1hcnHmAQAJ
+notes:
+    - manually fixed versions (intent was clear but our tooling couldn't handle the specific case)
+source:
+    id: CVE-2024-9594
+    created: 2024-10-17T11:11:54.722865-04:00
+review_status: UNREVIEWED
