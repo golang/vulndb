@@ -1,0 +1,26 @@
+id: GO-2024-3226
+modules:
+    - module: github.com/argoproj/argo-workflows
+      vulnerable_at: 0.4.7
+    - module: github.com/argoproj/argo-workflows/v2
+      vulnerable_at: 2.12.13
+    - module: github.com/argoproj/argo-workflows/v3
+      versions:
+        - introduced: 3.6.0-rc1
+        - fixed: 3.6.0-rc2
+      vulnerable_at: 3.6.0-rc1
+summary: 'Argo Workflows Controller: Denial of Service via malicious daemon Workflows in github.com/argoproj/argo-workflows'
+cves:
+    - CVE-2024-47827
+ghsas:
+    - GHSA-ghjw-32xw-ffwr
+references:
+    - advisory: https://github.com/argoproj/argo-workflows/security/advisories/GHSA-ghjw-32xw-ffwr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-47827
+    - fix: https://github.com/argoproj/argo-workflows/commit/524406451f4dfa57bf3371fb85becdb56a2b309a
+    - fix: https://github.com/argoproj/argo-workflows/pull/13641
+    - web: https://github.com/argoproj/argo-workflows/blob/ce7f9bfb9b45f009b3e85fabe5e6410de23c7c5f/workflow/metrics/metrics_k8s_request.go#L75
+source:
+    id: GHSA-ghjw-32xw-ffwr
+    created: 2024-10-28T20:42:52.577727909Z
+review_status: UNREVIEWED

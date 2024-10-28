@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3226",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-47827",
+    "GHSA-ghjw-32xw-ffwr"
+  ],
+  "summary": "Argo Workflows Controller: Denial of Service via malicious daemon Workflows in github.com/argoproj/argo-workflows",
+  "details": "Argo Workflows Controller: Denial of Service via malicious daemon Workflows in github.com/argoproj/argo-workflows",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-workflows",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-workflows/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-workflows/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "3.6.0-rc1"
+            },
+            {
+              "fixed": "3.6.0-rc2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/argoproj/argo-workflows/security/advisories/GHSA-ghjw-32xw-ffwr"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-47827"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-workflows/commit/524406451f4dfa57bf3371fb85becdb56a2b309a"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-workflows/pull/13641"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/argoproj/argo-workflows/blob/ce7f9bfb9b45f009b3e85fabe5e6410de23c7c5f/workflow/metrics/metrics_k8s_request.go#L75"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3226",
+    "review_status": "UNREVIEWED"
+  }
+}
