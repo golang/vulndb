@@ -1,0 +1,21 @@
+id: GO-2024-3212
+modules:
+    - module: sigs.k8s.io/aws-load-balancer-controller
+      non_go_versions:
+        - introduced: 2.0.0
+        - fixed: 2.8.2
+      vulnerable_at: 1.1.9
+summary: |-
+    AWS Load Balancer Controller automatically detaches externally associated web
+    ACL from Application Load Balancers in sigs.k8s.io/aws-load-balancer-controller
+ghsas:
+    - GHSA-rjfv-pjvx-mjgv
+references:
+    - advisory: https://github.com/kubernetes-sigs/aws-load-balancer-controller/security/advisories/GHSA-rjfv-pjvx-mjgv
+    - web: https://aws.amazon.com/security/vulnerability-reporting
+    - web: https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/deploy/configurations/#waf-addons
+    - web: https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/ingress/annotations/#addons
+source:
+    id: GHSA-rjfv-pjvx-mjgv
+    created: 2024-10-28T11:07:57.960386-04:00
+review_status: UNREVIEWED

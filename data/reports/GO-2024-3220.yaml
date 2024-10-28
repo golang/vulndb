@@ -1,0 +1,22 @@
+id: GO-2024-3220
+modules:
+    - module: github.com/rancher/rancher
+      non_go_versions:
+        - introduced: 2.7.0
+        - fixed: 2.8.9
+        - introduced: 2.9.0
+        - fixed: 2.9.3
+      vulnerable_at: 1.6.30
+summary: |-
+    Rancher allows privilege escalation in Windows nodes due to Insecure Access
+    Control Lists in github.com/rancher/rancher
+cves:
+    - CVE-2023-32197
+ghsas:
+    - GHSA-7h8m-pvw3-5gh4
+references:
+    - advisory: https://github.com/rancher/rancher/security/advisories/GHSA-7h8m-pvw3-5gh4
+source:
+    id: GHSA-7h8m-pvw3-5gh4
+    created: 2024-10-28T11:07:07.639134-04:00
+review_status: UNREVIEWED

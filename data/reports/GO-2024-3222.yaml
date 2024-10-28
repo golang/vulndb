@@ -1,0 +1,26 @@
+id: GO-2024-3222
+modules:
+    - module: github.com/rancher/rke2
+      non_go_versions:
+        - introduced: 1.27.0
+        - fixed: 1.27.15
+        - introduced: 1.28.0
+        - fixed: 1.28.11
+        - introduced: 1.29.0
+        - fixed: 1.29.6
+        - introduced: 1.30.0
+        - fixed: 1.30.2
+      vulnerable_at: 0.0.1-alpha.7
+summary: |-
+    RKE2 allows privilege escalation in Windows nodes due to Insecure Access Control
+    Lists in github.com/rancher/rke2
+ghsas:
+    - GHSA-x7xj-jvwp-97rv
+references:
+    - advisory: https://github.com/rancher/rke2/security/advisories/GHSA-x7xj-jvwp-97rv
+    - web: https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-32197
+    - web: https://github.com/rancher/rancher/security/advisories/GHSA-7h8m-pvw3-5gh4
+source:
+    id: GHSA-x7xj-jvwp-97rv
+    created: 2024-10-28T11:06:48.655365-04:00
+review_status: UNREVIEWED

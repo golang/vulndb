@@ -1,0 +1,25 @@
+id: GO-2024-3208
+modules:
+    - module: github.com/cilium/cilium
+      versions:
+        - introduced: 1.14.0
+        - fixed: 1.14.16
+        - introduced: 1.15.0
+        - fixed: 1.15.10
+      vulnerable_at: 1.15.9
+summary: |-
+    Cilium's CIDR deny policies may not take effect when a more narrow CIDR allow is
+    present in github.com/cilium/cilium
+cves:
+    - CVE-2024-47825
+ghsas:
+    - GHSA-3wwx-63fv-pfq6
+references:
+    - advisory: https://github.com/cilium/cilium/security/advisories/GHSA-3wwx-63fv-pfq6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-47825
+    - fix: https://github.com/cilium/cilium/commit/02d28d9ac9afcaddd301fae6fb4d6cda8c2d0c45
+    - fix: https://github.com/cilium/cilium/commit/9c01afb5646af3f0c696421a410dc66c513b6524
+source:
+    id: GHSA-3wwx-63fv-pfq6
+    created: 2024-10-28T11:08:14.089866-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,21 @@
+id: GO-2024-3224
+modules:
+    - module: github.com/ginuerzh/gost
+      unsupported_versions:
+        - last_affected: 2.11.5
+      vulnerable_at: 0.0.0-20241011080244-87d6a2fdc2cc
+summary: Missing key verification in gost in github.com/ginuerzh/gost
+cves:
+    - CVE-2024-39223
+ghsas:
+    - GHSA-8wxx-35qc-vp6r
+references:
+    - advisory: https://github.com/advisories/GHSA-8wxx-35qc-vp6r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-39223
+    - report: https://github.com/ginuerzh/gost/issues/1034
+    - web: https://gist.github.com/nyxfqq/a7242170b1118e78436a62dee4e09e8a
+    - web: https://github.com/ginuerzh/gost/blob/729d0e70005607dc7c69fc1de62fd8fe21f85355/ssh.go#L229
+source:
+    id: GHSA-8wxx-35qc-vp6r
+    created: 2024-10-28T11:06:29.984273-04:00
+review_status: UNREVIEWED

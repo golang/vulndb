@@ -1,0 +1,18 @@
+id: GO-2024-3214
+modules:
+    - module: github.com/plentico/plenti
+      versions:
+        - fixed: 0.7.2
+      vulnerable_at: 0.7.1
+summary: Plenti arbitrary file deletion vulnerability in github.com/plentico/plenti
+cves:
+    - CVE-2024-49381
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-49381
+    - web: https://github.com/plentico/plenti/blob/01825e0dcd3505fac57adc2edf29f772d585c008/cmd/serve.go#L205
+    - web: https://github.com/plentico/plenti/releases/tag/v0.7.2
+    - web: https://securitylab.github.com/advisories/GHSL-2024-297_GHSL-2024-298_plenti/
+source:
+    id: CVE-2024-49381
+    created: 2024-10-28T11:07:51.927954-04:00
+review_status: UNREVIEWED

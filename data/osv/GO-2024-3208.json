@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3208",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-47825",
+    "GHSA-3wwx-63fv-pfq6"
+  ],
+  "summary": "Cilium's CIDR deny policies may not take effect when a more narrow CIDR allow is present in github.com/cilium/cilium",
+  "details": "Cilium's CIDR deny policies may not take effect when a more narrow CIDR allow is present in github.com/cilium/cilium",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cilium/cilium",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.14.0"
+            },
+            {
+              "fixed": "1.14.16"
+            },
+            {
+              "introduced": "1.15.0"
+            },
+            {
+              "fixed": "1.15.10"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cilium/cilium/security/advisories/GHSA-3wwx-63fv-pfq6"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-47825"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cilium/cilium/commit/02d28d9ac9afcaddd301fae6fb4d6cda8c2d0c45"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cilium/cilium/commit/9c01afb5646af3f0c696421a410dc66c513b6524"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3208",
+    "review_status": "UNREVIEWED"
+  }
+}

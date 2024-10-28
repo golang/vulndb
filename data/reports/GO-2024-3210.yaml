@@ -1,0 +1,18 @@
+id: GO-2024-3210
+modules:
+    - module: github.com/awslabs/aws-alb-route-directive-adapter-for-istio
+      unsupported_versions:
+        - cve_version_range: 'affected at 1.0 (default: affected)'
+        - cve_version_range: 'affected at 1.1 (default: affected)'
+      vulnerable_at: 0.0.0-20200804172706-d9e79a98b755
+summary: Lack of JWT issuer and signer validation in github.com/awslabs/aws-alb-route-directive-adapter-for-istio
+cves:
+    - CVE-2024-8901
+references:
+    - advisory: https://aws.amazon.com/security/security-bulletins/AWS-2024-011/
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-8901
+    - web: https://github.com/awslabs/aws-alb-route-directive-adapter-for-istio/security/advisories/GHSA-789x-wph8-m68r
+source:
+    id: CVE-2024-8901
+    created: 2024-10-28T11:08:11.015024-04:00
+review_status: UNREVIEWED

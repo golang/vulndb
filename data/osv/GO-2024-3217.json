@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3217",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-49757",
+    "GHSA-3rmw-76m6-4gjc"
+  ],
+  "summary": "User Registration Bypass in Zitadel in github.com/zitadel/zitadel",
+  "details": "User Registration Bypass in Zitadel in github.com/zitadel/zitadel.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/zitadel/zitadel before v2.58.7, from v2.59.0 before v2.59.5, from v2.60.0 before v2.60.4, from v2.61.0 before v2.61.4, from v2.62.0 before v2.62.7, from v2.63.0 before v2.63.5.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/zitadel/zitadel",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "2.58.7"
+              },
+              {
+                "introduced": "2.59.0"
+              },
+              {
+                "fixed": "2.59.5"
+              },
+              {
+                "introduced": "2.60.0"
+              },
+              {
+                "fixed": "2.60.4"
+              },
+              {
+                "introduced": "2.61.0"
+              },
+              {
+                "fixed": "2.61.4"
+              },
+              {
+                "introduced": "2.62.0"
+              },
+              {
+                "fixed": "2.62.7"
+              },
+              {
+                "introduced": "2.63.0"
+              },
+              {
+                "fixed": "2.63.5"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/zitadel/zitadel/security/advisories/GHSA-3rmw-76m6-4gjc"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-49757"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/zitadel/zitadel/releases/tag/v2.58.7"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/zitadel/zitadel/releases/tag/v2.59.5"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/zitadel/zitadel/releases/tag/v2.60.4"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/zitadel/zitadel/releases/tag/v2.61.4"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/zitadel/zitadel/releases/tag/v2.62.7"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/zitadel/zitadel/releases/tag/v2.63.5"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/zitadel/zitadel/releases/tag/v2.64.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3217",
+    "review_status": "UNREVIEWED"
+  }
+}

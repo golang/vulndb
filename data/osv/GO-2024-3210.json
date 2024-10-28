@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3210",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-8901"
+  ],
+  "summary": "Lack of JWT issuer and signer validation in github.com/awslabs/aws-alb-route-directive-adapter-for-istio",
+  "details": "Lack of JWT issuer and signer validation in github.com/awslabs/aws-alb-route-directive-adapter-for-istio",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/awslabs/aws-alb-route-directive-adapter-for-istio",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://aws.amazon.com/security/security-bulletins/AWS-2024-011/"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-8901"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/awslabs/aws-alb-route-directive-adapter-for-istio/security/advisories/GHSA-789x-wph8-m68r"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3210",
+    "review_status": "UNREVIEWED"
+  }
+}

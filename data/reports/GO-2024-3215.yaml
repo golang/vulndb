@@ -1,0 +1,26 @@
+id: GO-2024-3215
+modules:
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - introduced: 11.0.0
+        - fixed: 11.0.6+security-01
+        - introduced: 11.1.0
+        - fixed: 11.1.7+security-01
+        - introduced: 11.2.0
+        - fixed: 11.2.2+security-01
+      vulnerable_at: 5.4.5+incompatible
+summary: Grafana Command Injection And Local File Inclusion Via Sql Expressions in github.com/grafana/grafana
+cves:
+    - CVE-2024-9264
+ghsas:
+    - GHSA-q99m-qcv4-fpm7
+references:
+    - advisory: https://github.com/advisories/GHSA-q99m-qcv4-fpm7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-9264
+    - fix: https://github.com/grafana/grafana/pull/81666
+    - web: https://grafana.com/blog/2024/10/17/grafana-security-release-critical-severity-fix-for-cve-2024-9264
+    - web: https://grafana.com/security/security-advisories/cve-2024-9264
+source:
+    id: GHSA-q99m-qcv4-fpm7
+    created: 2024-10-28T11:07:35.550036-04:00
+review_status: UNREVIEWED
