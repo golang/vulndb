@@ -199,13 +199,8 @@ The issue can be closed without further action.
 Sometimes an issue describes a vulnerability that we already have a report for.
 The worker doesn't always detect this automatically.
 
-If the issue is indeed a duplicate:
-
-1. Apply the label `duplicate` to the issue.
-2. Find the duplicate issue (say it is #NNN) in the issue tracker, and on the
-   current issue, write the comment "Duplicate of #NNN". (No period after the
-   number.)
-3. If a report has already been created for #NNN:
+If the issue is indeed a duplicate, find the duplicated issue (say it is #NNN).
+If a report has already been created for #NNN:
    1. Find the report yaml file (say GO-YYYY-NNNN.yaml) in `data/reports`, and add
    the duplicate IDs to the `cves` or `ghsas` section, as appropriate.
    Running `vulnreport fix` can sometimes find the IDs automatically.
@@ -216,8 +211,6 @@ If the issue is indeed a duplicate:
    You can also add "Fixes #DDDD" (the number of the duplicate issue) to the
    commit message, or close it manually.
    3. Mail the commit.
-4. If no report has been created for #NNN yet, make sure the duplicate ID is present
-   somewhere in issue #NNN for reference, and close the duplicate issue.
 
 ## Standard Library Reports
 
