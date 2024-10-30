@@ -1,0 +1,18 @@
+id: GO-2024-3230
+modules:
+    - module: github.com/kyverno/kyverno
+      versions:
+        - fixed: 1.13.0
+      vulnerable_at: 1.13.0-rc.3
+summary: Kyverno's PolicyException objects can be created in any namespace by default in github.com/kyverno/kyverno
+cves:
+    - CVE-2024-48921
+ghsas:
+    - GHSA-qjvc-p88j-j9rm
+references:
+    - advisory: https://github.com/kyverno/kyverno/security/advisories/GHSA-qjvc-p88j-j9rm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-48921
+source:
+    id: GHSA-qjvc-p88j-j9rm
+    created: 2024-10-30T20:59:58.011655183Z
+review_status: UNREVIEWED
