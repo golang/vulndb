@@ -1,0 +1,23 @@
+id: GO-2024-3239
+modules:
+    - module: github.com/NVIDIA/nvidia-container-toolkit
+      versions:
+        - fixed: 1.16.2
+      vulnerable_at: 1.16.1
+summary: |-
+    NVIDIA Container Toolkit contains a Time-of-check Time-of-Use (TOCTOU)
+    vulnerability in github.com/NVIDIA/nvidia-container-toolkit
+cves:
+    - CVE-2024-0132
+ghsas:
+    - GHSA-mjjw-553x-87pq
+references:
+    - advisory: https://github.com/NVIDIA/nvidia-container-toolkit/security/advisories/GHSA-mjjw-553x-87pq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-0132
+    - web: https://github.com/NVIDIA/gpu-operator/security/advisories/GHSA-95rf-r6p4-44h7
+    - web: https://github.com/NVIDIA/libnvidia-container/security/advisories/GHSA-q2v4-jw5g-9xxj
+    - web: https://nvidia.custhelp.com/app/answers/detail/a_id/5582
+source:
+    id: GHSA-mjjw-553x-87pq
+    created: 2024-10-31T12:21:01.213582-04:00
+review_status: UNREVIEWED

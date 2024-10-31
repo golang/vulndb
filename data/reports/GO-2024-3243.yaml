@@ -1,0 +1,22 @@
+id: GO-2024-3243
+modules:
+    - module: github.com/hashicorp/consul
+      versions:
+        - introduced: 1.9.0
+        - fixed: 1.20.1
+      vulnerable_at: 1.20.0
+summary: Hashicorp Consul Path Traversal vulnerability in github.com/hashicorp/consul
+cves:
+    - CVE-2024-10005
+ghsas:
+    - GHSA-chgm-7r52-whjj
+references:
+    - advisory: https://github.com/advisories/GHSA-chgm-7r52-whjj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-10005
+    - fix: https://github.com/hashicorp/consul/commit/d9206fc7e284a9244af4d62f8653a63ca30bd00c
+    - fix: https://github.com/hashicorp/consul/pull/21816
+    - web: https://discuss.hashicorp.com/t/hcsec-2024-22-consul-l7-intentions-vulnerable-to-url-path-bypass
+source:
+    id: GHSA-chgm-7r52-whjj
+    created: 2024-10-31T12:20:14.534834-04:00
+review_status: UNREVIEWED

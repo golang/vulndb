@@ -1,0 +1,28 @@
+id: GO-2024-3234
+modules:
+    - module: github.com/mattermost/mattermost-server
+      vulnerable_at: 10.1.2+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20240926115259-20ed58906adc
+summary: |-
+    Mattermost Server vulnerable to application crash from attacker-generated large
+    response in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2024-47401
+ghsas:
+    - GHSA-762v-rq7q-ff97
+references:
+    - advisory: https://github.com/advisories/GHSA-762v-rq7q-ff97
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-47401
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-762v-rq7q-ff97
+    created: 2024-10-31T12:22:31.089959-04:00
+review_status: UNREVIEWED

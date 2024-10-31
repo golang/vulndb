@@ -1,0 +1,23 @@
+id: GO-2024-3237
+modules:
+    - module: github.com/NVIDIA/nvidia-container-toolkit
+      versions:
+        - fixed: 1.16.2
+      vulnerable_at: 1.16.1
+summary: |-
+    NVIDIA Container Toolkit allows specially crafted container image to create
+    empty files on the host file system in github.com/NVIDIA/nvidia-container-toolkit
+cves:
+    - CVE-2024-0133
+ghsas:
+    - GHSA-f748-7hpg-88ch
+references:
+    - advisory: https://github.com/NVIDIA/nvidia-container-toolkit/security/advisories/GHSA-f748-7hpg-88ch
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-0133
+    - web: https://advisory-inbox.githubapp.com/advisory_reviews/GHSA-wqq7-v22c-gpfp
+    - web: https://github.com/NVIDIA/libnvidia-container/security/advisories/GHSA-xff4-h7r9-vrpf
+    - web: https://nvidia.custhelp.com/app/answers/detail/a_id/5582
+source:
+    id: GHSA-f748-7hpg-88ch
+    created: 2024-10-31T12:21:08.475121-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,21 @@
+id: GO-2024-3242
+modules:
+    - module: github.com/hashicorp/consul
+      versions:
+        - introduced: 1.4.1
+        - fixed: 1.20.0
+      vulnerable_at: 1.20.0-rc1
+summary: Hashicorp Consul Cross-site Scripting vulnerability in github.com/hashicorp/consul
+cves:
+    - CVE-2024-10086
+ghsas:
+    - GHSA-99wr-c2px-grmh
+references:
+    - advisory: https://github.com/advisories/GHSA-99wr-c2px-grmh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-10086
+    - fix: https://github.com/hashicorp/consul/commit/07fae7bb0be8593cc98c38b1ef4a49ed9188932f
+    - web: https://discuss.hashicorp.com/t/hcsec-2024-24-consul-vulnerable-to-reflected-xss-on-content-type-error-manipulation
+source:
+    id: GHSA-99wr-c2px-grmh
+    created: 2024-10-31T12:20:21.353602-04:00
+review_status: UNREVIEWED

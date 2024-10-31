@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3242",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-10086",
+    "GHSA-99wr-c2px-grmh"
+  ],
+  "summary": "Hashicorp Consul Cross-site Scripting vulnerability in github.com/hashicorp/consul",
+  "details": "Hashicorp Consul Cross-site Scripting vulnerability in github.com/hashicorp/consul",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hashicorp/consul",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.4.1"
+            },
+            {
+              "fixed": "1.20.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-99wr-c2px-grmh"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-10086"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hashicorp/consul/commit/07fae7bb0be8593cc98c38b1ef4a49ed9188932f"
+    },
+    {
+      "type": "WEB",
+      "url": "https://discuss.hashicorp.com/t/hcsec-2024-24-consul-vulnerable-to-reflected-xss-on-content-type-error-manipulation"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3242",
+    "review_status": "UNREVIEWED"
+  }
+}

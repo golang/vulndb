@@ -1,0 +1,24 @@
+id: GO-2024-3241
+modules:
+    - module: github.com/hashicorp/consul
+      versions:
+        - introduced: 1.9.0
+        - fixed: 1.20.1
+      vulnerable_at: 1.20.0
+summary: |-
+    Hashicorp Consul Improper Neutralization of HTTP Headers for Scripting Syntax
+    vulnerability in github.com/hashicorp/consul
+cves:
+    - CVE-2024-10006
+ghsas:
+    - GHSA-5c4w-8hhh-3c3h
+references:
+    - advisory: https://github.com/advisories/GHSA-5c4w-8hhh-3c3h
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-10006
+    - fix: https://github.com/hashicorp/consul/commit/d9206fc7e284a9244af4d62f8653a63ca30bd00c
+    - fix: https://github.com/hashicorp/consul/pull/21816
+    - web: https://discuss.hashicorp.com/t/hcsec-2024-23-consul-l7-intentions-vulnerable-to-headers-bypass
+source:
+    id: GHSA-5c4w-8hhh-3c3h
+    created: 2024-10-31T12:20:25.99677-04:00
+review_status: UNREVIEWED
