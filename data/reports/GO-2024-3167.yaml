@@ -2,23 +2,25 @@ id: GO-2024-3167
 modules:
     - module: github.com/golang-fips/openssl
       vulnerable_at: 0.0.0-20230605154532-724e32b0f4b8
-    - module: github.com/golang-fips/openssl/v2
-      unsupported_versions:
-        - last_affected: 2.0.3
-      vulnerable_at: 2.0.3
 summary: Golang FIPS OpenSSL has a Use of Uninitialized Variable vulnerability in github.com/golang-fips/openssl
+description: |-
+    A vulnerability was found in Golang FIPS OpenSSL. This flaw allows a malicious
+    user to randomly cause an uninitialized buffer length variable with a zeroed
+    buffer to be returned in FIPS mode. It may also be possible to force a false
+    positive match between non-equal hashes when comparing a trusted computed hmac
+    sum to an untrusted input sum if an attacker can send a zeroed buffer in place
+    of a pre-computed sum. It is also possible to force a derived key to be all
+    zeros instead of an unpredictable value. This may have follow-on implications
+    for the Go TLS stack.
 cves:
     - CVE-2024-9355
 ghsas:
     - GHSA-3h3x-2hwv-hr52
 references:
     - advisory: https://github.com/advisories/GHSA-3h3x-2hwv-hr52
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-9355
-    - web: https://access.redhat.com/errata/RHSA-2024:7502
-    - web: https://access.redhat.com/errata/RHSA-2024:7550
-    - web: https://access.redhat.com/security/cve/CVE-2024-9355
-    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2315719
+    - fix: https://github.com/golang-fips/openssl/pull/198
+    - web: https://github.com/github/advisory-database/pull/4950
 source:
     id: GHSA-3h3x-2hwv-hr52
-    created: 2024-10-08T10:58:05.90723-04:00
-review_status: UNREVIEWED
+    created: 2024-10-31T09:56:02.572206-04:00
+review_status: REVIEWED

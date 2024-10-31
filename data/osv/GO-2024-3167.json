@@ -8,28 +8,11 @@
     "GHSA-3h3x-2hwv-hr52"
   ],
   "summary": "Golang FIPS OpenSSL has a Use of Uninitialized Variable vulnerability in github.com/golang-fips/openssl",
-  "details": "Golang FIPS OpenSSL has a Use of Uninitialized Variable vulnerability in github.com/golang-fips/openssl",
+  "details": "A vulnerability was found in Golang FIPS OpenSSL. This flaw allows a malicious user to randomly cause an uninitialized buffer length variable with a zeroed buffer to be returned in FIPS mode. It may also be possible to force a false positive match between non-equal hashes when comparing a trusted computed hmac sum to an untrusted input sum if an attacker can send a zeroed buffer in place of a pre-computed sum. It is also possible to force a derived key to be all zeros instead of an unpredictable value. This may have follow-on implications for the Go TLS stack.",
   "affected": [
     {
       "package": {
         "name": "github.com/golang-fips/openssl",
-        "ecosystem": "Go"
-      },
-      "ranges": [
-        {
-          "type": "SEMVER",
-          "events": [
-            {
-              "introduced": "0"
-            }
-          ]
-        }
-      ],
-      "ecosystem_specific": {}
-    },
-    {
-      "package": {
-        "name": "github.com/golang-fips/openssl/v2",
         "ecosystem": "Go"
       },
       "ranges": [
@@ -51,28 +34,16 @@
       "url": "https://github.com/advisories/GHSA-3h3x-2hwv-hr52"
     },
     {
-      "type": "ADVISORY",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-9355"
+      "type": "FIX",
+      "url": "https://github.com/golang-fips/openssl/pull/198"
     },
     {
       "type": "WEB",
-      "url": "https://access.redhat.com/errata/RHSA-2024:7502"
-    },
-    {
-      "type": "WEB",
-      "url": "https://access.redhat.com/errata/RHSA-2024:7550"
-    },
-    {
-      "type": "WEB",
-      "url": "https://access.redhat.com/security/cve/CVE-2024-9355"
-    },
-    {
-      "type": "WEB",
-      "url": "https://bugzilla.redhat.com/show_bug.cgi?id=2315719"
+      "url": "https://github.com/github/advisory-database/pull/4950"
     }
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2024-3167",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }
