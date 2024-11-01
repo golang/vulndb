@@ -1,0 +1,101 @@
+id: GO-2024-3244
+modules:
+    - module: github.com/consensys/gnark
+      non_go_versions:
+        - fixed: 0.11.1
+      vulnerable_at: 0.11.0
+      packages:
+        - package: github.com/consensys/gnark/backend/groth16/bls24-315
+          symbols:
+            - Setup
+            - VerifyingKey.readFrom
+            - ProvingKey.readFrom
+            - ProvingKey.ReadDump
+          derived_symbols:
+            - ProvingKey.ReadFrom
+            - ProvingKey.UnsafeReadFrom
+            - VerifyingKey.ReadFrom
+            - VerifyingKey.UnsafeReadFrom
+        - package: github.com/consensys/gnark/backend/groth16/bn254
+          symbols:
+            - VerifyingKey.readFrom
+            - Setup
+            - ProvingKey.ReadDump
+            - ProvingKey.readFrom
+          derived_symbols:
+            - ProvingKey.ReadFrom
+            - ProvingKey.UnsafeReadFrom
+            - VerifyingKey.ReadFrom
+            - VerifyingKey.UnsafeReadFrom
+        - package: github.com/consensys/gnark/backend/groth16/bls24-317
+          symbols:
+            - ProvingKey.ReadDump
+            - VerifyingKey.readFrom
+            - ProvingKey.readFrom
+            - Setup
+          derived_symbols:
+            - ProvingKey.ReadFrom
+            - ProvingKey.UnsafeReadFrom
+            - VerifyingKey.ReadFrom
+            - VerifyingKey.UnsafeReadFrom
+        - package: github.com/consensys/gnark/backend/groth16/bw6-633
+          symbols:
+            - ProvingKey.readFrom
+            - VerifyingKey.readFrom
+            - ProvingKey.ReadDump
+            - Setup
+          derived_symbols:
+            - ProvingKey.ReadFrom
+            - ProvingKey.UnsafeReadFrom
+            - VerifyingKey.ReadFrom
+            - VerifyingKey.UnsafeReadFrom
+        - package: github.com/consensys/gnark/backend/groth16/bls12-381
+          symbols:
+            - VerifyingKey.readFrom
+            - Setup
+            - ProvingKey.ReadDump
+            - ProvingKey.readFrom
+          derived_symbols:
+            - ProvingKey.ReadFrom
+            - ProvingKey.UnsafeReadFrom
+            - VerifyingKey.ReadFrom
+            - VerifyingKey.UnsafeReadFrom
+        - package: github.com/consensys/gnark/backend/groth16/bls12-377
+          symbols:
+            - ProvingKey.readFrom
+            - Setup
+            - ProvingKey.ReadDump
+            - VerifyingKey.readFrom
+          derived_symbols:
+            - ProvingKey.ReadFrom
+            - ProvingKey.UnsafeReadFrom
+            - VerifyingKey.ReadFrom
+            - VerifyingKey.UnsafeReadFrom
+        - package: github.com/consensys/gnark/backend/groth16/bw6-761
+          symbols:
+            - ProvingKey.ReadDump
+            - ProvingKey.readFrom
+            - Setup
+            - VerifyingKey.readFrom
+          derived_symbols:
+            - ProvingKey.ReadFrom
+            - ProvingKey.UnsafeReadFrom
+            - VerifyingKey.ReadFrom
+            - VerifyingKey.UnsafeReadFrom
+summary: |-
+    Gnark out-of-memory during deserialization with crafted inputs in
+    github.com/consensys/gnark
+cves:
+    - CVE-2024-50354
+ghsas:
+    - GHSA-cph5-3pgr-c82g
+credits:
+    - pventuzelo
+references:
+    - advisory: https://github.com/advisories/GHSA-cph5-3pgr-c82g
+    - fix: https://github.com/Consensys/gnark/commit/47ae846339add2bdf9983e499342bfdfe195191d
+    - web: https://github.com/Consensys/gnark/pull/1307
+source:
+    id: GHSA-cph5-3pgr-c82g
+    created: 2024-11-01T20:47:52.373022564Z
+review_status: REVIEWED
