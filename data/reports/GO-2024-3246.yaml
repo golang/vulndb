@@ -1,0 +1,21 @@
+id: GO-2024-3246
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - introduced: 1.2.0
+        - fixed: 1.18.1
+      vulnerable_at: 1.18.0
+summary: Hashicorp Vault vulnerable to denial of service through memory exhaustion in github.com/hashicorp/vault
+cves:
+    - CVE-2024-8185
+ghsas:
+    - GHSA-g233-2p4r-3q7v
+references:
+    - advisory: https://github.com/advisories/GHSA-g233-2p4r-3q7v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-8185
+    - fix: https://github.com/hashicorp/vault/commit/195dfca433028887973f5bd82d173d91fe9dab4a
+    - web: https://discuss.hashicorp.com/t/hcsec-2024-26-vault-vulnerable-to-denial-of-service-through-memory-exhaustion-when-processing-raft-cluster-join-requests/71047
+source:
+    id: GHSA-g233-2p4r-3q7v
+    created: 2024-11-01T20:39:55.260102504Z
+review_status: UNREVIEWED
