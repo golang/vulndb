@@ -1,0 +1,21 @@
+id: GO-2024-3253
+modules:
+    - module: github.com/mudler/LocalAI
+      unsupported_versions:
+        - last_affected: 2.20.1
+      vulnerable_at: 1.40.0
+summary: LocalAI Cross-site Scripting vulnerability in github.com/mudler/LocalAI
+cves:
+    - CVE-2024-48057
+ghsas:
+    - GHSA-ghx4-cgxw-7h9p
+references:
+    - advisory: https://github.com/advisories/GHSA-ghx4-cgxw-7h9p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-48057
+    - web: https://gist.github.com/AfterSnows/1bd7ee5a3a42dbb5f5ff67f7f9c8ccec
+    - web: https://github.com/mudler/LocalAI/blob/master/core/http/views/index.html#L75
+    - web: https://rumbling-slice-eb0.notion.site/LocalAI-deleted-model-with-storage-XSS-CSRF-vulnerability-in-mudler-localai-101e3cda9e8c80e0ac12fe418d5dd982?pvs=4
+source:
+    id: GHSA-ghx4-cgxw-7h9p
+    created: 2024-11-06T11:54:56.535401-05:00
+review_status: UNREVIEWED

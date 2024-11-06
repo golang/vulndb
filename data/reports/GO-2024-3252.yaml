@@ -1,0 +1,18 @@
+id: GO-2024-3252
+modules:
+    - module: github.com/sigstore/gitsign
+      versions:
+        - fixed: 0.11.0
+      vulnerable_at: 0.10.2
+summary: gitsign may use incorrect Rekor entries during verification in github.com/sigstore/gitsign
+cves:
+    - CVE-2024-51746
+ghsas:
+    - GHSA-8pmp-678w-c8xx
+references:
+    - advisory: https://github.com/sigstore/gitsign/security/advisories/GHSA-8pmp-678w-c8xx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-51746
+source:
+    id: GHSA-8pmp-678w-c8xx
+    created: 2024-11-06T11:55:06.276361-05:00
+review_status: UNREVIEWED

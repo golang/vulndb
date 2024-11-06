@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3253",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-48057",
+    "GHSA-ghx4-cgxw-7h9p"
+  ],
+  "summary": "LocalAI Cross-site Scripting vulnerability in github.com/mudler/LocalAI",
+  "details": "LocalAI Cross-site Scripting vulnerability in github.com/mudler/LocalAI",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mudler/LocalAI",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-ghx4-cgxw-7h9p"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-48057"
+    },
+    {
+      "type": "WEB",
+      "url": "https://gist.github.com/AfterSnows/1bd7ee5a3a42dbb5f5ff67f7f9c8ccec"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mudler/LocalAI/blob/master/core/http/views/index.html#L75"
+    },
+    {
+      "type": "WEB",
+      "url": "https://rumbling-slice-eb0.notion.site/LocalAI-deleted-model-with-storage-XSS-CSRF-vulnerability-in-mudler-localai-101e3cda9e8c80e0ac12fe418d5dd982?pvs=4"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3253",
+    "review_status": "UNREVIEWED"
+  }
+}
