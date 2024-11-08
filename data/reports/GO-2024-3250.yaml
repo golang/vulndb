@@ -1,0 +1,28 @@
+id: GO-2024-3250
+modules:
+    - module: github.com/golang-jwt/jwt/v4
+      versions:
+        - fixed: 4.5.1
+      vulnerable_at: 4.5.0
+      packages:
+        - package: github.com/golang-jwt/jwt/v4
+          symbols:
+            - Parser.ParseWithClaims
+          derived_symbols:
+            - Parse
+            - ParseWithClaims
+            - Parser.Parse
+summary: |-
+    Bad documentation of error handling in ParseWithClaims may lead to
+    dangerous situations in github.com/golang-jwt/jwt
+cves:
+    - CVE-2024-51744
+ghsas:
+    - GHSA-29wx-vh33-7x7r
+references:
+    - advisory: https://github.com/golang-jwt/jwt/security/advisories/GHSA-29wx-vh33-7x7r
+    - fix: https://github.com/golang-jwt/jwt/commit/7b1c1c00a171c6c79bbdb40e4ce7d197060c1c2c
+source:
+    id: GHSA-29wx-vh33-7x7r
+    created: 2024-11-08T12:21:43.987103-05:00
+review_status: REVIEWED

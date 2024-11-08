@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3250",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-51744",
+    "GHSA-29wx-vh33-7x7r"
+  ],
+  "summary": "Bad documentation of error handling in ParseWithClaims may lead to dangerous situations in github.com/golang-jwt/jwt",
+  "details": "Bad documentation of error handling in ParseWithClaims may lead to dangerous situations in github.com/golang-jwt/jwt",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/golang-jwt/jwt/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.5.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/golang-jwt/jwt/v4",
+            "symbols": [
+              "Parse",
+              "ParseWithClaims",
+              "Parser.Parse",
+              "Parser.ParseWithClaims"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/golang-jwt/jwt/security/advisories/GHSA-29wx-vh33-7x7r"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/golang-jwt/jwt/commit/7b1c1c00a171c6c79bbdb40e4ce7d197060c1c2c"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3250",
+    "review_status": "REVIEWED"
+  }
+}
