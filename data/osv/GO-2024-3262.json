@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3262",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-10975",
+    "GHSA-2w5v-x29g-jw7j"
+  ],
+  "summary": "Hashicorp Nomad Incorrect Authorization vulnerability in github.com/hashicorp/nomad",
+  "details": "Hashicorp Nomad Incorrect Authorization vulnerability in github.com/hashicorp/nomad",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hashicorp/nomad",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-2w5v-x29g-jw7j"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-10975"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hashicorp/nomad/commit/30849c518e16647a4f698e5f5cc82bef2bf40e4d"
+    },
+    {
+      "type": "WEB",
+      "url": "https://discuss.hashicorp.com/t/hcsec-2024-27-nomad-vulnerable-to-cross-namespace-volume-creation-abusing-csi-write-permission"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3262",
+    "review_status": "UNREVIEWED"
+  }
+}
