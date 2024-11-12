@@ -30,10 +30,6 @@ func (r ReviewStatus) String() string {
 	return statusStrs[r]
 }
 
-func ReviewStatusValues() []string {
-	return statusStrs[1:]
-}
-
 func (r ReviewStatus) IsValid() bool {
 	return int(r) >= 0 && int(r) < len(statusStrs)
 }

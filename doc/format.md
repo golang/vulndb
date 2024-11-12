@@ -424,11 +424,18 @@ type `string`
 
 **required**
 
-The status of this report, either UNREVIEWED or REVIEWED.
+The status of this report, either UNREVIEWED, NEEDS_REVIEW, or REVIEWED.
 
 Unreviewed reports are generally auto-generated or nearly so. Their
 details have not been verified and no attempt has been made to determine
 packages or symbols. These reports must have an advisory link.
+
+Needs review reports are like unreviewed reports in that they are auto-generated,
+but we plan to review them in the near future. They have stricter requirements
+for version data than unreviewed reports. The NEEDS_REVIEW status allows us to
+quickly publish initial versions of most reports that will require review.
+NEEDS_REVIEW is an internal status only: it is converted to UNREVIEWED when
+published to OSV.
 
 Reviewed reports are reports for which we have made a good faith effort
 to determine correct affected versions, packages, and symbols. (In some

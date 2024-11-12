@@ -145,7 +145,7 @@ func (r *Report) ToOSV(lastModified time.Time) (osv.Entry, error) {
 		SchemaVersion: SchemaVersion,
 		DatabaseSpecific: &osv.DatabaseSpecific{
 			URL:          idstr.GoAdvisory(r.ID),
-			ReviewStatus: osv.ReviewStatus(r.ReviewStatus),
+			ReviewStatus: r.ReviewStatus.ToOSV(),
 		},
 	}
 
@@ -177,7 +177,7 @@ func (r *Report) ToOSV(lastModified time.Time) (osv.Entry, error) {
 	}
 
 	// Add an explanation about non-Go versions if applicable.
-	if hasNonGoVersions && r.IsUnreviewed() {
+	if hasNonGoVersions && !r.IsReviewed() {
 		if !strings.HasSuffix(details, ".") {
 			details = fmt.Sprintf("%s.", details)
 		}

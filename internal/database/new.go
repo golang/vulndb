@@ -8,7 +8,7 @@ import (
 	"fmt"
 
 	"golang.org/x/vulndb/internal/osv"
-	"golang.org/x/vulndb/internal/version"
+	"golang.org/x/vulndb/internal/osvutils"
 )
 
 // New creates a new database from the given entries.
@@ -63,7 +63,7 @@ func (m *ModulesIndex) add(entry osv.Entry) {
 		module.Vulns = append(module.Vulns, ModuleVuln{
 			ID:       entry.ID,
 			Modified: entry.Modified,
-			Fixed:    latestFixedVersion(affected.Ranges),
+			Fixed:    osvutils.LatestFixed(affected.Ranges),
 		})
 	}
 }
@@ -78,26 +78,4 @@ func (v *VulnsIndex) add(entry osv.Entry) error {
 		Aliases:  entry.Aliases,
 	}
 	return nil
-}
-
-func latestFixedVersion(ranges []osv.Range) string {
-	var latestFixed string
-	for _, r := range ranges {
-		if r.Type == osv.RangeTypeSemver {
-			for _, e := range r.Events {
-				if fixed := e.Fixed; fixed != "" && version.Before(latestFixed, fixed) {
-					latestFixed = fixed
-				}
-			}
-			// If the vulnerability was re-introduced after the latest fix
-			// we found, there is no latest fix for this range.
-			for _, e := range r.Events {
-				if introduced := e.Introduced; introduced != "" && introduced != "0" && version.Before(latestFixed, introduced) {
-					latestFixed = ""
-					break
-				}
-			}
-		}
-	}
-	return string(latestFixed)
 }

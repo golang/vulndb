@@ -2,13 +2,15 @@ Copyright 2024 The Go Authors. All rights reserved.
 Use of this source code is governed by a BSD-style
 license that can be found in the LICENSE file.
 
-Test: TestLintOffline/no_review_status
-Description: Regular (non-excluded) reports must have a review status.
+Test: TestLintOffline/no_advisory_needs_review
+Description: Needs review reports must have an advisory link.
 
 -- data/reports/GO-0000-0000.yaml --
 id: GO-0000-0000
 modules:
     - module: golang.org/x/net
+      versions:
+        - fixed: 1.5.0
       vulnerable_at: 1.2.3
       packages:
         - package: golang.org/x/net/http2
@@ -16,8 +18,7 @@ summary: A summary of the issue in golang.org/x/net
 description: description
 cves:
     - CVE-1234-0000
-references:
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-1234-0000
+review_status: NEEDS_REVIEW
 
 -- golden --
-review_status missing or invalid (must be one of [REVIEWED, UNREVIEWED, NEEDS_REVIEW])
+references: missing advisory (required because report has no description or is UNREVIEWED)

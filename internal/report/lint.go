@@ -85,7 +85,7 @@ func (m *Module) classifyVersions(pc *proxy.Client) (found, notFound Versions, n
 
 var missing = "missing"
 
-func (m *Module) lintVersions(l *linter) {
+func (m *Module) lintVersions(l *linter, r *Report) {
 	vl := l.Group("versions")
 	ranges, err := m.Versions.ToSemverRanges()
 	if err != nil {
@@ -101,6 +101,12 @@ func (m *Module) lintVersions(l *linter) {
 	} else {
 		if err := osvutils.ValidateRanges(ranges); err != nil {
 			vl.Error(err)
+		}
+	}
+
+	if r.NeedsReview() {
+		if fixed := osvutils.LatestFixed(ranges); fixed == "" {
+			vl.Errorf("no latest fixed version (required for %s report)", NeedsReview)
 		}
 	}
 }
@@ -230,7 +236,11 @@ func (r *Report) IsReviewed() bool {
 }
 
 func (r *Report) IsUnreviewed() bool {
-	return !r.IsReviewed() && !r.IsExcluded()
+	return r.ReviewStatus == Unreviewed
+}
+
+func (r *Report) NeedsReview() bool {
+	return r.ReviewStatus == NeedsReview
 }
 
 func (r *Report) lintReferences(l *linter) {
@@ -281,8 +291,8 @@ func (r *Report) lintReviewStatus(l *linter) {
 		return
 	}
 
-	if r.ReviewStatus == 0 || !osv.ReviewStatus(r.ReviewStatus).IsValid() {
-		l.Errorf("review_status missing or invalid (must be one of [%s])", strings.Join(osv.ReviewStatusValues(), ", "))
+	if r.ReviewStatus == 0 || !r.ReviewStatus.IsValid() {
+		l.Errorf("review_status missing or invalid (must be one of [%s])", strings.Join(reviewStatusValues(), ", "))
 	}
 }
 
@@ -290,7 +300,7 @@ func (r *Report) lintSource(l *linter) {
 	if r.SourceMeta == nil {
 		return
 	}
-	if r.IsUnreviewed() && r.SourceMeta.ID == sourceGoTeam {
+	if !r.IsReviewed() && r.SourceMeta.ID == sourceGoTeam {
 		l.Errorf("source: if id=%s, report must be %s", sourceGoTeam, Reviewed)
 	}
 }
@@ -309,7 +319,7 @@ func (r *Report) needsAdvisory() bool {
 	switch {
 	case r.IsExcluded(), r.CVEMetadata != nil, r.IsFirstParty():
 		return false
-	case r.Description == "", r.IsUnreviewed():
+	case r.Description == "", r.IsUnreviewed(), r.NeedsReview():
 		return true
 	}
 	return false
@@ -345,7 +355,7 @@ func (s *Summary) lint(l *linter, r *Report) {
 	}
 
 	// Non-reviewed reports don't need to meet strict requirements.
-	if r.IsUnreviewed() {
+	if !r.IsReviewed() {
 		return
 	}
 
@@ -571,13 +581,13 @@ func (m *Module) lint(l *linter, r *Report, pc *proxy.Client) {
 		p.lint(l.Group(name("packages", i, p.Package)), m, r)
 	}
 
-	if r.IsReviewed() {
+	if r.IsReviewed() || r.NeedsReview() {
 		if u := len(m.UnsupportedVersions); u > 0 {
 			l.Group("unsupported_versions").Errorf("found %d (want none)", u)
 		}
 	}
 
-	m.lintVersions(l)
+	m.lintVersions(l, r)
 }
 
 func (p *Package) lint(l *linter, m *Module, r *Report) {

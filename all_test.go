@@ -140,10 +140,10 @@ func TestLintReports(t *testing.T) {
 			// This can happen because the initial quick triage algorithm
 			// doesn't know about all affected modules - just the one
 			// listed in the Github issue.
-			if r.IsUnreviewed() && !r.UnreviewedOK {
+			if r.IsUnreviewed() && !r.IsExcluded() && !r.UnreviewedOK {
 				pr, _ := priority.AnalyzeReport(r, rc, modulesToImports)
 				if pr.Priority == priority.High {
-					t.Errorf("UNREVIEWED report %s is high priority (should be REVIEWED) - reason: %s", filename, pr.Reason)
+					t.Errorf("UNREVIEWED report %s is high priority (should be NEEDS_REVIEW or REVIEWED) - reason: %s", filename, pr.Reason)
 				}
 			}
 			// Check that a correct OSV file was generated for each YAML report.

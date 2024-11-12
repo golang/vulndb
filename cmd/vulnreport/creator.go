@@ -127,7 +127,7 @@ func reviewStatusOf(iss *issues.Issue, reviewStatus report.ReviewStatus) report.
 	// If a valid review status is provided, it overrides the priority label.
 	if reviewStatus != 0 {
 		if d != reviewStatus {
-			log.Warnf("issue #%d: should be %s based on label(s) but this was overridden with the -status=%s flag", iss.Number, d, reviewStatus)
+			log.Warnf("issue #%d: would be %s based on label(s) but this was overridden with the -status=%s flag", iss.Number, d, reviewStatus)
 		}
 		return reviewStatus
 	}
@@ -135,10 +135,13 @@ func reviewStatusOf(iss *issues.Issue, reviewStatus report.ReviewStatus) report.
 }
 
 func defaultReviewStatus(iss *issues.Issue) report.ReviewStatus {
-	if iss.HasLabel(labelHighPriority) ||
-		iss.HasLabel(labelDirect) ||
+	if iss.HasLabel(labelDirect) ||
 		iss.HasLabel(labelFirstParty) {
 		return report.Reviewed
+	}
+
+	if iss.HasLabel(labelHighPriority) {
+		return report.NeedsReview
 	}
 
 	return report.Unreviewed
@@ -161,6 +164,7 @@ func (c *creator) metaToSource(ctx context.Context, meta *reportMeta) report.Sou
 }
 
 func (c *creator) rawReport(ctx context.Context, meta *reportMeta) *report.Report {
+	log.Infof("%s: creating new %s report", meta.id, meta.reviewStatus)
 	return report.New(c.metaToSource(ctx, meta), c.pxc,
 		report.WithGoID(meta.id),
 		report.WithModulePath(meta.modulePath),
@@ -195,12 +199,11 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) (*yamlRe
 	// The initial quick triage algorithm doesn't know about all
 	// affected modules, so double check the priority after the
 	// report is created.
-	if raw.IsUnreviewed() {
+	if raw.IsUnreviewed() && !raw.IsExcluded() {
 		pr, _ := c.reportPriority(raw)
 		if pr.Priority == priority.High {
-			log.Warnf("%s: re-generating; vuln is high priority and should be REVIEWED; reason: %s", raw.ID, pr.Reason)
-			meta.reviewStatus = report.Reviewed
-			raw = c.rawReport(ctx, meta)
+			log.Warnf("%s: vuln is high priority and should be NEEDS_REVIEW or REVIEWED; reason: %s", raw.ID, pr.Reason)
+			raw.ReviewStatus = report.NeedsReview
 		}
 	}
 
@@ -239,7 +242,7 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) (*yamlRe
 	switch {
 	case raw.IsExcluded():
 		// nothing
-	case raw.IsUnreviewed():
+	case !raw.IsReviewed():
 		r.removeUnreachableRefs()
 	default:
 		// Regular, full-length reports.

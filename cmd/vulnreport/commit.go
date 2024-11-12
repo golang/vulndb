@@ -217,6 +217,10 @@ func actionPhrases(status git.Status, r *yamlReport) (reportAction, issueAction 
 			// Update instead of fixing the issue because we still need
 			// to manually publish the CVE record after submitting the CL.
 			return addReportAction, updateIssueAction, nil
+		case r.NeedsReview():
+			// Update instead of fixing the issue because we still need
+			// to review the report later.
+			return addReportAction, updateIssueAction, nil
 		default:
 			return addReportAction, fixIssueAction, nil
 		}

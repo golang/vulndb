@@ -60,6 +60,31 @@ func validReport(f func(r *Report)) Report {
 	return r
 }
 
+func validNeedsReviewReport(f func(r *Report)) Report {
+	r := Report{
+		ID: "GO-0000-0000",
+		Modules: []*Module{{
+			Module:       "golang.org/x/net",
+			VulnerableAt: VulnerableAt("1.2.3"),
+			Packages: []*Package{{
+				Package: "golang.org/x/net/http2",
+			}},
+			Versions: []*Version{
+				Fixed("1.5.0"),
+			},
+		}},
+		Description:  "description",
+		Summary:      "A summary of the issue in golang.org/x/net",
+		CVEs:         []string{"CVE-1234-0000"},
+		ReviewStatus: NeedsReview,
+		References: []*Reference{
+			{Type: osv.ReferenceTypeAdvisory, URL: "https://example.com"},
+		},
+	}
+	f(&r)
+	return r
+}
+
 func validStdReport(f func(r *Report)) Report {
 	r := Report{
 		ID: "GO-0000-0000",
@@ -229,6 +254,15 @@ func TestLintOffline(t *testing.T) {
 			desc: "Unreviewed reports must have an advisory link.",
 			report: validReport(func(r *Report) {
 				r.ReviewStatus = Unreviewed
+				r.References = nil
+			}),
+			wantNumLints: 1,
+		},
+		{
+			name: "no_advisory_needs_review",
+			desc: "Needs review reports must have an advisory link.",
+			report: validNeedsReviewReport(func(r *Report) {
+				r.ReviewStatus = NeedsReview
 				r.References = nil
 			}),
 			wantNumLints: 1,
@@ -419,6 +453,16 @@ func TestLintOffline(t *testing.T) {
 			wantNumLints: 1,
 		},
 		{
+			name: "unsupported_versions_needs_review",
+			desc: "The unsupported_versions field should never be set for NEEDS_REVIEW reports.",
+			report: validNeedsReviewReport(func(r *Report) {
+				r.Modules[0].UnsupportedVersions = Versions{
+					{Version: "1.2.1", Type: "unknown"},
+				}
+			}),
+			wantNumLints: 1,
+		},
+		{
 			name: "module_package_prefix",
 			desc: "In third party reports, module names must be prefixes of package names.",
 			report: validReport(func(r *Report) {
@@ -539,6 +583,18 @@ func TestLintOffline(t *testing.T) {
 			report: validStdReport(func(r *Report) {
 				r.Modules[0].Versions = Versions{
 					Introduced("1.3.X"),
+				}
+			}),
+			wantNumLints: 1,
+		},
+		{
+			name: "no_latest_fixed",
+			desc: "NEEDS_REVIEW reports need a latest fixed version for all modules.",
+			report: validNeedsReviewReport(func(r *Report) {
+				r.Modules[0].Versions = Versions{
+					Introduced("1.2.1"),
+					Fixed("1.3.0"),
+					Introduced("1.3.2"),
 				}
 			}),
 			wantNumLints: 1,

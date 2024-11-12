@@ -40,7 +40,7 @@ func New(src Source, pc *proxy.Client, opts ...NewOption) *Report {
 
 	r.Fix(pc)
 
-	if r.ReviewStatus == Unreviewed {
+	if !r.IsReviewed() {
 		r.Description = ""
 		// Package-level data is often wrong/incomplete, which could lead
 		// to false negatives, so remove it for unreviewed reports.

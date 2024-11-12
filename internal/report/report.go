@@ -381,33 +381,60 @@ type Report struct {
 	Unexcluded ExcludedType `yaml:"unexcluded,omitempty"`
 }
 
-// This wrapper is needed so we can define YAML functions on this type.
-// (The OSV package must not import third-party packages so it can be easily
-// copied across repos).
-type ReviewStatus osv.ReviewStatus
+type ReviewStatus int
 
 const (
-	Reviewed   = ReviewStatus(osv.ReviewStatusReviewed)
-	Unreviewed = ReviewStatus(osv.ReviewStatusUnreviewed)
+	unknownReviewStatus ReviewStatus = iota
+	Reviewed
+	Unreviewed
+	NeedsReview
 )
 
+type statusMapping struct {
+	name string
+	osv  osv.ReviewStatus
+}
+
+var statuses = []statusMapping{
+	Reviewed:    {"REVIEWED", osv.ReviewStatusReviewed},
+	Unreviewed:  {"UNREVIEWED", osv.ReviewStatusUnreviewed},
+	NeedsReview: {"NEEDS_REVIEW", osv.ReviewStatusUnreviewed},
+}
+
+func reviewStatusValues() []string {
+	var vals []string
+	for _, v := range statuses[Reviewed:] {
+		vals = append(vals, v.name)
+	}
+	return vals
+}
+
 func (r ReviewStatus) String() string {
-	return osv.ReviewStatus(r).String()
+	return statuses[r].name
+}
+
+func (r ReviewStatus) ToOSV() osv.ReviewStatus {
+	return statuses[r].osv
 }
 
 func ToReviewStatus(s string) (ReviewStatus, bool) {
-	if rs, ok := osv.ToReviewStatus(s); ok {
-		return ReviewStatus(rs), true
+	for stat, v := range statuses {
+		if s == v.name {
+			return ReviewStatus(stat), true
+		}
 	}
 	return 0, false
 }
 
+func (r ReviewStatus) IsValid() bool {
+	return r >= Reviewed && int(r) < len(statuses)
+}
+
 func (r ReviewStatus) MarshalYAML() (any, error) {
-	or := osv.ReviewStatus(r)
-	if !or.IsValid() {
+	if !r.IsValid() {
 		return nil, fmt.Errorf("MarshalYAML: unrecognized review status: %s", r)
 	}
-	return or.String(), nil
+	return r.String(), nil
 }
 
 func (r *ReviewStatus) UnmarshalYAML(node *yaml.Node) error {
