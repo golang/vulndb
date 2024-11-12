@@ -1,0 +1,18 @@
+id: GO-2024-3259
+modules:
+    - module: github.com/cometbft/cometbft
+      versions:
+        - introduced: 0.38.0
+        - fixed: 0.38.15
+      vulnerable_at: 0.38.14
+summary: 'CometBFT Vote Extensions: Panic when receiving a Pre-commit with an invalid data in github.com/cometbft/cometbft'
+ghsas:
+    - GHSA-p7mv-53f2-4cwj
+references:
+    - advisory: https://github.com/cometbft/cometbft/security/advisories/GHSA-p7mv-53f2-4cwj
+    - web: https://docs.cometbft.com/v0.38/spec/abci/abci++_basic_concepts
+    - web: https://github.com/cometbft/cometbft/releases/tag/v0.38.15
+source:
+    id: GHSA-p7mv-53f2-4cwj
+    created: 2024-11-12T11:29:13.234193-05:00
+review_status: NEEDS_REVIEW

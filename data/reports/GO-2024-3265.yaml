@@ -1,0 +1,20 @@
+id: GO-2024-3265
+modules:
+    - module: github.com/runatlantis/atlantis
+      versions:
+        - fixed: 0.30.0
+      vulnerable_at: 0.29.0
+summary: Git credentials are exposed in Atlantis logs in github.com/runatlantis/atlantis
+cves:
+    - CVE-2024-52009
+ghsas:
+    - GHSA-gppm-hq3p-h4rp
+references:
+    - advisory: https://github.com/runatlantis/atlantis/security/advisories/GHSA-gppm-hq3p-h4rp
+    - fix: https://github.com/runatlantis/atlantis/pull/4667
+    - report: https://github.com/runatlantis/atlantis/issues/4060
+    - web: https://github.com/runatlantis/atlantis/releases/tag/v0.30.0
+source:
+    id: GHSA-gppm-hq3p-h4rp
+    created: 2024-11-12T11:29:08.000581-05:00
+review_status: NEEDS_REVIEW
