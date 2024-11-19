@@ -12,6 +12,13 @@ Other useful docs:
 
 ### Triage
 
+NEW: To triage all issues, create reports that can be created automatically,
+and commit them, run:
+
+```sh
+./devtools/vulntriage.sh
+```
+
 0. Assign any unlabeled, unassigned issues on the tracker to yourself.
 1. If you haven't already, follow the [one-time-setup](#one-time-setup) process.
 2. Sync the vulndb repo, re-install vulnreport and switch to a fresh branch, e.g.:
