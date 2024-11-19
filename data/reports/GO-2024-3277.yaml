@@ -1,0 +1,24 @@
+id: GO-2024-3277
+modules:
+    - module: k8s.io/kubernetes
+      versions:
+        - fixed: 1.27.0-alpha.1
+      vulnerable_at: 1.27.0-alpha.0
+summary: Kubernetes Nil pointer dereference in KCM after v1 HPA patch request in k8s.io/kubernetes
+cves:
+    - CVE-2024-0793
+ghsas:
+    - GHSA-h7wq-jj8r-qm7p
+references:
+    - advisory: https://github.com/advisories/GHSA-h7wq-jj8r-qm7p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-0793
+    - web: https://access.redhat.com/errata/RHSA-2024:0741
+    - web: https://access.redhat.com/errata/RHSA-2024:1267
+    - web: https://access.redhat.com/security/cve/CVE-2024-0793
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2214402
+    - web: https://github.com/kubernetes/kubernetes/issues/107038#issuecomment-1911327145
+    - web: https://github.com/openshift/kubernetes/pull/1876
+source:
+    id: GHSA-h7wq-jj8r-qm7p
+    created: 2024-11-19T11:59:24.495186-05:00
+review_status: UNREVIEWED

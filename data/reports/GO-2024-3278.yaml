@@ -1,0 +1,16 @@
+id: GO-2024-3278
+modules:
+    - module: github.com/kubeflow/pipelines
+      unsupported_versions:
+        - cve_version_range: 'affected from 0 before 930c35f1c543998e60e8d648ce93185c9b5dbe8d (default: unaffected)'
+      vulnerable_at: 0.0.0-20241119091323-c57e8973ac4b
+summary: Stored XSS in Kubeflow Pipeline View in github.com/kubeflow/pipelines
+cves:
+    - CVE-2024-9526
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-9526
+    - fix: https://github.com/kubeflow/pipelines/pull/10315
+source:
+    id: CVE-2024-9526
+    created: 2024-11-19T11:59:20.555589-05:00
+review_status: UNREVIEWED

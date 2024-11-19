@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3274",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2023-0109",
+    "GHSA-5r2g-59px-3q9w"
+  ],
+  "summary": "Stored XSS using two files in usememos/memos in github.com/usememos/memos",
+  "details": "Stored XSS using two files in usememos/memos in github.com/usememos/memos",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/usememos/memos",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.10.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-5r2g-59px-3q9w"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-0109"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/usememos/memos/commit/46c13a4b7f675b92d297df6dabb4441f13c7cd9c"
+    },
+    {
+      "type": "WEB",
+      "url": "https://huntr.com/bounties/1899ffb2-ce1e-4dc0-af96-972612190f6e"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3274",
+    "review_status": "UNREVIEWED"
+  }
+}

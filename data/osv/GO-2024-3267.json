@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3267",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-52010",
+    "GHSA-7hpf-g48v-hw3j"
+  ],
+  "summary": "Zoraxy has an authenticated command injection in the Web SSH feature in github.com/tobychui/zoraxy",
+  "details": "Zoraxy has an authenticated command injection in the Web SSH feature in github.com/tobychui/zoraxy.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: .",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/tobychui/zoraxy",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.1.3+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "2.6.1"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/tobychui/zoraxy/security/advisories/GHSA-7hpf-g48v-hw3j"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-52010"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/tobychui/zoraxy/commit/2e9bc77a5d832bff1093058d42ce7a61382e4bc6"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/tobychui/zoraxy/commit/c07d5f85dfc37bd32819358ed7d4bc32c604e8f0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3267",
+    "review_status": "UNREVIEWED"
+  }
+}

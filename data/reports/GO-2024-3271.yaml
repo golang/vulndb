@@ -1,0 +1,20 @@
+id: GO-2024-3271
+modules:
+    - module: github.com/rclone/rclone
+      versions:
+        - introduced: 1.59.0
+        - fixed: 1.68.2
+      vulnerable_at: 1.68.1
+summary: |-
+    Rclone Improper Permission and Ownership Handling on Symlink Targets with
+    --links and --metadata in github.com/rclone/rclone
+cves:
+    - CVE-2024-52522
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-52522
+    - fix: https://github.com/rclone/rclone/commit/01ccf204f42b4f68541b16843292439090a2dcf0
+    - web: https://github.com/rclone/rclone/security/advisories/GHSA-hrxh-9w67-g4cv
+source:
+    id: CVE-2024-52522
+    created: 2024-11-19T11:59:46.082737-05:00
+review_status: UNREVIEWED

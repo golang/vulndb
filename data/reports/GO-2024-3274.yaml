@@ -1,0 +1,20 @@
+id: GO-2024-3274
+modules:
+    - module: github.com/usememos/memos
+      versions:
+        - fixed: 0.10.0
+      vulnerable_at: 0.9.1
+summary: Stored XSS using two files in usememos/memos in github.com/usememos/memos
+cves:
+    - CVE-2023-0109
+ghsas:
+    - GHSA-5r2g-59px-3q9w
+references:
+    - advisory: https://github.com/advisories/GHSA-5r2g-59px-3q9w
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-0109
+    - fix: https://github.com/usememos/memos/commit/46c13a4b7f675b92d297df6dabb4441f13c7cd9c
+    - web: https://huntr.com/bounties/1899ffb2-ce1e-4dc0-af96-972612190f6e
+source:
+    id: GHSA-5r2g-59px-3q9w
+    created: 2024-11-19T11:59:36.387588-05:00
+review_status: UNREVIEWED
