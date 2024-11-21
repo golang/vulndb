@@ -1,0 +1,26 @@
+id: GO-2024-3282
+modules:
+    - module: github.com/cert-manager/cert-manager
+      versions:
+        - fixed: 1.12.14
+        - introduced: 1.13.0-alpha.0
+        - fixed: 1.15.4
+        - introduced: 1.16.0-alpha.0
+        - fixed: 1.16.2
+      vulnerable_at: 1.16.1
+summary: |-
+    cert-manager ha a potential slowdown / DoS when parsing specially crafted PEM
+    inputs in github.com/cert-manager/cert-manager
+ghsas:
+    - GHSA-r4pg-vg54-wxx4
+references:
+    - advisory: https://github.com/cert-manager/cert-manager/security/advisories/GHSA-r4pg-vg54-wxx4
+    - fix: https://github.com/cert-manager/cert-manager/pull/7400
+    - fix: https://github.com/cert-manager/cert-manager/pull/7401
+    - fix: https://github.com/cert-manager/cert-manager/pull/7402
+    - fix: https://github.com/cert-manager/cert-manager/pull/7403
+    - web: https://go.dev/issue/50116
+source:
+    id: GHSA-r4pg-vg54-wxx4
+    created: 2024-11-21T14:39:18.975104-05:00
+review_status: NEEDS_REVIEW
