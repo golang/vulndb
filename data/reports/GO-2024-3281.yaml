@@ -1,0 +1,21 @@
+id: GO-2024-3281
+modules:
+    - module: github.com/rancher/steve
+      versions:
+        - fixed: 0.0.0-20241029132712-2175e090fe4b
+summary: |-
+    github.com/rancher/steve's users can issue watch commands for arbitrary
+    resources in github.com/rancher/steve
+cves:
+    - CVE-2024-52280
+ghsas:
+    - GHSA-j5hq-5jcr-xwx7
+references:
+    - advisory: https://github.com/rancher/steve/security/advisories/GHSA-j5hq-5jcr-xwx7
+    - fix: https://github.com/rancher/steve/commit/2175e090fe4b1e603a54e1cdc5148a2b1c11b4d9
+notes:
+    - fix: 'github.com/rancher/steve: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-j5hq-5jcr-xwx7
+    created: 2024-11-21T14:39:28.380649-05:00
+review_status: UNREVIEWED
