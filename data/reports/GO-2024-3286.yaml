@@ -1,0 +1,26 @@
+id: GO-2024-3286
+modules:
+    - module: k8s.io/kubernetes
+      versions:
+        - fixed: 1.28.12
+        - introduced: 1.29.0
+        - fixed: 1.29.7
+        - introduced: 1.30.0
+        - fixed: 1.30.3
+      vulnerable_at: 1.30.2
+summary: Kubernetes kubelet arbitrary command execution in k8s.io/kubernetes
+cves:
+    - CVE-2024-10220
+ghsas:
+    - GHSA-27wf-5967-98gx
+references:
+    - advisory: https://github.com/advisories/GHSA-27wf-5967-98gx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-10220
+    - web: http://www.openwall.com/lists/oss-security/2024/11/20/1
+    - web: https://github.com/kubernetes/kubernetes/commit/1ab06efe92d8e898ca1931471c9533ce94aba29b
+    - web: https://github.com/kubernetes/kubernetes/issues/128885
+    - web: https://groups.google.com/g/kubernetes-security-announce/c/ptNgV5Necko
+source:
+    id: GHSA-27wf-5967-98gx
+    created: 2024-11-27T13:41:27.937873-05:00
+review_status: UNREVIEWED

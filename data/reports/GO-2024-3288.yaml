@@ -1,0 +1,19 @@
+id: GO-2024-3288
+modules:
+    - module: github.com/taurusgroup/multi-party-sig
+      unsupported_versions:
+        - last_affected: 0.6.0-alpha-2021-09-21
+      vulnerable_at: 0.6.0-alpha-2021-09-21
+summary: Taurus multi-party-sig has OT-based ECDSA protocol implementation flaws in github.com/taurusgroup/multi-party-sig
+ghsas:
+    - GHSA-7f6p-phw2-8253
+references:
+    - advisory: https://github.com/taurushq-io/multi-party-sig/security/advisories/GHSA-7f6p-phw2-8253
+    - web: https://eprint.iacr.org/2018/499.pdf
+    - web: https://github.com/taurushq-io/multi-party-sig/blob/4d84aafb57b437da1b933db9a265fb7ce4e7c138/internal/ot/extended.go#L188
+    - web: https://github.com/taurushq-io/multi-party-sig/blob/9e4400fccee89be6195d0a12dd0ed052288d5040/internal/ot/extended.go#L114
+    - web: https://github.com/taurushq-io/multi-party-sig/tree/otfix
+source:
+    id: GHSA-7f6p-phw2-8253
+    created: 2024-11-27T13:41:20.534174-05:00
+review_status: UNREVIEWED

@@ -1,0 +1,21 @@
+id: GO-2024-3291
+modules:
+    - module: github.com/treeverse/lakefs
+      versions:
+        - fixed: 1.33.0
+      vulnerable_at: 1.32.1
+summary: |-
+    Re-creating a deleted user in lakeFS will re-enable previous user credentials
+    that existed prior to its deletion in github.com/treeverse/lakefs
+cves:
+    - CVE-2024-43784
+ghsas:
+    - GHSA-hh33-46q4-hwm2
+references:
+    - advisory: https://github.com/treeverse/lakeFS/security/advisories/GHSA-hh33-46q4-hwm2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-43784
+    - web: https://github.com/treeverse/lakeFS/releases/tag/v1.33.0
+source:
+    id: GHSA-hh33-46q4-hwm2
+    created: 2024-11-27T13:41:03.899167-05:00
+review_status: UNREVIEWED

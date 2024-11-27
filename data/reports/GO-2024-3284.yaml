@@ -1,0 +1,21 @@
+id: GO-2024-3284
+modules:
+    - module: github.com/pingcap/tidb
+      non_go_versions:
+        - fixed: 8.2.0
+      vulnerable_at: 1.0.9
+summary: PingCAP TiDB nil pointer dereference in github.com/pingcap/tidb
+cves:
+    - CVE-2024-37820
+ghsas:
+    - GHSA-9g6g-xqv5-8g5w
+references:
+    - advisory: https://github.com/advisories/GHSA-9g6g-xqv5-8g5w
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-37820
+    - fix: https://github.com/pingcap/tidb/commit/3d68bd21240c610c6307713e2bd54a5e71c32608
+    - report: https://github.com/pingcap/tidb/issues/53580
+    - web: https://gist.github.com/ycybfhb/a9c1e14ce281f2f553adca84d384b761
+source:
+    id: GHSA-9g6g-xqv5-8g5w
+    created: 2024-11-27T13:41:33.624345-05:00
+review_status: UNREVIEWED

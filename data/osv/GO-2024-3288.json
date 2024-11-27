@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3288",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-7f6p-phw2-8253"
+  ],
+  "summary": "Taurus multi-party-sig has OT-based ECDSA protocol implementation flaws in github.com/taurusgroup/multi-party-sig",
+  "details": "Taurus multi-party-sig has OT-based ECDSA protocol implementation flaws in github.com/taurusgroup/multi-party-sig",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/taurusgroup/multi-party-sig",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/taurushq-io/multi-party-sig/security/advisories/GHSA-7f6p-phw2-8253"
+    },
+    {
+      "type": "WEB",
+      "url": "https://eprint.iacr.org/2018/499.pdf"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/taurushq-io/multi-party-sig/blob/4d84aafb57b437da1b933db9a265fb7ce4e7c138/internal/ot/extended.go#L188"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/taurushq-io/multi-party-sig/blob/9e4400fccee89be6195d0a12dd0ed052288d5040/internal/ot/extended.go#L114"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/taurushq-io/multi-party-sig/tree/otfix"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3288",
+    "review_status": "UNREVIEWED"
+  }
+}

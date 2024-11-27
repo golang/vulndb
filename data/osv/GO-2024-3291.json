@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3291",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-43784",
+    "GHSA-hh33-46q4-hwm2"
+  ],
+  "summary": "Re-creating a deleted user in lakeFS will re-enable previous user credentials that existed prior to its deletion in github.com/treeverse/lakefs",
+  "details": "Re-creating a deleted user in lakeFS will re-enable previous user credentials that existed prior to its deletion in github.com/treeverse/lakefs",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/treeverse/lakefs",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.33.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/treeverse/lakeFS/security/advisories/GHSA-hh33-46q4-hwm2"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-43784"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/treeverse/lakeFS/releases/tag/v1.33.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3291",
+    "review_status": "UNREVIEWED"
+  }
+}
