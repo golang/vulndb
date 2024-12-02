@@ -1,0 +1,27 @@
+id: GO-2024-3299
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.14
+      vulnerable_at: 2.11.13
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - fixed: 3.2.1
+      vulnerable_at: 3.2.0
+summary: Traefik's X-Forwarded-Prefix Header still allows for Open Redirect in github.com/traefik/traefik
+cves:
+    - CVE-2024-52003
+ghsas:
+    - GHSA-h924-8g65-j9wg
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-h924-8g65-j9wg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-52003
+    - fix: https://github.com/traefik/traefik/pull/11253
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.14
+    - web: https://github.com/traefik/traefik/releases/tag/v3.2.1
+source:
+    id: GHSA-h924-8g65-j9wg
+    created: 2024-12-02T14:56:24.090371-05:00
+review_status: UNREVIEWED

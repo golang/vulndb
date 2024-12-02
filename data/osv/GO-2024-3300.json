@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3300",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-52801",
+    "GHSA-6943-qr24-82vx"
+  ],
+  "summary": "sftpgo vulnerable to brute force takeover of OpenID Connect session cookies in github.com/drakkan/sftpgo",
+  "details": "sftpgo vulnerable to brute force takeover of OpenID Connect session cookies in github.com/drakkan/sftpgo",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/drakkan/sftpgo",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/drakkan/sftpgo/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.3.0"
+            },
+            {
+              "fixed": "2.6.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/drakkan/sftpgo/security/advisories/GHSA-6943-qr24-82vx"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-52801"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/drakkan/sftpgo/commit/f30a9a2095bf90c0661b04fe038e3b7efc788bc6"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rs/xid"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3300",
+    "review_status": "UNREVIEWED"
+  }
+}

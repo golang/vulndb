@@ -1,0 +1,23 @@
+id: GO-2024-3296
+modules:
+    - module: github.com/cli/cli
+      vulnerable_at: 1.14.0
+    - module: github.com/cli/cli/v2
+      versions:
+        - fixed: 2.63.0
+      vulnerable_at: 2.62.0
+summary: |-
+    Recursive repository cloning can leak authentication tokens to non-GitHub
+    submodule hosts in github.com/cli/cli
+cves:
+    - CVE-2024-53858
+ghsas:
+    - GHSA-jwcm-9g39-pmcw
+references:
+    - advisory: https://github.com/cli/cli/security/advisories/GHSA-jwcm-9g39-pmcw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-53858
+    - web: https://git-scm.com/docs/gitcredentials
+source:
+    id: GHSA-jwcm-9g39-pmcw
+    created: 2024-12-02T14:56:29.536126-05:00
+review_status: UNREVIEWED

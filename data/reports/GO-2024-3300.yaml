@@ -1,0 +1,23 @@
+id: GO-2024-3300
+modules:
+    - module: github.com/drakkan/sftpgo
+      vulnerable_at: 1.2.2
+    - module: github.com/drakkan/sftpgo/v2
+      versions:
+        - introduced: 2.3.0
+        - fixed: 2.6.4
+      vulnerable_at: 2.6.3
+summary: sftpgo vulnerable to brute force takeover of OpenID Connect session cookies in github.com/drakkan/sftpgo
+cves:
+    - CVE-2024-52801
+ghsas:
+    - GHSA-6943-qr24-82vx
+references:
+    - advisory: https://github.com/drakkan/sftpgo/security/advisories/GHSA-6943-qr24-82vx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-52801
+    - fix: https://github.com/drakkan/sftpgo/commit/f30a9a2095bf90c0661b04fe038e3b7efc788bc6
+    - web: https://github.com/rs/xid
+source:
+    id: GHSA-6943-qr24-82vx
+    created: 2024-12-02T14:56:19.561793-05:00
+review_status: UNREVIEWED

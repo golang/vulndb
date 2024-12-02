@@ -1,0 +1,26 @@
+id: GO-2024-3303
+modules:
+    - module: github.com/argoproj/argo-workflows
+      vulnerable_at: 0.4.7
+    - module: github.com/argoproj/argo-workflows/v2
+      vulnerable_at: 2.12.13
+    - module: github.com/argoproj/argo-workflows/v3
+      versions:
+        - introduced: 3.5.7
+        - fixed: 3.5.13
+        - introduced: 3.6.0-rc1
+        - fixed: 3.6.2
+      vulnerable_at: 3.6.1
+summary: |-
+    Argo Workflows Allows Access to Archived Workflows with Fake Token in `client`
+    mode in github.com/argoproj/argo-workflows
+cves:
+    - CVE-2024-53862
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-53862
+    - fix: https://github.com/argoproj/argo-workflows/pull/13021/files#diff-a5b255abaceddc9cc20bf6da6ae92c3a5d3605d94366af503ed754c079a1171aL668-R715
+    - web: https://github.com/argoproj/argo-workflows/security/advisories/GHSA-h36c-m3rf-34h9
+source:
+    id: CVE-2024-53862
+    created: 2024-12-02T14:56:09.920859-05:00
+review_status: UNREVIEWED
