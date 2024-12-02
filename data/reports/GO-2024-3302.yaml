@@ -1,0 +1,21 @@
+id: GO-2024-3302
+modules:
+    - module: github.com/quic-go/quic-go
+      versions:
+        - fixed: 0.48.2
+      vulnerable_at: 0.48.1
+summary: quic-go affected by an ICMP Packet Too Large Injection Attack on Linux in github.com/quic-go/quic-go
+cves:
+    - CVE-2024-53259
+ghsas:
+    - GHSA-px8v-pp82-rcvr
+references:
+    - advisory: https://github.com/quic-go/quic-go/security/advisories/GHSA-px8v-pp82-rcvr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-53259
+    - fix: https://github.com/quic-go/quic-go/commit/ca31dd355cbe5fc6c5807992d9d1149c66c96a50
+    - fix: https://github.com/quic-go/quic-go/pull/4729
+    - web: https://github.com/quic-go/quic-go/releases/tag/v0.48.2
+source:
+    id: GHSA-px8v-pp82-rcvr
+    created: 2024-12-02T14:56:14.660173-05:00
+review_status: NEEDS_REVIEW
