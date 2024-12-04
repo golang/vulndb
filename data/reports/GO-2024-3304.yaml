@@ -1,0 +1,21 @@
+id: GO-2024-3304
+modules:
+    - module: github.com/moby/moby
+      versions:
+        - fixed: 26.0.0+incompatible
+      vulnerable_at: 26.0.0-rc3+incompatible
+summary: Moby Race Condition vulnerability in github.com/moby/moby
+cves:
+    - CVE-2024-36621
+ghsas:
+    - GHSA-2mj3-vfvx-fc43
+references:
+    - advisory: https://github.com/advisories/GHSA-2mj3-vfvx-fc43
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-36621
+    - fix: https://github.com/moby/moby/commit/37545cc644344dcb576cba67eb7b6f51a463d31e
+    - web: https://gist.github.com/1047524396/5d44459edab5fafcdf86b43909b81135
+    - web: https://github.com/moby/moby/blob/v25.0.5/builder/builder-next/adapters/snapshot/layer.go#L24
+source:
+    id: GHSA-2mj3-vfvx-fc43
+    created: 2024-12-04T11:10:26.003799-05:00
+review_status: UNREVIEWED

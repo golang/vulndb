@@ -1,0 +1,22 @@
+id: GO-2024-3310
+modules:
+    - module: github.com/cli/cli
+      vulnerable_at: 1.14.0
+    - module: github.com/cli/cli/v2
+      versions:
+        - fixed: 2.63.1
+      vulnerable_at: 2.63.0
+summary: |-
+    Downloading malicious GitHub Actions workflow artifact results in path traversal
+    vulnerability in github.com/cli/cli
+cves:
+    - CVE-2024-54132
+ghsas:
+    - GHSA-2m9h-r57g-45pj
+references:
+    - advisory: https://github.com/cli/cli/security/advisories/GHSA-2m9h-r57g-45pj
+    - fix: https://github.com/cli/cli/commit/1136764c369aaf0cae4ec2ee09dc35d871076932
+source:
+    id: GHSA-2m9h-r57g-45pj
+    created: 2024-12-04T11:09:30.180797-05:00
+review_status: UNREVIEWED

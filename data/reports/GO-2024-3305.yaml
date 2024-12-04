@@ -1,0 +1,21 @@
+id: GO-2024-3305
+modules:
+    - module: github.com/moby/moby
+      versions:
+        - fixed: 26.0.0+incompatible
+      vulnerable_at: 26.0.0-rc3+incompatible
+summary: Moby Race Condition vulnerability in github.com/moby/moby
+cves:
+    - CVE-2024-36623
+ghsas:
+    - GHSA-gh5c-3h97-2f3q
+references:
+    - advisory: https://github.com/advisories/GHSA-gh5c-3h97-2f3q
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-36623
+    - fix: https://github.com/moby/moby/commit/5689dabfb357b673abdb4391eef426f297d7d1bb
+    - web: https://gist.github.com/1047524396/c192c0159a19bf58a4373b696467dc29
+    - web: https://github.com/moby/moby/blob/v25.0.3/pkg/streamformatter/streamformatter.go#L115
+source:
+    id: GHSA-gh5c-3h97-2f3q
+    created: 2024-12-04T11:10:16.02651-05:00
+review_status: UNREVIEWED

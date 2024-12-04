@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3292",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-8676",
+    "GHSA-7p9f-6x8j-gxxp"
+  ],
+  "summary": "CRI-O: Maliciously structured checkpoint file can gain arbitrary node access in github.com/cri-o/cri-o",
+  "details": "CRI-O: Maliciously structured checkpoint file can gain arbitrary node access in github.com/cri-o/cri-o",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cri-o/cri-o",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.29.11"
+            },
+            {
+              "introduced": "1.30.0"
+            },
+            {
+              "fixed": "1.30.8"
+            },
+            {
+              "introduced": "1.31.0"
+            },
+            {
+              "fixed": "1.31.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cri-o/cri-o/security/advisories/GHSA-7p9f-6x8j-gxxp"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-8676"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cri-o/cri-o/commit/e8e7dcb7838d11b5157976bf3e31a5840bb77de7"
+    },
+    {
+      "type": "WEB",
+      "url": "https://access.redhat.com/security/cve/CVE-2024-8676"
+    },
+    {
+      "type": "WEB",
+      "url": "https://bugzilla.redhat.com/show_bug.cgi?id=2313842"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3292",
+    "review_status": "UNREVIEWED"
+  }
+}
