@@ -1,0 +1,20 @@
+id: GO-2024-3218
+modules:
+    - module: github.com/libp2p/go-libp2p-kad-dht
+      vulnerable_at: 0.20.0
+summary: |-
+    Content Censorship in the InterPlanetary File System (IPFS) via Kademlia DHT
+    abuse in github.com/libp2p/go-libp2p-kad-dht
+cves:
+    - CVE-2023-26248
+ghsas:
+    - GHSA-mqr9-hjr8-2m9w
+references:
+    - advisory: https://github.com/advisories/GHSA-mqr9-hjr8-2m9w
+    - web: https://arxiv.org/abs/2307.12212
+notes:
+    - The description of this vulnerability states that it affects v0.20.0 and earlier, but I could not find an (obvious) fix, so leaving as affects all versions to start.
+source:
+    id: GHSA-mqr9-hjr8-2m9w
+    created: 2024-12-11T14:49:33.541398-05:00
+review_status: REVIEWED
