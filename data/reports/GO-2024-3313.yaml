@@ -1,16 +1,35 @@
 id: GO-2024-3313
 modules:
     - module: github.com/canonical/lxd
+      versions:
+        - fixed: 0.0.0-20240403103450-0e7f2b5bf4d2
       non_go_versions:
         - fixed: 5.21.1
-      vulnerable_at: 0.0.0-20241209155119-76da976c6ee7
-summary: CVE-2024-6219 in github.com/canonical/lxd
+      vulnerable_at: 0.0.0-20231105111322-f14fc05ed333
+      packages:
+        - package: github.com/canonical/lxd/lxd/auth
+          symbols:
+            - tls.certificateDetails
+          derived_symbols:
+            - fga.CheckPermission
+            - fga.GetPermissionChecker
+            - rbac.CheckPermission
+            - rbac.GetPermissionChecker
+            - tls.CheckPermission
+            - tls.GetPermissionChecker
+summary: |-
+    Restricted TLS certificate privilege escalation when in PKI mode in
+    github.com/canonical/lxd
 cves:
     - CVE-2024-6219
+ghsas:
+    - GHSA-jpmc-7p9c-4rxf
+credits:
+    - '@markylaing'
 references:
-    - advisory: https://www.cve.org/CVERecord?id=CVE-2024-6219
-    - web: https://github.com/canonical/lxd/security/advisories/GHSA-jpmc-7p9c-4rxf
+    - advisory: https://github.com/canonical/lxd/security/advisories/GHSA-jpmc-7p9c-4rxf
+    - fix: https://github.com/canonical/lxd/commit/5cdc9a35b9c51e981b1e70330bde0413ccacc7fd
 source:
-    id: CVE-2024-6219
-    created: 2024-12-09T18:00:49.879863433Z
-review_status: UNREVIEWED
+    id: GHSA-jpmc-7p9c-4rxf
+    created: 2024-12-11T10:51:03.583133-05:00
+review_status: REVIEWED
