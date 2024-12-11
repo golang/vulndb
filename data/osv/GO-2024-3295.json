@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3295",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-53859",
+    "GHSA-55v3-xh23-96gh"
+  ],
+  "summary": "Violation of GitHub host security boundary when sourcing authentication token within a codespace in github.com/cli/go-gh",
+  "details": "Violation of GitHub host security boundary when sourcing authentication token within a codespace in github.com/cli/go-gh",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cli/go-gh",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/cli/go-gh/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.11.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cli/go-gh/v2/pkg/auth",
+            "symbols": [
+              "TokenForHost",
+              "tokenForHost"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cli/go-gh/security/advisories/GHSA-55v3-xh23-96gh"
+    },
+    {
+      "type": "WEB",
+      "url": "https://docs.github.com/en/apps/using-github-apps/reviewing-and-revoking-authorization-of-github-apps#reviewing-your-authorized-github-apps"
+    },
+    {
+      "type": "WEB",
+      "url": "https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/reviewing-your-security-log"
+    },
+    {
+      "type": "WEB",
+      "url": "https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/identifying-audit-log-events-performed-by-an-access-token"
+    },
+    {
+      "type": "WEB",
+      "url": "https://docs.github.com/en/enterprise-cloud@latest/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/cli/go-gh/blob/71770357e0cb12867d3e3e288854c0aa09d440b7/pkg/auth/auth.go#L73-L77"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3295",
+    "review_status": "REVIEWED"
+  }
+}
