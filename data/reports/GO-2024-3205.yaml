@@ -1,0 +1,26 @@
+id: GO-2024-3205
+modules:
+    - module: github.com/gomarkdown/markdown
+      versions:
+        - fixed: 0.0.0-20240729212818-a2a9c4f76ef5
+      vulnerable_at: 0.0.0-20240723152757-afa4a469d4f9
+      packages:
+        - package: github.com/gomarkdown/markdown/parser
+          symbols:
+            - Parser.paragraph
+          derived_symbols:
+            - Parser.Block
+            - Parser.Parse
+summary: Infinite loop in github.com/gomarkdown/markdown
+cves:
+    - CVE-2024-44337
+ghsas:
+    - GHSA-xhr3-wf7j-h255
+references:
+    - advisory: https://github.com/advisories/GHSA-xhr3-wf7j-h255
+    - fix: https://github.com/gomarkdown/markdown/commit/a2a9c4f76ef5a5c32108e36f7c47f8d310322252
+    - web: https://github.com/Brinmon/CVE-2024-44337
+source:
+    id: GHSA-xhr3-wf7j-h255
+    created: 2024-12-11T14:46:49.56838-05:00
+review_status: REVIEWED
