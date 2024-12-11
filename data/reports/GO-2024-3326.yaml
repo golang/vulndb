@@ -1,0 +1,18 @@
+id: GO-2024-3326
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      unsupported_versions:
+        - last_affected: 0.0.0-20241210012039-5129ad926a21
+      vulnerable_at: 0.0.0-20241210012039-5129ad926a21
+summary: SiYuan has an arbitrary file write in the host via /api/asset/upload in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2024-55659
+ghsas:
+    - GHSA-fqj6-whhx-47p7
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-fqj6-whhx-47p7
+    - web: https://github.com/siyuan-note/siyuan/commit/e70ed57f6e4852e2bd702671aeb8eb3a47a36d71
+source:
+    id: GHSA-fqj6-whhx-47p7
+    created: 2024-12-11T16:19:31.153727-05:00
+review_status: UNREVIEWED

@@ -1,0 +1,17 @@
+id: GO-2024-3325
+modules:
+    - module: github.com/kcp-dev/kcp
+      versions:
+        - fixed: 0.26.1
+      vulnerable_at: 0.26.0
+summary: kcp's impersonation allows access to global administrative groups in github.com/kcp-dev/kcp
+ghsas:
+    - GHSA-c7xh-gjv4-4jgv
+references:
+    - advisory: https://github.com/kcp-dev/kcp/security/advisories/GHSA-c7xh-gjv4-4jgv
+    - fix: https://github.com/kcp-dev/kcp/commit/24ab5d4dc35ddff98a2e5fdc236e1681f03283ec
+    - fix: https://github.com/kcp-dev/kcp/pull/3206
+source:
+    id: GHSA-c7xh-gjv4-4jgv
+    created: 2024-12-11T16:19:33.742126-05:00
+review_status: UNREVIEWED
