@@ -1,16 +1,26 @@
 id: GO-2024-3312
 modules:
     - module: github.com/canonical/lxd
+      versions:
+        - fixed: 0.0.0-20240708073652-5a492a3f0036
       non_go_versions:
         - fixed: 5.21.2
-      vulnerable_at: 0.0.0-20241209155119-76da976c6ee7
-summary: CVE-2024-6156 in github.com/canonical/lxd
+      vulnerable_at: 0.0.0-20240705103458-cba65fb6bb93
+      packages:
+        - package: github.com/canonical/lxd/lxd
+          symbols:
+            - allowProjectResourceList
+summary: CA certificate sign check bypass in github.com/canonical/lxd
 cves:
     - CVE-2024-6156
+ghsas:
+    - GHSA-4c49-9fpc-hc3v
+credits:
+    - '@markylaing'
 references:
-    - advisory: https://www.cve.org/CVERecord?id=CVE-2024-6156
-    - web: https://github.com/canonical/lxd/security/advisories/GHSA-4c49-9fpc-hc3v
+    - advisory: https://github.com/canonical/lxd/security/advisories/GHSA-4c49-9fpc-hc3v
+    - fix: https://github.com/canonical/lxd/commit/92468bb60f4f1edf38ff0434414bea4f28afa711
 source:
-    id: CVE-2024-6156
-    created: 2024-12-09T18:00:39.790548961Z
-review_status: UNREVIEWED
+    id: GHSA-4c49-9fpc-hc3v
+    created: 2024-12-11T10:56:32.527785-05:00
+review_status: REVIEWED
