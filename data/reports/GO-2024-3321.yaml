@@ -1,0 +1,31 @@
+id: GO-2024-3321
+modules:
+    - module: golang.org/x/crypto
+      versions:
+        - fixed: 0.31.0
+      vulnerable_at: 0.30.0
+      packages:
+        - package: golang.org/x/crypto/ssh
+          symbols:
+            - ServerConfig.PublicKeyCallback
+summary: Misuse of ServerConfig.PublicKeyCallback may cause authorization bypass in golang.org/x/crypto
+description: |-
+    Applications and libraries which misuse the ServerConfig.PublicKeyCallback
+    callback may be susceptible to an authorization bypass.
+credits:
+    - Damien Tournoud (Platform.sh / Upsun)
+    - Patrick Dawkins (Platform.sh / Upsun)
+    - Vince Parker (Platform.sh / Upsun)
+    - Jules Duvivier (Platform.sh / Upsun)
+references:
+    - report: https://go.dev/issue/70779
+    - fix: https://go.dev/cl/635315
+    - fix: https://github.com/golang/crypto/commit/b4f1988a35dee11ec3e05d6bf3e90b695fbd8909
+    - web: https://groups.google.com/g/golang-announce/c/-nPEi39gI4Q/m/cGVPJCqdAQAJ
+cve_metadata:
+    id: CVE-2024-45337
+    cwe: 'CWE-1108: Excessive Reliance on Global Variables'
+source:
+    id: go-security-team
+    created: 2024-12-11T08:45:55.544926-08:00
+review_status: REVIEWED
