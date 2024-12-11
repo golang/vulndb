@@ -1,0 +1,28 @@
+id: GO-2024-3268
+modules:
+    - module: github.com/goharbor/harbor
+      versions:
+        - introduced: 2.0.0+incompatible
+        - fixed: 2.4.3+incompatible
+        - introduced: 2.5.0+incompatible
+        - fixed: 2.5.2+incompatible
+      vulnerable_at: 2.5.2-rc1+incompatible
+summary: Harbor fails to validate the user permissions when updating p2p preheat policies in github.com/goharbor/harbor
+description: |-
+    Harbor fails to validate the user permissions when updating p2p preheat
+    policies. By sending a request to update a p2p preheat policy with an id that
+    belongs to a project that the currently authenticated user doesn't have access
+    to, the attacker could modify p2p preheat policies configured in other projects.
+cves:
+    - CVE-2022-31668
+ghsas:
+    - GHSA-r864-28pw-8682
+credits:
+    - Gal Goldstein (Oxeye Security)
+    - Daniel Abeles (Oxeye Security)
+references:
+    - advisory: https://github.com/goharbor/harbor/security/advisories/GHSA-3wpx-625q-22j7
+source:
+    id: GHSA-r864-28pw-8682
+    created: 2024-12-11T16:27:13.919736-05:00
+review_status: REVIEWED
