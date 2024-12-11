@@ -8,7 +8,7 @@
     "GHSA-xxxw-3j6h-q7h6"
   ],
   "summary": "Grafana plugin SDK Information Leakage in github.com/grafana/grafana-plugin-sdk-go",
-  "details": "Grafana plugin SDK Information Leakage in github.com/grafana/grafana-plugin-sdk-go",
+  "details": "The grafana plugin SDK bundles build metadata into the binaries it compiles; this metadata includes the repository URI for the plugin being built, as retrieved by running \"git remote get-url origin\".\n\nIf credentials are included in the repository URI (for instance, to allow for fetching of private dependencies), the final binary will contain the full URI, including said credentials.",
   "affected": [
     {
       "package": {
@@ -28,17 +28,38 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/grafana/grafana-plugin-sdk-go/build",
+            "symbols": [
+              "Build.Backend",
+              "Build.Darwin",
+              "Build.DarwinARM64",
+              "Build.Debug",
+              "Build.DebugDarwinAMD64",
+              "Build.DebugDarwinARM64",
+              "Build.DebugLinuxAMD64",
+              "Build.DebugLinuxARM64",
+              "Build.DebugWindowsAMD64",
+              "Build.Linux",
+              "Build.LinuxARM",
+              "Build.LinuxARM64",
+              "Build.Windows",
+              "Info.appendFlags",
+              "getBuildBackendCmdInfo",
+              "getBuildInfoFromEnvironment",
+              "getEnvironment"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
     {
       "type": "ADVISORY",
       "url": "https://github.com/advisories/GHSA-xxxw-3j6h-q7h6"
-    },
-    {
-      "type": "ADVISORY",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-8986"
     },
     {
       "type": "FIX",
@@ -51,6 +72,6 @@
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2024-3140",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }
