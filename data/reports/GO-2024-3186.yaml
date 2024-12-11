@@ -1,9 +1,11 @@
 id: GO-2024-3186
 modules:
     - module: github.com/containers/buildah
-      unsupported_versions:
-        - last_affected: 1.37.0
-      vulnerable_at: 1.37.4
+      versions:
+        - fixed: 1.37.1
+      vulnerable_at: 1.37.0
+      packages:
+        - package: github.com/containers/buildah/internal/volumes
 summary: Buildah allows arbitrary directory mount in github.com/containers/buildah
 cves:
     - CVE-2024-9675
@@ -11,10 +13,8 @@ ghsas:
     - GHSA-586p-749j-fhwp
 references:
     - advisory: https://github.com/advisories/GHSA-586p-749j-fhwp
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-9675
-    - web: https://access.redhat.com/security/cve/CVE-2024-9675
-    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2317458
+    - fix: https://github.com/containers/buildah/commit/aa67e5d71ee7ec07122a210baa3b13966a9e086c
 source:
     id: GHSA-586p-749j-fhwp
-    created: 2024-10-11T10:16:13.933974-04:00
-review_status: UNREVIEWED
+    created: 2024-12-11T15:44:36.163971-05:00
+review_status: REVIEWED
