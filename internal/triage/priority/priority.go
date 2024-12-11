@@ -95,6 +95,9 @@ var override map[string]Priority = map[string]Priority{
 	// information without intervention.
 	"github.com/argoproj/argo-cd":    Low,
 	"github.com/argoproj/argo-cd/v2": Low,
+
+	// Based on golang/vulndb#3317.
+	"github.com/canonical/lxd": High,
 }
 
 func priority(mp string, importers int, sc map[reportState]int) *Result {
