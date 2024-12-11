@@ -292,6 +292,7 @@ func fixURL(u string) string {
 func (r *Report) FixModules(pc *proxy.Client) (errs error) {
 	var fixed []*Module
 	for _, m := range r.Modules {
+		m.VulnerableAt.commitHashToVersion(m.Module, pc)
 		m.Module = transform(m.Module)
 		extractImportPath(m, pc)
 		fixed = append(fixed, m.splitByMajor(pc)...)
