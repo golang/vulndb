@@ -1,0 +1,31 @@
+id: GO-2024-3306
+modules:
+    - module: vitess.io/vitess
+      versions:
+        - fixed: 0.19.8
+        - introduced: 0.20.0
+        - fixed: 0.20.4
+        - introduced: 0.21.0
+        - fixed: 0.21.1
+      non_go_versions:
+        - fixed: 19.0.8
+        - introduced: 20.0.0
+        - fixed: 20.0.4
+        - introduced: 21.0.0
+        - fixed: 21.0.1
+      vulnerable_at: 0.21.0
+      packages:
+        - package: vitess.io/vitess/go/vt/vtgate
+        - package: vitess.io/vitess/go/vt/vttablet/tabletserver
+summary: Vitess allows HTML injection in /debug/querylogz and /debug/env in vitess.io/vitess
+cves:
+    - CVE-2024-53257
+ghsas:
+    - GHSA-7mwh-q3xm-qh6p
+references:
+    - advisory: https://github.com/vitessio/vitess/security/advisories/GHSA-7mwh-q3xm-qh6p
+    - fix: https://github.com/vitessio/vitess/commit/2b71d1b5f8ca676beeab2875525003cd45096217
+source:
+    id: GHSA-7mwh-q3xm-qh6p
+    created: 2024-12-12T14:30:01.004098-05:00
+review_status: REVIEWED
