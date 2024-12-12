@@ -5,14 +5,22 @@ modules:
         - introduced: 0.38.0
         - fixed: 0.38.15
       vulnerable_at: 0.38.14
-summary: 'CometBFT Vote Extensions: Panic when receiving a Pre-commit with an invalid data in github.com/cometbft/cometbft'
+      packages:
+        - package: github.com/cometbft/cometbft/state/indexer/block/kv
+          symbols:
+            - BlockerIndexer.setTmpHeights
+          derived_symbols:
+            - BlockerIndexer.Search
+summary: |
+    CometBFT Vote Extensions: Panic when receiving a Pre-commit with an invalid data in github.com/cometbft/cometbft
 ghsas:
     - GHSA-p7mv-53f2-4cwj
 references:
     - advisory: https://github.com/cometbft/cometbft/security/advisories/GHSA-p7mv-53f2-4cwj
     - web: https://docs.cometbft.com/v0.38/spec/abci/abci++_basic_concepts
     - web: https://github.com/cometbft/cometbft/releases/tag/v0.38.15
+    - fix: https://github.com/cometbft/cometbft/commit/17d3bb66664cab6d6798c17e27198e15bbac1905
 source:
     id: GHSA-p7mv-53f2-4cwj
-    created: 2024-11-12T11:29:13.234193-05:00
-review_status: NEEDS_REVIEW
+    created: 2024-12-12T13:06:57.501787-05:00
+review_status: REVIEWED

@@ -27,7 +27,17 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cometbft/cometbft/state/indexer/block/kv",
+            "symbols": [
+              "BlockerIndexer.Search",
+              "BlockerIndexer.setTmpHeights"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
@@ -42,10 +52,14 @@
     {
       "type": "WEB",
       "url": "https://github.com/cometbft/cometbft/releases/tag/v0.38.15"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cometbft/cometbft/commit/17d3bb66664cab6d6798c17e27198e15bbac1905"
     }
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2024-3259",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }
