@@ -195,6 +195,7 @@ func actionPhrases(status git.Status, r *yamlReport) (reportAction, issueAction 
 		deleteReportAction    = "delete"
 		unexcludeReportAction = "unexclude"
 		updateReportAction    = "update"
+		reviewReportAction    = "review"
 	)
 
 	stat := status.File(r.Filename).Staging
@@ -225,6 +226,9 @@ func actionPhrases(status git.Status, r *yamlReport) (reportAction, issueAction 
 			return addReportAction, fixIssueAction, nil
 		}
 	case git.Modified:
+		if r.IsReviewed() {
+			return reviewReportAction, fixIssueAction, nil
+		}
 		return updateReportAction, updateIssueAction, nil
 	default:
 		return "", "", fmt.Errorf("internal error: could not determine actions for %s (stat: %v)", r.ID, stat)
