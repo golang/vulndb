@@ -4,6 +4,10 @@ modules:
       versions:
         - fixed: 0.1.34
       vulnerable_at: 0.1.34-rc1
+      packages:
+        - package: github.com/ollama/ollama/server
+          symbols:
+            - GetBlobsPath
 summary: Ollama does not validate the format of the digest (sha256 with 64 hex digits) in github.com/ollama/ollama
 cves:
     - CVE-2024-37032
@@ -11,7 +15,6 @@ ghsas:
     - GHSA-8hqg-whrw-pv92
 references:
     - advisory: https://github.com/advisories/GHSA-8hqg-whrw-pv92
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-37032
     - fix: https://github.com/ollama/ollama/commit/2a21363bb756a7341d3d577f098583865bd7603f
     - fix: https://github.com/ollama/ollama/pull/4175
     - web: https://github.com/ollama/ollama/blob/adeb40eaf29039b8964425f69a9315f9f1694ba8/server/modelpath_test.go#L41-L58
@@ -19,5 +22,5 @@ references:
     - web: https://www.vicarius.io/vsociety/posts/probllama-in-ollama-a-tale-of-a-yet-another-rce-vulnerability-cve-2024-37032
 source:
     id: GHSA-8hqg-whrw-pv92
-    created: 2024-08-16T16:51:37.817763-04:00
-review_status: NEEDS_REVIEW
+    created: 2024-12-12T12:58:07.627483-05:00
+review_status: REVIEWED

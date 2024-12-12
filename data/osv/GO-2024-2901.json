@@ -28,17 +28,22 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/ollama/ollama/server",
+            "symbols": [
+              "GetBlobsPath"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
     {
       "type": "ADVISORY",
       "url": "https://github.com/advisories/GHSA-8hqg-whrw-pv92"
-    },
-    {
-      "type": "ADVISORY",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-37032"
     },
     {
       "type": "FIX",
@@ -63,6 +68,6 @@
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2024-2901",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }
