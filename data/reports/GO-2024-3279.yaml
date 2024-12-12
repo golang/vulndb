@@ -4,15 +4,53 @@ modules:
       versions:
         - fixed: 1.4.0
       vulnerable_at: 1.3.0
-summary: |-
-    ASA-2024-010: cosmossdk.io/math: Mismatched bit-length validation in sdk.Int and
-    sdk.Dec can lead to panic
+      packages:
+        - package: cosmossdk.io/math
+          symbols:
+            - LegacyDec.MulIntMut
+            - LegacyDec.AddMut
+            - LegacyDec.QuoMut
+            - LegacyDec.Unmarshal
+            - LegacyDec.SubMut
+            - LegacyNewDecFromStr
+            - LegacyDec.MulMut
+            - LegacyDec.QuoRoundupMut
+            - LegacyDec.Ceil
+            - LegacyDec.MulTruncateMut
+            - LegacyDec.MulRoundUpMut
+            - LegacyDec.MulInt64Mut
+            - LegacyDec.QuoTruncateMut
+          derived_symbols:
+            - LegacyDec.Add
+            - LegacyDec.ApproxRoot
+            - LegacyDec.ApproxSqrt
+            - LegacyDec.ImmutOp
+            - LegacyDec.ImmutOpInt
+            - LegacyDec.ImmutOpInt64
+            - LegacyDec.Mul
+            - LegacyDec.MulInt
+            - LegacyDec.MulInt64
+            - LegacyDec.MulRoundUp
+            - LegacyDec.MulTruncate
+            - LegacyDec.Power
+            - LegacyDec.PowerMut
+            - LegacyDec.Quo
+            - LegacyDec.QuoInt
+            - LegacyDec.QuoInt64
+            - LegacyDec.QuoRoundUp
+            - LegacyDec.QuoTruncate
+            - LegacyDec.Sub
+            - LegacyDec.UnmarshalAmino
+            - LegacyDec.UnmarshalJSON
+            - LegacyDecApproxEq
+            - LegacyMustNewDecFromStr
+summary: Mismatched bit-length validation in can lead to panic in cosmossdk.io/math
 ghsas:
     - GHSA-7225-m954-23v7
 references:
     - advisory: https://github.com/cosmos/cosmos-sdk/security/advisories/GHSA-7225-m954-23v7
-    - web: https://github.com/cosmos/cosmos-sdk/commit/c6522a72a45c34897f9fc85d438c0b74d52f8862
+    - fix: https://github.com/cosmos/cosmos-sdk/commit/c6522a72a45c34897f9fc85d438c0b74d52f8862
 source:
     id: GHSA-7225-m954-23v7
-    created: 2024-11-21T14:39:42.980234-05:00
-review_status: NEEDS_REVIEW
+    created: 2024-12-12T14:35:45.296697-05:00
+review_status: REVIEWED
