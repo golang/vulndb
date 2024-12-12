@@ -4,6 +4,11 @@ modules:
       versions:
         - fixed: 1.14.4
       vulnerable_at: 1.14.3
+      packages:
+        - package: github.com/containers/buildah/imagebuildah
+          symbols:
+            - downloadToDirectory
+            - stdinToDirectory
 summary: Path Traversal in Buildah in github.com/containers/buildah
 cves:
     - CVE-2020-10696
@@ -11,13 +16,12 @@ ghsas:
     - GHSA-fx8w-mjvm-hvpc
 references:
     - advisory: https://github.com/advisories/GHSA-fx8w-mjvm-hvpc
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-10696
     - fix: https://github.com/containers/buildah/pull/2245
     - web: https://access.redhat.com/security/cve/cve-2020-10696
     - web: https://bugzilla.redhat.com/show_bug.cgi?id=1817651
     - web: https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2020-10696
 source:
     id: GHSA-fx8w-mjvm-hvpc
-    created: 2024-08-20T14:20:12.337951-04:00
-review_status: NEEDS_REVIEW
+    created: 2024-12-12T12:49:21.996818-05:00
+review_status: REVIEWED
 unexcluded: NOT_IMPORTABLE

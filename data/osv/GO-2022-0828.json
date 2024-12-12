@@ -28,17 +28,23 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/containers/buildah/imagebuildah",
+            "symbols": [
+              "downloadToDirectory",
+              "stdinToDirectory"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
     {
       "type": "ADVISORY",
       "url": "https://github.com/advisories/GHSA-fx8w-mjvm-hvpc"
-    },
-    {
-      "type": "ADVISORY",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2020-10696"
     },
     {
       "type": "FIX",
@@ -59,6 +65,6 @@
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2022-0828",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }
