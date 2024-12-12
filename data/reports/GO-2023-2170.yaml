@@ -12,14 +12,42 @@ modules:
         - introduced: 1.28.0
         - fixed: 1.28.1
       vulnerable_at: 1.28.0
-summary: Kubernetes privilege escalation vulnerability in k8s.io/kubernetes
+      packages:
+        - package: k8s.io/kubernetes/pkg/volume/util
+          goos:
+            - windows
+          symbols:
+            - WriteVolumeCache
+    - module: k8s.io/mount-utils
+      versions:
+        - fixed: 0.24.17
+        - introduced: 0.25.0
+        - fixed: 0.25.13
+        - introduced: 0.26.0
+        - fixed: 0.26.8
+        - introduced: 0.27.0
+        - fixed: 0.27.5
+        - introduced: 0.28.0
+        - fixed: 0.28.1
+      vulnerable_at: 0.28.0
+      packages:
+        - package: k8s.io/mount-utils
+          goos:
+            - windows
+          symbols:
+            - SafeFormatAndMount.formatAndMountSensitive
+            - listVolumesOnDisk
+summary: Insufficient input sanitization on Windows nodes leads to privilege escalation in k8s.io/kubernetes and k8s.io/mount-utils
+description: |-
+    A security issue was discovered in Kubernetes where a user that can create pods
+    on Windows nodes may be able to escalate to admin privileges on those nodes.
+    Kubernetes clusters are only affected if they include Windows nodes.
 cves:
     - CVE-2023-3955
 ghsas:
     - GHSA-q78c-gwqw-jcmc
 references:
     - advisory: https://github.com/advisories/GHSA-q78c-gwqw-jcmc
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-3955
     - web: https://github.com/kubernetes/kubernetes/commit/38c97fa67ed35f36e730856728c9e3807f63546a
     - web: https://github.com/kubernetes/kubernetes/commit/50334505cd27cbe7cf71865388f25a00e29b2596
     - web: https://github.com/kubernetes/kubernetes/commit/7da6d72c05dffb3b87e62e2bc8c3228ea12ba1b9
@@ -35,6 +63,6 @@ references:
     - web: https://groups.google.com/g/kubernetes-security-announce/c/JrX4bb7d83E
 source:
     id: GHSA-q78c-gwqw-jcmc
-    created: 2024-08-20T12:12:15.292286-04:00
-review_status: UNREVIEWED
+    created: 2024-12-12T14:41:27.794119-05:00
+review_status: REVIEWED
 unexcluded: EFFECTIVELY_PRIVATE
