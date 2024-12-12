@@ -4,15 +4,18 @@ modules:
       versions:
         - fixed: 0.11.0
       vulnerable_at: 0.10.0
-summary: gnark's Groth16 commitment extension unsound for more than one commitment in github.com/consensys/gnark
+summary: |-
+    Groth16 commitment extension unsound for more than one commitment in
+    github.com/consensys/gnark
 cves:
     - CVE-2024-45039
 ghsas:
     - GHSA-q3hw-3gm4-w5cr
 references:
     - advisory: https://github.com/Consensys/gnark/security/advisories/GHSA-q3hw-3gm4-w5cr
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-45039
+notes:
+    - The fix mentioned in the advisory (https://github.com/Consensys/gnark/commit/e7c66b000454f4d2a4ae48c005c34154d4cfc2a2) does not exist, and I was not able to locate the real fix.
 source:
     id: GHSA-q3hw-3gm4-w5cr
-    created: 2024-11-12T11:30:11.924411-05:00
-review_status: NEEDS_REVIEW
+    created: 2024-12-12T14:10:57.751829-05:00
+review_status: REVIEWED
