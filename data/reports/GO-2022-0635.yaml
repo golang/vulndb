@@ -1,0 +1,41 @@
+id: GO-2022-0635
+modules:
+    - module: github.com/aws/aws-sdk-go
+      vulnerable_at: 1.33.21
+      packages:
+        - package: github.com/aws/aws-sdk-go/service/s3/s3crypto
+          symbols:
+            - NewEncryptionClient
+            - NewDecryptionClient
+summary: |-
+    In-band key negotiation issue in AWS S3 Crypto SDK for golang in
+    github.com/aws/aws-sdk-go
+description: |-
+    A vulnerability in the in-band key negotiation exists in the AWS S3 Crypto SDK
+    for GoLang versions prior to V2. An attacker with write access to the targeted
+    bucket can change the encryption algorithm of an object in the bucket, which can
+    then allow them to change AES-GCM to AES-CTR. Using this in combination with a
+    decryption oracle can reveal the authentication key used by AES-GCM as
+    decrypting the GMAC tag leaves the authentication key recoverable as an
+    algebraic equation. It is recommended to update your SDK to V2 or later, and
+    re-encrypt your files.
+cves:
+    - CVE-2020-8912
+ghsas:
+    - GHSA-7f33-f4f5-xwgw
+credits:
+    - Sophie Schmieg from the Google ISE team
+references:
+    - advisory: https://github.com/google/security-research/security/advisories/GHSA-7f33-f4f5-xwgw
+    - fix: https://github.com/aws/aws-sdk-go/commit/1e84382fa1c0086362b5a4b68e068d4f8518d40e
+    - fix: https://github.com/aws/aws-sdk-go/commit/ae9b9fd92af132cfd8d879809d8611825ba135f4
+    - fix: https://github.com/aws/aws-sdk-go/pull/3403
+    - web: https://aws.amazon.com/blogs/developer/updates-to-the-amazon-s3-encryption-client/?s=09
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=1869801
+    - web: https://github.com/sophieschmieg/exploits/tree/master/aws_s3_crypto_poc
+notes:
+    - https://github.com/advisories/GHSA-7f33-f4f5-xwgw mistakenly lists this vulnerability as patched in 1.34.0.
+source:
+    id: GHSA-7f33-f4f5-xwgw
+    created: 2024-12-12T15:16:32.138747-05:00
+review_status: REVIEWED
