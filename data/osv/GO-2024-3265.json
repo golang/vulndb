@@ -28,13 +28,28 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/runatlantis/atlantis/server/events/vcs",
+            "symbols": [
+              "githubAppTokenRotator.GenerateJob",
+              "githubAppTokenRotator.Run",
+              "githubAppTokenRotator.rotate"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
     {
       "type": "ADVISORY",
       "url": "https://github.com/runatlantis/atlantis/security/advisories/GHSA-gppm-hq3p-h4rp"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/runatlantis/atlantis/commit/0def7d3fb74aabb75570554692b053950cde02e1"
     },
     {
       "type": "FIX",
@@ -46,11 +61,15 @@
     },
     {
       "type": "WEB",
+      "url": "https://argo-cd.readthedocs.io/en/stable/operator-manual/security"
+    },
+    {
+      "type": "WEB",
       "url": "https://github.com/runatlantis/atlantis/releases/tag/v0.30.0"
     }
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2024-3265",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }

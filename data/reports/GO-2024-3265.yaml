@@ -4,6 +4,13 @@ modules:
       versions:
         - fixed: 0.30.0
       vulnerable_at: 0.29.0
+      packages:
+        - package: github.com/runatlantis/atlantis/server/events/vcs
+          symbols:
+            - githubAppTokenRotator.rotate
+          derived_symbols:
+            - githubAppTokenRotator.GenerateJob
+            - githubAppTokenRotator.Run
 summary: Git credentials are exposed in Atlantis logs in github.com/runatlantis/atlantis
 cves:
     - CVE-2024-52009
@@ -11,10 +18,12 @@ ghsas:
     - GHSA-gppm-hq3p-h4rp
 references:
     - advisory: https://github.com/runatlantis/atlantis/security/advisories/GHSA-gppm-hq3p-h4rp
+    - fix: https://github.com/runatlantis/atlantis/commit/0def7d3fb74aabb75570554692b053950cde02e1
     - fix: https://github.com/runatlantis/atlantis/pull/4667
     - report: https://github.com/runatlantis/atlantis/issues/4060
+    - web: https://argo-cd.readthedocs.io/en/stable/operator-manual/security
     - web: https://github.com/runatlantis/atlantis/releases/tag/v0.30.0
 source:
     id: GHSA-gppm-hq3p-h4rp
-    created: 2024-11-12T11:29:08.000581-05:00
-review_status: NEEDS_REVIEW
+    created: 2024-12-12T13:20:10.569654-05:00
+review_status: REVIEWED
