@@ -4,10 +4,11 @@
   "modified": "0001-01-01T00:00:00Z",
   "published": "0001-01-01T00:00:00Z",
   "aliases": [
+    "CVE-2024-12401",
     "GHSA-r4pg-vg54-wxx4"
   ],
-  "summary": "cert-manager ha a potential slowdown / DoS when parsing specially crafted PEM inputs in github.com/cert-manager/cert-manager",
-  "details": "cert-manager ha a potential slowdown / DoS when parsing specially crafted PEM inputs in github.com/cert-manager/cert-manager",
+  "summary": "Potential slowdown / DoS when parsing specially crafted PEM inputs in github.com/cert-manager/cert-manager",
+  "details": "Potential slowdown / DoS when parsing specially crafted PEM inputs in github.com/cert-manager/cert-manager",
   "affected": [
     {
       "package": {
@@ -39,13 +40,54 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cert-manager/cert-manager/pkg/util/pki",
+            "symbols": [
+              "CertificateTemplateFromCSRPEM",
+              "CertificateTemplateFromCertificateRequest",
+              "CertificateTemplateFromCertificateSigningRequest",
+              "DecodePrivateKeyBytes",
+              "DecodeX509CertificateBytes",
+              "DecodeX509CertificateChainBytes",
+              "DecodeX509CertificateRequestBytes",
+              "DecodeX509CertificateSetBytes",
+              "GenerateLocallySignedTemporaryCertificate",
+              "ParseSingleCertificateChainPEM",
+              "RequestMatchesSpec"
+            ]
+          },
+          {
+            "path": "github.com/cert-manager/cert-manager/internal/controller/certificates",
+            "symbols": [
+              "OutputFormatDER"
+            ]
+          },
+          {
+            "path": "github.com/cert-manager/cert-manager/pkg/controller/acmeorders",
+            "symbols": [
+              "controller.ProcessItem",
+              "controller.Sync",
+              "controller.finalizeOrder"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
     {
       "type": "ADVISORY",
       "url": "https://github.com/cert-manager/cert-manager/security/advisories/GHSA-r4pg-vg54-wxx4"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cert-manager/cert-manager/commit/3a4c9eb55e2e43570679840bbe3217869fbc8efc"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cert-manager/cert-manager/commit/f22f78c8c0a64d718e203b326bc844c488ad7850"
     },
     {
       "type": "FIX",
@@ -64,12 +106,12 @@
       "url": "https://github.com/cert-manager/cert-manager/pull/7403"
     },
     {
-      "type": "WEB",
+      "type": "REPORT",
       "url": "https://go.dev/issue/50116"
     }
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2024-3282",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }

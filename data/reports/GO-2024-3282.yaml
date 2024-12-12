@@ -8,19 +8,47 @@ modules:
         - introduced: 1.16.0-alpha.0
         - fixed: 1.16.2
       vulnerable_at: 1.16.1
+      packages:
+        - package: github.com/cert-manager/cert-manager/pkg/util/pki
+          symbols:
+            - DecodeX509CertificateRequestBytes
+            - DecodeX509CertificateSetBytes
+            - DecodePrivateKeyBytes
+          derived_symbols:
+            - CertificateTemplateFromCSRPEM
+            - CertificateTemplateFromCertificateRequest
+            - CertificateTemplateFromCertificateSigningRequest
+            - DecodeX509CertificateBytes
+            - DecodeX509CertificateChainBytes
+            - GenerateLocallySignedTemporaryCertificate
+            - ParseSingleCertificateChainPEM
+            - RequestMatchesSpec
+        - package: github.com/cert-manager/cert-manager/internal/controller/certificates
+          symbols:
+            - OutputFormatDER
+        - package: github.com/cert-manager/cert-manager/pkg/controller/acmeorders
+          symbols:
+            - controller.finalizeOrder
+          derived_symbols:
+            - controller.ProcessItem
+            - controller.Sync
 summary: |-
-    cert-manager ha a potential slowdown / DoS when parsing specially crafted PEM
+    Potential slowdown / DoS when parsing specially crafted PEM
     inputs in github.com/cert-manager/cert-manager
+cves:
+    - CVE-2024-12401
 ghsas:
     - GHSA-r4pg-vg54-wxx4
 references:
     - advisory: https://github.com/cert-manager/cert-manager/security/advisories/GHSA-r4pg-vg54-wxx4
+    - fix: https://github.com/cert-manager/cert-manager/commit/3a4c9eb55e2e43570679840bbe3217869fbc8efc
+    - fix: https://github.com/cert-manager/cert-manager/commit/f22f78c8c0a64d718e203b326bc844c488ad7850
     - fix: https://github.com/cert-manager/cert-manager/pull/7400
     - fix: https://github.com/cert-manager/cert-manager/pull/7401
     - fix: https://github.com/cert-manager/cert-manager/pull/7402
     - fix: https://github.com/cert-manager/cert-manager/pull/7403
-    - web: https://go.dev/issue/50116
+    - report: https://go.dev/issue/50116
 source:
     id: GHSA-r4pg-vg54-wxx4
-    created: 2024-11-21T14:39:18.975104-05:00
-review_status: NEEDS_REVIEW
+    created: 2024-12-12T13:23:46.830984-05:00
+review_status: REVIEWED
