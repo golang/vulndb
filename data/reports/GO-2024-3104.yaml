@@ -4,18 +4,28 @@ modules:
       versions:
         - fixed: 0.1.47
       vulnerable_at: 0.1.46
-summary: Ollama can extract members of a ZIP archive outside of the parent directory in github.com/ollama/ollama
+      packages:
+        - package: github.com/ollama/ollama/cmd
+          symbols:
+            - tempZipFiles
+        - package: github.com/ollama/ollama/server
+          symbols:
+            - parseFromZipFile
+summary: |-
+    Ollama can extract members of a ZIP archive outside of the parent directory in
+    github.com/ollama/ollama
 cves:
     - CVE-2024-45436
 ghsas:
     - GHSA-846m-99qv-67mg
 references:
     - advisory: https://github.com/advisories/GHSA-846m-99qv-67mg
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-45436
     - fix: https://github.com/ollama/ollama/commit/123a722a6f541e300bc8e34297ac378ebe23f527
     - fix: https://github.com/ollama/ollama/pull/5314
     - web: https://github.com/ollama/ollama/compare/v0.1.46...v0.1.47
+notes:
+    - I was not able to generate derived symbols due to a cgo error.
 source:
     id: GHSA-846m-99qv-67mg
-    created: 2024-08-30T11:49:51.257019-04:00
-review_status: NEEDS_REVIEW
+    created: 2024-12-12T13:00:47.375499-05:00
+review_status: REVIEWED
