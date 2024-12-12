@@ -4,18 +4,99 @@ modules:
       versions:
         - fixed: 0.48.2
       vulnerable_at: 0.48.1
-summary: quic-go affected by an ICMP Packet Too Large Injection Attack on Linux in github.com/quic-go/quic-go
+      packages:
+        - package: github.com/quic-go/quic-go
+          goos:
+            - linux
+          symbols:
+            - setDF
+          derived_symbols:
+            - Dial
+            - DialAddr
+            - DialAddrEarly
+            - DialEarly
+            - Listen
+            - ListenAddr
+            - ListenAddrEarly
+            - ListenEarly
+            - StreamError.Error
+            - Transport.Close
+            - Transport.Dial
+            - Transport.DialEarly
+            - Transport.Listen
+            - Transport.ListenEarly
+            - Transport.ReadNonQUICPacket
+            - Transport.WriteTo
+            - connIDGenerator.RemoveAll
+            - connIDGenerator.ReplaceWithClosed
+            - connIDGenerator.Retire
+            - connIDGenerator.SetHandshakeComplete
+            - connIDGenerator.SetMaxActiveConnIDs
+            - connIDManager.Add
+            - connIDManager.AddFromPreferredAddress
+            - connIDManager.Get
+            - connMultiplexer.RemoveConn
+            - connection.AcceptStream
+            - connection.AcceptUniStream
+            - connection.CloseWithError
+            - connection.OpenStream
+            - connection.OpenStreamSync
+            - connection.OpenUniStream
+            - connection.OpenUniStreamSync
+            - cryptoStream.HandleCryptoFrame
+            - cryptoStreamManager.Drop
+            - cryptoStreamManager.GetCryptoData
+            - cryptoStreamManager.HandleCryptoFrame
+            - datagramQueue.HandleDatagramFrame
+            - framer.AppendControlFrames
+            - mtuFinderAckHandler.OnAcked
+            - oobConn.ReadPacket
+            - packetHandlerMap.Add
+            - packetHandlerMap.AddWithConnID
+            - packetHandlerMap.Close
+            - packetHandlerMap.GetStatelessResetToken
+            - packetHandlerMap.Remove
+            - packetHandlerMap.ReplaceWithClosed
+            - packetHandlerMap.Retire
+            - packetPacker.AppendPacket
+            - packetPacker.MaybePackProbePacket
+            - packetPacker.PackAckOnlyPacket
+            - packetPacker.PackApplicationClose
+            - packetPacker.PackCoalescedPacket
+            - packetPacker.PackConnectionClose
+            - packetPacker.PackMTUProbePacket
+            - packetUnpacker.UnpackLongHeader
+            - packetUnpacker.UnpackShortHeader
+            - receiveStream.CancelRead
+            - receiveStream.Read
+            - retransmissionQueue.DropPackets
+            - sconn.Write
+            - sendQueue.Run
+            - sendStream.CancelWrite
+            - sendStream.Close
+            - sendStream.Write
+            - stream.Close
+            - streamsMap.AcceptStream
+            - streamsMap.AcceptUniStream
+            - streamsMap.DeleteStream
+            - streamsMap.GetOrOpenReceiveStream
+            - streamsMap.GetOrOpenSendStream
+            - streamsMap.OpenStream
+            - streamsMap.OpenStreamSync
+            - streamsMap.OpenUniStream
+            - streamsMap.OpenUniStreamSync
+summary: ICMP Packet Too Large Injection Attack on Linux in github.com/quic-go/quic-go
 cves:
     - CVE-2024-53259
 ghsas:
     - GHSA-px8v-pp82-rcvr
 references:
     - advisory: https://github.com/quic-go/quic-go/security/advisories/GHSA-px8v-pp82-rcvr
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-53259
     - fix: https://github.com/quic-go/quic-go/commit/ca31dd355cbe5fc6c5807992d9d1149c66c96a50
     - fix: https://github.com/quic-go/quic-go/pull/4729
     - web: https://github.com/quic-go/quic-go/releases/tag/v0.48.2
+    - report: https://datatracker.ietf.org/doc/draft-seemann-tsvwg-udp-fragmentation/
 source:
     id: GHSA-px8v-pp82-rcvr
-    created: 2024-12-02T14:56:14.660173-05:00
-review_status: NEEDS_REVIEW
+    created: 2024-12-12T14:25:54.566646-05:00
+review_status: REVIEWED
