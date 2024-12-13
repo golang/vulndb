@@ -1,0 +1,34 @@
+id: GO-2024-3331
+modules:
+    - module: github.com/beego/beego
+      vulnerable_at: 1.12.14
+    - module: github.com/beego/beego/v2
+      versions:
+        - fixed: 2.3.4
+      vulnerable_at: 2.3.3
+      packages:
+        - package: github.com/beego/beego/v2/client/cache
+          symbols:
+            - FileCache.getCacheFileName
+          derived_symbols:
+            - FileCache.Decr
+            - FileCache.Delete
+            - FileCache.Get
+            - FileCache.GetMulti
+            - FileCache.Incr
+            - FileCache.IsExist
+            - FileCache.Put
+summary: |-
+    Beego has Collision Hazards of MD5 in Cache Key Filenames in
+    github.com/beego/beego
+cves:
+    - CVE-2024-55885
+ghsas:
+    - GHSA-9j3m-fr7q-jxfw
+references:
+    - advisory: https://github.com/beego/beego/security/advisories/GHSA-9j3m-fr7q-jxfw
+    - fix: https://github.com/beego/beego/commit/e7fa4835f71f47ab1d13afd638cebf661800d5a4
+source:
+    id: GHSA-9j3m-fr7q-jxfw
+    created: 2024-12-13T10:08:52.048773-05:00
+review_status: REVIEWED

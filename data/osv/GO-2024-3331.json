@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3331",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-55885",
+    "GHSA-9j3m-fr7q-jxfw"
+  ],
+  "summary": "Beego has Collision Hazards of MD5 in Cache Key Filenames in github.com/beego/beego",
+  "details": "Beego has Collision Hazards of MD5 in Cache Key Filenames in github.com/beego/beego",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/beego/beego",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/beego/beego/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.3.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/beego/beego/v2/client/cache",
+            "symbols": [
+              "FileCache.Decr",
+              "FileCache.Delete",
+              "FileCache.Get",
+              "FileCache.GetMulti",
+              "FileCache.Incr",
+              "FileCache.IsExist",
+              "FileCache.Put",
+              "FileCache.getCacheFileName"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/beego/beego/security/advisories/GHSA-9j3m-fr7q-jxfw"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/beego/beego/commit/e7fa4835f71f47ab1d13afd638cebf661800d5a4"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3331",
+    "review_status": "REVIEWED"
+  }
+}
