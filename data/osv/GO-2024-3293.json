@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3293",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "summary": "Full access to the host's OS file system using osfs.FS with Router.Static in goyave.dev/goyave/v5",
+  "details": "Static file serving using router.Static and osfs.FS allows clients to access any file on the host file system using relative paths because the requested path is not sanitized and . and .. segments are accepted. The files will be returned as a response, provided the system user running the Go application has read access to the requested file.\n\nAs a workaround, use fsutil.NewEmbed(embeddedFS) from the goyave.dev/goyave/v5/util/fsutil package to serve static content using Router.Static instead of \u0026osfs.FS. Embedded file systems are rooted to the specified directory, making it impossible to navigate outside of the developers' intended directory.",
+  "affected": [
+    {
+      "package": {
+        "name": "goyave.dev/goyave/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "5.0.0"
+            },
+            {
+              "fixed": "5.5.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "goyave.dev/goyave/v5",
+            "symbols": [
+              "Router.ServeHTTP",
+              "Router.Static",
+              "Server.Start",
+              "cleanStaticPath",
+              "staticHandler"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/go-goyave/goyave/commit/5836bff3efaa8a37fbd58d077b93f03e93e05edd"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/golang/vulndb/issues/3293"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3293",
+    "review_status": "REVIEWED"
+  }
+}

@@ -1,0 +1,38 @@
+id: GO-2024-3293
+modules:
+    - module: goyave.dev/goyave/v5
+      versions:
+        - introduced: 5.0.0
+        - fixed: 5.5.0
+      vulnerable_at: 5.4.3
+      packages:
+        - package: goyave.dev/goyave/v5
+          symbols:
+            - cleanStaticPath
+            - staticHandler
+          derived_symbols:
+            - Router.ServeHTTP
+            - Router.Static
+            - Server.Start
+summary: |-
+    Full access to the host's OS file system using osfs.FS with Router.Static in
+    goyave.dev/goyave/v5
+description: |-
+    Static file serving using router.Static and osfs.FS allows clients to access any
+    file on the host file system using relative paths because the requested path is
+    not sanitized and . and .. segments are accepted. The files will be returned as
+    a response, provided the system user running the Go application has read access
+    to the requested file.
+
+    As a workaround, use fsutil.NewEmbed(embeddedFS) from the
+    goyave.dev/goyave/v5/util/fsutil package to serve static content using
+    Router.Static instead of &osfs.FS. Embedded file systems are rooted to the
+    specified directory, making it impossible to navigate outside of the developers'
+    intended directory.
+references:
+    - fix: https://github.com/go-goyave/goyave/commit/5836bff3efaa8a37fbd58d077b93f03e93e05edd
+    - web: https://github.com/golang/vulndb/issues/3293
+source:
+    id: go-security-team
+    created: 2024-12-13T09:56:42.28832-05:00
+review_status: REVIEWED
