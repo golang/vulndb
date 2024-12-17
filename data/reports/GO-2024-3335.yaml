@@ -1,0 +1,21 @@
+id: GO-2024-3335
+modules:
+    - module: github.com/hashicorp/boundary
+      versions:
+        - fixed: 0.18.2
+      vulnerable_at: 0.18.1
+summary: |-
+    Boundary Community Edition Incorrectly Handles HTTP Requests On Initialization
+    Which May Lead to a Denial of Service in github.com/hashicorp/boundary
+cves:
+    - CVE-2024-12289
+ghsas:
+    - GHSA-xx83-cxmq-x89m
+references:
+    - advisory: https://github.com/advisories/GHSA-xx83-cxmq-x89m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-12289
+    - web: https://discuss.hashicorp.com/t/hcsec-2024-28-boundary-controller-incorrectly-handles-http-requests-on-initialization-which-may-lead-to-a-denial-of-service
+source:
+    id: GHSA-xx83-cxmq-x89m
+    created: 2024-12-17T08:22:38.419983-05:00
+review_status: UNREVIEWED

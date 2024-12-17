@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3335",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-12289",
+    "GHSA-xx83-cxmq-x89m"
+  ],
+  "summary": "Boundary Community Edition Incorrectly Handles HTTP Requests On Initialization Which May Lead to a Denial of Service in github.com/hashicorp/boundary",
+  "details": "Boundary Community Edition Incorrectly Handles HTTP Requests On Initialization Which May Lead to a Denial of Service in github.com/hashicorp/boundary",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hashicorp/boundary",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.18.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-xx83-cxmq-x89m"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-12289"
+    },
+    {
+      "type": "WEB",
+      "url": "https://discuss.hashicorp.com/t/hcsec-2024-28-boundary-controller-incorrectly-handles-http-requests-on-initialization-which-may-lead-to-a-denial-of-service"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3335",
+    "review_status": "UNREVIEWED"
+  }
+}

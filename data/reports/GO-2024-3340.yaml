@@ -1,0 +1,32 @@
+id: GO-2024-3340
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 9.5.0+incompatible
+        - fixed: 9.5.13+incompatible
+        - introduced: 9.11.0+incompatible
+        - fixed: 9.11.5+incompatible
+        - introduced: 10.0.0+incompatible
+        - fixed: 10.0.3+incompatible
+        - introduced: 10.1.0+incompatible
+        - fixed: 10.1.3+incompatible
+      vulnerable_at: 10.1.3-rc1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      vulnerable_at: 8.0.0-20241217115243-cdfadcf47d8e
+summary: Mattermost Data Amplification vulnerability in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2024-54682
+ghsas:
+    - GHSA-v647-h8jj-fw5r
+references:
+    - advisory: https://github.com/advisories/GHSA-v647-h8jj-fw5r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-54682
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-v647-h8jj-fw5r
+    created: 2024-12-17T08:20:19.309858-05:00
+review_status: UNREVIEWED
