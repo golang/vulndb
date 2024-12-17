@@ -1,0 +1,22 @@
+id: GO-2024-3339
+modules:
+    - module: github.com/cosmos/cosmos-sdk
+      versions:
+        - fixed: 0.47.15
+        - introduced: 0.50.0-alpha.0
+        - fixed: 0.50.11
+      vulnerable_at: 0.50.10
+summary: |-
+    ASA-2024-0012, ASA-2024-0013: CosmosSDK: Transaction decoding may result in a
+    stack overflow or resource exhaustion in github.com/cosmos/cosmos-sdk
+ghsas:
+    - GHSA-8wcc-m6j2-qxvm
+references:
+    - advisory: https://github.com/cosmos/cosmos-sdk/security/advisories/GHSA-8wcc-m6j2-qxvm
+    - fix: https://github.com/cosmos/cosmos-sdk/commit/c6b1bdcd5628e3e425a3f02881d3c7db1d7af653
+    - web: https://github.com/cosmos/cosmos-sdk/releases/tag/v0.47.15
+    - web: https://github.com/cosmos/cosmos-sdk/releases/tag/v0.50.11
+source:
+    id: GHSA-8wcc-m6j2-qxvm
+    created: 2024-12-17T08:21:26.241857-05:00
+review_status: NEEDS_REVIEW
