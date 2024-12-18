@@ -1,0 +1,36 @@
+id: GO-2024-3333
+modules:
+    - module: golang.org/x/net
+      versions:
+        - fixed: 0.33.0
+      vulnerable_at: 0.32.0
+      packages:
+        - package: golang.org/x/net/html
+          symbols:
+            - parseDoctype
+            - htmlIntegrationPoint
+            - inTableIM
+            - inBodyIM
+          derived_symbols:
+            - Parse
+            - ParseFragment
+            - ParseFragmentWithOptions
+            - ParseWithOptions
+summary: Non-linear parsing of case-insensitive content in golang.org/x/net/html
+description: |-
+    An attacker can craft an input to the Parse functions that would be processed
+    non-linearly with respect to its length, resulting in extremely slow parsing.
+    This could cause a denial of service.
+credits:
+    - Guido Vranken
+references:
+    - fix: https://go.dev/cl/637536
+    - report: https://go.dev/issue/70906
+    - web: https://groups.google.com/g/golang-announce/c/wSCRmFnNmPA/m/Lvcd0mRMAwAJ
+cve_metadata:
+    id: CVE-2024-45338
+    cwe: 'CWE-405: Asymmetric Resource Consumption (Amplification)'
+source:
+    id: go-security-team
+    created: 2024-12-18T15:03:33.947657-05:00
+review_status: REVIEWED
