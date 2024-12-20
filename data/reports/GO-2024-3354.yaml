@@ -1,0 +1,20 @@
+id: GO-2024-3354
+modules:
+    - module: github.com/hashicorp/nomad
+      versions:
+        - fixed: 1.9.4
+      vulnerable_at: 1.9.3
+summary: Hashicorp Nomad Incorrect Privilege Assignment vulnerability in github.com/hashicorp/nomad
+cves:
+    - CVE-2024-12678
+ghsas:
+    - GHSA-hr68-hvgv-xxqf
+references:
+    - advisory: https://github.com/advisories/GHSA-hr68-hvgv-xxqf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-12678
+    - fix: https://github.com/hashicorp/nomad/commit/359a71861ef044cb5d749a36ff0e44b172c8f1a6
+    - web: https://discuss.hashicorp.com/t/hcsec-2024-29-nomad-allocations-vulnerable-to-privilege-escalation-within-a-namespace-using-unredacted-workload-identity-token/72119
+source:
+    id: GHSA-hr68-hvgv-xxqf
+    created: 2024-12-20T10:02:59.303212-10:00
+review_status: UNREVIEWED

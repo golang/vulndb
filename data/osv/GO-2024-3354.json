@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3354",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-12678",
+    "GHSA-hr68-hvgv-xxqf"
+  ],
+  "summary": "Hashicorp Nomad Incorrect Privilege Assignment vulnerability in github.com/hashicorp/nomad",
+  "details": "Hashicorp Nomad Incorrect Privilege Assignment vulnerability in github.com/hashicorp/nomad",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hashicorp/nomad",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.9.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-hr68-hvgv-xxqf"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-12678"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hashicorp/nomad/commit/359a71861ef044cb5d749a36ff0e44b172c8f1a6"
+    },
+    {
+      "type": "WEB",
+      "url": "https://discuss.hashicorp.com/t/hcsec-2024-29-nomad-allocations-vulnerable-to-privilege-escalation-within-a-namespace-using-unredacted-workload-identity-token/72119"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3354",
+    "review_status": "UNREVIEWED"
+  }
+}

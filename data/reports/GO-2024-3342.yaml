@@ -1,0 +1,23 @@
+id: GO-2024-3342
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.15
+      vulnerable_at: 2.11.14
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - fixed: 3.2.2
+      vulnerable_at: 3.2.1
+summary: Traefik affected by CVE-2024-53259 in github.com/traefik/traefik
+ghsas:
+    - GHSA-hxr6-2p24-hf98
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-hxr6-2p24-hf98
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.15
+    - web: https://github.com/traefik/traefik/releases/tag/v3.2.2
+source:
+    id: GHSA-hxr6-2p24-hf98
+    created: 2024-12-20T10:03:58.383915-10:00
+review_status: UNREVIEWED

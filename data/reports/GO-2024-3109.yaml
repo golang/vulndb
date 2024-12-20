@@ -1,0 +1,30 @@
+id: GO-2024-3109
+modules:
+    - module: github.com/metal3-io/baremetal-operator
+      versions:
+        - fixed: 0.5.2
+        - introduced: 0.6.0
+        - fixed: 0.6.2
+        - introduced: 0.7.0-rc.0
+        - fixed: 0.8.0
+      vulnerable_at: 0.8.0-rc.0
+summary: |-
+    The Bare Metal Operator (BMO) can expose particularly named secrets from other
+    namespaces via BMH CRD in github.com/metal3-io/baremetal-operator
+cves:
+    - CVE-2024-43803
+ghsas:
+    - GHSA-pqfh-xh7w-7h3p
+references:
+    - advisory: https://github.com/metal3-io/baremetal-operator/security/advisories/GHSA-pqfh-xh7w-7h3p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-43803
+    - fix: https://github.com/metal3-io/baremetal-operator/commit/3af4882e9c5fadc1a7550f53daea21dccd271f74
+    - fix: https://github.com/metal3-io/baremetal-operator/commit/bedae7b997d16f36e772806681569bb8eb4dadbb
+    - fix: https://github.com/metal3-io/baremetal-operator/commit/c2b5a557641bc273367635124047d6c958aa15f7
+    - fix: https://github.com/metal3-io/baremetal-operator/pull/1929
+    - fix: https://github.com/metal3-io/baremetal-operator/pull/1930
+    - fix: https://github.com/metal3-io/baremetal-operator/pull/1931
+source:
+    id: GHSA-pqfh-xh7w-7h3p
+    created: 2024-12-20T10:04:02.95551-10:00
+review_status: UNREVIEWED

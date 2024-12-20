@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2024-3109",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-43803",
+    "GHSA-pqfh-xh7w-7h3p"
+  ],
+  "summary": "The Bare Metal Operator (BMO) can expose particularly named secrets from other namespaces via BMH CRD in github.com/metal3-io/baremetal-operator",
+  "details": "The Bare Metal Operator (BMO) can expose particularly named secrets from other namespaces via BMH CRD in github.com/metal3-io/baremetal-operator",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/metal3-io/baremetal-operator",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.5.2"
+            },
+            {
+              "introduced": "0.6.0"
+            },
+            {
+              "fixed": "0.6.2"
+            },
+            {
+              "introduced": "0.7.0-rc.0"
+            },
+            {
+              "fixed": "0.8.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/metal3-io/baremetal-operator/security/advisories/GHSA-pqfh-xh7w-7h3p"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-43803"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/metal3-io/baremetal-operator/commit/3af4882e9c5fadc1a7550f53daea21dccd271f74"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/metal3-io/baremetal-operator/commit/bedae7b997d16f36e772806681569bb8eb4dadbb"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/metal3-io/baremetal-operator/commit/c2b5a557641bc273367635124047d6c958aa15f7"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/metal3-io/baremetal-operator/pull/1929"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/metal3-io/baremetal-operator/pull/1930"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/metal3-io/baremetal-operator/pull/1931"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2024-3109",
+    "review_status": "UNREVIEWED"
+  }
+}

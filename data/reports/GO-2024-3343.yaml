@@ -1,0 +1,23 @@
+id: GO-2024-3343
+modules:
+    - module: open-cluster-management.io/ocm
+      versions:
+        - fixed: 0.13.0
+      vulnerable_at: 0.12.0
+summary: Open Cluster Management vulnerable to Trust Boundary Violation in open-cluster-management.io/ocm
+cves:
+    - CVE-2024-9779
+ghsas:
+    - GHSA-jhh6-6fhp-q2xp
+references:
+    - advisory: https://github.com/advisories/GHSA-jhh6-6fhp-q2xp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-9779
+    - web: https://access.redhat.com/security/cve/CVE-2024-9779
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2317916
+    - web: https://github.com/open-cluster-management-io/ocm/pull/325
+    - web: https://github.com/open-cluster-management-io/ocm/releases/tag/v0.13.0
+    - web: https://github.com/open-cluster-management-io/registration-operator/issues/361
+source:
+    id: GHSA-jhh6-6fhp-q2xp
+    created: 2024-12-20T10:03:49.802017-10:00
+review_status: UNREVIEWED
