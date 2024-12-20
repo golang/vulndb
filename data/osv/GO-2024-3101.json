@@ -6,8 +6,8 @@
   "aliases": [
     "GHSA-75qh-gg76-p2w4"
   ],
-  "summary": "CWA-2023-004: Excessive number of function parameters in compiled Wasm in github.com/CosmWasm/wasmvm",
-  "details": "CWA-2023-004: Excessive number of function parameters in compiled Wasm in github.com/CosmWasm/wasmvm",
+  "summary": "Excessive number of function parameters in compiled Wasm in github.com/CosmWasm/wasmvm",
+  "details": "A specifically crafted Wasm file can cause the VM to consume excessive amounts of memory when compiling a contract. This can lead to high memory usage, slowdowns, potentially a crash and can poison a lock in the VM, preventing any further interaction with contracts.",
   "affected": [
     {
       "package": {
@@ -72,6 +72,6 @@
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2024-3101",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }

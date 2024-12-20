@@ -10,7 +10,12 @@ modules:
         - introduced: 1.5.0
         - fixed: 1.5.1
       vulnerable_at: 1.5.0
-summary: 'CWA-2023-004: Excessive number of function parameters in compiled Wasm in github.com/CosmWasm/wasmvm'
+summary: Excessive number of function parameters in compiled Wasm in github.com/CosmWasm/wasmvm
+description: |-
+    A specifically crafted Wasm file can cause the VM to consume excessive amounts
+    of memory when compiling a contract. This can lead to high memory usage,
+    slowdowns, potentially a crash and can poison a lock in the VM, preventing any
+    further interaction with contracts.
 ghsas:
     - GHSA-75qh-gg76-p2w4
 references:
@@ -19,7 +24,9 @@ references:
     - web: https://github.com/CosmWasm/advisories/blob/main/CWAs/CWA-2023-004.md
     - web: https://rustsec.org/advisories/RUSTSEC-2024-0366.html
     - web: https://www.certik.com/resources/blog/risk-and-security-enhancement-for-app-chains-an-in-depth-writeup-of-cwa-2023
+notes:
+    - Could not determine exactly which Go packages are affected, so leaving whole module as affected out of caution.
 source:
     id: GHSA-75qh-gg76-p2w4
-    created: 2024-12-20T10:04:11.705159-10:00
-review_status: NEEDS_REVIEW
+    created: 2024-12-20T10:42:53.394291-10:00
+review_status: REVIEWED
