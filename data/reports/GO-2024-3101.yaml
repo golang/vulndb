@@ -1,0 +1,25 @@
+id: GO-2024-3101
+modules:
+    - module: github.com/CosmWasm/wasmvm
+      versions:
+        - fixed: 1.2.5
+        - introduced: 1.3.0
+        - fixed: 1.3.1
+        - introduced: 1.4.0
+        - fixed: 1.4.2
+        - introduced: 1.5.0
+        - fixed: 1.5.1
+      vulnerable_at: 1.5.0
+summary: 'CWA-2023-004: Excessive number of function parameters in compiled Wasm in github.com/CosmWasm/wasmvm'
+ghsas:
+    - GHSA-75qh-gg76-p2w4
+references:
+    - advisory: https://github.com/advisories/GHSA-75qh-gg76-p2w4
+    - web: https://forum.cosmos.network/t/high-severity-security-patch-upcoming-on-wed-10th-cwa-2023-004-brought-to-you-by-certik-and-confio/12840
+    - web: https://github.com/CosmWasm/advisories/blob/main/CWAs/CWA-2023-004.md
+    - web: https://rustsec.org/advisories/RUSTSEC-2024-0366.html
+    - web: https://www.certik.com/resources/blog/risk-and-security-enhancement-for-app-chains-an-in-depth-writeup-of-cwa-2023
+source:
+    id: GHSA-75qh-gg76-p2w4
+    created: 2024-12-20T10:04:11.705159-10:00
+review_status: NEEDS_REVIEW

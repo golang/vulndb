@@ -1,0 +1,18 @@
+id: GO-2024-3344
+modules:
+    - module: filippo.io/age
+      versions:
+        - fixed: 1.2.1
+      vulnerable_at: 1.2.0
+summary: |-
+    age vulnerable to malicious plugin names, recipients, or identities causing
+    arbitrary binary execution in filippo.io/age
+ghsas:
+    - GHSA-32gq-x56h-299c
+references:
+    - advisory: https://github.com/FiloSottile/age/security/advisories/GHSA-32gq-x56h-299c
+    - web: https://github.com/FiloSottile/age/commit/482cf6fc9babd3ab06f6606762aac10447222201
+source:
+    id: GHSA-32gq-x56h-299c
+    created: 2024-12-20T10:03:46.400782-10:00
+review_status: NEEDS_REVIEW
