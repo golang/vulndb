@@ -6,8 +6,11 @@
   "aliases": [
     "GHSA-32gq-x56h-299c"
   ],
-  "summary": "age vulnerable to malicious plugin names, recipients, or identities causing arbitrary binary execution in filippo.io/age",
-  "details": "age vulnerable to malicious plugin names, recipients, or identities causing arbitrary binary execution in filippo.io/age",
+  "related": [
+    "CVE-2024-56327"
+  ],
+  "summary": "Malicious plugin names, recipients, or identities causing arbitrary binary execution in filippo.io/age",
+  "details": "Malicious plugin names, recipients, or identities causing arbitrary binary execution in filippo.io/age",
   "affected": [
     {
       "package": {
@@ -27,7 +30,26 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "filippo.io/age/plugin",
+            "symbols": [
+              "EncodeIdentity",
+              "EncodeRecipient",
+              "Identity.Unwrap",
+              "NewIdentity",
+              "NewIdentityWithoutData",
+              "NewRecipient",
+              "ParseIdentity",
+              "ParseRecipient",
+              "Recipient.Wrap",
+              "Recipient.WrapWithLabels",
+              "openClientConnection"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
@@ -36,12 +58,17 @@
       "url": "https://github.com/FiloSottile/age/security/advisories/GHSA-32gq-x56h-299c"
     },
     {
-      "type": "WEB",
+      "type": "FIX",
       "url": "https://github.com/FiloSottile/age/commit/482cf6fc9babd3ab06f6606762aac10447222201"
+    }
+  ],
+  "credits": [
+    {
+      "name": "⬡-49016"
     }
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2024-3344",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }
