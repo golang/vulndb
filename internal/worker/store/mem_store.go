@@ -82,7 +82,7 @@ func (ms *MemStore) ListCommitUpdateRecords(_ context.Context, limit int) ([]*Co
 	return urs, nil
 }
 
-// GetCVE4Record implements store.GetCVE4Record.
+// GetRecord implements store.GetCVE4Record.
 func (ms *MemStore) GetRecord(_ context.Context, id string) (Record, error) {
 	switch {
 	case idstr.IsGHSA(id):
@@ -132,7 +132,7 @@ type memTransaction struct {
 	ms *MemStore
 }
 
-// SetCVE4Record implements Transaction.SetCVE4Record.
+// SetRecord implements Transaction.SetCVE4Record.
 func (tx *memTransaction) SetRecord(r Record) error {
 	if err := r.Validate(); err != nil {
 		return err
@@ -198,7 +198,7 @@ func (tx *memTransaction) CreateRecord(r Record) error {
 	}
 }
 
-// GetLegacyGHSARecord implements Transaction.GetLegacyGHSARecord.
+// GetRecord implements Transaction.GetLegacyGHSARecord.
 func (tx *memTransaction) GetRecord(id string) (Record, error) {
 	switch {
 	case idstr.IsGHSA(id):

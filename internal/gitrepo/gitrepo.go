@@ -33,7 +33,7 @@ func Clone(ctx context.Context, repoURL string) (repo *git.Repository, err error
 	return CloneAt(ctx, repoURL, plumbing.HEAD)
 }
 
-// Clone returns a bare repo by cloning the repo at repoURL at the given ref.
+// CloneAt returns a bare repo by cloning the repo at repoURL at the given ref.
 func CloneAt(ctx context.Context, repoURL string, ref plumbing.ReferenceName) (repo *git.Repository, err error) {
 	log.Infof(ctx, "Cloning repo %q at %s", repoURL, ref)
 	return git.Clone(memory.NewStorage(), nil, &git.CloneOptions{
@@ -103,7 +103,7 @@ func Root(repo *git.Repository) (root *object.Tree, err error) {
 	return RootAt(repo, head)
 }
 
-// Root returns the root tree of the repo at the given commit.
+// RootAt returns the root tree of the repo at the given commit.
 func RootAt(repo *git.Repository, commit *object.Commit) (root *object.Tree, err error) {
 	return repo.TreeObject(commit.TreeHash)
 }

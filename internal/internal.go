@@ -13,7 +13,7 @@ import (
 	"golang.org/x/vulndb/internal/derrors"
 )
 
-// Readfilelines reads and returns the lines from a file.
+// ReadFileLines reads and returns the lines from a file.
 // Whitespace on each line is trimmed.
 // Blank lines and lines beginning with '#' are ignored.
 func ReadFileLines(filename string) (lines []string, err error) {

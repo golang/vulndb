@@ -489,7 +489,7 @@ func (r *Report) AllCVEs() []string {
 	return all
 }
 
-// AllPkgs returns all affected packages in a given module.
+// AllPackages returns all affected packages in a given module.
 func (m *Module) AllPackages() map[string]*Package {
 	pkgs := make(map[string]*Package)
 	for _, pkg := range m.Packages {

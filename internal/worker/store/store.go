@@ -23,7 +23,7 @@ type CVE4Record struct {
 	ID string
 	// Path is the path to the CVE file in the repo.
 	Path string
-	// Blobhash is the hash of the CVE's blob in repo, for quick change detection.
+	// BlobHash is the hash of the CVE's blob in repo, for quick change detection.
 	BlobHash string
 	// CommitHash is the commit of the cvelist repo from which this information came.
 	CommitHash string
@@ -261,7 +261,7 @@ type Transaction interface {
 	// If not found, it returns (nil, nil).
 	GetRecord(id string) (Record, error)
 
-	// GetRecords retrieves records for all CVE IDs between startID and
+	// GetCVE4Records retrieves records for all CVE IDs between startID and
 	// endID, inclusive.
 	GetCVE4Records(startID, endID string) ([]*CVE4Record, error)
 
