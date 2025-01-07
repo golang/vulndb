@@ -1,0 +1,23 @@
+id: GO-2024-3360
+modules:
+    - module: github.com/openshift/hive
+      unsupported_versions:
+        - last_affected: 1.1.16
+      vulnerable_at: 1.1.16
+summary: |-
+    OpenShift Hive RCE through AWS/Kubernetes client configuration leads to
+    privilege escalation in github.com/openshift/hive
+cves:
+    - CVE-2024-25133
+ghsas:
+    - GHSA-wgqq-9qh8-wvqv
+references:
+    - advisory: https://github.com/advisories/GHSA-wgqq-9qh8-wvqv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-25133
+    - fix: https://github.com/openshift/hive/commit/5ba846620f9dbf49301dabb0d40cc980aabef4e0
+    - fix: https://github.com/openshift/hive/pull/2306
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2260372
+source:
+    id: GHSA-wgqq-9qh8-wvqv
+    created: 2025-01-06T15:03:40.196135-10:00
+review_status: UNREVIEWED

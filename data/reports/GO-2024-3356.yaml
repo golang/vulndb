@@ -1,0 +1,21 @@
+id: GO-2024-3356
+modules:
+    - module: gogs.io/gogs
+      versions:
+        - fixed: 0.13.1
+      vulnerable_at: 0.13.1-rc.1
+summary: Path Traversal in file update API in gogs in gogs.io/gogs
+cves:
+    - CVE-2024-55947
+ghsas:
+    - GHSA-qf5v-rp47-55gg
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-qf5v-rp47-55gg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-55947
+    - web: https://github.com/gogs/gogs/commit/9a9388ace25bd646f5098cb9193d983332c34e41
+    - web: https://github.com/gogs/gogs/issues/7582
+    - web: https://github.com/gogs/gogs/pull/7859
+source:
+    id: GHSA-qf5v-rp47-55gg
+    created: 2025-01-06T15:05:43.394749-10:00
+review_status: UNREVIEWED

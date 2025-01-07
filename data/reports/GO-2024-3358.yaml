@@ -1,0 +1,24 @@
+id: GO-2024-3358
+modules:
+    - module: github.com/apache/trafficcontrol
+      vulnerable_at: 7.0.1+incompatible
+    - module: github.com/apache/trafficcontrol/v8
+      versions:
+        - introduced: 8.0.0
+        - fixed: 8.0.2
+      vulnerable_at: 8.0.2-rc0
+summary: SQL injection in Apache Traffic Control in github.com/apache/trafficcontrol
+cves:
+    - CVE-2024-45387
+ghsas:
+    - GHSA-vq94-9pfv-ccqr
+references:
+    - advisory: https://github.com/advisories/GHSA-vq94-9pfv-ccqr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-45387
+    - web: http://www.openwall.com/lists/oss-security/2024/12/23/3
+    - web: https://github.com/apache/trafficcontrol/releases/tag/v8.0.2
+    - web: https://lists.apache.org/thread/t38nk5n7t8w3pb66z7z4pqfzt4443trr
+source:
+    id: GHSA-vq94-9pfv-ccqr
+    created: 2025-01-06T15:03:56.443447-10:00
+review_status: UNREVIEWED

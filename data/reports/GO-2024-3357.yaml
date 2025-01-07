@@ -1,0 +1,21 @@
+id: GO-2024-3357
+modules:
+    - module: github.com/navidrome/navidrome
+      versions:
+        - fixed: 0.54.1
+      vulnerable_at: 0.54.0
+summary: Navidrome Stores JWT Secret in Plaintext in navidrome.db in github.com/navidrome/navidrome
+cves:
+    - CVE-2024-56362
+ghsas:
+    - GHSA-xwx7-p63r-2rj8
+references:
+    - advisory: https://github.com/navidrome/navidrome/security/advisories/GHSA-xwx7-p63r-2rj8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-56362
+    - fix: https://github.com/navidrome/navidrome/commit/7f030b0859653593fd2ac0df69f4a313f9caf9ff
+    - fix: https://github.com/navidrome/navidrome/commit/9cbdb20a318a49daf95888b1fd207d4d729b55f1
+    - web: https://github.com/navidrome/navidrome/releases/tag/v0.54.1
+source:
+    id: GHSA-xwx7-p63r-2rj8
+    created: 2025-01-06T15:05:36.653544-10:00
+review_status: UNREVIEWED

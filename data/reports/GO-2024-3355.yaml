@@ -1,0 +1,21 @@
+id: GO-2024-3355
+modules:
+    - module: gogs.io/gogs
+      versions:
+        - fixed: 0.13.1
+      vulnerable_at: 0.13.1-rc.1
+summary: Remote Command Execution in file editing in gogs in gogs.io/gogs
+cves:
+    - CVE-2024-54148
+ghsas:
+    - GHSA-r7j8-5h9c-f6fx
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-r7j8-5h9c-f6fx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-54148
+    - web: https://github.com/gogs/gogs/commit/c94baec9ca923f38c19f0c7c5af722b9ec04022a
+    - web: https://github.com/gogs/gogs/issues/7582
+    - web: https://github.com/gogs/gogs/pull/7857
+source:
+    id: GHSA-r7j8-5h9c-f6fx
+    created: 2025-01-06T15:05:50.06395-10:00
+review_status: UNREVIEWED

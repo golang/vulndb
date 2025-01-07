@@ -1,0 +1,21 @@
+id: GO-2025-3364
+modules:
+    - module: github.com/karmada-io/karmada
+      versions:
+        - fixed: 1.12.0
+      vulnerable_at: 1.12.0-beta.0
+summary: Karmada PULL Mode Cluster Privilege Escalation in github.com/karmada-io/karmada
+cves:
+    - CVE-2024-56513
+ghsas:
+    - GHSA-mg7w-c9x2-xh7r
+references:
+    - advisory: https://github.com/karmada-io/karmada/security/advisories/GHSA-mg7w-c9x2-xh7r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-56513
+    - fix: https://github.com/karmada-io/karmada/commit/2c82055c4c7f469411b1ba48c4dba4841df04831
+    - fix: https://github.com/karmada-io/karmada/pull/5793
+    - web: https://karmada.io/docs/administrator/security/component-permission
+source:
+    id: GHSA-mg7w-c9x2-xh7r
+    created: 2025-01-06T15:03:13.982436-10:00
+review_status: UNREVIEWED

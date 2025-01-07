@@ -1,0 +1,22 @@
+id: GO-2025-3363
+modules:
+    - module: github.com/karmada-io/karmada
+      versions:
+        - fixed: 1.12.0
+      vulnerable_at: 1.12.0-beta.0
+summary: Karmada Tar Slips in CRDs archive extraction in github.com/karmada-io/karmada
+cves:
+    - CVE-2024-56514
+ghsas:
+    - GHSA-cwrh-575j-8vr3
+references:
+    - advisory: https://github.com/karmada-io/karmada/security/advisories/GHSA-cwrh-575j-8vr3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-56514
+    - fix: https://github.com/karmada-io/karmada/commit/40ec488b18a461ab0f871d2c9ec8665b361f0d50
+    - fix: https://github.com/karmada-io/karmada/commit/f78e7e2a3d02bed04e9bc7abd3ae7b3ac56862d2
+    - fix: https://github.com/karmada-io/karmada/pull/5703
+    - fix: https://github.com/karmada-io/karmada/pull/5713
+source:
+    id: GHSA-cwrh-575j-8vr3
+    created: 2025-01-06T15:03:22.12922-10:00
+review_status: UNREVIEWED
