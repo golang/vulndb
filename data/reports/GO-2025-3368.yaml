@@ -1,0 +1,29 @@
+id: GO-2025-3368
+modules:
+    - module: github.com/go-git/go-git/v5
+      versions:
+        - fixed: 5.13.0
+      vulnerable_at: 5.12.0
+    - module: github.com/go-git/go-git/v4
+      versions:
+        - introduced: 4.0.0
+      vulnerable_at: 4.13.1
+    - module: gopkg.in/src-d/go-git.v4
+      versions:
+        - introduced: 4.0.0
+      vulnerable_at: 4.13.1
+summary: Argument Injection via the URL field in github.com/go-git/go-git
+cves:
+    - CVE-2025-21613
+ghsas:
+    - GHSA-v725-9546-7q7m
+credits:
+    - '@vin01'
+references:
+    - advisory: https://github.com/go-git/go-git/security/advisories/GHSA-v725-9546-7q7m
+notes:
+    - Could not find fix commit; leaving all packages vulnerable.
+source:
+    id: GHSA-v725-9546-7q7m
+    created: 2025-01-06T15:18:10.910983-10:00
+review_status: REVIEWED
