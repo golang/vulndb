@@ -286,6 +286,7 @@ const (
 	labelSuggestedEdit = "Suggested Edit"
 	labelNeedsAlias    = "NeedsAlias"
 	labelTriaged       = "triaged"
+	labelNeedsTriage   = "NeedsTriage"
 	labelHighPriority  = "high priority"
 	labelFirstParty    = "first party"
 	labelPossiblyNotGo = "possibly not Go"

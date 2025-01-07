@@ -159,6 +159,13 @@ func (t *triage) editIssue(ctx context.Context, iss *issues.Issue, labels, comme
 	slices.Sort(comments)
 	comments = slices.Compact(comments)
 
+	// Remove the needs triage label if the triaged label is present.
+	if slices.Contains(labels, labelTriaged) {
+		labels = slices.DeleteFunc(labels, func(l string) bool {
+			return l == labelNeedsTriage
+		})
+	}
+
 	if *dry {
 		if len(labels) != 0 {
 			log.Infof("issue #%d: would set labels: [%s]", iss.Number, strings.Join(labels, ", "))
