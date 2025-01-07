@@ -1,0 +1,29 @@
+id: GO-2025-3367
+modules:
+    - module: github.com/go-git/go-git/v4
+      versions:
+        - introduced: 4.0.0
+      vulnerable_at: 4.13.1
+    - module: github.com/go-git/go-git/v5
+      versions:
+        - fixed: 5.13.0
+      vulnerable_at: 5.12.0
+    - module: gopkg.in/src-d/go-git.v4
+      versions:
+        - introduced: 4.0.0
+      vulnerable_at: 4.13.1
+summary: Clients vulnerable to DoS via maliciously crafted Git server replies in github.com/go-git/go-git
+cves:
+    - CVE-2025-21614
+ghsas:
+    - GHSA-r9px-m959-cxf4
+credits:
+    - Ionut Lalu
+references:
+    - advisory: https://github.com/go-git/go-git/security/advisories/GHSA-r9px-m959-cxf4
+notes:
+    - I could not find a fix commit, so leaving all packages vulnerable.
+source:
+    id: GHSA-r9px-m959-cxf4
+    created: 2025-01-06T15:18:07.39952-10:00
+review_status: REVIEWED
