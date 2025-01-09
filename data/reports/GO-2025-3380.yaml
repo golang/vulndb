@@ -1,0 +1,30 @@
+id: GO-2025-3380
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 10.3.0+incompatible
+      non_go_versions:
+        - introduced: 10.0.0
+      vulnerable_at: 10.3.0-rc4+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20250102081831-64c566a8280b
+summary: Mattermost has Improper Check for Unusual or Exceptional Conditions in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-22445
+ghsas:
+    - GHSA-7rgp-4j56-fm79
+references:
+    - advisory: https://github.com/advisories/GHSA-7rgp-4j56-fm79
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-22445
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-7rgp-4j56-fm79
+    created: 2025-01-09T14:16:30.962637-05:00
+review_status: UNREVIEWED
