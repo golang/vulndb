@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3381",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-56138",
+    "GHSA-45v3-38pc-874v"
+  ],
+  "summary": "notation-go's timestamp signature generation lacks certificate revocation check in github.com/notaryproject/notation-go",
+  "details": "notation-go's timestamp signature generation lacks certificate revocation check in github.com/notaryproject/notation-go",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/notaryproject/notation-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.2.0-beta.1"
+            },
+            {
+              "fixed": "1.3.0-rc.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/notaryproject/notation-go/security/advisories/GHSA-45v3-38pc-874v"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/notaryproject/notation-go/commit/e99be1954a15673020150c5f8800b8174cd7428d"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3381",
+    "review_status": "UNREVIEWED"
+  }
+}
