@@ -1,0 +1,28 @@
+id: GO-2025-3390
+modules:
+    - module: github.com/git-lfs/git-lfs
+      versions:
+        - introduced: 0.1.0
+      vulnerable_at: 1.5.6
+    - module: github.com/git-lfs/git-lfs/v3
+      versions:
+        - introduced: 3.0.0
+        - fixed: 3.6.1
+      vulnerable_at: 3.6.0
+summary: |-
+    Git LFS permits exfiltration of credentials via crafted HTTP URLs in
+    github.com/git-lfs/git-lfs
+cves:
+    - CVE-2024-53263
+ghsas:
+    - GHSA-q6r2-x2cc-vrp7
+credits:
+    - '@Ry0taK'
+references:
+    - advisory: https://github.com/git-lfs/git-lfs/security/advisories/GHSA-q6r2-x2cc-vrp7
+    - fix: https://github.com/git-lfs/git-lfs/commit/0345b6f816e611d050c0df67b61f0022916a1c90
+    - web: https://github.com/git-lfs/git-lfs/releases/tag/v3.6.1
+source:
+    id: GHSA-q6r2-x2cc-vrp7
+    created: 2025-01-15T15:10:13.977797478Z
+review_status: REVIEWED
