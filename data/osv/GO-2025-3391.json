@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3391",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-52281",
+    "GHSA-2v2w-8v8c-wcm9"
+  ],
+  "summary": "Rancher UI has Stored Cross-site Scripting vulnerability in github.com/rancher/rancher",
+  "details": "Rancher UI has Stored Cross-site Scripting vulnerability in github.com/rancher/rancher.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/rancher/rancher from v2.9.0 before v2.9.4.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/rancher/rancher",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "2.9.0"
+              },
+              {
+                "fixed": "2.9.4"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/rancher/rancher/security/advisories/GHSA-2v2w-8v8c-wcm9"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3391",
+    "review_status": "UNREVIEWED"
+  }
+}
