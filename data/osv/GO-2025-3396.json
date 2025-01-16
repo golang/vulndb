@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3396",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-52594"
+  ],
+  "summary": "Server-Side Request Forgery (SSRF) on redirects and federation in github.com/matrix-org/gomatrixserverlib",
+  "details": "Server-Side Request Forgery (SSRF) on redirects and federation in github.com/matrix-org/gomatrixserverlib",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/matrix-org/gomatrixserverlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20250116181547-c4f1e01eab0d"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/matrix-org/gomatrixserverlib/fclient",
+            "symbols": [
+              "Client.CreateMediaDownloadRequest",
+              "Client.DoHTTPRequest",
+              "Client.DoRequestAndParseResponse",
+              "Client.GetServerKeys",
+              "Client.GetVersion",
+              "Client.LookupServerKeys",
+              "Client.LookupUserInfo",
+              "DNSCache.DialContext",
+              "LookupWellKnown",
+              "NewClient",
+              "NewDNSCache",
+              "NewFederationClient",
+              "ResolveServer",
+              "destinationTripper.RoundTrip",
+              "destinationTripper.getTransport",
+              "federationClient.Backfill",
+              "federationClient.ClaimKeys",
+              "federationClient.DoRequestAndParseResponse",
+              "federationClient.DownloadMedia",
+              "federationClient.ExchangeThirdPartyInvite",
+              "federationClient.GetEvent",
+              "federationClient.GetEventAuth",
+              "federationClient.GetPublicRooms",
+              "federationClient.GetPublicRoomsFiltered",
+              "federationClient.GetUserDevices",
+              "federationClient.LookupMissingEvents",
+              "federationClient.LookupProfile",
+              "federationClient.LookupRoomAlias",
+              "federationClient.LookupState",
+              "federationClient.LookupStateIDs",
+              "federationClient.MSC2836EventRelationships",
+              "federationClient.MakeJoin",
+              "federationClient.MakeKnock",
+              "federationClient.MakeLeave",
+              "federationClient.P2PGetTransactionFromRelay",
+              "federationClient.P2PSendTransactionToRelay",
+              "federationClient.Peek",
+              "federationClient.QueryKeys",
+              "federationClient.RoomHierarchy",
+              "federationClient.SendInvite",
+              "federationClient.SendInviteV2",
+              "federationClient.SendInviteV3",
+              "federationClient.SendJoin",
+              "federationClient.SendJoinPartialState",
+              "federationClient.SendKnock",
+              "federationClient.SendLeave",
+              "federationClient.SendTransaction",
+              "newDestinationTripper"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-52594"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/matrix-org/gomatrixserverlib/commit/c4f1e01eab0dd435709ad15463ed38a079ad6128"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/matrix-org/gomatrixserverlib/security/advisories/GHSA-4ff6-858j-r822"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3396",
+    "review_status": "REVIEWED"
+  }
+}

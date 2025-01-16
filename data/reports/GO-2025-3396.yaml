@@ -1,0 +1,71 @@
+id: GO-2025-3396
+modules:
+    - module: github.com/matrix-org/gomatrixserverlib
+      versions:
+        - fixed: 0.0.0-20250116181547-c4f1e01eab0d
+      vulnerable_at: 0.0.0-20241215094829-e86ab16eabe8
+      packages:
+        - package: github.com/matrix-org/gomatrixserverlib/fclient
+          symbols:
+            - NewClient
+            - destinationTripper.getTransport
+            - DNSCache.DialContext
+            - newDestinationTripper
+            - NewDNSCache
+            - destinationTripper.RoundTrip
+          derived_symbols:
+            - Client.CreateMediaDownloadRequest
+            - Client.DoHTTPRequest
+            - Client.DoRequestAndParseResponse
+            - Client.GetServerKeys
+            - Client.GetVersion
+            - Client.LookupServerKeys
+            - Client.LookupUserInfo
+            - LookupWellKnown
+            - NewFederationClient
+            - ResolveServer
+            - federationClient.Backfill
+            - federationClient.ClaimKeys
+            - federationClient.DoRequestAndParseResponse
+            - federationClient.DownloadMedia
+            - federationClient.ExchangeThirdPartyInvite
+            - federationClient.GetEvent
+            - federationClient.GetEventAuth
+            - federationClient.GetPublicRooms
+            - federationClient.GetPublicRoomsFiltered
+            - federationClient.GetUserDevices
+            - federationClient.LookupMissingEvents
+            - federationClient.LookupProfile
+            - federationClient.LookupRoomAlias
+            - federationClient.LookupState
+            - federationClient.LookupStateIDs
+            - federationClient.MSC2836EventRelationships
+            - federationClient.MakeJoin
+            - federationClient.MakeKnock
+            - federationClient.MakeLeave
+            - federationClient.P2PGetTransactionFromRelay
+            - federationClient.P2PSendTransactionToRelay
+            - federationClient.Peek
+            - federationClient.QueryKeys
+            - federationClient.RoomHierarchy
+            - federationClient.SendInvite
+            - federationClient.SendInviteV2
+            - federationClient.SendInviteV3
+            - federationClient.SendJoin
+            - federationClient.SendJoinPartialState
+            - federationClient.SendKnock
+            - federationClient.SendLeave
+            - federationClient.SendTransaction
+summary: |-
+    Server-Side Request Forgery (SSRF) on redirects and federation in
+    github.com/matrix-org/gomatrixserverlib
+cves:
+    - CVE-2024-52594
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-52594
+    - fix: https://github.com/matrix-org/gomatrixserverlib/commit/c4f1e01eab0dd435709ad15463ed38a079ad6128
+    - web: https://github.com/matrix-org/gomatrixserverlib/security/advisories/GHSA-4ff6-858j-r822
+source:
+    id: CVE-2024-52594
+    created: 2025-01-16T21:41:31.447885903Z
+review_status: REVIEWED
