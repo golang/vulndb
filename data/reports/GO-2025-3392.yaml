@@ -1,0 +1,35 @@
+id: GO-2025-3392
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 9.11.0+incompatible
+        - fixed: 9.11.6+incompatible
+        - introduced: 10.0.0+incompatible
+        - fixed: 10.0.4+incompatible
+        - introduced: 10.1.0+incompatible
+        - fixed: 10.1.4+incompatible
+        - introduced: 10.2.0+incompatible
+        - fixed: 10.2.1+incompatible
+      vulnerable_at: 10.2.1-rc1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20241127161322-25ff7a3779a5
+summary: Mattermost fails to properly validate post props in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-20086
+ghsas:
+    - GHSA-5m7j-6gc4-ff5g
+references:
+    - advisory: https://github.com/advisories/GHSA-5m7j-6gc4-ff5g
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-20086
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-5m7j-6gc4-ff5g
+    created: 2025-01-16T21:19:23.769260933Z
+review_status: UNREVIEWED
