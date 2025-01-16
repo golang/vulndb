@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3397",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-36402",
+    "GHSA-8vmr-h7h5-cqhg"
+  ],
+  "summary": "matrix-media-repo (MMR) allows unauthenticated writes to the media repository, which may allow planting of problematic content in github.com/t2bot/matrix-media-repo",
+  "details": "matrix-media-repo (MMR) allows unauthenticated writes to the media repository, which may allow planting of problematic content in github.com/t2bot/matrix-media-repo",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/t2bot/matrix-media-repo",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.3.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/t2bot/matrix-media-repo/security/advisories/GHSA-8vmr-h7h5-cqhg"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/matrix-org/matrix-spec-proposals/pull/3916"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3397",
+    "review_status": "UNREVIEWED"
+  }
+}

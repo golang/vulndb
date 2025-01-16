@@ -1,0 +1,20 @@
+id: GO-2025-3397
+modules:
+    - module: github.com/t2bot/matrix-media-repo
+      versions:
+        - fixed: 1.3.5
+      vulnerable_at: 1.3.4
+summary: |-
+    matrix-media-repo (MMR) allows unauthenticated writes to the media repository,
+    which may allow planting of problematic content in github.com/t2bot/matrix-media-repo
+cves:
+    - CVE-2024-36402
+ghsas:
+    - GHSA-8vmr-h7h5-cqhg
+references:
+    - advisory: https://github.com/t2bot/matrix-media-repo/security/advisories/GHSA-8vmr-h7h5-cqhg
+    - web: https://github.com/matrix-org/matrix-spec-proposals/pull/3916
+source:
+    id: GHSA-8vmr-h7h5-cqhg
+    created: 2025-01-16T21:30:59.197777983Z
+review_status: UNREVIEWED
