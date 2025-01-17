@@ -1,0 +1,124 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3407",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-20621",
+    "GHSA-w6xh-c82w-h997"
+  ],
+  "summary": "Mattermost webapp crash via a crafted post in github.com/mattermost/mattermost-server",
+  "details": "Mattermost webapp crash via a crafted post in github.com/mattermost/mattermost-server",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "9.11.0+incompatible"
+            },
+            {
+              "fixed": "9.11.6+incompatible"
+            },
+            {
+              "introduced": "10.0.0+incompatible"
+            },
+            {
+              "fixed": "10.0.4+incompatible"
+            },
+            {
+              "introduced": "10.1.0+incompatible"
+            },
+            {
+              "fixed": "10.1.4+incompatible"
+            },
+            {
+              "introduced": "10.2.0+incompatible"
+            },
+            {
+              "fixed": "10.2.1+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v6",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost/server/v8",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "8.0.0-20241127161322-25ff7a3779a5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-w6xh-c82w-h997"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-20621"
+    },
+    {
+      "type": "WEB",
+      "url": "https://mattermost.com/security-updates"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3407",
+    "review_status": "UNREVIEWED"
+  }
+}
