@@ -1,0 +1,26 @@
+id: GO-2025-3415
+modules:
+    - module: github.com/cilium/cilium
+      versions:
+        - introduced: 1.14.0
+        - fixed: 1.14.18
+        - introduced: 1.15.0
+        - fixed: 1.15.12
+        - introduced: 1.16.0
+        - fixed: 1.16.5
+      vulnerable_at: 1.16.4
+summary: DoS in Cilium agent DNS proxy from crafted DNS responses in github.com/cilium/cilium
+cves:
+    - CVE-2025-23028
+ghsas:
+    - GHSA-9m5p-c77c-f9j7
+references:
+    - advisory: https://github.com/cilium/cilium/security/advisories/GHSA-9m5p-c77c-f9j7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-23028
+    - fix: https://github.com/cilium/cilium/commit/1971bc684b6b36703ebae0dd7539c623f988a257
+    - fix: https://github.com/cilium/cilium/commit/b1948e217a4212b81175d8bf763d0ef350fcc96c
+    - fix: https://github.com/cilium/cilium/pull/36252
+source:
+    id: GHSA-9m5p-c77c-f9j7
+    created: 2025-01-27T09:13:29.003406-05:00
+review_status: UNREVIEWED

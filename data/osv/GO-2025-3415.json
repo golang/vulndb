@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3415",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-23028",
+    "GHSA-9m5p-c77c-f9j7"
+  ],
+  "summary": "DoS in Cilium agent DNS proxy from crafted DNS responses in github.com/cilium/cilium",
+  "details": "DoS in Cilium agent DNS proxy from crafted DNS responses in github.com/cilium/cilium",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cilium/cilium",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.14.0"
+            },
+            {
+              "fixed": "1.14.18"
+            },
+            {
+              "introduced": "1.15.0"
+            },
+            {
+              "fixed": "1.15.12"
+            },
+            {
+              "introduced": "1.16.0"
+            },
+            {
+              "fixed": "1.16.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cilium/cilium/security/advisories/GHSA-9m5p-c77c-f9j7"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-23028"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cilium/cilium/commit/1971bc684b6b36703ebae0dd7539c623f988a257"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cilium/cilium/commit/b1948e217a4212b81175d8bf763d0ef350fcc96c"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cilium/cilium/pull/36252"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3415",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,20 @@
+id: GO-2025-3409
+modules:
+    - module: zotregistry.dev/zot
+      non_go_versions:
+        - fixed: 2.1.2
+      vulnerable_at: 1.4.3
+summary: Zot IdP group membership revocation ignored in zotregistry.dev/zot
+cves:
+    - CVE-2025-23208
+ghsas:
+    - GHSA-c9p4-xwr9-rfhx
+references:
+    - advisory: https://github.com/project-zot/zot/security/advisories/GHSA-c9p4-xwr9-rfhx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-23208
+    - web: https://github.com/project-zot/zot/blob/5e30fec65c49e3139907e2819ccb39b2e3bd784e/pkg/meta/boltdb/boltdb.go#L1665
+    - web: https://github.com/project-zot/zot/commit/002ac62d8a15bf0cba010b3ba7bde86f9837b613
+source:
+    id: GHSA-c9p4-xwr9-rfhx
+    created: 2025-01-27T09:14:05.455565-05:00
+review_status: UNREVIEWED

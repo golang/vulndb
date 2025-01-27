@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3416",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-23047",
+    "GHSA-h78m-j95m-5356"
+  ],
+  "summary": "Cilium has an information leakage via insecure default Hubble UI CORS header in github.com/cilium/cilium",
+  "details": "Cilium has an information leakage via insecure default Hubble UI CORS header in github.com/cilium/cilium",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cilium/cilium",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.14.0"
+            },
+            {
+              "fixed": "1.14.19"
+            },
+            {
+              "introduced": "1.15.0"
+            },
+            {
+              "fixed": "1.15.13"
+            },
+            {
+              "introduced": "1.16.0"
+            },
+            {
+              "fixed": "1.16.6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cilium/cilium/security/advisories/GHSA-h78m-j95m-5356"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-23047"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cilium/cilium/commit/a3489f190ba6e87b5336ee685fb6c80b1270d06d"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3416",
+    "review_status": "UNREVIEWED"
+  }
+}

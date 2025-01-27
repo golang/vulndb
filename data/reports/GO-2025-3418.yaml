@@ -1,0 +1,21 @@
+id: GO-2025-3418
+modules:
+    - module: github.com/envoyproxy/gateway
+      versions:
+        - fixed: 1.2.6
+      vulnerable_at: 1.2.5
+summary: Envoy Admin Interface Exposed through prometheus metrics endpoint in github.com/envoyproxy/gateway
+cves:
+    - CVE-2025-24030
+ghsas:
+    - GHSA-j777-63hf-hx76
+references:
+    - advisory: https://github.com/envoyproxy/gateway/security/advisories/GHSA-j777-63hf-hx76
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-24030
+    - fix: https://github.com/envoyproxy/gateway/commit/3eb3301ab3dbf12b201b47bdb6074d1233be07bd
+    - web: https://www.envoyproxy.io/docs/envoy/latest/configuration/best_practices/edge
+    - web: https://www.envoyproxy.io/docs/envoy/latest/operations/admin
+source:
+    id: GHSA-j777-63hf-hx76
+    created: 2025-01-27T09:13:11.563673-05:00
+review_status: UNREVIEWED
