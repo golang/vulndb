@@ -1,0 +1,28 @@
+id: GO-2025-3383
+modules:
+    - module: cmd
+      versions:
+        - introduced: 1.24.0-0
+        - fixed: 1.24.0-rc2
+      vulnerable_at: 1.24.0-rc1
+      packages:
+        - package: cmd/go
+summary: GOAUTH credential leak in cmd/go
+description: |-
+    Credentials provided via the new GOAUTH feature were not being properly
+    segmented by domain, allowing a malicious server to request credentials they
+    should not have access to. By default, unless otherwise set, this only affected
+    credentials stored in the users .netrc file.
+credits:
+    - Juho Forsén of Mattermost
+references:
+    - fix: https://go.dev/cl/643097
+    - report: https://go.dev/issue/71249
+    - web: https://groups.google.com/g/golang-dev/c/CAWXhan3Jww/m/bk9LAa-lCgAJ
+cve_metadata:
+    id: CVE-2024-45340
+    cwe: 'CWE-201: Insertion of Sensitive Information Into Sent Data'
+source:
+    id: go-security-team
+    created: 2025-01-27T15:30:57.076461-05:00
+review_status: REVIEWED

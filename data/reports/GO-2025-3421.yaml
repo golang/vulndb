@@ -1,0 +1,28 @@
+id: GO-2025-3421
+modules:
+    - module: std
+      versions:
+        - introduced: 1.24.0-0
+        - fixed: 1.24.0-rc2
+      vulnerable_at: 1.24.0-rc1
+      packages:
+        - package: crypto/x509
+          symbols:
+            - ParsePKCS1PrivateKey
+summary: ParsePKCS1PrivateKey panic with partial keys in crypto/x509
+description: |-
+    Using ParsePKCS1PrivateKey to parse a RSA key that is missing the CRT values
+    would panic when verifying that the key is well formed.
+credits:
+    - Philippe Antoine (Catena cyber)
+references:
+    - fix: https://go.dev/cl/643098
+    - report: https://go.dev/issue/71216
+    - web: https://groups.google.com/g/golang-dev/c/CAWXhan3Jww/m/bk9LAa-lCgAJ
+cve_metadata:
+    id: CVE-2025-22865
+    cwe: 'CWE-228: Improper Handling of Syntactically Invalid Structure'
+source:
+    id: go-security-team
+    created: 2025-01-27T15:30:46.945007-05:00
+review_status: REVIEWED

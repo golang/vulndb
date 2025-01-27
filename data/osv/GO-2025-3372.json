@@ -1,0 +1,129 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3372",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-45339"
+  ],
+  "summary": "Vulnerability when creating log files in github.com/golang/glog",
+  "details": "When logs are written to a widely-writable directory (the default), an unprivileged attacker may predict a privileged process's log file path and pre-create a symbolic link to a sensitive file in its place. When that privileged process runs, it will follow the planted symlink and overwrite that sensitive file. To fix that, glog now causes the program to exit (with status code 2) when it finds that the configured log file already exists.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/golang/glog",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.2.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/golang/glog",
+            "symbols": [
+              "Error",
+              "ErrorContext",
+              "ErrorContextDepth",
+              "ErrorContextDepthf",
+              "ErrorContextf",
+              "ErrorDepth",
+              "ErrorDepthf",
+              "Errorf",
+              "Errorln",
+              "Exit",
+              "ExitContext",
+              "ExitContextDepth",
+              "ExitContextDepthf",
+              "ExitContextf",
+              "ExitDepth",
+              "ExitDepthf",
+              "Exitf",
+              "Exitln",
+              "Fatal",
+              "FatalContext",
+              "FatalContextDepth",
+              "FatalContextDepthf",
+              "FatalContextf",
+              "FatalDepth",
+              "FatalDepthf",
+              "Fatalf",
+              "Fatalln",
+              "Info",
+              "InfoContext",
+              "InfoContextDepth",
+              "InfoContextDepthf",
+              "InfoContextf",
+              "InfoDepth",
+              "InfoDepthf",
+              "Infof",
+              "Infoln",
+              "Verbose.Info",
+              "Verbose.InfoContext",
+              "Verbose.InfoContextDepth",
+              "Verbose.InfoContextDepthf",
+              "Verbose.InfoContextf",
+              "Verbose.InfoDepth",
+              "Verbose.InfoDepthf",
+              "Verbose.Infof",
+              "Verbose.Infoln",
+              "Warning",
+              "WarningContext",
+              "WarningContextDepth",
+              "WarningContextDepthf",
+              "WarningContextf",
+              "WarningDepth",
+              "WarningDepthf",
+              "Warningf",
+              "Warningln",
+              "create",
+              "fileSink.Emit",
+              "logBridge.Write",
+              "syncBuffer.Write"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/golang/glog/pull/74/commits/b8741656e406e66d6992bc2c9575e460ecaa0ec2"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/golang/glog/pull/74"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/H-Q4ouHWyKs"
+    },
+    {
+      "type": "WEB",
+      "url": "https://owasp.org/www-community/vulnerabilities/Insecure_Temporary_File"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Josh McSavaney"
+    },
+    {
+      "name": "Günther Noack"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3372",
+    "review_status": "REVIEWED"
+  }
+}

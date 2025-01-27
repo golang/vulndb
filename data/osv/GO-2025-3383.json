@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3383",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-45340"
+  ],
+  "summary": "GOAUTH credential leak in cmd/go",
+  "details": "Credentials provided via the new GOAUTH feature were not being properly segmented by domain, allowing a malicious server to request credentials they should not have access to. By default, unless otherwise set, this only affected credentials stored in the users .netrc file.",
+  "affected": [
+    {
+      "package": {
+        "name": "toolchain",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.24.0-0"
+            },
+            {
+              "fixed": "1.24.0-rc2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "cmd/go"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/643097"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/71249"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-dev/c/CAWXhan3Jww/m/bk9LAa-lCgAJ"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Juho Forsén of Mattermost"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3383",
+    "review_status": "REVIEWED"
+  }
+}

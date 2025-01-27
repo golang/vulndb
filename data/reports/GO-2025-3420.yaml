@@ -1,0 +1,50 @@
+id: GO-2025-3420
+modules:
+    - module: std
+      versions:
+        - fixed: 1.22.11
+        - introduced: 1.23.0-0
+        - fixed: 1.23.5
+        - introduced: 1.24.0-0
+        - fixed: 1.24.0-rc2
+      vulnerable_at: 1.23.1
+      packages:
+        - package: net/http
+          symbols:
+            - Client.do
+            - Client.makeHeadersCopier
+            - shouldCopyHeaderOnRedirect
+          derived_symbols:
+            - Client.Do
+            - Client.Get
+            - Client.Head
+            - Client.Post
+            - Client.PostForm
+            - Get
+            - Head
+            - Post
+            - PostForm
+summary: Sensitive headers incorrectly sent after cross-domain redirect in net/http
+description: |-
+    The HTTP client drops sensitive headers after following a cross-domain redirect.
+    For example, a request to a.com/ containing an Authorization header which is
+    redirected to b.com/ will not send that header to b.com.
+
+    In the event that the client received a subsequent same-domain redirect,
+    however, the sensitive headers would be restored. For example, a chain of
+    redirects from a.com/, to b.com/1, and finally to b.com/2 would incorrectly send
+    the Authorization header to b.com/2.
+credits:
+    - Kyle Seely
+references:
+    - fix: https://go.dev/cl/643100
+    - report: https://go.dev/issue/70530
+    - web: https://groups.google.com/g/golang-dev/c/CAWXhan3Jww/m/bk9LAa-lCgAJ
+    - web: https://groups.google.com/g/golang-dev/c/bG8cv1muIBM/m/G461hA6lCgAJ
+cve_metadata:
+    id: CVE-2024-45336
+    cwe: 'CWE-116: Improper Encoding or Escaping of Output'
+source:
+    id: go-security-team
+    created: 2025-01-27T15:30:48.203009-05:00
+review_status: REVIEWED

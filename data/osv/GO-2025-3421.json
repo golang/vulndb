@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3421",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-22865"
+  ],
+  "summary": "ParsePKCS1PrivateKey panic with partial keys in crypto/x509",
+  "details": "Using ParsePKCS1PrivateKey to parse a RSA key that is missing the CRT values would panic when verifying that the key is well formed.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.24.0-0"
+            },
+            {
+              "fixed": "1.24.0-rc2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "crypto/x509",
+            "symbols": [
+              "ParsePKCS1PrivateKey"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/643098"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/71216"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-dev/c/CAWXhan3Jww/m/bk9LAa-lCgAJ"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Philippe Antoine (Catena cyber)"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3421",
+    "review_status": "REVIEWED"
+  }
+}

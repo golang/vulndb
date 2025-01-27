@@ -1,0 +1,91 @@
+id: GO-2025-3372
+modules:
+    - module: github.com/golang/glog
+      versions:
+        - fixed: 1.2.4
+      vulnerable_at: 1.2.3
+      packages:
+        - package: github.com/golang/glog
+          symbols:
+            - create
+          derived_symbols:
+            - Error
+            - ErrorContext
+            - ErrorContextDepth
+            - ErrorContextDepthf
+            - ErrorContextf
+            - ErrorDepth
+            - ErrorDepthf
+            - Errorf
+            - Errorln
+            - Exit
+            - ExitContext
+            - ExitContextDepth
+            - ExitContextDepthf
+            - ExitContextf
+            - ExitDepth
+            - ExitDepthf
+            - Exitf
+            - Exitln
+            - Fatal
+            - FatalContext
+            - FatalContextDepth
+            - FatalContextDepthf
+            - FatalContextf
+            - FatalDepth
+            - FatalDepthf
+            - Fatalf
+            - Fatalln
+            - Info
+            - InfoContext
+            - InfoContextDepth
+            - InfoContextDepthf
+            - InfoContextf
+            - InfoDepth
+            - InfoDepthf
+            - Infof
+            - Infoln
+            - Verbose.Info
+            - Verbose.InfoContext
+            - Verbose.InfoContextDepth
+            - Verbose.InfoContextDepthf
+            - Verbose.InfoContextf
+            - Verbose.InfoDepth
+            - Verbose.InfoDepthf
+            - Verbose.Infof
+            - Verbose.Infoln
+            - Warning
+            - WarningContext
+            - WarningContextDepth
+            - WarningContextDepthf
+            - WarningContextf
+            - WarningDepth
+            - WarningDepthf
+            - Warningf
+            - Warningln
+            - fileSink.Emit
+            - logBridge.Write
+            - syncBuffer.Write
+summary: Vulnerability when creating log files in github.com/golang/glog
+description: |-
+    When logs are written to a widely-writable directory (the default), an
+    unprivileged attacker may predict a privileged process's log file path and
+    pre-create a symbolic link to a sensitive file in its place. When that
+    privileged process runs, it will follow the planted symlink and overwrite that
+    sensitive file. To fix that, glog now causes the program to exit (with status
+    code 2) when it finds that the configured log file already exists.
+credits:
+    - Josh McSavaney
+    - Günther Noack
+references:
+    - fix: https://github.com/golang/glog/pull/74/commits/b8741656e406e66d6992bc2c9575e460ecaa0ec2
+    - fix: https://github.com/golang/glog/pull/74
+    - web: https://groups.google.com/g/golang-announce/c/H-Q4ouHWyKs
+    - web: https://owasp.org/www-community/vulnerabilities/Insecure_Temporary_File
+cve_metadata:
+    id: CVE-2024-45339
+    cwe: 'CWE-61: UNIX Symbolic Link (Symlink) Following'
+source:
+    id: go-security-team
+    created: 2025-01-27T16:00:03.131884-05:00
+review_status: REVIEWED
