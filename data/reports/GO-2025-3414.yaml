@@ -1,0 +1,30 @@
+id: GO-2025-3414
+modules:
+    - module: github.com/containers/buildah
+      versions:
+        - fixed: 1.33.12
+        - introduced: 1.35.0
+        - fixed: 1.35.5
+        - introduced: 1.37.0
+        - fixed: 1.37.6
+        - introduced: 1.38.0
+        - fixed: 1.38.1
+      vulnerable_at: 1.38.0
+summary: |-
+    Buildah allows build breakout using malicious Containerfiles and concurrent
+    builds in github.com/containers/buildah
+cves:
+    - CVE-2024-11218
+ghsas:
+    - GHSA-5vpc-35f4-r8w6
+references:
+    - advisory: https://github.com/containers/buildah/security/advisories/GHSA-5vpc-35f4-r8w6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-11218
+    - web: https://access.redhat.com/security/cve/CVE-2024-11218
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2326231
+    - web: https://issues.redhat.com/browse/RHEL-67616
+    - web: https://issues.redhat.com/browse/RHEL-67618
+source:
+    id: GHSA-5vpc-35f4-r8w6
+    created: 2025-01-27T09:13:35.966077-05:00
+review_status: NEEDS_REVIEW
