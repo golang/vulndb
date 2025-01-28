@@ -1,0 +1,51 @@
+id: GO-2025-3408
+modules:
+    - module: github.com/hashicorp/yamux
+      versions:
+        - introduced: 0.1.0
+      vulnerable_at: 0.1.2
+      packages:
+        - package: github.com/hashicorp/yamux
+          symbols:
+            - DefaultConfig
+            - Server
+            - Client
+summary: |-
+    DefaultConfig has dangerous defaults causing hung Read in
+    github.com/hashicorp/yamux
+description: |-
+    The default values for Session.config.KeepAliveInterval and
+    Session.config.ConnectionWriteTimeout of 30s and 10s create the possibility for
+    timed out writes that most aren't handling in their readers.
+
+    Calls to Stream.Read on one side of a connection will hang until the underlying
+    Session is closed if the corresponding Stream.Write call on the other side it's
+    waiting for returns with ErrConnectionWriteTimeout. This happens in the case of
+    network congestion between the two sides.
+
+    If you keep Session.sendCh full (fixed capacity of 64) for
+    ConnectionWriteTimeout, but for less than the KeepAliveInterval +
+    ConnectionWriteTimeout (which would kill the Session), Stream.Write will return
+    ErrConnectionWriteTimeout. The state of the underlying Session or Stream is not
+    modified. When this happens, the other side's Stream.Read call that's waiting
+    for that write will never return because there's no timeout for this edge-case.
+
+    Since no keep alive timed out, you can continue to use the Session once the
+    network congestion is resolved, but that Stream.Read call will only return when
+    the Session closes or the response shows up. Since the write call on the other
+    side timed out the call to Stream.Read will never return.
+
+    Any conditions that cause network writes to stall for 10-30 seconds can trigger
+    this Denial of Service- extremely high CPU contention on either side of the
+    connection, BGP reconvergence, etc. To resolve the Denial of Service issue, you
+    have to re-establish the connections, which will usually require a hard restart
+    of the service on either end of the connection.
+credits:
+    - Logan Attwood
+references:
+    - fix: https://github.com/hashicorp/yamux/pull/143
+    - report: https://github.com/hashicorp/yamux/issues/142
+source:
+    id: go-security-team
+    created: 2025-01-28T17:11:24.888252-05:00
+review_status: REVIEWED
