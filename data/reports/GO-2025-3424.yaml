@@ -1,0 +1,21 @@
+id: GO-2025-3424
+modules:
+    - module: github.com/Xe/x
+      non_go_versions:
+        - fixed: 1.11.0-37-gd98d70a
+      vulnerable_at: 1.11.0
+summary: |-
+    Anubis has a bot protection bypass when a sophisticated attacker asks to pass a
+    challenge of difficulty 0 in github.com/Xe/x
+cves:
+    - CVE-2025-24369
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-24369
+    - fix: https://github.com/Xe/x/commit/7bd7b209f4f1b897de85ec8973458dc8be606a8b
+    - fix: https://github.com/Xe/x/commit/e09d0226a628f04b1d80fd83bee777894a45cd02
+    - web: https://github.com/Xe/x/security/advisories/GHSA-56w8-8ppj-2p4f
+    - web: https://xeiaso.net/notes/2025/GHSA-56w8-8ppj-2p4f
+source:
+    id: CVE-2025-24369
+    created: 2025-01-28T17:11:12.050051-05:00
+review_status: UNREVIEWED

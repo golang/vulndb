@@ -1,0 +1,22 @@
+id: GO-2025-3427
+modules:
+    - module: github.com/argoproj/argo-cd
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      unsupported_versions:
+        - last_affected: 2.10.3
+      vulnerable_at: 2.13.3
+summary: ArgoCD Namespace Isolation Break in github.com/argoproj/argo-cd
+cves:
+    - CVE-2024-13484
+ghsas:
+    - GHSA-58fx-7v9q-3g56
+references:
+    - advisory: https://github.com/advisories/GHSA-58fx-7v9q-3g56
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-13484
+    - web: https://access.redhat.com/security/cve/CVE-2024-13484
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2269376
+source:
+    id: GHSA-58fx-7v9q-3g56
+    created: 2025-01-28T17:11:00.070853-05:00
+review_status: UNREVIEWED
