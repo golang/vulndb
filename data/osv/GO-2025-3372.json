@@ -4,7 +4,8 @@
   "modified": "0001-01-01T00:00:00Z",
   "published": "0001-01-01T00:00:00Z",
   "aliases": [
-    "CVE-2024-45339"
+    "CVE-2024-45339",
+    "GHSA-6wxm-mpqj-6jpf"
   ],
   "summary": "Vulnerability when creating log files in github.com/golang/glog",
   "details": "When logs are written to a widely-writable directory (the default), an unprivileged attacker may predict a privileged process's log file path and pre-create a symbolic link to a sensitive file in its place. When that privileged process runs, it will follow the planted symlink and overwrite that sensitive file. To fix that, glog now causes the program to exit (with status code 2) when it finds that the configured log file already exists.",
