@@ -1,9 +1,9 @@
 id: GO-2024-3188
 modules:
     - module: github.com/ubuntu/authd
-      unsupported_versions:
-        - last_affected: 0.0.0-20230706090440-d8cb2d561419
-      vulnerable_at: 0.0.0-20230706090440-d8cb2d561419
+      versions:
+        - fixed: 0.3.6
+      vulnerable_at: 0.3.5
 summary: Authd allows attacker-controlled usernames to yield controllable UIDs in github.com/ubuntu/authd
 cves:
     - CVE-2024-9312
@@ -11,9 +11,7 @@ ghsas:
     - GHSA-4gfw-wf7c-w6g2
 references:
     - advisory: https://github.com/ubuntu/authd/security/advisories/GHSA-4gfw-wf7c-w6g2
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-9312
-    - advisory: https://www.cve.org/CVERecord?id=CVE-2024-9312
 source:
     id: GHSA-4gfw-wf7c-w6g2
-    created: 2024-10-11T10:16:08.934095-04:00
-review_status: UNREVIEWED
+    created: 2025-01-29T09:47:20.814811-05:00
+review_status: REVIEWED
