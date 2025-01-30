@@ -21,6 +21,7 @@ import (
 	"golang.org/x/vulndb/internal/osvutils"
 	"golang.org/x/vulndb/internal/proxy"
 	"golang.org/x/vulndb/internal/stdlib"
+	"golang.org/x/vulndb/internal/version"
 )
 
 func (m *Module) checkModVersions(pc *proxy.Client) error {
@@ -107,6 +108,23 @@ func (m *Module) lintVersions(l *linter, r *Report) {
 	if r.NeedsReview() {
 		if fixed := osvutils.LatestFixed(ranges); fixed == "" {
 			vl.Errorf("no latest fixed version (required for %s report)", NeedsReview)
+		}
+	}
+
+	// Check that all go versions are valid.
+	if m.IsFirstParty() {
+		check := func(v string) {
+			// Allow "-0" suffix as a special case.
+			v = strings.TrimSuffix(v, "-0")
+			if _, err := version.SemverToGoTag(v); err != nil {
+				vl.Error(err)
+			}
+		}
+		for _, v := range m.Versions {
+			check(v.Version)
+		}
+		if m.VulnerableAt != nil {
+			check(m.VulnerableAt.Version)
 		}
 	}
 }

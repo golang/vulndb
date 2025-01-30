@@ -585,7 +585,17 @@ func TestLintOffline(t *testing.T) {
 					Introduced("1.3.X"),
 				}
 			}),
-			wantNumLints: 1,
+			wantNumLints: 2,
+		},
+		{
+			name: "invalid_prelease",
+			desc: "All versions must be valid, unprefixed, semver",
+			report: validStdReport(func(r *Report) {
+				r.Modules[0].Versions = Versions{
+					Introduced("1.3.0-rc2"),
+				}
+			}),
+			wantNumLints: 2,
 		},
 		{
 			name: "no_latest_fixed",
