@@ -10,10 +10,10 @@ import (
 	"net/url"
 	"path/filepath"
 	"regexp"
+	"slices"
 	"strings"
 	"unicode"
 
-	"golang.org/x/exp/slices"
 	"golang.org/x/mod/module"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/idstr"

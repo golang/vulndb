@@ -9,9 +9,9 @@ package database
 import (
 	"encoding/json"
 	"fmt"
+	"slices"
 
 	"golang.org/x/exp/maps"
-	"golang.org/x/exp/slices"
 	"golang.org/x/vulndb/internal/osv"
 )
 

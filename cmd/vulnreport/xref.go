@@ -8,8 +8,6 @@ import (
 	"context"
 	"fmt"
 
-	"golang.org/x/exp/constraints"
-	"golang.org/x/exp/slices"
 	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/report"
 	"golang.org/x/vulndb/internal/triage/priority"
@@ -93,10 +91,4 @@ func (x *xrefer) modulePriority(modulePath string) (*priority.Result, *priority.
 
 func (x *xrefer) reportPriority(r *report.Report) (*priority.Result, *priority.NotGoResult) {
 	return priority.AnalyzeReport(r, x.rc, x.moduleMap)
-}
-
-func sorted[E constraints.Ordered](s []E) []E {
-	s = slices.Clone(s)
-	slices.Sort(s)
-	return s
 }

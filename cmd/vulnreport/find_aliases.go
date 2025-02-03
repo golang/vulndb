@@ -8,8 +8,8 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"slices"
 
-	"golang.org/x/exp/slices"
 	"golang.org/x/tools/txtar"
 	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/cve5"

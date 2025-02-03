@@ -10,10 +10,9 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"slices"
 	"strings"
 	"time"
-
-	"golang.org/x/exp/slices"
 )
 
 const deltaLogURL = "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/deltaLog.json"

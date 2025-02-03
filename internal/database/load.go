@@ -10,8 +10,8 @@ import (
 	"io/fs"
 	"os"
 	"path/filepath"
+	"slices"
 
-	"golang.org/x/exp/slices"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/osv"
 	"golang.org/x/vulndb/internal/osvutils"

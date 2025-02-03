@@ -11,10 +11,9 @@ import (
 	"go/types"
 	"os"
 	"os/exec"
-	"sort"
+	"slices"
 	"strings"
 
-	"golang.org/x/exp/slices"
 	"golang.org/x/tools/go/packages"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/osvutils"
@@ -138,7 +137,7 @@ func Exported(m *report.Module, p *report.Package) (_ []string, err error) {
 			newslice = append(newslice, s)
 		}
 	}
-	sort.Strings(newslice)
+	slices.Sort(newslice)
 	return newslice, nil
 }
 

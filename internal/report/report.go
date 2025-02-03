@@ -14,11 +14,11 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"slices"
 	"strconv"
 	"strings"
 	"time"
 
-	"golang.org/x/exp/slices"
 	"golang.org/x/vulndb/internal/derrors"
 	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/osv"

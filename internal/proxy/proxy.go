@@ -14,11 +14,11 @@ import (
 	"net/http"
 	"os"
 	urlpath "path"
+	"slices"
 	"sort"
 	"strings"
 	"sync"
 
-	"golang.org/x/exp/slices"
 	"golang.org/x/mod/modfile"
 	"golang.org/x/mod/module"
 	"golang.org/x/vulndb/internal/derrors"

@@ -11,10 +11,10 @@ import (
 	"net/http"
 	"regexp"
 	"runtime"
+	"slices"
 	"strings"
 
 	"github.com/google/go-cmp/cmp"
-	"golang.org/x/exp/slices"
 	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/osvutils"
 	"golang.org/x/vulndb/internal/pkgsite"

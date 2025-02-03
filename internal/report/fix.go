@@ -8,12 +8,12 @@ import (
 	"errors"
 	"fmt"
 	"regexp"
+	"slices"
 	"sort"
 	"strconv"
 	"strings"
 
 	"golang.org/x/exp/maps"
-	"golang.org/x/exp/slices"
 	"golang.org/x/mod/module"
 	"golang.org/x/vulndb/internal/idstr"
 	"golang.org/x/vulndb/internal/osv"
