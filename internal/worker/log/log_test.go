@@ -8,7 +8,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"golang.org/x/exp/slog"
+	"log/slog"
 	"testing"
 	"time"
 )
