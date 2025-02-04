@@ -1,0 +1,18 @@
+id: GO-2025-3437
+modules:
+    - module: github.com/argoproj/gitops-engine
+      unsupported_versions:
+        - last_affected: 0.7.3
+      vulnerable_at: 0.7.3
+summary: Argo CD GitOps Engine does not scrub secret values from patch errors in github.com/argoproj/gitops-engine
+ghsas:
+    - GHSA-274v-mgcv-cm8j
+references:
+    - advisory: https://github.com/argoproj/gitops-engine/security/advisories/GHSA-274v-mgcv-cm8j
+    - fix: https://github.com/argoproj/gitops-engine/commit/7e21b91e9d0f64104c8a661f3f390c5e6d73ddca
+    - web: https://github.com/argoproj/argo-cd/commit/6f5537bdf15ddbaa0f27a1a678632ff0743e4107
+    - web: https://github.com/argoproj/argo-cd/security/advisories/GHSA-47g2-qmh2-749v
+source:
+    id: GHSA-274v-mgcv-cm8j
+    created: 2025-02-04T13:47:19.788014-05:00
+review_status: UNREVIEWED

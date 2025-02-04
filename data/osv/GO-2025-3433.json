@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3433",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-23216",
+    "GHSA-47g2-qmh2-749v"
+  ],
+  "summary": "Argo CD does not scrub secret values from patch errors in github.com/argoproj/argo-cd",
+  "details": "Argo CD does not scrub secret values from patch errors in github.com/argoproj/argo-cd",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-cd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-cd/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.11.13"
+            },
+            {
+              "introduced": "2.12.0"
+            },
+            {
+              "fixed": "2.12.10"
+            },
+            {
+              "introduced": "2.13.0"
+            },
+            {
+              "fixed": "2.13.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/argoproj/argo-cd/security/advisories/GHSA-47g2-qmh2-749v"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-23216"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-cd/commit/6f5537bdf15ddbaa0f27a1a678632ff0743e4107"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/argoproj/gitops-engine/commit/7e21b91e9d0f64104c8a661f3f390c5e6d73ddca"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/argoproj/gitops-engine/security/advisories/GHSA-274v-mgcv-cm8j"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3433",
+    "review_status": "UNREVIEWED"
+  }
+}

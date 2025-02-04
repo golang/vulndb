@@ -1,0 +1,27 @@
+id: GO-2025-3433
+modules:
+    - module: github.com/argoproj/argo-cd
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - fixed: 2.11.13
+        - introduced: 2.12.0
+        - fixed: 2.12.10
+        - introduced: 2.13.0
+        - fixed: 2.13.4
+      vulnerable_at: 2.13.3
+summary: Argo CD does not scrub secret values from patch errors in github.com/argoproj/argo-cd
+cves:
+    - CVE-2025-23216
+ghsas:
+    - GHSA-47g2-qmh2-749v
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-47g2-qmh2-749v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-23216
+    - fix: https://github.com/argoproj/argo-cd/commit/6f5537bdf15ddbaa0f27a1a678632ff0743e4107
+    - web: https://github.com/argoproj/gitops-engine/commit/7e21b91e9d0f64104c8a661f3f390c5e6d73ddca
+    - web: https://github.com/argoproj/gitops-engine/security/advisories/GHSA-274v-mgcv-cm8j
+source:
+    id: GHSA-47g2-qmh2-749v
+    created: 2025-02-04T13:47:33.828023-05:00
+review_status: UNREVIEWED

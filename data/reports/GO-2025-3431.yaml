@@ -1,0 +1,22 @@
+id: GO-2025-3431
+modules:
+    - module: github.com/RichardoC/kube-audit-rest
+      versions:
+        - fixed: 0.0.0-20250129191722-db1aa5b86725
+summary: |-
+    kube-audit-rest's example logging configuration could disclose secret values in
+    the audit log in github.com/RichardoC/kube-audit-rest
+cves:
+    - CVE-2025-24884
+ghsas:
+    - GHSA-hcr5-wv4p-h2g2
+references:
+    - advisory: https://github.com/RichardoC/kube-audit-rest/security/advisories/GHSA-hcr5-wv4p-h2g2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-24884
+    - fix: https://github.com/RichardoC/kube-audit-rest/commit/db1aa5b867256b0a7bf206544c6981ab068b73dc
+notes:
+    - fix: 'github.com/RichardoC/kube-audit-rest: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-hcr5-wv4p-h2g2
+    created: 2025-02-04T13:47:37.403872-05:00
+review_status: UNREVIEWED

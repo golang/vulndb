@@ -1,0 +1,20 @@
+id: GO-2025-3435
+modules:
+    - module: github.com/kubewarden/kubewarden-controller
+      versions:
+        - introduced: 1.17.0
+        - fixed: 1.21.0
+      vulnerable_at: 1.21.0-rc2
+summary: Kubewarden-Controller information leak via AdmissionPolicyGroup Resource in github.com/kubewarden/kubewarden-controller
+cves:
+    - CVE-2025-24784
+ghsas:
+    - GHSA-756x-m4mj-q96c
+references:
+    - advisory: https://github.com/kubewarden/kubewarden-controller/security/advisories/GHSA-756x-m4mj-q96c
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-24784
+    - fix: https://github.com/kubewarden/kubewarden-controller/commit/51a88dfbb4c090ce0f76a22d98106518e0824d0b
+source:
+    id: GHSA-756x-m4mj-q96c
+    created: 2025-02-04T13:47:26.780296-05:00
+review_status: UNREVIEWED

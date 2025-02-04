@@ -1,0 +1,31 @@
+id: GO-2025-3438
+modules:
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - fixed: 10.4.15
+        - introduced: 11.0.0
+        - fixed: 11.0.11
+        - introduced: 11.1.0
+        - fixed: 11.1.11
+        - introduced: 11.2.0
+        - fixed: 11.2.6
+        - introduced: 11.3.0
+        - fixed: 11.3.3
+        - introduced: 11.4.0
+        - fixed: 11.4.1
+      vulnerable_at: 5.4.5+incompatible
+summary: |-
+    Grafana Alerting VictorOps integration could be exposed to users with Viewer
+    permission in github.com/grafana/grafana
+cves:
+    - CVE-2024-11741
+ghsas:
+    - GHSA-wxcc-2f3q-4h58
+references:
+    - advisory: https://github.com/advisories/GHSA-wxcc-2f3q-4h58
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-11741
+    - web: https://grafana.com/security/security-advisories/cve-2024-11741
+source:
+    id: GHSA-wxcc-2f3q-4h58
+    created: 2025-02-04T13:46:49.178305-05:00
+review_status: UNREVIEWED
