@@ -1,0 +1,24 @@
+id: GO-2025-3442
+modules:
+    - module: github.com/cometbft/cometbft
+      versions:
+        - fixed: 0.38.17
+        - introduced: 1.0.0-alpha.1
+        - fixed: 1.0.1
+      vulnerable_at: 1.0.0
+summary: CometBFT allows a malicious peer to make node stuck in blocksync in github.com/cometbft/cometbft
+cves:
+    - CVE-2025-24371
+ghsas:
+    - GHSA-22qq-3xwm-r5x4
+references:
+    - advisory: https://github.com/cometbft/cometbft/security/advisories/GHSA-22qq-3xwm-r5x4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-24371
+    - fix: https://github.com/cometbft/cometbft/commit/0ee80cd609c7ae9fe856bdd1c6d38553fdae90ce
+    - fix: https://github.com/cometbft/cometbft/commit/2cebfde06ae5073c0b296a9d2ca6ab4b95397ea5
+    - web: https://github.com/cometbft/cometbft/releases/tag/v0.38.17
+    - web: https://github.com/cometbft/cometbft/releases/tag/v1.0.1
+source:
+    id: GHSA-22qq-3xwm-r5x4
+    created: 2025-02-04T13:46:44.220823-05:00
+review_status: NEEDS_REVIEW

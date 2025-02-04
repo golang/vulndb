@@ -1,0 +1,21 @@
+id: GO-2025-3443
+modules:
+    - module: github.com/cometbft/cometbft
+      versions:
+        - fixed: 0.38.17
+        - introduced: 1.0.0-alpha.1
+        - fixed: 1.0.1
+      vulnerable_at: 1.0.0
+summary: |-
+    CometBFT allows a malicious peer to stall the network by disseminating seemingly
+    valid block parts in github.com/cometbft/cometbft
+ghsas:
+    - GHSA-r3r4-g7hq-pq4f
+references:
+    - advisory: https://github.com/cometbft/cometbft/security/advisories/GHSA-r3r4-g7hq-pq4f
+    - fix: https://github.com/cometbft/cometbft/commit/415c0da223bb7694608913f725fa45bd7a7a46bf
+    - fix: https://github.com/cometbft/cometbft/commit/f943aabc7b9201ea1089ff3381479929435ce424
+source:
+    id: GHSA-r3r4-g7hq-pq4f
+    created: 2025-02-04T13:46:41.019336-05:00
+review_status: NEEDS_REVIEW
