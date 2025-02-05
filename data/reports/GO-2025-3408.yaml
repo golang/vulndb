@@ -11,35 +11,10 @@ modules:
             - Server
             - Client
 summary: |-
-    DefaultConfig has dangerous defaults causing hung Read in
+    WITHDRAWN: DefaultConfig has dangerous defaults causing hung Read in
     github.com/hashicorp/yamux
-description: |-
-    The default values for Session.config.KeepAliveInterval and
-    Session.config.ConnectionWriteTimeout of 30s and 10s create the possibility for
-    timed out writes that most aren't handling in their readers.
-
-    Calls to Stream.Read on one side of a connection will hang until the underlying
-    Session is closed if the corresponding Stream.Write call on the other side it's
-    waiting for returns with ErrConnectionWriteTimeout. This happens in the case of
-    network congestion between the two sides.
-
-    If you keep Session.sendCh full (fixed capacity of 64) for
-    ConnectionWriteTimeout, but for less than the KeepAliveInterval +
-    ConnectionWriteTimeout (which would kill the Session), Stream.Write will return
-    ErrConnectionWriteTimeout. The state of the underlying Session or Stream is not
-    modified. When this happens, the other side's Stream.Read call that's waiting
-    for that write will never return because there's no timeout for this edge-case.
-
-    Since no keep alive timed out, you can continue to use the Session once the
-    network congestion is resolved, but that Stream.Read call will only return when
-    the Session closes or the response shows up. Since the write call on the other
-    side timed out the call to Stream.Read will never return.
-
-    Any conditions that cause network writes to stall for 10-30 seconds can trigger
-    this Denial of Service- extremely high CPU contention on either side of the
-    connection, BGP reconvergence, etc. To resolve the Denial of Service issue, you
-    have to re-establish the connections, which will usually require a hard restart
-    of the service on either end of the connection.
+description: "(This report has been withdrawn with reason: \"By request of maintainer in\nhttps://github.com/golang/vulndb/issues/3453\"). \n\nThe default values for\nSession.config.KeepAliveInterval and Session.config.ConnectionWriteTimeout of\n30s and 10s create the possibility for timed out writes that most aren't\nhandling in their readers.\n\nCalls to Stream.Read on one side of a connection will hang until the underlying\nSession is closed if the corresponding Stream.Write call on the other side it's\nwaiting for returns with ErrConnectionWriteTimeout. This happens in the case of\nnetwork congestion between the two sides.\n\nIf you keep Session.sendCh full (fixed capacity of 64) for\nConnectionWriteTimeout, but for less than the KeepAliveInterval +\nConnectionWriteTimeout (which would kill the Session), Stream.Write will return\nErrConnectionWriteTimeout. The state of the underlying Session or Stream is not\nmodified. When this happens, the other side's Stream.Read call that's waiting\nfor that write will never return because there's no timeout for this edge-case.\n\nSince no keep alive timed out, you can continue to use the Session once the\nnetwork congestion is resolved, but that Stream.Read call will only return when\nthe Session closes or the response shows up. Since the write call on the other\nside timed out the call to Stream.Read will never return.\n\nAny conditions that cause network writes to stall for 10-30 seconds can trigger\nthis Denial of Service- extremely high CPU contention on either side of the\nconnection, BGP reconvergence, etc. To resolve the Denial of Service issue, you\nhave to re-establish the connections, which will usually require a hard restart\nof the service on either end of the connection."
+withdrawn: "2025-02-05T23:01:18Z"
 credits:
     - Logan Attwood
 references:
