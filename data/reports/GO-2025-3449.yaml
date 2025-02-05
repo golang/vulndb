@@ -1,0 +1,29 @@
+id: GO-2025-3449
+modules:
+    - module: github.com/CosmWasm/wasmvm
+      versions:
+        - fixed: 1.5.8
+      vulnerable_at: 1.5.7
+    - module: github.com/CosmWasm/wasmvm/v2
+      versions:
+        - introduced: 2.0.0
+        - fixed: 2.0.6
+        - introduced: 2.1.0
+        - fixed: 2.1.5
+        - introduced: 2.2.0
+        - fixed: 2.2.2
+      vulnerable_at: 2.2.1
+summary: 'wasmvm: Malicious smart contract can slow down block production in github.com/CosmWasm/wasmvm'
+ghsas:
+    - GHSA-mx2j-7cmv-353c
+references:
+    - advisory: https://github.com/CosmWasm/wasmvm/security/advisories/GHSA-mx2j-7cmv-353c
+    - web: https://github.com/CosmWasm/advisories/blob/main/CWAs/CWA-2025-002.md
+    - web: https://github.com/CosmWasm/cosmwasm/commit/2b7f2faa57a1efc8207455c37f87f1eee6035a27
+    - web: https://github.com/CosmWasm/cosmwasm/commit/a5d62f65b5eb947ebe40e2085b1c48a9d0a244d0
+    - web: https://github.com/CosmWasm/cosmwasm/commit/d6143b0aff16a39bbea4be37597d8e9d9b213d3b
+    - web: https://github.com/CosmWasm/cosmwasm/commit/f0c04c03cbe2557634c1bbcdc2ce203fe7caca58
+source:
+    id: GHSA-mx2j-7cmv-353c
+    created: 2025-02-05T18:05:06.244469-05:00
+review_status: NEEDS_REVIEW

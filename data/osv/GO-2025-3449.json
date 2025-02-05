@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3449",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-mx2j-7cmv-353c"
+  ],
+  "summary": "wasmvm: Malicious smart contract can slow down block production in github.com/CosmWasm/wasmvm",
+  "details": "wasmvm: Malicious smart contract can slow down block production in github.com/CosmWasm/wasmvm",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/CosmWasm/wasmvm",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.5.8"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/CosmWasm/wasmvm/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.0.0"
+            },
+            {
+              "fixed": "2.0.6"
+            },
+            {
+              "introduced": "2.1.0"
+            },
+            {
+              "fixed": "2.1.5"
+            },
+            {
+              "introduced": "2.2.0"
+            },
+            {
+              "fixed": "2.2.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/CosmWasm/wasmvm/security/advisories/GHSA-mx2j-7cmv-353c"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/CosmWasm/advisories/blob/main/CWAs/CWA-2025-002.md"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/CosmWasm/cosmwasm/commit/2b7f2faa57a1efc8207455c37f87f1eee6035a27"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/CosmWasm/cosmwasm/commit/a5d62f65b5eb947ebe40e2085b1c48a9d0a244d0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/CosmWasm/cosmwasm/commit/d6143b0aff16a39bbea4be37597d8e9d9b213d3b"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/CosmWasm/cosmwasm/commit/f0c04c03cbe2557634c1bbcdc2ce203fe7caca58"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3449",
+    "review_status": "UNREVIEWED"
+  }
+}

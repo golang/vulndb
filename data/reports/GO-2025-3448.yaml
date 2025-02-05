@@ -1,0 +1,29 @@
+id: GO-2025-3448
+modules:
+    - module: github.com/CosmWasm/wasmvm
+      versions:
+        - fixed: 1.5.8
+      vulnerable_at: 1.5.7
+    - module: github.com/CosmWasm/wasmvm/v2
+      versions:
+        - introduced: 2.0.0
+        - fixed: 2.0.6
+        - introduced: 2.1.0
+        - fixed: 2.1.5
+        - introduced: 2.2.0
+        - fixed: 2.2.2
+      vulnerable_at: 2.2.1
+summary: 'wasmvm: Malicious smart contract can crash the chain in github.com/CosmWasm/wasmvm'
+ghsas:
+    - GHSA-23qp-3c2m-xx6w
+references:
+    - advisory: https://github.com/CosmWasm/wasmvm/security/advisories/GHSA-23qp-3c2m-xx6w
+    - fix: https://github.com/CosmWasm/wasmvm/commit/0aefa4c378457aeb3c07e7975b875be38872c56d
+    - fix: https://github.com/CosmWasm/wasmvm/commit/1151bc6df7d02d1889b8da37cf8510eaf4198eea
+    - fix: https://github.com/CosmWasm/wasmvm/commit/8d44a286fabc793a2fba93752e58cd0fd5b88a2d
+    - fix: https://github.com/CosmWasm/wasmvm/commit/d4ff2adee44e6b9f7415a5dfbb3de745ab9b7678
+    - web: https://github.com/CosmWasm/advisories/blob/main/CWAs/CWA-2025-001.md
+source:
+    id: GHSA-23qp-3c2m-xx6w
+    created: 2025-02-05T18:05:10.210601-05:00
+review_status: NEEDS_REVIEW
