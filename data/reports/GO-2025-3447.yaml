@@ -1,0 +1,38 @@
+id: GO-2025-3447
+modules:
+    - module: std
+      versions:
+        - fixed: 1.22.12
+        - introduced: 1.23.0-0
+        - fixed: 1.23.6
+        - introduced: 1.24.0-0
+        - fixed: 1.24.0-rc.3
+      vulnerable_at: 1.23.1
+      packages:
+        - package: crypto/internal/nistec
+          goarch:
+            - ppc64le
+          symbols:
+            - p256NegCond
+          derived_symbols:
+            - P256Point.ScalarBaseMult
+            - P256Point.ScalarMult
+            - P256Point.SetBytes
+summary: Timing sidechannel for P-256 on ppc64le in crypto/internal/nistec
+description: |-
+    Due to the usage of a variable time instruction in the assembly implementation
+    of an internal function, a small number of bits of secret scalars are leaked on
+    the ppc64le architecture. Due to the way this function is used, we do not
+    believe this leakage is enough to allow recovery of the private key when P-256
+    is used in any well known protocols.
+references:
+    - fix: https://go.dev/cl/643735
+    - report: https://go.dev/issue/71383
+    - web: https://groups.google.com/g/golang-announce/c/xU1ZCHUZw3k
+cve_metadata:
+    id: CVE-2025-22866
+    cwe: 'CWE-208: Observable Timing Discrepancy'
+source:
+    id: go-security-team
+    created: 2025-02-06T10:27:04.033086-05:00
+review_status: REVIEWED

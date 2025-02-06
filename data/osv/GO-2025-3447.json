@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3447",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-22866"
+  ],
+  "summary": "Timing sidechannel for P-256 on ppc64le in crypto/internal/nistec",
+  "details": "Due to the usage of a variable time instruction in the assembly implementation of an internal function, a small number of bits of secret scalars are leaked on the ppc64le architecture. Due to the way this function is used, we do not believe this leakage is enough to allow recovery of the private key when P-256 is used in any well known protocols.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.22.12"
+            },
+            {
+              "introduced": "1.23.0-0"
+            },
+            {
+              "fixed": "1.23.6"
+            },
+            {
+              "introduced": "1.24.0-0"
+            },
+            {
+              "fixed": "1.24.0-rc.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "crypto/internal/nistec",
+            "goarch": [
+              "ppc64le"
+            ],
+            "symbols": [
+              "P256Point.ScalarBaseMult",
+              "P256Point.ScalarMult",
+              "P256Point.SetBytes",
+              "p256NegCond"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/643735"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/71383"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/xU1ZCHUZw3k"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3447",
+    "review_status": "REVIEWED"
+  }
+}
