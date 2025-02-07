@@ -1,0 +1,23 @@
+id: GO-2025-3457
+modules:
+    - module: github.com/clidey/whodb/core
+      versions:
+        - fixed: 0.0.0-20250127202645-8d67b767e005
+summary: |-
+    WhoDB allows parameter injection in DB connection URIs leading to local file
+    inclusion in github.com/clidey/whodb/core
+cves:
+    - CVE-2025-24787
+ghsas:
+    - GHSA-c7w4-9wv8-7x7c
+references:
+    - advisory: https://github.com/clidey/whodb/security/advisories/GHSA-c7w4-9wv8-7x7c
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-24787
+    - web: https://github.com/clidey/whodb/commit/8d67b767e00552e5eba2b1537179b74bfa662ee1
+    - web: https://github.com/go-sql-driver/mysql/blob/7403860363ca112af503b4612568c3096fecb466/infile.go#L128
+notes:
+    - fix: 'github.com/clidey/whodb/core: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-c7w4-9wv8-7x7c
+    created: 2025-02-07T16:10:01.801889-05:00
+review_status: UNREVIEWED

@@ -1,0 +1,22 @@
+id: GO-2025-3456
+modules:
+    - module: github.com/clidey/whodb/core
+      versions:
+        - fixed: 0.0.0-20250127172032-547336ac73c8
+summary: WhoDB has a path traversal opening Sqlite3 database in github.com/clidey/whodb/core
+cves:
+    - CVE-2025-24786
+ghsas:
+    - GHSA-9r4c-jwx3-3j76
+references:
+    - advisory: https://github.com/clidey/whodb/security/advisories/GHSA-9r4c-jwx3-3j76
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-24786
+    - web: https://github.com/clidey/whodb/blob/ba6eb81d0ca40baead74bca58b2567166999d6a6/core/src/plugins/sqlite3/db.go#L14-L20
+    - web: https://github.com/clidey/whodb/blob/ba6eb81d0ca40baead74bca58b2567166999d6a6/core/src/plugins/sqlite3/db.go#L26
+    - web: https://github.com/clidey/whodb/commit/547336ac73c8d17929c18c3941c0d5b0099753cc
+notes:
+    - fix: 'github.com/clidey/whodb/core: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-9r4c-jwx3-3j76
+    created: 2025-02-07T16:10:07.101671-05:00
+review_status: UNREVIEWED

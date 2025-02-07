@@ -1,0 +1,22 @@
+id: GO-2025-3458
+modules:
+    - module: github.com/drakkan/sftpgo
+      non_go_versions:
+        - introduced: 0.9.5
+      vulnerable_at: 1.2.2
+    - module: github.com/drakkan/sftpgo/v2
+      versions:
+        - fixed: 2.6.5
+      vulnerable_at: 2.6.4
+summary: SFTPGo has insufficient sanitization of user provided rsync command in github.com/drakkan/sftpgo
+cves:
+    - CVE-2025-24366
+ghsas:
+    - GHSA-vj7w-3m8c-6vpx
+references:
+    - advisory: https://github.com/drakkan/sftpgo/security/advisories/GHSA-vj7w-3m8c-6vpx
+    - fix: https://github.com/drakkan/sftpgo/commit/b347ab6051f6c501da205c09315fe99cd1fa3ba1
+source:
+    id: GHSA-vj7w-3m8c-6vpx
+    created: 2025-02-07T16:09:57.042068-05:00
+review_status: UNREVIEWED
