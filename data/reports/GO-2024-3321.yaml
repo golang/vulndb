@@ -8,12 +8,14 @@ modules:
         - package: golang.org/x/crypto/ssh
           symbols:
             - ServerConfig.PublicKeyCallback
-summary: |-
-    Misuse of ServerConfig.PublicKeyCallback may cause authorization bypass in
-    golang.org/x/crypto
+            - connection.serverAuthenticate
+          derived_symbols:
+            - NewServerConn
+summary: Misuse of connection.serverAuthenticate may cause authorization bypass in golang.org/x/crypto
 description: |-
-    Applications and libraries which misuse the ServerConfig.PublicKeyCallback
-    callback may be susceptible to an authorization bypass.
+    Applications and libraries which misuse connection.serverAuthenticate (via
+    callback field ServerConfig.PublicKeyCallback) may be susceptible to an
+    authorization bypass.
 
     The documentation for ServerConfig.PublicKeyCallback says that "A call to this
     function does not guarantee that the key offered is in fact used to
