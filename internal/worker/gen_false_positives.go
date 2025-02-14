@@ -13,7 +13,6 @@
 // Then run this program with the path to the repo as argument.
 
 //go:build ignore
-// +build ignore
 
 package main
 

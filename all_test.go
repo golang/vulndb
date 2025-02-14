@@ -3,7 +3,6 @@
 // license that can be found in the LICENSE file.
 
 //go:build go1.17 && !windows
-// +build go1.17,!windows
 
 package main
 

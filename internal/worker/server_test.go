@@ -4,7 +4,6 @@
 
 // The android builder doesn't copy the static directory (or anything but testdata).
 //go:build !android && go1.17
-// +build !android,go1.17
 
 package worker
 
