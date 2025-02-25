@@ -1,0 +1,26 @@
+id: GO-2025-3488
+modules:
+    - module: golang.org/x/oauth2
+      versions:
+        - fixed: 0.27.0
+      vulnerable_at: 0.26.0
+      packages:
+        - package: golang.org/x/oauth2/jws
+          symbols:
+            - Verify
+summary: Unexpected memory consumption during token parsing in golang.org/x/oauth2
+description: |-
+    An attacker can pass a malicious malformed token which causes unexpected memory
+    to be consumed during parsing.
+credits:
+    - jub0bs
+references:
+    - fix: https://go.dev/cl/652155
+    - report: https://go.dev/issue/71490
+cve_metadata:
+    id: CVE-2025-22868
+    cwe: 'CWE-1286: Improper Validation of Syntactic Correctness of Input'
+source:
+    id: go-security-team
+    created: 2025-02-25T16:34:28.98413-05:00
+review_status: REVIEWED

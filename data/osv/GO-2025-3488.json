@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3488",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-22868"
+  ],
+  "summary": "Unexpected memory consumption during token parsing in golang.org/x/oauth2",
+  "details": "An attacker can pass a malicious malformed token which causes unexpected memory to be consumed during parsing.",
+  "affected": [
+    {
+      "package": {
+        "name": "golang.org/x/oauth2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.27.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "golang.org/x/oauth2/jws",
+            "symbols": [
+              "Verify"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/652155"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/71490"
+    }
+  ],
+  "credits": [
+    {
+      "name": "jub0bs"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3488",
+    "review_status": "REVIEWED"
+  }
+}

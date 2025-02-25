@@ -1,0 +1,84 @@
+id: GO-2025-3487
+modules:
+    - module: golang.org/x/crypto
+      versions:
+        - fixed: 0.35.0
+      vulnerable_at: 0.34.0
+      packages:
+        - package: golang.org/x/crypto/ssh
+          symbols:
+            - newHandshakeTransport
+            - handshakeTransport.recordWriteError
+            - handshakeTransport.kexLoop
+            - handshakeTransport.writePacket
+          derived_symbols:
+            - Client.Dial
+            - Client.DialContext
+            - Client.DialTCP
+            - Client.Listen
+            - Client.ListenTCP
+            - Client.ListenUnix
+            - Client.NewSession
+            - Dial
+            - DiscardRequests
+            - NewClient
+            - NewClientConn
+            - NewServerConn
+            - Request.Reply
+            - Session.Close
+            - Session.CombinedOutput
+            - Session.Output
+            - Session.RequestPty
+            - Session.RequestSubsystem
+            - Session.Run
+            - Session.SendRequest
+            - Session.Setenv
+            - Session.Shell
+            - Session.Signal
+            - Session.Start
+            - Session.WindowChange
+            - channel.Accept
+            - channel.Close
+            - channel.CloseWrite
+            - channel.Read
+            - channel.ReadExtended
+            - channel.Reject
+            - channel.SendRequest
+            - channel.Write
+            - channel.WriteExtended
+            - connection.SendAuthBanner
+            - curve25519sha256.Client
+            - curve25519sha256.Server
+            - dhGEXSHA.Client
+            - dhGEXSHA.Server
+            - dhGroup.Client
+            - dhGroup.Server
+            - ecdh.Client
+            - ecdh.Server
+            - extChannel.Read
+            - extChannel.Write
+            - mux.OpenChannel
+            - mux.SendRequest
+            - sessionStdin.Close
+            - sshClientKeyboardInteractive.Challenge
+            - tcpListener.Accept
+            - tcpListener.Close
+            - unixListener.Accept
+            - unixListener.Close
+summary: Potential denial of service in golang.org/x/crypto
+description: |-
+    SSH servers which implement file transfer protocols are vulnerable to a denial
+    of service attack from clients which complete the key exchange slowly, or not at
+    all, causing pending content to be read into memory, but never transmitted.
+credits:
+    - Yuichi Watanabe
+references:
+    - fix: https://go.dev/cl/652135
+    - report: https://go.dev/issue/71931
+cve_metadata:
+    id: CVE-2025-22869
+    cwe: 'CWE-770: Allocation of Resources Without Limits or Throttling'
+source:
+    id: go-security-team
+    created: 2025-02-25T16:10:01.107094-05:00
+review_status: REVIEWED
