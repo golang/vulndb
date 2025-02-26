@@ -1,0 +1,138 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3485",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-27144",
+    "GHSA-c6gw-w398-hv78"
+  ],
+  "summary": "DoS in go-jose Parsing in github.com/go-jose/go-jose",
+  "details": "DoS in go-jose Parsing in github.com/go-jose/go-jose",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/go-jose/go-jose",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/go-jose/go-jose/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.0.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/go-jose/go-jose/v3",
+            "symbols": [
+              "ParseDetached",
+              "ParseEncrypted",
+              "ParseSigned",
+              "rawJSONWebEncryption.sanitized",
+              "rawJSONWebSignature.sanitized"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/go-jose/go-jose/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.0.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/go-jose/go-jose/v4",
+            "symbols": [
+              "ParseEncrypted",
+              "ParseEncryptedCompact",
+              "ParseSignedCompact"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/square/go-jose",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/go-jose/go-jose/security/advisories/GHSA-c6gw-w398-hv78"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/go-jose/go-jose/commit/99b346cec4e86d102284642c5dcbe9bb0cacfc22"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-jose/go-jose/releases/tag/v4.0.5"
+    },
+    {
+      "type": "WEB",
+      "url": "https://go.dev/issue/71490"
+    },
+    {
+      "type": "WEB",
+      "url": "https://go.dev/issue/71490"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3485",
+    "review_status": "REVIEWED"
+  }
+}

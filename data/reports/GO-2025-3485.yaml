@@ -1,0 +1,47 @@
+id: GO-2025-3485
+modules:
+    - module: github.com/go-jose/go-jose
+      vulnerable_at: 2.6.3+incompatible
+    - module: github.com/go-jose/go-jose/v3
+      versions:
+        - fixed: 3.0.4
+      vulnerable_at: 3.0.3
+      packages:
+        - package: github.com/go-jose/go-jose/v3
+          symbols:
+            - rawJSONWebEncryption.sanitized
+            - rawJSONWebSignature.sanitized
+          derived_symbols:
+            - ParseDetached
+            - ParseEncrypted
+            - ParseSigned
+    - module: github.com/go-jose/go-jose/v4
+      versions:
+        - fixed: 4.0.5
+      vulnerable_at: 4.0.4
+      packages:
+        - package: github.com/go-jose/go-jose/v4
+          symbols:
+            - ParseEncryptedCompact
+            - ParseSignedCompact
+          derived_symbols:
+            - ParseEncrypted
+    - module: github.com/square/go-jose
+      vulnerable_at: 2.6.0+incompatible
+summary: DoS in go-jose Parsing in github.com/go-jose/go-jose
+cves:
+    - CVE-2025-27144
+ghsas:
+    - GHSA-c6gw-w398-hv78
+references:
+    - advisory: https://github.com/go-jose/go-jose/security/advisories/GHSA-c6gw-w398-hv78
+    - fix: https://github.com/go-jose/go-jose/commit/99b346cec4e86d102284642c5dcbe9bb0cacfc22
+    - web: https://github.com/go-jose/go-jose/releases/tag/v4.0.5
+    - web: https://go.dev/issue/71490
+    - web: https://go.dev/issue/71490
+notes:
+    - go-jose/go-jose and square/go-jose are archived, end-of-life, and vulnerable with no fixes.
+source:
+    id: GHSA-c6gw-w398-hv78
+    created: 2025-02-26T12:35:14.227896-05:00
+review_status: REVIEWED

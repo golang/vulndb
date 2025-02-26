@@ -1,0 +1,24 @@
+id: GO-2025-3462
+modules:
+    - module: go.temporal.io/api
+      versions:
+        - fixed: 1.44.1
+      vulnerable_at: 1.44.0
+      packages:
+        - package: go.temporal.io/api/proxy
+          symbols:
+            - NewPayloadVisitorInterceptor
+summary: Unencrypted transmission in Temporal api-go library in go.temporal.io/api
+cves:
+    - CVE-2025-1243
+ghsas:
+    - GHSA-q9w6-cwj4-gf4p
+references:
+    - advisory: https://github.com/advisories/GHSA-q9w6-cwj4-gf4p
+    - web: https://github.com/temporalio/api-go/commit/dad8b169ada911d3778e070484d1ae78a58bd22b
+    - web: https://github.com/temporalio/api-go/releases/tag/v1.44.1
+    - web: https://temporal.io/blog/announcing-a-new-operation-workflow-update
+source:
+    id: GHSA-q9w6-cwj4-gf4p
+    created: 2025-02-26T12:35:57.774107-05:00
+review_status: REVIEWED

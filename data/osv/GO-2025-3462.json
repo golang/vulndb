@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3462",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-1243",
+    "GHSA-q9w6-cwj4-gf4p"
+  ],
+  "summary": "Unencrypted transmission in Temporal api-go library in go.temporal.io/api",
+  "details": "Unencrypted transmission in Temporal api-go library in go.temporal.io/api",
+  "affected": [
+    {
+      "package": {
+        "name": "go.temporal.io/api",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.44.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "go.temporal.io/api/proxy",
+            "symbols": [
+              "NewPayloadVisitorInterceptor"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-q9w6-cwj4-gf4p"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/temporalio/api-go/commit/dad8b169ada911d3778e070484d1ae78a58bd22b"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/temporalio/api-go/releases/tag/v1.44.1"
+    },
+    {
+      "type": "WEB",
+      "url": "https://temporal.io/blog/announcing-a-new-operation-workflow-update"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3462",
+    "review_status": "REVIEWED"
+  }
+}
