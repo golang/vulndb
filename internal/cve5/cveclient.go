@@ -150,7 +150,7 @@ func (c *Client) createReserveIDsRequest(opts ReserveOptions) (*http.Request, er
 		return nil, err
 	}
 	req.URL.RawQuery = opts.urlParams(c.Org).Encode()
-	return req, err
+	return req, nil
 }
 
 type rejectReason struct {
