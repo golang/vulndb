@@ -1,0 +1,37 @@
+id: GO-2025-3494
+modules:
+    - module: github.com/cosmos/ibc-go
+      vulnerable_at: 1.5.0
+    - module: github.com/cosmos/ibc-go/v2
+      vulnerable_at: 2.5.0
+    - module: github.com/cosmos/ibc-go/v3
+      vulnerable_at: 3.4.0
+    - module: github.com/cosmos/ibc-go/v4
+      vulnerable_at: 4.6.0
+    - module: github.com/cosmos/ibc-go/v5
+      vulnerable_at: 5.4.0
+    - module: github.com/cosmos/ibc-go/v6
+      vulnerable_at: 6.3.1
+    - module: github.com/cosmos/ibc-go/v7
+      versions:
+        - fixed: 7.9.2
+      vulnerable_at: 7.9.1
+    - module: github.com/cosmos/ibc-go/v8
+      versions:
+        - fixed: 8.6.1
+      vulnerable_at: 8.6.0
+summary: |-
+    IBC-Go has Non-deterministic JSON Unmarshalling of IBC Acknowledgement in
+    github.com/cosmos/ibc-go
+ghsas:
+    - GHSA-jg6f-48ff-5xrw
+references:
+    - advisory: https://github.com/cosmos/ibc-go/security/advisories/GHSA-jg6f-48ff-5xrw
+    - fix: https://github.com/cosmos/ibc-go/commit/59987d52d959dc5876ffd4f307c9b33a52a43748
+    - fix: https://github.com/cosmos/ibc-go/commit/9869b3c6f7eb05a935b1eb33611c5406f68438a5
+notes:
+    - advisory lists v7,v8 as vulnerable and <v7 as potentially vulnerable with no fixes
+source:
+    id: GHSA-jg6f-48ff-5xrw
+    created: 2025-03-03T10:55:32.377798-05:00
+review_status: REVIEWED
