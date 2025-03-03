@@ -1,0 +1,24 @@
+id: GO-2025-3490
+modules:
+    - module: github.com/rancher/rancher
+      non_go_versions:
+        - introduced: 2.8.0
+        - fixed: 2.8.13
+        - introduced: 2.9.0
+        - fixed: 2.9.7
+        - introduced: 2.10.0
+        - fixed: 2.10.3
+      vulnerable_at: 1.6.30
+summary: |-
+    Rancher does not Properly Validate Account Bindings in SAML Authentication
+    Enables User Impersonation on First Login in github.com/rancher/rancher
+cves:
+    - CVE-2025-23389
+ghsas:
+    - GHSA-mq23-vvg7-xfm4
+references:
+    - advisory: https://github.com/rancher/rancher/security/advisories/GHSA-mq23-vvg7-xfm4
+source:
+    id: GHSA-mq23-vvg7-xfm4
+    created: 2025-03-03T11:26:02.231997-05:00
+review_status: UNREVIEWED

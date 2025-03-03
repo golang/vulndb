@@ -1,0 +1,25 @@
+id: GO-2025-3467
+modules:
+    - module: github.com/cli/cli
+      vulnerable_at: 1.14.0
+    - module: github.com/cli/cli/v2
+      versions:
+        - introduced: 2.49.0
+        - fixed: 2.67.0
+      vulnerable_at: 2.66.1
+summary: |-
+    `gh attestation verify` returns incorrect exit code during verification if no
+    attestations are present in github.com/cli/cli
+cves:
+    - CVE-2025-25204
+ghsas:
+    - GHSA-fgw4-v983-mgp8
+references:
+    - advisory: https://github.com/cli/cli/security/advisories/GHSA-fgw4-v983-mgp8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-25204
+    - fix: https://github.com/cli/cli/pull/10421
+    - report: https://github.com/cli/cli/issues/10418
+source:
+    id: GHSA-fgw4-v983-mgp8
+    created: 2025-03-03T10:59:37.474862-05:00
+review_status: UNREVIEWED

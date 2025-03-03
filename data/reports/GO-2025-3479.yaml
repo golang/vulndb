@@ -1,0 +1,19 @@
+id: GO-2025-3479
+modules:
+    - module: github.com/treeverse/lakefs
+      versions:
+        - fixed: 1.50.0
+      vulnerable_at: 1.49.1
+summary: lakeFS allows an authenticated user to cause a crash by exhausting server memory in github.com/treeverse/lakefs
+cves:
+    - CVE-2025-27100
+ghsas:
+    - GHSA-j7jw-28jm-whr6
+references:
+    - advisory: https://github.com/treeverse/lakeFS/security/advisories/GHSA-j7jw-28jm-whr6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-27100
+    - web: https://github.com/treeverse/lakeFS/commit/3a625752acdf3f8e137bec20451e71d0f9fa82f2
+source:
+    id: GHSA-j7jw-28jm-whr6
+    created: 2025-03-03T10:58:46.198229-05:00
+review_status: UNREVIEWED

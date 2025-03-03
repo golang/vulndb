@@ -1,0 +1,20 @@
+id: GO-2025-3461
+modules:
+    - module: github.com/microsoft/go-crypto-winnative
+      versions:
+        - fixed: 0.0.0-20250211154640-f49c8e1379ea
+summary: go-crypto-winnative BCryptGenerateSymmetricKey memory leak in github.com/microsoft/go-crypto-winnative
+cves:
+    - CVE-2025-25199
+ghsas:
+    - GHSA-29c6-3hcj-89cf
+references:
+    - advisory: https://github.com/microsoft/go-crypto-winnative/security/advisories/GHSA-29c6-3hcj-89cf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-25199
+    - fix: https://github.com/microsoft/go-crypto-winnative/commit/f49c8e1379ea4b147d5bff1b3be5b0ff45792e41
+notes:
+    - fix: 'github.com/microsoft/go-crypto-winnative: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-29c6-3hcj-89cf
+    created: 2025-03-03T11:01:55.741939-05:00
+review_status: UNREVIEWED

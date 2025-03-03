@@ -1,0 +1,20 @@
+id: GO-2025-3475
+modules:
+    - module: github.com/hashicorp-forge/hermes
+      versions:
+        - fixed: 0.5.0
+      vulnerable_at: 0.4.0
+summary: Hermes improperly validates a JWT in github.com/hashicorp-forge/hermes
+cves:
+    - CVE-2025-1293
+ghsas:
+    - GHSA-vxm9-8mfw-vc6g
+references:
+    - advisory: https://github.com/advisories/GHSA-vxm9-8mfw-vc6g
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-1293
+    - fix: https://github.com/hashicorp-forge/hermes/commit/e36d479616099bd0c8dfde6786ea671f112d9106
+    - web: https://discuss.hashicorp.com/t/hcsec-2025-03-hashicorp-hermes-improperly-validates-aws-alb-jwts-which-may-lead-to-authentication-bypass/73371
+source:
+    id: GHSA-vxm9-8mfw-vc6g
+    created: 2025-03-03T10:59:07.87334-05:00
+review_status: UNREVIEWED

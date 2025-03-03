@@ -1,0 +1,27 @@
+id: GO-2025-3465
+modules:
+    - module: k8s.io/kubernetes
+      versions:
+        - fixed: 1.29.14
+        - introduced: 1.30.0
+        - fixed: 1.30.10
+        - introduced: 1.31.0
+        - fixed: 1.31.6
+        - introduced: 1.32.0
+        - fixed: 1.32.2
+      vulnerable_at: 1.32.1
+summary: Node Denial of Service via kubelet Checkpoint API in k8s.io/kubernetes
+cves:
+    - CVE-2025-0426
+ghsas:
+    - GHSA-jgfp-53c3-624w
+references:
+    - advisory: https://github.com/advisories/GHSA-jgfp-53c3-624w
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-0426
+    - web: http://www.openwall.com/lists/oss-security/2025/02/13/1
+    - web: https://github.com/kubernetes/kubernetes/issues/130016
+    - web: https://groups.google.com/g/kubernetes-security-announce/c/KiODfu8i6w8
+source:
+    id: GHSA-jgfp-53c3-624w
+    created: 2025-03-03T10:59:47.536247-05:00
+review_status: UNREVIEWED

@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3477",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-27088",
+    "GHSA-pp9m-qf39-hxjc"
+  ],
+  "summary": "S3-Proxy allows Reflected Cross-site Scripting (XSS) in template implementation in github.com/oxyno-zeta/s3-proxy",
+  "details": "S3-Proxy allows Reflected Cross-site Scripting (XSS) in template implementation in github.com/oxyno-zeta/s3-proxy",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/oxyno-zeta/s3-proxy",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20250220214310-c611c741ed48"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/oxyno-zeta/s3-proxy/security/advisories/GHSA-pp9m-qf39-hxjc"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-27088"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/oxyno-zeta/s3-proxy/commit/c611c741ed4872ea3f46232be23bb830f96f9564"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/oxyno-zeta/s3-proxy/blob/master/templates/folder-list.tpl#L19C21-L19C38"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/oxyno-zeta/s3-proxy/releases/tag/v4.18.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3477",
+    "review_status": "UNREVIEWED"
+  }
+}

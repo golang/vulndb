@@ -1,0 +1,22 @@
+id: GO-2025-3491
+modules:
+    - module: github.com/rancher/rancher
+      non_go_versions:
+        - introduced: 2.8.0
+        - fixed: 2.8.13
+        - introduced: 2.9.0
+        - fixed: 2.9.7
+        - introduced: 2.10.0
+        - fixed: 2.10.3
+      vulnerable_at: 1.6.30
+summary: Rancher allows an unauthenticated stack overflow in /v3-public/authproviders API in github.com/rancher/rancher
+cves:
+    - CVE-2025-23388
+ghsas:
+    - GHSA-xr9q-h9c7-xw8q
+references:
+    - advisory: https://github.com/rancher/rancher/security/advisories/GHSA-xr9q-h9c7-xw8q
+source:
+    id: GHSA-xr9q-h9c7-xw8q
+    created: 2025-03-03T11:25:44.024821-05:00
+review_status: UNREVIEWED

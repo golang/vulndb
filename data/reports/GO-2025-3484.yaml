@@ -1,0 +1,23 @@
+id: GO-2025-3484
+modules:
+    - module: github.com/navidrome/navidrome
+      versions:
+        - introduced: 0.52.0
+        - fixed: 0.54.5
+      vulnerable_at: 0.54.4
+summary: |-
+    Navidrome allows an authentication bypass in Subsonic API with non-existent
+    username in github.com/navidrome/navidrome
+cves:
+    - CVE-2025-27112
+ghsas:
+    - GHSA-c3p4-vm8f-386p
+references:
+    - advisory: https://github.com/navidrome/navidrome/security/advisories/GHSA-c3p4-vm8f-386p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-27112
+    - fix: https://github.com/navidrome/navidrome/commit/09ae41a2da66264c60ef307882362d2e2d8d8b89
+    - fix: https://github.com/navidrome/navidrome/commit/287079a9e409fb6b9708ca384d7daa7b5185c1a0
+source:
+    id: GHSA-c3p4-vm8f-386p
+    created: 2025-03-03T11:26:09.294031-05:00
+review_status: UNREVIEWED

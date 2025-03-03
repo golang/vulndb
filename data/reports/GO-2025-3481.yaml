@@ -1,0 +1,38 @@
+id: GO-2025-3481
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 9.11.0-rc1+incompatible
+        - fixed: 9.11.8+incompatible
+        - introduced: 10.2.0-rc1+incompatible
+        - fixed: 10.2.3+incompatible
+        - introduced: 10.3.0-rc1+incompatible
+        - fixed: 10.3.3+incompatible
+        - introduced: 10.4.0-rc1+incompatible
+        - fixed: 10.4.2+incompatible
+      vulnerable_at: 10.4.1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20250110161910-96195f1bd746
+summary: Mattermost fails to restrict channel export of archived channels in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-24526
+ghsas:
+    - GHSA-q8p2-2hwc-jw64
+references:
+    - advisory: https://github.com/advisories/GHSA-q8p2-2hwc-jw64
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-24526
+    - web: https://github.com/mattermost/mattermost-plugin-channel-export/commit/3c052b66207fb734bfc4c948941e7f7522a82550
+    - web: https://github.com/mattermost/mattermost-plugin-channel-export/issues/51
+    - web: https://github.com/mattermost/mattermost/commit/96195f1bd7467f572525c35b5087acaeb53daa63
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-q8p2-2hwc-jw64
+    created: 2025-03-03T11:26:37.353676-05:00
+review_status: UNREVIEWED

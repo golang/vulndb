@@ -1,0 +1,34 @@
+id: GO-2025-3482
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 9.11.0-rc1+incompatible
+        - fixed: 9.11.7+incompatible
+        - introduced: 10.4.0-rc1+incompatible
+        - fixed: 10.4.2+incompatible
+      vulnerable_at: 10.4.1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20241217145510-faa7e4f2ea0c
+summary: |-
+    Mattermost fails to invalidate all active sessions when converting a user to a
+    bot in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-1412
+ghsas:
+    - GHSA-rhvr-6w8c-6v7w
+references:
+    - advisory: https://github.com/advisories/GHSA-rhvr-6w8c-6v7w
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-1412
+    - web: https://github.com/mattermost/mattermost/commit/faa7e4f2ea0cca2fd2aba271912b9fc3be788842
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-rhvr-6w8c-6v7w
+    created: 2025-03-03T11:26:33.231735-05:00
+review_status: UNREVIEWED

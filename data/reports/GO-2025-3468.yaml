@@ -1,0 +1,23 @@
+id: GO-2025-3468
+modules:
+    - module: github.com/authelia/authelia
+      vulnerable_at: 3.16.2+incompatible
+    - module: github.com/authelia/authelia/v4
+      versions:
+        - fixed: 4.38.19
+      vulnerable_at: 4.38.18
+summary: |-
+    Authelia applies regulation separately to Username-based logins to Email-based
+    logins in github.com/authelia/authelia
+cves:
+    - CVE-2025-24806
+ghsas:
+    - GHSA-m5mf-3963-4x26
+references:
+    - advisory: https://github.com/authelia/authelia/security/advisories/GHSA-m5mf-3963-4x26
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-24806
+    - fix: https://github.com/authelia/authelia/commit/d4a54189aa6563912f9427b96dcb01eacafa785c
+source:
+    id: GHSA-m5mf-3963-4x26
+    created: 2025-03-03T10:59:27.146541-05:00
+review_status: UNREVIEWED

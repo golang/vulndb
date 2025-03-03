@@ -1,0 +1,22 @@
+id: GO-2025-3477
+modules:
+    - module: github.com/oxyno-zeta/s3-proxy
+      versions:
+        - fixed: 0.0.0-20250220214310-c611c741ed48
+summary: S3-Proxy allows Reflected Cross-site Scripting (XSS) in template implementation in github.com/oxyno-zeta/s3-proxy
+cves:
+    - CVE-2025-27088
+ghsas:
+    - GHSA-pp9m-qf39-hxjc
+references:
+    - advisory: https://github.com/oxyno-zeta/s3-proxy/security/advisories/GHSA-pp9m-qf39-hxjc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-27088
+    - fix: https://github.com/oxyno-zeta/s3-proxy/commit/c611c741ed4872ea3f46232be23bb830f96f9564
+    - web: https://github.com/oxyno-zeta/s3-proxy/blob/master/templates/folder-list.tpl#L19C21-L19C38
+    - web: https://github.com/oxyno-zeta/s3-proxy/releases/tag/v4.18.1
+notes:
+    - fix: 'github.com/oxyno-zeta/s3-proxy: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-pp9m-qf39-hxjc
+    created: 2025-03-03T10:58:58.662333-05:00
+review_status: UNREVIEWED

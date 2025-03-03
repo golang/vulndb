@@ -1,0 +1,22 @@
+id: GO-2025-3489
+modules:
+    - module: github.com/rancher/rancher
+      non_go_versions:
+        - introduced: 2.8.0
+        - fixed: 2.8.13
+        - introduced: 2.9.0
+        - fixed: 2.9.7
+        - introduced: 2.10.0
+        - fixed: 2.10.3
+      vulnerable_at: 1.6.30
+summary: Rancher's SAML-based login via CLI can be denied by unauthenticated users in github.com/rancher/rancher
+cves:
+    - CVE-2025-23387
+ghsas:
+    - GHSA-5qmp-9x47-92q8
+references:
+    - advisory: https://github.com/rancher/rancher/security/advisories/GHSA-5qmp-9x47-92q8
+source:
+    id: GHSA-5qmp-9x47-92q8
+    created: 2025-03-03T11:26:05.723535-05:00
+review_status: UNREVIEWED

@@ -1,0 +1,21 @@
+id: GO-2025-3460
+modules:
+    - module: github.com/distribution/distribution
+      unsupported_versions:
+        - cve_version_range: affected at >= 3.0.0-beta.1, <= 3.0.0-rc.2
+      vulnerable_at: 2.8.3+incompatible
+summary: |-
+    Distribution's token authentication allows attacker to inject an untrusted
+    signing key in a JWT in github.com/distribution/distribution
+cves:
+    - CVE-2025-24976
+ghsas:
+    - GHSA-phw4-mc57-4hwc
+references:
+    - advisory: https://github.com/distribution/distribution/security/advisories/GHSA-phw4-mc57-4hwc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-24976
+    - fix: https://github.com/distribution/distribution/commit/5ea9aa028db65ca5665f6af2c20ecf9dc34e5fcd
+source:
+    id: CVE-2025-24976
+    created: 2025-03-03T11:02:00.475963-05:00
+review_status: UNREVIEWED
