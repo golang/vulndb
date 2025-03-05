@@ -1,0 +1,21 @@
+id: GO-2025-3498
+modules:
+    - module: github.com/jasonlovesdoggo/abacus
+      versions:
+        - fixed: 0.0.0-20250302043802-898ff1204e11
+summary: Goroutine Leak in Abacus SSE Implementation in github.com/jasonlovesdoggo/abacus
+cves:
+    - CVE-2025-27421
+ghsas:
+    - GHSA-vh64-54px-qgf8
+references:
+    - advisory: https://github.com/JasonLovesDoggo/abacus/security/advisories/GHSA-vh64-54px-qgf8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-27421
+    - web: https://github.com/JasonLovesDoggo/abacus/commit/78fdb9b48b7f6d08ed0cd41077509c0a97071552
+    - web: https://github.com/JasonLovesDoggo/abacus/commit/898ff1204e11317cc161240b660e63eed5a72b33
+notes:
+    - fix: 'github.com/jasonlovesdoggo/abacus: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-vh64-54px-qgf8
+    created: 2025-03-05T11:00:47.719908-05:00
+review_status: UNREVIEWED

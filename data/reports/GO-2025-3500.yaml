@@ -1,0 +1,19 @@
+id: GO-2025-3500
+modules:
+    - module: github.com/matrix-org/pinecone
+      unsupported_versions:
+        - last_affected: 0.11.0
+      vulnerable_at: 0.11.0
+summary: In-memory stored Cross-site scripting (XSS) vulnerability in pineconesim in github.com/matrix-org/pinecone
+cves:
+    - CVE-2025-27155
+ghsas:
+    - GHSA-fr62-mg2q-7wqv
+references:
+    - advisory: https://github.com/matrix-org/pinecone/security/advisories/GHSA-fr62-mg2q-7wqv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-27155
+    - fix: https://github.com/matrix-org/pinecone/commit/218b2801995b174085cb1c8fafe2d3aa661f85bd
+source:
+    id: GHSA-fr62-mg2q-7wqv
+    created: 2025-03-05T11:00:20.405008-05:00
+review_status: UNREVIEWED

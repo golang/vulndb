@@ -1,0 +1,43 @@
+id: GO-2025-3463
+modules:
+    - module: github.com/cosmos/ibc-apps/middleware/packet-forward-middleware/v4
+      vulnerable_at: 4.1.2
+    - module: github.com/cosmos/ibc-apps/middleware/packet-forward-middleware/v5
+      vulnerable_at: 5.2.2
+    - module: github.com/cosmos/ibc-apps/middleware/packet-forward-middleware/v6
+      vulnerable_at: 6.1.2
+    - module: github.com/cosmos/ibc-apps/middleware/packet-forward-middleware/v7
+      versions:
+        - fixed: 7.2.1
+      vulnerable_at: 7.2.0
+      packages:
+        - package: github.com/cosmos/ibc-apps/middleware/packet-forward-middleware/v7/packetforward
+          symbols:
+            - AppModule.RegisterServices
+            - Keeper.WriteAcknowledgementForForwardedPacket
+            - AppModule.ConsensusVersion
+    - module: github.com/cosmos/ibc-apps/middleware/packet-forward-middleware/v8
+      versions:
+        - fixed: 8.1.1
+      vulnerable_at: 8.1.0
+      packages:
+        - package: github.com/cosmos/ibc-apps/middleware/packet-forward-middleware/v8/packetforward
+          symbols:
+            - AppModule.RegisterServices
+            - Keeper.WriteAcknowledgementForForwardedPacket
+            - AppModule.ConsensusVersion
+summary: |-
+    DoS may temporarily disable IBC transfers to native chain in
+    github.com/cosmos/ibc-apps/middleware/packet-forward-middleware
+ghsas:
+    - GHSA-6fgm-x6ff-w78f
+references:
+    - advisory: https://github.com/cosmos/ibc-apps/security/advisories/GHSA-6fgm-x6ff-w78f
+    - web: https://github.com/cosmos/ibc-apps/releases/tag/middleware%2Fpacket-forward-middleware%2Fv7.2.1
+    - web: https://github.com/cosmos/ibc-apps/releases/tag/middleware%2Fpacket-forward-middleware%2Fv8.1.1
+notes:
+    - Advisory lists no fixes for v4, v5, or v6.
+source:
+    id: GHSA-6fgm-x6ff-w78f
+    created: 2025-03-05T11:00:51.957496-05:00
+review_status: REVIEWED

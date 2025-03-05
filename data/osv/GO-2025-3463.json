@@ -1,0 +1,144 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3463",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-6fgm-x6ff-w78f"
+  ],
+  "summary": "DoS may temporarily disable IBC transfers to native chain in github.com/cosmos/ibc-apps/middleware/packet-forward-middleware",
+  "details": "DoS may temporarily disable IBC transfers to native chain in github.com/cosmos/ibc-apps/middleware/packet-forward-middleware",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cosmos/ibc-apps/middleware/packet-forward-middleware/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/cosmos/ibc-apps/middleware/packet-forward-middleware/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/cosmos/ibc-apps/middleware/packet-forward-middleware/v6",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/cosmos/ibc-apps/middleware/packet-forward-middleware/v7",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "7.2.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cosmos/ibc-apps/middleware/packet-forward-middleware/v7/packetforward",
+            "symbols": [
+              "AppModule.ConsensusVersion",
+              "AppModule.RegisterServices",
+              "Keeper.WriteAcknowledgementForForwardedPacket"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/cosmos/ibc-apps/middleware/packet-forward-middleware/v8",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "8.1.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cosmos/ibc-apps/middleware/packet-forward-middleware/v8/packetforward",
+            "symbols": [
+              "AppModule.ConsensusVersion",
+              "AppModule.RegisterServices",
+              "Keeper.WriteAcknowledgementForForwardedPacket"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cosmos/ibc-apps/security/advisories/GHSA-6fgm-x6ff-w78f"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/cosmos/ibc-apps/releases/tag/middleware%2Fpacket-forward-middleware%2Fv7.2.1"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/cosmos/ibc-apps/releases/tag/middleware%2Fpacket-forward-middleware%2Fv8.1.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3463",
+    "review_status": "REVIEWED"
+  }
+}
