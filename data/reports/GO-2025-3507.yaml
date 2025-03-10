@@ -1,0 +1,21 @@
+id: GO-2025-3507
+modules:
+    - module: github.com/strangelove-ventures/horcrux
+      vulnerable_at: 0.1.4
+    - module: github.com/strangelove-ventures/horcrux/v3
+      versions:
+        - introduced: 3.1.0
+        - fixed: 3.3.2
+      vulnerable_at: 3.3.1
+summary: Horcrux Double Sign Possibility in github.com/strangelove-ventures/horcrux
+ghsas:
+    - GHSA-6wxf-7784-62fp
+references:
+    - advisory: https://github.com/strangelove-ventures/horcrux/security/advisories/GHSA-6wxf-7784-62fp
+    - fix: https://github.com/strangelove-ventures/horcrux/commit/fb49be9baed30942b81b42da2b4f7040a2a83c02
+    - fix: https://github.com/strangelove-ventures/horcrux/pull/169
+    - web: https://github.com/strangelove-ventures/horcrux/releases/tag/v3.3.2
+source:
+    id: GHSA-6wxf-7784-62fp
+    created: 2025-03-10T14:13:35.744193-04:00
+review_status: UNREVIEWED

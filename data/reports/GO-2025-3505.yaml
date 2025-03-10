@@ -1,0 +1,31 @@
+id: GO-2025-3505
+modules:
+    - module: github.com/fleetdm/fleet/v4
+      non_go_versions:
+        - fixed: 4.53.2
+        - introduced: 4.54.0
+        - fixed: 4.58.1
+        - introduced: 4.62.0
+        - fixed: 4.62.4
+        - introduced: 4.63.0
+        - fixed: 4.63.2
+        - introduced: 4.64.0
+        - fixed: 4.64.2
+summary: |-
+    Fleet has SAML authentication vulnerability due to improper SAML response
+    validation in github.com/fleetdm/fleet
+cves:
+    - CVE-2025-27509
+ghsas:
+    - GHSA-52jx-g6m5-h735
+references:
+    - advisory: https://github.com/fleetdm/fleet/security/advisories/GHSA-52jx-g6m5-h735
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-27509
+    - web: https://github.com/fleetdm/fleet/commit/718c95e47ad010ad6b8ceb3f3460e921fbfc53bb
+    - web: https://github.com/fleetdm/fleet/releases/tag/fleet-v4.64.2
+notes:
+    - fix: 'github.com/fleetdm/fleet/v4: could not add vulnerable_at: no fix, but could not find latest version from proxy: HTTP GET /github.com/fleetdm/fleet/v4/@latest returned status 404 Not Found'
+source:
+    id: GHSA-52jx-g6m5-h735
+    created: 2025-03-10T14:13:27.937602-04:00
+review_status: UNREVIEWED

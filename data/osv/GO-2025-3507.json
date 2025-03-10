@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3507",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-6wxf-7784-62fp"
+  ],
+  "summary": "Horcrux Double Sign Possibility in github.com/strangelove-ventures/horcrux",
+  "details": "Horcrux Double Sign Possibility in github.com/strangelove-ventures/horcrux",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/strangelove-ventures/horcrux",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/strangelove-ventures/horcrux/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "3.1.0"
+            },
+            {
+              "fixed": "3.3.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/strangelove-ventures/horcrux/security/advisories/GHSA-6wxf-7784-62fp"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/strangelove-ventures/horcrux/commit/fb49be9baed30942b81b42da2b4f7040a2a83c02"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/strangelove-ventures/horcrux/pull/169"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/strangelove-ventures/horcrux/releases/tag/v3.3.2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3507",
+    "review_status": "UNREVIEWED"
+  }
+}
