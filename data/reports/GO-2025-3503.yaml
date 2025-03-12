@@ -1,0 +1,39 @@
+id: GO-2025-3503
+modules:
+    - module: golang.org/x/net
+      versions:
+        - fixed: 0.36.0
+      vulnerable_at: 0.35.0
+      packages:
+        - package: golang.org/x/net/http/httpproxy
+          symbols:
+            - config.useProxy
+            - domainMatch.match
+        - package: golang.org/x/net/proxy
+          symbols:
+            - PerHost.dialerForRequest
+            - PerHost.AddFromString
+          derived_symbols:
+            - Dial
+            - FromEnvironment
+            - FromEnvironmentUsing
+            - PerHost.Dial
+            - PerHost.DialContext
+summary: HTTP Proxy bypass using IPv6 Zone IDs in golang.org/x/net
+description: |-
+    Matching of hosts against proxy patterns can improperly treat an IPv6 zone ID as
+    a hostname component. For example, when the NO_PROXY environment variable is set
+    to "*.example.com", a request to "[::1%25.example.com]:80` will incorrectly
+    match and not be proxied.
+credits:
+    - Juho Forsén of Mattermost
+references:
+    - fix: https://go.dev/cl/654697
+    - report: https://go.dev/issue/71984
+cve_metadata:
+    id: CVE-2025-22870
+    cwe: CWE-115 Misinterpretation of Input
+source:
+    id: go-security-team
+    created: 2025-03-11T13:48:45.101124-04:00
+review_status: REVIEWED
