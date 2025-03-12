@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3510",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-1296",
+    "GHSA-c3q9-q986-vrwh"
+  ],
+  "summary": "Nomad is vulnerable to unintentional exposure of the workload identity token and client secret token in audit logs in github.com/hashicorp/nomad",
+  "details": "Nomad is vulnerable to unintentional exposure of the workload identity token and client secret token in audit logs in github.com/hashicorp/nomad",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hashicorp/nomad",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-c3q9-q986-vrwh"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-1296"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hashicorp/nomad/commit/dc482bf9058faf7a192486eb52caa1d42646f6b3"
+    },
+    {
+      "type": "WEB",
+      "url": "https://discuss.hashicorp.com/t/hcsec-2025-04-nomad-exposes-sensitive-workload-identity-and-client-secret-token-in-audit-logs/73737"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3510",
+    "review_status": "UNREVIEWED"
+  }
+}

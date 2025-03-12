@@ -1,0 +1,24 @@
+id: GO-2025-3512
+modules:
+    - module: github.com/kubevirt/csi-driver
+      non_go_versions:
+        - fixed: 0.0.0-202403081943-cc28dcbb0afc14
+      vulnerable_at: 0.0.0-20250312123404-b519e032051d
+summary: 'kubevirt-csi: PersistentVolume allows access to HCP''s root node in github.com/kubevirt/csi-driver'
+cves:
+    - CVE-2024-1725
+ghsas:
+    - GHSA-fg9q-5cw2-p6r9
+references:
+    - advisory: https://github.com/advisories/GHSA-fg9q-5cw2-p6r9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-1725
+    - fix: https://github.com/kubevirt/csi-driver/commit/cc28dcbb0afca0a7cb8a73bc998ab49f864ed560
+    - web: https://access.redhat.com/errata/RHSA-2024:1559
+    - web: https://access.redhat.com/errata/RHSA-2024:1891
+    - web: https://access.redhat.com/errata/RHSA-2024:2047
+    - web: https://access.redhat.com/security/cve/CVE-2024-1725
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2265398
+source:
+    id: GHSA-fg9q-5cw2-p6r9
+    created: 2025-03-12T13:11:41.358676-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3511",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-27403",
+    "GHSA-44f7-5fj5-h4px"
+  ],
+  "summary": "Ratify Azure authentication providers can leak authentication tokens to non-Azure container registries in github.com/deislabs/ratify",
+  "details": "Ratify Azure authentication providers can leak authentication tokens to non-Azure container registries in github.com/deislabs/ratify",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/deislabs/ratify",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.2.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/ratify-project/ratify",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.3.0"
+            },
+            {
+              "fixed": "1.3.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/ratify-project/ratify/security/advisories/GHSA-44f7-5fj5-h4px"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-27403"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/ratify-project/ratify/commit/0ec0c08490e3d672ae64b1a220c90d5484f1c93f"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/ratify-project/ratify/commit/84c7c48fa76bb9a1c9583635d1e90bc25b1a546c"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3511",
+    "review_status": "UNREVIEWED"
+  }
+}

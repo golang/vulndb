@@ -1,0 +1,19 @@
+id: GO-2025-3514
+modules:
+    - module: github.com/cheqd/cheqd-node
+      non_go_versions:
+        - fixed: 3.1.7
+      vulnerable_at: 1.4.5
+summary: |-
+    cheqd-node affected by Non-deterministic JSON Unmarshalling of IBC
+    Acknowledgement in github.com/cheqd/cheqd-node
+ghsas:
+    - GHSA-33cr-m232-xqch
+references:
+    - advisory: https://github.com/cheqd/cheqd-node/security/advisories/GHSA-33cr-m232-xqch
+    - web: https://github.com/cosmos/ibc-go/commit/59987d52d959dc5876ffd4f307c9b33a52a43748
+    - web: https://github.com/cosmos/ibc-go/security/advisories/GHSA-jg6f-48ff-5xrw
+source:
+    id: GHSA-33cr-m232-xqch
+    created: 2025-03-12T13:11:35.055271-04:00
+review_status: UNREVIEWED

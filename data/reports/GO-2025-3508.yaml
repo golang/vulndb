@@ -1,0 +1,29 @@
+id: GO-2025-3508
+modules:
+    - module: github.com/lf-edge/ekuiper
+      unsupported_versions:
+        - last_affected: 1.14.7
+      vulnerable_at: 1.14.7
+    - module: github.com/lf-edge/ekuiper/v2
+      versions:
+        - fixed: 2.0.8
+      vulnerable_at: 2.0.7
+summary: LF Edge eKuiper allows Stored XSS in Rules Functionality in github.com/lf-edge/ekuiper
+cves:
+    - CVE-2024-52812
+ghsas:
+    - GHSA-6hrw-x7pr-4mp8
+references:
+    - advisory: https://github.com/lf-edge/ekuiper/security/advisories/GHSA-6hrw-x7pr-4mp8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-52812
+    - web: https://github.com/lf-edge/ekuiper/blob/dbce32d5a195cf1de949b3a6a4e29f0df0f3330d/internal/server/rest.go#L681
+    - web: https://github.com/lf-edge/ekuiper/blob/dbce32d5a195cf1de949b3a6a4e29f0df0f3330d/internal/server/rest.go#L716
+    - web: https://github.com/lf-edge/ekuiper/blob/dbce32d5a195cf1de949b3a6a4e29f0df0f3330d/internal/server/rest.go#L735
+    - web: https://github.com/lf-edge/ekuiper/blob/dbce32d5a195cf1de949b3a6a4e29f0df0f3330d/internal/server/rest.go#L794
+    - web: https://github.com/lf-edge/ekuiper/blob/dbce32d5a195cf1de949b3a6a4e29f0df0f3330d/internal/server/rest.go#L809
+    - web: https://github.com/lf-edge/ekuiper/blob/dbce32d5a195cf1de949b3a6a4e29f0df0f3330d/internal/server/rest.go#L824
+    - web: https://github.com/lf-edge/ekuiper/releases/tag/v2.0.8
+source:
+    id: GHSA-6hrw-x7pr-4mp8
+    created: 2025-03-12T13:12:08.592069-04:00
+review_status: UNREVIEWED
