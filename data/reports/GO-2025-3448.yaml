@@ -4,16 +4,27 @@ modules:
       versions:
         - fixed: 1.5.8
       vulnerable_at: 1.5.7
+      packages:
+        - package: github.com/CosmWasm/wasmvm/internal/api
     - module: github.com/CosmWasm/wasmvm/v2
       versions:
-        - introduced: 2.0.0
         - fixed: 2.0.6
-        - introduced: 2.1.0
+      vulnerable_at: 2.0.5
+      packages:
+        - package: github.com/CosmWasm/wasmvm/v2/internal/api
+    - module: github.com/CosmWasm/wasmvm/v2
+      versions:
         - fixed: 2.1.5
-        - introduced: 2.2.0
+      vulnerable_at: 2.1.4
+      packages:
+        - package: github.com/CosmWasm/wasmvm/v2/internal/api
+    - module: github.com/CosmWasm/wasmvm/v2
+      versions:
         - fixed: 2.2.2
       vulnerable_at: 2.2.1
-summary: 'wasmvm: Malicious smart contract can crash the chain in github.com/CosmWasm/wasmvm'
+      packages:
+        - package: github.com/CosmWasm/wasmvm/v2/internal/api
+summary: Malicious smart contract can crash the chain in github.com/CosmWasm/wasmvm
 ghsas:
     - GHSA-23qp-3c2m-xx6w
 references:
@@ -26,4 +37,4 @@ references:
 source:
     id: GHSA-23qp-3c2m-xx6w
     created: 2025-02-05T18:05:10.210601-05:00
-review_status: NEEDS_REVIEW
+review_status: REVIEWED

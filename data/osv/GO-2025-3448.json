@@ -6,8 +6,8 @@
   "aliases": [
     "GHSA-23qp-3c2m-xx6w"
   ],
-  "summary": "wasmvm: Malicious smart contract can crash the chain in github.com/CosmWasm/wasmvm",
-  "details": "wasmvm: Malicious smart contract can crash the chain in github.com/CosmWasm/wasmvm",
+  "summary": "Malicious smart contract can crash the chain in github.com/CosmWasm/wasmvm",
+  "details": "Malicious smart contract can crash the chain in github.com/CosmWasm/wasmvm",
   "affected": [
     {
       "package": {
@@ -27,7 +27,13 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/CosmWasm/wasmvm/internal/api"
+          }
+        ]
+      }
     },
     {
       "package": {
@@ -39,19 +45,59 @@
           "type": "SEMVER",
           "events": [
             {
-              "introduced": "2.0.0"
+              "introduced": "0"
             },
             {
               "fixed": "2.0.6"
-            },
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/CosmWasm/wasmvm/v2/internal/api"
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/CosmWasm/wasmvm/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
             {
-              "introduced": "2.1.0"
+              "introduced": "0"
             },
             {
               "fixed": "2.1.5"
-            },
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/CosmWasm/wasmvm/v2/internal/api"
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/CosmWasm/wasmvm/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
             {
-              "introduced": "2.2.0"
+              "introduced": "0"
             },
             {
               "fixed": "2.2.2"
@@ -59,7 +105,13 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/CosmWasm/wasmvm/v2/internal/api"
+          }
+        ]
+      }
     }
   ],
   "references": [
@@ -90,6 +142,6 @@
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2025-3448",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }
