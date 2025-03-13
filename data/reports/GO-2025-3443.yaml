@@ -2,10 +2,24 @@ id: GO-2025-3443
 modules:
     - module: github.com/cometbft/cometbft
       versions:
-        - fixed: 0.38.17
-        - introduced: 1.0.0-alpha.1
+        - fixed: 0.38.16
+      vulnerable_at: 0.38.15
+      packages:
+        - package: github.com/cometbft/cometbft/types
+          symbols:
+            - Part.ValidateBasic
+          derived_symbols:
+            - PartFromProto
+    - module: github.com/cometbft/cometbft
+      versions:
         - fixed: 1.0.1
       vulnerable_at: 1.0.0
+      packages:
+        - package: github.com/cometbft/cometbft/types
+          symbols:
+            - Part.ValidateBasic
+          derived_symbols:
+            - PartFromProto
 summary: |-
     CometBFT allows a malicious peer to stall the network by disseminating seemingly
     valid block parts in github.com/cometbft/cometbft

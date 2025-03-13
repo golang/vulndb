@@ -3,9 +3,23 @@ modules:
     - module: github.com/cometbft/cometbft
       versions:
         - fixed: 0.38.17
-        - introduced: 1.0.0-alpha.1
+      vulnerable_at: 0.38.16
+      packages:
+        - package: github.com/cometbft/cometbft/blocksync
+          symbols:
+            - BlockPool.SetPeerRange
+          derived_symbols:
+            - Reactor.Receive
+    - module: github.com/cometbft/cometbft
+      versions:
         - fixed: 1.0.1
       vulnerable_at: 1.0.0
+      packages:
+        - package: github.com/cometbft/cometbft/internal/blocksync
+          symbols:
+            - BlockPool.SetPeerRange
+          derived_symbols:
+            - Reactor.Receive
 summary: CometBFT allows a malicious peer to make node stuck in blocksync in github.com/cometbft/cometbft
 cves:
     - CVE-2025-24371

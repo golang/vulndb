@@ -22,10 +22,34 @@
               "introduced": "0"
             },
             {
-              "fixed": "0.38.17"
-            },
+              "fixed": "0.38.16"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cometbft/cometbft/types",
+            "symbols": [
+              "Part.ValidateBasic",
+              "PartFromProto"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/cometbft/cometbft",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
             {
-              "introduced": "1.0.0-alpha.1"
+              "introduced": "0"
             },
             {
               "fixed": "1.0.1"
@@ -33,7 +57,17 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cometbft/cometbft/types",
+            "symbols": [
+              "Part.ValidateBasic",
+              "PartFromProto"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
