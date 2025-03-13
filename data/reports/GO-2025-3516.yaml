@@ -1,0 +1,27 @@
+id: GO-2025-3516
+modules:
+    - module: github.com/cosmos/cosmos-sdk
+      versions:
+        - fixed: 0.47.17
+        - introduced: 0.50.0-alpha.0
+        - fixed: 0.50.13
+      vulnerable_at: 0.50.12
+      packages:
+        - package: github.com/cosmos/cosmos-sdk/x/group/keeper
+          symbols:
+            - Keeper.doTallyAndUpdate
+          derived_symbols:
+            - Keeper.Exec
+            - Keeper.SubmitProposal
+            - Keeper.TallyProposalsAtVPEnd
+            - Keeper.Vote
+summary: Cosmos SDK can halt when erroring in EndBlocker in github.com/cosmos/cosmos-sdk/
+ghsas:
+    - GHSA-47ww-ff84-4jrg
+references:
+    - advisory: https://github.com/cosmos/cosmos-sdk/security/advisories/GHSA-47ww-ff84-4jrg
+    - fix: https://github.com/cosmos/cosmos-sdk/commit/cbd69fb1f4fac418c1f8c6253f5f91fb1263776a
+source:
+    id: GHSA-47ww-ff84-4jrg
+    created: 2025-03-13T10:52:36.932387-04:00
+review_status: REVIEWED

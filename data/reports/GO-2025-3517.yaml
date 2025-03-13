@@ -1,0 +1,46 @@
+id: GO-2025-3517
+modules:
+    - module: github.com/cosmos/ibc-go
+      vulnerable_at: 1.5.0
+    - module: github.com/cosmos/ibc-go/v2
+      vulnerable_at: 2.5.0
+    - module: github.com/cosmos/ibc-go/v3
+      vulnerable_at: 3.4.0
+    - module: github.com/cosmos/ibc-go/v4
+      vulnerable_at: 4.6.0
+    - module: github.com/cosmos/ibc-go/v5
+      vulnerable_at: 5.4.0
+    - module: github.com/cosmos/ibc-go/v6
+      vulnerable_at: 6.3.1
+    - module: github.com/cosmos/ibc-go/v7
+      versions:
+        - fixed: 7.10.0
+      vulnerable_at: 7.9.2
+      packages:
+        - package: github.com/cosmos/ibc-go/v7/modules/core/04-channel/keeper
+          symbols:
+            - Keeper.AcknowledgePacket
+    - module: github.com/cosmos/ibc-go/v8
+      versions:
+        - introduced: 8.0.0-alpha.1
+        - fixed: 8.7.0
+      vulnerable_at: 8.6.1
+      packages:
+        - package: github.com/cosmos/ibc-go/v8/modules/core/04-channel/keeper
+          symbols:
+            - Keeper.AcknowledgePacket
+summary: |-
+    Non-deterministic JSON Unmarshalling of IBC Acknowledgement can result
+    in a chain halt in github.com/cosmos/ibc-go
+ghsas:
+    - GHSA-4wf3-5qj9-368v
+references:
+    - advisory: https://github.com/cosmos/ibc-go/security/advisories/GHSA-4wf3-5qj9-368v
+    - web: https://github.com/cosmos/ibc-go/releases/tag/v7.10.0
+    - web: https://github.com/cosmos/ibc-go/releases/tag/v8.7.0
+notes:
+    - advisory lists v7,v8 as vulnerable with fixes and <v6 as potentially vulnerable with no fixes
+source:
+    id: GHSA-4wf3-5qj9-368v
+    created: 2025-03-13T10:52:34.060905-04:00
+review_status: REVIEWED

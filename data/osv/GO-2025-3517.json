@@ -1,0 +1,191 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3517",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-4wf3-5qj9-368v"
+  ],
+  "summary": "Non-deterministic JSON Unmarshalling of IBC Acknowledgement can result in a chain halt in github.com/cosmos/ibc-go",
+  "details": "Non-deterministic JSON Unmarshalling of IBC Acknowledgement can result in a chain halt in github.com/cosmos/ibc-go",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cosmos/ibc-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/cosmos/ibc-go/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/cosmos/ibc-go/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/cosmos/ibc-go/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/cosmos/ibc-go/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/cosmos/ibc-go/v6",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/cosmos/ibc-go/v7",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "7.10.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cosmos/ibc-go/v7/modules/core/04-channel/keeper",
+            "symbols": [
+              "Keeper.AcknowledgePacket"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/cosmos/ibc-go/v8",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "8.0.0-alpha.1"
+            },
+            {
+              "fixed": "8.7.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cosmos/ibc-go/v8/modules/core/04-channel/keeper",
+            "symbols": [
+              "Keeper.AcknowledgePacket"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cosmos/ibc-go/security/advisories/GHSA-4wf3-5qj9-368v"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/cosmos/ibc-go/releases/tag/v7.10.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/cosmos/ibc-go/releases/tag/v8.7.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3517",
+    "review_status": "REVIEWED"
+  }
+}
