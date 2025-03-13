@@ -1,12 +1,8 @@
 id: GO-2025-3427
 modules:
-    - module: github.com/argoproj/argo-cd
-      vulnerable_at: 1.8.6
-    - module: github.com/argoproj/argo-cd/v2
-      unsupported_versions:
-        - last_affected: 2.10.3
-      vulnerable_at: 2.13.3
-summary: ArgoCD Namespace Isolation Break in github.com/argoproj/argo-cd
+    - module: github.com/redhat-developer/gitops-operator
+      vulnerable_at: 1.15.0
+summary: Malicious PrometheusRule creation to all namespaces that deploy a ArgoCD CR instance in github.com/redhat-developer/gitops-operator
 cves:
     - CVE-2024-13484
 ghsas:
