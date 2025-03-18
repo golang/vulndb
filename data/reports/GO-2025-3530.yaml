@@ -1,0 +1,25 @@
+id: GO-2025-3530
+modules:
+    - module: github.com/metal3-io/baremetal-operator/apis
+      versions:
+        - fixed: 0.8.1
+        - introduced: 0.9.0
+        - fixed: 0.9.1
+      vulnerable_at: 0.9.0
+summary: |-
+    Bare Metal Operator (BMO) can expose any secret from other namespaces via
+    BMCEventSubscription CRD in github.com/metal3-io/baremetal-operator/apis
+cves:
+    - CVE-2025-29781
+ghsas:
+    - GHSA-c98h-7hp9-v9hq
+references:
+    - advisory: https://github.com/metal3-io/baremetal-operator/security/advisories/GHSA-c98h-7hp9-v9hq
+    - web: https://github.com/metal3-io/baremetal-operator/commit/19f8443b1fe182f76dd81b43122e8dd102f8b94c
+    - web: https://github.com/metal3-io/baremetal-operator/pull/2321
+    - web: https://github.com/metal3-io/baremetal-operator/pull/2322
+    - web: https://github.com/metal3-io/metal3-docs/blob/main/design/baremetal-operator/bmc-events.md
+source:
+    id: GHSA-c98h-7hp9-v9hq
+    created: 2025-03-18T12:19:45.05457-04:00
+review_status: UNREVIEWED

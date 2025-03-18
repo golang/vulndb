@@ -1,0 +1,26 @@
+id: GO-2025-3528
+modules:
+    - module: github.com/containerd/containerd
+      versions:
+        - fixed: 1.6.38
+        - introduced: 1.7.0-beta.0
+        - fixed: 1.7.27
+      vulnerable_at: 1.7.26
+    - module: github.com/containerd/containerd/v2
+      versions:
+        - fixed: 2.0.4
+      vulnerable_at: 2.0.3
+summary: containerd has an integer overflow in User ID handling in github.com/containerd/containerd
+cves:
+    - CVE-2024-40635
+ghsas:
+    - GHSA-265r-hfxg-fhmg
+references:
+    - advisory: https://github.com/containerd/containerd/security/advisories/GHSA-265r-hfxg-fhmg
+    - fix: https://github.com/containerd/containerd/commit/05044ec0a9a75232cad458027ca83437aae3f4da
+    - fix: https://github.com/containerd/containerd/commit/1a43cb6a1035441f9aca8f5666a9b3ef9e70ab20
+    - fix: https://github.com/containerd/containerd/commit/cf158e884cfe4812a6c371b59e4ea9bc4c46e51a
+source:
+    id: GHSA-265r-hfxg-fhmg
+    created: 2025-03-18T12:19:26.864701-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,19 @@
+id: GO-2025-3527
+modules:
+    - module: github.com/docker/buildx
+      versions:
+        - fixed: 0.21.3
+      vulnerable_at: 0.21.2
+summary: buildx allows a possible credential leakage to telemetry endpoint in github.com/docker/buildx
+cves:
+    - CVE-2025-0495
+ghsas:
+    - GHSA-m4gq-fm9h-8q75
+references:
+    - advisory: https://github.com/docker/buildx/security/advisories/GHSA-m4gq-fm9h-8q75
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-0495
+    - fix: https://github.com/docker/buildx/commit/18ccba072076ddbfb0aeedd6746d7719b0729b58
+source:
+    id: GHSA-m4gq-fm9h-8q75
+    created: 2025-03-18T12:19:18.62408-04:00
+review_status: UNREVIEWED

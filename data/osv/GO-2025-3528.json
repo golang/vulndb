@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3528",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-40635",
+    "GHSA-265r-hfxg-fhmg"
+  ],
+  "summary": "containerd has an integer overflow in User ID handling in github.com/containerd/containerd",
+  "details": "containerd has an integer overflow in User ID handling in github.com/containerd/containerd",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/containerd/containerd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.6.38"
+            },
+            {
+              "introduced": "1.7.0-beta.0"
+            },
+            {
+              "fixed": "1.7.27"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/containerd/containerd/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.0.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/containerd/containerd/security/advisories/GHSA-265r-hfxg-fhmg"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/containerd/containerd/commit/05044ec0a9a75232cad458027ca83437aae3f4da"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/containerd/containerd/commit/1a43cb6a1035441f9aca8f5666a9b3ef9e70ab20"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/containerd/containerd/commit/cf158e884cfe4812a6c371b59e4ea9bc4c46e51a"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3528",
+    "review_status": "UNREVIEWED"
+  }
+}
