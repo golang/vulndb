@@ -1,0 +1,44 @@
+id: GO-2025-3525
+modules:
+    - module: github.com/expr-lang/expr
+      versions:
+        - fixed: 1.17.0
+      vulnerable_at: 1.16.9
+      packages:
+        - package: github.com/expr-lang/expr/parser
+          symbols:
+            - parser.expect
+            - parser.parseExpression
+            - parser.parseVariableDeclaration
+            - parser.parseConditional
+            - parser.parsePrimary
+            - parser.parseSecondary
+            - parser.toIntegerNode
+            - parser.parseCall
+            - parser.parseArrayExpression
+            - parser.parseMapExpression
+            - parser.parsePostfixExpression
+          derived_symbols:
+            - Parse
+            - ParseWithConfig
+        - package: github.com/expr-lang/expr/vm
+          symbols:
+            - VM.Run
+            - VM.pop
+          derived_symbols:
+            - Run
+summary: |-
+    Memory Exhaustion in Expr Parser with Unrestricted Input in
+    github.com/expr-lang/expr
+cves:
+    - CVE-2025-29786
+ghsas:
+    - GHSA-93mq-9ffx-83m2
+references:
+    - advisory: https://github.com/expr-lang/expr/security/advisories/GHSA-93mq-9ffx-83m2
+    - fix: https://github.com/expr-lang/expr/commit/0d19441454426d2f58edb22c31f3ba5f99c7a26e
+    - fix: https://github.com/expr-lang/expr/pull/762
+source:
+    id: GHSA-93mq-9ffx-83m2
+    created: 2025-03-18T11:51:46.829184-04:00
+review_status: REVIEWED
