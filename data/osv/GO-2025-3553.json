@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3553",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-30204",
+    "GHSA-mh63-6h87-95cp"
+  ],
+  "summary": "Excessive memory allocation during header parsing in github.com/golang-jwt/jwt",
+  "details": "Excessive memory allocation during header parsing in github.com/golang-jwt/jwt",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/golang-jwt/jwt",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/golang-jwt/jwt/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.5.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/golang-jwt/jwt/v4",
+            "symbols": [
+              "ParseUnverified"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/golang-jwt/jwt/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "5.0.0-rc.1"
+            },
+            {
+              "fixed": "5.2.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/golang-jwt/jwt/v5",
+            "symbols": [
+              "ParseUnverified"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/golang-jwt/jwt/security/advisories/GHSA-mh63-6h87-95cp"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/golang-jwt/jwt/commit/0951d184286dece21f73c85673fd308786ffe9c3"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3553",
+    "review_status": "REVIEWED"
+  }
+}

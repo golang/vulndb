@@ -1,0 +1,33 @@
+id: GO-2025-3553
+modules:
+    - module: github.com/golang-jwt/jwt
+      vulnerable_at: 3.2.2+incompatible
+    - module: github.com/golang-jwt/jwt/v4
+      versions:
+        - fixed: 4.5.2
+      vulnerable_at: 4.5.1
+      packages:
+        - package: github.com/golang-jwt/jwt/v4
+          symbols:
+            - ParseUnverified
+    - module: github.com/golang-jwt/jwt/v5
+      versions:
+        - introduced: 5.0.0-rc.1
+        - fixed: 5.2.2
+      vulnerable_at: 5.2.1
+      packages:
+        - package: github.com/golang-jwt/jwt/v5
+          symbols:
+            - ParseUnverified
+summary: Excessive memory allocation during header parsing in github.com/golang-jwt/jwt
+cves:
+    - CVE-2025-30204
+ghsas:
+    - GHSA-mh63-6h87-95cp
+references:
+    - advisory: https://github.com/golang-jwt/jwt/security/advisories/GHSA-mh63-6h87-95cp
+    - fix: https://github.com/golang-jwt/jwt/commit/0951d184286dece21f73c85673fd308786ffe9c3
+source:
+    id: GHSA-mh63-6h87-95cp
+    created: 2025-03-25T12:07:15.109849-04:00
+review_status: REVIEWED

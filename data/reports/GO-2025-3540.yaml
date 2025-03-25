@@ -1,0 +1,82 @@
+id: GO-2025-3540
+modules:
+    - module: github.com/redis/go-redis
+      non_go_versions:
+        - introduced: 9.6.0b1
+      vulnerable_at: 6.15.9+incompatible
+    - module: github.com/redis/go-redis
+      non_go_versions:
+        - introduced: 9.6.0b1
+      vulnerable_at: 6.15.9+incompatible
+    - module: github.com/redis/go-redis
+      non_go_versions:
+        - introduced: 9.6.0b1
+      vulnerable_at: 6.15.9+incompatible
+      packages:
+        - package: github.com/redis/go-redis/v9
+          symbols:
+            - redis.ClusterOptions
+            - redis.RingOptions
+            - redis.FailoverOptions
+            - redis.UniversalOptions
+            - baseClient.initConn
+    - module: github.com/redis/go-redis/v7
+      vulnerable_at: 7.4.1
+    - module: github.com/redis/go-redis/v8
+      vulnerable_at: 8.11.5
+    - module: github.com/redis/go-redis/v9
+      versions:
+        - introduced: 9.5.1
+        - fixed: 9.5.5
+      vulnerable_at: 9.5.4
+      packages:
+        - package: github.com/redis/go-redis/v9
+          symbols:
+            - redis.ClusterOptions
+            - redis.RingOptions
+            - redis.FailoverOptions
+            - redis.UniversalOptions
+            - baseClient.initConn
+    - module: github.com/redis/go-redis/v9
+      versions:
+        - fixed: 9.6.3
+      vulnerable_at: 9.6.2
+      packages:
+        - package: github.com/redis/go-redis/v9
+          symbols:
+            - redis.ClusterOptions
+            - redis.RingOptions
+            - redis.FailoverOptions
+            - redis.UniversalOptions
+            - baseClient.initConn
+    - module: github.com/redis/go-redis/v9
+      versions:
+        - introduced: 9.7.0-beta.1
+        - fixed: 9.7.3
+      vulnerable_at: 9.7.2
+      packages:
+        - package: github.com/redis/go-redis/v9
+          symbols:
+            - redis.ClusterOptions
+            - redis.RingOptions
+            - redis.FailoverOptions
+            - redis.UniversalOptions
+            - baseClient.initConn
+summary: |-
+    Potential out of order responses when CLIENT SETINFO times out during connection
+    establishment in github.com/redis/go-redis
+cves:
+    - CVE-2025-29923
+ghsas:
+    - GHSA-92cp-5422-2mw7
+references:
+    - advisory: https://github.com/redis/go-redis/security/advisories/GHSA-92cp-5422-2mw7
+    - fix: https://github.com/redis/go-redis/commit/d236865b0cfa1b752ea4b7da666b1fdcd0acebb6
+    - fix: https://github.com/redis/go-redis/pull/3295
+notes:
+    - GHSA lists no patches for go-redis/v7, go-redis/v8
+    - fix: 'module merge error: could not merge versions of module github.com/redis/go-redis/v9: introduced and fixed versions must alternate'
+source:
+    id: GHSA-92cp-5422-2mw7
+    created: 2025-03-25T12:08:19.663307-04:00
+review_status: REVIEWED
