@@ -1,0 +1,19 @@
+id: GO-2025-3554
+modules:
+    - module: github.com/mccutchen/go-httpbin
+      vulnerable_at: 1.1.1
+    - module: github.com/mccutchen/go-httpbin/v2
+      versions:
+        - fixed: 2.18.0
+      vulnerable_at: 2.17.1
+summary: Reflected XSS in go-httpbin due to unrestricted client control over Content-Type in github.com/mccutchen/go-httpbin
+ghsas:
+    - GHSA-528q-4pgm-wvg2
+references:
+    - advisory: https://github.com/mccutchen/go-httpbin/security/advisories/GHSA-528q-4pgm-wvg2
+    - fix: https://github.com/mccutchen/go-httpbin/commit/0decfd1a2e88d85ca6bfb8a92421653f647cbc04
+    - web: https://github.com/mccutchen/go-httpbin/releases/tag/v2.18.0
+source:
+    id: GHSA-528q-4pgm-wvg2
+    created: 2025-03-25T12:07:11.327663-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,24 @@
+id: GO-2025-3567
+modules:
+    - module: k8s.io/ingress-nginx
+      non_go_versions:
+        - fixed: 1.11.5
+        - introduced: 1.12.0-beta.0
+        - fixed: 1.12.1
+      vulnerable_at: 0.0.0-20250325144035-1d7abc12ef72
+summary: ingress-nginx admission controller RCE escalation in k8s.io/ingress-nginx
+cves:
+    - CVE-2025-1974
+ghsas:
+    - GHSA-mgvx-rpfc-9mpv
+references:
+    - advisory: https://github.com/advisories/GHSA-mgvx-rpfc-9mpv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-1974
+    - web: https://github.com/kubernetes/ingress-nginx/releases/tag/controller-v1.11.5
+    - web: https://github.com/kubernetes/ingress-nginx/releases/tag/controller-v1.12.1
+    - web: https://github.com/kubernetes/kubernetes/issues/131009
+    - web: https://groups.google.com/g/kubernetes-security-announce/c/2qa9DFtN0cQ
+source:
+    id: GHSA-mgvx-rpfc-9mpv
+    created: 2025-03-25T12:04:40.218586-04:00
+review_status: UNREVIEWED

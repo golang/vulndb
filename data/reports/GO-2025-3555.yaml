@@ -1,0 +1,28 @@
+id: GO-2025-3555
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 9.11.0+incompatible
+        - fixed: 9.11.9+incompatible
+      vulnerable_at: 9.11.9-rc2+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      vulnerable_at: 8.0.0-20250325070947-3b50ea2621b8
+summary: |-
+    Mattermost fail to prompt for explicit approval before adding a team admin to a
+    private channel in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-27715
+ghsas:
+    - GHSA-cw7q-5cgc-h3h9
+references:
+    - advisory: https://github.com/advisories/GHSA-cw7q-5cgc-h3h9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-27715
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-cw7q-5cgc-h3h9
+    created: 2025-03-25T12:07:07.714742-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,19 @@
+id: GO-2025-3543
+modules:
+    - module: github.com/opencontainers/runc
+      non_go_versions:
+        - fixed: 0.5.3
+      vulnerable_at: 1.2.6
+summary: Libcontainer is affected by capabilities elevation in github.com/opencontainers/runc
+cves:
+    - CVE-2025-27612
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-27612
+    - fix: https://github.com/youki-dev/youki/commit/747e342d2026fbf3a395db3e2a491ebef00082f1
+    - web: https://github.com/opencontainers/runc/security/advisories/GHSA-f3fp-gc8g-vw66
+    - web: https://github.com/youki-dev/youki/blob/9e63fa4da1672a78ca45100f3059a732784a5174/crates/libcontainer/src/container/tenant_builder.rs#L408
+    - web: https://github.com/youki-dev/youki/security/advisories/GHSA-5w4j-f78p-4wh9
+source:
+    id: CVE-2025-27612
+    created: 2025-03-25T12:08:02.851021-04:00
+review_status: UNREVIEWED

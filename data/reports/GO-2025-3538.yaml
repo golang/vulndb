@@ -1,0 +1,22 @@
+id: GO-2025-3538
+modules:
+    - module: github.com/kcp-dev/kcp
+      versions:
+        - fixed: 0.26.3
+      vulnerable_at: 0.26.2
+summary: |-
+    kcp allows unauthorized creation and deletion of objects in arbitrary workspaces
+    through APIExport Virtual Workspace in github.com/kcp-dev/kcp
+cves:
+    - CVE-2025-29922
+ghsas:
+    - GHSA-w2rr-38wv-8rrp
+references:
+    - advisory: https://github.com/kcp-dev/kcp/security/advisories/GHSA-w2rr-38wv-8rrp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-29922
+    - fix: https://github.com/kcp-dev/kcp/commit/614ecbf35f11db00f65391ab6fbb1547ca8b5d38
+    - fix: https://github.com/kcp-dev/kcp/pull/3338
+source:
+    id: GHSA-w2rr-38wv-8rrp
+    created: 2025-03-25T12:08:57.596425-04:00
+review_status: UNREVIEWED

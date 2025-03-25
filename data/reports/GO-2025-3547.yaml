@@ -1,0 +1,23 @@
+id: GO-2025-3547
+modules:
+    - module: k8s.io/kubernetes
+      versions:
+        - introduced: 1.3.0
+      unsupported_versions:
+        - last_affected: 1.32.3
+      vulnerable_at: 1.32.3
+summary: Kubernetes kube-apiserver Vulnerable to Race Condition in k8s.io/kubernetes
+cves:
+    - CVE-2024-7598
+ghsas:
+    - GHSA-r56h-j38w-hrqq
+references:
+    - advisory: https://github.com/advisories/GHSA-r56h-j38w-hrqq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-7598
+    - web: http://www.openwall.com/lists/oss-security/2025/03/20/2
+    - web: https://github.com/kubernetes/kubernetes/issues/126587
+    - web: https://groups.google.com/g/kubernetes-security-announce/c/67D7UFqiPRc
+source:
+    id: GHSA-r56h-j38w-hrqq
+    created: 2025-03-25T12:07:47.934249-04:00
+review_status: UNREVIEWED

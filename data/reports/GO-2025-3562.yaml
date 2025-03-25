@@ -1,0 +1,22 @@
+id: GO-2025-3562
+modules:
+    - module: github.com/kyverno/kyverno
+      versions:
+        - fixed: 1.14.0-alpha.1
+      vulnerable_at: 1.13.4
+summary: Kyverno ignores subjectRegExp and IssuerRegExp in github.com/kyverno/kyverno
+cves:
+    - CVE-2025-29778
+ghsas:
+    - GHSA-46mp-8w32-6g94
+references:
+    - advisory: https://github.com/kyverno/kyverno/security/advisories/GHSA-46mp-8w32-6g94
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-29778
+    - fix: https://github.com/kyverno/kyverno/commit/8777672fb17bdf252bd2e7d8de3441e240404a60
+    - fix: https://github.com/kyverno/kyverno/pull/12237
+    - web: https://github.com/Mohdcode/kyverno/blob/373f942ea9fa8b63140d0eb0e101b9a5f71033f3/pkg/cosign/cosign.go#L537
+    - web: https://github.com/kyverno/policies/issues/1246
+source:
+    id: GHSA-46mp-8w32-6g94
+    created: 2025-03-25T12:05:06.316921-04:00
+review_status: UNREVIEWED

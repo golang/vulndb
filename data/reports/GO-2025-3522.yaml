@@ -1,0 +1,33 @@
+id: GO-2025-3522
+modules:
+    - module: k8s.io/kubernetes
+      versions:
+        - fixed: 1.29.13
+        - introduced: 1.30.0-alpha.0
+        - fixed: 1.30.9
+        - introduced: 1.31.0-alpha.0
+        - fixed: 1.31.5
+        - introduced: 1.32.0-alpha.0
+        - fixed: 1.32.1
+      vulnerable_at: 1.32.0
+summary: |-
+    Kubernetes allows Command Injection affecting Windows nodes via
+    nodes/*/logs/query API in k8s.io/kubernetes
+cves:
+    - CVE-2024-9042
+ghsas:
+    - GHSA-vv39-3w5q-974q
+references:
+    - advisory: https://github.com/advisories/GHSA-vv39-3w5q-974q
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-9042
+    - web: http://www.openwall.com/lists/oss-security/2025/01/16/1
+    - web: https://github.com/kubernetes/kubernetes/commit/45f4ccc2153bbb782253704cbe24c05e22b5d60c
+    - web: https://github.com/kubernetes/kubernetes/commit/5fe148234f8ab1184f26069c4f7bef6c37efe347
+    - web: https://github.com/kubernetes/kubernetes/commit/75c83a6871dc030675288c6d63c275a43c2f0d55
+    - web: https://github.com/kubernetes/kubernetes/commit/fb0187c2bf7061258bb89891edb1237261eb7abc
+    - web: https://github.com/kubernetes/kubernetes/issues/129654
+    - web: https://groups.google.com/g/kubernetes-security-announce/c/9C3vn6aCSVg
+source:
+    id: GHSA-vv39-3w5q-974q
+    created: 2025-03-25T12:09:38.238824-04:00
+review_status: UNREVIEWED

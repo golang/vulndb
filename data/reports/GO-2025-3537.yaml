@@ -1,0 +1,27 @@
+id: GO-2025-3537
+modules:
+    - module: github.com/corazawaf/coraza
+      vulnerable_at: 1.2.0
+    - module: github.com/corazawaf/coraza/v2
+      vulnerable_at: 2.0.1
+    - module: github.com/corazawaf/coraza/v3
+      versions:
+        - fixed: 3.3.3
+      vulnerable_at: 3.3.2
+    - module: github.com/jptosso/coraza-waf
+      vulnerable_at: 1.2.0
+summary: |-
+    OWASP Coraza WAF has parser confusion which leads to wrong URI in
+    `REQUEST_FILENAME` in github.com/corazawaf/coraza
+cves:
+    - CVE-2025-29914
+ghsas:
+    - GHSA-q9f5-625g-xm39
+references:
+    - advisory: https://github.com/corazawaf/coraza/security/advisories/GHSA-q9f5-625g-xm39
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-29914
+    - fix: https://github.com/corazawaf/coraza/commit/4722c9ad0d502abd56b8d6733c6b47eb4111742d
+source:
+    id: GHSA-q9f5-625g-xm39
+    created: 2025-03-25T12:09:03.680407-04:00
+review_status: UNREVIEWED

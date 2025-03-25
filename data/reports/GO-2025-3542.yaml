@@ -1,0 +1,20 @@
+id: GO-2025-3542
+modules:
+    - module: github.com/mudler/LocalAI
+      non_go_versions:
+        - fixed: 2.22.0
+      vulnerable_at: 1.40.0
+summary: LocalAI Cross-Site Scripting (XSS) vulnerability in its search functionality in github.com/mudler/LocalAI
+cves:
+    - CVE-2024-9900
+ghsas:
+    - GHSA-w6hh-w36c-vxmw
+references:
+    - advisory: https://github.com/advisories/GHSA-w6hh-w36c-vxmw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-9900
+    - web: https://github.com/mudler/localai/commit/a1634b219a4e52813e70ff07e6376a01449c4515
+    - web: https://huntr.com/bounties/b39cd230-db66-471b-89b9-24afaa078e68
+source:
+    id: GHSA-w6hh-w36c-vxmw
+    created: 2025-03-25T12:08:09.683384-04:00
+review_status: UNREVIEWED

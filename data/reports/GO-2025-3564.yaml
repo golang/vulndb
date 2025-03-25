@@ -1,0 +1,24 @@
+id: GO-2025-3564
+modules:
+    - module: k8s.io/ingress-nginx
+      non_go_versions:
+        - fixed: 1.11.5
+        - introduced: 1.12.0-beta.0
+        - fixed: 1.12.1
+      vulnerable_at: 0.0.0-20250325144035-1d7abc12ef72
+summary: ingress-nginx controller - auth secret file path traversal vulnerability in k8s.io/ingress-nginx
+cves:
+    - CVE-2025-24513
+ghsas:
+    - GHSA-242m-6h72-7hgp
+references:
+    - advisory: https://github.com/advisories/GHSA-242m-6h72-7hgp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-24513
+    - web: https://github.com/kubernetes/ingress-nginx/releases/tag/controller-v1.11.5
+    - web: https://github.com/kubernetes/ingress-nginx/releases/tag/controller-v1.12.1
+    - web: https://github.com/kubernetes/kubernetes/issues/131005
+    - web: https://groups.google.com/g/kubernetes-security-announce/c/2qa9DFtN0cQ
+source:
+    id: GHSA-242m-6h72-7hgp
+    created: 2025-03-25T12:04:57.89934-04:00
+review_status: UNREVIEWED

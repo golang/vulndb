@@ -1,0 +1,27 @@
+id: GO-2025-3560
+modules:
+    - module: github.com/cilium/cilium
+      versions:
+        - introduced: 1.15.0
+        - fixed: 1.15.15
+        - introduced: 1.16.0
+        - fixed: 1.16.8
+        - introduced: 1.17.0
+        - fixed: 1.17.2
+      vulnerable_at: 1.17.1
+summary: |-
+    Cilium East-west traffic not subject to egress policy enforcement for requests
+    via Gateway API load balancers in github.com/cilium/cilium
+cves:
+    - CVE-2025-30162
+ghsas:
+    - GHSA-24qp-4xx8-3jvj
+references:
+    - advisory: https://github.com/cilium/cilium/security/advisories/GHSA-24qp-4xx8-3jvj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-30162
+    - web: https://docs.cilium.io/en/stable/network/lb-ipam
+    - web: https://github.com/cilium/proxy/pull/1172
+source:
+    id: GHSA-24qp-4xx8-3jvj
+    created: 2025-03-25T12:05:21.618996-04:00
+review_status: UNREVIEWED

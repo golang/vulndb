@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3520",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-h2rp-8vpx-q9r4"
+  ],
+  "summary": "cheqd-node Security patch for upstream vulnerabilities in IBC-Go (ISA-2025-001) and Cosmos SDK (ISA-2025-002) in github.com/cheqd/cheqd-node",
+  "details": "cheqd-node Security patch for upstream vulnerabilities in IBC-Go (ISA-2025-001) and Cosmos SDK (ISA-2025-002) in github.com/cheqd/cheqd-node.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/cheqd/cheqd-node before v3.1.8.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cheqd/cheqd-node",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "3.1.8"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cheqd/cheqd-node/security/advisories/GHSA-h2rp-8vpx-q9r4"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cheqd/cheqd-node/commit/5a58b08dfb8dfc24631fb85b641cb75e9178d07f"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/cheqd/cheqd-node/releases/tag/v3.1.8"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/cosmos/cosmos-sdk/security/advisories/GHSA-47ww-ff84-4jrg"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/cosmos/ibc-go/security/advisories/GHSA-4wf3-5qj9-368v"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3520",
+    "review_status": "UNREVIEWED"
+  }
+}

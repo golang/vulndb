@@ -1,0 +1,21 @@
+id: GO-2025-3520
+modules:
+    - module: github.com/cheqd/cheqd-node
+      non_go_versions:
+        - fixed: 3.1.8
+      vulnerable_at: 1.4.5
+summary: |-
+    cheqd-node Security patch for upstream vulnerabilities in IBC-Go (ISA-2025-001)
+    and Cosmos SDK (ISA-2025-002) in github.com/cheqd/cheqd-node
+ghsas:
+    - GHSA-h2rp-8vpx-q9r4
+references:
+    - advisory: https://github.com/cheqd/cheqd-node/security/advisories/GHSA-h2rp-8vpx-q9r4
+    - fix: https://github.com/cheqd/cheqd-node/commit/5a58b08dfb8dfc24631fb85b641cb75e9178d07f
+    - web: https://github.com/cheqd/cheqd-node/releases/tag/v3.1.8
+    - web: https://github.com/cosmos/cosmos-sdk/security/advisories/GHSA-47ww-ff84-4jrg
+    - web: https://github.com/cosmos/ibc-go/security/advisories/GHSA-4wf3-5qj9-368v
+source:
+    id: GHSA-h2rp-8vpx-q9r4
+    created: 2025-03-25T12:09:56.020625-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,26 @@
+id: GO-2025-3568
+modules:
+    - module: k8s.io/ingress-nginx
+      non_go_versions:
+        - fixed: 1.11.5
+        - introduced: 1.12.0-beta.0
+        - fixed: 1.12.1
+      vulnerable_at: 0.0.0-20250325144035-1d7abc12ef72
+summary: |-
+    ingress-nginx controller - configuration injection via unsanitized mirror
+    annotations in k8s.io/ingress-nginx
+cves:
+    - CVE-2025-1098
+ghsas:
+    - GHSA-vg63-w3p9-jc9m
+references:
+    - advisory: https://github.com/advisories/GHSA-vg63-w3p9-jc9m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-1098
+    - web: https://github.com/kubernetes/ingress-nginx/releases/tag/controller-v1.11.5
+    - web: https://github.com/kubernetes/ingress-nginx/releases/tag/controller-v1.12.1
+    - web: https://github.com/kubernetes/kubernetes/issues/131008
+    - web: https://groups.google.com/g/kubernetes-security-announce/c/2qa9DFtN0cQ
+source:
+    id: GHSA-vg63-w3p9-jc9m
+    created: 2025-03-25T12:04:32.811958-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,32 @@
+id: GO-2025-3551
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 9.11.0+incompatible
+        - fixed: 9.11.9+incompatible
+        - introduced: 10.3.0+incompatible
+        - fixed: 10.3.4+incompatible
+        - introduced: 10.4.0+incompatible
+        - fixed: 10.4.3+incompatible
+        - introduced: 10.5.0+incompatible
+        - fixed: 10.5.1+incompatible
+      vulnerable_at: 10.5.1-rc2+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      vulnerable_at: 8.0.0-20250325070947-3b50ea2621b8
+summary: Mattermost Fails to Enforce MFA on Plugin Endpoints in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-25068
+ghsas:
+    - GHSA-72qv-j8vr-xvfv
+references:
+    - advisory: https://github.com/advisories/GHSA-72qv-j8vr-xvfv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-25068
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-72qv-j8vr-xvfv
+    created: 2025-03-25T12:07:29.554442-04:00
+review_status: UNREVIEWED

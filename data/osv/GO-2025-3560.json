@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3560",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-30162",
+    "GHSA-24qp-4xx8-3jvj"
+  ],
+  "summary": "Cilium East-west traffic not subject to egress policy enforcement for requests via Gateway API load balancers in github.com/cilium/cilium",
+  "details": "Cilium East-west traffic not subject to egress policy enforcement for requests via Gateway API load balancers in github.com/cilium/cilium",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cilium/cilium",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.15.0"
+            },
+            {
+              "fixed": "1.15.15"
+            },
+            {
+              "introduced": "1.16.0"
+            },
+            {
+              "fixed": "1.16.8"
+            },
+            {
+              "introduced": "1.17.0"
+            },
+            {
+              "fixed": "1.17.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cilium/cilium/security/advisories/GHSA-24qp-4xx8-3jvj"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-30162"
+    },
+    {
+      "type": "WEB",
+      "url": "https://docs.cilium.io/en/stable/network/lb-ipam"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/cilium/proxy/pull/1172"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3560",
+    "review_status": "UNREVIEWED"
+  }
+}

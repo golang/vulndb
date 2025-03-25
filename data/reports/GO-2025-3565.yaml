@@ -1,0 +1,26 @@
+id: GO-2025-3565
+modules:
+    - module: k8s.io/ingress-nginx
+      non_go_versions:
+        - fixed: 1.11.5
+        - introduced: 1.12.0-beta.0
+        - fixed: 1.12.1
+      vulnerable_at: 0.0.0-20250325144035-1d7abc12ef72
+summary: |-
+    ngress-nginx controller - configuration injection via unsanitized
+    auth-tls-match-cn annotation in k8s.io/ingress-nginx
+cves:
+    - CVE-2025-1097
+ghsas:
+    - GHSA-823x-fv5p-h7hw
+references:
+    - advisory: https://github.com/advisories/GHSA-823x-fv5p-h7hw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-1097
+    - web: https://github.com/kubernetes/ingress-nginx/releases/tag/controller-v1.11.5
+    - web: https://github.com/kubernetes/ingress-nginx/releases/tag/controller-v1.12.1
+    - web: https://github.com/kubernetes/kubernetes/issues/131007
+    - web: https://groups.google.com/g/kubernetes-security-announce/c/2qa9DFtN0cQ
+source:
+    id: GHSA-823x-fv5p-h7hw
+    created: 2025-03-25T12:04:51.968121-04:00
+review_status: UNREVIEWED

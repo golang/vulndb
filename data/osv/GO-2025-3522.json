@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3522",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-9042",
+    "GHSA-vv39-3w5q-974q"
+  ],
+  "summary": "Kubernetes allows Command Injection affecting Windows nodes via nodes/*/logs/query API in k8s.io/kubernetes",
+  "details": "Kubernetes allows Command Injection affecting Windows nodes via nodes/*/logs/query API in k8s.io/kubernetes",
+  "affected": [
+    {
+      "package": {
+        "name": "k8s.io/kubernetes",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.29.13"
+            },
+            {
+              "introduced": "1.30.0-alpha.0"
+            },
+            {
+              "fixed": "1.30.9"
+            },
+            {
+              "introduced": "1.31.0-alpha.0"
+            },
+            {
+              "fixed": "1.31.5"
+            },
+            {
+              "introduced": "1.32.0-alpha.0"
+            },
+            {
+              "fixed": "1.32.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-vv39-3w5q-974q"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-9042"
+    },
+    {
+      "type": "WEB",
+      "url": "http://www.openwall.com/lists/oss-security/2025/01/16/1"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubernetes/kubernetes/commit/45f4ccc2153bbb782253704cbe24c05e22b5d60c"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubernetes/kubernetes/commit/5fe148234f8ab1184f26069c4f7bef6c37efe347"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubernetes/kubernetes/commit/75c83a6871dc030675288c6d63c275a43c2f0d55"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubernetes/kubernetes/commit/fb0187c2bf7061258bb89891edb1237261eb7abc"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubernetes/kubernetes/issues/129654"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/kubernetes-security-announce/c/9C3vn6aCSVg"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3522",
+    "review_status": "UNREVIEWED"
+  }
+}

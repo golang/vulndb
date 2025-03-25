@@ -1,0 +1,21 @@
+id: GO-2025-3521
+modules:
+    - module: k8s.io/kubernetes
+      unsupported_versions:
+        - last_affected: 1.32.3
+      vulnerable_at: 1.32.3
+summary: Kubernetes GitRepo Volume Inadvertent Local Repository Access in k8s.io/kubernetes
+cves:
+    - CVE-2025-1767
+ghsas:
+    - GHSA-3wgm-2gw2-vh5m
+references:
+    - advisory: https://github.com/advisories/GHSA-3wgm-2gw2-vh5m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-1767
+    - web: http://www.openwall.com/lists/oss-security/2025/03/13/9
+    - web: https://github.com/kubernetes/kubernetes/pull/130786
+    - web: https://groups.google.com/g/kubernetes-security-announce/c/19irihsKg7s
+source:
+    id: GHSA-3wgm-2gw2-vh5m
+    created: 2025-03-25T12:09:50.390912-04:00
+review_status: UNREVIEWED
