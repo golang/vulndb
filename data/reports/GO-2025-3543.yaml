@@ -4,7 +4,16 @@ modules:
       non_go_versions:
         - fixed: 0.5.3
       vulnerable_at: 1.2.6
-summary: Libcontainer is affected by capabilities elevation in github.com/opencontainers/runc
+summary: |-
+    WITHDRAWN: Libcontainer is affected by capabilities elevation in
+    github.com/opencontainers/runc
+description: |-
+    (This report has been withdrawn with reason: "Does not affect Go code.").
+    https://nvd.nist.gov/vuln/detail/CVE-2025-27612 lists
+    https://github.com/opencontainers/runc/security/advisories/GHSA-f3fp-gc8g-vw66
+    which caused automation to flag as Go; the affected repo is
+    https://github.com/youki-dev/youki (Rust).
+withdrawn: "2025-03-26T18:45:50Z"
 cves:
     - CVE-2025-27612
 references:
@@ -16,4 +25,4 @@ references:
 source:
     id: CVE-2025-27612
     created: 2025-03-25T12:08:02.851021-04:00
-review_status: UNREVIEWED
+review_status: REVIEWED
