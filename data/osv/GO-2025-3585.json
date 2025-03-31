@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3585",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-30223",
+    "GHSA-2j42-h78h-q4fg"
+  ],
+  "summary": "Beego allows Reflected/Stored XSS in Beego's RenderForm() Function Due to Unescaped User Input in github.com/beego/beego",
+  "details": "Beego allows Reflected/Stored XSS in Beego's RenderForm() Function Due to Unescaped User Input in github.com/beego/beego",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/beego/beego",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/beego/beego/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.3.6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/beego/beego/v2/server/web",
+            "symbols": [
+              "renderFormField"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/beego/beego/security/advisories/GHSA-2j42-h78h-q4fg"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/beego/beego/commit/939bb18c66406466715ddadd25dd9ffa6f169e25"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3585",
+    "review_status": "REVIEWED"
+  }
+}
