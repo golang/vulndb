@@ -3,17 +3,9 @@ modules:
     - module: github.com/cometbft/cometbft
       versions:
         - fixed: 0.38.17
-      vulnerable_at: 0.38.16
-      packages:
-        - package: github.com/cometbft/cometbft/types
-          symbols:
-            - Part.ValidateBasic
-          derived_symbols:
-            - PartFromProto
-    - module: github.com/cometbft/cometbft
-      versions:
+        - introduced: 1.0.0-alpha.1
         - fixed: 1.0.1
-      vulnerable_at: 1.0.0
+      vulnerable_at: 0.38.16
       packages:
         - package: github.com/cometbft/cometbft/types
           symbols:
