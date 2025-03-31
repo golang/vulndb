@@ -1,0 +1,20 @@
+id: GO-2025-3584
+modules:
+    - module: go.rgst.io/stencil
+      vulnerable_at: 0.15.4
+    - module: go.rgst.io/stencil/v2
+      versions:
+        - fixed: 2.3.0
+      vulnerable_at: 2.2.0
+summary: go.rgst.io/stencil/v2 vulnerable to Path Traversal
+ghsas:
+    - GHSA-p799-q2pr-6mxj
+references:
+    - advisory: https://github.com/rgst-io/stencil/security/advisories/GHSA-p799-q2pr-6mxj
+    - web: https://github.com/jaredallard/archives/security/advisories/GHSA-j95m-rcjp-q69h
+    - web: https://github.com/rgst-io/stencil/commit/5482fcada0c6f77d903d13129bd656b7df80ac3a
+    - web: https://github.com/rgst-io/stencil/pull/255
+source:
+    id: GHSA-p799-q2pr-6mxj
+    created: 2025-03-31T13:06:11.572598-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,21 @@
+id: GO-2025-3583
+modules:
+    - module: github.com/NethermindEth/juno
+      versions:
+        - fixed: 0.12.5
+      vulnerable_at: 0.12.4
+summary: Nethermind Juno Potential Denial of Service (DoS) via Integer Overflow in github.com/NethermindEth/juno
+cves:
+    - CVE-2025-29072
+ghsas:
+    - GHSA-wq32-8rp4-w2mc
+references:
+    - advisory: https://github.com/advisories/GHSA-wq32-8rp4-w2mc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-29072
+    - fix: https://github.com/NethermindEth/juno/commit/51074875941aa111c5dd2b41f2ec890a4a15b587
+    - fix: https://github.com/NethermindEth/juno/commit/b9fe28df6a4339a66f91bff723c61dc063f9ed50
+    - web: https://community.starknet.io/t/starknet-security-update-potential-full-node-vulnerability-recap/115314
+source:
+    id: GHSA-wq32-8rp4-w2mc
+    created: 2025-03-31T13:06:06.144569-04:00
+review_status: UNREVIEWED

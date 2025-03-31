@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3584",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-p799-q2pr-6mxj"
+  ],
+  "summary": "go.rgst.io/stencil/v2 vulnerable to Path Traversal",
+  "details": "go.rgst.io/stencil/v2 vulnerable to Path Traversal",
+  "affected": [
+    {
+      "package": {
+        "name": "go.rgst.io/stencil",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "go.rgst.io/stencil/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.3.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/rgst-io/stencil/security/advisories/GHSA-p799-q2pr-6mxj"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/jaredallard/archives/security/advisories/GHSA-j95m-rcjp-q69h"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rgst-io/stencil/commit/5482fcada0c6f77d903d13129bd656b7df80ac3a"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rgst-io/stencil/pull/255"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3584",
+    "review_status": "UNREVIEWED"
+  }
+}
