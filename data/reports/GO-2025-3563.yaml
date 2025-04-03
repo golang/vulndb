@@ -1,0 +1,33 @@
+id: GO-2025-3563
+modules:
+    - module: std
+      versions:
+        - fixed: 1.23.8
+        - introduced: 1.24.0-0
+        - fixed: 1.24.2
+      vulnerable_at: 1.24.1
+      packages:
+        - package: net/http/internal
+          symbols:
+            - readChunkLine
+          derived_symbols:
+            - chunkedReader.Read
+summary: Request smuggling due to acceptance of invalid chunked data in net/http
+description: |-
+    The net/http package improperly accepts a bare LF as a line terminator in
+    chunked data chunk-size lines. This can permit request smuggling if a net/http
+    server is used in conjunction with a server that incorrectly accepts a bare LF
+    as part of a chunk-ext.
+credits:
+    - Jeppe Bonde Weikop
+references:
+    - fix: https://go.dev/cl/652998
+    - report: https://go.dev/issue/71988
+    - web: https://groups.google.com/g/golang-announce/c/Y2uBTVKjBQk
+cve_metadata:
+    id: CVE-2025-22871
+    cwe: 'CWE-444: Inconsistent Interpretation of HTTP Requests (''HTTP Request Smuggling'')'
+source:
+    id: go-security-team
+    created: 2025-03-25T08:37:39.679134-07:00
+review_status: REVIEWED

@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3563",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-22871"
+  ],
+  "summary": "Request smuggling due to acceptance of invalid chunked data in net/http",
+  "details": "The net/http package improperly accepts a bare LF as a line terminator in chunked data chunk-size lines. This can permit request smuggling if a net/http server is used in conjunction with a server that incorrectly accepts a bare LF as part of a chunk-ext.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.23.8"
+            },
+            {
+              "introduced": "1.24.0-0"
+            },
+            {
+              "fixed": "1.24.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "net/http/internal",
+            "symbols": [
+              "chunkedReader.Read",
+              "readChunkLine"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/652998"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/71988"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/Y2uBTVKjBQk"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Jeppe Bonde Weikop"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3563",
+    "review_status": "REVIEWED"
+  }
+}
