@@ -9,7 +9,7 @@ modules:
       packages:
         - package: github.com/golang-jwt/jwt/v4
           symbols:
-            - ParseUnverified
+            - Parser.ParseUnverified
     - module: github.com/golang-jwt/jwt/v5
       versions:
         - introduced: 5.0.0-rc.1
@@ -18,7 +18,7 @@ modules:
       packages:
         - package: github.com/golang-jwt/jwt/v5
           symbols:
-            - ParseUnverified
+            - Parser.ParseUnverified
 summary: Excessive memory allocation during header parsing in github.com/golang-jwt/jwt
 cves:
     - CVE-2025-30204
