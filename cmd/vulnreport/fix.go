@@ -199,6 +199,10 @@ func (r *yamlReport) checkSymbols() error {
 		if m.IsFirstParty() {
 			gover := runtime.Version()
 			ver := semverForGoVersion(gover)
+			if ver == "" {
+				log.Warnf("%s: current Go version %q is not a release version, skipping symbol checks for module %s", r.ID, gover, m.Module)
+				continue
+			}
 			// If some symbol is in the std library at a different version,
 			// we may derive the wrong symbols for this package and other.
 			// In this case, skip updating DerivedSymbols.
@@ -210,7 +214,7 @@ func (r *yamlReport) checkSymbols() error {
 			if err != nil {
 				return err
 			}
-			if ver == "" || !affected {
+			if !affected {
 				log.Warnf("%s: current Go version %q is not in a vulnerable range, skipping symbol checks for module %s", r.ID, gover, m.Module)
 				continue
 			}
