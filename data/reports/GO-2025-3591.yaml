@@ -1,0 +1,23 @@
+id: GO-2025-3591
+modules:
+    - module: miniflux.app
+      vulnerable_at: 1.0.46
+    - module: miniflux.app/v2
+      versions:
+        - fixed: 2.2.7
+      vulnerable_at: 2.2.3
+summary: |-
+    Miniflux Media Proxy vulnerable to Stored Cross-site Scripting due to improper
+    Content-Security-Policy configuration in miniflux.app
+cves:
+    - CVE-2025-31483
+ghsas:
+    - GHSA-cq88-842x-2jhp
+references:
+    - advisory: https://github.com/miniflux/v2/security/advisories/GHSA-cq88-842x-2jhp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-31483
+    - web: https://github.com/miniflux/v2/commit/cb695e653a08af4cabcb277c271ce74bd0c746e6
+source:
+    id: GHSA-cq88-842x-2jhp
+    created: 2025-04-08T17:05:16.375382-04:00
+review_status: UNREVIEWED

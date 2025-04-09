@@ -1,0 +1,21 @@
+id: GO-2025-3599
+modules:
+    - module: github.com/bep/imagemeta
+      versions:
+        - fixed: 0.11.0
+      vulnerable_at: 0.10.0
+summary: |-
+    bep/imagemeta allows a potentially large memory allocation in PNG and WebP
+    parsing in github.com/bep/imagemeta
+cves:
+    - CVE-2025-32025
+ghsas:
+    - GHSA-fmhh-rw3h-785m
+references:
+    - advisory: https://github.com/bep/imagemeta/security/advisories/GHSA-fmhh-rw3h-785m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-32025
+    - fix: https://github.com/bep/imagemeta/commit/ee0de9b029f4e82106729f69559f27c9a404229d
+source:
+    id: CVE-2025-32025
+    created: 2025-04-08T17:04:54.545112-04:00
+review_status: UNREVIEWED
