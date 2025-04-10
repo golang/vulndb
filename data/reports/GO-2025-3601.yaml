@@ -1,0 +1,20 @@
+id: GO-2025-3601
+modules:
+    - module: helm.sh/helm/v3
+      versions:
+        - fixed: 3.17.3
+      vulnerable_at: 3.17.2
+summary: |-
+    Helm Allows A Specially Crafted Chart Archive To Cause Out Of Memory Termination
+    in helm.sh/helm
+cves:
+    - CVE-2025-32386
+ghsas:
+    - GHSA-4hfp-h4cw-hj8p
+references:
+    - advisory: https://github.com/helm/helm/security/advisories/GHSA-4hfp-h4cw-hj8p
+    - web: https://github.com/helm/helm/commit/d8ca55fc669645c10c0681d49723f4bb8c0b1ce7
+source:
+    id: GHSA-4hfp-h4cw-hj8p
+    created: 2025-04-10T12:09:57.791619-04:00
+review_status: REVIEWED
