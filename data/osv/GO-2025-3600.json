@@ -1,0 +1,162 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3600",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-30215",
+    "GHSA-fhg8-qxh5-7q3w"
+  ],
+  "summary": "Missing ACLs on JavaScript APIs allowing privilege escalation github.com/nats-io/nats-server",
+  "details": "Missing",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/nats-io/nats-server/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.2.0"
+            },
+            {
+              "fixed": "2.10.27"
+            },
+            {
+              "introduced": "2.11.0"
+            },
+            {
+              "fixed": "2.11.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/nats-io/nats-server/v2/server",
+            "symbols": [
+              "Account.AddServiceImport",
+              "Account.AddServiceImportWithClaim",
+              "Account.DisableJetStream",
+              "Account.EnableJetStream",
+              "Account.RestoreStream",
+              "Account.TrackServiceExport",
+              "Account.TrackServiceExportWithSampling",
+              "Account.UnTrackServiceExport",
+              "CacheDirAccResolver.Reload",
+              "CacheDirAccResolver.Start",
+              "ConfigureOptions",
+              "DirAccResolver.Fetch",
+              "DirAccResolver.Reload",
+              "DirAccResolver.Start",
+              "DirAccResolver.Store",
+              "DirJWTStore.Merge",
+              "DirJWTStore.Pack",
+              "DirJWTStore.PackWalk",
+              "DirJWTStore.Reload",
+              "DirJWTStore.SaveAcc",
+              "DirJWTStore.SaveAct",
+              "New",
+              "NewCacheDirAccResolver",
+              "NewDirAccResolver",
+              "NewExpiringDirJWTStore",
+              "NewServer",
+              "Options.ProcessConfigFile",
+              "ProcessConfigFile",
+              "Run",
+              "Server.AcceptLoop",
+              "Server.AccountStatz",
+              "Server.Accountz",
+              "Server.ActivePeers",
+              "Server.Connz",
+              "Server.DisableJetStream",
+              "Server.DisconnectClientByID",
+              "Server.EnableJetStream",
+              "Server.Gatewayz",
+              "Server.HandleAccountStatz",
+              "Server.HandleAccountz",
+              "Server.HandleConnz",
+              "Server.HandleGatewayz",
+              "Server.HandleHealthz",
+              "Server.HandleIPQueuesz",
+              "Server.HandleSubsz",
+              "Server.HandleVarz",
+              "Server.InProcessConn",
+              "Server.Ipqueuesz",
+              "Server.JetStreamEnabledForDomain",
+              "Server.JetStreamIsStreamAssigned",
+              "Server.JetStreamIsStreamCurrent",
+              "Server.JetStreamSnapshotMeta",
+              "Server.JetStreamSnapshotStream",
+              "Server.JetStreamStepdownConsumer",
+              "Server.JetStreamStepdownStream",
+              "Server.LameDuckShutdown",
+              "Server.LookupAccount",
+              "Server.LookupOrRegisterAccount",
+              "Server.NumLoadedAccounts",
+              "Server.NumSubscriptions",
+              "Server.RegisterAccount",
+              "Server.Reload",
+              "Server.ReloadOptions",
+              "Server.SetDefaultSystemAccount",
+              "Server.SetSystemAccount",
+              "Server.Shutdown",
+              "Server.Start",
+              "Server.StartHTTPMonitoring",
+              "Server.StartHTTPSMonitoring",
+              "Server.StartMonitoring",
+              "Server.StartProfiler",
+              "Server.StartRouting",
+              "Server.Subsz",
+              "Server.UpdateAccountClaims",
+              "Server.Varz",
+              "client.RegisterNkeyUser",
+              "client.RegisterUser",
+              "clusterOption.Apply",
+              "leafNodeOption.Apply",
+              "maxConnOption.Apply",
+              "mqttMaxAckPendingReload.Apply",
+              "raft.AdjustClusterSize",
+              "raft.InstallSnapshot",
+              "raft.PauseApply",
+              "raft.ProposeKnownPeers",
+              "raft.ProposeRemovePeer",
+              "raft.ResumeApply",
+              "raft.SendSnapshot",
+              "raft.StepDown",
+              "raft.UpdateKnownPeers",
+              "routesOption.Apply"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/nats-io/nats-server/security/advisories/GHSA-fhg8-qxh5-7q3w"
+    },
+    {
+      "type": "WEB",
+      "url": "https://advisories.nats.io/CVE/secnote-2025-01.txt"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/nats-io/nats-server/commit/3e7e4645a24e829a36b4210f2d7c34dea7f7a424"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Thomas Morgan"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3600",
+    "review_status": "REVIEWED"
+  }
+}

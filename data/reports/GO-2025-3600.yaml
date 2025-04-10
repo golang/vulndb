@@ -1,0 +1,122 @@
+id: GO-2025-3600
+modules:
+    - module: github.com/nats-io/nats-server/v2
+      versions:
+        - introduced: 2.2.0
+        - fixed: 2.10.27
+        - introduced: 2.11.0
+        - fixed: 2.11.1
+      vulnerable_at: 2.10.26
+      packages:
+        - package: github.com/nats-io/nats-server/v2/server
+          symbols:
+            - ConfigureOptions
+            - New
+            - NewServer
+            - Options.ProcessConfigFile
+            - ProcessConfigFile
+            - Run
+            - Server.EnableJetStream
+            - Server.Reload
+            - Server.ReloadOptions
+            - Server.Start
+          derived_symbols:
+            - Account.AddServiceImport
+            - Account.AddServiceImportWithClaim
+            - Account.DisableJetStream
+            - Account.EnableJetStream
+            - Account.RestoreStream
+            - Account.TrackServiceExport
+            - Account.TrackServiceExportWithSampling
+            - Account.UnTrackServiceExport
+            - CacheDirAccResolver.Reload
+            - CacheDirAccResolver.Start
+            - DirAccResolver.Fetch
+            - DirAccResolver.Reload
+            - DirAccResolver.Start
+            - DirAccResolver.Store
+            - DirJWTStore.Merge
+            - DirJWTStore.Pack
+            - DirJWTStore.PackWalk
+            - DirJWTStore.Reload
+            - DirJWTStore.SaveAcc
+            - DirJWTStore.SaveAct
+            - NewCacheDirAccResolver
+            - NewDirAccResolver
+            - NewExpiringDirJWTStore
+            - Server.AcceptLoop
+            - Server.AccountStatz
+            - Server.Accountz
+            - Server.ActivePeers
+            - Server.Connz
+            - Server.DisableJetStream
+            - Server.DisconnectClientByID
+            - Server.Gatewayz
+            - Server.HandleAccountStatz
+            - Server.HandleAccountz
+            - Server.HandleConnz
+            - Server.HandleGatewayz
+            - Server.HandleHealthz
+            - Server.HandleIPQueuesz
+            - Server.HandleSubsz
+            - Server.HandleVarz
+            - Server.InProcessConn
+            - Server.Ipqueuesz
+            - Server.JetStreamEnabledForDomain
+            - Server.JetStreamIsStreamAssigned
+            - Server.JetStreamIsStreamCurrent
+            - Server.JetStreamSnapshotMeta
+            - Server.JetStreamSnapshotStream
+            - Server.JetStreamStepdownConsumer
+            - Server.JetStreamStepdownStream
+            - Server.LameDuckShutdown
+            - Server.LookupAccount
+            - Server.LookupOrRegisterAccount
+            - Server.NumLoadedAccounts
+            - Server.NumSubscriptions
+            - Server.RegisterAccount
+            - Server.SetDefaultSystemAccount
+            - Server.SetSystemAccount
+            - Server.Shutdown
+            - Server.StartHTTPMonitoring
+            - Server.StartHTTPSMonitoring
+            - Server.StartMonitoring
+            - Server.StartProfiler
+            - Server.StartRouting
+            - Server.Subsz
+            - Server.UpdateAccountClaims
+            - Server.Varz
+            - client.RegisterNkeyUser
+            - client.RegisterUser
+            - clusterOption.Apply
+            - leafNodeOption.Apply
+            - maxConnOption.Apply
+            - mqttMaxAckPendingReload.Apply
+            - raft.AdjustClusterSize
+            - raft.InstallSnapshot
+            - raft.PauseApply
+            - raft.ProposeKnownPeers
+            - raft.ProposeRemovePeer
+            - raft.ResumeApply
+            - raft.SendSnapshot
+            - raft.StepDown
+            - raft.UpdateKnownPeers
+            - routesOption.Apply
+summary: |-
+    Missing ACLs on JavaScript APIs allowing privilege escalation
+    github.com/nats-io/nats-server
+description: Missing
+cves:
+    - CVE-2025-30215
+ghsas:
+    - GHSA-fhg8-qxh5-7q3w
+credits:
+    - Thomas Morgan
+references:
+    - advisory: https://github.com/nats-io/nats-server/security/advisories/GHSA-fhg8-qxh5-7q3w
+    - web: https://advisories.nats.io/CVE/secnote-2025-01.txt
+    - fix: https://github.com/nats-io/nats-server/commit/3e7e4645a24e829a36b4210f2d7c34dea7f7a424
+source:
+    id: go-security-team
+    created: 2025-04-10T12:58:14.561598-04:00
+review_status: REVIEWED
