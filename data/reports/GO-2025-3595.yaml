@@ -1,0 +1,39 @@
+id: GO-2025-3595
+modules:
+    - module: golang.org/x/net
+      versions:
+        - fixed: 0.38.0
+      vulnerable_at: 0.37.0
+      packages:
+        - package: golang.org/x/net/html
+          symbols:
+            - Tokenizer.readStartTag
+          derived_symbols:
+            - Parse
+            - ParseFragment
+            - ParseFragmentWithOptions
+            - ParseWithOptions
+            - Tokenizer.Next
+summary: |-
+    Incorrect Neutralization of Input During Web Page Generation in x/net in
+    golang.org/x/net
+description: |-
+    The tokenizer incorrectly interprets tags with unquoted attribute values that
+    end with a solidus character (/) as self-closing. When directly using Tokenizer,
+    this can result in such tags incorrectly being marked as self-closing, and when
+    using the Parse functions, this can result in content following such tags as
+    being placed in the wrong scope during DOM construction, but only when tags are
+    in foreign content (e.g. <math>, <svg>, etc contexts).
+credits:
+    - Sean Ng (https://ensy.zip)
+references:
+    - fix: https://go.dev/cl/662715
+    - report: https://go.dev/issue/73070
+    - web: https://groups.google.com/g/golang-announce/c/ezSKR9vqbqA
+cve_metadata:
+    id: CVE-2025-22872
+    cwe: CWE-79
+source:
+    id: go-security-team
+    created: 2025-04-10T12:43:28.919502-04:00
+review_status: REVIEWED
