@@ -1,0 +1,23 @@
+id: GO-2025-3607
+modules:
+    - module: github.com/gorilla/csrf
+      versions:
+        - fixed: 1.7.3
+      vulnerable_at: 1.7.2
+      packages:
+        - package: github.com/gorilla/csrf
+          symbols:
+            - csrf.ServeHTTP
+summary: gorilla/csrf CSRF vulnerability due to broken Referer validation in github.com/gorilla/csrf
+cves:
+    - CVE-2025-24358
+ghsas:
+    - GHSA-rq77-p4h8-4crw
+references:
+    - advisory: https://github.com/gorilla/csrf/security/advisories/GHSA-rq77-p4h8-4crw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-24358
+    - fix: https://github.com/gorilla/csrf/commit/9dd6af1f6d30fc79fb0d972394deebdabad6b5eb
+source:
+    id: GHSA-rq77-p4h8-4crw
+    created: 2025-04-16T11:22:28.17254-04:00
+review_status: NEEDS_REVIEW

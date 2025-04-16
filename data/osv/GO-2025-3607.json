@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3607",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-24358",
+    "GHSA-rq77-p4h8-4crw"
+  ],
+  "summary": "gorilla/csrf CSRF vulnerability due to broken Referer validation in github.com/gorilla/csrf",
+  "details": "gorilla/csrf CSRF vulnerability due to broken Referer validation in github.com/gorilla/csrf",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gorilla/csrf",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.7.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/gorilla/csrf",
+            "symbols": [
+              "csrf.ServeHTTP"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/gorilla/csrf/security/advisories/GHSA-rq77-p4h8-4crw"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-24358"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gorilla/csrf/commit/9dd6af1f6d30fc79fb0d972394deebdabad6b5eb"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3607",
+    "review_status": "UNREVIEWED"
+  }
+}
