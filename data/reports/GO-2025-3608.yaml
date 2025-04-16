@@ -1,0 +1,22 @@
+id: GO-2025-3608
+modules:
+    - module: github.com/argoproj/argo-events
+      versions:
+        - fixed: 1.9.6
+      vulnerable_at: 1.9.5
+summary: |-
+    Argo Events users can gain privileged access to the host system and cluster with
+    EventSource and Sensor CR in github.com/argoproj/argo-events
+cves:
+    - CVE-2025-32445
+ghsas:
+    - GHSA-hmp7-x699-cvhq
+references:
+    - advisory: https://github.com/argoproj/argo-events/security/advisories/GHSA-hmp7-x699-cvhq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-32445
+    - fix: https://github.com/argoproj/argo-events/commit/18412293a699f559848b00e6e459c9ce2de0d3e2
+    - fix: https://github.com/argoproj/argo-events/pull/3528
+source:
+    id: GHSA-hmp7-x699-cvhq
+    created: 2025-04-16T11:10:05.753747-04:00
+review_status: UNREVIEWED

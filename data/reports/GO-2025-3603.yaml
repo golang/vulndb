@@ -1,0 +1,19 @@
+id: GO-2025-3603
+modules:
+    - module: github.com/ClickHouse/ch-go
+      versions:
+        - fixed: 0.65.0
+      vulnerable_at: 0.64.1
+summary: Query smuggling in ch-go library in github.com/ClickHouse/ch-go
+cves:
+    - CVE-2025-1386
+ghsas:
+    - GHSA-m454-3xv7-qj85
+references:
+    - advisory: https://github.com/ClickHouse/ch-go/security/advisories/GHSA-m454-3xv7-qj85
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-1386
+    - fix: https://github.com/ClickHouse/ch-go/commit/0e835663df32b09b828528c07a5507686e6d975e
+source:
+    id: GHSA-m454-3xv7-qj85
+    created: 2025-04-16T11:10:28.146219-04:00
+review_status: UNREVIEWED

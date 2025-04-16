@@ -1,0 +1,33 @@
+id: GO-2025-3618
+modules:
+    - module: github.com/mattermost/mattermost-plugin-msteams
+      non_go_versions:
+        - fixed: 2.1.0
+      vulnerable_at: 1.15.0
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.5.0+incompatible
+        - fixed: 10.5.2+incompatible
+      vulnerable_at: 10.5.1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20250218121836-2b5275d87136
+summary: Mattermost vulnerable to Observable Timing Discrepancy in github.com/mattermost/mattermost-plugin-msteams
+cves:
+    - CVE-2025-27936
+ghsas:
+    - GHSA-2j87-p623-8cc2
+references:
+    - advisory: https://github.com/advisories/GHSA-2j87-p623-8cc2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-27936
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-2j87-p623-8cc2
+    created: 2025-04-16T11:09:33.515711-04:00
+review_status: UNREVIEWED
