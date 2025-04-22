@@ -1,0 +1,20 @@
+id: GO-2025-3637
+modules:
+    - module: github.com/minio/operator
+      non_go_versions:
+        - fixed: 7.1.0
+      vulnerable_at: 0.4.0
+summary: |-
+    Minio Operator uses Kubernetes apiserver audience for AssumeRoleWithWebIdentity
+    STS in github.com/minio/operator
+cves:
+    - CVE-2025-32963
+ghsas:
+    - GHSA-7m6v-q233-q9j9
+references:
+    - advisory: https://github.com/minio/operator/security/advisories/GHSA-7m6v-q233-q9j9
+    - web: https://github.com/minio/operator/releases/tag/v7.1.0
+source:
+    id: GHSA-7m6v-q233-q9j9
+    created: 2025-04-22T11:21:11.258704-04:00
+review_status: UNREVIEWED

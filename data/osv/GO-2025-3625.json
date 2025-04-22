@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3625",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2019-15119",
+    "GHSA-2vp2-8m5j-4rjx"
+  ],
+  "summary": "cnlh nps vulnerable to file overwrite by local user in github.com/cnlh/nps",
+  "details": "cnlh nps vulnerable to file overwrite by local user in github.com/cnlh/nps",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cnlh/nps",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.23.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-2vp2-8m5j-4rjx"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2019-15119"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cnlh/nps/commit/7178b3380720e910d283036a8d39879a94105515"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/cnlh/nps/issues/176"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3625",
+    "review_status": "UNREVIEWED"
+  }
+}

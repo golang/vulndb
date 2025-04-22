@@ -1,0 +1,20 @@
+id: GO-2025-3625
+modules:
+    - module: github.com/cnlh/nps
+      versions:
+        - fixed: 0.23.2
+      vulnerable_at: 0.23.1
+summary: cnlh nps vulnerable to file overwrite by local user in github.com/cnlh/nps
+cves:
+    - CVE-2019-15119
+ghsas:
+    - GHSA-2vp2-8m5j-4rjx
+references:
+    - advisory: https://github.com/advisories/GHSA-2vp2-8m5j-4rjx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2019-15119
+    - fix: https://github.com/cnlh/nps/commit/7178b3380720e910d283036a8d39879a94105515
+    - report: https://github.com/cnlh/nps/issues/176
+source:
+    id: GHSA-2vp2-8m5j-4rjx
+    created: 2025-04-22T11:22:04.676096-04:00
+review_status: UNREVIEWED

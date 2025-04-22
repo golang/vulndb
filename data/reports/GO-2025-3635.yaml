@@ -1,0 +1,26 @@
+id: GO-2025-3635
+modules:
+    - module: github.com/cilium/cilium
+      versions:
+        - introduced: 1.13.0
+        - fixed: 1.15.16
+        - introduced: 1.16.0
+        - fixed: 1.16.9
+        - introduced: 1.17.0
+        - fixed: 1.17.3
+      vulnerable_at: 1.17.2
+summary: |-
+    In Cilium, packets from terminating endpoints may not be encrypted in
+    Wireguard-enabled clusters in github.com/cilium/cilium
+cves:
+    - CVE-2025-32793
+ghsas:
+    - GHSA-5vxx-c285-pcq4
+references:
+    - advisory: https://github.com/cilium/cilium/security/advisories/GHSA-5vxx-c285-pcq4
+    - fix: https://github.com/cilium/cilium/commit/e8543eef05126e9ba8a845dc74e96f4e30f6dba9
+    - fix: https://github.com/cilium/cilium/pull/38592
+source:
+    id: GHSA-5vxx-c285-pcq4
+    created: 2025-04-22T11:21:27.800427-04:00
+review_status: UNREVIEWED

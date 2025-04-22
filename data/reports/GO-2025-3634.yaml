@@ -1,0 +1,30 @@
+id: GO-2025-3634
+modules:
+    - module: github.com/traefik/traefik
+      unsupported_versions:
+        - last_affected: 1.7.34
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.23
+      vulnerable_at: 2.11.22
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - fixed: 3.3.6
+        - introduced: 3.4.0-rc1
+        - fixed: 3.4.0-rc2
+      vulnerable_at: 3.4.0-rc1
+summary: Traefik has a possible vulnerability with the path matchers in github.com/traefik/traefik
+cves:
+    - CVE-2025-32431
+ghsas:
+    - GHSA-6p68-w45g-48j7
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-6p68-w45g-48j7
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.24
+    - web: https://github.com/traefik/traefik/releases/tag/v3.3.6
+    - web: https://github.com/traefik/traefik/releases/tag/v3.4.0-rc2
+source:
+    id: GHSA-6p68-w45g-48j7
+    created: 2025-04-22T11:21:35.012993-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,27 @@
+id: GO-2025-3627
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.24
+      vulnerable_at: 2.11.23
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - fixed: 3.3.6
+        - introduced: 3.4.0-rc1
+        - fixed: 3.4.0-rc2
+      vulnerable_at: 3.4.0-rc1
+summary: Traefik affected by Go HTTP Request Smuggling Vulnerability in github.com/traefik/traefik
+ghsas:
+    - GHSA-5423-jcjm-2gpv
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-5423-jcjm-2gpv
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.24
+    - web: https://github.com/traefik/traefik/releases/tag/v3.3.6
+    - web: https://github.com/traefik/traefik/releases/tag/v3.4.0-rc2
+    - web: https://nvd.nist.gov/vuln/detail/CVE-2025-22871
+source:
+    id: GHSA-5423-jcjm-2gpv
+    created: 2025-04-22T11:22:01.367033-04:00
+review_status: UNREVIEWED
