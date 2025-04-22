@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3631",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-43971",
+    "GHSA-7m35-vw2c-696v"
+  ],
+  "summary": "GoBGP panics due to a zero value for softwareVersionLen in github.com/osrg/gobgp",
+  "details": "GoBGP panics due to a zero value for softwareVersionLen in github.com/osrg/gobgp",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/osrg/gobgp",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/osrg/gobgp/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.35.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/osrg/gobgp/v3/pkg/packet/bgp",
+            "symbols": [
+              "CapSoftwareVersion.DecodeFromBytes"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-7m35-vw2c-696v"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/osrg/gobgp/commit/08a001e06d90e8bcc190084c66992f46f62c0986"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/osrg/gobgp/compare/v3.34.0...v3.35.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3631",
+    "review_status": "REVIEWED"
+  }
+}

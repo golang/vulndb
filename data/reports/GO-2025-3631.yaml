@@ -1,0 +1,25 @@
+id: GO-2025-3631
+modules:
+    - module: github.com/osrg/gobgp
+      vulnerable_at: 3.35.0
+    - module: github.com/osrg/gobgp/v3
+      versions:
+        - fixed: 3.35.0
+      vulnerable_at: 3.34.0
+      packages:
+        - package: github.com/osrg/gobgp/v3/pkg/packet/bgp
+          symbols:
+            - CapSoftwareVersion.DecodeFromBytes
+summary: GoBGP panics due to a zero value for softwareVersionLen in github.com/osrg/gobgp
+cves:
+    - CVE-2025-43971
+ghsas:
+    - GHSA-7m35-vw2c-696v
+references:
+    - advisory: https://github.com/advisories/GHSA-7m35-vw2c-696v
+    - fix: https://github.com/osrg/gobgp/commit/08a001e06d90e8bcc190084c66992f46f62c0986
+    - web: https://github.com/osrg/gobgp/compare/v3.34.0...v3.35.0
+source:
+    id: GHSA-7m35-vw2c-696v
+    created: 2025-04-22T13:14:46.90182-04:00
+review_status: REVIEWED

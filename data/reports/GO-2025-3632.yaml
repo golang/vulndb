@@ -1,0 +1,25 @@
+id: GO-2025-3632
+modules:
+    - module: github.com/osrg/gobgp
+      vulnerable_at: 3.35.0
+    - module: github.com/osrg/gobgp/v3
+      versions:
+        - fixed: 3.35.0
+      vulnerable_at: 3.34.0
+      packages:
+        - package: github.com/osrg/gobgp/v3/pkg/packet/bgp
+          symbols:
+            - parseGenericTransitiveExperimentalExtended
+summary: GoBGP crashes in the flowspec parser in github.com/osrg/gobgp
+cves:
+    - CVE-2025-43972
+ghsas:
+    - GHSA-mfvv-mgf6-q25r
+references:
+    - advisory: https://github.com/advisories/GHSA-mfvv-mgf6-q25r
+    - fix: https://github.com/osrg/gobgp/commit/ca7383f450f7b296c5389feceef2467de5ab6e5a
+    - web: https://github.com/osrg/gobgp/compare/v3.34.0...v3.35.0
+source:
+    id: GHSA-mfvv-mgf6-q25r
+    created: 2025-04-22T13:14:50.962324-04:00
+review_status: REVIEWED

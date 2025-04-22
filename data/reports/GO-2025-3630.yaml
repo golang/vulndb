@@ -1,0 +1,25 @@
+id: GO-2025-3630
+modules:
+    - module: github.com/osrg/gobgp
+      vulnerable_at: 3.35.0
+    - module: github.com/osrg/gobgp/v3
+      versions:
+        - fixed: 3.35.0
+      vulnerable_at: 3.34.0
+      packages:
+        - package: github.com/osrg/gobgp/v3/pkg/packet/mrt
+          symbols:
+            - BGP4MPHeader.decodeFromBytes
+summary: GoBGP does not properly check the input length in github.com/osrg/gobgp
+cves:
+    - CVE-2025-43970
+ghsas:
+    - GHSA-hqhq-hp5x-xp3w
+references:
+    - advisory: https://github.com/advisories/GHSA-hqhq-hp5x-xp3w
+    - fix: https://github.com/osrg/gobgp/commit/5153bafbe8dbe1a2f02a70bbf0365e98b80e47b0
+    - web: https://github.com/osrg/gobgp/compare/v3.34.0...v3.35.0
+source:
+    id: GHSA-hqhq-hp5x-xp3w
+    created: 2025-04-22T13:14:38.121688-04:00
+review_status: REVIEWED

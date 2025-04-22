@@ -1,0 +1,25 @@
+id: GO-2025-3633
+modules:
+    - module: github.com/osrg/gobgp
+      vulnerable_at: 3.35.0
+    - module: github.com/osrg/gobgp/v3
+      versions:
+        - fixed: 3.35.0
+      vulnerable_at: 3.34.0
+      packages:
+        - package: github.com/osrg/gobgp/v3/pkg/packet/rtr
+          symbols:
+            - ParseRTR
+summary: GoBGP does not verify that the input length in github.com/osrg/gobgp
+cves:
+    - CVE-2025-43973
+ghsas:
+    - GHSA-c5jg-wr5v-2wp2
+references:
+    - advisory: https://github.com/advisories/GHSA-c5jg-wr5v-2wp2
+    - fix: https://github.com/osrg/gobgp/commit/5693c58a4815cc6327b8d3b6980f0e5aced28abe
+    - web: https://github.com/osrg/gobgp/compare/v3.34.0...v3.35.0
+source:
+    id: GHSA-c5jg-wr5v-2wp2
+    created: 2025-04-22T13:14:55.241509-04:00
+review_status: REVIEWED
