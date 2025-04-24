@@ -1,0 +1,55 @@
+id: GO-2025-3643
+modules:
+    - module: github.com/mattermost/mattermost-plugin-playbooks
+      non_go_versions:
+        - introduced: 2.0.0
+      vulnerable_at: 1.41.0
+    - module: github.com/mattermost/mattermost-plugin-playbooks
+      versions:
+        - fixed: 1.41.0
+      vulnerable_at: 1.40.0
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 9.11.0+incompatible
+      vulnerable_at: 10.7.1+incompatible
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.4.0+incompatible
+      vulnerable_at: 10.7.1+incompatible
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.5.0+incompatible
+      vulnerable_at: 10.7.1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      vulnerable_at: 8.0.0-20250424155909-29f7c895b816
+    - module: github.com/mattermost/mattermost/server/v8
+      vulnerable_at: 8.0.0-20250424155909-29f7c895b816
+    - module: github.com/mattermost/mattermost/server/v8
+      vulnerable_at: 8.0.0-20250424155909-29f7c895b816
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20250218121836-2b5275d87136
+summary: |-
+    Mattermost Playbooks fails to validate the uniqueness and quantity of task
+    actions in github.com/mattermost/mattermost-plugin-playbooks
+cves:
+    - CVE-2025-35965
+ghsas:
+    - GHSA-689c-xq7x-xjwf
+references:
+    - advisory: https://github.com/advisories/GHSA-689c-xq7x-xjwf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-35965
+    - fix: https://github.com/mattermost/mattermost-plugin-playbooks/commit/bf2633dad09f5768ce2bea4b7c5ffb74050052a8
+    - web: https://github.com/mattermost/mattermost/commit/2b5275d87136f07e016c8eca09a2f004b31afc8a
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'module merge error: could not merge versions of module github.com/mattermost/mattermost-server: introduced and fixed versions must alternate'
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-689c-xq7x-xjwf
+    created: 2025-04-24T13:40:53.968787-04:00
+review_status: UNREVIEWED
