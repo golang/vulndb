@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3638",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-pmc3-p9hx-jq96"
+  ],
+  "summary": "ServerHellos are accepted without checking TLS 1.3 downgrade canaries in github.com/refraction-networking/utls",
+  "details": "Before version 1.7.0, utls did not implement the TLS 1.3 downgrade protection mechanism specified in RFC 8446 Section 4.1.3 when using a utls ClientHello spec. This allowed an active network adversary to downgrade TLS 1.3 connections initiated by a utls client to a lower TLS version (e.g., TLS 1.2) by modifying the ClientHello message to exclude the SupportedVersions extension, causing the server to respond with a TLS 1.2 ServerHello (along with a downgrade canary in the ServerHello random field). Because utls did not check the downgrade canary in the ServerHello random field, clients would accept the downgraded connection without detecting the attack. This attack could also be used by an active network attacker to fingerprint utls connections.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/refraction-networking/utls",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.0.0"
+            },
+            {
+              "fixed": "1.7.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/refraction-networking/utls",
+            "symbols": [
+              "Conn.Handshake",
+              "Conn.HandshakeContext",
+              "Conn.Read",
+              "Conn.Write",
+              "Dial",
+              "DialWithDialer",
+              "Dialer.Dial",
+              "Dialer.DialContext",
+              "QUICConn.Start",
+              "Roller.Dial",
+              "UConn.Handshake",
+              "UConn.HandshakeContext",
+              "UConn.Read",
+              "UConn.Write",
+              "UConn.clientHandshake",
+              "UQUICConn.HandleData",
+              "UQUICConn.Start"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-pmc3-p9hx-jq96"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/refraction-networking/utls/commit/f8892761e2a4d29054264651d3a86fda83bc83f9"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/refraction-networking/utls/pull/337"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/refraction-networking/utls/issues/181"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3638",
+    "review_status": "REVIEWED"
+  }
+}

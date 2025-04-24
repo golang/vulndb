@@ -1,0 +1,51 @@
+id: GO-2025-3638
+modules:
+    - module: github.com/refraction-networking/utls
+      versions:
+        - introduced: 1.0.0
+        - fixed: 1.7.0
+      vulnerable_at: 1.6.7
+      packages:
+        - package: github.com/refraction-networking/utls
+          symbols:
+            - UConn.clientHandshake
+          derived_symbols:
+            - Conn.Handshake
+            - Conn.HandshakeContext
+            - Conn.Read
+            - Conn.Write
+            - Dial
+            - DialWithDialer
+            - Dialer.Dial
+            - Dialer.DialContext
+            - QUICConn.Start
+            - Roller.Dial
+            - UConn.Handshake
+            - UConn.HandshakeContext
+            - UConn.Read
+            - UConn.Write
+            - UQUICConn.HandleData
+            - UQUICConn.Start
+summary: ServerHellos are accepted without checking TLS 1.3 downgrade canaries in github.com/refraction-networking/utls
+description: |-
+    Before version 1.7.0, utls did not implement the TLS 1.3 downgrade protection
+    mechanism specified in RFC 8446 Section 4.1.3 when using a utls ClientHello
+    spec. This allowed an active network adversary to downgrade TLS 1.3 connections
+    initiated by a utls client to a lower TLS version (e.g., TLS 1.2) by modifying
+    the ClientHello message to exclude the SupportedVersions extension, causing the
+    server to respond with a TLS 1.2 ServerHello (along with a downgrade canary in
+    the ServerHello random field). Because utls did not check the downgrade canary
+    in the ServerHello random field, clients would accept the downgraded connection
+    without detecting the attack. This attack could also be used by an active
+    network attacker to fingerprint utls connections.
+ghsas:
+    - GHSA-pmc3-p9hx-jq96
+references:
+    - advisory: https://github.com/advisories/GHSA-pmc3-p9hx-jq96
+    - fix: https://github.com/refraction-networking/utls/commit/f8892761e2a4d29054264651d3a86fda83bc83f9
+    - fix: https://github.com/refraction-networking/utls/pull/337
+    - report: https://github.com/refraction-networking/utls/issues/181
+source:
+    id: GHSA-pmc3-p9hx-jq96
+    created: 2025-04-23T15:01:24.251871181Z
+review_status: REVIEWED
