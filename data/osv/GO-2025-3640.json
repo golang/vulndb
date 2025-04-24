@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3640",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2017-14992",
+    "GHSA-hqwh-8xv9-42hw"
+  ],
+  "summary": "Memory exhaustion in github.com/vbatts/tar-split",
+  "details": "Memory exhaustion in github.com/vbatts/tar-split",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/vbatts/tar-split",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.10.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/vbatts/tar-split/tar/asm",
+            "symbols": [
+              "NewInputTarStream"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-hqwh-8xv9-42hw"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/vbatts/tar-split/pull/42"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/moby/moby/issues/35075"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/vbatts/tar-split/releases/tag/v0.10.2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://web.archive.org/web/20171119174639/https://blog.cloudpassage.com/2017/10/13/discovering-docker-cve-2017-14992"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3640",
+    "review_status": "REVIEWED"
+  }
+}

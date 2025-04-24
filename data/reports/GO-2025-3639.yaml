@@ -1,0 +1,22 @@
+id: GO-2025-3639
+modules:
+    - module: github.com/juju/juju
+      versions:
+        - fixed: 0.0.0-20170524231039-0417178a3c28
+summary: Juju uses a UNIX domain socket without setting appropriate permissions in github.com/juju/juju
+cves:
+    - CVE-2017-9232
+ghsas:
+    - GHSA-j3hp-pv6v-rgrx
+references:
+    - advisory: https://github.com/advisories/GHSA-j3hp-pv6v-rgrx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-9232
+    - fix: https://github.com/juju/juju/commit/0417178a3c2869537860e8b3b5e787ce1732231f
+    - web: https://bugs.launchpad.net/juju/+bug/1682411
+    - web: https://www.exploit-db.com/exploits/44023
+notes:
+    - fix: 'github.com/juju/juju: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-j3hp-pv6v-rgrx
+    created: 2025-04-24T12:21:22.192354-04:00
+review_status: UNREVIEWED

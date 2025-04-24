@@ -1,0 +1,25 @@
+id: GO-2025-3640
+modules:
+    - module: github.com/vbatts/tar-split
+      versions:
+        - fixed: 0.10.2
+      vulnerable_at: 0.10.1
+      packages:
+        - package: github.com/vbatts/tar-split/tar/asm
+          symbols:
+            - NewInputTarStream
+summary: Memory exhaustion in github.com/vbatts/tar-split
+cves:
+    - CVE-2017-14992
+ghsas:
+    - GHSA-hqwh-8xv9-42hw
+references:
+    - advisory: https://github.com/advisories/GHSA-hqwh-8xv9-42hw
+    - fix: https://github.com/vbatts/tar-split/pull/42
+    - web: https://github.com/moby/moby/issues/35075
+    - web: https://github.com/vbatts/tar-split/releases/tag/v0.10.2
+    - web: https://web.archive.org/web/20171119174639/https://blog.cloudpassage.com/2017/10/13/discovering-docker-cve-2017-14992
+source:
+    id: GHSA-hqwh-8xv9-42hw
+    created: 2025-04-24T12:20:42.620793-04:00
+review_status: REVIEWED
