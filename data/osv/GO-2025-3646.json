@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3646",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-46599",
+    "GHSA-864f-7xjm-2jp2"
+  ],
+  "summary": "CNCF K3s Kubernetes kubelet configuration exposes credentials in github.com/k3s-io/k3s",
+  "details": "CNCF K3s Kubernetes kubelet configuration exposes credentials in github.com/k3s-io/k3s.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/k3s-io/k3s from v1.32.0-rc1 before v1.32.4-rc1.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/k3s-io/k3s",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "1.32.0-rc1"
+              },
+              {
+                "fixed": "1.32.4-rc1"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-864f-7xjm-2jp2"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-46599"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/k3s-io/k3s/commit/097b63e588e3c844cdf9b967bcd0a69f4fc0aa0a"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/k3s-io/k3s/issues/12164"
+    },
+    {
+      "type": "WEB",
+      "url": "https://cloud.google.com/kubernetes-engine/docs/how-to/disable-kubelet-readonly-port"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/f1veT/BUG/issues/2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/k3s-io/k3s/compare/v1.32.3+k3s1...v1.32.4-rc1+k3s1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3646",
+    "review_status": "UNREVIEWED"
+  }
+}

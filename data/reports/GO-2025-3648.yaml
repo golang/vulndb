@@ -1,0 +1,28 @@
+id: GO-2025-3648
+modules:
+    - module: github.com/rancher/steve
+      non_go_versions:
+        - introduced: 0.3.0
+        - fixed: 0.3.3
+    - module: github.com/rancher/steve
+      versions:
+        - introduced: 0.2.0
+        - fixed: 0.2.1
+        - introduced: 0.4.0
+        - fixed: 0.4.4
+        - introduced: 0.5.0
+        - fixed: 0.5.13
+      vulnerable_at: 0.5.12
+summary: |-
+    Steve doesn’t verify a server’s certificate and is susceptible to
+    man-in-the-middle (MitM) attacks in github.com/rancher/stev
+cves:
+    - CVE-2023-32198
+ghsas:
+    - GHSA-95fc-g4gj-mqmx
+references:
+    - advisory: https://github.com/rancher/steve/security/advisories/GHSA-95fc-g4gj-mqmx
+source:
+    id: GHSA-95fc-g4gj-mqmx
+    created: 2025-04-29T12:46:44.848556-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,24 @@
+id: GO-2025-3646
+modules:
+    - module: github.com/k3s-io/k3s
+      non_go_versions:
+        - introduced: 1.32.0-rc1
+        - fixed: 1.32.4-rc1
+      vulnerable_at: 1.0.1
+summary: CNCF K3s Kubernetes kubelet configuration exposes credentials in github.com/k3s-io/k3s
+cves:
+    - CVE-2025-46599
+ghsas:
+    - GHSA-864f-7xjm-2jp2
+references:
+    - advisory: https://github.com/advisories/GHSA-864f-7xjm-2jp2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-46599
+    - fix: https://github.com/k3s-io/k3s/commit/097b63e588e3c844cdf9b967bcd0a69f4fc0aa0a
+    - report: https://github.com/k3s-io/k3s/issues/12164
+    - web: https://cloud.google.com/kubernetes-engine/docs/how-to/disable-kubelet-readonly-port
+    - web: https://github.com/f1veT/BUG/issues/2
+    - web: https://github.com/k3s-io/k3s/compare/v1.32.3+k3s1...v1.32.4-rc1+k3s1
+source:
+    id: GHSA-864f-7xjm-2jp2
+    created: 2025-04-29T12:46:32.786602-04:00
+review_status: UNREVIEWED

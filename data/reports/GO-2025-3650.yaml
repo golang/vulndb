@@ -1,0 +1,32 @@
+id: GO-2025-3650
+modules:
+    - module: github.com/snowflakedb/gosnowflake
+      versions:
+        - introduced: 1.7.0
+        - fixed: 1.13.3
+      vulnerable_at: 1.13.2
+      packages:
+        - package: github.com/snowflakedb/gosnowflake
+          symbols:
+            - fileBasedSecureStorageManager.withCacheFile
+            - parseClientConfiguration
+            - fileBasedSecureStorageManager.ensurePermissionsAndOwner
+            - validateCfgPerm
+          derived_symbols:
+            - Connector.Connect
+            - SnowflakeDriver.Open
+            - SnowflakeDriver.OpenWithConfig
+summary: |-
+    Go Snowflake Driver has race condition checking access to Easy Logging config
+    file in github.com/snowflakedb/gosnowflake
+cves:
+    - CVE-2025-46327
+ghsas:
+    - GHSA-6jgm-j7h2-2fqg
+references:
+    - advisory: https://github.com/snowflakedb/gosnowflake/security/advisories/GHSA-6jgm-j7h2-2fqg
+    - fix: https://github.com/snowflakedb/gosnowflake/commit/ba94a4800e23621eff558ef18ce4b96ec5489ff0
+source:
+    id: GHSA-6jgm-j7h2-2fqg
+    created: 2025-04-29T12:46:56.222011-04:00
+review_status: REVIEWED

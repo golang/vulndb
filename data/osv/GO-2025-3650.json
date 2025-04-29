@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3650",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-46327",
+    "GHSA-6jgm-j7h2-2fqg"
+  ],
+  "summary": "Go Snowflake Driver has race condition checking access to Easy Logging config file in github.com/snowflakedb/gosnowflake",
+  "details": "Go Snowflake Driver has race condition checking access to Easy Logging config file in github.com/snowflakedb/gosnowflake",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/snowflakedb/gosnowflake",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.7.0"
+            },
+            {
+              "fixed": "1.13.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/snowflakedb/gosnowflake",
+            "symbols": [
+              "Connector.Connect",
+              "SnowflakeDriver.Open",
+              "SnowflakeDriver.OpenWithConfig",
+              "fileBasedSecureStorageManager.ensurePermissionsAndOwner",
+              "fileBasedSecureStorageManager.withCacheFile",
+              "parseClientConfiguration",
+              "validateCfgPerm"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/snowflakedb/gosnowflake/security/advisories/GHSA-6jgm-j7h2-2fqg"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/snowflakedb/gosnowflake/commit/ba94a4800e23621eff558ef18ce4b96ec5489ff0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3650",
+    "review_status": "REVIEWED"
+  }
+}

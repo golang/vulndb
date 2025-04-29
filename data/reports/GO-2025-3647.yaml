@@ -1,0 +1,22 @@
+id: GO-2025-3647
+modules:
+    - module: github.com/rancher/rancher
+      non_go_versions:
+        - introduced: 2.8.0
+        - fixed: 2.9.9
+        - introduced: 2.10.0
+        - fixed: 2.10.5
+        - introduced: 2.11.0
+        - fixed: 2.11.1
+      vulnerable_at: 1.6.30
+summary: Rancher users who can create Projects can gain access to arbitrary projects in github.com/rancher/rancher
+cves:
+    - CVE-2024-22031
+ghsas:
+    - GHSA-8h6m-wv39-239m
+references:
+    - advisory: https://github.com/rancher/rancher/security/advisories/GHSA-8h6m-wv39-239m
+source:
+    id: GHSA-8h6m-wv39-239m
+    created: 2025-04-29T12:46:40.382459-04:00
+review_status: UNREVIEWED
