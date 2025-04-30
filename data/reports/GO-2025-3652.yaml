@@ -1,0 +1,22 @@
+id: GO-2025-3652
+modules:
+    - module: github.com/kyverno/kyverno
+      versions:
+        - fixed: 1.13.5
+        - introduced: 1.14.0-alpha.1
+        - fixed: 1.14.0
+      vulnerable_at: 1.14.0-rc.1
+summary: |-
+    Kyverno vulnerable to bypass of policy rules that use namespace selectors in
+    match statements in github.com/kyverno/kyverno
+cves:
+    - CVE-2025-46342
+ghsas:
+    - GHSA-jrr2-x33p-6hvc
+references:
+    - advisory: https://github.com/kyverno/kyverno/security/advisories/GHSA-jrr2-x33p-6hvc
+    - fix: https://github.com/kyverno/kyverno/commit/3ff923b7756e1681daf73849954bd88516589194
+source:
+    id: GHSA-jrr2-x33p-6hvc
+    created: 2025-04-30T10:18:48.95401-04:00
+review_status: UNREVIEWED
