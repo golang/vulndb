@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3660",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-46569",
+    "GHSA-6m8w-jc87-6cr7"
+  ],
+  "summary": "OPA server Data API HTTP path injection of Rego in github.com/open-policy-agent/opa",
+  "details": "OPA server Data API HTTP path injection of Rego in github.com/open-policy-agent/opa",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/open-policy-agent/opa",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.4.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/open-policy-agent/opa/v1/server",
+            "symbols": [
+              "Server.makeRego",
+              "Server.unversionedGetHealthWithPolicy",
+              "Server.v0QueryPath",
+              "baseHTTPListener.ListenAndServe",
+              "baseHTTPListener.ListenAndServeTLS",
+              "stringPathToDataRef",
+              "stringPathToRef"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/open-policy-agent/opa/security/advisories/GHSA-6m8w-jc87-6cr7"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/open-policy-agent/opa/commit/ad2063247a14711882f18c387a511fc8094aa79c"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3660",
+    "review_status": "REVIEWED"
+  }
+}
