@@ -1,0 +1,20 @@
+id: GO-2025-3662
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - introduced: 1.10.0
+        - fixed: 1.19.1
+      vulnerable_at: 1.19.0
+summary: Hashicorp Vault Community vulnerable to Incorrect Authorization in github.com/hashicorp/vault
+cves:
+    - CVE-2025-3879
+ghsas:
+    - GHSA-f9ch-h8j7-8jwg
+references:
+    - advisory: https://github.com/advisories/GHSA-f9ch-h8j7-8jwg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-3879
+    - web: https://discuss.hashicorp.com/t/hcsec-2025-07-vault-s-azure-authentication-method-bound-location-restriction-could-be-bypassed-on-login/74716
+source:
+    id: GHSA-f9ch-h8j7-8jwg
+    created: 2025-05-05T12:57:08.78106-04:00
+review_status: UNREVIEWED

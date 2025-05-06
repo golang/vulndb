@@ -1,0 +1,38 @@
+id: GO-2025-3656
+modules:
+    - module: volcano.sh/volcano
+      versions:
+        - fixed: 1.9.1
+        - introduced: 1.10.0-alpha.0
+        - fixed: 1.10.2
+        - introduced: 1.11.0-network-topology-preview.0
+        - fixed: 1.11.0-network-topology-preview.3
+        - introduced: 1.11.0
+        - fixed: 1.11.2
+        - introduced: 1.12.0-alpha.0
+        - fixed: 1.12.0-alpha.2
+      vulnerable_at: 1.12.0-alpha.1
+summary: |-
+    Volcano Scheduler Denial of Service via Unbounded Response from Elastic
+    Service/extender Plugin in volcano.sh/volcano
+cves:
+    - CVE-2025-32777
+ghsas:
+    - GHSA-hg79-fw4p-25p8
+references:
+    - advisory: https://github.com/volcano-sh/volcano/security/advisories/GHSA-hg79-fw4p-25p8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-32777
+    - web: https://github.com/volcano-sh/volcano/commit/45a4347471a5254121d10afef04c6732095fa398
+    - web: https://github.com/volcano-sh/volcano/commit/7103c18de19821cd278f949fa24c13da350a8c5d
+    - web: https://github.com/volcano-sh/volcano/commit/735842af59b9be0da5090677db7693c98a798b2a
+    - web: https://github.com/volcano-sh/volcano/commit/7c0ea53fa3cfa7a05b5fba7a8af7bfe88adc41c3
+    - web: https://github.com/volcano-sh/volcano/commit/d687f75a11fa36f37b54e4b6ff8e49bc0a3ca6b4
+    - web: https://github.com/volcano-sh/volcano/releases/tag/v1.10.2
+    - web: https://github.com/volcano-sh/volcano/releases/tag/v1.11.0-network-topology-preview.3
+    - web: https://github.com/volcano-sh/volcano/releases/tag/v1.11.2
+    - web: https://github.com/volcano-sh/volcano/releases/tag/v1.12.0-alpha.2
+    - web: https://github.com/volcano-sh/volcano/releases/tag/v1.9.1
+source:
+    id: GHSA-hg79-fw4p-25p8
+    created: 2025-05-05T12:55:57.305718-04:00
+review_status: UNREVIEWED
