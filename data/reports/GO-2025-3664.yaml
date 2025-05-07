@@ -1,0 +1,21 @@
+id: GO-2025-3664
+modules:
+    - module: github.com/linkerd/linkerd2
+      non_go_versions:
+        - fixed: 0.6.0-20250501173313-4823b7af3e1e
+      vulnerable_at: 0.5.0
+summary: Linkerd resource exhaustion vulnerability in github.com/linkerd/linkerd2
+cves:
+    - CVE-2025-43915
+ghsas:
+    - GHSA-42mr-jpwh-m9rv
+references:
+    - advisory: https://github.com/advisories/GHSA-42mr-jpwh-m9rv
+    - web: https://docs.buoyant.io/security/advisories/2025-01
+    - web: https://www.buoyant.io/resources
+notes:
+    - Symbols cannot be resolved without a link to the fix commit.
+source:
+    id: GHSA-42mr-jpwh-m9rv
+    created: 2025-05-06T09:29:27.617271-04:00
+review_status: REVIEWED
