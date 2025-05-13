@@ -1,14 +1,12 @@
 id: GO-2025-3561
 modules:
     - module: github.com/cilium/cilium
-      non_go_versions:
-        - introduced: 1.17.0
-        - fixed: 1.17.2
-    - module: github.com/cilium/cilium
       versions:
         - introduced: 1.16.0
         - fixed: 1.16.8
-      vulnerable_at: 1.16.7
+        - introduced: 1.17.0
+        - fixed: 1.17.2
+      vulnerable_at: 1.17.1
 summary: |-
     Cilium node based network policies may incorrectly allow workload traffic in
     github.com/cilium/cilium
@@ -18,10 +16,9 @@ ghsas:
     - GHSA-c6pf-2v8j-96mc
 references:
     - advisory: https://github.com/cilium/cilium/security/advisories/GHSA-c6pf-2v8j-96mc
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-30163
     - fix: https://github.com/cilium/cilium/pull/36657
     - web: https://docs.cilium.io/en/stable/security/policy/language/#node-based
 source:
     id: GHSA-c6pf-2v8j-96mc
     created: 2025-03-25T12:05:12.880469-04:00
-review_status: UNREVIEWED
+review_status: REVIEWED

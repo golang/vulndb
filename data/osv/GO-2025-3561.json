@@ -8,39 +8,8 @@
     "GHSA-c6pf-2v8j-96mc"
   ],
   "summary": "Cilium node based network policies may incorrectly allow workload traffic in github.com/cilium/cilium",
-  "details": "Cilium node based network policies may incorrectly allow workload traffic in github.com/cilium/cilium.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/cilium/cilium from v1.17.0 before v1.17.2.",
+  "details": "Cilium node based network policies may incorrectly allow workload traffic in github.com/cilium/cilium",
   "affected": [
-    {
-      "package": {
-        "name": "github.com/cilium/cilium",
-        "ecosystem": "Go"
-      },
-      "ranges": [
-        {
-          "type": "SEMVER",
-          "events": [
-            {
-              "introduced": "0"
-            }
-          ]
-        }
-      ],
-      "ecosystem_specific": {
-        "custom_ranges": [
-          {
-            "type": "ECOSYSTEM",
-            "events": [
-              {
-                "introduced": "1.17.0"
-              },
-              {
-                "fixed": "1.17.2"
-              }
-            ]
-          }
-        ]
-      }
-    },
     {
       "package": {
         "name": "github.com/cilium/cilium",
@@ -55,6 +24,12 @@
             },
             {
               "fixed": "1.16.8"
+            },
+            {
+              "introduced": "1.17.0"
+            },
+            {
+              "fixed": "1.17.2"
             }
           ]
         }
@@ -68,10 +43,6 @@
       "url": "https://github.com/cilium/cilium/security/advisories/GHSA-c6pf-2v8j-96mc"
     },
     {
-      "type": "ADVISORY",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-30163"
-    },
-    {
       "type": "FIX",
       "url": "https://github.com/cilium/cilium/pull/36657"
     },
@@ -82,6 +53,6 @@
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2025-3561",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }
