@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3672",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-46816",
+    "GHSA-rwj2-w85g-5cmm"
+  ],
+  "summary": "goshs route not protected, allows command execution in github.com/patrickhener/goshs",
+  "details": "goshs route not protected, allows command execution in github.com/patrickhener/goshs",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/patrickhener/goshs",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.3.4"
+            },
+            {
+              "fixed": "1.0.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/patrickhener/goshs/security/advisories/GHSA-rwj2-w85g-5cmm"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-46816"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/patrickhener/goshs/commit/160220974576afe5111485b8d12fd36058984cfa"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3672",
+    "review_status": "UNREVIEWED"
+  }
+}

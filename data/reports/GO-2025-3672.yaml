@@ -1,0 +1,20 @@
+id: GO-2025-3672
+modules:
+    - module: github.com/patrickhener/goshs
+      versions:
+        - introduced: 0.3.4
+        - fixed: 1.0.5
+      vulnerable_at: 1.0.4
+summary: goshs route not protected, allows command execution in github.com/patrickhener/goshs
+cves:
+    - CVE-2025-46816
+ghsas:
+    - GHSA-rwj2-w85g-5cmm
+references:
+    - advisory: https://github.com/patrickhener/goshs/security/advisories/GHSA-rwj2-w85g-5cmm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-46816
+    - fix: https://github.com/patrickhener/goshs/commit/160220974576afe5111485b8d12fd36058984cfa
+source:
+    id: GHSA-rwj2-w85g-5cmm
+    created: 2025-05-15T15:35:33.016288-04:00
+review_status: UNREVIEWED

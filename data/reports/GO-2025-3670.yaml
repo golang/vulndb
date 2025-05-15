@@ -1,0 +1,21 @@
+id: GO-2025-3670
+modules:
+    - module: github.com/nrkno/terraform-provider-windns
+      unsupported_versions:
+        - last_affected: 1.0.4
+      vulnerable_at: 1.0.5
+summary: |-
+    Terraform WinDNS Provider improperly sanitizes input variables in
+    `windns_record` in github.com/nrkno/terraform-provider-windns
+cves:
+    - CVE-2025-46735
+ghsas:
+    - GHSA-4vgf-2cm4-mp7c
+references:
+    - advisory: https://github.com/nrkno/terraform-provider-windns/security/advisories/GHSA-4vgf-2cm4-mp7c
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-46735
+    - fix: https://github.com/nrkno/terraform-provider-windns/commit/c76f69610c1b502f90aaed8c4f102194530b5bce
+source:
+    id: GHSA-4vgf-2cm4-mp7c
+    created: 2025-05-15T15:36:10.343908-04:00
+review_status: UNREVIEWED

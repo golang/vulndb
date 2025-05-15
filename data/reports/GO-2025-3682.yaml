@@ -1,0 +1,23 @@
+id: GO-2025-3682
+modules:
+    - module: github.com/lf-edge/ekuiper
+      unsupported_versions:
+        - last_affected: 1.14.7
+      vulnerable_at: 1.14.7
+    - module: github.com/lf-edge/ekuiper/v2
+      versions:
+        - fixed: 2.1.0
+      vulnerable_at: 2.1.0-beta.4
+summary: LF Edge eKuiper Vulnerable to Stored XSS in Configuration Key Functionality in github.com/lf-edge/ekuiper
+cves:
+    - CVE-2024-52290
+ghsas:
+    - GHSA-9cwv-pxcr-hfjc
+references:
+    - advisory: https://github.com/lf-edge/ekuiper/security/advisories/GHSA-9cwv-pxcr-hfjc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-52290
+    - fix: https://github.com/lf-edge/ekuiper/commit/943c02e10f0f8349e609474810eab5fa460d1a51
+source:
+    id: GHSA-9cwv-pxcr-hfjc
+    created: 2025-05-15T15:35:09.611422-04:00
+review_status: UNREVIEWED

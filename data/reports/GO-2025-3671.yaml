@@ -1,0 +1,26 @@
+id: GO-2025-3671
+modules:
+    - module: github.com/zitadel/zitadel
+      non_go_versions:
+        - fixed: 2.70.10
+        - introduced: 2.71.0
+        - fixed: 2.71.9
+        - introduced: 3.0.0-rc.1
+        - fixed: 3.0.0
+      vulnerable_at: 1.87.5
+summary: ZITADEL Allows IdP Intent Token Reuse in github.com/zitadel/zitadel
+cves:
+    - CVE-2025-46815
+ghsas:
+    - GHSA-g4r8-mp7g-85fq
+references:
+    - advisory: https://github.com/zitadel/zitadel/security/advisories/GHSA-g4r8-mp7g-85fq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-46815
+    - fix: https://github.com/zitadel/zitadel/commit/b1e60e7398d677f08b06fd7715227f70b7ca1162
+    - web: https://github.com/zitadel/zitadel/releases/tag/v2.70.10
+    - web: https://github.com/zitadel/zitadel/releases/tag/v2.71.9
+    - web: https://github.com/zitadel/zitadel/releases/tag/v3.0.0
+source:
+    id: GHSA-g4r8-mp7g-85fq
+    created: 2025-05-15T15:35:37.368013-04:00
+review_status: UNREVIEWED
