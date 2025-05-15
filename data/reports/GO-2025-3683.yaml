@@ -1,0 +1,29 @@
+id: GO-2025-3683
+modules:
+    - module: github.com/justinas/nosurf
+      versions:
+        - fixed: 1.2.0
+      vulnerable_at: 1.1.1
+      packages:
+        - package: github.com/justinas/nosurf
+          symbols:
+            - New
+            - CSRFHandler.ServeHTTP
+          derived_symbols:
+            - NewPure
+summary: nosurf vulnerable to CSRF due to non-functional same-origin request checks in github.com/justinas/nosurf
+cves:
+    - CVE-2025-46721
+ghsas:
+    - GHSA-w9hf-35q4-vcjw
+references:
+    - advisory: https://github.com/justinas/nosurf/security/advisories/GHSA-w9hf-35q4-vcjw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-46721
+    - fix: https://github.com/justinas/nosurf/commit/ec9bb776d8e5ba9e906b6eb70428f4e7b009feee
+    - web: https://github.com/advisories/GHSA-rq77-p4h8-4crw
+    - web: https://github.com/justinas/nosurf-cve-2025-46721
+    - web: https://github.com/justinas/nosurf/releases/tag/v1.2.0
+source:
+    id: GHSA-w9hf-35q4-vcjw
+    created: 2025-05-15T14:37:40.720845-04:00
+review_status: NEEDS_REVIEW
