@@ -1,0 +1,24 @@
+id: GO-2025-3697
+modules:
+    - module: github.com/gardener/external-dns-management
+      versions:
+        - fixed: 0.23.6
+      vulnerable_at: 0.23.5
+    - module: github.com/gardener/gardener-extension-shoot-dns-service
+      unsupported_versions:
+        - last_affected: 1.6.0
+      vulnerable_at: 1.63.0
+summary: |-
+    Gardener External DNS Management allows malicious google credential in DNS
+    secret to lead to privilege escalation in github.com/gardener/external-dns-management
+cves:
+    - CVE-2025-47282
+ghsas:
+    - GHSA-xwgg-m7fx-83wx
+references:
+    - advisory: https://github.com/gardener/external-dns-management/security/advisories/GHSA-xwgg-m7fx-83wx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-47282
+source:
+    id: GHSA-xwgg-m7fx-83wx
+    created: 2025-05-20T12:59:01.340709-04:00
+review_status: UNREVIEWED

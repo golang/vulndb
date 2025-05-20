@@ -1,0 +1,31 @@
+id: GO-2025-3694
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 9.11.0+incompatible
+        - fixed: 9.11.12+incompatible
+        - introduced: 10.5.0+incompatible
+        - fixed: 10.5.3+incompatible
+      vulnerable_at: 10.5.3-rc1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20250411064244-844447fbd57c
+summary: Mattermost Fails to Check User Access to `ExperimentalSettings` in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-2570
+ghsas:
+    - GHSA-fpff-wj6m-grvr
+references:
+    - advisory: https://github.com/advisories/GHSA-fpff-wj6m-grvr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-2570
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-fpff-wj6m-grvr
+    created: 2025-05-20T12:59:13.475185-04:00
+review_status: UNREVIEWED

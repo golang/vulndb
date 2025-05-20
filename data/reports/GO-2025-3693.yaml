@@ -1,0 +1,35 @@
+id: GO-2025-3693
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 9.11.0+incompatible
+        - fixed: 9.11.12+incompatible
+        - introduced: 10.4.0+incompatible
+        - fixed: 10.4.5+incompatible
+        - introduced: 10.5.0+incompatible
+        - fixed: 10.5.3+incompatible
+        - introduced: 10.6.0+incompatible
+        - fixed: 10.6.2+incompatible
+      vulnerable_at: 10.6.2-rc1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20250415054241-76ab3867b785
+summary: Mattermost Fails to Validate Team Invite Permissions in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-3446
+ghsas:
+    - GHSA-r7r2-m3vr-c8qc
+references:
+    - advisory: https://github.com/advisories/GHSA-r7r2-m3vr-c8qc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-3446
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-r7r2-m3vr-c8qc
+    created: 2025-05-20T13:00:28.99587-04:00
+review_status: UNREVIEWED

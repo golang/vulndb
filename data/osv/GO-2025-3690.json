@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3690",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-40120",
+    "GHSA-q97m-8853-pq76"
+  ],
+  "summary": "SeaweedFS Vulnerable to SQL Injection in github.com/seaweedfs/seaweedfs",
+  "details": "SeaweedFS Vulnerable to SQL Injection in github.com/seaweedfs/seaweedfs",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/seaweedfs/seaweedfs",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20240625155419-9ac102336200"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-q97m-8853-pq76"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-40120"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/seaweedfs/seaweedfs/commit/9ac1023362000f6e8e58c9d278653f5926a0d90e"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/seaweedfs/seaweedfs/issues/5710"
+    },
+    {
+      "type": "WEB",
+      "url": "https://gist.github.com/sud0why/1b2115c1d644bd3db1c1b3f16684a78c"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/seaweedfs/seaweedfs/releases/tag/3.69"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3690",
+    "review_status": "UNREVIEWED"
+  }
+}

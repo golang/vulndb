@@ -1,0 +1,23 @@
+id: GO-2025-3690
+modules:
+    - module: github.com/seaweedfs/seaweedfs
+      versions:
+        - fixed: 0.0.0-20240625155419-9ac102336200
+summary: SeaweedFS Vulnerable to SQL Injection in github.com/seaweedfs/seaweedfs
+cves:
+    - CVE-2024-40120
+ghsas:
+    - GHSA-q97m-8853-pq76
+references:
+    - advisory: https://github.com/advisories/GHSA-q97m-8853-pq76
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-40120
+    - fix: https://github.com/seaweedfs/seaweedfs/commit/9ac1023362000f6e8e58c9d278653f5926a0d90e
+    - report: https://github.com/seaweedfs/seaweedfs/issues/5710
+    - web: https://gist.github.com/sud0why/1b2115c1d644bd3db1c1b3f16684a78c
+    - web: https://github.com/seaweedfs/seaweedfs/releases/tag/3.69
+notes:
+    - fix: 'github.com/seaweedfs/seaweedfs: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-q97m-8853-pq76
+    created: 2025-05-20T13:00:50.902565-04:00
+review_status: UNREVIEWED
