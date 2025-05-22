@@ -1,0 +1,21 @@
+id: GO-2025-3702
+modules:
+    - module: github.com/Shopify/ejson2env
+      vulnerable_at: 1.1.0
+    - module: github.com/Shopify/ejson2env/v2
+      versions:
+        - fixed: 2.0.8
+      vulnerable_at: 2.0.7
+summary: Insufficient input sanitization in ejson2env in github.com/Shopify/ejson2env
+cves:
+    - CVE-2025-48069
+ghsas:
+    - GHSA-2c47-m757-32g6
+references:
+    - advisory: https://github.com/Shopify/ejson2env/security/advisories/GHSA-2c47-m757-32g6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-48069
+    - fix: https://github.com/Shopify/ejson2env/commit/592b3ceea967fee8b064e70983e8cec087b6d840
+source:
+    id: GHSA-2c47-m757-32g6
+    created: 2025-05-22T12:45:40.60227-04:00
+review_status: UNREVIEWED

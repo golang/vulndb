@@ -1,0 +1,23 @@
+id: GO-2025-3701
+modules:
+    - module: github.com/containerd/containerd
+      vulnerable_at: 1.7.27
+    - module: github.com/containerd/containerd/v2
+      versions:
+        - introduced: 2.0.1
+        - fixed: 2.0.5
+      vulnerable_at: 2.0.4
+summary: |-
+    containerd CRI plugin: Incorrect cgroup hierarchy assignment for containers
+    running in usernamespaced Kubernetes pods. in github.com/containerd/containerd
+cves:
+    - CVE-2025-47291
+ghsas:
+    - GHSA-cxfp-7pvr-95ff
+references:
+    - advisory: https://github.com/containerd/containerd/security/advisories/GHSA-cxfp-7pvr-95ff
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-47291
+source:
+    id: GHSA-cxfp-7pvr-95ff
+    created: 2025-05-22T12:45:45.287959-04:00
+review_status: UNREVIEWED
