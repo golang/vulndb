@@ -1,0 +1,20 @@
+id: GO-2025-3704
+modules:
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - fixed: 0.0.0-20250521183405-c7a690348df7
+      vulnerable_at: 5.4.5+incompatible
+summary: Grafana Cross-Site-Scripting (XSS) via custom loaded frontend plugin in github.com/grafana/grafana
+cves:
+    - CVE-2025-4123
+ghsas:
+    - GHSA-q53q-gxq9-mgrj
+references:
+    - advisory: https://github.com/advisories/GHSA-q53q-gxq9-mgrj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-4123
+    - fix: https://github.com/grafana/grafana/commit/c7a690348df761d41b659224cbc50a46a0c0e4cc
+    - web: https://grafana.com/security/security-advisories/cve-2025-4123
+source:
+    id: GHSA-q53q-gxq9-mgrj
+    created: 2025-05-23T11:19:56.523795-04:00
+review_status: UNREVIEWED

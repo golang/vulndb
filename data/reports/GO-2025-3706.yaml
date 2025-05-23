@@ -1,0 +1,27 @@
+id: GO-2025-3706
+modules:
+    - module: github.com/gofiber/fiber
+      vulnerable_at: 1.14.6
+    - module: github.com/gofiber/fiber/v2
+      versions:
+        - introduced: 2.52.6
+        - fixed: 2.52.7
+      vulnerable_at: 2.52.6
+      packages:
+        - package: github.com/gofiber/fiber/v2/internal/schema
+          symbols:
+            - Decoder.Decode
+summary: |-
+    Fiber panics when fiber.Ctx.BodyParser parses invalid range index in
+    github.com/gofiber/fiber
+cves:
+    - CVE-2025-48075
+ghsas:
+    - GHSA-hg3g-gphw-5hhm
+references:
+    - advisory: https://github.com/gofiber/fiber/security/advisories/GHSA-hg3g-gphw-5hhm
+    - fix: https://github.com/gofiber/fiber/commit/e115c08b8f059a4a031b492aa9eef0712411853d
+source:
+    id: GHSA-hg3g-gphw-5hhm
+    created: 2025-05-23T11:19:46.453453-04:00
+review_status: REVIEWED
