@@ -7,26 +7,9 @@
     "CVE-2025-47291",
     "GHSA-cxfp-7pvr-95ff"
   ],
-  "summary": "containerd CRI plugin: Incorrect cgroup hierarchy assignment for containers running in usernamespaced Kubernetes pods. in github.com/containerd/containerd",
-  "details": "containerd CRI plugin: Incorrect cgroup hierarchy assignment for containers running in usernamespaced Kubernetes pods. in github.com/containerd/containerd",
+  "summary": "Incorrect cgroup assignment for containers running in usernamespaced Kubernetes pods in github.com/containerd/containerd",
+  "details": "Incorrect cgroup assignment for containers running in usernamespaced Kubernetes pods in github.com/containerd/containerd",
   "affected": [
-    {
-      "package": {
-        "name": "github.com/containerd/containerd",
-        "ecosystem": "Go"
-      },
-      "ranges": [
-        {
-          "type": "SEMVER",
-          "events": [
-            {
-              "introduced": "0"
-            }
-          ]
-        }
-      ],
-      "ecosystem_specific": {}
-    },
     {
       "package": {
         "name": "github.com/containerd/containerd/v2",
@@ -52,14 +35,10 @@
     {
       "type": "ADVISORY",
       "url": "https://github.com/containerd/containerd/security/advisories/GHSA-cxfp-7pvr-95ff"
-    },
-    {
-      "type": "ADVISORY",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-47291"
     }
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2025-3701",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }
