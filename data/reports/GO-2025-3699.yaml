@@ -1,23 +1,22 @@
 id: GO-2025-3699
 modules:
-    - module: github.com/containerd/containerd
-      vulnerable_at: 1.7.27
     - module: github.com/containerd/containerd/v2
       versions:
         - introduced: 2.1.0
         - fixed: 2.1.1
       vulnerable_at: 2.1.0
-summary: containerd allows host filesystem access on pull in github.com/containerd/containerd
+summary: |-
+    Allows host filesystem access on pull in
+    github.com/containerd/containerd
 cves:
     - CVE-2025-47290
 ghsas:
     - GHSA-cm76-qm8v-3j95
 references:
     - advisory: https://github.com/containerd/containerd/security/advisories/GHSA-cm76-qm8v-3j95
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-47290
     - fix: https://github.com/containerd/containerd/commit/cada13298fba85493badb6fecb6ccf80e49673cc
     - web: https://github.com/containerd/containerd/releases/tag/v2.1.1
 source:
     id: GHSA-cm76-qm8v-3j95
     created: 2025-05-22T12:45:54.914854-04:00
-review_status: UNREVIEWED
+review_status: REVIEWED

@@ -7,26 +7,9 @@
     "CVE-2025-47290",
     "GHSA-cm76-qm8v-3j95"
   ],
-  "summary": "containerd allows host filesystem access on pull in github.com/containerd/containerd",
-  "details": "containerd allows host filesystem access on pull in github.com/containerd/containerd",
+  "summary": "Allows host filesystem access on pull in github.com/containerd/containerd",
+  "details": "Allows host filesystem access on pull in github.com/containerd/containerd",
   "affected": [
-    {
-      "package": {
-        "name": "github.com/containerd/containerd",
-        "ecosystem": "Go"
-      },
-      "ranges": [
-        {
-          "type": "SEMVER",
-          "events": [
-            {
-              "introduced": "0"
-            }
-          ]
-        }
-      ],
-      "ecosystem_specific": {}
-    },
     {
       "package": {
         "name": "github.com/containerd/containerd/v2",
@@ -54,10 +37,6 @@
       "url": "https://github.com/containerd/containerd/security/advisories/GHSA-cm76-qm8v-3j95"
     },
     {
-      "type": "ADVISORY",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-47290"
-    },
-    {
       "type": "FIX",
       "url": "https://github.com/containerd/containerd/commit/cada13298fba85493badb6fecb6ccf80e49673cc"
     },
@@ -68,6 +47,6 @@
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2025-3699",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }
