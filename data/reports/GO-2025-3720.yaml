@@ -1,0 +1,31 @@
+id: GO-2025-3720
+modules:
+    - module: github.com/argoproj/argo-cd
+      versions:
+        - introduced: 1.2.0-rc1
+      unsupported_versions:
+        - last_affected: 1.8.7
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - introduced: 2.0.0-rc3
+        - fixed: 2.13.8
+        - introduced: 2.14.0-rc1
+        - fixed: 2.14.13
+      vulnerable_at: 2.14.12
+    - module: github.com/argoproj/argo-cd/v3
+      versions:
+        - fixed: 3.0.4
+      vulnerable_at: 3.0.3
+summary: Argo CD allows cross-site scripting on repositories page in github.com/argoproj/argo-cd
+cves:
+    - CVE-2025-47933
+ghsas:
+    - GHSA-2hj5-g64g-fp6p
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-2hj5-g64g-fp6p
+    - fix: https://github.com/argoproj/argo-cd/commit/a5b4041a79c54bc7b3d090805d070bcdb9a9e4d1
+source:
+    id: GHSA-2hj5-g64g-fp6p
+    created: 2025-05-29T12:53:10.183603-04:00
+review_status: UNREVIEWED

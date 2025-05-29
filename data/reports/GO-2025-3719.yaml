@@ -1,0 +1,28 @@
+id: GO-2025-3719
+modules:
+    - module: github.com/traefik/traefik
+      unsupported_versions:
+        - last_affected: 1.7.34
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.25
+      vulnerable_at: 2.11.24
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - fixed: 3.4.1
+      vulnerable_at: 3.4.0
+summary: Traefik allows path traversal using url encoding in github.com/traefik/traefik
+cves:
+    - CVE-2025-47952
+ghsas:
+    - GHSA-vrch-868g-9jx5
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-vrch-868g-9jx5
+    - fix: https://github.com/traefik/traefik/commit/08d5dfee0164aa54dd44a467870042e18e8d3f00
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.25
+    - web: https://github.com/traefik/traefik/releases/tag/v3.4.1
+source:
+    id: GHSA-vrch-868g-9jx5
+    created: 2025-05-29T12:53:15.54652-04:00
+review_status: UNREVIEWED

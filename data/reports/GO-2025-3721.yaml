@@ -1,0 +1,24 @@
+id: GO-2025-3721
+modules:
+    - module: github.com/zitadel/zitadel
+      versions:
+        - fixed: 0.0.0-20250528081227-c097887bc5f6
+      non_go_versions:
+        - introduced: 2.38.3
+        - fixed: 2.70.12
+        - introduced: 2.71.0
+        - fixed: 2.71.11
+        - introduced: 3.0.0-rc1
+        - fixed: 3.2.2
+summary: ZITADEL Allows Account Takeover via Malicious X-Forwarded-Proto Header Injection in github.com/zitadel/zitadel
+ghsas:
+    - GHSA-93m4-mfpg-c3xf
+references:
+    - advisory: https://github.com/zitadel/zitadel/security/advisories/GHSA-93m4-mfpg-c3xf
+    - fix: https://github.com/zitadel/zitadel/commit/c097887bc5f680e12c998580fb56d98a15758f53
+notes:
+    - fix: 'github.com/zitadel/zitadel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-93m4-mfpg-c3xf
+    created: 2025-05-29T12:52:59.445805-04:00
+review_status: UNREVIEWED
