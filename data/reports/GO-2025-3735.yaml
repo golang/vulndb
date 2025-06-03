@@ -1,0 +1,30 @@
+id: GO-2025-3735
+modules:
+    - module: github.com/quic-go/quic-go
+      versions:
+        - introduced: 0.50.0
+        - fixed: 0.50.1
+      vulnerable_at: 0.50.0
+      packages:
+        - package: github.com/quic-go/quic-go/internal/ackhandler
+          symbols:
+            - sentPacketHandler.detectLostPathProbes
+            - sentPacketHandler.detectAndRemoveAckedPackets
+          derived_symbols:
+            - sentPacketHandler.OnLossDetectionTimeout
+            - sentPacketHandler.ReceivedAck
+summary: |-
+    Panic in Path Probe Loss Recovery Handling in
+    github.com/quic-go/quic-go
+cves:
+    - CVE-2025-29785
+ghsas:
+    - GHSA-j972-j939-p2v3
+references:
+    - advisory: https://github.com/quic-go/quic-go/security/advisories/GHSA-j972-j939-p2v3
+    - fix: https://github.com/quic-go/quic-go/commit/b90058aba5f65f48e0e150c89bbaa21a72dda4de
+    - report: https://github.com/quic-go/quic-go/issues/4981
+source:
+    id: GHSA-j972-j939-p2v3
+    created: 2025-06-03T11:45:22.779433-04:00
+review_status: REVIEWED

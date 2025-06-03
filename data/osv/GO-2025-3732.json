@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3732",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-48938",
+    "GHSA-g9f5-x53j-h563"
+  ],
+  "summary": "GitHub CLI and extensions can execute arbitrary commands on compromised GitHub Enterprise Server in github.com/cli/go-gh",
+  "details": "GitHub CLI and extensions can execute arbitrary commands on compromised GitHub Enterprise Server in github.com/cli/go-gh",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cli/go-gh/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.12.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/cli/go-gh/v2/pkg/browser",
+            "symbols": [
+              "Browser.Browse",
+              "Browser.browse"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cli/go-gh/security/advisories/GHSA-g9f5-x53j-h563"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cli/go-gh/commit/a08820a13f257d6c5b4cb86d37db559ec6d14577"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3732",
+    "review_status": "REVIEWED"
+  }
+}

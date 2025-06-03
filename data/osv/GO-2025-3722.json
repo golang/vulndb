@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3722",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-48865",
+    "GHSA-q7p4-7xjv-j3wf"
+  ],
+  "summary": "Fabio allows HTTP clients to manipulate custom headers it adds in github.com/fabiolb/fabio",
+  "details": "Fabio allows HTTP clients to manipulate custom headers it adds in github.com/fabiolb/fabio",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/fabiolb/fabio",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.6.6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/fabiolb/fabio/proxy",
+            "symbols": [
+              "HTTPProxy.ServeHTTP",
+              "addHeaders"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/fabiolb/fabio/security/advisories/GHSA-q7p4-7xjv-j3wf"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/fabiolb/fabio/commit/fdaf1e966162e9dd3b347ffdd0647b39dc71a1a3"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/fabiolb/fabio/releases/tag/v1.6.6"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3722",
+    "review_status": "REVIEWED"
+  }
+}

@@ -1,0 +1,27 @@
+id: GO-2025-3722
+modules:
+    - module: github.com/fabiolb/fabio
+      versions:
+        - fixed: 1.6.6
+      vulnerable_at: 1.6.5
+      packages:
+        - package: github.com/fabiolb/fabio/proxy
+          symbols:
+            - addHeaders
+          derived_symbols:
+            - HTTPProxy.ServeHTTP
+summary: |-
+    Fabio allows HTTP clients to manipulate custom headers it adds in
+    github.com/fabiolb/fabio
+cves:
+    - CVE-2025-48865
+ghsas:
+    - GHSA-q7p4-7xjv-j3wf
+references:
+    - advisory: https://github.com/fabiolb/fabio/security/advisories/GHSA-q7p4-7xjv-j3wf
+    - fix: https://github.com/fabiolb/fabio/commit/fdaf1e966162e9dd3b347ffdd0647b39dc71a1a3
+    - web: https://github.com/fabiolb/fabio/releases/tag/v1.6.6
+source:
+    id: GHSA-q7p4-7xjv-j3wf
+    created: 2025-06-03T11:54:28.911416-04:00
+review_status: REVIEWED

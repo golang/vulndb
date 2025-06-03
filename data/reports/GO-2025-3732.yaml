@@ -1,0 +1,26 @@
+id: GO-2025-3732
+modules:
+    - module: github.com/cli/go-gh/v2
+      versions:
+        - fixed: 2.12.1
+      vulnerable_at: 2.12.0
+      packages:
+        - package: github.com/cli/go-gh/v2/pkg/browser
+          symbols:
+            - Browser.browse
+          derived_symbols:
+            - Browser.Browse
+summary: |-
+    GitHub CLI and extensions can execute arbitrary commands on
+    compromised GitHub Enterprise Server in github.com/cli/go-gh
+cves:
+    - CVE-2025-48938
+ghsas:
+    - GHSA-g9f5-x53j-h563
+references:
+    - advisory: https://github.com/cli/go-gh/security/advisories/GHSA-g9f5-x53j-h563
+    - fix: https://github.com/cli/go-gh/commit/a08820a13f257d6c5b4cb86d37db559ec6d14577
+source:
+    id: GHSA-g9f5-x53j-h563
+    created: 2025-06-03T11:45:17.659032-04:00
+review_status: REVIEWED
