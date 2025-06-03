@@ -1,0 +1,36 @@
+id: GO-2025-3728
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 9.0.0-rc1+incompatible
+        - fixed: 9.11.13+incompatible
+        - introduced: 10.0.0-rc1+incompatible
+        - fixed: 10.5.4+incompatible
+        - introduced: 10.6.0-rc1+incompatible
+        - fixed: 10.7.1+incompatible
+      vulnerable_at: 10.7.0+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20250414154356-6f33b721de76
+summary: |-
+    Mattermost fails to properly enforce access control restrictions for System
+    Manager roles in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-3611
+ghsas:
+    - GHSA-86jg-35xj-3vv5
+references:
+    - advisory: https://github.com/advisories/GHSA-86jg-35xj-3vv5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-3611
+    - web: https://github.com/mattermost/mattermost/commit/6f33b721de76b39a7714bfe0d5e9c1306869a3e3
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-86jg-35xj-3vv5
+    created: 2025-06-03T13:39:42.915668-04:00
+review_status: UNREVIEWED

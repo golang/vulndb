@@ -1,0 +1,128 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3724",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-3913",
+    "GHSA-4mmr-2w8p-whcr"
+  ],
+  "summary": "Mattermost improperly allows team administrators to modify team invites in github.com/mattermost/mattermost-server",
+  "details": "Mattermost improperly allows team administrators to modify team invites in github.com/mattermost/mattermost-server",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "9.0.0-rc1+incompatible"
+            },
+            {
+              "fixed": "9.11.13+incompatible"
+            },
+            {
+              "introduced": "10.5.0-rc1+incompatible"
+            },
+            {
+              "fixed": "10.5.4+incompatible"
+            },
+            {
+              "introduced": "10.6.0-rc1+incompatible"
+            },
+            {
+              "fixed": "10.6.3+incompatible"
+            },
+            {
+              "introduced": "10.7.0-rc1+incompatible"
+            },
+            {
+              "fixed": "10.7.1+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v6",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost/server/v8",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "8.0.0-20250412152950-02c76784380a"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-4mmr-2w8p-whcr"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-3913"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/02c76784380acb6802601bd24c205553b9a5a1be"
+    },
+    {
+      "type": "WEB",
+      "url": "https://mattermost.com/security-updates"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3724",
+    "review_status": "UNREVIEWED"
+  }
+}

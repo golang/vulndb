@@ -1,0 +1,34 @@
+id: GO-2025-3730
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 9.0.0-rc1+incompatible
+        - fixed: 9.11.13+incompatible
+        - introduced: 10.0.0-rc1+incompatible
+        - fixed: 10.5.4+incompatible
+        - introduced: 10.6.0-rc1+incompatible
+        - fixed: 10.7.1+incompatible
+      vulnerable_at: 10.7.0+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20250414110750-c23f44fe8ed0
+summary: Mattermost fails to properly enforce access controls for guest users in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-1792
+ghsas:
+    - GHSA-hc6v-386m-93pq
+references:
+    - advisory: https://github.com/advisories/GHSA-hc6v-386m-93pq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-1792
+    - web: https://github.com/mattermost/mattermost/commit/c23f44fe8ed02f71d506f99adc30ad34c58c89d1
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-hc6v-386m-93pq
+    created: 2025-06-03T13:39:54.790032-04:00
+review_status: UNREVIEWED
