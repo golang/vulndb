@@ -1,0 +1,21 @@
+id: GO-2025-3736
+modules:
+    - module: github.com/forceu/gokapi
+      non_go_versions:
+        - fixed: 2.0.0
+      vulnerable_at: 1.9.6
+summary: |-
+    Gokapi has stored XSS vulnerability in friendly name for API keys in
+    github.com/forceu/gokapi
+cves:
+    - CVE-2025-48495
+ghsas:
+    - GHSA-4xg4-54hm-9j77
+references:
+    - advisory: https://github.com/Forceu/Gokapi/security/advisories/GHSA-4xg4-54hm-9j77
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-48495
+    - web: https://github.com/Forceu/Gokapi/commit/65ddbc68fbfdf1c80cadb477f4bcbb7f2c4fdbf8
+source:
+    id: GHSA-4xg4-54hm-9j77
+    created: 2025-06-03T13:21:03.26262-04:00
+review_status: UNREVIEWED

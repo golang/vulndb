@@ -1,0 +1,22 @@
+id: GO-2025-3737
+modules:
+    - module: github.com/forceu/gokapi
+      non_go_versions:
+        - fixed: 2.0.0
+      vulnerable_at: 1.9.6
+summary: |-
+    Gokapi vulnerable to stored XSS via uploading file with malicious file name in
+    github.com/forceu/gokapi
+cves:
+    - CVE-2025-48494
+ghsas:
+    - GHSA-95rc-wc32-gm53
+references:
+    - advisory: https://github.com/Forceu/Gokapi/security/advisories/GHSA-95rc-wc32-gm53
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-48494
+    - web: https://github.com/Forceu/Gokapi/commit/343cc566cfd7f4efcd522c92371561d494aed6b0
+    - web: https://github.com/Forceu/Gokapi/releases/tag/v2.0.0
+source:
+    id: GHSA-95rc-wc32-gm53
+    created: 2025-06-03T13:20:57.447384-04:00
+review_status: UNREVIEWED

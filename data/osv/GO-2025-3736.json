@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3736",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-48495",
+    "GHSA-4xg4-54hm-9j77"
+  ],
+  "summary": "Gokapi has stored XSS vulnerability in friendly name for API keys in github.com/forceu/gokapi",
+  "details": "Gokapi has stored XSS vulnerability in friendly name for API keys in github.com/forceu/gokapi.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/forceu/gokapi before v2.0.0.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/forceu/gokapi",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "2.0.0"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/Forceu/Gokapi/security/advisories/GHSA-4xg4-54hm-9j77"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-48495"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/Forceu/Gokapi/commit/65ddbc68fbfdf1c80cadb477f4bcbb7f2c4fdbf8"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3736",
+    "review_status": "UNREVIEWED"
+  }
+}

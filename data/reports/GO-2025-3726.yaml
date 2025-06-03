@@ -1,0 +1,24 @@
+id: GO-2025-3726
+modules:
+    - module: github.com/google/brotli
+      unsupported_versions:
+        - cve_version_range: 'affected from 0 before 0.007 (default: unaffected)'
+      vulnerable_at: 1.1.0
+summary: |-
+    IO::Compress::Brotli versions prior to 0.007 for Perl have an integer overflow
+    in the bundled Brotli C library in github.com/google/brotli
+cves:
+    - CVE-2020-36846
+credits:
+    - Robert Rothenberg (RRWO)
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-36846
+    - fix: https://github.com/google/brotli/commit/223d80cfbec8fd346e32906c732c8ede21f0cea6
+    - fix: https://github.com/google/brotli/pull/826
+    - web: https://github.com/advisories/GHSA-5v8v-66v8-mwm7
+    - web: https://github.com/timlegge/perl-IO-Compress-Brotli/blob/8b44c83b23bb4658179e1494af4b725a1bc476bc/Changes#L52
+    - web: https://nvd.nist.gov/vuln/detail/CVE-2020-8927
+source:
+    id: CVE-2020-36846
+    created: 2025-06-03T13:24:22.322344-04:00
+review_status: UNREVIEWED
