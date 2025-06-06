@@ -1,0 +1,23 @@
+id: GO-2025-3742
+modules:
+    - module: github.com/grafana/grafana
+      versions:
+        - introduced: 0.0.0-20210414170620-dadccdda06e6
+      non_go_versions:
+        - fixed: 0.0.0-20250424191517-1f707d16ed5d
+      vulnerable_at: 5.4.5+incompatible
+summary: Grafana's datasource proxy API allows authorization checks to be bypassed in github.com/grafana/grafana
+cves:
+    - CVE-2025-3454
+ghsas:
+    - GHSA-9j65-rv5x-4vrf
+references:
+    - advisory: https://github.com/advisories/GHSA-9j65-rv5x-4vrf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-3454
+    - web: https://github.com/grafana/grafana/blob/be8d153dc33734caba4f617ff571d18253e68fa0/CHANGELOG.md#10417security-01-2025-04-22
+    - web: https://grafana.com/blog/2025/04/22/grafana-security-release-medium-and-high-severity-fixes-for-cve-2025-3260-cve-2025-2703-cve-2025-3454
+    - web: https://grafana.com/security/security-advisories/cve-2025-3454
+source:
+    id: GHSA-9j65-rv5x-4vrf
+    created: 2025-06-06T11:04:27.785789-04:00
+review_status: UNREVIEWED
