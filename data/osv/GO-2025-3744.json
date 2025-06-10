@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3744",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-49011",
+    "GHSA-cwwm-hr97-qfxm"
+  ],
+  "summary": "SpiceDB checks involving relations with caveats can result in no permission when permission is expected in github.com/authzed/spicedb",
+  "details": "SpiceDB checks involving relations with caveats can result in no permission when permission is expected in github.com/authzed/spicedb",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/authzed/spicedb",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.44.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/authzed/spicedb/security/advisories/GHSA-cwwm-hr97-qfxm"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-49011"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/authzed/spicedb/commit/fe8dd9f491f6975b3408c401e413a530eb181a67"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/authzed/spicedb/releases/tag/v1.44.2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3744",
+    "review_status": "UNREVIEWED"
+  }
+}

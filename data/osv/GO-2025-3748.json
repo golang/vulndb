@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3748",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-49140",
+    "GHSA-f26w-gh5m-qq77"
+  ],
+  "summary": "Pion Interceptor's improper RTP padding handling allows remote crash for SFU users (DoS) in github.com/pion/interceptor",
+  "details": "Pion Interceptor's improper RTP padding handling allows remote crash for SFU users (DoS) in github.com/pion/interceptor",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/pion/interceptor",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.1.36"
+            },
+            {
+              "fixed": "0.1.39"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/pion/interceptor/internal/rtpbuffer",
+            "symbols": [
+              "PacketFactoryCopy.NewPacket"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/pion/interceptor/security/advisories/GHSA-f26w-gh5m-qq77"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/pion/interceptor/commit/fa5b35ea867389cec33a9c82fffbd459ca8958e5"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/pion/interceptor/pull/338"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/pion/webrtc/issues/3148"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3748",
+    "review_status": "REVIEWED"
+  }
+}

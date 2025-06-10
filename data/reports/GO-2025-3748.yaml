@@ -1,0 +1,27 @@
+id: GO-2025-3748
+modules:
+    - module: github.com/pion/interceptor
+      versions:
+        - introduced: 0.1.36
+        - fixed: 0.1.39
+      vulnerable_at: 0.1.38
+      packages:
+        - package: github.com/pion/interceptor/internal/rtpbuffer
+          symbols:
+            - PacketFactoryCopy.NewPacket
+summary: |-
+    Pion Interceptor's improper RTP padding handling allows remote crash for SFU
+    users (DoS) in github.com/pion/interceptor
+cves:
+    - CVE-2025-49140
+ghsas:
+    - GHSA-f26w-gh5m-qq77
+references:
+    - advisory: https://github.com/pion/interceptor/security/advisories/GHSA-f26w-gh5m-qq77
+    - fix: https://github.com/pion/interceptor/commit/fa5b35ea867389cec33a9c82fffbd459ca8958e5
+    - fix: https://github.com/pion/interceptor/pull/338
+    - web: https://github.com/pion/webrtc/issues/3148
+source:
+    id: GHSA-f26w-gh5m-qq77
+    created: 2025-06-10T11:56:16.84322-04:00
+review_status: REVIEWED

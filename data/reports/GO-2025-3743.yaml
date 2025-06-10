@@ -1,0 +1,21 @@
+id: GO-2025-3743
+modules:
+    - module: github.com/coredns/coredns
+      versions:
+        - fixed: 1.12.2
+      vulnerable_at: 1.12.1
+summary: CoreDNS Vulnerable to DoQ Memory Exhaustion via Stream Amplification in github.com/coredns/coredns
+cves:
+    - CVE-2025-47950
+ghsas:
+    - GHSA-cvx7-x8pj-x2gw
+references:
+    - advisory: https://github.com/coredns/coredns/security/advisories/GHSA-cvx7-x8pj-x2gw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-47950
+    - fix: https://github.com/coredns/coredns/commit/efaed02c6a480ec147b1f799aab7cf815b17dfe1
+    - web: https://datatracker.ietf.org/doc/html/rfc9250
+    - web: https://github.com/quic-go/quic-go
+source:
+    id: GHSA-cvx7-x8pj-x2gw
+    created: 2025-06-10T11:57:50.079785-04:00
+review_status: UNREVIEWED

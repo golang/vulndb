@@ -1,0 +1,22 @@
+id: GO-2025-3744
+modules:
+    - module: github.com/authzed/spicedb
+      versions:
+        - fixed: 1.44.2
+      vulnerable_at: 1.44.0
+summary: |-
+    SpiceDB checks involving relations with caveats can result in no permission when
+    permission is expected in github.com/authzed/spicedb
+cves:
+    - CVE-2025-49011
+ghsas:
+    - GHSA-cwwm-hr97-qfxm
+references:
+    - advisory: https://github.com/authzed/spicedb/security/advisories/GHSA-cwwm-hr97-qfxm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-49011
+    - fix: https://github.com/authzed/spicedb/commit/fe8dd9f491f6975b3408c401e413a530eb181a67
+    - web: https://github.com/authzed/spicedb/releases/tag/v1.44.2
+source:
+    id: GHSA-cwwm-hr97-qfxm
+    created: 2025-06-10T11:57:44.566894-04:00
+review_status: UNREVIEWED

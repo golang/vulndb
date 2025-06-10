@@ -1,0 +1,23 @@
+id: GO-2025-3745
+modules:
+    - module: github.com/knadh/listmonk
+      non_go_versions:
+        - introduced: 4.0.0
+        - fixed: 5.0.2
+      vulnerable_at: 1.1.0
+summary: |-
+    listmonk's Sprig template Injection vulnerability leads to reading of
+    Environment Variable for low privilege user in github.com/knadh/listmonk
+cves:
+    - CVE-2025-49136
+ghsas:
+    - GHSA-jc7g-x28f-3v3h
+references:
+    - advisory: https://github.com/knadh/listmonk/security/advisories/GHSA-jc7g-x28f-3v3h
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-49136
+    - fix: https://github.com/knadh/listmonk/commit/d27d2c32cf3af2d0b24e29ea5a686ba149b49b3e
+    - web: https://github.com/knadh/listmonk/releases/tag/v5.0.2
+source:
+    id: GHSA-jc7g-x28f-3v3h
+    created: 2025-06-10T11:57:33.126882-04:00
+review_status: UNREVIEWED
