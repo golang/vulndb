@@ -1,0 +1,30 @@
+id: GO-2025-3749
+modules:
+    - module: std
+      versions:
+        - fixed: 1.23.10
+        - introduced: 1.24.0-0
+        - fixed: 1.24.4
+      vulnerable_at: 1.24.3
+      packages:
+        - package: crypto/x509
+          symbols:
+            - Certificate.Verify
+summary: Usage of ExtKeyUsageAny disables policy validation in crypto/x509
+description: |-
+    Calling Verify with a VerifyOptions.KeyUsages that contains ExtKeyUsageAny
+    unintentionally disabledpolicy validation. This only affected certificate chains
+    which contain policy graphs, which are rather uncommon.
+credits:
+    - Krzysztof Skrzętnicki (@Tener) of Teleport
+references:
+    - fix: https://go.dev/cl/670375
+    - report: https://go.dev/issue/73612
+    - web: https://groups.google.com/g/golang-announce/c/ufZ8WpEsA3A
+cve_metadata:
+    id: CVE-2025-22874
+    cwe: 'CWE-295: Improper Certificate Validation'
+source:
+    id: go-security-team
+    created: 2025-06-10T12:16:59.819845-04:00
+review_status: REVIEWED
