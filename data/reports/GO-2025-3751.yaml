@@ -1,0 +1,39 @@
+id: GO-2025-3751
+modules:
+    - module: std
+      versions:
+        - fixed: 1.23.10
+        - introduced: 1.24.0-0
+        - fixed: 1.24.4
+      vulnerable_at: 1.24.3
+      packages:
+        - package: net/http
+          symbols:
+            - Client.makeHeadersCopier
+          derived_symbols:
+            - Client.Do
+            - Client.Get
+            - Client.Head
+            - Client.Post
+            - Client.PostForm
+            - Get
+            - Head
+            - Post
+            - PostForm
+summary: Sensitive headers not cleared on cross-origin redirect in net/http
+description: |-
+    Proxy-Authorization and Proxy-Authenticate headers persisted on cross-origin
+    redirects potentially leaking sensitive information.
+credits:
+    - Takeshi Kaneko (GMO Cybersecurity by Ierae, Inc.)
+references:
+    - fix: https://go.dev/cl/679257
+    - report: https://go.dev/issue/73816
+    - web: https://groups.google.com/g/golang-announce/c/ufZ8WpEsA3A
+cve_metadata:
+    id: CVE-2025-4673
+    cwe: 'CWE-201: Insertion of Sensitive Information Into Sent Data'
+source:
+    id: go-security-team
+    created: 2025-06-10T12:39:34.42046-04:00
+review_status: REVIEWED
