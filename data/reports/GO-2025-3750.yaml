@@ -1,0 +1,89 @@
+id: GO-2025-3750
+modules:
+    - module: std
+      versions:
+        - fixed: 1.23.10
+        - introduced: 1.24.0-0
+        - fixed: 1.24.4
+      vulnerable_at: 1.24.3
+      packages:
+        - package: syscall
+          goos:
+            - windows
+          symbols:
+            - Open
+        - package: os
+          goos:
+            - windows
+          symbols:
+            - OpenFile
+            - Root.OpenFile
+          derived_symbols:
+            - Chdir
+            - Chmod
+            - Chown
+            - CopyFS
+            - Create
+            - CreateTemp
+            - File.ReadDir
+            - File.Readdir
+            - File.Readdirnames
+            - Getwd
+            - Lchown
+            - Link
+            - Lstat
+            - Mkdir
+            - MkdirAll
+            - MkdirTemp
+            - NewFile
+            - Open
+            - OpenInRoot
+            - OpenRoot
+            - Pipe
+            - ReadDir
+            - ReadFile
+            - Remove
+            - RemoveAll
+            - Rename
+            - Root.Create
+            - Root.Lstat
+            - Root.Mkdir
+            - Root.Open
+            - Root.OpenRoot
+            - Root.Remove
+            - Root.Stat
+            - StartProcess
+            - Stat
+            - Symlink
+            - Truncate
+            - WriteFile
+            - dirFS.Open
+            - dirFS.ReadDir
+            - dirFS.ReadFile
+            - dirFS.Stat
+            - rootFS.Open
+            - rootFS.ReadDir
+            - rootFS.ReadFile
+            - rootFS.Stat
+            - unixDirent.Info
+summary: Inconsistent handling of O_CREATE|O_EXCL on Unix and Windows in os in syscall
+description: |-
+    os.OpenFile(path, os.O_CREATE|O_EXCL) behaved differently on Unix and Windows
+    systems when the target path was a dangling symlink. On Unix systems, OpenFile
+    with O_CREATE and O_EXCL flags never follows symlinks. On Windows, when the
+    target path was a symlink to a nonexistent location, OpenFile would create a
+    file in that location. OpenFile now always returns an error when the O_CREATE
+    and O_EXCL flags are both set and the target path is a symlink.
+credits:
+    - Junyoung Park and Dong-uk Kim of KAIST Hacking Lab
+references:
+    - fix: https://go.dev/cl/672396
+    - report: https://go.dev/issue/73702
+    - web: https://groups.google.com/g/golang-announce/c/ufZ8WpEsA3A
+cve_metadata:
+    id: CVE-2025-0913
+    cwe: 'CWE-59: Improper Link Resolution Before File Access (''Link Following'')'
+source:
+    id: go-security-team
+    created: 2025-06-10T12:48:34.42046-04:00
+review_status: REVIEWED
