@@ -1,20 +1,21 @@
 id: GO-2024-3262
 modules:
     - module: github.com/hashicorp/nomad
-      unsupported_versions:
-        - last_affected: 1.9.1
-      vulnerable_at: 1.9.2
-summary: Hashicorp Nomad Incorrect Authorization vulnerability in github.com/hashicorp/nomad
+      versions:
+        - fixed: 1.9.2
+      vulnerable_at: 1.9.1
+summary: |-
+    Hashicorp Nomad Incorrect Authorization vulnerability in
+    github.com/hashicorp/nomad
 cves:
     - CVE-2024-10975
 ghsas:
     - GHSA-2w5v-x29g-jw7j
 references:
     - advisory: https://github.com/advisories/GHSA-2w5v-x29g-jw7j
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-10975
     - fix: https://github.com/hashicorp/nomad/commit/30849c518e16647a4f698e5f5cc82bef2bf40e4d
     - web: https://discuss.hashicorp.com/t/hcsec-2024-27-nomad-vulnerable-to-cross-namespace-volume-creation-abusing-csi-write-permission
 source:
     id: GHSA-2w5v-x29g-jw7j
     created: 2024-11-08T12:15:08.376448-05:00
-review_status: UNREVIEWED
+review_status: REVIEWED

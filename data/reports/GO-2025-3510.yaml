@@ -1,22 +1,21 @@
 id: GO-2025-3510
 modules:
     - module: github.com/hashicorp/nomad
-      unsupported_versions:
-        - last_affected: 1.9.6
-      vulnerable_at: 1.9.7
+      versions:
+        - fixed: 1.9.7
+      vulnerable_at: 1.9.6
 summary: |-
-    Nomad is vulnerable to unintentional exposure of the workload identity token and
-    client secret token in audit logs in github.com/hashicorp/nomad
+    Unintentional exposure of the workload identity token and client secret in logs
+    in github.com/hashicorp/nomad
 cves:
     - CVE-2025-1296
 ghsas:
     - GHSA-c3q9-q986-vrwh
 references:
     - advisory: https://github.com/advisories/GHSA-c3q9-q986-vrwh
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-1296
     - fix: https://github.com/hashicorp/nomad/commit/dc482bf9058faf7a192486eb52caa1d42646f6b3
     - web: https://discuss.hashicorp.com/t/hcsec-2025-04-nomad-exposes-sensitive-workload-identity-and-client-secret-token-in-audit-logs/73737
 source:
     id: GHSA-c3q9-q986-vrwh
     created: 2025-03-12T13:11:55.821545-04:00
-review_status: UNREVIEWED
+review_status: REVIEWED
