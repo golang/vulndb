@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3755",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-79xg-q4qm-7v9w"
+  ],
+  "summary": "CWA-2025-006: wasmd's improper error handling may lead to IBC channel opening despite error in github.com/CosmWasm/wasmd",
+  "details": "CWA-2025-006: wasmd's improper error handling may lead to IBC channel opening despite error in github.com/CosmWasm/wasmd",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/CosmWasm/wasmd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.51.0"
+            },
+            {
+              "fixed": "0.53.3"
+            },
+            {
+              "introduced": "0.54.0"
+            },
+            {
+              "fixed": "0.54.1"
+            },
+            {
+              "introduced": "0.55.0"
+            },
+            {
+              "fixed": "0.55.1"
+            },
+            {
+              "introduced": "0.60.0"
+            },
+            {
+              "fixed": "0.60.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/CosmWasm/wasmd/security/advisories/GHSA-79xg-q4qm-7v9w"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-79xg-q4qm-7v9w"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/CosmWasm/advisories/blob/main/CWAs/CWA-2025-006.md"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3755",
+    "review_status": "UNREVIEWED"
+  }
+}
