@@ -1,0 +1,22 @@
+id: GO-2025-3570
+modules:
+    - module: github.com/jumpserver/koko
+    - module: github.com/jumpserver/jumpserver
+      versions:
+        - fixed: 3.5.6+incompatible
+        - introduced: 3.6.0+incompatible
+        - fixed: 3.6.5+incompatible
+      vulnerable_at: 3.6.4
+summary: |-
+    SSH public key login without private key challenge if mfa is enabled in
+    jumpserver in github.com/jumpserver/koko in github.com/jumpserver/jumpserver
+cves:
+    - CVE-2023-42818
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-42818
+    - web: https://github.com/jumpserver/jumpserver/security/advisories/GHSA-jv3c-27cv-w8jv
+    - web: https://www.sonarsource.com/blog/diving-into-jumpserver-attackers-gateway-to-internal-networks-1-2
+source:
+    id: CVE-2023-42818
+    created: 2025-06-11T13:07:41.222208-04:00
+review_status: UNREVIEWED
