@@ -1,0 +1,35 @@
+id: GO-2025-3757
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 9.11.0+incompatible
+        - fixed: 9.11.14+incompatible
+        - introduced: 10.5.0+incompatible
+        - fixed: 10.5.5+incompatible
+      vulnerable_at: 10.5.5-rc1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20250422131222-701ddc896a10
+summary: |-
+    Mattermost allows guest users to view information about public teams they are
+    not members of in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-4128
+ghsas:
+    - GHSA-jwhw-xf5v-qgxc
+references:
+    - advisory: https://github.com/advisories/GHSA-jwhw-xf5v-qgxc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-4128
+    - web: https://github.com/mattermost/mattermost/commit/2138a5f2ca6f75e2b99f6a04ea569d0f680c4fab
+    - web: https://github.com/mattermost/mattermost/commit/701ddc896a107b13f457fbdbe229bce5019fc516
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-jwhw-xf5v-qgxc
+    created: 2025-06-11T12:39:21.653868-04:00
+review_status: UNREVIEWED

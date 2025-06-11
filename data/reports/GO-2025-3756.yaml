@@ -1,0 +1,42 @@
+id: GO-2025-3756
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 9.11.0+incompatible
+        - fixed: 9.11.14+incompatible
+        - introduced: 10.5.0+incompatible
+        - fixed: 10.5.5+incompatible
+        - introduced: 10.6.0+incompatible
+        - fixed: 10.6.4+incompatible
+        - introduced: 10.7.0+incompatible
+        - fixed: 10.7.2+incompatible
+      vulnerable_at: 10.7.2-rc1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20250414112942-77892234944b
+summary: |-
+    Mattermost allows authenticated administrator to execute LDAP search filter
+    injection in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-4573
+ghsas:
+    - GHSA-4r67-4x4p-fprg
+references:
+    - advisory: https://github.com/advisories/GHSA-4r67-4x4p-fprg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-4573
+    - web: https://github.com/mattermost/mattermost/commit/1f9c688a30847eeb7bfb1574dc7bbb9f011afbf7
+    - web: https://github.com/mattermost/mattermost/commit/64a65c6107877382040297b3ef215c689caaed74
+    - web: https://github.com/mattermost/mattermost/commit/77892234944bc7476b20794e516538bcac717de9
+    - web: https://github.com/mattermost/mattermost/commit/b33926709b956a59558cc7fef80c0e75a769ce81
+    - web: https://github.com/mattermost/mattermost/commit/b47e89c4f98cb6ad9f1dceb79325aa94e80f963a
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-4r67-4x4p-fprg
+    created: 2025-06-11T12:38:16.668134-04:00
+review_status: UNREVIEWED
