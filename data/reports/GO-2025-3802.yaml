@@ -1,0 +1,28 @@
+id: GO-2025-3802
+modules:
+    - module: helm.sh/helm/v3
+      versions:
+        - fixed: 3.18.4
+      vulnerable_at: 3.18.3
+      packages:
+        - package: helm.sh/helm/v3/pkg/downloader
+          symbols:
+            - writeLock
+          derived_symbols:
+            - Manager.Build
+            - Manager.Update
+summary: |-
+    Helm vulnerable to Code Injection through malicious chart.yaml content in
+    helm.sh/helm
+cves:
+    - CVE-2025-53547
+ghsas:
+    - GHSA-557j-xg8c-q2mm
+references:
+    - advisory: https://github.com/helm/helm/security/advisories/GHSA-557j-xg8c-q2mm
+    - web: https://github.com/helm/helm/commit/4b8e61093d8f579f1165cdc6bd4b43fa5455f571
+    - web: https://news.ycombinator.com/item?id=44506696
+source:
+    id: GHSA-557j-xg8c-q2mm
+    created: 2025-07-16T11:06:14.161761-04:00
+review_status: REVIEWED

@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3765",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-44906",
+    "GHSA-h4h6-vccr-44h2"
+  ],
+  "summary": "SQL injection vulnerability in github.com/uptrace/bun/driver/pgdriver",
+  "details": "SQL injection vulnerability in github.com/uptrace/bun/driver/pgdriver",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/uptrace/bun/driver/pgdriver",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-h4h6-vccr-44h2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/uptrace/bun/blob/1573ae7c2fffad1a7f72fd2d205e924b2fd4043b/driver/pgdriver/format.go#L62"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/uptrace/bun/tree/master/driver/pgdriver"
+    },
+    {
+      "type": "WEB",
+      "url": "https://media.defcon.org/DEF%20CON%2032/DEF%20CON%2032%20presentations/DEF%20CON%2032%20-%20Paul%20Gerste%20-%20SQL%20Injection%20Isn%27t%20Dead%20Smuggling%20Queries%20at%20the%20Protocol%20Level.pdf"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.sonarsource.com/blog/double-dash-double-trouble-a-subtle-sql-injection-flaw"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3765",
+    "review_status": "REVIEWED"
+  }
+}

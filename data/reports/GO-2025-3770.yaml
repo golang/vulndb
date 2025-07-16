@@ -1,0 +1,28 @@
+id: GO-2025-3770
+modules:
+    - module: github.com/go-chi/chi
+      vulnerable_at: 1.5.5
+    - module: github.com/go-chi/chi/v2
+      vulnerable_at: 2.1.1
+    - module: github.com/go-chi/chi/v3
+      vulnerable_at: 3.3.5
+    - module: github.com/go-chi/chi/v4
+      vulnerable_at: 4.1.3
+    - module: github.com/go-chi/chi/v5
+      versions:
+        - fixed: 5.2.2
+      vulnerable_at: 5.2.1
+summary: |-
+    Host Header Injection which Leads to Open Redirect in RedirectSlashes
+    in github.com/go-chi/chi
+ghsas:
+    - GHSA-vrw8-fxc6-2r93
+references:
+    - advisory: https://github.com/go-chi/chi/security/advisories/GHSA-vrw8-fxc6-2r93
+    - fix: https://github.com/go-chi/chi/commit/1be7ad938cc9c5b39a9dea01a5c518848928ab65
+notes:
+    - Fix commit exists but no official patched version has been published.
+source:
+    id: GHSA-vrw8-fxc6-2r93
+    created: 2025-07-16T11:06:31.667002-04:00
+review_status: REVIEWED

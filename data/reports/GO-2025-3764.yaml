@@ -1,0 +1,26 @@
+id: GO-2025-3764
+modules:
+    - module: github.com/go-pg/pg
+      vulnerable_at: 8.0.7
+    - module: github.com/go-pg/pg/v9
+      vulnerable_at: 9.2.1
+    - module: github.com/go-pg/pg/v10
+      vulnerable_at: 10.13.0
+summary: |-
+    SQL injection vulnerability via the component /types/append_value.go in
+    github.com/go-pg/pg
+cves:
+    - CVE-2024-44905
+ghsas:
+    - GHSA-6xp3-p59p-q4fj
+references:
+    - advisory: https://github.com/advisories/GHSA-6xp3-p59p-q4fj
+    - web: https://github.com/go-pg/pg/blob/30e7053c6cacdd44d06cf2b92183b49188b7c922/types/append_value.go#L151
+    - web: https://media.defcon.org/DEF%20CON%2032/DEF%20CON%2032%20presentations/DEF%20CON%2032%20-%20Paul%20Gerste%20-%20SQL%20Injection%20Isn%27t%20Dead%20Smuggling%20Queries%20at%20the%20Protocol%20Level.pdf
+    - web: https://www.sonarsource.com/blog/double-dash-double-trouble-a-subtle-sql-injection-flaw
+notes:
+    - No known fix commit for any specified version.
+source:
+    id: GHSA-6xp3-p59p-q4fj
+    created: 2025-07-16T11:06:41.876419-04:00
+review_status: REVIEWED
