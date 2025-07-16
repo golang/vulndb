@@ -1,0 +1,25 @@
+id: GO-2025-3803
+modules:
+    - module: github.com/cosmos/cosmos-sdk
+      versions:
+        - fixed: 0.50.14
+        - introduced: 0.52.0-alpha.1
+        - fixed: 0.53.3
+      vulnerable_at: 0.53.2
+      packages:
+        - package: github.com/cosmos/cosmos-sdk/x/distribution/keeper
+          symbols:
+            - msgServer.DepositValidatorRewardsPool
+summary: |-
+    Integer Overflow vulnerability in its Validator Rewards pool can cause a chain
+    halt in github.com/cosmos/cosmos-sdk
+ghsas:
+    - GHSA-p22h-3m2v-cmgh
+references:
+    - advisory: https://github.com/cosmos/cosmos-sdk/security/advisories/GHSA-p22h-3m2v-cmgh
+    - fix: https://github.com/cosmos/cosmos-sdk/commit/c4a14fa7b6828432fdabdb8b4af68ade9403ce49
+    - fix: https://github.com/cosmos/cosmos-sdk/commit/f2e6295b662fdb27ea33da1296c29588ccdaab42
+source:
+    id: GHSA-p22h-3m2v-cmgh
+    created: 2025-07-16T20:35:52.509523844Z
+review_status: REVIEWED
