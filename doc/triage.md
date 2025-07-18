@@ -152,7 +152,8 @@ The issue can be closed without further action.
       then the dropdown that shows the current branch, then "Tags"). Walk the
       versions backwards from the fixed one to find the highest that doesn't
       contain the fix. (It might not be the immediately preceding version.)
-   - If the vulnerable functions cannot be auto-populated, add vulnerable
+   - Use `vulnreport symbols <issue ID>` to auto-populate vulnerable symbols.
+   - If the vulnerable symbols cannot be auto-populated, add vulnerable
      functions to the `symbols` list by reading the CVE, the fixing CLs, and the
      code at the vulnerable version you chose above.
 4. From the repo root, run `vulnreport fix <GitHub issue number>`.
