@@ -1,0 +1,24 @@
+id: GO-2025-3805
+modules:
+    - module: github.com/juju/juju
+      non_go_versions:
+        - fixed: 0.0.0-20250619215741-4034aa13c7cf
+      vulnerable_at: 0.0.0-20250718163602-b0f4af937d12
+summary: |-
+    Juju allows arbitrary executable uploads via authenticated endpoint without
+    authorization in github.com/juju/juju
+cves:
+    - CVE-2025-0928
+ghsas:
+    - GHSA-4vc8-wvhw-m5gv
+references:
+    - advisory: https://github.com/juju/juju/security/advisories/GHSA-4vc8-wvhw-m5gv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-0928
+    - fix: https://github.com/juju/juju/commit/22cdcf6b54c2f371822e1c203d4f341be6c9589e
+    - fix: https://github.com/juju/juju/commit/311e374cb8d2431032c51fb3fb5c4b0aaaa7196c
+    - fix: https://github.com/juju/juju/commit/4034aa13c7cf5a37427fcd032925d5d21955b096
+    - fix: https://github.com/juju/juju/commit/b4176e6e45c2c3c817ab60b39e2d52f9a11a5ddf
+source:
+    id: GHSA-4vc8-wvhw-m5gv
+    created: 2025-07-21T16:54:06.149066128Z
+review_status: UNREVIEWED

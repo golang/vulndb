@@ -1,0 +1,40 @@
+id: GO-2025-3796
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 0.0.0-20250513065225-4ae5d647fb88
+        - introduced: 9.11.0+incompatible
+        - fixed: 9.11.16+incompatible
+        - introduced: 10.5.0+incompatible
+        - fixed: 10.5.6+incompatible
+        - introduced: 10.6.0+incompatible
+        - fixed: 10.6.6+incompatible
+        - introduced: 10.7.0+incompatible
+        - fixed: 10.7.3+incompatible
+        - introduced: 10.8.0+incompatible
+        - fixed: 10.8.1+incompatible
+      vulnerable_at: 10.8.0+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20250513065225-4ae5d647fb88
+summary: Mattermost Incorrect Authorization vulnerability in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-46702
+ghsas:
+    - GHSA-v8fr-vxmw-6mf6
+references:
+    - advisory: https://github.com/advisories/GHSA-v8fr-vxmw-6mf6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-46702
+    - web: https://github.com/mattermost/mattermost/commit/31142f101e3cce6171e2b6cb4980a1aa8eaefae0
+    - web: https://github.com/mattermost/mattermost/commit/4ae5d647fb8893d77dccbb57d114855939a775ce
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-v8fr-vxmw-6mf6
+    created: 2025-07-21T16:57:15.622284772Z
+review_status: UNREVIEWED

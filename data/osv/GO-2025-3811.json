@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3811",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-53893",
+    "GHSA-7xqm-7738-642x"
+  ],
+  "summary": "File Browser's Uncontrolled Memory Consumption vulnerability can enable DoS attack due to oversized file processing in github.com/filebrowser/filebrowser",
+  "details": "File Browser's Uncontrolled Memory Consumption vulnerability can enable DoS attack due to oversized file processing in github.com/filebrowser/filebrowser",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/filebrowser/filebrowser",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.0.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/filebrowser/filebrowser/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.0.0-rc.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/filebrowser/filebrowser/security/advisories/GHSA-7xqm-7738-642x"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-53893"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/filebrowser/filebrowser/issues/5294"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3811",
+    "review_status": "UNREVIEWED"
+  }
+}

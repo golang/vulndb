@@ -1,0 +1,23 @@
+id: GO-2025-3788
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - introduced: 1.14.8
+        - fixed: 1.20.0
+      vulnerable_at: 1.20.0-rc2
+summary: |-
+    Vault Community Edition rekey and recovery key operations can cause denial of
+    service in github.com/hashicorp/vault
+cves:
+    - CVE-2025-4656
+ghsas:
+    - GHSA-fhc2-8qx8-6vj7
+references:
+    - advisory: https://github.com/advisories/GHSA-fhc2-8qx8-6vj7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-4656
+    - fix: https://github.com/hashicorp/vault/pull/30794
+    - web: https://discuss.hashicorp.com/t/hcsec-2025-11-vault-vulnerable-to-recovery-key-cancellation-denial-of-service/75570
+source:
+    id: GHSA-fhc2-8qx8-6vj7
+    created: 2025-07-21T16:57:54.157906156Z
+review_status: UNREVIEWED

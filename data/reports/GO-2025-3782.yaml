@@ -1,0 +1,22 @@
+id: GO-2025-3782
+modules:
+    - module: github.com/lxc/incus
+      vulnerable_at: 0.7.0
+    - module: github.com/lxc/incus/v6
+      versions:
+        - introduced: 6.12.0
+        - fixed: 6.14.0
+      vulnerable_at: 6.13.0
+summary: Incus creates nftables rules that partially bypass security options in github.com/lxc/incus
+cves:
+    - CVE-2025-52890
+ghsas:
+    - GHSA-p7fw-vjjm-2rwp
+references:
+    - advisory: https://github.com/lxc/incus/security/advisories/GHSA-p7fw-vjjm-2rwp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-52890
+    - fix: https://github.com/lxc/incus/commit/254dfd2483ab8de39b47c2258b7f1cf0759231c8
+source:
+    id: GHSA-p7fw-vjjm-2rwp
+    created: 2025-07-21T16:58:21.454497987Z
+review_status: UNREVIEWED

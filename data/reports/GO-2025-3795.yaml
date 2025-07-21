@@ -1,0 +1,24 @@
+id: GO-2025-3795
+modules:
+    - module: github.com/filebrowser/filebrowser
+      unsupported_versions:
+        - last_affected: 1.11.0
+      vulnerable_at: 1.11.0
+    - module: github.com/filebrowser/filebrowser/v2
+      versions:
+        - fixed: 2.33.10
+      vulnerable_at: 2.33.9
+summary: File Browser vulnerable to command execution allowlist bypass in github.com/filebrowser/filebrowser
+cves:
+    - CVE-2025-52995
+ghsas:
+    - GHSA-w7qc-6grj-w7r8
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-w7qc-6grj-w7r8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-52995
+    - fix: https://github.com/filebrowser/filebrowser/commit/4d830f707fc4314741fd431e70c2ce50cd5a3108
+    - web: https://github.com/filebrowser/filebrowser/releases/tag/v2.33.10
+source:
+    id: GHSA-w7qc-6grj-w7r8
+    created: 2025-07-21T16:57:20.348334201Z
+review_status: UNREVIEWED

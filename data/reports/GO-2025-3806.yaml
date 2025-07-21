@@ -1,0 +1,23 @@
+id: GO-2025-3806
+modules:
+    - module: github.com/juju/juju
+      versions:
+        - fixed: 0.0.0-20250619024904-402ff008dcc2
+summary: |-
+    Juju vulnerable to sensitive log retrieval via authenticated endpoint without
+    authorization in github.com/juju/juju
+cves:
+    - CVE-2025-53512
+ghsas:
+    - GHSA-r64v-82fh-xc63
+references:
+    - advisory: https://github.com/juju/juju/security/advisories/GHSA-r64v-82fh-xc63
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-53512
+    - fix: https://github.com/juju/juju/commit/402ff008dcc2cb57f4441968628637efb5c2a662
+    - fix: https://github.com/juju/juju/commit/c91a1f4046956874ba77c8b398aecee3d61a2dc3
+notes:
+    - fix: 'github.com/juju/juju: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-r64v-82fh-xc63
+    created: 2025-07-21T16:54:00.467647347Z
+review_status: UNREVIEWED

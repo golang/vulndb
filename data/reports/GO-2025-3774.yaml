@@ -1,0 +1,28 @@
+id: GO-2025-3774
+modules:
+    - module: k8s.io/kubernetes
+      versions:
+        - introduced: 1.32.0
+        - fixed: 1.32.6
+        - introduced: 1.33.0
+        - fixed: 1.33.2
+      vulnerable_at: 1.33.1
+summary: |-
+    kubernetes allows nodes to bypass dynamic resource allocation authorization
+    checks in k8s.io/kubernetes
+cves:
+    - CVE-2025-4563
+ghsas:
+    - GHSA-hj2p-8wj8-pfq4
+references:
+    - advisory: https://github.com/advisories/GHSA-hj2p-8wj8-pfq4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-4563
+    - web: https://github.com/kubernetes/kubernetes/issues/132151
+    - web: https://github.com/kubernetes/kubernetes/pull/131844
+    - web: https://github.com/kubernetes/kubernetes/pull/131875
+    - web: https://github.com/kubernetes/kubernetes/pull/131876
+    - web: https://groups.google.com/g/kubernetes-security-announce/c/Zv84LMRuvMQ
+source:
+    id: GHSA-hj2p-8wj8-pfq4
+    created: 2025-07-21T17:03:14.421730115Z
+review_status: UNREVIEWED

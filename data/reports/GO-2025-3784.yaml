@@ -1,0 +1,25 @@
+id: GO-2025-3784
+modules:
+    - module: github.com/filebrowser/filebrowser
+      unsupported_versions:
+        - last_affected: 1.11.0
+      vulnerable_at: 1.11.0
+    - module: github.com/filebrowser/filebrowser/v2
+      versions:
+        - fixed: 2.33.7
+      vulnerable_at: 2.33.6
+summary: |-
+    filebrowser allows Stored Cross-Site Scripting through the Markdown preview
+    function in github.com/filebrowser/filebrowser
+cves:
+    - CVE-2025-52902
+ghsas:
+    - GHSA-4wx8-5gm2-2j97
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-4wx8-5gm2-2j97
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-52902
+    - fix: https://github.com/filebrowser/filebrowser/commit/f19943a42e8e092e811dffbe9f4623dac36f1f0d
+source:
+    id: GHSA-4wx8-5gm2-2j97
+    created: 2025-07-21T16:58:10.788066772Z
+review_status: UNREVIEWED

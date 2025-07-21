@@ -1,0 +1,20 @@
+id: GO-2025-3810
+modules:
+    - module: github.com/ctfer-io/chall-manager
+      versions:
+        - fixed: 0.1.4
+      vulnerable_at: 0.1.3
+summary: Chall-Manager's scenario decoding process does not check for zip bombs in github.com/ctfer-io/chall-manager
+cves:
+    - CVE-2025-53633
+ghsas:
+    - GHSA-r7fm-3pqm-ww5w
+references:
+    - advisory: https://github.com/ctfer-io/chall-manager/security/advisories/GHSA-r7fm-3pqm-ww5w
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-53633
+    - fix: https://github.com/ctfer-io/chall-manager/commit/14042aa66a577caee777e10fe09adcf2587d20dd
+    - web: https://github.com/ctfer-io/chall-manager/releases/tag/v0.1.4
+source:
+    id: GHSA-r7fm-3pqm-ww5w
+    created: 2025-07-21T16:53:42.990169348Z
+review_status: UNREVIEWED

@@ -1,0 +1,25 @@
+id: GO-2025-3781
+modules:
+    - module: github.com/lxc/incus
+      vulnerable_at: 0.7.0
+    - module: github.com/lxc/incus/v6
+      versions:
+        - introduced: 6.12.0
+        - fixed: 6.14.0
+      vulnerable_at: 6.13.0
+summary: |-
+    Incus Allocation of Resources Without Limits allows firewall rule bypass on
+    managed bridge networks in github.com/lxc/incus
+cves:
+    - CVE-2025-52889
+ghsas:
+    - GHSA-9q7c-qmhm-jv86
+references:
+    - advisory: https://github.com/lxc/incus/security/advisories/GHSA-9q7c-qmhm-jv86
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-52889
+    - fix: https://github.com/lxc/incus/commit/2516fb19ad8428454cb4edfe70c0a5f0dc1da214
+    - fix: https://github.com/lxc/incus/commit/a7c33301738aede3c035063e973b1d885d9bac7c
+source:
+    id: GHSA-9q7c-qmhm-jv86
+    created: 2025-07-21T17:02:31.231287465Z
+review_status: UNREVIEWED

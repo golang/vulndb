@@ -1,0 +1,38 @@
+id: GO-2025-3771
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 0.0.0-20250520060012-d0380305ef7a
+        - introduced: 9.11.0+incompatible
+        - fixed: 9.11.16+incompatible
+        - introduced: 10.5.0+incompatible
+        - fixed: 10.5.6+incompatible
+        - introduced: 10.6.0+incompatible
+        - fixed: 10.6.6+incompatible
+        - introduced: 10.7.0+incompatible
+        - fixed: 10.7.3+incompatible
+        - introduced: 10.8.0+incompatible
+        - fixed: 10.8.1+incompatible
+      vulnerable_at: 10.8.0+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20250520060012-d0380305ef7a
+summary: Mattermost allows an unauthorized Guest user access to Playbook in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-3228
+ghsas:
+    - GHSA-4578-6gjh-f2jm
+references:
+    - advisory: https://github.com/advisories/GHSA-4578-6gjh-f2jm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-3228
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-4578-6gjh-f2jm
+    created: 2025-07-21T17:03:33.350636762Z
+review_status: UNREVIEWED

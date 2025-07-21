@@ -1,0 +1,23 @@
+id: GO-2025-3792
+modules:
+    - module: github.com/filebrowser/filebrowser
+      unsupported_versions:
+        - last_affected: 1.11.0
+      vulnerable_at: 1.11.0
+    - module: github.com/filebrowser/filebrowser/v2
+      versions:
+        - fixed: 2.34.1
+      vulnerable_at: 2.34.0
+summary: File Browser vulnerable to insecure password handling in github.com/filebrowser/filebrowser
+cves:
+    - CVE-2025-52997
+ghsas:
+    - GHSA-cm2r-rg7r-p7gg
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-cm2r-rg7r-p7gg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-52997
+    - fix: https://github.com/filebrowser/filebrowser/commit/bf37f88c32222ad9c186482bb97338a9c9b4a93c
+source:
+    id: GHSA-cm2r-rg7r-p7gg
+    created: 2025-07-21T16:57:35.887689415Z
+review_status: UNREVIEWED

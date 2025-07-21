@@ -1,0 +1,24 @@
+id: GO-2025-3789
+modules:
+    - module: github.com/snyk/go-application-framework
+      vulnerable_at: 0.0.1
+summary: |-
+    Snyk CLI Insertion of Sensitive Information into Log File allowed in DEBUG or
+    DEBUG/TRACE mode in github.com/snyk/go-application-framework
+cves:
+    - CVE-2025-6624
+ghsas:
+    - GHSA-6hwc-9h8r-3vmf
+references:
+    - advisory: https://github.com/advisories/GHSA-6hwc-9h8r-3vmf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-6624
+    - fix: https://github.com/snyk/go-application-framework/commit/ca7ba7d72e68455afb466a7a47bb2c9aece86c18
+    - web: https://docs.snyk.io/snyk-cli/debugging-the-snyk-cli
+    - web: https://github.com/snyk
+    - web: https://github.com/snyk/cli/commit/38322f377da7e5f1391e1f641710be50989fa4df
+    - web: https://github.com/snyk/cli/releases/tag/v1.1297.3
+    - web: https://security.snyk.io/vuln/SNYK-JS-SNYK-10497607
+source:
+    id: GHSA-6hwc-9h8r-3vmf
+    created: 2025-07-21T16:57:47.27061162Z
+review_status: UNREVIEWED

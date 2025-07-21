@@ -1,0 +1,27 @@
+id: GO-2025-3780
+modules:
+    - module: github.com/openbao/openbao/sdk
+      vulnerable_at: 0.11.1
+    - module: github.com/openbao/openbao/sdk/v2
+      versions:
+        - fixed: 2.3.0
+      vulnerable_at: 2.2.0
+summary: |-
+    OpenBao Inserts Sensitive Information into Log File when processing malformed
+    data in github.com/openbao/openbao/sdk
+cves:
+    - CVE-2025-52893
+ghsas:
+    - GHSA-8f5r-8cmq-7fmq
+references:
+    - advisory: https://github.com/openbao/openbao/security/advisories/GHSA-8f5r-8cmq-7fmq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-52893
+    - web: https://discuss.hashicorp.com/t/hcsec-2025-09-vault-may-expose-sensitive-information-in-error-logs-when-processing-malformed-data-with-the-kv-v2-plugin/74717
+    - web: https://github.com/go-viper/mapstructure/commit/ed3f92181528ff776a0324107b8b55026e93766a
+    - web: https://github.com/go-viper/mapstructure/pull/105
+    - web: https://github.com/go-viper/mapstructure/releases/tag/v2.3.0
+    - web: https://github.com/openbao/openbao/commit/cf5e920badbf96b41253534a3fd5ff5063bf4b30
+source:
+    id: GHSA-8f5r-8cmq-7fmq
+    created: 2025-07-21T17:02:42.310118109Z
+review_status: UNREVIEWED

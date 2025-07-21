@@ -1,0 +1,19 @@
+id: GO-2025-3800
+modules:
+    - module: github.com/lf-edge/ekuiper
+      unsupported_versions:
+        - last_affected: 1.14.7
+      vulnerable_at: 1.14.7
+    - module: github.com/lf-edge/ekuiper/v2
+      versions:
+        - fixed: 2.2.0
+      vulnerable_at: 2.2.0-beta.1
+summary: eKuiper /config/uploads API arbitrary file writing may lead to RCE in github.com/lf-edge/ekuiper
+ghsas:
+    - GHSA-gj54-gwj9-x2c6
+references:
+    - advisory: https://github.com/lf-edge/ekuiper/security/advisories/GHSA-gj54-gwj9-x2c6
+source:
+    id: GHSA-gj54-gwj9-x2c6
+    created: 2025-07-21T16:55:23.495524634Z
+review_status: UNREVIEWED

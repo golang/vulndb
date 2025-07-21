@@ -1,0 +1,20 @@
+id: GO-2025-3809
+modules:
+    - module: github.com/ctfer-io/chall-manager
+      versions:
+        - fixed: 0.1.4
+      vulnerable_at: 0.1.3
+summary: Chall-Manager's HTTP Gateway is vulnerable to DoS due to missing header timeout in github.com/ctfer-io/chall-manager
+cves:
+    - CVE-2025-53634
+ghsas:
+    - GHSA-ggmv-j932-q89q
+references:
+    - advisory: https://github.com/ctfer-io/chall-manager/security/advisories/GHSA-ggmv-j932-q89q
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-53634
+    - fix: https://github.com/ctfer-io/chall-manager/commit/1385bd869142651146cd0b123085f91cec698636
+    - web: https://github.com/ctfer-io/chall-manager/releases/tag/v0.1.4
+source:
+    id: GHSA-ggmv-j932-q89q
+    created: 2025-07-21T16:53:49.049597797Z
+review_status: UNREVIEWED

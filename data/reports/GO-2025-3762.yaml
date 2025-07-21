@@ -1,0 +1,19 @@
+id: GO-2025-3762
+modules:
+    - module: github.com/ubuntu/authd
+      versions:
+        - fixed: 0.5.4
+      vulnerable_at: 0.5.3
+summary: New authd users logging in via SSH are members of the root group in github.com/ubuntu/authd
+cves:
+    - CVE-2025-5689
+ghsas:
+    - GHSA-g8qw-mgjx-rwjr
+references:
+    - advisory: https://github.com/ubuntu/authd/security/advisories/GHSA-g8qw-mgjx-rwjr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-5689
+    - fix: https://github.com/ubuntu/authd/commit/619ce8e55953b970f1765ddaad565081538151ab
+source:
+    id: GHSA-g8qw-mgjx-rwjr
+    created: 2025-07-21T17:09:00.23399162Z
+review_status: UNREVIEWED

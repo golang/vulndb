@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3800",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-gj54-gwj9-x2c6"
+  ],
+  "summary": "eKuiper /config/uploads API arbitrary file writing may lead to RCE in github.com/lf-edge/ekuiper",
+  "details": "eKuiper /config/uploads API arbitrary file writing may lead to RCE in github.com/lf-edge/ekuiper",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/lf-edge/ekuiper",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/lf-edge/ekuiper/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.2.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/lf-edge/ekuiper/security/advisories/GHSA-gj54-gwj9-x2c6"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3800",
+    "review_status": "UNREVIEWED"
+  }
+}

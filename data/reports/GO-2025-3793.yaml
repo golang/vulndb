@@ -1,0 +1,25 @@
+id: GO-2025-3793
+modules:
+    - module: github.com/filebrowser/filebrowser
+      unsupported_versions:
+        - last_affected: 1.11.0
+      vulnerable_at: 1.11.0
+    - module: github.com/filebrowser/filebrowser/v2
+      unsupported_versions:
+        - last_affected: 2.35.0
+      vulnerable_at: 2.40.2
+summary: 'File Browser: Command Execution not Limited to Scope in github.com/filebrowser/filebrowser'
+cves:
+    - CVE-2025-52904
+ghsas:
+    - GHSA-hc8f-m8g5-8362
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-hc8f-m8g5-8362
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-52904
+    - report: https://github.com/filebrowser/filebrowser/issues/5199
+    - web: https://github.com/GoogleContainerTools/distroless
+    - web: https://sloonz.github.io/posts/sandboxing-1
+source:
+    id: GHSA-hc8f-m8g5-8362
+    created: 2025-07-21T16:57:30.595122711Z
+review_status: UNREVIEWED

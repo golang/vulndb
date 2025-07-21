@@ -1,0 +1,23 @@
+id: GO-2025-3785
+modules:
+    - module: github.com/filebrowser/filebrowser
+      unsupported_versions:
+        - last_affected: 1.11.0
+      vulnerable_at: 1.11.0
+    - module: github.com/filebrowser/filebrowser/v2
+      versions:
+        - fixed: 2.33.7
+      vulnerable_at: 2.33.6
+summary: filebrowser Sets Insecure File Permissions in github.com/filebrowser/filebrowser
+cves:
+    - CVE-2025-52900
+ghsas:
+    - GHSA-jj2r-455p-5gvf
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-jj2r-455p-5gvf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-52900
+    - fix: https://github.com/filebrowser/filebrowser/commit/ca86f916216620365c0f81629c0934ce02574d76
+source:
+    id: GHSA-jj2r-455p-5gvf
+    created: 2025-07-21T16:58:06.165948839Z
+review_status: UNREVIEWED

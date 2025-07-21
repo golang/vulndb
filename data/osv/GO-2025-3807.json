@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3807",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-phhq-63jg-fp7r"
+  ],
+  "summary": "Contrast vulnerability allows arbitrary host data Injection into container VOLUME mount points in github.com/edgelesssys/contrast",
+  "details": "Contrast vulnerability allows arbitrary host data Injection into container VOLUME mount points in github.com/edgelesssys/contrast",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/edgelesssys/contrast",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.9.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/edgelesssys/contrast/security/advisories/GHSA-phhq-63jg-fp7r"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/edgelesssys/contrast/commit/635b471ddbb512b6661e6f1d767aab818bd50bda"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/edgelesssys/contrast/releases/tag/v1.9.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3807",
+    "review_status": "UNREVIEWED"
+  }
+}

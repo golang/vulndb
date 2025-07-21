@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3791",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-56j4-446m-qrf6"
+  ],
+  "summary": "Babylon vulnerable to chain half when transaction has fees different than `ubbn` in github.com/babylonlabs-io/babylon",
+  "details": "Babylon vulnerable to chain half when transaction has fees different than `ubbn` in github.com/babylonlabs-io/babylon",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/babylonlabs-io/babylon",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/babylonlabs-io/babylon/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.2.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/babylonlabs-io/babylon/security/advisories/GHSA-56j4-446m-qrf6"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/babylonlabs-io/babylon/commit/fe67aebd5216e7d3afa1d7dee2a3f82e548556f3"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/cosmos/cosmos-sdk/blob/main/x/distribution/keeper/allocation.go#L28"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3791",
+    "review_status": "UNREVIEWED"
+  }
+}

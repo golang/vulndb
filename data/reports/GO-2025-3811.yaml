@@ -1,0 +1,27 @@
+id: GO-2025-3811
+modules:
+    - module: github.com/filebrowser/filebrowser
+      versions:
+        - introduced: 1.0.0
+      unsupported_versions:
+        - last_affected: 1.11.0
+      vulnerable_at: 1.11.0
+    - module: github.com/filebrowser/filebrowser/v2
+      versions:
+        - introduced: 2.0.0-rc.1
+      vulnerable_at: 2.40.2
+summary: |-
+    File Browser's Uncontrolled Memory Consumption vulnerability can enable DoS
+    attack due to oversized file processing in github.com/filebrowser/filebrowser
+cves:
+    - CVE-2025-53893
+ghsas:
+    - GHSA-7xqm-7738-642x
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-7xqm-7738-642x
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-53893
+    - report: https://github.com/filebrowser/filebrowser/issues/5294
+source:
+    id: GHSA-7xqm-7738-642x
+    created: 2025-07-21T16:53:37.245748513Z
+review_status: UNREVIEWED

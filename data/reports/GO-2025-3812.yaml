@@ -1,0 +1,23 @@
+id: GO-2025-3812
+modules:
+    - module: github.com/filebrowser/filebrowser
+      vulnerable_at: 1.11.0
+    - module: github.com/filebrowser/filebrowser/v2
+      unsupported_versions:
+        - last_affected: 2.39.0
+      vulnerable_at: 2.40.2
+summary: |-
+    File Browser’s insecure JWT handling can lead to session replay attacks after
+    logout in github.com/filebrowser/filebrowser
+cves:
+    - CVE-2025-53826
+ghsas:
+    - GHSA-7xwp-2cpp-p8r7
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-7xwp-2cpp-p8r7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-53826
+    - report: https://github.com/filebrowser/filebrowser/issues/5216
+source:
+    id: GHSA-7xwp-2cpp-p8r7
+    created: 2025-07-21T16:53:32.370366112Z
+review_status: UNREVIEWED

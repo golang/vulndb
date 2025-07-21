@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3801",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-rj53-j6jw-7f7g"
+  ],
+  "summary": "Babylon vulnerable to chain halt when a message modifies the validator set at the epoch boundary in github.com/babylonlabs-io/babylon",
+  "details": "Babylon vulnerable to chain halt when a message modifies the validator set at the epoch boundary in github.com/babylonlabs-io/babylon",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/babylonlabs-io/babylon",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/babylonlabs-io/babylon/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.0.0"
+            },
+            {
+              "fixed": "2.1.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/babylonlabs-io/babylon/security/advisories/GHSA-rj53-j6jw-7f7g"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/babylonlabs-io/babylon/pull/1244/files"
+    },
+    {
+      "type": "WEB",
+      "url": "https://boiling-lake-106.notion.site/2025-06-18-Babylon-Genesis-Chain-Halt-Post-Mortem-229f60cc1b5f80b7adf5e3ea0541ea87"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/babylonlabs-io/babylon/releases/tag/v2.1.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3801",
+    "review_status": "UNREVIEWED"
+  }
+}

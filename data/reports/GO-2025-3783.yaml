@@ -1,0 +1,28 @@
+id: GO-2025-3783
+modules:
+    - module: github.com/openbao/openbao/api
+      vulnerable_at: 1.12.2
+    - module: github.com/openbao/openbao/api/v2
+      versions:
+        - fixed: 2.3.1
+      non_go_versions:
+        - introduced: 2.2.2
+      vulnerable_at: 2.3.0
+summary: |-
+    OpenBao allows cancellation of root rekey and recovery rekey operations without
+    authentication in github.com/openbao/openbao/api
+cves:
+    - CVE-2025-52894
+ghsas:
+    - GHSA-prpj-rchp-9j5h
+references:
+    - advisory: https://github.com/openbao/openbao/security/advisories/GHSA-prpj-rchp-9j5h
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-52894
+    - web: https://github.com/openbao/openbao/commit/fe75468822a22a88318c6079425357a02ae5b77b
+    - web: https://github.com/openbao/openbao/releases/tag/v2.3.1
+    - web: https://openbao.org/docs/deprecation
+    - web: https://openbao.org/docs/deprecation/unauthed-rekey
+source:
+    id: GHSA-prpj-rchp-9j5h
+    created: 2025-07-21T16:58:14.920746363Z
+review_status: UNREVIEWED

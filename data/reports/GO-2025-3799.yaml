@@ -1,0 +1,20 @@
+id: GO-2025-3799
+modules:
+    - module: github.com/lf-edge/ekuiper
+      unsupported_versions:
+        - last_affected: 1.14.7
+      vulnerable_at: 1.14.7
+    - module: github.com/lf-edge/ekuiper/v2
+      versions:
+        - fixed: 2.2.0
+      vulnerable_at: 2.2.0-beta.1
+summary: LF Edge eKuiper vulnerable to File Path Traversal leading to file replacement in github.com/lf-edge/ekuiper
+ghsas:
+    - GHSA-fv2p-qj5p-wqq4
+references:
+    - advisory: https://github.com/lf-edge/ekuiper/security/advisories/GHSA-fv2p-qj5p-wqq4
+    - web: https://github.com/lf-edge/ekuiper/blob/1e6b6b6601445eb05316532f5fbef7f0a863ecfe/internal/server/rest.go#L329-L359
+source:
+    id: GHSA-fv2p-qj5p-wqq4
+    created: 2025-07-21T16:55:24.565657523Z
+review_status: UNREVIEWED

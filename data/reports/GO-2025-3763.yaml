@@ -1,0 +1,35 @@
+id: GO-2025-3763
+modules:
+    - module: github.com/gravitational/teleport
+      non_go_versions:
+        - introduced: 16.0.0
+        - fixed: 16.5.12
+      vulnerable_at: 3.2.17+incompatible
+    - module: github.com/gravitational/teleport
+      versions:
+        - introduced: 0.0.11
+      non_go_versions:
+        - fixed: 12.4.35
+        - introduced: 13.0.0
+        - fixed: 13.4.27
+        - introduced: 14.0.0
+        - fixed: 14.4.1
+        - introduced: 15.0.0
+        - fixed: 15.5.3
+        - introduced: 17.0.0
+        - fixed: 17.5.2
+      unsupported_versions:
+        - last_affected: 0.0.0-20250616162021-79b2f26125a1
+      vulnerable_at: 3.2.17+incompatible
+summary: Remote authentication bypass in github.com/gravitational/teleport
+cves:
+    - CVE-2025-49825
+ghsas:
+    - GHSA-8cqv-pj7f-pwpc
+references:
+    - advisory: https://github.com/gravitational/teleport/security/advisories/GHSA-8cqv-pj7f-pwpc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-49825
+source:
+    id: GHSA-8cqv-pj7f-pwpc
+    created: 2025-07-21T17:04:10.293215598Z
+review_status: UNREVIEWED

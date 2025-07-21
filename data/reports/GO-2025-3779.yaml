@@ -1,0 +1,20 @@
+id: GO-2025-3779
+modules:
+    - module: github.com/octo-sts/app
+      versions:
+        - fixed: 0.5.3
+      vulnerable_at: 0.5.2
+summary: Octo STS Unauthenticated SSRF by abusing fields in OpenID Connect tokens in github.com/octo-sts/app
+cves:
+    - CVE-2025-52477
+ghsas:
+    - GHSA-h3qp-hwvr-9xcq
+references:
+    - advisory: https://github.com/octo-sts/app/security/advisories/GHSA-h3qp-hwvr-9xcq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-52477
+    - fix: https://github.com/octo-sts/app/commit/0f177fde54f9318e33f0bba6abaea9463a7c3afd
+    - fix: https://github.com/octo-sts/app/commit/b3976e39bd8c8c217c0670747d34a4499043da92
+source:
+    id: GHSA-h3qp-hwvr-9xcq
+    created: 2025-07-21T17:02:49.96989951Z
+review_status: UNREVIEWED

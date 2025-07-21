@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3789",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-6624",
+    "GHSA-6hwc-9h8r-3vmf"
+  ],
+  "summary": "Snyk CLI Insertion of Sensitive Information into Log File allowed in DEBUG or DEBUG/TRACE mode in github.com/snyk/go-application-framework",
+  "details": "Snyk CLI Insertion of Sensitive Information into Log File allowed in DEBUG or DEBUG/TRACE mode in github.com/snyk/go-application-framework",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/snyk/go-application-framework",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-6hwc-9h8r-3vmf"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-6624"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/snyk/go-application-framework/commit/ca7ba7d72e68455afb466a7a47bb2c9aece86c18"
+    },
+    {
+      "type": "WEB",
+      "url": "https://docs.snyk.io/snyk-cli/debugging-the-snyk-cli"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/snyk"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/snyk/cli/commit/38322f377da7e5f1391e1f641710be50989fa4df"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/snyk/cli/releases/tag/v1.1297.3"
+    },
+    {
+      "type": "WEB",
+      "url": "https://security.snyk.io/vuln/SNYK-JS-SNYK-10497607"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3789",
+    "review_status": "UNREVIEWED"
+  }
+}

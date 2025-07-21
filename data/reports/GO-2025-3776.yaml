@@ -1,0 +1,21 @@
+id: GO-2025-3776
+modules:
+    - module: gogs.io/gogs
+      versions:
+        - fixed: 0.13.3
+      vulnerable_at: 0.13.3-rc.1
+summary: Gogs allows deletion of internal files which leads to remote command execution in gogs.io/gogs
+cves:
+    - CVE-2024-56731
+ghsas:
+    - GHSA-wj44-9vcg-wjq7
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-wj44-9vcg-wjq7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-56731
+    - web: https://github.com/advisories/GHSA-ccqv-43vm-4f3w
+    - web: https://github.com/gogs/gogs/commit/77a4a945ae9a87f77e392e9066b560edb71b5de9
+    - web: https://github.com/gogs/gogs/releases/tag/v0.13.3
+source:
+    id: GHSA-wj44-9vcg-wjq7
+    created: 2025-07-21T17:03:09.703361592Z
+review_status: UNREVIEWED

@@ -1,0 +1,20 @@
+id: GO-2025-3778
+modules:
+    - module: gogs.io/gogs
+      versions:
+        - fixed: 0.13.3-0.20250608224432-110117b2e5e5
+      vulnerable_at: 0.13.2
+summary: Gogs XSS allowed by stored call in PDF renderer in gogs.io/gogs
+cves:
+    - CVE-2025-47943
+ghsas:
+    - GHSA-xh32-cx6c-cp4v
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-xh32-cx6c-cp4v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-47943
+    - web: https://github.com/gogs/gogs/commit/110117b2e5e5baa4809c819bec701e929d2d8d40
+    - web: https://github.com/gogs/gogs/releases/tag/v0.13.3
+source:
+    id: GHSA-xh32-cx6c-cp4v
+    created: 2025-07-21T17:02:54.942996853Z
+review_status: UNREVIEWED

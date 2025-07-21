@@ -1,0 +1,19 @@
+id: GO-2025-3791
+modules:
+    - module: github.com/babylonlabs-io/babylon
+      vulnerable_at: 1.1.0
+    - module: github.com/babylonlabs-io/babylon/v2
+      versions:
+        - fixed: 2.2.0
+      vulnerable_at: 2.1.0
+summary: Babylon vulnerable to chain half when transaction has fees different than `ubbn` in github.com/babylonlabs-io/babylon
+ghsas:
+    - GHSA-56j4-446m-qrf6
+references:
+    - advisory: https://github.com/babylonlabs-io/babylon/security/advisories/GHSA-56j4-446m-qrf6
+    - fix: https://github.com/babylonlabs-io/babylon/commit/fe67aebd5216e7d3afa1d7dee2a3f82e548556f3
+    - web: https://github.com/cosmos/cosmos-sdk/blob/main/x/distribution/keeper/allocation.go#L28
+source:
+    id: GHSA-56j4-446m-qrf6
+    created: 2025-07-21T16:57:39.704119084Z
+review_status: UNREVIEWED

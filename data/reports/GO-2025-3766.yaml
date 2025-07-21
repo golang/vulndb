@@ -1,0 +1,22 @@
+id: GO-2025-3766
+modules:
+    - module: github.com/grafana/grafana
+      versions:
+        - fixed: 0.0.0-20250521211231-e0ba4b480954
+        - introduced: 0.0.1-test
+      non_go_versions:
+        - fixed: 11.6.2
+      vulnerable_at: 5.4.5+incompatible
+summary: Grafana long dashboard title or panel name causes unresponsives in github.com/grafana/grafana
+cves:
+    - CVE-2025-1088
+ghsas:
+    - GHSA-crvv-6w6h-cv34
+references:
+    - advisory: https://github.com/advisories/GHSA-crvv-6w6h-cv34
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-1088
+    - web: https://grafana.com/security/security-advisories/cve-2025-1088
+source:
+    id: GHSA-crvv-6w6h-cv34
+    created: 2025-07-21T17:03:52.291381898Z
+review_status: UNREVIEWED

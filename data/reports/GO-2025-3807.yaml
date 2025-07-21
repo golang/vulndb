@@ -1,0 +1,19 @@
+id: GO-2025-3807
+modules:
+    - module: github.com/edgelesssys/contrast
+      versions:
+        - fixed: 1.9.1
+      vulnerable_at: 1.9.0
+summary: |-
+    Contrast vulnerability allows arbitrary host data Injection into container
+    VOLUME mount points in github.com/edgelesssys/contrast
+ghsas:
+    - GHSA-phhq-63jg-fp7r
+references:
+    - advisory: https://github.com/edgelesssys/contrast/security/advisories/GHSA-phhq-63jg-fp7r
+    - fix: https://github.com/edgelesssys/contrast/commit/635b471ddbb512b6661e6f1d767aab818bd50bda
+    - web: https://github.com/edgelesssys/contrast/releases/tag/v1.9.1
+source:
+    id: GHSA-phhq-63jg-fp7r
+    created: 2025-07-21T16:53:56.528055016Z
+review_status: UNREVIEWED

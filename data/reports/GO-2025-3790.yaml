@@ -1,0 +1,23 @@
+id: GO-2025-3790
+modules:
+    - module: github.com/filebrowser/filebrowser
+      unsupported_versions:
+        - last_affected: 1.11.0
+      vulnerable_at: 1.11.0
+    - module: github.com/filebrowser/filebrowser/v2
+      unsupported_versions:
+        - last_affected: 2.35.0
+      vulnerable_at: 2.40.2
+summary: File Browser's password protection of links is bypassable in github.com/filebrowser/filebrowser
+cves:
+    - CVE-2025-52996
+ghsas:
+    - GHSA-3v48-283x-f2w4
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-3v48-283x-f2w4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-52996
+    - report: https://github.com/filebrowser/filebrowser/issues/5239
+source:
+    id: GHSA-3v48-283x-f2w4
+    created: 2025-07-21T16:57:42.657022448Z
+review_status: UNREVIEWED

@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3781",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-52889",
+    "GHSA-9q7c-qmhm-jv86"
+  ],
+  "summary": "Incus Allocation of Resources Without Limits allows firewall rule bypass on managed bridge networks in github.com/lxc/incus",
+  "details": "Incus Allocation of Resources Without Limits allows firewall rule bypass on managed bridge networks in github.com/lxc/incus",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/lxc/incus",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/lxc/incus/v6",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "6.12.0"
+            },
+            {
+              "fixed": "6.14.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/lxc/incus/security/advisories/GHSA-9q7c-qmhm-jv86"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-52889"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/lxc/incus/commit/2516fb19ad8428454cb4edfe70c0a5f0dc1da214"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/lxc/incus/commit/a7c33301738aede3c035063e973b1d885d9bac7c"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3781",
+    "review_status": "UNREVIEWED"
+  }
+}
