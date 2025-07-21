@@ -1,0 +1,55 @@
+id: GO-2025-3798
+modules:
+    - module: github.com/juju/utils
+      vulnerable_at: 0.0.0-20200604140309-9d78121a29e0
+    - module: github.com/juju/utils/v2
+      vulnerable_at: 2.0.0-20210305225158-eedbe7b6b3e2
+    - module: github.com/juju/utils/v3
+      vulnerable_at: 3.2.3
+    - module: github.com/juju/utils/v4
+      versions:
+        - fixed: 4.0.4
+      vulnerable_at: 4.0.3
+      packages:
+        - package: github.com/juju/utils/v4/winrm
+          symbols:
+            - X509.write
+            - ClientConfig.Validate
+            - NewX509
+            - newCredentials
+            - X509.CACert
+            - Client.Secure
+            - X509.ClientKey
+            - confExists
+            - Client.Password
+            - TTYGetPasswd
+            - ClientConfig.password
+            - X509.ClientCert
+            - X509.LoadCACert
+            - Client.Ping
+            - X509.Reset
+            - NewClient
+            - Client.Run
+            - X509.LoadClientCert
+            - X509.read
+        - package: github.com/juju/utils/v4/cert
+          symbols:
+            - newSerialNumber
+            - getPublicKey
+            - NewClientCert
+            - NewLeaf
+            - bigIntHash
+            - NewCA
+summary: Leaks private key in certs in github.com/juju/utils
+cves:
+    - CVE-2025-6224
+ghsas:
+    - GHSA-h34r-jxqm-qgpr
+references:
+    - advisory: https://github.com/juju/utils/security/advisories/GHSA-h34r-jxqm-qgpr
+    - fix: https://github.com/juju/utils/commit/766f27d7bcd10433453a9764509a864c17a46a76
+    - web: https://github.com/juju/utils/releases/tag/v4.0.4
+source:
+    id: GHSA-h34r-jxqm-qgpr
+    created: 2025-07-21T16:55:29.246172196Z
+review_status: REVIEWED
