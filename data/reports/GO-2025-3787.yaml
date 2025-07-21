@@ -1,0 +1,19 @@
+id: GO-2025-3787
+modules:
+    - module: github.com/go-viper/mapstructure
+      vulnerable_at: 1.6.0
+    - module: github.com/go-viper/mapstructure/v2
+      versions:
+        - fixed: 2.3.0
+      vulnerable_at: 2.2.1
+summary: May leak sensitive information in logs when processing malformed data in github.com/go-viper/mapstructure
+ghsas:
+    - GHSA-fv92-fjc5-jj9h
+references:
+    - advisory: https://github.com/go-viper/mapstructure/security/advisories/GHSA-fv92-fjc5-jj9h
+notes:
+    - No fix commit provided in advisory
+source:
+    id: GHSA-fv92-fjc5-jj9h
+    created: 2025-07-16T21:03:19.749679017Z
+review_status: REVIEWED
