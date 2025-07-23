@@ -5,6 +5,7 @@
 package priority
 
 import (
+	"math"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -13,38 +14,49 @@ import (
 
 var (
 	notGo1 = &report.Report{
+		ID:       "GO-1991-0001",
 		Excluded: report.ExcludedNotGoCode,
 	}
 	reviewed1 = &report.Report{
+		ID:           "GO-1991-0001",
 		ReviewStatus: report.Reviewed,
 	}
 	reviewed2 = &report.Report{
+		ID:           "GO-1991-0001",
 		ReviewStatus: report.Reviewed,
 	}
 	reviewedBinary = &report.Report{
+		ID:           "GO-1991-0001",
 		ReviewStatus: report.Reviewed,
 		Unexcluded:   report.ExcludedNotImportable,
 	}
 	unreviewed1 = &report.Report{
+		ID:           "GO-1991-0001",
 		ReviewStatus: report.Unreviewed,
 	}
 	binary1 = &report.Report{
+		ID:       "GO-1991-0001",
 		Excluded: report.ExcludedNotImportable,
 	}
 	binary2 = &report.Report{
+		ID:       "GO-1991-0001",
 		Excluded: report.ExcludedEffectivelyPrivate,
 	}
 	binary3 = &report.Report{
+		ID:       "GO-1991-0001",
 		Excluded: report.ExcludedLegacyFalsePositive,
 	}
 	unreviewedBinary = &report.Report{
+		ID:           "GO-1991-0001",
 		ReviewStatus: report.Unreviewed,
 		Unexcluded:   report.ExcludedNotImportable,
 	}
 	notAVuln1 = &report.Report{
+		ID:       "GO-1991-0001",
 		Excluded: report.ExcludedNotAVulnerability,
 	}
 	dependent1 = &report.Report{
+		ID:       "GO-1991-0001",
 		Excluded: report.ExcludedDependentVulnerabilty,
 	}
 )
@@ -140,7 +152,7 @@ func TestAnalyze(t *testing.T) {
 		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
-			got, gotNotGo := Analyze(tc.module, tc.reportsForModule, tc.modulesToImports)
+			got, gotNotGo := Analyze(tc.module, math.MaxInt, tc.reportsForModule, tc.modulesToImports)
 			want := tc.want
 			if diff := cmp.Diff(want, got); diff != "" {
 				t.Errorf("result mismatch (-want, +got):\n%s", diff)

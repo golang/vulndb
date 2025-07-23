@@ -4,14 +4,13 @@ modules:
       versions:
         - fixed: 1.26.0-alpha.3
       vulnerable_at: 1.26.0-alpha.2
-summary: kubectl ANSI escape characters not filtered in k8s.io/kubernetes
+summary: ANSI escape characters not filtered in kubectl in k8s.io/kubernetes
 cves:
     - CVE-2021-25743
 ghsas:
     - GHSA-f9jg-8p32-2f55
 references:
     - advisory: https://github.com/advisories/GHSA-f9jg-8p32-2f55
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-25743
     - web: https://github.com/kubernetes/kubernetes/commit/dad0e937c0f76344363eb691b2668490ffef8537
     - web: https://github.com/kubernetes/kubernetes/issues/101695
     - web: https://github.com/kubernetes/kubernetes/pull/112553
@@ -19,5 +18,5 @@ references:
 source:
     id: GHSA-f9jg-8p32-2f55
     created: 2024-08-20T14:43:49.522169-04:00
-review_status: UNREVIEWED
+review_status: REVIEWED
 unexcluded: EFFECTIVELY_PRIVATE

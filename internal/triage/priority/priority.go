@@ -7,6 +7,10 @@ package priority
 
 import (
 	"fmt"
+	"regexp"
+	"slices"
+	"sort"
+	"strconv"
 	"strings"
 
 	"golang.org/x/vulndb/internal/report"
@@ -51,7 +55,7 @@ func AnalyzeReport(r *report.Report, rc *report.Client, modulesToImports map[str
 	var notGoReasons []string
 	for _, m := range r.Modules {
 		mp := m.Module
-		result, notGo := Analyze(mp, rc.ReportsByModule(mp), modulesToImports)
+		result, notGo := Analyze(mp, issueID(r), rc.ReportsByModule(mp), modulesToImports)
 		if result.Priority > overall {
 			overall = result.Priority
 		}
@@ -73,8 +77,16 @@ func AnalyzeReport(r *report.Report, rc *report.Client, modulesToImports map[str
 	return result, nil
 }
 
-func Analyze(mp string, reportsForModule []*report.Report, modulesToImports map[string]int) (*Result, *NotGoResult) {
-	sc := stateCounts(reportsForModule)
+func Analyze(mp string, ghID int, reportsForModule []*report.Report, modulesToImports map[string]int) (*Result, *NotGoResult) {
+	//rs := slices.Clone(reportsForModule)
+	reportsForModule = slices.Clone(reportsForModule)
+	sort.Slice(reportsForModule, func(i, j int) bool {
+		return issueID(reportsForModule[i]) < issueID(reportsForModule[j])
+	})
+	idx := sort.Search(len(reportsForModule), func(i int) bool {
+		return issueID(reportsForModule[i]) > ghID
+	})
+	sc := stateCounts(reportsForModule[:idx])
 
 	notGo := isPossiblyNotGo(len(reportsForModule), sc)
 	importers, ok := modulesToImports[mp]
@@ -192,4 +204,17 @@ func stateCounts(rs []*report.Report) map[reportState]int {
 		counts[st]++
 	}
 	return counts
+}
+
+func issueID(report *report.Report) int {
+	reportRe := regexp.MustCompile(`.*(GO\-\d{4}\-\d+).*`)
+	if !reportRe.MatchString(report.ID) {
+		panic(fmt.Errorf("malformed report identifier: %s", report.ID))
+	}
+	reportName := reportRe.FindStringSubmatch(report.ID)
+	id, err := strconv.Atoi(reportName[1][8:])
+	if err != nil {
+		panic(fmt.Errorf("unable to convert report ID (%s) to integer: %w", reportName, err))
+	}
+	return id
 }

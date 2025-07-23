@@ -47,7 +47,6 @@ func TestChecksBash(t *testing.T) {
 		t.Fatal(err)
 	}
 }
-
 func TestLintReports(t *testing.T) {
 	if runtime.GOOS == "android" {
 		t.Skipf("android builder does not have access to reports/")

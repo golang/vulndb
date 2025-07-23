@@ -12,6 +12,7 @@ package main
 import (
 	"context"
 	"log"
+	"math"
 	"os"
 
 	vlog "golang.org/x/vulndb/cmd/vulnreport/log"
@@ -38,7 +39,7 @@ func main() {
 	}
 
 	for _, arg := range args {
-		pr, notGo := priority.Analyze(arg, rc.ReportsByModule(arg), ms)
+		pr, notGo := priority.Analyze(arg, math.MaxInt, rc.ReportsByModule(arg), ms)
 		vlog.Outf("%s:\npriority = %s\n%s", arg, pr.Priority, pr.Reason)
 		if notGo != nil {
 			vlog.Outf("%s is likely not Go because %s", arg, notGo.Reason)

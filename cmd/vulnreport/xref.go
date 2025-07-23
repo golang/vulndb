@@ -7,6 +7,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"math"
 
 	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/report"
@@ -86,7 +87,7 @@ func (x *xrefer) xref(r *yamlReport) string {
 }
 
 func (x *xrefer) modulePriority(modulePath string) (*priority.Result, *priority.NotGoResult) {
-	return priority.Analyze(modulePath, x.rc.ReportsByModule(modulePath), x.moduleMap)
+	return priority.Analyze(modulePath, math.MaxInt, x.rc.ReportsByModule(modulePath), x.moduleMap)
 }
 
 func (x *xrefer) reportPriority(r *report.Report) (*priority.Result, *priority.NotGoResult) {

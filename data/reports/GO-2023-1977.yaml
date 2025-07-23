@@ -9,18 +9,19 @@ modules:
         - introduced: 1.9.0
         - fixed: 1.9.4
       vulnerable_at: 1.9.4-beta.0
-summary: Kubernetes arbitrary file overwrite in k8s.io/kubernetes
+summary: |-
+    Kubernetes can trigger deletion of arbitrary files from the
+    nodes where containers are running in k8s.io/kubernetes
 cves:
     - CVE-2017-1002102
 ghsas:
     - GHSA-mm7g-f2gg-cw8g
 references:
     - advisory: https://github.com/advisories/GHSA-mm7g-f2gg-cw8g
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-1002102
     - web: https://access.redhat.com/errata/RHSA-2018:0475
     - web: https://github.com/kubernetes/kubernetes/issues/60814
 source:
     id: GHSA-mm7g-f2gg-cw8g
     created: 2024-08-20T11:58:59.502139-04:00
-review_status: UNREVIEWED
+review_status: REVIEWED
 unexcluded: EFFECTIVELY_PRIVATE

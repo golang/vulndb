@@ -1,8 +1,6 @@
 id: GO-2022-0617
 modules:
     - module: k8s.io/kubernetes
-      unsupported_versions:
-        - last_affected: 1.21.1
       vulnerable_at: 1.31.0
 summary: |-
     WITHDRAWN: Potential proxy IP restriction bypass in Kubernetes in
@@ -18,7 +16,6 @@ ghsas:
     - GHSA-qh36-44jv-c8xj
 references:
     - advisory: https://github.com/advisories/GHSA-qh36-44jv-c8xj
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2020-8562
     - web: https://github.com/kubernetes/kubernetes/issues/101493
     - web: https://github.com/kubernetes/kubernetes/issues/101493#issuecomment-2272095629
     - web: https://groups.google.com/g/kubernetes-security-announce/c/-MFX60_wdOY
@@ -28,5 +25,5 @@ notes:
 source:
     id: GHSA-qh36-44jv-c8xj
     created: 2024-08-20T14:08:01.48392-04:00
-review_status: UNREVIEWED
+review_status: REVIEWED
 unexcluded: NOT_IMPORTABLE

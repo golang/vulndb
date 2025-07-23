@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3605",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-3445",
+    "GHSA-7vpp-9cxj-q8gv"
+  ],
+  "summary": "Vulnerable to Path Traversal via Crafted ZIP File in github.com/mholt/archiver",
+  "details": "Vulnerable to Path Traversal via Crafted ZIP File in github.com/mholt/archiver",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mholt/archiver",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mholt/archiver/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-7vpp-9cxj-q8gv"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/mholt/archiver/commit/fea250ac6eacd56f90a82fbe2481cfdbb9a1bbd1"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/mholt/archiver/issues/267"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3605",
+    "review_status": "REVIEWED"
+  }
+}

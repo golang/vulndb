@@ -1,0 +1,21 @@
+id: GO-2025-3605
+modules:
+    - module: github.com/mholt/archiver
+      vulnerable_at: 2.1.0+incompatible
+    - module: github.com/mholt/archiver/v3
+      vulnerable_at: 3.5.1
+summary: Vulnerable to Path Traversal via Crafted ZIP File in github.com/mholt/archiver
+cves:
+    - CVE-2025-3445
+ghsas:
+    - GHSA-7vpp-9cxj-q8gv
+references:
+    - advisory: https://github.com/advisories/GHSA-7vpp-9cxj-q8gv
+    - fix: https://github.com/mholt/archiver/commit/fea250ac6eacd56f90a82fbe2481cfdbb9a1bbd1
+    - report: https://github.com/mholt/archiver/issues/267
+notes:
+    - 'markus: this report came with ''unsupported version 3.5.1'', same as the fixed. is it fixed past 3.5.1?'
+source:
+    id: GHSA-7vpp-9cxj-q8gv
+    created: 2025-07-23T19:56:23.216387277Z
+review_status: REVIEWED

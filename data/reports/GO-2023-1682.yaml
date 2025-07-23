@@ -4,17 +4,16 @@ modules:
       versions:
         - fixed: 1.1.5
       vulnerable_at: 1.1.4
-summary: 'rootless: `/sys/fs/cgroup` is writable when cgroupns isn''t unshared in runc in github.com/opencontainers/runc'
+summary: 'Rootless: /sys/fs/cgroup is writable when cgroupns isn''t unshared in github.com/opencontainers/runc'
 cves:
     - CVE-2023-25809
 ghsas:
     - GHSA-m8cg-xc2p-r3fc
 references:
     - advisory: https://github.com/opencontainers/runc/security/advisories/GHSA-m8cg-xc2p-r3fc
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-25809
     - fix: https://github.com/opencontainers/runc/commit/0d62b950e60f6980b54fe3bafd9a9c608dc1df17
 source:
     id: GHSA-m8cg-xc2p-r3fc
     created: 2024-08-20T11:39:25.265773-04:00
-review_status: UNREVIEWED
+review_status: REVIEWED
 unexcluded: EFFECTIVELY_PRIVATE
