@@ -1,0 +1,19 @@
+id: GO-2025-3823
+modules:
+    - module: github.com/kyverno/kyverno
+      versions:
+        - fixed: 1.14.2
+      vulnerable_at: 1.14.2-rc.1
+summary: Kyverno's Improper JMESPath Variable Evaluation Lead to Denial of Service in github.com/kyverno/kyverno
+cves:
+    - CVE-2025-47281
+ghsas:
+    - GHSA-r5p3-955p-5ggq
+references:
+    - advisory: https://github.com/kyverno/kyverno/security/advisories/GHSA-r5p3-955p-5ggq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-47281
+    - fix: https://github.com/kyverno/kyverno/commit/cbd7d4ca24de1c55396fc3295e9fc3215832be7c
+source:
+    id: GHSA-r5p3-955p-5ggq
+    created: 2025-07-28T21:00:13.772181764Z
+review_status: UNREVIEWED

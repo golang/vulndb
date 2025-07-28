@@ -1,0 +1,26 @@
+id: GO-2025-3817
+modules:
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - fixed: 1.9.2-0.20250521205822-0ba0b99665a9
+      vulnerable_at: 5.4.5+incompatible
+summary: Grafana is vulnerable to XSS attacks through open redirects and path traversal in github.com/grafana/grafana
+cves:
+    - CVE-2025-6023
+ghsas:
+    - GHSA-vqph-p5vc-g644
+references:
+    - advisory: https://github.com/advisories/GHSA-vqph-p5vc-g644
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-6023
+    - fix: https://github.com/grafana/grafana/commit/0ba0b99665a946cd96676ef85ec8bc83028cb1d7
+    - fix: https://github.com/grafana/grafana/commit/40ed88fe86d347bcde5ddaed6c4a20a95d2f0d55
+    - fix: https://github.com/grafana/grafana/commit/5b00e21638f565eed46acb4d0b7c009968df4c3b
+    - fix: https://github.com/grafana/grafana/commit/b6dd2b70c655c61b111b328f1a7dcca6b3954936
+    - fix: https://github.com/grafana/grafana/commit/e0ba4b480954f8a33aa2cff3229f6bcc05777bd9
+    - web: https://github.com/grafana/grafana
+    - web: https://grafana.com/blog/2025/07/17/grafana-security-release-medium-and-high-severity-fixes-for-cve-2025-6197-and-cve-2025-6023
+    - web: https://grafana.com/security/security-advisories/cve-2025-6023
+source:
+    id: GHSA-vqph-p5vc-g644
+    created: 2025-07-28T21:00:38.198919963Z
+review_status: UNREVIEWED

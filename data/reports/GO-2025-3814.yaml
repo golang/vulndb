@@ -1,0 +1,27 @@
+id: GO-2025-3814
+modules:
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - fixed: 1.9.2-0.20250514160932-04111e9f2afd
+      vulnerable_at: 5.4.5+incompatible
+summary: Grafana's insecure DingDing Alert integration exposes sensitive information in github.com/grafana/grafana
+cves:
+    - CVE-2025-3415
+ghsas:
+    - GHSA-46m5-8hpj-p5p5
+references:
+    - advisory: https://github.com/advisories/GHSA-46m5-8hpj-p5p5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-3415
+    - fix: https://github.com/grafana/grafana/commit/04111e9f2afd95ea3e5b01865cc29d3fc1198e71
+    - fix: https://github.com/grafana/grafana/commit/0adb869188fa2b9ae26efd424b94e17189538f29
+    - fix: https://github.com/grafana/grafana/commit/19c912476d4f7a81e8a3562668bc38f31b909e18
+    - fix: https://github.com/grafana/grafana/commit/4144c636d1a6d0b17fafcf7a2c40fa403542202a
+    - fix: https://github.com/grafana/grafana/commit/4fc33647a8297d3a0aae04a5fcbac883ceb6a655
+    - fix: https://github.com/grafana/grafana/commit/910eb1dd9e618014c6b1d2a99a431b99d4268c05
+    - fix: https://github.com/grafana/grafana/commit/91327938626c9426e481e6294850af7b61415c98
+    - fix: https://github.com/grafana/grafana/commit/a78de30720b4f33c88d0c1a973e693ebf3831717
+    - web: https://grafana.com/security/security-advisories/cve-2025-3415
+source:
+    id: GHSA-46m5-8hpj-p5p5
+    created: 2025-07-28T21:01:53.933979215Z
+review_status: UNREVIEWED

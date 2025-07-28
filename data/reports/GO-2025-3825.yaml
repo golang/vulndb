@@ -1,0 +1,39 @@
+id: GO-2025-3825
+modules:
+    - module: github.com/goharbor/harbor
+      non_go_versions:
+        - fixed: 2.4.0-rc1.0.20250421072404-a13a16383a41
+      vulnerable_at: 2.13.1+incompatible
+    - module: github.com/goharbor/harbor
+      non_go_versions:
+        - introduced: 2.4.0-rc1.1
+      unsupported_versions:
+        - last_affected: 2.11.2
+      vulnerable_at: 2.13.1+incompatible
+    - module: github.com/goharbor/harbor
+      versions:
+        - introduced: 2.12.0-rc1+incompatible
+        - fixed: 2.12.4-rc1+incompatible
+      vulnerable_at: 2.12.3+incompatible
+    - module: github.com/goharbor/harbor
+      versions:
+        - introduced: 2.13.0-rc1+incompatible
+        - fixed: 2.13.1-rc1+incompatible
+      vulnerable_at: 2.13.0+incompatible
+summary: Harbor repository description page has Cross-site Scripting vulnerability in github.com/goharbor/harbor
+cves:
+    - CVE-2025-32019
+ghsas:
+    - GHSA-f9vc-vf3r-pqqq
+references:
+    - advisory: https://github.com/goharbor/harbor/security/advisories/GHSA-f9vc-vf3r-pqqq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-32019
+    - fix: https://github.com/goharbor/harbor/commit/76c2c5f7cfd9edb356cbb373889a59cc3217a058
+    - fix: https://github.com/goharbor/harbor/commit/a13a16383a41a8e20f524593cb290dc52f86f088
+    - fix: https://github.com/goharbor/harbor/commit/f019430872118852f83f96cac9c587b89052d1e5
+notes:
+    - fix: 'module merge error: could not merge versions of module github.com/goharbor/harbor: introduced and fixed versions must alternate'
+source:
+    id: GHSA-f9vc-vf3r-pqqq
+    created: 2025-07-28T21:00:01.996469585Z
+review_status: UNREVIEWED

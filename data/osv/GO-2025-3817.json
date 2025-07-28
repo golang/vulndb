@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3817",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-6023",
+    "GHSA-vqph-p5vc-g644"
+  ],
+  "summary": "Grafana is vulnerable to XSS attacks through open redirects and path traversal in github.com/grafana/grafana",
+  "details": "Grafana is vulnerable to XSS attacks through open redirects and path traversal in github.com/grafana/grafana.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/grafana/grafana before v1.9.2-0.20250521205822-0ba0b99665a9.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/grafana/grafana",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "1.9.2-0.20250521205822-0ba0b99665a9"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-vqph-p5vc-g644"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-6023"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/grafana/grafana/commit/0ba0b99665a946cd96676ef85ec8bc83028cb1d7"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/grafana/grafana/commit/40ed88fe86d347bcde5ddaed6c4a20a95d2f0d55"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/grafana/grafana/commit/5b00e21638f565eed46acb4d0b7c009968df4c3b"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/grafana/grafana/commit/b6dd2b70c655c61b111b328f1a7dcca6b3954936"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/grafana/grafana/commit/e0ba4b480954f8a33aa2cff3229f6bcc05777bd9"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/grafana/grafana"
+    },
+    {
+      "type": "WEB",
+      "url": "https://grafana.com/blog/2025/07/17/grafana-security-release-medium-and-high-severity-fixes-for-cve-2025-6197-and-cve-2025-6023"
+    },
+    {
+      "type": "WEB",
+      "url": "https://grafana.com/security/security-advisories/cve-2025-6023"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3817",
+    "review_status": "UNREVIEWED"
+  }
+}

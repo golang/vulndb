@@ -1,0 +1,32 @@
+id: GO-2025-3818
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 9.11.0+incompatible
+        - fixed: 9.11.17+incompatible
+        - introduced: 10.5.0+incompatible
+        - fixed: 10.5.8+incompatible
+      vulnerable_at: 10.5.8-rc1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20250612074655-8f8612c63783
+summary: Mattermost has Insufficiently Protected Credentials in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-6227
+ghsas:
+    - GHSA-4fwj-8595-wp25
+references:
+    - advisory: https://github.com/advisories/GHSA-4fwj-8595-wp25
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-6227
+    - web: https://github.com/mattermost/mattermost/commit/fbf105f6ef8f6cd5a89f859f09a2d1216cd81c05
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-4fwj-8595-wp25
+    created: 2025-07-28T21:00:33.798605854Z
+review_status: UNREVIEWED

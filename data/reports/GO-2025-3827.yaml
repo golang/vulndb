@@ -1,0 +1,21 @@
+id: GO-2025-3827
+modules:
+    - module: github.com/lf-edge/ekuiper
+      vulnerable_at: 1.14.7
+    - module: github.com/lf-edge/ekuiper/v2
+      versions:
+        - fixed: 2.2.1
+      vulnerable_at: 2.2.0
+summary: eKuiper API endpoints handling SQL queries with user-controlled table names. in github.com/lf-edge/ekuiper
+cves:
+    - CVE-2025-54379
+ghsas:
+    - GHSA-526j-mv3p-f4vv
+references:
+    - advisory: https://github.com/lf-edge/ekuiper/security/advisories/GHSA-526j-mv3p-f4vv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-54379
+    - fix: https://github.com/lf-edge/ekuiper/commit/72c4918744934deebf04e324ae66933ec089ebd3
+source:
+    id: GHSA-526j-mv3p-f4vv
+    created: 2025-07-28T20:59:52.489395616Z
+review_status: UNREVIEWED

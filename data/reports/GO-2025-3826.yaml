@@ -1,0 +1,27 @@
+id: GO-2025-3826
+modules:
+    - module: github.com/goharbor/harbor
+      versions:
+        - fixed: 2.12.4+incompatible
+        - introduced: 2.13.0+incompatible
+        - fixed: 2.13.1+incompatible
+      non_go_versions:
+        - fixed: 2.4.0-rc1.0.20250331071157-dce7d9f5cffb
+        - introduced: 2.4.0-rc1.1
+      vulnerable_at: 2.13.1-rc3+incompatible
+summary: Possible ORM Leak Vulnerability in the Harbor in github.com/goharbor/harbor
+cves:
+    - CVE-2025-30086
+ghsas:
+    - GHSA-h27m-3qw8-3pw8
+references:
+    - advisory: https://github.com/goharbor/harbor/security/advisories/GHSA-h27m-3qw8-3pw8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-30086
+    - fix: https://github.com/goharbor/harbor/commit/dce7d9f5cffbd0d0c5d27e7a2f816f65a930702c
+    - web: https://github.com/goharbor/harbor/releases
+    - web: https://goharbor.io/blog
+    - web: https://www.elttam.com/blog/plormbing-your-django-orm
+source:
+    id: GHSA-h27m-3qw8-3pw8
+    created: 2025-07-28T20:59:56.517260296Z
+review_status: UNREVIEWED
