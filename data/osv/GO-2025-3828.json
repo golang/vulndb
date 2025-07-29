@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3828",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-4674",
+    "CVE-2025-4674"
+  ],
+  "summary": "Unexpected command execution in untrusted VCS repositories in cmd/go",
+  "details": "The go command may execute unexpected commands when operating in untrusted VCS repositories.\n\nThis occurs when possibly dangerous VCS configuration is present in repositories. This can happen when a repository was fetched via one VCS (e.g. Git), but contains metadata for another VCS (e.g. Mercurial). Modules which are retrieved using the go command line, i.e. via \"go get\", are not affected.",
+  "affected": [
+    {
+      "package": {
+        "name": "toolchain",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.23.11"
+            },
+            {
+              "introduced": "1.24.0-0"
+            },
+            {
+              "fixed": "1.24.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "cmd/go"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/686515"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/74380"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/gTNJnDXmn34"
+    }
+  ],
+  "credits": [
+    {
+      "name": "RyotaK (https://ryotak.net) of GMO Flatt Security Inc"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3828",
+    "review_status": "REVIEWED"
+  }
+}

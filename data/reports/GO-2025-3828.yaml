@@ -1,0 +1,34 @@
+id: GO-2025-3828
+modules:
+    - module: cmd
+      versions:
+        - fixed: 1.23.11
+        - introduced: 1.24.0-0
+        - fixed: 1.24.5
+      vulnerable_at: 1.24.4
+      packages:
+        - package: cmd/go
+summary: Unexpected command execution in untrusted VCS repositories in cmd/go
+description: |-
+    The go command may execute unexpected commands when operating in untrusted VCS
+    repositories.
+
+    This occurs when possibly dangerous VCS configuration is present in
+    repositories. This can happen when a repository was fetched via one VCS (e.g.
+    Git), but contains metadata for another VCS (e.g. Mercurial). Modules which are
+    retrieved using the go command line, i.e. via "go get", are not affected.
+cves:
+    - CVE-2025-4674
+credits:
+    - RyotaK (https://ryotak.net) of GMO Flatt Security Inc
+references:
+    - fix: https://go.dev/cl/686515
+    - report: https://go.dev/issue/74380
+    - web: https://groups.google.com/g/golang-announce/c/gTNJnDXmn34
+cve_metadata:
+    id: CVE-2025-4674
+    cwe: 'CWE-73: External Control of File Name or Path'
+source:
+    id: go-security-team
+    created: 2025-07-29T12:57:41.158468-07:00
+review_status: REVIEWED
