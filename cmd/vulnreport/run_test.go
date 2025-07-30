@@ -36,9 +36,10 @@ var (
 )
 
 type testCase struct {
-	name    string
-	args    []string
-	wantErr bool
+	name        string
+	args        []string
+	wantErr     bool
+	expectedErr string
 }
 
 type memWFS struct {
@@ -148,6 +149,10 @@ func runTestWithEnv(t *testing.T, cmd command, tc *testCase, newEnv func(t *test
 		if tc.wantErr {
 			if err == nil {
 				t.Errorf("run(%s, %s) = %v, want error", cmd.name(), tc.args, err)
+			}
+			if tc.expectedErr != "" && !strings.Contains(logs.String(), tc.expectedErr) {
+				diff := cmp.Diff(tc.expectedErr, logs.String())
+				t.Errorf("run(%s, %s) mismatch, did not find expected substring (-want, +got):\n%s", cmd.name(), tc.args, diff)
 			}
 		} else if err != nil {
 			t.Errorf("run(%s, %s) = %v, want no error", cmd.name(), tc.args, err)

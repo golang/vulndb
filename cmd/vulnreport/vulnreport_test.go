@@ -10,7 +10,21 @@ import (
 
 func TestCreate(t *testing.T) {
 	for _, tc := range []*testCase{
-		// TODO(tatianabradley): add test cases
+		{
+			name:    "invalid issue id",
+			args:    []string{"999"},
+			wantErr: true,
+		},
+		{
+			name: "report already exists",
+			args: []string{"1"},
+		},
+		{
+			name:        "new report high priority",
+			args:        []string{"100"},
+			wantErr:     true,
+			expectedErr: "ERROR: create: GO-0000-0100: could not fix all errors; requires manual review",
+		},
 	} {
 		runTest(t, &create{}, tc)
 	}

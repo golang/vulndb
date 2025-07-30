@@ -227,8 +227,8 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) (*yamlRe
 		}
 	}
 
-	if *populateSymbols {
-		log.Infof("%s: attempting to auto-populate symbols (this may take a while...)", r.ID)
+	if *populateSymbols && raw.NeedsReview() {
+		log.Infof("%s: attempting to auto-populate symbols for NEEDS_REVIEW report (this may take a while...)", r.ID)
 		if err := symbols.Populate(r.Report, false); err != nil {
 			r.AddNote(report.NoteTypeCreate, "failed to auto-populate symbols")
 			log.Warnf("%s: could not auto-populate symbols: %s", r.ID, err)

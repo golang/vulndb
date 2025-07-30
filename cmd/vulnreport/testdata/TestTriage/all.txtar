@@ -16,22 +16,29 @@ issue test-issue-tracker/11 is possibly not Go
 issue test-issue-tracker/12 is likely duplicate
   - #12 shares alias(es) CVE-1999-0002, GHSA-xxxx-yyyy-0002, GHSA-xxxx-yyyy-0003 with test-issue-tracker/13
   - #12 shares alias(es) CVE-1999-0002, GHSA-xxxx-yyyy-0002, GHSA-xxxx-yyyy-0003 with test-issue-tracker/14
+  - #12 shares alias(es) CVE-1999-0002, GHSA-xxxx-yyyy-0002, GHSA-xxxx-yyyy-0003 with test-issue-tracker/15
 posted comment to issue 12: Duplicate of #13
 posted comment to issue 12: Duplicate of #14
+posted comment to issue 12: Duplicate of #15
 issue test-issue-tracker/13 is likely duplicate
   - #13 shares alias(es) CVE-1999-0002, GHSA-xxxx-yyyy-0002, GHSA-xxxx-yyyy-0003 with test-issue-tracker/14
+  - #13 shares alias(es) CVE-1999-0002, GHSA-xxxx-yyyy-0002, GHSA-xxxx-yyyy-0003 with test-issue-tracker/15
 posted comment to issue 13: Duplicate of #14
-triaged 6 issues:
+posted comment to issue 13: Duplicate of #15
+issue test-issue-tracker/14 is likely duplicate
+  - #14 shares alias(es) CVE-1999-0002, GHSA-xxxx-yyyy-0002, GHSA-xxxx-yyyy-0003 with test-issue-tracker/15
+posted comment to issue 14: Duplicate of #15
+triaged 8 issues:
   - 1 high priority
-  - 5 low priority
+  - 7 low priority
   - 0 unknown priority
-  - 3 likely duplicate
+  - 4 likely duplicate
   - 1 possibly not Go
 helpful commands:
   $ vulnreport create 10
 -- logs --
 info: creating alias map for open issues
-info: triage: operating on 7 issue(s)
+info: triage: operating on 9 issue(s)
 info: triage: skipping issue #1 (already has report)
 info: triage 7
 info: issue test-issue-tracker/7 is low priority
@@ -49,4 +56,11 @@ info: issue test-issue-tracker/13 is low priority
 info: triage 14
 info: issue test-issue-tracker/14 is low priority
   - golang.org/x/tools has 50 importers (< 100)
-info: triage: processed 7 issue(s) (success=6; skip=1; error=0)
+info: triage 15
+info: issue test-issue-tracker/15 is low priority
+  - golang.org/x/tools has 50 importers (< 100)
+info: triage 100
+info: issue #100: skipping duplicate search (no aliases found)
+info: issue test-issue-tracker/100 is low priority
+  - golang.org/x/tools has 50 importers (< 100)
+info: triage: processed 9 issue(s) (success=8; skip=1; error=0)

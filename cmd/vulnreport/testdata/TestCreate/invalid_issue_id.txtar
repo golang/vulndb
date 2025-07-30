@@ -1,0 +1,12 @@
+Copyright 2025 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+
+Expected output of test TestCreate/invalid_issue_id
+command: "vulnreport create 999"
+
+-- out --
+-- logs --
+info: create: operating on 1 issue(s)
+ERROR: create: lookup 999 failed: issue 999 not found
+info: create: processed 1 issue(s) (success=0; skip=0; error=1)

@@ -1,0 +1,39 @@
+Copyright 2025 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+
+Expected output of test TestCreate/new_report_high_priority
+command: "vulnreport create 100"
+
+-- out --
+data/reports/GO-0000-0100.yaml
+-- logs --
+info: create: operating on 1 issue(s)
+info: create 100
+info: GO-0000-0100: creating new NEEDS_REVIEW report
+info: GO-0000-0100: no suitable alias found, creating basic report
+info: GO-0000-0100: attempting to auto-populate symbols for NEEDS_REVIEW report (this may take a while...)
+WARNING: GO-0000-0100: could not auto-populate symbols: no commits found for golang.org/x/tools
+info: GO-0000-0100: checking that all packages exist
+info: GO-0000-0100: checking symbols (use -skip-symbols to skip this)
+info: GO-0000-0100: module golang.org/x/tools has no packages, skipping symbol checks
+info: GO-0000-0100: checking for missing GHSAs and CVEs (use -skip-alias to skip this)
+info: GO-0000-0100: checking that all references are reachable
+WARNING: GO-0000-0100: still has lint errors after fix
+ERROR: create: GO-0000-0100: could not fix all errors; requires manual review
+info: create: processed 1 issue(s) (success=0; skip=0; error=1)
+-- data/reports/GO-0000-0100.yaml --
+id: GO-0000-0100
+modules:
+    - module: golang.org/x/tools
+      vulnerable_at: 0.35.0
+summary: Vulnerability in golang.org/x/tools
+notes:
+    - create: failed to auto-populate symbols
+    - lint: 'modules[0] "golang.org/x/tools": versions: no latest fixed version (required for NEEDS_REVIEW report)'
+    - lint: 'references: missing advisory (required because report has no description or is UNREVIEWED)'
+    - lint: 'source: if id=go-security-team, report must be REVIEWED'
+source:
+    id: go-security-team
+    created: 2025-08-05T18:42:11.83533638Z
+review_status: NEEDS_REVIEW
