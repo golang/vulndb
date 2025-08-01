@@ -142,7 +142,14 @@ func TestSuggest(t *testing.T) {
 
 func TestSymbols(t *testing.T) {
 	for _, tc := range []*testCase{
-		// TODO(tatianabradley): add test cases
+		{
+			name: "ok",
+		},
+		{
+			name:    "err",
+			args:    []string{"4"},
+			wantErr: true,
+		},
 	} {
 		runTest(t, &symbolsCmd{}, tc)
 	}

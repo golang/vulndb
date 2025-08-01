@@ -334,3 +334,12 @@ func Parse[T any](repo *git.Repository, f File) (_ T, raw []byte, _ error) {
 	}
 	return *v, b, nil
 }
+
+// WorktreeStatus returns repo's working tree status.
+func WorktreeStatus(repo *git.Repository) (git.Status, error) {
+	w, err := repo.Worktree()
+	if err != nil {
+		return nil, err
+	}
+	return w.Status()
+}

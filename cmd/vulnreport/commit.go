@@ -17,6 +17,7 @@ import (
 	"github.com/go-git/go-git/v5"
 	"golang.org/x/exp/maps"
 	"golang.org/x/vulndb/cmd/vulnreport/log"
+	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/report"
 )
 
@@ -65,7 +66,7 @@ func (c *commit) parseArgs(ctx context.Context, args []string) (filenames []stri
 	}
 
 	// With no arguments, operate on all the changed/added YAML files.
-	statusMap, err := c.gitStatus()
+	statusMap, err := gitrepo.WorktreeStatus(c.repo)
 	if err != nil {
 		return nil, err
 	}
@@ -146,14 +147,6 @@ func (c *committer) setup(ctx context.Context, env environment) error {
 	return nil
 }
 
-func (c *committer) gitStatus() (git.Status, error) {
-	w, err := c.repo.Worktree()
-	if err != nil {
-		return nil, err
-	}
-	return w.Status()
-}
-
 func (c *committer) commit(reports ...*yamlReport) error {
 	var globs []string
 	for _, r := range reports {
@@ -165,7 +158,7 @@ func (c *committer) commit(reports ...*yamlReport) error {
 		return err
 	}
 
-	status, err := c.gitStatus()
+	status, err := gitrepo.WorktreeStatus(c.repo)
 	if err != nil {
 		return err
 	}
