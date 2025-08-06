@@ -1,0 +1,33 @@
+id: GO-2025-3835
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.28
+      vulnerable_at: 2.11.27
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - fixed: 3.4.5
+        - introduced: 3.5.0-rc1
+        - fixed: 3.5.0
+      vulnerable_at: 3.5.0-rc2
+summary: |-
+    Traefik Client Plugin's Path Traversal Vulnerability Allows Arbitrary File
+    Overwrite and Remote Code Execution in github.com/traefik/traefik
+cves:
+    - CVE-2025-54386
+ghsas:
+    - GHSA-q6gg-9f92-r9wg
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-q6gg-9f92-r9wg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-54386
+    - fix: https://github.com/traefik/traefik/commit/5ef853a0c53068f69a6c229a5815a0dc6e0a8800
+    - fix: https://github.com/traefik/traefik/pull/11911
+    - web: https://github.com/traefik/plugin-service/pull/71
+    - web: https://github.com/traefik/plugin-service/pull/72
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.28
+source:
+    id: GHSA-q6gg-9f92-r9wg
+    created: 2025-08-06T19:53:49.905987565Z
+review_status: UNREVIEWED

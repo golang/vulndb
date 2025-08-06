@@ -1,0 +1,26 @@
+id: GO-2025-3832
+modules:
+    - module: github.com/oauth2-proxy/oauth2-proxy
+      vulnerable_at: 3.2.0+incompatible
+    - module: github.com/oauth2-proxy/oauth2-proxy/v7
+      versions:
+        - fixed: 7.1.0
+      vulnerable_at: 7.0.1
+summary: |-
+    OAuth2-Proxy's `--gitlab-group` GitLab Group Authorization config flag stopped
+    working in v7.0.0 in github.com/oauth2-proxy/oauth2-proxy
+cves:
+    - CVE-2021-21411
+ghsas:
+    - GHSA-652x-m2gr-hppm
+references:
+    - advisory: https://github.com/oauth2-proxy/oauth2-proxy/security/advisories/GHSA-652x-m2gr-hppm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-21411
+    - fix: https://github.com/oauth2-proxy/oauth2-proxy/commit/0279fa7dff1752f1710707dbd1ffac839de8bbfc
+    - web: https://docs.gitlab.com/ee/user/group
+    - web: https://github.com/oauth2-proxy/oauth2-proxy/releases/tag/v7.1.0
+    - web: https://pkg.go.dev/github.com/oauth2-proxy/oauth2-proxy/v7
+source:
+    id: GHSA-652x-m2gr-hppm
+    created: 2025-08-06T19:54:32.228508114Z
+review_status: UNREVIEWED

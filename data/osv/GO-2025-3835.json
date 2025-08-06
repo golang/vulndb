@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3835",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-54386",
+    "GHSA-q6gg-9f92-r9wg"
+  ],
+  "summary": "Traefik Client Plugin's Path Traversal Vulnerability Allows Arbitrary File Overwrite and Remote Code Execution in github.com/traefik/traefik",
+  "details": "Traefik Client Plugin's Path Traversal Vulnerability Allows Arbitrary File Overwrite and Remote Code Execution in github.com/traefik/traefik",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/traefik/traefik",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/traefik/traefik/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.11.28"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/traefik/traefik/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.4.5"
+            },
+            {
+              "introduced": "3.5.0-rc1"
+            },
+            {
+              "fixed": "3.5.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/traefik/traefik/security/advisories/GHSA-q6gg-9f92-r9wg"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-54386"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/traefik/traefik/commit/5ef853a0c53068f69a6c229a5815a0dc6e0a8800"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/traefik/traefik/pull/11911"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/traefik/plugin-service/pull/71"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/traefik/plugin-service/pull/72"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/traefik/traefik/releases/tag/v2.11.28"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3835",
+    "review_status": "UNREVIEWED"
+  }
+}

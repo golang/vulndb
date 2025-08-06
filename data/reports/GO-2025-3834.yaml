@@ -1,0 +1,24 @@
+id: GO-2025-3834
+modules:
+    - module: github.com/1Panel-dev/1Panel/core
+      non_go_versions:
+        - fixed: 0.0.0-20250730021757-04b9cbd87a15
+        - introduced: 1.0.0
+        - fixed: 2.0.6
+      vulnerable_at: 0.0.0-20250806140031-b3a55ea44df6
+summary: |-
+    1Panel agent certificate verification bypass leading to arbitrary command
+    execution in github.com/1Panel-dev/1Panel/core
+cves:
+    - CVE-2025-54424
+ghsas:
+    - GHSA-8j63-96wh-wh3j
+references:
+    - advisory: https://github.com/1Panel-dev/1Panel/security/advisories/GHSA-8j63-96wh-wh3j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-54424
+    - web: https://github.com/1Panel-dev/1Panel/pull/9698/commits/4003284521f8d31ddaf7215d1c30ab8b4cdb0261
+    - web: https://github.com/1Panel-dev/1Panel/releases/tag/v2.0.6
+source:
+    id: GHSA-8j63-96wh-wh3j
+    created: 2025-08-06T19:53:56.661312706Z
+review_status: UNREVIEWED

@@ -1,0 +1,19 @@
+id: GO-2025-3836
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - fixed: 1.20.1
+      vulnerable_at: 1.20.0
+summary: Hashicorp Vault has Incorrect Validation for Non-CA Certificates in github.com/hashicorp/vault
+cves:
+    - CVE-2025-6037
+ghsas:
+    - GHSA-6c5r-4wfc-3mcx
+references:
+    - advisory: https://github.com/advisories/GHSA-6c5r-4wfc-3mcx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-6037
+    - web: https://discuss.hashicorp.com/t/hcsec-2025-18-vault-certificate-auth-method-did-not-validate-common-name-for-non-ca-certificates/76037
+source:
+    id: GHSA-6c5r-4wfc-3mcx
+    created: 2025-08-06T19:53:45.898476729Z
+review_status: UNREVIEWED

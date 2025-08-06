@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3831",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-50738",
+    "GHSA-hfcf-79gh-f3jc"
+  ],
+  "summary": "Memos has Cross-Site Scripting (XSS) Vulnerability in Image URLs in github.com/usememos/memos",
+  "details": "Memos has Cross-Site Scripting (XSS) Vulnerability in Image URLs in github.com/usememos/memos",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/usememos/memos",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.24.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-hfcf-79gh-f3jc"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-50738"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/usememos/memos/commit/46d5307d7f210067b46e07400a728fa9095803d9"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/usememos/memos/issues/4707#issuecomment-2898504237"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3831",
+    "review_status": "UNREVIEWED"
+  }
+}

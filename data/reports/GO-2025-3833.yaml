@@ -1,0 +1,27 @@
+id: GO-2025-3833
+modules:
+    - module: github.com/oauth2-proxy/oauth2-proxy
+      vulnerable_at: 3.2.0+incompatible
+    - module: github.com/oauth2-proxy/oauth2-proxy/v7
+      versions:
+        - fixed: 7.11.0
+      vulnerable_at: 7.10.0
+summary: |-
+    OAuth2-Proxy has authentication bypass in oauth2-proxy skip_auth_routes due to
+    Query Parameter inclusion in github.com/oauth2-proxy/oauth2-proxy
+cves:
+    - CVE-2025-54576
+ghsas:
+    - GHSA-7rh7-c77v-6434
+references:
+    - advisory: https://github.com/oauth2-proxy/oauth2-proxy/security/advisories/GHSA-7rh7-c77v-6434
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-54576
+    - fix: https://github.com/oauth2-proxy/oauth2-proxy/commit/9ffafad4b2d2f9f7668e5504565f356a7c047b77
+    - web: https://github.com/oauth2-proxy/oauth2-proxy/blob/f4b33b64bd66ad28e9b0d63bea51837b83c00ca1/oauthproxy.go#L582-L584
+    - web: https://github.com/oauth2-proxy/oauth2-proxy/blob/f4b33b64bd66ad28e9b0d63bea51837b83c00ca1/pkg/requests/util/util.go#L37-L44
+    - web: https://github.com/oauth2-proxy/oauth2-proxy/releases/tag/v7.11.0
+    - web: https://oauth2-proxy.github.io/oauth2-proxy/configuration/overview/#proxy-options
+source:
+    id: GHSA-7rh7-c77v-6434
+    created: 2025-08-06T19:54:09.409730081Z
+review_status: UNREVIEWED

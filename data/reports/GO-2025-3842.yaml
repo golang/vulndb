@@ -1,0 +1,20 @@
+id: GO-2025-3842
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - introduced: 1.10.0
+        - fixed: 1.20.1
+      vulnerable_at: 1.20.0
+summary: Hashicorp Vault has Login MFA Rate Limit Bypass Vulnerability in github.com/hashicorp/vault
+cves:
+    - CVE-2025-6015
+ghsas:
+    - GHSA-v6r4-35f9-9rpw
+references:
+    - advisory: https://github.com/advisories/GHSA-v6r4-35f9-9rpw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-6015
+    - web: https://discuss.hashicorp.com/t/hcsec-2025-19-vault-login-mfa-bypass-of-rate-limiting-and-totp-token-reuse/76038
+source:
+    id: GHSA-v6r4-35f9-9rpw
+    created: 2025-08-06T19:53:21.037184091Z
+review_status: UNREVIEWED

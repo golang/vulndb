@@ -1,0 +1,37 @@
+id: GO-2025-3844
+modules:
+    - module: github.com/TheTNB/panel
+      versions:
+        - introduced: 0.0.0-20241111062800-91ecd04c2700
+      vulnerable_at: 0.0.0-20250806044634-0854c3b053f0
+    - module: github.com/TheTNB/panel/v2
+      non_go_versions:
+        - introduced: 2.3.19
+        - fixed: 2.5.6
+      vulnerable_at: 2.2.27
+    - module: github.com/tnb-labs/panel
+      versions:
+        - fixed: 0.0.0-20250707071915-4985eb2e1f38
+      non_go_versions:
+        - introduced: 2.3.19
+        - fixed: 2.5.6
+summary: |-
+    RatPanel can perform remote command execution without authorization in
+    github.com/tnborg/panel in github.com/TheTNB/panel
+cves:
+    - CVE-2025-53534
+ghsas:
+    - GHSA-fm3m-jrgm-5ppg
+references:
+    - advisory: https://github.com/tnborg/panel/security/advisories/GHSA-fm3m-jrgm-5ppg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-53534
+    - fix: https://github.com/tnborg/panel/commit/4985eb2e1f388ecd6faf331941c13cb97368ec1d
+    - fix: https://github.com/tnborg/panel/commit/91ecd04c270061429f9df5ec19cd6b96a9f595f2
+    - fix: https://github.com/tnborg/panel/commit/ed5c74c7534230ba685273504af4c1e1e3598ff1
+    - web: https://github.com/tnborg/panel/releases/tag/v2.5.6
+notes:
+    - fix: 'github.com/tnb-labs/panel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-fm3m-jrgm-5ppg
+    created: 2025-08-06T19:53:06.7789182Z
+review_status: UNREVIEWED

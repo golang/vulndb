@@ -1,0 +1,20 @@
+id: GO-2025-3838
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - introduced: 0.8.0
+        - fixed: 1.20.1
+      vulnerable_at: 1.20.0
+summary: Hashicorp Vault has Code Execution Vulnerability via Plugin Configuration in github.com/hashicorp/vault
+cves:
+    - CVE-2025-6000
+ghsas:
+    - GHSA-mr4h-qf9j-f665
+references:
+    - advisory: https://github.com/advisories/GHSA-mr4h-qf9j-f665
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-6000
+    - web: https://discuss.hashicorp.com/t/hcsec-2025-14-privileged-vault-operator-may-execute-code-on-the-underlying-host/76033
+source:
+    id: GHSA-mr4h-qf9j-f665
+    created: 2025-08-06T19:53:37.211471705Z
+review_status: UNREVIEWED

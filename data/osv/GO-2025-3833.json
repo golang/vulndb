@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3833",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-54576",
+    "GHSA-7rh7-c77v-6434"
+  ],
+  "summary": "OAuth2-Proxy has authentication bypass in oauth2-proxy skip_auth_routes due to Query Parameter inclusion in github.com/oauth2-proxy/oauth2-proxy",
+  "details": "OAuth2-Proxy has authentication bypass in oauth2-proxy skip_auth_routes due to Query Parameter inclusion in github.com/oauth2-proxy/oauth2-proxy",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/oauth2-proxy/oauth2-proxy",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/oauth2-proxy/oauth2-proxy/v7",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "7.11.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/oauth2-proxy/oauth2-proxy/security/advisories/GHSA-7rh7-c77v-6434"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-54576"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/oauth2-proxy/oauth2-proxy/commit/9ffafad4b2d2f9f7668e5504565f356a7c047b77"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/oauth2-proxy/oauth2-proxy/blob/f4b33b64bd66ad28e9b0d63bea51837b83c00ca1/oauthproxy.go#L582-L584"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/oauth2-proxy/oauth2-proxy/blob/f4b33b64bd66ad28e9b0d63bea51837b83c00ca1/pkg/requests/util/util.go#L37-L44"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/oauth2-proxy/oauth2-proxy/releases/tag/v7.11.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://oauth2-proxy.github.io/oauth2-proxy/configuration/overview/#proxy-options"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3833",
+    "review_status": "UNREVIEWED"
+  }
+}

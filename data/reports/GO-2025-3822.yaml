@@ -1,0 +1,26 @@
+id: GO-2025-3822
+modules:
+    - module: goauthentik.io
+      non_go_versions:
+        - fixed: 0.0.0-20250722122105-7a4c6b9b50f8
+      skip_lint: true
+summary: |-
+    Authentik has insufficient check for account active status when authenticating
+    with OAuth/SAML Sources in goauthentik.io
+cves:
+    - CVE-2025-53942
+ghsas:
+    - GHSA-9g4j-v8w5-7x42
+references:
+    - advisory: https://github.com/goauthentik/authentik/security/advisories/GHSA-9g4j-v8w5-7x42
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-53942
+    - web: https://github.com/goauthentik/authentik/commit/7a4c6b9b50f8b837133a7a1fd2cb9b7f18a145cd
+    - web: https://github.com/goauthentik/authentik/commit/c3629d12bfe3d32d3dc8f85c0ee1f087a55dde8f
+    - web: https://github.com/goauthentik/authentik/commit/ce3f9e3763c1778bf3a16b98c95d10f4091436ab
+notes:
+    - lint: 'modules[0] "goauthentik.io": module goauthentik.io not known to proxy'
+    - fix: 'goauthentik.io: could not add vulnerable_at: module goauthentik.io not known to proxy'
+source:
+    id: GHSA-9g4j-v8w5-7x42
+    created: 2025-08-06T19:55:05.814215799Z
+review_status: UNREVIEWED

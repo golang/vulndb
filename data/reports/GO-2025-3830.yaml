@@ -1,0 +1,23 @@
+id: GO-2025-3830
+modules:
+    - module: github.com/docker/docker
+      versions:
+        - introduced: 28.2.0+incompatible
+        - fixed: 28.3.3+incompatible
+      vulnerable_at: 28.3.2+incompatible
+summary: |-
+    Moby firewalld reload makes published container ports accessible from remote
+    hosts in github.com/docker/docker
+cves:
+    - CVE-2025-54388
+ghsas:
+    - GHSA-x4rx-4gw3-53p4
+references:
+    - advisory: https://github.com/moby/moby/security/advisories/GHSA-x4rx-4gw3-53p4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-54388
+    - web: https://github.com/moby/moby/commit/bea959c7b793b32a893820b97c4eadc7c87fabb0
+    - web: https://github.com/moby/moby/pull/50506
+source:
+    id: GHSA-x4rx-4gw3-53p4
+    created: 2025-08-06T19:54:42.341131364Z
+review_status: UNREVIEWED

@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3844",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-53534",
+    "GHSA-fm3m-jrgm-5ppg"
+  ],
+  "summary": "RatPanel can perform remote command execution without authorization in github.com/tnborg/panel in github.com/TheTNB/panel",
+  "details": "RatPanel can perform remote command execution without authorization in github.com/tnborg/panel in github.com/TheTNB/panel.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/TheTNB/panel/v2 from v2.3.19 before v2.5.6; github.com/tnb-labs/panel from v2.3.19 before v2.5.6.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/TheTNB/panel",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.0.0-20241111062800-91ecd04c2700"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/TheTNB/panel/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "2.3.19"
+              },
+              {
+                "fixed": "2.5.6"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/tnb-labs/panel",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20250707071915-4985eb2e1f38"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "2.3.19"
+              },
+              {
+                "fixed": "2.5.6"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/tnborg/panel/security/advisories/GHSA-fm3m-jrgm-5ppg"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-53534"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/tnborg/panel/commit/4985eb2e1f388ecd6faf331941c13cb97368ec1d"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/tnborg/panel/commit/91ecd04c270061429f9df5ec19cd6b96a9f595f2"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/tnborg/panel/commit/ed5c74c7534230ba685273504af4c1e1e3598ff1"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/tnborg/panel/releases/tag/v2.5.6"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3844",
+    "review_status": "UNREVIEWED"
+  }
+}

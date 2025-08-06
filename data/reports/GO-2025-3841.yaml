@@ -1,0 +1,19 @@
+id: GO-2025-3841
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - fixed: 1.20.1
+      vulnerable_at: 1.20.0
+summary: Hashicorp Vault's TOTP Secrets Engine Susceptible to Code Reuse in github.com/hashicorp/vault
+cves:
+    - CVE-2025-6014
+ghsas:
+    - GHSA-qv3p-fmv3-9hww
+references:
+    - advisory: https://github.com/advisories/GHSA-qv3p-fmv3-9hww
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-6014
+    - web: https://discuss.hashicorp.com/t/hcsec-2025-17-vault-totp-secrets-engine-code-reuse/76036
+source:
+    id: GHSA-qv3p-fmv3-9hww
+    created: 2025-08-06T19:53:25.493964072Z
+review_status: UNREVIEWED
