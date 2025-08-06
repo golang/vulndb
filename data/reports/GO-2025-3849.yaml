@@ -1,0 +1,35 @@
+id: GO-2025-3849
+modules:
+    - module: std
+      versions:
+        - fixed: 1.23.12
+        - introduced: 1.24.0
+        - fixed: 1.24.6
+      vulnerable_at: 1.24.5
+      packages:
+        - package: database/sql
+          symbols:
+            - Rows.Scan
+          derived_symbols:
+            - Row.Scan
+summary: Incorrect results returned from Rows.Scan in database/sql
+description: |-
+    Cancelling a query (e.g. by cancelling the context passed to one of the query
+    methods) during a call to the Scan method of the returned Rows can result in
+    unexpected results if other queries are being made in parallel. This can result
+    in a race condition that may overwrite the expected results with those of
+    another query, causing the call to Scan to return either unexpected results
+    from the other query or an error.
+credits:
+    - Spike Curtis from Coder
+references:
+    - fix: https://go.dev/cl/693735
+    - report: https://go.dev/issue/74831
+    - web: https://groups.google.com/g/golang-announce/c/x5MKroML2yM
+cve_metadata:
+    id: CVE-2025-47907
+    cwe: 'CWE-362: Concurrent Execution using Shared Resource with Improper Synchronization (''Race Condition'')'
+source:
+    id: go-security-team
+    created: 2025-08-06T13:30:59.171585-07:00
+review_status: REVIEWED

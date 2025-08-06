@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3849",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-47907"
+  ],
+  "summary": "Incorrect results returned from Rows.Scan in database/sql",
+  "details": "Cancelling a query (e.g. by cancelling the context passed to one of the query methods) during a call to the Scan method of the returned Rows can result in unexpected results if other queries are being made in parallel. This can result in a race condition that may overwrite the expected results with those of another query, causing the call to Scan to return either unexpected results from the other query or an error.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.23.12"
+            },
+            {
+              "introduced": "1.24.0"
+            },
+            {
+              "fixed": "1.24.6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "database/sql",
+            "symbols": [
+              "Row.Scan",
+              "Rows.Scan"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/693735"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/74831"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/x5MKroML2yM"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Spike Curtis from Coder"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3849",
+    "review_status": "REVIEWED"
+  }
+}
