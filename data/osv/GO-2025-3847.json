@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3847",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-54799",
+    "GHSA-q82r-2j7m-9rv4"
+  ],
+  "summary": "Github.com/go-acme/lego/v4/acme/api does not enforce HTTPS in github.com/go-acme/lego",
+  "details": "Github.com/go-acme/lego/v4/acme/api does not enforce HTTPS in github.com/go-acme/lego",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/go-acme/lego/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.25.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/go-acme/lego/v4/acme/api/internal/sender",
+            "symbols": [
+              "NewDoer"
+            ]
+          },
+          {
+            "path": "github.com/go-acme/lego/v4/platform/tester"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/go-acme/lego/security/advisories/GHSA-q82r-2j7m-9rv4"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/go-acme/lego/commit/238454b5f74f3cfcbb244ff0d0dc914a4ad44b96"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3847",
+    "review_status": "REVIEWED"
+  }
+}

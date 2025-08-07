@@ -1,0 +1,27 @@
+id: GO-2025-3847
+modules:
+    - module: github.com/go-acme/lego/v4
+      versions:
+        - fixed: 4.25.2
+      vulnerable_at: 4.25.1
+      packages:
+        - package: github.com/go-acme/lego/v4/acme/api/internal/sender
+          symbols:
+            - NewDoer
+        - package: github.com/go-acme/lego/v4/platform/tester
+summary: |-
+    Github.com/go-acme/lego/v4/acme/api does not enforce HTTPS in
+    github.com/go-acme/lego
+cves:
+    - CVE-2025-54799
+ghsas:
+    - GHSA-q82r-2j7m-9rv4
+references:
+    - advisory: https://github.com/go-acme/lego/security/advisories/GHSA-q82r-2j7m-9rv4
+    - fix: https://github.com/go-acme/lego/commit/238454b5f74f3cfcbb244ff0d0dc914a4ad44b96
+notes:
+    - No symbols since fix was on to a non-relesased version of the code, and the symbols don't exist in the vulnerable version.
+source:
+    id: GHSA-q82r-2j7m-9rv4
+    created: 2025-08-06T19:52:52.232020262Z
+review_status: REVIEWED

@@ -1,0 +1,24 @@
+id: GO-2025-3845
+modules:
+    - module: github.com/gofiber/fiber/v2
+      versions:
+        - fixed: 2.52.9
+      vulnerable_at: 2.52.8
+      packages:
+        - package: github.com/gofiber/fiber/v2/internal/schema
+          symbols:
+            - Decoder.Decode
+summary: |-
+    Fiber Crashes in BodyParser Due to Unvalidated Large Slice Index in Decoder in
+    github.com/gofiber/fiber
+cves:
+    - CVE-2025-54801
+ghsas:
+    - GHSA-qx2q-88mx-vhg7
+references:
+    - advisory: https://github.com/gofiber/fiber/security/advisories/GHSA-qx2q-88mx-vhg7
+    - fix: https://github.com/gofiber/fiber/commit/e115c08b8f059a4a031b492aa9eef0712411853d
+source:
+    id: GHSA-qx2q-88mx-vhg7
+    created: 2025-08-06T19:53:02.302463712Z
+review_status: REVIEWED
