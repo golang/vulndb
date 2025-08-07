@@ -29,6 +29,17 @@ steps:
       - -ec
       - go test ./...
 
+  - id: Govulncheck
+    name: golang:1.23.0
+    entrypoint: bash
+    args:
+    - -ec
+    - |
+      echo "Installing govulncheck..."
+      go install golang.org/x/vuln/cmd/govulncheck@latest
+      echo "Running govulncheck..."
+      govulncheck ./...
+
   - id: CopyExisting
     name: gcr.io/cloud-builders/gsutil
     entrypoint: bash
