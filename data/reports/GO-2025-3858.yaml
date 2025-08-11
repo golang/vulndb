@@ -1,0 +1,27 @@
+id: GO-2025-3858
+modules:
+    - module: github.com/openbao/openbao
+      versions:
+        - fixed: 0.0.0-20250806194004-a14053c9679d
+        - introduced: 0.1.0
+      non_go_versions:
+        - fixed: 2.3.2
+summary: Privileged OpenBao Operator May Execute Code on the Underlying Host in github.com/openbao/openbao
+cves:
+    - CVE-2025-54997
+ghsas:
+    - GHSA-xp75-r577-cvhp
+references:
+    - advisory: https://github.com/openbao/openbao/security/advisories/GHSA-xp75-r577-cvhp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-54997
+    - fix: https://github.com/openbao/openbao/commit/a14053c9679d6e9cf370f00cf933476cda6d84a2
+    - fix: https://github.com/openbao/openbao/pull/1634
+    - web: https://discuss.hashicorp.com/t/hcsec-2025-14-privileged-vault-operator-may-execute-code-on-the-underlying-host/76033
+    - web: https://github.com/openbao/openbao/releases/tag/v2.3.2
+    - web: https://nvd.nist.gov/vuln/detail/CVE-2025-6000
+notes:
+    - fix: 'github.com/openbao/openbao: could not add vulnerable_at: latest version (0.0.0-20250811154358-5de180a08318) is before last introduced version'
+source:
+    id: GHSA-xp75-r577-cvhp
+    created: 2025-08-11T17:47:24.548515944Z
+review_status: UNREVIEWED

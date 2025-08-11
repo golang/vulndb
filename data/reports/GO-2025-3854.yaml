@@ -1,0 +1,26 @@
+id: GO-2025-3854
+modules:
+    - module: github.com/openbao/openbao
+      versions:
+        - fixed: 0.0.0-20250806193356-4d9b5d3d6486
+        - introduced: 0.1.0
+      non_go_versions:
+        - fixed: 2.3.2
+summary: OpenBao has a Timing Side-Channel in the Userpass Auth Method in github.com/openbao/openbao
+cves:
+    - CVE-2025-54999
+ghsas:
+    - GHSA-hh28-h22f-8357
+references:
+    - advisory: https://github.com/openbao/openbao/security/advisories/GHSA-hh28-h22f-8357
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-54999
+    - fix: https://github.com/openbao/openbao/commit/4d9b5d3d6486ab9fbd5b644173fa0097015d6626
+    - web: https://discuss.hashicorp.com/t/hcsec-2025-15-timing-side-channel-in-vault-s-userpass-auth-method/76034
+    - web: https://discuss.hashicorp.com/t/hcsec-2025-21-vault-user-enumeration-in-userpass-auth-method/76095
+    - web: https://nvd.nist.gov/vuln/detail/CVE-2025-6011
+notes:
+    - fix: 'github.com/openbao/openbao: could not add vulnerable_at: latest version (0.0.0-20250811154358-5de180a08318) is before last introduced version'
+source:
+    id: GHSA-hh28-h22f-8357
+    created: 2025-08-11T17:47:45.322448242Z
+review_status: UNREVIEWED

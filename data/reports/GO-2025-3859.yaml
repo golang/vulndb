@@ -1,0 +1,25 @@
+id: GO-2025-3859
+modules:
+    - module: github.com/openbao/openbao
+      versions:
+        - fixed: 0.0.0-20250807212521-c52795c1ef74
+        - introduced: 0.1.0
+      non_go_versions:
+        - fixed: 2.3.2
+summary: OpenBao LDAP MFA Enforcement Bypass When Using Username As Alias in github.com/openbao/openbao
+cves:
+    - CVE-2025-55001
+ghsas:
+    - GHSA-2q8q-8fgw-9p6p
+references:
+    - advisory: https://github.com/openbao/openbao/security/advisories/GHSA-2q8q-8fgw-9p6p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-55001
+    - fix: https://github.com/openbao/openbao/commit/c52795c1ef746c7f2c510f9225aa8ccbbd44f9fc
+    - web: https://discuss.hashicorp.com/t/hcsec-2025-20-vault-ldap-mfa-enforcement-bypass-when-using-username-as-alias/76092
+    - web: https://nvd.nist.gov/vuln/detail/CVE-2025-6013
+notes:
+    - fix: 'github.com/openbao/openbao: could not add vulnerable_at: latest version (0.0.0-20250811154358-5de180a08318) is before last introduced version'
+source:
+    id: GHSA-2q8q-8fgw-9p6p
+    created: 2025-08-11T17:47:18.965594499Z
+review_status: UNREVIEWED

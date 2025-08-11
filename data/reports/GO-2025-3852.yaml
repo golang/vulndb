@@ -1,0 +1,20 @@
+id: GO-2025-3852
+modules:
+    - module: github.com/operator-framework/operator-sdk
+      versions:
+        - fixed: 0.15.2
+      vulnerable_at: 0.15.1
+summary: 'operator-sdk: privilege escalation due to incorrect permissions of /etc/passwd in github.com/operator-framework/operator-sdk'
+cves:
+    - CVE-2025-7195
+ghsas:
+    - GHSA-856v-8qm2-9wjv
+references:
+    - advisory: https://github.com/advisories/GHSA-856v-8qm2-9wjv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-7195
+    - web: https://access.redhat.com/security/cve/CVE-2025-7195
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2376300
+source:
+    id: GHSA-856v-8qm2-9wjv
+    created: 2025-08-11T17:47:55.07967159Z
+review_status: UNREVIEWED

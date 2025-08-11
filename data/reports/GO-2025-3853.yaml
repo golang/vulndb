@@ -1,0 +1,25 @@
+id: GO-2025-3853
+modules:
+    - module: github.com/openbao/openbao
+      versions:
+        - fixed: 0.0.0-20250806193153-183891f8d535
+        - introduced: 0.1.0
+      non_go_versions:
+        - fixed: 2.3.2
+summary: OpenBao TOTP Secrets Engine Code Reuse in github.com/openbao/openbao
+cves:
+    - CVE-2025-55000
+ghsas:
+    - GHSA-f7c3-mhj2-9pvg
+references:
+    - advisory: https://github.com/openbao/openbao/security/advisories/GHSA-f7c3-mhj2-9pvg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-55000
+    - fix: https://github.com/openbao/openbao/commit/183891f8d535d5b6eb3d79fda8200cade6de99e1
+    - web: https://discuss.hashicorp.com/t/hcsec-2025-17-vault-totp-secrets-engine-code-reuse/76036
+    - web: https://nvd.nist.gov/vuln/detail/CVE-2025-6014
+notes:
+    - fix: 'github.com/openbao/openbao: could not add vulnerable_at: latest version (0.0.0-20250811154358-5de180a08318) is before last introduced version'
+source:
+    id: GHSA-f7c3-mhj2-9pvg
+    created: 2025-08-11T17:47:50.552468148Z
+review_status: UNREVIEWED
