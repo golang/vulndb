@@ -46,7 +46,7 @@ func (c *createExcluded) setup(ctx context.Context, env environment) error {
 
 func (c *createExcluded) run(ctx context.Context, input any) (err error) {
 	iss := input.(*issues.Issue)
-	return c.newReportFromIssue(ctx, iss)
+	return c.newReportFromIssue(ctx, iss, c.ic)
 }
 
 func (c *createExcluded) skip(input any) string {

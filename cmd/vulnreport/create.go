@@ -43,5 +43,5 @@ func (c *create) close() error {
 
 func (c *create) run(ctx context.Context, input any) error {
 	iss := input.(*issues.Issue)
-	return c.newReportFromIssue(ctx, iss)
+	return c.newReportFromIssue(ctx, iss, c.ic)
 }

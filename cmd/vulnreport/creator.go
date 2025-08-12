@@ -95,7 +95,7 @@ func skip(iss *issues.Issue, x *xrefer) string {
 	return ""
 }
 
-func (c *creator) newReportFromIssue(ctx context.Context, iss *issues.Issue) error {
+func (c *creator) newReportFromIssue(ctx context.Context, iss *issues.Issue, ic issueClient) error {
 	id := iss.NewGoID()
 	r, err := c.reportFromMeta(ctx, &reportMeta{
 		id:           id,
@@ -108,8 +108,15 @@ func (c *creator) newReportFromIssue(ctx context.Context, iss *issues.Issue) err
 	if err != nil {
 		return err
 	}
-	if r.Withdrawn != nil {
-		return fmt.Errorf("new regular report should not be created for withdrawn vulnerability; %s", withdrawnGuidance(id, iss.Number))
+	if r.Excluded == report.ExcludedWithdrawn {
+		log.Infof("issue #%d: vulnerability withdrawn; labeling as %q", iss.Number, labelWithdrawn)
+		labels := append(iss.Labels, labelWithdrawn)
+		slices.Sort(labels)
+		labels = slices.Compact(labels)
+
+		if err := ic.SetLabels(ctx, iss.Number, labels); err != nil {
+			log.Infof("failed to label issue #%d: %v", iss.Number, err)
+		}
 	}
 	return c.write(ctx, r)
 }
@@ -181,6 +188,10 @@ func (c *creator) reportFromMeta(ctx context.Context, meta *reportMeta) (*yamlRe
 	}
 	meta.aliases = c.allAliases(ctx, meta.aliases)
 	raw := c.rawReport(ctx, meta)
+
+	if raw.Withdrawn != nil {
+		meta.excluded = report.ExcludedWithdrawn
+	}
 
 	if meta.excluded != "" {
 		raw = &report.Report{
@@ -291,6 +302,7 @@ const (
 	labelFirstParty    = "first party"
 	labelPossiblyNotGo = "possibly not Go"
 	labelOutOfScope    = "excluded: OUT_OF_SCOPE"
+	labelWithdrawn     = "excluded: WITHDRAWN"
 )
 
 func excludedReason(iss *issues.Issue) report.ExcludedType {
