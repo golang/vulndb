@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3884",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-47909"
+  ],
+  "summary": "Improper validation of TrustedOrigins allows CSRF attacks in github.com/gorilla/csrf",
+  "details": "Hosts listed in TrustedOrigins implicitly allow requests from the corresponding HTTP origins, allowing network MitMs to perform CSRF attacks.\n\nAfter the CVE-2025-24358 fix, a network attacker that places a form at http://example.com can't get it to submit to https://example.com because the Origin header is checked with sameOrigin against a synthetic URL.\n\nHowever, if a host is added to TrustedOrigins, both its HTTP and HTTPS origins will be allowed, because the schema of the synthetic URL is ignored and only the host is checked. For example, if an application is hosted on https://example.com and adds example.net to TrustedOrigins, a network attacker can serve a form at http://example.net to perform the attack.\n\nApplications should migrate to net/http.CrossOriginProtection, introduced in Go 1.25. If that is not an option, a backport is available as a module at filippo.io/csrf, and a drop-in replacement for the github.com/gorilla/csrf API is available at filippo.io/csrf/gorilla.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gorilla/csrf",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.7.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/gorilla/csrf",
+            "symbols": [
+              "TrustedOrigins"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://github.com/golang/vulndb/issues/3884"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Filippo Valsorda"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3884",
+    "review_status": "REVIEWED"
+  }
+}

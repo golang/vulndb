@@ -1,0 +1,44 @@
+id: GO-2025-3884
+modules:
+    - module: github.com/gorilla/csrf
+      versions:
+        - introduced: 1.7.3
+      vulnerable_at: 1.7.3
+      packages:
+        - package: github.com/gorilla/csrf
+          symbols:
+            - TrustedOrigins
+summary: |-
+    Improper validation of TrustedOrigins allows CSRF attacks in
+    github.com/gorilla/csrf
+description: |-
+    Hosts listed in TrustedOrigins implicitly allow requests from the
+    corresponding HTTP origins, allowing network MitMs to perform CSRF attacks.
+
+    After the CVE-2025-24358 fix, a network attacker that places a form at
+    http://example.com can't get it to submit to https://example.com because
+    the Origin header is checked with sameOrigin against a synthetic URL.
+
+    However, if a host is added to TrustedOrigins, both its HTTP and HTTPS
+    origins will be allowed, because the schema of the synthetic URL is ignored
+    and only the host is checked. For example, if an application is hosted on
+    https://example.com and adds example.net to TrustedOrigins, a network
+    attacker can serve a form at http://example.net to perform the attack.
+
+    Applications should migrate to net/http.CrossOriginProtection, introduced in Go
+    1.25. If that is not an option, a backport is available as a module at
+    filippo.io/csrf, and a drop-in replacement for the github.com/gorilla/csrf API
+    is available at filippo.io/csrf/gorilla.
+credits:
+    - Filippo Valsorda
+references:
+    - report: https://github.com/golang/vulndb/issues/3884
+cve_metadata:
+    id: CVE-2025-47909
+    cwe: 'CWE-346: Origin Validation Error'
+notes:
+    - No known fix commit.
+source:
+    id: go-security-team
+    created: 2025-08-14T20:13:40.563466675Z
+review_status: REVIEWED
