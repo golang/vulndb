@@ -1,6 +1,8 @@
 id: GO-2025-3765
 modules:
     - module: github.com/uptrace/bun/driver/pgdriver
+      versions:
+        - fixed: 1.2.15
       vulnerable_at: 1.2.14
 summary: SQL injection vulnerability in github.com/uptrace/bun/driver/pgdriver
 cves:
@@ -13,8 +15,6 @@ references:
     - web: https://github.com/uptrace/bun/tree/master/driver/pgdriver
     - web: https://media.defcon.org/DEF%20CON%2032/DEF%20CON%2032%20presentations/DEF%20CON%2032%20-%20Paul%20Gerste%20-%20SQL%20Injection%20Isn%27t%20Dead%20Smuggling%20Queries%20at%20the%20Protocol%20Level.pdf
     - web: https://www.sonarsource.com/blog/double-dash-double-trouble-a-subtle-sql-injection-flaw
-notes:
-    - No known fix commit.
 source:
     id: GHSA-h4h6-vccr-44h2
     created: 2025-07-16T11:06:35.100738-04:00
