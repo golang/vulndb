@@ -1,16 +1,16 @@
 id: GO-2025-3783
 modules:
-    - module: github.com/openbao/openbao/api
-      vulnerable_at: 1.12.2
-    - module: github.com/openbao/openbao/api/v2
+    - module: github.com/openbao/openbao
+      vulnerable_at: 0
+    - module: github.com/openbao/openbao
       versions:
         - fixed: 2.3.1
       non_go_versions:
-        - introduced: 2.2.2
+        - introduced: 0
       vulnerable_at: 2.3.0
 summary: |-
     OpenBao allows cancellation of root rekey and recovery rekey operations without
-    authentication in github.com/openbao/openbao/api
+    authentication in github.com/openbao/openbao.
 cves:
     - CVE-2025-52894
 ghsas:
