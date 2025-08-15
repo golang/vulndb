@@ -1,0 +1,27 @@
+id: GO-2025-3887
+modules:
+    - module: helm.sh/helm
+      vulnerable_at: 2.17.0+incompatible
+    - module: helm.sh/helm/v3
+      versions:
+        - fixed: 3.18.5
+      vulnerable_at: 3.18.4
+      packages:
+        - package: helm.sh/helm/v3/pkg/chartutil
+          symbols:
+            - ValidateAgainstSchema
+            - ValidateAgainstSingleSchema
+summary: |-
+    Helm Charts with Specific JSON Schema Values Can Cause Memory Exhaustion in
+    helm.sh/helm
+cves:
+    - CVE-2025-55199
+ghsas:
+    - GHSA-9h84-qmv7-982p
+references:
+    - advisory: https://github.com/helm/helm/security/advisories/GHSA-9h84-qmv7-982p
+    - fix: https://github.com/helm/helm/commit/b78692c18f0fb38fe5ba4571a674de067a4c53a5
+source:
+    id: GHSA-9h84-qmv7-982p
+    created: 2025-08-15T17:53:00.651281318Z
+review_status: REVIEWED
