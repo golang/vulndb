@@ -21,6 +21,8 @@ modules:
             - TestComplexClassDecryption
             - TestComplexClassEncryption
     - module: github.com/pubnub/go/v5
+      non_go_versions:
+        - fixed: 5.0.4-0.20231016150651-428517fef5b9
       vulnerable_at: 5.0.3
       packages:
         - package: github.com/pubnub/go/v5/utils
@@ -41,6 +43,8 @@ modules:
             - TestComplexClassDecryption
             - TestComplexClassEncryption
     - module: github.com/pubnub/go/v6
+      non_go_versions:
+        - fixed: 6.1.1-0.20231016150651-428517fef5b9
       vulnerable_at: 6.1.0
       packages:
         - package: github.com/pubnub/go/v6/utils
@@ -61,6 +65,8 @@ modules:
             - TestComplexClassDecryption
             - TestComplexClassEncryption
     - module: github.com/pubnub/go/v7
+      versions:
+        - fixed: 7.2.0
       vulnerable_at: 7.1.2
       packages:
         - package: github.com/pubnub/go/v7/utils
@@ -80,29 +86,6 @@ modules:
           excluded_symbols:
             - TestComplexClassDecryption
             - TestComplexClassEncryption
-    - module: github.com/pubnub/go/v7
-      versions:
-        - introduced: 7.2.0
-      vulnerable_at: 7.2.0
-      packages:
-        - package: github.com/pubnub/go/v7/crypto
-          symbols:
-            - NewLegacyCryptor
-            - legacyCryptor.Encrypt
-            - legacyCryptor.Decrypt
-            - legacyCryptor.EncryptStream
-            - legacyCryptor.DecryptStream
-            - EncryptCipherKey
-            - legacyAesCipher
-          derived_symbols:
-            - NewAesCbcCryptoModule
-            - NewLegacyCryptoModule
-            - defaultExtendedCryptor.DecryptStream
-            - defaultExtendedCryptor.EncryptStream
-            - module.Decrypt
-            - module.DecryptStream
-            - module.Encrypt
-            - module.EncryptStream
 summary: Insufficient entropy in AES-256-CBC in github.com/pubnub/go
 description: |-
     There is insufficient entropy in the implementation of the AES-256-CBC
