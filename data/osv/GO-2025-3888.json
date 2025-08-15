@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3888",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-55198",
+    "GHSA-f9f8-9pmf-xv68"
+  ],
+  "summary": "Helm May Panic Due To Incorrect YAML Content in helm.sh/helm",
+  "details": "Helm May Panic Due To Incorrect YAML Content in helm.sh/helm",
+  "affected": [
+    {
+      "package": {
+        "name": "helm.sh/helm",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "helm.sh/helm/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.18.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "helm.sh/helm/v3/pkg/chartutil",
+            "symbols": [
+              "processImportValues"
+            ]
+          },
+          {
+            "path": "helm.sh/helm/v3/pkg/lint/rules",
+            "symbols": [
+              "validateChartMaintainer"
+            ]
+          },
+          {
+            "path": "helm.sh/helm/v3/pkg/repo",
+            "symbols": [
+              "loadIndex"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/helm/helm/security/advisories/GHSA-f9f8-9pmf-xv68"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/helm/helm/commit/ec5f59e2db56533d042a124f5bae54dd87b558e6"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3888",
+    "review_status": "REVIEWED"
+  }
+}
