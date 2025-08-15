@@ -88,6 +88,10 @@ func skip(iss *issues.Issue, x *xrefer) string {
 		return "possibly not Go"
 	}
 
+	if iss.HasLabel(labelWaiting) {
+		return "waiting"
+	}
+
 	if x.rc.HasReport(iss.Number) {
 		return "already has report"
 	}
@@ -303,6 +307,7 @@ const (
 	labelPossiblyNotGo = "possibly not Go"
 	labelOutOfScope    = "excluded: OUT_OF_SCOPE"
 	labelWithdrawn     = "excluded: WITHDRAWN"
+	labelWaiting       = "waiting"
 )
 
 func excludedReason(iss *issues.Issue) report.ExcludedType {
