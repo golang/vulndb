@@ -1,0 +1,19 @@
+id: GO-2025-3874
+modules:
+    - module: github.com/komari-monitor/komari
+      versions:
+        - fixed: 0.0.0-20250809073044-53171affcaf0
+summary: Komari vulnerable to Cross-site WebSocket Hijacking in github.com/komari-monitor/komari
+ghsas:
+    - GHSA-q355-h244-969h
+references:
+    - advisory: https://github.com/komari-monitor/komari/security/advisories/GHSA-q355-h244-969h
+    - fix: https://github.com/komari-monitor/komari/commit/53171affcaf050145810efaaef420651a6e630be
+    - web: https://github.com/komari-monitor/komari/blob/bd5a6934e1b79a12cf1e6a9bba5372d0e04f3abc/api/terminal.go#L33-L35
+    - web: https://github.com/komari-monitor/komari/releases/tag/1.0.4-fix2
+notes:
+    - fix: 'github.com/komari-monitor/komari: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-q355-h244-969h
+    created: 2025-08-15T17:53:19.250457295Z
+review_status: UNREVIEWED

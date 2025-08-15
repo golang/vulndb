@@ -1,0 +1,20 @@
+id: GO-2025-3886
+modules:
+    - module: github.com/OliveTin/OliveTin
+      unsupported_versions:
+        - last_affected: 0.0.0-20250502155356-8c073bf45fca
+      vulnerable_at: 0.0.0-20250815162650-3dd7aaff88f8
+summary: OliveTin OS Command Injection vulnerability in github.com/OliveTin/OliveTin
+cves:
+    - CVE-2025-50946
+ghsas:
+    - GHSA-p3qf-84rg-jxfc
+references:
+    - advisory: https://github.com/advisories/GHSA-p3qf-84rg-jxfc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-50946
+    - web: https://github.com/OliveTin/OliveTin/blob/8c073bf45fca6c6eda4e8a9feb182433277343ee/service/internal/executor/arguments.go#L211
+    - web: https://github.com/chrisWalker11/Cves/blob/main/CVE-2025-50946/CVE-2025-50946.md
+source:
+    id: GHSA-p3qf-84rg-jxfc
+    created: 2025-08-15T17:53:04.887844613Z
+review_status: UNREVIEWED

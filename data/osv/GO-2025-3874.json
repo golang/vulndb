@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3874",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-q355-h244-969h"
+  ],
+  "summary": "Komari vulnerable to Cross-site WebSocket Hijacking in github.com/komari-monitor/komari",
+  "details": "Komari vulnerable to Cross-site WebSocket Hijacking in github.com/komari-monitor/komari",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/komari-monitor/komari",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20250809073044-53171affcaf0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/komari-monitor/komari/security/advisories/GHSA-q355-h244-969h"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/komari-monitor/komari/commit/53171affcaf050145810efaaef420651a6e630be"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/komari-monitor/komari/blob/bd5a6934e1b79a12cf1e6a9bba5372d0e04f3abc/api/terminal.go#L33-L35"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/komari-monitor/komari/releases/tag/1.0.4-fix2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3874",
+    "review_status": "UNREVIEWED"
+  }
+}
