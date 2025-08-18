@@ -156,17 +156,20 @@ The issue can be closed without further action.
    - If the vulnerable symbols cannot be auto-populated, add vulnerable
      functions to the `symbols` list by reading the CVE, the fixing CLs, and the
      code at the vulnerable version you chose above.
-4. From the repo root, run `vulnreport fix <GitHub issue number>`.
+4. Ensure all high priority reports specify either vulnerable symbols or a short
+   note explaining why the entire version is marked vulnerable in the absence of
+   symbols.
+5. From the repo root, run `vulnreport fix <GitHub issue number>`.
    This will lint the report, add exported symbols, and convert the YAML to OSV.
-5. Once any errors are fixed, run `vulnreport commit <GitHub issue number>`.
+6. Once any errors are fixed, run `vulnreport commit <GitHub issue number>`.
    This will create a git commit containing the new files with a standard commit
    message. Commits are to the local git repository. The `vulnreport commit`
    command also accepts multiple space-separated issue numbers, and will create
    a separate commit for each report.
-6. Send the commit for review and approval. See the Go
+7. Send the commit for review and approval. See the Go
    [contribution guide](https://go.dev/doc/contribute) for sending a change on
    Gerrit.
-7. If you make changes to the report during review, re-run
+8. If you make changes to the report during review, re-run
    `vulnreport fix <GitHub issue number>` before re-mailing to update the OSV
    and make sure the report is still valid.
 
