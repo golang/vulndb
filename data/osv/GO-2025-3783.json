@@ -7,12 +7,12 @@
     "CVE-2025-52894",
     "GHSA-prpj-rchp-9j5h"
   ],
-  "summary": "OpenBao allows cancellation of root rekey and recovery rekey operations without authentication in github.com/openbao/openbao/api",
-  "details": "OpenBao allows cancellation of root rekey and recovery rekey operations without authentication in github.com/openbao/openbao/api.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: .",
+  "summary": "OpenBao allows cancellation of root rekey and recovery rekey operations without authentication in github.com/openbao/openbao.",
+  "details": "OpenBao allows cancellation of root rekey and recovery rekey operations without authentication in github.com/openbao/openbao.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/openbao/openbao from v0.0.0 before v2.3.1.",
   "affected": [
     {
       "package": {
-        "name": "github.com/openbao/openbao/api",
+        "name": "github.com/openbao/openbao",
         "ecosystem": "Go"
       },
       "ranges": [
@@ -21,26 +21,6 @@
           "events": [
             {
               "introduced": "0"
-            }
-          ]
-        }
-      ],
-      "ecosystem_specific": {}
-    },
-    {
-      "package": {
-        "name": "github.com/openbao/openbao/api/v2",
-        "ecosystem": "Go"
-      },
-      "ranges": [
-        {
-          "type": "SEMVER",
-          "events": [
-            {
-              "introduced": "0"
-            },
-            {
-              "fixed": "2.3.1"
             }
           ]
         }
@@ -51,7 +31,10 @@
             "type": "ECOSYSTEM",
             "events": [
               {
-                "introduced": "2.2.2"
+                "introduced": "0.0.0"
+              },
+              {
+                "fixed": "2.3.1"
               }
             ]
           }
@@ -69,7 +52,7 @@
       "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-52894"
     },
     {
-      "type": "WEB",
+      "type": "FIX",
       "url": "https://github.com/openbao/openbao/commit/fe75468822a22a88318c6079425357a02ae5b77b"
     },
     {
