@@ -1,0 +1,36 @@
+id: GO-2025-3892
+modules:
+    - module: github.com/hashicorp/go-getter
+      versions:
+        - fixed: 1.7.9
+      vulnerable_at: 1.7.8
+      packages:
+        - package: github.com/hashicorp/go-getter
+          symbols:
+            - GitGetter.fetchSubmodules
+            - copyDir
+          derived_symbols:
+            - Client.ChecksumFromFile
+            - Client.Get
+            - FolderStorage.Get
+            - Get
+            - GetAny
+            - GetFile
+            - GitGetter.Get
+            - GitGetter.GetFile
+            - HttpGetter.Get
+summary: |-
+    HashiCorp go-getter Vulnerable to Symlink Attacks in
+    github.com/hashicorp/go-getter
+cves:
+    - CVE-2025-8959
+ghsas:
+    - GHSA-wjrx-6529-hcj3
+references:
+    - advisory: https://github.com/advisories/GHSA-wjrx-6529-hcj3
+    - fix: https://github.com/hashicorp/go-getter/commit/87541b2501c00df5eaedea6acc61a2a4a4efa5b7
+    - web: https://discuss.hashicorp.com/t/hcsec-2025-23-hashicorp-go-getter-vulnerable-to-arbitrary-read-through-symlink-attack/76242
+source:
+    id: GHSA-wjrx-6529-hcj3
+    created: 2025-08-27T18:27:46.95276137Z
+review_status: REVIEWED

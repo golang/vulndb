@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3900",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-2464-8j7c-4cjm"
+  ],
+  "summary": "Go-viper's mapstructure May Leak Sensitive Information in Logs in github.com/go-viper/mapstructure",
+  "details": "Go-viper's mapstructure May Leak Sensitive Information in Logs in github.com/go-viper/mapstructure",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/go-viper/mapstructure",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/go-viper/mapstructure/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.4.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/go-viper/mapstructure/v2",
+            "symbols": [
+              "Decoder.decodeBool",
+              "Decoder.decodeFloat",
+              "Decoder.decodeInt",
+              "Decoder.decodeUint",
+              "StringToBoolHookFunc",
+              "StringToComplex128HookFunc",
+              "StringToComplex64HookFunc",
+              "StringToFloat32HookFunc",
+              "StringToFloat64HookFunc",
+              "StringToIPHookFunc",
+              "StringToIPNetHookFunc",
+              "StringToInt16HookFunc",
+              "StringToInt32HookFunc",
+              "StringToInt64HookFunc",
+              "StringToInt8HookFunc",
+              "StringToIntHookFunc",
+              "StringToNetIPAddrHookFunc",
+              "StringToNetIPAddrPortHookFunc",
+              "StringToNetIPPrefixHookFunc",
+              "StringToTimeDurationHookFunc",
+              "StringToTimeHookFunc",
+              "StringToURLHookFunc",
+              "StringToUint16HookFunc",
+              "StringToUint32HookFunc",
+              "StringToUint64HookFunc",
+              "StringToUint8HookFunc",
+              "StringToUintHookFunc"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/go-viper/mapstructure/security/advisories/GHSA-2464-8j7c-4cjm"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/go-viper/mapstructure/commit/742921c9ba2854d27baa64272487fc5075d2c39c"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3900",
+    "review_status": "REVIEWED"
+  }
+}

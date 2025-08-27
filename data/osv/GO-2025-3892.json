@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3892",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-8959",
+    "GHSA-wjrx-6529-hcj3"
+  ],
+  "summary": "HashiCorp go-getter Vulnerable to Symlink Attacks in github.com/hashicorp/go-getter",
+  "details": "HashiCorp go-getter Vulnerable to Symlink Attacks in github.com/hashicorp/go-getter",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hashicorp/go-getter",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.7.9"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/hashicorp/go-getter",
+            "symbols": [
+              "Client.ChecksumFromFile",
+              "Client.Get",
+              "FolderStorage.Get",
+              "Get",
+              "GetAny",
+              "GetFile",
+              "GitGetter.Get",
+              "GitGetter.GetFile",
+              "GitGetter.fetchSubmodules",
+              "HttpGetter.Get",
+              "copyDir"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-wjrx-6529-hcj3"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hashicorp/go-getter/commit/87541b2501c00df5eaedea6acc61a2a4a4efa5b7"
+    },
+    {
+      "type": "WEB",
+      "url": "https://discuss.hashicorp.com/t/hcsec-2025-23-hashicorp-go-getter-vulnerable-to-arbitrary-read-through-symlink-attack/76242"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3892",
+    "review_status": "REVIEWED"
+  }
+}

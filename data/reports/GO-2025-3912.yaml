@@ -1,0 +1,27 @@
+id: GO-2025-3912
+modules:
+    - module: github.com/consensys/gnark
+      versions:
+        - fixed: 0.14.0
+      vulnerable_at: 0.13.0
+      packages:
+        - package: github.com/consensys/gnark/std/signature/eddsa
+          symbols:
+            - Verify
+summary: |-
+    Gnark is vulnerable to signature malleability in EdDSA and ECDSA due to missing
+    scalar checks in github.com/consensys/gnark
+cves:
+    - CVE-2025-57801
+ghsas:
+    - GHSA-95v9-hv42-pwrj
+references:
+    - advisory: https://github.com/Consensys/gnark/security/advisories/GHSA-95v9-hv42-pwrj
+    - fix: https://github.com/Consensys/gnark/commit/0ba6730f05537a351517998add89a61a0d82716e
+    - web: https://github.com/Consensys/gnark/commit/0ba6730f05537a351517998add89a61a0d82716e
+notes:
+    - create: failed to auto-populate symbols
+source:
+    id: GHSA-95v9-hv42-pwrj
+    created: 2025-08-27T18:24:11.620782439Z
+review_status: REVIEWED
