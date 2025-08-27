@@ -1,0 +1,35 @@
+id: GO-2025-3907
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 9.11.0+incompatible
+        - fixed: 9.11.18+incompatible
+        - introduced: 10.5.0+incompatible
+        - fixed: 10.5.9+incompatible
+        - introduced: 10.8.0+incompatible
+        - fixed: 10.8.4+incompatible
+        - introduced: 10.9.0+incompatible
+        - fixed: 10.9.3+incompatible
+      vulnerable_at: 10.9.3-rc4+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20250708065844-b38e2eccda18
+summary: Mattermost Fails to Sanitize Path Traversal Sequences in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-8023
+ghsas:
+    - GHSA-x67c-v8jr-p29r
+references:
+    - advisory: https://github.com/advisories/GHSA-x67c-v8jr-p29r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-8023
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-x67c-v8jr-p29r
+    created: 2025-08-27T18:25:41.806909761Z
+review_status: UNREVIEWED

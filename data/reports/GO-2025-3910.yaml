@@ -1,0 +1,34 @@
+id: GO-2025-3910
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.5.0+incompatible
+        - fixed: 10.5.9+incompatible
+        - introduced: 10.8.0+incompatible
+        - fixed: 10.8.4+incompatible
+        - introduced: 10.9.0+incompatible
+        - fixed: 10.9.4+incompatible
+        - introduced: 10.10.0+incompatible
+        - fixed: 10.10.1+incompatible
+      vulnerable_at: 10.10.1-rc1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      non_go_versions:
+        - fixed: 8.0.0-20250708173752-d6b35c41f0ae5
+      vulnerable_at: 8.0.0-20250827163812-93ebaf3d9fda
+summary: Mattermost Fails to Sanitize File Names in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-6465
+ghsas:
+    - GHSA-pj6f-rc94-gw53
+references:
+    - advisory: https://github.com/advisories/GHSA-pj6f-rc94-gw53
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-6465
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-pj6f-rc94-gw53
+    created: 2025-08-27T18:25:33.703497476Z
+review_status: UNREVIEWED

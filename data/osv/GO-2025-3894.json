@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3894",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-55213",
+    "GHSA-mgh9-4mwp-fg55"
+  ],
+  "summary": "OpenFGA Authorization Bypass in github.com/openfga/openfga",
+  "details": "OpenFGA Authorization Bypass in github.com/openfga/openfga",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/openfga/openfga",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.9.3"
+            },
+            {
+              "fixed": "1.9.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/openfga/openfga/security/advisories/GHSA-mgh9-4mwp-fg55"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-55213"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openfga/openfga/commit/1a7e0e37fc4777c824b2386cac4867a66f3480b0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3894",
+    "review_status": "UNREVIEWED"
+  }
+}

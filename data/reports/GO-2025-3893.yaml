@@ -1,0 +1,21 @@
+id: GO-2025-3893
+modules:
+    - module: github.com/projectcapsule/capsule
+      versions:
+        - fixed: 0.10.4
+      vulnerable_at: 0.10.3
+summary: |-
+    Capsule tenant owners with "patch namespace" permission can hijack system
+    namespaces label in github.com/projectcapsule/capsule
+cves:
+    - CVE-2025-55205
+ghsas:
+    - GHSA-fcpm-6mxq-m5vv
+references:
+    - advisory: https://github.com/projectcapsule/capsule/security/advisories/GHSA-fcpm-6mxq-m5vv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-55205
+    - fix: https://github.com/projectcapsule/capsule/commit/e1f47feade6e1695b2204407607d07c3b3994f6e
+source:
+    id: GHSA-fcpm-6mxq-m5vv
+    created: 2025-08-27T18:27:42.669526673Z
+review_status: UNREVIEWED

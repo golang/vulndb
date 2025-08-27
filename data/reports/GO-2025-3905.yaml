@@ -1,0 +1,35 @@
+id: GO-2025-3905
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 9.11.0+incompatible
+        - fixed: 9.11.18+incompatible
+        - introduced: 10.5.0+incompatible
+        - fixed: 10.5.9+incompatible
+        - introduced: 10.8.0+incompatible
+        - fixed: 10.8.4+incompatible
+        - introduced: 10.9.0+incompatible
+        - fixed: 10.9.3+incompatible
+      vulnerable_at: 10.9.3-rc4+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20250708065844-b38e2eccda18
+summary: Mattermost Does Not Sanitize the Team Invite ID in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-47870
+ghsas:
+    - GHSA-qj47-w9f2-qg44
+references:
+    - advisory: https://github.com/advisories/GHSA-qj47-w9f2-qg44
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-47870
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-qj47-w9f2-qg44
+    created: 2025-08-27T18:25:50.704724669Z
+review_status: UNREVIEWED

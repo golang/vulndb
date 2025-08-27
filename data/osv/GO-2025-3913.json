@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3913",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-57813",
+    "GHSA-27r7-3m9x-r533"
+  ],
+  "summary": "traQ Allows Insertion of Sensitive Information into Log File in github.com/traPtitech/traQ",
+  "details": "traQ Allows Insertion of Sensitive Information into Log File in github.com/traPtitech/traQ.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/traPtitech/traQ before v3.25.0.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/traPtitech/traQ",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "3.25.0"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/traPtitech/traQ/security/advisories/GHSA-27r7-3m9x-r533"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-57813"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/traPtitech/traQ/commit/ce5da94f5d5a8348f9ecdc82140b6f53b3721698"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/traPtitech/traQ/pull/2787"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/traPtitech/traQ/pull/2788"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3913",
+    "review_status": "UNREVIEWED"
+  }
+}

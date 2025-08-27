@@ -1,0 +1,20 @@
+id: GO-2025-3895
+modules:
+    - module: github.com/hydraide/hydraide
+      versions:
+        - fixed: 0.0.0-20250816184905-1256db38c33c
+      non_go_versions:
+        - introduced: 2.1.1
+        - fixed: 2.2.1
+summary: HydrAIDE Authentication Bypass Vulnerability in github.com/hydraide/hydraide
+ghsas:
+    - GHSA-qp7j-x725-g67f
+references:
+    - advisory: https://github.com/hydraide/hydraide/security/advisories/GHSA-qp7j-x725-g67f
+    - fix: https://github.com/hydraide/hydraide/commit/b252554a811400a81951dc9f959b99077f187975#diff-63efbc8179fff403eb5cc642407b33c0fb21aea2c84baaf5e5223f76f5d75f55
+notes:
+    - fix: 'github.com/hydraide/hydraide: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-qp7j-x725-g67f
+    created: 2025-08-27T18:27:32.143997228Z
+review_status: UNREVIEWED
