@@ -1,0 +1,32 @@
+id: GO-2025-3923
+modules:
+    - module: github.com/rancher/rancher
+      versions:
+        - fixed: 0.0.0-20250813072957-aee95d4e2a41
+      non_go_versions:
+        - introduced: 2.9.0
+        - fixed: 2.9.11
+        - introduced: 2.10.0
+        - fixed: 2.10.9
+        - introduced: 2.11.0
+        - fixed: 2.11.5
+        - introduced: 2.12.0
+        - fixed: 2.12.1
+summary: Rancher affected by unauthenticated Denial of Service in github.com/rancher/rancher
+cves:
+    - CVE-2024-58259
+ghsas:
+    - GHSA-4h45-jpvh-6p5j
+references:
+    - advisory: https://github.com/rancher/rancher/security/advisories/GHSA-4h45-jpvh-6p5j
+    - fix: https://github.com/rancher/rancher/commit/aee95d4e2a41ba2df6f88c9634d4fe1f42dee4d9
+    - web: https://github.com/rancher/rancher/releases/tag/v2.10.9
+    - web: https://github.com/rancher/rancher/releases/tag/v2.11.5
+    - web: https://github.com/rancher/rancher/releases/tag/v2.12.1
+    - web: https://github.com/rancher/rancher/releases/tag/v2.9.11
+notes:
+    - fix: 'github.com/rancher/rancher: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-4h45-jpvh-6p5j
+    created: 2025-09-05T19:31:59.205365739Z
+review_status: UNREVIEWED

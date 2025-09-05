@@ -1,0 +1,30 @@
+id: GO-2025-3934
+modules:
+    - module: github.com/argoproj/argo-cd
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - introduced: 2.13.0
+        - fixed: 2.13.9
+        - introduced: 2.14.0
+        - fixed: 2.14.16
+      vulnerable_at: 2.14.15
+    - module: github.com/argoproj/argo-cd/v3
+      versions:
+        - fixed: 3.0.14
+        - introduced: 3.1.0-rc1
+        - fixed: 3.1.2
+      vulnerable_at: 3.1.1
+summary: Argo CD's Project API Token Exposes Repository Credentials in github.com/argoproj/argo-cd
+cves:
+    - CVE-2025-55190
+ghsas:
+    - GHSA-786q-9hcg-v9ff
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-786q-9hcg-v9ff
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-55190
+    - fix: https://github.com/argoproj/argo-cd/commit/e8f86101f5378662ae6151ce5c3a76e9141900e8
+source:
+    id: GHSA-786q-9hcg-v9ff
+    created: 2025-09-05T19:31:20.332069028Z
+review_status: UNREVIEWED

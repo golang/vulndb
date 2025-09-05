@@ -1,0 +1,23 @@
+id: GO-2025-3927
+modules:
+    - module: github.com/rancher/fleet
+      versions:
+        - introduced: 0.11.0
+        - fixed: 0.11.10
+        - introduced: 0.12.0
+        - fixed: 0.12.6
+        - introduced: 0.13.0
+        - fixed: 0.13.1-0.20250806151509-088bcbea7edb
+      vulnerable_at: 0.13.0
+summary: Rancher Fleet Helm Values are stored inside BundleDeployment in plain text in github.com/rancher/fleet
+cves:
+    - CVE-2024-52284
+ghsas:
+    - GHSA-6h9x-9j5v-7w9h
+references:
+    - advisory: https://github.com/rancher/fleet/security/advisories/GHSA-6h9x-9j5v-7w9h
+    - fix: https://github.com/rancher/fleet/commit/088bcbea7edb844d7e6fc3649d9954f763cf68a9
+source:
+    id: GHSA-6h9x-9j5v-7w9h
+    created: 2025-09-05T19:31:37.03702969Z
+review_status: UNREVIEWED

@@ -1,0 +1,20 @@
+id: GO-2025-3920
+modules:
+    - module: github.com/edgelesssys/contrast
+      versions:
+        - introduced: 1.9.0
+        - fixed: 1.12.2
+      vulnerable_at: 1.12.1
+summary: Contrast leaks workload secrets to logs on INFO level in github.com/edgelesssys/contrast
+ghsas:
+    - GHSA-vxg3-w9rv-rhr2
+references:
+    - advisory: https://github.com/edgelesssys/contrast/security/advisories/GHSA-vxg3-w9rv-rhr2
+    - fix: https://github.com/edgelesssys/contrast/commit/5a5512c4af63c17bb66331e7bd2768a863b2f225
+    - fix: https://github.com/edgelesssys/contrast/commit/cf58026b30c43fe7df91eac5322da02e1725d554
+    - fix: https://github.com/edgelesssys/contrast/pull/1739
+    - web: https://github.com/edgelesssys/contrast/security/advisories/GHSA-h5f8-crrq-4pw8
+source:
+    id: GHSA-vxg3-w9rv-rhr2
+    created: 2025-09-05T19:32:22.200832399Z
+review_status: UNREVIEWED

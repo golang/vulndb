@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3920",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-vxg3-w9rv-rhr2"
+  ],
+  "summary": "Contrast leaks workload secrets to logs on INFO level in github.com/edgelesssys/contrast",
+  "details": "Contrast leaks workload secrets to logs on INFO level in github.com/edgelesssys/contrast",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/edgelesssys/contrast",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.9.0"
+            },
+            {
+              "fixed": "1.12.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/edgelesssys/contrast/security/advisories/GHSA-vxg3-w9rv-rhr2"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/edgelesssys/contrast/commit/5a5512c4af63c17bb66331e7bd2768a863b2f225"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/edgelesssys/contrast/commit/cf58026b30c43fe7df91eac5322da02e1725d554"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/edgelesssys/contrast/pull/1739"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/edgelesssys/contrast/security/advisories/GHSA-h5f8-crrq-4pw8"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3920",
+    "review_status": "UNREVIEWED"
+  }
+}

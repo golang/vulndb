@@ -1,0 +1,21 @@
+id: GO-2025-3924
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - fixed: 1.20.3
+      vulnerable_at: 1.20.2
+summary: HashiCorp Vault Community Edition Denial of Service Though Complex JSON Payloads in github.com/hashicorp/vault
+cves:
+    - CVE-2025-6203
+ghsas:
+    - GHSA-8f82-53h8-2p34
+references:
+    - advisory: https://github.com/advisories/GHSA-8f82-53h8-2p34
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-6203
+    - fix: https://github.com/hashicorp/vault/commit/eedc2b7426f30e57e306229ce697ce81e203ab89
+    - web: https://discuss.hashicorp.com
+    - web: https://discuss.hashicorp.com/t/hcsec-2025-24-vault-denial-of-service-though-complex-json-payloads/76393
+source:
+    id: GHSA-8f82-53h8-2p34
+    created: 2025-09-05T19:31:52.953367217Z
+review_status: UNREVIEWED

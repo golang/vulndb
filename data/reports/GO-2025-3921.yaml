@@ -1,0 +1,20 @@
+id: GO-2025-3921
+modules:
+    - module: github.com/coder/coder
+      vulnerable_at: 0.27.3
+    - module: github.com/coder/coder/v2
+      versions:
+        - fixed: 2.23.0
+      vulnerable_at: 2.22.1
+summary: |-
+    Coder accepts an APIKey beyond the linked OIDC expiry if there is no refresh
+    token in github.com/coder/coder
+ghsas:
+    - GHSA-3rw9-wmc8-8948
+references:
+    - advisory: https://github.com/coder/coder/security/advisories/GHSA-3rw9-wmc8-8948
+    - fix: https://github.com/coder/coder/commit/1a4160803589034ce1518e24a78f232c8d08f996
+source:
+    id: GHSA-3rw9-wmc8-8948
+    created: 2025-09-05T19:32:20.283354425Z
+review_status: UNREVIEWED

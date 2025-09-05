@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3934",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-55190",
+    "GHSA-786q-9hcg-v9ff"
+  ],
+  "summary": "Argo CD's Project API Token Exposes Repository Credentials in github.com/argoproj/argo-cd",
+  "details": "Argo CD's Project API Token Exposes Repository Credentials in github.com/argoproj/argo-cd",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-cd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-cd/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.13.0"
+            },
+            {
+              "fixed": "2.13.9"
+            },
+            {
+              "introduced": "2.14.0"
+            },
+            {
+              "fixed": "2.14.16"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-cd/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.0.14"
+            },
+            {
+              "introduced": "3.1.0-rc1"
+            },
+            {
+              "fixed": "3.1.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/argoproj/argo-cd/security/advisories/GHSA-786q-9hcg-v9ff"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-55190"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-cd/commit/e8f86101f5378662ae6151ce5c3a76e9141900e8"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3934",
+    "review_status": "UNREVIEWED"
+  }
+}

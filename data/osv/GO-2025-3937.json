@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3937",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-56761",
+    "GHSA-cgrg-86m5-xm4w"
+  ],
+  "summary": "Memos Vulnerable to Stored Cross-Site Scripting in github.com/usememos/memos",
+  "details": "Memos Vulnerable to Stored Cross-Site Scripting in github.com/usememos/memos",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/usememos/memos",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-cgrg-86m5-xm4w"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-56761"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/usememos/memos/blob/v0.24.0/server/router/api/v1/user_service.go#L147"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/usememos/memos/blob/v0.24.4/server/router/api/v1/resource_service.go#L48"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.sonarsource.com/blog/securing-go-applications-with-sonarqube-real-world-examples"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3937",
+    "review_status": "UNREVIEWED"
+  }
+}

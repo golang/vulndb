@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3936",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-56760",
+    "GHSA-78j5-8vq7-jxv5"
+  ],
+  "summary": "Memos Vulnerable to Path Traversal via the CreateResource Endpoint in github.com/usememos/memos",
+  "details": "Memos Vulnerable to Path Traversal via the CreateResource Endpoint in github.com/usememos/memos",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/usememos/memos",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-78j5-8vq7-jxv5"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-56760"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/usememos/memos/blob/v0.24.4/server/router/api/v1/resource_service.go#L48"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.sonarsource.com/blog/securing-go-applications-with-sonarqube-real-world-examples"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3936",
+    "review_status": "UNREVIEWED"
+  }
+}

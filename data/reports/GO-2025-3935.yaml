@@ -1,0 +1,28 @@
+id: GO-2025-3935
+modules:
+    - module: github.com/containers/podman
+      vulnerable_at: 1.9.3
+    - module: github.com/containers/podman/v2
+      vulnerable_at: 2.2.1
+    - module: github.com/containers/podman/v3
+      vulnerable_at: 3.4.7
+    - module: github.com/containers/podman/v4
+      unsupported_versions:
+        - last_affected: 4.9.5
+      vulnerable_at: 4.9.5
+    - module: github.com/containers/podman/v5
+      versions:
+        - fixed: 5.6.1
+      vulnerable_at: 5.6.0
+summary: podman kube play symlink traversal vulnerability in github.com/containers/podman
+cves:
+    - CVE-2025-9566
+ghsas:
+    - GHSA-wp3j-xq48-xpjw
+references:
+    - advisory: https://github.com/containers/podman/security/advisories/GHSA-wp3j-xq48-xpjw
+    - fix: https://github.com/containers/podman/commit/43fbde4e665fe6cee6921868f04b7ccd3de5ad89
+source:
+    id: GHSA-wp3j-xq48-xpjw
+    created: 2025-09-05T19:31:15.446482457Z
+review_status: UNREVIEWED
