@@ -1,0 +1,31 @@
+id: GO-2025-3956
+modules:
+    - module: std
+      versions:
+        - fixed: 1.23.12
+        - introduced: 1.24.0
+        - fixed: 1.24.6
+      vulnerable_at: 1.24.5
+      packages:
+        - package: os/exec
+          symbols:
+            - LookPath
+summary: Unexpected paths returned from LookPath in os/exec
+description: |-
+    If the PATH environment variable contains paths which are executables
+    (rather than just directories), passing certain strings to LookPath
+    ("", ".", and ".."), can result in the binaries listed in the PATH
+    being unexpectedly returned.
+cves:
+    - CVE-2025-47906
+references:
+    - fix: https://go.dev/cl/691775
+    - report: https://go.dev/issue/74466
+    - web: https://groups.google.com/g/golang-announce/c/x5MKroML2yM
+cve_metadata:
+    id: CVE-2025-47906
+    cwe: 'CWE-115: Misinterpretation of Input'
+source:
+    id: go-security-team
+    created: 2025-09-16T14:01:40.614642-07:00
+review_status: REVIEWED
