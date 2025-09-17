@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3915",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-5187",
+    "GHSA-4x4m-3c2p-qppc"
+  ],
+  "summary": "Kubernetes Nodes can delete themselves by adding an OwnerReference in k8s.io/kubernetes",
+  "details": "Kubernetes Nodes can delete themselves by adding an OwnerReference in k8s.io/kubernetes",
+  "affected": [
+    {
+      "package": {
+        "name": "k8s.io/kubernetes",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.31.12"
+            },
+            {
+              "introduced": "1.32.0-alpha.0"
+            },
+            {
+              "fixed": "1.32.8"
+            },
+            {
+              "introduced": "1.33.0-alpha.0"
+            },
+            {
+              "fixed": "1.33.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-4x4m-3c2p-qppc"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubernetes/kubernetes/commit/a2d98cac56a0c5cb2d8abc4d087fc00846b3bc0f"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubernetes/kubernetes/issues/133471"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/kubernetes-security-announce/c/znSNY7XCztE"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3915",
+    "review_status": "REVIEWED"
+  }
+}

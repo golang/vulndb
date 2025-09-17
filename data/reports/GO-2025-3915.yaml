@@ -1,0 +1,28 @@
+id: GO-2025-3915
+modules:
+    - module: k8s.io/kubernetes
+      versions:
+        - fixed: 1.31.12
+        - introduced: 1.32.0-alpha.0
+        - fixed: 1.32.8
+        - introduced: 1.33.0-alpha.0
+        - fixed: 1.33.4
+      vulnerable_at: 1.33.3
+summary: |-
+    Kubernetes Nodes can delete themselves by adding an OwnerReference in
+    k8s.io/kubernetes
+cves:
+    - CVE-2025-5187
+ghsas:
+    - GHSA-4x4m-3c2p-qppc
+references:
+    - advisory: https://github.com/advisories/GHSA-4x4m-3c2p-qppc
+    - fix: https://github.com/kubernetes/kubernetes/commit/a2d98cac56a0c5cb2d8abc4d087fc00846b3bc0f
+    - web: https://github.com/kubernetes/kubernetes/issues/133471
+    - web: https://groups.google.com/g/kubernetes-security-announce/c/znSNY7XCztE
+notes:
+    - cannot resolve symbols: 'reading k8s.io/api/go.mod at revision v0.0.0: unknown revision v0.0.0'
+source:
+    id: GHSA-4x4m-3c2p-qppc
+    created: 2025-09-17T12:20:23.216846-04:00
+review_status: REVIEWED
