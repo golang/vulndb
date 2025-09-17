@@ -1,0 +1,36 @@
+id: GO-2025-3958
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.5.0+incompatible
+        - fixed: 10.5.10+incompatible
+        - introduced: 10.9.0+incompatible
+        - fixed: 10.9.5+incompatible
+        - introduced: 10.10.0+incompatible
+        - fixed: 10.10.2+incompatible
+      vulnerable_at: 10.10.2-rc4+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20250731063404-9eebaadf8f72
+summary: Mattermost Open Redirect vulnerability in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-9072
+ghsas:
+    - GHSA-69j8-prx2-vx98
+references:
+    - advisory: https://github.com/advisories/GHSA-69j8-prx2-vx98
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-9072
+    - web: https://github.com/mattermost/mattermost/commit/13cd76009d31754db46115bddef5287a8a29871a
+    - web: https://github.com/mattermost/mattermost/commit/9eebaadf8f720788e99b6997337c8df330271326
+    - web: https://github.com/mattermost/mattermost/commit/fda403fb6ec41bea8780bff198a26860f105e6e5
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-69j8-prx2-vx98
+    created: 2025-09-17T12:13:51.127137-04:00
+review_status: UNREVIEWED

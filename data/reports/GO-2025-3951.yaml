@@ -1,0 +1,23 @@
+id: GO-2025-3951
+modules:
+    - module: github.com/chaos-mesh/chaos-mesh
+      non_go_versions:
+        - fixed: 2.7.3
+      vulnerable_at: 1.2.4
+summary: |-
+    Chaos Mesh's Chaos Controller Manager is Missing Authentication for Critical
+    Function in github.com/chaos-mesh/chaos-mesh
+cves:
+    - CVE-2025-59358
+ghsas:
+    - GHSA-2gg8-85m5-8r2p
+references:
+    - advisory: https://github.com/advisories/GHSA-2gg8-85m5-8r2p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-59358
+    - fix: https://github.com/chaos-mesh/chaos-mesh/commit/67281c36f8068bf103149318cd0a466417213a28
+    - fix: https://github.com/chaos-mesh/chaos-mesh/pull/4702
+    - web: https://jfrog.com/blog/chaotic-deputy-critical-vulnerabilities-in-chaos-mesh-lead-to-kubernetes-cluster-takeover
+source:
+    id: GHSA-2gg8-85m5-8r2p
+    created: 2025-09-17T12:14:25.932633-04:00
+review_status: UNREVIEWED

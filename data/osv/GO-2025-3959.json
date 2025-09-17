@@ -1,0 +1,146 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3959",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-9078",
+    "GHSA-9p92-x77w-9fw2"
+  ],
+  "summary": "Mattermost makes Use of Weak Hash in github.com/mattermost/mattermost-server",
+  "details": "Mattermost makes Use of Weak Hash in github.com/mattermost/mattermost-server",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "9.11.0+incompatible"
+            },
+            {
+              "fixed": "9.11.18+incompatible"
+            },
+            {
+              "introduced": "10.5.0+incompatible"
+            },
+            {
+              "fixed": "10.5.9+incompatible"
+            },
+            {
+              "introduced": "10.8.0+incompatible"
+            },
+            {
+              "fixed": "10.8.4+incompatible"
+            },
+            {
+              "introduced": "10.9.0+incompatible"
+            },
+            {
+              "fixed": "10.9.4+incompatible"
+            },
+            {
+              "introduced": "10.10.0+incompatible"
+            },
+            {
+              "fixed": "10.10.2+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v6",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost/server/v8",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "8.0.0-20250718075842-cd87e5c87737"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-9p92-x77w-9fw2"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-9078"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/356880c8430b77a4a390c89d5a33f6928188d137"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/944ad5cdd9876ef61c78c8275906262a4118755a"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/a8a4badc130be101e5bc4b7916bbcd2f966c4b79"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/cd87e5c877373f109742aa90a3fa136c14774325"
+    },
+    {
+      "type": "WEB",
+      "url": "https://mattermost.com/security-updates"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3959",
+    "review_status": "UNREVIEWED"
+  }
+}

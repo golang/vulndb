@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3942",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-58063",
+    "GHSA-93mf-426m-g6x9"
+  ],
+  "summary": "CoreDNS: DNS Cache Pinning via etcd Lease ID Confusion in github.com/coredns/coredns",
+  "details": "CoreDNS: DNS Cache Pinning via etcd Lease ID Confusion in github.com/coredns/coredns",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/coredns/coredns",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.2.0"
+            },
+            {
+              "fixed": "1.12.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/coredns/coredns/security/advisories/GHSA-93mf-426m-g6x9"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-58063"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/coredns/coredns/commit/e1768a5d272e9da649dfb8588595e5c6e4e640bf"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3942",
+    "review_status": "UNREVIEWED"
+  }
+}

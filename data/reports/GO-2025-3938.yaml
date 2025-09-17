@@ -1,0 +1,31 @@
+id: GO-2025-3938
+modules:
+    - module: github.com/coder/coder
+      vulnerable_at: 0.27.3
+    - module: github.com/coder/coder/v2
+      versions:
+        - introduced: 2.22.0
+        - fixed: 2.24.4
+        - introduced: 2.25.0
+        - fixed: 2.25.2
+      vulnerable_at: 2.25.1
+summary: |-
+    Coder vulnerable to privilege escalation could lead to a cross workspace
+    compromise in github.com/coder/coder
+cves:
+    - CVE-2025-58437
+ghsas:
+    - GHSA-j6xf-jwrj-v5qp
+references:
+    - advisory: https://github.com/coder/coder/security/advisories/GHSA-j6xf-jwrj-v5qp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-58437
+    - fix: https://github.com/coder/coder/commit/06cbb2890f453cd522bb2158a6549afa3419c276
+    - fix: https://github.com/coder/coder/commit/20d67d7d7191a4fd5d36a61c6fc1e23ab59befc0
+    - fix: https://github.com/coder/coder/commit/ec660907faa0b0eae20fa2ba58ce1733f5f4b35a
+    - fix: https://github.com/coder/coder/pull/19667
+    - fix: https://github.com/coder/coder/pull/19668
+    - fix: https://github.com/coder/coder/pull/19669
+source:
+    id: GHSA-j6xf-jwrj-v5qp
+    created: 2025-09-17T12:16:16.913193-04:00
+review_status: UNREVIEWED

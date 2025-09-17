@@ -1,0 +1,20 @@
+id: GO-2025-3939
+modules:
+    - module: sigs.k8s.io/secrets-store-sync-controller
+      versions:
+        - fixed: 0.0.2
+      vulnerable_at: 0.0.1
+summary: secrets-store-sync-controller discloses service account tokens in logs in sigs.k8s.io/secrets-store-sync-controller
+cves:
+    - CVE-2025-7445
+ghsas:
+    - GHSA-rcw7-pqfp-735x
+references:
+    - advisory: https://github.com/kubernetes-sigs/secrets-store-sync-controller/security/advisories/GHSA-rcw7-pqfp-735x
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-7445
+    - web: https://github.com/kubernetes/kubernetes/issues/133897
+    - web: https://groups.google.com/g/kubernetes-security-announce/c/NP7cQvQ1aGA
+source:
+    id: GHSA-rcw7-pqfp-735x
+    created: 2025-09-17T12:16:10.326638-04:00
+review_status: UNREVIEWED

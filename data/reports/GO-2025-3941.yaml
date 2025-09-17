@@ -1,0 +1,19 @@
+id: GO-2025-3941
+modules:
+    - module: github.com/prest/prest
+      vulnerable_at: 1.5.5
+    - module: github.com/prest/prest/v2
+      vulnerable_at: 2.0.0-rc5
+summary: pREST has a Systemic SQL Injection Vulnerability in github.com/prest/prest
+cves:
+    - CVE-2025-58450
+ghsas:
+    - GHSA-p46v-f2x8-qp98
+references:
+    - advisory: https://github.com/prest/prest/security/advisories/GHSA-p46v-f2x8-qp98
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-58450
+    - fix: https://github.com/prest/prest/commit/47d02b87842900f77d76fc694d9aa7e983b0711c
+source:
+    id: GHSA-p46v-f2x8-qp98
+    created: 2025-09-17T12:16:05.114725-04:00
+review_status: UNREVIEWED

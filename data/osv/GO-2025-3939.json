@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3939",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-7445",
+    "GHSA-rcw7-pqfp-735x"
+  ],
+  "summary": "secrets-store-sync-controller discloses service account tokens in logs in sigs.k8s.io/secrets-store-sync-controller",
+  "details": "secrets-store-sync-controller discloses service account tokens in logs in sigs.k8s.io/secrets-store-sync-controller",
+  "affected": [
+    {
+      "package": {
+        "name": "sigs.k8s.io/secrets-store-sync-controller",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/kubernetes-sigs/secrets-store-sync-controller/security/advisories/GHSA-rcw7-pqfp-735x"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-7445"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubernetes/kubernetes/issues/133897"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/kubernetes-security-announce/c/NP7cQvQ1aGA"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3939",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,20 @@
+id: GO-2025-3942
+modules:
+    - module: github.com/coredns/coredns
+      versions:
+        - introduced: 1.2.0
+        - fixed: 1.12.4
+      vulnerable_at: 1.12.3
+summary: 'CoreDNS: DNS Cache Pinning via etcd Lease ID Confusion in github.com/coredns/coredns'
+cves:
+    - CVE-2025-58063
+ghsas:
+    - GHSA-93mf-426m-g6x9
+references:
+    - advisory: https://github.com/coredns/coredns/security/advisories/GHSA-93mf-426m-g6x9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-58063
+    - fix: https://github.com/coredns/coredns/commit/e1768a5d272e9da649dfb8588595e5c6e4e640bf
+source:
+    id: GHSA-93mf-426m-g6x9
+    created: 2025-09-17T12:15:59.903742-04:00
+review_status: UNREVIEWED

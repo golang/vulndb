@@ -1,0 +1,26 @@
+id: GO-2025-3944
+modules:
+    - module: github.com/SpectoLabs/hoverfly
+      unsupported_versions:
+        - last_affected: 1.11.3
+      vulnerable_at: 1.12.0
+summary: |-
+    Hoverfly is vulnerable to Remote Code Execution through an insecure middleware
+    implementation in github.com/SpectoLabs/hoverfly
+cves:
+    - CVE-2025-54123
+ghsas:
+    - GHSA-r4h8-hfp2-ggmf
+references:
+    - advisory: https://github.com/SpectoLabs/hoverfly/security/advisories/GHSA-r4h8-hfp2-ggmf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-54123
+    - fix: https://github.com/SpectoLabs/hoverfly/commit/17e60a9bc78826deb4b782dca1c1abd3dbe60d40
+    - fix: https://github.com/SpectoLabs/hoverfly/commit/a9d4da7bd7269651f54542ab790d0c613d568d3e
+    - fix: https://github.com/SpectoLabs/hoverfly/pull/1203
+    - web: https://github.com/SpectoLabs/hoverfly/blob/master/core/hoverfly_service.go#L173
+    - web: https://github.com/SpectoLabs/hoverfly/blob/master/core/middleware/local_middleware.go#L13
+    - web: https://github.com/SpectoLabs/hoverfly/blob/master/core/middleware/middleware.go#L93
+source:
+    id: GHSA-r4h8-hfp2-ggmf
+    created: 2025-09-17T12:15:47.472862-04:00
+review_status: UNREVIEWED

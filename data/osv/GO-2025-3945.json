@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3945",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-54376",
+    "GHSA-jxmr-2h4q-rhxp"
+  ],
+  "summary": "WebSocket endpoint `/api/v2/ws/logs` reachable without authentication even when --auth is enabled in github.com/SpectoLabs/hoverfly",
+  "details": "WebSocket endpoint `/api/v2/ws/logs` reachable without authentication even when --auth is enabled in github.com/SpectoLabs/hoverfly",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/SpectoLabs/hoverfly",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.12.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/SpectoLabs/hoverfly/security/advisories/GHSA-jxmr-2h4q-rhxp"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-54376"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/SpectoLabs/hoverfly/commit/ffc2cc34563de67fe1a04f7ba5d78fa2d4564424"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3945",
+    "review_status": "UNREVIEWED"
+  }
+}

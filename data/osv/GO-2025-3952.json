@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3952",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-59359",
+    "GHSA-369h-6j28-wwcg"
+  ],
+  "summary": "Chaos Controller Manager is vulnerable to OS command injection in github.com/chaos-mesh/chaos-mesh",
+  "details": "Chaos Controller Manager is vulnerable to OS command injection in github.com/chaos-mesh/chaos-mesh.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/chaos-mesh/chaos-mesh before v2.7.3.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/chaos-mesh/chaos-mesh",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "2.7.3"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-369h-6j28-wwcg"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-59359"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/chaos-mesh/chaos-mesh/commit/67281c36f8068bf103149318cd0a466417213a28"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/chaos-mesh/chaos-mesh/pull/4702"
+    },
+    {
+      "type": "WEB",
+      "url": "https://jfrog.com/blog/chaotic-deputy-critical-vulnerabilities-in-chaos-mesh-lead-to-kubernetes-cluster-takeover"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3952",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,41 @@
+id: GO-2025-3959
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 9.11.0+incompatible
+        - fixed: 9.11.18+incompatible
+        - introduced: 10.5.0+incompatible
+        - fixed: 10.5.9+incompatible
+        - introduced: 10.8.0+incompatible
+        - fixed: 10.8.4+incompatible
+        - introduced: 10.9.0+incompatible
+        - fixed: 10.9.4+incompatible
+        - introduced: 10.10.0+incompatible
+        - fixed: 10.10.2+incompatible
+      vulnerable_at: 10.10.2-rc4+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20250718075842-cd87e5c87737
+summary: Mattermost makes Use of Weak Hash in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-9078
+ghsas:
+    - GHSA-9p92-x77w-9fw2
+references:
+    - advisory: https://github.com/advisories/GHSA-9p92-x77w-9fw2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-9078
+    - web: https://github.com/mattermost/mattermost/commit/356880c8430b77a4a390c89d5a33f6928188d137
+    - web: https://github.com/mattermost/mattermost/commit/944ad5cdd9876ef61c78c8275906262a4118755a
+    - web: https://github.com/mattermost/mattermost/commit/a8a4badc130be101e5bc4b7916bbcd2f966c4b79
+    - web: https://github.com/mattermost/mattermost/commit/cd87e5c877373f109742aa90a3fa136c14774325
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-9p92-x77w-9fw2
+    created: 2025-09-17T12:13:11.150585-04:00
+review_status: UNREVIEWED

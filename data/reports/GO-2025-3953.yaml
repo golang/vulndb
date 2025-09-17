@@ -1,0 +1,27 @@
+id: GO-2025-3953
+modules:
+    - module: go.temporal.io/server
+      versions:
+        - fixed: 1.26.3
+        - introduced: 1.27.0-126.0
+        - fixed: 1.27.3
+        - introduced: 1.28.0-129.0
+        - fixed: 1.28.1
+      vulnerable_at: 1.28.0
+summary: |-
+    Temporal OSS Server Vulnerable to Allocation of Resources Without Limits or
+    Throttling in go.temporal.io/server
+cves:
+    - CVE-2025-8396
+ghsas:
+    - GHSA-p768-c3pr-6459
+references:
+    - advisory: https://github.com/advisories/GHSA-p768-c3pr-6459
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-8396
+    - web: https://github.com/temporalio/temporal/releases/tag/v1.26.3
+    - web: https://github.com/temporalio/temporal/releases/tag/v1.27.3
+    - web: https://github.com/temporalio/temporal/releases/tag/v1.28.1
+source:
+    id: GHSA-p768-c3pr-6459
+    created: 2025-09-17T12:14:15.075281-04:00
+review_status: UNREVIEWED

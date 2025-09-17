@@ -1,0 +1,21 @@
+id: GO-2025-3949
+modules:
+    - module: github.com/chaos-mesh/chaos-mesh
+      non_go_versions:
+        - fixed: 2.7.3
+      vulnerable_at: 1.2.4
+summary: Chaos Controller Manager is vulnerable to OS command injection in github.com/chaos-mesh/chaos-mesh
+cves:
+    - CVE-2025-59361
+ghsas:
+    - GHSA-2gcv-3qpf-c5qr
+references:
+    - advisory: https://github.com/advisories/GHSA-2gcv-3qpf-c5qr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-59361
+    - fix: https://github.com/chaos-mesh/chaos-mesh/commit/67281c36f8068bf103149318cd0a466417213a28
+    - fix: https://github.com/chaos-mesh/chaos-mesh/pull/4702
+    - web: https://jfrog.com/blog/chaotic-deputy-critical-vulnerabilities-in-chaos-mesh-lead-to-kubernetes-cluster-takeover
+source:
+    id: GHSA-2gcv-3qpf-c5qr
+    created: 2025-09-17T12:15:34.857225-04:00
+review_status: UNREVIEWED
