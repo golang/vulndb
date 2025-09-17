@@ -1,0 +1,25 @@
+id: GO-2025-3926
+modules:
+    - module: github.com/harness/gitness
+      versions:
+        - fixed: 1.0.4-gitspaces-beta.0.20250808064055-21c5ce42ae13
+      non_go_versions:
+        - introduced: 1.0.4
+        - fixed: 3.3.0
+      vulnerable_at: 1.0.4-gitspaces-beta
+summary: |-
+    Harness Allows Arbitrary File Write in Gitness LFS server in
+    github.com/harness/gitness
+cves:
+    - CVE-2025-58158
+ghsas:
+    - GHSA-w469-hj2f-jpr5
+references:
+    - advisory: https://github.com/harness/harness/security/advisories/GHSA-w469-hj2f-jpr5
+    - web: https://github.com/harness/harness/commit/21c5ce42ae13740b1cad47706c2ec85e72cc8c20
+notes:
+    - Cannot populate symbols for non-published versions.
+source:
+    id: GHSA-w469-hj2f-jpr5
+    created: 2025-09-17T11:40:35.577251-04:00
+review_status: REVIEWED

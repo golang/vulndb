@@ -1,0 +1,22 @@
+id: GO-2025-3922
+modules:
+    - module: github.com/ulikunitz/xz
+      versions:
+        - fixed: 0.5.15
+      vulnerable_at: 0.5.14
+summary: |-
+    Memory leaks when decoding a corrupted multiple LZMA archives in
+    github.com/ulikunitz/xz
+cves:
+    - CVE-2025-58058
+ghsas:
+    - GHSA-jc7w-c686-c4v9
+references:
+    - advisory: https://github.com/ulikunitz/xz/security/advisories/GHSA-jc7w-c686-c4v9
+    - fix: https://github.com/ulikunitz/xz/commit/88ddf1d0d98d688db65de034f48960b2760d2ae2
+notes:
+    - Package made breaking changes between the two versions resulting in part of the symbols list being invalid; as a precaution, entire version has been marked vulnerable.
+source:
+    id: GHSA-jc7w-c686-c4v9
+    created: 2025-09-17T11:44:45.077387-04:00
+review_status: REVIEWED

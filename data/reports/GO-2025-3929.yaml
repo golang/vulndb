@@ -1,0 +1,24 @@
+id: GO-2025-3929
+modules:
+    - module: github.com/consensys/gnark
+      versions:
+        - fixed: 0.13.0
+      vulnerable_at: 0.12.0
+summary: |-
+    Denial of service when computing scalar multiplication using
+    fake-GLV algorithm in github.com/consensys/gnark
+cves:
+    - CVE-2025-58157
+ghsas:
+    - GHSA-9fvj-xqr2-xwg8
+references:
+    - advisory: https://github.com/Consensys/gnark/security/advisories/GHSA-9fvj-xqr2-xwg8
+    - web: https://github.com/Consensys/gnark-crypto/commit/56600883e0e9f9b159e9c7000b94e76185ec3d0d
+    - web: https://github.com/Consensys/gnark/commit/68be6cede36e387ab760725beabd3c96cc94e6dc
+    - web: https://github.com/Consensys/gnark/issues/1483
+notes:
+    - Cannot populate vulnerable symbols due to actual fix contained in dependency of reported module.
+source:
+    id: GHSA-9fvj-xqr2-xwg8
+    created: 2025-09-17T11:35:00.987368-04:00
+review_status: REVIEWED
