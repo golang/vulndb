@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3955",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-47910",
+    "CVE-2025-47910"
+  ],
+  "summary": "CrossOriginProtection insecure bypass patterns not limited to exact matches in net/http",
+  "details": "When using http.CrossOriginProtection, the AddInsecureBypassPattern method can unexpectedly bypass more requests than intended. CrossOriginProtection then skips validation, but forwards the original request path, which may be served by a different handler without the intended security protections.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.25.0"
+            },
+            {
+              "fixed": "1.25.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "net/http",
+            "symbols": [
+              "CrossOriginProtection.AddInsecureBypassPattern"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/699275"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/75054"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/PtW9VW21NPs/m/DJhMQ-m5AQAJ"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3955",
+    "review_status": "REVIEWED"
+  }
+}
