@@ -1,0 +1,21 @@
+id: GO-2025-3963
+modules:
+    - module: d7y.io/dragonfly/v2
+      versions:
+        - fixed: 2.1.0
+      vulnerable_at: 2.1.0-rc.0
+    - module: github.com/dragonflyoss/dragonfly
+      vulnerable_at: 1.0.6
+summary: Dragonfly incorrectly handles a task structure’s usedTrac field in d7y.io/dragonfly
+cves:
+    - CVE-2025-59348
+ghsas:
+    - GHSA-2qgr-gfvj-qpcr
+references:
+    - advisory: https://github.com/dragonflyoss/dragonfly/security/advisories/GHSA-2qgr-gfvj-qpcr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-59348
+    - web: https://github.com/dragonflyoss/dragonfly/blob/main/docs/security/dragonfly-comprehensive-report-2023.pdf
+source:
+    id: GHSA-2qgr-gfvj-qpcr
+    created: 2025-09-22T17:59:08.102429153Z
+review_status: UNREVIEWED

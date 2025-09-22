@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3971",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-59352",
+    "GHSA-79hx-3fp8-hj66"
+  ],
+  "summary": "DragonFly vulnerable to arbitrary file read and write on a peer machine in d7y.io/dragonfly",
+  "details": "DragonFly vulnerable to arbitrary file read and write on a peer machine in d7y.io/dragonfly",
+  "affected": [
+    {
+      "package": {
+        "name": "d7y.io/dragonfly/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.1.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/dragonflyoss/dragonfly",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/dragonflyoss/dragonfly/security/advisories/GHSA-79hx-3fp8-hj66"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-59352"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dragonflyoss/dragonfly/blob/main/docs/security/dragonfly-comprehensive-report-2023.pdf"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3971",
+    "review_status": "UNREVIEWED"
+  }
+}

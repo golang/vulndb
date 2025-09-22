@@ -1,0 +1,21 @@
+id: GO-2025-3974
+modules:
+    - module: d7y.io/dragonfly/v2
+      versions:
+        - fixed: 2.1.0
+      vulnerable_at: 2.1.0-rc.0
+    - module: github.com/dragonflyoss/dragonfly
+      vulnerable_at: 1.0.6
+summary: DragonFly's tiny file download uses hard coded HTTP protocol in d7y.io/dragonfly
+cves:
+    - CVE-2025-59410
+ghsas:
+    - GHSA-mcvp-rpgg-9273
+references:
+    - advisory: https://github.com/dragonflyoss/dragonfly/security/advisories/GHSA-mcvp-rpgg-9273
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-59410
+    - web: https://github.com/dragonflyoss/dragonfly/blob/main/docs/security/dragonfly-comprehensive-report-2023.pdf
+source:
+    id: GHSA-mcvp-rpgg-9273
+    created: 2025-09-22T17:58:02.627933333Z
+review_status: UNREVIEWED

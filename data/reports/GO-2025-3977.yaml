@@ -1,0 +1,43 @@
+id: GO-2025-3977
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 9.11.0+incompatible
+        - fixed: 9.11.18+incompatible
+        - introduced: 10.5.0+incompatible
+        - fixed: 10.5.9+incompatible
+        - introduced: 10.8.0+incompatible
+        - fixed: 10.8.4+incompatible
+        - introduced: 10.9.0+incompatible
+        - fixed: 10.9.4+incompatible
+        - introduced: 10.10.0+incompatible
+        - fixed: 10.10.2+incompatible
+      vulnerable_at: 10.10.2-rc4+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20250707221302-a8fa77f107ef
+summary: Mattermost Path Traversal vulnerability in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-9079
+ghsas:
+    - GHSA-qx3f-6vq3-8j8m
+references:
+    - advisory: https://github.com/advisories/GHSA-qx3f-6vq3-8j8m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-9079
+    - web: https://github.com/mattermost/mattermost/commit/047a2c64071749367fe02d2162f6103a3d31a883
+    - web: https://github.com/mattermost/mattermost/commit/439464883aa16a329c23cd6274c4cca7e88e238f
+    - web: https://github.com/mattermost/mattermost/commit/4ff68eea0a3f3777032d31a1a82f4b1fb492a1ac
+    - web: https://github.com/mattermost/mattermost/commit/96665b9b98a17534fcd515982a2eb26950581e41
+    - web: https://github.com/mattermost/mattermost/commit/a8fa77f107efe83f09a779f8e67cbecf236b0032
+    - web: https://github.com/mattermost/mattermost/commit/b38e2eccda182212a8032539658723c7d87e0b7e
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-qx3f-6vq3-8j8m
+    created: 2025-09-22T17:56:58.664523111Z
+review_status: UNREVIEWED

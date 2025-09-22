@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3976",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-10630",
+    "GHSA-g4rr-88fc-26fj"
+  ],
+  "summary": "Grafana-Zabbix ReDoS vulnerability in github.com/alexanderzobnin/grafana-zabbix",
+  "details": "Grafana-Zabbix ReDoS vulnerability in github.com/alexanderzobnin/grafana-zabbix.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/alexanderzobnin/grafana-zabbix before v6.0.0.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/alexanderzobnin/grafana-zabbix",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "6.0.0"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-g4rr-88fc-26fj"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-10630"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/grafana/grafana-zabbix/releases/tag/v6.0.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://grafana.com/security/security-advisories/cve-2025-10630"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3976",
+    "review_status": "UNREVIEWED"
+  }
+}

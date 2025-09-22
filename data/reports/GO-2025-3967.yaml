@@ -1,0 +1,21 @@
+id: GO-2025-3967
+modules:
+    - module: github.com/esm-dev/esm.sh
+      unsupported_versions:
+        - last_affected: 136.0.0
+      vulnerable_at: 0.0.0-20250920062728-5cc3937618bd
+summary: esm.sh has arbitrary file write via path traversal in `X-Zone-Id` header in github.com/esm-dev/esm.sh
+cves:
+    - CVE-2025-59342
+ghsas:
+    - GHSA-g2h5-cvvr-7gmw
+references:
+    - advisory: https://github.com/esm-dev/esm.sh/security/advisories/GHSA-g2h5-cvvr-7gmw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-59342
+    - fix: https://github.com/esm-dev/esm.sh/commit/833a29f42aeb0acbd7089a71be11dd0a292d3151
+    - web: https://github.com/esm-dev/esm.sh/blob/main/server/router.go#L116
+    - web: https://github.com/esm-dev/esm.sh/blob/main/server/router.go#L411
+source:
+    id: GHSA-g2h5-cvvr-7gmw
+    created: 2025-09-22T17:58:37.914893705Z
+review_status: UNREVIEWED

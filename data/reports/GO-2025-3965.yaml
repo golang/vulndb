@@ -1,0 +1,21 @@
+id: GO-2025-3965
+modules:
+    - module: d7y.io/dragonfly/v2
+      versions:
+        - fixed: 2.1.0
+      vulnerable_at: 2.1.0-rc.0
+    - module: github.com/dragonflyoss/dragonfly
+      vulnerable_at: 1.0.6
+summary: Dragonfly doesn't have authentication enabled for some Manager’s endpoints in d7y.io/dragonfly
+cves:
+    - CVE-2025-59345
+ghsas:
+    - GHSA-89vc-vf32-ch59
+references:
+    - advisory: https://github.com/dragonflyoss/dragonfly/security/advisories/GHSA-89vc-vf32-ch59
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-59345
+    - web: https://github.com/dragonflyoss/dragonfly/blob/main/docs/security/dragonfly-comprehensive-report-2023.pdf
+source:
+    id: GHSA-89vc-vf32-ch59
+    created: 2025-09-22T17:58:59.438048462Z
+review_status: UNREVIEWED

@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3972",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-59350",
+    "GHSA-c2fc-9q9c-5486"
+  ],
+  "summary": "Dragonfly vulnerable to timing attacks against Proxy’s basic authentication in d7y.io/dragonfly",
+  "details": "Dragonfly vulnerable to timing attacks against Proxy’s basic authentication in d7y.io/dragonfly",
+  "affected": [
+    {
+      "package": {
+        "name": "d7y.io/dragonfly/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.1.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/dragonflyoss/dragonfly",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/dragonflyoss/dragonfly/security/advisories/GHSA-c2fc-9q9c-5486"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-59350"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dragonflyoss/dragonfly/blob/main/docs/security/dragonfly-comprehensive-report-2023.pdf"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3972",
+    "review_status": "UNREVIEWED"
+  }
+}
