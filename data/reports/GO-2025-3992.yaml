@@ -1,0 +1,39 @@
+id: GO-2025-3992
+modules:
+    - module: github.com/NVIDIA/gpu-operator
+      non_go_versions:
+        - fixed: 25.3.2
+      vulnerable_at: 1.11.1
+    - module: github.com/NVIDIA/k8s-device-plugin
+      versions:
+        - fixed: 0.17.3
+      vulnerable_at: 0.17.2
+    - module: github.com/NVIDIA/mig-parted
+      versions:
+        - fixed: 0.12.2
+      vulnerable_at: 0.12.1
+    - module: github.com/NVIDIA/nvidia-container-toolkit
+      versions:
+        - fixed: 1.17.8
+      vulnerable_at: 1.17.7
+summary: NVIDIA Container Toolkit for all platforms contains an Untrusted Search Path in github.com/NVIDIA/gpu-operator
+cves:
+    - CVE-2025-23266
+ghsas:
+    - GHSA-vmg3-7v43-9g23
+references:
+    - advisory: https://github.com/advisories/GHSA-vmg3-7v43-9g23
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-23266
+    - web: https://github.com/NVIDIA/gpu-operator
+    - web: https://github.com/NVIDIA/k8s-device-plugin
+    - web: https://github.com/NVIDIA/mig-parted
+    - web: https://github.com/NVIDIA/nvidia-container-toolkit
+    - web: https://kidbomb.github.io/posts/nvidia-container-escape-cve-2025-23266
+    - web: https://kidbomb.github.io/posts/nvidia-container-escape-cve-2025-23266-part-2
+    - web: https://news.ycombinator.com/item?id=44818412
+    - web: https://nvidia.custhelp.com/app/answers/detail/a_id/5659
+    - web: https://www.wiz.io/blog/nvidia-ai-vulnerability-cve-2025-23266-nvidiascape
+source:
+    id: GHSA-vmg3-7v43-9g23
+    created: 2025-10-13T09:59:29.542991625Z
+review_status: UNREVIEWED

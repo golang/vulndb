@@ -1,0 +1,22 @@
+id: GO-2025-4018
+modules:
+    - module: github.com/ossf/allstar
+      versions:
+        - fixed: 0.0.0-20250721181116-e004ecb540d6
+summary: Allstar Reviewbot has Authentication Bypass via Hard-coded Webhook Secret in github.com/ossf/allstar
+cves:
+    - CVE-2025-61926
+ghsas:
+    - GHSA-33f4-mjch-7fpr
+references:
+    - advisory: https://github.com/ossf/allstar/security/advisories/GHSA-33f4-mjch-7fpr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-61926
+    - fix: https://github.com/ossf/allstar/commit/e004ecb540d63ca6f5b1689b41af6c0040a82c73
+    - fix: https://github.com/ossf/allstar/pull/713
+    - web: https://github.com/ossf/allstar/blob/294ae985cc2facd0918e8d820e4196021aa0b914/pkg/reviewbot/reviewbot.go#L59
+notes:
+    - fix: 'github.com/ossf/allstar: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-33f4-mjch-7fpr
+    created: 2025-10-13T09:53:07.647491608Z
+review_status: UNREVIEWED

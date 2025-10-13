@@ -1,0 +1,23 @@
+id: GO-2025-3991
+modules:
+    - module: github.com/coder/agentapi
+      versions:
+        - fixed: 0.4.0
+      vulnerable_at: 0.3.3
+summary: Coder AgentAPI exposed user chat history via a DNS rebinding attack in github.com/coder/agentapi
+cves:
+    - CVE-2025-59956
+ghsas:
+    - GHSA-w64r-2g3w-w8w4
+references:
+    - advisory: https://github.com/coder/agentapi/security/advisories/GHSA-w64r-2g3w-w8w4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-59956
+    - fix: https://github.com/coder/agentapi/commit/5c425c62447b8a9eac19e9fc5a2eae7f0803f149
+    - fix: https://github.com/coder/agentapi/pull/49
+    - web: https://github.blog/security/application-security/localhost-dangers-cors-and-dns-rebinding
+    - web: https://github.com/coder/agentapi/releases/tag/v0.4.0
+    - web: https://mcpsec.dev/advisories/2025-09-19-coder-chat-exfiltration
+source:
+    id: GHSA-w64r-2g3w-w8w4
+    created: 2025-10-13T09:59:41.91600499Z
+review_status: UNREVIEWED

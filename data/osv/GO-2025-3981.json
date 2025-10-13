@@ -1,0 +1,140 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3981",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-59823",
+    "GHSA-227x-7mh8-3cf6"
+  ],
+  "summary": "Gardener provider extensions vulnerable to code injection when Terraform is used for infrastructure provisioning in github.com/gardener/gardener-extension-provider-aws",
+  "details": "Gardener provider extensions vulnerable to code injection when Terraform is used for infrastructure provisioning in github.com/gardener/gardener-extension-provider-aws",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gardener/gardener-extension-provider-aws",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.64.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/gardener/gardener-extension-provider-azure",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.55.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/gardener/gardener-extension-provider-gcp",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.46.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/gardener/gardener-extension-provider-openstack",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.49.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/gardener/gardener-extension-provider-aws/security/advisories/GHSA-227x-7mh8-3cf6"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-59823"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gardener/gardener-extension-provider-aws/commit/cb5045fc146248296994804bbfe27bd896938bf2"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gardener/gardener-extension-provider-azure/commit/4573a4404969f89781ed6cf72e90554bc6ae2020"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gardener/gardener-extension-provider-gcp/commit/51111b4f60c33c60dfdf18b1fc50f7ec8d8f70ac"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gardener/gardener-extension-provider-openstack/commit/2ed6f0fe1be90fbef5d6093eb0b8325c8421b8d8"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/gardener/gardener-extension-provider-aws/releases/tag/v1.64.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/gardener/gardener-extension-provider-azure/releases/tag/v1.55.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/gardener/gardener-extension-provider-gcp/releases/tag/v1.46.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/gardener/gardener-extension-provider-openstack/releases/tag/v1.49.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3981",
+    "review_status": "UNREVIEWED"
+  }
+}

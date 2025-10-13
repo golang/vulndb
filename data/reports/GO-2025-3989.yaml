@@ -1,0 +1,19 @@
+id: GO-2025-3989
+modules:
+    - module: github.com/filecoin-project/go-f3
+      versions:
+        - fixed: 0.8.9
+      vulnerable_at: 0.8.8
+summary: go-f3 Vulnerable to Cached Justification Verification Bypass in github.com/filecoin-project/go-f3
+cves:
+    - CVE-2025-59941
+ghsas:
+    - GHSA-7pq9-rf9p-wcrf
+references:
+    - advisory: https://github.com/filecoin-project/go-f3/security/advisories/GHSA-7pq9-rf9p-wcrf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-59941
+    - fix: https://github.com/filecoin-project/go-f3/commit/76fff18cf07b21baccf537024bdb2fb41f75f6e2#diff-e1f646cea41790e1642e4e649c9e3c526344736d67222201703e1c29c23e9625
+source:
+    id: GHSA-7pq9-rf9p-wcrf
+    created: 2025-10-13T09:59:59.531339769Z
+review_status: UNREVIEWED

@@ -1,0 +1,139 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3998",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-23267",
+    "GHSA-67jc-hmvg-q4c7"
+  ],
+  "summary": "NVIDIA Container Toolkit for all platforms contains a vulnerability in the update-ldcache hook in github.com/NVIDIA/gpu-operator",
+  "details": "NVIDIA Container Toolkit for all platforms contains a vulnerability in the update-ldcache hook in github.com/NVIDIA/gpu-operator.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/NVIDIA/gpu-operator before v25.3.2.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/NVIDIA/gpu-operator",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "25.3.2"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/NVIDIA/k8s-device-plugin",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.17.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/NVIDIA/mig-parted",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.12.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/NVIDIA/nvidia-container-toolkit",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.17.8"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-67jc-hmvg-q4c7"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-23267"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/NVIDIA/gpu-operator"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/NVIDIA/k8s-device-plugin"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/NVIDIA/mig-parted"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/NVIDIA/nvidia-container-toolkit"
+    },
+    {
+      "type": "WEB",
+      "url": "https://nvidia.custhelp.com/app/answers/detail/a_id/5659"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3998",
+    "review_status": "UNREVIEWED"
+  }
+}

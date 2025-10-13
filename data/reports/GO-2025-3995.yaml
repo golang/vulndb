@@ -1,0 +1,31 @@
+id: GO-2025-3995
+modules:
+    - module: github.com/argoproj/argo-cd
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - introduced: 2.9.0-rc1
+        - fixed: 2.14.20
+      vulnerable_at: 2.14.19
+    - module: github.com/argoproj/argo-cd/v3
+      versions:
+        - introduced: 3.0.0-rc1
+        - fixed: 3.0.19
+        - introduced: 3.1.0-rc1
+        - fixed: 3.1.8
+        - introduced: 3.2.0-rc1
+        - fixed: 3.2.0-rc2
+      vulnerable_at: 3.2.0-rc1
+summary: Argo CD Unauthenticated Remote DoS via malformed Azure DevOps git.push webhook in github.com/argoproj/argo-cd
+cves:
+    - CVE-2025-59538
+ghsas:
+    - GHSA-gpx4-37g2-c8pv
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-gpx4-37g2-c8pv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-59538
+    - fix: https://github.com/argoproj/argo-cd/commit/1a023f1ca7fe4ec942b4b6696804988d5a632baf
+source:
+    id: GHSA-gpx4-37g2-c8pv
+    created: 2025-10-13T09:59:05.881872868Z
+review_status: UNREVIEWED

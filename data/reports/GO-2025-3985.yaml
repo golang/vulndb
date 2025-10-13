@@ -1,0 +1,20 @@
+id: GO-2025-3985
+modules:
+    - module: github.com/kcp-dev/kcp
+      versions:
+        - fixed: 0.28.3
+      vulnerable_at: 0.28.2
+summary: |-
+    kcp is missing update validation allows arbitrary LogicalCluster status patches
+    through initializingworkspaces Virtual Workspace in github.com/kcp-dev/kcp
+ghsas:
+    - GHSA-q6hv-wcjr-wp8h
+references:
+    - advisory: https://github.com/kcp-dev/kcp/security/advisories/GHSA-q6hv-wcjr-wp8h
+    - fix: https://github.com/kcp-dev/kcp/commit/02134a2a51d33652ab288cccd7a13539b59c7584
+    - fix: https://github.com/kcp-dev/kcp/pull/3599
+    - web: https://github.com/kcp-dev/kcp/releases/tag/v0.28.3
+source:
+    id: GHSA-q6hv-wcjr-wp8h
+    created: 2025-10-13T10:00:59.734167649Z
+review_status: UNREVIEWED

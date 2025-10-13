@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3993",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-59531",
+    "GHSA-f9gq-prrc-hrhc"
+  ],
+  "summary": "Unauthenticated argocd-server panic via a malicious Bitbucket-Server webhook payload in github.com/argoproj/argo-cd",
+  "details": "Unauthenticated argocd-server panic via a malicious Bitbucket-Server webhook payload in github.com/argoproj/argo-cd",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-cd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.2.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-cd/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.0.0-rc1"
+            },
+            {
+              "fixed": "2.14.20"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-cd/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "3.0.0-rc1"
+            },
+            {
+              "fixed": "3.0.19"
+            },
+            {
+              "introduced": "3.1.0-rc1"
+            },
+            {
+              "fixed": "3.1.8"
+            },
+            {
+              "introduced": "3.2.0-rc1"
+            },
+            {
+              "fixed": "3.2.0-rc2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/argoproj/argo-cd/security/advisories/GHSA-f9gq-prrc-hrhc"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-59531"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-cd/commit/5c466a4e39802e059e75c0008ae7b7b8e842538f"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3993",
+    "review_status": "UNREVIEWED"
+  }
+}

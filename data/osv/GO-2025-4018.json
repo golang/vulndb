@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4018",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-61926",
+    "GHSA-33f4-mjch-7fpr"
+  ],
+  "summary": "Allstar Reviewbot has Authentication Bypass via Hard-coded Webhook Secret in github.com/ossf/allstar",
+  "details": "Allstar Reviewbot has Authentication Bypass via Hard-coded Webhook Secret in github.com/ossf/allstar",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/ossf/allstar",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20250721181116-e004ecb540d6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/ossf/allstar/security/advisories/GHSA-33f4-mjch-7fpr"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-61926"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/ossf/allstar/commit/e004ecb540d63ca6f5b1689b41af6c0040a82c73"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/ossf/allstar/pull/713"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/ossf/allstar/blob/294ae985cc2facd0918e8d820e4196021aa0b914/pkg/reviewbot/reviewbot.go#L59"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4018",
+    "review_status": "UNREVIEWED"
+  }
+}

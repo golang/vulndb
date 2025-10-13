@@ -1,0 +1,28 @@
+id: GO-2025-3997
+modules:
+    - module: github.com/MANTRA-Chain/mantrachain
+      vulnerable_at: 1.0.3
+    - module: github.com/MANTRA-Chain/mantrachain/v2
+      vulnerable_at: 2.0.3
+    - module: github.com/MANTRA-Chain/mantrachain/v3
+      vulnerable_at: 3.0.3
+    - module: github.com/MANTRA-Chain/mantrachain/v4
+      versions:
+        - fixed: 4.0.2
+      vulnerable_at: 4.0.1
+summary: |-
+    github.com/MANTRA-Chain/mantrachain/x/tokenfactory tx gas limit is not enforced
+    in send hooks in github.com/MANTRA-Chain/mantrachain
+cves:
+    - CVE-2025-61595
+ghsas:
+    - GHSA-qwvm-wqq8-8j69
+references:
+    - advisory: https://github.com/MANTRA-Chain/mantrachain/security/advisories/GHSA-qwvm-wqq8-8j69
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-61595
+    - fix: https://github.com/MANTRA-Chain/mantrachain/commit/30d36c46e9823b56b8f0dcbb66e980ca5df284e4
+    - report: https://github.com/MANTRA-Chain/mantrachain/issues/432
+source:
+    id: GHSA-qwvm-wqq8-8j69
+    created: 2025-10-13T09:58:49.990026443Z
+review_status: UNREVIEWED

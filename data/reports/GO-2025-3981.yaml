@@ -1,0 +1,40 @@
+id: GO-2025-3981
+modules:
+    - module: github.com/gardener/gardener-extension-provider-aws
+      versions:
+        - fixed: 1.64.0
+      vulnerable_at: 1.63.0
+    - module: github.com/gardener/gardener-extension-provider-azure
+      versions:
+        - fixed: 1.55.0
+      vulnerable_at: 1.54.2
+    - module: github.com/gardener/gardener-extension-provider-gcp
+      versions:
+        - fixed: 1.46.0
+      vulnerable_at: 1.45.1
+    - module: github.com/gardener/gardener-extension-provider-openstack
+      versions:
+        - fixed: 1.49.0
+      vulnerable_at: 1.48.1
+summary: |-
+    Gardener provider extensions vulnerable to code injection when Terraform is used
+    for infrastructure provisioning in github.com/gardener/gardener-extension-provider-aws
+cves:
+    - CVE-2025-59823
+ghsas:
+    - GHSA-227x-7mh8-3cf6
+references:
+    - advisory: https://github.com/gardener/gardener-extension-provider-aws/security/advisories/GHSA-227x-7mh8-3cf6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-59823
+    - fix: https://github.com/gardener/gardener-extension-provider-aws/commit/cb5045fc146248296994804bbfe27bd896938bf2
+    - fix: https://github.com/gardener/gardener-extension-provider-azure/commit/4573a4404969f89781ed6cf72e90554bc6ae2020
+    - fix: https://github.com/gardener/gardener-extension-provider-gcp/commit/51111b4f60c33c60dfdf18b1fc50f7ec8d8f70ac
+    - fix: https://github.com/gardener/gardener-extension-provider-openstack/commit/2ed6f0fe1be90fbef5d6093eb0b8325c8421b8d8
+    - web: https://github.com/gardener/gardener-extension-provider-aws/releases/tag/v1.64.0
+    - web: https://github.com/gardener/gardener-extension-provider-azure/releases/tag/v1.55.0
+    - web: https://github.com/gardener/gardener-extension-provider-gcp/releases/tag/v1.46.0
+    - web: https://github.com/gardener/gardener-extension-provider-openstack/releases/tag/v1.49.0
+source:
+    id: GHSA-227x-7mh8-3cf6
+    created: 2025-10-13T10:01:34.069717909Z
+review_status: UNREVIEWED

@@ -1,0 +1,32 @@
+id: GO-2025-3994
+modules:
+    - module: github.com/argoproj/argo-cd
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - introduced: 2.1.0
+        - fixed: 2.14.20
+      vulnerable_at: 2.14.19
+    - module: github.com/argoproj/argo-cd/v3
+      versions:
+        - introduced: 3.0.0-rc1
+        - fixed: 3.0.19
+        - introduced: 3.1.0-rc1
+        - fixed: 3.1.8
+        - introduced: 3.2.0-rc1
+        - fixed: 3.2.0-rc2
+      vulnerable_at: 3.2.0-rc1
+summary: Repository Credentials Race Condition Crashes Argo CD Server in github.com/argoproj/argo-cd
+cves:
+    - CVE-2025-55191
+ghsas:
+    - GHSA-g88p-r42r-ppp9
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-g88p-r42r-ppp9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-55191
+    - fix: https://github.com/argoproj/argo-cd/commit/701bc50d01c752cad96185f848088d287a97c7b7
+    - fix: https://github.com/argoproj/argo-cd/pull/6103
+source:
+    id: GHSA-g88p-r42r-ppp9
+    created: 2025-10-13T09:59:13.284306486Z
+review_status: UNREVIEWED

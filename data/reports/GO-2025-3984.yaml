@@ -1,0 +1,26 @@
+id: GO-2025-3984
+modules:
+    - module: github.com/rancher/rancher
+      non_go_versions:
+        - introduced: 2.9.0
+        - fixed: 2.9.12
+        - introduced: 2.10.0
+        - fixed: 2.10.10
+        - introduced: 2.11.0
+        - fixed: 2.11.6
+        - introduced: 2.12.0
+        - fixed: 2.12.2
+      vulnerable_at: 1.6.30
+summary: Rancher CLI SAML authentication is vulnerable to phishing attacks in github.com/rancher/rancher
+cves:
+    - CVE-2024-58267
+ghsas:
+    - GHSA-v3vj-5868-2ch2
+references:
+    - advisory: https://github.com/rancher/rancher/security/advisories/GHSA-v3vj-5868-2ch2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-58267
+    - web: https://bugzilla.suse.com/show_bug.cgi?id=CVE-2024-58267
+source:
+    id: GHSA-v3vj-5868-2ch2
+    created: 2025-10-13T10:01:05.791134955Z
+review_status: UNREVIEWED

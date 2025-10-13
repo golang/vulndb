@@ -1,0 +1,37 @@
+id: GO-2025-3993
+modules:
+    - module: github.com/argoproj/argo-cd
+      versions:
+        - introduced: 1.2.0
+      unsupported_versions:
+        - last_affected: 1.8.7
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - introduced: 2.0.0-rc1
+        - fixed: 2.14.20
+      vulnerable_at: 2.14.19
+    - module: github.com/argoproj/argo-cd/v3
+      versions:
+        - introduced: 3.0.0-rc1
+        - fixed: 3.0.19
+        - introduced: 3.1.0-rc1
+        - fixed: 3.1.8
+        - introduced: 3.2.0-rc1
+        - fixed: 3.2.0-rc2
+      vulnerable_at: 3.2.0-rc1
+summary: |-
+    Unauthenticated argocd-server panic via a malicious Bitbucket-Server webhook
+    payload in github.com/argoproj/argo-cd
+cves:
+    - CVE-2025-59531
+ghsas:
+    - GHSA-f9gq-prrc-hrhc
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-f9gq-prrc-hrhc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-59531
+    - fix: https://github.com/argoproj/argo-cd/commit/5c466a4e39802e059e75c0008ae7b7b8e842538f
+source:
+    id: GHSA-f9gq-prrc-hrhc
+    created: 2025-10-13T09:59:22.360822078Z
+review_status: UNREVIEWED

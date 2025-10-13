@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4019",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-xc79-566c-j4qx"
+  ],
+  "summary": "Parallax is vulnerable to DoS via malicious p2p message in github.com/microstack-tech/parallax",
+  "details": "Parallax is vulnerable to DoS via malicious p2p message in github.com/microstack-tech/parallax",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/microstack-tech/parallax",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.1.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/microstack-tech/parallax/security/advisories/GHSA-xc79-566c-j4qx"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/microstack-tech/parallax/commit/f759e9090aaf00a43c616d7cbd133c44bb1ed01e"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/microstack-tech/parallax/releases/tag/v0.1.4"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4019",
+    "review_status": "UNREVIEWED"
+  }
+}
