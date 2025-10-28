@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4038",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-26625",
+    "GHSA-6pvw-g552-53c5"
+  ],
+  "summary": "Git LFS may write to arbitrary files via crafted symlinks in github.com/git-lfs/git-lfs",
+  "details": "Git LFS may write to arbitrary files via crafted symlinks in github.com/git-lfs/git-lfs",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/git-lfs/git-lfs",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.5.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/git-lfs/git-lfs/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.7.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/git-lfs/git-lfs/v3/commands",
+            "symbols": [
+              "checkoutCommand",
+              "checkoutConflict",
+              "newSingleCheckout",
+              "singleCheckout.Run"
+            ]
+          },
+          {
+            "path": "github.com/git-lfs/git-lfs/v3/lfs",
+            "symbols": [
+              "GitFilter.SmudgeToFile"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/git-lfs/git-lfs/security/advisories/GHSA-6pvw-g552-53c5"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/git-lfs/git-lfs/commit/0cffe93176b870055c9dadbb3cc9a4a440e98396"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/git-lfs/git-lfs/commit/5c11ffce9a4f095ff356bc781e2a031abb46c1a8"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/git-lfs/git-lfs/commit/d02bd13f02ef76f6807581cd6b34709069cb3615"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/git-lfs/git-lfs/releases/tag/v3.7.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4038",
+    "review_status": "REVIEWED"
+  }
+}

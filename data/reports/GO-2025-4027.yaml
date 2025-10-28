@@ -1,0 +1,23 @@
+id: GO-2025-4027
+modules:
+    - module: github.com/consensys/gnark-crypto
+      versions:
+        - fixed: 0.12.0
+      vulnerable_at: 0.11.2
+summary: |-
+    Gnark-crypto doesn't range check input values during ECDSA and EdDSA
+    deserialization in github.com/consensys/gnark-crypto
+ghsas:
+    - GHSA-fr8m-434r-g3xp
+references:
+    - advisory: https://github.com/Consensys/gnark-crypto/security/advisories/GHSA-fr8m-434r-g3xp
+    - web: https://github.com/Consensys/gnark-crypto/pull/449
+    - web: https://github.com/Consensys/gnark-crypto/releases/tag/v0.12.0
+    - web: https://github.com/advisories/GHSA-9xfq-8j3r-xp5g
+    - web: https://go.dev/blog/defer-panic-and-recover
+notes:
+    - Symbols failed due to Go tooling being unable to determine what version to build dependencies
+source:
+    id: GHSA-fr8m-434r-g3xp
+    created: 2025-10-28T17:37:04.938126994Z
+review_status: REVIEWED

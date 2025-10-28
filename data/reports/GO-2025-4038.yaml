@@ -1,0 +1,37 @@
+id: GO-2025-4038
+modules:
+    - module: github.com/git-lfs/git-lfs
+      versions:
+        - introduced: 0.5.2
+      vulnerable_at: 1.5.6
+    - module: github.com/git-lfs/git-lfs/v3
+      versions:
+        - fixed: 3.7.1
+      vulnerable_at: 3.7.0
+      packages:
+        - package: github.com/git-lfs/git-lfs/v3/commands
+          symbols:
+            - singleCheckout.Run
+            - checkoutConflict
+            - checkoutCommand
+            - newSingleCheckout
+        - package: github.com/git-lfs/git-lfs/v3/lfs
+          symbols:
+            - GitFilter.SmudgeToFile
+summary: |-
+    Git LFS may write to arbitrary files via crafted symlinks in
+    github.com/git-lfs/git-lfs
+cves:
+    - CVE-2025-26625
+ghsas:
+    - GHSA-6pvw-g552-53c5
+references:
+    - advisory: https://github.com/git-lfs/git-lfs/security/advisories/GHSA-6pvw-g552-53c5
+    - fix: https://github.com/git-lfs/git-lfs/commit/0cffe93176b870055c9dadbb3cc9a4a440e98396
+    - fix: https://github.com/git-lfs/git-lfs/commit/5c11ffce9a4f095ff356bc781e2a031abb46c1a8
+    - fix: https://github.com/git-lfs/git-lfs/commit/d02bd13f02ef76f6807581cd6b34709069cb3615
+    - web: https://github.com/git-lfs/git-lfs/releases/tag/v3.7.1
+source:
+    id: GHSA-6pvw-g552-53c5
+    created: 2025-10-28T17:30:07.668806596Z
+review_status: REVIEWED

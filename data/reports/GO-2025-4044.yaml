@@ -1,0 +1,25 @@
+id: GO-2025-4044
+modules:
+    - module: github.com/neuvector/neuvector
+      non_go_versions:
+        - introduced: 0.0.0-20230727023453-1c4957d53911
+        - fixed: 0.0.0-20251020133207-084a437033b4
+        - introduced: 5.3.0
+        - fixed: 5.3.5
+        - introduced: 5.4.0
+        - fixed: 5.4.7
+summary: |-
+    NeuVector telemetry sender is vulnerable to MITM and DoS in
+    github.com/neuvector/neuvector
+cves:
+    - CVE-2025-54470
+ghsas:
+    - GHSA-qqj3-g7mx-5p4w
+references:
+    - advisory: https://github.com/neuvector/neuvector/security/advisories/GHSA-qqj3-g7mx-5p4w
+    - web: https://github.com/neuvector/neuvector/commit/06424701e69bf1eb76ff90180d78853fded93021
+    - web: https://github.com/neuvector/neuvector/commit/415737cbec581a5dc5f204fac1c78b7f29ad7dc2
+source:
+    id: GHSA-qqj3-g7mx-5p4w
+    created: 2025-10-28T17:29:19.513717805Z
+review_status: REVIEWED
