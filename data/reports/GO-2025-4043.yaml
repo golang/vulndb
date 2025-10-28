@@ -1,0 +1,23 @@
+id: GO-2025-4043
+modules:
+    - module: github.com/neuvector/neuvector
+      versions:
+        - introduced: 0.0.0-20230727023453-1c4957d53911
+        - fixed: 0.0.0-20251020133207-084a437033b4
+      non_go_versions:
+        - introduced: 5.3.0
+        - fixed: 5.4.7
+summary: NeuVector is shipping cryptographic material into its binary in github.com/neuvector/neuvector
+cves:
+    - CVE-2025-54471
+ghsas:
+    - GHSA-h773-7gf7-9m2x
+references:
+    - advisory: https://github.com/neuvector/neuvector/security/advisories/GHSA-h773-7gf7-9m2x
+    - fix: https://github.com/neuvector/neuvector/commit/084a437033b491eeea11bdba1a09dd84ed12ea88
+notes:
+    - fix: 'github.com/neuvector/neuvector: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-h773-7gf7-9m2x
+    created: 2025-10-28T17:29:25.609924723Z
+review_status: UNREVIEWED

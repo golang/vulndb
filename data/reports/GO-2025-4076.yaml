@@ -1,0 +1,25 @@
+id: GO-2025-4076
+modules:
+    - module: github.com/edgelesssys/constellation
+      vulnerable_at: 0.0.0
+    - module: github.com/edgelesssys/constellation/v2
+      versions:
+        - fixed: 2.24.0
+      vulnerable_at: 2.23.1
+summary: |-
+    Constellation has insecure LUKS2 persistent storage partitions which may be
+    opened and used in github.com/edgelesssys/constellation
+cves:
+    - CVE-2025-58356
+ghsas:
+    - GHSA-hq76-6gh2-5g4q
+references:
+    - advisory: https://github.com/edgelesssys/constellation/security/advisories/GHSA-hq76-6gh2-5g4q
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-58356
+    - fix: https://github.com/edgelesssys/constellation/commit/bb8d2c8a5c0a0a6510d2cc43055be21f4a3ab83c
+    - fix: https://github.com/edgelesssys/constellation/pull/3927
+    - web: https://github.com/edgelesssys/constellation/releases/tag/v2.24.0
+source:
+    id: GHSA-hq76-6gh2-5g4q
+    created: 2025-10-28T17:26:00.696608642Z
+review_status: UNREVIEWED

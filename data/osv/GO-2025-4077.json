@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4077",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-62725",
+    "GHSA-gv8h-7v7w-r22q"
+  ],
+  "summary": "Docker Compose Vulnerable to Path Traversal via OCI Artifact Layer Annotations in github.com/docker/compose",
+  "details": "Docker Compose Vulnerable to Path Traversal via OCI Artifact Layer Annotations in github.com/docker/compose",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/docker/compose",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/docker/compose/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.40.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/docker/compose/security/advisories/GHSA-gv8h-7v7w-r22q"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-62725"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/docker/compose/commit/69bcb962bfb2ea53b41aa925333d356b577d6176"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4077",
+    "review_status": "UNREVIEWED"
+  }
+}

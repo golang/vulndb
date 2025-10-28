@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4068",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-62820",
+    "GHSA-x6fh-7qmf-69xh"
+  ],
+  "summary": "Slack Nebula may accept arbitrary source IP addresses in github.com/slackhq/nebula",
+  "details": "Slack Nebula may accept arbitrary source IP addresses in github.com/slackhq/nebula",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/slackhq/nebula",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.9.4"
+            },
+            {
+              "fixed": "1.9.7"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-x6fh-7qmf-69xh"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-62820"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/slackhq/nebula/commit/e264a0ff888c7bf0568579306755a60fc42f6ecc"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/slackhq/nebula/pull/1493"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/slackhq/nebula/pull/1494"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4068",
+    "review_status": "UNREVIEWED"
+  }
+}

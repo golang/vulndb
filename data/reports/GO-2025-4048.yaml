@@ -1,0 +1,21 @@
+id: GO-2025-4048
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 3.2.0+incompatible
+      vulnerable_at: 3.1.0+incompatible
+summary: Mattermost Server is vulnerable to Code Injection through its LDAP fields in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2016-11068
+ghsas:
+    - GHSA-7vmw-6c7h-rrrv
+references:
+    - advisory: https://github.com/advisories/GHSA-7vmw-6c7h-rrrv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2016-11068
+    - web: https://github.com/mattermost/mattermost
+    - web: https://github.com/mattermost/mattermost/commit/6c5a8be6bfe1d6b9d8f71a6b0dc4d8cf93a03aab
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-7vmw-6c7h-rrrv
+    created: 2025-10-28T17:28:57.524390988Z
+review_status: UNREVIEWED

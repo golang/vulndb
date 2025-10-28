@@ -1,0 +1,35 @@
+id: GO-2025-4029
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.5.0+incompatible
+        - fixed: 10.5.11+incompatible
+        - introduced: 10.10.0+incompatible
+        - fixed: 10.10.3+incompatible
+        - introduced: 10.11.0+incompatible
+        - fixed: 10.11.3+incompatible
+      vulnerable_at: 10.11.2+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      non_go_versions:
+        - fixed: 8.0.0-20250822083415-01b95392a450
+      vulnerable_at: 8.0.0-20251028162707-35dd8dea5008
+summary: Mattermost has a Missing Authorization vulnerability in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-41410
+ghsas:
+    - GHSA-3q4q-wqm6-hvf3
+references:
+    - advisory: https://github.com/advisories/GHSA-3q4q-wqm6-hvf3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-41410
+    - web: https://github.com/mattermost/mattermost/commit/01b95392a450676407475596d1c041a047067329
+    - web: https://github.com/mattermost/mattermost/commit/0d6e8fa2e4681a172a136db18001104a57f9c28e
+    - web: https://github.com/mattermost/mattermost/commit/ef896a4ea60cacbe03124106e1f42e5c25276427
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-3q4q-wqm6-hvf3
+    created: 2025-10-28T17:35:57.036470094Z
+review_status: UNREVIEWED

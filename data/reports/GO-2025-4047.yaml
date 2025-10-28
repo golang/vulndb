@@ -1,0 +1,20 @@
+id: GO-2025-4047
+modules:
+    - module: github.com/mattermost/mattermost-server
+      non_go_versions:
+        - fixed: 3.1.1
+      vulnerable_at: 11.0.4+incompatible
+summary: 'Mattermost Server: initial_load API exposes unnecessary information in github.com/mattermost/mattermost-server'
+cves:
+    - CVE-2016-11066
+ghsas:
+    - GHSA-r93j-3mmp-px57
+references:
+    - advisory: https://github.com/advisories/GHSA-r93j-3mmp-px57
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2016-11066
+    - web: https://github.com/mattermost/mattermost/commit/f89e7c6d543a82d6078c2ca0f892914d7976a6f5
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-r93j-3mmp-px57
+    created: 2025-10-28T17:29:03.0186527Z
+review_status: UNREVIEWED

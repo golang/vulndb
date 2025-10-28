@@ -1,0 +1,25 @@
+id: GO-2025-4075
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 4.3.3+incompatible
+        - introduced: 4.4.0-rc1+incompatible
+        - fixed: 4.4.3+incompatible
+      vulnerable_at: 4.4.3-rc1+incompatible
+summary: |-
+    Mattermost Server's OAuth 2.0 service is vulnerable to attack through Missing
+    Authorization in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2017-18872
+ghsas:
+    - GHSA-hgrp-fgm8-56g8
+references:
+    - advisory: https://github.com/advisories/GHSA-hgrp-fgm8-56g8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-18872
+    - web: http://github.com/mattermost/mattermost/commit/753386c2b2b06233d8bd977e3db29a4fe18098cb
+    - web: https://github.com/mattermost/mattermost/commit/8f6bb1570dd234c63de5241eff9fbb268aad358c
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-hgrp-fgm8-56g8
+    created: 2025-10-28T17:26:08.605668904Z
+review_status: UNREVIEWED

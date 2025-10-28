@@ -1,0 +1,20 @@
+id: GO-2025-4067
+modules:
+    - module: github.com/openbao/openbao-plugins
+      non_go_versions:
+        - fixed: 0.1.1
+      vulnerable_at: 0.0.0-20251028080446-cd3e9798835a
+summary: |-
+    OpenBao AWS Plugin Vulnerable to Cross-Account IAM Role Impersonation in AWS
+    Auth Method in github.com/openbao/openbao-plugins
+cves:
+    - CVE-2025-59048
+ghsas:
+    - GHSA-jp7h-4f3c-9rc7
+references:
+    - advisory: https://github.com/openbao/openbao-plugins/security/advisories/GHSA-jp7h-4f3c-9rc7
+    - fix: https://github.com/openbao/openbao-plugins/commit/2a77af36834746ca6d3ac9bd1049154c84b3efae
+source:
+    id: GHSA-jp7h-4f3c-9rc7
+    created: 2025-10-28T17:27:08.088869588Z
+review_status: UNREVIEWED

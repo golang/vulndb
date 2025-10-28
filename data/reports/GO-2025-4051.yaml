@@ -1,0 +1,20 @@
+id: GO-2025-4051
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 3.2.0+incompatible
+      vulnerable_at: 3.1.0+incompatible
+summary: Mattermost Server does not enforce rate limits on password change attempts in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2016-11069
+ghsas:
+    - GHSA-qrf6-h5fc-7m96
+references:
+    - advisory: https://github.com/advisories/GHSA-qrf6-h5fc-7m96
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2016-11069
+    - web: https://github.com/mattermost/mattermost/commit/c976c2881ce5e34febac8a9850a6bad5d728625e
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-qrf6-h5fc-7m96
+    created: 2025-10-28T17:28:43.583714508Z
+review_status: UNREVIEWED

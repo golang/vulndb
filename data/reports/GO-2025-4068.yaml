@@ -1,0 +1,22 @@
+id: GO-2025-4068
+modules:
+    - module: github.com/slackhq/nebula
+      versions:
+        - introduced: 1.9.4
+        - fixed: 1.9.7
+      vulnerable_at: 1.9.6
+summary: Slack Nebula may accept arbitrary source IP addresses in github.com/slackhq/nebula
+cves:
+    - CVE-2025-62820
+ghsas:
+    - GHSA-x6fh-7qmf-69xh
+references:
+    - advisory: https://github.com/advisories/GHSA-x6fh-7qmf-69xh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-62820
+    - fix: https://github.com/slackhq/nebula/commit/e264a0ff888c7bf0568579306755a60fc42f6ecc
+    - fix: https://github.com/slackhq/nebula/pull/1493
+    - fix: https://github.com/slackhq/nebula/pull/1494
+source:
+    id: GHSA-x6fh-7qmf-69xh
+    created: 2025-10-28T17:26:57.321595853Z
+review_status: UNREVIEWED

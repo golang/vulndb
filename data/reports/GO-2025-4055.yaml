@@ -1,0 +1,20 @@
+id: GO-2025-4055
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 3.0.2+incompatible
+      vulnerable_at: 3.0.1+incompatible
+summary: Mattermost Server's Session ID and Session Token are potentially compromised in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2016-11072
+ghsas:
+    - GHSA-43m6-wvc8-2m7j
+references:
+    - advisory: https://github.com/advisories/GHSA-43m6-wvc8-2m7j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2016-11072
+    - web: https://github.com/mattermost/mattermost/commit/ac509b114df1c1b4b841eded74fb797805e0162d
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-43m6-wvc8-2m7j
+    created: 2025-10-28T17:28:24.693528222Z
+review_status: UNREVIEWED

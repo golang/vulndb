@@ -1,0 +1,20 @@
+id: GO-2025-4056
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 3.0.0+incompatible
+      vulnerable_at: 2.2.0+incompatible
+summary: Mattermost Server is vulnerable to XSS via a Legal or Support setting in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2016-11073
+ghsas:
+    - GHSA-9jrx-fgrm-96qh
+references:
+    - advisory: https://github.com/advisories/GHSA-9jrx-fgrm-96qh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2016-11073
+    - web: https://github.com/mattermost/mattermost/commit/5ed7c3baa5b44356e92551c05e75ef2a47e2bf9b
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-9jrx-fgrm-96qh
+    created: 2025-10-28T17:28:19.702046059Z
+review_status: UNREVIEWED

@@ -1,0 +1,23 @@
+id: GO-2025-4070
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - introduced: 0.6.0
+        - fixed: 1.21.0
+      vulnerable_at: 1.21.0-rc1
+summary: |-
+    HashiCorp Vault and Vault Enterprise's AWS Auth method may be susceptible to
+    authentication bypass in github.com/hashicorp/vault
+cves:
+    - CVE-2025-11621
+ghsas:
+    - GHSA-9g4h-h484-3578
+references:
+    - advisory: https://github.com/advisories/GHSA-9g4h-h484-3578
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-11621
+    - fix: https://github.com/hashicorp/vault/commit/8d07273d14ae7f5a48cc96f66cc86615dea83390
+    - web: https://discuss.hashicorp.com/t/hcsec-2025-30-vault-aws-auth-method-authentication-bypass-through-mishandling-of-cache-entries/76709
+source:
+    id: GHSA-9g4h-h484-3578
+    created: 2025-10-28T17:26:51.889081949Z
+review_status: UNREVIEWED

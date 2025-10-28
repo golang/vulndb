@@ -1,0 +1,22 @@
+id: GO-2025-4060
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 3.0.0+incompatible
+      vulnerable_at: 2.2.0+incompatible
+summary: |-
+    Mattermost Server allows System Admin to modify LDAP account names and email
+    addresses in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2016-11077
+ghsas:
+    - GHSA-mj8v-773w-5qhj
+references:
+    - advisory: https://github.com/advisories/GHSA-mj8v-773w-5qhj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2016-11077
+    - web: https://github.com/mattermost/mattermost/commit/5d7e34c94b56c4b0abb0c3d1702f2b5feb8d2904
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-mj8v-773w-5qhj
+    created: 2025-10-28T17:28:01.677654348Z
+review_status: UNREVIEWED

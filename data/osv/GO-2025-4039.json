@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4039",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-59043",
+    "GHSA-g46h-2rq9-gw5m"
+  ],
+  "summary": "OpenBao has potential Denial of Service vulnerability when processing malicious unauthenticated JSON requests in github.com/openbao/openbao",
+  "details": "OpenBao has potential Denial of Service vulnerability when processing malicious unauthenticated JSON requests in github.com/openbao/openbao.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/openbao/openbao before v2.4.1.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/openbao/openbao",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "2.4.1"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/openbao/openbao/security/advisories/GHSA-g46h-2rq9-gw5m"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-59043"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openbao/openbao/commit/d418f238bc99adc72c73109faf574cc2b672880c"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openbao/openbao/pull/1756"
+    },
+    {
+      "type": "WEB",
+      "url": "https://discuss.hashicorp.com/t/hcsec-2025-24-vault-denial-of-service-though-complex-json-payloads/76393"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/openbao/openbao/blob/788536bd3e10818a7b4fb00aac6affc23388e5a9/http/logical.go#L50"
+    },
+    {
+      "type": "WEB",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-6203"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4039",
+    "review_status": "UNREVIEWED"
+  }
+}

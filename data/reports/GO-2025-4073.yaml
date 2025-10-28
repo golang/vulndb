@@ -1,0 +1,19 @@
+id: GO-2025-4073
+modules:
+    - module: github.com/rancher/rancher
+      versions:
+        - fixed: 0.0.0-20251014212116-7faa74a968c2
+summary: Rancher user retains access to clusters despite Global Role removal in github.com/rancher/rancher
+cves:
+    - CVE-2023-32199
+ghsas:
+    - GHSA-j4vr-pcmw-hx59
+references:
+    - advisory: https://github.com/rancher/rancher/security/advisories/GHSA-j4vr-pcmw-hx59
+    - fix: https://github.com/rancher/rancher/pull/52303
+notes:
+    - fix: 'github.com/rancher/rancher: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-j4vr-pcmw-hx59
+    created: 2025-10-28T17:26:30.084281576Z
+review_status: UNREVIEWED

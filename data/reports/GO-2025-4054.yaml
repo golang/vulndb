@@ -1,0 +1,20 @@
+id: GO-2025-4054
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 3.0.0+incompatible
+      vulnerable_at: 2.2.0+incompatible
+summary: Mattermost Server does not check if cookies are used over SSL in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2016-11076
+ghsas:
+    - GHSA-379p-37xc-q963
+references:
+    - advisory: https://github.com/advisories/GHSA-379p-37xc-q963
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2016-11076
+    - web: https://github.com/mattermost/mattermost/commit/bac25154d659883c801b3bb9a0687f46570f5bbf
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-379p-37xc-q963
+    created: 2025-10-28T17:28:29.653595729Z
+review_status: UNREVIEWED

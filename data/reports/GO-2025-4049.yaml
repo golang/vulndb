@@ -1,0 +1,21 @@
+id: GO-2025-4049
+modules:
+    - module: github.com/openbao/openbao
+      versions:
+        - introduced: 0.0.0-20241114205727-b1235e585db7
+        - fixed: 0.0.0-20251022165510-cc2c476bac66
+summary: OpenBao leaks HTTPRawBody in Audit Logs in github.com/openbao/openbao
+cves:
+    - CVE-2025-62513
+ghsas:
+    - GHSA-ghfh-fmx4-26h8
+references:
+    - advisory: https://github.com/openbao/openbao/security/advisories/GHSA-ghfh-fmx4-26h8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-62513
+    - fix: https://github.com/openbao/openbao/commit/cc2c476bac66e1d94776c2629793daec3af625f8
+notes:
+    - fix: 'github.com/openbao/openbao: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-ghfh-fmx4-26h8
+    created: 2025-10-28T17:28:53.487629342Z
+review_status: UNREVIEWED

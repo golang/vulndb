@@ -1,0 +1,20 @@
+id: GO-2025-4052
+modules:
+    - module: github.com/openbao/openbao
+      versions:
+        - fixed: 0.0.0-20251022165510-cc2c476bac66
+summary: OpenBao and Vault Leak []byte Fields in Audit Logs in github.com/openbao/openbao
+cves:
+    - CVE-2025-62705
+ghsas:
+    - GHSA-rc54-2g2c-g36g
+references:
+    - advisory: https://github.com/openbao/openbao/security/advisories/GHSA-rc54-2g2c-g36g
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-62705
+    - fix: https://github.com/openbao/openbao/commit/cc2c476bac66e1d94776c2629793daec3af625f8
+notes:
+    - fix: 'github.com/openbao/openbao: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-rc54-2g2c-g36g
+    created: 2025-10-28T17:28:39.125801265Z
+review_status: UNREVIEWED

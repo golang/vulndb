@@ -1,0 +1,22 @@
+id: GO-2025-4065
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 2.2.0+incompatible
+      vulnerable_at: 2.1.0+incompatible
+summary: |-
+    Mattermost Server: Files may be rendered inline instead of downloaded, allowing
+    script execution in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2016-11083
+ghsas:
+    - GHSA-rm24-25xm-9454
+references:
+    - advisory: https://github.com/advisories/GHSA-rm24-25xm-9454
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2016-11083
+    - web: https://github.com/mattermost/mattermost/commit/480308b7029a04cf41d0e9e7cd68b52dc2138e98
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-rm24-25xm-9454
+    created: 2025-10-28T17:27:24.864174199Z
+review_status: UNREVIEWED

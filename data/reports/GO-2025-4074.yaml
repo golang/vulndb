@@ -1,0 +1,20 @@
+id: GO-2025-4074
+modules:
+    - module: github.com/rancher/rancher
+      versions:
+        - fixed: 0.0.0-20251013203444-50dc516a19ea
+summary: Rancher exposes sensitive information through audit logs in github.com/rancher/rancher
+cves:
+    - CVE-2024-58269
+ghsas:
+    - GHSA-mw39-9qc2-f7mg
+references:
+    - advisory: https://github.com/rancher/rancher/security/advisories/GHSA-mw39-9qc2-f7mg
+    - fix: https://github.com/rancher/rancher/commit/26ad9216e94f77b5471f638256a6989030572adc
+    - fix: https://github.com/rancher/rancher/commit/50dc516a19ea216e270f738912dc8d0c9ca99d5d
+notes:
+    - fix: 'github.com/rancher/rancher: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-mw39-9qc2-f7mg
+    created: 2025-10-28T17:26:25.034654888Z
+review_status: UNREVIEWED

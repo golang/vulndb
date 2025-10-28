@@ -1,0 +1,19 @@
+id: GO-2025-4061
+modules:
+    - module: github.com/mattermost/mattermost-server
+      non_go_versions:
+        - fixed: 2.0.1-0.20160310160916-26ad6d2c7696
+      vulnerable_at: 11.0.4+incompatible
+summary: Mattermost Server exposes sensitive information about team URLs via an API in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2016-11075
+ghsas:
+    - GHSA-q3g9-hgrx-hwhx
+references:
+    - advisory: https://github.com/advisories/GHSA-q3g9-hgrx-hwhx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2016-11075
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-q3g9-hgrx-hwhx
+    created: 2025-10-28T17:27:57.327347269Z
+review_status: UNREVIEWED

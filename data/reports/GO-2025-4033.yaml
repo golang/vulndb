@@ -1,0 +1,23 @@
+id: GO-2025-4033
+modules:
+    - module: github.com/apache/trafficcontrol
+      vulnerable_at: 7.0.1+incompatible
+    - module: github.com/apache/trafficcontrol/v8
+      unsupported_versions:
+        - last_affected: 8.0.2
+      vulnerable_at: 8.0.2
+summary: |-
+    Apache Traffic Control has an Inefficient Regular Expression Complexity
+    vulnerability in github.com/apache/trafficcontrol
+cves:
+    - CVE-2025-61581
+ghsas:
+    - GHSA-9m49-p2j3-c6xm
+references:
+    - advisory: https://github.com/advisories/GHSA-9m49-p2j3-c6xm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-61581
+    - web: https://lists.apache.org/thread/mx2jxgnlop2f4vbqnvmrldh4pqmobxvp
+source:
+    id: GHSA-9m49-p2j3-c6xm
+    created: 2025-10-28T17:33:53.424928919Z
+review_status: UNREVIEWED

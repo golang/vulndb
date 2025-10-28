@@ -1,0 +1,21 @@
+id: GO-2025-4040
+modules:
+    - module: github.com/netbirdio/netbird
+      versions:
+        - fixed: 0.57.0
+      vulnerable_at: 0.56.1
+summary: NetBird VPN does not remove the default password of an admin account in github.com/netbirdio/netbird
+cves:
+    - CVE-2025-10678
+ghsas:
+    - GHSA-g3j4-58mp-3x25
+references:
+    - advisory: https://github.com/advisories/GHSA-g3j4-58mp-3x25
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-10678
+    - fix: https://github.com/netbirdio/netbird/commit/cf7f6c355f713e83cf171b79e08dac60b316e4fd
+    - web: https://cert.pl/en/posts/2025/10/CVE-2025-10678
+    - web: https://netbird.io
+source:
+    id: GHSA-g3j4-58mp-3x25
+    created: 2025-10-28T17:29:49.262862032Z
+review_status: UNREVIEWED
