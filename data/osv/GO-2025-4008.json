@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4008",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-58189",
+    "CVE-2025-58189"
+  ],
+  "summary": "ALPN negotiation error contains attacker controlled information in crypto/tls",
+  "details": "When Conn.Handshake fails during ALPN negotiation the error contains attacker controlled information (the ALPN protocols sent by the client) which is not escaped.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.24.8"
+            },
+            {
+              "introduced": "1.25.0"
+            },
+            {
+              "fixed": "1.25.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "crypto/tls",
+            "symbols": [
+              "Conn.Handshake",
+              "Conn.HandshakeContext",
+              "Conn.Read",
+              "Conn.Write",
+              "Dial",
+              "DialWithDialer",
+              "Dialer.Dial",
+              "Dialer.DialContext",
+              "QUICConn.Start",
+              "negotiateALPN"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/707776"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/75652"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/4Emdl2iQ_bI"
+    }
+  ],
+  "credits": [
+    {
+      "name": "National Cyber Security Centre Finland"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4008",
+    "review_status": "REVIEWED"
+  }
+}

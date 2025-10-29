@@ -1,0 +1,42 @@
+id: GO-2025-4008
+modules:
+    - module: std
+      versions:
+        - fixed: 1.24.8
+        - introduced: 1.25.0
+        - fixed: 1.25.2
+      vulnerable_at: 1.25.1
+      packages:
+        - package: crypto/tls
+          symbols:
+            - negotiateALPN
+          derived_symbols:
+            - Conn.Handshake
+            - Conn.HandshakeContext
+            - Conn.Read
+            - Conn.Write
+            - Dial
+            - DialWithDialer
+            - Dialer.Dial
+            - Dialer.DialContext
+            - QUICConn.Start
+summary: ALPN negotiation error contains attacker controlled information in crypto/tls
+description: |-
+    When Conn.Handshake fails during ALPN negotiation the error contains attacker
+    controlled information (the ALPN protocols sent by the client) which is not
+    escaped.
+cves:
+    - CVE-2025-58189
+credits:
+    - National Cyber Security Centre Finland
+references:
+    - fix: https://go.dev/cl/707776
+    - report: https://go.dev/issue/75652
+    - web: https://groups.google.com/g/golang-announce/c/4Emdl2iQ_bI
+cve_metadata:
+    id: CVE-2025-58189
+    cwe: 'CWE-117: Improper Output Neutralization for Logs'
+source:
+    id: go-security-team
+    created: 2025-10-28T17:17:13.707819-07:00
+review_status: REVIEWED
