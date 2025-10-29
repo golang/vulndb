@@ -1,0 +1,34 @@
+id: GO-2025-4009
+modules:
+    - module: std
+      versions:
+        - fixed: 1.24.8
+        - introduced: 1.25.0
+        - fixed: 1.25.2
+      vulnerable_at: 1.25.1
+      packages:
+        - package: encoding/pem
+          symbols:
+            - getLine
+            - Decode
+summary: Quadratic complexity when parsing some invalid inputs in encoding/pem
+description: |-
+    The processing time for parsing some invalid inputs scales
+    non-linearly with respect to the size of the input.
+
+    This affects programs which parse untrusted PEM inputs.
+cves:
+    - CVE-2025-61723
+credits:
+    - Jakub Ciolek
+references:
+    - report: https://go.dev/issue/75676
+    - fix: https://go.dev/cl/709858
+    - web: https://groups.google.com/g/golang-announce/c/4Emdl2iQ_bI
+cve_metadata:
+    id: CVE-2025-61723
+    cwe: 'CWE-407: Inefficient Algorithmic Complexity'
+source:
+    id: go-security-team
+    created: 2025-10-28T17:21:58.577231-07:00
+review_status: REVIEWED

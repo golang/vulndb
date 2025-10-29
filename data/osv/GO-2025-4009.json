@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4009",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-61723",
+    "CVE-2025-61723"
+  ],
+  "summary": "Quadratic complexity when parsing some invalid inputs in encoding/pem",
+  "details": "The processing time for parsing some invalid inputs scales non-linearly with respect to the size of the input.\n\nThis affects programs which parse untrusted PEM inputs.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.24.8"
+            },
+            {
+              "introduced": "1.25.0"
+            },
+            {
+              "fixed": "1.25.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "encoding/pem",
+            "symbols": [
+              "Decode",
+              "getLine"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/75676"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/709858"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/4Emdl2iQ_bI"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Jakub Ciolek"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4009",
+    "review_status": "REVIEWED"
+  }
+}
