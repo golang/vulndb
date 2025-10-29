@@ -1,0 +1,66 @@
+id: GO-2025-4007
+modules:
+    - module: std
+      versions:
+        - fixed: 1.24.9
+        - introduced: 1.25.0
+        - fixed: 1.25.3
+      vulnerable_at: 1.25.1
+      packages:
+        - package: crypto/x509
+          symbols:
+            - parseSANExtension
+            - domainToReverseLabels
+          derived_symbols:
+            - CertPool.AppendCertsFromPEM
+            - Certificate.CheckCRLSignature
+            - Certificate.CheckSignature
+            - Certificate.CheckSignatureFrom
+            - Certificate.CreateCRL
+            - Certificate.Verify
+            - CertificateRequest.CheckSignature
+            - CreateCertificate
+            - CreateCertificateRequest
+            - CreateRevocationList
+            - DecryptPEMBlock
+            - EncryptPEMBlock
+            - MarshalECPrivateKey
+            - MarshalPKCS1PrivateKey
+            - MarshalPKCS1PublicKey
+            - MarshalPKCS8PrivateKey
+            - MarshalPKIXPublicKey
+            - ParseCRL
+            - ParseCertificate
+            - ParseCertificateRequest
+            - ParseCertificates
+            - ParseDERCRL
+            - ParseECPrivateKey
+            - ParsePKCS1PrivateKey
+            - ParsePKCS1PublicKey
+            - ParsePKCS8PrivateKey
+            - ParsePKIXPublicKey
+            - ParseRevocationList
+            - RevocationList.CheckSignatureFrom
+            - SetFallbackRoots
+            - SystemCertPool
+summary: Quadratic complexity when checking name constraints in crypto/x509
+description: |-
+    Due to the design of the name constraint checking algorithm, the processing time
+    of some inputs scals non-linearly with respect to the size of the certificate.
+
+    This affects programs which validate arbitrary certificate chains.
+cves:
+    - CVE-2025-58187
+credits:
+    - Jakub Ciolek
+references:
+    - report: https://go.dev/issue/75681
+    - fix: https://go.dev/cl/709854
+    - web: https://groups.google.com/g/golang-announce/c/4Emdl2iQ_bI
+cve_metadata:
+    id: CVE-2025-58187
+    cwe: 'CWE-407: Inefficient Algorithmic Complexity'
+source:
+    id: go-security-team
+    created: 2025-10-28T17:11:16.010552-07:00
+review_status: REVIEWED
