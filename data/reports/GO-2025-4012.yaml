@@ -1,0 +1,50 @@
+id: GO-2025-4012
+modules:
+    - module: std
+      versions:
+        - fixed: 1.24.8
+        - introduced: 1.25.0
+        - fixed: 1.25.2
+      vulnerable_at: 1.25.1
+      packages:
+        - package: net/http
+          symbols:
+            - ParseCookie
+            - readSetCookies
+            - readCookies
+          derived_symbols:
+            - Client.Do
+            - Client.Get
+            - Client.Head
+            - Client.Post
+            - Client.PostForm
+            - Get
+            - Head
+            - Post
+            - PostForm
+            - Request.Cookie
+            - Request.Cookies
+            - Request.CookiesNamed
+            - Response.Cookies
+summary: Lack of limit when parsing cookies can cause memory exhaustion in net/http
+description: |-
+    Despite HTTP headers having a default limit of 1MB, the number
+    of cookies that can be parsed does not have a limit.
+    By sending a lot of very small cookies such as "a=;", an attacker
+    can make an HTTP server allocate a large amount of structs,
+    causing large memory consumption.
+cves:
+    - CVE-2025-58186
+credits:
+    - jub0bs
+references:
+    - report: https://go.dev/issue/75672
+    - fix: https://go.dev/cl/709855
+    - web: https://groups.google.com/g/golang-announce/c/4Emdl2iQ_bI
+cve_metadata:
+    id: CVE-2025-58186
+    cwe: 'CWE-400: Uncontrolled Resource Consumption'
+source:
+    id: go-security-team
+    created: 2025-10-28T18:32:51.715588-07:00
+review_status: REVIEWED

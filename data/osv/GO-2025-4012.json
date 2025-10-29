@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4012",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-58186",
+    "CVE-2025-58186"
+  ],
+  "summary": "Lack of limit when parsing cookies can cause memory exhaustion in net/http",
+  "details": "Despite HTTP headers having a default limit of 1MB, the number of cookies that can be parsed does not have a limit. By sending a lot of very small cookies such as \"a=;\", an attacker can make an HTTP server allocate a large amount of structs, causing large memory consumption.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.24.8"
+            },
+            {
+              "introduced": "1.25.0"
+            },
+            {
+              "fixed": "1.25.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "net/http",
+            "symbols": [
+              "Client.Do",
+              "Client.Get",
+              "Client.Head",
+              "Client.Post",
+              "Client.PostForm",
+              "Get",
+              "Head",
+              "ParseCookie",
+              "Post",
+              "PostForm",
+              "Request.Cookie",
+              "Request.Cookies",
+              "Request.CookiesNamed",
+              "Response.Cookies",
+              "readCookies",
+              "readSetCookies"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/75672"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/709855"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/4Emdl2iQ_bI"
+    }
+  ],
+  "credits": [
+    {
+      "name": "jub0bs"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4012",
+    "review_status": "REVIEWED"
+  }
+}
