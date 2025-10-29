@@ -1,0 +1,32 @@
+id: GO-2025-4015
+modules:
+    - module: std
+      versions:
+        - fixed: 1.24.8
+        - introduced: 1.25.0
+        - fixed: 1.25.2
+      vulnerable_at: 1.25.1
+      packages:
+        - package: net/textproto
+          symbols:
+            - Reader.ReadResponse
+summary: Excessive CPU consumption in Reader.ReadResponse in net/textproto
+description: |-
+    The Reader.ReadResponse function constructs a response string through repeated
+    string concatenation of lines. When the number of lines in a response is large,
+    this can cause excessive CPU consumption.
+cves:
+    - CVE-2025-61724
+credits:
+    - Jakub Ciolek
+references:
+    - fix: https://go.dev/cl/709859
+    - report: https://go.dev/issue/75716
+    - web: https://groups.google.com/g/golang-announce/c/4Emdl2iQ_bI
+cve_metadata:
+    id: CVE-2025-61724
+    cwe: 'CWE-407: Inefficient Algorithmic Complexity'
+source:
+    id: go-security-team
+    created: 2025-10-28T18:41:46.34755-07:00
+review_status: REVIEWED
