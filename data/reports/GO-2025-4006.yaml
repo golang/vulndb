@@ -1,0 +1,38 @@
+id: GO-2025-4006
+modules:
+    - module: std
+      versions:
+        - fixed: 1.24.8
+        - introduced: 1.25.0
+        - fixed: 1.25.2
+      vulnerable_at: 1.25.1
+      packages:
+        - package: net/mail
+          symbols:
+            - addrParser.consumeDomainLiteral
+          derived_symbols:
+            - AddressParser.Parse
+            - AddressParser.ParseList
+            - Header.AddressList
+            - ParseAddress
+            - ParseAddressList
+summary: Excessive CPU consumption in ParseAddress in net/mail
+description: |-
+    The ParseAddress function constructeds domain-literal address components
+    through repeated string concatenation. When parsing large domain-literal
+    components, this can cause excessive CPU consumption.
+cves:
+    - CVE-2025-61725
+credits:
+    - Philippe Antoine (Catena cyber)
+references:
+    - fix: https://go.dev/cl/709860
+    - report: https://go.dev/issue/75680
+    - web: https://groups.google.com/g/golang-announce/c/4Emdl2iQ_bI
+cve_metadata:
+    id: CVE-2025-61725
+    cwe: 'CWE-407: Inefficient Algorithmic Complexity'
+source:
+    id: go-security-team
+    created: 2025-10-28T17:02:52.092962-07:00
+review_status: REVIEWED
