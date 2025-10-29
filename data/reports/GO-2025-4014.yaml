@@ -1,0 +1,36 @@
+id: GO-2025-4014
+modules:
+    - module: std
+      versions:
+        - fixed: 1.24.8
+        - introduced: 1.25.0
+        - fixed: 1.25.2
+      vulnerable_at: 1.25.1
+      packages:
+        - package: archive/tar
+          symbols:
+            - readGNUSparseMap1x0
+          derived_symbols:
+            - Reader.Next
+summary: Unbounded allocation when parsing GNU sparse map in archive/tar
+description: |-
+    tar.Reader does not set a maximum size on the number of sparse region data
+    blocks in GNU tar pax 1.0 sparse files. A maliciously-crafted archive containing
+    a large number of sparse regions can cause a Reader to read an unbounded amount
+    of data from the archive into memory. When reading from a compressed source, a
+    small compressed input can result in large allocations.
+cves:
+    - CVE-2025-58183
+credits:
+    - Harshit Gupta (Mr HAX)
+references:
+    - fix: https://go.dev/cl/709861
+    - report: https://go.dev/issue/75677
+    - web: https://groups.google.com/g/golang-announce/c/4Emdl2iQ_bI
+cve_metadata:
+    id: CVE-2025-58183
+    cwe: 'CWE-400: Uncontrolled Resource Consumption'
+source:
+    id: go-security-team
+    created: 2025-10-28T18:38:44.460157-07:00
+review_status: REVIEWED
