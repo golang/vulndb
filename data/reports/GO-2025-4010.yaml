@@ -1,0 +1,41 @@
+id: GO-2025-4010
+modules:
+    - module: std
+      versions:
+        - fixed: 1.24.8
+        - introduced: 1.25.0
+        - fixed: 1.25.2
+      vulnerable_at: 1.25.1
+      packages:
+        - package: net/url
+          symbols:
+            - parseHost
+          derived_symbols:
+            - JoinPath
+            - Parse
+            - ParseRequestURI
+            - URL.Parse
+            - URL.UnmarshalBinary
+summary: Insufficient validation of bracketed IPv6 hostnames in net/url
+description: |-
+    The Parse function permits values other than IPv6 addresses to
+    be included in square brackets within the host component of a
+    URL. RFC 3986 permits IPv6 addresses to be included within the
+    host component, enclosed within square brackets. For example:
+    "http://[::1]/". IPv4 addresses and hostnames must not appear
+    within square brackets. Parse did not enforce this requirement.
+cves:
+    - CVE-2025-47912
+credits:
+    - Enze Wang, Jingcheng Yang and Zehui Miao of Tsinghua University
+references:
+    - report: https://go.dev/issue/75678
+    - fix: https://go.dev/cl/709857
+    - web: https://groups.google.com/g/golang-announce/c/4Emdl2iQ_bI
+cve_metadata:
+    id: CVE-2025-47912
+    cwe: 'CWE-1286: Improper Validation of Syntactic Correctness of Input'
+source:
+    id: go-security-team
+    created: 2025-10-28T18:25:39.603085-07:00
+review_status: REVIEWED
