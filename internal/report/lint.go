@@ -675,6 +675,9 @@ func (e *ExcludedType) lint(l *linter) {
 
 func (m *CVEMeta) lint(l *linter, r *Report) {
 	if m == nil {
+		if !r.IsExcluded() && !r.NoCVEMetadata && r.IsFirstParty() {
+			l.Error("first-party report must have cve_metadata or no_cve_metadata")
+		}
 		return
 	}
 

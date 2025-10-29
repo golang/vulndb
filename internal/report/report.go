@@ -361,6 +361,11 @@ type Report struct {
 	// to fill in the ID string.
 	CVEMetadata *CVEMeta `yaml:"cve_metadata,omitempty"`
 
+	// CVEMetadata should usually be set for CVEs for first-party reports.
+	// If a CVE already exists for a first-party report,
+	// set this to allow this report to have no CVEMetadata.
+	NoCVEMetadata bool `yaml:"no_cve_metadata,omitempty"`
+
 	// Notes about the report. This field is ignored when creating
 	// OSV and CVE records. It can be used to document decisions made when
 	// creating the report, outstanding issues, or anything else worth

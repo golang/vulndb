@@ -99,6 +99,7 @@ func validStdReport(f func(r *Report)) Report {
 		Summary:      "A summary of the problem with net/http",
 		References:   validStdLibReferences,
 		ReviewStatus: Reviewed,
+		CVEMetadata:  validCVEMetadata,
 	}
 	f(&r)
 	return r
@@ -658,6 +659,14 @@ func TestLintOffline(t *testing.T) {
 			wantNumLints: 2,
 		},
 		{
+			name: "cve_metadata_missing",
+			desc: "Field cve_metadata must be set for first-party reports.",
+			report: validStdReport(func(r *Report) {
+				r.CVEMetadata = nil
+			}),
+			wantNumLints: 1,
+		},
+		{
 			name: "reference_invalid_type",
 			desc: "Reference type must be one of the pre-defined types in osv.ReferenceTypes.",
 			report: validReport(func(r *Report) {
@@ -848,6 +857,9 @@ func updateGoldenFile(t *testing.T, tc *lintTC, lints []string) error {
 	// Double-check that we got the right number of lints, to make it
 	// harder to lose/gain a lint with the auto-update.
 	if tc.wantNumLints != len(lints) {
+		for _, l := range lints {
+			t.Logf("lint: %v", l)
+		}
 		return fmt.Errorf("%s: cannot update: got %d lints, want %d", fpath, len(lints), tc.wantNumLints)
 	}
 

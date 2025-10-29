@@ -2,8 +2,8 @@ Copyright 2025 The Go Authors. All rights reserved.
 Use of this source code is governed by a BSD-style
 license that can be found in the LICENSE file.
 
-Test: TestLintOffline/no_package_stdlib
-Description: In standard library reports, all modules must contain at least one package.
+Test: TestLintOffline/cve_metadata_missing
+Description: Field cve_metadata must be set for first-party reports.
 
 -- data/reports/GO-0000-0000.yaml --
 id: GO-0000-0000
@@ -12,18 +12,13 @@ modules:
       vulnerable_at: 1.2.3
       packages:
         - package: net/http
-    - module: std
-      vulnerable_at: 1.0.0
 summary: A summary of the problem with net/http
 description: description
 references:
     - fix: https://go.dev/cl/12345
     - web: https://groups.google.com/g/golang-announce/c/12345
     - report: https://go.dev/issue/12345
-cve_metadata:
-    id: CVE-0000-1111
-    cwe: 'CWE XXX: A CWE description'
 review_status: REVIEWED
 
 -- golden --
-modules[1] "std": no packages
+cve_metadata: first-party report must have cve_metadata or no_cve_metadata
