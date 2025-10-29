@@ -1,0 +1,34 @@
+id: GO-2025-4011
+modules:
+    - module: std
+      versions:
+        - fixed: 1.24.8
+        - introduced: 1.25.0
+        - fixed: 1.25.2
+      vulnerable_at: 1.25.1
+      packages:
+        - package: encoding/asn1
+          symbols:
+            - parseSequenceOf
+          derived_symbols:
+            - Unmarshal
+            - UnmarshalWithParams
+summary: Parsing DER payload can cause memory exhaustion in encoding/asn1
+description: |-
+    Parsing a maliciously crafted DER payload could allocate large amounts of
+    memory, causing memory exhaustion.
+cves:
+    - CVE-2025-58185
+credits:
+    - Jakub Ciolek
+references:
+    - report: https://go.dev/issue/75671
+    - fix: https://go.dev/cl/709856
+    - web: https://groups.google.com/g/golang-announce/c/4Emdl2iQ_bI
+cve_metadata:
+    id: CVE-2025-58185
+    cwe: 'CWE-400: Uncontrolled Resource Consumption'
+source:
+    id: go-security-team
+    created: 2025-10-28T18:29:04.626368-07:00
+review_status: REVIEWED

@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4011",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-58185",
+    "CVE-2025-58185"
+  ],
+  "summary": "Parsing DER payload can cause memory exhaustion in encoding/asn1",
+  "details": "Parsing a maliciously crafted DER payload could allocate large amounts of memory, causing memory exhaustion.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.24.8"
+            },
+            {
+              "introduced": "1.25.0"
+            },
+            {
+              "fixed": "1.25.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "encoding/asn1",
+            "symbols": [
+              "Unmarshal",
+              "UnmarshalWithParams",
+              "parseSequenceOf"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/75671"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/709856"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/4Emdl2iQ_bI"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Jakub Ciolek"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4011",
+    "review_status": "REVIEWED"
+  }
+}
