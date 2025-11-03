@@ -123,7 +123,7 @@ func priority(mp string, importers int, sc map[reportState]int) *Result {
 	}
 
 	if importers >= highPriority {
-		rev := sc[reviewed]
+		rev := sc[reviewed] + sc[needsReview]
 		binary := sc[excludedBinary] + sc[unreviewedUnexcluded]
 		getReason := func(conj1, conj2 string) string {
 			return fmt.Sprintf("%s %s reviewed (%d) %s likely-binary reports (%d)",
@@ -156,6 +156,7 @@ type reportState int
 const (
 	unknownReportState reportState = iota
 	reviewed
+	needsReview
 	unreviewedStandard
 	unreviewedUnexcluded
 	excludedBinary
@@ -184,6 +185,8 @@ func state(r *report.Report) reportState {
 	switch rs := r.ReviewStatus; rs {
 	case report.Reviewed:
 		return reviewed
+	case report.NeedsReview:
+		return needsReview
 	case report.Unreviewed:
 		if r.Unexcluded != "" {
 			return unreviewedUnexcluded
