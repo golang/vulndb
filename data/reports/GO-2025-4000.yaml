@@ -1,0 +1,27 @@
+id: GO-2025-4000
+modules:
+    - module: github.com/canonical/lxd
+      versions:
+        - introduced: 0.0.0-20200331193331-03aab09f5b5c
+        - fixed: 0.0.0-20250224180022-ec09b24179f3
+      non_go_versions:
+        - introduced: 6.0.0
+        - fixed: 6.5.0
+        - introduced: 4.0.0
+        - fixed: 5.21.4
+summary: |-
+    Canonical LXD Path Traversal Vulnerability in Instance Log File Retrieval
+    Function in github.com/canonical/lxd
+cves:
+    - CVE-2025-54293
+ghsas:
+    - GHSA-472f-vmf2-pr3h
+references:
+    - advisory: https://github.com/canonical/lxd/security/advisories/GHSA-472f-vmf2-pr3h
+    - fix: https://github.com/canonical/lxd/pull/15022
+notes:
+    - fix: 'github.com/canonical/lxd: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-472f-vmf2-pr3h
+    created: 2025-11-03T13:06:36.957141-05:00
+review_status: REVIEWED

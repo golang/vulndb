@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4000",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-54293",
+    "GHSA-472f-vmf2-pr3h"
+  ],
+  "summary": "Canonical LXD Path Traversal Vulnerability in Instance Log File Retrieval Function in github.com/canonical/lxd",
+  "details": "Canonical LXD Path Traversal Vulnerability in Instance Log File Retrieval Function in github.com/canonical/lxd",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/canonical/lxd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.0.0-20200331193331-03aab09f5b5c"
+            },
+            {
+              "fixed": "0.0.0-20250224180022-ec09b24179f3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "6.0.0"
+              },
+              {
+                "fixed": "6.5.0"
+              },
+              {
+                "introduced": "4.0.0"
+              },
+              {
+                "fixed": "5.21.4"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/canonical/lxd/security/advisories/GHSA-472f-vmf2-pr3h"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/pull/15022"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4000",
+    "review_status": "REVIEWED"
+  }
+}

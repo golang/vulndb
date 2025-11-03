@@ -1,0 +1,42 @@
+id: GO-2025-4017
+modules:
+    - module: github.com/quic-go/quic-go
+      versions:
+        - fixed: 0.49.1
+        - introduced: 0.50.0
+        - fixed: 0.54.1
+      vulnerable_at: 0.54.0
+      packages:
+        - package: github.com/quic-go/quic-go
+          symbols:
+            - Conn.handleHandshakeConfirmed
+          derived_symbols:
+            - Dial
+            - DialAddr
+            - DialAddrEarly
+            - DialEarly
+            - Listen
+            - ListenAddr
+            - ListenAddrEarly
+            - ListenEarly
+            - Transport.Dial
+            - Transport.DialEarly
+            - Transport.Listen
+            - Transport.ListenEarly
+summary: |-
+    Panic occurs when queuing undecryptable packets after handshake
+    completion in github.com/quic-go/quic-go
+cves:
+    - CVE-2025-59530
+ghsas:
+    - GHSA-47m2-4cr7-mhcw
+references:
+    - advisory: https://github.com/quic-go/quic-go/security/advisories/GHSA-47m2-4cr7-mhcw
+    - fix: https://github.com/quic-go/quic-go/commit/bc5bccf10fd02728eef150683eb4dfaa5c0e749c
+    - fix: https://github.com/quic-go/quic-go/commit/ce7c9ea8834b9d2ed79efa9269467f02c0895d42
+    - fix: https://github.com/quic-go/quic-go/pull/5354
+    - web: https://github.com/quic-go/quic-go/blob/v0.55.0/connection.go#L2682-L2685
+source:
+    id: GHSA-47m2-4cr7-mhcw
+    created: 2025-11-03T13:02:53.970176-05:00
+review_status: REVIEWED

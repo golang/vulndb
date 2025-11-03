@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3999",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-54289",
+    "GHSA-3g72-chj4-2228"
+  ],
+  "summary": "Privilege Escalation via WebSocket Connection Hijacking in Operations API in github.com/canonical/lxd",
+  "details": "Privilege Escalation via WebSocket Connection Hijacking in Operations API in github.com/canonical/lxd",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/canonical/lxd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0.0.0-20200331193331-03aab09f5b5c"
+              },
+              {
+                "fixed": "0.0.0-20250827065555-0494f5d47e41"
+              },
+              {
+                "introduced": "4.0.0"
+              },
+              {
+                "fixed": "5.21.4"
+              },
+              {
+                "introduced": "6.0.0"
+              },
+              {
+                "fixed": "6.5.0"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/canonical/lxd/security/advisories/GHSA-3g72-chj4-2228"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3999",
+    "review_status": "REVIEWED"
+  }
+}

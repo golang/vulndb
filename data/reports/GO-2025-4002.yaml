@@ -1,0 +1,26 @@
+id: GO-2025-4002
+modules:
+    - module: github.com/canonical/lxd
+      versions:
+        - introduced: 0.0.0-20200331193331-03aab09f5b5c
+        - fixed: 0.0.0-20250827065555-0494f5d47e41
+      non_go_versions:
+        - fixed: 5.21.4
+        - introduced: 6.0.0
+        - fixed: 6.5.0
+        - introduced: 4.0.0
+summary: |-
+    Canonical LXD Project Existence Determination Through Error Handling in Image
+    Export Function in github.com/canonical/lxd
+cves:
+    - CVE-2025-54290
+ghsas:
+    - GHSA-p3x5-mvmp-5f35
+references:
+    - advisory: https://github.com/canonical/lxd/security/advisories/GHSA-p3x5-mvmp-5f35
+notes:
+    - fix: 'github.com/canonical/lxd: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-p3x5-mvmp-5f35
+    created: 2025-11-03T13:06:26.782396-05:00
+review_status: REVIEWED

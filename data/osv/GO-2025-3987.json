@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-3987",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-10954",
+    "GHSA-fmjh-f678-cv3x"
+  ],
+  "summary": "Vulnerable to Improper Validation of Syntactic Correctness of Input in github.com/nyaruka/phonenumbers",
+  "details": "Vulnerable to Improper Validation of Syntactic Correctness of Input in github.com/nyaruka/phonenumbers",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/nyaruka/phonenumbers",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.2.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/nyaruka/phonenumbers",
+            "symbols": [
+              "ContainsOnlyValidXChars",
+              "FormatInOriginalFormat",
+              "GetExampleNumber",
+              "GetExampleNumberForNonGeoEntity",
+              "GetExampleNumberForType",
+              "IsNumberMatch",
+              "IsNumberMatchWithOneNumber",
+              "Leniency.Verify",
+              "Parse",
+              "ParseAndKeepRawInput",
+              "ParseAndKeepRawInputToNumber",
+              "ParseToNumber",
+              "buildNationalNumberForParsing",
+              "parseHelper"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-fmjh-f678-cv3x"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/nyaruka/phonenumbers/commit/0479e35488e8a002a261cdb515ef8a7f80ca37fe"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/nyaruka/phonenumbers/issues/148"
+    },
+    {
+      "type": "WEB",
+      "url": "https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMNYARUKAPHONENUMBERS-6084070"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-3987",
+    "review_status": "REVIEWED"
+  }
+}

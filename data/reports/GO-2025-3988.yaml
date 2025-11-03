@@ -1,0 +1,132 @@
+id: GO-2025-3988
+modules:
+    - module: github.com/wneessen/go-mail
+      versions:
+        - fixed: 0.7.1
+      vulnerable_at: 0.7.0
+      packages:
+        - package: github.com/wneessen/go-mail
+          symbols:
+            - Msg.GetSender
+            - Msg.GetRecipients
+            - parseMultiPartHeader
+            - parseMultiPartHeader
+            - Client.SendWithSMTPClient
+            - base64LineBreaker.Write
+            - base64LineBreaker.Close
+          derived_symbols:
+            - Client.Close
+            - Client.CloseWithSMTPClient
+            - Client.DialAndSend
+            - Client.DialAndSendWithContext
+            - Client.DialToSMTPClientWithContext
+            - Client.DialWithContext
+            - Client.Reset
+            - Client.ResetWithSMTPClient
+            - Client.Send
+            - Client.ServerAddr
+            - EMLToMsgFromFile
+            - EMLToMsgFromReader
+            - EMLToMsgFromString
+            - Msg.AddAlternativeHTMLTemplate
+            - Msg.AddAlternativeTextTemplate
+            - Msg.AddBcc
+            - Msg.AddBccFormat
+            - Msg.AddCc
+            - Msg.AddCcFormat
+            - Msg.AddTo
+            - Msg.AddToFormat
+            - Msg.AttachFile
+            - Msg.AttachFromEmbedFS
+            - Msg.AttachFromIOFS
+            - Msg.AttachHTMLTemplate
+            - Msg.AttachReadSeeker
+            - Msg.AttachReader
+            - Msg.AttachTextTemplate
+            - Msg.Bcc
+            - Msg.BccFromString
+            - Msg.BccIgnoreInvalid
+            - Msg.Cc
+            - Msg.CcFromString
+            - Msg.CcIgnoreInvalid
+            - Msg.EmbedFile
+            - Msg.EmbedFromEmbedFS
+            - Msg.EmbedFromIOFS
+            - Msg.EmbedHTMLTemplate
+            - Msg.EmbedReadSeeker
+            - Msg.EmbedReader
+            - Msg.EmbedTextTemplate
+            - Msg.EnvelopeFrom
+            - Msg.EnvelopeFromFormat
+            - Msg.From
+            - Msg.FromFormat
+            - Msg.GetAddrHeaderString
+            - Msg.GetBccString
+            - Msg.GetCcString
+            - Msg.GetFromString
+            - Msg.GetToString
+            - Msg.NewReader
+            - Msg.ReplyTo
+            - Msg.ReplyToFormat
+            - Msg.RequestMDNAddTo
+            - Msg.RequestMDNAddToFormat
+            - Msg.RequestMDNTo
+            - Msg.RequestMDNToFormat
+            - Msg.SetAddrHeader
+            - Msg.SetAddrHeaderIgnoreInvalid
+            - Msg.SetBodyHTMLTemplate
+            - Msg.SetBodyTextTemplate
+            - Msg.SetBulk
+            - Msg.SetDate
+            - Msg.SetDateWithValue
+            - Msg.SetGenHeader
+            - Msg.SetHeader
+            - Msg.SetImportance
+            - Msg.SetMessageID
+            - Msg.SetMessageIDWithValue
+            - Msg.SetOrganization
+            - Msg.SetUserAgent
+            - Msg.SignWithTLSCertificate
+            - Msg.Subject
+            - Msg.To
+            - Msg.ToFromString
+            - Msg.ToIgnoreInvalid
+            - Msg.UpdateReader
+            - Msg.Write
+            - Msg.WriteTo
+            - Msg.WriteToFile
+            - Msg.WriteToSendmail
+            - Msg.WriteToSendmailWithCommand
+            - Msg.WriteToSendmailWithContext
+            - Msg.WriteToSkipMiddleware
+            - Msg.WriteToTempFile
+            - NewClient
+            - Part.GetContent
+            - QuickSend
+            - SMTPAuthType.UnmarshalString
+            - SendError.Error
+            - msgWriter.Write
+        - package: github.com/wneessen/go-mail/smtp
+          symbols:
+            - Client.TLSConnectionState
+            - Client.Mail
+            - Client.Rcpt
+            - DataCloser.Write
+          derived_symbols:
+            - SendMail
+summary: |-
+    Insufficient address encoding when passing mail addresses to the SMTP client in
+    github.com/wneessen/go-mail
+cves:
+    - CVE-2025-59937
+ghsas:
+    - GHSA-wpwj-69cm-q9c5
+references:
+    - advisory: https://github.com/wneessen/go-mail/security/advisories/GHSA-wpwj-69cm-q9c5
+    - fix: https://github.com/wneessen/go-mail/commit/42e92cfe027be04aff72921adb0f72f11d517479
+    - fix: https://github.com/wneessen/go-mail/pull/496
+    - report: https://github.com/wneessen/go-mail/issues/495
+source:
+    id: GHSA-wpwj-69cm-q9c5
+    created: 2025-11-03T13:06:52.046063-05:00
+review_status: REVIEWED

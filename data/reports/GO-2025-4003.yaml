@@ -1,0 +1,27 @@
+id: GO-2025-4003
+modules:
+    - module: github.com/canonical/lxd
+      non_go_versions:
+        - introduced: 0.0.0-20220401034332-1e1349e3cbf3
+        - fixed: 0.0.0-20250827065555-0494f5d47e41
+        - introduced: 6.0.0
+        - fixed: 6.5.0
+        - introduced: 5.0.0
+        - fixed: 5.0.5
+        - introduced: 5.1.0
+        - fixed: 5.21.4
+summary: |-
+    CSRF Vulnerability When Using Client Certificate Authentication
+    with the LXD-UI in github.com/canonical/lxd
+cves:
+    - CVE-2025-54286
+ghsas:
+    - GHSA-p8hw-rfjg-689h
+references:
+    - advisory: https://github.com/canonical/lxd/security/advisories/GHSA-p8hw-rfjg-689h
+notes:
+    - Pseudoversions specified in advisory are insufficient to accurately mark go_versions.
+source:
+    id: GHSA-p8hw-rfjg-689h
+    created: 2025-11-03T13:06:21.085681-05:00
+review_status: REVIEWED

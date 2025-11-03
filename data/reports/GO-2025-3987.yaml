@@ -1,0 +1,38 @@
+id: GO-2025-3987
+modules:
+    - module: github.com/nyaruka/phonenumbers
+      versions:
+        - fixed: 1.2.2
+      vulnerable_at: 1.2.1
+      packages:
+        - package: github.com/nyaruka/phonenumbers
+          symbols:
+            - parseHelper
+            - buildNationalNumberForParsing
+          derived_symbols:
+            - ContainsOnlyValidXChars
+            - FormatInOriginalFormat
+            - GetExampleNumber
+            - GetExampleNumberForNonGeoEntity
+            - GetExampleNumberForType
+            - IsNumberMatch
+            - IsNumberMatchWithOneNumber
+            - Leniency.Verify
+            - Parse
+            - ParseAndKeepRawInput
+            - ParseAndKeepRawInputToNumber
+            - ParseToNumber
+summary: Vulnerable to Improper Validation of Syntactic Correctness of Input in github.com/nyaruka/phonenumbers
+cves:
+    - CVE-2025-10954
+ghsas:
+    - GHSA-fmjh-f678-cv3x
+references:
+    - advisory: https://github.com/advisories/GHSA-fmjh-f678-cv3x
+    - fix: https://github.com/nyaruka/phonenumbers/commit/0479e35488e8a002a261cdb515ef8a7f80ca37fe
+    - report: https://github.com/nyaruka/phonenumbers/issues/148
+    - web: https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMNYARUKAPHONENUMBERS-6084070
+source:
+    id: GHSA-fmjh-f678-cv3x
+    created: 2025-11-03T13:06:59.870061-05:00
+review_status: REVIEWED

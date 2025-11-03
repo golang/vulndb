@@ -1,0 +1,160 @@
+id: GO-2025-4087
+modules:
+    - module: github.com/consensys/gnark-crypto
+      versions:
+        - introduced: 0.9.1
+        - fixed: 0.18.1
+        - introduced: 0.19.0
+        - fixed: 0.19.2
+      vulnerable_at: 0.19.1
+      packages:
+        - package: github.com/consensys/gnark-crypto/ecc/secp256k1/fr
+          symbols:
+            - Vector.AsyncReadFrom
+            - Vector.ReadFrom
+          derived_symbols:
+            - Vector.UnmarshalBinary
+        - package: github.com/consensys/gnark-crypto/ecc/bw6-633/fp
+          symbols:
+            - Vector.AsyncReadFrom
+            - Vector.ReadFrom
+          derived_symbols:
+            - Vector.UnmarshalBinary
+        - package: github.com/consensys/gnark-crypto/ecc/bls12-377/fp
+          symbols:
+            - Vector.ReadFrom
+            - Vector.AsyncReadFrom
+          derived_symbols:
+            - Vector.UnmarshalBinary
+        - package: github.com/consensys/gnark-crypto/ecc/bls12-381/fp
+          symbols:
+            - Vector.AsyncReadFrom
+            - Vector.ReadFrom
+          derived_symbols:
+            - Vector.UnmarshalBinary
+        - package: github.com/consensys/gnark-crypto/ecc/grumpkin/fp
+          symbols:
+            - Vector.ReadFrom
+            - Vector.AsyncReadFrom
+          derived_symbols:
+            - Vector.UnmarshalBinary
+        - package: github.com/consensys/gnark-crypto/ecc/bw6-633/fr
+          symbols:
+            - Vector.AsyncReadFrom
+            - Vector.ReadFrom
+          derived_symbols:
+            - Vector.UnmarshalBinary
+        - package: github.com/consensys/gnark-crypto/ecc/bls12-377/fr
+          symbols:
+            - Vector.ReadFrom
+            - Vector.AsyncReadFrom
+          derived_symbols:
+            - Vector.UnmarshalBinary
+        - package: github.com/consensys/gnark-crypto/ecc/bls24-315/fr
+          symbols:
+            - Vector.ReadFrom
+            - Vector.AsyncReadFrom
+          derived_symbols:
+            - Vector.UnmarshalBinary
+        - package: github.com/consensys/gnark-crypto/field/babybear
+          symbols:
+            - Vector.AsyncReadFrom
+            - Vector.ReadFrom
+          derived_symbols:
+            - Vector.UnmarshalBinary
+        - package: github.com/consensys/gnark-crypto/ecc/stark-curve/fr
+          symbols:
+            - Vector.ReadFrom
+            - Vector.AsyncReadFrom
+          derived_symbols:
+            - Vector.UnmarshalBinary
+        - package: github.com/consensys/gnark-crypto/ecc/grumpkin/fr
+          symbols:
+            - Vector.ReadFrom
+            - Vector.AsyncReadFrom
+          derived_symbols:
+            - Vector.UnmarshalBinary
+        - package: github.com/consensys/gnark-crypto/ecc/bn254/fp
+          symbols:
+            - Vector.ReadFrom
+            - Vector.AsyncReadFrom
+          derived_symbols:
+            - Vector.UnmarshalBinary
+        - package: github.com/consensys/gnark-crypto/ecc/bls24-317/fr
+          symbols:
+            - Vector.AsyncReadFrom
+            - Vector.ReadFrom
+          derived_symbols:
+            - Vector.UnmarshalBinary
+        - package: github.com/consensys/gnark-crypto/field/goldilocks
+          symbols:
+            - Vector.ReadFrom
+            - Vector.AsyncReadFrom
+          derived_symbols:
+            - Vector.UnmarshalBinary
+        - package: github.com/consensys/gnark-crypto/ecc/bn254/fr
+          symbols:
+            - Vector.ReadFrom
+            - Vector.AsyncReadFrom
+          derived_symbols:
+            - Vector.UnmarshalBinary
+        - package: github.com/consensys/gnark-crypto/ecc/bls12-381/fr
+          symbols:
+            - Vector.ReadFrom
+            - Vector.AsyncReadFrom
+          derived_symbols:
+            - Vector.UnmarshalBinary
+        - package: github.com/consensys/gnark-crypto/ecc/secp256k1/fp
+          symbols:
+            - Vector.AsyncReadFrom
+            - Vector.ReadFrom
+          derived_symbols:
+            - Vector.UnmarshalBinary
+        - package: github.com/consensys/gnark-crypto/field/koalabear
+          symbols:
+            - Vector.ReadFrom
+            - Vector.AsyncReadFrom
+          derived_symbols:
+            - Vector.UnmarshalBinary
+        - package: github.com/consensys/gnark-crypto/ecc/bls24-315/fp
+          symbols:
+            - Vector.ReadFrom
+            - Vector.AsyncReadFrom
+          derived_symbols:
+            - Vector.UnmarshalBinary
+        - package: github.com/consensys/gnark-crypto/ecc/stark-curve/fp
+          symbols:
+            - Vector.AsyncReadFrom
+            - Vector.ReadFrom
+          derived_symbols:
+            - Vector.UnmarshalBinary
+        - package: github.com/consensys/gnark-crypto/ecc/bw6-761/fp
+          symbols:
+            - Vector.AsyncReadFrom
+            - Vector.ReadFrom
+          derived_symbols:
+            - Vector.UnmarshalBinary
+        - package: github.com/consensys/gnark-crypto/ecc/bls24-317/fp
+          symbols:
+            - Vector.ReadFrom
+            - Vector.AsyncReadFrom
+          derived_symbols:
+            - Vector.UnmarshalBinary
+        - package: github.com/consensys/gnark-crypto/ecc/bw6-761/fr
+          symbols:
+            - Vector.ReadFrom
+            - Vector.AsyncReadFrom
+          derived_symbols:
+            - Vector.UnmarshalBinary
+summary: Unchecked memory allocation during vector deserialization in github.com/consensys/gnark-crypto
+ghsas:
+    - GHSA-fj2x-735w-74vq
+references:
+    - advisory: https://github.com/Consensys/gnark-crypto/security/advisories/GHSA-fj2x-735w-74vq
+    - web: https://github.com/Consensys/gnark-crypto/commit/2e7bf9190a0aac896eeec3876c87c77a35661be7
+    - web: https://github.com/Consensys/gnark-crypto/pull/759
+    - fix: https://github.com/Consensys/gnark-crypto/commit/2e7bf9190a0aac896eeec3876c87c77a35661be7
+source:
+    id: GHSA-fj2x-735w-74vq
+    created: 2025-11-03T13:02:48.722422-05:00
+review_status: REVIEWED
