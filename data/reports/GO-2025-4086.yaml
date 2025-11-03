@@ -1,0 +1,18 @@
+id: GO-2025-4086
+modules:
+    - module: github.com/TecharoHQ/anubis
+      versions:
+        - fixed: 1.23.0
+      vulnerable_at: 1.23.0-pre2
+summary: |-
+    Anubis vulnerable to possible XSS via redir parameter when using subrequest auth
+    mode in github.com/TecharoHQ/anubis
+ghsas:
+    - GHSA-cf57-c578-7jvv
+references:
+    - advisory: https://github.com/TecharoHQ/anubis/security/advisories/GHSA-cf57-c578-7jvv
+    - fix: https://github.com/TecharoHQ/anubis/commit/7ed1753fcced351c81961bf520a7bfb2caac6e88
+source:
+    id: GHSA-cf57-c578-7jvv
+    created: 2025-11-03T14:05:19.525243-05:00
+review_status: UNREVIEWED

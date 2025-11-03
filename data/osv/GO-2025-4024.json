@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4024",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-62157",
+    "GHSA-c2hv-4pfj-mm2r"
+  ],
+  "summary": "Argo Workflow may expose artifact repository credentials in github.com/argoproj/argo-workflows",
+  "details": "Argo Workflow may expose artifact repository credentials in github.com/argoproj/argo-workflows",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-workflows",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-workflows/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-workflows/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.6.12"
+            },
+            {
+              "introduced": "3.7.0"
+            },
+            {
+              "fixed": "3.7.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/argoproj/argo-workflows/security/advisories/GHSA-c2hv-4pfj-mm2r"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-62157"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-workflows/commit/18ad5138b6bcb2aba04e00b4ec657bc6b8fad8df"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-workflows/commit/bded09fe4abd37cb98d7fc81b4c14a6f5034e9ab"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4024",
+    "review_status": "UNREVIEWED"
+  }
+}

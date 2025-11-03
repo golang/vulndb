@@ -1,0 +1,27 @@
+id: GO-2025-4083
+modules:
+    - module: github.com/zitadel/zitadel
+      non_go_versions:
+        - introduced: 2.53.6
+        - introduced: 2.54.3
+        - introduced: 2.55.0
+        - fixed: 2.71.18
+      unsupported_versions:
+        - last_affected: 2.53.9
+        - last_affected: 2.54.10
+      vulnerable_at: 1.87.5
+summary: Zitadel May Bypass Second Authentication Factor in github.com/zitadel/zitadel
+cves:
+    - CVE-2025-64103
+ghsas:
+    - GHSA-cfjq-28r2-4jv5
+references:
+    - advisory: https://github.com/zitadel/zitadel/security/advisories/GHSA-cfjq-28r2-4jv5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-64103
+    - fix: https://github.com/zitadel/zitadel/commit/b284f8474eed0cba531905101619e7ae7963156b
+notes:
+    - fix: 'module merge error: could not merge versions of module github.com/zitadel/zitadel: introduced and fixed versions must alternate'
+source:
+    id: GHSA-cfjq-28r2-4jv5
+    created: 2025-11-03T14:05:34.246443-05:00
+review_status: UNREVIEWED

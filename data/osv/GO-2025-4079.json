@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4079",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-27093",
+    "GHSA-q8j9-34qf-7vq7"
+  ],
+  "summary": "Silver has unrestricted traffic between Wireguard clients in github.com/bishopfox/sliver",
+  "details": "Silver has unrestricted traffic between Wireguard clients in github.com/bishopfox/sliver",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/bishopfox/sliver",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.5.44"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/BishopFox/sliver/security/advisories/GHSA-q8j9-34qf-7vq7"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-27093"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/BishopFox/sliver/commit/8e5c5f14506d6d60ebb3362e6b9857ab1e0d76ff"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/BishopFox/sliver/commit/9122878cbbcae543eb8210f616550382af2065fd"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4079",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4078",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-f5p4-p5q5-jv3h"
+  ],
+  "summary": "Contrast has insecure LUKS2 persistent storage partitions may be opened and used in github.com/edgelesssys/contrast",
+  "details": "Contrast has insecure LUKS2 persistent storage partitions may be opened and used in github.com/edgelesssys/contrast",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/edgelesssys/contrast",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.12.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/edgelesssys/contrast/security/advisories/GHSA-f5p4-p5q5-jv3h"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/edgelesssys/contrast/commit/2252a231d570c2dce10a33660452b0bfc3c43958"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/edgelesssys/contrast/pull/1731"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4078",
+    "review_status": "UNREVIEWED"
+  }
+}

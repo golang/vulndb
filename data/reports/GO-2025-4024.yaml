@@ -1,0 +1,26 @@
+id: GO-2025-4024
+modules:
+    - module: github.com/argoproj/argo-workflows
+      vulnerable_at: 0.4.7
+    - module: github.com/argoproj/argo-workflows/v2
+      vulnerable_at: 2.12.13
+    - module: github.com/argoproj/argo-workflows/v3
+      versions:
+        - fixed: 3.6.12
+        - introduced: 3.7.0
+        - fixed: 3.7.3
+      vulnerable_at: 3.7.2
+summary: Argo Workflow may expose artifact repository credentials in github.com/argoproj/argo-workflows
+cves:
+    - CVE-2025-62157
+ghsas:
+    - GHSA-c2hv-4pfj-mm2r
+references:
+    - advisory: https://github.com/argoproj/argo-workflows/security/advisories/GHSA-c2hv-4pfj-mm2r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-62157
+    - fix: https://github.com/argoproj/argo-workflows/commit/18ad5138b6bcb2aba04e00b4ec657bc6b8fad8df
+    - fix: https://github.com/argoproj/argo-workflows/commit/bded09fe4abd37cb98d7fc81b4c14a6f5034e9ab
+source:
+    id: GHSA-c2hv-4pfj-mm2r
+    created: 2025-11-03T14:08:31.236964-05:00
+review_status: UNREVIEWED

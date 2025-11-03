@@ -1,0 +1,22 @@
+id: GO-2025-4021
+modules:
+    - module: github.com/siderolabs/omni
+      versions:
+        - fixed: 1.0.2
+        - introduced: 1.1.0-beta.0
+        - fixed: 1.1.5
+      vulnerable_at: 1.1.4
+summary: Omni is Vulnerable to DoS via Empty Create/Update Resource Requests in github.com/siderolabs/omni
+cves:
+    - CVE-2025-59836
+ghsas:
+    - GHSA-4p3p-cr38-v5xp
+references:
+    - advisory: https://github.com/siderolabs/omni/security/advisories/GHSA-4p3p-cr38-v5xp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-59836
+    - fix: https://github.com/siderolabs/omni/commit/1396083f766a1b0380e9949968d7fc17b7afecaa
+    - fix: https://github.com/siderolabs/omni/commit/1fd954af64985a8b3dbf5b11deddbf7cd953f5ae
+source:
+    id: GHSA-4p3p-cr38-v5xp
+    created: 2025-11-03T14:08:12.780405-05:00
+review_status: UNREVIEWED

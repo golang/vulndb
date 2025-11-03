@@ -1,0 +1,29 @@
+id: GO-2025-4020
+modules:
+    - module: github.com/nwaples/rardecode
+      vulnerable_at: 1.1.3
+    - module: github.com/nwaples/rardecode/v2
+      versions:
+        - fixed: 2.2.0
+      vulnerable_at: 2.1.1
+      packages:
+        - package: github.com/nwaples/rardecode/v2
+          symbols:
+            - getOptions
+            - packedFileReader.newArchiveFileFrom
+summary: |-
+    DoS risk due to unrestricted RAR dictionary sizes in
+    github.com/nwaples/rardecode
+cves:
+    - CVE-2025-11579
+ghsas:
+    - GHSA-rwvp-r38j-9rgg
+references:
+    - advisory: https://github.com/advisories/GHSA-rwvp-r38j-9rgg
+    - fix: https://github.com/nwaples/rardecode/commit/52fb4e825c936636f251f7e7deded39ab11df9a9
+notes:
+    - No published fix version for v1
+source:
+    id: GHSA-rwvp-r38j-9rgg
+    created: 2025-11-03T14:08:06.825806-05:00
+review_status: REVIEWED

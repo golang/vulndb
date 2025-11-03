@@ -1,0 +1,27 @@
+id: GO-2025-4023
+modules:
+    - module: github.com/argoproj/argo-workflows
+      vulnerable_at: 0.4.7
+    - module: github.com/argoproj/argo-workflows/v2
+      vulnerable_at: 2.12.13
+    - module: github.com/argoproj/argo-workflows/v3
+      versions:
+        - fixed: 3.6.12
+        - introduced: 3.7.0
+        - fixed: 3.7.3
+      vulnerable_at: 3.7.2
+summary: Argo Workflow has a Zipslip Vulnerability in github.com/argoproj/argo-workflows
+cves:
+    - CVE-2025-62156
+ghsas:
+    - GHSA-p84v-gxvw-73pf
+references:
+    - advisory: https://github.com/argoproj/argo-workflows/security/advisories/GHSA-p84v-gxvw-73pf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-62156
+    - fix: https://github.com/argoproj/argo-workflows/commit/5659ad9b641fcf52c04ed594cd6493f9170f6011
+    - fix: https://github.com/argoproj/argo-workflows/commit/9f6bc5d236cd1b24d607943384511d71ad17a4c3
+    - web: https://github.com/argoproj/argo-workflows/blob/946a2d6b9ac3309371fe47f49ae94c33ca7d488d/workflow/executor/executor.go#L993
+source:
+    id: GHSA-p84v-gxvw-73pf
+    created: 2025-11-03T14:08:24.669258-05:00
+review_status: UNREVIEWED

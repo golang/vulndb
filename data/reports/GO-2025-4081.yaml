@@ -1,0 +1,22 @@
+id: GO-2025-4081
+modules:
+    - module: github.com/hashicorp/consul
+      versions:
+        - fixed: 1.22.0
+      vulnerable_at: 1.22.0-rc2
+summary: Consul key/value endpoint is vulnerable to denial of service in github.com/hashicorp/consul
+cves:
+    - CVE-2025-11374
+ghsas:
+    - GHSA-7g3r-8c6v-hfmr
+references:
+    - advisory: https://github.com/advisories/GHSA-7g3r-8c6v-hfmr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-11374
+    - fix: https://github.com/hashicorp/consul/commit/72a358cd02533477536ad4bd2b781f520fa7fac6
+    - fix: https://github.com/hashicorp/consul/pull/22916
+    - web: https://discuss.hashicorp.com/t/hcsec-2025-29-consuls-kv-endpoint-is-vulnerable-to-denial-of-service/76724
+    - web: https://github.com/hashicorp/consul/releases/tag/v1.22.0
+source:
+    id: GHSA-7g3r-8c6v-hfmr
+    created: 2025-11-03T14:05:47.320748-05:00
+review_status: UNREVIEWED

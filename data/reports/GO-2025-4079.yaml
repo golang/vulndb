@@ -1,0 +1,20 @@
+id: GO-2025-4079
+modules:
+    - module: github.com/bishopfox/sliver
+      versions:
+        - fixed: 1.5.44
+      vulnerable_at: 1.5.43
+summary: Silver has unrestricted traffic between Wireguard clients in github.com/bishopfox/sliver
+cves:
+    - CVE-2025-27093
+ghsas:
+    - GHSA-q8j9-34qf-7vq7
+references:
+    - advisory: https://github.com/BishopFox/sliver/security/advisories/GHSA-q8j9-34qf-7vq7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-27093
+    - web: https://github.com/BishopFox/sliver/commit/8e5c5f14506d6d60ebb3362e6b9857ab1e0d76ff
+    - web: https://github.com/BishopFox/sliver/commit/9122878cbbcae543eb8210f616550382af2065fd
+source:
+    id: GHSA-q8j9-34qf-7vq7
+    created: 2025-11-03T14:05:55.004521-05:00
+review_status: UNREVIEWED

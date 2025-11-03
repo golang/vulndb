@@ -1,0 +1,17 @@
+id: GO-2025-4078
+modules:
+    - module: github.com/edgelesssys/contrast
+      versions:
+        - fixed: 1.12.1
+      vulnerable_at: 1.12.0
+summary: Contrast has insecure LUKS2 persistent storage partitions may be opened and used in github.com/edgelesssys/contrast
+ghsas:
+    - GHSA-f5p4-p5q5-jv3h
+references:
+    - advisory: https://github.com/edgelesssys/contrast/security/advisories/GHSA-f5p4-p5q5-jv3h
+    - fix: https://github.com/edgelesssys/contrast/commit/2252a231d570c2dce10a33660452b0bfc3c43958
+    - fix: https://github.com/edgelesssys/contrast/pull/1731
+source:
+    id: GHSA-f5p4-p5q5-jv3h
+    created: 2025-11-03T14:06:00.368045-05:00
+review_status: UNREVIEWED

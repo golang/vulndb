@@ -1,0 +1,22 @@
+id: GO-2025-4082
+modules:
+    - module: github.com/hashicorp/consul
+      versions:
+        - fixed: 1.22.0
+      vulnerable_at: 1.22.0-rc2
+summary: Consul event endpoint is vulnerable to denial of service in github.com/hashicorp/consul
+cves:
+    - CVE-2025-11375
+ghsas:
+    - GHSA-qh7p-pfq3-677h
+references:
+    - advisory: https://github.com/advisories/GHSA-qh7p-pfq3-677h
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-11375
+    - fix: https://github.com/hashicorp/consul/commit/e794201d0c618333d81ad775270f7b32801178fb
+    - fix: https://github.com/hashicorp/consul/pull/22836
+    - web: https://discuss.hashicorp.com/t/hcsec-2025-28-consuls-event-endpoint-is-vulnerable-to-denial-of-service/76723
+    - web: https://github.com/hashicorp/consul/releases/tag/v1.22.0
+source:
+    id: GHSA-qh7p-pfq3-677h
+    created: 2025-11-03T14:05:40.347268-05:00
+review_status: UNREVIEWED

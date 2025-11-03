@@ -1,0 +1,27 @@
+id: GO-2025-4004
+modules:
+    - module: github.com/lxc/lxd
+      non_go_versions:
+        - fixed: 5.21.4
+        - introduced: 4.0.0
+        - introduced: 0.0.0-20200331193331-03aab09f5b5c
+        - fixed: 0.0.0-20250827065555-0494f5d47e41
+      vulnerable_at: 0.7.0
+    - module: github.com/lxc/lxd/v6
+      non_go_versions:
+        - introduced: 6.0.0
+        - fixed: 6.5.0
+      vulnerable_at: 6.18.0
+summary: |-
+    Canonical LXD Arbitrary File Read via Template Injection in Snapshot Patterns in
+    github.com/lxc/lxd
+cves:
+    - CVE-2025-54287
+ghsas:
+    - GHSA-w2hg-2v4p-vmh6
+references:
+    - advisory: https://github.com/canonical/lxd/security/advisories/GHSA-w2hg-2v4p-vmh6
+source:
+    id: GHSA-w2hg-2v4p-vmh6
+    created: 2025-11-03T14:07:21.575582-05:00
+review_status: REVIEWED
