@@ -1,0 +1,34 @@
+id: GO-2025-4116
+modules:
+    - module: golang.org/x/crypto
+      versions:
+        - fixed: 0.43.0
+      vulnerable_at: 0.42.0
+      packages:
+        - package: golang.org/x/crypto/ssh/agent
+          symbols:
+            - client.SignWithFlags
+            - client.List
+          derived_symbols:
+            - agentKeyringSigner.Sign
+            - agentKeyringSigner.SignWithAlgorithm
+            - client.Sign
+            - client.Signers
+summary: Potential denial of service in golang.org/x/crypto/ssh/agent
+description: |-
+    SSH clients receiving SSH_AGENT_SUCCESS when expecting a typed response
+    will panic and cause early termination of the client process.
+credits:
+    - Jakub Ciolek
+    - Nicola Murino
+references:
+    - fix: https://go.dev/cl/700295
+    - report: https://go.dev/issue/75178
+    - web: https://github.com/advisories/GHSA-hcg3-q754-cr77
+cve_metadata:
+    id: CVE-2025-47913
+    cwe: 'CWE-703: Improper Handling of Exceptional Conditions'
+source:
+    id: go-security-team
+    created: 2025-11-13T15:48:28.491574-05:00
+review_status: REVIEWED

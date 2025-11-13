@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4116",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-47913"
+  ],
+  "summary": "Potential denial of service in golang.org/x/crypto/ssh/agent",
+  "details": "SSH clients receiving SSH_AGENT_SUCCESS when expecting a typed response will panic and cause early termination of the client process.",
+  "affected": [
+    {
+      "package": {
+        "name": "golang.org/x/crypto",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.43.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "golang.org/x/crypto/ssh/agent",
+            "symbols": [
+              "agentKeyringSigner.Sign",
+              "agentKeyringSigner.SignWithAlgorithm",
+              "client.List",
+              "client.Sign",
+              "client.SignWithFlags",
+              "client.Signers"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/700295"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/75178"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/advisories/GHSA-hcg3-q754-cr77"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Jakub Ciolek"
+    },
+    {
+      "name": "Nicola Murino"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4116",
+    "review_status": "REVIEWED"
+  }
+}
