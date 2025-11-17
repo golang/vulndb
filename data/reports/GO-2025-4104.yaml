@@ -1,0 +1,20 @@
+id: GO-2025-4104
+modules:
+    - module: github.com/kubevirt/kubevirt
+      non_go_versions:
+        - fixed: 1.7.0
+      vulnerable_at: 1.6.3
+summary: |-
+    KubeVirt Excessive Role Permissions Could Enable Unauthorized VMI Migrations
+    Between Nodes in github.com/kubevirt/kubevirt
+cves:
+    - CVE-2025-64436
+ghsas:
+    - GHSA-7xgm-5prm-v5gc
+references:
+    - advisory: https://github.com/kubevirt/kubevirt/security/advisories/GHSA-7xgm-5prm-v5gc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-64436
+source:
+    id: GHSA-7xgm-5prm-v5gc
+    created: 2025-11-17T13:01:11.685085976-05:00
+review_status: UNREVIEWED

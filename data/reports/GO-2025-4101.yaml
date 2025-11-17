@@ -1,0 +1,27 @@
+id: GO-2025-4101
+modules:
+    - module: github.com/opentofu/opentofu
+      versions:
+        - fixed: 1.10.7
+      vulnerable_at: 1.10.6
+summary: |-
+    OpenTofu affected denials of service in "tofu init" with maliciously-crafted
+    module package responses in github.com/opentofu/opentofu
+ghsas:
+    - GHSA-w2jf-268q-mrvh
+references:
+    - advisory: https://github.com/opentofu/opentofu/security/advisories/GHSA-w2jf-268q-mrvh
+    - fix: https://github.com/opentofu/opentofu/pull/3467
+    - report: https://github.com/opentofu/opentofu/issues/3458
+    - report: https://github.com/opentofu/opentofu/issues/3462
+    - report: https://github.com/opentofu/opentofu/issues/3464
+    - report: https://github.com/opentofu/opentofu/issues/3465
+    - web: https://github.com/opentofu/opentofu/releases/tag/v1.10.7
+    - web: https://www.cve.org/CVERecord?id=CVE-2025-58183
+    - web: https://www.cve.org/CVERecord?id=CVE-2025-58185
+    - web: https://www.cve.org/CVERecord?id=CVE-2025-58187
+    - web: https://www.cve.org/CVERecord?id=CVE-2025-58188
+source:
+    id: GHSA-w2jf-268q-mrvh
+    created: 2025-11-17T13:01:26.957713205-05:00
+review_status: UNREVIEWED

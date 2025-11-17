@@ -1,0 +1,23 @@
+id: GO-2025-4095
+modules:
+    - module: github.com/kgateway-dev/kgateway
+      vulnerable_at: 1.17.16
+    - module: github.com/kgateway-dev/kgateway/v2
+      versions:
+        - fixed: 2.0.5
+        - introduced: 2.1.0-agw-cel-rbac
+        - fixed: 2.1.0
+      vulnerable_at: 2.1.0-rc.2
+summary: Kgateway transformation policy template can emit files from the container in github.com/kgateway-dev/kgateway
+ghsas:
+    - GHSA-5pmx-7r6r-wfqq
+references:
+    - advisory: https://github.com/kgateway-dev/kgateway/security/advisories/GHSA-5pmx-7r6r-wfqq
+    - fix: https://github.com/kgateway-dev/kgateway/pull/12528
+    - fix: https://github.com/kgateway-dev/kgateway/pull/12535
+    - web: https://github.com/solo-io/envoy-gloo/releases/tag/v1.34.6-patch3
+    - web: https://github.com/solo-io/envoy-gloo/releases/tag/v1.35.2-patch4
+source:
+    id: GHSA-5pmx-7r6r-wfqq
+    created: 2025-11-17T13:03:50.773315084-05:00
+review_status: UNREVIEWED

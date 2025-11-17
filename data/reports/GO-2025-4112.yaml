@@ -1,0 +1,22 @@
+id: GO-2025-4112
+modules:
+    - module: github.com/evervault/evervault-go
+      versions:
+        - fixed: 1.3.2
+      vulnerable_at: 1.3.1
+summary: |-
+    Evervault Go SDK: Incomplete PCR Validation in Enclave Attestation for
+    non-Evervault hosted Enclaves in github.com/evervault/evervault-go
+cves:
+    - CVE-2025-64186
+ghsas:
+    - GHSA-88h9-77c7-p6w4
+references:
+    - advisory: https://github.com/evervault/evervault-go/security/advisories/GHSA-88h9-77c7-p6w4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-64186
+    - fix: https://github.com/evervault/evervault-go/commit/7c824d289bba11ec0bea46a338023f5b128bbb28
+    - fix: https://github.com/evervault/evervault-go/pull/48
+source:
+    id: GHSA-88h9-77c7-p6w4
+    created: 2025-11-17T13:00:24.539526497-05:00
+review_status: UNREVIEWED

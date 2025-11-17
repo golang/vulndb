@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4099",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-64431",
+    "GHSA-cpf4-pmr4-w6cx"
+  ],
+  "summary": "IDOR Vulnerabilities in ZITADEL's Organization API allows Cross-Tenant Data Tempering in github.com/zitadel/zitadel",
+  "details": "IDOR Vulnerabilities in ZITADEL's Organization API allows Cross-Tenant Data Tempering in github.com/zitadel/zitadel.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/zitadel/zitadel from v4.0.0-rc.1 before v4.6.3.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/zitadel/zitadel",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.80.0-v2.20.0.20250414095945-f365cee73242"
+            },
+            {
+              "fixed": "1.80.0-v2.20.0.20251105083648-8dcfff97ed52"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "4.0.0-rc.1"
+              },
+              {
+                "fixed": "4.6.3"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/zitadel/zitadel/security/advisories/GHSA-cpf4-pmr4-w6cx"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-64431"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/zitadel/zitadel/commit/8dcfff97ed52a8b9fc77ecb1f972744f42cff3ed"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/zitadel/zitadel/releases/tag/v4.6.3"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4099",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,27 @@
+id: GO-2025-4099
+modules:
+    - module: github.com/zitadel/zitadel
+      versions:
+        - introduced: 1.80.0-v2.20.0.20250414095945-f365cee73242
+        - fixed: 1.80.0-v2.20.0.20251105083648-8dcfff97ed52
+      non_go_versions:
+        - introduced: 4.0.0-rc.1
+        - fixed: 4.6.3
+summary: |-
+    IDOR Vulnerabilities in ZITADEL's Organization API allows Cross-Tenant Data
+    Tempering in github.com/zitadel/zitadel
+cves:
+    - CVE-2025-64431
+ghsas:
+    - GHSA-cpf4-pmr4-w6cx
+references:
+    - advisory: https://github.com/zitadel/zitadel/security/advisories/GHSA-cpf4-pmr4-w6cx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-64431
+    - fix: https://github.com/zitadel/zitadel/commit/8dcfff97ed52a8b9fc77ecb1f972744f42cff3ed
+    - web: https://github.com/zitadel/zitadel/releases/tag/v4.6.3
+notes:
+    - fix: 'github.com/zitadel/zitadel: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-cpf4-pmr4-w6cx
+    created: 2025-11-17T13:01:40.852954666-05:00
+review_status: UNREVIEWED

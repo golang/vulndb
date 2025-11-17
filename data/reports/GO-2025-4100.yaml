@@ -1,0 +1,30 @@
+id: GO-2025-4100
+modules:
+    - module: github.com/containerd/containerd
+      versions:
+        - fixed: 1.7.29
+      vulnerable_at: 1.7.28
+    - module: github.com/containerd/containerd/v2
+      versions:
+        - fixed: 2.0.7
+        - introduced: 2.1.0-beta.0
+        - fixed: 2.1.5
+        - introduced: 2.2.0-beta.0
+        - fixed: 2.2.0
+      vulnerable_at: 2.2.0-rc.1
+summary: |-
+    containerd affected by a local privilege escalation via wide permissions on CRI
+    directory in github.com/containerd/containerd
+cves:
+    - CVE-2024-25621
+ghsas:
+    - GHSA-pwhc-rpq9-4c8w
+references:
+    - advisory: https://github.com/containerd/containerd/security/advisories/GHSA-pwhc-rpq9-4c8w
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-25621
+    - fix: https://github.com/containerd/containerd/commit/7c59e8e9e970d38061a77b586b23655c352bfec5
+    - web: https://github.com/containerd/containerd/blob/main/docs/rootless.md
+source:
+    id: GHSA-pwhc-rpq9-4c8w
+    created: 2025-11-17T13:01:35.003674564-05:00
+review_status: UNREVIEWED

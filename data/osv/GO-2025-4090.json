@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4090",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-64179",
+    "GHSA-h238-5mwf-8xw8"
+  ],
+  "summary": "lakeFS affected by unauthenticated access to API usage metrics in github.com/treeverse/lakefs",
+  "details": "lakeFS affected by unauthenticated access to API usage metrics in github.com/treeverse/lakefs",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/treeverse/lakefs",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.71.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/treeverse/lakeFS/security/advisories/GHSA-h238-5mwf-8xw8"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-64179"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/treeverse/lakeFS/commit/1c8adab852dac2387fcb00a256402b308a610c60"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4090",
+    "review_status": "UNREVIEWED"
+  }
+}

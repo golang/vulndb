@@ -1,0 +1,23 @@
+id: GO-2025-4102
+modules:
+    - module: kubevirt.io/kubevirt
+      versions:
+        - fixed: 1.5.3
+        - introduced: 1.6.0-alpha.0
+        - fixed: 1.6.0-beta.0.0.20250801202148-3ce9f41c54d0
+      vulnerable_at: 1.6.0-beta.0
+summary: KubeVirt Isolation Detection Flaw Allows Arbitrary File Permission Changes in kubevirt.io/kubevirt
+cves:
+    - CVE-2025-64437
+ghsas:
+    - GHSA-2r4r-5x78-mvqf
+references:
+    - advisory: https://github.com/kubevirt/kubevirt/security/advisories/GHSA-2r4r-5x78-mvqf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-64437
+    - web: https://github.com/kubevirt/kubevirt/commit/3ce9f41c54d04a65f10b23a46771391c00659afb
+    - web: https://github.com/kubevirt/kubevirt/commit/8644dbe0d04784b0bfa8395b91ecbd6001f88f6b
+    - web: https://github.com/kubevirt/kubevirt/commit/f59ca63133f25de8fceb3e2a0e5cc0b7bdb6a265
+source:
+    id: GHSA-2r4r-5x78-mvqf
+    created: 2025-11-17T13:01:22.763363801-05:00
+review_status: UNREVIEWED

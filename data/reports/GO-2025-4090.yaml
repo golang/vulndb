@@ -1,0 +1,19 @@
+id: GO-2025-4090
+modules:
+    - module: github.com/treeverse/lakefs
+      versions:
+        - fixed: 1.71.0
+      vulnerable_at: 1.70.1
+summary: lakeFS affected by unauthenticated access to API usage metrics in github.com/treeverse/lakefs
+cves:
+    - CVE-2025-64179
+ghsas:
+    - GHSA-h238-5mwf-8xw8
+references:
+    - advisory: https://github.com/treeverse/lakeFS/security/advisories/GHSA-h238-5mwf-8xw8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-64179
+    - web: https://github.com/treeverse/lakeFS/commit/1c8adab852dac2387fcb00a256402b308a610c60
+source:
+    id: GHSA-h238-5mwf-8xw8
+    created: 2025-11-17T13:04:14.792110601-05:00
+review_status: UNREVIEWED

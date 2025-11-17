@@ -1,0 +1,28 @@
+id: GO-2025-4113
+modules:
+    - module: github.com/oauth2-proxy/oauth2-proxy
+      vulnerable_at: 3.2.0+incompatible
+    - module: github.com/oauth2-proxy/oauth2-proxy/v7
+      versions:
+        - fixed: 7.13.0
+      vulnerable_at: 7.12.0
+summary: |-
+    OAuth2-Proxy is vulnerable to header smuggling via underscore leading to
+    potential privilege escalation in github.com/oauth2-proxy/oauth2-proxy
+cves:
+    - CVE-2025-64484
+ghsas:
+    - GHSA-vjrc-mh2v-45x6
+references:
+    - advisory: https://github.com/oauth2-proxy/oauth2-proxy/security/advisories/GHSA-vjrc-mh2v-45x6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-64484
+    - fix: https://github.com/oauth2-proxy/oauth2-proxy/commit/f3f30fa976fb4bb97d6345ba4735cb6d86e24f95
+    - web: https://datatracker.ietf.org/doc/html/rfc2616#section-4.2
+    - web: https://datatracker.ietf.org/doc/html/rfc822#section-3.2
+    - web: https://github.com/oauth2-proxy/oauth2-proxy/releases/tag/v7.13.0
+    - web: https://github.security.telekom.com/2020/05/smuggling-http-headers-through-reverse-proxies.html
+    - web: https://www.uptimia.com/questions/why-are-http-headers-with-underscores-dropped-by-nginx
+source:
+    id: GHSA-vjrc-mh2v-45x6
+    created: 2025-11-17T13:00:01.584392081-05:00
+review_status: UNREVIEWED

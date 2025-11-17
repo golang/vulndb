@@ -1,0 +1,25 @@
+id: GO-2025-4094
+modules:
+    - module: github.com/kgateway-dev/kgateway
+      vulnerable_at: 1.17.16
+    - module: github.com/kgateway-dev/kgateway/v2
+      versions:
+        - fixed: 2.0.5
+        - introduced: 2.1.0-agw-cel-rbac
+        - fixed: 2.1.0
+      vulnerable_at: 2.1.0-rc.2
+summary: kgateway is missing xDS authorization in github.com/kgateway-dev/kgateway
+cves:
+    - CVE-2025-64323
+ghsas:
+    - GHSA-4766-x535-jw3r
+references:
+    - advisory: https://github.com/kgateway-dev/kgateway/security/advisories/GHSA-4766-x535-jw3r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-64323
+    - fix: https://github.com/kgateway-dev/kgateway/pull/12471
+    - fix: https://github.com/kgateway-dev/kgateway/pull/12535
+    - report: https://github.com/kgateway-dev/kgateway/issues/10651
+source:
+    id: GHSA-4766-x535-jw3r
+    created: 2025-11-17T13:03:55.485288771-05:00
+review_status: UNREVIEWED

@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4101",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-w2jf-268q-mrvh"
+  ],
+  "summary": "OpenTofu affected denials of service in \"tofu init\" with maliciously-crafted module package responses in github.com/opentofu/opentofu",
+  "details": "OpenTofu affected denials of service in \"tofu init\" with maliciously-crafted module package responses in github.com/opentofu/opentofu",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/opentofu/opentofu",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.10.7"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/opentofu/opentofu/security/advisories/GHSA-w2jf-268q-mrvh"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opentofu/opentofu/pull/3467"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/opentofu/opentofu/issues/3458"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/opentofu/opentofu/issues/3462"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/opentofu/opentofu/issues/3464"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/opentofu/opentofu/issues/3465"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/opentofu/opentofu/releases/tag/v1.10.7"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2025-58183"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2025-58185"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2025-58187"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2025-58188"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4101",
+    "review_status": "UNREVIEWED"
+  }
+}

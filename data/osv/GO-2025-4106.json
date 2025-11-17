@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4106",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-64494",
+    "GHSA-fv2r-r8mp-pg48"
+  ],
+  "summary": "Soft Serve does not sanitize ANSI escape sequences in user input in github.com/charmbracelet/soft-serve",
+  "details": "Soft Serve does not sanitize ANSI escape sequences in user input in github.com/charmbracelet/soft-serve",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/charmbracelet/soft-serve",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.11.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/charmbracelet/soft-serve/security/advisories/GHSA-fv2r-r8mp-pg48"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-64494"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/charmbracelet/soft-serve/commit/d9639320b8d0ccd76fe6836a042c042b0ebde549"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4106",
+    "review_status": "UNREVIEWED"
+  }
+}

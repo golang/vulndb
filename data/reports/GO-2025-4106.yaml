@@ -1,0 +1,19 @@
+id: GO-2025-4106
+modules:
+    - module: github.com/charmbracelet/soft-serve
+      versions:
+        - fixed: 0.11.0
+      vulnerable_at: 0.10.0
+summary: Soft Serve does not sanitize ANSI escape sequences in user input in github.com/charmbracelet/soft-serve
+cves:
+    - CVE-2025-64494
+ghsas:
+    - GHSA-fv2r-r8mp-pg48
+references:
+    - advisory: https://github.com/charmbracelet/soft-serve/security/advisories/GHSA-fv2r-r8mp-pg48
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-64494
+    - fix: https://github.com/charmbracelet/soft-serve/commit/d9639320b8d0ccd76fe6836a042c042b0ebde549
+source:
+    id: GHSA-fv2r-r8mp-pg48
+    created: 2025-11-17T13:01:01.262281131-05:00
+review_status: UNREVIEWED
