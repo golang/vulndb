@@ -1,0 +1,35 @@
+id: GO-2025-4126
+modules:
+    - module: github.com/mattermost/mattermost
+      vulnerable_at: 11.1.0+incompatible
+    - module: github.com/mattermost/mattermost/v5
+      non_go_versions:
+        - fixed: 5.3.2-0.20250815165020-c8d66301415d
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server
+      vulnerable_at: 11.1.0+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      non_go_versions:
+        - fixed: 5.3.2-0.20250815165020-c8d66301415d
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20250815165020-c8d66301415d
+summary: Mattermost fails to properly restrict access to archived channel search API in github.com/mattermost/mattermost
+cves:
+    - CVE-2025-11776
+ghsas:
+    - GHSA-j6gg-r5jc-47cm
+references:
+    - advisory: https://github.com/advisories/GHSA-j6gg-r5jc-47cm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-11776
+    - fix: https://github.com/mattermost/mattermost/commit/c8d66301415d5b447df0e829bdbaa92e8a83ecf8
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-j6gg-r5jc-47cm
+    created: 2025-11-17T12:49:20.029614774-05:00
+review_status: UNREVIEWED

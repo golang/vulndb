@@ -1,0 +1,19 @@
+id: GO-2025-4120
+modules:
+    - module: github.com/authzed/spicedb
+      versions:
+        - fixed: 1.45.2
+      vulnerable_at: 1.45.1
+summary: SpiceDB WriteRelationships fails silently if payload is too big in github.com/authzed/spicedb
+cves:
+    - CVE-2025-64529
+ghsas:
+    - GHSA-pm3x-jrhh-qcr7
+references:
+    - advisory: https://github.com/authzed/spicedb/security/advisories/GHSA-pm3x-jrhh-qcr7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-64529
+    - fix: https://github.com/authzed/spicedb/commit/d0cd103a92cc1915636733fb1d1730c2c7f74851
+source:
+    id: GHSA-pm3x-jrhh-qcr7
+    created: 2025-11-17T12:55:28.315755653-05:00
+review_status: UNREVIEWED

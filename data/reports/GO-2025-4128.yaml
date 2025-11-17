@@ -1,0 +1,29 @@
+id: GO-2025-4128
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 11.1.0+incompatible
+      vulnerable_at: 11.1.0-rc4+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20250912063506-7d8b7b5e4a60
+summary: Mattermost does not enforce MFA on WebSocket connections in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-55070
+ghsas:
+    - GHSA-xpg8-8xpv-948p
+references:
+    - advisory: https://github.com/advisories/GHSA-xpg8-8xpv-948p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-55070
+    - web: https://github.com/mattermost/mattermost/commit/7d8b7b5e4a6076b2f7c87606883c417f9a610df5
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-xpg8-8xpv-948p
+    created: 2025-11-17T12:48:15.812558161-05:00
+review_status: UNREVIEWED

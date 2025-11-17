@@ -1,0 +1,27 @@
+id: GO-2025-4115
+modules:
+    - module: github.com/lxc/incus
+      unsupported_versions:
+        - last_affected: 0.7.0
+      vulnerable_at: 0.7.0
+    - module: github.com/lxc/incus/v6
+      versions:
+        - introduced: 6.1.0
+      unsupported_versions:
+        - last_affected: 6.0.6
+        - last_affected: 6.18.0
+      vulnerable_at: 6.18.0
+summary: Incus vulnerable to local privilege escalation through custom storage volumes in github.com/lxc/incus
+cves:
+    - CVE-2025-64507
+ghsas:
+    - GHSA-56mx-8g9f-5crf
+references:
+    - advisory: https://github.com/lxc/incus/security/advisories/GHSA-56mx-8g9f-5crf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-64507
+    - fix: https://github.com/lxc/incus/pull/2642
+    - report: https://github.com/lxc/incus/issues/2641
+source:
+    id: GHSA-56mx-8g9f-5crf
+    created: 2025-11-17T12:55:41.495631986-05:00
+review_status: UNREVIEWED

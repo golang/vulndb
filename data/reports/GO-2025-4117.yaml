@@ -1,0 +1,23 @@
+id: GO-2025-4117
+modules:
+    - module: github.com/filebrowser/filebrowser
+      vulnerable_at: 1.11.0
+    - module: github.com/filebrowser/filebrowser/v2
+      versions:
+        - fixed: 2.45.1
+      vulnerable_at: 2.45.0
+summary: |-
+    File Browser is Vulnerable to Insecure Direct Object Reference (IDOR) in Share
+    Deletion Function in github.com/filebrowser/filebrowser
+cves:
+    - CVE-2025-64523
+ghsas:
+    - GHSA-6cqf-cfhv-659g
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-6cqf-cfhv-659g
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-64523
+    - fix: https://github.com/filebrowser/filebrowser/commit/291223b3cefe1e50fae8f73d70464b1dc25351a4
+source:
+    id: GHSA-6cqf-cfhv-659g
+    created: 2025-11-17T12:55:36.830456066-05:00
+review_status: UNREVIEWED

@@ -1,0 +1,25 @@
+id: GO-2025-4125
+modules:
+    - module: github.com/rhobs/observability-operator
+      versions:
+        - fixed: 1.3.0
+      vulnerable_at: 1.2.0
+summary: |-
+    Observability Operator is vulnerable to Incorrect Privilege Assignment through
+    its Custom Resource MonitorStack in github.com/rhobs/observability-operator
+cves:
+    - CVE-2025-2843
+ghsas:
+    - GHSA-mj6p-p843-x5wc
+references:
+    - advisory: https://github.com/advisories/GHSA-mj6p-p843-x5wc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-2843
+    - fix: https://github.com/rhobs/observability-operator/commit/98b927fab755decd6e030ac6af5c005879bab020
+    - web: https://access.redhat.com/errata/RHSA-2025:21146
+    - web: https://access.redhat.com/security/cve/CVE-2025-2843
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2355222
+    - web: https://github.com/rhobs/observability-operator/releases/tag/v1.3.0
+source:
+    id: GHSA-mj6p-p843-x5wc
+    created: 2025-11-17T12:52:14.028044191-05:00
+review_status: UNREVIEWED

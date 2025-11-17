@@ -1,0 +1,31 @@
+id: GO-2025-4124
+modules:
+    - module: github.com/zitadel/zitadel
+      versions:
+        - introduced: 1.80.0-v2.20.0.20240403060621-5b3946b67ef6
+        - fixed: 1.80.0-v2.20.0.20251112124840-33c51deb2040
+      non_go_versions:
+        - introduced: 2.50.0
+        - fixed: 2.71.19
+        - introduced: 3.0.0-rc.1
+        - fixed: 3.4.4
+        - introduced: 4.0.0-rc.1
+        - fixed: 4.6.6
+summary: ZITADEL is vulnerable to Account Takeover with deactivated Instance IdP in github.com/zitadel/zitadel
+cves:
+    - CVE-2025-64717
+ghsas:
+    - GHSA-j4g7-v4m4-77px
+references:
+    - advisory: https://github.com/zitadel/zitadel/security/advisories/GHSA-j4g7-v4m4-77px
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-64717
+    - fix: https://github.com/zitadel/zitadel/commit/33c51deb20402dd5720e32cfb0c1d5fdc752f2e0
+    - web: https://github.com/zitadel/zitadel/releases/tag/v2.71.19
+    - web: https://github.com/zitadel/zitadel/releases/tag/v3.4.4
+    - web: https://github.com/zitadel/zitadel/releases/tag/v4.6.6
+notes:
+    - fix: 'github.com/zitadel/zitadel: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-j4g7-v4m4-77px
+    created: 2025-11-17T12:52:22.017683072-05:00
+review_status: UNREVIEWED

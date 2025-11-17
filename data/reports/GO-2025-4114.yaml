@@ -1,0 +1,29 @@
+id: GO-2025-4114
+modules:
+    - module: github.com/milvus-io/milvus
+      versions:
+        - fixed: 0.10.3-0.20251107071934-6102f001a971
+        - introduced: 0.10.4
+      non_go_versions:
+        - fixed: 2.4.24
+        - introduced: 2.5.0
+        - fixed: 2.5.21
+        - introduced: 2.6.0
+        - fixed: 2.6.5
+      vulnerable_at: 1.1.1
+summary: Milvus Proxy has a Critical Authentication Bypass Vulnerability in github.com/milvus-io/milvus
+cves:
+    - CVE-2025-64513
+ghsas:
+    - GHSA-mhjq-8c7m-3f7p
+references:
+    - advisory: https://github.com/milvus-io/milvus/security/advisories/GHSA-mhjq-8c7m-3f7p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-64513
+    - fix: https://github.com/milvus-io/milvus/commit/6102f001a971c8c8055a4a4cae704442d5cab793
+    - fix: https://github.com/milvus-io/milvus/pull/45379
+    - fix: https://github.com/milvus-io/milvus/pull/45383
+    - fix: https://github.com/milvus-io/milvus/pull/45391
+source:
+    id: GHSA-mhjq-8c7m-3f7p
+    created: 2025-11-17T12:59:45.957592924-05:00
+review_status: UNREVIEWED

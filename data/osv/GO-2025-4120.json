@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4120",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-64529",
+    "GHSA-pm3x-jrhh-qcr7"
+  ],
+  "summary": "SpiceDB WriteRelationships fails silently if payload is too big in github.com/authzed/spicedb",
+  "details": "SpiceDB WriteRelationships fails silently if payload is too big in github.com/authzed/spicedb",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/authzed/spicedb",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.45.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/authzed/spicedb/security/advisories/GHSA-pm3x-jrhh-qcr7"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-64529"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/authzed/spicedb/commit/d0cd103a92cc1915636733fb1d1730c2c7f74851"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4120",
+    "review_status": "UNREVIEWED"
+  }
+}
