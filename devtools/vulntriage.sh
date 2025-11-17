@@ -12,7 +12,7 @@
 # 3. Installs the latest version of the 'vulnreport' tool.
 # 4. Runs 'vulnreport triage'.
 # 5. Runs 'vulnreport create'.
-# 6. Runs 'vulnreport commit' for UNREVIEWED and NEEDS_REVIEW statuses.
+# 6. Runs 'vulnreport commit' for UNREVIEWED and REVIEWED statuses.
 #
 # Options:
 #   --batch <size>:  Sets the batch size for commit operations (default: 20).
@@ -31,7 +31,7 @@ BATCH_SIZE=20
 TRIAGE=true
 CREATE=true
 COMMIT=true
-COMMIT_STATUSES=("UNREVIEWED" "NEEDS_REVIEW")
+COMMIT_STATUSES=("UNREVIEWED" "REVIEWED")
 BRANCH_NAME="vulnreport-update-$(date +%Y-%m-%d)"
 
 info() {
