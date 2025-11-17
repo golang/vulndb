@@ -1,0 +1,40 @@
+id: GO-2025-4130
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.5.0+incompatible
+        - fixed: 10.5.12+incompatible
+        - introduced: 10.11.0+incompatible
+        - fixed: 10.11.4+incompatible
+        - introduced: 10.12.0+incompatible
+        - fixed: 10.12.1+incompatible
+      vulnerable_at: 10.12.1-rc1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20250929212932-a41db04d2746
+summary: |-
+    Mattermost allows system administrators to access password hashes and MFA
+    secrets in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-11794
+ghsas:
+    - GHSA-mqp8-pgg5-7x7m
+references:
+    - advisory: https://github.com/advisories/GHSA-mqp8-pgg5-7x7m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-11794
+    - web: https://github.com/mattermost/mattermost/commit/375ce229f4923205394d8f27925372b2cbf28130
+    - web: https://github.com/mattermost/mattermost/commit/6c288aa62bb3343183ec1d0a06360d14aa0193e9
+    - web: https://github.com/mattermost/mattermost/commit/a41db04d2746ab549d056db4ede4cd803f64989c
+    - web: https://github.com/mattermost/mattermost/commit/b822cea06bf5683a176e2c92711241bd29cd9389
+    - web: https://github.com/mattermost/mattermost/commit/e47349ea0fc072ee1dfb196d9bb1c8fd1a589224
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-mqp8-pgg5-7x7m
+    created: 2025-11-17T15:27:39.497378261-05:00
+review_status: UNREVIEWED
