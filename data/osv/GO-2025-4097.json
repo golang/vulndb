@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4097",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-52565",
+    "GHSA-qw9x-cqr3-wc7r"
+  ],
+  "summary": "Container escape with malicious config due to /dev/console mount and related races in github.com/opencontainers/runc",
+  "details": "Container escape with malicious config due to /dev/console mount and related races in github.com/opencontainers/runc",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/opencontainers/runc",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.0.0-rc3"
+            },
+            {
+              "fixed": "1.2.8"
+            },
+            {
+              "introduced": "1.3.0-rc.1"
+            },
+            {
+              "fixed": "1.3.3"
+            },
+            {
+              "introduced": "1.4.0-rc.1"
+            },
+            {
+              "fixed": "1.4.0-rc.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/opencontainers/runc/libcontainer"
+          },
+          {
+            "path": "github.com/opencontainers/runc/libcontainer/exeseal",
+            "symbols": [
+              "CloneBinary",
+              "CloneSelfExe",
+              "sealFile"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/opencontainers/runc/security/advisories/GHSA-qw9x-cqr3-wc7r"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/01de9d65dc72f67b256ef03f9bfb795a2bf143b4"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/398955bccb7f20565c224a3064d331c19e422398"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/531ef794e4ecd628006a865ad334a048ee2b4b2e"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/9be1dbf4ac67d9840a043ebd2df5c68f36705d1d"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/aee7d3fe355dd02939d44155e308ea0052e0d53a"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/db19bbed5348847da433faa9d69e9f90192bfa64"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/de87203e625cd7a27141fb5f2ad00a320c69c5e8"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/ff94f9991bd32076c871ef0ad8bc1b763458e480"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4097",
+    "review_status": "REVIEWED"
+  }
+}

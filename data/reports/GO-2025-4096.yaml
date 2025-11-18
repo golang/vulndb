@@ -1,0 +1,31 @@
+id: GO-2025-4096
+modules:
+    - module: github.com/opencontainers/runc
+      versions:
+        - fixed: 1.2.8
+        - introduced: 1.3.0-rc.1
+        - fixed: 1.3.3
+        - introduced: 1.4.0-rc.1
+        - fixed: 1.4.0-rc.3
+      vulnerable_at: 1.4.0-rc.2
+      packages:
+        - package: github.com/opencontainers/runc/libcontainer
+summary: |-
+    Container escape via "masked path" abuse due to mount race conditions in
+    github.com/opencontainers/runc
+cves:
+    - CVE-2025-31133
+ghsas:
+    - GHSA-9493-h29p-rfm2
+references:
+    - advisory: https://github.com/opencontainers/runc/security/advisories/GHSA-9493-h29p-rfm2
+    - fix: https://github.com/opencontainers/runc/commit/1a30a8f3d921acbbb6a4bb7e99da2c05f8d48522
+    - fix: https://github.com/opencontainers/runc/commit/5d7b2424072449872d1cd0c937f2ca25f418eb66
+    - fix: https://github.com/opencontainers/runc/commit/8476df83b534a2522b878c0507b3491def48db9f
+    - fix: https://github.com/opencontainers/runc/commit/db19bbed5348847da433faa9d69e9f90192bfa64
+notes:
+    - no symbols specified for package github.com/opencontainers/runc/libcontainer as it has an invalid symbol: maskPaths
+source:
+    id: GHSA-9493-h29p-rfm2
+    created: 2025-11-17T17:12:54.875669142-05:00
+review_status: REVIEWED

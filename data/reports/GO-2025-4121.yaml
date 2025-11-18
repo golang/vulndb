@@ -1,0 +1,26 @@
+id: GO-2025-4121
+modules:
+    - module: github.com/canonical/lxd
+      non_go_versions:
+        - fixed: "6.6"
+        - fixed: 5.21.5
+        - fixed: 4.0.11
+summary: |-
+    LXD vulnerable to a local privilege escalation through custom storage volumes in
+    lxd in github.com/canonical/lxd
+ghsas:
+    - GHSA-3g2j-vm47-x4mj
+references:
+    - advisory: https://github.com/canonical/lxd/security/advisories/GHSA-3g2j-vm47-x4mj
+    - fix: https://github.com/canonical/lxd/pull/16904
+    - fix: https://github.com/canonical/lxd/pull/16922
+    - fix: https://github.com/canonical/lxd/pull/16923
+    - fix: https://github.com/canonical/lxd/pull/16924
+    - web: https://github.com/lxc/incus/issues/2641
+    - web: https://github.com/lxc/incus/security/advisories/GHSA-56mx-8g9f-5crf
+notes:
+    - Pseudoversions specified in advisory are insufficient to accurately mark go_versions.
+source:
+    id: GHSA-3g2j-vm47-x4mj
+    created: 2025-11-17T17:39:10.142963716-05:00
+review_status: REVIEWED

@@ -1,0 +1,71 @@
+id: GO-2025-4025
+modules:
+    - module: github.com/cometbft/cometbft
+      versions:
+        - fixed: 0.37.16
+        - introduced: 0.38.0-alpha.1
+        - fixed: 0.38.19
+      vulnerable_at: 0.38.18
+      packages:
+        - package: github.com/cometbft/cometbft/consensus
+          symbols:
+            - NewValidBlockMessage.ValidateBasic
+            - ProposalPOLMessage.ValidateBasic
+            - VoteSetBitsMessage.ValidateBasic
+          derived_symbols:
+            - BaseWAL.OnStart
+            - BaseWAL.SearchForEndHeight
+            - Handshaker.Handshake
+            - Handshaker.HandshakeWithContext
+            - Handshaker.ReplayBlocks
+            - Handshaker.ReplayBlocksWithContext
+            - MsgFromProto
+            - NewState
+            - PeerState.ApplyHasVoteMessage
+            - PeerState.ApplyVoteSetBitsMessage
+            - PeerState.EnsureVoteBitArrays
+            - PeerState.InitProposalBlockParts
+            - PeerState.PickSendVote
+            - PeerState.PickVoteToSend
+            - PeerState.SetHasProposal
+            - PeerState.SetHasProposalBlockPart
+            - PeerState.SetHasVote
+            - Reactor.AddPeer
+            - Reactor.OnStart
+            - Reactor.Receive
+            - Reactor.SwitchToConsensus
+            - RunReplayFile
+            - State.OnStart
+            - State.OpenWAL
+            - State.ReplayFile
+            - WALDecoder.Decode
+            - WALFromProto
+            - WALGenerateNBlocks
+            - WALWithNBlocks
+        - package: github.com/cometbft/cometbft/libs/bits
+          symbols:
+            - BitArray.copyBits
+            - NewBitArray
+            - BitArray.getNumTrueIndices
+            - BitArray.setIndex
+            - NewBitArrayFromFn
+          derived_symbols:
+            - BitArray.And
+            - BitArray.Or
+            - BitArray.PickRandom
+            - BitArray.SetIndex
+            - BitArray.Sub
+            - BitArray.UnmarshalJSON
+summary: CometBFT's invalid BitArray handling can lead to network halt in github.com/cometbft/cometbft
+ghsas:
+    - GHSA-hrhf-2vcr-ghch
+references:
+    - advisory: https://github.com/cometbft/cometbft/security/advisories/GHSA-hrhf-2vcr-ghch
+    - fix: https://github.com/cometbft/cometbft/commit/be5677c3e58f998b7f67bb6186dd2c9b81a041a1
+    - fix: https://github.com/cometbft/cometbft/commit/dcb1f265b59477be40804f7ccdc4fb30612d6a4f
+    - web: https://github.com/cometbft/cometbft/releases/tag/v0.37.16
+    - web: https://github.com/cometbft/cometbft/releases/tag/v0.38.19
+source:
+    id: GHSA-hrhf-2vcr-ghch
+    created: 2025-11-17T18:27:07.183137832-05:00
+review_status: REVIEWED

@@ -1,0 +1,184 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4098",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-52881",
+    "GHSA-cgrx-mc8f-2prm"
+  ],
+  "summary": "Container escape and DDoS due to arbitrary write gadgets and procfs write redirects in github.com/opencontainers/runc",
+  "details": "Container escape and DDoS due to arbitrary write gadgets and procfs write redirects in github.com/opencontainers/runc",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/opencontainers/runc",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.2.8"
+            },
+            {
+              "introduced": "1.3.0-rc.1"
+            },
+            {
+              "fixed": "1.3.3"
+            },
+            {
+              "introduced": "1.4.0-rc.1"
+            },
+            {
+              "fixed": "1.4.0-rc.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/opencontainers/selinux",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.13.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/opencontainers/runc/security/advisories/GHSA-cgrx-mc8f-2prm"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/3f925525b44d247e390e529e772a0dc0c0bc3557"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/435cc81be6b79cdec73b4002c0dae549b2f6ae6d"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/44a0fcf685db051c80b8c269812bb177f5802c58"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/4b37cd93f86e72feac866442988b549b5b7bf3e6"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/6fc191449109ea14bb7d61238f24a33fe08c651f"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/77889b56db939c323d29d1130f28f9aea2edb544"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/77d217c7c3775d8ca5af89e477e81568ef4572db"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/a41366e74080fa9f26a2cd3544e2801449697322"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/b3dd1bc562ed9996d1a0f249e056c16624046d28"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/d40b3439a9614a86e87b81a94c6811ec6fa2d7d2"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/d61fd29d854b416feaaf128bf650325cd2182165"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/db19bbed5348847da433faa9d69e9f90192bfa64"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/ed6b1693b8b3ae7eb0250a7e76fc888cdacf98c1"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/fdcc9d3cad2f85954a241ccb910a61aaa1ef47f3"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/ff6fe1324663538167eca8b3d3eec61e1bd4fa51"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/ff94f9991bd32076c871ef0ad8bc1b763458e480"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/selinux/pull/237"
+    },
+    {
+      "type": "WEB",
+      "url": "http://github.com/opencontainers/runc/commit/a41366e74080fa9f26a2cd3544e2801449697322"
+    },
+    {
+      "type": "WEB",
+      "url": "http://github.com/opencontainers/runc/commit/fdcc9d3cad2f85954a241ccb910a61aaa1ef47f3"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/opencontainers/runc/blob/v1.4.0-rc.2/RELEASES.md"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/opencontainers/runc/security/advisories/GHSA-9493-h29p-rfm2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/opencontainers/runc/security/advisories/GHSA-fh74-hm69-rqjw"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/opencontainers/runc/security/advisories/GHSA-qw9x-cqr3-wc7r"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/opencontainers/selinux/releases/tag/v1.13.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://pkg.go.dev/github.com/cyphar/filepath-securejoin/pathrs-lite/procfs"
+    },
+    {
+      "type": "WEB",
+      "url": "https://youtu.be/tGseJW_uBB8"
+    },
+    {
+      "type": "WEB",
+      "url": "https://youtu.be/y1PaBzxwRWQ"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4098",
+    "review_status": "REVIEWED"
+  }
+}

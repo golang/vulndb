@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4096",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-31133",
+    "GHSA-9493-h29p-rfm2"
+  ],
+  "summary": "Container escape via \"masked path\" abuse due to mount race conditions in github.com/opencontainers/runc",
+  "details": "Container escape via \"masked path\" abuse due to mount race conditions in github.com/opencontainers/runc",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/opencontainers/runc",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.2.8"
+            },
+            {
+              "introduced": "1.3.0-rc.1"
+            },
+            {
+              "fixed": "1.3.3"
+            },
+            {
+              "introduced": "1.4.0-rc.1"
+            },
+            {
+              "fixed": "1.4.0-rc.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/opencontainers/runc/libcontainer"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/opencontainers/runc/security/advisories/GHSA-9493-h29p-rfm2"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/1a30a8f3d921acbbb6a4bb7e99da2c05f8d48522"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/5d7b2424072449872d1cd0c937f2ca25f418eb66"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/8476df83b534a2522b878c0507b3491def48db9f"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/db19bbed5348847da433faa9d69e9f90192bfa64"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4096",
+    "review_status": "REVIEWED"
+  }
+}

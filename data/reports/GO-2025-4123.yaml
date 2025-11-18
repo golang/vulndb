@@ -1,0 +1,29 @@
+id: GO-2025-4123
+modules:
+    - module: github.com/dvsekhvalnov/jose2go
+      versions:
+        - fixed: 1.7.0
+      vulnerable_at: 1.6.0
+      packages:
+        - package: github.com/dvsekhvalnov/jose2go
+          symbols:
+            - decrypt
+            - Deflate.Decompress
+          derived_symbols:
+            - Decode
+            - DecodeBytes
+summary: |-
+    Denial-of-Service (DoS) via crafted JSON Web Encryption (JWE) token high
+    compression ratio in github.com/dvsekhvalnov/jose2go
+cves:
+    - CVE-2025-63811
+ghsas:
+    - GHSA-9mj6-hxhv-w67j
+references:
+    - advisory: https://github.com/advisories/GHSA-9mj6-hxhv-w67j
+    - fix: https://github.com/dvsekhvalnov/jose2go/commit/0a0673dd7f2820a446de5b04b9094b2291d77d5d
+    - report: https://github.com/dvsekhvalnov/jose2go/issues/33
+source:
+    id: GHSA-9mj6-hxhv-w67j
+    created: 2025-11-17T16:29:49.921754933-05:00
+review_status: REVIEWED
