@@ -1,0 +1,30 @@
+id: GO-2025-4134
+modules:
+    - module: golang.org/x/crypto
+      non_go_versions:
+        - fixed: 0.45.0
+      vulnerable_at: 0.44.0
+      packages:
+        - package: golang.org/x/crypto/ssh
+          symbols:
+            - parseGSSAPIPayload
+          derived_symbols:
+            - NewServerConn
+summary: CVE-2025-58181 in golang.org/x/crypto/ssh
+description: |-
+    SSH servers parsing GSSAPI authentication requests do not validate the number of
+    mechanisms specified in the request, allowing an attacker to cause unbounded
+    memory consumption.
+credits:
+    - Jakub Ciolek
+references:
+    - advisory: https://groups.google.com/g/golang-announce/c/w-oX3UxNcZA
+    - fix: https://go.dev/cl/721961
+    - report: https://go.dev/issue/76363
+cve_metadata:
+    id: CVE-2025-58181
+    cwe: CWE-1284
+source:
+    id: go-security-team
+    created: 2025-11-19T13:45:59.697504-05:00
+review_status: REVIEWED

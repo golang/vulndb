@@ -1,0 +1,31 @@
+id: GO-2025-4135
+modules:
+    - module: golang.org/x/crypto
+      non_go_versions:
+        - fixed: 0.45.0
+      vulnerable_at: 0.44.0
+      packages:
+        - package: golang.org/x/crypto/ssh/agent
+          symbols:
+            - parseConstraints
+          derived_symbols:
+            - ForwardToAgent
+            - ServeAgent
+summary: CVE-2025-47914 in golang.org/x/crypto/ssh/agent
+description: |-
+    SSH Agent servers do not validate the size of messages when processing new
+    identity requests, which may cause the program to panic if the message is
+    malformed due to an out of bounds read.
+credits:
+    - Jakub Ciolek
+references:
+    - advisory: https://groups.google.com/g/golang-announce/c/w-oX3UxNcZA
+    - fix: https://go.dev/cl/721960
+    - report: https://go.dev/issue/76364
+cve_metadata:
+    id: CVE-2025-47914
+    cwe: CWE-237
+source:
+    id: go-security-team
+    created: 2025-11-19T13:46:02.007781-05:00
+review_status: REVIEWED
