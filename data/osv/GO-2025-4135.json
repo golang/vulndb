@@ -4,9 +4,10 @@
   "modified": "0001-01-01T00:00:00Z",
   "published": "0001-01-01T00:00:00Z",
   "aliases": [
-    "CVE-2025-47914"
+    "CVE-2025-47914",
+    "GHSA-f6x5-jh6r-wrfv"
   ],
-  "summary": "CVE-2025-47914 in golang.org/x/crypto/ssh/agent",
+  "summary": "Malformed constraint may cause denial of service in golang.org/x/crypto/ssh/agent",
   "details": "SSH Agent servers do not validate the size of messages when processing new identity requests, which may cause the program to panic if the message is malformed due to an out of bounds read.",
   "affected": [
     {
@@ -20,6 +21,9 @@
           "events": [
             {
               "introduced": "0"
+            },
+            {
+              "fixed": "0.45.0"
             }
           ]
         }
@@ -32,19 +36,6 @@
               "ForwardToAgent",
               "ServeAgent",
               "parseConstraints"
-            ]
-          }
-        ],
-        "custom_ranges": [
-          {
-            "type": "ECOSYSTEM",
-            "events": [
-              {
-                "introduced": "0"
-              },
-              {
-                "fixed": "0.45.0"
-              }
             ]
           }
         ]

@@ -1,7 +1,7 @@
 id: GO-2025-4134
 modules:
     - module: golang.org/x/crypto
-      non_go_versions:
+      versions:
         - fixed: 0.45.0
       vulnerable_at: 0.44.0
       packages:
@@ -10,11 +10,13 @@ modules:
             - parseGSSAPIPayload
           derived_symbols:
             - NewServerConn
-summary: CVE-2025-58181 in golang.org/x/crypto/ssh
+summary: Unbounded memory consumption in golang.org/x/crypto/ssh
 description: |-
     SSH servers parsing GSSAPI authentication requests do not validate the number of
     mechanisms specified in the request, allowing an attacker to cause unbounded
     memory consumption.
+ghsas:
+    - GHSA-j5w8-q4qc-rx2x
 credits:
     - Jakub Ciolek
 references:

@@ -4,9 +4,10 @@
   "modified": "0001-01-01T00:00:00Z",
   "published": "0001-01-01T00:00:00Z",
   "aliases": [
-    "CVE-2025-58181"
+    "CVE-2025-58181",
+    "GHSA-j5w8-q4qc-rx2x"
   ],
-  "summary": "CVE-2025-58181 in golang.org/x/crypto/ssh",
+  "summary": "Unbounded memory consumption in golang.org/x/crypto/ssh",
   "details": "SSH servers parsing GSSAPI authentication requests do not validate the number of mechanisms specified in the request, allowing an attacker to cause unbounded memory consumption.",
   "affected": [
     {
@@ -20,6 +21,9 @@
           "events": [
             {
               "introduced": "0"
+            },
+            {
+              "fixed": "0.45.0"
             }
           ]
         }
@@ -31,19 +35,6 @@
             "symbols": [
               "NewServerConn",
               "parseGSSAPIPayload"
-            ]
-          }
-        ],
-        "custom_ranges": [
-          {
-            "type": "ECOSYSTEM",
-            "events": [
-              {
-                "introduced": "0"
-              },
-              {
-                "fixed": "0.45.0"
-              }
             ]
           }
         ]
