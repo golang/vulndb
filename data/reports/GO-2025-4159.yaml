@@ -1,0 +1,23 @@
+id: GO-2025-4159
+modules:
+    - module: github.com/babylonlabs-io/babylon
+      vulnerable_at: 1.1.0
+    - module: github.com/babylonlabs-io/babylon/v2
+      vulnerable_at: 2.3.2
+    - module: github.com/babylonlabs-io/babylon/v3
+      vulnerable_at: 3.0.0-snapshot.250805a
+    - module: github.com/babylonlabs-io/babylon/v4
+      versions:
+        - fixed: 4.1.0
+      vulnerable_at: 4.0.0
+summary: Babylon's BIP322 signature implementation is not fully compliant to the spec in github.com/babylonlabs-io/babylon
+ghsas:
+    - GHSA-xq4h-wqm2-668w
+references:
+    - advisory: https://github.com/babylonlabs-io/babylon/security/advisories/GHSA-xq4h-wqm2-668w
+    - fix: https://github.com/babylonlabs-io/babylon/commit/6e8bdd328a47343fcd7ad98d1b0c7267860b019a
+    - web: https://bips.dev/322
+source:
+    id: GHSA-xq4h-wqm2-668w
+    created: 2025-11-25T12:25:06.760603323-05:00
+review_status: UNREVIEWED

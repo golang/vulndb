@@ -1,0 +1,20 @@
+id: GO-2025-4151
+modules:
+    - module: github.com/authzed/spicedb
+      versions:
+        - fixed: 1.47.1
+      vulnerable_at: 1.47.0
+summary: |-
+    SpiceDB: LookupResources with Multiple Entrypoints across Different Definitions
+    Can Return Incomplete Results in github.com/authzed/spicedb
+cves:
+    - CVE-2025-65111
+ghsas:
+    - GHSA-9m7r-g8hg-x3vr
+references:
+    - advisory: https://github.com/authzed/spicedb/security/advisories/GHSA-9m7r-g8hg-x3vr
+    - fix: https://github.com/authzed/spicedb/commit/8c2edbe1e7bd3851fa2138f4cc344bfde986dcf2
+source:
+    id: GHSA-9m7r-g8hg-x3vr
+    created: 2025-11-25T12:26:59.415695211-05:00
+review_status: UNREVIEWED

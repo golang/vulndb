@@ -1,0 +1,31 @@
+id: GO-2025-4153
+modules:
+    - module: github.com/grafana/grafana
+      versions:
+        - introduced: 1.9.2-0.20250310110405-e6fdb746f235
+      non_go_versions:
+        - fixed: 1.9.2-0.20251106142618-ca5d89812015
+        - introduced: 12.0.0
+        - fixed: 12.0.7
+        - introduced: 12.1.0
+        - fixed: 12.1.4
+        - introduced: 12.2.0
+        - fixed: 12.2.2
+      vulnerable_at: 5.4.5+incompatible
+summary: Grafana Incorrect Privilege Assignment vulnerability in github.com/grafana/grafana
+cves:
+    - CVE-2025-41115
+ghsas:
+    - GHSA-w62r-7c53-fmc5
+references:
+    - advisory: https://github.com/advisories/GHSA-w62r-7c53-fmc5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-41115
+    - fix: https://github.com/grafana/grafana/commit/ca5d89812015ef2db3acc62826f73650450b331e
+    - web: https://github.com/grafana/grafana/releases/tag/v12.0.7
+    - web: https://github.com/grafana/grafana/releases/tag/v12.1.4
+    - web: https://github.com/grafana/grafana/releases/tag/v12.2.2
+    - web: https://github.com/grafana/grafana/releases/tag/v12.3.0
+source:
+    id: GHSA-w62r-7c53-fmc5
+    created: 2025-11-25T12:25:34.086351941-05:00
+review_status: UNREVIEWED

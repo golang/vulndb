@@ -1,0 +1,20 @@
+id: GO-2025-4160
+modules:
+    - module: github.com/anchore/grype
+      versions:
+        - introduced: 0.68.0
+        - fixed: 0.104.1
+      vulnerable_at: 0.104.0
+summary: Grype has a credential disclosure vulnerability in its JSON output in github.com/anchore/grype
+cves:
+    - CVE-2025-65965
+ghsas:
+    - GHSA-6gxw-85q2-q646
+references:
+    - advisory: https://github.com/anchore/grype/security/advisories/GHSA-6gxw-85q2-q646
+    - fix: https://github.com/anchore/grype/commit/c99f79de49a58dc16d7fd8f35160b169b87db9de
+    - fix: https://github.com/anchore/grype/pull/3068
+source:
+    id: GHSA-6gxw-85q2-q646
+    created: 2025-11-25T12:25:02.526039709-05:00
+review_status: UNREVIEWED

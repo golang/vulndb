@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4152",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-13357",
+    "GHSA-gmm6-j2g5-r52m"
+  ],
+  "summary": "Vault’s Terraform Provider incorrectly set default deny_null_bind parameter for LDAP auth method to false by default in github.com/hashicorp/terraform-provider-vault",
+  "details": "Vault’s Terraform Provider incorrectly set default deny_null_bind parameter for LDAP auth method to false by default in github.com/hashicorp/terraform-provider-vault.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/hashicorp/terraform-provider-vault before v5.5.0.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hashicorp/terraform-provider-vault",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "5.5.0"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-gmm6-j2g5-r52m"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-13357"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hashicorp/terraform-provider-vault/commit/882bc7f409acc99c872c345edd65159d9568589a"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hashicorp/terraform-provider-vault/pull/2622"
+    },
+    {
+      "type": "WEB",
+      "url": "https://discuss.hashicorp.com/t/hcsec-2025-33-vault-terraform-provider-applied-incorrect-defaults-for-ldap-auth-method/76822"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/hashicorp/terraform-provider-vault/releases/tag/v5.5.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4152",
+    "review_status": "UNREVIEWED"
+  }
+}

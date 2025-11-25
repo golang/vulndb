@@ -1,0 +1,19 @@
+id: GO-2025-4156
+modules:
+    - module: github.com/openbao/openbao
+      non_go_versions:
+        - fixed: 2.4.4
+      vulnerable_at: 0.0.0-20251125163350-7b37894e93dc
+summary: OpenBao is Vulnerable to Privileged Operator Identity Group Root Escalation in github.com/openbao/openbao
+cves:
+    - CVE-2025-64761
+ghsas:
+    - GHSA-7ff4-jw48-3436
+references:
+    - advisory: https://github.com/openbao/openbao/security/advisories/GHSA-7ff4-jw48-3436
+    - fix: https://github.com/openbao/openbao/commit/747a1378c2756f86296ad9450f74f6faeecc2eb7
+    - web: https://github.com/openbao/openbao/releases/tag/v2.4.4
+source:
+    id: GHSA-7ff4-jw48-3436
+    created: 2025-11-25T12:25:15.187796635-05:00
+review_status: UNREVIEWED

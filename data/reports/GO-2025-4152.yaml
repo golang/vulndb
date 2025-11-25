@@ -1,0 +1,24 @@
+id: GO-2025-4152
+modules:
+    - module: github.com/hashicorp/terraform-provider-vault
+      non_go_versions:
+        - fixed: 5.5.0
+      vulnerable_at: 1.9.0
+summary: |-
+    Vault’s Terraform Provider incorrectly set default deny_null_bind parameter
+    for LDAP auth method to false by default in github.com/hashicorp/terraform-provider-vault
+cves:
+    - CVE-2025-13357
+ghsas:
+    - GHSA-gmm6-j2g5-r52m
+references:
+    - advisory: https://github.com/advisories/GHSA-gmm6-j2g5-r52m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-13357
+    - fix: https://github.com/hashicorp/terraform-provider-vault/commit/882bc7f409acc99c872c345edd65159d9568589a
+    - fix: https://github.com/hashicorp/terraform-provider-vault/pull/2622
+    - web: https://discuss.hashicorp.com/t/hcsec-2025-33-vault-terraform-provider-applied-incorrect-defaults-for-ldap-auth-method/76822
+    - web: https://github.com/hashicorp/terraform-provider-vault/releases/tag/v5.5.0
+source:
+    id: GHSA-gmm6-j2g5-r52m
+    created: 2025-11-25T12:26:49.265033593-05:00
+review_status: UNREVIEWED

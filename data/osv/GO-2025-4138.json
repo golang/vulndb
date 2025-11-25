@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4138",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-65025",
+    "GHSA-h3mw-4f23-gwpw"
+  ],
+  "summary": "esm.sh CDN service has arbitrary file write via tarslip in github.com/esm-dev/esm.sh",
+  "details": "esm.sh CDN service has arbitrary file write via tarslip in github.com/esm-dev/esm.sh",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/esm-dev/esm.sh",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20251117232647-9d77b88c3207"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/esm-dev/esm.sh/security/advisories/GHSA-h3mw-4f23-gwpw"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-65025"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/esm-dev/esm.sh/commit/9d77b88c320733ff6689d938d85d246a3af9af16"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4138",
+    "review_status": "UNREVIEWED"
+  }
+}

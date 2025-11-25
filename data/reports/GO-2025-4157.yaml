@@ -1,0 +1,23 @@
+id: GO-2025-4157
+modules:
+    - module: github.com/babylonlabs-io/babylon
+      vulnerable_at: 1.1.0
+    - module: github.com/babylonlabs-io/babylon/v2
+      vulnerable_at: 2.3.2
+    - module: github.com/babylonlabs-io/babylon/v3
+      vulnerable_at: 3.0.0-snapshot.250805a
+    - module: github.com/babylonlabs-io/babylon/v4
+      versions:
+        - fixed: 4.1.0
+      vulnerable_at: 4.0.0
+summary: Babylon's malformed vote extensions are not rejected in github.com/babylonlabs-io/babylon
+ghsas:
+    - GHSA-2fcv-qww3-9v6h
+references:
+    - advisory: https://github.com/babylonlabs-io/babylon/security/advisories/GHSA-2fcv-qww3-9v6h
+    - fix: https://github.com/babylonlabs-io/babylon/pull/1873/commits/86f38abd2dca5a656195a9954bb569a08d662e2b
+    - web: https://github.com/babylonlabs-io/babylon/releases/tag/v4.1.0
+source:
+    id: GHSA-2fcv-qww3-9v6h
+    created: 2025-11-25T12:25:12.084183566-05:00
+review_status: UNREVIEWED

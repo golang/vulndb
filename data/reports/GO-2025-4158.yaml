@@ -1,0 +1,21 @@
+id: GO-2025-4158
+modules:
+    - module: github.com/lf-edge/ekuiper
+      vulnerable_at: 1.14.7
+    - module: github.com/lf-edge/ekuiper/v2
+      versions:
+        - fixed: 2.3.0
+      vulnerable_at: 2.3.0-beta.7
+summary: |-
+    LF Edge eKuiper is vulnerable to Arbitrary File Read/Write via unsanitized names
+    and zip extraction in github.com/lf-edge/ekuiper
+ghsas:
+    - GHSA-rj4j-2jph-gg43
+references:
+    - advisory: https://github.com/lf-edge/ekuiper/security/advisories/GHSA-rj4j-2jph-gg43
+    - fix: https://github.com/lf-edge/ekuiper/commit/58362b089c76f08c400fe0dbb3667e6e871eaffd
+    - fix: https://github.com/lf-edge/ekuiper/pull/3911
+source:
+    id: GHSA-rj4j-2jph-gg43
+    created: 2025-11-25T12:25:09.148139541-05:00
+review_status: UNREVIEWED

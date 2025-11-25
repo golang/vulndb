@@ -1,0 +1,37 @@
+id: GO-2025-4133
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.5.0+incompatible
+        - fixed: 10.5.12+incompatible
+        - introduced: 10.11.0+incompatible
+        - fixed: 10.11.4+incompatible
+      vulnerable_at: 10.11.4-rc3+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      non_go_versions:
+        - fixed: 8.0.0-20250905150616-ba86dfc5876b6
+      vulnerable_at: 8.0.0-20251125150219-e905a36110b4
+summary: |-
+    Mattermost allows other users to determine when users had read channels via
+    channel member objects in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-55074
+ghsas:
+    - GHSA-9hh7-6558-qfp2
+references:
+    - advisory: https://github.com/advisories/GHSA-9hh7-6558-qfp2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-55074
+    - web: https://github.com/mattermost/mattermost/commit/98acefe911dd9de7edf47a7d825dd99f53141a52
+    - web: https://github.com/mattermost/mattermost/commit/ba86dfc5876b354b9d3c20ff45c08ca6f8426149
+    - web: https://github.com/mattermost/mattermost/commit/d72d437f1567ba0b639b6e4fd73bab06c51baab5
+    - web: https://github.com/mattermost/mattermost/pull/33835
+    - web: https://github.com/mattermost/mattermost/pull/33905
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-9hh7-6558-qfp2
+    created: 2025-11-25T12:29:53.645018831-05:00
+review_status: UNREVIEWED
