@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4175",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-61727"
+  ],
+  "summary": "Improper application of excluded DNS name constraints when verifying wildcard names in crypto/x509",
+  "details": "An excluded subdomain constraint in a certificate chain does not restrict the usage of wildcard SANs in the leaf certificate. For example a constraint that excludes the subdomain test.example.com does not prevent a leaf certificate from claiming the SAN *.example.com.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.24.11"
+            },
+            {
+              "introduced": "1.25.0"
+            },
+            {
+              "fixed": "1.25.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "crypto/x509",
+            "symbols": [
+              "Certificate.Verify"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/723900"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/76442"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/8FJoBkPddm4"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4175",
+    "review_status": "REVIEWED"
+  }
+}
