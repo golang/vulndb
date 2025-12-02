@@ -1,0 +1,36 @@
+id: GO-2025-4155
+modules:
+    - module: std
+      versions:
+        - fixed: 1.24.11
+        - introduced: 1.25.0
+        - fixed: 1.25.5
+      vulnerable_at: 1.25.4
+      packages:
+        - package: crypto/x509
+          symbols:
+            - HostnameError.Error
+summary: |-
+    Excessive resource consumption when printing error string for host certificate
+    validation in crypto/x509
+description: |-
+    Within HostnameError.Error(), when constructing an error string, there is no
+    limit to the number of hosts that will be printed out. Furthermore, the error
+    string is constructed by repeated string concatenation, leading to quadratic
+    runtime. Therefore, a certificate provided by a malicious actor can result in
+    excessive resource consumption.
+cves:
+    - CVE-2025-61729
+credits:
+    - Philippe Antoine (Catena cyber)
+references:
+    - fix: https://go.dev/cl/725920
+    - report: https://go.dev/issue/76445
+    - web: https://groups.google.com/g/golang-announce/c/8FJoBkPddm4
+cve_metadata:
+    id: CVE-2025-61729
+    cwe: 'CWE-400: Uncontrolled Resource Consumption'
+source:
+    id: go-security-team
+    created: 2025-12-02T12:24:17.281378783-05:00
+review_status: REVIEWED
