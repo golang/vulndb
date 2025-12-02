@@ -1,0 +1,23 @@
+id: GO-2025-4163
+modules:
+    - module: github.com/free5gc/nssf
+      versions:
+        - fixed: 1.4.0
+      vulnerable_at: 1.3.2
+summary: |-
+    NSSF panic due to nil pointer dereference when expiry field is omitted in
+    NSSAIAvailability POST in github.com/free5gc/nssf
+cves:
+    - CVE-2025-60638
+ghsas:
+    - GHSA-f2hj-vpp9-6vm2
+references:
+    - advisory: https://github.com/advisories/GHSA-f2hj-vpp9-6vm2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-60638
+    - fix: https://github.com/free5gc/nssf/commit/66fc727a894fa821fde14030346b18de69192204
+    - web: https://github.com/free5gc/free5gc
+    - web: https://github.com/free5gc/free5gc/issues/704
+source:
+    id: GHSA-f2hj-vpp9-6vm2
+    created: 2025-12-02T13:17:23.580277471-05:00
+review_status: UNREVIEWED

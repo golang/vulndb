@@ -1,0 +1,51 @@
+id: GO-2025-4172
+modules:
+    - module: github.com/mattermost/mattermost
+      non_go_versions:
+        - introduced: 11.0.0
+      unsupported_versions:
+        - last_affected: 11.0.2
+      vulnerable_at: 11.1.1+incompatible
+    - module: github.com/mattermost/mattermost
+      versions:
+        - introduced: 10.5.0+incompatible
+      unsupported_versions:
+        - last_affected: 10.5.12
+      vulnerable_at: 11.1.1+incompatible
+    - module: github.com/mattermost/mattermost
+      versions:
+        - introduced: 10.11.0+incompatible
+      unsupported_versions:
+        - last_affected: 10.11.4
+      vulnerable_at: 11.1.1+incompatible
+    - module: github.com/mattermost/mattermost
+      versions:
+        - introduced: 10.12.0+incompatible
+      unsupported_versions:
+        - last_affected: 10.12.1
+      vulnerable_at: 11.1.1+incompatible
+    - module: github.com/mattermost/mattermost-server
+      vulnerable_at: 11.1.1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      unsupported_versions:
+        - last_affected: 8.0.0-20251013062617-7977e7e6dae3
+      vulnerable_at: 8.0.0-20251202172228-dbcfd0c90e29
+summary: Mattermost fails to validate user permissions when deleting comments in Boards in github.com/mattermost/mattermost
+cves:
+    - CVE-2025-12756
+ghsas:
+    - GHSA-p6gj-jc38-x2m7
+references:
+    - advisory: https://github.com/advisories/GHSA-p6gj-jc38-x2m7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-12756
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'module merge error: could not merge versions of module github.com/mattermost/mattermost: introduced and fixed versions must alternate'
+source:
+    id: GHSA-p6gj-jc38-x2m7
+    created: 2025-12-02T13:16:30.878473528-05:00
+review_status: UNREVIEWED

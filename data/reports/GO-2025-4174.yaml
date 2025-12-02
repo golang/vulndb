@@ -1,0 +1,19 @@
+id: GO-2025-4174
+modules:
+    - module: github.com/cloudflare/gokey
+      versions:
+        - fixed: 0.2.0
+      vulnerable_at: 0.1.3
+summary: gokey allows secret recovery from a seed file without the master password in github.com/cloudflare/gokey
+cves:
+    - CVE-2025-13353
+ghsas:
+    - GHSA-69jw-4jj8-fcxm
+references:
+    - advisory: https://github.com/cloudflare/gokey/security/advisories/GHSA-69jw-4jj8-fcxm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-13353
+    - fix: https://github.com/cloudflare/gokey/commit/f261819e99ea169843bd5aa3e643d046260ff511
+source:
+    id: GHSA-69jw-4jj8-fcxm
+    created: 2025-12-02T13:16:19.054055107-05:00
+review_status: UNREVIEWED

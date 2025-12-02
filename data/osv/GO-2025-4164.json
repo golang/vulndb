@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4164",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-60632",
+    "GHSA-vgq7-9r5r-j9v3"
+  ],
+  "summary": "Free5GC is vulnerable to DoS through its Npcf_BDTPolicyControl POST API in github.com/free5gc/pcf",
+  "details": "Free5GC is vulnerable to DoS through its Npcf_BDTPolicyControl POST API in github.com/free5gc/pcf",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/free5gc/pcf",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.4.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-vgq7-9r5r-j9v3"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-60632"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/free5gc/pcf/pull/53"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/free5gc/free5gc"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/free5gc/free5gc/issues/705"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4164",
+    "review_status": "UNREVIEWED"
+  }
+}
