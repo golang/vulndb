@@ -9,7 +9,9 @@ modules:
       packages:
         - package: crypto/x509
           symbols:
-            - HostnameError.Error
+            - Certificate.VerifyHostname
+          derived_symbols:
+            - Certificate.Verify
 summary: |-
     Excessive resource consumption when printing error string for host certificate
     validation in crypto/x509
@@ -30,6 +32,8 @@ references:
 cve_metadata:
     id: CVE-2025-61729
     cwe: 'CWE-400: Uncontrolled Resource Consumption'
+notes:
+    - Strictly speaking, HostnameError.Error is the vulnerable symbols, but this causes confusing govulncheck message due to overly broad interface matching; so, we mark Certificate.VerifyHostname as the vulnerable symbol instead as it is the only method that can return a HostnameError.
 source:
     id: go-security-team
     created: 2025-12-02T12:24:17.281378783-05:00
