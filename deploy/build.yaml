@@ -1,6 +1,6 @@
 steps:
   - id: Lock
-    name: golang:1.25.3
+    name: golang:1.25.5
     entrypoint: bash
     args:
       - -ec
@@ -23,14 +23,14 @@ steps:
         fi
 
   - id: Test
-    name: golang:1.25.3
+    name: golang:1.25.5
     entrypoint: bash
     args:
       - -ec
       - go test ./...
 
   - id: Govulncheck
-    name: golang:1.25.3
+    name: golang:1.25.5
     entrypoint: bash
     args:
     - -ec
@@ -48,12 +48,12 @@ steps:
       - gsutil -q -m cp -r gs://go-vulndb /workspace
 
   - id: Generate
-    name: golang:1.25.3
+    name: golang:1.25.5
     entrypoint: bash
     args: ["-ec", "go run ./cmd/gendb -out /workspace/db -zip /workspace/db/vulndb.zip"]
 
   - id: PreValidate
-    name: golang:1.25.3
+    name: golang:1.25.5
     entrypoint: bash
     args:
       - -ec
@@ -72,14 +72,14 @@ steps:
       - mkdir /workspace/deployed && gsutil -q -m cp -r gs://go-vulndb /workspace/deployed
 
   - id: PostValidate
-    name: golang:1.25.3
+    name: golang:1.25.5
     entrypoint: bash
     args: ["-ec", "go run ./cmd/checkdb /workspace/deployed/go-vulndb"]
     env:
       - 'GOPROXY=https://proxy.golang.org'
 
   - id: PublishCVEs
-    name: golang:1.25.3
+    name: golang:1.25.5
     entrypoint: bash
     args:
      - -ec
