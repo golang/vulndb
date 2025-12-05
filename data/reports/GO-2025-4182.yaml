@@ -1,0 +1,31 @@
+id: GO-2025-4182
+modules:
+    - module: github.com/coder/coder
+      vulnerable_at: 0.27.3
+    - module: github.com/coder/coder/v2
+      versions:
+        - fixed: 2.26.5
+        - introduced: 2.27.0
+        - fixed: 2.27.7
+        - introduced: 2.28.0
+        - fixed: 2.28.4
+      vulnerable_at: 2.28.3
+summary: Coder logs sensitive objects unsanitized in github.com/coder/coder
+cves:
+    - CVE-2025-66411
+ghsas:
+    - GHSA-jf75-p25m-pw74
+references:
+    - advisory: https://github.com/coder/coder/security/advisories/GHSA-jf75-p25m-pw74
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-66411
+    - fix: https://github.com/coder/coder/commit/06c6abbe0935f9213c1588add60a396da5762e1c
+    - fix: https://github.com/coder/coder/commit/a75205a559211c8aa494b1a16750d114b263f24a
+    - fix: https://github.com/coder/coder/commit/e2a46393fce40bc630df3293c1ee66a596277289
+    - fix: https://github.com/coder/coder/pull/20968
+    - web: https://github.com/coder/coder/releases/tag/v2.26.5
+    - web: https://github.com/coder/coder/releases/tag/v2.27.7
+    - web: https://github.com/coder/coder/releases/tag/v2.28.4
+source:
+    id: GHSA-jf75-p25m-pw74
+    created: 2025-12-05T21:39:36.722123799Z
+review_status: UNREVIEWED

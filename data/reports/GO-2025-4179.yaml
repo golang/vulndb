@@ -1,0 +1,24 @@
+id: GO-2025-4179
+modules:
+    - module: github.com/docker/mcp-gateway
+      versions:
+        - fixed: 0.28.0
+      vulnerable_at: 0.27.0
+summary: |-
+    Docker MCP Plugin and Docker MCP Gateway have DNS Rebinding vulnerability when
+    running in sse or streaming mode in github.com/docker/mcp-gateway
+cves:
+    - CVE-2025-64443
+ghsas:
+    - GHSA-46gc-mwh4-cc5r
+references:
+    - advisory: https://github.com/docker/mcp-gateway/security/advisories/GHSA-46gc-mwh4-cc5r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-64443
+    - fix: https://github.com/docker/mcp-gateway/commit/6b076b2479d8d1345c50c112119c62978d46858e
+    - fix: https://github.com/docker/mcp-gateway/commit/fe073985c8eb6e0c9317d2f198c07686f70ea06d
+    - fix: https://github.com/docker/mcp-gateway/pull/190
+    - web: https://modelcontextprotocol.io/specification/2025-06-18/basic/transports#security-warning
+source:
+    id: GHSA-46gc-mwh4-cc5r
+    created: 2025-12-05T21:39:56.240161637Z
+review_status: UNREVIEWED

@@ -1,0 +1,19 @@
+id: GO-2025-4193
+modules:
+    - module: github.com/sigstore/fulcio
+      versions:
+        - fixed: 1.8.3
+      vulnerable_at: 1.8.2
+summary: Fulcio allocates excessive memory during token parsing in github.com/sigstore/fulcio
+cves:
+    - CVE-2025-66506
+ghsas:
+    - GHSA-f83f-xpx7-ffpw
+references:
+    - advisory: https://github.com/sigstore/fulcio/security/advisories/GHSA-f83f-xpx7-ffpw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-66506
+    - fix: https://github.com/sigstore/fulcio/commit/765a0e57608b9ef390e1eeeea8595b9054c63a5a
+source:
+    id: GHSA-f83f-xpx7-ffpw
+    created: 2025-12-05T21:38:30.901174082Z
+review_status: UNREVIEWED

@@ -1,0 +1,133 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4178",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-13870",
+    "GHSA-58w6-w55x-6wq8"
+  ],
+  "summary": "Mattermost fails to validate user permissions in Boards in github.com/mattermost/mattermost",
+  "details": "Mattermost fails to validate user permissions in Boards in github.com/mattermost/mattermost",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "10.5.0+incompatible"
+            },
+            {
+              "fixed": "10.5.13+incompatible"
+            },
+            {
+              "introduced": "10.11.0+incompatible"
+            },
+            {
+              "fixed": "10.11.5+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v6",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost/server/v8",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "8.0.0-20250905150616-ba86dfc5876b"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-58w6-w55x-6wq8"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-13870"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/mattermost/mattermost/commit/ba86dfc5876b354b9d3c20ff45c08ca6f8426149"
+    },
+    {
+      "type": "WEB",
+      "url": "https://mattermost.com/security-updates"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4178",
+    "review_status": "UNREVIEWED"
+  }
+}

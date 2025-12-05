@@ -1,0 +1,27 @@
+id: GO-2025-4184
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 4.2.2+incompatible
+        - introduced: 4.3.0-rc1+incompatible
+        - fixed: 4.3.4+incompatible
+        - introduced: 4.4.0-rc1+incompatible
+        - fixed: 4.4.5+incompatible
+        - introduced: 4.5.0-rc1+incompatible
+        - fixed: 4.5.0+incompatible
+      vulnerable_at: 4.5.0-rc4+incompatible
+summary: |-
+    Mattermost Server vulnerable to Denial of Service through `@` character prefix
+    inserted into JavaScript field names in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2017-18871
+ghsas:
+    - GHSA-jc6w-8r7f-vmp5
+references:
+    - advisory: https://github.com/advisories/GHSA-jc6w-8r7f-vmp5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-18871
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-jc6w-8r7f-vmp5
+    created: 2025-12-05T21:39:26.612769579Z
+review_status: UNREVIEWED

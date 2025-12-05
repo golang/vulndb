@@ -1,0 +1,25 @@
+id: GO-2025-4190
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 4.1.2+incompatible
+        - introduced: 4.2.0+incompatible
+        - fixed: 4.2.1+incompatible
+        - introduced: 4.3.0-rc1+incompatible
+        - fixed: 4.3.0+incompatible
+      vulnerable_at: 4.3.0-rc4+incompatible
+summary: |-
+    Mattermost Server is vulnerable to XSS attacks against an OAuth 2.0 allow/deny
+    page in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2017-18877
+ghsas:
+    - GHSA-9x8x-w6g5-hx4w
+references:
+    - advisory: https://github.com/advisories/GHSA-9x8x-w6g5-hx4w
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-18877
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-9x8x-w6g5-hx4w
+    created: 2025-12-05T21:38:46.358461021Z
+review_status: UNREVIEWED

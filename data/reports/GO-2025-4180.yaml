@@ -1,0 +1,18 @@
+id: GO-2025-4180
+modules:
+    - module: github.com/smallstep/certificates
+      versions:
+        - fixed: 0.29.0
+      vulnerable_at: 0.29.0-rc1
+summary: Step CA Has Authorization Bypass in ACME and SCEP Provisioners in github.com/smallstep/certificates
+cves:
+    - CVE-2025-44005
+ghsas:
+    - GHSA-h8cp-697h-8c8p
+references:
+    - advisory: https://github.com/smallstep/certificates/security/advisories/GHSA-h8cp-697h-8c8p
+    - fix: https://github.com/smallstep/certificates/commit/1011f5f5408b470a636f583bf74c0d7bbaf75d72
+source:
+    id: GHSA-h8cp-697h-8c8p
+    created: 2025-12-05T21:39:50.351579964Z
+review_status: UNREVIEWED

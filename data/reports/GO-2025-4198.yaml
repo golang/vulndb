@@ -1,0 +1,25 @@
+id: GO-2025-4198
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 4.1.2+incompatible
+        - introduced: 4.2.0-rc1+incompatible
+        - fixed: 4.2.1+incompatible
+        - introduced: 4.3.0-rc1+incompatible
+        - fixed: 4.3.0+incompatible
+      vulnerable_at: 4.3.0-rc4+incompatible
+summary: |-
+    Mattermost Server has low entropy for authorization data as an OAuth 2.0 Service
+    Provider in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2017-18883
+ghsas:
+    - GHSA-w8cc-3h7q-jhc3
+references:
+    - advisory: https://github.com/advisories/GHSA-w8cc-3h7q-jhc3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-18883
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-w8cc-3h7q-jhc3
+    created: 2025-12-05T21:38:14.131693299Z
+review_status: UNREVIEWED

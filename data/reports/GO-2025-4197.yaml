@@ -1,0 +1,23 @@
+id: GO-2025-4197
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 4.1.2+incompatible
+        - introduced: 4.2.0-rc1+incompatible
+        - fixed: 4.2.1+incompatible
+        - introduced: 4.3.0-rc1+incompatible
+        - fixed: 4.3.0+incompatible
+      vulnerable_at: 4.3.0-rc4+incompatible
+summary: Mattermost Server exposes OAuth personal access tokens to attackers in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2017-18884
+ghsas:
+    - GHSA-876j-jfqf-m7j7
+references:
+    - advisory: https://github.com/advisories/GHSA-876j-jfqf-m7j7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-18884
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-876j-jfqf-m7j7
+    created: 2025-12-05T21:38:26.477758177Z
+review_status: UNREVIEWED

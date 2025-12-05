@@ -1,0 +1,21 @@
+id: GO-2025-4192
+modules:
+    - module: github.com/sigstore/timestamp-authority
+      vulnerable_at: 1.2.9
+    - module: github.com/sigstore/timestamp-authority/v2
+      versions:
+        - fixed: 2.0.3
+      vulnerable_at: 2.0.2
+summary: Sigstore Timestamp Authority allocates excessive memory during request parsing in github.com/sigstore/timestamp-authority
+cves:
+    - CVE-2025-66564
+ghsas:
+    - GHSA-4qg8-fj49-pxjh
+references:
+    - advisory: https://github.com/sigstore/timestamp-authority/security/advisories/GHSA-4qg8-fj49-pxjh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-66564
+    - fix: https://github.com/sigstore/timestamp-authority/commit/0cae34e197d685a14904e0bad135b89d13b69421
+source:
+    id: GHSA-4qg8-fj49-pxjh
+    created: 2025-12-05T21:38:36.109048242Z
+review_status: UNREVIEWED

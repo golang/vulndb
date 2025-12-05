@@ -1,0 +1,27 @@
+id: GO-2025-4186
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 4.3.0-rc1+incompatible
+        - fixed: 4.3.0+incompatible
+      non_go_versions:
+        - fixed: 4.1.2-0.20171004201910-6be8113eb60c
+        - introduced: 4.2.0-rc1.0.20171004154238-fadd9514f6e7
+        - fixed: 4.2.1-0.20171004194140-6d3cb2ce07fc
+      vulnerable_at: 4.3.0-rc4+incompatible
+summary: Mattermost Server does not prevent System Admin from arbitrary file creation in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2017-18875
+ghsas:
+    - GHSA-9rr5-q43r-ccv4
+references:
+    - advisory: https://github.com/advisories/GHSA-9rr5-q43r-ccv4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-18875
+    - web: https://github.com/mattermost/mattermost/commit/6be8113eb60cf5ddd2dc1c3f4db05cae0c183086
+    - web: https://github.com/mattermost/mattermost/commit/6d3cb2ce07fc799832081e93843b405b390057fa
+    - web: https://github.com/mattermost/mattermost/commit/fadd9514f6e71590aba781a7035e1de4150137b0
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-9rr5-q43r-ccv4
+    created: 2025-12-05T21:39:10.455305324Z
+review_status: UNREVIEWED

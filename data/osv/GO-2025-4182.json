@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4182",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-66411",
+    "GHSA-jf75-p25m-pw74"
+  ],
+  "summary": "Coder logs sensitive objects unsanitized in github.com/coder/coder",
+  "details": "Coder logs sensitive objects unsanitized in github.com/coder/coder",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/coder/coder",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/coder/coder/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.26.5"
+            },
+            {
+              "introduced": "2.27.0"
+            },
+            {
+              "fixed": "2.27.7"
+            },
+            {
+              "introduced": "2.28.0"
+            },
+            {
+              "fixed": "2.28.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/coder/coder/security/advisories/GHSA-jf75-p25m-pw74"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-66411"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/coder/coder/commit/06c6abbe0935f9213c1588add60a396da5762e1c"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/coder/coder/commit/a75205a559211c8aa494b1a16750d114b263f24a"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/coder/coder/commit/e2a46393fce40bc630df3293c1ee66a596277289"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/coder/coder/pull/20968"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/coder/coder/releases/tag/v2.26.5"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/coder/coder/releases/tag/v2.27.7"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/coder/coder/releases/tag/v2.28.4"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4182",
+    "review_status": "UNREVIEWED"
+  }
+}

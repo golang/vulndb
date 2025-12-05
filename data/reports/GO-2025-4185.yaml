@@ -1,0 +1,23 @@
+id: GO-2025-4185
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 3.10.3+incompatible
+        - introduced: 4.0.0+incompatible
+        - fixed: 4.0.4+incompatible
+        - introduced: 4.0.5-rc1+incompatible
+        - fixed: 4.1.0+incompatible
+      vulnerable_at: 4.0.5+incompatible
+summary: Mattermost Server exposes team invite IDs through API endpoints in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2017-18902
+ghsas:
+    - GHSA-jwfv-5hwq-f97r
+references:
+    - advisory: https://github.com/advisories/GHSA-jwfv-5hwq-f97r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-18902
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-jwfv-5hwq-f97r
+    created: 2025-12-05T21:39:15.513080989Z
+review_status: UNREVIEWED

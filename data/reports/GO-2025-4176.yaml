@@ -1,0 +1,23 @@
+id: GO-2025-4176
+modules:
+    - module: github.com/apptainer/apptainer
+      versions:
+        - fixed: 1.4.5
+      vulnerable_at: 1.4.4
+summary: Apptainer ineffectively applies selinux and apparmor --security options in github.com/apptainer/apptainer
+cves:
+    - CVE-2025-65105
+ghsas:
+    - GHSA-j3rw-fx6g-q46j
+references:
+    - advisory: https://github.com/apptainer/apptainer/security/advisories/GHSA-j3rw-fx6g-q46j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-65105
+    - fix: https://github.com/apptainer/apptainer/commit/4313b42717e18a4add7dd7503528bc15af905981
+    - fix: https://github.com/apptainer/apptainer/commit/82f17900a0c31bc769bf9b4612d271c7068d8bf2
+    - fix: https://github.com/apptainer/apptainer/pull/3226
+    - web: https://github.com/opencontainers/runc/security/advisories/GHSA-cgrx-mc8f-2prm
+    - web: https://github.com/sylabs/singularity/security/advisories/GHSA-wwrx-w7c9-rf87
+source:
+    id: GHSA-j3rw-fx6g-q46j
+    created: 2025-12-05T21:42:25.309515382Z
+review_status: UNREVIEWED
