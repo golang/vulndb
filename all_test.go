@@ -15,6 +15,7 @@ import (
 	"runtime"
 	"sort"
 	"strings"
+	"sync"
 	"testing"
 	"time"
 
@@ -98,15 +99,17 @@ func TestLintReports(t *testing.T) {
 	}
 
 	// Map from summaries to report paths, used to check for duplicate summaries.
-	summaries := make(map[string]string)
+	summaries := sync.Map{}
 	sort.Strings(reports)
 	for _, filename := range reports {
 		t.Run(filename, func(t *testing.T) {
-			r, err := report.Read(filename)
+			cFilename := filename // capture variable so we can run tests in parallel safely
+			t.Parallel()
+			r, err := report.Read(cFilename)
 			if err != nil {
 				t.Fatal(err)
 			}
-			if err := r.CheckFilename(filename); err != nil {
+			if err := r.CheckFilename(cFilename); err != nil {
 				t.Error(err)
 			}
 			lints := lint(r)
@@ -122,15 +125,14 @@ func TestLintReports(t *testing.T) {
 				}
 			}
 			for r2, aliases := range duplicates {
-				t.Errorf("report %s shares duplicate alias(es) %s with report %s", filename, aliases, r2)
+				t.Errorf("report %s shares duplicate alias(es) %s with report %s", cFilename, aliases, r2)
 			}
 			// Ensure that each reviewed report has a unique summary.
 			if r.IsReviewed() {
 				if summary := r.Summary.String(); summary != "" {
-					if report, ok := summaries[summary]; ok {
-						t.Errorf("report %s shares duplicate summary %q with report %s", filename, summary, report)
-					} else {
-						summaries[summary] = filename
+					existingFile, loaded := summaries.LoadOrStore(summary, cFilename)
+					if loaded {
+						t.Errorf("report %s shares duplicate summary %q with report %s", cFilename, summary, existingFile)
 					}
 				}
 			}
@@ -141,7 +143,7 @@ func TestLintReports(t *testing.T) {
 			if r.IsUnreviewed() && !r.IsExcluded() && !r.UnreviewedOK {
 				pr, _ := priority.AnalyzeReport(r, rc, modulesToImports)
 				if pr.Priority == priority.High {
-					t.Errorf("UNREVIEWED report %s is high priority (should be NEEDS_REVIEW or REVIEWED) - reason: %s", filename, pr.Reason)
+					t.Errorf("UNREVIEWED report %s is high priority (should be NEEDS_REVIEW or REVIEWED) - reason: %s", cFilename, pr.Reason)
 				}
 			}
 			// Check that a correct OSV file was generated for each YAML report.
