@@ -1,0 +1,25 @@
+id: GO-2025-4202
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 4.1.2+incompatible
+        - introduced: 4.2.0-rc1+incompatible
+        - fixed: 4.2.1+incompatible
+        - introduced: 4.3.0-rc1+incompatible
+        - fixed: 4.3.0+incompatible
+      vulnerable_at: 4.3.0-rc4+incompatible
+summary: |-
+    Mattermost Server allows attackers to create buttons that can launch API
+    requests in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2017-18890
+ghsas:
+    - GHSA-m497-hq5x-6jcv
+references:
+    - advisory: https://github.com/advisories/GHSA-m497-hq5x-6jcv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-18890
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-m497-hq5x-6jcv
+    created: 2025-12-15T12:58:07.88473131-05:00
+review_status: UNREVIEWED

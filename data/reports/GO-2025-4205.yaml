@@ -1,0 +1,25 @@
+id: GO-2025-4205
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      vulnerable_at: 2.11.32
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - introduced: 3.5.0
+        - fixed: 3.6.3
+      vulnerable_at: 3.6.2
+summary: Traefik Inverted TLS Verification Logic in ingress-nginx Provider in github.com/traefik/traefik
+cves:
+    - CVE-2025-66491
+ghsas:
+    - GHSA-7vww-mvcr-x6vj
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-7vww-mvcr-x6vj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-66491
+    - fix: https://github.com/traefik/traefik/commit/14a1aedf5704673d875d210d7bacf103a43c77e4
+    - web: https://github.com/traefik/traefik/releases/tag/v3.6.3
+source:
+    id: GHSA-7vww-mvcr-x6vj
+    created: 2025-12-15T12:57:35.787142136-05:00
+review_status: UNREVIEWED

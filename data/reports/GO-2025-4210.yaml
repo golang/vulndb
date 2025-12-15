@@ -1,0 +1,27 @@
+id: GO-2025-4210
+modules:
+    - module: github.com/zitadel/zitadel
+      versions:
+        - fixed: 1.80.0-v2.20.0.20251208091519-4c879b47334e
+        - introduced: 1.83.4
+      non_go_versions:
+        - introduced: 4.0.0-rc.1
+        - fixed: 4.7.1
+      unsupported_versions:
+        - last_affected: 1.87.5
+      vulnerable_at: 1.87.5
+summary: ZITADEL Vulnerable to Unauthenticated Full-Read SSRF via V2 Login in github.com/zitadel/zitadel
+cves:
+    - CVE-2025-67494
+ghsas:
+    - GHSA-7wfc-4796-gmg5
+references:
+    - advisory: https://github.com/zitadel/zitadel/security/advisories/GHSA-7wfc-4796-gmg5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-67494
+    - fix: https://github.com/zitadel/zitadel/commit/4c879b47334e01d4fcab921ac1b44eda39acdb96
+notes:
+    - fix: 'module merge error: could not merge versions of module github.com/zitadel/zitadel: introduced and fixed versions must alternate'
+source:
+    id: GHSA-7wfc-4796-gmg5
+    created: 2025-12-15T12:57:09.313429435-05:00
+review_status: UNREVIEWED

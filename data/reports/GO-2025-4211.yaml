@@ -1,0 +1,30 @@
+id: GO-2025-4211
+modules:
+    - module: github.com/babylonlabs-io/babylon
+      unsupported_versions:
+        - last_affected: 1.1.0
+      vulnerable_at: 1.1.0
+    - module: github.com/babylonlabs-io/babylon/v2
+      unsupported_versions:
+        - last_affected: 2.3.2
+      vulnerable_at: 2.3.2
+    - module: github.com/babylonlabs-io/babylon/v3
+      unsupported_versions:
+        - last_affected: 3.0.0-snapshot.250805a
+      vulnerable_at: 3.0.0-snapshot.250805a
+    - module: github.com/babylonlabs-io/babylon/v4
+      versions:
+        - fixed: 4.2.0
+      vulnerable_at: 4.1.0
+summary: |-
+    Babylon Nil BlockHash in BLS vote extensions triggers panics in consensus
+    handlers in github.com/babylonlabs-io/babylon
+ghsas:
+    - GHSA-m6wq-66p2-c8pc
+references:
+    - advisory: https://github.com/babylonlabs-io/babylon/security/advisories/GHSA-m6wq-66p2-c8pc
+    - fix: https://github.com/babylonlabs-io/babylon/commit/f79ad58c1d5bcab3451cb7a47c91e713935917d7
+source:
+    id: GHSA-m6wq-66p2-c8pc
+    created: 2025-12-15T12:57:06.654185931-05:00
+review_status: UNREVIEWED

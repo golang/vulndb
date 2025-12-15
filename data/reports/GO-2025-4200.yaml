@@ -1,0 +1,25 @@
+id: GO-2025-4200
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 4.1.2+incompatible
+        - introduced: 4.2.0-rc1+incompatible
+        - fixed: 4.2.1+incompatible
+        - introduced: 4.3.0-rc1+incompatible
+        - fixed: 4.3.0+incompatible
+      vulnerable_at: 4.3.0-rc4+incompatible
+summary: |-
+    Mattermost Server allows attackers to gain privileges by accessing unintended
+    API endpoints with users' credentials in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2017-18885
+ghsas:
+    - GHSA-g78f-6xq7-rrhq
+references:
+    - advisory: https://github.com/advisories/GHSA-g78f-6xq7-rrhq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-18885
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-g78f-6xq7-rrhq
+    created: 2025-12-15T12:58:17.493685658-05:00
+review_status: UNREVIEWED

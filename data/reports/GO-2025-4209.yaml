@@ -1,0 +1,25 @@
+id: GO-2025-4209
+modules:
+    - module: github.com/1Panel-dev/1Panel
+      versions:
+        - fixed: 2.0.14+incompatible
+      vulnerable_at: 2.0.11+incompatible
+    - module: github.com/1Panel-dev/1Panel/core
+      versions:
+        - fixed: 0.0.0-20251128030527-ac43f00273be
+summary: 1Panel – CAPTCHA Bypass via Client-Controlled Flag in github.com/1Panel-dev/1Panel
+cves:
+    - CVE-2025-66507
+ghsas:
+    - GHSA-qmg5-v42x-qqhq
+references:
+    - advisory: https://github.com/1Panel-dev/1Panel/security/advisories/GHSA-qmg5-v42x-qqhq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-66507
+    - fix: https://github.com/1Panel-dev/1Panel/commit/ac43f00273be745f8d04b90b6e2b9c1a40ef7bca
+    - web: https://github.com/1Panel-dev/1Panel/releases/tag/v2.0.14
+notes:
+    - fix: 'github.com/1Panel-dev/1Panel/core: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-qmg5-v42x-qqhq
+    created: 2025-12-15T12:57:13.640448143-05:00
+review_status: UNREVIEWED

@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4207",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-66508",
+    "GHSA-7cqv-qcq2-r765"
+  ],
+  "summary": "1Panel IP Access Control Bypass via Untrusted X-Forwarded-For Headers in github.com/1Panel-dev/1Panel",
+  "details": "1Panel IP Access Control Bypass via Untrusted X-Forwarded-For Headers in github.com/1Panel-dev/1Panel",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/1Panel-dev/1Panel",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.0.14+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/1Panel-dev/1Panel/agent",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20251201063338-94f7d78cc976"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/1Panel-dev/1Panel/security/advisories/GHSA-7cqv-qcq2-r765"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-66508"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/1Panel-dev/1Panel/commit/94f7d78cc9768ee244da33e09408017d1f68b5ed"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4207",
+    "review_status": "UNREVIEWED"
+  }
+}

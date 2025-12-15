@@ -1,0 +1,23 @@
+id: GO-2025-4208
+modules:
+    - module: github.com/gofiber/utils
+      versions:
+        - fixed: 1.2.0
+      vulnerable_at: 1.1.0
+    - module: github.com/gofiber/utils/v2
+      versions:
+        - fixed: 2.0.0-rc.4
+      vulnerable_at: 2.0.0-rc.3
+summary: Fiber Utils UUIDv4 and UUID Silent Fallback to Predictable Values in github.com/gofiber/utils
+cves:
+    - CVE-2025-66565
+ghsas:
+    - GHSA-m98w-cqp3-qcqr
+references:
+    - advisory: https://github.com/gofiber/utils/security/advisories/GHSA-m98w-cqp3-qcqr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-66565
+    - fix: https://github.com/gofiber/utils/commit/6c6cf047032b9c8dff43d29f990b4b10e9b02d47
+source:
+    id: GHSA-m98w-cqp3-qcqr
+    created: 2025-12-15T12:57:19.730147766-05:00
+review_status: UNREVIEWED

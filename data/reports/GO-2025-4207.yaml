@@ -1,0 +1,24 @@
+id: GO-2025-4207
+modules:
+    - module: github.com/1Panel-dev/1Panel
+      versions:
+        - fixed: 2.0.14+incompatible
+      vulnerable_at: 2.0.11+incompatible
+    - module: github.com/1Panel-dev/1Panel/agent
+      versions:
+        - fixed: 0.0.0-20251201063338-94f7d78cc976
+summary: 1Panel IP Access Control Bypass via Untrusted X-Forwarded-For Headers in github.com/1Panel-dev/1Panel
+cves:
+    - CVE-2025-66508
+ghsas:
+    - GHSA-7cqv-qcq2-r765
+references:
+    - advisory: https://github.com/1Panel-dev/1Panel/security/advisories/GHSA-7cqv-qcq2-r765
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-66508
+    - fix: https://github.com/1Panel-dev/1Panel/commit/94f7d78cc9768ee244da33e09408017d1f68b5ed
+notes:
+    - fix: 'github.com/1Panel-dev/1Panel/agent: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-7cqv-qcq2-r765
+    created: 2025-12-15T12:57:25.242838054-05:00
+review_status: UNREVIEWED
