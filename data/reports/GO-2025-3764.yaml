@@ -1,7 +1,9 @@
 id: GO-2025-3764
 modules:
     - module: github.com/go-pg/pg
-      vulnerable_at: 8.0.7
+      non_go_versions:
+        - fixed: 19.15.0
+      vulnerable_at: 8.0.7+incompatible
     - module: github.com/go-pg/pg/v9
       vulnerable_at: 9.2.1
     - module: github.com/go-pg/pg/v10
