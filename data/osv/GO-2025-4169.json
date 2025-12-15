@@ -1,0 +1,159 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4169",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-12559",
+    "GHSA-4g87-9x45-cx2h"
+  ],
+  "summary": "Mattermost fails to sanitize team email addresses in github.com/mattermost/mattermost-server",
+  "details": "Mattermost fails to sanitize team email addresses in github.com/mattermost/mattermost-server.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/mattermost/mattermost-server from v10.5.0 before v10.5.13, from v10.11.0 before v10.11.5, from v10.12.0 before v10.12.2, from v11.0.0 before v11.0.3.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "10.5.0"
+              },
+              {
+                "fixed": "10.5.13"
+              },
+              {
+                "introduced": "10.11.0"
+              },
+              {
+                "fixed": "10.11.5"
+              },
+              {
+                "introduced": "10.12.0"
+              },
+              {
+                "fixed": "10.12.2"
+              },
+              {
+                "introduced": "11.0.0"
+              },
+              {
+                "fixed": "11.0.3"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v6",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost/server/v8",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "8.0.0-20251015091448-abbf01b9db45"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-4g87-9x45-cx2h"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-12559"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/5d8719042c1807da59ac8a821624eb01152d8495"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/649aee8fa9184ca59bd66022a33b8f8918e413aa"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/7ccb62db7958abd6a4b21a06c5a4f5367a8f8b1f"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/9f54e5cdc3aef412945ff0e6a58338f7b549bdda"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/abbf01b9db45d1850eaf3701ea8362b910193ffd"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/pull/34110"
+    },
+    {
+      "type": "WEB",
+      "url": "https://mattermost.com/security-updates"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4169",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,28 @@
+id: GO-2025-4191
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 4.3.0-rc1+incompatible
+        - fixed: 4.3.0+incompatible
+      non_go_versions:
+        - fixed: 4.1.2-0.20171004201910-6be8113eb60c
+        - fixed: 4.2.1-0.20171004192657-8fbbd688ea24
+      vulnerable_at: 4.3.0-rc4+incompatible
+summary: |-
+    Mattermost Server allows users with a session ID to revoke another users'
+    session in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2017-18878
+ghsas:
+    - GHSA-h564-6gc2-fcc6
+references:
+    - advisory: https://github.com/advisories/GHSA-h564-6gc2-fcc6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-18878
+    - web: https://github.com/mattermost/mattermost/commit/6be8113eb60cf5ddd2dc1c3f4db05cae0c183086
+    - web: https://github.com/mattermost/mattermost/commit/8fbbd688ea2466dd0d70e9c07e9703d78f8a19a5
+    - web: https://github.com/mattermost/mattermost/commit/affd35071ea155069979fd359726296de8aa6aaf
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-h564-6gc2-fcc6
+    created: 2025-12-15T12:58:27.100211017-05:00
+review_status: UNREVIEWED

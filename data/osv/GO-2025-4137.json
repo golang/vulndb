@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4137",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-64521",
+    "GHSA-xr73-jq5p-ch8r"
+  ],
+  "summary": "authentik allows a deactivated Service account to authenticate to OAuth in goauthentik.io",
+  "details": "authentik allows a deactivated Service account to authenticate to OAuth in goauthentik.io.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: goauthentik.io before v0.0.0-20251119140106-9dbdfc3f1be0.",
+  "affected": [
+    {
+      "package": {
+        "name": "goauthentik.io",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "0.0.0-20251119140106-9dbdfc3f1be0"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/goauthentik/authentik/security/advisories/GHSA-xr73-jq5p-ch8r"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-64521"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/goauthentik/authentik/commit/9dbdfc3f1be0f1be36f8efce2442897b2a54a71c"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4137",
+    "review_status": "UNREVIEWED"
+  }
+}

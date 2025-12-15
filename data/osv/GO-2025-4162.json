@@ -1,0 +1,118 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4162",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-60633",
+    "GHSA-3j9f-7w24-pcqg"
+  ],
+  "summary": "Free5GC is vulnerable to DoS via the Nudm_SubscriberDataManagement API in github.com/free5gc/openapi",
+  "details": "Free5GC is vulnerable to DoS via the Nudm_SubscriberDataManagement API in github.com/free5gc/openapi",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/free5gc/openapi",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.2.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/free5gc/udm",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/free5gc/udm/internal/sbi/processor",
+            "symbols": [
+              "Processor.SubscribeToSharedDataProcedure"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-3j9f-7w24-pcqg"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/free5gc/openapi/commit/d50c83e8fe7ebf9a62d9de99517e21a17f627b52"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/free5gc/openapi/pull/65"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/free5gc/udm/commit/57c56a3ad4bc53a62cab259045e78ec9abdb98ca"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/free5gc/udm/commit/ca9976857909a422dcff5bf2228756fc2bfc80d1"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/free5gc/udm/commit/e776c42177817f75e75e7a587c58c2a027beed81"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/free5gc/udm/pull/63"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/free5gc/udm/pull/65"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/free5gc/udm/pull/66"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/free5gc/free5gc/issues/700"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/free5gc/free5gc/issues/701"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/free5gc/free5gc/issues/702"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/free5gc/free5gc/issues/703"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4162",
+    "review_status": "REVIEWED"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4154",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-62155",
+    "GHSA-9f46-w24h-69w4"
+  ],
+  "summary": "new-api is vulnerable to SSRF Bypass in one-api",
+  "details": "new-api is vulnerable to SSRF Bypass in one-api.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/QuantumNous/new-api before v0.9.6.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/QuantumNous/new-api",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "0.9.6"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/QuantumNous/new-api/security/advisories/GHSA-9f46-w24h-69w4"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-62155"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/QuantumNous/new-api/commit/e8966c73746d35bb7f4f014ad1195a96d445cacd"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4154",
+    "review_status": "UNREVIEWED"
+  }
+}

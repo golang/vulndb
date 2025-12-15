@@ -1,0 +1,21 @@
+id: GO-2025-4136
+modules:
+    - module: goauthentik.io
+      non_go_versions:
+        - fixed: 0.0.0-20251119135424-6672e6aaa41e
+      skip_lint: true
+summary: authentik's invitation expiry is delayed by at least 5 minutes in goauthentik.io
+cves:
+    - CVE-2025-64708
+ghsas:
+    - GHSA-ch7q-53v8-73pc
+references:
+    - advisory: https://github.com/goauthentik/authentik/security/advisories/GHSA-ch7q-53v8-73pc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-64708
+    - web: https://github.com/goauthentik/authentik/commit/6672e6aaa41e0f2c9bfb1e4d8b51cf114969e830
+notes:
+    - Module deleted/moved, no longer responding to requests
+source:
+    id: GHSA-ch7q-53v8-73pc
+    created: 2025-12-15T13:03:53.94306022-05:00
+review_status: UNREVIEWED

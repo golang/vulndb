@@ -1,0 +1,41 @@
+id: GO-2025-4169
+modules:
+    - module: github.com/mattermost/mattermost-server
+      non_go_versions:
+        - introduced: 10.5.0
+        - fixed: 10.5.13
+        - introduced: 10.11.0
+        - fixed: 10.11.5
+        - introduced: 10.12.0
+        - fixed: 10.12.2
+        - introduced: 11.0.0
+        - fixed: 11.0.3
+      vulnerable_at: 11.0.3-rc1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20251015091448-abbf01b9db45
+summary: |-
+    Mattermost fails to sanitize team email addresses in
+    github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-12559
+ghsas:
+    - GHSA-4g87-9x45-cx2h
+references:
+    - advisory: https://github.com/advisories/GHSA-4g87-9x45-cx2h
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-12559
+    - web: https://github.com/mattermost/mattermost/commit/5d8719042c1807da59ac8a821624eb01152d8495
+    - web: https://github.com/mattermost/mattermost/commit/649aee8fa9184ca59bd66022a33b8f8918e413aa
+    - web: https://github.com/mattermost/mattermost/commit/7ccb62db7958abd6a4b21a06c5a4f5367a8f8b1f
+    - web: https://github.com/mattermost/mattermost/commit/9f54e5cdc3aef412945ff0e6a58338f7b549bdda
+    - web: https://github.com/mattermost/mattermost/commit/abbf01b9db45d1850eaf3701ea8362b910193ffd
+    - web: https://github.com/mattermost/mattermost/pull/34110
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-4g87-9x45-cx2h
+    created: 2025-12-15T13:01:12.586667168-05:00
+review_status: UNREVIEWED

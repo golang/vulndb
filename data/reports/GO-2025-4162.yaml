@@ -1,0 +1,39 @@
+id: GO-2025-4162
+modules:
+    - module: github.com/free5gc/openapi
+      versions:
+        - fixed: 1.2.2
+      vulnerable_at: 1.2.1
+    - module: github.com/free5gc/udm
+      vulnerable_at: 1.4.0
+      packages:
+        - package: github.com/free5gc/udm/internal/sbi/processor
+          symbols:
+            - Processor.SubscribeToSharedDataProcedure
+summary: |-
+    Free5GC is vulnerable to DoS via the Nudm_SubscriberDataManagement API in
+    github.com/free5gc/openapi
+cves:
+    - CVE-2025-60633
+ghsas:
+    - GHSA-3j9f-7w24-pcqg
+references:
+    - advisory: https://github.com/advisories/GHSA-3j9f-7w24-pcqg
+    - fix: https://github.com/free5gc/openapi/commit/d50c83e8fe7ebf9a62d9de99517e21a17f627b52
+    - fix: https://github.com/free5gc/openapi/pull/65
+    - fix: https://github.com/free5gc/udm/commit/57c56a3ad4bc53a62cab259045e78ec9abdb98ca
+    - fix: https://github.com/free5gc/udm/commit/ca9976857909a422dcff5bf2228756fc2bfc80d1
+    - fix: https://github.com/free5gc/udm/commit/e776c42177817f75e75e7a587c58c2a027beed81
+    - fix: https://github.com/free5gc/udm/pull/63
+    - fix: https://github.com/free5gc/udm/pull/65
+    - fix: https://github.com/free5gc/udm/pull/66
+    - web: https://github.com/free5gc/free5gc/issues/700
+    - web: https://github.com/free5gc/free5gc/issues/701
+    - web: https://github.com/free5gc/free5gc/issues/702
+    - web: https://github.com/free5gc/free5gc/issues/703
+notes:
+    - Cannot auto-populate symbols for github.com/free5gc/openapi due to multiple parent commits
+source:
+    id: GHSA-3j9f-7w24-pcqg
+    created: 2025-12-15T13:01:40.17552562-05:00
+review_status: REVIEWED

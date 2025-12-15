@@ -1,0 +1,28 @@
+id: GO-2025-4167
+modules:
+    - module: github.com/cilium/cilium
+      versions:
+        - fixed: 1.16.17
+        - introduced: 1.17.0
+        - fixed: 1.17.10
+        - introduced: 1.18.0
+        - fixed: 1.18.4
+      vulnerable_at: 1.18.3
+summary: |-
+    Cilium with misconfigured toGroups in policies can lead to unrestricted egress
+    traffic in Ciliumgithub.com/cilium/cilium
+cves:
+    - CVE-2025-64715
+ghsas:
+    - GHSA-38pp-6gcp-rqvm
+references:
+    - advisory: https://github.com/cilium/cilium/security/advisories/GHSA-38pp-6gcp-rqvm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-64715
+    - fix: https://github.com/cilium/cilium/commit/a385856b59c8289cc7273fa3a3062bbf0ef96c97
+    - web: https://github.com/cilium/cilium/releases/tag/v1.16.17
+    - web: https://github.com/cilium/cilium/releases/tag/v1.17.10
+    - web: https://github.com/cilium/cilium/releases/tag/v1.18.4
+source:
+    id: GHSA-38pp-6gcp-rqvm
+    created: 2025-12-15T13:01:32.977700737-05:00
+review_status: UNREVIEWED

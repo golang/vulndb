@@ -1,0 +1,30 @@
+id: GO-2025-4148
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 4.2.0-rc1+incompatible
+        - fixed: 4.2.0+incompatible
+        - introduced: 4.3.0-rc1+incompatible
+        - fixed: 4.3.0+incompatible
+      non_go_versions:
+        - fixed: 4.1.2-0.20171004201910-6be8113eb60
+        - fixed: 4.2.1-0.20171004194140-6d3cb2ce07fc
+      vulnerable_at: 4.3.0-rc4+incompatible
+summary: |-
+    Mattermost Server is vulnerable to Directory Traversal by System Admins in
+    github.com/mattermost/mattermost-server
+cves:
+    - CVE-2017-18874
+ghsas:
+    - GHSA-8qg8-c7mw-6fj7
+references:
+    - advisory: https://github.com/advisories/GHSA-8qg8-c7mw-6fj7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-18874
+    - web: https://github.com/mattermost/mattermost/commit/6be8113eb60cf5ddd2dc1c3f4db05cae0c183086
+    - web: https://github.com/mattermost/mattermost/commit/6d3cb2ce07fc799832081e93843b405b390057fa
+    - web: https://github.com/mattermost/mattermost/commit/fadd9514f6e71590aba781a7035e1de4150137b0
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-8qg8-c7mw-6fj7
+    created: 2025-12-15T13:03:38.907537578-05:00
+review_status: UNREVIEWED

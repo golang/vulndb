@@ -1,0 +1,23 @@
+id: GO-2025-4137
+modules:
+    - module: goauthentik.io
+      non_go_versions:
+        - fixed: 0.0.0-20251119140106-9dbdfc3f1be0
+      skip_lint: true
+summary: |-
+    authentik allows a deactivated Service account to authenticate to OAuth in
+    goauthentik.io
+cves:
+    - CVE-2025-64521
+ghsas:
+    - GHSA-xr73-jq5p-ch8r
+references:
+    - advisory: https://github.com/goauthentik/authentik/security/advisories/GHSA-xr73-jq5p-ch8r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-64521
+    - web: https://github.com/goauthentik/authentik/commit/9dbdfc3f1be0f1be36f8efce2442897b2a54a71c
+notes:
+    - Module deleted/moved, no longer responding to requests
+source:
+    id: GHSA-xr73-jq5p-ch8r
+    created: 2025-12-15T13:03:47.942875237-05:00
+review_status: UNREVIEWED

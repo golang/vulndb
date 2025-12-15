@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4148",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2017-18874",
+    "GHSA-8qg8-c7mw-6fj7"
+  ],
+  "summary": "Mattermost Server is vulnerable to Directory Traversal by System Admins in github.com/mattermost/mattermost-server",
+  "details": "Mattermost Server is vulnerable to Directory Traversal by System Admins in github.com/mattermost/mattermost-server.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/mattermost/mattermost-server before v4.1.2-0.20171004201910-6be8113eb60, before v4.2.1-0.20171004194140-6d3cb2ce07fc.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "4.2.0-rc1+incompatible"
+            },
+            {
+              "fixed": "4.2.0+incompatible"
+            },
+            {
+              "introduced": "4.3.0-rc1+incompatible"
+            },
+            {
+              "fixed": "4.3.0+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "4.1.2-0.20171004201910-6be8113eb60"
+              },
+              {
+                "fixed": "4.2.1-0.20171004194140-6d3cb2ce07fc"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-8qg8-c7mw-6fj7"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2017-18874"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/6be8113eb60cf5ddd2dc1c3f4db05cae0c183086"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/6d3cb2ce07fc799832081e93843b405b390057fa"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/fadd9514f6e71590aba781a7035e1de4150137b0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://mattermost.com/security-updates"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4148",
+    "review_status": "UNREVIEWED"
+  }
+}
