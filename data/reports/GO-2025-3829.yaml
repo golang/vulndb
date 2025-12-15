@@ -2,7 +2,7 @@ id: GO-2025-3829
 modules:
     - module: github.com/docker/docker
       versions:
-        - fixed: 28.0.0+incompatible
+        - fixed: 25.0.13+incompatible
 summary: Moby firewalld reload removes bridge network isolation in github.com/docker/docker
 cves:
     - CVE-2025-54410
@@ -11,6 +11,8 @@ ghsas:
 references:
     - advisory: https://github.com/moby/moby/security/advisories/GHSA-4vq8-7jfc-9cvp
     - web: https://firewalld.org/documentation/howto/reload-firewalld.html
+notes:
+    - GHSA says version <28.0.0 is affected when initially published. However, since then, version 25.0.13 has since been published. Manual evaluation of the source received when using go get confirmed that the fix is in place.
 source:
     id: GHSA-4vq8-7jfc-9cvp
     created: 2025-08-06T19:54:54.454402776Z

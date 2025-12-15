@@ -10,6 +10,11 @@ modules:
         - introduced: 1.32.0
         - fixed: 1.32.2
       vulnerable_at: 1.32.1
+      packages:
+        - package: k8s.io/kubernetes/pkg/kubelet/server
+          symbols:
+            - InstallDefaultHandlers
+          skip_fix: 'reading k8s.io/api/go.mod at revision v0.0.0: unknown revision v0.0.0'
 summary: Node Denial of Service via kubelet Checkpoint API in k8s.io/kubernetes
 cves:
     - CVE-2025-0426
