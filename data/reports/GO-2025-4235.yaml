@@ -1,0 +1,25 @@
+id: GO-2025-4235
+modules:
+    - module: github.com/neuvector/neuvector
+      non_go_versions:
+        - introduced: 5.3.0
+        - fixed: 5.4.8
+      vulnerable_at: 0.0.0-20251212034157-8f7bfd86561b
+      packages:
+        - package: github.com/neuvector/neuvector/controller/kv
+summary: |-
+    NeuVector OpenID Connect is vulnerable to man-in-the-middle (MITM) in
+    github.com/neuvector/neuvector
+cves:
+    - CVE-2025-66001
+ghsas:
+    - GHSA-4jj9-cgqc-x9h5
+references:
+    - advisory: https://github.com/neuvector/neuvector/security/advisories/GHSA-4jj9-cgqc-x9h5
+    - fix: https://github.com/neuvector/neuvector/commit/955904b5762f296d209bf395a5fcc7a40a53c424
+notes:
+    - When processing github.com/neuvector/neuvector/controller/kv, the module k8s.io/cri-api/pkg/apis/runtime/v1alpha2 cannot be found, causing symbol check to fail
+source:
+    id: GHSA-4jj9-cgqc-x9h5
+    created: 2025-12-15T15:00:48.841617095-05:00
+review_status: REVIEWED

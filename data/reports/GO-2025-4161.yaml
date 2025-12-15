@@ -1,0 +1,39 @@
+id: GO-2025-4161
+modules:
+    - module: github.com/VictoriaMetrics/VictoriaMetrics
+      versions:
+        - fixed: 1.110.23
+        - introduced: 1.111.0
+        - fixed: 1.122.8
+        - introduced: 1.123.0
+        - fixed: 1.129.1
+      non_go_versions:
+        - introduced: 1.0.0
+      vulnerable_at: 1.129.1-cluster
+      packages:
+        - package: github.com/VictoriaMetrics/VictoriaMetrics/lib/protoparser/promremotewrite/stream
+          symbols:
+            - Parse
+        - package: github.com/VictoriaMetrics/VictoriaMetrics/lib/protoparser/protoparserutil
+          symbols:
+            - ReadUncompressedData
+            - snappyReader.Reset
+          derived_symbols:
+            - GetUncompressedReader
+summary: |-
+    VictoriaMetrics' Snappy Decoder DoS Vulnerability is Causing OOM in
+    github.com/VictoriaMetrics/VictoriaMetrics
+cves:
+    - CVE-2025-65942
+ghsas:
+    - GHSA-66jq-2c23-2xh5
+references:
+    - advisory: https://github.com/VictoriaMetrics/VictoriaMetrics/security/advisories/GHSA-66jq-2c23-2xh5
+    - fix: https://github.com/VictoriaMetrics/VictoriaMetrics/commit/51b44afd34d2c9a392d4ebedeeb5b4a7f5beca24
+    - web: https://github.com/VictoriaMetrics/VictoriaMetrics/releases/tag/v1.110.23
+    - web: https://github.com/VictoriaMetrics/VictoriaMetrics/releases/tag/v1.122.8
+    - web: https://github.com/VictoriaMetrics/VictoriaMetrics/releases/tag/v1.129.1
+source:
+    id: GHSA-66jq-2c23-2xh5
+    created: 2025-12-15T15:08:21.081691566-05:00
+review_status: REVIEWED

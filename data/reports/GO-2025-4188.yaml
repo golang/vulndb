@@ -1,0 +1,34 @@
+id: GO-2025-4188
+modules:
+    - module: github.com/sirupsen/logrus
+      versions:
+        - fixed: 1.8.3
+        - introduced: 1.9.0
+        - fixed: 1.9.1
+        - introduced: 1.9.2
+        - fixed: 1.9.3
+      vulnerable_at: 1.9.2
+summary: |-
+    Logrus is vulnerable to DoS when using Entry.Writer() in
+    github.com/sirupsen/logrus
+cves:
+    - CVE-2025-65637
+ghsas:
+    - GHSA-4f99-4q7p-p3gh
+references:
+    - advisory: https://github.com/advisories/GHSA-4f99-4q7p-p3gh
+    - fix: https://github.com/sirupsen/logrus/commit/6acd903758687c4a3db3c11701e6c414fcf1c1f7
+    - fix: https://github.com/sirupsen/logrus/pull/1376
+    - report: https://github.com/sirupsen/logrus/issues/1370
+    - web: https://github.com/mjuanxd/logrus-dos-poc
+    - web: https://github.com/mjuanxd/logrus-dos-poc/blob/main/README.md
+    - web: https://github.com/sirupsen/logrus/releases/tag/v1.8.3
+    - web: https://github.com/sirupsen/logrus/releases/tag/v1.9.1
+    - web: https://github.com/sirupsen/logrus/releases/tag/v1.9.3
+    - web: https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMSIRUPSENLOGRUS-5564391
+notes:
+    - Cannot auto-populate symbols for github.com/sirupsen/logrus due to multiple parent commits
+source:
+    id: GHSA-4f99-4q7p-p3gh
+    created: 2025-12-15T15:09:50.007826213-05:00
+review_status: REVIEWED

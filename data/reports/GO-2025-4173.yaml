@@ -1,0 +1,25 @@
+id: GO-2025-4173
+modules:
+    - module: github.com/eclipse/paho.mqtt.golang
+      versions:
+        - fixed: 1.5.1
+      vulnerable_at: 1.5.0
+summary: |-
+    Eclipse Paho Go MQTT may incorrectly encode strings if length exceeds 65535
+    bytes in github.com/eclipse/paho.mqtt.golang
+cves:
+    - CVE-2025-10543
+ghsas:
+    - GHSA-32fw-gq77-f2f2
+references:
+    - advisory: https://github.com/advisories/GHSA-32fw-gq77-f2f2
+    - web: https://github.com/alpinelinux/build-server-status/commit/e3487897db32c8c3d0287643f8384a6669e93731
+    - web: https://github.com/eclipse-paho/paho.mqtt.golang/issues/730
+    - web: https://github.com/eclipse-paho/paho.mqtt.golang/pull/714
+    - web: https://gitlab.eclipse.org/security/vulnerability-reports/-/issues/254
+notes:
+    - failed to auto-populate symbols: no commits found for github.com/eclipse/paho.mqtt.golang
+source:
+    id: GHSA-32fw-gq77-f2f2
+    created: 2025-12-15T15:09:42.747409173-05:00
+review_status: REVIEWED

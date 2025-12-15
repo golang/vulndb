@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4188",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-65637",
+    "GHSA-4f99-4q7p-p3gh"
+  ],
+  "summary": "Logrus is vulnerable to DoS when using Entry.Writer() in github.com/sirupsen/logrus",
+  "details": "Logrus is vulnerable to DoS when using Entry.Writer() in github.com/sirupsen/logrus",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/sirupsen/logrus",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.8.3"
+            },
+            {
+              "introduced": "1.9.0"
+            },
+            {
+              "fixed": "1.9.1"
+            },
+            {
+              "introduced": "1.9.2"
+            },
+            {
+              "fixed": "1.9.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-4f99-4q7p-p3gh"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/sirupsen/logrus/commit/6acd903758687c4a3db3c11701e6c414fcf1c1f7"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/sirupsen/logrus/pull/1376"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/sirupsen/logrus/issues/1370"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mjuanxd/logrus-dos-poc"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mjuanxd/logrus-dos-poc/blob/main/README.md"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/sirupsen/logrus/releases/tag/v1.8.3"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/sirupsen/logrus/releases/tag/v1.9.1"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/sirupsen/logrus/releases/tag/v1.9.3"
+    },
+    {
+      "type": "WEB",
+      "url": "https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMSIRUPSENLOGRUS-5564391"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4188",
+    "review_status": "REVIEWED"
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4161",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-65942",
+    "GHSA-66jq-2c23-2xh5"
+  ],
+  "summary": "VictoriaMetrics' Snappy Decoder DoS Vulnerability is Causing OOM in github.com/VictoriaMetrics/VictoriaMetrics",
+  "details": "VictoriaMetrics' Snappy Decoder DoS Vulnerability is Causing OOM in github.com/VictoriaMetrics/VictoriaMetrics",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/VictoriaMetrics/VictoriaMetrics",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.110.23"
+            },
+            {
+              "introduced": "1.111.0"
+            },
+            {
+              "fixed": "1.122.8"
+            },
+            {
+              "introduced": "1.123.0"
+            },
+            {
+              "fixed": "1.129.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/VictoriaMetrics/VictoriaMetrics/lib/protoparser/promremotewrite/stream",
+            "symbols": [
+              "Parse"
+            ]
+          },
+          {
+            "path": "github.com/VictoriaMetrics/VictoriaMetrics/lib/protoparser/protoparserutil",
+            "symbols": [
+              "GetUncompressedReader",
+              "ReadUncompressedData",
+              "snappyReader.Reset"
+            ]
+          }
+        ],
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "1.0.0"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/VictoriaMetrics/VictoriaMetrics/security/advisories/GHSA-66jq-2c23-2xh5"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/VictoriaMetrics/VictoriaMetrics/commit/51b44afd34d2c9a392d4ebedeeb5b4a7f5beca24"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/VictoriaMetrics/VictoriaMetrics/releases/tag/v1.110.23"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/VictoriaMetrics/VictoriaMetrics/releases/tag/v1.122.8"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/VictoriaMetrics/VictoriaMetrics/releases/tag/v1.129.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4161",
+    "review_status": "REVIEWED"
+  }
+}
