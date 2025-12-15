@@ -1,0 +1,25 @@
+id: GO-2025-4230
+modules:
+    - module: github.com/1Panel-dev/1Panel
+      non_go_versions:
+        - introduced: 1.10.33
+      unsupported_versions:
+        - last_affected: 2.0.15
+      vulnerable_at: 1.9.6
+summary: |-
+    1Panel contains a cross-site request forgery (CSRF) vulnerability in the panel
+    name management functionality in github.com/1Panel-dev/1Panel
+cves:
+    - CVE-2025-34430
+ghsas:
+    - GHSA-5xpq-2vmc-5cqp
+references:
+    - advisory: https://github.com/advisories/GHSA-5xpq-2vmc-5cqp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-34430
+    - web: https://1panel.pro
+    - web: https://github.com/1Panel-dev/1Panel/releases
+    - web: https://www.vulncheck.com/advisories/1panel-csrf-panel-name-modification
+source:
+    id: GHSA-5xpq-2vmc-5cqp
+    created: 2025-12-15T12:54:44.276454613-05:00
+review_status: UNREVIEWED

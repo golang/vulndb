@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4238",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-67819",
+    "GHSA-hmmh-292h-3364"
+  ],
+  "summary": "Weaviate OSS has path traversal vulnerability via the Shard Movement API in github.com/weaviate/weaviate",
+  "details": "Weaviate OSS has path traversal vulnerability via the Shard Movement API in github.com/weaviate/weaviate",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/weaviate/weaviate",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.30.0"
+            },
+            {
+              "fixed": "1.30.20"
+            },
+            {
+              "introduced": "1.31.0-rc.0"
+            },
+            {
+              "fixed": "1.31.19"
+            },
+            {
+              "introduced": "1.32.0-rc.0"
+            },
+            {
+              "fixed": "1.32.16"
+            },
+            {
+              "introduced": "1.33.0-rc.0"
+            },
+            {
+              "fixed": "1.33.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-hmmh-292h-3364"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-67819"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/weaviate/weaviate/commit/4ff2cc89277c264c37d0f7316d9eb6368cfc30ff"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/weaviate/weaviate/commit/89c2270869e6d64f5b5276b8626c11cd816c6665"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/weaviate/weaviate/commit/b18cc7ea82d80a61e7943361a6e335e3fd5a49c7"
+    },
+    {
+      "type": "WEB",
+      "url": "https://weaviate.io/blog/weaviate-security-release-november-2025"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4238",
+    "review_status": "UNREVIEWED"
+  }
+}

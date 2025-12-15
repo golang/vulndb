@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4227",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-67717",
+    "GHSA-f4cf-9rvr-2rcx"
+  ],
+  "summary": "Zitadel Discloses the Total Number of Instance Users in github.com/zitadel/zitadel",
+  "details": "Zitadel Discloses the Total Number of Instance Users in github.com/zitadel/zitadel.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/zitadel/zitadel from v2.44.0 before v3.4.5, from v4.0.0-rc.1 before v4.7.2.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/zitadel/zitadel",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.80.0-v2.20.0.20251210121356-826039c6208f"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "2.44.0"
+              },
+              {
+                "fixed": "3.4.5"
+              },
+              {
+                "introduced": "4.0.0-rc.1"
+              },
+              {
+                "fixed": "4.7.2"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/zitadel/zitadel/security/advisories/GHSA-f4cf-9rvr-2rcx"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-67717"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/zitadel/zitadel/commit/826039c6208fe71df57b3a94c982b5ac5b0af12c"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4227",
+    "review_status": "UNREVIEWED"
+  }
+}

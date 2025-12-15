@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4223",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-66626",
+    "GHSA-xrqc-7xgx-c9vh"
+  ],
+  "summary": "RCE via ZipSlip and symbolic links in argoproj/argo-workflows in github.com/argoproj/argo-workflows",
+  "details": "RCE via ZipSlip and symbolic links in argoproj/argo-workflows in github.com/argoproj/argo-workflows",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-workflows",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-workflows/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-workflows/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.6.14"
+            },
+            {
+              "introduced": "3.7.0"
+            },
+            {
+              "fixed": "3.7.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/argoproj/argo-workflows/security/advisories/GHSA-xrqc-7xgx-c9vh"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-66626"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-workflows/commit/6b92af23f35aed4d4de8b04adcaf19d68f006de1"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/advisories/GHSA-p84v-gxvw-73pf"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/argoproj/argo-workflows/blob/5291e0b01f94ba864f96f795bb500f2cfc5ad799/workflow/executor/executor.go#L1034-L1037"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4223",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4231",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-34429",
+    "GHSA-wrvc-x3wf-j5f5"
+  ],
+  "summary": "1Panel contains a cross-site request forgery (CSRF) vulnerability in the web port configuration functionality in github.com/1Panel-dev/1Panel",
+  "details": "1Panel contains a cross-site request forgery (CSRF) vulnerability in the web port configuration functionality in github.com/1Panel-dev/1Panel.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: .",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/1Panel-dev/1Panel",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "1.10.33"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-wrvc-x3wf-j5f5"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-34429"
+    },
+    {
+      "type": "WEB",
+      "url": "https://1panel.pro"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/1Panel-dev/1Panel/releases"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.vulncheck.com/advisories/1panel-csrf-web-port-configuration-change"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4231",
+    "review_status": "UNREVIEWED"
+  }
+}

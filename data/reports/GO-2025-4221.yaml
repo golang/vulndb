@@ -1,0 +1,19 @@
+id: GO-2025-4221
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      unsupported_versions:
+        - last_affected: 0.0.0-20251202123337-6ef83b42c7ce
+      vulnerable_at: 0.0.0-20251202123337-6ef83b42c7ce
+summary: 'SiYuan: ZipSlip -> Arbitrary File Overwrite -> RCE in github.com/siyuan-note/siyuan/kernel'
+cves:
+    - CVE-2025-67488
+ghsas:
+    - GHSA-gqfv-g4v7-m366
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-gqfv-g4v7-m366
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-67488
+    - web: https://github.com/siyuan-note/siyuan/blob/dae6158860cc704e353454565c96e874278c6f47/kernel/api/import.go#L190
+source:
+    id: GHSA-gqfv-g4v7-m366
+    created: 2025-12-15T12:56:11.680679275-05:00
+review_status: UNREVIEWED

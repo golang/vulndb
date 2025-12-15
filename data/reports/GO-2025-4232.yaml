@@ -1,0 +1,19 @@
+id: GO-2025-4232
+modules:
+    - module: github.com/gardener/gardenctl-v2
+      versions:
+        - fixed: 0.0.0-20251107111549-0bdc484cb5fb
+summary: gardenctl is vulnerable to Command Injection when used with non‑POSIX shells in github.com/gardener/gardenctl-v2
+cves:
+    - CVE-2025-67508
+ghsas:
+    - GHSA-fw33-qpx7-rhx2
+references:
+    - advisory: https://github.com/gardener/gardenctl-v2/security/advisories/GHSA-fw33-qpx7-rhx2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-67508
+notes:
+    - fix: 'github.com/gardener/gardenctl-v2: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-fw33-qpx7-rhx2
+    created: 2025-12-15T12:54:25.99640606-05:00
+review_status: UNREVIEWED

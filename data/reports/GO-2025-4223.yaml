@@ -1,0 +1,29 @@
+id: GO-2025-4223
+modules:
+    - module: github.com/argoproj/argo-workflows
+      vulnerable_at: 0.4.7
+    - module: github.com/argoproj/argo-workflows/v2
+      unsupported_versions:
+        - last_affected: 2.5.3-rc4
+      vulnerable_at: 2.12.13
+    - module: github.com/argoproj/argo-workflows/v3
+      versions:
+        - fixed: 3.6.14
+        - introduced: 3.7.0
+        - fixed: 3.7.5
+      vulnerable_at: 3.7.4
+summary: RCE via ZipSlip and symbolic links in argoproj/argo-workflows in github.com/argoproj/argo-workflows
+cves:
+    - CVE-2025-66626
+ghsas:
+    - GHSA-xrqc-7xgx-c9vh
+references:
+    - advisory: https://github.com/argoproj/argo-workflows/security/advisories/GHSA-xrqc-7xgx-c9vh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-66626
+    - fix: https://github.com/argoproj/argo-workflows/commit/6b92af23f35aed4d4de8b04adcaf19d68f006de1
+    - web: https://github.com/advisories/GHSA-p84v-gxvw-73pf
+    - web: https://github.com/argoproj/argo-workflows/blob/5291e0b01f94ba864f96f795bb500f2cfc5ad799/workflow/executor/executor.go#L1034-L1037
+source:
+    id: GHSA-xrqc-7xgx-c9vh
+    created: 2025-12-15T12:55:56.547137645-05:00
+review_status: UNREVIEWED

@@ -1,0 +1,27 @@
+id: GO-2025-4237
+modules:
+    - module: github.com/weaviate/weaviate
+      versions:
+        - fixed: 1.30.20
+        - introduced: 1.31.0-rc.0
+        - fixed: 1.31.19
+        - introduced: 1.32.0-rc.0
+        - fixed: 1.32.16
+        - introduced: 1.33.0-rc.0
+        - fixed: 1.33.4
+      vulnerable_at: 1.33.3
+summary: Weaviate OSS has a Path Traversal Vulnerability via Backup ZipSlip in github.com/weaviate/weaviate
+cves:
+    - CVE-2025-67818
+ghsas:
+    - GHSA-7v39-2hx7-7c43
+references:
+    - advisory: https://github.com/advisories/GHSA-7v39-2hx7-7c43
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-67818
+    - fix: https://github.com/weaviate/weaviate/commit/169df2dc92bc232df62e8fab0a20db2e5371f7aa
+    - fix: https://github.com/weaviate/weaviate/commit/89c2270869e6d64f5b5276b8626c11cd816c6665
+    - web: https://weaviate.io/blog/weaviate-security-release-november-2025
+source:
+    id: GHSA-7v39-2hx7-7c43
+    created: 2025-12-15T12:52:31.754159401-05:00
+review_status: UNREVIEWED

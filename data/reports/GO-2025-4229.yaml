@@ -1,0 +1,25 @@
+id: GO-2025-4229
+modules:
+    - module: github.com/1Panel-dev/1Panel
+      non_go_versions:
+        - introduced: 1.10.33
+      unsupported_versions:
+        - last_affected: 2.0.15
+      vulnerable_at: 1.9.6
+summary: |-
+    1Panel contains a cross-site request forgery (CSRF) vulnerability in the Change
+    Username functionality in github.com/1Panel-dev/1Panel
+cves:
+    - CVE-2025-34410
+ghsas:
+    - GHSA-rpr2-4hqj-hc4q
+references:
+    - advisory: https://github.com/advisories/GHSA-rpr2-4hqj-hc4q
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-34410
+    - web: https://1panel.pro
+    - web: https://github.com/1Panel-dev/1Panel/releases
+    - web: https://www.vulncheck.com/advisories/1panel-csrf-in-change-username-functionality-allows-account-lockout
+source:
+    id: GHSA-rpr2-4hqj-hc4q
+    created: 2025-12-15T12:54:49.305358297-05:00
+review_status: UNREVIEWED

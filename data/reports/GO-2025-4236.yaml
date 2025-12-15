@@ -1,0 +1,16 @@
+id: GO-2025-4236
+modules:
+    - module: github.com/babylonlabs-io/finality-provider
+      unsupported_versions:
+        - last_affected: 1.0.3
+      vulnerable_at: 1.0.4
+summary: Finality Provider vulnerable to anti-slashing bypassing due to misconfiguration in github.com/babylonlabs-io/finality-provider
+ghsas:
+    - GHSA-4jmp-x7mh-rgmr
+references:
+    - advisory: https://github.com/babylonlabs-io/finality-provider/security/advisories/GHSA-4jmp-x7mh-rgmr
+    - fix: https://github.com/babylonlabs-io/finality-provider/commit/721bf5b7a271ada1679a67496c9bc3516c339390
+source:
+    id: GHSA-4jmp-x7mh-rgmr
+    created: 2025-12-15T12:52:37.678273821-05:00
+review_status: UNREVIEWED

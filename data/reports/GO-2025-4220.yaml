@@ -1,0 +1,25 @@
+id: GO-2025-4220
+modules:
+    - module: github.com/usememos/memos
+      versions:
+        - fixed: 0.25.3
+      vulnerable_at: 0.25.2
+summary: |-
+    memos vulnerability allows arbitrarily modification or deletion registered
+    identity providers in github.com/usememos/memos
+cves:
+    - CVE-2025-65797
+ghsas:
+    - GHSA-99m2-qwx6-2w6f
+references:
+    - advisory: https://github.com/advisories/GHSA-99m2-qwx6-2w6f
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-65797
+    - fix: https://github.com/usememos/memos/commit/769dcd0cf9be83d472829f6e7903b201e42f6b3c
+    - fix: https://github.com/usememos/memos/pull/5217
+    - web: http://memos.com
+    - web: http://usememos.com
+    - web: https://herolab.usd.de/security-advisories/usd-2025-0057
+source:
+    id: GHSA-99m2-qwx6-2w6f
+    created: 2025-12-15T12:56:16.58820148-05:00
+review_status: UNREVIEWED

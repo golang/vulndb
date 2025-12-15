@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4226",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-67713",
+    "GHSA-wqv2-4wpg-8hc9"
+  ],
+  "summary": "Miniflux has an Open Redirect via protocol-relative redirect_url in miniflux.app",
+  "details": "Miniflux has an Open Redirect via protocol-relative redirect_url in miniflux.app",
+  "affected": [
+    {
+      "package": {
+        "name": "miniflux.app",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "miniflux.app/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.2.15"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/miniflux/v2/security/advisories/GHSA-wqv2-4wpg-8hc9"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-67713"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/miniflux/v2/commit/76df99f3a3db234cf6b312be5e771485213d03c7"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4226",
+    "review_status": "UNREVIEWED"
+  }
+}

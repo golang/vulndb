@@ -1,0 +1,21 @@
+id: GO-2025-4226
+modules:
+    - module: miniflux.app
+      vulnerable_at: 1.0.46
+    - module: miniflux.app/v2
+      versions:
+        - fixed: 2.2.15
+      vulnerable_at: 2.2.14
+summary: Miniflux has an Open Redirect via protocol-relative redirect_url in miniflux.app
+cves:
+    - CVE-2025-67713
+ghsas:
+    - GHSA-wqv2-4wpg-8hc9
+references:
+    - advisory: https://github.com/miniflux/v2/security/advisories/GHSA-wqv2-4wpg-8hc9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-67713
+    - web: https://github.com/miniflux/v2/commit/76df99f3a3db234cf6b312be5e771485213d03c7
+source:
+    id: GHSA-wqv2-4wpg-8hc9
+    created: 2025-12-15T12:55:42.496267054-05:00
+review_status: UNREVIEWED

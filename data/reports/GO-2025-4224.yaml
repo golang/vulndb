@@ -1,0 +1,20 @@
+id: GO-2025-4224
+modules:
+    - module: github.com/opentofu/opentofu
+      versions:
+        - fixed: 1.10.8
+      vulnerable_at: 1.10.7
+summary: |-
+    OpenTofu incorrectly validates excluded subdomain constraint in conjunction with
+    TLS certificates containing wildcard SANs in github.com/opentofu/opentofu
+ghsas:
+    - GHSA-mjcp-gpgx-ggcg
+references:
+    - advisory: https://github.com/opentofu/opentofu/security/advisories/GHSA-mjcp-gpgx-ggcg
+    - report: https://github.com/opentofu/opentofu/issues/3546
+    - web: https://github.com/opentofu/opentofu/releases/tag/v1.10.8
+    - web: https://nvd.nist.gov/vuln/detail/CVE-2025-61727
+source:
+    id: GHSA-mjcp-gpgx-ggcg
+    created: 2025-12-15T12:55:52.941333436-05:00
+review_status: UNREVIEWED

@@ -1,0 +1,29 @@
+id: GO-2025-4238
+modules:
+    - module: github.com/weaviate/weaviate
+      versions:
+        - introduced: 1.30.0
+        - fixed: 1.30.20
+        - introduced: 1.31.0-rc.0
+        - fixed: 1.31.19
+        - introduced: 1.32.0-rc.0
+        - fixed: 1.32.16
+        - introduced: 1.33.0-rc.0
+        - fixed: 1.33.4
+      vulnerable_at: 1.33.3
+summary: Weaviate OSS has path traversal vulnerability via the Shard Movement API in github.com/weaviate/weaviate
+cves:
+    - CVE-2025-67819
+ghsas:
+    - GHSA-hmmh-292h-3364
+references:
+    - advisory: https://github.com/advisories/GHSA-hmmh-292h-3364
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-67819
+    - fix: https://github.com/weaviate/weaviate/commit/4ff2cc89277c264c37d0f7316d9eb6368cfc30ff
+    - fix: https://github.com/weaviate/weaviate/commit/89c2270869e6d64f5b5276b8626c11cd816c6665
+    - fix: https://github.com/weaviate/weaviate/commit/b18cc7ea82d80a61e7943361a6e335e3fd5a49c7
+    - web: https://weaviate.io/blog/weaviate-security-release-november-2025
+source:
+    id: GHSA-hmmh-292h-3364
+    created: 2025-12-15T12:52:24.517077318-05:00
+review_status: UNREVIEWED

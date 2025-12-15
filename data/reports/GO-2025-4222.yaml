@@ -1,0 +1,22 @@
+id: GO-2025-4222
+modules:
+    - module: github.com/containernetworking/plugins
+      versions:
+        - introduced: 1.6.0
+        - fixed: 1.9.0
+      vulnerable_at: 1.8.0
+summary: CNA Plugins Portmap nftables backend can intercept non-local traffic in github.com/containernetworking/plugins
+cves:
+    - CVE-2025-67499
+ghsas:
+    - GHSA-jv3w-x3r3-g6rm
+references:
+    - advisory: https://github.com/containernetworking/plugins/security/advisories/GHSA-jv3w-x3r3-g6rm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-67499
+    - fix: https://github.com/containernetworking/plugins/commit/9b3772e1a7abf93cbb7c6526a28bc0d27b830e02
+    - fix: https://github.com/containernetworking/plugins/pull/1210
+    - web: https://github.com/containernetworking/plugins/releases/tag/v1.9.0
+source:
+    id: GHSA-jv3w-x3r3-g6rm
+    created: 2025-12-15T12:56:02.914525278-05:00
+review_status: UNREVIEWED
