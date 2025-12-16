@@ -1,0 +1,31 @@
+id: GO-2025-4240
+modules:
+    - module: k8s.io/kubernetes
+      versions:
+        - fixed: 1.32.10
+        - introduced: 1.33.0-alpha.0
+        - fixed: 1.33.6
+        - introduced: 1.34.0-alpha.0
+        - fixed: 1.34.2
+      vulnerable_at: 1.34.1
+summary: |-
+    Half-blind Server Side Request Forgery in kube-controller-manager through
+    in-tree Portworx StorageClass in k8s.io/kubernetes
+cves:
+    - CVE-2025-13281
+ghsas:
+    - GHSA-r6j8-c6r2-37rr
+references:
+    - advisory: https://github.com/advisories/GHSA-r6j8-c6r2-37rr
+    - web: http://www.openwall.com/lists/oss-security/2025/12/01/4
+    - web: https://github.com/kubernetes/kubernetes/commit/7506ce804c20696ba32cdb72126270ceaed06e24
+    - web: https://github.com/kubernetes/kubernetes/commit/97650c1c4fe15cbb7756ba95b3edc8a8665063ca
+    - web: https://github.com/kubernetes/kubernetes/commit/dbe17dfe7773563eac95534040f413ada6d2b421
+    - web: https://github.com/kubernetes/kubernetes/issues/135525
+    - web: https://groups.google.com/g/kubernetes-security-announce/c/EORqZg0k1l4/m/TtD-q0v7AgAJ
+notes:
+    - failed to auto-populate symbols: no commits found for k8s.io/kubernetes
+source:
+    id: GHSA-r6j8-c6r2-37rr
+    created: 2025-12-16T10:47:29.124215196-05:00
+review_status: REVIEWED
