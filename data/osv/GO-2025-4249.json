@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4249",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-68120",
+    "CVE-2025-68120"
+  ],
+  "summary": "Unexpected untrusted code execution in github.com/golang/vscode-go",
+  "details": "To prevent unexpected untrusted code execution, the Visual Studio Code Go extension is now disabled in Restricted Mode.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/golang/vscode-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.52.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-68120"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-dev/c/CHG4qfcicBU/m/4tanFUymDQAJ"
+    }
+  ],
+  "credits": [
+    {
+      "name": "CHOE WONWOO (https://www.linkedin.com/in/wonwoo-choe-908b11390)"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4249",
+    "review_status": "REVIEWED"
+  }
+}

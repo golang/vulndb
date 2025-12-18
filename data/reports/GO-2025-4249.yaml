@@ -1,0 +1,24 @@
+id: GO-2025-4249
+modules:
+    - module: github.com/golang/vscode-go
+      versions:
+        - fixed: 0.52.1
+      vulnerable_at: 0.52.0
+summary: Unexpected untrusted code execution in github.com/golang/vscode-go
+description: |-
+    To prevent unexpected untrusted code execution, the Visual Studio Code Go
+    extension is now disabled in Restricted Mode.
+cves:
+    - CVE-2025-68120
+credits:
+    - CHOE WONWOO (https://www.linkedin.com/in/wonwoo-choe-908b11390)
+references:
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-68120
+    - web: https://groups.google.com/g/golang-dev/c/CHG4qfcicBU/m/4tanFUymDQAJ
+cve_metadata:
+    id: CVE-2025-68120
+    cwe: 'CWE-184: Incomplete List of Disallowed Inputs'
+source:
+    id: go-security-team
+    created: 2025-12-18T12:18:33.878223-05:00
+review_status: REVIEWED
