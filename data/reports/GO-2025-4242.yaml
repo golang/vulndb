@@ -1,0 +1,25 @@
+id: GO-2025-4242
+modules:
+    - module: github.com/redhat-developer/gitops-operator
+      unsupported_versions:
+        - last_affected: 1.17.0-rc5
+      vulnerable_at: 1.16.2
+summary: |-
+    OpenShift GitOps authenticated attackers can obtain cluster root access through
+    forged ArgoCD custom resources in github.com/redhat-developer/gitops-operator
+cves:
+    - CVE-2025-13888
+ghsas:
+    - GHSA-pcqx-8qww-7f4v
+references:
+    - advisory: https://github.com/advisories/GHSA-pcqx-8qww-7f4v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-13888
+    - web: https://access.redhat.com/errata/RHSA-2025:23203
+    - web: https://access.redhat.com/errata/RHSA-2025:23206
+    - web: https://access.redhat.com/errata/RHSA-2025:23207
+    - web: https://access.redhat.com/security/cve/CVE-2025-13888
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2418361
+source:
+    id: GHSA-pcqx-8qww-7f4v
+    created: 2025-12-17T11:33:15.582989351-05:00
+review_status: UNREVIEWED

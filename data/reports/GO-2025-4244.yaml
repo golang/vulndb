@@ -1,0 +1,21 @@
+id: GO-2025-4244
+modules:
+    - module: github.com/emiago/sipgo
+      versions:
+        - fixed: 1.0.0-alpha-1
+summary: |-
+    SIPGO is Vulnerable to Response DoS via Nil Pointer Dereference in
+    github.com/emiago/sipgo
+cves:
+    - CVE-2025-68274
+ghsas:
+    - GHSA-c623-f998-8hhv
+references:
+    - advisory: https://github.com/emiago/sipgo/security/advisories/GHSA-c623-f998-8hhv
+    - fix: https://github.com/emiago/sipgo/commit/dc9669364a154ec6d134e542f6a63c31b5afe6e8
+notes:
+    - versions below v0.3.0 are not vulnerable according to GHSA; however, they were originally published under github.com/emiraganov/sipgo, which makes us unable to specify the version where the vulnerability was introduced.
+source:
+    id: GHSA-c623-f998-8hhv
+    created: 2025-12-17T11:33:11.519318828-05:00
+review_status: UNREVIEWED

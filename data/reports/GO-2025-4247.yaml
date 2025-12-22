@@ -1,0 +1,42 @@
+id: GO-2025-4247
+modules:
+    - module: github.com/mattermost/mattermost
+      versions:
+        - introduced: 11.0.0-alpha.1+incompatible
+        - fixed: 11.1.0+incompatible
+      non_go_versions:
+        - fixed: 10.11.7-0.20251106103514-3b05384dd014
+      vulnerable_at: 11.1.0-rc4+incompatible
+    - module: github.com/mattermost/mattermost-plugin-github
+      versions:
+        - fixed: 1.0.1-0.20250829075715-0deffcfc6bee
+      vulnerable_at: 1.0.0
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.11.0-rc1+incompatible
+      non_go_versions:
+        - fixed: 10.11.7-0.20251106103514-3b05384dd014
+      vulnerable_at: 11.2.1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      vulnerable_at: 8.0.0-20251219195954-c1de5c4b6e45
+summary: |-
+    Mattermost GitHub Plugin Bot Identity Validation Bypass Allows Arbitrary GitHub
+    Reaction Injection in github.com/mattermost/mattermost
+cves:
+    - CVE-2025-13352
+ghsas:
+    - GHSA-jf5h-xfw4-p8gp
+references:
+    - advisory: https://github.com/advisories/GHSA-jf5h-xfw4-p8gp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-13352
+    - fix: https://github.com/mattermost/mattermost-plugin-github/commit/0deffcfc6bee7eaf01f7c99100e3d12e8d9df68c
+    - fix: https://github.com/mattermost/mattermost/commit/3b05384dd0146c1be3caa620a42e00e46027055d
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-jf5h-xfw4-p8gp
+    created: 2025-12-19T17:33:13.074273869-05:00
+review_status: UNREVIEWED

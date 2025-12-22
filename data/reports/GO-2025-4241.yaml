@@ -1,0 +1,23 @@
+id: GO-2025-4241
+modules:
+    - module: github.com/RedHatInsights/runtimes-inventory-operator
+      unsupported_versions:
+        - last_affected: 0.0.0-20251211184433-5123422abee1
+      vulnerable_at: 0.0.0-20251211184433-5123422abee1
+summary: |-
+    Misconfigured Internal Proxy in runtimes-inventory-rhel8-operator Grants
+    Standard Users Full Cluster Administrator Access in github.com/RedHatInsights/runtimes-inventory-operator
+cves:
+    - CVE-2025-11393
+ghsas:
+    - GHSA-cc8c-28gj-px38
+references:
+    - advisory: https://github.com/advisories/GHSA-cc8c-28gj-px38
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-11393
+    - web: https://access.redhat.com/errata/RHSA-2025:23236
+    - web: https://access.redhat.com/security/cve/CVE-2025-11393
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2402032
+source:
+    id: GHSA-cc8c-28gj-px38
+    created: 2025-12-17T11:33:23.458478769-05:00
+review_status: UNREVIEWED

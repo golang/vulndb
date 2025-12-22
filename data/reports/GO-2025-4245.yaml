@@ -1,0 +1,22 @@
+id: GO-2025-4245
+modules:
+    - module: github.com/expr-lang/expr
+      versions:
+        - fixed: 1.17.7
+      vulnerable_at: 1.17.6
+summary: |-
+    Expr has Denial of Service via Unbounded Recursion in Builtin Functions in
+    github.com/expr-lang/expr
+cves:
+    - CVE-2025-68156
+ghsas:
+    - GHSA-cfpf-hrx2-8rv6
+references:
+    - advisory: https://github.com/expr-lang/expr/security/advisories/GHSA-cfpf-hrx2-8rv6
+    - fix: https://github.com/expr-lang/expr/pull/870
+notes:
+    - failed to auto-populate symbols: no commits found for github.com/expr-lang/expr
+source:
+    id: GHSA-cfpf-hrx2-8rv6
+    created: 2025-12-17T11:33:07.441433936-05:00
+review_status: REVIEWED

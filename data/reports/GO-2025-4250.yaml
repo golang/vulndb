@@ -1,0 +1,26 @@
+id: GO-2025-4250
+modules:
+    - module: github.com/aws/amazon-s3-encryption-client-go
+      vulnerable_at: 4.0.0+incompatible
+    - module: github.com/aws/amazon-s3-encryption-client-go/v3
+      vulnerable_at: 3.2.0
+    - module: github.com/aws/amazon-s3-encryption-client-go/v4
+      versions:
+        - fixed: 4.0.0
+summary: Amazon S3 Encryption Client has a Key Commitment Issue in github.com/aws/amazon-s3-encryption-client-go
+cves:
+    - CVE-2025-14764
+ghsas:
+    - GHSA-3g75-q268-r9r6
+references:
+    - advisory: https://github.com/aws/amazon-s3-encryption-client-go/security/advisories/GHSA-3g75-q268-r9r6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-14764
+    - fix: https://github.com/aws/amazon-s3-encryption-client-go/commit/3e1740ec014e234e6d454291615011122e642b5d
+    - web: https://aws.amazon.com/security/security-bulletins/AWS-2025-032
+    - web: https://github.com/aws/amazon-s3-encryption-client-go/releases/tag/v4.0.0
+notes:
+    - fix: 'github.com/aws/amazon-s3-encryption-client-go/v4: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-3g75-q268-r9r6
+    created: 2025-12-19T17:30:12.887452596-05:00
+review_status: UNREVIEWED
