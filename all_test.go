@@ -98,17 +98,32 @@ func TestLintReports(t *testing.T) {
 		t.Fatal(err)
 	}
 
+	type loadedReport struct {
+		path   string
+		report *report.Report
+	}
+	parsedReports := make(map[string]loadedReport)
+	aliasToIDs := make(map[string][]string)
+	for _, filename := range reports {
+		r, ok := rc.Report(filename)
+		if !ok {
+			t.Fatalf("report %s not found in client", filename)
+		}
+		parsedReports[filename] = loadedReport{path: filename, report: r}
+		for _, alias := range r.Aliases() {
+			aliasToIDs[alias] = append(aliasToIDs[alias], r.ID)
+		}
+	}
+
 	// Map from summaries to report paths, used to check for duplicate summaries.
 	summaries := sync.Map{}
 	sort.Strings(reports)
 	for _, filename := range reports {
 		t.Run(filename, func(t *testing.T) {
-			cFilename := filename // capture variable so we can run tests in parallel safely
+			lr := parsedReports[filename]
+			r := lr.report
+			cFilename := lr.path // capture variable so we can run tests in parallel safely
 			t.Parallel()
-			r, err := report.Read(cFilename)
-			if err != nil {
-				t.Fatal(err)
-			}
 			if err := r.CheckFilename(cFilename); err != nil {
 				t.Error(err)
 			}
@@ -116,16 +131,12 @@ func TestLintReports(t *testing.T) {
 			if len(lints) > 0 {
 				t.Error(strings.Join(lints, "\n"))
 			}
-			duplicates := make(map[string][]string)
 			for _, alias := range r.Aliases() {
-				for _, r2 := range rc.ReportsByAlias(alias) {
-					if r2.ID != r.ID {
-						duplicates[r2.ID] = append(duplicates[r2.ID], alias)
+				for _, id := range aliasToIDs[alias] {
+					if id != r.ID {
+						t.Errorf("report %s shares duplicate alias %s with report %s", cFilename, alias, id)
 					}
 				}
-			}
-			for r2, aliases := range duplicates {
-				t.Errorf("report %s shares duplicate alias(es) %s with report %s", cFilename, aliases, r2)
 			}
 			// Ensure that each reviewed report has a unique summary.
 			if r.IsReviewed() {
