@@ -1,0 +1,22 @@
+id: GO-2025-4255
+modules:
+    - module: github.com/mattermost/mattermost-plugin-calls
+      versions:
+        - fixed: 1.11.0
+      vulnerable_at: 1.10.0
+summary: |-
+    Mattermost fails to check Websocket request for proper UTF-8 format potentially
+    crashing Calls plug-in in github.com/mattermost/mattermost-plugin-calls
+cves:
+    - CVE-2025-12689
+ghsas:
+    - GHSA-j5vq-62gr-8v3r
+references:
+    - advisory: https://github.com/advisories/GHSA-j5vq-62gr-8v3r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-12689
+    - fix: https://github.com/mattermost/mattermost-plugin-calls/commit/f68b41980e1274e05cf91c687e2af1a73c5e36ca
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-j5vq-62gr-8v3r
+    created: 2025-12-29T19:23:23.402115334Z
+review_status: UNREVIEWED

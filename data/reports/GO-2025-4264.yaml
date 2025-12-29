@@ -1,0 +1,23 @@
+id: GO-2025-4264
+modules:
+    - module: code.gitea.io/gitea
+      versions:
+        - fixed: 1.22.2
+      vulnerable_at: 1.22.1
+summary: |-
+    Gitea sometimes mishandles propagation of token scope for access control within
+    one of its own package registries in code.gitea.io/gitea
+cves:
+    - CVE-2025-68944
+ghsas:
+    - GHSA-f85h-c7m6-cfpm
+references:
+    - advisory: https://github.com/advisories/GHSA-f85h-c7m6-cfpm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-68944
+    - web: https://blog.gitea.com/release-of-1.22.2
+    - web: https://github.com/go-gitea/gitea/pull/31967
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.22.2
+source:
+    id: GHSA-f85h-c7m6-cfpm
+    created: 2025-12-29T19:19:08.847485455Z
+review_status: UNREVIEWED

@@ -1,0 +1,150 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4256",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-13324",
+    "GHSA-x3r8-2hmh-89f5"
+  ],
+  "summary": "Mattermost has an Invite Token Replay Vulnerability via Channel Membership Manipulation in github.com/mattermost/mattermost",
+  "details": "Mattermost has an Invite Token Replay Vulnerability via Channel Membership Manipulation in github.com/mattermost/mattermost",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "10.11.0-rc1+incompatible"
+            },
+            {
+              "fixed": "10.11.5+incompatible"
+            },
+            {
+              "introduced": "10.12.0+incompatible"
+            },
+            {
+              "fixed": "10.12.2+incompatible"
+            },
+            {
+              "introduced": "11.0.0-alpha.1+incompatible"
+            },
+            {
+              "fixed": "11.0.4+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "11.0.4+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v6",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost/server/v8",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "8.0.0-20251031095924-e7e23b94e006"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-x3r8-2hmh-89f5"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-13324"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/mattermost/mattermost/commit/364c2203de00fe0d8424b6b46d6f0eeb02a2539a"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/mattermost/mattermost/commit/7ccb62db7958abd6a4b21a06c5a4f5367a8f8b1f"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/mattermost/mattermost/commit/9f54e5cdc3aef412945ff0e6a58338f7b549bdda"
+    },
+    {
+      "type": "WEB",
+      "url": "https://mattermost.com/security-updates"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4256",
+    "review_status": "UNREVIEWED"
+  }
+}

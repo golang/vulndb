@@ -1,0 +1,25 @@
+id: GO-2025-4257
+modules:
+    - module: github.com/kedacore/keda
+      vulnerable_at: 1.5.0
+    - module: github.com/kedacore/keda/v2
+      versions:
+        - fixed: 2.17.3
+        - introduced: 2.18.0
+        - fixed: 2.18.3
+      vulnerable_at: 2.18.2
+summary: |-
+    KEDA has Arbitrary File Read via Insufficient Path Validation in HashiCorp Vault
+    Service Account Credential in github.com/kedacore/keda
+cves:
+    - CVE-2025-68476
+ghsas:
+    - GHSA-c4p6-qg4m-9jmr
+references:
+    - advisory: https://github.com/kedacore/keda/security/advisories/GHSA-c4p6-qg4m-9jmr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-68476
+    - fix: https://github.com/kedacore/keda/commit/15c5677f65f809b9b6b59a52f4cf793db0a510fd
+source:
+    id: GHSA-c4p6-qg4m-9jmr
+    created: 2025-12-29T19:22:50.923830525Z
+review_status: UNREVIEWED

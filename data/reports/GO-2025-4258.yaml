@@ -1,0 +1,21 @@
+id: GO-2025-4258
+modules:
+    - module: code.gitea.io/gitea
+      versions:
+        - fixed: 1.25.2
+      vulnerable_at: 1.25.1
+summary: Gitea mishandles authorization for deletion of releases in code.gitea.io/gitea
+cves:
+    - CVE-2025-68938
+ghsas:
+    - GHSA-cm54-pfmc-xrwx
+references:
+    - advisory: https://github.com/advisories/GHSA-cm54-pfmc-xrwx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-68938
+    - web: https://blog.gitea.com/release-of-1.25.2
+    - web: https://github.com/go-gitea/gitea/pull/36002/commits/d4262131b39899d9e9ee5caa2635c810d476e43f#diff-8962bac89952027d50fa51f31f59d65bedb4c02bde0265eced5cf256cbed306d
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.25.2
+source:
+    id: GHSA-cm54-pfmc-xrwx
+    created: 2025-12-29T19:22:45.135553268Z
+review_status: UNREVIEWED

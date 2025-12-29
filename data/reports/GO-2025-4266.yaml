@@ -1,0 +1,23 @@
+id: GO-2025-4266
+modules:
+    - module: code.gitea.io/gitea
+      versions:
+        - fixed: 1.21.8
+      vulnerable_at: 1.21.7
+summary: |-
+    Gitea inadvertently discloses users' login times by allowing (for example) the
+    lastlogintime explore/users sort order in code.gitea.io/gitea
+cves:
+    - CVE-2025-68943
+ghsas:
+    - GHSA-jhx5-4vr4-f327
+references:
+    - advisory: https://github.com/advisories/GHSA-jhx5-4vr4-f327
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-68943
+    - web: https://blog.gitea.com/release-of-1.21.8-and-1.21.9-and-1.21.10
+    - web: https://github.com/go-gitea/gitea/pull/29430
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.21.8
+source:
+    id: GHSA-jhx5-4vr4-f327
+    created: 2025-12-29T19:18:54.911692004Z
+review_status: UNREVIEWED

@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4258",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-68938",
+    "GHSA-cm54-pfmc-xrwx"
+  ],
+  "summary": "Gitea mishandles authorization for deletion of releases in code.gitea.io/gitea",
+  "details": "Gitea mishandles authorization for deletion of releases in code.gitea.io/gitea",
+  "affected": [
+    {
+      "package": {
+        "name": "code.gitea.io/gitea",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.25.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-cm54-pfmc-xrwx"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-68938"
+    },
+    {
+      "type": "WEB",
+      "url": "https://blog.gitea.com/release-of-1.25.2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-gitea/gitea/pull/36002/commits/d4262131b39899d9e9ee5caa2635c810d476e43f#diff-8962bac89952027d50fa51f31f59d65bedb4c02bde0265eced5cf256cbed306d"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-gitea/gitea/releases/tag/v1.25.2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4258",
+    "review_status": "UNREVIEWED"
+  }
+}
