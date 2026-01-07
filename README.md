@@ -16,7 +16,7 @@ public vulnerability in the Go ecosystem, or give feedback about the project.
 ## Privacy Policy
 
 The privacy policy for `govulncheck` can be found at
-[https://vuln.go.dev/privacy](https://vuln.go.dev/privacy.html).
+[https://vuln.go.dev/privacy](https://vuln.go.dev/privacy).
 
 ## License
 
