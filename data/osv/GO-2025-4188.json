@@ -7,8 +7,8 @@
     "CVE-2025-65637",
     "GHSA-4f99-4q7p-p3gh"
   ],
-  "summary": "Logrus is vulnerable to DoS when using Entry.Writer() in github.com/sirupsen/logrus",
-  "details": "Logrus is vulnerable to DoS when using Entry.Writer() in github.com/sirupsen/logrus",
+  "summary": "Logrus is vulnerable to DoS when using Entry.writerScanner in github.com/sirupsen/logrus",
+  "details": "Logrus is vulnerable to DoS when using Entry.writerScanner in github.com/sirupsen/logrus",
   "affected": [
     {
       "package": {
@@ -40,7 +40,20 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/sirupsen/logrus",
+            "symbols": [
+              "Entry.Writer",
+              "Entry.WriterLevel",
+              "Entry.writerScanner",
+              "Logger.Writer",
+              "Logger.WriterLevel"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
