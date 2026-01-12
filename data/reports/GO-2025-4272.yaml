@@ -1,0 +1,29 @@
+id: GO-2025-4272
+modules:
+    - module: go.temporal.io/server
+      versions:
+        - introduced: 1.24.0
+        - fixed: 1.27.4
+        - introduced: 1.28.0
+        - fixed: 1.28.2
+        - introduced: 1.29.0
+        - fixed: 1.29.2
+      vulnerable_at: 1.29.1
+summary: |-
+    Temporal has a namespace policy bypass allowing requests to be authorized for
+    incorrect contexts in go.temporal.io/server
+cves:
+    - CVE-2025-14986
+ghsas:
+    - GHSA-p2gr-hm8g-q772
+references:
+    - advisory: https://github.com/advisories/GHSA-p2gr-hm8g-q772
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-14986
+    - web: https://github.com/temporalio/temporal/pull/8839
+    - web: https://github.com/temporalio/temporal/releases/tag/v1.27.4
+    - web: https://github.com/temporalio/temporal/releases/tag/v1.28.2
+    - web: https://github.com/temporalio/temporal/releases/tag/v1.29.2
+source:
+    id: GHSA-p2gr-hm8g-q772
+    created: 2026-01-12T11:51:36.967220832-05:00
+review_status: UNREVIEWED

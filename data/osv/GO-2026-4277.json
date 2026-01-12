@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4277",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-21483",
+    "GHSA-jmr4-p576-v565"
+  ],
+  "summary": "listmonk Vulnerable to Stored XSS Leading to Admin Account Takeover in github.com/knadh/listmonk",
+  "details": "listmonk Vulnerable to Stored XSS Leading to Admin Account Takeover in github.com/knadh/listmonk.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/knadh/listmonk from v1.1.1 before v6.0.0.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/knadh/listmonk",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.1.1-0.20251231125615-74dc5a01cfbb"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "1.1.1"
+              },
+              {
+                "fixed": "6.0.0"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/knadh/listmonk/security/advisories/GHSA-jmr4-p576-v565"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-21483"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/knadh/listmonk/commit/74dc5a01cfbb12cf218cb33ddad8410c53e2e915"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/knadh/listmonk/releases/tag/v6.0.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4277",
+    "review_status": "UNREVIEWED"
+  }
+}

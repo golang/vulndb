@@ -1,0 +1,23 @@
+id: GO-2026-4277
+modules:
+    - module: github.com/knadh/listmonk
+      versions:
+        - fixed: 1.1.1-0.20251231125615-74dc5a01cfbb
+      non_go_versions:
+        - introduced: 1.1.1
+        - fixed: 6.0.0
+      vulnerable_at: 1.1.0
+summary: listmonk Vulnerable to Stored XSS Leading to Admin Account Takeover in github.com/knadh/listmonk
+cves:
+    - CVE-2026-21483
+ghsas:
+    - GHSA-jmr4-p576-v565
+references:
+    - advisory: https://github.com/knadh/listmonk/security/advisories/GHSA-jmr4-p576-v565
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-21483
+    - fix: https://github.com/knadh/listmonk/commit/74dc5a01cfbb12cf218cb33ddad8410c53e2e915
+    - web: https://github.com/knadh/listmonk/releases/tag/v6.0.0
+source:
+    id: GHSA-jmr4-p576-v565
+    created: 2026-01-12T11:48:53.195745659-05:00
+review_status: UNREVIEWED

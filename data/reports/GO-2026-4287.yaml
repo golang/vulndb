@@ -1,0 +1,22 @@
+id: GO-2026-4287
+modules:
+    - module: miniflux.app
+      vulnerable_at: 1.0.46
+    - module: miniflux.app/v2
+      versions:
+        - fixed: 2.2.16
+      vulnerable_at: 2.2.15
+summary: |-
+    Miniflux Media Proxy SSRF via /proxy endpoint allows access to internal network
+    resources in miniflux.app
+cves:
+    - CVE-2026-21885
+ghsas:
+    - GHSA-xwh2-742g-w3wp
+references:
+    - advisory: https://github.com/miniflux/v2/security/advisories/GHSA-xwh2-742g-w3wp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-21885
+source:
+    id: GHSA-xwh2-742g-w3wp
+    created: 2026-01-12T11:47:44.181307767-05:00
+review_status: UNREVIEWED

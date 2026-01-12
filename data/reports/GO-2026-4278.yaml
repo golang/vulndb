@@ -1,0 +1,23 @@
+id: GO-2026-4278
+modules:
+    - module: github.com/hashicorp/nomad
+      versions:
+        - fixed: 1.11.1
+      vulnerable_at: 1.11.0
+summary: |-
+    HashiCorp Nomad is vulnerable to path escape through archive unpacking during
+    migration in github.com/hashicorp/nomad
+cves:
+    - CVE-2024-6717
+ghsas:
+    - GHSA-5mqx-rpxv-mvxj
+references:
+    - advisory: https://github.com/advisories/GHSA-5mqx-rpxv-mvxj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-6717
+    - fix: https://github.com/hashicorp/nomad/pull/27068/commits/d0f4f27dd03e7f9843d7b921ca9f33c257efdfd1
+    - web: https://discuss.hashicorp.com/t/hcsec-2024-15-nomad-vulnerable-to-allocation-directory-path-escape-through-archive-unpacking/68781
+    - web: https://github.com/hashicorp/nomad/releases/tag/v1.11.1
+source:
+    id: GHSA-5mqx-rpxv-mvxj
+    created: 2026-01-12T11:48:46.12395329-05:00
+review_status: UNREVIEWED

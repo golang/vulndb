@@ -1,0 +1,24 @@
+id: GO-2025-4269
+modules:
+    - module: github.com/actiontech/sqle
+      unsupported_versions:
+        - last_affected: 4.2511.0
+      vulnerable_at: 1.2210.0
+summary: SQLE's JWT Secret Handler can be manipulated to use hard-coded cryptographic key in github.com/actiontech/sqle
+cves:
+    - CVE-2025-15107
+ghsas:
+    - GHSA-43h9-hc38-qph5
+references:
+    - advisory: https://github.com/advisories/GHSA-43h9-hc38-qph5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-15107
+    - report: https://github.com/actiontech/sqle/issues/3186
+    - web: https://github.com/actiontech/sqle/blob/4714f83f33e0d7aa647036eb756e928aa4174014/sqle/utils/jwt.go#L9
+    - web: https://github.com/actiontech/sqle/milestone/53
+    - web: https://vuldb.com/?ctiid.338478
+    - web: https://vuldb.com/?id.338478
+    - web: https://vuldb.com/?submit.710380
+source:
+    id: GHSA-43h9-hc38-qph5
+    created: 2026-01-12T11:51:42.369842196-05:00
+review_status: UNREVIEWED

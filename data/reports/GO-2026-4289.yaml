@@ -1,0 +1,22 @@
+id: GO-2026-4289
+modules:
+    - module: github.com/coredns/coredns
+      versions:
+        - fixed: 1.14.0
+      vulnerable_at: 1.13.2
+summary: |-
+    CoreDNS gRPC/HTTPS/HTTP3 servers lack resource limits, enabling DoS via
+    unbounded connections and oversized messages in github.com/coredns/coredns
+cves:
+    - CVE-2025-68151
+ghsas:
+    - GHSA-527x-5wrf-22m2
+references:
+    - advisory: https://github.com/coredns/coredns/security/advisories/GHSA-527x-5wrf-22m2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-68151
+    - fix: https://github.com/coredns/coredns/commit/0d8cbb1a6bcb6bc9c1a489865278b8725fa20812
+    - fix: https://github.com/coredns/coredns/pull/7490
+source:
+    id: GHSA-527x-5wrf-22m2
+    created: 2026-01-12T11:47:37.125370996-05:00
+review_status: UNREVIEWED

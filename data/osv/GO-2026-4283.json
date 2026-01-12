@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4283",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-68954",
+    "GHSA-8c39-xppg-479c"
+  ],
+  "summary": "Pterodactyl does not revoke SFTP access when server is deleted or permissions reduced in github.com/pterodactyl/wings",
+  "details": "Pterodactyl does not revoke SFTP access when server is deleted or permissions reduced in github.com/pterodactyl/wings",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/pterodactyl/wings",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.12.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/pterodactyl/panel/security/advisories/GHSA-8c39-xppg-479c"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-68954"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/pterodactyl/panel/commit/2bd9d8baddb0e0606e4a9d5be402f48678ac88d5"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/pterodactyl/panel/releases/tag/v1.12.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4283",
+    "review_status": "UNREVIEWED"
+  }
+}

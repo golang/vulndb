@@ -1,0 +1,23 @@
+id: GO-2026-4286
+modules:
+    - module: github.com/openflagr/flagr
+      versions:
+        - fixed: 0.0.0-20251009103504-fe83dc87aa40
+summary: OpenFlagr contains an authentication bypass vulnerability in the HTTP middleware in github.com/openflagr/flagr
+cves:
+    - CVE-2026-0650
+ghsas:
+    - GHSA-rwp9-5g7q-73q3
+references:
+    - advisory: https://github.com/advisories/GHSA-rwp9-5g7q-73q3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-0650
+    - fix: https://github.com/openflagr/flagr/commit/fe83dc87aa404a57554aa5839ac450f55c203570
+    - web: https://dreyand.rs/code%20review/golang/2026/01/03/0day-speedrun-openflagr-less-1118-authentication-bypass
+    - web: https://github.com/openflagr/flagr/releases/tag/1.1.19
+    - web: https://www.vulncheck.com/advisories/openflagr-authentication-bypass-via-prefix-whitelist-path-normalization
+notes:
+    - fix: 'github.com/openflagr/flagr: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-rwp9-5g7q-73q3
+    created: 2026-01-12T11:47:50.286049461-05:00
+review_status: UNREVIEWED
