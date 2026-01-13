@@ -1,0 +1,22 @@
+id: GO-2025-4251
+modules:
+    - module: github.com/ollama/ollama
+      vulnerable_at: 0.13.5
+summary: |-
+    Ollama has missing authentication enabling attackers to perform model
+    management operations in github.com/ollama/ollama
+cves:
+    - CVE-2025-63389
+ghsas:
+    - GHSA-f6mr-38g8-39rg
+references:
+    - advisory: https://github.com/advisories/GHSA-f6mr-38g8-39rg
+    - web: https://gist.github.com/Cristliu/48dae561696374744d9fced07a544ecd
+    - web: https://github.com/ollama/ollama/issues
+notes:
+    - No patch has been released yet, so all versions are marked as vulnerable.
+    - cannot auto-populate symbols: no commits found for github.com/ollama/ollama.
+source:
+    id: GHSA-f6mr-38g8-39rg
+    created: 2026-01-13T11:02:27.148516343-05:00
+review_status: REVIEWED

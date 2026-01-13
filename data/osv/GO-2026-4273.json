@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4273",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-14987",
+    "GHSA-hmhp-gh8m-c8xp"
+  ],
+  "summary": "Temporal has an Incorrect Authorization vulnerability in go.temporal.io/server",
+  "details": "Temporal has an Incorrect Authorization vulnerability in go.temporal.io/server.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: go.temporal.io/server from v1.29.0-0 before v1.29.0-135.0.0.20251218190115-b292a32bacdf.",
+  "affected": [
+    {
+      "package": {
+        "name": "go.temporal.io/server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.27.4"
+            },
+            {
+              "introduced": "1.28.0"
+            },
+            {
+              "fixed": "1.28.2"
+            },
+            {
+              "introduced": "1.29.0"
+            },
+            {
+              "fixed": "1.29.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "1.29.0-0"
+              },
+              {
+                "fixed": "1.29.0-135.0.0.20251218190115-b292a32bacdf"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-hmhp-gh8m-c8xp"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-14987"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/temporalio/temporal/commit/b292a32bacdfa6472affd90f0a940408d5839cfa"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/temporalio/temporal/releases/tag/v1.27.4"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/temporalio/temporal/releases/tag/v1.28.2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/temporalio/temporal/releases/tag/v1.29.2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4273",
+    "review_status": "UNREVIEWED"
+  }
+}

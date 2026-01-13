@@ -1,0 +1,29 @@
+id: GO-2026-4273
+modules:
+    - module: go.temporal.io/server
+      versions:
+        - fixed: 1.27.4
+        - introduced: 1.28.0
+        - fixed: 1.28.2
+        - introduced: 1.29.0
+        - fixed: 1.29.2
+      non_go_versions:
+        - introduced: 1.29.0-0
+        - fixed: 1.29.0-135.0.0.20251218190115-b292a32bacdf
+      vulnerable_at: 1.29.1
+summary: Temporal has an Incorrect Authorization vulnerability in go.temporal.io/server
+cves:
+    - CVE-2025-14987
+ghsas:
+    - GHSA-hmhp-gh8m-c8xp
+references:
+    - advisory: https://github.com/advisories/GHSA-hmhp-gh8m-c8xp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-14987
+    - web: https://github.com/temporalio/temporal/commit/b292a32bacdfa6472affd90f0a940408d5839cfa
+    - web: https://github.com/temporalio/temporal/releases/tag/v1.27.4
+    - web: https://github.com/temporalio/temporal/releases/tag/v1.28.2
+    - web: https://github.com/temporalio/temporal/releases/tag/v1.29.2
+source:
+    id: GHSA-hmhp-gh8m-c8xp
+    created: 2026-01-13T10:45:27.646774737-05:00
+review_status: UNREVIEWED
