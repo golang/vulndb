@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4278",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2024-6717",
+    "GHSA-5mqx-rpxv-mvxj"
+  ],
+  "summary": "HashiCorp Nomad is vulnerable to path escape through archive unpacking during migration in github.com/hashicorp/nomad",
+  "details": "HashiCorp Nomad is vulnerable to path escape through archive unpacking during migration in github.com/hashicorp/nomad",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hashicorp/nomad",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.11.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-5mqx-rpxv-mvxj"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-6717"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hashicorp/nomad/pull/27068/commits/d0f4f27dd03e7f9843d7b921ca9f33c257efdfd1"
+    },
+    {
+      "type": "WEB",
+      "url": "https://discuss.hashicorp.com/t/hcsec-2024-15-nomad-vulnerable-to-allocation-directory-path-escape-through-archive-unpacking/68781"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/hashicorp/nomad/releases/tag/v1.11.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4278",
+    "review_status": "UNREVIEWED"
+  }
+}

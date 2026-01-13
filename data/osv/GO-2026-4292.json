@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4292",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-22688",
+    "GHSA-78h3-63c4-5fqc"
+  ],
+  "summary": "WeKnora has Command Injection in MCP stdio test in github.com/Tencent/WeKnora",
+  "details": "WeKnora has Command Injection in MCP stdio test in github.com/Tencent/WeKnora",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/Tencent/WeKnora",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.2.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/Tencent/WeKnora/security/advisories/GHSA-78h3-63c4-5fqc"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-22688"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/Tencent/WeKnora/commit/f7900a5e9a18c99d25cec9589ead9e4e59ce04bb"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4292",
+    "review_status": "UNREVIEWED"
+  }
+}

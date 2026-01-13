@@ -1,0 +1,158 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4275",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-14273",
+    "GHSA-qvmc-92vg-6r35"
+  ],
+  "summary": "Mattermost with Jira plugin enabled has Incorrect Implementation of Authentication Algorithm in github.com/mattermost/mattermost-plugin-jira",
+  "details": "Mattermost with Jira plugin enabled has Incorrect Implementation of Authentication Algorithm in github.com/mattermost/mattermost-plugin-jira.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/mattermost/mattermost-plugin-jira before v4.4.1.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-plugin-jira",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "4.4.1"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v6",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost/server/v8",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "8.0.0-20251121122154-b57c297c6d7a"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-qvmc-92vg-6r35"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-14273"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/mattermost/mattermost-plugin-jira/commit/bf9a1b7e81eb83304056b397c6abab3b062e14a2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/317025c411ec8c34381fdd4f137a17c63895a4f2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/463e0d0d3930782d3c975da26c991dcbfccd751c"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/7c36acb68ce3c69defaea540623f794c84ecba93"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/92b1e705225d97ce54d9f720f2e7aa66dc2a086b"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/b57c297c6d7ae6812d85e32a625806ac9555deee"
+    },
+    {
+      "type": "WEB",
+      "url": "https://mattermost.com/security-updates"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4275",
+    "review_status": "UNREVIEWED"
+  }
+}

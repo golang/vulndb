@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4284",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-21859",
+    "GHSA-8v65-47jx-7mfr"
+  ],
+  "summary": "Mailpit Proxy Endpoint has Server-Side Request Forgery (SSRF) vulnerability in github.com/axllent/mailpit",
+  "details": "Mailpit Proxy Endpoint has Server-Side Request Forgery (SSRF) vulnerability in github.com/axllent/mailpit",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/axllent/mailpit",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.28.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/axllent/mailpit/security/advisories/GHSA-8v65-47jx-7mfr"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-21859"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/axllent/mailpit/commit/3b9b470c093b3d20b7d751722c1c24f3eed2e19d"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4284",
+    "review_status": "UNREVIEWED"
+  }
+}

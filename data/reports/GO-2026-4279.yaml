@@ -1,0 +1,25 @@
+id: GO-2026-4279
+modules:
+    - module: github.com/open-feature/flagd/core
+      versions:
+        - fixed: 0.13.1
+      vulnerable_at: 0.13.0
+    - module: github.com/open-feature/flagd/flagd
+      versions:
+        - fixed: 0.13.1
+      vulnerable_at: 0.13.0
+    - module: github.com/open-feature/flagd/flagd-proxy
+      versions:
+        - fixed: 0.8.2
+      vulnerable_at: 0.8.1
+summary: 'flagd: Multiple Go Runtime CVEs Impact Security and Availability in github.com/open-feature/flagd/core'
+ghsas:
+    - GHSA-4c5f-9mj4-m247
+references:
+    - advisory: https://github.com/open-feature/flagd/security/advisories/GHSA-4c5f-9mj4-m247
+    - web: https://github.com/open-feature/flagd/pull/1840
+    - web: https://github.com/open-feature/flagd/releases/tag/core%2Fv0.13.1
+source:
+    id: GHSA-4c5f-9mj4-m247
+    created: 2026-01-12T11:48:38.371481461-05:00
+review_status: UNREVIEWED

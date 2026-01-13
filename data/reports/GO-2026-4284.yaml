@@ -1,0 +1,19 @@
+id: GO-2026-4284
+modules:
+    - module: github.com/axllent/mailpit
+      versions:
+        - fixed: 1.28.1
+      vulnerable_at: 1.28.0
+summary: Mailpit Proxy Endpoint has Server-Side Request Forgery (SSRF) vulnerability in github.com/axllent/mailpit
+cves:
+    - CVE-2026-21859
+ghsas:
+    - GHSA-8v65-47jx-7mfr
+references:
+    - advisory: https://github.com/axllent/mailpit/security/advisories/GHSA-8v65-47jx-7mfr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-21859
+    - fix: https://github.com/axllent/mailpit/commit/3b9b470c093b3d20b7d751722c1c24f3eed2e19d
+source:
+    id: GHSA-8v65-47jx-7mfr
+    created: 2026-01-12T11:47:59.664586187-05:00
+review_status: UNREVIEWED

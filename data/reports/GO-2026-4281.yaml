@@ -1,0 +1,31 @@
+id: GO-2026-4281
+modules:
+    - module: github.com/harvester/harvester-installer
+      versions:
+        - introduced: 1.5.0
+      unsupported_versions:
+        - last_affected: 1.5.2
+      vulnerable_at: 1.7.0
+    - module: github.com/harvester/harvester-installer
+      versions:
+        - introduced: 1.6.0
+      unsupported_versions:
+        - last_affected: 1.6.1
+      vulnerable_at: 1.7.0
+summary: |-
+    Harvest May Expose OS Default SSH Login Password Via SUSE Virtualization
+    Interactive Installer in github.com/harvester/harvester-installer
+cves:
+    - CVE-2025-62877
+ghsas:
+    - GHSA-6g8q-hp2j-gvwv
+references:
+    - advisory: https://github.com/harvester/harvester/security/advisories/GHSA-6g8q-hp2j-gvwv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-62877
+    - web: https://bugzilla.suse.com/show_bug.cgi?id=CVE-2025-62877
+notes:
+    - fix: 'module merge error: could not merge versions of module github.com/harvester/harvester-installer: introduced and fixed versions must alternate'
+source:
+    id: GHSA-6g8q-hp2j-gvwv
+    created: 2026-01-12T11:48:31.868250054-05:00
+review_status: UNREVIEWED
