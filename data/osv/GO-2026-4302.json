@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4302",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2017-18904",
+    "GHSA-8pff-p3gx-w4jf"
+  ],
+  "summary": "Mattermost Server vulnerable to XSS via an uploaded file in github.com/mattermost/mattermost-server",
+  "details": "Mattermost Server vulnerable to XSS via an uploaded file in github.com/mattermost/mattermost-server",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.9.2+incompatible"
+            },
+            {
+              "introduced": "3.10.0+incompatible"
+            },
+            {
+              "fixed": "3.10.2+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-8pff-p3gx-w4jf"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2017-18904"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/6a2754376c8c8270be5e11e3fdab589659d0cc8d"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/bde06a7bc3a03a56da224c1ffcd8bffb0af8071b"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/f06c5bef4d78966c60b153bbec6eea4ec0be9e68"
+    },
+    {
+      "type": "WEB",
+      "url": "https://mattermost.com/security-updates"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4302",
+    "review_status": "UNREVIEWED"
+  }
+}

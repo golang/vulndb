@@ -1,0 +1,26 @@
+id: GO-2026-4300
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 4.0.5+incompatible
+        - introduced: 4.1.0+incompatible
+        - fixed: 4.1.1+incompatible
+        - introduced: 4.2.0-rc1+incompatible
+        - fixed: 4.2.0+incompatible
+      vulnerable_at: 4.2.0-rc4+incompatible
+summary: Mattermost Server is vulnerable to DoS through maliciously crafted posts in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2017-18898
+ghsas:
+    - GHSA-9589-mq83-f749
+references:
+    - advisory: https://github.com/advisories/GHSA-9589-mq83-f749
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-18898
+    - web: https://github.com/grundleborg/mattermost/commit/5286318c72aa230f33f89df3b4cbdc33a0822a93
+    - web: https://github.com/mattermost/mattermost/commit/5bf6f06c02c368b9c73a8be2d2d8795b3405b22b
+    - web: https://github.com/mattermost/mattermost/commit/5c22176c963a7393241872073547f30083efe218
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-9589-mq83-f749
+    created: 2026-01-13T10:44:42.787996619-05:00
+review_status: UNREVIEWED

@@ -1,0 +1,24 @@
+id: GO-2026-4302
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 3.9.2+incompatible
+        - introduced: 3.10.0+incompatible
+        - fixed: 3.10.2+incompatible
+      vulnerable_at: 3.10.1+incompatible
+summary: Mattermost Server vulnerable to XSS via an uploaded file in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2017-18904
+ghsas:
+    - GHSA-8pff-p3gx-w4jf
+references:
+    - advisory: https://github.com/advisories/GHSA-8pff-p3gx-w4jf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-18904
+    - web: https://github.com/mattermost/mattermost/commit/6a2754376c8c8270be5e11e3fdab589659d0cc8d
+    - web: https://github.com/mattermost/mattermost/commit/bde06a7bc3a03a56da224c1ffcd8bffb0af8071b
+    - web: https://github.com/mattermost/mattermost/commit/f06c5bef4d78966c60b153bbec6eea4ec0be9e68
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-8pff-p3gx-w4jf
+    created: 2026-01-13T10:44:29.423079179-05:00
+review_status: UNREVIEWED

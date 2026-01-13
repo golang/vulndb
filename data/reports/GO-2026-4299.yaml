@@ -1,0 +1,29 @@
+id: GO-2026-4299
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 4.0.5+incompatible
+        - introduced: 4.1.0+incompatible
+        - fixed: 4.1.1+incompatible
+        - introduced: 4.2.0-rc1+incompatible
+        - fixed: 4.2.0+incompatible
+      vulnerable_at: 4.2.0-rc4+incompatible
+summary: |-
+    Mattermost Server allows attackers to log sensitive information via DEBUG REST
+    API logging endpoint in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2017-18896
+ghsas:
+    - GHSA-63wg-qmrv-7q66
+references:
+    - advisory: https://github.com/advisories/GHSA-63wg-qmrv-7q66
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-18896
+    - web: https://github.com/mattermost/mattermost
+    - web: https://github.com/mattermost/mattermost/commit/3c34e2b2dcb0fde96a10e68d877aa7d0ab511669
+    - web: https://github.com/mattermost/mattermost/commit/722fb1947a2e7395ccf16adce9206736d803a9f3
+    - web: https://github.com/mattermost/mattermost/commit/d38328976e2c8bb0fab91e656042a0d8ac37bc76
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-63wg-qmrv-7q66
+    created: 2026-01-13T10:44:48.799948497-05:00
+review_status: UNREVIEWED

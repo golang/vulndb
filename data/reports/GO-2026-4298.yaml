@@ -1,0 +1,24 @@
+id: GO-2026-4298
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 4.0.5+incompatible
+        - introduced: 4.1.0+incompatible
+        - fixed: 4.1.1+incompatible
+        - introduced: 4.2.0-rc1+incompatible
+        - fixed: 4.2.0+incompatible
+      vulnerable_at: 4.2.0-rc4+incompatible
+summary: Mattermost Server does not safeguard against phishing via error page links in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2017-18891
+ghsas:
+    - GHSA-vrh2-rprg-rgc6
+references:
+    - advisory: https://github.com/advisories/GHSA-vrh2-rprg-rgc6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-18891
+    - web: https://github.com/mattermost/mattermost/pull/7378
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-vrh2-rprg-rgc6
+    created: 2026-01-13T10:44:54.716130196-05:00
+review_status: UNREVIEWED

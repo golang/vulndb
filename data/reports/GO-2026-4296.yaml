@@ -1,0 +1,26 @@
+id: GO-2026-4296
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 4.0.5+incompatible
+        - introduced: 4.1.0+incompatible
+        - fixed: 4.1.1+incompatible
+        - introduced: 4.2.0-rc1+incompatible
+        - fixed: 4.2.0+incompatible
+      vulnerable_at: 4.2.0-rc4+incompatible
+summary: Mattermost Server is vulnerable to XSS through display name field in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2017-18893
+ghsas:
+    - GHSA-887v-xh2x-47cm
+references:
+    - advisory: https://github.com/advisories/GHSA-887v-xh2x-47cm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-18893
+    - web: https://github.com/mattermost/mattermost/commit/2a4d88d07c5815deac103e109550d25338507151
+    - web: https://github.com/mattermost/mattermost/commit/670bfbf62686ebe9f2ab332733d851a62b6950b0
+    - web: https://github.com/mattermost/mattermost/commit/d0b42b9e527e93a61fd06a9b9106fc97067807e4
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-887v-xh2x-47cm
+    created: 2026-01-13T10:45:06.062139968-05:00
+review_status: UNREVIEWED

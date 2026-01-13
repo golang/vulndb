@@ -1,0 +1,22 @@
+id: GO-2026-4303
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 3.10.3+incompatible
+        - introduced: 4.0.0+incompatible
+        - fixed: 4.0.3+incompatible
+      vulnerable_at: 4.0.2+incompatible
+summary: Mattermost Server is vulnerable CSV Injection in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2017-18900
+ghsas:
+    - GHSA-8q4v-35v6-g8wr
+references:
+    - advisory: https://github.com/advisories/GHSA-8q4v-35v6-g8wr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-18900
+    - web: https://github.com/mattermost/mattermost/commit/eaa598aba901a20c65c52dd1e1b82e7e1dffb962
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-8q4v-35v6-g8wr
+    created: 2026-01-13T10:43:45.110615586-05:00
+review_status: UNREVIEWED

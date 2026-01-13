@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4300",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2017-18898",
+    "GHSA-9589-mq83-f749"
+  ],
+  "summary": "Mattermost Server is vulnerable to DoS through maliciously crafted posts in github.com/mattermost/mattermost-server",
+  "details": "Mattermost Server is vulnerable to DoS through maliciously crafted posts in github.com/mattermost/mattermost-server",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.0.5+incompatible"
+            },
+            {
+              "introduced": "4.1.0+incompatible"
+            },
+            {
+              "fixed": "4.1.1+incompatible"
+            },
+            {
+              "introduced": "4.2.0-rc1+incompatible"
+            },
+            {
+              "fixed": "4.2.0+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-9589-mq83-f749"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2017-18898"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/grundleborg/mattermost/commit/5286318c72aa230f33f89df3b4cbdc33a0822a93"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/5bf6f06c02c368b9c73a8be2d2d8795b3405b22b"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/5c22176c963a7393241872073547f30083efe218"
+    },
+    {
+      "type": "WEB",
+      "url": "https://mattermost.com/security-updates"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4300",
+    "review_status": "UNREVIEWED"
+  }
+}

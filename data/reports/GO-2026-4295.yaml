@@ -1,0 +1,28 @@
+id: GO-2026-4295
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 4.0.5+incompatible
+        - introduced: 4.1.0+incompatible
+        - fixed: 4.1.1+incompatible
+        - introduced: 4.2.0-rc1+incompatible
+        - fixed: 4.2.0+incompatible
+      vulnerable_at: 4.2.0-rc4+incompatible
+summary: |-
+    Mattermost Server exposes sensitive user status information via REST API version
+    4 endpoint in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2017-18895
+ghsas:
+    - GHSA-h742-xx59-r9pq
+references:
+    - advisory: https://github.com/advisories/GHSA-h742-xx59-r9pq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-18895
+    - web: https://github.com/mattermost/mattermost/commit/3c34e2b2dcb0fde96a10e68d877aa7d0ab511669
+    - web: https://github.com/mattermost/mattermost/commit/722fb1947a2e7395ccf16adce9206736d803a9f3
+    - web: https://github.com/mattermost/mattermost/commit/d38328976e2c8bb0fab91e656042a0d8ac37bc76
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-h742-xx59-r9pq
+    created: 2026-01-13T10:45:12.600559131-05:00
+review_status: UNREVIEWED

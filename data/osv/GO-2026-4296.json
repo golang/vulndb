@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4296",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2017-18893",
+    "GHSA-887v-xh2x-47cm"
+  ],
+  "summary": "Mattermost Server is vulnerable to XSS through display name field in github.com/mattermost/mattermost-server",
+  "details": "Mattermost Server is vulnerable to XSS through display name field in github.com/mattermost/mattermost-server",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.0.5+incompatible"
+            },
+            {
+              "introduced": "4.1.0+incompatible"
+            },
+            {
+              "fixed": "4.1.1+incompatible"
+            },
+            {
+              "introduced": "4.2.0-rc1+incompatible"
+            },
+            {
+              "fixed": "4.2.0+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-887v-xh2x-47cm"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2017-18893"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/2a4d88d07c5815deac103e109550d25338507151"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/670bfbf62686ebe9f2ab332733d851a62b6950b0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/d0b42b9e527e93a61fd06a9b9106fc97067807e4"
+    },
+    {
+      "type": "WEB",
+      "url": "https://mattermost.com/security-updates"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4296",
+    "review_status": "UNREVIEWED"
+  }
+}

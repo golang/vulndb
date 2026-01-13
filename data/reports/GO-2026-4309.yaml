@@ -1,0 +1,26 @@
+id: GO-2026-4309
+modules:
+    - module: github.com/sigstore/cosign
+      vulnerable_at: 1.13.6
+    - module: github.com/sigstore/cosign/v2
+      versions:
+        - fixed: 2.6.2
+      vulnerable_at: 2.6.1
+    - module: github.com/sigstore/cosign/v3
+      versions:
+        - fixed: 3.0.4
+      vulnerable_at: 3.0.3
+summary: Cosign verification accepts any valid Rekor entry under certain conditions in github.com/sigstore/cosign
+cves:
+    - CVE-2026-22703
+ghsas:
+    - GHSA-whqx-f9j3-ch6m
+references:
+    - advisory: https://github.com/sigstore/cosign/security/advisories/GHSA-whqx-f9j3-ch6m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-22703
+    - fix: https://github.com/sigstore/cosign/commit/6832fba4928c1ad69400235bbc41212de5006176
+    - fix: https://github.com/sigstore/cosign/pull/4623
+source:
+    id: GHSA-whqx-f9j3-ch6m
+    created: 2026-01-13T10:43:08.254272048-05:00
+review_status: UNREVIEWED
