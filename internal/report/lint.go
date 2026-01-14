@@ -591,7 +591,7 @@ func (m *Module) lint(l *linter, r *Report, pc *proxy.Client) {
 		}
 	}
 
-	if m.IsFirstParty() && len(m.Packages) == 0 {
+	if (m.IsFirstParty() || r.CVEMetadata != nil) && len(m.Packages) == 0 {
 		l.Error("no packages")
 	}
 
