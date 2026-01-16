@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4314",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-22868",
+    "GHSA-mq3p-rrmp-79jg"
+  ],
+  "summary": "High CPU usage leading to DoS via malicious p2p message in github.com/ethereum/go-ethereum",
+  "details": "High CPU usage leading to DoS via malicious p2p message in github.com/ethereum/go-ethereum",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/ethereum/go-ethereum",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.16.8"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/ethereum/go-ethereum/security/advisories/GHSA-mq3p-rrmp-79jg"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/ethereum/go-ethereum/commit/abeb78c647e354ed922726a1d719ac7bc64a07e2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4314",
+    "review_status": "REVIEWED"
+  }
+}

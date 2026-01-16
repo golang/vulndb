@@ -1,0 +1,24 @@
+id: GO-2026-4320
+modules:
+    - module: github.com/getarcaneapp/arcane/backend
+      versions:
+        - fixed: 0.0.0-20260114065515-5a9c2f92e11f
+summary: |-
+    Arcane Has a Command Injection in Arcane Updater Lifecycle Labels That Enables
+    RCE in github.com/getarcaneapp/arcane/backend
+cves:
+    - CVE-2026-23520
+ghsas:
+    - GHSA-gjqq-6r35-w3r8
+references:
+    - advisory: https://github.com/getarcaneapp/arcane/security/advisories/GHSA-gjqq-6r35-w3r8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-23520
+    - web: https://github.com/getarcaneapp/arcane/commit/5a9c2f92e11f86f8997da8c672844468f930b7e4
+    - web: https://github.com/getarcaneapp/arcane/pull/1468
+    - web: https://github.com/getarcaneapp/arcane/releases/tag/v1.13.0
+notes:
+    - fix: 'github.com/getarcaneapp/arcane/backend: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-gjqq-6r35-w3r8
+    created: 2026-01-16T00:25:36.512193156-05:00
+review_status: UNREVIEWED

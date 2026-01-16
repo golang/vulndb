@@ -1,0 +1,44 @@
+id: GO-2025-4252
+modules:
+    - module: github.com/elastic/beats
+      vulnerable_at: 6.8.23+incompatible
+    - module: github.com/elastic/beats
+      non_go_versions:
+        - fixed: 8.19.9
+        - introduced: 9.0.0
+        - fixed: 9.1.9
+        - introduced: 9.2.0
+        - fixed: 9.2.3
+      vulnerable_at: 7.17.29
+      packages:
+        - package: github.com/elastic/beats/v7/libbeat/processors/dissect
+          symbols:
+            - extractKeyParts
+            - newField
+    - module: github.com/elastic/beats/v7
+      versions:
+        - fixed: 7.0.0-alpha2.0.20251204214633-dd3af18220bf
+        - introduced: 7.7.0
+      vulnerable_at: 7.17.29
+      packages:
+        - package: github.com/elastic/beats/v7/libbeat/processors/dissect
+          symbols:
+            - extractKeyParts
+            - newField
+summary: Buffer Overflow via Malformed Syslog Message or Malicious Tokenizer Pattern in github.com/elastic/beats
+cves:
+    - CVE-2025-68383
+ghsas:
+    - GHSA-2mj3-6grc-px38
+references:
+    - advisory: https://github.com/advisories/GHSA-2mj3-6grc-px38
+    - fix: https://github.com/elastic/beats/commit/27a168fb1c598d4a16748e9a7382bc0d197335a5
+    - fix: https://github.com/elastic/beats/commit/2f971a057eea68e057b47829950cd8c26805df30
+    - fix: https://github.com/elastic/beats/commit/339fa3f887a14c91e0c955b50a3b8819393bd632
+    - web: https://discuss.elastic.co/t/filebeat-8-19-9-9-1-9-and-9-2-3-security-update-esa-2025-32/384180
+notes:
+    - No fixed Go version for github.com/elastic/beats
+source:
+    id: GHSA-2mj3-6grc-px38
+    created: 2026-01-16T00:46:57.846605099-05:00
+review_status: REVIEWED

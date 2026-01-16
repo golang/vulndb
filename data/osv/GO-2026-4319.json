@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4319",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-23511",
+    "GHSA-pvm5-9frx-264r"
+  ],
+  "summary": "Zitadel has a user enumeration vulnerability in Login UIs in github.com/zitadel/zitadel",
+  "details": "Zitadel has a user enumeration vulnerability in Login UIs in github.com/zitadel/zitadel.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/zitadel/zitadel before v3.4.6, from v4.0.0 before v4.9.1.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/zitadel/zitadel",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "3.4.6"
+              },
+              {
+                "introduced": "4.0.0"
+              },
+              {
+                "fixed": "4.9.1"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/zitadel/zitadel/security/advisories/GHSA-pvm5-9frx-264r"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-23511"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/zitadel/zitadel/commit/0bb00dd9fc4e5e965f8e14fa2161a5076f3c308d"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/zitadel/zitadel/commit/b85ab69e4679b0268e2b0e9b4cd04e934af10dd2"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/zitadel/zitadel/commit/c300d4cc6a2775ab17ddfe76492f24170f8b858d"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/zitadel/zitadel/releases/tag/v3.4.6"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/zitadel/zitadel/releases/tag/v4.9.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4319",
+    "review_status": "UNREVIEWED"
+  }
+}

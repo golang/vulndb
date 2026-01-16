@@ -1,0 +1,25 @@
+id: GO-2026-4319
+modules:
+    - module: github.com/zitadel/zitadel
+      non_go_versions:
+        - fixed: 3.4.6
+        - introduced: 4.0.0
+        - fixed: 4.9.1
+      vulnerable_at: 1.87.5
+summary: Zitadel has a user enumeration vulnerability in Login UIs in github.com/zitadel/zitadel
+cves:
+    - CVE-2026-23511
+ghsas:
+    - GHSA-pvm5-9frx-264r
+references:
+    - advisory: https://github.com/zitadel/zitadel/security/advisories/GHSA-pvm5-9frx-264r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-23511
+    - fix: https://github.com/zitadel/zitadel/commit/0bb00dd9fc4e5e965f8e14fa2161a5076f3c308d
+    - fix: https://github.com/zitadel/zitadel/commit/b85ab69e4679b0268e2b0e9b4cd04e934af10dd2
+    - fix: https://github.com/zitadel/zitadel/commit/c300d4cc6a2775ab17ddfe76492f24170f8b858d
+    - web: https://github.com/zitadel/zitadel/releases/tag/v3.4.6
+    - web: https://github.com/zitadel/zitadel/releases/tag/v4.9.1
+source:
+    id: GHSA-pvm5-9frx-264r
+    created: 2026-01-16T00:25:41.85577479-05:00
+review_status: UNREVIEWED

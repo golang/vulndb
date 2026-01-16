@@ -1,0 +1,19 @@
+id: GO-2026-4313
+modules:
+    - module: github.com/flipped-aurora/gin-vue-admin
+      unsupported_versions:
+        - last_affected: 2.8.7
+      vulnerable_at: 2.8.8+incompatible
+summary: Gin-vue-admin has arbitrary file upload vulnerability caused by path traversal in github.com/flipped-aurora/gin-vue-admin
+cves:
+    - CVE-2026-22786
+ghsas:
+    - GHSA-3558-j79f-vvm6
+references:
+    - advisory: https://github.com/flipped-aurora/gin-vue-admin/security/advisories/GHSA-3558-j79f-vvm6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-22786
+    - fix: https://github.com/flipped-aurora/gin-vue-admin/commit/2242f5d6e133e96d1b359ac019bf54fa0e975dd5
+source:
+    id: GHSA-3558-j79f-vvm6
+    created: 2026-01-16T00:31:45.408675198-05:00
+review_status: UNREVIEWED

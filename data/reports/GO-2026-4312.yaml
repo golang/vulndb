@@ -1,0 +1,20 @@
+id: GO-2026-4312
+modules:
+    - module: github.com/envoyproxy/gateway
+      versions:
+        - fixed: 1.5.7
+        - introduced: 1.6.0-rc.0
+        - fixed: 1.6.2
+      vulnerable_at: 1.6.1
+summary: Envoy Extension Policy lua scripts injection causes arbitrary command execution in github.com/envoyproxy/gateway
+cves:
+    - CVE-2026-22771
+ghsas:
+    - GHSA-xrwg-mqj6-6m22
+references:
+    - advisory: https://github.com/envoyproxy/gateway/security/advisories/GHSA-xrwg-mqj6-6m22
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-22771
+source:
+    id: GHSA-xrwg-mqj6-6m22
+    created: 2026-01-16T00:31:53.160204138-05:00
+review_status: UNREVIEWED

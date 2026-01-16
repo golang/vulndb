@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4253",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-68388",
+    "GHSA-fj69-23m4-ccvv"
+  ],
+  "summary": "Elasticsearch Packetbeat has Excessive Allocation of Memory and CPU via Malicious IPv4 Fragments in github.com/elastic/beats",
+  "details": "Elasticsearch Packetbeat has Excessive Allocation of Memory and CPU via Malicious IPv4 Fragments in github.com/elastic/beats",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/elastic/beats",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "8.6.0"
+              },
+              {
+                "fixed": "8.19.9"
+              },
+              {
+                "introduced": "9.0.0"
+              },
+              {
+                "fixed": "9.1.9"
+              },
+              {
+                "introduced": "9.2.0"
+              },
+              {
+                "fixed": "9.2.3"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/elastic/beats/v7",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "7.0.0-alpha2.0.20251209162832-28cfc80d2f4e"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/elastic/beats/v7/packetbeat/decoder",
+            "symbols": [
+              "Decoder.OnPacket",
+              "New",
+              "fragmentCache.add",
+              "fragmentCache.purge"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-fj69-23m4-ccvv"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/elastic/beats/commit/28cfc80d2f4e80bfd1c72eb3f849d777751ab870"
+    },
+    {
+      "type": "WEB",
+      "url": "https://discuss.elastic.co/t/packetbeat-8-19-9-9-1-9-and-9-2-3-security-update-esa-2025-29/384177"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4253",
+    "review_status": "REVIEWED"
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2025-4252",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-68383",
+    "GHSA-2mj3-6grc-px38"
+  ],
+  "summary": "Buffer Overflow via Malformed Syslog Message or Malicious Tokenizer Pattern in github.com/elastic/beats",
+  "details": "Buffer Overflow via Malformed Syslog Message or Malicious Tokenizer Pattern in github.com/elastic/beats",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/elastic/beats",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/elastic/beats",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/elastic/beats/v7/libbeat/processors/dissect",
+            "symbols": [
+              "extractKeyParts",
+              "newField"
+            ]
+          }
+        ],
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "8.19.9"
+              },
+              {
+                "introduced": "9.0.0"
+              },
+              {
+                "fixed": "9.1.9"
+              },
+              {
+                "introduced": "9.2.0"
+              },
+              {
+                "fixed": "9.2.3"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/elastic/beats/v7",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "7.0.0-alpha2.0.20251204214633-dd3af18220bf"
+            },
+            {
+              "introduced": "7.7.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/elastic/beats/v7/libbeat/processors/dissect",
+            "symbols": [
+              "extractKeyParts",
+              "newField"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-2mj3-6grc-px38"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/elastic/beats/commit/27a168fb1c598d4a16748e9a7382bc0d197335a5"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/elastic/beats/commit/2f971a057eea68e057b47829950cd8c26805df30"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/elastic/beats/commit/339fa3f887a14c91e0c955b50a3b8819393bd632"
+    },
+    {
+      "type": "WEB",
+      "url": "https://discuss.elastic.co/t/filebeat-8-19-9-9-1-9-and-9-2-3-security-update-esa-2025-32/384180"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2025-4252",
+    "review_status": "REVIEWED"
+  }
+}

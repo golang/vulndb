@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4318",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-66292",
+    "GHSA-vh2x-fw87-4fxq"
+  ],
+  "summary": "DPanel has an arbitrary file deletion vulnerability in /api/common/attach/delete interface in github.com/donknap/dpanel",
+  "details": "DPanel has an arbitrary file deletion vulnerability in /api/common/attach/delete interface in github.com/donknap/dpanel",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/donknap/dpanel",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.9.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/donknap/dpanel/security/advisories/GHSA-vh2x-fw87-4fxq"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-66292"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/donknap/dpanel/commit/cbda0d90204e8212f2010774345c952e42069119"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/donknap/dpanel/releases/tag/v1.9.2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4318",
+    "review_status": "UNREVIEWED"
+  }
+}

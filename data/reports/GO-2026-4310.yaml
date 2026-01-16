@@ -1,0 +1,24 @@
+id: GO-2026-4310
+modules:
+    - module: github.com/axllent/mailpit
+      versions:
+        - introduced: 1.2.6
+        - fixed: 1.28.2
+      non_go_versions:
+        - fixed: 0.0.0-20260110031614
+      vulnerable_at: 1.28.1
+summary: |-
+    Mailpit is vulnerable to Cross-Site WebSocket Hijacking (CSWSH) allowing
+    unauthenticated access to emails in github.com/axllent/mailpit
+cves:
+    - CVE-2026-22689
+ghsas:
+    - GHSA-524m-q5m7-79mm
+references:
+    - advisory: https://github.com/axllent/mailpit/security/advisories/GHSA-524m-q5m7-79mm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-22689
+    - fix: https://github.com/axllent/mailpit/commit/6f1f4f34c98989fd873261018fb73830b30aec3f
+source:
+    id: GHSA-524m-q5m7-79mm
+    created: 2026-01-16T00:32:02.187110612-05:00
+review_status: UNREVIEWED

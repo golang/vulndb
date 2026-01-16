@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4317",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2017-18892",
+    "GHSA-wj5w-qghh-gvqp"
+  ],
+  "summary": "Mattermost Server does not neutralize HTML content in an Email template field in github.com/mattermost/mattermost-server",
+  "details": "Mattermost Server does not neutralize HTML content in an Email template field in github.com/mattermost/mattermost-server",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.0.5+incompatible"
+            },
+            {
+              "introduced": "4.1.0+incompatible"
+            },
+            {
+              "fixed": "4.1.1+incompatible"
+            },
+            {
+              "introduced": "4.2.0-rc1+incompatible"
+            },
+            {
+              "fixed": "4.2.0+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-wj5w-qghh-gvqp"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2017-18892"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/4e05fbffed4d7ad75c0bb55d67d2c6f7cf9eaad6"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/d76946bdb545aba4088943fc523dabb459d22873"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/f5167f3ba645b829f4c28530e13be6c3db967255"
+    },
+    {
+      "type": "WEB",
+      "url": "https://mattermost.com/security-updates"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4317",
+    "review_status": "UNREVIEWED"
+  }
+}

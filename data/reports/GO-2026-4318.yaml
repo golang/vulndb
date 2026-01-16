@@ -1,0 +1,22 @@
+id: GO-2026-4318
+modules:
+    - module: github.com/donknap/dpanel
+      versions:
+        - fixed: 1.9.2
+      vulnerable_at: 1.9.1
+summary: |-
+    DPanel has an arbitrary file deletion vulnerability in /api/common/attach/delete
+    interface in github.com/donknap/dpanel
+cves:
+    - CVE-2025-66292
+ghsas:
+    - GHSA-vh2x-fw87-4fxq
+references:
+    - advisory: https://github.com/donknap/dpanel/security/advisories/GHSA-vh2x-fw87-4fxq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-66292
+    - fix: https://github.com/donknap/dpanel/commit/cbda0d90204e8212f2010774345c952e42069119
+    - web: https://github.com/donknap/dpanel/releases/tag/v1.9.2
+source:
+    id: GHSA-vh2x-fw87-4fxq
+    created: 2026-01-16T00:26:19.330984068-05:00
+review_status: UNREVIEWED

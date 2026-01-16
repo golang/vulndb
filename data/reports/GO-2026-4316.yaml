@@ -1,0 +1,41 @@
+id: GO-2026-4316
+modules:
+    - module: github.com/go-chi/chi
+      vulnerable_at: 1.5.5
+    - module: github.com/go-chi/chi/v2
+      vulnerable_at: 2.1.1
+    - module: github.com/go-chi/chi/v3
+      vulnerable_at: 3.3.5
+    - module: github.com/go-chi/chi/v4
+      vulnerable_at: 4.1.3
+    - module: github.com/go-chi/chi/v5
+      versions:
+        - introduced: 5.2.2
+        - fixed: 5.2.4
+      vulnerable_at: 5.2.3
+      packages:
+        - package: github.com/go-chi/chi/v5/middleware
+          symbols:
+            - RedirectSlashes
+summary: |-
+    Open redirect vulnerability in the RedirectSlashes middleware in
+    github.com/go-chi/chi
+ghsas:
+    - GHSA-mqqf-5wvp-8fh8
+references:
+    - advisory: https://github.com/go-chi/chi/security/advisories/GHSA-mqqf-5wvp-8fh8
+    - fix: https://github.com/go-chi/chi/commit/6eb35881c0e438ffb663ddbad3a61babaa5e5d8a
+    - report: https://github.com/go-chi/chi/issues/1037
+notes:
+    - No fixed Go version yet for github.com/go-chi/chi
+    - No fixed Go version yet for github.com/go-chi/chi/v2
+    - No fixed Go version yet for github.com/go-chi/chi/v3
+    - No fixed Go version yet for github.com/go-chi/chi/v4
+    - No vulnerable symbols found for for github.com/go-chi/chi
+    - No vulnerable symbols found for for github.com/go-chi/chi/v2
+    - No vulnerable symbols found for for github.com/go-chi/chi/v3
+    - No vulnerable symbols found for for github.com/go-chi/chi/v4
+source:
+    id: GHSA-mqqf-5wvp-8fh8
+    created: 2026-01-16T00:26:38.83615197-05:00
+review_status: REVIEWED

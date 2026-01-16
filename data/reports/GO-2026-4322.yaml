@@ -1,0 +1,26 @@
+id: GO-2026-4322
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.35
+      vulnerable_at: 2.11.34
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - fixed: 3.6.7
+      vulnerable_at: 3.6.6
+summary: Traefik's ACME TLS-ALPN fast path lacks timeouts and close on handshake stall in github.com/traefik/traefik
+cves:
+    - CVE-2026-22045
+ghsas:
+    - GHSA-cwjm-3f7h-9hwq
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-cwjm-3f7h-9hwq
+    - fix: https://github.com/traefik/traefik/commit/e9f3089e9045812bcf1b410a9d40568917b26c3d
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.35
+    - web: https://github.com/traefik/traefik/releases/tag/v3.6.7
+source:
+    id: GHSA-cwjm-3f7h-9hwq
+    created: 2026-01-16T00:25:24.008248137-05:00
+review_status: UNREVIEWED

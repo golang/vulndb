@@ -1,0 +1,20 @@
+id: GO-2026-4315
+modules:
+    - module: github.com/ethereum/go-ethereum
+      versions:
+        - fixed: 1.16.8
+      vulnerable_at: 1.16.7
+summary: DoS via malicious p2p message affecting a vulnerable node in github.com/ethereum/go-ethereum
+cves:
+    - CVE-2026-22862
+ghsas:
+    - GHSA-mr7q-c9w9-wh4h
+references:
+    - advisory: https://github.com/ethereum/go-ethereum/security/advisories/GHSA-mr7q-c9w9-wh4h
+    - fix: https://github.com/ethereum/go-ethereum/commit/abeb78c647e354ed922726a1d719ac7bc64a07e2
+notes:
+    - Cannot auto-populate symbols for github.com/ethereum/go-ethereum due to multiple parent commits
+source:
+    id: GHSA-mr7q-c9w9-wh4h
+    created: 2026-01-16T00:26:43.774809758-05:00
+review_status: REVIEWED

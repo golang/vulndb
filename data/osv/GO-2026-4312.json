@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4312",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-22771",
+    "GHSA-xrwg-mqj6-6m22"
+  ],
+  "summary": "Envoy Extension Policy lua scripts injection causes arbitrary command execution in github.com/envoyproxy/gateway",
+  "details": "Envoy Extension Policy lua scripts injection causes arbitrary command execution in github.com/envoyproxy/gateway",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/envoyproxy/gateway",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.5.7"
+            },
+            {
+              "introduced": "1.6.0-rc.0"
+            },
+            {
+              "fixed": "1.6.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/envoyproxy/gateway/security/advisories/GHSA-xrwg-mqj6-6m22"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-22771"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4312",
+    "review_status": "UNREVIEWED"
+  }
+}

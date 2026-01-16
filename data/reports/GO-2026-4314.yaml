@@ -1,0 +1,22 @@
+id: GO-2026-4314
+modules:
+    - module: github.com/ethereum/go-ethereum
+      versions:
+        - fixed: 1.16.8
+      vulnerable_at: 1.16.7
+summary: |-
+    High CPU usage leading to DoS via malicious p2p message in
+    github.com/ethereum/go-ethereum
+cves:
+    - CVE-2026-22868
+ghsas:
+    - GHSA-mq3p-rrmp-79jg
+references:
+    - advisory: https://github.com/ethereum/go-ethereum/security/advisories/GHSA-mq3p-rrmp-79jg
+    - fix: https://github.com/ethereum/go-ethereum/commit/abeb78c647e354ed922726a1d719ac7bc64a07e2
+notes:
+    - Cannot auto-populate symbols for github.com/ethereum/go-ethereum due to multiple parent commits
+source:
+    id: GHSA-mq3p-rrmp-79jg
+    created: 2026-01-16T00:29:15.09242858-05:00
+review_status: REVIEWED

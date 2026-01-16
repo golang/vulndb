@@ -1,0 +1,20 @@
+id: GO-2026-4321
+modules:
+    - module: github.com/treeverse/lakefs
+      versions:
+        - fixed: 1.75.0
+      vulnerable_at: 1.74.4
+summary: lakeFS is Missing Timestamp Validation in S3 Gateway Authentication in github.com/treeverse/lakefs
+cves:
+    - CVE-2025-68671
+ghsas:
+    - GHSA-f2ph-gc9m-q55f
+references:
+    - advisory: https://github.com/treeverse/lakeFS/security/advisories/GHSA-f2ph-gc9m-q55f
+    - web: https://github.com/treeverse/lakeFS/commit/92966ae611d7f1a2bbe7fd56f9568c975aab2bd8
+    - web: https://github.com/treeverse/lakeFS/issues/9599
+    - web: https://github.com/treeverse/lakeFS/pull/9710
+source:
+    id: GHSA-f2ph-gc9m-q55f
+    created: 2026-01-16T00:25:29.610845193-05:00
+review_status: UNREVIEWED

@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4311",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-22772",
+    "GHSA-59jp-pj84-45mr"
+  ],
+  "summary": "Fulcio is vulnerable to Server-Side Request Forgery (SSRF) via MetaIssuer Regex Bypass in github.com/sigstore/fulcio",
+  "details": "Fulcio is vulnerable to Server-Side Request Forgery (SSRF) via MetaIssuer Regex Bypass in github.com/sigstore/fulcio",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/sigstore/fulcio",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.8.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/sigstore/fulcio/security/advisories/GHSA-59jp-pj84-45mr"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-22772"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/sigstore/fulcio/commit/eaae2f2be56df9dea5f9b439ec81bedae4c0978d"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4311",
+    "review_status": "UNREVIEWED"
+  }
+}

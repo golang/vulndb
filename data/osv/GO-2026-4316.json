@@ -1,0 +1,128 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4316",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-mqqf-5wvp-8fh8"
+  ],
+  "summary": "Open redirect vulnerability in the RedirectSlashes middleware in github.com/go-chi/chi",
+  "details": "Open redirect vulnerability in the RedirectSlashes middleware in github.com/go-chi/chi",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/go-chi/chi",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/go-chi/chi/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/go-chi/chi/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/go-chi/chi/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/go-chi/chi/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "5.2.2"
+            },
+            {
+              "fixed": "5.2.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/go-chi/chi/v5/middleware",
+            "symbols": [
+              "RedirectSlashes"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/go-chi/chi/security/advisories/GHSA-mqqf-5wvp-8fh8"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/go-chi/chi/commit/6eb35881c0e438ffb663ddbad3a61babaa5e5d8a"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/go-chi/chi/issues/1037"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4316",
+    "review_status": "REVIEWED"
+  }
+}

@@ -1,0 +1,26 @@
+id: GO-2026-4317
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 4.0.5+incompatible
+        - introduced: 4.1.0+incompatible
+        - fixed: 4.1.1+incompatible
+        - introduced: 4.2.0-rc1+incompatible
+        - fixed: 4.2.0+incompatible
+      vulnerable_at: 4.2.0-rc4+incompatible
+summary: Mattermost Server does not neutralize HTML content in an Email template field in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2017-18892
+ghsas:
+    - GHSA-wj5w-qghh-gvqp
+references:
+    - advisory: https://github.com/advisories/GHSA-wj5w-qghh-gvqp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-18892
+    - web: https://github.com/mattermost/mattermost/commit/4e05fbffed4d7ad75c0bb55d67d2c6f7cf9eaad6
+    - web: https://github.com/mattermost/mattermost/commit/d76946bdb545aba4088943fc523dabb459d22873
+    - web: https://github.com/mattermost/mattermost/commit/f5167f3ba645b829f4c28530e13be6c3db967255
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-wj5w-qghh-gvqp
+    created: 2026-01-16T00:26:24.144140899-05:00
+review_status: UNREVIEWED

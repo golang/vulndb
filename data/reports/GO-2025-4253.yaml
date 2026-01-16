@@ -1,0 +1,39 @@
+id: GO-2025-4253
+modules:
+    - module: github.com/elastic/beats
+      non_go_versions:
+        - introduced: 8.6.0
+        - fixed: 8.19.9
+        - introduced: 9.0.0
+        - fixed: 9.1.9
+        - introduced: 9.2.0
+        - fixed: 9.2.3
+      vulnerable_at: 6.8.23+incompatible
+    - module: github.com/elastic/beats/v7
+      versions:
+        - fixed: 7.0.0-alpha2.0.20251209162832-28cfc80d2f4e
+      vulnerable_at: 7.0.0-alpha2
+      packages:
+        - package: github.com/elastic/beats/v7/packetbeat/decoder
+          symbols:
+            - fragmentCache.add
+            - Decoder.OnPacket
+            - New
+            - fragmentCache.purge
+summary: |-
+    Elasticsearch Packetbeat has Excessive Allocation of Memory and CPU via
+    Malicious IPv4 Fragments in github.com/elastic/beats
+cves:
+    - CVE-2025-68388
+ghsas:
+    - GHSA-fj69-23m4-ccvv
+references:
+    - advisory: https://github.com/advisories/GHSA-fj69-23m4-ccvv
+    - fix: https://github.com/elastic/beats/commit/28cfc80d2f4e80bfd1c72eb3f849d777751ab870
+    - web: https://discuss.elastic.co/t/packetbeat-8-19-9-9-1-9-and-9-2-3-security-update-esa-2025-29/384177
+notes:
+    - No fixed Go version for github.com/elastic/beats
+source:
+    id: GHSA-fj69-23m4-ccvv
+    created: 2026-01-16T00:36:19.839449017-05:00
+review_status: REVIEWED

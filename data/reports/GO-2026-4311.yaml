@@ -1,0 +1,21 @@
+id: GO-2026-4311
+modules:
+    - module: github.com/sigstore/fulcio
+      versions:
+        - fixed: 1.8.5
+      vulnerable_at: 1.8.4
+summary: |-
+    Fulcio is vulnerable to Server-Side Request Forgery (SSRF) via MetaIssuer Regex
+    Bypass in github.com/sigstore/fulcio
+cves:
+    - CVE-2026-22772
+ghsas:
+    - GHSA-59jp-pj84-45mr
+references:
+    - advisory: https://github.com/sigstore/fulcio/security/advisories/GHSA-59jp-pj84-45mr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-22772
+    - fix: https://github.com/sigstore/fulcio/commit/eaae2f2be56df9dea5f9b439ec81bedae4c0978d
+source:
+    id: GHSA-59jp-pj84-45mr
+    created: 2026-01-16T00:31:57.525612433-05:00
+review_status: UNREVIEWED
