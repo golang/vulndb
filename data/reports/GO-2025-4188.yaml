@@ -8,8 +8,17 @@ modules:
         - introduced: 1.9.2
         - fixed: 1.9.3
       vulnerable_at: 1.9.2
+      packages:
+        - package: github.com/sirupsen/logrus
+          symbols:
+            - Entry.writerScanner
+          derived_symbols:
+            - Entry.Writer
+            - Entry.WriterLevel
+            - Logger.Writer
+            - Logger.WriterLevel
 summary: |-
-    Logrus is vulnerable to DoS when using Entry.Writer() in
+    Logrus is vulnerable to DoS when using Entry.writerScanner in
     github.com/sirupsen/logrus
 cves:
     - CVE-2025-65637
@@ -26,8 +35,6 @@ references:
     - web: https://github.com/sirupsen/logrus/releases/tag/v1.9.1
     - web: https://github.com/sirupsen/logrus/releases/tag/v1.9.3
     - web: https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMSIRUPSENLOGRUS-5564391
-notes:
-    - Cannot auto-populate symbols for github.com/sirupsen/logrus due to multiple parent commits
 source:
     id: GHSA-4f99-4q7p-p3gh
     created: 2025-12-15T15:09:50.007826213-05:00
