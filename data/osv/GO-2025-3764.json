@@ -25,21 +25,7 @@
           ]
         }
       ],
-      "ecosystem_specific": {
-        "custom_ranges": [
-          {
-            "type": "ECOSYSTEM",
-            "events": [
-              {
-                "introduced": "0"
-              },
-              {
-                "fixed": "19.15.0"
-              }
-            ]
-          }
-        ]
-      }
+      "ecosystem_specific": {}
     },
     {
       "package": {
@@ -69,11 +55,25 @@
           "events": [
             {
               "introduced": "0"
+            },
+            {
+              "fixed": "10.15.0"
             }
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/go-pg/pg/v10/types",
+            "symbols": [
+              "Append",
+              "appendFloat",
+              "appendIntValue"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
@@ -82,8 +82,16 @@
       "url": "https://github.com/advisories/GHSA-6xp3-p59p-q4fj"
     },
     {
+      "type": "FIX",
+      "url": "https://github.com/go-pg/pg/commit/eff50a43724e52347559687a6945c116afbb41c1"
+    },
+    {
       "type": "WEB",
       "url": "https://github.com/go-pg/pg/blob/30e7053c6cacdd44d06cf2b92183b49188b7c922/types/append_value.go#L151"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-pg/pg/releases/tag/v10.15.0"
     },
     {
       "type": "WEB",
