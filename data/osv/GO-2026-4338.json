@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4338",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-68119",
+    "CVE-2025-68119"
+  ],
+  "summary": "Unexpected code execution when invoking toolchain in cmd/go",
+  "details": "Downloading and building modules with malicious version strings can cause local code execution.\n\nOn systems with Mercurial (hg) installed, downloading modules from non-standard sources (e.g., custom domains) can cause unexpected code execution due to how external VCS commands are constructed. This issue can also be triggered by providing a malicious version string to the toolchain.\n\nOn systems with Git installed, downloading and building modules with malicious version strings can allow an attacker to write to arbitrary files on the filesystem. This can only be triggered by explicitly providing the malicious version strings to the toolchain and does not affect usage of @latest or bare module paths.",
+  "affected": [
+    {
+      "package": {
+        "name": "toolchain",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.25.0"
+            },
+            {
+              "fixed": "1.25.6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "cmd/go"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/736710"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/77099"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/Vd2tYVM8eUc"
+    }
+  ],
+  "credits": [
+    {
+      "name": "splitline (@splitline) from DEVCORE Research Team"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4338",
+    "review_status": "REVIEWED"
+  }
+}
