@@ -1,0 +1,57 @@
+id: GO-2026-4340
+modules:
+    - module: std
+      versions:
+        - fixed: 1.24.12
+        - introduced: 1.25.0
+        - fixed: 1.25.6
+      vulnerable_at: 1.25.5
+      packages:
+        - package: crypto/tls
+          symbols:
+            - Conn.handleKeyUpdate
+            - Conn.handshakeContext
+            - clientHandshakeStateTLS13.establishHandshakeKeys
+            - clientHandshakeStateTLS13.readServerFinished
+            - clientHandshakeStateTLS13.sendClientFinished
+            - serverHandshakeStateTLS13.checkForResumption
+            - serverHandshakeStateTLS13.doHelloRetryRequest
+            - serverHandshakeStateTLS13.sendServerParameters
+            - serverHandshakeStateTLS13.sendServerFinished
+            - serverHandshakeStateTLS13.readClientFinished
+            - Conn.quicSetReadSecret
+          derived_symbols:
+            - Conn.Handshake
+            - Conn.HandshakeContext
+            - Conn.Read
+            - Conn.Write
+            - Dial
+            - DialWithDialer
+            - Dialer.Dial
+            - Dialer.DialContext
+            - QUICConn.HandleData
+            - QUICConn.Start
+summary: |-
+    Handshake messages may be processed at the incorrect encryption level in
+    crypto/tls
+description: |-
+    During the TLS 1.3 handshake if multiple messages are sent in records that span
+    encryption level boundaries (for instance the Client Hello and Encrypted
+    Extensions messages), the subsequent messages may be processed before the
+    encryption level changes. This can cause some minor information disclosure if a
+    network-local attacker can inject messages during the handshake.
+cves:
+    - CVE-2025-61730
+credits:
+    - Coia Prant (github.com/rbqvq)
+references:
+    - fix: https://go.dev/cl/724120
+    - report: https://go.dev/issue/76443
+    - web: https://groups.google.com/g/golang-announce/c/Vd2tYVM8eUc
+cve_metadata:
+    id: CVE-2025-61730
+    cwe: 'CWE-940: Improper Verification of Source of a Communication Channel'
+source:
+    id: go-security-team
+    created: 2026-01-20T16:23:20.96145-08:00
+review_status: REVIEWED
