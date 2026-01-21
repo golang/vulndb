@@ -1,0 +1,34 @@
+id: GO-2026-4339
+modules:
+    - module: cmd
+      versions:
+        - fixed: 1.24.12
+        - introduced: 1.25.0
+        - fixed: 1.25.6
+      vulnerable_at: 1.25.5
+      packages:
+        - package: cmd/go
+summary: Arbitrary file write using cgo pkg-config directive in cmd/go
+description: |-
+    Building a malicious file with cmd/go can cause can cause a write
+    to an attacker-controlled file with partial control of the file content.
+
+    The "#cgo pkg-config:" directive in a Go source file provides command-line
+    arguments to provide to the Go pkg-config command. An attacker can
+    provide a "--log-file" argument to this directive, causing pkg-config
+    to write to an attacker-controlled location.
+cves:
+    - CVE-2025-61731
+credits:
+    - RyotaK (https://ryotak.net) of GMO Flatt Security Inc.
+references:
+    - fix: https://go.dev/cl/736711
+    - report: https://go.dev/issue/77100
+    - web: https://groups.google.com/g/golang-announce/c/Vd2tYVM8eUc
+cve_metadata:
+    id: CVE-2025-61731
+    cwe: 'CWE-78: Improper Neutralization of Special Elements used in an OS Command (''OS Command Injection'')'
+source:
+    id: go-security-team
+    created: 2026-01-20T15:59:29.798178-08:00
+review_status: REVIEWED
