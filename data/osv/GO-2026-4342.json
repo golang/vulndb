@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4342",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-61728",
+    "CVE-2025-61728"
+  ],
+  "summary": "Excessive CPU consumption when building archive index in archive/zip",
+  "details": "archive/zip uses a super-linear file name indexing algorithm that is invoked the first time a file in an archive is opened. This can lead to a denial of service when consuming a maliciously constructed ZIP archive.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.24.12"
+            },
+            {
+              "introduced": "1.25.0"
+            },
+            {
+              "fixed": "1.25.6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "archive/zip",
+            "symbols": [
+              "Reader.Open",
+              "Reader.initFileList"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/736713"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/77102"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/Vd2tYVM8eUc"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Jakub Ciolek"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4342",
+    "review_status": "REVIEWED"
+  }
+}

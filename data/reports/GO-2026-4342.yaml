@@ -1,0 +1,35 @@
+id: GO-2026-4342
+modules:
+    - module: std
+      versions:
+        - fixed: 1.24.12
+        - introduced: 1.25.0
+        - fixed: 1.25.6
+      vulnerable_at: 1.25.5
+      packages:
+        - package: archive/zip
+          symbols:
+            - Reader.initFileList
+          derived_symbols:
+            - Reader.Open
+summary: Excessive CPU consumption when building archive index in archive/zip
+description: |-
+    archive/zip uses a super-linear file name indexing algorithm
+    that is invoked the first time a file in an archive is opened.
+    This can lead to a denial of service when consuming a maliciously
+    constructed ZIP archive.
+cves:
+    - CVE-2025-61728
+credits:
+    - Jakub Ciolek
+references:
+    - fix: https://go.dev/cl/736713
+    - report: https://go.dev/issue/77102
+    - web: https://groups.google.com/g/golang-announce/c/Vd2tYVM8eUc
+cve_metadata:
+    id: CVE-2025-61728
+    cwe: 'CWE-407: Inefficient Algorithmic Complexity'
+source:
+    id: go-security-team
+    created: 2026-01-20T16:51:41.887574-08:00
+review_status: REVIEWED
