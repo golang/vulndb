@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4341",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-61726",
+    "CVE-2025-61726"
+  ],
+  "summary": "Memory exhaustion in query parameter parsing in net/url",
+  "details": "The net/url package does not set a limit on the number of query parameters in a query.\n\nWhile the maximum size of query parameters in URLs is generally limited by the maximum request header size, the net/http.Request.ParseForm method can parse large URL-encoded forms. Parsing a large form containing many unique query parameters can cause excessive memory consumption.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.24.12"
+            },
+            {
+              "introduced": "1.25.0"
+            },
+            {
+              "fixed": "1.25.6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "net/url",
+            "symbols": [
+              "ParseQuery",
+              "URL.Query",
+              "parseQuery"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/736712"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/77101"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/Vd2tYVM8eUc"
+    }
+  ],
+  "credits": [
+    {
+      "name": "jub0bs"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4341",
+    "review_status": "REVIEWED"
+  }
+}
