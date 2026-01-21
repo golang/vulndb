@@ -1,0 +1,21 @@
+id: GO-2026-4343
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260118021606-5c0cc375b475
+summary: SiYuan has a Reflected Cross-Site Scripting (XSS) via /api/icon/getDynamicIcon in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-23847
+ghsas:
+    - GHSA-w836-5gpm-7r93
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-w836-5gpm-7r93
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-23847
+    - web: https://github.com/siyuan-note/siyuan/commit/5c0cc375b47567e15edd2119066b09bb0aa18777
+    - web: https://github.com/siyuan-note/siyuan/issues/16844
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-w836-5gpm-7r93
+    created: 2026-01-21T17:18:24.704609+08:00
+review_status: UNREVIEWED

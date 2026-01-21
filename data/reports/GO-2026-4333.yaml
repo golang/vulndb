@@ -1,0 +1,20 @@
+id: GO-2026-4333
+modules:
+    - module: github.com/axllent/mailpit
+      versions:
+        - fixed: 1.28.3
+      vulnerable_at: 1.28.2
+summary: Mailpit has an SMTP Header Injection via Regex Bypass in github.com/axllent/mailpit
+cves:
+    - CVE-2026-23829
+ghsas:
+    - GHSA-54wq-72mp-cq7c
+references:
+    - advisory: https://github.com/axllent/mailpit/security/advisories/GHSA-54wq-72mp-cq7c
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-23829
+    - fix: https://github.com/axllent/mailpit/commit/36cc06c125954dec6673219dafa084e13cc14534
+    - web: https://github.com/axllent/mailpit/releases/tag/v1.28.3
+source:
+    id: GHSA-54wq-72mp-cq7c
+    created: 2026-01-21T17:32:52.114743+08:00
+review_status: UNREVIEWED

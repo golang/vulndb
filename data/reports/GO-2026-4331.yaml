@@ -1,0 +1,22 @@
+id: GO-2026-4331
+modules:
+    - module: github.com/pterodactyl/wings
+      versions:
+        - fixed: 1.12.0
+      vulnerable_at: 1.11.13
+summary: |-
+    Pterodactyl websocket endpoints have no visible rate limits or monitoring,
+    allowing for DOS attacks in github.com/pterodactyl/wings
+cves:
+    - CVE-2025-69199
+ghsas:
+    - GHSA-8w7m-w749-rx98
+references:
+    - advisory: https://github.com/pterodactyl/panel/security/advisories/GHSA-8w7m-w749-rx98
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-69199
+    - web: https://github.com/pterodactyl/panel/commit/09caa0d4995bd924b53b9a9e9b4883ac27bd5607
+    - web: https://github.com/pterodactyl/panel/releases/tag/v1.12.0
+source:
+    id: GHSA-8w7m-w749-rx98
+    created: 2026-01-21T17:33:25.439767+08:00
+review_status: UNREVIEWED

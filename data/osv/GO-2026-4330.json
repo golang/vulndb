@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4330",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-22822",
+    "GHSA-77v3-r3jw-j2v2"
+  ],
+  "summary": "External Secrets Operator insecurely retrieves secrets through the getSecretKey templating function in github.com/external-secrets/external-secrets",
+  "details": "External Secrets Operator insecurely retrieves secrets through the getSecretKey templating function in github.com/external-secrets/external-secrets",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/external-secrets/external-secrets",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.20.2"
+            },
+            {
+              "fixed": "1.2.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/external-secrets/external-secrets/security/advisories/GHSA-77v3-r3jw-j2v2"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/external-secrets/external-secrets/commit/17d3e22b8d3fbe339faf8515a95ec06ec92b1feb"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/external-secrets/external-secrets/pull/3895"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/external-secrets/external-secrets/issues/5690"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/external-secrets/external-secrets/releases/tag/v1.2.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4330",
+    "review_status": "UNREVIEWED"
+  }
+}

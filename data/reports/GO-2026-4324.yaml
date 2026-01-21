@@ -1,0 +1,23 @@
+id: GO-2026-4324
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260116101155-11115da3d0de
+summary: |-
+    SiYuan Has a Stored Cross-Site Scripting (XSS) Vulnerability via Unrestricted
+    SVG File Upload in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-23645
+ghsas:
+    - GHSA-pcjq-j3mq-jv5j
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-pcjq-j3mq-jv5j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-23645
+    - web: https://github.com/siyuan-note/siyuan/commit/11115da3d0de950593ee4ce375cf7f9018484388
+    - web: https://github.com/siyuan-note/siyuan/issues/16844
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-pcjq-j3mq-jv5j
+    created: 2026-01-21T17:36:16.284587+08:00
+review_status: UNREVIEWED

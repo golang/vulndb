@@ -1,0 +1,44 @@
+id: GO-2026-4334
+modules:
+    - module: github.com/fleetdm/fleet/v2
+    - module: github.com/fleetdm/fleet/v3
+    - module: github.com/fleetdm/fleet/v4
+      non_go_versions:
+        - fixed: 4.78.3-0.20260112221730-5c030e32a3a9
+    - module: github.com/fleetdm/fleet/v4
+      versions:
+        - introduced: 4.75.0
+        - fixed: 4.75.2
+      vulnerable_at: 4.75.0
+    - module: github.com/fleetdm/fleet/v4
+      versions:
+        - introduced: 4.76.0
+        - fixed: 4.76.2
+      vulnerable_at: 4.76.0
+    - module: github.com/fleetdm/fleet/v4
+      versions:
+        - introduced: 4.77.0
+        - fixed: 4.77.1
+      vulnerable_at: 4.77.0
+    - module: github.com/fleetdm/fleet/v4
+      versions:
+        - introduced: 4.78.0
+        - fixed: 4.78.3
+      vulnerable_at: 4.78.2
+summary: Fleet has an Access Control vulnerability in debug/pprof endpoints in github.com/fleetdm/fleet
+cves:
+    - CVE-2026-23517
+ghsas:
+    - GHSA-4r5r-ccr6-q6f6
+references:
+    - advisory: https://github.com/fleetdm/fleet/security/advisories/GHSA-4r5r-ccr6-q6f6
+    - web: https://github.com/fleetdm/fleet/commit/5c030e32a3a9bc512355b5e1bf19636e4e6d0317
+notes:
+    - fix: 'module merge error: could not merge versions of module github.com/fleetdm/fleet/v4: introduced and fixed versions must alternate'
+    - fix: 'github.com/fleetdm/fleet/v4: could not add vulnerable_at: no fix, but could not find latest version from proxy: HTTP GET /github.com/fleetdm/fleet/v4/@latest returned status 404 Not Found'
+    - fix: 'github.com/fleetdm/fleet/v2: could not add vulnerable_at: no fix, but could not find latest version from proxy: unexpected end of JSON input'
+    - fix: 'github.com/fleetdm/fleet/v3: could not add vulnerable_at: no fix, but could not find latest version from proxy: unexpected end of JSON input'
+source:
+    id: GHSA-4r5r-ccr6-q6f6
+    created: 2026-01-21T17:31:45.628961+08:00
+review_status: UNREVIEWED

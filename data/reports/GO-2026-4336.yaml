@@ -1,0 +1,32 @@
+id: GO-2026-4336
+modules:
+    - module: github.com/fleetdm/fleet/v2
+    - module: github.com/fleetdm/fleet/v3
+    - module: github.com/fleetdm/fleet/v4
+      versions:
+        - introduced: 4.75.0
+        - fixed: 4.75.2
+        - introduced: 4.76.0
+        - fixed: 4.76.2
+        - introduced: 4.77.0
+        - fixed: 4.77.1
+        - introduced: 4.78.0
+        - fixed: 4.78.2
+      non_go_versions:
+        - fixed: 4.43.5-0.20260111020427-0e6c790803d1
+      vulnerable_at: 4.78.1
+summary: Fleet Windows MDM endpoint has a Cross-site Scripting vulnerability in github.com/fleetdm/fleet
+cves:
+    - CVE-2026-22808
+ghsas:
+    - GHSA-gfpw-jgvr-cw4j
+references:
+    - advisory: https://github.com/fleetdm/fleet/security/advisories/GHSA-gfpw-jgvr-cw4j
+    - web: https://github.com/fleetdm/fleet/commit/0e6c790803d1b4407c5b4b41a67a37864a3d3573
+notes:
+    - fix: 'github.com/fleetdm/fleet/v2: could not add vulnerable_at: no fix, but could not find latest version from proxy: unexpected end of JSON input'
+    - fix: 'github.com/fleetdm/fleet/v3: could not add vulnerable_at: no fix, but could not find latest version from proxy: unexpected end of JSON input'
+source:
+    id: GHSA-gfpw-jgvr-cw4j
+    created: 2026-01-21T17:19:05.640501+08:00
+review_status: UNREVIEWED
