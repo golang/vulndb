@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4345",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-23845",
+    "GHSA-6jxm-fv7w-rw5j"
+  ],
+  "summary": "Mailpit has a Server-Side Request Forgery (SSRF) via HTML Check API in github.com/axllent/mailpit",
+  "details": "Mailpit has a Server-Side Request Forgery (SSRF) via HTML Check API in github.com/axllent/mailpit",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/axllent/mailpit",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.28.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/axllent/mailpit/security/advisories/GHSA-6jxm-fv7w-rw5j"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-23845"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/axllent/mailpit/commit/1679a0aba592ebc8487a996d37fea8318c984dfe"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/axllent/mailpit/releases/tag/v1.28.3"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4345",
+    "review_status": "UNREVIEWED"
+  }
+}

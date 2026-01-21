@@ -1,0 +1,24 @@
+id: GO-2026-4347
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260118092326-b2274baba2e1
+summary: SiYuan vulnerable to Arbitrary file Read / SSRF in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-23850
+ghsas:
+    - GHSA-cv54-7wv7-qxcw
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-cv54-7wv7-qxcw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-23850
+    - web: https://github.com/siyuan-note/siyuan/blob/master/kernel/model/file.go#L1035
+    - web: https://github.com/siyuan-note/siyuan/blob/v3.4.2/kernel/api/filetree.go#L799-L886
+    - web: https://github.com/siyuan-note/siyuan/commit/b2274baba2e11c8cf8901b0c5c871e5b27f1f6dd
+    - web: https://github.com/siyuan-note/siyuan/commit/f8f4b517077b92c90c0d7b51ac11be1b34b273ad
+    - web: https://github.com/siyuan-note/siyuan/issues/16860
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-cv54-7wv7-qxcw
+    created: 2026-01-21T17:17:44.748697+08:00
+review_status: UNREVIEWED

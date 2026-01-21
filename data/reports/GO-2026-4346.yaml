@@ -1,0 +1,22 @@
+id: GO-2026-4346
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260118092521-f8f4b517077b
+summary: SiYuan Vulnerable to Arbitrary File Read via File Copy Functionality in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-23851
+ghsas:
+    - GHSA-94c7-g2fj-7682
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-94c7-g2fj-7682
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-23851
+    - web: https://github.com/siyuan-note/siyuan/commit/b2274baba2e11c8cf8901b0c5c871e5b27f1f6dd
+    - web: https://github.com/siyuan-note/siyuan/commit/f8f4b517077b92c90c0d7b51ac11be1b34b273ad
+    - web: https://github.com/siyuan-note/siyuan/issues/16860
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-94c7-g2fj-7682
+    created: 2026-01-21T17:17:57.75808+08:00
+review_status: UNREVIEWED
