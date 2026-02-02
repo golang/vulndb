@@ -12,7 +12,7 @@ substitutions:
 
 steps:
   - id: Lock
-    name: golang:1.25.5
+    name: golang:1.25.6
     entrypoint: bash
     args:
       - -ec
@@ -25,7 +25,7 @@ steps:
           -project $PROJECT_ID -build $BUILD_ID -repo https://go.googlesource.com/vulndb
 
   - id: Test
-    name: golang:1.25.5
+    name: golang:1.25.6
     entrypoint: bash
     args:
       - -ec
