@@ -1,0 +1,27 @@
+id: GO-2026-4393
+modules:
+    - module: github.com/rancher/rancher
+      non_go_versions:
+        - fixed: 0.0.0-20260129092249-bb0625fd1896
+        - introduced: 2.10.0
+        - fixed: 2.10.11
+        - introduced: 2.11.0
+        - fixed: 2.11.10
+        - introduced: 2.12.0
+        - fixed: 2.12.6
+        - introduced: 2.13.0
+        - fixed: 2.13.2
+      vulnerable_at: 1.6.30
+summary: Rancher CLI skips TLS verification on Rancher CLI login command in github.com/rancher/rancher
+cves:
+    - CVE-2025-67601
+ghsas:
+    - GHSA-mc24-7m59-4q5p
+references:
+    - advisory: https://github.com/rancher/rancher/security/advisories/GHSA-mc24-7m59-4q5p
+    - web: https://attack.mitre.org/techniques/T1557
+    - web: https://github.com/rancher/rancher/releases/tag/v2.13.2
+source:
+    id: GHSA-mc24-7m59-4q5p
+    created: 2026-02-02T11:06:21.810286078-05:00
+review_status: UNREVIEWED

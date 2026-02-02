@@ -1,0 +1,23 @@
+id: GO-2026-4391
+modules:
+    - module: github.com/chainguard-dev/malcontent
+      versions:
+        - introduced: 1.8.0
+        - fixed: 1.20.3
+      vulnerable_at: 1.20.2
+summary: |-
+    malcontent vulnerable to symlink Path Traversal via handleSymlink argument
+    confusion in archive extraction in github.com/chainguard-dev/malcontent
+cves:
+    - CVE-2026-24846
+ghsas:
+    - GHSA-923j-vrcg-hxwh
+references:
+    - advisory: https://github.com/chainguard-dev/malcontent/security/advisories/GHSA-923j-vrcg-hxwh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-24846
+    - fix: https://github.com/chainguard-dev/malcontent/commit/259fca5abc004f3ab238895463ef280a87f30e96
+    - fix: https://github.com/chainguard-dev/malcontent/commit/a7dd8a5328ddbaf235568437813efa7591e00017
+source:
+    id: GHSA-923j-vrcg-hxwh
+    created: 2026-02-02T11:06:39.271492221-05:00
+review_status: UNREVIEWED

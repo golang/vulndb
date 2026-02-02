@@ -1,0 +1,20 @@
+id: GO-2026-4390
+modules:
+    - module: github.com/beam-cloud/beta9
+      unsupported_versions:
+        - last_affected: 0.0.0-20260116162221-c1cd75e813cf
+      vulnerable_at: 0.0.0-20260116162221-c1cd75e813cf
+summary: Beam Exposes sensitive information via joinCleanPath function in github.com/beam-cloud/beta9
+cves:
+    - CVE-2025-69820
+ghsas:
+    - GHSA-73jg-4qh6-3f4g
+references:
+    - advisory: https://github.com/advisories/GHSA-73jg-4qh6-3f4g
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-69820
+    - web: https://github.com/beam-cloud/beta9/blob/c1cd75e813cf7d53e916157d920099e89ef45caa/pkg/abstractions/volume/multipart.go#L45
+    - web: https://github.com/ryotaromatsui/CVEs/tree/main/CVE-2025-69820
+source:
+    id: GHSA-73jg-4qh6-3f4g
+    created: 2026-02-02T11:06:45.13045071-05:00
+review_status: UNREVIEWED

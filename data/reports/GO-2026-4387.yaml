@@ -1,0 +1,16 @@
+id: GO-2026-4387
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      unsupported_versions:
+        - last_affected: 0.0.0-20260126094835-d5d10dd41b0c
+      vulnerable_at: 0.0.0-20260126094835-d5d10dd41b0c
+summary: SiYuan has Arbitrary File Write via /api/file/copyFile leading to RCE in github.com/siyuan-note/siyuan/kernel
+ghsas:
+    - GHSA-c4jr-5q7w-f6r9
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-c4jr-5q7w-f6r9
+    - web: https://github.com/siyuan-note/siyuan/commit/d7f790755edf8c78d2b4176171e5a0cdcd720feb
+source:
+    id: GHSA-c4jr-5q7w-f6r9
+    created: 2026-02-02T11:06:55.108850161-05:00
+review_status: UNREVIEWED

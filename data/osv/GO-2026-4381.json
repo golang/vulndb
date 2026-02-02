@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4381",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-22039",
+    "GHSA-8p9x-46gm-qfx2"
+  ],
+  "summary": "Kyverno Cross-Namespace Privilege Escalation via Policy apiCall in github.com/kyverno/kyverno",
+  "details": "Kyverno Cross-Namespace Privilege Escalation via Policy apiCall in github.com/kyverno/kyverno",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/kyverno/kyverno",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.15.3"
+            },
+            {
+              "introduced": "1.16.0-rc.1"
+            },
+            {
+              "fixed": "1.16.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/kyverno/kyverno/security/advisories/GHSA-8p9x-46gm-qfx2"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-22039"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kyverno/kyverno/commit/e0ba4de4f1e0ca325066d5095db51aec45b1407b"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kyverno/kyverno/commit/eba60fa856c781bcb9c3be066061a3df03ae4e3e"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4381",
+    "review_status": "UNREVIEWED"
+  }
+}

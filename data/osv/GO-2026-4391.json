@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4391",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-24846",
+    "GHSA-923j-vrcg-hxwh"
+  ],
+  "summary": "malcontent vulnerable to symlink Path Traversal via handleSymlink argument confusion in archive extraction in github.com/chainguard-dev/malcontent",
+  "details": "malcontent vulnerable to symlink Path Traversal via handleSymlink argument confusion in archive extraction in github.com/chainguard-dev/malcontent",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/chainguard-dev/malcontent",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.8.0"
+            },
+            {
+              "fixed": "1.20.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/chainguard-dev/malcontent/security/advisories/GHSA-923j-vrcg-hxwh"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-24846"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/chainguard-dev/malcontent/commit/259fca5abc004f3ab238895463ef280a87f30e96"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/chainguard-dev/malcontent/commit/a7dd8a5328ddbaf235568437813efa7591e00017"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4391",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,22 @@
+id: GO-2026-4382
+modules:
+    - module: github.com/kyverno/kyverno
+      versions:
+        - fixed: 1.15.3
+        - introduced: 1.16.0-rc.1
+        - fixed: 1.16.3
+      vulnerable_at: 1.16.3-rc.1
+summary: Kyverno Denial of Service via Context Variable Amplification in Policy Engine in github.com/kyverno/kyverno
+cves:
+    - CVE-2026-23881
+ghsas:
+    - GHSA-r2rj-wwm5-x6mq
+references:
+    - advisory: https://github.com/kyverno/kyverno/security/advisories/GHSA-r2rj-wwm5-x6mq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-23881
+    - fix: https://github.com/kyverno/kyverno/commit/7a651be3a8c78dcabfbf4178b8d89026bf3b850f
+    - fix: https://github.com/kyverno/kyverno/commit/f5617f60920568a301740485472bf704892175b7
+source:
+    id: GHSA-r2rj-wwm5-x6mq
+    created: 2026-02-02T11:07:14.35793334-05:00
+review_status: UNREVIEWED

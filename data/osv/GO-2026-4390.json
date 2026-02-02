@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4390",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-69820",
+    "GHSA-73jg-4qh6-3f4g"
+  ],
+  "summary": "Beam Exposes sensitive information via joinCleanPath function in github.com/beam-cloud/beta9",
+  "details": "Beam Exposes sensitive information via joinCleanPath function in github.com/beam-cloud/beta9",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/beam-cloud/beta9",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-73jg-4qh6-3f4g"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-69820"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/beam-cloud/beta9/blob/c1cd75e813cf7d53e916157d920099e89ef45caa/pkg/abstractions/volume/multipart.go#L45"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/ryotaromatsui/CVEs/tree/main/CVE-2025-69820"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4390",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,21 @@
+id: GO-2026-4384
+modules:
+    - module: kubevirt.io/kubevirt
+      unsupported_versions:
+        - last_affected: 1.7.0
+      vulnerable_at: 1.7.0
+summary: KubeVirt Guest Agent DoS via Excessive Network Interface Reports in kubevirt.io/kubevirt
+cves:
+    - CVE-2025-14525
+ghsas:
+    - GHSA-25mh-hp8x-cgrv
+references:
+    - advisory: https://github.com/advisories/GHSA-25mh-hp8x-cgrv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-14525
+    - web: https://access.redhat.com/security/cve/CVE-2025-14525
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2421360
+    - web: https://github.com/kubevirt/kubevirt/releases/tag/v1.7.0
+source:
+    id: GHSA-25mh-hp8x-cgrv
+    created: 2026-02-02T11:07:05.831083488-05:00
+review_status: UNREVIEWED
