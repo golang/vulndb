@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4352",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-r92c-9c7f-3pj8"
+  ],
+  "summary": "OpenTofu has High CPU usage in \"tofu init\" with maliciously-crafted module packages in .zip format in github.com/opentofu/opentofu",
+  "details": "OpenTofu has High CPU usage in \"tofu init\" with maliciously-crafted module packages in .zip format in github.com/opentofu/opentofu",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/opentofu/opentofu",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.11.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/opentofu/opentofu/security/advisories/GHSA-r92c-9c7f-3pj8"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opentofu/opentofu/commit/f5d5cdf16615ea3c298e058b062951adb02805f3"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opentofu/opentofu/pull/3689"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/opentofu/opentofu/releases/tag/v1.11.4"
+    },
+    {
+      "type": "WEB",
+      "url": "https://go.dev/issue/77102"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4352",
+    "review_status": "UNREVIEWED"
+  }
+}

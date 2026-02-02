@@ -1,0 +1,20 @@
+id: GO-2026-4355
+modules:
+    - module: github.com/sigstore/rekor
+      versions:
+        - fixed: 1.5.0
+      vulnerable_at: 1.4.3
+summary: Rekor affected by Server-Side Request Forgery (SSRF) via provided public key URL in github.com/sigstore/rekor
+cves:
+    - CVE-2026-24117
+ghsas:
+    - GHSA-4c4x-jm2x-pf9j
+references:
+    - advisory: https://github.com/sigstore/rekor/security/advisories/GHSA-4c4x-jm2x-pf9j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-24117
+    - fix: https://github.com/sigstore/rekor/commit/60ef2bceba192c5bf9327d003bceea8bf1f8275f
+    - web: https://github.com/sigstore/rekor/releases/tag/v1.5.0
+source:
+    id: GHSA-4c4x-jm2x-pf9j
+    created: 2026-02-02T11:20:56.475245129-05:00
+review_status: UNREVIEWED

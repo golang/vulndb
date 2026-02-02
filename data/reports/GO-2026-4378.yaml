@@ -1,0 +1,23 @@
+id: GO-2026-4378
+modules:
+    - module: github.com/zalando/skipper
+      versions:
+        - fixed: 0.24.0
+      vulnerable_at: 0.23.1
+summary: |-
+    Skipper Ingress Controller Allows Unauthorized Access to Internal Services via
+    ExternalName in github.com/zalando/skipper
+cves:
+    - CVE-2026-24470
+ghsas:
+    - GHSA-mxxc-p822-2hx9
+references:
+    - advisory: https://github.com/zalando/skipper/security/advisories/GHSA-mxxc-p822-2hx9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-24470
+    - fix: https://github.com/zalando/skipper/commit/a4c87ce029a58eb8e1c2c1f93049194a39cf6219
+    - web: https://github.com/zalando/skipper/releases/tag/v0.24.0
+    - web: https://kubernetes.io/docs/concepts/services-networking/service/#externalname
+source:
+    id: GHSA-mxxc-p822-2hx9
+    created: 2026-02-02T11:07:38.60673693-05:00
+review_status: UNREVIEWED

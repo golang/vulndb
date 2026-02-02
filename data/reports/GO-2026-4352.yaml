@@ -1,0 +1,21 @@
+id: GO-2026-4352
+modules:
+    - module: github.com/opentofu/opentofu
+      versions:
+        - fixed: 1.11.4
+      vulnerable_at: 1.11.3
+summary: |-
+    OpenTofu has High CPU usage in "tofu init" with maliciously-crafted module
+    packages in .zip format in github.com/opentofu/opentofu
+ghsas:
+    - GHSA-r92c-9c7f-3pj8
+references:
+    - advisory: https://github.com/opentofu/opentofu/security/advisories/GHSA-r92c-9c7f-3pj8
+    - fix: https://github.com/opentofu/opentofu/commit/f5d5cdf16615ea3c298e058b062951adb02805f3
+    - fix: https://github.com/opentofu/opentofu/pull/3689
+    - web: https://github.com/opentofu/opentofu/releases/tag/v1.11.4
+    - web: https://go.dev/issue/77102
+source:
+    id: GHSA-r92c-9c7f-3pj8
+    created: 2026-02-02T11:21:11.746463038-05:00
+review_status: UNREVIEWED

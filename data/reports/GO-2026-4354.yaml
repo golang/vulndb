@@ -1,0 +1,22 @@
+id: GO-2026-4354
+modules:
+    - module: github.com/sigstore/rekor
+      versions:
+        - fixed: 1.5.0
+      vulnerable_at: 1.4.3
+summary: |-
+    Rekor's COSE v0.0.1 entry type nil pointer dereference in Canonicalize via empty
+    Message in github.com/sigstore/rekor
+cves:
+    - CVE-2026-23831
+ghsas:
+    - GHSA-273p-m2cw-6833
+references:
+    - advisory: https://github.com/sigstore/rekor/security/advisories/GHSA-273p-m2cw-6833
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-23831
+    - fix: https://github.com/sigstore/rekor/commit/39bae3d192bce48ef4ef2cbd1788fb5770fee8cd
+    - web: https://github.com/sigstore/rekor/releases/tag/v1.5.0
+source:
+    id: GHSA-273p-m2cw-6833
+    created: 2026-02-02T11:21:01.952010087-05:00
+review_status: UNREVIEWED

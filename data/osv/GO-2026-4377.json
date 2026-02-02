@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4377",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-24686",
+    "GHSA-jqc5-w2xx-5vq4"
+  ],
+  "summary": "go-tuf Path Traversal in TAP 4 Multirepo Client Allows Arbitrary File Write via Malicious Repository Names in github.com/theupdateframework/go-tuf",
+  "details": "go-tuf Path Traversal in TAP 4 Multirepo Client Allows Arbitrary File Write via Malicious Repository Names in github.com/theupdateframework/go-tuf",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/theupdateframework/go-tuf",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/theupdateframework/go-tuf/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.4.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/theupdateframework/go-tuf/security/advisories/GHSA-jqc5-w2xx-5vq4"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-24686"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/theupdateframework/go-tuf/commit/d361e2ea24e427581343dee5c7a32b485d79fcc0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4377",
+    "review_status": "UNREVIEWED"
+  }
+}

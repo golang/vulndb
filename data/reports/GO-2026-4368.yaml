@@ -1,0 +1,25 @@
+id: GO-2026-4368
+modules:
+    - module: code.gitea.io/gitea
+      versions:
+        - fixed: 1.25.4
+      vulnerable_at: 1.25.3
+summary: |-
+    Gitea improperly exposes issue titles and repository names through previously
+    started stopwatches in code.gitea.io/gitea
+cves:
+    - CVE-2026-20883
+ghsas:
+    - GHSA-j8xr-c56q-m8jj
+references:
+    - advisory: https://github.com/advisories/GHSA-j8xr-c56q-m8jj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-20883
+    - web: https://blog.gitea.com/release-of-1.25.4
+    - web: https://github.com/go-gitea/gitea/commit/95ea2df00a70176c516b12f3cfee8c84a310280f
+    - web: https://github.com/go-gitea/gitea/pull/36340
+    - web: https://github.com/go-gitea/gitea/pull/36368
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.25.4
+source:
+    id: GHSA-j8xr-c56q-m8jj
+    created: 2026-02-02T11:08:18.112835759-05:00
+review_status: UNREVIEWED

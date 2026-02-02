@@ -1,0 +1,25 @@
+id: GO-2026-4364
+modules:
+    - module: code.gitea.io/gitea
+      versions:
+        - fixed: 1.25.4
+      vulnerable_at: 1.25.3
+summary: |-
+    Gitea does not properly validate repository ownership when linking attachments
+    to releases in code.gitea.io/gitea
+cves:
+    - CVE-2026-20912
+ghsas:
+    - GHSA-4xx9-vc8v-87hv
+references:
+    - advisory: https://github.com/advisories/GHSA-4xx9-vc8v-87hv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-20912
+    - web: https://blog.gitea.com/release-of-1.25.4
+    - web: https://github.com/go-gitea/gitea/commit/fbea2c68e8df11cfa94e8ead913b79946780ed30
+    - web: https://github.com/go-gitea/gitea/pull/36320
+    - web: https://github.com/go-gitea/gitea/pull/36355
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.25.4
+source:
+    id: GHSA-4xx9-vc8v-87hv
+    created: 2026-02-02T11:08:43.605422656-05:00
+review_status: UNREVIEWED

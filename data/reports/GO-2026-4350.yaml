@@ -1,0 +1,30 @@
+id: GO-2026-4350
+modules:
+    - module: github.com/argoproj/argo-workflows
+      vulnerable_at: 0.4.7
+    - module: github.com/argoproj/argo-workflows/v2
+      unsupported_versions:
+        - last_affected: 2.5.3-rc4
+      vulnerable_at: 2.12.13
+    - module: github.com/argoproj/argo-workflows/v3
+      versions:
+        - fixed: 3.6.17
+        - introduced: 3.7.0
+        - fixed: 3.7.8
+      vulnerable_at: 3.7.7
+summary: Argo Workflows affected by stored XSS in the artifact directory listing in github.com/argoproj/argo-workflows
+cves:
+    - CVE-2026-23960
+ghsas:
+    - GHSA-cv78-6m8q-ph82
+references:
+    - advisory: https://github.com/argoproj/argo-workflows/security/advisories/GHSA-cv78-6m8q-ph82
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-23960
+    - fix: https://github.com/argoproj/argo-workflows/commit/159a5c56285ecd4d3bb0a67aeef4507779a44e17
+    - web: https://github.com/argoproj/argo-workflows/blob/9872c296d29dcc5e9c78493054961ede9fc30797/server/artifacts/artifact_server.go#L194-L244
+    - web: https://github.com/argoproj/argo-workflows/releases/tag/v3.6.17
+    - web: https://github.com/argoproj/argo-workflows/releases/tag/v3.7.8
+source:
+    id: GHSA-cv78-6m8q-ph82
+    created: 2026-02-02T11:21:23.782727849-05:00
+review_status: UNREVIEWED

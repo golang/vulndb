@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4349",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-23992",
+    "GHSA-fphv-w9fq-2525"
+  ],
+  "summary": "go-tuf improperly validates the configured threshold for delegations in github.com/theupdateframework/go-tuf",
+  "details": "go-tuf improperly validates the configured threshold for delegations in github.com/theupdateframework/go-tuf",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/theupdateframework/go-tuf",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/theupdateframework/go-tuf/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.3.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/theupdateframework/go-tuf/security/advisories/GHSA-fphv-w9fq-2525"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-23992"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/theupdateframework/go-tuf/commit/b38d91fdbc69dfe31fe9230d97dafe527ea854a0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/theupdateframework/go-tuf/releases/tag/v2.3.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4349",
+    "review_status": "UNREVIEWED"
+  }
+}

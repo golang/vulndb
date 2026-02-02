@@ -1,0 +1,23 @@
+id: GO-2026-4377
+modules:
+    - module: github.com/theupdateframework/go-tuf
+      vulnerable_at: 0.7.0
+    - module: github.com/theupdateframework/go-tuf/v2
+      versions:
+        - fixed: 2.4.1
+      vulnerable_at: 2.4.0
+summary: |-
+    go-tuf Path Traversal in TAP 4 Multirepo Client Allows Arbitrary File Write via
+    Malicious Repository Names in github.com/theupdateframework/go-tuf
+cves:
+    - CVE-2026-24686
+ghsas:
+    - GHSA-jqc5-w2xx-5vq4
+references:
+    - advisory: https://github.com/theupdateframework/go-tuf/security/advisories/GHSA-jqc5-w2xx-5vq4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-24686
+    - fix: https://github.com/theupdateframework/go-tuf/commit/d361e2ea24e427581343dee5c7a32b485d79fcc0
+source:
+    id: GHSA-jqc5-w2xx-5vq4
+    created: 2026-02-02T11:07:44.489250125-05:00
+review_status: UNREVIEWED

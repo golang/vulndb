@@ -1,0 +1,25 @@
+id: GO-2026-4370
+modules:
+    - module: code.gitea.io/gitea
+      versions:
+        - fixed: 1.25.4
+      vulnerable_at: 1.25.3
+summary: |-
+    Gitea does not properly validate project ownership in organization project
+    operations in code.gitea.io/gitea
+cves:
+    - CVE-2026-20750
+ghsas:
+    - GHSA-rw22-5hhq-pfpf
+references:
+    - advisory: https://github.com/advisories/GHSA-rw22-5hhq-pfpf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-20750
+    - web: https://blog.gitea.com/release-of-1.25.4
+    - web: https://github.com/go-gitea/gitea/commit/7b5de594cd92e30b9c3d40ffda119acad794cc64
+    - web: https://github.com/go-gitea/gitea/pull/36318
+    - web: https://github.com/go-gitea/gitea/pull/36373
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.25.4
+source:
+    id: GHSA-rw22-5hhq-pfpf
+    created: 2026-02-02T11:08:03.318034419-05:00
+review_status: UNREVIEWED

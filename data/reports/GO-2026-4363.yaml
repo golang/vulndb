@@ -1,0 +1,25 @@
+id: GO-2026-4363
+modules:
+    - module: code.gitea.io/gitea
+      versions:
+        - fixed: 1.25.4
+      vulnerable_at: 1.25.3
+summary: |-
+    Gitea does not properly validate repository ownership when deleting Git LFS
+    locks in code.gitea.io/gitea
+cves:
+    - CVE-2026-20897
+ghsas:
+    - GHSA-393c-qgvj-3xph
+references:
+    - advisory: https://github.com/advisories/GHSA-393c-qgvj-3xph
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-20897
+    - web: https://blog.gitea.com/release-of-1.25.4
+    - web: https://github.com/go-gitea/gitea/commit/da036f3f35ca830b22cf4480912ed261303b798f
+    - web: https://github.com/go-gitea/gitea/pull/36344
+    - web: https://github.com/go-gitea/gitea/pull/36349
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.25.4
+source:
+    id: GHSA-393c-qgvj-3xph
+    created: 2026-02-02T11:08:49.284650018-05:00
+review_status: UNREVIEWED
