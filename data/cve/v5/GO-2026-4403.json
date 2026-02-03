@@ -1,0 +1,85 @@
+{
+  "dataType": "CVE_RECORD",
+  "dataVersion": "5.0",
+  "cveMetadata": {
+    "cveId": "CVE-2025-22873"
+  },
+  "containers": {
+    "cna": {
+      "providerMetadata": {
+        "orgId": "1bb62c36-49e3-4200-9d77-64a1400537cc"
+      },
+      "title": "Improper access to parent directory of root in os",
+      "descriptions": [
+        {
+          "lang": "en",
+          "value": "It was possible to improperly access the parent directory of an os.Root by opening a filename ending in \"../\". For example, Root.Open(\"../\") would open the parent directory of the Root. This escape only permits opening the parent directory itself, not ancestors of the parent or files contained within the parent."
+        }
+      ],
+      "affected": [
+        {
+          "vendor": "Go standard library",
+          "product": "os",
+          "collectionURL": "https://pkg.go.dev",
+          "packageName": "os",
+          "versions": [
+            {
+              "version": "0",
+              "lessThan": "1.23.9",
+              "status": "affected",
+              "versionType": "semver"
+            },
+            {
+              "version": "1.24.0-0",
+              "lessThan": "1.24.3",
+              "status": "affected",
+              "versionType": "semver"
+            }
+          ],
+          "programRoutines": [
+            {
+              "name": "splitPathInRoot"
+            },
+            {
+              "name": "checkPathEscapesInternal"
+            },
+            {
+              "name": "doInRoot"
+            }
+          ],
+          "defaultStatus": "unaffected"
+        }
+      ],
+      "problemTypes": [
+        {
+          "descriptions": [
+            {
+              "lang": "en",
+              "description": "CWE-23: Relative Path Traversal"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "url": "https://go.dev/cl/670036"
+        },
+        {
+          "url": "https://go.dev/issue/73555"
+        },
+        {
+          "url": "https://groups.google.com/g/golang-announce/c/UZoIkUT367A/m/5WDxKizJAQAJ"
+        },
+        {
+          "url": "https://pkg.go.dev/vuln/GO-2026-4403"
+        }
+      ],
+      "credits": [
+        {
+          "lang": "en",
+          "value": "Dan Sebastian Thrane of SDU eScience Center"
+        }
+      ]
+    }
+  }
+}

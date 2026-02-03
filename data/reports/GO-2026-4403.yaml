@@ -1,0 +1,34 @@
+id: GO-2026-4403
+modules:
+    - module: std
+      versions:
+        - fixed: 1.23.9
+        - introduced: 1.24.0-0
+        - fixed: 1.24.3
+      vulnerable_at: 1.24.2
+      packages:
+        - package: os
+          symbols:
+            - splitPathInRoot
+            - checkPathEscapesInternal
+            - doInRoot
+summary: Improper access to parent directory of root in os
+description: |-
+    It was possible to improperly access the parent directory of an os.Root by
+    opening a filename ending in "../". For example, Root.Open("../") would open the
+    parent directory of the Root. This escape only permits opening the parent
+    directory itself, not ancestors of the parent or files contained within the
+    parent.
+credits:
+    - Dan Sebastian Thrane of SDU eScience Center
+references:
+    - fix: https://go.dev/cl/670036
+    - report: https://go.dev/issue/73555
+    - web: https://groups.google.com/g/golang-announce/c/UZoIkUT367A/m/5WDxKizJAQAJ
+cve_metadata:
+    id: CVE-2025-22873
+    cwe: 'CWE-23: Relative Path Traversal'
+source:
+    id: go-security-team
+    created: 2026-02-03T13:09:38.251365-05:00
+review_status: REVIEWED
