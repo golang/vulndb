@@ -8,42 +8,8 @@
     "GHSA-gfpw-jgvr-cw4j"
   ],
   "summary": "Fleet Windows MDM endpoint has a Cross-site Scripting vulnerability in github.com/fleetdm/fleet",
-  "details": "Fleet Windows MDM endpoint has a Cross-site Scripting vulnerability in github.com/fleetdm/fleet.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/fleetdm/fleet/v4 before v4.43.5-0.20260111020427-0e6c790803d1.",
+  "details": "Fleet Windows MDM endpoint has a Cross-site Scripting vulnerability in github.com/fleetdm/fleet",
   "affected": [
-    {
-      "package": {
-        "name": "github.com/fleetdm/fleet/v2",
-        "ecosystem": "Go"
-      },
-      "ranges": [
-        {
-          "type": "SEMVER",
-          "events": [
-            {
-              "introduced": "0"
-            }
-          ]
-        }
-      ],
-      "ecosystem_specific": {}
-    },
-    {
-      "package": {
-        "name": "github.com/fleetdm/fleet/v3",
-        "ecosystem": "Go"
-      },
-      "ranges": [
-        {
-          "type": "SEMVER",
-          "events": [
-            {
-              "introduced": "0"
-            }
-          ]
-        }
-      ],
-      "ecosystem_specific": {}
-    },
     {
       "package": {
         "name": "github.com/fleetdm/fleet/v4",
@@ -103,12 +69,12 @@
       "url": "https://github.com/fleetdm/fleet/security/advisories/GHSA-gfpw-jgvr-cw4j"
     },
     {
-      "type": "WEB",
+      "type": "FIX",
       "url": "https://github.com/fleetdm/fleet/commit/0e6c790803d1b4407c5b4b41a67a37864a3d3573"
     }
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2026-4336",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }

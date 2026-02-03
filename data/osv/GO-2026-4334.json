@@ -8,42 +8,8 @@
     "GHSA-4r5r-ccr6-q6f6"
   ],
   "summary": "Fleet has an Access Control vulnerability in debug/pprof endpoints in github.com/fleetdm/fleet",
-  "details": "Fleet has an Access Control vulnerability in debug/pprof endpoints in github.com/fleetdm/fleet.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/fleetdm/fleet/v4 before v4.78.3-0.20260112221730-5c030e32a3a9.",
+  "details": "Fleet has an Access Control vulnerability in debug/pprof endpoints in github.com/fleetdm/fleet",
   "affected": [
-    {
-      "package": {
-        "name": "github.com/fleetdm/fleet/v2",
-        "ecosystem": "Go"
-      },
-      "ranges": [
-        {
-          "type": "SEMVER",
-          "events": [
-            {
-              "introduced": "0"
-            }
-          ]
-        }
-      ],
-      "ecosystem_specific": {}
-    },
-    {
-      "package": {
-        "name": "github.com/fleetdm/fleet/v3",
-        "ecosystem": "Go"
-      },
-      "ranges": [
-        {
-          "type": "SEMVER",
-          "events": [
-            {
-              "introduced": "0"
-            }
-          ]
-        }
-      ],
-      "ecosystem_specific": {}
-    },
     {
       "package": {
         "name": "github.com/fleetdm/fleet/v4",
@@ -54,7 +20,28 @@
           "type": "SEMVER",
           "events": [
             {
-              "introduced": "0"
+              "introduced": "4.75.0"
+            },
+            {
+              "fixed": "4.75.2"
+            },
+            {
+              "introduced": "4.76.0"
+            },
+            {
+              "fixed": "4.76.2"
+            },
+            {
+              "introduced": "4.77.0"
+            },
+            {
+              "fixed": "4.77.1"
+            },
+            {
+              "introduced": "4.78.0"
+            },
+            {
+              "fixed": "4.78.3"
             }
           ]
         }
@@ -74,86 +61,6 @@
           }
         ]
       }
-    },
-    {
-      "package": {
-        "name": "github.com/fleetdm/fleet/v4",
-        "ecosystem": "Go"
-      },
-      "ranges": [
-        {
-          "type": "SEMVER",
-          "events": [
-            {
-              "introduced": "4.75.0"
-            },
-            {
-              "fixed": "4.75.2"
-            }
-          ]
-        }
-      ],
-      "ecosystem_specific": {}
-    },
-    {
-      "package": {
-        "name": "github.com/fleetdm/fleet/v4",
-        "ecosystem": "Go"
-      },
-      "ranges": [
-        {
-          "type": "SEMVER",
-          "events": [
-            {
-              "introduced": "4.76.0"
-            },
-            {
-              "fixed": "4.76.2"
-            }
-          ]
-        }
-      ],
-      "ecosystem_specific": {}
-    },
-    {
-      "package": {
-        "name": "github.com/fleetdm/fleet/v4",
-        "ecosystem": "Go"
-      },
-      "ranges": [
-        {
-          "type": "SEMVER",
-          "events": [
-            {
-              "introduced": "4.77.0"
-            },
-            {
-              "fixed": "4.77.1"
-            }
-          ]
-        }
-      ],
-      "ecosystem_specific": {}
-    },
-    {
-      "package": {
-        "name": "github.com/fleetdm/fleet/v4",
-        "ecosystem": "Go"
-      },
-      "ranges": [
-        {
-          "type": "SEMVER",
-          "events": [
-            {
-              "introduced": "4.78.0"
-            },
-            {
-              "fixed": "4.78.3"
-            }
-          ]
-        }
-      ],
-      "ecosystem_specific": {}
     }
   ],
   "references": [
@@ -162,12 +69,12 @@
       "url": "https://github.com/fleetdm/fleet/security/advisories/GHSA-4r5r-ccr6-q6f6"
     },
     {
-      "type": "WEB",
+      "type": "FIX",
       "url": "https://github.com/fleetdm/fleet/commit/5c030e32a3a9bc512355b5e1bf19636e4e6d0317"
     }
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2026-4334",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }

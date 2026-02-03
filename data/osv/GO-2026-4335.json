@@ -8,42 +8,8 @@
     "GHSA-63m5-974w-448v"
   ],
   "summary": "Fleet has a JWT signature bypass vulnerability in Azure AD MDM enrollment in github.com/fleetdm/fleet",
-  "details": "Fleet has a JWT signature bypass vulnerability in Azure AD MDM enrollment in github.com/fleetdm/fleet.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/fleetdm/fleet/v4 before v4.43.5-0.20260112202845-e225ef57912c.",
+  "details": "Fleet has a JWT signature bypass vulnerability in Azure AD MDM enrollment in github.com/fleetdm/fleet",
   "affected": [
-    {
-      "package": {
-        "name": "github.com/fleetdm/fleet/v2",
-        "ecosystem": "Go"
-      },
-      "ranges": [
-        {
-          "type": "SEMVER",
-          "events": [
-            {
-              "introduced": "0"
-            }
-          ]
-        }
-      ],
-      "ecosystem_specific": {}
-    },
-    {
-      "package": {
-        "name": "github.com/fleetdm/fleet/v3",
-        "ecosystem": "Go"
-      },
-      "ranges": [
-        {
-          "type": "SEMVER",
-          "events": [
-            {
-              "introduced": "0"
-            }
-          ]
-        }
-      ],
-      "ecosystem_specific": {}
-    },
     {
       "package": {
         "name": "github.com/fleetdm/fleet/v4",
@@ -89,7 +55,7 @@
                 "introduced": "0"
               },
               {
-                "fixed": "4.43.5-0.20260112202845-e225ef57912c"
+                "fixed": "4.43.5-0.20260112202845-e225ef57912c4"
               }
             ]
           }
@@ -103,12 +69,12 @@
       "url": "https://github.com/fleetdm/fleet/security/advisories/GHSA-63m5-974w-448v"
     },
     {
-      "type": "WEB",
+      "type": "FIX",
       "url": "https://github.com/fleetdm/fleet/commit/e225ef57912c8f4ac8977e24b5ebe1d9fd875257"
     }
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2026-4335",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }
