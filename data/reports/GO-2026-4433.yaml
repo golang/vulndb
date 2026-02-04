@@ -1,0 +1,27 @@
+id: GO-2026-4433
+modules:
+    - module: cmd
+      versions:
+        - fixed: 1.24.13
+        - introduced: 1.25.0-0
+        - fixed: 1.25.7
+      vulnerable_at: 1.25.6
+      packages:
+        - package: cmd/cgo
+summary: Potential code smuggling via doc comments in cmd/cgo
+description: |-
+    A discrepancy between how Go and C/C++ comments were parsed allowed for code
+    smuggling into the resulting cgo binary.
+credits:
+    - RyotaK (https://ryotak.net) of GMO Flatt Security Inc.
+references:
+    - fix: https://go.dev/cl/734220
+    - report: https://go.dev/issue/76697
+    - web: https://groups.google.com/g/golang-announce/c/K09ubi9FQFk
+cve_metadata:
+    id: CVE-2025-61732
+    cwe: 'CWE-94: Improper Control of Generation of Code (''Code Injection'')'
+source:
+    id: go-security-team
+    created: 2026-02-04T17:42:53.807167-05:00
+review_status: REVIEWED
