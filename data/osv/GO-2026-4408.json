@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4408",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-24844",
+    "GHSA-vqqr-rmpc-hhg2"
+  ],
+  "summary": "melange pipeline working-directory could allow command injection in chainguard.dev/melange",
+  "details": "melange pipeline working-directory could allow command injection in chainguard.dev/melange",
+  "affected": [
+    {
+      "package": {
+        "name": "chainguard.dev/melange",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.3.0"
+            },
+            {
+              "fixed": "0.40.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/chainguard-dev/melange/security/advisories/GHSA-vqqr-rmpc-hhg2"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-24844"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/chainguard-dev/melange/commit/e51ca30cfb63178f5a86997d23d3fff0359fa6c8"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4408",
+    "review_status": "UNREVIEWED"
+  }
+}

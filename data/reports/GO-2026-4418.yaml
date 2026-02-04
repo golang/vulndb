@@ -1,0 +1,23 @@
+id: GO-2026-4418
+modules:
+    - module: github.com/lf-edge/eve
+      versions:
+        - fixed: 0.0.0-20220708121648-5fef4d92e758
+summary: 'EVE: SSH as Root Unlockable Without Triggering Measured Boot in github.com/lf-edge/eve'
+cves:
+    - CVE-2023-43631
+ghsas:
+    - GHSA-3mq9-xhgq-r7gj
+references:
+    - advisory: https://github.com/lf-edge/eve/security/advisories/GHSA-3mq9-xhgq-r7gj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-43631
+    - fix: https://github.com/lf-edge/eve/commit/5fef4d92e75838cc78010edaed5247dfbdae1889
+    - fix: https://github.com/lf-edge/eve/commit/aa3501d6c57206ced222c33aea15a9169d629141
+    - web: https://asrg.io/security-advisories/cve-2023-43631
+    - web: https://asrg.io/security-advisories/ssh-as-root-unlockable-without-triggering-measured-boot
+notes:
+    - fix: 'github.com/lf-edge/eve: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-3mq9-xhgq-r7gj
+    created: 2026-02-04T17:36:30.058719156-05:00
+review_status: UNREVIEWED

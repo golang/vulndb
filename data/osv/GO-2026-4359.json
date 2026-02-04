@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4359",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-23953",
+    "GHSA-x6jc-phwx-hp32"
+  ],
+  "summary": "Incus container environment configuration newline injection in github.com/lxc/incus",
+  "details": "Incus container environment configuration newline injection in github.com/lxc/incus",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/lxc/incus",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/lxc/incus/v6",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "6.1.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/lxc/incus/security/advisories/GHSA-x6jc-phwx-hp32"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-23953"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/lxc/incus/blob/HEAD/internal/server/instance/drivers/driver_lxc.go#L1081"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/user-attachments/files/24473682/environment_newline_injection.sh"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/user-attachments/files/24473685/environment_newline_injection.patch"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4359",
+    "review_status": "UNREVIEWED"
+  }
+}

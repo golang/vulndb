@@ -1,0 +1,22 @@
+id: GO-2026-4406
+modules:
+    - module: chainguard.dev/apko
+      versions:
+        - introduced: 0.14.8
+        - fixed: 1.1.0
+      vulnerable_at: 1.0.5
+summary: |-
+    apko affected by unbounded resource consumption in expandapk.Split on
+    attacker-controlled .apk streams in chainguard.dev/apko
+cves:
+    - CVE-2026-25122
+ghsas:
+    - GHSA-6p9p-q6wh-9j89
+references:
+    - advisory: https://github.com/chainguard-dev/apko/security/advisories/GHSA-6p9p-q6wh-9j89
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-25122
+    - web: https://github.com/chainguard-dev/apko/commit/2be3903fe194ad46351840f0569b35f5ac965f09
+source:
+    id: GHSA-6p9p-q6wh-9j89
+    created: 2026-02-04T17:37:52.130705673-05:00
+review_status: UNREVIEWED

@@ -1,0 +1,22 @@
+id: GO-2026-4405
+modules:
+    - module: chainguard.dev/apko
+      versions:
+        - introduced: 0.14.8
+        - fixed: 1.1.0
+      vulnerable_at: 1.0.5
+summary: |-
+    apko has a path traversal in apko dirFS which allows filesystem writes outside
+    base in chainguard.dev/apko
+cves:
+    - CVE-2026-25121
+ghsas:
+    - GHSA-5g94-c2wx-8pxw
+references:
+    - advisory: https://github.com/chainguard-dev/apko/security/advisories/GHSA-5g94-c2wx-8pxw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-25121
+    - web: https://github.com/chainguard-dev/apko/commit/d8b7887a968a527791b3c591ae83928cb49a9f14
+source:
+    id: GHSA-5g94-c2wx-8pxw
+    created: 2026-02-04T17:37:56.7607358-05:00
+review_status: UNREVIEWED

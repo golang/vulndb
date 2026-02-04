@@ -1,0 +1,23 @@
+id: GO-2026-4415
+modules:
+    - module: github.com/alist-org/alist
+      vulnerable_at: 1.0.6
+    - module: github.com/alist-org/alist/v3
+      versions:
+        - fixed: 3.57.0
+      vulnerable_at: 3.56.0
+summary: Alist vulnerable to Path Traversal in multiple file operation handlers in github.com/alist-org/alist
+cves:
+    - CVE-2026-25161
+ghsas:
+    - GHSA-x4q4-7phh-42j9
+references:
+    - advisory: https://github.com/AlistGo/alist/security/advisories/GHSA-x4q4-7phh-42j9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-25161
+    - web: https://github.com/AlistGo/alist/blob/b4d9beb49cba399842a54fcc33bc95a4a09b7bd4/server/handles/fsbatch.go#L188-L189
+    - web: https://github.com/AlistGo/alist/blob/b4d9beb49cba399842a54fcc33bc95a4a09b7bd4/server/handles/fsmanage.go#L165-L166
+    - web: https://github.com/AlistGo/alist/commit/b188288525b9a35c76535139311e7c036dab057e
+source:
+    id: GHSA-x4q4-7phh-42j9
+    created: 2026-02-04T17:37:01.139828494-05:00
+review_status: UNREVIEWED

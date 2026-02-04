@@ -1,0 +1,22 @@
+id: GO-2026-4414
+modules:
+    - module: github.com/alist-org/alist
+      vulnerable_at: 1.0.6
+    - module: github.com/alist-org/alist/v3
+      versions:
+        - fixed: 3.57.0
+      vulnerable_at: 3.56.0
+summary: Alist has Insecure TLS Config in github.com/alist-org/alist
+cves:
+    - CVE-2026-25160
+ghsas:
+    - GHSA-8jmm-3xwx-w974
+references:
+    - advisory: https://github.com/AlistGo/alist/security/advisories/GHSA-8jmm-3xwx-w974
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-25160
+    - web: https://github.com/AlistGo/alist/commit/69629ca76a8f2c8c973ede3b616f93aa26ff23fb
+    - web: https://github.com/AlistGo/alist/releases/tag/v3.57.0
+source:
+    id: GHSA-8jmm-3xwx-w974
+    created: 2026-02-04T17:37:12.126062399-05:00
+review_status: UNREVIEWED

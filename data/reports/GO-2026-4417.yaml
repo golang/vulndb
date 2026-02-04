@@ -1,0 +1,21 @@
+id: GO-2026-4417
+modules:
+    - module: k8s.io/ingress-nginx
+      non_go_versions:
+        - fixed: 1.13.7
+        - introduced: 1.14.0
+        - fixed: 1.14.3
+      vulnerable_at: 0.0.0-20260204133233-322b8a417be7
+summary: ingress-nginx vulnerable to Allocation of Resources Without Limits or Throttling in k8s.io/ingress-nginx
+cves:
+    - CVE-2026-24514
+ghsas:
+    - GHSA-2pf9-vr92-6h3v
+references:
+    - advisory: https://github.com/advisories/GHSA-2pf9-vr92-6h3v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-24514
+    - web: https://github.com/kubernetes/kubernetes/issues/136680
+source:
+    id: GHSA-2pf9-vr92-6h3v
+    created: 2026-02-04T17:36:35.242633515-05:00
+review_status: UNREVIEWED

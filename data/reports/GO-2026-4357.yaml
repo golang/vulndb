@@ -1,0 +1,27 @@
+id: GO-2026-4357
+modules:
+    - module: github.com/lxc/incus
+      vulnerable_at: 0.7.0
+    - module: github.com/lxc/incus/v6
+      versions:
+        - introduced: 6.1.0
+      unsupported_versions:
+        - last_affected: 6.0.5
+        - last_affected: 6.20.0
+      vulnerable_at: 6.21.0
+summary: Incus container image templating arbitrary host file read and write in github.com/lxc/incus
+cves:
+    - CVE-2026-23954
+ghsas:
+    - GHSA-7f67-crqm-jgh7
+references:
+    - advisory: https://github.com/lxc/incus/security/advisories/GHSA-7f67-crqm-jgh7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-23954
+    - web: https://github.com/lxc/incus/blob/HEAD/internal/server/instance/drivers/driver_lxc.go#L7215
+    - web: https://github.com/lxc/incus/blob/HEAD/internal/server/instance/drivers/driver_lxc.go#L7294
+    - web: https://github.com/user-attachments/files/24473599/template_arbitrary_write.sh
+    - web: https://github.com/user-attachments/files/24473601/templates_arbitrary_write.patch
+source:
+    id: GHSA-7f67-crqm-jgh7
+    created: 2026-02-04T17:52:04.880376069-05:00
+review_status: UNREVIEWED

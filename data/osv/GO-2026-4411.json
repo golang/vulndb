@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4411",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-25579",
+    "GHSA-hrr4-3wgr-68x3"
+  ],
+  "summary": "Navidrome affected by Denial of Service and disk exhaustion via oversized `size` parameter in `/rest/getCoverArt` and `/share/img/\u003ctoken\u003e` endpoints in github.com/navidrome/navidrome",
+  "details": "Navidrome affected by Denial of Service and disk exhaustion via oversized `size` parameter in `/rest/getCoverArt` and `/share/img/\u003ctoken\u003e` endpoints in github.com/navidrome/navidrome",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/navidrome/navidrome",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.60.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/navidrome/navidrome/security/advisories/GHSA-hrr4-3wgr-68x3"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4411",
+    "review_status": "UNREVIEWED"
+  }
+}

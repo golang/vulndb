@@ -1,0 +1,26 @@
+id: GO-2026-4359
+modules:
+    - module: github.com/lxc/incus
+      vulnerable_at: 0.7.0
+    - module: github.com/lxc/incus/v6
+      versions:
+        - introduced: 6.1.0
+      unsupported_versions:
+        - last_affected: 6.0.5
+        - last_affected: 6.20.0
+      vulnerable_at: 6.21.0
+summary: Incus container environment configuration newline injection in github.com/lxc/incus
+cves:
+    - CVE-2026-23953
+ghsas:
+    - GHSA-x6jc-phwx-hp32
+references:
+    - advisory: https://github.com/lxc/incus/security/advisories/GHSA-x6jc-phwx-hp32
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-23953
+    - web: https://github.com/lxc/incus/blob/HEAD/internal/server/instance/drivers/driver_lxc.go#L1081
+    - web: https://github.com/user-attachments/files/24473682/environment_newline_injection.sh
+    - web: https://github.com/user-attachments/files/24473685/environment_newline_injection.patch
+source:
+    id: GHSA-x6jc-phwx-hp32
+    created: 2026-02-04T17:46:56.072948812-05:00
+review_status: UNREVIEWED

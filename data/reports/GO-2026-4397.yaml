@@ -1,0 +1,25 @@
+id: GO-2026-4397
+modules:
+    - module: github.com/OpenListTeam/OpenList
+      vulnerable_at: 1.0.6
+    - module: github.com/OpenListTeam/OpenList/v3
+      vulnerable_at: 3.45.0
+    - module: github.com/OpenListTeam/OpenList/v4
+      versions:
+        - fixed: 4.1.10
+      vulnerable_at: 4.1.9
+summary: OpenList has Insecure TLS Default Configuration in github.com/OpenListTeam/OpenList
+cves:
+    - CVE-2026-25060
+ghsas:
+    - GHSA-wf93-3ghh-h389
+references:
+    - advisory: https://github.com/OpenListTeam/OpenList/security/advisories/GHSA-wf93-3ghh-h389
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-25060
+    - fix: https://github.com/OpenListTeam/OpenList/commit/e3c664f81d0584fbbdb86ffe6644be16259371c1
+    - web: https://github.com/OpenListTeam/OpenList/blob/5db2172ed681346b69ed468c73c1f01b6ed455ea/internal/conf/config.go#L185
+    - web: https://github.com/OpenListTeam/OpenList/releases/tag/v4.1.10
+source:
+    id: GHSA-wf93-3ghh-h389
+    created: 2026-02-04T17:38:56.622045178-05:00
+review_status: UNREVIEWED

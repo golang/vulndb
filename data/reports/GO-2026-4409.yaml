@@ -1,0 +1,22 @@
+id: GO-2026-4409
+modules:
+    - module: chainguard.dev/melange
+      versions:
+        - introduced: 0.14.0
+        - fixed: 0.40.3
+      vulnerable_at: 0.40.2
+summary: |-
+    melange has a path traversal in license-path which allows reading files outside
+    workspace in chainguard.dev/melange
+cves:
+    - CVE-2026-25145
+ghsas:
+    - GHSA-2w4f-9fgg-q2v9
+references:
+    - advisory: https://github.com/chainguard-dev/melange/security/advisories/GHSA-2w4f-9fgg-q2v9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-25145
+    - web: https://github.com/chainguard-dev/melange/commit/2f95c9f4355ed993f2670bf1bb82d88b0f65e9e4
+source:
+    id: GHSA-2w4f-9fgg-q2v9
+    created: 2026-02-04T17:37:37.259883187-05:00
+review_status: UNREVIEWED

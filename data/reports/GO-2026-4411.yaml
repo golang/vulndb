@@ -1,0 +1,19 @@
+id: GO-2026-4411
+modules:
+    - module: github.com/navidrome/navidrome
+      versions:
+        - fixed: 0.60.0
+      vulnerable_at: 0.59.0
+summary: |-
+    Navidrome affected by Denial of Service and disk exhaustion via oversized `size`
+    parameter in `/rest/getCoverArt` and `/share/img/<token>` endpoints in github.com/navidrome/navidrome
+cves:
+    - CVE-2026-25579
+ghsas:
+    - GHSA-hrr4-3wgr-68x3
+references:
+    - advisory: https://github.com/navidrome/navidrome/security/advisories/GHSA-hrr4-3wgr-68x3
+source:
+    id: GHSA-hrr4-3wgr-68x3
+    created: 2026-02-04T17:37:27.728648375-05:00
+review_status: UNREVIEWED

@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4396",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-25059",
+    "GHSA-qmj2-8r24-xxcq"
+  ],
+  "summary": "OpenList vulnerable to Path Traversal in file copy and remove handlers in github.com/OpenListTeam/OpenList",
+  "details": "OpenList vulnerable to Path Traversal in file copy and remove handlers in github.com/OpenListTeam/OpenList",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/OpenListTeam/OpenList",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/OpenListTeam/OpenList/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/OpenListTeam/OpenList/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.1.10"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/OpenListTeam/OpenList/security/advisories/GHSA-qmj2-8r24-xxcq"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-25059"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/OpenListTeam/OpenList/commit/7b78fed106382430c69ef351d43f5d09928fff14"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/OpenListTeam/OpenList/blob/5db2172ed681346b69ed468c73c1f01b6ed455ea/server/handles/fsmanage.go#L163-L164"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/OpenListTeam/OpenList/blob/5db2172ed681346b69ed468c73c1f01b6ed455ea/server/handles/fsmanage.go#L284-L285"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/OpenListTeam/OpenList/releases/tag/v4.1.10"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4396",
+    "review_status": "UNREVIEWED"
+  }
+}

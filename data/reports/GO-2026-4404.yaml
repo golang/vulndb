@@ -1,0 +1,21 @@
+id: GO-2026-4404
+modules:
+    - module: github.com/stefanprodan/podinfo
+      unsupported_versions:
+        - last_affected: 1.8.1-0.20250515093358-fb3b01be30a3
+      vulnerable_at: 1.8.0
+summary: |-
+    Podinfo affected by Arbitrary File Upload that leads to Stored Cross-Site
+    Scripting (XSS) in github.com/stefanprodan/podinfo
+cves:
+    - CVE-2025-70849
+ghsas:
+    - GHSA-mw8w-q3f7-2v85
+references:
+    - advisory: https://github.com/advisories/GHSA-mw8w-q3f7-2v85
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-70849
+    - web: https://gist.github.com/kazisabu/27f3e272f474005001a9ecd2c258dbea
+source:
+    id: GHSA-mw8w-q3f7-2v85
+    created: 2026-02-04T17:38:01.664333939-05:00
+review_status: UNREVIEWED

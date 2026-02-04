@@ -1,0 +1,20 @@
+id: GO-2026-4408
+modules:
+    - module: chainguard.dev/melange
+      versions:
+        - introduced: 0.3.0
+        - fixed: 0.40.3
+      vulnerable_at: 0.40.2
+summary: melange pipeline working-directory could allow command injection in chainguard.dev/melange
+cves:
+    - CVE-2026-24844
+ghsas:
+    - GHSA-vqqr-rmpc-hhg2
+references:
+    - advisory: https://github.com/chainguard-dev/melange/security/advisories/GHSA-vqqr-rmpc-hhg2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-24844
+    - web: https://github.com/chainguard-dev/melange/commit/e51ca30cfb63178f5a86997d23d3fff0359fa6c8
+source:
+    id: GHSA-vqqr-rmpc-hhg2
+    created: 2026-02-04T17:37:42.30479191-05:00
+review_status: UNREVIEWED

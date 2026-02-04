@@ -1,0 +1,19 @@
+id: GO-2026-4395
+modules:
+    - module: github.com/bpg/terraform-provider-proxmox
+      versions:
+        - fixed: 0.93.1
+      vulnerable_at: 0.93.0
+summary: terraform-provider-proxmox has insecure sudo recommendation in the documentation in github.com/bpg/terraform-provider-proxmox
+cves:
+    - CVE-2026-25499
+ghsas:
+    - GHSA-gwch-7m8v-7544
+references:
+    - advisory: https://github.com/bpg/terraform-provider-proxmox/security/advisories/GHSA-gwch-7m8v-7544
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-25499
+    - fix: https://github.com/bpg/terraform-provider-proxmox/commit/bd604c41a31e2a55dd6acc01b0608be3ea49c023
+source:
+    id: GHSA-gwch-7m8v-7544
+    created: 2026-02-04T17:39:12.951478147-05:00
+review_status: UNREVIEWED
