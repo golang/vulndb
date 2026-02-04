@@ -1,0 +1,23 @@
+id: GO-2026-4426
+modules:
+    - module: k8s.io/ingress-nginx
+      non_go_versions:
+        - fixed: 1.13.7
+        - introduced: 1.14.0
+        - fixed: 1.14.3
+      vulnerable_at: 0.0.0-20260204133233-322b8a417be7
+summary: |-
+    ingress-nginx's `rules.http.paths.path` Ingress field can be used to inject
+    configuration into nginx in k8s.io/ingress-nginx
+cves:
+    - CVE-2026-24512
+ghsas:
+    - GHSA-jx8c-56mg-h6vp
+references:
+    - advisory: https://github.com/advisories/GHSA-jx8c-56mg-h6vp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-24512
+    - web: https://github.com/kubernetes/kubernetes/issues/136678
+source:
+    id: GHSA-jx8c-56mg-h6vp
+    created: 2026-02-04T17:35:48.014654803-05:00
+review_status: UNREVIEWED

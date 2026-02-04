@@ -1,0 +1,18 @@
+id: GO-2026-4425
+modules:
+    - module: github.com/rancher/local-path-provisioner
+      versions:
+        - fixed: 0.0.34
+      vulnerable_at: 0.0.33
+summary: Local Path Provisioner vulnerable to Path Traversal via parameters.pathPattern in github.com/rancher/local-path-provisioner
+cves:
+    - CVE-2025-62878
+ghsas:
+    - GHSA-jr3w-9vfr-c746
+references:
+    - advisory: https://github.com/rancher/local-path-provisioner/security/advisories/GHSA-jr3w-9vfr-c746
+    - web: https://github.com/rancher/local-path-provisioner/blob/d4f71b4b03a321e9f54be00808e9de42b8bfd35a/provisioner.go#L381
+source:
+    id: GHSA-jr3w-9vfr-c746
+    created: 2026-02-04T17:35:57.99414952-05:00
+review_status: UNREVIEWED

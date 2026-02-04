@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4419",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-24513",
+    "GHSA-4g2f-xcph-2335"
+  ],
+  "summary": "ingress-nginx has Improper Check for Unusual or Exceptional Conditions in k8s.io/ingress-nginx",
+  "details": "ingress-nginx has Improper Check for Unusual or Exceptional Conditions in k8s.io/ingress-nginx.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: k8s.io/ingress-nginx before v1.13.7, from v1.14.0 before v1.14.3.",
+  "affected": [
+    {
+      "package": {
+        "name": "k8s.io/ingress-nginx",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "1.13.7"
+              },
+              {
+                "introduced": "1.14.0"
+              },
+              {
+                "fixed": "1.14.3"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-4g2f-xcph-2335"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-24513"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubernetes/kubernetes/issues/136679"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4419",
+    "review_status": "UNREVIEWED"
+  }
+}

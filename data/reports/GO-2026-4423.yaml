@@ -1,0 +1,23 @@
+id: GO-2026-4423
+modules:
+    - module: k8s.io/ingress-nginx
+      non_go_versions:
+        - fixed: 1.13.7
+        - introduced: 1.14.0
+        - fixed: 1.14.3
+      vulnerable_at: 0.0.0-20260204133233-322b8a417be7
+summary: |-
+    ingress-nginx's `nginx.ingress.kubernetes.io/auth-method` Ingress annotation can
+    be used to inject configuration into nginx in k8s.io/ingress-nginx
+cves:
+    - CVE-2026-1580
+ghsas:
+    - GHSA-9h3p-52vh-959w
+references:
+    - advisory: https://github.com/advisories/GHSA-9h3p-52vh-959w
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-1580
+    - web: https://github.com/kubernetes/kubernetes/issues/136677
+source:
+    id: GHSA-9h3p-52vh-959w
+    created: 2026-02-04T17:36:03.960223134-05:00
+review_status: UNREVIEWED
