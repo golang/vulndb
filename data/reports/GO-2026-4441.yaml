@@ -1,0 +1,33 @@
+id: GO-2026-4441
+modules:
+    - module: golang.org/x/net
+      versions:
+        - fixed: 0.45.0
+      vulnerable_at: 0.44.0
+      packages:
+        - package: golang.org/x/net/html
+          symbols:
+            - inRowIM
+          derived_symbols:
+            - Parse
+            - ParseFragment
+            - ParseFragmentWithOptions
+            - ParseWithOptions
+summary: Infinite parsing loop in golang.org/x/net
+description: |-
+    The html.Parse function in golang.org/x/net/html has an infinite parsing loop
+    when processing certain inputs, which can lead to denial of service (DoS) if an
+    attacker provides specially crafted HTML content.
+credits:
+    - Guido Vranken
+references:
+    - web: https://groups.google.com/g/golang-announce/c/jnQcOYpiR2c
+    - report: https://github.com/golang/vulndb/issues/4441
+    - fix: https://go.dev/cl/709875
+cve_metadata:
+    id: CVE-2025-58190
+    cwe: 'CWE-835: Loop with Unreachable Exit Condition'
+source:
+    id: go-security-team
+    created: 2026-02-05T08:30:52.058191-08:00
+review_status: REVIEWED
