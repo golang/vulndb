@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4337",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-68121"
+  ],
+  "summary": "Unexpected session resumption in crypto/tls",
+  "details": "During session resumption in crypto/tls, if the underlying Config has its ClientCAs or RootCAs fields mutated between the initial handshake and the resumed handshake, the resumed handshake may succeed when it should have failed. This may happen when a user calls Config.Clone and mutates the returned Config, or uses Config.GetConfigForClient. This can cause a client to resume a session with a server that it would not have resumed with during the initial handshake, or cause a server to resume a session with a client that it would not have resumed with during the initial handshake.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.24.13"
+            },
+            {
+              "introduced": "1.25.0-0"
+            },
+            {
+              "fixed": "1.25.7"
+            },
+            {
+              "introduced": "1.26.0-rc.1"
+            },
+            {
+              "fixed": "1.26.0-rc.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "crypto/tls",
+            "symbols": [
+              "Conn.Handshake",
+              "Conn.HandshakeContext",
+              "Conn.Read",
+              "Conn.Write",
+              "Conn.handshakeContext",
+              "Dial",
+              "DialWithDialer",
+              "Dialer.Dial",
+              "Dialer.DialContext",
+              "QUICConn.Start"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/K09ubi9FQFk"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/737700"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/77217"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Coia Prant (github.com/rbqvq)"
+    },
+    {
+      "name": "Go Security Team"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4337",
+    "review_status": "REVIEWED"
+  }
+}

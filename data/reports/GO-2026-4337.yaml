@@ -1,0 +1,48 @@
+id: GO-2026-4337
+modules:
+    - module: std
+      versions:
+        - fixed: 1.24.13
+        - introduced: 1.25.0-0
+        - fixed: 1.25.7
+        - introduced: 1.26.0-rc.1
+        - fixed: 1.26.0-rc.3
+      vulnerable_at: 1.25.6
+      packages:
+        - package: crypto/tls
+          symbols:
+            - Conn.handshakeContext
+          derived_symbols:
+            - Conn.Handshake
+            - Conn.HandshakeContext
+            - Conn.Read
+            - Conn.Write
+            - Dial
+            - DialWithDialer
+            - Dialer.Dial
+            - Dialer.DialContext
+            - QUICConn.Start
+summary: Unexpected session resumption in crypto/tls
+description: |-
+    During session resumption in crypto/tls, if the underlying Config has its
+    ClientCAs or RootCAs fields mutated between the initial handshake and the
+    resumed handshake, the resumed handshake may succeed when it should have failed.
+    This may happen when a user calls Config.Clone and mutates the returned Config,
+    or uses Config.GetConfigForClient. This can cause a client to resume a session
+    with a server that it would not have resumed with during the initial handshake,
+    or cause a server to resume a session with a client that it would not have
+    resumed with during the initial handshake.
+credits:
+    - Coia Prant (github.com/rbqvq)
+    - Go Security Team
+references:
+    - web: https://groups.google.com/g/golang-announce/c/K09ubi9FQFk
+    - fix: https://go.dev/cl/737700
+    - report: https://go.dev/issue/77217
+cve_metadata:
+    id: CVE-2025-68121
+    cwe: 'CWE-295: Improper Certificate Validation'
+source:
+    id: go-security-team
+    created: 2026-02-05T08:32:16.675503-08:00
+review_status: REVIEWED
