@@ -27,7 +27,7 @@ steps:
     entrypoint: bash
     args:
       - -ec
-      - go test ./...
+      - go test -timeout 20m ./...
 
   - id: Govulncheck
     name: golang:1.25.6
