@@ -1,0 +1,22 @@
+id: GO-2026-4478
+modules:
+    - module: github.com/mattermost/mattermost-server
+      non_go_versions:
+        - fixed: 3.8.1-0.20170504181128-4f074fed0d65
+      vulnerable_at: 11.4.0+incompatible
+summary: |-
+    Mattermost Server SAML implementation does not require encryption or signature
+    verification as default in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2017-18909
+ghsas:
+    - GHSA-r6j5-fqx9-7qv9
+references:
+    - advisory: https://github.com/advisories/GHSA-r6j5-fqx9-7qv9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-18909
+    - web: https://github.com/mattermost/mattermost/commit/4f074fed0d653a28779ac586e418341232d43e95
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-r6j5-fqx9-7qv9
+    created: 2026-02-13T20:20:53.372490492Z
+review_status: UNREVIEWED

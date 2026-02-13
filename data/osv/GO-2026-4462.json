@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4462",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2017-18915",
+    "GHSA-hxxj-8phw-74vw"
+  ],
+  "summary": "Mattermost Server server restarts may provide attackers with API access in github.com/mattermost/mattermost-server",
+  "details": "Mattermost Server server restarts may provide attackers with API access in github.com/mattermost/mattermost-server.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/mattermost/mattermost-server before v3.6.7-0.20170420152529-0968e4079e0a.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "3.7.0+incompatible"
+            },
+            {
+              "fixed": "3.7.5+incompatible"
+            },
+            {
+              "introduced": "3.8.0+incompatible"
+            },
+            {
+              "fixed": "3.8.2+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "3.6.7-0.20170420152529-0968e4079e0a"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-hxxj-8phw-74vw"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2017-18915"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/0968e4079e0aa670254f3fe3a7248d126e3cf877"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/c7bdce8a6641ed8d361a43b6004a351535c78423"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/fb325cc339eb8d8efb60dbadc48fd38897201c6f"
+    },
+    {
+      "type": "WEB",
+      "url": "https://mattermost.com/security-updates"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4462",
+    "review_status": "UNREVIEWED"
+  }
+}

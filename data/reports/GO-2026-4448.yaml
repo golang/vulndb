@@ -1,0 +1,19 @@
+id: GO-2026-4448
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.13.4
+      vulnerable_at: 0.13.3
+summary: Gogs's update .git/config file allows remote command execution in gogs.io/gogs
+cves:
+    - CVE-2025-64111
+ghsas:
+    - GHSA-gg64-xxr9-qhjp
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-gg64-xxr9-qhjp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-64111
+    - web: https://github.com/gogs/gogs/blob/d940e692ec58abd45e648c054d7dfd88909034ec/internal/route/api/v1/repo/contents.go#L197-L206
+source:
+    id: GHSA-gg64-xxr9-qhjp
+    created: 2026-02-13T20:23:43.317774707Z
+review_status: UNREVIEWED

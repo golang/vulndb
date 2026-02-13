@@ -1,0 +1,22 @@
+id: GO-2026-4449
+modules:
+    - module: gogs.io/gogs
+      versions:
+        - introduced: 0.11.19
+      non_go_versions:
+        - fixed: 0.13.4
+      vulnerable_at: 0.13.3
+summary: Gogs Vulnerable to 2FA Bypass via Recovery Code in gogs.io/gogs
+cves:
+    - CVE-2025-64175
+ghsas:
+    - GHSA-p6x6-9mx6-26wj
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-p6x6-9mx6-26wj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-64175
+    - web: https://github.com/gogs/gogs/commit/a617d52374e937db0edacfba2a26bdd14a05538e
+    - web: https://github.com/gogs/gogs/commit/d568e048315dc9729c8518d8085cab7dbbfac80f
+source:
+    id: GHSA-p6x6-9mx6-26wj
+    created: 2026-02-13T20:23:37.498331052Z
+review_status: UNREVIEWED

@@ -1,0 +1,26 @@
+id: GO-2026-4461
+modules:
+    - module: antrea.io/antrea
+      non_go_versions:
+        - fixed: 2.3.2
+        - introduced: 2.4.0
+        - fixed: 2.4.3
+      vulnerable_at: 1.15.2
+summary: |-
+    Antrea has invalid enforcement order for network policy rules caused by integer
+    overflow in antrea.io/antrea
+cves:
+    - CVE-2026-25804
+ghsas:
+    - GHSA-86x4-wp9f-wrr9
+references:
+    - advisory: https://github.com/antrea-io/antrea/security/advisories/GHSA-86x4-wp9f-wrr9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-25804
+    - web: https://gist.github.com/antoninbas/c429cc3e5bb8479ba7ff38fd6fde59d9
+    - web: https://github.com/antrea-io/antrea/blob/main/docs/antrea-network-policy.md
+    - web: https://github.com/antrea-io/antrea/commit/86c4b6010f3be536866f339b632621c23d7186fa
+    - web: https://github.com/antrea-io/antrea/pull/7496
+source:
+    id: GHSA-86x4-wp9f-wrr9
+    created: 2026-02-13T20:22:30.410587594Z
+review_status: UNREVIEWED

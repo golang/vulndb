@@ -1,0 +1,20 @@
+id: GO-2026-4490
+modules:
+    - module: github.com/neuvector/scanner
+      non_go_versions:
+        - fixed: "4.072"
+        - introduced: 4.0.0
+      vulnerable_at: 0.0.0-test
+summary: NeuVector scanner insecurely handles passwords as command arguments in github.com/neuvector/scanner
+cves:
+    - CVE-2025-67860
+ghsas:
+    - GHSA-3c9m-gq32-g4jx
+references:
+    - advisory: https://github.com/neuvector/scanner/security/advisories/GHSA-3c9m-gq32-g4jx
+    - fix: https://github.com/neuvector/scanner/commit/c2f0f9268468e49eb3addea923156123c4465794
+    - web: https://github.com/neuvector/scanner/releases/tag/v4.072
+source:
+    id: GHSA-3c9m-gq32-g4jx
+    created: 2026-02-13T20:19:17.164499302Z
+review_status: UNREVIEWED

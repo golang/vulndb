@@ -1,0 +1,21 @@
+id: GO-2026-4451
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.13.4
+      vulnerable_at: 0.13.3
+summary: Gogs has a Denial of Service issue in gogs.io/gogs
+cves:
+    - CVE-2026-22592
+ghsas:
+    - GHSA-cr88-6mqm-4g57
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-cr88-6mqm-4g57
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-22592
+    - web: https://github.com/gogs/gogs/blob/4cc83c498b6ae59356a04912d68a932165bad5e6/internal/database/mirror.go#L269-L278
+    - web: https://github.com/gogs/gogs/blob/4cc83c498b6ae59356a04912d68a932165bad5e6/internal/database/mirror.go#L333-L337
+    - web: https://github.com/gogs/gogs/commit/961a79e8f9f2b3190ea804bcf635e4b43b123272
+source:
+    id: GHSA-cr88-6mqm-4g57
+    created: 2026-02-13T20:23:26.761959664Z
+review_status: UNREVIEWED

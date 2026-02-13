@@ -1,0 +1,26 @@
+id: GO-2026-4463
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 3.8.0+incompatible
+        - fixed: 3.8.2+incompatible
+      non_go_versions:
+        - fixed: 3.7.5-0.20170421192444-247cd1e51a8c
+      vulnerable_at: 3.8.2-rc1+incompatible
+summary: |-
+    Mattermost Server uses weak hashing for OAuth, email verification tokens and
+    invitations in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2017-18917
+ghsas:
+    - GHSA-jxc4-w54c-qv5r
+references:
+    - advisory: https://github.com/advisories/GHSA-jxc4-w54c-qv5r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-18917
+    - web: https://github.com/mattermost/mattermost/commit/247cd1e51a8c943628dc650e87e794b06aad4c2b
+    - web: https://github.com/mattermost/mattermost/commit/b74e85653660525d351d090a1e1874ae933bcbc8
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-jxc4-w54c-qv5r
+    created: 2026-02-13T20:22:15.326510646Z
+review_status: UNREVIEWED

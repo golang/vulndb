@@ -1,0 +1,21 @@
+id: GO-2026-4480
+modules:
+    - module: code.vikunja.io/api
+      unsupported_versions:
+        - last_affected: 0.24.6
+      vulnerable_at: 0.24.6
+summary: Vikunja Vulnerable to XSS Via Task Preview in code.vikunja.io/api
+cves:
+    - CVE-2026-25935
+ghsas:
+    - GHSA-m4g2-2q66-vc9v
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-m4g2-2q66-vc9v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-25935
+    - web: https://github.com/go-vikunja/vikunja/commit/dd0b82f00a8c9ded1c19a1e643a197c514be6d37
+    - web: https://github.com/go-vikunja/vikunja/releases/tag/v1.1.0
+    - web: https://vikunja.io/changelog/vikunja-v1.1.0-was-released
+source:
+    id: GHSA-m4g2-2q66-vc9v
+    created: 2026-02-13T20:20:37.556433339Z
+review_status: UNREVIEWED

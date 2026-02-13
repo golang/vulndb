@@ -1,0 +1,18 @@
+id: GO-2026-4454
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.13.4
+      vulnerable_at: 0.13.3
+summary: Gogs vulnerable to Stored XSS via Mermaid diagrams in gogs.io/gogs
+ghsas:
+    - GHSA-26gq-grmh-6xm6
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-26gq-grmh-6xm6
+    - web: https://github.com/gogs/gogs/commit/71a72a72ad1c8cea7940c9d7e4cbdfbc0fc3d401
+    - web: https://github.com/mermaid-js/mermaid/security/advisories/GHSA-7rqq-prvp-x9jh
+    - web: https://github.com/mermaid-js/mermaid/security/advisories/GHSA-8gwm-58g9-j8pw
+source:
+    id: GHSA-26gq-grmh-6xm6
+    created: 2026-02-13T20:23:14.430055837Z
+review_status: UNREVIEWED

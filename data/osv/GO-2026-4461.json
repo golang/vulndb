@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4461",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-25804",
+    "GHSA-86x4-wp9f-wrr9"
+  ],
+  "summary": "Antrea has invalid enforcement order for network policy rules caused by integer overflow in antrea.io/antrea",
+  "details": "Antrea has invalid enforcement order for network policy rules caused by integer overflow in antrea.io/antrea.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: antrea.io/antrea before v2.3.2, from v2.4.0 before v2.4.3.",
+  "affected": [
+    {
+      "package": {
+        "name": "antrea.io/antrea",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "2.3.2"
+              },
+              {
+                "introduced": "2.4.0"
+              },
+              {
+                "fixed": "2.4.3"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/antrea-io/antrea/security/advisories/GHSA-86x4-wp9f-wrr9"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-25804"
+    },
+    {
+      "type": "WEB",
+      "url": "https://gist.github.com/antoninbas/c429cc3e5bb8479ba7ff38fd6fde59d9"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/antrea-io/antrea/blob/main/docs/antrea-network-policy.md"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/antrea-io/antrea/commit/86c4b6010f3be536866f339b632621c23d7186fa"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/antrea-io/antrea/pull/7496"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4461",
+    "review_status": "UNREVIEWED"
+  }
+}

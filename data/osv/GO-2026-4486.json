@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4486",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-24895",
+    "GHSA-g966-83w7-6w38"
+  ],
+  "summary": "FrankenPHP's unicode case-folding length expansion causes incorrect split_path index (SCRIPT_NAME/PATH_INFO confusion) in FrankenPHP in github.com/dunglas/frankenphp",
+  "details": "FrankenPHP's unicode case-folding length expansion causes incorrect split_path index (SCRIPT_NAME/PATH_INFO confusion) in FrankenPHP in github.com/dunglas/frankenphp",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/dunglas/frankenphp",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.11.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/php/frankenphp/security/advisories/GHSA-g966-83w7-6w38"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-24895"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/php/frankenphp/commit/04fdc0c1e8fde94e2c1ad86217e962c88d27c53e"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/php/frankenphp/releases/tag/v1.11.2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4486",
+    "review_status": "UNREVIEWED"
+  }
+}

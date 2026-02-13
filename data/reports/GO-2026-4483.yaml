@@ -1,0 +1,19 @@
+id: GO-2026-4483
+modules:
+    - module: github.com/quic-go/webtransport-go
+      versions:
+        - fixed: 0.10.0
+      vulnerable_at: 0.9.0
+summary: 'webtransport-go: Memory Exhaustion Attack due to Missing Cleanup of Streams Map in github.com/quic-go/webtransport-go'
+cves:
+    - CVE-2026-21438
+ghsas:
+    - GHSA-2f2x-8mwp-p2gc
+references:
+    - advisory: https://github.com/quic-go/webtransport-go/security/advisories/GHSA-2f2x-8mwp-p2gc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-21438
+    - web: https://github.com/quic-go/webtransport-go/releases/tag/v0.10.0
+source:
+    id: GHSA-2f2x-8mwp-p2gc
+    created: 2026-02-13T20:20:16.757701114Z
+review_status: UNREVIEWED

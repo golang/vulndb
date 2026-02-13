@@ -1,0 +1,27 @@
+id: GO-2026-4477
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 3.10.0+incompatible
+        - fixed: 3.10.2+incompatible
+      non_go_versions:
+        - fixed: 3.9.2-0.20170714134023-b17fca0d5ee7
+      vulnerable_at: 3.10.1+incompatible
+summary: |-
+    Mattermost Server vulnerable to user account takeover when Single Sign-On OAuth2
+    is used in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2017-18906
+ghsas:
+    - GHSA-fpcr-4rr5-hpcp
+references:
+    - advisory: https://github.com/advisories/GHSA-fpcr-4rr5-hpcp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-18906
+    - web: https://github.com/mattermost/mattermost/commit/259ad46f30d0fac2f7c5c14f3b76b2170f7e90c7
+    - web: https://github.com/mattermost/mattermost/commit/b17fca0d5ee7557e3df1cf1d1da8bd749859e35f
+    - web: https://github.com/mattermost/mattermost/commit/fbc170733e86f09b46ba754dd03304733d2f482f
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-fpcr-4rr5-hpcp
+    created: 2026-02-13T20:20:58.342954541Z
+review_status: UNREVIEWED

@@ -1,0 +1,22 @@
+id: GO-2026-4475
+modules:
+    - module: github.com/filebrowser/filebrowser
+      vulnerable_at: 1.11.0
+    - module: github.com/filebrowser/filebrowser/v2
+      versions:
+        - fixed: 2.57.1
+      vulnerable_at: 2.57.0
+summary: File Browser has an Authentication Bypass in User Password Update in github.com/filebrowser/filebrowser
+cves:
+    - CVE-2026-25889
+ghsas:
+    - GHSA-hxw8-4h9j-hq2r
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-hxw8-4h9j-hq2r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-25889
+    - fix: https://github.com/filebrowser/filebrowser/commit/ff2f00498cff151e2fb1f5f0b16963bf33c3d6d4
+    - web: https://github.com/filebrowser/filebrowser/releases/tag/v2.57.1
+source:
+    id: GHSA-hxw8-4h9j-hq2r
+    created: 2026-02-13T20:21:10.628238316Z
+review_status: UNREVIEWED

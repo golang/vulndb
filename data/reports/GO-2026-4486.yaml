@@ -1,0 +1,22 @@
+id: GO-2026-4486
+modules:
+    - module: github.com/dunglas/frankenphp
+      versions:
+        - fixed: 1.11.2
+      vulnerable_at: 1.11.1
+summary: |-
+    FrankenPHP's unicode case-folding length expansion causes incorrect split_path
+    index (SCRIPT_NAME/PATH_INFO confusion) in FrankenPHP in github.com/dunglas/frankenphp
+cves:
+    - CVE-2026-24895
+ghsas:
+    - GHSA-g966-83w7-6w38
+references:
+    - advisory: https://github.com/php/frankenphp/security/advisories/GHSA-g966-83w7-6w38
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-24895
+    - web: https://github.com/php/frankenphp/commit/04fdc0c1e8fde94e2c1ad86217e962c88d27c53e
+    - web: https://github.com/php/frankenphp/releases/tag/v1.11.2
+source:
+    id: GHSA-g966-83w7-6w38
+    created: 2026-02-13T20:20:00.906927953Z
+review_status: UNREVIEWED

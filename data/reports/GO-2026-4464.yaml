@@ -1,0 +1,26 @@
+id: GO-2026-4464
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 3.6.7-rc1+incompatible
+        - introduced: 3.7.0+incompatible
+        - fixed: 3.7.5+incompatible
+        - introduced: 3.8.0+incompatible
+        - fixed: 3.8.2+incompatible
+      vulnerable_at: 3.8.2-rc1+incompatible
+summary: Mattermost Server has X.509 Improper Certificate Validation in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2017-18911
+ghsas:
+    - GHSA-m462-mqw4-2c8m
+references:
+    - advisory: https://github.com/advisories/GHSA-m462-mqw4-2c8m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-18911
+    - web: https://github.com/mattermost/mattermost/commit/222bce0c5c1abb2f58c3a6de1fe8c5d3accffb21
+    - web: https://github.com/mattermost/mattermost/commit/691c18157025d4808b5b11de1d6de01050e54fa6
+    - web: https://github.com/mattermost/mattermost/commit/e9bb8cdfb4915067349a4840ab15ff941c4eb070
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-m462-mqw4-2c8m
+    created: 2026-02-13T20:22:08.945039933Z
+review_status: UNREVIEWED

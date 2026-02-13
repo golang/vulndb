@@ -1,0 +1,23 @@
+id: GO-2026-4444
+modules:
+    - module: github.com/opencloud-eu/reva
+      vulnerable_at: 1.29.0
+    - module: github.com/opencloud-eu/reva/v2
+      versions:
+        - fixed: 2.40.3
+        - introduced: 2.41.0
+        - fixed: 2.42.3
+      vulnerable_at: 2.42.2
+summary: OpenCloud Reva has a Public Link Exploit in github.com/opencloud-eu/reva
+cves:
+    - CVE-2026-23989
+ghsas:
+    - GHSA-9j2f-3rj3-wgpg
+references:
+    - advisory: https://github.com/opencloud-eu/reva/security/advisories/GHSA-9j2f-3rj3-wgpg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-23989
+    - fix: https://github.com/opencloud-eu/reva/commit/95aa2bc5d980eaf6cc134d75782b4f5ac7b36ae1
+source:
+    id: GHSA-9j2f-3rj3-wgpg
+    created: 2026-02-13T20:24:20.804320291Z
+review_status: UNREVIEWED

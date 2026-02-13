@@ -1,0 +1,27 @@
+id: GO-2026-4462
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 3.7.0+incompatible
+        - fixed: 3.7.5+incompatible
+        - introduced: 3.8.0+incompatible
+        - fixed: 3.8.2+incompatible
+      non_go_versions:
+        - fixed: 3.6.7-0.20170420152529-0968e4079e0a
+      vulnerable_at: 3.8.2-rc1+incompatible
+summary: Mattermost Server server restarts may provide attackers with API access in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2017-18915
+ghsas:
+    - GHSA-hxxj-8phw-74vw
+references:
+    - advisory: https://github.com/advisories/GHSA-hxxj-8phw-74vw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-18915
+    - web: https://github.com/mattermost/mattermost/commit/0968e4079e0aa670254f3fe3a7248d126e3cf877
+    - web: https://github.com/mattermost/mattermost/commit/c7bdce8a6641ed8d361a43b6004a351535c78423
+    - web: https://github.com/mattermost/mattermost/commit/fb325cc339eb8d8efb60dbadc48fd38897201c6f
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-hxxj-8phw-74vw
+    created: 2026-02-13T20:22:22.058025923Z
+review_status: UNREVIEWED

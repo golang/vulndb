@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4447",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-vf5j-r2hw-2hrw"
+  ],
+  "summary": "OpenCloud Affected by Public Link Exploit in github.com/opencloud-eu/opencloud",
+  "details": "OpenCloud Affected by Public Link Exploit in github.com/opencloud-eu/opencloud.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/opencloud-eu/opencloud from v4.0.0 before v4.0.3, from v5.0.0 before v5.0.2.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/opencloud-eu/opencloud",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "4.0.0"
+              },
+              {
+                "fixed": "4.0.3"
+              },
+              {
+                "introduced": "5.0.0"
+              },
+              {
+                "fixed": "5.0.2"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/opencloud-eu/opencloud/security/advisories/GHSA-vf5j-r2hw-2hrw"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4447",
+    "review_status": "UNREVIEWED"
+  }
+}

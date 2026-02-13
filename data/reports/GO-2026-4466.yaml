@@ -1,0 +1,22 @@
+id: GO-2026-4466
+modules:
+    - module: github.com/bishopfox/sliver
+      non_go_versions:
+        - fixed: 1.6.12
+      vulnerable_at: 1.7.1
+summary: |-
+    Sliver has DNS C2 OTP Bypass that Allows Unauthenticated Session Flooding and
+    Denial of Service in github.com/bishopfox/sliver
+cves:
+    - CVE-2026-25791
+ghsas:
+    - GHSA-wxrw-gvg8-fqjp
+references:
+    - advisory: https://github.com/BishopFox/sliver/security/advisories/GHSA-wxrw-gvg8-fqjp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-25791
+    - web: https://github.com/BishopFox/sliver/commit/2b65089b27c553e79e69f1067cad1339e4f3d937
+    - web: https://github.com/BishopFox/sliver/releases/tag/v1.7.0
+source:
+    id: GHSA-wxrw-gvg8-fqjp
+    created: 2026-02-13T20:21:58.94239393Z
+review_status: UNREVIEWED

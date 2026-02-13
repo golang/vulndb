@@ -1,0 +1,24 @@
+id: GO-2026-4484
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      vulnerable_at: 2.11.37
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - fixed: 3.6.8
+      vulnerable_at: 3.6.7
+summary: 'Traefik: TCP readTimeout bypass via STARTTLS on Postgres in github.com/traefik/traefik'
+cves:
+    - CVE-2026-25949
+ghsas:
+    - GHSA-89p3-4642-cr2w
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-89p3-4642-cr2w
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-25949
+    - fix: https://github.com/traefik/traefik/commit/31e566e9f1d7888ccb6fbc18bfed427203c35678
+    - web: https://github.com/traefik/traefik/releases/tag/v3.6.8
+source:
+    id: GHSA-89p3-4642-cr2w
+    created: 2026-02-13T20:20:11.535480058Z
+review_status: UNREVIEWED

@@ -1,0 +1,21 @@
+id: GO-2026-4456
+modules:
+    - module: github.com/mattermost/mattermost-plugin-confluence
+      versions:
+        - fixed: 1.7.0
+      vulnerable_at: 1.7.0-rc1
+summary: |-
+    Mattermost Confluence plugin doesn't properly escape user-controlled display
+    names in HTML template rendering in github.com/mattermost/mattermost-plugin-confluence
+cves:
+    - CVE-2025-13523
+ghsas:
+    - GHSA-ffx7-34p2-vm3w
+references:
+    - advisory: https://github.com/advisories/GHSA-ffx7-34p2-vm3w
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-13523
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-ffx7-34p2-vm3w
+    created: 2026-02-13T20:23:06.220885216Z
+review_status: UNREVIEWED

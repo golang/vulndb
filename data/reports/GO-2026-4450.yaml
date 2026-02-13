@@ -1,0 +1,20 @@
+id: GO-2026-4450
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.13.4
+      vulnerable_at: 0.13.3
+summary: Gogs user can update repository content with read-only permission in gogs.io/gogs
+cves:
+    - CVE-2026-23632
+ghsas:
+    - GHSA-5qhx-gwfj-6jqr
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-5qhx-gwfj-6jqr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-23632
+    - web: https://github.com/gogs/gogs/pull/8102/commits/b6afcdb2e8d291e2adaaf6a8b7f88d240606515d
+    - web: https://github.com/gogs/gogs/releases/tag/v0.13.4
+source:
+    id: GHSA-5qhx-gwfj-6jqr
+    created: 2026-02-13T20:23:31.740652625Z
+review_status: UNREVIEWED

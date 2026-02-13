@@ -1,0 +1,19 @@
+id: GO-2026-4457
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.13.4
+      vulnerable_at: 0.13.3
+summary: Gogs has authorization bypass in repository deletion API in gogs.io/gogs
+cves:
+    - CVE-2025-65852
+ghsas:
+    - GHSA-rjv5-9px2-fqw6
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-rjv5-9px2-fqw6
+    - web: https://github.com/gogs/gogs/commit/961a79e8f9f2b3190ea804bcf635e4b43b123272
+    - web: https://github.com/gogs/gogs/releases/tag/v0.13.4
+source:
+    id: GHSA-rjv5-9px2-fqw6
+    created: 2026-02-13T20:22:59.486517108Z
+review_status: UNREVIEWED

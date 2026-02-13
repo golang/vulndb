@@ -1,0 +1,21 @@
+id: GO-2026-4465
+modules:
+    - module: github.com/authzed/spicedb
+      versions:
+        - fixed: 1.49.1
+      non_go_versions:
+        - introduced: 1.29.3
+      vulnerable_at: 1.49.0
+summary: |-
+    LookupResources Cursor section tampering can crash SpiceDB process via
+    tuple.MustParse panic in github.com/authzed/spicedb
+ghsas:
+    - GHSA-vhvq-fv9f-wh4q
+references:
+    - advisory: https://github.com/authzed/spicedb/security/advisories/GHSA-vhvq-fv9f-wh4q
+    - fix: https://github.com/authzed/spicedb/commit/fa1d7f48107e0c6c35e6a7862aa983366e70208f
+    - fix: https://github.com/authzed/spicedb/pull/2878
+source:
+    id: GHSA-vhvq-fv9f-wh4q
+    created: 2026-02-13T20:22:04.388228109Z
+review_status: UNREVIEWED

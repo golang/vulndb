@@ -1,0 +1,23 @@
+id: GO-2026-4481
+modules:
+    - module: github.com/milvus-io/milvus
+      non_go_versions:
+        - fixed: 2.5.27
+        - introduced: 2.6.0
+        - fixed: 2.6.10
+      vulnerable_at: 1.1.1
+summary: |-
+    Milvus: Unauthenticated Access to Restful API on Metrics Port (9091) Leads to
+    Critical System Compromise in github.com/milvus-io/milvus
+cves:
+    - CVE-2026-26190
+ghsas:
+    - GHSA-7ppg-37fh-vcr6
+references:
+    - advisory: https://github.com/milvus-io/milvus/security/advisories/GHSA-7ppg-37fh-vcr6
+    - web: https://github.com/milvus-io/milvus/releases/tag/v2.5.27
+    - web: https://github.com/milvus-io/milvus/releases/tag/v2.6.10
+source:
+    id: GHSA-7ppg-37fh-vcr6
+    created: 2026-02-13T20:20:20.792861847Z
+review_status: UNREVIEWED

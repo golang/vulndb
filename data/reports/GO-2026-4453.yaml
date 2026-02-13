@@ -1,0 +1,20 @@
+id: GO-2026-4453
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.13.4
+      vulnerable_at: 0.13.3
+summary: Gogs has arbitrary file read/write via Path Traversal in Git hook editing in gogs.io/gogs
+cves:
+    - CVE-2026-23633
+ghsas:
+    - GHSA-mrph-w4hh-gx3g
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-mrph-w4hh-gx3g
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-23633
+    - web: https://github.com/gogs/gogs/commit/4894629903f9508fe85567c44f68804f008f1655
+    - web: https://github.com/gogs/gogs/releases/tag/v0.13.4
+source:
+    id: GHSA-mrph-w4hh-gx3g
+    created: 2026-02-13T20:23:17.68353786Z
+review_status: UNREVIEWED

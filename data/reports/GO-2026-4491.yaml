@@ -1,0 +1,19 @@
+id: GO-2026-4491
+modules:
+    - module: github.com/yokecd/yoke
+      unsupported_versions:
+        - last_affected: 0.19.0
+      vulnerable_at: 0.20.1
+summary: Unauthenticated Admission Webhook Endpoints in Yoke ATC in github.com/yokecd/yoke
+cves:
+    - CVE-2026-26055
+ghsas:
+    - GHSA-965m-v4cc-6334
+references:
+    - advisory: https://github.com/yokecd/yoke/security/advisories/GHSA-965m-v4cc-6334
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-26055
+    - web: https://github.com/yokecd/yoke/blob/bc9c576a790df8c42aa06b90fb406220f1de22a0/cmd/atc/handler.go#L148-L153
+source:
+    id: GHSA-965m-v4cc-6334
+    created: 2026-02-13T20:19:12.298536618Z
+review_status: UNREVIEWED

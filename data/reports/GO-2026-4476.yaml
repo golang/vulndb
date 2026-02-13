@@ -1,0 +1,26 @@
+id: GO-2026-4476
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 3.9.1-rc1+incompatible
+        - introduced: 3.10.0+incompatible
+        - fixed: 3.10.1+incompatible
+      vulnerable_at: 3.10.0+incompatible
+summary: |-
+    Mattermost Server password reset email requests can be sent to attacker-provided
+    email addresses in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2017-18908
+ghsas:
+    - GHSA-34cx-hvm4-vx7j
+references:
+    - advisory: https://github.com/advisories/GHSA-34cx-hvm4-vx7j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-18908
+    - web: https://github.com/mattermost/mattermost/commit/59139390ae927af2e879dbacfe4dadb1adac97c0
+    - web: https://github.com/mattermost/mattermost/commit/d3bc11be3acd3a73e6358d958b91427e2584ea71
+    - web: https://github.com/mattermost/mattermost/commit/e5065cf7575ee05c040945a4b00b7fd90bf39b83
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-34cx-hvm4-vx7j
+    created: 2026-02-13T20:21:04.788980865Z
+review_status: UNREVIEWED

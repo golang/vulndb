@@ -1,0 +1,20 @@
+id: GO-2026-4487
+modules:
+    - module: github.com/mattermost/mattermost-server
+      non_go_versions:
+        - fixed: 3.7.4-0.20170404171331-0b5c0794fdcb
+      vulnerable_at: 11.4.0+incompatible
+summary: Mattermost Server allows an attacker to specify a full pathname of a log file in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2017-18912
+ghsas:
+    - GHSA-m2ch-x2q7-2284
+references:
+    - advisory: https://github.com/advisories/GHSA-m2ch-x2q7-2284
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-18912
+    - web: https://github.com/mattermost/mattermost/commit/0b5c0794fdcbb551c1233dcdfbdf5c7deb585fd6
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-m2ch-x2q7-2284
+    created: 2026-02-13T20:19:44.0829483Z
+review_status: UNREVIEWED
