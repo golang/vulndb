@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4503",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-26958"
+  ],
+  "summary": "Invalid result or undefined behavior in filippo.io/edwards25519",
+  "details": "Previously, if MultiScalarMult was invoked on an initialized point who was not the identity point, MultiScalarMult produced an incorrect result. If called on an uninitialized point, MultiScalarMult exhibited undefined behavior.",
+  "affected": [
+    {
+      "package": {
+        "name": "filippo.io/edwards25519",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.1.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "filippo.io/edwards25519",
+            "symbols": [
+              "Point.MultiScalarMult"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/FiloSottile/edwards25519/security/advisories/GHSA-fw7p-63qq-7hpr"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/FiloSottile/edwards25519/commit/d1c650afb95fad0742b98d95f2eb2cf031393abb"
+    }
+  ],
+  "credits": [
+    {
+      "name": "shaharcohen1"
+    },
+    {
+      "name": "WeebDataHoarder"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4503",
+    "review_status": "REVIEWED"
+  }
+}
