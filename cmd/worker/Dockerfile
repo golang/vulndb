@@ -5,7 +5,7 @@
 # This Dockerfile expects the build context to be the repo root.
 
 ################################################################
-FROM golang:1.25.6 AS builder
+FROM golang:1.26.0 AS builder
 # If you change the Go version above, change the FROM line below as well.
 
 # Set the working directory outside $GOPATH to ensure module mode is enabled.
@@ -28,7 +28,7 @@ COPY . /src
 RUN go build -mod=readonly ./cmd/worker
 
 ################################################################
-FROM golang:1.25.6
+FROM golang:1.26.0
 
 LABEL maintainer="Go VulnDB Team <go-vulndb-team@google.com>"
 
