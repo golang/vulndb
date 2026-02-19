@@ -1,0 +1,25 @@
+id: GO-2026-4485
+modules:
+    - module: github.com/quic-go/webtransport-go
+      versions:
+        - fixed: 0.10.0
+    - module: github.com/marten-seemann/webtransport-go
+      versions:
+        - introduced: 0.3.0
+summary: |-
+    webtransport-go: Memory Exhaustion Attack due to Missing Length Check in
+    WT_CLOSE_SESSION Capsule in github.com/quic-go/webtransport-go
+cves:
+    - CVE-2026-21434
+ghsas:
+    - GHSA-g6x7-jq8p-6q9q
+references:
+    - advisory: https://github.com/quic-go/webtransport-go/security/advisories/GHSA-g6x7-jq8p-6q9q
+    - web: https://github.com/quic-go/webtransport-go/releases/tag/v0.10.0
+notes:
+    - lint: 'modules[0] "github.com/quic-go/webtransport-go": module is not canonical at 1 version(s): 0.3.0 (canonical:github.com/marten-seemann/webtransport-go)'
+    - fix: 'github.com/quic-go/webtransport-go: could not add vulnerable_at: module is not canonical at 1 version(s): 0.3.0 (canonical:github.com/marten-seemann/webtransport-go)'
+source:
+    id: GHSA-g6x7-jq8p-6q9q
+    created: 2026-02-12T14:11:44.044268-05:00
+review_status: UNREVIEWED

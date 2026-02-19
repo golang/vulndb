@@ -1,0 +1,29 @@
+id: GO-2026-4399
+modules:
+    - module: github.com/cert-manager/cert-manager
+      versions:
+        - introduced: 1.18.0
+        - fixed: 1.18.5
+        - introduced: 1.19.0
+        - fixed: 1.19.3
+      vulnerable_at: 1.19.2
+summary: cert-manager-controller DoS via Specially Crafted DNS Response in github.com/cert-manager/cert-manager
+cves:
+    - CVE-2026-25518
+ghsas:
+    - GHSA-gx3x-vq4p-mhhv
+references:
+    - advisory: https://github.com/cert-manager/cert-manager/security/advisories/GHSA-gx3x-vq4p-mhhv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-25518
+    - fix: https://github.com/cert-manager/cert-manager/commit/409fc24e539711a07aae45ed45abbe03dfdad2cc
+    - fix: https://github.com/cert-manager/cert-manager/commit/9a73a0b3853035827edd37ac463e4803ba10327d
+    - fix: https://github.com/cert-manager/cert-manager/commit/d4faed26ae12115cceb807cdc12507ebc28980e2
+    - fix: https://github.com/cert-manager/cert-manager/pull/8467
+    - fix: https://github.com/cert-manager/cert-manager/pull/8468
+    - fix: https://github.com/cert-manager/cert-manager/pull/8469
+notes:
+    - create: failed to auto-populate symbols
+source:
+    id: GHSA-gx3x-vq4p-mhhv
+    created: 2026-02-12T14:15:49.452933-05:00
+review_status: NEEDS_REVIEW

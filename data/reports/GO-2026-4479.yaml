@@ -1,0 +1,39 @@
+id: GO-2026-4479
+modules:
+    - module: github.com/pion/dtls
+      vulnerable_at: 1.5.4
+    - module: github.com/pion/dtls/v2
+      vulnerable_at: 2.2.12
+    - module: github.com/pion/dtls/v3
+      versions:
+        - introduced: 3.0.10
+        - fixed: 3.0.11
+        - introduced: 3.1.0
+        - fixed: 3.1.1
+      vulnerable_at: 3.1.0
+      packages:
+        - package: github.com/pion/dtls/v3/pkg/crypto/ciphersuite
+          symbols:
+            - aead.encrypt
+summary: |-
+    Usage of random nonce generation with AES GCM ciphers risks leaking
+    the authentication key in github.com/pion/dtls
+cves:
+    - CVE-2026-26014
+ghsas:
+    - GHSA-9f3f-wv7r-qc8r
+references:
+    - advisory: https://github.com/pion/dtls/security/advisories/GHSA-9f3f-wv7r-qc8r
+    - fix: https://github.com/pion/dtls/commit/61762dee8217991882c5eb79856b9e7a73ee349f
+    - fix: https://github.com/pion/dtls/pull/796
+    - web: https://github.com/pion/dtls/releases/tag/v3.1.0
+notes:
+    - create: failed to auto-populate symbols
+    - lint: 'modules[0] "github.com/pion/dtls": unsupported_versions: found 1 (want none)'
+    - lint: 'modules[0] "github.com/pion/dtls": versions: no latest fixed version (required for NEEDS_REVIEW report)'
+    - lint: 'modules[1] "github.com/pion/dtls/v2": unsupported_versions: found 1 (want none)'
+    - lint: 'modules[1] "github.com/pion/dtls/v2": versions: no latest fixed version (required for NEEDS_REVIEW report)'
+source:
+    id: GHSA-9f3f-wv7r-qc8r
+    created: 2026-02-12T14:12:06.837983-05:00
+review_status: REVIEWED

@@ -1,0 +1,24 @@
+id: GO-2026-4361
+modules:
+    - module: github.com/cometbft/cometbft
+      versions:
+        - fixed: 0.37.18
+        - introduced: 0.38.0-alpha.1
+        - fixed: 0.38.21
+      vulnerable_at: 0.38.20
+summary: |-
+    CometBFT has inconsistencies between how commit signatures are verified and how
+    block time is derived in github.com/cometbft/cometbft
+ghsas:
+    - GHSA-c32p-wcqj-j677
+references:
+    - advisory: https://github.com/cometbft/cometbft/security/advisories/GHSA-c32p-wcqj-j677
+    - fix: https://github.com/cometbft/cometbft/commit/bf8274fcdbcab2bc652660ae627196a90a6efb97
+    - web: https://github.com/cometbft/cometbft/releases/tag/v0.37.18
+    - web: https://github.com/cometbft/cometbft/releases/tag/v0.38.21
+notes:
+    - create: failed to auto-populate symbols
+source:
+    id: GHSA-c32p-wcqj-j677
+    created: 2026-02-12T14:16:40.002532-05:00
+review_status: NEEDS_REVIEW

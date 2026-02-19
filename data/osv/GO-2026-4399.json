@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4399",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-25518",
+    "GHSA-gx3x-vq4p-mhhv"
+  ],
+  "summary": "cert-manager-controller DoS via Specially Crafted DNS Response in github.com/cert-manager/cert-manager",
+  "details": "cert-manager-controller DoS via Specially Crafted DNS Response in github.com/cert-manager/cert-manager",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cert-manager/cert-manager",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.18.0"
+            },
+            {
+              "fixed": "1.18.5"
+            },
+            {
+              "introduced": "1.19.0"
+            },
+            {
+              "fixed": "1.19.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cert-manager/cert-manager/security/advisories/GHSA-gx3x-vq4p-mhhv"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-25518"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cert-manager/cert-manager/commit/409fc24e539711a07aae45ed45abbe03dfdad2cc"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cert-manager/cert-manager/commit/9a73a0b3853035827edd37ac463e4803ba10327d"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cert-manager/cert-manager/commit/d4faed26ae12115cceb807cdc12507ebc28980e2"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cert-manager/cert-manager/pull/8467"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cert-manager/cert-manager/pull/8468"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cert-manager/cert-manager/pull/8469"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4399",
+    "review_status": "UNREVIEWED"
+  }
+}

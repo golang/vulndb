@@ -1,0 +1,27 @@
+id: GO-2026-4392
+modules:
+    - module: github.com/chainguard-dev/bincapz
+      versions:
+        - introduced: 0.10.0
+      vulnerable_at: 1.20.5
+    - module: github.com/chainguard-dev/malcontent
+      versions:
+        - fixed: 1.20.3
+      vulnerable_at: 1.20.2
+summary: |-
+    malcontent OCI image pull credential exfiltration via malicious registry token
+    realm in github.com/chainguard-dev/malcontent
+cves:
+    - CVE-2026-24845
+ghsas:
+    - GHSA-9m43-p3cx-w8j5
+references:
+    - advisory: https://github.com/chainguard-dev/malcontent/security/advisories/GHSA-9m43-p3cx-w8j5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-24845
+    - fix: https://github.com/chainguard-dev/malcontent/commit/538ed00cdc639d687a4bd1e843a2be0428a3b3e7
+notes:
+    - lint: 'modules[0] "github.com/chainguard-dev/malcontent": module is not canonical at 1 version(s): 0.10.0 (canonical:github.com/chainguard-dev/bincapz)'
+source:
+    id: GHSA-9m43-p3cx-w8j5
+    created: 2026-02-12T14:16:35.404747-05:00
+review_status: UNREVIEWED

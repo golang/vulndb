@@ -1,0 +1,34 @@
+id: GO-2026-4358
+modules:
+    - module: github.com/sigstore/sigstore
+      versions:
+        - fixed: 1.10.4
+      vulnerable_at: 1.10.3
+      packages:
+        - package: github.com/sigstore/sigstore/pkg/tuf
+          symbols:
+            - diskCache.Set
+            - diskCache.Get
+          derived_symbols:
+            - GetRootStatus
+            - Initialize
+            - NewFromEnv
+            - NewSigstoreTufRepo
+            - TUF.GetTarget
+            - TUF.GetTargetsByMeta
+summary: |-
+    sigstore legacy TUF client allows for arbitrary file writes with target cache
+    path traversal in github.com/sigstore/sigstore
+cves:
+    - CVE-2026-24137
+ghsas:
+    - GHSA-fcv2-xgw5-pqxf
+references:
+    - advisory: https://github.com/sigstore/sigstore/security/advisories/GHSA-fcv2-xgw5-pqxf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-24137
+    - fix: https://github.com/sigstore/sigstore/commit/8ec410a2993ea78083aecf0e473a85453039496e
+    - web: https://github.com/sigstore/sigstore/releases/tag/v1.10.4
+source:
+    id: GHSA-fcv2-xgw5-pqxf
+    created: 2026-02-12T14:23:18.205827-05:00
+review_status: NEEDS_REVIEW

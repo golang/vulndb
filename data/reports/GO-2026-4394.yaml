@@ -1,0 +1,22 @@
+id: GO-2026-4394
+modules:
+    - module: go.opentelemetry.io/otel/sdk
+      versions:
+        - introduced: 1.21.0
+        - fixed: 1.40.0
+      vulnerable_at: 1.39.0
+summary: OpenTelemetry Go SDK Vulnerable to Arbitrary Code Execution via PATH Hijacking in go.opentelemetry.io/otel/sdk
+cves:
+    - CVE-2026-24051
+ghsas:
+    - GHSA-9h8m-3fm2-qjrq
+references:
+    - advisory: https://github.com/open-telemetry/opentelemetry-go/security/advisories/GHSA-9h8m-3fm2-qjrq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-24051
+    - web: https://github.com/open-telemetry/opentelemetry-go/commit/d45961bcda453fcbdb6469c22d6e88a1f9970a53
+notes:
+    - create: failed to auto-populate symbols
+source:
+    id: GHSA-9h8m-3fm2-qjrq
+    created: 2026-02-12T14:16:28.946419-05:00
+review_status: NEEDS_REVIEW

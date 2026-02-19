@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4479",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-26014",
+    "GHSA-9f3f-wv7r-qc8r"
+  ],
+  "summary": "Usage of random nonce generation with AES GCM ciphers risks leaking the authentication key in github.com/pion/dtls",
+  "details": "Usage of random nonce generation with AES GCM ciphers risks leaking the authentication key in github.com/pion/dtls",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/pion/dtls",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/pion/dtls/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/pion/dtls/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "3.0.10"
+            },
+            {
+              "fixed": "3.0.11"
+            },
+            {
+              "introduced": "3.1.0"
+            },
+            {
+              "fixed": "3.1.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/pion/dtls/v3/pkg/crypto/ciphersuite",
+            "symbols": [
+              "aead.encrypt"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/pion/dtls/security/advisories/GHSA-9f3f-wv7r-qc8r"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/pion/dtls/commit/61762dee8217991882c5eb79856b9e7a73ee349f"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/pion/dtls/pull/796"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/pion/dtls/releases/tag/v3.1.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4479",
+    "review_status": "REVIEWED"
+  }
+}

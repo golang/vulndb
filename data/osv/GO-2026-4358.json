@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4358",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-24137",
+    "GHSA-fcv2-xgw5-pqxf"
+  ],
+  "summary": "sigstore legacy TUF client allows for arbitrary file writes with target cache path traversal in github.com/sigstore/sigstore",
+  "details": "sigstore legacy TUF client allows for arbitrary file writes with target cache path traversal in github.com/sigstore/sigstore",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/sigstore/sigstore",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.10.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/sigstore/sigstore/pkg/tuf",
+            "symbols": [
+              "GetRootStatus",
+              "Initialize",
+              "NewFromEnv",
+              "NewSigstoreTufRepo",
+              "TUF.GetTarget",
+              "TUF.GetTargetsByMeta",
+              "diskCache.Get",
+              "diskCache.Set"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/sigstore/sigstore/security/advisories/GHSA-fcv2-xgw5-pqxf"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-24137"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/sigstore/sigstore/commit/8ec410a2993ea78083aecf0e473a85453039496e"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/sigstore/sigstore/releases/tag/v1.10.4"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4358",
+    "review_status": "UNREVIEWED"
+  }
+}
