@@ -1,0 +1,23 @@
+id: GO-2026-4530
+modules:
+    - module: github.com/traefik/traefik
+      unsupported_versions:
+        - last_affected: 1.7.34
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.37
+      vulnerable_at: 2.11.36
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - fixed: 3.6.8
+      vulnerable_at: 3.6.7
+summary: Traefik affected by TLS ClientAuth Bypass on HTTP/3 in github.com/traefik/traefik
+ghsas:
+    - GHSA-gv8r-9rw9-9697
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-gv8r-9rw9-9697
+source:
+    id: GHSA-gv8r-9rw9-9697
+    created: 2026-02-23T12:05:28.529348559-05:00
+review_status: UNREVIEWED

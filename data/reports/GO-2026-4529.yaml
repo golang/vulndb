@@ -1,0 +1,26 @@
+id: GO-2026-4529
+modules:
+    - module: github.com/sigstore/cosign
+      vulnerable_at: 1.13.6
+    - module: github.com/sigstore/cosign/v2
+      vulnerable_at: 2.6.2
+    - module: github.com/sigstore/cosign/v3
+      versions:
+        - fixed: 3.0.5
+      vulnerable_at: 3.0.4
+summary: |-
+    Cosign considered signatures valid with expired intermediate certificates when
+    transparency log verification is skipped in github.com/sigstore/cosign
+cves:
+    - CVE-2026-24122
+ghsas:
+    - GHSA-wfqv-66vq-46rm
+references:
+    - advisory: https://github.com/sigstore/cosign/security/advisories/GHSA-wfqv-66vq-46rm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-24122
+    - fix: https://github.com/sigstore/cosign/commit/3c9a7363f563db76d78e2de2cabd945450f3781e
+    - web: https://github.com/sigstore/cosign/releases/tag/v3.0.5
+source:
+    id: GHSA-wfqv-66vq-46rm
+    created: 2026-02-23T12:05:31.487756627-05:00
+review_status: UNREVIEWED
