@@ -1,0 +1,21 @@
+id: GO-2026-4498
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.14.1
+      vulnerable_at: 0.13.3
+summary: Gogs has a Protected Branch Deletion Bypass in Web Interface in gogs.io/gogs
+cves:
+    - CVE-2026-25232
+ghsas:
+    - GHSA-2c6v-8r3v-gh6p
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-2c6v-8r3v-gh6p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-25232
+    - web: https://github.com/gogs/gogs/commit/7b7e38c88007a7c482dbf31efff896185fd9b79c
+    - web: https://github.com/gogs/gogs/pull/8124
+    - web: https://github.com/gogs/gogs/releases/tag/v0.14.1
+source:
+    id: GHSA-2c6v-8r3v-gh6p
+    created: 2026-02-23T12:20:56.763805188-05:00
+review_status: UNREVIEWED

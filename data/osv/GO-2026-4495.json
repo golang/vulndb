@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4495",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-20796",
+    "GHSA-2xf7-hmf6-p64j"
+  ],
+  "summary": "Mattermost doesn't properly validate channel membership at the time of data retrieval in github.com/mattermost/mattermost-server",
+  "details": "Mattermost doesn't properly validate channel membership at the time of data retrieval in github.com/mattermost/mattermost-server",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "10.11.0+incompatible"
+            },
+            {
+              "fixed": "10.11.10+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-2xf7-hmf6-p64j"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-20796"
+    },
+    {
+      "type": "WEB",
+      "url": "https://mattermost.com/security-updates"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4495",
+    "review_status": "UNREVIEWED"
+  }
+}

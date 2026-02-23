@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4522",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-26963",
+    "GHSA-5r23-prx4-mqg3"
+  ],
+  "summary": "Cilium may not enforce host firewall policies when Native Routing, WireGuard and Node Encryption are enabled in github.com/cilium/cilium",
+  "details": "Cilium may not enforce host firewall policies when Native Routing, WireGuard and Node Encryption are enabled in github.com/cilium/cilium",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cilium/cilium",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.18.0"
+            },
+            {
+              "fixed": "1.18.6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cilium/cilium/security/advisories/GHSA-5r23-prx4-mqg3"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-26963"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cilium/cilium/commit/88e28e1e62c0b1a02c3f0fc22d888ac9eefbe885"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cilium/cilium/pull/42892"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/cilium/cilium/releases/tag/v1.18.6"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4522",
+    "review_status": "UNREVIEWED"
+  }
+}

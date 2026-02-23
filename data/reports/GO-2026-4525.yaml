@@ -1,0 +1,22 @@
+id: GO-2026-4525
+modules:
+    - module: github.com/mattermost/mattermost-plugin-zoom
+      versions:
+        - fixed: 1.12.0
+      vulnerable_at: 1.12.0-rc1
+summary: |-
+    Mattermost Plugin Zoom fail to validate user identity and post ownership in the
+    {{/api/v1/askPMI}} endpoint in github.com/mattermost/mattermost-plugin-zoom
+cves:
+    - CVE-2026-0998
+ghsas:
+    - GHSA-w65c-fvp5-fvc5
+references:
+    - advisory: https://github.com/advisories/GHSA-w65c-fvp5-fvc5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-0998
+    - fix: https://github.com/mattermost/mattermost-plugin-zoom/commit/a8b58c43625ab25746e451acc4f71515d52c8122
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-w65c-fvp5-fvc5
+    created: 2026-02-23T12:05:51.713594049-05:00
+review_status: UNREVIEWED

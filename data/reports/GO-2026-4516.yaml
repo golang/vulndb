@@ -1,0 +1,25 @@
+id: GO-2026-4516
+modules:
+    - module: github.com/akuity/kargo
+      versions:
+        - introduced: 1.7.0
+        - fixed: 1.7.8
+        - introduced: 1.8.0-rc.1
+        - fixed: 1.8.11
+        - introduced: 1.9.0-rc.1
+        - fixed: 1.9.3
+      vulnerable_at: 1.9.2
+summary: |-
+    Kargo has an Authorization Bypass Vulnerability in Batch Resource Creation API
+    Endpoints in github.com/akuity/kargo
+cves:
+    - CVE-2026-27112
+ghsas:
+    - GHSA-7g9x-cp9g-92mr
+references:
+    - advisory: https://github.com/akuity/kargo/security/advisories/GHSA-7g9x-cp9g-92mr
+    - fix: https://github.com/akuity/kargo/commit/155c6852ffbffa2902f18e6c7add91a846e8d344
+source:
+    id: GHSA-7g9x-cp9g-92mr
+    created: 2026-02-23T12:13:03.843014794-05:00
+review_status: UNREVIEWED

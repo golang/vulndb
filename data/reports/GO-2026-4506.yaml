@@ -1,0 +1,22 @@
+id: GO-2026-4506
+modules:
+    - module: github.com/open-policy-agent/opa-envoy-plugin
+      versions:
+        - fixed: 1.13.2-envoy-2
+      vulnerable_at: 1.13.1-envoy
+summary: |-
+    opa-envoy-plugin has an Authorization Bypass via Double-Slash Path
+    Misinterpretation in input.parsed_path in github.com/open-policy-agent/opa-envoy-plugin
+cves:
+    - CVE-2026-26205
+ghsas:
+    - GHSA-9f29-v6mm-pw6w
+references:
+    - advisory: https://github.com/open-policy-agent/opa-envoy-plugin/security/advisories/GHSA-9f29-v6mm-pw6w
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-26205
+    - fix: https://github.com/open-policy-agent/opa-envoy-plugin/commit/58c44d4ec408d5852d1d0287599e7d5c5e2bc5c3
+    - web: https://github.com/open-policy-agent/opa-envoy-plugin/releases/tag/v1.13.2-envoy-2
+source:
+    id: GHSA-9f29-v6mm-pw6w
+    created: 2026-02-23T12:20:07.901496537-05:00
+review_status: UNREVIEWED

@@ -1,0 +1,26 @@
+id: GO-2026-4496
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.11.0+incompatible
+        - fixed: 10.11.10+incompatible
+        - introduced: 11.1.0+incompatible
+        - fixed: 11.1.3+incompatible
+        - introduced: 11.2.0+incompatible
+        - fixed: 11.2.2+incompatible
+      vulnerable_at: 11.2.1+incompatible
+summary: |-
+    Mattermost doesn't validate user permissions when creating Jira issues from
+    Mattermost posts in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2026-22892
+ghsas:
+    - GHSA-9pj7-jh2r-87g8
+references:
+    - advisory: https://github.com/advisories/GHSA-9pj7-jh2r-87g8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-22892
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-9pj7-jh2r-87g8
+    created: 2026-02-23T12:21:05.320661201-05:00
+review_status: UNREVIEWED

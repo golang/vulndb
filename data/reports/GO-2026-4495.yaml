@@ -1,0 +1,22 @@
+id: GO-2026-4495
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.11.0+incompatible
+        - fixed: 10.11.10+incompatible
+      vulnerable_at: 10.11.9+incompatible
+summary: |-
+    Mattermost doesn't properly validate channel membership at the time of data
+    retrieval in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2026-20796
+ghsas:
+    - GHSA-2xf7-hmf6-p64j
+references:
+    - advisory: https://github.com/advisories/GHSA-2xf7-hmf6-p64j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-20796
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-2xf7-hmf6-p64j
+    created: 2026-02-23T12:21:10.157540435-05:00
+review_status: UNREVIEWED

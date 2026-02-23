@@ -1,0 +1,21 @@
+id: GO-2026-4517
+modules:
+    - module: github.com/kata-containers/kata-containers/src/runtime
+      versions:
+        - fixed: 0.0.0-20260219090056-6a672503973b
+summary: Kata Container to Guest micro VM privilege escalation in github.com/kata-containers/kata-containers/src/runtime
+cves:
+    - CVE-2026-24834
+ghsas:
+    - GHSA-wwj6-vghv-5p64
+references:
+    - advisory: https://github.com/kata-containers/kata-containers/security/advisories/GHSA-wwj6-vghv-5p64
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-24834
+    - web: https://github.com/kata-containers/kata-containers/commit/6a672503973bf7c687053e459bfff8a9652e16bf
+    - web: https://github.com/kata-containers/kata-containers/releases/tag/3.27.0
+notes:
+    - fix: 'github.com/kata-containers/kata-containers/src/runtime: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-wwj6-vghv-5p64
+    created: 2026-02-23T12:12:57.782179141-05:00
+review_status: UNREVIEWED

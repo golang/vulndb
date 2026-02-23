@@ -1,0 +1,19 @@
+id: GO-2026-4497
+modules:
+    - module: github.com/pterodactyl/wings
+      versions:
+        - fixed: 1.12.1
+      vulnerable_at: 1.12.0
+summary: |-
+    Pterodactyl Panel's SFTP sessions remain active after user account deletion or
+    password change in github.com/pterodactyl/wings
+ghsas:
+    - GHSA-hr7j-63v7-vj7g
+references:
+    - advisory: https://github.com/pterodactyl/panel/security/advisories/GHSA-hr7j-63v7-vj7g
+    - web: https://github.com/pterodactyl/panel/commit/0e74f3aadec89405751ec602c77fc1d030a417c0
+    - web: https://github.com/pterodactyl/panel/releases/tag/v1.12.1
+source:
+    id: GHSA-hr7j-63v7-vj7g
+    created: 2026-02-23T12:21:02.081987277-05:00
+review_status: UNREVIEWED

@@ -1,0 +1,21 @@
+id: GO-2026-4500
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.14.1
+      vulnerable_at: 0.13.3
+summary: Unauthenticated File Upload in Gogs in gogs.io/gogs
+cves:
+    - CVE-2026-25242
+ghsas:
+    - GHSA-fc3h-92p8-h36f
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-fc3h-92p8-h36f
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-25242
+    - web: https://github.com/gogs/gogs/commit/628216d5889fcb838c471f4754f09b935d9cd9f3
+    - web: https://github.com/gogs/gogs/pull/8128
+    - web: https://github.com/gogs/gogs/releases/tag/v0.14.1
+source:
+    id: GHSA-fc3h-92p8-h36f
+    created: 2026-02-23T12:20:45.265289745-05:00
+review_status: UNREVIEWED

@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4516",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-27112",
+    "GHSA-7g9x-cp9g-92mr"
+  ],
+  "summary": "Kargo has an Authorization Bypass Vulnerability in Batch Resource Creation API Endpoints in github.com/akuity/kargo",
+  "details": "Kargo has an Authorization Bypass Vulnerability in Batch Resource Creation API Endpoints in github.com/akuity/kargo",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/akuity/kargo",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.7.0"
+            },
+            {
+              "fixed": "1.7.8"
+            },
+            {
+              "introduced": "1.8.0-rc.1"
+            },
+            {
+              "fixed": "1.8.11"
+            },
+            {
+              "introduced": "1.9.0-rc.1"
+            },
+            {
+              "fixed": "1.9.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/akuity/kargo/security/advisories/GHSA-7g9x-cp9g-92mr"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/akuity/kargo/commit/155c6852ffbffa2902f18e6c7add91a846e8d344"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4516",
+    "review_status": "UNREVIEWED"
+  }
+}

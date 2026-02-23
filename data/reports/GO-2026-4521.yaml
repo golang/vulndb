@@ -1,0 +1,44 @@
+id: GO-2026-4521
+modules:
+    - module: github.com/mattermost/mattermost-server
+      vulnerable_at: 11.4.1+incompatible
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.11.0+incompatible
+      vulnerable_at: 11.4.1+incompatible
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 11.1.0+incompatible
+      vulnerable_at: 11.4.1+incompatible
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 11.2.0+incompatible
+      vulnerable_at: 11.4.1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      non_go_versions:
+        - fixed: 5.3.2-0.20251209134645-761e56bb11cc
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20251209134645-761e56bb11cc
+summary: |-
+    Mattermost fails to properly validate team membership when processing channel
+    mentions in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-14350
+ghsas:
+    - GHSA-57cc-2pf4-mhmx
+references:
+    - advisory: https://github.com/advisories/GHSA-57cc-2pf4-mhmx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-14350
+    - web: https://github.com/mattermost/mattermost/commit/761e56bb11ccb751ddbe4bab5898ccc2b384fd82
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'module merge error: could not merge versions of module github.com/mattermost/mattermost-server: introduced and fixed versions must alternate'
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-57cc-2pf4-mhmx
+    created: 2026-02-23T12:10:42.310783215-05:00
+review_status: UNREVIEWED

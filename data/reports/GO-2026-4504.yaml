@@ -1,0 +1,21 @@
+id: GO-2026-4504
+modules:
+    - module: github.com/jm33-m0/emp3r0r/core
+      versions:
+        - fixed: 0.0.0-20260212232424-ea4d074f081d
+summary: emp3r0r Affected by Concurrent Map Access DoS (panic/crash) in github.com/jm33-m0/emp3r0r/core
+cves:
+    - CVE-2026-26201
+ghsas:
+    - GHSA-f5p9-j34q-pwcc
+references:
+    - advisory: https://github.com/jm33-m0/emp3r0r/security/advisories/GHSA-f5p9-j34q-pwcc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-26201
+    - web: https://github.com/jm33-m0/emp3r0r/commit/ea4d074f081dac6293f3aec38f01def5f08d5af5
+    - web: https://github.com/jm33-m0/emp3r0r/releases/tag/v3.21.2
+notes:
+    - fix: 'github.com/jm33-m0/emp3r0r/core: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-f5p9-j34q-pwcc
+    created: 2026-02-23T12:20:21.299636956-05:00
+review_status: UNREVIEWED

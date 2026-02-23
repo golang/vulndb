@@ -1,0 +1,21 @@
+id: GO-2026-4499
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.14.0
+      vulnerable_at: 0.13.3
+summary: |-
+    Gogs has an Authorization Bypass Allows Cross-Repository Label Modification in
+    Gogs in gogs.io/gogs
+cves:
+    - CVE-2026-25229
+ghsas:
+    - GHSA-cv22-72px-f4gh
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-cv22-72px-f4gh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-25229
+    - web: https://github.com/gogs/gogs/commit/643a6d6353cb6a182a4e1f0720228727f30a3ad2
+source:
+    id: GHSA-cv22-72px-f4gh
+    created: 2026-02-23T12:20:52.148624558-05:00
+review_status: UNREVIEWED
