@@ -1,0 +1,36 @@
+id: GO-2026-4512
+modules:
+    - module: github.com/refraction-networking/utls
+      versions:
+        - introduced: 1.6.0
+        - fixed: 1.8.2
+      vulnerable_at: 1.8.1
+      packages:
+        - package: github.com/refraction-networking/utls
+          symbols:
+            - utlsIdToSpec
+          derived_symbols:
+            - Roller.Dial
+            - UConn.BuildHandshakeState
+            - UConn.BuildHandshakeStateWithoutSession
+            - UConn.Handshake
+            - UConn.HandshakeContext
+            - UConn.Read
+            - UConn.Write
+            - UQUICConn.HandleData
+            - UQUICConn.Start
+            - UTLSIdToSpec
+summary: |-
+    Fingerprint vulnerability in uTLS from missing padding extension for Chrome
+    120 in github.com/refraction-networking/utls
+cves:
+    - CVE-2026-26995
+ghsas:
+    - GHSA-rrxv-pmq9-x67r
+references:
+    - advisory: https://github.com/refraction-networking/utls/security/advisories/GHSA-rrxv-pmq9-x67r
+    - fix: https://github.com/refraction-networking/utls/commit/8fe0b08e9a0e7e2d08b268f451f2c79962e6acd0
+source:
+    id: GHSA-rrxv-pmq9-x67r
+    created: 2026-02-19T14:54:13.749191-05:00
+review_status: REVIEWED

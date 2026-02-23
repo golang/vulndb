@@ -1,0 +1,27 @@
+id: GO-2026-4511
+modules:
+    - module: github.com/ethereum/go-ethereum
+      versions:
+        - fixed: 1.16.9
+      vulnerable_at: 1.16.8
+      packages:
+        - package: github.com/ethereum/go-ethereum/crypto/ecies
+          symbols:
+            - PrivateKey.GenerateShared
+          derived_symbols:
+            - Encrypt
+            - PrivateKey.Decrypt
+summary: Go Ethereum Improperly Validates the ECIES Public Key in RLPx Handshake in github.com/ethereum/go-ethereum
+cves:
+    - CVE-2026-26315
+ghsas:
+    - GHSA-m6j8-rg6r-7mv8
+references:
+    - advisory: https://github.com/ethereum/go-ethereum/security/advisories/GHSA-m6j8-rg6r-7mv8
+    - fix: https://github.com/ethereum/go-ethereum/commit/46bee92f9e64c0a06a12586a5d21cffc49d1ba8e
+    - fix: https://github.com/ethereum/go-ethereum/pull/33669
+    - web: https://github.com/ethereum/go-ethereum/releases/tag/v1.16.9
+source:
+    id: GHSA-m6j8-rg6r-7mv8
+    created: 2026-02-19T14:50:55.16864-05:00
+review_status: REVIEWED

@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4511",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-26315",
+    "GHSA-m6j8-rg6r-7mv8"
+  ],
+  "summary": "Go Ethereum Improperly Validates the ECIES Public Key in RLPx Handshake in github.com/ethereum/go-ethereum",
+  "details": "Go Ethereum Improperly Validates the ECIES Public Key in RLPx Handshake in github.com/ethereum/go-ethereum",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/ethereum/go-ethereum",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.16.9"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/ethereum/go-ethereum/crypto/ecies",
+            "symbols": [
+              "Encrypt",
+              "PrivateKey.Decrypt",
+              "PrivateKey.GenerateShared"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/ethereum/go-ethereum/security/advisories/GHSA-m6j8-rg6r-7mv8"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/ethereum/go-ethereum/commit/46bee92f9e64c0a06a12586a5d21cffc49d1ba8e"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/ethereum/go-ethereum/pull/33669"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/ethereum/go-ethereum/releases/tag/v1.16.9"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4511",
+    "review_status": "REVIEWED"
+  }
+}

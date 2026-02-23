@@ -1,0 +1,37 @@
+id: GO-2026-4509
+modules:
+    - module: github.com/refraction-networking/utls
+      versions:
+        - introduced: 1.6.0
+        - fixed: 1.8.1
+      vulnerable_at: 1.8.0
+      packages:
+        - package: github.com/refraction-networking/utls
+          symbols:
+            - BoringGREASEECH
+          derived_symbols:
+            - Roller.Dial
+            - UConn.BuildHandshakeState
+            - UConn.BuildHandshakeStateWithoutSession
+            - UConn.Handshake
+            - UConn.HandshakeContext
+            - UConn.Read
+            - UConn.Write
+            - UQUICConn.HandleData
+            - UQUICConn.Start
+            - UTLSIdToSpec
+summary: |-
+    Fingerprint vulnerability in uTLS from GREASE ECH mismatch for Chrome parrots
+    in github.com/refraction-networking/utls
+cves:
+    - CVE-2026-27017
+ghsas:
+    - GHSA-7m29-f4hw-g2vx
+references:
+    - advisory: https://github.com/refraction-networking/utls/security/advisories/GHSA-7m29-f4hw-g2vx
+    - fix: https://github.com/refraction-networking/utls/commit/24bd1e05a788c1add7f3037f4532ea552b2cee07
+    - web: https://github.com/refraction-networking/utls/releases/tag/v1.8.1
+source:
+    id: GHSA-7m29-f4hw-g2vx
+    created: 2026-02-19T14:50:41.726823-05:00
+review_status: REVIEWED

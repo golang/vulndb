@@ -1,0 +1,23 @@
+id: GO-2026-4507
+modules:
+    - module: github.com/ethereum/go-ethereum
+      versions:
+        - fixed: 1.16.9
+      vulnerable_at: 1.16.8
+      packages:
+        - package: github.com/ethereum/go-ethereum/crypto/secp256k1
+          symbols:
+            - BitCurve.IsOnCurve
+summary: Go Ethereum affected by crash via malicious p2p message in github.com/ethereum/go-ethereum
+cves:
+    - CVE-2026-26314
+ghsas:
+    - GHSA-2gjw-fg97-vg3r
+references:
+    - advisory: https://github.com/ethereum/go-ethereum/security/advisories/GHSA-2gjw-fg97-vg3r
+    - fix: https://github.com/ethereum/go-ethereum/commit/895a8597cb16c02203e38707ed2d1da5c500fe60
+    - web: https://github.com/ethereum/go-ethereum/releases/tag/v1.16.9
+source:
+    id: GHSA-2gjw-fg97-vg3r
+    created: 2026-02-19T14:47:14.85751-05:00
+review_status: REVIEWED
