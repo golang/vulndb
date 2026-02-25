@@ -1,0 +1,29 @@
+id: GO-2026-4502
+modules:
+    - module: github.com/labstack/echo/v5
+      versions:
+        - introduced: 5.0.0
+        - fixed: 5.0.3
+      vulnerable_at: 5.0.2
+      packages:
+        - package: github.com/labstack/echo/v5/middleware
+          symbols:
+            - StaticConfig.ToMiddleware
+          derived_symbols:
+            - Static
+            - StaticWithConfig
+summary: |-
+    Echo has a Windows path traversal via backslash in middleware.Static default
+    filesystem in github.com/labstack/echo/v5
+cves:
+    - CVE-2026-25766
+ghsas:
+    - GHSA-pgvm-wxw2-hrv9
+references:
+    - advisory: https://github.com/labstack/echo/security/advisories/GHSA-pgvm-wxw2-hrv9
+    - fix: https://github.com/labstack/echo/commit/b1d443086ea27cf51345ec72a71e9b7e9d9ce5f1
+    - fix: https://github.com/labstack/echo/pull/2891
+source:
+    id: GHSA-pgvm-wxw2-hrv9
+    created: 2026-02-25T19:20:15.722093799Z
+review_status: REVIEWED
