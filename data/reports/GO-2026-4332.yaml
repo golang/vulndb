@@ -1,0 +1,21 @@
+id: GO-2026-4332
+modules:
+    - module: github.com/esm-dev/esm.sh
+      versions:
+        - fixed: 0.0.0-20260116051925-c62ab83c589e
+summary: |-
+    esm.sh has a path traversal in extractPackageTarball enables file writes from
+    malicious packages
+cves:
+    - CVE-2026-23644
+ghsas:
+    - GHSA-2657-3c98-63jq
+references:
+    - advisory: https://github.com/esm-dev/esm.sh/security/advisories/GHSA-2657-3c98-63jq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-23644
+    - fix: https://github.com/esm-dev/esm.sh/commit/9d77b88c320733ff6689d938d85d246a3af9af16
+    - fix: https://github.com/esm-dev/esm.sh/commit/c62ab83c589e7b421a0e1376d2a00a4e48161093
+source:
+    id: GHSA-2657-3c98-63jq
+    created: 2026-02-25T18:09:10.763994715Z
+review_status: UNREVIEWED

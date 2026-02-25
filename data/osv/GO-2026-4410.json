@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4410",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-25140",
+    "GHSA-f4w5-5xv9-85f6"
+  ],
+  "summary": "apko affected by potential unbounded resource consumption in expandapk.ExpandApk on attacker-controlled .apk streams in chainguard.dev/apko",
+  "details": "apko affected by potential unbounded resource consumption in expandapk.ExpandApk on attacker-controlled .apk streams in chainguard.dev/apko",
+  "affected": [
+    {
+      "package": {
+        "name": "chainguard.dev/apko",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.14.8"
+            },
+            {
+              "fixed": "1.1.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "chainguard.dev/apko/pkg/apk/expandapk"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/chainguard-dev/apko/security/advisories/GHSA-f4w5-5xv9-85f6"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-25140"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/chainguard-dev/apko/commit/2be3903fe194ad46351840f0569b35f5ac965f09"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4410",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,24 @@
+id: GO-2026-4410
+modules:
+    - module: chainguard.dev/apko
+      versions:
+        - introduced: 0.14.8
+        - fixed: 1.1.1
+      vulnerable_at: 1.1.0
+      packages:
+        - package: chainguard.dev/apko/pkg/apk/expandapk
+summary: |-
+    apko affected by potential unbounded resource consumption in expandapk.ExpandApk
+    on attacker-controlled .apk streams in chainguard.dev/apko
+cves:
+    - CVE-2026-25140
+ghsas:
+    - GHSA-f4w5-5xv9-85f6
+references:
+    - advisory: https://github.com/chainguard-dev/apko/security/advisories/GHSA-f4w5-5xv9-85f6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-25140
+    - fix: https://github.com/chainguard-dev/apko/commit/2be3903fe194ad46351840f0569b35f5ac965f09
+source:
+    id: CVE-2026-25140
+    created: 2026-02-25T18:01:37.172809394Z
+review_status: UNREVIEWED

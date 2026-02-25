@@ -1,0 +1,31 @@
+id: GO-2026-4282
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 4.1.2-0.20171013141717-ee57a5829ab1+incompatible
+        - introduced: 4.2.0+incompatible
+        - fixed: 4.2.1-0.20171013140502-b3e4b0ac9168+incompatible
+        - introduced: 4.3.0-rc1+incompatible
+        - fixed: 4.3.0+incompatible
+      non_go_versions:
+        - fixed: 4.1.2-0.20171013141717-ee57a5829ab1
+        - fixed: 4.2.1-0.20171013140502-b3e4b0ac9168
+      vulnerable_at: 4.3.0-rc4+incompatible
+summary: |-
+    Mattermost Server is vulnerable to channel invisibility DoS via misformatted
+    post in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2017-18873
+ghsas:
+    - GHSA-x6mw-hf2j-vqpc
+references:
+    - advisory: https://github.com/advisories/GHSA-x6mw-hf2j-vqpc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-18873
+    - web: https://github.com/mattermost/mattermost/commit/9adaf53e110e0e806b21903111aacb93129668cb
+    - web: https://github.com/mattermost/mattermost/commit/b3e4b0ac91682093276a653f7ccd5774aaa9cd06
+    - web: https://github.com/mattermost/mattermost/commit/ee57a5829ab162859e0e355dac6cfe6ca1a8f379
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-x6mw-hf2j-vqpc
+    created: 2026-02-25T18:10:34.680318062Z
+review_status: UNREVIEWED

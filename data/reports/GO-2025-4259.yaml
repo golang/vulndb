@@ -1,0 +1,40 @@
+id: GO-2025-4259
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.11.0+incompatible
+        - fixed: 10.11.8+incompatible
+        - introduced: 10.12.0+incompatible
+        - fixed: 10.12.4+incompatible
+        - introduced: 11.0.1+incompatible
+        - fixed: 11.0.6+incompatible
+        - introduced: 11.1.0+incompatible
+        - fixed: 11.1.1+incompatible
+      non_go_versions:
+        - introduced: 11.0.0
+      vulnerable_at: 11.1.1-rc2+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      non_go_versions:
+        - fixed: 8.0.0-20251121122154-b57c297c6d7
+      vulnerable_at: 8.0.0-20260225162748-24d3fed77757
+summary: |-
+    Mattermost doesn't validate user channel membership when attaching Mattermost
+    posts as comments to Jira issues in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-13767
+ghsas:
+    - GHSA-fmqf-pmcm-8cx9
+references:
+    - advisory: https://github.com/advisories/GHSA-fmqf-pmcm-8cx9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-13767
+    - web: https://github.com/mattermost/mattermost/commit/b57c297c6d7ae6812d85e32a625806ac9555deee
+    - web: https://github.com/mattermost/mattermost/pull/34551
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-fmqf-pmcm-8cx9
+    created: 2026-02-25T18:13:26.259908113Z
+review_status: UNREVIEWED

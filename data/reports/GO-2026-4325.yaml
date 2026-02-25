@@ -1,0 +1,28 @@
+id: GO-2026-4325
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.11.0+incompatible
+        - fixed: 10.11.9+incompatible
+        - introduced: 11.0.1+incompatible
+        - fixed: 11.2.0+incompatible
+      non_go_versions:
+        - introduced: 11.0.0
+      vulnerable_at: 11.2.0-rc3+incompatible
+summary: |-
+    Mattermost is vulnerable to CPU exhaustion via crafted HTTP request in
+    github.com/mattermost/mattermost-server
+cves:
+    - CVE-2025-14822
+ghsas:
+    - GHSA-9r42-rhw3-2222
+references:
+    - advisory: https://github.com/advisories/GHSA-9r42-rhw3-2222
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-14822
+    - web: https://github.com/mattermost/mattermost/commit/4d86263f5430d0eb991fc52ec886cf778cb072e6
+    - web: https://github.com/mattermost/mattermost/commit/b3d6c0c564c1a79e54e5105d0a8b60fc58a2bdee
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-9r42-rhw3-2222
+    created: 2026-02-25T18:10:06.852682768Z
+review_status: UNREVIEWED

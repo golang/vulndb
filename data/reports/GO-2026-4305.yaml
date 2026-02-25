@@ -1,0 +1,28 @@
+id: GO-2026-4305
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - fixed: 3.9.2+incompatible
+        - introduced: 3.10.0+incompatible
+        - fixed: 3.10.2+incompatible
+      non_go_versions:
+        - introduced: 3.10.0-rc1
+      vulnerable_at: 3.10.1+incompatible
+summary: |-
+    Mattermost Server vulnerable to CSRF if CORS is enabled in
+    github.com/mattermost/mattermost-server
+cves:
+    - CVE-2017-18903
+ghsas:
+    - GHSA-fcwg-45jh-5qhf
+references:
+    - advisory: https://github.com/advisories/GHSA-fcwg-45jh-5qhf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2017-18903
+    - web: https://github.com/mattermost/mattermost/commit/312269ad0bd166174f07f9df7391fce714601600
+    - web: https://github.com/mattermost/mattermost/commit/4519b03d95e8bfe1b2f74094673ae1a2f39f6b47
+    - web: https://github.com/mattermost/mattermost/commit/a18479df0940be8503c9b88993490741793eba9e
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-fcwg-45jh-5qhf
+    created: 2026-02-25T18:10:13.804495196Z
+review_status: UNREVIEWED
