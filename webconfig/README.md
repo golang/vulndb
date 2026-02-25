@@ -17,11 +17,11 @@ In exceptional cases, the files may need to be manually copied into the bucket.
 To do this, run this script:
 
 ```sh
-gsutil cp webconfig/index.html gs://go-vulndb
+gcloud storage cp webconfig/index.html gs://go-vulndb
 for file in 404 copyright privacy; do
-    gsutil -h "Content-Type:text/html" cp webconfig/$file.html gs://go-vulndb/$file
+    gcloud storage cp webconfig/$file.html gs://go-vulndb/$file --content-type="text/html"
 done
-gsutil cp webconfig/favicon.ico gs://go-vulndb
+gcloud storage cp webconfig/favicon.ico gs://go-vulndb
 ```
 
 This requires `golang-vulndb-project-owners` rights, which must be requested
@@ -34,7 +34,7 @@ The initial setup has already been completed and no further action is required.
 The go-vulndb bucket was configured to display these pages via:
 
 ```sh
-gsutil web set -m index.html -e 404 gs://go-vulndb
+gcloud storage buckets update gs://go-vulndb --web-main-page-suffix=index.html --web-error-page=404
 ```
 
-Use `gsutil web get gs://go-vulndb` to display the current configuration.
+Use `gcloud storage buckets describe gs://go-vulndb --format="default(website)"` to display the current configuration.
