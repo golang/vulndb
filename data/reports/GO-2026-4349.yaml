@@ -1,22 +1,21 @@
 id: GO-2026-4349
 modules:
-    - module: github.com/theupdateframework/go-tuf
-      vulnerable_at: 0.7.0
     - module: github.com/theupdateframework/go-tuf/v2
       versions:
         - fixed: 2.3.1
       vulnerable_at: 2.3.0
-summary: go-tuf improperly validates the configured threshold for delegations in github.com/theupdateframework/go-tuf
+summary: |-
+    Improper validattion of configured threshold for delegations in
+    github.com/theupdateframework/go-tuf
 cves:
     - CVE-2026-23992
 ghsas:
     - GHSA-fphv-w9fq-2525
 references:
     - advisory: https://github.com/theupdateframework/go-tuf/security/advisories/GHSA-fphv-w9fq-2525
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-23992
     - fix: https://github.com/theupdateframework/go-tuf/commit/b38d91fdbc69dfe31fe9230d97dafe527ea854a0
     - web: https://github.com/theupdateframework/go-tuf/releases/tag/v2.3.1
 source:
     id: GHSA-fphv-w9fq-2525
     created: 2026-02-02T11:21:31.672046945-05:00
-review_status: UNREVIEWED
+review_status: REVIEWED

@@ -1,22 +1,21 @@
 id: GO-2026-4348
 modules:
-    - module: github.com/theupdateframework/go-tuf
-      vulnerable_at: 0.7.0
     - module: github.com/theupdateframework/go-tuf/v2
       versions:
         - fixed: 2.3.1
       vulnerable_at: 2.3.0
-summary: go-tuf affected by client DoS via malformed server response in github.com/theupdateframework/go-tuf
+summary: |-
+    Client DoS via malformed server response in
+    github.com/theupdateframework/go-tuf
 cves:
     - CVE-2026-23991
 ghsas:
     - GHSA-846p-jg2w-w324
 references:
     - advisory: https://github.com/theupdateframework/go-tuf/security/advisories/GHSA-846p-jg2w-w324
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-23991
     - fix: https://github.com/theupdateframework/go-tuf/commit/73345ab6b0eb7e59d525dac17a428f043074cef6
     - web: https://github.com/theupdateframework/go-tuf/releases/tag/v2.3.1
 source:
     id: GHSA-846p-jg2w-w324
     created: 2026-02-02T11:21:37.248587834-05:00
-review_status: UNREVIEWED
+review_status: REVIEWED
