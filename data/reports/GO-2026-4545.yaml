@@ -1,0 +1,21 @@
+id: GO-2026-4545
+modules:
+    - module: github.com/esm-dev/esm.sh
+      versions:
+        - fixed: 0.0.0-20250616164159-0593516c4cfa
+summary: esm.sh is vulnerable to full-response SSRF in github.com/esm-dev/esm.sh
+cves:
+    - CVE-2025-50180
+ghsas:
+    - GHSA-3c9r-837r-qqm4
+references:
+    - advisory: https://github.com/esm-dev/esm.sh/security/advisories/GHSA-3c9r-837r-qqm4
+    - fix: https://github.com/esm-dev/esm.sh/commit/0593516c4cfab49ad3b4900416a8432ff2e23eb0
+    - fix: https://github.com/esm-dev/esm.sh/pull/1149
+    - web: https://github.com/esm-dev/esm.sh/releases/tag/v137
+notes:
+    - fix: 'github.com/esm-dev/esm.sh: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-3c9r-837r-qqm4
+    created: 2026-02-25T13:59:17.649767791-05:00
+review_status: UNREVIEWED

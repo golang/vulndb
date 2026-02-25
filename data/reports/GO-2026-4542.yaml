@@ -1,0 +1,20 @@
+id: GO-2026-4542
+modules:
+    - module: github.com/dagu-org/dagu
+      unsupported_versions:
+        - last_affected: 1.16.7
+      vulnerable_at: 1.30.3
+summary: |-
+    Dagu: Path traversal in DAG creation allows arbitrary YAML file write outside
+    DAGs directory in github.com/dagu-org/dagu
+cves:
+    - CVE-2026-27598
+ghsas:
+    - GHSA-6v48-fcq6-ff23
+references:
+    - advisory: https://github.com/dagu-org/dagu/security/advisories/GHSA-6v48-fcq6-ff23
+    - fix: https://github.com/dagu-org/dagu/commit/e2ed589105d79273e4e6ac8eb31525f765bb3ce4
+source:
+    id: GHSA-6v48-fcq6-ff23
+    created: 2026-02-25T13:59:32.419748496-05:00
+review_status: UNREVIEWED

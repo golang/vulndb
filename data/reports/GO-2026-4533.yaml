@@ -1,0 +1,26 @@
+id: GO-2026-4533
+modules:
+    - module: github.com/nats-io/nats-server
+      unsupported_versions:
+        - last_affected: 1.4.1
+      vulnerable_at: 1.4.1
+    - module: github.com/nats-io/nats-server/v2
+      versions:
+        - fixed: 2.11.12
+        - introduced: 2.12.0-RC.1
+        - fixed: 2.12.3
+      vulnerable_at: 2.12.3-RC.5
+summary: nats-server websockets are vulnerable to pre-auth memory DoS in github.com/nats-io/nats-server
+cves:
+    - CVE-2026-27571
+ghsas:
+    - GHSA-qrvq-68c2-7grw
+references:
+    - advisory: https://github.com/nats-io/nats-server/security/advisories/GHSA-qrvq-68c2-7grw
+    - fix: https://github.com/nats-io/nats-server/commit/f77fb7c4535e6727cc1a2899cd8e6bbdd8ba2017
+    - web: https://github.com/nats-io/nats-server/releases/tag/v2.11.12
+    - web: https://github.com/nats-io/nats-server/releases/tag/v2.12.3
+source:
+    id: GHSA-qrvq-68c2-7grw
+    created: 2026-02-25T14:01:00.326587752-05:00
+review_status: UNREVIEWED
