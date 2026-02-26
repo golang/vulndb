@@ -1,0 +1,22 @@
+id: GO-2026-4549
+modules:
+    - module: github.com/openkruise/kruise
+      versions:
+        - fixed: 1.7.5
+        - introduced: 1.8.0
+        - fixed: 1.8.3
+      vulnerable_at: 1.8.2
+summary: OpenKruise PodProbeMarker is Vulnerable to SSRF via Unrestricted Host Field in github.com/openkruise/kruise
+cves:
+    - CVE-2026-24005
+ghsas:
+    - GHSA-9fj4-3849-rv9g
+references:
+    - advisory: https://github.com/openkruise/kruise/security/advisories/GHSA-9fj4-3849-rv9g
+    - fix: https://github.com/openkruise/kruise/commit/94364b76adf3e8a1749a31afe809a163bed29613
+    - web: https://github.com/openkruise/kruise/releases/tag/v1.7.5
+    - web: https://github.com/openkruise/kruise/releases/tag/v1.8.3
+source:
+    id: GHSA-9fj4-3849-rv9g
+    created: 2026-02-26T20:24:39.463226959Z
+review_status: UNREVIEWED

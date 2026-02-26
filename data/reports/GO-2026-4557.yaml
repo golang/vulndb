@@ -1,0 +1,21 @@
+id: GO-2026-4557
+modules:
+    - module: github.com/fleetdm/fleet/v4
+      versions:
+        - fixed: 4.80.1
+      vulnerable_at: 4.80.0
+summary: |-
+    Fleet has an SQL Injection vulnerability via backtick escape in ORDER BY
+    parameter in github.com/fleetdm/fleet
+cves:
+    - CVE-2026-26186
+ghsas:
+    - GHSA-49xw-vfc4-7p43
+references:
+    - advisory: https://github.com/fleetdm/fleet/security/advisories/GHSA-49xw-vfc4-7p43
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-26186
+    - web: https://github.com/fleetdm/fleet/releases/tag/fleet-v4.80.1
+source:
+    id: GHSA-49xw-vfc4-7p43
+    created: 2026-02-26T20:24:00.469639077Z
+review_status: UNREVIEWED

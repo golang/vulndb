@@ -1,0 +1,20 @@
+id: GO-2026-4550
+modules:
+    - module: github.com/cloudflare/circl
+      versions:
+        - fixed: 1.6.3
+      vulnerable_at: 1.6.2
+summary: CIRCL has an incorrect calculation in secp384r1 CombinedMult in github.com/cloudflare/circl
+cves:
+    - CVE-2026-1229
+ghsas:
+    - GHSA-q9hv-hpm4-hj6x
+references:
+    - advisory: https://github.com/cloudflare/circl/security/advisories/GHSA-q9hv-hpm4-hj6x
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-1229
+    - fix: https://github.com/cloudflare/circl/pull/583
+    - web: https://github.com/cloudflare/circl/releases/tag/v1.6.3
+source:
+    id: GHSA-q9hv-hpm4-hj6x
+    created: 2026-02-26T20:24:33.447888003Z
+review_status: UNREVIEWED

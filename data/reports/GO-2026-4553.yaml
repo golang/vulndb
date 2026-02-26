@@ -1,0 +1,21 @@
+id: GO-2026-4553
+modules:
+    - module: code.vikunja.io/api
+      unsupported_versions:
+        - last_affected: 0.24.6
+      vulnerable_at: 0.24.6
+summary: |-
+    Vikunja: Stored XSS via Unsanitized SVG Attachment Upload Leads to Token
+    Exposure in code.vikunja.io/api
+cves:
+    - CVE-2026-27616
+ghsas:
+    - GHSA-7jp5-298q-jg98
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-7jp5-298q-jg98
+    - web: https://github.com/go-vikunja/vikunja/releases/tag/v2.0.0
+    - web: https://vikunja.io/changelog/vikunja-v2.0.0-was-released
+source:
+    id: GHSA-7jp5-298q-jg98
+    created: 2026-02-26T20:24:17.506216805Z
+review_status: UNREVIEWED

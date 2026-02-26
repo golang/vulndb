@@ -1,0 +1,20 @@
+id: GO-2026-4551
+modules:
+    - module: code.vikunja.io/api
+      unsupported_versions:
+        - last_affected: 0.24.6
+      vulnerable_at: 0.24.6
+summary: |-
+    Vijkunja has Weak Password Policy Combined with Persistent Sessions After
+    Password Change in code.vikunja.io/api
+cves:
+    - CVE-2026-27575
+ghsas:
+    - GHSA-3ccg-x393-96v8
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-3ccg-x393-96v8
+    - web: https://github.com/go-vikunja/vikunja/commit/89c17d3b23e2a23320ad135b4e8f0a14fdd91bda
+source:
+    id: GHSA-3ccg-x393-96v8
+    created: 2026-02-26T20:24:28.509280353Z
+review_status: UNREVIEWED

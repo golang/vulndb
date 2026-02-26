@@ -1,0 +1,20 @@
+id: GO-2026-4558
+modules:
+    - module: github.com/axllent/mailpit
+      versions:
+        - fixed: 1.29.2
+      vulnerable_at: 1.29.1
+summary: Mailpit is Vulnerable to Server-Side Request Forgery (SSRF) via Link Check API in github.com/axllent/mailpit
+cves:
+    - CVE-2026-27808
+ghsas:
+    - GHSA-mpf7-p9x7-96r3
+references:
+    - advisory: https://github.com/axllent/mailpit/security/advisories/GHSA-mpf7-p9x7-96r3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-27808
+    - fix: https://github.com/axllent/mailpit/commit/10ad4df8cc0cd9e51dea1b4410009545eef7fbf5
+    - web: https://github.com/axllent/mailpit/releases/tag/v1.29.2
+source:
+    id: GHSA-mpf7-p9x7-96r3
+    created: 2026-02-26T20:23:55.010812369Z
+review_status: UNREVIEWED

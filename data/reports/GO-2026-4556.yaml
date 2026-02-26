@@ -1,0 +1,20 @@
+id: GO-2026-4556
+modules:
+    - module: code.vikunja.io/api
+      unsupported_versions:
+        - last_affected: 0.24.6
+      vulnerable_at: 0.24.6
+summary: Vikunja has Path Traversal in CLI Restore in code.vikunja.io/api
+cves:
+    - CVE-2026-27819
+ghsas:
+    - GHSA-42wg-38gx-85rh
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-42wg-38gx-85rh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-27819
+    - web: https://github.com/go-vikunja/vikunja/commit/1b3d8dc59cb5f2b759ab0ad2bc9915b993e3cb73
+    - web: https://vikunja.io/changelog/vikunja-v2.0.0-was-released
+source:
+    id: GHSA-42wg-38gx-85rh
+    created: 2026-02-26T20:24:05.651185921Z
+review_status: UNREVIEWED

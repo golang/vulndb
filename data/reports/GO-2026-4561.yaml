@@ -1,0 +1,21 @@
+id: GO-2026-4561
+modules:
+    - module: github.com/fleetdm/fleet/v4
+      versions:
+        - fixed: 4.80.1
+      vulnerable_at: 4.80.0
+summary: |-
+    Fleet: Authorization Bypass in certificate template batch deletion for team
+    administrators in github.com/fleetdm/fleet
+cves:
+    - CVE-2026-25963
+ghsas:
+    - GHSA-5jvp-m9h4-253h
+references:
+    - advisory: https://github.com/fleetdm/fleet/security/advisories/GHSA-5jvp-m9h4-253h
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-25963
+    - web: https://github.com/fleetdm/fleet/commit/d27d0362db390fe835e3b5328525f25018df0fb7
+source:
+    id: GHSA-5jvp-m9h4-253h
+    created: 2026-02-26T20:23:43.181463336Z
+review_status: UNREVIEWED

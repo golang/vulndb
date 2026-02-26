@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4554",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-27730",
+    "GHSA-p2v6-84h2-5x4r"
+  ],
+  "summary": "esm.sh has SSRF localhost/private-network bypass in `/http(s)` module route in github.com/esm-dev/esm.sh",
+  "details": "esm.sh has SSRF localhost/private-network bypass in `/http(s)` module route in github.com/esm-dev/esm.sh",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/esm-dev/esm.sh",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20250616164159-0593516c4cfa"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/esm-dev/esm.sh/security/advisories/GHSA-p2v6-84h2-5x4r"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-27730"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/esm-dev/esm.sh/commit/0593516c4cfab49ad3b4900416a8432ff2e23eb0"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/esm-dev/esm.sh/pull/1149"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/esm-dev/esm.sh/releases/tag/v137"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4554",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,32 @@
+id: GO-2026-4562
+modules:
+    - module: github.com/linode/terraform-provider-linode
+      unsupported_versions:
+        - last_affected: 1.30.0
+      vulnerable_at: 1.30.0
+    - module: github.com/linode/terraform-provider-linode/v2
+      unsupported_versions:
+        - last_affected: 2.41.2
+      vulnerable_at: 2.41.2
+    - module: github.com/linode/terraform-provider-linode/v3
+      versions:
+        - fixed: 3.9.0
+      vulnerable_at: 3.8.0
+summary: |-
+    Terraform Provider for Linode Debug Logs Vulnerable to Sensitive Information
+    Exposure in github.com/linode/terraform-provider-linode
+cves:
+    - CVE-2026-27900
+ghsas:
+    - GHSA-5rc7-2jj6-mp64
+references:
+    - advisory: https://github.com/linode/terraform-provider-linode/security/advisories/GHSA-5rc7-2jj6-mp64
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-27900
+    - fix: https://github.com/linode/terraform-provider-linode/commit/43a925d826b999f0355de3dc7330c55f496824c0
+    - fix: https://github.com/linode/terraform-provider-linode/pull/2269
+    - web: http://www.openwall.com/lists/oss-security/2026/02/26/2
+    - web: https://github.com/linode/terraform-provider-linode/releases/tag/v3.9.0
+source:
+    id: GHSA-5rc7-2jj6-mp64
+    created: 2026-02-26T20:23:35.386080477Z
+review_status: UNREVIEWED
