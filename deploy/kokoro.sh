@@ -18,7 +18,7 @@ cd vulndb
 
 # Copy the existing vuln DB into a local directory so we can diff it.
 mkdir old-db
-gsutil -q -m cp -r gs://go-vulndb/* old-db
+gcloud storage cp --recursive --quiet gs://go-vulndb/* old-db
 
 # Generate a copy of the DB using the current state of the repo
 # and diff it with the old one. Do all this in a docker container
