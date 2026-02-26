@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4535",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-27585",
+    "GHSA-4xrr-hq4w-6vf4"
+  ],
+  "summary": "Improper sanitization of glob characters in github.com/caddyserver/caddy/v2",
+  "details": "Improper sanitization of glob characters in github.com/caddyserver/caddy/v2",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/caddyserver/caddy/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.11.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/caddyserver/caddy/v2/modules/caddyhttp/fileserver",
+            "symbols": [
+              "FileServer.Provision",
+              "FileServer.ServeHTTP",
+              "FileServer.UnmarshalCaddyfile",
+              "MatchFile.Match",
+              "MatchFile.MatchWithError",
+              "MatchFile.Provision",
+              "MatchFile.UnmarshalCaddyfile",
+              "MatchFile.Validate"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/caddyserver/caddy/security/advisories/GHSA-4xrr-hq4w-6vf4"
+    },
+    {
+      "type": "WEB",
+      "url": "https://caddyserver.com/docs/caddyfile/directives#directive-order"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/caddyserver/caddy/blob/68d50020eef0d4c3398b878f17c8092ca5b58ca0/modules/caddyhttp/fileserver/matcher.go#L361"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/caddyserver/caddy/blob/68d50020eef0d4c3398b878f17c8092ca5b58ca0/modules/caddyhttp/fileserver/matcher.go#L398"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/caddyserver/caddy/releases/tag/v2.11.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4535",
+    "review_status": "REVIEWED"
+  }
+}

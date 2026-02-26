@@ -1,0 +1,56 @@
+id: GO-2026-4543
+modules:
+    - module: github.com/gofiber/fiber/v2
+      versions:
+        - fixed: 2.52.12
+      vulnerable_at: 2.52.11
+      packages:
+        - package: github.com/gofiber/fiber/v2
+          symbols:
+            - App.Add
+          derived_symbols:
+            - App.All
+            - App.Connect
+            - App.Delete
+            - App.Get
+            - App.Head
+            - App.Options
+            - App.Patch
+            - App.Post
+            - App.Put
+            - App.Trace
+    - module: github.com/gofiber/fiber/v3
+      versions:
+        - fixed: 3.1.0
+      vulnerable_at: 3.0.0
+      packages:
+        - package: github.com/gofiber/fiber/v3
+          symbols:
+            - App.Add
+          derived_symbols:
+            - App.All
+            - App.Connect
+            - App.Delete
+            - App.Get
+            - App.Head
+            - App.Options
+            - App.Patch
+            - App.Post
+            - App.Put
+            - App.Trace
+summary: |-
+    Fiber has a Denial of Service Vulnerability via Route Parameter Overflow in
+    github.com/gofiber/fiber
+cves:
+    - CVE-2026-25882
+ghsas:
+    - GHSA-mrq8-rjmw-wpq3
+references:
+    - advisory: https://github.com/gofiber/fiber/security/advisories/GHSA-mrq8-rjmw-wpq3
+    - fix: https://github.com/gofiber/fiber/pull/3962
+    - web: https://github.com/gofiber/fiber/blob/main/path.go#L514
+    - web: https://github.com/gofiber/fiber/blob/v2/path.go#L516
+source:
+    id: GHSA-mrq8-rjmw-wpq3
+    created: 2026-02-25T17:59:41.443706323Z
+review_status: REVIEWED

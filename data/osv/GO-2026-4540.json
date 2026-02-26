@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4540",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-25891",
+    "GHSA-m3c2-496v-cw3v"
+  ],
+  "summary": "Fiber has an Arbitrary File Read in Static Middleware on Windows in github.com/gofiber/fiber/v3",
+  "details": "Fiber has an Arbitrary File Read in Static Middleware on Windows in github.com/gofiber/fiber/v3",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gofiber/fiber/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.1.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/gofiber/fiber/v3/middleware/static",
+            "symbols": [
+              "New"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/gofiber/fiber/security/advisories/GHSA-m3c2-496v-cw3v"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gofiber/fiber/commit/59133702301c2ab7b776dd123b474cbd995f2c86"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gofiber/fiber/pull/4064"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4540",
+    "review_status": "REVIEWED"
+  }
+}

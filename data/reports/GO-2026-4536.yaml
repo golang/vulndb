@@ -1,0 +1,26 @@
+id: GO-2026-4536
+modules:
+    - module: github.com/caddyserver/caddy/v2
+      versions:
+        - fixed: 2.11.1
+      vulnerable_at: 2.11.0
+      packages:
+        - package: github.com/caddyserver/caddy/v2/modules/caddyhttp/reverseproxy/fastcgi
+          symbols:
+            - Transport.RoundTrip
+          derived_symbols:
+            - Transport.Provision
+            - Transport.UnmarshalCaddyfile
+summary: Unicode case-folding causes incorrect split_path index in github.com/caddyserver/caddy/v2
+cves:
+    - CVE-2026-27590
+ghsas:
+    - GHSA-5r3v-vc8m-m96g
+references:
+    - advisory: https://github.com/caddyserver/caddy/security/advisories/GHSA-5r3v-vc8m-m96g
+    - web: https://github.com/caddyserver/caddy/releases/tag/v2.11.1
+    - web: https://github.com/php/frankenphp/security/advisories/GHSA-g966-83w7-6w38
+source:
+    id: GHSA-5r3v-vc8m-m96g
+    created: 2026-02-25T18:00:44.62114183Z
+review_status: REVIEWED

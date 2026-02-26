@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4539",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-27586",
+    "GHSA-hffm-g8v7-wrv7"
+  ],
+  "summary": "Caddy mTLS authentication fails open in github.com/caddyserver/caddy/v2",
+  "details": "Caddy mTLS authentication fails open in github.com/caddyserver/caddy/v2",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/caddyserver/caddy/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.11.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/caddyserver/caddy/v2/modules/caddytls",
+            "symbols": [
+              "ClientAuthentication.ConfigureTLSConfig",
+              "ConnectionPolicies.Provision"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/caddyserver/caddy/security/advisories/GHSA-hffm-g8v7-wrv7"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/caddyserver/caddy/commit/d42d39b4bc237c628f9a95363b28044cb7a7fe72"
+    },
+    {
+      "type": "WEB",
+      "url": "https://gist.github.com/moscowchill/9566c79c76c0b64c57f8bd0716f97c48"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/caddyserver/caddy/releases/tag/v2.11.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4539",
+    "review_status": "REVIEWED"
+  }
+}

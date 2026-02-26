@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4543",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-25882",
+    "GHSA-mrq8-rjmw-wpq3"
+  ],
+  "summary": "Fiber has a Denial of Service Vulnerability via Route Parameter Overflow in github.com/gofiber/fiber",
+  "details": "Fiber has a Denial of Service Vulnerability via Route Parameter Overflow in github.com/gofiber/fiber",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gofiber/fiber/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.52.12"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/gofiber/fiber/v2",
+            "symbols": [
+              "App.Add",
+              "App.All",
+              "App.Connect",
+              "App.Delete",
+              "App.Get",
+              "App.Head",
+              "App.Options",
+              "App.Patch",
+              "App.Post",
+              "App.Put",
+              "App.Trace"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/gofiber/fiber/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.1.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/gofiber/fiber/v3",
+            "symbols": [
+              "App.Add",
+              "App.All",
+              "App.Connect",
+              "App.Delete",
+              "App.Get",
+              "App.Head",
+              "App.Options",
+              "App.Patch",
+              "App.Post",
+              "App.Put",
+              "App.Trace"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/gofiber/fiber/security/advisories/GHSA-mrq8-rjmw-wpq3"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gofiber/fiber/pull/3962"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/gofiber/fiber/blob/main/path.go#L514"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/gofiber/fiber/blob/v2/path.go#L516"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4543",
+    "review_status": "REVIEWED"
+  }
+}

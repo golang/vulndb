@@ -1,0 +1,140 @@
+id: GO-2026-4538
+modules:
+    - module: github.com/caddyserver/caddy/v2
+      versions:
+        - fixed: 2.11.1
+      vulnerable_at: 2.11.0
+      packages:
+        - package: github.com/caddyserver/caddy/v2/modules/caddyhttp
+          symbols:
+            - MatchPath.Match
+          derived_symbols:
+            - App.Cleanup
+            - App.Provision
+            - App.Start
+            - App.Stop
+            - App.Validate
+            - CELMatcherImpl
+            - CELValueToMapStrList
+            - CIDRExpressionToPrefix
+            - Error
+            - HandlerError.Error
+            - HandlerFunc.ServeHTTP
+            - Invoke.ServeHTTP
+            - LoggableHTTPHeader.MarshalLogObject
+            - LoggableHTTPRequest.MarshalLogObject
+            - LoggableTLSConnState.MarshalLogObject
+            - MatchClientIP.CELLibrary
+            - MatchClientIP.Match
+            - MatchClientIP.MatchWithError
+            - MatchClientIP.Provision
+            - MatchClientIP.UnmarshalCaddyfile
+            - MatchExpression.MarshalJSON
+            - MatchExpression.Match
+            - MatchExpression.MatchWithError
+            - MatchExpression.Provision
+            - MatchExpression.UnmarshalCaddyfile
+            - MatchExpression.UnmarshalJSON
+            - MatchHeader.CELLibrary
+            - MatchHeader.Match
+            - MatchHeader.MatchWithError
+            - MatchHeader.UnmarshalCaddyfile
+            - MatchHeaderRE.CELLibrary
+            - MatchHeaderRE.Match
+            - MatchHeaderRE.MatchWithError
+            - MatchHeaderRE.Provision
+            - MatchHeaderRE.UnmarshalCaddyfile
+            - MatchHeaderRE.Validate
+            - MatchHost.CELLibrary
+            - MatchHost.Match
+            - MatchHost.MatchWithError
+            - MatchHost.Provision
+            - MatchHost.UnmarshalCaddyfile
+            - MatchMethod.CELLibrary
+            - MatchMethod.UnmarshalCaddyfile
+            - MatchNot.MarshalJSON
+            - MatchNot.Match
+            - MatchNot.MatchWithError
+            - MatchNot.Provision
+            - MatchNot.UnmarshalCaddyfile
+            - MatchNot.UnmarshalJSON
+            - MatchPath.CELLibrary
+            - MatchPath.MatchWithError
+            - MatchPath.UnmarshalCaddyfile
+            - MatchPathRE.CELLibrary
+            - MatchPathRE.Match
+            - MatchPathRE.MatchWithError
+            - MatchProtocol.CELLibrary
+            - MatchProtocol.Match
+            - MatchProtocol.MatchWithError
+            - MatchProtocol.UnmarshalCaddyfile
+            - MatchQuery.CELLibrary
+            - MatchQuery.Match
+            - MatchQuery.MatchWithError
+            - MatchQuery.UnmarshalCaddyfile
+            - MatchRegexp.Match
+            - MatchRegexp.Provision
+            - MatchRegexp.UnmarshalCaddyfile
+            - MatchRegexp.Validate
+            - MatchRemoteIP.CELLibrary
+            - MatchRemoteIP.Match
+            - MatchRemoteIP.MatchWithError
+            - MatchRemoteIP.Provision
+            - MatchRemoteIP.UnmarshalCaddyfile
+            - MatchTLS.UnmarshalCaddyfile
+            - MatchVarsRE.CELLibrary
+            - MatchVarsRE.Match
+            - MatchVarsRE.MatchWithError
+            - MatchVarsRE.Provision
+            - MatchVarsRE.UnmarshalCaddyfile
+            - MatchVarsRE.Validate
+            - MatcherSet.Match
+            - MatcherSet.MatchWithError
+            - MatcherSets.AnyMatch
+            - MatcherSets.AnyMatchWithError
+            - MatcherSets.FromInterface
+            - MatcherSets.String
+            - ParseCaddyfileNestedMatcherSet
+            - ParseNamedResponseMatcher
+            - PrepareRequest
+            - ResponseHandler.Provision
+            - ResponseMatcher.Match
+            - ResponseWriterWrapper.Push
+            - ResponseWriterWrapper.ReadFrom
+            - Route.Provision
+            - Route.ProvisionHandlers
+            - Route.ProvisionMatchers
+            - Route.String
+            - RouteList.Provision
+            - RouteList.ProvisionHandlers
+            - RouteList.ProvisionMatchers
+            - Server.ServeHTTP
+            - StaticError.ServeHTTP
+            - StaticError.UnmarshalCaddyfile
+            - StaticIPRange.Provision
+            - StaticResponse.ServeHTTP
+            - StaticResponse.UnmarshalCaddyfile
+            - StringArray.UnmarshalJSON
+            - Subroute.Provision
+            - Subroute.ServeHTTP
+            - VarsMatcher.CELLibrary
+            - VarsMatcher.Match
+            - VarsMatcher.MatchWithError
+            - VarsMatcher.UnmarshalCaddyfile
+            - VarsMiddleware.ServeHTTP
+            - VarsMiddleware.UnmarshalCaddyfile
+            - WeakString.MarshalJSON
+            - WeakString.UnmarshalJSON
+summary: Caddy MatchPath %xx branch skips case normalization in github.com/caddyserver/caddy/v2
+cves:
+    - CVE-2026-27587
+ghsas:
+    - GHSA-g7pc-pc7g-h8jh
+references:
+    - advisory: https://github.com/caddyserver/caddy/security/advisories/GHSA-g7pc-pc7g-h8jh
+    - fix: https://github.com/caddyserver/caddy/commit/a1081194bfae4e0d8c227ec44aecb95eded55d1e
+    - web: https://github.com/caddyserver/caddy/releases/tag/v2.11.1
+source:
+    id: GHSA-g7pc-pc7g-h8jh
+    created: 2026-02-25T18:00:26.003893585Z
+review_status: REVIEWED

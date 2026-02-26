@@ -1,0 +1,26 @@
+id: GO-2026-4534
+modules:
+    - module: github.com/gofiber/fiber/v3
+      versions:
+        - fixed: 3.1.0
+      vulnerable_at: 3.0.0
+      packages:
+        - package: github.com/gofiber/fiber/v3
+          symbols:
+            - Redirect.With
+            - Redirect.Messages
+            - Redirect.Message
+summary: |-
+    Fiber is Vulnerable to Denial of Service via Flash Cookie Unbounded Allocation
+    in github.com/gofiber/fiber/v3
+cves:
+    - CVE-2026-25899
+ghsas:
+    - GHSA-2mr3-m5q5-wgp6
+references:
+    - advisory: https://github.com/gofiber/fiber/security/advisories/GHSA-2mr3-m5q5-wgp6
+    - web: https://github.com/gofiber/fiber/releases/tag/v3.1.0
+source:
+    id: GHSA-2mr3-m5q5-wgp6
+    created: 2026-02-25T18:00:55.950388696Z
+review_status: REVIEWED

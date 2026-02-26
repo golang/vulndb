@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4536",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-27590",
+    "GHSA-5r3v-vc8m-m96g"
+  ],
+  "summary": "Unicode case-folding causes incorrect split_path index in github.com/caddyserver/caddy/v2",
+  "details": "Unicode case-folding causes incorrect split_path index in github.com/caddyserver/caddy/v2",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/caddyserver/caddy/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.11.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/caddyserver/caddy/v2/modules/caddyhttp/reverseproxy/fastcgi",
+            "symbols": [
+              "Transport.Provision",
+              "Transport.RoundTrip",
+              "Transport.UnmarshalCaddyfile"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/caddyserver/caddy/security/advisories/GHSA-5r3v-vc8m-m96g"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/caddyserver/caddy/releases/tag/v2.11.1"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/php/frankenphp/security/advisories/GHSA-g966-83w7-6w38"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4536",
+    "review_status": "REVIEWED"
+  }
+}

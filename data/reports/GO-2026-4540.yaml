@@ -1,0 +1,25 @@
+id: GO-2026-4540
+modules:
+    - module: github.com/gofiber/fiber/v3
+      versions:
+        - fixed: 3.1.0
+      vulnerable_at: 3.0.0
+      packages:
+        - package: github.com/gofiber/fiber/v3/middleware/static
+          symbols:
+            - New
+summary: |-
+    Fiber has an Arbitrary File Read in Static Middleware on Windows in
+    github.com/gofiber/fiber/v3
+cves:
+    - CVE-2026-25891
+ghsas:
+    - GHSA-m3c2-496v-cw3v
+references:
+    - advisory: https://github.com/gofiber/fiber/security/advisories/GHSA-m3c2-496v-cw3v
+    - fix: https://github.com/gofiber/fiber/commit/59133702301c2ab7b776dd123b474cbd995f2c86
+    - fix: https://github.com/gofiber/fiber/pull/4064
+source:
+    id: GHSA-m3c2-496v-cw3v
+    created: 2026-02-25T18:00:04.731066801Z
+review_status: REVIEWED

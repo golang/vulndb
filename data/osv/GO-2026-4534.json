@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4534",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-25899",
+    "GHSA-2mr3-m5q5-wgp6"
+  ],
+  "summary": "Fiber is Vulnerable to Denial of Service via Flash Cookie Unbounded Allocation in github.com/gofiber/fiber/v3",
+  "details": "Fiber is Vulnerable to Denial of Service via Flash Cookie Unbounded Allocation in github.com/gofiber/fiber/v3",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gofiber/fiber/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.1.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/gofiber/fiber/v3",
+            "symbols": [
+              "Redirect.Message",
+              "Redirect.Messages",
+              "Redirect.With"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/gofiber/fiber/security/advisories/GHSA-2mr3-m5q5-wgp6"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/gofiber/fiber/releases/tag/v3.1.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4534",
+    "review_status": "REVIEWED"
+  }
+}

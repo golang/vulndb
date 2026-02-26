@@ -1,0 +1,33 @@
+id: GO-2026-4535
+modules:
+    - module: github.com/caddyserver/caddy/v2
+      versions:
+        - fixed: 2.11.1
+      vulnerable_at: 2.11.0
+      packages:
+        - package: github.com/caddyserver/caddy/v2/modules/caddyhttp/fileserver
+          symbols:
+            - MatchFile.Match
+          derived_symbols:
+            - FileServer.Provision
+            - FileServer.ServeHTTP
+            - FileServer.UnmarshalCaddyfile
+            - MatchFile.MatchWithError
+            - MatchFile.Provision
+            - MatchFile.UnmarshalCaddyfile
+            - MatchFile.Validate
+summary: Improper sanitization of glob characters in github.com/caddyserver/caddy/v2
+cves:
+    - CVE-2026-27585
+ghsas:
+    - GHSA-4xrr-hq4w-6vf4
+references:
+    - advisory: https://github.com/caddyserver/caddy/security/advisories/GHSA-4xrr-hq4w-6vf4
+    - web: https://caddyserver.com/docs/caddyfile/directives#directive-order
+    - web: https://github.com/caddyserver/caddy/blob/68d50020eef0d4c3398b878f17c8092ca5b58ca0/modules/caddyhttp/fileserver/matcher.go#L361
+    - web: https://github.com/caddyserver/caddy/blob/68d50020eef0d4c3398b878f17c8092ca5b58ca0/modules/caddyhttp/fileserver/matcher.go#L398
+    - web: https://github.com/caddyserver/caddy/releases/tag/v2.11.1
+source:
+    id: GHSA-4xrr-hq4w-6vf4
+    created: 2026-02-25T18:00:50.422102843Z
+review_status: REVIEWED

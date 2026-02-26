@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4537",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-27589",
+    "GHSA-879p-475x-rqh2"
+  ],
+  "summary": "Caddy is vulnerable to cross-origin config application via local admin API /load in github.com/caddyserver/caddy/v2",
+  "details": "Caddy is vulnerable to cross-origin config application via local admin API /load in github.com/caddyserver/caddy/v2",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/caddyserver/caddy/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.11.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/caddyserver/caddy/v2",
+            "symbols": [
+              "APIError.Error",
+              "AdminHandlerFunc.ServeHTTP",
+              "AppConfigDir",
+              "AppDataDir",
+              "BufferedLog",
+              "ClearLastConfigIfDifferent",
+              "Context.App",
+              "Context.AppIfConfigured",
+              "Context.IdentityCredentials",
+              "Context.LoadModule",
+              "Context.LoadModuleByID",
+              "Context.Logger",
+              "Context.Slogger",
+              "Duration.UnmarshalJSON",
+              "Event.CloudEvent",
+              "GetModule",
+              "GetModules",
+              "HomeDir",
+              "InstanceID",
+              "Load",
+              "Logging.Logger",
+              "NetworkAddress.Listen",
+              "NetworkAddress.ListenAll",
+              "NetworkAddress.ListenQUIC",
+              "NetworkAddress.String",
+              "NewContext",
+              "NewEvent",
+              "PIDFile",
+              "ParseDuration",
+              "ParseNetworkAddress",
+              "ParseNetworkAddressWithDefaults",
+              "ParseStructTag",
+              "ProvisionContext",
+              "RegisterModule",
+              "RemoveMetaFields",
+              "Replacer.Get",
+              "Replacer.GetString",
+              "Replacer.ReplaceAll",
+              "Replacer.ReplaceFunc",
+              "Replacer.ReplaceKnown",
+              "Replacer.ReplaceOrErr",
+              "Run",
+              "Stop",
+              "StrictUnmarshalJSON",
+              "ToString",
+              "TrapSignals",
+              "UsagePool.Delete",
+              "UsagePool.LoadOrNew",
+              "Validate",
+              "Version"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/caddyserver/caddy/security/advisories/GHSA-879p-475x-rqh2"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/caddyserver/caddy/commit/65e0ddc22137bbbaa68c842ae0b98d0548504545"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/caddyserver/caddy/releases/tag/v2.11.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4537",
+    "review_status": "REVIEWED"
+  }
+}

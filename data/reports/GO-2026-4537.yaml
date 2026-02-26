@@ -1,0 +1,75 @@
+id: GO-2026-4537
+modules:
+    - module: github.com/caddyserver/caddy/v2
+      versions:
+        - fixed: 2.11.1
+      vulnerable_at: 2.11.0
+      packages:
+        - package: github.com/caddyserver/caddy/v2
+          symbols:
+          derived_symbols:
+            - APIError.Error
+            - AdminHandlerFunc.ServeHTTP
+            - AppConfigDir
+            - AppDataDir
+            - BufferedLog
+            - ClearLastConfigIfDifferent
+            - Context.App
+            - Context.AppIfConfigured
+            - Context.IdentityCredentials
+            - Context.LoadModule
+            - Context.LoadModuleByID
+            - Context.Logger
+            - Context.Slogger
+            - Duration.UnmarshalJSON
+            - Event.CloudEvent
+            - GetModule
+            - GetModules
+            - HomeDir
+            - InstanceID
+            - Load
+            - Logging.Logger
+            - NetworkAddress.Listen
+            - NetworkAddress.ListenAll
+            - NetworkAddress.ListenQUIC
+            - NetworkAddress.String
+            - NewContext
+            - NewEvent
+            - PIDFile
+            - ParseDuration
+            - ParseNetworkAddress
+            - ParseNetworkAddressWithDefaults
+            - ParseStructTag
+            - ProvisionContext
+            - RegisterModule
+            - RemoveMetaFields
+            - Replacer.Get
+            - Replacer.GetString
+            - Replacer.ReplaceAll
+            - Replacer.ReplaceFunc
+            - Replacer.ReplaceKnown
+            - Replacer.ReplaceOrErr
+            - Run
+            - Stop
+            - StrictUnmarshalJSON
+            - ToString
+            - TrapSignals
+            - UsagePool.Delete
+            - UsagePool.LoadOrNew
+            - Validate
+            - Version
+summary: |-
+    Caddy is vulnerable to cross-origin config application via local admin API /load
+    in github.com/caddyserver/caddy/v2
+cves:
+    - CVE-2026-27589
+ghsas:
+    - GHSA-879p-475x-rqh2
+references:
+    - advisory: https://github.com/caddyserver/caddy/security/advisories/GHSA-879p-475x-rqh2
+    - fix: https://github.com/caddyserver/caddy/commit/65e0ddc22137bbbaa68c842ae0b98d0548504545
+    - web: https://github.com/caddyserver/caddy/releases/tag/v2.11.1
+source:
+    id: GHSA-879p-475x-rqh2
+    created: 2026-02-25T18:00:34.734025644Z
+review_status: REVIEWED
