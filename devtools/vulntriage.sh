@@ -55,55 +55,37 @@ fi
 
 while [[ "$#" -gt 0 ]]; do
   case $1 in
-  --batch)
-    BATCH_SIZE="$2"
-    shift
-    ;;
-  --no-triage) TRIAGE=false ;;
-  --no-create) CREATE=false ;;
-  --no-commit) COMMIT=false ;;
-  --branch)
-    BRANCH_NAME="$2"
-    shift
-    ;;
-  *)
-    echo "Unknown option: $1"
-    exit 1
-    ;;
+    --batch) BATCH_SIZE="$2"; shift ;;
+    --no-triage) TRIAGE=false ;;
+    --no-create) CREATE=false ;;
+    --no-commit) COMMIT=false ;;
+    --branch) BRANCH_NAME="$2"; shift ;;
+    *) echo "Unknown option: $1"; exit 1 ;;
   esac
   shift
 done
 
-source devtools/lib.sh || {
-  echo "Are you at repo root?"
-  exit 1
-}
+source devtools/lib.sh || { echo "Are you at repo root?"; exit 1; }
 
 info "Attempting to create and switch to new branch: $BRANCH_NAME"
 if git checkout -b "$BRANCH_NAME"; then
   info "Successfully created and switched to new branch: $BRANCH_NAME"
 else
   info "Failed to create new branch. Attempting to switch to existing branch: $BRANCH_NAME"
-  git checkout "$BRANCH_NAME" || {
-    echo "[ERROR] Failed to create or switch to branch $BRANCH_NAME. Aborting."
-    exit 1
-  }
+  git checkout "$BRANCH_NAME" || { echo "[ERROR] Failed to create or switch to branch $BRANCH_NAME. Aborting."; exit 1; }
   info "Successfully switched to existing branch: $BRANCH_NAME"
 fi
 
 info "Pulling latest changes..."
-git pull origin master --rebase ||
-  {
-    echo "[ERROR] Failed to pull latest changes. Aborting."
-    exit 1
-  }
+git pull origin master --rebase || \
+  { echo "[ERROR] Failed to pull latest changes. Aborting."; exit 1; }
 info "Successfully synced with remote."
 
 info "Installing vulnreport tool..."
 go install ./cmd/vulnreport
 if [ $? -ne 0 ]; then
-  echo "[ERROR] Failed to install vulnreport. Aborting." >&2
-  exit 1
+   echo "[ERROR] Failed to install vulnreport. Aborting." >&2
+   exit 1
 fi
 
 if $TRIAGE; then
