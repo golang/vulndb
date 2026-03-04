@@ -10,6 +10,10 @@ Other useful docs:
 
 ## Quickstart
 
+### Automated Triage
+
+Consider using the go/go-vuln-triage-tool internally.
+
 ### Triage
 
 NEW: To triage all issues, create reports that can be created automatically,
