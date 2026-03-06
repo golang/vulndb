@@ -1,0 +1,21 @@
+id: GO-2026-4568
+modules:
+    - module: github.com/filecoin-project/curio
+      versions:
+        - introduced: 1.24.3
+        - fixed: 1.27.3-rc2
+      vulnerable_at: 1.27.3-rc1
+summary: |-
+    Curio exposes database credentials to users with network access through verbose
+    HTTP error responses in github.com/filecoin-project/curio
+ghsas:
+    - GHSA-gj6x-q8rh-wj6x
+references:
+    - advisory: https://github.com/filecoin-project/curio/security/advisories/GHSA-gj6x-q8rh-wj6x
+    - fix: https://github.com/filecoin-project/curio/commit/551da78e0123892600d8e6dfe9de7a579055d80b
+    - fix: https://github.com/filecoin-project/curio/pull/919
+    - web: https://github.com/filecoin-project/curio/blob/main/documentation/en/design/README.md#security-boundary
+source:
+    id: GHSA-gj6x-q8rh-wj6x
+    created: 2026-03-06T14:56:42.968551-05:00
+review_status: UNREVIEWED

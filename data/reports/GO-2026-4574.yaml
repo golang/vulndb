@@ -1,0 +1,23 @@
+id: GO-2026-4574
+modules:
+    - module: github.com/zitadel/zitadel
+      versions:
+        - fixed: 1.80.0-v2.20.0.20260225053328-b2532e966621
+      non_go_versions:
+        - introduced: 2.59.0
+        - fixed: 4.11.1
+      vulnerable_at: 1.80.0-v2.20
+summary: ZITADEL has potential SSRF via Actions in github.com/zitadel/zitadel
+cves:
+    - CVE-2026-27945
+ghsas:
+    - GHSA-7777-fhq9-592v
+references:
+    - advisory: https://github.com/zitadel/zitadel/security/advisories/GHSA-7777-fhq9-592v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-27945
+    - fix: https://github.com/zitadel/zitadel/commit/b2532e9666215bef04855d138ca716045bb74a06
+    - web: https://github.com/zitadel/zitadel/releases/tag/v4.11.1
+source:
+    id: GHSA-7777-fhq9-592v
+    created: 2026-03-06T14:57:50.898997-05:00
+review_status: UNREVIEWED

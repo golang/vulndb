@@ -1,0 +1,17 @@
+id: GO-2026-4588
+modules:
+    - module: chainguard.dev/melange
+      unsupported_versions:
+        - last_affected: 0.40.5
+      vulnerable_at: 0.43.6
+summary: '`melange update-cache` has unbounded HTTP download that can exhaust disk in CI in chainguard.dev/melange'
+cves:
+    - CVE-2026-29049
+ghsas:
+    - GHSA-7rp8-r62p-q6wc
+references:
+    - advisory: https://github.com/chainguard-dev/melange/security/advisories/GHSA-7rp8-r62p-q6wc
+source:
+    id: GHSA-7rp8-r62p-q6wc
+    created: 2026-03-06T14:59:19.045325-05:00
+review_status: UNREVIEWED

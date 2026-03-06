@@ -1,0 +1,27 @@
+id: GO-2026-4567
+modules:
+    - module: vitess.io/vitess
+      versions:
+        - fixed: 0.22.4
+        - introduced: 0.23.0
+        - fixed: 0.23.3
+      vulnerable_at: 0.23.2
+summary: |-
+    Vitess users can gain unauthorized access to production deployment environments
+    in vitess.io/vitess
+description: |-
+    Vitess users with backup storage access can gain unauthorized access to
+    production deployment environments in vitess.io/vitess
+cves:
+    - CVE-2026-27965
+ghsas:
+    - GHSA-8g8j-r87h-p36x
+references:
+    - advisory: https://github.com/vitessio/vitess/security/advisories/GHSA-8g8j-r87h-p36x
+    - web: https://github.com/vitessio/vitess/commit/4c0173293907af9cb942a6683c465c3f1e9fdb5c
+    - web: https://github.com/vitessio/vitess/issues/19459
+    - web: https://github.com/vitessio/vitess/pull/19460
+source:
+    id: GHSA-8g8j-r87h-p36x
+    created: 2026-03-06T14:56:36.508453-05:00
+review_status: REVIEWED

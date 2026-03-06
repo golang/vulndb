@@ -1,0 +1,21 @@
+id: GO-2026-4583
+modules:
+    - module: github.com/chainguard-dev/malcontent
+      versions:
+        - fixed: 1.21.0
+      vulnerable_at: 1.20.5
+summary: |-
+    malcontent: Error-path cleanup gap can leak scanners and fds and degrade
+    availability in github.com/chainguard-dev/malcontent
+ghsas:
+    - GHSA-54p8-x2m9-c593
+references:
+    - advisory: https://github.com/chainguard-dev/malcontent/security/advisories/GHSA-54p8-x2m9-c593
+    - fix: https://github.com/chainguard-dev/malcontent/pull/1354
+    - fix: https://github.com/chainguard-dev/malcontent/pull/1355
+    - fix: https://github.com/chainguard-dev/malcontent/pull/1356
+    - fix: https://github.com/chainguard-dev/malcontent/pull/1361
+source:
+    id: GHSA-54p8-x2m9-c593
+    created: 2026-03-06T14:58:42.182341-05:00
+review_status: UNREVIEWED

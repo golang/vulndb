@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4568",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-gj6x-q8rh-wj6x"
+  ],
+  "summary": "Curio exposes database credentials to users with network access through verbose HTTP error responses in github.com/filecoin-project/curio",
+  "details": "Curio exposes database credentials to users with network access through verbose HTTP error responses in github.com/filecoin-project/curio",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/filecoin-project/curio",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.24.3"
+            },
+            {
+              "fixed": "1.27.3-rc2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/filecoin-project/curio/security/advisories/GHSA-gj6x-q8rh-wj6x"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/filecoin-project/curio/commit/551da78e0123892600d8e6dfe9de7a579055d80b"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/filecoin-project/curio/pull/919"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/filecoin-project/curio/blob/main/documentation/en/design/README.md#security-boundary"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4568",
+    "review_status": "UNREVIEWED"
+  }
+}

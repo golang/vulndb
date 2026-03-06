@@ -1,0 +1,20 @@
+id: GO-2026-4575
+modules:
+    - module: code.vikunja.io/api
+      unsupported_versions:
+        - last_affected: 0.24.6
+      vulnerable_at: 0.24.6
+summary: Vikunja Vulnerable to Account Takeover via Password Reset Token Reuse in code.vikunja.io/api
+cves:
+    - CVE-2026-28268
+ghsas:
+    - GHSA-rfjg-6m84-crj2
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-rfjg-6m84-crj2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-28268
+    - web: https://github.com/go-vikunja/vikunja/commit/5c2195f9fca9ad208477e865e6009c37889f87b2
+    - web: https://vikunja.io/changelog/vikunja-v2.1.0-was-released
+source:
+    id: GHSA-rfjg-6m84-crj2
+    created: 2026-03-06T14:57:57.194407-05:00
+review_status: UNREVIEWED

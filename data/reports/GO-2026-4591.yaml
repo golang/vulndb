@@ -1,0 +1,26 @@
+id: GO-2026-4591
+modules:
+    - module: github.com/rancher/backup-restore-operator
+      non_go_versions:
+        - introduced: 6.0.0
+        - fixed: 6.0.3
+        - introduced: 7.0.0
+        - fixed: 7.0.5
+        - introduced: 8.0.0
+        - fixed: 8.1.2
+        - introduced: 9.0.0
+        - fixed: 9.0.1
+      vulnerable_at: 1.2.1
+summary: Rancher Backup Operator pod's logs leak S3 tokens in github.com/rancher/backup-restore-operator
+cves:
+    - CVE-2025-62879
+ghsas:
+    - GHSA-wj3p-5h3x-c74q
+references:
+    - advisory: https://github.com/rancher/backup-restore-operator/security/advisories/GHSA-wj3p-5h3x-c74q
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-62879
+    - web: https://bugzilla.suse.com/show_bug.cgi?id=CVE-2025-62879
+source:
+    id: GHSA-wj3p-5h3x-c74q
+    created: 2026-03-06T14:59:35.377775-05:00
+review_status: UNREVIEWED

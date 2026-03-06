@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4583",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-54p8-x2m9-c593"
+  ],
+  "summary": "malcontent: Error-path cleanup gap can leak scanners and fds and degrade availability in github.com/chainguard-dev/malcontent",
+  "details": "malcontent: Error-path cleanup gap can leak scanners and fds and degrade availability in github.com/chainguard-dev/malcontent",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/chainguard-dev/malcontent",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.21.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/chainguard-dev/malcontent/security/advisories/GHSA-54p8-x2m9-c593"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/chainguard-dev/malcontent/pull/1354"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/chainguard-dev/malcontent/pull/1355"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/chainguard-dev/malcontent/pull/1356"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/chainguard-dev/malcontent/pull/1361"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4583",
+    "review_status": "UNREVIEWED"
+  }
+}

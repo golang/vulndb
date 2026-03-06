@@ -1,0 +1,20 @@
+id: GO-2026-4576
+modules:
+    - module: github.com/jmpsec/osctrl
+      versions:
+        - fixed: 0.5.0
+      vulnerable_at: 0.4.9
+summary: osctrl has Stored Cross-Site Scripting (XSS) in On-Demand Query List in github.com/jmpsec/osctrl
+cves:
+    - CVE-2026-28280
+ghsas:
+    - GHSA-4rv8-5cmm-2r22
+references:
+    - advisory: https://github.com/jmpsec/osctrl/security/advisories/GHSA-4rv8-5cmm-2r22
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-28280
+    - fix: https://github.com/jmpsec/osctrl/pull/778
+    - fix: https://github.com/jmpsec/osctrl/pull/780
+source:
+    id: GHSA-4rv8-5cmm-2r22
+    created: 2026-03-06T14:58:03.119418-05:00
+review_status: UNREVIEWED

@@ -1,0 +1,22 @@
+id: GO-2026-4571
+modules:
+    - module: github.com/henrygd/beszel
+      versions:
+        - fixed: 0.18.4
+      vulnerable_at: 0.18.3
+summary: |-
+    Beszel: Docker API has a Path Traversal Vulnerability via Unsanitized Container
+    ID in github.com/henrygd/beszel
+cves:
+    - CVE-2026-27734
+ghsas:
+    - GHSA-phwh-4f42-gwf3
+references:
+    - advisory: https://github.com/henrygd/beszel/security/advisories/GHSA-phwh-4f42-gwf3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-27734
+    - fix: https://github.com/henrygd/beszel/commit/311095cfddda113863ca9656cf9e99411be1cef5
+    - web: https://github.com/henrygd/beszel/releases/tag/v0.18.4
+source:
+    id: GHSA-phwh-4f42-gwf3
+    created: 2026-03-06T14:57:02.387246-05:00
+review_status: UNREVIEWED

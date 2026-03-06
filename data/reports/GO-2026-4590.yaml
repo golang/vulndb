@@ -1,0 +1,18 @@
+id: GO-2026-4590
+modules:
+    - module: github.com/rancher/rancher
+      versions:
+        - introduced: 2.0.0+incompatible
+      non_go_versions:
+        - fixed: 2.6.4
+summary: |-
+    Rancher's restricted PodSecurityPolicy does not prevent containers from running
+    as a privileged user in github.com/rancher/rancher
+ghsas:
+    - GHSA-hwm2-4ph6-w6m5
+references:
+    - advisory: https://github.com/rancher/rancher/security/advisories/GHSA-hwm2-4ph6-w6m5
+source:
+    id: GHSA-hwm2-4ph6-w6m5
+    created: 2026-03-06T14:59:32.674538-05:00
+review_status: UNREVIEWED

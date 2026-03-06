@@ -1,0 +1,21 @@
+id: GO-2026-4586
+modules:
+    - module: github.com/OliveTin/OliveTin
+      non_go_versions:
+        - fixed: 0.0.0-20260301235225-f044d90d5525c
+      vulnerable_at: 0.0.0-20260305095125-276e3f62ddb8
+summary: |-
+    OliveTin has unauthenticated DoS via concurrent map writes in OAuth2 state
+    handling in github.com/OliveTin/OliveTin
+cves:
+    - CVE-2026-28789
+ghsas:
+    - GHSA-45m3-398w-m2m9
+references:
+    - advisory: https://github.com/OliveTin/OliveTin/security/advisories/GHSA-45m3-398w-m2m9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-28789
+    - fix: https://github.com/OliveTin/OliveTin/commit/f044d90d5525c4c8e3f421b32ed7eff771c22d36
+source:
+    id: GHSA-45m3-398w-m2m9
+    created: 2026-03-06T14:58:58.537968-05:00
+review_status: UNREVIEWED

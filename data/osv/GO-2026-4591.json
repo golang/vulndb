@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4591",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2025-62879",
+    "GHSA-wj3p-5h3x-c74q"
+  ],
+  "summary": "Rancher Backup Operator pod's logs leak S3 tokens in github.com/rancher/backup-restore-operator",
+  "details": "Rancher Backup Operator pod's logs leak S3 tokens in github.com/rancher/backup-restore-operator.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/rancher/backup-restore-operator from v6.0.0 before v6.0.3, from v7.0.0 before v7.0.5, from v8.0.0 before v8.1.2, from v9.0.0 before v9.0.1.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/rancher/backup-restore-operator",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "6.0.0"
+              },
+              {
+                "fixed": "6.0.3"
+              },
+              {
+                "introduced": "7.0.0"
+              },
+              {
+                "fixed": "7.0.5"
+              },
+              {
+                "introduced": "8.0.0"
+              },
+              {
+                "fixed": "8.1.2"
+              },
+              {
+                "introduced": "9.0.0"
+              },
+              {
+                "fixed": "9.0.1"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/rancher/backup-restore-operator/security/advisories/GHSA-wj3p-5h3x-c74q"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-62879"
+    },
+    {
+      "type": "WEB",
+      "url": "https://bugzilla.suse.com/show_bug.cgi?id=CVE-2025-62879"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4591",
+    "review_status": "UNREVIEWED"
+  }
+}

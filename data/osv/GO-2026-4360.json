@@ -1,0 +1,125 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4360",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-0528",
+    "GHSA-w2gr-585j-r428"
+  ],
+  "summary": "Metricbeat affected by multiple denial of service vulnerabilities in github.com/elastic/beats",
+  "details": "Metricbeat affected by multiple denial of service vulnerabilities in github.com/elastic/beats",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/elastic/beats",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "8.0.0"
+              },
+              {
+                "fixed": "8.19.10"
+              },
+              {
+                "introduced": "9.0.0"
+              },
+              {
+                "fixed": "9.1.10"
+              },
+              {
+                "introduced": "9.2.0"
+              },
+              {
+                "fixed": "9.2.4"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/elastic/beats/v7",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "7.0.0-alpha2.0.20251217054608-6e42552a23ce"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/elastic/beats/v7/metricbeat/helper/prometheus",
+            "symbols": [
+              "MetricFamily.GetUnit",
+              "ParseMetricFamilies"
+            ]
+          },
+          {
+            "path": "github.com/elastic/beats/v7/metricbeat/module/graphite/server",
+            "symbols": [
+              "template.Apply"
+            ]
+          },
+          {
+            "path": "github.com/elastic/beats/v7/metricbeat/module/zookeeper/server",
+            "symbols": [
+              "parseSrvr"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-w2gr-585j-r428"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/elastic/beats/commit/0025fbfe668936eb8fa65b838508faf3c3c04387"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/elastic/beats/commit/6e42552a23cec734e7977ebd3eb7fb797ddce456"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/elastic/beats/commit/c7664c91a5a68c2df782bfeffe4fb7f42ff2ad1a"
+    },
+    {
+      "type": "WEB",
+      "url": "https://discuss.elastic.co/t/metricbeat-8-19-10-9-1-10-9-2-4-security-update-esa-2026-01/384519"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4360",
+    "review_status": "REVIEWED"
+  }
+}

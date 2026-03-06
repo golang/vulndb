@@ -1,0 +1,33 @@
+id: GO-2026-4570
+modules:
+    - module: vitess.io/vitess
+      versions:
+        - fixed: 0.22.4
+        - introduced: 0.23.0-rc1
+        - fixed: 0.23.3
+      vulnerable_at: 0.23.2
+      packages:
+        - package: vitess.io/vitess/go/vt/mysqlctl
+          symbols:
+            - FileEntry.fullPath
+summary: |-
+    Vitess users with backup storage access can write to arbitrary file paths in
+    vitess.io/vitess
+description: |-
+    Vitess users with backup storage access can write to arbitrary file paths on
+    restore in vitess.io/vitess
+cves:
+    - CVE-2026-27969
+ghsas:
+    - GHSA-r492-hjgh-c9gw
+references:
+    - advisory: https://github.com/vitessio/vitess/security/advisories/GHSA-r492-hjgh-c9gw
+    - web: https://github.com/vitessio/vitess/commit/c565cab615bc962bda061dcd645aa7506c59ca4a
+    - web: https://github.com/vitessio/vitess/pull/19470
+    - web: https://owasp.org/www-community/attacks/Path_Traversal
+notes:
+    - create: failed to auto-populate symbols due to build error in dependency vitess.io/vitess/go/hack
+source:
+    id: GHSA-r492-hjgh-c9gw
+    created: 2026-03-06T14:56:55.308574-05:00
+review_status: REVIEWED

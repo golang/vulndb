@@ -1,0 +1,24 @@
+id: GO-2026-4580
+modules:
+    - module: github.com/chainguard-dev/kaniko
+      versions:
+        - introduced: 1.25.4
+        - fixed: 1.25.10
+      vulnerable_at: 1.25.9
+summary: |-
+    kaniko has tar archive path traversal in its build context extraction, allowing
+    file writes outside destination directories in github.com/chainguard-dev/kaniko
+cves:
+    - CVE-2026-28406
+ghsas:
+    - GHSA-6rxq-q92g-4rmf
+references:
+    - advisory: https://github.com/chainguard-forks/kaniko/security/advisories/GHSA-6rxq-q92g-4rmf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-28406
+    - web: https://github.com/chainguard-forks/kaniko/commit/a370e4b1f66e6e842b685c8f70ed507964c4b221
+    - web: https://github.com/chainguard-forks/kaniko/pull/326
+    - web: https://github.com/chainguard-forks/kaniko/releases/tag/v1.25.10
+source:
+    id: GHSA-6rxq-q92g-4rmf
+    created: 2026-03-06T14:58:34.238052-05:00
+review_status: UNREVIEWED

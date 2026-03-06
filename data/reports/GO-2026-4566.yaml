@@ -1,0 +1,23 @@
+id: GO-2026-4566
+modules:
+    - module: github.com/h44z/wg-portal
+      non_go_versions:
+        - fixed: 2.1.3
+      vulnerable_at: 1.0.19
+summary: |-
+    WireGuard Portal is Vulnerable to Privilege Escalation via User Self-Update to
+    Admin Level in github.com/h44z/wg-portal
+cves:
+    - CVE-2026-27899
+ghsas:
+    - GHSA-5rmx-256w-8mj9
+references:
+    - advisory: https://github.com/h44z/wg-portal/security/advisories/GHSA-5rmx-256w-8mj9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-27899
+    - fix: https://github.com/h44z/wg-portal/commit/fe4485037a25426446ced95050e9498f477bf71d
+    - web: https://github.com/h44z/wg-portal/releases/tag/v2.1.3
+    - web: https://hub.docker.com/layers/wgportal/wg-portal/v2.1.3/images/sha256-39acfab55598a74e561828b8cb639515ddc222d6c884996111f5ef235aba9e7b
+source:
+    id: GHSA-5rmx-256w-8mj9
+    created: 2026-03-06T14:56:26.683117-05:00
+review_status: UNREVIEWED

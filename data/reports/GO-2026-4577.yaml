@@ -1,0 +1,20 @@
+id: GO-2026-4577
+modules:
+    - module: github.com/chainguard-dev/malcontent
+      versions:
+        - fixed: 1.21.0
+      vulnerable_at: 1.20.5
+summary: 'malcontent: Nested archive extraction failure can drop content from scan inputs in github.com/chainguard-dev/malcontent'
+cves:
+    - CVE-2026-28407
+ghsas:
+    - GHSA-945p-3jhm-6rcp
+references:
+    - advisory: https://github.com/chainguard-dev/malcontent/security/advisories/GHSA-945p-3jhm-6rcp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-28407
+    - fix: https://github.com/chainguard-dev/malcontent/commit/356c56659ccfcad0b249a97de8cf71f151ed3ee9
+    - fix: https://github.com/chainguard-dev/malcontent/pull/1383
+source:
+    id: GHSA-945p-3jhm-6rcp
+    created: 2026-03-06T14:58:12.005212-05:00
+review_status: UNREVIEWED

@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4580",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-28406",
+    "GHSA-6rxq-q92g-4rmf"
+  ],
+  "summary": "kaniko has tar archive path traversal in its build context extraction, allowing file writes outside destination directories in github.com/chainguard-dev/kaniko",
+  "details": "kaniko has tar archive path traversal in its build context extraction, allowing file writes outside destination directories in github.com/chainguard-dev/kaniko",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/chainguard-dev/kaniko",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.25.4"
+            },
+            {
+              "fixed": "1.25.10"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/chainguard-forks/kaniko/security/advisories/GHSA-6rxq-q92g-4rmf"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-28406"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/chainguard-forks/kaniko/commit/a370e4b1f66e6e842b685c8f70ed507964c4b221"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/chainguard-forks/kaniko/pull/326"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/chainguard-forks/kaniko/releases/tag/v1.25.10"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4580",
+    "review_status": "UNREVIEWED"
+  }
+}

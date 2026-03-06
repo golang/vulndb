@@ -1,0 +1,22 @@
+id: GO-2026-4589
+modules:
+    - module: github.com/rancher/rancher
+      versions:
+        - introduced: 2.2.0+incompatible
+      non_go_versions:
+        - fixed: 2.4.16
+        - introduced: 2.5.0
+        - fixed: 2.5.9
+summary: Rancher cloud credentials can be used through proxy API by users without access in github.com/rancher/rancher
+cves:
+    - CVE-2021-25320
+ghsas:
+    - GHSA-gqf8-rvrh-g7w6
+references:
+    - advisory: https://github.com/rancher/rancher/security/advisories/GHSA-gqf8-rvrh-g7w6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2021-25320
+    - web: https://bugzilla.suse.com/show_bug.cgi?id=1185514
+source:
+    id: GHSA-gqf8-rvrh-g7w6
+    created: 2026-03-06T14:59:23.606714-05:00
+review_status: UNREVIEWED
