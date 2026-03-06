@@ -1,0 +1,35 @@
+id: GO-2026-4601
+modules:
+    - module: std
+      versions:
+        - fixed: 1.25.8
+        - introduced: 1.26.0-0
+        - fixed: 1.26.1
+      vulnerable_at: 1.26.0
+      packages:
+        - package: net/url
+          symbols:
+            - parseHost
+          derived_symbols:
+            - JoinPath
+            - Parse
+            - ParseRequestURI
+            - URL.Parse
+            - URL.UnmarshalBinary
+summary: Incorrect parsing of IPv6 host literals in net/url
+description: |-
+    url.Parse insufficiently validated the host/authority
+    component and accepted some invalid URLs.
+credits:
+    - Masaki Hara (https://github.com/qnighy) of Wantedly
+references:
+    - fix: https://go.dev/cl/752180
+    - report: https://go.dev/issue/77578
+    - web: https://groups.google.com/g/golang-announce/c/EdhZqrQ98hk
+cve_metadata:
+    id: CVE-2026-25679
+    cwe: 'CWE-1286: Improper Validation of Syntactic Correctness of Input'
+source:
+    id: go-security-team
+    created: 2026-03-06T15:21:20.010742-05:00
+review_status: REVIEWED

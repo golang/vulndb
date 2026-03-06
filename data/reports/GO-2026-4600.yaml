@@ -1,0 +1,31 @@
+id: GO-2026-4600
+modules:
+    - module: std
+      versions:
+        - fixed: 1.26.1
+      vulnerable_at: 1.26.0
+      packages:
+        - package: crypto/x509
+          symbols:
+            - dnsConstraints.query
+          derived_symbols:
+            - Certificate.Verify
+summary: Panic in name constraint checking for malformed certificates in crypto/x509
+description: |-
+    Certificate verification can panic when a certificate in the chain has an empty
+    DNS name and another certificate in the chain has excluded name constraints.
+    This can crash programs that are either directly verifying X.509 certificate
+    chains, or those that use TLS.
+credits:
+    - Jakub Ciolek
+references:
+    - web: https://groups.google.com/g/golang-announce/c/EdhZqrQ98hk
+    - report: https://go.dev/issue/77953
+    - fix: https://go.dev/cl/752183
+cve_metadata:
+    id: CVE-2026-27138
+    cwe: 'CWE-1285: Improper Validation of Specified Index, Position, or Offset in Input'
+source:
+    id: go-security-team
+    created: 2026-03-06T15:21:20.010742-05:00
+review_status: REVIEWED

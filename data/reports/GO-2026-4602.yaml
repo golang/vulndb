@@ -1,0 +1,39 @@
+id: GO-2026-4602
+modules:
+    - module: std
+      versions:
+        - fixed: 1.25.8
+        - introduced: 1.26.0-0
+        - fixed: 1.26.1
+      vulnerable_at: 1.26.0
+      packages:
+        - package: os
+          symbols:
+            - File.ReadDir
+            - File.Readdir
+          derived_symbols:
+            - ReadDir
+            - dirFS.ReadDir
+            - rootFS.ReadDir
+summary: FileInfo can escape from a Root in os
+description: |-
+    On Unix platforms, when listing the contents of a directory using
+    File.ReadDir or File.Readdir the returned FileInfo could reference
+    a file outside of the Root in which the File was opened.
+
+    The impact of this escape is limited to reading metadata provided by
+    lstat from arbitrary locations on the filesystem without permitting
+    reading or writing files outside the root.
+credits:
+    - Miloslav Trmač of Red Hat
+references:
+    - web: https://groups.google.com/g/golang-announce/c/EdhZqrQ98hk
+    - report: https://go.dev/issue/77827
+    - fix: https://go.dev/cl/749480
+cve_metadata:
+    id: CVE-2026-27139
+    cwe: 'CWE-363: Race Condition Enabling Link Following'
+source:
+    id: go-security-team
+    created: 2026-03-06T15:21:20.010742-05:00
+review_status: REVIEWED

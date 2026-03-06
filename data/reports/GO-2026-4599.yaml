@@ -1,0 +1,35 @@
+id: GO-2026-4599
+modules:
+    - module: std
+      versions:
+        - fixed: 1.26.1
+      vulnerable_at: 1.26.0
+      packages:
+        - package: crypto/x509
+          symbols:
+            - newEmailConstraints
+            - emailConstraints.query
+            - checkConstraints
+            - checkChainConstraints
+            - parseMailboxes
+          derived_symbols:
+            - Certificate.Verify
+summary: Incorrect enforcement of email constraints in crypto/x509
+description: |-
+    When verifying a certificate chain which contains a certificate containing
+    multiple email address constraints which share common local portions but
+    different domain portions, these constraints will not be properly applied, and
+    only the last constraint will be considered.
+credits:
+    - Jakub Ciolek
+references:
+    - fix: https://go.dev/cl/752182
+    - report: https://go.dev/issue/77952
+    - web: https://groups.google.com/g/golang-announce/c/EdhZqrQ98hk
+cve_metadata:
+    id: CVE-2026-27137
+    cwe: 'CWE-295: Improper Certificate Validation'
+source:
+    id: go-security-team
+    created: 2026-03-06T15:21:20.010742-05:00
+review_status: REVIEWED
