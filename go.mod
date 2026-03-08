@@ -1,6 +1,6 @@
 module golang.org/x/vulndb
 
-go 1.26.0
+go 1.26.1
 
 require (
 	cloud.google.com/go/errorreporting v0.3.0
