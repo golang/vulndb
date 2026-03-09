@@ -1,0 +1,21 @@
+id: GO-2026-4620
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.14.2
+      vulnerable_at: 0.13.3
+summary: 'Gogs: Stored XSS via data URI in issue comments in gogs.io/gogs'
+cves:
+    - CVE-2026-26022
+ghsas:
+    - GHSA-xrcr-gmf5-2r8j
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-xrcr-gmf5-2r8j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-26022
+    - web: https://github.com/gogs/gogs/commit/441c64d7bd8893b2f4e48660a8be3a7472e14291
+    - web: https://github.com/gogs/gogs/pull/8174
+    - web: https://github.com/gogs/gogs/releases/tag/v0.14.2
+source:
+    id: GHSA-xrcr-gmf5-2r8j
+    created: 2026-03-06T23:08:43.558856-05:00
+review_status: UNREVIEWED

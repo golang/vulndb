@@ -1,0 +1,22 @@
+id: GO-2026-4638
+modules:
+    - module: github.com/Tencent/WeKnora
+      unsupported_versions:
+        - last_affected: 0.2.14
+      vulnerable_at: 0.3.3
+summary: |-
+    WeKnora Vulnerable to Tool Execution Hijacking via Ambigous Naming Convention In
+    MCP client and Indirect Prompt Injection in github.com/Tencent/WeKnora
+cves:
+    - CVE-2026-30856
+ghsas:
+    - GHSA-67q9-58vj-32qx
+references:
+    - advisory: https://github.com/Tencent/WeKnora/security/advisories/GHSA-67q9-58vj-32qx
+    - web: https://forum.cursor.com/t/mcp-tools-name-collision-causing-cross-service-tool-call-failures/70946
+    - web: https://modelcontextprotocol-security.io/ttps/tool-poisoning/tool-name-conflict
+    - web: https://www.elastic.co/security-labs/mcp-tools-attack-defense-recommendations#tool-name-collision
+source:
+    id: GHSA-67q9-58vj-32qx
+    created: 2026-03-06T23:06:27.512002-05:00
+review_status: UNREVIEWED

@@ -1,0 +1,20 @@
+id: GO-2026-4634
+modules:
+    - module: github.com/charmbracelet/soft-serve
+      versions:
+        - introduced: 0.6.0
+        - fixed: 0.11.4
+      vulnerable_at: 0.11.3
+summary: soft-serve vulnerable to SSRF via unvalidated LFS endpoint in repo import in github.com/charmbracelet/soft-serve
+cves:
+    - CVE-2026-30832
+ghsas:
+    - GHSA-3fvx-xrxq-8jvv
+references:
+    - advisory: https://github.com/charmbracelet/soft-serve/security/advisories/GHSA-3fvx-xrxq-8jvv
+    - fix: https://github.com/charmbracelet/soft-serve/commit/3ef660098ab37a7950457da8ecc25b516e37ce4e
+    - web: https://github.com/charmbracelet/soft-serve/releases/tag/v0.11.4
+source:
+    id: GHSA-3fvx-xrxq-8jvv
+    created: 2026-03-06T23:07:00.998991-05:00
+review_status: UNREVIEWED

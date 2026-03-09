@@ -1,0 +1,30 @@
+id: GO-2026-4597
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - introduced: 2.11.9
+        - fixed: 2.11.38
+      vulnerable_at: 2.11.37
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - introduced: 3.1.3
+        - fixed: 3.6.9
+      vulnerable_at: 3.6.8
+summary: |-
+    traefik CVE-2024-45410 fix bypass: lowercase `Connection` tokens can delete
+    traefik-managed forwarded identity headers (for example, `X-Real-Ip`) in github.com/traefik/traefik
+cves:
+    - CVE-2026-29054
+ghsas:
+    - GHSA-92mv-8f8w-wq52
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-92mv-8f8w-wq52
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-29054
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.38
+    - web: https://github.com/traefik/traefik/releases/tag/v3.6.9
+source:
+    id: GHSA-92mv-8f8w-wq52
+    created: 2026-03-06T23:11:18.335813-05:00
+review_status: UNREVIEWED

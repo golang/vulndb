@@ -1,0 +1,21 @@
+id: GO-2026-4627
+modules:
+    - module: gogs.io/gogs
+      unsupported_versions:
+        - last_affected: 0.13.3
+      vulnerable_at: 0.13.3
+summary: 'Gogs: DOM-based XSS via milestone selection in gogs.io/gogs'
+cves:
+    - CVE-2026-26276
+ghsas:
+    - GHSA-vgjm-2cpf-4g7c
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-vgjm-2cpf-4g7c
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-26276
+    - web: https://github.com/gogs/gogs/commit/9001a68cdda7bd9c078ffd6d1c4622905ac11e5c
+    - web: https://github.com/gogs/gogs/pull/8178
+    - web: https://github.com/gogs/gogs/releases/tag/v0.14.2
+source:
+    id: GHSA-vgjm-2cpf-4g7c
+    created: 2026-03-06T23:07:33.075521-05:00
+review_status: UNREVIEWED

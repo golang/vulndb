@@ -1,0 +1,21 @@
+id: GO-2026-4618
+modules:
+    - module: gogs.io/gogs
+      unsupported_versions:
+        - last_affected: 0.13.3
+      vulnerable_at: 0.13.3
+summary: 'Gogs: Stored XSS in branch and wiki views through author and committer names in gogs.io/gogs'
+cves:
+    - CVE-2026-26195
+ghsas:
+    - GHSA-vgvf-m4fw-938j
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-vgvf-m4fw-938j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-26195
+    - web: https://github.com/gogs/gogs/commit/ac21150a53bef3a3061f4da787ab193a8d68ecfc
+    - web: https://github.com/gogs/gogs/pull/8176
+    - web: https://github.com/gogs/gogs/releases/tag/v0.14.2
+source:
+    id: GHSA-vgvf-m4fw-938j
+    created: 2026-03-06T23:08:56.248686-05:00
+review_status: UNREVIEWED

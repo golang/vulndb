@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4620",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-26022",
+    "GHSA-xrcr-gmf5-2r8j"
+  ],
+  "summary": "Gogs: Stored XSS via data URI in issue comments in gogs.io/gogs",
+  "details": "Gogs: Stored XSS via data URI in issue comments in gogs.io/gogs.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: gogs.io/gogs before v0.14.2.",
+  "affected": [
+    {
+      "package": {
+        "name": "gogs.io/gogs",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "0.14.2"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/gogs/gogs/security/advisories/GHSA-xrcr-gmf5-2r8j"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-26022"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/gogs/gogs/commit/441c64d7bd8893b2f4e48660a8be3a7472e14291"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/gogs/gogs/pull/8174"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/gogs/gogs/releases/tag/v0.14.2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4620",
+    "review_status": "UNREVIEWED"
+  }
+}

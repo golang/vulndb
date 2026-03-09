@@ -1,0 +1,19 @@
+id: GO-2026-4646
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      non_go_versions:
+        - fixed: 3.5.10
+      vulnerable_at: 0.0.0-20260304035530-d03ebdec8279
+summary: |-
+    SiYuan Vulnerable to Path Traversal in /export Endpoint Allows Arbitrary File
+    Read and Secret Leakage in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-30869
+ghsas:
+    - GHSA-2h2p-mvfx-868w
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-2h2p-mvfx-868w
+source:
+    id: GHSA-2h2p-mvfx-868w
+    created: 2026-03-06T23:05:19.464068-05:00
+review_status: UNREVIEWED

@@ -1,0 +1,20 @@
+id: GO-2026-4623
+modules:
+    - module: github.com/OliveTin/OliveTin
+      non_go_versions:
+        - fixed: 0.0.0-20260304233115-d6a0abc3755d15
+      vulnerable_at: 0.0.0-20260305095125-276e3f62ddb8
+summary: 'OliveTin Session Fixation: Logout Fails to Invalidate Server-Side Session in github.com/OliveTin/OliveTin'
+cves:
+    - CVE-2026-30224
+ghsas:
+    - GHSA-gq2m-77hf-vwgh
+references:
+    - advisory: https://github.com/OliveTin/OliveTin/security/advisories/GHSA-gq2m-77hf-vwgh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-30224
+    - fix: https://github.com/OliveTin/OliveTin/commit/d6a0abc3755d43107be1939567c52953bcbec3d5
+    - web: https://github.com/OliveTin/OliveTin/releases/tag/3000.11.1
+source:
+    id: GHSA-gq2m-77hf-vwgh
+    created: 2026-03-06T23:08:29.77172-05:00
+review_status: UNREVIEWED

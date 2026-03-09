@@ -1,0 +1,23 @@
+id: GO-2026-4616
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.14.2
+      vulnerable_at: 0.13.3
+summary: |-
+    Gogs: Cross-repository LFS object overwrite via missing content hash
+    verification in gogs.io/gogs
+cves:
+    - CVE-2026-25921
+ghsas:
+    - GHSA-cj4v-437j-jq4c
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-cj4v-437j-jq4c
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-25921
+    - web: https://github.com/gogs/gogs/commit/81ee8836445ac888d99da8b652be7d5cbc5c4d5c
+    - web: https://github.com/gogs/gogs/pull/8166
+    - web: https://github.com/gogs/gogs/releases/tag/v0.14.2
+source:
+    id: GHSA-cj4v-437j-jq4c
+    created: 2026-03-06T23:09:06.722629-05:00
+review_status: UNREVIEWED

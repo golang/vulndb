@@ -1,0 +1,21 @@
+id: GO-2026-4626
+modules:
+    - module: github.com/forceu/gokapi
+      non_go_versions:
+        - fixed: 2.2.3
+      vulnerable_at: 1.9.6
+summary: |-
+    Gokapi has privilege escalation via incomplete API-key permission revocation on
+    user rank demotion in github.com/forceu/gokapi
+cves:
+    - CVE-2026-29061
+ghsas:
+    - GHSA-q658-hfpg-35qc
+references:
+    - advisory: https://github.com/Forceu/Gokapi/security/advisories/GHSA-q658-hfpg-35qc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-29061
+    - web: https://github.com/Forceu/Gokapi/releases/tag/v2.2.3
+source:
+    id: GHSA-q658-hfpg-35qc
+    created: 2026-03-06T23:07:38.84692-05:00
+review_status: UNREVIEWED

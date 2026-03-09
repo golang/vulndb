@@ -1,0 +1,20 @@
+id: GO-2026-4621
+modules:
+    - module: github.com/OliveTin/OliveTin
+      versions:
+        - fixed: 0.0.0-20260304225158-bb14c5da3e64
+summary: |-
+    OliveTin has crash on NPE by calling APIs with invalid bindings or log
+    references in github.com/OliveTin/OliveTin
+ghsas:
+    - GHSA-fwhj-785h-43hh
+references:
+    - advisory: https://github.com/OliveTin/OliveTin/security/advisories/GHSA-fwhj-785h-43hh
+    - fix: https://github.com/OliveTin/OliveTin/commit/bb14c5da3e64b03f207c7f38139eb60e97c278fc
+    - web: https://github.com/OliveTin/OliveTin/releases/tag/3000.11.1
+notes:
+    - fix: 'github.com/OliveTin/OliveTin: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-fwhj-785h-43hh
+    created: 2026-03-06T23:08:40.746438-05:00
+review_status: UNREVIEWED

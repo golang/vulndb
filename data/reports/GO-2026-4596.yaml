@@ -1,0 +1,22 @@
+id: GO-2026-4596
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260304034809-d68bd5a79391
+summary: |-
+    SiYuan: Unauthenticated Reflected XSS via SVG Injection in
+    /api/icon/getDynamicIcon Endpoint in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-29183
+ghsas:
+    - GHSA-6865-qjcf-286f
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-6865-qjcf-286f
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-29183
+    - web: https://github.com/siyuan-note/siyuan/commit/d68bd5a79391742b3cb2e14d892bdd9997064927
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-6865-qjcf-286f
+    created: 2026-03-06T23:11:25.636427-05:00
+review_status: UNREVIEWED

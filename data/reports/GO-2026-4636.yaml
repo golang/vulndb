@@ -1,0 +1,22 @@
+id: GO-2026-4636
+modules:
+    - module: github.com/zarf-dev/zarf
+      versions:
+        - introduced: 0.54.0
+        - fixed: 0.73.1
+      vulnerable_at: 0.73.1-rc1
+summary: |-
+    Zarf's symlink targets in archives are not validated against destination
+    directory in github.com/zarf-dev/zarf
+cves:
+    - CVE-2026-29064
+ghsas:
+    - GHSA-hcm4-6hpj-vghm
+references:
+    - advisory: https://github.com/zarf-dev/zarf/security/advisories/GHSA-hcm4-6hpj-vghm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-29064
+    - web: https://github.com/zarf-dev/zarf/releases/tag/v0.73.1
+source:
+    id: GHSA-hcm4-6hpj-vghm
+    created: 2026-03-06T23:06:49.683865-05:00
+review_status: UNREVIEWED

@@ -1,0 +1,21 @@
+id: GO-2026-4617
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.14.2
+      vulnerable_at: 0.13.3
+summary: 'Gogs: Release tag option injection in release deletion in gogs.io/gogs'
+cves:
+    - CVE-2026-26194
+ghsas:
+    - GHSA-v9vm-r24h-6rqm
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-v9vm-r24h-6rqm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-26194
+    - web: https://github.com/gogs/gogs/commit/a000f0c7a632ada40e6829abdeea525db4c0fc2d
+    - web: https://github.com/gogs/gogs/pull/8175
+    - web: https://github.com/gogs/gogs/releases/tag/v0.14.2
+source:
+    id: GHSA-v9vm-r24h-6rqm
+    created: 2026-03-06T23:09:01.625361-05:00
+review_status: UNREVIEWED

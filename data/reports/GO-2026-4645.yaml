@@ -1,0 +1,21 @@
+id: GO-2026-4645
+modules:
+    - module: github.com/Tencent/WeKnora
+      versions:
+        - introduced: 0.2.6
+        - fixed: 0.2.10
+      vulnerable_at: 0.2.9
+summary: |-
+    WeKnora has Remote Code Execution (RCE) via Command Injection in MCP Stdio
+    Configuration Validation in github.com/Tencent/WeKnora
+cves:
+    - CVE-2026-30861
+ghsas:
+    - GHSA-r55h-3rwj-hcmg
+references:
+    - advisory: https://github.com/Tencent/WeKnora/security/advisories/GHSA-r55h-3rwj-hcmg
+    - fix: https://github.com/Tencent/WeKnora/commit/57d6fea8bc265ad28b385e0158957c870cff4b50
+source:
+    id: GHSA-r55h-3rwj-hcmg
+    created: 2026-03-06T23:05:40.656001-05:00
+review_status: UNREVIEWED

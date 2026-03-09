@@ -1,0 +1,23 @@
+id: GO-2026-4614
+modules:
+    - module: github.com/0xJacky/Nginx-UI
+      non_go_versions:
+        - fixed: 2.3.3
+      vulnerable_at: 1.9.9
+summary: |-
+    Nginx-UI Vulnerable to Unauthenticated Backup Download with Encryption Key
+    Disclosure in github.com/0xJacky/Nginx-UI
+cves:
+    - CVE-2026-27944
+ghsas:
+    - GHSA-g9w5-qffc-6762
+references:
+    - advisory: https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-g9w5-qffc-6762
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-27944
+    - web: https://csrc.nist.gov/publications/detail/sp/800-57-part-1/rev-5/final
+    - web: https://owasp.org/www-project-top-ten/2017/A2_2017-Broken_Authentication
+    - web: https://owasp.org/www-project-top-ten/2017/A3_2017-Sensitive_Data_Exposure
+source:
+    id: GHSA-g9w5-qffc-6762
+    created: 2026-03-06T23:09:17.776274-05:00
+review_status: UNREVIEWED

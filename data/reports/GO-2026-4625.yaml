@@ -1,0 +1,21 @@
+id: GO-2026-4625
+modules:
+    - module: github.com/OliveTin/OliveTin
+      versions:
+        - fixed: 0.0.0-20260305000458-cb46a597b246
+summary: OliveTin's RestartAction always runs actions as guest in github.com/OliveTin/OliveTin
+cves:
+    - CVE-2026-30225
+ghsas:
+    - GHSA-p443-p7w5-2f7f
+references:
+    - advisory: https://github.com/OliveTin/OliveTin/security/advisories/GHSA-p443-p7w5-2f7f
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-30225
+    - fix: https://github.com/OliveTin/OliveTin/commit/cb46a597b2465235839ed58cf034b5e7b70ef911
+    - web: https://github.com/OliveTin/OliveTin/releases/tag/3000.11.1
+notes:
+    - fix: 'github.com/OliveTin/OliveTin: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-p443-p7w5-2f7f
+    created: 2026-03-06T23:08:20.033699-05:00
+review_status: UNREVIEWED

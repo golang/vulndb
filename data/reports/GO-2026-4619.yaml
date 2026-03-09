@@ -1,0 +1,21 @@
+id: GO-2026-4619
+modules:
+    - module: gogs.io/gogs
+      unsupported_versions:
+        - last_affected: 0.13.3
+      vulnerable_at: 0.13.3
+summary: 'Gogs: Access tokens get exposed through URL params in API requests in gogs.io/gogs'
+cves:
+    - CVE-2026-26196
+ghsas:
+    - GHSA-x9p5-w45c-7ffc
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-x9p5-w45c-7ffc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-26196
+    - web: https://github.com/gogs/gogs/commit/295bfba72993c372e7b338438947d8e1a6bed8fd
+    - web: https://github.com/gogs/gogs/pull/8177
+    - web: https://github.com/gogs/gogs/releases/tag/v0.14.2
+source:
+    id: GHSA-x9p5-w45c-7ffc
+    created: 2026-03-06T23:08:50.502573-05:00
+review_status: UNREVIEWED

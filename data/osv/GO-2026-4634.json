@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4634",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-30832",
+    "GHSA-3fvx-xrxq-8jvv"
+  ],
+  "summary": "soft-serve vulnerable to SSRF via unvalidated LFS endpoint in repo import in github.com/charmbracelet/soft-serve",
+  "details": "soft-serve vulnerable to SSRF via unvalidated LFS endpoint in repo import in github.com/charmbracelet/soft-serve",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/charmbracelet/soft-serve",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.6.0"
+            },
+            {
+              "fixed": "0.11.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/charmbracelet/soft-serve/security/advisories/GHSA-3fvx-xrxq-8jvv"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/charmbracelet/soft-serve/commit/3ef660098ab37a7950457da8ecc25b516e37ce4e"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/charmbracelet/soft-serve/releases/tag/v0.11.4"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4634",
+    "review_status": "UNREVIEWED"
+  }
+}

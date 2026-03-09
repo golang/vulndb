@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4629",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-30233",
+    "GHSA-jf73-858c-54pg"
+  ],
+  "summary": "OliveTin doesn't check view permission when returning dashboards in github.com/OliveTin/OliveTin",
+  "details": "OliveTin doesn't check view permission when returning dashboards in github.com/OliveTin/OliveTin",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/OliveTin/OliveTin",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20260305082002-d7962710e7c4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/OliveTin/OliveTin/security/advisories/GHSA-jf73-858c-54pg"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-30233"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/OliveTin/OliveTin/commit/d7962710e7c46f6bdda4188b5b0cdbde4be665a0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/OliveTin/OliveTin/releases/tag/3000.11.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4629",
+    "review_status": "UNREVIEWED"
+  }
+}

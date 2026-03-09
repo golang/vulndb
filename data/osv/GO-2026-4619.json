@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4619",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-26196",
+    "GHSA-x9p5-w45c-7ffc"
+  ],
+  "summary": "Gogs: Access tokens get exposed through URL params in API requests in gogs.io/gogs",
+  "details": "Gogs: Access tokens get exposed through URL params in API requests in gogs.io/gogs",
+  "affected": [
+    {
+      "package": {
+        "name": "gogs.io/gogs",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/gogs/gogs/security/advisories/GHSA-x9p5-w45c-7ffc"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-26196"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/gogs/gogs/commit/295bfba72993c372e7b338438947d8e1a6bed8fd"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/gogs/gogs/pull/8177"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/gogs/gogs/releases/tag/v0.14.2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4619",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,28 @@
+id: GO-2026-4594
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.38
+      vulnerable_at: 2.11.37
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - fixed: 3.6.9
+      vulnerable_at: 3.6.8
+summary: |-
+    Traefik: tcp router clears read deadlines before tls forwarding, enabling
+    stalled handshakes (Slowloris DOS) in github.com/traefik/traefik
+cves:
+    - CVE-2026-26999
+ghsas:
+    - GHSA-xw98-5q62-jx94
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-xw98-5q62-jx94
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-26999
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.38
+    - web: https://github.com/traefik/traefik/releases/tag/v3.6.9
+source:
+    id: GHSA-xw98-5q62-jx94
+    created: 2026-03-06T23:11:57.680591-05:00
+review_status: UNREVIEWED
