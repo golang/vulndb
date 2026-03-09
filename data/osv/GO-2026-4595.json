@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4595",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-3351",
+    "GHSA-crmg-9m86-636r"
+  ],
+  "summary": "Non-recursive certificate listing bypasses per-object authorization and leaks all fingerprints in github.com/canonical/lxd",
+  "details": "Non-recursive certificate listing bypasses per-object authorization and leaks all fingerprints in github.com/canonical/lxd",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/canonical/lxd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "6.6"
+              },
+              {
+                "fixed": "6.7"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/canonical/lxd/security/advisories/GHSA-crmg-9m86-636r"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/d936c90d47cf0be1e9757df897f769e9887ebde1"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/pull/17738"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4595",
+    "review_status": "REVIEWED"
+  }
+}

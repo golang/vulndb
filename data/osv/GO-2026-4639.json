@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4639",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-30851",
+    "GHSA-7r4p-vjf4-gxv4"
+  ],
+  "summary": "Caddy forward_auth copy_headers allows Identity Injection and Privilege Escalation in github.com/caddyserver/caddy",
+  "details": "Caddy forward_auth copy_headers Does Not Strip Client-Supplied Headers, Allowing Identity Injection and Privilege Escalation in github.com/caddyserver/caddy",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/caddyserver/caddy/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.10.0"
+            },
+            {
+              "fixed": "2.11.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/caddyserver/caddy/v2/modules/caddyhttp/reverseproxy/forwardauth",
+            "symbols": [
+              "parseCaddyfile"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/caddyserver/caddy/security/advisories/GHSA-7r4p-vjf4-gxv4"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/caddyserver/caddy/pull/6608"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/caddyserver/caddy/pull/7545"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/caddyserver/caddy/issues/6610"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4639",
+    "review_status": "REVIEWED"
+  }
+}

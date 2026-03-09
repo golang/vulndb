@@ -1,0 +1,32 @@
+id: GO-2026-4639
+modules:
+    - module: github.com/caddyserver/caddy/v2
+      versions:
+        - introduced: 2.10.0
+        - fixed: 2.11.2
+      vulnerable_at: 2.11.1
+      packages:
+        - package: github.com/caddyserver/caddy/v2/modules/caddyhttp/reverseproxy/forwardauth
+          symbols:
+            - parseCaddyfile
+summary: |-
+    Caddy forward_auth copy_headers allows Identity Injection and Privilege
+    Escalation in github.com/caddyserver/caddy
+description: |-
+    Caddy forward_auth copy_headers Does Not Strip Client-Supplied Headers, Allowing
+    Identity Injection and Privilege Escalation in github.com/caddyserver/caddy
+cves:
+    - CVE-2026-30851
+ghsas:
+    - GHSA-7r4p-vjf4-gxv4
+references:
+    - advisory: https://github.com/caddyserver/caddy/security/advisories/GHSA-7r4p-vjf4-gxv4
+    - fix: https://github.com/caddyserver/caddy/pull/6608
+    - fix: https://github.com/caddyserver/caddy/pull/7545
+    - report: https://github.com/caddyserver/caddy/issues/6610
+notes:
+    - create: failed to auto-populate symbols because symbol is not exported
+source:
+    id: GHSA-7r4p-vjf4-gxv4
+    created: 2026-03-06T23:06:20.767879-05:00
+review_status: REVIEWED

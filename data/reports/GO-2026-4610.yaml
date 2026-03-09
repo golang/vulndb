@@ -1,0 +1,42 @@
+id: GO-2026-4610
+modules:
+    - module: github.com/docker/cli
+      versions:
+        - fixed: 29.2.0+incompatible
+      non_go_versions:
+        - introduced: 19.03.0+incompatible
+      vulnerable_at: 29.2.0-rc.2+incompatible
+      packages:
+        - package: github.com/docker/cli/cli-plugins/manager
+          symbols:
+            - defaultSystemPluginDirs
+    - module: github.com/docker/compose
+      vulnerable_at: 1.25.2
+    - module: github.com/docker/compose/v2
+      versions:
+        - introduced: 2.31.0
+      vulnerable_at: 2.40.3
+    - module: github.com/docker/compose/v5
+      versions:
+        - fixed: 5.1.0
+      vulnerable_at: 5.0.2
+summary: |-
+    Docker CLI Plugins: Uncontrolled Search Path Element Leads to Local Privilege
+    Escalation on Windows in github.com/docker/cli
+cves:
+    - CVE-2025-15558
+ghsas:
+    - GHSA-p436-gjf2-799p
+references:
+    - advisory: https://github.com/docker/cli/security/advisories/GHSA-p436-gjf2-799p
+    - fix: https://github.com/docker/cli/commit/13759330b1f7e7cb0d67047ea42c5482548ba7fa
+    - fix: https://github.com/docker/cli/pull/6713
+    - fix: https://github.com/docker/compose/pull/12300
+    - web: https://docs.docker.com/desktop/release-notes
+    - web: https://www.zerodayinitiative.com/advisories/ZDI-CAN-28304
+notes:
+    - create: failed to auto-populate symbols because there is no function invoked and the symbol is not exported
+source:
+    id: GHSA-p436-gjf2-799p
+    created: 2026-03-06T23:09:41.836345-05:00
+review_status: REVIEWED

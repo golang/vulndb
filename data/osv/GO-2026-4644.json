@@ -1,0 +1,201 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4644",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-30852",
+    "GHSA-m2w3-8f23-hxxf"
+  ],
+  "summary": "Caddy's vars_regexp double-expands user input, leaking env vars and files in github.com/caddyserver/caddy",
+  "details": "Caddy's vars_regexp double-expands user input, leaking env vars and files in github.com/caddyserver/caddy",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/caddyserver/caddy/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.7.5"
+            },
+            {
+              "fixed": "2.11.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/caddyserver/caddy/v2/modules/caddyhttp",
+            "symbols": [
+              "App.Cleanup",
+              "App.Provision",
+              "App.Start",
+              "App.Stop",
+              "App.Validate",
+              "CELMatcherImpl",
+              "CELValueToMapStrList",
+              "CIDRExpressionToPrefix",
+              "Error",
+              "HandlerError.Error",
+              "HandlerFunc.ServeHTTP",
+              "Invoke.ServeHTTP",
+              "LoggableHTTPHeader.MarshalLogObject",
+              "LoggableHTTPRequest.MarshalLogObject",
+              "LoggableTLSConnState.MarshalLogObject",
+              "MatchClientIP.CELLibrary",
+              "MatchClientIP.Match",
+              "MatchClientIP.MatchWithError",
+              "MatchClientIP.Provision",
+              "MatchClientIP.UnmarshalCaddyfile",
+              "MatchExpression.MarshalJSON",
+              "MatchExpression.Match",
+              "MatchExpression.MatchWithError",
+              "MatchExpression.Provision",
+              "MatchExpression.UnmarshalCaddyfile",
+              "MatchExpression.UnmarshalJSON",
+              "MatchHeader.CELLibrary",
+              "MatchHeader.Match",
+              "MatchHeader.MatchWithError",
+              "MatchHeader.UnmarshalCaddyfile",
+              "MatchHeaderRE.CELLibrary",
+              "MatchHeaderRE.Match",
+              "MatchHeaderRE.MatchWithError",
+              "MatchHeaderRE.Provision",
+              "MatchHeaderRE.UnmarshalCaddyfile",
+              "MatchHeaderRE.Validate",
+              "MatchHost.CELLibrary",
+              "MatchHost.Match",
+              "MatchHost.MatchWithError",
+              "MatchHost.Provision",
+              "MatchHost.UnmarshalCaddyfile",
+              "MatchMethod.CELLibrary",
+              "MatchMethod.UnmarshalCaddyfile",
+              "MatchNot.MarshalJSON",
+              "MatchNot.Match",
+              "MatchNot.MatchWithError",
+              "MatchNot.Provision",
+              "MatchNot.UnmarshalCaddyfile",
+              "MatchNot.UnmarshalJSON",
+              "MatchPath.CELLibrary",
+              "MatchPath.Match",
+              "MatchPath.MatchWithError",
+              "MatchPath.UnmarshalCaddyfile",
+              "MatchPathRE.CELLibrary",
+              "MatchPathRE.Match",
+              "MatchPathRE.MatchWithError",
+              "MatchProtocol.CELLibrary",
+              "MatchProtocol.Match",
+              "MatchProtocol.MatchWithError",
+              "MatchProtocol.UnmarshalCaddyfile",
+              "MatchQuery.CELLibrary",
+              "MatchQuery.Match",
+              "MatchQuery.MatchWithError",
+              "MatchQuery.UnmarshalCaddyfile",
+              "MatchRegexp.Match",
+              "MatchRegexp.Provision",
+              "MatchRegexp.UnmarshalCaddyfile",
+              "MatchRegexp.Validate",
+              "MatchRemoteIP.CELLibrary",
+              "MatchRemoteIP.Match",
+              "MatchRemoteIP.MatchWithError",
+              "MatchRemoteIP.Provision",
+              "MatchRemoteIP.UnmarshalCaddyfile",
+              "MatchTLS.UnmarshalCaddyfile",
+              "MatchVarsRE.CELLibrary",
+              "MatchVarsRE.Match",
+              "MatchVarsRE.MatchWithError",
+              "MatchVarsRE.Provision",
+              "MatchVarsRE.UnmarshalCaddyfile",
+              "MatchVarsRE.Validate",
+              "MatcherSet.Match",
+              "MatcherSet.MatchWithError",
+              "MatcherSets.AnyMatch",
+              "MatcherSets.AnyMatchWithError",
+              "MatcherSets.FromInterface",
+              "MatcherSets.String",
+              "ParseCaddyfileNestedMatcherSet",
+              "ParseNamedResponseMatcher",
+              "PrepareRequest",
+              "ResponseHandler.Provision",
+              "ResponseMatcher.Match",
+              "ResponseWriterWrapper.Push",
+              "ResponseWriterWrapper.ReadFrom",
+              "Route.Provision",
+              "Route.ProvisionHandlers",
+              "Route.ProvisionMatchers",
+              "Route.String",
+              "RouteList.Provision",
+              "RouteList.ProvisionHandlers",
+              "RouteList.ProvisionMatchers",
+              "Server.ServeHTTP",
+              "StaticError.ServeHTTP",
+              "StaticError.UnmarshalCaddyfile",
+              "StaticIPRange.Provision",
+              "StaticResponse.ServeHTTP",
+              "StaticResponse.UnmarshalCaddyfile",
+              "StringArray.UnmarshalJSON",
+              "Subroute.Provision",
+              "Subroute.ServeHTTP",
+              "VarsMatcher.CELLibrary",
+              "VarsMatcher.Match",
+              "VarsMatcher.MatchWithError",
+              "VarsMatcher.UnmarshalCaddyfile",
+              "VarsMiddleware.ServeHTTP",
+              "VarsMiddleware.UnmarshalCaddyfile",
+              "WeakString.MarshalJSON",
+              "WeakString.UnmarshalJSON",
+              "celHTTPRequest.Equal",
+              "celPkixName.ConvertToType",
+              "celPkixName.Equal",
+              "celTypeAdapter.NativeToValue",
+              "extraFieldsSlogHandler.Handle",
+              "extraFieldsSlogHandler.WithAttrs",
+              "hijackedConn.Read",
+              "hijackedConn.ReadFrom",
+              "hijackedConn.Write",
+              "hijackedConn.WriteTo",
+              "http2Conn.Read",
+              "http2Listener.Accept",
+              "httpRedirectConn.Read",
+              "httpRedirectListener.Accept",
+              "lengthReader.Close",
+              "lengthReader.Read",
+              "metricsInstrumentedHandler.ServeHTTP",
+              "requestID.String",
+              "responseRecorder.FlushError",
+              "responseRecorder.Hijack",
+              "responseRecorder.ReadFrom",
+              "responseRecorder.Write",
+              "responseRecorder.WriteHeader",
+              "responseRecorder.WriteResponse"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/caddyserver/caddy/security/advisories/GHSA-m2w3-8f23-hxxf"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/caddyserver/caddy/pull/5408"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/caddyserver/caddy/releases/tag/v2.11.2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4644",
+    "review_status": "REVIEWED"
+  }
+}

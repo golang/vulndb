@@ -1,0 +1,24 @@
+id: GO-2026-4595
+modules:
+    - module: github.com/canonical/lxd
+      non_go_versions:
+        - introduced: "6.6"
+        - fixed: "6.7"
+      vulnerable_at: 0.0.0-20260309115956-f5719b1b0576
+summary: |-
+    Non-recursive certificate listing bypasses per-object authorization and
+    leaks all fingerprints in github.com/canonical/lxd
+cves:
+    - CVE-2026-3351
+ghsas:
+    - GHSA-crmg-9m86-636r
+references:
+    - advisory: https://github.com/canonical/lxd/security/advisories/GHSA-crmg-9m86-636r
+    - fix: https://github.com/canonical/lxd/commit/d936c90d47cf0be1e9757df897f769e9887ebde1
+    - fix: https://github.com/canonical/lxd/pull/17738
+notes:
+    - Pseudoversions specified in advisory are insufficient to accurately mark go_versions.
+source:
+    id: GHSA-crmg-9m86-636r
+    created: 2026-03-06T23:11:30.346124-05:00
+review_status: REVIEWED
