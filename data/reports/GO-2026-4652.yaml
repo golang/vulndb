@@ -1,0 +1,22 @@
+id: GO-2026-4652
+modules:
+    - module: github.com/kubewarden/kubewarden-controller
+      versions:
+        - fixed: 1.33.0
+      vulnerable_at: 1.33.0-rc3
+summary: |-
+    Kubewarden: Cross-namespace data exfiltration via deprecated host callback
+    binding in github.com/kubewarden/kubewarden-controller
+cves:
+    - CVE-2026-29773
+ghsas:
+    - GHSA-6r7f-3fwq-hq74
+references:
+    - advisory: https://github.com/kubewarden/kubewarden-controller/security/advisories/GHSA-6r7f-3fwq-hq74
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-29773
+    - fix: https://github.com/kubewarden/kubewarden-controller/commit/4e41b60ae44902d82d94101bac93fb77cae65651
+    - fix: https://github.com/kubewarden/kubewarden-controller/pull/1519
+source:
+    id: GHSA-6r7f-3fwq-hq74
+    created: 2026-03-10T16:29:08.47767-04:00
+review_status: UNREVIEWED

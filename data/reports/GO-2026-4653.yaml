@@ -1,0 +1,20 @@
+id: GO-2026-4653
+modules:
+    - module: github.com/pocket-id/pocket-id/backend
+      versions:
+        - fixed: 0.0.0-20260228130835-3a339e33191c
+summary: 'Pocket ID: OAuth redirect_uri validation bypass via userinfo/host confusion in github.com/pocket-id/pocket-id/backend'
+cves:
+    - CVE-2026-28512
+ghsas:
+    - GHSA-9h33-g3ww-mqff
+references:
+    - advisory: https://github.com/pocket-id/pocket-id/security/advisories/GHSA-9h33-g3ww-mqff
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-28512
+    - web: https://github.com/pocket-id/pocket-id/commit/3a339e33191c31b68bf57db907f800d9de5ffbc8
+notes:
+    - fix: 'github.com/pocket-id/pocket-id/backend: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-9h33-g3ww-mqff
+    created: 2026-03-10T16:29:03.507469-04:00
+review_status: UNREVIEWED

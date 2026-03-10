@@ -1,0 +1,21 @@
+id: GO-2026-4656
+modules:
+    - module: github.com/pocket-id/pocket-id/backend
+      versions:
+        - fixed: 0.0.0-20260307173642-b59e35cb59ae
+summary: |-
+    Pocket ID: OIDC authorization code validation uses AND instead of OR, allowing
+    cross-client token exchange in github.com/pocket-id/pocket-id/backend
+cves:
+    - CVE-2026-28513
+ghsas:
+    - GHSA-qh6q-598w-w6m2
+references:
+    - advisory: https://github.com/pocket-id/pocket-id/security/advisories/GHSA-qh6q-598w-w6m2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-28513
+notes:
+    - fix: 'github.com/pocket-id/pocket-id/backend: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-qh6q-598w-w6m2
+    created: 2026-03-10T16:28:48.693042-04:00
+review_status: UNREVIEWED
