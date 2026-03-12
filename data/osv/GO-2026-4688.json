@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4688",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-32246",
+    "GHSA-3q28-qjrv-qr39"
+  ],
+  "summary": "Tinyauth vulnerable to TOTP/2FA bypass via OIDC authorize endpoint in github.com/steveiliop56/tinyauth",
+  "details": "Tinyauth vulnerable to TOTP/2FA bypass via OIDC authorize endpoint in github.com/steveiliop56/tinyauth.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/steveiliop56/tinyauth before v1.0.1-20260311144920-9eb2d33064b7.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/steveiliop56/tinyauth",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "1.0.1-20260311144920-9eb2d33064b7"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/steveiliop56/tinyauth/security/advisories/GHSA-3q28-qjrv-qr39"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/steveiliop56/tinyauth/releases/tag/v5.0.3"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4688",
+    "review_status": "UNREVIEWED"
+  }
+}

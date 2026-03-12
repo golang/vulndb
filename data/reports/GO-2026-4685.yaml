@@ -1,0 +1,18 @@
+id: GO-2026-4685
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      non_go_versions:
+        - fixed: 3.6.0
+      vulnerable_at: 0.0.0-20260310025236-297bd526708f
+summary: SiYuan has a Full-Read SSRF via /api/network/forwardProxy in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-32110
+ghsas:
+    - GHSA-56cv-c5p2-j2wg
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-56cv-c5p2-j2wg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-32110
+source:
+    id: GHSA-56cv-c5p2-j2wg
+    created: 2026-03-12T19:41:21.677189285Z
+review_status: UNREVIEWED

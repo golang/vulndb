@@ -1,0 +1,30 @@
+id: GO-2026-4681
+modules:
+    - module: github.com/argoproj/argo-workflows
+      vulnerable_at: 0.4.7
+    - module: github.com/argoproj/argo-workflows/v2
+      versions:
+        - introduced: 2.9.0
+      vulnerable_at: 2.12.13
+    - module: github.com/argoproj/argo-workflows/v3
+      versions:
+        - fixed: 3.7.11
+      vulnerable_at: 3.7.10
+    - module: github.com/argoproj/argo-workflows/v4
+      versions:
+        - fixed: 4.0.2
+      vulnerable_at: 4.0.1
+summary: |-
+    Argo Workflows: WorkflowTemplate Security Bypass via podSpecPatch in
+    Strict/Secure Reference Mode in github.com/argoproj/argo-workflows
+cves:
+    - CVE-2026-31892
+ghsas:
+    - GHSA-3wf5-g532-rcrr
+references:
+    - advisory: https://github.com/argoproj/argo-workflows/security/advisories/GHSA-3wf5-g532-rcrr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-31892
+source:
+    id: GHSA-3wf5-g532-rcrr
+    created: 2026-03-12T19:41:55.886624553Z
+review_status: UNREVIEWED

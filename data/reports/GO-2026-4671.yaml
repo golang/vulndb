@@ -1,0 +1,23 @@
+id: GO-2026-4671
+modules:
+    - module: github.com/anchore/quill
+      versions:
+        - fixed: 0.7.1
+      vulnerable_at: 0.7.0
+summary: |-
+    Quill vulnerable to SSRF via unvalidated URL from Apple notarization log
+    retrieval in github.com/anchore/quill
+cves:
+    - CVE-2026-31959
+ghsas:
+    - GHSA-7q3q-5px6-4c5p
+references:
+    - advisory: https://github.com/anchore/quill/security/advisories/GHSA-7q3q-5px6-4c5p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-31959
+    - fix: https://github.com/anchore/quill/commit/e41d66a517c2dc20ad8e9fbccffbdc6ba5ef0020
+    - web: https://developer.apple.com/documentation/notaryapi/get-submission-log
+    - web: https://github.com/anchore/quill/releases/tag/v0.7.1
+source:
+    id: GHSA-7q3q-5px6-4c5p
+    created: 2026-03-12T19:42:41.20849008Z
+review_status: UNREVIEWED

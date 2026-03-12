@@ -1,0 +1,21 @@
+id: GO-2026-4670
+modules:
+    - module: github.com/OliveTin/OliveTin
+      versions:
+        - fixed: 0.0.0-20260309102040-b03af0e2eca3
+summary: OliveTin's unsafe parsing of UniqueTrackingId can be used to write files in github.com/OliveTin/OliveTin
+cves:
+    - CVE-2026-31817
+ghsas:
+    - GHSA-364q-w7vh-vhpc
+references:
+    - advisory: https://github.com/OliveTin/OliveTin/security/advisories/GHSA-364q-w7vh-vhpc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-31817
+    - fix: https://github.com/OliveTin/OliveTin/commit/2f77000de44f65690f257e3cf8e2c8462b0e74c7
+    - web: https://github.com/OliveTin/OliveTin/releases/tag/3000.11.2
+notes:
+    - fix: 'github.com/OliveTin/OliveTin: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-364q-w7vh-vhpc
+    created: 2026-03-12T19:42:46.651914962Z
+review_status: UNREVIEWED

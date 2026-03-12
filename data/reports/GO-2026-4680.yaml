@@ -1,0 +1,26 @@
+id: GO-2026-4680
+modules:
+    - module: github.com/anyproto/anytype-cli
+      versions:
+        - fixed: 0.1.11
+      vulnerable_at: 0.1.10
+    - module: github.com/anyproto/anytype-heart
+      versions:
+        - fixed: 0.48.4
+      vulnerable_at: 0.48.3
+summary: |-
+    Anytype Heart's gRPC API client challenge verification can be bypassed on
+    localhost in github.com/anyproto/anytype-cli
+cves:
+    - CVE-2026-31863
+ghsas:
+    - GHSA-vv3h-7qwr-722v
+references:
+    - advisory: https://github.com/anyproto/anytype-heart/security/advisories/GHSA-vv3h-7qwr-722v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-31863
+    - web: https://github.com/anyproto/anytype-cli
+    - web: https://github.com/anyproto/anytype-ts
+source:
+    id: GHSA-vv3h-7qwr-722v
+    created: 2026-03-12T19:42:03.727869692Z
+review_status: UNREVIEWED

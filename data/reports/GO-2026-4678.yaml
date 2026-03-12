@@ -1,0 +1,29 @@
+id: GO-2026-4678
+modules:
+    - module: github.com/argoproj/argo-workflows
+      vulnerable_at: 0.4.7
+    - module: github.com/argoproj/argo-workflows/v2
+      vulnerable_at: 2.12.13
+    - module: github.com/argoproj/argo-workflows/v3
+      versions:
+        - fixed: 3.7.11
+      vulnerable_at: 3.7.10
+    - module: github.com/argoproj/argo-workflows/v4
+      versions:
+        - fixed: 4.0.2
+      vulnerable_at: 4.0.1
+summary: Unauthorized access to Argo Workflows Template in github.com/argoproj/argo-workflows
+cves:
+    - CVE-2026-28229
+ghsas:
+    - GHSA-56px-hm34-xqj5
+references:
+    - advisory: https://github.com/argoproj/argo-workflows/security/advisories/GHSA-56px-hm34-xqj5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-28229
+    - fix: https://github.com/argoproj/argo-workflows/commit/34afaf9c0c36f1ba8645d483ea4752cfc4a391e8
+    - web: https://github.com/argoproj/argo-workflows/releases/tag/v3.7.11
+    - web: https://github.com/argoproj/argo-workflows/releases/tag/v4.0.2
+source:
+    id: GHSA-56px-hm34-xqj5
+    created: 2026-03-12T19:42:16.202051699Z
+review_status: UNREVIEWED

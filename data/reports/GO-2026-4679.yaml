@@ -1,0 +1,25 @@
+id: GO-2026-4679
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      vulnerable_at: 2.11.40
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - fixed: 3.6.10
+      vulnerable_at: 3.6.9
+summary: |-
+    Traefik: kubernetes gateway rule injection via unescaped backticks in HTTPRoute
+    match values in github.com/traefik/traefik
+cves:
+    - CVE-2026-29777
+ghsas:
+    - GHSA-8q2w-wr49-whqj
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-8q2w-wr49-whqj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-29777
+    - web: https://github.com/traefik/traefik/releases/tag/v3.6.10
+source:
+    id: GHSA-8q2w-wr49-whqj
+    created: 2026-03-12T19:42:11.458786796Z
+review_status: UNREVIEWED

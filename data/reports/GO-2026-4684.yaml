@@ -1,0 +1,23 @@
+id: GO-2026-4684
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.40
+      vulnerable_at: 2.11.39
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - fixed: 3.6.10
+      vulnerable_at: 3.6.9
+summary: 'Traefik: HTTP/2 frames can cause a running server to panic in github.com/traefik/traefik'
+ghsas:
+    - GHSA-4hjq-9h5c-252j
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-4hjq-9h5c-252j
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.40
+    - web: https://github.com/traefik/traefik/releases/tag/v3.6.10
+source:
+    id: GHSA-4hjq-9h5c-252j
+    created: 2026-03-12T19:41:47.926760152Z
+review_status: UNREVIEWED
