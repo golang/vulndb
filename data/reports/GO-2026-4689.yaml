@@ -1,0 +1,19 @@
+id: GO-2026-4689
+modules:
+    - module: github.com/steveiliop56/tinyauth
+      non_go_versions:
+        - fixed: 1.0.1-20260311144920-9eb2d33064b7
+      vulnerable_at: 1.0.0
+summary: Tinyauth's OIDC authorization codes are not bound to client on token exchange in github.com/steveiliop56/tinyauth
+cves:
+    - CVE-2026-32245
+ghsas:
+    - GHSA-xg2q-62g2-cvcm
+references:
+    - advisory: https://github.com/steveiliop56/tinyauth/security/advisories/GHSA-xg2q-62g2-cvcm
+    - fix: https://github.com/steveiliop56/tinyauth/commit/b2a1bfb1f532e87f205fa3afa3fc9f148c53ab89
+    - web: https://github.com/steveiliop56/tinyauth/releases/tag/v5.0.3
+source:
+    id: GHSA-xg2q-62g2-cvcm
+    created: 2026-03-12T19:41:01.615828587Z
+review_status: UNREVIEWED
