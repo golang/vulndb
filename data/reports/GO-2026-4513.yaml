@@ -1,0 +1,42 @@
+id: GO-2026-4513
+modules:
+    - module: github.com/shamaton/msgpack
+      vulnerable_at: 1.2.1
+      packages:
+        - package: github.com/shamaton/msgpack
+          symbols:
+            - Unmarshal
+            - UnmarshalAsMap
+            - UnmarshalAsArray
+          derived_symbols:
+            - DecodeStructAsArray
+            - DecodeStructAsMap
+    - module: github.com/shamaton/msgpack/v2
+      vulnerable_at: 2.4.0
+      packages:
+        - package: github.com/shamaton/msgpack/v2
+          symbols:
+            - Unmarshal
+            - UnmarshalAsMap
+            - UnmarshalAsArray
+    - module: github.com/shamaton/msgpack/v3
+      vulnerable_at: 3.1.0
+      packages:
+        - package: github.com/shamaton/msgpack/v3
+          symbols:
+            - Unmarshal
+            - UnmarshalAsMap
+            - UnmarshalAsArray
+summary: Denial of service in github.com/shamaton/msgpack
+description: |-
+    The msgpack decoder fails to properly validate the input buffer length when
+    processing truncated fixext data (format codes 0xd4-0xd8). This can lead to
+    an out-of-bounds read and a runtime panic, allowing a denial of service
+    attack.
+references:
+    - report: https://github.com/shamaton/msgpack/issues/59
+    - report: https://github.com/golang/vulndb/issues/4513
+source:
+    id: go-security-team
+    created: 2026-03-13T18:43:38.295358562Z
+review_status: REVIEWED
