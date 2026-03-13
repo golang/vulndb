@@ -1,0 +1,24 @@
+id: GO-2026-4699
+modules:
+    - module: github.com/drakkan/sftpgo
+      unsupported_versions:
+        - last_affected: 1.2.2
+      vulnerable_at: 1.2.2
+    - module: github.com/drakkan/sftpgo/v2
+      versions:
+        - fixed: 2.7.1
+      vulnerable_at: 2.7.0
+summary: |-
+    SFTPGo Vulnerable to Path Traversal and Permission Bypass via Path Normalization
+    Discrepancy in github.com/drakkan/sftpgo
+cves:
+    - CVE-2026-30914
+ghsas:
+    - GHSA-x8qh-7475-c5mp
+references:
+    - advisory: https://github.com/drakkan/sftpgo/security/advisories/GHSA-x8qh-7475-c5mp
+    - fix: https://github.com/drakkan/sftpgo/commit/2f092d128917e2c059520a2ce3e22c3b5ea7ffd6
+source:
+    id: GHSA-x8qh-7475-c5mp
+    created: 2026-03-13T19:27:13.432130375Z
+review_status: UNREVIEWED

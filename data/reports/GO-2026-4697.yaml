@@ -1,0 +1,20 @@
+id: GO-2026-4697
+modules:
+    - module: github.com/drakkan/sftpgo
+      vulnerable_at: 1.2.2
+    - module: github.com/drakkan/sftpgo/v2
+      versions:
+        - introduced: 2.3.0
+        - fixed: 2.7.1
+      vulnerable_at: 2.7.0
+summary: SFTPGo improperly sanitizes placeholders in group home directories/key prefixes in github.com/drakkan/sftpgo
+cves:
+    - CVE-2026-30915
+ghsas:
+    - GHSA-m83q-5wr4-4gfp
+references:
+    - advisory: https://github.com/drakkan/sftpgo/security/advisories/GHSA-m83q-5wr4-4gfp
+source:
+    id: GHSA-m83q-5wr4-4gfp
+    created: 2026-03-13T19:27:28.345828609Z
+review_status: UNREVIEWED
