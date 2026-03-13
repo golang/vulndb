@@ -1,0 +1,24 @@
+id: GO-2026-4518
+modules:
+    - module: github.com/jackc/pgproto3/v2
+      versions:
+        - introduced: 2.0.0
+      vulnerable_at: 2.3.3
+      packages:
+        - package: github.com/jackc/pgproto3/v2
+          symbols:
+            - DataRow.Decode
+          derived_symbols:
+            - Frontend.Receive
+summary: Denial of service in github.com/jackc/pgproto3/v2
+description: |-
+    The DataRow.Decode function fails to properly validate field lengths. A
+    malicious or compromised PostgreSQL server can send a DataRow message with
+    a negative field length, causing a slice bounds out of range panic.
+references:
+    - report: https://github.com/jackc/pgx/issues/2507
+    - report: https://github.com/golang/vulndb/issues/4518
+source:
+    id: go-security-team
+    created: 2026-03-13T18:43:37.092795967Z
+review_status: REVIEWED
