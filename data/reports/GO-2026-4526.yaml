@@ -1,0 +1,62 @@
+id: GO-2026-4526
+modules:
+    - module: github.com/antchfx/xpath
+      versions:
+        - fixed: 1.3.6
+      vulnerable_at: 1.3.5
+      packages:
+        - package: github.com/antchfx/xpath
+          symbols:
+            - logicalQuery.Select
+          derived_symbols:
+            - Expr.Evaluate
+            - NodeIterator.MoveNext
+            - ancestorQuery.Evaluate
+            - ancestorQuery.Select
+            - attributeQuery.Evaluate
+            - attributeQuery.Select
+            - booleanQuery.Evaluate
+            - booleanQuery.Select
+            - cachedChildQuery.Evaluate
+            - cachedChildQuery.Select
+            - childQuery.Evaluate
+            - childQuery.Select
+            - descendantOverDescendantQuery.Evaluate
+            - descendantOverDescendantQuery.Select
+            - descendantQuery.Evaluate
+            - descendantQuery.Select
+            - filterQuery.Evaluate
+            - filterQuery.Select
+            - followingQuery.Evaluate
+            - followingQuery.Select
+            - functionQuery.Evaluate
+            - groupQuery.Evaluate
+            - groupQuery.Select
+            - lastFuncQuery.Evaluate
+            - logicalQuery.Evaluate
+            - mergeQuery.Evaluate
+            - mergeQuery.Select
+            - numericQuery.Evaluate
+            - parentQuery.Evaluate
+            - parentQuery.Select
+            - precedingQuery.Evaluate
+            - precedingQuery.Select
+            - selfQuery.Evaluate
+            - selfQuery.Select
+            - transformFunctionQuery.Evaluate
+            - transformFunctionQuery.Select
+            - unionQuery.Evaluate
+            - unionQuery.Select
+summary: Infinite loop in github.com/antchfx/xpath
+description: |-
+    Boolean XPath expressions that evaluate to true can cause an infinite loop
+    in logicalQuery.Select, leading to 100% CPU usage. This can be triggered
+    by top-level selectors such as "1=1" or "true()".
+references:
+    - report: https://github.com/antchfx/xpath/issues/121
+    - fix: https://github.com/antchfx/xpath/commit/afd4762cc342af56345a3fb4002a59281fcab494
+    - report: https://github.com/golang/vulndb/issues/4526
+source:
+    id: go-security-team
+    created: 2026-03-13T18:43:37.010503886Z
+review_status: REVIEWED
