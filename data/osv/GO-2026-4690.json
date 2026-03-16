@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4690",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-2808",
+    "GHSA-cpfq-66p2-336j"
+  ],
+  "summary": "Consul is vulnerable to arbitrary file read when configured with Kubernetes authentication in github.com/hashicorp/consul",
+  "details": "Consul is vulnerable to arbitrary file read when configured with Kubernetes authentication in github.com/hashicorp/consul",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hashicorp/consul",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.22.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "1.18.21"
+              },
+              {
+                "introduced": "1.19.0"
+              },
+              {
+                "fixed": "1.21.11"
+              },
+              {
+                "introduced": "1.22.0-rc1"
+              },
+              {
+                "fixed": "1.22.5"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-cpfq-66p2-336j"
+    },
+    {
+      "type": "WEB",
+      "url": "https://discuss.hashicorp.com/t/hcsec-2026-02-consul-vulnerable-to-arbitrary-file-reads-through-the-vault-kubernetes-authentication-provider/77232"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4690",
+    "review_status": "REVIEWED"
+  }
+}

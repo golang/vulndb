@@ -1,0 +1,26 @@
+id: GO-2026-4690
+modules:
+    - module: github.com/hashicorp/consul
+      versions:
+        - fixed: 1.22.5
+      non_go_versions:
+        - fixed: 1.18.21
+        - introduced: 1.19.0
+        - fixed: 1.21.11
+        - introduced: 1.22.0-rc1
+        - fixed: 1.22.5
+      vulnerable_at: 1.22.4
+summary: |-
+    Consul is vulnerable to arbitrary file read when configured with Kubernetes
+    authentication in github.com/hashicorp/consul
+cves:
+    - CVE-2026-2808
+ghsas:
+    - GHSA-cpfq-66p2-336j
+references:
+    - advisory: https://github.com/advisories/GHSA-cpfq-66p2-336j
+    - web: https://discuss.hashicorp.com/t/hcsec-2026-02-consul-vulnerable-to-arbitrary-file-reads-through-the-vault-kubernetes-authentication-provider/77232
+source:
+    id: GHSA-cpfq-66p2-336j
+    created: 2026-03-13T12:21:50.009944-04:00
+review_status: REVIEWED
