@@ -6,15 +6,14 @@
 set -e
 
 # Deploy v1 database files.
-gsutil -m cp -r /workspace/db/* gs://go-vulndb
+gcloud storage cp --recursive /workspace/db/* gs://go-vulndb
 
 # Deploy web files.
 # index.html is deployed as-is to avoid a name conflict with
 # the "index/" folder, but other HTML files are deployed without the
 # ".html" suffix for a cleaner URL.
-gsutil cp webconfig/index.html gs://go-vulndb
+gcloud storage cp webconfig/index.html gs://go-vulndb
 for file in 404 copyright privacy; do
-    gsutil -h "Content-Type:text/html" cp webconfig/$file.html gs://go-vulndb/$file
+    gcloud storage cp webconfig/$file.html gs://go-vulndb/$file --content-type="text/html"
 done
-gsutil cp webconfig/favicon.ico gs://go-vulndb
-
+gcloud storage cp webconfig/favicon.ico gs://go-vulndb
