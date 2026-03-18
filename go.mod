@@ -32,7 +32,7 @@ require (
 	golang.org/x/tools v0.43.0
 	golang.org/x/tools/go/packages/packagestest v0.1.1-deprecated
 	google.golang.org/api v0.154.0
-	google.golang.org/grpc v1.60.1
+	google.golang.org/grpc v1.79.3
 	gopkg.in/yaml.v3 v3.0.1
 	honnef.co/go/tools v0.4.6
 	mvdan.cc/unparam v0.0.0-20230917202934-3ee2d22f45fb
@@ -41,7 +41,7 @@ require (
 require (
 	cloud.google.com/go v0.111.0 // indirect
 	cloud.google.com/go/ai v0.3.0 // indirect
-	cloud.google.com/go/compute/metadata v0.3.0 // indirect
+	cloud.google.com/go/compute/metadata v0.9.0 // indirect
 	cloud.google.com/go/iam v1.1.5 // indirect
 	cloud.google.com/go/longrunning v0.5.4 // indirect
 	cloud.google.com/go/monitoring v1.16.3 // indirect
@@ -87,8 +87,8 @@ require (
 	golang.org/x/text v0.35.0 // indirect
 	golang.org/x/tools/go/expect v0.1.1-deprecated // indirect
 	google.golang.org/genproto v0.0.0-20231120223509-83a465c0220f // indirect
-	google.golang.org/genproto/googleapis/api v0.0.0-20231211222908-989df2bf70f3 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20231211222908-989df2bf70f3 // indirect
-	google.golang.org/protobuf v1.33.0 // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20251202230838-ff82c1b0f217 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20251202230838-ff82c1b0f217 // indirect
+	google.golang.org/protobuf v1.36.10 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 )
