@@ -1,0 +1,36 @@
+id: GO-2026-4731
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.11.0-rc1+incompatible
+        - fixed: 10.11.11+incompatible
+        - introduced: 11.2.0-rc1+incompatible
+        - fixed: 11.2.3+incompatible
+        - introduced: 11.3.0-rc1+incompatible
+        - fixed: 11.3.1+incompatible
+      vulnerable_at: 11.3.1-rc1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      non_go_versions:
+        - fixed: 5.3.2-0.20260129164748-7201f42d955f
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20260129164748-7201f42d955f
+summary: Mattermost fails to properly handle very long passwords in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2026-24458
+ghsas:
+    - GHSA-m5rv-56xx-hfc6
+references:
+    - advisory: https://github.com/advisories/GHSA-m5rv-56xx-hfc6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-24458
+    - web: https://github.com/mattermost/mattermost/commit/7201f42d955f1bc44719b862132546626b60a180
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-m5rv-56xx-hfc6
+    created: 2026-03-23T13:07:20.964416787-04:00
+review_status: UNREVIEWED

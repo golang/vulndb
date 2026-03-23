@@ -1,0 +1,38 @@
+id: GO-2026-4746
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.11.0-rc1+incompatible
+        - fixed: 10.11.11+incompatible
+        - introduced: 11.2.0-rc1+incompatible
+        - fixed: 11.2.3+incompatible
+        - introduced: 11.3.0-rc1+incompatible
+        - fixed: 11.3.1+incompatible
+      vulnerable_at: 11.3.1-rc1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      non_go_versions:
+        - fixed: 5.3.2-0.20260129133647-5d787969c2d5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20260129133647-5d787969c2d5
+summary: |-
+    Mattermost fails to canonicalize IPv4-mapped IPv6 addresses before reserved IP
+    validation in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2026-2455
+ghsas:
+    - GHSA-gqv7-j2j8-qmwq
+references:
+    - advisory: https://github.com/advisories/GHSA-gqv7-j2j8-qmwq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-2455
+    - web: https://github.com/mattermost/mattermost/commit/5d787969c2d5ab591a9dcd61b0810475eed7a646
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-gqv7-j2j8-qmwq
+    created: 2026-03-23T12:58:06.933133142-04:00
+review_status: UNREVIEWED

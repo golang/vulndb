@@ -1,0 +1,19 @@
+id: GO-2026-4747
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260317012524-fe4523fff2c8
+summary: SiYuan has Stored XSS to RCE via Unsanitized Bazaar Package Metadata in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-33067
+ghsas:
+    - GHSA-mvpm-v6q4-m2pf
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-mvpm-v6q4-m2pf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-33067
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-mvpm-v6q4-m2pf
+    created: 2026-03-23T12:58:01.850849291-04:00
+review_status: UNREVIEWED

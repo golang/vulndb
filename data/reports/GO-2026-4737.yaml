@@ -1,0 +1,18 @@
+id: GO-2026-4737
+modules:
+    - module: github.com/argoproj-labs/terraform-provider-argocd
+      versions:
+        - fixed: 1.2.3-0.20260316182343-b3364f3f32e7
+      vulnerable_at: 1.2.2
+summary: |-
+    Terraform Provider for ArgoCD has possible exposure to GO-2026-4337 /
+    CVE-2025-68121 in github.com/argoproj-labs/terraform-provider-argocd
+ghsas:
+    - GHSA-594f-3595-c47v
+references:
+    - advisory: https://github.com/argoproj-labs/terraform-provider-argocd/security/advisories/GHSA-594f-3595-c47v
+    - fix: https://github.com/argoproj-labs/terraform-provider-argocd/commit/b3364f3f32e70f1563c5f3162d370db704430294
+source:
+    id: GHSA-594f-3595-c47v
+    created: 2026-03-23T13:02:40.101979957-04:00
+review_status: UNREVIEWED

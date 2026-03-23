@@ -1,0 +1,24 @@
+id: GO-2026-4740
+modules:
+    - module: github.com/shamaton/msgpack
+      vulnerable_at: 1.2.1
+    - module: github.com/shamaton/msgpack/v2
+      unsupported_versions:
+        - last_affected: 2.4.0
+      vulnerable_at: 2.4.0
+    - module: github.com/shamaton/msgpack/v3
+      unsupported_versions:
+        - last_affected: 3.1.0
+      vulnerable_at: 3.1.0
+summary: Denial of service in github.com/shamaton/msgpack
+ghsas:
+    - GHSA-h9q6-hc68-35rp
+references:
+    - advisory: https://github.com/advisories/GHSA-h9q6-hc68-35rp
+    - report: https://github.com/shamaton/msgpack/issues/59
+    - web: https://github.com/golang/vulndb/issues/4513
+    - web: https://securityinfinity.com/research/shamaton-msgpack-oob-panic-fixext-dos-2026
+source:
+    id: GHSA-h9q6-hc68-35rp
+    created: 2026-03-23T13:02:26.718935367-04:00
+review_status: UNREVIEWED

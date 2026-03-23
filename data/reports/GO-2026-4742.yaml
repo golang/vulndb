@@ -1,0 +1,22 @@
+id: GO-2026-4742
+modules:
+    - module: github.com/dadrus/heimdall
+      versions:
+        - introduced: 0.7.0-alpha
+        - fixed: 0.17.11
+      vulnerable_at: 0.17.10
+summary: 'Heimdall: Path received via Envoy gRPC corrupted when containing query string in github.com/dadrus/heimdall'
+cves:
+    - CVE-2026-32811
+ghsas:
+    - GHSA-r8x2-fhmf-6mxp
+references:
+    - advisory: https://github.com/dadrus/heimdall/security/advisories/GHSA-r8x2-fhmf-6mxp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-32811
+    - fix: https://github.com/dadrus/heimdall/commit/50321b3007db1ccafdc6b1cfd6bdc3689c19a502
+    - fix: https://github.com/dadrus/heimdall/pull/3106
+    - web: https://github.com/envoyproxy/envoy/blob/105b4acd422d67fcff908ec38d91c7676d079939/api/envoy/service/auth/v3/attribute_context.proto#L146-L147
+source:
+    id: GHSA-r8x2-fhmf-6mxp
+    created: 2026-03-23T13:02:13.804609473-04:00
+review_status: UNREVIEWED

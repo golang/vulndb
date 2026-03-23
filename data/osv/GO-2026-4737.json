@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4737",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-594f-3595-c47v"
+  ],
+  "summary": "Terraform Provider for ArgoCD has possible exposure to GO-2026-4337 / CVE-2025-68121 in github.com/argoproj-labs/terraform-provider-argocd",
+  "details": "Terraform Provider for ArgoCD has possible exposure to GO-2026-4337 / CVE-2025-68121 in github.com/argoproj-labs/terraform-provider-argocd",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/argoproj-labs/terraform-provider-argocd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.2.3-0.20260316182343-b3364f3f32e7"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/argoproj-labs/terraform-provider-argocd/security/advisories/GHSA-594f-3595-c47v"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj-labs/terraform-provider-argocd/commit/b3364f3f32e70f1563c5f3162d370db704430294"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4737",
+    "review_status": "UNREVIEWED"
+  }
+}

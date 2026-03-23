@@ -1,0 +1,36 @@
+id: GO-2026-4732
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.11.0-rc1+incompatible
+        - fixed: 10.11.11+incompatible
+        - introduced: 11.2.0-rc1+incompatible
+        - fixed: 11.2.3+incompatible
+        - introduced: 11.3.0-rc1+incompatible
+        - fixed: 11.3.1+incompatible
+      vulnerable_at: 11.3.1-rc1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      non_go_versions:
+        - fixed: 5.3.2-0.20260123211116-9efe617be8b8
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20260123211116-9efe617be8b8
+summary: Mattermost allows attackers to spoof permalink embeds in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2026-2457
+ghsas:
+    - GHSA-ph22-fw5m-w2q9
+references:
+    - advisory: https://github.com/advisories/GHSA-ph22-fw5m-w2q9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-2457
+    - web: https://github.com/mattermost/mattermost/commit/9efe617be8b8f1d036e12721e8e73b69a543ed34
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-ph22-fw5m-w2q9
+    created: 2026-03-23T13:06:15.464424265-04:00
+review_status: UNREVIEWED

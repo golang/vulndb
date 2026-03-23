@@ -1,0 +1,36 @@
+id: GO-2026-4749
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.11.0-rc1+incompatible
+        - fixed: 10.11.11+incompatible
+        - introduced: 11.2.0-rc1+incompatible
+        - fixed: 11.2.3+incompatible
+        - introduced: 11.3.0-rc1+incompatible
+        - fixed: 11.3.1+incompatible
+      vulnerable_at: 11.3.1-rc1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      non_go_versions:
+        - fixed: 5.3.2-0.20260107144005-c7f6efdfb035
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20260107144005-c7f6efdfb035
+summary: Mattermost fails to validate team-specific upload_file permissions in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2026-4265
+ghsas:
+    - GHSA-xpvf-6qcc-9jqc
+references:
+    - advisory: https://github.com/advisories/GHSA-xpvf-6qcc-9jqc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-4265
+    - web: https://github.com/mattermost/mattermost/commit/c7f6efdfb035490f494b3177996ee5f4b278c988
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-xpvf-6qcc-9jqc
+    created: 2026-03-23T12:56:50.944010313-04:00
+review_status: UNREVIEWED

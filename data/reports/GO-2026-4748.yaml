@@ -1,0 +1,21 @@
+id: GO-2026-4748
+modules:
+    - module: github.com/pinchtab/pinchtab
+      versions:
+        - fixed: 0.8.3
+      vulnerable_at: 0.8.2
+summary: |-
+    PinchTab has a Blind SSRF via browser-side redirect bypass in /download URL
+    validation in github.com/pinchtab/pinchtab
+cves:
+    - CVE-2026-33081
+ghsas:
+    - GHSA-qwxp-6qf9-wr4m
+references:
+    - advisory: https://github.com/pinchtab/pinchtab/security/advisories/GHSA-qwxp-6qf9-wr4m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-33081
+    - web: https://github.com/pinchtab/pinchtab/releases/tag/v0.8.3
+source:
+    id: GHSA-qwxp-6qf9-wr4m
+    created: 2026-03-23T12:57:56.116300721-04:00
+review_status: UNREVIEWED

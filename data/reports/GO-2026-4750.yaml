@@ -1,0 +1,21 @@
+id: GO-2026-4750
+modules:
+    - module: github.com/free5gc/chf
+      versions:
+        - fixed: 1.2.2
+      vulnerable_at: 1.2.1
+summary: Out-of-Bounds Slice Access in free5GC CHF Leading to DoS in github.com/free5gc/chf
+cves:
+    - CVE-2026-32937
+ghsas:
+    - GHSA-6g43-577r-wf4x
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-6g43-577r-wf4x
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-32937
+    - fix: https://github.com/free5gc/chf/commit/55af766f321a00afa978e806548c96f8a7d2433e
+    - fix: https://github.com/free5gc/chf/pull/61
+    - web: https://github.com/free5gc/free5gc/issues/864
+source:
+    id: GHSA-6g43-577r-wf4x
+    created: 2026-03-23T12:56:42.551933188-04:00
+review_status: UNREVIEWED
