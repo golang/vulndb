@@ -3,6 +3,9 @@
   "id": "GO-2026-4514",
   "modified": "0001-01-01T00:00:00Z",
   "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-32285"
+  ],
   "summary": "Denial of service in github.com/buger/jsonparser",
   "details": "The Delete function fails to properly validate offsets when processing malformed JSON input. This can lead to a negative slice index and a runtime panic, allowing a denial of service attack.",
   "affected": [
