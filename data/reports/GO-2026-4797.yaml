@@ -1,0 +1,18 @@
+id: GO-2026-4797
+modules:
+    - module: code.vikunja.io/api
+      unsupported_versions:
+        - last_affected: 2.1.0
+      vulnerable_at: 0.24.6
+summary: Vikunja has an IDOR in Task Comments Allows Reading Arbitrary Comments in code.vikunja.io/api
+cves:
+    - CVE-2026-33313
+ghsas:
+    - GHSA-mr3j-p26x-72x4
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-mr3j-p26x-72x4
+    - web: https://github.com/go-vikunja/vikunja/commit/bc6d843ed4df82a6c89f10aa676a7a33d27bf2fd
+source:
+    id: GHSA-mr3j-p26x-72x4
+    created: 2026-03-23T12:34:52.702659048-04:00
+review_status: UNREVIEWED

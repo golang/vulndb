@@ -1,0 +1,22 @@
+id: GO-2026-4785
+modules:
+    - module: github.com/dagu-org/dagu
+      versions:
+        - introduced: 1.30.4-0.20260221021317-e2ed589105d7
+        - fixed: 1.30.4-0.20260319093346-7d07fda8f9de
+summary: |-
+    Dagu has an incomplete fix for CVE-2026-27598: path traversal via %2F-encoded
+    slashes in locateDAG in github.com/dagu-org/dagu
+cves:
+    - CVE-2026-33344
+ghsas:
+    - GHSA-ph8x-4jfv-v9v8
+references:
+    - advisory: https://github.com/dagu-org/dagu/security/advisories/GHSA-ph8x-4jfv-v9v8
+    - fix: https://github.com/dagu-org/dagu/commit/7d07fda8f9de3ae73dfb081ccd0639f8059c56bb
+notes:
+    - fix: 'github.com/dagu-org/dagu: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-ph8x-4jfv-v9v8
+    created: 2026-03-23T12:52:39.546980192-04:00
+review_status: UNREVIEWED

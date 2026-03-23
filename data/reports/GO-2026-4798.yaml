@@ -1,0 +1,21 @@
+id: GO-2026-4798
+modules:
+    - module: code.vikunja.io/api
+      unsupported_versions:
+        - last_affected: 2.1.0
+      vulnerable_at: 0.24.6
+summary: |-
+    Vikunja’s Improper Access Control Enables Bypass of Administrator-Imposed
+    Account Disablement in code.vikunja.io/api
+cves:
+    - CVE-2026-33316
+ghsas:
+    - GHSA-vq4q-79hh-q767
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-vq4q-79hh-q767
+    - web: https://github.com/go-vikunja/vikunja/commit/049f4a6be46f9460bd516f489ef9f569574bc70d
+    - web: https://github.com/go-vikunja/vikunja/commit/d8570c603da1f26635ce6048d6af85ede827abfb
+source:
+    id: GHSA-vq4q-79hh-q767
+    created: 2026-03-23T12:34:47.175511197-04:00
+review_status: UNREVIEWED

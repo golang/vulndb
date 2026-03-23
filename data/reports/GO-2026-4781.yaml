@@ -1,0 +1,21 @@
+id: GO-2026-4781
+modules:
+    - module: github.com/juju/juju
+      versions:
+        - introduced: 0.0.0-20230919230135-f6a66aa91eec
+        - fixed: 0.0.0-20260319091847-d06919eb03ec
+summary: Juju has unauthorized update of out-of-scope Vault secrets in github.com/juju/juju
+cves:
+    - CVE-2026-32692
+ghsas:
+    - GHSA-89x7-5m5m-mcmm
+references:
+    - advisory: https://github.com/juju/juju/security/advisories/GHSA-89x7-5m5m-mcmm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-32692
+    - fix: https://github.com/juju/juju/commit/d06919eb03ec68156818bcc304b5fe1c39a8f9e9
+notes:
+    - fix: 'github.com/juju/juju: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-89x7-5m5m-mcmm
+    created: 2026-03-23T12:53:01.258408581-04:00
+review_status: UNREVIEWED

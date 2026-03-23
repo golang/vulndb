@@ -1,0 +1,22 @@
+id: GO-2026-4784
+modules:
+    - module: github.com/mattermost/mattermost-plugin-msteams
+      versions:
+        - fixed: 1.15.1-0.20260102165339-036c761bd3cb
+      vulnerable_at: 1.15.0
+summary: |-
+    Mattermost Microsoft Teams Plugin fails to properly mask sensitive configuration
+    values in github.com/mattermost/mattermost-plugin-msteams
+cves:
+    - CVE-2026-2476
+ghsas:
+    - GHSA-4ppj-6chv-5pgc
+references:
+    - advisory: https://github.com/advisories/GHSA-4ppj-6chv-5pgc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-2476
+    - fix: https://github.com/mattermost/mattermost-plugin-msteams/commit/036c761bd3cb9ece92c17f2b151dfa906cebdcf6
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-4ppj-6chv-5pgc
+    created: 2026-03-23T12:52:45.261111813-04:00
+review_status: UNREVIEWED

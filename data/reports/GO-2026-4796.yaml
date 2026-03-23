@@ -1,0 +1,22 @@
+id: GO-2026-4796
+modules:
+    - module: k8s.io/ingress-nginx
+      versions:
+        - fixed: 0.0.0-20260319175635-5183b7d86137
+summary: ingress-nginx comment-based nginx configuration injection in k8s.io/ingress-nginx
+cves:
+    - CVE-2026-4342
+ghsas:
+    - GHSA-f53h-mxv9-cp98
+references:
+    - advisory: https://github.com/advisories/GHSA-f53h-mxv9-cp98
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-4342
+    - web: http://www.openwall.com/lists/oss-security/2026/03/19/9
+    - web: https://github.com/kubernetes/ingress-nginx/commit/5183b7d861377a9a2f6d2acaf44f8f6abd5cd0aa
+    - web: https://github.com/kubernetes/kubernetes/issues/137893
+notes:
+    - fix: 'k8s.io/ingress-nginx: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-f53h-mxv9-cp98
+    created: 2026-03-23T12:34:58.4085566-04:00
+review_status: UNREVIEWED

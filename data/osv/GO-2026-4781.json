@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4781",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-32692",
+    "GHSA-89x7-5m5m-mcmm"
+  ],
+  "summary": "Juju has unauthorized update of out-of-scope Vault secrets in github.com/juju/juju",
+  "details": "Juju has unauthorized update of out-of-scope Vault secrets in github.com/juju/juju",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/juju/juju",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.0.0-20230919230135-f6a66aa91eec"
+            },
+            {
+              "fixed": "0.0.0-20260319091847-d06919eb03ec"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/juju/juju/security/advisories/GHSA-89x7-5m5m-mcmm"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-32692"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/juju/juju/commit/d06919eb03ec68156818bcc304b5fe1c39a8f9e9"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4781",
+    "review_status": "UNREVIEWED"
+  }
+}

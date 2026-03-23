@@ -1,0 +1,18 @@
+id: GO-2026-4794
+modules:
+    - module: code.vikunja.io/api
+      unsupported_versions:
+        - last_affected: 2.1.0
+      vulnerable_at: 0.24.6
+summary: Vikunja has a 2FA Bypass via Caldav Basic Auth in code.vikunja.io/api
+cves:
+    - CVE-2026-33315
+ghsas:
+    - GHSA-47cr-f226-r4pq
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-47cr-f226-r4pq
+    - web: https://github.com/go-vikunja/vikunja/commit/cdf5d30a425d032f749b78b98b828f25ad882615
+source:
+    id: GHSA-47cr-f226-r4pq
+    created: 2026-03-23T12:35:10.935564167-04:00
+review_status: UNREVIEWED
