@@ -1,0 +1,23 @@
+id: GO-2026-4758
+modules:
+    - module: github.com/free5gc/udm
+      versions:
+        - fixed: 1.4.2
+      vulnerable_at: 1.4.1
+summary: |-
+    free5GC UDM incorrectly returns 500 for empty supi path parameter in DELETE
+    sdm-subscriptions request in github.com/free5gc/udm
+cves:
+    - CVE-2026-33065
+ghsas:
+    - GHSA-958m-gxmc-mccm
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-958m-gxmc-mccm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-33065
+    - fix: https://github.com/free5gc/udm/commit/88de9fa74a1b3f3522e53b4cfa2d184712ffa4ee
+    - fix: https://github.com/free5gc/udm/pull/79
+    - web: https://github.com/free5gc/free5gc/issues/783
+source:
+    id: GHSA-958m-gxmc-mccm
+    created: 2026-03-23T12:55:06.345875999-04:00
+review_status: UNREVIEWED

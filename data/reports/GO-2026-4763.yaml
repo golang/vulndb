@@ -1,0 +1,22 @@
+id: GO-2026-4763
+modules:
+    - module: github.com/free5gc/udm
+      versions:
+        - fixed: 1.4.2
+      vulnerable_at: 1.4.1
+summary: |-
+    free5GC UDM vulnerable to null byte injection in URL path parameters causing 500
+    Internal Server Error in github.com/free5gc/udm
+cves:
+    - CVE-2026-33191
+ghsas:
+    - GHSA-p9hg-pq3q-v9gv
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-p9hg-pq3q-v9gv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-33191
+    - fix: https://github.com/free5gc/udm/commit/88de9fa74a1b3f3522e53b4cfa2d184712ffa4ee
+    - fix: https://github.com/free5gc/udm/pull/79
+source:
+    id: GHSA-p9hg-pq3q-v9gv
+    created: 2026-03-23T12:54:41.142242762-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,23 @@
+id: GO-2026-4756
+modules:
+    - module: github.com/free5gc/nrf
+      versions:
+        - fixed: 1.4.2
+      vulnerable_at: 1.4.1
+summary: |-
+    free5GC NRF Discovery EncodeGroupId Function Panics on Malformed group-id-list
+    Parameter in github.com/free5gc/nrf
+cves:
+    - CVE-2026-33062
+ghsas:
+    - GHSA-7c47-xr7q-p6hg
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-7c47-xr7q-p6hg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-33062
+    - fix: https://github.com/free5gc/nrf/commit/dac77d8f8f2e0f041c5634fb3c685dcb9734b872
+    - fix: https://github.com/free5gc/nrf/pull/80
+    - web: https://github.com/free5gc/free5gc/issues/777
+source:
+    id: GHSA-7c47-xr7q-p6hg
+    created: 2026-03-23T12:55:18.901747994-04:00
+review_status: UNREVIEWED

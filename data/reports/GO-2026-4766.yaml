@@ -1,0 +1,19 @@
+id: GO-2026-4766
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      non_go_versions:
+        - fixed: 3.6.2
+      vulnerable_at: 0.0.0-20260317012524-fe4523fff2c8
+summary: |-
+    SiYuan has an Incomplete Fix for IsSensitivePath Denylist Allows File Read from
+    /opt, /usr, /home (GHSA-h5vh-m7fg-w5h6 Bypass) in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-33194
+ghsas:
+    - GHSA-vm69-h85x-8p85
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-vm69-h85x-8p85
+source:
+    id: GHSA-vm69-h85x-8p85
+    created: 2026-03-23T12:54:14.672046679-04:00
+review_status: UNREVIEWED

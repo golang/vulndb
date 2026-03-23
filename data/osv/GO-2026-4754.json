@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4754",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-33063",
+    "GHSA-4jrw-92fg-4jwx"
+  ],
+  "summary": "free5GC AUSF UE Authentication Panic on Nil SuciSupiMap Interface Conversion in github.com/free5gc/ausf",
+  "details": "free5GC AUSF UE Authentication Panic on Nil SuciSupiMap Interface Conversion in github.com/free5gc/ausf",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/free5gc/ausf",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.4.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/free5gc/free5gc/security/advisories/GHSA-4jrw-92fg-4jwx"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-33063"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/free5gc/ausf/commit/3b9ac4403c2756dc89a5ed3cdcefe688458588aa"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/free5gc/ausf/pull/52"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/free5gc/free5gc/issues/778"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4754",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4761",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-33211",
+    "GHSA-j5q5-j9gm-2w5c"
+  ],
+  "summary": "Path traversal in Tekton Pipelines git resolver allows reading arbitrary files from the resolver pod in github.com/tektoncd/pipeline",
+  "details": "Path traversal in Tekton Pipelines git resolver allows reading arbitrary files from the resolver pod in github.com/tektoncd/pipeline",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/tektoncd/pipeline",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.0.0"
+            },
+            {
+              "fixed": "1.0.1"
+            },
+            {
+              "introduced": "1.1.0"
+            },
+            {
+              "fixed": "1.3.3"
+            },
+            {
+              "introduced": "1.4.0"
+            },
+            {
+              "fixed": "1.6.1"
+            },
+            {
+              "introduced": "1.7.0"
+            },
+            {
+              "fixed": "1.9.2"
+            },
+            {
+              "introduced": "1.10.0"
+            },
+            {
+              "fixed": "1.10.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/tektoncd/pipeline/security/advisories/GHSA-j5q5-j9gm-2w5c"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4761",
+    "review_status": "UNREVIEWED"
+  }
+}

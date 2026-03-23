@@ -1,0 +1,21 @@
+id: GO-2026-4759
+modules:
+    - module: github.com/nhost/nhost
+      versions:
+        - fixed: 0.0.0-20260318074820-c4bd53f042d7
+summary: |-
+    Nhost Storage Affected by MIME Type Spoofing via Trusted Client Content-Type
+    Header in Storage Upload in github.com/nhost/nhost
+cves:
+    - CVE-2026-33221
+ghsas:
+    - GHSA-g9f6-9775-hffm
+references:
+    - advisory: https://github.com/nhost/nhost/security/advisories/GHSA-g9f6-9775-hffm
+    - fix: https://github.com/nhost/nhost/commit/c4bd53f042d7f568e567e18e2665af81660fce85
+notes:
+    - fix: 'github.com/nhost/nhost: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-g9f6-9775-hffm
+    created: 2026-03-23T12:54:58.055615696-04:00
+review_status: UNREVIEWED

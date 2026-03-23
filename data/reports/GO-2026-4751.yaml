@@ -1,0 +1,26 @@
+id: GO-2026-4751
+modules:
+    - module: github.com/zitadel/zitadel
+      versions:
+        - fixed: 1.80.0-v2.20.0.20260317120401-d90285929ca0
+      non_go_versions:
+        - introduced: 3.0.0-rc.1
+        - fixed: 3.4.9
+        - introduced: 4.0.0-rc.1
+        - fixed: 4.12.3
+      vulnerable_at: 1.80.0-v2.20
+summary: Zitadel is missing enforcement of organization scopes in github.com/zitadel/zitadel
+cves:
+    - CVE-2026-33132
+ghsas:
+    - GHSA-g2pf-ww5m-2r9m
+references:
+    - advisory: https://github.com/zitadel/zitadel/security/advisories/GHSA-g2pf-ww5m-2r9m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-33132
+    - fix: https://github.com/zitadel/zitadel/commit/d90285929ca019fa817f31551fd0883429dda2a8
+    - web: https://github.com/zitadel/zitadel/releases/tag/v3.4.9
+    - web: https://github.com/zitadel/zitadel/releases/tag/v4.12.3
+source:
+    id: GHSA-g2pf-ww5m-2r9m
+    created: 2026-03-23T12:55:58.450557906-04:00
+review_status: UNREVIEWED

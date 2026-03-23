@@ -1,0 +1,22 @@
+id: GO-2026-4775
+modules:
+    - module: github.com/smallstep/certificates
+      versions:
+        - fixed: 0.30.0
+      vulnerable_at: 0.30.0-rc7
+summary: |-
+    step-ca has Unauthenticated Certificate Issuance via SCEP UpdateReq
+    (MessageType=18) in github.com/smallstep/certificates
+cves:
+    - CVE-2026-30836
+ghsas:
+    - GHSA-q4r8-xm5f-56gw
+references:
+    - advisory: https://github.com/smallstep/certificates/security/advisories/GHSA-q4r8-xm5f-56gw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-30836
+    - fix: https://github.com/smallstep/certificates/commit/e6da031d5125cfd99fe9a26f74bb41e4dacca4ef
+    - web: https://github.com/smallstep/certificates/releases/tag/v0.30.0-rc7
+source:
+    id: GHSA-q4r8-xm5f-56gw
+    created: 2026-03-23T12:53:35.122399116-04:00
+review_status: UNREVIEWED

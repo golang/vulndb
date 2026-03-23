@@ -1,0 +1,24 @@
+id: GO-2026-4768
+modules:
+    - module: github.com/tomwright/dasel
+      vulnerable_at: 1.27.3
+    - module: github.com/tomwright/dasel/v2
+      vulnerable_at: 2.8.1
+    - module: github.com/tomwright/dasel/v3
+      versions:
+        - introduced: 3.0.0
+        - fixed: 3.3.2
+      vulnerable_at: 3.3.1
+summary: |-
+    Dasel has unbounded YAML alias expansion in dasel leads to CPU/memory denial of
+    service in github.com/tomwright/dasel
+cves:
+    - CVE-2026-33320
+ghsas:
+    - GHSA-4fcp-jxh7-23x8
+references:
+    - advisory: https://github.com/TomWright/dasel/security/advisories/GHSA-4fcp-jxh7-23x8
+source:
+    id: GHSA-4fcp-jxh7-23x8
+    created: 2026-03-23T12:54:09.500618995-04:00
+review_status: UNREVIEWED

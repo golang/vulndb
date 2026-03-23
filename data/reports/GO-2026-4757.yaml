@@ -1,0 +1,23 @@
+id: GO-2026-4757
+modules:
+    - module: github.com/free5gc/udm
+      versions:
+        - fixed: 1.4.2
+      vulnerable_at: 1.4.1
+summary: |-
+    free5GC UDM DataChangeNotification Procedure Panic Due to Nil Pointer
+    Dereference in github.com/free5gc/udm
+cves:
+    - CVE-2026-33064
+ghsas:
+    - GHSA-7g27-v5wj-jr75
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-7g27-v5wj-jr75
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-33064
+    - fix: https://github.com/free5gc/udm/commit/65d7070f4bfd016864cbbaefbd506bbc85d2fa92
+    - fix: https://github.com/free5gc/udm/pull/78
+    - web: https://github.com/free5gc/free5gc/issues/781
+source:
+    id: GHSA-7g27-v5wj-jr75
+    created: 2026-03-23T12:55:11.994075827-04:00
+review_status: UNREVIEWED

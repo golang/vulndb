@@ -1,0 +1,22 @@
+id: GO-2026-4755
+modules:
+    - module: github.com/free5gc/udm
+      versions:
+        - fixed: 1.4.2
+      vulnerable_at: 1.4.1
+summary: |-
+    free5GC UDM incorrectly returns 500 for empty supi path parameter in PATCH
+    sdm-subscriptions reques in github.com/free5gc/udm
+cves:
+    - CVE-2026-33192
+ghsas:
+    - GHSA-5rvc-5cwx-g5x8
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-5rvc-5cwx-g5x8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-33192
+    - fix: https://github.com/free5gc/udm/pull/79
+    - web: https://github.com/free5gc/free5gc/issues/784
+source:
+    id: GHSA-5rvc-5cwx-g5x8
+    created: 2026-03-23T12:55:26.881033072-04:00
+review_status: UNREVIEWED
