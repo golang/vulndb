@@ -1,0 +1,20 @@
+id: GO-2026-4809
+modules:
+    - module: github.com/anchore/syft
+      versions:
+        - fixed: 1.42.3
+      vulnerable_at: 1.42.2
+summary: Syft improper temporary file cleanup in github.com/anchore/syft
+cves:
+    - CVE-2026-33481
+ghsas:
+    - GHSA-rjcw-vg7j-m9rc
+references:
+    - advisory: https://github.com/anchore/syft/security/advisories/GHSA-rjcw-vg7j-m9rc
+    - fix: https://github.com/anchore/syft/pull/4629
+    - fix: https://github.com/anchore/syft/pull/4668
+    - web: https://github.com/anchore/stereoscope/pull/537
+source:
+    id: GHSA-rjcw-vg7j-m9rc
+    created: 2026-03-23T12:33:36.029955042-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,19 @@
+id: GO-2026-4805
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - introduced: 0.13.0
+      unsupported_versions:
+        - last_affected: 2.1.0
+      vulnerable_at: 0.24.6
+summary: Vikunja has TOTP Reuse During Validity Window in code.vikunja.io/api
+cves:
+    - CVE-2026-33473
+ghsas:
+    - GHSA-p747-qc5p-773r
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-p747-qc5p-773r
+source:
+    id: GHSA-p747-qc5p-773r
+    created: 2026-03-23T12:34:08.597744126-04:00
+review_status: UNREVIEWED

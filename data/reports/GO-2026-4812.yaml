@@ -1,0 +1,20 @@
+id: GO-2026-4812
+modules:
+    - module: github.com/mattermost/mattermost-plugin-playbooks
+      versions:
+        - fixed: 1.41.1-0.20260316224925-705f54a81841
+      vulnerable_at: 1.41.0
+summary: Mattermost fails to verify run_create permission for empty playbookId in github.com/mattermost/mattermost-plugin-playbooks
+cves:
+    - CVE-2026-26304
+ghsas:
+    - GHSA-4pmx-622h-x359
+references:
+    - advisory: https://github.com/advisories/GHSA-4pmx-622h-x359
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-26304
+    - fix: https://github.com/mattermost/mattermost-plugin-playbooks/commit/705f54a818410f3612df3865bfde608ed471037e
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-4pmx-622h-x359
+    created: 2026-03-23T12:33:15.510681514-04:00
+review_status: UNREVIEWED

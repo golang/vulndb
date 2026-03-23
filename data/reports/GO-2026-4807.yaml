@@ -1,0 +1,19 @@
+id: GO-2026-4807
+modules:
+    - module: github.com/ory/hydra
+      vulnerable_at: 1.11.10
+    - module: github.com/ory/hydra/v2
+      versions:
+        - fixed: 2.3.1-0.20260320110106-0b84568fffcc
+      vulnerable_at: 2.3.0
+summary: Ory Hydra has a SQL injection via forged pagination tokens in github.com/ory/hydra
+cves:
+    - CVE-2026-33504
+ghsas:
+    - GHSA-r9w3-57w2-gch2
+references:
+    - advisory: https://github.com/ory/hydra/security/advisories/GHSA-r9w3-57w2-gch2
+source:
+    id: GHSA-r9w3-57w2-gch2
+    created: 2026-03-23T12:33:58.773879078-04:00
+review_status: UNREVIEWED
