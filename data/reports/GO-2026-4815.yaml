@@ -1,0 +1,30 @@
+id: GO-2026-4815
+modules:
+    - module: golang.org/x/image
+      versions:
+        - fixed: 0.38.0
+      vulnerable_at: 0.37.0
+      packages:
+        - package: golang.org/x/image/tiff
+          symbols:
+            - buffer.fill
+            - buffer.ReadAt
+          derived_symbols:
+            - Decode
+            - DecodeConfig
+            - buffer.Slice
+summary: OOM from malicious IFD offset in golang.org/x/image/tiff
+description: |-
+    A maliciously crafted TIFF file can cause image decoding to
+    attempt to allocate up 4GiB of memory, causing either excessive
+    resource consumption or an out-of-memory error.
+references:
+    - fix: https://go.dev/cl/757660
+    - report: https://go.dev/issue/78267
+cve_metadata:
+    id: CVE-2026-33809
+    cwe: 'CWE-400: Uncontrolled Resource Consumption'
+source:
+    id: go-security-team
+    created: 2026-03-23T16:02:40.191205-07:00
+review_status: REVIEWED
