@@ -1,0 +1,22 @@
+id: GO-2026-4707
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      unsupported_versions:
+        - last_affected: 0.0.0-20260313024916-fd6526133bb3
+      vulnerable_at: 0.0.0-20260317012524-fe4523fff2c8
+summary: |-
+    SiYuan importSY/importZipMd: path traversal via multipart filename enables
+    arbitrary file write in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-32749
+ghsas:
+    - GHSA-qvvf-q994-x79v
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-qvvf-q994-x79v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-32749
+    - web: https://github.com/siyuan-note/siyuan/commit/5ee00907f0b0c4aca748ce21ef1977bb98178e14
+    - web: https://github.com/siyuan-note/siyuan/releases/tag/v3.6.1
+source:
+    id: GHSA-qvvf-q994-x79v
+    created: 2026-03-26T15:49:26.590042695-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,28 @@
+id: GO-2026-4702
+modules:
+    - module: github.com/centrifugal/centrifugo
+      vulnerable_at: 1.8.0
+    - module: github.com/centrifugal/centrifugo/v3
+      vulnerable_at: 3.2.3
+    - module: github.com/centrifugal/centrifugo/v4
+      vulnerable_at: 4.1.5
+    - module: github.com/centrifugal/centrifugo/v5
+      vulnerable_at: 5.4.9
+    - module: github.com/centrifugal/centrifugo/v6
+      versions:
+        - fixed: 6.7.0
+      vulnerable_at: 6.6.2
+summary: |-
+    Centrifugo: SSRF via unverified JWT claims interpolated into dynamic JWKS
+    endpoint URL in github.com/centrifugal/centrifugo
+cves:
+    - CVE-2026-32301
+ghsas:
+    - GHSA-j77h-rr39-c552
+references:
+    - advisory: https://github.com/centrifugal/centrifugo/security/advisories/GHSA-j77h-rr39-c552
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-32301
+source:
+    id: GHSA-j77h-rr39-c552
+    created: 2026-03-26T15:49:59.262244912-04:00
+review_status: UNREVIEWED

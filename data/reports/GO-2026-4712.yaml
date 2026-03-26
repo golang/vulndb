@@ -1,0 +1,20 @@
+id: GO-2026-4712
+modules:
+    - module: github.com/ctfer-io/monitoring
+      versions:
+        - fixed: 0.2.2
+      vulnerable_at: 0.2.1
+summary: Monitoring is vulnerable to Archive Slip due to missing checks in sanitization in github.com/ctfer-io/monitoring
+cves:
+    - CVE-2026-32771
+ghsas:
+    - GHSA-f7cq-gvh6-qr25
+references:
+    - advisory: https://github.com/ctfer-io/monitoring/security/advisories/GHSA-f7cq-gvh6-qr25
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-32771
+    - fix: https://github.com/ctfer-io/monitoring/commit/269dba165aa42210352628c0db6756f3b8fd3c8a
+    - web: https://security.snyk.io/research/zip-slip-vulnerability#expandable-socPI9fFAJ-title
+source:
+    id: GHSA-f7cq-gvh6-qr25
+    created: 2026-03-26T15:48:57.152201721-04:00
+review_status: UNREVIEWED

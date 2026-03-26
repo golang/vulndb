@@ -1,0 +1,19 @@
+id: GO-2026-4719
+modules:
+    - module: github.com/ctfer-io/romeo/webserver
+      versions:
+        - fixed: 0.2.2
+      vulnerable_at: 0.2.1
+summary: Romeo is vulnerable to Archive Slip due to missing checks in sanitization in github.com/ctfer-io/romeo/webserver
+cves:
+    - CVE-2026-32805
+ghsas:
+    - GHSA-p799-g7vv-f279
+references:
+    - advisory: https://github.com/ctfer-io/romeo/security/advisories/GHSA-p799-g7vv-f279
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-32805
+    - web: https://github.com/ctfer-io/romeo/commit/c2ebcfb9f305fd5f6ef68858de82507dbac10263
+source:
+    id: GHSA-p799-g7vv-f279
+    created: 2026-03-26T15:48:00.775768015-04:00
+review_status: UNREVIEWED

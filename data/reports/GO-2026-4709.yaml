@@ -1,0 +1,22 @@
+id: GO-2026-4709
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      unsupported_versions:
+        - last_affected: 0.0.0-20260313024916-fd6526133bb3
+      vulnerable_at: 0.0.0-20260317012524-fe4523fff2c8
+summary: |-
+    SiYuan Vulnerable to Cross-Origin WebSocket Hijacking via Authentication Bypass
+    — Unauthenticated Information Disclosure in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-32815
+ghsas:
+    - GHSA-xp2m-98x8-rpj6
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-xp2m-98x8-rpj6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-32815
+    - web: https://github.com/siyuan-note/siyuan/commit/1e370e37359778c0932673e825182ff555b504a3
+    - web: https://github.com/siyuan-note/siyuan/releases/tag/v3.6.1
+source:
+    id: GHSA-xp2m-98x8-rpj6
+    created: 2026-03-26T15:49:15.179254111-04:00
+review_status: UNREVIEWED

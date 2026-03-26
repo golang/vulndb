@@ -1,0 +1,21 @@
+id: GO-2026-4713
+modules:
+    - module: github.com/filebrowser/filebrowser
+      vulnerable_at: 1.11.0
+    - module: github.com/filebrowser/filebrowser/v2
+      unsupported_versions:
+        - last_affected: 2.61.1
+      vulnerable_at: 2.62.1
+summary: File Browser TUS Negative Upload-Length Fires Post-Upload Hooks Prematurely in github.com/filebrowser/filebrowser
+cves:
+    - CVE-2026-32759
+ghsas:
+    - GHSA-ffx7-75gc-jg7c
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-ffx7-75gc-jg7c
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-32759
+    - report: https://github.com/filebrowser/filebrowser/issues/5199
+source:
+    id: GHSA-ffx7-75gc-jg7c
+    created: 2026-03-26T15:48:50.143894207-04:00
+review_status: UNREVIEWED

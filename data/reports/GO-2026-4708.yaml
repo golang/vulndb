@@ -1,0 +1,22 @@
+id: GO-2026-4708
+modules:
+    - module: github.com/siyuan-note/siyuan
+      unsupported_versions:
+        - last_affected: 0.0.0-20260313024916-fd6526133bb3
+      vulnerable_at: 3.6.1+incompatible
+summary: |-
+    SiYuan importStdMd: unvalidated localPath imports arbitrary host directories as
+    persistent notes in github.com/siyuan-note/siyuan
+cves:
+    - CVE-2026-32750
+ghsas:
+    - GHSA-rjhh-m223-9qqv
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-rjhh-m223-9qqv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-32750
+    - fix: https://github.com/siyuan-note/siyuan/commit/13b6d3d45e83525654d120f32a3fdc5d9e95df0b
+    - web: https://github.com/siyuan-note/siyuan/releases/tag/v3.6.1
+source:
+    id: GHSA-rjhh-m223-9qqv
+    created: 2026-03-26T15:49:21.110126864-04:00
+review_status: UNREVIEWED

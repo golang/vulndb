@@ -1,0 +1,23 @@
+id: GO-2026-4704
+modules:
+    - module: github.com/lxc/incus-os/incus-osd
+      versions:
+        - fixed: 0.0.0-20260313012803-e3b35f230d23
+summary: IncusOS has a LUKS encryption bypass due to insufficient TPM policy in github.com/lxc/incus-os/incus-osd
+cves:
+    - CVE-2026-32606
+ghsas:
+    - GHSA-wj2j-qwcf-cfcc
+references:
+    - advisory: https://github.com/lxc/incus-os/security/advisories/GHSA-wj2j-qwcf-cfcc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-32606
+    - web: https://discuss.linuxcontainers.org/t/potential-luks-encryption-bypass-through-filesystem-confusion/26348
+    - web: https://github.com/lxc/incus-os/commit/e3b35f230d23443d27752eac27ebb2b22c957b75
+    - web: https://github.com/lxc/incus-os/pull/954
+    - web: https://oddlama.org/blog/bypassing-disk-encryption-with-tpm2-unlock
+notes:
+    - fix: 'github.com/lxc/incus-os/incus-osd: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-wj2j-qwcf-cfcc
+    created: 2026-03-26T15:49:43.305183375-04:00
+review_status: UNREVIEWED

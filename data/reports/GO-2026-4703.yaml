@@ -1,0 +1,27 @@
+id: GO-2026-4703
+modules:
+    - module: github.com/centrifugal/centrifugo
+      vulnerable_at: 1.8.0
+    - module: github.com/centrifugal/centrifugo/v3
+      vulnerable_at: 3.2.3
+    - module: github.com/centrifugal/centrifugo/v4
+      vulnerable_at: 4.1.5
+    - module: github.com/centrifugal/centrifugo/v5
+      vulnerable_at: 5.4.9
+    - module: github.com/centrifugal/centrifugo/v6
+      versions:
+        - fixed: 6.7.0
+      vulnerable_at: 6.6.2
+summary: |-
+    Centrifugo's InsecureSkipTokenSignatureVerify flag silently disables JWT
+    verification with no warning in github.com/centrifugal/centrifugo
+ghsas:
+    - GHSA-q926-c743-49qj
+references:
+    - advisory: https://github.com/centrifugal/centrifugo/security/advisories/GHSA-q926-c743-49qj
+    - fix: https://github.com/centrifugal/centrifugo/commit/dab80fe3adfe0bbeca3bb3ea45e6d95df9f601a8
+    - web: https://github.com/centrifugal/centrifugo/releases/tag/v6.7.0
+source:
+    id: GHSA-q926-c743-49qj
+    created: 2026-03-26T15:49:51.517126327-04:00
+review_status: UNREVIEWED

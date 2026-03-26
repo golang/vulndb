@@ -1,0 +1,28 @@
+id: GO-2026-4717
+modules:
+    - module: github.com/akuity/kargo
+      versions:
+        - introduced: 1.4.0
+        - fixed: 1.6.4
+        - introduced: 1.7.0-rc.1
+        - fixed: 1.7.9
+        - introduced: 1.8.0-rc.1
+        - fixed: 1.8.12
+        - introduced: 1.9.0-rc.1
+        - fixed: 1.9.5
+      vulnerable_at: 1.9.4
+summary: |-
+    Kargo Vulnerable to SSRF in Promotion http/http-download Steps Enables Internal
+    Network Access and Data Exfiltration in github.com/akuity/kargo
+cves:
+    - CVE-2026-32828
+ghsas:
+    - GHSA-j94x-8wcp-x7hm
+references:
+    - advisory: https://github.com/akuity/kargo/security/advisories/GHSA-j94x-8wcp-x7hm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-32828
+    - fix: https://github.com/akuity/kargo/commit/fd25620c2473ed19bec4be4d0f181287ef0f0391
+source:
+    id: GHSA-j94x-8wcp-x7hm
+    created: 2026-03-26T15:48:20.351985461-04:00
+review_status: UNREVIEWED

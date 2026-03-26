@@ -1,0 +1,22 @@
+id: GO-2026-4705
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      unsupported_versions:
+        - last_affected: 0.0.0-20260313024916-fd6526133bb3
+      vulnerable_at: 0.0.0-20260317012524-fe4523fff2c8
+summary: |-
+    SiYuan globalCopyFiles: incomplete sensitive path blocklist allows reading /proc
+    and Docker secrets in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-32747
+ghsas:
+    - GHSA-h5vh-m7fg-w5h6
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-h5vh-m7fg-w5h6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-32747
+    - web: https://github.com/siyuan-note/siyuan/commit/9914fd1d39e5f0a8dcc9fb587e1c0b46f31490a1
+    - web: https://github.com/siyuan-note/siyuan/releases/tag/v3.6.1
+source:
+    id: GHSA-h5vh-m7fg-w5h6
+    created: 2026-03-26T15:49:37.853979988-04:00
+review_status: UNREVIEWED

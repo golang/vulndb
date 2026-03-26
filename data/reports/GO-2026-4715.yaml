@@ -1,0 +1,22 @@
+id: GO-2026-4715
+modules:
+    - module: github.com/ctfer-io/fullchain
+      versions:
+        - fixed: 0.1.1
+      vulnerable_at: 0.1.0
+summary: |-
+    Fullchain's Invalid NetworkPolicy enables a malicious actor to pivot into
+    another namespace in github.com/ctfer-io/fullchain
+cves:
+    - CVE-2026-32769
+ghsas:
+    - GHSA-hxm7-9q36-c77f
+references:
+    - advisory: https://github.com/ctfer-io/fullchain/security/advisories/GHSA-hxm7-9q36-c77f
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-32769
+    - fix: https://github.com/ctfer-io/fullchain/commit/dbcb90178bcb07a3f5a1efa4c6350f3a6ce34f51
+    - web: https://github.com/ctfer-io/fullchain/releases/tag/v0.1.1
+source:
+    id: GHSA-hxm7-9q36-c77f
+    created: 2026-03-26T15:48:33.451181202-04:00
+review_status: UNREVIEWED

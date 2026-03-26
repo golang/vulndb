@@ -1,0 +1,24 @@
+id: GO-2026-4711
+modules:
+    - module: github.com/filebrowser/filebrowser
+      vulnerable_at: 1.11.0
+    - module: github.com/filebrowser/filebrowser/v2
+      versions:
+        - fixed: 2.62.0
+      vulnerable_at: 2.61.2
+summary: |-
+    File Browser has an Access Rule Bypass via Path Traversal in Copy/Rename
+    Destination Parameter in github.com/filebrowser/filebrowser
+cves:
+    - CVE-2026-32758
+ghsas:
+    - GHSA-9f3r-2vgw-m8xp
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-9f3r-2vgw-m8xp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-32758
+    - fix: https://github.com/filebrowser/filebrowser/commit/4bd7d69c82163b201a987e99c0c50d7ecc6ee5f1
+    - web: https://github.com/filebrowser/filebrowser/releases/tag/v2.62.0
+source:
+    id: GHSA-9f3r-2vgw-m8xp
+    created: 2026-03-26T15:49:04.229999475-04:00
+review_status: UNREVIEWED

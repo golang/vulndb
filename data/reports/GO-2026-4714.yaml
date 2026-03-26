@@ -1,0 +1,21 @@
+id: GO-2026-4714
+modules:
+    - module: github.com/ctfer-io/romeo/environment/deploy
+      non_go_versions:
+        - fixed: 0.2.1
+      vulnerable_at: 0.0.0-20260323182041-dea7e6d62e47
+summary: |-
+    Romeo's invalid NetworkPolicy enables a malicious actor to pivot into another
+    namespace in github.com/ctfer-io/romeo/environment/deploy
+cves:
+    - CVE-2026-32737
+ghsas:
+    - GHSA-fgm3-q9r5-43v9
+references:
+    - advisory: https://github.com/ctfer-io/romeo/security/advisories/GHSA-fgm3-q9r5-43v9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-32737
+    - web: https://github.com/ctfer-io/romeo/commit/3bb5e9d9ce1199dfbb90fef8ad79ebdeb0bc5e78
+source:
+    id: GHSA-fgm3-q9r5-43v9
+    created: 2026-03-26T15:48:42.382636793-04:00
+review_status: UNREVIEWED

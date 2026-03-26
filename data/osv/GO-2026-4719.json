@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4719",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-32805",
+    "GHSA-p799-g7vv-f279"
+  ],
+  "summary": "Romeo is vulnerable to Archive Slip due to missing checks in sanitization in github.com/ctfer-io/romeo/webserver",
+  "details": "Romeo is vulnerable to Archive Slip due to missing checks in sanitization in github.com/ctfer-io/romeo/webserver",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/ctfer-io/romeo/webserver",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.2.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/ctfer-io/romeo/security/advisories/GHSA-p799-g7vv-f279"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-32805"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/ctfer-io/romeo/commit/c2ebcfb9f305fd5f6ef68858de82507dbac10263"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4719",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4717",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-32828",
+    "GHSA-j94x-8wcp-x7hm"
+  ],
+  "summary": "Kargo Vulnerable to SSRF in Promotion http/http-download Steps Enables Internal Network Access and Data Exfiltration in github.com/akuity/kargo",
+  "details": "Kargo Vulnerable to SSRF in Promotion http/http-download Steps Enables Internal Network Access and Data Exfiltration in github.com/akuity/kargo",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/akuity/kargo",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.4.0"
+            },
+            {
+              "fixed": "1.6.4"
+            },
+            {
+              "introduced": "1.7.0-rc.1"
+            },
+            {
+              "fixed": "1.7.9"
+            },
+            {
+              "introduced": "1.8.0-rc.1"
+            },
+            {
+              "fixed": "1.8.12"
+            },
+            {
+              "introduced": "1.9.0-rc.1"
+            },
+            {
+              "fixed": "1.9.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/akuity/kargo/security/advisories/GHSA-j94x-8wcp-x7hm"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-32828"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/akuity/kargo/commit/fd25620c2473ed19bec4be4d0f181287ef0f0391"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4717",
+    "review_status": "UNREVIEWED"
+  }
+}

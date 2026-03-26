@@ -1,0 +1,22 @@
+id: GO-2026-4710
+modules:
+    - module: github.com/filebrowser/filebrowser
+      vulnerable_at: 1.11.0
+    - module: github.com/filebrowser/filebrowser/v2
+      versions:
+        - fixed: 2.62.0
+      vulnerable_at: 2.61.2
+summary: File Browser Signup Grants Admin When Default Permissions Include Admin in github.com/filebrowser/filebrowser
+cves:
+    - CVE-2026-32760
+ghsas:
+    - GHSA-5gg9-5g7w-hm73
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-5gg9-5g7w-hm73
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-32760
+    - fix: https://github.com/filebrowser/filebrowser/commit/a63573b67eb302167b4c4f218361a2d0c138deab
+    - web: https://github.com/filebrowser/filebrowser/releases/tag/v2.62.0
+source:
+    id: GHSA-5gg9-5g7w-hm73
+    created: 2026-03-26T15:49:09.820170672-04:00
+review_status: UNREVIEWED

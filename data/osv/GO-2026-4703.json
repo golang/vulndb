@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4703",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-q926-c743-49qj"
+  ],
+  "summary": "Centrifugo's InsecureSkipTokenSignatureVerify flag silently disables JWT verification with no warning in github.com/centrifugal/centrifugo",
+  "details": "Centrifugo's InsecureSkipTokenSignatureVerify flag silently disables JWT verification with no warning in github.com/centrifugal/centrifugo",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/centrifugal/centrifugo",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/centrifugal/centrifugo/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/centrifugal/centrifugo/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/centrifugal/centrifugo/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/centrifugal/centrifugo/v6",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "6.7.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/centrifugal/centrifugo/security/advisories/GHSA-q926-c743-49qj"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/centrifugal/centrifugo/commit/dab80fe3adfe0bbeca3bb3ea45e6d95df9f601a8"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/centrifugal/centrifugo/releases/tag/v6.7.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4703",
+    "review_status": "UNREVIEWED"
+  }
+}

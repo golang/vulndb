@@ -1,0 +1,26 @@
+id: GO-2026-4718
+modules:
+    - module: github.com/ctfer-io/chall-manager/deploy
+      versions:
+        - fixed: 0.6.5
+      vulnerable_at: 0.6.4
+    - module: github.com/ctfer-io/chall-manager/sdk
+      versions:
+        - fixed: 0.6.5
+      vulnerable_at: 0.6.4
+summary: |-
+    Chall-Manager's invalid NetworkPolicy enables a malicious actor to pivot into
+    another namespace in github.com/ctfer-io/chall-manager/deploy
+cves:
+    - CVE-2026-32768
+ghsas:
+    - GHSA-mw24-f3xh-j3qv
+references:
+    - advisory: https://github.com/ctfer-io/chall-manager/security/advisories/GHSA-mw24-f3xh-j3qv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-32768
+    - web: https://github.com/ctfer-io/chall-manager/commit/dc5ef27dfed2befef7f506ab8ca14d062b0d79c5
+    - web: https://github.com/ctfer-io/chall-manager/releases/tag/v0.6.5
+source:
+    id: GHSA-mw24-f3xh-j3qv
+    created: 2026-03-26T15:48:08.441941093-04:00
+review_status: UNREVIEWED
