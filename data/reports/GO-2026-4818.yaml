@@ -1,0 +1,22 @@
+id: GO-2026-4818
+modules:
+    - module: github.com/authelia/authelia
+      vulnerable_at: 3.16.2+incompatible
+    - module: github.com/authelia/authelia/v4
+      versions:
+        - introduced: 4.39.15
+        - fixed: 4.39.16
+      vulnerable_at: 4.39.15
+summary: |-
+    Authelia: Improper Neutralization of Input During Web Page Generation Leads to
+    Potential Cross-site Scripting in github.com/authelia/authelia
+cves:
+    - CVE-2026-33525
+ghsas:
+    - GHSA-gmfg-3v4q-9qr4
+references:
+    - advisory: https://github.com/authelia/authelia/security/advisories/GHSA-gmfg-3v4q-9qr4
+source:
+    id: GHSA-gmfg-3v4q-9qr4
+    created: 2026-03-26T15:28:52.588132155-04:00
+review_status: UNREVIEWED

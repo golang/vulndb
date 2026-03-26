@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4724",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-32254",
+    "GHSA-phqm-jgc3-qf8g"
+  ],
+  "summary": "Kube-router Proxy Module Blindly Trusts ExternalIPs/LoadBalancer IPs Enabling Cluster-Wide Traffic Hijacking and DNS DoS in github.com/cloudnativelabs/kube-router",
+  "details": "Kube-router Proxy Module Blindly Trusts ExternalIPs/LoadBalancer IPs Enabling Cluster-Wide Traffic Hijacking and DNS DoS in github.com/cloudnativelabs/kube-router",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cloudnativelabs/kube-router",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/cloudnativelabs/kube-router/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.8.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cloudnativelabs/kube-router/security/advisories/GHSA-phqm-jgc3-qf8g"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-32254"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cloudnativelabs/kube-router/commit/a1f0b2eea3ee0f66b9a5b5c49dcb714619ccd456"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/cloudnativelabs/kube-router/releases/tag/v2.8.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4724",
+    "review_status": "UNREVIEWED"
+  }
+}

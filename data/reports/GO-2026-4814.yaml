@@ -1,0 +1,21 @@
+id: GO-2026-4814
+modules:
+    - module: github.com/QuantumNous/new-api
+      versions:
+        - fixed: 0.11.4-alpha.2
+      vulnerable_at: 0.11.4-alpha.1
+summary: |-
+    New API: IDOR in VideoProxy allows cross-user video content access via missing
+    ownership check in github.com/QuantumNous/new-api
+cves:
+    - CVE-2026-30886
+ghsas:
+    - GHSA-f35r-v9x5-r8mc
+references:
+    - advisory: https://github.com/QuantumNous/new-api/security/advisories/GHSA-f35r-v9x5-r8mc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-30886
+    - fix: https://github.com/QuantumNous/new-api/commit/50ec2bac6b341e651fc9ac4344e3bd2cdaeafdbd
+source:
+    id: GHSA-f35r-v9x5-r8mc
+    created: 2026-03-26T15:29:16.811520338-04:00
+review_status: UNREVIEWED

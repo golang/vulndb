@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4814",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-30886",
+    "GHSA-f35r-v9x5-r8mc"
+  ],
+  "summary": "New API: IDOR in VideoProxy allows cross-user video content access via missing ownership check in github.com/QuantumNous/new-api",
+  "details": "New API: IDOR in VideoProxy allows cross-user video content access via missing ownership check in github.com/QuantumNous/new-api",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/QuantumNous/new-api",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.11.4-alpha.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/QuantumNous/new-api/security/advisories/GHSA-f35r-v9x5-r8mc"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-30886"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/QuantumNous/new-api/commit/50ec2bac6b341e651fc9ac4344e3bd2cdaeafdbd"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4814",
+    "review_status": "UNREVIEWED"
+  }
+}

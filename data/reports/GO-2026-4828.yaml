@@ -1,0 +1,24 @@
+id: GO-2026-4828
+modules:
+    - module: github.com/nats-io/nats-server
+      vulnerable_at: 1.4.1
+    - module: github.com/nats-io/nats-server/v2
+      versions:
+        - fixed: 2.11.15
+        - introduced: 2.12.0-RC.1
+        - fixed: 2.12.6
+      vulnerable_at: 2.12.5
+summary: |-
+    NATS has mTLS verify_and_map authentication bypass via incorrect Subject DN
+    matching in github.com/nats-io/nats-server
+cves:
+    - CVE-2026-33248
+ghsas:
+    - GHSA-3f24-pcvm-5jqc
+references:
+    - advisory: https://github.com/nats-io/nats-server/security/advisories/GHSA-3f24-pcvm-5jqc
+    - web: https://advisories.nats.io/CVE/secnote-2026-13.txt
+source:
+    id: GHSA-3f24-pcvm-5jqc
+    created: 2026-03-26T15:28:00.337232753-04:00
+review_status: UNREVIEWED

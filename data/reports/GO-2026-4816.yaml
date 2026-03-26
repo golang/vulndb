@@ -1,0 +1,25 @@
+id: GO-2026-4816
+modules:
+    - module: github.com/kubernetes-csi/csi-driver-nfs
+      versions:
+        - fixed: 0.0.0-20260210055231-316af2d86b91
+summary: |-
+    NFS CSI driver for Kubernetes is Vulnerable to Path Traversal through Volume
+    Identifier Parameter in github.com/kubernetes-csi/csi-driver-nfs
+cves:
+    - CVE-2026-3864
+ghsas:
+    - GHSA-2mjq-54qg-7w6j
+references:
+    - advisory: https://github.com/advisories/GHSA-2mjq-54qg-7w6j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-3864
+    - fix: https://github.com/kubernetes-csi/csi-driver-nfs/commit/316af2d86b913a595542dc17e8599cf81afd938f
+    - web: http://www.openwall.com/lists/oss-security/2026/03/17/1
+    - web: https://github.com/kubernetes/kubernetes/issues/137797
+    - web: https://groups.google.com/g/kubernetes-security-announce/c/i4ZKN9VLcUE
+notes:
+    - fix: 'github.com/kubernetes-csi/csi-driver-nfs: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-2mjq-54qg-7w6j
+    created: 2026-03-26T15:29:08.553038484-04:00
+review_status: UNREVIEWED

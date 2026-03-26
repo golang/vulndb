@@ -1,0 +1,19 @@
+id: GO-2026-4817
+modules:
+    - module: github.com/yusing/godoxy
+      versions:
+        - fixed: 0.27.5
+      vulnerable_at: 0.27.4
+summary: GoDoxy has a Path Traversal Vulnerability in its File API in github.com/yusing/godoxy
+cves:
+    - CVE-2026-33528
+ghsas:
+    - GHSA-4753-cmc8-8j9v
+references:
+    - advisory: https://github.com/yusing/godoxy/security/advisories/GHSA-4753-cmc8-8j9v
+    - fix: https://github.com/yusing/godoxy/commit/a541d75bb50f1b542c096d8bc8082c3549f5c059
+    - web: https://github.com/yusing/godoxy/releases/tag/v0.27.5
+source:
+    id: GHSA-4753-cmc8-8j9v
+    created: 2026-03-26T15:29:02.964278868-04:00
+review_status: UNREVIEWED

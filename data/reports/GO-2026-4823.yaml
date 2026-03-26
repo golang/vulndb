@@ -1,0 +1,20 @@
+id: GO-2026-4823
+modules:
+    - module: github.com/pinchtab/pinchtab
+      versions:
+        - fixed: 0.8.5
+      vulnerable_at: 0.8.4
+summary: |-
+    PinchTab: OS Command Injection via Profile Name in Windows Cleanup Routine
+    Enables Arbitrary Command Execution in github.com/pinchtab/pinchtab
+cves:
+    - CVE-2026-33623
+ghsas:
+    - GHSA-p8mm-644p-phmh
+references:
+    - advisory: https://github.com/pinchtab/pinchtab/security/advisories/GHSA-p8mm-644p-phmh
+    - fix: https://github.com/pinchtab/pinchtab/commit/25b3374bdcdf0dad32c44d5d726bf953238cd8bd
+source:
+    id: GHSA-p8mm-644p-phmh
+    created: 2026-03-26T15:28:27.278923334-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,21 @@
+id: GO-2026-4821
+modules:
+    - module: github.com/pinchtab/pinchtab
+      versions:
+        - introduced: 0.7.7
+        - fixed: 0.8.5
+      vulnerable_at: 0.8.4
+summary: |-
+    PinchTab: Unapplied Rate Limiting Middleware Allows Unbounded Brute-Force of API
+    Token in github.com/pinchtab/pinchtab
+cves:
+    - CVE-2026-33621
+ghsas:
+    - GHSA-j65m-hv65-r264
+references:
+    - advisory: https://github.com/pinchtab/pinchtab/security/advisories/GHSA-j65m-hv65-r264
+    - fix: https://github.com/pinchtab/pinchtab/commit/c619c43a4f29d1d1a481e859c193baf78e0d648b
+source:
+    id: GHSA-j65m-hv65-r264
+    created: 2026-03-26T15:28:38.19352919-04:00
+review_status: UNREVIEWED
