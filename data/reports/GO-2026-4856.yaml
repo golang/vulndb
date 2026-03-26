@@ -1,0 +1,26 @@
+id: GO-2026-4856
+modules:
+    - module: github.com/cilium/cilium
+      versions:
+        - fixed: 1.17.14
+        - introduced: 1.18.0
+        - fixed: 1.18.8
+        - introduced: 1.19.0
+        - fixed: 1.19.2
+      vulnerable_at: 1.19.1
+summary: Cilium L7 proxy may bypass Kubernetes NetworkPolicy for same-node traffic in github.com/cilium/cilium
+cves:
+    - CVE-2026-33726
+ghsas:
+    - GHSA-hxv8-4j4r-cqgv
+references:
+    - advisory: https://github.com/cilium/cilium/security/advisories/GHSA-hxv8-4j4r-cqgv
+    - fix: https://github.com/cilium/cilium/pull/44693
+    - web: https://docs.cilium.io/en/stable/network/concepts/routing/#routing
+    - web: https://docs.cilium.io/en/stable/network/kubernetes/policy/#network-policy
+    - web: https://docs.cilium.io/en/stable/network/servicemesh/l7-traffic-management
+    - web: https://docs.cilium.io/en/stable/operations/performance/tuning/#ebpf-host-routing
+source:
+    id: GHSA-hxv8-4j4r-cqgv
+    created: 2026-03-26T15:25:25.444428323-04:00
+review_status: UNREVIEWED

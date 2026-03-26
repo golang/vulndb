@@ -1,0 +1,20 @@
+id: GO-2026-4860
+modules:
+    - module: github.com/openbao/openbao
+      versions:
+        - fixed: 0.0.0-20260325142553-e32103951925
+summary: OpenBao lacks user confirmation for OIDC direct callback mode in github.com/openbao/openbao
+cves:
+    - CVE-2026-33757
+ghsas:
+    - GHSA-7q7g-x6vg-xpc3
+references:
+    - advisory: https://github.com/openbao/openbao/security/advisories/GHSA-7q7g-x6vg-xpc3
+    - fix: https://github.com/openbao/openbao/commit/e32103951925723e9787e33886ab6b6ec20f4964
+    - web: https://datatracker.ietf.org/doc/html/rfc8628#section-5.4
+notes:
+    - fix: 'github.com/openbao/openbao: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-7q7g-x6vg-xpc3
+    created: 2026-03-26T15:25:04.008196642-04:00
+review_status: UNREVIEWED

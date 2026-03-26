@@ -1,0 +1,20 @@
+id: GO-2026-4852
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - fixed: 2.2.1
+      vulnerable_at: 0.24.6
+summary: Vikjuna Bypasses Webhook SSRF Protections During OpenID Connect Avatar Download in code.vikunja.io/api
+cves:
+    - CVE-2026-33679
+ghsas:
+    - GHSA-g9xj-752q-xh63
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-g9xj-752q-xh63
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-33679
+    - web: https://github.com/go-vikunja/vikunja/commit/363aa6642352b08fc8bc6aaff2f3a550393af1cf
+    - web: https://vikunja.io/changelog/vikunja-v2.2.2-was-released
+source:
+    id: GHSA-g9xj-752q-xh63
+    created: 2026-03-26T15:25:48.195661735-04:00
+review_status: UNREVIEWED

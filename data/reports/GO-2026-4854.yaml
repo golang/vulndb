@@ -1,0 +1,22 @@
+id: GO-2026-4854
+modules:
+    - module: github.com/digitalocean/droplet-agent
+      unsupported_versions:
+        - last_affected: 0.0.0-20260107162243-1101ffcb5672
+      vulnerable_at: 0.0.0-20260325134542-59f3230ddfb9
+summary: 'DigitalOcean Droplet Agent: Command Injection via Metadata Service Endpoint in github.com/digitalocean/droplet-agent'
+cves:
+    - CVE-2026-24516
+ghsas:
+    - GHSA-fh3m-562m-w4f6
+references:
+    - advisory: https://github.com/advisories/GHSA-fh3m-562m-w4f6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-24516
+    - web: https://github.com/digitalocean/droplet-agent/blob/main/internal/troubleshooting/actioner/actioner.go
+    - web: https://github.com/digitalocean/droplet-agent/blob/main/internal/troubleshooting/command/command.go
+    - web: https://github.com/digitalocean/droplet-agent/blob/main/internal/troubleshooting/command/exec.go
+    - web: https://github.com/poxsky/CVE-2026-24516-DigitalOcean-RCE
+source:
+    id: GHSA-fh3m-562m-w4f6
+    created: 2026-03-26T15:25:37.237541281-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,19 @@
+id: GO-2026-4857
+modules:
+    - module: github.com/openfga/openfga
+      versions:
+        - fixed: 1.13.1
+      vulnerable_at: 1.13.0
+summary: OpenFGA has an Authorization Bypass through cached keys in github.com/openfga/openfga
+cves:
+    - CVE-2026-33729
+ghsas:
+    - GHSA-h6c8-cww8-35hf
+references:
+    - advisory: https://github.com/openfga/openfga/security/advisories/GHSA-h6c8-cww8-35hf
+    - fix: https://github.com/openfga/openfga/commit/049b50ccd2cc7e163bd897f3d17a7b859ad146f8
+    - web: https://github.com/openfga/openfga/releases/tag/v1.13.1
+source:
+    id: GHSA-h6c8-cww8-35hf
+    created: 2026-03-26T15:25:19.773726117-04:00
+review_status: UNREVIEWED

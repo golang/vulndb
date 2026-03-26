@@ -1,0 +1,23 @@
+id: GO-2026-4861
+modules:
+    - module: github.com/ory/hydra
+      non_go_versions:
+        - fixed: 1.4.8
+      vulnerable_at: 1.11.10
+summary: Hydra has Reflected XSS via error_hint parameter in github.com/ory/hydra
+cves:
+    - CVE-2019-8400
+ghsas:
+    - GHSA-7v6r-w4r6-mhch
+references:
+    - advisory: https://github.com/advisories/GHSA-7v6r-w4r6-mhch
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2019-8400
+    - fix: https://github.com/ory/hydra/commit/9b5bbd48a72096930af08402c5e07fce7dd770f3
+    - web: https://drive.google.com/file/d/1-25expUYVfK6vsiCmEabUCuelOP7aUDj/view?usp=drivesdk
+    - web: https://github.com/ory/hydra/blob/master/CHANGELOG.md#v100-rc3oryos9-2018-12-06
+    - web: https://hackerone.com/reports/456333
+    - web: https://www.youtube.com/watch?v=RIyZLeKEC8E
+source:
+    id: GHSA-7v6r-w4r6-mhch
+    created: 2026-03-26T15:24:55.07588298-04:00
+review_status: UNREVIEWED
