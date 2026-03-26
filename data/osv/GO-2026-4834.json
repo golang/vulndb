@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4834",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-33217",
+    "GHSA-jxxm-27vp-c3m5"
+  ],
+  "summary": "NATS allows MQTT clients to bypass ACL checks in github.com/nats-io/nats-server",
+  "details": "NATS allows MQTT clients to bypass ACL checks in github.com/nats-io/nats-server",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/nats-io/nats-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/nats-io/nats-server/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.11.15"
+            },
+            {
+              "introduced": "2.12.0-RC.1"
+            },
+            {
+              "fixed": "2.12.6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/nats-io/nats-server/security/advisories/GHSA-jxxm-27vp-c3m5"
+    },
+    {
+      "type": "WEB",
+      "url": "https://advisories.nats.io/CVE/secnote-2026-07.txt"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4834",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,23 @@
+id: GO-2026-4836
+modules:
+    - module: github.com/nats-io/nats-server
+      vulnerable_at: 1.4.1
+    - module: github.com/nats-io/nats-server/v2
+      versions:
+        - fixed: 2.11.15
+        - introduced: 2.12.0-RC.1
+        - fixed: 2.12.6
+      vulnerable_at: 2.12.5
+summary: NATS has MQTT plaintext password disclosure in github.com/nats-io/nats-server
+cves:
+    - CVE-2026-33216
+ghsas:
+    - GHSA-v722-jcv5-w7mc
+references:
+    - advisory: https://github.com/nats-io/nats-server/security/advisories/GHSA-v722-jcv5-w7mc
+    - fix: https://github.com/nats-io/nats-server/commit/b5b63cfc35a57075e09c1f57503d31721bed8099
+    - web: https://advisories.nats.io/CVE/secnote-2026-05.txt
+source:
+    id: GHSA-v722-jcv5-w7mc
+    created: 2026-03-26T15:27:19.562468071-04:00
+review_status: UNREVIEWED

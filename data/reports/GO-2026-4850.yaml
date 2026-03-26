@@ -1,0 +1,21 @@
+id: GO-2026-4850
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - fixed: 2.2.1
+      vulnerable_at: 0.24.6
+summary: |-
+    Vikunja has a Link Share Delete IDOR — Missing Project Ownership Check Allows
+    Cross-Project Link Share Deletion in code.vikunja.io/api
+cves:
+    - CVE-2026-33700
+ghsas:
+    - GHSA-f95f-77jx-fcjc
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-f95f-77jx-fcjc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-33700
+    - web: https://vikunja.io/changelog/vikunja-v2.2.2-was-released
+source:
+    id: GHSA-f95f-77jx-fcjc
+    created: 2026-03-26T15:25:58.817907961-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,22 @@
+id: GO-2026-4845
+modules:
+    - module: github.com/goharbor/harbor
+      unsupported_versions:
+        - last_affected: 2.15.0
+      vulnerable_at: 2.15.0+incompatible
+summary: Harbor allows the use of the default password for web UI login in github.com/goharbor/harbor
+cves:
+    - CVE-2026-4404
+ghsas:
+    - GHSA-hj7x-hmf2-hc2p
+references:
+    - advisory: https://github.com/advisories/GHSA-hj7x-hmf2-hc2p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-4404
+    - fix: https://github.com/goharbor/harbor/pull/22751
+    - report: https://github.com/goharbor/harbor/issues/1937
+    - web: https://goharbor.io/docs/1.10/install-config/run-installer-script/#:~:text=If%20you%20did%20not%20change%20them%20in%20harbor.yml,%20the%20default%20administrator%20username%20and%20password%20are%20admin%20and%20Harbor12345
+    - web: https://www.kb.cert.org/vuls/id/577436
+source:
+    id: GHSA-hj7x-hmf2-hc2p
+    created: 2026-03-26T15:26:27.41129676-04:00
+review_status: UNREVIEWED

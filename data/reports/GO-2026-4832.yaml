@@ -1,0 +1,22 @@
+id: GO-2026-4832
+modules:
+    - module: github.com/nats-io/nats-server
+      vulnerable_at: 1.4.1
+    - module: github.com/nats-io/nats-server/v2
+      versions:
+        - fixed: 2.11.15
+        - introduced: 2.12.0-RC.1
+        - fixed: 2.12.6
+      vulnerable_at: 2.12.5
+summary: NATS JetStream has an authorization bypass through its Management API in github.com/nats-io/nats-server
+cves:
+    - CVE-2026-33222
+ghsas:
+    - GHSA-9983-vrx2-fg9c
+references:
+    - advisory: https://github.com/nats-io/nats-server/security/advisories/GHSA-9983-vrx2-fg9c
+    - web: https://advisories.nats.io/CVE/secnote-2026-12.txt
+source:
+    id: GHSA-9983-vrx2-fg9c
+    created: 2026-03-26T15:27:39.882330835-04:00
+review_status: UNREVIEWED

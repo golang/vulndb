@@ -1,0 +1,27 @@
+id: GO-2026-4849
+modules:
+    - module: code.vikunja.io/api
+      versions:
+        - introduced: 0.18.0
+      non_go_versions:
+        - fixed: 2.2.1
+      vulnerable_at: 0.24.6
+summary: |-
+    Vikunja Allows Disabled/Locked User Accounts to Authenticate via API Tokens,
+    CalDAV, and OpenID Connect in code.vikunja.io/api
+cves:
+    - CVE-2026-33668
+ghsas:
+    - GHSA-94xm-jj8x-3cr4
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-94xm-jj8x-3cr4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-33668
+    - web: https://github.com/go-vikunja/vikunja/commit/033922309f492996c928122fb49b691339199c35
+    - web: https://github.com/go-vikunja/vikunja/commit/04704e0fde4b027039cf583110cee7afe136fc1b
+    - web: https://github.com/go-vikunja/vikunja/commit/0b04768d830c80e9fde1b0962db1499cc652da0e
+    - web: https://github.com/go-vikunja/vikunja/commit/fd452b9cb6457fd4f9936527a14c359818f1cca7
+    - web: https://vikunja.io/changelog/vikunja-v2.2.2-was-released
+source:
+    id: GHSA-94xm-jj8x-3cr4
+    created: 2026-03-26T15:26:03.587585613-04:00
+review_status: UNREVIEWED

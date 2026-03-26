@@ -1,0 +1,23 @@
+id: GO-2026-4847
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - fixed: 2.2.1
+      vulnerable_at: 0.24.6
+summary: |-
+    Vikunja has Cross-Project Information Disclosure via Task Relations — Missing
+    Authorization Check on Related Task Read in code.vikunja.io/api
+cves:
+    - CVE-2026-33676
+ghsas:
+    - GHSA-8cmm-j6c4-rr8v
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-8cmm-j6c4-rr8v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-33676
+    - web: https://github.com/go-vikunja/vikunja/commit/833f2aec006ac0f6643c41872e45dd79220b9174
+    - web: https://github.com/go-vikunja/vikunja/pull/2449
+    - web: https://vikunja.io/changelog/vikunja-v2.2.2-was-released
+source:
+    id: GHSA-8cmm-j6c4-rr8v
+    created: 2026-03-26T15:26:15.585265868-04:00
+review_status: UNREVIEWED

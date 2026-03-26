@@ -1,0 +1,22 @@
+id: GO-2026-4848
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - fixed: 2.2.2
+      vulnerable_at: 0.24.6
+summary: |-
+    Vikjuna: Link Share Hash Disclosure via ReadAll Endpoint Enables Permission
+    Escalation in code.vikunja.io/api
+cves:
+    - CVE-2026-33680
+ghsas:
+    - GHSA-8hp8-9fhr-pfm9
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-8hp8-9fhr-pfm9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-33680
+    - web: https://github.com/go-vikunja/vikunja/commit/9efe1fadba817923c7c7f5953c3e9e9c5683bbf3
+    - web: https://vikunja.io/changelog/vikunja-v2.2.2-was-released
+source:
+    id: GHSA-8hp8-9fhr-pfm9
+    created: 2026-03-26T15:26:10.018629946-04:00
+review_status: UNREVIEWED

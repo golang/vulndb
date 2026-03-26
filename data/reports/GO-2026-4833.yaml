@@ -1,0 +1,22 @@
+id: GO-2026-4833
+modules:
+    - module: github.com/nats-io/nats-server
+      vulnerable_at: 1.4.1
+    - module: github.com/nats-io/nats-server/v2
+      versions:
+        - fixed: 2.11.15
+        - introduced: 2.12.0-RC.1
+        - fixed: 2.12.6
+      vulnerable_at: 2.12.5
+summary: NATS is vulnerable to MQTT hijacking via Client ID in github.com/nats-io/nats-server
+cves:
+    - CVE-2026-33215
+ghsas:
+    - GHSA-fcjp-h8cc-6879
+references:
+    - advisory: https://github.com/nats-io/nats-server/security/advisories/GHSA-fcjp-h8cc-6879
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-33215
+source:
+    id: GHSA-fcjp-h8cc-6879
+    created: 2026-03-26T15:27:35.104851971-04:00
+review_status: UNREVIEWED

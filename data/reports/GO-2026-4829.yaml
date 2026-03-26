@@ -1,0 +1,23 @@
+id: GO-2026-4829
+modules:
+    - module: github.com/nats-io/nats-server
+      vulnerable_at: 1.4.1
+    - module: github.com/nats-io/nats-server/v2
+      versions:
+        - fixed: 2.11.14
+        - introduced: 2.12.0-RC.1
+        - fixed: 2.12.5
+      vulnerable_at: 2.12.5-RC.2
+summary: NATS Server panic via malicious compression on leafnode port in github.com/nats-io/nats-server
+cves:
+    - CVE-2026-29785
+ghsas:
+    - GHSA-52jh-2xxh-pwh6
+references:
+    - advisory: https://github.com/nats-io/nats-server/security/advisories/GHSA-52jh-2xxh-pwh6
+    - fix: https://github.com/nats-io/nats-server/commit/a1488de6f2ba6e666aef0f9cce0016f7f167d6a8
+    - web: https://advisories.nats.io/CVE/secnote-2026-04.txt
+source:
+    id: GHSA-52jh-2xxh-pwh6
+    created: 2026-03-26T15:27:55.341464778-04:00
+review_status: UNREVIEWED

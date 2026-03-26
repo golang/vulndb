@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4836",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-33216",
+    "GHSA-v722-jcv5-w7mc"
+  ],
+  "summary": "NATS has MQTT plaintext password disclosure in github.com/nats-io/nats-server",
+  "details": "NATS has MQTT plaintext password disclosure in github.com/nats-io/nats-server",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/nats-io/nats-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/nats-io/nats-server/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.11.15"
+            },
+            {
+              "introduced": "2.12.0-RC.1"
+            },
+            {
+              "fixed": "2.12.6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/nats-io/nats-server/security/advisories/GHSA-v722-jcv5-w7mc"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/nats-io/nats-server/commit/b5b63cfc35a57075e09c1f57503d31721bed8099"
+    },
+    {
+      "type": "WEB",
+      "url": "https://advisories.nats.io/CVE/secnote-2026-05.txt"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4836",
+    "review_status": "UNREVIEWED"
+  }
+}

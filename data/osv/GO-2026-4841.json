@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4841",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-27889",
+    "GHSA-pq2q-rcw4-3hr6"
+  ],
+  "summary": "NATS: Pre-auth remote server crash via WebSocket frame length overflow in wsRead in github.com/nats-io/nats-server",
+  "details": "NATS: Pre-auth remote server crash via WebSocket frame length overflow in wsRead in github.com/nats-io/nats-server",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/nats-io/nats-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/nats-io/nats-server/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.2.0"
+            },
+            {
+              "fixed": "2.11.14"
+            },
+            {
+              "introduced": "2.12.0"
+            },
+            {
+              "fixed": "2.12.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/nats-io/nats-server/security/advisories/GHSA-pq2q-rcw4-3hr6"
+    },
+    {
+      "type": "WEB",
+      "url": "https://advisories.nats.io/CVE/secnote-2026-03.txt"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4841",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4845",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-4404",
+    "GHSA-hj7x-hmf2-hc2p"
+  ],
+  "summary": "Harbor allows the use of the default password for web UI login in github.com/goharbor/harbor",
+  "details": "Harbor allows the use of the default password for web UI login in github.com/goharbor/harbor",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/goharbor/harbor",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-hj7x-hmf2-hc2p"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-4404"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/goharbor/harbor/pull/22751"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/goharbor/harbor/issues/1937"
+    },
+    {
+      "type": "WEB",
+      "url": "https://goharbor.io/docs/1.10/install-config/run-installer-script/#:~:text=If%20you%20did%20not%20change%20them%20in%20harbor.yml,%20the%20default%20administrator%20username%20and%20password%20are%20admin%20and%20Harbor12345"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.kb.cert.org/vuls/id/577436"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4845",
+    "review_status": "UNREVIEWED"
+  }
+}

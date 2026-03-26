@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4831",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-33219",
+    "GHSA-8r68-gvr4-jh7j"
+  ],
+  "summary": "NATS is vulnerable to pre-auth DoS through WebSockets client service in github.com/nats-io/nats-server",
+  "details": "NATS is vulnerable to pre-auth DoS through WebSockets client service in github.com/nats-io/nats-server",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/nats-io/nats-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/nats-io/nats-server/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.11.15"
+            },
+            {
+              "introduced": "2.12.0-RC.1"
+            },
+            {
+              "fixed": "2.12.6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/nats-io/nats-server/security/advisories/GHSA-8r68-gvr4-jh7j"
+    },
+    {
+      "type": "WEB",
+      "url": "https://advisories.nats.io/CVE/secnote-2026-02.txt"
+    },
+    {
+      "type": "WEB",
+      "url": "https://advisories.nats.io/CVE/secnote-2026-11.txt"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/advisories/GHSA-qrvq-68c2-7grw"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4831",
+    "review_status": "UNREVIEWED"
+  }
+}
