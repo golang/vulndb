@@ -1,0 +1,26 @@
+id: GO-2026-4762
+modules:
+    - module: google.golang.org/grpc
+      versions:
+        - fixed: 1.79.3
+      vulnerable_at: 1.79.2
+      packages:
+        - package: google.golang.org/grpc
+          symbols:
+            - Server.handleStream
+          derived_symbols:
+            - Server.Serve
+            - Server.ServeHTTP
+summary: |-
+    Authorization bypass in gRPC-Go via missing leading slash in :path in
+    google.golang.org/grpc
+cves:
+    - CVE-2026-33186
+ghsas:
+    - GHSA-p77j-4mvh-x3m3
+references:
+    - advisory: https://github.com/grpc/grpc-go/security/advisories/GHSA-p77j-4mvh-x3m3
+source:
+    id: GHSA-p77j-4mvh-x3m3
+    created: 2026-03-27T13:50:09.828233025-04:00
+review_status: REVIEWED

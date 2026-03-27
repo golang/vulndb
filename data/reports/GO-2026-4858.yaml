@@ -1,0 +1,20 @@
+id: GO-2026-4858
+modules:
+    - module: github.com/moby/buildkit
+      versions:
+        - fixed: 0.28.1
+      vulnerable_at: 0.28.0
+summary: BuildKit's Malicious frontend can cause file escape outside of storage root in github.com/moby/buildkit
+cves:
+    - CVE-2026-33747
+ghsas:
+    - GHSA-4c29-8rgm-jvjj
+references:
+    - advisory: https://github.com/moby/buildkit/security/advisories/GHSA-4c29-8rgm-jvjj
+    - web: https://github.com/moby/buildkit/releases/tag/v0.28.1
+notes:
+    - failed to auto-populate symbols: no commits found for github.com/moby/buildkit
+source:
+    id: GHSA-4c29-8rgm-jvjj
+    created: 2026-03-26T15:25:15.061870418-04:00
+review_status: REVIEWED
