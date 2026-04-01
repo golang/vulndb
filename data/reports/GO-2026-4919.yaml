@@ -1,0 +1,37 @@
+id: GO-2026-4919
+modules:
+    - module: github.com/aquasecurity/trivy
+      versions:
+        - introduced: 0.69.4
+      vulnerable_at: 0.69.4
+summary: |-
+    Trivy ecosystem supply chain was briefly compromised in
+    github.com/aquasecurity/trivy
+description: |-
+    On March 19, 2026, a threat actor used compromised credentials to publish a
+    malicious Trivy v0.69.4 release.
+cves:
+    - CVE-2026-33634
+ghsas:
+    - GHSA-69fq-xp46-6x23
+references:
+    - advisory: https://github.com/aquasecurity/trivy/security/advisories/GHSA-69fq-xp46-6x23
+    - web: https://docs.litellm.ai/blog/security-update-march-2026
+    - web: https://futuresearch.ai/blog/litellm-pypi-supply-chain-attack
+    - web: https://github.com/BerriAI/litellm/issues/24518
+    - web: https://github.com/BerriAI/litellm/issues/24518#issuecomment-4127436387
+    - web: https://github.com/aquasecurity/trivy/discussions/10425
+    - web: https://github.com/pypa/advisory-database/tree/main/vulns/litellm/PYSEC-2026-2.yaml
+    - web: https://github.com/team-telnyx/telnyx-python/security/advisories/GHSA-955r-262c-33jc
+    - web: https://inspector.pypi.io/project/litellm/1.82.7/packages/79/5f/b6998d42c6ccd32d36e12661f2734602e72a576d52a51f4245aef0b20b4d/litellm-1.82.7-py3-none-any.whl/litellm/proxy/proxy_server.py#line.130
+    - web: https://inspector.pypi.io/project/litellm/1.82.8/packages/f6/2c/731b614e6cee0bca1e010a36fd381fba69ee836fe3cb6753ba23ef2b9601/litellm-1.82.8.tar.gz/litellm-1.82.8/litellm_init.pth#line.1
+    - web: https://rosesecurity.dev/2026/03/20/typosquatting-trivy.html
+    - web: https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-33634
+    - web: https://www.microsoft.com/en-us/security/blog/2026/03/24/detecting-investigating-defending-against-trivy-supply-chain-compromise
+    - web: https://www.wiz.io/blog/teampcp-attack-kics-github-action
+notes:
+    - At the time of this report being written, no new version of the module has been published since the compromise. Once a new non-malicious version is published, this report will need to be updated to include the new version as "fixed" so versions above v0.69.4 are not erroneously marked as compromised.
+source:
+    id: GHSA-69fq-xp46-6x23
+    created: 2026-04-01T11:37:55.450730914-04:00
+review_status: REVIEWED

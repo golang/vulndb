@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4919",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-33634",
+    "GHSA-69fq-xp46-6x23"
+  ],
+  "summary": "Trivy ecosystem supply chain was briefly compromised in github.com/aquasecurity/trivy",
+  "details": "On March 19, 2026, a threat actor used compromised credentials to publish a malicious Trivy v0.69.4 release.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/aquasecurity/trivy",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.69.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/aquasecurity/trivy/security/advisories/GHSA-69fq-xp46-6x23"
+    },
+    {
+      "type": "WEB",
+      "url": "https://docs.litellm.ai/blog/security-update-march-2026"
+    },
+    {
+      "type": "WEB",
+      "url": "https://futuresearch.ai/blog/litellm-pypi-supply-chain-attack"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/BerriAI/litellm/issues/24518"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/BerriAI/litellm/issues/24518#issuecomment-4127436387"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/aquasecurity/trivy/discussions/10425"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/pypa/advisory-database/tree/main/vulns/litellm/PYSEC-2026-2.yaml"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/team-telnyx/telnyx-python/security/advisories/GHSA-955r-262c-33jc"
+    },
+    {
+      "type": "WEB",
+      "url": "https://inspector.pypi.io/project/litellm/1.82.7/packages/79/5f/b6998d42c6ccd32d36e12661f2734602e72a576d52a51f4245aef0b20b4d/litellm-1.82.7-py3-none-any.whl/litellm/proxy/proxy_server.py#line.130"
+    },
+    {
+      "type": "WEB",
+      "url": "https://inspector.pypi.io/project/litellm/1.82.8/packages/f6/2c/731b614e6cee0bca1e010a36fd381fba69ee836fe3cb6753ba23ef2b9601/litellm-1.82.8.tar.gz/litellm-1.82.8/litellm_init.pth#line.1"
+    },
+    {
+      "type": "WEB",
+      "url": "https://rosesecurity.dev/2026/03/20/typosquatting-trivy.html"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-33634"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/03/24/detecting-investigating-defending-against-trivy-supply-chain-compromise"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.wiz.io/blog/teampcp-attack-kics-github-action"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4919",
+    "review_status": "REVIEWED"
+  }
+}
