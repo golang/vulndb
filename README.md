@@ -5,6 +5,10 @@
 This repository contains the infrastructure and internal reports to create the
 [Go Vulnerability Database](https://vuln.go.dev).
 
+Warning: Packages here are internal to the Go Security Team and its needs;
+Some may be modified arbitrarily or even disappear altogether. In short,
+code in this repository is NOT subject to the Go 1 Compatibility Promise.
+
 Check out [https://go.dev/security/vuln](https://go.dev/security/vuln) for more
 information about the Go vulnerability management system.
 
