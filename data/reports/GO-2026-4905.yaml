@@ -1,0 +1,25 @@
+id: GO-2026-4905
+modules:
+    - module: github.com/gotenberg/gotenberg/v7
+      vulnerable_at: 7.10.2
+    - module: github.com/gotenberg/gotenberg/v8
+      versions:
+        - fixed: 8.29.0
+      vulnerable_at: 8.28.0
+summary: |-
+    Gotenberg has Chromium deny-list bypass via case-insensitive URL scheme (bypass
+    of GHSA-rh2x-ccvw-q7r3) in github.com/gotenberg/gotenberg
+cves:
+    - CVE-2026-27018
+ghsas:
+    - GHSA-jjwv-57xh-xr6r
+references:
+    - advisory: https://github.com/gotenberg/gotenberg/security/advisories/GHSA-jjwv-57xh-xr6r
+    - web: https://github.com/gotenberg/gotenberg/commit/06b2b2e10c52b58135edbfe82e94d599eb0c5a11
+    - web: https://github.com/gotenberg/gotenberg/commit/8625a4e899eb75e6fcf46d28394334c7fd79fff5
+    - web: https://github.com/gotenberg/gotenberg/releases/tag/v8.29.0
+    - web: https://github.com/gotenberg/gotenberg/security/advisories/GHSA-rh2x-ccvw-q7r3
+source:
+    id: GHSA-jjwv-57xh-xr6r
+    created: 2026-03-31T13:02:53.143971-04:00
+review_status: UNREVIEWED

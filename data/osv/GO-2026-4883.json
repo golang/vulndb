@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4883",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-33997",
+    "GHSA-pxq6-2prw-chj9"
+  ],
+  "summary": "Moby has an Off-by-one error in its plugin privilege validation in github.com/docker/docker",
+  "details": "Moby has an Off-by-one error in its plugin privilege validation in github.com/docker/docker",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/docker/docker",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/moby/moby",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/moby/moby/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.0.0-beta.8"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/moby/moby/security/advisories/GHSA-pxq6-2prw-chj9"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/moby/moby/commit/f4d6f25bf0c3fa12d4968320a45685947756a22a"
+    },
+    {
+      "type": "WEB",
+      "url": "https://docs.docker.com/engine/extend/legacy_plugins"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/moby/moby/releases/tag/docker-v29.3.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4883",
+    "review_status": "UNREVIEWED"
+  }
+}

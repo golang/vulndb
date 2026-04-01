@@ -1,0 +1,22 @@
+id: GO-2026-4891
+modules:
+    - module: github.com/nektos/act
+      versions:
+        - fixed: 0.2.86
+      vulnerable_at: 0.2.85
+summary: |-
+    act: Unrestricted set-env and add-path command processing enables environment
+    injection in github.com/nektos/act
+cves:
+    - CVE-2026-34041
+ghsas:
+    - GHSA-xmgr-9pqc-h5vw
+references:
+    - advisory: https://github.com/nektos/act/security/advisories/GHSA-xmgr-9pqc-h5vw
+    - fix: https://github.com/nektos/act/commit/0c739c8e39c41aa5a07665f732da9cab6df0097a
+    - web: https://github.com/advisories/GHSA-mfwh-5m23-j46w
+    - web: https://github.com/nektos/act/releases/tag/v0.2.86
+source:
+    id: GHSA-xmgr-9pqc-h5vw
+    created: 2026-03-31T13:06:40.947009-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,19 @@
+id: GO-2026-4915
+modules:
+    - module: github.com/fleetdm/fleet/v4
+      versions:
+        - fixed: 4.81.0
+      vulnerable_at: 4.80.3
+summary: |-
+    Fleet vulnerable to Denial of Service via unhandled gRPC log type in launcher
+    endpoint in github.com/fleetdm/fleet
+cves:
+    - CVE-2026-34388
+ghsas:
+    - GHSA-w254-4hp5-7cvv
+references:
+    - advisory: https://github.com/fleetdm/fleet/security/advisories/GHSA-w254-4hp5-7cvv
+source:
+    id: GHSA-w254-4hp5-7cvv
+    created: 2026-03-31T12:57:51.182021-04:00
+review_status: UNREVIEWED

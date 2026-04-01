@@ -1,0 +1,32 @@
+id: GO-2026-4893
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.42
+      vulnerable_at: 2.11.41
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - introduced: 3.0.0-beta1
+        - fixed: 3.6.12
+        - introduced: 3.7.0-ea.1
+        - fixed: 3.7.0-ea.3
+      vulnerable_at: 3.7.0-ea.2
+summary: |-
+    Traefik Vulnerable to BasicAuth/DigestAuth Identity Spoofing via Non-Canonical
+    headerField in github.com/traefik/traefik
+cves:
+    - CVE-2026-33433
+ghsas:
+    - GHSA-qr99-7898-vr7c
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-qr99-7898-vr7c
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-33433
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.42
+    - web: https://github.com/traefik/traefik/releases/tag/v3.6.11
+    - web: https://github.com/traefik/traefik/releases/tag/v3.7.0-ea.3
+source:
+    id: GHSA-qr99-7898-vr7c
+    created: 2026-03-31T13:05:17.774192-04:00
+review_status: UNREVIEWED

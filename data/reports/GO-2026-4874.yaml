@@ -1,0 +1,20 @@
+id: GO-2026-4874
+modules:
+    - module: github.com/ellanetworks/core
+      versions:
+        - fixed: 1.7.0
+      vulnerable_at: 1.6.0
+summary: Ella Core has a Denial of Service via SCTP connection cleanup deadlock in github.com/ellanetworks/core
+cves:
+    - CVE-2026-33904
+ghsas:
+    - GHSA-9h59-p45g-445h
+references:
+    - advisory: https://github.com/ellanetworks/core/security/advisories/GHSA-9h59-p45g-445h
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-33904
+    - fix: https://github.com/ellanetworks/core/commit/999f606c5cae261471d9e3f063d7ecd1bd754076
+    - web: https://github.com/ellanetworks/core/releases/tag/v1.7.0
+source:
+    id: GHSA-9h59-p45g-445h
+    created: 2026-03-31T13:15:47.294406-04:00
+review_status: UNREVIEWED

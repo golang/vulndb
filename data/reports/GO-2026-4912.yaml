@@ -1,0 +1,20 @@
+id: GO-2026-4912
+modules:
+    - module: github.com/fleetdm/fleet/v4
+      versions:
+        - fixed: 4.81.0
+      vulnerable_at: 4.80.3
+summary: |-
+    Fleet's user account creation via invite does not enforce invited email address
+    in github.com/fleetdm/fleet
+cves:
+    - CVE-2026-34389
+ghsas:
+    - GHSA-4f9r-x588-pp2h
+references:
+    - advisory: https://github.com/fleetdm/fleet/security/advisories/GHSA-4f9r-x588-pp2h
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-34389
+source:
+    id: GHSA-4f9r-x588-pp2h
+    created: 2026-03-31T13:02:11.816344-04:00
+review_status: UNREVIEWED

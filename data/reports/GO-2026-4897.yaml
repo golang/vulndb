@@ -1,0 +1,31 @@
+id: GO-2026-4897
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.42
+      vulnerable_at: 2.11.41
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - introduced: 3.0.0-beta3
+        - fixed: 3.6.12
+        - introduced: 3.7.0-ea.1
+        - fixed: 3.7.0-ea.3
+      vulnerable_at: 3.7.0-ea.2
+summary: |-
+    Traefik: Deny Rule Bypass via Unauthenticated Malicious gRPC Requests in gRPC-Go
+    Dependency (CVE-2026-33186) in github.com/traefik/traefik
+ghsas:
+    - GHSA-46wh-3698-f2cx
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-46wh-3698-f2cx
+    - web: https://github.com/advisories/GHSA-p77j-4mvh-x3m3
+    - web: https://github.com/traefik/traefik/blob/67c64ed9b25fbb90f1086977a62827133a7aa01b/go.mod#L108
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.42
+    - web: https://github.com/traefik/traefik/releases/tag/v3.6.12
+    - web: https://github.com/traefik/traefik/releases/tag/v3.7.0-ea.3
+source:
+    id: GHSA-46wh-3698-f2cx
+    created: 2026-03-31T13:04:57.715618-04:00
+review_status: UNREVIEWED

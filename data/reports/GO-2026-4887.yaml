@@ -1,0 +1,24 @@
+id: GO-2026-4887
+modules:
+    - module: github.com/docker/docker
+      vulnerable_at: 28.5.2+incompatible
+    - module: github.com/moby/moby
+      vulnerable_at: 28.5.2+incompatible
+    - module: github.com/moby/moby/v2
+      versions:
+        - fixed: 2.0.0-beta.8
+      vulnerable_at: 2.0.0-beta.7
+summary: Moby has AuthZ plugin bypass when provided oversized request bodies in github.com/docker/docker
+cves:
+    - CVE-2026-34040
+ghsas:
+    - GHSA-x744-4wpc-v9h2
+references:
+    - advisory: https://github.com/moby/moby/security/advisories/GHSA-x744-4wpc-v9h2
+    - fix: https://github.com/moby/moby/commit/e89edb19ad7de0407a5d31e3111cb01aa10b5a38
+    - web: https://docs.docker.com/engine/extend/plugins_authorization
+    - web: https://github.com/moby/moby/security/advisories/GHSA-v23v-6jw2-98fq
+source:
+    id: GHSA-x744-4wpc-v9h2
+    created: 2026-03-31T13:08:34.334333-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,19 @@
+id: GO-2026-4901
+modules:
+    - module: github.com/0xJacky/nginx-ui
+      unsupported_versions:
+        - last_affected: 1.99.0
+      vulnerable_at: 1.9.9
+summary: nginx-UI has Unencrypted Storage of DNS API Tokens and ACME Private Keys in github.com/0xJacky/nginx-ui
+cves:
+    - CVE-2026-33030
+ghsas:
+    - GHSA-5hf2-vhj6-gj9m
+references:
+    - advisory: https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-5hf2-vhj6-gj9m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-33030
+    - web: https://github.com/0xJacky/nginx-ui/releases/tag/v2.3.4
+source:
+    id: GHSA-5hf2-vhj6-gj9m
+    created: 2026-03-31T13:04:51.265303-04:00
+review_status: UNREVIEWED

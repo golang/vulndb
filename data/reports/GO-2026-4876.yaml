@@ -1,0 +1,19 @@
+id: GO-2026-4876
+modules:
+    - module: github.com/goharbor/harbor
+      versions:
+        - introduced: 2.13.0+incompatible
+        - fixed: 2.13.5+incompatible
+        - introduced: 2.14.0+incompatible
+        - fixed: 2.14.3+incompatible
+      vulnerable_at: 2.14.3-rc1+incompatible
+summary: 'Harbor: LDAP password and OIDC secret are not redacted in the audit log in github.com/goharbor/harbor'
+ghsas:
+    - GHSA-prh4-vhfh-24mj
+references:
+    - advisory: https://github.com/goharbor/harbor/security/advisories/GHSA-prh4-vhfh-24mj
+    - fix: https://github.com/goharbor/harbor/commit/85e756486fc19333c5c300d7ac273e1580dc9350
+source:
+    id: GHSA-prh4-vhfh-24mj
+    created: 2026-03-31T13:15:29.552907-04:00
+review_status: UNREVIEWED

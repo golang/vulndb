@@ -1,0 +1,20 @@
+id: GO-2026-4896
+modules:
+    - module: github.com/minio/minio
+      versions:
+        - introduced: 0.0.0-20240328174456-468a9fae83e9
+      unsupported_versions:
+        - last_affected: 0.0.0-20260212201848-7aac2a2c5b7c
+      vulnerable_at: 0.0.0-20260212201848-7aac2a2c5b7c
+summary: MinIO is Vulnerable to SSE Metadata Injection via Replication Headers in github.com/minio/minio
+cves:
+    - CVE-2026-34204
+ghsas:
+    - GHSA-3rh2-v3gr-35p9
+references:
+    - advisory: https://github.com/minio/minio/security/advisories/GHSA-3rh2-v3gr-35p9
+    - web: https://docs.min.io/enterprise/aistor-object-store/upgrade-aistor-server/community-edition
+source:
+    id: GHSA-3rh2-v3gr-35p9
+    created: 2026-03-31T13:05:03.709465-04:00
+review_status: UNREVIEWED

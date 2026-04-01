@@ -1,0 +1,20 @@
+id: GO-2026-4873
+modules:
+    - module: github.com/ellanetworks/core
+      versions:
+        - fixed: 1.7.0
+      vulnerable_at: 1.6.0
+summary: Ella Core has Privilege Escalation via Database Restore by NetworkManager role in github.com/ellanetworks/core
+cves:
+    - CVE-2026-33906
+ghsas:
+    - GHSA-87j9-m7x6-hvw2
+references:
+    - advisory: https://github.com/ellanetworks/core/security/advisories/GHSA-87j9-m7x6-hvw2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-33906
+    - fix: https://github.com/ellanetworks/core/commit/1e4768288a6519fcb63ec83f851584ecebb8a972
+    - web: https://github.com/ellanetworks/core/releases/tag/v1.7.0
+source:
+    id: GHSA-87j9-m7x6-hvw2
+    created: 2026-03-31T13:15:53.124031-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,20 @@
+id: GO-2026-4913
+modules:
+    - module: github.com/fleetdm/fleet/v4
+      versions:
+        - fixed: 4.81.0
+      vulnerable_at: 4.80.3
+summary: |-
+    Fleet vulnerable to SQL Injection in MDM bootstrap package by authenticated team
+    or global admin in github.com/fleetdm/fleet
+cves:
+    - CVE-2026-34386
+ghsas:
+    - GHSA-9p23-p2m4-2r4m
+references:
+    - advisory: https://github.com/fleetdm/fleet/security/advisories/GHSA-9p23-p2m4-2r4m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-34386
+source:
+    id: GHSA-9p23-p2m4-2r4m
+    created: 2026-03-31T13:02:06.339158-04:00
+review_status: UNREVIEWED

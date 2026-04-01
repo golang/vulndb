@@ -1,0 +1,22 @@
+id: GO-2026-4894
+modules:
+    - module: github.com/flannel-io/flannel
+      versions:
+        - fixed: 0.28.2
+      vulnerable_at: 0.28.1
+summary: |-
+    Flannel has cross-node remote code execution via extension backend BackendData
+    injection in github.com/flannel-io/flannel
+cves:
+    - CVE-2026-32241
+ghsas:
+    - GHSA-vchx-5pr6-ffx2
+references:
+    - advisory: https://github.com/flannel-io/flannel/security/advisories/GHSA-vchx-5pr6-ffx2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-32241
+    - fix: https://github.com/flannel-io/flannel/commit/08bc9a4c990ae785d2fcb448f4991b58485cd26a
+    - web: https://github.com/flannel-io/flannel/releases/tag/v0.28.2
+source:
+    id: GHSA-vchx-5pr6-ffx2
+    created: 2026-03-31T13:05:10.603876-04:00
+review_status: UNREVIEWED

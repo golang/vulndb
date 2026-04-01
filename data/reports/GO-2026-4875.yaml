@@ -1,0 +1,20 @@
+id: GO-2026-4875
+modules:
+    - module: github.com/ellanetworks/core
+      versions:
+        - fixed: 1.7.0
+      vulnerable_at: 1.6.0
+summary: Ella Core panics when processing a crafted NGAP LocationReport message in github.com/ellanetworks/core
+cves:
+    - CVE-2026-33903
+ghsas:
+    - GHSA-f2f3-9cx3-wcmf
+references:
+    - advisory: https://github.com/ellanetworks/core/security/advisories/GHSA-f2f3-9cx3-wcmf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-33903
+    - fix: https://github.com/ellanetworks/core/commit/ec77a2ad4508f8488cb356fd45b2f1efd92587f8
+    - web: https://github.com/ellanetworks/core/releases/tag/v1.7.0
+source:
+    id: GHSA-f2f3-9cx3-wcmf
+    created: 2026-03-31T13:15:40.467477-04:00
+review_status: UNREVIEWED
