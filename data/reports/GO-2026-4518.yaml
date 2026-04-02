@@ -15,7 +15,10 @@ description: |-
     The DataRow.Decode function fails to properly validate field lengths. A
     malicious or compromised PostgreSQL server can send a DataRow message with
     a negative field length, causing a slice bounds out of range panic.
+ghsas:
+    - GHSA-jqcq-xjh3-6g23
 references:
+    - advisory: https://github.com/advisories/GHSA-jqcq-xjh3-6g23
     - report: https://github.com/jackc/pgx/issues/2507
     - report: https://github.com/golang/vulndb/issues/4518
 cve_metadata:

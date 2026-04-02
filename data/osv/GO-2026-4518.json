@@ -4,7 +4,8 @@
   "modified": "0001-01-01T00:00:00Z",
   "published": "0001-01-01T00:00:00Z",
   "aliases": [
-    "CVE-2026-32286"
+    "CVE-2026-32286",
+    "GHSA-jqcq-xjh3-6g23"
   ],
   "summary": "Denial of service in github.com/jackc/pgproto3/v2",
   "details": "The DataRow.Decode function fails to properly validate field lengths. A malicious or compromised PostgreSQL server can send a DataRow message with a negative field length, causing a slice bounds out of range panic.",
@@ -38,6 +39,10 @@
     }
   ],
   "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-jqcq-xjh3-6g23"
+    },
     {
       "type": "REPORT",
       "url": "https://github.com/jackc/pgx/issues/2507"
