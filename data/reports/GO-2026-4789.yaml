@@ -1,0 +1,38 @@
+id: GO-2026-4789
+modules:
+    - module: github.com/elastic/beats
+      vulnerable_at: 6.8.23+incompatible
+    - module: github.com/elastic/beats/v7
+      versions:
+        - fixed: 7.0.0-alpha2.0.20260126223743-dec1b31111ec
+      vulnerable_at: 7.0.0-alpha2
+      packages:
+        - package: github.com/elastic/beats/v7/packetbeat/procs
+          symbols:
+            - hexToIpv6
+            - hexToIPPort
+            - findSocketsOfPid
+            - parseProcNetProto
+        - package: github.com/elastic/beats/v7/packetbeat/protos/pgsql
+          symbols:
+            - readLength
+            - pgsqlPlugin.parseMessageStart
+            - pgsqlPlugin.parseExtReq
+            - pgsqlPlugin.parseDataRow
+            - readCount
+summary: |-
+    Packetbeat does not properly validate an array index in multiple protocol parser
+    components in github.com/elastic/beats
+cves:
+    - CVE-2026-26933
+ghsas:
+    - GHSA-27qj-9gvp-8rh9
+references:
+    - advisory: https://github.com/advisories/GHSA-27qj-9gvp-8rh9
+    - fix: https://github.com/elastic/beats/commit/941098459db6556b837194f40c076b08d51137cb
+    - fix: https://github.com/elastic/beats/commit/dec1b31111ec3500b82db21ba67dde5c914ee94d
+    - web: https://discuss.elastic.co/t/packetbeat-8-19-11-9-2-5-security-update-esa-2026-11/385533
+source:
+    id: GHSA-27qj-9gvp-8rh9
+    created: 2026-03-31T13:27:41.394383-04:00
+review_status: REVIEWED

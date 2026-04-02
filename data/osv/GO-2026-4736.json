@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4736",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-30405",
+    "GHSA-4p9m-8gc4-rw2h"
+  ],
+  "summary": "GoBGP vulnerable to a denial of service via the NEXT_HOP path attribute in github.com/osrg/gobgp",
+  "details": "GoBGP vulnerable to a denial of service via the NEXT_HOP path attribute in github.com/osrg/gobgp",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/osrg/gobgp",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/osrg/gobgp/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/osrg/gobgp/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/osrg/gobgp/v4/pkg/server",
+            "symbols": [
+              "fsmHandler.recvMessageloop"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-4p9m-8gc4-rw2h"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/osrg/gobgp/commit/583080a7258e22cc884162e15b078771aa2c2c80"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/osrg/gobgp/issues/3305"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4736",
+    "review_status": "REVIEWED"
+  }
+}

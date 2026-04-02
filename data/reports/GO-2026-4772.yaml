@@ -1,0 +1,19 @@
+id: GO-2026-4772
+modules:
+    - module: github.com/jackc/pgx/v5
+      vulnerable_at: 5.9.1
+      packages:
+        - package: github.com/jackc/pgx/v5/pgproto3
+          symbols:
+            - FunctionCall.Decode
+          derived_symbols:
+            - Backend.Receive
+summary: CVE-2026-33816 in github.com/jackc/pgx
+description: Memory-safety vulnerability in github.com/jackc/pgx/v5.
+cve_metadata:
+    id: CVE-2026-33816
+    cwe: CWE-697 — Incorrect Comparison
+source:
+    id: go-security-team
+    created: 2026-03-31T13:41:32.824625-04:00
+review_status: REVIEWED

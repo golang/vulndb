@@ -1,0 +1,29 @@
+id: GO-2026-4910
+modules:
+    - module: github.com/go-git/go-git
+      vulnerable_at: 3.2.0+incompatible
+    - module: github.com/go-git/go-git/v4
+      vulnerable_at: 4.13.1
+    - module: github.com/go-git/go-git/v5
+      versions:
+        - introduced: 5.0.0
+        - fixed: 5.17.1
+      vulnerable_at: 5.17.0
+summary: |-
+    Maliciously crafted idx file can cause asymmetric memory consumption in
+    github.com/go-git/go-git
+cves:
+    - CVE-2026-34165
+ghsas:
+    - GHSA-jhf3-xxhw-2wpp
+references:
+    - advisory: https://github.com/go-git/go-git/security/advisories/GHSA-jhf3-xxhw-2wpp
+    - web: https://github.com/go-git/go-git/releases/tag/v5.17.1
+notes:
+    - 'Failed to auto-populate symbols: no commits found for github.com/go-git/go-git'
+    - 'Failed to auto-populate symbols: no commits found for github.com/go-git/go-git/v4'
+    - 'Failed to auto-populate symbols: no commits found for github.com/go-git/go-git/v5'
+source:
+    id: GHSA-jhf3-xxhw-2wpp
+    created: 2026-03-31T13:02:22.267491-04:00
+review_status: REVIEWED

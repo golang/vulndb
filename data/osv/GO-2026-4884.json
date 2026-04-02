@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4884",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-33945",
+    "GHSA-q4q8-7f2j-9h9f"
+  ],
+  "summary": "Incus has an abitrary file write through its systemd-creds options in github.com/lxc/incus",
+  "details": "Incus has an abitrary file write through its systemd-creds options in github.com/lxc/incus",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/lxc/incus",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/lxc/incus/v6",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "6.23.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/lxc/incus/security/advisories/GHSA-q4q8-7f2j-9h9f"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/lxc/incus/commit/f74199f9983e2ce78f2b78b6d765c6635b229c82"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4884",
+    "review_status": "REVIEWED"
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4790",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-26931",
+    "GHSA-5vrw-qjxw-89r5"
+  ],
+  "summary": "Metricbeat Allocates Memory with Excessive Size Value Leading to Denial of Service in github.com/elastic/beats",
+  "details": "Metricbeat Allocates Memory with Excessive Size Value Leading to Denial of Service in github.com/elastic/beats",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/elastic/beats",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/elastic/beats/v7",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "7.0.0-alpha2.0.20260112100137-de072c4e371e"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/elastic/beats/v7/metricbeat/module/prometheus/remote_write",
+            "symbols": [
+              "MetricSet.handleFunc",
+              "MetricSetBuilder",
+              "defaultConfig"
+            ]
+          },
+          {
+            "path": "github.com/elastic/beats/v7/x-pack/metricbeat/module/prometheus/remote_write",
+            "symbols": [
+              "init"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-5vrw-qjxw-89r5"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/elastic/beats/commit/de072c4e371eafeb2a42d65b9ad513f666e4ffd7"
+    },
+    {
+      "type": "WEB",
+      "url": "https://discuss.elastic.co/t/metricbeat-8-19-13-9-2-5-security-update-esa-2026-09/385532"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4790",
+    "review_status": "REVIEWED"
+  }
+}

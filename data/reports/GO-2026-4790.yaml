@@ -1,0 +1,32 @@
+id: GO-2026-4790
+modules:
+    - module: github.com/elastic/beats
+      vulnerable_at: 6.8.23+incompatible
+    - module: github.com/elastic/beats/v7
+      versions:
+        - fixed: 7.0.0-alpha2.0.20260112100137-de072c4e371e
+      vulnerable_at: 7.0.0-alpha2
+      packages:
+        - package: github.com/elastic/beats/v7/metricbeat/module/prometheus/remote_write
+          symbols:
+            - defaultConfig
+            - MetricSet.handleFunc
+            - MetricSetBuilder
+        - package: github.com/elastic/beats/v7/x-pack/metricbeat/module/prometheus/remote_write
+          symbols:
+            - init
+summary: |-
+    Metricbeat Allocates Memory with Excessive Size Value Leading to Denial of
+    Service in github.com/elastic/beats
+cves:
+    - CVE-2026-26931
+ghsas:
+    - GHSA-5vrw-qjxw-89r5
+references:
+    - advisory: https://github.com/advisories/GHSA-5vrw-qjxw-89r5
+    - fix: https://github.com/elastic/beats/commit/de072c4e371eafeb2a42d65b9ad513f666e4ffd7
+    - web: https://discuss.elastic.co/t/metricbeat-8-19-13-9-2-5-security-update-esa-2026-09/385532
+source:
+    id: GHSA-5vrw-qjxw-89r5
+    created: 2026-03-31T13:18:38.22093-04:00
+review_status: REVIEWED

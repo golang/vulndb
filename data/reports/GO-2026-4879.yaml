@@ -1,0 +1,25 @@
+id: GO-2026-4879
+modules:
+    - module: github.com/lxc/incus
+      vulnerable_at: 0.7.0
+    - module: github.com/lxc/incus/v6
+      versions:
+        - fixed: 6.23.0
+      vulnerable_at: 6.22.0
+summary: |-
+    Local Incus UI web server vulnerable to nuthentication bypass in
+    github.com/lxc/incus
+cves:
+    - CVE-2026-33898
+ghsas:
+    - GHSA-453r-g2pg-cxxq
+references:
+    - advisory: https://github.com/lxc/incus/security/advisories/GHSA-453r-g2pg-cxxq
+    - fix: https://github.com/lxc/incus/commit/d81d49e746e15dad35de39dc0ace0cedfba7d2f7
+    - web: https://github.com/lxc/incus/releases/tag/v6.23.0
+notes:
+    - 'Failed to auto-populate symbols: no commits found for github.com/lxc/incus'
+source:
+    id: GHSA-453r-g2pg-cxxq
+    created: 2026-03-31T13:15:19.988768-04:00
+review_status: REVIEWED

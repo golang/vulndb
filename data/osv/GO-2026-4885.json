@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4885",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-33711",
+    "GHSA-q9vp-3wcg-8p4x"
+  ],
+  "summary": "Incus vulnerable to local privilege escalation through VM screenshot path in github.com/lxc/incus",
+  "details": "Incus vulnerable to local privilege escalation through VM screenshot path in github.com/lxc/incus",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/lxc/incus",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/lxc/incus/v6",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "6.23.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/lxc/incus/security/advisories/GHSA-q9vp-3wcg-8p4x"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/lxc/incus/commit/ef006240ac2475ddea7b8406cecc7dbd1a883fdf"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/lxc/incus/releases/tag/v6.23.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4885",
+    "review_status": "REVIEWED"
+  }
+}

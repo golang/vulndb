@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4910",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-34165",
+    "GHSA-jhf3-xxhw-2wpp"
+  ],
+  "summary": "Maliciously crafted idx file can cause asymmetric memory consumption in github.com/go-git/go-git",
+  "details": "Maliciously crafted idx file can cause asymmetric memory consumption in github.com/go-git/go-git",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/go-git/go-git",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/go-git/go-git/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/go-git/go-git/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "5.0.0"
+            },
+            {
+              "fixed": "5.17.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/go-git/go-git/security/advisories/GHSA-jhf3-xxhw-2wpp"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-git/go-git/releases/tag/v5.17.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4910",
+    "review_status": "REVIEWED"
+  }
+}

@@ -1,0 +1,33 @@
+id: GO-2026-4738
+modules:
+    - module: github.com/filebrowser/filebrowser
+      vulnerable_at: 1.11.0
+    - module: github.com/filebrowser/filebrowser/v2
+      versions:
+        - fixed: 2.62.0
+      vulnerable_at: 2.61.0
+      packages:
+        - package: github.com/filebrowser/filebrowser/v2/http
+          symbols:
+            - setContentDisposition
+            - withPermShare
+            - withHashFile
+            - ifPathWithName
+summary: |-
+    File Browser has an Authorization Policy Bypass in Public Share Download Flow in
+    github.com/filebrowser/filebrowser
+cves:
+    - CVE-2026-32761
+ghsas:
+    - GHSA-68j5-4m99-w9w9
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-68j5-4m99-w9w9
+    - fix: https://github.com/filebrowser/filebrowser/commit/09a26166b4f79446e7174c017380f6db45444e32
+    - web: https://github.com/filebrowser/filebrowser/releases/tag/v2.62.0
+notes:
+    - 'Failed to auto-populate symbols: no commits found for go.etcd.io/etcd'
+    - 'Failed to auto-populate symbols: no commits found for go.etcd.io/etcd/v3'
+source:
+    id: GHSA-68j5-4m99-w9w9
+    created: 2026-03-31T13:41:51.589728-04:00
+review_status: REVIEWED

@@ -1,0 +1,25 @@
+id: GO-2026-4885
+modules:
+    - module: github.com/lxc/incus
+      vulnerable_at: 0.7.0
+    - module: github.com/lxc/incus/v6
+      versions:
+        - fixed: 6.23.0
+      vulnerable_at: 6.22.0
+summary: |-
+    Incus vulnerable to local privilege escalation through VM screenshot path in
+    github.com/lxc/incus
+cves:
+    - CVE-2026-33711
+ghsas:
+    - GHSA-q9vp-3wcg-8p4x
+references:
+    - advisory: https://github.com/lxc/incus/security/advisories/GHSA-q9vp-3wcg-8p4x
+    - fix: https://github.com/lxc/incus/commit/ef006240ac2475ddea7b8406cecc7dbd1a883fdf
+    - web: https://github.com/lxc/incus/releases/tag/v6.23.0
+notes:
+    - 'Failed to auto-populate symbols: no commits found for github.com/lxc/incus'
+source:
+    id: GHSA-q9vp-3wcg-8p4x
+    created: 2026-03-31T13:14:12.818213-04:00
+review_status: REVIEWED

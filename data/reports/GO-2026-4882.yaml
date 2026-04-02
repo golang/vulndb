@@ -1,0 +1,28 @@
+id: GO-2026-4882
+modules:
+    - module: github.com/lxc/incus
+      vulnerable_at: 0.7.0
+    - module: github.com/lxc/incus/v6
+      versions:
+        - fixed: 6.23.0
+      vulnerable_at: 6.22.0
+summary: |-
+    Incus does not verify combined fingerprint when downloading images from
+    simplestreams servers in github.com/lxc/incus
+cves:
+    - CVE-2026-33542
+ghsas:
+    - GHSA-p8mm-23gg-jc9r
+references:
+    - advisory: https://github.com/lxc/incus/security/advisories/GHSA-p8mm-23gg-jc9r
+    - fix: https://github.com/lxc/incus/commit/04e97418189f743411884afb81a3384e6218b8cd
+    - fix: https://github.com/lxc/incus/commit/4a80447c52d6bc05d3322feeb5395f581e7a80e4
+    - fix: https://github.com/lxc/incus/commit/72688b7d9400c8f3c17ad0f93a7c1aeb89627307
+    - fix: https://github.com/lxc/incus/commit/ee26f72524ab60a4abcfd4e52667c52bb24364fc
+    - web: https://github.com/lxc/incus/releases/tag/v6.23.0
+notes:
+    - 'Failed to auto-populate symbols: no commits found for github.com/lxc/incus'
+source:
+    id: GHSA-p8mm-23gg-jc9r
+    created: 2026-03-31T13:14:39.210471-04:00
+review_status: REVIEWED

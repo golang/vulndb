@@ -1,0 +1,24 @@
+id: GO-2026-4884
+modules:
+    - module: github.com/lxc/incus
+      vulnerable_at: 0.7.0
+    - module: github.com/lxc/incus/v6
+      versions:
+        - fixed: 6.23.0
+      vulnerable_at: 6.22.0
+summary: |-
+    Incus has an abitrary file write through its systemd-creds options in
+    github.com/lxc/incus
+cves:
+    - CVE-2026-33945
+ghsas:
+    - GHSA-q4q8-7f2j-9h9f
+references:
+    - advisory: https://github.com/lxc/incus/security/advisories/GHSA-q4q8-7f2j-9h9f
+    - fix: https://github.com/lxc/incus/commit/f74199f9983e2ce78f2b78b6d765c6635b229c82
+notes:
+    - 'Failed to auto-populate symbols: no commits found for github.com/lxc/incus'
+source:
+    id: GHSA-q4q8-7f2j-9h9f
+    created: 2026-03-31T13:14:20.429433-04:00
+review_status: REVIEWED

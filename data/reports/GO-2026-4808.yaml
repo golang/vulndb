@@ -1,0 +1,26 @@
+id: GO-2026-4808
+modules:
+    - module: go.etcd.io/etcd
+      vulnerable_at: 2.3.8+incompatible
+    - module: go.etcd.io/etcd/v3
+      versions:
+        - fixed: 3.4.42
+        - introduced: 3.5.0-alpha.0
+        - fixed: 3.5.28
+        - introduced: 3.6.0-alpha.0
+        - fixed: 3.6.9
+      vulnerable_at: 3.6.8
+summary: Nested etcd transactions bypass RBAC authorization checks in go.etcd.io/etcd
+cves:
+    - CVE-2026-33343
+ghsas:
+    - GHSA-rfx7-8w68-q57q
+references:
+    - advisory: https://github.com/etcd-io/etcd/security/advisories/GHSA-rfx7-8w68-q57q
+notes:
+    - 'Failed to auto-populate symbols: no commits found for go.etcd.io/etcd'
+    - 'Failed to auto-populate symbols: no commits found for go.etcd.io/etcd/v3'
+source:
+    id: GHSA-rfx7-8w68-q57q
+    created: 2026-03-31T13:18:22.085122-04:00
+review_status: REVIEWED

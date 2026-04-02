@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4879",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-33898",
+    "GHSA-453r-g2pg-cxxq"
+  ],
+  "summary": "Local Incus UI web server vulnerable to nuthentication bypass in github.com/lxc/incus",
+  "details": "Local Incus UI web server vulnerable to nuthentication bypass in github.com/lxc/incus",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/lxc/incus",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/lxc/incus/v6",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "6.23.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/lxc/incus/security/advisories/GHSA-453r-g2pg-cxxq"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/lxc/incus/commit/d81d49e746e15dad35de39dc0ace0cedfba7d2f7"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/lxc/incus/releases/tag/v6.23.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4879",
+    "review_status": "REVIEWED"
+  }
+}

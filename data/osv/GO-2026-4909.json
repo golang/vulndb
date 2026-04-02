@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4909",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-33762",
+    "GHSA-gm2x-2g9h-ccm8"
+  ],
+  "summary": "Missing validation decoding Index v4 files leads to panic in github.com/go-git/go-git",
+  "details": "Missing validation decoding Index v4 files leads to panic in github.com/go-git/go-git",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/go-git/go-git",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/go-git/go-git/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/go-git/go-git/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.17.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/go-git/go-git/security/advisories/GHSA-gm2x-2g9h-ccm8"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4909",
+    "review_status": "REVIEWED"
+  }
+}

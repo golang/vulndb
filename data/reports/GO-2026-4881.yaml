@@ -1,0 +1,24 @@
+id: GO-2026-4881
+modules:
+    - module: github.com/lxc/incus
+      vulnerable_at: 0.7.0
+    - module: github.com/lxc/incus/v6
+      versions:
+        - fixed: 6.23.0
+      vulnerable_at: 6.22.0
+summary: |-
+    Incus vulnerable to arbitrary file read and write through pongo templates in
+    github.com/lxc/incus
+cves:
+    - CVE-2026-33897
+ghsas:
+    - GHSA-83xr-5xxr-mh92
+references:
+    - advisory: https://github.com/lxc/incus/security/advisories/GHSA-83xr-5xxr-mh92
+    - fix: https://github.com/lxc/incus/commit/487edf5984fad89b0f762c03a7e211fdd38396fb
+notes:
+    - 'Failed to auto-populate symbols: no commits found for github.com/lxc/incus'
+source:
+    id: GHSA-83xr-5xxr-mh92
+    created: 2026-03-31T13:14:50.068782-04:00
+review_status: REVIEWED

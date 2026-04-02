@@ -1,0 +1,26 @@
+id: GO-2026-4806
+modules:
+    - module: go.etcd.io/etcd
+      vulnerable_at: 2.3.8+incompatible
+    - module: go.etcd.io/etcd/v3
+      versions:
+        - fixed: 3.4.42
+        - introduced: 3.5.0-alpha.0
+        - fixed: 3.5.28
+        - introduced: 3.6.0-alpha.0
+        - fixed: 3.6.9
+      vulnerable_at: 3.6.8
+summary: Authorization bypasses in multiple APIs in go.etcd.io/etcd
+cves:
+    - CVE-2026-33413
+ghsas:
+    - GHSA-q8m4-xhhv-38mg
+references:
+    - advisory: https://github.com/etcd-io/etcd/security/advisories/GHSA-q8m4-xhhv-38mg
+notes:
+    - 'Failed to auto-populate symbols: no commits found for go.etcd.io/etcd'
+    - 'Failed to auto-populate symbols: no commits found for go.etcd.io/etcd/v3'
+source:
+    id: GHSA-q8m4-xhhv-38mg
+    created: 2026-03-31T13:18:30.907168-04:00
+review_status: REVIEWED

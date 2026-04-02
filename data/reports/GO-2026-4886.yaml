@@ -1,0 +1,25 @@
+id: GO-2026-4886
+modules:
+    - module: github.com/lxc/incus
+      vulnerable_at: 0.7.0
+    - module: github.com/lxc/incus/v6
+      versions:
+        - fixed: 6.23.0
+      vulnerable_at: 6.22.0
+summary: |-
+    Incus vulnerable to denial of source through crafted bucket backup file in
+    github.com/lxc/incus
+cves:
+    - CVE-2026-33743
+ghsas:
+    - GHSA-vg76-xmhg-j5x3
+references:
+    - advisory: https://github.com/lxc/incus/security/advisories/GHSA-vg76-xmhg-j5x3
+    - fix: https://github.com/lxc/incus/commit/4bca6332e8227a5f25f74b51a66b7382e9133aaa
+    - web: https://github.com/lxc/incus/releases/tag/v6.23.0
+notes:
+    - 'Failed to auto-populate symbols: no commits found for github.com/lxc/incus'
+source:
+    id: GHSA-vg76-xmhg-j5x3
+    created: 2026-03-31T13:08:41.737561-04:00
+review_status: REVIEWED

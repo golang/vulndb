@@ -1,0 +1,19 @@
+id: GO-2026-4771
+modules:
+    - module: github.com/jackc/pgx/v5
+      vulnerable_at: 5.9.1
+      packages:
+        - package: github.com/jackc/pgx/v5/pgproto3
+          symbols:
+            - Bind.Decode
+          derived_symbols:
+            - Backend.Receive
+summary: CVE-2026-33815 in github.com/jackc/pgx
+description: Memory-safety vulnerability in github.com/jackc/pgx/v5.
+cve_metadata:
+    id: CVE-2026-33815
+    cwe: CWE-129 — Improper Validation of Array Index
+source:
+    id: go-security-team
+    created: 2026-03-31T13:41:38.236367-04:00
+review_status: REVIEWED

@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4789",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-26933",
+    "GHSA-27qj-9gvp-8rh9"
+  ],
+  "summary": "Packetbeat does not properly validate an array index in multiple protocol parser components in github.com/elastic/beats",
+  "details": "Packetbeat does not properly validate an array index in multiple protocol parser components in github.com/elastic/beats",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/elastic/beats",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/elastic/beats/v7",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "7.0.0-alpha2.0.20260126223743-dec1b31111ec"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/elastic/beats/v7/packetbeat/procs",
+            "symbols": [
+              "findSocketsOfPid",
+              "hexToIPPort",
+              "hexToIpv6",
+              "parseProcNetProto"
+            ]
+          },
+          {
+            "path": "github.com/elastic/beats/v7/packetbeat/protos/pgsql",
+            "symbols": [
+              "pgsqlPlugin.parseDataRow",
+              "pgsqlPlugin.parseExtReq",
+              "pgsqlPlugin.parseMessageStart",
+              "readCount",
+              "readLength"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-27qj-9gvp-8rh9"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/elastic/beats/commit/941098459db6556b837194f40c076b08d51137cb"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/elastic/beats/commit/dec1b31111ec3500b82db21ba67dde5c914ee94d"
+    },
+    {
+      "type": "WEB",
+      "url": "https://discuss.elastic.co/t/packetbeat-8-19-11-9-2-5-security-update-esa-2026-11/385533"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4789",
+    "review_status": "REVIEWED"
+  }
+}

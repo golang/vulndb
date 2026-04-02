@@ -1,0 +1,27 @@
+id: GO-2026-4909
+modules:
+    - module: github.com/go-git/go-git
+      vulnerable_at: 3.2.0+incompatible
+    - module: github.com/go-git/go-git/v4
+      vulnerable_at: 4.13.1
+    - module: github.com/go-git/go-git/v5
+      versions:
+        - fixed: 5.17.1
+      vulnerable_at: 5.17.0
+summary: |-
+    Missing validation decoding Index v4 files leads to panic in
+    github.com/go-git/go-git
+cves:
+    - CVE-2026-33762
+ghsas:
+    - GHSA-gm2x-2g9h-ccm8
+references:
+    - advisory: https://github.com/go-git/go-git/security/advisories/GHSA-gm2x-2g9h-ccm8
+notes:
+    - 'Failed to auto-populate symbols: no commits found for github.com/go-git/go-git'
+    - 'Failed to auto-populate symbols: no commits found for github.com/go-git/go-git/v4'
+    - 'Failed to auto-populate symbols: no commits found for github.com/go-git/go-git/v5'
+source:
+    id: GHSA-gm2x-2g9h-ccm8
+    created: 2026-03-31T13:02:35.878423-04:00
+review_status: REVIEWED

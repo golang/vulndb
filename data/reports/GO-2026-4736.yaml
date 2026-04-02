@@ -1,0 +1,27 @@
+id: GO-2026-4736
+modules:
+    - module: github.com/osrg/gobgp
+      vulnerable_at: 0.0.0-20211201041502-6248c576b118
+    - module: github.com/osrg/gobgp/v3
+      vulnerable_at: 3.37.0
+    - module: github.com/osrg/gobgp/v4
+      vulnerable_at: 4.3.0
+      packages:
+        - package: github.com/osrg/gobgp/v4/pkg/server
+          symbols:
+            - fsmHandler.recvMessageloop
+summary: |-
+    GoBGP vulnerable to a denial of service via the NEXT_HOP path attribute in
+    github.com/osrg/gobgp
+cves:
+    - CVE-2026-30405
+ghsas:
+    - GHSA-4p9m-8gc4-rw2h
+references:
+    - advisory: https://github.com/advisories/GHSA-4p9m-8gc4-rw2h
+    - fix: https://github.com/osrg/gobgp/commit/583080a7258e22cc884162e15b078771aa2c2c80
+    - report: https://github.com/osrg/gobgp/issues/3305
+source:
+    id: GHSA-4p9m-8gc4-rw2h
+    created: 2026-03-31T13:41:59.976638-04:00
+review_status: REVIEWED
