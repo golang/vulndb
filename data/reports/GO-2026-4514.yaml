@@ -1,8 +1,8 @@
 id: GO-2026-4514
 modules:
     - module: github.com/buger/jsonparser
-      non_go_versions:
-        - introduced: 0.0.0
+      versions:
+        - fixed: 1.1.2
       vulnerable_at: 1.1.1
       packages:
         - package: github.com/buger/jsonparser
@@ -17,6 +17,8 @@ description: |-
     allowing a denial of service attack.
 references:
     - report: https://github.com/buger/jsonparser/issues/275
+    - fix: https://github.com/buger/jsonparser/pull/276
+    - fix: https://github.com/buger/jsonparser/commit/d3eacc0bab77edfa15fe20d1d709e1e0080e9983
     - report: https://github.com/golang/vulndb/issues/4514
 cve_metadata:
     id: CVE-2026-32285
