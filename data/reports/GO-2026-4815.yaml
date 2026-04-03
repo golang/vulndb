@@ -18,6 +18,10 @@ description: |-
     A maliciously crafted TIFF file can cause image decoding to
     attempt to allocate up 4GiB of memory, causing either excessive
     resource consumption or an out-of-memory error.
+ghsas:
+    - GHSA-44p7-9xx4-hf2g
+credits:
+    - Andy Gill, ZephrSec Ltd
 references:
     - fix: https://go.dev/cl/757660
     - report: https://go.dev/issue/78267

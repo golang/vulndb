@@ -4,7 +4,8 @@
   "modified": "0001-01-01T00:00:00Z",
   "published": "0001-01-01T00:00:00Z",
   "aliases": [
-    "CVE-2026-33809"
+    "CVE-2026-33809",
+    "GHSA-44p7-9xx4-hf2g"
   ],
   "summary": "OOM from malicious IFD offset in golang.org/x/image/tiff",
   "details": "A maliciously crafted TIFF file can cause image decoding to attempt to allocate up 4GiB of memory, causing either excessive resource consumption or an out-of-memory error.",
@@ -51,6 +52,11 @@
     {
       "type": "REPORT",
       "url": "https://go.dev/issue/78267"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Andy Gill, ZephrSec Ltd"
     }
   ],
   "database_specific": {
