@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4923",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-33817"
+  ],
+  "summary": "Vulnerability in go.etcd.io/bbolt",
+  "details": "Index out-of-range when encountering a branch page with zero elements in go.etcd.io/bbolt",
+  "affected": [
+    {
+      "package": {
+        "name": "go.etcd.io/bbolt",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "go.etcd.io/bbolt",
+            "symbols": [
+              "Bucket.CreateBucket",
+              "Bucket.CreateBucketIfNotExists",
+              "Bucket.Delete",
+              "Bucket.DeleteBucket",
+              "Bucket.ForEach",
+              "Bucket.ForEachBucket",
+              "Bucket.MoveBucket",
+              "Bucket.NextSequence",
+              "Bucket.Put",
+              "Bucket.SetSequence",
+              "Bucket.Stats",
+              "Compact",
+              "Cursor.Delete",
+              "DB.Batch",
+              "DB.Begin",
+              "DB.Close",
+              "DB.Sync",
+              "DB.Update",
+              "DB.View",
+              "DefaultLogger.Debug",
+              "DefaultLogger.Debugf",
+              "DefaultLogger.Error",
+              "DefaultLogger.Errorf",
+              "DefaultLogger.Fatal",
+              "DefaultLogger.Fatalf",
+              "DefaultLogger.Info",
+              "DefaultLogger.Infof",
+              "DefaultLogger.Panic",
+              "DefaultLogger.Panicf",
+              "DefaultLogger.Warning",
+              "DefaultLogger.Warningf",
+              "Open",
+              "Tx.Check",
+              "Tx.Commit",
+              "Tx.Copy",
+              "Tx.CopyFile",
+              "Tx.CreateBucket",
+              "Tx.CreateBucketIfNotExists",
+              "Tx.DeleteBucket",
+              "Tx.ForEach",
+              "Tx.MoveBucket",
+              "Tx.Rollback",
+              "Tx.WriteTo"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/etcd-io/bbolt/pull/1171/changes/386d5b69785937d1aa20cb25c8439404cf398143"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/golang/vulndb/issues/4923"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Quoc Bui (github.com/quocvibui)"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4923",
+    "review_status": "REVIEWED"
+  }
+}

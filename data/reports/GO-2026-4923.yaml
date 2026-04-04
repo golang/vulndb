@@ -1,0 +1,67 @@
+id: GO-2026-4923
+modules:
+    - module: go.etcd.io/bbolt
+      vulnerable_at: 1.4.3
+      packages:
+        - package: go.etcd.io/bbolt
+          symbols:
+            - Bucket.Stats
+          derived_symbols:
+            - Bucket.CreateBucket
+            - Bucket.CreateBucketIfNotExists
+            - Bucket.Delete
+            - Bucket.DeleteBucket
+            - Bucket.ForEach
+            - Bucket.ForEachBucket
+            - Bucket.MoveBucket
+            - Bucket.NextSequence
+            - Bucket.Put
+            - Bucket.SetSequence
+            - Compact
+            - Cursor.Delete
+            - DB.Batch
+            - DB.Begin
+            - DB.Close
+            - DB.Sync
+            - DB.Update
+            - DB.View
+            - DefaultLogger.Debug
+            - DefaultLogger.Debugf
+            - DefaultLogger.Error
+            - DefaultLogger.Errorf
+            - DefaultLogger.Fatal
+            - DefaultLogger.Fatalf
+            - DefaultLogger.Info
+            - DefaultLogger.Infof
+            - DefaultLogger.Panic
+            - DefaultLogger.Panicf
+            - DefaultLogger.Warning
+            - DefaultLogger.Warningf
+            - Open
+            - Tx.Check
+            - Tx.Commit
+            - Tx.Copy
+            - Tx.CopyFile
+            - Tx.CreateBucket
+            - Tx.CreateBucketIfNotExists
+            - Tx.DeleteBucket
+            - Tx.ForEach
+            - Tx.MoveBucket
+            - Tx.Rollback
+            - Tx.WriteTo
+summary: Vulnerability in go.etcd.io/bbolt
+description: |-
+    Index out-of-range when encountering a branch page with zero elements in
+    go.etcd.io/bbolt
+credits:
+    - Quoc Bui (github.com/quocvibui)
+references:
+    - fix: https://github.com/etcd-io/bbolt/pull/1171/changes/386d5b69785937d1aa20cb25c8439404cf398143
+    - report: https://github.com/golang/vulndb/issues/4923
+cve_metadata:
+    id: CVE-2026-33817
+    cwe: 'CWE-125: Out-of-bounds Read'
+source:
+    id: go-security-team
+    created: 2026-04-04T16:22:50.494733-04:00
+review_status: REVIEWED
