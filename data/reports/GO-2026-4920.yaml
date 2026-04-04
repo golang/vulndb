@@ -1,0 +1,25 @@
+id: GO-2026-4920
+modules:
+    - module: github.com/kubeai-project/kubeai
+      versions:
+        - fixed: 0.23.2
+      vulnerable_at: 0.23.1
+      packages:
+        - package: github.com/kubeai-project/kubeai/internal/modelcontroller
+          symbols:
+            - ollamaStartupProbeScript
+          derived_symbols:
+            - ModelReconciler.Reconcile
+summary: |-
+    KubeAI: OS Command Injection via Model URL in Ollama Engine startup probe allows
+    arbitrary command execution in model pods in github.com/kubeai-project/kubeai
+cves:
+    - CVE-2026-34940
+ghsas:
+    - GHSA-324q-cwx9-7crr
+references:
+    - advisory: https://github.com/kubeai-project/kubeai/security/advisories/GHSA-324q-cwx9-7crr
+source:
+    id: GHSA-324q-cwx9-7crr
+    created: 2026-04-04T16:22:53.059691-04:00
+review_status: UNREVIEWED

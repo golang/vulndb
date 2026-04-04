@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4920",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-34940",
+    "GHSA-324q-cwx9-7crr"
+  ],
+  "summary": "KubeAI: OS Command Injection via Model URL in Ollama Engine startup probe allows arbitrary command execution in model pods in github.com/kubeai-project/kubeai",
+  "details": "KubeAI: OS Command Injection via Model URL in Ollama Engine startup probe allows arbitrary command execution in model pods in github.com/kubeai-project/kubeai",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/kubeai-project/kubeai",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.23.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/kubeai-project/kubeai/internal/modelcontroller",
+            "symbols": [
+              "ModelReconciler.Reconcile",
+              "ollamaStartupProbeScript"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/kubeai-project/kubeai/security/advisories/GHSA-324q-cwx9-7crr"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4920",
+    "review_status": "UNREVIEWED"
+  }
+}
