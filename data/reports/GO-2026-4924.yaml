@@ -1,0 +1,24 @@
+id: GO-2026-4924
+modules:
+    - module: github.com/juju/juju
+      versions:
+        - fixed: 0.0.0-20260120044552-26ff93c903d5
+      non_go_versions:
+        - introduced: "2.9"
+        - fixed: 2.9.56
+        - introduced: "3.6"
+        - fixed: 3.6.19
+        - introduced: "4.0"
+      vulnerable_at: 0.0.0-20250623030540-c91a1f404695
+summary: Juju has a resource poisoning vulnerability in github.com/juju/juju
+cves:
+    - CVE-2025-68153
+ghsas:
+    - GHSA-245v-p8fj-vwm2
+references:
+    - advisory: https://github.com/juju/juju/security/advisories/GHSA-245v-p8fj-vwm2
+    - fix: https://github.com/juju/juju/commit/26ff93c903d55b0712c6fb3f6b254710edb971d4
+source:
+    id: GHSA-245v-p8fj-vwm2
+    created: 2026-04-04T16:22:46.224305-04:00
+review_status: UNREVIEWED
