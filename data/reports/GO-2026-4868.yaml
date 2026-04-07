@@ -1,0 +1,27 @@
+id: GO-2026-4868
+modules:
+    - module: cmd
+      versions:
+        - fixed: 1.25.9
+        - introduced: 1.26.0-0
+        - fixed: 1.26.2
+      vulnerable_at: 1.26.1
+      packages:
+        - package: cmd/compile
+summary: Missing bound checks can lead to memory corruption in safe Go in cmd/compile
+description: |-
+    Arithmetic over induction variables in loops were not correctly checked for
+    underflow or overflow. As a result, the compiler would allow for invalid
+    indexing to occur at runtime, potentially leading to memory corruption.
+credits:
+    - Jakub Ciolek - https://ciolek.dev/
+references:
+    - fix: https://go.dev/cl/763765
+    - report: https://go.dev/issue/78333
+    - web: https://groups.google.com/g/golang-announce/c/0uYbvbPZRWU
+cve_metadata:
+    id: CVE-2026-27143
+    cwe: 'CWE-190: Integer Overflow or Wraparound'
+source:
+    id: go-security-team
+review_status: REVIEWED

@@ -1,0 +1,30 @@
+id: GO-2026-4867
+modules:
+    - module: cmd
+      versions:
+        - fixed: 1.25.9
+        - introduced: 1.26.0-0
+        - fixed: 1.26.2
+      vulnerable_at: 1.26.1
+      packages:
+        - package: cmd/compile
+summary: |-
+    Miscompilation allows memory corruption via CONVNOP-wrapped array copy in
+    cmd/compile
+description: |-
+    The compiler is meant to unwrap pointers which are the operands of a memory
+    move; a no-op interface conversion prevented the compiler from making the
+    correct determination about non-overlapping moves, potentially leading to memory
+    corruption at runtime.
+credits:
+    - Jakub Ciolek - https://ciolek.dev/
+references:
+    - fix: https://go.dev/cl/763764
+    - report: https://go.dev/issue/78371
+    - web: https://groups.google.com/g/golang-announce/c/0uYbvbPZRWU
+cve_metadata:
+    id: CVE-2026-27144
+    cwe: 'CWE-440: Expected Behavior Violation'
+source:
+    id: go-security-team
+review_status: REVIEWED

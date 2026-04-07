@@ -1,0 +1,48 @@
+id: GO-2026-4870
+modules:
+    - module: std
+      versions:
+        - fixed: 1.25.9
+        - introduced: 1.26.0-0
+        - fixed: 1.26.2
+      vulnerable_at: 1.26.1
+      packages:
+        - package: crypto/tls
+          symbols:
+            - Conn.handleKeyUpdate
+            - clientHandshakeStateTLS13.establishHandshakeKeys
+            - clientHandshakeStateTLS13.readServerFinished
+            - serverHandshakeStateTLS13.sendServerParameters
+            - serverHandshakeStateTLS13.readClientFinished
+          derived_symbols:
+            - Conn.Handshake
+            - Conn.HandshakeContext
+            - Conn.Read
+            - Conn.Write
+            - Dial
+            - DialWithDialer
+            - Dialer.Dial
+            - Dialer.DialContext
+            - QUICConn.HandleData
+            - QUICConn.Start
+summary: |-
+    Unauthenticated TLS 1.3 KeyUpdate record can cause persistent connection
+    retention and DoS in crypto/tls
+description: |-
+    If one side of the TLS connection sends multiple key update messages
+    post-handshake in a single record, the connection can deadlock, causing
+    uncontrolled consumption of resources. This can lead to a denial of service.
+
+    This only affects TLS 1.3.
+credits:
+    - Jakub Ciolek - https://ciolek.dev/
+references:
+    - fix: https://go.dev/cl/763767
+    - report: https://go.dev/issue/78334
+    - web: https://groups.google.com/g/golang-announce/c/0uYbvbPZRWU
+cve_metadata:
+    id: CVE-2026-32283
+    cwe: 'CWE-667: Improper Locking'
+source:
+    id: go-security-team
+review_status: REVIEWED

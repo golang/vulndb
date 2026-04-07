@@ -1,0 +1,39 @@
+id: GO-2026-4864
+modules:
+    - module: std
+      versions:
+        - fixed: 1.25.9
+        - introduced: 1.26.0-0
+        - fixed: 1.26.2
+      vulnerable_at: 1.26.1
+      packages:
+        - package: internal/syscall/unix
+          goos:
+            - linux
+          symbols:
+            - Fchmodat
+summary: |-
+    TOCTOU permits root escape on Linux via Root.Chmod in os in
+    internal/syscall/unix
+description: |-
+    On Linux, if the target of Root.Chmod is replaced with a symlink while the chmod
+    operation is in progress, Chmod can operate on the target of the symlink, even
+    when the target lies outside the root.
+
+    The Linux fchmodat syscall silently ignores the AT_SYMLINK_NOFOLLOW flag, which
+    Root.Chmod uses to avoid symlink traversal. Root.Chmod checks its target before
+    acting and returns an error if the target is a symlink lying outside the root,
+    so the impact is limited to cases where the target is replaced with a symlink
+    between the check and operation.
+credits:
+    - Uuganbayar Lkhamsuren (https://github.com/uug4na)
+references:
+    - fix: https://go.dev/cl/763761
+    - report: https://go.dev/issue/78293
+    - web: https://groups.google.com/g/golang-announce/c/0uYbvbPZRWU
+cve_metadata:
+    id: CVE-2026-32282
+    cwe: 'CWE-61: UNIX Symbolic Link (Symlink) Following'
+source:
+    id: go-security-team
+review_status: REVIEWED

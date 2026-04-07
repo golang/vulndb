@@ -1,0 +1,35 @@
+id: GO-2026-4946
+modules:
+    - module: std
+      versions:
+        - fixed: 1.25.9
+        - introduced: 1.26.0-0
+        - fixed: 1.26.2
+      vulnerable_at: 1.26.1
+      packages:
+        - package: crypto/x509
+          symbols:
+            - policiesValid
+          derived_symbols:
+            - Certificate.Verify
+summary: Inefficient policy validation in crypto/x509
+description: |-
+    Validating certificate chains which use policies is unexpectedly inefficient
+    when certificates in the chain contain a very large number of policy mappings,
+    possibly causing denial of service.
+
+    This only affects validation of otherwise trusted certificate chains, issued by
+    a root CA in the VerifyOptions.Roots CertPool, or in the system certificate
+    pool.
+credits:
+    - Jakub Ciolek - https://ciolek.dev
+references:
+    - fix: https://go.dev/cl/758061
+    - report: https://go.dev/issue/78281
+    - web: https://groups.google.com/g/golang-announce/c/0uYbvbPZRWU
+cve_metadata:
+    id: CVE-2026-32281
+    cwe: 'CWE-407: Inefficient Algorithmic Complexity'
+source:
+    id: go-security-team
+review_status: REVIEWED

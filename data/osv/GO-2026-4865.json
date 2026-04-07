@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4865",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-32289"
+  ],
+  "summary": "JsBraceDepth Context Tracking Bugs (XSS) in html/template",
+  "details": "Context was not properly tracked across template branches for JS template literals, leading to possibly incorrect escaping of content when branches were used. Additionally template actions within JS template literals did not properly track the brace depth, leading to incorrect escaping being applied.\n\nThese issues could cause actions within JS template literals to be incorrectly or improperly escaped, leading to XSS vulnerabilities.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.25.9"
+            },
+            {
+              "introduced": "1.26.0-0"
+            },
+            {
+              "fixed": "1.26.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "html/template",
+            "symbols": [
+              "Error.Error",
+              "HTMLEscaper",
+              "JSEscape",
+              "JSEscapeString",
+              "JSEscaper",
+              "ParseFS",
+              "ParseFiles",
+              "ParseGlob",
+              "Template.AddParseTree",
+              "Template.Clone",
+              "Template.DefinedTemplates",
+              "Template.Execute",
+              "Template.ExecuteTemplate",
+              "Template.Funcs",
+              "Template.Parse",
+              "Template.ParseFS",
+              "Template.ParseFiles",
+              "Template.ParseGlob",
+              "URLQueryEscaper",
+              "context.String",
+              "context.mangle",
+              "escaper.escapeBranch"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/763762"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/78331"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/0uYbvbPZRWU"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4865",
+    "review_status": "REVIEWED"
+  }
+}

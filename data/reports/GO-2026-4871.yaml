@@ -1,0 +1,26 @@
+id: GO-2026-4871
+modules:
+    - module: cmd
+      versions:
+        - fixed: 1.25.9
+        - introduced: 1.26.0-0
+        - fixed: 1.26.2
+      vulnerable_at: 1.26.1
+      packages:
+        - package: cmd/go
+summary: Code execution vulnerability in SWIG code generation in cmd/go
+description: |-
+    SWIG file names containing 'cgo' and well-crafted payloads could lead to code
+    smuggling and arbitrary code execution at build time due to trust layer bypass.
+credits:
+    - Juho Forsén of Mattermost
+references:
+    - fix: https://go.dev/cl/763768
+    - report: https://go.dev/issue/78335
+    - web: https://groups.google.com/g/golang-announce/c/0uYbvbPZRWU
+cve_metadata:
+    id: CVE-2026-27140
+    cwe: 'CWE-501: Trust Boundary Violation'
+source:
+    id: go-security-team
+review_status: REVIEWED

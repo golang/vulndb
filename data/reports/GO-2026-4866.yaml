@@ -1,0 +1,39 @@
+id: GO-2026-4866
+modules:
+    - module: std
+      versions:
+        - introduced: 1.26.0-0
+        - fixed: 1.26.2
+      vulnerable_at: 1.26.1
+      packages:
+        - package: crypto/x509
+          symbols:
+            - newDNSConstraints
+            - dnsConstraints.query
+          derived_symbols:
+            - Certificate.Verify
+summary: |-
+    Case-sensitive excludedSubtrees name constraints cause Auth Bypass in
+    crypto/x509
+description: |-
+    When verifying a certificate chain containing excluded DNS constraints, these
+    constraints are not correctly applied to wildcard DNS SANs which use a different
+    case than the constraint.
+
+    This only affects validation of otherwise trusted certificate chains, issued by
+    a root CA in the VerifyOptions.Roots CertPool, or in the system certificate
+    pool.
+credits:
+    - Riyas from Saintgits College of Engineering
+    - k1rnt
+    - '@1seal'
+references:
+    - fix: https://go.dev/cl/763763
+    - report: https://go.dev/issue/78332
+    - web: https://groups.google.com/g/golang-announce/c/0uYbvbPZRWU
+cve_metadata:
+    id: CVE-2026-33810
+    cwe: 'CWE-295: Improper Certificate Validation'
+source:
+    id: go-security-team
+review_status: REVIEWED

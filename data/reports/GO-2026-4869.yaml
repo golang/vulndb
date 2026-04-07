@@ -1,0 +1,34 @@
+id: GO-2026-4869
+modules:
+    - module: std
+      versions:
+        - fixed: 1.25.9
+        - introduced: 1.26.0-0
+        - fixed: 1.26.2
+      vulnerable_at: 1.26.1
+      packages:
+        - package: archive/tar
+          symbols:
+            - Reader.readOldGNUSparseMap
+            - readGNUSparseMap1x0
+          derived_symbols:
+            - Reader.Next
+summary: Unbounded allocation for old GNU sparse in archive/tar
+description: |-
+    tar.Reader can allocate an unbounded amount of memory when reading a
+    maliciously-crafted archive containing a large number of sparse regions encoded
+    in the "old GNU sparse map" format.
+credits:
+    - Colin Walters (walters@verbum.org)
+    - Uuganbayar Lkhamsuren (https://github.com/uug4na)
+    - Jakub Ciolek
+references:
+    - fix: https://go.dev/cl/763766
+    - report: https://go.dev/issue/78301
+    - web: https://groups.google.com/g/golang-announce/c/0uYbvbPZRWU
+cve_metadata:
+    id: CVE-2026-32288
+    cwe: 'CWE-400: Uncontrolled Resource Consumption'
+source:
+    id: go-security-team
+review_status: REVIEWED

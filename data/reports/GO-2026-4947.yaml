@@ -1,0 +1,32 @@
+id: GO-2026-4947
+modules:
+    - module: std
+      versions:
+        - fixed: 1.25.9
+        - introduced: 1.26.0-0
+        - fixed: 1.26.2
+      vulnerable_at: 1.26.1
+      packages:
+        - package: crypto/x509
+          symbols:
+            - Certificate.buildChains
+          derived_symbols:
+            - Certificate.Verify
+summary: Unexpected work during chain building in crypto/x509
+description: |-
+    During chain building, the amount of work that is done is not correctly limited
+    when a large number of intermediate certificates are passed in
+    VerifyOptions.Intermediates, which can lead to a denial of service. This affects
+    both direct users of crypto/x509 and users of crypto/tls.
+credits:
+    - Jakub Ciolek - https://ciolek.dev
+references:
+    - fix: https://go.dev/cl/758320
+    - report: https://go.dev/issue/78282
+    - web: https://groups.google.com/g/golang-announce/c/0uYbvbPZRWU
+cve_metadata:
+    id: CVE-2026-32280
+    cwe: 'CWE-770: Allocation of Resources Without Limits or Throttling'
+source:
+    id: go-security-team
+review_status: REVIEWED
