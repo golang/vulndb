@@ -373,6 +373,9 @@ func publish(c *cve5.Client, filename string, interactive bool) (err error) {
 		fmt.Printf("publish would create new record for %s\n", cveID)
 		publishFunc = c.CreateRecord
 		action = "create"
+	case cve5.StateRejected:
+		fmt.Printf("%s is rejected at MITRE, skipping update\n", cveID)
+		return nil
 	default:
 		return fmt.Errorf("publishing a %s record is not supported", state)
 	}
