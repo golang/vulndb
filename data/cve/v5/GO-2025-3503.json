@@ -18,6 +18,35 @@
       ],
       "affected": [
         {
+          "vendor": "Go standard library",
+          "product": "net/http",
+          "collectionURL": "https://pkg.go.dev",
+          "packageName": "net/http",
+          "versions": [
+            {
+              "version": "0",
+              "lessThan": "1.23.7",
+              "status": "affected",
+              "versionType": "semver"
+            },
+            {
+              "version": "1.24.0-0",
+              "lessThan": "1.24.1",
+              "status": "affected",
+              "versionType": "semver"
+            }
+          ],
+          "programRoutines": [
+            {
+              "name": "envProxyFunc"
+            },
+            {
+              "name": "ProxyFromEnvironment"
+            }
+          ],
+          "defaultStatus": "unaffected"
+        },
+        {
           "vendor": "golang.org/x/net",
           "product": "golang.org/x/net/http/httpproxy",
           "collectionURL": "https://pkg.go.dev",
@@ -95,6 +124,9 @@
         },
         {
           "url": "https://go.dev/issue/71984"
+        },
+        {
+          "url": "https://groups.google.com/g/golang-announce/c/4t3lzH3I0eI/m/b42ImqrBAQAJ"
         },
         {
           "url": "https://pkg.go.dev/vuln/GO-2025-3503"

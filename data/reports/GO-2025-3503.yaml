@@ -1,5 +1,16 @@
 id: GO-2025-3503
 modules:
+    - module: std
+      versions:
+        - fixed: 1.23.7
+        - introduced: 1.24.0-0
+        - fixed: 1.24.1
+      vulnerable_at: 1.24.0
+      packages:
+        - package: net/http
+          symbols:
+            - envProxyFunc
+            - ProxyFromEnvironment
     - module: golang.org/x/net
       versions:
         - fixed: 0.36.0
@@ -25,11 +36,14 @@ description: |-
     a hostname component. For example, when the NO_PROXY environment variable is set
     to "*.example.com", a request to "[::1%25.example.com]:80` will incorrectly
     match and not be proxied.
+ghsas:
+    - GHSA-qxp5-gwg8-xv66
 credits:
     - Juho Forsén of Mattermost
 references:
     - fix: https://go.dev/cl/654697
     - report: https://go.dev/issue/71984
+    - web: https://groups.google.com/g/golang-announce/c/4t3lzH3I0eI/m/b42ImqrBAQAJ
 cve_metadata:
     id: CVE-2025-22870
     cwe: CWE-115 Misinterpretation of Input

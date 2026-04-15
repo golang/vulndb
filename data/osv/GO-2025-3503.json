@@ -4,11 +4,48 @@
   "modified": "0001-01-01T00:00:00Z",
   "published": "0001-01-01T00:00:00Z",
   "aliases": [
-    "CVE-2025-22870"
+    "CVE-2025-22870",
+    "GHSA-qxp5-gwg8-xv66"
   ],
   "summary": "HTTP Proxy bypass using IPv6 Zone IDs in golang.org/x/net",
   "details": "Matching of hosts against proxy patterns can improperly treat an IPv6 zone ID as a hostname component. For example, when the NO_PROXY environment variable is set to \"*.example.com\", a request to \"[::1%25.example.com]:80` will incorrectly match and not be proxied.",
   "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.23.7"
+            },
+            {
+              "introduced": "1.24.0-0"
+            },
+            {
+              "fixed": "1.24.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "net/http",
+            "symbols": [
+              "ProxyFromEnvironment",
+              "envProxyFunc"
+            ]
+          }
+        ]
+      }
+    },
     {
       "package": {
         "name": "golang.org/x/net",
@@ -60,6 +97,10 @@
     {
       "type": "REPORT",
       "url": "https://go.dev/issue/71984"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/4t3lzH3I0eI/m/b42ImqrBAQAJ"
     }
   ],
   "credits": [
