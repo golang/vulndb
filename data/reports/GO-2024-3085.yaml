@@ -1,13 +1,12 @@
 id: GO-2024-3085
 modules:
     - module: goauthentik.io
-      # Module deleted/moved, no longer responding to requests
-      skip_lint: true
       non_go_versions:
         - fixed: 2024.4.4
         - introduced: 2024.6.0-rc1
         - fixed: 2024.6.4
       vulnerable_at: 0.0.0-20240830143927-1003c79d8cc6
+      skip_lint: true
 summary: GoAuthentik vulnerable to Insufficient Authorization for several API endpoints in goauthentik.io
 cves:
     - CVE-2024-42490
