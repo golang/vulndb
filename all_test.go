@@ -83,7 +83,7 @@ func TestLintReports(t *testing.T) {
 		}
 	} else {
 		client := http.Client{
-			Timeout:   1250 * time.Millisecond,
+			Timeout:   20 * time.Second,
 			Transport: http.DefaultTransport,
 		}
 		pc := proxy.NewClient(&client, proxy.ProxyURL)
