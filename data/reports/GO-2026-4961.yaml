@@ -1,0 +1,29 @@
+id: GO-2026-4961
+modules:
+    - module: golang.org/x/image
+      versions:
+        - fixed: 0.39.0
+      vulnerable_at: 0.38.0
+      packages:
+        - package: golang.org/x/image/webp
+          symbols:
+            - decode
+          derived_symbols:
+            - Decode
+            - DecodeConfig
+summary: Panic when decoding large WEBP image on 32-bit platforms in golang.org/x/image
+description: |-
+    Parsing a WEBP image with an invalid, large size
+    panics on 32-bit platforms.
+credits:
+    - Tristan Madani
+references:
+    - fix: https://go.dev/cl/759860
+    - report: https://go.dev/issue/78407
+cve_metadata:
+    id: CVE-2026-33813
+    cwe: 'CWE-190: Integer Overflow or Wraparound'
+source:
+    id: go-security-team
+    created: 2026-04-21T18:11:11.028682876Z
+review_status: REVIEWED
