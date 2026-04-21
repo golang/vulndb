@@ -1,0 +1,38 @@
+id: GO-2026-4962
+modules:
+    - module: golang.org/x/image
+      versions:
+        - fixed: 0.39.0
+      vulnerable_at: 0.38.0
+      packages:
+        - package: golang.org/x/image/font/sfnt
+          symbols:
+            - source.view
+          derived_symbols:
+            - Collection.Font
+            - Font.GlyphAdvance
+            - Font.GlyphBounds
+            - Font.GlyphIndex
+            - Font.GlyphName
+            - Font.Kern
+            - Font.LoadGlyph
+            - Font.Name
+            - Font.WriteSourceTo
+            - Parse
+            - ParseCollection
+            - ParseCollectionReaderAt
+            - ParseReaderAt
+summary: Excessive memory allocation when decoding malicious SFNT in golang.org/x/image
+description: Parsing a malicious font file can cause excessive memory allocation.
+credits:
+    - Andy Gill, ZephrSec Ltd
+references:
+    - fix: https://go.dev/cl/761180
+    - report: https://go.dev/issue/78382
+cve_metadata:
+    id: CVE-2026-33812
+    cwe: 'CWE-789: Memory Allocation with Excessive Size Value'
+source:
+    id: go-security-team
+    created: 2026-04-21T18:37:44.307838005Z
+review_status: REVIEWED
