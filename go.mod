@@ -1,6 +1,12 @@
 module golang.org/x/vulndb
 
-go 1.26.2
+go 1.25.0
+
+// 'default=go1.26.2' is here because this module started already using godebug setting values
+// from Go 1.26.2 in CL 763841, before the go directive was lowered to 1.25.0 in CL 771620, to
+// avoid going back to 1.25 godebug setting values unnecessarily. It can be dropped after this
+// module's go directive reaches 1.26.2 or higher.
+godebug default=go1.26.2
 
 require (
 	cloud.google.com/go/errorreporting v0.3.0
