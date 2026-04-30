@@ -8,6 +8,12 @@ go 1.25.0
 // module's go directive reaches 1.26.2 or higher.
 godebug default=go1.26.2
 
+// 'godebug default=go1.26.2' requires a go1.26.2 or newer to be used inside this module, else
+// the go command fails with a "go: error loading go.mod: default=go1.26.2 too new" error. The
+// toolchain directive here is used to make that requirement explicit. It will be dropped when
+// this module's go directive reaches 1.26.2 or higher (by go mod tidy).
+toolchain go1.26.2
+
 require (
 	cloud.google.com/go/errorreporting v0.3.0
 	cloud.google.com/go/firestore v1.14.0
