@@ -1,0 +1,63 @@
+id: GO-2026-4971
+modules:
+    - module: std
+      versions:
+        - fixed: 1.25.10
+        - introduced: 1.26.0-0
+        - fixed: 1.26.3
+      vulnerable_at: 1.26.2
+      packages:
+        - package: net
+          symbols:
+            - Resolver.lookupPort
+            - Resolver.lookupAddr
+            - Resolver.lookupTXT
+            - Resolver.lookupNS
+            - Resolver.lookupMX
+            - Resolver.lookupSRV
+          derived_symbols:
+            - Dial
+            - DialTimeout
+            - Dialer.Dial
+            - Dialer.DialContext
+            - Listen
+            - ListenConfig.Listen
+            - ListenConfig.ListenPacket
+            - ListenPacket
+            - LookupAddr
+            - LookupCNAME
+            - LookupHost
+            - LookupIP
+            - LookupMX
+            - LookupNS
+            - LookupPort
+            - LookupSRV
+            - LookupTXT
+            - ResolveIPAddr
+            - ResolveTCPAddr
+            - ResolveUDPAddr
+            - Resolver.LookupAddr
+            - Resolver.LookupCNAME
+            - Resolver.LookupHost
+            - Resolver.LookupIP
+            - Resolver.LookupIPAddr
+            - Resolver.LookupMX
+            - Resolver.LookupNS
+            - Resolver.LookupNetIP
+            - Resolver.LookupPort
+            - Resolver.LookupSRV
+            - Resolver.LookupTXT
+summary: Panic in Dial and LookupPort when handling NUL byte on Windows in net
+description: |
+    The Dial and LookupPort functions panic on Windows when provided
+    with an input containing a NUL (0).
+references:
+    - report: https://go.dev/issue/79006
+    - web: https://groups.google.com/g/golang-announce/c/qcCIEXso47M
+    - fix: https://go.dev/cl/775320
+cve_metadata:
+    id: CVE-2026-39836
+    cwe: 'CWE-248: Uncaught Exception'
+source:
+    id: go-security-team
+review_status: REVIEWED

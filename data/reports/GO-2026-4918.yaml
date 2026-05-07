@@ -1,0 +1,75 @@
+id: GO-2026-4918
+modules:
+    - module: golang.org/x/net
+      versions:
+        - fixed: 0.53.0
+      vulnerable_at: 0.52.0
+      packages:
+        - package: golang.org/x/net/http2
+          symbols:
+            - clientConnReadLoop.processSettingsNoWrite
+          derived_symbols:
+            - Transport.NewClientConn
+            - Transport.RoundTrip
+            - Transport.RoundTripOpt
+            - clientConnPool.GetClientConn
+            - noDialClientConnPool.GetClientConn
+            - noDialH2RoundTripper.NewClientConn
+            - noDialH2RoundTripper.RoundTrip
+            - unencryptedTransport.RoundTrip
+    - module: std
+      versions:
+        - fixed: 1.25.10
+        - introduced: 1.26.0-0
+        - fixed: 1.26.3
+      vulnerable_at: 1.26.2
+      packages:
+        - package: net/http
+          symbols:
+            - http2clientConnReadLoop.processSettingsNoWrite
+          derived_symbols:
+            - Client.CloseIdleConnections
+            - Client.Do
+            - Client.Get
+            - Client.Head
+            - Client.Post
+            - Client.PostForm
+            - ClientConn.Close
+            - ClientConn.RoundTrip
+            - Get
+            - Head
+            - Post
+            - PostForm
+            - Transport.CloseIdleConnections
+            - Transport.NewClientConn
+            - Transport.RoundTrip
+            - http1ClientConn.Close
+            - http1ClientConn.RoundTrip
+            - http2Transport.NewClientConn
+            - http2Transport.RoundTrip
+            - http2Transport.RoundTripOpt
+            - http2clientConnPool.GetClientConn
+            - http2noDialClientConnPool.GetClientConn
+            - http2noDialH2RoundTripper.NewClientConn
+            - http2noDialH2RoundTripper.RoundTrip
+            - http2unencryptedTransport.RoundTrip
+summary: |-
+    Infinite loop in HTTP/2 transport when given bad SETTINGS_MAX_FRAME_SIZE in
+    net/http/internal/http2 in golang.org/x/net
+description: |-
+    When processing HTTP/2 SETTINGS frames, transport will enter an infinite loop of
+    writing CONTINUATION frames if it receives a SETTINGS_MAX_FRAME_SIZE with a
+    value of 0.
+credits:
+    - Marwan Atia (marwansamir688@gmail.com)
+references:
+    - fix: https://go.dev/cl/761581
+    - fix: https://go.dev/cl/761640
+    - report: https://go.dev/issue/78476
+    - web: https://groups.google.com/g/golang-announce/c/qcCIEXso47M
+cve_metadata:
+    id: CVE-2026-33814
+    cwe: 'CWE-835: Loop with Unreachable Exit Condition (''Infinite Loop'')'
+source:
+    id: go-security-team
+review_status: REVIEWED

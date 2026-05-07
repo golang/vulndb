@@ -1,0 +1,34 @@
+id: GO-2026-4980
+modules:
+    - module: std
+      versions:
+        - fixed: 1.25.10
+        - introduced: 1.26.0-0
+        - fixed: 1.26.3
+      vulnerable_at: 1.26.2
+      packages:
+        - package: html/template
+          symbols:
+            - isJSType
+          derived_symbols:
+            - Template.Execute
+            - Template.ExecuteTemplate
+summary: Escaper bypass leads to XSS in html/template
+description: |
+    If a trusted template author were to write a <script>
+    tag containing an empty 'type' attribute or a 'type'
+    attribute with an ASCII whitespace, the execution of
+    the template would incorrectly escape any data passed
+    into the <script> block.
+credits:
+    - Mundur (https://github.com/M0nd0R)
+references:
+    - report: https://go.dev/issue/78981
+    - fix: https://go.dev/cl/771180
+    - web: https://groups.google.com/g/golang-announce/c/qcCIEXso47M
+cve_metadata:
+    id: CVE-2026-39826
+    cwe: 'CWE-79: Improper Neutralization of Input During Web Page Generation (''Cross-site Scripting'')'
+source:
+    id: go-security-team
+review_status: REVIEWED

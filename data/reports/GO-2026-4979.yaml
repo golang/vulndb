@@ -1,0 +1,28 @@
+id: GO-2026-4979
+modules:
+    - module: cmd
+      versions:
+        - fixed: 1.25.10
+        - introduced: 1.26.0-0
+        - fixed: 1.26.3
+      vulnerable_at: 1.26.2
+      packages:
+        - package: cmd/go
+summary: Invoking "go tool pack" does not sanitize output paths in cmd/go
+description: |
+    The "go tool pack" subcommand (usually used only by the compiler
+    as an internal tool with known-good inputs) does not sanitize output
+    filenames. Extracting a malicious archive file with the "pack"
+    subcommand can write files to arbitrary locations on the filesystem.
+credits:
+    - Harshit Gupta (Mr HAX)
+references:
+    - report: https://go.dev/issue/78778
+    - fix: https://go.dev/cl/767520
+    - web: https://groups.google.com/g/golang-announce/c/qcCIEXso47M
+cve_metadata:
+    id: CVE-2026-39817
+    cwe: 'CWE-22: Improper Limitation of a Pathname to a Restricted Directory (''Path Traversal'')'
+source:
+    id: go-security-team
+review_status: REVIEWED

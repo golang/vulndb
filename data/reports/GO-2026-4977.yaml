@@ -1,0 +1,32 @@
+id: GO-2026-4977
+modules:
+    - module: std
+      versions:
+        - fixed: 1.25.10
+        - introduced: 1.26.0-0
+        - fixed: 1.26.3
+      vulnerable_at: 1.26.2
+      packages:
+        - package: net/mail
+          symbols:
+            - addrParser.consumePhrase
+          derived_symbols:
+            - AddressParser.Parse
+            - AddressParser.ParseList
+            - Header.AddressList
+            - ParseAddress
+            - ParseAddressList
+summary: Quadratic string concatenation in consumePhrase in net/mail
+description: |
+    Pathological inputs could cause DoS through consumePhrase
+    when parsing an email address according to RFC 5322.
+references:
+    - report: https://go.dev/issue/78987
+    - fix: https://go.dev/cl/771520
+    - web: https://groups.google.com/g/golang-announce/c/qcCIEXso47M
+cve_metadata:
+    id: CVE-2026-42499
+    cwe: 'CWE-407: Inefficient Algorithmic Complexity'
+source:
+    id: go-security-team
+review_status: REVIEWED

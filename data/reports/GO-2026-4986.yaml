@@ -1,0 +1,37 @@
+id: GO-2026-4986
+modules:
+    - module: std
+      versions:
+        - fixed: 1.25.10
+        - introduced: 1.26.0-0
+        - fixed: 1.26.3
+      vulnerable_at: 1.26.2
+      packages:
+        - package: net/mail
+          symbols:
+            - addrParser.consumeComment
+          derived_symbols:
+            - AddressParser.Parse
+            - AddressParser.ParseList
+            - Header.AddressList
+            - Header.Date
+            - ParseAddress
+            - ParseAddressList
+            - ParseDate
+summary: Quadratic string concatentation in consumeComment in net/mail
+description: |
+    Well-crafted inputs reaching ParseAddress, ParseAddressList,
+    and ParseDate were able to trigger excessive CPU exhaustion
+    and memory allocations.
+credits:
+    - thatnealpatel
+references:
+    - report: https://go.dev/issue/78566
+    - fix: https://go.dev/cl/759940
+    - web: https://groups.google.com/g/golang-announce/c/qcCIEXso47M
+cve_metadata:
+    id: CVE-2026-39820
+    cwe: 'CWE-407: Inefficient Algorithmic Complexity'
+source:
+    id: go-security-team
+review_status: REVIEWED

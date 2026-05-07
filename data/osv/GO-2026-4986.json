@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4986",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-39820"
+  ],
+  "summary": "Quadratic string concatentation in consumeComment in net/mail",
+  "details": "Well-crafted inputs reaching ParseAddress, ParseAddressList, and ParseDate were able to trigger excessive CPU exhaustion and memory allocations.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.25.10"
+            },
+            {
+              "introduced": "1.26.0-0"
+            },
+            {
+              "fixed": "1.26.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "net/mail",
+            "symbols": [
+              "AddressParser.Parse",
+              "AddressParser.ParseList",
+              "Header.AddressList",
+              "Header.Date",
+              "ParseAddress",
+              "ParseAddressList",
+              "ParseDate",
+              "addrParser.consumeComment"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/78566"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/759940"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/qcCIEXso47M"
+    }
+  ],
+  "credits": [
+    {
+      "name": "thatnealpatel"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4986",
+    "review_status": "REVIEWED"
+  }
+}

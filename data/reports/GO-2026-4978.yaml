@@ -1,0 +1,30 @@
+id: GO-2026-4978
+modules:
+    - module: cmd
+      versions:
+        - fixed: 1.25.10
+        - introduced: 1.26.0-0
+        - fixed: 1.26.3
+      vulnerable_at: 1.26.2
+      packages:
+        - package: cmd/go
+summary: Invoking "go bug" follows symlinks in predictable temporary filenames in cmd/go
+description: |
+    The "go bug" command writes to two files with predictable names in
+    the system temporary directory (for example, "/tmp").
+
+    An attacker with access to the temporary directory can create a
+    symlink in one of these names, causing "go bug" to overwrite the
+    target of the symlink.
+credits:
+    - Harshit Gupta (Mr HAX)
+references:
+    - report: https://go.dev/issue/78584
+    - fix: https://go.dev/cl/763882
+    - web: https://groups.google.com/g/golang-announce/c/qcCIEXso47M
+cve_metadata:
+    id: CVE-2026-39819
+    cwe: 'CWE-377: Insecure Temporary File'
+source:
+    id: go-security-team
+review_status: REVIEWED

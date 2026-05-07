@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4971",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-39836"
+  ],
+  "summary": "Panic in Dial and LookupPort when handling NUL byte on Windows in net",
+  "details": "The Dial and LookupPort functions panic on Windows when provided with an input containing a NUL (0).",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.25.10"
+            },
+            {
+              "introduced": "1.26.0-0"
+            },
+            {
+              "fixed": "1.26.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "net",
+            "symbols": [
+              "Dial",
+              "DialTimeout",
+              "Dialer.Dial",
+              "Dialer.DialContext",
+              "Listen",
+              "ListenConfig.Listen",
+              "ListenConfig.ListenPacket",
+              "ListenPacket",
+              "LookupAddr",
+              "LookupCNAME",
+              "LookupHost",
+              "LookupIP",
+              "LookupMX",
+              "LookupNS",
+              "LookupPort",
+              "LookupSRV",
+              "LookupTXT",
+              "ResolveIPAddr",
+              "ResolveTCPAddr",
+              "ResolveUDPAddr",
+              "Resolver.LookupAddr",
+              "Resolver.LookupCNAME",
+              "Resolver.LookupHost",
+              "Resolver.LookupIP",
+              "Resolver.LookupIPAddr",
+              "Resolver.LookupMX",
+              "Resolver.LookupNS",
+              "Resolver.LookupNetIP",
+              "Resolver.LookupPort",
+              "Resolver.LookupSRV",
+              "Resolver.LookupTXT",
+              "Resolver.lookupAddr",
+              "Resolver.lookupMX",
+              "Resolver.lookupNS",
+              "Resolver.lookupPort",
+              "Resolver.lookupSRV",
+              "Resolver.lookupTXT"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/79006"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/qcCIEXso47M"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/775320"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4971",
+    "review_status": "REVIEWED"
+  }
+}

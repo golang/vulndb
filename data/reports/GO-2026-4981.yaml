@@ -1,0 +1,29 @@
+id: GO-2026-4981
+modules:
+    - module: std
+      versions:
+        - fixed: 1.25.10
+        - introduced: 1.26.0-0
+        - fixed: 1.26.3
+      vulnerable_at: 1.26.2
+      packages:
+        - package: net
+          symbols:
+            - cgoResSearch
+          derived_symbols:
+            - LookupCNAME
+            - Resolver.LookupCNAME
+summary: Crash when handling long CNAME response in net
+description: "When using LookupCNAME with the cgo DNS resolver,\na very long CNAME response can trigger a double-free of C memory\nand a crash. \n"
+credits:
+    - hamayanhamayan
+references:
+    - report: https://go.dev/issue/78803
+    - fix: https://go.dev/cl/767860
+    - web: https://groups.google.com/g/golang-announce/c/qcCIEXso47M
+cve_metadata:
+    id: CVE-2026-33811
+    cwe: 'CWE-415: Double Free'
+source:
+    id: go-security-team
+review_status: REVIEWED
