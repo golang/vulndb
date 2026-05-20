@@ -1,0 +1,21 @@
+id: GO-2026-4952
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - fixed: 2.3.0
+      vulnerable_at: 0.24.6
+summary: Vikunja vulnerable to Privilege Escalation via Project Reparenting in code.vikunja.io/api
+cves:
+    - CVE-2026-35595
+ghsas:
+    - GHSA-2vq4-854f-5c72
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-2vq4-854f-5c72
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-35595
+    - web: https://github.com/go-vikunja/vikunja/commit/c03d682f48aff890eeb3c8b41d38226069722827
+    - web: https://github.com/go-vikunja/vikunja/pull/2583
+    - web: https://github.com/go-vikunja/vikunja/releases/tag/v2.3.0
+source:
+    id: GHSA-2vq4-854f-5c72
+    created: 2026-05-20T12:50:07.916508922-04:00
+review_status: UNREVIEWED

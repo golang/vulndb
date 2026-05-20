@@ -1,0 +1,22 @@
+id: GO-2026-4990
+modules:
+    - module: github.com/gotenberg/gotenberg/v7
+      vulnerable_at: 7.10.2
+    - module: github.com/gotenberg/gotenberg/v8
+      unsupported_versions:
+        - last_affected: 8.31.0
+      vulnerable_at: 8.32.0
+summary: |-
+    Gotenberg's DNS rebinding bypasses SSRF validation on Chromium URL conversion
+    routes in github.com/gotenberg/gotenberg
+cves:
+    - CVE-2026-42592
+ghsas:
+    - GHSA-2pmr-289p-44r3
+references:
+    - advisory: https://github.com/gotenberg/gotenberg/security/advisories/GHSA-2pmr-289p-44r3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42592
+source:
+    id: GHSA-2pmr-289p-44r3
+    created: 2026-05-20T12:46:12.124430244-04:00
+review_status: UNREVIEWED

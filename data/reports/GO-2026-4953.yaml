@@ -1,0 +1,22 @@
+id: GO-2026-4953
+modules:
+    - module: github.com/patrickhener/goshs
+      versions:
+        - introduced: 1.0.7
+      unsupported_versions:
+        - last_affected: 1.1.4
+      vulnerable_at: 1.1.4
+summary: goshs is Missing Write Protection for Parametric Data Values in github.com/patrickhener/goshs
+cves:
+    - CVE-2026-40188
+ghsas:
+    - GHSA-2943-crp8-38xx
+references:
+    - advisory: https://github.com/patrickhener/goshs/security/advisories/GHSA-2943-crp8-38xx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40188
+    - fix: https://github.com/patrickhener/goshs/commit/141c188ce270ffbec087844a50e5e695b7da7744
+    - web: https://github.com/patrickhener/goshs/releases/tag/v2.0.0-beta.4
+source:
+    id: GHSA-2943-crp8-38xx
+    created: 2026-05-20T12:50:01.84087082-04:00
+review_status: UNREVIEWED

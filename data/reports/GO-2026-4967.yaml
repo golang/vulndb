@@ -1,0 +1,23 @@
+id: GO-2026-4967
+modules:
+    - module: github.com/orneryd/nornicdb
+      versions:
+        - fixed: 1.0.42-hotfix
+      vulnerable_at: 1.0.41
+summary: |-
+    NornicDB has Improper Network Binding in its Bolt Server, allowing unauthorized
+    remote access in github.com/orneryd/nornicdb
+cves:
+    - CVE-2026-42072
+ghsas:
+    - GHSA-2hp7-65r3-wv54
+references:
+    - advisory: https://github.com/orneryd/NornicDB/security/advisories/GHSA-2hp7-65r3-wv54
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42072
+    - web: https://github.com/orneryd/NornicDB/commit/adce4f9a9fc7b6aada07c0bfa2d737cd7a6efaca
+    - web: https://github.com/orneryd/NornicDB/releases/tag/v1.0.42
+    - web: https://github.com/orneryd/NornicDB/releases/tag/v1.0.42-hotfix
+source:
+    id: GHSA-2hp7-65r3-wv54
+    created: 2026-05-20T12:49:06.019917996-04:00
+review_status: UNREVIEWED

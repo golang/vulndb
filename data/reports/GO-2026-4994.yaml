@@ -1,0 +1,22 @@
+id: GO-2026-4994
+modules:
+    - module: github.com/free5gc/bsf
+      versions:
+        - fixed: 1.0.2
+      vulnerable_at: 1.0.1
+summary: |-
+    free5GC's BSF concurrent PUT /nbsf-management/v1/subscriptions/{subId} crashes
+    the BSF process via concurrent map read/write on Subscriptions in github.com/free5gc/bsf
+cves:
+    - CVE-2026-44318
+ghsas:
+    - GHSA-27ph-8q4f-h7m7
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-27ph-8q4f-h7m7
+    - fix: https://github.com/free5gc/bsf/commit/277908565fd628d974a13ef562b81a8b7b519ffa
+    - fix: https://github.com/free5gc/bsf/pull/7
+    - web: https://github.com/free5gc/free5gc/issues/926
+source:
+    id: GHSA-27ph-8q4f-h7m7
+    created: 2026-05-20T12:45:41.608996072-04:00
+review_status: UNREVIEWED

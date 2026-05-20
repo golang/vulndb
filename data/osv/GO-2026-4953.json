@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4953",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-40188",
+    "GHSA-2943-crp8-38xx"
+  ],
+  "summary": "goshs is Missing Write Protection for Parametric Data Values in github.com/patrickhener/goshs",
+  "details": "goshs is Missing Write Protection for Parametric Data Values in github.com/patrickhener/goshs",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/patrickhener/goshs",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.0.7"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/patrickhener/goshs/security/advisories/GHSA-2943-crp8-38xx"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40188"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/patrickhener/goshs/commit/141c188ce270ffbec087844a50e5e695b7da7744"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/patrickhener/goshs/releases/tag/v2.0.0-beta.4"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4953",
+    "review_status": "UNREVIEWED"
+  }
+}

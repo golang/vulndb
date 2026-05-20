@@ -1,0 +1,26 @@
+id: GO-2026-4996
+modules:
+    - module: github.com/grafana/tempo-operator
+      versions:
+        - fixed: 0.16.0
+      vulnerable_at: 0.15.3
+summary: |-
+    Grafana Tempo Operator Vulnerable to Exposure of Sensitive Information to an
+    Unauthorized Actor in github.com/grafana/tempo-operator
+cves:
+    - CVE-2025-2786
+ghsas:
+    - GHSA-28gr-56hr-prp6
+references:
+    - advisory: https://github.com/advisories/GHSA-28gr-56hr-prp6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-2786
+    - fix: https://github.com/grafana/tempo-operator/commit/0f3f6ad9dec457d67c3d45ceec90e8dfa017329c
+    - fix: https://github.com/grafana/tempo-operator/pull/1145
+    - web: https://access.redhat.com/errata/RHSA-2025:3607
+    - web: https://access.redhat.com/errata/RHSA-2025:3740
+    - web: https://access.redhat.com/security/cve/CVE-2025-2786
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2354811
+source:
+    id: GHSA-28gr-56hr-prp6
+    created: 2026-05-20T12:45:21.707925873-04:00
+review_status: UNREVIEWED

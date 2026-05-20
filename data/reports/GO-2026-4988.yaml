@@ -1,0 +1,19 @@
+id: GO-2026-4988
+modules:
+    - module: github.com/l3montree-dev/devguard
+      versions:
+        - fixed: 1.2.2
+      vulnerable_at: 1.2.1
+summary: DevGuard has an unauthenticated identity assertion via `X-Admin-Token` header in github.com/l3montree-dev/devguard
+cves:
+    - CVE-2026-42300
+ghsas:
+    - GHSA-2g9v-7mr5-fgjg
+references:
+    - advisory: https://github.com/l3montree-dev/devguard/security/advisories/GHSA-2g9v-7mr5-fgjg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42300
+    - fix: https://github.com/l3montree-dev/devguard/commit/6f38310bf93b2a63df3055038f4da82b1f4e6d9a
+source:
+    id: GHSA-2g9v-7mr5-fgjg
+    created: 2026-05-20T12:47:26.396261769-04:00
+review_status: UNREVIEWED

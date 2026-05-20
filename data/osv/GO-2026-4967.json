@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4967",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-42072",
+    "GHSA-2hp7-65r3-wv54"
+  ],
+  "summary": "NornicDB has Improper Network Binding in its Bolt Server, allowing unauthorized remote access in github.com/orneryd/nornicdb",
+  "details": "NornicDB has Improper Network Binding in its Bolt Server, allowing unauthorized remote access in github.com/orneryd/nornicdb",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/orneryd/nornicdb",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.0.42-hotfix"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/orneryd/NornicDB/security/advisories/GHSA-2hp7-65r3-wv54"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42072"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/orneryd/NornicDB/commit/adce4f9a9fc7b6aada07c0bfa2d737cd7a6efaca"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/orneryd/NornicDB/releases/tag/v1.0.42"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/orneryd/NornicDB/releases/tag/v1.0.42-hotfix"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4967",
+    "review_status": "UNREVIEWED"
+  }
+}

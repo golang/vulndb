@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4983",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-28xx-pppm-vqff"
+  ],
+  "summary": "ydb-go-sdk's transactions are not committed using the `options.WithCommit()` option on last call `table.Transaction.Execute` in transaction in github.com/ydb-platform/ydb-go-sdk",
+  "details": "ydb-go-sdk's transactions are not committed using the `options.WithCommit()` option on last call `table.Transaction.Execute` in transaction in github.com/ydb-platform/ydb-go-sdk",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/ydb-platform/ydb-go-sdk/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "3.104.6"
+            },
+            {
+              "fixed": "3.134.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/ydb-platform/ydb-go-sdk/security/advisories/GHSA-28xx-pppm-vqff"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/ydb-platform/ydb-go-sdk/commit/251128a64763555d9a79ee7a131dd154c9000eb9"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/ydb-platform/ydb-go-sdk/commit/25dcff4c41153f1f9413512ba12999b40bf7154d"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/ydb-platform/ydb-go-sdk/pull/2091"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/ydb-platform/ydb-go-sdk/releases/tag/v3.104.6"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/ydb-platform/ydb-go-sdk/releases/tag/v3.134.1"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/ydb-platform/ydb-go-sdk/releases/tag/v3.134.2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4983",
+    "review_status": "UNREVIEWED"
+  }
+}

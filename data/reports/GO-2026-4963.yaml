@@ -1,0 +1,26 @@
+id: GO-2026-4963
+modules:
+    - module: github.com/jkroepke/openvpn-auth-oauth2
+      versions:
+        - introduced: 1.26.3
+        - fixed: 1.27.3
+      vulnerable_at: 1.27.2
+summary: |-
+    openvpn-auth-oauth2 returns FUNC_SUCCESS on client-deny, allowing
+    unauthenticated VPN access in github.com/jkroepke/openvpn-auth-oauth2
+cves:
+    - CVE-2026-41070
+ghsas:
+    - GHSA-246w-jgmq-88fg
+references:
+    - advisory: https://github.com/jkroepke/openvpn-auth-oauth2/security/advisories/GHSA-246w-jgmq-88fg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-41070
+    - fix: https://github.com/jkroepke/openvpn-auth-oauth2/commit/36f69a6c67c1054da7cbfa04ced3f0555127c8f2
+    - fix: https://github.com/jkroepke/openvpn-auth-oauth2/pull/829
+    - web: https://github.com/OpenVPN/openvpn/blob/master/include/openvpn-plugin.h.in
+    - web: https://github.com/OpenVPN/openvpn3/blob/master/doc/webauth.md
+    - web: https://github.com/jkroepke/openvpn-auth-oauth2/releases/tag/v1.27.3
+source:
+    id: GHSA-246w-jgmq-88fg
+    created: 2026-05-20T12:49:35.684536489-04:00
+review_status: UNREVIEWED

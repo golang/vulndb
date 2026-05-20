@@ -1,0 +1,24 @@
+id: GO-2026-4983
+modules:
+    - module: github.com/ydb-platform/ydb-go-sdk/v3
+      versions:
+        - introduced: 3.104.6
+        - fixed: 3.134.2
+      vulnerable_at: 3.134.1
+summary: |-
+    ydb-go-sdk's transactions are not committed using the `options.WithCommit()`
+    option on last call `table.Transaction.Execute` in transaction in github.com/ydb-platform/ydb-go-sdk
+ghsas:
+    - GHSA-28xx-pppm-vqff
+references:
+    - advisory: https://github.com/ydb-platform/ydb-go-sdk/security/advisories/GHSA-28xx-pppm-vqff
+    - web: https://github.com/ydb-platform/ydb-go-sdk/commit/251128a64763555d9a79ee7a131dd154c9000eb9
+    - web: https://github.com/ydb-platform/ydb-go-sdk/commit/25dcff4c41153f1f9413512ba12999b40bf7154d
+    - web: https://github.com/ydb-platform/ydb-go-sdk/pull/2091
+    - web: https://github.com/ydb-platform/ydb-go-sdk/releases/tag/v3.104.6
+    - web: https://github.com/ydb-platform/ydb-go-sdk/releases/tag/v3.134.1
+    - web: https://github.com/ydb-platform/ydb-go-sdk/releases/tag/v3.134.2
+source:
+    id: GHSA-28xx-pppm-vqff
+    created: 2026-05-20T12:47:34.752733248-04:00
+review_status: UNREVIEWED

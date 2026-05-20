@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4963",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-41070",
+    "GHSA-246w-jgmq-88fg"
+  ],
+  "summary": "openvpn-auth-oauth2 returns FUNC_SUCCESS on client-deny, allowing unauthenticated VPN access in github.com/jkroepke/openvpn-auth-oauth2",
+  "details": "openvpn-auth-oauth2 returns FUNC_SUCCESS on client-deny, allowing unauthenticated VPN access in github.com/jkroepke/openvpn-auth-oauth2",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/jkroepke/openvpn-auth-oauth2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.26.3"
+            },
+            {
+              "fixed": "1.27.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/jkroepke/openvpn-auth-oauth2/security/advisories/GHSA-246w-jgmq-88fg"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-41070"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/jkroepke/openvpn-auth-oauth2/commit/36f69a6c67c1054da7cbfa04ced3f0555127c8f2"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/jkroepke/openvpn-auth-oauth2/pull/829"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/OpenVPN/openvpn/blob/master/include/openvpn-plugin.h.in"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/OpenVPN/openvpn3/blob/master/doc/webauth.md"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/jkroepke/openvpn-auth-oauth2/releases/tag/v1.27.3"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4963",
+    "review_status": "UNREVIEWED"
+  }
+}

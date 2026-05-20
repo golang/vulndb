@@ -1,0 +1,24 @@
+id: GO-2026-4964
+modules:
+    - module: github.com/rclone/rclone
+      versions:
+        - fixed: 1.73.5
+      non_go_versions:
+        - introduced: 1.45.0
+      vulnerable_at: 1.73.4
+summary: |-
+    Rclone: Unauthenticated options/set allows runtime auth bypass, leading to
+    sensitive operations and command execution in github.com/rclone/rclone
+cves:
+    - CVE-2026-41176
+ghsas:
+    - GHSA-25qr-6mpr-f7qx
+references:
+    - advisory: https://github.com/rclone/rclone/security/advisories/GHSA-25qr-6mpr-f7qx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-41176
+    - web: https://github.com/rclone/rclone/blob/bf55d5e6d37fd86164a87782191f9e1ffcaafa82/fs/rc/config.go
+    - web: https://github.com/rclone/rclone/blob/bf55d5e6d37fd86164a87782191f9e1ffcaafa82/fs/rc/rcserver/rcserver.go
+source:
+    id: GHSA-25qr-6mpr-f7qx
+    created: 2026-05-20T12:49:27.164847461-04:00
+review_status: UNREVIEWED
