@@ -28,7 +28,29 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/moby/buildkit/client/llb",
+            "symbols": [
+              "Git"
+            ]
+          },
+          {
+            "path": "github.com/moby/buildkit/source/git",
+            "symbols": [
+              "NewGitIdentifier",
+              "Source.Identifier"
+            ]
+          },
+          {
+            "path": "github.com/moby/buildkit/util/gitutil",
+            "symbols": [
+              "ParseURL"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
@@ -43,6 +65,14 @@
     {
       "type": "WEB",
       "url": "https://github.com/moby/buildkit/releases/tag/v0.28.1"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/moby/buildkit/commit/45b038cd0b2ec2d34013ce0f085522276f7ee0d8"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/moby/buildkit/commit/f5462c216098af766f97ea4cb328e65c6d8f7256"
     }
   ],
   "database_specific": {

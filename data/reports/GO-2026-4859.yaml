@@ -4,6 +4,18 @@ modules:
       versions:
         - fixed: 0.28.1
       vulnerable_at: 0.28.0
+      packages:
+        - package: github.com/moby/buildkit/client/llb
+          symbols:
+            - Git
+        - package: github.com/moby/buildkit/source/git
+          symbols:
+            - NewGitIdentifier
+          derived_symbols:
+            - Source.Identifier
+        - package: github.com/moby/buildkit/util/gitutil
+          symbols:
+            - ParseURL
 summary: BuildKit Git URL subdir component can cause access to restricted files in github.com/moby/buildkit
 cves:
     - CVE-2026-33748
@@ -13,8 +25,8 @@ references:
     - advisory: https://github.com/moby/buildkit/security/advisories/GHSA-4vrq-3vrq-g6gg
     - web: https://docs.docker.com/build/concepts/context/#url-fragments
     - web: https://github.com/moby/buildkit/releases/tag/v0.28.1
-notes:
-    - failed to auto-populate symbols: no commits found for github.com/moby/buildkit
+    - fix: https://github.com/moby/buildkit/commit/45b038cd0b2ec2d34013ce0f085522276f7ee0d8
+    - fix: https://github.com/moby/buildkit/commit/f5462c216098af766f97ea4cb328e65c6d8f7256
 source:
     id: GHSA-4vrq-3vrq-g6gg
     created: 2026-03-26T15:25:09.28540352-04:00
