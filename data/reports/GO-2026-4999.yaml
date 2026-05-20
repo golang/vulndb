@@ -1,0 +1,22 @@
+id: GO-2026-4999
+modules:
+    - module: github.com/hahwul/dalfox
+      vulnerable_at: 1.2.1
+    - module: github.com/hahwul/dalfox/v2
+      versions:
+        - fixed: 2.13.0
+      vulnerable_at: 2.12.0
+summary: |-
+    Dalfox has an Unauthenticated Remote DoS via Closed-Channel Write in
+    `ParameterAnalysis` (server mode) in github.com/hahwul/dalfox
+cves:
+    - CVE-2026-45090
+ghsas:
+    - GHSA-2g4x-fq3j-cgq4
+references:
+    - advisory: https://github.com/hahwul/dalfox/security/advisories/GHSA-2g4x-fq3j-cgq4
+    - web: https://github.com/hahwul/dalfox/releases/tag/v2.13.0
+source:
+    id: GHSA-2g4x-fq3j-cgq4
+    created: 2026-05-20T12:45:08.902343339-04:00
+review_status: UNREVIEWED
