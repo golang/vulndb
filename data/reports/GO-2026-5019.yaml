@@ -1,0 +1,41 @@
+id: GO-2026-5019
+modules:
+    - module: golang.org/x/crypto
+      versions:
+        - fixed: 0.52.0
+      vulnerable_at: 0.51.0
+      packages:
+        - package: golang.org/x/crypto/ssh
+          symbols:
+            - CertChecker.CheckCert
+            - skECDSAPublicKey.Verify
+            - skEd25519PublicKey.Verify
+            - connection.serverAuthenticate
+          derived_symbols:
+            - CertChecker.Authenticate
+            - CertChecker.CheckHostKey
+            - Certificate.Verify
+            - Dial
+            - NewClientConn
+            - NewServerConn
+summary: Invoking  bypass of FIDO/U2F security keys physical interaction in golang.org/x/crypto/ssh
+description: |
+    The Verify() method for FIDO/U2F security key types
+    (sk-ecdsa-sha2-nistp256@openssh.com, sk-ssh-ed25519@openssh.com)
+    did not check the User Presence flag. Signatures generated
+    without physical touch were accepted, allowing unattended use of
+    a hardware security key. To restore the previous behavior, return
+    a "no-touch-required" extension in Permissions.Extensions from
+    PublicKeyCallback.
+credits:
+    - NCC Group Cryptography Services, sponsored by Teleport
+references:
+    - report: https://go.dev/issue/79566
+    - web: https://groups.google.com/g/golang-announce/c/a082jnz-LvI
+    - fix: https://go.dev/cl/781662
+cve_metadata:
+    id: CVE-2026-39831
+    cwe: 'CWE-290: Authentication Bypass by Spoofing'
+source:
+    id: go-security-team
+review_status: REVIEWED

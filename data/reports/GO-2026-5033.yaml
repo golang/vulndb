@@ -1,0 +1,31 @@
+id: GO-2026-5033
+modules:
+    - module: golang.org/x/crypto
+      versions:
+        - fixed: 0.52.0
+      vulnerable_at: 0.51.0
+      packages:
+        - package: golang.org/x/crypto/ssh/agent
+          symbols:
+            - parseEd25519Cert
+            - parseEd25519Key
+          derived_symbols:
+            - ForwardToAgent
+            - ServeAgent
+summary: Invoking  pathological inputs can lead to client panic in golang.org/x/crypto/ssh/agent
+description: |
+    For certain crafted inputs, a 'ed25519.PrivateKey' was
+    created by casting malformed wire bytes, leading to a
+    panic when used.
+credits:
+    - NCC Group Cryptography Services, sponsored by Teleport
+references:
+    - report: https://go.dev/issue/79596
+    - fix: https://go.dev/cl/781360
+    - web: https://groups.google.com/g/golang-announce/c/a082jnz-LvI
+cve_metadata:
+    id: CVE-2026-46598
+    cwe: 'CWE-129: Improper Validation of Array Index'
+source:
+    id: go-security-team
+review_status: REVIEWED

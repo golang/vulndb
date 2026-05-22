@@ -1,0 +1,33 @@
+id: GO-2026-5014
+modules:
+    - module: golang.org/x/crypto
+      versions:
+        - fixed: 0.52.0
+      vulnerable_at: 0.51.0
+      packages:
+        - package: golang.org/x/crypto/ssh
+          symbols:
+            - connection.serverAuthenticate
+          derived_symbols:
+            - NewServerConn
+summary: Invoking  bypass of certificate restrictions in golang.org/x/crypto/ssh
+description: |
+    When an SSH server authentication callback returned
+    PartialSuccessError with non-nil Permissions, those
+    permissions were silently discarded, potentially
+    dropping certificate restrictions such as force-command
+    after a second factor succeeded. Returning non-nil
+    Permissions with PartialSuccessError now results in a
+    connection error.
+credits:
+    - NCC Group Cryptography Services, sponsored by Teleport
+references:
+    - report: https://go.dev/issue/79562
+    - web: https://groups.google.com/g/golang-announce/c/a082jnz-LvI
+    - fix: https://go.dev/cl/781621
+cve_metadata:
+    id: CVE-2026-39828
+    cwe: 'CWE-863: Incorrect Authorization'
+source:
+    id: go-security-team
+review_status: REVIEWED

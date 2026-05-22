@@ -1,0 +1,28 @@
+id: GO-2026-5023
+modules:
+    - module: golang.org/x/crypto
+      versions:
+        - fixed: 0.52.0
+      vulnerable_at: 0.51.0
+      packages:
+        - package: golang.org/x/crypto/ssh
+          symbols:
+            - connection.serverAuthenticate
+          derived_symbols:
+            - NewServerConn
+summary: Invoking  VerifiedPublicKeyCallback permissions skip enforcement in golang.org/x/crypto/ssh
+description: |
+    Previously, CVE-2024-45337 fixed an authorization bypass
+    for misused ssh server configurations; if any other type
+    of callback is passed other than public key, then the
+    source-address validation would be skipped.
+references:
+    - report: https://go.dev/issue/79570
+    - web: https://groups.google.com/g/golang-announce/c/a082jnz-LvI
+    - fix: https://go.dev/cl/781642
+cve_metadata:
+    id: CVE-2026-46595
+    cwe: 'CWE-863: Incorrect Authorization'
+source:
+    id: go-security-team
+review_status: REVIEWED

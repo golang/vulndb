@@ -1,0 +1,29 @@
+id: GO-2026-5016
+modules:
+    - module: golang.org/x/crypto
+      versions:
+        - fixed: 0.52.0
+      vulnerable_at: 0.51.0
+      packages:
+        - package: golang.org/x/crypto/ssh
+          symbols:
+            - channel.Reject
+summary: Invoking  memory leak when rejecting channels can lead to DoS in golang.org/x/crypto/ssh
+description: |
+    An authenticated SSH client that repeatedly opened channels which
+    were rejected by the server caused unbounded memory growth, eventually
+    crashing the server process and affecting all connected users. Rejected
+    channels are now properly removed from the connection's internal state
+    and released for garbage collection.
+credits:
+    - Ziyan Zhou
+references:
+    - report: https://go.dev/issue/35127
+    - fix: https://go.dev/cl/781320
+    - web: https://groups.google.com/g/golang-announce/c/a082jnz-LvI
+cve_metadata:
+    id: CVE-2026-39827
+    cwe: 'CWE-401: Missing Release of Memory after Effective Lifetime'
+source:
+    id: go-security-team
+review_status: REVIEWED

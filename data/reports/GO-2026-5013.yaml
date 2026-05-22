@@ -1,0 +1,41 @@
+id: GO-2026-5013
+modules:
+    - module: golang.org/x/crypto
+      versions:
+        - fixed: 0.52.0
+      vulnerable_at: 0.51.0
+      packages:
+        - package: golang.org/x/crypto/ssh
+          symbols:
+            - gcmCipher.readCipherPacket
+          derived_symbols:
+            - Dial
+            - NewClientConn
+            - NewServerConn
+            - curve25519sha256.Client
+            - curve25519sha256.Server
+            - dhGEXSHA.Client
+            - dhGEXSHA.Server
+            - dhGroup.Client
+            - dhGroup.Server
+            - ecdh.Client
+            - ecdh.Server
+            - mlkem768WithCurve25519sha256.Client
+            - mlkem768WithCurve25519sha256.Server
+summary: Invoking  byte arithmetic causes underflow and panic in golang.org/x/crypto/ssh
+description: |
+    An incorrectly placed cast from bytes to int
+    allowed for server-side panic in the AES-GCM
+    packet decoder for well-crafted inputs.
+credits:
+    - Maciej Kawka
+references:
+    - report: https://go.dev/issue/79561
+    - web: https://groups.google.com/g/golang-announce/c/a082jnz-LvI
+    - fix: https://go.dev/cl/781620
+cve_metadata:
+    id: CVE-2026-46597
+    cwe: 'CWE-191: Integer Underflow (Wrap or Wraparound)'
+source:
+    id: go-security-team
+review_status: REVIEWED

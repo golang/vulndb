@@ -1,0 +1,31 @@
+id: GO-2026-5015
+modules:
+    - module: golang.org/x/crypto
+      versions:
+        - fixed: 0.52.0
+      vulnerable_at: 0.51.0
+      packages:
+        - package: golang.org/x/crypto/ssh
+          symbols:
+            - CertChecker.CheckHostKey
+            - CertChecker.Authenticate
+summary: Invoking  server panic during CheckHostKey/Authenticate in golang.org/x/crypto/ssh
+description: |
+    SSH servers which use CertChecker as a public key
+    callback without setting IsUserAuthority or
+    IsHostAuthority could be caused to panic by a
+    client presenting a certificate. CertChecker now
+    returns an error instead of panicking when these
+    callbacks are nil.
+credits:
+    - NCC Group Cryptography Services, sponsored by Teleport
+references:
+    - report: https://go.dev/issue/79563
+    - web: https://groups.google.com/g/golang-announce/c/a082jnz-LvI
+    - fix: https://go.dev/cl/781660
+cve_metadata:
+    id: CVE-2026-39835
+    cwe: 'CWE-476: NULL Pointer Dereference'
+source:
+    id: go-security-team
+review_status: REVIEWED

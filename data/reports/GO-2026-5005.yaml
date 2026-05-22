@@ -1,0 +1,32 @@
+id: GO-2026-5005
+modules:
+    - module: golang.org/x/crypto
+      versions:
+        - fixed: 0.52.0
+      vulnerable_at: 0.51.0
+      packages:
+        - package: golang.org/x/crypto/ssh/agent
+          symbols:
+            - keyring.Add
+summary: Invoking  key constraints not enforced in golang.org/x/crypto/ssh/agent
+description: |
+    The in-memory keyring returned by NewKeyring() silently
+    accepted keys with the ConfirmBeforeUse constraint but
+    never enforced it. The key would sign without any
+    confirmation prompt, with no indication to the caller
+    that the constraint was not in effect. NewKeyring()
+    now returns an error when unsupported constraints are
+    requested.
+credits:
+    - NCC Group Cryptography Services, sponsored by Teleport
+references:
+    - report: https://go.dev/issue/79436
+    - fix: https://go.dev/cl/778640
+    - fix: https://go.dev/cl/778641
+    - web: https://groups.google.com/g/golang-announce/c/a082jnz-LvI
+cve_metadata:
+    id: CVE-2026-39833
+    cwe: 'CWE-358: Improperly Implemented Security Check for Standard'
+source:
+    id: go-security-team
+review_status: REVIEWED

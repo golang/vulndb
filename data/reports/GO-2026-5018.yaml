@@ -1,0 +1,47 @@
+id: GO-2026-5018
+modules:
+    - module: golang.org/x/crypto
+      versions:
+        - fixed: 0.52.0
+      vulnerable_at: 0.51.0
+      packages:
+        - package: golang.org/x/crypto/ssh
+          symbols:
+            - parseRSA
+            - checkDSAParams
+            - parseDSA
+          derived_symbols:
+            - Dial
+            - NewClientConn
+            - NewServerConn
+            - NewSignerFromKey
+            - ParseAuthorizedKey
+            - ParseKnownHosts
+            - ParsePrivateKey
+            - ParsePrivateKeyWithPassphrase
+            - ParsePublicKey
+            - ParseRawPrivateKey
+            - ParseRawPrivateKeyWithPassphrase
+summary: Invoking  pathological RSA/DSA parameters may cause DoS in golang.org/x/crypto/ssh
+description: |
+    The RSA and DSA public key parsers did not enforce size
+    limits on key parameters. A crafted public key with an
+    excessively large modulus or DSA parameter could cause
+    several minutes of CPU consumption during signature
+    verification. This could be triggered by unauthenticated
+    clients during public key authentication. RSA moduli are
+    now limited to 8192 bits, and DSA parameters are validated
+    per FIPS 186-2.
+credits:
+    - NCC Group Cryptography Services, sponsored by Teleport
+references:
+    - report: https://go.dev/issue/79565
+    - web: https://groups.google.com/g/golang-announce/c/a082jnz-LvI
+    - fix: https://go.dev/cl/781641
+    - fix: https://go.dev/cl/781661
+cve_metadata:
+    id: CVE-2026-39829
+    cwe: 'CWE-1176: Inefficient CPU Computation'
+source:
+    id: go-security-team
+review_status: REVIEWED

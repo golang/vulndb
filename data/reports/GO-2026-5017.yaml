@@ -1,0 +1,53 @@
+id: GO-2026-5017
+modules:
+    - module: golang.org/x/crypto
+      versions:
+        - fixed: 0.52.0
+      vulnerable_at: 0.51.0
+      packages:
+        - package: golang.org/x/crypto/ssh
+          symbols:
+            - mux.SendRequest
+            - mux.handleGlobalPacket
+            - channel.handlePacket
+            - channel.SendRequest
+          derived_symbols:
+            - Client.Listen
+            - Client.ListenTCP
+            - Client.ListenUnix
+            - Dial
+            - NewClientConn
+            - NewServerConn
+            - Session.CombinedOutput
+            - Session.Output
+            - Session.RequestPty
+            - Session.RequestSubsystem
+            - Session.Run
+            - Session.SendRequest
+            - Session.Setenv
+            - Session.Shell
+            - Session.Signal
+            - Session.Start
+            - Session.WindowChange
+            - tcpListener.Close
+            - unixListener.Close
+summary: Invoking  client can cause server deadlock on unexpected responses in golang.org/x/crypto/ssh
+description: |
+    A malicious SSH peer could send unsolicited global request
+    responses to fill an internal buffer, blocking the connection's
+    read loop. The blocked goroutine could not be released by calling
+    Close(), resulting in a resource leak per connection. Unsolicited
+    global responses are now discarded.
+credits:
+    - NCC Group Cryptography Services, sponsored by Teleport
+references:
+    - report: https://go.dev/issue/79564
+    - web: https://groups.google.com/g/golang-announce/c/a082jnz-LvI
+    - fix: https://go.dev/cl/781640
+    - fix: https://go.dev/cl/781664
+cve_metadata:
+    id: CVE-2026-39830
+    cwe: 'CWE-833: Deadlock'
+source:
+    id: go-security-team
+review_status: REVIEWED

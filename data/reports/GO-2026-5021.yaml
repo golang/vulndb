@@ -1,0 +1,25 @@
+id: GO-2026-5021
+modules:
+    - module: golang.org/x/crypto
+      versions:
+        - fixed: 0.52.0
+      vulnerable_at: 0.51.0
+      packages:
+        - package: golang.org/x/crypto/ssh/knownhosts
+          symbols:
+            - hostKeyDB.IsRevoked
+summary: Invoking  auth bypass via unenforced @revoked status in golang.org/x/crypto/ssh/knownhosts
+description: |
+    Previously, a revoked 'SignatureKey' belonging to a CA
+    was not correctly checked for revocation. Now, both the
+    'key' and 'key.SignatureKey' are checked for @revoked.
+references:
+    - report: https://go.dev/issue/79568
+    - fix: https://go.dev/cl/781220
+    - web: https://groups.google.com/g/golang-announce/c/a082jnz-LvI
+cve_metadata:
+    id: CVE-2026-42508
+    cwe: 'CWE-295: Improper Certificate Validation'
+source:
+    id: go-security-team
+review_status: REVIEWED

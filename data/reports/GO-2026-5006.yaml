@@ -1,0 +1,33 @@
+id: GO-2026-5006
+modules:
+    - module: golang.org/x/crypto
+      versions:
+        - fixed: 0.52.0
+      vulnerable_at: 0.51.0
+      packages:
+        - package: golang.org/x/crypto/ssh/agent
+          symbols:
+            - client.Add
+            - keyring.Add
+summary: Invoking  agent constraints dropped when forwarding keys in golang.org/x/crypto/ssh/agent
+description: |
+    When adding a key to a remote agent constraint extensions
+    such as restrict-destination-v00@openssh.com were not
+    serialized in the request. Destination restrictions were
+    silently stripped when forwarding keys, allowing unrestricted
+    use of the key on the remote host. The client now serializes
+    all constraint extensions. Additionally, the in-memory keyring
+    returned by NewKeyring() now rejects keys with unsupported
+    constraint extensions instead of silently ignoring them.
+credits:
+    - NCC Group Cryptography Services, sponsored by Teleport
+references:
+    - report: https://go.dev/issue/79435
+    - fix: https://go.dev/cl/778642
+    - web: https://groups.google.com/g/golang-announce/c/a082jnz-LvI
+cve_metadata:
+    id: CVE-2026-39832
+    cwe: 'CWE-281: Improper Preservation of Permissions'
+source:
+    id: go-security-team
+review_status: REVIEWED
