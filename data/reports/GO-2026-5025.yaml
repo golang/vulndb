@@ -1,0 +1,32 @@
+id: GO-2026-5025
+modules:
+    - module: golang.org/x/net
+      versions:
+        - fixed: 0.55.0
+      vulnerable_at: 0.54.0
+      packages:
+        - package: golang.org/x/net/html
+          symbols:
+            - parser.parse
+          derived_symbols:
+            - Parse
+            - ParseFragment
+            - ParseFragmentWithOptions
+            - ParseWithOptions
+summary: Invoking  incorrect handling of namespaced elements in foreign content in golang.org/x/net/html
+description: |
+    Parsing arbitrary HTML which is then rendered using Render can result in an
+    unexpected HTML tree. This can be leveraged to execute XSS attacks in
+    applications that attempt to sanitize input HTML before rendering.
+credits:
+    - ensy
+references:
+    - report: https://go.dev/issue/79571
+    - web: https://groups.google.com/g/golang-announce/c/iI-mYSI0lu8
+    - fix: https://go.dev/cl/781700
+cve_metadata:
+    id: CVE-2026-42506
+    cwe: 'CWE-79: Improper Neutralization of Input During Web Page Generation (''Cross-site Scripting'')'
+source:
+    id: go-security-team
+review_status: REVIEWED

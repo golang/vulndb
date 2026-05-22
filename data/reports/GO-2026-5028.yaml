@@ -1,0 +1,31 @@
+id: GO-2026-5028
+modules:
+    - module: golang.org/x/net
+      versions:
+        - fixed: 0.55.0
+      vulnerable_at: 0.54.0
+      packages:
+        - package: golang.org/x/net/html
+          symbols:
+            - parser.parse
+          derived_symbols:
+            - Parse
+            - ParseFragment
+            - ParseFragmentWithOptions
+            - ParseWithOptions
+summary: Invoking denial of service when parsing arbitrary HTML in golang.org/x/net/html
+description: |-
+    Parsing arbitrary HTML can consume excessive CPU time, possibly leading to
+    denial of service.
+credits:
+    - IPC Labs
+references:
+    - fix: https://go.dev/cl/781702
+    - report: https://go.dev/issue/79573
+    - web: https://groups.google.com/g/golang-announce/c/iI-mYSI0lu8
+cve_metadata:
+    id: CVE-2026-25680
+    cwe: 'CWE-407: Inefficient Algorithmic Complexity'
+source:
+    id: go-security-team
+review_status: REVIEWED

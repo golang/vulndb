@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5028",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-25680"
+  ],
+  "summary": "Invoking denial of service when parsing arbitrary HTML in golang.org/x/net/html",
+  "details": "Parsing arbitrary HTML can consume excessive CPU time, possibly leading to denial of service.",
+  "affected": [
+    {
+      "package": {
+        "name": "golang.org/x/net",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.55.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "golang.org/x/net/html",
+            "symbols": [
+              "Parse",
+              "ParseFragment",
+              "ParseFragmentWithOptions",
+              "ParseWithOptions",
+              "parser.parse"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/781702"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/79573"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/iI-mYSI0lu8"
+    }
+  ],
+  "credits": [
+    {
+      "name": "IPC Labs"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5028",
+    "review_status": "REVIEWED"
+  }
+}
