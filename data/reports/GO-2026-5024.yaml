@@ -1,0 +1,28 @@
+id: GO-2026-5024
+modules:
+    - module: golang.org/x/sys
+      versions:
+        - fixed: 0.44.0
+      vulnerable_at: 0.43.0
+      packages:
+        - package: golang.org/x/sys/windows
+          goos:
+            - windows
+          symbols:
+            - NewNTUnicodeString
+summary: Invoking  integer overflow in NewNTUnicodeString in golang.org/x/sys/windows
+description: |
+    NewNTUnicodeString does not check for string length overflow.
+    When provided with a string that overflows the maximum size of
+    a NTUnicodeString (a 16-bit number of bytes), it returns a truncated
+    string rather than an error.
+references:
+    - report: https://go.dev/issue/78916
+    - fix: https://go.dev/cl/770080
+    - web: https://groups.google.com/g/golang-announce/c/6MMI8Lj-Atg
+cve_metadata:
+    id: CVE-2026-39824
+    cwe: 'CWE-190: Integer Overflow or Wraparound'
+source:
+    id: go-security-team
+review_status: REVIEWED
