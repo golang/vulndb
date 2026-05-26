@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5002",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-23998",
+    "GHSA-2rc4-7jc6-qffh"
+  ],
+  "summary": "Windows MDM management endpoint authentication bypass in github.com/fleetdm/fleet/v4",
+  "details": "Windows MDM management endpoint authentication bypass in github.com/fleetdm/fleet/v4",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/fleetdm/fleet/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.81.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/fleetdm/fleet/v4/server/service",
+            "symbols": [
+              "Service.GetMDMWindowsEnrollResponse",
+              "Service.GetMDMWindowsManagementResponse"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/fleetdm/fleet/security/advisories/GHSA-2rc4-7jc6-qffh"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/fleetdm/fleet/commit/3ff8119ab8f794806a4cc82e21f760c123d92966"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5002",
+    "review_status": "REVIEWED"
+  }
+}

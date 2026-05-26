@@ -1,0 +1,23 @@
+id: GO-2026-5002
+modules:
+    - module: github.com/fleetdm/fleet/v4
+      versions:
+        - fixed: 4.81.0
+      vulnerable_at: 4.80.3
+      packages:
+        - package: github.com/fleetdm/fleet/v4/server/service
+          symbols:
+            - Service.GetMDMWindowsEnrollResponse
+            - Service.GetMDMWindowsManagementResponse
+summary: Windows MDM management endpoint authentication bypass in github.com/fleetdm/fleet/v4
+cves:
+    - CVE-2026-23998
+ghsas:
+    - GHSA-2rc4-7jc6-qffh
+references:
+    - advisory: https://github.com/fleetdm/fleet/security/advisories/GHSA-2rc4-7jc6-qffh
+    - fix: https://github.com/fleetdm/fleet/commit/3ff8119ab8f794806a4cc82e21f760c123d92966
+source:
+    id: GHSA-2rc4-7jc6-qffh
+    created: 2026-05-21T09:31:22.76537-04:00
+review_status: REVIEWED
