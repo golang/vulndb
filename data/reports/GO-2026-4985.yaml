@@ -1,0 +1,51 @@
+id: GO-2026-4985
+modules:
+    - module: go.opentelemetry.io/otel/exporters/otlp/otlplog/otlploghttp
+      versions:
+        - fixed: 0.19.0
+      vulnerable_at: 0.18.0
+      packages:
+        - package: go.opentelemetry.io/otel/exporters/otlp/otlplog/otlploghttp
+          symbols:
+            - client.UploadLogs
+          derived_symbols:
+            - Exporter.Export
+    - module: go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp
+      versions:
+        - fixed: 1.43.0
+      vulnerable_at: 1.42.0
+      packages:
+        - package: go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp
+          symbols:
+            - client.UploadMetrics
+          derived_symbols:
+            - Exporter.Export
+    - module: go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp
+      versions:
+        - fixed: 1.43.0
+      vulnerable_at: 1.42.0
+      packages:
+        - package: go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp
+          symbols:
+            - client.UploadTraces
+          derived_symbols:
+            - New
+            - NewUnstarted
+summary: Oversized OTLP HTTP response bodies can cause memory exhaustion in go.opentelemetry.io/otel/exporters/otlp
+description: |-
+    The OTLP HTTP exporters (traces, metrics, and logs) do not limit the size of the
+    HTTP response body read from the collector. A malicious or misconfigured
+    collector can send a large response body, leading to excessive memory
+    consumption and potential process termination (OOM).
+cves:
+    - CVE-2026-39882
+ghsas:
+    - GHSA-w8rr-5gcm-pp58
+references:
+    - fix: https://github.com/open-telemetry/opentelemetry-go/pull/8108
+    - advisory: https://github.com/open-telemetry/opentelemetry-go/security/advisories/GHSA-w8rr-5gcm-pp58
+    - web: http://github.com/open-telemetry/opentelemetry-go/releases/tag/v1.43.0
+source:
+    id: GHSA-w8rr-5gcm-pp58
+    created: 2026-05-21T09:33:29.626455-04:00
+review_status: REVIEWED
