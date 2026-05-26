@@ -1,0 +1,52 @@
+id: GO-2026-5004
+modules:
+    - module: github.com/jackc/pgx
+      vulnerable_at: 3.6.2+incompatible
+      packages:
+        - package: github.com/jackc/pgx/internal/sanitize
+          symbols:
+            - SanitizeSQL
+            - Query.Sanitize
+    - module: github.com/jackc/pgx/v4
+      vulnerable_at: 4.18.3
+      packages:
+        - package: github.com/jackc/pgx/v4/internal/sanitize
+          symbols:
+            - SanitizeSQL
+            - Query.Sanitize
+    - module: github.com/jackc/pgx/v5
+      versions:
+        - fixed: 5.9.2
+      vulnerable_at: 5.9.1
+      packages:
+        - package: github.com/jackc/pgx/v5/internal/sanitize
+          symbols:
+            - SanitizeSQL
+            - Query.Sanitize
+summary: |-
+    SQL Injection via placeholder confusion with dollar quoted string literals in
+    github.com/jackc/pgx
+description: |-
+    SQL Injection can occur when using the non-default simple protocol with a dollar
+    quoted string literal in the SQL query. If that string literal contains text
+    that would be interpreted as a placeholder outside of a string literal, and the
+    value of that placeholder is controllable by the attacker, an injection may be
+    possible.
+
+    For example, an attacker could provide a value that includes a closing dollar
+    quote followed by malicious SQL commands. This is unlikely to occur outside of a
+    contrived scenario.
+cves:
+    - CVE-2026-41889
+ghsas:
+    - GHSA-j88v-2chj-qfwx
+credits:
+    - Jack Christensen
+references:
+    - advisory: https://github.com/jackc/pgx/security/advisories/GHSA-j88v-2chj-qfwx
+    - fix: https://github.com/jackc/pgx/commit/60644f84918a8af66d14a4b0d865d4edafd955da
+    - web: https://github.com/jackc/pgx/releases/tag/v5.9.2
+source:
+    id: GHSA-j88v-2chj-qfwx
+    created: 2026-05-21T09:29:52.747438-04:00
+review_status: REVIEWED
