@@ -1,0 +1,52 @@
+id: GO-2026-4958
+modules:
+    - module: github.com/moby/spdystream
+      versions:
+        - fixed: 0.5.1
+      vulnerable_at: 0.5.0
+      packages:
+        - package: github.com/moby/spdystream
+          symbols:
+            - Connection.Serve
+            - NewConnection
+          derived_symbols:
+            - idleAwareFramer.ReadFrame
+        - package: github.com/moby/spdystream/spdy
+          symbols:
+            - Framer.ReadFrame
+            - NewFramer
+summary: Uncontrolled resource consumption when parsing SPDY frames in github.com/moby/spdystream
+description: |-
+    The SPDY/3 frame parser in spdystream does not validate attacker-controlled
+    counts and lengths before allocating memory. A remote peer that can send SPDY
+    frames to a service using spdystream can cause the process to allocate gigabytes
+    of memory with a small number of malformed control frames, leading to an
+    out-of-memory crash.
+
+    Three allocation paths in the receive side are affected:
+    1. SETTINGS entry count: The SETTINGS frame reader reads a 32-bit numSettings
+    from the payload and allocates a slice of that size without checking it against
+    the declared frame length.
+    2. Header count: parseHeaderValueBlock reads a 32-bit numHeaders from the
+    decompressed header block and allocates an http.Header map of that size with no
+    upper bound.
+    3. Header field size: Individual header name and value lengths are read as
+    32-bit integers and used directly as allocation sizes with no validation.
+
+    Because SPDY header blocks are zlib-compressed, a small on-the-wire payload can
+    decompress into attacker-controlled bytes that the parser interprets as 32-bit
+    counts and lengths. A single crafted frame is enough to exhaust process memory.
+cves:
+    - CVE-2026-35469
+ghsas:
+    - GHSA-pc3f-x583-g7j2
+credits:
+    - Samuel Karp
+references:
+    - advisory: https://github.com/moby/spdystream/security/advisories/GHSA-pc3f-x583-g7j2
+    - fix: https://github.com/moby/spdystream/commit/ef6121f62c730110bf5ae604a865a8613bfb787f
+    - web: https://github.com/moby/spdystream/releases/tag/v0.5.1
+source:
+    id: GHSA-pc3f-x583-g7j2
+    created: 2026-05-21T09:33:49.997038-04:00
+review_status: REVIEWED
