@@ -1,0 +1,33 @@
+id: GO-2026-4960
+modules:
+    - module: github.com/m1k1o/neko/server
+      versions:
+        - introduced: 0.0.0-20250326225119-51bbad7650d3
+        - fixed: 0.0.0-20260406184107-c54bcf1ee211
+      non_go_versions:
+        - introduced: 3.0.0
+        - fixed: 3.0.11
+        - introduced: 3.1.0
+        - fixed: 3.1.2
+      vulnerable_at: 0.0.0-20260402133337-716c60af2874
+      packages:
+        - package: github.com/m1k1o/neko/server/internal/api
+          symbols:
+            - ApiManagerCtx.UpdateProfile
+summary: |-
+    Neko has a Self-service Privilege Escalation for Authenticated Users in
+    github.com/m1k1o/neko/server
+cves:
+    - CVE-2026-39386
+ghsas:
+    - GHSA-2gw9-c2r2-f5qf
+references:
+    - advisory: https://github.com/m1k1o/neko/security/advisories/GHSA-2gw9-c2r2-f5qf
+    - web: https://github.com/m1k1o/neko/commit/6b561feb9016badea99ae7305091c0ff55e1d114
+    - web: https://github.com/m1k1o/neko/commit/c54bcf1ee211e28104a2bb6db59583a39c4a4d6e
+    - web: https://github.com/m1k1o/neko/releases/tag/v3.0.11
+    - web: https://github.com/m1k1o/neko/releases/tag/v3.1.2
+source:
+    id: GHSA-2gw9-c2r2-f5qf
+    created: 2026-05-21T09:33:38.493006-04:00
+review_status: REVIEWED
