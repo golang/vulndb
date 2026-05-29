@@ -1,0 +1,30 @@
+id: GO-2026-5032
+modules:
+    - module: golang.org/x/image
+      versions:
+        - fixed: 0.41.0
+      vulnerable_at: 0.40.0
+      packages:
+        - package: golang.org/x/image/tiff
+          symbols:
+            - unpackBits
+          derived_symbols:
+            - Decode
+summary: Excessive resource consumption in PackBits decompression in golang.org/x/image/tiff
+description: |
+    The TIFF decoder does not place a limit on the size of PackBits-compressed data.
+    A maliciously-crafted image can exploit this to cause a small image (both in
+    terms of pixel width/height and encoded size) to make the decoder decode large
+    amounts of compressed data.
+credits:
+    - Uuganbayar Lkhamsuren
+references:
+    - report: https://go.dev/issue/79577
+    - fix: https://go.dev/cl/759960
+    - web: https://groups.google.com/g/golang-announce/c/uhYX90BlBvI
+cve_metadata:
+    id: CVE-2026-46599
+    cwe: 'CWE-770: Allocation of Resources Without Limits or Throttling'
+source:
+    id: go-security-team
+review_status: REVIEWED
