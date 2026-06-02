@@ -1,0 +1,28 @@
+id: GO-2026-5038
+modules:
+    - module: std
+      versions:
+        - fixed: 1.25.11
+        - introduced: 1.26.0-0
+        - fixed: 1.26.4
+      vulnerable_at: 1.26.3
+      packages:
+        - package: mime
+          symbols:
+            - WordDecoder.DecodeHeader
+summary: Quadratic complexity in WordDecoder.DecodeHeader in mime
+description: |
+    Decoding a maliciously-crafted MIME header containing many invalid
+    encoded-words can consume excessive CPU.
+credits:
+    - 'p4p3r (https://hackerone.com/p4p3r_hak) '
+references:
+    - report: https://go.dev/issue/79217
+    - fix: https://go.dev/cl/774481
+    - web: https://groups.google.com/g/golang-announce/c/tKs3rmcBcKw
+cve_metadata:
+    id: CVE-2026-42504
+    cwe: 'CWE-407: Inefficient Algorithmic Complexity'
+source:
+    id: go-security-team
+review_status: REVIEWED

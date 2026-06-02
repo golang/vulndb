@@ -1,0 +1,33 @@
+id: GO-2026-5039
+modules:
+    - module: std
+      versions:
+        - fixed: 1.25.11
+        - introduced: 1.26.0-0
+        - fixed: 1.26.4
+      vulnerable_at: 1.26.3
+      packages:
+        - package: net/textproto
+          symbols:
+            - parseCodeLine
+            - Reader.ReadCodeLine
+            - readMIMEHeader
+            - Error.Error
+          derived_symbols:
+            - Reader.ReadMIMEHeader
+            - Reader.ReadResponse
+summary: Arbitrary inputs are included in errors without any escaping in net/textproto
+description: |
+    When returning errors, functions in the net/textproto package would
+    include its input as part of the error. This might allow an attacker
+    to inject misleading content to errors that are printed or logged.
+references:
+    - report: https://go.dev/issue/79346
+    - fix: https://go.dev/cl/777060
+    - web: https://groups.google.com/g/golang-announce/c/tKs3rmcBcKw
+cve_metadata:
+    id: CVE-2026-42507
+    cwe: 'CWE-532: Insertion of Sensitive Information into Log File'
+source:
+    id: go-security-team
+review_status: REVIEWED

@@ -1,0 +1,38 @@
+id: GO-2026-5037
+modules:
+    - module: std
+      versions:
+        - fixed: 1.25.11
+        - introduced: 1.26.0-0
+        - fixed: 1.26.4
+      vulnerable_at: 1.26.3
+      packages:
+        - package: crypto/x509
+          symbols:
+            - HostnameError.Error
+            - matchHostnames
+          derived_symbols:
+            - Certificate.Verify
+            - Certificate.VerifyHostname
+summary: Inefficient candidate hostname parsing in crypto/x509
+description: |-
+    (*x509.Certificate).VerifyHostname previously called matchHostnames in a loop
+    over all DNS Subject Alternative Name (SAN) entries. This caused
+    strings.Split(host, ".") to execute repeatedly on the same input hostname.
+
+    With a large DNS SAN list, verification costs scaled quadratically based on the
+    number of SAN entries multiplied by the hostname's label count. Because
+    x509.Verify validates hostnames before building the certificate chain, this
+    overhead occurred even for untrusted certificates.
+credits:
+    - Jakub Ciolek - https://ciolek.dev/
+references:
+    - fix: https://go.dev/cl/783621
+    - report: https://go.dev/issue/79694
+    - web: https://groups.google.com/g/golang-announce/c/tKs3rmcBcKw
+cve_metadata:
+    id: CVE-2026-27145
+    cwe: 'CWE-407: Inefficient Algorithmic Complexity'
+source:
+    id: go-security-team
+review_status: REVIEWED
