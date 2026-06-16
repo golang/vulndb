@@ -1,0 +1,25 @@
+id: GO-2026-5055
+modules:
+    - module: github.com/filebrowser/filebrowser
+      unsupported_versions:
+        - last_affected: 1.11.0
+      vulnerable_at: 1.11.0
+    - module: github.com/filebrowser/filebrowser/v2
+      versions:
+        - fixed: 2.63.14
+      vulnerable_at: 2.63.13
+summary: |-
+    File Browser: Symlink following lets scoped users read, overwrite, and share
+    files outside their filebrowser scope in github.com/filebrowser/filebrowser
+cves:
+    - CVE-2026-54094
+ghsas:
+    - GHSA-239w-m3h6-ch8v
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-239w-m3h6-ch8v
+    - fix: https://github.com/filebrowser/filebrowser/commit/7c2c0a11b31b2bb214d741005a0b02b1764208b3
+    - web: https://github.com/filebrowser/filebrowser/releases/tag/v2.63.14
+source:
+    id: GHSA-239w-m3h6-ch8v
+    created: 2026-06-16T13:36:57.436983-04:00
+review_status: UNREVIEWED

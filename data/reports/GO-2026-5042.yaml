@@ -1,0 +1,20 @@
+id: GO-2026-5042
+modules:
+    - module: github.com/kata-containers/kata-containers
+      versions:
+        - fixed: 0.0.0-20260519062212-ffa59ce3aa78
+summary: 'Kata guest escape: runtime-rs guest-root to host-root escape via virtiofs in github.com/kata-containers/kata-containers'
+cves:
+    - CVE-2026-47243
+ghsas:
+    - GHSA-2gv2-cffp-j227
+references:
+    - advisory: https://github.com/kata-containers/kata-containers/security/advisories/GHSA-2gv2-cffp-j227
+    - fix: https://github.com/kata-containers/kata-containers/commit/ffa59ce3aa7877d067c9a372df0c329a23a01744
+    - web: https://github.com/kata-containers/kata-containers/releases/tag/3.31.0
+notes:
+    - fix: 'github.com/kata-containers/kata-containers: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-2gv2-cffp-j227
+    created: 2026-06-16T13:36:32.418173-04:00
+review_status: UNREVIEWED
