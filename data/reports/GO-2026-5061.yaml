@@ -1,0 +1,30 @@
+id: GO-2026-5061
+modules:
+    - module: golang.org/x/image
+      versions:
+        - fixed: 0.43.0
+      vulnerable_at: 0.42.0
+      packages:
+        - package: golang.org/x/image/webp
+          symbols:
+            - decode
+          derived_symbols:
+            - Decode
+            - DecodeConfig
+        - package: golang.org/x/image/webp
+summary: Panic on VP8 alpha channel size mismatch in x/image/webp in golang.org/x/image
+description: |-
+    The webp decoder can panic when processing a VP8 chunk with dimensions that do
+    not match the canvas size.
+credits:
+    - 'Lucas Futures (GitHub: gn00295120)'
+references:
+    - fix: https://go.dev/cl/787681
+    - report: https://go.dev/issue/79869
+cve_metadata:
+    id: CVE-2026-46601
+    cwe: 'CWE-125: Out-of-bounds Read'
+source:
+    id: go-security-team
+    created: 2026-06-18T13:57:33.157696-07:00
+review_status: REVIEWED
