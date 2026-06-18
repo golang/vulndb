@@ -1,0 +1,27 @@
+id: GO-2026-5062
+modules:
+    - module: golang.org/x/image
+      versions:
+        - fixed: 0.43.0
+      vulnerable_at: 0.42.0
+      packages:
+        - package: golang.org/x/image/tiff
+          symbols:
+            - Decode
+summary: Lack of limit on tile sizes in x/image/tiff in golang.org/x/image
+description: |-
+    The TIFF decoder does not set a limit on the size of tiles in tiled images,
+    permitting a malicious or corrupt image containing a very large tile to cause
+    unbounded memory consumption.
+credits:
+    - 'Prasanna Dabi (GitHub: prasanna8585)'
+references:
+    - fix: https://go.dev/cl/788422
+    - report: https://go.dev/issue/79905
+cve_metadata:
+    id: CVE-2026-46602
+    cwe: 'CWE-789: Memory Allocation with Excessive Size Value'
+source:
+    id: go-security-team
+    created: 2026-06-18T14:13:32.208051-07:00
+review_status: REVIEWED
