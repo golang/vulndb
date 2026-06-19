@@ -1,0 +1,34 @@
+id: GO-2026-5003
+modules:
+    - module: github.com/bettercap/bettercap
+      vulnerable_at: 0.0.0-20240809160008-76e136a18ed4
+    - module: github.com/bettercap/bettercap/v2
+      versions:
+        - fixed: 2.41.7
+      vulnerable_at: 2.41.5
+      packages:
+        - package: github.com/bettercap/bettercap/v2/modules/zerogod
+          symbols:
+            - ippReadChunkedBody
+            - Acceptor.startTCP
+summary: Integer Coercion Error in the ippReadChunkedBody Function in github.com/bettercap/bettercap
+cves:
+    - CVE-2026-8275
+ghsas:
+    - GHSA-322p-rrj6-j44g
+references:
+    - advisory: https://github.com/advisories/GHSA-322p-rrj6-j44g
+    - fix: https://github.com/bettercap/bettercap/commit/3731d5576cffae9eefe3721cd46a40933304129f
+    - fix: https://github.com/bettercap/bettercap/pull/1264
+    - report: https://github.com/bettercap/bettercap/issues/1263
+    - web: https://github.com/bettercap/bettercap/releases/tag/v2.41.7
+    - web: https://github.com/user-attachments/files/26852847/poc.py
+    - web: https://vuldb.com/submit/811145
+    - web: https://vuldb.com/vuln/362572
+    - web: https://vuldb.com/vuln/362572/cti
+notes:
+    - 'Failed to auto-populate symbols: module github.com/bettercap/bettercap has no packages'
+source:
+    id: GHSA-322p-rrj6-j44g
+    created: 2026-06-18T21:44:12.263875-04:00
+review_status: REVIEWED

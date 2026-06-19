@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5003",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-8275",
+    "GHSA-322p-rrj6-j44g"
+  ],
+  "summary": "Integer Coercion Error in the ippReadChunkedBody Function in github.com/bettercap/bettercap",
+  "details": "Integer Coercion Error in the ippReadChunkedBody Function in github.com/bettercap/bettercap",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/bettercap/bettercap",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/bettercap/bettercap/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.41.7"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/bettercap/bettercap/v2/modules/zerogod",
+            "symbols": [
+              "Acceptor.startTCP",
+              "ippReadChunkedBody"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-322p-rrj6-j44g"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/bettercap/bettercap/commit/3731d5576cffae9eefe3721cd46a40933304129f"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/bettercap/bettercap/pull/1264"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/bettercap/bettercap/issues/1263"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/bettercap/bettercap/releases/tag/v2.41.7"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/user-attachments/files/26852847/poc.py"
+    },
+    {
+      "type": "WEB",
+      "url": "https://vuldb.com/submit/811145"
+    },
+    {
+      "type": "WEB",
+      "url": "https://vuldb.com/vuln/362572"
+    },
+    {
+      "type": "WEB",
+      "url": "https://vuldb.com/vuln/362572/cti"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5003",
+    "review_status": "REVIEWED"
+  }
+}
