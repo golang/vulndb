@@ -59,6 +59,10 @@ func (c *creator) setup(ctx context.Context, env environment) (err error) {
 func (c *creator) skip(input any) string {
 	iss := input.(*issues.Issue)
 
+	if slices.Contains(skippedIssues, iss.Number) {
+		return "skipping at user request"
+	}
+
 	if c.assignee != "" && iss.Assignee != c.assignee {
 		return fmt.Sprintf("assignee = %q, not %q", iss.Assignee, c.assignee)
 	}

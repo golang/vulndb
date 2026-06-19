@@ -13,31 +13,51 @@ import (
 	"log"
 	"os"
 	"runtime/pprof"
+	"strconv"
+	"strings"
 	"text/tabwriter"
 
 	vlog "golang.org/x/vulndb/cmd/vulnreport/log"
 )
 
 var (
-	githubToken = flag.String("ghtoken", "", "GitHub access token (default: value of VULN_GITHUB_ACCESS_TOKEN)")
-	cpuprofile  = flag.String("cpuprofile", "", "write cpuprofile to this file")
-	quiet       = flag.Bool("q", false, "quiet mode (suppress info logs)")
-	colorize    = flag.Bool("color", os.Getenv("NO_COLOR") == "", "show colors in logs")
-	issueRepo   = flag.String("issue-repo", "github.com/golang/vulndb", "repo to locate Github issues")
-	reportRepo  = flag.String("local-repo", ".", "local path to repo to locate YAML reports")
+	githubToken   = flag.String("ghtoken", "", "GitHub access token (default: value of VULN_GITHUB_ACCESS_TOKEN)")
+	cpuprofile    = flag.String("cpuprofile", "", "write cpuprofile to this file")
+	quiet         = flag.Bool("q", false, "quiet mode (suppress info logs)")
+	colorize      = flag.Bool("color", os.Getenv("NO_COLOR") == "", "show colors in logs")
+	issueRepo     = flag.String("issue-repo", "github.com/golang/vulndb", "repo to locate GitHub issues")
+	reportRepo    = flag.String("local-repo", ".", "local path to repo to locate YAML reports")
+	skippedIssues []int
 )
 
 func init() {
+	flag.Func("skip-issues", "for triage, create, create-excluded, and commit, whitespace-delimited list of GitHub issues to skip", func(s string) error {
+		is, err := parseSkipIssues(s)
+		if err != nil {
+			return err
+		}
+		skippedIssues = append(skippedIssues, is...)
+		return nil
+	})
+
 	out := flag.CommandLine.Output()
 	flag.Usage = func() {
-		fmt.Fprintf(out, "usage: vulnreport [flags] [cmd] [args]\n\n")
+		if _, err := fmt.Fprintf(out, "usage: vulnreport [flags] [cmd] [args]\n\n"); err != nil {
+			panic(err)
+		}
 		tw := tabwriter.NewWriter(out, 2, 4, 2, ' ', 0)
 		for _, command := range commands {
 			argUsage, desc := command.usage()
-			fmt.Fprintf(tw, "  %s\t%s\t%s\n", command.name(), argUsage, desc)
+			if _, err := fmt.Fprintf(tw, "  %s\t%s\t%s\n", command.name(), argUsage, desc); err != nil {
+				panic(err)
+			}
 		}
-		tw.Flush()
-		fmt.Fprint(out, "\nsupported flags:\n\n")
+		if err := tw.Flush(); err != nil {
+			panic(err)
+		}
+		if _, err := fmt.Fprint(out, "\nsupported flags:\n\n"); err != nil {
+			panic(err)
+		}
 		flag.PrintDefaults()
 	}
 }
@@ -106,4 +126,16 @@ func main() {
 	if err := run(ctx, cmd, args, defaultEnv()); err != nil {
 		log.Fatalf("%s: %s", cmdName, err)
 	}
+}
+
+func parseSkipIssues(s string) ([]int, error) {
+	skipped := []int{}
+	for part := range strings.FieldsSeq(s) {
+		num, err := strconv.Atoi(part)
+		if err != nil {
+			return nil, err
+		}
+		skipped = append(skipped, num)
+	}
+	return skipped, nil
 }

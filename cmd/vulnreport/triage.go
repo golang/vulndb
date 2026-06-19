@@ -89,6 +89,9 @@ func (t *triage) setup(ctx context.Context, env environment) error {
 func (t *triage) skip(input any) string {
 	iss := input.(*issues.Issue)
 
+	if slices.Contains(skippedIssues, iss.Number) {
+		return "skipping at user request"
+	}
 	if iss.HasLabel(labelDirect) {
 		return "direct external report"
 	}

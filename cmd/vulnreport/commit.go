@@ -12,13 +12,16 @@ import (
 	"fmt"
 	"path/filepath"
 	"slices"
+	"strconv"
 	"strings"
 
-	"github.com/go-git/go-git/v5"
-	"golang.org/x/exp/maps"
 	"golang.org/x/vulndb/cmd/vulnreport/log"
 	"golang.org/x/vulndb/internal/gitrepo"
 	"golang.org/x/vulndb/internal/report"
+
+	"golang.org/x/exp/maps"
+
+	"github.com/go-git/go-git/v5"
 )
 
 var (
@@ -104,6 +107,13 @@ func (c *commit) close() (err error) {
 func (c *commit) skip(input any) string {
 	r := input.(*yamlReport)
 
+	iss, err := parseReportIssue(r.ID)
+	if err != nil {
+		return err.Error()
+	}
+	if slices.Contains(skippedIssues, iss) {
+		return "skipping at user request"
+	}
 	if c.reviewStatus == 0 {
 		return ""
 	}
@@ -115,6 +125,24 @@ func (c *commit) skip(input any) string {
 	}
 
 	return ""
+}
+
+func parseReportIssue(id string) (int, error) {
+	parts := strings.Split(id, "-")
+	if len(parts) != 3 || parts[0] != "GO" {
+		return 0, fmt.Errorf("id %s is not of the form GO-YYYY-XXX", id)
+	}
+	if len(parts[1]) != 4 {
+		return 0, fmt.Errorf("id %s is not of the form GO-YYYY-XXX", id)
+	}
+	if _, err := strconv.Atoi(parts[1]); err != nil {
+		return 0, fmt.Errorf("id %s is not of the form GO-YYYY-XXX", id)
+	}
+	iss, err := strconv.Atoi(parts[2])
+	if err != nil {
+		return 0, fmt.Errorf("id %s is not of the form GO-YYYY-XXX", id)
+	}
+	return iss, nil
 }
 
 func (c *commit) run(ctx context.Context, input any) error {

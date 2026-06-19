@@ -5,9 +5,12 @@
 package main
 
 import (
+	"fmt"
 	"testing"
 
+	"github.com/google/go-cmp/cmp"
 	"golang.org/x/vulndb/internal/issues"
+	"golang.org/x/vulndb/internal/report"
 )
 
 func TestCreate(t *testing.T) {
@@ -186,6 +189,250 @@ func TestCreateSkipWaiting(t *testing.T) {
 			}
 			if got := c.skip(tc.issue); got != tc.want {
 				t.Errorf("c.skip() = %q, want %q", got, tc.want)
+			}
+		})
+	}
+}
+
+func TestParseSkipIssues(t *testing.T) {
+	testCases := []struct {
+		name    string
+		input   string
+		want    []int
+		wantErr bool
+	}{
+		{
+			name:    "empty string",
+			input:   "",
+			want:    []int{},
+			wantErr: false,
+		},
+		{
+			name:    "just whitespace",
+			input:   "   \t\n  ",
+			want:    []int{},
+			wantErr: false,
+		},
+		{
+			name:    "single issue",
+			input:   "100",
+			want:    []int{100},
+			wantErr: false,
+		},
+		{
+			name:    "multiple issues",
+			input:   "100 200 300",
+			want:    []int{100, 200, 300},
+			wantErr: false,
+		},
+		{
+			name:    "extra whitespace around issue ids",
+			input:   "  100   200 \t 300  ",
+			want:    []int{100, 200, 300},
+			wantErr: false,
+		},
+		{
+			name:    "invalid non-integer",
+			input:   "abc",
+			want:    nil,
+			wantErr: true,
+		},
+		{
+			name:    "mixed valid and invalid",
+			input:   "100 abc 200",
+			want:    nil,
+			wantErr: true,
+		},
+		{
+			name:    "comma-separated is invalid",
+			input:   "100,200,300",
+			want:    nil,
+			wantErr: true,
+		},
+		{
+			name:    "floating point number",
+			input:   "12.34",
+			want:    nil,
+			wantErr: true,
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			got, err := parseSkipIssues(tc.input)
+			if (err != nil) != tc.wantErr {
+				t.Fatalf("parseSkipIssues(%q) error = %v, wantErr %v", tc.input, err, tc.wantErr)
+			}
+			if diff := cmp.Diff(tc.want, got); diff != "" {
+				t.Errorf("parseSkipIssues(%q) mismatch (-want +got):\n%s", tc.input, diff)
+			}
+		})
+	}
+}
+
+func TestSkipIssues(t *testing.T) {
+	labelExcluded := report.ExcludedNotGoCode.ToLabel()
+
+	cmds := []struct {
+		name  string
+		cmd   command
+		input func(issueNum int) any
+	}{
+		{
+			name: "create (without args)",
+			cmd:  &create{creator: &creator{}, issueParser: &issueParser{}, hasArgs: false},
+			input: func(n int) any {
+				return &issues.Issue{Number: n, State: "open"}
+			},
+		},
+		{
+			name: "create (with args)",
+			cmd:  &create{creator: &creator{}, issueParser: &issueParser{}, hasArgs: true},
+			input: func(n int) any {
+				return &issues.Issue{Number: n, State: "open"}
+			},
+		},
+		{
+			name: "create-excluded",
+			cmd:  &createExcluded{creator: &creator{}},
+			input: func(n int) any {
+				return &issues.Issue{Number: n, State: "open", Labels: []string{labelExcluded}}
+			},
+		},
+		{
+			name: "triage",
+			cmd:  &triage{},
+			input: func(n int) any {
+				return &issues.Issue{Number: n, State: "open"}
+			},
+		},
+		{
+			name: "commit",
+			cmd:  &commit{},
+			input: func(n int) any {
+				return &yamlReport{Report: &report.Report{ID: fmt.Sprintf("GO-2024-%04d", n)}}
+			},
+		},
+	}
+
+	testCases := []struct {
+		name          string
+		skippedIssues []int
+		issueNum      int
+		want          string
+	}{
+		{
+			name:          "issue in skipped list",
+			skippedIssues: []int{100, 200},
+			issueNum:      100,
+			want:          "skipping at user request",
+		},
+		{
+			name:          "second issue in skipped list",
+			skippedIssues: []int{100, 200},
+			issueNum:      200,
+			want:          "skipping at user request",
+		},
+		{
+			name:          "issue not in skipped list",
+			skippedIssues: []int{100, 200},
+			issueNum:      300,
+			want:          "",
+		},
+		{
+			name:          "empty skipped list",
+			skippedIssues: nil,
+			issueNum:      100,
+			want:          "",
+		},
+	}
+
+	for _, c := range cmds {
+		for _, tc := range testCases {
+			t.Run(c.name+"/"+tc.name, func(t *testing.T) {
+				oldSkipped := skippedIssues
+				skippedIssues = tc.skippedIssues
+				defer func() { skippedIssues = oldSkipped }()
+
+				if got := c.cmd.skip(c.input(tc.issueNum)); got != tc.want {
+					t.Errorf("%s: skip() = %q, want %q", c.name, got, tc.want)
+				}
+			})
+		}
+	}
+}
+
+func TestParseReportIssue(t *testing.T) {
+	testCases := []struct {
+		name    string
+		id      string
+		wantIss int
+		wantErr bool
+	}{
+		{
+			name:    "valid",
+			id:      "GO-2024-0100",
+			wantIss: 100,
+			wantErr: false,
+		},
+		{
+			name:    "valid single digit",
+			id:      "GO-2024-1",
+			wantIss: 1,
+			wantErr: false,
+		},
+		{
+			name:    "GO-ID-PENDING",
+			id:      "GO-ID-PENDING",
+			wantIss: 0,
+			wantErr: true,
+		},
+		{
+			name:    "non-numeric issue",
+			id:      "GO-2024-PENDING",
+			wantIss: 0,
+			wantErr: true,
+		},
+		{
+			name:    "too few parts",
+			id:      "GO-100",
+			wantIss: 0,
+			wantErr: true,
+		},
+		{
+			name:    "too many parts",
+			id:      "GO-2024-100-1",
+			wantIss: 0,
+			wantErr: true,
+		},
+		{
+			name:    "wrong prefix",
+			id:      "CVE-2024-100",
+			wantIss: 0,
+			wantErr: true,
+		},
+		{
+			name:    "non-numeric year",
+			id:      "GO-YYYY-100",
+			wantIss: 0,
+			wantErr: true,
+		},
+		{
+			name:    "year not 4 digits",
+			id:      "GO-24-100",
+			wantIss: 0,
+			wantErr: true,
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			gotIss, err := parseReportIssue(tc.id)
+			if (err != nil) != tc.wantErr {
+				t.Fatalf("parseReportIssue(%q) err = %v, wantErr %v", tc.id, err, tc.wantErr)
+			}
+			if gotIss != tc.wantIss {
+				t.Errorf("parseReportIssue(%q) = %d, want %d", tc.id, gotIss, tc.wantIss)
 			}
 		})
 	}
