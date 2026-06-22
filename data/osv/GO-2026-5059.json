@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5059",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-55671",
+    "GHSA-29jh-8cfq-rr8x"
+  ],
+  "summary": "ZITADEL: Server-Side Request Forgery (SSRF) and Denylist Bypass in Outgoing HTTP Components in github.com/zitadel/zitadel",
+  "details": "ZITADEL: Server-Side Request Forgery (SSRF) and Denylist Bypass in Outgoing HTTP Components in github.com/zitadel/zitadel",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/zitadel/zitadel",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.80.0-v2.20.0.20260615133614-8e82ec1cb9a2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/zitadel/zitadel/security/advisories/GHSA-29jh-8cfq-rr8x"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/zitadel/zitadel/commit/8e82ec1cb9a2b154ff48d3a0fa96b43d1428061f"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/zitadel/zitadel/releases/tag/v4.15.2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5059",
+    "review_status": "UNREVIEWED"
+  }
+}

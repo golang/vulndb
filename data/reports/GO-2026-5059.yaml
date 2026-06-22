@@ -1,0 +1,21 @@
+id: GO-2026-5059
+modules:
+    - module: github.com/zitadel/zitadel
+      versions:
+        - fixed: 1.80.0-v2.20.0.20260615133614-8e82ec1cb9a2
+      vulnerable_at: 1.80.0-v2.20
+summary: |-
+    ZITADEL: Server-Side Request Forgery (SSRF) and Denylist Bypass in Outgoing HTTP
+    Components in github.com/zitadel/zitadel
+cves:
+    - CVE-2026-55671
+ghsas:
+    - GHSA-29jh-8cfq-rr8x
+references:
+    - advisory: https://github.com/zitadel/zitadel/security/advisories/GHSA-29jh-8cfq-rr8x
+    - fix: https://github.com/zitadel/zitadel/commit/8e82ec1cb9a2b154ff48d3a0fa96b43d1428061f
+    - web: https://github.com/zitadel/zitadel/releases/tag/v4.15.2
+source:
+    id: GHSA-29jh-8cfq-rr8x
+    created: 2026-06-22T14:38:40.617615-04:00
+review_status: UNREVIEWED

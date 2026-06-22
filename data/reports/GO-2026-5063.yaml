@@ -1,0 +1,19 @@
+id: GO-2026-5063
+modules:
+    - module: github.com/entireio/cli
+      versions:
+        - fixed: 0.7.7
+      vulnerable_at: 0.7.7-nightly.202606180752.9279c59f
+summary: |-
+    Entire CLI: Path traversal in checkpoint session metadata allows arbitrary file
+    write during resume/rewind in github.com/entireio/cli
+ghsas:
+    - GHSA-2h46-9x5w-4wf7
+references:
+    - advisory: https://github.com/entireio/cli/security/advisories/GHSA-2h46-9x5w-4wf7
+    - fix: https://github.com/entireio/cli/pull/1365
+    - fix: https://github.com/entireio/cli/pull/1449
+source:
+    id: GHSA-2h46-9x5w-4wf7
+    created: 2026-06-22T14:38:52.36733-04:00
+review_status: UNREVIEWED

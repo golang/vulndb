@@ -1,0 +1,24 @@
+id: GO-2026-5064
+modules:
+    - module: github.com/containerd/containerd
+      vulnerable_at: 1.7.33
+    - module: github.com/containerd/containerd/v2
+      versions:
+        - introduced: 2.1.0
+        - fixed: 2.1.9
+        - introduced: 2.2.0
+        - fixed: 2.2.5
+        - introduced: 2.3.0
+        - fixed: 2.3.2
+      vulnerable_at: 2.3.1
+summary: containerd CRI checkpoint restore CDI annotation smuggling in github.com/containerd/containerd
+cves:
+    - CVE-2026-53492
+ghsas:
+    - GHSA-33vj-92qq-66hc
+references:
+    - advisory: https://github.com/containerd/containerd/security/advisories/GHSA-33vj-92qq-66hc
+source:
+    id: GHSA-33vj-92qq-66hc
+    created: 2026-06-22T14:38:57.200273-04:00
+review_status: UNREVIEWED
