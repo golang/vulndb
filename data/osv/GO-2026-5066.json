@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5066",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-46604"
+  ],
+  "summary": "Panic decoding image with out-of-bounds strip offset in x/image/tiff in golang.org/x/image",
+  "details": "The TIFF decoder can panic when decoding an invalid image with an out-of-bounds strip offset.",
+  "affected": [
+    {
+      "package": {
+        "name": "golang.org/x/image",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.43.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "golang.org/x/image/tiff",
+            "symbols": [
+              "Decode"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/788421"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/80122"
+    }
+  ],
+  "credits": [
+    {
+      "name": "sorte"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5066",
+    "review_status": "REVIEWED"
+  }
+}
