@@ -33,6 +33,7 @@ var (
 
 const (
 	dataFolder, reportsFolder, excludedFolder = "data", "reports", "excluded"
+	maxPrintedXrefs                           = 15
 )
 
 // Client is a client for accessing vulndb reports from a git repository.
@@ -111,7 +112,11 @@ func fprintMap(out io.Writer, m map[string][]*File) {
 	for _, k := range sortedKeys(m) {
 		fs := m[k]
 		fmt.Fprintf(out, "- %s appears in %d other report(s):\n", k, len(fs))
-		for _, f := range fs {
+		for i, f := range fs {
+			if i >= maxPrintedXrefs {
+				fmt.Fprintf(out, "  - ... and %d more report(s)\n", len(fs)-maxPrintedXrefs)
+				break
+			}
 			fmt.Fprintf(out, "  - %s    (https://github.com/golang/vulndb/issues/%d)", f.Filename, f.IssNum)
 			if f.Report.IsExcluded() {
 				fmt.Fprintf(out, "    %v", f.Report.Excluded)
