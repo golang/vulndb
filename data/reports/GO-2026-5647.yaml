@@ -1,0 +1,23 @@
+id: GO-2026-5647
+modules:
+    - module: github.com/free5gc/nef
+      versions:
+        - fixed: 1.2.3
+      vulnerable_at: 1.2.2
+summary: |-
+    free5GC's NEF crashes via logger.Fatal on PFD notification delivery failure
+    (attacker-controlled notifyUri) in github.com/free5gc/nef
+cves:
+    - CVE-2026-44319
+ghsas:
+    - GHSA-rxrq-fv76-26pr
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-rxrq-fv76-26pr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44319
+    - fix: https://github.com/free5gc/nef/commit/f110517b1189801950b50668a593398687049074
+    - fix: https://github.com/free5gc/nef/pull/25
+    - web: https://github.com/free5gc/free5gc/issues/924
+source:
+    id: GHSA-rxrq-fv76-26pr
+    created: 2026-06-25T15:46:23.102045535-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,28 @@
+id: GO-2026-5633
+modules:
+    - module: github.com/portainer/portainer
+      non_go_versions:
+        - introduced: 2.33.0
+        - fixed: 2.33.8
+        - introduced: 2.39.0
+        - fixed: 2.39.2
+        - introduced: 2.40.0
+        - fixed: 2.41.0
+      vulnerable_at: 0.10.1
+summary: |-
+    Portainer Has an Arbitrary File Read via Git Symlink Injection in Stack
+    Auto-Update in github.com/portainer/portainer
+cves:
+    - CVE-2026-44881
+ghsas:
+    - GHSA-rpgq-m5fp-32wr
+references:
+    - advisory: https://github.com/portainer/portainer/security/advisories/GHSA-rpgq-m5fp-32wr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44881
+    - web: https://github.com/portainer/portainer/releases/tag/2.33.8
+    - web: https://github.com/portainer/portainer/releases/tag/2.39.2
+    - web: https://github.com/portainer/portainer/releases/tag/2.41.0
+source:
+    id: GHSA-rpgq-m5fp-32wr
+    created: 2026-06-25T15:46:23.004074288-04:00
+review_status: UNREVIEWED

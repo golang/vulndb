@@ -1,0 +1,23 @@
+id: GO-2026-5637
+modules:
+    - module: github.com/modelcontextprotocol/registry
+      versions:
+        - fixed: 1.7.7
+      vulnerable_at: 1.7.6
+summary: |-
+    MCP Registry vulnerable to stored XSS in catalogue UI via attribute-quote
+    breakout in publisher-controlled `websiteUrl` in github.com/modelcontextprotocol/registry
+cves:
+    - CVE-2026-44429
+ghsas:
+    - GHSA-rqv2-m695-f8j4
+references:
+    - advisory: https://github.com/modelcontextprotocol/registry/security/advisories/GHSA-rqv2-m695-f8j4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44429
+    - fix: https://github.com/modelcontextprotocol/registry/commit/78b7bbde07948049b916d76b4769faee461ff930
+    - fix: https://github.com/modelcontextprotocol/registry/pull/1249
+    - web: https://github.com/modelcontextprotocol/registry/releases/tag/v1.7.7
+source:
+    id: GHSA-rqv2-m695-f8j4
+    created: 2026-06-25T15:46:23.3680912-04:00
+review_status: UNREVIEWED

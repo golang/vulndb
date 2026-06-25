@@ -1,0 +1,23 @@
+id: GO-2026-5649
+modules:
+    - module: github.com/hahwul/dalfox
+      vulnerable_at: 1.2.1
+    - module: github.com/hahwul/dalfox/v2
+      versions:
+        - fixed: 2.13.0
+      vulnerable_at: 2.12.0
+summary: |-
+    Dalfox Server Mode Vulnerable to Unauthenticated Remote Code Execution via
+    `found-action` in github.com/hahwul/dalfox
+cves:
+    - CVE-2026-45087
+ghsas:
+    - GHSA-v25v-m36w-jp4h
+references:
+    - advisory: https://github.com/hahwul/dalfox/security/advisories/GHSA-v25v-m36w-jp4h
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-45087
+    - web: https://github.com/hahwul/dalfox/releases/tag/v2.13.0
+source:
+    id: GHSA-v25v-m36w-jp4h
+    created: 2026-06-25T15:46:17.419434254-04:00
+review_status: UNREVIEWED

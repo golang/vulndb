@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5716",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-42541",
+    "GHSA-wqcw-g35j-j578"
+  ],
+  "summary": "Kubewarden vulnerable to RBAC Reconnaissance via unchecked can_i host capability call in github.com/kubewarden/kubewarden-controller",
+  "details": "Kubewarden vulnerable to RBAC Reconnaissance via unchecked can_i host capability call in github.com/kubewarden/kubewarden-controller",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/kubewarden/kubewarden-controller",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.35.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/kubewarden/adm-controller/security/advisories/GHSA-wqcw-g35j-j578"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/kubewarden/kubewarden-controller/security/advisories/GHSA-wqcw-g35j-j578"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42541"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubewarden/kubewarden-controller/pull/1693"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubewarden/docs/pull/737"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5716",
+    "review_status": "UNREVIEWED"
+  }
+}

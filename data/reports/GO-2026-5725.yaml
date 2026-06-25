@@ -1,0 +1,24 @@
+id: GO-2026-5725
+modules:
+    - module: github.com/siderolabs/omni
+      versions:
+        - introduced: 1.3.0
+        - fixed: 1.6.6
+        - introduced: 1.7.0
+        - fixed: 1.7.3
+      vulnerable_at: 1.7.2
+summary: |-
+    Omni: Reader-level users can retrieve imported cluster CA keys via
+    ResourceService in github.com/siderolabs/omni
+cves:
+    - CVE-2026-45726
+ghsas:
+    - GHSA-wv8c-6mx2-xf4j
+references:
+    - advisory: https://github.com/siderolabs/omni/security/advisories/GHSA-wv8c-6mx2-xf4j
+    - web: https://github.com/siderolabs/omni/releases/tag/v1.6.6
+    - web: https://github.com/siderolabs/omni/releases/tag/v1.7.3
+source:
+    id: GHSA-wv8c-6mx2-xf4j
+    created: 2026-06-25T15:36:31.632210542-04:00
+review_status: UNREVIEWED

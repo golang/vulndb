@@ -1,0 +1,23 @@
+id: GO-2026-5710
+modules:
+    - module: github.com/prometheus/prometheus
+      versions:
+        - introduced: 0.45.2
+        - fixed: 0.311.3
+      vulnerable_at: 0.311.2
+summary: Prometheus Azure AD remote write OAuth client secret exposed via config API in github.com/prometheus/prometheus
+cves:
+    - CVE-2026-42151
+ghsas:
+    - GHSA-wg65-39gg-5wfj
+references:
+    - advisory: https://github.com/prometheus/prometheus/security/advisories/GHSA-wg65-39gg-5wfj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42151
+    - fix: https://github.com/prometheus/prometheus/pull/18587
+    - fix: https://github.com/prometheus/prometheus/pull/18590
+    - web: https://github.com/prometheus/prometheus/releases/tag/v3.11.3
+    - web: https://github.com/prometheus/prometheus/releases/tag/v3.5.3
+source:
+    id: GHSA-wg65-39gg-5wfj
+    created: 2026-06-25T15:38:46.712672292-04:00
+review_status: UNREVIEWED

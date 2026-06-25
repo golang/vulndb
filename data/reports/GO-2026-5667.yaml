@@ -1,0 +1,19 @@
+id: GO-2026-5667
+modules:
+    - module: github.com/coredns/coredns
+      versions:
+        - fixed: 1.14.3
+      vulnerable_at: 1.14.2
+summary: CoreDNS has TSIG authentication bypass on gRPC and QUIC transports in github.com/coredns/coredns
+cves:
+    - CVE-2026-35579
+ghsas:
+    - GHSA-vp29-5652-4fw9
+references:
+    - advisory: https://github.com/coredns/coredns/security/advisories/GHSA-vp29-5652-4fw9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-35579
+    - web: https://github.com/coredns/coredns/releases/tag/v1.14.3
+source:
+    id: GHSA-vp29-5652-4fw9
+    created: 2026-06-25T15:46:15.581435126-04:00
+review_status: UNREVIEWED

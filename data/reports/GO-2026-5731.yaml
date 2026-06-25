@@ -1,0 +1,23 @@
+id: GO-2026-5731
+modules:
+    - module: github.com/free5gc/pcf
+      versions:
+        - fixed: 1.4.3
+      vulnerable_at: 1.4.2
+summary: |-
+    free5GC's PCF npcf-policyauthorization POST /app-sessions panics on suppFeat=1
+    with missing AfRoutReq via nil pointer dereference in github.com/free5gc/pcf
+cves:
+    - CVE-2026-44317
+ghsas:
+    - GHSA-wwqh-7jm5-gj7w
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-wwqh-7jm5-gj7w
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44317
+    - fix: https://github.com/free5gc/pcf/commit/508d70b8527a6c8c923179dad450ea01e16b6aeb
+    - fix: https://github.com/free5gc/pcf/pull/65
+    - web: https://github.com/free5gc/free5gc/issues/879
+source:
+    id: GHSA-wwqh-7jm5-gj7w
+    created: 2026-06-25T15:33:00.261293088-04:00
+review_status: UNREVIEWED

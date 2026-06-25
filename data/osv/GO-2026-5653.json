@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5653",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-v5mh-h5hx-7v92"
+  ],
+  "summary": "kube-router: GoBGP gRPC Admin Port Exposed on Node Primary IP Without Authentication, Allowing Cluster-Wide BGP Route Injection in github.com/cloudnativelabs/kube-router",
+  "details": "kube-router: GoBGP gRPC Admin Port Exposed on Node Primary IP Without Authentication, Allowing Cluster-Wide BGP Route Injection in github.com/cloudnativelabs/kube-router",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cloudnativelabs/kube-router",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/cloudnativelabs/kube-router/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.9.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cloudnativelabs/kube-router/security/advisories/GHSA-v5mh-h5hx-7v92"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5653",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,18 @@
+id: GO-2026-5678
+modules:
+    - module: github.com/obot-platform/obot
+      versions:
+        - fixed: 0.21.1
+      vulnerable_at: 0.21.1-rc3
+summary: |-
+    Obot has an authorization bypass in /mcp-connect/{id} that allows any
+    authenticated user to use any registered MCP server in github.com/obot-platform/obot
+ghsas:
+    - GHSA-vw82-7fv8-r6gp
+references:
+    - advisory: https://github.com/obot-platform/obot/security/advisories/GHSA-vw82-7fv8-r6gp
+    - web: https://github.com/obot-platform/obot/releases/tag/v0.21.1
+source:
+    id: GHSA-vw82-7fv8-r6gp
+    created: 2026-06-25T15:46:14.158320054-04:00
+review_status: UNREVIEWED

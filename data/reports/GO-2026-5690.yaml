@@ -1,0 +1,19 @@
+id: GO-2026-5690
+modules:
+    - module: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/githubreceiver
+      versions:
+        - fixed: 0.151.0
+      vulnerable_at: 0.150.0
+summary: |-
+    opentelemetry-collector-contrib: githubreceiver silently ignores configured
+    required_headers authentication in github.com/open-telemetry/opentelemetry-collector-contrib/receiver/githubreceiver
+cves:
+    - CVE-2026-55701
+ghsas:
+    - GHSA-w5cv-pw74-4rxc
+references:
+    - advisory: https://github.com/open-telemetry/opentelemetry-collector-contrib/security/advisories/GHSA-w5cv-pw74-4rxc
+source:
+    id: GHSA-w5cv-pw74-4rxc
+    created: 2026-06-25T15:41:24.613486265-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,21 @@
+id: GO-2026-5638
+modules:
+    - module: github.com/kata-containers/kata-containers
+      versions:
+        - fixed: 0.0.0-20260519062212-ffa59ce3aa78
+summary: |-
+    Kata Containers have VM Escape via virtiofsd Argument Injection through
+    Default-Enabled Pod Annotations in github.com/kata-containers/kata-containers
+cves:
+    - CVE-2026-44210
+ghsas:
+    - GHSA-rr59-xxvx-96qr
+references:
+    - advisory: https://github.com/kata-containers/kata-containers/security/advisories/GHSA-rr59-xxvx-96qr
+    - fix: https://github.com/kata-containers/kata-containers/commit/ffa59ce3aa7877d067c9a372df0c329a23a01744
+notes:
+    - fix: 'github.com/kata-containers/kata-containers: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-rr59-xxvx-96qr
+    created: 2026-06-25T15:46:18.246767731-04:00
+review_status: UNREVIEWED

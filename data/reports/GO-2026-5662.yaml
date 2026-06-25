@@ -1,0 +1,36 @@
+id: GO-2026-5662
+modules:
+    - module: github.com/prometheus/prometheus
+      non_go_versions:
+        - introduced: 3.6.0
+      unsupported_versions:
+        - last_affected: 3.11.1
+      vulnerable_at: 0.312.0
+    - module: github.com/prometheus/prometheus
+      non_go_versions:
+        - introduced: 3.0.0
+      unsupported_versions:
+        - last_affected: 3.5.1
+      vulnerable_at: 0.312.0
+    - module: github.com/prometheus/prometheus
+      versions:
+        - fixed: 0.311.2-0.20260410083055-07c6232d159b
+      vulnerable_at: 0.311.1
+summary: |-
+    Prometheus has Stored XSS via metric names and label values in Prometheus web UI
+    tooltips and metrics explorer in github.com/prometheus/prometheus
+cves:
+    - CVE-2026-40179
+ghsas:
+    - GHSA-vffh-x6r8-xx99
+references:
+    - advisory: https://github.com/prometheus/prometheus/security/advisories/GHSA-vffh-x6r8-xx99
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40179
+    - fix: https://github.com/prometheus/prometheus/commit/07c6232d159bfb474a077788be184d87adcfac3c
+    - fix: https://github.com/prometheus/prometheus/pull/18506
+notes:
+    - fix: 'module merge error: could not merge versions of module github.com/prometheus/prometheus: introduced and fixed versions must alternate'
+source:
+    id: GHSA-vffh-x6r8-xx99
+    created: 2026-06-25T15:46:19.777474719-04:00
+review_status: UNREVIEWED

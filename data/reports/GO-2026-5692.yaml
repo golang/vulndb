@@ -1,0 +1,21 @@
+id: GO-2026-5692
+modules:
+    - module: github.com/juju/juju
+      versions:
+        - fixed: 0.0.0-20260408003526-d395054dc2c3
+summary: 'Juju: CloudSpec method leaking cloud credentials in github.com/juju/juju'
+cves:
+    - CVE-2026-5412
+ghsas:
+    - GHSA-w5fq-8965-c969
+references:
+    - advisory: https://github.com/juju/juju/security/advisories/GHSA-w5fq-8965-c969
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-5412
+    - fix: https://github.com/juju/juju/pull/22205
+    - fix: https://github.com/juju/juju/pull/22206
+notes:
+    - fix: 'github.com/juju/juju: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-w5fq-8965-c969
+    created: 2026-06-25T15:41:12.390584791-04:00
+review_status: UNREVIEWED

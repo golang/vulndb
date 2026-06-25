@@ -1,0 +1,21 @@
+id: GO-2026-5735
+modules:
+    - module: github.com/ddev/ddev
+      versions:
+        - fixed: 1.25.2
+      vulnerable_at: 1.25.1
+summary: DDEV has ZipSlip path traversal in tar and zip archive extraction in github.com/ddev/ddev
+cves:
+    - CVE-2026-32885
+ghsas:
+    - GHSA-x2xq-qhjf-5mvg
+references:
+    - advisory: https://github.com/ddev/ddev/security/advisories/GHSA-x2xq-qhjf-5mvg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-32885
+    - fix: https://github.com/ddev/ddev/commit/05cbe299770a590b89bfc8dddab33e61b4302e43
+    - fix: https://github.com/ddev/ddev/pull/8213
+    - web: https://github.com/ddev/ddev/releases/tag/v1.25.2
+source:
+    id: GHSA-x2xq-qhjf-5mvg
+    created: 2026-06-25T15:32:38.092199724-04:00
+review_status: UNREVIEWED

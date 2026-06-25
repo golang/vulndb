@@ -1,0 +1,21 @@
+id: GO-2026-5687
+modules:
+    - module: github.com/nezhahq/nezha
+      versions:
+        - introduced: 1.4.0
+        - fixed: 1.14.15-0.20260517022419-d06d539d34c1
+      vulnerable_at: 1.14.14
+summary: |-
+    Nezha Monitoring: RoleMember-reachable SSRF with full response-body reflection
+    via POST /api/v1/notification in github.com/nezhahq/nezha
+cves:
+    - CVE-2026-46717
+ghsas:
+    - GHSA-w4g9-mxgg-j532
+references:
+    - advisory: https://github.com/nezhahq/nezha/security/advisories/GHSA-w4g9-mxgg-j532
+    - fix: https://github.com/nezhahq/nezha/commit/d06d539d34c143d842b91e2a64326e8c8f9bc405
+source:
+    id: GHSA-w4g9-mxgg-j532
+    created: 2026-06-25T15:41:38.73793258-04:00
+review_status: UNREVIEWED

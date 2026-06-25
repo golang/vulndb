@@ -1,0 +1,20 @@
+id: GO-2026-5672
+modules:
+    - module: github.com/nezhahq/nezha
+      non_go_versions:
+        - introduced: 2.0.0
+        - fixed: 2.0.14
+      vulnerable_at: 1.14.14
+summary: |-
+    Nezha's private services (`EnableShowInService: false`) are enumerable via
+    per-server endpoints, leaking name and timing data in github.com/nezhahq/nezha
+cves:
+    - CVE-2026-49397
+ghsas:
+    - GHSA-vrmh-5mmx-hjwx
+references:
+    - advisory: https://github.com/nezhahq/nezha/security/advisories/GHSA-vrmh-5mmx-hjwx
+source:
+    id: GHSA-vrmh-5mmx-hjwx
+    created: 2026-06-25T15:46:20.360640212-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5637",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-44429",
+    "GHSA-rqv2-m695-f8j4"
+  ],
+  "summary": "MCP Registry vulnerable to stored XSS in catalogue UI via attribute-quote breakout in publisher-controlled `websiteUrl` in github.com/modelcontextprotocol/registry",
+  "details": "MCP Registry vulnerable to stored XSS in catalogue UI via attribute-quote breakout in publisher-controlled `websiteUrl` in github.com/modelcontextprotocol/registry",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/modelcontextprotocol/registry",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.7.7"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/modelcontextprotocol/registry/security/advisories/GHSA-rqv2-m695-f8j4"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-44429"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/modelcontextprotocol/registry/commit/78b7bbde07948049b916d76b4769faee461ff930"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/modelcontextprotocol/registry/pull/1249"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/modelcontextprotocol/registry/releases/tag/v1.7.7"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5637",
+    "review_status": "UNREVIEWED"
+  }
+}

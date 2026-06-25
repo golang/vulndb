@@ -1,0 +1,28 @@
+id: GO-2026-5738
+modules:
+    - module: github.com/projectcontour/contour
+      versions:
+        - introduced: 1.19.0
+        - fixed: 1.31.6
+        - introduced: 1.32.0
+        - fixed: 1.32.5
+        - introduced: 1.33.0
+        - fixed: 1.33.4
+      vulnerable_at: 1.33.3
+summary: Contour has Lua code injection via Cookie Path Rewrite Policy in github.com/projectcontour/contour
+cves:
+    - CVE-2026-41246
+ghsas:
+    - GHSA-x4mj-7f9g-29h4
+references:
+    - advisory: https://github.com/projectcontour/contour/security/advisories/GHSA-x4mj-7f9g-29h4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-41246
+    - web: https://github.com/projectcontour/contour/releases/tag/v1.31.6
+    - web: https://github.com/projectcontour/contour/releases/tag/v1.32.5
+    - web: https://github.com/projectcontour/contour/releases/tag/v1.33.4
+    - web: https://projectcontour.io/docs/1.33/config/cookie-rewriting
+    - web: https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/lua_filter
+source:
+    id: GHSA-x4mj-7f9g-29h4
+    created: 2026-06-25T15:32:16.821262916-04:00
+review_status: UNREVIEWED

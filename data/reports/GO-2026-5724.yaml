@@ -1,0 +1,20 @@
+id: GO-2026-5724
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.14.3
+      vulnerable_at: 0.13.3
+summary: Gogs has the ability to import local repositories via Mirror Settings in gogs.io/gogs
+cves:
+    - CVE-2026-52801
+ghsas:
+    - GHSA-wv27-2vqp-j7g5
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-wv27-2vqp-j7g5
+    - web: https://github.com/gogs/gogs/commit/11e19f28b5c82466fd1689c94344ef4313ee986c
+    - web: https://github.com/gogs/gogs/pull/8225
+    - web: https://github.com/gogs/gogs/releases/tag/v0.14.3
+source:
+    id: GHSA-wv27-2vqp-j7g5
+    created: 2026-06-25T15:36:37.17546635-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,20 @@
+id: GO-2026-5695
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.14.3
+      vulnerable_at: 0.13.3
+summary: Gogs has an Authentication Bypass via Unvalidated Reverse Proxy Headers in gogs.io/gogs
+cves:
+    - CVE-2026-25119
+ghsas:
+    - GHSA-w6j9-vw59-27wv
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-w6j9-vw59-27wv
+    - web: https://github.com/gogs/gogs/commit/0089c4c8e5b8d99eb6e5c8727f8f40d765f1f58a
+    - web: https://github.com/gogs/gogs/pull/8264
+    - web: https://github.com/gogs/gogs/releases/tag/v0.14.3
+source:
+    id: GHSA-w6j9-vw59-27wv
+    created: 2026-06-25T15:40:59.461454641-04:00
+review_status: UNREVIEWED

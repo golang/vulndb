@@ -1,0 +1,24 @@
+id: GO-2026-5709
+modules:
+    - module: github.com/crossplane/crossplane
+      unsupported_versions:
+        - last_affected: 1.21.0-rc.0
+      vulnerable_at: 1.20.10
+    - module: github.com/crossplane/crossplane/v2
+      versions:
+        - introduced: 2.3.0-rc.0
+      unsupported_versions:
+        - last_affected: 2.2.2
+        - last_affected: 2.3.2
+      vulnerable_at: 2.3.3
+summary: |-
+    Crossplane: Signature verification TOCTOU allows installing unverified package
+    content via mutable tag in github.com/crossplane/crossplane
+ghsas:
+    - GHSA-wfqx-gjrf-g28r
+references:
+    - advisory: https://github.com/crossplane/crossplane/security/advisories/GHSA-wfqx-gjrf-g28r
+source:
+    id: GHSA-wfqx-gjrf-g28r
+    created: 2026-06-25T15:38:53.582656475-04:00
+review_status: UNREVIEWED

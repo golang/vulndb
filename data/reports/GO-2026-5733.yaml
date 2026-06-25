@@ -1,0 +1,22 @@
+id: GO-2026-5733
+modules:
+    - module: github.com/0xJacky/Nginx-UI
+      versions:
+        - fixed: 1.9.10-0.20260314152518-7b66578adb47
+      vulnerable_at: 1.9.9
+summary: |-
+    Nginx-UI: Disabled users retain full API access through previously issued bearer
+    tokens in github.com/0xJacky/Nginx-UI
+cves:
+    - CVE-2026-33031
+ghsas:
+    - GHSA-x234-x5vq-cc2v
+references:
+    - advisory: https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-x234-x5vq-cc2v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-33031
+    - web: https://github.com/0xJacky/nginx-ui/commit/7b66578adb47bbec839b621a4666495249379174
+    - web: https://github.com/0xJacky/nginx-ui/releases/tag/v2.3.4
+source:
+    id: GHSA-x234-x5vq-cc2v
+    created: 2026-06-25T15:32:51.308941756-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,27 @@
+id: GO-2026-5694
+modules:
+    - module: github.com/sigstore/cosign
+      vulnerable_at: 1.13.6
+    - module: github.com/sigstore/cosign/v2
+      versions:
+        - fixed: 2.6.3
+      vulnerable_at: 2.6.2
+    - module: github.com/sigstore/cosign/v3
+      versions:
+        - introduced: 3.0.0
+        - fixed: 3.0.6
+      vulnerable_at: 3.0.5
+summary: |-
+    Cosign's verify-blob-attestation reports false positive when payload parsing
+    fails in github.com/sigstore/cosign
+cves:
+    - CVE-2026-39395
+ghsas:
+    - GHSA-w6c6-c85g-mmv6
+references:
+    - advisory: https://github.com/sigstore/cosign/security/advisories/GHSA-w6c6-c85g-mmv6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-39395
+source:
+    id: GHSA-w6c6-c85g-mmv6
+    created: 2026-06-25T15:41:05.826194871-04:00
+review_status: UNREVIEWED

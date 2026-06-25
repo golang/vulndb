@@ -1,0 +1,19 @@
+id: GO-2026-5653
+modules:
+    - module: github.com/cloudnativelabs/kube-router
+      vulnerable_at: 1.6.1
+    - module: github.com/cloudnativelabs/kube-router/v2
+      versions:
+        - fixed: 2.9.0
+      vulnerable_at: 2.8.1
+summary: |-
+    kube-router: GoBGP gRPC Admin Port Exposed on Node Primary IP Without
+    Authentication, Allowing Cluster-Wide BGP Route Injection in github.com/cloudnativelabs/kube-router
+ghsas:
+    - GHSA-v5mh-h5hx-7v92
+references:
+    - advisory: https://github.com/cloudnativelabs/kube-router/security/advisories/GHSA-v5mh-h5hx-7v92
+source:
+    id: GHSA-v5mh-h5hx-7v92
+    created: 2026-06-25T15:46:16.831992183-04:00
+review_status: UNREVIEWED

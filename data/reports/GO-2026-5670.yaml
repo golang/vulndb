@@ -1,0 +1,18 @@
+id: GO-2026-5670
+modules:
+    - module: github.com/mattermost/focalboard
+      unsupported_versions:
+        - last_affected: 7.10.6
+      vulnerable_at: 8.0.0+incompatible
+summary: Focalboard doesn't validate file ownership when serving uploaded files in github.com/mattermost/focalboard
+cves:
+    - CVE-2026-28736
+ghsas:
+    - GHSA-vph7-r229-qxpf
+references:
+    - advisory: https://github.com/advisories/GHSA-vph7-r229-qxpf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-28736
+source:
+    id: GHSA-vph7-r229-qxpf
+    created: 2026-06-25T15:46:23.420194873-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5647",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-44319",
+    "GHSA-rxrq-fv76-26pr"
+  ],
+  "summary": "free5GC's NEF crashes via logger.Fatal on PFD notification delivery failure (attacker-controlled notifyUri) in github.com/free5gc/nef",
+  "details": "free5GC's NEF crashes via logger.Fatal on PFD notification delivery failure (attacker-controlled notifyUri) in github.com/free5gc/nef",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/free5gc/nef",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.2.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/free5gc/free5gc/security/advisories/GHSA-rxrq-fv76-26pr"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-44319"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/free5gc/nef/commit/f110517b1189801950b50668a593398687049074"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/free5gc/nef/pull/25"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/free5gc/free5gc/issues/924"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5647",
+    "review_status": "UNREVIEWED"
+  }
+}

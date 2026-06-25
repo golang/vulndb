@@ -1,0 +1,20 @@
+id: GO-2026-5680
+modules:
+    - module: github.com/shellhub-io/shellhub
+      versions:
+        - fixed: 0.24.2
+      vulnerable_at: 0.24.1
+summary: |-
+    ShellHub has cross-tenant IDOR in `GET /api/namespaces/:tenant` via API Key
+    bypasses membership check in github.com/shellhub-io/shellhub
+cves:
+    - CVE-2026-44426
+ghsas:
+    - GHSA-vwx9-7qcf-gg7f
+references:
+    - advisory: https://github.com/shellhub-io/shellhub/security/advisories/GHSA-vwx9-7qcf-gg7f
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44426
+source:
+    id: GHSA-vwx9-7qcf-gg7f
+    created: 2026-06-25T15:46:23.701233736-04:00
+review_status: UNREVIEWED

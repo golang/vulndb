@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5674",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-42186",
+    "GHSA-vv66-6rp4-wr4f"
+  ],
+  "summary": "OpenBao's Namespace Deletion May Not Delete Data Properly in github.com/openbao/openbao",
+  "details": "OpenBao's Namespace Deletion May Not Delete Data Properly in github.com/openbao/openbao",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/openbao/openbao",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20260420173541-6d2e0506e2b4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/openbao/openbao/security/advisories/GHSA-vv66-6rp4-wr4f"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42186"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openbao/openbao/commit/6d2e0506e2b41be0eaa6643bf7b4efc9a2c09445"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/openbao/openbao/releases/tag/v2.5.3"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5674",
+    "review_status": "UNREVIEWED"
+  }
+}

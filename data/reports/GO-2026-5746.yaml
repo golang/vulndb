@@ -1,0 +1,26 @@
+id: GO-2026-5746
+modules:
+    - module: github.com/docker/docker
+      unsupported_versions:
+        - last_affected: 28.5.2
+      vulnerable_at: 28.5.2+incompatible
+    - module: github.com/moby/moby
+      unsupported_versions:
+        - last_affected: 28.5.2
+      vulnerable_at: 28.5.2+incompatible
+    - module: github.com/moby/moby/v2
+      versions:
+        - fixed: 2.0.0-beta.14
+      vulnerable_at: 2.0.0-beta.13
+summary: 'Docker: `PUT /containers/{id}/archive` executes container binary on the host in github.com/docker/docker'
+cves:
+    - CVE-2026-41567
+ghsas:
+    - GHSA-x86f-5xw2-fm2r
+references:
+    - advisory: https://github.com/moby/moby/security/advisories/GHSA-x86f-5xw2-fm2r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-41567
+source:
+    id: GHSA-x86f-5xw2-fm2r
+    created: 2026-06-25T15:23:08.687430643-04:00
+review_status: UNREVIEWED

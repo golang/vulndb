@@ -1,0 +1,28 @@
+id: GO-2026-5668
+modules:
+    - module: github.com/docker/docker
+      unsupported_versions:
+        - last_affected: 28.5.2
+      vulnerable_at: 28.5.2+incompatible
+    - module: github.com/moby/moby
+      unsupported_versions:
+        - last_affected: 28.5.2
+      vulnerable_at: 28.5.2+incompatible
+    - module: github.com/moby/moby/v2
+      versions:
+        - fixed: 2.0.0-beta.14
+      vulnerable_at: 2.0.0-beta.13
+summary: |-
+    Docker: Race condition in docker cp allows creation of arbitrary empty files on
+    the host via symlink swap in github.com/docker/docker
+cves:
+    - CVE-2026-41568
+ghsas:
+    - GHSA-vp62-88p7-qqf5
+references:
+    - advisory: https://github.com/moby/moby/security/advisories/GHSA-vp62-88p7-qqf5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-41568
+source:
+    id: GHSA-vp62-88p7-qqf5
+    created: 2026-06-25T15:46:20.878687735-04:00
+review_status: UNREVIEWED

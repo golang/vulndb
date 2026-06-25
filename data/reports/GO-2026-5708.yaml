@@ -1,0 +1,20 @@
+id: GO-2026-5708
+modules:
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - fixed: 1.9.2-0.20260513165311-fb7336fc36c1
+      vulnerable_at: 5.4.5+incompatible
+summary: 'Grafana: Users can generate Service Account tokens after permissions removal in github.com/grafana/grafana'
+cves:
+    - CVE-2026-33381
+ghsas:
+    - GHSA-wfhv-mj62-f5xh
+references:
+    - advisory: https://github.com/advisories/GHSA-wfhv-mj62-f5xh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-33381
+    - fix: https://github.com/grafana/grafana/commit/fb7336fc36c14e1ff869482c5085ddb9f39e1b86
+    - web: https://grafana.com/security/security-advisories/cve-2026-33381
+source:
+    id: GHSA-wfhv-mj62-f5xh
+    created: 2026-06-25T15:38:56.244194185-04:00
+review_status: UNREVIEWED

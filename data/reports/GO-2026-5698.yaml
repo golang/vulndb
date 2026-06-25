@@ -1,0 +1,21 @@
+id: GO-2026-5698
+modules:
+    - module: github.com/juev/nebula-mesh
+      versions:
+        - fixed: 0.3.1
+      vulnerable_at: 0.3.0
+summary: |-
+    nebula-mesh: Web UI and API responses lack security headers (CSP,
+    X-Frame-Options, HSTS, etc.) in github.com/juev/nebula-mesh
+cves:
+    - CVE-2026-47723
+ghsas:
+    - GHSA-w7w5-5gcp-38rw
+references:
+    - advisory: https://github.com/juev/nebula-mesh/security/advisories/GHSA-w7w5-5gcp-38rw
+    - web: https://github.com/forgekeep/nebula-mesh/commit/b45fda5476c41ffcff1ca23058aef0fb851359c1
+    - web: https://github.com/forgekeep/nebula-mesh/releases/tag/v0.3.1
+source:
+    id: GHSA-w7w5-5gcp-38rw
+    created: 2026-06-25T15:40:41.598070746-04:00
+review_status: UNREVIEWED

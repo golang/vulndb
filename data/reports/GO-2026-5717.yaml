@@ -1,0 +1,22 @@
+id: GO-2026-5717
+modules:
+    - module: github.com/free5gc/nef
+      unsupported_versions:
+        - last_affected: 1.2.3
+      vulnerable_at: 1.2.4
+summary: |-
+    free5GC's NEF nnef-callback route group is unauthenticated; forged callback
+    requests are accepted into the processing path in github.com/free5gc/nef
+cves:
+    - CVE-2026-44320
+ghsas:
+    - GHSA-wqfh-gq79-j8mf
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-wqfh-gq79-j8mf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44320
+    - fix: https://github.com/free5gc/nef/pull/24
+    - web: https://github.com/free5gc/free5gc/issues/860
+source:
+    id: GHSA-wqfh-gq79-j8mf
+    created: 2026-06-25T15:37:22.6914073-04:00
+review_status: UNREVIEWED

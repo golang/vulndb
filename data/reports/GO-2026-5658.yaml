@@ -1,0 +1,24 @@
+id: GO-2026-5658
+modules:
+    - module: github.com/modelcontextprotocol/registry
+      versions:
+        - introduced: 1.1.0
+        - fixed: 1.7.5
+      vulnerable_at: 1.7.4
+summary: |-
+    MCP Registry has open redirect via protocol-relative path in trailing-slash
+    middleware in github.com/modelcontextprotocol/registry
+cves:
+    - CVE-2026-44427
+ghsas:
+    - GHSA-v8vw-gw5j-w7m6
+references:
+    - advisory: https://github.com/modelcontextprotocol/registry/security/advisories/GHSA-v8vw-gw5j-w7m6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44427
+    - fix: https://github.com/modelcontextprotocol/registry/commit/1201cbd82b2cf6d4b56edfc05c763059a12f9fdb
+    - fix: https://github.com/modelcontextprotocol/registry/pull/1227
+    - web: https://github.com/modelcontextprotocol/registry/releases/tag/v1.7.5
+source:
+    id: GHSA-v8vw-gw5j-w7m6
+    created: 2026-06-25T15:46:21.461514667-04:00
+review_status: UNREVIEWED

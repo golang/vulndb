@@ -1,0 +1,24 @@
+id: GO-2026-5656
+modules:
+    - module: github.com/kubetail-org/kubetail/modules/cli
+      non_go_versions:
+        - fixed: 0.16.0
+      vulnerable_at: 0.0.0-20260616182325-a2d8db22b7a5
+    - module: github.com/kubetail-org/kubetail/modules/dashboard
+      non_go_versions:
+        - fixed: 0.14.0
+      vulnerable_at: 0.0.0-20260616182325-a2d8db22b7a5
+summary: |-
+    Kubetail has a Cross-Site WebSocket Hijacking issue that allows attacker to read
+    Kubernetes logs from authenticated users in github.com/kubetail-org/kubetail/modules/cli
+cves:
+    - CVE-2026-44514
+ghsas:
+    - GHSA-v8j7-hp7c-738f
+references:
+    - advisory: https://github.com/kubetail-org/kubetail/security/advisories/GHSA-v8j7-hp7c-738f
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44514
+source:
+    id: GHSA-v8j7-hp7c-738f
+    created: 2026-06-25T15:46:19.292771253-04:00
+review_status: UNREVIEWED

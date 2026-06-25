@@ -1,0 +1,23 @@
+id: GO-2026-5716
+modules:
+    - module: github.com/kubewarden/kubewarden-controller
+      versions:
+        - fixed: 1.35.0
+      vulnerable_at: 1.34.2
+summary: |-
+    Kubewarden vulnerable to RBAC Reconnaissance via unchecked can_i host capability
+    call in github.com/kubewarden/kubewarden-controller
+cves:
+    - CVE-2026-42541
+ghsas:
+    - GHSA-wqcw-g35j-j578
+references:
+    - advisory: https://github.com/kubewarden/adm-controller/security/advisories/GHSA-wqcw-g35j-j578
+    - advisory: https://github.com/kubewarden/kubewarden-controller/security/advisories/GHSA-wqcw-g35j-j578
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42541
+    - fix: https://github.com/kubewarden/kubewarden-controller/pull/1693
+    - web: https://github.com/kubewarden/docs/pull/737
+source:
+    id: GHSA-wqcw-g35j-j578
+    created: 2026-06-25T15:37:28.912954257-04:00
+review_status: UNREVIEWED

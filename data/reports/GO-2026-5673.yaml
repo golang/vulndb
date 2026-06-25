@@ -1,0 +1,20 @@
+id: GO-2026-5673
+modules:
+    - module: github.com/free5gc/amf
+      unsupported_versions:
+        - last_affected: 1.4.3
+      vulnerable_at: 1.4.4
+summary: Free5GC AMF has Missing Concurrent NAS SMC Validation During NGAP Handover in github.com/free5gc/amf
+cves:
+    - CVE-2026-42082
+ghsas:
+    - GHSA-vrrx-58h3-prmh
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-vrrx-58h3-prmh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42082
+    - web: https://github.com/free5gc/amf/blame/v1.4.3/internal/gmm/sm.go
+    - web: https://github.com/free5gc/amf/blame/v1.4.3/internal/ngap/handler.go
+source:
+    id: GHSA-vrrx-58h3-prmh
+    created: 2026-06-25T15:46:24.745662205-04:00
+review_status: UNREVIEWED

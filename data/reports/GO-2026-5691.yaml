@@ -1,0 +1,23 @@
+id: GO-2026-5691
+modules:
+    - module: github.com/filebrowser/filebrowser
+      unsupported_versions:
+        - last_affected: 1.11.0
+      vulnerable_at: 1.11.0
+    - module: github.com/filebrowser/filebrowser/v2
+      versions:
+        - fixed: 2.63.6
+      vulnerable_at: 2.63.5
+summary: File Browser has a DoS Vulnerability via Public Login API in github.com/filebrowser/filebrowser
+cves:
+    - CVE-2026-54092
+ghsas:
+    - GHSA-w5fm-68j4-fpc4
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-w5fm-68j4-fpc4
+    - fix: https://github.com/filebrowser/filebrowser/commit/847d08bdd135e5c3659f2e6dea2f0cd36617af9b
+    - web: https://github.com/filebrowser/filebrowser/releases/tag/v2.63.6
+source:
+    id: GHSA-w5fm-68j4-fpc4
+    created: 2026-06-25T15:41:19.340408771-04:00
+review_status: UNREVIEWED

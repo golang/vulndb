@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5703",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-8462",
+    "GHSA-wc3v-3457-c8cm"
+  ],
+  "summary": "OpenMeter: SQL injection through meter creation in github.com/openmeterio/openmeter",
+  "details": "OpenMeter: SQL injection through meter creation in github.com/openmeterio/openmeter",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/openmeterio/openmeter",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.0.0-beta.228"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/openmeterio/openmeter/security/advisories/GHSA-wc3v-3457-c8cm"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openmeterio/openmeter/commit/6ce29e743165890c10346f4c71d5bf79f1ecaf6f"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openmeterio/openmeter/pull/4383"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/openmeterio/openmeter/releases/tag/v1.0.0-beta.228"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5703",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,21 @@
+id: GO-2026-5654
+modules:
+    - module: github.com/monetr/monetr
+      versions:
+        - fixed: 1.12.4
+      vulnerable_at: 1.12.3
+summary: |-
+    In monetr, unauthenticated Stripe webhook reads attacker-sized request bodies
+    before signature validation in github.com/monetr/monetr
+cves:
+    - CVE-2026-40481
+ghsas:
+    - GHSA-v7xq-3wx6-fqc2
+references:
+    - advisory: https://github.com/monetr/monetr/security/advisories/GHSA-v7xq-3wx6-fqc2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40481
+    - web: https://github.com/monetr/monetr/releases/tag/v1.12.4
+source:
+    id: GHSA-v7xq-3wx6-fqc2
+    created: 2026-06-25T15:46:19.934786548-04:00
+review_status: UNREVIEWED

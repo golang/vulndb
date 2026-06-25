@@ -1,0 +1,20 @@
+id: GO-2026-5661
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.14.3
+      vulnerable_at: 0.13.3
+summary: Gogs has DOM-based XSS via Milestone Name on New Issue Page in gogs.io/gogs
+cves:
+    - CVE-2026-52807
+ghsas:
+    - GHSA-vcm5-gvmp-78mp
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-vcm5-gvmp-78mp
+    - web: https://github.com/gogs/gogs/commit/573eacdc658641487f8ad883da96b29ec8e2852d
+    - web: https://github.com/gogs/gogs/pull/8325
+    - web: https://github.com/gogs/gogs/releases/tag/v0.14.3
+source:
+    id: GHSA-vcm5-gvmp-78mp
+    created: 2026-06-25T15:46:22.092827972-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,21 @@
+id: GO-2026-5642
+modules:
+    - module: github.com/free5gc/nef
+      unsupported_versions:
+        - last_affected: 1.2.3
+      vulnerable_at: 1.2.4
+summary: |-
+    free5GC's NEF nnef-pfdmanagement API is unauthenticated; forged bearer tokens
+    can read PFD data and create/delete PFD subscriptions in github.com/free5gc/nef
+cves:
+    - CVE-2026-44330
+ghsas:
+    - GHSA-rwww-x45w-p52w
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-rwww-x45w-p52w
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44330
+    - web: https://github.com/free5gc/free5gc/issues/862
+source:
+    id: GHSA-rwww-x45w-p52w
+    created: 2026-06-25T15:46:22.231199953-04:00
+review_status: UNREVIEWED

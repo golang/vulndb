@@ -1,0 +1,20 @@
+id: GO-2026-5645
+modules:
+    - module: github.com/nezhahq/nezha
+      versions:
+        - introduced: 1.4.0
+        - fixed: 1.14.15-0.20260517022419-d7526351cf97
+      vulnerable_at: 1.14.14
+summary: |-
+    Nezha Monitoring: RoleMember can fire other users' cron tasks via
+    AlertRule.FailTriggerTasks (no ownership check) in github.com/nezhahq/nezha
+cves:
+    - CVE-2026-47120
+ghsas:
+    - GHSA-rxf6-wjh4-jfj6
+references:
+    - advisory: https://github.com/nezhahq/nezha/security/advisories/GHSA-rxf6-wjh4-jfj6
+source:
+    id: GHSA-rxf6-wjh4-jfj6
+    created: 2026-06-25T15:46:21.447576919-04:00
+review_status: UNREVIEWED

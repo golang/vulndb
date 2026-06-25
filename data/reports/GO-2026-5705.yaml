@@ -1,0 +1,19 @@
+id: GO-2026-5705
+modules:
+    - module: github.com/opentofu/opentofu
+      versions:
+        - fixed: 1.10.10
+        - introduced: 1.11.0
+        - fixed: 1.11.7
+      vulnerable_at: 1.11.6
+summary: |-
+    OpenTofu: Provider cache installation follows root-module-controlled package
+    directory symlink and writes outside the working tree in github.com/opentofu/opentofu
+ghsas:
+    - GHSA-wcmj-x466-56mm
+references:
+    - advisory: https://github.com/opentofu/opentofu/security/advisories/GHSA-wcmj-x466-56mm
+source:
+    id: GHSA-wcmj-x466-56mm
+    created: 2026-06-25T15:40:06.200476528-04:00
+review_status: UNREVIEWED

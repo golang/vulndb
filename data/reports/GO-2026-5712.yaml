@@ -1,0 +1,22 @@
+id: GO-2026-5712
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.14.3
+      vulnerable_at: 0.13.3
+summary: |-
+    Gogs allows users to write to readonly repositories using receive-pack +
+    service=git-upload-pack confusion in gogs.io/gogs
+cves:
+    - CVE-2026-52810
+ghsas:
+    - GHSA-wmfg-5p4h-5fw3
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-wmfg-5p4h-5fw3
+    - web: https://github.com/gogs/gogs/commit/7c9cf53aca957959bcd98b0cc987d9901b7cb184
+    - web: https://github.com/gogs/gogs/pull/8331
+    - web: https://github.com/gogs/gogs/releases/tag/v0.14.3
+source:
+    id: GHSA-wmfg-5p4h-5fw3
+    created: 2026-06-25T15:38:32.515701735-04:00
+review_status: UNREVIEWED

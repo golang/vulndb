@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5734",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-21388",
+    "GHSA-x274-8qfc-hrgf"
+  ],
+  "summary": "Mattermost MS Teams plugin doesn't limit the request body size on the /lifecycle webhook endpoint in github.com/mattermost/mattermost-plugin-msteams",
+  "details": "Mattermost MS Teams plugin doesn't limit the request body size on the /lifecycle webhook endpoint in github.com/mattermost/mattermost-plugin-msteams",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-plugin-msteams",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.15.1-0.20260213190728-6fe4d295592e"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-x274-8qfc-hrgf"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-21388"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/mattermost/mattermost-plugin-msteams/commit/6fe4d295592ecc8767d67e69286cbeec01be3210"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost-plugin-msteams/releases/tag/v2.3.2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://mattermost.com/security-updates"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5734",
+    "review_status": "UNREVIEWED"
+  }
+}

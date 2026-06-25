@@ -1,0 +1,20 @@
+id: GO-2026-5728
+modules:
+    - module: github.com/patrickhener/goshs
+      unsupported_versions:
+        - last_affected: 1.1.4
+      vulnerable_at: 1.1.4
+summary: goshs has a file-based ACL authorization bypass in goshs state-changing routes in github.com/patrickhener/goshs
+cves:
+    - CVE-2026-40189
+ghsas:
+    - GHSA-wvhv-qcqf-f3cx
+references:
+    - advisory: https://github.com/patrickhener/goshs/security/advisories/GHSA-wvhv-qcqf-f3cx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40189
+    - fix: https://github.com/patrickhener/goshs/commit/f212c4f4a126556bab008f79758e21a839ef2c0f
+    - web: https://github.com/patrickhener/goshs/releases/tag/v2.0.0-beta.4
+source:
+    id: GHSA-wvhv-qcqf-f3cx
+    created: 2026-06-25T15:33:13.530942992-04:00
+review_status: UNREVIEWED

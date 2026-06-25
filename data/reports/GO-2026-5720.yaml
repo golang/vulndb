@@ -1,0 +1,23 @@
+id: GO-2026-5720
+modules:
+    - module: github.com/free5gc/pcf
+      versions:
+        - fixed: 1.4.2
+      vulnerable_at: 1.4.1
+summary: |-
+    free5GC's PCF npcf-smpolicycontrol POST /sm-policies panics on downstream
+    UDR/OpenAPI 404 via nil pointer dereference in github.com/free5gc/pcf
+cves:
+    - CVE-2026-44316
+ghsas:
+    - GHSA-wr8j-6chw-gm6p
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-wr8j-6chw-gm6p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44316
+    - fix: https://github.com/free5gc/pcf/commit/df535f5524314620715e842baf9723efbeb481a7
+    - fix: https://github.com/free5gc/pcf/pull/62
+    - web: https://github.com/free5gc/free5gc/issues/803
+source:
+    id: GHSA-wr8j-6chw-gm6p
+    created: 2026-06-25T15:37:01.635725768-04:00
+review_status: UNREVIEWED

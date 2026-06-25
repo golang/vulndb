@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5735",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-32885",
+    "GHSA-x2xq-qhjf-5mvg"
+  ],
+  "summary": "DDEV has ZipSlip path traversal in tar and zip archive extraction in github.com/ddev/ddev",
+  "details": "DDEV has ZipSlip path traversal in tar and zip archive extraction in github.com/ddev/ddev",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/ddev/ddev",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.25.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/ddev/ddev/security/advisories/GHSA-x2xq-qhjf-5mvg"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-32885"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/ddev/ddev/commit/05cbe299770a590b89bfc8dddab33e61b4302e43"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/ddev/ddev/pull/8213"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/ddev/ddev/releases/tag/v1.25.2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5735",
+    "review_status": "UNREVIEWED"
+  }
+}

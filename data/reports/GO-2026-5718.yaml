@@ -1,0 +1,20 @@
+id: GO-2026-5718
+modules:
+    - module: github.com/hashicorp/nomad-driver-exec2
+      versions:
+        - fixed: 0.1.2
+      vulnerable_at: 0.1.1
+summary: HashiCorp Nomad’s exec2 task driver vulnerable to a symlink attack in github.com/hashicorp/nomad-driver-exec2
+cves:
+    - CVE-2026-8052
+ghsas:
+    - GHSA-wqwc-x3rc-2xw6
+references:
+    - advisory: https://github.com/advisories/GHSA-wqwc-x3rc-2xw6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-8052
+    - web: https://discuss.hashicorp.com/t/hcsec-2026-13-nomads-exec2-task-driver-vulnerable-to-arbitrary-file-read-write-on-client-host-through-symlink-attack/77415
+    - web: https://github.com/hashicorp/nomad-driver-exec2/releases/tag/v0.1.2
+source:
+    id: GHSA-wqwc-x3rc-2xw6
+    created: 2026-06-25T15:37:17.13933925-04:00
+review_status: UNREVIEWED

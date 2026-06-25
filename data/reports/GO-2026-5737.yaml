@@ -1,0 +1,21 @@
+id: GO-2026-5737
+modules:
+    - module: github.com/authorizerdev/authorizer
+      versions:
+        - fixed: 0.0.0-20260329085140-6d9bef1aaba3
+summary: |-
+    Authorizer: Password reset token theft and full auth token redirect via
+    unvalidated redirect_uri in github.com/authorizerdev/authorizer
+ghsas:
+    - GHSA-x3f4-v83f-7wp2
+references:
+    - advisory: https://github.com/authorizerdev/authorizer/security/advisories/GHSA-x3f4-v83f-7wp2
+    - fix: https://github.com/authorizerdev/authorizer/commit/6d9bef1aaba3f867f8c769b93eb7fc80e4e7b0a2
+    - fix: https://github.com/authorizerdev/authorizer/pull/502
+    - web: https://github.com/authorizerdev/authorizer/releases/tag/2.0.1
+notes:
+    - fix: 'github.com/authorizerdev/authorizer: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-x3f4-v83f-7wp2
+    created: 2026-06-25T15:32:24.76414553-04:00
+review_status: UNREVIEWED

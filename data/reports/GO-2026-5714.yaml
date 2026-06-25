@@ -1,0 +1,21 @@
+id: GO-2026-5714
+modules:
+    - module: go.opentelemetry.io/obi
+      versions:
+        - fixed: 0.9.0
+      vulnerable_at: 0.8.0
+summary: |-
+    OpenTelemetry eBPF Instrumentation: Unsafe fastelf parsing allows malformed ELF
+    to crash agent in go.opentelemetry.io/obi
+cves:
+    - CVE-2026-45676
+ghsas:
+    - GHSA-wp73-mwgf-4jq9
+references:
+    - advisory: https://github.com/open-telemetry/opentelemetry-ebpf-instrumentation/security/advisories/GHSA-wp73-mwgf-4jq9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-45676
+    - web: https://github.com/open-telemetry/opentelemetry-ebpf-instrumentation/releases/tag/v0.9.0
+source:
+    id: GHSA-wp73-mwgf-4jq9
+    created: 2026-06-25T15:38:10.586071974-04:00
+review_status: UNREVIEWED

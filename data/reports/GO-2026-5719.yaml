@@ -1,0 +1,20 @@
+id: GO-2026-5719
+modules:
+    - module: github.com/0xJacky/Nginx-UI
+      unsupported_versions:
+        - last_affected: 2.3.4
+      vulnerable_at: 1.9.9
+summary: |-
+    Nginx-UI has Server-Side Request Forgery (SSRF) via Cluster Proxy Middleware
+    that Allows Access to Internal Services in github.com/0xJacky/Nginx-UI
+cves:
+    - CVE-2026-44015
+ghsas:
+    - GHSA-wr32-99hh-6f35
+references:
+    - advisory: https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-wr32-99hh-6f35
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44015
+source:
+    id: GHSA-wr32-99hh-6f35
+    created: 2026-06-25T15:37:08.123685803-04:00
+review_status: UNREVIEWED

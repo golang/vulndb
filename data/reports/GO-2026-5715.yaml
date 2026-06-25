@@ -1,0 +1,24 @@
+id: GO-2026-5715
+modules:
+    - module: github.com/sylabs/singularity
+      unsupported_versions:
+        - last_affected: 3.1.1
+      vulnerable_at: 0.0.0-20230731083700-61a3083f0c3c
+    - module: github.com/sylabs/singularity/v4
+      versions:
+        - fixed: 4.4.2
+      vulnerable_at: 4.4.1
+summary: 'Singularity: Incorrect path matching for ''limit container paths'' directive in github.com/sylabs/singularity'
+cves:
+    - CVE-2026-47215
+ghsas:
+    - GHSA-wqcr-7rf3-f64m
+references:
+    - advisory: https://github.com/sylabs/singularity/security/advisories/GHSA-wqcr-7rf3-f64m
+    - fix: https://github.com/sylabs/singularity/commit/c08791793e843d4c9c1f2fc1d9d12abef747378f
+    - web: https://docs.sylabs.io/guides/latest/admin-guide/configfiles.html#limiting-container-execution
+    - web: https://github.com/sylabs/singularity/releases/tag/v4.4.2
+source:
+    id: GHSA-wqcr-7rf3-f64m
+    created: 2026-06-25T15:37:36.356392387-04:00
+review_status: UNREVIEWED

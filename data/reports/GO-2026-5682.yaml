@@ -1,0 +1,19 @@
+id: GO-2026-5682
+modules:
+    - module: github.com/fleetdm/fleet/v4
+      versions:
+        - fixed: 4.84.2
+      vulnerable_at: 4.84.1
+summary: |-
+    Fleet has observer-level enrollment secret extraction via ORDER BY oracle on
+    labels host-listing endpoint in github.com/fleetdm/fleet
+cves:
+    - CVE-2026-46370
+ghsas:
+    - GHSA-vxm7-9x8v-8gm4
+references:
+    - advisory: https://github.com/fleetdm/fleet/security/advisories/GHSA-vxm7-9x8v-8gm4
+source:
+    id: GHSA-vxm7-9x8v-8gm4
+    created: 2026-06-25T15:42:06.034659229-04:00
+review_status: UNREVIEWED

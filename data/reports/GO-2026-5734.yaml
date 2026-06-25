@@ -1,0 +1,23 @@
+id: GO-2026-5734
+modules:
+    - module: github.com/mattermost/mattermost-plugin-msteams
+      versions:
+        - fixed: 1.15.1-0.20260213190728-6fe4d295592e
+      vulnerable_at: 1.15.0
+summary: |-
+    Mattermost MS Teams plugin doesn't limit the request body size on the /lifecycle
+    webhook endpoint in github.com/mattermost/mattermost-plugin-msteams
+cves:
+    - CVE-2026-21388
+ghsas:
+    - GHSA-x274-8qfc-hrgf
+references:
+    - advisory: https://github.com/advisories/GHSA-x274-8qfc-hrgf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-21388
+    - fix: https://github.com/mattermost/mattermost-plugin-msteams/commit/6fe4d295592ecc8767d67e69286cbeec01be3210
+    - web: https://github.com/mattermost/mattermost-plugin-msteams/releases/tag/v2.3.2
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-x274-8qfc-hrgf
+    created: 2026-06-25T15:32:45.118816906-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,20 @@
+id: GO-2026-5632
+modules:
+    - module: github.com/pelicanplatform/pelican
+      versions:
+        - fixed: 0.0.0-20260408120501-7f73b9c3e677
+summary: Pelican Web UI Affected by a Privilege Escalation Attack in github.com/pelicanplatform/pelican
+cves:
+    - CVE-2026-42571
+ghsas:
+    - GHSA-rpfr-x88x-xwcw
+references:
+    - advisory: https://github.com/PelicanPlatform/pelican/security/advisories/GHSA-rpfr-x88x-xwcw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42571
+    - web: https://github.com/PelicanPlatform/pelican/commit/7f73b9c3e677a0ae4a0ec465c5d98bb8bd948854
+notes:
+    - fix: 'github.com/pelicanplatform/pelican: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-rpfr-x88x-xwcw
+    created: 2026-06-25T15:46:25.74218387-04:00
+review_status: UNREVIEWED
