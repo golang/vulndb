@@ -1,0 +1,20 @@
+id: GO-2026-5776
+modules:
+    - module: github.com/gtsteffaniak/filebrowser
+      non_go_versions:
+        - fixed: 0.0.0-20260522161427-fa5abc8c67f3a
+summary: |-
+    FileBrowser: Missing Rate Limiting on Authentication Endpoint Enables Brute
+    Force Attacks in github.com/gtsteffaniak/filebrowser
+ghsas:
+    - GHSA-r4v7-6wcg-ghj5
+references:
+    - advisory: https://github.com/gtsteffaniak/filebrowser/security/advisories/GHSA-r4v7-6wcg-ghj5
+    - fix: https://github.com/gtsteffaniak/filebrowser/commit/fa5abc8c67f3a66ce76e358a3c57981750c76a23
+    - fix: https://github.com/gtsteffaniak/filebrowser/pull/2485
+notes:
+    - fix: 'github.com/gtsteffaniak/filebrowser: could not add vulnerable_at: no fix, but could not find latest version from proxy: HTTP GET /github.com/gtsteffaniak/filebrowser/@latest returned status 404 Not Found'
+source:
+    id: GHSA-r4v7-6wcg-ghj5
+    created: 2026-06-25T15:03:29.371648327-04:00
+review_status: UNREVIEWED

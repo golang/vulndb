@@ -1,0 +1,22 @@
+id: GO-2026-5756
+modules:
+    - module: github.com/AdguardTeam/AdGuardHome
+      versions:
+        - fixed: 0.107.75
+      vulnerable_at: 0.107.74
+    - module: github.com/AdguardTeam/dnsproxy
+      versions:
+        - fixed: 0.81.3
+      vulnerable_at: 0.81.2
+summary: 'AdGuard Home: DoQ-to-UDP State Reduction and Source-Port Oracle in github.com/AdguardTeam/AdGuardHome'
+cves:
+    - CVE-2026-47703
+ghsas:
+    - GHSA-xgx4-4h9w-53pv
+references:
+    - advisory: https://github.com/AdguardTeam/AdGuardHome/security/advisories/GHSA-xgx4-4h9w-53pv
+    - fix: https://github.com/AdguardTeam/dnsproxy/commit/f00d992ce9567a50f596853978ad6500acfdcf1d
+source:
+    id: GHSA-xgx4-4h9w-53pv
+    created: 2026-06-25T15:07:24.892311295-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,28 @@
+id: GO-2026-5752
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.48
+      vulnerable_at: 2.11.47
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - fixed: 3.6.19
+        - introduced: 3.7.0-ea.1
+        - fixed: 3.7.3
+      vulnerable_at: 3.7.2
+summary: Traefik has a StripPrefix Route-Level Auth Bypass via Path Normalization in github.com/traefik/traefik
+cves:
+    - CVE-2026-48020
+ghsas:
+    - GHSA-xf64-8mw2-4gr2
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-xf64-8mw2-4gr2
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.48
+    - web: https://github.com/traefik/traefik/releases/tag/v3.6.19
+    - web: https://github.com/traefik/traefik/releases/tag/v3.7.3
+source:
+    id: GHSA-xf64-8mw2-4gr2
+    created: 2026-06-25T15:07:50.193616928-04:00
+review_status: UNREVIEWED

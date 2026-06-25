@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5776",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-r4v7-6wcg-ghj5"
+  ],
+  "summary": "FileBrowser: Missing Rate Limiting on Authentication Endpoint Enables Brute Force Attacks in github.com/gtsteffaniak/filebrowser",
+  "details": "FileBrowser: Missing Rate Limiting on Authentication Endpoint Enables Brute Force Attacks in github.com/gtsteffaniak/filebrowser.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/gtsteffaniak/filebrowser before v0.0.0-20260522161427-fa5abc8c67f3a.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gtsteffaniak/filebrowser",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "0.0.0-20260522161427-fa5abc8c67f3a"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/gtsteffaniak/filebrowser/security/advisories/GHSA-r4v7-6wcg-ghj5"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gtsteffaniak/filebrowser/commit/fa5abc8c67f3a66ce76e358a3c57981750c76a23"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gtsteffaniak/filebrowser/pull/2485"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5776",
+    "review_status": "UNREVIEWED"
+  }
+}

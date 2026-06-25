@@ -1,0 +1,23 @@
+id: GO-2026-5754
+modules:
+    - module: github.com/filebrowser/filebrowser
+      vulnerable_at: 1.11.0
+    - module: github.com/filebrowser/filebrowser/v2
+      versions:
+        - fixed: 2.62.2
+      vulnerable_at: 2.62.1
+summary: |-
+    File Browser vulnerable to Stored Cross-site Scripting via text/template
+    branding injection in github.com/filebrowser/filebrowser
+cves:
+    - CVE-2026-34530
+ghsas:
+    - GHSA-xfqj-3vmx-63wv
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-xfqj-3vmx-63wv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-34530
+    - web: https://github.com/filebrowser/filebrowser/releases/tag/v2.62.2
+source:
+    id: GHSA-xfqj-3vmx-63wv
+    created: 2026-06-25T15:07:36.614529539-04:00
+review_status: UNREVIEWED

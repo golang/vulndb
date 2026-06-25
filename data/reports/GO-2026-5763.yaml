@@ -1,0 +1,21 @@
+id: GO-2026-5763
+modules:
+    - module: github.com/sigstore/timestamp-authority
+      vulnerable_at: 1.2.9
+    - module: github.com/sigstore/timestamp-authority/v2
+      versions:
+        - fixed: 2.0.6
+      vulnerable_at: 2.0.5
+summary: Sigstore Timestamp Authority has Improper Certificate Validation in verifier in github.com/sigstore/timestamp-authority
+cves:
+    - CVE-2026-39984
+ghsas:
+    - GHSA-xm5m-wgh2-rrg3
+references:
+    - advisory: https://github.com/sigstore/timestamp-authority/security/advisories/GHSA-xm5m-wgh2-rrg3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-39984
+    - web: https://github.com/sigstore/timestamp-authority/releases/tag/v2.0.6
+source:
+    id: GHSA-xm5m-wgh2-rrg3
+    created: 2026-06-25T15:06:41.714962702-04:00
+review_status: UNREVIEWED

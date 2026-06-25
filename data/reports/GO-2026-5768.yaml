@@ -1,0 +1,22 @@
+id: GO-2026-5768
+modules:
+    - module: github.com/zitadel/zitadel
+      versions:
+        - fixed: 1.80.0-v2.20.0.20260616131956-0973b074b488
+      vulnerable_at: 1.80.0-v2.20
+summary: |-
+    ZITADEL: Missing client_id binding in OIDC authorization code exchange and
+    refresh token flows (RFC 6749 Section 4.1.3 violation) in github.com/zitadel/zitadel
+cves:
+    - CVE-2026-55672
+ghsas:
+    - GHSA-xqxv-4jc2-x56x
+references:
+    - advisory: https://github.com/zitadel/zitadel/security/advisories/GHSA-xqxv-4jc2-x56x
+    - fix: https://github.com/zitadel/zitadel/commit/0973b074b48816757c47fe732b06d2488d3d284c
+    - web: https://github.com/zitadel/zitadel/releases/tag/v3.4.12
+    - web: https://github.com/zitadel/zitadel/releases/tag/v4.15.2
+source:
+    id: GHSA-xqxv-4jc2-x56x
+    created: 2026-06-25T15:06:09.865317224-04:00
+review_status: UNREVIEWED

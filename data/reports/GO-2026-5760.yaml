@@ -1,0 +1,33 @@
+id: GO-2026-5760
+modules:
+    - module: github.com/traefik/traefik
+      unsupported_versions:
+        - last_affected: 1.7.34
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.43
+      vulnerable_at: 2.11.42
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - introduced: 3.0.0-beta1
+        - fixed: 3.6.14
+        - introduced: 3.7.0-ea.1
+        - fixed: 3.7.0-rc.2
+      vulnerable_at: 3.7.0-rc.1
+summary: Traefik Kubernetes CRD allows unauthorized cross-namespace middleware binding in github.com/traefik/traefik
+cves:
+    - CVE-2026-41174
+ghsas:
+    - GHSA-xhjw-95fp-8vgq
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-xhjw-95fp-8vgq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-41174
+    - fix: https://github.com/traefik/traefik/commit/df00d82fc7f12e07199551832b54de6d0e55414d
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.43
+    - web: https://github.com/traefik/traefik/releases/tag/v3.6.14
+    - web: https://github.com/traefik/traefik/releases/tag/v3.7.0-rc.2
+source:
+    id: GHSA-xhjw-95fp-8vgq
+    created: 2026-06-25T15:06:59.465360212-04:00
+review_status: UNREVIEWED

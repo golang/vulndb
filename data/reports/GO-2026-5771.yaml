@@ -1,0 +1,23 @@
+id: GO-2026-5771
+modules:
+    - module: github.com/modelcontextprotocol/go-sdk
+      versions:
+        - fixed: 1.4.0
+      vulnerable_at: 1.3.1
+summary: |-
+    DNS Rebinding Protection Disabled by Default in Model Context Protocol Go SDK
+    for Servers Running on Localhost in github.com/modelcontextprotocol/go-sdk
+cves:
+    - CVE-2026-34742
+ghsas:
+    - GHSA-xw59-hvm2-8pj6
+references:
+    - advisory: https://github.com/modelcontextprotocol/go-sdk/security/advisories/GHSA-xw59-hvm2-8pj6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-34742
+    - fix: https://github.com/modelcontextprotocol/go-sdk/commit/67bd3f2e2b53ce11a16db8d976cdb8ff1e986b6d
+    - fix: https://github.com/modelcontextprotocol/go-sdk/pull/760
+    - web: https://github.com/modelcontextprotocol/go-sdk/releases/tag/v1.4.0
+source:
+    id: GHSA-xw59-hvm2-8pj6
+    created: 2026-06-25T15:03:52.954473066-04:00
+review_status: UNREVIEWED

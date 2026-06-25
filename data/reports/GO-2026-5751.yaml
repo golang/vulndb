@@ -1,0 +1,27 @@
+id: GO-2026-5751
+modules:
+    - module: github.com/argoproj/argo-workflows
+      vulnerable_at: 0.4.7
+    - module: github.com/argoproj/argo-workflows/v2
+      vulnerable_at: 2.12.13
+    - module: github.com/argoproj/argo-workflows/v3
+      vulnerable_at: 3.7.15
+    - module: github.com/argoproj/argo-workflows/v4
+      versions:
+        - introduced: 4.0.0
+        - fixed: 4.0.5
+      vulnerable_at: 4.0.4
+summary: Argo has Missing Authorization in its Sync ConfigMap Provider in github.com/argoproj/argo-workflows
+cves:
+    - CVE-2026-42297
+ghsas:
+    - GHSA-xchc-cqwg-g76q
+references:
+    - advisory: https://github.com/argoproj/argo-workflows/security/advisories/GHSA-xchc-cqwg-g76q
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42297
+    - fix: https://github.com/argoproj/argo-workflows/commit/09fff05e0830c14a5e36cc40597ad84881db1ab6
+    - web: https://github.com/argoproj/argo-workflows/releases/tag/v4.0.5
+source:
+    id: GHSA-xchc-cqwg-g76q
+    created: 2026-06-25T15:07:56.844437561-04:00
+review_status: UNREVIEWED

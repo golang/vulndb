@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5763",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-39984",
+    "GHSA-xm5m-wgh2-rrg3"
+  ],
+  "summary": "Sigstore Timestamp Authority has Improper Certificate Validation in verifier in github.com/sigstore/timestamp-authority",
+  "details": "Sigstore Timestamp Authority has Improper Certificate Validation in verifier in github.com/sigstore/timestamp-authority",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/sigstore/timestamp-authority",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/sigstore/timestamp-authority/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.0.6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/sigstore/timestamp-authority/security/advisories/GHSA-xm5m-wgh2-rrg3"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-39984"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/sigstore/timestamp-authority/releases/tag/v2.0.6"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5763",
+    "review_status": "UNREVIEWED"
+  }
+}

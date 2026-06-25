@@ -1,0 +1,21 @@
+id: GO-2026-5755
+modules:
+    - module: github.com/canonical/microceph/microceph
+      versions:
+        - fixed: 0.0.0-20260609072127-5c2760d8fb76
+summary: 'Canonical MicroCeph: path traversal issue in the remote-import AP in github.com/canonical/microceph/microceph'
+cves:
+    - CVE-2026-10720
+ghsas:
+    - GHSA-xg3j-c7q4-f9ph
+references:
+    - advisory: https://github.com/advisories/GHSA-xg3j-c7q4-f9ph
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-10720
+    - web: https://github.com/canonical/microceph/commit/5c2760d8fb765d670e2673d3a537b67eae4b67c6
+    - web: https://github.com/canonical/microceph/pull/758
+notes:
+    - fix: 'github.com/canonical/microceph/microceph: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-xg3j-c7q4-f9ph
+    created: 2026-06-25T15:07:30.606329332-04:00
+review_status: UNREVIEWED

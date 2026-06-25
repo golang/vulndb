@@ -1,0 +1,24 @@
+id: GO-2026-5767
+modules:
+    - module: github.com/free5gc/amf
+      versions:
+        - fixed: 1.4.3-0.20260306074636-52e9386401ce
+      vulnerable_at: 1.4.2
+summary: Free5GC AMF is vulnerable to DoS through its HandleRegistrationComplete function in github.com/free5gc/amf
+cves:
+    - CVE-2026-4531
+ghsas:
+    - GHSA-xq44-64rg-8g3h
+references:
+    - advisory: https://github.com/advisories/GHSA-xq44-64rg-8g3h
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-4531
+    - fix: https://github.com/free5gc/amf/commit/52e9386401ce56ea773c5aa587d4cdf7d53da799
+    - fix: https://github.com/free5gc/amf/pull/198
+    - web: https://github.com/free5gc/free5gc/issues/792
+    - web: https://vuldb.com/?ctiid.352319
+    - web: https://vuldb.com/?id.352319
+    - web: https://vuldb.com/?submit.774073
+source:
+    id: GHSA-xq44-64rg-8g3h
+    created: 2026-06-25T15:06:16.662929643-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5771",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-34742",
+    "GHSA-xw59-hvm2-8pj6"
+  ],
+  "summary": "DNS Rebinding Protection Disabled by Default in Model Context Protocol Go SDK for Servers Running on Localhost in github.com/modelcontextprotocol/go-sdk",
+  "details": "DNS Rebinding Protection Disabled by Default in Model Context Protocol Go SDK for Servers Running on Localhost in github.com/modelcontextprotocol/go-sdk",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/modelcontextprotocol/go-sdk",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.4.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/modelcontextprotocol/go-sdk/security/advisories/GHSA-xw59-hvm2-8pj6"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34742"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/modelcontextprotocol/go-sdk/commit/67bd3f2e2b53ce11a16db8d976cdb8ff1e986b6d"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/modelcontextprotocol/go-sdk/pull/760"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/modelcontextprotocol/go-sdk/releases/tag/v1.4.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5771",
+    "review_status": "UNREVIEWED"
+  }
+}

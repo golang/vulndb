@@ -1,0 +1,23 @@
+id: GO-2026-5753
+modules:
+    - module: github.com/QuantumNous/new-api
+      versions:
+        - fixed: 0.12.10
+      vulnerable_at: 0.12.9
+summary: |-
+    New API: Stripe Webhook Signature Bypass via Empty Secret Enables Unlimited
+    Quota Fraud in github.com/QuantumNous/new-api
+cves:
+    - CVE-2026-41432
+ghsas:
+    - GHSA-xff3-5c9p-2mr4
+references:
+    - advisory: https://github.com/QuantumNous/new-api/security/advisories/GHSA-xff3-5c9p-2mr4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-41432
+    - web: https://docs.stripe.com/checkout/fulfillment#async-payment-methods
+    - web: https://docs.stripe.com/webhooks#verify-official-libraries
+    - web: https://github.com/QuantumNous/new-api/releases/tag/v0.12.10
+source:
+    id: GHSA-xff3-5c9p-2mr4
+    created: 2026-06-25T15:07:41.967289289-04:00
+review_status: UNREVIEWED

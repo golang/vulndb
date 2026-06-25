@@ -1,0 +1,24 @@
+id: GO-2026-5766
+modules:
+    - module: go.temporal.io/server
+      versions:
+        - fixed: 1.29.5
+        - introduced: 1.30.0-143.0
+        - fixed: 1.30.3
+      vulnerable_at: 1.30.2
+summary: |-
+    Temporal Server: attacker-controlled namespace could signal, delete, and reset
+    workflows or activities in a victim namespace on the same cluster in go.temporal.io/server
+cves:
+    - CVE-2026-5199
+ghsas:
+    - GHSA-xpg8-3hhp-p7w8
+references:
+    - advisory: https://github.com/advisories/GHSA-xpg8-3hhp-p7w8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-5199
+    - web: https://github.com/temporalio/temporal/releases/tag/v1.29.5
+    - web: https://github.com/temporalio/temporal/releases/tag/v1.30.3
+source:
+    id: GHSA-xpg8-3hhp-p7w8
+    created: 2026-06-25T15:06:24.443599353-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,22 @@
+id: GO-2026-5765
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.14.3
+      vulnerable_at: 0.13.3
+summary: |-
+    Gogs has Unauthenticated Asymmetric Denial of Service (DoS) via SSH Handshake
+    Stall (File Descriptor Exhaustion) in gogs.io/gogs
+cves:
+    - CVE-2026-52814
+ghsas:
+    - GHSA-xp79-5mx3-jx52
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-xp79-5mx3-jx52
+    - web: https://github.com/gogs/gogs/commit/7da9cda314054501e1a7938a9c4d7896f331b884
+    - web: https://github.com/gogs/gogs/pull/8335
+    - web: https://github.com/gogs/gogs/releases/tag/v0.14.3
+source:
+    id: GHSA-xp79-5mx3-jx52
+    created: 2026-06-25T15:06:30.644650174-04:00
+review_status: UNREVIEWED

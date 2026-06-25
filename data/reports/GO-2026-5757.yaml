@@ -1,0 +1,21 @@
+id: GO-2026-5757
+modules:
+    - module: github.com/minio/minio
+      non_go_versions:
+        - introduced: 0.0.0-20220724015452
+        - fixed: 0.0.0-20260414213245
+      vulnerable_at: 0.0.0-20260212201848-7aac2a2c5b7c
+summary: |-
+    MinIO vulnerable to Path Traversal via msgpack Body in `ReadMultiple`
+    Storage-REST Endpoint in github.com/minio/minio
+cves:
+    - CVE-2026-42600
+ghsas:
+    - GHSA-xh8f-g2qw-gcm7
+references:
+    - advisory: https://github.com/minio/minio/security/advisories/GHSA-xh8f-g2qw-gcm7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42600
+source:
+    id: GHSA-xh8f-g2qw-gcm7
+    created: 2026-06-25T15:07:16.093816961-04:00
+review_status: UNREVIEWED
