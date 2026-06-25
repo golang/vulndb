@@ -1,0 +1,22 @@
+id: GO-2026-5343
+modules:
+    - module: go.opentelemetry.io/ebpf-profiler
+      versions:
+        - introduced: 0.0.202527
+        - fixed: 0.0.202622
+      vulnerable_at: 0.0.202618
+summary: |-
+    opentelemetry-ebpf-profiler: Unprivileged process can trigger a denial of
+    service on the ebpf-profiler agent in go.opentelemetry.io/ebpf-profiler
+cves:
+    - CVE-2026-48496
+ghsas:
+    - GHSA-f2r5-5m7w-p5cx
+references:
+    - advisory: https://github.com/open-telemetry/opentelemetry-ebpf-profiler/security/advisories/GHSA-f2r5-5m7w-p5cx
+    - web: https://github.com/open-telemetry/opentelemetry-ebpf-profiler/commit/234b685cab31c2cb2f79e966caeab168bcc489e4
+    - web: https://github.com/open-telemetry/opentelemetry-ebpf-profiler/releases/tag/v0.0.202622
+source:
+    id: GHSA-f2r5-5m7w-p5cx
+    created: 2026-06-25T02:48:17.328132628-04:00
+review_status: UNREVIEWED

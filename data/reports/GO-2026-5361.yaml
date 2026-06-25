@@ -1,0 +1,20 @@
+id: GO-2026-5361
+modules:
+    - module: github.com/canonical/authd
+      versions:
+        - introduced: 0.6.0
+        - fixed: 0.6.4
+      vulnerable_at: 0.6.2
+summary: 'authd: Primary group ID is incorrectly set to value of UID in github.com/canonical/authd'
+cves:
+    - CVE-2026-6970
+ghsas:
+    - GHSA-fg3j-5w9g-hmg7
+references:
+    - advisory: https://github.com/canonical/authd/security/advisories/GHSA-fg3j-5w9g-hmg7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-6970
+    - fix: https://github.com/canonical/authd/commit/154b428305cb1a7a19c897626fefd09d6dde8b9f
+source:
+    id: GHSA-fg3j-5w9g-hmg7
+    created: 2026-06-25T02:54:07.066296866-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,17 @@
+id: GO-2026-5390
+modules:
+    - module: github.com/Kuadrant/mcp-gateway
+      unsupported_versions:
+        - last_affected: 0.6.1
+      vulnerable_at: 0.7.1
+summary: |-
+    MCP Gateway: Authority-injection and JWT/session bypass via the unauthenticated
+    router hair-pin "router-key" / "mcp-init-host" path in github.com/Kuadrant/mcp-gateway
+ghsas:
+    - GHSA-g53w-w6mj-hrpp
+references:
+    - advisory: https://github.com/Kuadrant/mcp-gateway/security/advisories/GHSA-g53w-w6mj-hrpp
+source:
+    id: GHSA-g53w-w6mj-hrpp
+    created: 2026-06-25T03:01:30.927535654-04:00
+review_status: UNREVIEWED

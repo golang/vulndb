@@ -1,0 +1,21 @@
+id: GO-2026-5356
+modules:
+    - module: github.com/getarcaneapp/arcane/backend
+      versions:
+        - fixed: 1.17.3
+      vulnerable_at: 1.17.2
+summary: |-
+    Arcane has Unauthenticated SSRF with Conditional Response Reflection in Template
+    Fetch Endpoint in github.com/getarcaneapp/arcane/backend
+cves:
+    - CVE-2026-40242
+ghsas:
+    - GHSA-ff24-4prj-gpmj
+references:
+    - advisory: https://github.com/getarcaneapp/arcane/security/advisories/GHSA-ff24-4prj-gpmj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40242
+    - web: https://github.com/getarcaneapp/arcane/releases/tag/v1.17.3
+source:
+    id: GHSA-ff24-4prj-gpmj
+    created: 2026-06-25T02:50:18.358325789-04:00
+review_status: UNREVIEWED

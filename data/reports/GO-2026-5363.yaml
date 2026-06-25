@@ -1,0 +1,21 @@
+id: GO-2026-5363
+modules:
+    - module: istio.io/istio
+      versions:
+        - fixed: 0.0.0-20260410004459-189832a289c1
+summary: 'Istio: SSRF via RequestAuthentication jwksUri in istio.io/istio'
+cves:
+    - CVE-2026-41413
+ghsas:
+    - GHSA-fgw5-hp8f-xfhc
+references:
+    - advisory: https://github.com/istio/istio/security/advisories/GHSA-fgw5-hp8f-xfhc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-41413
+    - web: https://github.com/istio/istio/releases/tag/1.28.6
+    - web: https://github.com/istio/istio/releases/tag/1.29.2
+notes:
+    - fix: 'istio.io/istio: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-fgw5-hp8f-xfhc
+    created: 2026-06-25T02:54:26.333141221-04:00
+review_status: UNREVIEWED

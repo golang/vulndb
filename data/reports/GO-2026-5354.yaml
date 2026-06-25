@@ -1,0 +1,19 @@
+id: GO-2026-5354
+modules:
+    - module: github.com/cloudnativelabs/kube-router
+      vulnerable_at: 1.6.1
+    - module: github.com/cloudnativelabs/kube-router/v2
+      versions:
+        - introduced: 2.7.0
+      unsupported_versions:
+        - last_affected: 2.8.0
+      vulnerable_at: 2.10.0
+summary: 'kube-router: BGP Peer Passwords Exposed in Logs at Verbose Logging Level in github.com/cloudnativelabs/kube-router'
+ghsas:
+    - GHSA-fcmh-qfxc-w685
+references:
+    - advisory: https://github.com/cloudnativelabs/kube-router/security/advisories/GHSA-fcmh-qfxc-w685
+source:
+    id: GHSA-fcmh-qfxc-w685
+    created: 2026-06-25T02:49:55.094699874-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,21 @@
+id: GO-2026-5289
+modules:
+    - module: istio.io/istio
+      versions:
+        - introduced: 0.0.0-20241024090207-0bf27d49ba4b
+        - fixed: 0.0.0-20260403004500-692e460c342d
+summary: 'Istio: AuthorizationPolicy serviceAccounts regex injection via unescaped dots in istio.io/istio'
+cves:
+    - CVE-2026-39350
+ghsas:
+    - GHSA-9gcg-w975-3rjh
+references:
+    - advisory: https://github.com/istio/istio/security/advisories/GHSA-9gcg-w975-3rjh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-39350
+    - web: https://github.com/istio/istio/commit/692e460c342d8f308a35b6ecbdace47807da8ade
+notes:
+    - fix: 'istio.io/istio: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-9gcg-w975-3rjh
+    created: 2026-06-25T02:31:34.922306564-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,22 @@
+id: GO-2026-5326
+modules:
+    - module: github.com/free5gc/nef
+      unsupported_versions:
+        - last_affected: 1.2.3
+      vulnerable_at: 1.2.4
+summary: |-
+    free5GC's NEF nnef-oam route group is unauthenticated; no-token requests reach
+    the OAM handler in github.com/free5gc/nef
+cves:
+    - CVE-2026-44327
+ghsas:
+    - GHSA-cmpj-2x3g-m7g3
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-cmpj-2x3g-m7g3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44327
+    - fix: https://github.com/free5gc/nef/pull/23
+    - web: https://github.com/free5gc/free5gc/issues/861
+source:
+    id: GHSA-cmpj-2x3g-m7g3
+    created: 2026-06-25T02:44:54.772407796-04:00
+review_status: UNREVIEWED

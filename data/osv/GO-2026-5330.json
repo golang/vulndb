@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5330",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-48154",
+    "GHSA-cpwg-x64r-rgwg"
+  ],
+  "summary": "gorest InMemorySecret2FA race condition allows process crash via concurrent map access (CWE-362) in github.com/pilinux/gorest",
+  "details": "gorest InMemorySecret2FA race condition allows process crash via concurrent map access (CWE-362) in github.com/pilinux/gorest",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/pilinux/gorest",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.12.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/pilinux/gorest/security/advisories/GHSA-cpwg-x64r-rgwg"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/pilinux/gorest/pull/391"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5330",
+    "review_status": "UNREVIEWED"
+  }
+}

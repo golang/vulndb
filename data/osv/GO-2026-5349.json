@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5349",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-44325",
+    "GHSA-f8qv-7x5w-qr48"
+  ],
+  "summary": "free5GC NRF: type-confusion panic in POST /oauth2/token structured-form parser via Reflect.Set on incompatible types in github.com/free5gc/nrf",
+  "details": "free5GC NRF: type-confusion panic in POST /oauth2/token structured-form parser via Reflect.Set on incompatible types in github.com/free5gc/nrf",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/free5gc/nrf",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.4.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/free5gc/free5gc/security/advisories/GHSA-f8qv-7x5w-qr48"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-44325"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/free5gc/nrf/commit/f7bc77daa7425506af7569f2e61c2a210f5a0423"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/free5gc/nrf/pull/83"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/free5gc/free5gc/issues/918"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5349",
+    "review_status": "UNREVIEWED"
+  }
+}

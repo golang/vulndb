@@ -1,0 +1,20 @@
+id: GO-2026-5339
+modules:
+    - module: github.com/open-telemetry/opentelemetry-operator
+      versions:
+        - fixed: 0.152.0
+      vulnerable_at: 0.151.0
+summary: |-
+    OpenTelemetry Operator for Kubernetes's ServiceMonitor bearerTokenFile reads
+    arbitrary local file and sends contents as bearer auth in github.com/open-telemetry/opentelemetry-operator
+cves:
+    - CVE-2026-47701
+ghsas:
+    - GHSA-cxh2-4639-vmc5
+references:
+    - advisory: https://github.com/open-telemetry/opentelemetry-operator/security/advisories/GHSA-cxh2-4639-vmc5
+    - fix: https://github.com/open-telemetry/opentelemetry-operator/pull/5104
+source:
+    id: GHSA-cxh2-4639-vmc5
+    created: 2026-06-25T02:47:49.096164449-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,23 @@
+id: GO-2026-5315
+modules:
+    - module: github.com/openziti/zrok
+      versions:
+        - introduced: 0.4.23
+      unsupported_versions:
+        - last_affected: 1.1.11
+      vulnerable_at: 1.1.11
+    - module: github.com/openziti/zrok/v2
+      versions:
+        - fixed: 2.0.3
+      vulnerable_at: 2.0.2
+summary: zrok copy writes attacker-controlled WebDAV paths outside the destination root in github.com/openziti/zrok
+cves:
+    - CVE-2026-45576
+ghsas:
+    - GHSA-c656-jcx2-7pqj
+references:
+    - advisory: https://github.com/openziti/zrok/security/advisories/GHSA-c656-jcx2-7pqj
+source:
+    id: GHSA-c656-jcx2-7pqj
+    created: 2026-06-25T02:40:20.141404415-04:00
+review_status: UNREVIEWED

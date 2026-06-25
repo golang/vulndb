@@ -1,0 +1,22 @@
+id: GO-2026-5291
+modules:
+    - module: github.com/nuts-foundation/nuts-node
+      unsupported_versions:
+        - last_affected: 1.1.0
+      vulnerable_at: 1.1.0
+summary: |-
+    nuts-node has JWT type confusion in v1 access token introspection that allows VP
+    replay as access token in github.com/nuts-foundation/nuts-node
+cves:
+    - CVE-2026-41164
+ghsas:
+    - GHSA-9hmg-827w-9rhj
+references:
+    - advisory: https://github.com/nuts-foundation/nuts-node/security/advisories/GHSA-9hmg-827w-9rhj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-41164
+    - web: https://github.com/nuts-foundation/nuts-node/releases/tag/v5.4.31
+    - web: https://github.com/nuts-foundation/nuts-node/releases/tag/v6.2.3
+source:
+    id: GHSA-9hmg-827w-9rhj
+    created: 2026-06-25T02:31:54.51822763-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,27 @@
+id: GO-2026-5378
+modules:
+    - module: github.com/containerd/containerd
+      versions:
+        - introduced: 1.7.27
+        - fixed: 1.7.32
+      vulnerable_at: 1.7.31
+    - module: github.com/containerd/containerd/v2
+      versions:
+        - introduced: 2.0.4
+        - fixed: 2.0.9
+        - introduced: 2.1.0-beta.0
+        - fixed: 2.2.4
+        - introduced: 2.3.0-beta.0
+        - fixed: 2.3.1
+      vulnerable_at: 2.3.0
+summary: containerd user ID handling bypass allows runAsNonRoot evasion in github.com/containerd/containerd
+cves:
+    - CVE-2026-46680
+ghsas:
+    - GHSA-fqw6-gf59-qr4w
+references:
+    - advisory: https://github.com/containerd/containerd/security/advisories/GHSA-fqw6-gf59-qr4w
+source:
+    id: GHSA-fqw6-gf59-qr4w
+    created: 2026-06-25T02:56:26.038609651-04:00
+review_status: UNREVIEWED

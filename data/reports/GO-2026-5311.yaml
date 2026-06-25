@@ -1,0 +1,26 @@
+id: GO-2026-5311
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.11.0+incompatible
+        - fixed: 10.11.15+incompatible
+        - introduced: 11.4.0+incompatible
+        - fixed: 11.4.5+incompatible
+        - introduced: 11.5.0+incompatible
+        - fixed: 11.5.4+incompatible
+        - introduced: 11.6.0+incompatible
+        - fixed: 11.6.1+incompatible
+      vulnerable_at: 11.6.1-rc1+incompatible
+summary: Mattermost has a Path Traversal issue in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2026-4858
+ghsas:
+    - GHSA-c4r7-j7pp-r8mp
+references:
+    - advisory: https://github.com/advisories/GHSA-c4r7-j7pp-r8mp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-4858
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-c4r7-j7pp-r8mp
+    created: 2026-06-25T02:39:06.543754249-04:00
+review_status: UNREVIEWED

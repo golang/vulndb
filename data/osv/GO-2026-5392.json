@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5392",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-46695",
+    "GHSA-g6ww-w5j2-r7x3"
+  ],
+  "summary": "BoxLite: Permission Bypass Allows Modification of Read-Only Files in github.com/boxlite-ai/boxlite/sdks/go",
+  "details": "BoxLite: Permission Bypass Allows Modification of Read-Only Files in github.com/boxlite-ai/boxlite/sdks/go",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/boxlite-ai/boxlite/sdks/go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.9.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/boxlite-ai/boxlite/security/advisories/GHSA-g6ww-w5j2-r7x3"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-46695"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/boxlite-ai/boxlite/pull/454"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/boxlite-ai/boxlite/releases/tag/v0.9.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://rustsec.org/advisories/RUSTSEC-2026-0147.html"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5392",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,25 @@
+id: GO-2026-5329
+modules:
+    - module: github.com/openziti/zrok
+      unsupported_versions:
+        - last_affected: 1.1.11
+      vulnerable_at: 1.1.11
+    - module: github.com/openziti/zrok/v2
+      versions:
+        - fixed: 2.0.1
+      vulnerable_at: 2.0.0
+summary: |-
+    zrok: Unauthenticated DoS via unbounded memory allocation in striped session
+    cookie parsing in github.com/openziti/zrok
+cves:
+    - CVE-2026-40303
+ghsas:
+    - GHSA-cpf9-ph2j-ccr9
+references:
+    - advisory: https://github.com/openziti/zrok/security/advisories/GHSA-cpf9-ph2j-ccr9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40303
+    - web: https://github.com/openziti/zrok/releases/tag/v2.0.1
+source:
+    id: GHSA-cpf9-ph2j-ccr9
+    created: 2026-06-25T02:45:20.455129575-04:00
+review_status: UNREVIEWED

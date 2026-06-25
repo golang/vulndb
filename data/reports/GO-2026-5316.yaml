@@ -1,0 +1,23 @@
+id: GO-2026-5316
+modules:
+    - module: github.com/siderolabs/omni
+      versions:
+        - fixed: 1.6.6
+        - introduced: 1.7.0
+        - fixed: 1.7.3
+      vulnerable_at: 1.7.2
+summary: |-
+    Omni: Operator can traverse image-factory API paths via unsanitized
+    `talos_version` in CreateSchematic in github.com/siderolabs/omni
+cves:
+    - CVE-2026-45723
+ghsas:
+    - GHSA-c66c-vq6w-fvh5
+references:
+    - advisory: https://github.com/siderolabs/omni/security/advisories/GHSA-c66c-vq6w-fvh5
+    - web: https://github.com/siderolabs/omni/releases/tag/v1.6.6
+    - web: https://github.com/siderolabs/omni/releases/tag/v1.7.3
+source:
+    id: GHSA-c66c-vq6w-fvh5
+    created: 2026-06-25T02:40:26.996475371-04:00
+review_status: UNREVIEWED

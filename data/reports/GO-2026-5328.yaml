@@ -1,0 +1,18 @@
+id: GO-2026-5328
+modules:
+    - module: github.com/lin-snow/ech0
+      non_go_versions:
+        - fixed: 4.3.5
+      vulnerable_at: 1.4.7
+summary: |-
+    Ech0: Missing authorization on dashboard log endpoints allows low-privilege
+    users to access sensitive system logs in github.com/lin-snow/ech0
+ghsas:
+    - GHSA-cp79-9mwr-wr49
+references:
+    - advisory: https://github.com/lin-snow/Ech0/security/advisories/GHSA-cp79-9mwr-wr49
+    - web: https://github.com/lin-snow/Ech0/releases/tag/v4.3.5
+source:
+    id: GHSA-cp79-9mwr-wr49
+    created: 2026-06-25T02:45:10.164584987-04:00
+review_status: UNREVIEWED

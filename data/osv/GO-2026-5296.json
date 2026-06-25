@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5296",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-33544",
+    "GHSA-9q5m-jfc4-wc92"
+  ],
+  "summary": "Tinyauth has OAuth account confusion via shared mutable state on singleton service instances in github.com/steveiliop56/tinyauth",
+  "details": "Tinyauth has OAuth account confusion via shared mutable state on singleton service instances in github.com/steveiliop56/tinyauth",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/steveiliop56/tinyauth",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.0.1-0.20260401140714-fc1d4f2082a5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/steveiliop56/tinyauth/security/advisories/GHSA-9q5m-jfc4-wc92"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-33544"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/steveiliop56/tinyauth/commit/f26c2171610d5c2dfbba2edb6ccd39490e349803"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/steveiliop56/tinyauth/releases/tag/v5.0.5"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5296",
+    "review_status": "UNREVIEWED"
+  }
+}

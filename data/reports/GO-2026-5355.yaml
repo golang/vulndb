@@ -1,0 +1,29 @@
+id: GO-2026-5355
+modules:
+    - module: github.com/grafana/grafana-operator
+      unsupported_versions:
+        - last_affected: 2.0.0
+      vulnerable_at: 2.0.0+incompatible
+    - module: github.com/grafana/grafana-operator/v3
+      vulnerable_at: 3.10.4
+    - module: github.com/grafana/grafana-operator/v4
+      vulnerable_at: 4.10.1
+    - module: github.com/grafana/grafana-operator/v5
+      versions:
+        - fixed: 5.24.0
+      vulnerable_at: 5.23.0
+summary: |-
+    Grafana Operator: Privilege escalation from namespace admin to cluster admin via
+    GrafanaDashboard jsonnetLib fileName in github.com/grafana/grafana-operator
+cves:
+    - CVE-2026-11769
+ghsas:
+    - GHSA-fcw4-wwqm-m8cf
+references:
+    - advisory: https://github.com/grafana/grafana-operator/security/advisories/GHSA-fcw4-wwqm-m8cf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-11769
+    - web: https://grafana.com/security/security-advisories/cve-2026-11769
+source:
+    id: GHSA-fcw4-wwqm-m8cf
+    created: 2026-06-25T02:50:00.545759012-04:00
+review_status: UNREVIEWED

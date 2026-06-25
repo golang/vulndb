@@ -1,0 +1,22 @@
+id: GO-2026-5303
+modules:
+    - module: github.com/patrickhener/goshs
+      unsupported_versions:
+        - last_affected: 1.1.4
+      vulnerable_at: 1.1.4
+    - module: github.com/patrickhener/goshs/v2
+      versions:
+        - fixed: 2.0.0
+      vulnerable_at: 2.0.0-beta.6
+summary: goshs has an empty-username SFTP password authentication bypass in github.com/patrickhener/goshs
+cves:
+    - CVE-2026-40884
+ghsas:
+    - GHSA-c29w-qq4m-2gcv
+references:
+    - advisory: https://github.com/patrickhener/goshs/security/advisories/GHSA-c29w-qq4m-2gcv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40884
+source:
+    id: GHSA-c29w-qq4m-2gcv
+    created: 2026-06-25T02:37:56.923938869-04:00
+review_status: UNREVIEWED

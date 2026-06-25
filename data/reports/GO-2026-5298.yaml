@@ -1,0 +1,20 @@
+id: GO-2026-5298
+modules:
+    - module: github.com/google/go-attestation
+      unsupported_versions:
+        - last_affected: 0.5.0
+      vulnerable_at: 0.6.1
+summary: |-
+    Go-Attestation: Hash injection into trusted measurement list via unskipped
+    SignatureHeaderSize vendor bytes in parseEfiSignatureList() in github.com/google/go-attestation
+ghsas:
+    - GHSA-9r4w-jg96-92mv
+references:
+    - advisory: https://github.com/google/go-attestation/security/advisories/GHSA-9r4w-jg96-92mv
+    - fix: https://github.com/google/go-attestation/commit/b6e905e7ae52937f02b5ca494dd1c6a3ac7a1003
+    - fix: https://github.com/google/go-attestation/pull/502
+    - web: https://github.com/google/go-attestation/releases/tag/v0.6.0
+source:
+    id: GHSA-9r4w-jg96-92mv
+    created: 2026-06-25T02:33:51.688046238-04:00
+review_status: UNREVIEWED

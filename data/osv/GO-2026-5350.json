@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5350",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-25726",
+    "GHSA-f8xp-wvcx-p6f4"
+  ],
+  "summary": "Cloudreve is vulnerable to Account Takeover via Weak Cryptographic Token Generation (Insecure PRNG Seeding) in github.com/cloudreve/Cloudreve",
+  "details": "Cloudreve is vulnerable to Account Takeover via Weak Cryptographic Token Generation (Insecure PRNG Seeding) in github.com/cloudreve/Cloudreve",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cloudreve/Cloudreve",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/cloudreve/Cloudreve/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/cloudreve/Cloudreve/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.0.0-20260205113604-ec9fdd33bc54"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cloudreve/cloudreve/security/advisories/GHSA-f8xp-wvcx-p6f4"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-25726"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/cloudreve/cloudreve/releases/tag/4.13.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5350",
+    "review_status": "UNREVIEWED"
+  }
+}

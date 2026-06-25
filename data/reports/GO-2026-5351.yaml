@@ -1,0 +1,21 @@
+id: GO-2026-5351
+modules:
+    - module: github.com/kyverno/kyverno
+      versions:
+        - fixed: 1.17.0
+      vulnerable_at: 1.17.0-rc.3
+summary: 'Kyverno: ServiceAccount token leaked to external servers via apiCall service URL in github.com/kyverno/kyverno'
+cves:
+    - CVE-2026-41323
+ghsas:
+    - GHSA-f9g8-6ppc-pqq4
+references:
+    - advisory: https://github.com/kyverno/kyverno/security/advisories/GHSA-f9g8-6ppc-pqq4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-41323
+    - fix: https://github.com/kyverno/kyverno/commit/bc4f91c4801b1eaa2edc0a14e2f1b0af8cf0c1f5
+    - fix: https://github.com/kyverno/kyverno/commit/c2eab00033e635bda4e4efb58c1b472b41728bb6
+    - fix: https://github.com/kyverno/kyverno/commit/f70e8ac1e7acd2e3844f9553e4a884f07f953de0
+source:
+    id: GHSA-f9g8-6ppc-pqq4
+    created: 2026-06-25T02:49:34.270474435-04:00
+review_status: UNREVIEWED

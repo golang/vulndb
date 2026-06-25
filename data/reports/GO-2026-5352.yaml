@@ -1,0 +1,19 @@
+id: GO-2026-5352
+modules:
+    - module: go.qbee.io/transport
+      versions:
+        - fixed: 1.26.25
+      vulnerable_at: 1.26.18
+summary: |-
+    go.qbee.io/transport: Symlink-chain path traversal in tar extraction (one level
+    outside destination)
+cves:
+    - CVE-2026-55828
+ghsas:
+    - GHSA-f9m7-vc86-p6jj
+references:
+    - advisory: https://github.com/qbee-io/transport/security/advisories/GHSA-f9m7-vc86-p6jj
+source:
+    id: GHSA-f9m7-vc86-p6jj
+    created: 2026-06-25T02:49:45.150629512-04:00
+review_status: UNREVIEWED

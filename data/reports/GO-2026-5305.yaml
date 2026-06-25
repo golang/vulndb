@@ -1,0 +1,22 @@
+id: GO-2026-5305
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.14.3
+      vulnerable_at: 0.13.3
+summary: |-
+    Gogs has Path Traversal in organization name that results in RCE through Git
+    hooks in gogs.io/gogs
+cves:
+    - CVE-2026-52813
+ghsas:
+    - GHSA-c39w-43gm-34h5
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-c39w-43gm-34h5
+    - web: https://github.com/gogs/gogs/commit/f6acd467305943aae8403cbac81f0118dd1235d7
+    - web: https://github.com/gogs/gogs/pull/8334
+    - web: https://github.com/gogs/gogs/releases/tag/v0.14.3
+source:
+    id: GHSA-c39w-43gm-34h5
+    created: 2026-06-25T02:38:17.700312093-04:00
+review_status: UNREVIEWED

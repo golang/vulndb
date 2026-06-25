@@ -1,0 +1,21 @@
+id: GO-2026-5337
+modules:
+    - module: github.com/kyverno/kyverno
+      unsupported_versions:
+        - last_affected: 1.17.1
+      vulnerable_at: 1.18.1
+summary: |-
+    Kyverno: Cross-Namespace Read Bypasses RBAC Isolation (CVE-2026-22039 Incomplete
+    Fix) in github.com/kyverno/kyverno
+cves:
+    - CVE-2026-41068
+ghsas:
+    - GHSA-cvq5-hhx3-f99p
+references:
+    - advisory: https://github.com/kyverno/kyverno/security/advisories/GHSA-cvq5-hhx3-f99p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-41068
+    - fix: https://github.com/kyverno/kyverno/commit/bbf3e5c01391d612968440659028ae98e565a777
+source:
+    id: GHSA-cvq5-hhx3-f99p
+    created: 2026-06-25T02:47:33.945481756-04:00
+review_status: UNREVIEWED

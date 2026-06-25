@@ -1,0 +1,20 @@
+id: GO-2026-5302
+modules:
+    - module: github.com/shellhub-io/shellhub
+      versions:
+        - fixed: 0.24.2
+      vulnerable_at: 0.24.1
+summary: |-
+    ShellHub has cross-tenant IDOR in `GET /api/sessions/:uid` that discloses SSH
+    session data in github.com/shellhub-io/shellhub
+cves:
+    - CVE-2026-44423
+ghsas:
+    - GHSA-9w9c-9w8m-w89q
+references:
+    - advisory: https://github.com/shellhub-io/shellhub/security/advisories/GHSA-9w9c-9w8m-w89q
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44423
+source:
+    id: GHSA-9w9c-9w8m-w89q
+    created: 2026-06-25T02:37:49.699151506-04:00
+review_status: UNREVIEWED

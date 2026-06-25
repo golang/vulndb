@@ -1,0 +1,23 @@
+id: GO-2026-5341
+modules:
+    - module: github.com/oauth2-proxy/oauth2-proxy
+      vulnerable_at: 3.2.0+incompatible
+    - module: github.com/oauth2-proxy/oauth2-proxy/v7
+      versions:
+        - introduced: 7.11.0
+        - fixed: 7.15.2
+      vulnerable_at: 7.15.1
+summary: OAuth2 Proxy's session cookies are not cleared when rendering sign-in page in github.com/oauth2-proxy/oauth2-proxy
+cves:
+    - CVE-2026-34454
+ghsas:
+    - GHSA-f24x-5g9q-753f
+references:
+    - advisory: https://github.com/oauth2-proxy/oauth2-proxy/security/advisories/GHSA-f24x-5g9q-753f
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-34454
+    - fix: https://github.com/oauth2-proxy/oauth2-proxy/pull/2605
+    - web: https://github.com/oauth2-proxy/oauth2-proxy/releases/tag/v7.15.2
+source:
+    id: GHSA-f24x-5g9q-753f
+    created: 2026-06-25T02:48:04.94143066-04:00
+review_status: UNREVIEWED

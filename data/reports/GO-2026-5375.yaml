@@ -1,0 +1,18 @@
+id: GO-2026-5375
+modules:
+    - module: github.com/lin-snow/ech0
+      versions:
+        - fixed: 1.4.8-0.20260503041146-eab62379c795
+      vulnerable_at: 1.4.7
+summary: |-
+    ech0's acess tokens with expiry=never cannot be revoked: logout panics, delete
+    does not blacklist JTI in github.com/lin-snow/ech0
+ghsas:
+    - GHSA-fpw6-hrg5-q5x5
+references:
+    - advisory: https://github.com/lin-snow/Ech0/security/advisories/GHSA-fpw6-hrg5-q5x5
+    - web: https://github.com/lin-snow/Ech0/commit/eab62379c795c3f4850a9ca938ae3f27d7171541
+source:
+    id: GHSA-fpw6-hrg5-q5x5
+    created: 2026-06-25T02:55:56.593932271-04:00
+review_status: UNREVIEWED

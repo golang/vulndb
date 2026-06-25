@@ -1,0 +1,20 @@
+id: GO-2026-5330
+modules:
+    - module: github.com/pilinux/gorest
+      versions:
+        - fixed: 1.12.2
+      vulnerable_at: 1.12.1
+summary: |-
+    gorest InMemorySecret2FA race condition allows process crash via concurrent map
+    access (CWE-362) in github.com/pilinux/gorest
+cves:
+    - CVE-2026-48154
+ghsas:
+    - GHSA-cpwg-x64r-rgwg
+references:
+    - advisory: https://github.com/pilinux/gorest/security/advisories/GHSA-cpwg-x64r-rgwg
+    - fix: https://github.com/pilinux/gorest/pull/391
+source:
+    id: GHSA-cpwg-x64r-rgwg
+    created: 2026-06-25T02:45:29.199156373-04:00
+review_status: UNREVIEWED

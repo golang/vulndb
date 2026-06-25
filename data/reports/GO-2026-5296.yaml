@@ -1,0 +1,22 @@
+id: GO-2026-5296
+modules:
+    - module: github.com/steveiliop56/tinyauth
+      versions:
+        - fixed: 1.0.1-0.20260401140714-fc1d4f2082a5
+      vulnerable_at: 1.0.0
+summary: |-
+    Tinyauth has OAuth account confusion via shared mutable state on singleton
+    service instances in github.com/steveiliop56/tinyauth
+cves:
+    - CVE-2026-33544
+ghsas:
+    - GHSA-9q5m-jfc4-wc92
+references:
+    - advisory: https://github.com/steveiliop56/tinyauth/security/advisories/GHSA-9q5m-jfc4-wc92
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-33544
+    - fix: https://github.com/steveiliop56/tinyauth/commit/f26c2171610d5c2dfbba2edb6ccd39490e349803
+    - web: https://github.com/steveiliop56/tinyauth/releases/tag/v5.0.5
+source:
+    id: GHSA-9q5m-jfc4-wc92
+    created: 2026-06-25T02:33:35.723193308-04:00
+review_status: UNREVIEWED

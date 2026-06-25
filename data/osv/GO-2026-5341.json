@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5341",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-34454",
+    "GHSA-f24x-5g9q-753f"
+  ],
+  "summary": "OAuth2 Proxy's session cookies are not cleared when rendering sign-in page in github.com/oauth2-proxy/oauth2-proxy",
+  "details": "OAuth2 Proxy's session cookies are not cleared when rendering sign-in page in github.com/oauth2-proxy/oauth2-proxy",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/oauth2-proxy/oauth2-proxy",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/oauth2-proxy/oauth2-proxy/v7",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "7.11.0"
+            },
+            {
+              "fixed": "7.15.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/oauth2-proxy/oauth2-proxy/security/advisories/GHSA-f24x-5g9q-753f"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34454"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/oauth2-proxy/oauth2-proxy/pull/2605"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/oauth2-proxy/oauth2-proxy/releases/tag/v7.15.2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5341",
+    "review_status": "UNREVIEWED"
+  }
+}

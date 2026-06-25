@@ -1,0 +1,21 @@
+id: GO-2026-5377
+modules:
+    - module: github.com/external-secrets/external-secrets/apis
+      non_go_versions:
+        - introduced: 0.1.0
+        - fixed: 2.4.1
+      vulnerable_at: 0.0.0-20260624185445-b5230a14789f
+summary: ExternalSecrets vulnerable to privilege escalation with secret overwriting in github.com/external-secrets/external-secrets/apis
+cves:
+    - CVE-2026-42876
+ghsas:
+    - GHSA-fq7h-9x26-6j22
+references:
+    - advisory: https://github.com/external-secrets/external-secrets/security/advisories/GHSA-fq7h-9x26-6j22
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42876
+    - web: https://github.com/external-secrets/external-secrets/commit/4ddd240af7fe88725d9857b9a0c198073502e288
+    - web: https://github.com/external-secrets/external-secrets/releases/tag/v2.4.1
+source:
+    id: GHSA-fq7h-9x26-6j22
+    created: 2026-06-25T02:56:10.844974022-04:00
+review_status: UNREVIEWED

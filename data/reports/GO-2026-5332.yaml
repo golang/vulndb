@@ -1,0 +1,24 @@
+id: GO-2026-5332
+modules:
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - introduced: 12.2.0
+        - fixed: 12.2.5
+        - introduced: 12.3.0
+        - fixed: 12.3.3
+      vulnerable_at: 5.4.5+incompatible
+summary: Grafana has a Cross-site Scripting issue in github.com/grafana/grafana
+cves:
+    - CVE-2025-41117
+ghsas:
+    - GHSA-cqp7-wf4c-3xgc
+references:
+    - advisory: https://github.com/advisories/GHSA-cqp7-wf4c-3xgc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-41117
+    - fix: https://github.com/grafana/grafana/commit/4f624a5a01404da45d60063ae1ee2f184818cd42
+    - fix: https://github.com/grafana/grafana/commit/8dfa6446942873d76cd94c63a2d6b71a25e880da
+    - fix: https://github.com/grafana/grafana/commit/ecff0d88680cea4ad32709cb3b94b790a7f58d25
+source:
+    id: GHSA-cqp7-wf4c-3xgc
+    created: 2026-06-25T02:45:44.491867239-04:00
+review_status: UNREVIEWED

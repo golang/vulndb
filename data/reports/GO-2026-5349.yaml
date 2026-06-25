@@ -1,0 +1,23 @@
+id: GO-2026-5349
+modules:
+    - module: github.com/free5gc/nrf
+      versions:
+        - fixed: 1.4.3
+      vulnerable_at: 1.4.2
+summary: |-
+    free5GC NRF: type-confusion panic in POST /oauth2/token structured-form parser
+    via Reflect.Set on incompatible types in github.com/free5gc/nrf
+cves:
+    - CVE-2026-44325
+ghsas:
+    - GHSA-f8qv-7x5w-qr48
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-f8qv-7x5w-qr48
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44325
+    - fix: https://github.com/free5gc/nrf/commit/f7bc77daa7425506af7569f2e61c2a210f5a0423
+    - fix: https://github.com/free5gc/nrf/pull/83
+    - web: https://github.com/free5gc/free5gc/issues/918
+source:
+    id: GHSA-f8qv-7x5w-qr48
+    created: 2026-06-25T02:49:07.744627124-04:00
+review_status: UNREVIEWED

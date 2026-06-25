@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5286",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-28737",
+    "GHSA-9cpj-qc93-vw8v"
+  ],
+  "summary": "Gitea: Stored XSS via glTF `extensionsRequired` in Gitea 3D File Viewer in code.gitea.io/gitea",
+  "details": "Gitea: Stored XSS via glTF `extensionsRequired` in Gitea 3D File Viewer in code.gitea.io/gitea",
+  "affected": [
+    {
+      "package": {
+        "name": "code.gitea.io/gitea",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.25.0"
+            },
+            {
+              "fixed": "1.26.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/go-gitea/gitea/security/advisories/GHSA-9cpj-qc93-vw8v"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5286",
+    "review_status": "UNREVIEWED"
+  }
+}

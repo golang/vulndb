@@ -1,0 +1,24 @@
+id: GO-2026-5338
+modules:
+    - module: github.com/containerd/containerd
+      vulnerable_at: 1.7.33
+    - module: github.com/containerd/containerd/v2
+      versions:
+        - introduced: 2.1.0
+        - fixed: 2.1.9
+        - introduced: 2.2.0
+        - fixed: 2.2.5
+        - introduced: 2.3.0
+        - fixed: 2.3.2
+      vulnerable_at: 2.3.1
+summary: 'containerd: CRI checkpoint import allows local image tag poisoning in github.com/containerd/containerd'
+cves:
+    - CVE-2026-50195
+ghsas:
+    - GHSA-cvxm-645q-p574
+references:
+    - advisory: https://github.com/containerd/containerd/security/advisories/GHSA-cvxm-645q-p574
+source:
+    id: GHSA-cvxm-645q-p574
+    created: 2026-06-25T02:47:41.881859339-04:00
+review_status: UNREVIEWED

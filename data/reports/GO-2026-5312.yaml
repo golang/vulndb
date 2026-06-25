@@ -1,0 +1,19 @@
+id: GO-2026-5312
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.14.3
+      vulnerable_at: 0.13.3
+summary: Gogs has SSRF in webhook deliveries in gogs.io/gogs
+cves:
+    - CVE-2026-47267
+ghsas:
+    - GHSA-c4v7-xg93-qf8g
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-c4v7-xg93-qf8g
+    - web: https://github.com/gogs/gogs/commit/199cf4fd5bbe40b92f6dc8d649e241fd7a8d0018
+    - web: https://github.com/gogs/gogs/pull/8263
+source:
+    id: GHSA-c4v7-xg93-qf8g
+    created: 2026-06-25T02:39:32.819702776-04:00
+review_status: UNREVIEWED

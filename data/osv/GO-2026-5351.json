@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5351",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-41323",
+    "GHSA-f9g8-6ppc-pqq4"
+  ],
+  "summary": "Kyverno: ServiceAccount token leaked to external servers via apiCall service URL in github.com/kyverno/kyverno",
+  "details": "Kyverno: ServiceAccount token leaked to external servers via apiCall service URL in github.com/kyverno/kyverno",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/kyverno/kyverno",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.17.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/kyverno/kyverno/security/advisories/GHSA-f9g8-6ppc-pqq4"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-41323"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kyverno/kyverno/commit/bc4f91c4801b1eaa2edc0a14e2f1b0af8cf0c1f5"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kyverno/kyverno/commit/c2eab00033e635bda4e4efb58c1b472b41728bb6"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kyverno/kyverno/commit/f70e8ac1e7acd2e3844f9553e4a884f07f953de0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5351",
+    "review_status": "UNREVIEWED"
+  }
+}

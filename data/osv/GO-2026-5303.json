@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5303",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-40884",
+    "GHSA-c29w-qq4m-2gcv"
+  ],
+  "summary": "goshs has an empty-username SFTP password authentication bypass in github.com/patrickhener/goshs",
+  "details": "goshs has an empty-username SFTP password authentication bypass in github.com/patrickhener/goshs",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/patrickhener/goshs",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/patrickhener/goshs/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.0.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/patrickhener/goshs/security/advisories/GHSA-c29w-qq4m-2gcv"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40884"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5303",
+    "review_status": "UNREVIEWED"
+  }
+}

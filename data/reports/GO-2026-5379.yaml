@@ -1,0 +1,20 @@
+id: GO-2026-5379
+modules:
+    - module: github.com/klever-io/klever-go
+      versions:
+        - fixed: 1.7.18
+      vulnerable_at: 1.7.17
+summary: |-
+    Klever-Go KVM: Throttler slot leak in trie account-data sync causes epoch
+    bootstrap / state sync DoS in github.com/klever-io/klever-go
+cves:
+    - CVE-2026-49343
+ghsas:
+    - GHSA-fw38-pc54-jvx9
+references:
+    - advisory: https://github.com/klever-io/klever-go/security/advisories/GHSA-fw38-pc54-jvx9
+    - web: https://github.com/klever-io/klever-go/releases/tag/v1.7.18
+source:
+    id: GHSA-fw38-pc54-jvx9
+    created: 2026-06-25T02:56:33.68779301-04:00
+review_status: UNREVIEWED

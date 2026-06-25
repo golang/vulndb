@@ -1,0 +1,20 @@
+id: GO-2026-5376
+modules:
+    - module: github.com/axllent/mailpit
+      versions:
+        - fixed: 1.30.0
+      vulnerable_at: 1.29.7
+summary: |-
+    Mailpit: Unauthenticated remote memory-exhaustion DoS via unlimited SMTP DATA
+    and /api/v1/send body sizes in github.com/axllent/mailpit
+cves:
+    - CVE-2026-45713
+ghsas:
+    - GHSA-fpxj-m5q8-fphw
+references:
+    - advisory: https://github.com/axllent/mailpit/security/advisories/GHSA-fpxj-m5q8-fphw
+    - web: https://github.com/axllent/mailpit/releases/tag/v1.30.0
+source:
+    id: GHSA-fpxj-m5q8-fphw
+    created: 2026-06-25T02:56:03.319944585-04:00
+review_status: UNREVIEWED

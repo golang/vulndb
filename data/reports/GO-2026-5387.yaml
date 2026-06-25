@@ -1,0 +1,20 @@
+id: GO-2026-5387
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.14.3
+      vulnerable_at: 0.13.3
+summary: Gogs has a Migration Redirect Bypass that Leads to Internal Repository Theft in gogs.io/gogs
+cves:
+    - CVE-2026-52805
+ghsas:
+    - GHSA-g2f5-gjr4-qjvm
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-g2f5-gjr4-qjvm
+    - web: https://github.com/gogs/gogs/commit/b9a0093e9cd1b2b3c7f42f9feca396dc772c4f1b
+    - web: https://github.com/gogs/gogs/pull/8324
+    - web: https://github.com/gogs/gogs/releases/tag/v0.14.3
+source:
+    id: GHSA-g2f5-gjr4-qjvm
+    created: 2026-06-25T03:01:07.620820563-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,27 @@
+id: GO-2026-5319
+modules:
+    - module: github.com/lxc/incus
+      vulnerable_at: 0.7.0
+    - module: github.com/lxc/incus/v6
+      vulnerable_at: 6.23.0
+    - module: github.com/lxc/incus/v7
+      versions:
+        - fixed: 7.0.0
+summary: Incus has an OVN TLS Verification that Accepts Peer-Supplied Roots in github.com/lxc/incus
+cves:
+    - CVE-2026-40243
+ghsas:
+    - GHSA-c839-4qxr-j4x3
+references:
+    - advisory: https://github.com/lxc/incus/security/advisories/GHSA-c839-4qxr-j4x3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40243
+    - web: https://github.com/lxc/incus/blob/v6.22.0/internal/server/network/ovn/ovn_icnb.go
+    - web: https://github.com/lxc/incus/blob/v6.22.0/internal/server/network/ovn/ovn_icsb.go
+    - web: https://github.com/lxc/incus/blob/v6.22.0/internal/server/network/ovn/ovn_nb.go
+    - web: https://github.com/lxc/incus/blob/v6.22.0/internal/server/network/ovn/ovn_sb.go
+notes:
+    - fix: 'github.com/lxc/incus/v7: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-c839-4qxr-j4x3
+    created: 2026-06-25T02:41:05.807440619-04:00
+review_status: UNREVIEWED

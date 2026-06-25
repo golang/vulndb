@@ -1,0 +1,26 @@
+id: GO-2026-5335
+modules:
+    - module: github.com/cli/cli
+      versions:
+        - introduced: 1.6.0
+      unsupported_versions:
+        - last_affected: 1.14.0
+      vulnerable_at: 1.14.0
+    - module: github.com/cli/cli/v2
+      versions:
+        - fixed: 2.92.0
+      vulnerable_at: 2.91.0
+summary: |-
+    GitHub CLI: GitHub Actions log output in `gh run view` allows terminal escape
+    sequence injection in github.com/cli/cli
+cves:
+    - CVE-2026-45803
+ghsas:
+    - GHSA-crc3-h8v6-qh57
+references:
+    - advisory: https://github.com/cli/cli/security/advisories/GHSA-crc3-h8v6-qh57
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-45803
+source:
+    id: GHSA-crc3-h8v6-qh57
+    created: 2026-06-25T02:46:39.47048167-04:00
+review_status: UNREVIEWED
