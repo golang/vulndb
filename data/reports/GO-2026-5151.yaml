@@ -1,0 +1,25 @@
+id: GO-2026-5151
+modules:
+    - module: github.com/gotenberg/gotenberg/v7
+      vulnerable_at: 7.10.2
+    - module: github.com/gotenberg/gotenberg/v8
+      versions:
+        - fixed: 8.31.0
+      vulnerable_at: 8.30.1
+summary: |-
+    Gotenberg has case-insensitive URL scheme that bypasses webhook and downloadFrom
+    deny-list SSRF protection in github.com/gotenberg/gotenberg
+cves:
+    - CVE-2026-40280
+ghsas:
+    - GHSA-5q7p-7jgv-ww56
+references:
+    - advisory: https://github.com/gotenberg/gotenberg/security/advisories/GHSA-5q7p-7jgv-ww56
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40280
+    - web: https://github.com/advisories/GHSA-jjwv-57xh-xr6r
+    - web: https://github.com/gotenberg/gotenberg/commit/3f01ca18d3cc21375a1e2da4b5a3f261c8548e47
+    - web: https://github.com/gotenberg/gotenberg/releases/tag/v8.31.0
+source:
+    id: GHSA-5q7p-7jgv-ww56
+    created: 2026-06-25T01:47:48.838196372-04:00
+review_status: UNREVIEWED

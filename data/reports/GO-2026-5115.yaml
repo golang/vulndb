@@ -1,0 +1,21 @@
+id: GO-2026-5115
+modules:
+    - module: github.com/grafana/loki
+      vulnerable_at: 1.6.1
+    - module: github.com/grafana/loki/v3
+      versions:
+        - fixed: 3.6.4
+      vulnerable_at: 3.6.3
+summary: Grafana Loki Path Traversal - CVE-2021-36156 Bypass in github.com/grafana/loki
+cves:
+    - CVE-2026-21726
+ghsas:
+    - GHSA-497x-rrr9-68jp
+references:
+    - advisory: https://github.com/advisories/GHSA-497x-rrr9-68jp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-21726
+    - web: https://grafana.com/security/security-advisories/cve-2026-21726
+source:
+    id: GHSA-497x-rrr9-68jp
+    created: 2026-06-25T01:39:28.655194061-04:00
+review_status: UNREVIEWED

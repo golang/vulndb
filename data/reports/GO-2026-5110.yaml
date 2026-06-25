@@ -1,0 +1,20 @@
+id: GO-2026-5110
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.14.3
+      vulnerable_at: 0.13.3
+summary: Gogs Vulnerable to Privilege Escalation via Collaboration Access Mode Validation in gogs.io/gogs
+cves:
+    - CVE-2026-52804
+ghsas:
+    - GHSA-4565-r4x7-hg8j
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-4565-r4x7-hg8j
+    - web: https://github.com/gogs/gogs/commit/1fdc9cc28e159135cfa4d6b11ecd5daa0f8ce22b
+    - web: https://github.com/gogs/gogs/pull/8227
+    - web: https://github.com/gogs/gogs/releases/tag/v0.14.3
+source:
+    id: GHSA-4565-r4x7-hg8j
+    created: 2026-06-25T01:38:11.51444686-04:00
+review_status: UNREVIEWED

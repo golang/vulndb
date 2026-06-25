@@ -1,0 +1,25 @@
+id: GO-2026-5106
+modules:
+    - module: github.com/cloudnative-pg/cloudnative-pg
+      versions:
+        - fixed: 1.28.3
+        - introduced: 1.29.0
+        - fixed: 1.29.1
+      vulnerable_at: 1.29.0
+summary: |-
+    CloudNativePG's metrics exporter allows privilege escalation to PostgreSQL
+    superuser and OS RCE in github.com/cloudnative-pg/cloudnative-pg
+cves:
+    - CVE-2026-44477
+ghsas:
+    - GHSA-423p-g724-fr39
+references:
+    - advisory: https://github.com/cloudnative-pg/cloudnative-pg/security/advisories/GHSA-423p-g724-fr39
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44477
+    - fix: https://github.com/cloudnative-pg/cloudnative-pg/pull/10576
+    - web: https://github.com/cloudnative-pg/cloudnative-pg/releases/tag/v1.28.3
+    - web: https://github.com/cloudnative-pg/cloudnative-pg/releases/tag/v1.29.1
+source:
+    id: GHSA-423p-g724-fr39
+    created: 2026-06-25T01:37:35.527112903-04:00
+review_status: UNREVIEWED

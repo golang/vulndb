@@ -1,0 +1,34 @@
+id: GO-2026-5072
+modules:
+    - module: github.com/argoproj/argo-workflows
+      vulnerable_at: 0.4.7
+    - module: github.com/argoproj/argo-workflows/v2
+      vulnerable_at: 2.12.13
+    - module: github.com/argoproj/argo-workflows/v3
+      versions:
+        - fixed: 3.7.14
+      vulnerable_at: 3.7.13
+    - module: github.com/argoproj/argo-workflows/v4
+      versions:
+        - introduced: 4.0.0
+        - fixed: 4.0.5
+      vulnerable_at: 4.0.4
+summary: |-
+    Argo has incomplete fix for CVE-2026-31892: hostNetwork, securityContext,
+    serviceAccountName bypass templateReferencing Strict/Secure in github.com/argoproj/argo-workflows
+cves:
+    - CVE-2026-42296
+ghsas:
+    - GHSA-3775-99mw-8rp4
+references:
+    - advisory: https://github.com/argoproj/argo-workflows/security/advisories/GHSA-3775-99mw-8rp4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42296
+    - fix: https://github.com/argoproj/argo-workflows/commit/2727f3f701677d467dfb5e053c57237cbc752c3c
+    - fix: https://github.com/argoproj/argo-workflows/commit/534f4ff1cbd86908e8ff76d97d553ad5a49a950d
+    - web: https://github.com/argoproj/argo-workflows/releases/tag/v3.7.14
+    - web: https://github.com/argoproj/argo-workflows/releases/tag/v4.0.5
+    - web: https://github.com/argoproj/argo-workflows/security/advisories/GHSA-3wf5-g532-rcrr
+source:
+    id: GHSA-3775-99mw-8rp4
+    created: 2026-06-25T01:29:19.658041897-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,22 @@
+id: GO-2026-5176
+modules:
+    - module: github.com/nhost/nhost
+      versions:
+        - fixed: 0.0.0-20260417112436-ec8dab3f2cf4
+summary: Nhost Vulnerable to Account Takeover via OAuth Email Verification Bypass in github.com/nhost/nhost
+cves:
+    - CVE-2026-41574
+ghsas:
+    - GHSA-6g38-8j4p-j3pr
+references:
+    - advisory: https://github.com/nhost/nhost/security/advisories/GHSA-6g38-8j4p-j3pr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-41574
+    - fix: https://github.com/nhost/nhost/commit/ec8dab3f2cf46e1131ddaf893d56c37aa00380b2
+    - fix: https://github.com/nhost/nhost/pull/4162
+    - web: https://github.com/nhost/nhost/releases/tag/auth%400.49.1
+notes:
+    - fix: 'github.com/nhost/nhost: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-6g38-8j4p-j3pr
+    created: 2026-06-25T01:53:59.042937067-04:00
+review_status: UNREVIEWED

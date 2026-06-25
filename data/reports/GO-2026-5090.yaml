@@ -1,0 +1,25 @@
+id: GO-2026-5090
+modules:
+    - module: github.com/openziti/zrok
+      unsupported_versions:
+        - last_affected: 1.1.11
+      vulnerable_at: 1.1.11
+    - module: github.com/openziti/zrok/v2
+      versions:
+        - fixed: 2.0.1
+      vulnerable_at: 2.0.0
+summary: |-
+    zrok: Broken ownership check in DELETE /api/v2/unaccess allows non-admin to
+    delete global frontend records in github.com/openziti/zrok
+cves:
+    - CVE-2026-40304
+ghsas:
+    - GHSA-3jpj-v3xr-5h6g
+references:
+    - advisory: https://github.com/openziti/zrok/security/advisories/GHSA-3jpj-v3xr-5h6g
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40304
+    - web: https://github.com/openziti/zrok/releases/tag/v2.0.1
+source:
+    id: GHSA-3jpj-v3xr-5h6g
+    created: 2026-06-25T01:32:42.851488741-04:00
+review_status: UNREVIEWED

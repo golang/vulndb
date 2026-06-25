@@ -1,0 +1,20 @@
+id: GO-2026-5098
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.14.3
+      vulnerable_at: 0.13.3
+summary: Gogs has a Denial of Service in repository/wiki file listing web pages in gogs.io/gogs
+cves:
+    - CVE-2025-64719
+ghsas:
+    - GHSA-3qq3-668m-v9mj
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-3qq3-668m-v9mj
+    - web: https://github.com/gogs/gogs/commit/ae41bab5f28e4880edcef01c91d2cbb8839ec9e4
+    - web: https://github.com/gogs/gogs/pull/8116
+    - web: https://github.com/gogs/gogs/releases/tag/v0.14.3
+source:
+    id: GHSA-3qq3-668m-v9mj
+    created: 2026-06-25T01:36:08.113649061-04:00
+review_status: UNREVIEWED

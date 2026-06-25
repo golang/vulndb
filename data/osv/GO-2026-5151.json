@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5151",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-40280",
+    "GHSA-5q7p-7jgv-ww56"
+  ],
+  "summary": "Gotenberg has case-insensitive URL scheme that bypasses webhook and downloadFrom deny-list SSRF protection in github.com/gotenberg/gotenberg",
+  "details": "Gotenberg has case-insensitive URL scheme that bypasses webhook and downloadFrom deny-list SSRF protection in github.com/gotenberg/gotenberg",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gotenberg/gotenberg/v7",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/gotenberg/gotenberg/v8",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "8.31.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/gotenberg/gotenberg/security/advisories/GHSA-5q7p-7jgv-ww56"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40280"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/advisories/GHSA-jjwv-57xh-xr6r"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/gotenberg/gotenberg/commit/3f01ca18d3cc21375a1e2da4b5a3f261c8548e47"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/gotenberg/gotenberg/releases/tag/v8.31.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5151",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5170",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-40293",
+    "GHSA-68m9-983m-f3v5"
+  ],
+  "summary": "OpenFGA: Unauthenticated playground endpoint discloses preshared API key in HTML response in github.com/openfga/openfga",
+  "details": "OpenFGA: Unauthenticated playground endpoint discloses preshared API key in HTML response in github.com/openfga/openfga",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/openfga/openfga",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.1.4"
+            },
+            {
+              "fixed": "1.14.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/openfga/openfga/security/advisories/GHSA-68m9-983m-f3v5"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40293"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/openfga/openfga/releases/tag/v1.14.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5170",
+    "review_status": "UNREVIEWED"
+  }
+}

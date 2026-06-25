@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5154",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-25705",
+    "GHSA-5v3h-x4wf-5c35"
+  ],
+  "summary": "Rancher Extensions have arbitrary file access via path traversal in github.com/rancher/rancher",
+  "details": "Rancher Extensions have arbitrary file access via path traversal in github.com/rancher/rancher.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/rancher/rancher from v2.10.11 before v2.11.13, from v2.12.0 before v2.12.9, from v2.13.0 before v2.13.5, from v2.14.0 before v2.14.1.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/rancher/rancher",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "2.10.11"
+              },
+              {
+                "fixed": "2.11.13"
+              },
+              {
+                "introduced": "2.12.0"
+              },
+              {
+                "fixed": "2.12.9"
+              },
+              {
+                "introduced": "2.13.0"
+              },
+              {
+                "fixed": "2.13.5"
+              },
+              {
+                "introduced": "2.14.0"
+              },
+              {
+                "fixed": "2.14.1"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/rancher/rancher/security/advisories/GHSA-5v3h-x4wf-5c35"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-25705"
+    },
+    {
+      "type": "WEB",
+      "url": "https://bugzilla.suse.com/show_bug.cgi?id=CVE-2026-25705"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5154",
+    "review_status": "UNREVIEWED"
+  }
+}

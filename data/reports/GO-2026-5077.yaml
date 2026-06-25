@@ -1,0 +1,23 @@
+id: GO-2026-5077
+modules:
+    - module: github.com/xddxdd/bird-lg-go
+      versions:
+        - fixed: 0.0.0-20260507060110-0ff87024cb9e
+summary: |-
+    Bird-lg-go has a Fatal Out-of-Memory (OOM) Denial of Service via Unbounded JSON
+    Decoding in github.com/xddxdd/bird-lg-go
+cves:
+    - CVE-2026-45047
+ghsas:
+    - GHSA-39qr-rc93-vhqm
+references:
+    - advisory: https://github.com/xddxdd/bird-lg-go/security/advisories/GHSA-39qr-rc93-vhqm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-45047
+    - fix: https://github.com/xddxdd/bird-lg-go/commit/0ff87024cb9ed01fc5f5fdc6f4603fce4c123922
+    - web: https://github.com/xddxdd/bird-lg-go/releases/tag/v1.4.5
+notes:
+    - fix: 'github.com/xddxdd/bird-lg-go: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-39qr-rc93-vhqm
+    created: 2026-06-25T01:30:07.364188654-04:00
+review_status: UNREVIEWED

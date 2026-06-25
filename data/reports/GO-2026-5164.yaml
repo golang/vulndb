@@ -1,0 +1,21 @@
+id: GO-2026-5164
+modules:
+    - module: github.com/coredns/coredns
+      versions:
+        - fixed: 1.14.3
+      vulnerable_at: 1.14.2
+summary: |-
+    CoreDNS DoH GET oversized dns= query parameter causes pre-validation CPU and
+    memory amplification in github.com/coredns/coredns
+cves:
+    - CVE-2026-32936
+ghsas:
+    - GHSA-63cw-r7xf-jmwr
+references:
+    - advisory: https://github.com/coredns/coredns/security/advisories/GHSA-63cw-r7xf-jmwr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-32936
+    - web: https://github.com/coredns/coredns/releases/tag/v1.14.3
+source:
+    id: GHSA-63cw-r7xf-jmwr
+    created: 2026-06-25T01:49:51.707990233-04:00
+review_status: UNREVIEWED

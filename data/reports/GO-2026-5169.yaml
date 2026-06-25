@@ -1,0 +1,39 @@
+id: GO-2026-5169
+modules:
+    - module: github.com/coder/coder
+      unsupported_versions:
+        - last_affected: 0.27.3
+      vulnerable_at: 0.27.3
+    - module: github.com/coder/coder/v2
+      versions:
+        - fixed: 2.24.5
+        - introduced: 2.29.0
+        - fixed: 2.29.13
+        - introduced: 2.30.0
+        - fixed: 2.30.8
+        - introduced: 2.31.0
+        - fixed: 2.31.12
+        - introduced: 2.32.0-rc.0
+        - fixed: 2.32.2
+        - introduced: 2.33.0-rc.0
+        - fixed: 2.33.3
+      vulnerable_at: 2.33.2
+summary: 'Coder: Unauthenticated SSRF via Azure Instance Identity Endpoint in github.com/coder/coder'
+cves:
+    - CVE-2026-45796
+ghsas:
+    - GHSA-686c-7vgv-v3fx
+references:
+    - advisory: https://github.com/coder/coder/security/advisories/GHSA-686c-7vgv-v3fx
+    - fix: https://github.com/coder/coder/commit/57b11d405f17492aa789d4b9ff33366f961a37f8
+    - fix: https://github.com/coder/coder/pull/25274
+    - web: https://github.com/coder/coder/releases/tag/v2.24.5
+    - web: https://github.com/coder/coder/releases/tag/v2.29.13
+    - web: https://github.com/coder/coder/releases/tag/v2.30.8
+    - web: https://github.com/coder/coder/releases/tag/v2.31.12
+    - web: https://github.com/coder/coder/releases/tag/v2.32.2
+    - web: https://github.com/coder/coder/releases/tag/v2.33.3
+source:
+    id: GHSA-686c-7vgv-v3fx
+    created: 2026-06-25T01:50:32.059627238-04:00
+review_status: UNREVIEWED

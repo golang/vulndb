@@ -1,0 +1,22 @@
+id: GO-2026-5138
+modules:
+    - module: github.com/free5gc/udm
+      unsupported_versions:
+        - last_affected: 1.4.3
+      vulnerable_at: 1.4.4
+summary: |-
+    Free5GC UDM has Improper Input Validation and Generation of Error Messages
+    Containing Sensitive Information in github.com/free5gc/udm
+cves:
+    - CVE-2026-42459
+ghsas:
+    - GHSA-585v-hcgf-jhfr
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-585v-hcgf-jhfr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42459
+    - web: https://github.com/free5gc/free5gc/security/advisories/GHSA-h4wg-rp7m-8xx4
+    - web: https://github.com/free5gc/udm/blob/v1.4.3/internal/sbi/api_subscriberdatamanagement.go
+source:
+    id: GHSA-585v-hcgf-jhfr
+    created: 2026-06-25T01:45:16.769491634-04:00
+review_status: UNREVIEWED

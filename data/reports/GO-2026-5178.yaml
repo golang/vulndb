@@ -1,0 +1,19 @@
+id: GO-2026-5178
+modules:
+    - module: github.com/free5gc/udr
+      unsupported_versions:
+        - last_affected: 1.4.3
+      vulnerable_at: 1.4.3
+summary: |-
+    free5GC UDR has improper `ueId` validation in EE subscription handlers that
+    allows arbitrary identifier persistence in github.com/free5gc/udr
+cves:
+    - CVE-2026-47780
+ghsas:
+    - GHSA-6gxq-gpr8-xgjp
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-6gxq-gpr8-xgjp
+source:
+    id: GHSA-6gxq-gpr8-xgjp
+    created: 2026-06-25T01:54:15.346362648-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,22 @@
+id: GO-2026-5140
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.14.3
+      vulnerable_at: 0.13.3
+summary: |-
+    Gogs's password-reset tokens use account-activation lifetime, ignoring
+    RESET_PASSWORD_CODE_LIVES in gogs.io/gogs
+cves:
+    - CVE-2026-52809
+ghsas:
+    - GHSA-5c3f-6486-3g7g
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-5c3f-6486-3g7g
+    - web: https://github.com/gogs/gogs/commit/187e9c557930eb4a8b9b1502ee45cccf3255ee7f
+    - web: https://github.com/gogs/gogs/pull/8328
+    - web: https://github.com/gogs/gogs/releases/tag/v0.14.3
+source:
+    id: GHSA-5c3f-6486-3g7g
+    created: 2026-06-25T01:45:33.493664747-04:00
+review_status: UNREVIEWED

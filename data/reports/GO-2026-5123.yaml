@@ -1,0 +1,18 @@
+id: GO-2026-5123
+modules:
+    - module: github.com/lin-snow/ech0
+      non_go_versions:
+        - fixed: 4.3.5
+      vulnerable_at: 1.4.7
+summary: |-
+    Ech0: Scoped admin access tokens can bypass least-privilege controls on
+    privileged endpoints, including backup export in github.com/lin-snow/ech0
+ghsas:
+    - GHSA-4h9q-p5j4-xvvh
+references:
+    - advisory: https://github.com/lin-snow/Ech0/security/advisories/GHSA-4h9q-p5j4-xvvh
+    - web: https://github.com/lin-snow/Ech0/releases/tag/v4.3.5
+source:
+    id: GHSA-4h9q-p5j4-xvvh
+    created: 2026-06-25T01:40:34.991316189-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,24 @@
+id: GO-2026-5104
+modules:
+    - module: github.com/omec-project/amf
+      non_go_versions:
+        - fixed: 2.2.0
+      vulnerable_at: 1.7.0
+summary: AMF Improperly Restricts Operations within the Bounds of a Memory Buffer in github.com/omec-project/amf
+cves:
+    - CVE-2026-8780
+ghsas:
+    - GHSA-3x4g-259h-5p7c
+references:
+    - advisory: https://github.com/advisories/GHSA-3x4g-259h-5p7c
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-8780
+    - fix: https://github.com/omec-project/amf/pull/666
+    - report: https://github.com/omec-project/amf/issues/670
+    - web: https://github.com/omec-project/amf/releases/tag/v2.2.0
+    - web: https://vuldb.com/submit/811617
+    - web: https://vuldb.com/vuln/364404
+    - web: https://vuldb.com/vuln/364404/cti
+source:
+    id: GHSA-3x4g-259h-5p7c
+    created: 2026-06-25T01:37:14.71564351-04:00
+review_status: UNREVIEWED

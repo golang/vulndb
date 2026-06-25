@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5078",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-7573",
+    "GHSA-3c93-g9g6-p5j4"
+  ],
+  "summary": "Velocidex Velociraptor has an authorization bypass vulnerability in www.velocidex.com/golang/velociraptor",
+  "details": "Velocidex Velociraptor has an authorization bypass vulnerability in www.velocidex.com/golang/velociraptor.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: www.velocidex.com/golang/velociraptor before v0.76.5.",
+  "affected": [
+    {
+      "package": {
+        "name": "www.velocidex.com/golang/velociraptor",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "0.76.5"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-3c93-g9g6-p5j4"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-7573"
+    },
+    {
+      "type": "WEB",
+      "url": "https://docs.velociraptor.app/announcements/advisories/cve-2026-7573"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5078",
+    "review_status": "UNREVIEWED"
+  }
+}

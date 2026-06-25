@@ -1,0 +1,21 @@
+id: GO-2026-5101
+modules:
+    - module: github.com/amir20/dozzle
+      unsupported_versions:
+        - last_affected: 8.14.12
+      vulnerable_at: 1.29.0
+summary: |-
+    Dozzle: Pre-auth SSRF with response-body reflection via POST
+    /api/notifications/test-webhook (default no-auth deploy) in github.com/amir20/dozzle
+cves:
+    - CVE-2026-45298
+ghsas:
+    - GHSA-3v9w-6365-9w54
+references:
+    - advisory: https://github.com/amir20/dozzle/security/advisories/GHSA-3v9w-6365-9w54
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-45298
+    - web: https://github.com/amir20/dozzle/releases/tag/v10.5.2
+source:
+    id: GHSA-3v9w-6365-9w54
+    created: 2026-06-25T01:36:29.862631932-04:00
+review_status: UNREVIEWED

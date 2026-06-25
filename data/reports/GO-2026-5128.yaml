@@ -1,0 +1,25 @@
+id: GO-2026-5128
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      vulnerable_at: 2.11.50
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - introduced: 3.7.0-ea.1
+        - fixed: 3.7.5
+      vulnerable_at: 3.7.4
+summary: |-
+    Traefik Kubernetes Ingress NGINX provider fails open when auth-secret resolution
+    fails in github.com/traefik/traefik
+cves:
+    - CVE-2026-54762
+ghsas:
+    - GHSA-4mr2-fg2p-w63c
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-4mr2-fg2p-w63c
+    - web: https://github.com/traefik/traefik/releases/tag/v3.7.5
+source:
+    id: GHSA-4mr2-fg2p-w63c
+    created: 2026-06-25T01:43:55.302741856-04:00
+review_status: UNREVIEWED

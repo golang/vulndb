@@ -1,0 +1,23 @@
+id: GO-2026-5150
+modules:
+    - module: github.com/filebrowser/filebrowser
+      vulnerable_at: 1.11.0
+    - module: github.com/filebrowser/filebrowser/v2
+      versions:
+        - fixed: 2.63.1
+      vulnerable_at: 2.63.0
+summary: |-
+    File Browser has an access rule bypass via HasPrefix without trailing separator
+    in path matching in github.com/filebrowser/filebrowser
+cves:
+    - CVE-2026-35605
+ghsas:
+    - GHSA-5q48-q4fm-g3m6
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-5q48-q4fm-g3m6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-35605
+    - fix: https://github.com/filebrowser/filebrowser/pull/5889
+source:
+    id: GHSA-5q48-q4fm-g3m6
+    created: 2026-06-25T01:47:41.216272283-04:00
+review_status: UNREVIEWED

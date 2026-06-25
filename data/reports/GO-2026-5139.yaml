@@ -1,0 +1,20 @@
+id: GO-2026-5139
+modules:
+    - module: github.com/juev/nebula-mesh
+      versions:
+        - fixed: 0.3.4
+      vulnerable_at: 0.3.3
+summary: |-
+    nebula-mesh: API endpoints lack ownership checks, enabling cross-operator
+    privilege escalation in github.com/juev/nebula-mesh
+cves:
+    - CVE-2026-47724
+ghsas:
+    - GHSA-598g-h2vc-h5vg
+references:
+    - advisory: https://github.com/juev/nebula-mesh/security/advisories/GHSA-598g-h2vc-h5vg
+    - web: https://github.com/forgekeep/nebula-mesh/commit/9d8bcd7667ecd0c2975cc71fb35a02fe131f76f2
+source:
+    id: GHSA-598g-h2vc-h5vg
+    created: 2026-06-25T01:45:25.692965602-04:00
+review_status: UNREVIEWED

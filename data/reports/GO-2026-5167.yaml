@@ -1,0 +1,22 @@
+id: GO-2026-5167
+modules:
+    - module: github.com/filebrowser/filebrowser
+      vulnerable_at: 1.11.0
+    - module: github.com/filebrowser/filebrowser/v2
+      versions:
+        - fixed: 2.63.1
+      vulnerable_at: 2.63.0
+summary: |-
+    File Browser discloses text file content via /api/resources endpoint bypassing
+    Perm.Download check in github.com/filebrowser/filebrowser
+cves:
+    - CVE-2026-35606
+ghsas:
+    - GHSA-67cg-cpj7-qgc9
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-67cg-cpj7-qgc9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-35606
+source:
+    id: GHSA-67cg-cpj7-qgc9
+    created: 2026-06-25T01:50:15.976242694-04:00
+review_status: UNREVIEWED

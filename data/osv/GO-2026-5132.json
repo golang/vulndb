@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5132",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-42596",
+    "GHSA-4vmc-gm8v-m35h"
+  ],
+  "summary": "Gotenberg vulnerable to unauthenticated SSRF via default deny-list bypass in downloadFrom and webhook in github.com/gotenberg/gotenberg",
+  "details": "Gotenberg vulnerable to unauthenticated SSRF via default deny-list bypass in downloadFrom and webhook in github.com/gotenberg/gotenberg",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gotenberg/gotenberg/v7",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/gotenberg/gotenberg/v8",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "8.32.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/gotenberg/gotenberg/security/advisories/GHSA-4vmc-gm8v-m35h"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42596"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5132",
+    "review_status": "UNREVIEWED"
+  }
+}

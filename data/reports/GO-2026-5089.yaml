@@ -1,0 +1,23 @@
+id: GO-2026-5089
+modules:
+    - module: github.com/gtsteffaniak/filebrowser
+      versions:
+        - fixed: 1.2.1-stable.0.20260514154726-1802e1281135
+      vulnerable_at: 1.2.1-stable
+    - module: github.com/gtsteffaniak/filebrowser/backend
+      versions:
+        - fixed: 0.0.0-20260514154726-1802e1281135
+summary: 'FileBrowser Quantum: unauthenticated user share share info in github.com/gtsteffaniak/filebrowser'
+cves:
+    - CVE-2026-46410
+ghsas:
+    - GHSA-3jmg-p96m-m328
+references:
+    - advisory: https://github.com/gtsteffaniak/filebrowser/security/advisories/GHSA-3jmg-p96m-m328
+    - fix: https://github.com/gtsteffaniak/filebrowser/commit/1802e1281135cba83eb4acd86b58293fe121e2a5
+notes:
+    - fix: 'github.com/gtsteffaniak/filebrowser/backend: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-3jmg-p96m-m328
+    created: 2026-06-25T01:32:35.191415673-04:00
+review_status: UNREVIEWED

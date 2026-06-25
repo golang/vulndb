@@ -1,0 +1,23 @@
+id: GO-2026-5166
+modules:
+    - module: github.com/nhost/nhost
+      versions:
+        - fixed: 0.0.0-20260518172022-e407511627d2
+summary: |-
+    Nhost CLI local configserver allows cross-origin unauthenticated read/write
+    access to local development configuration and secrets in github.com/nhost/nhost
+cves:
+    - CVE-2026-47671
+ghsas:
+    - GHSA-64cj-qvx5-m4f3
+references:
+    - advisory: https://github.com/nhost/nhost/security/advisories/GHSA-64cj-qvx5-m4f3
+    - fix: https://github.com/nhost/nhost/commit/e407511627d2c2c1137a70e9ca1ca31095d23479
+    - fix: https://github.com/nhost/nhost/pull/4302
+    - web: https://github.com/nhost/nhost/releases/tag/cli@1.46.0
+notes:
+    - fix: 'github.com/nhost/nhost: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-64cj-qvx5-m4f3
+    created: 2026-06-25T01:50:06.658983632-04:00
+review_status: UNREVIEWED

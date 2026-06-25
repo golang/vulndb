@@ -1,0 +1,21 @@
+id: GO-2026-5076
+modules:
+    - module: github.com/hashicorp/nomad
+      versions:
+        - fixed: 1.11.0-rc.1.0.20260512123500-2a09fd62c238
+      vulnerable_at: 1.11.0-rc.1
+summary: HashiCorp Nomad vulnerable to symlink attack in github.com/hashicorp/nomad
+cves:
+    - CVE-2026-6959
+ghsas:
+    - GHSA-3934-423w-4jq3
+references:
+    - advisory: https://github.com/advisories/GHSA-3934-423w-4jq3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-6959
+    - fix: https://github.com/hashicorp/nomad/commit/2a09fd62c23880ff306499ae03fe64628d82a23f
+    - web: https://discuss.hashicorp.com/t/hcsec-2026-14-nomad-arbitrary-file-read-write-on-client-host-through-symlink-attack/77416
+    - web: https://github.com/hashicorp/nomad/releases/tag/v2.0.1
+source:
+    id: GHSA-3934-423w-4jq3
+    created: 2026-06-25T01:29:58.744610774-04:00
+review_status: UNREVIEWED

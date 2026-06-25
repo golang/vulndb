@@ -1,0 +1,23 @@
+id: GO-2026-5160
+modules:
+    - module: github.com/siderolabs/omni
+      versions:
+        - fixed: 1.6.6
+        - introduced: 1.7.0
+        - fixed: 1.7.3
+      vulnerable_at: 1.7.2
+summary: |-
+    Omni has a TOCTOU race condition that allows multiple concurrent uses of a
+    single-use SAML session token in github.com/siderolabs/omni
+cves:
+    - CVE-2026-45720
+ghsas:
+    - GHSA-5x9f-6vg5-qg4m
+references:
+    - advisory: https://github.com/siderolabs/omni/security/advisories/GHSA-5x9f-6vg5-qg4m
+    - web: https://github.com/siderolabs/omni/releases/tag/v1.6.6
+    - web: https://github.com/siderolabs/omni/releases/tag/v1.7.3
+source:
+    id: GHSA-5x9f-6vg5-qg4m
+    created: 2026-06-25T01:49:14.096652162-04:00
+review_status: UNREVIEWED

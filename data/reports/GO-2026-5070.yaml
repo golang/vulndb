@@ -1,0 +1,23 @@
+id: GO-2026-5070
+modules:
+    - module: github.com/hahwul/dalfox
+      vulnerable_at: 1.2.1
+    - module: github.com/hahwul/dalfox/v2
+      versions:
+        - fixed: 2.13.0
+      vulnerable_at: 2.12.0
+summary: |-
+    Dalfox Server Mode has an Unauthenticated Arbitrary File Read with Out-of-Band
+    Exfiltration via `custom-payload-file` in github.com/hahwul/dalfox
+cves:
+    - CVE-2026-45088
+ghsas:
+    - GHSA-35wr-x7v6-9fv2
+references:
+    - advisory: https://github.com/hahwul/dalfox/security/advisories/GHSA-35wr-x7v6-9fv2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-45088
+    - web: https://github.com/hahwul/dalfox/releases/tag/v2.13.0
+source:
+    id: GHSA-35wr-x7v6-9fv2
+    created: 2026-06-25T01:29:02.636141361-04:00
+review_status: UNREVIEWED

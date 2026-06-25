@@ -1,0 +1,26 @@
+id: GO-2026-5157
+modules:
+    - module: github.com/hjson/hjson-go
+      vulnerable_at: 3.3.0+incompatible
+    - module: github.com/hjson/hjson-go/v4
+      versions:
+        - fixed: 4.5.0
+      vulnerable_at: 4.4.0
+summary: hjson stack exhaustion vulnerability in github.com/hjson/hjson-go
+cves:
+    - CVE-2023-34620
+ghsas:
+    - GHSA-5wfc-hjrc-gq87
+references:
+    - advisory: https://github.com/advisories/GHSA-5wfc-hjrc-gq87
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-34620
+    - fix: https://github.com/hjson/hjson-go/commit/326599cebc6ef759892f473bf1439b98466a99fa
+    - fix: https://github.com/hjson/hjson-go/pull/67
+    - web: https://github.com/hjson/hjson-cpp/pull/54
+    - web: https://github.com/hjson/hjson-java/issues/24
+    - web: https://github.com/hjson/hjson-php/commit/2d1b8b4b158a8d841f3a228f267c7cd84fe5a4fa
+    - web: https://github.com/hjson/hjson-php/pull/45
+source:
+    id: GHSA-5wfc-hjrc-gq87
+    created: 2026-06-25T01:48:37.578363609-04:00
+review_status: UNREVIEWED

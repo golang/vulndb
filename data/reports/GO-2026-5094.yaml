@@ -1,0 +1,25 @@
+id: GO-2026-5094
+modules:
+    - module: github.com/distribution/distribution
+      unsupported_versions:
+        - last_affected: 2.8.3
+      vulnerable_at: 2.8.3+incompatible
+    - module: github.com/distribution/distribution/v3
+      versions:
+        - fixed: 3.1.0
+      vulnerable_at: 3.0.0
+summary: |-
+    Distribution affected by pull-through cache credential exfiltration via
+    www-authenticate bearer realm in github.com/distribution/distribution
+cves:
+    - CVE-2026-33540
+ghsas:
+    - GHSA-3p65-76g6-3w7r
+references:
+    - advisory: https://github.com/distribution/distribution/security/advisories/GHSA-3p65-76g6-3w7r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-33540
+    - fix: https://github.com/distribution/distribution/commit/cc5d5fa4ba02157501e6afa2cc6a903ad0338e7b
+source:
+    id: GHSA-3p65-76g6-3w7r
+    created: 2026-06-25T01:33:15.442314323-04:00
+review_status: UNREVIEWED

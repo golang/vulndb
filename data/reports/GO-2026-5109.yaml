@@ -1,0 +1,23 @@
+id: GO-2026-5109
+modules:
+    - module: github.com/free5gc/smf
+      unsupported_versions:
+        - last_affected: 1.4.3
+      vulnerable_at: 1.4.4
+summary: |-
+    free5GC's SMF UPI POST /upi/v1/upNodesLinks exits the SMF process on overlapping
+    UE pools (unauthenticated, reachable Fatalf) in github.com/free5gc/smf
+cves:
+    - CVE-2026-44321
+ghsas:
+    - GHSA-44qj-cghf-9p97
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-44qj-cghf-9p97
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44321
+    - fix: https://github.com/free5gc/smf/commit/e0974e07ddab44a67d36a563cca383b2449e33e5
+    - fix: https://github.com/free5gc/smf/pull/203
+    - web: https://github.com/free5gc/free5gc/issues/906
+source:
+    id: GHSA-44qj-cghf-9p97
+    created: 2026-06-25T01:38:01.557558162-04:00
+review_status: UNREVIEWED

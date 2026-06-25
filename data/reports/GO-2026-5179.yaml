@@ -1,0 +1,24 @@
+id: GO-2026-5179
+modules:
+    - module: github.com/omec-project/amf
+      non_go_versions:
+        - fixed: 2.2.0
+      vulnerable_at: 1.7.0
+summary: AMF Vulnerable to Improper Resource Shutdown or Release in github.com/omec-project/amf
+cves:
+    - CVE-2026-8782
+ghsas:
+    - GHSA-6h8r-h22r-jj64
+references:
+    - advisory: https://github.com/advisories/GHSA-6h8r-h22r-jj64
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-8782
+    - fix: https://github.com/omec-project/amf/pull/666
+    - report: https://github.com/omec-project/amf/issues/674
+    - web: https://github.com/omec-project/amf/releases/tag/v2.2.0
+    - web: https://vuldb.com/submit/811654
+    - web: https://vuldb.com/vuln/364406
+    - web: https://vuldb.com/vuln/364406/cti
+source:
+    id: GHSA-6h8r-h22r-jj64
+    created: 2026-06-25T01:54:22.087268944-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5133",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-55866",
+    "GHSA-4vrg-r928-h5vv"
+  ],
+  "summary": "SpiceDB: Checks involving relations with caveats can result in unconditional permission when conditional permission is expected in github.com/authzed/spicedb",
+  "details": "SpiceDB: Checks involving relations with caveats can result in unconditional permission when conditional permission is expected in github.com/authzed/spicedb",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/authzed/spicedb",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.34.0"
+            },
+            {
+              "fixed": "1.54.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/authzed/spicedb/security/advisories/GHSA-4vrg-r928-h5vv"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5133",
+    "review_status": "UNREVIEWED"
+  }
+}

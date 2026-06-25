@@ -1,0 +1,22 @@
+id: GO-2026-5132
+modules:
+    - module: github.com/gotenberg/gotenberg/v7
+      vulnerable_at: 7.10.2
+    - module: github.com/gotenberg/gotenberg/v8
+      versions:
+        - fixed: 8.32.0
+      vulnerable_at: 8.31.0
+summary: |-
+    Gotenberg vulnerable to unauthenticated SSRF via default deny-list bypass in
+    downloadFrom and webhook in github.com/gotenberg/gotenberg
+cves:
+    - CVE-2026-42596
+ghsas:
+    - GHSA-4vmc-gm8v-m35h
+references:
+    - advisory: https://github.com/gotenberg/gotenberg/security/advisories/GHSA-4vmc-gm8v-m35h
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42596
+source:
+    id: GHSA-4vmc-gm8v-m35h
+    created: 2026-06-25T01:44:32.980236819-04:00
+review_status: UNREVIEWED

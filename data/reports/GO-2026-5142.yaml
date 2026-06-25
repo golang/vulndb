@@ -1,0 +1,22 @@
+id: GO-2026-5142
+modules:
+    - module: github.com/free5gc/nef
+      unsupported_versions:
+        - last_affected: 1.2.3
+      vulnerable_at: 1.2.4
+summary: |-
+    free5GC's NEF 3gpp-pfd-management API is unauthenticated; forged bearer tokens
+    can create, read, and delete PFD transactions in github.com/free5gc/nef
+cves:
+    - CVE-2026-44315
+ghsas:
+    - GHSA-5f62-53r8-qrqf
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-5f62-53r8-qrqf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44315
+    - fix: https://github.com/free5gc/nef/pull/23
+    - web: https://github.com/free5gc/free5gc/issues/858
+source:
+    id: GHSA-5f62-53r8-qrqf
+    created: 2026-06-25T01:45:52.226142521-04:00
+review_status: UNREVIEWED

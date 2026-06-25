@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5087",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-8349",
+    "GHSA-3h63-fx68-x5fm"
+  ],
+  "summary": "omec-project amf crashes when processing malformed LocationReports in github.com/omec-project/amf",
+  "details": "omec-project amf crashes when processing malformed LocationReports in github.com/omec-project/amf",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/omec-project/amf",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-3h63-fx68-x5fm"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-8349"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/omec-project/amf/pull/666"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/omec-project/amf/issues/672"
+    },
+    {
+      "type": "WEB",
+      "url": "https://hub.docker.com/layers/omecproject/5gc-amf/rel-2.2.1/images/sha256-8a4c33cdda866094f1989bdeff6d8642fce8de8435f89defd66831c97715f5aa"
+    },
+    {
+      "type": "WEB",
+      "url": "https://vuldb.com/submit/811475"
+    },
+    {
+      "type": "WEB",
+      "url": "https://vuldb.com/vuln/362663"
+    },
+    {
+      "type": "WEB",
+      "url": "https://vuldb.com/vuln/362663/cti"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5087",
+    "review_status": "UNREVIEWED"
+  }
+}

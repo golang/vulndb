@@ -1,0 +1,34 @@
+id: GO-2026-5163
+modules:
+    - module: github.com/traefik/traefik
+      unsupported_versions:
+        - last_affected: 1.7.34
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.43
+      vulnerable_at: 2.11.42
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - introduced: 3.0.0-beta1
+        - fixed: 3.6.14
+        - introduced: 3.7.0-ea.1
+        - fixed: 3.7.0-rc.2
+      vulnerable_at: 3.7.0-rc.1
+summary: |-
+    Traefik's ForwardAuth trustForwardHeader=false allows spoofed X-Forwarded-Prefix
+    to bypass authentication in github.com/traefik/traefik
+cves:
+    - CVE-2026-35051
+ghsas:
+    - GHSA-6384-m2mw-rf54
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-6384-m2mw-rf54
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-35051
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.43
+    - web: https://github.com/traefik/traefik/releases/tag/v3.6.14
+    - web: https://github.com/traefik/traefik/releases/tag/v3.7.0-rc.2
+source:
+    id: GHSA-6384-m2mw-rf54
+    created: 2026-06-25T01:49:43.226901728-04:00
+review_status: UNREVIEWED

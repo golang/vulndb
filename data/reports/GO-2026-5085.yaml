@@ -1,0 +1,21 @@
+id: GO-2026-5085
+modules:
+    - module: github.com/enchant97/note-mark/backend
+      versions:
+        - fixed: 0.0.0-20260417132843-d1bf845a2a2d
+summary: 'Note Mark: Unauthenticated read of notes and assets in soft-deleted public books in github.com/enchant97/note-mark/backend'
+cves:
+    - CVE-2026-41572
+ghsas:
+    - GHSA-3gr9-485j-v4xf
+references:
+    - advisory: https://github.com/enchant97/note-mark/security/advisories/GHSA-3gr9-485j-v4xf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-41572
+    - web: https://github.com/enchant97/note-mark/commit/d1bf845a2a2df01e2eca6f556287db4ec6f773cf
+    - web: https://github.com/enchant97/note-mark/releases/tag/v0.19.3
+notes:
+    - fix: 'github.com/enchant97/note-mark/backend: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-3gr9-485j-v4xf
+    created: 2026-06-25T01:31:58.000063184-04:00
+review_status: UNREVIEWED

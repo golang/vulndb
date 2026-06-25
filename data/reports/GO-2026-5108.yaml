@@ -1,0 +1,23 @@
+id: GO-2026-5108
+modules:
+    - module: github.com/dadrus/heimdall
+      versions:
+        - fixed: 0.17.14
+      vulnerable_at: 0.17.13
+summary: |-
+    Heimdall: Case-sensitive handling of URL-encoded slashes may lead to
+    inconsistent path interpretation in github.com/dadrus/heimdall
+cves:
+    - CVE-2026-42272
+ghsas:
+    - GHSA-43jv-5j4x-qv67
+references:
+    - advisory: https://github.com/dadrus/heimdall/security/advisories/GHSA-43jv-5j4x-qv67
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42272
+    - fix: https://github.com/dadrus/heimdall/commit/8b0de6aba23a047cfee3081df878271bb17f4351
+    - fix: https://github.com/dadrus/heimdall/pull/3207
+    - web: https://github.com/dadrus/heimdall/releases/tag/v0.17.14
+source:
+    id: GHSA-43jv-5j4x-qv67
+    created: 2026-06-25T01:37:52.941925145-04:00
+review_status: UNREVIEWED

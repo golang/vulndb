@@ -1,0 +1,25 @@
+id: GO-2026-5147
+modules:
+    - module: github.com/oauth2-proxy/oauth2-proxy
+      unsupported_versions:
+        - last_affected: 3.2.0
+      vulnerable_at: 3.2.0+incompatible
+    - module: github.com/oauth2-proxy/oauth2-proxy/v7
+      versions:
+        - fixed: 7.15.2
+      vulnerable_at: 7.15.1
+summary: |-
+    OAuth2 Proxy's Health Check User-Agent Matching Bypasses Authentication in
+    auth_request Mode in github.com/oauth2-proxy/oauth2-proxy
+cves:
+    - CVE-2026-34457
+ghsas:
+    - GHSA-5hvv-m4w4-gf6v
+references:
+    - advisory: https://github.com/oauth2-proxy/oauth2-proxy/security/advisories/GHSA-5hvv-m4w4-gf6v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-34457
+    - web: https://github.com/oauth2-proxy/oauth2-proxy/releases/tag/v7.15.2
+source:
+    id: GHSA-5hvv-m4w4-gf6v
+    created: 2026-06-25T01:47:01.44836065-04:00
+review_status: UNREVIEWED

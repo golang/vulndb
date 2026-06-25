@@ -1,0 +1,42 @@
+id: GO-2026-5095
+modules:
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - introduced: 1.9.2-0.20221116104934-4ee83a5f2bf4
+        - fixed: 1.9.2-0.20260325055210-3522153e07b4
+      vulnerable_at: 5.4.5+incompatible
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - introduced: 12.4.0
+      vulnerable_at: 5.4.5+incompatible
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - introduced: 12.3.0
+      vulnerable_at: 5.4.5+incompatible
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - introduced: 12.2.0
+      vulnerable_at: 5.4.5+incompatible
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - introduced: 12.0.0
+      vulnerable_at: 5.4.5+incompatible
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - introduced: 9.3.0
+      vulnerable_at: 5.4.5+incompatible
+summary: Grafana public dashboards disclose all direct mode datasources in github.com/grafana/grafana
+cves:
+    - CVE-2026-27877
+ghsas:
+    - GHSA-3q27-7qjq-p9c5
+references:
+    - advisory: https://github.com/advisories/GHSA-3q27-7qjq-p9c5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-27877
+    - web: https://grafana.com/security/security-advisories/cve-2026-27877
+notes:
+    - fix: 'module merge error: could not merge versions of module github.com/grafana/grafana: introduced and fixed versions must alternate'
+source:
+    id: GHSA-3q27-7qjq-p9c5
+    created: 2026-06-25T01:33:24.452477263-04:00
+review_status: UNREVIEWED

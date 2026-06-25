@@ -1,0 +1,23 @@
+id: GO-2026-5146
+modules:
+    - module: github.com/patrickhener/goshs
+      unsupported_versions:
+        - last_affected: 1.1.4
+      vulnerable_at: 1.1.4
+    - module: github.com/patrickhener/goshs/v2
+      versions:
+        - fixed: 2.0.0
+      vulnerable_at: 2.0.0-beta.6
+summary: SFTP root escape via prefix-based path validation in goshs in github.com/patrickhener/goshs
+cves:
+    - CVE-2026-40876
+ghsas:
+    - GHSA-5h6h-7rc9-3824
+references:
+    - advisory: https://github.com/patrickhener/goshs/security/advisories/GHSA-5h6h-7rc9-3824
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40876
+    - web: https://github.com/patrickhener/goshs/releases/tag/v2.0.0
+source:
+    id: GHSA-5h6h-7rc9-3824
+    created: 2026-06-25T01:46:52.147736155-04:00
+review_status: UNREVIEWED

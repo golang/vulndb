@@ -1,0 +1,25 @@
+id: GO-2026-5096
+modules:
+    - module: github.com/filebrowser/filebrowser
+      unsupported_versions:
+        - last_affected: 1.11.0
+      vulnerable_at: 1.11.0
+    - module: github.com/filebrowser/filebrowser/v2
+      versions:
+        - fixed: 2.63.7
+      vulnerable_at: 2.63.6
+summary: |-
+    File Browser: Improper Access Control Occurs via Pre-Created Public Share for a
+    Non-existent Path in github.com/filebrowser/filebrowser
+cves:
+    - CVE-2026-54096
+ghsas:
+    - GHSA-3q2p-72cj-682c
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-3q2p-72cj-682c
+    - fix: https://github.com/filebrowser/filebrowser/commit/166583db632e088e9f0adce30aec43bb9d9019f4
+    - web: https://github.com/filebrowser/filebrowser/releases/tag/v2.63.7
+source:
+    id: GHSA-3q2p-72cj-682c
+    created: 2026-06-25T01:35:50.358771011-04:00
+review_status: UNREVIEWED

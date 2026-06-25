@@ -1,0 +1,18 @@
+id: GO-2026-5100
+modules:
+    - module: github.com/lin-snow/ech0
+      versions:
+        - fixed: 1.4.8-0.20260503035519-fd320fe3e902
+      vulnerable_at: 1.4.7
+summary: |-
+    Ech0's RSS feed renders unescaped tag names and raw-HTML markdown, stored XSS
+    against subscribers in github.com/lin-snow/ech0
+ghsas:
+    - GHSA-3v85-fqvh-7rxf
+references:
+    - advisory: https://github.com/lin-snow/Ech0/security/advisories/GHSA-3v85-fqvh-7rxf
+    - web: https://github.com/lin-snow/Ech0/commit/fd320fe3e9021c8d8d284fb274775c018690520e
+source:
+    id: GHSA-3v85-fqvh-7rxf
+    created: 2026-06-25T01:36:24.750278919-04:00
+review_status: UNREVIEWED

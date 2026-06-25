@@ -1,0 +1,21 @@
+id: GO-2026-5111
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - fixed: 2.3.0
+      vulnerable_at: 0.24.6
+summary: Vikunja has HTML Injection via Task Titles in Overdue Email Notifications in code.vikunja.io/api
+cves:
+    - CVE-2026-35600
+ghsas:
+    - GHSA-45q4-x4r9-8fqj
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-45q4-x4r9-8fqj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-35600
+    - web: https://github.com/go-vikunja/vikunja/commit/0f3730d045f20e261e3cdfc6d93c325653395b64
+    - web: https://github.com/go-vikunja/vikunja/pull/2580
+    - web: https://github.com/go-vikunja/vikunja/releases/tag/v2.3.0
+source:
+    id: GHSA-45q4-x4r9-8fqj
+    created: 2026-06-25T01:38:20.071581971-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,23 @@
+id: GO-2026-5131
+modules:
+    - module: github.com/free5gc/udr
+      versions:
+        - fixed: 1.4.3
+      vulnerable_at: 1.4.2
+summary: |-
+    free5GC's UDR nudr-dr DELETE amf-subscriptions panics on missing subsId when UE
+    state exists (nil pointer dereference) in github.com/free5gc/udr
+cves:
+    - CVE-2026-44323
+ghsas:
+    - GHSA-4rqf-grm6-vf75
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-4rqf-grm6-vf75
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44323
+    - fix: https://github.com/free5gc/udr/commit/8a1d3c63be99d378806d771f086ff32f1867da99
+    - fix: https://github.com/free5gc/udr/pull/60
+    - web: https://github.com/free5gc/free5gc/issues/919
+source:
+    id: GHSA-4rqf-grm6-vf75
+    created: 2026-06-25T01:44:23.785796052-04:00
+review_status: UNREVIEWED

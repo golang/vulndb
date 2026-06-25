@@ -1,0 +1,22 @@
+id: GO-2026-5103
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.14.3
+      vulnerable_at: 0.13.3
+summary: |-
+    Gogs's Unauthenticated Jupyter Notebook (ipynb) Sanitizer allows arbitrary data:
+    URIs leading to XSS in gogs.io/gogs
+cves:
+    - CVE-2026-52816
+ghsas:
+    - GHSA-3w28-36p9-w929
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-3w28-36p9-w929
+    - web: https://github.com/gogs/gogs/commit/dd1bd9837aa196b3ed3a8ee21e5727b5d7a986a3
+    - web: https://github.com/gogs/gogs/pull/8326
+    - web: https://github.com/gogs/gogs/releases/tag/v0.14.3
+source:
+    id: GHSA-3w28-36p9-w929
+    created: 2026-06-25T01:37:06.531313243-04:00
+review_status: UNREVIEWED

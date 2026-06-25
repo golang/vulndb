@@ -1,0 +1,20 @@
+id: GO-2026-5124
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.14.3
+      vulnerable_at: 0.13.3
+summary: Gogs has DoS in rendering issue index pattern in gogs.io/gogs
+cves:
+    - CVE-2026-52796
+ghsas:
+    - GHSA-4j89-2c4f-44c6
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-4j89-2c4f-44c6
+    - web: https://github.com/gogs/gogs/commit/0529d95fc39f2b6d2997b19a2a12e24522684722
+    - web: https://github.com/gogs/gogs/pull/8312
+    - web: https://github.com/gogs/gogs/releases/tag/v0.14.3
+source:
+    id: GHSA-4j89-2c4f-44c6
+    created: 2026-06-25T01:40:39.964830302-04:00
+review_status: UNREVIEWED

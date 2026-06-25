@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5109",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-44321",
+    "GHSA-44qj-cghf-9p97"
+  ],
+  "summary": "free5GC's SMF UPI POST /upi/v1/upNodesLinks exits the SMF process on overlapping UE pools (unauthenticated, reachable Fatalf) in github.com/free5gc/smf",
+  "details": "free5GC's SMF UPI POST /upi/v1/upNodesLinks exits the SMF process on overlapping UE pools (unauthenticated, reachable Fatalf) in github.com/free5gc/smf",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/free5gc/smf",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/free5gc/free5gc/security/advisories/GHSA-44qj-cghf-9p97"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-44321"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/free5gc/smf/commit/e0974e07ddab44a67d36a563cca383b2449e33e5"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/free5gc/smf/pull/203"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/free5gc/free5gc/issues/906"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5109",
+    "review_status": "UNREVIEWED"
+  }
+}

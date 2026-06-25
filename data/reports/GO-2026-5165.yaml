@@ -1,0 +1,17 @@
+id: GO-2026-5165
+modules:
+    - module: github.com/mezo-org/mezod
+      non_go_versions:
+        - fixed: 8.0.0
+      vulnerable_at: 1.0.0
+summary: |-
+    Mezo: ERC-20 bridgeOut burn can be erased by a stale StateDB overwrite leading
+    to full L1 bridge drain in github.com/mezo-org/mezod
+ghsas:
+    - GHSA-6447-269v-g68m
+references:
+    - advisory: https://github.com/mezo-org/mezod/security/advisories/GHSA-6447-269v-g68m
+source:
+    id: GHSA-6447-269v-g68m
+    created: 2026-06-25T01:49:57.813839417-04:00
+review_status: UNREVIEWED

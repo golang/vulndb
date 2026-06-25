@@ -1,0 +1,24 @@
+id: GO-2026-5120
+modules:
+    - module: github.com/openclaw/crabbox
+      versions:
+        - fixed: 0.12.0
+      vulnerable_at: 0.11.0
+summary: |-
+    Crabbox: authentication bypass vulnerability that allows impersonation of others
+    by spoofing identity headers in github.com/openclaw/crabbox
+cves:
+    - CVE-2026-8621
+ghsas:
+    - GHSA-4g9m-rffv-h6wq
+references:
+    - advisory: https://github.com/advisories/GHSA-4g9m-rffv-h6wq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-8621
+    - fix: https://github.com/openclaw/crabbox/commit/b657323f1d1c954cefc8444571fa6c45a8896e7f
+    - fix: https://github.com/openclaw/crabbox/pull/70
+    - web: https://github.com/openclaw/crabbox/releases/tag/v0.12.0
+    - web: https://www.vulncheck.com/advisories/crabbox-authentication-bypass-via-header-spoofing
+source:
+    id: GHSA-4g9m-rffv-h6wq
+    created: 2026-06-25T01:40:20.553788137-04:00
+review_status: UNREVIEWED

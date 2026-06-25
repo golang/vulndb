@@ -1,0 +1,19 @@
+id: GO-2026-5141
+modules:
+    - module: github.com/henrygd/beszel
+      versions:
+        - fixed: 0.18.7
+      vulnerable_at: 0.18.6
+summary: Beszel has an IDOR in hub API endpoints that read system ID from URL parameter in github.com/henrygd/beszel
+cves:
+    - CVE-2026-40077
+ghsas:
+    - GHSA-5f5r-95pg-xrpm
+references:
+    - advisory: https://github.com/henrygd/beszel/security/advisories/GHSA-5f5r-95pg-xrpm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40077
+    - web: https://github.com/henrygd/beszel/releases/tag/v0.18.7
+source:
+    id: GHSA-5f5r-95pg-xrpm
+    created: 2026-06-25T01:45:44.300331954-04:00
+review_status: UNREVIEWED

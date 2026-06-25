@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5100",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-3v85-fqvh-7rxf"
+  ],
+  "summary": "Ech0's RSS feed renders unescaped tag names and raw-HTML markdown, stored XSS against subscribers in github.com/lin-snow/ech0",
+  "details": "Ech0's RSS feed renders unescaped tag names and raw-HTML markdown, stored XSS against subscribers in github.com/lin-snow/ech0",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/lin-snow/ech0",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.4.8-0.20260503035519-fd320fe3e902"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/lin-snow/Ech0/security/advisories/GHSA-3v85-fqvh-7rxf"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/lin-snow/Ech0/commit/fd320fe3e9021c8d8d284fb274775c018690520e"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5100",
+    "review_status": "UNREVIEWED"
+  }
+}

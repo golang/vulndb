@@ -1,0 +1,25 @@
+id: GO-2026-5099
+modules:
+    - module: github.com/argoproj/argo-cd
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      vulnerable_at: 2.14.21
+    - module: github.com/argoproj/argo-cd/v3
+      versions:
+        - introduced: 3.2.0
+        - fixed: 3.2.11
+        - introduced: 3.3.0
+        - fixed: 3.3.9
+      vulnerable_at: 3.3.8
+summary: ArgoCD ServerSideDiff is vulnerable to Kubernetes Secret Extraction in github.com/argoproj/argo-cd
+cves:
+    - CVE-2026-42880
+ghsas:
+    - GHSA-3v3m-wc6v-x4x3
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-3v3m-wc6v-x4x3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42880
+source:
+    id: GHSA-3v3m-wc6v-x4x3
+    created: 2026-06-25T01:36:16.674284888-04:00
+review_status: UNREVIEWED

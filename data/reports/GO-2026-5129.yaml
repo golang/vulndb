@@ -1,0 +1,21 @@
+id: GO-2026-5129
+modules:
+    - module: github.com/0xJacky/nginx-ui
+      non_go_versions:
+        - fixed: 2.3.8
+      vulnerable_at: 1.9.9
+summary: |-
+    Nginx-UI is Vulnerable to Unauthenticated Remote Code Execution via Backup
+    Restore in github.com/0xJacky/nginx-ui
+cves:
+    - CVE-2026-42238
+ghsas:
+    - GHSA-4pvg-prr3-9cxr
+references:
+    - advisory: https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-4pvg-prr3-9cxr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42238
+    - web: https://github.com/0xJacky/nginx-ui/releases/tag/v2.3.8
+source:
+    id: GHSA-4pvg-prr3-9cxr
+    created: 2026-06-25T01:44:04.006620207-04:00
+review_status: UNREVIEWED

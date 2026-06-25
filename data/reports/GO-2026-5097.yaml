@@ -1,0 +1,22 @@
+id: GO-2026-5097
+modules:
+    - module: github.com/dadrus/heimdall
+      versions:
+        - fixed: 0.17.14
+      vulnerable_at: 0.17.13
+summary: Heimdall has an authorization bypass via path normalization mismatch in github.com/dadrus/heimdall
+cves:
+    - CVE-2026-42274
+ghsas:
+    - GHSA-3q34-rx83-r6mq
+references:
+    - advisory: https://github.com/dadrus/heimdall/security/advisories/GHSA-3q34-rx83-r6mq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42274
+    - fix: https://github.com/dadrus/heimdall/commit/b5dfa484b7a8c2ce6d8691c026f9da867719947a
+    - fix: https://github.com/dadrus/heimdall/pull/3209
+    - web: https://github.com/dadrus/heimdall/releases/tag/v0.17.14
+    - web: https://www.envoyproxy.io/docs/envoy/latest/api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto#envoy-v3-api-field-extensions-filters-network-http-connection-manager-v3-httpconnectionmanager-normalize-path
+source:
+    id: GHSA-3q34-rx83-r6mq
+    created: 2026-06-25T01:35:58.929197964-04:00
+review_status: UNREVIEWED

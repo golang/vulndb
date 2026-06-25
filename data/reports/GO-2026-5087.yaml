@@ -1,0 +1,24 @@
+id: GO-2026-5087
+modules:
+    - module: github.com/omec-project/amf
+      unsupported_versions:
+        - last_affected: 1.7.0
+      vulnerable_at: 1.7.0
+summary: omec-project amf crashes when processing malformed LocationReports in github.com/omec-project/amf
+cves:
+    - CVE-2026-8349
+ghsas:
+    - GHSA-3h63-fx68-x5fm
+references:
+    - advisory: https://github.com/advisories/GHSA-3h63-fx68-x5fm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-8349
+    - fix: https://github.com/omec-project/amf/pull/666
+    - report: https://github.com/omec-project/amf/issues/672
+    - web: https://hub.docker.com/layers/omecproject/5gc-amf/rel-2.2.1/images/sha256-8a4c33cdda866094f1989bdeff6d8642fce8de8435f89defd66831c97715f5aa
+    - web: https://vuldb.com/submit/811475
+    - web: https://vuldb.com/vuln/362663
+    - web: https://vuldb.com/vuln/362663/cti
+source:
+    id: GHSA-3h63-fx68-x5fm
+    created: 2026-06-25T01:32:15.611325927-04:00
+review_status: UNREVIEWED

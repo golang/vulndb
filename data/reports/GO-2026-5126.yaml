@@ -1,0 +1,20 @@
+id: GO-2026-5126
+modules:
+    - module: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/sentryexporter
+      versions:
+        - fixed: 0.154.0
+      vulnerable_at: 0.153.0
+summary: |-
+    opentelemetry-collector-contrib sentryexporter: Path traversal in Sentry
+    exporter via attacker-controlled service.name reaches privileged Sentry API
+    endpoints with operator bearer token in github.com/open-telemetry/opentelemetry-collector-contrib/exporter/sentryexporter
+cves:
+    - CVE-2026-47256
+ghsas:
+    - GHSA-4jvg-4jfx-fmhc
+references:
+    - advisory: https://github.com/open-telemetry/opentelemetry-collector-contrib/security/advisories/GHSA-4jvg-4jfx-fmhc
+source:
+    id: GHSA-4jvg-4jfx-fmhc
+    created: 2026-06-25T01:40:51.342904602-04:00
+review_status: UNREVIEWED

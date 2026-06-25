@@ -1,0 +1,31 @@
+id: GO-2026-5083
+modules:
+    - module: github.com/traefik/traefik
+      unsupported_versions:
+        - last_affected: 1.7.34
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      unsupported_versions:
+        - last_affected: 2.11.50
+      vulnerable_at: 2.11.50
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - fixed: 3.6.21
+        - introduced: 3.7.0-ea.1
+        - fixed: 3.7.5
+      vulnerable_at: 3.7.4
+summary: |-
+    Traefik: Kubernetes Gateway crossProviderNamespaces bypass allows HTTPRoute
+    outside the allowlist to expose internal Traefik services in github.com/traefik/traefik
+cves:
+    - CVE-2026-54761
+ghsas:
+    - GHSA-3g6v-2r68-prfc
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-3g6v-2r68-prfc
+    - web: https://github.com/traefik/traefik/releases/tag/v3.6.21
+    - web: https://github.com/traefik/traefik/releases/tag/v3.7.5
+source:
+    id: GHSA-3g6v-2r68-prfc
+    created: 2026-06-25T01:31:41.999434032-04:00
+review_status: UNREVIEWED
