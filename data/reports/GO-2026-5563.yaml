@@ -1,0 +1,21 @@
+id: GO-2026-5563
+modules:
+    - module: github.com/kata-containers/kata-containers
+      versions:
+        - fixed: 0.0.0-20260422180503-1b9e49eb2763
+summary: Kata Container has CopyFile Policy Subversion via Symlinks in github.com/kata-containers/kata-containers
+cves:
+    - CVE-2026-41326
+ghsas:
+    - GHSA-q49m-57vm-c8cc
+references:
+    - advisory: https://github.com/kata-containers/kata-containers/security/advisories/GHSA-q49m-57vm-c8cc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-41326
+    - fix: https://github.com/kata-containers/kata-containers/commit/1b9e49eb2763aa6ea6a99b276d3ff5e2c7f658f2
+    - web: http://www.openwall.com/lists/oss-security/2026/05/13/2
+notes:
+    - fix: 'github.com/kata-containers/kata-containers: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-q49m-57vm-c8cc
+    created: 2026-06-25T15:46:22.185960999-04:00
+review_status: UNREVIEWED

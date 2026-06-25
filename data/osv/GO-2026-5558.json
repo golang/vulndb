@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5558",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-pxh5-6rrc-8rjv"
+  ],
+  "summary": "OpenTofu: Excessive resource usage in \"tofu init\" when installing dependencies from attacker-controlled server in github.com/opentofu/opentofu",
+  "details": "OpenTofu: Excessive resource usage in \"tofu init\" when installing dependencies from attacker-controlled server in github.com/opentofu/opentofu",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/opentofu/opentofu",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.11.8"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/opentofu/opentofu/security/advisories/GHSA-pxh5-6rrc-8rjv"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/opentofu/opentofu/pull/4098"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/opentofu/opentofu/issues/4094"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/opentofu/opentofu/releases/tag/v1.11.8"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5558",
+    "review_status": "UNREVIEWED"
+  }
+}

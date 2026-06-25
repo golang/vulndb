@@ -1,0 +1,26 @@
+id: GO-2026-5602
+modules:
+    - module: github.com/external-secrets/external-secrets
+      versions:
+        - fixed: 1.3.3-0.20260331202714-6800989bdc12
+      non_go_versions:
+        - introduced: 2.0.0
+      unsupported_versions:
+        - last_affected: 2.2.0
+      vulnerable_at: 1.3.2
+summary: |-
+    External Secrets Operator has DNS-based secret exfiltration via getHostByName in
+    External Secrets v2 template engine in github.com/external-secrets/external-secrets
+cves:
+    - CVE-2026-34984
+ghsas:
+    - GHSA-r2pg-r6h7-crf3
+references:
+    - advisory: https://github.com/external-secrets/external-secrets/security/advisories/GHSA-r2pg-r6h7-crf3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-34984
+    - fix: https://github.com/external-secrets/external-secrets/commit/6800989bdc12782ca2605d3b8bf7f2876a16551a
+    - web: https://github.com/external-secrets/external-secrets/releases/tag/v2.3.0
+source:
+    id: GHSA-r2pg-r6h7-crf3
+    created: 2026-06-25T15:46:20.69504169-04:00
+review_status: UNREVIEWED

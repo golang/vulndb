@@ -1,0 +1,22 @@
+id: GO-2026-5523
+modules:
+    - module: github.com/basekick-labs/arc
+      versions:
+        - fixed: 0.0.0-20260520141557-91bdc29d1a02
+summary: |-
+    Arc has an authenticated arbitrary local-file read via DuckDB I/O functions that
+    bypasses RBAC table-level checks in github.com/basekick-labs/arc
+cves:
+    - CVE-2026-47735
+ghsas:
+    - GHSA-p2j4-c4g6-rpf5
+references:
+    - advisory: https://github.com/Basekick-Labs/arc/security/advisories/GHSA-p2j4-c4g6-rpf5
+    - web: https://github.com/Basekick-Labs/arc/commit/91bdc29d1a02178ccf8c66375eccf85203108dfb
+    - web: https://github.com/Basekick-Labs/arc/pull/442
+notes:
+    - fix: 'github.com/basekick-labs/arc: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-p2j4-c4g6-rpf5
+    created: 2026-06-25T15:46:22.422829667-04:00
+review_status: UNREVIEWED

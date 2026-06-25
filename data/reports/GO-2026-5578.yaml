@@ -1,0 +1,27 @@
+id: GO-2026-5578
+modules:
+    - module: go.temporal.io/server
+      versions:
+        - fixed: 1.28.4
+        - introduced: 1.29.0-135.0
+        - fixed: 1.29.6
+        - introduced: 1.30.0-143.0
+        - fixed: 1.30.4
+      vulnerable_at: 1.30.3
+summary: |-
+    Temporal does not enforce authentication and authorization for the
+    streaming AdminService/StreamWorkflowReplicationMessages endpoint in go.temporal.io/server
+cves:
+    - CVE-2026-5724
+ghsas:
+    - GHSA-q98v-9f9w-f49q
+references:
+    - advisory: https://github.com/advisories/GHSA-q98v-9f9w-f49q
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-5724
+    - web: https://github.com/temporalio/temporal/releases/tag/v1.28.4
+    - web: https://github.com/temporalio/temporal/releases/tag/v1.29.6
+    - web: https://github.com/temporalio/temporal/releases/tag/v1.30.4
+source:
+    id: GHSA-q98v-9f9w-f49q
+    created: 2026-06-25T15:46:23.618829126-04:00
+review_status: UNREVIEWED

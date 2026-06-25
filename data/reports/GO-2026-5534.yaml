@@ -1,0 +1,24 @@
+id: GO-2026-5534
+modules:
+    - module: github.com/DatanoiseTV/tinyice
+      versions:
+        - introduced: 0.8.95
+      non_go_versions:
+        - fixed: 2.5.0
+      vulnerable_at: 0.11.0
+summary: |-
+    TinyIce: Missing authentication on WebRTC ingest endpoint allows unauthorized
+    stream injection in github.com/DatanoiseTV/tinyice
+cves:
+    - CVE-2026-45327
+ghsas:
+    - GHSA-p7c4-8x34-8j8f
+references:
+    - advisory: https://github.com/DatanoiseTV/tinyice/security/advisories/GHSA-p7c4-8x34-8j8f
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-45327
+    - fix: https://github.com/DatanoiseTV/tinyice/commit/8067d6b
+    - web: https://github.com/DatanoiseTV/tinyice/releases/tag/v2.5.0
+source:
+    id: GHSA-p7c4-8x34-8j8f
+    created: 2026-06-25T15:46:22.486505738-04:00
+review_status: UNREVIEWED

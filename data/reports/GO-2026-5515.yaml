@@ -1,0 +1,19 @@
+id: GO-2026-5515
+modules:
+    - module: github.com/dhax/go-base
+      versions:
+        - fixed: 0.0.0-20260517152733-cc82b9740fa6
+summary: 'Go Restful API Boilerplate: Hardcoded JWT Secret "random" Allows Token Forgery in github.com/dhax/go-base'
+cves:
+    - CVE-2026-48031
+ghsas:
+    - GHSA-mqq6-462x-jxmm
+references:
+    - advisory: https://github.com/dhax/go-base/security/advisories/GHSA-mqq6-462x-jxmm
+    - fix: https://github.com/dhax/go-base/commit/cc82b9740fa6b08e0fad409cd4b418e240dd0e00
+notes:
+    - fix: 'github.com/dhax/go-base: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-mqq6-462x-jxmm
+    created: 2026-06-25T15:46:25.736937761-04:00
+review_status: UNREVIEWED

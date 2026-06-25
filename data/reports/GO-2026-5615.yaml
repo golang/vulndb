@@ -1,0 +1,27 @@
+id: GO-2026-5615
+modules:
+    - module: github.com/metal3-io/cluster-api-provider-metal3
+      versions:
+        - fixed: 1.11.8
+        - introduced: 1.12.0
+        - fixed: 1.12.5
+      vulnerable_at: 1.12.4
+summary: CAPM3 vulnerable to Cross-Namespace resource access in github.com/metal3-io/cluster-api-provider-metal3
+ghsas:
+    - GHSA-rf84-wr5g-m3rp
+references:
+    - advisory: https://github.com/metal3-io/cluster-api-provider-metal3/security/advisories/GHSA-rf84-wr5g-m3rp
+    - fix: https://github.com/metal3-io/cluster-api-provider-metal3/pull/3288
+    - fix: https://github.com/metal3-io/cluster-api-provider-metal3/pull/3294
+    - fix: https://github.com/metal3-io/cluster-api-provider-metal3/pull/3317
+    - fix: https://github.com/metal3-io/cluster-api-provider-metal3/pull/3319
+    - fix: https://github.com/metal3-io/cluster-api-provider-metal3/pull/3322
+    - fix: https://github.com/metal3-io/cluster-api-provider-metal3/pull/3323
+    - fix: https://github.com/metal3-io/cluster-api-provider-metal3/pull/3325
+    - fix: https://github.com/metal3-io/cluster-api-provider-metal3/pull/3327
+    - fix: https://github.com/metal3-io/cluster-api-provider-metal3/pull/3343
+    - fix: https://github.com/metal3-io/cluster-api-provider-metal3/pull/3344
+source:
+    id: GHSA-rf84-wr5g-m3rp
+    created: 2026-06-25T15:46:17.639750291-04:00
+review_status: UNREVIEWED

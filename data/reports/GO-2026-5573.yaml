@@ -1,0 +1,34 @@
+id: GO-2026-5573
+modules:
+    - module: github.com/apache/camel-k
+      vulnerable_at: 1.12.1
+    - module: github.com/apache/camel-k/v2
+      versions:
+        - fixed: 2.8.1
+        - introduced: 2.9.0
+        - fixed: 2.9.2
+        - introduced: 2.10.0
+        - fixed: 2.10.1
+      vulnerable_at: 2.10.0
+summary: |-
+    Apache Camel K: Kubernetes namespace authorized users can create a Build
+    resource in github.com/apache/camel-k
+cves:
+    - CVE-2026-45760
+ghsas:
+    - GHSA-q8ch-jx67-q52x
+references:
+    - advisory: https://github.com/advisories/GHSA-q8ch-jx67-q52x
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-45760
+    - fix: https://github.com/apache/camel-k/commit/1271df076f3123f5e4ec58e066e284236b1a8fb5
+    - fix: https://github.com/apache/camel-k/commit/1efa3982f4dbce0ae1f896f4003a16cae6d81ba2
+    - fix: https://github.com/apache/camel-k/commit/35dd387f58464608ab4764f67bde786cf09bc39d
+    - fix: https://github.com/apache/camel-k/pull/6626
+    - fix: https://github.com/apache/camel-k/pull/6627
+    - fix: https://github.com/apache/camel-k/pull/6629
+    - web: http://www.openwall.com/lists/oss-security/2026/05/21/8
+    - web: https://camel.apache.org/security/CVE-2026-45760.html
+source:
+    id: GHSA-q8ch-jx67-q52x
+    created: 2026-06-25T15:46:22.872914876-04:00
+review_status: UNREVIEWED

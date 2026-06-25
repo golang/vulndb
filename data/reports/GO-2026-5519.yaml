@@ -1,0 +1,21 @@
+id: GO-2026-5519
+modules:
+    - module: goshs.de/goshs
+      vulnerable_at: 1.1.4
+    - module: goshs.de/goshs/v2
+      versions:
+        - fixed: 2.0.7
+      vulnerable_at: 2.0.6
+summary: |-
+    goshs: SSH host key verification disabled, allowing transparent MITM of every
+    tunnelled HTTP request in goshs.de/goshs
+ghsas:
+    - GHSA-mxg3-432p-mr72
+references:
+    - advisory: https://github.com/patrickhener/goshs/security/advisories/GHSA-mxg3-432p-mr72
+    - web: https://github.com/patrickhener/goshs/commit/8f409cb08aacc6e94704334e8b1fb2cd50f5dd98
+    - web: https://github.com/patrickhener/goshs/releases/tag/v2.0.7
+source:
+    id: GHSA-mxg3-432p-mr72
+    created: 2026-06-25T15:46:22.18106546-04:00
+review_status: UNREVIEWED

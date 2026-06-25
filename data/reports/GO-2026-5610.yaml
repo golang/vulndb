@@ -1,0 +1,21 @@
+id: GO-2026-5610
+modules:
+    - module: go.opentelemetry.io/obi
+      versions:
+        - fixed: 0.9.0
+      vulnerable_at: 0.8.0
+summary: |-
+    OpenTelemetry eBPF Instrumentation: CPU-mismatch fallback uses 256-byte buffer
+    with 8KB size in go.opentelemetry.io/obi
+cves:
+    - CVE-2026-45681
+ghsas:
+    - GHSA-r6c9-g6q5-qrf9
+references:
+    - advisory: https://github.com/open-telemetry/opentelemetry-ebpf-instrumentation/security/advisories/GHSA-r6c9-g6q5-qrf9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-45681
+    - web: https://github.com/open-telemetry/opentelemetry-ebpf-instrumentation/releases/tag/v0.9.0
+source:
+    id: GHSA-r6c9-g6q5-qrf9
+    created: 2026-06-25T15:46:24.814792416-04:00
+review_status: UNREVIEWED

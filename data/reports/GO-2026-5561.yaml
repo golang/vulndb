@@ -1,0 +1,20 @@
+id: GO-2026-5561
+modules:
+    - module: github.com/getarcaneapp/arcane/backend
+      versions:
+        - fixed: 1.19.0
+      vulnerable_at: 1.18.1
+summary: |-
+    Arcane Backend: Unauthenticated reflected XSS via SVG color parameter enables
+    admin account takeover in github.com/getarcaneapp/arcane/backend
+cves:
+    - CVE-2026-45627
+ghsas:
+    - GHSA-q2pj-8v84-9mh5
+references:
+    - advisory: https://github.com/getarcaneapp/arcane/security/advisories/GHSA-q2pj-8v84-9mh5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-45627
+source:
+    id: GHSA-q2pj-8v84-9mh5
+    created: 2026-06-25T15:46:22.231763383-04:00
+review_status: UNREVIEWED

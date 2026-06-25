@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5517",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-55775",
+    "GHSA-mwr2-wmgp-crj6"
+  ],
+  "summary": "OpenBao's System Backend allows Unauthorized Management of the containing Namespace in github.com/openbao/openbao",
+  "details": "OpenBao's System Backend allows Unauthorized Management of the containing Namespace in github.com/openbao/openbao",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/openbao/openbao",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20260617103935-d3c1cc64b1ae"
+            },
+            {
+              "introduced": "0.1.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/openbao/openbao/security/advisories/GHSA-mwr2-wmgp-crj6"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openbao/openbao/commit/d3c1cc64b1ae7f9868b5c3e80b8b11671f0d97ae"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/openbao/openbao/releases/tag/v2.5.5"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5517",
+    "review_status": "UNREVIEWED"
+  }
+}

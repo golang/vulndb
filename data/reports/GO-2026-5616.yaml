@@ -1,0 +1,21 @@
+id: GO-2026-5616
+modules:
+    - module: github.com/oxyno-zeta/s3-proxy
+      versions:
+        - fixed: 0.0.0-20260424211602-1320e4abd46a
+summary: S3-Proxy has Security Issues in its Resource Path Matching Implementation in github.com/oxyno-zeta/s3-proxy
+cves:
+    - CVE-2026-42882
+ghsas:
+    - GHSA-rfgq-wgg8-662p
+references:
+    - advisory: https://github.com/oxyno-zeta/s3-proxy/security/advisories/GHSA-rfgq-wgg8-662p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42882
+    - fix: https://github.com/oxyno-zeta/s3-proxy/commit/1320e4abd46ad18c2851fedde50dbb79df8b7a51
+    - fix: https://github.com/oxyno-zeta/s3-proxy/commit/af5ff57d8c6022459495b8fb50130073bca7b48a
+notes:
+    - fix: 'github.com/oxyno-zeta/s3-proxy: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-rfgq-wgg8-662p
+    created: 2026-06-25T15:46:19.589751594-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,34 @@
+id: GO-2026-5629
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.11.0-rc1+incompatible
+        - fixed: 10.11.11+incompatible
+        - introduced: 11.2.0-rc1+incompatible
+        - fixed: 11.2.3+incompatible
+        - introduced: 11.3.0-rc1+incompatible
+        - fixed: 11.3.2+incompatible
+        - introduced: 11.4.0-rc1+incompatible
+        - fixed: 11.4.1+incompatible
+      vulnerable_at: 11.4.1-rc2+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - introduced: 8.0.0-20260105080200-d27a2195068d
+      vulnerable_at: 8.0.0-20260625191221-429e03cddc01
+summary: Mattermost doesn't properly validate CSRF tokens in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2026-27659
+ghsas:
+    - GHSA-rmhw-c3xr-m3xx
+references:
+    - advisory: https://github.com/advisories/GHSA-rmhw-c3xr-m3xx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-27659
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-rmhw-c3xr-m3xx
+    created: 2026-06-25T15:46:16.78618076-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,20 @@
+id: GO-2026-5558
+modules:
+    - module: github.com/opentofu/opentofu
+      versions:
+        - fixed: 1.11.8
+      vulnerable_at: 1.11.7
+summary: |-
+    OpenTofu: Excessive resource usage in "tofu init" when installing dependencies
+    from attacker-controlled server in github.com/opentofu/opentofu
+ghsas:
+    - GHSA-pxh5-6rrc-8rjv
+references:
+    - advisory: https://github.com/opentofu/opentofu/security/advisories/GHSA-pxh5-6rrc-8rjv
+    - fix: https://github.com/opentofu/opentofu/pull/4098
+    - report: https://github.com/opentofu/opentofu/issues/4094
+    - web: https://github.com/opentofu/opentofu/releases/tag/v1.11.8
+source:
+    id: GHSA-pxh5-6rrc-8rjv
+    created: 2026-06-25T15:46:20.21882999-04:00
+review_status: UNREVIEWED

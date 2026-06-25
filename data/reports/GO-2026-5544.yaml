@@ -1,0 +1,22 @@
+id: GO-2026-5544
+modules:
+    - module: github.com/open-telemetry/opentelemetry-collector-contrib/extension/azureauthextension
+      versions:
+        - introduced: 0.124.0
+      unsupported_versions:
+        - last_affected: 0.150.0
+      vulnerable_at: 0.155.0
+summary: |-
+    opentelemetry-collector-contrib's azureauthextension Authenticate method does
+    not validate bearer tokens, allowing auth bypass via replay in github.com/open-telemetry/opentelemetry-collector-contrib/extension/azureauthextension
+cves:
+    - CVE-2026-42602
+ghsas:
+    - GHSA-pjv4-3c63-699f
+references:
+    - advisory: https://github.com/open-telemetry/opentelemetry-collector-contrib/security/advisories/GHSA-pjv4-3c63-699f
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42602
+source:
+    id: GHSA-pjv4-3c63-699f
+    created: 2026-06-25T15:46:18.398720029-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,24 @@
+id: GO-2026-5589
+modules:
+    - module: chainguard.dev/apko
+      versions:
+        - introduced: 0.14.8
+        - fixed: 1.2.5
+      vulnerable_at: 1.2.4
+summary: |-
+    apko dirFS has a symlink-following path traversal that allows multiple entry
+    points to escape the build root in chainguard.dev/apko
+cves:
+    - CVE-2026-42574
+ghsas:
+    - GHSA-qq3r-w4hj-gjp6
+references:
+    - advisory: https://github.com/chainguard-dev/apko/security/advisories/GHSA-qq3r-w4hj-gjp6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42574
+    - web: https://github.com/chainguard-dev/apko/commit/f5a96e1299ac81c7ea9441705ec467688086f442
+    - web: https://github.com/chainguard-dev/apko/pull/2187
+    - web: https://github.com/chainguard-dev/apko/releases/tag/v1.2.5
+source:
+    id: GHSA-qq3r-w4hj-gjp6
+    created: 2026-06-25T15:46:19.55283043-04:00
+review_status: UNREVIEWED

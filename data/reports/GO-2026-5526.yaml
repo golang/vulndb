@@ -1,0 +1,22 @@
+id: GO-2026-5526
+modules:
+    - module: github.com/openbao/openbao
+      versions:
+        - fixed: 0.0.0-20260420162526-f58111d2ca54
+summary: OpenBao's Token Store Allows Cross-Namespace Renewal, Revocation in github.com/openbao/openbao
+cves:
+    - CVE-2026-40264
+ghsas:
+    - GHSA-p49j-v9wc-wg57
+references:
+    - advisory: https://github.com/openbao/openbao/security/advisories/GHSA-p49j-v9wc-wg57
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40264
+    - fix: https://github.com/openbao/openbao/commit/059cc5950303688335d5c8ab9af8e453795d693a
+    - fix: https://github.com/openbao/openbao/pull/2934
+    - web: https://github.com/openbao/openbao/releases/tag/v2.5.3
+notes:
+    - fix: 'github.com/openbao/openbao: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-p49j-v9wc-wg57
+    created: 2026-06-25T15:46:23.822376219-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,23 @@
+id: GO-2026-5537
+modules:
+    - module: github.com/free5gc/smf
+      versions:
+        - fixed: 1.4.3
+      vulnerable_at: 1.4.2
+summary: |-
+    free5GC's SMF UPI DELETE /upi/v1/upNodesLinks/{ref} panics on AN-node deletion
+    via nil UPF dereference; unauthenticated, state-mutating in github.com/free5gc/smf
+cves:
+    - CVE-2026-44328
+ghsas:
+    - GHSA-p9mg-74mg-cwwr
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-p9mg-74mg-cwwr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44328
+    - fix: https://github.com/free5gc/smf/commit/b57bc48081c3d3a2f333d02eb78e4fd31a120deb
+    - fix: https://github.com/free5gc/smf/pull/199
+    - web: https://github.com/free5gc/free5gc/issues/905
+source:
+    id: GHSA-p9mg-74mg-cwwr
+    created: 2026-06-25T15:46:22.074919034-04:00
+review_status: UNREVIEWED

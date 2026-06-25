@@ -1,0 +1,23 @@
+id: GO-2026-5559
+modules:
+    - module: github.com/oauth2-proxy/oauth2-proxy
+      vulnerable_at: 3.2.0+incompatible
+    - module: github.com/oauth2-proxy/oauth2-proxy/v7
+      versions:
+        - introduced: 7.5.0
+        - fixed: 7.15.2
+      vulnerable_at: 7.15.1
+summary: |-
+    OAuth2 Proxy has an Authentication Bypass via Fragment Confusion in
+    skip_auth_routes and skip_auth_regex in github.com/oauth2-proxy/oauth2-proxy
+cves:
+    - CVE-2026-41059
+ghsas:
+    - GHSA-pxq7-h93f-9jrg
+references:
+    - advisory: https://github.com/oauth2-proxy/oauth2-proxy/security/advisories/GHSA-pxq7-h93f-9jrg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-41059
+source:
+    id: GHSA-pxq7-h93f-9jrg
+    created: 2026-06-25T15:46:22.801077835-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5527",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-42183",
+    "GHSA-p4gq-3vxj-f4jq"
+  ],
+  "summary": "Argo Affected by SSO RBAC Delegation Nil Pointer Dereference DoS (gatekeeper.go) in github.com/argoproj/argo-workflows",
+  "details": "Argo Affected by SSO RBAC Delegation Nil Pointer Dereference DoS (gatekeeper.go) in github.com/argoproj/argo-workflows",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-workflows",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-workflows/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-workflows/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/argoproj/argo-workflows/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "4.0.0"
+            },
+            {
+              "fixed": "4.0.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/argoproj/argo-workflows/security/advisories/GHSA-p4gq-3vxj-f4jq"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42183"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/argoproj/argo-workflows/commit/c4cc17d0c034fa9a9cc01ef1af6c8016c93071d4"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/argoproj/argo-workflows/releases/tag/v4.0.5"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5527",
+    "review_status": "UNREVIEWED"
+  }
+}

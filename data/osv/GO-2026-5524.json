@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5524",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-25773",
+    "GHSA-p32q-v29x-wq9r"
+  ],
+  "summary": "Focalboard doesn't sanitize category IDs before incorporating them into dynamic SQL statements in github.com/mattermost/focalboard",
+  "details": "Focalboard doesn't sanitize category IDs before incorporating them into dynamic SQL statements in github.com/mattermost/focalboard",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/focalboard",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-p32q-v29x-wq9r"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-25773"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5524",
+    "review_status": "UNREVIEWED"
+  }
+}

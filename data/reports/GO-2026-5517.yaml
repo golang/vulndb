@@ -1,0 +1,25 @@
+id: GO-2026-5517
+modules:
+    - module: github.com/openbao/openbao
+      versions:
+        - fixed: 0.0.0-20260617103935-d3c1cc64b1ae
+        - introduced: 0.1.0
+      unsupported_versions:
+        - last_affected: 2.5.4
+summary: |-
+    OpenBao's System Backend allows Unauthorized Management of the containing
+    Namespace in github.com/openbao/openbao
+cves:
+    - CVE-2026-55775
+ghsas:
+    - GHSA-mwr2-wmgp-crj6
+references:
+    - advisory: https://github.com/openbao/openbao/security/advisories/GHSA-mwr2-wmgp-crj6
+    - fix: https://github.com/openbao/openbao/commit/d3c1cc64b1ae7f9868b5c3e80b8b11671f0d97ae
+    - web: https://github.com/openbao/openbao/releases/tag/v2.5.5
+notes:
+    - fix: 'github.com/openbao/openbao: could not add vulnerable_at: latest version (0.0.0-20260625161237-90e39f8e7aea) is before last introduced version'
+source:
+    id: GHSA-mwr2-wmgp-crj6
+    created: 2026-06-25T15:46:15.100713708-04:00
+review_status: UNREVIEWED

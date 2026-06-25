@@ -1,0 +1,22 @@
+id: GO-2026-5620
+modules:
+    - module: github.com/esm-dev/esm.sh
+      versions:
+        - fixed: 0.0.0-20250616164159-0593516c4cfa
+summary: |-
+    esm.sh: Path Traversal via package.json browser field allows reading arbitrary
+    server files in github.com/esm-dev/esm.sh
+cves:
+    - CVE-2026-44594
+ghsas:
+    - GHSA-rg65-45m7-hq57
+references:
+    - advisory: https://github.com/esm-dev/esm.sh/security/advisories/GHSA-rg65-45m7-hq57
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44594
+    - web: https://github.com/esm-dev/esm.sh/releases/tag/v137
+notes:
+    - fix: 'github.com/esm-dev/esm.sh: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-rg65-45m7-hq57
+    created: 2026-06-25T15:46:25.464555968-04:00
+review_status: UNREVIEWED

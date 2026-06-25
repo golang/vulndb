@@ -1,0 +1,23 @@
+id: GO-2026-5567
+modules:
+    - module: github.com/enchant97/note-mark/backend
+      versions:
+        - fixed: 0.0.0-20260501152247-18b587758667
+summary: |-
+    Note Mark has a JWT Secret Weakness that allows Full Account Takeover via Token
+    Forgery in github.com/enchant97/note-mark/backend
+cves:
+    - CVE-2026-44523
+ghsas:
+    - GHSA-q6mh-rqwh-g786
+references:
+    - advisory: https://github.com/enchant97/note-mark/security/advisories/GHSA-q6mh-rqwh-g786
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44523
+    - web: https://github.com/enchant97/note-mark/commit/18b58775866776ed400c403dd0ccad68c1fa4802
+    - web: https://github.com/enchant97/note-mark/releases/tag/v0.19.4
+notes:
+    - fix: 'github.com/enchant97/note-mark/backend: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-q6mh-rqwh-g786
+    created: 2026-06-25T15:46:18.651210236-04:00
+review_status: UNREVIEWED

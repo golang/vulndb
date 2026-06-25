@@ -1,0 +1,19 @@
+id: GO-2026-5600
+modules:
+    - module: github.com/daytonaio/daytona
+      versions:
+        - fixed: 0.185.0
+      vulnerable_at: 0.184.0
+summary: |-
+    Daytona: Cross-org IDOR in organization role update/delete — any org owner can
+    rewrite or destroy another org's roles in github.com/daytonaio/daytona
+cves:
+    - CVE-2026-54322
+ghsas:
+    - GHSA-qxvm-pcfm-qc39
+references:
+    - advisory: https://github.com/daytonaio/daytona/security/advisories/GHSA-qxvm-pcfm-qc39
+source:
+    id: GHSA-qxvm-pcfm-qc39
+    created: 2026-06-25T15:46:22.484871308-04:00
+review_status: UNREVIEWED

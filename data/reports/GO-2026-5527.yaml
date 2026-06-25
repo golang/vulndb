@@ -1,0 +1,27 @@
+id: GO-2026-5527
+modules:
+    - module: github.com/argoproj/argo-workflows
+      vulnerable_at: 0.4.7
+    - module: github.com/argoproj/argo-workflows/v2
+      vulnerable_at: 2.12.13
+    - module: github.com/argoproj/argo-workflows/v3
+      vulnerable_at: 3.7.15
+    - module: github.com/argoproj/argo-workflows/v4
+      versions:
+        - introduced: 4.0.0
+        - fixed: 4.0.5
+      vulnerable_at: 4.0.4
+summary: Argo Affected by SSO RBAC Delegation Nil Pointer Dereference DoS (gatekeeper.go) in github.com/argoproj/argo-workflows
+cves:
+    - CVE-2026-42183
+ghsas:
+    - GHSA-p4gq-3vxj-f4jq
+references:
+    - advisory: https://github.com/argoproj/argo-workflows/security/advisories/GHSA-p4gq-3vxj-f4jq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42183
+    - fix: https://github.com/argoproj/argo-workflows/commit/c4cc17d0c034fa9a9cc01ef1af6c8016c93071d4
+    - web: https://github.com/argoproj/argo-workflows/releases/tag/v4.0.5
+source:
+    id: GHSA-p4gq-3vxj-f4jq
+    created: 2026-06-25T15:46:25.119011965-04:00
+review_status: UNREVIEWED

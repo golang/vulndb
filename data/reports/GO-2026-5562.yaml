@@ -1,0 +1,20 @@
+id: GO-2026-5562
+modules:
+    - module: chainguard.dev/melange
+      versions:
+        - introduced: 0.32.0
+        - fixed: 0.43.4
+      vulnerable_at: 0.43.3
+summary: melange has Path Traversal via .PKGINFO in --persist-lint-results in chainguard.dev/melange
+cves:
+    - CVE-2026-29051
+ghsas:
+    - GHSA-q2pw-xx38-p64j
+references:
+    - advisory: https://github.com/chainguard-dev/melange/security/advisories/GHSA-q2pw-xx38-p64j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-29051
+    - web: https://github.com/chainguard-dev/melange/commit/84f3b450ce6e472c4abb8dc4c26d0ce8ac1259ac
+source:
+    id: GHSA-q2pw-xx38-p64j
+    created: 2026-06-25T15:46:24.615678952-04:00
+review_status: UNREVIEWED

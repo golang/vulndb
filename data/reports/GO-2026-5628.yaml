@@ -1,0 +1,22 @@
+id: GO-2026-5628
+modules:
+    - module: github.com/klever-io/klever-go
+      versions:
+        - introduced: 1.7.14
+        - fixed: 1.7.18
+      vulnerable_at: 1.7.17
+summary: |-
+    Klever-Go KVM: Unauthenticated remote node crash (nil-pointer DoS) in klever-go
+    P2P transaction interceptor (txVersionChecker nil RawData) - potential chain
+    halt in github.com/klever-io/klever-go
+cves:
+    - CVE-2026-52878
+ghsas:
+    - GHSA-rm5c-5x2p-48wr
+references:
+    - advisory: https://github.com/klever-io/klever-go/security/advisories/GHSA-rm5c-5x2p-48wr
+    - web: https://github.com/klever-io/klever-go/releases/tag/v1.7.18
+source:
+    id: GHSA-rm5c-5x2p-48wr
+    created: 2026-06-25T15:46:23.399433466-04:00
+review_status: UNREVIEWED

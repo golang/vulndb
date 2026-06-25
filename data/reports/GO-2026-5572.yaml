@@ -1,0 +1,24 @@
+id: GO-2026-5572
+modules:
+    - module: github.com/gotenberg/gotenberg/v7
+      vulnerable_at: 7.10.2
+    - module: github.com/gotenberg/gotenberg/v8
+      versions:
+        - fixed: 8.31.0
+      vulnerable_at: 8.30.1
+summary: |-
+    Gotenberg has ExifTool stdin argument injection via metadata value newlines
+    (bypass of key sanitization fix) in github.com/gotenberg/gotenberg
+cves:
+    - CVE-2026-40281
+ghsas:
+    - GHSA-q7r4-hc83-hf2q
+references:
+    - advisory: https://github.com/gotenberg/gotenberg/security/advisories/GHSA-q7r4-hc83-hf2q
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40281
+    - web: https://github.com/gotenberg/gotenberg/commit/405f1069c026bb08f319fb5a44e5c67c33208318
+    - web: https://github.com/gotenberg/gotenberg/releases/tag/v8.31.0
+source:
+    id: GHSA-q7r4-hc83-hf2q
+    created: 2026-06-25T15:46:16.915726353-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,19 @@
+id: GO-2026-5552
+modules:
+    - module: github.com/OliveTin/OliveTin
+      versions:
+        - fixed: 0.0.0-20260531214440-ebffd9f040f7
+summary: OliveTin has Unvalidated `ot_`-prefixed Arguments that Bypass Input Filtering in github.com/OliveTin/OliveTin
+cves:
+    - CVE-2026-53541
+ghsas:
+    - GHSA-prj9-97mp-mwh2
+references:
+    - advisory: https://github.com/OliveTin/OliveTin/security/advisories/GHSA-prj9-97mp-mwh2
+    - fix: https://github.com/OliveTin/OliveTin/commit/ebffd9f040f791208aee1db2e5a8aecd1e3e603d
+notes:
+    - fix: 'github.com/OliveTin/OliveTin: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-prj9-97mp-mwh2
+    created: 2026-06-25T15:46:22.217705095-04:00
+review_status: UNREVIEWED

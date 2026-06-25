@@ -1,0 +1,19 @@
+id: GO-2026-5546
+modules:
+    - module: github.com/oxia-db/oxia
+      versions:
+        - fixed: 0.16.2
+      vulnerable_at: 0.16.2-rc4
+summary: Oxia exposes bearer token in debug log messages on authentication failure in github.com/oxia-db/oxia
+cves:
+    - CVE-2026-40945
+ghsas:
+    - GHSA-pm7q-rjjx-979p
+references:
+    - advisory: https://github.com/oxia-db/oxia/security/advisories/GHSA-pm7q-rjjx-979p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40945
+    - fix: https://github.com/oxia-db/oxia/commit/f7259d0ebc739fc95ff19f93c823433850857416
+source:
+    id: GHSA-pm7q-rjjx-979p
+    created: 2026-06-25T15:46:17.126717494-04:00
+review_status: UNREVIEWED

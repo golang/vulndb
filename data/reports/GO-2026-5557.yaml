@@ -1,0 +1,21 @@
+id: GO-2026-5557
+modules:
+    - module: github.com/enchant97/note-mark/backend
+      versions:
+        - fixed: 0.0.0-20260417132909-dea5530cc989
+summary: 'Note Mark: OIDC-registered users authenticated by submitting password "null" in github.com/enchant97/note-mark/backend'
+cves:
+    - CVE-2026-41571
+ghsas:
+    - GHSA-pxf8-6wqm-r6hh
+references:
+    - advisory: https://github.com/enchant97/note-mark/security/advisories/GHSA-pxf8-6wqm-r6hh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-41571
+    - web: https://github.com/enchant97/note-mark/commit/dea5530cc9891187b51548ef9f2868b7dc9f4e92
+    - web: https://github.com/enchant97/note-mark/releases/tag/v0.19.3
+notes:
+    - fix: 'github.com/enchant97/note-mark/backend: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-pxf8-6wqm-r6hh
+    created: 2026-06-25T15:46:14.990595293-04:00
+review_status: UNREVIEWED

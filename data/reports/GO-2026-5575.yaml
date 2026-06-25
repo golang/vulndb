@@ -1,0 +1,20 @@
+id: GO-2026-5575
+modules:
+    - module: github.com/kyverno/kyverno
+      versions:
+        - fixed: 1.17.0
+      vulnerable_at: 1.17.0-rc.3
+summary: |-
+    kyverno apicall servicecall implicit bearer token injection leaks kyverno
+    serviceaccount token in github.com/kyverno/kyverno
+cves:
+    - CVE-2026-40868
+ghsas:
+    - GHSA-q93q-v844-jrqp
+references:
+    - advisory: https://github.com/kyverno/kyverno/security/advisories/GHSA-q93q-v844-jrqp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40868
+source:
+    id: GHSA-q93q-v844-jrqp
+    created: 2026-06-25T15:46:22.195989878-04:00
+review_status: UNREVIEWED

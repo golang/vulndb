@@ -1,0 +1,29 @@
+id: GO-2026-5528
+modules:
+    - module: github.com/grafana/tempo
+      versions:
+        - introduced: 1.3.0
+      non_go_versions:
+        - fixed: 2.8.4
+        - introduced: 2.9.0
+        - fixed: 2.9.2
+        - introduced: 2.10.0
+        - fixed: 2.10.2
+      vulnerable_at: 1.5.0
+summary: Grafana Tempo has an Uncontrolled Resource Consumption issue in github.com/grafana/tempo
+cves:
+    - CVE-2026-21728
+ghsas:
+    - GHSA-p4r4-xvrq-gvmc
+references:
+    - advisory: https://github.com/advisories/GHSA-p4r4-xvrq-gvmc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-21728
+    - fix: https://github.com/grafana/tempo/commit/650eb1985a0776789c8564122990f588a742356f
+    - fix: https://github.com/grafana/tempo/pull/6525
+    - web: https://github.com/grafana/tempo/blob/4dc3e5b0d3463a0b67498b662b85a148698b4afd/docs/sources/tempo/release-notes/version-2/v2-10.md?plain=1#L328
+    - web: https://github.com/grafana/tempo/blob/4dc3e5b0d3463a0b67498b662b85a148698b4afd/docs/sources/tempo/release-notes/version-2/v2-8.md?plain=1#L251
+    - web: https://github.com/grafana/tempo/blob/4dc3e5b0d3463a0b67498b662b85a148698b4afd/docs/sources/tempo/release-notes/version-2/v2-9.md?plain=1#L224
+source:
+    id: GHSA-p4r4-xvrq-gvmc
+    created: 2026-06-25T15:46:24.392137492-04:00
+review_status: UNREVIEWED

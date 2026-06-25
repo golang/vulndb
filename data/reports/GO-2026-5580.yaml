@@ -1,0 +1,22 @@
+id: GO-2026-5580
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.14.3
+      vulnerable_at: 0.13.3
+summary: |-
+    Gogs vulnerable to RCE via git rebase --exec argument injection in pull request
+    merge in gogs.io/gogs
+cves:
+    - CVE-2026-52806
+ghsas:
+    - GHSA-qf6p-p7ww-cwr9
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-qf6p-p7ww-cwr9
+    - web: https://github.com/gogs/gogs/commit/a9dbafbfd8e1020bacc626420238c01d75d03364
+    - web: https://github.com/gogs/gogs/pull/8301
+    - web: https://github.com/gogs/gogs/releases/tag/v0.14.3
+source:
+    id: GHSA-qf6p-p7ww-cwr9
+    created: 2026-06-25T15:46:16.171193499-04:00
+review_status: UNREVIEWED

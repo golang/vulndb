@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5574",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-46358",
+    "GHSA-q8cj-789h-vg24"
+  ],
+  "summary": "OpenBao's Inline Auth Incorrectly Redacted Headers in github.com/openbao/openbao",
+  "details": "OpenBao's Inline Auth Incorrectly Redacted Headers in github.com/openbao/openbao.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/openbao/openbao before v2.5.4.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/openbao/openbao",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "2.5.4"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/openbao/openbao/security/advisories/GHSA-q8cj-789h-vg24"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openbao/openbao/commit/131c6966af4dfb4e1906703436eecdb8f2a3e9df"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openbao/openbao/pull/3076"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/openbao/openbao/issues/3074"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/openbao/openbao/releases/tag/v2.5.4"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5574",
+    "review_status": "UNREVIEWED"
+  }
+}

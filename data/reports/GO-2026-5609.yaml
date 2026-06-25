@@ -1,0 +1,22 @@
+id: GO-2026-5609
+modules:
+    - module: github.com/openbao/openbao
+      versions:
+        - fixed: 0.0.0-20260420180337-2b2a901aa9f7
+summary: 'OpenBao: Decompression Bomb via Unbounded Copy in OCI Plugin Extraction (DoS) in github.com/openbao/openbao'
+cves:
+    - CVE-2026-39396
+ghsas:
+    - GHSA-r65v-xgwc-g56j
+references:
+    - advisory: https://github.com/openbao/openbao/security/advisories/GHSA-r65v-xgwc-g56j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-39396
+    - fix: https://github.com/openbao/openbao/commit/af576af5322c6552a017ad10fd76aa4f40fd021e
+    - fix: https://github.com/openbao/openbao/pull/2941
+    - web: https://github.com/openbao/openbao/releases/tag/v2.5.3
+notes:
+    - fix: 'github.com/openbao/openbao: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-r65v-xgwc-g56j
+    created: 2026-06-25T15:46:23.473070676-04:00
+review_status: UNREVIEWED

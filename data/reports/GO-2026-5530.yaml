@@ -1,0 +1,21 @@
+id: GO-2026-5530
+modules:
+    - module: github.com/enchant97/note-mark/backend
+      versions:
+        - fixed: 0.0.0-20260411145023-6593898855ad
+summary: Note Mark has Broken Access Control on Asset Download in github.com/enchant97/note-mark/backend
+cves:
+    - CVE-2026-40265
+ghsas:
+    - GHSA-p5w6-75f9-cc2p
+references:
+    - advisory: https://github.com/enchant97/note-mark/security/advisories/GHSA-p5w6-75f9-cc2p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40265
+    - web: https://github.com/enchant97/note-mark/commit/6593898855add151eb9965d96998b05e14c62026
+    - web: https://github.com/enchant97/note-mark/releases/tag/v0.19.2
+notes:
+    - fix: 'github.com/enchant97/note-mark/backend: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-p5w6-75f9-cc2p
+    created: 2026-06-25T15:46:20.853476399-04:00
+review_status: UNREVIEWED

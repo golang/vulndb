@@ -1,0 +1,28 @@
+id: GO-2026-5625
+modules:
+    - module: github.com/patrickhener/goshs
+      unsupported_versions:
+        - last_affected: 1.1.4
+      vulnerable_at: 1.1.4
+    - module: goshs.de/goshs
+      vulnerable_at: 1.1.4
+    - module: goshs.de/goshs/v2
+      versions:
+        - fixed: 2.0.2
+      vulnerable_at: 2.0.1
+summary: |-
+    goshs has Cross-Origin Arbitrary File Write via Missing CSRF on PUT and Wildcard
+    CORS in github.com/patrickhener/goshs
+cves:
+    - CVE-2026-42091
+ghsas:
+    - GHSA-rhf7-wvw3-vjvm
+references:
+    - advisory: https://github.com/patrickhener/goshs/security/advisories/GHSA-rhf7-wvw3-vjvm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42091
+    - fix: https://github.com/patrickhener/goshs/commit/0e715b94e10c3d1aa552276000f15f104dee2f32
+    - web: https://github.com/patrickhener/goshs/releases/tag/v2.0.2
+source:
+    id: GHSA-rhf7-wvw3-vjvm
+    created: 2026-06-25T15:46:23.552260525-04:00
+review_status: UNREVIEWED

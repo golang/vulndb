@@ -1,0 +1,21 @@
+id: GO-2026-5549
+modules:
+    - module: github.com/fatedier/frp
+      versions:
+        - introduced: 0.43.0
+        - fixed: 0.68.1
+      vulnerable_at: 0.68.0
+summary: |-
+    frp has an authentication bypass in HTTP vhost routing when routeByHTTPUser is
+    used for access control in github.com/fatedier/frp
+cves:
+    - CVE-2026-40910
+ghsas:
+    - GHSA-pq96-pwvg-vrr9
+references:
+    - advisory: https://github.com/fatedier/frp/security/advisories/GHSA-pq96-pwvg-vrr9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40910
+source:
+    id: GHSA-pq96-pwvg-vrr9
+    created: 2026-06-25T15:46:14.953407769-04:00
+review_status: UNREVIEWED

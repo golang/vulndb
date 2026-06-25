@@ -1,0 +1,20 @@
+id: GO-2026-5582
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - fixed: 2.3.0
+      vulnerable_at: 0.24.6
+summary: Vikunja has File Size Limit Bypass via Vikunja Import in code.vikunja.io/api
+cves:
+    - CVE-2026-35602
+ghsas:
+    - GHSA-qh78-rvg3-cv54
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-qh78-rvg3-cv54
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-35602
+    - web: https://github.com/go-vikunja/vikunja/pull/2575
+    - web: https://github.com/go-vikunja/vikunja/releases/tag/v2.3.0
+source:
+    id: GHSA-qh78-rvg3-cv54
+    created: 2026-06-25T15:46:20.834058002-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,32 @@
+id: GO-2026-5579
+modules:
+    - module: antrea.io/antrea
+      non_go_versions:
+        - introduced: 2.5.0
+      vulnerable_at: 1.15.2
+    - module: antrea.io/antrea
+      versions:
+        - fixed: 1.11.0-alpha.0.0.20260225185322-738bad662b20
+      vulnerable_at: 1.11.0-alpha.0
+    - module: antrea.io/antrea
+      versions:
+        - introduced: 1.11.0
+      vulnerable_at: 1.15.2
+summary: Antrea has Missing Encryption of Sensitive Data in antrea.io/antrea
+cves:
+    - CVE-2026-34992
+ghsas:
+    - GHSA-qcmw-8mm4-4p28
+references:
+    - advisory: https://github.com/antrea-io/antrea/security/advisories/GHSA-qcmw-8mm4-4p28
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-34992
+    - web: https://github.com/antrea-io/antrea/blob/main/docs/traffic-encryption.md
+    - web: https://github.com/antrea-io/antrea/commit/738bad662b20a5d358d19466936176ef580a9b07
+    - web: https://github.com/antrea-io/antrea/pull/7757
+    - web: https://github.com/antrea-io/antrea/pull/7759
+notes:
+    - fix: 'module merge error: could not merge versions of module antrea.io/antrea: introduced and fixed versions must alternate'
+source:
+    id: GHSA-qcmw-8mm4-4p28
+    created: 2026-06-25T15:46:12.852222662-04:00
+review_status: UNREVIEWED

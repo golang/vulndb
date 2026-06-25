@@ -1,0 +1,24 @@
+id: GO-2026-5622
+modules:
+    - module: github.com/containerd/containerd
+      vulnerable_at: 1.7.33
+    - module: github.com/containerd/containerd/v2
+      versions:
+        - introduced: 2.1.0
+        - fixed: 2.1.9
+        - introduced: 2.2.0
+        - fixed: 2.2.5
+        - introduced: 2.3.0
+        - fixed: 2.3.2
+      vulnerable_at: 2.3.1
+summary: Arbitrary host CRI log file read via symlink following in CRI checkpoint restore in github.com/containerd/containerd
+cves:
+    - CVE-2026-53489
+ghsas:
+    - GHSA-rgh6-rfwx-v388
+references:
+    - advisory: https://github.com/containerd/containerd/security/advisories/GHSA-rgh6-rfwx-v388
+source:
+    id: GHSA-rgh6-rfwx-v388
+    created: 2026-06-25T15:46:22.925096029-04:00
+review_status: UNREVIEWED

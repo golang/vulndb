@@ -1,0 +1,23 @@
+id: GO-2026-5550
+modules:
+    - module: github.com/couchbase/sync_gateway
+      non_go_versions:
+        - fixed: 3.2.6
+      vulnerable_at: 0.0.0-20260625183811-c40701403804
+summary: |-
+    Couchbase Sync Gateway shows cleartext passwords in redacted and unredacted
+    output in github.com/couchbase/sync_gateway
+cves:
+    - CVE-2025-52490
+ghsas:
+    - GHSA-pqhp-4xfc-hjgq
+references:
+    - advisory: https://github.com/advisories/GHSA-pqhp-4xfc-hjgq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-52490
+    - web: https://docs.couchbase.com/server/current/release-notes/relnotes.html
+    - web: https://forums.couchbase.com/tags/security
+    - web: https://www.couchbase.com/alerts
+source:
+    id: GHSA-pqhp-4xfc-hjgq
+    created: 2026-06-25T15:46:22.502324506-04:00
+review_status: UNREVIEWED

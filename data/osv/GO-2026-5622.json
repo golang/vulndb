@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5622",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-53489",
+    "GHSA-rgh6-rfwx-v388"
+  ],
+  "summary": "Arbitrary host CRI log file read via symlink following in CRI checkpoint restore in github.com/containerd/containerd",
+  "details": "Arbitrary host CRI log file read via symlink following in CRI checkpoint restore in github.com/containerd/containerd",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/containerd/containerd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/containerd/containerd/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.1.0"
+            },
+            {
+              "fixed": "2.1.9"
+            },
+            {
+              "introduced": "2.2.0"
+            },
+            {
+              "fixed": "2.2.5"
+            },
+            {
+              "introduced": "2.3.0"
+            },
+            {
+              "fixed": "2.3.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/containerd/containerd/security/advisories/GHSA-rgh6-rfwx-v388"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5622",
+    "review_status": "UNREVIEWED"
+  }
+}

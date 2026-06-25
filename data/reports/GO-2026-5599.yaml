@@ -1,0 +1,20 @@
+id: GO-2026-5599
+modules:
+    - module: github.com/axllent/mailpit
+      versions:
+        - fixed: 1.30.0
+      vulnerable_at: 1.29.7
+summary: |-
+    Mailpit: Path traversal & arbitrary file write in mailpit dump --http via
+    attacker-controlled message IDs in github.com/axllent/mailpit
+cves:
+    - CVE-2026-45711
+ghsas:
+    - GHSA-qx5x-85p8-vg4j
+references:
+    - advisory: https://github.com/axllent/mailpit/security/advisories/GHSA-qx5x-85p8-vg4j
+    - web: https://github.com/axllent/mailpit/releases/tag/v1.30.0
+source:
+    id: GHSA-qx5x-85p8-vg4j
+    created: 2026-06-25T15:46:21.28781356-04:00
+review_status: UNREVIEWED

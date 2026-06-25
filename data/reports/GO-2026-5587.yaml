@@ -1,0 +1,20 @@
+id: GO-2026-5587
+modules:
+    - module: github.com/gotenberg/gotenberg/v7
+      vulnerable_at: 7.10.2
+    - module: github.com/gotenberg/gotenberg/v8
+      versions:
+        - fixed: 8.30.0
+      vulnerable_at: 8.29.1
+summary: |-
+    Gotenberg has incomplete fix for ExifTool arbitrary file write: case-insensitive
+    bypass and missing HardLink/SymLink tags in github.com/gotenberg/gotenberg
+ghsas:
+    - GHSA-qmwh-9m9c-h36m
+references:
+    - advisory: https://github.com/gotenberg/gotenberg/security/advisories/GHSA-qmwh-9m9c-h36m
+    - web: https://github.com/gotenberg/gotenberg/commit/15050a311b73d76d8b9223bafe7fa7ba71240011
+source:
+    id: GHSA-qmwh-9m9c-h36m
+    created: 2026-06-25T15:46:17.023045729-04:00
+review_status: UNREVIEWED

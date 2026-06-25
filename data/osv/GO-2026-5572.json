@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5572",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-40281",
+    "GHSA-q7r4-hc83-hf2q"
+  ],
+  "summary": "Gotenberg has ExifTool stdin argument injection via metadata value newlines (bypass of key sanitization fix) in github.com/gotenberg/gotenberg",
+  "details": "Gotenberg has ExifTool stdin argument injection via metadata value newlines (bypass of key sanitization fix) in github.com/gotenberg/gotenberg",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gotenberg/gotenberg/v7",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/gotenberg/gotenberg/v8",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "8.31.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/gotenberg/gotenberg/security/advisories/GHSA-q7r4-hc83-hf2q"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40281"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/gotenberg/gotenberg/commit/405f1069c026bb08f319fb5a44e5c67c33208318"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/gotenberg/gotenberg/releases/tag/v8.31.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5572",
+    "review_status": "UNREVIEWED"
+  }
+}

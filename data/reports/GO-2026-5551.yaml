@@ -1,0 +1,25 @@
+id: GO-2026-5551
+modules:
+    - module: heckel.io/ntfy
+      vulnerable_at: 1.31.0
+    - module: heckel.io/ntfy/v2
+      versions:
+        - fixed: 2.22.0
+      vulnerable_at: 2.21.0
+summary: |-
+    ntfy.sh allows a remote attacker to execute arbitrary code via the parseActions
+    function in heckel.io/ntfy
+cves:
+    - CVE-2026-39087
+ghsas:
+    - GHSA-pqhx-w72w-m393
+references:
+    - advisory: https://github.com/advisories/GHSA-pqhx-w72w-m393
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-39087
+    - web: http://ntfy.com
+    - web: https://gist.github.com/MightyNawaf/5d41d6e8ead16e217f86b016002ecae5
+    - web: https://github.com/binwiederhier/ntfy/releases/tag/v2.22.0
+source:
+    id: GHSA-pqhx-w72w-m393
+    created: 2026-06-25T15:46:23.760331788-04:00
+review_status: UNREVIEWED

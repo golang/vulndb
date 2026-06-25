@@ -1,0 +1,19 @@
+id: GO-2026-5583
+modules:
+    - module: github.com/coredns/coredns
+      versions:
+        - fixed: 1.14.3
+      vulnerable_at: 1.14.2
+summary: CoreDNS has TSIG authentication bypass on DoT, DoH, DoH3, DoQ, and gRPC in github.com/coredns/coredns
+cves:
+    - CVE-2026-33190
+ghsas:
+    - GHSA-qhmp-q7xh-99rh
+references:
+    - advisory: https://github.com/coredns/coredns/security/advisories/GHSA-qhmp-q7xh-99rh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-33190
+    - web: https://github.com/coredns/coredns/releases/tag/v1.14.3
+source:
+    id: GHSA-qhmp-q7xh-99rh
+    created: 2026-06-25T15:46:24.179324491-04:00
+review_status: UNREVIEWED

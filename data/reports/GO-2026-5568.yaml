@@ -1,0 +1,31 @@
+id: GO-2026-5568
+modules:
+    - module: github.com/containers/podman
+      vulnerable_at: 1.9.3
+    - module: github.com/containers/podman/v2
+      vulnerable_at: 2.2.1
+    - module: github.com/containers/podman/v3
+      unsupported_versions:
+        - last_affected: 3.4.7
+      vulnerable_at: 3.4.7
+    - module: github.com/containers/podman/v4
+      unsupported_versions:
+        - last_affected: 4.9.5
+      vulnerable_at: 4.9.5
+    - module: github.com/containers/podman/v5
+      versions:
+        - fixed: 5.7.1
+      vulnerable_at: 5.7.0
+summary: 'Podman: WORKDIR symlink traversal vulnerability in github.com/containers/podman'
+cves:
+    - CVE-2026-55686
+ghsas:
+    - GHSA-q6r4-3wmg-fwcq
+references:
+    - advisory: https://github.com/podman-container-tools/podman/security/advisories/GHSA-q6r4-3wmg-fwcq
+    - web: https://github.com/podman-container-tools/podman/commit/7ce2e00ab140c11a68301f0b161f51984131a858
+    - web: https://github.com/podman-container-tools/podman/commit/d18e44e9abb3bf5b7294aa70806e1368fdddfdd0
+source:
+    id: GHSA-q6r4-3wmg-fwcq
+    created: 2026-06-25T15:46:21.325118745-04:00
+review_status: UNREVIEWED

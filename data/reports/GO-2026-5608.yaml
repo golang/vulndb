@@ -1,0 +1,21 @@
+id: GO-2026-5608
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - fixed: 2.3.0
+      vulnerable_at: 0.24.6
+summary: Vikunja has Algorithmic Complexity DoS in Repeating Task Handler in code.vikunja.io/api
+cves:
+    - CVE-2026-35599
+ghsas:
+    - GHSA-r4fg-73rc-hhh7
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-r4fg-73rc-hhh7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-35599
+    - web: https://github.com/go-vikunja/vikunja/commit/6df0d6c8f54b01db6464c42810e40e55f12b481b
+    - web: https://github.com/go-vikunja/vikunja/pull/2577
+    - web: https://github.com/go-vikunja/vikunja/releases/tag/v2.3.0
+source:
+    id: GHSA-r4fg-73rc-hhh7
+    created: 2026-06-25T15:46:23.335081233-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,24 @@
+id: GO-2026-5564
+modules:
+    - module: open-cluster-management.io/ocm
+      versions:
+        - fixed: 1.2.1
+      vulnerable_at: 1.2.0
+summary: |-
+    Open Cluster Management (OCM): Cross-cluster privilege escalation via improper
+    Kubernetes client certificate renewal validation in open-cluster-management.io/ocm
+cves:
+    - CVE-2026-4740
+ghsas:
+    - GHSA-q4gv-pjmh-c735
+references:
+    - advisory: https://github.com/advisories/GHSA-q4gv-pjmh-c735
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-4740
+    - web: https://access.redhat.com/security/cve/CVE-2026-4740
+    - web: https://blog.arfevrier.fr/open-cluster-management-cross-cluster-escape
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2450590
+    - web: https://github.com/open-cluster-management-io/ocm/commit/9e70cc1e21a15239c81111062c0b37df4b5a8026
+source:
+    id: GHSA-q4gv-pjmh-c735
+    created: 2026-06-25T15:46:23.097778306-04:00
+review_status: UNREVIEWED

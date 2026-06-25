@@ -1,0 +1,15 @@
+id: GO-2026-5594
+modules:
+    - module: github.com/kyverno/kyverno
+      unsupported_versions:
+        - last_affected: 1.17.1
+      vulnerable_at: 1.18.1
+summary: Kyverno has unrestricted outbound requests in Kyverno apiCall enabling SSRF in github.com/kyverno/kyverno
+ghsas:
+    - GHSA-qr4g-8hrp-c4rw
+references:
+    - advisory: https://github.com/kyverno/kyverno/security/advisories/GHSA-qr4g-8hrp-c4rw
+source:
+    id: GHSA-qr4g-8hrp-c4rw
+    created: 2026-06-25T15:46:19.62308969-04:00
+review_status: UNREVIEWED

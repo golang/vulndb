@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5607",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-44430",
+    "GHSA-r48c-v28r-pf6v"
+  ],
+  "summary": "MCP Registry has an unauthenticated SSRF: HTTP namespace verification dials 6to4 / NAT64 / site-local IPv6 addresses, bypassing private-address allowlist in github.com/modelcontextprotocol/registry",
+  "details": "MCP Registry has an unauthenticated SSRF: HTTP namespace verification dials 6to4 / NAT64 / site-local IPv6 addresses, bypassing private-address allowlist in github.com/modelcontextprotocol/registry",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/modelcontextprotocol/registry",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.7.7"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/modelcontextprotocol/registry/security/advisories/GHSA-r48c-v28r-pf6v"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-44430"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/modelcontextprotocol/registry/commit/f5f40bd98084466eaf18fe48ea62a0d534caa774"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/modelcontextprotocol/registry/pull/1250"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/modelcontextprotocol/registry/releases/tag/v1.7.7"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5607",
+    "review_status": "UNREVIEWED"
+  }
+}

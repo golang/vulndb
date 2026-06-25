@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5578",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-5724",
+    "GHSA-q98v-9f9w-f49q"
+  ],
+  "summary": "Temporal does not enforce authentication and authorization for the streaming AdminService/StreamWorkflowReplicationMessages endpoint in go.temporal.io/server",
+  "details": "Temporal does not enforce authentication and authorization for the streaming AdminService/StreamWorkflowReplicationMessages endpoint in go.temporal.io/server",
+  "affected": [
+    {
+      "package": {
+        "name": "go.temporal.io/server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.28.4"
+            },
+            {
+              "introduced": "1.29.0-135.0"
+            },
+            {
+              "fixed": "1.29.6"
+            },
+            {
+              "introduced": "1.30.0-143.0"
+            },
+            {
+              "fixed": "1.30.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-q98v-9f9w-f49q"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5724"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/temporalio/temporal/releases/tag/v1.28.4"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/temporalio/temporal/releases/tag/v1.29.6"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/temporalio/temporal/releases/tag/v1.30.4"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5578",
+    "review_status": "UNREVIEWED"
+  }
+}

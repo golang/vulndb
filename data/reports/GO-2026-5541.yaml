@@ -1,0 +1,18 @@
+id: GO-2026-5541
+modules:
+    - module: github.com/lin-snow/ech0
+      versions:
+        - fixed: 1.4.8-0.20260503035905-cecc2c19b590
+      vulnerable_at: 1.4.7
+summary: |-
+    Ech0 allows PUT /api/echo/like/:id unauthenticated: anonymous callers to modify
+    any echo's fav_count in github.com/lin-snow/ech0
+ghsas:
+    - GHSA-pj6q-4vq4-r8cg
+references:
+    - advisory: https://github.com/lin-snow/Ech0/security/advisories/GHSA-pj6q-4vq4-r8cg
+    - web: https://github.com/lin-snow/Ech0/commit/cecc2c19b590df85d79ea98457faa143130cd620
+source:
+    id: GHSA-pj6q-4vq4-r8cg
+    created: 2026-06-25T15:46:20.100451206-04:00
+review_status: UNREVIEWED

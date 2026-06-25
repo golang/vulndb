@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5526",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-40264",
+    "GHSA-p49j-v9wc-wg57"
+  ],
+  "summary": "OpenBao's Token Store Allows Cross-Namespace Renewal, Revocation in github.com/openbao/openbao",
+  "details": "OpenBao's Token Store Allows Cross-Namespace Renewal, Revocation in github.com/openbao/openbao",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/openbao/openbao",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20260420162526-f58111d2ca54"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/openbao/openbao/security/advisories/GHSA-p49j-v9wc-wg57"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40264"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openbao/openbao/commit/059cc5950303688335d5c8ab9af8e453795d693a"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openbao/openbao/pull/2934"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/openbao/openbao/releases/tag/v2.5.3"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5526",
+    "review_status": "UNREVIEWED"
+  }
+}

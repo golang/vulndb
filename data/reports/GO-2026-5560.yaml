@@ -1,0 +1,24 @@
+id: GO-2026-5560
+modules:
+    - module: github.com/stefanprodan/podinfo
+      versions:
+        - fixed: 1.8.1-0.20260519111337-cbebb20fd485
+      vulnerable_at: 1.8.0
+summary: 'podinfo: cross-site scripting vulnerability in the /echo and /api/echo endpoints in github.com/stefanprodan/podinfo'
+cves:
+    - CVE-2026-43644
+ghsas:
+    - GHSA-q23m-vm9r-5745
+references:
+    - advisory: https://github.com/advisories/GHSA-q23m-vm9r-5745
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-43644
+    - fix: https://github.com/stefanprodan/podinfo/commit/cbebb20fd48588d36fc7ff3e874c128eb89692f4
+    - fix: https://github.com/stefanprodan/podinfo/pull/480
+    - report: https://github.com/stefanprodan/podinfo/issues/474
+    - web: https://github.com/Niccolo10/Security-Advisories/blob/main/CVE-2026-43644/cve-2026-43644.md
+    - web: https://github.com/stefanprodan/podinfo/releases/tag/6.12.0
+    - web: https://www.vulncheck.com/advisories/podinfo-reflected-xss-via-echo-endpoint
+source:
+    id: GHSA-q23m-vm9r-5745
+    created: 2026-06-25T15:46:24.652852867-04:00
+review_status: UNREVIEWED

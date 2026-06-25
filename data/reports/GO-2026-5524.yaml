@@ -1,0 +1,20 @@
+id: GO-2026-5524
+modules:
+    - module: github.com/mattermost/focalboard
+      unsupported_versions:
+        - last_affected: 7.10.6
+      vulnerable_at: 8.0.0+incompatible
+summary: |-
+    Focalboard doesn't sanitize category IDs before incorporating them into dynamic
+    SQL statements in github.com/mattermost/focalboard
+cves:
+    - CVE-2026-25773
+ghsas:
+    - GHSA-p32q-v29x-wq9r
+references:
+    - advisory: https://github.com/advisories/GHSA-p32q-v29x-wq9r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-25773
+source:
+    id: GHSA-p32q-v29x-wq9r
+    created: 2026-06-25T15:46:14.229964485-04:00
+review_status: UNREVIEWED

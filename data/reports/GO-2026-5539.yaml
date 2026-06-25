@@ -1,0 +1,21 @@
+id: GO-2026-5539
+modules:
+    - module: go.opentelemetry.io/obi
+      versions:
+        - fixed: 0.9.0
+      vulnerable_at: 0.8.0
+summary: |-
+    OpenTelemetry eBPF Instrumentation: Postgres BIND parsing can panic on malformed
+    payloads in go.opentelemetry.io/obi
+cves:
+    - CVE-2026-45678
+ghsas:
+    - GHSA-pgvv-q3wf-mm9m
+references:
+    - advisory: https://github.com/open-telemetry/opentelemetry-ebpf-instrumentation/security/advisories/GHSA-pgvv-q3wf-mm9m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-45678
+    - web: https://github.com/open-telemetry/opentelemetry-ebpf-instrumentation/releases/tag/v0.9.0
+source:
+    id: GHSA-pgvv-q3wf-mm9m
+    created: 2026-06-25T15:46:23.877330891-04:00
+review_status: UNREVIEWED

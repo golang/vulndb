@@ -1,0 +1,23 @@
+id: GO-2026-5612
+modules:
+    - module: github.com/lxc/incus
+      vulnerable_at: 0.7.0
+    - module: github.com/lxc/incus/v6
+      vulnerable_at: 6.23.0
+    - module: github.com/lxc/incus/v7
+      versions:
+        - fixed: 7.0.0
+summary: Incus has a Nil-Pointer Dereference via Custom Volume Import in github.com/lxc/incus
+cves:
+    - CVE-2026-40197
+ghsas:
+    - GHSA-r7w7-mmxr-47r9
+references:
+    - advisory: https://github.com/lxc/incus/security/advisories/GHSA-r7w7-mmxr-47r9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40197
+notes:
+    - fix: 'github.com/lxc/incus/v7: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-r7w7-mmxr-47r9
+    created: 2026-06-25T15:46:22.386578012-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5589",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-42574",
+    "GHSA-qq3r-w4hj-gjp6"
+  ],
+  "summary": "apko dirFS has a symlink-following path traversal that allows multiple entry points to escape the build root in chainguard.dev/apko",
+  "details": "apko dirFS has a symlink-following path traversal that allows multiple entry points to escape the build root in chainguard.dev/apko",
+  "affected": [
+    {
+      "package": {
+        "name": "chainguard.dev/apko",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.14.8"
+            },
+            {
+              "fixed": "1.2.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/chainguard-dev/apko/security/advisories/GHSA-qq3r-w4hj-gjp6"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42574"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/chainguard-dev/apko/commit/f5a96e1299ac81c7ea9441705ec467688086f442"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/chainguard-dev/apko/pull/2187"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/chainguard-dev/apko/releases/tag/v1.2.5"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5589",
+    "review_status": "UNREVIEWED"
+  }
+}
