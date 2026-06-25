@@ -1,0 +1,40 @@
+id: GO-2026-5196
+modules:
+    - module: github.com/coder/coder
+      unsupported_versions:
+        - last_affected: 0.27.3
+      vulnerable_at: 0.27.3
+    - module: github.com/coder/coder/v2
+      versions:
+        - fixed: 2.24.5
+        - introduced: 2.29.0
+        - fixed: 2.29.13
+        - introduced: 2.30.0
+        - fixed: 2.30.8
+        - introduced: 2.31.0
+        - fixed: 2.31.12
+        - introduced: 2.32.0-rc.0
+        - fixed: 2.32.2
+        - introduced: 2.33.0-rc.0
+        - fixed: 2.33.3
+      vulnerable_at: 2.33.2
+summary: |-
+    Coder: PKCS#7 signature bypass in Azure instance identity allows unauthenticated
+    agent token theft in github.com/coder/coder
+cves:
+    - CVE-2026-46354
+ghsas:
+    - GHSA-6x44-w3xg-hqqf
+references:
+    - advisory: https://github.com/coder/coder/security/advisories/GHSA-6x44-w3xg-hqqf
+    - fix: https://github.com/coder/coder/pull/25286
+    - web: https://github.com/coder/coder/releases/tag/v2.24.5
+    - web: https://github.com/coder/coder/releases/tag/v2.29.13
+    - web: https://github.com/coder/coder/releases/tag/v2.30.8
+    - web: https://github.com/coder/coder/releases/tag/v2.31.12
+    - web: https://github.com/coder/coder/releases/tag/v2.32.2
+    - web: https://github.com/coder/coder/releases/tag/v2.33.3
+source:
+    id: GHSA-6x44-w3xg-hqqf
+    created: 2026-06-25T01:56:47.651403093-04:00
+review_status: UNREVIEWED

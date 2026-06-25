@@ -1,0 +1,23 @@
+id: GO-2026-5283
+modules:
+    - module: github.com/aiven/aiven-operator
+      versions:
+        - introduced: 0.31.0
+        - fixed: 0.37.0
+      vulnerable_at: 0.36.0
+summary: |-
+    Aiven Operator has cross-namespace secret exfiltration via ClickhouseUser
+    connInfoSecretSource in github.com/aiven/aiven-operator
+cves:
+    - CVE-2026-39961
+ghsas:
+    - GHSA-99j8-wv67-4c72
+references:
+    - advisory: https://github.com/aiven/aiven-operator/security/advisories/GHSA-99j8-wv67-4c72
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-39961
+    - fix: https://github.com/aiven/aiven-operator/commit/032c9ba63257fdd2fddfb7f73f71830e371ff182
+    - web: https://github.com/aiven/aiven-operator/releases/tag/v0.37.0
+source:
+    id: GHSA-99j8-wv67-4c72
+    created: 2026-06-25T02:30:52.691809994-04:00
+review_status: UNREVIEWED

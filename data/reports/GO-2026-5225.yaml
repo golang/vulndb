@@ -1,0 +1,20 @@
+id: GO-2026-5225
+modules:
+    - module: github.com/openbao/openbao
+      non_go_versions:
+        - fixed: 2.5.4
+      vulnerable_at: 0.0.0-20260624120835-f9bdcf1ea00c
+summary: OpenBao's Kerberos Auth Method Accumulates Unaccessible Tokens in github.com/openbao/openbao
+cves:
+    - CVE-2026-46405
+ghsas:
+    - GHSA-7j6w-vvw2-5f9c
+references:
+    - advisory: https://github.com/openbao/openbao/security/advisories/GHSA-7j6w-vvw2-5f9c
+    - fix: https://github.com/openbao/openbao/commit/0d82e0a5a3b6a93e8087bcbaf0b11326c12d4f4d
+    - fix: https://github.com/openbao/openbao/pull/3150
+    - web: https://github.com/openbao/openbao/releases/tag/v2.5.4
+source:
+    id: GHSA-7j6w-vvw2-5f9c
+    created: 2026-06-25T02:01:53.942533594-04:00
+review_status: UNREVIEWED

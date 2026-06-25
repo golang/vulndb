@@ -1,0 +1,21 @@
+id: GO-2026-5247
+modules:
+    - module: github.com/hashicorp/vault
+      unsupported_versions:
+        - last_affected: 1.21.4
+      vulnerable_at: 1.21.4
+summary: |-
+    HashiCorp Vault Vulnerable to Denial-of-Service via Unauthenticated Root Token
+    Generation/Rekey Operations in github.com/hashicorp/vault
+cves:
+    - CVE-2026-5807
+ghsas:
+    - GHSA-88v5-9hxc-f85r
+references:
+    - advisory: https://github.com/advisories/GHSA-88v5-9hxc-f85r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-5807
+    - web: https://discuss.hashicorp.com/t/hcsec-2026-08-vault-vulnerable-to-denial-of-service-via-unauthenticated-root-token-generation-rekey-operations/77345
+source:
+    id: GHSA-88v5-9hxc-f85r
+    created: 2026-06-25T02:06:33.606623497-04:00
+review_status: UNREVIEWED

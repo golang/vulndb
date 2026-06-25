@@ -1,0 +1,20 @@
+id: GO-2026-5282
+modules:
+    - module: github.com/nezhahq/nezha
+      versions:
+        - introduced: 1.4.0
+        - fixed: 1.14.15-0.20260517022419-d7526351cf97
+      vulnerable_at: 1.14.14
+summary: |-
+    Nezha Monitoring: RoleMember can run shell on every server (cross-tenant RCE)
+    via POST /api/v1/cron in github.com/nezhahq/nezha
+cves:
+    - CVE-2026-46716
+ghsas:
+    - GHSA-99gv-2m7h-3hh9
+references:
+    - advisory: https://github.com/nezhahq/nezha/security/advisories/GHSA-99gv-2m7h-3hh9
+source:
+    id: GHSA-99gv-2m7h-3hh9
+    created: 2026-06-25T02:30:44.772027474-04:00
+review_status: UNREVIEWED

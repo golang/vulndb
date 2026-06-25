@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5224",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-44503",
+    "GHSA-7j59-v9qr-6fq9"
+  ],
+  "summary": "Kiota abstractions RedirectHandler leaks Cookie/Proxy-Authorization headers on cross-host redirect in github.com/microsoft/kiota-http-go",
+  "details": "Kiota abstractions RedirectHandler leaks Cookie/Proxy-Authorization headers on cross-host redirect in github.com/microsoft/kiota-http-go",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/microsoft/kiota-http-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.5.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/microsoft/kiota-java/security/advisories/GHSA-7j59-v9qr-6fq9"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-44503"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5224",
+    "review_status": "UNREVIEWED"
+  }
+}

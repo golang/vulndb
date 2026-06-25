@@ -1,0 +1,21 @@
+id: GO-2026-5210
+modules:
+    - module: github.com/0xJacky/Nginx-UI
+      versions:
+        - fixed: 1.9.10-0.20260316053337-1a9cd29a3082
+      vulnerable_at: 1.9.9
+summary: |-
+    Nginx-UI: Cross-Site WebSocket Hijacking (CSWSH) via missing origin validation
+    on all WebSocket endpoints in github.com/0xJacky/Nginx-UI
+cves:
+    - CVE-2026-34403
+ghsas:
+    - GHSA-78mf-482w-62qj
+references:
+    - advisory: https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-78mf-482w-62qj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-34403
+    - web: https://github.com/0xJacky/nginx-ui/releases/tag/v2.3.5
+source:
+    id: GHSA-78mf-482w-62qj
+    created: 2026-06-25T01:58:39.975244577-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,23 @@
+id: GO-2026-5230
+modules:
+    - module: github.com/fission/fission
+      versions:
+        - fixed: 1.23.0
+      vulnerable_at: 1.23.0-rc1
+summary: |-
+    Fission builder accepts arbitrary buildcmd strings from
+    Environment.spec.builder.command, allowing the builder pod to invoke arbitrary
+    executables in github.com/fission/fission
+cves:
+    - CVE-2026-46618
+ghsas:
+    - GHSA-7pjr-qpvh-m339
+references:
+    - advisory: https://github.com/fission/fission/security/advisories/GHSA-7pjr-qpvh-m339
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-46618
+    - fix: https://github.com/fission/fission/pull/3364
+    - web: https://github.com/fission/fission/releases/tag/v1.23.0
+source:
+    id: GHSA-7pjr-qpvh-m339
+    created: 2026-06-25T02:02:36.463759657-04:00
+review_status: UNREVIEWED

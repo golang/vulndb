@@ -1,0 +1,21 @@
+id: GO-2026-5248
+modules:
+    - module: go.opentelemetry.io/obi
+      versions:
+        - fixed: 0.9.0
+      vulnerable_at: 0.8.0
+summary: |-
+    OpenTelemetry eBPF Instrumentation: Unbounded BPF internal metrics replay can
+    exhaust CPU in go.opentelemetry.io/obi
+cves:
+    - CVE-2026-45680
+ghsas:
+    - GHSA-89c6-vpcj-7vj4
+references:
+    - advisory: https://github.com/open-telemetry/opentelemetry-ebpf-instrumentation/security/advisories/GHSA-89c6-vpcj-7vj4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-45680
+    - web: https://github.com/open-telemetry/opentelemetry-ebpf-instrumentation/releases/tag/v0.9.0
+source:
+    id: GHSA-89c6-vpcj-7vj4
+    created: 2026-06-25T02:06:40.726997999-04:00
+review_status: UNREVIEWED

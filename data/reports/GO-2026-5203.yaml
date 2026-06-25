@@ -1,0 +1,26 @@
+id: GO-2026-5203
+modules:
+    - module: github.com/openziti/zrok
+      unsupported_versions:
+        - last_affected: 1.1.11
+      vulnerable_at: 1.1.11
+    - module: github.com/openziti/zrok/v2
+      versions:
+        - fixed: 2.0.2
+      vulnerable_at: 2.0.1
+summary: |-
+    zrok: WebDAV drive backend follows symlinks outside DriveRoot, enabling host
+    filesystem read/write in github.com/openziti/zrok
+cves:
+    - CVE-2026-42275
+ghsas:
+    - GHSA-74m3-9qvm-rp9h
+references:
+    - advisory: https://github.com/openziti/zrok/security/advisories/GHSA-74m3-9qvm-rp9h
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42275
+    - fix: https://github.com/openziti/zrok/commit/459bcfc1e121decae1b1d11c37ad94e4ed5bbf2e
+    - web: https://github.com/openziti/zrok/releases/tag/v2.0.2
+source:
+    id: GHSA-74m3-9qvm-rp9h
+    created: 2026-06-25T01:57:47.97988608-04:00
+review_status: UNREVIEWED

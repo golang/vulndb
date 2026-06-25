@@ -1,0 +1,21 @@
+id: GO-2026-5275
+modules:
+    - module: go.opentelemetry.io/obi
+      versions:
+        - fixed: 0.9.0
+      vulnerable_at: 0.8.0
+summary: |-
+    OpenTelemetry eBPF Instrumentation: CappedConcurrentHashMap leaks keys after
+    removals in go.opentelemetry.io/obi
+cves:
+    - CVE-2026-45682
+ghsas:
+    - GHSA-962q-hwm5-52x5
+references:
+    - advisory: https://github.com/open-telemetry/opentelemetry-ebpf-instrumentation/security/advisories/GHSA-962q-hwm5-52x5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-45682
+    - web: https://github.com/open-telemetry/opentelemetry-ebpf-instrumentation/releases/tag/v0.9.0
+source:
+    id: GHSA-962q-hwm5-52x5
+    created: 2026-06-25T02:26:15.721241014-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,23 @@
+id: GO-2026-5189
+modules:
+    - module: github.com/free5gc/pcf
+      versions:
+        - fixed: 1.4.3
+      vulnerable_at: 1.4.2
+summary: |-
+    Free5GC PCF: Missing authentication middleware in Npcf_SMPolicyControl allows
+    access to SM policy handlers and disclosure of subscriber SUPI in github.com/free5gc/pcf
+cves:
+    - CVE-2026-42083
+ghsas:
+    - GHSA-6rgm-gr97-x3j5
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-6rgm-gr97-x3j5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42083
+    - fix: https://github.com/free5gc/pcf/commit/8c4d457cdf58bb239ee30e88c56b370b22073964
+    - fix: https://github.com/free5gc/pcf/pull/63
+    - web: https://github.com/free5gc/free5gc/issues/844
+source:
+    id: GHSA-6rgm-gr97-x3j5
+    created: 2026-06-25T01:55:55.952995062-04:00
+review_status: UNREVIEWED

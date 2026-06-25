@@ -1,0 +1,23 @@
+id: GO-2026-5273
+modules:
+    - module: github.com/modelcontextprotocol/registry
+      versions:
+        - fixed: 1.7.6
+      vulnerable_at: 1.7.5
+summary: |-
+    MCP Registry's GitHub OIDC tokens are replayable across registry deployments due
+    to shared audience in github.com/modelcontextprotocol/registry
+cves:
+    - CVE-2026-44428
+ghsas:
+    - GHSA-95c3-6vvw-4mrq
+references:
+    - advisory: https://github.com/modelcontextprotocol/registry/security/advisories/GHSA-95c3-6vvw-4mrq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44428
+    - fix: https://github.com/modelcontextprotocol/registry/commit/3f89fc2b1fb34fd49f3c0e1b39e964a5c67b613f
+    - fix: https://github.com/modelcontextprotocol/registry/pull/1229
+    - web: https://github.com/modelcontextprotocol/registry/releases/tag/v1.7.6
+source:
+    id: GHSA-95c3-6vvw-4mrq
+    created: 2026-06-25T02:12:11.899339599-04:00
+review_status: UNREVIEWED

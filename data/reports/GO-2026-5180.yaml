@@ -1,0 +1,34 @@
+id: GO-2026-5180
+modules:
+    - module: github.com/traefik/traefik
+      unsupported_versions:
+        - last_affected: 1.7.34
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.43
+      vulnerable_at: 2.11.42
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - introduced: 3.0.0-beta1
+        - fixed: 3.6.14
+        - introduced: 3.7.0-ea.1
+        - fixed: 3.7.0-rc.2
+      vulnerable_at: 3.7.0-rc.1
+summary: |-
+    Traefik has an StripPrefixRegex Middleware Authorization Bypass via Path/RawPath
+    Desync in github.com/traefik/traefik
+cves:
+    - CVE-2026-40912
+ghsas:
+    - GHSA-6jwx-7vp4-9847
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-6jwx-7vp4-9847
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40912
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.43
+    - web: https://github.com/traefik/traefik/releases/tag/v3.6.14
+    - web: https://github.com/traefik/traefik/releases/tag/v3.7.0-rc.2
+source:
+    id: GHSA-6jwx-7vp4-9847
+    created: 2026-06-25T01:54:31.128774473-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,23 @@
+id: GO-2026-5201
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260330031106-f09953afc57a
+summary: |-
+    SiYuan vulnerable to reflected XSS via SVG namespace prefix bypass in
+    SanitizeSVG (getDynamicIcon, unauthenticated) in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-34605
+ghsas:
+    - GHSA-73g7-86qr-jrg3
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-73g7-86qr-jrg3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-34605
+    - web: https://github.com/siyuan-note/siyuan/issues/17246
+    - web: https://github.com/siyuan-note/siyuan/releases/tag/v3.6.2
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-73g7-86qr-jrg3
+    created: 2026-06-25T01:57:31.944817109-04:00
+review_status: UNREVIEWED

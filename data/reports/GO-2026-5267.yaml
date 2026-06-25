@@ -1,0 +1,26 @@
+id: GO-2026-5267
+modules:
+    - module: github.com/openbao/openbao
+      versions:
+        - fixed: 0.0.0-20260617104123-db57c62602b2
+        - introduced: 0.1.0
+      unsupported_versions:
+        - last_affected: 2.5.4
+summary: |-
+    OpenBao: Transit secrets engine crashes on key creation with `derived: true` for
+    asymmetric key types in github.com/openbao/openbao
+cves:
+    - CVE-2026-55776
+ghsas:
+    - GHSA-8w8f-r2xv-4q4j
+references:
+    - advisory: https://github.com/openbao/openbao/security/advisories/GHSA-8w8f-r2xv-4q4j
+    - fix: https://github.com/openbao/openbao/commit/db57c62602b25da12951f3f0edb888e7c4da61e5
+    - fix: https://github.com/openbao/openbao/pull/3309
+    - web: https://github.com/openbao/openbao/releases/tag/v2.5.5
+notes:
+    - fix: 'github.com/openbao/openbao: could not add vulnerable_at: latest version (0.0.0-20260624120835-f9bdcf1ea00c) is before last introduced version'
+source:
+    id: GHSA-8w8f-r2xv-4q4j
+    created: 2026-06-25T02:11:24.54989203-04:00
+review_status: UNREVIEWED

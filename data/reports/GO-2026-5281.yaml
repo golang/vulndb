@@ -1,0 +1,20 @@
+id: GO-2026-5281
+modules:
+    - module: go.opentelemetry.io/otel/schema
+      versions:
+        - fixed: 0.0.17
+      vulnerable_at: 0.0.16
+summary: opentelemetry-go's Schema ParseFile leaks file descriptors on each parse in go.opentelemetry.io/otel/schema
+cves:
+    - CVE-2026-45287
+ghsas:
+    - GHSA-995v-fvrw-c78m
+references:
+    - advisory: https://github.com/open-telemetry/opentelemetry-go/security/advisories/GHSA-995v-fvrw-c78m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-45287
+    - web: https://github.com/open-telemetry/opentelemetry-go/commit/e72a235518cb773137efd80336a179028bc34684
+    - web: https://github.com/open-telemetry/opentelemetry-go/commit/f12d198f161b61735d65705248715aa97021ba8d
+source:
+    id: GHSA-995v-fvrw-c78m
+    created: 2026-06-25T02:30:35.915006327-04:00
+review_status: UNREVIEWED

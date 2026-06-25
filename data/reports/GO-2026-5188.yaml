@@ -1,0 +1,21 @@
+id: GO-2026-5188
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260512140701-d7b77d945e0d
+summary: |-
+    SiYuan: Broken access control in `/api/tag/getTag` — Reader role can mutate
+    `Conf.Tag.Sort` and persist to disk in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-45147
+ghsas:
+    - GHSA-6r88-8v7q-q4p2
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-6r88-8v7q-q4p2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-45147
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-6r88-8v7q-q4p2
+    created: 2026-06-25T01:55:48.489462449-04:00
+review_status: UNREVIEWED

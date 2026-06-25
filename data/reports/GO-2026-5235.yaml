@@ -1,0 +1,29 @@
+id: GO-2026-5235
+modules:
+    - module: github.com/argoproj/argo-workflows
+      vulnerable_at: 0.4.7
+    - module: github.com/argoproj/argo-workflows/v2
+      vulnerable_at: 2.12.13
+    - module: github.com/argoproj/argo-workflows/v3
+      vulnerable_at: 3.7.15
+    - module: github.com/argoproj/argo-workflows/v4
+      versions:
+        - introduced: 4.0.0
+        - fixed: 4.0.5
+      vulnerable_at: 4.0.4
+summary: Argo vulnerable to exposure of artifact repository credentials in github.com/argoproj/argo-workflows
+cves:
+    - CVE-2026-42295
+ghsas:
+    - GHSA-7vf8-2cr6-54mf
+references:
+    - advisory: https://github.com/argoproj/argo-workflows/security/advisories/GHSA-7vf8-2cr6-54mf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42295
+    - fix: https://github.com/argoproj/argo-workflows/commit/bdd40908580f727c590c8743836e338b04fe4a87
+    - web: https://github.com/argoproj/argo-workflows/blob/59f1089b9875723ddffd524513e6bd5cb37e5e31/workflow/artifacts/logging/driver.go#L24
+    - web: https://github.com/argoproj/argo-workflows/releases/tag/v4.0.5
+    - web: https://github.com/argoproj/argo-workflows/security/advisories/GHSA-c2hv-4pfj-mm2r
+source:
+    id: GHSA-7vf8-2cr6-54mf
+    created: 2026-06-25T02:03:45.017673004-04:00
+review_status: UNREVIEWED

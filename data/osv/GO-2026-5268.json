@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5268",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-8wfp-579w-6r25"
+  ],
+  "summary": "Kyverno apiCall automatically forwards ServiceAccount token to external endpoints (credential leak) in github.com/kyverno/kyverno",
+  "details": "Kyverno apiCall automatically forwards ServiceAccount token to external endpoints (credential leak) in github.com/kyverno/kyverno",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/kyverno/kyverno",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.17.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/kyverno/kyverno/security/advisories/GHSA-8wfp-579w-6r25"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5268",
+    "review_status": "UNREVIEWED"
+  }
+}

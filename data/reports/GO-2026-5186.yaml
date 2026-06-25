@@ -1,0 +1,21 @@
+id: GO-2026-5186
+modules:
+    - module: github.com/patrickhener/goshs
+      versions:
+        - fixed: 1.1.5-0.20260401172448-237f3af891a9
+      vulnerable_at: 1.1.4
+summary: |-
+    goshs: Improper Limitation of a Pathname to a Restricted Directory (Path
+    Traversal) in github.com/patrickhener/goshs
+cves:
+    - CVE-2026-35471
+ghsas:
+    - GHSA-6qcc-6q27-whp8
+references:
+    - advisory: https://github.com/patrickhener/goshs/security/advisories/GHSA-6qcc-6q27-whp8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-35471
+    - fix: https://github.com/patrickhener/goshs/commit/237f3af891a90df9b903b85f1cd3438040ca261a
+source:
+    id: GHSA-6qcc-6q27-whp8
+    created: 2026-06-25T01:55:31.617751379-04:00
+review_status: UNREVIEWED

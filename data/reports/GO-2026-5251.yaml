@@ -1,0 +1,21 @@
+id: GO-2026-5251
+modules:
+    - module: github.com/googleapis/mcp-toolbox
+      versions:
+        - fixed: 1.4.0
+      vulnerable_at: 1.3.0
+summary: |-
+    googleapis/mcp-toolbox: authentication bypass vulnerability in the generic
+    opaque token validation path (validateOpaqueToken) in github.com/googleapis/mcp-toolbox
+cves:
+    - CVE-2026-11717
+ghsas:
+    - GHSA-8fcc-w5hv-4gxv
+references:
+    - advisory: https://github.com/advisories/GHSA-8fcc-w5hv-4gxv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-11717
+    - fix: https://github.com/googleapis/mcp-toolbox/pull/3341
+source:
+    id: GHSA-8fcc-w5hv-4gxv
+    created: 2026-06-25T02:07:04.466537782-04:00
+review_status: UNREVIEWED

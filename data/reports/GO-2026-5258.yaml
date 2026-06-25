@@ -1,0 +1,21 @@
+id: GO-2026-5258
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - fixed: 2.3.0
+      vulnerable_at: 0.24.6
+summary: Vikunja has TOTP Two-Factor Authentication Bypass via OIDC Login Path in code.vikunja.io/api
+cves:
+    - CVE-2026-34727
+ghsas:
+    - GHSA-8jvc-mcx6-r4cg
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-8jvc-mcx6-r4cg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-34727
+    - web: https://github.com/go-vikunja/vikunja/commit/b642b2a4536a3846e627a78dce2fdd1be425e6a1
+    - web: https://github.com/go-vikunja/vikunja/pull/2582
+    - web: https://github.com/go-vikunja/vikunja/releases/tag/v2.3.0
+source:
+    id: GHSA-8jvc-mcx6-r4cg
+    created: 2026-06-25T02:09:06.801729029-04:00
+review_status: UNREVIEWED

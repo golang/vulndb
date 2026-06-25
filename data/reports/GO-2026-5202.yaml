@@ -1,0 +1,22 @@
+id: GO-2026-5202
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.14.3
+      vulnerable_at: 0.13.3
+summary: |-
+    Gogs Vulnerable to Unauthenticated Organization Teams Information Disclosure via
+    API in gogs.io/gogs
+cves:
+    - CVE-2026-52815
+ghsas:
+    - GHSA-744x-3838-5r56
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-744x-3838-5r56
+    - web: https://github.com/gogs/gogs/commit/2ebc0e27069deade992219e10a89fbc44bec8bb9
+    - web: https://github.com/gogs/gogs/pull/8336
+    - web: https://github.com/gogs/gogs/releases/tag/v0.14.3
+source:
+    id: GHSA-744x-3838-5r56
+    created: 2026-06-25T01:57:39.842865972-04:00
+review_status: UNREVIEWED

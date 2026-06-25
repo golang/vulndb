@@ -1,0 +1,21 @@
+id: GO-2026-5261
+modules:
+    - module: github.com/nezhahq/nezha
+      versions:
+        - introduced: 1.0.0
+      non_go_versions:
+        - fixed: 2.0.14
+      vulnerable_at: 1.14.14
+summary: |-
+    Nezha has cross-site GET request that can trigger stored cron commands on a
+    victim's agents in github.com/nezhahq/nezha
+cves:
+    - CVE-2026-49396
+ghsas:
+    - GHSA-8qhj-4f8c-j8qg
+references:
+    - advisory: https://github.com/nezhahq/nezha/security/advisories/GHSA-8qhj-4f8c-j8qg
+source:
+    id: GHSA-8qhj-4f8c-j8qg
+    created: 2026-06-25T02:09:35.453742341-04:00
+review_status: UNREVIEWED

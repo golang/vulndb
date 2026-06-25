@@ -1,0 +1,23 @@
+id: GO-2026-5257
+modules:
+    - module: github.com/hahwul/dalfox
+      vulnerable_at: 1.2.1
+    - module: github.com/hahwul/dalfox/v2
+      versions:
+        - fixed: 2.13.0
+      vulnerable_at: 2.12.0
+summary: |-
+    Dalfox Server Mode has an Unauthenticated Arbitrary File Create/Append via
+    `output` Option in github.com/hahwul/dalfox
+cves:
+    - CVE-2026-45089
+ghsas:
+    - GHSA-8hf9-3q64-q2qf
+references:
+    - advisory: https://github.com/hahwul/dalfox/security/advisories/GHSA-8hf9-3q64-q2qf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-45089
+    - web: https://github.com/hahwul/dalfox/releases/tag/v2.13.0
+source:
+    id: GHSA-8hf9-3q64-q2qf
+    created: 2026-06-25T02:08:59.10194581-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,20 @@
+id: GO-2026-5224
+modules:
+    - module: github.com/microsoft/kiota-http-go
+      versions:
+        - fixed: 1.5.5
+      vulnerable_at: 1.5.4
+summary: |-
+    Kiota abstractions RedirectHandler leaks Cookie/Proxy-Authorization headers on
+    cross-host redirect in github.com/microsoft/kiota-http-go
+cves:
+    - CVE-2026-44503
+ghsas:
+    - GHSA-7j59-v9qr-6fq9
+references:
+    - advisory: https://github.com/microsoft/kiota-java/security/advisories/GHSA-7j59-v9qr-6fq9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44503
+source:
+    id: GHSA-7j59-v9qr-6fq9
+    created: 2026-06-25T02:01:46.865677163-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,19 @@
+id: GO-2026-5209
+modules:
+    - module: github.com/free5gc/amf
+      unsupported_versions:
+        - last_affected: 1.4.3
+      vulnerable_at: 1.4.4
+summary: Free5GC AMF Bypasses UE Security Capabilities on NGAP PathSwitchRequest in github.com/free5gc/amf
+cves:
+    - CVE-2026-42081
+ghsas:
+    - GHSA-77x9-rf64-92gv
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-77x9-rf64-92gv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42081
+    - web: https://github.com/free5gc/amf/blame/v1.4.3/internal/ngap/handler.go
+source:
+    id: GHSA-77x9-rf64-92gv
+    created: 2026-06-25T01:58:31.595404855-04:00
+review_status: UNREVIEWED

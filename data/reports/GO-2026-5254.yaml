@@ -1,0 +1,24 @@
+id: GO-2026-5254
+modules:
+    - module: github.com/lxc/incus
+      vulnerable_at: 0.7.0
+    - module: github.com/lxc/incus/v6
+      vulnerable_at: 6.23.0
+    - module: github.com/lxc/incus/v7
+      versions:
+        - fixed: 7.0.0
+summary: Incus has Blind SSRF via Image Import Preflight HEAD in github.com/lxc/incus
+cves:
+    - CVE-2026-35527
+ghsas:
+    - GHSA-8gw4-p4wq-4hcv
+references:
+    - advisory: https://github.com/lxc/incus/security/advisories/GHSA-8gw4-p4wq-4hcv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-35527
+    - web: https://github.com/lxc/incus/blob/v6.22.0/cmd/incusd/images.go
+notes:
+    - fix: 'github.com/lxc/incus/v7: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-8gw4-p4wq-4hcv
+    created: 2026-06-25T02:07:34.85165085-04:00
+review_status: UNREVIEWED

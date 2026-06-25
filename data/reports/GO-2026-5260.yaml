@@ -1,0 +1,23 @@
+id: GO-2026-5260
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260414013942-62eed37a3263
+summary: 'SiYuan has incomplete fix for CVE-2026-33066: XSS in github.com/siyuan-note/siyuan/kernel'
+cves:
+    - CVE-2026-40922
+ghsas:
+    - GHSA-8q5w-mmxf-48jg
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-8q5w-mmxf-48jg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40922
+    - web: https://github.com/advisories/GHSA-4663-4mpg-879v
+    - web: https://github.com/siyuan-note/siyuan/commit/b382f50e1880ed996364509de5a10a72d7409428
+    - web: https://github.com/siyuan-note/siyuan/releases/tag/v3.6.4
+    - web: https://nvd.nist.gov/vuln/detail/CVE-2026-33066
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-8q5w-mmxf-48jg
+    created: 2026-06-25T02:09:27.211527191-04:00
+review_status: UNREVIEWED

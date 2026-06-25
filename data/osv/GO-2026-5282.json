@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5282",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-46716",
+    "GHSA-99gv-2m7h-3hh9"
+  ],
+  "summary": "Nezha Monitoring: RoleMember can run shell on every server (cross-tenant RCE) via POST /api/v1/cron in github.com/nezhahq/nezha",
+  "details": "Nezha Monitoring: RoleMember can run shell on every server (cross-tenant RCE) via POST /api/v1/cron in github.com/nezhahq/nezha",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/nezhahq/nezha",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.4.0"
+            },
+            {
+              "fixed": "1.14.15-0.20260517022419-d7526351cf97"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/nezhahq/nezha/security/advisories/GHSA-99gv-2m7h-3hh9"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5282",
+    "review_status": "UNREVIEWED"
+  }
+}

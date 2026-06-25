@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5231",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-7qjx-gp9h-65qj"
+  ],
+  "summary": "Dex: Token-exchange endpoint is missing AllowedConnectors enforcement in github.com/dexidp/dex",
+  "details": "Dex: Token-exchange endpoint is missing AllowedConnectors enforcement in github.com/dexidp/dex",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/dexidp/dex",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20260303131938-204dbb2e3ff7"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/dexidp/dex/security/advisories/GHSA-7qjx-gp9h-65qj"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/dexidp/dex/commit/204dbb2e3ff7692af3b7ca4362b1ee46fb43c227"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5231",
+    "review_status": "UNREVIEWED"
+  }
+}

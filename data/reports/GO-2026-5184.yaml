@@ -1,0 +1,20 @@
+id: GO-2026-5184
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.14.3
+      vulnerable_at: 0.13.3
+summary: 'Gogs: LFS dedupe path leaks private repo content across tenants in gogs.io/gogs'
+cves:
+    - CVE-2026-52812
+ghsas:
+    - GHSA-6p9m-q3jp-47h4
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-6p9m-q3jp-47h4
+    - web: https://github.com/gogs/gogs/commit/f35a767af74e05342bafc6fdda02c791816426f8
+    - web: https://github.com/gogs/gogs/pull/8333
+    - web: https://github.com/gogs/gogs/releases/tag/v0.14.3
+source:
+    id: GHSA-6p9m-q3jp-47h4
+    created: 2026-06-25T01:55:14.27581643-04:00
+review_status: UNREVIEWED

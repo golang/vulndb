@@ -1,0 +1,22 @@
+id: GO-2026-5227
+modules:
+    - module: github.com/0xJacky/Nginx-UI
+      unsupported_versions:
+        - last_affected: 1.9.9
+      vulnerable_at: 1.9.9
+summary: |-
+    Nginx-UI: Authenticated settings disclosure exposes node.secret and enables
+    trusted-node authentication abuse, backup exfiltration, and restore-based
+    nginx-ui state rollback in github.com/0xJacky/Nginx-UI
+cves:
+    - CVE-2026-42220
+ghsas:
+    - GHSA-7jrr-xw9c-mj39
+references:
+    - advisory: https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-7jrr-xw9c-mj39
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42220
+    - web: https://github.com/0xJacky/nginx-ui/releases/tag/v2.3.8
+source:
+    id: GHSA-7jrr-xw9c-mj39
+    created: 2026-06-25T02:02:11.288640516-04:00
+review_status: UNREVIEWED

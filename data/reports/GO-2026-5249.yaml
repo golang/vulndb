@@ -1,0 +1,20 @@
+id: GO-2026-5249
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.14.3
+      vulnerable_at: 0.13.3
+summary: 'Gogs: UploadRepoFiles writes outside repo working tree via committed parent sym in gogs.io/gogs'
+cves:
+    - CVE-2026-52811
+ghsas:
+    - GHSA-89mr-xqfv-758m
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-89mr-xqfv-758m
+    - web: https://github.com/gogs/gogs/commit/04cb8afbb01d855454e59977a1cdbf522ea1db31
+    - web: https://github.com/gogs/gogs/pull/8332
+    - web: https://github.com/gogs/gogs/releases/tag/v0.14.3
+source:
+    id: GHSA-89mr-xqfv-758m
+    created: 2026-06-25T02:06:48.142300772-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5255",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-48025",
+    "GHSA-8h84-fhqq-q58v"
+  ],
+  "summary": "nebula-mesh: Decrypted CA private key persists in heap after signing in github.com/forgekeep/nebula-mesh",
+  "details": "nebula-mesh: Decrypted CA private key persists in heap after signing in github.com/forgekeep/nebula-mesh",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/forgekeep/nebula-mesh",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.3.7"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/juev/nebula-mesh/security/advisories/GHSA-8h84-fhqq-q58v"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/forgekeep/nebula-mesh/commit/bca1d5914fbaf3517d3b86145a802c00de4a8122"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/forgekeep/nebula-mesh/releases/tag/v0.3.7"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5255",
+    "review_status": "UNREVIEWED"
+  }
+}

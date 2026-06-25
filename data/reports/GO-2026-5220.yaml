@@ -1,0 +1,21 @@
+id: GO-2026-5220
+modules:
+    - module: github.com/getarcaneapp/arcane/backend
+      versions:
+        - fixed: 1.19.0
+      vulnerable_at: 1.18.1
+summary: |-
+    Arcane Backend: Missing admin authorization on git repository endpoints allows
+    non-admin users to exfiltrate stored Git credentials and tamper with GitOps
+    configs in github.com/getarcaneapp/arcane/backend
+cves:
+    - CVE-2026-45625
+ghsas:
+    - GHSA-7h26-hg47-p9hx
+references:
+    - advisory: https://github.com/getarcaneapp/arcane/security/advisories/GHSA-7h26-hg47-p9hx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-45625
+source:
+    id: GHSA-7h26-hg47-p9hx
+    created: 2026-06-25T02:01:12.978825794-04:00
+review_status: UNREVIEWED

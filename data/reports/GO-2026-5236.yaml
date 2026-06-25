@@ -1,0 +1,21 @@
+id: GO-2026-5236
+modules:
+    - module: github.com/oauth2-proxy/oauth2-proxy
+      vulnerable_at: 3.2.0+incompatible
+    - module: github.com/oauth2-proxy/oauth2-proxy/v7
+      versions:
+        - introduced: 7.5.0
+        - fixed: 7.15.2
+      vulnerable_at: 7.15.1
+summary: OAuth2 Proxy has an Authentication Bypass via X-Forwarded-Uri Header Spoofing in github.com/oauth2-proxy/oauth2-proxy
+cves:
+    - CVE-2026-40575
+ghsas:
+    - GHSA-7x63-xv5r-3p2x
+references:
+    - advisory: https://github.com/oauth2-proxy/oauth2-proxy/security/advisories/GHSA-7x63-xv5r-3p2x
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40575
+source:
+    id: GHSA-7x63-xv5r-3p2x
+    created: 2026-06-25T02:03:54.35361315-04:00
+review_status: UNREVIEWED

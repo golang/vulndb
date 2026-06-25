@@ -1,0 +1,23 @@
+id: GO-2026-5216
+modules:
+    - module: github.com/OliveTin/OliveTin
+      versions:
+        - fixed: 0.0.0-20260521225117-d74da9314005
+summary: |-
+    OliveTin has a Concurrent Template Parsing Race Condition which Leads to
+    Cross-Request Command Contamination in github.com/OliveTin/OliveTin
+cves:
+    - CVE-2026-48708
+ghsas:
+    - GHSA-7fq5-7wr8-rjwj
+references:
+    - advisory: https://github.com/OliveTin/OliveTin/security/advisories/GHSA-7fq5-7wr8-rjwj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-48708
+    - fix: https://github.com/OliveTin/OliveTin/commit/d74da9314005954dd49fa20dabf272247bc76519
+    - web: https://github.com/OliveTin/OliveTin/releases/tag/3000.13.0
+notes:
+    - fix: 'github.com/OliveTin/OliveTin: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-7fq5-7wr8-rjwj
+    created: 2026-06-25T01:59:31.919369974-04:00
+review_status: UNREVIEWED

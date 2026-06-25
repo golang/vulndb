@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5217",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-44850",
+    "GHSA-7fw3-x4r2-g7wc"
+  ],
+  "summary": "Portainer has a bind-mount restriction bypass via HostConfig.Mounts in github.com/portainer/portainer",
+  "details": "Portainer has a bind-mount restriction bypass via HostConfig.Mounts in github.com/portainer/portainer.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/portainer/portainer from v2.33.0 before v2.33.8, from v2.39.0 before v2.39.2, from v2.40.0 before v2.41.0.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/portainer/portainer",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "2.33.0"
+              },
+              {
+                "fixed": "2.33.8"
+              },
+              {
+                "introduced": "2.39.0"
+              },
+              {
+                "fixed": "2.39.2"
+              },
+              {
+                "introduced": "2.40.0"
+              },
+              {
+                "fixed": "2.41.0"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/portainer/portainer/security/advisories/GHSA-7fw3-x4r2-g7wc"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-44850"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/portainer/portainer/releases/tag/2.33.8"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/portainer/portainer/releases/tag/2.39.2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/portainer/portainer/releases/tag/2.41.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5217",
+    "review_status": "UNREVIEWED"
+  }
+}

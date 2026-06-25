@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5199",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-4525",
+    "GHSA-72gw-fmmr-c4r4"
+  ],
+  "summary": "HashiCorp Vault May Expose Tokens to Auth Plugins Due to Incorrect Header Sanitization in github.com/hashicorp/vault",
+  "details": "HashiCorp Vault May Expose Tokens to Auth Plugins Due to Incorrect Header Sanitization in github.com/hashicorp/vault",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hashicorp/vault",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.11.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-72gw-fmmr-c4r4"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-4525"
+    },
+    {
+      "type": "WEB",
+      "url": "https://discuss.hashicorp.com/t/hcsec-2026-07-vault-may-expose-tokens-to-auth-plugins-due-to-incorrect-header-sanitization/77344"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5199",
+    "review_status": "UNREVIEWED"
+  }
+}

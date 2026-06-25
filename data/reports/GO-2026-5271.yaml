@@ -1,0 +1,24 @@
+id: GO-2026-5271
+modules:
+    - module: github.com/cli/cli
+      vulnerable_at: 1.14.0
+    - module: github.com/cli/cli/v2
+      versions:
+        - fixed: 2.93.0
+      vulnerable_at: 2.92.0
+summary: |-
+    GitHub CLI has an incorrect authorization header in API requests to TUF
+    repository mirrors via `gh attestation`, `gh release verify`, and `gh release
+    verify-asset` commands in github.com/cli/cli
+cves:
+    - CVE-2026-48501
+ghsas:
+    - GHSA-8xvp-7hj6-mcj9
+references:
+    - advisory: https://github.com/cli/cli/security/advisories/GHSA-8xvp-7hj6-mcj9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-48501
+    - web: https://github.com/cli/cli/releases/tag/v2.93.0
+source:
+    id: GHSA-8xvp-7hj6-mcj9
+    created: 2026-06-25T02:11:55.303976917-04:00
+review_status: UNREVIEWED

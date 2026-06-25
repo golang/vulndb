@@ -1,0 +1,21 @@
+id: GO-2026-5234
+modules:
+    - module: github.com/gotenberg/gotenberg/v7
+      vulnerable_at: 7.10.2
+    - module: github.com/gotenberg/gotenberg/v8
+      unsupported_versions:
+        - last_affected: 8.29.1
+      vulnerable_at: 8.34.0
+summary: Gotenberg's ExifTool group-prefix syntax bypasses dangerous-tag blocklist in github.com/gotenberg/gotenberg
+cves:
+    - CVE-2026-42590
+ghsas:
+    - GHSA-7v3r-m9c8-r855
+references:
+    - advisory: https://github.com/gotenberg/gotenberg/security/advisories/GHSA-7v3r-m9c8-r855
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42590
+    - web: https://github.com/advisories/GHSA-qmwh-9m9c-h36m
+source:
+    id: GHSA-7v3r-m9c8-r855
+    created: 2026-06-25T02:03:01.494162413-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,21 @@
+id: GO-2026-5232
+modules:
+    - module: github.com/patrickhener/goshs
+      unsupported_versions:
+        - last_affected: 1.1.4
+      vulnerable_at: 1.1.4
+    - module: github.com/patrickhener/goshs/v2
+      unsupported_versions:
+        - last_affected: 2.0.0-beta.6
+      vulnerable_at: 2.1.2
+summary: |-
+    Unauthenticated Open Redirect, Arbitrary HTTP Response Header Injection, Missing
+    CSRF, and Invisible-Mode Bypass in goshs `/?redirect` endpoint in github.com/patrickhener/goshs
+ghsas:
+    - GHSA-7qx6-f23w-3w7f
+references:
+    - advisory: https://github.com/patrickhener/goshs/security/advisories/GHSA-7qx6-f23w-3w7f
+source:
+    id: GHSA-7qx6-f23w-3w7f
+    created: 2026-06-25T02:02:48.749346298-04:00
+review_status: UNREVIEWED

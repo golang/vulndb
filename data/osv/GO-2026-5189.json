@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5189",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-42083",
+    "GHSA-6rgm-gr97-x3j5"
+  ],
+  "summary": "Free5GC PCF: Missing authentication middleware in Npcf_SMPolicyControl allows access to SM policy handlers and disclosure of subscriber SUPI in github.com/free5gc/pcf",
+  "details": "Free5GC PCF: Missing authentication middleware in Npcf_SMPolicyControl allows access to SM policy handlers and disclosure of subscriber SUPI in github.com/free5gc/pcf",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/free5gc/pcf",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.4.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/free5gc/free5gc/security/advisories/GHSA-6rgm-gr97-x3j5"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42083"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/free5gc/pcf/commit/8c4d457cdf58bb239ee30e88c56b370b22073964"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/free5gc/pcf/pull/63"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/free5gc/free5gc/issues/844"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5189",
+    "review_status": "UNREVIEWED"
+  }
+}

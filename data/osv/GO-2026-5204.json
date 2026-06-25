@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5204",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-74m6-4hjp-7226"
+  ],
+  "summary": "Klever-Go P2P MultiDataInterceptor leaks global throttler slots on malformed compressed batches (DoS) in github.com/klever-io/klever-go",
+  "details": "Klever-Go P2P MultiDataInterceptor leaks global throttler slots on malformed compressed batches (DoS) in github.com/klever-io/klever-go",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/klever-io/klever-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.7.17"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/klever-io/klever-go/security/advisories/GHSA-74m6-4hjp-7226"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/klever-io/klever-go/commit/333f6ec910906e227705fc5767dc897d8fbfc862"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/klever-io/klever-go/commit/68b94a40824fac2d848a4ded6eb7c91ada6ce9ef"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5204",
+    "review_status": "UNREVIEWED"
+  }
+}

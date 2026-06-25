@@ -1,0 +1,19 @@
+id: GO-2026-5255
+modules:
+    - module: github.com/forgekeep/nebula-mesh
+      versions:
+        - fixed: 0.3.7
+      vulnerable_at: 0.3.6
+summary: 'nebula-mesh: Decrypted CA private key persists in heap after signing in github.com/forgekeep/nebula-mesh'
+cves:
+    - CVE-2026-48025
+ghsas:
+    - GHSA-8h84-fhqq-q58v
+references:
+    - advisory: https://github.com/juev/nebula-mesh/security/advisories/GHSA-8h84-fhqq-q58v
+    - fix: https://github.com/forgekeep/nebula-mesh/commit/bca1d5914fbaf3517d3b86145a802c00de4a8122
+    - web: https://github.com/forgekeep/nebula-mesh/releases/tag/v0.3.7
+source:
+    id: GHSA-8h84-fhqq-q58v
+    created: 2026-06-25T02:07:43.093901934-04:00
+review_status: UNREVIEWED

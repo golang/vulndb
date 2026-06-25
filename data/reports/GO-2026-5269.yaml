@@ -1,0 +1,24 @@
+id: GO-2026-5269
+modules:
+    - module: volcano.sh/volcano
+      versions:
+        - fixed: 1.12.4
+        - introduced: 1.13.0
+        - fixed: 1.13.3
+        - introduced: 1.14.0
+        - fixed: 1.14.2
+      vulnerable_at: 1.14.1
+summary: |-
+    Volcano's webhook server vulnerable to OOM due to unbounded HTTP request body
+    size in volcano.sh/volcano
+cves:
+    - CVE-2026-44247
+ghsas:
+    - GHSA-8wxp-xxp2-rcgx
+references:
+    - advisory: https://github.com/volcano-sh/volcano/security/advisories/GHSA-8wxp-xxp2-rcgx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44247
+source:
+    id: GHSA-8wxp-xxp2-rcgx
+    created: 2026-06-25T02:11:38.067312536-04:00
+review_status: UNREVIEWED

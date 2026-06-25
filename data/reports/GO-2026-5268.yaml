@@ -1,0 +1,17 @@
+id: GO-2026-5268
+modules:
+    - module: github.com/kyverno/kyverno
+      versions:
+        - fixed: 1.17.0
+      vulnerable_at: 1.17.0-rc.3
+summary: |-
+    Kyverno apiCall automatically forwards ServiceAccount token to external
+    endpoints (credential leak) in github.com/kyverno/kyverno
+ghsas:
+    - GHSA-8wfp-579w-6r25
+references:
+    - advisory: https://github.com/kyverno/kyverno/security/advisories/GHSA-8wfp-579w-6r25
+source:
+    id: GHSA-8wfp-579w-6r25
+    created: 2026-06-25T02:11:32.488425288-04:00
+review_status: UNREVIEWED

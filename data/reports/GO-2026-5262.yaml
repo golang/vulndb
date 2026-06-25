@@ -1,0 +1,23 @@
+id: GO-2026-5262
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - introduced: 1.14.0
+      unsupported_versions:
+        - last_affected: 1.21.4
+      vulnerable_at: 1.21.4
+summary: |-
+    HashiCorp Vault has Server-Side Request Forgery in ACME Challenge Validation via
+    Attacker-Controlled DNS in github.com/hashicorp/vault
+cves:
+    - CVE-2026-5052
+ghsas:
+    - GHSA-8r5m-3f66-qpr3
+references:
+    - advisory: https://github.com/advisories/GHSA-8r5m-3f66-qpr3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-5052
+    - web: https://discuss.hashicorp.com/t/hcsec-2026-06-vault-vulnerable-to-server-side-request-forgery-in-acme-challenge-validation-via-attacker-controlled-dns/77343
+source:
+    id: GHSA-8r5m-3f66-qpr3
+    created: 2026-06-25T02:09:42.880891959-04:00
+review_status: UNREVIEWED

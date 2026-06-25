@@ -1,0 +1,24 @@
+id: GO-2026-5242
+modules:
+    - module: github.com/dapr/dapr
+      versions:
+        - introduced: 1.3.0
+        - fixed: 1.15.14
+        - introduced: 1.16.0-rc.1
+        - fixed: 1.16.14
+        - introduced: 1.17.0-rc.1
+        - fixed: 1.17.5
+      vulnerable_at: 1.17.4
+summary: 'Dapr: Service Invocation path traversal ACL bypass in github.com/dapr/dapr'
+cves:
+    - CVE-2026-41491
+ghsas:
+    - GHSA-85gx-3qv6-4463
+references:
+    - advisory: https://github.com/dapr/dapr/security/advisories/GHSA-85gx-3qv6-4463
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-41491
+    - fix: https://github.com/dapr/dapr/pull/9589
+source:
+    id: GHSA-85gx-3qv6-4463
+    created: 2026-06-25T02:04:41.993479772-04:00
+review_status: UNREVIEWED

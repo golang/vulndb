@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5276",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-35594",
+    "GHSA-96q5-xm3p-7m84"
+  ],
+  "summary": "Vikunja: Link Share JWT tokens remain valid for 72 hours after share deletion or permission downgrade in code.vikunja.io/api",
+  "details": "Vikunja: Link Share JWT tokens remain valid for 72 hours after share deletion or permission downgrade in code.vikunja.io/api.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: code.vikunja.io/api before v2.3.0.",
+  "affected": [
+    {
+      "package": {
+        "name": "code.vikunja.io/api",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "2.3.0"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/go-vikunja/vikunja/security/advisories/GHSA-96q5-xm3p-7m84"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-35594"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-vikunja/vikunja/commit/379d8a5c19334ffe4846003f590e202c31a75479"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-vikunja/vikunja/pull/2581"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-vikunja/vikunja/releases/tag/v2.3.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5276",
+    "review_status": "UNREVIEWED"
+  }
+}

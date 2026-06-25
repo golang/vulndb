@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5238",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-6347",
+    "GHSA-82j6-4fq7-fx62"
+  ],
+  "summary": "Mattermost doesn't sanitize sensitive configuration fields in the Mattermost Calls plugin in github.com/mattermost/mattermost-plugin-calls",
+  "details": "Mattermost doesn't sanitize sensitive configuration fields in the Mattermost Calls plugin in github.com/mattermost/mattermost-plugin-calls",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-plugin-calls",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.12.0-rc2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "10.11.0+incompatible"
+            },
+            {
+              "fixed": "10.11.14+incompatible"
+            },
+            {
+              "introduced": "11.4.0+incompatible"
+            },
+            {
+              "fixed": "11.4.4+incompatible"
+            },
+            {
+              "introduced": "11.5.0+incompatible"
+            },
+            {
+              "fixed": "11.5.2+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-82j6-4fq7-fx62"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-6347"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/mattermost/mattermost-plugin-calls/commit/d48893c8558e5a61f5fdd188bbee5ec7cb73887b"
+    },
+    {
+      "type": "WEB",
+      "url": "https://mattermost.com/security-updates"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5238",
+    "review_status": "UNREVIEWED"
+  }
+}

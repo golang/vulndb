@@ -1,0 +1,24 @@
+id: GO-2026-5252
+modules:
+    - module: github.com/lxc/incus
+      vulnerable_at: 0.7.0
+    - module: github.com/lxc/incus/v6
+      vulnerable_at: 6.23.0
+    - module: github.com/lxc/incus/v7
+      versions:
+        - fixed: 7.1.0
+      vulnerable_at: 7.0.0
+summary: |-
+    Incus has a Nil-Pointer Dereference Panic via Instance Backup Import (volume
+    omitted) in github.com/lxc/incus
+cves:
+    - CVE-2026-47753
+ghsas:
+    - GHSA-8g7m-96c8-8wwc
+references:
+    - advisory: https://github.com/lxc/incus/security/advisories/GHSA-8g7m-96c8-8wwc
+    - fix: https://github.com/lxc/incus/commit/98e64f0a6fcfdc9676eea0246418d490c53297bf
+source:
+    id: GHSA-8g7m-96c8-8wwc
+    created: 2026-06-25T02:07:15.498809331-04:00
+review_status: UNREVIEWED

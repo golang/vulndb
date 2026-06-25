@@ -1,0 +1,21 @@
+id: GO-2026-5212
+modules:
+    - module: github.com/sigstore/gitsign
+      versions:
+        - introduced: 0.4.0
+        - fixed: 0.15.0
+      vulnerable_at: 0.14.0
+summary: |-
+    gitsign --verify panics on empty-certificate PKCS7 and exits 0, bypassing
+    exit-code callers in github.com/sigstore/gitsign
+cves:
+    - CVE-2026-44310
+ghsas:
+    - GHSA-7c37-gx6w-8vc5
+references:
+    - advisory: https://github.com/sigstore/gitsign/security/advisories/GHSA-7c37-gx6w-8vc5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44310
+source:
+    id: GHSA-7c37-gx6w-8vc5
+    created: 2026-06-25T01:58:55.581978688-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5210",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-34403",
+    "GHSA-78mf-482w-62qj"
+  ],
+  "summary": "Nginx-UI: Cross-Site WebSocket Hijacking (CSWSH) via missing origin validation on all WebSocket endpoints in github.com/0xJacky/Nginx-UI",
+  "details": "Nginx-UI: Cross-Site WebSocket Hijacking (CSWSH) via missing origin validation on all WebSocket endpoints in github.com/0xJacky/Nginx-UI",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/0xJacky/Nginx-UI",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.9.10-0.20260316053337-1a9cd29a3082"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-78mf-482w-62qj"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34403"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/0xJacky/nginx-ui/releases/tag/v2.3.5"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5210",
+    "review_status": "UNREVIEWED"
+  }
+}

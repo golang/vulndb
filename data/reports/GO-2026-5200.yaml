@@ -1,0 +1,21 @@
+id: GO-2026-5200
+modules:
+    - module: github.com/dadrus/heimdall
+      versions:
+        - fixed: 0.17.14
+      vulnerable_at: 0.17.13
+summary: 'Heimdall: Case-sensitive host matching may lead to policy bypass in github.com/dadrus/heimdall'
+cves:
+    - CVE-2026-42273
+ghsas:
+    - GHSA-72h4-mxfc-jx37
+references:
+    - advisory: https://github.com/dadrus/heimdall/security/advisories/GHSA-72h4-mxfc-jx37
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42273
+    - fix: https://github.com/dadrus/heimdall/commit/3d05e56a9e7ef0355f17482b4322054af4e85943
+    - fix: https://github.com/dadrus/heimdall/pull/3208
+    - web: https://github.com/dadrus/heimdall/releases/tag/v0.17.14
+source:
+    id: GHSA-72h4-mxfc-jx37
+    created: 2026-06-25T01:57:23.265072535-04:00
+review_status: UNREVIEWED

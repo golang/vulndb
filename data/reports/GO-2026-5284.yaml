@@ -1,0 +1,24 @@
+id: GO-2026-5284
+modules:
+    - module: github.com/minio/minio
+      versions:
+        - introduced: 0.0.0-20230506025312-76913a9fd5c6
+      unsupported_versions:
+        - last_affected: 0.0.0-20260212201848-7aac2a2c5b7c
+      vulnerable_at: 0.0.0-20260212201848-7aac2a2c5b7c
+summary: |-
+    MinIO has an Unauthenticated Object Write via Missing Signature Verification in
+    Unsigned-Trailer Uploads in github.com/minio/minio
+cves:
+    - CVE-2026-40344
+ghsas:
+    - GHSA-9c4q-hq6p-c237
+references:
+    - advisory: https://github.com/minio/minio/security/advisories/GHSA-9c4q-hq6p-c237
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40344
+    - fix: https://github.com/minio/minio/commit/76913a9fd5c6e5c2dbd4e8c7faf56ed9e9e24091
+    - fix: https://github.com/minio/minio/pull/16484
+source:
+    id: GHSA-9c4q-hq6p-c237
+    created: 2026-06-25T02:31:01.173327993-04:00
+review_status: UNREVIEWED

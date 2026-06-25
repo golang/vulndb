@@ -1,0 +1,22 @@
+id: GO-2026-5229
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260407035653-2f416e5253f1
+summary: |-
+    SiYuan: Publish Reader Can Arbitrarily Delete Attribute View Files via
+    `/api/av/removeUnusedAttributeView` in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-40259
+ghsas:
+    - GHSA-7m5h-w69j-qggg
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-7m5h-w69j-qggg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40259
+    - web: https://github.com/siyuan-note/siyuan/releases/tag/v3.6.4
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-7m5h-w69j-qggg
+    created: 2026-06-25T02:02:28.414713008-04:00
+review_status: UNREVIEWED

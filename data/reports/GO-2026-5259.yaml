@@ -1,0 +1,18 @@
+id: GO-2026-5259
+modules:
+    - module: github.com/lin-snow/ech0
+      versions:
+        - fixed: 1.4.8-0.20260503040602-091d26d2d942
+      vulnerable_at: 1.4.7
+summary: |-
+    Ech0 has Server-Side Request Forgery (SSRF) via Connect Handler
+    fetchPeerConnectInfo in github.com/lin-snow/ech0
+ghsas:
+    - GHSA-8mc6-xjpr-h98x
+references:
+    - advisory: https://github.com/lin-snow/Ech0/security/advisories/GHSA-8mc6-xjpr-h98x
+    - web: https://github.com/lin-snow/Ech0/commit/091d26d2d942df6df9f520328d2f9cf2592bbefc
+source:
+    id: GHSA-8mc6-xjpr-h98x
+    created: 2026-06-25T02:09:22.132783464-04:00
+review_status: UNREVIEWED

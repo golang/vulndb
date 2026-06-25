@@ -1,0 +1,23 @@
+id: GO-2026-5199
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - introduced: 0.11.2
+      unsupported_versions:
+        - last_affected: 1.21.4
+      vulnerable_at: 1.21.4
+summary: |-
+    HashiCorp Vault May Expose Tokens to Auth Plugins Due to Incorrect Header
+    Sanitization in github.com/hashicorp/vault
+cves:
+    - CVE-2026-4525
+ghsas:
+    - GHSA-72gw-fmmr-c4r4
+references:
+    - advisory: https://github.com/advisories/GHSA-72gw-fmmr-c4r4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-4525
+    - web: https://discuss.hashicorp.com/t/hcsec-2026-07-vault-may-expose-tokens-to-auth-plugins-due-to-incorrect-header-sanitization/77344
+source:
+    id: GHSA-72gw-fmmr-c4r4
+    created: 2026-06-25T01:57:16.241151541-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5230",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-46618",
+    "GHSA-7pjr-qpvh-m339"
+  ],
+  "summary": "Fission builder accepts arbitrary buildcmd strings from Environment.spec.builder.command, allowing the builder pod to invoke arbitrary executables in github.com/fission/fission",
+  "details": "Fission builder accepts arbitrary buildcmd strings from Environment.spec.builder.command, allowing the builder pod to invoke arbitrary executables in github.com/fission/fission",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/fission/fission",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.23.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/fission/fission/security/advisories/GHSA-7pjr-qpvh-m339"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-46618"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/fission/fission/pull/3364"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/fission/fission/releases/tag/v1.23.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5230",
+    "review_status": "UNREVIEWED"
+  }
+}

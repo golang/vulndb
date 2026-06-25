@@ -1,0 +1,18 @@
+id: GO-2026-5191
+modules:
+    - module: github.com/juev/nebula-mesh
+      versions:
+        - fixed: 0.3.2
+      vulnerable_at: 0.3.1
+summary: |-
+    nebula-mesh: POST /api/v1/hosts/{id}/mobile-bundle response lacks Cache-Control:
+    no-store in github.com/juev/nebula-mesh
+ghsas:
+    - GHSA-6vgg-xhvh-38ff
+references:
+    - advisory: https://github.com/juev/nebula-mesh/security/advisories/GHSA-6vgg-xhvh-38ff
+    - web: https://github.com/forgekeep/nebula-mesh/commit/c13d5b2c013b4b323bc0c87a6ecc6afba6384ee5
+source:
+    id: GHSA-6vgg-xhvh-38ff
+    created: 2026-06-25T01:56:13.937045957-04:00
+review_status: UNREVIEWED

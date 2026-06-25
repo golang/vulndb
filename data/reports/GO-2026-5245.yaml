@@ -1,0 +1,38 @@
+id: GO-2026-5245
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.11.0-rc1+incompatible
+        - fixed: 10.11.2+incompatible
+        - introduced: 11.2.0-rc1+incompatible
+        - fixed: 11.2.4+incompatible
+        - introduced: 11.3.0-rc1+incompatible
+        - fixed: 11.3.2+incompatible
+        - introduced: 11.4.0-rc1+incompatible
+        - fixed: 11.4.1+incompatible
+      vulnerable_at: 11.4.1-rc2+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - introduced: 8.0.0-20260105080200-d27a2195068d
+        - fixed: 8.0.0-20260217110922-b7d4a1f1f59b
+summary: |-
+    Mattermost: Authenticated DoS through failure to prevent rendering of external
+    SVGs on link embeds in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2026-20719
+ghsas:
+    - GHSA-86vc-mg26-fj6x
+references:
+    - advisory: https://github.com/advisories/GHSA-86vc-mg26-fj6x
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-20719
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-86vc-mg26-fj6x
+    created: 2026-06-25T02:05:06.428705992-04:00
+review_status: UNREVIEWED

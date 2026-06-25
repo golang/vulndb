@@ -1,0 +1,19 @@
+id: GO-2026-5204
+modules:
+    - module: github.com/klever-io/klever-go
+      versions:
+        - fixed: 1.7.17
+      vulnerable_at: 1.7.16
+summary: |-
+    Klever-Go P2P MultiDataInterceptor leaks global throttler slots on malformed
+    compressed batches (DoS) in github.com/klever-io/klever-go
+ghsas:
+    - GHSA-74m6-4hjp-7226
+references:
+    - advisory: https://github.com/klever-io/klever-go/security/advisories/GHSA-74m6-4hjp-7226
+    - fix: https://github.com/klever-io/klever-go/commit/333f6ec910906e227705fc5767dc897d8fbfc862
+    - fix: https://github.com/klever-io/klever-go/commit/68b94a40824fac2d848a4ded6eb7c91ada6ce9ef
+source:
+    id: GHSA-74m6-4hjp-7226
+    created: 2026-06-25T01:57:55.103037215-04:00
+review_status: UNREVIEWED

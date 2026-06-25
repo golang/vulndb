@@ -1,0 +1,23 @@
+id: GO-2026-5276
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - fixed: 2.3.0
+      vulnerable_at: 0.24.6
+summary: |-
+    Vikunja: Link Share JWT tokens remain valid for 72 hours after share deletion or
+    permission downgrade in code.vikunja.io/api
+cves:
+    - CVE-2026-35594
+ghsas:
+    - GHSA-96q5-xm3p-7m84
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-96q5-xm3p-7m84
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-35594
+    - web: https://github.com/go-vikunja/vikunja/commit/379d8a5c19334ffe4846003f590e202c31a75479
+    - web: https://github.com/go-vikunja/vikunja/pull/2581
+    - web: https://github.com/go-vikunja/vikunja/releases/tag/v2.3.0
+source:
+    id: GHSA-96q5-xm3p-7m84
+    created: 2026-06-25T02:26:23.352748871-04:00
+review_status: UNREVIEWED

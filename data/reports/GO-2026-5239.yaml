@@ -1,0 +1,21 @@
+id: GO-2026-5239
+modules:
+    - module: github.com/openfga/openfga
+      versions:
+        - fixed: 1.16.0
+      vulnerable_at: 1.15.1
+summary: |-
+    OpenFGA has cache-key delimiter injection in shared-iterator and v2 iterator
+    that caches enables intra-store authorization-decision poisoning in github.com/openfga/openfga
+cves:
+    - CVE-2026-48096
+ghsas:
+    - GHSA-8396-jffm-qx4w
+references:
+    - advisory: https://github.com/openfga/openfga/security/advisories/GHSA-8396-jffm-qx4w
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-48096
+    - web: https://github.com/openfga/openfga/releases/tag/v1.16.0
+source:
+    id: GHSA-8396-jffm-qx4w
+    created: 2026-06-25T02:04:19.022019201-04:00
+review_status: UNREVIEWED

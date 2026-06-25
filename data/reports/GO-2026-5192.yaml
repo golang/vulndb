@@ -1,0 +1,22 @@
+id: GO-2026-5192
+modules:
+    - module: github.com/openbao/openbao
+      versions:
+        - fixed: 0.0.0-20260420155735-b596b0882620
+summary: OpenBao's SQL Injection in PostgreSQL database secrets engine in github.com/openbao/openbao
+cves:
+    - CVE-2026-39946
+ghsas:
+    - GHSA-6vgr-cp5c-ffx3
+references:
+    - advisory: https://github.com/openbao/openbao/security/advisories/GHSA-6vgr-cp5c-ffx3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-39946
+    - fix: https://github.com/openbao/openbao/commit/80693a46ebb4fc2455f1c51ed1dd853b28c2fd77
+    - fix: https://github.com/openbao/openbao/pull/2931
+    - web: https://github.com/openbao/openbao/releases/tag/v2.5.3
+notes:
+    - fix: 'github.com/openbao/openbao: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-6vgr-cp5c-ffx3
+    created: 2026-06-25T01:56:19.049921967-04:00
+review_status: UNREVIEWED

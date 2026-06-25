@@ -1,0 +1,23 @@
+id: GO-2026-5228
+modules:
+    - module: github.com/juju/juju
+      versions:
+        - fixed: 0.0.0-20260408003526-d395054dc2c3
+summary: |-
+    Juju: In-Memory Token Store for Discharge Tokens Lacks Concurrency Safety and
+    Persistence in github.com/juju/juju
+cves:
+    - CVE-2026-5774
+ghsas:
+    - GHSA-7m55-2hr4-pw78
+references:
+    - advisory: https://github.com/juju/juju/security/advisories/GHSA-7m55-2hr4-pw78
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-5774
+    - fix: https://github.com/juju/juju/pull/22205
+    - fix: https://github.com/juju/juju/pull/22206
+notes:
+    - fix: 'github.com/juju/juju: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-7m55-2hr4-pw78
+    created: 2026-06-25T02:02:18.76031461-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,23 @@
+id: GO-2026-5214
+modules:
+    - module: github.com/inspektor-gadget/inspektor-gadget
+      versions:
+        - introduced: 0.28.0
+        - fixed: 0.53.1
+      vulnerable_at: 0.53.0
+summary: |-
+    Inspektor Gadget: Unprivileged container can crash USDT note parser via crafted
+    ELF (no shipped gadget affected) in github.com/inspektor-gadget/inspektor-gadget
+cves:
+    - CVE-2026-44778
+ghsas:
+    - GHSA-7cfq-5mhv-jrp9
+references:
+    - advisory: https://github.com/inspektor-gadget/inspektor-gadget/security/advisories/GHSA-7cfq-5mhv-jrp9
+    - fix: https://github.com/inspektor-gadget/inspektor-gadget/commit/ec69da2e00c39bc43f389f943899e5ff9c7b011a
+    - fix: https://github.com/inspektor-gadget/inspektor-gadget/pull/5547
+    - web: https://github.com/inspektor-gadget/inspektor-gadget/releases/tag/v0.53.1
+source:
+    id: GHSA-7cfq-5mhv-jrp9
+    created: 2026-06-25T01:59:16.471623064-04:00
+review_status: UNREVIEWED
