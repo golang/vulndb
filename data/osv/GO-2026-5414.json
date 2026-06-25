@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5414",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-34828",
+    "GHSA-h5j9-cvrw-v5qh"
+  ],
+  "summary": "listmonk's active sessions remain valid after password reset and password change in github.com/knadh/listmonk",
+  "details": "listmonk's active sessions remain valid after password reset and password change in github.com/knadh/listmonk",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/knadh/listmonk",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.1.1-0.20241028090858-319053dd7a90"
+            },
+            {
+              "fixed": "1.1.1-0.20260329113754-1b5e8d38c778"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/knadh/listmonk/security/advisories/GHSA-h5j9-cvrw-v5qh"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34828"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/knadh/listmonk/commit/db82035d619348949512dafdaf60c86037cafc9e"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/knadh/listmonk/releases/tag/v6.1.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5414",
+    "review_status": "UNREVIEWED"
+  }
+}

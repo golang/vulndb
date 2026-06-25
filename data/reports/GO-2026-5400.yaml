@@ -1,0 +1,28 @@
+id: GO-2026-5400
+modules:
+    - module: github.com/cilium/cilium
+      versions:
+        - fixed: 1.17.15
+        - introduced: 1.18.0
+        - fixed: 1.18.9
+        - introduced: 1.19.0
+        - fixed: 1.19.3
+      vulnerable_at: 1.19.2
+summary: |-
+    Cillium exposes sensitive information included in the cilium-bugtool debug
+    archive in github.com/cilium/cilium
+cves:
+    - CVE-2026-41520
+ghsas:
+    - GHSA-gj49-89wh-h4gj
+references:
+    - advisory: https://github.com/cilium/cilium/security/advisories/GHSA-gj49-89wh-h4gj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-41520
+    - web: http://docs.cilium.io/en/stable/security/network/encryption-wireguard
+    - web: https://github.com/cilium/cilium/releases/tag/v1.17.15
+    - web: https://github.com/cilium/cilium/releases/tag/v1.18.9
+    - web: https://github.com/cilium/cilium/releases/tag/v1.19.3
+source:
+    id: GHSA-gj49-89wh-h4gj
+    created: 2026-06-25T15:37:51.268433994-04:00
+review_status: UNREVIEWED

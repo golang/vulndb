@@ -1,0 +1,21 @@
+id: GO-2026-5417
+modules:
+    - module: github.com/coredns/coredns
+      versions:
+        - fixed: 1.14.3
+      vulnerable_at: 1.14.2
+summary: |-
+    CoreDNS' transfer stanza selection uses lexicographic compare (subzone ACL
+    bypass) in github.com/coredns/coredns
+cves:
+    - CVE-2026-33489
+ghsas:
+    - GHSA-h8mm-c463-wjq3
+references:
+    - advisory: https://github.com/coredns/coredns/security/advisories/GHSA-h8mm-c463-wjq3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-33489
+    - web: https://github.com/coredns/coredns/releases/tag/v1.14.3
+source:
+    id: GHSA-h8mm-c463-wjq3
+    created: 2026-06-25T15:40:55.366129719-04:00
+review_status: UNREVIEWED

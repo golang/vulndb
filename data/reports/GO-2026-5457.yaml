@@ -1,0 +1,22 @@
+id: GO-2026-5457
+modules:
+    - module: github.com/basekick-labs/arc
+      versions:
+        - fixed: 0.0.0-20260520170331-32a4091fb949
+summary: |-
+    Arc: Unauthenticated access to Go debug pprof endpoints leaks runtime state and
+    enables CPU-burn DoS in github.com/basekick-labs/arc
+cves:
+    - CVE-2026-48050
+ghsas:
+    - GHSA-j93g-rp6m-j32m
+references:
+    - advisory: https://github.com/Basekick-Labs/arc/security/advisories/GHSA-j93g-rp6m-j32m
+    - web: https://github.com/Basekick-Labs/arc/commit/32a4091fb949f9cf060cdd804a07f6450dc426a8
+    - web: https://github.com/Basekick-Labs/arc/releases/tag/v26.06.1
+notes:
+    - fix: 'github.com/basekick-labs/arc: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-j93g-rp6m-j32m
+    created: 2026-06-25T15:46:14.646061548-04:00
+review_status: UNREVIEWED

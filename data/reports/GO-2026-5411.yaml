@@ -1,0 +1,25 @@
+id: GO-2026-5411
+modules:
+    - module: github.com/filebrowser/filebrowser
+      unsupported_versions:
+        - last_affected: 1.11.0
+      vulnerable_at: 1.11.0
+    - module: github.com/filebrowser/filebrowser/v2
+      versions:
+        - fixed: 2.63.6
+      vulnerable_at: 2.63.5
+summary: |-
+    File Browser: FilePath traversal in download-as-zip/tar via Windows-style
+    backslash separators in stored filenames in github.com/filebrowser/filebrowser
+cves:
+    - CVE-2026-54093
+ghsas:
+    - GHSA-gxjx-7m74-hcq8
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-gxjx-7m74-hcq8
+    - fix: https://github.com/filebrowser/filebrowser/commit/847d08bdd135e5c3659f2e6dea2f0cd36617af9b
+    - web: https://github.com/filebrowser/filebrowser/releases/tag/v2.63.6
+source:
+    id: GHSA-gxjx-7m74-hcq8
+    created: 2026-06-25T15:40:09.100232342-04:00
+review_status: UNREVIEWED

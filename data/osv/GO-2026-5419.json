@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5419",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-40109",
+    "GHSA-h9cx-xjg6-5v2w"
+  ],
+  "summary": "Flux notification-controller GCR Receiver missing email validation allows unauthorized reconciliation triggering in github.com/fluxcd/notification-controller",
+  "details": "Flux notification-controller GCR Receiver missing email validation allows unauthorized reconciliation triggering in github.com/fluxcd/notification-controller",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/fluxcd/notification-controller",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.8.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/fluxcd/notification-controller/security/advisories/GHSA-h9cx-xjg6-5v2w"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40109"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/fluxcd/notification-controller/pull/1279"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/fluxcd/notification-controller/releases/tag/v1.8.3"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5419",
+    "review_status": "UNREVIEWED"
+  }
+}

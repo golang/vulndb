@@ -1,0 +1,23 @@
+id: GO-2026-5447
+modules:
+    - module: github.com/free5gc/nef
+      versions:
+        - fixed: 1.2.3
+      vulnerable_at: 1.2.2
+summary: |-
+    free5GC's NEF 3gpp-pfd-management PATCH applications/{appId} panics on UDR
+    access failure due to nil ProblemDetails dereference in github.com/free5gc/nef
+cves:
+    - CVE-2026-44322
+ghsas:
+    - GHSA-j59f-x285-69jx
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-j59f-x285-69jx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44322
+    - fix: https://github.com/free5gc/nef/commit/72a47f3fab4dffbd227f8d92c5f69dca93b610cb
+    - fix: https://github.com/free5gc/nef/pull/22
+    - web: https://github.com/free5gc/free5gc/issues/925
+source:
+    id: GHSA-j59f-x285-69jx
+    created: 2026-06-25T15:46:17.429260313-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,28 @@
+id: GO-2026-5473
+modules:
+    - module: github.com/projectdiscovery/nuclei
+      vulnerable_at: 1.1.7
+    - module: github.com/projectdiscovery/nuclei/v2
+      vulnerable_at: 2.9.15
+    - module: github.com/projectdiscovery/nuclei/v3
+      versions:
+        - introduced: 3.0.0
+        - fixed: 3.8.0
+      vulnerable_at: 3.7.1
+summary: 'Nuclei: Environment variable disclosure via Response-Derived DSL Expressions in github.com/projectdiscovery/nuclei'
+cves:
+    - CVE-2026-41645
+ghsas:
+    - GHSA-jm34-66cf-qpvr
+references:
+    - advisory: https://github.com/projectdiscovery/nuclei/security/advisories/GHSA-jm34-66cf-qpvr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-41645
+    - fix: https://github.com/projectdiscovery/nuclei/commit/6c803c74d193f85f8a6d9803ce493fd302cad0eb
+    - fix: https://github.com/projectdiscovery/nuclei/commit/d2217320162d5782ca7cb95bef9dda17063818f3
+    - fix: https://github.com/projectdiscovery/nuclei/pull/7221
+    - fix: https://github.com/projectdiscovery/nuclei/pull/7321
+    - web: https://github.com/projectdiscovery/nuclei/releases/tag/v3.8.0
+source:
+    id: GHSA-jm34-66cf-qpvr
+    created: 2026-06-25T15:46:21.952352261-04:00
+review_status: UNREVIEWED

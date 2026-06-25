@@ -1,0 +1,25 @@
+id: GO-2026-5508
+modules:
+    - module: github.com/getaxonflow/axonflow-sdk-go
+      vulnerable_at: 1.17.0
+    - module: github.com/getaxonflow/axonflow-sdk-go/v2
+      vulnerable_at: 2.7.1
+    - module: github.com/getaxonflow/axonflow-sdk-go/v3
+      vulnerable_at: 3.8.0
+    - module: github.com/getaxonflow/axonflow-sdk-go/v4
+      vulnerable_at: 4.3.0
+    - module: github.com/getaxonflow/axonflow-sdk-go/v5
+      versions:
+        - fixed: 5.7.0
+      vulnerable_at: 5.6.1
+summary: |-
+    axonflow-sdk-go: Webhook signing-key (HMAC-SHA256) not exposed by SDK type,
+    preventing signature verification in github.com/getaxonflow/axonflow-sdk-go
+ghsas:
+    - GHSA-mhc4-qq83-fmrr
+references:
+    - advisory: https://github.com/getaxonflow/axonflow-sdk-go/security/advisories/GHSA-mhc4-qq83-fmrr
+source:
+    id: GHSA-mhc4-qq83-fmrr
+    created: 2026-06-25T15:46:17.057675914-04:00
+review_status: UNREVIEWED

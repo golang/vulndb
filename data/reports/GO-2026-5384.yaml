@@ -1,0 +1,21 @@
+id: GO-2026-5384
+modules:
+    - module: github.com/lxc/incus
+      vulnerable_at: 0.7.0
+    - module: github.com/lxc/incus/v6
+      unsupported_versions:
+        - last_affected: 6.23.0
+      vulnerable_at: 6.23.0
+summary: Incus has Nil-Pointer Dereference via S3 Bucket Import in github.com/lxc/incus
+cves:
+    - CVE-2026-41647
+ghsas:
+    - GHSA-fwj8-62r8-8p8m
+references:
+    - advisory: https://github.com/lxc/incus/security/advisories/GHSA-fwj8-62r8-8p8m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-41647
+    - web: https://github.com/lxc/incus/releases/tag/v7.0.0
+source:
+    id: GHSA-fwj8-62r8-8p8m
+    created: 2026-06-25T15:37:02.152429745-04:00
+review_status: UNREVIEWED

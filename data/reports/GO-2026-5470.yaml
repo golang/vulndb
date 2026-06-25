@@ -1,0 +1,20 @@
+id: GO-2026-5470
+modules:
+    - module: github.com/free5gc/udr
+      unsupported_versions:
+        - last_affected: 1.4.2
+      vulnerable_at: 1.4.3
+summary: |-
+    free5gc UDR improper path validation allows unauthenticated creation and
+    modification of Traffic Influence Subscriptions in github.com/free5gc/udr
+cves:
+    - CVE-2026-40248
+ghsas:
+    - GHSA-jgq2-qv8v-5cmj
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-jgq2-qv8v-5cmj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40248
+source:
+    id: GHSA-jgq2-qv8v-5cmj
+    created: 2026-06-25T15:46:19.191316936-04:00
+review_status: UNREVIEWED

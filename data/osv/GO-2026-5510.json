@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5510",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-26231",
+    "GHSA-mm7c-rhg6-qr4r"
+  ],
+  "summary": "Gitea: Authorization Bypass via \"Allow edits from maintainers\" allows unauthorized commits to any readable repo in code.gitea.io/gitea",
+  "details": "Gitea: Authorization Bypass via \"Allow edits from maintainers\" allows unauthorized commits to any readable repo in code.gitea.io/gitea",
+  "affected": [
+    {
+      "package": {
+        "name": "code.gitea.io/gitea",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.26.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/go-gitea/gitea/security/advisories/GHSA-mm7c-rhg6-qr4r"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5510",
+    "review_status": "UNREVIEWED"
+  }
+}

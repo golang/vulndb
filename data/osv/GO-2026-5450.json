@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5450",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-6383",
+    "GHSA-j6cv-3w8p-vrg8"
+  ],
+  "summary": "KubeVirt's authorization mechanism improperly truncates subresource names in kubevirt.io/kubevirt",
+  "details": "KubeVirt's authorization mechanism improperly truncates subresource names in kubevirt.io/kubevirt",
+  "affected": [
+    {
+      "package": {
+        "name": "kubevirt.io/kubevirt",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-j6cv-3w8p-vrg8"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-6383"
+    },
+    {
+      "type": "WEB",
+      "url": "https://access.redhat.com/security/cve/CVE-2026-6383"
+    },
+    {
+      "type": "WEB",
+      "url": "https://bugzilla.redhat.com/show_bug.cgi?id=2458741"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubevirt/kubevirt/issues/17337"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5450",
+    "review_status": "UNREVIEWED"
+  }
+}

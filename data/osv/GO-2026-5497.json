@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5497",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-42576",
+    "GHSA-m7hm-vm4x-28jf"
+  ],
+  "summary": "apko `DiscoverKeys` has a panic on non-rsa jwks key that causes crash during key discovery in chainguard.dev/apko",
+  "details": "apko `DiscoverKeys` has a panic on non-rsa jwks key that causes crash during key discovery in chainguard.dev/apko",
+  "affected": [
+    {
+      "package": {
+        "name": "chainguard.dev/apko",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.2.7"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/chainguard-dev/apko/security/advisories/GHSA-m7hm-vm4x-28jf"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42576"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/chainguard-dev/apko/commit/6604826b19e36e9bc6e196592800fad93738f4a1"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/chainguard-dev/apko/releases/tag/v1.2.7"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5497",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,22 @@
+id: GO-2026-5422
+modules:
+    - module: chainguard.dev/apko
+      versions:
+        - fixed: 1.2.7
+      vulnerable_at: 1.2.6
+summary: |-
+    apko doesn't verify downloaded apk packages against APKINDEX checksum (package
+    substitution possible) in chainguard.dev/apko
+cves:
+    - CVE-2026-42575
+ghsas:
+    - GHSA-hcwr-pq9g-rq3m
+references:
+    - advisory: https://github.com/chainguard-dev/apko/security/advisories/GHSA-hcwr-pq9g-rq3m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42575
+    - web: https://github.com/chainguard-dev/apko/commit/a118c3d604107532b5525bd4bee2fb369a6228aa
+    - web: https://github.com/chainguard-dev/apko/releases/tag/v1.2.7
+source:
+    id: GHSA-hcwr-pq9g-rq3m
+    created: 2026-06-25T15:41:33.60740092-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5473",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-41645",
+    "GHSA-jm34-66cf-qpvr"
+  ],
+  "summary": "Nuclei: Environment variable disclosure via Response-Derived DSL Expressions in github.com/projectdiscovery/nuclei",
+  "details": "Nuclei: Environment variable disclosure via Response-Derived DSL Expressions in github.com/projectdiscovery/nuclei",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/projectdiscovery/nuclei",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/projectdiscovery/nuclei/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/projectdiscovery/nuclei/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "3.0.0"
+            },
+            {
+              "fixed": "3.8.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/projectdiscovery/nuclei/security/advisories/GHSA-jm34-66cf-qpvr"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-41645"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/projectdiscovery/nuclei/commit/6c803c74d193f85f8a6d9803ce493fd302cad0eb"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/projectdiscovery/nuclei/commit/d2217320162d5782ca7cb95bef9dda17063818f3"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/projectdiscovery/nuclei/pull/7221"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/projectdiscovery/nuclei/pull/7321"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/projectdiscovery/nuclei/releases/tag/v3.8.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5473",
+    "review_status": "UNREVIEWED"
+  }
+}

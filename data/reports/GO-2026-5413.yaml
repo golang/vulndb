@@ -1,0 +1,17 @@
+id: GO-2026-5413
+modules:
+    - module: github.com/Luzifer/ots
+      versions:
+        - fixed: 1.21.5
+      vulnerable_at: 1.21.4
+summary: ots has a negative expire override that can bypass its secret retention policy in github.com/Luzifer/ots
+ghsas:
+    - GHSA-h5fq-653g-gxrm
+references:
+    - advisory: https://github.com/Luzifer/ots/security/advisories/GHSA-h5fq-653g-gxrm
+    - fix: https://github.com/Luzifer/ots/commit/3511bd18a2bec75bd9c6b4d513f2a90ccf4209b7
+    - web: https://github.com/Luzifer/ots/releases/tag/v1.21.5
+source:
+    id: GHSA-h5fq-653g-gxrm
+    created: 2026-06-25T15:40:25.729653695-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,19 @@
+id: GO-2026-5500
+modules:
+    - module: miniflux.app
+      vulnerable_at: 1.0.46
+    - module: miniflux.app/v2
+      versions:
+        - fixed: 2.3.1
+      vulnerable_at: 2.3.0
+summary: Open Redirect Bypass in miniflux-v2 in miniflux.app
+cves:
+    - CVE-2026-55185
+ghsas:
+    - GHSA-m999-j542-5w3r
+references:
+    - advisory: https://github.com/miniflux/v2/security/advisories/GHSA-m999-j542-5w3r
+source:
+    id: GHSA-m999-j542-5w3r
+    created: 2026-06-25T15:46:21.81396801-04:00
+review_status: UNREVIEWED

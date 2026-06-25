@@ -1,0 +1,31 @@
+id: GO-2026-5418
+modules:
+    - module: github.com/argoproj/argo-cd
+      unsupported_versions:
+        - last_affected: 1.8.7
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      unsupported_versions:
+        - last_affected: 2.14.21
+      vulnerable_at: 2.14.21
+    - module: github.com/argoproj/argo-cd/v3
+      versions:
+        - fixed: 3.2.12
+        - introduced: 3.3.0-rc1
+        - fixed: 3.3.10
+        - introduced: 3.4.0-rc1
+        - fixed: 3.4.2
+      vulnerable_at: 3.4.1
+summary: |-
+    Argo CD: Stored XSS in application link annotations enables developer-to-admin
+    privilege escalation in github.com/argoproj/argo-cd
+cves:
+    - CVE-2026-45738
+ghsas:
+    - GHSA-h98r-wv3h-fr38
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-h98r-wv3h-fr38
+source:
+    id: GHSA-h98r-wv3h-fr38
+    created: 2026-06-25T15:41:03.139001372-04:00
+review_status: UNREVIEWED

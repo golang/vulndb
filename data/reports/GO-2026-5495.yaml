@@ -1,0 +1,34 @@
+id: GO-2026-5495
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 11.3.0-rc1+incompatible
+        - fixed: 11.3.3+incompatible
+        - introduced: 11.4.0-rc1+incompatible
+        - fixed: 11.4.3+incompatible
+        - introduced: 11.5.0-rc1+incompatible
+        - fixed: 11.5.0+incompatible
+      vulnerable_at: 11.5.0-rc3+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - introduced: 8.0.0-20250721062209-4952acea88ce
+        - fixed: 8.0.0-20260220133927-c29cf05d40f8
+summary: Mattermost doesn't validate CSRF tokens on an authentication endpoint in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2026-28741
+ghsas:
+    - GHSA-m7cf-4gh2-v4qg
+references:
+    - advisory: https://github.com/advisories/GHSA-m7cf-4gh2-v4qg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-28741
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-m7cf-4gh2-v4qg
+    created: 2026-06-25T15:46:22.918394769-04:00
+review_status: UNREVIEWED

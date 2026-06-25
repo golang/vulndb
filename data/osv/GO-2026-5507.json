@@ -1,0 +1,124 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5507",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-3590",
+    "GHSA-mh4x-rmrx-3hp4"
+  ],
+  "summary": "Mattermost has session spoofing due to lack of single-use consumption of guest magic link tokens enforcement in github.com/mattermost/mattermost-server",
+  "details": "Mattermost has session spoofing due to lack of single-use consumption of guest magic link tokens enforcement in github.com/mattermost/mattermost-server",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "10.11.0-rc1+incompatible"
+            },
+            {
+              "fixed": "10.11.13+incompatible"
+            },
+            {
+              "introduced": "11.3.0-rc1+incompatible"
+            },
+            {
+              "fixed": "11.3.3+incompatible"
+            },
+            {
+              "introduced": "11.4.0-rc1+incompatible"
+            },
+            {
+              "fixed": "11.4.3+incompatible"
+            },
+            {
+              "introduced": "11.5.0-rc1+incompatible"
+            },
+            {
+              "fixed": "11.5.0+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v6",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost/server/v8",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "8.0.0-20250721062209-4952acea88ce"
+            },
+            {
+              "fixed": "8.0.0-20250723052842-4cb8d8940332"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-mh4x-rmrx-3hp4"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-3590"
+    },
+    {
+      "type": "WEB",
+      "url": "https://mattermost.com/security-updates"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5507",
+    "review_status": "UNREVIEWED"
+  }
+}

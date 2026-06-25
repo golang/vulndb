@@ -1,0 +1,21 @@
+id: GO-2026-5483
+modules:
+    - module: github.com/openfga/openfga
+      versions:
+        - introduced: 1.8.0
+        - fixed: 1.14.0
+      vulnerable_at: 1.13.1
+summary: |-
+    OpenFGA's BatchCheck within-request deduplication produces incorrect
+    authorization decisions via list-value cache-key collision in github.com/openfga/openfga
+cves:
+    - CVE-2026-34972
+ghsas:
+    - GHSA-jwvj-g8pc-cx45
+references:
+    - advisory: https://github.com/openfga/openfga/security/advisories/GHSA-jwvj-g8pc-cx45
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-34972
+source:
+    id: GHSA-jwvj-g8pc-cx45
+    created: 2026-06-25T15:46:23.024225035-04:00
+review_status: UNREVIEWED

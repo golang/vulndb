@@ -1,0 +1,35 @@
+id: GO-2026-5484
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.11.0+incompatible
+        - fixed: 10.11.14+incompatible
+        - introduced: 11.5.0+incompatible
+        - fixed: 11.5.2+incompatible
+      vulnerable_at: 11.5.2-rc3+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      non_go_versions:
+        - fixed: 5.3.2-0.20260310115442-5a1ea95044dc
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      non_go_versions:
+        - fixed: 8.0.0-20260310115442-5a1ea95044d
+      vulnerable_at: 8.0.0-20260625191221-429e03cddc01
+summary: |-
+    Mattermost doesn't escape some variables that could contain malicious content
+    during error page composition in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2026-3495
+ghsas:
+    - GHSA-jx93-pf6x-874r
+references:
+    - advisory: https://github.com/advisories/GHSA-jx93-pf6x-874r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-3495
+    - web: https://github.com/mattermost/mattermost/commit/5a1ea95044dc2d1ca601bfe9a4c1bc17990f3872
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-jx93-pf6x-874r
+    created: 2026-06-25T15:46:25.218468982-04:00
+review_status: UNREVIEWED

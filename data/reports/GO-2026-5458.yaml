@@ -1,0 +1,25 @@
+id: GO-2026-5458
+modules:
+    - module: github.com/filebrowser/filebrowser
+      unsupported_versions:
+        - last_affected: 1.11.0
+      vulnerable_at: 1.11.0
+    - module: github.com/filebrowser/filebrowser/v2
+      versions:
+        - fixed: 2.63.6
+      vulnerable_at: 2.63.5
+summary: |-
+    File Browser has incorrect access control for public directory shares via rule
+    path rebasing in github.com/filebrowser/filebrowser
+cves:
+    - CVE-2026-54091
+ghsas:
+    - GHSA-j9jx-hp4c-ghhh
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-j9jx-hp4c-ghhh
+    - fix: https://github.com/filebrowser/filebrowser/commit/e07c59df0b850f5924d5b1683e8609661ddcf534
+    - web: https://github.com/filebrowser/filebrowser/releases/tag/v2.63.6
+source:
+    id: GHSA-j9jx-hp4c-ghhh
+    created: 2026-06-25T15:46:15.875204506-04:00
+review_status: UNREVIEWED

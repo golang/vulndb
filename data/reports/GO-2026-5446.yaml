@@ -1,0 +1,20 @@
+id: GO-2026-5446
+modules:
+    - module: github.com/axllent/mailpit
+      versions:
+        - introduced: 1.28.3
+        - fixed: 1.30.0
+      vulnerable_at: 1.29.7
+summary: |-
+    Mailpit has an incomplete fix for GHSA-6jxm: HTML check still permits SSRF to
+    private/loopback/IMDS via missing IP-filter dialer in github.com/axllent/mailpit
+cves:
+    - CVE-2026-45709
+ghsas:
+    - GHSA-j3fj-qppj-fmmc
+references:
+    - advisory: https://github.com/axllent/mailpit/security/advisories/GHSA-j3fj-qppj-fmmc
+source:
+    id: GHSA-j3fj-qppj-fmmc
+    created: 2026-06-25T15:46:20.311533109-04:00
+review_status: UNREVIEWED

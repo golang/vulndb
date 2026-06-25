@@ -1,0 +1,31 @@
+id: GO-2026-5489
+modules:
+    - module: github.com/mattermost/mattermost-plugin-msteams-meetings
+      versions:
+        - fixed: 1.1.1-0.20260213105619-c5892dd169de
+      vulnerable_at: 1.1.0
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.11.0+incompatible
+        - fixed: 10.11.14+incompatible
+        - introduced: 11.4.0+incompatible
+        - fixed: 11.4.4+incompatible
+        - introduced: 11.5.0+incompatible
+        - fixed: 11.5.2+incompatible
+      vulnerable_at: 11.5.2-rc3+incompatible
+summary: |-
+    Mattermost doesn't limit the size of the request body on the start meeting API
+    endpoint in github.com/mattermost/mattermost-plugin-msteams-meetings
+cves:
+    - CVE-2026-2325
+ghsas:
+    - GHSA-m3p3-8frq-q7qh
+references:
+    - advisory: https://github.com/advisories/GHSA-m3p3-8frq-q7qh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-2325
+    - fix: https://github.com/mattermost/mattermost-plugin-msteams-meetings/commit/c5892dd169de865504afa2dd02eaeb6287489f7f
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-m3p3-8frq-q7qh
+    created: 2026-06-25T15:46:23.243754496-04:00
+review_status: UNREVIEWED

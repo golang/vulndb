@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5430",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-47203",
+    "GHSA-hjj4-hfjm-fmrj"
+  ],
+  "summary": "Authelia Missing Username Canonicalization in Basic Auth (LDAP) in github.com/authelia/authelia",
+  "details": "Authelia Missing Username Canonicalization in Basic Auth (LDAP) in github.com/authelia/authelia",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/authelia/authelia",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/authelia/authelia/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "4.38.0"
+            },
+            {
+              "fixed": "4.39.20"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/authelia/authelia/security/advisories/GHSA-hjj4-hfjm-fmrj"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/authelia/authelia/commit/b8985b57b70acdff8f204ed426ff619e763461ad"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5430",
+    "review_status": "UNREVIEWED"
+  }
+}

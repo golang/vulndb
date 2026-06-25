@@ -1,0 +1,24 @@
+id: GO-2026-5454
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 0.0.0-20250731163400-5b955468ea1e
+        - fixed: 0.0.0-20260414103857-b21ef302025e
+        - introduced: 11.4.0+incompatible
+        - fixed: 11.4.4+incompatible
+        - introduced: 11.5.0+incompatible
+        - fixed: 11.5.2+incompatible
+      vulnerable_at: 11.5.2-rc3+incompatible
+summary: Mattermost doesn't validate the response body of proxied images in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2026-4054
+ghsas:
+    - GHSA-j76w-p754-g2w7
+references:
+    - advisory: https://github.com/advisories/GHSA-j76w-p754-g2w7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-4054
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-j76w-p754-g2w7
+    created: 2026-06-25T15:46:17.5145373-04:00
+review_status: UNREVIEWED

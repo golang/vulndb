@@ -1,0 +1,23 @@
+id: GO-2026-5499
+modules:
+    - module: github.com/nuclio/nuclio
+      versions:
+        - fixed: 0.0.0-20260513101907-1915cd26d514
+summary: |-
+    Nuclio: Missing authorization on project write paths allows any authenticated
+    user to modify or delete any project in github.com/nuclio/nuclio
+cves:
+    - CVE-2026-45730
+ghsas:
+    - GHSA-m8xg-8xg9-mxhm
+references:
+    - advisory: https://github.com/nuclio/nuclio/security/advisories/GHSA-m8xg-8xg9-mxhm
+    - fix: https://github.com/nuclio/nuclio/commit/1915cd26d514dcdd487517d4be56673fc02298e0
+    - fix: https://github.com/nuclio/nuclio/pull/4107
+    - web: https://github.com/nuclio/nuclio/releases/tag/1.16.0
+notes:
+    - fix: 'github.com/nuclio/nuclio: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-m8xg-8xg9-mxhm
+    created: 2026-06-25T15:46:22.947352016-04:00
+review_status: UNREVIEWED

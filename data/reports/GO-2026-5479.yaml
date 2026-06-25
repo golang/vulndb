@@ -1,0 +1,23 @@
+id: GO-2026-5479
+modules:
+    - module: github.com/patrickhener/goshs
+      vulnerable_at: 1.1.4
+    - module: github.com/patrickhener/goshs/v2
+      versions:
+        - introduced: 2.0.0-beta.4
+        - fixed: 2.0.0-beta.6
+      vulnerable_at: 2.0.0-beta.5
+summary: |-
+    goshs has CSRF in state-changing GET routes enables authenticated file deletion
+    and directory creation in github.com/patrickhener/goshs
+cves:
+    - CVE-2026-40883
+ghsas:
+    - GHSA-jrq5-hg6x-j6g3
+references:
+    - advisory: https://github.com/patrickhener/goshs/security/advisories/GHSA-jrq5-hg6x-j6g3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40883
+source:
+    id: GHSA-jrq5-hg6x-j6g3
+    created: 2026-06-25T15:46:23.647981112-04:00
+review_status: UNREVIEWED

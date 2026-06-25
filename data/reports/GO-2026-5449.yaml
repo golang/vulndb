@@ -1,0 +1,21 @@
+id: GO-2026-5449
+modules:
+    - module: github.com/amir20/dozzle
+      unsupported_versions:
+        - last_affected: 10.5.1
+      vulnerable_at: 1.29.0
+summary: |-
+    Dozzle's Cross-Site WebSocket Hijacking (CSWSH) on exec/attach endpointsbypasses
+    authentication in github.com/amir20/dozzle
+cves:
+    - CVE-2026-44985
+ghsas:
+    - GHSA-j643-x8pv-8m67
+references:
+    - advisory: https://github.com/amir20/dozzle/security/advisories/GHSA-j643-x8pv-8m67
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44985
+    - web: https://github.com/amir20/dozzle/releases/tag/v10.5.2
+source:
+    id: GHSA-j643-x8pv-8m67
+    created: 2026-06-25T15:46:22.17603618-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,21 @@
+id: GO-2026-5467
+modules:
+    - module: github.com/authorizerdev/authorizer
+      versions:
+        - fixed: 0.0.0-20260327055742-73679faa53cd
+summary: |-
+    Authorizer: CQL/N1QL Injection in Cassandra and Couchbase Backends via
+    fmt.Sprintf String Interpolation in github.com/authorizerdev/authorizer
+ghsas:
+    - GHSA-jfwg-rxf3-p7r9
+references:
+    - advisory: https://github.com/authorizerdev/authorizer/security/advisories/GHSA-jfwg-rxf3-p7r9
+    - fix: https://github.com/authorizerdev/authorizer/commit/73679faa53cd215c7524d651046e402c43809786
+    - fix: https://github.com/authorizerdev/authorizer/pull/500
+    - web: https://github.com/authorizerdev/authorizer/releases/tag/2.0.1
+notes:
+    - fix: 'github.com/authorizerdev/authorizer: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-jfwg-rxf3-p7r9
+    created: 2026-06-25T15:46:16.31051408-04:00
+review_status: UNREVIEWED

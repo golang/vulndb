@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5455",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-24000",
+    "GHSA-j8h8-75h3-jg53"
+  ],
+  "summary": "Fleet has a rate limiting bypass via untrusted client IP headers in github.com/fleetdm/fleet",
+  "details": "Fleet has a rate limiting bypass via untrusted client IP headers in github.com/fleetdm/fleet",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/fleetdm/fleet/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.80.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/fleetdm/fleet/security/advisories/GHSA-j8h8-75h3-jg53"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-24000"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/fleetdm/fleet/releases/tag/fleet-v4.80.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5455",
+    "review_status": "UNREVIEWED"
+  }
+}

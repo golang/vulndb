@@ -1,0 +1,22 @@
+id: GO-2026-5497
+modules:
+    - module: chainguard.dev/apko
+      versions:
+        - fixed: 1.2.7
+      vulnerable_at: 1.2.6
+summary: |-
+    apko `DiscoverKeys` has a panic on non-rsa jwks key that causes crash during key
+    discovery in chainguard.dev/apko
+cves:
+    - CVE-2026-42576
+ghsas:
+    - GHSA-m7hm-vm4x-28jf
+references:
+    - advisory: https://github.com/chainguard-dev/apko/security/advisories/GHSA-m7hm-vm4x-28jf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42576
+    - web: https://github.com/chainguard-dev/apko/commit/6604826b19e36e9bc6e196592800fad93738f4a1
+    - web: https://github.com/chainguard-dev/apko/releases/tag/v1.2.7
+source:
+    id: GHSA-m7hm-vm4x-28jf
+    created: 2026-06-25T15:46:23.046127722-04:00
+review_status: UNREVIEWED

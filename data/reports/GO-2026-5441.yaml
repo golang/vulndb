@@ -1,0 +1,23 @@
+id: GO-2026-5441
+modules:
+    - module: github.com/opentofu/opentofu
+      versions:
+        - fixed: 1.11.6
+      vulnerable_at: 1.11.5
+summary: |-
+    OpenTofu has unbounded memory usage, high CPU usage, or deadlock in "tofu init"
+    with maliciously-crafted dependency responses in github.com/opentofu/opentofu
+ghsas:
+    - GHSA-hw5x-4r37-72w7
+references:
+    - advisory: https://github.com/opentofu/opentofu/security/advisories/GHSA-hw5x-4r37-72w7
+    - fix: https://github.com/opentofu/opentofu/pull/3966
+    - report: https://github.com/opentofu/opentofu/issues/4029
+    - report: https://github.com/opentofu/opentofu/issues/4030
+    - report: https://github.com/opentofu/opentofu/issues/4031
+    - report: https://github.com/opentofu/opentofu/issues/4032
+    - web: https://github.com/opentofu/opentofu/releases/tag/v1.11.6
+source:
+    id: GHSA-hw5x-4r37-72w7
+    created: 2026-06-25T15:46:20.430657053-04:00
+review_status: UNREVIEWED

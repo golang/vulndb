@@ -1,0 +1,21 @@
+id: GO-2026-5461
+modules:
+    - module: github.com/klever-io/klever-go
+      versions:
+        - fixed: 1.7.17
+      vulnerable_at: 1.7.16
+summary: |-
+    Klever-Go KVM read-only execution can commit contract delete and upgrade side
+    effects in github.com/klever-io/klever-go
+cves:
+    - CVE-2026-46403
+ghsas:
+    - GHSA-jc6w-wmfc-fh33
+references:
+    - advisory: https://github.com/klever-io/klever-go/security/advisories/GHSA-jc6w-wmfc-fh33
+    - fix: https://github.com/klever-io/klever-go/commit/333f6ec910906e227705fc5767dc897d8fbfc862
+    - fix: https://github.com/klever-io/klever-go/commit/68b94a40824fac2d848a4ded6eb7c91ada6ce9ef
+source:
+    id: GHSA-jc6w-wmfc-fh33
+    created: 2026-06-25T15:46:24.945470879-04:00
+review_status: UNREVIEWED

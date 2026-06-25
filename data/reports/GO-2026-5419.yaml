@@ -1,0 +1,22 @@
+id: GO-2026-5419
+modules:
+    - module: github.com/fluxcd/notification-controller
+      versions:
+        - fixed: 1.8.3
+      vulnerable_at: 1.8.2
+summary: |-
+    Flux notification-controller GCR Receiver missing email validation allows
+    unauthorized reconciliation triggering in github.com/fluxcd/notification-controller
+cves:
+    - CVE-2026-40109
+ghsas:
+    - GHSA-h9cx-xjg6-5v2w
+references:
+    - advisory: https://github.com/fluxcd/notification-controller/security/advisories/GHSA-h9cx-xjg6-5v2w
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40109
+    - fix: https://github.com/fluxcd/notification-controller/pull/1279
+    - web: https://github.com/fluxcd/notification-controller/releases/tag/v1.8.3
+source:
+    id: GHSA-h9cx-xjg6-5v2w
+    created: 2026-06-25T15:41:10.776760879-04:00
+review_status: UNREVIEWED

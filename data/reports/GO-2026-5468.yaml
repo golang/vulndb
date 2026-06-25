@@ -1,0 +1,20 @@
+id: GO-2026-5468
+modules:
+    - module: github.com/patrickhener/goshs
+      versions:
+        - fixed: 1.1.5-0.20260401172448-237f3af891a9
+      vulnerable_at: 1.1.4
+summary: |-
+    goshs: Improper Limitation of a Pathname to a Restricted Directory ('Path
+    Traversal') in goshs POST multipart upload in github.com/patrickhener/goshs
+cves:
+    - CVE-2026-35393
+ghsas:
+    - GHSA-jg56-wf8x-qrv5
+references:
+    - advisory: https://github.com/patrickhener/goshs/security/advisories/GHSA-jg56-wf8x-qrv5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-35393
+source:
+    id: GHSA-jg56-wf8x-qrv5
+    created: 2026-06-25T15:46:22.955398615-04:00
+review_status: UNREVIEWED

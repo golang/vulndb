@@ -1,0 +1,20 @@
+id: GO-2026-5465
+modules:
+    - module: github.com/authzed/spicedb
+      versions:
+        - introduced: 1.49.0
+        - fixed: 1.51.1
+      vulnerable_at: 1.51.0
+summary: SpiceDB's SPICEDB_DATASTORE_CONN_URI is leaked on startup logs in github.com/authzed/spicedb
+cves:
+    - CVE-2026-40091
+ghsas:
+    - GHSA-jf4f-rr2c-9m58
+references:
+    - advisory: https://github.com/authzed/spicedb/security/advisories/GHSA-jf4f-rr2c-9m58
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40091
+    - web: https://github.com/authzed/spicedb/releases/tag/v1.51.1
+source:
+    id: GHSA-jf4f-rr2c-9m58
+    created: 2026-06-25T15:46:22.318441732-04:00
+review_status: UNREVIEWED

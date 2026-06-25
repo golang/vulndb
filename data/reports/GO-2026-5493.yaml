@@ -1,0 +1,25 @@
+id: GO-2026-5493
+modules:
+    - module: github.com/tomwright/dasel
+      vulnerable_at: 1.27.3
+    - module: github.com/tomwright/dasel/v2
+      vulnerable_at: 2.8.1
+    - module: github.com/tomwright/dasel/v3
+      versions:
+        - introduced: 3.0.0
+        - fixed: 3.10.1
+      vulnerable_at: 3.10.0
+summary: |-
+    Dasel: Denial of service in dasel selector lexer due to infinite loop on
+    unterminated regex literal in github.com/tomwright/dasel
+cves:
+    - CVE-2026-46378
+ghsas:
+    - GHSA-m6xr-fvfg-5g64
+references:
+    - advisory: https://github.com/TomWright/dasel/security/advisories/GHSA-m6xr-fvfg-5g64
+    - web: https://github.com/TomWright/dasel/commit/95f8dd3af12958bf6ca2a737b3ec0267280f86ed
+source:
+    id: GHSA-m6xr-fvfg-5g64
+    created: 2026-06-25T15:46:23.508436861-04:00
+review_status: UNREVIEWED

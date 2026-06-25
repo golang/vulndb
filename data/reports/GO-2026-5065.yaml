@@ -1,0 +1,22 @@
+id: GO-2026-5065
+modules:
+    - module: gogs.io/gogs
+      non_go_versions:
+        - fixed: 0.14.3
+      vulnerable_at: 0.13.3
+summary: |-
+    Gogs's write-level collaborators can mutate admin-only repository settings via
+    API in gogs.io/gogs
+cves:
+    - CVE-2026-52808
+ghsas:
+    - GHSA-268j-37xf-pp52
+references:
+    - advisory: https://github.com/gogs/gogs/security/advisories/GHSA-268j-37xf-pp52
+    - web: https://github.com/gogs/gogs/commit/6283462119bd8894f1599d70339b5e823f99954a
+    - web: https://github.com/gogs/gogs/pull/8327
+    - web: https://github.com/gogs/gogs/releases/tag/v0.14.3
+source:
+    id: GHSA-268j-37xf-pp52
+    created: 2026-06-25T15:14:30.073462205-04:00
+review_status: UNREVIEWED

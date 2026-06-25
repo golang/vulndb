@@ -1,0 +1,21 @@
+id: GO-2026-5430
+modules:
+    - module: github.com/authelia/authelia
+      vulnerable_at: 3.16.2+incompatible
+    - module: github.com/authelia/authelia/v4
+      versions:
+        - introduced: 4.38.0
+        - fixed: 4.39.20
+      vulnerable_at: 4.39.19
+summary: Authelia Missing Username Canonicalization in Basic Auth (LDAP) in github.com/authelia/authelia
+cves:
+    - CVE-2026-47203
+ghsas:
+    - GHSA-hjj4-hfjm-fmrj
+references:
+    - advisory: https://github.com/authelia/authelia/security/advisories/GHSA-hjj4-hfjm-fmrj
+    - fix: https://github.com/authelia/authelia/commit/b8985b57b70acdff8f204ed426ff619e763461ad
+source:
+    id: GHSA-hjj4-hfjm-fmrj
+    created: 2026-06-25T15:43:10.987377076-04:00
+review_status: UNREVIEWED

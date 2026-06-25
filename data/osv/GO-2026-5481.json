@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5481",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-35585",
+    "GHSA-jvpw-637p-h3pw"
+  ],
+  "summary": "File Browser has a Command Injection via Hook Runner in github.com/filebrowser/filebrowser",
+  "details": "File Browser has a Command Injection via Hook Runner in github.com/filebrowser/filebrowser",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/filebrowser/filebrowser",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/filebrowser/filebrowser/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.33.8"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/filebrowser/filebrowser/security/advisories/GHSA-jvpw-637p-h3pw"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-35585"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/filebrowser/filebrowser/issues/5199"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5481",
+    "review_status": "UNREVIEWED"
+  }
+}

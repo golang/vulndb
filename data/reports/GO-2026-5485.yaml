@@ -1,0 +1,31 @@
+id: GO-2026-5485
+modules:
+    - module: github.com/kong/kubernetes-ingress-controller
+      unsupported_versions:
+        - last_affected: 1.3.4
+      vulnerable_at: 1.3.4
+    - module: github.com/kong/kubernetes-ingress-controller/v2
+      unsupported_versions:
+        - last_affected: 2.12.8
+      vulnerable_at: 2.12.8
+    - module: github.com/kong/kubernetes-ingress-controller/v3
+      versions:
+        - fixed: 3.4.14
+        - introduced: 3.5.0
+        - fixed: 3.5.7
+      vulnerable_at: 3.5.6
+summary: |-
+    Kong Ingress Controller for Kubernetes (KIC): Cross-namespace TLS Secret
+    Exfiltration in Gateways with GatewayClass missing
+    `konghq.com/gatewayclass-unmanaged: 'true'` annotation in github.com/kong/kubernetes-ingress-controller
+ghsas:
+    - GHSA-m23h-6mwm-39m8
+references:
+    - advisory: https://github.com/Kong/kubernetes-ingress-controller/security/advisories/GHSA-m23h-6mwm-39m8
+    - web: https://github.com/Kong/kubernetes-ingress-controller/pull/7920
+    - web: https://github.com/Kong/kubernetes-ingress-controller/pull/7921
+    - web: https://github.com/Kong/kubernetes-ingress-controller/pull/7922
+source:
+    id: GHSA-m23h-6mwm-39m8
+    created: 2026-06-25T15:46:17.790436672-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,20 @@
+id: GO-2026-5460
+modules:
+    - module: github.com/xyproto/algernon
+      versions:
+        - fixed: 1.17.8
+      vulnerable_at: 1.17.7
+summary: |-
+    Algernon: Host header path traversal in --domain mode reads files and runs Lua
+    from parent dir in github.com/xyproto/algernon
+cves:
+    - CVE-2026-48126
+ghsas:
+    - GHSA-jc3j-x6pg-4hmv
+references:
+    - advisory: https://github.com/xyproto/algernon/security/advisories/GHSA-jc3j-x6pg-4hmv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-48126
+source:
+    id: GHSA-jc3j-x6pg-4hmv
+    created: 2026-06-25T15:46:16.515463075-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,23 @@
+id: GO-2026-5478
+modules:
+    - module: github.com/free5gc/udr
+      versions:
+        - fixed: 1.4.3
+      vulnerable_at: 1.4.2
+summary: |-
+    free5GC's UDR nudr-dr DELETE amf-subscriptions panics on missing UE state via
+    nil interface type assertion (single authenticated request) in github.com/free5gc/udr
+cves:
+    - CVE-2026-44324
+ghsas:
+    - GHSA-jqfc-gwj5-3w63
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-jqfc-gwj5-3w63
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44324
+    - fix: https://github.com/free5gc/udr/commit/8a1d3c63be99d378806d771f086ff32f1867da99
+    - fix: https://github.com/free5gc/udr/pull/60
+    - web: https://github.com/free5gc/free5gc/issues/920
+source:
+    id: GHSA-jqfc-gwj5-3w63
+    created: 2026-06-25T15:46:22.240774912-04:00
+review_status: UNREVIEWED

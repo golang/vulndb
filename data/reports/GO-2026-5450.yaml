@@ -1,0 +1,21 @@
+id: GO-2026-5450
+modules:
+    - module: kubevirt.io/kubevirt
+      unsupported_versions:
+        - last_affected: 1.8.1
+      vulnerable_at: 1.8.4
+summary: KubeVirt's authorization mechanism improperly truncates subresource names in kubevirt.io/kubevirt
+cves:
+    - CVE-2026-6383
+ghsas:
+    - GHSA-j6cv-3w8p-vrg8
+references:
+    - advisory: https://github.com/advisories/GHSA-j6cv-3w8p-vrg8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-6383
+    - web: https://access.redhat.com/security/cve/CVE-2026-6383
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2458741
+    - web: https://github.com/kubevirt/kubevirt/issues/17337
+source:
+    id: GHSA-j6cv-3w8p-vrg8
+    created: 2026-06-25T15:46:19.817213083-04:00
+review_status: UNREVIEWED

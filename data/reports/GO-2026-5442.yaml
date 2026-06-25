@@ -1,0 +1,22 @@
+id: GO-2026-5442
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 0.0.0-20250731163400-5b955468ea1e
+        - fixed: 0.0.0-20260414103857-b21ef302025e
+        - introduced: 11.5.0+incompatible
+        - fixed: 11.5.2+incompatible
+      vulnerable_at: 11.5.2-rc3+incompatible
+summary: Mattermost doesn't enforce the PostEditTimeLimit on non-message post fields in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2026-4053
+ghsas:
+    - GHSA-hw87-6jcq-9f8q
+references:
+    - advisory: https://github.com/advisories/GHSA-hw87-6jcq-9f8q
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-4053
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-hw87-6jcq-9f8q
+    created: 2026-06-25T15:46:24.302297104-04:00
+review_status: UNREVIEWED

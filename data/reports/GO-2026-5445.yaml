@@ -1,0 +1,21 @@
+id: GO-2026-5445
+modules:
+    - module: github.com/hashicorp/nomad
+      versions:
+        - fixed: 1.11.0-rc.1.0.20260511152149-cd7240c4099a
+      vulnerable_at: 1.11.0-rc.1
+summary: HashiCorp Nomad vulnerable to a path traversal in github.com/hashicorp/nomad
+cves:
+    - CVE-2026-7474
+ghsas:
+    - GHSA-hx53-77qj-8663
+references:
+    - advisory: https://github.com/advisories/GHSA-hx53-77qj-8663
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-7474
+    - fix: https://github.com/hashicorp/nomad/commit/cd7240c4099ad33eda279924fb3a9459b162d120
+    - web: https://discuss.hashicorp.com/t/hcsec-2026-15-nomad-vulnerable-to-path-traversal-in-dynamic-host-volume-which-may-lead-to-code-execution/77417
+    - web: https://github.com/hashicorp/nomad/releases/tag/v2.0.1
+source:
+    id: GHSA-hx53-77qj-8663
+    created: 2026-06-25T15:46:16.440560304-04:00
+review_status: UNREVIEWED

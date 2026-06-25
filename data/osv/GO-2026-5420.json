@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5420",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-h9mw-h4qc-f5jf"
+  ],
+  "summary": "kubernetes-graphql-gateway: GraphQL Endpoint Vulnerable to Authenticated Denial-of-Service via Unrestricted Query Execution in github.com/platform-mesh/kubernetes-graphql-gateway",
+  "details": "kubernetes-graphql-gateway: GraphQL Endpoint Vulnerable to Authenticated Denial-of-Service via Unrestricted Query Execution in github.com/platform-mesh/kubernetes-graphql-gateway",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/platform-mesh/kubernetes-graphql-gateway",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.2.9"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/platform-mesh/kubernetes-graphql-gateway/security/advisories/GHSA-h9mw-h4qc-f5jf"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/platform-mesh/kubernetes-graphql-gateway/commit/61509656fbab2dbf158f634d6700478ee94221ab"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/platform-mesh/kubernetes-graphql-gateway/releases/tag/v1.2.9"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5420",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,29 @@
+id: GO-2026-5475
+modules:
+    - module: github.com/containerd/containerd
+      versions:
+        - introduced: 1.7.0
+        - fixed: 1.7.33
+      vulnerable_at: 1.7.32
+    - module: github.com/containerd/containerd/v2
+      versions:
+        - introduced: 2.0.0
+        - fixed: 2.0.10
+        - introduced: 2.1.0
+        - fixed: 2.1.9
+        - introduced: 2.2.0
+        - fixed: 2.2.5
+        - introduced: 2.3.0
+        - fixed: 2.3.2
+      vulnerable_at: 2.3.1
+summary: containerd image-triggered runtime DoS via unbounded group parsing in github.com/containerd/containerd
+cves:
+    - CVE-2026-47262
+ghsas:
+    - GHSA-jpcc-p29g-p8mq
+references:
+    - advisory: https://github.com/containerd/containerd/security/advisories/GHSA-jpcc-p29g-p8mq
+source:
+    id: GHSA-jpcc-p29g-p8mq
+    created: 2026-06-25T15:46:21.526411448-04:00
+review_status: UNREVIEWED

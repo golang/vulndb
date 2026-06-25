@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5485",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-m23h-6mwm-39m8"
+  ],
+  "summary": "Kong Ingress Controller for Kubernetes (KIC): Cross-namespace TLS Secret Exfiltration in Gateways with GatewayClass missing `konghq.com/gatewayclass-unmanaged: 'true'` annotation in github.com/kong/kubernetes-ingress-controller",
+  "details": "Kong Ingress Controller for Kubernetes (KIC): Cross-namespace TLS Secret Exfiltration in Gateways with GatewayClass missing `konghq.com/gatewayclass-unmanaged: 'true'` annotation in github.com/kong/kubernetes-ingress-controller",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/kong/kubernetes-ingress-controller",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/kong/kubernetes-ingress-controller/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/kong/kubernetes-ingress-controller/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.4.14"
+            },
+            {
+              "introduced": "3.5.0"
+            },
+            {
+              "fixed": "3.5.7"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/Kong/kubernetes-ingress-controller/security/advisories/GHSA-m23h-6mwm-39m8"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/Kong/kubernetes-ingress-controller/pull/7920"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/Kong/kubernetes-ingress-controller/pull/7921"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/Kong/kubernetes-ingress-controller/pull/7922"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5485",
+    "review_status": "UNREVIEWED"
+  }
+}

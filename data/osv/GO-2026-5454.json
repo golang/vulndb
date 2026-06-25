@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5454",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-4054",
+    "GHSA-j76w-p754-g2w7"
+  ],
+  "summary": "Mattermost doesn't validate the response body of proxied images in github.com/mattermost/mattermost-server",
+  "details": "Mattermost doesn't validate the response body of proxied images in github.com/mattermost/mattermost-server",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.0.0-20250731163400-5b955468ea1e"
+            },
+            {
+              "fixed": "0.0.0-20260414103857-b21ef302025e"
+            },
+            {
+              "introduced": "11.4.0+incompatible"
+            },
+            {
+              "fixed": "11.4.4+incompatible"
+            },
+            {
+              "introduced": "11.5.0+incompatible"
+            },
+            {
+              "fixed": "11.5.2+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-j76w-p754-g2w7"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-4054"
+    },
+    {
+      "type": "WEB",
+      "url": "https://mattermost.com/security-updates"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5454",
+    "review_status": "UNREVIEWED"
+  }
+}

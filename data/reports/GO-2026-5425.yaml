@@ -1,0 +1,22 @@
+id: GO-2026-5425
+modules:
+    - module: github.com/metal3-io/ironic-standalone-operator
+      versions:
+        - fixed: 0.7.3
+        - introduced: 0.8.0
+        - fixed: 0.8.2
+      vulnerable_at: 0.8.1
+summary: |-
+    Ironic Standalone Operator's controller modifies user-owned resources without
+    consent in github.com/metal3-io/ironic-standalone-operator
+ghsas:
+    - GHSA-hfc8-w5f4-3x6m
+references:
+    - advisory: https://github.com/metal3-io/ironic-standalone-operator/security/advisories/GHSA-hfc8-w5f4-3x6m
+    - fix: https://github.com/metal3-io/ironic-standalone-operator/pull/619
+    - fix: https://github.com/metal3-io/ironic-standalone-operator/pull/664
+    - fix: https://github.com/metal3-io/ironic-standalone-operator/pull/665
+source:
+    id: GHSA-hfc8-w5f4-3x6m
+    created: 2026-06-25T15:41:54.424570706-04:00
+review_status: UNREVIEWED

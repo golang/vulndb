@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5422",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-42575",
+    "GHSA-hcwr-pq9g-rq3m"
+  ],
+  "summary": "apko doesn't verify downloaded apk packages against APKINDEX checksum (package substitution possible) in chainguard.dev/apko",
+  "details": "apko doesn't verify downloaded apk packages against APKINDEX checksum (package substitution possible) in chainguard.dev/apko",
+  "affected": [
+    {
+      "package": {
+        "name": "chainguard.dev/apko",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.2.7"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/chainguard-dev/apko/security/advisories/GHSA-hcwr-pq9g-rq3m"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42575"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/chainguard-dev/apko/commit/a118c3d604107532b5525bd4bee2fb369a6228aa"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/chainguard-dev/apko/releases/tag/v1.2.7"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5422",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,21 @@
+id: GO-2026-5438
+modules:
+    - module: www.velocidex.com/golang/velociraptor
+      unsupported_versions:
+        - last_affected: 0.76.2
+      vulnerable_at: 0.77.1
+summary: |-
+    Velociraptor vulnerability in the query() plugin which allows access to all orgs
+    with the user's current ACL token in www.velocidex.com/golang/velociraptor
+cves:
+    - CVE-2026-6290
+ghsas:
+    - GHSA-hv5g-26jg-pc45
+references:
+    - advisory: https://github.com/advisories/GHSA-hv5g-26jg-pc45
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-6290
+    - web: https://docs.velociraptor.app/announcements/advisories/cve-2026-6290
+source:
+    id: GHSA-hv5g-26jg-pc45
+    created: 2026-06-25T15:45:36.070227272-04:00
+review_status: UNREVIEWED

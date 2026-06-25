@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5413",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-h5fq-653g-gxrm"
+  ],
+  "summary": "ots has a negative expire override that can bypass its secret retention policy in github.com/Luzifer/ots",
+  "details": "ots has a negative expire override that can bypass its secret retention policy in github.com/Luzifer/ots",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/Luzifer/ots",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.21.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/Luzifer/ots/security/advisories/GHSA-h5fq-653g-gxrm"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/Luzifer/ots/commit/3511bd18a2bec75bd9c6b4d513f2a90ccf4209b7"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/Luzifer/ots/releases/tag/v1.21.5"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5413",
+    "review_status": "UNREVIEWED"
+  }
+}

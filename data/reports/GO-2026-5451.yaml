@@ -1,0 +1,21 @@
+id: GO-2026-5451
+modules:
+    - module: github.com/juju/juju
+      versions:
+        - fixed: 0.0.0-20250623030540-c91a1f404695
+summary: 'Juju: Read All Controller Logs From Compromised Workload in github.com/juju/juju'
+cves:
+    - CVE-2025-68152
+ghsas:
+    - GHSA-j6f6-jp3p-53mw
+references:
+    - advisory: https://github.com/juju/juju/security/advisories/GHSA-j6f6-jp3p-53mw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-68152
+    - fix: https://github.com/juju/juju/commit/22cdcf6b54c2f371822e1c203d4f341be6c9589e
+    - fix: https://github.com/juju/juju/commit/c91a1f4046956874ba77c8b398aecee3d61a2dc3
+notes:
+    - fix: 'github.com/juju/juju: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-j6f6-jp3p-53mw
+    created: 2026-06-25T15:46:21.534786787-04:00
+review_status: UNREVIEWED

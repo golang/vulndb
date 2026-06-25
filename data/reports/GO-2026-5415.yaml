@@ -1,0 +1,23 @@
+id: GO-2026-5415
+modules:
+    - module: github.com/minio/minio
+      versions:
+        - introduced: 0.0.0-20180815103019-7c14cdb60e53
+      unsupported_versions:
+        - last_affected: 0.0.0-20251203081239-27742d469462
+      vulnerable_at: 0.0.0-20260212201848-7aac2a2c5b7c
+summary: MinIO affected a DoS via Unbounded Memory Allocation in S3 Select CSV Parsing in github.com/minio/minio
+cves:
+    - CVE-2026-39414
+ghsas:
+    - GHSA-h749-fxx7-pwpg
+references:
+    - advisory: https://github.com/minio/minio/security/advisories/GHSA-h749-fxx7-pwpg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-39414
+    - fix: https://github.com/minio/minio/commit/7c14cdb60e53dbfdad2be644dfb180cab19fffa7
+    - fix: https://github.com/minio/minio/pull/8200
+    - web: https://docs.min.io/enterprise/aistor-object-store/upgrade-aistor-server/community-edition
+source:
+    id: GHSA-h749-fxx7-pwpg
+    created: 2026-06-25T15:40:39.545237854-04:00
+review_status: UNREVIEWED

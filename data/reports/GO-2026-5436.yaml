@@ -1,0 +1,32 @@
+id: GO-2026-5436
+modules:
+    - module: github.com/julien040/anyquery/plugins/brave
+      versions:
+        - fixed: 0.0.0-20240826075852-c651df0b8767
+    - module: github.com/julien040/anyquery/plugins/chrome
+      versions:
+        - fixed: 0.0.0-20240826075852-c651df0b8767
+    - module: github.com/julien040/anyquery/plugins/edge
+      versions:
+        - fixed: 0.0.0-20240826075852-c651df0b8767
+    - module: github.com/julien040/anyquery/plugins/safari
+      versions:
+        - fixed: 0.0.0-20240826075852-c651df0b8767
+summary: |-
+    Anyquery: AppleScript/JXA Code Injection via Unescaped URL in macOS Chrome
+    Plugin in github.com/julien040/anyquery/plugins/brave
+cves:
+    - CVE-2026-47252
+ghsas:
+    - GHSA-hrj8-hjv8-mgwc
+references:
+    - advisory: https://github.com/julien040/anyquery/security/advisories/GHSA-hrj8-hjv8-mgwc
+notes:
+    - fix: 'github.com/julien040/anyquery/plugins/edge: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+    - fix: 'github.com/julien040/anyquery/plugins/safari: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+    - fix: 'github.com/julien040/anyquery/plugins/chrome: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+    - fix: 'github.com/julien040/anyquery/plugins/brave: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-hrj8-hjv8-mgwc
+    created: 2026-06-25T15:45:14.989796806-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5445",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-7474",
+    "GHSA-hx53-77qj-8663"
+  ],
+  "summary": "HashiCorp Nomad vulnerable to a path traversal in github.com/hashicorp/nomad",
+  "details": "HashiCorp Nomad vulnerable to a path traversal in github.com/hashicorp/nomad",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hashicorp/nomad",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.11.0-rc.1.0.20260511152149-cd7240c4099a"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-hx53-77qj-8663"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-7474"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hashicorp/nomad/commit/cd7240c4099ad33eda279924fb3a9459b162d120"
+    },
+    {
+      "type": "WEB",
+      "url": "https://discuss.hashicorp.com/t/hcsec-2026-15-nomad-vulnerable-to-path-traversal-in-dynamic-host-volume-which-may-lead-to-code-execution/77417"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/hashicorp/nomad/releases/tag/v2.0.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5445",
+    "review_status": "UNREVIEWED"
+  }
+}

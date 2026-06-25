@@ -1,0 +1,22 @@
+id: GO-2026-5505
+modules:
+    - module: github.com/portainer/portainer
+      non_go_versions:
+        - introduced: 2.33.0
+        - fixed: 2.33.8
+      vulnerable_at: 0.10.1
+summary: |-
+    Portainer's Kubernetes middleware continues after token validation failure,
+    bypassing endpoint authorization in github.com/portainer/portainer
+cves:
+    - CVE-2026-44882
+ghsas:
+    - GHSA-mgq6-4x29-88r3
+references:
+    - advisory: https://github.com/portainer/portainer/security/advisories/GHSA-mgq6-4x29-88r3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44882
+    - web: https://github.com/portainer/portainer/releases/tag/2.33.8
+source:
+    id: GHSA-mgq6-4x29-88r3
+    created: 2026-06-25T15:46:25.135002482-04:00
+review_status: UNREVIEWED

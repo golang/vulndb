@@ -1,0 +1,20 @@
+id: GO-2026-5472
+modules:
+    - module: github.com/fluxcd/source-controller
+      versions:
+        - introduced: 0.0.17
+        - fixed: 1.8.5
+      vulnerable_at: 1.8.4
+summary: 'Source controller: Improper path handling allows traversal in github.com/fluxcd/source-controller'
+cves:
+    - CVE-2026-47680
+ghsas:
+    - GHSA-jjrm-hr5f-673x
+references:
+    - advisory: https://github.com/fluxcd/source-controller/security/advisories/GHSA-jjrm-hr5f-673x
+    - fix: https://github.com/fluxcd/source-controller/commit/759bd6c451e7cc4327b38f42c8b671980165cb0e
+    - fix: https://github.com/fluxcd/source-controller/pull/2054
+source:
+    id: GHSA-jjrm-hr5f-673x
+    created: 2026-06-25T15:46:15.931590529-04:00
+review_status: UNREVIEWED

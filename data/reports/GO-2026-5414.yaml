@@ -1,0 +1,22 @@
+id: GO-2026-5414
+modules:
+    - module: github.com/knadh/listmonk
+      versions:
+        - introduced: 1.1.1-0.20241028090858-319053dd7a90
+        - fixed: 1.1.1-0.20260329113754-1b5e8d38c778
+summary: listmonk's active sessions remain valid after password reset and password change in github.com/knadh/listmonk
+cves:
+    - CVE-2026-34828
+ghsas:
+    - GHSA-h5j9-cvrw-v5qh
+references:
+    - advisory: https://github.com/knadh/listmonk/security/advisories/GHSA-h5j9-cvrw-v5qh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-34828
+    - fix: https://github.com/knadh/listmonk/commit/db82035d619348949512dafdaf60c86037cafc9e
+    - web: https://github.com/knadh/listmonk/releases/tag/v6.1.0
+notes:
+    - fix: 'github.com/knadh/listmonk: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-h5j9-cvrw-v5qh
+    created: 2026-06-25T15:40:31.377316895-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,20 @@
+id: GO-2026-5482
+modules:
+    - module: github.com/free5gc/udr
+      unsupported_versions:
+        - last_affected: 1.4.2
+      vulnerable_at: 1.4.3
+summary: |-
+    free5GC UDR: Fail-open handling in PolicyDataSubsToNotifyPost allows unintended
+    subscription creation in github.com/free5gc/udr
+cves:
+    - CVE-2026-40343
+ghsas:
+    - GHSA-jwch-w7wh-gqjm
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-jwch-w7wh-gqjm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-40343
+source:
+    id: GHSA-jwch-w7wh-gqjm
+    created: 2026-06-25T15:46:15.62793397-04:00
+review_status: UNREVIEWED

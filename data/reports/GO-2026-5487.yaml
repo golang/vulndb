@@ -1,0 +1,23 @@
+id: GO-2026-5487
+modules:
+    - module: github.com/hashicorp/vault
+      versions:
+        - introduced: 0.10.0
+      unsupported_versions:
+        - last_affected: 1.21.4
+      vulnerable_at: 1.21.4
+summary: |-
+    HashiCorp Vault has a KVv2 Metadata and Secret Deletion Policy Bypass that leads
+    to Denial-of-Service in github.com/hashicorp/vault
+cves:
+    - CVE-2026-3605
+ghsas:
+    - GHSA-m2w4-8ggf-rj47
+references:
+    - advisory: https://github.com/advisories/GHSA-m2w4-8ggf-rj47
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-3605
+    - web: https://discuss.hashicorp.com/t/hcsec-2026-05-vault-kvv2-metadata-and-secret-deletion-policy-bypass-denial-of-service/77342
+source:
+    id: GHSA-m2w4-8ggf-rj47
+    created: 2026-06-25T15:46:24.391974492-04:00
+review_status: UNREVIEWED

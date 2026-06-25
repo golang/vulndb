@@ -1,0 +1,21 @@
+id: GO-2026-5424
+modules:
+    - module: github.com/klever-io/klever-go
+      versions:
+        - introduced: 1.7.14
+        - fixed: 1.7.18
+      vulnerable_at: 1.7.17
+summary: |-
+    klever-go: Unbounded goroutine spawn on direct-message ingress enables
+    peer-driven DoS in github.com/klever-io/klever-go
+cves:
+    - CVE-2026-52879
+ghsas:
+    - GHSA-hf2g-6j7h-98wg
+references:
+    - advisory: https://github.com/klever-io/klever-go/security/advisories/GHSA-hf2g-6j7h-98wg
+    - web: https://github.com/klever-io/klever-go/releases/tag/v1.7.18
+source:
+    id: GHSA-hf2g-6j7h-98wg
+    created: 2026-06-25T15:41:48.272919139-04:00
+review_status: UNREVIEWED
