@@ -1,0 +1,24 @@
+id: GO-2026-5871
+modules:
+    - module: github.com/rancher/fleet
+      versions:
+        - introduced: 0.12.0
+        - fixed: 0.12.15
+        - introduced: 0.13.0
+        - fixed: 0.13.11
+        - introduced: 0.14.0
+        - fixed: 0.14.6
+        - introduced: 0.15.0
+        - fixed: 0.15.2
+      vulnerable_at: 0.15.2-rc.3
+summary: Fleet has PSS Bypass through addLabelsFromOptions in Fleet Agent in github.com/rancher/fleet
+cves:
+    - CVE-2026-44938
+ghsas:
+    - GHSA-864g-863m-vcvq
+references:
+    - advisory: https://github.com/rancher/fleet/security/advisories/GHSA-864g-863m-vcvq
+source:
+    id: GHSA-864g-863m-vcvq
+    created: 2026-07-06T17:43:01.459461198-04:00
+review_status: UNREVIEWED

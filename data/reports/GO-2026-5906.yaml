@@ -1,0 +1,26 @@
+id: GO-2026-5906
+modules:
+    - module: github.com/coder/coder
+      vulnerable_at: 0.27.3
+    - module: github.com/coder/coder/v2
+      versions:
+        - fixed: 2.29.17
+        - introduced: 2.30.0
+        - fixed: 2.32.7
+        - introduced: 2.33.0
+        - fixed: 2.33.8
+        - introduced: 2.34.0
+        - fixed: 2.34.2
+      vulnerable_at: 2.34.1
+summary: 'Coder: User-admin role can reset owner account password in github.com/coder/coder'
+cves:
+    - CVE-2026-55077
+ghsas:
+    - GHSA-29xf-69gq-m9jx
+references:
+    - advisory: https://github.com/coder/coder/security/advisories/GHSA-29xf-69gq-m9jx
+    - fix: https://github.com/coder/coder/pull/25709
+source:
+    id: GHSA-29xf-69gq-m9jx
+    created: 2026-07-06T17:39:52.182204132-04:00
+review_status: UNREVIEWED

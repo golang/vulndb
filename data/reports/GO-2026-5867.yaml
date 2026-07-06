@@ -1,0 +1,21 @@
+id: GO-2026-5867
+modules:
+    - module: github.com/sipeed/picoclaw
+      unsupported_versions:
+        - last_affected: 0.1.2
+      vulnerable_at: 0.3.1
+summary: picoclaw is vulnerable to OS command injection via the ExecTool component in github.com/sipeed/picoclaw
+cves:
+    - CVE-2026-36045
+ghsas:
+    - GHSA-cv2p-68f4-f4pw
+references:
+    - advisory: https://github.com/advisories/GHSA-cv2p-68f4-f4pw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-36045
+    - fix: https://github.com/sipeed/picoclaw/commit/01d694b9985a66c3d7119fc9f74ce8ed4f0f21b5
+    - web: https://gist.github.com/NucleiAv/41899be6266a9813840301577792ed68
+    - web: https://github.com/sipeed/picoclaw/releases/tag/v0.1.2
+source:
+    id: GHSA-cv2p-68f4-f4pw
+    created: 2026-07-06T17:43:24.399722036-04:00
+review_status: UNREVIEWED

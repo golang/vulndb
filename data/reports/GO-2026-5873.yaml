@@ -1,0 +1,26 @@
+id: GO-2026-5873
+modules:
+    - module: github.com/rancher/fleet
+      versions:
+        - introduced: 0.12.0
+        - fixed: 0.12.15
+        - introduced: 0.13.0
+        - fixed: 0.13.11
+        - introduced: 0.14.0
+        - fixed: 0.14.6
+        - introduced: 0.15.0
+        - fixed: 0.15.2
+      vulnerable_at: 0.15.2-rc.3
+summary: |-
+    Rancher Fleet has SSRF in Bundle Reader via Unvalidated Helm Repository URL in
+    fleet.yaml in github.com/rancher/fleet
+cves:
+    - CVE-2026-44936
+ghsas:
+    - GHSA-hx4v-cxpf-vh8m
+references:
+    - advisory: https://github.com/rancher/fleet/security/advisories/GHSA-hx4v-cxpf-vh8m
+source:
+    id: GHSA-hx4v-cxpf-vh8m
+    created: 2026-07-06T17:42:52.268636703-04:00
+review_status: UNREVIEWED

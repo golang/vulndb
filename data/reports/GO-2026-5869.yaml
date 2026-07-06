@@ -1,0 +1,30 @@
+id: GO-2026-5869
+modules:
+    - module: github.com/rancher/rancher
+      versions:
+        - fixed: 0.0.0-20260519172014-d0c047bbc6d2
+      non_go_versions:
+        - introduced: 2.13.0
+        - fixed: 2.13.6
+        - introduced: 2.14.0
+        - fixed: 2.14.2
+summary: |-
+    Rancher has over-inclusive team membership expansion in GitHub App
+    authentication provider in github.com/rancher/rancher
+cves:
+    - CVE-2026-41053
+ghsas:
+    - GHSA-4j6x-2764-m8gh
+references:
+    - advisory: https://github.com/rancher/rancher/security/advisories/GHSA-4j6x-2764-m8gh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-41053
+    - fix: https://github.com/rancher/rancher/commit/361d4d57cd09b87f3c53f88af42046ffaa7b57e4
+    - fix: https://github.com/rancher/rancher/commit/d0c047bbc6d202e953d7557b82cbb354367db6ae
+    - fix: https://github.com/rancher/rancher/pull/55093
+    - fix: https://github.com/rancher/rancher/pull/55147
+notes:
+    - fix: 'github.com/rancher/rancher: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-4j6x-2764-m8gh
+    created: 2026-07-06T17:43:13.003339345-04:00
+review_status: UNREVIEWED

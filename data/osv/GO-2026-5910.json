@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5910",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-54637",
+    "GHSA-chwm-m7g7-685g"
+  ],
+  "summary": "Dragonfly scheduler v1 and v2 gRPC unauthenticated SSRF via attacker-controlled PeerHost in DownloadTinyFile in d7y.io/dragonfly",
+  "details": "Dragonfly scheduler v1 and v2 gRPC unauthenticated SSRF via attacker-controlled PeerHost in DownloadTinyFile in d7y.io/dragonfly",
+  "affected": [
+    {
+      "package": {
+        "name": "d7y.io/dragonfly/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.4.4-rc.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/dragonflyoss/dragonfly/security/advisories/GHSA-chwm-m7g7-685g"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dragonflyoss/Dragonfly2/blob/main/scheduler/resource/standard/peer.go#L457-L459"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dragonflyoss/dragonfly/blob/0822e3aecc3369017d6b25c9441ff6f318129b31/internal/job/image.go#L211"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dragonflyoss/dragonfly/blob/0822e3aecc3369017d6b25c9441ff6f318129b31/pkg/net/http/http.go#L50-L80"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dragonflyoss/dragonfly/blob/0822e3aecc3369017d6b25c9441ff6f318129b31/pkg/rpc/scheduler/server/server.go#L71-L90"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dragonflyoss/dragonfly/blob/0822e3aecc3369017d6b25c9441ff6f318129b31/scheduler/resource/standard/peer.go#L435-L478"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dragonflyoss/dragonfly/blob/0822e3aecc3369017d6b25c9441ff6f318129b31/scheduler/scheduler.go#L235-L246"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dragonflyoss/dragonfly/blob/0822e3aecc3369017d6b25c9441ff6f318129b31/scheduler/service/service_v1.go#L1176-L1202"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dragonflyoss/dragonfly/blob/0822e3aecc3369017d6b25c9441ff6f318129b31/scheduler/service/service_v1.go#L816-L845"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dragonflyoss/dragonfly/security/advisories/GHSA-fhf9-m53m-863g"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5910",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,20 @@
+id: GO-2026-5889
+modules:
+    - module: github.com/projectcontour/contour
+      versions:
+        - introduced: 1.23.0
+        - fixed: 1.33.5
+      vulnerable_at: 1.33.4
+summary: |-
+    Contour has Improper JWT Verification for Non-SNI Requests on Virtual Hosts with
+    Fallback Certificate Enabled in github.com/projectcontour/contour
+cves:
+    - CVE-2026-50149
+ghsas:
+    - GHSA-g3xr-5w5j-w4q4
+references:
+    - advisory: https://github.com/projectcontour/contour/security/advisories/GHSA-g3xr-5w5j-w4q4
+source:
+    id: GHSA-g3xr-5w5j-w4q4
+    created: 2026-07-06T17:41:28.834195041-04:00
+review_status: UNREVIEWED

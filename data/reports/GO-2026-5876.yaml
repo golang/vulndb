@@ -1,0 +1,28 @@
+id: GO-2026-5876
+modules:
+    - module: github.com/rancher/rancher
+      versions:
+        - fixed: 0.0.0-20260513182521-2800aaac25b5
+      non_go_versions:
+        - introduced: 2.12.0
+        - fixed: 2.12.10
+        - introduced: 2.13.0
+        - fixed: 2.13.6
+        - introduced: 2.14.0
+        - fixed: 2.14.2
+summary: Rancher has Privilege Escalation from Project Owner to Host in github.com/rancher/rancher
+cves:
+    - CVE-2026-41052
+ghsas:
+    - GHSA-vx8h-4prv-g744
+references:
+    - advisory: https://github.com/rancher/rancher/security/advisories/GHSA-vx8h-4prv-g744
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-41052
+    - fix: https://github.com/rancher/rancher/commit/2800aaac25b5a2c448f800e1f46d
+    - fix: https://github.com/rancher/rancher/pull/55061
+notes:
+    - fix: 'github.com/rancher/rancher: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-vx8h-4prv-g744
+    created: 2026-07-06T17:42:34.474832019-04:00
+review_status: UNREVIEWED

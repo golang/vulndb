@@ -1,0 +1,22 @@
+id: GO-2026-5902
+modules:
+    - module: github.com/drakkan/sftpgo
+      vulnerable_at: 1.2.2
+    - module: github.com/drakkan/sftpgo/v2
+      versions:
+        - introduced: 2.2.0
+        - fixed: 2.7.3
+      vulnerable_at: 2.7.2
+summary: |-
+    SFTPGo has path confinement bypass in public browsable share partial ZIP
+    download in github.com/drakkan/sftpgo
+cves:
+    - CVE-2026-49244
+ghsas:
+    - GHSA-h64p-8h4r-6gfh
+references:
+    - advisory: https://github.com/drakkan/sftpgo/security/advisories/GHSA-h64p-8h4r-6gfh
+source:
+    id: GHSA-h64p-8h4r-6gfh
+    created: 2026-07-06T17:40:09.205135588-04:00
+review_status: UNREVIEWED

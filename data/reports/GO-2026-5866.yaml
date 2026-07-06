@@ -1,0 +1,19 @@
+id: GO-2026-5866
+modules:
+    - module: github.com/concourse/concourse
+      versions:
+        - fixed: 1.6.1-0.20260526150512-ac60be5f0435
+      vulnerable_at: 1.6.0
+summary: Concourse login flow has an open redirect issue in github.com/concourse/concourse
+cves:
+    - CVE-2026-49826
+ghsas:
+    - GHSA-8w27-c4vc-88q9
+references:
+    - advisory: https://github.com/concourse/concourse/security/advisories/GHSA-8w27-c4vc-88q9
+    - fix: https://github.com/concourse/concourse/commit/ac60be5f0435b6592f5a4fcc089050d72ad2452c
+    - web: https://github.com/concourse/concourse/releases/tag/v8.2.3
+source:
+    id: GHSA-8w27-c4vc-88q9
+    created: 2026-07-06T17:43:30.26771005-04:00
+review_status: UNREVIEWED

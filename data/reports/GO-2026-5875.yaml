@@ -1,0 +1,31 @@
+id: GO-2026-5875
+modules:
+    - module: github.com/rancher/rancher
+      versions:
+        - fixed: 0.0.0-20260617231817-2aa77eb283e7
+      non_go_versions:
+        - introduced: 2.10.0
+        - fixed: 2.10.12
+        - introduced: 2.11.0
+        - fixed: 2.11.14
+        - introduced: 2.12.0
+        - fixed: 2.12.10
+        - introduced: 2.13.0
+        - fixed: 2.13.6
+        - introduced: 2.14.0
+        - fixed: 2.14.2
+summary: Rancher vulnerable to command injection through unsanitized YAML parameter in github.com/rancher/rancher
+cves:
+    - CVE-2026-44939
+ghsas:
+    - GHSA-mhc6-2gfq-xx62
+references:
+    - advisory: https://github.com/rancher/rancher/security/advisories/GHSA-mhc6-2gfq-xx62
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44939
+    - fix: https://github.com/rancher/rancher/commit/2aa77eb283e7451d605fb85e1bd9b1791cd73875
+notes:
+    - fix: 'github.com/rancher/rancher: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-mhc6-2gfq-xx62
+    created: 2026-07-06T17:42:40.499804145-04:00
+review_status: UNREVIEWED

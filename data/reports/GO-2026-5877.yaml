@@ -1,0 +1,26 @@
+id: GO-2026-5877
+modules:
+    - module: github.com/rancher/fleet
+      versions:
+        - introduced: 0.12.0
+        - fixed: 0.12.15
+        - introduced: 0.13.0
+        - fixed: 0.13.11
+        - introduced: 0.14.0
+        - fixed: 0.14.6
+        - introduced: 0.15.0
+        - fixed: 0.15.2
+      vulnerable_at: 0.15.2-rc.3
+summary: |-
+    Rancher Fleet vulnerable to cross namespace secret disclosure via unvalidated
+    `valuesFrom` references in Helm Deployer in github.com/rancher/fleet
+cves:
+    - CVE-2026-44935
+ghsas:
+    - GHSA-xr65-5cpm-g36x
+references:
+    - advisory: https://github.com/rancher/fleet/security/advisories/GHSA-xr65-5cpm-g36x
+source:
+    id: GHSA-xr65-5cpm-g36x
+    created: 2026-07-06T17:42:29.792009846-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5905",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-49445",
+    "GHSA-3fcv-jvfp-m4q9"
+  ],
+  "summary": "Cilium vulnerable to sensitive information disclosure and cluster disruption via local Envoy admin socket access in github.com/cilium/cilium",
+  "details": "Cilium vulnerable to sensitive information disclosure and cluster disruption via local Envoy admin socket access in github.com/cilium/cilium",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cilium/cilium",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.17.14"
+            },
+            {
+              "introduced": "1.18.0"
+            },
+            {
+              "fixed": "1.18.8"
+            },
+            {
+              "introduced": "1.19.0"
+            },
+            {
+              "fixed": "1.19.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cilium/cilium/security/advisories/GHSA-3fcv-jvfp-m4q9"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cilium/cilium/pull/44512"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5905",
+    "review_status": "UNREVIEWED"
+  }
+}

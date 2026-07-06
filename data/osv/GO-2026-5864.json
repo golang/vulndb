@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5864",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-3ccm-4qq2-5wrp"
+  ],
+  "summary": "Constrata's coordinator transit engine `ciphertextContainer.UnmarshalJSON` panics on attacker-controlled short ciphertexts in github.com/edgelesssys/contrast",
+  "details": "Constrata's coordinator transit engine `ciphertextContainer.UnmarshalJSON` panics on attacker-controlled short ciphertexts in github.com/edgelesssys/contrast",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/edgelesssys/contrast",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.21.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/edgelesssys/contrast/security/advisories/GHSA-3ccm-4qq2-5wrp"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/edgelesssys/contrast/commit/d6584fbff816037472034f7ad6e08cdbab1d870d"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/edgelesssys/contrast/releases/tag/v1.21.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5864",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,35 @@
+id: GO-2026-5872
+modules:
+    - module: github.com/centrifugal/centrifugo
+      unsupported_versions:
+        - last_affected: 2.4.0
+      vulnerable_at: 1.8.0
+    - module: github.com/centrifugal/centrifugo/v3
+      unsupported_versions:
+        - last_affected: 3.2.3
+      vulnerable_at: 3.2.3
+    - module: github.com/centrifugal/centrifugo/v4
+      unsupported_versions:
+        - last_affected: 4.1.5
+      vulnerable_at: 4.1.5
+    - module: github.com/centrifugal/centrifugo/v5
+      unsupported_versions:
+        - last_affected: 5.4.9
+      vulnerable_at: 5.4.9
+    - module: github.com/centrifugal/centrifugo/v6
+      versions:
+        - fixed: 6.8.1
+      vulnerable_at: 6.8.0
+summary: |-
+    Centrifugo's dynamic JWKS key cache keyed only by `kid` allows cross-issuer JWT
+    authentication bypass in github.com/centrifugal/centrifugo
+cves:
+    - CVE-2026-49998
+ghsas:
+    - GHSA-g6vg-wj8f-48cj
+references:
+    - advisory: https://github.com/centrifugal/centrifugo/security/advisories/GHSA-g6vg-wj8f-48cj
+source:
+    id: GHSA-g6vg-wj8f-48cj
+    created: 2026-07-06T17:42:56.762071232-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,104 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5893",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-6720",
+    "GHSA-3m4q-ggcj-j6m4"
+  ],
+  "summary": "Calico Inserts Sensitive Information into Log File in github.com/projectcalico/calicoctl",
+  "details": "Calico Inserts Sensitive Information into Log File in github.com/projectcalico/calicoctl.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/projectcalico/calicoctl/v3 before v3.31.6.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/projectcalico/calicoctl",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/projectcalico/calicoctl/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "3.31.6"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-3m4q-ggcj-j6m4"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-6720"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/projectcalico/calico/commit/12908bb48a5bf8cbab5373f4d532509a30cf9b7f"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/projectcalico/calico/commit/8d87eddcb5eb6efc70c09eb0a33d63137359ea70"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/projectcalico/calico/commit/ce3ab2b39b5841757cbccf7922c895c47827f562"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/projectcalico/calico/pull/12535"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/projectcalico/calico/pull/12536"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/projectcalico/calico/pull/12537"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.tigera.io/security-bulletins/tta-2026-003"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5893",
+    "review_status": "UNREVIEWED"
+  }
+}

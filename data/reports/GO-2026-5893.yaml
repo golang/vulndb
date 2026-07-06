@@ -1,0 +1,27 @@
+id: GO-2026-5893
+modules:
+    - module: github.com/projectcalico/calicoctl
+      vulnerable_at: 2.0.7+incompatible
+    - module: github.com/projectcalico/calicoctl/v3
+      non_go_versions:
+        - fixed: 3.31.6
+      vulnerable_at: 3.21.5
+summary: Calico Inserts Sensitive Information into Log File in github.com/projectcalico/calicoctl
+cves:
+    - CVE-2026-6720
+ghsas:
+    - GHSA-3m4q-ggcj-j6m4
+references:
+    - advisory: https://github.com/advisories/GHSA-3m4q-ggcj-j6m4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-6720
+    - web: https://github.com/projectcalico/calico/commit/12908bb48a5bf8cbab5373f4d532509a30cf9b7f
+    - web: https://github.com/projectcalico/calico/commit/8d87eddcb5eb6efc70c09eb0a33d63137359ea70
+    - web: https://github.com/projectcalico/calico/commit/ce3ab2b39b5841757cbccf7922c895c47827f562
+    - web: https://github.com/projectcalico/calico/pull/12535
+    - web: https://github.com/projectcalico/calico/pull/12536
+    - web: https://github.com/projectcalico/calico/pull/12537
+    - web: https://www.tigera.io/security-bulletins/tta-2026-003
+source:
+    id: GHSA-3m4q-ggcj-j6m4
+    created: 2026-07-06T17:40:58.553408664-04:00
+review_status: UNREVIEWED

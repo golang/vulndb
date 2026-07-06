@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5869",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-41053",
+    "GHSA-4j6x-2764-m8gh"
+  ],
+  "summary": "Rancher has over-inclusive team membership expansion in GitHub App authentication provider in github.com/rancher/rancher",
+  "details": "Rancher has over-inclusive team membership expansion in GitHub App authentication provider in github.com/rancher/rancher.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/rancher/rancher from v2.13.0 before v2.13.6, from v2.14.0 before v2.14.2.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/rancher/rancher",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20260519172014-d0c047bbc6d2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "2.13.0"
+              },
+              {
+                "fixed": "2.13.6"
+              },
+              {
+                "introduced": "2.14.0"
+              },
+              {
+                "fixed": "2.14.2"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/rancher/rancher/security/advisories/GHSA-4j6x-2764-m8gh"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-41053"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rancher/rancher/commit/361d4d57cd09b87f3c53f88af42046ffaa7b57e4"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rancher/rancher/commit/d0c047bbc6d202e953d7557b82cbb354367db6ae"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rancher/rancher/pull/55093"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rancher/rancher/pull/55147"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5869",
+    "review_status": "UNREVIEWED"
+  }
+}

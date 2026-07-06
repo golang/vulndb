@@ -1,0 +1,19 @@
+id: GO-2026-5864
+modules:
+    - module: github.com/edgelesssys/contrast
+      versions:
+        - fixed: 1.21.0
+      vulnerable_at: 1.20.0
+summary: |-
+    Constrata's coordinator transit engine `ciphertextContainer.UnmarshalJSON`
+    panics on attacker-controlled short ciphertexts in github.com/edgelesssys/contrast
+ghsas:
+    - GHSA-3ccm-4qq2-5wrp
+references:
+    - advisory: https://github.com/edgelesssys/contrast/security/advisories/GHSA-3ccm-4qq2-5wrp
+    - fix: https://github.com/edgelesssys/contrast/commit/d6584fbff816037472034f7ad6e08cdbab1d870d
+    - web: https://github.com/edgelesssys/contrast/releases/tag/v1.21.0
+source:
+    id: GHSA-3ccm-4qq2-5wrp
+    created: 2026-07-06T17:43:36.282694131-04:00
+review_status: UNREVIEWED

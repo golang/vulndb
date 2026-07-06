@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5867",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-36045",
+    "GHSA-cv2p-68f4-f4pw"
+  ],
+  "summary": "picoclaw is vulnerable to OS command injection via the ExecTool component in github.com/sipeed/picoclaw",
+  "details": "picoclaw is vulnerable to OS command injection via the ExecTool component in github.com/sipeed/picoclaw",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/sipeed/picoclaw",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-cv2p-68f4-f4pw"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-36045"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/sipeed/picoclaw/commit/01d694b9985a66c3d7119fc9f74ce8ed4f0f21b5"
+    },
+    {
+      "type": "WEB",
+      "url": "https://gist.github.com/NucleiAv/41899be6266a9813840301577792ed68"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/sipeed/picoclaw/releases/tag/v0.1.2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5867",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,24 @@
+id: GO-2026-5905
+modules:
+    - module: github.com/cilium/cilium
+      versions:
+        - fixed: 1.17.14
+        - introduced: 1.18.0
+        - fixed: 1.18.8
+        - introduced: 1.19.0
+        - fixed: 1.19.2
+      vulnerable_at: 1.19.1
+summary: |-
+    Cilium vulnerable to sensitive information disclosure and cluster disruption via
+    local Envoy admin socket access in github.com/cilium/cilium
+cves:
+    - CVE-2026-49445
+ghsas:
+    - GHSA-3fcv-jvfp-m4q9
+references:
+    - advisory: https://github.com/cilium/cilium/security/advisories/GHSA-3fcv-jvfp-m4q9
+    - fix: https://github.com/cilium/cilium/pull/44512
+source:
+    id: GHSA-3fcv-jvfp-m4q9
+    created: 2026-07-06T17:39:59.427890467-04:00
+review_status: UNREVIEWED

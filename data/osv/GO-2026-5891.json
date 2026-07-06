@@ -1,0 +1,118 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5891",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-41185",
+    "GHSA-m67g-87rx-v42c"
+  ],
+  "summary": "Calico Inserts Sensitive Information into Log File in github.com/projectcalico/calico",
+  "details": "Calico Inserts Sensitive Information into Log File in github.com/projectcalico/calico.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/projectcalico/calico/v3 before v3.31.6.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/projectcalico/calico",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.11.0-cni-plugin.0.20260417001138-cd73bc2cea0f"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "2.0.0"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/projectcalico/calico/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "3.31.6"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-m67g-87rx-v42c"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-41185"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/projectcalico/calico/commit/0ca653db0ae7400ea9fb066daa7f45c902482271"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/projectcalico/calico/commit/cd73bc2cea0f4989772f2deb93909e7cfac927e0"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/projectcalico/calico/commit/da9ea3a13927a35e4022b787d17a005b2157d812"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/projectcalico/calico/pull/12502"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/projectcalico/calico/pull/12526"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/projectcalico/calico/pull/12527"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.tigera.io/security-bulletins/tta-2026-002"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5891",
+    "review_status": "UNREVIEWED"
+  }
+}

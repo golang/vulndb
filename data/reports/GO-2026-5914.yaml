@@ -1,0 +1,26 @@
+id: GO-2026-5914
+modules:
+    - module: github.com/cilium/cilium
+      versions:
+        - fixed: 1.17.16
+        - introduced: 1.18.2
+        - fixed: 1.18.10
+        - introduced: 1.19.0
+        - fixed: 1.19.4
+      vulnerable_at: 1.19.3
+summary: |-
+    CiliumLocalRedirectPolicy addressMatcher allows cross-namespace service traffic
+    hijacking and can break service translation in github.com/cilium/cilium
+cves:
+    - CVE-2026-53935
+ghsas:
+    - GHSA-q6h5-q3q6-f87x
+references:
+    - advisory: https://github.com/cilium/cilium/security/advisories/GHSA-q6h5-q3q6-f87x
+    - fix: https://github.com/cilium/cilium/pull/44512
+    - fix: https://github.com/cilium/cilium/pull/44584
+    - fix: https://github.com/cilium/cilium/pull/44585
+source:
+    id: GHSA-q6h5-q3q6-f87x
+    created: 2026-07-06T17:39:00.970204482-04:00
+review_status: UNREVIEWED

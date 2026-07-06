@@ -1,0 +1,32 @@
+id: GO-2026-5891
+modules:
+    - module: github.com/projectcalico/calico
+      versions:
+        - fixed: 1.11.0-cni-plugin.0.20260417001138-cd73bc2cea0f
+      non_go_versions:
+        - introduced: 2.0.0
+      vulnerable_at: 1.11.0-cni-plugin
+    - module: github.com/projectcalico/calico/v3
+      non_go_versions:
+        - fixed: 3.31.6
+summary: Calico Inserts Sensitive Information into Log File in github.com/projectcalico/calico
+cves:
+    - CVE-2026-41185
+ghsas:
+    - GHSA-m67g-87rx-v42c
+references:
+    - advisory: https://github.com/advisories/GHSA-m67g-87rx-v42c
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-41185
+    - fix: https://github.com/projectcalico/calico/commit/0ca653db0ae7400ea9fb066daa7f45c902482271
+    - fix: https://github.com/projectcalico/calico/commit/cd73bc2cea0f4989772f2deb93909e7cfac927e0
+    - fix: https://github.com/projectcalico/calico/commit/da9ea3a13927a35e4022b787d17a005b2157d812
+    - fix: https://github.com/projectcalico/calico/pull/12502
+    - fix: https://github.com/projectcalico/calico/pull/12526
+    - fix: https://github.com/projectcalico/calico/pull/12527
+    - web: https://www.tigera.io/security-bulletins/tta-2026-002
+notes:
+    - fix: 'github.com/projectcalico/calico/v3: could not add vulnerable_at: no fix, but could not find latest version from proxy: HTTP GET /github.com/projectcalico/calico/v3/@latest returned status 404 Not Found'
+source:
+    id: GHSA-m67g-87rx-v42c
+    created: 2026-07-06T17:41:12.85728656-04:00
+review_status: UNREVIEWED

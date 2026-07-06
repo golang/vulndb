@@ -1,0 +1,21 @@
+id: GO-2026-5870
+modules:
+    - module: github.com/googleapis/mcp-toolbox
+      versions:
+        - fixed: 1.2.0
+      vulnerable_at: 1.1.0
+summary: MCP Toolbox for Databases vulnerable to DNS rebinding attacks in github.com/googleapis/mcp-toolbox
+cves:
+    - CVE-2026-9739
+ghsas:
+    - GHSA-7pf3-8xx7-rvhf
+references:
+    - advisory: https://github.com/advisories/GHSA-7pf3-8xx7-rvhf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-9739
+    - fix: https://github.com/googleapis/mcp-toolbox/commit/c4c7bd917e686de68e2be866cfe3872c3439efae
+    - fix: https://github.com/googleapis/mcp-toolbox/pull/3054
+    - report: https://github.com/googleapis/mcp-toolbox/issues/3053
+source:
+    id: GHSA-7pf3-8xx7-rvhf
+    created: 2026-07-06T17:43:05.924442781-04:00
+review_status: UNREVIEWED

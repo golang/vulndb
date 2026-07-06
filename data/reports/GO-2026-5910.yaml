@@ -1,0 +1,28 @@
+id: GO-2026-5910
+modules:
+    - module: d7y.io/dragonfly/v2
+      versions:
+        - fixed: 2.4.4-rc.3
+      vulnerable_at: 2.4.4-rc.2
+summary: |-
+    Dragonfly scheduler v1 and v2 gRPC unauthenticated SSRF via attacker-controlled
+    PeerHost in DownloadTinyFile in d7y.io/dragonfly
+cves:
+    - CVE-2026-54637
+ghsas:
+    - GHSA-chwm-m7g7-685g
+references:
+    - advisory: https://github.com/dragonflyoss/dragonfly/security/advisories/GHSA-chwm-m7g7-685g
+    - web: https://github.com/dragonflyoss/Dragonfly2/blob/main/scheduler/resource/standard/peer.go#L457-L459
+    - web: https://github.com/dragonflyoss/dragonfly/blob/0822e3aecc3369017d6b25c9441ff6f318129b31/internal/job/image.go#L211
+    - web: https://github.com/dragonflyoss/dragonfly/blob/0822e3aecc3369017d6b25c9441ff6f318129b31/pkg/net/http/http.go#L50-L80
+    - web: https://github.com/dragonflyoss/dragonfly/blob/0822e3aecc3369017d6b25c9441ff6f318129b31/pkg/rpc/scheduler/server/server.go#L71-L90
+    - web: https://github.com/dragonflyoss/dragonfly/blob/0822e3aecc3369017d6b25c9441ff6f318129b31/scheduler/resource/standard/peer.go#L435-L478
+    - web: https://github.com/dragonflyoss/dragonfly/blob/0822e3aecc3369017d6b25c9441ff6f318129b31/scheduler/scheduler.go#L235-L246
+    - web: https://github.com/dragonflyoss/dragonfly/blob/0822e3aecc3369017d6b25c9441ff6f318129b31/scheduler/service/service_v1.go#L1176-L1202
+    - web: https://github.com/dragonflyoss/dragonfly/blob/0822e3aecc3369017d6b25c9441ff6f318129b31/scheduler/service/service_v1.go#L816-L845
+    - web: https://github.com/dragonflyoss/dragonfly/security/advisories/GHSA-fhf9-m53m-863g
+source:
+    id: GHSA-chwm-m7g7-685g
+    created: 2026-07-06T17:39:24.435836136-04:00
+review_status: UNREVIEWED

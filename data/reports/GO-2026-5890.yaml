@@ -1,0 +1,21 @@
+id: GO-2026-5890
+modules:
+    - module: github.com/kerberos-io/agent/machinery
+      versions:
+        - fixed: 0.0.0-20260528173546-51f1a52e170f
+summary: |-
+    Kerberos Hub private key (X-Kerberos-Hub-PrivateKey) leaked to cross-host
+    redirect target due to redirect-following HTTP client without CheckRedirect in github.com/kerberos-io/agent/machinery
+cves:
+    - CVE-2026-50192
+ghsas:
+    - GHSA-h5gx-45rj-2h5j
+references:
+    - advisory: https://github.com/kerberos-io/agent/security/advisories/GHSA-h5gx-45rj-2h5j
+    - web: https://github.com/kerberos-io/agent/commit/51f1a52e170f21c1264c6de1dc781d5b5e2a5d09
+notes:
+    - fix: 'github.com/kerberos-io/agent/machinery: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-h5gx-45rj-2h5j
+    created: 2026-07-06T17:41:22.706179781-04:00
+review_status: UNREVIEWED

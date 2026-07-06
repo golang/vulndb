@@ -1,0 +1,27 @@
+id: GO-2026-5883
+modules:
+    - module: kubevirt.io/kubevirt
+      unsupported_versions:
+        - last_affected: 1.9.0-beta.0
+      vulnerable_at: 1.8.4
+summary: KubeVirt has a Link Following issue in kubevirt.io/kubevirt
+cves:
+    - CVE-2026-9804
+ghsas:
+    - GHSA-mpmf-3w4r-qfpf
+references:
+    - advisory: https://github.com/advisories/GHSA-mpmf-3w4r-qfpf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-9804
+    - web: https://access.redhat.com/errata/RHSA-2026:27903
+    - web: https://access.redhat.com/errata/RHSA-2026:27913
+    - web: https://access.redhat.com/errata/RHSA-2026:27914
+    - web: https://access.redhat.com/errata/RHSA-2026:27983
+    - web: https://access.redhat.com/errata/RHSA-2026:28002
+    - web: https://access.redhat.com/security/cve/CVE-2026-9804
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2482487
+    - web: https://github.com/kubevirt/kubevirt/commit/6ea563fa94d8ca803f8dd9394cefd8cae36bb0ee
+    - web: https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-9804.json
+source:
+    id: GHSA-mpmf-3w4r-qfpf
+    created: 2026-07-06T17:41:56.709305603-04:00
+review_status: UNREVIEWED

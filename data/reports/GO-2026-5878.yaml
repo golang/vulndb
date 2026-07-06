@@ -1,0 +1,21 @@
+id: GO-2026-5878
+modules:
+    - module: goshs.de/goshs
+      vulnerable_at: 1.1.4
+    - module: goshs.de/goshs/v2
+      versions:
+        - fixed: 2.1.0
+      vulnerable_at: 2.0.9
+summary: |-
+    goshs: WebDAV listener ignores --read-only, --upload-only, and --no-delete mode
+    flags in goshs.de/goshs
+cves:
+    - CVE-2026-50138
+ghsas:
+    - GHSA-3whc-qvhv-xqjp
+references:
+    - advisory: https://github.com/patrickhener/goshs/security/advisories/GHSA-3whc-qvhv-xqjp
+source:
+    id: GHSA-3whc-qvhv-xqjp
+    created: 2026-07-06T17:42:25.035558157-04:00
+review_status: UNREVIEWED

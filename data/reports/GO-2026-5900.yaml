@@ -1,0 +1,22 @@
+id: GO-2026-5900
+modules:
+    - module: github.com/drakkan/sftpgo
+      vulnerable_at: 1.2.2
+    - module: github.com/drakkan/sftpgo/v2
+      versions:
+        - introduced: 2.2.0
+        - fixed: 2.7.3
+      vulnerable_at: 2.7.2
+summary: |-
+    SFTPGo has stored XSS via inline parameter on public shares and user file
+    download in github.com/drakkan/sftpgo
+cves:
+    - CVE-2026-49245
+ghsas:
+    - GHSA-3vcg-pv95-pq54
+references:
+    - advisory: https://github.com/drakkan/sftpgo/security/advisories/GHSA-3vcg-pv95-pq54
+source:
+    id: GHSA-3vcg-pv95-pq54
+    created: 2026-07-06T17:40:18.139666328-04:00
+review_status: UNREVIEWED

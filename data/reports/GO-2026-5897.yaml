@@ -1,0 +1,31 @@
+id: GO-2026-5897
+modules:
+    - module: github.com/coder/coder
+      unsupported_versions:
+        - last_affected: 0.27.3
+      vulnerable_at: 0.27.3
+    - module: github.com/coder/coder/v2
+      versions:
+        - fixed: 2.29.7
+        - introduced: 2.30.0
+        - fixed: 2.30.2
+      vulnerable_at: 2.30.1
+summary: |-
+    Coder vulnerable to workspace auto-creation via crafted URL parameters without
+    user consent in github.com/coder/coder
+cves:
+    - CVE-2026-44454
+ghsas:
+    - GHSA-m3cr-vc2j-pm27
+references:
+    - advisory: https://github.com/coder/coder/security/advisories/GHSA-m3cr-vc2j-pm27
+    - fix: https://github.com/coder/coder/commit/60e3ab7632f42415d283b9fd5622ee53a4639ceb
+    - fix: https://github.com/coder/coder/pull/22011
+    - web: https://github.com/coder/coder/releases/tag/v2.29.7
+    - web: https://github.com/coder/coder/releases/tag/v2.30.2
+    - web: https://github.com/coder/registry/commit/8e68c96633f65a1babd76a93b6923e3deead4a82
+    - web: https://github.com/coder/registry/pull/703
+source:
+    id: GHSA-m3cr-vc2j-pm27
+    created: 2026-07-06T17:40:35.357118224-04:00
+review_status: UNREVIEWED

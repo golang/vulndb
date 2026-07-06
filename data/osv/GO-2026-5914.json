@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5914",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-53935",
+    "GHSA-q6h5-q3q6-f87x"
+  ],
+  "summary": "CiliumLocalRedirectPolicy addressMatcher allows cross-namespace service traffic hijacking and can break service translation in github.com/cilium/cilium",
+  "details": "CiliumLocalRedirectPolicy addressMatcher allows cross-namespace service traffic hijacking and can break service translation in github.com/cilium/cilium",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cilium/cilium",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.17.16"
+            },
+            {
+              "introduced": "1.18.2"
+            },
+            {
+              "fixed": "1.18.10"
+            },
+            {
+              "introduced": "1.19.0"
+            },
+            {
+              "fixed": "1.19.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cilium/cilium/security/advisories/GHSA-q6h5-q3q6-f87x"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cilium/cilium/pull/44512"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cilium/cilium/pull/44584"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cilium/cilium/pull/44585"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5914",
+    "review_status": "UNREVIEWED"
+  }
+}

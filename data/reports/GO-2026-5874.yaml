@@ -1,0 +1,26 @@
+id: GO-2026-5874
+modules:
+    - module: github.com/rancher/fleet
+      versions:
+        - introduced: 0.12.0
+        - fixed: 0.12.15
+        - introduced: 0.13.0
+        - fixed: 0.13.11
+        - introduced: 0.14.0
+        - fixed: 0.14.6
+        - introduced: 0.15.0
+        - fixed: 0.15.2
+      vulnerable_at: 0.15.2-rc.3
+summary: |-
+    Rancher Fleet has Unauthenticated Webhook: Regex Injection via Unsanitized
+    Repository URL Components in github.com/rancher/fleet
+cves:
+    - CVE-2026-44937
+ghsas:
+    - GHSA-jmf4-m7j9-g72r
+references:
+    - advisory: https://github.com/rancher/fleet/security/advisories/GHSA-jmf4-m7j9-g72r
+source:
+    id: GHSA-jmf4-m7j9-g72r
+    created: 2026-07-06T17:42:45.669312584-04:00
+review_status: UNREVIEWED
