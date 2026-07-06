@@ -1,0 +1,23 @@
+id: GO-2026-5857
+modules:
+    - module: github.com/fission/fission
+      versions:
+        - fixed: 1.24.0
+      vulnerable_at: 1.23.0
+summary: |-
+    Fission: Environment Runtime.Container and Builder.Container SecurityContext
+    bypass allows privileged pod creation in github.com/fission/fission
+cves:
+    - CVE-2026-50566
+ghsas:
+    - GHSA-m63v-2g9w-2w6v
+references:
+    - advisory: https://github.com/fission/fission/security/advisories/GHSA-m63v-2g9w-2w6v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-50566
+    - fix: https://github.com/fission/fission/commit/695d3e97e3a20463ab7c8c081843e69e65e952e5
+    - fix: https://github.com/fission/fission/pull/3406
+    - web: https://github.com/fission/fission/releases/tag/v1.24.0
+source:
+    id: GHSA-m63v-2g9w-2w6v
+    created: 2026-07-06T17:44:03.147179157-04:00
+review_status: UNREVIEWED

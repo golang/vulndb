@@ -1,0 +1,23 @@
+id: GO-2026-5855
+modules:
+    - module: github.com/fission/fission
+      versions:
+        - fixed: 1.24.0
+      vulnerable_at: 1.23.0
+summary: |-
+    Fission Environment CRD podspec passthrough enables
+    hostPID/hostNetwork/privileged pods, node escape in github.com/fission/fission
+cves:
+    - CVE-2026-50564
+ghsas:
+    - GHSA-gx55-f84r-v3r7
+references:
+    - advisory: https://github.com/fission/fission/security/advisories/GHSA-gx55-f84r-v3r7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-50564
+    - fix: https://github.com/fission/fission/commit/e484df8460bb4e8026e24210120602aa7f181f64
+    - fix: https://github.com/fission/fission/pull/3391
+    - web: https://github.com/fission/fission/releases/tag/v1.24.0
+source:
+    id: GHSA-gx55-f84r-v3r7
+    created: 2026-07-06T17:44:12.758550625-04:00
+review_status: UNREVIEWED

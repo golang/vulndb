@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5811",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-48790",
+    "GHSA-57f6-pvx8-hwj6"
+  ],
+  "summary": "turso-cli persists Turso platform JWT with world-readable (0o644) file permissions in github.com/tursodatabase/turso-cli",
+  "details": "turso-cli persists Turso platform JWT with world-readable (0o644) file permissions in github.com/tursodatabase/turso-cli",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/tursodatabase/turso-cli",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.0.26"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/tursodatabase/turso-cli/security/advisories/GHSA-57f6-pvx8-hwj6"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5811",
+    "review_status": "UNREVIEWED"
+  }
+}

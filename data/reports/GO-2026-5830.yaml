@@ -1,0 +1,21 @@
+id: GO-2026-5830
+modules:
+    - module: go.senan.xyz/gonic
+      versions:
+        - fixed: 0.21.0
+      vulnerable_at: 0.20.1
+summary: |-
+    Subsonic API: any authenticated user can delete or read any other user's
+    playlist (IDOR) in go.senan.xyz/gonic
+cves:
+    - CVE-2026-49338
+ghsas:
+    - GHSA-hmgp-w9jm-vp95
+references:
+    - advisory: https://github.com/sentriz/gonic/security/advisories/GHSA-hmgp-w9jm-vp95
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-49338
+    - web: https://github.com/sentriz/gonic/commit/6dd71e6
+source:
+    id: GHSA-hmgp-w9jm-vp95
+    created: 2026-07-06T18:13:45.620315658-04:00
+review_status: UNREVIEWED

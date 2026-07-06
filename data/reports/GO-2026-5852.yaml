@@ -1,0 +1,23 @@
+id: GO-2026-5852
+modules:
+    - module: github.com/fission/fission
+      versions:
+        - fixed: 1.24.0
+      vulnerable_at: 1.23.0
+summary: |-
+    Fission: Cross-namespace Environment reference via unvalidated EnvironmentRef in
+    Function admission webhook in github.com/fission/fission
+cves:
+    - CVE-2026-49824
+ghsas:
+    - GHSA-cvw6-gfvv-953q
+references:
+    - advisory: https://github.com/fission/fission/security/advisories/GHSA-cvw6-gfvv-953q
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-49824
+    - fix: https://github.com/fission/fission/commit/80e7ba55228e1ef426f51353e25d2682ec61de34
+    - fix: https://github.com/fission/fission/pull/3389
+    - web: https://github.com/fission/fission/releases/tag/v1.24.0
+source:
+    id: GHSA-cvw6-gfvv-953q
+    created: 2026-07-06T17:44:27.292004038-04:00
+review_status: UNREVIEWED

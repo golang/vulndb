@@ -1,0 +1,22 @@
+id: GO-2026-5819
+modules:
+    - module: github.com/authelia/authelia
+      vulnerable_at: 3.16.2+incompatible
+    - module: github.com/authelia/authelia/v4
+      versions:
+        - introduced: 4.36.0
+        - fixed: 4.39.20
+      vulnerable_at: 4.39.19
+summary: Authelia has an Edge Case Access Control Rule Mismatch in github.com/authelia/authelia
+cves:
+    - CVE-2026-48794
+ghsas:
+    - GHSA-j748-h363-wqj8
+references:
+    - advisory: https://github.com/authelia/authelia/security/advisories/GHSA-j748-h363-wqj8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-48794
+    - fix: https://github.com/authelia/authelia/commit/b6d1d60baa02f216fdb19f5dfeaf2e805829508a
+source:
+    id: GHSA-j748-h363-wqj8
+    created: 2026-07-06T18:14:33.188474788-04:00
+review_status: UNREVIEWED

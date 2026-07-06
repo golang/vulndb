@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5858",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-50563",
+    "GHSA-v455-mv2v-5g92"
+  ],
+  "summary": "Fission Container Executor Function PodSpec Injection Leading to Node Escape in github.com/fission/fission",
+  "details": "Fission Container Executor Function PodSpec Injection Leading to Node Escape in github.com/fission/fission",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/fission/fission",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.24.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/fission/fission/security/advisories/GHSA-v455-mv2v-5g92"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-50563"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/fission/fission/commit/e484df8460bb4e8026e24210120602aa7f181f64"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/fission/fission/pull/3391"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/fission/fission/releases/tag/v1.24.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5858",
+    "review_status": "UNREVIEWED"
+  }
+}

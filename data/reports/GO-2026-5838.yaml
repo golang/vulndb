@@ -1,0 +1,38 @@
+id: GO-2026-5838
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.11.0+incompatible
+        - fixed: 10.11.15+incompatible
+        - introduced: 11.4.0+incompatible
+        - fixed: 11.4.5+incompatible
+        - introduced: 11.5.0+incompatible
+        - fixed: 11.5.4+incompatible
+        - introduced: 11.6.0+incompatible
+        - fixed: 11.6.1+incompatible
+      vulnerable_at: 11.6.1-rc1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20260410202636-17939826efa2
+summary: |-
+    Mattermost doesn't properly validate msgpack-encoded WebSocket frames before
+    memory allocation in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2026-5740
+ghsas:
+    - GHSA-w9m8-p4cc-4qj9
+references:
+    - advisory: https://github.com/advisories/GHSA-w9m8-p4cc-4qj9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-5740
+    - web: https://github.com/mattermost/mattermost/commit/17939826efa20a97f087b3d390ec5136df350bae
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-w9m8-p4cc-4qj9
+    created: 2026-07-06T17:46:40.974552132-04:00
+review_status: UNREVIEWED

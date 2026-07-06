@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5857",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-50566",
+    "GHSA-m63v-2g9w-2w6v"
+  ],
+  "summary": "Fission: Environment Runtime.Container and Builder.Container SecurityContext bypass allows privileged pod creation in github.com/fission/fission",
+  "details": "Fission: Environment Runtime.Container and Builder.Container SecurityContext bypass allows privileged pod creation in github.com/fission/fission",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/fission/fission",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.24.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/fission/fission/security/advisories/GHSA-m63v-2g9w-2w6v"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-50566"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/fission/fission/commit/695d3e97e3a20463ab7c8c081843e69e65e952e5"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/fission/fission/pull/3406"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/fission/fission/releases/tag/v1.24.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5857",
+    "review_status": "UNREVIEWED"
+  }
+}

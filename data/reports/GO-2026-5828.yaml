@@ -1,0 +1,20 @@
+id: GO-2026-5828
+modules:
+    - module: github.com/nezhahq/nezha
+      non_go_versions:
+        - fixed: 2.0.13
+      vulnerable_at: 1.14.14
+summary: |-
+    Nezha Monitoring: Pre-auth path traversal via /dashboard.. prefix confusion
+    leaks jwt_secret_key in github.com/nezhahq/nezha
+cves:
+    - CVE-2026-53519
+ghsas:
+    - GHSA-5c25-7vpj-9mqh
+references:
+    - advisory: https://github.com/nezhahq/nezha/security/advisories/GHSA-5c25-7vpj-9mqh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-53519
+source:
+    id: GHSA-5c25-7vpj-9mqh
+    created: 2026-07-06T18:13:55.907911058-04:00
+review_status: UNREVIEWED

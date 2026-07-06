@@ -1,0 +1,20 @@
+id: GO-2026-5827
+modules:
+    - module: go.senan.xyz/gonic
+      versions:
+        - fixed: 0.21.0
+      vulnerable_at: 0.20.1
+summary: |-
+    gonic has arbitrary file write in createPlaylist: any authenticated user can
+    write playlist M3U content to attacker-controlled path on the host in go.senan.xyz/gonic
+cves:
+    - CVE-2026-49340
+ghsas:
+    - GHSA-4gxv-p5g5-j7w7
+references:
+    - advisory: https://github.com/sentriz/gonic/security/advisories/GHSA-4gxv-p5g5-j7w7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-49340
+source:
+    id: GHSA-4gxv-p5g5-j7w7
+    created: 2026-07-06T18:14:00.896973309-04:00
+review_status: UNREVIEWED

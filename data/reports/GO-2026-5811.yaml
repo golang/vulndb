@@ -1,0 +1,19 @@
+id: GO-2026-5811
+modules:
+    - module: github.com/tursodatabase/turso-cli
+      versions:
+        - fixed: 1.0.26
+      vulnerable_at: 1.0.25
+summary: |-
+    turso-cli persists Turso platform JWT with world-readable (0o644) file
+    permissions in github.com/tursodatabase/turso-cli
+cves:
+    - CVE-2026-48790
+ghsas:
+    - GHSA-57f6-pvx8-hwj6
+references:
+    - advisory: https://github.com/tursodatabase/turso-cli/security/advisories/GHSA-57f6-pvx8-hwj6
+source:
+    id: GHSA-57f6-pvx8-hwj6
+    created: 2026-07-06T18:19:01.412716181-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,21 @@
+id: GO-2026-5824
+modules:
+    - module: github.com/nezhahq/nezha
+      non_go_versions:
+        - introduced: 2.0.14
+        - fixed: 2.1.0
+      vulnerable_at: 1.14.14
+summary: |-
+    Nezha Monitoring: Authenticated users can claim the dashboard Host through NAT
+    and preempt all dashboard routing in github.com/nezhahq/nezha
+cves:
+    - CVE-2026-53520
+ghsas:
+    - GHSA-x6fg-52vr-hj4w
+references:
+    - advisory: https://github.com/nezhahq/nezha/security/advisories/GHSA-x6fg-52vr-hj4w
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-53520
+source:
+    id: GHSA-x6fg-52vr-hj4w
+    created: 2026-07-06T18:14:16.821517912-04:00
+review_status: UNREVIEWED

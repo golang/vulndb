@@ -1,0 +1,29 @@
+id: GO-2026-5835
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.11.0+incompatible
+        - fixed: 10.11.15+incompatible
+        - introduced: 11.4.0+incompatible
+        - fixed: 11.4.5+incompatible
+        - introduced: 11.5.0+incompatible
+        - fixed: 11.5.4+incompatible
+        - introduced: 11.6.0+incompatible
+        - fixed: 11.6.1+incompatible
+      vulnerable_at: 11.6.1-rc1+incompatible
+summary: |-
+    Mattermost doesn't validate the TIFF IFD offset in the image header before
+    allocating memory in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2026-5755
+ghsas:
+    - GHSA-37j2-3vv8-cf24
+references:
+    - advisory: https://github.com/advisories/GHSA-37j2-3vv8-cf24
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-5755
+    - web: https://github.com/mattermost/mattermost/commit/d37c2d9d50b50963dabd92153adf7ed52016769a
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-37j2-3vv8-cf24
+    created: 2026-07-06T18:13:23.032519206-04:00
+review_status: UNREVIEWED

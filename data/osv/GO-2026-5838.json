@@ -1,0 +1,128 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5838",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-5740",
+    "GHSA-w9m8-p4cc-4qj9"
+  ],
+  "summary": "Mattermost doesn't properly validate msgpack-encoded WebSocket frames before memory allocation in github.com/mattermost/mattermost-server",
+  "details": "Mattermost doesn't properly validate msgpack-encoded WebSocket frames before memory allocation in github.com/mattermost/mattermost-server",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "10.11.0+incompatible"
+            },
+            {
+              "fixed": "10.11.15+incompatible"
+            },
+            {
+              "introduced": "11.4.0+incompatible"
+            },
+            {
+              "fixed": "11.4.5+incompatible"
+            },
+            {
+              "introduced": "11.5.0+incompatible"
+            },
+            {
+              "fixed": "11.5.4+incompatible"
+            },
+            {
+              "introduced": "11.6.0+incompatible"
+            },
+            {
+              "fixed": "11.6.1+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v6",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost/server/v8",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "8.0.0-20260410202636-17939826efa2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-w9m8-p4cc-4qj9"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5740"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/17939826efa20a97f087b3d390ec5136df350bae"
+    },
+    {
+      "type": "WEB",
+      "url": "https://mattermost.com/security-updates"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5838",
+    "review_status": "UNREVIEWED"
+  }
+}

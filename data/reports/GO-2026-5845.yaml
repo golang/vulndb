@@ -1,0 +1,38 @@
+id: GO-2026-5845
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.11.0+incompatible
+        - fixed: 10.11.15+incompatible
+        - introduced: 11.4.0+incompatible
+        - fixed: 11.4.5+incompatible
+        - introduced: 11.5.0+incompatible
+        - fixed: 11.5.4+incompatible
+        - introduced: 11.6.0+incompatible
+        - fixed: 11.6.1+incompatible
+      vulnerable_at: 11.6.1-rc1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20260407102538-faa7d75b4ea0
+summary: |-
+    Mattermost doesn't filter nil elements from outgoing webhook attachment payloads
+    before processing in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2026-4915
+ghsas:
+    - GHSA-5gmf-x7hg-97wf
+references:
+    - advisory: https://github.com/advisories/GHSA-5gmf-x7hg-97wf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-4915
+    - web: https://github.com/mattermost/mattermost/commit/faa7d75b4ea041701e97948f8aa1332e3626a39a
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-5gmf-x7hg-97wf
+    created: 2026-07-06T17:45:02.59391675-04:00
+review_status: UNREVIEWED

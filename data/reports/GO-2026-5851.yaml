@@ -1,0 +1,21 @@
+id: GO-2026-5851
+modules:
+    - module: github.com/sigstore/timestamp-authority
+      unsupported_versions:
+        - last_affected: 1.2.9
+      vulnerable_at: 1.2.9
+    - module: github.com/sigstore/timestamp-authority/v2
+      versions:
+        - fixed: 2.1.0
+      vulnerable_at: 2.0.6
+summary: Sigstore Timestamp Authority has OOM due to unbounded metric label cardinality in github.com/sigstore/timestamp-authority
+cves:
+    - CVE-2026-49835
+ghsas:
+    - GHSA-9c54-x2g4-v92j
+references:
+    - advisory: https://github.com/sigstore/timestamp-authority/security/advisories/GHSA-9c54-x2g4-v92j
+source:
+    id: GHSA-9c54-x2g4-v92j
+    created: 2026-07-06T17:44:32.950019508-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,26 @@
+id: GO-2026-5821
+modules:
+    - module: github.com/nezhahq/nezha
+      non_go_versions:
+        - introduced: 2.0.0
+        - fixed: 2.0.10
+      vulnerable_at: 1.14.14
+    - module: github.com/nezhahq/nezha
+      versions:
+        - introduced: 1.14.13
+      unsupported_versions:
+        - last_affected: 1.14.14
+      vulnerable_at: 1.14.14
+summary: |-
+    Nezha vulnerable to cross-tenant terminal/file-manager session hijack via
+    WebSocket stream UUID without ownership check in github.com/nezhahq/nezha
+ghsas:
+    - GHSA-q6xx-5vr8-p898
+references:
+    - advisory: https://github.com/nezhahq/nezha/security/advisories/GHSA-q6xx-5vr8-p898
+notes:
+    - fix: 'module merge error: could not merge versions of module github.com/nezhahq/nezha: introduced and fixed versions must alternate'
+source:
+    id: GHSA-q6xx-5vr8-p898
+    created: 2026-07-06T18:14:25.828932118-04:00
+review_status: UNREVIEWED

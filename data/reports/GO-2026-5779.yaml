@@ -1,0 +1,20 @@
+id: GO-2026-5779
+modules:
+    - module: github.com/github/github-mcp-server
+      versions:
+        - introduced: 0.22.0
+        - fixed: 1.1.2
+      vulnerable_at: 1.1.1
+summary: |-
+    GitHub MCP Server: Lockdown mode singleton in HTTP server causes cross-user
+    GraphQL client confusion in github.com/github/github-mcp-server
+cves:
+    - CVE-2026-48529
+ghsas:
+    - GHSA-pjp5-fpmr-3349
+references:
+    - advisory: https://github.com/github/github-mcp-server/security/advisories/GHSA-pjp5-fpmr-3349
+source:
+    id: GHSA-pjp5-fpmr-3349
+    created: 2026-07-06T18:25:28.078032192-04:00
+review_status: UNREVIEWED

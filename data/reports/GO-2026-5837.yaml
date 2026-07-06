@@ -1,0 +1,23 @@
+id: GO-2026-5837
+modules:
+    - module: github.com/dgraph-io/dgraph
+      vulnerable_at: 1.2.8
+    - module: github.com/dgraph-io/dgraph/v24
+      vulnerable_at: 24.1.9
+    - module: github.com/dgraph-io/dgraph/v25
+      versions:
+        - fixed: 25.3.4
+      vulnerable_at: 25.3.3
+summary: Dgraph Vulnerable to DQL Injection via checkUserPassword GraphQL Query in github.com/dgraph-io/dgraph
+cves:
+    - CVE-2026-44840
+ghsas:
+    - GHSA-q2m9-6jp9-c6mc
+references:
+    - advisory: https://github.com/dgraph-io/dgraph/security/advisories/GHSA-q2m9-6jp9-c6mc
+    - fix: https://github.com/dgraph-io/dgraph/commit/cee702c93f141eeb0c96a81f70830ec9e459efac
+    - web: https://github.com/dgraph-io/dgraph/releases/tag/v25.3.4
+source:
+    id: GHSA-q2m9-6jp9-c6mc
+    created: 2026-07-06T17:46:47.00613629-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,31 @@
+id: GO-2026-5836
+modules:
+    - module: github.com/mattermost/mattermost-plugin-github
+      versions:
+        - fixed: 1.0.1-0.20260410143745-9b41b1fd43c4
+      vulnerable_at: 1.0.0
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.11.0+incompatible
+        - fixed: 10.11.15+incompatible
+        - introduced: 11.4.0+incompatible
+        - fixed: 11.4.5+incompatible
+        - introduced: 11.5.0+incompatible
+        - fixed: 11.5.4+incompatible
+        - introduced: 11.6.0+incompatible
+        - fixed: 11.6.1+incompatible
+      vulnerable_at: 11.6.1-rc1+incompatible
+summary: Mattermost doesn't enforce request body size limits on plugin HTTP endpoints in github.com/mattermost/mattermost-plugin-github
+cves:
+    - CVE-2026-5308
+ghsas:
+    - GHSA-jmvr-r5hm-fxfr
+references:
+    - advisory: https://github.com/advisories/GHSA-jmvr-r5hm-fxfr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-5308
+    - fix: https://github.com/mattermost/mattermost-plugin-github/commit/9b41b1fd43c408f4be53026ee337bbeaa74ad47c
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-jmvr-r5hm-fxfr
+    created: 2026-07-06T18:13:05.105194756-04:00
+review_status: UNREVIEWED

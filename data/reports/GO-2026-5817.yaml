@@ -1,0 +1,26 @@
+id: GO-2026-5817
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.11.0+incompatible
+        - fixed: 10.11.15+incompatible
+        - introduced: 11.4.0+incompatible
+        - fixed: 11.4.5+incompatible
+        - introduced: 11.5.0+incompatible
+        - fixed: 11.5.4+incompatible
+        - introduced: 11.6.0+incompatible
+        - fixed: 11.6.1+incompatible
+      vulnerable_at: 11.6.1-rc1+incompatible
+summary: Mattermost doesn't validate file ownership and access control in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2026-3473
+ghsas:
+    - GHSA-7pf2-9c95-w332
+references:
+    - advisory: https://github.com/advisories/GHSA-7pf2-9c95-w332
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-3473
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-7pf2-9c95-w332
+    created: 2026-07-06T18:14:56.913246855-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,31 @@
+id: GO-2026-5833
+modules:
+    - module: github.com/mattermost/mattermost-plugin-github
+      versions:
+        - fixed: 1.0.1-0.20260330164815-c2840e980b3c
+      vulnerable_at: 1.0.0
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.11.0+incompatible
+        - fixed: 10.11.15+incompatible
+        - introduced: 11.4.0+incompatible
+        - fixed: 11.4.5+incompatible
+        - introduced: 11.5.0+incompatible
+        - fixed: 11.5.4+incompatible
+        - introduced: 11.6.0+incompatible
+        - fixed: 11.6.1+incompatible
+      vulnerable_at: 11.6.1-rc1+incompatible
+summary: Mattermost doesn't validate user-supplied input in API request handlers in github.com/mattermost/mattermost-plugin-github
+cves:
+    - CVE-2026-4646
+ghsas:
+    - GHSA-rmvv-8v8w-rf7x
+references:
+    - advisory: https://github.com/advisories/GHSA-rmvv-8v8w-rf7x
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-4646
+    - fix: https://github.com/mattermost/mattermost-plugin-github/commit/c2840e980b3c2bd08db656eaa6a0fe26bcbf4695
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-rmvv-8v8w-rf7x
+    created: 2026-07-06T18:13:28.365929502-04:00
+review_status: UNREVIEWED

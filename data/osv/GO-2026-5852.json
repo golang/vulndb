@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5852",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-49824",
+    "GHSA-cvw6-gfvv-953q"
+  ],
+  "summary": "Fission: Cross-namespace Environment reference via unvalidated EnvironmentRef in Function admission webhook in github.com/fission/fission",
+  "details": "Fission: Cross-namespace Environment reference via unvalidated EnvironmentRef in Function admission webhook in github.com/fission/fission",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/fission/fission",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.24.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/fission/fission/security/advisories/GHSA-cvw6-gfvv-953q"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-49824"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/fission/fission/commit/80e7ba55228e1ef426f51353e25d2682ec61de34"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/fission/fission/pull/3389"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/fission/fission/releases/tag/v1.24.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5852",
+    "review_status": "UNREVIEWED"
+  }
+}

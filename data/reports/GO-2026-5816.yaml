@@ -1,0 +1,19 @@
+id: GO-2026-5816
+modules:
+    - module: github.com/juev/nebula-mesh
+      unsupported_versions:
+        - last_affected: 0.3.4
+      vulnerable_at: 0.7.3
+summary: |-
+    Nebula Mesh: Web UI lacks ownership checks, enabling cross-operator access to
+    hosts and networks (read, block, delete) in github.com/juev/nebula-mesh
+cves:
+    - CVE-2026-49258
+ghsas:
+    - GHSA-c6v2-3ffm-vcmc
+references:
+    - advisory: https://github.com/juev/nebula-mesh/security/advisories/GHSA-c6v2-3ffm-vcmc
+source:
+    id: GHSA-c6v2-3ffm-vcmc
+    created: 2026-07-06T18:15:01.800542512-04:00
+review_status: UNREVIEWED

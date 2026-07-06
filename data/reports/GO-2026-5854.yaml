@@ -1,0 +1,23 @@
+id: GO-2026-5854
+modules:
+    - module: github.com/fission/fission
+      versions:
+        - fixed: 1.24.0
+      vulnerable_at: 1.23.0
+summary: |-
+    Fission: Cross-namespace event leakage via KubernetesWatchTrigger allows
+    persistent tenant surveillance in github.com/fission/fission
+cves:
+    - CVE-2026-49822
+ghsas:
+    - GHSA-gc3j-79f2-7vvw
+references:
+    - advisory: https://github.com/fission/fission/security/advisories/GHSA-gc3j-79f2-7vvw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-49822
+    - fix: https://github.com/fission/fission/commit/e2b92663499f4dc3a1e2d38178f39c3c65e0134a
+    - fix: https://github.com/fission/fission/pull/3379
+    - web: https://github.com/fission/fission/releases/tag/v1.24.0
+source:
+    id: GHSA-gc3j-79f2-7vvw
+    created: 2026-07-06T17:44:17.868400336-04:00
+review_status: UNREVIEWED

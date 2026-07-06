@@ -1,0 +1,19 @@
+id: GO-2026-5853
+modules:
+    - module: github.com/sigstore/fulcio
+      versions:
+        - fixed: 1.8.6
+      vulnerable_at: 1.8.5
+summary: |-
+    Fulcio has OIDC Discovery Redirect Following Allows SSRF and JWKS Substitution
+    for Meta-Issuer Paths, with Kubernetes Service-Account Token Leakage in github.com/sigstore/fulcio
+cves:
+    - CVE-2026-49478
+ghsas:
+    - GHSA-f5mr-q85p-6hh6
+references:
+    - advisory: https://github.com/sigstore/fulcio/security/advisories/GHSA-f5mr-q85p-6hh6
+source:
+    id: GHSA-f5mr-q85p-6hh6
+    created: 2026-07-06T17:44:22.692514866-04:00
+review_status: UNREVIEWED

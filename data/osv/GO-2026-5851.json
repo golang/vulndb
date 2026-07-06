@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5851",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-49835",
+    "GHSA-9c54-x2g4-v92j"
+  ],
+  "summary": "Sigstore Timestamp Authority has OOM due to unbounded metric label cardinality in github.com/sigstore/timestamp-authority",
+  "details": "Sigstore Timestamp Authority has OOM due to unbounded metric label cardinality in github.com/sigstore/timestamp-authority",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/sigstore/timestamp-authority",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/sigstore/timestamp-authority/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.1.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/sigstore/timestamp-authority/security/advisories/GHSA-9c54-x2g4-v92j"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5851",
+    "review_status": "UNREVIEWED"
+  }
+}

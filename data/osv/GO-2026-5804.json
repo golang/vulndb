@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5804",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-48788",
+    "GHSA-4c8j-mgm4-qqvp"
+  ],
+  "summary": "Remark42: Cross-Site Scripting (XSS) on /api/v1/img via content-type spoofing in github.com/umputun/remark42",
+  "details": "Remark42: Cross-Site Scripting (XSS) on /api/v1/img via content-type spoofing in github.com/umputun/remark42",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/umputun/remark42",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.6.0"
+            },
+            {
+              "fixed": "1.16.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/umputun/remark42/security/advisories/GHSA-4c8j-mgm4-qqvp"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-48788"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/umputun/remark42/commit/78d6de6bce1e961f023969da3ec8a00dd80c9ae8"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/umputun/remark42/releases/tag/v1.16.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5804",
+    "review_status": "UNREVIEWED"
+  }
+}

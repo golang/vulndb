@@ -1,0 +1,20 @@
+id: GO-2026-5778
+modules:
+    - module: github.com/sigstore/rekor
+      versions:
+        - introduced: 0.3.0
+        - fixed: 1.5.2
+      vulnerable_at: 1.5.1
+summary: |-
+    Rekor has an OOM Condition due to Unbounded gzip Decompression in Alpine APK
+    Parsing Logic in github.com/sigstore/rekor
+cves:
+    - CVE-2026-48702
+ghsas:
+    - GHSA-47q9-m4ww-924m
+references:
+    - advisory: https://github.com/sigstore/rekor/security/advisories/GHSA-47q9-m4ww-924m
+source:
+    id: GHSA-47q9-m4ww-924m
+    created: 2026-07-06T18:25:33.021476378-04:00
+review_status: UNREVIEWED

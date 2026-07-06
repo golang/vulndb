@@ -1,0 +1,22 @@
+id: GO-2026-5825
+modules:
+    - module: go.senan.xyz/gonic
+      versions:
+        - fixed: 0.21.0
+      vulnerable_at: 0.20.1
+summary: |-
+    gonic: Path Traversal in playlist `id` bypasses ownership check, enabling any
+    user to read/delete other users' playlists in go.senan.xyz/gonic
+cves:
+    - CVE-2026-49339
+ghsas:
+    - GHSA-2fp4-5v5c-4448
+references:
+    - advisory: https://github.com/sentriz/gonic/security/advisories/GHSA-2fp4-5v5c-4448
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-49339
+    - web: https://github.com/sentriz/gonic/commit/0824bed88f6bbc490ba28bf09d28e5dfeb07b445
+    - web: https://github.com/sentriz/gonic/commit/6dd71e6
+source:
+    id: GHSA-2fp4-5v5c-4448
+    created: 2026-07-06T18:14:11.764034095-04:00
+review_status: UNREVIEWED

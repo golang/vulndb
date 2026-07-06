@@ -1,0 +1,21 @@
+id: GO-2026-5804
+modules:
+    - module: github.com/umputun/remark42
+      versions:
+        - introduced: 1.6.0
+        - fixed: 1.16.0
+      vulnerable_at: 1.15.0
+summary: 'Remark42: Cross-Site Scripting (XSS) on /api/v1/img via content-type spoofing in github.com/umputun/remark42'
+cves:
+    - CVE-2026-48788
+ghsas:
+    - GHSA-4c8j-mgm4-qqvp
+references:
+    - advisory: https://github.com/umputun/remark42/security/advisories/GHSA-4c8j-mgm4-qqvp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-48788
+    - fix: https://github.com/umputun/remark42/commit/78d6de6bce1e961f023969da3ec8a00dd80c9ae8
+    - web: https://github.com/umputun/remark42/releases/tag/v1.16.0
+source:
+    id: GHSA-4c8j-mgm4-qqvp
+    created: 2026-07-06T18:24:55.974950009-04:00
+review_status: UNREVIEWED
