@@ -1,0 +1,32 @@
+id: GO-2026-5699
+modules:
+    - module: github.com/osrg/gobgp/v4
+      versions:
+        - fixed: 4.4.0
+      vulnerable_at: 4.3.0
+      packages:
+        - package: github.com/osrg/gobgp/v4/pkg/packet/bmp
+          symbols:
+            - BMPPeerUpNotification.ParseBody
+            - BMPStatisticsReport.ParseBody
+          derived_symbols:
+            - ParseBMPMessage
+            - ParseBMPMessageWithOptions
+summary: |-
+    GoBGP has Improper Restriction of Operations within the Bounds of a Memory
+    Buffer in github.com/osrg/gobgp
+cves:
+    - CVE-2026-7737
+ghsas:
+    - GHSA-w88c-9vg8-cmq8
+references:
+    - advisory: https://github.com/advisories/GHSA-w88c-9vg8-cmq8
+    - fix: https://github.com/osrg/gobgp/commit/bc77597d42335c78464bc8e15a471d887bbdf260
+    - web: https://github.com/osrg/gobgp/releases/tag/v4.4.0
+    - web: https://vuldb.com/submit/807605
+    - web: https://vuldb.com/vuln/360912
+    - web: https://vuldb.com/vuln/360912/cti
+source:
+    id: GHSA-w88c-9vg8-cmq8
+    created: 2026-07-07T00:24:22.898465391-04:00
+review_status: REVIEWED

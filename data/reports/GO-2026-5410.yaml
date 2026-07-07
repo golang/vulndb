@@ -1,0 +1,23 @@
+id: GO-2026-5410
+modules:
+    - module: github.com/slack-go/slack
+      versions:
+        - fixed: 0.23.1
+      vulnerable_at: 0.23.0
+      packages:
+        - package: github.com/slack-go/slack
+          symbols:
+            - unsafeSignatureVerifier
+          derived_symbols:
+            - NewSecretsVerifier
+summary: SecretsVerifier accepts empty signing secret without precondition in github.com/slack-go/slack
+ghsas:
+    - GHSA-gxhx-2686-5h9g
+references:
+    - advisory: https://github.com/slack-go/slack/security/advisories/GHSA-gxhx-2686-5h9g
+    - fix: https://github.com/slack-go/slack/commit/34ad5c052e446f58505ae8d81a2a72821de107cc
+    - web: https://github.com/slack-go/slack/releases/tag/v0.23.1
+source:
+    id: GHSA-gxhx-2686-5h9g
+    created: 2026-07-07T00:44:15.296758417-04:00
+review_status: REVIEWED

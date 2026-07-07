@@ -1,0 +1,22 @@
+id: GO-2026-5762
+modules:
+    - module: charm.land/wish/v2
+      versions:
+        - fixed: 2.0.1
+      vulnerable_at: 2.0.0
+summary: |-
+    Wish has SCP Path Traversal that allows arbitrary file read/write in
+    charm.land/wish
+cves:
+    - CVE-2026-41589
+ghsas:
+    - GHSA-xjvp-7243-rg9h
+references:
+    - advisory: https://github.com/charmbracelet/wish/security/advisories/GHSA-xjvp-7243-rg9h
+    - web: https://github.com/charmbracelet/wish/releases/tag/v2.0.1
+notes:
+    - failed to auto-populate symbols: no commits found for charm.lan/wish/v2
+source:
+    id: GHSA-xjvp-7243-rg9h
+    created: 2026-07-07T00:22:04.860556972-04:00
+review_status: REVIEWED

@@ -1,0 +1,25 @@
+id: GO-2026-5761
+modules:
+    - module: github.com/opencontainers/runc
+      versions:
+        - fixed: 1.3.6
+        - introduced: 1.4.0
+        - fixed: 1.4.3
+        - introduced: 1.5.0-rc.1
+        - fixed: 1.5.0-rc.3
+      vulnerable_at: 1.5.0-rc.2
+summary: |-
+    Malicious image with /dev symlink can trigger limited host filesystem
+    integrity violations in github.com/opencontainers/runc
+cves:
+    - CVE-2026-41579
+ghsas:
+    - GHSA-xjvp-4fhw-gc47
+references:
+    - advisory: https://github.com/opencontainers/runc/security/advisories/GHSA-xjvp-4fhw-gc47
+notes:
+    - failed to auto-populate symbols: no commits found for github.com/opencontainers/runc
+source:
+    id: GHSA-xjvp-4fhw-gc47
+    created: 2026-07-07T00:22:10.923372408-04:00
+review_status: REVIEWED

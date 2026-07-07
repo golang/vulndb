@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5427",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-7736",
+    "GHSA-hj4w-qr9j-c4cf"
+  ],
+  "summary": "GoBGP has an Integer Underflow Issue in github.com/osrg/gobgp",
+  "details": "GoBGP has an Integer Underflow Issue in github.com/osrg/gobgp",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/osrg/gobgp/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.4.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/osrg/gobgp/v4/pkg/packet/mrt",
+            "symbols": [
+              "ParseBody",
+              "parseRibEntry"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-hj4w-qr9j-c4cf"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/osrg/gobgp/commit/76d911046344a3923cbe573364197aa081944592"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/osrg/gobgp/releases/tag/v4.4.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://vuldb.com/submit/807604"
+    },
+    {
+      "type": "WEB",
+      "url": "https://vuldb.com/vuln/360911"
+    },
+    {
+      "type": "WEB",
+      "url": "https://vuldb.com/vuln/360911/cti"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5427",
+    "review_status": "REVIEWED"
+  }
+}

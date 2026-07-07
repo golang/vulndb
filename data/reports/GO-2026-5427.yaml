@@ -1,0 +1,28 @@
+id: GO-2026-5427
+modules:
+    - module: github.com/osrg/gobgp/v4
+      versions:
+        - fixed: 4.4.0
+      vulnerable_at: 4.3.0
+      packages:
+        - package: github.com/osrg/gobgp/v4/pkg/packet/mrt
+          symbols:
+            - parseRibEntry
+          derived_symbols:
+            - ParseBody
+summary: GoBGP has an Integer Underflow Issue in github.com/osrg/gobgp
+cves:
+    - CVE-2026-7736
+ghsas:
+    - GHSA-hj4w-qr9j-c4cf
+references:
+    - advisory: https://github.com/advisories/GHSA-hj4w-qr9j-c4cf
+    - fix: https://github.com/osrg/gobgp/commit/76d911046344a3923cbe573364197aa081944592
+    - web: https://github.com/osrg/gobgp/releases/tag/v4.4.0
+    - web: https://vuldb.com/submit/807604
+    - web: https://vuldb.com/vuln/360911
+    - web: https://vuldb.com/vuln/360911/cti
+source:
+    id: GHSA-hj4w-qr9j-c4cf
+    created: 2026-07-07T00:43:59.302026021-04:00
+review_status: REVIEWED

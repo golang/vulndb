@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5699",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-7737",
+    "GHSA-w88c-9vg8-cmq8"
+  ],
+  "summary": "GoBGP has Improper Restriction of Operations within the Bounds of a Memory Buffer in github.com/osrg/gobgp",
+  "details": "GoBGP has Improper Restriction of Operations within the Bounds of a Memory Buffer in github.com/osrg/gobgp",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/osrg/gobgp/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.4.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/osrg/gobgp/v4/pkg/packet/bmp",
+            "symbols": [
+              "BMPPeerUpNotification.ParseBody",
+              "BMPStatisticsReport.ParseBody",
+              "ParseBMPMessage",
+              "ParseBMPMessageWithOptions"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-w88c-9vg8-cmq8"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/osrg/gobgp/commit/bc77597d42335c78464bc8e15a471d887bbdf260"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/osrg/gobgp/releases/tag/v4.4.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://vuldb.com/submit/807605"
+    },
+    {
+      "type": "WEB",
+      "url": "https://vuldb.com/vuln/360912"
+    },
+    {
+      "type": "WEB",
+      "url": "https://vuldb.com/vuln/360912/cti"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5699",
+    "review_status": "REVIEWED"
+  }
+}

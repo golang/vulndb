@@ -1,0 +1,31 @@
+id: GO-2026-5713
+modules:
+    - module: github.com/osrg/gobgp/v4
+      versions:
+        - fixed: 4.4.0
+      vulnerable_at: 4.3.0
+      packages:
+        - package: github.com/osrg/gobgp/v4/pkg/packet/bgp
+          symbols:
+            - ParseIP6Extended
+            - BGPUpdate.DecodeFromBytes
+          derived_symbols:
+            - ParseBGPBody
+            - ParseBGPMessage
+            - PathAttributeIP6ExtendedCommunities.DecodeFromBytes
+summary: |-
+    GoBGP has an out-of-bounds read in the ParseIP6Extended function in
+    github.com/osrg/gobgp
+cves:
+    - CVE-2026-37461
+ghsas:
+    - GHSA-wmvj-f67g-qg4g
+references:
+    - advisory: https://github.com/advisories/GHSA-wmvj-f67g-qg4g
+    - fix: https://github.com/osrg/gobgp/commit/362cce3e325f56e7a4f792ccb9689b3bdda9e682
+    - fix: https://github.com/osrg/gobgp/commit/9ce8936672ebc07df524da77fa4c6ae26d92be6d
+    - web: https://github.com/osrg/gobgp/blob/v4.3.0/pkg/packet/bgp/bgp.go
+source:
+    id: GHSA-wmvj-f67g-qg4g
+    created: 2026-07-07T00:24:07.353695413-04:00
+review_status: REVIEWED

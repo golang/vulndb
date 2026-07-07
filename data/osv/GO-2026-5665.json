@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5665",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-7734",
+    "GHSA-vm3g-8xwv-mxfp"
+  ],
+  "summary": "GoBGP has an Improper Resource Shutdown or Release in github.com/osrg/gobgp",
+  "details": "GoBGP has an Improper Resource Shutdown or Release in github.com/osrg/gobgp",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/osrg/gobgp/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.4.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/osrg/gobgp/v4/pkg/packet/bgp",
+            "symbols": [
+              "BGPUpdate.DecodeFromBytes",
+              "ParseBGPBody",
+              "ParseBGPMessage",
+              "PathAttributePrefixSID.DecodeFromBytes",
+              "SRv6L3ServiceAttribute.DecodeFromBytes",
+              "SRv6ServiceTLV.DecodeFromBytes"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-vm3g-8xwv-mxfp"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/osrg/gobgp/commit/f9f7b55ec258e514be0264871fa645a2c3edad11"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/osrg/gobgp/releases/tag/v4.4.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://vuldb.com/submit/807581"
+    },
+    {
+      "type": "WEB",
+      "url": "https://vuldb.com/vuln/360909"
+    },
+    {
+      "type": "WEB",
+      "url": "https://vuldb.com/vuln/360909/cti"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5665",
+    "review_status": "REVIEWED"
+  }
+}

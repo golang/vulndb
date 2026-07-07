@@ -1,0 +1,32 @@
+id: GO-2026-5665
+modules:
+    - module: github.com/osrg/gobgp/v4
+      versions:
+        - fixed: 4.4.0
+      vulnerable_at: 4.3.0
+      packages:
+        - package: github.com/osrg/gobgp/v4/pkg/packet/bgp
+          symbols:
+            - SRv6L3ServiceAttribute.DecodeFromBytes
+            - SRv6ServiceTLV.DecodeFromBytes
+          derived_symbols:
+            - BGPUpdate.DecodeFromBytes
+            - ParseBGPBody
+            - ParseBGPMessage
+            - PathAttributePrefixSID.DecodeFromBytes
+summary: GoBGP has an Improper Resource Shutdown or Release in github.com/osrg/gobgp
+cves:
+    - CVE-2026-7734
+ghsas:
+    - GHSA-vm3g-8xwv-mxfp
+references:
+    - advisory: https://github.com/advisories/GHSA-vm3g-8xwv-mxfp
+    - fix: https://github.com/osrg/gobgp/commit/f9f7b55ec258e514be0264871fa645a2c3edad11
+    - web: https://github.com/osrg/gobgp/releases/tag/v4.4.0
+    - web: https://vuldb.com/submit/807581
+    - web: https://vuldb.com/vuln/360909
+    - web: https://vuldb.com/vuln/360909/cti
+source:
+    id: GHSA-vm3g-8xwv-mxfp
+    created: 2026-07-07T00:39:38.597219067-04:00
+review_status: REVIEWED

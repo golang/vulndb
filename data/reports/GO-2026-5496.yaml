@@ -1,0 +1,27 @@
+id: GO-2026-5496
+modules:
+    - module: github.com/go-git/go-git
+      vulnerable_at: 3.2.0+incompatible
+    - module: github.com/go-git/go-git/v5
+      versions:
+        - fixed: 5.19.1
+      vulnerable_at: 5.19.0
+    - module: github.com/go-git/go-git/v6
+      versions:
+        - fixed: 6.0.0-alpha.4
+      vulnerable_at: 6.0.0-alpha.3
+summary: |-
+    Improper single-quote escaping in go-git SSH transport in
+    github.com/go-git/go-git
+cves:
+    - CVE-2026-45570
+ghsas:
+    - GHSA-m7cr-m3pv-hgrp
+references:
+    - advisory: https://github.com/go-git/go-git/security/advisories/GHSA-m7cr-m3pv-hgrp
+notes:
+    - failed to auto-populate symbols: no fix commit found for all modules
+source:
+    id: GHSA-m7cr-m3pv-hgrp
+    created: 2026-07-07T00:39:50.598054926-04:00
+review_status: REVIEWED

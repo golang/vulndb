@@ -1,0 +1,32 @@
+id: GO-2026-5504
+modules:
+    - module: github.com/gohugoio/hugo
+      versions:
+        - introduced: 0.60.0
+        - fixed: 0.159.2
+      vulnerable_at: 0.159.1
+      packages:
+        - package: github.com/gohugoio/hugo/markup/goldmark
+          symbols:
+            - hookedRenderer.renderImageDefault
+            - hookedRenderer.renderLinkDefault
+            - hookedRenderer.renderAutoLinkDefault
+          derived_symbols:
+            - goldmarkConverter.Convert
+            - goldmarkConverter.Parse
+            - goldmarkConverter.Render
+            - tocTransformer.Transform
+summary: |-
+    Hugo: Certain markdown links are not properly escaped in
+    github.com/gohugoio/hugo
+cves:
+    - CVE-2026-35166
+ghsas:
+    - GHSA-mcv8-8m8x-48pg
+references:
+    - advisory: https://github.com/gohugoio/hugo/security/advisories/GHSA-mcv8-8m8x-48pg
+    - fix: https://github.com/gohugoio/hugo/commit/479fe6c654937a850b65e74551dc4e857d52898f
+source:
+    id: GHSA-mcv8-8m8x-48pg
+    created: 2026-07-07T00:41:53.734255436-04:00
+review_status: REVIEWED

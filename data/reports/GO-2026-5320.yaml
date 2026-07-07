@@ -1,0 +1,25 @@
+id: GO-2026-5320
+modules:
+    - module: github.com/yuin/goldmark
+      versions:
+        - fixed: 1.7.17
+      vulnerable_at: 1.7.16
+      packages:
+        - package: github.com/yuin/goldmark/renderer/html
+          symbols:
+            - Renderer.renderImage
+            - Renderer.renderLink
+            - Renderer.renderAutoLink
+summary: Cross-site Scripting (XSS) in github.com/yuin/goldmark
+cves:
+    - CVE-2026-5160
+ghsas:
+    - GHSA-c97m-vxhj-p7j6
+references:
+    - advisory: https://github.com/advisories/GHSA-c97m-vxhj-p7j6
+    - fix: https://github.com/yuin/goldmark/commit/cb46bbc4eca29d55aa9721e04ad207c23ccc44f9
+    - web: https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMYUINGOLDMARKRENDERERHTML-15838406
+source:
+    id: GHSA-c97m-vxhj-p7j6
+    created: 2026-07-07T00:45:33.744577673-04:00
+review_status: REVIEWED

@@ -1,0 +1,92 @@
+id: GO-2026-5676
+modules:
+    - module: github.com/quic-go/quic-go
+      versions:
+        - fixed: 0.59.1
+      vulnerable_at: 0.59.0
+      packages:
+        - package: github.com/quic-go/quic-go/http3
+          symbols:
+            - decodeTrailers
+            - parseTrailers
+            - parseHeaders
+          derived_symbols:
+            - ClientConn.HandleBidirectionalStream
+            - ClientConn.OpenRequestStream
+            - ClientConn.RoundTrip
+            - ConfigureTLSConfig
+            - ErrCode.String
+            - Error.Error
+            - ListenAndServeQUIC
+            - ListenAndServeTLS
+            - ParseCapsule
+            - RawClientConn.HandleUnidirectionalStream
+            - RawServerConn.HandleRequestStream
+            - RawServerConn.HandleUnidirectionalStream
+            - RequestStream.CancelRead
+            - RequestStream.CancelWrite
+            - RequestStream.Close
+            - RequestStream.Read
+            - RequestStream.ReadResponse
+            - RequestStream.SendRequestHeader
+            - RequestStream.Write
+            - Server.Close
+            - Server.ListenAndServe
+            - Server.ListenAndServeTLS
+            - Server.NewRawServerConn
+            - Server.Serve
+            - Server.ServeListener
+            - Server.ServeQUICConn
+            - Server.Shutdown
+            - Stream.Read
+            - Stream.Write
+            - Transport.Close
+            - Transport.CloseIdleConnections
+            - Transport.NewClientConn
+            - Transport.NewRawClientConn
+            - Transport.RoundTrip
+            - Transport.RoundTripOpt
+            - body.Close
+            - body.Read
+            - cancelingReader.Read
+            - countingByteReader.Read
+            - countingByteReader.ReadByte
+            - errConnUnusable.Error
+            - exactReader.Read
+            - frameParser.ParseNext
+            - gzipReader.Close
+            - gzipReader.Read
+            - hijackableBody.Close
+            - hijackableBody.Read
+            - qpackError.Error
+            - rawConn.OpenUniStream
+            - rawConn.TrackStream
+            - requestWriter.WriteRequestHeader
+            - requestWriter.WriteRequestTrailer
+            - responseWriter.Flush
+            - responseWriter.FlushError
+            - responseWriter.HTTPStream
+            - responseWriter.Write
+            - responseWriter.WriteHeader
+            - roundTripperWithCount.Close
+            - stateTrackingStream.CancelRead
+            - stateTrackingStream.CancelWrite
+            - stateTrackingStream.Close
+            - stateTrackingStream.Read
+            - stateTrackingStream.Write
+            - tracingReader.Read
+summary: HTTP/3 QPACK Trailer Expansion Memory Exhaustion in github.com/quic-go/quic-go
+cves:
+    - CVE-2026-40898
+ghsas:
+    - GHSA-vvgj-x9jq-8cj9
+references:
+    - advisory: https://github.com/quic-go/quic-go/security/advisories/GHSA-vvgj-x9jq-8cj9
+    - fix: https://github.com/quic-go/quic-go/commit/c56e8c79d1627cc1ed6005b421b4b0adadd83665
+    - fix: https://github.com/quic-go/quic-go/pull/5642
+    - web: https://github.com/advisories/GHSA-g754-hx8w-x2g6
+    - web: https://github.com/quic-go/quic-go/releases/tag/v0.59.1
+source:
+    id: GHSA-vvgj-x9jq-8cj9
+    created: 2026-07-07T00:25:18.645329781-04:00
+review_status: REVIEWED

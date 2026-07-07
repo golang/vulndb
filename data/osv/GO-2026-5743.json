@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5743",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-45692",
+    "GHSA-x5w9-xh9r-mvfc"
+  ],
+  "summary": "Remote Admin Authorization Bypass in \"/config\" API via Array Index Normalization in github.com/caddyserver/caddy",
+  "details": "Remote Admin Authorization Bypass in \"/config\" API via Array Index Normalization in github.com/caddyserver/caddy",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/caddyserver/caddy/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.4.0"
+            },
+            {
+              "fixed": "2.11.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/caddyserver/caddy/security/advisories/GHSA-x5w9-xh9r-mvfc"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5743",
+    "review_status": "REVIEWED"
+  }
+}
