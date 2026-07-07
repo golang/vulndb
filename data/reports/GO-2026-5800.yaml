@@ -1,0 +1,23 @@
+id: GO-2026-5800
+modules:
+    - module: github.com/lxc/incus
+      vulnerable_at: 0.7.0
+    - module: github.com/lxc/incus/v6
+      vulnerable_at: 6.23.0
+    - module: github.com/lxc/incus/v7
+      versions:
+        - fixed: 7.1.0
+      vulnerable_at: 7.0.0
+summary: |-
+    Incus: Nil-pointer dereference in createDependentVolumesFromBackup on
+    disk.{Volume,VolumeSnapshots,Pool} in github.com/lxc/incus
+cves:
+    - CVE-2026-48754
+ghsas:
+    - GHSA-4xg6-52mh-fpw8
+references:
+    - advisory: https://github.com/lxc/incus/security/advisories/GHSA-4xg6-52mh-fpw8
+source:
+    id: GHSA-4xg6-52mh-fpw8
+    created: 2026-07-07T00:21:30.687662554-04:00
+review_status: UNREVIEWED

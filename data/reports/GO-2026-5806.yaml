@@ -1,0 +1,21 @@
+id: GO-2026-5806
+modules:
+    - module: github.com/lxc/incus
+      vulnerable_at: 0.7.0
+    - module: github.com/lxc/incus/v6
+      vulnerable_at: 6.23.0
+    - module: github.com/lxc/incus/v7
+      versions:
+        - fixed: 7.2.0
+      vulnerable_at: 7.1.0
+summary: Incus has an arbitrary file write on its client due to trusted image hash in github.com/lxc/incus
+cves:
+    - CVE-2026-48769
+ghsas:
+    - GHSA-f6m5-xw2g-xc4x
+references:
+    - advisory: https://github.com/lxc/incus/security/advisories/GHSA-f6m5-xw2g-xc4x
+source:
+    id: GHSA-f6m5-xw2g-xc4x
+    created: 2026-07-07T00:21:13.063535631-04:00
+review_status: UNREVIEWED

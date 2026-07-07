@@ -1,0 +1,21 @@
+id: GO-2026-5799
+modules:
+    - module: github.com/lxc/incus
+      vulnerable_at: 0.7.0
+    - module: github.com/lxc/incus/v6
+      vulnerable_at: 6.23.0
+    - module: github.com/lxc/incus/v7
+      versions:
+        - fixed: 7.2.0
+      vulnerable_at: 7.1.0
+summary: Incus has a restricted project bypass leading to arbitrary command execution in github.com/lxc/incus
+cves:
+    - CVE-2026-48751
+ghsas:
+    - GHSA-48q5-w887-33wv
+references:
+    - advisory: https://github.com/lxc/incus/security/advisories/GHSA-48q5-w887-33wv
+source:
+    id: GHSA-48q5-w887-33wv
+    created: 2026-07-07T00:21:35.108784243-04:00
+review_status: UNREVIEWED

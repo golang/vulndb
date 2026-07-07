@@ -1,0 +1,27 @@
+id: GO-2026-5923
+modules:
+    - module: github.com/coder/coder
+      vulnerable_at: 0.27.3
+    - module: github.com/coder/coder/v2
+      versions:
+        - introduced: 2.27.0
+        - fixed: 2.29.19
+        - introduced: 2.30.0
+        - fixed: 2.32.9
+        - introduced: 2.33.0
+        - fixed: 2.33.10
+        - introduced: 2.34.0
+        - fixed: 2.34.4
+      vulnerable_at: 2.34.3
+summary: |-
+    Coder's workspace agent API insecure redirect handling allowed cross-agent file
+    read and write in github.com/coder/coder
+ghsas:
+    - GHSA-qrwj-vh9x-gw5v
+references:
+    - advisory: https://github.com/coder/coder/security/advisories/GHSA-qrwj-vh9x-gw5v
+    - fix: https://github.com/coder/coder/pull/26600
+source:
+    id: GHSA-qrwj-vh9x-gw5v
+    created: 2026-07-07T00:10:00.332224441-04:00
+review_status: UNREVIEWED

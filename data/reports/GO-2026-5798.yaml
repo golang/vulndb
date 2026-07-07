@@ -1,0 +1,23 @@
+id: GO-2026-5798
+modules:
+    - module: github.com/lxc/incus
+      vulnerable_at: 0.7.0
+    - module: github.com/lxc/incus/v6
+      vulnerable_at: 6.23.0
+    - module: github.com/lxc/incus/v7
+      versions:
+        - fixed: 7.2.0
+      vulnerable_at: 7.1.0
+summary: |-
+    Incus has an arbitrary file read+write on host via rootfs/ symlink in malicious
+    image in github.com/lxc/incus
+cves:
+    - CVE-2026-48749
+ghsas:
+    - GHSA-2q3f-q5pq-g8wv
+references:
+    - advisory: https://github.com/lxc/incus/security/advisories/GHSA-2q3f-q5pq-g8wv
+source:
+    id: GHSA-2q3f-q5pq-g8wv
+    created: 2026-07-07T00:21:40.313787859-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,23 @@
+id: GO-2026-5808
+modules:
+    - module: github.com/lxc/incus
+      vulnerable_at: 0.7.0
+    - module: github.com/lxc/incus/v6
+      vulnerable_at: 6.23.0
+    - module: github.com/lxc/incus/v7
+      versions:
+        - fixed: 7.2.0
+      vulnerable_at: 7.1.0
+summary: |-
+    Incus has an argument injection in backup compression algorithm leading to AFW
+    and ACE in github.com/lxc/incus
+cves:
+    - CVE-2026-48755
+ghsas:
+    - GHSA-v6mj-8pf4-hhw4
+references:
+    - advisory: https://github.com/lxc/incus/security/advisories/GHSA-v6mj-8pf4-hhw4
+source:
+    id: GHSA-v6mj-8pf4-hhw4
+    created: 2026-07-07T00:21:08.690368553-04:00
+review_status: UNREVIEWED

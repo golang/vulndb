@@ -1,0 +1,23 @@
+id: GO-2026-5498
+modules:
+    - module: github.com/portainer/portainer
+      non_go_versions:
+        - introduced: 2.33.0
+        - fixed: 2.33.8
+      vulnerable_at: 0.10.1
+summary: |-
+    Portainer has a path traversal in backup archive extraction that allows
+    arbitrary file write in github.com/portainer/portainer
+cves:
+    - CVE-2026-44885
+ghsas:
+    - GHSA-m8fg-67j7-cx4v
+references:
+    - advisory: https://github.com/portainer/portainer/security/advisories/GHSA-m8fg-67j7-cx4v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-44885
+    - fix: https://github.com/portainer/portainer/commit/e02ae6b2fb69668d1cd7d07cb873dfcdd9cf1e42
+    - web: https://github.com/portainer/portainer/releases/tag/2.33.8
+source:
+    id: GHSA-m8fg-67j7-cx4v
+    created: 2026-07-07T00:42:26.674249801-04:00
+review_status: UNREVIEWED

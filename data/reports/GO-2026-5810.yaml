@@ -1,0 +1,23 @@
+id: GO-2026-5810
+modules:
+    - module: github.com/lxc/incus
+      vulnerable_at: 0.7.0
+    - module: github.com/lxc/incus/v6
+      vulnerable_at: 6.23.0
+    - module: github.com/lxc/incus/v7
+      versions:
+        - fixed: 7.1.0
+      vulnerable_at: 7.0.0
+summary: |-
+    Incus: CreateCustomVolumeFromBackup nil-pointer dereference on
+    volume_snapshots[*].expires_at (sibling-field variant of GHSA-r7w7) in github.com/lxc/incus
+cves:
+    - CVE-2026-48756
+ghsas:
+    - GHSA-xhqx-mgh3-3h7q
+references:
+    - advisory: https://github.com/lxc/incus/security/advisories/GHSA-xhqx-mgh3-3h7q
+source:
+    id: GHSA-xhqx-mgh3-3h7q
+    created: 2026-07-07T00:15:23.190946009-04:00
+review_status: UNREVIEWED

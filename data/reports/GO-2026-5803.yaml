@@ -1,0 +1,23 @@
+id: GO-2026-5803
+modules:
+    - module: github.com/lxc/incus
+      vulnerable_at: 0.7.0
+    - module: github.com/lxc/incus/v6
+      vulnerable_at: 6.23.0
+    - module: github.com/lxc/incus/v7
+      versions:
+        - fixed: 7.2.0
+      vulnerable_at: 7.1.0
+summary: |-
+    Incus has arbitrary file read+write on host via templates/ symlink in malicious
+    image in github.com/lxc/incus
+cves:
+    - CVE-2026-48752
+ghsas:
+    - GHSA-vxp5-584q-c479
+references:
+    - advisory: https://github.com/lxc/incus/security/advisories/GHSA-vxp5-584q-c479
+source:
+    id: GHSA-vxp5-584q-c479
+    created: 2026-07-07T00:21:17.609186889-04:00
+review_status: UNREVIEWED

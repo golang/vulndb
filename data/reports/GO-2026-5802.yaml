@@ -1,0 +1,21 @@
+id: GO-2026-5802
+modules:
+    - module: github.com/lxc/incus
+      vulnerable_at: 0.7.0
+    - module: github.com/lxc/incus/v6
+      vulnerable_at: 6.23.0
+    - module: github.com/lxc/incus/v7
+      versions:
+        - fixed: 7.1.0
+      vulnerable_at: 7.0.0
+summary: Incus has an arbitrary file write via path traversal in S3 multipart upload in github.com/lxc/incus
+cves:
+    - CVE-2026-48753
+ghsas:
+    - GHSA-ccjc-4qc3-jxqc
+references:
+    - advisory: https://github.com/lxc/incus/security/advisories/GHSA-ccjc-4qc3-jxqc
+source:
+    id: GHSA-ccjc-4qc3-jxqc
+    created: 2026-07-07T00:21:22.073849227-04:00
+review_status: UNREVIEWED

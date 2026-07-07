@@ -1,0 +1,23 @@
+id: GO-2026-5570
+modules:
+    - module: github.com/free5gc/nrf
+      versions:
+        - fixed: 1.4.1
+      vulnerable_at: 1.4.0
+summary: |-
+    Free5gc NRF is vulnerable to scope validation bypass via maliciously crafted
+    targetNF value in github.com/free5gc/nrf
+cves:
+    - CVE-2025-66719
+ghsas:
+    - GHSA-q7c8-gfjh-8v4p
+references:
+    - advisory: https://github.com/advisories/GHSA-q7c8-gfjh-8v4p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-66719
+    - fix: https://github.com/free5gc/nrf/pull/73
+    - web: https://github.com/free5gc/free5gc/issues/733
+    - web: https://github.com/free5gc/free5gc/issues/736
+source:
+    id: GHSA-q7c8-gfjh-8v4p
+    created: 2026-07-07T00:40:53.925062133-04:00
+review_status: UNREVIEWED
