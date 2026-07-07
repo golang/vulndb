@@ -1,0 +1,28 @@
+id: GO-2026-5932
+modules:
+    - module: golang.org/x/crypto
+      vulnerable_at: 0.53.0
+      packages:
+        - package: golang.org/x/crypto/openpgp
+        - package: golang.org/x/crypto/openpgp/packet
+        - package: golang.org/x/crypto/openpgp/armor
+        - package: golang.org/x/crypto/openpgp/clearsign
+        - package: golang.org/x/crypto/openpgp/errors
+        - package: golang.org/x/crypto/openpgp/elgamal
+        - package: golang.org/x/crypto/openpgp/s2k
+summary: |-
+    The golang.org/x/crypto/openpgp package is unmaintained, unsafe by design,
+    and has known security issues
+description: |-
+    The golang.org/x/crypto/openpgp package is unsafe by design, has numerous known
+    security issues, is not maintained, and should not be used.
+
+    If you are required to interoperate with OpenPGP systems and need a maintained
+    package, consider github.com/ProtonMail/go-crypto/openpgp which is a maintained
+    fork that aims to be a drop-in replacement for this package.
+references:
+    - report: https://go.dev/issue/44226
+source:
+    id: go-security-team
+    created: 2026-07-07T09:42:59.961683-07:00
+review_status: REVIEWED
