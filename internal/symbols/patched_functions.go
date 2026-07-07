@@ -362,6 +362,9 @@ func moduleName(path string) (string, error) {
 	if err != nil {
 		return "", err
 	}
+	if gomod.Module == nil {
+		return "", nil
+	}
 	return gomod.Module.Mod.Path, nil
 }
 
