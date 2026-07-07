@@ -1,0 +1,47 @@
+id: GO-2026-4970
+modules:
+    - module: std
+      versions:
+        - fixed: 1.25.12
+        - introduced: 1.26.0-0
+        - fixed: 1.26.5
+        - introduced: 1.27.0-0
+        - fixed: 1.27.0-rc.2
+      vulnerable_at: 1.27.0-rc.1
+      packages:
+        - package: os
+          symbols:
+            - rootOpenFileNolog
+            - openRootInRoot
+          derived_symbols:
+            - OpenInRoot
+            - Root.Create
+            - Root.Open
+            - Root.OpenFile
+            - Root.OpenRoot
+            - Root.ReadFile
+            - Root.WriteFile
+            - rootFS.Open
+            - rootFS.ReadDir
+            - rootFS.ReadFile
+summary: Root escape via symlink plus trailing slash in os
+description: |
+    On Unix systems, opening a file in an os.Root improperly
+    follows symlinks to locations outside of the Root when
+    the final path component of the a path is a symbolic link
+    and the path ends in /.
+
+    For example, 'root.Open("symlink/")' will open "symlink"
+    even when "symlink" is a symbolic link pointing outside of the root.
+credits:
+    - Mundur (https://github.com/M0nd0R)
+references:
+    - report: https://go.dev/issue/79005
+    - web: https://groups.google.com/g/golang-announce/c/OrmQE_Yp5Sc
+    - fix: https://go.dev/cl/797880
+cve_metadata:
+    id: CVE-2026-39822
+    cwe: 'CWE-61: UNIX Symbolic Link (Symlink) Following'
+source:
+    id: go-security-team
+review_status: REVIEWED

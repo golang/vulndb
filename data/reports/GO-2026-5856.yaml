@@ -1,0 +1,43 @@
+id: GO-2026-5856
+modules:
+    - module: std
+      versions:
+        - fixed: 1.25.12
+        - introduced: 1.26.0-0
+        - fixed: 1.26.5
+        - introduced: 1.27.0-0
+        - fixed: 1.27.0-rc.2
+      vulnerable_at: 1.27.0-rc.1
+      packages:
+        - package: crypto/tls
+          symbols:
+            - clientHelloMsg.marshalMsg
+          derived_symbols:
+            - Conn.Handshake
+            - Conn.HandshakeContext
+            - Conn.Read
+            - Conn.Write
+            - Dial
+            - DialWithDialer
+            - Dialer.Dial
+            - Dialer.DialContext
+            - QUICConn.HandleData
+            - QUICConn.SendSessionTicket
+            - QUICConn.Start
+summary: Invoking Encrypted Client Hello privacy leak in crypto/tls
+description: |-
+    Handshakes which used Encrypted Client Hello could be de-anonymized by a passive
+    network observer due to a disclosure of pre-shared key identities in the
+    unencrypted client hello.
+credits:
+    - Coia Prant (github.com/rbqvq)
+references:
+    - fix: https://go.dev/cl/775960
+    - report: https://go.dev/issue/79282
+    - web: https://groups.google.com/g/golang-announce/c/OrmQE_Yp5Sc
+cve_metadata:
+    id: CVE-2026-42505
+    cwe: 'CWE-201: Insertion of Sensitive Information Into Sent Data'
+source:
+    id: go-security-team
+review_status: REVIEWED
