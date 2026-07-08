@@ -1,0 +1,97 @@
+{
+  "dataType": "CVE_RECORD",
+  "dataVersion": "5.0",
+  "cveMetadata": {
+    "cveId": "CVE-2026-46600"
+  },
+  "containers": {
+    "cna": {
+      "providerMetadata": {
+        "orgId": "1bb62c36-49e3-4200-9d77-64a1400537cc"
+      },
+      "title": "Parsing an invalid SVCB or HTTPS RR can panic in golang.org/x/net/dns/dnsmessage",
+      "descriptions": [
+        {
+          "lang": "en",
+          "value": "Parsing an invalid SVCB or HTTPS RR can panic when the size of a parameter value overflows the message buffer."
+        }
+      ],
+      "affected": [
+        {
+          "vendor": "golang.org/x/net",
+          "product": "golang.org/x/net/dns/dnsmessage",
+          "collectionURL": "https://pkg.go.dev",
+          "packageName": "golang.org/x/net/dns/dnsmessage",
+          "versions": [
+            {
+              "version": "0",
+              "lessThan": "0.56.0",
+              "status": "affected",
+              "versionType": "semver"
+            }
+          ],
+          "programRoutines": [
+            {
+              "name": "unpackSVCBResource"
+            },
+            {
+              "name": "Message.Unpack"
+            },
+            {
+              "name": "Parser.Additional"
+            },
+            {
+              "name": "Parser.AllAdditionals"
+            },
+            {
+              "name": "Parser.AllAnswers"
+            },
+            {
+              "name": "Parser.AllAuthorities"
+            },
+            {
+              "name": "Parser.Answer"
+            },
+            {
+              "name": "Parser.Authority"
+            },
+            {
+              "name": "Parser.HTTPSResource"
+            },
+            {
+              "name": "Parser.SVCBResource"
+            }
+          ],
+          "defaultStatus": "unaffected"
+        }
+      ],
+      "problemTypes": [
+        {
+          "descriptions": [
+            {
+              "lang": "en",
+              "description": "CWE-125: Out-of-bounds Read"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "url": "https://go.dev/cl/786345"
+        },
+        {
+          "url": "https://go.dev/issue/79795"
+        },
+        {
+          "url": "https://pkg.go.dev/vuln/GO-2026-5942"
+        }
+      ],
+      "credits": [
+        {
+          "lang": "en",
+          "value": "Mundur (https://github.com/M0nd0R)"
+        }
+      ]
+    }
+  }
+}

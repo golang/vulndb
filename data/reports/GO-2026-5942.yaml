@@ -1,0 +1,36 @@
+id: GO-2026-5942
+modules:
+    - module: golang.org/x/net
+      versions:
+        - fixed: 0.56.0
+      vulnerable_at: 0.55.0
+      packages:
+        - package: golang.org/x/net/dns/dnsmessage
+          symbols:
+            - unpackSVCBResource
+          derived_symbols:
+            - Message.Unpack
+            - Parser.Additional
+            - Parser.AllAdditionals
+            - Parser.AllAnswers
+            - Parser.AllAuthorities
+            - Parser.Answer
+            - Parser.Authority
+            - Parser.HTTPSResource
+            - Parser.SVCBResource
+summary: Parsing an invalid SVCB or HTTPS RR can panic in golang.org/x/net/dns/dnsmessage
+description: |-
+    Parsing an invalid SVCB or HTTPS RR can panic when
+    the size of a parameter value overflows the message buffer.
+credits:
+    - Mundur (https://github.com/M0nd0R)
+references:
+    - fix: https://go.dev/cl/786345
+    - report: https://go.dev/issue/79795
+cve_metadata:
+    id: CVE-2026-46600
+    cwe: 'CWE-125: Out-of-bounds Read'
+source:
+    id: go-security-team
+    created: 2026-07-08T09:26:12.959164-07:00
+review_status: REVIEWED
