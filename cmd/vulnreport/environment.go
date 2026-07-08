@@ -87,7 +87,7 @@ func (e *environment) IssueClient(ctx context.Context) (issueClient, error) {
 	if err != nil {
 		return nil, err
 	}
-	return issues.NewClient(ctx, &issues.Config{Owner: owner, Repo: repoName, Token: *githubToken}), nil
+	return issues.NewClient(ctx, &issues.Config{Owner: owner, Repo: repoName, Token: *githubToken})
 }
 
 func (e *environment) GHSAClient(ctx context.Context) (ghsaClient, error) {

@@ -81,11 +81,14 @@ func NewServer(ctx context.Context, cfg Config) (_ *Server, err error) {
 		if err != nil {
 			return nil, err
 		}
-		s.issueClient = issues.NewClient(ctx, &issues.Config{
+		s.issueClient, err = issues.NewClient(ctx, &issues.Config{
 			Owner: owner,
 			Repo:  repoName,
 			Token: cfg.GitHubAccessToken,
 		})
+		if err != nil {
+			return nil, err
+		}
 		log.Infof(ctx, "issue creation enabled for repo %s", cfg.IssueRepo)
 	} else {
 		log.Infof(ctx, "issue creation disabled")

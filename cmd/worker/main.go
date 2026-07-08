@@ -260,7 +260,10 @@ func createIssuesCommand(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	client := issues.NewClient(ctx, &issues.Config{Owner: owner, Repo: repoName, Token: cfg.GitHubAccessToken})
+	client, err := issues.NewClient(ctx, &issues.Config{Owner: owner, Repo: repoName, Token: cfg.GitHubAccessToken})
+	if err != nil {
+		return err
+	}
 	rc, err := report.NewDefaultClient(ctx)
 	if err != nil {
 		return err

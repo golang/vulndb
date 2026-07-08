@@ -13,7 +13,7 @@ import (
 	"slices"
 	"time"
 
-	"github.com/google/go-github/v41/github"
+	"github.com/google/go-github/v89/github"
 	"golang.org/x/oauth2"
 	"golang.org/x/vulndb/internal/derrors"
 )
@@ -59,26 +59,40 @@ type Config struct {
 	// Token is access token that authorizes and authenticates
 	// requests to the GitHub API.
 	Token string
+
+	// For testing: alternative base URL and upload URL.
+	BaseURL string
 }
 
 // NewClient creates a Client that will create issues in
 // the a GitHub repo.
-func NewClient(ctx context.Context, cfg *Config) *Client {
+func NewClient(ctx context.Context, cfg *Config) (*Client, error) {
 	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: cfg.Token})
 	tc := oauth2.NewClient(ctx, ts)
-	c := github.NewClient(tc)
+	opts := []github.ClientOptionsFunc{
+		github.WithHTTPClient(tc),
+	}
+	if cfg.BaseURL != "" {
+		opts = append(opts, github.WithURLs(&cfg.BaseURL, &cfg.BaseURL))
+	}
+	c, err := github.NewClient(opts...)
+	if err != nil {
+		return nil, err
+	}
 	return &Client{
 		GitHub: c,
 		Owner:  cfg.Owner,
 		Repo:   cfg.Repo,
-	}
+	}, nil
 }
 
 // NewTestClient creates a Client for use in tests.
 func NewTestClient(ctx context.Context, cfg *Config, baseURL *url.URL) *Client {
-	c := NewClient(ctx, cfg)
-	c.GitHub.BaseURL = baseURL
-	c.GitHub.UploadURL = baseURL
+	cfg.BaseURL = baseURL.String()
+	c, err := NewClient(ctx, cfg)
+	if err != nil {
+		panic(err)
+	}
 	return c
 }
 
@@ -123,7 +137,7 @@ func convertGithubIssueToIssue(ghIss *github.Issue) *Issue {
 		iss.Body = *ghIss.Body
 	}
 	if ghIss.CreatedAt != nil {
-		iss.CreatedAt = *ghIss.CreatedAt
+		iss.CreatedAt = ghIss.CreatedAt.Time
 	}
 	if ghIss.State != nil {
 		iss.State = *ghIss.State

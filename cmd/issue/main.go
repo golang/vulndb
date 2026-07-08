@@ -55,7 +55,10 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	c := issues.NewClient(ctx, &issues.Config{Owner: owner, Repo: repoName, Token: *githubToken})
+	c, err := issues.NewClient(ctx, &issues.Config{Owner: owner, Repo: repoName, Token: *githubToken})
+	if err != nil {
+		log.Fatal(err)
+	}
 	ghsaClient := ghsa.NewClient(ctx, *githubToken)
 	pc := proxy.NewDefaultClient()
 	switch cmd {

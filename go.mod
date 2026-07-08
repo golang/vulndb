@@ -26,7 +26,7 @@ require (
 	github.com/go-git/go-git/v5 v5.19.1
 	github.com/google/generative-ai-go v0.5.0
 	github.com/google/go-cmp v0.7.0
-	github.com/google/go-github/v41 v41.0.0
+	github.com/google/go-github/v89 v89.0.0
 	github.com/google/safehtml v0.1.0
 	github.com/jba/metrics v0.1.1
 	github.com/jba/metrics/otel v0.1.1
@@ -73,7 +73,7 @@ require (
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/golang/groupcache v0.0.0-20241129210726-2c02b8208cf8 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
-	github.com/google/go-querystring v1.1.0 // indirect
+	github.com/google/go-querystring v1.2.0 // indirect
 	github.com/google/s2a-go v0.1.7 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/googleapis/enterprise-certificate-proxy v0.3.2 // indirect
