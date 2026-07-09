@@ -102,131 +102,112 @@ func TestLintReports(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	extractYear := func(vulnID string) (string, bool) {
-		_, buf, found := strings.Cut(vulnID, "GO-")
-		if !found {
-			return "", false
-		}
-		year, _, found := strings.Cut(buf, "-")
-		if !found {
-			return "", false
-		}
-		return year, true
-	}
-
 	type loadedReport struct {
 		path   string
 		report *report.Report
 	}
 
-	// TODO(nealpatel) splitting by year is
-	// easier to reason about; however, the
-	// skew makes it less efficient.
-	tests := make(map[string][]loadedReport)
+	tests := make([]loadedReport, 0, len(reports))
 	aliasToIDs := make(map[string][]string)
 	for _, filename := range reports {
 		r, ok := rc.Report(filename)
 		if !ok {
 			t.Fatalf("report %s not found in client", filename)
 		}
-		year, ok := extractYear(r.ID)
-		if !ok {
-			t.Fatalf("malformed id: %q", r.ID)
-		}
-		tests[year] = append(tests[year], loadedReport{path: filename, report: r})
+		tests = append(tests, loadedReport{path: filename, report: r})
 		for _, alias := range r.Aliases() {
 			aliasToIDs[alias] = append(aliasToIDs[alias], r.ID)
 		}
 	}
 
+	networkSem := make(chan struct{}, 50)
 	var seen sync.Map
-	for year, lrs := range tests {
-		t.Run(year, func(t *testing.T) {
+	for _, lr := range tests {
+		t.Run(lr.report.ID, func(t *testing.T) {
 			t.Parallel()
-			for _, lr := range lrs {
-				t.Run(lr.report.ID, func(t *testing.T) {
-					r := lr.report
-					if err := r.CheckFilename(lr.path); err != nil {
-						t.Error(err)
-					}
+			r := lr.report
+			if err := r.CheckFilename(lr.path); err != nil {
+				t.Error(err)
+			}
 
-					// Prevent transient network failures
-					// from surfacing as test failures by
-					// retrying up to three times, taking
-					// the first pass or all three fails.
-					var lints []string
-					for range 3 {
-						if lints = lint(r); len(lints) == 0 {
-							break
-						}
-					}
-					if len(lints) > 0 {
-						t.Error(strings.Join(lints, "\n"))
-					}
+			// Prevent transient network failures from surfacing as test
+			// failures by retrying up to three times, taking the first pass or
+			// all three fails.
+			// Also use networkSem to make sure that not too many subtests will
+			// be using the network at the same time, in case someone runs the
+			// test on a machine with high GOMAXPROCS.
+			networkSem <- struct{}{}
+			var lints []string
+			for range 3 {
+				if lints = lint(r); len(lints) == 0 {
+					break
+				}
+			}
+			<-networkSem
+			if len(lints) > 0 {
+				t.Error(strings.Join(lints, "\n"))
+			}
 
-					for _, alias := range r.Aliases() {
-						for _, id := range aliasToIDs[alias] {
-							if id != r.ID {
-								t.Errorf("report %s shares duplicate alias %s with report %s", lr.path, alias, id)
-							}
-						}
+			for _, alias := range r.Aliases() {
+				for _, id := range aliasToIDs[alias] {
+					if id != r.ID {
+						t.Errorf("report %s shares duplicate alias %s with report %s", lr.path, alias, id)
 					}
+				}
+			}
 
-					// Ensure that each reviewed report has a unique summary.
-					if summary := r.Summary.String(); summary != "" && r.IsReviewed() {
-						if existingFile, loaded := seen.LoadOrStore(summary, lr.path); loaded {
-							t.Errorf("report %s shares duplicate summary %q with report %s", lr.path, summary, existingFile)
-						}
-					}
+			// Ensure that each reviewed report has a unique summary.
+			if summary := r.Summary.String(); summary != "" && r.IsReviewed() {
+				if existingFile, loaded := seen.LoadOrStore(summary, lr.path); loaded {
+					t.Errorf("report %s shares duplicate summary %q with report %s", lr.path, summary, existingFile)
+				}
+			}
 
-					// Ensure that no unreviewed reports are high priority.
-					// This can happen because the initial quick triage algorithm
-					// doesn't know about all affected modules - just the one
-					// listed in the Github issue.
-					if r.IsUnreviewed() && !r.IsExcluded() && !r.UnreviewedOK {
-						pr, _ := priority.AnalyzeReport(r, rc, modulesToImports)
-						if pr.Priority == priority.High {
-							t.Errorf("UNREVIEWED report %s is high priority (should be NEEDS_REVIEW or REVIEWED) - reason: %s", lr.path, pr.Reason)
-						}
-					}
+			// Ensure that no unreviewed reports are high priority.
+			// This can happen because the initial quick triage algorithm
+			// doesn't know about all affected modules - just the one
+			// listed in the Github issue.
+			if r.IsUnreviewed() && !r.IsExcluded() && !r.UnreviewedOK {
+				pr, _ := priority.AnalyzeReport(r, rc, modulesToImports)
+				if pr.Priority == priority.High {
+					t.Errorf("UNREVIEWED report %s is high priority (should be NEEDS_REVIEW or REVIEWED) - reason: %s", lr.path, pr.Reason)
+				}
+			}
 
-					// Check that a correct OSV file was generated for each YAML report.
-					if r.Excluded == "" {
-						generated, err := r.ToOSV(time.Time{})
-						if err != nil {
-							t.Fatal(err)
-						}
-						osvFilename := r.OSVFilename()
-						// TODO(nealpatel): Buffer I/O?
-						current, err := report.ReadOSV(osvFilename)
-						if err != nil {
-							t.Fatal(err)
-						}
-						if diff := cmp.Diff(generated, current, cmpopts.EquateEmpty()); diff != "" {
-							t.Errorf("%s does not match report:\n%v", osvFilename, diff)
-						}
-						if err := osvutils.ValidateExceptTimestamps(&current); err != nil {
-							t.Error(err)
-						}
-					}
-					if r.CVEMetadata != nil {
-						// TODO(nealpatel): Buffer I/O?
-						generated, err := cve5.FromReport(r)
-						if err != nil {
-							t.Fatal(err)
-						}
-						cvePath := r.CVEFilename()
-						// TODO(nealpatel): Buffer I/O?
-						current, err := cve5.Read(cvePath)
-						if err != nil {
-							t.Fatal(err)
-						}
-						if diff := cmp.Diff(generated, current, cmpopts.EquateEmpty()); diff != "" {
-							t.Errorf("%s does not match report:\n%v", cvePath, diff)
-						}
-					}
-				})
-
+			// Check that a correct OSV file was generated for each YAML report.
+			if r.Excluded == "" {
+				generated, err := r.ToOSV(time.Time{})
+				if err != nil {
+					t.Fatal(err)
+				}
+				osvFilename := r.OSVFilename()
+				// TODO(nealpatel): Buffer I/O?
+				current, err := report.ReadOSV(osvFilename)
+				if err != nil {
+					t.Fatal(err)
+				}
+				if diff := cmp.Diff(generated, current, cmpopts.EquateEmpty()); diff != "" {
+					t.Errorf("%s does not match report:\n%v", osvFilename, diff)
+				}
+				if err := osvutils.ValidateExceptTimestamps(&current); err != nil {
+					t.Error(err)
+				}
+			}
+			if r.CVEMetadata != nil {
+				// TODO(nealpatel): Buffer I/O?
+				generated, err := cve5.FromReport(r)
+				if err != nil {
+					t.Fatal(err)
+				}
+				cvePath := r.CVEFilename()
+				// TODO(nealpatel): Buffer I/O?
+				current, err := cve5.Read(cvePath)
+				if err != nil {
+					t.Fatal(err)
+				}
+				if diff := cmp.Diff(generated, current, cmpopts.EquateEmpty()); diff != "" {
+					t.Errorf("%s does not match report:\n%v", cvePath, diff)
+				}
 			}
 		})
 	}
