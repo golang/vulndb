@@ -48,6 +48,8 @@ func TestChecksBash(t *testing.T) {
 	}
 }
 
+const cachedProxyURL = "https://proxy.golang.org/cached-only"
+
 func TestLintReports(t *testing.T) {
 	if runtime.GOOS == "android" {
 		t.Skipf("android builder does not have access to reports/")
@@ -86,7 +88,7 @@ func TestLintReports(t *testing.T) {
 			Timeout:   20 * time.Second,
 			Transport: http.DefaultTransport,
 		}
-		pc := proxy.NewClient(&client, proxy.ProxyURL)
+		pc := proxy.NewClient(&client, cachedProxyURL)
 		lint = func(r *report.Report) []string {
 			return r.Lint(pc)
 		}
