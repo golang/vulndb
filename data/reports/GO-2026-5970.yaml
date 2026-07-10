@@ -1,0 +1,49 @@
+id: GO-2026-5970
+modules:
+    - module: golang.org/x/text
+      versions:
+        - fixed: 0.39.0
+      vulnerable_at: 0.38.0
+      packages:
+        - package: golang.org/x/text/unicode/norm
+          symbols:
+            - nextComposed
+          derived_symbols:
+            - Form.Append
+            - Form.AppendString
+            - Form.Bytes
+            - Form.FirstBoundary
+            - Form.FirstBoundaryInString
+            - Form.IsNormal
+            - Form.IsNormalString
+            - Form.LastBoundary
+            - Form.NextBoundary
+            - Form.NextBoundaryInString
+            - Form.Properties
+            - Form.PropertiesString
+            - Form.QuickSpan
+            - Form.QuickSpanString
+            - Form.Span
+            - Form.SpanString
+            - Form.String
+            - Form.Transform
+            - Iter.Init
+            - Iter.InitString
+            - Iter.Next
+            - Iter.Seek
+            - normReader.Read
+            - normWriter.Write
+summary: Infinite loop on invalid input in golang.org/x/text
+description: |
+    A norm.Iter can enter an infinite loop when handling input
+    containing invalid UTF-8 bytes.
+references:
+    - report: https://go.dev/issue/80142
+    - fix: https://go.dev/cl/794100
+cve_metadata:
+    id: CVE-2026-56852
+    cwe: 'CWE-835: Loop with Unreachable Exit Condition (''Infinite Loop'')'
+source:
+    id: go-security-team
+    created: 2026-07-10T16:24:27.891526-07:00
+review_status: REVIEWED

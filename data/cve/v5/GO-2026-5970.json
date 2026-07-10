@@ -1,0 +1,136 @@
+{
+  "dataType": "CVE_RECORD",
+  "dataVersion": "5.0",
+  "cveMetadata": {
+    "cveId": "CVE-2026-56852"
+  },
+  "containers": {
+    "cna": {
+      "providerMetadata": {
+        "orgId": "1bb62c36-49e3-4200-9d77-64a1400537cc"
+      },
+      "title": "Infinite loop on invalid input in golang.org/x/text",
+      "descriptions": [
+        {
+          "lang": "en",
+          "value": "A norm.Iter can enter an infinite loop when handling input containing invalid UTF-8 bytes."
+        }
+      ],
+      "affected": [
+        {
+          "vendor": "golang.org/x/text",
+          "product": "golang.org/x/text/unicode/norm",
+          "collectionURL": "https://pkg.go.dev",
+          "packageName": "golang.org/x/text/unicode/norm",
+          "versions": [
+            {
+              "version": "0",
+              "lessThan": "0.39.0",
+              "status": "affected",
+              "versionType": "semver"
+            }
+          ],
+          "programRoutines": [
+            {
+              "name": "nextComposed"
+            },
+            {
+              "name": "Form.Append"
+            },
+            {
+              "name": "Form.AppendString"
+            },
+            {
+              "name": "Form.Bytes"
+            },
+            {
+              "name": "Form.FirstBoundary"
+            },
+            {
+              "name": "Form.FirstBoundaryInString"
+            },
+            {
+              "name": "Form.IsNormal"
+            },
+            {
+              "name": "Form.IsNormalString"
+            },
+            {
+              "name": "Form.LastBoundary"
+            },
+            {
+              "name": "Form.NextBoundary"
+            },
+            {
+              "name": "Form.NextBoundaryInString"
+            },
+            {
+              "name": "Form.Properties"
+            },
+            {
+              "name": "Form.PropertiesString"
+            },
+            {
+              "name": "Form.QuickSpan"
+            },
+            {
+              "name": "Form.QuickSpanString"
+            },
+            {
+              "name": "Form.Span"
+            },
+            {
+              "name": "Form.SpanString"
+            },
+            {
+              "name": "Form.String"
+            },
+            {
+              "name": "Form.Transform"
+            },
+            {
+              "name": "Iter.Init"
+            },
+            {
+              "name": "Iter.InitString"
+            },
+            {
+              "name": "Iter.Next"
+            },
+            {
+              "name": "Iter.Seek"
+            },
+            {
+              "name": "normReader.Read"
+            },
+            {
+              "name": "normWriter.Write"
+            }
+          ],
+          "defaultStatus": "unaffected"
+        }
+      ],
+      "problemTypes": [
+        {
+          "descriptions": [
+            {
+              "lang": "en",
+              "description": "CWE-835: Loop with Unreachable Exit Condition ('Infinite Loop')"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "url": "https://go.dev/issue/80142"
+        },
+        {
+          "url": "https://go.dev/cl/794100"
+        },
+        {
+          "url": "https://pkg.go.dev/vuln/GO-2026-5970"
+        }
+      ]
+    }
+  }
+}
