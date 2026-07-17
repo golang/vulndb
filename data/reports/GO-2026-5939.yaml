@@ -1,0 +1,22 @@
+id: GO-2026-5939
+modules:
+    - module: github.com/quay/claircore
+      unsupported_versions:
+        - last_affected: 1.5.52
+      vulnerable_at: 1.5.52
+summary: |-
+    Claircore: Unauthenticated attackers can submit manifests with URIs pointing to
+    internal services or cloud metadata endpoints in github.com/quay/claircore
+cves:
+    - CVE-2026-10517
+ghsas:
+    - GHSA-698x-9w2p-7vvp
+references:
+    - advisory: https://github.com/advisories/GHSA-698x-9w2p-7vvp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-10517
+    - web: https://access.redhat.com/security/cve/CVE-2026-10517
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2486779
+source:
+    id: GHSA-698x-9w2p-7vvp
+    created: 2026-07-17T13:19:30.26227296-04:00
+review_status: UNREVIEWED

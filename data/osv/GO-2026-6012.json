@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6012",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-52832",
+    "GHSA-wpcj-rmv4-86qg"
+  ],
+  "summary": "Nuclio: Unauthenticated path traversal in spec.handler allows arbitrary file write in Dashboard container in github.com/nuclio/nuclio",
+  "details": "Nuclio: Unauthenticated path traversal in spec.handler allows arbitrary file write in Dashboard container in github.com/nuclio/nuclio.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/nuclio/nuclio before v1.16.5.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/nuclio/nuclio",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "1.16.5"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/nuclio/nuclio/security/advisories/GHSA-wpcj-rmv4-86qg"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/nuclio/nuclio/commit/2a55d3a8bd4d49226cb4742020303f5bf2a0931d"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/nuclio/nuclio/pull/4143"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/nuclio/nuclio/releases/tag/1.16.5"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6012",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,19 @@
+id: GO-2026-6006
+modules:
+    - module: github.com/envoyproxy/gateway
+      versions:
+        - fixed: 1.7.4
+        - introduced: 1.8.0-rc.0
+        - fixed: 1.8.1
+      vulnerable_at: 1.8.0
+summary: 'Envoy Gateway: Wasm HTTP fetch decompresses gzip without output-size limit in github.com/envoyproxy/gateway'
+cves:
+    - CVE-2026-53716
+ghsas:
+    - GHSA-cxpq-8v7q-cg56
+references:
+    - advisory: https://github.com/envoyproxy/gateway/security/advisories/GHSA-cxpq-8v7q-cg56
+source:
+    id: GHSA-cxpq-8v7q-cg56
+    created: 2026-07-17T13:13:08.071643908-04:00
+review_status: UNREVIEWED

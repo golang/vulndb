@@ -1,0 +1,21 @@
+id: GO-2026-5948
+modules:
+    - module: github.com/enchant97/note-mark/backend
+      versions:
+        - fixed: 0.0.0-20260601210758-9c9b72740f22
+summary: |-
+    Note Mark: Unauthenticated disclosure of soft-deleted note metadata via
+    deleted=true on public books in github.com/enchant97/note-mark/backend
+cves:
+    - CVE-2026-50554
+ghsas:
+    - GHSA-588f-fvcv-xhvf
+references:
+    - advisory: https://github.com/enchant97/note-mark/security/advisories/GHSA-588f-fvcv-xhvf
+    - web: https://github.com/enchant97/note-mark/commit/9c9b72740f22a06131a8f64b53bb08e3b05b81a6
+notes:
+    - fix: 'github.com/enchant97/note-mark/backend: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-588f-fvcv-xhvf
+    created: 2026-07-17T13:18:50.882177844-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,21 @@
+id: GO-2026-6003
+modules:
+    - module: github.com/envoyproxy/gateway
+      versions:
+        - fixed: 1.7.4
+        - introduced: 1.8.0-rc.0
+        - fixed: 1.8.1
+      vulnerable_at: 1.8.0
+summary: |-
+    Envoy Gateway: xDS Control Plane Information Disclosure when operating in
+    GatewayNamespaceMode in github.com/envoyproxy/gateway
+cves:
+    - CVE-2026-53714
+ghsas:
+    - GHSA-22xc-xg2r-9j7v
+references:
+    - advisory: https://github.com/envoyproxy/gateway/security/advisories/GHSA-22xc-xg2r-9j7v
+source:
+    id: GHSA-22xc-xg2r-9j7v
+    created: 2026-07-17T13:13:24.159007384-04:00
+review_status: UNREVIEWED

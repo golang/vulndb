@@ -1,0 +1,22 @@
+id: GO-2026-6004
+modules:
+    - module: github.com/nuclio/nuclio
+      non_go_versions:
+        - fixed: 1.16.5
+      vulnerable_at: 1.14.2
+summary: |-
+    Nuclio: Unsanitized runtimeAttributes.repositories injected into Groovy
+    build.gradle leads to build-time RCE in github.com/nuclio/nuclio
+cves:
+    - CVE-2026-52833
+ghsas:
+    - GHSA-3v79-m2cg-89ww
+references:
+    - advisory: https://github.com/nuclio/nuclio/security/advisories/GHSA-3v79-m2cg-89ww
+    - fix: https://github.com/nuclio/nuclio/commit/4c78040c759068e927f3ed7c6507543c15d4ae56
+    - fix: https://github.com/nuclio/nuclio/pull/4149
+    - web: https://github.com/nuclio/nuclio/releases/tag/1.16.5
+source:
+    id: GHSA-3v79-m2cg-89ww
+    created: 2026-07-17T13:13:17.730178407-04:00
+review_status: UNREVIEWED

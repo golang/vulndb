@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6008",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-53717",
+    "GHSA-h7pq-86h8-rp5x"
+  ],
+  "summary": "Envoy Gateway: OCI layer extraction allocates make([]byte, h.Size) from untrusted tar header in github.com/envoyproxy/gateway",
+  "details": "Envoy Gateway: OCI layer extraction allocates make([]byte, h.Size) from untrusted tar header in github.com/envoyproxy/gateway",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/envoyproxy/gateway",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.7.4"
+            },
+            {
+              "introduced": "1.8.0-rc.0"
+            },
+            {
+              "fixed": "1.8.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/envoyproxy/gateway/security/advisories/GHSA-h7pq-86h8-rp5x"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6008",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5952",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-49834",
+    "GHSA-9vcr-p3rj-q5q6"
+  ],
+  "summary": "sigstore-go has a multi-log threshold bypass via single compromised log in github.com/sigstore/sigstore-go",
+  "details": "sigstore-go has a multi-log threshold bypass via single compromised log in github.com/sigstore/sigstore-go",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/sigstore/sigstore-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.2.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/sigstore/sigstore-go/security/advisories/GHSA-9vcr-p3rj-q5q6"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5952",
+    "review_status": "UNREVIEWED"
+  }
+}

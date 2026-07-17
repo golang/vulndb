@@ -1,0 +1,18 @@
+id: GO-2026-5929
+modules:
+    - module: github.com/QuantumNous/new-api
+      versions:
+        - fixed: 0.12.0-alpha.1
+      vulnerable_at: 0.11.9
+summary: New API is vulnerable to CSRF through user email binding in github.com/QuantumNous/new-api
+cves:
+    - CVE-2026-44342
+ghsas:
+    - GHSA-26v7-h57m-gh9m
+references:
+    - advisory: https://github.com/QuantumNous/new-api/security/advisories/GHSA-26v7-h57m-gh9m
+    - fix: https://github.com/QuantumNous/new-api/commit/e099117c61391abdf888fb75e382a582e550bd0e
+source:
+    id: GHSA-26v7-h57m-gh9m
+    created: 2026-07-17T13:20:03.81816488-04:00
+review_status: UNREVIEWED

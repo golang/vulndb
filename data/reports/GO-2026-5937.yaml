@@ -1,0 +1,23 @@
+id: GO-2026-5937
+modules:
+    - module: github.com/oasdiff/oasdiff
+      versions:
+        - introduced: 1.13.2
+        - fixed: 1.18.1
+      vulnerable_at: 1.18.0
+summary: |-
+    oasdiff does not enforce --allow-external-refs=false on the git-revision load
+    path (SSRF / local file read) in github.com/oasdiff/oasdiff
+cves:
+    - CVE-2026-53508
+ghsas:
+    - GHSA-2jcc-mxv7-p3f9
+references:
+    - advisory: https://github.com/oasdiff/oasdiff/security/advisories/GHSA-2jcc-mxv7-p3f9
+    - fix: https://github.com/oasdiff/oasdiff/pull/832
+    - fix: https://github.com/oasdiff/oasdiff/pull/974
+    - fix: https://github.com/oasdiff/oasdiff/pull/975
+source:
+    id: GHSA-2jcc-mxv7-p3f9
+    created: 2026-07-17T13:19:43.274448277-04:00
+review_status: UNREVIEWED

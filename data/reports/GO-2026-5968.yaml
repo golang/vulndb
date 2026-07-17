@@ -1,0 +1,23 @@
+id: GO-2026-5968
+modules:
+    - module: chainguard.dev/apko
+      versions:
+        - fixed: 1.2.9
+      vulnerable_at: 1.2.8
+    - module: chainguard.dev/melange
+      versions:
+        - fixed: 0.50.4
+      vulnerable_at: 0.50.3
+summary: |-
+    melange: Incomplete package integrity verification allows data section
+    substitution in chainguard.dev/apko
+cves:
+    - CVE-2026-54174
+ghsas:
+    - GHSA-fpg8-7664-jc5q
+references:
+    - advisory: https://github.com/chainguard-dev/melange/security/advisories/GHSA-fpg8-7664-jc5q
+source:
+    id: GHSA-fpg8-7664-jc5q
+    created: 2026-07-17T13:16:41.524961494-04:00
+review_status: UNREVIEWED

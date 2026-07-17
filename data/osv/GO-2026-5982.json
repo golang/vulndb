@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5982",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-pqg7-v6wh-3pfp"
+  ],
+  "summary": "TsDProxy: X-Forwarded-For header injection allows IP spoofing in proxied requests to backend services in github.com/almeidapaulopt/tsdproxy",
+  "details": "TsDProxy: X-Forwarded-For header injection allows IP spoofing in proxied requests to backend services in github.com/almeidapaulopt/tsdproxy",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/almeidapaulopt/tsdproxy",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/almeidapaulopt/tsdproxy/security/advisories/GHSA-pqg7-v6wh-3pfp"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/almeidapaulopt/tsdproxy/commit/e8200b7947719e5e7fbbbdb9c34f459a4c285e77"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5982",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,20 @@
+id: GO-2026-5998
+modules:
+    - module: github.com/open-feature/open-feature-operator
+      unsupported_versions:
+        - last_affected: 0.9.2
+      vulnerable_at: 0.9.2
+summary: |-
+    open-feature-operator: Cross-namespace FeatureFlagSource and
+    InProcessConfiguration resolution exposes spec contents on multi-tenant clusters in github.com/open-feature/open-feature-operator
+cves:
+    - CVE-2026-54495
+ghsas:
+    - GHSA-398h-7f66-3h4p
+references:
+    - advisory: https://github.com/open-feature/open-feature-operator/security/advisories/GHSA-398h-7f66-3h4p
+    - report: https://github.com/open-feature/open-feature-operator/issues/847
+source:
+    id: GHSA-398h-7f66-3h4p
+    created: 2026-07-17T13:13:45.606780633-04:00
+review_status: UNREVIEWED

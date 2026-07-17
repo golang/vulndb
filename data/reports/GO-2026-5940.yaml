@@ -1,0 +1,21 @@
+id: GO-2026-5940
+modules:
+    - module: github.com/kedacore/keda
+      vulnerable_at: 1.5.0
+    - module: github.com/kedacore/keda/v2
+      versions:
+        - fixed: 2.20.0
+      vulnerable_at: 2.19.0
+summary: |-
+    KEDA has PostgreSQL connection string parameter injection via incomplete
+    whitespace escaping in github.com/kedacore/keda
+cves:
+    - CVE-2026-53572
+ghsas:
+    - GHSA-6w3m-4hhp-775q
+references:
+    - advisory: https://github.com/kedacore/keda/security/advisories/GHSA-6w3m-4hhp-775q
+source:
+    id: GHSA-6w3m-4hhp-775q
+    created: 2026-07-17T13:19:25.223878839-04:00
+review_status: UNREVIEWED

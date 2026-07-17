@@ -1,0 +1,22 @@
+id: GO-2026-5946
+modules:
+    - module: github.com/nuclio/nuclio
+      versions:
+        - fixed: 0.0.0-20260601075854-3356b86a8bfa
+summary: |-
+    Nuclio: Unsanitized cron trigger event headers/body injected into CronJob shell
+    command leads to persistent RCE in github.com/nuclio/nuclio
+cves:
+    - CVE-2026-52831
+ghsas:
+    - GHSA-v5px-423j-pf7p
+references:
+    - advisory: https://github.com/nuclio/nuclio/security/advisories/GHSA-v5px-423j-pf7p
+    - fix: https://github.com/nuclio/nuclio/commit/3356b86a8bfab3f960aa420310ebff765df9dede
+    - web: https://github.com/nuclio/nuclio/releases/tag/1.16.4
+notes:
+    - fix: 'github.com/nuclio/nuclio: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-v5px-423j-pf7p
+    created: 2026-07-17T13:19:02.028093346-04:00
+review_status: UNREVIEWED

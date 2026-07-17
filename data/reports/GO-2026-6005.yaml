@@ -1,0 +1,19 @@
+id: GO-2026-6005
+modules:
+    - module: github.com/envoyproxy/gateway
+      versions:
+        - fixed: 1.7.4
+        - introduced: 1.8.0-rc.0
+        - fixed: 1.8.1
+      vulnerable_at: 1.8.0
+summary: 'Envoy Gateway: Wasm cache ServeHTTP reads mappingPath2Cache without lock in github.com/envoyproxy/gateway'
+cves:
+    - CVE-2026-53715
+ghsas:
+    - GHSA-8fv2-88gg-hm7q
+references:
+    - advisory: https://github.com/envoyproxy/gateway/security/advisories/GHSA-8fv2-88gg-hm7q
+source:
+    id: GHSA-8fv2-88gg-hm7q
+    created: 2026-07-17T13:13:12.766137212-04:00
+review_status: UNREVIEWED

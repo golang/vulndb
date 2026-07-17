@@ -1,0 +1,32 @@
+id: GO-2026-5992
+modules:
+    - module: github.com/woodpecker-ci/woodpecker
+      versions:
+        - introduced: 1.0.0
+      unsupported_versions:
+        - last_affected: 1.0.4
+      vulnerable_at: 1.0.5
+    - module: go.woodpecker-ci.org/woodpecker
+      vulnerable_at: 1.0.5
+    - module: go.woodpecker-ci.org/woodpecker/v2
+      unsupported_versions:
+        - last_affected: 2.8.3
+      vulnerable_at: 2.8.3
+    - module: go.woodpecker-ci.org/woodpecker/v3
+      versions:
+        - fixed: 3.16.0
+      vulnerable_at: 3.15.0
+summary: |-
+    Woodpecker: Privilege escalation via unrestricted serviceAccountName in the
+    Kubernetes backend in github.com/woodpecker-ci/woodpecker
+cves:
+    - CVE-2026-61549
+ghsas:
+    - GHSA-qf34-295c-26v8
+references:
+    - advisory: https://github.com/woodpecker-ci/woodpecker/security/advisories/GHSA-qf34-295c-26v8
+    - fix: https://github.com/woodpecker-ci/woodpecker/pull/6792
+source:
+    id: GHSA-qf34-295c-26v8
+    created: 2026-07-17T13:14:00.917758217-04:00
+review_status: UNREVIEWED

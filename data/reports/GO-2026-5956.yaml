@@ -1,0 +1,21 @@
+id: GO-2026-5956
+modules:
+    - module: github.com/openrundev/openrun
+      versions:
+        - fixed: 0.17.7
+      vulnerable_at: 0.17.6
+summary: |-
+    OpenRun: Redirect URL validation bypass using  //host  paths leads to Open
+    Redirect in github.com/openrundev/openrun
+cves:
+    - CVE-2026-55252
+ghsas:
+    - GHSA-h5g6-xmh4-hc37
+references:
+    - advisory: https://github.com/openrundev/openrun/security/advisories/GHSA-h5g6-xmh4-hc37
+    - fix: https://github.com/openrundev/openrun/commit/709da784fcf1311c85f30f3542cfa3601a78bbf0
+    - web: https://github.com/openrundev/openrun/releases/tag/v0.17.7
+source:
+    id: GHSA-h5g6-xmh4-hc37
+    created: 2026-07-17T13:17:42.354227551-04:00
+review_status: UNREVIEWED

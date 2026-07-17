@@ -1,0 +1,19 @@
+id: GO-2026-5978
+modules:
+    - module: github.com/StacklokLabs/mkp
+      versions:
+        - fixed: 0.4.1
+      vulnerable_at: 0.4.0
+summary: |-
+    MKP: Unbounded Pod Log Read via Attacker-Controlled `limitBytes`/`tailLines`
+    Causes Memory Exhaustion in github.com/StacklokLabs/mkp
+cves:
+    - CVE-2026-50125
+ghsas:
+    - GHSA-qw5r-ppcg-f8rj
+references:
+    - advisory: https://github.com/StacklokLabs/mkp/security/advisories/GHSA-qw5r-ppcg-f8rj
+source:
+    id: GHSA-qw5r-ppcg-f8rj
+    created: 2026-07-17T13:15:41.561561877-04:00
+review_status: UNREVIEWED

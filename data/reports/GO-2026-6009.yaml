@@ -1,0 +1,21 @@
+id: GO-2026-6009
+modules:
+    - module: github.com/envoyproxy/gateway
+      versions:
+        - fixed: 1.7.4
+        - introduced: 1.8.0-rc.0
+        - fixed: 1.8.1
+      vulnerable_at: 1.8.0
+summary: |-
+    Envoy Gateway: Nil-dereference when SecurityPolicy targets TCPRoute without
+    spec.authorization in github.com/envoyproxy/gateway
+cves:
+    - CVE-2026-53719
+ghsas:
+    - GHSA-m2v6-2jmh-4c68
+references:
+    - advisory: https://github.com/envoyproxy/gateway/security/advisories/GHSA-m2v6-2jmh-4c68
+source:
+    id: GHSA-m2v6-2jmh-4c68
+    created: 2026-07-17T13:12:54.188292688-04:00
+review_status: UNREVIEWED

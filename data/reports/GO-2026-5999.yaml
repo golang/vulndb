@@ -1,0 +1,27 @@
+id: GO-2026-5999
+modules:
+    - module: github.com/milvus-io/milvus
+      versions:
+        - fixed: 0.10.3-0.20260602041816-3d932f1c3e06
+      vulnerable_at: 0.10.2
+summary: |-
+    milvus: RBAC grantee-id uses truncated MD5 (64-bit), enabling privilege-binding
+    collisions and cross-role privilege forgery in github.com/milvus-io/milvus
+cves:
+    - CVE-2026-10814
+ghsas:
+    - GHSA-jh6h-v6mp-h22v
+references:
+    - advisory: https://github.com/advisories/GHSA-jh6h-v6mp-h22v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-10814
+    - fix: https://github.com/milvus-io/milvus/commit/3d932f1c3e065351c4440c27abe1e6479752544d
+    - fix: https://github.com/milvus-io/milvus/pull/50060
+    - report: https://github.com/milvus-io/milvus/issues/49857
+    - web: https://vuldb.com/cve/CVE-2026-10814
+    - web: https://vuldb.com/submit/831645
+    - web: https://vuldb.com/vuln/368262
+    - web: https://vuldb.com/vuln/368262/cti
+source:
+    id: GHSA-jh6h-v6mp-h22v
+    created: 2026-07-17T13:13:38.813671366-04:00
+review_status: UNREVIEWED

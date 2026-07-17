@@ -1,0 +1,22 @@
+id: GO-2026-5962
+modules:
+    - module: github.com/filebrowser/filebrowser
+      vulnerable_at: 1.11.0
+    - module: github.com/filebrowser/filebrowser/v2
+      versions:
+        - fixed: 2.63.6
+      vulnerable_at: 2.63.5
+summary: |-
+    File Browser: Command Injection via Authentication Hook Shell Substitution
+    (Pre-Authentication RCE) in github.com/filebrowser/filebrowser
+cves:
+    - CVE-2026-54088
+ghsas:
+    - GHSA-m93h-4hw7-5qcm
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-m93h-4hw7-5qcm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-54088
+source:
+    id: GHSA-m93h-4hw7-5qcm
+    created: 2026-07-17T13:17:11.190450163-04:00
+review_status: UNREVIEWED

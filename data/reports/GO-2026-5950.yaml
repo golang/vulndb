@@ -1,0 +1,20 @@
+id: GO-2026-5950
+modules:
+    - module: github.com/forgekeep/nebula-mesh
+      versions:
+        - fixed: 0.3.7
+      vulnerable_at: 0.3.6
+summary: |-
+    nebula-mesh: Host revocation is not durable - blocked/offboarded hosts can
+    regain a valid certificate in github.com/forgekeep/nebula-mesh
+cves:
+    - CVE-2026-53602
+ghsas:
+    - GHSA-339v-266x-79xr
+references:
+    - advisory: https://github.com/forgekeep/nebula-mesh/security/advisories/GHSA-339v-266x-79xr
+    - report: https://github.com/forgekeep/nebula-mesh/issues/178
+source:
+    id: GHSA-339v-266x-79xr
+    created: 2026-07-17T13:18:39.819753025-04:00
+review_status: UNREVIEWED

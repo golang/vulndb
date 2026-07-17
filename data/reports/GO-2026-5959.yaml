@@ -1,0 +1,20 @@
+id: GO-2026-5959
+modules:
+    - module: github.com/authorizerdev/authorizer
+      versions:
+        - fixed: 0.0.0-20260409051328-bd3f5baf6d3d
+summary: |-
+    Authorizer: Unvalidated redirect_uri in /authorize leaks OAuth2 tokens to
+    attacker-controlled URL in github.com/authorizerdev/authorizer
+cves:
+    - CVE-2026-54072
+ghsas:
+    - GHSA-h29v-hj44-q8cv
+references:
+    - advisory: https://github.com/authorizerdev/authorizer/security/advisories/GHSA-h29v-hj44-q8cv
+notes:
+    - fix: 'github.com/authorizerdev/authorizer: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-h29v-hj44-q8cv
+    created: 2026-07-17T13:17:26.988929471-04:00
+review_status: UNREVIEWED

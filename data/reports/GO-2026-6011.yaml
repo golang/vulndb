@@ -1,0 +1,21 @@
+id: GO-2026-6011
+modules:
+    - module: github.com/envoyproxy/gateway
+      versions:
+        - fixed: 1.7.4
+        - introduced: 1.8.0-rc.0
+        - fixed: 1.8.1
+      vulnerable_at: 1.8.0
+summary: |-
+    Envoy Gateway: Authentication Bypass via Improper Input Validation in
+    EnvoyExtensionPolicy Lua Allows Secret Disclosure in github.com/envoyproxy/gateway
+cves:
+    - CVE-2026-53713
+ghsas:
+    - GHSA-wcrf-9vrr-854f
+references:
+    - advisory: https://github.com/envoyproxy/gateway/security/advisories/GHSA-wcrf-9vrr-854f
+source:
+    id: GHSA-wcrf-9vrr-854f
+    created: 2026-07-17T13:12:44.700642063-04:00
+review_status: UNREVIEWED

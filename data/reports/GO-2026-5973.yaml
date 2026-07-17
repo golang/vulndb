@@ -1,0 +1,22 @@
+id: GO-2026-5973
+modules:
+    - module: github.com/k3s-io/k3s
+      non_go_versions:
+        - fixed: 1.33.10
+        - introduced: 1.34.0-rc1
+        - fixed: 1.34.6
+        - introduced: 1.35.0-rc1
+        - fixed: 1.35.3
+      vulnerable_at: 1.0.1
+summary: 'K3s: ZIP Archive Path Traversal Vulnerability in etcd Snapshot Decompression in github.com/k3s-io/k3s'
+cves:
+    - CVE-2026-54250
+ghsas:
+    - GHSA-jxr7-mqhw-9p98
+references:
+    - advisory: https://github.com/k3s-io/k3s/security/advisories/GHSA-jxr7-mqhw-9p98
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-54250
+source:
+    id: GHSA-jxr7-mqhw-9p98
+    created: 2026-07-17T13:16:08.825294119-04:00
+review_status: UNREVIEWED

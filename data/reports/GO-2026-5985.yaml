@@ -1,0 +1,20 @@
+id: GO-2026-5985
+modules:
+    - module: github.com/forgekeep/nebula-mesh
+      versions:
+        - introduced: 0.6.0
+        - fixed: 0.7.2
+      vulnerable_at: 0.7.1
+summary: |-
+    Nebula-mesh allows non-admin operators to disable webhook SSRF protection via
+    `allow_private` in github.com/forgekeep/nebula-mesh
+ghsas:
+    - GHSA-7rx3-5wx3-5v76
+references:
+    - advisory: https://github.com/forgekeep/nebula-mesh/security/advisories/GHSA-7rx3-5wx3-5v76
+    - fix: https://github.com/forgekeep/nebula-mesh/commit/f3c54530e388dd21763e548923426e60a8e93ff0
+    - web: https://github.com/forgekeep/nebula-mesh/releases/tag/v0.7.2
+source:
+    id: GHSA-7rx3-5wx3-5v76
+    created: 2026-07-17T13:14:38.435173061-04:00
+review_status: UNREVIEWED

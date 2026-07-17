@@ -1,0 +1,22 @@
+id: GO-2026-5966
+modules:
+    - module: github.com/filebrowser/filebrowser
+      vulnerable_at: 1.11.0
+    - module: github.com/filebrowser/filebrowser/v2
+      versions:
+        - introduced: 2.0.0-rc.1
+      unsupported_versions:
+        - last_affected: 2.63.18
+      vulnerable_at: 2.63.18
+summary: 'File Browser: Authentication Bypass via Proxy Auth Header Forgery in github.com/filebrowser/filebrowser'
+cves:
+    - CVE-2026-54089
+ghsas:
+    - GHSA-xqp3-jq6g-x3qm
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-xqp3-jq6g-x3qm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-54089
+source:
+    id: GHSA-xqp3-jq6g-x3qm
+    created: 2026-07-17T13:16:51.312554402-04:00
+review_status: UNREVIEWED

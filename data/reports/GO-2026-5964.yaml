@@ -1,0 +1,21 @@
+id: GO-2026-5964
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260628153353-2d5d72223df4
+summary: |-
+    SiYuan: Path Traversal via Double URL Encoding in /assets/*path (publish mode
+    arbitrary file─read), Incomplete fix of CVE-2026-41894 in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-54066
+ghsas:
+    - GHSA-p4m3-mgmm-c664
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-p4m3-mgmm-c664
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-54066
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-p4m3-mgmm-c664
+    created: 2026-07-17T13:17:01.423761786-04:00
+review_status: UNREVIEWED

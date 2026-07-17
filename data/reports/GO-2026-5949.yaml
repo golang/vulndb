@@ -1,0 +1,21 @@
+id: GO-2026-5949
+modules:
+    - module: github.com/enchant97/note-mark/backend
+      versions:
+        - fixed: 0.0.0-20260601210719-67b7de04308a
+summary: |-
+    Note Mark: Path traversal via unsanitized book/note slug in migrate export
+    (sibling of GHSA-g49p) in github.com/enchant97/note-mark/backend
+cves:
+    - CVE-2026-50553
+ghsas:
+    - GHSA-rqrh-8wpv-x7hh
+references:
+    - advisory: https://github.com/enchant97/note-mark/security/advisories/GHSA-rqrh-8wpv-x7hh
+    - web: https://github.com/enchant97/note-mark/commit/67b7de04308a858ef27ceff87b514067b6d667e5
+notes:
+    - fix: 'github.com/enchant97/note-mark/backend: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-rqrh-8wpv-x7hh
+    created: 2026-07-17T13:18:45.219492778-04:00
+review_status: UNREVIEWED

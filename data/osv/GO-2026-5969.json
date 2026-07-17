@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5969",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-g936-7jqj-mwv8"
+  ],
+  "summary": "TSDProxy: Internal proxy auth token forwarded to backend services enables management API escalation in github.com/almeidapaulopt/tsdproxy",
+  "details": "TSDProxy: Internal proxy auth token forwarded to backend services enables management API escalation in github.com/almeidapaulopt/tsdproxy",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/almeidapaulopt/tsdproxy",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.4.4-0.20260603142855-434819b4421e"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/almeidapaulopt/tsdproxy/security/advisories/GHSA-g936-7jqj-mwv8"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5969",
+    "review_status": "UNREVIEWED"
+  }
+}

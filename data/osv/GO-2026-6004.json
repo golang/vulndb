@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6004",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-52833",
+    "GHSA-3v79-m2cg-89ww"
+  ],
+  "summary": "Nuclio: Unsanitized runtimeAttributes.repositories injected into Groovy build.gradle leads to build-time RCE in github.com/nuclio/nuclio",
+  "details": "Nuclio: Unsanitized runtimeAttributes.repositories injected into Groovy build.gradle leads to build-time RCE in github.com/nuclio/nuclio.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/nuclio/nuclio before v1.16.5.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/nuclio/nuclio",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "1.16.5"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/nuclio/nuclio/security/advisories/GHSA-3v79-m2cg-89ww"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/nuclio/nuclio/commit/4c78040c759068e927f3ed7c6507543c15d4ae56"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/nuclio/nuclio/pull/4149"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/nuclio/nuclio/releases/tag/1.16.5"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6004",
+    "review_status": "UNREVIEWED"
+  }
+}

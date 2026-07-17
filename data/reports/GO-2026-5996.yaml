@@ -1,0 +1,19 @@
+id: GO-2026-5996
+modules:
+    - module: github.com/stacklok/toolhive
+      versions:
+        - fixed: 0.29.1
+      vulnerable_at: 0.29.0
+summary: |-
+    ToolHive: SSRF guard misses IPv6 NAT64 ranges (64:ff9b::/96, 64:ff9b:1::/48),
+    allowing metadata/internal access behind a NAT64 gateway in github.com/stacklok/toolhive
+cves:
+    - CVE-2026-54450
+ghsas:
+    - GHSA-pph6-vfjv-vpjw
+references:
+    - advisory: https://github.com/stacklok/toolhive/security/advisories/GHSA-pph6-vfjv-vpjw
+source:
+    id: GHSA-pph6-vfjv-vpjw
+    created: 2026-07-17T13:13:56.016755013-04:00
+review_status: UNREVIEWED

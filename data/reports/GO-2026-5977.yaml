@@ -1,0 +1,19 @@
+id: GO-2026-5977
+modules:
+    - module: github.com/SpectoLabs/hoverfly
+      versions:
+        - fixed: 1.12.8
+      vulnerable_at: 1.12.7
+summary: 'Hoverfly: Process Crash via Concurrent Map Write Race Condition in Diff Mode in github.com/SpectoLabs/hoverfly'
+cves:
+    - CVE-2026-50013
+ghsas:
+    - GHSA-qrh4-p6v4-mrfg
+references:
+    - advisory: https://github.com/SpectoLabs/hoverfly/security/advisories/GHSA-qrh4-p6v4-mrfg
+    - fix: https://github.com/SpectoLabs/hoverfly/pull/1227
+    - web: https://github.com/SpectoLabs/hoverfly/releases/tag/v1.12.8
+source:
+    id: GHSA-qrh4-p6v4-mrfg
+    created: 2026-07-17T13:15:46.114723335-04:00
+review_status: UNREVIEWED

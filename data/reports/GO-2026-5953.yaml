@@ -1,0 +1,22 @@
+id: GO-2026-5953
+modules:
+    - module: github.com/casdoor/casdoor
+      non_go_versions:
+        - fixed: 2.387.0
+      vulnerable_at: 1.1000.0
+summary: |-
+    Casdoor: GetTokenExchangeToken bypass through lack of cross-organization JWT
+    signature check in github.com/casdoor/casdoor
+cves:
+    - CVE-2026-9094
+ghsas:
+    - GHSA-c9w5-qp6m-m395
+references:
+    - advisory: https://github.com/advisories/GHSA-c9w5-qp6m-m395
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-9094
+    - fix: https://github.com/casdoor/casdoor/commit/d92b8568686d
+    - web: https://kb.cert.org/vuls/id/780781
+source:
+    id: GHSA-c9w5-qp6m-m395
+    created: 2026-07-17T13:17:57.601298905-04:00
+review_status: UNREVIEWED

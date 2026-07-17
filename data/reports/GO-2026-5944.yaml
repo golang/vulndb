@@ -1,0 +1,19 @@
+id: GO-2026-5944
+modules:
+    - module: github.com/zalando/skipper
+      versions:
+        - fixed: 0.26.10
+      vulnerable_at: 0.26.9
+summary: |-
+    Skipper: opaAuthorizeRequestWithBody filter bypasses OPA policy on
+    Transfer-Encoding — chunked / HTTP/2 requests in github.com/zalando/skipper
+cves:
+    - CVE-2026-50197
+ghsas:
+    - GHSA-659f-rgp5-w4wf
+references:
+    - advisory: https://github.com/zalando/skipper/security/advisories/GHSA-659f-rgp5-w4wf
+source:
+    id: GHSA-659f-rgp5-w4wf
+    created: 2026-07-17T13:19:14.146583731-04:00
+review_status: UNREVIEWED
