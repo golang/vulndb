@@ -88,9 +88,23 @@ func TestLintReports(t *testing.T) {
 			Timeout:   20 * time.Second,
 			Transport: http.DefaultTransport,
 		}
-		pc := proxy.NewClient(&client, cachedProxyURL)
-		lint = func(r *report.Report) []string {
-			return r.Lint(pc)
+		cachedPc := proxy.NewClient(&client, cachedProxyURL)
+		nonCachedPc := proxy.NewClient(&client, proxy.ProxyURL)
+		// Fetching from /cached-only endpoint is significantly faster and
+		// cheaper, but might fail if the module is not in the cache.
+		// Therefore, fetch from regular endpoint too when /cached-only fails,
+		// just in case.
+		// Attempt to fetch from both endpoints twice each, to account for
+		// network flakiness.
+		lint = func(r *report.Report) (result []string) {
+			for range 2 {
+				for _, pc := range []*proxy.Client{cachedPc, nonCachedPc} {
+					if result = r.Lint(pc); len(result) == 0 {
+						return
+					}
+				}
+			}
+			return result
 		}
 	}
 
@@ -132,19 +146,11 @@ func TestLintReports(t *testing.T) {
 				t.Error(err)
 			}
 
-			// Prevent transient network failures from surfacing as test
-			// failures by retrying up to three times, taking the first pass or
-			// all three fails.
 			// Also use networkSem to make sure that not too many subtests will
 			// be using the network at the same time, in case someone runs the
 			// test on a machine with high GOMAXPROCS.
 			networkSem <- struct{}{}
-			var lints []string
-			for range 3 {
-				if lints = lint(r); len(lints) == 0 {
-					break
-				}
-			}
+			lints := lint(r)
 			<-networkSem
 			if len(lints) > 0 {
 				t.Error(strings.Join(lints, "\n"))
