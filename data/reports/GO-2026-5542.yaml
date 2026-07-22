@@ -1,0 +1,46 @@
+id: GO-2026-5542
+modules:
+    - module: github.com/defenseunicorns/zarf
+      versions:
+        - introduced: 0.23.0
+      vulnerable_at: 0.36.1
+      packages:
+        - package: github.com/defenseunicorns/zarf/src/pkg/packager
+          symbols:
+            - Packager.Create
+    - module: github.com/zarf-dev/zarf
+      versions:
+        - introduced: 0.37.0
+        - fixed: 0.74.2
+      vulnerable_at: 0.74.1
+      packages:
+        - package: github.com/zarf-dev/zarf/src/pkg/packager
+          symbols:
+            - Create
+          derived_symbols:
+            - GetPackageFromSourceOrCluster
+            - LoadPackage
+            - Pull
+        - package: github.com/zarf-dev/zarf/src/pkg/packager/layout
+          symbols:
+            - PackageLayout.FileName
+          derived_symbols:
+            - PackageLayout.Archive
+summary: Path traversal via malicious package name in github.com/zarf-dev/zarf
+description: |-
+    A path traversal vulnerability in Zarf allows an attacker to write arbitrary
+    files on the host system by providing a malicious package name in the package
+    metadata. This occurs when Zarf generates SBOM or documentation outputs, or when
+    creating a package, as it fails to properly sanitize the package name before
+    using it in a file path.
+cves:
+    - CVE-2026-40090
+ghsas:
+    - GHSA-pj97-4p9w-gx3q
+references:
+    - advisory: https://github.com/zarf-dev/zarf/security/advisories/GHSA-pj97-4p9w-gx3q
+    - fix: https://github.com/zarf-dev/zarf/pull/4793
+source:
+    id: GHSA-pj97-4p9w-gx3q
+    created: 2026-07-21T19:42:28.590492-04:00
+review_status: REVIEWED
