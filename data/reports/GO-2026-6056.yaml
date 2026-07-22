@@ -1,0 +1,24 @@
+id: GO-2026-6056
+modules:
+    - module: code.gitea.io/gitea
+      versions:
+        - fixed: 1.26.4
+      vulnerable_at: 1.26.3
+summary: |-
+    Gitea: Improper authorization on OAuth sign-in callback silently re-enables
+    administrator-disabled accounts in code.gitea.io/gitea
+cves:
+    - CVE-2026-58422
+ghsas:
+    - GHSA-g9g6-qhrc-p3qc
+references:
+    - advisory: https://github.com/go-gitea/gitea/security/advisories/GHSA-g9g6-qhrc-p3qc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-58422
+    - web: https://blog.gitea.com/release-of-1.26.3-and-1.26.4
+    - web: https://github.com/go-gitea/gitea/commit/c43eb7c33a100ffc7b2367adf165f7085e0ccdc5
+    - web: https://github.com/go-gitea/gitea/pull/38009
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.26.4
+source:
+    id: GHSA-g9g6-qhrc-p3qc
+    created: 2026-07-21T19:05:37.595171-04:00
+review_status: UNREVIEWED

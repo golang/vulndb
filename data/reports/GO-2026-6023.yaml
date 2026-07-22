@@ -1,0 +1,29 @@
+id: GO-2026-6023
+modules:
+    - module: github.com/cloudreve/Cloudreve
+      vulnerable_at: 0.0.0-20201026073328-746aa3e8ef26
+    - module: github.com/cloudreve/Cloudreve/v3
+      unsupported_versions:
+        - last_affected: 3.0.0-20250225100611-da4e44b77af4
+      vulnerable_at: 3.0.0-20250225100611-da4e44b77af4
+    - module: github.com/cloudreve/Cloudreve/v4
+      versions:
+        - fixed: 4.0.0-20260606025411-aaebf317a78f
+summary: |-
+    Cloudreve: Non-admin remote download users can SSRF loopback/internal services
+    and read imported responses in github.com/cloudreve/Cloudreve
+cves:
+    - CVE-2026-54562
+ghsas:
+    - GHSA-x756-g4x3-c64m
+references:
+    - advisory: https://github.com/cloudreve/cloudreve/security/advisories/GHSA-x756-g4x3-c64m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-54562
+    - web: https://github.com/cloudreve/cloudreve/commit/aaebf317a78f2413d74afd66c21a1f3143711312
+    - web: https://github.com/cloudreve/cloudreve/releases/tag/4.16.1
+notes:
+    - fix: 'github.com/cloudreve/Cloudreve/v4: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-x756-g4x3-c64m
+    created: 2026-07-21T19:09:00.619308-04:00
+review_status: UNREVIEWED

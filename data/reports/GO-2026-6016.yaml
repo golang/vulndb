@@ -1,0 +1,21 @@
+id: GO-2026-6016
+modules:
+    - module: github.com/oapi-codegen/oapi-codegen
+      vulnerable_at: 1.16.3
+    - module: github.com/oapi-codegen/oapi-codegen/v2
+      versions:
+        - fixed: 2.7.1
+      vulnerable_at: 2.7.0
+summary: |-
+    oapi-codegen: OpenAPI Server Description Escapes Generated Go Comment and
+    Injects Executable Code in github.com/oapi-codegen/oapi-codegen
+ghsas:
+    - GHSA-rjwr-m7qx-3fjr
+references:
+    - advisory: https://github.com/oapi-codegen/oapi-codegen/security/advisories/GHSA-rjwr-m7qx-3fjr
+    - fix: https://github.com/oapi-codegen/oapi-codegen/commit/19c6282e9a6fb84b51aa92b12fad1f0b7e5f5ef6
+    - web: https://github.com/oapi-codegen/oapi-codegen/releases/tag/v2.7.1
+source:
+    id: GHSA-rjwr-m7qx-3fjr
+    created: 2026-07-21T19:09:41.353671-04:00
+review_status: UNREVIEWED

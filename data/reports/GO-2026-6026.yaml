@@ -1,0 +1,25 @@
+id: GO-2026-6026
+modules:
+    - module: github.com/filebrowser/filebrowser
+      vulnerable_at: 1.11.0
+    - module: github.com/filebrowser/filebrowser/v2
+      versions:
+        - introduced: 2.63.6
+        - fixed: 2.63.17
+      vulnerable_at: 2.63.16
+summary: |-
+    File Browser: Archive builder turns backslash filenames into path traversal
+    (zip-slip) in github.com/filebrowser/filebrowser
+cves:
+    - CVE-2026-62843
+ghsas:
+    - GHSA-83xp-526h-j3ww
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-83xp-526h-j3ww
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-62843
+    - fix: https://github.com/filebrowser/filebrowser/commit/8503ba61ff51d48a7313896483d130eb6a5abfe0
+    - web: https://github.com/filebrowser/filebrowser/releases/tag/v2.63.17
+source:
+    id: GHSA-83xp-526h-j3ww
+    created: 2026-07-21T19:08:43.674341-04:00
+review_status: UNREVIEWED

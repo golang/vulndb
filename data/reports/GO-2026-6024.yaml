@@ -1,0 +1,24 @@
+id: GO-2026-6024
+modules:
+    - module: github.com/filebrowser/filebrowser
+      vulnerable_at: 1.11.0
+    - module: github.com/filebrowser/filebrowser/v2
+      versions:
+        - fixed: 2.63.17
+      vulnerable_at: 2.63.16
+summary: |-
+    File Browser: Colliding username normalization gives two users the same home
+    directory in github.com/filebrowser/filebrowser
+cves:
+    - CVE-2026-62685
+ghsas:
+    - GHSA-7rc3-g7h6-22m7
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-7rc3-g7h6-22m7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-62685
+    - fix: https://github.com/filebrowser/filebrowser/commit/883a36f02fcb69566a8628cb47f18fdc73348387
+    - web: https://github.com/filebrowser/filebrowser/releases/tag/v2.63.17
+source:
+    id: GHSA-7rc3-g7h6-22m7
+    created: 2026-07-21T19:08:55.082005-04:00
+review_status: UNREVIEWED

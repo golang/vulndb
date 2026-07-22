@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6053",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-58429",
+    "GHSA-fq2p-5p22-8g6j"
+  ],
+  "summary": "Gitea: Public-Only Personal access tokens scope bypass in Organization and Permission Endpoints in gitea.dev",
+  "details": "Gitea: Public-Only Personal access tokens scope bypass in Organization and Permission Endpoints in gitea.dev",
+  "affected": [
+    {
+      "package": {
+        "name": "gitea.dev",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.27.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/go-gitea/gitea/security/advisories/GHSA-fq2p-5p22-8g6j"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-gitea/gitea/commit/a34eac5ef42ada433a7c7dafb98f15c13d7ad74e"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-gitea/gitea/commit/f2a1271f164569264c378fad720b0c000fff3336"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-gitea/gitea/pull/37118"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-gitea/gitea/pull/37773"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-gitea/gitea/releases/tag/v1.27.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6053",
+    "review_status": "UNREVIEWED"
+  }
+}

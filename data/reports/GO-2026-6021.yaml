@@ -1,0 +1,23 @@
+id: GO-2026-6021
+modules:
+    - module: github.com/filebrowser/filebrowser
+      vulnerable_at: 1.11.0
+    - module: github.com/filebrowser/filebrowser/v2
+      versions:
+        - fixed: 2.63.16
+      vulnerable_at: 2.63.15
+summary: |-
+    File Browser: Out-of-scope file deletion by a Create-only scoped user via
+    symlink-following RemoveAll in upload failure-cleanup in github.com/filebrowser/filebrowser
+cves:
+    - CVE-2026-55667
+ghsas:
+    - GHSA-fmm7-x4gx-8jhr
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-fmm7-x4gx-8jhr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-55667
+    - web: https://github.com/filebrowser/filebrowser/blob/be23ab3a15bf957928ecfed88de5ab67850c1b9c/http/resource.go#L172-L174
+source:
+    id: GHSA-fmm7-x4gx-8jhr
+    created: 2026-07-21T19:09:15.805822-04:00
+review_status: UNREVIEWED

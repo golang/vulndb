@@ -1,0 +1,21 @@
+id: GO-2026-6055
+modules:
+    - module: gitea.dev
+      versions:
+        - fixed: 1.27.0
+      vulnerable_at: 1.27.0-rc0
+summary: |-
+    Gitea: ParseAcceptLanguage quadratic-time DoS via Locale middleware on
+    unauthenticated requests in gitea.dev
+cves:
+    - CVE-2026-58436
+ghsas:
+    - GHSA-fw57-jgch-pgf3
+references:
+    - advisory: https://github.com/go-gitea/gitea/security/advisories/GHSA-fw57-jgch-pgf3
+    - web: https://github.com/go-gitea/gitea/commit/f452c369acc9f1bd05ec6ef9c2e4399062dd6da1
+    - web: https://github.com/go-gitea/gitea/pull/38323
+source:
+    id: GHSA-fw57-jgch-pgf3
+    created: 2026-07-21T19:05:45.263686-04:00
+review_status: UNREVIEWED

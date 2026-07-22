@@ -1,0 +1,24 @@
+id: GO-2026-6020
+modules:
+    - module: github.com/filebrowser/filebrowser
+      vulnerable_at: 1.11.0
+    - module: github.com/filebrowser/filebrowser/v2
+      versions:
+        - fixed: 2.63.16
+      vulnerable_at: 2.63.15
+summary: |-
+    File Browser: ScopedFs follows a dangling symlink on write, letting a scoped
+    user create files outside their scope in github.com/filebrowser/filebrowser
+cves:
+    - CVE-2026-55668
+ghsas:
+    - GHSA-8wc8-hf36-mjh9
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-8wc8-hf36-mjh9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-55668
+    - fix: https://github.com/filebrowser/filebrowser/commit/64511ce45e3be379e965f7f4fb0929a068d5bb81
+    - web: https://github.com/filebrowser/filebrowser/releases/tag/v2.63.16
+source:
+    id: GHSA-8wc8-hf36-mjh9
+    created: 2026-07-21T19:09:21.758293-04:00
+review_status: UNREVIEWED

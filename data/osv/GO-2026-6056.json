@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6056",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-58422",
+    "GHSA-g9g6-qhrc-p3qc"
+  ],
+  "summary": "Gitea: Improper authorization on OAuth sign-in callback silently re-enables administrator-disabled accounts in code.gitea.io/gitea",
+  "details": "Gitea: Improper authorization on OAuth sign-in callback silently re-enables administrator-disabled accounts in code.gitea.io/gitea",
+  "affected": [
+    {
+      "package": {
+        "name": "code.gitea.io/gitea",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.26.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/go-gitea/gitea/security/advisories/GHSA-g9g6-qhrc-p3qc"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58422"
+    },
+    {
+      "type": "WEB",
+      "url": "https://blog.gitea.com/release-of-1.26.3-and-1.26.4"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-gitea/gitea/commit/c43eb7c33a100ffc7b2367adf165f7085e0ccdc5"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-gitea/gitea/pull/38009"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-gitea/gitea/releases/tag/v1.26.4"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6056",
+    "review_status": "UNREVIEWED"
+  }
+}

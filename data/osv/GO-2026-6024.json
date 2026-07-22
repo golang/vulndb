@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6024",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-62685",
+    "GHSA-7rc3-g7h6-22m7"
+  ],
+  "summary": "File Browser: Colliding username normalization gives two users the same home directory in github.com/filebrowser/filebrowser",
+  "details": "File Browser: Colliding username normalization gives two users the same home directory in github.com/filebrowser/filebrowser",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/filebrowser/filebrowser",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/filebrowser/filebrowser/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.63.17"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/filebrowser/filebrowser/security/advisories/GHSA-7rc3-g7h6-22m7"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-62685"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/filebrowser/filebrowser/commit/883a36f02fcb69566a8628cb47f18fdc73348387"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/filebrowser/filebrowser/releases/tag/v2.63.17"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6024",
+    "review_status": "UNREVIEWED"
+  }
+}

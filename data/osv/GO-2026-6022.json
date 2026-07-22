@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6022",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-54560",
+    "GHSA-vgj4-345g-jcf8"
+  ],
+  "summary": "Cloudreve: OAuth access tokens bypass scope enforcement due to missing client_id claim in github.com/cloudreve/Cloudreve",
+  "details": "Cloudreve: OAuth access tokens bypass scope enforcement due to missing client_id claim in github.com/cloudreve/Cloudreve",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cloudreve/Cloudreve",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/cloudreve/Cloudreve/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/cloudreve/Cloudreve/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "4.0.0-20260114075425-bc6845bd742c"
+            },
+            {
+              "fixed": "4.0.0-20260606015557-ed20843dc3df"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cloudreve/cloudreve/security/advisories/GHSA-vgj4-345g-jcf8"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-54560"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/cloudreve/cloudreve/commit/ed20843dc3df20a25fcaf6b538647e11c4d68d87"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/cloudreve/cloudreve/releases/tag/4.16.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6022",
+    "review_status": "UNREVIEWED"
+  }
+}

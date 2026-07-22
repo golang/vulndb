@@ -1,0 +1,28 @@
+id: GO-2026-6022
+modules:
+    - module: github.com/cloudreve/Cloudreve
+      vulnerable_at: 0.0.0-20201026073328-746aa3e8ef26
+    - module: github.com/cloudreve/Cloudreve/v3
+      vulnerable_at: 3.0.0-20250225100611-da4e44b77af4
+    - module: github.com/cloudreve/Cloudreve/v4
+      versions:
+        - introduced: 4.0.0-20260114075425-bc6845bd742c
+        - fixed: 4.0.0-20260606015557-ed20843dc3df
+summary: |-
+    Cloudreve: OAuth access tokens bypass scope enforcement due to missing client_id
+    claim in github.com/cloudreve/Cloudreve
+cves:
+    - CVE-2026-54560
+ghsas:
+    - GHSA-vgj4-345g-jcf8
+references:
+    - advisory: https://github.com/cloudreve/cloudreve/security/advisories/GHSA-vgj4-345g-jcf8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-54560
+    - web: https://github.com/cloudreve/cloudreve/commit/ed20843dc3df20a25fcaf6b538647e11c4d68d87
+    - web: https://github.com/cloudreve/cloudreve/releases/tag/4.16.1
+notes:
+    - fix: 'github.com/cloudreve/Cloudreve/v4: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-vgj4-345g-jcf8
+    created: 2026-07-21T19:09:09.816558-04:00
+review_status: UNREVIEWED

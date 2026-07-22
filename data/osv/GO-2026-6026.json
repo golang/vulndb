@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6026",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-62843",
+    "GHSA-83xp-526h-j3ww"
+  ],
+  "summary": "File Browser: Archive builder turns backslash filenames into path traversal (zip-slip) in github.com/filebrowser/filebrowser",
+  "details": "File Browser: Archive builder turns backslash filenames into path traversal (zip-slip) in github.com/filebrowser/filebrowser",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/filebrowser/filebrowser",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/filebrowser/filebrowser/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.63.6"
+            },
+            {
+              "fixed": "2.63.17"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/filebrowser/filebrowser/security/advisories/GHSA-83xp-526h-j3ww"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-62843"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/filebrowser/filebrowser/commit/8503ba61ff51d48a7313896483d130eb6a5abfe0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/filebrowser/filebrowser/releases/tag/v2.63.17"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6026",
+    "review_status": "UNREVIEWED"
+  }
+}

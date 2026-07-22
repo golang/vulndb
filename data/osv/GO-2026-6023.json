@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6023",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-54562",
+    "GHSA-x756-g4x3-c64m"
+  ],
+  "summary": "Cloudreve: Non-admin remote download users can SSRF loopback/internal services and read imported responses in github.com/cloudreve/Cloudreve",
+  "details": "Cloudreve: Non-admin remote download users can SSRF loopback/internal services and read imported responses in github.com/cloudreve/Cloudreve",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cloudreve/Cloudreve",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/cloudreve/Cloudreve/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/cloudreve/Cloudreve/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.0.0-20260606025411-aaebf317a78f"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cloudreve/cloudreve/security/advisories/GHSA-x756-g4x3-c64m"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-54562"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/cloudreve/cloudreve/commit/aaebf317a78f2413d74afd66c21a1f3143711312"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/cloudreve/cloudreve/releases/tag/4.16.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6023",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,26 @@
+id: GO-2026-6046
+modules:
+    - module: code.gitea.io/gitea
+      versions:
+        - introduced: 1.23.0
+        - fixed: 1.26.3
+      vulnerable_at: 1.26.2
+summary: |-
+    Gitea: LFS authentication bypass via malformed SSH sub-verb allows unauthorized
+    read access to private repositories in code.gitea.io/gitea
+cves:
+    - CVE-2026-58423
+ghsas:
+    - GHSA-7wvc-rvp7-w99x
+references:
+    - advisory: https://github.com/go-gitea/gitea/security/advisories/GHSA-7wvc-rvp7-w99x
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-58423
+    - web: https://blog.gitea.com/release-of-1.26.3-and-1.26.4
+    - web: https://github.com/go-gitea/gitea/commit/42513398c05ca6bdf71da76cb6f9baaebe8cb924
+    - web: https://github.com/go-gitea/gitea/commit/8f4b7ebbf6061bd44b1ab3824f17f37b87fb1740
+    - web: https://github.com/go-gitea/gitea/pull/38008
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.26.4
+source:
+    id: GHSA-7wvc-rvp7-w99x
+    created: 2026-07-21T19:06:42.944565-04:00
+review_status: UNREVIEWED

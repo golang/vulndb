@@ -1,0 +1,24 @@
+id: GO-2026-6028
+modules:
+    - module: gitea.dev
+      versions:
+        - fixed: 1.27.0
+      vulnerable_at: 1.27.0-rc0
+summary: |-
+    Gitea: Release attachment extension allowlist bypass via web release edit form
+    (variant of CVE-2025-68939) in gitea.dev
+cves:
+    - CVE-2026-58428
+ghsas:
+    - GHSA-25gq-j9jx-43pg
+references:
+    - advisory: https://github.com/go-gitea/gitea/security/advisories/GHSA-25gq-j9jx-43pg
+    - web: https://github.com/go-gitea/gitea/commit/de4b8277e9cb576f2315fb03b5ab6478b42a1d31
+    - web: https://github.com/go-gitea/gitea/commit/f69e15afe7496cc62e96dab244629c69eb31a7bf
+    - web: https://github.com/go-gitea/gitea/pull/38406
+    - web: https://github.com/go-gitea/gitea/pull/38426
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.27.0
+source:
+    id: GHSA-25gq-j9jx-43pg
+    created: 2026-07-21T19:08:32.35586-04:00
+review_status: UNREVIEWED

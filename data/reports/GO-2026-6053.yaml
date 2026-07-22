@@ -1,0 +1,24 @@
+id: GO-2026-6053
+modules:
+    - module: gitea.dev
+      versions:
+        - fixed: 1.27.0
+      vulnerable_at: 1.27.0-rc0
+summary: |-
+    Gitea: Public-Only Personal access tokens scope bypass in Organization and
+    Permission Endpoints in gitea.dev
+cves:
+    - CVE-2026-58429
+ghsas:
+    - GHSA-fq2p-5p22-8g6j
+references:
+    - advisory: https://github.com/go-gitea/gitea/security/advisories/GHSA-fq2p-5p22-8g6j
+    - web: https://github.com/go-gitea/gitea/commit/a34eac5ef42ada433a7c7dafb98f15c13d7ad74e
+    - web: https://github.com/go-gitea/gitea/commit/f2a1271f164569264c378fad720b0c000fff3336
+    - web: https://github.com/go-gitea/gitea/pull/37118
+    - web: https://github.com/go-gitea/gitea/pull/37773
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.27.0
+source:
+    id: GHSA-fq2p-5p22-8g6j
+    created: 2026-07-21T19:05:57.417501-04:00
+review_status: UNREVIEWED

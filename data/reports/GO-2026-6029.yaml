@@ -1,0 +1,25 @@
+id: GO-2026-6029
+modules:
+    - module: code.gitea.io/gitea
+      versions:
+        - fixed: 1.26.3
+      vulnerable_at: 1.26.2
+summary: |-
+    Gitea: Git LFS object reuse allows non-Code access to authorize private source
+    objects in code.gitea.io/gitea
+cves:
+    - CVE-2026-28740
+ghsas:
+    - GHSA-2m9v-5q2g-58vq
+references:
+    - advisory: https://github.com/go-gitea/gitea/security/advisories/GHSA-2m9v-5q2g-58vq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-28740
+    - web: https://blog.gitea.com/release-of-1.26.3-and-1.26.4
+    - web: https://github.com/go-gitea/gitea/commit/1c7b7ea72df7cf81e88b8e09049608254d32e56e
+    - web: https://github.com/go-gitea/gitea/commit/7b4a1a1a118501b9d0260301dfed7f52dfc36ee9
+    - web: https://github.com/go-gitea/gitea/pull/38050
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.26.3
+source:
+    id: GHSA-2m9v-5q2g-58vq
+    created: 2026-07-21T19:08:25.527492-04:00
+review_status: UNREVIEWED

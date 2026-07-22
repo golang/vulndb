@@ -1,0 +1,22 @@
+id: GO-2026-6041
+modules:
+    - module: code.gitea.io/gitea
+      versions:
+        - fixed: 1.26.4
+      vulnerable_at: 1.26.3
+summary: 'Gitea: Notification API leaks private issue metadata after access revocation in code.gitea.io/gitea'
+cves:
+    - CVE-2026-58419
+ghsas:
+    - GHSA-44qc-pgvp-wx7v
+references:
+    - advisory: https://github.com/go-gitea/gitea/security/advisories/GHSA-44qc-pgvp-wx7v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-58419
+    - web: https://blog.gitea.com/release-of-1.26.3-and-1.26.4
+    - web: https://github.com/go-gitea/gitea/commit/9e84deb969aff5c1115c2984e41250f28c78451f
+    - web: https://github.com/go-gitea/gitea/pull/38108
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.26.4
+source:
+    id: GHSA-44qc-pgvp-wx7v
+    created: 2026-07-21T19:07:16.257071-04:00
+review_status: UNREVIEWED

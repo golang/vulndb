@@ -1,0 +1,24 @@
+id: GO-2026-6030
+modules:
+    - module: code.gitea.io/gitea
+      versions:
+        - fixed: 1.26.3
+      vulnerable_at: 1.26.2
+summary: |-
+    Gitea: Incomplete SSRF Protection in Webhook and Migration Allow-list Default
+    Filter in code.gitea.io/gitea
+cves:
+    - CVE-2026-22874
+ghsas:
+    - GHSA-2r5c-gw76-rh3w
+references:
+    - advisory: https://github.com/go-gitea/gitea/security/advisories/GHSA-2r5c-gw76-rh3w
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-22874
+    - web: https://blog.gitea.com/release-of-1.26.3-and-1.26.4
+    - web: https://github.com/go-gitea/gitea/pull/38059
+    - web: https://github.com/go-gitea/gitea/pull/38173
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.26.3
+source:
+    id: GHSA-2r5c-gw76-rh3w
+    created: 2026-07-21T19:08:18.301993-04:00
+review_status: UNREVIEWED

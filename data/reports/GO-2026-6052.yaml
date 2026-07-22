@@ -1,0 +1,22 @@
+id: GO-2026-6052
+modules:
+    - module: gitea.dev
+      versions:
+        - fixed: 1.27.0
+      vulnerable_at: 1.27.0-rc0
+summary: |-
+    Gitea: Fork-PR Actions task can read a third private repository via the
+    collaborative-owner branch (missing fork-PR guard) in gitea.dev
+cves:
+    - CVE-2026-58416
+ghsas:
+    - GHSA-fj8v-hjwv-qm88
+references:
+    - advisory: https://github.com/go-gitea/gitea/security/advisories/GHSA-fj8v-hjwv-qm88
+    - web: https://github.com/go-gitea/gitea/commit/1d43b736b5a16c5f80cfdcd9a9448a9c983ddaa0
+    - web: https://github.com/go-gitea/gitea/pull/38214
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.27.0
+source:
+    id: GHSA-fj8v-hjwv-qm88
+    created: 2026-07-21T19:06:06.896845-04:00
+review_status: UNREVIEWED
