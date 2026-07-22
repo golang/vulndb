@@ -4,7 +4,7 @@ modules:
       versions:
         - introduced: 0.43.0
         - fixed: 1.0.2
-        - introduced: 1.2.0
+        - introduced: 1.1.0
         - fixed: 1.3.4
         - introduced: 1.4.0
         - fixed: 1.6.2
@@ -13,6 +13,19 @@ modules:
         - introduced: 1.10.0
         - fixed: 1.11.1
       vulnerable_at: 1.11.0
+      packages:
+        - package: github.com/tektoncd/pipeline/pkg/reconciler/pipelinerun
+          symbols:
+            - Reconciler.resolvePipelineState
+          derived_symbols:
+            - Reconciler.ReconcileKind
+        - package: github.com/tektoncd/pipeline/pkg/trustedresources
+          symbols:
+            - getMatchedPolicies
+          derived_symbols:
+            - VerifyPipeline
+            - VerifyResource
+            - VerifyTask
 summary: |-
     Tekton Pipelines has VerificationPolicy regex pattern bypass via substring
     matching in github.com/tektoncd/pipeline
@@ -22,11 +35,10 @@ ghsas:
     - GHSA-rmx9-2pp3-xhcr
 references:
     - advisory: https://github.com/tektoncd/pipeline/security/advisories/GHSA-rmx9-2pp3-xhcr
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-25542
     - fix: https://github.com/tektoncd/pipeline/commit/2c398711e6e9e232180508f0648425a8ea34dc9e
     - fix: https://github.com/tektoncd/pipeline/commit/b8905600322aa86327baae0a7c04d6cf1207362a
     - web: https://github.com/tektoncd/pipeline/releases/tag/v1.11.0
 source:
     id: GHSA-rmx9-2pp3-xhcr
     created: 2026-06-25T15:46:19.346294317-04:00
-review_status: UNREVIEWED
+review_status: REVIEWED
