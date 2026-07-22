@@ -1,28 +1,38 @@
 id: GO-2026-5749
 modules:
     - module: github.com/dgraph-io/dgraph
-      unsupported_versions:
-        - last_affected: 1.2.8
       vulnerable_at: 1.2.8
-    - module: github.com/dgraph-io/dgraph/v24
-      unsupported_versions:
-        - last_affected: 24.1.8
-      vulnerable_at: 24.1.9
+      packages:
+        - package: github.com/dgraph-io/dgraph
     - module: github.com/dgraph-io/dgraph/v25
       versions:
         - fixed: 25.3.3
       vulnerable_at: 25.3.2
-summary: |-
-    Dgraph: Pre-Auth Full Database Exfiltration via DQL Injection in NQuad Lang
-    Field in github.com/dgraph-io/dgraph
+      packages:
+        - package: github.com/dgraph-io/dgraph/v25
+    - module: github.com/hypermodeinc/dgraph/v24
+      versions:
+        - fixed: 24.1.9
+      vulnerable_at: 24.1.8
+      packages:
+        - package: github.com/hypermodeinc/dgraph/v24
+summary: DQL injection via unsanitized NQuad Lang field in github.com/dgraph-io/dgraph
+description: |-
+    A vulnerability in Dgraph allows an unauthenticated attacker full read access to
+    data in the database when ACL is not enabled.
+
+    The injection exploits the addQueryIfUnique function, which constructs DQL
+    queries using fmt.Sprintf with an unsanitized predicate name that includes the
+    raw Lang value from a JSON mutation key. An attacker can escape the function and
+    inject arbitrary named query blocks, which execute server-side and return
+    results in the HTTP response.
 cves:
     - CVE-2026-41328
 ghsas:
     - GHSA-x92x-px7w-4gx4
 references:
     - advisory: https://github.com/dgraph-io/dgraph/security/advisories/GHSA-x92x-px7w-4gx4
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-41328
 source:
     id: GHSA-x92x-px7w-4gx4
-    created: 2026-06-25T15:08:08.200680373-04:00
-review_status: UNREVIEWED
+    created: 2026-07-22T18:07:49.164471-04:00
+review_status: REVIEWED

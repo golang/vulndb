@@ -1,0 +1,35 @@
+id: GO-2026-5675
+modules:
+    - module: github.com/dgraph-io/dgraph
+      vulnerable_at: 1.2.8
+      packages:
+        - package: github.com/dgraph-io/dgraph
+    - module: github.com/dgraph-io/dgraph/v25
+      versions:
+        - fixed: 25.3.3
+      vulnerable_at: 25.3.2
+      packages:
+        - package: github.com/dgraph-io/dgraph/v25
+    - module: github.com/hypermodeinc/dgraph/v24
+      versions:
+        - fixed: 24.1.9
+      vulnerable_at: 24.1.8
+      packages:
+        - package: github.com/hypermodeinc/dgraph/v24
+summary: Unauthenticated admin token disclosure via /debug/vars in github.com/dgraph-io/dgraph
+description: |-
+    The /debug/vars endpoint in Dgraph Alpha discloses the administrator's
+    authentication token without requiring authentication. This allows an
+    unauthenticated remote attacker to obtain the token and gain full administrative
+    access to the Dgraph cluster.
+cves:
+    - CVE-2026-41492
+ghsas:
+    - GHSA-vvf7-6rmr-m29q
+references:
+    - advisory: https://github.com/dgraph-io/dgraph/security/advisories/GHSA-vvf7-6rmr-m29q
+    - web: https://github.com/dgraph-io/dgraph/releases/tag/v25.3.3
+source:
+    id: GHSA-vvf7-6rmr-m29q
+    created: 2026-07-21T19:15:28.493548-04:00
+review_status: REVIEWED

@@ -1,14 +1,14 @@
 {
   "schema_version": "1.3.1",
-  "id": "GO-2026-5749",
+  "id": "GO-2026-5675",
   "modified": "0001-01-01T00:00:00Z",
   "published": "0001-01-01T00:00:00Z",
   "aliases": [
-    "CVE-2026-41328",
-    "GHSA-x92x-px7w-4gx4"
+    "CVE-2026-41492",
+    "GHSA-vvf7-6rmr-m29q"
   ],
-  "summary": "DQL injection via unsanitized NQuad Lang field in github.com/dgraph-io/dgraph",
-  "details": "A vulnerability in Dgraph allows an unauthenticated attacker full read access to data in the database when ACL is not enabled.\n\nThe injection exploits the addQueryIfUnique function, which constructs DQL queries using fmt.Sprintf with an unsanitized predicate name that includes the raw Lang value from a JSON mutation key. An attacker can escape the function and inject arbitrary named query blocks, which execute server-side and return results in the HTTP response.",
+  "summary": "Unauthenticated admin token disclosure via /debug/vars in github.com/dgraph-io/dgraph",
+  "details": "The /debug/vars endpoint in Dgraph Alpha discloses the administrator's authentication token without requiring authentication. This allows an unauthenticated remote attacker to obtain the token and gain full administrative access to the Dgraph cluster.",
   "affected": [
     {
       "package": {
@@ -89,11 +89,15 @@
   "references": [
     {
       "type": "ADVISORY",
-      "url": "https://github.com/dgraph-io/dgraph/security/advisories/GHSA-x92x-px7w-4gx4"
+      "url": "https://github.com/dgraph-io/dgraph/security/advisories/GHSA-vvf7-6rmr-m29q"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dgraph-io/dgraph/releases/tag/v25.3.3"
     }
   ],
   "database_specific": {
-    "url": "https://pkg.go.dev/vuln/GO-2026-5749",
+    "url": "https://pkg.go.dev/vuln/GO-2026-5675",
     "review_status": "REVIEWED"
   }
 }
