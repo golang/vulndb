@@ -1,26 +1,47 @@
 id: GO-2026-5617
 modules:
     - module: github.com/docker/docker
-      unsupported_versions:
-        - last_affected: 28.5.2
       vulnerable_at: 28.5.2+incompatible
+      packages:
+        - package: github.com/docker/docker/daemon
+          symbols:
+            - Daemon.openContainerFS
+          skip_fix: 'missing dependency: github.com/containerd/containerd/v2/contrib/nvidia'
     - module: github.com/moby/moby
-      unsupported_versions:
-        - last_affected: 28.5.2
       vulnerable_at: 28.5.2+incompatible
+      packages:
+        - package: github.com/moby/moby/daemon
+          symbols:
+            - Daemon.openContainerFS
+          skip_fix: 'missing dependency: github.com/containerd/containerd/v2/contrib/nvidia'
     - module: github.com/moby/moby/v2
       versions:
         - fixed: 2.0.0-beta.14
       vulnerable_at: 2.0.0-beta.13
-summary: 'Docker: Race condition in docker cp allows bind mount redirection to host path in github.com/docker/docker'
+      packages:
+        - package: github.com/moby/moby/v2/daemon
+          symbols:
+            - Daemon.openContainerFS
+          skip_fix: 'missing dependency: github.com/containerd/containerd/v2/contrib/nvidia'
+summary: Race condition in 'docker cp' in github.com/docker/docker allows bind mount redirection
+description: |-
+    A race condition in the Docker daemon allows an attacker to redirect bind
+    mounts to arbitrary host paths during a "docker cp" operation.
+
+    The affected code is in the daemon package, specifically the openContainerFS
+    method. This is daemon-owned, Linux-specific code and is not intended for
+    external use as a Go library.
 cves:
     - CVE-2026-42306
 ghsas:
     - GHSA-rg2x-37c3-w2rh
 references:
     - advisory: https://github.com/moby/moby/security/advisories/GHSA-rg2x-37c3-w2rh
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42306
+notes:
+    - |-
+      This is daemon-owned, Linux-specific code in Moby's binary-producing root
+      module, which is not intended to be imported as a Go library.
 source:
     id: GHSA-rg2x-37c3-w2rh
     created: 2026-06-25T15:46:23.359116741-04:00
-review_status: UNREVIEWED
+review_status: REVIEWED
