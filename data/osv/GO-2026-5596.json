@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5596",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-49980",
+    "GHSA-qw24-gh76-8rvv"
+  ],
+  "summary": "Unauthenticated command execution in rclone rcd via inline remotes in github.com/rclone/rclone",
+  "details": "The --rc-serve path in rclone allows unauthenticated remote instantiation, enabling unauthenticated command execution. An attacker can use inline remote backend options such as sftp ssh to run arbitrary commands as the rclone user.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/rclone/rclone",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.49.0"
+            },
+            {
+              "fixed": "1.74.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/rclone/rclone/fs/rc/rcserver",
+            "symbols": [
+              "MetricsServer.Serve",
+              "MetricsStart",
+              "Server.Serve",
+              "Server.serveRemote",
+              "Start"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/ncw/rclone",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.46.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/ncw/rclone/fs/rc/rcserver",
+            "symbols": [
+              "Server.Serve",
+              "Server.serveRemote",
+              "Start"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/rclone/rclone/security/advisories/GHSA-qw24-gh76-8rvv"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rclone/rclone/commit/48da1774f4999d1d46543308b9a7fe75585dbfc4"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rclone/rclone/commit/9222ed2c5a7678de7fa620214b0858311c707a29"
+    },
+    {
+      "type": "WEB",
+      "url": "https://access.redhat.com/security/cve/CVE-2026-49980"
+    },
+    {
+      "type": "WEB",
+      "url": "https://bugzilla.redhat.com/show_bug.cgi?id=2492478"
+    },
+    {
+      "type": "WEB",
+      "url": "https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-49980.json"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5596",
+    "review_status": "REVIEWED"
+  }
+}

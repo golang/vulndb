@@ -1,0 +1,48 @@
+id: GO-2026-5596
+modules:
+    - module: github.com/rclone/rclone
+      versions:
+        - introduced: 1.49.0
+        - fixed: 1.74.3
+      vulnerable_at: 1.74.2
+      packages:
+        - package: github.com/rclone/rclone/fs/rc/rcserver
+          symbols:
+            - Server.serveRemote
+          derived_symbols:
+            - MetricsServer.Serve
+            - MetricsStart
+            - Server.Serve
+            - Start
+    - module: github.com/ncw/rclone
+      versions:
+        - introduced: 1.46.0
+      vulnerable_at: 1.48.0
+      packages:
+        - package: github.com/ncw/rclone/fs/rc/rcserver
+          symbols:
+            - Server.serveRemote
+          derived_symbols:
+            - Server.Serve
+            - Start
+summary: Unauthenticated command execution in rclone rcd via inline remotes in github.com/rclone/rclone
+description: |-
+    The --rc-serve path in rclone allows unauthenticated remote instantiation,
+    enabling unauthenticated command execution. An attacker can use inline
+    remote backend options such as sftp ssh to run arbitrary commands as the
+    rclone user.
+cves:
+    - CVE-2026-49980
+ghsas:
+    - GHSA-qw24-gh76-8rvv
+references:
+    - advisory: https://github.com/rclone/rclone/security/advisories/GHSA-qw24-gh76-8rvv
+    - fix: https://github.com/rclone/rclone/commit/48da1774f4999d1d46543308b9a7fe75585dbfc4
+    - fix: https://github.com/rclone/rclone/commit/9222ed2c5a7678de7fa620214b0858311c707a29
+    - web: https://access.redhat.com/security/cve/CVE-2026-49980
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2492478
+    - web: https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-49980.json
+source:
+    id: GHSA-qw24-gh76-8rvv
+    created: 2026-07-21T19:41:33.072986-04:00
+review_status: REVIEWED
