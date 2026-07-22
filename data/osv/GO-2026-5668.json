@@ -7,8 +7,8 @@
     "CVE-2026-41568",
     "GHSA-vp62-88p7-qqf5"
   ],
-  "summary": "Docker: Race condition in docker cp allows creation of arbitrary empty files on the host via symlink swap in github.com/docker/docker",
-  "details": "Docker: Race condition in docker cp allows creation of arbitrary empty files on the host via symlink swap in github.com/docker/docker",
+  "summary": "Race condition in 'docker cp' in github.com/docker/docker allows creation of arbitrary files",
+  "details": "A race condition in the Docker daemon allows an attacker to create arbitrary empty files on the host system during a \"docker cp\" operation by swapping a destination path with a symbolic link.\n\nThe affected code is in the daemon package, specifically the openContainerFS and createIfNotExists methods. This is daemon-owned, Linux-specific code and is not intended for external use as a Go library.",
   "affected": [
     {
       "package": {
@@ -25,7 +25,17 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/docker/docker/daemon",
+            "symbols": [
+              "Daemon.createIfNotExists",
+              "Daemon.openContainerFS"
+            ]
+          }
+        ]
+      }
     },
     {
       "package": {
@@ -42,7 +52,17 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/moby/moby/daemon",
+            "symbols": [
+              "Daemon.createIfNotExists",
+              "Daemon.openContainerFS"
+            ]
+          }
+        ]
+      }
     },
     {
       "package": {
@@ -62,21 +82,27 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/moby/moby/v2/daemon",
+            "symbols": [
+              "Daemon.createIfNotExists",
+              "Daemon.openContainerFS"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
     {
       "type": "ADVISORY",
       "url": "https://github.com/moby/moby/security/advisories/GHSA-vp62-88p7-qqf5"
-    },
-    {
-      "type": "ADVISORY",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-41568"
     }
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2026-5668",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }
