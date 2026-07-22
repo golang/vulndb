@@ -1,0 +1,36 @@
+id: GO-2026-6013
+modules:
+    - module: github.com/kumahq/kuma
+      unsupported_versions:
+        - last_affected: 1.8.1
+      vulnerable_at: 0.0.0-20251106095714-766e8686c35a
+    - module: github.com/kumahq/kuma/v2
+      versions:
+        - fixed: 2.7.26
+        - introduced: 2.9.13
+        - fixed: 2.11.14
+        - introduced: 2.12.4
+        - fixed: 2.12.11
+        - introduced: 2.13.0
+        - fixed: 2.13.7
+      non_go_versions:
+        - introduced: 2.8.0
+        - fixed: 2.9.16
+        - introduced: 2.10.0
+        - introduced: 2.12.0
+      vulnerable_at: 2.13.6
+summary: |-
+    kuma-dp connects to control plane without verifying TLS certificate when no CA
+    is configured in github.com/kumahq/kuma
+cves:
+    - CVE-2026-52724
+ghsas:
+    - GHSA-wvmp-6r4v-j6cv
+references:
+    - advisory: https://github.com/kumahq/kuma/security/advisories/GHSA-wvmp-6r4v-j6cv
+    - fix: https://github.com/kumahq/kuma/commit/2ecadac1aa2fd8cded4c2ab768949f4c2ec83e2a
+    - fix: https://github.com/kumahq/kuma/pull/16777
+source:
+    id: GHSA-wvmp-6r4v-j6cv
+    created: 2026-07-21T20:38:52.038744-04:00
+review_status: UNREVIEWED

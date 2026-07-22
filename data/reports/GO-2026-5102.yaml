@@ -1,0 +1,40 @@
+id: GO-2026-5102
+modules:
+    - module: github.com/kumahq/kuma
+      vulnerable_at: 0.0.0-20251106095714-766e8686c35a
+    - module: github.com/kumahq/kuma/v2
+      versions:
+        - fixed: 2.7.25
+        - introduced: 2.9.13
+        - fixed: 2.11.13
+        - introduced: 2.12.4
+        - fixed: 2.12.10
+        - introduced: 2.13.0
+        - fixed: 2.13.5
+      non_go_versions:
+        - introduced: 2.9.0
+        - fixed: 2.9.15
+        - introduced: 2.11.0
+        - introduced: 2.12.0
+      vulnerable_at: 2.13.4
+summary: |-
+    Default kuma-cp leaks admin token cross-origin via CORS wildcard +
+    LocalhostIsAdmin in github.com/kumahq/kuma
+cves:
+    - CVE-2026-45021
+ghsas:
+    - GHSA-3vcp-chfh-f6r2
+references:
+    - advisory: https://github.com/kumahq/kuma/security/advisories/GHSA-3vcp-chfh-f6r2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-45021
+    - fix: https://github.com/kumahq/kuma/commit/8fefa8595d44eb68d922405702ed7a0826322907
+    - fix: https://github.com/kumahq/kuma/pull/16416
+    - fix: https://github.com/kumahq/kuma/pull/16423
+    - fix: https://github.com/kumahq/kuma/pull/16424
+    - fix: https://github.com/kumahq/kuma/pull/16425
+    - fix: https://github.com/kumahq/kuma/pull/16426
+    - fix: https://github.com/kumahq/kuma/pull/16427
+source:
+    id: GHSA-3vcp-chfh-f6r2
+    created: 2026-07-21T19:46:27.265744-04:00
+review_status: UNREVIEWED

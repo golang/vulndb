@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6013",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-52724",
+    "GHSA-wvmp-6r4v-j6cv"
+  ],
+  "summary": "kuma-dp connects to control plane without verifying TLS certificate when no CA is configured in github.com/kumahq/kuma",
+  "details": "kuma-dp connects to control plane without verifying TLS certificate when no CA is configured in github.com/kumahq/kuma.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/kumahq/kuma/v2 from v2.8.0 before v2.9.16.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/kumahq/kuma",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/kumahq/kuma/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.7.26"
+            },
+            {
+              "introduced": "2.9.13"
+            },
+            {
+              "fixed": "2.11.14"
+            },
+            {
+              "introduced": "2.12.4"
+            },
+            {
+              "fixed": "2.12.11"
+            },
+            {
+              "introduced": "2.13.0"
+            },
+            {
+              "fixed": "2.13.7"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "2.8.0"
+              },
+              {
+                "fixed": "2.9.16"
+              },
+              {
+                "introduced": "2.10.0"
+              },
+              {
+                "introduced": "2.12.0"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/kumahq/kuma/security/advisories/GHSA-wvmp-6r4v-j6cv"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kumahq/kuma/commit/2ecadac1aa2fd8cded4c2ab768949f4c2ec83e2a"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kumahq/kuma/pull/16777"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6013",
+    "review_status": "UNREVIEWED"
+  }
+}
