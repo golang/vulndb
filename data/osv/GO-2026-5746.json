@@ -7,8 +7,8 @@
     "CVE-2026-41567",
     "GHSA-x86f-5xw2-fm2r"
   ],
-  "summary": "Docker: `PUT /containers/{id}/archive` executes container binary on the host in github.com/docker/docker",
-  "details": "Docker: `PUT /containers/{id}/archive` executes container binary on the host in github.com/docker/docker",
+  "summary": "Docker: 'PUT /containers/{id}/archive' executes container binary on the host in github.com/docker/docker",
+  "details": "The Docker daemon's implementation of the \"PUT /containers/{id}/archive\" endpoint executes a container binary on the host when extracting an archive to a container. On Unix-like systems, this can be exploited if an attacker can control the container's filesystem or the archive being extracted, potentially leading to privilege escalation or host compromise.\n\nThe affected code is located in the daemon package, specifically in the containerExtractToDir method of the Daemon struct. This package is part of the Moby daemon's core and is not intended for external use as a library.",
   "affected": [
     {
       "package": {
@@ -25,7 +25,16 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/docker/docker/daemon",
+            "symbols": [
+              "Daemon.containerExtractToDir"
+            ]
+          }
+        ]
+      }
     },
     {
       "package": {
@@ -42,7 +51,16 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/moby/moby/daemon",
+            "symbols": [
+              "Daemon.containerExtractToDir"
+            ]
+          }
+        ]
+      }
     },
     {
       "package": {
@@ -62,21 +80,26 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/moby/moby/v2/daemon",
+            "symbols": [
+              "Daemon.containerExtractToDir"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
     {
       "type": "ADVISORY",
       "url": "https://github.com/moby/moby/security/advisories/GHSA-x86f-5xw2-fm2r"
-    },
-    {
-      "type": "ADVISORY",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-41567"
     }
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2026-5746",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }

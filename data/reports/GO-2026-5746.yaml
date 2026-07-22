@@ -1,26 +1,50 @@
 id: GO-2026-5746
 modules:
     - module: github.com/docker/docker
-      unsupported_versions:
-        - last_affected: 28.5.2
       vulnerable_at: 28.5.2+incompatible
+      packages:
+        - package: github.com/docker/docker/daemon
+          symbols:
+            - Daemon.containerExtractToDir
+          skip_fix: 'missing dependency: github.com/containerd/containerd/v2/contrib/nvidia'
     - module: github.com/moby/moby
-      unsupported_versions:
-        - last_affected: 28.5.2
       vulnerable_at: 28.5.2+incompatible
+      packages:
+        - package: github.com/moby/moby/daemon
+          symbols:
+            - Daemon.containerExtractToDir
+          skip_fix: 'missing dependency: github.com/containerd/containerd/v2/contrib/nvidia'
     - module: github.com/moby/moby/v2
       versions:
         - fixed: 2.0.0-beta.14
       vulnerable_at: 2.0.0-beta.13
-summary: 'Docker: `PUT /containers/{id}/archive` executes container binary on the host in github.com/docker/docker'
+      packages:
+        - package: github.com/moby/moby/v2/daemon
+          symbols:
+            - Daemon.containerExtractToDir
+          skip_fix: 'build errors in environment: multiple undefined symbols and missing dependencies'
+summary: 'Docker: ''PUT /containers/{id}/archive'' executes container binary on the host in github.com/docker/docker'
+description: |-
+    The Docker daemon's implementation of the "PUT /containers/{id}/archive"
+    endpoint executes a container binary on the host when extracting an archive to a
+    container. On Unix-like systems, this can be exploited if an attacker can
+    control the container's filesystem or the archive being extracted, potentially
+    leading to privilege escalation or host compromise.
+
+    The affected code is located in the daemon package, specifically in the
+    containerExtractToDir method of the Daemon struct. This package is part of the
+    Moby daemon's core and is not intended for external use as a library.
 cves:
     - CVE-2026-41567
 ghsas:
     - GHSA-x86f-5xw2-fm2r
 references:
     - advisory: https://github.com/moby/moby/security/advisories/GHSA-x86f-5xw2-fm2r
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-41567
+notes:
+    - |-
+      This is daemon-owned, Unix-specific code in Moby's binary-producing root
+      module, which is not intended to be imported as a Go library.
 source:
     id: GHSA-x86f-5xw2-fm2r
     created: 2026-06-25T15:23:08.687430643-04:00
-review_status: UNREVIEWED
+review_status: REVIEWED
