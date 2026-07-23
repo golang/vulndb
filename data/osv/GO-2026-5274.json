@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5274",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-40173",
+    "GHSA-95mq-xwj4-r47p"
+  ],
+  "summary": "Dgraph: Unauthenticated admin token disclosure via /debug/pprof/cmdline in github.com/dgraph-io/dgraph",
+  "details": "The /debug/pprof/cmdline endpoint in Dgraph Alpha discloses the command-line arguments used to start the process, which may include the administrator's authentication token if provided via the --auth_token flag. This allows an unauthenticated remote attacker to obtain the token and gain full administrative access to the Dgraph cluster.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/dgraph-io/dgraph",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/dgraph-io/dgraph"
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/dgraph-io/dgraph/v25",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "25.3.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/dgraph-io/dgraph/v25"
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/hypermodeinc/dgraph/v24",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "24.1.9"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/hypermodeinc/dgraph/v24"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/dgraph-io/dgraph/security/advisories/GHSA-95mq-xwj4-r47p"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dgraph-io/dgraph/releases/tag/v25.3.2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5274",
+    "review_status": "REVIEWED"
+  }
+}

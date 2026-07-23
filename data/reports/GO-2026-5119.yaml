@@ -1,0 +1,40 @@
+id: GO-2026-5119
+modules:
+    - module: github.com/naiba/nezha
+      versions:
+        - introduced: 0.20.0
+      vulnerable_at: 1.14.14
+    - module: github.com/nezhahq/nezha
+      versions:
+        - introduced: 1.0.0
+        - fixed: 1.14.15-0.20260521020202-02129f16fb15
+      vulnerable_at: 1.14.14
+      packages:
+        - package: github.com/nezhahq/nezha/service/rpc
+        - package: github.com/nezhahq/nezha/service/singleton
+summary: |-
+    Nezha's authenticated agents can forge service-monitor results for other users'
+    services in github.com/nezhahq/nezha
+description: |-
+    Nezha accepts service-monitor TaskResult messages from an authenticated agent
+    based only on whether the reported service ID exists. The dashboard
+    authenticates the agent and derives the reporter server ID from the gRPC stream,
+    but the service-monitor result worker does not verify that the reporter server
+    was selected for that service, belongs to the service owner, or was actually
+    assigned that monitoring task.
+
+    A low-privilege user with a valid agent secret and one registered agent can
+    submit forged monitoring results for another user's service ID. This allows
+    cross-tenant corruption of service-monitor history and state, and can influence
+    victim-owned service notifications.
+cves:
+    - CVE-2026-48119
+ghsas:
+    - GHSA-4g6j-g789-rghm
+references:
+    - advisory: https://github.com/nezhahq/nezha/security/advisories/GHSA-4g6j-g789-rghm
+    - fix: https://github.com/nezhahq/nezha/commit/02129f16fb1572ef57c7e8dd7d03f84d39b8b586
+source:
+    id: GHSA-4g6j-g789-rghm
+    created: 2026-07-22T23:42:41.699734-04:00
+review_status: REVIEWED

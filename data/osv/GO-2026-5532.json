@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5532",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-41181",
+    "GHSA-p6hg-qh38-555r"
+  ],
+  "summary": "Authorization and Cookie headers forwarded to error page service in github.com/traefik/traefik",
+  "details": "Traefik's errors middleware by default forwards all original request headers to the error page service. If the error page service is in a separate trust domain, this can lead to the disclosure of sensitive information such as Authorization or Cookie headers.\n\nThe fix adds an errorRequestHeaders option to the Errors middleware, allowing users to explicitly list which headers should be forwarded.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/traefik/traefik",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/traefik/traefik/middlewares/errorpages",
+            "symbols": [
+              "Handler.ServeHTTP"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/traefik/traefik/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.11.44"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/traefik/traefik/v2/pkg/middlewares/customerrors",
+            "symbols": [
+              "customErrors.ServeHTTP"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/traefik/traefik/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.6.15"
+            },
+            {
+              "introduced": "3.7.0-rc.1"
+            },
+            {
+              "fixed": "3.7.0-rc.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/traefik/traefik/v3/pkg/middlewares/customerrors",
+            "symbols": [
+              "customErrors.ServeHTTP"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/traefik/traefik/security/advisories/GHSA-p6hg-qh38-555r"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/traefik/traefik/releases/tag/v2.11.44"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/traefik/traefik/releases/tag/v3.6.15"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/traefik/traefik/releases/tag/v3.7.0-rc.3"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5532",
+    "review_status": "REVIEWED"
+  }
+}

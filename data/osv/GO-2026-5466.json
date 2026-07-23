@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5466",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-41179",
+    "GHSA-jfwf-28xr-xw6q"
+  ],
+  "summary": "Unauthenticated backend instantiation in github.com/rclone/rclone",
+  "details": "The operations/fsinfo remote control (RC) endpoint in rclone was registered without requiring authentication. This allowed unauthenticated callers to instantiate arbitrary backends via inline backend definitions, which could lead to local command execution if the backend configuration allows it (e.g., via bearer_token_command in webdav or ssh in sftp).",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/ncw/rclone",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.48.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/ncw/rclone/fs/operations",
+            "symbols": [
+              "rcFsInfo"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/rclone/rclone",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.49.0"
+            },
+            {
+              "fixed": "1.73.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/rclone/rclone/fs/operations",
+            "symbols": [
+              "ListJSON",
+              "rcFsInfo"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/rclone/rclone/security/advisories/GHSA-jfwf-28xr-xw6q"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rclone/rclone/commit/9e3e68d00c3ecf475a1432fc206400cfb4df7e3f"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rclone/rclone/releases/tag/v1.73.5"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5466",
+    "review_status": "REVIEWED"
+  }
+}

@@ -1,0 +1,44 @@
+id: GO-2026-5152
+modules:
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.48
+      vulnerable_at: 2.11.47
+      packages:
+        - package: github.com/traefik/traefik/v2/pkg/middlewares/snicheck
+          symbols:
+            - SNICheck.ServeHTTP
+          skip_fix: module depends on internal dynamic/ext with invalid version
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - introduced: 3.7.0
+        - fixed: 3.7.3
+      vulnerable_at: 3.7.2
+      packages:
+        - package: github.com/traefik/traefik/v3/pkg/middlewares/snicheck
+          symbols:
+            - SNICheck.ServeHTTP
+          skip_fix: module depends on internal dynamic/ext with invalid version
+summary: |-
+    Traefik: SNICheck ignores wildcard TLSOptions mappings in
+    github.com/traefik/traefik
+description: |-
+    The SNICheck middleware in Traefik ignores wildcard TLSOptions mappings,
+    allowing an unauthenticated attacker to bypass mTLS requirements by using a
+    domain-fronted request. This occurs because the middleware compares the TLS
+    options name used during the handshake with a pre-computed value that may not
+    account for wildcard matches correctly when certain configuration models are
+    applied.
+cves:
+    - CVE-2026-48491
+ghsas:
+    - GHSA-5r4w-85f3-pw66
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-5r4w-85f3-pw66
+    - web: https://github.com/traefik/traefik/releases/tag/v3.7.3
+    - web: https://github.com/traefik/traefik/releases/tag/v3.6.19
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.48
+source:
+    id: GHSA-5r4w-85f3-pw66
+    created: 2026-07-21T19:45:57.538144-04:00
+review_status: REVIEWED

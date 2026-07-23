@@ -1,0 +1,46 @@
+id: GO-2026-5516
+modules:
+    - module: github.com/dgraph-io/dgraph
+      vulnerable_at: 1.2.8
+      packages:
+        - package: github.com/dgraph-io/dgraph/edgraph
+          symbols:
+            - Server.Query
+    - module: github.com/dgraph-io/dgraph/v25
+      versions:
+        - fixed: 25.3.3
+      vulnerable_at: 25.3.2
+      packages:
+        - package: github.com/dgraph-io/dgraph/v25/edgraph
+          symbols:
+            - Server.Query
+    - module: github.com/hypermodeinc/dgraph/v24
+      versions:
+        - fixed: 24.1.8
+      vulnerable_at: 24.1.7
+      packages:
+        - package: github.com/hypermodeinc/dgraph/v24/edgraph
+          symbols:
+            - Server.Query
+summary: Pre-Auth DQL injection in upsert condition field in github.com/dgraph-io/dgraph
+description: |-
+    A DQL injection vulnerability in Dgraph allows an unauthenticated remote
+    attacker to exfiltrate data from the database.
+
+    The injection occurs via the "cond" field in upsert mutations. The
+    buildUpsertQuery function fails to properly validate the condition string,
+    allowing an attacker to craft a payload that closes the intended @if clause and
+    appends arbitrary DQL query blocks. These injected blocks execute with the
+    privileges of the Dgraph process, potentially leading to full database
+    exfiltration.
+cves:
+    - CVE-2026-41327
+ghsas:
+    - GHSA-mrxx-39g5-ph77
+references:
+    - advisory: https://github.com/dgraph-io/dgraph/security/advisories/GHSA-mrxx-39g5-ph77
+    - web: https://github.com/dgraph-io/dgraph/releases/tag/v25.3.3
+source:
+    id: GHSA-mrxx-39g5-ph77
+    created: 2026-07-21T19:43:00.526876-04:00
+review_status: REVIEWED

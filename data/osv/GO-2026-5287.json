@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5287",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-53622",
+    "GHSA-9cr8-q42q-g8m7"
+  ],
+  "summary": "Traefik: HTTP/3 mTLS bypass via exact SNI TLSOptions lookup for wildcard and mixed-case hosts in github.com/traefik/traefik",
+  "details": "Traefik's HTTP/3 TLS configuration selection is vulnerable to a bypass when using wildcard or mixed-case hosts in the SNI.\n\nThe HTTP/3 (QUIC) path performed a direct, case-sensitive lookup on the SNI value to select the applicable TLS configuration. This lookup failed to match wildcard host patterns (e.g., \"*.example.com\") or case variants of configured hostnames. In these cases, Traefik would fall back to the default TLS configuration, which might not enforce mutual TLS (mTLS), allowing unauthenticated clients to access protected backends.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/traefik/traefik",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/traefik/traefik/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.11.51"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/traefik/traefik/v2/pkg/server/router/tcp",
+            "symbols": [
+              "Router.GetTLSGetClientInfo",
+              "Router.HTTP3TLSConfigMatcherFunc"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/traefik/traefik/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.7.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/traefik/traefik/v3/pkg/server/router/tcp",
+            "symbols": [
+              "Router.GetTLSGetClientInfo",
+              "Router.HTTP3TLSConfigMatcherFunc"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/traefik/traefik/security/advisories/GHSA-9cr8-q42q-g8m7"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/traefik/traefik/releases/tag/v3.7.3"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5287",
+    "review_status": "REVIEWED"
+  }
+}

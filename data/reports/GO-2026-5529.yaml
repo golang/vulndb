@@ -1,0 +1,49 @@
+id: GO-2026-5529
+modules:
+    - module: github.com/dgraph-io/dgraph
+      vulnerable_at: 1.2.8
+      packages:
+        - package: github.com/dgraph-io/dgraph/graphql/admin
+          symbols:
+            - NewServers
+    - module: github.com/dgraph-io/dgraph/v25
+      versions:
+        - fixed: 25.3.1
+      vulnerable_at: 25.3.0
+      packages:
+        - package: github.com/dgraph-io/dgraph/v25/graphql/admin
+          symbols:
+            - NewServers
+    - module: github.com/hypermodeinc/dgraph/v24
+      versions:
+        - introduced: 24.0.0
+        - fixed: 24.1.6
+      vulnerable_at: 24.1.5
+      packages:
+        - package: github.com/hypermodeinc/dgraph/v24/graphql/admin
+          symbols:
+            - NewServers
+summary: |-
+    Unauthenticated restoreTenant mutation allows database overwrite and SSRF in
+    github.com/dgraph-io/dgraph
+description: |-
+    The restoreTenant GraphQL mutation in Dgraph was missing from the admin mutation
+    middleware configuration. This omission bypassed all authentication, IP
+    whitelisting, and audit logging for this mutation.
+
+    An unauthenticated remote attacker could use this mutation to trigger a database
+    restore from an arbitrary URL, potentially leading to a complete database
+    overwrite, Server-Side Request Forgery (SSRF), or arbitrary file read on the
+    host system.
+cves:
+    - CVE-2026-34976
+ghsas:
+    - GHSA-p5rh-vmhp-gvcw
+references:
+    - advisory: https://github.com/dgraph-io/dgraph/security/advisories/GHSA-p5rh-vmhp-gvcw
+    - fix: https://github.com/dgraph-io/dgraph/commit/b15c87e9353e36618bf8e0df3bd945c0ce7105ef
+    - web: https://github.com/dgraph-io/dgraph/releases/tag/v25.3.1
+source:
+    id: GHSA-p5rh-vmhp-gvcw
+    created: 2026-07-21T19:42:42.908097-04:00
+review_status: REVIEWED

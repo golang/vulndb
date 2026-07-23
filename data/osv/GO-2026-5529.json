@@ -1,0 +1,116 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5529",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-34976",
+    "GHSA-p5rh-vmhp-gvcw"
+  ],
+  "summary": "Unauthenticated restoreTenant mutation allows database overwrite and SSRF in github.com/dgraph-io/dgraph",
+  "details": "The restoreTenant GraphQL mutation in Dgraph was missing from the admin mutation middleware configuration. This omission bypassed all authentication, IP whitelisting, and audit logging for this mutation.\n\nAn unauthenticated remote attacker could use this mutation to trigger a database restore from an arbitrary URL, potentially leading to a complete database overwrite, Server-Side Request Forgery (SSRF), or arbitrary file read on the host system.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/dgraph-io/dgraph",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/dgraph-io/dgraph/graphql/admin",
+            "symbols": [
+              "NewServers"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/dgraph-io/dgraph/v25",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "25.3.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/dgraph-io/dgraph/v25/graphql/admin",
+            "symbols": [
+              "NewServers"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/hypermodeinc/dgraph/v24",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "24.0.0"
+            },
+            {
+              "fixed": "24.1.6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/hypermodeinc/dgraph/v24/graphql/admin",
+            "symbols": [
+              "NewServers"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/dgraph-io/dgraph/security/advisories/GHSA-p5rh-vmhp-gvcw"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/dgraph-io/dgraph/commit/b15c87e9353e36618bf8e0df3bd945c0ce7105ef"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dgraph-io/dgraph/releases/tag/v25.3.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5529",
+    "review_status": "REVIEWED"
+  }
+}

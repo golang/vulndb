@@ -1,0 +1,38 @@
+id: GO-2026-5274
+modules:
+    - module: github.com/dgraph-io/dgraph
+      vulnerable_at: 1.2.8
+      packages:
+        - package: github.com/dgraph-io/dgraph
+    - module: github.com/dgraph-io/dgraph/v25
+      versions:
+        - fixed: 25.3.2
+      vulnerable_at: 25.3.1
+      packages:
+        - package: github.com/dgraph-io/dgraph/v25
+    - module: github.com/hypermodeinc/dgraph/v24
+      versions:
+        - fixed: 24.1.9
+      vulnerable_at: 24.1.8
+      packages:
+        - package: github.com/hypermodeinc/dgraph/v24
+summary: |-
+    Dgraph: Unauthenticated admin token disclosure via /debug/pprof/cmdline in
+    github.com/dgraph-io/dgraph
+description: |-
+    The /debug/pprof/cmdline endpoint in Dgraph Alpha discloses the command-line
+    arguments used to start the process, which may include the administrator's
+    authentication token if provided via the --auth_token flag. This allows an
+    unauthenticated remote attacker to obtain the token and gain full administrative
+    access to the Dgraph cluster.
+cves:
+    - CVE-2026-40173
+ghsas:
+    - GHSA-95mq-xwj4-r47p
+references:
+    - advisory: https://github.com/dgraph-io/dgraph/security/advisories/GHSA-95mq-xwj4-r47p
+    - web: https://github.com/dgraph-io/dgraph/releases/tag/v25.3.2
+source:
+    id: GHSA-95mq-xwj4-r47p
+    created: 2026-07-21T19:45:23.998442-04:00
+review_status: REVIEWED

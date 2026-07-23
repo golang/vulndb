@@ -1,0 +1,46 @@
+id: GO-2026-5287
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.51
+      vulnerable_at: 2.11.50
+      packages:
+        - package: github.com/traefik/traefik/v2/pkg/server/router/tcp
+          symbols:
+            - Router.GetTLSGetClientInfo
+            - Router.HTTP3TLSConfigMatcherFunc
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - fixed: 3.7.3
+      vulnerable_at: 3.7.2
+      packages:
+        - package: github.com/traefik/traefik/v3/pkg/server/router/tcp
+          symbols:
+            - Router.GetTLSGetClientInfo
+            - Router.HTTP3TLSConfigMatcherFunc
+summary: |-
+    Traefik: HTTP/3 mTLS bypass via exact SNI TLSOptions lookup for wildcard and
+    mixed-case hosts in github.com/traefik/traefik
+description: |-
+    Traefik's HTTP/3 TLS configuration selection is vulnerable to a bypass when
+    using wildcard or mixed-case hosts in the SNI.
+
+    The HTTP/3 (QUIC) path performed a direct, case-sensitive lookup on the SNI
+    value to select the applicable TLS configuration. This lookup failed to
+    match wildcard host patterns (e.g., "*.example.com") or case variants of
+    configured hostnames. In these cases, Traefik would fall back to the default
+    TLS configuration, which might not enforce mutual TLS (mTLS), allowing
+    unauthenticated clients to access protected backends.
+cves:
+    - CVE-2026-53622
+ghsas:
+    - GHSA-9cr8-q42q-g8m7
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-9cr8-q42q-g8m7
+    - web: https://github.com/traefik/traefik/releases/tag/v3.7.3
+source:
+    id: GHSA-9cr8-q42q-g8m7
+    created: 2026-07-22T21:46:13.165616-04:00
+review_status: REVIEWED

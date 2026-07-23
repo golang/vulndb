@@ -1,0 +1,50 @@
+id: GO-2026-5532
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+      packages:
+        - package: github.com/traefik/traefik/middlewares/errorpages
+          symbols:
+            - Handler.ServeHTTP
+          skip_fix: build error with old dependencies
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.44
+      vulnerable_at: 2.11.43
+      packages:
+        - package: github.com/traefik/traefik/v2/pkg/middlewares/customerrors
+          symbols:
+            - customErrors.ServeHTTP
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - fixed: 3.6.15
+        - introduced: 3.7.0-rc.1
+        - fixed: 3.7.0-rc.3
+      vulnerable_at: 3.7.0-rc.2
+      packages:
+        - package: github.com/traefik/traefik/v3/pkg/middlewares/customerrors
+          symbols:
+            - customErrors.ServeHTTP
+          skip_fix: build error with old dependencies
+summary: Authorization and Cookie headers forwarded to error page service in github.com/traefik/traefik
+description: |-
+    Traefik's errors middleware by default forwards all original request headers to
+    the error page service. If the error page service is in a separate trust
+    domain, this can lead to the disclosure of sensitive information such as
+    Authorization or Cookie headers.
+
+    The fix adds an errorRequestHeaders option to the Errors middleware,
+    allowing users to explicitly list which headers should be forwarded.
+cves:
+    - CVE-2026-41181
+ghsas:
+    - GHSA-p6hg-qh38-555r
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-p6hg-qh38-555r
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.44
+    - web: https://github.com/traefik/traefik/releases/tag/v3.6.15
+    - web: https://github.com/traefik/traefik/releases/tag/v3.7.0-rc.3
+source:
+    id: GHSA-p6hg-qh38-555r
+    created: 2026-07-21T19:42:34.63298-04:00
+review_status: REVIEWED

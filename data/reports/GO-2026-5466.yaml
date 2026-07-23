@@ -1,0 +1,40 @@
+id: GO-2026-5466
+modules:
+    - module: github.com/ncw/rclone
+      versions:
+        - introduced: 1.48.0
+      vulnerable_at: 1.48.0
+      packages:
+        - package: github.com/ncw/rclone/fs/operations
+          symbols:
+            - rcFsInfo
+    - module: github.com/rclone/rclone
+      versions:
+        - introduced: 1.49.0
+        - fixed: 1.73.5
+      vulnerable_at: 1.73.4
+      packages:
+        - package: github.com/rclone/rclone/fs/operations
+          symbols:
+            - rcFsInfo
+          derived_symbols:
+            - ListJSON
+summary: Unauthenticated backend instantiation in github.com/rclone/rclone
+description: |-
+    The operations/fsinfo remote control (RC) endpoint in rclone was registered
+    without requiring authentication. This allowed unauthenticated callers to
+    instantiate arbitrary backends via inline backend definitions, which could lead
+    to local command execution if the backend configuration allows it (e.g., via
+    bearer_token_command in webdav or ssh in sftp).
+cves:
+    - CVE-2026-41179
+ghsas:
+    - GHSA-jfwf-28xr-xw6q
+references:
+    - advisory: https://github.com/rclone/rclone/security/advisories/GHSA-jfwf-28xr-xw6q
+    - fix: https://github.com/rclone/rclone/commit/9e3e68d00c3ecf475a1432fc206400cfb4df7e3f
+    - web: https://github.com/rclone/rclone/releases/tag/v1.73.5
+source:
+    id: GHSA-jfwf-28xr-xw6q
+    created: 2026-07-21T19:43:35.034487-04:00
+review_status: REVIEWED
