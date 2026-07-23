@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5046",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-46385",
+    "GHSA-w8j3-pq8g-8m7w"
+  ],
+  "summary": "CPU exhaustion in Avro decoder in github.com/iskorotkov/avro/v2 and github.com/hamba/avro/v2",
+  "details": "The Avro array and map decoders loop over an attacker-controlled block-count value without checking the underlying reader's error state inside the loop body. Reader.ReadBlockHeader returns the count as a Go int, which is 64-bit on amd64 and arm64 targets. A producer can declare a block of up to math.MaxInt64 elements followed by EOF or any truncated payload, and the decoder will attempt that many no-op iterations before propagating the error.\n\nThe realistic ceiling is indefinite until the worker is killed externally. A single hostile payload pins a CPU core until the process is OOM-killed, deadline-cancelled, or terminated, resulting in a remote, unauthenticated denial-of-service.\n\nThe fix exits the loop on the first inner-decode error.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/iskorotkov/avro/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.33.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/iskorotkov/avro/v2"
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/hamba/avro/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/hamba/avro/v2"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/iskorotkov/avro/security/advisories/GHSA-w8j3-pq8g-8m7w"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/iskorotkov/avro/commit/2ce4242e6095d93470ab3b37ed6082b0596f325c"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/iskorotkov/avro/commit/b124caa58a821f68f100d86f045f9753b88881e8"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Daniel Błażewicz"
+    },
+    {
+      "name": "Ivan Korotkov"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5046",
+    "review_status": "REVIEWED"
+  }
+}

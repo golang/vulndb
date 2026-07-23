@@ -1,0 +1,36 @@
+id: GO-2026-5048
+modules:
+    - module: github.com/iskorotkov/avro/v2
+      versions:
+        - fixed: 2.33.0
+      vulnerable_at: 2.32.0
+      packages:
+        - package: github.com/iskorotkov/avro/v2
+    - module: github.com/hamba/avro/v2
+      vulnerable_at: 2.31.0
+      packages:
+        - package: github.com/hamba/avro/v2
+summary: Denial of service via unbounded map allocations in github.com/iskorotkov/avro/v2 and github.com/hamba/avro/v2
+description: |-
+    The Avro map decoder accepts attacker-controlled block-element counts from the
+    wire format and grows the destination map without enforcing an upper bound. A
+    producer can declare an arbitrarily large map (in one block, or chunked across
+    many sub-limit blocks) and exhaust process memory until the OOM killer fires.
+
+    The fix introduces Config.MaxMapAllocSize with cumulative enforcement across
+    block boundaries. The new limit is opt-in: the field defaults to zero, which
+    preserves the previous unbounded behavior for backward compatibility. Upgrading
+    to v2.33.0 alone does not mitigate the issue; consumers of untrusted Avro data
+    must explicitly set MaxMapAllocSize on their avro.Config.
+ghsas:
+    - GHSA-mx64-mj3q-7prj
+credits:
+    - Ivan Korotkov
+    - Daniel Błażewicz
+references:
+    - advisory: https://github.com/iskorotkov/avro/security/advisories/GHSA-mx64-mj3q-7prj
+    - fix: https://github.com/iskorotkov/avro/commit/5192df96a158999344ac96ebcb1f7461d626f6d7
+source:
+    id: GHSA-mx64-mj3q-7prj
+    created: 2026-07-21T19:47:07.548189-04:00
+review_status: REVIEWED

@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5781",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "summary": "Uncatchable stack-overflow denial of service in rsc.io/pdf",
+  "details": "pdf.Open and PDF object resolution in rsc.io/pdf recurse without bound on nested arrays and dictionaries. A sufficiently deeply nested document exhausts the goroutine stack limit and triggers a fatal, uncatchable stack overflow. Any service that parses untrusted PDFs with rsc.io/pdf can therefore be taken down by a single small input.",
+  "affected": [
+    {
+      "package": {
+        "name": "rsc.io/pdf",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "rsc.io/pdf",
+            "symbols": [
+              "NewReader",
+              "Open"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://github.com/golang/vulndb/issues/5781"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rsc/pdf"
+    }
+  ],
+  "credits": [
+    {
+      "name": "José Antonio Zamudio Amaya"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5781",
+    "review_status": "REVIEWED"
+  }
+}

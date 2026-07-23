@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5047",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-46384",
+    "GHSA-mc57-h6j3-3hmv"
+  ],
+  "summary": "Integer overflow in Avro decoder in github.com/iskorotkov/avro/v2 and github.com/hamba/avro/v2",
+  "details": "Several Avro decoder paths read attacker-controlled 64-bit values from the wire format and either narrowed them to platform-sized int before bounds-checking, or summed them with overflow-prone signed-int arithmetic. On 32-bit targets, the truncation paths can silently bypass byte-slice limits, select the wrong union branch, or hit a negative-make panic via wrap.\n\nThree sub-issues are not 32-bit-specific: cumulative-size arithmetic overflow in array and map decoders, negation of MinInt in block-header handling, and negative size in block reads. All three panic or bypass caps on any platform, giving an attacker a denial-of-service primitive. Exploitation requires only an untrusted Avro stream.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/iskorotkov/avro/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.33.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/iskorotkov/avro/v2"
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/hamba/avro/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/hamba/avro/v2"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/iskorotkov/avro/security/advisories/GHSA-mc57-h6j3-3hmv"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/iskorotkov/avro/commit/bed99b315ec097a1a5eb7ae074ef57a91848c583"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/iskorotkov/avro/commit/e1a570f9a8a4fe4b1bc2b4b1fb6d24e4a5f04358"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Daniel Błażewicz"
+    },
+    {
+      "name": "Ivan Korotkov"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5047",
+    "review_status": "REVIEWED"
+  }
+}

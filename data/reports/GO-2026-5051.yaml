@@ -1,0 +1,40 @@
+id: GO-2026-5051
+modules:
+    - module: github.com/cloudsoda/go-smb2
+      versions:
+        - fixed: 0.0.0-20260609183447-7b96c35f5f4b
+      vulnerable_at: 0.0.0-20260512215926-828fc89b00fb
+      packages:
+        - package: github.com/cloudsoda/go-smb2
+          symbols:
+            - Share.ReadDir
+            - Share.ReadDirPlus
+    - module: github.com/hirochachacha/go-smb2
+      vulnerable_at: 1.1.0
+      packages:
+        - package: github.com/hirochachacha/go-smb2
+          symbols:
+            - Share.ReadDir
+          skip_fix: module is unmaintained
+summary: Out-of-bounds read and panic in ReadDir in github.com/cloudsoda/go-smb2 and github.com/hirochachacha/go-smb2
+description: |-
+    ReadDir and ReadDirPlus parse the QUERY_DIRECTORY SMB response by advancing
+    through entries using the server-supplied NextEntryOffset field. The pre-fix
+    code does not bound next against the remaining buffer before re-slicing, and
+    the entry decoder IsInvalid check performs length arithmetic in int after
+    narrowing from uint16.
+
+    A guest or anonymous directory listing against an attacker-controlled or
+    man-in-the-middle SMB server crashes the Go client process with a runtime panic
+    when the response contains an entry whose NextEntryOffset is larger than the
+    remaining buffer, or whose declared FileNameLength produces a length that does
+    not match the actual buffer size.
+credits:
+    - Jose Rivas (bl4cksku11)
+references:
+    - fix: https://github.com/cloudsoda/go-smb2/commit/7b96c35f5f4babfc9d68a60baf5e85f2303d4a4b
+    - report: https://github.com/golang/vulndb/issues/5051
+source:
+    id: go-security-team
+    created: 2026-07-21T19:47:07.112797-04:00
+review_status: REVIEWED

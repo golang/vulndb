@@ -1,0 +1,40 @@
+id: GO-2026-5047
+modules:
+    - module: github.com/iskorotkov/avro/v2
+      versions:
+        - fixed: 2.33.0
+      vulnerable_at: 2.32.0
+      packages:
+        - package: github.com/iskorotkov/avro/v2
+    - module: github.com/hamba/avro/v2
+      vulnerable_at: 2.31.0
+      packages:
+        - package: github.com/hamba/avro/v2
+summary: Integer overflow in Avro decoder in github.com/iskorotkov/avro/v2 and github.com/hamba/avro/v2
+description: |-
+    Several Avro decoder paths read attacker-controlled 64-bit values from the wire
+    format and either narrowed them to platform-sized int before bounds-checking,
+    or summed them with overflow-prone signed-int arithmetic. On 32-bit targets,
+    the truncation paths can silently bypass byte-slice limits, select the wrong
+    union branch, or hit a negative-make panic via wrap.
+
+    Three sub-issues are not 32-bit-specific: cumulative-size arithmetic overflow
+    in array and map decoders, negation of MinInt in block-header handling, and
+    negative size in block reads. All three panic or bypass caps on any platform,
+    giving an attacker a denial-of-service primitive. Exploitation requires only
+    an untrusted Avro stream.
+cves:
+    - CVE-2026-46384
+ghsas:
+    - GHSA-mc57-h6j3-3hmv
+credits:
+    - Daniel Błażewicz
+    - Ivan Korotkov
+references:
+    - advisory: https://github.com/iskorotkov/avro/security/advisories/GHSA-mc57-h6j3-3hmv
+    - fix: https://github.com/iskorotkov/avro/commit/bed99b315ec097a1a5eb7ae074ef57a91848c583
+    - fix: https://github.com/iskorotkov/avro/commit/e1a570f9a8a4fe4b1bc2b4b1fb6d24e4a5f04358
+source:
+    id: GHSA-mc57-h6j3-3hmv
+    created: 2026-07-21T19:47:09.624834-04:00
+review_status: REVIEWED

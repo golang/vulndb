@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5048",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-mx64-mj3q-7prj"
+  ],
+  "summary": "Denial of service via unbounded map allocations in github.com/iskorotkov/avro/v2 and github.com/hamba/avro/v2",
+  "details": "The Avro map decoder accepts attacker-controlled block-element counts from the wire format and grows the destination map without enforcing an upper bound. A producer can declare an arbitrarily large map (in one block, or chunked across many sub-limit blocks) and exhaust process memory until the OOM killer fires.\n\nThe fix introduces Config.MaxMapAllocSize with cumulative enforcement across block boundaries. The new limit is opt-in: the field defaults to zero, which preserves the previous unbounded behavior for backward compatibility. Upgrading to v2.33.0 alone does not mitigate the issue; consumers of untrusted Avro data must explicitly set MaxMapAllocSize on their avro.Config.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/iskorotkov/avro/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.33.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/iskorotkov/avro/v2"
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/hamba/avro/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/hamba/avro/v2"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/iskorotkov/avro/security/advisories/GHSA-mx64-mj3q-7prj"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/iskorotkov/avro/commit/5192df96a158999344ac96ebcb1f7461d626f6d7"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Ivan Korotkov"
+    },
+    {
+      "name": "Daniel Błażewicz"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5048",
+    "review_status": "REVIEWED"
+  }
+}

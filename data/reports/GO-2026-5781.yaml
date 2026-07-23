@@ -1,0 +1,26 @@
+id: GO-2026-5781
+modules:
+    - module: rsc.io/pdf
+      vulnerable_at: 0.1.1
+      packages:
+        - package: rsc.io/pdf
+          symbols:
+            - Open
+            - NewReader
+          skip_fix: repository is archived
+summary: Uncatchable stack-overflow denial of service in rsc.io/pdf
+description: |-
+    pdf.Open and PDF object resolution in rsc.io/pdf recurse without bound on
+    nested arrays and dictionaries. A sufficiently deeply nested document exhausts
+    the goroutine stack limit and triggers a fatal, uncatchable stack overflow.
+    Any service that parses untrusted PDFs with rsc.io/pdf can therefore be taken
+    down by a single small input.
+credits:
+    - José Antonio Zamudio Amaya
+references:
+    - report: https://github.com/golang/vulndb/issues/5781
+    - web: https://github.com/rsc/pdf
+source:
+    id: go-security-team
+    created: 2026-07-21T19:13:00.347189-04:00
+review_status: REVIEWED
