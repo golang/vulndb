@@ -1,0 +1,40 @@
+id: GO-2026-5983
+modules:
+    - module: github.com/aquasecurity/trivy
+      versions:
+        - fixed: 0.71.0
+      vulnerable_at: 0.70.0
+      packages:
+        - package: github.com/aquasecurity/trivy/pkg/iac/detection
+          symbols:
+            - IsArchive
+          skip_fix: build errors during static analysis
+        - package: github.com/aquasecurity/trivy/pkg/iac/scanners/helm
+          symbols:
+            - Scanner.ScanFS
+          skip_fix: build errors during static analysis
+        - package: github.com/aquasecurity/trivy/pkg/iac/scanners/helm/parser
+          symbols:
+            - Parser.RenderedChartFiles
+            - Parser.ParseFS
+            - New
+            - Parser.unpackArchive
+          skip_fix: build errors during static analysis
+summary: |-
+    Trivy: Helm chart tar bomb causes OOM via unbounded io.ReadAll in parser in
+    github.com/aquasecurity/trivy
+cves:
+    - CVE-2026-54448
+ghsas:
+    - GHSA-q3fv-x8vg-qqm4
+references:
+    - advisory: https://github.com/aquasecurity/trivy/security/advisories/GHSA-q3fv-x8vg-qqm4
+    - fix: https://github.com/aquasecurity/trivy/commit/441251e51ae46cbcf7f436547e0a5766b25328b4
+    - fix: https://github.com/aquasecurity/trivy/pull/10718
+    - web: https://github.com/aquasecurity/trivy/releases/tag/v0.71.0
+notes:
+    - failed to auto-populate derived symbols: build errors during static analysis
+source:
+    id: GHSA-q3fv-x8vg-qqm4
+    created: 2026-07-23T18:58:13.333642-04:00
+review_status: REVIEWED

@@ -1,0 +1,24 @@
+id: GO-2026-5116
+modules:
+    - module: github.com/containers/buildah
+      versions:
+        - introduced: 1.38.1
+      vulnerable_at: 1.43.1
+summary: |-
+    Build breakout using malicious Containerfile or Git HTTP server in
+    github.com/containers/buildah
+description: |-
+    Buildah allows a build-time breakout when using a malicious Containerfile
+    or a malicious Git HTTP server. A crafted Git URL or Containerfile can
+    cause Buildah to access files outside of the build context during an
+    ADD or COPY operation.
+cves:
+    - CVE-2026-44517
+ghsas:
+    - GHSA-49p4-px3h-rq49
+references:
+    - advisory: https://github.com/containers/buildah/security/advisories/GHSA-49p4-px3h-rq49
+source:
+    id: GHSA-49p4-px3h-rq49
+    created: 2026-07-23T19:30:52.165275-04:00
+review_status: REVIEWED

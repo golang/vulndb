@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6061",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-hrxh-6v49-42gf"
+  ],
+  "summary": "Vulnerabilities in the xDS RBAC authorization engine and the HTTP/2 transport server implementation in google.golang.org/grpc",
+  "details": "Vulnerabilities in the xDS RBAC authorization engine and the HTTP/2 transport server implementation in google.golang.org/grpc",
+  "affected": [
+    {
+      "package": {
+        "name": "google.golang.org/grpc",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.82.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "google.golang.org/grpc/internal/transport",
+            "symbols": [
+              "ClientStream.Close",
+              "ClientStream.Header",
+              "ClientStream.Read",
+              "ClientStream.RecvCompress",
+              "ClientStream.TrailersOnly",
+              "ClientStream.Write",
+              "NewHTTP2Client",
+              "NewServerTransport",
+              "ServerStream.Read",
+              "ServerStream.SendHeader",
+              "ServerStream.Write",
+              "ServerStream.WriteStatus",
+              "Stream.ReadMessageHeader",
+              "controlBuffer.executeAndPut",
+              "controlBuffer.getOnceLocked",
+              "http2Client.Close",
+              "http2Client.GracefulClose",
+              "http2Client.NewStream",
+              "http2Server.Drain",
+              "http2Server.HandleStreams",
+              "recvBufferReader.Read",
+              "recvBufferReader.ReadMessageHeader",
+              "transportReader.Read",
+              "transportReader.ReadMessageHeader"
+            ]
+          },
+          {
+            "path": "google.golang.org/grpc/internal/xds/rbac",
+            "symbols": [
+              "ChainEngine.IsAuthorized",
+              "NewChainEngine",
+              "matchersFromPermissions",
+              "matchersFromPrincipals"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/grpc/grpc-go/security/advisories/GHSA-hrxh-6v49-42gf"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/grpc/grpc-go/commit/4ea465d4ab98013f72a142fe0fc89c19770b2935"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/grpc/grpc-go/pull/9236"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/grpc/grpc-go/releases/tag/v1.82.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6061",
+    "review_status": "REVIEWED"
+  }
+}

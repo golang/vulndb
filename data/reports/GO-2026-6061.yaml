@@ -1,0 +1,57 @@
+id: GO-2026-6061
+modules:
+    - module: google.golang.org/grpc
+      versions:
+        - fixed: 1.82.1
+      vulnerable_at: 1.82.0
+      packages:
+        - package: google.golang.org/grpc/internal/transport
+          symbols:
+            - controlBuffer.executeAndPut
+            - controlBuffer.getOnceLocked
+          derived_symbols:
+            - ClientStream.Close
+            - ClientStream.Header
+            - ClientStream.Read
+            - ClientStream.RecvCompress
+            - ClientStream.TrailersOnly
+            - ClientStream.Write
+            - NewHTTP2Client
+            - NewServerTransport
+            - ServerStream.Read
+            - ServerStream.SendHeader
+            - ServerStream.Write
+            - ServerStream.WriteStatus
+            - Stream.ReadMessageHeader
+            - http2Client.Close
+            - http2Client.GracefulClose
+            - http2Client.NewStream
+            - http2Server.Drain
+            - http2Server.HandleStreams
+            - recvBufferReader.Read
+            - recvBufferReader.ReadMessageHeader
+            - transportReader.Read
+            - transportReader.ReadMessageHeader
+        - package: google.golang.org/grpc/internal/xds/rbac
+          symbols:
+            - matchersFromPrincipals
+            - matchersFromPermissions
+          derived_symbols:
+            - ChainEngine.IsAuthorized
+            - NewChainEngine
+summary: |-
+    Vulnerabilities in the xDS RBAC authorization engine and the HTTP/2
+    transport server implementation in google.golang.org/grpc
+ghsas:
+    - GHSA-hrxh-6v49-42gf
+references:
+    - advisory: https://github.com/grpc/grpc-go/security/advisories/GHSA-hrxh-6v49-42gf
+    - fix: https://github.com/grpc/grpc-go/commit/4ea465d4ab98013f72a142fe0fc89c19770b2935
+    - web: https://github.com/grpc/grpc-go/pull/9236
+    - web: https://github.com/grpc/grpc-go/releases/tag/v1.82.1
+notes:
+    - create: failed to auto-populate symbols
+source:
+    id: GHSA-hrxh-6v49-42gf
+    created: 2026-07-23T18:57:44.966005-04:00
+review_status: REVIEWED

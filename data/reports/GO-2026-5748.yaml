@@ -1,0 +1,37 @@
+id: GO-2026-5748
+modules:
+    - module: github.com/ollama/ollama
+      versions:
+        - fixed: 0.17.1
+      vulnerable_at: 0.17.1-rc2
+      packages:
+        - package: github.com/ollama/ollama/server
+          symbols:
+            - WriteTo
+            - quantizer.WriteTo
+          skip_fix: build errors during static analysis
+        - package: github.com/ollama/ollama/fs/ggml
+          symbols:
+            - Decode
+            - gguf.Decode
+          skip_fix: build errors during static analysis
+summary: |-
+    Ollama contains a heap out-of-bounds read vulnerability in the GGUF model loader
+    in github.com/ollama/ollama
+description: |-
+    Ollama is vulnerable to a heap out-of-bounds read in its GGUF model loader.
+    A specially crafted GGUF file can cause the loader to read beyond the
+    allocated heap buffer, potentially leading to a denial of service (crash).
+cves:
+    - CVE-2026-7482
+ghsas:
+    - GHSA-x8qc-fggm-mpqg
+references:
+    - advisory: https://github.com/advisories/GHSA-x8qc-fggm-mpqg
+    - fix: https://github.com/ollama/ollama/commit/88d57d0483cca907e0b23a968c83627a20b21047
+    - fix: https://github.com/ollama/ollama/pull/14406
+    - web: https://github.com/ollama/ollama/releases/tag/v0.17.1
+source:
+    id: GHSA-x8qc-fggm-mpqg
+    created: 2026-07-23T19:00:31.725511-04:00
+review_status: REVIEWED

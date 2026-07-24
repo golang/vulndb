@@ -1,0 +1,175 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5960",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-54063",
+    "GHSA-h69g-9hx6-f3v4"
+  ],
+  "summary": "Excelize: Unbounded Row Index Allocation in Worksheet Parser (checkSheet OOM/Panic DoS) in github.com/xuri/excelize",
+  "details": "Excelize: Unbounded Row Index Allocation in Worksheet Parser (checkSheet OOM/Panic DoS) in github.com/xuri/excelize",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/xuri/excelize/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.11.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/xuri/excelize/v2",
+            "symbols": [
+              "File.AddChart",
+              "File.AddComment",
+              "File.AddDataValidation",
+              "File.AddFormControl",
+              "File.AddHeaderFooterImage",
+              "File.AddIgnoredErrors",
+              "File.AddPicture",
+              "File.AddPictureFromBytes",
+              "File.AddPivotTable",
+              "File.AddShape",
+              "File.AddSlicer",
+              "File.AddSparkline",
+              "File.AddTable",
+              "File.AutoFilter",
+              "File.CalcCellValue",
+              "File.CopySheet",
+              "File.DeleteChart",
+              "File.DeleteComment",
+              "File.DeleteDataValidation",
+              "File.DeleteFormControl",
+              "File.DeletePicture",
+              "File.DeletePivotTable",
+              "File.DeleteSheet",
+              "File.DeleteSlicer",
+              "File.DeleteTable",
+              "File.DuplicateRow",
+              "File.DuplicateRowTo",
+              "File.GetCellFormula",
+              "File.GetCellHyperLink",
+              "File.GetCellRichText",
+              "File.GetCellStyle",
+              "File.GetCellType",
+              "File.GetCellValue",
+              "File.GetColOutlineLevel",
+              "File.GetColStyle",
+              "File.GetColVisible",
+              "File.GetColWidth",
+              "File.GetConditionalFormats",
+              "File.GetDataValidations",
+              "File.GetFormControls",
+              "File.GetHeaderFooter",
+              "File.GetHyperLinkCells",
+              "File.GetMergeCells",
+              "File.GetPageLayout",
+              "File.GetPageMargins",
+              "File.GetPanes",
+              "File.GetPictureCells",
+              "File.GetPictures",
+              "File.GetPivotTables",
+              "File.GetRowHeight",
+              "File.GetRowOutlineLevel",
+              "File.GetRowVisible",
+              "File.GetSheetProps",
+              "File.GetSheetProtection",
+              "File.GetSheetView",
+              "File.GetSlicers",
+              "File.GetTables",
+              "File.GroupSheets",
+              "File.InsertCols",
+              "File.InsertPageBreak",
+              "File.InsertRows",
+              "File.MergeCell",
+              "File.MoveSheet",
+              "File.NewSheet",
+              "File.NewStreamWriter",
+              "File.ProtectSheet",
+              "File.RemoveCol",
+              "File.RemovePageBreak",
+              "File.RemoveRow",
+              "File.SetActiveSheet",
+              "File.SetCellBool",
+              "File.SetCellDefault",
+              "File.SetCellFloat",
+              "File.SetCellFormula",
+              "File.SetCellHyperLink",
+              "File.SetCellInt",
+              "File.SetCellRichText",
+              "File.SetCellStr",
+              "File.SetCellStyle",
+              "File.SetCellUint",
+              "File.SetCellValue",
+              "File.SetColOutlineLevel",
+              "File.SetColStyle",
+              "File.SetColVisible",
+              "File.SetColWidth",
+              "File.SetConditionalFormat",
+              "File.SetHeaderFooter",
+              "File.SetPageLayout",
+              "File.SetPageMargins",
+              "File.SetPanes",
+              "File.SetRowHeight",
+              "File.SetRowOutlineLevel",
+              "File.SetRowStyle",
+              "File.SetRowVisible",
+              "File.SetSheetBackground",
+              "File.SetSheetBackgroundFromBytes",
+              "File.SetSheetCol",
+              "File.SetSheetDimension",
+              "File.SetSheetProps",
+              "File.SetSheetRow",
+              "File.SetSheetView",
+              "File.SetSheetVisible",
+              "File.UngroupSheets",
+              "File.UnmergeCell",
+              "File.UnprotectSheet",
+              "File.UnsetConditionalFormat",
+              "File.UpdateLinkedValue",
+              "File.adjustHelper",
+              "File.workSheetReader",
+              "NewFile",
+              "formulaFuncs.ANCHORARRAY",
+              "formulaFuncs.FORMULATEXT",
+              "formulaFuncs.INDIRECT",
+              "formulaFuncs.ISFORMULA",
+              "xlsxWorksheet.checkSheet"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/qax-os/excelize/security/advisories/GHSA-h69g-9hx6-f3v4"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/qax-os/excelize/commit/875b959ba62fc9bf45bb0de547ae7c7f7549835c"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/qax-os/excelize/releases/tag/v2.11.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5960",
+    "review_status": "REVIEWED"
+  }
+}
