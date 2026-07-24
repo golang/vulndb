@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5736",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-44283",
+    "GHSA-x35m-3gp4-4fh5"
+  ],
+  "summary": "Etcd RBAC bypass via PrevKv/lease in nested transactions in go.etcd.io/etcd/v3 in go.etcd.io/etcd/server",
+  "details": "Etcd RBAC bypass via PrevKv/lease in nested transactions in go.etcd.io/etcd/v3 in go.etcd.io/etcd/server",
+  "affected": [
+    {
+      "package": {
+        "name": "go.etcd.io/etcd/server/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "3.5.0"
+            },
+            {
+              "fixed": "3.5.30"
+            },
+            {
+              "introduced": "3.6.0"
+            },
+            {
+              "fixed": "3.6.11"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "go.etcd.io/etcd/server/v3/etcdserver",
+            "symbols": [
+              "EtcdServer.Txn"
+            ]
+          }
+        ],
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "3.4.44"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/etcd-io/etcd/security/advisories/GHSA-x35m-3gp4-4fh5"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5736",
+    "review_status": "REVIEWED"
+  }
+}

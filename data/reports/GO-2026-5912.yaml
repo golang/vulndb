@@ -1,0 +1,24 @@
+id: GO-2026-5912
+modules:
+    - module: github.com/gofiber/fiber/v3
+      versions:
+        - fixed: 3.4.0
+      vulnerable_at: 3.3.0
+      packages:
+        - package: github.com/gofiber/fiber/v3/middleware/helmet
+          symbols:
+            - New
+summary: |-
+    GoFiber never set HSTS header in helmet middleware due to incorrect protocol
+    check in github.com/gofiber/fiber
+cves:
+    - CVE-2026-53624
+ghsas:
+    - GHSA-gv83-gqw6-9j2c
+references:
+    - advisory: https://github.com/gofiber/fiber/security/advisories/GHSA-gv83-gqw6-9j2c
+    - fix: https://github.com/gofiber/fiber/pull/4389
+source:
+    id: GHSA-gv83-gqw6-9j2c
+    created: 2026-07-23T18:59:26.130614-04:00
+review_status: REVIEWED

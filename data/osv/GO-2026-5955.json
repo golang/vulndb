@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5955",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-49837",
+    "GHSA-gjrg-jjr3-56cm"
+  ],
+  "summary": "GoBGP: BGP OPEN capability parser may read capability values outside declared CapLen boundaries in github.com/osrg/gobgp",
+  "details": "GoBGP: BGP OPEN capability parser may read capability values outside declared CapLen boundaries in github.com/osrg/gobgp",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/osrg/gobgp/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.6.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/osrg/gobgp/v4/pkg/packet/bgp",
+            "symbols": [
+              "BGPOpen.DecodeFromBytes",
+              "CapFQDN.DecodeFromBytes",
+              "CapFourOctetASNumber.DecodeFromBytes",
+              "CapGracefulRestart.DecodeFromBytes",
+              "CapMultiProtocol.DecodeFromBytes",
+              "CapSoftwareVersion.DecodeFromBytes",
+              "DecodeCapability",
+              "OptionParameterCapability.DecodeFromBytes",
+              "ParseBGPBody",
+              "ParseBGPMessage"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/osrg/gobgp/security/advisories/GHSA-gjrg-jjr3-56cm"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/osrg/gobgp/commit/f02ca397821f6ca182ef4eb492c3cbc459552d7c"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5955",
+    "review_status": "REVIEWED"
+  }
+}

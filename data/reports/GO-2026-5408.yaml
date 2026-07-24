@@ -1,0 +1,31 @@
+id: GO-2026-5408
+modules:
+    - module: github.com/caddyserver/caddy/v2
+      versions:
+        - fixed: 2.11.3
+      vulnerable_at: 2.11.2
+      packages:
+        - package: github.com/caddyserver/caddy/v2/modules/caddypki
+          symbols:
+            - PKI.CaddyModule
+          derived_symbols:
+            - CA.NewAuthority
+            - CA.Provision
+            - CA.RootKey
+            - KeyPair.Load
+            - PKI.GetCA
+            - PKI.Provision
+            - PKI.ProvisionDefaultCA
+            - PKI.Start
+            - adminAPI.Provision
+summary: |-
+    Caddy: Remote Admin Authorization Bypass on PKI Endpoints via Prefix-Based Path
+    Matching in github.com/caddyserver/caddy
+ghsas:
+    - GHSA-gx7w-56w6-g48x
+references:
+    - advisory: https://github.com/caddyserver/caddy/security/advisories/GHSA-gx7w-56w6-g48x
+source:
+    id: GHSA-gx7w-56w6-g48x
+    created: 2026-07-23T19:28:49.253121-04:00
+review_status: REVIEWED

@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5105",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-41506",
+    "GHSA-3xc5-wrhm-f963"
+  ],
+  "summary": "Go-git: Credential leak via cross-host redirect in smart HTTP transport in github.com/go-git/go-git",
+  "details": "Go-git: Credential leak via cross-host redirect in smart HTTP transport in github.com/go-git/go-git",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/go-git/go-git/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.18.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/go-git/go-git/v5/plumbing/transport/http",
+            "symbols": [
+              "NewClient"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/go-git/go-git/security/advisories/GHSA-3xc5-wrhm-f963"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-git/go-git/releases/tag/v5.18.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5105",
+    "review_status": "REVIEWED"
+  }
+}

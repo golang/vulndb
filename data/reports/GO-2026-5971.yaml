@@ -1,0 +1,28 @@
+id: GO-2026-5971
+modules:
+    - module: github.com/osrg/gobgp/v4
+      versions:
+        - fixed: 4.4.0
+      vulnerable_at: 4.3.0
+      packages:
+        - package: github.com/osrg/gobgp/v4/pkg/packet/bgp
+          symbols:
+            - BGPUpdate.DecodeFromBytes
+          derived_symbols:
+            - ParseBGPBody
+            - ParseBGPMessage
+summary: |-
+    GoBGP: Integer underflow in the BGPUpdate.DecodeFromBytes function in
+    github.com/osrg/gobgp
+cves:
+    - CVE-2026-37462
+ghsas:
+    - GHSA-pw7p-7fqv-hpj8
+references:
+    - advisory: https://github.com/advisories/GHSA-pw7p-7fqv-hpj8
+    - fix: https://github.com/osrg/gobgp/commit/9ce8936672ebc07df524da77fa4c6ae26d92be6d
+    - web: https://github.com/osrg/gobgp/blob/v4.3.0/pkg/packet/bgp/bgp.go
+source:
+    id: GHSA-pw7p-7fqv-hpj8
+    created: 2026-07-23T18:58:55.147181-04:00
+review_status: REVIEWED

@@ -1,0 +1,35 @@
+id: GO-2026-5336
+modules:
+    - module: github.com/go-git/go-git/v5
+      versions:
+        - fixed: 5.19.1
+      vulnerable_at: 5.19.0
+      packages:
+        - package: github.com/go-git/go-git/v5
+          symbols:
+            - Worktree.Checkout
+          derived_symbols:
+            - Clone
+            - CloneContext
+            - PlainClone
+            - PlainCloneContext
+            - Submodule.Update
+            - Submodule.UpdateContext
+            - Submodules.Update
+            - Submodules.UpdateContext
+            - Worktree.Pull
+            - Worktree.PullContext
+summary: |-
+    Go-git: Crafted repositories may modify main and submodule .git directories in
+    github.com/go-git/go-git
+cves:
+    - CVE-2026-45571
+ghsas:
+    - GHSA-crhj-59gh-8x96
+references:
+    - advisory: https://github.com/go-git/go-git/security/advisories/GHSA-crhj-59gh-8x96
+    - web: https://github.com/go-git/go-git/releases/tag/v5.19.1
+source:
+    id: GHSA-crhj-59gh-8x96
+    created: 2026-07-23T19:29:05.593873-04:00
+review_status: REVIEWED

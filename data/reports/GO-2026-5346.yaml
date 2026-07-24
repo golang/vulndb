@@ -1,0 +1,41 @@
+id: GO-2026-5346
+modules:
+    - module: github.com/caddyserver/caddy/v2
+      versions:
+        - fixed: 2.11.4
+      vulnerable_at: 2.11.3
+      packages:
+        - package: github.com/caddyserver/caddy/v2/modules/caddyhttp/reverseproxy/fastcgi
+          symbols:
+            - Transport.RoundTrip
+          derived_symbols:
+            - Transport.Provision
+            - Transport.UnmarshalCaddyfile
+            - client.Do
+            - client.Get
+            - client.Head
+            - client.Options
+            - client.Post
+            - client.PostFile
+            - client.PostForm
+            - client.Request
+            - clientCloser.Close
+            - record.Read
+            - streamReader.Read
+            - streamWriter.Flush
+            - streamWriter.FlushStream
+            - streamWriter.Write
+summary: |-
+    Caddy: FastCGI header normalization bypass in forward_auth copy_headers in
+    github.com/caddyserver/caddy
+cves:
+    - CVE-2026-52845
+ghsas:
+    - GHSA-f59h-q822-g45g
+references:
+    - advisory: https://github.com/caddyserver/caddy/security/advisories/GHSA-f59h-q822-g45g
+    - fix: https://github.com/caddyserver/caddy/pull/7633
+source:
+    id: GHSA-f59h-q822-g45g
+    created: 2026-07-23T19:28:57.710855-04:00
+review_status: REVIEWED

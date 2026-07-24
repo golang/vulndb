@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5266",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-41643",
+    "GHSA-8rxh-r2p6-7f2q"
+  ],
+  "summary": "GoBGP: Remote Denial of Service (Panic) in UpdatePathAttrs4ByteAs via Malformed BGP UPDATE in github.com/osrg/gobgp",
+  "details": "GoBGP: Remote Denial of Service (Panic) in UpdatePathAttrs4ByteAs via Malformed BGP UPDATE in github.com/osrg/gobgp",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/osrg/gobgp/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.3.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/osrg/gobgp/v4/pkg/server",
+            "symbols": [
+              "BgpServer.AddPeer",
+              "NewBgpServer",
+              "server.AddPeer"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/osrg/gobgp/security/advisories/GHSA-8rxh-r2p6-7f2q"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/osrg/gobgp/releases/tag/v4.3.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5266",
+    "review_status": "REVIEWED"
+  }
+}

@@ -1,0 +1,23 @@
+id: GO-2026-5880
+modules:
+    - module: oras.land/oras-go/v2
+      versions:
+        - fixed: 2.6.2
+      vulnerable_at: 2.6.1
+      packages:
+        - package: oras.land/oras-go/v2/content/file
+          symbols:
+            - New
+            - Store.Add
+summary: Hardlink path traversal during tar extraction in oras.land/oras-go
+cves:
+    - CVE-2026-50163
+ghsas:
+    - GHSA-fxhp-mv3v-67qp
+references:
+    - advisory: https://github.com/oras-project/oras-go/security/advisories/GHSA-fxhp-mv3v-67qp
+    - fix: https://github.com/oras-project/oras-go/commit/b11f777f8d405c5023c4b307cfdc5068dfc3d406
+source:
+    id: GHSA-fxhp-mv3v-67qp
+    created: 2026-07-23T18:59:55.246268-04:00
+review_status: REVIEWED

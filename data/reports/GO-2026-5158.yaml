@@ -1,0 +1,29 @@
+id: GO-2026-5158
+modules:
+    - module: go.opentelemetry.io/otel
+      versions:
+        - introduced: 1.41.0
+        - fixed: 1.42.0
+        - introduced: 1.43.0
+        - fixed: 1.44.0
+      vulnerable_at: 1.43.0
+      packages:
+        - package: go.opentelemetry.io/otel/baggage
+          symbols:
+            - Parse
+            - New
+        - package: go.opentelemetry.io/otel/propagation
+          symbols:
+            - Baggage.Extract
+summary: Opentelemetry-go's baggage parsing no longer caps raw header length in go.opentelemetry.io/otel
+cves:
+    - CVE-2026-41178
+ghsas:
+    - GHSA-5wrp-cwcj-q835
+references:
+    - advisory: https://github.com/open-telemetry/opentelemetry-go/security/advisories/GHSA-5wrp-cwcj-q835
+    - web: https://github.com/open-telemetry/opentelemetry-go/pull/7880
+source:
+    id: GHSA-5wrp-cwcj-q835
+    created: 2026-07-23T19:30:30.094441-04:00
+review_status: REVIEWED

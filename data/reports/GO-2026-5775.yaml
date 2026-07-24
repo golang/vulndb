@@ -1,0 +1,23 @@
+id: GO-2026-5775
+modules:
+    - module: github.com/go-chi/chi/v5
+      versions:
+        - fixed: 5.3.0
+      vulnerable_at: 5.2.5
+      packages:
+        - package: github.com/go-chi/chi/v5/middleware
+          symbols:
+            - RealIP
+summary: |-
+    Chi Middleware vulnerable to IP spoofing via X-Forwarded-For header in
+    github.com/go-chi/chi
+ghsas:
+    - GHSA-9g5q-2w5x-hmxf
+references:
+    - advisory: https://github.com/go-chi/chi/security/advisories/GHSA-9g5q-2w5x-hmxf
+    - fix: https://github.com/go-chi/chi/pull/967
+    - web: https://github.com/go-chi/chi/releases/tag/v5.3.0
+source:
+    id: GHSA-9g5q-2w5x-hmxf
+    created: 2026-07-23T19:00:22.301737-04:00
+review_status: REVIEWED

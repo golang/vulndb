@@ -1,0 +1,23 @@
+id: GO-2026-5884
+modules:
+    - module: oras.land/oras-go/v2
+      versions:
+        - fixed: 2.6.1
+      vulnerable_at: 2.6.0
+      packages:
+        - package: oras.land/oras-go/v2/registry/remote/auth
+          symbols:
+            - Client.Do
+summary: |-
+    ORAS Go forwards registry credentials across registry redirects in
+    oras.land/oras-go
+ghsas:
+    - GHSA-vh4v-2xq2-g5cg
+references:
+    - advisory: https://github.com/oras-project/oras-go/security/advisories/GHSA-vh4v-2xq2-g5cg
+    - fix: https://github.com/oras-project/oras-go/commit/3c2e884e12ea52b6bff60c97f1edb7df7d0e0909
+    - web: https://github.com/oras-project/oras-go/releases/tag/v2.6.1
+source:
+    id: GHSA-vh4v-2xq2-g5cg
+    created: 2026-07-23T18:59:46.191242-04:00
+review_status: REVIEWED

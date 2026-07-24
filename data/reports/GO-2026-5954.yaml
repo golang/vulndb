@@ -1,0 +1,26 @@
+id: GO-2026-5954
+modules:
+    - module: github.com/osrg/gobgp/v4
+      versions:
+        - fixed: 4.7.0
+      vulnerable_at: 4.6.0
+      packages:
+        - package: github.com/osrg/gobgp/v4/pkg/packet/bgp
+          symbols:
+            - ValidateAttribute
+          derived_symbols:
+            - ValidateUpdateMsg
+summary: |-
+    GoBGP confederation validation panics on empty AS_PATH attribute in
+    github.com/osrg/gobgp
+cves:
+    - CVE-2026-49838
+ghsas:
+    - GHSA-frrj-87jh-2772
+references:
+    - advisory: https://github.com/osrg/gobgp/security/advisories/GHSA-frrj-87jh-2772
+    - fix: https://github.com/osrg/gobgp/commit/4a319a6c25630fb3cdbda3e9ccfe56e702bdaaa0
+source:
+    id: GHSA-frrj-87jh-2772
+    created: 2026-07-23T18:59:21.117374-04:00
+review_status: REVIEWED

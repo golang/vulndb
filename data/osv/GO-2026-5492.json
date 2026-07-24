@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5492",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-45135",
+    "GHSA-m675-2p33-xv9g"
+  ],
+  "summary": "Caddy: Unsafe Unicode Handling in FastCGI splitPos Allows Execution of Non-PHP Files in github.com/caddyserver/caddy",
+  "details": "Caddy: Unsafe Unicode Handling in FastCGI splitPos Allows Execution of Non-PHP Files in github.com/caddyserver/caddy",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/caddyserver/caddy/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.7.0"
+            },
+            {
+              "fixed": "2.11.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/caddyserver/caddy/v2/modules/caddyhttp/reverseproxy/fastcgi",
+            "symbols": [
+              "Transport.Provision",
+              "Transport.RoundTrip",
+              "Transport.UnmarshalCaddyfile",
+              "client.Do",
+              "client.Get",
+              "client.Head",
+              "client.Options",
+              "client.Post",
+              "client.PostFile",
+              "client.PostForm",
+              "client.Request",
+              "clientCloser.Close",
+              "record.Read",
+              "streamReader.Read",
+              "streamWriter.Flush",
+              "streamWriter.FlushStream",
+              "streamWriter.Write"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/caddyserver/caddy/security/advisories/GHSA-m675-2p33-xv9g"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/caddyserver/caddy/pull/7629"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/php/frankenphp/security/advisories/GHSA-3g8v-8r37-cgjm"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/php/frankenphp/security/advisories/GHSA-g966-83w7-6w38"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5492",
+    "review_status": "REVIEWED"
+  }
+}

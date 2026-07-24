@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5452",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-34783",
+    "GHSA-j6v5-g24h-vg4j"
+  ],
+  "summary": "Ferret: Path Traversal in IO::FS::WRITE allows arbitrary file write in github.com/MontFerret/ferret",
+  "details": "Ferret: Path Traversal in IO::FS::WRITE allows arbitrary file write in github.com/MontFerret/ferret",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/MontFerret/ferret/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.0.0-alpha.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/MontFerret/ferret/v2/pkg/stdlib/io/fs",
+            "symbols": [
+              "Read",
+              "Write"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/MontFerret/ferret/security/advisories/GHSA-j6v5-g24h-vg4j"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/MontFerret/ferret/commit/160ebad6bd50f153453e120f6d909f5b83322917"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5452",
+    "review_status": "REVIEWED"
+  }
+}

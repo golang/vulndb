@@ -1,0 +1,25 @@
+id: GO-2026-5452
+modules:
+    - module: github.com/MontFerret/ferret/v2
+      versions:
+        - fixed: 2.0.0-alpha.4
+      vulnerable_at: 2.0.0-alpha.3
+      packages:
+        - package: github.com/MontFerret/ferret/v2/pkg/stdlib/io/fs
+          symbols:
+            - Write
+            - Read
+summary: |-
+    Ferret: Path Traversal in IO::FS::WRITE allows arbitrary file write in
+    github.com/MontFerret/ferret
+cves:
+    - CVE-2026-34783
+ghsas:
+    - GHSA-j6v5-g24h-vg4j
+references:
+    - advisory: https://github.com/MontFerret/ferret/security/advisories/GHSA-j6v5-g24h-vg4j
+    - fix: https://github.com/MontFerret/ferret/commit/160ebad6bd50f153453e120f6d909f5b83322917
+source:
+    id: GHSA-j6v5-g24h-vg4j
+    created: 2026-07-23T19:28:21.854289-04:00
+review_status: REVIEWED

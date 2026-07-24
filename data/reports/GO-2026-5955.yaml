@@ -1,0 +1,34 @@
+id: GO-2026-5955
+modules:
+    - module: github.com/osrg/gobgp/v4
+      versions:
+        - fixed: 4.6.0
+      vulnerable_at: 4.5.0
+      packages:
+        - package: github.com/osrg/gobgp/v4/pkg/packet/bgp
+          symbols:
+            - CapFourOctetASNumber.DecodeFromBytes
+            - CapGracefulRestart.DecodeFromBytes
+            - CapMultiProtocol.DecodeFromBytes
+            - CapFQDN.DecodeFromBytes
+            - CapSoftwareVersion.DecodeFromBytes
+          derived_symbols:
+            - BGPOpen.DecodeFromBytes
+            - DecodeCapability
+            - OptionParameterCapability.DecodeFromBytes
+            - ParseBGPBody
+            - ParseBGPMessage
+summary: |-
+    GoBGP: BGP OPEN capability parser may read capability values outside declared
+    CapLen boundaries in github.com/osrg/gobgp
+cves:
+    - CVE-2026-49837
+ghsas:
+    - GHSA-gjrg-jjr3-56cm
+references:
+    - advisory: https://github.com/osrg/gobgp/security/advisories/GHSA-gjrg-jjr3-56cm
+    - fix: https://github.com/osrg/gobgp/commit/f02ca397821f6ca182ef4eb492c3cbc459552d7c
+source:
+    id: GHSA-gjrg-jjr3-56cm
+    created: 2026-07-23T18:59:16.147389-04:00
+review_status: REVIEWED

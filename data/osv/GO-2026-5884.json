@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5884",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-vh4v-2xq2-g5cg"
+  ],
+  "summary": "ORAS Go forwards registry credentials across registry redirects in oras.land/oras-go",
+  "details": "ORAS Go forwards registry credentials across registry redirects in oras.land/oras-go",
+  "affected": [
+    {
+      "package": {
+        "name": "oras.land/oras-go/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.6.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "oras.land/oras-go/v2/registry/remote/auth",
+            "symbols": [
+              "Client.Do"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/oras-project/oras-go/security/advisories/GHSA-vh4v-2xq2-g5cg"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/oras-project/oras-go/commit/3c2e884e12ea52b6bff60c97f1edb7df7d0e0909"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/oras-project/oras-go/releases/tag/v2.6.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5884",
+    "review_status": "REVIEWED"
+  }
+}

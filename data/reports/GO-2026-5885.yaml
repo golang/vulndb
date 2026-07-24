@@ -1,0 +1,25 @@
+id: GO-2026-5885
+modules:
+    - module: oras.land/oras-go/v2
+      versions:
+        - fixed: 2.6.1
+      vulnerable_at: 2.6.0
+      packages:
+        - package: oras.land/oras-go/v2/registry/remote/auth
+          symbols:
+            - Client.Do
+summary: |-
+    Oras-go: Malicious registry can hijack Bearer token realm to exfiltrate
+    credentials and refresh tokens in oras.land/oras-go
+cves:
+    - CVE-2026-48978
+ghsas:
+    - GHSA-xf85-363p-868w
+references:
+    - advisory: https://github.com/oras-project/oras-go/security/advisories/GHSA-xf85-363p-868w
+    - fix: https://github.com/oras-project/oras-go/commit/7a9f4b0b9558821b0422152ebe21ae56930fe764
+    - web: https://github.com/oras-project/oras-go/releases/tag/v2.6.1
+source:
+    id: GHSA-xf85-363p-868w
+    created: 2026-07-23T18:59:41.521255-04:00
+review_status: REVIEWED

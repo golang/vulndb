@@ -1,0 +1,23 @@
+id: GO-2026-5543
+modules:
+    - module: github.com/Azure/go-ntlmssp
+      versions:
+        - fixed: 0.1.1
+      vulnerable_at: 0.1.0
+      packages:
+        - package: github.com/Azure/go-ntlmssp
+          symbols:
+            - ProcessChallenge
+summary: Go-ntlmssp NTLM challenges can panic on malformed payloads in github.com/Azure/go-ntlmssp
+cves:
+    - CVE-2026-32952
+ghsas:
+    - GHSA-pjcq-xvwq-hhpj
+references:
+    - advisory: https://github.com/Azure/go-ntlmssp/security/advisories/GHSA-pjcq-xvwq-hhpj
+    - fix: https://github.com/Azure/go-ntlmssp/commit/bd8579c18d41bf5d91a5f74b1117c958f635b866
+    - web: https://github.com/Azure/go-ntlmssp/releases/tag/v0.1.1
+source:
+    id: GHSA-pjcq-xvwq-hhpj
+    created: 2026-07-23T19:03:48.90255-04:00
+review_status: REVIEWED

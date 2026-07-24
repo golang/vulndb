@@ -1,0 +1,25 @@
+id: GO-2026-5879
+modules:
+    - module: oras.land/oras-go/v2
+      versions:
+        - fixed: 2.6.1
+      vulnerable_at: 2.6.0
+      packages:
+        - package: oras.land/oras-go/v2/content/file
+          symbols:
+            - New
+            - Store.Add
+summary: |-
+    Oras-go: File store write outside workingDir via symlink traversal in
+    oras.land/oras-go
+cves:
+    - CVE-2026-50162
+ghsas:
+    - GHSA-8xwf-rjm4-xvhv
+references:
+    - advisory: https://github.com/oras-project/oras-go/security/advisories/GHSA-8xwf-rjm4-xvhv
+    - fix: https://github.com/oras-project/oras-go/commit/cc323e564d90c6b5b4bdd71d3c8d2ee2713b37e5
+source:
+    id: GHSA-8xwf-rjm4-xvhv
+    created: 2026-07-23T19:00:04.313104-04:00
+review_status: REVIEWED

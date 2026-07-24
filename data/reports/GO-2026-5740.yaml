@@ -1,0 +1,44 @@
+id: GO-2026-5740
+modules:
+    - module: github.com/gohugoio/hugo
+      versions:
+        - fixed: 0.161.0
+      non_go_versions:
+        - introduced: 0.43.0
+      vulnerable_at: 0.160.1
+      packages:
+        - package: github.com/gohugoio/hugo/config/security
+          symbols:
+            - DecodeConfig
+        - package: github.com/gohugoio/hugo/common/hexec
+          symbols:
+            - New
+            - Exec.Npx
+        - package: github.com/gohugoio/hugo/resources/resource_transformers/babel
+          symbols:
+            - New
+          derived_symbols:
+            - DecodeOptions
+            - babelTransformation.Transform
+        - package: github.com/gohugoio/hugo/common/hugo
+          symbols:
+            - GetExecEnviron
+        - package: github.com/gohugoio/hugo/deps
+          symbols:
+            - Deps.Init
+          derived_symbols:
+            - Deps.Clone
+summary: |-
+    Hugo's Node tool execution allows file system access outside the project
+    directory in github.com/gohugoio/hugo
+cves:
+    - CVE-2026-44301
+ghsas:
+    - GHSA-x597-9fr4-5857
+references:
+    - advisory: https://github.com/gohugoio/hugo/security/advisories/GHSA-x597-9fr4-5857
+    - fix: https://github.com/gohugoio/hugo/commit/a54c398b93821865547a9e21c73aad8a1d7f7bc1
+source:
+    id: GHSA-x597-9fr4-5857
+    created: 2026-07-23T19:01:33.653898-04:00
+review_status: REVIEWED

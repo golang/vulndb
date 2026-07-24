@@ -1,0 +1,27 @@
+id: GO-2026-5266
+modules:
+    - module: github.com/osrg/gobgp/v4
+      versions:
+        - fixed: 4.3.0
+      vulnerable_at: 4.2.0
+      packages:
+        - package: github.com/osrg/gobgp/v4/pkg/server
+          symbols:
+            - BgpServer.AddPeer
+          derived_symbols:
+            - NewBgpServer
+            - server.AddPeer
+summary: |-
+    GoBGP: Remote Denial of Service (Panic) in UpdatePathAttrs4ByteAs via
+    Malformed BGP UPDATE in github.com/osrg/gobgp
+cves:
+    - CVE-2026-41643
+ghsas:
+    - GHSA-8rxh-r2p6-7f2q
+references:
+    - advisory: https://github.com/osrg/gobgp/security/advisories/GHSA-8rxh-r2p6-7f2q
+    - web: https://github.com/osrg/gobgp/releases/tag/v4.3.0
+source:
+    id: GHSA-8rxh-r2p6-7f2q
+    created: 2026-07-23T19:30:08.433423-04:00
+review_status: REVIEWED

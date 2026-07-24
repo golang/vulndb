@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5887",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-45045",
+    "GHSA-gcfq-8gqf-4876"
+  ],
+  "summary": "GoFiber Vulnerable to X-Real-IP Spoofing via Header.Add() in BalancerForward in github.com/gofiber/fiber",
+  "details": "GoFiber Vulnerable to X-Real-IP Spoofing via Header.Add() in BalancerForward in github.com/gofiber/fiber",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gofiber/fiber/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.3.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/gofiber/fiber/v3/middleware/proxy",
+            "symbols": [
+              "Balancer",
+              "BalancerForward"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/gofiber/fiber/security/advisories/GHSA-gcfq-8gqf-4876"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gofiber/fiber/pull/4260"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5887",
+    "review_status": "REVIEWED"
+  }
+}

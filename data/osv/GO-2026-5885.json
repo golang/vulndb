@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5885",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-48978",
+    "GHSA-xf85-363p-868w"
+  ],
+  "summary": "Oras-go: Malicious registry can hijack Bearer token realm to exfiltrate credentials and refresh tokens in oras.land/oras-go",
+  "details": "Oras-go: Malicious registry can hijack Bearer token realm to exfiltrate credentials and refresh tokens in oras.land/oras-go",
+  "affected": [
+    {
+      "package": {
+        "name": "oras.land/oras-go/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.6.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "oras.land/oras-go/v2/registry/remote/auth",
+            "symbols": [
+              "Client.Do"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/oras-project/oras-go/security/advisories/GHSA-xf85-363p-868w"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/oras-project/oras-go/commit/7a9f4b0b9558821b0422152ebe21ae56930fe764"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/oras-project/oras-go/releases/tag/v2.6.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5885",
+    "review_status": "REVIEWED"
+  }
+}

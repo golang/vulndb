@@ -1,0 +1,24 @@
+id: GO-2026-5886
+modules:
+    - module: github.com/gofiber/fiber/v3
+      versions:
+        - fixed: 3.3.0
+      vulnerable_at: 3.2.0
+      packages:
+        - package: github.com/gofiber/fiber/v3/middleware/basicauth
+          symbols:
+            - New
+summary: |-
+    GoFiber Vulnerable to Username Enumeration via Timing Oracle in BasicAuth
+    Default Authorizer in github.com/gofiber/fiber
+cves:
+    - CVE-2026-44332
+ghsas:
+    - GHSA-g5vh-55hw-rxm8
+references:
+    - advisory: https://github.com/gofiber/fiber/security/advisories/GHSA-g5vh-55hw-rxm8
+    - fix: https://github.com/gofiber/fiber/pull/4245
+source:
+    id: GHSA-g5vh-55hw-rxm8
+    created: 2026-07-23T18:59:36.29971-04:00
+review_status: REVIEWED

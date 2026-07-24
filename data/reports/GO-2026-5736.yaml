@@ -1,0 +1,26 @@
+id: GO-2026-5736
+modules:
+    - module: go.etcd.io/etcd/server/v3
+      versions:
+        - introduced: 3.5.0
+        - fixed: 3.5.30
+        - introduced: 3.6.0
+        - fixed: 3.6.11
+      non_go_versions:
+        - fixed: 3.4.44
+      vulnerable_at: 3.6.10
+      packages:
+        - package: go.etcd.io/etcd/server/v3/etcdserver
+          symbols:
+            - EtcdServer.Txn
+summary: Etcd RBAC bypass via PrevKv/lease in nested transactions in go.etcd.io/etcd/v3 in go.etcd.io/etcd/server
+cves:
+    - CVE-2026-44283
+ghsas:
+    - GHSA-x35m-3gp4-4fh5
+references:
+    - advisory: https://github.com/etcd-io/etcd/security/advisories/GHSA-x35m-3gp4-4fh5
+source:
+    id: GHSA-x35m-3gp4-4fh5
+    created: 2026-07-23T19:01:40.095942-04:00
+review_status: REVIEWED

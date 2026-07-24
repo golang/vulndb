@@ -1,0 +1,29 @@
+id: GO-2026-5525
+modules:
+    - module: github.com/osrg/gobgp/v4
+      versions:
+        - introduced: 4.4.0
+        - fixed: 4.5.0
+      vulnerable_at: 4.4.0
+      packages:
+        - package: github.com/osrg/gobgp/v4/pkg/server
+          symbols:
+            - BgpServer.AddPeer
+          derived_symbols:
+            - NewBgpServer
+            - server.AddPeer
+summary: |-
+    GoBGP has a panic in AdjRib.Update via malformed BGP Update message (Nil Pointer
+    Dereference) in github.com/osrg/gobgp
+cves:
+    - CVE-2026-42285
+ghsas:
+    - GHSA-p3w2-64xm-833j
+references:
+    - advisory: https://github.com/osrg/gobgp/security/advisories/GHSA-p3w2-64xm-833j
+    - fix: https://github.com/osrg/gobgp/commit/d2d2be3e4e7915d407e662e5d388d9f8ae8a8f7b
+    - web: https://github.com/osrg/gobgp/releases/tag/v4.5.0
+source:
+    id: GHSA-p3w2-64xm-833j
+    created: 2026-07-23T19:27:19.18362-04:00
+review_status: REVIEWED

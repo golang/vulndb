@@ -1,0 +1,23 @@
+id: GO-2026-5593
+modules:
+    - module: github.com/go-acme/lego/v4
+      versions:
+        - fixed: 4.34.0
+      vulnerable_at: 4.33.0
+      packages:
+        - package: github.com/go-acme/lego/v4/providers/http/webroot
+          symbols:
+            - HTTPProvider.Present
+summary: |-
+    ACME Lego: Arbitrary File Write via Path Traversal in Webroot HTTP-01 Provider
+    in github.com/go-acme/lego
+cves:
+    - CVE-2026-40611
+ghsas:
+    - GHSA-qqx8-2xmm-jrv8
+references:
+    - advisory: https://github.com/go-acme/lego/security/advisories/GHSA-qqx8-2xmm-jrv8
+source:
+    id: GHSA-qqx8-2xmm-jrv8
+    created: 2026-07-23T19:03:01.363294-04:00
+review_status: REVIEWED

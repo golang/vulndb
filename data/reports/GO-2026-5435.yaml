@@ -1,0 +1,27 @@
+id: GO-2026-5435
+modules:
+    - module: helm.sh/helm/v3
+      versions:
+        - fixed: 3.20.2
+      vulnerable_at: 3.20.1
+      packages:
+        - package: helm.sh/helm/v3/pkg/chartutil
+          symbols:
+            - Expand
+          derived_symbols:
+            - ExpandFile
+summary: |-
+    Helm Chart extraction output directory collapse via Chart.yaml name
+    dot-segment in helm.sh/helm
+cves:
+    - CVE-2026-35206
+ghsas:
+    - GHSA-hr2v-4r36-88hr
+references:
+    - advisory: https://github.com/helm/helm/security/advisories/GHSA-hr2v-4r36-88hr
+    - fix: https://github.com/helm/helm/commit/4e7994d4467182f535b6797c94b5b0e994a91436
+    - web: https://github.com/helm/helm/releases/tag/v4.1.4
+source:
+    id: GHSA-hr2v-4r36-88hr
+    created: 2026-07-23T19:28:38.561456-04:00
+review_status: REVIEWED

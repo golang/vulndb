@@ -1,0 +1,32 @@
+id: GO-2026-5327
+modules:
+    - module: go.mongodb.org/mongo-driver
+      versions:
+        - fixed: 1.17.7
+      vulnerable_at: 1.17.6
+      packages:
+        - package: go.mongodb.org/mongo-driver/mongo
+          symbols:
+            - Connect
+    - module: go.mongodb.org/mongo-driver/v2
+      versions:
+        - fixed: 2.4.2
+      vulnerable_at: 2.4.1
+      packages:
+        - package: go.mongodb.org/mongo-driver/v2/mongo
+          symbols:
+            - Connect
+summary: |-
+    Mongo-go-driver: Heap Out-of-Bounds Read in GSSAPI Error Handling in
+    go.mongodb.org/mongo-driver
+cves:
+    - CVE-2026-2303
+ghsas:
+    - GHSA-cp6g-7hqx-qxhp
+references:
+    - advisory: https://github.com/advisories/GHSA-cp6g-7hqx-qxhp
+    - web: https://jira.mongodb.org/browse/GODRIVER-3770
+source:
+    id: GHSA-cp6g-7hqx-qxhp
+    created: 2026-07-23T19:29:16.832041-04:00
+review_status: REVIEWED

@@ -1,0 +1,29 @@
+id: GO-2026-5463
+modules:
+    - module: github.com/bettercap/bettercap/v2
+      versions:
+        - fixed: 2.41.7
+      vulnerable_at: 2.41.5
+      packages:
+        - package: github.com/bettercap/bettercap/v2/modules/mysql_server
+          symbols:
+            - MySQLServer.Start
+          derived_symbols:
+            - MySQLServer.Stop
+summary: |-
+    Bettercap has an integer coercion error in modules/mysql_server/mysql_server.go
+    in github.com/bettercap/bettercap
+cves:
+    - CVE-2026-8276
+ghsas:
+    - GHSA-jcqv-2g3v-gm88
+references:
+    - advisory: https://github.com/advisories/GHSA-jcqv-2g3v-gm88
+    - fix: https://github.com/bettercap/bettercap/commit/0eaa375c5e5446bfba94a290eff92967a5deac9e
+    - fix: https://github.com/bettercap/bettercap/pull/1266
+    - report: https://github.com/bettercap/bettercap/issues/1265
+    - web: https://github.com/bettercap/bettercap/releases/tag/v2.41.7
+source:
+    id: GHSA-jcqv-2g3v-gm88
+    created: 2026-07-23T19:28:10.498887-04:00
+review_status: REVIEWED

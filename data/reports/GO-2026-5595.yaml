@@ -1,0 +1,180 @@
+id: GO-2026-5595
+modules:
+    - module: github.com/caddyserver/caddy/v2
+      versions:
+        - fixed: 2.11.4
+      vulnerable_at: 2.11.3
+      packages:
+        - package: github.com/caddyserver/caddy/v2/modules/caddyhttp/fileserver
+          symbols:
+            - FileServer.ServeHTTP
+          derived_symbols:
+            - FileServer.Provision
+            - FileServer.UnmarshalCaddyfile
+            - MatchFile.Match
+            - MatchFile.MatchWithError
+            - MatchFile.Provision
+            - MatchFile.UnmarshalCaddyfile
+            - MatchFile.Validate
+            - browseTemplateContext.HumanTotalFileSize
+            - browseTemplateContext.HumanTotalFileSizeFollowingSymlinks
+            - fileInfo.HasExt
+            - fileInfo.HumanModTime
+            - fileInfo.HumanSize
+            - statusOverrideResponseWriter.WriteHeader
+        - package: github.com/caddyserver/caddy/v2/modules/caddyhttp
+          symbols:
+            - MatchPath.Match
+          derived_symbols:
+            - App.Cleanup
+            - App.Provision
+            - App.Start
+            - App.Stop
+            - App.Validate
+            - CELMatcherImpl
+            - CELValueToMapStrList
+            - CIDRExpressionToPrefix
+            - Error
+            - HandlerError.Error
+            - HandlerFunc.ServeHTTP
+            - Invoke.ServeHTTP
+            - LoggableHTTPRequest.MarshalLogObject
+            - LoggableTLSConnState.MarshalLogObject
+            - MatchClientIP.CELLibrary
+            - MatchClientIP.Match
+            - MatchClientIP.MatchWithError
+            - MatchClientIP.Provision
+            - MatchClientIP.UnmarshalCaddyfile
+            - MatchExpression.MarshalJSON
+            - MatchExpression.Match
+            - MatchExpression.MatchWithError
+            - MatchExpression.Provision
+            - MatchExpression.UnmarshalCaddyfile
+            - MatchExpression.UnmarshalJSON
+            - MatchHeader.CELLibrary
+            - MatchHeader.Match
+            - MatchHeader.MatchWithError
+            - MatchHeader.UnmarshalCaddyfile
+            - MatchHeaderRE.CELLibrary
+            - MatchHeaderRE.Match
+            - MatchHeaderRE.MatchWithError
+            - MatchHeaderRE.Provision
+            - MatchHeaderRE.UnmarshalCaddyfile
+            - MatchHeaderRE.Validate
+            - MatchHost.CELLibrary
+            - MatchHost.Match
+            - MatchHost.MatchWithError
+            - MatchHost.Provision
+            - MatchHost.UnmarshalCaddyfile
+            - MatchMethod.CELLibrary
+            - MatchMethod.UnmarshalCaddyfile
+            - MatchNot.MarshalJSON
+            - MatchNot.Match
+            - MatchNot.MatchWithError
+            - MatchNot.Provision
+            - MatchNot.UnmarshalCaddyfile
+            - MatchNot.UnmarshalJSON
+            - MatchPath.CELLibrary
+            - MatchPath.MatchWithError
+            - MatchPath.UnmarshalCaddyfile
+            - MatchPathRE.CELLibrary
+            - MatchPathRE.Match
+            - MatchPathRE.MatchWithError
+            - MatchProtocol.CELLibrary
+            - MatchProtocol.Match
+            - MatchProtocol.MatchWithError
+            - MatchProtocol.UnmarshalCaddyfile
+            - MatchQuery.CELLibrary
+            - MatchQuery.Match
+            - MatchQuery.MatchWithError
+            - MatchQuery.UnmarshalCaddyfile
+            - MatchRegexp.Match
+            - MatchRegexp.Provision
+            - MatchRegexp.UnmarshalCaddyfile
+            - MatchRegexp.Validate
+            - MatchRemoteIP.CELLibrary
+            - MatchRemoteIP.Match
+            - MatchRemoteIP.MatchWithError
+            - MatchRemoteIP.Provision
+            - MatchRemoteIP.UnmarshalCaddyfile
+            - MatchTLS.UnmarshalCaddyfile
+            - MatchVarsRE.CELLibrary
+            - MatchVarsRE.Match
+            - MatchVarsRE.MatchWithError
+            - MatchVarsRE.Provision
+            - MatchVarsRE.UnmarshalCaddyfile
+            - MatchVarsRE.Validate
+            - MatcherSet.Match
+            - MatcherSet.MatchWithError
+            - MatcherSets.AnyMatch
+            - MatcherSets.AnyMatchWithError
+            - MatcherSets.FromInterface
+            - MatcherSets.String
+            - ParseCaddyfileNestedMatcherSet
+            - ParseNamedResponseMatcher
+            - PrepareRequest
+            - ResponseHandler.Provision
+            - ResponseMatcher.Match
+            - ResponseWriterWrapper.Push
+            - ResponseWriterWrapper.ReadFrom
+            - Route.Provision
+            - Route.ProvisionHandlers
+            - Route.ProvisionMatchers
+            - Route.String
+            - RouteList.Provision
+            - RouteList.ProvisionHandlers
+            - RouteList.ProvisionMatchers
+            - Server.ServeHTTP
+            - StaticError.ServeHTTP
+            - StaticError.UnmarshalCaddyfile
+            - StaticIPRange.Provision
+            - StaticResponse.ServeHTTP
+            - StaticResponse.UnmarshalCaddyfile
+            - StringArray.UnmarshalJSON
+            - Subroute.Provision
+            - Subroute.ServeHTTP
+            - VarsMatcher.CELLibrary
+            - VarsMatcher.Match
+            - VarsMatcher.MatchWithError
+            - VarsMatcher.UnmarshalCaddyfile
+            - VarsMiddleware.ServeHTTP
+            - VarsMiddleware.UnmarshalCaddyfile
+            - WeakString.MarshalJSON
+            - WeakString.UnmarshalJSON
+            - celHTTPRequest.Equal
+            - celPkixName.ConvertToType
+            - celPkixName.Equal
+            - celTypeAdapter.NativeToValue
+            - extraFieldsSlogHandler.Handle
+            - extraFieldsSlogHandler.WithAttrs
+            - hijackedConn.Read
+            - hijackedConn.ReadFrom
+            - hijackedConn.Write
+            - hijackedConn.WriteTo
+            - http2Conn.Read
+            - http2Listener.Accept
+            - httpRedirectConn.Read
+            - httpRedirectListener.Accept
+            - lengthReader.Close
+            - lengthReader.Read
+            - metricsInstrumentedRoute.ServeHTTP
+            - requestID.String
+            - responseRecorder.FlushError
+            - responseRecorder.Hijack
+            - responseRecorder.ReadFrom
+            - responseRecorder.Write
+            - responseRecorder.WriteHeader
+            - responseRecorder.WriteResponse
+summary: |-
+    Caddy: Windows file server path authorization bypass via encoded backslash in
+    github.com/caddyserver/caddy
+cves:
+    - CVE-2026-52844
+ghsas:
+    - GHSA-qrp7-cvwr-j2c6
+references:
+    - advisory: https://github.com/caddyserver/caddy/security/advisories/GHSA-qrp7-cvwr-j2c6
+source:
+    id: GHSA-qrp7-cvwr-j2c6
+    created: 2026-07-23T19:02:56.304978-04:00
+review_status: REVIEWED

@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5463",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-8276",
+    "GHSA-jcqv-2g3v-gm88"
+  ],
+  "summary": "Bettercap has an integer coercion error in modules/mysql_server/mysql_server.go in github.com/bettercap/bettercap",
+  "details": "Bettercap has an integer coercion error in modules/mysql_server/mysql_server.go in github.com/bettercap/bettercap",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/bettercap/bettercap/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.41.7"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/bettercap/bettercap/v2/modules/mysql_server",
+            "symbols": [
+              "MySQLServer.Start",
+              "MySQLServer.Stop"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-jcqv-2g3v-gm88"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/bettercap/bettercap/commit/0eaa375c5e5446bfba94a290eff92967a5deac9e"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/bettercap/bettercap/pull/1266"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/bettercap/bettercap/issues/1265"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/bettercap/bettercap/releases/tag/v2.41.7"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5463",
+    "review_status": "REVIEWED"
+  }
+}

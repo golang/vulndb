@@ -1,0 +1,29 @@
+id: GO-2026-5660
+modules:
+    - module: github.com/caddyserver/caddy/v2
+      versions:
+        - fixed: 2.11.4
+      vulnerable_at: 2.11.3
+      packages:
+        - package: github.com/caddyserver/caddy/v2/modules/caddyhttp/templates
+          symbols:
+            - Templates.ServeHTTP
+          derived_symbols:
+            - TemplateContext.Cookie
+            - TemplateContext.NewTemplate
+            - Templates.Provision
+            - Templates.Validate
+            - WrappedHeader.Add
+            - WrappedHeader.Del
+            - WrappedHeader.Set
+summary: 'Caddy: stripHTML template function bypass in github.com/caddyserver/caddy'
+cves:
+    - CVE-2026-52846
+ghsas:
+    - GHSA-vcc4-2c75-vc9v
+references:
+    - advisory: https://github.com/caddyserver/caddy/security/advisories/GHSA-vcc4-2c75-vc9v
+source:
+    id: GHSA-vcc4-2c75-vc9v
+    created: 2026-07-23T19:02:21.606423-04:00
+review_status: REVIEWED

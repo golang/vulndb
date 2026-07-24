@@ -1,0 +1,24 @@
+id: GO-2026-5208
+modules:
+    - module: github.com/gomarkdown/markdown
+      versions:
+        - fixed: 0.0.0-20260411013819-759bbc3e3207
+      vulnerable_at: 0.0.0-20260217112301-37c66b85d6ab
+      packages:
+        - package: github.com/gomarkdown/markdown/html
+          symbols:
+            - NewRenderer
+summary: |-
+    Go Markdown has an out-of-bounds read in SmartypantsRenderer in
+    github.com/gomarkdown/markdown
+cves:
+    - CVE-2026-40890
+ghsas:
+    - GHSA-77fj-vx54-gvh7
+references:
+    - advisory: https://github.com/gomarkdown/markdown/security/advisories/GHSA-77fj-vx54-gvh7
+    - fix: https://github.com/gomarkdown/markdown/commit/759bbc3e32073c3bc4e25969c132fc520eda2778
+source:
+    id: GHSA-77fj-vx54-gvh7
+    created: 2026-07-23T19:30:17.17185-04:00
+review_status: REVIEWED

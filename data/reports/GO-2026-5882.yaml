@@ -1,0 +1,26 @@
+id: GO-2026-5882
+modules:
+    - module: oras.land/oras-go/v2
+      versions:
+        - fixed: 2.6.1
+      vulnerable_at: 2.6.0
+      packages:
+        - package: oras.land/oras-go/v2/registry/remote
+          symbols:
+            - Repository.Push
+summary: |-
+    Oras-go: Blob upload vulnerable to credential forwarding via unvalidated Location
+    header in oras.land/oras-go
+cves:
+    - CVE-2026-50151
+ghsas:
+    - GHSA-jxpm-75mh-9fp7
+references:
+    - advisory: https://github.com/oras-project/oras-go/security/advisories/GHSA-jxpm-75mh-9fp7
+    - fix: https://github.com/oras-project/oras-go/commit/4683c46ef078091544f5f55fd25102f002806991
+    - fix: https://github.com/oras-project/oras-go/pull/1152
+    - web: https://github.com/oras-project/oras-go/releases/tag/v2.6.1
+source:
+    id: GHSA-jxpm-75mh-9fp7
+    created: 2026-07-23T18:59:48.989162-04:00
+review_status: REVIEWED

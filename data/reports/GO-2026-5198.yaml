@@ -1,0 +1,28 @@
+id: GO-2026-5198
+modules:
+    - module: github.com/osrg/gobgp/v4
+      versions:
+        - introduced: 4.3.0
+        - fixed: 4.4.0
+      vulnerable_at: 4.3.0
+      packages:
+        - package: github.com/osrg/gobgp/v4/pkg/server
+          symbols:
+            - BgpServer.AddPeer
+          derived_symbols:
+            - NewBgpServer
+            - server.AddPeer
+summary: |-
+    GoBGP: Remote Denial of Service (Panic) via Malformed Well-known Path
+    Attribute in github.com/osrg/gobgp
+cves:
+    - CVE-2026-41642
+ghsas:
+    - GHSA-7235-89m6-f4px
+references:
+    - advisory: https://github.com/osrg/gobgp/security/advisories/GHSA-7235-89m6-f4px
+    - web: https://github.com/osrg/gobgp/releases/tag/v4.4.0
+source:
+    id: GHSA-7235-89m6-f4px
+    created: 2026-07-23T19:30:24.072986-04:00
+review_status: REVIEWED

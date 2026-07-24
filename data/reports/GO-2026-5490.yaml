@@ -1,0 +1,30 @@
+id: GO-2026-5490
+modules:
+    - module: github.com/go-git/go-billy/v5
+      versions:
+        - fixed: 5.9.0
+      vulnerable_at: 5.8.0
+      packages:
+        - package: github.com/go-git/go-billy/v5/util
+          symbols:
+            - Walk
+        - package: github.com/go-git/go-billy/v5/helper/chroot
+          symbols:
+            - New
+          derived_symbols:
+            - ChrootHelper.Chroot
+summary: |-
+    Go-billy: Symlink resolution lack of cycle detection leads to infinite loop in
+    github.com/go-git/go-billy
+cves:
+    - CVE-2026-44740
+ghsas:
+    - GHSA-m3xc-h892-ggx6
+references:
+    - advisory: https://github.com/go-git/go-billy/security/advisories/GHSA-m3xc-h892-ggx6
+    - fix: https://github.com/go-git/go-billy/pull/203
+    - web: https://github.com/go-git/go-billy/releases/tag/v5.9.0
+source:
+    id: GHSA-m3xc-h892-ggx6
+    created: 2026-07-23T19:27:47.7047-04:00
+review_status: REVIEWED

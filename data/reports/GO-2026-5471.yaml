@@ -1,0 +1,21 @@
+id: GO-2026-5471
+modules:
+    - module: github.com/go-kratos/kratos/v2
+      vulnerable_at: 2.9.2
+      packages:
+        - package: github.com/go-kratos/kratos/v2/transport/http
+          symbols:
+            - Server.ServeHTTP
+summary: Kratos has a Confused Deputy issue in github.com/go-kratos/kratos
+cves:
+    - CVE-2026-6993
+ghsas:
+    - GHSA-jj45-xvq5-rhh9
+references:
+    - advisory: https://github.com/advisories/GHSA-jj45-xvq5-rhh9
+    - fix: https://github.com/go-kratos/kratos/pull/3814
+    - report: https://github.com/go-kratos/kratos/issues/3810
+source:
+    id: GHSA-jj45-xvq5-rhh9
+    created: 2026-07-23T19:27:54.14872-04:00
+review_status: REVIEWED

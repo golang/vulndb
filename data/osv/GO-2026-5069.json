@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5069",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-30246",
+    "GHSA-35hp-hqmv-8qg8"
+  ],
+  "summary": "Fiber: Cache middleware key generator ignores query string in github.com/gofiber/fiber",
+  "details": "Fiber: Cache middleware key generator ignores query string in github.com/gofiber/fiber",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gofiber/fiber/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.2.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/gofiber/fiber/v3/middleware/cache",
+            "symbols": [
+              "New"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/gofiber/fiber/security/advisories/GHSA-35hp-hqmv-8qg8"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gofiber/fiber/commit/050ff1ff18511c1475b8ec627460216aaecddd4e"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gofiber/fiber/commit/9a0d12c07ed895b84c72987f9288b04137afe5de"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5069",
+    "review_status": "REVIEWED"
+  }
+}

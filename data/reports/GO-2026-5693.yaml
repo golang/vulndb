@@ -1,0 +1,33 @@
+id: GO-2026-5693
+modules:
+    - module: github.com/go-git/go-git/v5
+      versions:
+        - fixed: 5.19.1
+      vulnerable_at: 5.19.0
+      packages:
+        - package: github.com/go-git/go-git/v5/plumbing/format/packfile
+          symbols:
+            - Parser.Parse
+          derived_symbols:
+            - UpdateObjectStorage
+    - module: github.com/go-git/go-git/v6
+      versions:
+        - fixed: 6.0.0-alpha.4
+      vulnerable_at: 6.0.0-alpha.3
+      packages:
+        - package: github.com/go-git/go-git/v6/plumbing/format/packfile
+          symbols:
+            - Parser.Parse
+          derived_symbols:
+            - UpdateObjectStorage
+summary: |-
+    Go-git: Malformed Git object data may cause panics or resource exhaustion in
+    github.com/go-git/go-git
+ghsas:
+    - GHSA-w5pp-99ch-qj29
+references:
+    - advisory: https://github.com/go-git/go-git/security/advisories/GHSA-w5pp-99ch-qj29
+source:
+    id: GHSA-w5pp-99ch-qj29
+    created: 2026-07-23T19:01:58.776179-04:00
+review_status: REVIEWED

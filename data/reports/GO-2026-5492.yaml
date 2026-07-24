@@ -1,0 +1,44 @@
+id: GO-2026-5492
+modules:
+    - module: github.com/caddyserver/caddy/v2
+      versions:
+        - introduced: 2.7.0
+        - fixed: 2.11.3
+      vulnerable_at: 2.11.2
+      packages:
+        - package: github.com/caddyserver/caddy/v2/modules/caddyhttp/reverseproxy/fastcgi
+          symbols:
+            - Transport.RoundTrip
+          derived_symbols:
+            - Transport.Provision
+            - Transport.UnmarshalCaddyfile
+            - client.Do
+            - client.Get
+            - client.Head
+            - client.Options
+            - client.Post
+            - client.PostFile
+            - client.PostForm
+            - client.Request
+            - clientCloser.Close
+            - record.Read
+            - streamReader.Read
+            - streamWriter.Flush
+            - streamWriter.FlushStream
+            - streamWriter.Write
+summary: |-
+    Caddy: Unsafe Unicode Handling in FastCGI splitPos Allows Execution of Non-PHP
+    Files in github.com/caddyserver/caddy
+cves:
+    - CVE-2026-45135
+ghsas:
+    - GHSA-m675-2p33-xv9g
+references:
+    - advisory: https://github.com/caddyserver/caddy/security/advisories/GHSA-m675-2p33-xv9g
+    - fix: https://github.com/caddyserver/caddy/pull/7629
+    - web: https://github.com/php/frankenphp/security/advisories/GHSA-3g8v-8r37-cgjm
+    - web: https://github.com/php/frankenphp/security/advisories/GHSA-g966-83w7-6w38
+source:
+    id: GHSA-m675-2p33-xv9g
+    created: 2026-07-23T19:27:41.497912-04:00
+review_status: REVIEWED

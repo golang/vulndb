@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5777",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-rjr7-jggh-pgcp"
+  ],
+  "summary": "Chi's RealIP Middleware allows IP spoofing via unvalidated X-Forwarded-For header in github.com/go-chi/chi",
+  "details": "Chi's RealIP Middleware allows IP spoofing via unvalidated X-Forwarded-For header in github.com/go-chi/chi",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/go-chi/chi/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.3.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/go-chi/chi/v5/middleware",
+            "symbols": [
+              "RealIP"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/go-chi/chi/security/advisories/GHSA-rjr7-jggh-pgcp"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/go-chi/chi/pull/967"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-chi/chi/releases/tag/v5.3.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5777",
+    "review_status": "REVIEWED"
+  }
+}

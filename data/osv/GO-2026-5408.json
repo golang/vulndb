@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5408",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-gx7w-56w6-g48x"
+  ],
+  "summary": "Caddy: Remote Admin Authorization Bypass on PKI Endpoints via Prefix-Based Path Matching in github.com/caddyserver/caddy",
+  "details": "Caddy: Remote Admin Authorization Bypass on PKI Endpoints via Prefix-Based Path Matching in github.com/caddyserver/caddy",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/caddyserver/caddy/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.11.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/caddyserver/caddy/v2/modules/caddypki",
+            "symbols": [
+              "CA.NewAuthority",
+              "CA.Provision",
+              "CA.RootKey",
+              "KeyPair.Load",
+              "PKI.CaddyModule",
+              "PKI.GetCA",
+              "PKI.Provision",
+              "PKI.ProvisionDefaultCA",
+              "PKI.Start",
+              "adminAPI.Provision"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/caddyserver/caddy/security/advisories/GHSA-gx7w-56w6-g48x"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5408",
+    "review_status": "REVIEWED"
+  }
+}

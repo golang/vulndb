@@ -1,0 +1,25 @@
+id: GO-2026-5606
+modules:
+    - module: github.com/gohugoio/hugo
+      versions:
+        - introduced: 0.162.0
+        - fixed: 0.163.1
+      vulnerable_at: 0.163.0
+      packages:
+        - package: github.com/gohugoio/hugo/tpl/os
+          symbols:
+            - Namespace.Stat
+            - Namespace.FileExists
+        - package: github.com/gohugoio/hugo/config/security
+          symbols:
+            - Config.CheckAllowedHTTPURL
+summary: 'Hugo: security.http.urls deny rules bypassed by alternate IPv4 encodings (SSRF) in github.com/gohugoio/hugo'
+ghsas:
+    - GHSA-r46f-3rpw-hxrv
+references:
+    - advisory: https://github.com/gohugoio/hugo/security/advisories/GHSA-r46f-3rpw-hxrv
+    - fix: https://github.com/gohugoio/hugo/commit/a00b5c72ac57afe26df6688ece3ca544a56df372
+source:
+    id: GHSA-r46f-3rpw-hxrv
+    created: 2026-07-23T19:02:31.501095-04:00
+review_status: REVIEWED

@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5597",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-44973",
+    "GHSA-qw64-3x98-g7q2"
+  ],
+  "summary": "Go-billy has path traversal vulnerabilities in github.com/go-git/go-billy",
+  "details": "Go-billy has path traversal vulnerabilities in github.com/go-git/go-billy",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/go-git/go-billy/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.9.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/go-git/go-billy/v5/osfs",
+            "symbols": [
+              "BoundOS.Chroot",
+              "New"
+            ]
+          },
+          {
+            "path": "github.com/go-git/go-billy/v5/helper/chroot",
+            "symbols": [
+              "ChrootHelper.Chroot",
+              "New"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/go-git/go-billy/security/advisories/GHSA-qw64-3x98-g7q2"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/go-git/go-billy/pull/205"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-git/go-billy/releases/tag/v5.9.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5597",
+    "review_status": "REVIEWED"
+  }
+}

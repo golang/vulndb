@@ -1,0 +1,21 @@
+id: GO-2026-5309
+modules:
+    - module: github.com/gohugoio/hugo
+      versions:
+        - introduced: 0.123.0
+        - fixed: 0.163.1
+      vulnerable_at: 0.163.0
+      packages:
+        - package: github.com/gohugoio/hugo/tpl/os
+          symbols:
+            - Namespace.ReadFile
+summary: 'Hugo: Symlink confinement bypass in os.ReadFile in github.com/gohugoio/hugo'
+ghsas:
+    - GHSA-c3wq-j5vh-68rc
+references:
+    - advisory: https://github.com/gohugoio/hugo/security/advisories/GHSA-c3wq-j5vh-68rc
+    - web: https://github.com/gohugoio/hugo/releases/tag/v0.163.1
+source:
+    id: GHSA-c3wq-j5vh-68rc
+    created: 2026-07-23T19:29:21.33694-04:00
+review_status: REVIEWED

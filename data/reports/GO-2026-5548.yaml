@@ -1,0 +1,26 @@
+id: GO-2026-5548
+modules:
+    - module: github.com/pocketbase/pocketbase
+      versions:
+        - fixed: 0.22.42
+        - introduced: 0.30.0
+        - fixed: 0.37.4
+      vulnerable_at: 0.37.3
+      packages:
+        - package: github.com/pocketbase/pocketbase/apis
+          symbols:
+            - Serve
+summary: |-
+    PocketBase: Account pre-hijacking via OAuth2 autolinking upgrade in
+    github.com/pocketbase/pocketbase
+cves:
+    - CVE-2026-44166
+ghsas:
+    - GHSA-pq7p-mc74-g65w
+references:
+    - advisory: https://github.com/pocketbase/pocketbase/security/advisories/GHSA-pq7p-mc74-g65w
+    - fix: https://github.com/pocketbase/pocketbase/commit/44bf55097af90c4c9dc240a8ea0d81923763a60e
+source:
+    id: GHSA-pq7p-mc74-g65w
+    created: 2026-07-23T19:03:31.09473-04:00
+review_status: REVIEWED

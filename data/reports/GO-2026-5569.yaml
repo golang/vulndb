@@ -1,0 +1,26 @@
+id: GO-2026-5569
+modules:
+    - module: github.com/gohugoio/hugo
+      versions:
+        - introduced: 0.60.0
+        - fixed: 0.163.3
+      vulnerable_at: 0.163.2
+      packages:
+        - package: github.com/gohugoio/hugo/markup/highlight
+          symbols:
+            - WritePreStart
+          derived_symbols:
+            - chromaHighlighter.Highlight
+            - chromaHighlighter.HighlightCodeBlock
+            - chromaHighlighter.RenderCodeblock
+            - preWrapper.Start
+summary: 'Hugo: XSS via unescaped code-fence language in default code block renderer in github.com/gohugoio/hugo'
+ghsas:
+    - GHSA-q76j-gcg9-vxc6
+references:
+    - advisory: https://github.com/gohugoio/hugo/security/advisories/GHSA-q76j-gcg9-vxc6
+    - fix: https://github.com/gohugoio/hugo/commit/ce1a7e0bce3713af40496ded3c2c0ceeed49231d
+source:
+    id: GHSA-q76j-gcg9-vxc6
+    created: 2026-07-23T19:03:22.324954-04:00
+review_status: REVIEWED

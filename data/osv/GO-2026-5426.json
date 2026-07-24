@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5426",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-39883",
+    "GHSA-hfvc-g4fc-pqhx"
+  ],
+  "summary": "Opentelemetry-go: BSD kenv command not using absolute path enables PATH hijacking in go.opentelemetry.io/otel/sdk",
+  "details": "Opentelemetry-go: BSD kenv command not using absolute path enables PATH hijacking in go.opentelemetry.io/otel/sdk",
+  "affected": [
+    {
+      "package": {
+        "name": "go.opentelemetry.io/otel/sdk",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.15.0"
+            },
+            {
+              "fixed": "1.43.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "go.opentelemetry.io/otel/sdk/resource",
+            "symbols": [
+              "New"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/open-telemetry/opentelemetry-go/security/advisories/GHSA-hfvc-g4fc-pqhx"
+    },
+    {
+      "type": "WEB",
+      "url": "http://github.com/open-telemetry/opentelemetry-go/releases/tag/v1.43.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5426",
+    "review_status": "REVIEWED"
+  }
+}

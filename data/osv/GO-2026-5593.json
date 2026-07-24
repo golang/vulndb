@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5593",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-40611",
+    "GHSA-qqx8-2xmm-jrv8"
+  ],
+  "summary": "ACME Lego: Arbitrary File Write via Path Traversal in Webroot HTTP-01 Provider in github.com/go-acme/lego",
+  "details": "ACME Lego: Arbitrary File Write via Path Traversal in Webroot HTTP-01 Provider in github.com/go-acme/lego",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/go-acme/lego/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.34.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/go-acme/lego/v4/providers/http/webroot",
+            "symbols": [
+              "HTTPProvider.Present"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/go-acme/lego/security/advisories/GHSA-qqx8-2xmm-jrv8"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5593",
+    "review_status": "REVIEWED"
+  }
+}

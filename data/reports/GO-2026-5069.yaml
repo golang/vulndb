@@ -1,0 +1,25 @@
+id: GO-2026-5069
+modules:
+    - module: github.com/gofiber/fiber/v3
+      versions:
+        - fixed: 3.2.0
+      vulnerable_at: 3.1.0
+      packages:
+        - package: github.com/gofiber/fiber/v3/middleware/cache
+          symbols:
+            - New
+summary: |-
+    Fiber: Cache middleware key generator ignores query string in
+    github.com/gofiber/fiber
+cves:
+    - CVE-2026-30246
+ghsas:
+    - GHSA-35hp-hqmv-8qg8
+references:
+    - advisory: https://github.com/gofiber/fiber/security/advisories/GHSA-35hp-hqmv-8qg8
+    - fix: https://github.com/gofiber/fiber/commit/050ff1ff18511c1475b8ec627460216aaecddd4e
+    - fix: https://github.com/gofiber/fiber/commit/9a0d12c07ed895b84c72987f9288b04137afe5de
+source:
+    id: GHSA-35hp-hqmv-8qg8
+    created: 2026-07-23T19:31:15.009567-04:00
+review_status: REVIEWED

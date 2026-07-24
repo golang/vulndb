@@ -1,0 +1,23 @@
+id: GO-2026-5774
+modules:
+    - module: github.com/go-chi/chi/v5
+      versions:
+        - introduced: 5.2.1
+        - fixed: 5.3.0
+      vulnerable_at: 5.2.5
+      packages:
+        - package: github.com/go-chi/chi/v5/middleware
+          symbols:
+            - RealIP
+summary: |-
+    Chi has an IP spoofing vulnerability in middleware.RealIP in
+    github.com/go-chi/chi
+ghsas:
+    - GHSA-3fxj-6jh8-hvhx
+references:
+    - advisory: https://github.com/go-chi/chi/security/advisories/GHSA-3fxj-6jh8-hvhx
+    - fix: https://github.com/go-chi/chi/pull/967
+source:
+    id: GHSA-3fxj-6jh8-hvhx
+    created: 2026-07-23T19:00:23.852225-04:00
+review_status: REVIEWED

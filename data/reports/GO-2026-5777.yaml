@@ -1,0 +1,23 @@
+id: GO-2026-5777
+modules:
+    - module: github.com/go-chi/chi/v5
+      versions:
+        - fixed: 5.3.0
+      vulnerable_at: 5.2.5
+      packages:
+        - package: github.com/go-chi/chi/v5/middleware
+          symbols:
+            - RealIP
+summary: |-
+    Chi's RealIP Middleware allows IP spoofing via unvalidated X-Forwarded-For
+    header in github.com/go-chi/chi
+ghsas:
+    - GHSA-rjr7-jggh-pgcp
+references:
+    - advisory: https://github.com/go-chi/chi/security/advisories/GHSA-rjr7-jggh-pgcp
+    - fix: https://github.com/go-chi/chi/pull/967
+    - web: https://github.com/go-chi/chi/releases/tag/v5.3.0
+source:
+    id: GHSA-rjr7-jggh-pgcp
+    created: 2026-07-23T19:00:16.426726-04:00
+review_status: REVIEWED

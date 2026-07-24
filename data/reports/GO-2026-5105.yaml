@@ -1,0 +1,24 @@
+id: GO-2026-5105
+modules:
+    - module: github.com/go-git/go-git/v5
+      versions:
+        - fixed: 5.18.0
+      vulnerable_at: 5.17.2
+      packages:
+        - package: github.com/go-git/go-git/v5/plumbing/transport/http
+          symbols:
+            - NewClient
+summary: |-
+    Go-git: Credential leak via cross-host redirect in smart HTTP transport in
+    github.com/go-git/go-git
+cves:
+    - CVE-2026-41506
+ghsas:
+    - GHSA-3xc5-wrhm-f963
+references:
+    - advisory: https://github.com/go-git/go-git/security/advisories/GHSA-3xc5-wrhm-f963
+    - web: https://github.com/go-git/go-git/releases/tag/v5.18.0
+source:
+    id: GHSA-3xc5-wrhm-f963
+    created: 2026-07-23T19:30:57.550805-04:00
+review_status: REVIEWED

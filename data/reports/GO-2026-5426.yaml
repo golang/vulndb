@@ -1,0 +1,25 @@
+id: GO-2026-5426
+modules:
+    - module: go.opentelemetry.io/otel/sdk
+      versions:
+        - introduced: 1.15.0
+        - fixed: 1.43.0
+      vulnerable_at: 1.42.0
+      packages:
+        - package: go.opentelemetry.io/otel/sdk/resource
+          symbols:
+            - New
+summary: |-
+    Opentelemetry-go: BSD kenv command not using absolute path enables PATH
+    hijacking in go.opentelemetry.io/otel/sdk
+cves:
+    - CVE-2026-39883
+ghsas:
+    - GHSA-hfvc-g4fc-pqhx
+references:
+    - advisory: https://github.com/open-telemetry/opentelemetry-go/security/advisories/GHSA-hfvc-g4fc-pqhx
+    - web: http://github.com/open-telemetry/opentelemetry-go/releases/tag/v1.43.0
+source:
+    id: GHSA-hfvc-g4fc-pqhx
+    created: 2026-07-23T19:28:44.838444-04:00
+review_status: REVIEWED

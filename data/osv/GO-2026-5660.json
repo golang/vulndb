@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5660",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-52846",
+    "GHSA-vcc4-2c75-vc9v"
+  ],
+  "summary": "Caddy: stripHTML template function bypass in github.com/caddyserver/caddy",
+  "details": "Caddy: stripHTML template function bypass in github.com/caddyserver/caddy",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/caddyserver/caddy/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.11.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/caddyserver/caddy/v2/modules/caddyhttp/templates",
+            "symbols": [
+              "TemplateContext.Cookie",
+              "TemplateContext.NewTemplate",
+              "Templates.Provision",
+              "Templates.ServeHTTP",
+              "Templates.Validate",
+              "WrappedHeader.Add",
+              "WrappedHeader.Del",
+              "WrappedHeader.Set"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/caddyserver/caddy/security/advisories/GHSA-vcc4-2c75-vc9v"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5660",
+    "review_status": "REVIEWED"
+  }
+}

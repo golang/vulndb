@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5158",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-41178",
+    "GHSA-5wrp-cwcj-q835"
+  ],
+  "summary": "Opentelemetry-go's baggage parsing no longer caps raw header length in go.opentelemetry.io/otel",
+  "details": "Opentelemetry-go's baggage parsing no longer caps raw header length in go.opentelemetry.io/otel",
+  "affected": [
+    {
+      "package": {
+        "name": "go.opentelemetry.io/otel",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.41.0"
+            },
+            {
+              "fixed": "1.42.0"
+            },
+            {
+              "introduced": "1.43.0"
+            },
+            {
+              "fixed": "1.44.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "go.opentelemetry.io/otel/baggage",
+            "symbols": [
+              "New",
+              "Parse"
+            ]
+          },
+          {
+            "path": "go.opentelemetry.io/otel/propagation",
+            "symbols": [
+              "Baggage.Extract"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/open-telemetry/opentelemetry-go/security/advisories/GHSA-5wrp-cwcj-q835"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/open-telemetry/opentelemetry-go/pull/7880"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5158",
+    "review_status": "REVIEWED"
+  }
+}

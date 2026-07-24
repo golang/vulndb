@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5566",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-35205",
+    "GHSA-q5jf-9vfq-h4h7"
+  ],
+  "summary": "Helm's plugin verification fails open when .prov is missing, allowing unsigned plugin install in helm.sh/helm",
+  "details": "Helm's plugin verification fails open when .prov is missing, allowing unsigned plugin install in helm.sh/helm",
+  "affected": [
+    {
+      "package": {
+        "name": "helm.sh/helm/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "4.0.0"
+            },
+            {
+              "fixed": "4.1.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "helm.sh/helm/v4/pkg/cmd",
+            "symbols": [
+              "NewRootCmd"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/helm/helm/security/advisories/GHSA-q5jf-9vfq-h4h7"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/helm/helm/commit/05fa37973dc9e42b76e1d2883494c87174b6074f"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/helm/helm/releases/tag/v4.1.4"
+    },
+    {
+      "type": "WEB",
+      "url": "https://helm.sh/docs/topics/provenance/#the-provenance-file"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5566",
+    "review_status": "REVIEWED"
+  }
+}
