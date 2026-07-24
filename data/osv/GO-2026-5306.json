@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5306",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-34179",
+    "GHSA-c3h3-89qf-jqm5"
+  ],
+  "summary": "Type field in restricted TLS certificate allows privilege escalation in github.com/canonical/lxd",
+  "details": "Type field in restricted TLS certificate allows privilege escalation in github.com/canonical/lxd",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/canonical/lxd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "4.12"
+              },
+              {
+                "fixed": "5.0.7"
+              },
+              {
+                "fixed": "5.21.5"
+              },
+              {
+                "fixed": "6.8"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/canonical/lxd/security/advisories/GHSA-c3h3-89qf-jqm5"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/pull/17936"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5306",
+    "review_status": "REVIEWED"
+  }
+}

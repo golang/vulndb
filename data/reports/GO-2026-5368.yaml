@@ -1,0 +1,25 @@
+id: GO-2026-5368
+modules:
+    - module: github.com/canonical/lxd
+      versions:
+        - introduced: 0.0.0-20210305023314-538ac3df036e
+      vulnerable_at: 0.0.0-20260723130837-32e64f8247b8
+      packages:
+        - package: github.com/canonical/lxd/lxd/project/limits
+          symbols:
+            - CheckLimits
+          skip_fix: build errors during static analysis
+summary: |-
+    VM lowlevel restriction bypass via raw.apparmor and raw.qemu.conf in
+    github.com/canonical/lxd
+cves:
+    - CVE-2026-34177
+ghsas:
+    - GHSA-fm2x-c5qw-4h6f
+references:
+    - advisory: https://github.com/canonical/lxd/security/advisories/GHSA-fm2x-c5qw-4h6f
+    - fix: https://github.com/canonical/lxd/pull/17909
+source:
+    id: GHSA-fm2x-c5qw-4h6f
+    created: 2026-07-23T19:28:51.610463-04:00
+review_status: REVIEWED

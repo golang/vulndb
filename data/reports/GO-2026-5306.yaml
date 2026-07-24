@@ -1,0 +1,22 @@
+id: GO-2026-5306
+modules:
+    - module: github.com/canonical/lxd
+      non_go_versions:
+        - introduced: "4.12"
+        - fixed: 5.0.7
+        - fixed: 5.21.5
+        - fixed: "6.8"
+summary: |-
+    Type field in restricted TLS certificate allows privilege escalation in
+    github.com/canonical/lxd
+cves:
+    - CVE-2026-34179
+ghsas:
+    - GHSA-c3h3-89qf-jqm5
+references:
+    - advisory: https://github.com/canonical/lxd/security/advisories/GHSA-c3h3-89qf-jqm5
+    - fix: https://github.com/canonical/lxd/pull/17936
+source:
+    id: GHSA-c3h3-89qf-jqm5
+    created: 2026-07-23T19:29:31.598547-04:00
+review_status: REVIEWED

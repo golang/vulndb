@@ -1,0 +1,25 @@
+id: GO-2026-5576
+modules:
+    - module: github.com/canonical/lxd
+      versions:
+        - introduced: 0.0.0-20210305023314-538ac3df036e
+      vulnerable_at: 0.0.0-20260723130837-32e64f8247b8
+      packages:
+        - package: github.com/canonical/lxd/lxd/backup
+          symbols:
+            - GetInfo
+          skip_fix: build errors during static analysis
+summary: |-
+    LXD: Importing a crafted backup leads to project restriction bypass in
+    github.com/canonical/lxd
+cves:
+    - CVE-2026-34178
+ghsas:
+    - GHSA-q96j-3fmm-7fv4
+references:
+    - advisory: https://github.com/canonical/lxd/security/advisories/GHSA-q96j-3fmm-7fv4
+    - fix: https://github.com/canonical/lxd/pull/17921
+source:
+    id: GHSA-q96j-3fmm-7fv4
+    created: 2026-07-23T19:03:16.72139-04:00
+review_status: REVIEWED
