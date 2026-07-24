@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6080",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-58439",
+    "GHSA-w5pg-649r-p6gg"
+  ],
+  "summary": "Gitea: Branch Protection Bypass via PR Retargeting Preserves Stale `official` Approval Flag in go-gitea/gitea",
+  "details": "Gitea: Branch Protection Bypass via PR Retargeting Preserves Stale `official` Approval Flag in go-gitea/gitea.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: code.gitea.io/gitea before v1.27.0.",
+  "affected": [
+    {
+      "package": {
+        "name": "code.gitea.io/gitea",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "1.27.0"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/go-gitea/gitea/security/advisories/GHSA-w5pg-649r-p6gg"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-gitea/gitea/commit/74ad781db9c37134ee9280c69a6b1de53801503e"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-gitea/gitea/commit/8401fe7c544abff1ecc49d7f3166fd4ee0c174ef"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-gitea/gitea/pull/38319"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-gitea/gitea/pull/38402"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-gitea/gitea/releases/tag/v1.27.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6080",
+    "review_status": "UNREVIEWED"
+  }
+}

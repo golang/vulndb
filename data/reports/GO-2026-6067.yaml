@@ -1,0 +1,20 @@
+id: GO-2026-6067
+modules:
+    - module: gitea.dev
+      versions:
+        - fixed: 1.27.0
+      vulnerable_at: 1.27.0-rc0
+summary: |-
+    Gitea: Cross-repository label-ID enumeration oracle via unscoped
+    DeleteIssueLabel API in gitea.dev
+cves:
+    - CVE-2026-58445
+ghsas:
+    - GHSA-pgqf-926r-548m
+references:
+    - advisory: https://github.com/go-gitea/gitea/security/advisories/GHSA-pgqf-926r-548m
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.27.0
+source:
+    id: GHSA-pgqf-926r-548m
+    created: 2026-07-23T18:57:11.988543-04:00
+review_status: UNREVIEWED

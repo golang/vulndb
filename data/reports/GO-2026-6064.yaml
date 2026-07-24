@@ -1,0 +1,20 @@
+id: GO-2026-6064
+modules:
+    - module: gitea.dev
+      versions:
+        - fixed: 1.27.0
+      vulnerable_at: 1.27.0-rc0
+summary: |-
+    Gitea: Null Pointer Dereference in AddTime API Causes Authenticated Denial of
+    Service in gitea.dev
+cves:
+    - CVE-2026-55984
+ghsas:
+    - GHSA-m932-crvm-gcp5
+references:
+    - advisory: https://github.com/go-gitea/gitea/security/advisories/GHSA-m932-crvm-gcp5
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.27.0
+source:
+    id: GHSA-m932-crvm-gcp5
+    created: 2026-07-23T18:57:27.470249-04:00
+review_status: UNREVIEWED

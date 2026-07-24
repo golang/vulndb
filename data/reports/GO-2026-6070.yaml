@@ -1,0 +1,22 @@
+id: GO-2026-6070
+modules:
+    - module: gitea.dev
+      versions:
+        - fixed: 1.27.0
+      vulnerable_at: 1.27.0-rc0
+summary: 'Gitea: draft release attachment disclosure via missing web authorization in gitea.dev'
+cves:
+    - CVE-2026-58432
+ghsas:
+    - GHSA-q9pg-jj6x-j9p6
+references:
+    - advisory: https://github.com/go-gitea/gitea/security/advisories/GHSA-q9pg-jj6x-j9p6
+    - web: https://github.com/go-gitea/gitea/commit/ab10e37acf7fabf7829a485cc3e13d118638a856
+    - web: https://github.com/go-gitea/gitea/commit/f7fd51022495737cf960b8c4053a27d69148f664
+    - web: https://github.com/go-gitea/gitea/pull/38318
+    - web: https://github.com/go-gitea/gitea/pull/38325
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.27.0
+source:
+    id: GHSA-q9pg-jj6x-j9p6
+    created: 2026-07-23T18:56:54.822038-04:00
+review_status: UNREVIEWED

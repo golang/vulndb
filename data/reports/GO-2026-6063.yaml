@@ -1,0 +1,22 @@
+id: GO-2026-6063
+modules:
+    - module: gitea.dev
+      versions:
+        - fixed: 1.27.0
+      vulnerable_at: 1.27.0-rc0
+summary: |-
+    Gitea: REST API exposes organization membership of private organizations to
+    public in gitea.dev
+cves:
+    - CVE-2026-58417
+ghsas:
+    - GHSA-jr5x-6h83-wrxf
+references:
+    - advisory: https://github.com/go-gitea/gitea/security/advisories/GHSA-jr5x-6h83-wrxf
+    - web: https://github.com/go-gitea/gitea/commit/685b62c60fc595e3612a85f0895471876db56292
+    - web: https://github.com/go-gitea/gitea/pull/38145
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.27.0
+source:
+    id: GHSA-jr5x-6h83-wrxf
+    created: 2026-07-23T18:57:32.489663-04:00
+review_status: UNREVIEWED

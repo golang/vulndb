@@ -1,0 +1,22 @@
+id: GO-2026-6079
+modules:
+    - module: gitea.dev
+      versions:
+        - fixed: 1.27.0
+      vulnerable_at: 1.27.0-rc0
+summary: |-
+    Gitea: OAuth token introspection returns metadata of tokens issued to other
+    clients (RFC 7662 section 4 violation) in gitea.dev
+cves:
+    - CVE-2026-58425
+ghsas:
+    - GHSA-vxv2-8j6r-pcpg
+references:
+    - advisory: https://github.com/go-gitea/gitea/security/advisories/GHSA-vxv2-8j6r-pcpg
+    - web: https://github.com/go-gitea/gitea/commit/c9920b7bd0f6ec1f7590f104711b09d55917f9e8
+    - web: https://github.com/go-gitea/gitea/pull/38042
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.27.0
+source:
+    id: GHSA-vxv2-8j6r-pcpg
+    created: 2026-07-23T18:55:59.740523-04:00
+review_status: UNREVIEWED

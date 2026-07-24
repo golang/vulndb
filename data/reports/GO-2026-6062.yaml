@@ -1,0 +1,22 @@
+id: GO-2026-6062
+modules:
+    - module: gitea.dev
+      versions:
+        - fixed: 1.27.0
+      vulnerable_at: 1.27.0-rc0
+summary: 'Gitea: Private Repository Metadata Remains Accessible After Access Revocation in gitea.dev'
+cves:
+    - CVE-2026-58434
+ghsas:
+    - GHSA-j2w3-9c3r-g83q
+references:
+    - advisory: https://github.com/go-gitea/gitea/security/advisories/GHSA-j2w3-9c3r-g83q
+    - web: https://github.com/go-gitea/gitea/commit/362539b78e50dfcc4bd1b9368fdd2a1b8cab0129
+    - web: https://github.com/go-gitea/gitea/commit/500a09e044156d7a8d6eb58d67a28b8a1512c887
+    - web: https://github.com/go-gitea/gitea/pull/38321
+    - web: https://github.com/go-gitea/gitea/pull/38390
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.27.0
+source:
+    id: GHSA-j2w3-9c3r-g83q
+    created: 2026-07-23T18:57:38.654372-04:00
+review_status: UNREVIEWED

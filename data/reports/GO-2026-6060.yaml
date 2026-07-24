@@ -1,0 +1,25 @@
+id: GO-2026-6060
+modules:
+    - module: code.gitea.io/gitea
+      versions:
+        - introduced: 1.22.0
+        - fixed: 1.26.2
+      vulnerable_at: 1.26.1
+summary: |-
+    Gitea Actions Artifacts V4 signed URL HMAC ambiguity allows cross-repository
+    artifact read and cross-task upload-state write in code.gitea.io/gitea
+cves:
+    - CVE-2026-58426
+ghsas:
+    - GHSA-hg5r-vq93-9fv6
+references:
+    - advisory: https://github.com/go-gitea/gitea/security/advisories/GHSA-hg5r-vq93-9fv6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-58426
+    - web: https://blog.gitea.com/release-of-1.26.2
+    - web: https://github.com/go-gitea/gitea/commit/1c2d5e9b03f71dd12d450b2af9a79f2557b50226
+    - web: https://github.com/go-gitea/gitea/pull/37707
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.26.2
+source:
+    id: GHSA-hg5r-vq93-9fv6
+    created: 2026-07-23T18:57:50.001883-04:00
+review_status: UNREVIEWED

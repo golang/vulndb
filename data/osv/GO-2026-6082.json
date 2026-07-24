@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6082",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-42931",
+    "GHSA-wwqq-x6w4-frm2"
+  ],
+  "summary": "Gitea: Denial of Service via Unbounded io.ReadAll in NPM Package Tag Endpoint in gitea.dev",
+  "details": "Gitea: Denial of Service via Unbounded io.ReadAll in NPM Package Tag Endpoint in gitea.dev",
+  "affected": [
+    {
+      "package": {
+        "name": "gitea.dev",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.27.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/go-gitea/gitea/security/advisories/GHSA-wwqq-x6w4-frm2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-gitea/gitea/releases/tag/v1.27.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6082",
+    "review_status": "UNREVIEWED"
+  }
+}

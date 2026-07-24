@@ -1,0 +1,18 @@
+id: GO-2026-6082
+modules:
+    - module: gitea.dev
+      versions:
+        - fixed: 1.27.0
+      vulnerable_at: 1.27.0-rc0
+summary: 'Gitea: Denial of Service via Unbounded io.ReadAll in NPM Package Tag Endpoint in gitea.dev'
+cves:
+    - CVE-2026-42931
+ghsas:
+    - GHSA-wwqq-x6w4-frm2
+references:
+    - advisory: https://github.com/go-gitea/gitea/security/advisories/GHSA-wwqq-x6w4-frm2
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.27.0
+source:
+    id: GHSA-wwqq-x6w4-frm2
+    created: 2026-07-23T18:55:39.013262-04:00
+review_status: UNREVIEWED

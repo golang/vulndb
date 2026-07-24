@@ -1,0 +1,20 @@
+id: GO-2026-6074
+modules:
+    - module: code.gitea.io/gitea
+      versions:
+        - fixed: 1.26.0
+      vulnerable_at: 1.26.0-rc0
+summary: |-
+    Gitea: API Fork Endpoint Authorization Bypass Allows Organization Members to
+    Bypass Repository Creation Restrictions in code.gitea.io/gitea
+ghsas:
+    - GHSA-rjvx-x5h2-6px5
+references:
+    - advisory: https://github.com/go-gitea/gitea/security/advisories/GHSA-rjvx-x5h2-6px5
+    - web: https://github.com/go-gitea/gitea/commit/686d10b7f0c26baf91171124b382cbcdfa7bf025
+    - web: https://github.com/go-gitea/gitea/pull/36950
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.26.0
+source:
+    id: GHSA-rjvx-x5h2-6px5
+    created: 2026-07-23T18:56:31.560382-04:00
+review_status: UNREVIEWED
