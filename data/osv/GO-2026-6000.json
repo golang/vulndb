@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6000",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-50274",
+    "GHSA-74j5-xf3v-crq8"
+  ],
+  "summary": "Improper parsing of W3C baggage headers may lead to DoS in github.com/DataDog/dd-trace-go",
+  "details": "Improper parsing of W3C baggage headers may lead to DoS in github.com/DataDog/dd-trace-go",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/DataDog/dd-trace-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/DataDog/dd-trace-go/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.8.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/DataDog/dd-trace-go/security/advisories/GHSA-74j5-xf3v-crq8"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6000",
+    "review_status": "REVIEWED"
+  }
+}

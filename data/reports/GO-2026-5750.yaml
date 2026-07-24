@@ -1,0 +1,20 @@
+id: GO-2026-5750
+modules:
+    - module: github.com/ollama/ollama
+      vulnerable_at: 0.20.2
+      packages:
+        - package: github.com/ollama/ollama/x/imagegen/transfer
+summary: Ollama is Vulnerable to Path Traversal in github.com/ollama/ollama
+cves:
+    - CVE-2026-7020
+ghsas:
+    - GHSA-x99g-8v8j-25j2
+references:
+    - advisory: https://github.com/advisories/GHSA-x99g-8v8j-25j2
+    - web: https://vuldb.com/submit/797576
+    - web: https://vuldb.com/vuln/359599
+    - web: https://vuldb.com/vuln/359599/cti
+source:
+    id: GHSA-x99g-8v8j-25j2
+    created: 2026-07-23T19:00:26.335018-04:00
+review_status: REVIEWED

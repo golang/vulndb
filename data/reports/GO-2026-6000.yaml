@@ -1,0 +1,21 @@
+id: GO-2026-6000
+modules:
+    - module: github.com/DataDog/dd-trace-go
+      vulnerable_at: 1.24.1
+    - module: github.com/DataDog/dd-trace-go/v2
+      versions:
+        - fixed: 2.8.1
+      vulnerable_at: 2.8.1-rc.2
+summary: |-
+    Improper parsing of W3C baggage headers may lead to DoS in
+    github.com/DataDog/dd-trace-go
+cves:
+    - CVE-2026-50274
+ghsas:
+    - GHSA-74j5-xf3v-crq8
+references:
+    - advisory: https://github.com/DataDog/dd-trace-go/security/advisories/GHSA-74j5-xf3v-crq8
+source:
+    id: GHSA-74j5-xf3v-crq8
+    created: 2026-07-23T18:58:07.988488-04:00
+review_status: REVIEWED
