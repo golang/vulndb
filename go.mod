@@ -33,9 +33,9 @@ require (
 	github.com/jba/templatecheck v0.7.0
 	github.com/lib/pq v1.10.9
 	github.com/shurcooL/githubv4 v0.0.0-20231126234147-1cffa1f02456
-	go.opentelemetry.io/otel v1.40.0
-	go.opentelemetry.io/otel/sdk v1.40.0
-	go.opentelemetry.io/otel/trace v1.40.0
+	go.opentelemetry.io/otel v1.43.0
+	go.opentelemetry.io/otel/sdk v1.43.0
+	go.opentelemetry.io/otel/trace v1.43.0
 	golang.org/x/exp v0.0.0-20260611194520-c48552f49976
 	golang.org/x/mod v0.38.0
 	golang.org/x/oauth2 v0.36.0
@@ -44,7 +44,7 @@ require (
 	golang.org/x/tools v0.48.0
 	golang.org/x/tools/go/packages/packagestest v0.1.1-deprecated
 	google.golang.org/api v0.154.0
-	google.golang.org/grpc v1.60.1
+	google.golang.org/grpc v1.82.1
 	gopkg.in/yaml.v3 v3.0.1
 	honnef.co/go/tools v0.4.6
 	mvdan.cc/unparam v0.0.0-20230917202934-3ee2d22f45fb
@@ -53,7 +53,7 @@ require (
 require (
 	cloud.google.com/go v0.111.0 // indirect
 	cloud.google.com/go/ai v0.3.0 // indirect
-	cloud.google.com/go/compute/metadata v0.3.0 // indirect
+	cloud.google.com/go/compute/metadata v0.9.0 // indirect
 	cloud.google.com/go/iam v1.1.5 // indirect
 	cloud.google.com/go/longrunning v0.5.4 // indirect
 	cloud.google.com/go/monitoring v1.16.3 // indirect
@@ -90,8 +90,8 @@ require (
 	go.opentelemetry.io/auto/sdk v1.2.1 // indirect
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.46.1 // indirect
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.46.1 // indirect
-	go.opentelemetry.io/otel/metric v1.40.0 // indirect
-	go.opentelemetry.io/otel/sdk/metric v1.40.0 // indirect
+	go.opentelemetry.io/otel/metric v1.43.0 // indirect
+	go.opentelemetry.io/otel/sdk/metric v1.43.0 // indirect
 	golang.org/x/crypto v0.54.0 // indirect
 	golang.org/x/exp/typeparams v0.0.0-20260611194520-c48552f49976 // indirect
 	golang.org/x/net v0.57.0 // indirect
@@ -99,8 +99,8 @@ require (
 	golang.org/x/text v0.40.0 // indirect
 	golang.org/x/tools/go/expect v0.1.1-deprecated // indirect
 	google.golang.org/genproto v0.0.0-20231120223509-83a465c0220f // indirect
-	google.golang.org/genproto/googleapis/api v0.0.0-20231211222908-989df2bf70f3 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20231211222908-989df2bf70f3 // indirect
-	google.golang.org/protobuf v1.33.0 // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20260414002931-afd174a4e478 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20260414002931-afd174a4e478 // indirect
+	google.golang.org/protobuf v1.36.11 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 )
