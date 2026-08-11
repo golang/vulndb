@@ -4,7 +4,8 @@
   "modified": "0001-01-01T00:00:00Z",
   "published": "0001-01-01T00:00:00Z",
   "aliases": [
-    "CVE-2026-39833"
+    "CVE-2026-39833",
+    "GHSA-jppx-rxg9-jmrx"
   ],
   "summary": "Invoking key constraints not enforced in golang.org/x/crypto/ssh/agent",
   "details": "The in-memory keyring returned by NewKeyring() silently accepted keys with the ConfirmBeforeUse constraint but never enforced it. The key would sign without any confirmation prompt, with no indication to the caller that the constraint was not in effect. NewKeyring() now returns an error when unsupported constraints are requested.",
@@ -46,11 +47,7 @@
     },
     {
       "type": "FIX",
-      "url": "https://go.dev/cl/778640"
-    },
-    {
-      "type": "FIX",
-      "url": "https://go.dev/cl/778641"
+      "url": "https://go.dev/cl/778642"
     },
     {
       "type": "WEB",

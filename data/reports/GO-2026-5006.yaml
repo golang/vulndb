@@ -19,11 +19,14 @@ description: |
     all constraint extensions. Additionally, the in-memory keyring
     returned by NewKeyring() now rejects keys with unsupported
     constraint extensions instead of silently ignoring them.
+ghsas:
+    - GHSA-f5wc-c3c7-36mc
 credits:
     - NCC Group Cryptography Services, sponsored by Teleport
 references:
     - report: https://go.dev/issue/79435
-    - fix: https://go.dev/cl/778642
+    - fix: https://go.dev/cl/778640
+    - fix: https://go.dev/cl/778641
     - web: https://groups.google.com/g/golang-announce/c/a082jnz-LvI
 cve_metadata:
     id: CVE-2026-39832

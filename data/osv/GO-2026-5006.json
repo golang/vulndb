@@ -4,7 +4,8 @@
   "modified": "0001-01-01T00:00:00Z",
   "published": "0001-01-01T00:00:00Z",
   "aliases": [
-    "CVE-2026-39832"
+    "CVE-2026-39832",
+    "GHSA-f5wc-c3c7-36mc"
   ],
   "summary": "Invoking agent constraints dropped when forwarding keys in golang.org/x/crypto/ssh/agent",
   "details": "When adding a key to a remote agent constraint extensions such as restrict-destination-v00@openssh.com were not serialized in the request. Destination restrictions were silently stripped when forwarding keys, allowing unrestricted use of the key on the remote host. The client now serializes all constraint extensions. Additionally, the in-memory keyring returned by NewKeyring() now rejects keys with unsupported constraint extensions instead of silently ignoring them.",
@@ -47,7 +48,11 @@
     },
     {
       "type": "FIX",
-      "url": "https://go.dev/cl/778642"
+      "url": "https://go.dev/cl/778640"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/778641"
     },
     {
       "type": "WEB",
