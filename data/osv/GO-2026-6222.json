@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6222",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-46603"
+  ],
+  "summary": "Excessive memory allocation during VP8L decoding in golang.org/x/image",
+  "details": "VP8L decoding in golang.org/x/image/vp8l can allocate an excessive amount of memory when processing a crafted VP8L image containing many unused Huffman tree groups. This allows a remote attacker to cause a denial of service via memory exhaustion.",
+  "affected": [
+    {
+      "package": {
+        "name": "golang.org/x/image",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.45.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "golang.org/x/image/vp8l",
+            "symbols": [
+              "Decode",
+              "decoder.decodeHuffmanGroups",
+              "decoder.decodeHuffmanTree"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/80069"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/793460"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Daniele Ballarini"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6222",
+    "review_status": "REVIEWED"
+  }
+}

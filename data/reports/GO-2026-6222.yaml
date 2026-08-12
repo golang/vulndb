@@ -1,0 +1,31 @@
+id: GO-2026-6222
+modules:
+    - module: golang.org/x/image
+      versions:
+        - fixed: 0.45.0
+      vulnerable_at: 0.44.0
+      packages:
+        - package: golang.org/x/image/vp8l
+          symbols:
+            - decoder.decodeHuffmanGroups
+            - decoder.decodeHuffmanTree
+          derived_symbols:
+            - Decode
+summary: Excessive memory allocation during VP8L decoding in golang.org/x/image
+description: |
+    VP8L decoding in golang.org/x/image/vp8l can allocate an excessive amount of
+    memory when processing a crafted VP8L image containing many unused Huffman tree
+    groups. This allows a remote attacker to cause a denial of service via memory
+    exhaustion.
+credits:
+    - Daniele Ballarini
+references:
+    - report: https://go.dev/issue/80069
+    - fix: https://go.dev/cl/793460
+cve_metadata:
+    id: CVE-2026-46603
+    cwe: 'CWE-789: Memory Allocation with Excessive Size Value'
+source:
+    id: go-security-team
+    created: 2026-08-12T15:10:46.452778-07:00
+review_status: REVIEWED
