@@ -4,7 +4,8 @@
   "modified": "0001-01-01T00:00:00Z",
   "published": "0001-01-01T00:00:00Z",
   "aliases": [
-    "CVE-2026-42508"
+    "CVE-2026-42508",
+    "GHSA-5cgq-3rg8-m6cv"
   ],
   "summary": "Invoking auth bypass via unenforced @revoked status in golang.org/x/crypto/ssh/knownhosts",
   "details": "Previously, a revoked 'SignatureKey' belonging to a CA was not correctly checked for revocation. Now, both the 'key' and 'key.SignatureKey' are checked for @revoked.",
@@ -51,6 +52,11 @@
     {
       "type": "WEB",
       "url": "https://groups.google.com/g/golang-announce/c/a082jnz-LvI"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Omar Khaleel Ibrahim - mr3okk"
     }
   ],
   "database_specific": {
