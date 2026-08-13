@@ -1,0 +1,40 @@
+id: GO-2026-6089
+modules:
+    - module: std
+      versions:
+        - fixed: 1.25.13
+        - introduced: 1.26.0-0
+        - fixed: 1.26.6
+        - introduced: 1.27.0-0
+        - fixed: 1.27.0-rc.3
+      vulnerable_at: 1.27.0-rc.2
+      packages:
+        - package: net/http
+          symbols:
+            - conn.readRequest
+            - conn.serve
+          derived_symbols:
+            - ListenAndServe
+            - ListenAndServeTLS
+            - Serve
+            - ServeTLS
+            - Server.ListenAndServe
+            - Server.ListenAndServeTLS
+            - Server.Serve
+            - Server.ServeTLS
+summary: Apply ReadHeaderTimeout when doing unencrypted HTTP/2 check in net/http
+description: |
+    When a server is configured to support unencrypted HTTP/2, it reads a
+    few bytes from each new connection to see if they contain the HTTP/2
+    client preface. ReadHeaderTimeout is unexpectedly not being applied
+    when doing this.
+references:
+    - report: https://go.dev/issue/80205
+    - fix: https://go.dev/cl/795540
+    - web: https://groups.google.com/g/golang-announce/c/94pEornpRlI
+cve_metadata:
+    id: CVE-2026-56853
+    cwe: 'CWE-770: Allocation of Resources Without Limits or Throttling'
+source:
+    id: go-security-team
+review_status: REVIEWED

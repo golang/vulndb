@@ -18,6 +18,136 @@
       ],
       "affected": [
         {
+          "vendor": "Go standard library",
+          "product": "net/http",
+          "collectionURL": "https://pkg.go.dev",
+          "packageName": "net/http",
+          "versions": [
+            {
+              "version": "0",
+              "lessThan": "1.25.13",
+              "status": "affected",
+              "versionType": "semver"
+            },
+            {
+              "version": "1.26.0-0",
+              "lessThan": "1.26.6",
+              "status": "affected",
+              "versionType": "semver"
+            },
+            {
+              "version": "1.27.0-0",
+              "lessThan": "1.27.0-rc.3",
+              "status": "affected",
+              "versionType": "semver"
+            }
+          ],
+          "programRoutines": [
+            {
+              "name": "idnaASCII"
+            },
+            {
+              "name": "Client.CloseIdleConnections"
+            },
+            {
+              "name": "Client.Do"
+            },
+            {
+              "name": "Client.Get"
+            },
+            {
+              "name": "Client.Head"
+            },
+            {
+              "name": "Client.Post"
+            },
+            {
+              "name": "Client.PostForm"
+            },
+            {
+              "name": "ClientConn.Close"
+            },
+            {
+              "name": "ClientConn.RoundTrip"
+            },
+            {
+              "name": "Get"
+            },
+            {
+              "name": "Head"
+            },
+            {
+              "name": "Post"
+            },
+            {
+              "name": "PostForm"
+            },
+            {
+              "name": "Transport.CloseIdleConnections"
+            },
+            {
+              "name": "Transport.NewClientConn"
+            },
+            {
+              "name": "Transport.RoundTrip"
+            },
+            {
+              "name": "http1ClientConn.Close"
+            },
+            {
+              "name": "http1ClientConn.RoundTrip"
+            },
+            {
+              "name": "http2ClientConn.RoundTrip"
+            },
+            {
+              "name": "http2RoundTripper.RoundTrip"
+            }
+          ],
+          "defaultStatus": "unaffected"
+        },
+        {
+          "vendor": "Go standard library",
+          "product": "net/http/internal/http2",
+          "collectionURL": "https://pkg.go.dev",
+          "packageName": "net/http/internal/http2",
+          "versions": [
+            {
+              "version": "0",
+              "lessThan": "1.25.13",
+              "status": "affected",
+              "versionType": "semver"
+            },
+            {
+              "version": "1.26.0-0",
+              "lessThan": "1.26.6",
+              "status": "affected",
+              "versionType": "semver"
+            },
+            {
+              "version": "1.27.0-0",
+              "lessThan": "1.27.0-rc.3",
+              "status": "affected",
+              "versionType": "semver"
+            }
+          ],
+          "programRoutines": [
+            {
+              "name": "authorityAddr"
+            },
+            {
+              "name": "Transport.AddConn"
+            },
+            {
+              "name": "Transport.RoundTrip"
+            },
+            {
+              "name": "Transport.RoundTripOpt"
+            }
+          ],
+          "defaultStatus": "unaffected"
+        },
+        {
           "vendor": "golang.org/x/net",
           "product": "golang.org/x/net/idna",
           "collectionURL": "https://pkg.go.dev",
@@ -69,6 +199,9 @@
         },
         {
           "url": "https://groups.google.com/g/golang-announce/c/iI-mYSI0lu8"
+        },
+        {
+          "url": "https://groups.google.com/g/golang-announce/c/94pEornpRlI"
         },
         {
           "url": "https://pkg.go.dev/vuln/GO-2026-5026"

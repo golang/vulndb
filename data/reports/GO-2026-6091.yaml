@@ -1,0 +1,35 @@
+id: GO-2026-6091
+modules:
+    - module: std
+      versions:
+        - fixed: 1.25.13
+        - introduced: 1.26.0-0
+        - fixed: 1.26.6
+        - introduced: 1.27.0-0
+        - fixed: 1.27.0-rc.3
+      vulnerable_at: 1.27.0-rc.2
+      packages:
+        - package: html/template
+          symbols:
+            - tJS
+          derived_symbols:
+            - Template.Execute
+            - Template.ExecuteTemplate
+summary: Fix Javascript regexp context tracking in html/template
+description: |
+    Previously, pathological inputs could close an
+    unescaped '/' early, allowing for attack-controlled
+    data to inject arbitrary content, potentially
+    leading to XSS.
+credits:
+    - Ali Sherif
+references:
+    - report: https://go.dev/issue/80435
+    - fix: https://go.dev/cl/807100
+    - web: https://groups.google.com/g/golang-announce/c/94pEornpRlI
+cve_metadata:
+    id: CVE-2026-56858
+    cwe: 'CWE-79: Improper Neutralization of Input During Web Page Generation (''Cross-site Scripting'')'
+source:
+    id: go-security-team
+review_status: REVIEWED

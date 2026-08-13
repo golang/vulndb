@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6091",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-56858"
+  ],
+  "summary": "Fix Javascript regexp context tracking in html/template",
+  "details": "Previously, pathological inputs could close an unescaped '/' early, allowing for attack-controlled data to inject arbitrary content, potentially leading to XSS.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.25.13"
+            },
+            {
+              "introduced": "1.26.0-0"
+            },
+            {
+              "fixed": "1.26.6"
+            },
+            {
+              "introduced": "1.27.0-0"
+            },
+            {
+              "fixed": "1.27.0-rc.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "html/template",
+            "symbols": [
+              "Template.Execute",
+              "Template.ExecuteTemplate",
+              "tJS"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/80435"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/807100"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/94pEornpRlI"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Ali Sherif"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6091",
+    "review_status": "REVIEWED"
+  }
+}

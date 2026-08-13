@@ -11,6 +11,75 @@
   "affected": [
     {
       "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.25.13"
+            },
+            {
+              "introduced": "1.26.0-0"
+            },
+            {
+              "fixed": "1.26.6"
+            },
+            {
+              "introduced": "1.27.0-0"
+            },
+            {
+              "fixed": "1.27.0-rc.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "net/http",
+            "symbols": [
+              "Client.CloseIdleConnections",
+              "Client.Do",
+              "Client.Get",
+              "Client.Head",
+              "Client.Post",
+              "Client.PostForm",
+              "ClientConn.Close",
+              "ClientConn.RoundTrip",
+              "Get",
+              "Head",
+              "Post",
+              "PostForm",
+              "Transport.CloseIdleConnections",
+              "Transport.NewClientConn",
+              "Transport.RoundTrip",
+              "http1ClientConn.Close",
+              "http1ClientConn.RoundTrip",
+              "http2ClientConn.RoundTrip",
+              "http2RoundTripper.RoundTrip",
+              "idnaASCII"
+            ]
+          },
+          {
+            "path": "net/http/internal/http2",
+            "symbols": [
+              "Transport.AddConn",
+              "Transport.RoundTrip",
+              "Transport.RoundTripOpt",
+              "authorityAddr"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
         "name": "golang.org/x/net",
         "ecosystem": "Go"
       },
@@ -55,6 +124,10 @@
     {
       "type": "WEB",
       "url": "https://groups.google.com/g/golang-announce/c/iI-mYSI0lu8"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/94pEornpRlI"
     }
   ],
   "credits": [

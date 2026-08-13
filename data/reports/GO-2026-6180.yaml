@@ -1,0 +1,47 @@
+id: GO-2026-6180
+modules:
+    - module: cmd
+      versions:
+        - fixed: 1.25.13
+        - introduced: 1.26.0-0
+        - fixed: 1.26.6
+        - introduced: 1.27.0-0
+        - fixed: 1.27.0-rc.3
+      vulnerable_at: 1.27.0-rc.2
+      packages:
+        - package: cmd/go
+    - module: golang.org/x/mod
+      versions:
+        - fixed: 0.40.0
+      vulnerable_at: 0.39.0
+      packages:
+        - package: golang.org/x/mod/sumdb
+          symbols:
+            - Client.Lookup
+summary: Ignore unrelated, unauthenticated hashes in Lookup in golang.org/x/mod/sumdb
+description: |
+    A malicious GOSUMDB was capable of serving arbitrary
+    module content not contained within the transparency
+    log.
+
+    This attack allows for a coordinating GOPROXY and
+    GOSUMDB to serve a client malicious module content
+    that cannot be detected by evaluating the transparency
+    log.
+
+    In order to determine if you have been affected:
+
+      rm -r go.sum go.work.sum vendor/ && go mod tidy
+credits:
+    - mundur
+references:
+    - report: https://go.dev/issue/80745
+    - web: https://groups.google.com/g/golang-announce/c/94pEornpRlI
+    - fix: https://go.dev/cl/815000
+    - fix: https://go.dev/cl/815020
+cve_metadata:
+    id: CVE-2026-56864
+    cwe: 'CWE-347: Improper Verification of Cryptographic Signature'
+source:
+    id: go-security-team
+review_status: REVIEWED

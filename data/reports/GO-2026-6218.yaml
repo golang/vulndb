@@ -1,0 +1,36 @@
+id: GO-2026-6218
+modules:
+    - module: std
+      versions:
+        - fixed: 1.25.13
+        - introduced: 1.26.0-0
+        - fixed: 1.26.6
+        - introduced: 1.27.0-0
+        - fixed: 1.27.0-rc.3
+      vulnerable_at: 1.27.0-rc.2
+      packages:
+        - package: net/url
+          symbols:
+            - resolvePath
+          derived_symbols:
+            - URL.Parse
+            - URL.ResolveReference
+summary: Avoid quadratic complexity in resolvePath in net/url
+description: |-
+    Previously, resolving relative paths containing parent directory ('..') segments
+    performed string conversions and buffer rewrites on each step, resulting in
+    quadratic time complexity and high memory allocation overhead.
+
+    Now, path resolution operates on a byte buffer using index-based backtracking
+    for '..' segments, eliminating the quadratic time complexity and significantly
+    reducing memory allocations.
+references:
+    - fix: https://go.dev/cl/803681
+    - report: https://go.dev/issue/80494
+    - web: https://groups.google.com/g/golang-announce/c/94pEornpRlI
+cve_metadata:
+    id: CVE-2026-56860
+    cwe: 'CWE-407: Inefficient Algorithmic Complexity'
+source:
+    id: go-security-team
+review_status: REVIEWED

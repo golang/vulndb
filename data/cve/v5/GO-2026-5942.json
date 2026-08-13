@@ -18,6 +18,38 @@
       ],
       "affected": [
         {
+          "vendor": "Go standard library",
+          "product": "net",
+          "collectionURL": "https://pkg.go.dev",
+          "packageName": "net",
+          "versions": [
+            {
+              "version": "0",
+              "lessThan": "1.26.6",
+              "status": "affected",
+              "versionType": "semver"
+            },
+            {
+              "version": "1.27.0-0",
+              "lessThan": "1.27.0-rc.3",
+              "status": "affected",
+              "versionType": "semver"
+            }
+          ],
+          "programRoutines": [
+            {
+              "name": "cgoResSearch"
+            },
+            {
+              "name": "LookupCNAME"
+            },
+            {
+              "name": "Resolver.LookupCNAME"
+            }
+          ],
+          "defaultStatus": "unaffected"
+        },
+        {
           "vendor": "golang.org/x/net",
           "product": "golang.org/x/net/dns/dnsmessage",
           "collectionURL": "https://pkg.go.dev",
@@ -81,6 +113,9 @@
         },
         {
           "url": "https://go.dev/issue/79795"
+        },
+        {
+          "url": "https://groups.google.com/g/golang-announce/c/94pEornpRlI"
         },
         {
           "url": "https://pkg.go.dev/vuln/GO-2026-5942"

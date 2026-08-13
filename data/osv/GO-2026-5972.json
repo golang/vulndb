@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-5972",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-33818"
+  ],
+  "summary": "Enforce maximum recursion depth in encoding/asn1",
+  "details": "Enforce a recursion limit in Unmarshal to prevent stack exhaustion when parsing deeply-nested, recursive structures.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.25.13"
+            },
+            {
+              "introduced": "1.26.0-0"
+            },
+            {
+              "fixed": "1.26.6"
+            },
+            {
+              "introduced": "1.27.0-0"
+            },
+            {
+              "fixed": "1.27.0-rc.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "encoding/asn1",
+            "symbols": [
+              "Unmarshal",
+              "UnmarshalWithParams",
+              "parseField",
+              "parseSequenceOf"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/80405"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/94pEornpRlI"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/814980"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Marwan Atia (marwansamir688@gmail.com) "
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-5972",
+    "review_status": "REVIEWED"
+  }
+}

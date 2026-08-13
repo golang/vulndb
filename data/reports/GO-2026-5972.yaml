@@ -1,0 +1,34 @@
+id: GO-2026-5972
+modules:
+    - module: std
+      versions:
+        - fixed: 1.25.13
+        - introduced: 1.26.0-0
+        - fixed: 1.26.6
+        - introduced: 1.27.0-0
+        - fixed: 1.27.0-rc.3
+      vulnerable_at: 1.27.0-rc.2
+      packages:
+        - package: encoding/asn1
+          symbols:
+            - parseSequenceOf
+            - parseField
+            - UnmarshalWithParams
+          derived_symbols:
+            - Unmarshal
+summary: Enforce maximum recursion depth in encoding/asn1
+description: |
+    Enforce a recursion limit in Unmarshal to prevent stack exhaustion
+    when parsing deeply-nested, recursive structures.
+credits:
+    - 'Marwan Atia (marwansamir688@gmail.com) '
+references:
+    - report: https://go.dev/issue/80405
+    - web: https://groups.google.com/g/golang-announce/c/94pEornpRlI
+    - fix: https://go.dev/cl/814980
+cve_metadata:
+    id: CVE-2026-33818
+    cwe: 'CWE-400: Uncontrolled Resource Consumption'
+source:
+    id: go-security-team
+review_status: REVIEWED

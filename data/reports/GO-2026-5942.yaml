@@ -1,5 +1,18 @@
 id: GO-2026-5942
 modules:
+    - module: std
+      versions:
+        - fixed: 1.26.6
+        - introduced: 1.27.0-0
+        - fixed: 1.27.0-rc.3
+      vulnerable_at: 1.27.0-rc.2
+      packages:
+        - package: net
+          symbols:
+            - cgoResSearch
+          derived_symbols:
+            - LookupCNAME
+            - Resolver.LookupCNAME
     - module: golang.org/x/net
       versions:
         - fixed: 0.56.0
@@ -27,6 +40,7 @@ credits:
 references:
     - fix: https://go.dev/cl/786345
     - report: https://go.dev/issue/79795
+    - web: https://groups.google.com/g/golang-announce/c/94pEornpRlI
 cve_metadata:
     id: CVE-2026-46600
     cwe: 'CWE-125: Out-of-bounds Read'

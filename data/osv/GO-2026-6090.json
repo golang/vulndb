@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6090",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-56862"
+  ],
+  "summary": "Limit handshake messages we are willing to accept post-handshake in crypto/tls",
+  "details": "Handshake messages, such as KeyUpdate, are always considered as state-advancing, regardless of whether a handshake has been completed or not. As a result, a malicious client can keep sending KeyUpdate messages to force the server to keep performing key derivation operations indefinitely.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.25.13"
+            },
+            {
+              "introduced": "1.26.0-0"
+            },
+            {
+              "fixed": "1.26.6"
+            },
+            {
+              "introduced": "1.27.0-0"
+            },
+            {
+              "fixed": "1.27.0-rc.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "crypto/tls",
+            "symbols": [
+              "Conn.Handshake",
+              "Conn.HandshakeContext",
+              "Conn.Read",
+              "Conn.Write",
+              "Conn.readRecordOrCCS",
+              "Dial",
+              "DialWithDialer",
+              "Dialer.Dial",
+              "Dialer.DialContext",
+              "QUICConn.HandleData",
+              "QUICConn.Start"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/80528"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/804261"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/94pEornpRlI"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Qi Deng of Aurascape.ai"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6090",
+    "review_status": "REVIEWED"
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6088",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-56859"
+  ],
+  "summary": "Add recursion depth guard during decode in encoding/xml",
+  "details": "Previously, DecodeElement would reset the depth counter causing it to never fire; this could lead to stack exhaustion.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.25.13"
+            },
+            {
+              "introduced": "1.26.0-0"
+            },
+            {
+              "fixed": "1.26.6"
+            },
+            {
+              "introduced": "1.27.0-0"
+            },
+            {
+              "fixed": "1.27.0-rc.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "encoding/xml",
+            "symbols": [
+              "Decoder.Decode",
+              "Decoder.DecodeElement",
+              "Decoder.RawToken",
+              "Decoder.Skip",
+              "Decoder.Token",
+              "Decoder.pop",
+              "Decoder.push",
+              "Decoder.unmarshal",
+              "Decoder.unmarshalPath",
+              "Unmarshal"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/80481"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/803320"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/94pEornpRlI"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6088",
+    "review_status": "REVIEWED"
+  }
+}

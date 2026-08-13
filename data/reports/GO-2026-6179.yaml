@@ -1,0 +1,49 @@
+id: GO-2026-6179
+modules:
+    - module: cmd
+      versions:
+        - fixed: 1.25.13
+        - introduced: 1.26.0-0
+        - fixed: 1.26.6
+        - introduced: 1.27.0-0
+        - fixed: 1.27.0-rc.3
+      vulnerable_at: 1.27.0-rc.2
+      packages:
+        - package: cmd/go
+    - module: golang.org/x/mod
+      versions:
+        - fixed: 0.40.0
+      vulnerable_at: 0.39.0
+      packages:
+        - package: golang.org/x/mod/sumdb/tlog
+          symbols:
+            - tileHashReader.ReadHashes
+summary: Fix transparency log tile verification bypass in golang.org/x/mod/sumdb/tlog
+description: |
+    A malicious GOPROXY was previously capable of forging
+    up to two sumdb tiles that allow for a requested module
+    to bypass the GOSUMDB check and persist attacker-controlled
+    module content to a local Go module cache.
+
+    This attack allows for a malicious GOPROXY to serve
+    malicious module content that cannot be detected
+    by evaluating the transparency log.
+
+    All tiles are now correctly verified against their parents.
+
+    In order to determine if you have been affected:
+
+      rm -r go.sum go.work.sum vendor/ && go mod tidy
+credits:
+    - Filippo Valsorda (Geomys)
+references:
+    - report: https://go.dev/issue/80744
+    - web: https://groups.google.com/g/golang-announce/c/94pEornpRlI
+    - fix: https://go.dev/cl/814960
+    - fix: https://go.dev/cl/815020
+cve_metadata:
+    id: CVE-2026-56865
+    cwe: 'CWE-347: Improper Verification of Cryptographic Signature'
+source:
+    id: go-security-team
+review_status: REVIEWED

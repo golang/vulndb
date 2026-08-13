@@ -1,0 +1,39 @@
+id: GO-2026-6088
+modules:
+    - module: std
+      versions:
+        - fixed: 1.25.13
+        - introduced: 1.26.0-0
+        - fixed: 1.26.6
+        - introduced: 1.27.0-0
+        - fixed: 1.27.0-rc.3
+      vulnerable_at: 1.27.0-rc.2
+      packages:
+        - package: encoding/xml
+          symbols:
+            - Decoder.push
+            - Decoder.pop
+            - Decoder.RawToken
+            - Decoder.unmarshalPath
+            - Decoder.unmarshal
+          derived_symbols:
+            - Decoder.Decode
+            - Decoder.DecodeElement
+            - Decoder.Skip
+            - Decoder.Token
+            - Unmarshal
+summary: Add recursion depth guard during decode in encoding/xml
+description: |
+    Previously, DecodeElement would reset the depth counter
+    causing it to never fire; this could lead to stack
+    exhaustion.
+references:
+    - report: https://go.dev/issue/80481
+    - fix: https://go.dev/cl/803320
+    - web: https://groups.google.com/g/golang-announce/c/94pEornpRlI
+cve_metadata:
+    id: CVE-2026-56859
+    cwe: 'CWE-770: Allocation of Resources Without Limits or Throttling'
+source:
+    id: go-security-team
+review_status: REVIEWED

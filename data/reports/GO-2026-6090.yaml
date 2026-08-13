@@ -1,0 +1,44 @@
+id: GO-2026-6090
+modules:
+    - module: std
+      versions:
+        - fixed: 1.25.13
+        - introduced: 1.26.0-0
+        - fixed: 1.26.6
+        - introduced: 1.27.0-0
+        - fixed: 1.27.0-rc.3
+      vulnerable_at: 1.27.0-rc.2
+      packages:
+        - package: crypto/tls
+          symbols:
+            - Conn.readRecordOrCCS
+          derived_symbols:
+            - Conn.Handshake
+            - Conn.HandshakeContext
+            - Conn.Read
+            - Conn.Write
+            - Dial
+            - DialWithDialer
+            - Dialer.Dial
+            - Dialer.DialContext
+            - QUICConn.HandleData
+            - QUICConn.Start
+summary: Limit handshake messages we are willing to accept post-handshake in crypto/tls
+description: |
+    Handshake messages, such as KeyUpdate, are always considered as
+    state-advancing, regardless of whether a handshake has been completed or
+    not. As a result, a malicious client can keep sending KeyUpdate messages
+    to force the server to keep performing key derivation operations
+    indefinitely.
+credits:
+    - Qi Deng of Aurascape.ai
+references:
+    - report: https://go.dev/issue/80528
+    - fix: https://go.dev/cl/804261
+    - web: https://groups.google.com/g/golang-announce/c/94pEornpRlI
+cve_metadata:
+    id: CVE-2026-56862
+    cwe: 'CWE-770: Allocation of Resources Without Limits or Throttling'
+source:
+    id: go-security-team
+review_status: REVIEWED

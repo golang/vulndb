@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6089",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-56853"
+  ],
+  "summary": "Apply ReadHeaderTimeout when doing unencrypted HTTP/2 check in net/http",
+  "details": "When a server is configured to support unencrypted HTTP/2, it reads a few bytes from each new connection to see if they contain the HTTP/2 client preface. ReadHeaderTimeout is unexpectedly not being applied when doing this.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.25.13"
+            },
+            {
+              "introduced": "1.26.0-0"
+            },
+            {
+              "fixed": "1.26.6"
+            },
+            {
+              "introduced": "1.27.0-0"
+            },
+            {
+              "fixed": "1.27.0-rc.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "net/http",
+            "symbols": [
+              "ListenAndServe",
+              "ListenAndServeTLS",
+              "Serve",
+              "ServeTLS",
+              "Server.ListenAndServe",
+              "Server.ListenAndServeTLS",
+              "Server.Serve",
+              "Server.ServeTLS",
+              "conn.readRequest",
+              "conn.serve"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/80205"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/795540"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/94pEornpRlI"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6089",
+    "review_status": "REVIEWED"
+  }
+}
