@@ -1,0 +1,20 @@
+id: GO-2026-6099
+modules:
+    - module: github.com/quic-go/webtransport-go
+      versions:
+        - fixed: 0.11.1
+      vulnerable_at: 0.11.0
+summary: 'webtransport-go: Memory Exhaustion Attack due to Buffering of Unknown Capsules in github.com/quic-go/webtransport-go'
+cves:
+    - CVE-2026-57497
+ghsas:
+    - GHSA-g35j-m5xg-vh3q
+references:
+    - advisory: https://github.com/quic-go/webtransport-go/security/advisories/GHSA-g35j-m5xg-vh3q
+    - fix: https://github.com/quic-go/webtransport-go/commit/3aecd11736579530ff067651c30a543eb0b4b8c4
+    - fix: https://github.com/quic-go/webtransport-go/pull/290
+    - web: https://github.com/quic-go/webtransport-go/releases/tag/v0.11.1
+source:
+    id: GHSA-g35j-m5xg-vh3q
+    created: 2026-08-17T23:18:14.080237-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,22 @@
+id: GO-2026-6227
+modules:
+    - module: github.com/authorizerdev/authorizer
+      versions:
+        - fixed: 0.0.0-20260807033110-66fe488fd2a4
+summary: |-
+    Authorizer: Zero-click account takeover via OAuth identity linking to unverified
+    email accounts in github.com/authorizerdev/authorizer
+cves:
+    - CVE-2026-35511
+ghsas:
+    - GHSA-29rf-f4vv-pvq6
+references:
+    - advisory: https://github.com/authorizerdev/authorizer/security/advisories/GHSA-29rf-f4vv-pvq6
+    - fix: https://github.com/authorizerdev/authorizer/commit/66fe488fd2a4e7acf1e517334344d5e8f3ddd296
+    - web: https://github.com/authorizerdev/authorizer/releases/tag/2.4.0-rc.16
+notes:
+    - fix: 'github.com/authorizerdev/authorizer: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-29rf-f4vv-pvq6
+    created: 2026-08-17T22:53:24.130529-04:00
+review_status: UNREVIEWED

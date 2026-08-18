@@ -1,0 +1,38 @@
+id: GO-2026-6201
+modules:
+    - module: github.com/traefik/traefik
+      unsupported_versions:
+        - last_affected: 1.7.34
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.53
+      vulnerable_at: 2.11.52
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - fixed: 3.6.24
+        - introduced: 3.7.0
+        - fixed: 3.7.9
+      vulnerable_at: 3.7.8
+summary: |-
+    Traefik: Cross-user response poisoning via proxied CONNECT on Traefik's shared
+    backend keep-alive pool in github.com/traefik/traefik
+cves:
+    - CVE-2026-71324
+ghsas:
+    - GHSA-3ccp-42pg-hgv6
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-3ccp-42pg-hgv6
+    - fix: https://github.com/traefik/traefik/commit/04d36f28e4eae7535e96a6351dd9f7bfb48a30e7
+    - fix: https://github.com/traefik/traefik/commit/0807b6d5dd1da8b2f7f4076ea2392b5437bf2ab0
+    - fix: https://github.com/traefik/traefik/commit/94a7508817d180f0ab2f1eae93df48d4ab19ecce
+    - fix: https://github.com/traefik/traefik/pull/13542
+    - fix: https://github.com/traefik/traefik/pull/13543
+    - fix: https://github.com/traefik/traefik/pull/13556
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.53
+    - web: https://github.com/traefik/traefik/releases/tag/v3.6.24
+    - web: https://github.com/traefik/traefik/releases/tag/v3.7.9
+source:
+    id: GHSA-3ccp-42pg-hgv6
+    created: 2026-08-17T22:59:46.437494-04:00
+review_status: UNREVIEWED

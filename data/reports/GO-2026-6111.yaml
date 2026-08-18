@@ -1,0 +1,22 @@
+id: GO-2026-6111
+modules:
+    - module: github.com/jandedobbeleer/oh-my-posh
+      versions:
+        - fixed: 29.35.1+incompatible
+      vulnerable_at: 29.35.0+incompatible
+summary: |-
+    Oh My Posh: Terminal escape sequence injection via unsanitized prompt segment
+    data in github.com/jandedobbeleer/oh-my-posh
+cves:
+    - CVE-2026-73506
+ghsas:
+    - GHSA-fwjx-9p69-h25h
+references:
+    - advisory: https://github.com/JanDeDobbeleer/oh-my-posh/security/advisories/GHSA-fwjx-9p69-h25h
+    - web: https://github.com/JanDeDobbeleer/oh-my-posh/commit/edcf3c88f3fb582e84358b385c49d33d04c04224
+    - web: https://github.com/JanDeDobbeleer/oh-my-posh/releases/tag/v29.35.1
+    - web: https://github.com/JanDeDobbeleer/oh-my-posh/releases/tag/v29.36.0
+source:
+    id: GHSA-fwjx-9p69-h25h
+    created: 2026-08-17T23:16:51.041323-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6162",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-54787",
+    "GHSA-wqqc-jjcq-vfxm"
+  ],
+  "summary": "sigstore-go fails to check signature timestamps against a signing key's validity period in github.com/sigstore/sigstore-go",
+  "details": "sigstore-go fails to check signature timestamps against a signing key's validity period in github.com/sigstore/sigstore-go",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/sigstore/sigstore-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.2.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/sigstore/sigstore-go/security/advisories/GHSA-wqqc-jjcq-vfxm"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/sigstore/sigstore-go/commit/4594ab4c779d08be1f4419803a8249188f35ed5f"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/sigstore/sigstore-go/pull/642"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/sigstore/sigstore-go/releases/tag/v1.2.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6162",
+    "review_status": "UNREVIEWED"
+  }
+}

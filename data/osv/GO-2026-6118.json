@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6118",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-47427",
+    "GHSA-w4q6-qw23-4rg7"
+  ],
+  "summary": "GitHub MCP Server has Nil Pointer Dereference DoS in completion/complete Handler in github.com/github/github-mcp-server",
+  "details": "GitHub MCP Server has Nil Pointer Dereference DoS in completion/complete Handler in github.com/github/github-mcp-server",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/github/github-mcp-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.1.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/github/github-mcp-server/security/advisories/GHSA-w4q6-qw23-4rg7"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/github/github-mcp-server/commit/c88d2ecdd3bb07f7bdd75296e3ee676febf14f58"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/github/github-mcp-server/pull/2502"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/github/github-mcp-server/releases/tag/v1.1.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6118",
+    "review_status": "UNREVIEWED"
+  }
+}

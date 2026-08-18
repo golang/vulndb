@@ -1,0 +1,28 @@
+id: GO-2026-6126
+modules:
+    - module: github.com/songquanpeng/one-api
+      non_go_versions:
+        - introduced: 0.1.6-alpha
+      unsupported_versions:
+        - last_affected: 0.6.11-preview.7
+summary: songquanpeng one-api has an issue that results in business logic errors
+cves:
+    - CVE-2026-11465
+ghsas:
+    - GHSA-7v3v-cp44-vc8m
+references:
+    - advisory: https://github.com/advisories/GHSA-7v3v-cp44-vc8m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-11465
+    - web: https://github.com/songquanpeng/one-api/issues/2397
+    - web: https://github.com/songquanpeng/one-api/pull/2399
+    - web: https://vuldb.com/cve/CVE-2026-11465
+    - web: https://vuldb.com/submit/833320
+    - web: https://vuldb.com/vuln/369085
+    - web: https://vuldb.com/vuln/369085/cti
+notes:
+    - lint: 'modules[0] "one-api": module one-api not known to proxy'
+    - fix: 'one-api: could not add vulnerable_at: module one-api not known to proxy'
+source:
+    id: GHSA-7v3v-cp44-vc8m
+    created: 2026-08-17T23:15:17.954777-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,30 @@
+id: GO-2026-6204
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      vulnerable_at: 2.11.54
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - introduced: 3.6.11
+        - fixed: 3.6.25
+        - introduced: 3.7.0
+        - fixed: 3.7.10
+      vulnerable_at: 3.7.9
+summary: |-
+    Traefik: BasicAuth singleflight key collision allows authenticated identity
+    spoofing in github.com/traefik/traefik
+cves:
+    - CVE-2026-71326
+ghsas:
+    - GHSA-6765-c87h-8mrf
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-6765-c87h-8mrf
+    - fix: https://github.com/traefik/traefik/commit/b5ace8eb5d6779980567f5e75efd2d9e08b7e350
+    - fix: https://github.com/traefik/traefik/pull/13572
+    - web: https://github.com/traefik/traefik/releases/tag/v3.6.25
+    - web: https://github.com/traefik/traefik/releases/tag/v3.7.10
+source:
+    id: GHSA-6765-c87h-8mrf
+    created: 2026-08-17T22:59:25.501313-04:00
+review_status: UNREVIEWED

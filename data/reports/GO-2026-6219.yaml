@@ -1,0 +1,23 @@
+id: GO-2026-6219
+modules:
+    - module: github.com/seaweedfs/seaweedfs
+      versions:
+        - fixed: 0.0.0-20260512171120-69da20bdaec9
+summary: |-
+    SeaweedFS: Unauthenticated SSRF with response read-back via
+    VolumeServer.FetchAndWriteNeedle in github.com/seaweedfs/seaweedfs
+cves:
+    - CVE-2026-73080
+ghsas:
+    - GHSA-87fv-vqqr-m4jr
+references:
+    - advisory: https://github.com/seaweedfs/seaweedfs/security/advisories/GHSA-87fv-vqqr-m4jr
+    - fix: https://github.com/seaweedfs/seaweedfs/commit/69da20bdaec923e5a43d8aa71bf3c0a2051fc019
+    - fix: https://github.com/seaweedfs/seaweedfs/pull/9441
+    - web: https://github.com/seaweedfs/seaweedfs/releases/tag/4.24
+notes:
+    - fix: 'github.com/seaweedfs/seaweedfs: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-87fv-vqqr-m4jr
+    created: 2026-08-17T22:57:54.326931-04:00
+review_status: UNREVIEWED

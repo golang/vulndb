@@ -1,0 +1,21 @@
+id: GO-2026-6117
+modules:
+    - module: github.com/pocket-id/pocket-id/backend
+      versions:
+        - fixed: 0.0.0-20260419162744-978ac87deffe
+summary: |-
+    Pocket ID has a reauthentication bypass via one-time access token login —
+    passkey step-up requirement defeated by JWT freshness check that accepts any
+    login method in github.com/pocket-id/pocket-id/backend
+ghsas:
+    - GHSA-hp74-gm6m-2qm5
+references:
+    - advisory: https://github.com/pocket-id/pocket-id/security/advisories/GHSA-hp74-gm6m-2qm5
+    - web: https://github.com/pocket-id/pocket-id/commit/978ac87deffec58beaccd15aead975e91b94c8a5
+    - web: https://github.com/pocket-id/pocket-id/releases/tag/v2.6.0
+notes:
+    - fix: 'github.com/pocket-id/pocket-id/backend: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-hp74-gm6m-2qm5
+    created: 2026-08-17T23:16:16.306787-04:00
+review_status: UNREVIEWED

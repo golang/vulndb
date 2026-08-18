@@ -1,0 +1,24 @@
+id: GO-2026-6152
+modules:
+    - module: github.com/apache/answer
+      versions:
+        - fixed: 1.7.2-0.20260509071350-11c80384f13a
+      vulnerable_at: 1.7.1
+summary: |-
+    Apache Answer has an Exposure of Sensitive Information to an Unauthorized Actor
+    vulnerability in github.com/apache/answer
+cves:
+    - CVE-2026-34905
+ghsas:
+    - GHSA-85r2-pvg8-89r9
+references:
+    - advisory: https://github.com/advisories/GHSA-85r2-pvg8-89r9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-34905
+    - fix: https://github.com/apache/answer/commit/11c80384f13a27e27c871c05bb353489d1363ee2
+    - web: http://www.openwall.com/lists/oss-security/2026/06/09/2
+    - web: https://github.com/apache/answer/releases/tag/v2.0.1
+    - web: https://lists.apache.org/thread/khxoft96sptr2kh0cpzgw7f6qwv0ltcf
+source:
+    id: GHSA-85r2-pvg8-89r9
+    created: 2026-08-17T23:11:37.921058-04:00
+review_status: UNREVIEWED

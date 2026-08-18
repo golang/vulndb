@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6103",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-73564",
+    "GHSA-26gq-p25f-99cp"
+  ],
+  "summary": "frp: Unauthenticated Remote Denial of Service in the frp SSH Tunnel Gateway via Integer Overflow in github.com/fatedier/frp",
+  "details": "frp: Unauthenticated Remote Denial of Service in the frp SSH Tunnel Gateway via Integer Overflow in github.com/fatedier/frp",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/fatedier/frp",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.53.0"
+            },
+            {
+              "fixed": "0.70.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/fatedier/frp/security/advisories/GHSA-26gq-p25f-99cp"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/fatedier/frp/commit/7dc7be930e2452ae93fd32f2a77f8c6fcd0b652b"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/fatedier/frp/pull/5428"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/fatedier/frp/releases/tag/v0.70.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6103",
+    "review_status": "UNREVIEWED"
+  }
+}

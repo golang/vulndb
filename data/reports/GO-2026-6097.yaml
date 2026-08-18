@@ -1,0 +1,28 @@
+id: GO-2026-6097
+modules:
+    - module: github.com/cloudreve/Cloudreve
+      vulnerable_at: 0.0.0-20201026073328-746aa3e8ef26
+    - module: github.com/cloudreve/Cloudreve/v3
+      unsupported_versions:
+        - last_affected: 3.0.0-20250225100611-da4e44b77af4
+      vulnerable_at: 3.0.0-20250225100611-da4e44b77af4
+    - module: github.com/cloudreve/Cloudreve/v4
+      versions:
+        - fixed: 4.0.0-20260613023150-7968e50429ef
+summary: |-
+    Cloudreve: Path Traversal in WOPI PUT_RELATIVE Allows Arbitrary File Creation in
+    Owner Account in github.com/cloudreve/Cloudreve
+cves:
+    - CVE-2026-55495
+ghsas:
+    - GHSA-49h3-cwhj-4737
+references:
+    - advisory: https://github.com/cloudreve/cloudreve/security/advisories/GHSA-49h3-cwhj-4737
+    - web: https://github.com/cloudreve/cloudreve/commit/7968e50429efab40ffa8f57fecdfbd5a73d23630
+    - web: https://github.com/cloudreve/cloudreve/releases/tag/4.17.0
+notes:
+    - fix: 'github.com/cloudreve/Cloudreve/v4: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-49h3-cwhj-4737
+    created: 2026-08-17T23:18:26.965715-04:00
+review_status: UNREVIEWED

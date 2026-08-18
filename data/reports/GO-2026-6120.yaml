@@ -1,0 +1,22 @@
+id: GO-2026-6120
+modules:
+    - module: github.com/pterodactyl/wings
+      versions:
+        - fixed: 1.12.2
+      vulnerable_at: 1.12.1
+summary: |-
+    Pterodactyl's improper JWT scoping allows subuser to upload files when not
+    explicitly granted `file.create` permissions in github.com/pterodactyl/wings
+cves:
+    - CVE-2026-54593
+ghsas:
+    - GHSA-8r6w-3qq5-4p4r
+references:
+    - advisory: https://github.com/pterodactyl/panel/security/advisories/GHSA-8r6w-3qq5-4p4r
+    - fix: https://github.com/pterodactyl/wings/commit/d0ddc80844479302abdaf9654de3bacd511c0f5c
+    - web: https://github.com/pterodactyl/panel/commit/7ffcd636310bb72b54bac3280d2a15e727feded7
+    - web: https://github.com/pterodactyl/panel/pull/5636
+source:
+    id: GHSA-8r6w-3qq5-4p4r
+    created: 2026-08-17T23:15:56.678772-04:00
+review_status: UNREVIEWED

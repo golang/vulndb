@@ -1,0 +1,25 @@
+id: GO-2026-6140
+modules:
+    - module: github.com/weaviate/weaviate
+      versions:
+        - fixed: 1.38.0-rc.0
+      vulnerable_at: 1.37.14
+summary: Weaviate has an Improper Authorization issue in github.com/weaviate/weaviate
+cves:
+    - CVE-2026-11500
+ghsas:
+    - GHSA-jqpm-wf57-qx5c
+references:
+    - advisory: https://github.com/advisories/GHSA-jqpm-wf57-qx5c
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-11500
+    - fix: https://github.com/weaviate/weaviate/commit/40f2cc32279f0f8a51016c3c6870a2c0c808e6c0
+    - report: https://github.com/weaviate/weaviate/issues/11392
+    - web: https://github.com/weaviate/weaviate/releases/tag/v1.38.0-rc.0
+    - web: https://vuldb.com/cve/CVE-2026-11500
+    - web: https://vuldb.com/submit/835080
+    - web: https://vuldb.com/vuln/369120
+    - web: https://vuldb.com/vuln/369120/cti
+source:
+    id: GHSA-jqpm-wf57-qx5c
+    created: 2026-08-17T23:13:00.970815-04:00
+review_status: UNREVIEWED

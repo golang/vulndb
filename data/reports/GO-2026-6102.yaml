@@ -1,0 +1,29 @@
+id: GO-2026-6102
+modules:
+    - module: github.com/cloudreve/Cloudreve
+      vulnerable_at: 0.0.0-20201026073328-746aa3e8ef26
+    - module: github.com/cloudreve/Cloudreve/v3
+      unsupported_versions:
+        - last_affected: 3.0.0-20250225100611-da4e44b77af4
+      vulnerable_at: 3.0.0-20250225100611-da4e44b77af4
+    - module: github.com/cloudreve/Cloudreve/v4
+      versions:
+        - fixed: 4.0.0-20260613030215-0b00dd308f13
+summary: |-
+    Cloudreve: Broken Access Control in file event stream: a single-file share
+    recipient is subscribed to the owner's parent folder and receives activity
+    events for unshared siblings in github.com/cloudreve/Cloudreve
+cves:
+    - CVE-2026-55499
+ghsas:
+    - GHSA-w8x7-h2px-xmq8
+references:
+    - advisory: https://github.com/cloudreve/cloudreve/security/advisories/GHSA-w8x7-h2px-xmq8
+    - web: https://github.com/cloudreve/cloudreve/commit/0b00dd308f132d6e6e8476857ef79f4865600bbc
+    - web: https://github.com/cloudreve/cloudreve/releases/tag/4.17.0
+notes:
+    - fix: 'github.com/cloudreve/Cloudreve/v4: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-w8x7-h2px-xmq8
+    created: 2026-08-17T23:17:55.023655-04:00
+review_status: UNREVIEWED

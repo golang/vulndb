@@ -1,0 +1,22 @@
+id: GO-2026-6124
+modules:
+    - module: github.com/azukaar/cosmos-server
+      versions:
+        - introduced: 0.22.18
+        - fixed: 0.22.19
+      vulnerable_at: 0.22.18
+summary: |-
+    Cosmos-Server's constellation public-devices endpoint accepts arbitrary bearer
+    tokens in github.com/azukaar/cosmos-server
+cves:
+    - CVE-2026-49447
+ghsas:
+    - GHSA-5fqm-cc34-fcf5
+references:
+    - advisory: https://github.com/azukaar/Cosmos-Server/security/advisories/GHSA-5fqm-cc34-fcf5
+    - web: https://github.com/azukaar/Cosmos-Server/commit/59c561d686c8f9843b3e092b50f6346c481d8bbf
+    - web: https://github.com/azukaar/Cosmos-Server/releases/tag/v0.22.19
+source:
+    id: GHSA-5fqm-cc34-fcf5
+    created: 2026-08-17T23:15:33.094295-04:00
+review_status: UNREVIEWED

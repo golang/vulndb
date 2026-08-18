@@ -1,0 +1,35 @@
+id: GO-2026-6202
+modules:
+    - module: github.com/traefik/traefik
+      unsupported_versions:
+        - last_affected: 1.7.34
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.51
+      vulnerable_at: 2.11.50
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - fixed: 3.6.22
+        - introduced: 3.7.0
+        - fixed: 3.7.6
+      vulnerable_at: 3.7.5
+summary: |-
+    Traefik: ForwardAuth middleware leaks X-Forwarded-Port spoofing via untrusted
+    X-Forwarded-Proto when trustForwardHeader=false in github.com/traefik/traefik
+cves:
+    - CVE-2026-54764
+ghsas:
+    - GHSA-3q9r-p662-5j8m
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-3q9r-p662-5j8m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-54764
+    - fix: https://github.com/traefik/traefik/commit/7ae92d8c2c10ac04ef5a03df0ed5019ce0f44b2d
+    - fix: https://github.com/traefik/traefik/pull/13344
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.51
+    - web: https://github.com/traefik/traefik/releases/tag/v3.6.22
+    - web: https://github.com/traefik/traefik/releases/tag/v3.7.6
+source:
+    id: GHSA-3q9r-p662-5j8m
+    created: 2026-08-17T22:59:38.721415-04:00
+review_status: UNREVIEWED

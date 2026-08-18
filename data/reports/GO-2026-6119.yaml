@@ -1,0 +1,23 @@
+id: GO-2026-6119
+modules:
+    - module: github.com/pocket-id/pocket-id/backend
+      versions:
+        - fixed: 0.0.0-20260419162744-978ac87deffe
+summary: |-
+    Pocket ID: OIDC refresh token flow bypasses authorization revocation, account
+    disabling, and group restrictions in github.com/pocket-id/pocket-id/backend
+cves:
+    - CVE-2026-43983
+ghsas:
+    - GHSA-w6p7-2fxx-4f44
+references:
+    - advisory: https://github.com/pocket-id/pocket-id/security/advisories/GHSA-w6p7-2fxx-4f44
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-43983
+    - web: https://github.com/pocket-id/pocket-id/commit/978ac87deffec58beaccd15aead975e91b94c8a5
+    - web: https://github.com/pocket-id/pocket-id/releases/tag/v2.6.0
+notes:
+    - fix: 'github.com/pocket-id/pocket-id/backend: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-w6p7-2fxx-4f44
+    created: 2026-08-17T23:16:04.13974-04:00
+review_status: UNREVIEWED

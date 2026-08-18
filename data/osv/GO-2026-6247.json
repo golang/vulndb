@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6247",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-55062",
+    "GHSA-m6jg-wr9m-cg2f"
+  ],
+  "summary": "uniget CLI has Path Traversal in Hook Files - Directory Escape Vulnerability in gitlab.com/uniget-org/cli",
+  "details": "uniget CLI has Path Traversal in Hook Files - Directory Escape Vulnerability in gitlab.com/uniget-org/cli",
+  "affected": [
+    {
+      "package": {
+        "name": "gitlab.com/uniget-org/cli",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.27.6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/uniget-org/cli/security/advisories/GHSA-m6jg-wr9m-cg2f"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/uniget-org/cli/commit/7b4f18a9f00f0955f830c7ccf266ed0de5f9fd91"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/uniget-org/cli/releases/tag/v0.27.6"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6247",
+    "review_status": "UNREVIEWED"
+  }
+}

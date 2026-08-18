@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6122",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-54332",
+    "GHSA-g6v3-7xmc-w563"
+  ],
+  "summary": "GoPacket's sFlow ExtendedGatewayFlow decoder: unbounded attacker-controlled allocation (104-byte UDP datagram -\u003e up to 16 GiB make) -\u003e unauthenticated remote DoS in github.com/gopacket/gopacket",
+  "details": "GoPacket's sFlow ExtendedGatewayFlow decoder: unbounded attacker-controlled allocation (104-byte UDP datagram -\u003e up to 16 GiB make) -\u003e unauthenticated remote DoS in github.com/gopacket/gopacket",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gopacket/gopacket",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.6.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/gopacket/gopacket/security/advisories/GHSA-g6v3-7xmc-w563"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gopacket/gopacket/commit/76119086f5936aacd7088bdf97d565501bb6c4cc"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/gopacket/gopacket/releases/tag/v1.6.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6122",
+    "review_status": "UNREVIEWED"
+  }
+}

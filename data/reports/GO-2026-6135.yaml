@@ -1,0 +1,19 @@
+id: GO-2026-6135
+modules:
+    - module: github.com/bablilayoub/openhole
+      versions:
+        - fixed: 0.1.2
+      vulnerable_at: 0.1.1
+summary: openhole-server vulnerable to path traversal via URL-decoded request path in github.com/bablilayoub/openhole
+cves:
+    - CVE-2026-54650
+ghsas:
+    - GHSA-fh2f-xfxc-q9cc
+references:
+    - advisory: https://github.com/bablilayoub/openhole/security/advisories/GHSA-fh2f-xfxc-q9cc
+    - fix: https://github.com/bablilayoub/openhole/commit/a28c27adde2a7ed0c347b730c8707208c0f78ed3
+    - web: https://github.com/bablilayoub/openhole/releases/tag/v0.1.2
+source:
+    id: GHSA-fh2f-xfxc-q9cc
+    created: 2026-08-17T23:14:16.764033-04:00
+review_status: UNREVIEWED

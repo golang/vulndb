@@ -1,0 +1,22 @@
+id: GO-2026-6105
+modules:
+    - module: github.com/zxh326/kite
+      versions:
+        - introduced: 0.6.9
+        - fixed: 0.14.1
+      vulnerable_at: 0.14.0
+summary: |-
+    Kite Kubernetes proxy path traversal allows authenticated users to bypass RBAC
+    and read cluster-wide resources in github.com/zxh326/kite
+ghsas:
+    - GHSA-c534-2w9c-x7fm
+references:
+    - advisory: https://github.com/kite-org/kite/security/advisories/GHSA-c534-2w9c-x7fm
+    - web: https://github.com/kite-org/kite/commit/08116eed557f8d6982cc83af0b02991e0f3577d5
+    - web: https://github.com/kite-org/kite/commit/69ad938937af8f375a2e183d1a331926ab851d98
+    - web: https://github.com/kite-org/kite/pull/638
+    - web: https://github.com/kite-org/kite/releases/tag/v0.14.1
+source:
+    id: GHSA-c534-2w9c-x7fm
+    created: 2026-08-17T23:17:37.54052-04:00
+review_status: UNREVIEWED

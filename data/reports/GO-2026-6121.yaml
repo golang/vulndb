@@ -1,0 +1,21 @@
+id: GO-2026-6121
+modules:
+    - module: github.com/gopacket/gopacket
+      versions:
+        - fixed: 1.6.1
+      vulnerable_at: 1.6.0
+summary: |-
+    GoPacket's Diameter AVP decoder: uint32 underflow on vendor header size leads to
+    unbounded ~4 GiB allocation (unauthenticated remote DoS) in github.com/gopacket/gopacket
+cves:
+    - CVE-2026-54345
+ghsas:
+    - GHSA-6r28-9ppf-4hj5
+references:
+    - advisory: https://github.com/gopacket/gopacket/security/advisories/GHSA-6r28-9ppf-4hj5
+    - fix: https://github.com/gopacket/gopacket/commit/145859d0eaee1a6f5925ffb93851c976449c3311
+    - web: https://github.com/gopacket/gopacket/releases/tag/v1.6.1
+source:
+    id: GHSA-6r28-9ppf-4hj5
+    created: 2026-08-17T23:15:51.121205-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,27 @@
+id: GO-2026-6207
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      vulnerable_at: 2.11.54
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - introduced: 3.7.0
+        - fixed: 3.7.8
+      vulnerable_at: 3.7.7
+summary: |-
+    Traefik: Kubernetes Ingress NGINX RewriteTarget Path Traversal Allows
+    Route-Level Authentication Bypass in github.com/traefik/traefik
+cves:
+    - CVE-2026-67309
+ghsas:
+    - GHSA-8rxv-jg7p-wvg3
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-8rxv-jg7p-wvg3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-67309
+    - fix: https://github.com/traefik/traefik/commit/759515bec1b9f628b21ea8968ef63da853be5e29
+    - web: https://www.vulncheck.com/advisories/traefik-path-traversal-via-rewritetarget-authentication-bypass
+source:
+    id: GHSA-8rxv-jg7p-wvg3
+    created: 2026-08-17T22:59:10.935774-04:00
+review_status: UNREVIEWED

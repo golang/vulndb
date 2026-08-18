@@ -1,0 +1,23 @@
+id: GO-2026-6103
+modules:
+    - module: github.com/fatedier/frp
+      versions:
+        - introduced: 0.53.0
+        - fixed: 0.70.1
+      vulnerable_at: 0.70.0
+summary: |-
+    frp: Unauthenticated Remote Denial of Service in the frp SSH Tunnel Gateway via
+    Integer Overflow in github.com/fatedier/frp
+cves:
+    - CVE-2026-73564
+ghsas:
+    - GHSA-26gq-p25f-99cp
+references:
+    - advisory: https://github.com/fatedier/frp/security/advisories/GHSA-26gq-p25f-99cp
+    - fix: https://github.com/fatedier/frp/commit/7dc7be930e2452ae93fd32f2a77f8c6fcd0b652b
+    - fix: https://github.com/fatedier/frp/pull/5428
+    - web: https://github.com/fatedier/frp/releases/tag/v0.70.1
+source:
+    id: GHSA-26gq-p25f-99cp
+    created: 2026-08-17T23:17:48.174689-04:00
+review_status: UNREVIEWED

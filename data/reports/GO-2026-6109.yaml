@@ -1,0 +1,21 @@
+id: GO-2026-6109
+modules:
+    - module: github.com/OpenListTeam/OpenList
+      vulnerable_at: 1.0.6
+    - module: github.com/OpenListTeam/OpenList/v3
+      vulnerable_at: 3.45.0
+    - module: github.com/OpenListTeam/OpenList/v4
+      versions:
+        - fixed: 4.2.4
+      vulnerable_at: 4.2.3
+summary: 'OpenList: Arbitrary File Read via Path Prefix Confusion in Share Creation API in github.com/OpenListTeam/OpenList'
+ghsas:
+    - GHSA-86cx-wwf4-phq4
+references:
+    - advisory: https://github.com/OpenListTeam/OpenList/security/advisories/GHSA-86cx-wwf4-phq4
+    - fix: https://github.com/OpenListTeam/OpenList/commit/59bd3431408578f420895457554700cc9a52375a
+    - web: https://github.com/OpenListTeam/OpenList/releases/tag/v4.2.4
+source:
+    id: GHSA-86cx-wwf4-phq4
+    created: 2026-08-17T23:17:09.17238-04:00
+review_status: UNREVIEWED

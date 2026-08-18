@@ -1,0 +1,123 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6201",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-71324",
+    "GHSA-3ccp-42pg-hgv6"
+  ],
+  "summary": "Traefik: Cross-user response poisoning via proxied CONNECT on Traefik's shared backend keep-alive pool in github.com/traefik/traefik",
+  "details": "Traefik: Cross-user response poisoning via proxied CONNECT on Traefik's shared backend keep-alive pool in github.com/traefik/traefik",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/traefik/traefik",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/traefik/traefik/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.11.53"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/traefik/traefik/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.6.24"
+            },
+            {
+              "introduced": "3.7.0"
+            },
+            {
+              "fixed": "3.7.9"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/traefik/traefik/security/advisories/GHSA-3ccp-42pg-hgv6"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/traefik/traefik/commit/04d36f28e4eae7535e96a6351dd9f7bfb48a30e7"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/traefik/traefik/commit/0807b6d5dd1da8b2f7f4076ea2392b5437bf2ab0"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/traefik/traefik/commit/94a7508817d180f0ab2f1eae93df48d4ab19ecce"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/traefik/traefik/pull/13542"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/traefik/traefik/pull/13543"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/traefik/traefik/pull/13556"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/traefik/traefik/releases/tag/v2.11.53"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/traefik/traefik/releases/tag/v3.6.24"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/traefik/traefik/releases/tag/v3.7.9"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6201",
+    "review_status": "UNREVIEWED"
+  }
+}

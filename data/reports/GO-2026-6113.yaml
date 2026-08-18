@@ -1,0 +1,24 @@
+id: GO-2026-6113
+modules:
+    - module: github.com/OpenListTeam/OpenList
+      vulnerable_at: 1.0.6
+    - module: github.com/OpenListTeam/OpenList/v3
+      vulnerable_at: 3.45.0
+    - module: github.com/OpenListTeam/OpenList/v4
+      versions:
+        - fixed: 4.2.4
+      vulnerable_at: 4.2.3
+summary: |-
+    OpenList: Search metadata/count disclosure via Non-Separator-Aware Path Check in
+    Bleve Search in github.com/OpenListTeam/OpenList
+ghsas:
+    - GHSA-p6ph-3jx2-3337
+references:
+    - advisory: https://github.com/OpenListTeam/OpenList/security/advisories/GHSA-p6ph-3jx2-3337
+    - fix: https://github.com/OpenListTeam/OpenList/commit/59bd3431408578f420895457554700cc9a52375a
+    - fix: https://github.com/OpenListTeam/OpenList/commit/84ecda35aae2bd0020474086e6ddfd3aa2340679
+    - web: https://github.com/OpenListTeam/OpenList/releases/tag/v4.2.4
+source:
+    id: GHSA-p6ph-3jx2-3337
+    created: 2026-08-17T23:16:29.665396-04:00
+review_status: UNREVIEWED

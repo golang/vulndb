@@ -1,0 +1,25 @@
+id: GO-2026-6110
+modules:
+    - module: github.com/OpenListTeam/OpenList
+      vulnerable_at: 1.0.6
+    - module: github.com/OpenListTeam/OpenList/v3
+      vulnerable_at: 3.45.0
+    - module: github.com/OpenListTeam/OpenList/v4
+      versions:
+        - fixed: 4.2.4
+      vulnerable_at: 4.2.3
+summary: |-
+    OpenList: Authenticated users can rename files outside their base path via batch
+    rename `src_name` traversal in github.com/OpenListTeam/OpenList
+cves:
+    - CVE-2026-73509
+ghsas:
+    - GHSA-95cv-r8x4-vh75
+references:
+    - advisory: https://github.com/OpenListTeam/OpenList/security/advisories/GHSA-95cv-r8x4-vh75
+    - fix: https://github.com/OpenListTeam/OpenList/commit/651da18da4c647d96648d4bb64462baac1c37e04
+    - web: https://github.com/OpenListTeam/OpenList/releases/tag/v4.2.4
+source:
+    id: GHSA-95cv-r8x4-vh75
+    created: 2026-08-17T23:17:04.517246-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,28 @@
+id: GO-2026-6161
+modules:
+    - module: github.com/free5gc/ausf
+      versions:
+        - fixed: 1.4.5
+      vulnerable_at: 1.4.4
+    - module: github.com/free5gc/free5gc
+      versions:
+        - fixed: 4.2.2+incompatible
+      vulnerable_at: 4.2.1+incompatible
+summary: |-
+    free5GC AUSF: null byte injection in supiOrSuci causes HTTP 500 internal service
+    failure in github.com/free5gc/ausf
+cves:
+    - CVE-2026-53551
+ghsas:
+    - GHSA-qj55-47fp-p62j
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-qj55-47fp-p62j
+    - fix: https://github.com/free5gc/ausf/commit/bfc4a10094dbacbd862baa4686829f3fcc06ce1e
+    - fix: https://github.com/free5gc/ausf/pull/61
+    - report: https://github.com/free5gc/free5gc/issues/1048
+    - web: https://github.com/free5gc/ausf/releases/tag/v1.4.5
+    - web: https://github.com/free5gc/free5gc/releases/tag/v4.2.2
+source:
+    id: GHSA-qj55-47fp-p62j
+    created: 2026-08-17T23:10:34.342251-04:00
+review_status: UNREVIEWED

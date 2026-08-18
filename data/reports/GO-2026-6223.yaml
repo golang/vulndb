@@ -1,0 +1,35 @@
+id: GO-2026-6223
+modules:
+    - module: github.com/argoproj/argo-workflows
+      vulnerable_at: 0.4.7
+    - module: github.com/argoproj/argo-workflows/v2
+      unsupported_versions:
+        - last_affected: 2.5.3-rc4
+      vulnerable_at: 2.12.13
+    - module: github.com/argoproj/argo-workflows/v3
+      versions:
+        - fixed: 3.7.15
+      vulnerable_at: 3.7.14
+    - module: github.com/argoproj/argo-workflows/v4
+      versions:
+        - introduced: 4.0.0
+        - fixed: 4.0.6
+      vulnerable_at: 4.0.5
+summary: |-
+    Argo Workflows: ArtifactGC.PodSpecPatch bypasses Strict/Secure template
+    reference allow-list (Incomplete fix for CVE-2026-31892) in github.com/argoproj/argo-workflows
+cves:
+    - CVE-2026-54526
+ghsas:
+    - GHSA-48p8-g2fx-3wwm
+references:
+    - advisory: https://github.com/argoproj/argo-workflows/security/advisories/GHSA-48p8-g2fx-3wwm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-54526
+    - fix: https://github.com/argoproj/argo-workflows/commit/277e9cef0ad16d7eaaab253573d0695951a65dbd
+    - fix: https://github.com/argoproj/argo-workflows/commit/358cc3968c8f06f1be0967e41df191088db0b662
+    - web: https://github.com/argoproj/argo-workflows/releases/tag/v3.7.15
+    - web: https://github.com/argoproj/argo-workflows/releases/tag/v4.0.6
+source:
+    id: GHSA-48p8-g2fx-3wwm
+    created: 2026-08-17T22:53:43.285012-04:00
+review_status: UNREVIEWED

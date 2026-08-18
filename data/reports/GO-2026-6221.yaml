@@ -1,0 +1,23 @@
+id: GO-2026-6221
+modules:
+    - module: github.com/seaweedfs/seaweedfs
+      versions:
+        - fixed: 0.0.0-20260526080459-dd1b4287899e
+summary: |-
+    SeaweedFS: Path traversal in the S3 and Iceberg REST gateways allows
+    cross-bucket access in github.com/seaweedfs/seaweedfs
+cves:
+    - CVE-2026-54917
+ghsas:
+    - GHSA-w62w-66v9-vvgv
+references:
+    - advisory: https://github.com/seaweedfs/seaweedfs/security/advisories/GHSA-w62w-66v9-vvgv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-54917
+    - fix: https://github.com/seaweedfs/seaweedfs/commit/dd1b4287899eed3dfd73c2f3b1de001996fda229
+    - fix: https://github.com/seaweedfs/seaweedfs/pull/9687
+notes:
+    - fix: 'github.com/seaweedfs/seaweedfs: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-w62w-66v9-vvgv
+    created: 2026-08-17T22:53:51.063973-04:00
+review_status: UNREVIEWED

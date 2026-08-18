@@ -1,0 +1,24 @@
+id: GO-2026-6129
+modules:
+    - module: github.com/fission/fission
+      versions:
+        - fixed: 1.25.0
+      vulnerable_at: 1.25.0-rc1
+summary: |-
+    Fission: Incomplete capability denylist in Environment/Function PodSpec
+    validation allows tenant-added CAP_SYS_TIME and cross-tenant node wall-clock
+    corruption in github.com/fission/fission
+cves:
+    - CVE-2026-50570
+ghsas:
+    - GHSA-qf5v-m7p4-95rp
+references:
+    - advisory: https://github.com/fission/fission/security/advisories/GHSA-qf5v-m7p4-95rp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-50570
+    - fix: https://github.com/fission/fission/commit/2569b42bfadbcb7d78b55a00a60f77937e522699
+    - fix: https://github.com/fission/fission/pull/3465
+    - web: https://github.com/fission/fission/releases/tag/v1.25.0
+source:
+    id: GHSA-qf5v-m7p4-95rp
+    created: 2026-08-17T23:14:57.025684-04:00
+review_status: UNREVIEWED

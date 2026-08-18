@@ -1,0 +1,21 @@
+id: GO-2026-6198
+modules:
+    - module: github.com/traefik/traefik
+      non_go_versions:
+        - introduced: 3.7.0
+        - fixed: 3.7.7
+summary: Traefik Gateway API HTTPRoute BackendRef ExtensionRef Namespace Confusion
+cves:
+    - CVE-2026-65601
+ghsas:
+    - GHSA-qq9q-x9w4-chhj
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-qq9q-x9w4-chhj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-65601
+    - web: https://github.com/traefik/traefik/commit/655d6324ab4a1475892a958d4bae389720a67ea9
+    - web: https://github.com/traefik/traefik/pull/13462
+    - web: https://www.vulncheck.com/advisories/traefik-before-namespace-confusion-via-httproute-extensionref
+source:
+    id: GHSA-qq9q-x9w4-chhj
+    created: 2026-08-17T23:00:30.032477-04:00
+review_status: UNREVIEWED

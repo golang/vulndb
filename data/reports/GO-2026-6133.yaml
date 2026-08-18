@@ -1,0 +1,29 @@
+id: GO-2026-6133
+modules:
+    - module: github.com/patrickhener/goshs
+      unsupported_versions:
+        - last_affected: 1.1.4
+      vulnerable_at: 1.1.4
+    - module: goshs.de/goshs
+      unsupported_versions:
+        - last_affected: 1.1.4
+      vulnerable_at: 1.1.4
+    - module: goshs.de/goshs/v2
+      versions:
+        - fixed: 2.1.1
+      vulnerable_at: 2.1.0
+summary: |-
+    goshs: File-based .goshs ACL authorization bypass via the ?bulk zip-download
+    route (unauthenticated read; residual of GHSA-wvhv-qcqf-f3cx) in github.com/patrickhener/goshs
+cves:
+    - CVE-2026-54719
+ghsas:
+    - GHSA-rmxw-pq4x-3fvh
+references:
+    - advisory: https://github.com/goshs-labs/goshs/security/advisories/GHSA-rmxw-pq4x-3fvh
+    - web: https://github.com/goshs-labs/goshs/commit/7cf911a26ace737e1a55b7dc073e307a25f7fd1d
+    - web: https://github.com/goshs-labs/goshs/releases/tag/v2.1.1
+source:
+    id: GHSA-rmxw-pq4x-3fvh
+    created: 2026-08-17T23:14:29.000423-04:00
+review_status: UNREVIEWED

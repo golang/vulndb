@@ -1,0 +1,23 @@
+id: GO-2026-6131
+modules:
+    - module: github.com/fission/fission
+      versions:
+        - fixed: 1.25.0
+      vulnerable_at: 1.25.0-rc1
+summary: |-
+    Fission: HTTPTrigger admission omits RelativeURL / Prefix validation; kubectl
+    apply bypasses CLI checks in github.com/fission/fission
+cves:
+    - CVE-2026-50569
+ghsas:
+    - GHSA-vchh-r53j-8mpw
+references:
+    - advisory: https://github.com/fission/fission/security/advisories/GHSA-vchh-r53j-8mpw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-50569
+    - fix: https://github.com/fission/fission/commit/0deed6bf3f26bc0f10e9130cd0d479b0b9f5f609
+    - fix: https://github.com/fission/fission/pull/3464
+    - web: https://github.com/fission/fission/releases/tag/v1.25.0
+source:
+    id: GHSA-vchh-r53j-8mpw
+    created: 2026-08-17T23:14:40.949478-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,21 @@
+id: GO-2026-6243
+modules:
+    - module: github.com/QuantumNous/new-api
+      versions:
+        - fixed: 1.0.0-rc.16
+      vulnerable_at: 1.0.0-rc.15
+summary: |-
+    New API: Redis user quota cache overwrite via PUT /api/user/self allows quota
+    bypass in github.com/QuantumNous/new-api
+cves:
+    - CVE-2026-64865
+ghsas:
+    - GHSA-j6gc-4893-qwmp
+references:
+    - advisory: https://github.com/QuantumNous/new-api/security/advisories/GHSA-j6gc-4893-qwmp
+    - fix: https://github.com/QuantumNous/new-api/commit/dfc0d6324b40c1d6c2972e524409f933541bfb0f
+    - web: https://github.com/QuantumNous/new-api/releases/tag/v1.0.0-rc.16
+source:
+    id: GHSA-j6gc-4893-qwmp
+    created: 2026-08-17T22:51:12.842988-04:00
+review_status: UNREVIEWED

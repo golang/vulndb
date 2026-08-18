@@ -1,0 +1,22 @@
+id: GO-2026-6122
+modules:
+    - module: github.com/gopacket/gopacket
+      versions:
+        - fixed: 1.6.1
+      vulnerable_at: 1.6.0
+summary: |-
+    GoPacket's sFlow ExtendedGatewayFlow decoder: unbounded attacker-controlled
+    allocation (104-byte UDP datagram -> up to 16 GiB make) -> unauthenticated
+    remote DoS in github.com/gopacket/gopacket
+cves:
+    - CVE-2026-54332
+ghsas:
+    - GHSA-g6v3-7xmc-w563
+references:
+    - advisory: https://github.com/gopacket/gopacket/security/advisories/GHSA-g6v3-7xmc-w563
+    - fix: https://github.com/gopacket/gopacket/commit/76119086f5936aacd7088bdf97d565501bb6c4cc
+    - web: https://github.com/gopacket/gopacket/releases/tag/v1.6.1
+source:
+    id: GHSA-g6v3-7xmc-w563
+    created: 2026-08-17T23:15:45.068795-04:00
+review_status: UNREVIEWED

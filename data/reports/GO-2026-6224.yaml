@@ -1,0 +1,24 @@
+id: GO-2026-6224
+modules:
+    - module: github.com/kubev2v/migration-planner
+      versions:
+        - fixed: 0.13.5
+      vulnerable_at: 0.13.4
+summary: |-
+    Openshift Migration Advisor lacks proper authorization and filtering for its
+    DELETE /api/v1/sources API in github.com/kubev2v/migration-planner
+cves:
+    - CVE-2026-53469
+ghsas:
+    - GHSA-6xvf-9742-48w2
+references:
+    - advisory: https://github.com/advisories/GHSA-6xvf-9742-48w2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-53469
+    - fix: https://github.com/kubev2v/migration-planner/commit/db4c7857bd8f8e04747a5ea0efca04b0235d6e4a
+    - fix: https://github.com/kubev2v/migration-planner/pull/1227
+    - web: https://access.redhat.com/security/cve/CVE-2026-53469
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2487065
+source:
+    id: GHSA-6xvf-9742-48w2
+    created: 2026-08-17T22:53:30.57482-04:00
+review_status: UNREVIEWED

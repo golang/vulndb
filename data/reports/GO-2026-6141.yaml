@@ -1,0 +1,32 @@
+id: GO-2026-6141
+modules:
+    - module: github.com/zitadel/zitadel
+      non_go_versions:
+        - introduced: 2.43.0
+      vulnerable_at: 1.87.5
+    - module: github.com/zitadel/zitadel
+      non_go_versions:
+        - introduced: 4.0.0
+      vulnerable_at: 1.87.5
+    - module: github.com/zitadel/zitadel
+      versions:
+        - fixed: 1.80.0-v2.20.0.20260608144108-ed09b3df7f43
+      vulnerable_at: 1.80.0-v2.20
+summary: ZITADEL Users Can Self-Verify Email/Phone via API in github.com/zitadel/zitadel
+cves:
+    - CVE-2026-54693
+ghsas:
+    - GHSA-jq8w-8q2f-ffm9
+references:
+    - advisory: https://github.com/zitadel/zitadel/security/advisories/GHSA-jq8w-8q2f-ffm9
+    - fix: https://github.com/zitadel/zitadel/commit/90f310212d3a5075084a603bf61fed549c92956d
+    - fix: https://github.com/zitadel/zitadel/commit/a1748b2f0326ddf7be0de44b4f980ae2c07c0151
+    - fix: https://github.com/zitadel/zitadel/commit/ed09b3df7f43e870423e4d8f2757e6894481604f
+    - web: https://github.com/zitadel/zitadel/releases/tag/v3.4.11
+    - web: https://github.com/zitadel/zitadel/releases/tag/v4.15.1
+notes:
+    - fix: 'module merge error: could not merge versions of module github.com/zitadel/zitadel: introduced and fixed versions must alternate'
+source:
+    id: GHSA-jq8w-8q2f-ffm9
+    created: 2026-08-17T23:12:33.492258-04:00
+review_status: UNREVIEWED

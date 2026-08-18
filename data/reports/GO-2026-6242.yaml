@@ -1,0 +1,22 @@
+id: GO-2026-6242
+modules:
+    - module: github.com/QuantumNous/new-api
+      versions:
+        - fixed: 1.0.0-rc.18
+      vulnerable_at: 1.0.0-rc.17
+summary: |-
+    New API: Integer overflow in quota billing yields negative charges
+    (self-crediting) in github.com/QuantumNous/new-api
+cves:
+    - CVE-2026-71479
+ghsas:
+    - GHSA-8r8v-xf7q-rcpr
+references:
+    - advisory: https://github.com/QuantumNous/new-api/security/advisories/GHSA-8r8v-xf7q-rcpr
+    - fix: https://github.com/QuantumNous/new-api/commit/c9943d37ad93477dd937fc4901cc3c4e0fd8aaab
+    - fix: https://github.com/QuantumNous/new-api/commit/d0bd8aac742d1e160a5ca61743fe35f4fff880e8
+    - web: https://github.com/QuantumNous/new-api/releases/tag/v1.0.0-rc.18
+source:
+    id: GHSA-8r8v-xf7q-rcpr
+    created: 2026-08-17T22:51:19.090267-04:00
+review_status: UNREVIEWED

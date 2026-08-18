@@ -1,0 +1,24 @@
+id: GO-2026-6232
+modules:
+    - module: github.com/kubev2v/assisted-migration-agent
+      versions:
+        - fixed: 0.16.0
+      vulnerable_at: 0.12.0
+summary: |-
+    Assisted Migration Agent: Hardcoded insecure Transport Layer Security (TLS)
+    connections during vCenter communication in github.com/kubev2v/assisted-migration-agent
+cves:
+    - CVE-2026-53475
+ghsas:
+    - GHSA-8g5p-jxp9-457c
+references:
+    - advisory: https://github.com/advisories/GHSA-8g5p-jxp9-457c
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-53475
+    - fix: https://github.com/kubev2v/assisted-migration-agent/commit/b940fec9f5032a0801e994054d30e81d64b2942a
+    - fix: https://github.com/kubev2v/assisted-migration-agent/pull/268
+    - web: https://access.redhat.com/security/cve/CVE-2026-53475
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2487232
+source:
+    id: GHSA-8g5p-jxp9-457c
+    created: 2026-08-17T22:52:26.211068-04:00
+review_status: UNREVIEWED

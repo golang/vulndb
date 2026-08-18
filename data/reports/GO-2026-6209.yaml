@@ -1,0 +1,30 @@
+id: GO-2026-6209
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      vulnerable_at: 2.11.54
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - introduced: 3.0.0
+        - fixed: 3.6.25
+        - introduced: 3.7.0
+        - fixed: 3.7.10
+      vulnerable_at: 3.7.9
+summary: |-
+    Traefik: Gateway API route identity collision allows cross-namespace backend
+    hijacking in github.com/traefik/traefik
+cves:
+    - CVE-2026-71327
+ghsas:
+    - GHSA-fgjj-px3w-67xx
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-fgjj-px3w-67xx
+    - fix: https://github.com/traefik/traefik/commit/a764166656f0cd337f917ac76315c381cca844f9
+    - fix: https://github.com/traefik/traefik/pull/13580
+    - web: https://github.com/traefik/traefik/releases/tag/v3.6.25
+    - web: https://github.com/traefik/traefik/releases/tag/v3.7.10
+source:
+    id: GHSA-fgjj-px3w-67xx
+    created: 2026-08-17T22:58:55.944702-04:00
+review_status: UNREVIEWED

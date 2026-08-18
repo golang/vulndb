@@ -1,0 +1,22 @@
+id: GO-2026-6160
+modules:
+    - module: github.com/bank-vaults/vault-secrets-webhook
+      versions:
+        - fixed: 1.23.1
+      vulnerable_at: 1.23.0
+summary: |-
+    vault-addr annotation SSRF -- webhook makes outbound HTTP call to attacker URL
+    during admission; vault-serviceaccount enables cluster-wide SA token theft via
+    TokenRequest API in github.com/bank-vaults/vault-secrets-webhook
+cves:
+    - CVE-2026-54725
+ghsas:
+    - GHSA-r2v3-8gwf-7ghm
+references:
+    - advisory: https://github.com/bank-vaults/vault-secrets-webhook/security/advisories/GHSA-r2v3-8gwf-7ghm
+    - fix: https://github.com/bank-vaults/vault-secrets-webhook/commit/76db45976fee0f54cafd94dffa425e6b542f65a0
+    - web: https://github.com/bank-vaults/vault-secrets-webhook/releases/tag/v1.23.1
+source:
+    id: GHSA-r2v3-8gwf-7ghm
+    created: 2026-08-17T23:10:47.293689-04:00
+review_status: UNREVIEWED

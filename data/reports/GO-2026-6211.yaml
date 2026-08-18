@@ -1,0 +1,34 @@
+id: GO-2026-6211
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.51
+      vulnerable_at: 2.11.50
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - fixed: 3.6.22
+        - introduced: 3.7.0
+        - fixed: 3.7.6
+      vulnerable_at: 3.7.5
+summary: |-
+    Traefik: Incomplete fix for CVE-2026-33433 + CVE-2026-39858 cross-cohort:
+    headerField underscore-variant identity spoofing in BasicAuth / DigestAuth /
+    ForwardAuth in github.com/traefik/traefik
+cves:
+    - CVE-2026-54763
+ghsas:
+    - GHSA-x677-9fxg-v5c5
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-x677-9fxg-v5c5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-54763
+    - fix: https://github.com/traefik/traefik/commit/108a5264473a2cbc8f12d6d691a3c6553cdf2c1b
+    - fix: https://github.com/traefik/traefik/pull/13262
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.51
+    - web: https://github.com/traefik/traefik/releases/tag/v3.6.22
+    - web: https://github.com/traefik/traefik/releases/tag/v3.7.6
+source:
+    id: GHSA-x677-9fxg-v5c5
+    created: 2026-08-17T22:58:46.149987-04:00
+review_status: UNREVIEWED

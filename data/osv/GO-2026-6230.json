@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6230",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-53657",
+    "GHSA-2j9v-p4xj-cjw2"
+  ],
+  "summary": "Lima: An arbitrary user in a QEMU VM could gain the root privilege in the VM via the guest agent socket in github.com/lima-vm/lima",
+  "details": "Lima: An arbitrary user in a QEMU VM could gain the root privilege in the VM via the guest agent socket in github.com/lima-vm/lima",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/lima-vm/lima",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/lima-vm/lima/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.1.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/lima-vm/lima/security/advisories/GHSA-2j9v-p4xj-cjw2"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53657"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/lima-vm/lima/commit/8a45892378d22f40505c31a38f786a07701b6d50"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/lima-vm/lima/commit/b08cae8a670cf916d5da11c48a6de76dabd89678"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/lima-vm/lima/releases/tag/v2.1.3"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6230",
+    "review_status": "UNREVIEWED"
+  }
+}

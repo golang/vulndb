@@ -1,0 +1,22 @@
+id: GO-2026-6240
+modules:
+    - module: github.com/QuantumNous/new-api
+      versions:
+        - fixed: 1.0.0-rc.7
+      vulnerable_at: 1.0.0-rc.6
+summary: |-
+    New API: User List API Leaks Root User Access Token Leading to Privilege
+    Escalation in github.com/QuantumNous/new-api
+cves:
+    - CVE-2026-64859
+ghsas:
+    - GHSA-6x2c-phff-wx57
+references:
+    - advisory: https://github.com/QuantumNous/new-api/security/advisories/GHSA-6x2c-phff-wx57
+    - fix: https://github.com/QuantumNous/new-api/commit/0936e2504655a5cbf7bc3c388f6d3e2bb24916d3
+    - fix: https://github.com/QuantumNous/new-api/pull/4929
+    - web: https://github.com/QuantumNous/new-api/releases/tag/v1.0.0-rc.7
+source:
+    id: GHSA-6x2c-phff-wx57
+    created: 2026-08-17T22:51:31.455429-04:00
+review_status: UNREVIEWED

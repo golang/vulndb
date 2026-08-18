@@ -1,0 +1,24 @@
+id: GO-2026-6148
+modules:
+    - module: github.com/apache/answer
+      versions:
+        - fixed: 1.7.2-0.20260206073245-92994b49976b
+      vulnerable_at: 1.7.1
+summary: |-
+    Apache Answer has an Exposure of Private Personal Information to an Unauthorized
+    Actor vulnerability in github.com/apache/answer
+cves:
+    - CVE-2026-25699
+ghsas:
+    - GHSA-w754-5646-xq9j
+references:
+    - advisory: https://github.com/advisories/GHSA-w754-5646-xq9j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-25699
+    - fix: https://github.com/apache/answer/commit/92994b49976b6206a7000d045d924ec4fd5be1be
+    - web: http://www.openwall.com/lists/oss-security/2026/06/09/6
+    - web: https://github.com/apache/answer/releases/tag/v2.0.1
+    - web: https://lists.apache.org/thread/c36k4hzwhncqo0qfn5fg57f1gkjhyfv8
+source:
+    id: GHSA-w754-5646-xq9j
+    created: 2026-08-17T23:11:51.72613-04:00
+review_status: UNREVIEWED

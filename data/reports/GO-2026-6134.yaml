@@ -1,0 +1,27 @@
+id: GO-2026-6134
+modules:
+    - module: github.com/patrickhener/goshs
+      unsupported_versions:
+        - last_affected: 1.1.4
+      vulnerable_at: 1.1.4
+    - module: goshs.de/goshs
+      unsupported_versions:
+        - last_affected: 1.1.4
+      vulnerable_at: 1.1.4
+    - module: goshs.de/goshs/v2
+      versions:
+        - fixed: 2.1.5-0.20260727065949-f3ef599e4091
+      vulnerable_at: 2.1.4
+summary: goshs has ACL Bypass & Path Traversal in github.com/patrickhener/goshs
+cves:
+    - CVE-2026-66064
+ghsas:
+    - GHSA-964w-f6gj-5236
+references:
+    - advisory: https://github.com/goshs-labs/goshs/security/advisories/GHSA-964w-f6gj-5236
+    - web: https://github.com/goshs-labs/goshs/commit/f3ef599e409151d1380866e47de8b1afb0bb54fa
+    - web: https://github.com/goshs-labs/goshs/pull/222
+source:
+    id: GHSA-964w-f6gj-5236
+    created: 2026-08-17T23:14:23.260024-04:00
+review_status: UNREVIEWED

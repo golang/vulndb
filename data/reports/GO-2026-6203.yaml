@@ -1,0 +1,34 @@
+id: GO-2026-6203
+modules:
+    - module: github.com/traefik/traefik
+      unsupported_versions:
+        - last_affected: 1.7.34
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.54
+      vulnerable_at: 2.11.53
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - introduced: 3.0.0
+        - fixed: 3.6.25
+        - introduced: 3.7.0
+        - fixed: 3.7.10
+      vulnerable_at: 3.7.9
+summary: |-
+    Traefik: `allowCrossNamespace=false` bypass via `@kubernetescrd` TraefikService
+    backendRef in github.com/traefik/traefik
+cves:
+    - CVE-2026-71325
+ghsas:
+    - GHSA-62fc-8686-hfmq
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-62fc-8686-hfmq
+    - fix: https://github.com/traefik/traefik/commit/65ebf4b47fbdc33e3856803a5844a404e094d52d
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.54
+    - web: https://github.com/traefik/traefik/releases/tag/v3.6.25
+    - web: https://github.com/traefik/traefik/releases/tag/v3.7.10
+source:
+    id: GHSA-62fc-8686-hfmq
+    created: 2026-08-17T22:59:32.422966-04:00
+review_status: UNREVIEWED

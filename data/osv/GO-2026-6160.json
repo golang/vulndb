@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6160",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-54725",
+    "GHSA-r2v3-8gwf-7ghm"
+  ],
+  "summary": "vault-addr annotation SSRF -- webhook makes outbound HTTP call to attacker URL during admission; vault-serviceaccount enables cluster-wide SA token theft via TokenRequest API in github.com/bank-vaults/vault-secrets-webhook",
+  "details": "vault-addr annotation SSRF -- webhook makes outbound HTTP call to attacker URL during admission; vault-serviceaccount enables cluster-wide SA token theft via TokenRequest API in github.com/bank-vaults/vault-secrets-webhook",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/bank-vaults/vault-secrets-webhook",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.23.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/bank-vaults/vault-secrets-webhook/security/advisories/GHSA-r2v3-8gwf-7ghm"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/bank-vaults/vault-secrets-webhook/commit/76db45976fee0f54cafd94dffa425e6b542f65a0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/bank-vaults/vault-secrets-webhook/releases/tag/v1.23.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6160",
+    "review_status": "UNREVIEWED"
+  }
+}

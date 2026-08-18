@@ -1,0 +1,33 @@
+id: GO-2026-6208
+modules:
+    - module: github.com/traefik/traefik
+      unsupported_versions:
+        - last_affected: 1.7.34
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.52
+      vulnerable_at: 2.11.51
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - fixed: 3.6.23
+        - introduced: 3.7.0
+        - fixed: 3.7.7
+      vulnerable_at: 3.7.6
+summary: 'Traefik: Authentication Bypass via Path Traversal in ReplacePathRegex Middleware in github.com/traefik/traefik'
+cves:
+    - CVE-2026-65600
+ghsas:
+    - GHSA-cxjq-mrr5-89rv
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-cxjq-mrr5-89rv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-65600
+    - fix: https://github.com/traefik/traefik/commit/3f10dd442479530560f010167cac2947676d9b29
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.52
+    - web: https://github.com/traefik/traefik/releases/tag/v3.6.23
+    - web: https://github.com/traefik/traefik/releases/tag/v3.7.7
+    - web: https://www.vulncheck.com/advisories/traefik-before-authentication-bypass-via-replacepathregex
+source:
+    id: GHSA-cxjq-mrr5-89rv
+    created: 2026-08-17T22:59:03.370989-04:00
+review_status: UNREVIEWED

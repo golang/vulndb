@@ -1,0 +1,27 @@
+id: GO-2026-6104
+modules:
+    - module: github.com/cloudreve/Cloudreve
+      vulnerable_at: 0.0.0-20201026073328-746aa3e8ef26
+    - module: github.com/cloudreve/Cloudreve/v3
+      unsupported_versions:
+        - last_affected: 3.0.0-20250225100611-da4e44b77af4
+      vulnerable_at: 3.0.0-20250225100611-da4e44b77af4
+    - module: github.com/cloudreve/Cloudreve/v4
+      versions:
+        - fixed: 4.0.0-20260626022433-f3347130ac48
+summary: |-
+    Cloudreve WOPI view sessions can write files and WOPI access token secret is
+    ignored in github.com/cloudreve/Cloudreve
+cves:
+    - CVE-2026-62323
+ghsas:
+    - GHSA-c3jm-gv5r-9wcp
+references:
+    - advisory: https://github.com/cloudreve/cloudreve/security/advisories/GHSA-c3jm-gv5r-9wcp
+    - web: https://github.com/cloudreve/cloudreve/commit/f3347130ac48f2ff996af9ef66c97be2dda9cba9
+notes:
+    - fix: 'github.com/cloudreve/Cloudreve/v4: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-c3jm-gv5r-9wcp
+    created: 2026-08-17T23:17:42.338791-04:00
+review_status: UNREVIEWED

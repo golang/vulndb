@@ -1,0 +1,24 @@
+id: GO-2026-6164
+modules:
+    - module: github.com/gtsteffaniak/filebrowser/backend
+      versions:
+        - fixed: 0.0.0-20260608182036-f3f4bbe80cb5
+summary: |-
+    FileBrowser Quantum's path traversal issue in subtitle handler allows any
+    authenticated user to read arbitrary files in github.com/gtsteffaniak/filebrowser/backend
+cves:
+    - CVE-2026-54910
+ghsas:
+    - GHSA-vvp7-h4fj-m28w
+references:
+    - advisory: https://github.com/gtsteffaniak/filebrowser/security/advisories/GHSA-vvp7-h4fj-m28w
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-54910
+    - web: https://github.com/gtsteffaniak/filebrowser/commit/f3f4bbe80cb569d664174aea874d7bfa008c3b5a
+    - web: https://github.com/gtsteffaniak/filebrowser/pull/2524
+    - web: https://github.com/gtsteffaniak/filebrowser/releases/tag/v1.4.3-beta
+notes:
+    - fix: 'github.com/gtsteffaniak/filebrowser/backend: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-vvp7-h4fj-m28w
+    created: 2026-08-17T23:10:11.174839-04:00
+review_status: UNREVIEWED

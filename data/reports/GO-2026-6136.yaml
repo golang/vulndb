@@ -1,0 +1,27 @@
+id: GO-2026-6136
+modules:
+    - module: github.com/patrickhener/goshs
+      unsupported_versions:
+        - last_affected: 1.1.4
+      vulnerable_at: 1.1.4
+    - module: goshs.de/goshs
+      unsupported_versions:
+        - last_affected: 1.1.4
+      vulnerable_at: 1.1.4
+    - module: goshs.de/goshs/v2
+      versions:
+        - fixed: 2.1.4
+      vulnerable_at: 2.1.3
+summary: goshs --no-delete WebDAV MOVE bypass allows file deletion/overwrite in github.com/patrickhener/goshs
+cves:
+    - CVE-2026-64863
+ghsas:
+    - GHSA-hq33-8jgp-8qq3
+references:
+    - advisory: https://github.com/goshs-labs/goshs/security/advisories/GHSA-hq33-8jgp-8qq3
+    - web: https://github.com/goshs-labs/goshs/commit/0444ac6b1a8176ddae70d940adf7a26b2e5a6c29
+    - web: https://github.com/goshs-labs/goshs/releases/tag/v2.1.4
+source:
+    id: GHSA-hq33-8jgp-8qq3
+    created: 2026-08-17T23:14:08.884721-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,28 @@
+id: GO-2026-6100
+modules:
+    - module: github.com/cloudreve/Cloudreve
+      vulnerable_at: 0.0.0-20201026073328-746aa3e8ef26
+    - module: github.com/cloudreve/Cloudreve/v3
+      unsupported_versions:
+        - last_affected: 3.0.0-20250225100611-da4e44b77af4
+      vulnerable_at: 3.0.0-20250225100611-da4e44b77af4
+    - module: github.com/cloudreve/Cloudreve/v4
+      versions:
+        - fixed: 4.0.0-20260613024411-3607f79bb44c
+summary: |-
+    Cloudreve: Denial of Service - Image decompression / pixel bomb in thumbnail &
+    avatar decoding crashes the server in github.com/cloudreve/Cloudreve
+cves:
+    - CVE-2026-55497
+ghsas:
+    - GHSA-g9j2-8w95-3vwv
+references:
+    - advisory: https://github.com/cloudreve/cloudreve/security/advisories/GHSA-g9j2-8w95-3vwv
+    - web: https://github.com/cloudreve/cloudreve/commit/3607f79bb44c35d0be4fa8b6e24c0502b51415a9
+    - web: https://github.com/cloudreve/cloudreve/releases/tag/4.17.0
+notes:
+    - fix: 'github.com/cloudreve/Cloudreve/v4: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-g9j2-8w95-3vwv
+    created: 2026-08-17T23:18:08.298747-04:00
+review_status: UNREVIEWED

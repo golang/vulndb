@@ -1,0 +1,22 @@
+id: GO-2026-6162
+modules:
+    - module: github.com/sigstore/sigstore-go
+      versions:
+        - fixed: 1.2.1
+      vulnerable_at: 1.2.0
+summary: |-
+    sigstore-go fails to check signature timestamps against a signing key's validity
+    period in github.com/sigstore/sigstore-go
+cves:
+    - CVE-2026-54787
+ghsas:
+    - GHSA-wqqc-jjcq-vfxm
+references:
+    - advisory: https://github.com/sigstore/sigstore-go/security/advisories/GHSA-wqqc-jjcq-vfxm
+    - fix: https://github.com/sigstore/sigstore-go/commit/4594ab4c779d08be1f4419803a8249188f35ed5f
+    - fix: https://github.com/sigstore/sigstore-go/pull/642
+    - web: https://github.com/sigstore/sigstore-go/releases/tag/v1.2.1
+source:
+    id: GHSA-wqqc-jjcq-vfxm
+    created: 2026-08-17T23:10:26.906566-04:00
+review_status: UNREVIEWED

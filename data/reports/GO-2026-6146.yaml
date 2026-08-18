@@ -1,0 +1,24 @@
+id: GO-2026-6146
+modules:
+    - module: github.com/OliveTin/OliveTin
+      versions:
+        - introduced: 0.0.0-20251024001301-45f9c18bc3ee
+        - fixed: 0.0.0-20260708075951-ec114e95d297
+summary: |-
+    OliveTin: Unauthenticated DoS via OAuth2 State Memory Exhaustion (Unbounded Map
+    Growth) in github.com/OliveTin/OliveTin
+cves:
+    - CVE-2026-67437
+ghsas:
+    - GHSA-xpxj-f2fm-rqch
+references:
+    - advisory: https://github.com/OliveTin/OliveTin/security/advisories/GHSA-xpxj-f2fm-rqch
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-67437
+    - fix: https://github.com/OliveTin/OliveTin/commit/ec114e95d297b806c3ca0c37bc139b3c9c517b3f
+    - web: https://github.com/OliveTin/OliveTin/releases/tag/3000.17.0
+notes:
+    - fix: 'github.com/OliveTin/OliveTin: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-xpxj-f2fm-rqch
+    created: 2026-08-17T23:12:04.938847-04:00
+review_status: UNREVIEWED

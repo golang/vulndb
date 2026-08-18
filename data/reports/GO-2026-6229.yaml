@@ -1,0 +1,24 @@
+id: GO-2026-6229
+modules:
+    - module: github.com/kubev2v/migration-planner
+      versions:
+        - fixed: 0.13.5
+      vulnerable_at: 0.13.4
+summary: |-
+    Openshift Migration Advisor: Broken access control in migration-planner
+    image-url endpoint exposes other users' OVA images and agent JWTs in github.com/kubev2v/migration-planner
+cves:
+    - CVE-2026-53470
+ghsas:
+    - GHSA-v5m8-5455-qw2x
+references:
+    - advisory: https://github.com/advisories/GHSA-v5m8-5455-qw2x
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-53470
+    - fix: https://github.com/kubev2v/migration-planner/commit/ec47a336a620f4a995f29c1c53e4e4bd70a26e00
+    - fix: https://github.com/kubev2v/migration-planner/pull/1218
+    - web: https://access.redhat.com/security/cve/CVE-2026-53470
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2487069
+source:
+    id: GHSA-v5m8-5455-qw2x
+    created: 2026-08-17T22:53:02.922381-04:00
+review_status: UNREVIEWED

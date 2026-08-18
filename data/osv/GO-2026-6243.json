@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6243",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-64865",
+    "GHSA-j6gc-4893-qwmp"
+  ],
+  "summary": "New API: Redis user quota cache overwrite via PUT /api/user/self allows quota bypass in github.com/QuantumNous/new-api",
+  "details": "New API: Redis user quota cache overwrite via PUT /api/user/self allows quota bypass in github.com/QuantumNous/new-api",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/QuantumNous/new-api",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.0.0-rc.16"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/QuantumNous/new-api/security/advisories/GHSA-j6gc-4893-qwmp"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/QuantumNous/new-api/commit/dfc0d6324b40c1d6c2972e524409f933541bfb0f"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/QuantumNous/new-api/releases/tag/v1.0.0-rc.16"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6243",
+    "review_status": "UNREVIEWED"
+  }
+}

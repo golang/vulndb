@@ -1,0 +1,24 @@
+id: GO-2026-6233
+modules:
+    - module: github.com/kubev2v/migration-planner
+      versions:
+        - fixed: 0.13.5
+      vulnerable_at: 0.13.4
+summary: |-
+    Openshift Migration Advisor: Improper input sanitization allows specially
+    crafted RVTools .xlsx files to include malicious SQL commands in github.com/kubev2v/migration-planner
+cves:
+    - CVE-2026-53474
+ghsas:
+    - GHSA-vf2h-7x3w-97fr
+references:
+    - advisory: https://github.com/advisories/GHSA-vf2h-7x3w-97fr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-53474
+    - fix: https://github.com/kubev2v/migration-planner/commit/6110711b1b71bb0d15348b934a490a5932b41f83
+    - fix: https://github.com/kubev2v/migration-planner/pull/1231
+    - web: https://access.redhat.com/security/cve/CVE-2026-53474
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2487231
+source:
+    id: GHSA-vf2h-7x3w-97fr
+    created: 2026-08-17T22:52:12.438777-04:00
+review_status: UNREVIEWED

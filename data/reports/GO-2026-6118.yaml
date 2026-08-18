@@ -1,0 +1,20 @@
+id: GO-2026-6118
+modules:
+    - module: github.com/github/github-mcp-server
+      versions:
+        - fixed: 1.1.0
+      vulnerable_at: 1.0.5
+summary: GitHub MCP Server has Nil Pointer Dereference DoS in completion/complete Handler in github.com/github/github-mcp-server
+cves:
+    - CVE-2026-47427
+ghsas:
+    - GHSA-w4q6-qw23-4rg7
+references:
+    - advisory: https://github.com/github/github-mcp-server/security/advisories/GHSA-w4q6-qw23-4rg7
+    - fix: https://github.com/github/github-mcp-server/commit/c88d2ecdd3bb07f7bdd75296e3ee676febf14f58
+    - fix: https://github.com/github/github-mcp-server/pull/2502
+    - web: https://github.com/github/github-mcp-server/releases/tag/v1.1.0
+source:
+    id: GHSA-w4q6-qw23-4rg7
+    created: 2026-08-17T23:16:10.477827-04:00
+review_status: UNREVIEWED

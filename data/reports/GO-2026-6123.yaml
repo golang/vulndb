@@ -1,0 +1,20 @@
+id: GO-2026-6123
+modules:
+    - module: github.com/azukaar/cosmos-server
+      versions:
+        - fixed: 0.22.19
+      vulnerable_at: 0.22.18
+summary: |-
+    Cosmos-Server has an authentication bypass via forward-auth header smuggling on
+    Constellation tunnel in github.com/azukaar/cosmos-server
+cves:
+    - CVE-2026-49446
+ghsas:
+    - GHSA-2rx5-2g7j-2659
+references:
+    - advisory: https://github.com/azukaar/Cosmos-Server/security/advisories/GHSA-2rx5-2g7j-2659
+    - web: https://github.com/azukaar/Cosmos-Server/releases/tag/v0.22.19
+source:
+    id: GHSA-2rx5-2g7j-2659
+    created: 2026-08-17T23:15:39.624708-04:00
+review_status: UNREVIEWED

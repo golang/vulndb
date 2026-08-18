@@ -1,0 +1,25 @@
+id: GO-2026-6130
+modules:
+    - module: github.com/fission/fission
+      versions:
+        - fixed: 1.25.0
+      vulnerable_at: 1.25.0-rc1
+summary: |-
+    Fission: SanitizeFilePath lexical HasPrefix bypass permits sibling-directory
+    escape in github.com/fission/fission
+cves:
+    - CVE-2026-50568
+ghsas:
+    - GHSA-r5jh-q2mw-gcx4
+references:
+    - advisory: https://github.com/fission/fission/security/advisories/GHSA-r5jh-q2mw-gcx4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-50568
+    - fix: https://github.com/fission/fission/commit/5aac6f0bcdf840e28f3f06c846ca7ae1866b3957
+    - fix: https://github.com/fission/fission/commit/8298e33ea7457702f893eae11077987cf905edb4
+    - fix: https://github.com/fission/fission/pull/3445
+    - fix: https://github.com/fission/fission/pull/3446
+    - web: https://github.com/fission/fission/releases/tag/v1.25.0
+source:
+    id: GHSA-r5jh-q2mw-gcx4
+    created: 2026-08-17T23:14:48.118907-04:00
+review_status: UNREVIEWED

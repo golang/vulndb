@@ -1,0 +1,24 @@
+id: GO-2026-6106
+modules:
+    - module: github.com/cloudreve/Cloudreve
+      vulnerable_at: 0.0.0-20201026073328-746aa3e8ef26
+    - module: github.com/cloudreve/Cloudreve/v3
+      unsupported_versions:
+        - last_affected: 3.0.0-20250225100611-da4e44b77af4
+      vulnerable_at: 3.0.0-20250225100611-da4e44b77af4
+    - module: github.com/cloudreve/Cloudreve/v4
+      versions:
+        - fixed: 4.0.0-20260626022735-332a9d800205
+summary: Cloudreve Admin.Read OAuth tokens can trigger server-side node test requests in github.com/cloudreve/Cloudreve
+ghsas:
+    - GHSA-v6w6-358x-2433
+references:
+    - advisory: https://github.com/cloudreve/cloudreve/security/advisories/GHSA-v6w6-358x-2433
+    - web: https://github.com/cloudreve/cloudreve/commit/332a9d800205082a2469e555fd66a63f18d9d5dc
+    - web: https://github.com/cloudreve/cloudreve/releases/tag/4.17.0
+notes:
+    - fix: 'github.com/cloudreve/Cloudreve/v4: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-v6w6-358x-2433
+    created: 2026-08-17T23:17:25.60289-04:00
+review_status: UNREVIEWED

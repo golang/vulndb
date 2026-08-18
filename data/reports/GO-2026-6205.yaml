@@ -1,0 +1,28 @@
+id: GO-2026-6205
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      vulnerable_at: 2.11.54
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - introduced: 3.7.0
+        - fixed: 3.7.6
+      vulnerable_at: 3.7.5
+summary: |-
+    Traefik: Gateway HTTPRoute backendRef filters can leak backend context across
+    routes sharing a Service:port in github.com/traefik/traefik
+cves:
+    - CVE-2026-54765
+ghsas:
+    - GHSA-6p8f-p8j2-rqmv
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-6p8f-p8j2-rqmv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-54765
+    - fix: https://github.com/traefik/traefik/commit/8aada7a7d52e4588a75386d8b86d270f6fe8d549
+    - fix: https://github.com/traefik/traefik/pull/13367
+    - web: https://github.com/traefik/traefik/releases/tag/v3.7.6
+source:
+    id: GHSA-6p8f-p8j2-rqmv
+    created: 2026-08-17T22:59:19.146126-04:00
+review_status: UNREVIEWED

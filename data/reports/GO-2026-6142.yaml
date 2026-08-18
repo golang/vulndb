@@ -1,0 +1,22 @@
+id: GO-2026-6142
+modules:
+    - module: github.com/kube-logging/logging-operator
+      versions:
+        - fixed: 0.0.0-20260608145523-cf437d7f1e05
+summary: |-
+    Logging operator has Fluentd configuration injection that allows remote code
+    execution in github.com/kube-logging/logging-operator
+cves:
+    - CVE-2026-54680
+ghsas:
+    - GHSA-mjqf-28ph-426h
+references:
+    - advisory: https://github.com/kube-logging/logging-operator/security/advisories/GHSA-mjqf-28ph-426h
+    - fix: https://github.com/kube-logging/logging-operator/commit/cf437d7f1e056c78740bf5716ac8bdebcf002425
+    - web: https://github.com/kube-logging/logging-operator/releases/tag/6.6.0
+notes:
+    - fix: 'github.com/kube-logging/logging-operator: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-mjqf-28ph-426h
+    created: 2026-08-17T23:12:27.008412-04:00
+review_status: UNREVIEWED

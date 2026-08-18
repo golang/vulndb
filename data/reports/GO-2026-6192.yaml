@@ -1,0 +1,30 @@
+id: GO-2026-6192
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      vulnerable_at: 2.11.54
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - introduced: 3.6.0
+        - fixed: 3.6.23
+        - introduced: 3.7.0
+        - fixed: 3.7.7
+      vulnerable_at: 3.7.6
+summary: Traefik CRD IngressRouteTCP ServersTransport Cross-Provider Namespace Bypass in github.com/traefik/traefik
+cves:
+    - CVE-2026-65602
+ghsas:
+    - GHSA-42cj-m3vj-89wv
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-42cj-m3vj-89wv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-65602
+    - fix: https://github.com/traefik/traefik/commit/67501cbe7bc7774e26ecbd1c29af97f098e14b0b
+    - fix: https://github.com/traefik/traefik/pull/13458
+    - web: https://github.com/traefik/traefik/releases/tag/v3.6.23
+    - web: https://github.com/traefik/traefik/releases/tag/v3.7.7
+    - web: https://www.vulncheck.com/advisories/traefik-before-ingressroutetcp-serverstransport-namespace-bypass
+source:
+    id: GHSA-42cj-m3vj-89wv
+    created: 2026-08-17T23:02:42.598191-04:00
+review_status: UNREVIEWED

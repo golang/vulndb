@@ -1,0 +1,21 @@
+id: GO-2026-6159
+modules:
+    - module: github.com/pterodactyl/wings
+      versions:
+        - fixed: 1.13.0
+      vulnerable_at: 1.12.3
+summary: |-
+    Wings: Maliciously or erroneously created parsed config files can cause wings
+    process to OOM in github.com/pterodactyl/wings
+cves:
+    - CVE-2026-52857
+ghsas:
+    - GHSA-q6hh-gp44-4hcm
+references:
+    - advisory: https://github.com/pterodactyl/wings/security/advisories/GHSA-q6hh-gp44-4hcm
+    - fix: https://github.com/pterodactyl/wings/commit/5f71f65711b6b9e6f913bec94a7b36d9a5eaae49
+    - web: https://github.com/pterodactyl/wings/releases/tag/v1.13.0
+source:
+    id: GHSA-q6hh-gp44-4hcm
+    created: 2026-08-17T23:10:53.637066-04:00
+review_status: UNREVIEWED

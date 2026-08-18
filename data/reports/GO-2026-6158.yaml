@@ -1,0 +1,21 @@
+id: GO-2026-6158
+modules:
+    - module: github.com/pterodactyl/wings
+      versions:
+        - fixed: 1.12.3
+      vulnerable_at: 1.12.2
+summary: |-
+    Wings exposes node configuration secrets through egg configuration-file
+    templating in github.com/pterodactyl/wings
+cves:
+    - CVE-2026-52855
+ghsas:
+    - GHSA-pfvc-3p5h-x7h6
+references:
+    - advisory: https://github.com/pterodactyl/wings/security/advisories/GHSA-pfvc-3p5h-x7h6
+    - fix: https://github.com/pterodactyl/wings/commit/eb65e27ae077a63e38518c490768486af1cd86a9
+    - web: https://github.com/pterodactyl/wings/releases/tag/v1.12.3
+source:
+    id: GHSA-pfvc-3p5h-x7h6
+    created: 2026-08-17T23:10:59.749943-04:00
+review_status: UNREVIEWED
