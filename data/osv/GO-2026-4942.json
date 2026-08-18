@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-4942",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-35172",
+    "GHSA-f2g3-hh2r-cwgc"
+  ],
+  "summary": "Stale blob descriptor cache invalidation in github.com/distribution/distribution",
+  "details": "In github.com/distribution/distribution and github.com/distribution/distribution/v3 before 3.1.0, when storage.cache.blobdescriptor is configured with redis and storage.delete.enabled is true, deleting a blob in one repository clears the shared digest descriptor in Redis but leaves stale repository-scoped membership behind. If another repository subsequently requests or stats the same digest, the shared descriptor is repopulated and the deleted blob becomes accessible again in the first repository.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/distribution/distribution",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/distribution/distribution/registry/storage/cache/redis",
+            "symbols": [
+              "repositoryScopedRedisBlobDescriptorService.Clear"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/distribution/distribution/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.1.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/distribution/distribution/v3/registry/storage/cache/redis",
+            "symbols": [
+              "repositoryScopedRedisBlobDescriptorService.Clear"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/distribution/distribution/security/advisories/GHSA-f2g3-hh2r-cwgc"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/distribution/distribution/commit/078b0783f239b4115d1a979e66f08832084e9d1d"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/golang/vulndb/issues/4942"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Oleh Konko (GitHub: 1seal)"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-4942",
+    "review_status": "REVIEWED"
+  }
+}

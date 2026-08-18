@@ -1,0 +1,31 @@
+id: GO-2026-6216
+modules:
+    - module: codefloe.com/crowci/crow/v6
+      versions:
+        - fixed: 6.4.0
+      vulnerable_at: 6.3.0
+      packages:
+        - package: codefloe.com/crowci/crow/v6/server/api
+          symbols:
+            - HandleAuth
+        - package: codefloe.com/crowci/crow/v6/server/store/datastore
+          symbols:
+            - storage.GetUserRemoteID
+summary: Cross-forge account takeover on login in codefloe.com/crowci/crow/v6
+description: |-
+    In codefloe.com/crowci/crow/v6 before 6.4.0, user account lookup during
+    forge login is not scoped to the authenticating forge. An account on one forge
+    matches an existing user on another forge via forge remote ID collision or
+    username collision. On instances with multiple configured forges, an attacker
+    can take over arbitrary Crow accounts by registering matching credentials on
+    any connected forge.
+credits:
+    - Cassandra Beelen (sapphiccode)
+references:
+    - advisory: https://codefloe.com/crowci/crow/src/branch/main/security/advisories/cross-forge-account-takeover.md
+    - fix: https://codefloe.com/crowci/crow/commit/6b4405f1ef0126e5074383e551ae38d55c2a7efe
+    - web: https://codefloe.com/crowci/crow/releases/tag/v6.4.0
+source:
+    id: go-security-team
+    created: 2026-08-17T22:57:59.849446-04:00
+review_status: REVIEWED

@@ -1,0 +1,36 @@
+id: GO-2026-4950
+modules:
+    - module: github.com/valyala/fasthttp
+      versions:
+        - fixed: 1.70.0
+      vulnerable_at: 1.69.0
+      packages:
+        - package: github.com/valyala/fasthttp
+          symbols:
+            - ServeFile
+            - ServeFS
+            - RequestCtx.SendFile
+          derived_symbols:
+            - RequestCtx.SendFileBytes
+            - ServeFileBytes
+            - ServeFileBytesUncompressed
+            - ServeFileUncompressed
+summary: Authorization bypass via double-encoded paths in github.com/valyala/fasthttp
+description: |-
+    In github.com/valyala/fasthttp before 1.70.0, ServeFile and ServeFS
+    reinterpret filesystem paths as URIs, decoding percent-encoded sequences and
+    treating characters like '?' and '#' as URI delimiters. In applications where
+    authorization guards inspect ctx.Path() before passing paths to file-serving
+    handlers, double-encoded path variants (e.g., /%2561dmin/export.csv) bypass
+    access controls while still resolving to the protected file on disk.
+credits:
+    - Ali Firas (thesmartshadow)
+references:
+    - report: https://github.com/golang/vulndb/issues/4950
+    - fix: https://github.com/valyala/fasthttp/pull/2163
+    - web: https://gist.github.com/thesmartshadow/af53acdfe0d6ce352d14eb86cecf5a08
+    - web: https://github.com/valyala/fasthttp/releases/tag/v1.70.0
+source:
+    id: go-security-team
+    created: 2026-08-17T23:18:56.603555-04:00
+review_status: REVIEWED

@@ -1,0 +1,40 @@
+id: GO-2026-4942
+modules:
+    - module: github.com/distribution/distribution
+      vulnerable_at: 2.8.3+incompatible
+      packages:
+        - package: github.com/distribution/distribution/registry/storage/cache/redis
+          symbols:
+            - repositoryScopedRedisBlobDescriptorService.Clear
+    - module: github.com/distribution/distribution/v3
+      versions:
+        - fixed: 3.1.0
+      vulnerable_at: 3.0.0
+      packages:
+        - package: github.com/distribution/distribution/v3/registry/storage/cache/redis
+          symbols:
+            - repositoryScopedRedisBlobDescriptorService.Clear
+summary: Stale blob descriptor cache invalidation in github.com/distribution/distribution
+description: |-
+    In github.com/distribution/distribution and
+    github.com/distribution/distribution/v3 before 3.1.0, when
+    storage.cache.blobdescriptor is configured with redis and storage.delete.enabled
+    is true, deleting a blob in one repository clears the shared digest descriptor
+    in Redis but leaves stale repository-scoped membership behind. If another
+    repository subsequently requests or stats the same digest, the shared descriptor
+    is repopulated and the deleted blob becomes accessible again in the first
+    repository.
+cves:
+    - CVE-2026-35172
+ghsas:
+    - GHSA-f2g3-hh2r-cwgc
+credits:
+    - 'Oleh Konko (GitHub: 1seal)'
+references:
+    - advisory: https://github.com/distribution/distribution/security/advisories/GHSA-f2g3-hh2r-cwgc
+    - fix: https://github.com/distribution/distribution/commit/078b0783f239b4115d1a979e66f08832084e9d1d
+    - report: https://github.com/golang/vulndb/issues/4942
+source:
+    id: GHSA-f2g3-hh2r-cwgc
+    created: 2026-08-17T23:18:58.23176-04:00
+review_status: REVIEWED

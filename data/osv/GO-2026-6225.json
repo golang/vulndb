@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6225",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "summary": "Credential leakage to untrusted hosts in github.com/chrismellard/docker-credential-acr-env",
+  "details": "In github.com/chrismellard/docker-credential-acr-env/pkg/credhelper, the regular expression used by isACRRegistry to validate Azure Container Registry hostnames is unanchored. As a result, arbitrary hostnames containing the substring \".azurecr.io\" (such as evil.azurecr.io.attacker.com) are treated as valid ACR registries, causing ACRCredHelper.Get to send the Azure Active Directory (AAD) access token to attacker-controlled hosts.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/chrismellard/docker-credential-acr-env",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/chrismellard/docker-credential-acr-env/pkg/credhelper",
+            "symbols": [
+              "ACRCredHelper.Get",
+              "isACRRegistry"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://github.com/chrismellard/docker-credential-acr-env/issues/21"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/osscontainertools/docker-credential-acr"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6225",
+    "review_status": "REVIEWED"
+  }
+}
