@@ -1,0 +1,35 @@
+id: GO-2026-6182
+modules:
+    - module: github.com/rclone/rclone
+      versions:
+        - fixed: 1.75.0
+      vulnerable_at: 1.74.4
+      packages:
+        - package: github.com/rclone/rclone/backend/sftp
+          symbols:
+            - quoteOrEscapeShellPath
+          derived_symbols:
+            - Fs.About
+            - Object.Hash
+summary: Command execution via PowerShell smart quotes in github.com/rclone/rclone
+description: |-
+    PowerShell treats several Unicode smart-quote characters (U+2018, U+2019,
+    U+201A, U+201B) as single-quote delimiters in addition to ASCII apostrophe. When
+    interpolating remote SFTP paths into PowerShell commands, rclone only escapes
+    the ASCII apostrophe, allowing an attacker to craft a filename with smart quotes
+    that closes the path literal and injects arbitrary PowerShell commands executed
+    on the SFTP remote as the victim's SSH account.
+cves:
+    - CVE-2026-71312
+ghsas:
+    - GHSA-2m8m-jhrm-w6j2
+credits:
+    - 'GitHub: cyberlanc3r'
+references:
+    - advisory: https://github.com/rclone/rclone/security/advisories/GHSA-2m8m-jhrm-w6j2
+    - fix: https://github.com/rclone/rclone/commit/e122fba1a57641b63a580aa26c026903a84e2e88
+    - web: https://github.com/rclone/rclone/releases/tag/v1.75.0
+source:
+    id: GHSA-2m8m-jhrm-w6j2
+    created: 2026-08-18T02:01:31.637544-04:00
+review_status: REVIEWED

@@ -1,0 +1,26 @@
+id: GO-2026-6138
+modules:
+    - module: github.com/gotd/td
+      versions:
+        - fixed: 0.145.1
+      vulnerable_at: 0.145.0
+      packages:
+        - package: github.com/gotd/td/proto
+          symbols:
+            - UnencryptedMessage.Decode
+summary: |-
+    Unbounded memory allocation in proto.UnencryptedMessage.Decode in
+    github.com/gotd/td
+cves:
+    - CVE-2026-54638
+ghsas:
+    - GHSA-whmm-qj9r-wvr2
+references:
+    - advisory: https://github.com/gotd/td/security/advisories/GHSA-whmm-qj9r-wvr2
+    - fix: https://github.com/gotd/td/commit/9d5d1f31ea5022d9798d84ccce15de2e91ba6baa
+    - report: https://github.com/gotd/td/issues/1711
+    - web: https://github.com/gotd/td/releases/tag/v0.145.1
+source:
+    id: GHSA-whmm-qj9r-wvr2
+    created: 2026-08-17T23:13:29.735741-04:00
+review_status: REVIEWED

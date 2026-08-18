@@ -1,0 +1,53 @@
+id: GO-2026-6183
+modules:
+    - module: github.com/rclone/rclone
+      versions:
+        - fixed: 1.75.0
+      vulnerable_at: 1.74.4
+      packages:
+        - package: github.com/rclone/rclone/backend/webdav
+          symbols:
+            - Fs.getTusLocationOrRetry
+          derived_symbols:
+            - Fs.About
+            - Fs.Copy
+            - Fs.DirMove
+            - Fs.List
+            - Fs.ListP
+            - Fs.Mkdir
+            - Fs.Move
+            - Fs.NewObject
+            - Fs.Purge
+            - Fs.Put
+            - Fs.PutStream
+            - Fs.Rmdir
+            - NewFs
+            - Object.CreateUploader
+            - Object.ModTime
+            - Object.Open
+            - Object.Remove
+            - Object.SetModTime
+            - Object.Size
+            - Object.Update
+            - Uploader.Upload
+            - Uploader.UploadChunk
+summary: |-
+    Nil pointer dereference in Infinite Scale TUS uploads in
+    github.com/rclone/rclone
+description: |-
+    During WebDAV Infinite Scale TUS upload creation, a transport failure can return
+    a nil HTTP response along with an error. When handling the failure, rclone
+    dereferences the nil response before checking the error, causing a panic that
+    can crash the process in unrecovered contexts such as VFS mounts.
+ghsas:
+    - GHSA-3x6r-wxxg-53vv
+credits:
+    - 'GitHub: cyberlanc3r'
+references:
+    - advisory: https://github.com/rclone/rclone/security/advisories/GHSA-3x6r-wxxg-53vv
+    - fix: https://github.com/rclone/rclone/commit/5871d98c368751a6d992ed64f8cd22cb78c44cee
+    - web: https://github.com/rclone/rclone/releases/tag/v1.75.0
+source:
+    id: GHSA-3x6r-wxxg-53vv
+    created: 2026-08-18T02:04:31.849574-04:00
+review_status: REVIEWED

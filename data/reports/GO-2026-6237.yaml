@@ -1,0 +1,25 @@
+id: GO-2026-6237
+modules:
+    - module: github.com/insomniacslk/dhcp
+      versions:
+        - fixed: 0.0.0-20260719225207-c76316d4aa82
+      vulnerable_at: 0.0.0-20260603135910-a415979eb11e
+      packages:
+        - package: github.com/insomniacslk/dhcp/dhcpv4/nclient4
+          symbols:
+            - BroadcastRawUDPConn.ReadFrom
+          skip_fix: only builds on linux
+summary: Denial of service via malformed IPv4 packet in github.com/insomniacslk/dhcp
+description: |-
+    In github.com/insomniacslk/dhcp/dhcpv4/nclient4, BroadcastRawUDPConn.ReadFrom
+    does not validate that the IPv4 payload length is sufficient to hold a UDP
+    header before calculating the DHCP payload length. A frame with an IPv4
+    total-length field specifying fewer than eight payload bytes results in a
+    negative DHCP length, causing a panic in buf.Consume due to a negative slice
+    bound.
+references:
+    - fix: https://github.com/insomniacslk/dhcp/commit/c76316d4aa825673b208730779843d0711021e81
+source:
+    id: go-security-team
+    created: 2026-08-17T22:51:48.217062-04:00
+review_status: REVIEWED

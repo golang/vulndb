@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6197",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-h4mf-4v27-hggj"
+  ],
+  "summary": "WebDAV credential leakage on HTTPS to HTTP redirect in github.com/rclone/rclone",
+  "details": "WebDAV credential leakage on HTTPS to HTTP redirect in github.com/rclone/rclone",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/rclone/rclone",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.75.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/rclone/rclone/backend/webdav",
+            "symbols": [
+              "Fs.About",
+              "Fs.Copy",
+              "Fs.DirMove",
+              "Fs.List",
+              "Fs.ListP",
+              "Fs.Mkdir",
+              "Fs.Move",
+              "Fs.NewObject",
+              "Fs.Purge",
+              "Fs.Put",
+              "Fs.PutStream",
+              "Fs.Rmdir",
+              "NewFs",
+              "Object.CreateUploader",
+              "Object.ModTime",
+              "Object.Open",
+              "Object.Remove",
+              "Object.SetModTime",
+              "Object.Size",
+              "Object.Update",
+              "Uploader.Upload",
+              "Uploader.UploadChunk"
+            ]
+          },
+          {
+            "path": "github.com/rclone/rclone/lib/rest",
+            "symbols": [
+              "PreserveMethodRedirectFn"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/rclone/rclone/security/advisories/GHSA-h4mf-4v27-hggj"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rclone/rclone/commit/59b513b0e74fd2943ccbb8891d5ce00f860e6d26"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rclone/rclone/releases/tag/v1.75.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6197",
+    "review_status": "REVIEWED"
+  }
+}

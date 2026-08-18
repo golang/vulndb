@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6171",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-56872"
+  ],
+  "summary": "Malformed RowDescription and DataRow messages cause panics in github.com/lib/pq",
+  "details": "github.com/lib/pq decodes attacker-controlled RowDescription and DataRow payloads without validating their structural relationship or encoded value widths required by binary decoders. A malicious PostgreSQL endpoint or active network attacker on an unauthenticated transport can send malformed row responses, causing unrecovered runtime panics while reading query results.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/lib/pq",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.0.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/lib/pq",
+            "symbols": [
+              "Connector.Connect",
+              "DialOpen",
+              "Driver.Open",
+              "NewDialListener",
+              "NewListener",
+              "NewListenerConn",
+              "Open",
+              "conn.Ping",
+              "rows.Close",
+              "rows.Next"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://github.com/golang/vulndb/issues/6171"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6171",
+    "review_status": "REVIEWED"
+  }
+}

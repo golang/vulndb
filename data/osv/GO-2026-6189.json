@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6189",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-8v25-v8p6-qf7v"
+  ],
+  "summary": "Path traversal in serve s3 in github.com/rclone/rclone",
+  "details": "Path traversal in serve s3 in github.com/rclone/rclone",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/rclone/rclone",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.74.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/rclone/rclone/cmd/serve/s3",
+            "symbols": [
+              "Server.Bind",
+              "Server.Serve",
+              "Server.Shutdown",
+              "logger.Print",
+              "readerWithCloser.Close",
+              "s3Backend.BucketExists",
+              "s3Backend.CopyObject",
+              "s3Backend.CreateBucket",
+              "s3Backend.DeleteBucket",
+              "s3Backend.DeleteMulti",
+              "s3Backend.DeleteObject",
+              "s3Backend.GetObject",
+              "s3Backend.HeadObject",
+              "s3Backend.ListBucket",
+              "s3Backend.ListBuckets",
+              "s3Backend.PutObject",
+              "s3Backend.TouchObject",
+              "s3Backend.deleteObject",
+              "s3Backend.entryListR"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/rclone/rclone/security/advisories/GHSA-8v25-v8p6-qf7v"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rclone/rclone/commit/83d1e62aa9e0dbd10a5d7eb34c117ae997268cdf"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rclone/rclone/commit/c89b766cf417fddbe7eace40d31262ecb85bfa93"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rclone/rclone/releases/tag/v1.74.4"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Dangel (GitHub: Dangel165)"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6189",
+    "review_status": "REVIEWED"
+  }
+}

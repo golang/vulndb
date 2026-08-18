@@ -1,0 +1,23 @@
+id: GO-2026-6199
+modules:
+    - module: github.com/rclone/rclone
+      versions:
+        - fixed: 1.75.0
+      vulnerable_at: 1.74.4
+      packages:
+        - package: github.com/rclone/rclone/lib/proxy
+          symbols:
+            - HTTPConnectDial
+summary: Resource exhaustion via unbounded HTTP CONNECT response in github.com/rclone/rclone
+cves:
+    - CVE-2026-71310
+ghsas:
+    - GHSA-xhf4-832v-7xcr
+references:
+    - advisory: https://github.com/rclone/rclone/security/advisories/GHSA-xhf4-832v-7xcr
+    - fix: https://github.com/rclone/rclone/commit/21d8cd3b92cd81d987f485051d454ea675d91a2b
+    - web: https://github.com/rclone/rclone/releases/tag/v1.75.0
+source:
+    id: GHSA-xhf4-832v-7xcr
+    created: 2026-08-17T22:59:57.765438-04:00
+review_status: REVIEWED

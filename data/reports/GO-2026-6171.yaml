@@ -1,0 +1,37 @@
+id: GO-2026-6171
+modules:
+    - module: github.com/lib/pq
+      versions:
+        - introduced: 1.0.0
+      vulnerable_at: 1.12.3
+      packages:
+        - package: github.com/lib/pq
+          symbols:
+            - Connector.Connect
+            - DialOpen
+            - Driver.Open
+            - Open
+            - rows.Next
+          derived_symbols:
+            - NewDialListener
+            - NewListener
+            - NewListenerConn
+            - conn.Ping
+            - rows.Close
+summary: |-
+    Malformed RowDescription and DataRow messages cause panics in
+    github.com/lib/pq
+description: |-
+    github.com/lib/pq decodes attacker-controlled RowDescription and DataRow
+    payloads without validating their structural relationship or encoded value
+    widths required by binary decoders. A malicious PostgreSQL endpoint or active
+    network attacker on an unauthenticated transport can send malformed row
+    responses, causing unrecovered runtime panics while reading query results.
+cves:
+    - CVE-2026-56872
+references:
+    - report: https://github.com/golang/vulndb/issues/6171
+source:
+    id: go-security-team
+    created: 2026-08-17T23:09:54.2543-04:00
+review_status: REVIEWED

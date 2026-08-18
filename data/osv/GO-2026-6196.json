@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6196",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-gx4c-2hqx-cw2r"
+  ],
+  "summary": "S3 session token leakage on HTTPS to HTTP redirect in github.com/rclone/rclone",
+  "details": "S3 session token leakage on HTTPS to HTTP redirect in github.com/rclone/rclone",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/rclone/rclone",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.74.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/rclone/rclone/backend/s3"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/rclone/rclone/security/advisories/GHSA-gx4c-2hqx-cw2r"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rclone/rclone/commit/1a28451ea6fc8ac1806b0e9923dcb5b3f543f7fa"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rclone/rclone/releases/tag/v1.74.4"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6196",
+    "review_status": "REVIEWED"
+  }
+}

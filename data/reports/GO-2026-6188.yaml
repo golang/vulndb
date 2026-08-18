@@ -1,0 +1,61 @@
+id: GO-2026-6188
+modules:
+    - module: github.com/rclone/rclone
+      versions:
+        - fixed: 1.75.0
+      vulnerable_at: 1.74.4
+      packages:
+        - package: github.com/rclone/rclone/backend/s3
+          symbols:
+            - setEndpointValueForIDriveE2
+            - s3CheckRedirect
+          derived_symbols:
+            - Fs.CleanUp
+            - Fs.CleanUpHidden
+            - Fs.Command
+            - Fs.Copy
+            - Fs.List
+            - Fs.ListP
+            - Fs.ListR
+            - Fs.Mkdir
+            - Fs.NewObject
+            - Fs.OpenChunkWriter
+            - Fs.PublicLink
+            - Fs.Purge
+            - Fs.Put
+            - Fs.PutStream
+            - Fs.Rmdir
+            - Fs.String
+            - IbmIamSigner.SignHTTP
+            - NewFs
+            - Object.Hash
+            - Object.Metadata
+            - Object.MimeType
+            - Object.ModTime
+            - Object.Open
+            - Object.Remove
+            - Object.SetModTime
+            - Object.SetTier
+            - Object.Update
+            - s3ChunkWriter.Abort
+            - s3ChunkWriter.Close
+            - s3ChunkWriter.WriteChunk
+            - s3logger.Logf
+            - v1List.List
+            - v2List.List
+            - v2Signer.SignHTTP
+            - versionsList.List
+summary: S3 redirect sanitization omits sensitive headers in github.com/rclone/rclone
+ghsas:
+    - GHSA-8mxv-9xhp-86h4
+credits:
+    - 'GitHub: cyberlanc3r'
+references:
+    - advisory: https://github.com/rclone/rclone/security/advisories/GHSA-8mxv-9xhp-86h4
+    - fix: https://github.com/rclone/rclone/commit/7543a7a87884aca957590b20b0714078d51af87b
+    - fix: https://github.com/rclone/rclone/commit/9328763d1b73db71e97c0332b19e3747abeb9191
+    - web: https://github.com/rclone/rclone/releases/tag/v1.75.0
+source:
+    id: GHSA-8mxv-9xhp-86h4
+    created: 2026-08-17T23:05:32.135595-04:00
+review_status: REVIEWED

@@ -1,0 +1,35 @@
+id: GO-2026-6169
+modules:
+    - module: github.com/lib/pq
+      versions:
+        - introduced: 1.11.0
+      vulnerable_at: 1.12.3
+      packages:
+        - package: github.com/lib/pq
+          symbols:
+            - Connector.Connect
+            - DialOpen
+            - Driver.Open
+            - Open
+          derived_symbols:
+            - NewDialListener
+            - NewListener
+            - NewListenerConn
+summary: |-
+    Disclosure of wrong .pgpass credential via hostaddr in
+    github.com/lib/pq
+description: |-
+    When a connection specifies hostaddr without host, github.com/lib/pq dials the
+    numeric hostaddr but performs .pgpass lookup using the default Config.Host
+    value, localhost. If the passfile contains different credentials for localhost
+    and the remote address, the driver selects the secret intended for the local
+    database and sends it to the remote endpoint when that endpoint requests
+    password authentication.
+cves:
+    - CVE-2026-56870
+references:
+    - report: https://github.com/golang/vulndb/issues/6169
+source:
+    id: go-security-team
+    created: 2026-08-17T23:09:54.255107-04:00
+review_status: REVIEWED

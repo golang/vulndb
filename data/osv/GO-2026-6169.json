@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6169",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-56870"
+  ],
+  "summary": "Disclosure of wrong .pgpass credential via hostaddr in github.com/lib/pq",
+  "details": "When a connection specifies hostaddr without host, github.com/lib/pq dials the numeric hostaddr but performs .pgpass lookup using the default Config.Host value, localhost. If the passfile contains different credentials for localhost and the remote address, the driver selects the secret intended for the local database and sends it to the remote endpoint when that endpoint requests password authentication.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/lib/pq",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.11.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/lib/pq",
+            "symbols": [
+              "Connector.Connect",
+              "DialOpen",
+              "Driver.Open",
+              "NewDialListener",
+              "NewListener",
+              "NewListenerConn",
+              "Open"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://github.com/golang/vulndb/issues/6169"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6169",
+    "review_status": "REVIEWED"
+  }
+}

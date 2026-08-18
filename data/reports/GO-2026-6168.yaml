@@ -1,0 +1,29 @@
+id: GO-2026-6168
+modules:
+    - module: github.com/lib/pq
+      versions:
+        - introduced: 1.1.0
+      vulnerable_at: 1.12.3
+      packages:
+        - package: github.com/lib/pq/scram
+          symbols:
+            - Client.Step
+            - NewClient
+summary: |-
+    Unbounded iteration count causes CPU denial of service in
+    github.com/lib/pq/scram
+description: |-
+    The SCRAM client in github.com/lib/pq/scram accepts an attacker-controlled
+    iteration count with no upper bound and immediately performs that many
+    PBKDF2-style HMAC rounds. A PostgreSQL endpoint or active network attacker
+    can send a valid SCRAM server-first message with a large iteration count
+    (such as i=2147483647), causing client authentication to consume excessive
+    CPU resources before verifying the server signature.
+cves:
+    - CVE-2026-56869
+references:
+    - report: https://github.com/golang/vulndb/issues/6168
+source:
+    id: go-security-team
+    created: 2026-08-17T23:09:58.351159-04:00
+review_status: REVIEWED

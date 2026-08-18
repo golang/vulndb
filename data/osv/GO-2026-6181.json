@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6181",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-gwfq-86j8-7qhv"
+  ],
+  "summary": "Verbose stack trace disclosure in RC API error responses in github.com/rclone/rclone",
+  "details": "Verbose stack trace disclosure in RC API error responses in github.com/rclone/rclone",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/rclone/rclone",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.75.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/rclone/rclone/fs/rc/jobs",
+            "symbols": [
+              "Job.run",
+              "Jobs.NewJob",
+              "NewJob",
+              "NewJobFromBytes",
+              "NewJobFromParams"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/rclone/rclone/security/advisories/GHSA-gwfq-86j8-7qhv"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rclone/rclone/commit/ff43a1e3ae17627c80e523a0ca7445f96516d199"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rclone/rclone/releases/tag/v1.75.0"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Kai Aizen (GitHub: SnailSploit)"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6181",
+    "review_status": "REVIEWED"
+  }
+}

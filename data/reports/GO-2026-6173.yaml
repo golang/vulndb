@@ -1,0 +1,54 @@
+id: GO-2026-6173
+modules:
+    - module: github.com/lib/pq
+      versions:
+        - introduced: 1.11.0
+      vulnerable_at: 1.12.3
+      packages:
+        - package: github.com/lib/pq
+          symbols:
+            - Connector.Connect
+            - DialOpen
+            - Driver.Open
+            - Open
+            - conn.recvMessage
+          derived_symbols:
+            - NewDialListener
+            - NewListener
+            - NewListenerConn
+            - conn.Begin
+            - conn.BeginTx
+            - conn.Commit
+            - conn.Exec
+            - conn.ExecContext
+            - conn.Ping
+            - conn.Prepare
+            - conn.PrepareContext
+            - conn.Query
+            - conn.QueryContext
+            - conn.Rollback
+            - rows.Close
+            - rows.Next
+            - stmt.Close
+            - stmt.Exec
+            - stmt.ExecContext
+            - stmt.Query
+            - stmt.QueryContext
+summary: |-
+    Pre-protocol error reader permits unbounded memory consumption in
+    github.com/lib/pq
+description: |-
+    The special-case parser for PostgreSQL pre-protocol plain-text errors in
+    github.com/lib/pq calls bufio.Reader.ReadString(0) without a byte limit. A
+    malicious PostgreSQL endpoint or active network attacker on an unauthenticated
+    transport can send an error message response with non-NUL bytes continuously,
+    causing the client to buffer an arbitrarily large string and crash with an
+    unrecoverable out-of-memory error.
+cves:
+    - CVE-2026-56874
+references:
+    - report: https://github.com/golang/vulndb/issues/6173
+source:
+    id: go-security-team
+    created: 2026-08-17T23:09:54.252386-04:00
+review_status: REVIEWED

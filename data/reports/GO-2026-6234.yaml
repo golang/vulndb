@@ -1,0 +1,25 @@
+id: GO-2026-6234
+modules:
+    - module: github.com/hyperledger/fabric-ca
+      versions:
+        - fixed: 1.5.21
+      vulnerable_at: 1.5.20
+      packages:
+        - package: github.com/hyperledger/fabric-ca/lib/server/ldap
+          symbols:
+            - Client.newConnection
+            - Client.GetUser
+          derived_symbols:
+            - user.Login
+summary: LDAP injection via unescaped username in github.com/hyperledger/fabric-ca
+cves:
+    - CVE-2026-53658
+ghsas:
+    - GHSA-xghw-p77p-3r7x
+references:
+    - advisory: https://github.com/hyperledger/fabric-ca/security/advisories/GHSA-xghw-p77p-3r7x
+    - fix: https://github.com/hyperledger/fabric-ca/commit/d379df823534d56dec0166a6da8f0415e3beee24
+source:
+    id: GHSA-xghw-p77p-3r7x
+    created: 2026-08-17T22:51:49.898916-04:00
+review_status: REVIEWED

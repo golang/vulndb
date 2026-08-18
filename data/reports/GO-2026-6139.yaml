@@ -1,0 +1,57 @@
+id: GO-2026-6139
+modules:
+    - module: github.com/prebid/prebid-server/v4
+      versions:
+        - fixed: 4.4.0
+      vulnerable_at: 4.3.0
+      packages:
+        - package: github.com/prebid/prebid-server/v4/adapters/acuityads
+          symbols:
+            - Builder
+            - AcuityAdsAdapter.MakeRequests
+        - package: github.com/prebid/prebid-server/v4/adapters/bidmachine
+          symbols:
+            - Builder
+            - adapter.MakeRequests
+        - package: github.com/prebid/prebid-server/v4/adapters/relevantdigital
+          symbols:
+            - Builder
+            - adapter.MakeRequests
+        - package: github.com/prebid/prebid-server/v4/adapters/smartyads
+          symbols:
+            - Builder
+            - SmartyAdsAdapter.MakeRequests
+        - package: github.com/prebid/prebid-server/v4/adapters/tappx
+          symbols:
+            - Builder
+            - TappxAdapter.MakeRequests
+        - package: github.com/prebid/prebid-server/v4/adapters/trafficgate
+          symbols:
+            - Builder
+            - adapter.MakeRequests
+        - package: github.com/prebid/prebid-server/v4/adapters/zeroclickfraud
+          symbols:
+            - Builder
+            - ZeroClickFraudAdapter.MakeRequests
+summary: Server-side request forgery in bidder adapters in github.com/prebid/prebid-server/v4
+description: |-
+    In github.com/prebid/prebid-server/v4 before 4.4.0, multiple bidder adapters
+    (acuityads, bidmachine, relevantdigital, smartyads, tappx, trafficgate,
+    zeroclickfraud) interpolate user-supplied host and subdomain parameters into
+    outbound request URLs without validation. A remote attacker can craft bid
+    request parameters containing path traversals or target addresses to trigger
+    server-side request forgery (SSRF), sending HTTP requests to internal network
+    services or unintended endpoints.
+cves:
+    - CVE-2026-54735
+ghsas:
+    - GHSA-4p3g-4hcj-wpvx
+references:
+    - advisory: https://github.com/prebid/prebid-server/security/advisories/GHSA-4p3g-4hcj-wpvx
+    - fix: https://github.com/prebid/prebid-server/pull/4802
+    - fix: https://github.com/prebid/prebid-server/commit/494ac271cd4b5024df9123ef25ca3cff96390be3
+    - web: https://github.com/prebid/prebid-server/releases/tag/v4.4.0
+source:
+    id: GHSA-4p3g-4hcj-wpvx
+    created: 2026-08-17T23:13:10.446654-04:00
+review_status: REVIEWED

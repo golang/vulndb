@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6093",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-464c-974j-9xm6"
+  ],
+  "summary": "AWS CDK CodeBuild S3 Log Encryption Boolean Inversion in github.com/aws/aws-cdk-go/awscdk",
+  "details": "AWS CDK CodeBuild S3 Log Encryption Boolean Inversion in github.com/aws/aws-cdk-go/awscdk",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/aws/aws-cdk-go/awscdk",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.175.0-devpreview"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/aws/aws-cdk-go/awscdk/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.253.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/aws/aws-cdk/security/advisories/GHSA-464c-974j-9xm6"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/aws/aws-cdk/commit/40319185dc645d2afc6acf1d25547a86250e97af"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/aws/aws-cdk/pull/37761"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/aws/aws-cdk/releases/tag/v2.253.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6093",
+    "review_status": "REVIEWED"
+  }
+}

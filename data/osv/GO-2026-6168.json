@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6168",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-56869"
+  ],
+  "summary": "Unbounded iteration count causes CPU denial of service in github.com/lib/pq/scram",
+  "details": "The SCRAM client in github.com/lib/pq/scram accepts an attacker-controlled iteration count with no upper bound and immediately performs that many PBKDF2-style HMAC rounds. A PostgreSQL endpoint or active network attacker can send a valid SCRAM server-first message with a large iteration count (such as i=2147483647), causing client authentication to consume excessive CPU resources before verifying the server signature.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/lib/pq",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.1.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/lib/pq/scram",
+            "symbols": [
+              "Client.Step",
+              "NewClient"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://github.com/golang/vulndb/issues/6168"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6168",
+    "review_status": "REVIEWED"
+  }
+}

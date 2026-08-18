@@ -1,0 +1,43 @@
+id: GO-2026-6107
+modules:
+    - module: go.etcd.io/etcd/client/pkg/v3
+      versions:
+        - fixed: 3.5.33
+        - introduced: 3.6.0
+        - fixed: 3.6.14
+        - introduced: 3.7.0-alpha.0
+        - fixed: 3.7.1
+      vulnerable_at: 3.7.0
+      packages:
+        - package: go.etcd.io/etcd/client/pkg/v3/transport
+          symbols:
+            - tlsListener.acceptLoop
+            - NewTLSListener
+          derived_symbols:
+            - NewListener
+            - NewListenerWithOpts
+            - NewTimeoutListener
+summary: Unbounded TLS handshake goroutines in go.etcd.io/etcd/client/pkg/v3
+description: |-
+    In go.etcd.io/etcd/client/pkg/v3 before 3.5.33, 3.6.14, and 3.7.1, TLS
+    handshakes on listeners created by NewTLSListener do not enforce a handshake
+    deadline. An unauthenticated network attacker who connects to an etcd TLS
+    listener without sending a ClientHello causes a goroutine and a tracking map
+    entry to block indefinitely. Opening many such connections exhausts memory,
+    leading to a denial of service.
+cves:
+    - CVE-2026-73500
+ghsas:
+    - GHSA-6vch-q96h-7gc3
+credits:
+    - VMware By Broadcom
+references:
+    - advisory: https://github.com/etcd-io/etcd/security/advisories/GHSA-6vch-q96h-7gc3
+    - fix: https://github.com/etcd-io/etcd/pull/22130
+    - web: https://github.com/etcd-io/etcd/releases/tag/v3.5.33
+    - web: https://github.com/etcd-io/etcd/releases/tag/v3.6.14
+    - web: https://github.com/etcd-io/etcd/releases/tag/v3.7.1
+source:
+    id: GHSA-6vch-q96h-7gc3
+    created: 2026-08-17T23:17:18.055071-04:00
+review_status: REVIEWED

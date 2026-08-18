@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6114",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-73499",
+    "GHSA-xg4h-6gfc-h4m8"
+  ],
+  "summary": "Watch API authorization bypass in go.etcd.io/etcd/server/v3",
+  "details": "In go.etcd.io/etcd/server/v3 before 3.5.33, 3.6.14, and 3.7.1, an authenticated user with READ permission on a single key can bypass RBAC restrictions by initiating an open-ended range watch using clientv3.WithFromKey(). The Watch RPC handler normalized open-ended range ends prior to authorization checks, causing isWatchPermitted to evaluate the request as a single-key watch while the underlying watch stream received events for all keys lexicographically greater than or equal to the target key.",
+  "affected": [
+    {
+      "package": {
+        "name": "go.etcd.io/etcd/server/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.5.33"
+            },
+            {
+              "introduced": "3.6.0"
+            },
+            {
+              "fixed": "3.6.14"
+            },
+            {
+              "introduced": "3.7.0-alpha.0"
+            },
+            {
+              "fixed": "3.7.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "go.etcd.io/etcd/server/v3/etcdserver/api/v3rpc",
+            "symbols": [
+              "NewWatchServer",
+              "Server",
+              "serverWatchStream.recvLoop",
+              "watchServer.Watch"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/etcd-io/etcd/security/advisories/GHSA-xg4h-6gfc-h4m8"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/etcd-io/etcd/commit/6643f80602461a6095c9b294b6512fd9719bef41"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/etcd-io/etcd/releases/tag/v3.5.33"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/etcd-io/etcd/releases/tag/v3.6.14"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/etcd-io/etcd/releases/tag/v3.7.1"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Luis Toro (GitHub: lobuhi)"
+    },
+    {
+      "name": "Anthropic"
+    },
+    {
+      "name": "Adam Korczynski (GitHub: AdamKorcz)"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6114",
+    "review_status": "REVIEWED"
+  }
+}

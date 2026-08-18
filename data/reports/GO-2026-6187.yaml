@@ -1,0 +1,25 @@
+id: GO-2026-6187
+modules:
+    - module: github.com/rclone/rclone
+      versions:
+        - fixed: 1.75.0
+      vulnerable_at: 1.74.4
+      packages:
+        - package: github.com/rclone/rclone/backend/ftp
+          symbols:
+            - NewFs
+summary: FTP command injection via custom encoding in github.com/rclone/rclone
+cves:
+    - CVE-2026-71311
+ghsas:
+    - GHSA-8c48-q9wj-3w37
+credits:
+    - 'GitHub: cyberlanc3r'
+references:
+    - advisory: https://github.com/rclone/rclone/security/advisories/GHSA-8c48-q9wj-3w37
+    - fix: https://github.com/rclone/rclone/commit/1df2b70753286c1dfe8366078cbedfdf7f96472c
+    - web: https://github.com/rclone/rclone/releases/tag/v1.75.0
+source:
+    id: GHSA-8c48-q9wj-3w37
+    created: 2026-08-17T23:06:01.923781-04:00
+review_status: REVIEWED

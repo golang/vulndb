@@ -1,0 +1,32 @@
+id: GO-2026-6190
+modules:
+    - module: github.com/rclone/rclone
+      versions:
+        - fixed: 1.74.4
+      vulnerable_at: 1.74.3
+      packages:
+        - package: github.com/rclone/rclone/backend/local
+          symbols:
+            - Object.writeMetadataToFile
+          derived_symbols:
+            - Directory.SetMetadata
+            - Fs.Copy
+            - Fs.MkdirMetadata
+            - Fs.Move
+            - Fs.Put
+            - Fs.PutStream
+            - Object.SetMetadata
+            - Object.Update
+summary: Unsafe file permission restoration from metadata in github.com/rclone/rclone
+ghsas:
+    - GHSA-945v-v9p3-v5xw
+credits:
+    - 'Nguyễn Tiến Thành (GitHub: vnth4nhnt)'
+references:
+    - advisory: https://github.com/rclone/rclone/security/advisories/GHSA-945v-v9p3-v5xw
+    - fix: https://github.com/rclone/rclone/commit/e58f09739a35774ca82b5211d2377ac0f2051500
+    - web: https://github.com/rclone/rclone/releases/tag/v1.74.4
+source:
+    id: GHSA-945v-v9p3-v5xw
+    created: 2026-08-17T23:03:50.290981-04:00
+review_status: REVIEWED

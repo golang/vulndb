@@ -1,0 +1,43 @@
+id: GO-2026-6189
+modules:
+    - module: github.com/rclone/rclone
+      versions:
+        - fixed: 1.74.4
+      vulnerable_at: 1.74.3
+      packages:
+        - package: github.com/rclone/rclone/cmd/serve/s3
+          symbols:
+            - s3Backend.HeadObject
+            - s3Backend.PutObject
+            - s3Backend.entryListR
+            - s3Backend.CopyObject
+            - s3Backend.deleteObject
+            - s3Backend.GetObject
+          derived_symbols:
+            - Server.Bind
+            - Server.Serve
+            - Server.Shutdown
+            - logger.Print
+            - readerWithCloser.Close
+            - s3Backend.BucketExists
+            - s3Backend.CreateBucket
+            - s3Backend.DeleteBucket
+            - s3Backend.DeleteMulti
+            - s3Backend.DeleteObject
+            - s3Backend.ListBucket
+            - s3Backend.ListBuckets
+            - s3Backend.TouchObject
+summary: Path traversal in serve s3 in github.com/rclone/rclone
+ghsas:
+    - GHSA-8v25-v8p6-qf7v
+credits:
+    - 'Dangel (GitHub: Dangel165)'
+references:
+    - advisory: https://github.com/rclone/rclone/security/advisories/GHSA-8v25-v8p6-qf7v
+    - fix: https://github.com/rclone/rclone/commit/83d1e62aa9e0dbd10a5d7eb34c117ae997268cdf
+    - fix: https://github.com/rclone/rclone/commit/c89b766cf417fddbe7eace40d31262ecb85bfa93
+    - web: https://github.com/rclone/rclone/releases/tag/v1.74.4
+source:
+    id: GHSA-8v25-v8p6-qf7v
+    created: 2026-08-17T23:04:36.663588-04:00
+review_status: REVIEWED

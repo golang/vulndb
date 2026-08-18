@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6185",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-59732",
+    "GHSA-4vr5-p2gc-h23p"
+  ],
+  "summary": "Path traversal via crafted archive paths in github.com/rclone/rclone",
+  "details": "Path traversal via crafted archive paths in github.com/rclone/rclone",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/rclone/rclone",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.74.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/rclone/rclone/cmd/archive/extract",
+            "symbols": [
+              "ArchiveExtract"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/rclone/rclone/security/advisories/GHSA-4vr5-p2gc-h23p"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rclone/rclone/commit/1a746732441e8158f32fab35924b23701e719a8c"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rclone/rclone/commit/d11efe0d58fe6a2d6d90675bb9d8ee5840c51e1d"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rclone/rclone/releases/tag/v1.74.4"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Dangel (GitHub: Dangel165)"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6185",
+    "review_status": "REVIEWED"
+  }
+}

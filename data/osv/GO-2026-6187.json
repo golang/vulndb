@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6187",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-71311",
+    "GHSA-8c48-q9wj-3w37"
+  ],
+  "summary": "FTP command injection via custom encoding in github.com/rclone/rclone",
+  "details": "FTP command injection via custom encoding in github.com/rclone/rclone",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/rclone/rclone",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.75.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/rclone/rclone/backend/ftp",
+            "symbols": [
+              "NewFs"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/rclone/rclone/security/advisories/GHSA-8c48-q9wj-3w37"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rclone/rclone/commit/1df2b70753286c1dfe8366078cbedfdf7f96472c"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rclone/rclone/releases/tag/v1.75.0"
+    }
+  ],
+  "credits": [
+    {
+      "name": "GitHub: cyberlanc3r"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6187",
+    "review_status": "REVIEWED"
+  }
+}

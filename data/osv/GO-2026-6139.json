@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6139",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-54735",
+    "GHSA-4p3g-4hcj-wpvx"
+  ],
+  "summary": "Server-side request forgery in bidder adapters in github.com/prebid/prebid-server/v4",
+  "details": "In github.com/prebid/prebid-server/v4 before 4.4.0, multiple bidder adapters (acuityads, bidmachine, relevantdigital, smartyads, tappx, trafficgate, zeroclickfraud) interpolate user-supplied host and subdomain parameters into outbound request URLs without validation. A remote attacker can craft bid request parameters containing path traversals or target addresses to trigger server-side request forgery (SSRF), sending HTTP requests to internal network services or unintended endpoints.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/prebid/prebid-server/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.4.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/prebid/prebid-server/v4/adapters/acuityads",
+            "symbols": [
+              "AcuityAdsAdapter.MakeRequests",
+              "Builder"
+            ]
+          },
+          {
+            "path": "github.com/prebid/prebid-server/v4/adapters/bidmachine",
+            "symbols": [
+              "Builder",
+              "adapter.MakeRequests"
+            ]
+          },
+          {
+            "path": "github.com/prebid/prebid-server/v4/adapters/relevantdigital",
+            "symbols": [
+              "Builder",
+              "adapter.MakeRequests"
+            ]
+          },
+          {
+            "path": "github.com/prebid/prebid-server/v4/adapters/smartyads",
+            "symbols": [
+              "Builder",
+              "SmartyAdsAdapter.MakeRequests"
+            ]
+          },
+          {
+            "path": "github.com/prebid/prebid-server/v4/adapters/tappx",
+            "symbols": [
+              "Builder",
+              "TappxAdapter.MakeRequests"
+            ]
+          },
+          {
+            "path": "github.com/prebid/prebid-server/v4/adapters/trafficgate",
+            "symbols": [
+              "Builder",
+              "adapter.MakeRequests"
+            ]
+          },
+          {
+            "path": "github.com/prebid/prebid-server/v4/adapters/zeroclickfraud",
+            "symbols": [
+              "Builder",
+              "ZeroClickFraudAdapter.MakeRequests"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/prebid/prebid-server/security/advisories/GHSA-4p3g-4hcj-wpvx"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/prebid/prebid-server/pull/4802"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/prebid/prebid-server/commit/494ac271cd4b5024df9123ef25ca3cff96390be3"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/prebid/prebid-server/releases/tag/v4.4.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6139",
+    "review_status": "REVIEWED"
+  }
+}

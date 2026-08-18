@@ -1,0 +1,23 @@
+id: GO-2026-6095
+modules:
+    - module: github.com/getkin/kin-openapi
+      versions:
+        - fixed: 0.144.0
+      vulnerable_at: 0.143.0
+      packages:
+        - package: github.com/getkin/kin-openapi/openapi3filter
+          symbols:
+            - ValidationHandler.Load
+summary: |-
+    Authentication bypass via default NoopAuthenticationFunc in
+    github.com/getkin/kin-openapi
+ghsas:
+    - GHSA-r277-6w6q-xmqw
+references:
+    - advisory: https://github.com/getkin/kin-openapi/security/advisories/GHSA-r277-6w6q-xmqw
+    - fix: https://github.com/getkin/kin-openapi/commit/f0407d53b0730280266f454b755010e7eeb985da
+    - web: https://github.com/getkin/kin-openapi/releases/tag/v0.144.0
+source:
+    id: GHSA-r277-6w6q-xmqw
+    created: 2026-08-17T23:18:32.38931-04:00
+review_status: REVIEWED

@@ -1,0 +1,29 @@
+id: GO-2026-6112
+modules:
+    - module: github.com/getkin/kin-openapi
+      versions:
+        - fixed: 0.144.0
+      vulnerable_at: 0.143.0
+      packages:
+        - package: github.com/getkin/kin-openapi/openapi3filter
+          symbols:
+            - defaultContentParameterDecoder
+          derived_symbols:
+            - ValidateParameter
+            - ValidateRequest
+            - ValidationHandler.ServeHTTP
+summary: |-
+    Nil-pointer panic on content parameter without schema in
+    github.com/getkin/kin-openapi
+cves:
+    - CVE-2026-73502
+ghsas:
+    - GHSA-jpcw-4wr7-c3vq
+references:
+    - advisory: https://github.com/getkin/kin-openapi/security/advisories/GHSA-jpcw-4wr7-c3vq
+    - fix: https://github.com/getkin/kin-openapi/commit/68ac2affa325514d7d6e731204d6a1edf6bdff64
+    - web: https://github.com/getkin/kin-openapi/releases/tag/v0.144.0
+source:
+    id: GHSA-jpcw-4wr7-c3vq
+    created: 2026-08-17T23:16:36.90413-04:00
+review_status: REVIEWED

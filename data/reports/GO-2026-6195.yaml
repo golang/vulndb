@@ -1,0 +1,27 @@
+id: GO-2026-6195
+modules:
+    - module: github.com/rclone/rclone
+      versions:
+        - fixed: 1.74.4
+      vulnerable_at: 1.74.3
+      packages:
+        - package: github.com/rclone/rclone/cmd/serve/restic
+          symbols:
+            - WithRemote
+          derived_symbols:
+            - server.Bind
+            - server.Serve
+summary: Authorization bypass in serve restic in github.com/rclone/rclone
+cves:
+    - CVE-2026-59733
+ghsas:
+    - GHSA-fqj9-69pf-6pjg
+references:
+    - advisory: https://github.com/rclone/rclone/security/advisories/GHSA-fqj9-69pf-6pjg
+    - fix: https://github.com/rclone/rclone/commit/015fd0eba1cb138eef081517795fed47a2873f2d
+    - fix: https://github.com/rclone/rclone/commit/dade21c1616035b044df0eef7ee6a85aeb06a139
+    - web: https://github.com/rclone/rclone/releases/tag/v1.74.4
+source:
+    id: GHSA-fqj9-69pf-6pjg
+    created: 2026-08-17T23:01:40.424707-04:00
+review_status: REVIEWED

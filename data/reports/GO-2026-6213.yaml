@@ -1,0 +1,123 @@
+id: GO-2026-6213
+modules:
+    - module: github.com/go-git/go-git/v5
+      versions:
+        - fixed: 5.19.2
+      vulnerable_at: 5.19.1
+      packages:
+        - package: github.com/go-git/go-git/v5
+          symbols:
+            - worktreeFilesystem.Chroot
+            - worktreeFilesystem.Rename
+            - worktreeFilesystem.MkdirAll
+            - Worktree.checkoutFile
+            - worktreeFilesystem.Symlink
+            - worktreeFilesystem.validReadPath
+            - worktreeFilesystem.OpenFile
+            - Worktree.checkoutChangeSubmodule
+            - worktreeFilesystem.Remove
+            - worktreeFilesystem.Create
+          derived_symbols:
+            - Blame
+            - Clone
+            - CloneContext
+            - PlainClone
+            - PlainCloneContext
+            - Submodule.Repository
+            - Submodule.Status
+            - Submodule.Update
+            - Submodule.UpdateContext
+            - Submodules.Status
+            - Submodules.Update
+            - Submodules.UpdateContext
+            - Worktree.Add
+            - Worktree.AddGlob
+            - Worktree.AddWithOptions
+            - Worktree.Checkout
+            - Worktree.Clean
+            - Worktree.Commit
+            - Worktree.Move
+            - Worktree.Pull
+            - Worktree.PullContext
+            - Worktree.Remove
+            - Worktree.RemoveGlob
+            - Worktree.Reset
+            - Worktree.ResetSparsely
+            - Worktree.Restore
+            - Worktree.Status
+            - Worktree.StatusWithOptions
+            - Worktree.Submodule
+            - Worktree.Submodules
+            - worktreeFilesystem.Lstat
+            - worktreeFilesystem.Open
+            - worktreeFilesystem.ReadDir
+            - worktreeFilesystem.Readlink
+            - worktreeFilesystem.Stat
+    - module: github.com/go-git/go-git/v6
+      versions:
+        - fixed: 6.0.0-alpha.5
+      vulnerable_at: 6.0.0-alpha.4
+      packages:
+        - package: github.com/go-git/go-git/v6
+          symbols:
+            - Worktree.CherryPick
+            - worktreeFilesystem.Create
+            - worktreeFilesystem.Chroot
+            - Worktree.checkoutChangeSubmodule
+            - worktreeFilesystem.Rename
+            - worktreeFilesystem.OpenFile
+            - worktreeFilesystem.MkdirAll
+            - worktreeFilesystem.Remove
+            - worktreeFilesystem.Symlink
+            - worktreeFilesystem.validReadPath
+            - Worktree.checkoutFile
+          derived_symbols:
+            - Blame
+            - Clone
+            - CloneContext
+            - PlainClone
+            - PlainCloneContext
+            - Submodule.Repository
+            - Submodule.Status
+            - Submodule.Update
+            - Submodule.UpdateContext
+            - Submodules.Status
+            - Submodules.Update
+            - Submodules.UpdateContext
+            - Worktree.Add
+            - Worktree.AddGlob
+            - Worktree.AddWithOptions
+            - Worktree.Checkout
+            - Worktree.Clean
+            - Worktree.Commit
+            - Worktree.Move
+            - Worktree.Pull
+            - Worktree.PullContext
+            - Worktree.Remove
+            - Worktree.RemoveGlob
+            - Worktree.Reset
+            - Worktree.Restore
+            - Worktree.Status
+            - Worktree.StatusWithOptions
+            - Worktree.Submodule
+            - Worktree.Submodules
+            - worktreeFilesystem.Lstat
+            - worktreeFilesystem.Open
+            - worktreeFilesystem.ReadDir
+            - worktreeFilesystem.Readlink
+            - worktreeFilesystem.Stat
+summary: Worktree operations may follow symlinks in github.com/go-git/go-git
+cves:
+    - CVE-2026-71556
+ghsas:
+    - GHSA-hc8v-wwc9-vgxm
+references:
+    - advisory: https://github.com/go-git/go-git/security/advisories/GHSA-hc8v-wwc9-vgxm
+    - fix: https://github.com/go-git/go-git/commit/008a78f2dd86f52544ddff8b8e8ddeecdf3f7aab
+    - fix: https://github.com/go-git/go-git/commit/661d1c7f101d34e002a3cfcf8dbea5b7421d07ac
+    - web: https://github.com/go-git/go-git/releases/tag/v5.19.2
+    - web: https://github.com/go-git/go-git/releases/tag/v6.0.0-alpha.5
+source:
+    id: GHSA-hc8v-wwc9-vgxm
+    created: 2026-08-17T22:58:21.785597-04:00
+review_status: REVIEWED

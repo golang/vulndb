@@ -1,0 +1,34 @@
+id: GO-2026-6163
+modules:
+    - module: github.com/pion/stun/v3
+      versions:
+        - fixed: 3.1.5
+      vulnerable_at: 3.1.4
+      packages:
+        - package: github.com/pion/stun/v3
+          symbols:
+            - XORMappedAddress.GetFromAs
+          derived_symbols:
+            - XORMappedAddress.GetFrom
+summary: Panic on malformed XOR-MAPPED-ADDRESS attribute in github.com/pion/stun/v3
+description: |-
+    In github.com/pion/stun/v3 before 3.1.5, XORMappedAddress.GetFromAs reads
+    the address family header from an XOR-MAPPED-ADDRESS attribute before
+    validating the attribute length. Parsing a malformed STUN message carrying a
+    zero-length XOR-MAPPED-ADDRESS attribute from a tightly sized buffer causes
+    a slice bounds out of range panic, resulting in a denial of service.
+cves:
+    - CVE-2026-54909
+ghsas:
+    - GHSA-34rh-wp3j-6cxc
+credits:
+    - Karolina Gorna
+references:
+    - advisory: https://github.com/pion/stun/security/advisories/GHSA-34rh-wp3j-6cxc
+    - fix: https://github.com/pion/stun/pull/278
+    - fix: https://github.com/pion/stun/commit/cfe8f95bcae610be653f084e6e81743ed1bf4176
+    - web: https://github.com/pion/stun/releases/tag/v3.1.5
+source:
+    id: GHSA-34rh-wp3j-6cxc
+    created: 2026-08-17T23:10:18.102177-04:00
+review_status: REVIEWED

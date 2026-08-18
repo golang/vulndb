@@ -1,0 +1,52 @@
+id: GO-2026-6170
+modules:
+    - module: github.com/lib/pq
+      versions:
+        - introduced: 1.0.0
+      vulnerable_at: 1.12.3
+      packages:
+        - package: github.com/lib/pq
+          symbols:
+            - Connector.Connect
+            - DialOpen
+            - Driver.Open
+            - Open
+            - conn.recvMessage
+          derived_symbols:
+            - NewDialListener
+            - NewListener
+            - NewListenerConn
+            - conn.Begin
+            - conn.BeginTx
+            - conn.Commit
+            - conn.Exec
+            - conn.ExecContext
+            - conn.Ping
+            - conn.Prepare
+            - conn.PrepareContext
+            - conn.Query
+            - conn.QueryContext
+            - conn.Rollback
+            - rows.Close
+            - rows.Next
+            - stmt.Close
+            - stmt.Exec
+            - stmt.ExecContext
+            - stmt.Query
+            - stmt.QueryContext
+summary: Malformed backend frame length causes panic in github.com/lib/pq
+description: |-
+    github.com/lib/pq trusts the unsigned 32-bit length in every PostgreSQL backend
+    frame and subtracts four without first checking that the wire length is at
+    least four. A backend frame whose length is zero through three produces a
+    negative payload length. recvMessage then slices the connection scratch buffer
+    with that negative bound, causing an unrecovered runtime panic that terminates
+    the calling goroutine and process.
+cves:
+    - CVE-2026-56871
+references:
+    - report: https://github.com/golang/vulndb/issues/6170
+source:
+    id: go-security-team
+    created: 2026-08-17T23:09:54.254816-04:00
+review_status: REVIEWED

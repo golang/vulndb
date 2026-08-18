@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6191",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-54572",
+    "GHSA-cf44-9pgv-m4xc"
+  ],
+  "summary": "Arbitrary file write via --links symlinks in github.com/rclone/rclone",
+  "details": "Arbitrary file write via --links symlinks in github.com/rclone/rclone",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/rclone/rclone",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.74.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/rclone/rclone/backend/local",
+            "symbols": [
+              "Fs.Copy",
+              "Fs.Mkdir",
+              "Fs.MkdirMetadata",
+              "Fs.Move",
+              "Fs.OpenWriterAt",
+              "Fs.Put",
+              "Fs.PutStream",
+              "Object.Update",
+              "Object.mkdirAll"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/rclone/rclone/security/advisories/GHSA-cf44-9pgv-m4xc"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rclone/rclone/commit/1154afebee986180b489084d38e2a0c578751498"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rclone/rclone/commit/874a804f5289517defdd7de68b2a374837080265"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rclone/rclone/releases/tag/v1.74.4"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Nguyễn Tiến Thành (GitHub: vnth4nhnt)"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6191",
+    "review_status": "REVIEWED"
+  }
+}

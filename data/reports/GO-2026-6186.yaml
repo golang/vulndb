@@ -1,0 +1,42 @@
+id: GO-2026-6186
+modules:
+    - module: github.com/rclone/rclone
+      versions:
+        - introduced: 1.51.0
+        - fixed: 1.75.0
+      vulnerable_at: 1.74.4
+      packages:
+        - package: github.com/rclone/rclone/backend/local
+          symbols:
+            - Fs.Move
+            - Fs.DirSetModTime
+            - Fs.DirMove
+            - Fs.newDirectory
+            - Fs.MkdirMetadata
+            - Fs.List
+            - Fs.Put
+            - Fs.OpenWriterAt
+            - Fs.localPath
+            - Fs.Copy
+            - Fs.newObject
+            - Fs.Rmdir
+            - Fs.newObjectWithInfo
+            - Fs.Mkdir
+          derived_symbols:
+            - Fs.NewObject
+            - Fs.PutStream
+summary: Path traversal via local backend encoding in github.com/rclone/rclone
+cves:
+    - CVE-2026-71313
+ghsas:
+    - GHSA-7p4m-qxvv-g567
+credits:
+    - 'GitHub: cyberlanc3r'
+references:
+    - advisory: https://github.com/rclone/rclone/security/advisories/GHSA-7p4m-qxvv-g567
+    - fix: https://github.com/rclone/rclone/commit/6a69713864b1d8f6edbc03d8af735f9624576d6e
+    - web: https://github.com/rclone/rclone/releases/tag/v1.75.0
+source:
+    id: GHSA-7p4m-qxvv-g567
+    created: 2026-08-17T23:06:30.02627-04:00
+review_status: REVIEWED

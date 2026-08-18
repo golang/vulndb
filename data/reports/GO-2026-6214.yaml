@@ -1,0 +1,40 @@
+id: GO-2026-6214
+modules:
+    - module: github.com/go-git/go-git/v5
+      versions:
+        - fixed: 5.19.2
+      vulnerable_at: 5.19.1
+      packages:
+        - package: github.com/go-git/go-git/v5/storage/filesystem/dotgit
+          symbols:
+            - DotGit.SetRef
+            - DotGit.Ref
+            - DotGit.RemoveRef
+    - module: github.com/go-git/go-git/v6
+      versions:
+        - fixed: 6.0.0-alpha.5
+      vulnerable_at: 6.0.0-alpha.4
+      packages:
+        - package: github.com/go-git/go-git/v6/storage/filesystem/dotgit
+          symbols:
+            - DotGit.ReflogReader
+            - DotGit.ReflogWriter
+            - DotGit.DeleteReflog
+            - DotGit.SetRef
+            - DotGit.Ref
+            - DotGit.RemoveRef
+summary: Path traversal via crafted reference names in github.com/go-git/go-git
+cves:
+    - CVE-2026-71557
+ghsas:
+    - GHSA-qgq7-7hm3-q39j
+references:
+    - advisory: https://github.com/go-git/go-git/security/advisories/GHSA-qgq7-7hm3-q39j
+    - fix: https://github.com/go-git/go-git/pull/2247
+    - fix: https://github.com/go-git/go-git/pull/2254
+    - web: https://github.com/go-git/go-git/releases/tag/v5.19.2
+    - web: https://github.com/go-git/go-git/releases/tag/v6.0.0-alpha.5
+source:
+    id: GHSA-qgq7-7hm3-q39j
+    created: 2026-08-17T22:58:01.748416-04:00
+review_status: REVIEWED

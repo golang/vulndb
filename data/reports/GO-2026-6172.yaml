@@ -1,0 +1,55 @@
+id: GO-2026-6172
+modules:
+    - module: github.com/lib/pq
+      versions:
+        - introduced: 1.0.0
+      vulnerable_at: 1.12.3
+      packages:
+        - package: github.com/lib/pq
+          symbols:
+            - Connector.Connect
+            - DialOpen
+            - Driver.Open
+            - Open
+            - conn.recvMessage
+            - conn.startup
+          derived_symbols:
+            - NewDialListener
+            - NewListener
+            - NewListenerConn
+            - conn.Begin
+            - conn.BeginTx
+            - conn.Commit
+            - conn.Exec
+            - conn.ExecContext
+            - conn.Ping
+            - conn.Prepare
+            - conn.PrepareContext
+            - conn.Query
+            - conn.QueryContext
+            - conn.Rollback
+            - rows.Close
+            - rows.Next
+            - stmt.Close
+            - stmt.Exec
+            - stmt.ExecContext
+            - stmt.Query
+            - stmt.QueryContext
+summary: |-
+    Backend frame lengths cause pre-validation memory exhaustion in
+    github.com/lib/pq
+description: |-
+    github.com/lib/pq allocates the backend-declared PostgreSQL frame payload
+    before applying a protocol length bound or a phase-specific message-type
+    check. A malicious server or active network attacker on an unauthenticated
+    connection can send frame headers declaring multi-gigabyte or invalid-phase
+    payloads, forcing large allocations that lead to memory exhaustion and runtime
+    out-of-memory crashes.
+cves:
+    - CVE-2026-56873
+references:
+    - report: https://github.com/golang/vulndb/issues/6172
+source:
+    id: go-security-team
+    created: 2026-08-17T23:09:54.253576-04:00
+review_status: REVIEWED

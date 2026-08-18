@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6170",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-56871"
+  ],
+  "summary": "Malformed backend frame length causes panic in github.com/lib/pq",
+  "details": "github.com/lib/pq trusts the unsigned 32-bit length in every PostgreSQL backend frame and subtracts four without first checking that the wire length is at least four. A backend frame whose length is zero through three produces a negative payload length. recvMessage then slices the connection scratch buffer with that negative bound, causing an unrecovered runtime panic that terminates the calling goroutine and process.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/lib/pq",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.0.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/lib/pq",
+            "symbols": [
+              "Connector.Connect",
+              "DialOpen",
+              "Driver.Open",
+              "NewDialListener",
+              "NewListener",
+              "NewListenerConn",
+              "Open",
+              "conn.Begin",
+              "conn.BeginTx",
+              "conn.Commit",
+              "conn.Exec",
+              "conn.ExecContext",
+              "conn.Ping",
+              "conn.Prepare",
+              "conn.PrepareContext",
+              "conn.Query",
+              "conn.QueryContext",
+              "conn.Rollback",
+              "conn.recvMessage",
+              "rows.Close",
+              "rows.Next",
+              "stmt.Close",
+              "stmt.Exec",
+              "stmt.ExecContext",
+              "stmt.Query",
+              "stmt.QueryContext"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://github.com/golang/vulndb/issues/6170"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6170",
+    "review_status": "REVIEWED"
+  }
+}

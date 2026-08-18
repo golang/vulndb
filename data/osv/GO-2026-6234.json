@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6234",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-53658",
+    "GHSA-xghw-p77p-3r7x"
+  ],
+  "summary": "LDAP injection via unescaped username in github.com/hyperledger/fabric-ca",
+  "details": "LDAP injection via unescaped username in github.com/hyperledger/fabric-ca",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hyperledger/fabric-ca",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.5.21"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/hyperledger/fabric-ca/lib/server/ldap",
+            "symbols": [
+              "Client.GetUser",
+              "Client.newConnection",
+              "user.Login"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/hyperledger/fabric-ca/security/advisories/GHSA-xghw-p77p-3r7x"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hyperledger/fabric-ca/commit/d379df823534d56dec0166a6da8f0415e3beee24"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6234",
+    "review_status": "REVIEWED"
+  }
+}

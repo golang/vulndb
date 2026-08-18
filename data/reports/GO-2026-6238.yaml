@@ -1,0 +1,41 @@
+id: GO-2026-6238
+modules:
+    - module: github.com/cilium/ebpf
+      versions:
+        - fixed: 0.22.0
+      vulnerable_at: 0.21.0
+      packages:
+        - package: github.com/cilium/ebpf/btf
+          symbols:
+            - loadRawSpec
+          derived_symbols:
+            - Builder.Spec
+            - Cache.Kernel
+            - Cache.Module
+            - Handle.Spec
+            - LoadKernelModuleSpec
+            - LoadKernelSpec
+            - LoadSpec
+            - LoadSpecAndExtInfosFromReader
+            - LoadSpecFromReader
+            - LoadSplitSpec
+            - LoadSplitSpecFromReader
+summary: Integer overflow in BTF parsing in github.com/cilium/ebpf
+cves:
+    - CVE-2026-10722
+ghsas:
+    - GHSA-xhgw-qwwf-pg32
+references:
+    - advisory: https://github.com/advisories/GHSA-xhgw-qwwf-pg32
+    - fix: https://github.com/cilium/ebpf/commit/533dfc82fd228bfadf42ea7180c39de7d9af47fa
+    - fix: https://github.com/cilium/ebpf/pull/2021
+    - report: https://github.com/cilium/ebpf/issues/2019
+    - web: https://gist.github.com/thesmartshadow/256bff0f8042c584f993ace89074a815
+    - web: https://vuldb.com/cve/CVE-2026-10722
+    - web: https://vuldb.com/submit/818291
+    - web: https://vuldb.com/vuln/368091
+    - web: https://vuldb.com/vuln/368091/cti
+source:
+    id: GHSA-xhgw-qwwf-pg32
+    created: 2026-08-17T22:51:36.360347-04:00
+review_status: REVIEWED

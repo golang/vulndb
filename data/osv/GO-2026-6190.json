@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6190",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-945v-v9p3-v5xw"
+  ],
+  "summary": "Unsafe file permission restoration from metadata in github.com/rclone/rclone",
+  "details": "Unsafe file permission restoration from metadata in github.com/rclone/rclone",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/rclone/rclone",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.74.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/rclone/rclone/backend/local",
+            "symbols": [
+              "Directory.SetMetadata",
+              "Fs.Copy",
+              "Fs.MkdirMetadata",
+              "Fs.Move",
+              "Fs.Put",
+              "Fs.PutStream",
+              "Object.SetMetadata",
+              "Object.Update",
+              "Object.writeMetadataToFile"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/rclone/rclone/security/advisories/GHSA-945v-v9p3-v5xw"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rclone/rclone/commit/e58f09739a35774ca82b5211d2377ac0f2051500"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rclone/rclone/releases/tag/v1.74.4"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Nguyễn Tiến Thành (GitHub: vnth4nhnt)"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6190",
+    "review_status": "REVIEWED"
+  }
+}

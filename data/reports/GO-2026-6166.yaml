@@ -1,0 +1,35 @@
+id: GO-2026-6166
+modules:
+    - module: github.com/lib/pq
+      versions:
+        - introduced: 1.6.0
+      vulnerable_at: 1.12.3
+      packages:
+        - package: github.com/lib/pq
+          symbols:
+            - Connector.Connect
+            - DialOpen
+            - Driver.Open
+            - Open
+          derived_symbols:
+            - NewDialListener
+            - NewListener
+            - NewListenerConn
+summary: GSS authentication completes without mutual proof in github.com/lib/pq
+description: |-
+    github.com/lib/pq does not require a GSSAPI exchange to reach cryptographic
+    completion before accepting AuthenticationOk and ReadyForQuery. After an
+    unauthenticated peer requests GSS authentication, the driver sends its
+    initial GSS token and stores the provider, but it tracks neither whether
+    a continuation occurred nor the provider's done result. The startup loop
+    then accepts AuthenticationOk and completes the connection. The continuation
+    branch also discards provider errors and can proceed after failed mutual
+    authentication.
+cves:
+    - CVE-2026-56868
+references:
+    - report: https://github.com/golang/vulndb/issues/6166
+source:
+    id: go-security-team
+    created: 2026-08-17T23:09:58.506227-04:00
+review_status: REVIEWED

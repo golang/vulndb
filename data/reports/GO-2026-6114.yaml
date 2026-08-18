@@ -1,0 +1,46 @@
+id: GO-2026-6114
+modules:
+    - module: go.etcd.io/etcd/server/v3
+      versions:
+        - fixed: 3.5.33
+        - introduced: 3.6.0
+        - fixed: 3.6.14
+        - introduced: 3.7.0-alpha.0
+        - fixed: 3.7.1
+      vulnerable_at: 3.7.0
+      packages:
+        - package: go.etcd.io/etcd/server/v3/etcdserver/api/v3rpc
+          symbols:
+            - serverWatchStream.recvLoop
+            - watchServer.Watch
+            - NewWatchServer
+          derived_symbols:
+            - Server
+summary: Watch API authorization bypass in go.etcd.io/etcd/server/v3
+description: |-
+    In go.etcd.io/etcd/server/v3 before 3.5.33, 3.6.14, and 3.7.1, an
+    authenticated user with READ permission on a single key can bypass RBAC
+    restrictions by initiating an open-ended range watch using
+    clientv3.WithFromKey(). The Watch RPC handler normalized open-ended range
+    ends prior to authorization checks, causing isWatchPermitted to evaluate the
+    request as a single-key watch while the underlying watch stream received
+    events for all keys lexicographically greater than or equal to the target
+    key.
+cves:
+    - CVE-2026-73499
+ghsas:
+    - GHSA-xg4h-6gfc-h4m8
+credits:
+    - 'Luis Toro (GitHub: lobuhi)'
+    - Anthropic
+    - 'Adam Korczynski (GitHub: AdamKorcz)'
+references:
+    - advisory: https://github.com/etcd-io/etcd/security/advisories/GHSA-xg4h-6gfc-h4m8
+    - fix: https://github.com/etcd-io/etcd/commit/6643f80602461a6095c9b294b6512fd9719bef41
+    - web: https://github.com/etcd-io/etcd/releases/tag/v3.5.33
+    - web: https://github.com/etcd-io/etcd/releases/tag/v3.6.14
+    - web: https://github.com/etcd-io/etcd/releases/tag/v3.7.1
+source:
+    id: GHSA-xg4h-6gfc-h4m8
+    created: 2026-08-17T23:16:18.776094-04:00
+review_status: REVIEWED

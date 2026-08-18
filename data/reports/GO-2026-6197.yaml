@@ -1,0 +1,46 @@
+id: GO-2026-6197
+modules:
+    - module: github.com/rclone/rclone
+      versions:
+        - fixed: 1.75.0
+      vulnerable_at: 1.74.4
+      packages:
+        - package: github.com/rclone/rclone/backend/webdav
+          symbols:
+            - NewFs
+          derived_symbols:
+            - Fs.About
+            - Fs.Copy
+            - Fs.DirMove
+            - Fs.List
+            - Fs.ListP
+            - Fs.Mkdir
+            - Fs.Move
+            - Fs.NewObject
+            - Fs.Purge
+            - Fs.Put
+            - Fs.PutStream
+            - Fs.Rmdir
+            - Object.CreateUploader
+            - Object.ModTime
+            - Object.Open
+            - Object.Remove
+            - Object.SetModTime
+            - Object.Size
+            - Object.Update
+            - Uploader.Upload
+            - Uploader.UploadChunk
+        - package: github.com/rclone/rclone/lib/rest
+          symbols:
+            - PreserveMethodRedirectFn
+summary: WebDAV credential leakage on HTTPS to HTTP redirect in github.com/rclone/rclone
+ghsas:
+    - GHSA-h4mf-4v27-hggj
+references:
+    - advisory: https://github.com/rclone/rclone/security/advisories/GHSA-h4mf-4v27-hggj
+    - fix: https://github.com/rclone/rclone/commit/59b513b0e74fd2943ccbb8891d5ce00f860e6d26
+    - web: https://github.com/rclone/rclone/releases/tag/v1.75.0
+source:
+    id: GHSA-h4mf-4v27-hggj
+    created: 2026-08-17T23:00:36.919493-04:00
+review_status: REVIEWED

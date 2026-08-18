@@ -1,0 +1,186 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6213",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-71556",
+    "GHSA-hc8v-wwc9-vgxm"
+  ],
+  "summary": "Worktree operations may follow symlinks in github.com/go-git/go-git",
+  "details": "Worktree operations may follow symlinks in github.com/go-git/go-git",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/go-git/go-git/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.19.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/go-git/go-git/v5",
+            "symbols": [
+              "Blame",
+              "Clone",
+              "CloneContext",
+              "PlainClone",
+              "PlainCloneContext",
+              "Submodule.Repository",
+              "Submodule.Status",
+              "Submodule.Update",
+              "Submodule.UpdateContext",
+              "Submodules.Status",
+              "Submodules.Update",
+              "Submodules.UpdateContext",
+              "Worktree.Add",
+              "Worktree.AddGlob",
+              "Worktree.AddWithOptions",
+              "Worktree.Checkout",
+              "Worktree.Clean",
+              "Worktree.Commit",
+              "Worktree.Move",
+              "Worktree.Pull",
+              "Worktree.PullContext",
+              "Worktree.Remove",
+              "Worktree.RemoveGlob",
+              "Worktree.Reset",
+              "Worktree.ResetSparsely",
+              "Worktree.Restore",
+              "Worktree.Status",
+              "Worktree.StatusWithOptions",
+              "Worktree.Submodule",
+              "Worktree.Submodules",
+              "Worktree.checkoutChangeSubmodule",
+              "Worktree.checkoutFile",
+              "worktreeFilesystem.Chroot",
+              "worktreeFilesystem.Create",
+              "worktreeFilesystem.Lstat",
+              "worktreeFilesystem.MkdirAll",
+              "worktreeFilesystem.Open",
+              "worktreeFilesystem.OpenFile",
+              "worktreeFilesystem.ReadDir",
+              "worktreeFilesystem.Readlink",
+              "worktreeFilesystem.Remove",
+              "worktreeFilesystem.Rename",
+              "worktreeFilesystem.Stat",
+              "worktreeFilesystem.Symlink",
+              "worktreeFilesystem.validReadPath"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/go-git/go-git/v6",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "6.0.0-alpha.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/go-git/go-git/v6",
+            "symbols": [
+              "Blame",
+              "Clone",
+              "CloneContext",
+              "PlainClone",
+              "PlainCloneContext",
+              "Submodule.Repository",
+              "Submodule.Status",
+              "Submodule.Update",
+              "Submodule.UpdateContext",
+              "Submodules.Status",
+              "Submodules.Update",
+              "Submodules.UpdateContext",
+              "Worktree.Add",
+              "Worktree.AddGlob",
+              "Worktree.AddWithOptions",
+              "Worktree.Checkout",
+              "Worktree.CherryPick",
+              "Worktree.Clean",
+              "Worktree.Commit",
+              "Worktree.Move",
+              "Worktree.Pull",
+              "Worktree.PullContext",
+              "Worktree.Remove",
+              "Worktree.RemoveGlob",
+              "Worktree.Reset",
+              "Worktree.Restore",
+              "Worktree.Status",
+              "Worktree.StatusWithOptions",
+              "Worktree.Submodule",
+              "Worktree.Submodules",
+              "Worktree.checkoutChangeSubmodule",
+              "Worktree.checkoutFile",
+              "worktreeFilesystem.Chroot",
+              "worktreeFilesystem.Create",
+              "worktreeFilesystem.Lstat",
+              "worktreeFilesystem.MkdirAll",
+              "worktreeFilesystem.Open",
+              "worktreeFilesystem.OpenFile",
+              "worktreeFilesystem.ReadDir",
+              "worktreeFilesystem.Readlink",
+              "worktreeFilesystem.Remove",
+              "worktreeFilesystem.Rename",
+              "worktreeFilesystem.Stat",
+              "worktreeFilesystem.Symlink",
+              "worktreeFilesystem.validReadPath"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/go-git/go-git/security/advisories/GHSA-hc8v-wwc9-vgxm"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/go-git/go-git/commit/008a78f2dd86f52544ddff8b8e8ddeecdf3f7aab"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/go-git/go-git/commit/661d1c7f101d34e002a3cfcf8dbea5b7421d07ac"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-git/go-git/releases/tag/v5.19.2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-git/go-git/releases/tag/v6.0.0-alpha.5"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6213",
+    "review_status": "REVIEWED"
+  }
+}

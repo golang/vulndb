@@ -1,0 +1,24 @@
+id: GO-2026-6093
+modules:
+    - module: github.com/aws/aws-cdk-go/awscdk
+      versions:
+        - introduced: 1.175.0-devpreview
+      vulnerable_at: 1.204.0-devpreview
+    - module: github.com/aws/aws-cdk-go/awscdk/v2
+      versions:
+        - fixed: 2.253.0
+      vulnerable_at: 2.252.0
+summary: |-
+    AWS CDK CodeBuild S3 Log Encryption Boolean Inversion in
+    github.com/aws/aws-cdk-go/awscdk
+ghsas:
+    - GHSA-464c-974j-9xm6
+references:
+    - advisory: https://github.com/aws/aws-cdk/security/advisories/GHSA-464c-974j-9xm6
+    - web: https://github.com/aws/aws-cdk/commit/40319185dc645d2afc6acf1d25547a86250e97af
+    - web: https://github.com/aws/aws-cdk/pull/37761
+    - web: https://github.com/aws/aws-cdk/releases/tag/v2.253.0
+source:
+    id: GHSA-464c-974j-9xm6
+    created: 2026-08-17T23:18:41.192936-04:00
+review_status: REVIEWED

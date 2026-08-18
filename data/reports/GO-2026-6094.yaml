@@ -1,0 +1,23 @@
+id: GO-2026-6094
+modules:
+    - module: github.com/google/cel-go
+      versions:
+        - introduced: 0.22.0
+        - fixed: 0.30.0
+      vulnerable_at: 0.29.2
+      packages:
+        - package: github.com/google/cel-go/ext
+          symbols:
+            - NativeTypes
+            - ParseStructTag
+summary: |-
+    JSON private fields exposed via NativeTypes and ParseStructTag in
+    github.com/google/cel-go
+ghsas:
+    - GHSA-gcjh-h69q-9w9g
+references:
+    - advisory: https://github.com/cel-expr/cel-go/security/advisories/GHSA-gcjh-h69q-9w9g
+source:
+    id: GHSA-gcjh-h69q-9w9g
+    created: 2026-08-17T23:18:38.814512-04:00
+review_status: REVIEWED

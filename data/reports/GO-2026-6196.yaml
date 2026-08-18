@@ -1,0 +1,19 @@
+id: GO-2026-6196
+modules:
+    - module: github.com/rclone/rclone
+      versions:
+        - fixed: 1.74.4
+      vulnerable_at: 1.74.3
+      packages:
+        - package: github.com/rclone/rclone/backend/s3
+summary: S3 session token leakage on HTTPS to HTTP redirect in github.com/rclone/rclone
+ghsas:
+    - GHSA-gx4c-2hqx-cw2r
+references:
+    - advisory: https://github.com/rclone/rclone/security/advisories/GHSA-gx4c-2hqx-cw2r
+    - fix: https://github.com/rclone/rclone/commit/1a28451ea6fc8ac1806b0e9923dcb5b3f543f7fa
+    - web: https://github.com/rclone/rclone/releases/tag/v1.74.4
+source:
+    id: GHSA-gx4c-2hqx-cw2r
+    created: 2026-08-17T23:01:03.943985-04:00
+review_status: REVIEWED

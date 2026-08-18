@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6163",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-54909",
+    "GHSA-34rh-wp3j-6cxc"
+  ],
+  "summary": "Panic on malformed XOR-MAPPED-ADDRESS attribute in github.com/pion/stun/v3",
+  "details": "In github.com/pion/stun/v3 before 3.1.5, XORMappedAddress.GetFromAs reads the address family header from an XOR-MAPPED-ADDRESS attribute before validating the attribute length. Parsing a malformed STUN message carrying a zero-length XOR-MAPPED-ADDRESS attribute from a tightly sized buffer causes a slice bounds out of range panic, resulting in a denial of service.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/pion/stun/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.1.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/pion/stun/v3",
+            "symbols": [
+              "XORMappedAddress.GetFrom",
+              "XORMappedAddress.GetFromAs"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/pion/stun/security/advisories/GHSA-34rh-wp3j-6cxc"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/pion/stun/pull/278"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/pion/stun/commit/cfe8f95bcae610be653f084e6e81743ed1bf4176"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/pion/stun/releases/tag/v3.1.5"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Karolina Gorna"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6163",
+    "review_status": "REVIEWED"
+  }
+}
