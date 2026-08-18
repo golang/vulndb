@@ -1,0 +1,138 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6115",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-56867"
+  ],
+  "summary": "Multiple denial of service vulnerabilities in rsc.io/pdf and forks",
+  "details": "The PDF parser in rsc.io/pdf and its downstream forks github.com/ledongthuc/pdf and github.com/dslipak/pdf contains multiple defects when parsing untrusted input:\n\n- Unchecked /Size, /Index, /W, and classic subsection header parameters in cross-reference tables allow crafted values to trigger fatal out-of-memory (OOM) panics.\n- Unterminated hexadecimal strings cause an infinite loop in readByte and readHexString.\n- Cyclic object references (/First, /Parent, /Kids, /Next) in document outlines cause unbounded recursion leading to uncatchable stack overflow.\n- Various malformed constructs trigger runtime panics in NewReader and Page.Content (such as empty graphics state pop 'Q', oversized CMap entries, odd-length UTF-16 strings, and newline buffer underflows).",
+  "affected": [
+    {
+      "package": {
+        "name": "rsc.io/pdf",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "rsc.io/pdf",
+            "symbols": [
+              "NewReader",
+              "NewReaderEncrypted",
+              "Open",
+              "Page.Content",
+              "Reader.Page"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/ledongthuc/pdf",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/ledongthuc/pdf",
+            "symbols": [
+              "NewReader",
+              "NewReaderEncrypted",
+              "Open",
+              "Page.Content",
+              "Page.GetTextByColumn",
+              "Page.GetTextByRow",
+              "Reader.GetPlainText",
+              "Reader.GetStyledTexts",
+              "Reader.Page"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/dslipak/pdf",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/dslipak/pdf",
+            "symbols": [
+              "NewReader",
+              "NewReaderEncrypted",
+              "Open",
+              "Page.Content",
+              "Reader.Page"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-56867"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/golang/vulndb/issues/6115"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/ledongthuc/pdf/pull/78"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rsc/pdf"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dslipak/pdf"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Gage Marshall"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6115",
+    "review_status": "REVIEWED"
+  }
+}
