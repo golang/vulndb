@@ -3,11 +3,12 @@
   "id": "GO-2026-6166",
   "modified": "0001-01-01T00:00:00Z",
   "published": "0001-01-01T00:00:00Z",
+  "withdrawn": "2026-08-18T20:22:36Z",
   "aliases": [
     "CVE-2026-56868"
   ],
-  "summary": "GSS authentication completes without mutual proof in github.com/lib/pq",
-  "details": "github.com/lib/pq does not require a GSSAPI exchange to reach cryptographic completion before accepting AuthenticationOk and ReadyForQuery. After an unauthenticated peer requests GSS authentication, the driver sends its initial GSS token and stores the provider, but it tracks neither whether a continuation occurred nor the provider's done result. The startup loop then accepts AuthenticationOk and completes the connection. The continuation branch also discards provider errors and can proceed after failed mutual authentication.",
+  "summary": "WITHDRAWN: GSS authentication completes without mutual proof in github.com/lib/pq",
+  "details": "(This report has been withdrawn with reason: \"False positive\"). github.com/lib/pq does not require a GSSAPI exchange to reach cryptographic completion before accepting AuthenticationOk and ReadyForQuery. After an unauthenticated peer requests GSS authentication, the driver sends its initial GSS token and stores the provider, but it tracks neither whether a continuation occurred nor the provider's done result. The startup loop then accepts AuthenticationOk and completes the connection. The continuation branch also discards provider errors and can proceed after failed mutual authentication.",
   "affected": [
     {
       "package": {

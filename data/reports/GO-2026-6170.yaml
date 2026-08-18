@@ -34,14 +34,16 @@ modules:
             - stmt.ExecContext
             - stmt.Query
             - stmt.QueryContext
-summary: Malformed backend frame length causes panic in github.com/lib/pq
+summary: 'WITHDRAWN: Malformed backend frame length causes panic in github.com/lib/pq'
 description: |-
+    (This report has been withdrawn with reason: "False positive").
     github.com/lib/pq trusts the unsigned 32-bit length in every PostgreSQL backend
-    frame and subtracts four without first checking that the wire length is at
-    least four. A backend frame whose length is zero through three produces a
-    negative payload length. recvMessage then slices the connection scratch buffer
-    with that negative bound, causing an unrecovered runtime panic that terminates
-    the calling goroutine and process.
+    frame and subtracts four without first checking that the wire length is at least
+    four. A backend frame whose length is zero through three produces a negative
+    payload length. recvMessage then slices the connection scratch buffer with that
+    negative bound, causing an unrecovered runtime panic that terminates the calling
+    goroutine and process.
+withdrawn: "2026-08-18T20:22:49Z"
 cves:
     - CVE-2026-56871
 references:

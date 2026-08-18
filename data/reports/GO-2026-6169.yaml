@@ -16,15 +16,17 @@ modules:
             - NewListener
             - NewListenerConn
 summary: |-
-    Disclosure of wrong .pgpass credential via hostaddr in
+    WITHDRAWN: Disclosure of wrong .pgpass credential via hostaddr in
     github.com/lib/pq
 description: |-
-    When a connection specifies hostaddr without host, github.com/lib/pq dials the
-    numeric hostaddr but performs .pgpass lookup using the default Config.Host
-    value, localhost. If the passfile contains different credentials for localhost
-    and the remote address, the driver selects the secret intended for the local
-    database and sends it to the remote endpoint when that endpoint requests
-    password authentication.
+    (This report has been withdrawn with reason: "False positive"). When a
+    connection specifies hostaddr without host, github.com/lib/pq dials the numeric
+    hostaddr but performs .pgpass lookup using the default Config.Host value,
+    localhost. If the passfile contains different credentials for localhost and the
+    remote address, the driver selects the secret intended for the local database
+    and sends it to the remote endpoint when that endpoint requests password
+    authentication.
+withdrawn: "2026-08-18T20:22:44Z"
 cves:
     - CVE-2026-56870
 references:

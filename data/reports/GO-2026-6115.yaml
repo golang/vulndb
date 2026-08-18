@@ -1,16 +1,16 @@
 id: GO-2026-6115
 modules:
-    - module: rsc.io/pdf
-      vulnerable_at: 0.1.1
+    - module: github.com/dslipak/pdf
+      vulnerable_at: 0.0.2
       packages:
-        - package: rsc.io/pdf
+        - package: github.com/dslipak/pdf
           symbols:
             - Open
             - NewReader
             - NewReaderEncrypted
             - Reader.Page
             - Page.Content
-          skip_fix: repository is archived
+          skip_fix: no fix available
     - module: github.com/ledongthuc/pdf
       vulnerable_at: 0.0.0-20250511090121-5959a4027728
       packages:
@@ -26,43 +26,45 @@ modules:
             - Page.GetTextByColumn
             - Page.GetTextByRow
           skip_fix: no fix available
-    - module: github.com/dslipak/pdf
-      vulnerable_at: 0.0.2
+    - module: rsc.io/pdf
+      vulnerable_at: 0.1.1
       packages:
-        - package: github.com/dslipak/pdf
+        - package: rsc.io/pdf
           symbols:
             - Open
             - NewReader
             - NewReaderEncrypted
             - Reader.Page
             - Page.Content
-          skip_fix: no fix available
-summary: Multiple denial of service vulnerabilities in rsc.io/pdf and forks
+          skip_fix: repository is archived
+summary: 'WITHDRAWN: Multiple denial of service vulnerabilities in rsc.io/pdf and forks'
 description: |-
-    The PDF parser in rsc.io/pdf and its downstream forks github.com/ledongthuc/pdf
-    and github.com/dslipak/pdf contains multiple defects when parsing untrusted
-    input:
+    (This report has been withdrawn with reason: "Requesting a CVE ID via the Go CNA
+    as part of this report"). The PDF parser in rsc.io/pdf and its downstream forks
+    github.com/ledongthuc/pdf and github.com/dslipak/pdf contains multiple defects
+    when parsing untrusted input:
 
     - Unchecked /Size, /Index, /W, and classic subsection header parameters in
-      cross-reference tables allow crafted values to trigger fatal out-of-memory
-      (OOM) panics.
+    cross-reference tables allow crafted values to trigger fatal out-of-memory (OOM)
+    panics.
     - Unterminated hexadecimal strings cause an infinite loop in readByte and
-      readHexString.
-    - Cyclic object references (/First, /Parent, /Kids, /Next) in document
-      outlines cause unbounded recursion leading to uncatchable stack overflow.
+    readHexString.
+    - Cyclic object references (/First, /Parent, /Kids, /Next) in document outlines
+    cause unbounded recursion leading to uncatchable stack overflow.
     - Various malformed constructs trigger runtime panics in NewReader and
-      Page.Content (such as empty graphics state pop 'Q', oversized CMap entries,
-      odd-length UTF-16 strings, and newline buffer underflows).
+    Page.Content (such as empty graphics state pop 'Q', oversized CMap entries,
+    odd-length UTF-16 strings, and newline buffer underflows).
+withdrawn: "2026-08-18T20:22:32Z"
 cves:
     - CVE-2026-56867
 credits:
     - Gage Marshall
 references:
     - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-56867
+    - fix: https://github.com/ledongthuc/pdf/pull/78
     - report: https://github.com/golang/vulndb/issues/6115
-    - web: https://github.com/ledongthuc/pdf/pull/78
-    - web: https://github.com/rsc/pdf
     - web: https://github.com/dslipak/pdf
+    - web: https://github.com/rsc/pdf
 source:
     id: go-security-team
     created: 2026-08-17T23:16:17.02638-04:00

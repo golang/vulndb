@@ -3,11 +3,12 @@
   "id": "GO-2026-6173",
   "modified": "0001-01-01T00:00:00Z",
   "published": "0001-01-01T00:00:00Z",
+  "withdrawn": "2026-08-18T20:23:02Z",
   "aliases": [
     "CVE-2026-56874"
   ],
-  "summary": "Pre-protocol error reader permits unbounded memory consumption in github.com/lib/pq",
-  "details": "The special-case parser for PostgreSQL pre-protocol plain-text errors in github.com/lib/pq calls bufio.Reader.ReadString(0) without a byte limit. A malicious PostgreSQL endpoint or active network attacker on an unauthenticated transport can send an error message response with non-NUL bytes continuously, causing the client to buffer an arbitrarily large string and crash with an unrecoverable out-of-memory error.",
+  "summary": "WITHDRAWN: Pre-protocol error reader permits unbounded memory consumption in github.com/lib/pq",
+  "details": "(This report has been withdrawn with reason: \"False positive\"). The special-case parser for PostgreSQL pre-protocol plain-text errors in github.com/lib/pq calls bufio.Reader.ReadString(0) without a byte limit. A malicious PostgreSQL endpoint or active network attacker on an unauthenticated transport can send an error message response with non-NUL bytes continuously, causing the client to buffer an arbitrarily large string and crash with an unrecoverable out-of-memory error.",
   "affected": [
     {
       "package": {
