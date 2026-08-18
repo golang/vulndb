@@ -8,7 +8,7 @@
     "CVE-2026-56869"
   ],
   "summary": "WITHDRAWN: Unbounded iteration count causes CPU denial of service in github.com/lib/pq/scram",
-  "details": "(This report has been withdrawn with reason: \"False positive\"). The SCRAM client in github.com/lib/pq/scram accepts an attacker-controlled iteration count with no upper bound and immediately performs that many PBKDF2-style HMAC rounds. A PostgreSQL endpoint or active network attacker can send a valid SCRAM server-first message with a large iteration count (such as i=2147483647), causing client authentication to consume excessive CPU resources before verifying the server signature.",
+  "details": "(This report has been withdrawn with reason: \"Report mistakenly added without having CVE / GHSA associated\"). The SCRAM client in github.com/lib/pq/scram accepts an attacker-controlled iteration count with no upper bound and immediately performs that many PBKDF2-style HMAC rounds. A PostgreSQL endpoint or active network attacker can send a valid SCRAM server-first message with a large iteration count (such as i=2147483647), causing client authentication to consume excessive CPU resources before verifying the server signature.",
   "affected": [
     {
       "package": {

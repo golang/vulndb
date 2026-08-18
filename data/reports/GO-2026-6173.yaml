@@ -38,8 +38,9 @@ summary: |-
     WITHDRAWN: Pre-protocol error reader permits unbounded memory consumption in
     github.com/lib/pq
 description: |-
-    (This report has been withdrawn with reason: "False positive"). The special-case
-    parser for PostgreSQL pre-protocol plain-text errors in github.com/lib/pq calls
+    (This report has been withdrawn with reason: "Report mistakenly added without
+    having CVE / GHSA associated"). The special-case parser for PostgreSQL
+    pre-protocol plain-text errors in github.com/lib/pq calls
     bufio.Reader.ReadString(0) without a byte limit. A malicious PostgreSQL endpoint
     or active network attacker on an unauthenticated transport can send an error
     message response with non-NUL bytes continuously, causing the client to buffer

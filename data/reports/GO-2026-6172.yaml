@@ -39,13 +39,13 @@ summary: |-
     WITHDRAWN: Backend frame lengths cause pre-validation memory exhaustion in
     github.com/lib/pq
 description: |-
-    (This report has been withdrawn with reason: "False positive").
-    github.com/lib/pq allocates the backend-declared PostgreSQL frame payload before
-    applying a protocol length bound or a phase-specific message-type check. A
-    malicious server or active network attacker on an unauthenticated connection can
-    send frame headers declaring multi-gigabyte or invalid-phase payloads, forcing
-    large allocations that lead to memory exhaustion and runtime out-of-memory
-    crashes.
+    (This report has been withdrawn with reason: "Report mistakenly added without
+    having CVE / GHSA associated"). github.com/lib/pq allocates the backend-declared
+    PostgreSQL frame payload before applying a protocol length bound or a
+    phase-specific message-type check. A malicious server or active network attacker
+    on an unauthenticated connection can send frame headers declaring multi-gigabyte
+    or invalid-phase payloads, forcing large allocations that lead to memory
+    exhaustion and runtime out-of-memory crashes.
 withdrawn: "2026-08-18T20:22:58Z"
 cves:
     - CVE-2026-56873
