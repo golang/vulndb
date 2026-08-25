@@ -1,0 +1,55 @@
+id: GO-2026-6278
+modules:
+    - module: github.com/gorilla/websocket
+      versions:
+        - fixed: 1.5.3
+      vulnerable_at: 1.5.2
+      packages:
+        - package: github.com/gorilla/websocket
+          symbols:
+            - newMaskKey
+          derived_symbols:
+            - Conn.Close
+            - Conn.NextReader
+            - Conn.NextWriter
+            - Conn.ReadJSON
+            - Conn.ReadMessage
+            - Conn.WriteControl
+            - Conn.WriteJSON
+            - Conn.WriteMessage
+            - Conn.WritePreparedMessage
+            - Dialer.Dial
+            - Dialer.DialContext
+            - NewClient
+            - NewPreparedMessage
+            - ReadJSON
+            - Subprotocols
+            - Upgrade
+            - Upgrader.Upgrade
+            - WriteJSON
+            - flateReadWrapper.Read
+            - flateWriteWrapper.Close
+            - flateWriteWrapper.Write
+            - httpProxyDialer.Dial
+            - joinReader.Read
+            - messageReader.Read
+            - messageWriter.Close
+            - messageWriter.ReadFrom
+            - messageWriter.Write
+            - messageWriter.WriteString
+            - netDialerFunc.Dial
+            - proxy_direct.Dial
+            - proxy_envOnce.Get
+            - proxy_socks5.Dial
+            - truncWriter.Write
+summary: Gorilla WebSocket Uses Cryptographically Weak PRNG for WebSocket Mask Key in github.com/gorilla/websocket
+ghsas:
+    - GHSA-w67g-5rqw-f597
+references:
+    - advisory: https://github.com/canolgun-commits/websocket/security/advisories/GHSA-w67g-5rqw-f597
+    - fix: https://github.com/gorilla/websocket/commit/d67f41855da42d7bccd9ef050c49f7e54e783b95
+    - web: https://github.com/gorilla/websocket/releases/tag/v1.5.3
+source:
+    id: GHSA-w67g-5rqw-f597
+    created: 2026-08-24T21:14:16.616193-04:00
+review_status: NEEDS_REVIEW

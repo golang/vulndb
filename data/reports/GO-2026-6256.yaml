@@ -1,0 +1,53 @@
+id: GO-2026-6256
+modules:
+    - module: github.com/moby/buildkit
+      versions:
+        - fixed: 0.31.1
+      vulnerable_at: 0.31.0
+      packages:
+        - package: github.com/moby/buildkit/solver/llbsolver/ops
+          symbols:
+            - readUser
+          derived_symbols:
+            - BuildOp.CacheMap
+            - BuildOp.Exec
+            - ExecOp.CacheMap
+            - ExecOp.Exec
+            - FileOpSolver.Solve
+            - NewBuildOp
+            - NewDiffOp
+            - NewExecOp
+            - NewFileOp
+            - NewMergeOp
+            - NewPassthroughOp
+            - NewSourceOp
+            - SourceOp.CacheMap
+            - SourceOp.Exec
+            - diffOp.CacheMap
+            - diffOp.Exec
+            - fileOp.CacheMap
+            - fileOp.Exec
+            - mergeOp.CacheMap
+            - mergeOp.Exec
+            - passthroughOp.CacheMap
+            - passthroughOp.Exec
+            - staticEmulatorMount.Mount
+        - package: github.com/moby/buildkit/executor/oci
+          symbols:
+            - openUserFile
+          derived_symbols:
+            - GetUser
+summary: BuildKit has a possible runtime DoS via unbounded group parsing in github.com/moby/buildkit
+cves:
+    - CVE-2026-61712
+ghsas:
+    - GHSA-72x6-4j93-7w86
+references:
+    - advisory: https://github.com/moby/buildkit/security/advisories/GHSA-72x6-4j93-7w86
+    - fix: https://github.com/moby/buildkit/commit/408266e4ba254cecabedaacdad6905de4d2a75a1
+    - fix: https://github.com/moby/buildkit/commit/69a3924648e485acb3faad3081e03a8554431255
+    - web: https://github.com/moby/buildkit/releases/tag/v0.31.1
+source:
+    id: GHSA-72x6-4j93-7w86
+    created: 2026-08-24T21:37:11.043944-04:00
+review_status: NEEDS_REVIEW

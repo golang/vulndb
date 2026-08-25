@@ -1,0 +1,75 @@
+id: GO-2026-6273
+modules:
+    - module: github.com/runatlantis/atlantis
+      versions:
+        - introduced: 0.19.8
+        - fixed: 0.45.0
+      vulnerable_at: 0.44.1
+      packages:
+        - package: github.com/runatlantis/atlantis/server/events
+          symbols:
+            - DefaultProjectCommandRunner.doVersion
+            - FileWorkspace.DeletePlan
+            - DefaultProjectCommandRunner.doStateRm
+            - DefaultProjectCommandRunner.doPlan
+            - FileWorkspace.repoPullDir
+            - FileWorkspace.GetPullDir
+            - FileWorkspace.DeleteForWorkspace
+            - DefaultProjectCommandRunner.doApply
+            - FileWorkspace.GitReadLock
+            - FileWorkspace.GetWorkingDir
+            - FileWorkspace.Delete
+            - DefaultProjectCommandRunner.doPolicyCheck
+            - FileWorkspace.cloneDir
+            - DefaultProjectCommandRunner.doImport
+            - FileWorkspace.validateCloneDir
+          derived_symbols:
+            - DefaultProjectCommandRunner.Apply
+            - DefaultProjectCommandRunner.Import
+            - DefaultProjectCommandRunner.Plan
+            - DefaultProjectCommandRunner.PolicyCheck
+            - DefaultProjectCommandRunner.StateRm
+            - DefaultProjectCommandRunner.Version
+            - EventParser.ParseAPIPlanRequest
+            - EventParser.ParseAzureDevopsPull
+            - EventParser.ParseAzureDevopsPullEvent
+            - EventParser.ParseAzureDevopsRepo
+            - EventParser.ParseBitbucketCloudPullCommentEvent
+            - EventParser.ParseBitbucketCloudPullEvent
+            - EventParser.ParseBitbucketServerPullCommentEvent
+            - EventParser.ParseBitbucketServerPullEvent
+            - EventParser.ParseGiteaIssueCommentEvent
+            - EventParser.ParseGiteaPull
+            - EventParser.ParseGiteaPullRequestEvent
+            - EventParser.ParseGiteaRepo
+            - EventParser.ParseGithubIssueCommentEvent
+            - EventParser.ParseGithubPull
+            - EventParser.ParseGithubPullEvent
+            - EventParser.ParseGithubRepo
+            - EventParser.ParseGitlabMergeRequestCommentEvent
+            - EventParser.ParseGitlabMergeRequestEvent
+            - FileWorkspace.Clone
+            - FileWorkspace.GetGitUntrackedFiles
+            - FileWorkspace.MergeAgain
+        - package: github.com/runatlantis/atlantis/server/core/config/raw
+          symbols:
+            - Project.Validate
+        - package: github.com/runatlantis/atlantis/server/events/models
+          symbols:
+            - NewRepo
+summary: |-
+    Atlantis Workspace Handling has Path Traversal that Allows Out-of-Bounds
+    Directory Deletion/Creation in github.com/runatlantis/atlantis
+cves:
+    - CVE-2026-64679
+ghsas:
+    - GHSA-26w5-6g95-gj28
+references:
+    - advisory: https://github.com/runatlantis/atlantis/security/advisories/GHSA-26w5-6g95-gj28
+    - fix: https://github.com/runatlantis/atlantis/commit/ea4e4ceebf8b387d015fff7ed8a7fcca33279afe
+    - fix: https://github.com/runatlantis/atlantis/pull/6254
+    - web: https://github.com/runatlantis/atlantis/releases/tag/v0.45.0
+source:
+    id: GHSA-26w5-6g95-gj28
+    created: 2026-08-24T21:14:54.583418-04:00
+review_status: NEEDS_REVIEW

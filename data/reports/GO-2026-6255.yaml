@@ -1,0 +1,19 @@
+id: GO-2026-6255
+modules:
+    - module: github.com/moby/buildkit
+      versions:
+        - fixed: 0.31.1
+      vulnerable_at: 0.31.0
+summary: 'BuildKit: Custom frontend could bypass Seccomp/AppArmor in github.com/moby/buildkit'
+cves:
+    - CVE-2026-61711
+ghsas:
+    - GHSA-7236-3392-c5c6
+references:
+    - advisory: https://github.com/moby/buildkit/security/advisories/GHSA-7236-3392-c5c6
+notes:
+    - create: failed to auto-populate symbols
+source:
+    id: GHSA-7236-3392-c5c6
+    created: 2026-08-24T21:38:42.488282-04:00
+review_status: NEEDS_REVIEW

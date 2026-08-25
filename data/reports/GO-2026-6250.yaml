@@ -1,0 +1,45 @@
+id: GO-2026-6250
+modules:
+    - module: github.com/aquasecurity/trivy
+      versions:
+        - fixed: 0.72.0
+      vulnerable_at: 0.71.2
+      packages:
+        - package: github.com/aquasecurity/trivy/pkg/commands
+          symbols:
+            - loadPluginCommands
+            - NewPluginCommand
+          skip_fix: build errors during static analysis
+        - package: github.com/aquasecurity/trivy/pkg/plugin
+          symbols:
+            - Search
+            - Update
+            - Manager.LoadAll
+            - Uninstall
+            - List
+            - Manager.load
+            - Install
+            - defaultManager
+            - Manager.Uninstall
+            - Information
+            - Manager.loadMetadata
+            - Start
+            - Manager.install
+            - Manager.list
+            - Upgrade
+            - NewManager
+            - Run
+          skip_fix: build errors during static analysis
+summary: Trivy Plugin Manager has Path Traversal that Allows Arbitrary File Write in github.com/aquasecurity/trivy
+cves:
+    - CVE-2026-63328
+ghsas:
+    - GHSA-8rc5-4fr6-64pw
+references:
+    - advisory: https://github.com/aquasecurity/trivy/security/advisories/GHSA-8rc5-4fr6-64pw
+    - fix: https://github.com/aquasecurity/trivy/commit/d4213d7735c74e57f06c02ccb39ebca67abc7959
+    - web: https://github.com/aquasecurity/trivy/releases/tag/v0.72.0
+source:
+    id: GHSA-8rc5-4fr6-64pw
+    created: 2026-08-24T21:39:02.731588-04:00
+review_status: NEEDS_REVIEW
