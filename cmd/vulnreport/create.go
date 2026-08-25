@@ -22,6 +22,7 @@ var (
 type create struct {
 	*issueParser
 	*creator
+	hasArgs bool
 }
 
 func (create) name() string { return "create" }
@@ -34,7 +35,21 @@ func (create) usage() (string, string) {
 func (c *create) setup(ctx context.Context, env environment) error {
 	c.creator = new(creator)
 	c.issueParser = new(issueParser)
+	c.hasArgs = false
 	return setupAll(ctx, env, c.creator, c.issueParser)
+}
+
+func (c *create) parseArgs(ctx context.Context, args []string) ([]string, error) {
+	c.hasArgs = len(args) > 0
+	return c.issueParser.parseArgs(ctx, args)
+}
+
+func (c *create) skip(input any) string {
+	iss := input.(*issues.Issue)
+	if !c.hasArgs && iss.HasLabel(labelFirstParty) {
+		return "first party"
+	}
+	return c.creator.skip(iss)
 }
 
 func (c *create) close() error {

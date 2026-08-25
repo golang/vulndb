@@ -77,6 +77,63 @@ func TestModulePath(t *testing.T) {
 	}
 }
 
+func TestCreateSkipFirstParty(t *testing.T) {
+	issueWithLabel := &issues.Issue{
+		Number: 200,
+		State:  "open",
+		Labels: []string{labelFirstParty},
+	}
+	issueWithoutLabel := &issues.Issue{
+		Number: 201,
+		State:  "open",
+	}
+
+	testCases := []struct {
+		name    string
+		hasArgs bool
+		issue   *issues.Issue
+		want    string
+	}{
+		{
+			name:    "without args, issue with label",
+			hasArgs: false,
+			issue:   issueWithLabel,
+			want:    "first party",
+		},
+		{
+			name:    "without args, issue without label",
+			hasArgs: false,
+			issue:   issueWithoutLabel,
+			want:    "",
+		},
+		{
+			name:    "with args, issue with label",
+			hasArgs: true,
+			issue:   issueWithLabel,
+			want:    "",
+		},
+		{
+			name:    "with args, issue without label",
+			hasArgs: true,
+			issue:   issueWithoutLabel,
+			want:    "",
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			c := &create{
+				creator:     &creator{},
+				issueParser: &issueParser{},
+				hasArgs:     tc.hasArgs,
+			}
+			if got := c.skip(tc.issue); got != tc.want {
+				t.Errorf("c.skip() = %q, want %q", got, tc.want)
+			}
+		})
+	}
+}
+
 func TestCreateExcluded(t *testing.T) {
 	for _, tc := range []*testCase{
 		// TODO(tatianabradley): add test cases
