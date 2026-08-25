@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6261",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-54061",
+    "GHSA-rrwh-6jrq-wp5v"
+  ],
+  "summary": "Dgraph Alpha group stores can be replaced via unauthenticated external snapshot import in github.com/dgraph-io/dgraph",
+  "details": "Dgraph Alpha exposes the RPCs used for external snapshot import on the public gRPC port without authentication or authorization. An unauthenticated network client can call StreamExtSnapshot and send Badger stream data to replace a target group's store, which drops and replaces the existing database data.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/dgraph-io/dgraph",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/dgraph-io/dgraph"
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/dgraph-io/dgraph/v25",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "25.3.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/dgraph-io/dgraph/v25/edgraph",
+            "symbols": [
+              "Server.StreamExtSnapshot",
+              "Server.UpdateExtSnapshotStreamingState"
+            ]
+          },
+          {
+            "path": "github.com/dgraph-io/dgraph/v25/worker",
+            "symbols": [
+              "InStream"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/dgraph-io/dgraph/security/advisories/GHSA-rrwh-6jrq-wp5v"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dgraph-io/dgraph/releases/tag/v25.3.5"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6261",
+    "review_status": "REVIEWED"
+  }
+}

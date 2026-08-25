@@ -1,0 +1,37 @@
+id: GO-2026-6261
+modules:
+    - module: github.com/dgraph-io/dgraph
+      vulnerable_at: 1.2.8
+      packages:
+        - package: github.com/dgraph-io/dgraph
+    - module: github.com/dgraph-io/dgraph/v25
+      versions:
+        - fixed: 25.3.5
+      vulnerable_at: 25.3.4
+      packages:
+        - package: github.com/dgraph-io/dgraph/v25/edgraph
+          symbols:
+            - Server.StreamExtSnapshot
+            - Server.UpdateExtSnapshotStreamingState
+        - package: github.com/dgraph-io/dgraph/v25/worker
+          symbols:
+            - InStream
+summary: |-
+    Dgraph Alpha group stores can be replaced via unauthenticated external snapshot
+    import in github.com/dgraph-io/dgraph
+description: |-
+    Dgraph Alpha exposes the RPCs used for external snapshot import on the public
+    gRPC port without authentication or authorization. An unauthenticated network
+    client can call StreamExtSnapshot and send Badger stream data to replace a
+    target group's store, which drops and replaces the existing database data.
+cves:
+    - CVE-2026-54061
+ghsas:
+    - GHSA-rrwh-6jrq-wp5v
+references:
+    - advisory: https://github.com/dgraph-io/dgraph/security/advisories/GHSA-rrwh-6jrq-wp5v
+    - web: https://github.com/dgraph-io/dgraph/releases/tag/v25.3.5
+source:
+    id: GHSA-rrwh-6jrq-wp5v
+    created: 2026-08-24T21:22:22.868998-04:00
+review_status: REVIEWED
