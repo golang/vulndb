@@ -46,8 +46,13 @@ func (c *create) parseArgs(ctx context.Context, args []string) ([]string, error)
 
 func (c *create) skip(input any) string {
 	iss := input.(*issues.Issue)
-	if !c.hasArgs && iss.HasLabel(labelFirstParty) {
-		return "first party"
+	if !c.hasArgs {
+		if iss.HasLabel(labelFirstParty) {
+			return "first party"
+		}
+		if iss.HasLabel(labelWaiting) {
+			return "waiting"
+		}
 	}
 	return c.creator.skip(iss)
 }

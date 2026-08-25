@@ -101,6 +101,10 @@ func (t *triage) skip(input any) string {
 		return "already triaged; use -f to force re-triage"
 	}
 
+	if iss.HasLabel(labelWaiting) {
+		return "waiting"
+	}
+
 	return skip(iss, t.xrefer)
 }
 

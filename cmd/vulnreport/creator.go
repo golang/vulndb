@@ -89,10 +89,6 @@ func skip(iss *issues.Issue, x *xrefer) string {
 		return "possibly not Go"
 	}
 
-	if iss.HasLabel(labelWaiting) {
-		return "waiting"
-	}
-
 	if x != nil && x.rc != nil && x.rc.HasReport(iss.Number) {
 		return "already has report"
 	}
