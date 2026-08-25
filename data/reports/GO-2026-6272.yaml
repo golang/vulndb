@@ -1,0 +1,20 @@
+id: GO-2026-6272
+modules:
+    - module: github.com/axllent/mailpit
+      versions:
+        - introduced: 1.30.0
+        - fixed: 1.30.5
+      vulnerable_at: 1.30.4
+summary: 'Mailpit: SMTP DATA line reader buffers over-limit input before size enforcement in github.com/axllent/mailpit'
+cves:
+    - CVE-2026-67447
+ghsas:
+    - GHSA-r553-m4fv-5v97
+references:
+    - advisory: https://github.com/axllent/mailpit/security/advisories/GHSA-r553-m4fv-5v97
+    - fix: https://github.com/axllent/mailpit/commit/8720c6bd8281fc00d458081908f1dbef8e59a98c
+    - web: https://github.com/axllent/mailpit/releases/tag/v1.30.5
+source:
+    id: GHSA-r553-m4fv-5v97
+    created: 2026-08-24T21:15:51.523482-04:00
+review_status: UNREVIEWED

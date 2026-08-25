@@ -1,0 +1,50 @@
+id: GO-2026-6281
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.11.0+incompatible
+        - fixed: 10.11.17+incompatible
+        - introduced: 11.5.0+incompatible
+        - fixed: 11.5.5+incompatible
+        - introduced: 11.6.0+incompatible
+        - fixed: 11.6.1+incompatible
+      vulnerable_at: 11.6.1-rc1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - introduced: 8.0.0-20250731163400-5b955468ea1e
+        - fixed: 8.0.0-20260423180926-c021eeaff8f0
+summary: |-
+    Mattermost doesn't sanitize FileInfo.Name received from federated peers during
+    shared channel file sync in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2026-6961
+ghsas:
+    - GHSA-8qq9-cqj8-82w4
+references:
+    - advisory: https://github.com/advisories/GHSA-8qq9-cqj8-82w4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-6961
+    - web: https://github.com/mattermost/mattermost/commit/61d68d2d6ee81a5919597d91c736c502d7156859
+    - web: https://github.com/mattermost/mattermost/commit/a0056ed68d95f64d7c4586985e7b7f16b96b3bec
+    - web: https://github.com/mattermost/mattermost/commit/a9f3868e1eee9ec61855cd7277f39937385efffd
+    - web: https://github.com/mattermost/mattermost/commit/c021eeaff8f003034ab40f82c552cc26a710a8fd
+    - web: https://github.com/mattermost/mattermost/commit/c896a63dc44c2f9c081a0a15bfddc4e6eb50e753
+    - web: https://github.com/mattermost/mattermost/pull/36223
+    - web: https://github.com/mattermost/mattermost/pull/36251
+    - web: https://github.com/mattermost/mattermost/pull/36252
+    - web: https://github.com/mattermost/mattermost/pull/36253
+    - web: https://github.com/mattermost/mattermost/pull/36255
+    - web: https://github.com/mattermost/mattermost/releases/tag/v10.11.16
+    - web: https://github.com/mattermost/mattermost/releases/tag/v11.5.5
+    - web: https://github.com/mattermost/mattermost/releases/tag/v11.6.2
+    - web: https://github.com/mattermost/mattermost/releases/tag/v11.7.0
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-8qq9-cqj8-82w4
+    created: 2026-08-24T21:13:39.56039-04:00
+review_status: UNREVIEWED

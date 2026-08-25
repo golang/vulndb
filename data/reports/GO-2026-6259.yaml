@@ -1,0 +1,18 @@
+id: GO-2026-6259
+modules:
+    - module: github.com/vmware-tanzu/velero
+      versions:
+        - fixed: 1.18.1
+      vulnerable_at: 1.18.1-rc.2
+summary: Velero vulnerable to file path traversal when extracting from backup's tarball in github.com/vmware-tanzu/velero
+cves:
+    - CVE-2026-32637
+ghsas:
+    - GHSA-j2g6-362q-6qc6
+references:
+    - advisory: https://github.com/velero-io/velero/security/advisories/GHSA-j2g6-362q-6qc6
+    - web: https://github.com/securego/gosec/issues/324
+source:
+    id: GHSA-j2g6-362q-6qc6
+    created: 2026-08-24T21:36:57.513666-04:00
+review_status: UNREVIEWED

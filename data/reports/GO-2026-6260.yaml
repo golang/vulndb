@@ -1,0 +1,19 @@
+id: GO-2026-6260
+modules:
+    - module: github.com/vouch/vouch-proxy
+      versions:
+        - fixed: 0.48.0
+      vulnerable_at: 0.47.2
+summary: vouch-proxy has an Unbounded Multipart Cookie Allocation DoS in github.com/vouch/vouch-proxy
+cves:
+    - CVE-2026-55149
+ghsas:
+    - GHSA-qqff-5854-px68
+references:
+    - advisory: https://github.com/vouch/vouch-proxy/security/advisories/GHSA-qqff-5854-px68
+    - fix: https://github.com/vouch/vouch-proxy/commit/fa18ce30ba50a4863a436acad044c22965329c4f
+    - web: https://github.com/vouch/vouch-proxy/releases/tag/v0.48.0
+source:
+    id: GHSA-qqff-5854-px68
+    created: 2026-08-24T21:36:51.179521-04:00
+review_status: UNREVIEWED

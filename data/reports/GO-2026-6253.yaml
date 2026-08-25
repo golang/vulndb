@@ -1,0 +1,23 @@
+id: GO-2026-6253
+modules:
+    - module: github.com/moby/go-archive
+      versions:
+        - fixed: 0.3.0
+      vulnerable_at: 0.2.1
+summary: 'moby/go-archive: Crafted tar archive can write outside the extraction directory in github.com/moby/go-archive'
+cves:
+    - CVE-2026-17106
+ghsas:
+    - GHSA-hfg8-hc9c-6c3h
+references:
+    - advisory: https://github.com/moby/go-archive/security/advisories/GHSA-hfg8-hc9c-6c3h
+    - web: https://docs.docker.com/desktop/release-notes/#4860
+    - web: https://github.com/bikini/exploitarium/tree/main/docker-cp-copyout-destination-escape
+    - web: https://github.com/docker/cli/releases/tag/v29.7.0
+    - web: https://github.com/moby/moby/issues/52948
+    - web: https://github.com/moby/moby/releases/tag/docker-v29.7.0
+    - web: https://www.imperva.com/blog/copyescape-taking-over-docker-hosts-with-docker-cp
+source:
+    id: GHSA-hfg8-hc9c-6c3h
+    created: 2026-08-24T21:38:53.334308-04:00
+review_status: UNREVIEWED

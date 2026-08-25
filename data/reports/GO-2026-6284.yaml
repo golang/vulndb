@@ -1,0 +1,28 @@
+id: GO-2026-6284
+modules:
+    - module: github.com/mhsanaei/3x-ui
+      vulnerable_at: 1.7.9
+    - module: github.com/mhsanaei/3x-ui/v2
+      unsupported_versions:
+        - last_affected: 2.9.4
+      vulnerable_at: 2.9.4
+    - module: github.com/mhsanaei/3x-ui/v3
+      versions:
+        - fixed: 3.3.1
+      vulnerable_at: 3.3.0
+summary: |-
+    3X-UI Vulnerable to Authenticated Arbitrary File Write via Database Import and
+    Xray Log Path Manipulation in github.com/mhsanaei/3x-ui
+cves:
+    - CVE-2026-55477
+ghsas:
+    - GHSA-jm48-m3rr-9hgg
+references:
+    - advisory: https://github.com/MHSanaei/3x-ui/security/advisories/GHSA-jm48-m3rr-9hgg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-55477
+    - web: https://github.com/MHSanaei/3x-ui/commit/80e168787ed608e83a065033ee94c8bfc3025ce7
+    - web: https://github.com/MHSanaei/3x-ui/releases/tag/v3.3.1
+source:
+    id: GHSA-jm48-m3rr-9hgg
+    created: 2026-08-24T21:13:06.930922-04:00
+review_status: UNREVIEWED

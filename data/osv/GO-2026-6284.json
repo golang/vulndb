@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6284",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-55477",
+    "GHSA-jm48-m3rr-9hgg"
+  ],
+  "summary": "3X-UI Vulnerable to Authenticated Arbitrary File Write via Database Import and Xray Log Path Manipulation in github.com/mhsanaei/3x-ui",
+  "details": "3X-UI Vulnerable to Authenticated Arbitrary File Write via Database Import and Xray Log Path Manipulation in github.com/mhsanaei/3x-ui",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mhsanaei/3x-ui",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mhsanaei/3x-ui/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mhsanaei/3x-ui/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.3.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/MHSanaei/3x-ui/security/advisories/GHSA-jm48-m3rr-9hgg"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-55477"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/MHSanaei/3x-ui/commit/80e168787ed608e83a065033ee94c8bfc3025ce7"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/MHSanaei/3x-ui/releases/tag/v3.3.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6284",
+    "review_status": "UNREVIEWED"
+  }
+}

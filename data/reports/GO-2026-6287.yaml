@@ -1,0 +1,21 @@
+id: GO-2026-6287
+modules:
+    - module: github.com/cloudreve/Cloudreve
+      vulnerable_at: 0.0.0-20201026073328-746aa3e8ef26
+    - module: github.com/cloudreve/Cloudreve/v3
+      vulnerable_at: 3.0.0-20250225100611-da4e44b77af4
+    - module: github.com/cloudreve/Cloudreve/v4
+      unsupported_versions:
+        - last_affected: 4.0.0-20260606032813-26b6b1044b02
+      vulnerable_at: 4.0.0-20260802015950-20c95ad73f3a
+summary: |-
+    Cloudreve has Broken Access Control - Revoked Share Access Still Allows Signed
+    File URL Generation via Cached context_hint in github.com/cloudreve/Cloudreve
+ghsas:
+    - GHSA-vx2m-jpxr-xv7w
+references:
+    - advisory: https://github.com/cloudreve/cloudreve/security/advisories/GHSA-vx2m-jpxr-xv7w
+source:
+    id: GHSA-vx2m-jpxr-xv7w
+    created: 2026-08-24T21:11:36.871164-04:00
+review_status: UNREVIEWED

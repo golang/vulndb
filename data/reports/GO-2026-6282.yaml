@@ -1,0 +1,48 @@
+id: GO-2026-6282
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.11.0+incompatible
+        - fixed: 10.11.16+incompatible
+        - introduced: 11.5.0+incompatible
+        - fixed: 11.5.5+incompatible
+        - introduced: 11.6.0+incompatible
+        - fixed: 11.6.1+incompatible
+      vulnerable_at: 11.6.1-rc1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - introduced: 8.0.0-20250731163400-5b955468ea1e
+        - fixed: 8.0.0-20260428142921-bd8fc9222672
+summary: Mattermost doesn't sanitize the Remote Cluster API response on PATCH operations in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2026-7184
+ghsas:
+    - GHSA-9p44-r552-4wp9
+references:
+    - advisory: https://github.com/advisories/GHSA-9p44-r552-4wp9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-7184
+    - web: https://github.com/mattermost/mattermost/commit/1a0643df00c1f51a3b7e919eec034eaf955f612f
+    - web: https://github.com/mattermost/mattermost/commit/6fd49f56b5920569218fd2fc76d8ae802942f274
+    - web: https://github.com/mattermost/mattermost/commit/bd8fc92226726da06c8fabaef568cc9ebaee1cb8
+    - web: https://github.com/mattermost/mattermost/commit/c5e67e28271c23cb585fe1a30ae81defcde848d6
+    - web: https://github.com/mattermost/mattermost/commit/cad3e8e51a4d8627af6442f9df8ae3667fac7fc1
+    - web: https://github.com/mattermost/mattermost/pull/36288
+    - web: https://github.com/mattermost/mattermost/pull/36306
+    - web: https://github.com/mattermost/mattermost/pull/36310
+    - web: https://github.com/mattermost/mattermost/pull/36311
+    - web: https://github.com/mattermost/mattermost/pull/36313
+    - web: https://github.com/mattermost/mattermost/releases/tag/v10.11.16
+    - web: https://github.com/mattermost/mattermost/releases/tag/v11.5.5
+    - web: https://github.com/mattermost/mattermost/releases/tag/v11.6.2
+    - web: https://github.com/mattermost/mattermost/releases/tag/v11.7.0
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-9p44-r552-4wp9
+    created: 2026-08-24T21:13:27.738755-04:00
+review_status: UNREVIEWED

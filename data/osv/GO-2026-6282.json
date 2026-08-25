@@ -1,0 +1,174 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6282",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-7184",
+    "GHSA-9p44-r552-4wp9"
+  ],
+  "summary": "Mattermost doesn't sanitize the Remote Cluster API response on PATCH operations in github.com/mattermost/mattermost-server",
+  "details": "Mattermost doesn't sanitize the Remote Cluster API response on PATCH operations in github.com/mattermost/mattermost-server",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "10.11.0+incompatible"
+            },
+            {
+              "fixed": "10.11.16+incompatible"
+            },
+            {
+              "introduced": "11.5.0+incompatible"
+            },
+            {
+              "fixed": "11.5.5+incompatible"
+            },
+            {
+              "introduced": "11.6.0+incompatible"
+            },
+            {
+              "fixed": "11.6.1+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v6",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost/server/v8",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "8.0.0-20250731163400-5b955468ea1e"
+            },
+            {
+              "fixed": "8.0.0-20260428142921-bd8fc9222672"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-9p44-r552-4wp9"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-7184"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/1a0643df00c1f51a3b7e919eec034eaf955f612f"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/6fd49f56b5920569218fd2fc76d8ae802942f274"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/bd8fc92226726da06c8fabaef568cc9ebaee1cb8"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/c5e67e28271c23cb585fe1a30ae81defcde848d6"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/cad3e8e51a4d8627af6442f9df8ae3667fac7fc1"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/pull/36288"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/pull/36306"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/pull/36310"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/pull/36311"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/pull/36313"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/releases/tag/v10.11.16"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/releases/tag/v11.5.5"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/releases/tag/v11.6.2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/releases/tag/v11.7.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://mattermost.com/security-updates"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6282",
+    "review_status": "UNREVIEWED"
+  }
+}

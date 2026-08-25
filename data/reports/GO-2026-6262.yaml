@@ -1,0 +1,24 @@
+id: GO-2026-6262
+modules:
+    - module: github.com/opentofu/opentofu
+      versions:
+        - fixed: 1.11.9
+        - introduced: 1.12.0-beta1
+        - fixed: 1.12.2
+      vulnerable_at: 1.12.1
+summary: |-
+    OpenTofu has high CPU usage when using K8S remote state backend or when parsing
+    specifically crafted TLS certificates from untrusted or compromised servers in github.com/opentofu/opentofu
+ghsas:
+    - GHSA-22w5-2fxg-vrwx
+references:
+    - advisory: https://github.com/opentofu/opentofu/security/advisories/GHSA-22w5-2fxg-vrwx
+    - report: https://github.com/opentofu/opentofu/issues/4242
+    - report: https://github.com/opentofu/opentofu/issues/4243
+    - report: https://github.com/opentofu/opentofu/issues/4244
+    - web: https://github.com/opentofu/opentofu/releases/tag/v1.11.9
+    - web: https://github.com/opentofu/opentofu/releases/tag/v1.12.2
+source:
+    id: GHSA-22w5-2fxg-vrwx
+    created: 2026-08-24T21:22:17.062569-04:00
+review_status: UNREVIEWED

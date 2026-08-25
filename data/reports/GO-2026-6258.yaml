@@ -1,0 +1,21 @@
+id: GO-2026-6258
+modules:
+    - module: go.opentelemetry.io/otel/bridge/opentracing
+      versions:
+        - introduced: 0.11.0
+        - fixed: 1.45.0
+      vulnerable_at: 1.44.0
+summary: 'OpenTelemetry-Go: Unsynchronized baggage map can panic under concurrent access in go.opentelemetry.io/otel/bridge/opentracing'
+cves:
+    - CVE-2026-45404
+ghsas:
+    - GHSA-42cj-99w8-cp2p
+references:
+    - advisory: https://github.com/open-telemetry/opentelemetry-go/security/advisories/GHSA-42cj-99w8-cp2p
+    - web: https://github.com/open-telemetry/opentelemetry-go/commit/93a693edeed0e07ce5ebd1dfe67af42d1e2055d8
+    - web: https://github.com/open-telemetry/opentelemetry-go/pull/8693
+    - web: https://github.com/open-telemetry/opentelemetry-go/releases/tag/v1.45.0
+source:
+    id: GHSA-42cj-99w8-cp2p
+    created: 2026-08-24T21:37:03.480167-04:00
+review_status: UNREVIEWED

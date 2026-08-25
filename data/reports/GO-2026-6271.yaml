@@ -1,0 +1,22 @@
+id: GO-2026-6271
+modules:
+    - module: github.com/axllent/mailpit
+      versions:
+        - introduced: 1.29.0
+        - fixed: 1.30.6
+      vulnerable_at: 1.30.5
+summary: |-
+    Mailpit: WebSocket origin check bypass via percent-encoded path (regression of
+    CVE-2026-22689) in github.com/axllent/mailpit
+cves:
+    - CVE-2026-67448
+ghsas:
+    - GHSA-8r62-w5wh-fc5m
+references:
+    - advisory: https://github.com/axllent/mailpit/security/advisories/GHSA-8r62-w5wh-fc5m
+    - fix: https://github.com/axllent/mailpit/commit/fbe5e006c3f1682b819df58b4a932d7a84920be9
+    - web: https://github.com/axllent/mailpit/releases/tag/v1.30.6
+source:
+    id: GHSA-8r62-w5wh-fc5m
+    created: 2026-08-24T21:15:57.916821-04:00
+review_status: UNREVIEWED

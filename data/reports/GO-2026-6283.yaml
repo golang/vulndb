@@ -1,0 +1,50 @@
+id: GO-2026-6283
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.11.0+incompatible
+        - fixed: 10.11.17+incompatible
+        - introduced: 11.5.0+incompatible
+        - fixed: 11.5.5+incompatible
+        - introduced: 11.6.0+incompatible
+        - fixed: 11.6.1+incompatible
+      vulnerable_at: 11.6.1-rc1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - introduced: 8.0.0-20250731163400-5b955468ea1e
+        - fixed: 8.0.0-20260501144115-7d6816abdfd1
+summary: |-
+    Mattermost doesn't enforce PermissionInviteUser when setting AllowOpenInvite or
+    AllowedDomains during team creation in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2026-6689
+ghsas:
+    - GHSA-c28q-m4gf-vg4q
+references:
+    - advisory: https://github.com/advisories/GHSA-c28q-m4gf-vg4q
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-6689
+    - web: https://github.com/mattermost/mattermost/commit/2dea05864024b3254fb28c5ed679592e2b7cd672
+    - web: https://github.com/mattermost/mattermost/commit/3a96344214b1a84df70d97052d46b6f2b40b0caa
+    - web: https://github.com/mattermost/mattermost/commit/479fc42d0ec6da48e76b59608233d90bfc69769d
+    - web: https://github.com/mattermost/mattermost/commit/7d6816abdfd170169f717aea43c5716a1f9ef6b0
+    - web: https://github.com/mattermost/mattermost/commit/977c791e5b54bc14fdb96a2b3dacc85da5d8c623
+    - web: https://github.com/mattermost/mattermost/pull/36188
+    - web: https://github.com/mattermost/mattermost/pull/36375
+    - web: https://github.com/mattermost/mattermost/pull/36383
+    - web: https://github.com/mattermost/mattermost/pull/36384
+    - web: https://github.com/mattermost/mattermost/pull/36402
+    - web: https://github.com/mattermost/mattermost/releases/tag/v10.11.16
+    - web: https://github.com/mattermost/mattermost/releases/tag/v11.5.5
+    - web: https://github.com/mattermost/mattermost/releases/tag/v11.6.2
+    - web: https://github.com/mattermost/mattermost/releases/tag/v11.7.0
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-c28q-m4gf-vg4q
+    created: 2026-08-24T21:13:14.65208-04:00
+review_status: UNREVIEWED

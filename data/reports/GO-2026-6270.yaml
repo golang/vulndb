@@ -1,0 +1,21 @@
+id: GO-2026-6270
+modules:
+    - module: github.com/alexandre-daubois/ember
+      versions:
+        - fixed: 1.4.2
+      vulnerable_at: 1.4.1
+summary: |-
+    Ember has unneutralized terminal escape/control sequences from Caddy logs
+    injected into the operator's TUI in github.com/alexandre-daubois/ember
+cves:
+    - CVE-2026-54162
+ghsas:
+    - GHSA-x3g7-qrwc-f6c5
+references:
+    - advisory: https://github.com/alexandre-daubois/ember/security/advisories/GHSA-x3g7-qrwc-f6c5
+    - fix: https://github.com/alexandre-daubois/ember/commit/fcb7160e58dba58d6f9b5033cc312fdedc8c9f6b
+    - web: https://github.com/alexandre-daubois/ember/releases/tag/v1.4.2
+source:
+    id: GHSA-x3g7-qrwc-f6c5
+    created: 2026-08-24T21:16:04.593049-04:00
+review_status: UNREVIEWED

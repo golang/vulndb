@@ -1,0 +1,50 @@
+id: GO-2026-6279
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.11.0+incompatible
+        - fixed: 10.11.17+incompatible
+        - introduced: 11.5.0+incompatible
+        - fixed: 11.5.5+incompatible
+        - introduced: 11.6.0+incompatible
+        - fixed: 11.6.1+incompatible
+      vulnerable_at: 11.6.1-rc1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - introduced: 8.0.0-20250731163400-5b955468ea1e
+        - fixed: 8.0.0-20260428151657-c79c3831061a
+summary: |-
+    Mattermost doesn't validate that a username returned during bot registration
+    belongs to a bot account in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2026-6046
+ghsas:
+    - GHSA-3vmp-whvv-5v9v
+references:
+    - advisory: https://github.com/advisories/GHSA-3vmp-whvv-5v9v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-6046
+    - web: https://github.com/mattermost/mattermost/commit/3be10297c14d272f273d747af70728f9d03c60ec
+    - web: https://github.com/mattermost/mattermost/commit/98f9778cec1e7f3d97b3d4692fb91f8e7b659972
+    - web: https://github.com/mattermost/mattermost/commit/aba9339a24d4b287edd77377c19901d6e341bb96
+    - web: https://github.com/mattermost/mattermost/commit/c79c3831061a0880c0962c7d567c9e24dd35f44c
+    - web: https://github.com/mattermost/mattermost/commit/f706d1f01e6dfe62cab86c1d257f237daa78106a
+    - web: https://github.com/mattermost/mattermost/pull/36064
+    - web: https://github.com/mattermost/mattermost/pull/36305
+    - web: https://github.com/mattermost/mattermost/pull/36317
+    - web: https://github.com/mattermost/mattermost/pull/36318
+    - web: https://github.com/mattermost/mattermost/pull/36320
+    - web: https://github.com/mattermost/mattermost/releases/tag/v10.11.16
+    - web: https://github.com/mattermost/mattermost/releases/tag/v11.5.5
+    - web: https://github.com/mattermost/mattermost/releases/tag/v11.6.2
+    - web: https://github.com/mattermost/mattermost/releases/tag/v11.7.0
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-3vmp-whvv-5v9v
+    created: 2026-08-24T21:14:05.042562-04:00
+review_status: UNREVIEWED

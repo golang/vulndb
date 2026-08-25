@@ -1,0 +1,48 @@
+id: GO-2026-6286
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.11.0+incompatible
+        - fixed: 10.11.17+incompatible
+        - introduced: 11.5.0+incompatible
+        - fixed: 11.5.5+incompatible
+        - introduced: 11.6.0+incompatible
+        - fixed: 11.6.1+incompatible
+      vulnerable_at: 11.6.1-rc1+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - introduced: 8.0.0-20250731163400-5b955468ea1e
+        - fixed: 8.0.0-20260504071740-9408b98025d7
+summary: |-
+    Mattermost doesn't restrict role_updated websocket event broadcasts to members
+    of the affected team or channel in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2026-3433
+ghsas:
+    - GHSA-rp4v-qc77-phm4
+references:
+    - advisory: https://github.com/advisories/GHSA-rp4v-qc77-phm4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-3433
+    - web: https://github.com/mattermost/mattermost/commit/0a0ab0d54d899d308bd1352cc577036917500318
+    - web: https://github.com/mattermost/mattermost/commit/7425c6817bf244f976c729f8a73cecac8039a1e1
+    - web: https://github.com/mattermost/mattermost/commit/9408b98025d7364d7dfe7cdb28fcd109b1b595a6
+    - web: https://github.com/mattermost/mattermost/commit/a30a331a29b9766d46716d4252056d7b74e66da0
+    - web: https://github.com/mattermost/mattermost/pull/35497
+    - web: https://github.com/mattermost/mattermost/pull/36256
+    - web: https://github.com/mattermost/mattermost/pull/36257
+    - web: https://github.com/mattermost/mattermost/pull/36341
+    - web: https://github.com/mattermost/mattermost/releases/tag/v10.11.16
+    - web: https://github.com/mattermost/mattermost/releases/tag/v11.5.5
+    - web: https://github.com/mattermost/mattermost/releases/tag/v11.6.2
+    - web: https://github.com/mattermost/mattermost/releases/tag/v11.7.0
+    - web: https://mattermost.com/security-updates
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-rp4v-qc77-phm4
+    created: 2026-08-24T21:11:39.367569-04:00
+review_status: UNREVIEWED

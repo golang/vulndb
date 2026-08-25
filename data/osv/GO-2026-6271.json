@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6271",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-67448",
+    "GHSA-8r62-w5wh-fc5m"
+  ],
+  "summary": "Mailpit: WebSocket origin check bypass via percent-encoded path (regression of CVE-2026-22689) in github.com/axllent/mailpit",
+  "details": "Mailpit: WebSocket origin check bypass via percent-encoded path (regression of CVE-2026-22689) in github.com/axllent/mailpit",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/axllent/mailpit",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.29.0"
+            },
+            {
+              "fixed": "1.30.6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/axllent/mailpit/security/advisories/GHSA-8r62-w5wh-fc5m"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/axllent/mailpit/commit/fbe5e006c3f1682b819df58b4a932d7a84920be9"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/axllent/mailpit/releases/tag/v1.30.6"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6271",
+    "review_status": "UNREVIEWED"
+  }
+}
