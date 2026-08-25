@@ -6,6 +6,8 @@ package main
 
 import (
 	"testing"
+
+	"golang.org/x/vulndb/internal/issues"
 )
 
 func TestCreate(t *testing.T) {
@@ -27,6 +29,51 @@ func TestCreate(t *testing.T) {
 		},
 	} {
 		runTest(t, &create{}, tc)
+	}
+}
+
+func TestModulePath(t *testing.T) {
+	testCases := []struct {
+		title string
+		want  string
+	}{
+		{
+			title: "x/vulndb: potential Go vuln in github.com/foo/bar: GHSA-xxxx",
+			want:  "github.com/foo/bar",
+		},
+		{
+			title: "x/vulndb: update fixed versions for GO-2026-4513 / duplicate GO-2026-4740",
+			want:  "",
+		},
+		{
+			title: "x/vulndb: potential Go vuln in crypto/tls: CVE-2025-0001",
+			want:  "crypto/tls",
+		},
+		{
+			title: `x/vulndb: potential Go vuln in "github.com/foo/bar": GHSA-xxxx`,
+			want:  "github.com/foo/bar",
+		},
+		{
+			title: "x/vulndb: potential Go vuln in collectd.org: CVE-2021-0000",
+			want:  "collectd.org",
+		},
+		{
+			title: "x/vulndb: potential Go vuln in 1234/foo: GHSA-xxxx",
+			want:  "",
+		},
+		{
+			title: "x/vulndb: potential Go vuln in 4.15.2/foo: GHSA-xxxx",
+			want:  "",
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.title, func(t *testing.T) {
+			iss := &issues.Issue{Title: tc.title}
+			if got := modulePath(iss); got != tc.want {
+				t.Errorf("modulePath(%q) = %q, want %q", tc.title, got, tc.want)
+			}
+		})
 	}
 }
 

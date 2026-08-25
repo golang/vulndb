@@ -286,6 +286,21 @@ func TestFindModule(t *testing.T) {
 			path: "github.com/RobotsAndPencils/go-saml/util",
 			want: "github.com/RobotsAndPencils/go-saml",
 		},
+		{
+			name:    "slash path",
+			path:    "/",
+			wantErr: errNoModuleFound,
+		},
+		{
+			name:    "leading slash path",
+			path:    "/foo/bar",
+			wantErr: errNoModuleFound,
+		},
+		{
+			name:    "empty path",
+			path:    "",
+			wantErr: errNoModuleFound,
+		},
 	}
 
 	for _, tc := range tcs {

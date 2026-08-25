@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"regexp"
 	"slices"
 	"strings"
 
@@ -319,21 +320,22 @@ func excludedReason(iss *issues.Issue) report.ExcludedType {
 	return ""
 }
 
+var modulePathRegexp = regexp.MustCompile(`^"?([[:alpha:]][\w./-]*[./][\w-]+)"?:?$`)
+
 func modulePath(iss *issues.Issue) string {
-	for _, p := range strings.Fields(iss.Title) {
+	for p := range strings.FieldsSeq(iss.Title) {
 		if p == "x/vulndb:" {
 			continue
 		}
-		if strings.HasSuffix(p, ":") || strings.Contains(p, "/") {
-			// Remove backslashes.
-			return strings.ReplaceAll(strings.TrimSuffix(p, ":"), "\"", "")
+		if m := modulePathRegexp.FindStringSubmatch(p); len(m) > 1 {
+			return m[1]
 		}
 	}
 	return ""
 }
 
 func aliases(iss *issues.Issue) (aliases []string) {
-	for _, p := range strings.Fields(iss.Title) {
+	for p := range strings.FieldsSeq(iss.Title) {
 		if idstr.IsAliasType(p) {
 			aliases = append(aliases, strings.TrimSuffix(p, ","))
 		}
@@ -417,7 +419,8 @@ func addReferenceTODOs(r *yamlReport) {
 	todos := []*report.Reference{
 		{Type: osv.ReferenceTypeAdvisory, URL: "TODO: canonical security advisory"},
 		{Type: osv.ReferenceTypeReport, URL: "TODO: issue tracker link"},
-		{Type: osv.ReferenceTypeFix, URL: "TODO: PR or commit (commit preferred)"}}
+		{Type: osv.ReferenceTypeFix, URL: "TODO: PR or commit (commit preferred)"},
+	}
 
 	types := make(map[osv.ReferenceType]bool)
 	for _, r := range r.References {

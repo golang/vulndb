@@ -258,10 +258,15 @@ var errNoModuleFound = errors.New("no module found")
 func (c *Client) FindModule(path string) (modPath string, err error) {
 	derrors.Wrap(&err, "FindModule(%s)", path)
 
-	for candidate := path; candidate != "."; candidate = urlpath.Dir(candidate) {
+	for candidate := path; candidate != "." && candidate != "/"; {
 		if c.ModuleExists(candidate) {
 			return candidate, nil
 		}
+		next := urlpath.Dir(candidate)
+		if next == candidate {
+			break
+		}
+		candidate = next
 	}
 
 	return "", errNoModuleFound
