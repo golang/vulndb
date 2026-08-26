@@ -1,0 +1,27 @@
+id: GO-2026-6294
+modules:
+    - module: github.com/aquasecurity/trivy
+      versions:
+        - fixed: 0.71.1
+      vulnerable_at: 0.71.0
+      packages:
+        - package: github.com/aquasecurity/trivy/pkg/oci
+          symbols:
+            - Artifact.Download
+          derived_symbols:
+            - Artifacts.Download
+summary: Path traversal via crafted vulnerability database or other downloaded artifacts in github.com/aquasecurity/trivy
+cves:
+    - CVE-2026-55092
+ghsas:
+    - GHSA-mcj4-mphf-j9ff
+references:
+    - advisory: https://github.com/aquasecurity/trivy/security/advisories/GHSA-mcj4-mphf-j9ff
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-55092
+    - fix: https://github.com/aquasecurity/trivy/commit/39e0b132260c60d59fa746c3f6dd10374b0ff6e4
+    - fix: https://github.com/aquasecurity/trivy/commit/a72d9a4d997c25fbb6534e231b4e206c9b202b31
+    - web: https://github.com/aquasecurity/trivy/releases/tag/v0.71.1
+source:
+    id: GHSA-mcj4-mphf-j9ff
+    created: 2026-08-25T21:23:04.102851-04:00
+review_status: NEEDS_REVIEW

@@ -1,0 +1,103 @@
+id: GO-2026-6293
+modules:
+    - module: github.com/labstack/echo/v4
+      versions:
+        - fixed: 4.15.3
+      vulnerable_at: 4.15.2
+      packages:
+        - package: github.com/labstack/echo/v4
+          symbols:
+            - StaticDirectoryHandler
+          derived_symbols:
+            - Echo.Static
+            - Echo.StaticFS
+            - Group.Static
+            - Group.StaticFS
+        - package: github.com/labstack/echo/v4/middleware
+          symbols:
+            - StaticWithConfig
+          derived_symbols:
+            - Static
+    - module: github.com/labstack/echo/v5
+      versions:
+        - fixed: 5.2.0
+      vulnerable_at: 5.1.1
+      packages:
+        - package: github.com/labstack/echo/v5/middleware
+          symbols:
+            - StaticConfig.ToMiddleware
+          derived_symbols:
+            - AddTrailingSlash
+            - AddTrailingSlashWithConfig
+            - BasicAuth
+            - BasicAuthWithConfig
+            - BodyDump
+            - BodyDumpWithConfig
+            - BodyLimit
+            - BodyLimitWithConfig
+            - CORS
+            - CORSWithConfig
+            - CSRF
+            - CSRFWithConfig
+            - ContextTimeout
+            - ContextTimeoutWithConfig
+            - Decompress
+            - DecompressWithConfig
+            - Gzip
+            - GzipWithConfig
+            - HTTPSNonWWWRedirect
+            - HTTPSNonWWWRedirectWithConfig
+            - HTTPSRedirect
+            - HTTPSRedirectWithConfig
+            - HTTPSWWWRedirect
+            - HTTPSWWWRedirectWithConfig
+            - KeyAuth
+            - KeyAuthWithConfig
+            - MethodOverride
+            - MethodOverrideWithConfig
+            - NonWWWRedirect
+            - NonWWWRedirectWithConfig
+            - Proxy
+            - ProxyWithConfig
+            - RateLimiter
+            - RateLimiterWithConfig
+            - Recover
+            - RecoverWithConfig
+            - RemoveTrailingSlash
+            - RemoveTrailingSlashWithConfig
+            - RequestID
+            - RequestIDWithConfig
+            - Rewrite
+            - RewriteWithConfig
+            - Secure
+            - SecureWithConfig
+            - Static
+            - StaticWithConfig
+            - WWWRedirect
+            - WWWRedirectWithConfig
+        - package: github.com/labstack/echo/v5
+          symbols:
+            - StaticDirectoryHandler
+          derived_symbols:
+            - Echo.Static
+            - Echo.StaticFS
+            - Group.Static
+            - Group.StaticFS
+summary: Encoded slash (%2F) bypasses route-level protection and exposes static files in github.com/labstack/echo/v4 and github.com/labstack/echo/v5
+cves:
+    - CVE-2026-55677
+ghsas:
+    - GHSA-vfp3-v2gw-7wfq
+references:
+    - advisory: https://github.com/labstack/echo/security/advisories/GHSA-vfp3-v2gw-7wfq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-55677
+    - fix: https://github.com/labstack/echo/commit/8d1ae9d3360a71672418856d58753af25f2c3986
+    - fix: https://github.com/labstack/echo/commit/c3fa2a27ff92b2b8db360de614f999ef1da24725
+    - fix: https://github.com/labstack/echo/pull/3009
+    - fix: https://github.com/labstack/echo/pull/3011
+    - web: https://github.com/labstack/echo/releases/tag/v4.15.3
+    - web: https://github.com/labstack/echo/releases/tag/v5.2.0
+source:
+    id: GHSA-vfp3-v2gw-7wfq
+    created: 2026-08-25T21:32:24.888862-04:00
+review_status: NEEDS_REVIEW
