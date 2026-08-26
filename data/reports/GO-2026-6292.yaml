@@ -1,0 +1,22 @@
+id: GO-2026-6292
+modules:
+    - module: github.com/sonirico/mcp-shell
+      versions:
+        - fixed: 0.6.0
+      vulnerable_at: 0.5.0
+summary: |-
+    mcp-shell — Security Disabled by Default in Bare-Binary Deploy Path + Shell
+    Interpreter in Secure-Mode Allowlist in github.com/sonirico/mcp-shell
+cves:
+    - CVE-2026-55580
+ghsas:
+    - GHSA-f5pj-2738-996m
+references:
+    - advisory: https://github.com/sonirico/mcp-shell/security/advisories/GHSA-f5pj-2738-996m
+    - fix: https://github.com/sonirico/mcp-shell/commit/f31377fce6ec31114e5a4398c0e5270552bce09f
+    - fix: https://github.com/sonirico/mcp-shell/pull/16
+    - web: https://github.com/sonirico/mcp-shell/releases/tag/v0.6.0
+source:
+    id: GHSA-f5pj-2738-996m
+    created: 2026-08-25T19:49:03.741358-04:00
+review_status: UNREVIEWED
