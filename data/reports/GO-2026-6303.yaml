@@ -1,0 +1,35 @@
+id: GO-2026-6303
+modules:
+    - module: golang.org/x/crypto
+      versions:
+        - fixed: 0.55.0
+      vulnerable_at: 0.54.0
+      packages:
+        - package: golang.org/x/crypto/ssh
+          symbols:
+            - connection.serverAuthenticate
+          derived_symbols:
+            - NewServerConn
+summary: Source-address critical option not enforced for non-public-key auth callbacks in golang.org/x/crypto/ssh
+description: |
+    The source-address critical option in the Permissions returned
+    by an authentication callback was only enforced for the
+    PublicKeyCallback and VerifiedPublicKeyCallback paths, extending
+    the fix for CVE-2026-46595. Permissions returned by the
+    PasswordCallback, KeyboardInteractiveCallback, NoClientAuthCallback,
+    and GSSAPIWithMICConfig.AllowLogin callbacks were not validated
+    against the client's remote address, so a source-address
+    restriction set by those callbacks was silently ignored. The
+    check is now applied to the Permissions returned by any
+    authentication callback.
+credits:
+    - Longwei Wang (@gn00295120)
+references:
+    - report: https://go.dev/issue/80213
+    - fix: https://go.dev/cl/797040
+cve_metadata:
+    id: CVE-2026-56854
+    cwe: 'CWE-863: Incorrect Authorization'
+source:
+    id: go-security-team
+review_status: REVIEWED
