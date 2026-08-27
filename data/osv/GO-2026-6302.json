@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6302",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-mf7q-r4rv-jv94"
+  ],
+  "summary": "Signature verification TOCTOU allows installing unverified package content in github.com/crossplane/crossplane-runtime/v2",
+  "details": "Signature verification TOCTOU allows installing unverified package content in github.com/crossplane/crossplane-runtime/v2",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/crossplane/crossplane-runtime/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.3.0"
+            },
+            {
+              "fixed": "2.3.3"
+            },
+            {
+              "introduced": "2.4.0-rc.0"
+            },
+            {
+              "fixed": "2.4.0-rc.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/crossplane/crossplane-runtime/v2/pkg/xpkg",
+            "symbols": [
+              "CachedClient.Get"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/crossplane/crossplane-runtime/security/advisories/GHSA-mf7q-r4rv-jv94"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/crossplane/crossplane-runtime/pull/1038"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/crossplane/crossplane-runtime/commit/bee99c6cd6ca81878acca2940a2f0a02169fc208"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/crossplane/crossplane-runtime/releases/tag/v2.3.3"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6302",
+    "review_status": "REVIEWED"
+  }
+}

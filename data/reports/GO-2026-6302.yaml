@@ -1,0 +1,25 @@
+id: GO-2026-6302
+modules:
+    - module: github.com/crossplane/crossplane-runtime/v2
+      versions:
+        - introduced: 2.3.0
+        - fixed: 2.3.3
+        - introduced: 2.4.0-rc.0
+        - fixed: 2.4.0-rc.1
+      vulnerable_at: 2.4.0-rc.0
+      packages:
+        - package: github.com/crossplane/crossplane-runtime/v2/pkg/xpkg
+          symbols:
+            - CachedClient.Get
+summary: Signature verification TOCTOU allows installing unverified package content in github.com/crossplane/crossplane-runtime/v2
+ghsas:
+    - GHSA-mf7q-r4rv-jv94
+references:
+    - advisory: https://github.com/crossplane/crossplane-runtime/security/advisories/GHSA-mf7q-r4rv-jv94
+    - fix: https://github.com/crossplane/crossplane-runtime/pull/1038
+    - fix: https://github.com/crossplane/crossplane-runtime/commit/bee99c6cd6ca81878acca2940a2f0a02169fc208
+    - web: https://github.com/crossplane/crossplane-runtime/releases/tag/v2.3.3
+source:
+    id: GHSA-mf7q-r4rv-jv94
+    created: 2026-08-27T15:25:12.738537-04:00
+review_status: REVIEWED
