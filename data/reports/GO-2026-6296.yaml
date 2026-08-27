@@ -1,0 +1,26 @@
+id: GO-2026-6296
+modules:
+    - module: github.com/kyverno/kyverno
+      versions:
+        - introduced: 1.18.0
+        - fixed: 1.18.2
+      vulnerable_at: 1.18.2-rc.1
+summary: |-
+    Kyverno's NamespacedGeneratingPolicy generator.apply() namespace argument
+    unvalidated -- background controller creates RoleBindings in any namespace
+    including kube-system in github.com/kyverno/kyverno
+cves:
+    - CVE-2026-54523
+ghsas:
+    - GHSA-79gf-7frw-68m9
+references:
+    - advisory: https://github.com/kyverno/kyverno/security/advisories/GHSA-79gf-7frw-68m9
+    - fix: https://github.com/kyverno/kyverno/commit/0919553c0ea1904f8d891280c92018da97946a06
+    - fix: https://github.com/kyverno/kyverno/commit/5164bcdeda5b57678bc2d7a03ecc2cbb02982dae
+    - fix: https://github.com/kyverno/kyverno/pull/16238
+    - web: https://github.com/kyverno/kyverno/releases/tag/v1.18.2
+    - web: https://github.com/kyverno/sdk/commit/6573937441443e1ba5af9fbb28d5c0f20297f9df
+source:
+    id: GHSA-79gf-7frw-68m9
+    created: 2026-08-27T15:18:40.193735-04:00
+review_status: UNREVIEWED

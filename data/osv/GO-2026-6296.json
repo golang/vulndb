@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6296",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-54523",
+    "GHSA-79gf-7frw-68m9"
+  ],
+  "summary": "Kyverno's NamespacedGeneratingPolicy generator.apply() namespace argument unvalidated -- background controller creates RoleBindings in any namespace including kube-system in github.com/kyverno/kyverno",
+  "details": "Kyverno's NamespacedGeneratingPolicy generator.apply() namespace argument unvalidated -- background controller creates RoleBindings in any namespace including kube-system in github.com/kyverno/kyverno",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/kyverno/kyverno",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.18.0"
+            },
+            {
+              "fixed": "1.18.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/kyverno/kyverno/security/advisories/GHSA-79gf-7frw-68m9"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kyverno/kyverno/commit/0919553c0ea1904f8d891280c92018da97946a06"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kyverno/kyverno/commit/5164bcdeda5b57678bc2d7a03ecc2cbb02982dae"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kyverno/kyverno/pull/16238"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kyverno/kyverno/releases/tag/v1.18.2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kyverno/sdk/commit/6573937441443e1ba5af9fbb28d5c0f20297f9df"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6296",
+    "review_status": "UNREVIEWED"
+  }
+}

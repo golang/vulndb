@@ -1,0 +1,33 @@
+id: GO-2026-6301
+modules:
+    - module: github.com/akuity/kargo
+      versions:
+        - fixed: 1.7.10
+        - introduced: 1.8.0
+        - fixed: 1.8.13
+        - introduced: 1.9.0
+        - fixed: 1.9.8
+        - introduced: 1.10.0
+        - fixed: 1.10.2
+      vulnerable_at: 1.10.1
+summary: Kargo has Open Redirect in UI OIDC Login Flow via redirectTo Query Parameter in github.com/akuity/kargo
+cves:
+    - CVE-2026-42350
+ghsas:
+    - GHSA-g7gw-m874-7rmf
+references:
+    - advisory: https://github.com/akuity/kargo/security/advisories/GHSA-g7gw-m874-7rmf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42350
+    - fix: https://github.com/akuity/kargo/commit/0b89215740e93d18f1ab2187f6f9733137f9d00f
+    - fix: https://github.com/akuity/kargo/commit/52107be1d392feaf02d640083cc000be5756f557
+    - fix: https://github.com/akuity/kargo/commit/768b2a62dcd70b7b2313290fea6c673e49e0c2d4
+    - fix: https://github.com/akuity/kargo/commit/d2c8d185b7cc43e225e0e2d17937511820479834
+    - fix: https://github.com/akuity/kargo/commit/db8ca6c015defc5ea29afb32cdea982b657f263a
+    - web: https://github.com/akuity/kargo/releases/tag/v1.10.2
+    - web: https://github.com/akuity/kargo/releases/tag/v1.7.10
+    - web: https://github.com/akuity/kargo/releases/tag/v1.8.13
+    - web: https://github.com/akuity/kargo/releases/tag/v1.9.8
+source:
+    id: GHSA-g7gw-m874-7rmf
+    created: 2026-08-27T15:17:58.944154-04:00
+review_status: UNREVIEWED

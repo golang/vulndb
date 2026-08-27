@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6301",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-42350",
+    "GHSA-g7gw-m874-7rmf"
+  ],
+  "summary": "Kargo has Open Redirect in UI OIDC Login Flow via redirectTo Query Parameter in github.com/akuity/kargo",
+  "details": "Kargo has Open Redirect in UI OIDC Login Flow via redirectTo Query Parameter in github.com/akuity/kargo",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/akuity/kargo",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.7.10"
+            },
+            {
+              "introduced": "1.8.0"
+            },
+            {
+              "fixed": "1.8.13"
+            },
+            {
+              "introduced": "1.9.0"
+            },
+            {
+              "fixed": "1.9.8"
+            },
+            {
+              "introduced": "1.10.0"
+            },
+            {
+              "fixed": "1.10.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/akuity/kargo/security/advisories/GHSA-g7gw-m874-7rmf"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42350"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/akuity/kargo/commit/0b89215740e93d18f1ab2187f6f9733137f9d00f"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/akuity/kargo/commit/52107be1d392feaf02d640083cc000be5756f557"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/akuity/kargo/commit/768b2a62dcd70b7b2313290fea6c673e49e0c2d4"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/akuity/kargo/commit/d2c8d185b7cc43e225e0e2d17937511820479834"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/akuity/kargo/commit/db8ca6c015defc5ea29afb32cdea982b657f263a"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/akuity/kargo/releases/tag/v1.10.2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/akuity/kargo/releases/tag/v1.7.10"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/akuity/kargo/releases/tag/v1.8.13"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/akuity/kargo/releases/tag/v1.9.8"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6301",
+    "review_status": "UNREVIEWED"
+  }
+}
