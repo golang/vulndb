@@ -1,0 +1,24 @@
+id: GO-2026-6336
+modules:
+    - module: code.gitea.io/gitea
+      versions:
+        - fixed: 1.25.5
+      vulnerable_at: 1.25.4
+summary: Gitea OAuth2 authorization codes can be reused after expiry in code.gitea.io/gitea
+cves:
+    - CVE-2026-26232
+ghsas:
+    - GHSA-5v69-g2m3-3hq3
+references:
+    - advisory: https://github.com/advisories/GHSA-5v69-g2m3-3hq3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-26232
+    - web: https://blog.gitea.com/release-of-1.25.5
+    - web: https://github.com/go-gitea/gitea/commit/413074b1e1dc5718b4865b9493d8cc97e1e128de
+    - web: https://github.com/go-gitea/gitea/commit/f3bdcc58aff60b66eba7bd5e9b23457441733dfe
+    - web: https://github.com/go-gitea/gitea/pull/36797
+    - web: https://github.com/go-gitea/gitea/pull/36851
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.25.5
+source:
+    id: GHSA-5v69-g2m3-3hq3
+    created: 2026-09-01T14:12:07.08622-04:00
+review_status: UNREVIEWED

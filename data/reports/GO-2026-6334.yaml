@@ -1,0 +1,26 @@
+id: GO-2026-6334
+modules:
+    - module: code.gitea.io/gitea
+      versions:
+        - fixed: 1.25.5
+      vulnerable_at: 1.25.4
+summary: |-
+    Gitea pull request branch permission checks allow unauthorized updates and
+    rebases in code.gitea.io/gitea
+cves:
+    - CVE-2026-24690
+ghsas:
+    - GHSA-47rq-xp99-92mx
+references:
+    - advisory: https://github.com/advisories/GHSA-47rq-xp99-92mx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-24690
+    - web: https://blog.gitea.com/release-of-1.25.5
+    - web: https://github.com/go-gitea/gitea/commit/76c539cd572f1638c5a8a6571b0c347b277bf999
+    - web: https://github.com/go-gitea/gitea/commit/99b0bf7324dec2f9b85ce33ff809d0cc2acd5864
+    - web: https://github.com/go-gitea/gitea/pull/36465
+    - web: https://github.com/go-gitea/gitea/pull/36838
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.25.5
+source:
+    id: GHSA-47rq-xp99-92mx
+    created: 2026-09-01T14:12:24.787213-04:00
+review_status: UNREVIEWED

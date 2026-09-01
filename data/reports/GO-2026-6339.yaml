@@ -1,0 +1,24 @@
+id: GO-2026-6339
+modules:
+    - module: code.gitea.io/gitea
+      versions:
+        - fixed: 1.25.5
+      vulnerable_at: 1.25.4
+summary: Gitea exposes tracked time entries without repository authorization in code.gitea.io/gitea
+cves:
+    - CVE-2026-20909
+ghsas:
+    - GHSA-fhq3-p242-2qpf
+references:
+    - advisory: https://github.com/advisories/GHSA-fhq3-p242-2qpf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-20909
+    - web: https://blog.gitea.com/release-of-1.25.5
+    - web: https://github.com/go-gitea/gitea/commit/00566cc953dba772d2f38aa475d235fead461605
+    - web: https://github.com/go-gitea/gitea/commit/ed57c70176a6cac63f48ddf6b0d5f4f72cfea963
+    - web: https://github.com/go-gitea/gitea/pull/36662
+    - web: https://github.com/go-gitea/gitea/pull/36744
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.25.5
+source:
+    id: GHSA-fhq3-p242-2qpf
+    created: 2026-09-01T14:11:41.58435-04:00
+review_status: UNREVIEWED

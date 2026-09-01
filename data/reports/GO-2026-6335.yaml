@@ -1,0 +1,24 @@
+id: GO-2026-6335
+modules:
+    - module: code.gitea.io/gitea
+      versions:
+        - fixed: 1.25.5
+      vulnerable_at: 1.25.4
+summary: Gitea primary email ownership bypass allows cross-user email changes in code.gitea.io/gitea
+cves:
+    - CVE-2026-27657
+ghsas:
+    - GHSA-4c8f-3m6h-m56r
+references:
+    - advisory: https://github.com/advisories/GHSA-4c8f-3m6h-m56r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-27657
+    - web: https://blog.gitea.com/release-of-1.25.5
+    - web: https://github.com/go-gitea/gitea/commit/8d26ea93738430a57d00c2da0fd97e1ba712eed7
+    - web: https://github.com/go-gitea/gitea/commit/e927a86586afc138959b462d4040d1547f406f71
+    - web: https://github.com/go-gitea/gitea/pull/36586
+    - web: https://github.com/go-gitea/gitea/pull/36607
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.25.5
+source:
+    id: GHSA-4c8f-3m6h-m56r
+    created: 2026-09-01T14:12:15.907211-04:00
+review_status: UNREVIEWED

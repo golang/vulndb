@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6339",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-20909",
+    "GHSA-fhq3-p242-2qpf"
+  ],
+  "summary": "Gitea exposes tracked time entries without repository authorization in code.gitea.io/gitea",
+  "details": "Gitea exposes tracked time entries without repository authorization in code.gitea.io/gitea",
+  "affected": [
+    {
+      "package": {
+        "name": "code.gitea.io/gitea",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.25.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-fhq3-p242-2qpf"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-20909"
+    },
+    {
+      "type": "WEB",
+      "url": "https://blog.gitea.com/release-of-1.25.5"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-gitea/gitea/commit/00566cc953dba772d2f38aa475d235fead461605"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-gitea/gitea/commit/ed57c70176a6cac63f48ddf6b0d5f4f72cfea963"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-gitea/gitea/pull/36662"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-gitea/gitea/pull/36744"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-gitea/gitea/releases/tag/v1.25.5"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6339",
+    "review_status": "UNREVIEWED"
+  }
+}
