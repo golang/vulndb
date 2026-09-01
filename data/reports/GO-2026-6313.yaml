@@ -1,0 +1,24 @@
+id: GO-2026-6313
+modules:
+    - module: code.vikunja.io/api
+      versions:
+        - introduced: 0.24.6
+      non_go_versions:
+        - fixed: 2.4.0
+      vulnerable_at: 0.24.6
+summary: |-
+    Vikunja vulnerable to Improper Authorization and Authorization Bypass Through
+    User-Controlled Key in code.vikunja.io/api
+cves:
+    - CVE-2026-55065
+ghsas:
+    - GHSA-gg93-x632-9ccv
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-gg93-x632-9ccv
+    - web: https://github.com/go-vikunja/vikunja/commit/6895a7765ef1667be4b79df29549d33b9e1ca9ca
+    - web: https://github.com/go-vikunja/vikunja/pull/3239
+    - web: https://github.com/go-vikunja/vikunja/releases/tag/v2.4.0
+source:
+    id: GHSA-gg93-x632-9ccv
+    created: 2026-09-01T13:19:43.323722-04:00
+review_status: UNREVIEWED

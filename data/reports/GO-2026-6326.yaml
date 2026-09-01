@@ -1,0 +1,19 @@
+id: GO-2026-6326
+modules:
+    - module: github.com/free5gc/ausf
+      unsupported_versions:
+        - last_affected: 1.4.4
+      vulnerable_at: 1.4.5
+summary: |-
+    free5GC AUSF authentication contexts can be overwritten by concurrent requests
+    for the same SUPI in github.com/free5gc/ausf
+cves:
+    - CVE-2026-55784
+ghsas:
+    - GHSA-334q-h5g3-fpxv
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-334q-h5g3-fpxv
+source:
+    id: GHSA-334q-h5g3-fpxv
+    created: 2026-09-01T13:11:42.319976-04:00
+review_status: UNREVIEWED

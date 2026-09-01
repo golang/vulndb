@@ -1,0 +1,26 @@
+id: GO-2026-6319
+modules:
+    - module: github.com/lxc/incus
+      vulnerable_at: 0.7.0
+    - module: github.com/lxc/incus/v6
+      vulnerable_at: 6.23.0
+    - module: github.com/lxc/incus/v7
+      versions:
+        - fixed: 7.2.0
+      vulnerable_at: 7.1.0
+summary: Incus has a project restriction bypass in instance copy across projects in github.com/lxc/incus
+cves:
+    - CVE-2026-55622
+ghsas:
+    - GHSA-c9f5-j9c3-mhrg
+references:
+    - advisory: https://github.com/lxc/incus/security/advisories/GHSA-c9f5-j9c3-mhrg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-55622
+    - fix: https://github.com/lxc/incus/commit/1e3ffc53a10950e55de62ac1e0d612be597b84eb
+    - fix: https://github.com/lxc/incus/pull/3542
+    - web: https://discuss.linuxcontainers.org/t/incus-7-2-has-been-released/26879
+    - web: https://github.com/lxc/incus/releases/tag/v7.2.0
+source:
+    id: GHSA-c9f5-j9c3-mhrg
+    created: 2026-09-01T13:36:28.965014-04:00
+review_status: UNREVIEWED

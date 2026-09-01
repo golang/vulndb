@@ -1,0 +1,22 @@
+id: GO-2026-6308
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - fixed: 2.4.0
+      vulnerable_at: 0.24.6
+summary: |-
+    Vikunja has cross-tenant IDOR in kanban move-task endpoint via unauthorized body
+    task_id in code.vikunja.io/api
+cves:
+    - CVE-2026-55066
+ghsas:
+    - GHSA-5pg6-m483-7vrg
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-5pg6-m483-7vrg
+    - web: https://github.com/go-vikunja/vikunja/commit/36cdc2ce2be0b8ccc74227d178b92047d59cd65f
+    - web: https://github.com/go-vikunja/vikunja/pull/3239
+    - web: https://github.com/go-vikunja/vikunja/releases/tag/v2.4.0
+source:
+    id: GHSA-5pg6-m483-7vrg
+    created: 2026-09-01T13:20:25.340007-04:00
+review_status: UNREVIEWED

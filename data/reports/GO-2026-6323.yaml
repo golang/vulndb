@@ -1,0 +1,21 @@
+id: GO-2026-6323
+modules:
+    - module: github.com/klever-io/klever-go
+      non_go_versions:
+        - fixed: 1.7.19-rc4
+      vulnerable_at: 1.7.20
+summary: |-
+    klever-go: Percentage-transfer royalty skips the source debit at exactly-100%
+    splits in github.com/klever-io/klever-go
+cves:
+    - CVE-2026-55763
+ghsas:
+    - GHSA-v358-wf77-39xv
+references:
+    - advisory: https://github.com/klever-io/klever-go/security/advisories/GHSA-v358-wf77-39xv
+    - fix: https://github.com/klever-io/klever-go/commit/8bcc600b0ac88070740c63c7ce1c8a968dd85251
+    - web: https://github.com/klever-io/klever-go/releases/tag/v1.7.19
+source:
+    id: GHSA-v358-wf77-39xv
+    created: 2026-09-01T13:12:41.636485-04:00
+review_status: UNREVIEWED

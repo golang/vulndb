@@ -1,0 +1,21 @@
+id: GO-2026-6315
+modules:
+    - module: github.com/klever-io/klever-go
+      versions:
+        - fixed: 1.7.19
+      vulnerable_at: 1.7.18
+summary: |-
+    Klever: Marketplace settlement mints KLV when referral % + royalty % exceed the
+    bid (negative seller share silently skipped) in github.com/klever-io/klever-go
+cves:
+    - CVE-2026-54754
+ghsas:
+    - GHSA-p7gw-2pcp-5pf8
+references:
+    - advisory: https://github.com/klever-io/klever-go/security/advisories/GHSA-p7gw-2pcp-5pf8
+    - fix: https://github.com/klever-io/klever-go/commit/8bcc600b0ac88070740c63c7ce1c8a968dd85251
+    - web: https://github.com/klever-io/klever-go/releases/tag/v1.7.19
+source:
+    id: GHSA-p7gw-2pcp-5pf8
+    created: 2026-09-01T13:19:28.795538-04:00
+review_status: UNREVIEWED

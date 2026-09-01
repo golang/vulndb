@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6309",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-54746",
+    "GHSA-8x7x-83cf-c3pg"
+  ],
+  "summary": "Hatchet allows cross-tenant write/DoS to other tenants' workers via Dispatcher gRPC UpsertWorkerLabels and Unsubscribe in github.com/hatchet-dev/hatchet",
+  "details": "Hatchet allows cross-tenant write/DoS to other tenants' workers via Dispatcher gRPC UpsertWorkerLabels and Unsubscribe in github.com/hatchet-dev/hatchet",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/hatchet-dev/hatchet",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.40.0"
+            },
+            {
+              "fixed": "0.91.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/hatchet-dev/hatchet/security/advisories/GHSA-8x7x-83cf-c3pg"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/hatchet-dev/hatchet/commit/591a30deb8b80f02eba7014997de387d710986c9"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6309",
+    "review_status": "UNREVIEWED"
+  }
+}

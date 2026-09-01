@@ -1,0 +1,22 @@
+id: GO-2026-6320
+modules:
+    - module: github.com/maximhq/bifrost/core
+      versions:
+        - fixed: 1.5.17
+      vulnerable_at: 1.5.16
+summary: |-
+    Bifrost's SSRF deny-list is incomplete: isPublicIP permits CGNAT, IPv6
+    6to4/NAT64, and site-local in FetchAndEncodeURL in github.com/maximhq/bifrost/core
+cves:
+    - CVE-2026-55245
+ghsas:
+    - GHSA-w98g-5w9p-p3rc
+references:
+    - advisory: https://github.com/maximhq/bifrost/security/advisories/GHSA-w98g-5w9p-p3rc
+    - web: https://github.com/maximhq/bifrost/commit/54ec431fc5255ff42c36420d88549477e0b33d89
+    - web: https://github.com/maximhq/bifrost/pull/4092
+    - web: https://github.com/maximhq/bifrost/releases/tag/core/v1.5.17
+source:
+    id: GHSA-w98g-5w9p-p3rc
+    created: 2026-09-01T13:13:05.97283-04:00
+review_status: UNREVIEWED

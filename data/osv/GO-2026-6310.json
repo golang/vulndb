@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6310",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-54755",
+    "GHSA-cgc5-v3f2-8m2v"
+  ],
+  "summary": "Klever: Integer overflow in split-royalty validation enables unbounded minting of KLV (native token) in github.com/klever-io/klever-go",
+  "details": "Klever: Integer overflow in split-royalty validation enables unbounded minting of KLV (native token) in github.com/klever-io/klever-go",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/klever-io/klever-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.7.19"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/klever-io/klever-go/security/advisories/GHSA-cgc5-v3f2-8m2v"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/klever-io/klever-go/commit/8bcc600b0ac88070740c63c7ce1c8a968dd85251"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/klever-io/klever-go/releases/tag/v1.7.19"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6310",
+    "review_status": "UNREVIEWED"
+  }
+}

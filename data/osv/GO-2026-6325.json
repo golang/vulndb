@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6325",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-27878",
+    "GHSA-6xff-cpcq-vpw2"
+  ],
+  "summary": "Grafana Tempo vulnerable to an out-of-memory crash in github.com/grafana/tempo",
+  "details": "Grafana Tempo vulnerable to an out-of-memory crash in github.com/grafana/tempo",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/grafana/tempo",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.5.1-0.20260303204923-b13f74291d48"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-6xff-cpcq-vpw2"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-27878"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/grafana/tempo/commit/3d7c78d438890991df594c20ae2031f8934aba3b"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/grafana/tempo/commit/b13f74291d489672601a10297f8fbcbf7dd19192"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/grafana/tempo/commit/b481ae9693f99785691197915066e6306950fa09"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/grafana/tempo/commit/e2d51b786aff94de3319c07994c6a5539b121eb5"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/grafana/tempo/pull/6559"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/grafana/tempo/pull/6646"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/grafana/tempo/pull/6792"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/grafana/tempo/pull/6802"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/grafana/tempo/releases/tag/v2.10.2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/grafana/tempo/releases/tag/v2.8.4"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/grafana/tempo/releases/tag/v2.9.2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://grafana.com/security/security-advisories/cve-2026-27878"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6325",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,20 @@
+id: GO-2026-6306
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - introduced: 2.3.0
+        - fixed: 2.4.0
+      vulnerable_at: 0.24.6
+summary: |-
+    Vikunja has an incomplete fix for CVE-2026-35595: Write-only user can detach
+    shared project from parent hierarchy via parent_project_id=0 in code.vikunja.io/api
+cves:
+    - CVE-2026-55064
+ghsas:
+    - GHSA-44v6-7fxq-vgf4
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-44v6-7fxq-vgf4
+source:
+    id: GHSA-44v6-7fxq-vgf4
+    created: 2026-09-01T13:20:38.0696-04:00
+review_status: UNREVIEWED

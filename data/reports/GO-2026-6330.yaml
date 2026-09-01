@@ -1,0 +1,21 @@
+id: GO-2026-6330
+modules:
+    - module: github.com/klever-io/klever-go
+      versions:
+        - fixed: 1.7.19
+      vulnerable_at: 1.7.18
+summary: |-
+    klever-go: SFT add-quantity `int64` overflow bypasses a finite per-nonce
+    MaxSupply in github.com/klever-io/klever-go
+cves:
+    - CVE-2026-55764
+ghsas:
+    - GHSA-mrpp-v6pg-p54x
+references:
+    - advisory: https://github.com/klever-io/klever-go/security/advisories/GHSA-mrpp-v6pg-p54x
+    - fix: https://github.com/klever-io/klever-go/commit/8bcc600b0ac88070740c63c7ce1c8a968dd85251
+    - web: https://github.com/klever-io/klever-go/releases/tag/v1.7.19
+source:
+    id: GHSA-mrpp-v6pg-p54x
+    created: 2026-09-01T13:11:11.793706-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6305",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-55834",
+    "GHSA-2wvm-8mvp-22qv"
+  ],
+  "summary": "Pocket-ID has an Open Redirect on the OIDC /authorize page via unvalidated redirect_uri with prompt=none in github.com/pocket-id/pocket-id/backend",
+  "details": "Pocket-ID has an Open Redirect on the OIDC /authorize page via unvalidated redirect_uri with prompt=none in github.com/pocket-id/pocket-id/backend.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/pocket-id/pocket-id/backend from v2.6.0 before v2.9.0.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/pocket-id/pocket-id/backend",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "2.6.0"
+              },
+              {
+                "fixed": "2.9.0"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/pocket-id/pocket-id/security/advisories/GHSA-2wvm-8mvp-22qv"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/pocket-id/pocket-id/commit/8a7577497131229badb35cb4b3a4227b1300afff"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/pocket-id/pocket-id/releases/tag/v2.9.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6305",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,28 @@
+id: GO-2026-6324
+modules:
+    - module: github.com/portainer/portainer
+      non_go_versions:
+        - introduced: 2.39.0
+        - fixed: 2.39.4
+        - introduced: 2.40.0
+        - fixed: 2.43.0
+      vulnerable_at: 0.10.1
+summary: |-
+    Portainer has Unauthenticated Restore Endpoint that Allows Admin Takeover on
+    Uninitialized Instances in github.com/portainer/portainer
+cves:
+    - CVE-2026-55761
+ghsas:
+    - GHSA-x626-fcwx-f5pc
+references:
+    - advisory: https://github.com/portainer/portainer/security/advisories/GHSA-x626-fcwx-f5pc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-55761
+    - fix: https://github.com/portainer/portainer/commit/49f19107cf9a3540cbe406c9eb7f24390e1af02b
+    - fix: https://github.com/portainer/portainer/commit/d2b56efcb4e43c4168bb6688eee9f6bf22867312
+    - report: https://github.com/portainer/portainer/issues/2770
+    - web: https://github.com/portainer/portainer/releases/tag/2.39.4
+    - web: https://github.com/portainer/portainer/releases/tag/2.43.0
+source:
+    id: GHSA-x626-fcwx-f5pc
+    created: 2026-09-01T13:12:01.481397-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,23 @@
+id: GO-2026-6314
+modules:
+    - module: github.com/aquaproj/aqua
+      vulnerable_at: 1.38.0
+    - module: github.com/aquaproj/aqua/v2
+      versions:
+        - fixed: 2.60.1
+      vulnerable_at: 2.60.1-1
+summary: |-
+    Aqua's archive extraction follows attacker-planted symlinks, allowing writes
+    outside the install directory in github.com/aquaproj/aqua
+cves:
+    - CVE-2026-55569
+ghsas:
+    - GHSA-mf5c-hw34-4hpp
+references:
+    - advisory: https://github.com/aquaproj/aqua/security/advisories/GHSA-mf5c-hw34-4hpp
+    - fix: https://github.com/aquaproj/aqua/commit/d5b02b220188de376a661b3aabfa912202a1a59a
+    - web: https://github.com/aquaproj/aqua/releases/tag/v2.60.1
+source:
+    id: GHSA-mf5c-hw34-4hpp
+    created: 2026-09-01T13:19:35.37827-04:00
+review_status: UNREVIEWED

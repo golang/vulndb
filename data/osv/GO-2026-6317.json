@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6317",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-55588",
+    "GHSA-298f-872v-2rcx"
+  ],
+  "summary": "ORAS CLI: Cyclic Referrer Graph Can Cause Unbounded Recursion and Resource Consumption in oras.land/oras",
+  "details": "ORAS CLI: Cyclic Referrer Graph Can Cause Unbounded Recursion and Resource Consumption in oras.land/oras",
+  "affected": [
+    {
+      "package": {
+        "name": "oras.land/oras",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.3.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/oras-project/oras/security/advisories/GHSA-298f-872v-2rcx"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-55588"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/oras-project/oras/commit/440eb65d07a0631f131944d28e7c29d562ec17f3"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6317",
+    "review_status": "UNREVIEWED"
+  }
+}

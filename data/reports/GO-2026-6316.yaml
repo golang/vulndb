@@ -1,0 +1,25 @@
+id: GO-2026-6316
+modules:
+    - module: github.com/free5gc/free5gc
+      versions:
+        - fixed: 4.2.2+incompatible
+      vulnerable_at: 4.2.1+incompatible
+summary: |-
+    free5GC NRF nnrf-nfm lacks NF Profile input validation — enables NF
+    Registration Poisoning with arbitrary service endpoints in github.com/free5gc/free5gc
+cves:
+    - CVE-2026-55068
+ghsas:
+    - GHSA-x8mj-6p3q-g5pp
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-x8mj-6p3q-g5pp
+    - report: https://github.com/free5gc/free5gc/issues/1056
+    - web: https://github.com/free5gc/free5gc/releases/tag/v4.2.3
+    - web: https://github.com/free5gc/nrf/commit/bda0cf75be5556bb4c758c8b34710f3fe6bbe3ea
+    - web: https://github.com/free5gc/nrf/commit/fcd3cfaa27cc4dc17172ee0c4c3e0a3a696297c6
+    - web: https://github.com/free5gc/nrf/pull/90
+    - web: https://github.com/free5gc/nrf/releases/tag/v1.4.5
+source:
+    id: GHSA-x8mj-6p3q-g5pp
+    created: 2026-09-01T13:19:17.002297-04:00
+review_status: UNREVIEWED

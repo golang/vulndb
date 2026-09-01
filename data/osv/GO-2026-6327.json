@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6327",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-55874",
+    "GHSA-56wq-x3wv-3ff4"
+  ],
+  "summary": "SeaweedFS: Path traversal in the S3 gateway X-Amz-Copy-Source header allows cross-bucket object read in github.com/seaweedfs/seaweedfs",
+  "details": "SeaweedFS: Path traversal in the S3 gateway X-Amz-Copy-Source header allows cross-bucket object read in github.com/seaweedfs/seaweedfs",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/seaweedfs/seaweedfs",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20260612000715-b44cf51fe931"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/seaweedfs/seaweedfs/security/advisories/GHSA-56wq-x3wv-3ff4"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-55874"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/seaweedfs/seaweedfs/commit/b44cf51fe931bd75aa4d37ae766bea90d7f85ccd"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/seaweedfs/seaweedfs/pull/9929"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/seaweedfs/seaweedfs/releases/tag/4.34"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6327",
+    "review_status": "UNREVIEWED"
+  }
+}

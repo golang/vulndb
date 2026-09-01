@@ -1,0 +1,28 @@
+id: GO-2026-6318
+modules:
+    - module: github.com/lxc/incus
+      unsupported_versions:
+        - last_affected: 0.7.0
+      vulnerable_at: 0.7.0
+    - module: github.com/lxc/incus/v6
+      unsupported_versions:
+        - last_affected: 6.23.0
+      vulnerable_at: 6.23.0
+    - module: github.com/lxc/incus/v7
+      versions:
+        - fixed: 7.2.0
+      vulnerable_at: 7.1.0
+summary: Incus has a project restriction bypass for custom volume copy across projects in github.com/lxc/incus
+cves:
+    - CVE-2026-55621
+ghsas:
+    - GHSA-64f3-v33m-w89f
+references:
+    - advisory: https://github.com/lxc/incus/security/advisories/GHSA-64f3-v33m-w89f
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-55621
+    - fix: https://github.com/lxc/incus/commit/2e01078366e2653712719dec82318e51c6d21b28
+    - web: https://github.com/lxc/incus/releases/tag/v7.2.0
+source:
+    id: GHSA-64f3-v33m-w89f
+    created: 2026-09-01T13:28:40.41467-04:00
+review_status: UNREVIEWED

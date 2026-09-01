@@ -1,0 +1,20 @@
+id: GO-2026-6328
+modules:
+    - module: github.com/free5gc/ausf
+      versions:
+        - fixed: 1.4.5
+      vulnerable_at: 1.4.4
+summary: |-
+    free5GC AUSF uses non-constant-time authentication comparisons and logs XRES* in
+    5G-AKA in github.com/free5gc/ausf
+cves:
+    - CVE-2026-55785
+ghsas:
+    - GHSA-fp46-6vfw-gc9c
+references:
+    - advisory: https://github.com/free5gc/free5gc/security/advisories/GHSA-fp46-6vfw-gc9c
+    - fix: https://github.com/free5gc/ausf/commit/7a5a4aa1ec6cd0e1febebf333911c3104968edf0
+source:
+    id: GHSA-fp46-6vfw-gc9c
+    created: 2026-09-01T13:11:27.411636-04:00
+review_status: UNREVIEWED

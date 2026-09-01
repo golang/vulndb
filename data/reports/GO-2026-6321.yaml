@@ -1,0 +1,21 @@
+id: GO-2026-6321
+modules:
+    - module: github.com/guno1928/alos-http
+      versions:
+        - fixed: 0.0.0-20260617230736-314b6783e196
+summary: |-
+    alos-http has unauthenticated remote DoS: malformed path starting with "?"
+    triggers out-of-bounds panic in sanitizeRequestPath, crashing entire server in github.com/guno1928/alos-http
+cves:
+    - CVE-2026-55484
+ghsas:
+    - GHSA-hr6j-w4mw-g9mj
+references:
+    - advisory: https://github.com/guno1928/alos-http/security/advisories/GHSA-hr6j-w4mw-g9mj
+    - fix: https://github.com/guno1928/alos-http/commit/314b6783e19698c85ea9d9b197ff52f7f6a3a374
+notes:
+    - fix: 'github.com/guno1928/alos-http: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-hr6j-w4mw-g9mj
+    created: 2026-09-01T13:12:59.086725-04:00
+review_status: UNREVIEWED

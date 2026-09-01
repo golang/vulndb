@@ -1,0 +1,30 @@
+id: GO-2026-6325
+modules:
+    - module: github.com/grafana/tempo
+      versions:
+        - fixed: 1.5.1-0.20260303204923-b13f74291d48
+      vulnerable_at: 1.5.0
+summary: Grafana Tempo vulnerable to an out-of-memory crash in github.com/grafana/tempo
+cves:
+    - CVE-2026-27878
+ghsas:
+    - GHSA-6xff-cpcq-vpw2
+references:
+    - advisory: https://github.com/advisories/GHSA-6xff-cpcq-vpw2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-27878
+    - fix: https://github.com/grafana/tempo/commit/3d7c78d438890991df594c20ae2031f8934aba3b
+    - fix: https://github.com/grafana/tempo/commit/b13f74291d489672601a10297f8fbcbf7dd19192
+    - fix: https://github.com/grafana/tempo/commit/b481ae9693f99785691197915066e6306950fa09
+    - fix: https://github.com/grafana/tempo/commit/e2d51b786aff94de3319c07994c6a5539b121eb5
+    - fix: https://github.com/grafana/tempo/pull/6559
+    - fix: https://github.com/grafana/tempo/pull/6646
+    - fix: https://github.com/grafana/tempo/pull/6792
+    - fix: https://github.com/grafana/tempo/pull/6802
+    - web: https://github.com/grafana/tempo/releases/tag/v2.10.2
+    - web: https://github.com/grafana/tempo/releases/tag/v2.8.4
+    - web: https://github.com/grafana/tempo/releases/tag/v2.9.2
+    - web: https://grafana.com/security/security-advisories/cve-2026-27878
+source:
+    id: GHSA-6xff-cpcq-vpw2
+    created: 2026-09-01T13:11:47.796148-04:00
+review_status: UNREVIEWED

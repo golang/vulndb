@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6330",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-55764",
+    "GHSA-mrpp-v6pg-p54x"
+  ],
+  "summary": "klever-go: SFT add-quantity `int64` overflow bypasses a finite per-nonce MaxSupply in github.com/klever-io/klever-go",
+  "details": "klever-go: SFT add-quantity `int64` overflow bypasses a finite per-nonce MaxSupply in github.com/klever-io/klever-go",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/klever-io/klever-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.7.19"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/klever-io/klever-go/security/advisories/GHSA-mrpp-v6pg-p54x"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/klever-io/klever-go/commit/8bcc600b0ac88070740c63c7ce1c8a968dd85251"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/klever-io/klever-go/releases/tag/v1.7.19"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6330",
+    "review_status": "UNREVIEWED"
+  }
+}

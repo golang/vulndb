@@ -1,0 +1,23 @@
+id: GO-2026-6322
+modules:
+    - module: github.com/basekick-labs/arc
+      versions:
+        - fixed: 0.0.0-20260615160325-38402ad2ebdd
+summary: |-
+    arc has unauthenticated cluster node admission when `cluster.shared_secret` is
+    unset in github.com/basekick-labs/arc
+cves:
+    - CVE-2026-55678
+ghsas:
+    - GHSA-p378-jp5r-gpgw
+references:
+    - advisory: https://github.com/Basekick-Labs/arc/security/advisories/GHSA-p378-jp5r-gpgw
+    - web: https://github.com/Basekick-Labs/arc/commit/38402ad2ebddd32c15bf4a0fc9c22c920e5685df
+    - web: https://github.com/Basekick-Labs/arc/pull/505
+    - web: https://github.com/Basekick-Labs/arc/releases/tag/v26.06.2
+notes:
+    - fix: 'github.com/basekick-labs/arc: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-p378-jp5r-gpgw
+    created: 2026-09-01T13:12:49.872923-04:00
+review_status: UNREVIEWED

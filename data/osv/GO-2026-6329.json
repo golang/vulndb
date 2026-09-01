@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6329",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-55873",
+    "GHSA-hgpf-8634-g44c"
+  ],
+  "summary": "SeaweedFS: Improper authorization in the S3Tables / Iceberg REST management API lets a low-privileged S3 user enumerate administrator-owned table buckets in github.com/seaweedfs/seaweedfs",
+  "details": "SeaweedFS: Improper authorization in the S3Tables / Iceberg REST management API lets a low-privileged S3 user enumerate administrator-owned table buckets in github.com/seaweedfs/seaweedfs",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/seaweedfs/seaweedfs",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.0.0-20260128085517-09bb90e8dc16"
+            },
+            {
+              "fixed": "0.0.0-20260614205536-b13463880c1f"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/seaweedfs/seaweedfs/security/advisories/GHSA-hgpf-8634-g44c"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-55873"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/seaweedfs/seaweedfs/commit/b13463880c1fa62e255c058a9228b63cc95b4b36"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/seaweedfs/seaweedfs/pull/9961"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/seaweedfs/seaweedfs/releases/tag/4.34"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6329",
+    "review_status": "UNREVIEWED"
+  }
+}

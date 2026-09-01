@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6312",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-55108",
+    "GHSA-fmgp-q6jx-gg3x"
+  ],
+  "summary": "KubeVela Terraform remote loader DoS via unbounded file read in github.com/oam-dev/kubevela",
+  "details": "KubeVela Terraform remote loader DoS via unbounded file read in github.com/oam-dev/kubevela",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/oam-dev/kubevela",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.9.14"
+            },
+            {
+              "introduced": "1.10.0-alpha.1"
+            },
+            {
+              "fixed": "1.10.9"
+            },
+            {
+              "introduced": "1.11.0-alpha.1"
+            },
+            {
+              "fixed": "1.11.0-alpha.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/kubevela/kubevela/security/advisories/GHSA-fmgp-q6jx-gg3x"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubevela/kubevela/commit/65dedda40a69cc1eccf4072a4c835e5b9f13334e"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubevela/kubevela/commit/7a4e59b2958ce1cf031fafbc188d6fafe8fe4d2e"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubevela/kubevela/commit/f6a64398b5e0065c57c3a0fb6765dd3dc48c749d"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubevela/kubevela/pull/7191"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubevela/kubevela/pull/7192"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubevela/kubevela/releases/tag/v1.10.9"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubevela/kubevela/releases/tag/v1.11.0-alpha.4"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubevela/kubevela/releases/tag/v1.9.14"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6312",
+    "review_status": "UNREVIEWED"
+  }
+}

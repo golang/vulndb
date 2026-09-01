@@ -1,0 +1,21 @@
+id: GO-2026-6309
+modules:
+    - module: github.com/hatchet-dev/hatchet
+      versions:
+        - introduced: 0.40.0
+        - fixed: 0.91.2
+      vulnerable_at: 0.91.1
+summary: |-
+    Hatchet allows cross-tenant write/DoS to other tenants' workers via Dispatcher
+    gRPC UpsertWorkerLabels and Unsubscribe in github.com/hatchet-dev/hatchet
+cves:
+    - CVE-2026-54746
+ghsas:
+    - GHSA-8x7x-83cf-c3pg
+references:
+    - advisory: https://github.com/hatchet-dev/hatchet/security/advisories/GHSA-8x7x-83cf-c3pg
+    - fix: https://github.com/hatchet-dev/hatchet/commit/591a30deb8b80f02eba7014997de387d710986c9
+source:
+    id: GHSA-8x7x-83cf-c3pg
+    created: 2026-09-01T13:20:19.409919-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,24 @@
+id: GO-2026-6327
+modules:
+    - module: github.com/seaweedfs/seaweedfs
+      versions:
+        - fixed: 0.0.0-20260612000715-b44cf51fe931
+summary: |-
+    SeaweedFS: Path traversal in the S3 gateway X-Amz-Copy-Source header allows
+    cross-bucket object read in github.com/seaweedfs/seaweedfs
+cves:
+    - CVE-2026-55874
+ghsas:
+    - GHSA-56wq-x3wv-3ff4
+references:
+    - advisory: https://github.com/seaweedfs/seaweedfs/security/advisories/GHSA-56wq-x3wv-3ff4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-55874
+    - fix: https://github.com/seaweedfs/seaweedfs/commit/b44cf51fe931bd75aa4d37ae766bea90d7f85ccd
+    - fix: https://github.com/seaweedfs/seaweedfs/pull/9929
+    - web: https://github.com/seaweedfs/seaweedfs/releases/tag/4.34
+notes:
+    - fix: 'github.com/seaweedfs/seaweedfs: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-56wq-x3wv-3ff4
+    created: 2026-09-01T13:11:35.728283-04:00
+review_status: UNREVIEWED
