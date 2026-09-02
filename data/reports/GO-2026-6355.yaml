@@ -1,0 +1,37 @@
+id: GO-2026-6355
+modules:
+    - module: golang.org/x/crypto
+      versions:
+        - fixed: 0.56.0
+      vulnerable_at: 0.55.0
+      packages:
+        - package: golang.org/x/crypto/ssh
+          symbols:
+            - channel.handlePacket
+          derived_symbols:
+            - Dial
+            - NewClientConn
+            - NewControlClientConn
+            - NewServerConn
+summary: Prevent DoS on deadlocked established channel in golang.org/x/crypto/ssh
+description: |
+    Previously, after a channel has been established, a
+    malicious peer could send crafted messages that would
+    deadlock the entire connection.
+
+    Now, we handle all RFC 4254 channel messages; global
+    requests are handled explicitly. Then, treat all other
+    messages as a protocol error and tear the connection
+    down instead of buffering and blocking.
+credits:
+    - Will Mortensen
+references:
+    - report: https://go.dev/issue/81317
+    - fix: https://go.dev/cl/826524
+    - web: https://groups.google.com/g/golang-announce/c/1y3fb2np35U
+cve_metadata:
+    id: CVE-2026-56855
+    cwe: 'CWE-770: Allocation of Resources Without Limits or Throttling'
+source:
+    id: go-security-team
+review_status: REVIEWED

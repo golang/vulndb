@@ -1,0 +1,40 @@
+id: GO-2026-6354
+modules:
+    - module: golang.org/x/crypto
+      versions:
+        - fixed: 0.56.0
+      vulnerable_at: 0.55.0
+      packages:
+        - package: golang.org/x/crypto/ssh
+          symbols:
+            - channel.handlePacket
+            - channel.responseMessageReceived
+            - channel.Accept
+          derived_symbols:
+            - Dial
+            - NewClientConn
+            - NewControlClientConn
+            - NewServerConn
+summary: Prevent DoS on deadlocked undecided channel in golang.org/x/crypto/ssh
+description: |
+    Previously, a channel registered in the mux's chanList is
+    not usable until it is established. A malicious peer was
+    able flood the channel's incomingRequests, deadlocking the
+    entire connection.
+
+    Now, we add an atomic established state, set when a channel
+    becomes usable. Until such a time, handlePacket drops every
+    packet other than the open confirmation/failure, without
+    blocking and without tearing down the connection.
+credits:
+    - Will Mortensen
+references:
+    - report: https://go.dev/issue/81316
+    - fix: https://go.dev/cl/826504
+    - web: https://groups.google.com/g/golang-announce/c/1y3fb2np35U
+cve_metadata:
+    id: CVE-2026-78662
+    cwe: 'CWE-770: Allocation of Resources Without Limits or Throttling'
+source:
+    id: go-security-team
+review_status: REVIEWED
