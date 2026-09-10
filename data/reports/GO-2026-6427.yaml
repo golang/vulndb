@@ -1,0 +1,23 @@
+id: GO-2026-6427
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260726002639-4515fa257cfa
+summary: |-
+    SiYuan: Tag labels from password-protected documents are returned to readers who
+    have not entered the password in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-72792
+ghsas:
+    - GHSA-mp7r-57w4-5qm3
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-mp7r-57w4-5qm3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-72792
+    - web: https://github.com/siyuan-note/siyuan/commit/4515fa257cfae2db0a43844c61de8ef1ac853796
+    - web: https://www.vulncheck.com/advisories/siyuan-before-information-disclosure-via-tag-api
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-mp7r-57w4-5qm3
+    created: 2026-09-09T13:15:10.798197-04:00
+review_status: UNREVIEWED

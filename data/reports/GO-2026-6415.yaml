@@ -1,0 +1,23 @@
+id: GO-2026-6415
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260724121519-426991d155c0
+summary: |-
+    SiYuan: Publish-access filter on renderAttributeView leaves related-database
+    content unfiltered and fails open on non-block first columns in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-72798
+ghsas:
+    - GHSA-mfrj-v65r-979c
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-mfrj-v65r-979c
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-72798
+    - web: https://github.com/siyuan-note/siyuan/commit/426991d155c0c7c3a9e71badd6761eddfa8aad5b
+    - web: https://www.vulncheck.com/advisories/siyuan-before-information-disclosure-via-renderattributeview
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-mfrj-v65r-979c
+    created: 2026-09-09T13:17:13.435925-04:00
+review_status: UNREVIEWED

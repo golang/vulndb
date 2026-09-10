@@ -1,0 +1,34 @@
+id: GO-2026-6428
+modules:
+    - module: github.com/openchoreo/openchoreo
+      versions:
+        - fixed: 1.0.3
+        - introduced: 1.1.0
+        - fixed: 1.1.3
+        - introduced: 1.2.0-rc.1
+        - fixed: 1.2.0
+      vulnerable_at: 1.2.0-rc.2
+summary: |-
+    OpenChoreo: cluster-gateway internal proxy performs no caller authentication and
+    is not read-only — data-plane Secret disclosure and arbitrary Kubernetes
+    mutation in github.com/openchoreo/openchoreo
+cves:
+    - CVE-2026-73842
+ghsas:
+    - GHSA-rh53-xvx2-j327
+references:
+    - advisory: https://github.com/openchoreo/openchoreo/security/advisories/GHSA-rh53-xvx2-j327
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-73842
+    - fix: https://github.com/openchoreo/openchoreo/commit/50fcae3f1753fd0ac3ae655a3fc080a761c49c04
+    - fix: https://github.com/openchoreo/openchoreo/commit/93e6f10953cfc249af2222ddb6730d4b0a729129
+    - fix: https://github.com/openchoreo/openchoreo/commit/e3da3c63dcf0895c693cb17ce142ef95e959b62a
+    - fix: https://github.com/openchoreo/openchoreo/pull/4256
+    - fix: https://github.com/openchoreo/openchoreo/pull/4258
+    - fix: https://github.com/openchoreo/openchoreo/pull/4259
+    - web: https://github.com/openchoreo/openchoreo/releases/tag/v1.0.3
+    - web: https://github.com/openchoreo/openchoreo/releases/tag/v1.1.3
+    - web: https://github.com/openchoreo/openchoreo/releases/tag/v1.2.0-rc.2
+source:
+    id: GHSA-rh53-xvx2-j327
+    created: 2026-09-09T13:14:57.736651-04:00
+review_status: UNREVIEWED

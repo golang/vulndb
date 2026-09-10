@@ -1,0 +1,25 @@
+id: GO-2026-6377
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260721002947-23a17d44b5f3
+summary: |-
+    SiYuan: Unauthenticated arbitrary SQL execution via searchEmbedBlock (publish
+    mode) : reader-reachable raw statement on read-write handle, cross-notebook
+    read/write in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-69084
+ghsas:
+    - GHSA-vh22-h7hf-www7
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-vh22-h7hf-www7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-69084
+    - web: https://github.com/siyuan-note/siyuan/commit/0015cbafbf685363b217bbc46283a3c0f51c79fa
+    - web: https://github.com/siyuan-note/siyuan/commit/23a17d44b5f3da59c85e7fbee11236e6c12386b9
+    - web: https://www.vulncheck.com/advisories/siyuan-before-sql-injection-via-searchembedblock
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-vh22-h7hf-www7
+    created: 2026-09-09T13:20:34.212419-04:00
+review_status: UNREVIEWED

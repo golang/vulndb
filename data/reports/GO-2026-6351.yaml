@@ -1,0 +1,24 @@
+id: GO-2026-6351
+modules:
+    - module: github.com/seaweedfs/seaweedfs
+      versions:
+        - fixed: 0.0.0-20260512171108-5e8f99f40a8a
+summary: |-
+    SeaweedFS: Unauthenticated filer IAM gRPC service grants S3 administrative
+    control in github.com/seaweedfs/seaweedfs
+cves:
+    - CVE-2026-72920
+ghsas:
+    - GHSA-2v6v-25fm-p4fg
+references:
+    - advisory: https://github.com/seaweedfs/seaweedfs/security/advisories/GHSA-2v6v-25fm-p4fg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-72920
+    - fix: https://github.com/seaweedfs/seaweedfs/commit/5e8f99f40a8abc7b449aefd260516443377041c7
+    - fix: https://github.com/seaweedfs/seaweedfs/pull/9442
+    - web: https://github.com/seaweedfs/seaweedfs/releases/tag/4.24
+notes:
+    - fix: 'github.com/seaweedfs/seaweedfs: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-2v6v-25fm-p4fg
+    created: 2026-09-09T13:24:49.761535-04:00
+review_status: UNREVIEWED

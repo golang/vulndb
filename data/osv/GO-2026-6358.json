@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6358",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-73841",
+    "GHSA-52gf-6rpq-fgmx"
+  ],
+  "summary": "OpenChoreo: Cross-project command execution and wirelog view access via OpenChoreo openchoreo-api exec and wirelogs endpoints in github.com/openchoreo/openchoreo",
+  "details": "OpenChoreo: Cross-project command execution and wirelog view access via OpenChoreo openchoreo-api exec and wirelogs endpoints in github.com/openchoreo/openchoreo",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/openchoreo/openchoreo",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.1.6"
+            },
+            {
+              "introduced": "1.2.0-m.1"
+            },
+            {
+              "fixed": "1.2.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/openchoreo/openchoreo/security/advisories/GHSA-52gf-6rpq-fgmx"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-73841"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openchoreo/openchoreo/commit/4d372eaf1f07525663dcca5257062f4b051b9820"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openchoreo/openchoreo/commit/9d77b64f747eba89247c47ebfeffec591c4cd2d8"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openchoreo/openchoreo/commit/c9390e4fcb9953f43b07cb48197576182301593d"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openchoreo/openchoreo/pull/4251"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openchoreo/openchoreo/pull/4516"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openchoreo/openchoreo/pull/4538"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/openchoreo/openchoreo/releases/tag/v1.1.6"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/openchoreo/openchoreo/releases/tag/v1.2.3"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6358",
+    "review_status": "UNREVIEWED"
+  }
+}

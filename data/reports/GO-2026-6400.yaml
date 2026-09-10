@@ -1,0 +1,24 @@
+id: GO-2026-6400
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260723013612-ba948639d7f6
+summary: |-
+    SiYuan: Publish-boundary bypass via WebSocket broadcast: anonymous readers
+    receive a live unfiltered feed of all edits including protected/forbidden
+    documents (publish mode) in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-72810
+ghsas:
+    - GHSA-mw8r-mw84-88v2
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-mw8r-mw84-88v2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-72810
+    - web: https://github.com/siyuan-note/siyuan/commit/ba948639d7f6bd5594ce584072dc68310da87a68
+    - web: https://www.vulncheck.com/advisories/siyuan-before-publish-boundary-bypass-via-websocket
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-mw8r-mw84-88v2
+    created: 2026-09-09T13:18:45.052795-04:00
+review_status: UNREVIEWED

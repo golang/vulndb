@@ -1,0 +1,35 @@
+id: GO-2026-6357
+modules:
+    - module: github.com/openchoreo/openchoreo
+      versions:
+        - fixed: 1.0.4
+        - introduced: 1.1.0
+        - fixed: 1.1.4
+        - introduced: 1.2.0-rc.1
+        - fixed: 1.2.0-rc.2
+      vulnerable_at: 1.2.0-rc.1
+summary: |-
+    OpenChoreo: Authenticated OS command injection via OpenChoreo Workflow Plane
+    templates enables code execution in privileged pods in github.com/openchoreo/openchoreo
+cves:
+    - CVE-2026-73667
+ghsas:
+    - GHSA-2mw5-23gm-pccq
+references:
+    - advisory: https://github.com/openchoreo/openchoreo/security/advisories/GHSA-2mw5-23gm-pccq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-73667
+    - fix: https://github.com/openchoreo/openchoreo/commit/017c3c6d8b27c21d11c8c2b43da1846aa7ae73b9
+    - fix: https://github.com/openchoreo/openchoreo/commit/65c081ff74618714cb0c82b5d0e0fad2c2cbc46b
+    - fix: https://github.com/openchoreo/openchoreo/commit/b274127a4342e5433c5035384cef57478b5b65ed
+    - fix: https://github.com/openchoreo/openchoreo/commit/fb2b659b9884eb45fa4f02b9cc7e89718a0276b7
+    - fix: https://github.com/openchoreo/openchoreo/pull/4193
+    - fix: https://github.com/openchoreo/openchoreo/pull/4243
+    - fix: https://github.com/openchoreo/openchoreo/pull/4277
+    - fix: https://github.com/openchoreo/openchoreo/pull/4297
+    - web: https://github.com/openchoreo/openchoreo/releases/tag/v1.0.4
+    - web: https://github.com/openchoreo/openchoreo/releases/tag/v1.1.4
+    - web: https://github.com/openchoreo/openchoreo/releases/tag/v1.2.0-rc.2
+source:
+    id: GHSA-2mw5-23gm-pccq
+    created: 2026-09-09T13:24:15.674079-04:00
+review_status: UNREVIEWED

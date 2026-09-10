@@ -1,0 +1,24 @@
+id: GO-2026-6374
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260721004815-cf42dd5680c8
+summary: |-
+    SiYuan: Unauthenticated SQL execution and REGEXP injection via
+    fullTextSearchAssetContent (publish mode): reader-reachable raw SQL (method 2)
+    and unescaped REGEXP (method 3) on read-write asset-content DB in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-69083
+ghsas:
+    - GHSA-fph3-ghq9-vw66
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-fph3-ghq9-vw66
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-69083
+    - web: https://github.com/siyuan-note/siyuan/commit/cf42dd5680c8f2d50cebfada5d639c8d59faf50e
+    - web: https://www.vulncheck.com/advisories/siyuan-before-sql-injection-via-fulltextsearchassetcontent
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-fph3-ghq9-vw66
+    created: 2026-09-09T13:20:46.406997-04:00
+review_status: UNREVIEWED

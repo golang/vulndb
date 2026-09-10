@@ -1,0 +1,30 @@
+id: GO-2026-6358
+modules:
+    - module: github.com/openchoreo/openchoreo
+      versions:
+        - fixed: 1.1.6
+        - introduced: 1.2.0-m.1
+        - fixed: 1.2.3
+      vulnerable_at: 1.2.2
+summary: |-
+    OpenChoreo: Cross-project command execution and wirelog view access via
+    OpenChoreo openchoreo-api exec and wirelogs endpoints in github.com/openchoreo/openchoreo
+cves:
+    - CVE-2026-73841
+ghsas:
+    - GHSA-52gf-6rpq-fgmx
+references:
+    - advisory: https://github.com/openchoreo/openchoreo/security/advisories/GHSA-52gf-6rpq-fgmx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-73841
+    - fix: https://github.com/openchoreo/openchoreo/commit/4d372eaf1f07525663dcca5257062f4b051b9820
+    - fix: https://github.com/openchoreo/openchoreo/commit/9d77b64f747eba89247c47ebfeffec591c4cd2d8
+    - fix: https://github.com/openchoreo/openchoreo/commit/c9390e4fcb9953f43b07cb48197576182301593d
+    - fix: https://github.com/openchoreo/openchoreo/pull/4251
+    - fix: https://github.com/openchoreo/openchoreo/pull/4516
+    - fix: https://github.com/openchoreo/openchoreo/pull/4538
+    - web: https://github.com/openchoreo/openchoreo/releases/tag/v1.1.6
+    - web: https://github.com/openchoreo/openchoreo/releases/tag/v1.2.3
+source:
+    id: GHSA-52gf-6rpq-fgmx
+    created: 2026-09-09T13:24:02.032273-04:00
+review_status: UNREVIEWED

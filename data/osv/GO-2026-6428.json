@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6428",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-73842",
+    "GHSA-rh53-xvx2-j327"
+  ],
+  "summary": "OpenChoreo: cluster-gateway internal proxy performs no caller authentication and is not read-only — data-plane Secret disclosure and arbitrary Kubernetes mutation in github.com/openchoreo/openchoreo",
+  "details": "OpenChoreo: cluster-gateway internal proxy performs no caller authentication and is not read-only — data-plane Secret disclosure and arbitrary Kubernetes mutation in github.com/openchoreo/openchoreo",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/openchoreo/openchoreo",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.0.3"
+            },
+            {
+              "introduced": "1.1.0"
+            },
+            {
+              "fixed": "1.1.3"
+            },
+            {
+              "introduced": "1.2.0-rc.1"
+            },
+            {
+              "fixed": "1.2.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/openchoreo/openchoreo/security/advisories/GHSA-rh53-xvx2-j327"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-73842"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openchoreo/openchoreo/commit/50fcae3f1753fd0ac3ae655a3fc080a761c49c04"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openchoreo/openchoreo/commit/93e6f10953cfc249af2222ddb6730d4b0a729129"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openchoreo/openchoreo/commit/e3da3c63dcf0895c693cb17ce142ef95e959b62a"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openchoreo/openchoreo/pull/4256"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openchoreo/openchoreo/pull/4258"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openchoreo/openchoreo/pull/4259"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/openchoreo/openchoreo/releases/tag/v1.0.3"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/openchoreo/openchoreo/releases/tag/v1.1.3"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/openchoreo/openchoreo/releases/tag/v1.2.0-rc.2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6428",
+    "review_status": "UNREVIEWED"
+  }
+}

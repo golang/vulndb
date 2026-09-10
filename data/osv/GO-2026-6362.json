@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6362",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-73843",
+    "GHSA-qh9r-j7rp-4x2m"
+  ],
+  "summary": "OpenChoreo: Unauthenticated access to data-plane operations via OpenChoreo cluster-gateway management APIs in github.com/openchoreo/openchoreo",
+  "details": "OpenChoreo: Unauthenticated access to data-plane operations via OpenChoreo cluster-gateway management APIs in github.com/openchoreo/openchoreo",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/openchoreo/openchoreo",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.0.2"
+            },
+            {
+              "introduced": "1.1.0"
+            },
+            {
+              "fixed": "1.1.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/openchoreo/openchoreo/security/advisories/GHSA-qh9r-j7rp-4x2m"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-73843"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openchoreo/openchoreo/commit/047d80ddc63b4b4b9dd67044d5cffcdbd77685ce"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openchoreo/openchoreo/commit/0aa0ffe1623bd8eb4235cb2a5854336695953c3a"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openchoreo/openchoreo/commit/b42eeb0f5dce95195a9781d7c5a1fe9e38f5da8f"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openchoreo/openchoreo/pull/4122"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/openchoreo/openchoreo/releases/tag/v1.0.2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/openchoreo/openchoreo/releases/tag/v1.1.2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/openchoreo/openchoreo/releases/tag/v1.2.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6362",
+    "review_status": "UNREVIEWED"
+  }
+}

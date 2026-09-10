@@ -1,0 +1,24 @@
+id: GO-2026-6425
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260725125659-1ca1c3c9d94b
+summary: |-
+    SiYuan: Embedded (transclusion) block content is returned without publish-access
+    filtering, leaking private and password-protected document content to anonymous
+    readers in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-72795
+ghsas:
+    - GHSA-h6w7-xxcf-w2mq
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-h6w7-xxcf-w2mq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-72795
+    - web: https://github.com/siyuan-note/siyuan/commit/1ca1c3c9d94bea14fc9728ff2fb8392bb0f29732
+    - web: https://www.vulncheck.com/advisories/siyuan-before-information-disclosure-via-embed-block
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-h6w7-xxcf-w2mq
+    created: 2026-09-09T13:16:27.99992-04:00
+review_status: UNREVIEWED

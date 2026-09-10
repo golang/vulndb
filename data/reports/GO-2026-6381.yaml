@@ -1,0 +1,24 @@
+id: GO-2026-6381
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260721013353-69db783b782a
+summary: |-
+    SiYuan: Full-content disclosure of publish-disabled documents via
+    getHeading*Transaction endpoints (publish mode): reader-reachable rendered DOM
+    with no publish-access check in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-68587
+ghsas:
+    - GHSA-69mh-gvh4-8gp7
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-69mh-gvh4-8gp7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-68587
+    - web: https://github.com/siyuan-note/siyuan/commit/69db783b782aea865ea70a1c5ab656e5c0f3dadb
+    - web: https://www.vulncheck.com/advisories/siyuan-before-information-disclosure-via-getheading-transaction
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-69mh-gvh4-8gp7
+    created: 2026-09-09T13:20:15.041558-04:00
+review_status: UNREVIEWED

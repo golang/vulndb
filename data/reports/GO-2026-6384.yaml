@@ -1,0 +1,24 @@
+id: GO-2026-6384
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260721014951-ffde3b21eca4
+summary: |-
+    SiYuan: Cross-boundary metadata disclosure via getBlockInfo (publish mode):
+    reader-reachable document title/root info for publish-forbidden docs; sibling
+    getDocInfo is filtered in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-68585
+ghsas:
+    - GHSA-pm3w-vxp9-ccwc
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-pm3w-vxp9-ccwc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-68585
+    - web: https://github.com/siyuan-note/siyuan/commit/ffde3b21eca49ae98828747ca126581a553cce8b
+    - web: https://www.vulncheck.com/advisories/siyuan-before-metadata-disclosure-via-getblockinfo
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-pm3w-vxp9-ccwc
+    created: 2026-09-09T13:19:56.80278-04:00
+review_status: UNREVIEWED

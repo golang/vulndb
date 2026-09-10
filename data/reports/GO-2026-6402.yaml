@@ -1,0 +1,24 @@
+id: GO-2026-6402
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260723004839-1a5b3431d5ab
+summary: |-
+    SiYuan: SQL injection in backlink/mention search via unescaped stored and client
+    input (publish mode): first-order (client keyword) and second-order (stored
+    document title) breakout on read-write handle in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-72811
+ghsas:
+    - GHSA-q2vg-7qgx-x5fc
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-q2vg-7qgx-x5fc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-72811
+    - web: https://github.com/siyuan-note/siyuan/commit/1a5b3431d5ab3036b19c1cc79486fedd6906fb57
+    - web: https://www.vulncheck.com/advisories/siyuan-before-sql-injection-via-backlink-search
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-q2vg-7qgx-x5fc
+    created: 2026-09-09T13:18:35.432426-04:00
+review_status: UNREVIEWED

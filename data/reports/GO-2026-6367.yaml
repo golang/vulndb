@@ -1,0 +1,26 @@
+id: GO-2026-6367
+modules:
+    - module: github.com/cilium/cilium
+      versions:
+        - introduced: 1.19.0
+        - fixed: 1.19.5
+      vulnerable_at: 1.19.4
+summary: |-
+    Cilium may unexpectedly allow ingress traffic from the local namespace when a
+    Kubernetes NetworkPolicy is configured with an ipBlock match in github.com/cilium/cilium
+cves:
+    - CVE-2026-56743
+ghsas:
+    - GHSA-fm8w-2m5w-9j7r
+references:
+    - advisory: https://github.com/cilium/cilium/security/advisories/GHSA-fm8w-2m5w-9j7r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-56743
+    - fix: https://github.com/cilium/cilium/commit/1c84ae3b58a7cd54f7ee355e6c524c82f620eae8
+    - fix: https://github.com/cilium/cilium/commit/bacea640404c0805c23515353dc1681c5bf35171
+    - fix: https://github.com/cilium/cilium/pull/46305
+    - fix: https://github.com/cilium/cilium/pull/46456
+    - web: https://github.com/cilium/cilium/releases/tag/v1.19.5
+source:
+    id: GHSA-fm8w-2m5w-9j7r
+    created: 2026-09-09T13:21:48.789735-04:00
+review_status: UNREVIEWED

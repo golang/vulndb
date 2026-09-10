@@ -1,0 +1,25 @@
+id: GO-2026-6371
+modules:
+    - module: github.com/semaphoreui/semaphore
+      versions:
+        - fixed: 0.0.0-20260705182501-bb2a4e1f08c8
+summary: |-
+    Semaphore UI: Manager-to-owner privilege escalation via custom-role slug
+    collision in github.com/semaphoreui/semaphore
+cves:
+    - CVE-2026-73293
+ghsas:
+    - GHSA-cxvf-gvfq-36w2
+references:
+    - advisory: https://github.com/semaphoreui/semaphore/security/advisories/GHSA-cxvf-gvfq-36w2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-73293
+    - fix: https://github.com/semaphoreui/semaphore/commit/1c4bb65df114962134f8829d4a03667106a01a68
+    - fix: https://github.com/semaphoreui/semaphore/commit/bb2a4e1f08c8023e618f8dd6eaca73554f2c33bb
+    - web: https://github.com/semaphoreui/semaphore/releases/tag/v2.18.19
+    - web: https://github.com/semaphoreui/semaphore/releases/tag/v2.19.5-beta5
+notes:
+    - fix: 'github.com/semaphoreui/semaphore: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-cxvf-gvfq-36w2
+    created: 2026-09-09T13:21:12.417618-04:00
+review_status: UNREVIEWED

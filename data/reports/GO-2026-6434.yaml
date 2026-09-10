@@ -1,0 +1,24 @@
+id: GO-2026-6434
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260726020813-a25c2dd06aae
+summary: |-
+    SiYuan: The publish-access gate treats encrypted notebooks as publicly
+    accessible by default, allowing anonymous readers to retrieve fully decrypted
+    document content while a notebook is unlocked in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-72789
+ghsas:
+    - GHSA-v684-q882-jgmq
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-v684-q882-jgmq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-72789
+    - web: https://github.com/siyuan-note/siyuan/commit/a25c2dd06aae13d1de70cc61cbf98169689c9d86
+    - web: https://www.vulncheck.com/advisories/siyuan-before-authentication-bypass-via-encrypted-notebooks
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-v684-q882-jgmq
+    created: 2026-09-09T13:14:24.394021-04:00
+review_status: UNREVIEWED

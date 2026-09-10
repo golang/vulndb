@@ -1,0 +1,24 @@
+id: GO-2026-6408
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260723002528-7d273c271ce1
+summary: |-
+    SiYuan: Missing authorization on refreshBacklink allows anonymous readers to
+    trigger persistent server-side writes and unauthenticated resource amplification
+    (publish mode) in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-72812
+ghsas:
+    - GHSA-wgwx-479j-23vq
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-wgwx-479j-23vq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-72812
+    - web: https://github.com/siyuan-note/siyuan/commit/7d273c271ce193b9d3ee5751b596b8093ba84ada
+    - web: https://www.vulncheck.com/advisories/siyuan-before-missing-authorization-via-refreshbacklink
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-wgwx-479j-23vq
+    created: 2026-09-09T13:18:00.492495-04:00
+review_status: UNREVIEWED

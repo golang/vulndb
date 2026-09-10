@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6364",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-99rq-75j6-5j9f"
+  ],
+  "summary": "SiYuan: Stored and reflected XSS in SiYuan through an SVG sanitizer bypass in github.com/siyuan-note/siyuan/kernel",
+  "details": "SiYuan: Stored and reflected XSS in SiYuan through an SVG sanitizer bypass in github.com/siyuan-note/siyuan/kernel",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/siyuan-note/siyuan/kernel",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20260714095344-f08dee71ba8e"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/siyuan-note/siyuan/security/advisories/GHSA-99rq-75j6-5j9f"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/siyuan-note/siyuan/commit/f08dee71ba8e087a395d74f121de11e6a997ef14"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/siyuan-note/siyuan/releases/tag/v3.7.3"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6364",
+    "review_status": "UNREVIEWED"
+  }
+}

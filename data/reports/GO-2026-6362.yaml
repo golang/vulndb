@@ -1,0 +1,29 @@
+id: GO-2026-6362
+modules:
+    - module: github.com/openchoreo/openchoreo
+      versions:
+        - fixed: 1.0.2
+        - introduced: 1.1.0
+        - fixed: 1.1.2
+      vulnerable_at: 1.1.1
+summary: |-
+    OpenChoreo: Unauthenticated access to data-plane operations via OpenChoreo
+    cluster-gateway management APIs in github.com/openchoreo/openchoreo
+cves:
+    - CVE-2026-73843
+ghsas:
+    - GHSA-qh9r-j7rp-4x2m
+references:
+    - advisory: https://github.com/openchoreo/openchoreo/security/advisories/GHSA-qh9r-j7rp-4x2m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-73843
+    - fix: https://github.com/openchoreo/openchoreo/commit/047d80ddc63b4b4b9dd67044d5cffcdbd77685ce
+    - fix: https://github.com/openchoreo/openchoreo/commit/0aa0ffe1623bd8eb4235cb2a5854336695953c3a
+    - fix: https://github.com/openchoreo/openchoreo/commit/b42eeb0f5dce95195a9781d7c5a1fe9e38f5da8f
+    - fix: https://github.com/openchoreo/openchoreo/pull/4122
+    - web: https://github.com/openchoreo/openchoreo/releases/tag/v1.0.2
+    - web: https://github.com/openchoreo/openchoreo/releases/tag/v1.1.2
+    - web: https://github.com/openchoreo/openchoreo/releases/tag/v1.2.0
+source:
+    id: GHSA-qh9r-j7rp-4x2m
+    created: 2026-09-09T13:23:20.702468-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,25 @@
+id: GO-2026-6395
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260724103335-f36331956ae9
+summary: |-
+    SiYuan: Missing publish-access filter on getAttributeViewKeysByID discloses
+    database column schema, plus two unscoped block-ID enumeration oracles (publish
+    mode) in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-72800
+ghsas:
+    - GHSA-5fhr-f75j-8wr9
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-5fhr-f75j-8wr9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-72800
+    - web: https://github.com/siyuan-note/siyuan/commit/931ba693375ea9877b2ef74f9bfb632fad5bab3f
+    - web: https://github.com/siyuan-note/siyuan/commit/f36331956ae98fc5358f8f93bf1da3427221edf3
+    - web: https://www.vulncheck.com/advisories/siyuan-before-information-disclosure-via-unfiltered-api
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-5fhr-f75j-8wr9
+    created: 2026-09-09T13:19:07.049857-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,25 @@
+id: GO-2026-6368
+modules:
+    - module: github.com/OpenListTeam/OpenList
+      vulnerable_at: 1.0.6
+    - module: github.com/OpenListTeam/OpenList/v3
+      vulnerable_at: 3.45.0
+    - module: github.com/OpenListTeam/OpenList/v4
+      versions:
+        - fixed: 4.2.3
+      vulnerable_at: 4.2.2
+summary: |-
+    OpenList: Authenticated arbitrary file write via Content-Disposition path
+    traversal in SimpleHttp offline-download tool in github.com/OpenListTeam/OpenList
+cves:
+    - CVE-2026-75602
+ghsas:
+    - GHSA-h6cj-26g5-67fv
+references:
+    - advisory: https://github.com/OpenListTeam/OpenList/security/advisories/GHSA-h6cj-26g5-67fv
+    - fix: https://github.com/OpenListTeam/OpenList/commit/9cc5dd969b9833c8cb4e14c338c3571dfdbe2108
+    - web: https://github.com/OpenListTeam/OpenList/releases/tag/v4.2.3
+source:
+    id: GHSA-h6cj-26g5-67fv
+    created: 2026-09-09T13:21:36.703839-04:00
+review_status: UNREVIEWED

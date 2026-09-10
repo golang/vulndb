@@ -1,0 +1,23 @@
+id: GO-2026-6440
+modules:
+    - module: github.com/amir20/dozzle
+      versions:
+        - fixed: 1.29.1-0.20260804193351-8cf7ccd5ee04
+      vulnerable_at: 1.29.0
+summary: |-
+    Dozzle: SSRF guard bypass via IPv6 transition addresses (6to4/NAT64/Teredo) in
+    webhook notification dispatcher in github.com/amir20/dozzle
+cves:
+    - CVE-2026-73087
+ghsas:
+    - GHSA-p2w3-6x73-2f6x
+references:
+    - advisory: https://github.com/amir20/dozzle/security/advisories/GHSA-p2w3-6x73-2f6x
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-73087
+    - fix: https://github.com/amir20/dozzle/commit/8cf7ccd5ee041ecaea92b49951793d4d2393761f
+    - fix: https://github.com/amir20/dozzle/pull/4887
+    - web: https://github.com/amir20/dozzle/releases/tag/v10.6.15
+source:
+    id: GHSA-p2w3-6x73-2f6x
+    created: 2026-09-09T13:13:46.979545-04:00
+review_status: UNREVIEWED

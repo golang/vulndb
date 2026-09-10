@@ -1,0 +1,20 @@
+id: GO-2026-6430
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260726004013-64c26e74bb82
+summary: |-
+    SiYuan: Database view structure (all view names, layout types and per-field
+    visibility) is returned to anonymous readers by
+    /api/av/getAttributeViewFieldViews in github.com/siyuan-note/siyuan/kernel
+ghsas:
+    - GHSA-57v5-wqx3-cgj4
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-57v5-wqx3-cgj4
+    - web: https://github.com/siyuan-note/siyuan/commit/64c26e74bb82c24a73513107684b91cc01335fab
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-57v5-wqx3-cgj4
+    created: 2026-09-09T13:14:53.973188-04:00
+review_status: UNREVIEWED

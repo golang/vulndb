@@ -1,0 +1,23 @@
+id: GO-2026-6437
+modules:
+    - module: github.com/infracost/infracost
+      versions:
+        - fixed: 0.10.45
+      vulnerable_at: 0.10.44
+summary: |-
+    Infracost: Terraform Cloud and registry token disclosure via unvalidated
+    hostname in github.com/infracost/infracost
+cves:
+    - CVE-2026-71494
+ghsas:
+    - GHSA-6x6c-w9w9-hv4h
+references:
+    - advisory: https://github.com/infracost/infracost/security/advisories/GHSA-6x6c-w9w9-hv4h
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-71494
+    - fix: https://github.com/infracost/infracost/commit/3d24c757f5e4e60c7259f1b89ad7ceaabcfca86f
+    - fix: https://github.com/infracost/infracost/pull/3590
+    - web: https://github.com/infracost/infracost/releases/tag/v0.10.45
+source:
+    id: GHSA-6x6c-w9w9-hv4h
+    created: 2026-09-09T13:14:05.807961-04:00
+review_status: UNREVIEWED

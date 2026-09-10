@@ -1,0 +1,24 @@
+id: GO-2026-6343
+modules:
+    - module: code.gitea.io/gitea
+      versions:
+        - fixed: 1.25.5
+      vulnerable_at: 1.25.4
+summary: Gitea tracked-time deletion is not scoped to the requested issue in code.gitea.io/gitea
+cves:
+    - CVE-2026-25782
+ghsas:
+    - GHSA-qm72-8prh-g92x
+references:
+    - advisory: https://github.com/advisories/GHSA-qm72-8prh-g92x
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-25782
+    - web: https://blog.gitea.com/release-of-1.25.5
+    - web: https://github.com/go-gitea/gitea/commit/5ad87616c9c654fc44c611ccfd4e496257c8f96b
+    - web: https://github.com/go-gitea/gitea/commit/8051056075719b7629eef44689b5a61d5ff080a9
+    - web: https://github.com/go-gitea/gitea/pull/36664
+    - web: https://github.com/go-gitea/gitea/pull/36689
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.25.5
+source:
+    id: GHSA-qm72-8prh-g92x
+    created: 2026-09-09T13:25:55.133359-04:00
+review_status: UNREVIEWED

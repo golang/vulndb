@@ -1,0 +1,24 @@
+id: GO-2026-6404
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260724093256-229fdffd7e4a
+summary: |-
+    SiYuan: Missing publish-access filter on getBlockAttrs and batchGetBlockAttrs
+    discloses block attributes (name, alias, memo, custom fields) of protected
+    documents in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-72803
+ghsas:
+    - GHSA-qvq9-hq6p-v378
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-qvq9-hq6p-v378
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-72803
+    - web: https://github.com/siyuan-note/siyuan/commit/229fdffd7e4afdef543d4d8495657fda8a369400
+    - web: https://www.vulncheck.com/advisories/siyuan-before-information-disclosure-via-getblockattrs
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-qvq9-hq6p-v378
+    created: 2026-09-09T13:18:26.241501-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6437",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-71494",
+    "GHSA-6x6c-w9w9-hv4h"
+  ],
+  "summary": "Infracost: Terraform Cloud and registry token disclosure via unvalidated hostname in github.com/infracost/infracost",
+  "details": "Infracost: Terraform Cloud and registry token disclosure via unvalidated hostname in github.com/infracost/infracost",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/infracost/infracost",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.10.45"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/infracost/infracost/security/advisories/GHSA-6x6c-w9w9-hv4h"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-71494"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/infracost/infracost/commit/3d24c757f5e4e60c7259f1b89ad7ceaabcfca86f"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/infracost/infracost/pull/3590"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/infracost/infracost/releases/tag/v0.10.45"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6437",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,19 @@
+id: GO-2026-6365
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260510110132-b763d787d1f2
+summary: |-
+    SiYuan: path traversal via /export/temp/ short-circuit branch (incomplete fix
+    for the export-disclosure hardening, GHSA-6865-qjcf-286f) in github.com/siyuan-note/siyuan/kernel
+ghsas:
+    - GHSA-gw25-m53r-qh88
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-gw25-m53r-qh88
+    - web: https://github.com/siyuan-note/siyuan/commit/b763d787d1f2b862c577049e4ee147c5857fe413
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-gw25-m53r-qh88
+    created: 2026-09-09T13:23:07.034032-04:00
+review_status: UNREVIEWED

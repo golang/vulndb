@@ -1,0 +1,18 @@
+id: GO-2026-6364
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260714095344-f08dee71ba8e
+summary: 'SiYuan: Stored and reflected XSS in SiYuan through an SVG sanitizer bypass in github.com/siyuan-note/siyuan/kernel'
+ghsas:
+    - GHSA-99rq-75j6-5j9f
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-99rq-75j6-5j9f
+    - web: https://github.com/siyuan-note/siyuan/commit/f08dee71ba8e087a395d74f121de11e6a997ef14
+    - web: https://github.com/siyuan-note/siyuan/releases/tag/v3.7.3
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-99rq-75j6-5j9f
+    created: 2026-09-09T13:23:08.721225-04:00
+review_status: UNREVIEWED

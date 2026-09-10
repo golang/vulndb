@@ -1,0 +1,23 @@
+id: GO-2026-6386
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260723031701-9c16e9851f0b
+summary: |-
+    SiYuan: Localhost-trust admin bypass on auth-code-gated endpoints, with
+    potential remote reachability via the fixed-port proxy in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-72809
+ghsas:
+    - GHSA-3mp7-4rh5-jrv9
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-3mp7-4rh5-jrv9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-72809
+    - web: https://github.com/siyuan-note/siyuan/commit/9c16e9851f0b5d7ed179e5c2fca15a7724666871
+    - web: https://www.vulncheck.com/advisories/siyuan-before-authentication-bypass-via-localhost-trust
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-3mp7-4rh5-jrv9
+    created: 2026-09-09T13:19:46.308706-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,24 @@
+id: GO-2026-6431
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260726005141-9edb321eb451
+summary: |-
+    SiYuan: Notebook name, document count, size and timestamps are returned for any
+    notebook, including notebooks hidden from readers, by
+    /api/notebook/getNotebookInfo in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-72790
+ghsas:
+    - GHSA-74pj-6g7r-j55c
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-74pj-6g7r-j55c
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-72790
+    - web: https://github.com/siyuan-note/siyuan/commit/9edb321eb451db445f3c824380e1993c3df0fc16
+    - web: https://www.vulncheck.com/advisories/siyuan-before-information-disclosure-via-getnotebookinfo
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-74pj-6g7r-j55c
+    created: 2026-09-09T13:14:47.896417-04:00
+review_status: UNREVIEWED

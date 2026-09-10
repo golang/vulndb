@@ -1,0 +1,23 @@
+id: GO-2026-6420
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260725123945-77421530be4a
+summary: |-
+    SiYuan: The session-cookie signing key (Conf.CookieKey) is returned to anonymous
+    readers by /api/system/getConf in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-72794
+ghsas:
+    - GHSA-34fj-mwm6-fjfg
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-34fj-mwm6-fjfg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-72794
+    - web: https://github.com/siyuan-note/siyuan/commit/77421530be4ab1f43310d0f50fbab05d16c38675
+    - web: https://www.vulncheck.com/advisories/siyuan-before-session-cookie-key-disclosure-via-getconf
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-34fj-mwm6-fjfg
+    created: 2026-09-09T13:16:57.442961-04:00
+review_status: UNREVIEWED

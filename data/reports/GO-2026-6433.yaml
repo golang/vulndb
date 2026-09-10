@@ -1,0 +1,33 @@
+id: GO-2026-6433
+modules:
+    - module: code.gitea.io/gitea
+      versions:
+        - introduced: 1.17.0
+      vulnerable_at: 1.26.4
+    - module: gitea.dev
+      versions:
+        - fixed: 1.27.1
+      vulnerable_at: 1.27.0
+summary: 'Gitea: Remote Code Execution via diffpatch Git Hook Installation in gitea.dev'
+cves:
+    - CVE-2026-60004
+ghsas:
+    - GHSA-rcr6-4jqh-j84m
+credits:
+    - NightRang3r
+references:
+    - advisory: https://github.com/go-gitea/gitea/security/advisories/GHSA-rcr6-4jqh-j84m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-60004
+    - web: https://blog.gitea.com/release-of-1.27.1
+    - web: https://github.com/0xBlackash/CVE-2026-60004
+    - web: https://github.com/go-gitea/gitea/commit/470d34b1de87d901bd9135564d5ee18c0d339e82
+    - web: https://github.com/go-gitea/gitea/commit/d7bc52beeadff4be5f5690de4d5de42abd10affe
+    - web: https://github.com/go-gitea/gitea/pull/38637
+    - web: https://github.com/go-gitea/gitea/pull/38638
+    - web: https://github.com/go-gitea/gitea/releases/tag/v1.27.1
+    - web: https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-60004
+    - web: https://www.runzero.com/blog/gitea
+source:
+    id: GHSA-rcr6-4jqh-j84m
+    created: 2026-09-09T13:14:33.047818-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,23 @@
+id: GO-2026-6435
+modules:
+    - module: github.com/semaphoreui/semaphore
+      versions:
+        - fixed: 0.0.0-20260704181911-7e8a9434bd81
+summary: 'Semaphore U: OS Command Injection in github.com/semaphoreui/semaphore'
+cves:
+    - CVE-2026-73294
+ghsas:
+    - GHSA-xp7j-h7jc-4w8p
+references:
+    - advisory: https://github.com/semaphoreui/semaphore/security/advisories/GHSA-xp7j-h7jc-4w8p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-73294
+    - fix: https://github.com/semaphoreui/semaphore/commit/7e8a9434bd81b82cf42220151c74801ea97542d6
+    - fix: https://github.com/semaphoreui/semaphore/commit/a7a7a33a64aea382a0726b3722856f298663eacf
+    - web: https://github.com/semaphoreui/semaphore/tree/v2.18.17
+    - web: https://github.com/semaphoreui/semaphore/tree/v2.19.5-beta2
+notes:
+    - fix: 'github.com/semaphoreui/semaphore: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-xp7j-h7jc-4w8p
+    created: 2026-09-09T13:14:15.55054-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,24 @@
+id: GO-2026-6370
+modules:
+    - module: github.com/semaphoreui/semaphore
+      versions:
+        - fixed: 0.0.0-20260707190631-c59c3dc9035b
+summary: |-
+    Semaphore UI: CSRF vulnerability on password change endpoint - No CSRF token or
+    password confirmation in github.com/semaphoreui/semaphore
+cves:
+    - CVE-2026-73292
+ghsas:
+    - GHSA-8cj9-r88m-8945
+references:
+    - advisory: https://github.com/semaphoreui/semaphore/security/advisories/GHSA-8cj9-r88m-8945
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-73292
+    - fix: https://github.com/semaphoreui/semaphore/commit/2d6e2e3eb10e8bf688e2ab59609b909a012fad4c
+    - fix: https://github.com/semaphoreui/semaphore/commit/c59c3dc9035badcbf0609c7d35679c06e590a956
+    - web: https://github.com/semaphoreui/semaphore/releases/tag/v2.18.21
+notes:
+    - fix: 'github.com/semaphoreui/semaphore: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-8cj9-r88m-8945
+    created: 2026-09-09T13:21:20.823828-04:00
+review_status: UNREVIEWED

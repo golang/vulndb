@@ -1,0 +1,25 @@
+id: GO-2026-6369
+modules:
+    - module: github.com/ffuf/ffuf
+      unsupported_versions:
+        - last_affected: 1.5.0
+      vulnerable_at: 1.5.0
+    - module: github.com/ffuf/ffuf/v2
+      versions:
+        - fixed: 2.2.0
+      vulnerable_at: 2.1.0
+summary: ffuf denial of service (OOM) via HTTP response decompression bomb in github.com/ffuf/ffuf
+cves:
+    - CVE-2026-73232
+ghsas:
+    - GHSA-jcvh-xf52-2cwm
+references:
+    - advisory: https://github.com/ffuf/ffuf/security/advisories/GHSA-jcvh-xf52-2cwm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-73232
+    - fix: https://github.com/ffuf/ffuf/commit/fb0da86c60443b0dddbc9a86e91e3a6487dff79b
+    - fix: https://github.com/ffuf/ffuf/pull/897
+    - web: https://github.com/ffuf/ffuf/releases/tag/v2.2.0
+source:
+    id: GHSA-jcvh-xf52-2cwm
+    created: 2026-09-09T13:21:28.705264-04:00
+review_status: UNREVIEWED

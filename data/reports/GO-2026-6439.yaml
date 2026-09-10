@@ -1,0 +1,21 @@
+id: GO-2026-6439
+modules:
+    - module: github.com/infracost/infracost
+      versions:
+        - fixed: 0.10.45
+      vulnerable_at: 0.10.44
+summary: 'Infracost: Arbitrary file read via config-template readFile symlink traversal in github.com/infracost/infracost'
+cves:
+    - CVE-2026-71493
+ghsas:
+    - GHSA-mmg6-4qmv-6pc8
+references:
+    - advisory: https://github.com/infracost/infracost/security/advisories/GHSA-mmg6-4qmv-6pc8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-71493
+    - fix: https://github.com/infracost/infracost/commit/4d39331afc0e27752d16d9d91c34583e5e8487fb
+    - fix: https://github.com/infracost/infracost/pull/3586
+    - web: https://github.com/infracost/infracost/releases/tag/v0.10.45
+source:
+    id: GHSA-mmg6-4qmv-6pc8
+    created: 2026-09-09T13:13:55.151733-04:00
+review_status: UNREVIEWED

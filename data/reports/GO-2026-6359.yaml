@@ -1,0 +1,20 @@
+id: GO-2026-6359
+modules:
+    - module: github.com/axllent/mailpit
+      versions:
+        - fixed: 1.30.4
+      vulnerable_at: 1.30.3
+summary: 'Mailpit: Thumbnail generation decodes unbounded image dimensions before scaling in github.com/axllent/mailpit'
+cves:
+    - CVE-2026-67446
+ghsas:
+    - GHSA-75mr-qw9x-3r39
+references:
+    - advisory: https://github.com/axllent/mailpit/security/advisories/GHSA-75mr-qw9x-3r39
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-67446
+    - fix: https://github.com/axllent/mailpit/commit/6bcb6337838b542d53c348e38c7977f569b6db35
+    - web: https://github.com/axllent/mailpit/releases/tag/v1.30.4
+source:
+    id: GHSA-75mr-qw9x-3r39
+    created: 2026-09-09T13:23:54.597611-04:00
+review_status: UNREVIEWED

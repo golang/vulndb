@@ -1,0 +1,23 @@
+id: GO-2026-6350
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260704035520-68cc0f537dfa
+summary: |-
+    Siyuan: Authenticated path traversal in /snippets/ static handler
+    (serveSnippets) leaks conf/conf.json secrets and siyuan.db in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-59832
+ghsas:
+    - GHSA-275h-v5h9-vr82
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-275h-v5h9-vr82
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-59832
+    - web: https://github.com/siyuan-note/siyuan/commit/68cc0f537dfa4502496dfa794e71835421c25c09
+    - web: https://github.com/siyuan-note/siyuan/releases/tag/v3.7.1
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-275h-v5h9-vr82
+    created: 2026-09-09T13:24:59.132644-04:00
+review_status: UNREVIEWED

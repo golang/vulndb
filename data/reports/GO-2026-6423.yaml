@@ -1,0 +1,23 @@
+id: GO-2026-6423
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260725122641-34be6c0bb073
+summary: |-
+    SiYuan: Static-file routes bypass the publish-access controls enforced on the
+    REST API, exposing templates, snippets and export artifacts to anonymous readers in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-72796
+ghsas:
+    - GHSA-fgmr-7w36-9qfq
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-fgmr-7w36-9qfq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-72796
+    - web: https://github.com/siyuan-note/siyuan/commit/34be6c0bb0739d5b8e99ecc0cbfb474abb16230d
+    - web: https://www.vulncheck.com/advisories/siyuan-before-access-control-bypass-via-static-routes
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-fgmr-7w36-9qfq
+    created: 2026-09-09T13:16:45.593788-04:00
+review_status: UNREVIEWED

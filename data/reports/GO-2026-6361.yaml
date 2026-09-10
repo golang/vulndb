@@ -1,0 +1,24 @@
+id: GO-2026-6361
+modules:
+    - module: github.com/seaweedfs/seaweedfs
+      versions:
+        - fixed: 0.0.0-20260512171048-05ed5c9ae8a2
+summary: |-
+    SeaweedFS: Filer JWT allowed_prefixes literal prefix match allows cross-tenant
+    access to sibling paths in github.com/seaweedfs/seaweedfs
+cves:
+    - CVE-2026-72921
+ghsas:
+    - GHSA-gv5w-hfx8-8cwq
+references:
+    - advisory: https://github.com/seaweedfs/seaweedfs/security/advisories/GHSA-gv5w-hfx8-8cwq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-72921
+    - fix: https://github.com/seaweedfs/seaweedfs/commit/05ed5c9ae8a2a45101b52b61d02f170d20d587ff
+    - fix: https://github.com/seaweedfs/seaweedfs/pull/9439
+    - web: https://github.com/seaweedfs/seaweedfs/releases/tag/4.24
+notes:
+    - fix: 'github.com/seaweedfs/seaweedfs: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-gv5w-hfx8-8cwq
+    created: 2026-09-09T13:23:31.734363-04:00
+review_status: UNREVIEWED

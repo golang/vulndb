@@ -1,0 +1,23 @@
+id: GO-2026-6410
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260723035036-0a176345e02a
+summary: |-
+    SiYuan: Second-order SSTI to arbitrary SQL via attribute-view template column
+    (queryBlocks): malicious imported package executes SQL on victim kernel in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-72807
+ghsas:
+    - GHSA-x67c-8pwr-m8g3
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-x67c-8pwr-m8g3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-72807
+    - web: https://github.com/siyuan-note/siyuan/commit/0a176345e02a0d19bdc7762e50e0b92002087d20
+    - web: https://www.vulncheck.com/advisories/siyuan-before-sql-injection-via-queryblocks-template
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-x67c-8pwr-m8g3
+    created: 2026-09-09T13:17:50.823887-04:00
+review_status: UNREVIEWED
