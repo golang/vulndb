@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6366",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-61625",
+    "GHSA-8q3c-rjr9-xxrp"
+  ],
+  "summary": "Path traversal via crafted backup part names escapes restore root in github.com/VictoriaMetrics/VictoriaMetrics",
+  "details": "Path traversal via crafted backup part names escapes restore root in github.com/VictoriaMetrics/VictoriaMetrics",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/VictoriaMetrics/VictoriaMetrics",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.122.25"
+            },
+            {
+              "introduced": "1.123.0"
+            },
+            {
+              "fixed": "1.136.12"
+            },
+            {
+              "introduced": "1.137.0"
+            },
+            {
+              "fixed": "1.146.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/VictoriaMetrics/VictoriaMetrics/lib/backup/actions",
+            "symbols": [
+              "Backup.Run",
+              "RemoteBackupCopy.Run",
+              "Restore.Run"
+            ]
+          },
+          {
+            "path": "github.com/VictoriaMetrics/VictoriaMetrics/lib/backup/fslocal",
+            "symbols": [
+              "FS.NewDirectWriteCloser"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/VictoriaMetrics/VictoriaMetrics/security/advisories/GHSA-8q3c-rjr9-xxrp"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/VictoriaMetrics/VictoriaMetrics/commit/710c920d6083327042a309e449fae4383617d817"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/VictoriaMetrics/VictoriaMetrics/releases/tag/v1.122.25"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/VictoriaMetrics/VictoriaMetrics/releases/tag/v1.136.12"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/VictoriaMetrics/VictoriaMetrics/releases/tag/v1.146.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6366",
+    "review_status": "REVIEWED"
+  }
+}

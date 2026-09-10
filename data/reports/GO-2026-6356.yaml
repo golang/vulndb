@@ -1,0 +1,72 @@
+id: GO-2026-6356
+modules:
+    - module: vitess.io/vitess
+      versions:
+        - fixed: 0.23.6
+        - introduced: 0.24.0-rc1
+        - fixed: 0.24.3
+      vulnerable_at: 0.24.2
+      packages:
+        - package: vitess.io/vitess/go/vt/vttablet/tabletmanager/vreplication
+          symbols:
+            - NewVrLogStats
+            - VrLogStats.Send
+            - addHttpEndpoint
+            - vrlogStatsHandler
+          derived_symbols:
+            - AddStatusPart
+            - Engine.Close
+            - Engine.Exec
+            - Engine.ExecWithDBA
+            - Engine.Open
+            - Engine.WaitForPos
+            - InsertGenerator.AddRow
+            - MatchTable
+            - NewEngine
+            - NewInsertGenerator
+            - NewReplicaConnector
+            - NewSimpleTestEngine
+            - NewTestEngine
+            - ReplicaConnector.Close
+            - ReplicaConnector.VStream
+            - ReplicatorPlan.MarshalJSON
+            - TablePlan.MarshalJSON
+            - controller.Stop
+            - externalConnector.Close
+            - externalConnector.Get
+            - mysqlConnector.VStream
+            - mysqlConnector.VStreamRows
+            - mysqlConnector.VStreamTables
+            - relayLog.Fetch
+            - relayLog.Send
+            - tabletConnector.Open
+            - vcopierCopyTaskState.String
+            - vcopierCopyWorker.Close
+            - vdbClient.AddQueryToTrxBatch
+            - vdbClient.Begin
+            - vdbClient.Commit
+            - vdbClient.CommitTrxQueryBatch
+            - vdbClient.Execute
+            - vdbClient.ExecuteFetch
+            - vdbClient.ExecuteTrxQueryBatch
+            - vdbClient.ExecuteWithRetry
+            - vdbClient.Retry
+            - vdbClient.Rollback
+            - vreplicator.Replicate
+summary: Missing authorization on vttablet /debug/vrlog in vitess.io/vitess
+description: |-
+    The vttablet /debug/vrlog HTTP endpoint streams live VReplication event data,
+    including SQL statements and table row changes, without verifying
+    authorization via acl.CheckAccessHTTP. An unauthenticated actor with network
+    access to the debug endpoint can stream live replicated SQL data.
+cves:
+    - CVE-2026-65959
+ghsas:
+    - GHSA-mhc4-g3wh-cw7m
+references:
+    - advisory: https://github.com/vitessio/vitess/security/advisories/GHSA-mhc4-g3wh-cw7m
+    - fix: https://github.com/vitessio/vitess/pull/20467
+source:
+    id: GHSA-mhc4-g3wh-cw7m
+    created: 2026-09-09T13:24:30.087722-04:00
+review_status: REVIEWED

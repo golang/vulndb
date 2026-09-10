@@ -1,0 +1,61 @@
+id: GO-2026-6348
+modules:
+    - module: google.golang.org/grpc
+      versions:
+        - fixed: 1.83.1
+      vulnerable_at: 1.83.0
+      packages:
+        - package: google.golang.org/grpc/internal/transport
+          symbols:
+            - recvBuffer.load
+            - http2Server.operateHeaders
+            - recvBuffer.put
+            - serverHandlerTransport.HandleStreams
+            - recvBuffer.init
+            - http2Client.newStream
+          derived_symbols:
+            - ClientStream.Close
+            - ClientStream.Header
+            - ClientStream.Read
+            - ClientStream.RecvCompress
+            - ClientStream.TrailersOnly
+            - NewHTTP2Client
+            - NewServerTransport
+            - ServerStream.Read
+            - Stream.ReadMessageHeader
+            - http2Client.Close
+            - http2Client.GracefulClose
+            - http2Client.NewStream
+            - http2Server.Close
+            - http2Server.HandleStreams
+            - recvBufferReader.Read
+            - recvBufferReader.ReadMessageHeader
+            - transportReader.Read
+            - transportReader.ReadMessageHeader
+        - package: google.golang.org/grpc/mem
+          symbols:
+            - IsBelowBufferPoolingThreshold
+          derived_symbols:
+            - BufferSlice.MaterializeToBuffer
+            - Copy
+            - NewBuffer
+            - ReadAll
+            - writer.Write
+summary: |-
+    Heap Memory Exhaustion (OOM) via HTTP/2 DATA Frame Fragmentation in
+    google.golang.org/grpc
+cves:
+    - CVE-2026-84304
+ghsas:
+    - GHSA-vp52-pcj8-j9qc
+references:
+    - advisory: https://github.com/grpc/grpc-go/security/advisories/GHSA-vp52-pcj8-j9qc
+    - fix: https://github.com/grpc/grpc-go/commit/7354d9c8debb4bcf2225bf429857078de310c176
+    - web: https://github.com/grpc/grpc-go/commit/8cfeca0e1ee5ea0980dcc320e20240fa1079ec77
+    - web: https://github.com/grpc/grpc-go/pull/9331
+    - web: https://github.com/grpc/grpc-go/pull/9333
+    - web: https://github.com/grpc/grpc-go/releases/tag/v1.83.1
+source:
+    id: GHSA-vp52-pcj8-j9qc
+    created: 2026-09-09T13:25:05.497543-04:00
+review_status: REVIEWED

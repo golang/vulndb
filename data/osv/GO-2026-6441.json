@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6441",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-84303",
+    "GHSA-qc2q-p7wx-3px3"
+  ],
+  "summary": "Bypass of xDS RBAC HTTP filter header matching in google.golang.org/grpc",
+  "details": "In google.golang.org/grpc, the xDS RBAC HTTP filter does not lowercase header matcher names before evaluating them against incoming request metadata. When an RBAC policy defines rules (such as DENY) referencing headers with uppercase or mixed-case characters, the rule fails to match, causing authorization policies to fail open. Additionally, callers can evade gRFC A41 validation blocking \"grpc-\" prefixed headers and \":scheme\" via variations in casing.",
+  "affected": [
+    {
+      "package": {
+        "name": "google.golang.org/grpc",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.83.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "google.golang.org/grpc/internal/xds/httpfilter/rbac",
+            "symbols": [
+              "builder.ParseFilterConfig",
+              "builder.ParseFilterConfigOverride",
+              "parseConfig"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/grpc/grpc-go/security/advisories/GHSA-qc2q-p7wx-3px3"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/grpc/grpc-go/pull/9332"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6441",
+    "review_status": "REVIEWED"
+  }
+}

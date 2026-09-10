@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6443",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-84445",
+    "GHSA-2v4p-qf9q-27wj"
+  ],
+  "summary": "Server panic via missing authority or Host headers in google.golang.org/grpc",
+  "details": "In google.golang.org/grpc, servers configured with xDS routing can panic when processing requests that lack both :authority and Host headers. The HTTP/2 transport layer accepted requests missing these headers, and the xDS server routing interceptor attempted to index the empty authority slice, causing an unhandled panic and terminating the server.",
+  "affected": [
+    {
+      "package": {
+        "name": "google.golang.org/grpc",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.82.2"
+            },
+            {
+              "introduced": "1.83.0"
+            },
+            {
+              "fixed": "1.83.2"
+            },
+            {
+              "introduced": "1.84.0-dev"
+            },
+            {
+              "fixed": "1.85.0-dev.0.20260825072537-93e31b48545e"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "google.golang.org/grpc/internal/transport",
+            "symbols": [
+              "http2Server.HandleStreams",
+              "http2Server.operateHeaders"
+            ]
+          },
+          {
+            "path": "google.golang.org/grpc/internal/xds/server",
+            "symbols": [
+              "RouteAndProcess"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/grpc/grpc-go/security/advisories/GHSA-2v4p-qf9q-27wj"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/grpc/grpc-go/issues/9354"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/grpc/grpc-go/pull/9365"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6443",
+    "review_status": "REVIEWED"
+  }
+}

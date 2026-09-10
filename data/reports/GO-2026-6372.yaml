@@ -1,0 +1,24 @@
+id: GO-2026-6372
+modules:
+    - module: github.com/rabbitmq/amqp091-go
+      versions:
+        - fixed: 1.13.0
+      vulnerable_at: 1.12.0
+summary: |-
+    Potential Memory Exhaustion/Protocol Violation via Broker-Controlled
+    Oversized Payload in github.com/rabbitmq/amqp091-go
+cves:
+    - CVE-2026-79921
+ghsas:
+    - GHSA-6c5v-hqjr-5xxp
+references:
+    - advisory: https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-6c5v-hqjr-5xxp
+    - fix: https://github.com/rabbitmq/amqp091-go/commit/6beb7b51f59e46ddcf8066ad498dad32491d3be0
+    - fix: https://github.com/rabbitmq/amqp091-go/pull/353
+    - web: https://github.com/rabbitmq/amqp091-go/releases/tag/v1.13.0
+notes:
+    - create: failed to auto-populate symbols
+source:
+    id: GHSA-6c5v-hqjr-5xxp
+    created: 2026-09-09T13:21:03.193889-04:00
+review_status: REVIEWED

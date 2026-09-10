@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6348",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-84304",
+    "GHSA-vp52-pcj8-j9qc"
+  ],
+  "summary": "Heap Memory Exhaustion (OOM) via HTTP/2 DATA Frame Fragmentation in google.golang.org/grpc",
+  "details": "Heap Memory Exhaustion (OOM) via HTTP/2 DATA Frame Fragmentation in google.golang.org/grpc",
+  "affected": [
+    {
+      "package": {
+        "name": "google.golang.org/grpc",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.83.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "google.golang.org/grpc/internal/transport",
+            "symbols": [
+              "ClientStream.Close",
+              "ClientStream.Header",
+              "ClientStream.Read",
+              "ClientStream.RecvCompress",
+              "ClientStream.TrailersOnly",
+              "NewHTTP2Client",
+              "NewServerTransport",
+              "ServerStream.Read",
+              "Stream.ReadMessageHeader",
+              "http2Client.Close",
+              "http2Client.GracefulClose",
+              "http2Client.NewStream",
+              "http2Client.newStream",
+              "http2Server.Close",
+              "http2Server.HandleStreams",
+              "http2Server.operateHeaders",
+              "recvBuffer.init",
+              "recvBuffer.load",
+              "recvBuffer.put",
+              "recvBufferReader.Read",
+              "recvBufferReader.ReadMessageHeader",
+              "serverHandlerTransport.HandleStreams",
+              "transportReader.Read",
+              "transportReader.ReadMessageHeader"
+            ]
+          },
+          {
+            "path": "google.golang.org/grpc/mem",
+            "symbols": [
+              "BufferSlice.MaterializeToBuffer",
+              "Copy",
+              "IsBelowBufferPoolingThreshold",
+              "NewBuffer",
+              "ReadAll",
+              "writer.Write"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/grpc/grpc-go/security/advisories/GHSA-vp52-pcj8-j9qc"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/grpc/grpc-go/commit/7354d9c8debb4bcf2225bf429857078de310c176"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/grpc/grpc-go/commit/8cfeca0e1ee5ea0980dcc320e20240fa1079ec77"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/grpc/grpc-go/pull/9331"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/grpc/grpc-go/pull/9333"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/grpc/grpc-go/releases/tag/v1.83.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6348",
+    "review_status": "REVIEWED"
+  }
+}

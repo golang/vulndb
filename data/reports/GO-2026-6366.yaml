@@ -1,0 +1,37 @@
+id: GO-2026-6366
+modules:
+    - module: github.com/VictoriaMetrics/VictoriaMetrics
+      versions:
+        - fixed: 1.122.25
+        - introduced: 1.123.0
+        - fixed: 1.136.12
+        - introduced: 1.137.0
+        - fixed: 1.146.0
+      vulnerable_at: 1.146.0-cluster
+      packages:
+        - package: github.com/VictoriaMetrics/VictoriaMetrics/lib/backup/actions
+          symbols:
+            - Restore.Run
+          derived_symbols:
+            - Backup.Run
+            - RemoteBackupCopy.Run
+        - package: github.com/VictoriaMetrics/VictoriaMetrics/lib/backup/fslocal
+          symbols:
+            - FS.NewDirectWriteCloser
+summary: |-
+    Path traversal via crafted backup part names escapes restore root in
+    github.com/VictoriaMetrics/VictoriaMetrics
+cves:
+    - CVE-2026-61625
+ghsas:
+    - GHSA-8q3c-rjr9-xxrp
+references:
+    - advisory: https://github.com/VictoriaMetrics/VictoriaMetrics/security/advisories/GHSA-8q3c-rjr9-xxrp
+    - fix: https://github.com/VictoriaMetrics/VictoriaMetrics/commit/710c920d6083327042a309e449fae4383617d817
+    - web: https://github.com/VictoriaMetrics/VictoriaMetrics/releases/tag/v1.122.25
+    - web: https://github.com/VictoriaMetrics/VictoriaMetrics/releases/tag/v1.136.12
+    - web: https://github.com/VictoriaMetrics/VictoriaMetrics/releases/tag/v1.146.0
+source:
+    id: GHSA-8q3c-rjr9-xxrp
+    created: 2026-09-09T13:22:04.354513-04:00
+review_status: REVIEWED
