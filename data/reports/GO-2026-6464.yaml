@@ -1,0 +1,30 @@
+id: GO-2026-6464
+modules:
+    - module: github.com/rclone/rclone
+      versions:
+        - introduced: 1.72.0
+        - fixed: 1.75.1
+      vulnerable_at: 1.75.0
+      packages:
+        - package: github.com/rclone/rclone/backend/archive/zip
+          symbols:
+            - Fs.readZip
+          derived_symbols:
+            - New
+summary: |-
+    rclone archive/zip: Zip Slip via unsanitized zip entry names lets a malicious
+    archive escape its own namespace in github.com/rclone/rclone
+cves:
+    - CVE-2026-88014
+ghsas:
+    - GHSA-66hp-wgxq-6f5q
+references:
+    - advisory: https://github.com/rclone/rclone/security/advisories/GHSA-66hp-wgxq-6f5q
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-88014
+    - fix: https://github.com/rclone/rclone/commit/5dae3adbf571a6cd9ba501eb47397a7e871e1ae0
+    - fix: https://github.com/rclone/rclone/commit/6507e13d5a83789f500af96d7188c302c9d74d98
+    - web: https://github.com/rclone/rclone/releases/tag/v1.75.1
+source:
+    id: GHSA-66hp-wgxq-6f5q
+    created: 2026-09-15T11:10:38.036964-04:00
+review_status: NEEDS_REVIEW

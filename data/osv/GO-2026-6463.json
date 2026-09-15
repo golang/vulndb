@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6463",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-88013",
+    "GHSA-486v-q2wf-fp2r"
+  ],
+  "summary": "rclone: http backend forwards custom/auth headers to a different host on redirect in github.com/rclone/rclone",
+  "details": "rclone: http backend forwards custom/auth headers to a different host on redirect in github.com/rclone/rclone",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/rclone/rclone",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.49.0"
+            },
+            {
+              "fixed": "1.75.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/rclone/rclone/backend/http",
+            "symbols": [
+              "Fs.Command",
+              "Fs.List",
+              "Fs.NewObject",
+              "Fs.httpConnection",
+              "NewFs",
+              "Object.Open"
+            ]
+          },
+          {
+            "path": "github.com/rclone/rclone/fs/fshttp",
+            "symbols": [
+              "Transport.RoundTrip"
+            ]
+          },
+          {
+            "path": "github.com/rclone/rclone/lib/rest",
+            "symbols": [
+              "PreserveMethodRedirectFn",
+              "RefuseHTTPSDowngradeRedirectFn",
+              "isHTTPSDowngrade"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/rclone/rclone/security/advisories/GHSA-486v-q2wf-fp2r"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-88013"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rclone/rclone/commit/22859b7e696cea3c563c6ba04c6b7f91f74456b4"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rclone/rclone/commit/79fbc0842f74e02cb84f0e3e7261d169983c8831"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rclone/rclone/commit/925fb4fb21eb25e75cd1b64fdd17ded857784bfc"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rclone/rclone/releases/tag/v1.75.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6463",
+    "review_status": "UNREVIEWED"
+  }
+}

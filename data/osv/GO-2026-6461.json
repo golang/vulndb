@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6461",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-88015",
+    "GHSA-p6m2-r3w9-mpxw"
+  ],
+  "summary": "rclone local: crafted Range request against a translated symlink panics (DoS) in github.com/rclone/rclone",
+  "details": "rclone local: crafted Range request against a translated symlink panics (DoS) in github.com/rclone/rclone",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/rclone/rclone",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.75.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/rclone/rclone/backend/local",
+            "symbols": [
+              "Object.Hash",
+              "Object.Open",
+              "Object.openTranslatedLink"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/rclone/rclone/security/advisories/GHSA-p6m2-r3w9-mpxw"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-88015"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rclone/rclone/commit/28bf49d66f94acc3f4f7f318504a706686281af9"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rclone/rclone/releases/tag/v1.75.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6461",
+    "review_status": "UNREVIEWED"
+  }
+}

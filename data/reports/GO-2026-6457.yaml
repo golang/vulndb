@@ -1,0 +1,60 @@
+id: GO-2026-6457
+modules:
+    - module: github.com/rclone/rclone
+      versions:
+        - fixed: 1.75.1
+      vulnerable_at: 1.75.0
+      packages:
+        - package: github.com/rclone/rclone/fs/walk
+          symbols:
+            - listR
+            - walkRDirTree
+          derived_symbols:
+            - GetAll
+            - ListR
+            - NewDirTree
+            - Walk
+        - package: github.com/rclone/rclone/fs/operations
+          symbols:
+            - StatJSON
+          derived_symbols:
+            - Cat
+            - Check
+            - CheckDownload
+            - CheckFn
+            - CheckSum
+            - Count
+            - Deduplicate
+            - Delete
+            - DirMove
+            - DirMoveCaseInsensitive
+            - HashLister
+            - List
+            - ListDir
+            - ListFn
+            - ListJSON
+            - ListLong
+            - Purge
+            - Rmdirs
+            - SetTier
+            - TouchDir
+        - package: github.com/rclone/rclone/fs/list
+          symbols:
+            - filterDir
+          derived_symbols:
+            - DirSorted
+            - DirSortedFn
+summary: 'rclone: source object names can escape the configured root on upload in github.com/rclone/rclone'
+cves:
+    - CVE-2026-88046
+ghsas:
+    - GHSA-38xv-hf3p-h7mq
+references:
+    - advisory: https://github.com/rclone/rclone/security/advisories/GHSA-38xv-hf3p-h7mq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-88046
+    - fix: https://github.com/rclone/rclone/commit/57842c5ee4e1407eda06a414a36510cce2db4252
+    - web: https://github.com/rclone/rclone/releases/tag/v1.75.1
+source:
+    id: GHSA-38xv-hf3p-h7mq
+    created: 2026-09-15T11:18:32.331661-04:00
+review_status: NEEDS_REVIEW

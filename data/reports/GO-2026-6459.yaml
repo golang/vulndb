@@ -1,0 +1,39 @@
+id: GO-2026-6459
+modules:
+    - module: github.com/rclone/rclone
+      versions:
+        - fixed: 1.75.1
+      vulnerable_at: 1.75.0
+      packages:
+        - package: github.com/rclone/rclone/backend/local
+          symbols:
+            - Object.writeMetadataToFile
+            - Object.setTimes
+          derived_symbols:
+            - Directory.SetMetadata
+            - Fs.Copy
+            - Fs.DirSetModTime
+            - Fs.MkdirMetadata
+            - Fs.Move
+            - Fs.Put
+            - Fs.PutStream
+            - Object.SetMetadata
+            - Object.SetModTime
+            - Object.Update
+summary: |-
+    rclone: Directory metadata (chmod/chown/chtimes) applied through a planted
+    symlink in rclone local --links escapes the destination in github.com/rclone/rclone
+cves:
+    - CVE-2026-88016
+ghsas:
+    - GHSA-f8g7-2xjc-7mfh
+references:
+    - advisory: https://github.com/rclone/rclone/security/advisories/GHSA-f8g7-2xjc-7mfh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-88016
+    - fix: https://github.com/rclone/rclone/commit/17b0c03338a857bcb0a68d2d4c82ddbdec3f7893
+    - fix: https://github.com/rclone/rclone/commit/a7ab39d3d1958afa1446982c1dc4e4a73a887e3e
+    - web: https://github.com/rclone/rclone/releases/tag/v1.75.1
+source:
+    id: GHSA-f8g7-2xjc-7mfh
+    created: 2026-09-15T11:16:32.90881-04:00
+review_status: NEEDS_REVIEW

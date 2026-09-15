@@ -1,0 +1,124 @@
+id: GO-2026-6460
+modules:
+    - module: github.com/rclone/rclone
+      versions:
+        - introduced: 1.70.0
+        - fixed: 1.75.1
+      vulnerable_at: 1.75.0
+      packages:
+        - package: github.com/rclone/rclone/cmd/serve/webdav
+          symbols:
+            - WebDAV.Shutdown
+            - WebDAV.auth
+            - WebDAV.getVFS
+            - newWebDAV
+          derived_symbols:
+            - FileInfo.ContentType
+            - FileInfo.ETag
+            - Handle.DeadProps
+            - Handle.Patch
+            - Handle.Readdir
+            - WebDAV.Mkdir
+            - WebDAV.OpenFile
+            - WebDAV.RemoveAll
+            - WebDAV.Rename
+            - WebDAV.Serve
+            - WebDAV.ServeHTTP
+            - WebDAV.Stat
+            - webdavRW.WriteHeader
+        - package: github.com/rclone/rclone/cmd/serve/sftp
+          symbols:
+            - server.configure
+            - server.getVFS
+            - server.Shutdown
+            - newServer
+          derived_symbols:
+            - AddFlags
+            - listerat.ListAt
+            - recoveringHandle.Close
+            - recoveringHandle.ReadAt
+            - recoveringHandle.WriteAt
+            - server.Serve
+            - vfsHandler.Filecmd
+            - vfsHandler.Filelist
+            - vfsHandler.Fileread
+            - vfsHandler.Filewrite
+            - vfsHandler.StatVFS
+        - package: github.com/rclone/rclone/cmd/serve/s3
+          symbols:
+            - newServer
+            - Server.auth
+            - Server.Shutdown
+            - Server.getVFS
+          derived_symbols:
+            - Server.Bind
+            - Server.Serve
+            - logger.Print
+            - readerWithCloser.Close
+            - s3Backend.AbortMultipartUpload
+            - s3Backend.BucketExists
+            - s3Backend.CompleteMultipartUpload
+            - s3Backend.CopyObject
+            - s3Backend.CreateBucket
+            - s3Backend.CreateMultipartUpload
+            - s3Backend.DeleteBucket
+            - s3Backend.DeleteMulti
+            - s3Backend.DeleteObject
+            - s3Backend.GetObject
+            - s3Backend.HeadObject
+            - s3Backend.ListBucket
+            - s3Backend.ListBuckets
+            - s3Backend.PutObject
+            - s3Backend.TouchObject
+            - s3Backend.UploadPart
+        - package: github.com/rclone/rclone/cmd/serve/proxy
+          symbols:
+            - New
+        - package: github.com/rclone/rclone/cmd/serve/ftp
+          symbols:
+            - newServer
+            - driver.CheckPasswd
+            - driver.getVFS
+            - driver.Shutdown
+          derived_symbols:
+            - AddFlags
+            - FileInfo.Group
+            - FileInfo.ModTime
+            - FileInfo.Owner
+            - Logger.Print
+            - Logger.PrintCommand
+            - Logger.PrintResponse
+            - Logger.Printf
+            - driver.Addr
+            - driver.ChangeDir
+            - driver.DeleteDir
+            - driver.DeleteFile
+            - driver.GetFile
+            - driver.ListDir
+            - driver.MakeDir
+            - driver.PutFile
+            - driver.Rename
+            - driver.Serve
+            - driver.Stat
+        - package: github.com/rclone/rclone/cmd/serve/http
+          symbols:
+            - HTTP.getVFS
+            - newServer
+            - HTTP.Shutdown
+            - HTTP.auth
+          derived_symbols:
+            - HTTP.Serve
+summary: 'rclone: RC per-server auth-proxy bypass in github.com/rclone/rclone'
+cves:
+    - CVE-2026-88044
+ghsas:
+    - GHSA-p569-5gjg-9cmj
+references:
+    - advisory: https://github.com/rclone/rclone/security/advisories/GHSA-p569-5gjg-9cmj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-88044
+    - fix: https://github.com/rclone/rclone/commit/739403963abf6f58003c2becd5f7c4ad0d644153
+    - web: https://github.com/rclone/rclone/releases/tag/v1.75.1
+source:
+    id: GHSA-p569-5gjg-9cmj
+    created: 2026-09-15T11:14:56.758506-04:00
+review_status: NEEDS_REVIEW

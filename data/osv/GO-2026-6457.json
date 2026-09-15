@@ -1,0 +1,104 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6457",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-88046",
+    "GHSA-38xv-hf3p-h7mq"
+  ],
+  "summary": "rclone: source object names can escape the configured root on upload in github.com/rclone/rclone",
+  "details": "rclone: source object names can escape the configured root on upload in github.com/rclone/rclone",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/rclone/rclone",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.75.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/rclone/rclone/fs/walk",
+            "symbols": [
+              "GetAll",
+              "ListR",
+              "NewDirTree",
+              "Walk",
+              "listR",
+              "walkRDirTree"
+            ]
+          },
+          {
+            "path": "github.com/rclone/rclone/fs/operations",
+            "symbols": [
+              "Cat",
+              "Check",
+              "CheckDownload",
+              "CheckFn",
+              "CheckSum",
+              "Count",
+              "Deduplicate",
+              "Delete",
+              "DirMove",
+              "DirMoveCaseInsensitive",
+              "HashLister",
+              "List",
+              "ListDir",
+              "ListFn",
+              "ListJSON",
+              "ListLong",
+              "Purge",
+              "Rmdirs",
+              "SetTier",
+              "StatJSON",
+              "TouchDir"
+            ]
+          },
+          {
+            "path": "github.com/rclone/rclone/fs/list",
+            "symbols": [
+              "DirSorted",
+              "DirSortedFn",
+              "filterDir"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/rclone/rclone/security/advisories/GHSA-38xv-hf3p-h7mq"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-88046"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rclone/rclone/commit/57842c5ee4e1407eda06a414a36510cce2db4252"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rclone/rclone/releases/tag/v1.75.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6457",
+    "review_status": "UNREVIEWED"
+  }
+}

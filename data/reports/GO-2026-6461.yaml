@@ -1,0 +1,27 @@
+id: GO-2026-6461
+modules:
+    - module: github.com/rclone/rclone
+      versions:
+        - fixed: 1.75.1
+      vulnerable_at: 1.75.0
+      packages:
+        - package: github.com/rclone/rclone/backend/local
+          symbols:
+            - Object.openTranslatedLink
+          derived_symbols:
+            - Object.Hash
+            - Object.Open
+summary: 'rclone local: crafted Range request against a translated symlink panics (DoS) in github.com/rclone/rclone'
+cves:
+    - CVE-2026-88015
+ghsas:
+    - GHSA-p6m2-r3w9-mpxw
+references:
+    - advisory: https://github.com/rclone/rclone/security/advisories/GHSA-p6m2-r3w9-mpxw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-88015
+    - fix: https://github.com/rclone/rclone/commit/28bf49d66f94acc3f4f7f318504a706686281af9
+    - web: https://github.com/rclone/rclone/releases/tag/v1.75.1
+source:
+    id: GHSA-p6m2-r3w9-mpxw
+    created: 2026-09-15T11:13:51.777698-04:00
+review_status: NEEDS_REVIEW

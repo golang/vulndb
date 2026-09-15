@@ -1,0 +1,48 @@
+id: GO-2026-6458
+modules:
+    - module: github.com/rclone/rclone
+      versions:
+        - introduced: 1.64.0
+        - fixed: 1.75.1
+      vulnerable_at: 1.75.0
+      packages:
+        - package: github.com/rclone/rclone/cmd/serve/ftp
+          symbols:
+            - driver.getVFS
+            - newServer
+            - driver.CheckPasswd
+          derived_symbols:
+            - AddFlags
+            - FileInfo.Group
+            - FileInfo.ModTime
+            - FileInfo.Owner
+            - Logger.Print
+            - Logger.PrintCommand
+            - Logger.PrintResponse
+            - Logger.Printf
+            - driver.Addr
+            - driver.ChangeDir
+            - driver.DeleteDir
+            - driver.DeleteFile
+            - driver.GetFile
+            - driver.ListDir
+            - driver.MakeDir
+            - driver.PutFile
+            - driver.Rename
+            - driver.Serve
+            - driver.Shutdown
+            - driver.Stat
+summary: 'rclone: FTP cross-session auth-proxy backend confusion in github.com/rclone/rclone'
+cves:
+    - CVE-2026-88017
+ghsas:
+    - GHSA-c476-6w5q-jw77
+references:
+    - advisory: https://github.com/rclone/rclone/security/advisories/GHSA-c476-6w5q-jw77
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-88017
+    - fix: https://github.com/rclone/rclone/commit/c6af0b57c2b4af848bc968c2b407354476184b99
+    - web: https://github.com/rclone/rclone/releases/tag/v1.75.1
+source:
+    id: GHSA-c476-6w5q-jw77
+    created: 2026-09-15T11:17:33.834593-04:00
+review_status: NEEDS_REVIEW

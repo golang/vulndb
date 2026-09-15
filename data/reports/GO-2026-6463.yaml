@@ -1,0 +1,48 @@
+id: GO-2026-6463
+modules:
+    - module: github.com/rclone/rclone
+      versions:
+        - introduced: 1.49.0
+        - fixed: 1.75.1
+      vulnerable_at: 1.75.0
+      packages:
+        - package: github.com/rclone/rclone/backend/http
+          symbols:
+            - Fs.httpConnection
+          derived_symbols:
+            - Fs.Command
+            - Fs.List
+            - Fs.NewObject
+            - NewFs
+            - Object.Open
+        - package: github.com/rclone/rclone/fs/fshttp
+          symbols:
+            - Transport.RoundTrip
+        - package: github.com/rclone/rclone/lib/rest
+          symbols:
+            - isHTTPSDowngrade
+          derived_symbols:
+            - PreserveMethodRedirectFn
+            - RefuseHTTPSDowngradeRedirectFn
+summary: |-
+    rclone: http backend forwards custom/auth headers to a different host on
+    redirect in github.com/rclone/rclone
+cves:
+    - CVE-2026-88013
+ghsas:
+    - GHSA-486v-q2wf-fp2r
+references:
+    - advisory: https://github.com/rclone/rclone/security/advisories/GHSA-486v-q2wf-fp2r
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-88013
+    - fix: https://github.com/rclone/rclone/commit/22859b7e696cea3c563c6ba04c6b7f91f74456b4
+    - fix: https://github.com/rclone/rclone/commit/79fbc0842f74e02cb84f0e3e7261d169983c8831
+    - fix: https://github.com/rclone/rclone/commit/925fb4fb21eb25e75cd1b64fdd17ded857784bfc
+    - web: https://github.com/rclone/rclone/releases/tag/v1.75.1
+notes:
+    - fix: |-
+        symbol error: package github.com/rclone/rclone/backend/http: Exported("github.com/rclone/rclone", "github.com/rclone/rclone/backend/http"): invalid symbol(s):
+        init: func not found
+source:
+    id: GHSA-486v-q2wf-fp2r
+    created: 2026-09-15T11:11:43.33453-04:00
+review_status: NEEDS_REVIEW

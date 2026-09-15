@@ -1,0 +1,174 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6460",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-88044",
+    "GHSA-p569-5gjg-9cmj"
+  ],
+  "summary": "rclone: RC per-server auth-proxy bypass in github.com/rclone/rclone",
+  "details": "rclone: RC per-server auth-proxy bypass in github.com/rclone/rclone",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/rclone/rclone",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.70.0"
+            },
+            {
+              "fixed": "1.75.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/rclone/rclone/cmd/serve/webdav",
+            "symbols": [
+              "FileInfo.ContentType",
+              "FileInfo.ETag",
+              "Handle.DeadProps",
+              "Handle.Patch",
+              "Handle.Readdir",
+              "WebDAV.Mkdir",
+              "WebDAV.OpenFile",
+              "WebDAV.RemoveAll",
+              "WebDAV.Rename",
+              "WebDAV.Serve",
+              "WebDAV.ServeHTTP",
+              "WebDAV.Shutdown",
+              "WebDAV.Stat",
+              "WebDAV.auth",
+              "WebDAV.getVFS",
+              "newWebDAV",
+              "webdavRW.WriteHeader"
+            ]
+          },
+          {
+            "path": "github.com/rclone/rclone/cmd/serve/sftp",
+            "symbols": [
+              "AddFlags",
+              "listerat.ListAt",
+              "newServer",
+              "recoveringHandle.Close",
+              "recoveringHandle.ReadAt",
+              "recoveringHandle.WriteAt",
+              "server.Serve",
+              "server.Shutdown",
+              "server.configure",
+              "server.getVFS",
+              "vfsHandler.Filecmd",
+              "vfsHandler.Filelist",
+              "vfsHandler.Fileread",
+              "vfsHandler.Filewrite",
+              "vfsHandler.StatVFS"
+            ]
+          },
+          {
+            "path": "github.com/rclone/rclone/cmd/serve/s3",
+            "symbols": [
+              "Server.Bind",
+              "Server.Serve",
+              "Server.Shutdown",
+              "Server.auth",
+              "Server.getVFS",
+              "logger.Print",
+              "newServer",
+              "readerWithCloser.Close",
+              "s3Backend.AbortMultipartUpload",
+              "s3Backend.BucketExists",
+              "s3Backend.CompleteMultipartUpload",
+              "s3Backend.CopyObject",
+              "s3Backend.CreateBucket",
+              "s3Backend.CreateMultipartUpload",
+              "s3Backend.DeleteBucket",
+              "s3Backend.DeleteMulti",
+              "s3Backend.DeleteObject",
+              "s3Backend.GetObject",
+              "s3Backend.HeadObject",
+              "s3Backend.ListBucket",
+              "s3Backend.ListBuckets",
+              "s3Backend.PutObject",
+              "s3Backend.TouchObject",
+              "s3Backend.UploadPart"
+            ]
+          },
+          {
+            "path": "github.com/rclone/rclone/cmd/serve/proxy",
+            "symbols": [
+              "New"
+            ]
+          },
+          {
+            "path": "github.com/rclone/rclone/cmd/serve/ftp",
+            "symbols": [
+              "AddFlags",
+              "FileInfo.Group",
+              "FileInfo.ModTime",
+              "FileInfo.Owner",
+              "Logger.Print",
+              "Logger.PrintCommand",
+              "Logger.PrintResponse",
+              "Logger.Printf",
+              "driver.Addr",
+              "driver.ChangeDir",
+              "driver.CheckPasswd",
+              "driver.DeleteDir",
+              "driver.DeleteFile",
+              "driver.GetFile",
+              "driver.ListDir",
+              "driver.MakeDir",
+              "driver.PutFile",
+              "driver.Rename",
+              "driver.Serve",
+              "driver.Shutdown",
+              "driver.Stat",
+              "driver.getVFS",
+              "newServer"
+            ]
+          },
+          {
+            "path": "github.com/rclone/rclone/cmd/serve/http",
+            "symbols": [
+              "HTTP.Serve",
+              "HTTP.Shutdown",
+              "HTTP.auth",
+              "HTTP.getVFS",
+              "newServer"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/rclone/rclone/security/advisories/GHSA-p569-5gjg-9cmj"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-88044"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rclone/rclone/commit/739403963abf6f58003c2becd5f7c4ad0d644153"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rclone/rclone/releases/tag/v1.75.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6460",
+    "review_status": "UNREVIEWED"
+  }
+}

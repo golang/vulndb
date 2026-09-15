@@ -1,0 +1,49 @@
+id: GO-2026-6456
+modules:
+    - module: github.com/rclone/rclone
+      versions:
+        - introduced: 1.75.0
+        - fixed: 1.75.1
+      vulnerable_at: 1.75.0
+      packages:
+        - package: github.com/rclone/rclone/cmd/serve/s3
+          symbols:
+            - s3Backend.UploadPart
+            - multipartUpload.waitForTurn
+          derived_symbols:
+            - Server.Bind
+            - Server.Serve
+            - Server.Shutdown
+            - logger.Print
+            - readerWithCloser.Close
+            - s3Backend.AbortMultipartUpload
+            - s3Backend.BucketExists
+            - s3Backend.CompleteMultipartUpload
+            - s3Backend.CopyObject
+            - s3Backend.CreateBucket
+            - s3Backend.CreateMultipartUpload
+            - s3Backend.DeleteBucket
+            - s3Backend.DeleteMulti
+            - s3Backend.DeleteObject
+            - s3Backend.GetObject
+            - s3Backend.HeadObject
+            - s3Backend.ListBucket
+            - s3Backend.ListBuckets
+            - s3Backend.PutObject
+            - s3Backend.TouchObject
+summary: 'rclone: S3 multipart declared-length memory exhaustion in github.com/rclone/rclone'
+cves:
+    - CVE-2026-88045
+ghsas:
+    - GHSA-2p48-j3qc-rx9f
+references:
+    - advisory: https://github.com/rclone/rclone/security/advisories/GHSA-2p48-j3qc-rx9f
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-88045
+    - fix: https://github.com/rclone/rclone/commit/7c1dfd99f3e6a22fcefd8686cc478226a15e63a1
+    - fix: https://github.com/rclone/rclone/commit/ab1f458013aaf6356e4bdeca61f7cb9139f8eb86
+    - report: https://github.com/rclone/rclone/issues/9616
+    - web: https://github.com/rclone/rclone/releases/tag/v1.75.1
+source:
+    id: GHSA-2p48-j3qc-rx9f
+    created: 2026-09-15T11:19:41.45781-04:00
+review_status: NEEDS_REVIEW
