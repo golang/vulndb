@@ -1,0 +1,58 @@
+id: GO-2026-6452
+modules:
+    - module: github.com/xuri/excelize/v2
+      vulnerable_at: 2.10.1
+      packages:
+        - package: github.com/xuri/excelize/v2
+          symbols:
+            - xlsxC.getValueFrom
+          derived_symbols:
+            - Cols.Rows
+            - File.AddPicture
+            - File.AddPictureFromBytes
+            - File.AddPivotTable
+            - File.AddSlicer
+            - File.AddTable
+            - File.CalcCellValue
+            - File.DuplicateRow
+            - File.DuplicateRowTo
+            - File.GetCellFormula
+            - File.GetCellType
+            - File.GetCellValue
+            - File.GetCols
+            - File.GetMergeCells
+            - File.GetPictureCells
+            - File.GetPictures
+            - File.GetRows
+            - File.InsertCols
+            - File.InsertRows
+            - File.RemoveCol
+            - File.RemoveRow
+            - File.SearchSheet
+            - Rows.Columns
+            - StreamWriter.AddTable
+            - formulaFuncs.ANCHORARRAY
+            - formulaFuncs.FORMULATEXT
+            - formulaFuncs.INDIRECT
+            - formulaFuncs.ISFORMULA
+summary: Panic via negative shared-string index in github.com/xuri/excelize
+description: |-
+    In github.com/xuri/excelize/v2, parsing a spreadsheet cell with a negative
+    shared-string index causes a runtime panic. The shared-string lookup in
+    xlsxC.getValueFrom checks only the upper bound of the parsed index against the
+    shared-string slice length, causing negative indices (such as -1) to bypass
+    validation and trigger an out-of-bounds slice access when reading cells via
+    APIs such as GetCellValue or GetRows.
+cves:
+    - CVE-2026-59162
+ghsas:
+    - GHSA-fx5j-qcqg-grpf
+references:
+    - advisory: https://github.com/qax-os/excelize/security/advisories/GHSA-fx5j-qcqg-grpf
+    - fix: https://github.com/qax-os/excelize/commit/93f0b3caed37f21ef5079e3259c6c21dcfe68453
+    - fix: https://github.com/qax-os/excelize/pull/2331
+    - web: https://github.com/qax-os/excelize/releases/tag/v2.11.0
+source:
+    id: GHSA-fx5j-qcqg-grpf
+    created: 2026-09-15T11:21:13.812807-04:00
+review_status: REVIEWED

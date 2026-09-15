@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6452",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-59162",
+    "GHSA-fx5j-qcqg-grpf"
+  ],
+  "summary": "Panic via negative shared-string index in github.com/xuri/excelize",
+  "details": "In github.com/xuri/excelize/v2, parsing a spreadsheet cell with a negative shared-string index causes a runtime panic. The shared-string lookup in xlsxC.getValueFrom checks only the upper bound of the parsed index against the shared-string slice length, causing negative indices (such as -1) to bypass validation and trigger an out-of-bounds slice access when reading cells via APIs such as GetCellValue or GetRows.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/xuri/excelize/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/xuri/excelize/v2",
+            "symbols": [
+              "Cols.Rows",
+              "File.AddPicture",
+              "File.AddPictureFromBytes",
+              "File.AddPivotTable",
+              "File.AddSlicer",
+              "File.AddTable",
+              "File.CalcCellValue",
+              "File.DuplicateRow",
+              "File.DuplicateRowTo",
+              "File.GetCellFormula",
+              "File.GetCellType",
+              "File.GetCellValue",
+              "File.GetCols",
+              "File.GetMergeCells",
+              "File.GetPictureCells",
+              "File.GetPictures",
+              "File.GetRows",
+              "File.InsertCols",
+              "File.InsertRows",
+              "File.RemoveCol",
+              "File.RemoveRow",
+              "File.SearchSheet",
+              "Rows.Columns",
+              "StreamWriter.AddTable",
+              "formulaFuncs.ANCHORARRAY",
+              "formulaFuncs.FORMULATEXT",
+              "formulaFuncs.INDIRECT",
+              "formulaFuncs.ISFORMULA",
+              "xlsxC.getValueFrom"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/qax-os/excelize/security/advisories/GHSA-fx5j-qcqg-grpf"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/qax-os/excelize/commit/93f0b3caed37f21ef5079e3259c6c21dcfe68453"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/qax-os/excelize/pull/2331"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/qax-os/excelize/releases/tag/v2.11.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6452",
+    "review_status": "REVIEWED"
+  }
+}

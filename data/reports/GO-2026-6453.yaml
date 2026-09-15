@@ -1,0 +1,33 @@
+id: GO-2026-6453
+modules:
+    - module: github.com/xuri/excelize/v2
+      versions:
+        - fixed: 2.11.0
+      vulnerable_at: 2.10.1
+      packages:
+        - package: github.com/xuri/excelize/v2
+          symbols:
+            - Rows.Close
+            - Rows.Next
+          derived_symbols:
+            - File.GetRows
+summary: Unbounded memory allocation via streaming row reader in github.com/xuri/excelize
+description: |-
+    In github.com/xuri/excelize/v2, the streaming worksheet reader used by Rows and
+    GetRows does not enforce the maximum row limit (TotalRows) on row "r"
+    attributes. A crafted spreadsheet with an out-of-bounds row index causes
+    GetRows to allocate empty row slices up to the specified row number, leading to
+    excessive memory consumption and denial of service.
+cves:
+    - CVE-2026-59161
+ghsas:
+    - GHSA-q5j5-6p94-4gwc
+references:
+    - advisory: https://github.com/qax-os/excelize/security/advisories/GHSA-q5j5-6p94-4gwc
+    - fix: https://github.com/qax-os/excelize/commit/93f0b3caed37f21ef5079e3259c6c21dcfe68453
+    - fix: https://github.com/qax-os/excelize/pull/2331
+    - web: https://github.com/qax-os/excelize/releases/tag/v2.11.0
+source:
+    id: GHSA-q5j5-6p94-4gwc
+    created: 2026-09-15T11:21:04.25595-04:00
+review_status: REVIEWED
