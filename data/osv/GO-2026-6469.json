@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6469",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-56665",
+    "GHSA-v77h-2w3m-94hx"
+  ],
+  "summary": "ZITADEL: Missing Token Expiration (`exp`) Validation in JWT IdP Provider in github.com/zitadel/zitadel",
+  "details": "ZITADEL: Missing Token Expiration (`exp`) Validation in JWT IdP Provider in github.com/zitadel/zitadel.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/zitadel/zitadel before v3.4.12, from v4.0.0-rc.1 before v4.15.2.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/zitadel/zitadel",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "3.4.12"
+              },
+              {
+                "introduced": "4.0.0-rc.1"
+              },
+              {
+                "fixed": "4.15.2"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/zitadel/zitadel/security/advisories/GHSA-v77h-2w3m-94hx"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-56665"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/zitadel/zitadel/commit/4925fab849d39a88674485d937b79e54318b48a8"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/zitadel/zitadel/commit/d1c3aa84af8fcb0f33910ada30b866f4afb551ac"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/zitadel/zitadel/releases/tag/v3.4.12"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/zitadel/zitadel/releases/tag/v4.15.2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6469",
+    "review_status": "UNREVIEWED"
+  }
+}

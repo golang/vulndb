@@ -1,0 +1,31 @@
+id: GO-2026-6465
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.57
+      vulnerable_at: 2.11.56
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - introduced: 3.0.0
+        - fixed: 3.7.13
+      vulnerable_at: 3.7.12
+summary: |-
+    Traefik: Rootless HTTP/1 request-target routes as "/" but is forwarded verbatim,
+    bypassing path-scoped routing, middleware guards and access logging in github.com/traefik/traefik
+cves:
+    - CVE-2026-88009
+ghsas:
+    - GHSA-f52w-8j3h-j724
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-f52w-8j3h-j724
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-88009
+    - fix: https://github.com/traefik/traefik/commit/58d1e9ca204526823211e30fd4634101c59d58e9
+    - fix: https://github.com/traefik/traefik/pull/13796
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.57
+    - web: https://github.com/traefik/traefik/releases/tag/v3.7.13
+source:
+    id: GHSA-f52w-8j3h-j724
+    created: 2026-09-15T11:10:28.888092-04:00
+review_status: UNREVIEWED

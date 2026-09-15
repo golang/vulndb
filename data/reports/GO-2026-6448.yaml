@@ -1,0 +1,21 @@
+id: GO-2026-6448
+modules:
+    - module: github.com/identrail/identrail
+      versions:
+        - fixed: 1.0.2
+      vulnerable_at: 1.0.1
+summary: |-
+    Identrail Cross-tenant IDOR: Client-supplied GitHub App installation_id is bound
+    to the caller's workspace without ownership verification in github.com/identrail/identrail
+cves:
+    - CVE-2026-59185
+ghsas:
+    - GHSA-cp3j-m783-3ph5
+references:
+    - advisory: https://github.com/identrail/identrail/security/advisories/GHSA-cp3j-m783-3ph5
+    - fix: https://github.com/identrail/identrail/commit/835e40517509d6ef5405c27fbf14f579bedff0e7
+    - web: https://github.com/identrail/identrail/releases/tag/v1.0.2
+source:
+    id: GHSA-cp3j-m783-3ph5
+    created: 2026-09-15T11:21:40.880942-04:00
+review_status: UNREVIEWED

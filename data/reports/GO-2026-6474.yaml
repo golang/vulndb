@@ -1,0 +1,20 @@
+id: GO-2026-6474
+modules:
+    - module: github.com/zitadel/zitadel
+      non_go_versions:
+        - fixed: 4.15.3
+      vulnerable_at: 1.87.5
+summary: 'ZITADEL: Unauthorized Token Privilege Escalation in OAuth2 Token Exchange in github.com/zitadel/zitadel'
+cves:
+    - CVE-2026-56668
+ghsas:
+    - GHSA-vrh8-c9cm-wh8v
+references:
+    - advisory: https://github.com/zitadel/zitadel/security/advisories/GHSA-vrh8-c9cm-wh8v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-56668
+    - fix: https://github.com/zitadel/zitadel/commit/e2886a61670ca8fd41c9434f87036546e5620bcc
+    - web: https://github.com/zitadel/zitadel/releases/tag/v4.15.3
+source:
+    id: GHSA-vrh8-c9cm-wh8v
+    created: 2026-09-15T11:08:58.093285-04:00
+review_status: UNREVIEWED

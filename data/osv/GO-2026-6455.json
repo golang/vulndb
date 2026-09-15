@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6455",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-88011",
+    "GHSA-rf44-j88r-hh8c"
+  ],
+  "summary": "Traefik: ForwardAuth identity spoofing via dot-form header alias in github.com/traefik/traefik",
+  "details": "Traefik: ForwardAuth identity spoofing via dot-form header alias in github.com/traefik/traefik",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/traefik/traefik",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/traefik/traefik/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.11.56"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/traefik/traefik/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "3.0.0"
+            },
+            {
+              "fixed": "3.7.12"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/traefik/traefik/security/advisories/GHSA-rf44-j88r-hh8c"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-88011"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/traefik/traefik/commit/0331801c72329e0eaeb850e53ccce87c57fbecf8"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/traefik/traefik/pull/13720"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/traefik/traefik/releases/tag/v2.11.56"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/traefik/traefik/releases/tag/v3.7.12"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6455",
+    "review_status": "UNREVIEWED"
+  }
+}

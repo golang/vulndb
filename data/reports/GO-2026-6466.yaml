@@ -1,0 +1,30 @@
+id: GO-2026-6466
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - introduced: 2.11.0
+        - fixed: 2.11.57
+      vulnerable_at: 2.11.56
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - introduced: 3.0.0
+        - fixed: 3.7.13
+      vulnerable_at: 3.7.12
+summary: Traefik HTTP/3 Backend NTLM Connection Reuse in github.com/traefik/traefik
+cves:
+    - CVE-2026-88007
+ghsas:
+    - GHSA-qqjf-53cj-pwvv
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-qqjf-53cj-pwvv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-88007
+    - fix: https://github.com/traefik/traefik/commit/ff39c47d7459dec9cd8de63c1a4e7aa7315bdc1c
+    - fix: https://github.com/traefik/traefik/pull/13812
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.57
+    - web: https://github.com/traefik/traefik/releases/tag/v3.7.13
+source:
+    id: GHSA-qqjf-53cj-pwvv
+    created: 2026-09-15T11:10:19.455611-04:00
+review_status: UNREVIEWED

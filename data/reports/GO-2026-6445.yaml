@@ -1,0 +1,22 @@
+id: GO-2026-6445
+modules:
+    - module: github.com/lf-edge/ekuiper
+      vulnerable_at: 1.14.7
+    - module: github.com/lf-edge/ekuiper/v2
+      versions:
+        - fixed: 2.4.1
+      vulnerable_at: 2.4.0
+summary: |-
+    LF Edge eKuiper: Arbitrary File and Directory Deletion via Path Traversal in
+    Plugin Installation Endpoint in github.com/lf-edge/ekuiper
+cves:
+    - CVE-2025-58363
+ghsas:
+    - GHSA-c23q-fw86-9h5x
+references:
+    - advisory: https://github.com/lf-edge/ekuiper/security/advisories/GHSA-c23q-fw86-9h5x
+    - web: https://github.com/lf-edge/ekuiper/releases/tag/v2.4.1
+source:
+    id: GHSA-c23q-fw86-9h5x
+    created: 2026-09-15T11:22:03.639299-04:00
+review_status: UNREVIEWED

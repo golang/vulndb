@@ -1,0 +1,21 @@
+id: GO-2026-6473
+modules:
+    - module: github.com/zitadel/zitadel
+      non_go_versions:
+        - fixed: 4.16.0
+      vulnerable_at: 1.87.5
+summary: |-
+    ZITADEL: Improper Role Revocation on Granted Projects during Multiple Role
+    Deletions in github.com/zitadel/zitadel
+cves:
+    - CVE-2026-76081
+ghsas:
+    - GHSA-v859-c572-qh5p
+references:
+    - advisory: https://github.com/zitadel/zitadel/security/advisories/GHSA-v859-c572-qh5p
+    - fix: https://github.com/zitadel/zitadel/commit/9d60e83d6faa5e7e7a5339e031cdb26e0efe4d59
+    - web: https://github.com/zitadel/zitadel/releases/tag/v4.16.0
+source:
+    id: GHSA-v859-c572-qh5p
+    created: 2026-09-15T11:09:23.470936-04:00
+review_status: UNREVIEWED

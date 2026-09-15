@@ -1,0 +1,29 @@
+id: GO-2026-6455
+modules:
+    - module: github.com/traefik/traefik
+      vulnerable_at: 1.7.34
+    - module: github.com/traefik/traefik/v2
+      versions:
+        - fixed: 2.11.56
+      vulnerable_at: 2.11.55
+    - module: github.com/traefik/traefik/v3
+      versions:
+        - introduced: 3.0.0
+        - fixed: 3.7.12
+      vulnerable_at: 3.7.11
+summary: 'Traefik: ForwardAuth identity spoofing via dot-form header alias in github.com/traefik/traefik'
+cves:
+    - CVE-2026-88011
+ghsas:
+    - GHSA-rf44-j88r-hh8c
+references:
+    - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-rf44-j88r-hh8c
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-88011
+    - fix: https://github.com/traefik/traefik/commit/0331801c72329e0eaeb850e53ccce87c57fbecf8
+    - fix: https://github.com/traefik/traefik/pull/13720
+    - web: https://github.com/traefik/traefik/releases/tag/v2.11.56
+    - web: https://github.com/traefik/traefik/releases/tag/v3.7.12
+source:
+    id: GHSA-rf44-j88r-hh8c
+    created: 2026-09-15T11:20:42.770326-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,24 @@
+id: GO-2026-6469
+modules:
+    - module: github.com/zitadel/zitadel
+      non_go_versions:
+        - fixed: 3.4.12
+        - introduced: 4.0.0-rc.1
+        - fixed: 4.15.2
+      vulnerable_at: 1.87.5
+summary: 'ZITADEL: Missing Token Expiration (`exp`) Validation in JWT IdP Provider in github.com/zitadel/zitadel'
+cves:
+    - CVE-2026-56665
+ghsas:
+    - GHSA-v77h-2w3m-94hx
+references:
+    - advisory: https://github.com/zitadel/zitadel/security/advisories/GHSA-v77h-2w3m-94hx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-56665
+    - fix: https://github.com/zitadel/zitadel/commit/4925fab849d39a88674485d937b79e54318b48a8
+    - fix: https://github.com/zitadel/zitadel/commit/d1c3aa84af8fcb0f33910ada30b866f4afb551ac
+    - web: https://github.com/zitadel/zitadel/releases/tag/v3.4.12
+    - web: https://github.com/zitadel/zitadel/releases/tag/v4.15.2
+source:
+    id: GHSA-v77h-2w3m-94hx
+    created: 2026-09-15T11:09:39.988953-04:00
+review_status: UNREVIEWED
