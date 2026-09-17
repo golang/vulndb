@@ -1,0 +1,37 @@
+id: GO-2026-V2-OPAQUESIGNER
+modules:
+  - module: gopkg.in/square/go-jose.v2
+    versions:
+      - introduced: 2.0.0
+    vulnerable_at: 2.6.3
+    packages:
+      - package: gopkg.in/square/go-jose.v2
+        symbols:
+          - newOpaqueSigner
+description: |
+    newOpaqueSigner does not validate that the OpaqueSigner.Public() return
+    value is actually a public key. When a signer is created via NewSigner
+    with an OpaqueSigner implementation that returns a private key, and
+    EmbedJWK is true (the default), the private key material is serialized
+    into the JWS protected header.
+
+    The protected header is base64url-encoded and transmitted with every
+    signed token. Anyone who observes the token can recover the full private
+    key (RSA private exponent D and all CRT parameters, or ECDSA D).
+
+    This is the same vulnerability class as CVE-2026-34986 (which affects
+    a different code path in the same library).
+
+    The v2 branch is unmaintained. No patched version is available.
+references:
+  - report: https://github.com/go-jose/go-jose/issues/259
+  - related: https://github.com/go-jose/go-jose/issues/256
+cve: CVE-2026-XXXXX
+ghsa: GHSA-XXXX-XXXX-XXXX
+credit:
+  - name: Can
+    email: canolgun@gmail.com
+cvss:
+  score: 7.1
+  vector: AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:N
+severity: HIGH
