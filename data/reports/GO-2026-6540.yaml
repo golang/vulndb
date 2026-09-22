@@ -1,0 +1,23 @@
+id: GO-2026-6540
+modules:
+    - module: github.com/lucasdillmann/nginx-ignition
+      non_go_versions:
+        - fixed: 0.0.0-20260621194639-0586b4e55ab
+      vulnerable_at: 0.0.0-20260921012428-371de245b282
+summary: |-
+    nginx ignition has Unauthenticated Admin Account Creation via Onboarding Race
+    Condition in github.com/lucasdillmann/nginx-ignition
+cves:
+    - CVE-2026-61628
+ghsas:
+    - GHSA-pxcx-fv34-x9p5
+references:
+    - advisory: https://github.com/lucasdillmann/nginx-ignition/security/advisories/GHSA-pxcx-fv34-x9p5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-61628
+    - fix: https://github.com/lucasdillmann/nginx-ignition/commit/0586b4e55ab780676d3553a2592979dfa2fb0183
+    - fix: https://github.com/lucasdillmann/nginx-ignition/pull/131
+    - web: https://github.com/lucasdillmann/nginx-ignition/releases/tag/2.41.1
+source:
+    id: GHSA-pxcx-fv34-x9p5
+    created: 2026-09-22T10:09:57.177936-04:00
+review_status: UNREVIEWED

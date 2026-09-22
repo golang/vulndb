@@ -1,0 +1,151 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6538",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-jhjp-4c2q-xmx4"
+  ],
+  "summary": "k8saudit shipped rules do not detect privileged/sensitive settings on init or ephemeral containers in github.com/falcosecurity/plugins/plugins/k8saudit",
+  "details": "k8saudit shipped rules do not detect privileged/sensitive settings on init or ephemeral containers in github.com/falcosecurity/plugins/plugins/k8saudit",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/falcosecurity/plugins/plugins/k8saudit",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.18.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/falcosecurity/plugins/plugins/k8saudit-aks",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.6.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/falcosecurity/plugins/plugins/k8saudit-eks",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.12.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/falcosecurity/plugins/plugins/k8saudit-gke",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.9.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/falcosecurity/plugins/plugins/k8saudit-ovh",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.6.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/falcosecurity/plugins/security/advisories/GHSA-jhjp-4c2q-xmx4"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/falcosecurity/plugins/commit/0adb9b3c7e2c8bad53f30d01c057e038b2afa5e1"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/falcosecurity/plugins/pull/1400"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/falcosecurity/plugins/releases/tag/plugins/k8saudit-aks/v0.6.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/falcosecurity/plugins/releases/tag/plugins/k8saudit-eks/v0.12.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/falcosecurity/plugins/releases/tag/plugins/k8saudit-gke/v0.9.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/falcosecurity/plugins/releases/tag/plugins/k8saudit-ovh/v0.6.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/falcosecurity/plugins/releases/tag/plugins/k8saudit/v0.18.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6538",
+    "review_status": "UNREVIEWED"
+  }
+}

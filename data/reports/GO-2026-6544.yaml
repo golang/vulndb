@@ -1,0 +1,55 @@
+id: GO-2026-6544
+modules:
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - fixed: 1.9.2-0.20260616075434-82ef13993059
+      vulnerable_at: 5.4.5+incompatible
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - introduced: 12.4.0
+      vulnerable_at: 5.4.5+incompatible
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - introduced: 13.0.0
+      vulnerable_at: 5.4.5+incompatible
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - introduced: 12.3.0
+      vulnerable_at: 5.4.5+incompatible
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - introduced: 12.0.0
+      vulnerable_at: 5.4.5+incompatible
+    - module: github.com/grafana/grafana
+      versions:
+        - introduced: 2.0.0-beta1+incompatible
+      vulnerable_at: 5.4.5+incompatible
+summary: |-
+    Grafana Loki datasource plugin's callResource handler contains a path traversal
+    vulnerability. in github.com/grafana/grafana
+cves:
+    - CVE-2026-42129
+ghsas:
+    - GHSA-f74p-cwhp-x2wx
+references:
+    - advisory: https://github.com/advisories/GHSA-f74p-cwhp-x2wx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-42129
+    - fix: https://github.com/grafana/grafana/commit/3fcdbc5a6e5c955bd42bd3715dd03cbad2b078c1
+    - fix: https://github.com/grafana/grafana/commit/42cdc39124912a8506a0c613c319c345aa950b29
+    - fix: https://github.com/grafana/grafana/commit/82ef13993059351bf21de35b8488bbd9b42df4f4
+    - fix: https://github.com/grafana/grafana/commit/d27d2eba9c509d16f214d290436a6ad0bd9c6c01
+    - fix: https://github.com/grafana/grafana/commit/dd5dc51681ff0133ddb2e206c2ea318713aeca16
+    - fix: https://github.com/grafana/grafana/commit/eeb08ceb020c4381242d8400e5878044e9877505
+    - fix: https://github.com/grafana/grafana/commit/f70d3e480274a5dbd12006338c393f4b05d441ca
+    - web: https://github.com/grafana/grafana/releases/tag/v11.6.15
+    - web: https://github.com/grafana/grafana/releases/tag/v12.2.9
+    - web: https://github.com/grafana/grafana/releases/tag/v12.3.7
+    - web: https://github.com/grafana/grafana/releases/tag/v12.4.4
+    - web: https://github.com/grafana/grafana/releases/tag/v13.0.2
+    - web: https://grafana.com/security/security-advisories/cve-2026-42129
+notes:
+    - fix: 'module merge error: could not merge versions of module github.com/grafana/grafana: introduced and fixed versions must alternate'
+source:
+    id: GHSA-f74p-cwhp-x2wx
+    created: 2026-09-22T10:09:12.50033-04:00
+review_status: UNREVIEWED

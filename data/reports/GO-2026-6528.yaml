@@ -1,0 +1,19 @@
+id: GO-2026-6528
+modules:
+    - module: github.com/perses/perses
+      versions:
+        - fixed: 0.54.0-rc.0
+      vulnerable_at: 0.54.0-beta.3
+summary: Perses's unvalidated project parameter enables filesystem path traversal in github.com/perses/perses
+cves:
+    - CVE-2026-63445
+ghsas:
+    - GHSA-vr5f-w35q-98jp
+references:
+    - advisory: https://github.com/perses/perses/security/advisories/GHSA-vr5f-w35q-98jp
+    - fix: https://github.com/perses/perses/commit/75e5471040ccb5674ea8d25c2aa16c80ccb70b2a
+    - web: https://github.com/perses/perses/releases/tag/v0.54.0-rc.0
+source:
+    id: GHSA-vr5f-w35q-98jp
+    created: 2026-09-22T10:10:52.899776-04:00
+review_status: UNREVIEWED

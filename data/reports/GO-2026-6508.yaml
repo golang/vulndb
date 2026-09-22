@@ -1,0 +1,22 @@
+id: GO-2026-6508
+modules:
+    - module: go.opentelemetry.io/otel/exporters/otlp/otlplog/otlploggrpc
+      versions:
+        - fixed: 0.21.0
+      vulnerable_at: 0.20.0
+summary: |-
+    OpenTelemetry-Go: Log gRPC exporter ignores env TLS certs, bypassing
+    mTLS/pinning in go.opentelemetry.io/otel/exporters/otlp/otlplog/otlploggrpc
+cves:
+    - CVE-2026-81871
+ghsas:
+    - GHSA-w34q-cm8f-9c5x
+references:
+    - advisory: https://github.com/open-telemetry/opentelemetry-go/security/advisories/GHSA-w34q-cm8f-9c5x
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-81871
+    - web: https://github.com/open-telemetry/opentelemetry-go/commit/c65d435b43e5e6b82310e6b18dd4cdcb8ac63a0c
+    - web: https://github.com/open-telemetry/opentelemetry-go/releases/tag/exporters/otlp/otlplog/otlploggrpc/v0.21.0
+source:
+    id: GHSA-w34q-cm8f-9c5x
+    created: 2026-09-22T10:12:43.613148-04:00
+review_status: UNREVIEWED

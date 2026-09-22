@@ -1,0 +1,23 @@
+id: GO-2026-6521
+modules:
+    - module: github.com/projectcapsule/capsule
+      versions:
+        - introduced: 0.13.0
+        - fixed: 0.13.7
+      vulnerable_at: 0.13.6
+summary: |-
+    Capsule: Malformed ForbiddenAnnotations.Regex can bypass Tenant validation and
+    trigger namespace admission panic in github.com/projectcapsule/capsule
+cves:
+    - CVE-2026-61794
+ghsas:
+    - GHSA-gxjc-74v5-3vx3
+references:
+    - advisory: https://github.com/projectcapsule/capsule/security/advisories/GHSA-gxjc-74v5-3vx3
+    - fix: https://github.com/projectcapsule/capsule/commit/8d89d6865df6f41c7faa22fc9e807a57b01bfd0e
+    - fix: https://github.com/projectcapsule/capsule/pull/1983
+    - web: https://github.com/projectcapsule/capsule/releases/tag/v0.13.7
+source:
+    id: GHSA-gxjc-74v5-3vx3
+    created: 2026-09-22T10:11:29.911683-04:00
+review_status: UNREVIEWED

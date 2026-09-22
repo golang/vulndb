@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6515",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-77339",
+    "GHSA-5gm3-9crp-6g3v"
+  ],
+  "summary": "Process Compose: Browser DNS rebinding lets websites control local process-compose MCP tools in github.com/f1bonacc1/process-compose",
+  "details": "Process Compose: Browser DNS rebinding lets websites control local process-compose MCP tools in github.com/f1bonacc1/process-compose",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/f1bonacc1/process-compose",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.120.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/F1bonacc1/process-compose/security/advisories/GHSA-5gm3-9crp-6g3v"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/F1bonacc1/process-compose/commit/6ffa74f462cd2fa4f8dc1ee63c70b793b298c858"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/F1bonacc1/process-compose/releases/tag/v1.120.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6515",
+    "review_status": "UNREVIEWED"
+  }
+}

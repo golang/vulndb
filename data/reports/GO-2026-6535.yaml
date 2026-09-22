@@ -1,0 +1,24 @@
+id: GO-2026-6535
+modules:
+    - module: github.com/hatchet-dev/hatchet
+      non_go_versions:
+        - fixed: 0.91.1
+      vulnerable_at: 0.108.3
+      packages:
+        - package: github.com/hatchet-dev/hatchet/api/v1/server/authn
+          symbols:
+            - SessionHelpers.ValidateOAuthState
+summary: |-
+    Hatchet - Unauthenticated OAuth state CSRF / login-CSRF via empty-state
+    collision in ValidateOAuthState in hatchet in github.com/hatchet-dev/hatchet
+cves:
+    - CVE-2026-61687
+ghsas:
+    - GHSA-phg3-3g28-wq9v
+references:
+    - advisory: https://github.com/hatchet-dev/hatchet/security/advisories/GHSA-phg3-3g28-wq9v
+    - fix: https://github.com/hatchet-dev/hatchet/commit/f90464189ad642251e09412d0f99fde353036428
+source:
+    id: GHSA-phg3-3g28-wq9v
+    created: 2026-09-22T10:10:35.931675-04:00
+review_status: UNREVIEWED

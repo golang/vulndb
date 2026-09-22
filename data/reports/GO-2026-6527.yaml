@@ -1,0 +1,24 @@
+id: GO-2026-6527
+modules:
+    - module: zotregistry.dev/zot
+      vulnerable_at: 1.4.3
+    - module: zotregistry.dev/zot/v2
+      versions:
+        - fixed: 2.1.18
+      vulnerable_at: 2.1.17
+summary: |-
+    zot: Bearer authentication maps DELETE to push scope, allowing unauthorized
+    deletion in zotregistry.dev/zot
+cves:
+    - CVE-2026-61833
+ghsas:
+    - GHSA-qg67-7m6v-qg25
+references:
+    - advisory: https://github.com/project-zot/zot/security/advisories/GHSA-qg67-7m6v-qg25
+    - web: https://github.com/project-zot/zot/commit/7bb211bcd4352b90f3e99752607fbd1f050bf7ca
+    - web: https://github.com/project-zot/zot/pull/4161
+    - web: https://github.com/project-zot/zot/releases/tag/v2.1.18
+source:
+    id: GHSA-qg67-7m6v-qg25
+    created: 2026-09-22T10:10:59.988618-04:00
+review_status: UNREVIEWED

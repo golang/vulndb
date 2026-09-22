@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6488",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-61709",
+    "GHSA-g3pg-frfm-pr2m"
+  ],
+  "summary": "OpenFGA: ListUsers returns a deliberately-excluded user when a `but not` exclusion under a type-bound wildcard is intersected (`and`) with another relation that also grants that user in github.com/openfga/openfga",
+  "details": "OpenFGA: ListUsers returns a deliberately-excluded user when a `but not` exclusion under a type-bound wildcard is intersected (`and`) with another relation that also grants that user in github.com/openfga/openfga",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/openfga/openfga",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.18.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/openfga/openfga/security/advisories/GHSA-g3pg-frfm-pr2m"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-61709"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openfga/openfga/commit/171806c93b86bca29e0212ceb8b6ee9c48eb9ac3"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/openfga/openfga/releases/tag/v1.18.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6488",
+    "review_status": "UNREVIEWED"
+  }
+}

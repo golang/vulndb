@@ -1,0 +1,20 @@
+id: GO-2026-6523
+modules:
+    - module: github.com/frain-dev/convoy
+      versions:
+        - fixed: 0.9.3-0.20260724092134-1cc67cd16fb1
+      vulnerable_at: 0.9.2
+summary: 'Convoy: Cross-Tenant Source IDOR Leaks Plaintext Message Broker Credentials in github.com/frain-dev/convoy'
+cves:
+    - CVE-2026-81505
+ghsas:
+    - GHSA-p5vg-v7mj-f6q4
+references:
+    - advisory: https://github.com/frain-dev/convoy/security/advisories/GHSA-p5vg-v7mj-f6q4
+    - fix: https://github.com/frain-dev/convoy/commit/1cc67cd16fb1f8890cc83a3998d3f92dceb7fd06
+    - fix: https://github.com/frain-dev/convoy/pull/2755
+    - web: https://github.com/frain-dev/convoy/releases/tag/v26.6.8
+source:
+    id: GHSA-p5vg-v7mj-f6q4
+    created: 2026-09-22T10:11:20.707596-04:00
+review_status: UNREVIEWED

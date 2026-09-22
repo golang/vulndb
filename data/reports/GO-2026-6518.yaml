@@ -1,0 +1,21 @@
+id: GO-2026-6518
+modules:
+    - module: github.com/perses/perses
+      versions:
+        - fixed: 0.54.0-beta.3
+      vulnerable_at: 0.54.0-beta.2
+summary: |-
+    Perses's project query parameter authorization bypass exposes cross-project
+    resources in github.com/perses/perses
+cves:
+    - CVE-2026-63458
+ghsas:
+    - GHSA-cjgj-2fwf-4c2w
+references:
+    - advisory: https://github.com/perses/perses/security/advisories/GHSA-cjgj-2fwf-4c2w
+    - fix: https://github.com/perses/perses/commit/8015fb340bdc625953e73a7a688be5b939159540
+    - web: https://github.com/perses/perses/releases/tag/v0.54.0-beta.3
+source:
+    id: GHSA-cjgj-2fwf-4c2w
+    created: 2026-09-22T10:11:54.58659-04:00
+review_status: UNREVIEWED

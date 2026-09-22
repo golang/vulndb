@@ -1,0 +1,25 @@
+id: GO-2026-6517
+modules:
+    - module: github.com/kcp-dev/kcp
+      versions:
+        - fixed: 0.31.4
+        - introduced: 0.32.0
+        - fixed: 0.32.2
+      vulnerable_at: 0.32.1
+summary: |-
+    kcp front-proxy does not strip inbound X-Remote-* identity headers, allowing any
+    authenticated client to inject groups/warrants and impersonate system:masters in
+    any workspace in github.com/kcp-dev/kcp
+cves:
+    - CVE-2026-61682
+ghsas:
+    - GHSA-c8w2-fgvx-vhv4
+references:
+    - advisory: https://github.com/kcp-dev/kcp/security/advisories/GHSA-c8w2-fgvx-vhv4
+    - fix: https://github.com/kcp-dev/kcp/commit/7437cdcfec8f927d1a9bf1b2dd1e075d038e27ca
+    - web: https://github.com/kcp-dev/kcp/releases/tag/v0.31.4
+    - web: https://github.com/kcp-dev/kcp/releases/tag/v0.32.2
+source:
+    id: GHSA-c8w2-fgvx-vhv4
+    created: 2026-09-22T10:12:01.87658-04:00
+review_status: UNREVIEWED

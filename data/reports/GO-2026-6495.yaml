@@ -1,0 +1,24 @@
+id: GO-2026-6495
+modules:
+    - module: github.com/zalando/skipper
+      versions:
+        - fixed: 0.27.37
+      vulnerable_at: 0.27.36
+summary: |-
+    Skipper has OPA body-authz bypass: truncated_body mitigation fails open on
+    chunked/HTTP-2 (incomplete fix GHSA-8qqm-fp2q-v734) in github.com/zalando/skipper
+cves:
+    - CVE-2026-86043
+ghsas:
+    - GHSA-5gpm-rgj3-9q76
+references:
+    - advisory: https://github.com/zalando/skipper/security/advisories/GHSA-5gpm-rgj3-9q76
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-86043
+    - fix: https://github.com/zalando/skipper/commit/2cfceabaa6ff0af65b312dcb9bcbe84691b9d507
+    - web: https://github.com/zalando/skipper/releases/tag/v0.27.35
+    - web: https://github.com/zalando/skipper/releases/tag/v0.27.37
+    - web: https://github.com/zalando/skipper/tree/v0.27.35
+source:
+    id: GHSA-5gpm-rgj3-9q76
+    created: 2026-09-22T10:14:21.41098-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,28 @@
+id: GO-2026-6482
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.11.0+incompatible
+        - fixed: 10.11.18+incompatible
+        - introduced: 11.5.0+incompatible
+        - fixed: 11.5.6+incompatible
+        - introduced: 11.6.0+incompatible
+        - fixed: 11.6.3+incompatible
+        - introduced: 11.7.0+incompatible
+        - fixed: 11.7.1+incompatible
+      vulnerable_at: 11.7.0+incompatible
+summary: |-
+    Mattermost doesn't invalidate cached authentication state for active WebSocket
+    connections during global session revocation in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2026-9162
+ghsas:
+    - GHSA-h998-hxxj-8q83
+references:
+    - advisory: https://github.com/advisories/GHSA-h998-hxxj-8q83
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-9162
+    - web: https://mattermost.com/security-updates
+source:
+    id: GHSA-h998-hxxj-8q83
+    created: 2026-09-22T10:17:50.189409-04:00
+review_status: UNREVIEWED

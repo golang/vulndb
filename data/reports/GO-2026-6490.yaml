@@ -1,0 +1,31 @@
+id: GO-2026-6490
+modules:
+    - module: github.com/centrifugal/centrifugo
+      vulnerable_at: 1.8.0
+    - module: github.com/centrifugal/centrifugo/v3
+      vulnerable_at: 3.2.3
+    - module: github.com/centrifugal/centrifugo/v4
+      vulnerable_at: 4.1.5
+    - module: github.com/centrifugal/centrifugo/v5
+      vulnerable_at: 5.4.9
+    - module: github.com/centrifugal/centrifugo/v6
+      versions:
+        - fixed: 6.9.0
+      vulnerable_at: 6.8.4
+summary: |-
+    Centrifugo: Client-forgeable headers emulation lets any client spoof headers
+    forwarded to proxy backends in github.com/centrifugal/centrifugo
+cves:
+    - CVE-2026-71485
+ghsas:
+    - GHSA-9468-v6mj-fppw
+references:
+    - advisory: https://github.com/centrifugal/centrifugo/security/advisories/GHSA-9468-v6mj-fppw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-71485
+    - fix: https://github.com/centrifugal/centrifugo/commit/84d38cea1dd2efa24375a148817a974c8727f4b0
+    - fix: https://github.com/centrifugal/centrifugo/pull/1182
+    - web: https://github.com/centrifugal/centrifugo/releases/tag/v6.9.0
+source:
+    id: GHSA-9468-v6mj-fppw
+    created: 2026-09-22T10:15:08.655437-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,21 @@
+id: GO-2026-6529
+modules:
+    - module: github.com/anycable/anycable-go
+      non_go_versions:
+        - fixed: 1.6.15
+      vulnerable_at: 1.5.6
+summary: |-
+    AnyCable: Telemetry Subsystem Contains Hardcoded Authentication Token and
+    Transmits CLI Arguments Including Secrets in github.com/anycable/anycable-go
+cves:
+    - CVE-2026-63406
+ghsas:
+    - GHSA-w72w-9qmj-c9qm
+references:
+    - advisory: https://github.com/anycable/anycable/security/advisories/GHSA-w72w-9qmj-c9qm
+    - web: https://github.com/anycable/anycable/commit/201c67e99e463ed63bd6b345562f4c458385fcee
+    - web: https://github.com/anycable/anycable/releases/tag/v1.6.15
+source:
+    id: GHSA-w72w-9qmj-c9qm
+    created: 2026-09-22T10:10:44.35196-04:00
+review_status: UNREVIEWED

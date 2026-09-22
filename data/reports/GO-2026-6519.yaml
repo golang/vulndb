@@ -1,0 +1,23 @@
+id: GO-2026-6519
+modules:
+    - module: github.com/projectcapsule/capsule
+      versions:
+        - introduced: 0.13.0
+        - fixed: 0.13.7
+      vulnerable_at: 0.13.6
+summary: |-
+    Capsule: hostnameRegexHandler.OnUpdate validates stale (old) Tenant regex,
+    allowing invalid AllowedHostnames regex to bypass webhook validation in github.com/projectcapsule/capsule
+cves:
+    - CVE-2026-61795
+ghsas:
+    - GHSA-f94q-w3w8-cj67
+references:
+    - advisory: https://github.com/projectcapsule/capsule/security/advisories/GHSA-f94q-w3w8-cj67
+    - fix: https://github.com/projectcapsule/capsule/commit/8d89d6865df6f41c7faa22fc9e807a57b01bfd0e
+    - fix: https://github.com/projectcapsule/capsule/pull/1983
+    - web: https://github.com/projectcapsule/capsule/releases/tag/v0.13.7
+source:
+    id: GHSA-f94q-w3w8-cj67
+    created: 2026-09-22T10:11:47.500495-04:00
+review_status: UNREVIEWED

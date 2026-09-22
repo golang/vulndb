@@ -1,0 +1,25 @@
+id: GO-2026-6526
+modules:
+    - module: github.com/stacklok/toolhive
+      versions:
+        - fixed: 0.30.1
+      vulnerable_at: 0.30.0
+summary: |-
+    ToolHive: containerized MCP servers can reach host services via
+    host.docker.internal, enabling lateral movement in github.com/stacklok/toolhive
+cves:
+    - CVE-2026-58197
+ghsas:
+    - GHSA-qg2g-g9w3-m5h8
+references:
+    - advisory: https://github.com/stacklok/toolhive/security/advisories/GHSA-qg2g-g9w3-m5h8
+    - fix: https://github.com/stacklok/toolhive/commit/d8f40cb1599b8bf66657f2dfff15bfbfc236e712
+    - fix: https://github.com/stacklok/toolhive/pull/5583
+    - web: https://github.com/stacklok/toolhive-studio/commit/968182d7f3ee1e55123369e66ad88f82128119b0
+    - web: https://github.com/stacklok/toolhive-studio/pull/2469
+    - web: https://github.com/stacklok/toolhive-studio/releases/tag/v0.38.0
+    - web: https://github.com/stacklok/toolhive/releases/tag/v0.30.1
+source:
+    id: GHSA-qg2g-g9w3-m5h8
+    created: 2026-09-22T10:11:08.428997-04:00
+review_status: UNREVIEWED

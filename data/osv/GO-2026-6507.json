@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6507",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-82399",
+    "GHSA-mrg3-qvqr-jw29"
+  ],
+  "summary": "CoreDNS: Unauthenticated memory exhaustion in custom transports in github.com/coredns/coredns",
+  "details": "CoreDNS: Unauthenticated memory exhaustion in custom transports in github.com/coredns/coredns",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/coredns/coredns",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.14.7"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/coredns/coredns/security/advisories/GHSA-mrg3-qvqr-jw29"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-82399"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/coredns/coredns/commit/530b0a5ff2ad68cc0421f10dd93568945cc671c9"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/coredns/coredns/releases/tag/v1.14.7"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6507",
+    "review_status": "UNREVIEWED"
+  }
+}

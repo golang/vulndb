@@ -1,0 +1,23 @@
+id: GO-2026-6488
+modules:
+    - module: github.com/openfga/openfga
+      versions:
+        - fixed: 1.18.1
+      vulnerable_at: 1.18.0
+summary: |-
+    OpenFGA: ListUsers returns a deliberately-excluded user when a `but not`
+    exclusion under a type-bound wildcard is intersected (`and`) with another
+    relation that also grants that user in github.com/openfga/openfga
+cves:
+    - CVE-2026-61709
+ghsas:
+    - GHSA-g3pg-frfm-pr2m
+references:
+    - advisory: https://github.com/openfga/openfga/security/advisories/GHSA-g3pg-frfm-pr2m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-61709
+    - fix: https://github.com/openfga/openfga/commit/171806c93b86bca29e0212ceb8b6ee9c48eb9ac3
+    - web: https://github.com/openfga/openfga/releases/tag/v1.18.1
+source:
+    id: GHSA-g3pg-frfm-pr2m
+    created: 2026-09-22T10:16:43.051223-04:00
+review_status: UNREVIEWED

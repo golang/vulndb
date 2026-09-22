@@ -1,0 +1,40 @@
+id: GO-2026-6538
+modules:
+    - module: github.com/falcosecurity/plugins/plugins/k8saudit
+      versions:
+        - fixed: 0.18.0
+      vulnerable_at: 0.17.0
+    - module: github.com/falcosecurity/plugins/plugins/k8saudit-aks
+      versions:
+        - fixed: 0.6.0
+      vulnerable_at: 0.5.1
+    - module: github.com/falcosecurity/plugins/plugins/k8saudit-eks
+      versions:
+        - fixed: 0.12.0
+      vulnerable_at: 0.11.0
+    - module: github.com/falcosecurity/plugins/plugins/k8saudit-gke
+      versions:
+        - fixed: 0.9.0
+      vulnerable_at: 0.8.0
+    - module: github.com/falcosecurity/plugins/plugins/k8saudit-ovh
+      versions:
+        - fixed: 0.6.0
+      vulnerable_at: 0.5.0
+summary: |-
+    k8saudit shipped rules do not detect privileged/sensitive settings on init or
+    ephemeral containers in github.com/falcosecurity/plugins/plugins/k8saudit
+ghsas:
+    - GHSA-jhjp-4c2q-xmx4
+references:
+    - advisory: https://github.com/falcosecurity/plugins/security/advisories/GHSA-jhjp-4c2q-xmx4
+    - web: https://github.com/falcosecurity/plugins/commit/0adb9b3c7e2c8bad53f30d01c057e038b2afa5e1
+    - web: https://github.com/falcosecurity/plugins/pull/1400
+    - web: https://github.com/falcosecurity/plugins/releases/tag/plugins/k8saudit-aks/v0.6.0
+    - web: https://github.com/falcosecurity/plugins/releases/tag/plugins/k8saudit-eks/v0.12.0
+    - web: https://github.com/falcosecurity/plugins/releases/tag/plugins/k8saudit-gke/v0.9.0
+    - web: https://github.com/falcosecurity/plugins/releases/tag/plugins/k8saudit-ovh/v0.6.0
+    - web: https://github.com/falcosecurity/plugins/releases/tag/plugins/k8saudit/v0.18.0
+source:
+    id: GHSA-jhjp-4c2q-xmx4
+    created: 2026-09-22T10:10:20.276412-04:00
+review_status: UNREVIEWED

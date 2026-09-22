@@ -1,0 +1,132 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6542",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-9029",
+    "GHSA-9g84-39mm-q4p3"
+  ],
+  "summary": "Grafana geomap panel's XYZ tile layer has a sanitize-then-interpolate ordering bug in github.com/grafana/grafana",
+  "details": "Grafana geomap panel's XYZ tile layer has a sanitize-then-interpolate ordering bug in github.com/grafana/grafana.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/grafana/grafana before v1.9.2-0.20260616075434-82ef13993059.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/grafana/grafana",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "1.9.2-0.20260616075434-82ef13993059"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/grafana/grafana",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "13.0.0"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/grafana/grafana",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.0.0-beta1+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-9g84-39mm-q4p3"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-9029"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/grafana/grafana/commit/3fcdbc5a6e5c955bd42bd3715dd03cbad2b078c1"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/grafana/grafana/commit/42cdc39124912a8506a0c613c319c345aa950b29"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/grafana/grafana/commit/82ef13993059351bf21de35b8488bbd9b42df4f4"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/grafana/grafana/commit/dc695b9649530064e19c7c120bd6ebe104908e58"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/grafana/grafana/releases/tag/v12.4.4"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/grafana/grafana/releases/tag/v13.0.2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://grafana.com/security/security-advisories/cve-2026-9029"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6542",
+    "review_status": "UNREVIEWED"
+  }
+}

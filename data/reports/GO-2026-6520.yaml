@@ -1,0 +1,22 @@
+id: GO-2026-6520
+modules:
+    - module: github.com/projectcapsule/capsule
+      versions:
+        - fixed: 0.13.7
+      vulnerable_at: 0.13.6
+summary: |-
+    Capsule: Tenant owner bypasses Capsule's forbidden namespace/service/node label
+    and annotation enforcement in github.com/projectcapsule/capsule
+cves:
+    - CVE-2026-61672
+ghsas:
+    - GHSA-gjw4-3v3v-rqxg
+references:
+    - advisory: https://github.com/projectcapsule/capsule/security/advisories/GHSA-gjw4-3v3v-rqxg
+    - fix: https://github.com/projectcapsule/capsule/commit/755cef54bf4a1bc56d6692130132bc70755bef46
+    - fix: https://github.com/projectcapsule/capsule/pull/1982
+    - web: https://github.com/projectcapsule/capsule/releases/tag/v0.13.7
+source:
+    id: GHSA-gjw4-3v3v-rqxg
+    created: 2026-09-22T10:11:38.640435-04:00
+review_status: UNREVIEWED
