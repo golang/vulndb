@@ -1,0 +1,31 @@
+id: GO-2026-6512
+modules:
+    - module: github.com/caddyserver/caddy/v2
+      versions:
+        - fixed: 2.11.4
+      vulnerable_at: 2.11.3
+      packages:
+        - package: github.com/caddyserver/caddy/v2/modules/caddyhttp/rewrite
+          symbols:
+            - Rewrite.Rewrite
+          derived_symbols:
+            - Rewrite.Provision
+            - Rewrite.ServeHTTP
+            - queryOpsReplacement.Provision
+summary: Vulnerabilities in handler/placeholder layer in github.com/caddyserver/caddy
+description: |-
+    Rewrite placeholder re-expansion, unbounded body buffer DoS, and fileHidden
+    case-sensitivity bypass in github.com/caddyserver/caddy
+cves:
+    - CVE-2026-77281
+ghsas:
+    - GHSA-j8px-rmrx-76h9
+references:
+    - advisory: https://github.com/caddyserver/caddy/security/advisories/GHSA-j8px-rmrx-76h9
+    - fix: https://github.com/caddyserver/caddy/commit/176b043b0104cee3f894023cd5a598ac29e404bb
+    - fix: https://github.com/caddyserver/caddy/pull/7761
+    - web: https://github.com/caddyserver/caddy/releases/tag/v2.11.4
+source:
+    id: GHSA-j8px-rmrx-76h9
+    created: 2026-09-22T10:12:31.736262-04:00
+review_status: REVIEWED
