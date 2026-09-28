@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6497",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-85732",
+    "GHSA-h7vf-4x9w-h99v"
+  ],
+  "summary": "Blind SSRF via unvalidated Link header URL in pagination allows internal network probing in oras.land/oras-go",
+  "details": "Blind SSRF via unvalidated Link header URL in pagination allows internal network probing in oras.land/oras-go",
+  "affected": [
+    {
+      "package": {
+        "name": "oras.land/oras-go/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.6.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/oras-project/oras-go/security/advisories/GHSA-h7vf-4x9w-h99v"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/oras-project/oras-go/commit/31da1963f8c327dd089cd29faeae95cf0fc50842"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/oras-project/oras-go/releases/tag/v2.6.2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6497",
+    "review_status": "REVIEWED"
+  }
+}
