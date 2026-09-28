@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6500",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-77410",
+    "GHSA-r9c8-gcjp-xfwh"
+  ],
+  "summary": "RabbitMQ amqp091-go: Resource Exhaustion (OOM) via Unbounded Body Buffer Allocation in github.com/rabbitmq/amqp091-go",
+  "details": "RabbitMQ amqp091-go: Resource Exhaustion (OOM) via Unbounded Body Buffer Allocation in github.com/rabbitmq/amqp091-go",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/rabbitmq/amqp091-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.13.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/rabbitmq/amqp091-go",
+            "symbols": [
+              "Channel.recvContent",
+              "Connection.Reconnect",
+              "DefaultConnectionRecovery.OnConnectionClose",
+              "Dial",
+              "DialConfig",
+              "DialTLS",
+              "DialTLS_ExternalAuth",
+              "Open"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-r9c8-gcjp-xfwh"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-77410"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rabbitmq/amqp091-go/commit/91b65fa0096a99a580cf51a31b24028ff1c60382"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rabbitmq/amqp091-go/pull/346"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rabbitmq/amqp091-go/releases/tag/v1.13.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6500",
+    "review_status": "UNREVIEWED"
+  }
+}

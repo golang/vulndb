@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6566",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-62987",
+    "GHSA-fq95-v8xc-jm3v"
+  ],
+  "summary": "Fabio - Incomplete fix for CVE-2025-48865: operator-configured trust headers (clientip/tls/requestid) still strippable via the Connection header in github.com/fabiolb/fabio",
+  "details": "Fabio - Incomplete fix for CVE-2025-48865: operator-configured trust headers (clientip/tls/requestid) still strippable via the Connection header in github.com/fabiolb/fabio",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/fabiolb/fabio",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.6.6"
+            },
+            {
+              "fixed": "1.7.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/fabiolb/fabio",
+            "symbols": [
+              "main",
+              "newHTTPProxy"
+            ]
+          },
+          {
+            "path": "github.com/fabiolb/fabio/proxy",
+            "symbols": [
+              "HTTPProxy.ServeHTTP",
+              "addHeaders"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/fabiolb/fabio/security/advisories/GHSA-fq95-v8xc-jm3v"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-62987"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/fabiolb/fabio/commit/240526a8004077edad4fb96d25b382bfc3901357"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/fabiolb/fabio/releases/tag/v1.7.2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6566",
+    "review_status": "UNREVIEWED"
+  }
+}

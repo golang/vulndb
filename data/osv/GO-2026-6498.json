@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6498",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-77408",
+    "GHSA-j497-x9hr-x34x"
+  ],
+  "summary": "RabbitMQ amqp091-go: Silent Data Truncation and State Corruption via Shortstr Integer Overflow in github.com/rabbitmq/amqp091-go",
+  "details": "RabbitMQ amqp091-go: Silent Data Truncation and State Corruption via Shortstr Integer Overflow in github.com/rabbitmq/amqp091-go",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/rabbitmq/amqp091-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.13.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/rabbitmq/amqp091-go",
+            "symbols": [
+              "AMQPlainAuth.Response",
+              "Channel.Ack",
+              "Channel.Cancel",
+              "Channel.Close",
+              "Channel.Confirm",
+              "Channel.Consume",
+              "Channel.ConsumeWithContext",
+              "Channel.ExchangeBind",
+              "Channel.ExchangeDeclare",
+              "Channel.ExchangeDeclarePassive",
+              "Channel.ExchangeDelete",
+              "Channel.ExchangeUnbind",
+              "Channel.Flow",
+              "Channel.Get",
+              "Channel.Nack",
+              "Channel.Publish",
+              "Channel.PublishWithContext",
+              "Channel.PublishWithDeferredConfirm",
+              "Channel.PublishWithDeferredConfirmWithContext",
+              "Channel.Qos",
+              "Channel.QueueBind",
+              "Channel.QueueDeclare",
+              "Channel.QueueDeclarePassive",
+              "Channel.QueueDelete",
+              "Channel.QueueInspect",
+              "Channel.QueuePurge",
+              "Channel.QueueUnbind",
+              "Channel.Reconnect",
+              "Channel.Recover",
+              "Channel.Reject",
+              "Channel.Tx",
+              "Channel.TxCommit",
+              "Channel.TxRollback",
+              "Connection.Channel",
+              "Connection.Close",
+              "Connection.CloseDeadline",
+              "Connection.Reconnect",
+              "Connection.UpdateSecret",
+              "DefaultConnectionRecovery.OnChannelClose",
+              "DefaultConnectionRecovery.OnConnectionClose",
+              "Delivery.Ack",
+              "Delivery.Nack",
+              "Delivery.Reject",
+              "Dial",
+              "DialConfig",
+              "DialTLS",
+              "DialTLS_ExternalAuth",
+              "Open",
+              "writeShortstr",
+              "writer.WriteFrame",
+              "writer.WriteFrameNoFlush"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-j497-x9hr-x34x"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-77408"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rabbitmq/amqp091-go/commit/6959423aa2784a1971e399175dfb2065dea0f3b0"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rabbitmq/amqp091-go/pull/354"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rabbitmq/amqp091-go/releases/tag/v1.13.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6498",
+    "review_status": "UNREVIEWED"
+  }
+}

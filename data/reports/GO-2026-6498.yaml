@@ -1,0 +1,78 @@
+id: GO-2026-6498
+modules:
+    - module: github.com/rabbitmq/amqp091-go
+      versions:
+        - fixed: 1.13.0
+      vulnerable_at: 1.12.0
+      packages:
+        - package: github.com/rabbitmq/amqp091-go
+          symbols:
+            - writeShortstr
+          derived_symbols:
+            - AMQPlainAuth.Response
+            - Channel.Ack
+            - Channel.Cancel
+            - Channel.Close
+            - Channel.Confirm
+            - Channel.Consume
+            - Channel.ConsumeWithContext
+            - Channel.ExchangeBind
+            - Channel.ExchangeDeclare
+            - Channel.ExchangeDeclarePassive
+            - Channel.ExchangeDelete
+            - Channel.ExchangeUnbind
+            - Channel.Flow
+            - Channel.Get
+            - Channel.Nack
+            - Channel.Publish
+            - Channel.PublishWithContext
+            - Channel.PublishWithDeferredConfirm
+            - Channel.PublishWithDeferredConfirmWithContext
+            - Channel.Qos
+            - Channel.QueueBind
+            - Channel.QueueDeclare
+            - Channel.QueueDeclarePassive
+            - Channel.QueueDelete
+            - Channel.QueueInspect
+            - Channel.QueuePurge
+            - Channel.QueueUnbind
+            - Channel.Reconnect
+            - Channel.Recover
+            - Channel.Reject
+            - Channel.Tx
+            - Channel.TxCommit
+            - Channel.TxRollback
+            - Connection.Channel
+            - Connection.Close
+            - Connection.CloseDeadline
+            - Connection.Reconnect
+            - Connection.UpdateSecret
+            - DefaultConnectionRecovery.OnChannelClose
+            - DefaultConnectionRecovery.OnConnectionClose
+            - Delivery.Ack
+            - Delivery.Nack
+            - Delivery.Reject
+            - Dial
+            - DialConfig
+            - DialTLS
+            - DialTLS_ExternalAuth
+            - Open
+            - writer.WriteFrame
+            - writer.WriteFrameNoFlush
+summary: |-
+    RabbitMQ amqp091-go: Silent Data Truncation and State Corruption via Shortstr
+    Integer Overflow in github.com/rabbitmq/amqp091-go
+cves:
+    - CVE-2026-77408
+ghsas:
+    - GHSA-j497-x9hr-x34x
+references:
+    - advisory: https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-j497-x9hr-x34x
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-77408
+    - fix: https://github.com/rabbitmq/amqp091-go/commit/6959423aa2784a1971e399175dfb2065dea0f3b0
+    - fix: https://github.com/rabbitmq/amqp091-go/pull/354
+    - web: https://github.com/rabbitmq/amqp091-go/releases/tag/v1.13.0
+source:
+    id: GHSA-j497-x9hr-x34x
+    created: 2026-09-28T14:14:54.209569-04:00
+review_status: NEEDS_REVIEW

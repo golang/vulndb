@@ -1,0 +1,27 @@
+id: GO-2026-6493
+modules:
+    - module: github.com/rabbitmq/amqp091-go
+      versions:
+        - fixed: 1.13.0
+      vulnerable_at: 1.12.0
+      packages:
+        - package: github.com/rabbitmq/amqp091-go
+          symbols:
+            - URI.String
+summary: |-
+    RabbitMQ amqp091-go: Connection Configuration Overwrite via Unsanitized TLS Path
+    Parameter Injection in github.com/rabbitmq/amqp091-go
+cves:
+    - CVE-2026-77404
+ghsas:
+    - GHSA-465g-fh3v-9jw4
+references:
+    - advisory: https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-465g-fh3v-9jw4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-77404
+    - fix: https://github.com/rabbitmq/amqp091-go/commit/743d488e46955fe7ffc55506fe2c401d01216783
+    - fix: https://github.com/rabbitmq/amqp091-go/pull/352
+    - web: https://github.com/rabbitmq/amqp091-go/releases/tag/v1.13.0
+source:
+    id: GHSA-465g-fh3v-9jw4
+    created: 2026-09-28T14:15:35.73771-04:00
+review_status: NEEDS_REVIEW

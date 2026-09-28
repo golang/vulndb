@@ -1,0 +1,33 @@
+id: GO-2026-6503
+modules:
+    - module: github.com/rabbitmq/amqp091-go
+      versions:
+        - fixed: 1.13.0
+      vulnerable_at: 1.12.0
+      packages:
+        - package: github.com/rabbitmq/amqp091-go
+          symbols:
+            - Connection.openTune
+          derived_symbols:
+            - Connection.Reconnect
+            - DefaultConnectionRecovery.OnConnectionClose
+            - Dial
+            - DialConfig
+            - DialTLS
+            - DialTLS_ExternalAuth
+            - Open
+summary: 'RabbitMQ amqp091-go: Denial of Service via Sub-Spec Frame Size Negotiation in github.com/rabbitmq/amqp091-go'
+cves:
+    - CVE-2026-77403
+ghsas:
+    - GHSA-xwwf-m8fg-p9q2
+references:
+    - advisory: https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-xwwf-m8fg-p9q2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-77403
+    - fix: https://github.com/rabbitmq/amqp091-go/commit/2e0a919b89f337dbf58db2bb34ab206dac354a06
+    - fix: https://github.com/rabbitmq/amqp091-go/pull/353
+    - web: https://github.com/rabbitmq/amqp091-go/releases/tag/v1.13.0
+source:
+    id: GHSA-xwwf-m8fg-p9q2
+    created: 2026-09-28T14:14:09.345783-04:00
+review_status: NEEDS_REVIEW

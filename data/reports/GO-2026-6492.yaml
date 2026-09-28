@@ -1,0 +1,32 @@
+id: GO-2026-6492
+modules:
+    - module: github.com/rabbitmq/amqp091-go
+      versions:
+        - fixed: 1.13.0
+      vulnerable_at: 1.12.0
+      packages:
+        - package: github.com/rabbitmq/amqp091-go
+          symbols:
+            - tlsConfigFromURI
+          derived_symbols:
+            - Dial
+            - DialConfig
+            - DialTLS
+            - DialTLS_ExternalAuth
+summary: |-
+    RabbitMQ amqp091-go: Missing Explicit TLS Minimum Version Configuration In URI
+    Parser in github.com/rabbitmq/amqp091-go
+cves:
+    - CVE-2026-77405
+ghsas:
+    - GHSA-33mj-cw25-m34h
+references:
+    - advisory: https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-33mj-cw25-m34h
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-77405
+    - fix: https://github.com/rabbitmq/amqp091-go/commit/c9fd433ecac2e557919e51acc9d809390c402c6e
+    - fix: https://github.com/rabbitmq/amqp091-go/pull/355
+    - web: https://github.com/rabbitmq/amqp091-go/releases/tag/v1.13.0
+source:
+    id: GHSA-33mj-cw25-m34h
+    created: 2026-09-28T14:15:47.02331-04:00
+review_status: NEEDS_REVIEW

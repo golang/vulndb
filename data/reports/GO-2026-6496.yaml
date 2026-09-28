@@ -1,0 +1,36 @@
+id: GO-2026-6496
+modules:
+    - module: github.com/rabbitmq/amqp091-go
+      versions:
+        - fixed: 1.13.0
+      vulnerable_at: 1.12.0
+      packages:
+        - package: github.com/rabbitmq/amqp091-go
+          symbols:
+            - readLongstr
+          derived_symbols:
+            - Connection.Reconnect
+            - DefaultConnectionRecovery.OnConnectionClose
+            - Dial
+            - DialConfig
+            - DialTLS
+            - DialTLS_ExternalAuth
+            - Open
+            - reader.ReadFrame
+summary: |-
+    RabbitMQ amqp091-go: Protocol Desynchronization and Frame Injection via Integer
+    Overflow in readLongstr in github.com/rabbitmq/amqp091-go
+cves:
+    - CVE-2026-77411
+ghsas:
+    - GHSA-c5pq-fr2g-9jpf
+references:
+    - advisory: https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-c5pq-fr2g-9jpf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-77411
+    - fix: https://github.com/rabbitmq/amqp091-go/commit/143c1ace5fa7344cee135e5c7d22970f0de68282
+    - fix: https://github.com/rabbitmq/amqp091-go/pull/347
+    - web: https://github.com/rabbitmq/amqp091-go/releases/tag/v1.13.0
+source:
+    id: GHSA-c5pq-fr2g-9jpf
+    created: 2026-09-28T14:15:13.119863-04:00
+review_status: NEEDS_REVIEW

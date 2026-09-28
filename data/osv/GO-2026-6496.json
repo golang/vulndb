@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6496",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-77411",
+    "GHSA-c5pq-fr2g-9jpf"
+  ],
+  "summary": "RabbitMQ amqp091-go: Protocol Desynchronization and Frame Injection via Integer Overflow in readLongstr in github.com/rabbitmq/amqp091-go",
+  "details": "RabbitMQ amqp091-go: Protocol Desynchronization and Frame Injection via Integer Overflow in readLongstr in github.com/rabbitmq/amqp091-go",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/rabbitmq/amqp091-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.13.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/rabbitmq/amqp091-go",
+            "symbols": [
+              "Connection.Reconnect",
+              "DefaultConnectionRecovery.OnConnectionClose",
+              "Dial",
+              "DialConfig",
+              "DialTLS",
+              "DialTLS_ExternalAuth",
+              "Open",
+              "readLongstr",
+              "reader.ReadFrame"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-c5pq-fr2g-9jpf"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-77411"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rabbitmq/amqp091-go/commit/143c1ace5fa7344cee135e5c7d22970f0de68282"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rabbitmq/amqp091-go/pull/347"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rabbitmq/amqp091-go/releases/tag/v1.13.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6496",
+    "review_status": "UNREVIEWED"
+  }
+}

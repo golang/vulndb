@@ -1,0 +1,45 @@
+id: GO-2026-6505
+modules:
+    - module: go.opentelemetry.io/otel/exporters/otlp/otlptrace
+      versions:
+        - introduced: 1.5.0
+        - fixed: 1.45.0
+      vulnerable_at: 1.44.0
+    - module: go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc
+      versions:
+        - introduced: 1.5.0
+        - fixed: 1.45.0
+      vulnerable_at: 1.44.0
+    - module: go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp
+      versions:
+        - introduced: 1.5.0
+        - fixed: 1.45.0
+      vulnerable_at: 1.44.0
+    - module: go.opentelemetry.io/otel/exporters/zipkin
+      versions:
+        - introduced: 1.5.0
+        - fixed: 1.45.0
+      vulnerable_at: 1.44.0
+    - module: go.opentelemetry.io/otel/sdk
+      versions:
+        - introduced: 1.5.0
+        - fixed: 1.45.0
+      vulnerable_at: 1.44.0
+summary: 'OpenTelemetry-Go: Exporter config logging may leak endpoint URLs in info logs in go.opentelemetry.io/otel/exporters/otlp/otlptrace'
+cves:
+    - CVE-2026-81870
+ghsas:
+    - GHSA-8wmf-6v46-5gfg
+references:
+    - advisory: https://github.com/open-telemetry/opentelemetry-go/security/advisories/GHSA-8wmf-6v46-5gfg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-81870
+    - web: https://github.com/open-telemetry/opentelemetry-go/commit/3a1412d2b3bc4e4231fbeac2ed42117ae541bb38
+    - web: https://github.com/open-telemetry/opentelemetry-go/pull/8438
+    - web: https://github.com/open-telemetry/opentelemetry-go/releases/tag/exporters/zipkin/v1.45.0
+    - web: https://github.com/open-telemetry/opentelemetry-go/releases/tag/sdk/v1.45.0
+notes:
+    - create: failed to auto-populate symbols
+source:
+    id: GHSA-8wmf-6v46-5gfg
+    created: 2026-09-28T14:13:58.362805-04:00
+review_status: NEEDS_REVIEW

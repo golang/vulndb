@@ -1,0 +1,35 @@
+id: GO-2026-6491
+modules:
+    - module: github.com/rabbitmq/amqp091-go
+      versions:
+        - fixed: 1.13.0
+      vulnerable_at: 1.12.0
+      packages:
+        - package: github.com/rabbitmq/amqp091-go
+          symbols:
+            - Connection.openComplete
+            - DialConfig
+            - Connection.Reconnect
+          derived_symbols:
+            - DefaultConnectionRecovery.OnConnectionClose
+            - Dial
+            - DialTLS
+            - DialTLS_ExternalAuth
+            - Open
+summary: |-
+    RabbitMQ amqp091-go: Plaintext Credential Exposure via Exported PLAIN
+    Authentication Struct Fields in github.com/rabbitmq/amqp091-go
+cves:
+    - CVE-2026-77407
+ghsas:
+    - GHSA-27gv-rfvv-22mv
+references:
+    - advisory: https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-27gv-rfvv-22mv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-77407
+    - fix: https://github.com/rabbitmq/amqp091-go/commit/fa013b8447eb60988db3c9281ff6b981e4d2fb4f
+    - fix: https://github.com/rabbitmq/amqp091-go/pull/350
+    - web: https://github.com/rabbitmq/amqp091-go/releases/tag/v1.13.0
+source:
+    id: GHSA-27gv-rfvv-22mv
+    created: 2026-09-28T14:15:57.847422-04:00
+review_status: NEEDS_REVIEW

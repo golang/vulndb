@@ -1,0 +1,33 @@
+id: GO-2026-6566
+modules:
+    - module: github.com/fabiolb/fabio
+      versions:
+        - introduced: 1.6.6
+        - fixed: 1.7.2
+      vulnerable_at: 1.7.1
+      packages:
+        - package: github.com/fabiolb/fabio
+          symbols:
+            - newHTTPProxy
+          derived_symbols:
+            - main
+        - package: github.com/fabiolb/fabio/proxy
+          symbols:
+            - HTTPProxy.ServeHTTP
+            - addHeaders
+summary: |-
+    Fabio - Incomplete fix for CVE-2025-48865: operator-configured trust headers
+    (clientip/tls/requestid) still strippable via the Connection header in github.com/fabiolb/fabio
+cves:
+    - CVE-2026-62987
+ghsas:
+    - GHSA-fq95-v8xc-jm3v
+references:
+    - advisory: https://github.com/fabiolb/fabio/security/advisories/GHSA-fq95-v8xc-jm3v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-62987
+    - fix: https://github.com/fabiolb/fabio/commit/240526a8004077edad4fb96d25b382bfc3901357
+    - web: https://github.com/fabiolb/fabio/releases/tag/v1.7.2
+source:
+    id: GHSA-fq95-v8xc-jm3v
+    created: 2026-09-28T14:08:48.809403-04:00
+review_status: NEEDS_REVIEW

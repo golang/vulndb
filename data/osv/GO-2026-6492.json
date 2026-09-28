@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6492",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-77405",
+    "GHSA-33mj-cw25-m34h"
+  ],
+  "summary": "RabbitMQ amqp091-go: Missing Explicit TLS Minimum Version Configuration In URI Parser in github.com/rabbitmq/amqp091-go",
+  "details": "RabbitMQ amqp091-go: Missing Explicit TLS Minimum Version Configuration In URI Parser in github.com/rabbitmq/amqp091-go",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/rabbitmq/amqp091-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.13.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/rabbitmq/amqp091-go",
+            "symbols": [
+              "Dial",
+              "DialConfig",
+              "DialTLS",
+              "DialTLS_ExternalAuth",
+              "tlsConfigFromURI"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-33mj-cw25-m34h"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-77405"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rabbitmq/amqp091-go/commit/c9fd433ecac2e557919e51acc9d809390c402c6e"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rabbitmq/amqp091-go/pull/355"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rabbitmq/amqp091-go/releases/tag/v1.13.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6492",
+    "review_status": "UNREVIEWED"
+  }
+}
