@@ -1,0 +1,23 @@
+id: GO-2026-6499
+modules:
+    - module: oras.land/oras-go/v2
+      versions:
+        - fixed: 2.6.2
+      vulnerable_at: 2.6.1
+summary: |-
+    Arbitrary file write outside file.Store root via symlink-chain bypass
+    in tar extraction (pushDir) in oras.land/oras-go
+cves:
+    - CVE-2026-85731
+ghsas:
+    - GHSA-m37j-52j7-pjw7
+references:
+    - advisory: https://github.com/oras-project/oras-go/security/advisories/GHSA-m37j-52j7-pjw7
+    - web: https://github.com/oras-project/oras-go/commit/adab2f25ea95ef4e6e41f50db9266a6701399422
+    - web: https://github.com/oras-project/oras-go/releases/tag/v2.6.2
+notes:
+    - 'Failed to auto-populate symbols: no commits found'
+source:
+    id: GHSA-m37j-52j7-pjw7
+    created: 2026-09-28T14:14:46.143296-04:00
+review_status: REVIEWED
