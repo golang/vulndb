@@ -7,8 +7,8 @@
     "CVE-2026-42602",
     "GHSA-pjv4-3c63-699f"
   ],
-  "summary": "opentelemetry-collector-contrib's azureauthextension Authenticate method does not validate bearer tokens, allowing auth bypass via replay in github.com/open-telemetry/opentelemetry-collector-contrib/extension/azureauthextension",
-  "details": "opentelemetry-collector-contrib's azureauthextension Authenticate method does not validate bearer tokens, allowing auth bypass via replay in github.com/open-telemetry/opentelemetry-collector-contrib/extension/azureauthextension",
+  "summary": "Authenticate method auth bypass in github.com/open-telemetry/opentelemetry-collector-contrib/extension/azureauthextension",
+  "details": "Authenticate method auth bypass in github.com/open-telemetry/opentelemetry-collector-contrib/extension/azureauthextension",
   "affected": [
     {
       "package": {
@@ -21,6 +21,9 @@
           "events": [
             {
               "introduced": "0.124.0"
+            },
+            {
+              "fixed": "0.151.0"
             }
           ]
         }
@@ -32,14 +35,10 @@
     {
       "type": "ADVISORY",
       "url": "https://github.com/open-telemetry/opentelemetry-collector-contrib/security/advisories/GHSA-pjv4-3c63-699f"
-    },
-    {
-      "type": "ADVISORY",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42602"
     }
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2026-5544",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }
