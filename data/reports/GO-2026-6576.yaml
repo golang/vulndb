@@ -1,0 +1,27 @@
+id: GO-2026-6576
+modules:
+    - module: github.com/cloudreve/Cloudreve
+      vulnerable_at: 0.0.0-20201026073328-746aa3e8ef26
+    - module: github.com/cloudreve/Cloudreve/v3
+      vulnerable_at: 3.0.0-20250225100611-da4e44b77af4
+    - module: github.com/cloudreve/Cloudreve/v4
+      versions:
+        - fixed: 4.0.0-20260715070110-bce08f88e9d8
+summary: |-
+    Cloudreve: Privilege Scope Bypass: State-Mutating Admin Operations Accessible
+    via Read-Only OAuth Scope in github.com/cloudreve/Cloudreve
+cves:
+    - CVE-2026-77637
+ghsas:
+    - GHSA-w89x-c962-c44g
+references:
+    - advisory: https://github.com/cloudreve/cloudreve/security/advisories/GHSA-w89x-c962-c44g
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-77637
+    - web: https://github.com/cloudreve/cloudreve/commit/bce08f88e9d8f881e78fd18e7a6598b31922c492
+    - web: https://github.com/cloudreve/cloudreve/releases/tag/4.18.0
+notes:
+    - fix: 'github.com/cloudreve/Cloudreve/v4: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-w89x-c962-c44g
+    created: 2026-09-28T14:07:01.681401-04:00
+review_status: UNREVIEWED

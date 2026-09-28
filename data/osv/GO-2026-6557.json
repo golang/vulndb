@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6557",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-62371",
+    "GHSA-5jpj-293f-rhvj"
+  ],
+  "summary": "KubeEdge: Command Injection in NodeUpgradeJob - RCE on edge nodes via v1alpha2 API in github.com/kubeedge/kubeedge",
+  "details": "KubeEdge: Command Injection in NodeUpgradeJob - RCE on edge nodes via v1alpha2 API in github.com/kubeedge/kubeedge",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/kubeedge/kubeedge",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.12.0"
+            },
+            {
+              "fixed": "1.21.2"
+            },
+            {
+              "introduced": "1.22.0"
+            },
+            {
+              "fixed": "1.22.2"
+            },
+            {
+              "introduced": "1.23.0"
+            },
+            {
+              "fixed": "1.23.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/kubeedge/kubeedge/security/advisories/GHSA-5jpj-293f-rhvj"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-62371"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubeedge/kubeedge/commit/552af457a4c7ce80ea1678ab5889f475b36ea103"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubeedge/kubeedge/commit/657b745bebcdd7a221eb34c0aac13231ef12c37f"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubeedge/kubeedge/commit/b72db7f8a0f7be23261b4349eab33024b2007df0"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubeedge/kubeedge/pull/7028"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubeedge/kubeedge/pull/7029"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubeedge/kubeedge/pull/7030"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubeedge/kubeedge/blob/master/CHANGELOG/CHANGELOG-1.21.md"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubeedge/kubeedge/blob/master/CHANGELOG/CHANGELOG-1.22.md"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubeedge/kubeedge/blob/master/CHANGELOG/CHANGELOG-1.23.md"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubeedge/kubeedge/releases/tag/v1.21.2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubeedge/kubeedge/releases/tag/v1.22.2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubeedge/kubeedge/releases/tag/v1.23.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6557",
+    "review_status": "UNREVIEWED"
+  }
+}

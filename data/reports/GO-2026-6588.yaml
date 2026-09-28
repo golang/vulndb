@@ -1,0 +1,39 @@
+id: GO-2026-6588
+modules:
+    - module: github.com/containers/podman
+      vulnerable_at: 1.9.3
+    - module: github.com/containers/podman/v2
+      vulnerable_at: 2.2.1
+    - module: github.com/containers/podman/v3
+      vulnerable_at: 3.4.7
+    - module: github.com/containers/podman/v4
+      vulnerable_at: 4.9.5
+    - module: github.com/containers/podman/v5
+      versions:
+        - introduced: 5.7.0
+        - fixed: 5.8.6
+      vulnerable_at: 5.8.5
+summary: podman quadlet install --replace does not fully replace the old file in github.com/containers/podman
+cves:
+    - CVE-2026-19730
+ghsas:
+    - GHSA-fx76-2j3w-2mx6
+references:
+    - advisory: https://github.com/podman-container-tools/podman/security/advisories/GHSA-fx76-2j3w-2mx6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-19730
+    - web: https://access.redhat.com/errata/RHSA-2026:69961
+    - web: https://access.redhat.com/errata/RHSA-2026:70201
+    - web: https://access.redhat.com/security/cve/CVE-2026-19730
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2508234
+    - web: https://github.com/podman-container-tools/podman/commit/0ea4eaee70b7458bcc99d875529761faf5172651
+    - web: https://github.com/podman-container-tools/podman/commit/a38a9b7d20915c55e6f3c451101ae72d6da33742
+    - web: https://github.com/podman-container-tools/podman/commit/d3adfdeec7d5c9eee5a6978df3bee62a866c958d
+    - web: https://github.com/podman-container-tools/podman/commit/d4fe9154ec6e32a02d5fcd096c4a27c38f2040f4
+    - web: https://github.com/podman-container-tools/podman/issues/29013
+    - web: https://github.com/podman-container-tools/podman/pull/27980
+    - web: https://github.com/podman-container-tools/podman/releases/tag/v5.8.6
+    - web: https://github.com/podman-container-tools/podman/releases/tag/v6.0.0
+source:
+    id: GHSA-fx76-2j3w-2mx6
+    created: 2026-09-28T14:05:16.16911-04:00
+review_status: UNREVIEWED

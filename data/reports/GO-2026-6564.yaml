@@ -1,0 +1,25 @@
+id: GO-2026-6564
+modules:
+    - module: github.com/tinyauthapp/tinyauth
+      versions:
+        - fixed: 1.0.1-0.20260715123057-dade1e2c8f27
+      vulnerable_at: 1.0.0
+summary: |-
+    Tinyauth: Unauthenticated login attempts can trigger global login lockdown
+    denial of service in github.com/tinyauthapp/tinyauth
+cves:
+    - CVE-2026-77561
+ghsas:
+    - GHSA-9xhm-w3wj-xhqh
+references:
+    - advisory: https://github.com/tinyauthapp/tinyauth/security/advisories/GHSA-9xhm-w3wj-xhqh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-77561
+    - fix: https://github.com/tinyauthapp/tinyauth/commit/654b5cc436fc67865c1f55edf9ba9fbded50b74f
+    - fix: https://github.com/tinyauthapp/tinyauth/commit/dade1e2c8f27a23df56ac216dcaf4b37081698e7
+    - fix: https://github.com/tinyauthapp/tinyauth/pull/1008
+    - fix: https://github.com/tinyauthapp/tinyauth/pull/943
+    - web: https://github.com/tinyauthapp/tinyauth/releases/tag/v5.1.0
+source:
+    id: GHSA-9xhm-w3wj-xhqh
+    created: 2026-09-28T14:09:23.906524-04:00
+review_status: UNREVIEWED

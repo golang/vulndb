@@ -1,0 +1,37 @@
+id: GO-2026-6569
+modules:
+    - module: github.com/kubeedge/kubeedge
+      versions:
+        - introduced: 1.0.0
+        - fixed: 1.21.2
+        - introduced: 1.22.0
+        - fixed: 1.22.2
+        - introduced: 1.23.0
+        - fixed: 1.23.1
+      vulnerable_at: 1.23.0
+summary: |-
+    KubeEdge: Unbounded allocation in viaduct packer enables authenticated remote
+    DoS against CloudHub in github.com/kubeedge/kubeedge
+cves:
+    - CVE-2026-62370
+ghsas:
+    - GHSA-gfw4-49f9-cp25
+references:
+    - advisory: https://github.com/kubeedge/kubeedge/security/advisories/GHSA-gfw4-49f9-cp25
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-62370
+    - fix: https://github.com/kubeedge/kubeedge/commit/0fe1ea18e5d7fde29633286ddf1c7e71cb39606f
+    - fix: https://github.com/kubeedge/kubeedge/commit/725a73ca35a65d91aa6338e52b8faaab6058f528
+    - fix: https://github.com/kubeedge/kubeedge/commit/cc79621943fff9d3f62638d9403ef0cfeda3d0e7
+    - fix: https://github.com/kubeedge/kubeedge/pull/7028
+    - fix: https://github.com/kubeedge/kubeedge/pull/7029
+    - fix: https://github.com/kubeedge/kubeedge/pull/7030
+    - web: https://github.com/kubeedge/kubeedge/blob/master/CHANGELOG/CHANGELOG-1.21.md
+    - web: https://github.com/kubeedge/kubeedge/blob/master/CHANGELOG/CHANGELOG-1.22.md
+    - web: https://github.com/kubeedge/kubeedge/blob/master/CHANGELOG/CHANGELOG-1.23.md
+    - web: https://github.com/kubeedge/kubeedge/releases/tag/v1.21.2
+    - web: https://github.com/kubeedge/kubeedge/releases/tag/v1.22.2
+    - web: https://github.com/kubeedge/kubeedge/releases/tag/v1.23.1
+source:
+    id: GHSA-gfw4-49f9-cp25
+    created: 2026-09-28T14:08:21.082192-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6589",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-85056",
+    "GHSA-9993-rfwp-rhwf"
+  ],
+  "summary": "ZITADEL: MFA bypass via session reuse in Login V2 in github.com/zitadel/zitadel",
+  "details": "ZITADEL: MFA bypass via session reuse in Login V2 in github.com/zitadel/zitadel",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/zitadel/zitadel",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.80.0-v2.20.0.20260717062356-56f4798ed31f"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/zitadel/zitadel/security/advisories/GHSA-9993-rfwp-rhwf"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/zitadel/zitadel/commit/049dbb25a56587fb3980c85c99819cad69f637db"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/zitadel/zitadel/commit/56f4798ed31fc1cfcd9a0e7f6f0152289d2fdc43"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/zitadel/zitadel/releases/tag/v4.16.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6589",
+    "review_status": "UNREVIEWED"
+  }
+}

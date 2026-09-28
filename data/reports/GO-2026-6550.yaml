@@ -1,0 +1,19 @@
+id: GO-2026-6550
+modules:
+    - module: github.com/emiago/sipgo
+      versions:
+        - fixed: 1.4.1
+      vulnerable_at: 1.4.0
+summary: 'SIPGO: DoS via unvalidated Content-Length in the stream parser in github.com/emiago/sipgo'
+cves:
+    - CVE-2026-58268
+ghsas:
+    - GHSA-pg59-5vwg-4jxq
+references:
+    - advisory: https://github.com/emiago/sipgo/security/advisories/GHSA-pg59-5vwg-4jxq
+    - fix: https://github.com/emiago/sipgo/commit/a7be60a07f48c06b3cdd5a7d35eb820b3df5736c
+    - web: https://github.com/emiago/sipgo/releases/tag/v1.4.1
+source:
+    id: GHSA-pg59-5vwg-4jxq
+    created: 2026-09-28T14:11:28.465268-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6573",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-62182",
+    "GHSA-m3c6-2p7h-cfr3"
+  ],
+  "summary": "KubeEdge: ConfigUpdateJob updateFields enables remote shell injection and code execution on edge nodes in github.com/kubeedge/kubeedge",
+  "details": "KubeEdge: ConfigUpdateJob updateFields enables remote shell injection and code execution on edge nodes in github.com/kubeedge/kubeedge",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/kubeedge/kubeedge",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.21.0"
+            },
+            {
+              "fixed": "1.21.2"
+            },
+            {
+              "introduced": "1.22.0"
+            },
+            {
+              "fixed": "1.22.2"
+            },
+            {
+              "introduced": "1.23.0"
+            },
+            {
+              "fixed": "1.23.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/kubeedge/kubeedge/security/advisories/GHSA-m3c6-2p7h-cfr3"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-62182"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubeedge/kubeedge/commit/14f65fc6207787f266cbcb0dceac7f09a81bab2b"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubeedge/kubeedge/commit/6309a335c8e5e3c154b6bb0a09292f5c7dc598dc"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubeedge/kubeedge/commit/ee78415a36911c1a93e59a921c23b8e4ecd83e90"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubeedge/kubeedge/pull/7028"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubeedge/kubeedge/pull/7029"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubeedge/kubeedge/pull/7030"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubeedge/kubeedge/blob/master/CHANGELOG/CHANGELOG-1.21.md"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubeedge/kubeedge/blob/master/CHANGELOG/CHANGELOG-1.22.md"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubeedge/kubeedge/blob/master/CHANGELOG/CHANGELOG-1.23.md"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubeedge/kubeedge/releases/tag/v1.21.2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubeedge/kubeedge/releases/tag/v1.22.2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubeedge/kubeedge/releases/tag/v1.23.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6573",
+    "review_status": "UNREVIEWED"
+  }
+}

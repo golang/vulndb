@@ -1,0 +1,37 @@
+id: GO-2026-6573
+modules:
+    - module: github.com/kubeedge/kubeedge
+      versions:
+        - introduced: 1.21.0
+        - fixed: 1.21.2
+        - introduced: 1.22.0
+        - fixed: 1.22.2
+        - introduced: 1.23.0
+        - fixed: 1.23.1
+      vulnerable_at: 1.23.0
+summary: |-
+    KubeEdge: ConfigUpdateJob updateFields enables remote shell injection and code
+    execution on edge nodes in github.com/kubeedge/kubeedge
+cves:
+    - CVE-2026-62182
+ghsas:
+    - GHSA-m3c6-2p7h-cfr3
+references:
+    - advisory: https://github.com/kubeedge/kubeedge/security/advisories/GHSA-m3c6-2p7h-cfr3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-62182
+    - fix: https://github.com/kubeedge/kubeedge/commit/14f65fc6207787f266cbcb0dceac7f09a81bab2b
+    - fix: https://github.com/kubeedge/kubeedge/commit/6309a335c8e5e3c154b6bb0a09292f5c7dc598dc
+    - fix: https://github.com/kubeedge/kubeedge/commit/ee78415a36911c1a93e59a921c23b8e4ecd83e90
+    - fix: https://github.com/kubeedge/kubeedge/pull/7028
+    - fix: https://github.com/kubeedge/kubeedge/pull/7029
+    - fix: https://github.com/kubeedge/kubeedge/pull/7030
+    - web: https://github.com/kubeedge/kubeedge/blob/master/CHANGELOG/CHANGELOG-1.21.md
+    - web: https://github.com/kubeedge/kubeedge/blob/master/CHANGELOG/CHANGELOG-1.22.md
+    - web: https://github.com/kubeedge/kubeedge/blob/master/CHANGELOG/CHANGELOG-1.23.md
+    - web: https://github.com/kubeedge/kubeedge/releases/tag/v1.21.2
+    - web: https://github.com/kubeedge/kubeedge/releases/tag/v1.22.2
+    - web: https://github.com/kubeedge/kubeedge/releases/tag/v1.23.1
+source:
+    id: GHSA-m3c6-2p7h-cfr3
+    created: 2026-09-28T14:07:29.0613-04:00
+review_status: UNREVIEWED

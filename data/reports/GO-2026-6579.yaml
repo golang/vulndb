@@ -1,0 +1,27 @@
+id: GO-2026-6579
+modules:
+    - module: github.com/openbao/openbao
+      versions:
+        - fixed: 0.0.0-20260713133043-f58d848c139e
+        - introduced: 0.1.0
+      unsupported_versions:
+        - last_affected: 1.1.5
+summary: OpenBao Skips Stricter Deny Policy for LIST operations in github.com/openbao/openbao
+cves:
+    - CVE-2026-63131
+ghsas:
+    - GHSA-xp3c-3jw3-4vcr
+references:
+    - advisory: https://github.com/openbao/openbao/security/advisories/GHSA-xp3c-3jw3-4vcr
+    - fix: https://github.com/openbao/openbao/commit/2e9625d6cebe4639d051ef53dd6ce7c49914ae6a
+    - fix: https://github.com/openbao/openbao/commit/f58d848c139e5ba71aa63103fcfe101972b999fc
+    - fix: https://github.com/openbao/openbao/pull/3389
+    - fix: https://github.com/openbao/openbao/pull/3474
+    - web: https://github.com/hashicorp/vault/blob/main/CHANGELOG.md#203
+    - web: https://github.com/openbao/openbao/releases/tag/v2.6.0
+notes:
+    - fix: 'github.com/openbao/openbao: could not add vulnerable_at: latest version (0.0.0-20260714213526-4771dc118499) is before last introduced version'
+source:
+    id: GHSA-xp3c-3jw3-4vcr
+    created: 2026-09-28T14:06:28.990703-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6569",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-62370",
+    "GHSA-gfw4-49f9-cp25"
+  ],
+  "summary": "KubeEdge: Unbounded allocation in viaduct packer enables authenticated remote DoS against CloudHub in github.com/kubeedge/kubeedge",
+  "details": "KubeEdge: Unbounded allocation in viaduct packer enables authenticated remote DoS against CloudHub in github.com/kubeedge/kubeedge",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/kubeedge/kubeedge",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.0.0"
+            },
+            {
+              "fixed": "1.21.2"
+            },
+            {
+              "introduced": "1.22.0"
+            },
+            {
+              "fixed": "1.22.2"
+            },
+            {
+              "introduced": "1.23.0"
+            },
+            {
+              "fixed": "1.23.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/kubeedge/kubeedge/security/advisories/GHSA-gfw4-49f9-cp25"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-62370"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubeedge/kubeedge/commit/0fe1ea18e5d7fde29633286ddf1c7e71cb39606f"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubeedge/kubeedge/commit/725a73ca35a65d91aa6338e52b8faaab6058f528"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubeedge/kubeedge/commit/cc79621943fff9d3f62638d9403ef0cfeda3d0e7"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubeedge/kubeedge/pull/7028"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubeedge/kubeedge/pull/7029"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubeedge/kubeedge/pull/7030"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubeedge/kubeedge/blob/master/CHANGELOG/CHANGELOG-1.21.md"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubeedge/kubeedge/blob/master/CHANGELOG/CHANGELOG-1.22.md"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubeedge/kubeedge/blob/master/CHANGELOG/CHANGELOG-1.23.md"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubeedge/kubeedge/releases/tag/v1.21.2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubeedge/kubeedge/releases/tag/v1.22.2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubeedge/kubeedge/releases/tag/v1.23.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6569",
+    "review_status": "UNREVIEWED"
+  }
+}

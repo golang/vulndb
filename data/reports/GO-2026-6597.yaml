@@ -1,0 +1,36 @@
+id: GO-2026-6597
+modules:
+    - module: github.com/containerd/containerd
+      versions:
+        - fixed: 1.7.36
+      vulnerable_at: 1.7.35
+    - module: github.com/containerd/containerd/v2
+      versions:
+        - introduced: 2.0.0
+        - fixed: 2.0.13
+        - introduced: 2.1.0
+        - fixed: 2.2.9
+        - introduced: 2.3.0
+        - fixed: 2.3.6
+        - introduced: 2.4.0
+        - fixed: 2.4.1
+      vulnerable_at: 2.4.0
+summary: Containerd has image-pull DoS via crafted OCI index graph amplification in github.com/containerd/containerd
+cves:
+    - CVE-2026-53493
+ghsas:
+    - GHSA-pg57-6jwg-q645
+references:
+    - advisory: https://github.com/containerd/containerd/security/advisories/GHSA-pg57-6jwg-q645
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-53493
+    - fix: https://github.com/containerd/containerd/commit/4f5f32636d47f051751065cf824a10da70c619fe
+    - fix: https://github.com/containerd/containerd/commit/94e83c14c8aac963e24e28105dab9c9af812a2a8
+    - web: https://github.com/containerd/containerd/releases/tag/v1.7.36
+    - web: https://github.com/containerd/containerd/releases/tag/v2.0.13
+    - web: https://github.com/containerd/containerd/releases/tag/v2.2.9
+    - web: https://github.com/containerd/containerd/releases/tag/v2.3.6
+    - web: https://github.com/containerd/containerd/releases/tag/v2.4.1
+source:
+    id: GHSA-pg57-6jwg-q645
+    created: 2026-09-28T14:03:06.876655-04:00
+review_status: UNREVIEWED

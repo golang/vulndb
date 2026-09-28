@@ -1,0 +1,38 @@
+id: GO-2026-6547
+modules:
+    - module: github.com/mattermost/mattermost-server
+      versions:
+        - introduced: 10.11.0+incompatible
+        - fixed: 10.11.18+incompatible
+        - introduced: 11.7.0+incompatible
+        - fixed: 11.7.1+incompatible
+      vulnerable_at: 11.7.0+incompatible
+    - module: github.com/mattermost/mattermost-server/v5
+      vulnerable_at: 5.39.3
+    - module: github.com/mattermost/mattermost-server/v6
+      vulnerable_at: 6.7.2
+    - module: github.com/mattermost/mattermost/server/v8
+      versions:
+        - fixed: 8.0.0-20260518160100-9bd77d3fc4d2
+summary: Mattermost has an Incorrect Authorization issue in github.com/mattermost/mattermost-server
+cves:
+    - CVE-2026-8823
+ghsas:
+    - GHSA-xmfh-3ccg-c9fx
+references:
+    - advisory: https://github.com/advisories/GHSA-xmfh-3ccg-c9fx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-8823
+    - web: https://docs.mattermost.com/security-guide/security-updates
+    - web: https://github.com/mattermost/mattermost/commit/7972fc53f5c0b0175879a9737308a87b42db1f0b
+    - web: https://github.com/mattermost/mattermost/commit/9bd77d3fc4d2af3f7f0259a205174e76a1a276e1
+    - web: https://github.com/mattermost/mattermost/commit/c9bf3609fb9a3e5c2de94c50742c9b91fd723e3d
+    - web: https://github.com/mattermost/mattermost/commit/d9a55e394cd5bc15edb49e9606bec8fec03ac4c6
+    - web: https://github.com/mattermost/mattermost/pull/36487
+    - web: https://github.com/mattermost/mattermost/releases/tag/v10.11.18
+    - web: https://github.com/mattermost/mattermost/releases/tag/v11.7.1
+notes:
+    - fix: 'github.com/mattermost/mattermost/server/v8: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-xmfh-3ccg-c9fx
+    created: 2026-09-28T14:11:56.528771-04:00
+review_status: UNREVIEWED

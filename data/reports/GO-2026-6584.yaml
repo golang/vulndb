@@ -1,0 +1,22 @@
+id: GO-2026-6584
+modules:
+    - module: github.com/klever-io/klever-go
+      versions:
+        - fixed: 1.7.20
+      vulnerable_at: 1.7.19
+summary: |-
+    Klever-Go: Zombie-order theft: `Buy` missing `IsClaimed` guard in native
+    marketplace in github.com/klever-io/klever-go
+cves:
+    - CVE-2026-82406
+ghsas:
+    - GHSA-26r5-4mm2-px5c
+references:
+    - advisory: https://github.com/klever-io/klever-go/security/advisories/GHSA-26r5-4mm2-px5c
+    - fix: https://github.com/klever-io/klever-go/commit/063bb3ed98f9a84a4b1f7286680613a5fc3c91b2
+    - fix: https://github.com/klever-io/klever-go/pull/16
+    - web: https://github.com/klever-io/klever-go/releases/tag/v1.7.20
+source:
+    id: GHSA-26r5-4mm2-px5c
+    created: 2026-09-28T14:05:54.222615-04:00
+review_status: UNREVIEWED

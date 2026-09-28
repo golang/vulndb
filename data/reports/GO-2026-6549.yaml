@@ -1,0 +1,27 @@
+id: GO-2026-6549
+modules:
+    - module: github.com/tomwright/dasel
+      vulnerable_at: 1.27.3
+    - module: github.com/tomwright/dasel/v2
+      vulnerable_at: 2.8.1
+    - module: github.com/tomwright/dasel/v3
+      versions:
+        - introduced: 3.0.0
+        - fixed: 3.11.1
+      vulnerable_at: 3.11.0
+summary: |-
+    Dasel: Unbounded recursion in JSON and XML readers causes unrecoverable
+    stack-overflow DoS in github.com/tomwright/dasel
+cves:
+    - CVE-2026-59168
+ghsas:
+    - GHSA-cqxr-jxr2-85pq
+references:
+    - advisory: https://github.com/TomWright/dasel/security/advisories/GHSA-cqxr-jxr2-85pq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-59168
+    - web: https://github.com/TomWright/dasel/commit/4c91d0d02dc59ce8404709b1bfed7a6fabe62f68
+    - web: https://github.com/TomWright/dasel/releases/tag/v3.11.1
+source:
+    id: GHSA-cqxr-jxr2-85pq
+    created: 2026-09-28T14:11:36.259329-04:00
+review_status: UNREVIEWED

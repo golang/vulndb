@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6582",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-82405",
+    "GHSA-97cv-x867-6xhm"
+  ],
+  "summary": "Klever-Go Account takeover: `kleverUpdateAccountPermission` authorizes on attacker-controlled `RecipientAddr` instead of the authenticated caller in github.com/klever-io/klever-go",
+  "details": "Klever-Go Account takeover: `kleverUpdateAccountPermission` authorizes on attacker-controlled `RecipientAddr` instead of the authenticated caller in github.com/klever-io/klever-go",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/klever-io/klever-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.7.20"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/klever-io/klever-go/security/advisories/GHSA-97cv-x867-6xhm"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/klever-io/klever-go/commit/c58740eb74d7ee8f07db1e18a7d6214b5559ba32"
+    },
+    {
+      "type": "WEB",
+      "url": "https://gist.github.com/mabdullah22/a41f90aa5ba86bbebf121f739bd5f5e9"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/klever-io/klever-go/releases/tag/v1.7.20"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6582",
+    "review_status": "UNREVIEWED"
+  }
+}

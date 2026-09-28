@@ -1,0 +1,29 @@
+id: GO-2026-6568
+modules:
+    - module: github.com/gardener/gardener
+      non_go_versions:
+        - introduced: 1.143.0
+        - fixed: 1.143.3
+        - introduced: 1.144.0
+        - fixed: 1.144.2
+    - module: github.com/gardener/gardener
+      versions:
+        - fixed: 1.142.6
+      vulnerable_at: 1.142.5
+summary: 'Gardener: Authorization Bypass via Group Subject Injection in gardener/gardener'
+cves:
+    - CVE-2026-79767
+ghsas:
+    - GHSA-gfjv-gqf2-c888
+references:
+    - advisory: https://github.com/gardener/gardener/security/advisories/GHSA-gfjv-gqf2-c888
+    - fix: https://github.com/gardener/gardener/commit/63751db97dca6cc5ee5f966d4963415de6ae5545
+    - fix: https://github.com/gardener/gardener/pull/15080
+    - web: https://github.com/gardener/gardener/releases/tag/v1.144.2
+notes:
+    - lint: 'modules[0] "gardener/gardener": module gardener/gardener not known to proxy'
+    - fix: 'gardener/gardener: could not add vulnerable_at: module gardener/gardener not known to proxy'
+source:
+    id: GHSA-gfjv-gqf2-c888
+    created: 2026-09-28T14:08:32.376659-04:00
+review_status: UNREVIEWED

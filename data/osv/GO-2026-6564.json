@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6564",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-77561",
+    "GHSA-9xhm-w3wj-xhqh"
+  ],
+  "summary": "Tinyauth: Unauthenticated login attempts can trigger global login lockdown denial of service in github.com/tinyauthapp/tinyauth",
+  "details": "Tinyauth: Unauthenticated login attempts can trigger global login lockdown denial of service in github.com/tinyauthapp/tinyauth",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/tinyauthapp/tinyauth",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.0.1-0.20260715123057-dade1e2c8f27"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/tinyauthapp/tinyauth/security/advisories/GHSA-9xhm-w3wj-xhqh"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-77561"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/tinyauthapp/tinyauth/commit/654b5cc436fc67865c1f55edf9ba9fbded50b74f"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/tinyauthapp/tinyauth/commit/dade1e2c8f27a23df56ac216dcaf4b37081698e7"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/tinyauthapp/tinyauth/pull/1008"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/tinyauthapp/tinyauth/pull/943"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/tinyauthapp/tinyauth/releases/tag/v5.1.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6564",
+    "review_status": "UNREVIEWED"
+  }
+}

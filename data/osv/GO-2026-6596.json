@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6596",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-56742",
+    "GHSA-w7c2-w76w-5hmj"
+  ],
+  "summary": "Cilium: Namespaced HTTPRoutes can redirect traffic to other namespaces in github.com/cilium/cilium",
+  "details": "Cilium: Namespaced HTTPRoutes can redirect traffic to other namespaces in github.com/cilium/cilium.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/cilium/cilium from v1.18.0 before v1.18.11.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cilium/cilium",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.17.17"
+            },
+            {
+              "introduced": "1.19.0"
+            },
+            {
+              "fixed": "1.19.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/cilium/cilium",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "1.18.0"
+              },
+              {
+                "fixed": "1.18.11"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cilium/cilium/security/advisories/GHSA-w7c2-w76w-5hmj"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-56742"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cilium/cilium/commit/7422068aff67ac77c7dcc57aa5b9240c91333deb"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cilium/cilium/commit/e0b1cef513ff910323f3743e9f3e3d86721e4857"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cilium/cilium/commit/f23929cff682d6ed0dc158070812cb302fc0032b"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cilium/cilium/commit/fd47963ea394d5e8fa4a88c40a79063430c512ca"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/cilium/cilium/releases/tag/v1.17.17"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/cilium/cilium/releases/tag/v1.18.11"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/cilium/cilium/releases/tag/v1.19.5"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6596",
+    "review_status": "UNREVIEWED"
+  }
+}

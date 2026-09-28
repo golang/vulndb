@@ -1,0 +1,140 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6547",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-8823",
+    "GHSA-xmfh-3ccg-c9fx"
+  ],
+  "summary": "Mattermost has an Incorrect Authorization issue in github.com/mattermost/mattermost-server",
+  "details": "Mattermost has an Incorrect Authorization issue in github.com/mattermost/mattermost-server",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "10.11.0+incompatible"
+            },
+            {
+              "fixed": "10.11.18+incompatible"
+            },
+            {
+              "introduced": "11.7.0+incompatible"
+            },
+            {
+              "fixed": "11.7.1+incompatible"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost-server/v6",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/mattermost/mattermost/server/v8",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "8.0.0-20260518160100-9bd77d3fc4d2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-xmfh-3ccg-c9fx"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-8823"
+    },
+    {
+      "type": "WEB",
+      "url": "https://docs.mattermost.com/security-guide/security-updates"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/7972fc53f5c0b0175879a9737308a87b42db1f0b"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/9bd77d3fc4d2af3f7f0259a205174e76a1a276e1"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/c9bf3609fb9a3e5c2de94c50742c9b91fd723e3d"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/commit/d9a55e394cd5bc15edb49e9606bec8fec03ac4c6"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/pull/36487"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/releases/tag/v10.11.18"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mattermost/mattermost/releases/tag/v11.7.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6547",
+    "review_status": "UNREVIEWED"
+  }
+}

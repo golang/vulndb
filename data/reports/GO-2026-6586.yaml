@@ -1,0 +1,22 @@
+id: GO-2026-6586
+modules:
+    - module: github.com/klever-io/klever-go
+      versions:
+        - fixed: 1.7.20
+      vulnerable_at: 1.7.19
+summary: |-
+    Klever-Go: Validator registration accepts an unvalidated BLS public key →
+    consensus liveness DoS in github.com/klever-io/klever-go
+cves:
+    - CVE-2026-82407
+ghsas:
+    - GHSA-9wh6-9hq7-9688
+references:
+    - advisory: https://github.com/klever-io/klever-go/security/advisories/GHSA-9wh6-9hq7-9688
+    - fix: https://github.com/klever-io/klever-go/commit/11606a90ccc289f93d0175994733229b332d9cff
+    - fix: https://github.com/klever-io/klever-go/commit/642da967893884d635986fed3c43bdc679cbfe8f
+    - web: https://github.com/klever-io/klever-go/releases/tag/v1.7.20
+source:
+    id: GHSA-9wh6-9hq7-9688
+    created: 2026-09-28T14:05:36.220412-04:00
+review_status: UNREVIEWED

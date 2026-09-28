@@ -1,0 +1,23 @@
+id: GO-2026-6581
+modules:
+    - module: github.com/klever-io/klever-go
+      versions:
+        - fixed: 1.7.20
+      vulnerable_at: 1.7.19
+summary: |-
+    Klever-Go: Unauthenticated WebSocket /subscribe: no read-size limit, no
+    connection cap, permissive origin -> remote node memory/goroutine exhaustion
+    (DoS) in github.com/klever-io/klever-go
+cves:
+    - CVE-2026-86065
+ghsas:
+    - GHSA-4fwh-wrm6-97xm
+references:
+    - advisory: https://github.com/klever-io/klever-go/security/advisories/GHSA-4fwh-wrm6-97xm
+    - fix: https://github.com/klever-io/klever-go/commit/b8af922e749ec1fa7451b2c6e7c9f634d8603be2
+    - fix: https://github.com/klever-io/klever-go/pull/76
+    - web: https://github.com/klever-io/klever-go/releases/tag/v1.7.20
+source:
+    id: GHSA-4fwh-wrm6-97xm
+    created: 2026-09-28T14:06:18.823191-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,164 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6588",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-19730",
+    "GHSA-fx76-2j3w-2mx6"
+  ],
+  "summary": "podman quadlet install --replace does not fully replace the old file in github.com/containers/podman",
+  "details": "podman quadlet install --replace does not fully replace the old file in github.com/containers/podman",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/containers/podman",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/containers/podman/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/containers/podman/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/containers/podman/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/containers/podman/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "5.7.0"
+            },
+            {
+              "fixed": "5.8.6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/podman-container-tools/podman/security/advisories/GHSA-fx76-2j3w-2mx6"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19730"
+    },
+    {
+      "type": "WEB",
+      "url": "https://access.redhat.com/errata/RHSA-2026:69961"
+    },
+    {
+      "type": "WEB",
+      "url": "https://access.redhat.com/errata/RHSA-2026:70201"
+    },
+    {
+      "type": "WEB",
+      "url": "https://access.redhat.com/security/cve/CVE-2026-19730"
+    },
+    {
+      "type": "WEB",
+      "url": "https://bugzilla.redhat.com/show_bug.cgi?id=2508234"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/podman-container-tools/podman/commit/0ea4eaee70b7458bcc99d875529761faf5172651"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/podman-container-tools/podman/commit/a38a9b7d20915c55e6f3c451101ae72d6da33742"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/podman-container-tools/podman/commit/d3adfdeec7d5c9eee5a6978df3bee62a866c958d"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/podman-container-tools/podman/commit/d4fe9154ec6e32a02d5fcd096c4a27c38f2040f4"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/podman-container-tools/podman/issues/29013"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/podman-container-tools/podman/pull/27980"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/podman-container-tools/podman/releases/tag/v5.8.6"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/podman-container-tools/podman/releases/tag/v6.0.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6588",
+    "review_status": "UNREVIEWED"
+  }
+}

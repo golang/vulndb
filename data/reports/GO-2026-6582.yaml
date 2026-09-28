@@ -1,0 +1,22 @@
+id: GO-2026-6582
+modules:
+    - module: github.com/klever-io/klever-go
+      versions:
+        - fixed: 1.7.20
+      vulnerable_at: 1.7.19
+summary: |-
+    Klever-Go Account takeover: `kleverUpdateAccountPermission` authorizes on
+    attacker-controlled `RecipientAddr` instead of the authenticated caller in github.com/klever-io/klever-go
+cves:
+    - CVE-2026-82405
+ghsas:
+    - GHSA-97cv-x867-6xhm
+references:
+    - advisory: https://github.com/klever-io/klever-go/security/advisories/GHSA-97cv-x867-6xhm
+    - fix: https://github.com/klever-io/klever-go/commit/c58740eb74d7ee8f07db1e18a7d6214b5559ba32
+    - web: https://gist.github.com/mabdullah22/a41f90aa5ba86bbebf121f739bd5f5e9
+    - web: https://github.com/klever-io/klever-go/releases/tag/v1.7.20
+source:
+    id: GHSA-97cv-x867-6xhm
+    created: 2026-09-28T14:06:11.505224-04:00
+review_status: UNREVIEWED

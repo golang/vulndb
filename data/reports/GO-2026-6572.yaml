@@ -1,0 +1,27 @@
+id: GO-2026-6572
+modules:
+    - module: github.com/cloudreve/Cloudreve
+      vulnerable_at: 0.0.0-20201026073328-746aa3e8ef26
+    - module: github.com/cloudreve/Cloudreve/v3
+      vulnerable_at: 3.0.0-20250225100611-da4e44b77af4
+    - module: github.com/cloudreve/Cloudreve/v4
+      versions:
+        - fixed: 4.0.0-20260715072853-1c5cad6dec7e
+summary: |-
+    Cloudreve: SSRF guard bypass: checkIP does not decode IPv6-transition wrappers
+    (NAT64, IPv4-compatible, 6to4) reaching internal and cloud-metadata addresses in github.com/cloudreve/Cloudreve
+cves:
+    - CVE-2026-79913
+ghsas:
+    - GHSA-jvh5-97xg-v99f
+references:
+    - advisory: https://github.com/cloudreve/cloudreve/security/advisories/GHSA-jvh5-97xg-v99f
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-79913
+    - web: https://github.com/cloudreve/cloudreve/commit/1c5cad6dec7ec3037c6479e3a26a3909995d16a2
+    - web: https://github.com/cloudreve/cloudreve/releases/tag/4.18.0
+notes:
+    - fix: 'github.com/cloudreve/Cloudreve/v4: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-jvh5-97xg-v99f
+    created: 2026-09-28T14:07:54.932244-04:00
+review_status: UNREVIEWED

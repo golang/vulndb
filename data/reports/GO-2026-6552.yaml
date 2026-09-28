@@ -1,0 +1,26 @@
+id: GO-2026-6552
+modules:
+    - module: github.com/tinyauthapp/tinyauth
+      versions:
+        - fixed: 1.0.1-0.20260720133915-80bc87188ec3
+      vulnerable_at: 1.0.0
+summary: |-
+    Tinyauth: forward-auth per-app ACL is matched case-sensitively against the
+    (case-insensitive) hostname, letting an authenticated user reach apps they are
+    not on the allowlist for in github.com/tinyauthapp/tinyauth
+cves:
+    - CVE-2026-77560
+ghsas:
+    - GHSA-328g-jx67-v94g
+references:
+    - advisory: https://github.com/tinyauthapp/tinyauth/security/advisories/GHSA-328g-jx67-v94g
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-77560
+    - fix: https://github.com/tinyauthapp/tinyauth/commit/80bc87188ec3aabc5104c249eaa7b997973b9275
+    - fix: https://github.com/tinyauthapp/tinyauth/commit/e75605b2c534ec83525a33603e16d76baca13399
+    - fix: https://github.com/tinyauthapp/tinyauth/pull/1000
+    - fix: https://github.com/tinyauthapp/tinyauth/pull/1028
+    - web: https://github.com/tinyauthapp/tinyauth/releases/tag/v5.1.2
+source:
+    id: GHSA-328g-jx67-v94g
+    created: 2026-09-28T14:11:14.500645-04:00
+review_status: UNREVIEWED

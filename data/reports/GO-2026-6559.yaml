@@ -1,0 +1,19 @@
+id: GO-2026-6559
+modules:
+    - module: github.com/emiago/sipgo
+      versions:
+        - fixed: 1.4.3
+      vulnerable_at: 1.4.2
+summary: 'SIPGO: DoS via unvalidated WebSocket frame length in github.com/emiago/sipgo'
+cves:
+    - CVE-2026-77322
+ghsas:
+    - GHSA-8h6x-h86x-75wh
+references:
+    - advisory: https://github.com/emiago/sipgo/security/advisories/GHSA-8h6x-h86x-75wh
+    - fix: https://github.com/emiago/sipgo/commit/769e4bc958376e2363566c8f7042202b410becdc
+    - web: https://github.com/emiago/sipgo/releases/tag/v1.4.3
+source:
+    id: GHSA-8h6x-h86x-75wh
+    created: 2026-09-28T14:10:03.548372-04:00
+review_status: UNREVIEWED

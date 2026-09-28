@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6548",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-62866",
+    "GHSA-65gg-g7rw-6cpc"
+  ],
+  "summary": "Dasel: Selector lexer panics on trailing whitespace in `parseCurRune` in github.com/tomwright/dasel",
+  "details": "Dasel: Selector lexer panics on trailing whitespace in `parseCurRune` in github.com/tomwright/dasel",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/tomwright/dasel",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/tomwright/dasel/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/tomwright/dasel/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "3.0.0"
+            },
+            {
+              "fixed": "3.11.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/TomWright/dasel/security/advisories/GHSA-65gg-g7rw-6cpc"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-62866"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/TomWright/dasel/commit/eee03aec28d4a33d6138098d065b7b37b85e3c55"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/TomWright/dasel/releases/tag/v3.11.2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6548",
+    "review_status": "UNREVIEWED"
+  }
+}

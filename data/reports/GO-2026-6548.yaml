@@ -1,0 +1,25 @@
+id: GO-2026-6548
+modules:
+    - module: github.com/tomwright/dasel
+      vulnerable_at: 1.27.3
+    - module: github.com/tomwright/dasel/v2
+      vulnerable_at: 2.8.1
+    - module: github.com/tomwright/dasel/v3
+      versions:
+        - introduced: 3.0.0
+        - fixed: 3.11.2
+      vulnerable_at: 3.11.1
+summary: 'Dasel: Selector lexer panics on trailing whitespace in `parseCurRune` in github.com/tomwright/dasel'
+cves:
+    - CVE-2026-62866
+ghsas:
+    - GHSA-65gg-g7rw-6cpc
+references:
+    - advisory: https://github.com/TomWright/dasel/security/advisories/GHSA-65gg-g7rw-6cpc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-62866
+    - web: https://github.com/TomWright/dasel/commit/eee03aec28d4a33d6138098d065b7b37b85e3c55
+    - web: https://github.com/TomWright/dasel/releases/tag/v3.11.2
+source:
+    id: GHSA-65gg-g7rw-6cpc
+    created: 2026-09-28T14:11:48.671242-04:00
+review_status: UNREVIEWED

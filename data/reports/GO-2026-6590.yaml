@@ -1,0 +1,22 @@
+id: GO-2026-6590
+modules:
+    - module: github.com/openshift/cluster-logging-operator
+      non_go_versions:
+        - fixed: 0.0.0-20260804174055-1864c2a9851d
+      vulnerable_at: 0.0.0-20260928154756-f3a7915e3322
+summary: OpenShift Cluster Logging Operator missing authorization flaw in github.com/openshift/cluster-logging-operator
+cves:
+    - CVE-2026-10609
+ghsas:
+    - GHSA-9xm2-gw56-wj7m
+references:
+    - advisory: https://github.com/advisories/GHSA-9xm2-gw56-wj7m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-10609
+    - fix: https://github.com/openshift/cluster-logging-operator/commit/1864c2a9851da90a3956f1b83c5f31b3b76e3514
+    - fix: https://github.com/openshift/cluster-logging-operator/pull/3383
+    - web: https://access.redhat.com/security/cve/CVE-2026-10609
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2483943
+source:
+    id: GHSA-9xm2-gw56-wj7m
+    created: 2026-09-28T14:04:43.313331-04:00
+review_status: UNREVIEWED

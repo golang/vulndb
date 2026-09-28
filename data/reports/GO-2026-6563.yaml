@@ -1,0 +1,37 @@
+id: GO-2026-6563
+modules:
+    - module: github.com/kubeedge/kubeedge
+      versions:
+        - introduced: 1.16.0
+        - fixed: 1.21.2
+        - introduced: 1.22.0
+        - fixed: 1.22.2
+        - introduced: 1.23.0
+        - fixed: 1.23.1
+      vulnerable_at: 1.23.0
+summary: |-
+    KubeEdge: keadm DecompressTarGz path traversal enables arbitrary file write on
+    Windows during edge node join in github.com/kubeedge/kubeedge
+cves:
+    - CVE-2026-62369
+ghsas:
+    - GHSA-9vm9-pqxx-x83v
+references:
+    - advisory: https://github.com/kubeedge/kubeedge/security/advisories/GHSA-9vm9-pqxx-x83v
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-62369
+    - fix: https://github.com/kubeedge/kubeedge/commit/47767b7f2649afcfa3a856e87d556f7777e0428d
+    - fix: https://github.com/kubeedge/kubeedge/commit/a524a66a1ae1691eb8ff16b6ff9a93fb370d4047
+    - fix: https://github.com/kubeedge/kubeedge/commit/ee02dea9d08114afc4a8f401b1c2f30e84e1de40
+    - fix: https://github.com/kubeedge/kubeedge/pull/7028
+    - fix: https://github.com/kubeedge/kubeedge/pull/7029
+    - fix: https://github.com/kubeedge/kubeedge/pull/7030
+    - web: https://github.com/kubeedge/kubeedge/blob/master/CHANGELOG/CHANGELOG-1.21.md
+    - web: https://github.com/kubeedge/kubeedge/blob/master/CHANGELOG/CHANGELOG-1.22.md
+    - web: https://github.com/kubeedge/kubeedge/blob/master/CHANGELOG/CHANGELOG-1.23.md
+    - web: https://github.com/kubeedge/kubeedge/releases/tag/v1.21.2
+    - web: https://github.com/kubeedge/kubeedge/releases/tag/v1.22.2
+    - web: https://github.com/kubeedge/kubeedge/releases/tag/v1.23.1
+source:
+    id: GHSA-9vm9-pqxx-x83v
+    created: 2026-09-28T14:09:34.712053-04:00
+review_status: UNREVIEWED

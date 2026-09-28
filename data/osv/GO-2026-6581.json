@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6581",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-86065",
+    "GHSA-4fwh-wrm6-97xm"
+  ],
+  "summary": "Klever-Go: Unauthenticated WebSocket /subscribe: no read-size limit, no connection cap, permissive origin -\u003e remote node memory/goroutine exhaustion (DoS) in github.com/klever-io/klever-go",
+  "details": "Klever-Go: Unauthenticated WebSocket /subscribe: no read-size limit, no connection cap, permissive origin -\u003e remote node memory/goroutine exhaustion (DoS) in github.com/klever-io/klever-go",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/klever-io/klever-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.7.20"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/klever-io/klever-go/security/advisories/GHSA-4fwh-wrm6-97xm"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/klever-io/klever-go/commit/b8af922e749ec1fa7451b2c6e7c9f634d8603be2"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/klever-io/klever-go/pull/76"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/klever-io/klever-go/releases/tag/v1.7.20"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6581",
+    "review_status": "UNREVIEWED"
+  }
+}
