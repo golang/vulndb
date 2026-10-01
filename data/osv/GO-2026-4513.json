@@ -4,7 +4,9 @@
   "modified": "0001-01-01T00:00:00Z",
   "published": "0001-01-01T00:00:00Z",
   "aliases": [
-    "CVE-2026-32284"
+    "CVE-2026-32284",
+    "CVE-2026-32284",
+    "GHSA-h9q6-hc68-35rp"
   ],
   "summary": "Denial of service in github.com/shamaton/msgpack",
   "details": "The msgpack decoder fails to properly validate the input buffer length when processing truncated fixext data (format codes 0xd4-0xd8). This can lead to an out-of-bounds read and a runtime panic, allowing a denial of service attack.",
@@ -50,6 +52,9 @@
           "events": [
             {
               "introduced": "0"
+            },
+            {
+              "fixed": "2.4.1"
             }
           ]
         }
@@ -78,6 +83,9 @@
           "events": [
             {
               "introduced": "0"
+            },
+            {
+              "fixed": "3.1.1"
             }
           ]
         }
