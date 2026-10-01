@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6616",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-81869",
+    "GHSA-p9f8-wvj8-2fg8"
+  ],
+  "summary": "OpenTelemetry-Go: UTF-8 replacement rune bypasses attribute length truncation in go.opentelemetry.io/otel/sdk",
+  "details": "OpenTelemetry-Go: UTF-8 replacement rune bypasses attribute length truncation in go.opentelemetry.io/otel/sdk",
+  "affected": [
+    {
+      "package": {
+        "name": "go.opentelemetry.io/otel/sdk",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.10.0"
+            },
+            {
+              "fixed": "1.33.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/open-telemetry/opentelemetry-go/security/advisories/GHSA-p9f8-wvj8-2fg8"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/open-telemetry/opentelemetry-go/commit/e016a78c9f5b24a1c2beeaad47686c2f2213f49a"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/open-telemetry/opentelemetry-go/issues/5996"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/open-telemetry/opentelemetry-go/pull/5997"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/open-telemetry/opentelemetry-go/releases/tag/sdk/v1.33.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6616",
+    "review_status": "REVIEWED"
+  }
+}

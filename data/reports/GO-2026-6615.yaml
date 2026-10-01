@@ -1,0 +1,25 @@
+id: GO-2026-6615
+modules:
+    - module: go.opentelemetry.io/otel/sdk/log
+      versions:
+        - fixed: 0.21.0
+      vulnerable_at: 0.20.0
+summary: |-
+    OpenTelemetry-Go: BatchProcessor can busy-spin when export buffer is full in
+    go.opentelemetry.io/otel/sdk/log
+cves:
+    - CVE-2026-81872
+ghsas:
+    - GHSA-hjf4-fphr-2h65
+references:
+    - advisory: https://github.com/open-telemetry/opentelemetry-go/security/advisories/GHSA-hjf4-fphr-2h65
+    - web: https://github.com/open-telemetry/opentelemetry-go/commit/ba71b09e6ed272e93a669aeaec1e98b1df4cc582
+    - web: https://github.com/open-telemetry/opentelemetry-go/issues/6797
+    - web: https://github.com/open-telemetry/opentelemetry-go/pull/8620
+    - web: https://github.com/open-telemetry/opentelemetry-go/releases/tag/sdk/log/v0.21.0
+notes:
+    - 'Failed to auto-populate symbols: no commits found'
+source:
+    id: GHSA-hjf4-fphr-2h65
+    created: 2026-10-01T09:18:29.176258-04:00
+review_status: REVIEWED

@@ -1,0 +1,26 @@
+id: GO-2026-6616
+modules:
+    - module: go.opentelemetry.io/otel/sdk
+      versions:
+        - introduced: 1.10.0
+        - fixed: 1.33.0
+      vulnerable_at: 1.32.0
+summary: |-
+    OpenTelemetry-Go: UTF-8 replacement rune bypasses attribute length truncation in
+    go.opentelemetry.io/otel/sdk
+cves:
+    - CVE-2026-81869
+ghsas:
+    - GHSA-p9f8-wvj8-2fg8
+references:
+    - advisory: https://github.com/open-telemetry/opentelemetry-go/security/advisories/GHSA-p9f8-wvj8-2fg8
+    - web: https://github.com/open-telemetry/opentelemetry-go/commit/e016a78c9f5b24a1c2beeaad47686c2f2213f49a
+    - web: https://github.com/open-telemetry/opentelemetry-go/issues/5996
+    - web: https://github.com/open-telemetry/opentelemetry-go/pull/5997
+    - web: https://github.com/open-telemetry/opentelemetry-go/releases/tag/sdk/v1.33.0
+notes:
+    - 'Failed to auto-populate symbols: no commits found'
+source:
+    id: GHSA-p9f8-wvj8-2fg8
+    created: 2026-10-01T09:18:17.284148-04:00
+review_status: REVIEWED
