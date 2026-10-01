@@ -1,0 +1,24 @@
+id: GO-2026-6619
+modules:
+    - module: github.com/portainer/portainer
+      versions:
+        - fixed: 0.6.1-0.20240417040827-48bc7d0d92f0
+      vulnerable_at: 0.6.0
+summary: Portainer CE allows username enumeration through authentication response timing in github.com/portainer/portainer
+cves:
+    - CVE-2024-29296
+ghsas:
+    - GHSA-87x6-8m9v-g8c2
+references:
+    - advisory: https://github.com/advisories/GHSA-87x6-8m9v-g8c2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2024-29296
+    - fix: https://github.com/portainer/portainer/commit/48bc7d0d92f038e04a72c1e0585bc325eb63a9e6
+    - fix: https://github.com/portainer/portainer/pull/11589
+    - report: https://github.com/portainer/portainer/issues/11736
+    - web: https://github.com/ThaySolis/CVE-2024-29296
+    - web: https://github.com/portainer/portainer/releases/tag/2.19.5
+    - web: https://github.com/portainer/portainer/releases/tag/2.20.2
+source:
+    id: GHSA-87x6-8m9v-g8c2
+    created: 2026-10-01T09:18:01.321668-04:00
+review_status: UNREVIEWED

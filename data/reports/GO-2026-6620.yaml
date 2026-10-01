@@ -1,0 +1,23 @@
+id: GO-2026-6620
+modules:
+    - module: github.com/junegunn/fzf
+      versions:
+        - fixed: 0.73.1
+      vulnerable_at: 0.73.0
+summary: |-
+    fzf vulnerable to denial of service through quadratic HTTP request-body
+    accumulation in github.com/junegunn/fzf
+cves:
+    - CVE-2026-53433
+ghsas:
+    - GHSA-mvmf-94v6-879g
+references:
+    - advisory: https://github.com/advisories/GHSA-mvmf-94v6-879g
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-53433
+    - fix: https://github.com/junegunn/fzf/commit/7963a2c6586c0b9eaa89b8995de8f0e08cf8a4ce
+    - web: https://cert.pl/en/posts/2026/06/CVE-2026-53432
+    - web: https://github.com/junegunn/fzf/releases/tag/v0.73.1
+source:
+    id: GHSA-mvmf-94v6-879g
+    created: 2026-10-01T09:17:50.354919-04:00
+review_status: UNREVIEWED
