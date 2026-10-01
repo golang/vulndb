@@ -1,0 +1,36 @@
+id: GO-2026-6629
+modules:
+    - module: golang.org/x/text
+      versions:
+        - fixed: 0.41.0
+      vulnerable_at: 0.40.0
+      packages:
+        - package: golang.org/x/text/secure/precis
+          symbols:
+            - nickAdditionalMapping.Transform
+          derived_symbols:
+            - Profile.Append
+            - Profile.AppendCompareKey
+            - Profile.Bytes
+            - Profile.Compare
+            - Profile.CompareKey
+            - Profile.NewTransformer
+            - Profile.String
+            - Transformer.Bytes
+            - Transformer.String
+            - Transformer.Transform
+summary: Panic parsing crafted input in x/text/secure/precis in golang.org/x/text
+description: |-
+    The Nickname profile can panic with an out-of-bounds slice error when
+    transforming crafted input into a short destination buffer.
+credits:
+    - 'Omkhar Arasaratnam (GitHub: omkhar)'
+references:
+    - fix: https://go.dev/cl/793360
+    - report: https://go.dev/issue/80112
+cve_metadata:
+    id: CVE-2026-56851
+    cwe: 'CWE-787: Out-of-bounds Write'
+source:
+    id: go-security-team
+review_status: REVIEWED
