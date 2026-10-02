@@ -1,0 +1,23 @@
+id: GO-2026-6621
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260721043339-eef10568384e
+summary: |-
+    SiYuan: Unauthenticated SQL injection in searchDocs via unescaped keyword
+    (publish mode): cross-notebook read/write with statement stacking in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-69085
+ghsas:
+    - GHSA-33jq-p8c2-q3q4
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-33jq-p8c2-q3q4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-69085
+    - web: https://github.com/siyuan-note/siyuan/releases/tag/v3.7.3
+    - web: https://www.vulncheck.com/advisories/siyuan-before-sql-injection-via-searchdocs
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-33jq-p8c2-q3q4
+    created: 2026-10-02T13:22:05.244551-04:00
+review_status: UNREVIEWED

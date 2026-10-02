@@ -1,0 +1,22 @@
+id: GO-2026-6632
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - introduced: 0.0.0-20260726161145-9b8e8956f997
+        - fixed: 0.0.0-20260812083335-251596fc0de2
+summary: |-
+    SiYuan: getAttributeViewSearchTarget returns database row content to anonymous
+    readers with no publish-access check, reopening the class closed one day earlier
+    at the adjacent route in github.com/siyuan-note/siyuan/kernel
+ghsas:
+    - GHSA-9cqf-hhrq-7v45
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-9cqf-hhrq-7v45
+    - web: https://github.com/siyuan-note/siyuan/commit/9b8e8956f997d6452d40aff4159d58f3283a98a4
+    - web: https://github.com/siyuan-note/siyuan/releases/tag/v3.8.0
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-9cqf-hhrq-7v45
+    created: 2026-10-02T13:20:48.845028-04:00
+review_status: UNREVIEWED

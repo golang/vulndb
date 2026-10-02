@@ -1,0 +1,24 @@
+id: GO-2026-6635
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260812083335-251596fc0de2
+summary: |-
+    SiYuan: The reference filter for getRefIDs checks visibility but not the
+    password tier, disclosing that password-protected documents reference a given
+    block in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-73606
+ghsas:
+    - GHSA-vg99-7gj7-2fr5
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-vg99-7gj7-2fr5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-73606
+    - web: https://github.com/siyuan-note/siyuan/releases/tag/v3.8.0
+    - web: https://www.vulncheck.com/advisories/siyuan-before-information-disclosure-via-getrefids
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-vg99-7gj7-2fr5
+    created: 2026-10-02T13:18:51.916336-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,23 @@
+id: GO-2026-6624
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260812083335-251596fc0de2
+summary: |-
+    SiYuan: Outline state for any document, including documents forbidden to
+    readers, is returned by /api/storage/getOutlineStorage with no access check in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-73607
+ghsas:
+    - GHSA-53fp-9jmv-227g
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-53fp-9jmv-227g
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-73607
+    - web: https://github.com/siyuan-note/siyuan/releases/tag/v3.8.0
+    - web: https://www.vulncheck.com/advisories/siyuan-before-information-disclosure-via-getoutlinestorage
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-53fp-9jmv-227g
+    created: 2026-10-02T13:21:44.594443-04:00
+review_status: UNREVIEWED

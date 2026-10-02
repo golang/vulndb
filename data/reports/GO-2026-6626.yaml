@@ -1,0 +1,23 @@
+id: GO-2026-6626
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260812083335-251596fc0de2
+summary: |-
+    SiYuan: getUniqueFilename passes an unvalidated client-supplied path to the
+    filesystem, giving anonymous readers an existence oracle over the entire host
+    filesystem in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-73605
+ghsas:
+    - GHSA-hf8h-97gm-4x2p
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-hf8h-97gm-4x2p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-73605
+    - web: https://www.vulncheck.com/advisories/siyuan-before-path-traversal-via-getuniquefilename
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-hf8h-97gm-4x2p
+    created: 2026-10-02T13:21:02.300341-04:00
+review_status: UNREVIEWED
